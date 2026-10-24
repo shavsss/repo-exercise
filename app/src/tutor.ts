@@ -64,6 +64,8 @@ export interface TurnCallbacks {
   onActivity: (a: Activity) => void;
   onProgress: (bookId: string, page: string, section: string) => Promise<void>;
   onStatus?: (status: string) => void;
+  /** a safe point to save: the plan exists and `partsDone` parts are written */
+  onCheckpoint?: (plan: LessonPlan, partsDone: number, text: string) => void;
 }
 
 interface Base {
@@ -261,28 +263,32 @@ Do not write material that belongs to later parts. State computed values exactly
 ${last ? "This is the last part: finish with the exercises, the product block(s) if one truly fits, and the sentence about the next message. Then call record_progress (with \"(חלק k/n)\" in the section name if the section continues in another message)." : "Do not end the lesson and do not write exercises yet."}`;
 }
 
-export async function composeLesson(opts: Base & { text: string }) {
-  const { rt, history, text, effort, progress, activeBook, memory, signal, cb } = opts;
+export async function composeLesson(opts: Base & { text: string; resume?: { plan: LessonPlan; partsDone: number; text: string } }) {
+  const { rt, history, text, effort, progress, activeBook, memory, signal, cb, resume } = opts;
   if (!rt.sample) throw { code: "not_granted", message: "sample unavailable" };
   const tools = await canUseTools(rt);
   const ctx = studyContext("lesson", progress, activeBook, memory, true);
 
-  // 1) plan
-  cb.onStatus?.("מתכנן את השיעור: קורא את הסעיף ומחשב את המספרים");
-  const planTurn = `${ctx}\n\n${text}\n\n${PLAN_INSTRUCTIONS}`;
-  const plan = await rt.sample.json<LessonPlan>([...fitHistory(history, bytes(SYSTEM_PROMPT) + bytes(planTurn)), { role: "user", content: planTurn }], {
-    model: MODEL,
-    modelTier: "complex",
-    effort,
-    signal,
-    ...(tools ? { tools: buildTools(cb, false) } : { cache: false }),
-  });
-  if (!plan || !Array.isArray(plan.parts) || !plan.parts.length) throw { code: "invalid_json", message: "no plan" };
+  // 1) plan (kept from the saved draft when resuming)
+  let plan = resume?.plan;
+  if (!plan) {
+    cb.onStatus?.("מתכנן את השיעור: קורא את הסעיף ומחשב את המספרים");
+    const planTurn = `${ctx}\n\n${text}\n\n${PLAN_INSTRUCTIONS}`;
+    plan = await rt.sample.json<LessonPlan>([...fitHistory(history, bytes(SYSTEM_PROMPT) + bytes(planTurn)), { role: "user", content: planTurn }], {
+      model: MODEL,
+      modelTier: "complex",
+      effort,
+      signal,
+      ...(tools ? { tools: buildTools(cb, false) } : { cache: false }),
+    });
+    if (!plan || !Array.isArray(plan.parts) || !plan.parts.length) throw { code: "invalid_json", message: "no plan" };
+    cb.onCheckpoint?.(plan, 0, "");
+  }
 
-  // 2) parts
-  let written = "";
+  // 2) parts (from the first unwritten one)
+  let written = resume?.text.trim() ?? "";
   let model = "";
-  for (let k = 0; k < plan.parts.length; k++) {
+  for (let k = resume?.partsDone ?? 0; k < plan.parts.length; k++) {
     cb.onStatus?.(`כותב חלק ${k + 1} מתוך ${plan.parts.length}: ${plan.parts[k].title}`);
     const before = written ? written + "\n\n" : "";
     let partText = "";
@@ -303,6 +309,7 @@ export async function composeLesson(opts: Base & { text: string }) {
     }
     written = (before + partText).trim();
     cb.onText(written);
+    cb.onCheckpoint?.(plan, k + 1, written);
   }
   return { text: written, plan, model };
 }

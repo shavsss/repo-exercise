@@ -21,4 +21,11 @@ export interface StoredMessage {
   interrupted?: boolean;
   /** live only, never stored: what the tutor is doing now */
   status?: string;
+  /** db document id (set when loaded or first saved) */
+  id?: string;
+  /** saved while the answer is still being written; a draft found on load was cut off */
+  draft?: boolean;
+  /** for a section lesson in progress: the plan and how many parts are already written */
+  plan?: unknown;
+  partsDone?: number;
 }

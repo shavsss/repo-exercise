@@ -138,7 +138,7 @@ export function AssistantTurn({
 
         {(item.truncated || item.interrupted) && !live && (
           <div className="banner banner-warn turn-note">
-            {item.truncated ? "התשובה הגיעה לאורך המרבי ונקטעה." : "התשובה נעצרה לפני שהסתיימה."}
+            {item.truncated ? "התשובה הגיעה לאורך המרבי ונקטעה." : "התשובה נקטעה לפני שהסתיימה (למשל כי הדפדפן נסגר). מה שנכתב עד עכשיו נשמר."}
             {onContinue && (
               <button className="btn btn-small" onClick={onContinue}>
                 המשך מהמקום שנעצר ←

@@ -140,7 +140,7 @@ export class Store {
 
   async loadMessages(convId: string): Promise<StoredMessage[]> {
     const s = await this.convs().doc(convId).collection("msgs").orderBy("ts").get();
-    return s.docs.map((d) => d.data() as StoredMessage);
+    return s.docs.map((d) => ({ ...(d.data() as StoredMessage), id: d.id }));
   }
 
   async addMessage(convId: string, msg: StoredMessage, count: number) {
@@ -148,6 +148,22 @@ export class Store {
     const body = JSON.parse(JSON.stringify(msg)) as StoredMessage;
     if (body.text.length > 120_000) body.text = body.text.slice(0, 120_000) + "\n\n…";
     await this.convs().doc(convId).collection("msgs").doc().set(body as unknown as Record<string, unknown>);
+    await this.convs().doc(convId).update({ updatedAt: Date.now(), count });
+  }
+
+  newMessageId(convId: string) {
+    return this.convs().doc(convId).collection("msgs").doc().id;
+  }
+
+  /** Writes one message under a known id (used for drafts that are saved repeatedly). */
+  async saveMessage(convId: string, id: string, msg: StoredMessage) {
+    const { status: _status, id: _id, ...rest } = msg;
+    const body = JSON.parse(JSON.stringify(rest)) as StoredMessage;
+    if (body.text.length > 120_000) body.text = body.text.slice(0, 120_000) + "\n\n…";
+    await this.convs().doc(convId).collection("msgs").doc(id).set(body as unknown as Record<string, unknown>);
+  }
+
+  async touch(convId: string, count: number) {
     await this.convs().doc(convId).update({ updatedAt: Date.now(), count });
   }
 

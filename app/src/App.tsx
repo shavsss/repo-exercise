@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { connect, type ConvMeta, type Progress, type Runtime, type SampleError } from "./runtime";
 import { BOOKS, INITIAL_PROGRESS, guessBook, importFile, loadAll } from "./books";
-import { INITIAL_MEMORY, askTutor, composeLesson, updateMemory } from "./tutor";
+import { INITIAL_MEMORY, askTutor, composeLesson, updateMemory, type LessonPlan } from "./tutor";
 import { countWords, toItems } from "./segments";
 import type { Activity, Effort, Mode, StoredMessage } from "./types";
 import { Sidebar } from "./components/Sidebar";
@@ -19,6 +19,8 @@ interface Notice {
 }
 
 const MAX_PARTS = 4;
+/** How often a draft is saved while text streams (plus at every plan/part boundary). */
+const SAVE_EVERY = 8000;
 const CONTINUE_TEXT = "התשובה הקודמת נקטעה באורך המרבי. המשך בדיוק מהמקום שבו נעצרה, מאמצע המשפט אם צריך, בלי לחזור על דבר ובלי הקדמה.";
 
 /** "§13 … (חלק 1/2)": the section continues in the next message. */
@@ -38,6 +40,15 @@ const ERROR_COPY: Record<string, string> = {
   image_rejected: "התמונה לא התקבלה (סוג או גודל). נסה קובץ אחר.",
   upstream_error: "החיבור ל-Claude נקטע. אפשר לנסות שוב.",
 };
+
+/** The conversation to reopen on the next visit (a per-browser convenience). */
+function rememberConv(id: string) {
+  try {
+    localStorage.setItem("study-lab:conv", id);
+  } catch {
+    // not remembered
+  }
+}
 
 function usePersisted<T extends string>(key: string, initial: T): [T, (v: T) => void] {
   const [v, setV] = useState<T>(() => {
@@ -127,11 +138,7 @@ export function App() {
       setConv(c);
       setMessages([]);
       setNotices([]);
-      try {
-        localStorage.setItem("study-lab:conv", c.id);
-      } catch {
-        // ignore
-      }
+      rememberConv(c.id);
       if (rt?.store) {
         try {
           setMessages(await rt.store.loadMessages(c.id));
@@ -170,6 +177,132 @@ export function App() {
     [progress, rt],
   );
 
+  /**
+   * Writes one answer. The answer is saved as a draft while it is written (after the
+   * plan, after every part, and every few seconds of text), so a closed browser loses
+   * at most a few seconds; `resume` continues such a draft in place.
+   */
+  const generate = useCallback(
+    async (o: { rt: Runtime; convId: string; history: StoredMessage[]; userMsg: StoredMessage; sendMode: Mode; images: File[]; resume?: StoredMessage }) => {
+      const { rt, convId, history, userMsg, sendMode, images, resume } = o;
+      const store = rt.store && !convId.startsWith("local-") ? rt.store : null;
+      const msgId = resume?.id ?? store?.newMessageId(convId) ?? `m${Date.now()}`;
+      const activity: Activity[] = [...(resume?.activity ?? [])];
+      let answer: StoredMessage = resume
+        ? { ...resume, interrupted: undefined, truncated: undefined, draft: true, activity }
+        : { role: "assistant", text: "", mode: sendMode, ts: Date.now(), activity, draft: true, id: msgId };
+      let shown = answer.text;
+
+      // Draft saves: one write at a time, at most every SAVE_EVERY ms between safe points.
+      let chain: Promise<void> = Promise.resolve();
+      let lastSave = 0;
+      let saveFailed = false;
+      const save = (patch: Partial<StoredMessage>, force = false) => {
+        answer = { ...answer, ...patch };
+        if (!store || (!force && Date.now() - lastSave < SAVE_EVERY)) return chain;
+        lastSave = Date.now();
+        const snapshot = { ...answer, activity: [...activity] };
+        chain = chain.then(() =>
+          store.saveMessage(convId, msgId, snapshot).catch(() => {
+            if (!saveFailed) setNotices((n) => [...n, { level: "warn", text: "שמירת הטיוטה ב-claude.ai נכשלה; התשובה תישמר בסוף." }]);
+            saveFailed = true;
+          }),
+        );
+        return chain;
+      };
+
+      setLive(answer);
+      ctl.current = new AbortController();
+      const show = (t: string) => {
+        shown = t;
+        setLive((l) => (l ? { ...l, text: t } : l));
+        save({ text: t });
+      };
+      save({}, true); // the empty draft marks the answer as started
+
+      try {
+        const cb = {
+          onActivity: (a: Activity) => {
+            activity.push(a);
+            setLive((l) => (l ? { ...l, activity: [...activity] } : l));
+          },
+          onProgress: (bookId: string, page: string, section: string) => saveProgress(bookId, { page, section, lessons: (progress[bookId]?.lessons ?? 0) + 1 }),
+          onStatus: (status: string) => setLive((l) => (l ? { ...l, status } : l)),
+          onCheckpoint: (plan: LessonPlan, partsDone: number, text: string) => save({ plan, partsDone, text }, true),
+          onText: show,
+        };
+        const base = { rt, history, mode: sendMode, effort, progress, activeBook, memory, signal: ctl.current.signal, cb };
+        const plan = answer.plan as LessonPlan | undefined;
+        if (sendMode === "lesson" && !images.length && (!resume || plan || !resume.text)) {
+          // A section lesson: planned, then written part by part (or resumed from the saved part).
+          const res = await composeLesson({
+            ...base,
+            text: userMsg.text,
+            resume: plan ? { plan, partsDone: answer.partsDone ?? 0, text: answer.text } : undefined,
+          });
+          answer = { ...answer, text: res.text, model: res.model };
+        } else {
+          let full = answer.text;
+          let res: Awaited<ReturnType<typeof askTutor>> | null = null;
+          if (!full) {
+            res = await askTutor({ ...base, text: userMsg.text, images });
+            full = res.text;
+          }
+          // Continue a cut-off answer (or a resumed draft) from where its text stops.
+          for (let part = 1; (res === null || res.truncated) && part <= MAX_PARTS; part++) {
+            const before = full;
+            res = await askTutor({
+              ...base,
+              history: [...history, userMsg, { ...answer, text: full }],
+              text: CONTINUE_TEXT,
+              images: [],
+              continuing: true,
+              cb: { ...cb, onText: (t: string) => show(before + t) },
+            });
+            full = before + res.text;
+          }
+          answer = { ...answer, text: full, model: res?.modelApplied ?? `רמת מודל: ${res?.modelTierApplied}`, ...(res?.truncated ? { truncated: true } : {}) };
+        }
+        answer = { ...answer, draft: undefined, plan: undefined, partsDone: undefined };
+      } catch (err) {
+        const e = err as SampleError;
+        // keep the draft fields so "continue" can resume from the last saved part
+        answer = { ...answer, text: e.code === "refused" ? "" : shown || (e.text ?? ""), interrupted: true, draft: undefined };
+        if (e.code !== "cancelled") setNotices((n) => [...n, { level: "error", text: ERROR_COPY[e.code] ?? ERROR_COPY.upstream_error }]);
+      }
+      answer = { ...answer, activity };
+      setLive(null);
+      setMessages([...history, userMsg, answer]);
+      await chain;
+      if (store) {
+        try {
+          if (answer.text || activity.length) await store.saveMessage(convId, msgId, answer);
+          await store.touch(convId, history.length + 2);
+        } catch {
+          setNotices((n) => [...n, { level: "warn", text: "חלק מהשיחה לא נשמר ב-claude.ai." }]);
+        }
+      }
+      setBusy(false);
+
+      // Fold a finished lesson into the course memory (a short, separate call).
+      if (sendMode === "lesson" && answer.text && !answer.interrupted) {
+        setMemoryBusy(true);
+        try {
+          const next = await updateMemory(rt, memory, answer, userMsg.text, progress);
+          if (next) {
+            setMemory(next);
+            await rt.store?.setMemory(next);
+          }
+        } catch {
+          setNotices((n) => [...n, { level: "warn", text: "זיכרון הקורס לא עודכן הפעם. אפשר לעדכן אותו ידנית מהכפתור 🧠." }]);
+        } finally {
+          setMemoryBusy(false);
+        }
+      }
+    },
+    [effort, progress, activeBook, memory, saveProgress],
+  );
+
   const send = useCallback(
     async (text: string, images: File[], sendMode: Mode = mode, title?: string, fresh = false) => {
       if (busy || !rt) return;
@@ -192,91 +325,41 @@ export function App() {
         }
         c ??= { id: `local-${Date.now()}`, title: t, bookId: activeBook, createdAt: Date.now(), updatedAt: Date.now(), count: 0 };
         setConv(c);
+        rememberConv(c.id);
       }
-      const convId = c.id;
       setMessages([...history, userMsg]);
-      const persist = async (m: StoredMessage, count: number) => {
-        if (!rt.store || convId.startsWith("local-")) return;
+      if (rt.store && !c.id.startsWith("local-")) {
         try {
-          await rt.store.addMessage(convId, m, count);
+          await rt.store.addMessage(c.id, userMsg, history.length + 1);
         } catch {
           setNotices((n) => [...n, { level: "warn", text: "חלק מהשיחה לא נשמר ב-claude.ai." }]);
         }
-      };
-      await persist(userMsg, history.length + 1);
-
-      const activity: Activity[] = [];
-      let answer: StoredMessage = { role: "assistant", text: "", mode: sendMode, ts: Date.now(), activity };
-      setLive(answer);
-      ctl.current = new AbortController();
-      let shown = "";
-      const show = (t: string) => {
-        shown = t;
-        setLive((l) => (l ? { ...l, text: t } : l));
-      };
-      try {
-        const cb = {
-          onActivity: (a: Activity) => {
-            activity.push(a);
-            setLive((l) => (l ? { ...l, activity: [...activity] } : l));
-          },
-          onProgress: (bookId: string, page: string, section: string) => saveProgress(bookId, { page, section, lessons: (progress[bookId]?.lessons ?? 0) + 1 }),
-          onStatus: (status: string) => setLive((l) => (l ? { ...l, status } : l)),
-          onText: show,
-        };
-        const base = { rt, history, mode: sendMode, effort, progress, activeBook, memory, signal: ctl.current.signal, cb };
-        if (sendMode === "lesson" && !images.length) {
-          // A section lesson: planned, then written part by part.
-          const res = await composeLesson({ ...base, text });
-          answer = { ...answer, text: res.text, model: res.model, activity };
-        } else {
-          let res = await askTutor({ ...base, text, images });
-          let full = res.text;
-          // An answer cut off at the length limit continues on its own, up to MAX_PARTS parts.
-          for (let part = 2; res.truncated && part <= MAX_PARTS; part++) {
-            const before = full;
-            res = await askTutor({
-              ...base,
-              history: [...history, userMsg, { ...answer, text: full }],
-              text: CONTINUE_TEXT,
-              images: [],
-              continuing: true,
-              cb: { ...cb, onText: (t: string) => show(before + t) },
-            });
-            full = before + res.text;
-          }
-          answer = { ...answer, text: full, model: res.modelApplied ?? `רמת מודל: ${res.modelTierApplied}`, activity, ...(res.truncated ? { truncated: true } : {}) };
-        }
-      } catch (err) {
-        const e = err as SampleError;
-        answer = { ...answer, text: e.code === "refused" ? "" : shown || (e.text ?? ""), interrupted: true, activity };
-        if (e.code !== "cancelled") setNotices((n) => [...n, { level: "error", text: ERROR_COPY[e.code] ?? ERROR_COPY.upstream_error }]);
-      } finally {
-        setLive(null);
-        if (answer.text || answer.activity?.length) {
-          setMessages([...history, userMsg, answer]);
-          await persist(answer, history.length + 2);
-        }
-        setBusy(false);
       }
-      // Fold a finished lesson into the course memory (a short, separate call).
-      if (sendMode === "lesson" && answer.text && !answer.interrupted) {
-        setMemoryBusy(true);
-        try {
-          const next = await updateMemory(rt, memory, answer, text, progress);
-          if (next) {
-            setMemory(next);
-            await rt.store?.setMemory(next);
-          }
-        } catch {
-          setNotices((n) => [...n, { level: "warn", text: "זיכרון הקורס לא עודכן הפעם. אפשר לעדכן אותו ידנית מהכפתור 🧠." }]);
-        } finally {
-          setMemoryBusy(false);
-        }
-      }
+      await generate({ rt, convId: c.id, history, userMsg, sendMode, images });
     },
-    [busy, rt, conv, messages, mode, effort, progress, activeBook, memory, saveProgress],
+    [busy, rt, conv, messages, mode, activeBook, generate],
   );
+
+  /** Continues the last answer of this conversation from its saved draft. */
+  const resumeLast = useCallback(async () => {
+    if (busy || !rt?.sample || !conv) return;
+    const last = messages[messages.length - 1];
+    const userIdx = messages.length - 2;
+    if (last?.role !== "assistant" || messages[userIdx]?.role !== "user") return;
+    setBusy(true);
+    setNotices([]);
+    stick.current = true;
+    setMessages(messages.slice(0, -1));
+    await generate({ rt, convId: conv.id, history: messages.slice(0, userIdx), userMsg: messages[userIdx], sendMode: last.mode, images: [], resume: last });
+  }, [busy, rt, conv, messages, generate]);
+
+  // Warn before closing the page while an answer is being written.
+  useEffect(() => {
+    if (!busy) return;
+    const warn = (e: BeforeUnloadEvent) => e.preventDefault();
+    window.addEventListener("beforeunload", warn);
+    return () => window.removeEventListener("beforeunload", warn);
+  }, [busy]);
 
   const onPickFiles = useCallback(
     async (files: File[], forBook?: string) => {
@@ -425,7 +508,7 @@ export function App() {
                   onFillGaps={(missing) =>
                     send(`בהודעה הקודמת חסרו לפי בדיקת הרף: ${missing.join(", ")}. השלם עכשיו את החסר ברמה המלאה, בהמשך ישיר לשיעור ובלי לחזור על מה שכבר נכתב.`, [], "lesson")
                   }
-                  onContinue={it === lastItem && !busy ? () => send("המשך בדיוק מהמקום שבו נעצרת, בלי לחזור על מה שכבר נכתב.", [], it.mode) : undefined}
+                  onContinue={it === lastItem && !busy ? resumeLast : undefined}
                 />
               ),
             )}

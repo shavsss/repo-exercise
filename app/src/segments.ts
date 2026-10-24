@@ -25,7 +25,7 @@ export function toItems(messages: StoredMessage[]): Item[] {
           mode: m.mode,
           model: m.model,
           truncated: m.truncated,
-          interrupted: m.interrupted,
+          interrupted: m.interrupted || m.draft,
           status: m.status,
           segments: [...(m.activity ?? []).map((a): Segment => ({ t: "activity", a })), ...(m.text ? [{ t: "text" as const, text: m.text }] : [])],
         },
