@@ -101,7 +101,7 @@ function Cartridge({
           <span className="cart-import-bar" style={{ transform: `scaleX(${importing.total ? importing.done / importing.total : 0.05})` }} />
         </div>
       )}
-      {!importing && !loaded && <div className="cart-section">לא נטען בדפדפן הזה</div>}
+      {!importing && !loaded && <div className="cart-section">לא נטען</div>}
       {!importing && loaded && progress?.section && <div className="cart-section">אחרון: {progress.section}</div>}
     </div>
   );
@@ -197,7 +197,7 @@ export function Sidebar({
             />
           ))}
         </div>
-        {missing > 0 && <p className="side-hint">הספרים נטענים מהקבצים שבמחשב שלך ונשמרים רק בדפדפן הזה. אפשר לבחור את כולם בבת אחת.</p>}
+        {missing > 0 && <p className="side-hint">ספר שלא נטען אפשר לטעון מהקובץ שבמחשב שלך.</p>}
       </div>
 
       <div className="side-section side-convs">

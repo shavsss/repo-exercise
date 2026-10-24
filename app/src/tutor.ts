@@ -56,7 +56,7 @@ export function evalExpr(expr: string, scope: Record<string, unknown>) {
   return math.evaluate(expr, { ...scope });
 }
 
-function studyContext(mode: Mode, progress: Progress, activeBook: string) {
+function studyContext(mode: Mode, progress: Progress, activeBook: string, withPages: boolean) {
   const lines = BOOKS.map((b) => {
     const p = progress[b.id];
     const loaded = getBook(b.id) ? "loaded" : "NOT loaded in this browser";
@@ -65,7 +65,7 @@ function studyContext(mode: Mode, progress: Progress, activeBook: string) {
   let pages = "";
   const book = getBook(activeBook);
   const at = progress[activeBook]?.page;
-  if (book && mode !== "free") {
+  if (book && withPages && mode !== "free") {
     try {
       const start = at ?? book.pages.find((p) => p.label)?.label ?? "1";
       const by = at || book.pages.some((p) => p.label === start) ? "label" : "pdf";
@@ -99,11 +99,13 @@ export async function askTutor(opts: {
   activeBook: string;
   signal: AbortSignal;
   cb: TurnCallbacks;
+  /** A continuation of an answer that hit the length limit: no new pages, no images. */
+  continuing?: boolean;
 }) {
-  const { rt, history, text, mode, effort, images, progress, activeBook, signal, cb } = opts;
+  const { rt, history, text, mode, effort, images, progress, activeBook, signal, cb, continuing = false } = opts;
   if (!rt.sample) throw { code: "not_granted", message: "sample unavailable" };
 
-  const last = `${studyContext(mode, progress, activeBook)}\n\n${text || "(ראו את התמונה המצורפת)"}${images.length ? `\n\n[${images.length} תמונות מצורפות מהלומד]` : ""}`;
+  const last = `${studyContext(mode, progress, activeBook, !continuing)}\n\n${text || "(ראו את התמונה המצורפת)"}${images.length ? `\n\n[${images.length} תמונות מצורפות מהלומד]` : ""}`;
   // newest history first, until the budget is used
   let used = bytes(SYSTEM_PROMPT) + bytes(last);
   const kept: { role: "user" | "assistant"; content: string }[] = [];
@@ -112,6 +114,12 @@ export async function askTutor(opts: {
     const m = history[i];
     if (!m.text.trim()) continue;
     const b = bytes(m.text);
+    // the answer being continued must always be sent, even if long
+    if (continuing && i === history.length - 1) {
+      used += b;
+      kept.unshift({ role: m.role, content: m.text });
+      continue;
+    }
     if (used + b > INPUT_BUDGET) {
       dropped = i + 1;
       break;

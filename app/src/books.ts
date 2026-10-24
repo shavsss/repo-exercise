@@ -1,5 +1,5 @@
-// The learner's books. Their text is read from the files the learner picks and
-// kept only in this browser (IndexedDB), never published with the page.
+// The learner's books. Their text is published with the (private) artifact as
+// books/<id>.json; a file the learner loads themselves replaces it in this browser.
 
 export interface BookMeta {
   id: string;
@@ -60,8 +60,20 @@ export async function loadAll(): Promise<Map<string, LoadedBook>> {
     });
     for (const b of all) memory.set(b.id, b);
   } catch {
-    // storage blocked: books live only for this visit
+    // storage blocked: uploaded books live only for this visit
   }
+  await Promise.all(
+    BOOKS.filter((b) => !memory.has(b.id)).map(async (b) => {
+      try {
+        const res = await fetch(`books/${b.id}.json`);
+        if (!res.ok) return;
+        const data = (await res.json()) as { pages: Page[] };
+        memory.set(b.id, { id: b.id, fileName: "", loadedAt: 0, pages: data.pages });
+      } catch {
+        // not published with this version: the learner can load the file
+      }
+    }),
+  );
   return memory;
 }
 

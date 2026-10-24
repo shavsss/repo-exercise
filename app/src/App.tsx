@@ -17,6 +17,15 @@ interface Notice {
   text: string;
 }
 
+const MAX_PARTS = 4;
+const CONTINUE_TEXT = "התשובה הקודמת נקטעה באורך המרבי. המשך בדיוק מהמקום שבו נעצרה, מאמצע המשפט אם צריך, בלי לחזור על דבר ובלי הקדמה.";
+
+/** "§13 … (חלק 1/2)": the section continues in the next message. */
+function sectionUnfinished(section?: string) {
+  const m = /(?:חלק|part)\s*(\d+)\s*(?:\/|מתוך|of)\s*(\d+)/i.exec(section ?? "");
+  return !!m && Number(m[1]) < Number(m[2]);
+}
+
 const ERROR_COPY: Record<string, string> = {
   not_granted: "הדף לא קיבל הרשאה לפנות ל-Claude. אפשר לאשר אותה בתפריט ההרשאות של ה-Artifact.",
   sampling_disabled: "Claude אינו זמין בחשבון הזה.",
@@ -152,7 +161,7 @@ export function App() {
   );
 
   const send = useCallback(
-    async (text: string, images: File[], sendMode: Mode = mode, title?: string) => {
+    async (text: string, images: File[], sendMode: Mode = mode, title?: string, fresh = false) => {
       if (busy || !rt) return;
       if (!rt.sample) {
         setNotices([{ level: "error", text: "Claude אינו זמין בתצוגה הזו. פתח את הדף ב-claude.ai כשאתה מחובר." }]);
@@ -161,9 +170,9 @@ export function App() {
       setBusy(true);
       setNotices([]);
       stick.current = true;
-      const history = messages;
+      const history = fresh ? [] : messages;
       const userMsg: StoredMessage = { role: "user", text, mode: sendMode, ts: Date.now(), ...(images.length ? { images: images.length } : {}) };
-      let c = conv;
+      let c = fresh ? null : conv;
       if (!c) {
         const t = (title || text || "תמונה").replace(/\s+/g, " ").slice(0, 60);
         try {
@@ -191,7 +200,14 @@ export function App() {
       setLive(answer);
       ctl.current = new AbortController();
       try {
-        const res = await askTutor({
+        const cb = {
+          onActivity: (a: Activity) => {
+            activity.push(a);
+            setLive((l) => (l ? { ...l, activity: [...activity] } : l));
+          },
+          onProgress: (bookId: string, page: string, section: string) => saveProgress(bookId, { page, section, lessons: (progress[bookId]?.lessons ?? 0) + 1 }),
+        };
+        let res = await askTutor({
           rt,
           history,
           text,
@@ -201,19 +217,32 @@ export function App() {
           progress,
           activeBook,
           signal: ctl.current.signal,
-          cb: {
-            onText: (t) => setLive((l) => (l ? { ...l, text: t } : l)),
-            onActivity: (a) => {
-              activity.push(a);
-              setLive((l) => (l ? { ...l, activity: [...activity] } : l));
-            },
-            onProgress: (bookId, page, section) => saveProgress(bookId, { page, section, lessons: (progress[bookId]?.lessons ?? 0) + 1 }),
-          },
+          cb: { ...cb, onText: (t) => setLive((l) => (l ? { ...l, text: t } : l)) },
         });
-        answer = { ...answer, text: res.text, model: res.modelApplied ?? `רמת מודל: ${res.modelTierApplied}`, activity, ...(res.truncated ? { truncated: true } : {}) };
+        let full = res.text;
+        // An answer cut off at the length limit continues on its own, up to MAX_PARTS parts.
+        for (let part = 2; res.truncated && part <= MAX_PARTS; part++) {
+          answer = { ...answer, text: full };
+          const before = full;
+          res = await askTutor({
+            rt,
+            history: [...history, userMsg, { ...answer }],
+            text: CONTINUE_TEXT,
+            mode: sendMode,
+            effort,
+            images: [],
+            progress,
+            activeBook,
+            signal: ctl.current.signal,
+            continuing: true,
+            cb: { ...cb, onText: (t) => setLive((l) => (l ? { ...l, text: before + t } : l)) },
+          });
+          full = before + res.text;
+        }
+        answer = { ...answer, text: full, model: res.modelApplied ?? `רמת מודל: ${res.modelTierApplied}`, activity, ...(res.truncated ? { truncated: true } : {}) };
       } catch (err) {
         const e = err as SampleError;
-        answer = { ...answer, text: e.code === "refused" ? "" : (e.text ?? ""), interrupted: true, activity };
+        answer = { ...answer, text: e.code === "refused" ? answer.text : answer.text + (e.text ?? ""), interrupted: true, activity };
         if (e.code !== "cancelled") setNotices((n) => [...n, { level: "error", text: ERROR_COPY[e.code] ?? ERROR_COPY.upstream_error }]);
       } finally {
         setLive(null);
@@ -270,9 +299,11 @@ export function App() {
   const volume = book.volume.split(":")[0];
   const quick: QuickAction[] = [
     {
-      label: `📖 השיעור הבא: ${seriesName} ${volume}, עמ' ${startPage}`,
+      label: `📖 ${sectionUnfinished(prog?.section) ? "החלק הבא של הסעיף" : "השיעור הבא"}: ${seriesName} ${volume}, עמ' ${startPage}`,
       title: `📖 ${seriesName} ${volume} · עמ' ${startPage}`,
-      text: `למד אותי את הסעיף הבא בספר ${book.title}, החל מהעמוד המודפס ${startPage}${prog?.section ? ` (הסעיף האחרון שלמדנו: ${prog.section})` : ""}.`,
+      text: sectionUnfinished(prog?.section)
+        ? `המשך לחלק הבא של הסעיף (${prog?.section}), החל מהעמוד המודפס ${startPage}.`
+        : `למד אותי את הסעיף הבא בספר ${book.title}, החל מהעמוד המודפס ${startPage}${prog?.section ? ` (הסעיף האחרון שלמדנו: ${prog.section})` : ""}.`,
       mode: "lesson",
     },
     ...(items.length
@@ -284,6 +315,8 @@ export function App() {
       : []),
   ];
   const lastItem = items[items.length - 1];
+  // A new section gets its own conversation; the next part of a split section stays here.
+  const startsNewChat = messages.some((m) => m.role === "assistant" && m.mode === "lesson") && !sectionUnfinished(prog?.section);
 
   return (
     <div className="app">
@@ -350,7 +383,7 @@ export function App() {
             )}
             {!loaded[book.id] && (
               <div className="banner banner-demo">
-                <b>טען את הספר כדי שהמורה יוכל לקרוא ממנו.</b> בחר את קובץ ה-{book.series === "math" || book.id === "feyn3" ? "PDF" : "TXT"} של {seriesName} {volume} מהמאגר שלך (הכפתור ⬆ בכרטיס במדף). הטקסט נשמר רק בדפדפן הזה ולא עולה לשום מקום.
+                <b>טוען את הספר…</b> אם זה לא מסתיים, אפשר לטעון את קובץ ה-{book.series === "math" || book.id === "feyn3" ? "PDF" : "TXT"} של {seriesName} {volume} מהמחשב (הכפתור ⬆ בכרטיס במדף).
               </div>
             )}
             {items.length === 0 && (
@@ -382,7 +415,7 @@ export function App() {
         <Composer
           busy={busy}
           onSend={(t, im) => send(t, im)}
-          onQuick={(q) => send(q.text, [], q.mode, q.title)}
+          onQuick={(q) => send(q.text, [], q.mode, q.title, q === quick[0] && startsNewChat)}
           onStop={() => ctl.current?.abort()}
           quick={quick}
           mode={mode}

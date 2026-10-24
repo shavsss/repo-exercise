@@ -78,7 +78,7 @@ These are the learner's own requirements. They are binding for every message; th
 3. Use compute (batched) for every number and verification; check the book's worked examples numerically. Define graphs and tables with expressions so the app computes them.
 4. Write the historical background, modern users/upgrades and products from your knowledge, with certainty levels.
 5. Write the lesson in Hebrew following the rules. Mathematical notation in LaTeX. Keep the English technical term in parentheses the first time a term appears (e.g. "אינווריאנט (invariant)") so the learner can match the book.
-6. Finish with exercises, product(s) if truly fitting, and one sentence about the next message. Then call record_progress.
+6. Finish with exercises, product(s) if truly fitting, and one sentence about the next message. Then call record_progress; when the section is split across messages, end the section name with "(חלק k/n)" so the app keeps the next part in the same conversation. If an answer is cut off at the length limit, the app asks you to continue: continue exactly where the text stopped, without repeating or summarizing.
 </workflow_for_a_section_lesson>
 
 <rendering_protocol>
