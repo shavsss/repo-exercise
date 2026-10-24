@@ -11,6 +11,7 @@ import { Composer, type QuickAction } from "./components/Composer";
 import { BookViewer } from "./components/BookViewer";
 import { FlowField } from "./components/FlowField";
 import { MemoryPanel } from "./components/MemoryPanel";
+import { Outline } from "./components/Outline";
 import { onSolvedChange, solvedCount } from "./solved";
 
 interface Notice {
@@ -87,7 +88,16 @@ export function App() {
   const [mode, setMode] = usePersisted<Mode>("study-lab:mode", "lesson");
   const [effort, setEffort] = usePersisted<Effort>("study-lab:effort", "high");
   const [viewer, setViewer] = useState<{ bookId: string; page: string; by: "label" | "pdf" } | null>(null);
-  const [sideOpen, setSideOpen] = useState(false);
+  const [sideOpen, setSideOpen] = useState(false); // drawer on narrow screens
+  const [sidePref, setSidePref] = usePersisted<"open" | "closed">("study-lab:side", "open");
+  const [outlinePref, setOutlinePref] = usePersisted<"open" | "closed">("study-lab:outline", "closed");
+  const narrow = () => window.matchMedia("(max-width: 860px)").matches;
+  const overlayOutline = () => window.matchMedia("(max-width: 1200px)").matches;
+  // on a small screen the outline is an overlay, so it starts closed
+  useEffect(() => {
+    if (overlayOutline()) setOutlinePref("closed");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const [solved, setSolved] = useState(solvedCount);
   const [readPct, setReadPct] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -426,8 +436,10 @@ export function App() {
   const startsNewChat = messages.some((m) => m.role === "assistant" && m.mode === "lesson") && !sectionUnfinished(prog?.section);
 
   return (
-    <div className="app">
+    <div className={`app ${sidePref === "closed" ? "side-collapsed" : ""} ${outlinePref === "open" ? "outline-open" : ""}`}>
       <Sidebar
+        collapsed={sidePref === "closed"}
+        onExpand={() => setSidePref("open")}
         progress={progress}
         loaded={loaded}
         importing={importing}
@@ -479,7 +491,10 @@ export function App() {
           solved={solved}
           status={!rt ? "connecting" : rt.sample ? "live" : "off"}
           title={conv?.title ?? "שיחה חדשה"}
-          onMenu={() => setSideOpen(true)}
+          sideOpen={narrow() ? sideOpen : sidePref === "open"}
+          outlineOpen={outlinePref === "open"}
+          onToggleSide={() => (narrow() ? setSideOpen(!sideOpen) : setSidePref(sidePref === "open" ? "closed" : "open"))}
+          onToggleOutline={() => setOutlinePref(outlinePref === "open" ? "closed" : "open")}
         />
         <div className="read-progress" style={{ transform: `scaleX(${readPct})` }} />
         <div className="chat-scroll" ref={scrollRef} onScroll={onScroll}>
@@ -535,6 +550,13 @@ export function App() {
           canAttach={!!rt?.canSendImages}
         />
       </main>
+
+      {outlinePref === "open" && (
+        <>
+          <div className="side-scrim outline-scrim" onClick={() => setOutlinePref("closed")} />
+          <Outline items={items} onClose={() => setOutlinePref("closed")} onNavigate={() => overlayOutline() && setOutlinePref("closed")} />
+        </>
+      )}
 
       {memoryOpen && (
         <MemoryPanel

@@ -126,6 +126,8 @@ export function Sidebar({
   memoryBusy,
   open,
   onClose,
+  collapsed,
+  onExpand,
 }: {
   progress: Progress;
   loaded: Loaded;
@@ -145,10 +147,40 @@ export function Sidebar({
   memoryBusy: boolean;
   open: boolean;
   onClose: () => void;
+  collapsed: boolean;
+  onExpand: () => void;
 }) {
   const [confirming, setConfirming] = useState<string | null>(null);
   const multiRef = useRef<HTMLInputElement>(null);
   const missing = BOOKS.filter((b) => !loaded[b.id]).length;
+  if (collapsed && !open)
+    return (
+      <aside className="sidebar sidebar-rail">
+        <button className="logo-chip rail-logo" onClick={onExpand} aria-label="פתח את המדף" title="פתח את המדף">
+          <span className="logo-glyph">∫</span>
+        </button>
+        <button className="rail-btn" onClick={onNew} title="שיחה חדשה" aria-label="שיחה חדשה">
+          ＋
+        </button>
+        <button className="rail-btn" onClick={onOpenMemory} title="זיכרון הקורס" aria-label="זיכרון הקורס">
+          🧠
+        </button>
+        <div className="rail-books">
+          {BOOKS.map((b) => (
+            <button
+              key={b.id}
+              className={`rail-book ${b.id === activeBook ? "is-active" : ""}`}
+              style={{ ["--accent" as string]: b.color }}
+              onClick={() => setActiveBook(b.id)}
+              title={`${b.titleHe} · ${b.volume}`}
+            >
+              {b.series === "math" ? "M" : "F"}
+              {b.id.slice(-1)}
+            </button>
+          ))}
+        </div>
+      </aside>
+    );
   return (
     <aside className={`sidebar ${open ? "is-open" : ""}`}>
       <div className="side-brand">

@@ -17,7 +17,7 @@ export function UserBubble({ item }: { item: Extract<Item, { kind: "user" }> }) 
   );
 }
 
-function headingsOf(segments: Segment[]) {
+export function headingsOf(segments: Segment[]) {
   const out: { level: 2 | 3; text: string }[] = [];
   for (const s of segments) {
     if (s.t !== "text") continue;
@@ -27,13 +27,13 @@ function headingsOf(segments: Segment[]) {
   return out;
 }
 
-function blocksOf(segments: Segment[]) {
+export function blocksOf(segments: Segment[]) {
   const counts: Record<string, number> = {};
   for (const s of segments) if (s.t === "text") for (const m of s.text.matchAll(/```(\w+)/g)) counts[m[1]] = (counts[m[1]] ?? 0) + 1;
   return counts;
 }
 
-const MAP_BLOCKS: [string, string, string][] = [
+export const MAP_BLOCKS: [string, string, string][] = [
   ["story", "📜", "סיפור"],
   ["think", "🤔", "עצירות"],
   ["history", "🕰️", "רקע"],
@@ -74,7 +74,7 @@ export function AssistantTurn({
   const showMap = !live && (heads.length >= 3 || Object.keys(blocks).length >= 4) && words > 600;
 
   return (
-    <article className={`msg-assistant ${live ? "is-live" : ""}`} ref={ref}>
+    <article className={`msg-assistant ${live ? "is-live" : ""}`} ref={ref} data-key={item.key}>
       <div className="msg-paper">
         <div className="paper-head">
           <span className="avatar" aria-hidden>

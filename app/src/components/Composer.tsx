@@ -66,7 +66,7 @@ export function Composer({
 
   return (
     <div className="composer-wrap">
-      {quick.length > 0 && !busy && (
+      {quick.length > 0 && !busy && !text && (
         <div className="quick-row">
           {quick.map((q) => (
             <button key={q.label} className={`chip quick-chip mode-${q.mode}`} onClick={() => onQuick(q)}>
@@ -75,18 +75,7 @@ export function Composer({
           ))}
         </div>
       )}
-      <div className="composer window">
-        <div className="window-bar">
-          <span className="window-stripes" aria-hidden />
-          <div className="mode-switch" role="radiogroup" aria-label="סוג ההודעה">
-            {MODES.map((m) => (
-              <button key={m.id} role="radio" aria-checked={mode === m.id} className={`mode-btn mode-${m.id} ${mode === m.id ? "is-on" : ""}`} onClick={() => setMode(m.id)} title={m.hint}>
-                {m.label}
-              </button>
-            ))}
-          </div>
-          <span className="window-stripes" aria-hidden />
-        </div>
+      <div className={`composer mode-${mode}`}>
         {images.length > 0 && (
           <div className="composer-images">
             {images.map((im, i) => (
@@ -103,11 +92,11 @@ export function Composer({
           className="composer-input"
           rows={1}
           value={text}
-          placeholder={mode === "lesson" ? "איזה סעיף נלמד? למשל: ״המשך מעמוד 240 — סעיף 12, תורת האינווריאנטים״" : mode === "clarify" ? "מה לא היה ברור? אפשר להדביק משפט מהספר או לצרף צילום של עמוד" : "כתבו הודעה…"}
+          placeholder={mode === "lesson" ? "איזה סעיף נלמד? למשל: ״המשך מעמוד 240, סעיף 12״" : mode === "clarify" ? "מה לא היה ברור? אפשר להדביק משפט מהספר או לצרף צילום של עמוד" : "כתבו הודעה…"}
           onChange={(e) => {
             setText(e.target.value);
             e.target.style.height = "";
-            e.target.style.height = Math.min(e.target.scrollHeight, 260) + "px";
+            e.target.style.height = Math.min(e.target.scrollHeight, 220) + "px";
           }}
           onKeyDown={(e) => {
             if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) {
@@ -121,16 +110,24 @@ export function Composer({
           }}
         />
         <div className="composer-tools">
+          <div className="mode-switch" role="radiogroup" aria-label="סוג ההודעה">
+            {MODES.map((m) => (
+              <button key={m.id} role="radio" aria-checked={mode === m.id} className={`mode-btn mode-${m.id} ${mode === m.id ? "is-on" : ""}`} onClick={() => setMode(m.id)} title={m.hint}>
+                {m.label}
+              </button>
+            ))}
+          </div>
+          <span className="composer-spacer" />
           {canAttach && (
             <>
-              <button className="icon-btn" onClick={() => fileRef.current?.click()} title="צרף תמונה (למשל צילום עמוד)" aria-label="צרף תמונה">
+              <button className="icon-btn icon-btn-plain" onClick={() => fileRef.current?.click()} title="צרף תמונה (למשל צילום עמוד)" aria-label="צרף תמונה">
                 🖼️
               </button>
               <input ref={fileRef} id="composer-image" type="file" accept="image/png,image/jpeg,image/webp,image/gif" multiple hidden onChange={(e) => e.target.files && addFiles(e.target.files)} />
             </>
           )}
-          <label className="effort">
-            <span>עומק חשיבה</span>
+          <label className="effort" title="עומק החשיבה של המודל">
+            <span>חשיבה</span>
             <select id="composer-effort" value={effort} onChange={(e) => setEffort(e.target.value as Effort)}>
               {EFFORTS.map((x) => (
                 <option key={x.id} value={x.id}>
@@ -139,18 +136,18 @@ export function Composer({
               ))}
             </select>
           </label>
-          <span className="composer-hint">Enter לשליחה · Shift+Enter לשורה חדשה</span>
           {busy ? (
-            <button className="btn btn-stop" onClick={onStop}>
-              ■ עצור
+            <button className="send-btn is-stop" onClick={onStop} aria-label="עצור" title="עצור">
+              ■
             </button>
           ) : (
-            <button className="btn btn-send" onClick={submit} disabled={!text.trim() && !images.length}>
-              שלח ←
+            <button className="send-btn" onClick={submit} disabled={!text.trim() && !images.length} aria-label="שלח" title="שלח (Enter)">
+              ↑
             </button>
           )}
         </div>
       </div>
+      <div className="composer-hint">Enter לשליחה · Shift+Enter לשורה חדשה · התשובות נשמרות תוך כדי כתיבה</div>
     </div>
   );
 }
