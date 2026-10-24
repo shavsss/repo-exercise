@@ -1,45 +1,47 @@
-import { useState } from "react";
-import type { Book, ConversationSummary, Progress } from "../api";
-import { setTheme, useTheme, type ThemePref } from "../theme";
+import { useRef, useState } from "react";
+import { BOOKS, type BookMeta } from "../books";
+import type { ConvMeta, Progress } from "../runtime";
 
-function pct(book: Book, page?: string) {
-  const p = Number(page);
-  const last = Number(book.lastLabel);
-  if (!Number.isFinite(p) || !Number.isFinite(last) || last <= 0) return 0;
-  return Math.max(0, Math.min(1, p / last));
-}
+type Loaded = Record<string, { pages: number; fileName: string; lastLabel: string | null }>;
 
-export function Cartridge({
+function Cartridge({
   book,
   progress,
+  loaded,
+  importing,
   active,
   onSelect,
   onOpen,
   onSetPage,
+  onPickFile,
 }: {
-  book: Book;
+  book: BookMeta;
   progress?: Progress[string];
+  loaded?: Loaded[string];
+  importing: { done: number; total: number } | null;
   active: boolean;
   onSelect: () => void;
   onOpen: () => void;
   onSetPage: (page: string) => void;
+  onPickFile: (f: File) => void;
 }) {
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState(progress?.page ?? "");
-  const p = pct(book, progress?.page);
+  const fileRef = useRef<HTMLInputElement>(null);
+  const last = Number(loaded?.lastLabel);
+  const frac = progress && Number.isFinite(last) && last > 0 ? Math.min(1, Number(progress.page) / last) : 0;
   const segs = 12;
   return (
-    <div className={`cartridge ${active ? "is-active" : ""}`} style={{ ["--accent" as string]: book.color }} onClick={onSelect}>
+    <div className={`cartridge ${active ? "is-active" : ""} ${loaded ? "" : "is-unloaded"}`} style={{ ["--accent" as string]: book.color }} onClick={onSelect}>
       <div className="cart-top">
         <span className="cart-series">{book.series === "math" ? "MATH" : "PHYS"}</span>
         <span className="cart-vol">{book.id.slice(-1)}</span>
       </div>
       <div className="cart-name">{book.series === "math" ? "מתמטיקה" : "פיינמן"}</div>
-      <div className="cart-title">{book.titleHe.split("—")[1]?.trim() ?? book.titleHe}</div>
-      <div className="cart-sub" dir="ltr">{book.series === "math" ? "Aleksandrov · Kolmogorov" : "Feynman · Leighton · Sands"}</div>
-      <div className="cart-bar" aria-label={`התקדמות ${Math.round(p * 100)}%`}>
+      <div className="cart-title">{book.volume}</div>
+      <div className="cart-bar" aria-label={`התקדמות ${Math.round(frac * 100)}%`}>
         {Array.from({ length: segs }, (_, i) => (
-          <i key={i} className={i < Math.round(p * segs) ? "on" : ""} />
+          <i key={i} className={i < Math.round(frac * segs) ? "on" : ""} />
         ))}
       </div>
       <div className="cart-foot" onClick={(e) => e.stopPropagation()}>
@@ -51,17 +53,19 @@ export function Cartridge({
               setEditing(false);
             }}
           >
-            <input autoFocus className="page-input" value={draft} onChange={(e) => setDraft(e.target.value)} onBlur={() => setEditing(false)} dir="ltr" />
+            <input id={`page-${book.id}`} autoFocus className="page-input" value={draft} onChange={(e) => setDraft(e.target.value)} onBlur={() => setEditing(false)} dir="ltr" aria-label="עמוד נוכחי" />
           </form>
         ) : (
           <button className="cart-page" onClick={() => (setDraft(progress?.page ?? ""), setEditing(true))} title="עדכון העמוד הנוכחי">
             {progress ? (
               <>
                 עמ' <bdi dir="ltr">{progress.page}</bdi>
-                <span className="cart-of">
-                  {" / "}
-                  <bdi dir="ltr">{book.lastLabel ?? book.pageCount}</bdi>
-                </span>
+                {loaded?.lastLabel && (
+                  <span className="cart-of">
+                    {" / "}
+                    <bdi dir="ltr">{loaded.lastLabel}</bdi>
+                  </span>
+                )}
               </>
             ) : (
               "טרם התחלתי"
@@ -69,50 +73,78 @@ export function Cartridge({
             ✎
           </button>
         )}
-        <button className="cart-open" onClick={onOpen} title="פתח את הספר">
-          📖
-        </button>
+        {loaded ? (
+          <button className="cart-open" onClick={onOpen} title="פתח את הספר">
+            📖
+          </button>
+        ) : (
+          <button className="cart-open cart-load" onClick={() => fileRef.current?.click()} title="טען את קובץ הספר מהמחשב">
+            ⬆
+          </button>
+        )}
+        <input
+          ref={fileRef}
+          id={`file-${book.id}`}
+          type="file"
+          accept=".pdf,.txt"
+          hidden
+          onChange={(e) => {
+            const f = e.target.files?.[0];
+            if (f) onPickFile(f);
+            e.target.value = "";
+          }}
+        />
       </div>
-      {progress?.section && <div className="cart-section">אחרון: {progress.section}</div>}
+      {importing && (
+        <div className="cart-import">
+          {importing.total ? `קורא עמודים ${importing.done}/${importing.total}` : "פותח את הקובץ…"}
+          <span className="cart-import-bar" style={{ transform: `scaleX(${importing.total ? importing.done / importing.total : 0.05})` }} />
+        </div>
+      )}
+      {!importing && !loaded && <div className="cart-section">לא נטען בדפדפן הזה</div>}
+      {!importing && loaded && progress?.section && <div className="cart-section">אחרון: {progress.section}</div>}
     </div>
   );
 }
 
 export function Sidebar({
-  books,
   progress,
+  loaded,
+  importing,
   activeBook,
   setActiveBook,
   onOpenBook,
   onSetPage,
+  onPickFiles,
   conversations,
   currentId,
   onPick,
   onNew,
   onDelete,
+  canSave,
   open,
   onClose,
 }: {
-  books: Book[];
   progress: Progress;
+  loaded: Loaded;
+  importing: { bookId: string; done: number; total: number } | null;
   activeBook: string;
   setActiveBook: (id: string) => void;
   onOpenBook: (id: string) => void;
   onSetPage: (id: string, page: string) => void;
-  conversations: ConversationSummary[];
+  onPickFiles: (files: File[], forBook?: string) => void;
+  conversations: ConvMeta[];
   currentId?: string;
   onPick: (id: string) => void;
   onNew: () => void;
   onDelete: (id: string) => void;
+  canSave: boolean;
   open: boolean;
   onClose: () => void;
 }) {
-  const { pref } = useTheme();
-  const themes: [ThemePref, string][] = [
-    ["light", "☀️"],
-    ["system", "🖥️"],
-    ["dark", "🌙"],
-  ];
+  const [confirming, setConfirming] = useState<string | null>(null);
+  const multiRef = useRef<HTMLInputElement>(null);
+  const missing = BOOKS.filter((b) => !loaded[b.id]).length;
   return (
     <aside className={`sidebar ${open ? "is-open" : ""}`}>
       <div className="side-brand">
@@ -128,31 +160,44 @@ export function Sidebar({
         </button>
       </div>
 
-      <div className="theme-switch" role="radiogroup" aria-label="ערכת צבעים">
-        {themes.map(([t, icon]) => (
-          <button key={t} role="radio" aria-checked={pref === t} className={pref === t ? "is-on" : ""} onClick={() => setTheme(t)}>
-            {icon}
-          </button>
-        ))}
-      </div>
-
       <div className="side-section">
         <div className="side-label">
           <span className="pill pill-label">המדף</span>
+          {missing > 0 && (
+            <button className="btn btn-small" onClick={() => multiRef.current?.click()}>
+              ⬆ טען ספרים
+            </button>
+          )}
+          <input
+            ref={multiRef}
+            id="file-many"
+            type="file"
+            accept=".pdf,.txt"
+            multiple
+            hidden
+            onChange={(e) => {
+              if (e.target.files?.length) onPickFiles(Array.from(e.target.files));
+              e.target.value = "";
+            }}
+          />
         </div>
         <div className="shelf">
-          {books.map((b) => (
+          {BOOKS.map((b) => (
             <Cartridge
               key={b.id}
               book={b}
               progress={progress[b.id]}
+              loaded={loaded[b.id]}
+              importing={importing?.bookId === b.id ? importing : null}
               active={b.id === activeBook}
               onSelect={() => setActiveBook(b.id)}
               onOpen={() => onOpenBook(b.id)}
               onSetPage={(p) => onSetPage(b.id, p)}
+              onPickFile={(f) => onPickFiles([f], b.id)}
             />
           ))}
         </div>
+        {missing > 0 && <p className="side-hint">הספרים נטענים מהקבצים שבמחשב שלך ונשמרים רק בדפדפן הזה. אפשר לבחור את כולם בבת אחת.</p>}
       </div>
 
       <div className="side-section side-convs">
@@ -164,7 +209,7 @@ export function Sidebar({
         </div>
         <ul className="conv-list">
           {conversations.map((c) => {
-            const b = books.find((x) => x.id === c.bookId);
+            const b = BOOKS.find((x) => x.id === c.bookId);
             return (
               <li key={c.id} className={c.id === currentId ? "is-current" : ""}>
                 <button className="conv-item" onClick={() => onPick(c.id)} style={{ ["--accent" as string]: b?.color ?? "var(--ink-soft)" }}>
@@ -172,19 +217,24 @@ export function Sidebar({
                   <span className="conv-title">{c.title}</span>
                   <span className="conv-count">{c.count}</span>
                 </button>
-                <button
-                  className="conv-del"
-                  title="מחק שיחה"
-                  onClick={() => {
-                    if (confirm(`למחוק את השיחה "${c.title}"?`)) onDelete(c.id);
-                  }}
-                >
-                  🗑
-                </button>
+                {confirming === c.id ? (
+                  <span className="conv-confirm">
+                    <button className="conv-yes" onClick={() => (onDelete(c.id), setConfirming(null))}>
+                      מחק
+                    </button>
+                    <button className="conv-no" onClick={() => setConfirming(null)}>
+                      ביטול
+                    </button>
+                  </span>
+                ) : (
+                  <button className="conv-del" title="מחק שיחה" onClick={() => setConfirming(c.id)}>
+                    🗑
+                  </button>
+                )}
               </li>
             );
           })}
-          {conversations.length === 0 && <li className="conv-empty">עוד אין שיחות. התחילו שיעור ראשון ✨</li>}
+          {conversations.length === 0 && <li className="conv-empty">{canSave ? "עוד אין שיחות. התחילו שיעור ראשון ✨" : "השיחות יופיעו כאן כשהדף מחובר ל-claude.ai."}</li>}
         </ul>
       </div>
     </aside>

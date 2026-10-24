@@ -1,77 +1,50 @@
 import { useEffect, useState } from "react";
-import { api, type Book } from "../api";
+import { BOOKS, getBook } from "../books";
 
-export function BookViewer({ book, start, by, onClose }: { book: Book; start: string; by: "label" | "pdf"; onClose: () => void }) {
-  const [pdf, setPdf] = useState<number | null>(null);
-  const [text, setText] = useState("");
-  const [label, setLabel] = useState<string | null>(null);
-  const [error, setError] = useState("");
-  const [tab, setTab] = useState<"text" | "pdf">("text");
-  const isPdf = book.file.endsWith(".pdf");
+export function BookViewer({ bookId, start, by, onClose }: { bookId: string; start: string; by: "label" | "pdf"; onClose: () => void }) {
+  const meta = BOOKS.find((b) => b.id === bookId)!;
+  const book = getBook(bookId);
+  const [idx, setIdx] = useState(0);
 
   useEffect(() => {
-    setError("");
-    api
-      .pages(book.id, start, by)
-      .then((r) => setPdf(r.range.fromPdf))
-      .catch((e) => {
-        setError(e.message);
-        setPdf(1);
-      });
-  }, [book.id, start, by]);
+    if (!book) return;
+    const i = by === "pdf" ? Number(start) - 1 : book.pages.findIndex((p) => p.label === start);
+    setIdx(Math.max(0, Math.min(book.pages.length - 1, Number.isFinite(i) && i >= 0 ? i : 0)));
+  }, [book, start, by]);
 
-  useEffect(() => {
-    if (pdf === null) return;
-    api
-      .pages(book.id, String(pdf), "pdf")
-      .then((r) => {
-        setText(r.text.replace(/^=====.*=====\n/, ""));
-        setLabel(r.range.fromLabel);
-      })
-      .catch((e) => setError(e.message));
-  }, [book.id, pdf]);
-
-  const go = (d: number) => setPdf((p) => Math.max(1, Math.min(book.pageCount, (p ?? 1) + d)));
-
+  const page = book?.pages[idx];
   return (
     <div className="viewer-backdrop" onClick={onClose}>
-      <div className="viewer window" style={{ ["--accent" as string]: book.color }} onClick={(e) => e.stopPropagation()}>
+      <div className="viewer window" style={{ ["--accent" as string]: meta.color }} onClick={(e) => e.stopPropagation()}>
         <div className="window-bar">
           <span className="window-stripes" aria-hidden />
-          <span className="window-title">{book.titleHe}</span>
+          <span className="window-title">
+            {meta.titleHe} · {meta.volume}
+          </span>
           <span className="window-stripes" aria-hidden />
           <button className="icon-btn" onClick={onClose} aria-label="סגור">
             ✕
           </button>
         </div>
-        <div className="viewer-tools">
-          <button className="btn btn-small" onClick={() => go(-1)}>
-            → הקודם
-          </button>
-          <span className="viewer-page">
-            עמ' מודפס <b>{label ?? "?"}</b> · PDF {pdf ?? "…"}/{book.pageCount}
-          </span>
-          <button className="btn btn-small" onClick={() => go(1)}>
-            הבא ←
-          </button>
-          {isPdf && (
-            <div className="tabs">
-              <button className={tab === "text" ? "is-on" : ""} onClick={() => setTab("text")}>
-                טקסט
+        {book ? (
+          <>
+            <div className="viewer-tools">
+              <button className="btn btn-small" onClick={() => setIdx((i) => Math.max(0, i - 1))}>
+                → הקודם
               </button>
-              <button className={tab === "pdf" ? "is-on" : ""} onClick={() => setTab("pdf")}>
-                PDF
+              <span className="viewer-page">
+                עמ' מודפס <b>{page?.label ?? "?"}</b> · PDF {idx + 1}/{book.pages.length}
+              </span>
+              <button className="btn btn-small" onClick={() => setIdx((i) => Math.min(book.pages.length - 1, i + 1))}>
+                הבא ←
               </button>
             </div>
-          )}
-        </div>
-        {error && <div className="seg-note">⚠️ {error}</div>}
-        {tab === "pdf" && isPdf && pdf ? (
-          <iframe key={pdf} className="viewer-pdf" src={`/api/books/${book.id}/file#page=${pdf}`} title="PDF" />
+            <pre className="viewer-text" dir="ltr">
+              {page?.text || "(אין טקסט בעמוד הזה)"}
+            </pre>
+          </>
         ) : (
-          <pre className="viewer-text" dir="ltr">
-            {text}
-          </pre>
+          <div className="viewer-text">הספר לא נטען בדפדפן הזה.</div>
         )}
       </div>
     </div>

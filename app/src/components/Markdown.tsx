@@ -13,11 +13,10 @@ import { Interactive } from "./blocks/Interactive";
 import { Badge } from "./blocks/Badge";
 
 export interface MdContextValue {
-  registry: Map<string, any>;
   live: boolean;
   idPrefix: string;
 }
-export const MdContext = createContext<MdContextValue>({ registry: new Map(), live: false, idPrefix: "m" });
+export const MdContext = createContext<MdContextValue>({ live: false, idPrefix: "m" });
 
 /** [[tag]] → inline code with a marker, outside fenced blocks, so the code renderer can draw a pill. */
 function preprocess(src: string) {
@@ -47,8 +46,8 @@ function FencedBlock({ lang, code }: { lang: string; code: string }) {
   const ctx = useContext(MdContext);
   if (lang === "think") return <Think body={code} />;
   if (lang === "exercise") return <Exercise source={code} />;
-  if (lang === "chart") return <ChartBlock source={code} registry={ctx.registry} live={ctx.live} />;
-  if (lang === "table") return <TableBlock source={code} registry={ctx.registry} live={ctx.live} />;
+  if (lang === "chart") return <ChartBlock source={code} live={ctx.live} />;
+  if (lang === "table") return <TableBlock source={code} live={ctx.live} />;
   if (lang === "mermaid") return <MermaidBlock code={code} live={ctx.live} />;
   if (lang === "svg") return <SvgBlock source={code} />;
   if (lang === "interactive") return <Interactive source={code} live={ctx.live} />;

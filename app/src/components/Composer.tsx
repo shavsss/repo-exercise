@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import type { Effort, Mode } from "../api";
+import type { Effort, Mode } from "../types";
 
 export interface QuickAction {
   label: string;
@@ -16,10 +16,9 @@ const MODES: { id: Mode; label: string; hint: string }[] = [
 ];
 
 const EFFORTS: { id: Effort; label: string }[] = [
+  { id: "low", label: "נמוך" },
   { id: "medium", label: "בינוני" },
   { id: "high", label: "גבוה" },
-  { id: "xhigh", label: "גבוה מאוד" },
-  { id: "max", label: "מקסימום" },
 ];
 
 export function Composer({
@@ -32,9 +31,10 @@ export function Composer({
   setMode,
   effort,
   setEffort,
+  canAttach,
 }: {
   busy: boolean;
-  onSend: (text: string, images: { media_type: string; data: string }[]) => void;
+  onSend: (text: string, images: File[]) => void;
   onStop: () => void;
   onQuick: (q: QuickAction) => void;
   quick: QuickAction[];
@@ -42,15 +42,16 @@ export function Composer({
   setMode: (m: Mode) => void;
   effort: Effort;
   setEffort: (e: Effort) => void;
+  canAttach: boolean;
 }) {
   const [text, setText] = useState("");
-  const [images, setImages] = useState<{ media_type: string; data: string; url: string }[]>([]);
+  const [images, setImages] = useState<{ file: File; url: string }[]>([]);
   const fileRef = useRef<HTMLInputElement>(null);
   const taRef = useRef<HTMLTextAreaElement>(null);
 
   const submit = () => {
     if (busy || (!text.trim() && !images.length)) return;
-    onSend(text.trim(), images.map(({ media_type, data }) => ({ media_type, data })));
+    onSend(text.trim(), images.map((im) => im.file));
     setText("");
     setImages([]);
     if (taRef.current) taRef.current.style.height = "";
@@ -58,13 +59,8 @@ export function Composer({
 
   const addFiles = (files: FileList | File[]) => {
     for (const f of Array.from(files)) {
-      if (!f.type.startsWith("image/")) continue;
-      const reader = new FileReader();
-      reader.onload = () => {
-        const url = String(reader.result);
-        setImages((im) => [...im, { media_type: f.type, data: url.split(",")[1], url }]);
-      };
-      reader.readAsDataURL(f);
+      if (!canAttach || !f.type.startsWith("image/")) continue;
+      setImages((im) => [...im, { file: f, url: URL.createObjectURL(f) }]);
     }
   };
 
@@ -102,6 +98,7 @@ export function Composer({
           </div>
         )}
         <textarea
+          id="composer-text"
           ref={taRef}
           className="composer-input"
           rows={1}
@@ -124,13 +121,17 @@ export function Composer({
           }}
         />
         <div className="composer-tools">
-          <button className="icon-btn" onClick={() => fileRef.current?.click()} title="צרף תמונה (למשל צילום עמוד)">
-            🖼️
-          </button>
-          <input ref={fileRef} type="file" accept="image/*" multiple hidden onChange={(e) => e.target.files && addFiles(e.target.files)} />
+          {canAttach && (
+            <>
+              <button className="icon-btn" onClick={() => fileRef.current?.click()} title="צרף תמונה (למשל צילום עמוד)" aria-label="צרף תמונה">
+                🖼️
+              </button>
+              <input ref={fileRef} id="composer-image" type="file" accept="image/png,image/jpeg,image/webp,image/gif" multiple hidden onChange={(e) => e.target.files && addFiles(e.target.files)} />
+            </>
+          )}
           <label className="effort">
             <span>עומק חשיבה</span>
-            <select value={effort} onChange={(e) => setEffort(e.target.value as Effort)}>
+            <select id="composer-effort" value={effort} onChange={(e) => setEffort(e.target.value as Effort)}>
               {EFFORTS.map((x) => (
                 <option key={x.id} value={x.id}>
                   {x.label}

@@ -1,28 +1,29 @@
-import type { Book, Progress } from "../api";
+import type { BookMeta } from "../books";
+import type { Progress } from "../runtime";
 import { FlowField } from "./FlowField";
 
 export function Hud({
   book,
+  lastLabel,
   progress,
   words,
   solved,
-  hasKey,
-  model,
+  status,
   title,
   onMenu,
 }: {
-  book?: Book;
+  book: BookMeta;
+  lastLabel: string | null;
   progress: Progress;
   words: number;
   solved: number;
-  hasKey: boolean;
-  model: string;
+  status: "connecting" | "live" | "off";
   title: string;
   onMenu: () => void;
 }) {
-  const p = book ? progress[book.id] : undefined;
+  const p = progress[book.id];
   const lessons = Object.values(progress).reduce((s, x) => s + (x.lessons ?? 0), 0);
-  const last = Number(book?.lastLabel);
+  const last = Number(lastLabel);
   const frac = p && Number.isFinite(last) && last > 0 ? Math.min(1, Number(p.page) / last) : 0;
   const colors = ["#8ac926", "#ffbe0b", "#ff9a3d", "#ff6b35", "#ff3d7f", "#b04dff", "#3a86ff", "#2ec4b6"];
   return (
@@ -34,8 +35,8 @@ export function Hud({
         </button>
         <div className="hud-title">
           <div className="hud-conv">{title}</div>
-          <div className="hud-book" style={{ color: book?.color }}>
-            {book ? book.titleHe : ""}
+          <div className="hud-book" style={{ color: book.color }}>
+            {book.titleHe} · {book.volume}
           </div>
         </div>
         <div className="hud-tiles">
@@ -63,7 +64,7 @@ export function Hud({
             ))}
             <span className="meter-knob" style={{ insetInlineStart: `${frac * 100}%` }} />
           </div>
-          <span className={`hud-status ${hasKey ? "live" : "demo"}`}>{hasKey ? `● ${model}` : "● מצב הדגמה"}</span>
+          <span className={`hud-status ${status}`}>{status === "live" ? "● Claude מחובר" : status === "connecting" ? "● מתחבר…" : "● Claude לא זמין"}</span>
         </div>
       </div>
     </header>

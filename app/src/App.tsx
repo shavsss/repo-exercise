@@ -1,6 +1,9 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { api, type AppState, type Block, type Conversation, type Effort, type Mode, type ServerEvent, type StoredMessage } from "./api";
-import { countWords, dataRegistry, toItems } from "./segments";
+import { connect, type ConvMeta, type Progress, type Runtime, type SampleError } from "./runtime";
+import { BOOKS, INITIAL_PROGRESS, guessBook, importFile, loadAll } from "./books";
+import { askTutor } from "./tutor";
+import { countWords, toItems } from "./segments";
+import type { Activity, Effort, Mode, StoredMessage } from "./types";
 import { Sidebar } from "./components/Sidebar";
 import { Hud } from "./components/Hud";
 import { AssistantTurn, UserBubble } from "./components/Message";
@@ -13,6 +16,18 @@ interface Notice {
   level: "info" | "warn" | "error";
   text: string;
 }
+
+const ERROR_COPY: Record<string, string> = {
+  not_granted: "הדף לא קיבל הרשאה לפנות ל-Claude. אפשר לאשר אותה בתפריט ההרשאות של ה-Artifact.",
+  sampling_disabled: "Claude אינו זמין בחשבון הזה.",
+  rate_limited: "הגעת למגבלת השימוש כרגע. נסה שוב בעוד כמה דקות.",
+  session_expired: "צריך להתחבר מחדש ל-claude.ai.",
+  prompt_too_large: "השיחה ארוכה מדי לשליחה אחת. כדאי לפתוח שיחה חדשה לסעיף הבא.",
+  refused: "Claude סירב לבקשה הזו. אפשר לנסח אותה אחרת.",
+  empty_completion: "לא התקבלה תשובה. נסה לבקש פחות בבת אחת.",
+  image_rejected: "התמונה לא התקבלה (סוג או גודל). נסה קובץ אחר.",
+  upstream_error: "החיבור ל-Claude נקטע. אפשר לנסות שוב.",
+};
 
 function usePersisted<T extends string>(key: string, initial: T): [T, (v: T) => void] {
   const [v, setV] = useState<T>(() => {
@@ -34,11 +49,16 @@ function usePersisted<T extends string>(key: string, initial: T): [T, (v: T) => 
 }
 
 export function App() {
-  const [state, setState] = useState<AppState | null>(null);
-  const [conv, setConv] = useState<Conversation | null>(null);
-  const [live, setLive] = useState<StoredMessage[]>([]);
+  const [rt, setRt] = useState<Runtime | null>(null);
+  const [progress, setProgress] = useState<Progress>(INITIAL_PROGRESS);
+  const [convs, setConvs] = useState<ConvMeta[]>([]);
+  const [conv, setConv] = useState<ConvMeta | null>(null);
+  const [messages, setMessages] = useState<StoredMessage[]>([]);
+  const [live, setLive] = useState<StoredMessage | null>(null);
   const [busy, setBusy] = useState(false);
   const [notices, setNotices] = useState<Notice[]>([]);
+  const [loaded, setLoaded] = useState<Record<string, { pages: number; fileName: string; lastLabel: string | null }>>({});
+  const [importing, setImporting] = useState<{ bookId: string; done: number; total: number } | null>(null);
   const [activeBook, setActiveBook] = usePersisted<string>("study-lab:book", "math1");
   const [mode, setMode] = usePersisted<Mode>("study-lab:mode", "lesson");
   const [effort, setEffort] = usePersisted<Effort>("study-lab:effort", "high");
@@ -48,128 +68,190 @@ export function App() {
   const [readPct, setReadPct] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
   const stick = useRef(true);
+  const ctl = useRef<AbortController | null>(null);
 
   useEffect(() => onSolvedChange(() => setSolved(solvedCount())), []);
 
-  const refresh = useCallback(async () => {
-    const s = await api.state();
-    setState(s);
-    return s;
+  const refreshLoaded = useCallback(async () => {
+    const all = await loadAll();
+    setLoaded(
+      Object.fromEntries(
+        [...all.values()].map((b) => [b.id, { pages: b.pages.length, fileName: b.fileName, lastLabel: [...b.pages].reverse().find((p) => p.label)?.label ?? null }]),
+      ),
+    );
   }, []);
 
+  // Runtime, the learner's stored data, and the books cached in this browser.
   useEffect(() => {
-    refresh().then((s) => {
-      let last: string | null = null;
+    refreshLoaded();
+    let unsubs: (() => void)[] = [];
+    let alive = true;
+    connect().then(async (r) => {
+      if (!alive) return;
+      setRt(r);
+      if (!r.store) return;
       try {
-        last = localStorage.getItem("study-lab:conv");
+        await r.store.ensureProfile(INITIAL_PROGRESS);
+      } catch {
+        // a view-only viewer cannot write; reading still works
+      }
+      unsubs = [r.store.watchProgress((p) => setProgress(Object.keys(p).length ? p : INITIAL_PROGRESS)), r.store.watchConversations(setConvs)];
+    });
+    return () => {
+      alive = false;
+      unsubs.forEach((u) => u());
+    };
+  }, [refreshLoaded]);
+
+  const openConversation = useCallback(
+    async (c: ConvMeta) => {
+      setConv(c);
+      setMessages([]);
+      setNotices([]);
+      try {
+        localStorage.setItem("study-lab:conv", c.id);
       } catch {
         // ignore
       }
-      const id = s.conversations.find((c) => c.id === last)?.id ?? s.conversations[0]?.id;
-      if (id) api.conversation(id).then(setConv);
-    });
-  }, [refresh]);
+      if (rt?.store) {
+        try {
+          setMessages(await rt.store.loadMessages(c.id));
+        } catch {
+          setNotices([{ level: "error", text: "לא הצלחתי לטעון את השיחה." }]);
+        }
+      }
+    },
+    [rt],
+  );
 
+  // Reopen the last conversation once the list arrives.
+  const restored = useRef(false);
   useEffect(() => {
-    if (!conv) return;
+    if (restored.current || !convs.length) return;
+    restored.current = true;
+    let last: string | null = null;
     try {
-      localStorage.setItem("study-lab:conv", conv.id);
+      last = localStorage.getItem("study-lab:conv");
     } catch {
       // ignore
     }
-  }, [conv?.id]);
+    const c = convs.find((x) => x.id === last);
+    if (c) openConversation(c);
+  }, [convs, openConversation]);
 
-  // Batch streamed events into one render per animation frame.
-  const pending = useRef<ServerEvent[]>([]);
-  const frame = useRef(0);
-  const flush = useCallback(() => {
-    frame.current = 0;
-    const events = pending.current;
-    pending.current = [];
-    if (!events.length) return;
-    setLive((prev) => {
-      const msgs = prev.map((m) => ({ ...m, content: [...m.content] }));
-      for (const e of events) {
-        const cur = msgs[msgs.length - 1];
-        switch (e.type) {
-          case "user_saved":
-            msgs.push(e.message);
-            break;
-          case "msg_start":
-            msgs.push({ role: "assistant", content: [] });
-            break;
-          case "block_start":
-            if (cur) cur.content[e.index] = { ...e.block, _live: true, ...(e.block.type === "thinking" ? { thinking: "" } : {}) } as Block;
-            break;
-          case "delta": {
-            const b = cur?.content[e.index];
-            if (!b) break;
-            if (e.kind === "text") cur.content[e.index] = { ...b, text: (b.text ?? "") + e.text };
-            else if (e.kind === "thinking") cur.content[e.index] = { ...b, thinking: (b.thinking ?? "") + e.text };
-            else cur.content[e.index] = { ...b, _partial: (b._partial ?? "") + e.text };
-            break;
-          }
-          case "block_done":
-            if (cur) cur.content[e.index] = e.block;
-            break;
-          case "msg_done":
-            msgs[msgs.length - 1] = e.message;
-            break;
-          case "tool_results":
-            msgs.push(e.message);
-            break;
-        }
+  const saveProgress = useCallback(
+    async (bookId: string, patch: Partial<Progress[string]>) => {
+      setProgress((p) => ({ ...p, [bookId]: { ...(p[bookId] ?? { page: "1" }), ...patch, updatedAt: Date.now() } }));
+      try {
+        await rt?.store?.setProgress(bookId, patch, progress);
+      } catch {
+        setNotices((n) => [...n, { level: "warn", text: "ההתקדמות עודכנה רק בתצוגה הזו. השמירה ב-claude.ai נכשלה." }]);
       }
-      return msgs;
-    });
-  }, []);
-
-  const onEvent = useCallback(
-    (e: ServerEvent) => {
-      if (e.type === "notice") return setNotices((n) => [...n, { level: e.level, text: e.text }]);
-      if (e.type === "progress") return setState((s) => (s ? { ...s, progress: e.progress } : s));
-      if (e.type === "done") return;
-      pending.current.push(e);
-      if (!frame.current) frame.current = requestAnimationFrame(flush);
     },
-    [flush],
+    [progress, rt],
   );
 
   const send = useCallback(
-    async (text: string, images: { media_type: string; data: string }[], sendMode: Mode = mode, title?: string) => {
-      if (busy) return;
-      let c = conv;
-      if (!c) {
-        c = await api.create(undefined, activeBook);
-        setConv(c);
+    async (text: string, images: File[], sendMode: Mode = mode, title?: string) => {
+      if (busy || !rt) return;
+      if (!rt.sample) {
+        setNotices([{ level: "error", text: "Claude אינו זמין בתצוגה הזו. פתח את הדף ב-claude.ai כשאתה מחובר." }]);
+        return;
       }
       setBusy(true);
       setNotices([]);
-      setLive([]);
       stick.current = true;
+      const history = messages;
+      const userMsg: StoredMessage = { role: "user", text, mode: sendMode, ts: Date.now(), ...(images.length ? { images: images.length } : {}) };
+      let c = conv;
+      if (!c) {
+        const t = (title || text || "תמונה").replace(/\s+/g, " ").slice(0, 60);
+        try {
+          c = rt.store ? await rt.store.createConversation(t, activeBook) : null;
+        } catch {
+          setNotices([{ level: "warn", text: "לא הצלחתי לשמור את השיחה ב-claude.ai. היא תישאר רק בתצוגה הזו." }]);
+        }
+        c ??= { id: `local-${Date.now()}`, title: t, bookId: activeBook, createdAt: Date.now(), updatedAt: Date.now(), count: 0 };
+        setConv(c);
+      }
+      const convId = c.id;
+      setMessages([...history, userMsg]);
+      const persist = async (m: StoredMessage, count: number) => {
+        if (!rt.store || convId.startsWith("local-")) return;
+        try {
+          await rt.store.addMessage(convId, m, count);
+        } catch {
+          setNotices((n) => [...n, { level: "warn", text: "חלק מהשיחה לא נשמר ב-claude.ai." }]);
+        }
+      };
+      await persist(userMsg, history.length + 1);
+
+      const activity: Activity[] = [];
+      let answer: StoredMessage = { role: "assistant", text: "", mode: sendMode, ts: Date.now(), activity };
+      setLive(answer);
+      ctl.current = new AbortController();
       try {
-        await api.send(c.id, { text, mode: sendMode, effort, images, title }, onEvent);
+        const res = await askTutor({
+          rt,
+          history,
+          text,
+          mode: sendMode,
+          effort,
+          images,
+          progress,
+          activeBook,
+          signal: ctl.current.signal,
+          cb: {
+            onText: (t) => setLive((l) => (l ? { ...l, text: t } : l)),
+            onActivity: (a) => {
+              activity.push(a);
+              setLive((l) => (l ? { ...l, activity: [...activity] } : l));
+            },
+            onProgress: (bookId, page, section) => saveProgress(bookId, { page, section, lessons: (progress[bookId]?.lessons ?? 0) + 1 }),
+          },
+        });
+        answer = { ...answer, text: res.text, model: res.modelApplied ?? `רמת מודל: ${res.modelTierApplied}`, activity, ...(res.truncated ? { truncated: true } : {}) };
       } catch (err) {
-        setNotices((n) => [...n, { level: "error", text: (err as Error).message }]);
+        const e = err as SampleError;
+        answer = { ...answer, text: e.code === "refused" ? "" : (e.text ?? ""), interrupted: true, activity };
+        if (e.code !== "cancelled") setNotices((n) => [...n, { level: "error", text: ERROR_COPY[e.code] ?? ERROR_COPY.upstream_error }]);
       } finally {
-        cancelAnimationFrame(frame.current);
-        flush();
-        const fresh = await api.conversation(c.id);
-        setConv(fresh);
-        setLive([]);
+        setLive(null);
+        if (answer.text || answer.activity?.length) {
+          setMessages([...history, userMsg, answer]);
+          await persist(answer, history.length + 2);
+        }
         setBusy(false);
-        refresh();
       }
     },
-    [busy, conv, activeBook, mode, effort, onEvent, flush, refresh],
+    [busy, rt, conv, messages, mode, effort, progress, activeBook, saveProgress],
   );
 
-  const messages = useMemo(() => [...(conv?.messages ?? []), ...live], [conv, live]);
-  const items = useMemo(() => toItems(messages), [messages]);
-  const registry = useMemo(() => dataRegistry(messages), [messages]);
+  const onPickFiles = useCallback(
+    async (files: File[], forBook?: string) => {
+      for (const f of files) {
+        const bookId = forBook ?? guessBook(f.name);
+        if (!bookId) {
+          setNotices((n) => [...n, { level: "warn", text: `לא זיהיתי לאיזה ספר שייך הקובץ "${f.name}". אפשר לטעון אותו מהכפתור ⬆ של הספר עצמו.` }]);
+          continue;
+        }
+        setImporting({ bookId, done: 0, total: 0 });
+        try {
+          await importFile(f, bookId, (done, total) => setImporting({ bookId, done, total }));
+        } catch (e) {
+          setNotices((n) => [...n, { level: "error", text: `טעינת "${f.name}" נכשלה: ${(e as Error).message}` }]);
+        }
+      }
+      setImporting(null);
+      refreshLoaded();
+    },
+    [refreshLoaded],
+  );
+
+  const all = useMemo(() => (live ? [...messages, live] : messages), [messages, live]);
+  const items = useMemo(() => toItems(all), [all]);
   const totalWords = useMemo(() => items.reduce((s, it) => s + (it.kind === "assistant" ? countWords(it.segments) : 0), 0), [items]);
 
-  // Follow the stream while the learner is at the bottom.
   useEffect(() => {
     const el = scrollRef.current;
     if (el && busy && stick.current) el.scrollTop = el.scrollHeight;
@@ -181,19 +263,11 @@ export function App() {
     setReadPct(el.scrollHeight > el.clientHeight ? el.scrollTop / (el.scrollHeight - el.clientHeight) : 0);
   };
 
-  if (!state)
-    return (
-      <div className="boot">
-        <FlowField className="boot-canvas" />
-        <div className="boot-text">STUDY·LAB</div>
-      </div>
-    );
-
-  const book = state.books.find((b) => b.id === activeBook) ?? state.books[0];
-  const prog = state.progress[book.id];
+  const book = BOOKS.find((b) => b.id === activeBook) ?? BOOKS[0];
+  const prog = progress[book.id];
   const startPage = prog?.page ?? (book.series === "physics" ? "1-1" : "1");
-  const volume = book.titleHe.split("—")[1]?.split(":")[0]?.trim() ?? book.id;
   const seriesName = book.series === "math" ? "מתמטיקה" : "פיינמן";
+  const volume = book.volume.split(":")[0];
   const quick: QuickAction[] = [
     {
       label: `📖 השיעור הבא: ${seriesName} ${volume}, עמ' ${startPage}`,
@@ -204,61 +278,84 @@ export function App() {
     ...(items.length
       ? [
           { label: "🐢 הסבר שוב, לאט יותר", text: "החלק האחרון היה מהיר מדי בשבילי. הסבר אותו שוב, לאט יותר ומלמטה למעלה, עם עוד דוגמה מספרית פשוטה.", mode: "clarify" as Mode },
-          { label: "✏️ עוד תרגילים", text: "תן לי עוד תרגילים על החומר האחרון, מדורגים מקל לקשה, כולל פתרונות מלאים שאומתו בקוד.", mode: "clarify" as Mode },
-          { label: "🔬 מקרה בוחן נוסף", text: "הוסף מקרה בוחן מעמיק נוסף לחומר האחרון, מתחום שעוד לא הופיע, עם מודל ומספרים מקוד.", mode: "clarify" as Mode },
+          { label: "✏️ עוד תרגילים", text: "תן לי עוד תרגילים על החומר האחרון, מדורגים מקל לקשה, כולל פתרונות מלאים שאומתו בחישוב.", mode: "clarify" as Mode },
+          { label: "🔬 מקרה בוחן נוסף", text: "הוסף מקרה בוחן מעמיק נוסף לחומר האחרון, מתחום שעוד לא הופיע, עם מודל ומספרים מחושבים.", mode: "clarify" as Mode },
         ]
       : []),
   ];
+  const lastItem = items[items.length - 1];
 
   return (
     <div className="app">
       <Sidebar
-        books={state.books}
-        progress={state.progress}
+        progress={progress}
+        loaded={loaded}
+        importing={importing}
         activeBook={book.id}
         setActiveBook={(id) => (setActiveBook(id), setSideOpen(false))}
-        onOpenBook={(id) => setViewer({ bookId: id, page: state.progress[id]?.page ?? "1", by: state.progress[id] ? "label" : "pdf" })}
-        onSetPage={async (id, page) => {
-          try {
-            const p = await api.setProgress(id, page);
-            setState((s) => (s ? { ...s, progress: p } : s));
-          } catch (e) {
-            setNotices((n) => [...n, { level: "error", text: (e as Error).message }]);
-          }
-        }}
-        conversations={state.conversations}
+        onOpenBook={(id) => setViewer({ bookId: id, page: progress[id]?.page ?? "1", by: progress[id] ? "label" : "pdf" })}
+        onSetPage={(id, page) => saveProgress(id, { page })}
+        onPickFiles={onPickFiles}
+        conversations={convs}
         currentId={conv?.id}
         onPick={(id) => {
-          if (busy) return;
-          api.conversation(id).then(setConv);
+          const c = convs.find((x) => x.id === id);
+          if (busy || !c) return;
+          openConversation(c);
           setSideOpen(false);
         }}
         onNew={() => {
           if (busy) return;
           setConv(null);
+          setMessages([]);
+          setNotices([]);
           setSideOpen(false);
         }}
         onDelete={async (id) => {
-          await api.remove(id);
-          if (conv?.id === id) setConv(null);
-          refresh();
+          try {
+            await rt?.store?.deleteConversation(id);
+          } catch {
+            setNotices((n) => [...n, { level: "error", text: "המחיקה נכשלה." }]);
+          }
+          if (conv?.id === id) {
+            setConv(null);
+            setMessages([]);
+          }
         }}
+        canSave={!!rt?.store}
         open={sideOpen}
         onClose={() => setSideOpen(false)}
       />
       {sideOpen && <div className="side-scrim" onClick={() => setSideOpen(false)} />}
 
       <main className="main">
-        <Hud book={book} progress={state.progress} words={totalWords} solved={solved} hasKey={state.hasKey} model={state.model} title={conv?.title ?? "שיחה חדשה"} onMenu={() => setSideOpen(true)} />
+        <Hud
+          book={book}
+          lastLabel={loaded[book.id]?.lastLabel ?? null}
+          progress={progress}
+          words={totalWords}
+          solved={solved}
+          status={!rt ? "connecting" : rt.sample ? "live" : "off"}
+          title={conv?.title ?? "שיחה חדשה"}
+          onMenu={() => setSideOpen(true)}
+        />
         <div className="read-progress" style={{ transform: `scaleX(${readPct})` }} />
         <div className="chat-scroll" ref={scrollRef} onScroll={onScroll}>
           <div className="chat-col">
-            {!state.hasKey && (
+            {rt && !rt.sample && (
+              <div className="banner banner-warn">אין כאן חיבור ל-Claude. פתח את הדף ב-claude.ai כשאתה מחובר, ואשר לו לפנות ל-Claude כשתתבקש.</div>
+            )}
+            {rt && rt.sample && !rt.store && (
+              <div className="banner banner-warn">השיחות לא יישמרו בתצוגה הזו (צריך להיות מחובר ל-claude.ai עם הרשאת כתיבה).</div>
+            )}
+            {!loaded[book.id] && (
               <div className="banner banner-demo">
-                <b>מצב הדגמה:</b> לא הוגדר <code>ANTHROPIC_API_KEY</code>, אז כל הודעה תקבל שיעור הדגמה מוכן מראש שמציג את רכיבי התצוגה. אחרי שמוסיפים מפתח בקובץ <code>app/.env</code>, המורה האמיתי עונה.
+                <b>טען את הספר כדי שהמורה יוכל לקרוא ממנו.</b> בחר את קובץ ה-{book.series === "math" || book.id === "feyn3" ? "PDF" : "TXT"} של {seriesName} {volume} מהמאגר שלך (הכפתור ⬆ בכרטיס במדף). הטקסט נשמר רק בדפדפן הזה ולא עולה לשום מקום.
               </div>
             )}
-            {items.length === 0 && <Welcome book={book} page={startPage} onStart={() => send(quick[0].text, [], "lesson", quick[0].title)} />}
+            {items.length === 0 && (
+              <Welcome page={startPage} label={`${seriesName} ${volume}`} color={book.color} onStart={() => send(quick[0].text, [], "lesson", quick[0].title)} disabled={!rt?.sample || busy} />
+            )}
             {items.map((it, i) =>
               it.kind === "user" ? (
                 <UserBubble key={it.key} item={it} />
@@ -266,23 +363,14 @@ export function App() {
                 <AssistantTurn
                   key={it.key}
                   item={it}
-                  live={busy && i === items.length - 1}
-                  registry={registry}
-                  books={state.books}
+                  live={busy && !!live && i === items.length - 1}
                   onOpenBook={(bookId, page, by) => setViewer({ bookId, page, by })}
                   onFillGaps={(missing) =>
                     send(`בהודעה הקודמת חסרו לפי בדיקת הרף: ${missing.join(", ")}. השלם עכשיו את החסר ברמה המלאה, בהמשך ישיר לשיעור ובלי לחזור על מה שכבר נכתב.`, [], "lesson")
                   }
+                  onContinue={it === lastItem && !busy ? () => send("המשך בדיוק מהמקום שבו נעצרת, בלי לחזור על מה שכבר נכתב.", [], it.mode) : undefined}
                 />
               ),
-            )}
-            {busy && items[items.length - 1]?.kind === "user" && (
-              <div className="typing">
-                <span />
-                <span />
-                <span />
-                המורה קורא את הספר ומתכנן את השיעור…
-              </div>
             )}
             {notices.map((n, i) => (
               <div key={i} className={`banner banner-${n.level}`}>
@@ -295,28 +383,22 @@ export function App() {
           busy={busy}
           onSend={(t, im) => send(t, im)}
           onQuick={(q) => send(q.text, [], q.mode, q.title)}
-          onStop={() => conv && api.stop(conv.id)}
+          onStop={() => ctl.current?.abort()}
           quick={quick}
           mode={mode}
           setMode={setMode}
           effort={effort}
           setEffort={setEffort}
+          canAttach={!!rt?.canSendImages}
         />
       </main>
 
-      {viewer && (
-        <BookViewer
-          book={state.books.find((b) => b.id === viewer.bookId)!}
-          start={viewer.page}
-          by={viewer.by}
-          onClose={() => setViewer(null)}
-        />
-      )}
+      {viewer && <BookViewer bookId={viewer.bookId} start={viewer.page} by={viewer.by} onClose={() => setViewer(null)} />}
     </div>
   );
 }
 
-function Welcome({ book, page, onStart }: { book: AppState["books"][number]; page: string; onStart: () => void }) {
+function Welcome({ page, label, color, onStart, disabled }: { page: string; label: string; color: string; onStart: () => void; disabled: boolean }) {
   return (
     <div className="welcome window">
       <div className="window-bar">
@@ -333,11 +415,9 @@ function Welcome({ book, page, onStart }: { book: AppState["books"][number]; pag
           <h1 className="welcome-title">
             מעבדת <span className="grad">הלמידה</span>
           </h1>
-          <p className="welcome-sub">
-            שיעור מעמיק על כל סעיף: סיפור פתיחה, גזירות צעד אחר צעד, שחזור של כל איור, מקרה בוחן ותרגילים. כל מספר מחושב בקוד.
-          </p>
-          <button className="btn btn-hero" onClick={onStart} style={{ ["--accent" as string]: book.color }}>
-            ▶ התחל מעמ' {page} · {book.titleHe.split("—")[1]?.split(":")[0]?.trim()}
+          <p className="welcome-sub">שיעור מעמיק על כל סעיף: סיפור פתיחה, גזירות צעד אחר צעד, שחזור של כל איור, מקרה בוחן ותרגילים. כל מספר מחושב.</p>
+          <button className="btn btn-hero" onClick={onStart} disabled={disabled} style={{ ["--accent" as string]: color }}>
+            ▶ התחל מעמ' {page} · {label}
           </button>
         </div>
       </div>
@@ -351,9 +431,9 @@ function Welcome({ book, page, onStart }: { book: AppState["books"][number]; pag
           ["🎛️", "אינטראקטיבי", "orange"],
           ["⚠️", "טעויות בספר", "red"],
           ["✏️", "תרגילים", "lime"],
-        ].map(([icon, label, tone]) => (
-          <span key={label} className={`chip tone-chip-${tone}`}>
-            {icon} {label}
+        ].map(([icon, l, tone]) => (
+          <span key={l} className={`chip tone-chip-${tone}`}>
+            {icon} {l}
           </span>
         ))}
       </div>

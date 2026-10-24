@@ -1,3 +1,4 @@
+import { evalExpr } from "../../tutor";
 import {
   Area,
   AreaChart,
@@ -47,25 +48,57 @@ function Pending({ live, msg }: { live: boolean; msg: string }) {
   return <div className={`viz-pending ${live ? "is-live" : "is-error"}`}>{live ? "⏳ ממתין להשלמת הבלוק…" : `⚠️ ${msg}`}</div>;
 }
 
-function resolve(source: string, registry: Map<string, any>, kind: "chart" | "table") {
-  const { spec, error } = parseSpec(source);
-  if (!spec) return { error };
-  if (spec.ref) {
-    const data = registry.get(`${kind}:${spec.ref}`);
-    if (!data) return { error: `לא נמצאו נתונים בשם "${spec.ref}" בפלט הקוד`, spec };
-    if (data.error) return { error: data.error, spec };
-    return { spec, data, fromCode: true };
-  }
-  return { spec, data: spec, fromCode: false };
+function toNumber(v: unknown): number | null {
+  const n = typeof v === "number" ? v : typeof (v as any)?.toNumber === "function" ? (v as any).toNumber() : typeof (v as any)?.valueOf === "function" ? Number((v as any).valueOf()) : NaN;
+  return Number.isFinite(n) ? +n.toPrecision(10) : null;
 }
 
-export function ChartBlock({ source, registry, live }: { source: string; registry: Map<string, any>; live: boolean }) {
-  const r = resolve(source, registry, "chart");
-  if (!r.data) return <Frame kind="chart" title={r.spec?.title}><Pending live={live} msg={r.error ?? ""} /></Frame>;
-  const d = r.data;
-  const series: { name: string; points: [number | string, number][] }[] = d.series ?? [];
+/** Computes chart data from the block's expressions (math.js), so every value comes from a calculation. */
+function computeChart(spec: any): { series: { name: string; points: [number | string, number | null][] }[]; error?: string } {
+  const scope = spec.scope ?? {};
+  try {
+    if (spec.points?.categories) {
+      const cats: string[] = spec.points.categories;
+      return {
+        series: (spec.points.series ?? []).map((s: any) => ({
+          name: String(s.name),
+          points: cats.map((c, i) => [c, toNumber(evalExpr(String(s.exprs?.[i] ?? "NaN"), scope))] as [string, number | null]),
+        })),
+      };
+    }
+    const { from = 0, to = 1, step } = spec.x ?? {};
+    const st = step && step > 0 ? step : (to - from) / 200;
+    const n = Math.min(2000, Math.floor((to - from) / st + 1e-9) + 1);
+    return {
+      series: (spec.series ?? []).map((s: any) => ({
+        name: String(s.name),
+        points: Array.from({ length: n }, (_, k) => {
+          const x = +(from + k * st).toPrecision(12);
+          let y: number | null = null;
+          try {
+            y = toNumber(evalExpr(String(s.expr), { ...scope, x }));
+          } catch {
+            y = null;
+          }
+          return [x, y] as [number, number | null];
+        }),
+      })),
+    };
+  } catch (e) {
+    return { series: [], error: (e as Error).message };
+  }
+}
+
+export function ChartBlock({ source, live }: { source: string; live: boolean }) {
+  const { spec, error } = parseSpec(source);
+  if (!spec) return <Frame kind="chart"><Pending live={live} msg={error ?? ""} /></Frame>;
+  const d = { ...spec, xLabel: spec.x?.label ?? spec.xLabel };
+  const computed = computeChart(spec);
+  if (computed.error || !computed.series.length) return <Frame kind="chart" title={spec.title}><Pending live={live} msg={computed.error ?? "אין סדרות לחישוב"} /></Frame>;
+  const series = computed.series;
   const type: string = d.type ?? "line";
-  const prov = r.fromCode ? "⚙️ נתונים מפלט הקוד" : "⚠️ נתונים שהוקלדו ידנית";
+  const prov = "⚙️ מחושב בדף (math.js)";
+  const r = { spec };
 
   const axisProps = { stroke: "var(--ink-soft)", tick: { fill: "var(--ink-soft)", fontSize: 12 }, tickLine: false };
   const xAxis = (
@@ -154,27 +187,49 @@ export function ChartBlock({ source, registry, live }: { source: string; registr
   );
 }
 
-export function TableBlock({ source, registry, live }: { source: string; registry: Map<string, any>; live: boolean }) {
-  const r = resolve(source, registry, "table");
-  if (!r.data) return <Frame kind="table" title={r.spec?.title}><Pending live={live} msg={r.error ?? ""} /></Frame>;
-  const { columns = [], rows = [] } = r.data;
+function cell(v: unknown) {
+  if (typeof v === "string") return v;
+  const n = toNumber(v);
+  if (n !== null) return n;
+  try {
+    return String((v as any)?.toString?.() ?? v);
+  } catch {
+    return String(v);
+  }
+}
+
+export function TableBlock({ source, live }: { source: string; live: boolean }) {
+  const { spec, error } = parseSpec(source);
+  if (!spec) return <Frame kind="table"><Pending live={live} msg={error ?? ""} /></Frame>;
+  const columns: string[] = spec.columns ?? [];
+  const scope = spec.scope ?? {};
+  const rows: unknown[][] = (spec.rows ?? []).map((row: unknown[]) =>
+    row.map((c) => {
+      if (typeof c === "number") return c;
+      try {
+        return cell(evalExpr(String(c), scope));
+      } catch {
+        return { raw: String(c) };
+      }
+    }),
+  );
   return (
-    <Frame kind="table" title={r.spec.title} caption={r.spec.caption} provenance={r.fromCode ? "⚙️ נתונים מפלט הקוד" : "⚠️ נתונים שהוקלדו ידנית"}>
+    <Frame kind="table" title={spec.title} caption={spec.caption} provenance="⚙️ מחושב בדף (math.js)">
       <div className="table-wrap">
         <table className="data-table">
           <thead>
             <tr>
-              {columns.map((c: string) => (
+              {columns.map((c) => (
                 <th key={c}>{c}</th>
               ))}
             </tr>
           </thead>
           <tbody>
-            {rows.map((row: any[], i: number) => (
+            {rows.map((row, i) => (
               <tr key={i}>
                 {row.map((v, j) => (
                   <td key={j} className={typeof v === "number" ? "num" : ""}>
-                    {typeof v === "number" ? v.toLocaleString("en-US", { maximumFractionDigits: 6 }) : String(v)}
+                    {typeof v === "number" ? v.toLocaleString("en-US", { maximumFractionDigits: 6 }) : typeof v === "object" && v ? <em title="הביטוי לא חושב">⚠ {(v as { raw: string }).raw}</em> : String(v)}
                   </td>
                 ))}
               </tr>

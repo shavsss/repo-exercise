@@ -1,11 +1,9 @@
 import { useMemo, useRef } from "react";
-import type { Book } from "../api";
 import { countWords, depthBar, type Item, type Segment } from "../segments";
+import { MODE_LABEL } from "../runtime";
 import { Markdown, MdContext, slug } from "./Markdown";
-import { CodeSeg, SearchSeg, ThinkingSeg, ToolSeg } from "./Segments";
+import { ActivitySeg } from "./Segments";
 import { CALLOUTS } from "./blocks/Callout";
-
-const MODE_LABEL = { lesson: "שיעור על סעיף", clarify: "שאלת הבהרה", free: "חופשי" } as const;
 
 export function UserBubble({ item }: { item: Extract<Item, { kind: "user" }> }) {
   return (
@@ -51,36 +49,26 @@ const MAP_BLOCKS: [string, string, string][] = [
 export function AssistantTurn({
   item,
   live,
-  registry,
-  books,
   onOpenBook,
   onFillGaps,
+  onContinue,
 }: {
   item: Extract<Item, { kind: "assistant" }>;
   live: boolean;
-  registry: Map<string, any>;
-  books: Book[];
   onOpenBook: (bookId: string, page: string, by: "label" | "pdf") => void;
   onFillGaps: (missing: string[]) => void;
+  onContinue?: () => void;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const words = useMemo(() => countWords(item.segments), [item.segments]);
   const heads = useMemo(() => headingsOf(item.segments), [item.segments]);
   const blocks = useMemo(() => blocksOf(item.segments), [item.segments]);
-  const bar = item.mode === "lesson" && !live ? depthBar(item.segments) : null;
-  const ctx = useMemo(() => ({ registry, live, idPrefix: item.key }), [registry, live, item.key]);
+  const bar = item.mode === "lesson" && !live && words > 0 ? depthBar(item.segments) : null;
+  const ctx = useMemo(() => ({ live, idPrefix: item.key }), [live, item.key]);
+  const activity = item.segments.filter((s): s is Extract<Segment, { t: "activity" }> => s.t === "activity");
+  const text = item.segments.find((s): s is Extract<Segment, { t: "text" }> => s.t === "text")?.text ?? "";
 
   const scrollTo = (selector: string) => ref.current?.querySelector(selector)?.scrollIntoView({ behavior: "smooth", block: "start" });
-
-  // Consecutive tool activity is grouped into one strip.
-  const groups: { kind: "text" | "activity"; segs: Segment[] }[] = [];
-  for (const s of item.segments) {
-    const kind = s.t === "text" ? "text" : "activity";
-    const last = groups[groups.length - 1];
-    if (last && last.kind === kind && kind === "activity") last.segs.push(s);
-    else groups.push({ kind, segs: [s] });
-  }
-
   const showMap = !live && (heads.length >= 3 || Object.keys(blocks).length >= 4) && words > 600;
 
   return (
@@ -92,7 +80,6 @@ export function AssistantTurn({
           </span>
           <span className="paper-who">המורה</span>
           <span className="pill pill-mini">{MODE_LABEL[item.mode]}</span>
-          {item.demo && <span className="pill pill-mini pill-demo">הדגמה</span>}
           <span className="paper-spacer" />
           {words > 0 && <span className="paper-stat">{words.toLocaleString("he-IL")} מילים</span>}
         </div>
@@ -122,30 +109,37 @@ export function AssistantTurn({
 
         <MdContext.Provider value={ctx}>
           <div className="prose">
-            {groups.map((g, gi) =>
-              g.kind === "text" ? (
-                <Markdown key={gi} text={(g.segs[0] as Extract<Segment, { t: "text" }>).text} />
-              ) : (
-                <div key={gi} className="activity">
-                  {g.segs.map((s, si) =>
-                    s.t === "thinking" ? (
-                      <ThinkingSeg key={si} seg={s} />
-                    ) : s.t === "tool" ? (
-                      <ToolSeg key={si} seg={s} books={books} onOpenBook={onOpenBook} />
-                    ) : s.t === "code" ? (
-                      <CodeSeg key={si} seg={s} />
-                    ) : s.t === "search" ? (
-                      <SearchSeg key={si} seg={s} />
-                    ) : s.t === "note" ? (
-                      <div key={si} className="seg-note">ℹ️ {s.text}</div>
-                    ) : null,
-                  )}
-                </div>
-              ),
+            {activity.length > 0 && (
+              <div className="activity">
+                {activity.map((s, i) => (
+                  <ActivitySeg key={i} a={s.a} onOpenBook={onOpenBook} />
+                ))}
+              </div>
             )}
-            {live && <span className="caret-blink" aria-hidden />}
+            {text ? (
+              <Markdown text={text} />
+            ) : live ? (
+              <div className="typing">
+                <span />
+                <span />
+                <span />
+                המורה קורא את הספר ומתכנן את התשובה. תשובה מעמיקה יכולה להתחיל אחרי דקה או שתיים.
+              </div>
+            ) : null}
+            {live && text && <span className="caret-blink" aria-hidden />}
           </div>
         </MdContext.Provider>
+
+        {(item.truncated || item.interrupted) && !live && (
+          <div className="banner banner-warn turn-note">
+            {item.truncated ? "התשובה הגיעה לאורך המרבי ונקטעה." : "התשובה נעצרה לפני שהסתיימה."}
+            {onContinue && (
+              <button className="btn btn-small" onClick={onContinue}>
+                המשך מהמקום שנעצר ←
+              </button>
+            )}
+          </div>
+        )}
 
         {bar && (
           <footer className="depth-bar">
@@ -170,11 +164,7 @@ export function AssistantTurn({
             )}
           </footer>
         )}
-        {!live && (item.usage.output > 0 || item.models.length > 0) && !item.demo && (
-          <div className="paper-foot">
-            {item.models.join(" → ")} · קלט {item.usage.input.toLocaleString()} (מטמון {item.usage.cacheRead.toLocaleString()}) · פלט {item.usage.output.toLocaleString()} טוקנים
-          </div>
-        )}
+        {!live && item.model && <div className="paper-foot">{item.model}</div>}
       </div>
     </article>
   );
