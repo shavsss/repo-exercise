@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { connect, type ConvMeta, type Progress, type Runtime, type SampleError } from "./runtime";
 import { BOOKS, INITIAL_PROGRESS, guessBook, importFile, loadAll } from "./books";
-import { askTutor } from "./tutor";
+import { INITIAL_MEMORY, askTutor, composeLesson, updateMemory } from "./tutor";
 import { countWords, toItems } from "./segments";
 import type { Activity, Effort, Mode, StoredMessage } from "./types";
 import { Sidebar } from "./components/Sidebar";
@@ -10,6 +10,7 @@ import { AssistantTurn, UserBubble } from "./components/Message";
 import { Composer, type QuickAction } from "./components/Composer";
 import { BookViewer } from "./components/BookViewer";
 import { FlowField } from "./components/FlowField";
+import { MemoryPanel } from "./components/MemoryPanel";
 import { onSolvedChange, solvedCount } from "./solved";
 
 interface Notice {
@@ -60,6 +61,9 @@ function usePersisted<T extends string>(key: string, initial: T): [T, (v: T) => 
 export function App() {
   const [rt, setRt] = useState<Runtime | null>(null);
   const [progress, setProgress] = useState<Progress>(INITIAL_PROGRESS);
+  const [memory, setMemory] = useState(INITIAL_MEMORY);
+  const [memoryOpen, setMemoryOpen] = useState(false);
+  const [memoryBusy, setMemoryBusy] = useState(false);
   const [convs, setConvs] = useState<ConvMeta[]>([]);
   const [conv, setConv] = useState<ConvMeta | null>(null);
   const [messages, setMessages] = useState<StoredMessage[]>([]);
@@ -100,11 +104,17 @@ export function App() {
       setRt(r);
       if (!r.store) return;
       try {
-        await r.store.ensureProfile(INITIAL_PROGRESS);
+        await r.store.ensureProfile(INITIAL_PROGRESS, INITIAL_MEMORY);
       } catch {
         // a view-only viewer cannot write; reading still works
       }
-      unsubs = [r.store.watchProgress((p) => setProgress(Object.keys(p).length ? p : INITIAL_PROGRESS)), r.store.watchConversations(setConvs)];
+      unsubs = [
+        r.store.watchProfile((p) => {
+          setProgress(Object.keys(p.progress).length ? p.progress : INITIAL_PROGRESS);
+          setMemory(p.memory || INITIAL_MEMORY);
+        }),
+        r.store.watchConversations(setConvs),
+      ];
     });
     return () => {
       alive = false;
@@ -199,6 +209,11 @@ export function App() {
       let answer: StoredMessage = { role: "assistant", text: "", mode: sendMode, ts: Date.now(), activity };
       setLive(answer);
       ctl.current = new AbortController();
+      let shown = "";
+      const show = (t: string) => {
+        shown = t;
+        setLive((l) => (l ? { ...l, text: t } : l));
+      };
       try {
         const cb = {
           onActivity: (a: Activity) => {
@@ -206,43 +221,35 @@ export function App() {
             setLive((l) => (l ? { ...l, activity: [...activity] } : l));
           },
           onProgress: (bookId: string, page: string, section: string) => saveProgress(bookId, { page, section, lessons: (progress[bookId]?.lessons ?? 0) + 1 }),
+          onStatus: (status: string) => setLive((l) => (l ? { ...l, status } : l)),
+          onText: show,
         };
-        let res = await askTutor({
-          rt,
-          history,
-          text,
-          mode: sendMode,
-          effort,
-          images,
-          progress,
-          activeBook,
-          signal: ctl.current.signal,
-          cb: { ...cb, onText: (t) => setLive((l) => (l ? { ...l, text: t } : l)) },
-        });
-        let full = res.text;
-        // An answer cut off at the length limit continues on its own, up to MAX_PARTS parts.
-        for (let part = 2; res.truncated && part <= MAX_PARTS; part++) {
-          answer = { ...answer, text: full };
-          const before = full;
-          res = await askTutor({
-            rt,
-            history: [...history, userMsg, { ...answer }],
-            text: CONTINUE_TEXT,
-            mode: sendMode,
-            effort,
-            images: [],
-            progress,
-            activeBook,
-            signal: ctl.current.signal,
-            continuing: true,
-            cb: { ...cb, onText: (t) => setLive((l) => (l ? { ...l, text: before + t } : l)) },
-          });
-          full = before + res.text;
+        const base = { rt, history, mode: sendMode, effort, progress, activeBook, memory, signal: ctl.current.signal, cb };
+        if (sendMode === "lesson" && !images.length) {
+          // A section lesson: planned, then written part by part.
+          const res = await composeLesson({ ...base, text });
+          answer = { ...answer, text: res.text, model: res.model, activity };
+        } else {
+          let res = await askTutor({ ...base, text, images });
+          let full = res.text;
+          // An answer cut off at the length limit continues on its own, up to MAX_PARTS parts.
+          for (let part = 2; res.truncated && part <= MAX_PARTS; part++) {
+            const before = full;
+            res = await askTutor({
+              ...base,
+              history: [...history, userMsg, { ...answer, text: full }],
+              text: CONTINUE_TEXT,
+              images: [],
+              continuing: true,
+              cb: { ...cb, onText: (t: string) => show(before + t) },
+            });
+            full = before + res.text;
+          }
+          answer = { ...answer, text: full, model: res.modelApplied ?? `רמת מודל: ${res.modelTierApplied}`, activity, ...(res.truncated ? { truncated: true } : {}) };
         }
-        answer = { ...answer, text: full, model: res.modelApplied ?? `רמת מודל: ${res.modelTierApplied}`, activity, ...(res.truncated ? { truncated: true } : {}) };
       } catch (err) {
         const e = err as SampleError;
-        answer = { ...answer, text: e.code === "refused" ? answer.text : answer.text + (e.text ?? ""), interrupted: true, activity };
+        answer = { ...answer, text: e.code === "refused" ? "" : shown || (e.text ?? ""), interrupted: true, activity };
         if (e.code !== "cancelled") setNotices((n) => [...n, { level: "error", text: ERROR_COPY[e.code] ?? ERROR_COPY.upstream_error }]);
       } finally {
         setLive(null);
@@ -252,8 +259,23 @@ export function App() {
         }
         setBusy(false);
       }
+      // Fold a finished lesson into the course memory (a short, separate call).
+      if (sendMode === "lesson" && answer.text && !answer.interrupted) {
+        setMemoryBusy(true);
+        try {
+          const next = await updateMemory(rt, memory, answer, text, progress);
+          if (next) {
+            setMemory(next);
+            await rt.store?.setMemory(next);
+          }
+        } catch {
+          setNotices((n) => [...n, { level: "warn", text: "זיכרון הקורס לא עודכן הפעם. אפשר לעדכן אותו ידנית מהכפתור 🧠." }]);
+        } finally {
+          setMemoryBusy(false);
+        }
+      }
     },
-    [busy, rt, conv, messages, mode, effort, progress, activeBook, saveProgress],
+    [busy, rt, conv, messages, mode, effort, progress, activeBook, memory, saveProgress],
   );
 
   const onPickFiles = useCallback(
@@ -356,6 +378,8 @@ export function App() {
           }
         }}
         canSave={!!rt?.store}
+        onOpenMemory={() => (setMemoryOpen(true), setSideOpen(false))}
+        memoryBusy={memoryBusy}
         open={sideOpen}
         onClose={() => setSideOpen(false)}
       />
@@ -426,6 +450,22 @@ export function App() {
         />
       </main>
 
+      {memoryOpen && (
+        <MemoryPanel
+          memory={memory}
+          busy={memoryBusy}
+          canSave={!!rt?.store}
+          onClose={() => setMemoryOpen(false)}
+          onSave={async (text) => {
+            setMemory(text);
+            try {
+              await rt?.store?.setMemory(text);
+            } catch {
+              setNotices((n) => [...n, { level: "error", text: "שמירת הזיכרון נכשלה." }]);
+            }
+          }}
+        />
+      )}
       {viewer && <BookViewer bookId={viewer.bookId} start={viewer.page} by={viewer.by} onClose={() => setViewer(null)} />}
     </div>
   );

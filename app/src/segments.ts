@@ -12,6 +12,7 @@ export type Item =
       model?: string;
       truncated?: boolean;
       interrupted?: boolean;
+      status?: string;
     };
 
 export function toItems(messages: StoredMessage[]): Item[] {
@@ -25,6 +26,7 @@ export function toItems(messages: StoredMessage[]): Item[] {
           model: m.model,
           truncated: m.truncated,
           interrupted: m.interrupted,
+          status: m.status,
           segments: [...(m.activity ?? []).map((a): Segment => ({ t: "activity", a })), ...(m.text ? [{ t: "text" as const, text: m.text }] : [])],
         },
   );

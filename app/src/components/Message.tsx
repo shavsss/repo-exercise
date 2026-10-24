@@ -109,6 +109,12 @@ export function AssistantTurn({
 
         <MdContext.Provider value={ctx}>
           <div className="prose">
+            {live && item.status && (
+              <div className="live-status">
+                <span className="spinner" />
+                {item.status}
+              </div>
+            )}
             {activity.length > 0 && (
               <div className="activity">
                 {activity.map((s, i) => (
@@ -123,7 +129,7 @@ export function AssistantTurn({
                 <span />
                 <span />
                 <span />
-                המורה קורא את הספר ומתכנן את התשובה. תשובה מעמיקה יכולה להתחיל אחרי דקה או שתיים.
+                {item.mode === "lesson" ? "שיעור נכתב בכמה חלקים: קודם תכנון וחישובים, אחר כך חלק אחרי חלק. הטקסט יתחיל להופיע אחרי כמה דקות." : "המורה קורא ומתכנן את התשובה. היא יכולה להתחיל אחרי דקה או שתיים."}
               </div>
             ) : null}
             {live && text && <span className="caret-blink" aria-hidden />}

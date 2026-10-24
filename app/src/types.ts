@@ -19,4 +19,6 @@ export interface StoredMessage {
   model?: string;
   truncated?: boolean;
   interrupted?: boolean;
+  /** live only, never stored: what the tutor is doing now */
+  status?: string;
 }

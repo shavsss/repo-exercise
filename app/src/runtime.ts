@@ -29,6 +29,7 @@ type SampleFn = ((
   },
 ) => Promise<{ text: string; truncated: boolean; modelTierApplied: string; modelApplied?: string }>) & {
   limits(): Promise<{ maxPromptBytes: number; images?: { maxCount: number }; tools?: { maxCount: number } }>;
+  json<T = unknown>(input: string | { role: "user" | "assistant"; content: string }[], options?: Record<string, unknown>): Promise<T>;
 };
 interface DocSnap {
   id: string;
@@ -104,13 +105,17 @@ export class Store {
     return this.profile.collection("convs");
   }
 
-  async ensureProfile(initial: Progress) {
+  async ensureProfile(initial: Progress, memory: string) {
     const snap = await this.profile.get();
-    if (!snap.exists) await this.profile.set({ progress: initial, createdAt: Date.now() });
+    if (!snap.exists) await this.profile.set({ progress: initial, memory, createdAt: Date.now() });
   }
 
-  watchProgress(fn: (p: Progress) => void) {
-    return this.profile.onSnapshot((s) => fn((s.data()?.progress as Progress) ?? {}));
+  watchProfile(fn: (p: { progress: Progress; memory: string }) => void) {
+    return this.profile.onSnapshot((s) => fn({ progress: (s.data()?.progress as Progress) ?? {}, memory: String(s.data()?.memory ?? "") }));
+  }
+
+  async setMemory(memory: string) {
+    await this.profile.update({ memory, memoryUpdatedAt: Date.now() });
   }
 
   async setProgress(bookId: string, patch: Partial<Progress[string]>, current: Progress) {

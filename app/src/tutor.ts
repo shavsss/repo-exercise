@@ -1,6 +1,7 @@
-// One answer from the tutor: builds the input for `sample` (instructions turn, as much
-// recent history as fits, and the new turn with study context and book pages) and
-// gives Claude the page's tools.
+// The tutor's calls to Claude through `sample`. Every call is memoryless, so each one
+// carries the instructions turn, the course memory, as much recent history as fits,
+// and the new turn with study context and book pages. A section lesson is written
+// in planned parts (one call per part) so its length never depends on one long answer.
 import { create, all } from "mathjs";
 import { BOOKS, getBook, readPages, searchBook } from "./books";
 import { SYSTEM_PROMPT } from "./prompt";
@@ -52,14 +53,37 @@ export function runCompute(script: string) {
 }
 
 /** Evaluates one expression with constants; used by chart and table blocks. */
+
+/** Evaluates one expression with constants; used by chart and table blocks. */
 export function evalExpr(expr: string, scope: Record<string, unknown>) {
   return math.evaluate(expr, { ...scope });
 }
 
-function studyContext(mode: Mode, progress: Progress, activeBook: string, withPages: boolean) {
+export interface TurnCallbacks {
+  onText: (text: string) => void;
+  onActivity: (a: Activity) => void;
+  onProgress: (bookId: string, page: string, section: string) => Promise<void>;
+  onStatus?: (status: string) => void;
+}
+
+interface Base {
+  rt: Runtime;
+  history: StoredMessage[];
+  mode: Mode;
+  effort: Effort;
+  progress: Progress;
+  activeBook: string;
+  memory: string;
+  signal: AbortSignal;
+  cb: TurnCallbacks;
+}
+
+type Turn = { role: "user" | "assistant"; content: string };
+
+function studyContext(mode: Mode, progress: Progress, activeBook: string, memory: string, withPages: boolean) {
   const lines = BOOKS.map((b) => {
     const p = progress[b.id];
-    const loaded = getBook(b.id) ? "loaded" : "NOT loaded in this browser";
+    const loaded = getBook(b.id) ? "loaded" : "not loaded";
     return `- ${b.id} (${loaded}): ${p ? `at printed page ${p.page}${p.section ? `, last section: ${p.section}` : ""}` : "not started"}`;
   });
   let pages = "";
@@ -69,7 +93,7 @@ function studyContext(mode: Mode, progress: Progress, activeBook: string, withPa
     try {
       const start = at ?? book.pages.find((p) => p.label)?.label ?? "1";
       const by = at || book.pages.some((p) => p.label === start) ? "label" : "pdf";
-      const idx = book.pages.findIndex((p) => (by === "label" ? p.label === start : p.pdf === Number(start)));
+      const idx = Math.max(0, book.pages.findIndex((p) => (by === "label" ? p.label === start : p.pdf === Number(start))));
       // one page of lead-in, then forward from the learner's position
       const from = book.pages[Math.max(0, idx - 1)];
       const to = book.pages[Math.min(book.pages.length - 1, idx + (mode === "lesson" ? 7 : 2))];
@@ -79,48 +103,20 @@ function studyContext(mode: Mode, progress: Progress, activeBook: string, withPa
       // position not found in this book's labels; the tutor can search
     }
   }
-  return `<study_context>\nDate: ${new Date().toISOString().slice(0, 10)}\nActive book: ${activeBook}\nReading positions:\n${lines.join("\n")}\nRequested message type: ${MODE_TEXT[mode]}${pages}\n</study_context>`;
+  const mem = memory.trim() ? `\n<course_memory>\n${memory.trim()}\n</course_memory>` : "";
+  return `<study_context>\nDate: ${new Date().toISOString().slice(0, 10)}\nActive book: ${activeBook}\nReading positions:\n${lines.join("\n")}\nRequested message type: ${MODE_TEXT[mode]}${mem}${pages}\n</study_context>`;
 }
 
-export interface TurnCallbacks {
-  onText: (text: string) => void;
-  onActivity: (a: Activity) => void;
-  onProgress: (bookId: string, page: string, section: string) => Promise<void>;
-}
-
-export async function askTutor(opts: {
-  rt: Runtime;
-  history: StoredMessage[];
-  text: string;
-  mode: Mode;
-  effort: Effort;
-  images: File[];
-  progress: Progress;
-  activeBook: string;
-  signal: AbortSignal;
-  cb: TurnCallbacks;
-  /** A continuation of an answer that hit the length limit: no new pages, no images. */
-  continuing?: boolean;
-}) {
-  const { rt, history, text, mode, effort, images, progress, activeBook, signal, cb, continuing = false } = opts;
-  if (!rt.sample) throw { code: "not_granted", message: "sample unavailable" };
-
-  const last = `${studyContext(mode, progress, activeBook, !continuing)}\n\n${text || "(ראו את התמונה המצורפת)"}${images.length ? `\n\n[${images.length} תמונות מצורפות מהלומד]` : ""}`;
-  // newest history first, until the budget is used
-  let used = bytes(SYSTEM_PROMPT) + bytes(last);
-  const kept: { role: "user" | "assistant"; content: string }[] = [];
+/** Newest history first, until the budget is used. `keepLast` always sends the last turn. */
+function fitHistory(history: StoredMessage[], fixed: number, keepLast = false) {
+  let used = fixed;
+  const kept: Turn[] = [];
   let dropped = 0;
   for (let i = history.length - 1; i >= 0; i--) {
     const m = history[i];
     if (!m.text.trim()) continue;
     const b = bytes(m.text);
-    // the answer being continued must always be sent, even if long
-    if (continuing && i === history.length - 1) {
-      used += b;
-      kept.unshift({ role: m.role, content: m.text });
-      continue;
-    }
-    if (used + b > INPUT_BUDGET) {
+    if (!(keepLast && i === history.length - 1) && used + b > INPUT_BUDGET) {
       dropped = i + 1;
       break;
     }
@@ -128,8 +124,11 @@ export async function askTutor(opts: {
     kept.unshift({ role: m.role, content: m.text });
   }
   while (kept.length && kept[0].role === "assistant") kept.shift();
-  const intro = SYSTEM_PROMPT + (dropped ? `\n\n[${dropped} earlier turns of this conversation were omitted to fit the input limit.]` : "");
+  const intro = SYSTEM_PROMPT + (dropped ? `\n\n[${dropped} earlier turns of this conversation were omitted to fit the input limit; <course_memory> summarizes the course so far.]` : "");
+  return [{ role: "user", content: intro } as Turn, ...kept];
+}
 
+function buildTools(cb: TurnCallbacks, withProgress: boolean): SampleTool[] {
   const tools: SampleTool[] = [
     {
       name: "read_book_pages",
@@ -181,7 +180,9 @@ export async function askTutor(opts: {
         return r.output || "(no output)";
       },
     },
-    {
+  ];
+  if (withProgress)
+    tools.push({
       name: "record_progress",
       description: "Record that a completed section lesson (or lesson part) covered the book up to a printed page. Call once, at the end.",
       inputSchema: {
@@ -195,17 +196,170 @@ export async function askTutor(opts: {
         cb.onActivity({ t: "progress", book, page, section });
         return `Recorded ${book} → page ${page}.`;
       },
-    },
-  ];
+    });
+  return tools;
+}
 
-  const canTools = !!(await rt.sample.limits().catch(() => null))?.tools;
-  return rt.sample([{ role: "user", content: intro }, ...kept, { role: "user", content: last }], {
+async function canUseTools(rt: Runtime) {
+  return !!(await rt.sample!.limits().catch(() => null))?.tools;
+}
+
+/** One answer (clarify / free / a continuation), with the page's tools. */
+export async function askTutor(opts: Base & { text: string; images: File[]; continuing?: boolean }) {
+  const { rt, history, text, mode, effort, images, progress, activeBook, memory, signal, cb, continuing = false } = opts;
+  if (!rt.sample) throw { code: "not_granted", message: "sample unavailable" };
+  const last = `${studyContext(mode, progress, activeBook, memory, !continuing)}\n\n${text || "(ראו את התמונה המצורפת)"}${images.length ? `\n\n[${images.length} תמונות מצורפות מהלומד]` : ""}`;
+  const turns = fitHistory(history, bytes(SYSTEM_PROMPT) + bytes(last), continuing);
+  const tools = (await canUseTools(rt)) ? buildTools(cb, true) : null;
+  return rt.sample([...turns, { role: "user", content: last }], {
     model: MODEL,
     modelTier: "complex",
     effort,
     signal,
-    ...(canTools ? { tools } : { cache: false }),
+    ...(tools ? { tools } : { cache: false }),
     ...(images.length && rt.canSendImages ? { images } : {}),
     onText: ({ text }) => cb.onText(text),
   });
+}
+
+/* ---------------- section lessons, written in planned parts ---------------- */
+
+export interface LessonPlan {
+  section: string;
+  pages: string;
+  split?: { part: number; of: number };
+  parts: { title: string; covers: string; blocks?: string[]; words?: number }[];
+  facts?: string[];
+  next?: string;
+}
+
+const PLAN_INSTRUCTIONS = `
+PLANNING STEP. Do not write the lesson yet. The app will write it in parts, one call per part, from your plan.
+1. Locate the section in the book (the pages in <study_context>, read_book_pages, search_book). Find every example, figure, formula and claim of the section (or of this part of it, if the section must be split across messages).
+2. Run compute (batched, one or two calls) for every number the lesson will state: worked examples, verifications of the book's results, the case study's numbers. Note any error you find in the book.
+3. Reply with ONLY one JSON object:
+{"section": "§12 Theory of invariants", "pages": "238–241", "split": {"part": 1, "of": 1},
+ "parts": [{"title": "…", "covers": "what this part teaches, which book examples and figures, which derivations", "blocks": ["story", "think", "history"], "words": 1200}],
+ "facts": ["I1 = A + C = 6 for x^2-6xy+5y^2-2x+4y+3 (computed)", "…"],
+ "next": "what the next message will cover"}
+Rules for the plan: 3 to 5 parts; the words add up to at least 4200 Hebrew words; part 1 opens with the story (and the plan block when the section is split across messages) followed by the problem/why-hard/idea paragraphs; every example and figure of the section is assigned to exactly one part; the case study, the history block(s), at least four domain blocks, think questions, refresh blocks and figure reconstructions are assigned to parts; the last part holds the exercises (book + new), the product(s) if one truly fits, and the sentence about the next message. "facts" lists the computed values with what they mean, so later parts state them exactly.`.trim();
+
+function partInstructions(plan: LessonPlan, k: number, writtenSoFar: string) {
+  const p = plan.parts[k];
+  const n = plan.parts.length;
+  const last = k === n - 1;
+  const prior = writtenSoFar.length > 60000 ? `[…start omitted…]\n${writtenSoFar.slice(-60000)}` : writtenSoFar;
+  return `WRITING STEP: part ${k + 1} of ${n} of the lesson.
+Lesson plan (yours, from the planning step):
+${JSON.stringify(plan, null, 1)}
+
+${prior ? `The lesson text written so far (parts 1–${k}), which the learner is reading right now:\n<<<\n${prior}\n>>>\n` : ""}
+Now write ONLY part ${k + 1}: «${p.title}». It covers: ${p.covers}.${p.blocks?.length ? ` Blocks for this part: ${p.blocks.join(", ")}.` : ""}
+Length: about ${p.words ?? 1100} Hebrew words of real teaching (more is fine, less is not).
+${k === 0 ? "Start the lesson (no preamble about the plan or the parts)." : "Continue seamlessly from the last sentence above: no greeting, no recap, no repeated heading; open with the explicit transition from where the text stopped."}
+Do not write material that belongs to later parts. State computed values exactly as in "facts" (run compute for anything new).
+${last ? "This is the last part: finish with the exercises, the product block(s) if one truly fits, and the sentence about the next message. Then call record_progress (with \"(חלק k/n)\" in the section name if the section continues in another message)." : "Do not end the lesson and do not write exercises yet."}`;
+}
+
+export async function composeLesson(opts: Base & { text: string }) {
+  const { rt, history, text, effort, progress, activeBook, memory, signal, cb } = opts;
+  if (!rt.sample) throw { code: "not_granted", message: "sample unavailable" };
+  const tools = await canUseTools(rt);
+  const ctx = studyContext("lesson", progress, activeBook, memory, true);
+
+  // 1) plan
+  cb.onStatus?.("מתכנן את השיעור: קורא את הסעיף ומחשב את המספרים");
+  const planTurn = `${ctx}\n\n${text}\n\n${PLAN_INSTRUCTIONS}`;
+  const plan = await rt.sample.json<LessonPlan>([...fitHistory(history, bytes(SYSTEM_PROMPT) + bytes(planTurn)), { role: "user", content: planTurn }], {
+    model: MODEL,
+    modelTier: "complex",
+    effort,
+    signal,
+    ...(tools ? { tools: buildTools(cb, false) } : { cache: false }),
+  });
+  if (!plan || !Array.isArray(plan.parts) || !plan.parts.length) throw { code: "invalid_json", message: "no plan" };
+
+  // 2) parts
+  let written = "";
+  let model = "";
+  for (let k = 0; k < plan.parts.length; k++) {
+    cb.onStatus?.(`כותב חלק ${k + 1} מתוך ${plan.parts.length}: ${plan.parts[k].title}`);
+    const before = written ? written + "\n\n" : "";
+    let partText = "";
+    for (let attempt = 0; attempt < 2; attempt++) {
+      // a part cut off at the length limit gets one continuation
+      const turn = `${ctx}\n\n${text}\n\n${partInstructions(plan, k, (before + partText).trim())}${attempt ? "\n\nThe previous attempt of this part was cut off at the length limit; continue it exactly from where the text above stops." : ""}`;
+      const res = await rt.sample([...fitHistory(history, bytes(SYSTEM_PROMPT) + bytes(turn)), { role: "user", content: turn }], {
+        model: MODEL,
+        modelTier: "complex",
+        effort,
+        signal,
+        ...(tools ? { tools: buildTools(cb, k === plan.parts.length - 1) } : { cache: false }),
+        onText: ({ text: t }) => cb.onText(before + partText + t),
+      });
+      partText += res.text;
+      model = res.modelApplied ?? `רמת מודל: ${res.modelTierApplied}`;
+      if (!res.truncated) break;
+    }
+    written = (before + partText).trim();
+    cb.onText(written);
+  }
+  return { text: written, plan, model };
+}
+
+/* ---------------- course memory ---------------- */
+
+export const INITIAL_MEMORY = `# זיכרון הקורס
+
+## מצב נוכחי
+- מתמטיקה, כרך א': הלומד בעמ' 240, באמצע פרק III (גאומטריה אנליטית), §12 תורת האינווריאנטים.
+- פיזיקה (פיינמן): טרם התחיל.
+
+## מה נלמד
+(עדיין אין שיעורים באפליקציה. עד עמ' 240 הלומד קרא לבד.)
+
+## כלים ומושגים שנפגשו
+- דטרמיננטה כיחס שטחים בטרנספורמציה אפינית (§11, נוסחה 21).
+
+## סימונים ומוסכמות
+
+## מקרי בוחן ותחומים שכבר שימשו
+
+## טעויות שנמצאו בספר
+
+## קשיים, שאלות פתוחות והעדפות
+- רוצה עומק מלא, גזירות צעד אחר צעד, ולא מניח ידע מתקדם במתמטיקה ובפיזיקה.
+`;
+
+export async function updateMemory(rt: Runtime, memory: string, lesson: StoredMessage, request: string, progress: Progress) {
+  if (!rt.sample) return null;
+  const body = lesson.text.length > 90000 ? lesson.text.slice(0, 90000) + "\n[…]" : lesson.text;
+  const prompt = `You maintain the running memory of a personal course in which a tutor teaches one learner from books, in Hebrew. The tutor reads this memory before every answer, so it is how later lessons refer back to earlier ones.
+
+Current memory:
+<<<
+${memory || INITIAL_MEMORY}
+>>>
+
+Reading positions now: ${JSON.stringify(progress)}
+
+The learner asked: ${request}
+
+The tutor's latest answer (${lesson.mode}):
+<<<
+${body}
+>>>
+
+Rewrite the whole memory in Hebrew Markdown with exactly these sections, merging the new answer in and keeping everything still useful:
+# זיכרון הקורס
+## מצב נוכחי — where the learner is in each book and what comes next.
+## מה נלמד — one entry per section taught: book, pages, the key ideas in one or two lines, key formulas in LaTeX.
+## כלים ומושגים שנפגשו — each tool/concept: where it was first met and the number from that first example (the tutor uses this to refresh tools later).
+## סימונים ומוסכמות — notation choices to keep consistent.
+## מקרי בוחן ותחומים שכבר שימשו — so later lessons do not repeat them.
+## טעויות שנמצאו בספר — page, what is wrong, what is right.
+## קשיים, שאלות פתוחות והעדפות — what the learner found hard, asked, or prefers.
+Keep it under about 1800 words; compress older entries rather than dropping them. Reply with the memory only.`;
+  const res = await rt.sample(prompt, { modelTier: "default", effort: "low", cache: false });
+  return res.text.trim();
 }

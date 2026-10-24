@@ -122,6 +122,8 @@ export function Sidebar({
   onNew,
   onDelete,
   canSave,
+  onOpenMemory,
+  memoryBusy,
   open,
   onClose,
 }: {
@@ -139,6 +141,8 @@ export function Sidebar({
   onNew: () => void;
   onDelete: (id: string) => void;
   canSave: boolean;
+  onOpenMemory: () => void;
+  memoryBusy: boolean;
   open: boolean;
   onClose: () => void;
 }) {
@@ -199,6 +203,15 @@ export function Sidebar({
         </div>
         {missing > 0 && <p className="side-hint">ספר שלא נטען אפשר לטעון מהקובץ שבמחשב שלך.</p>}
       </div>
+
+      <button className="memory-btn" onClick={onOpenMemory}>
+        <span className="memory-icon">🧠</span>
+        <span>
+          <b>זיכרון הקורס</b>
+          <small>{memoryBusy ? "מתעדכן אחרי השיעור…" : "מה נלמד, כלים, סימונים וקשיים"}</small>
+        </span>
+        {memoryBusy && <span className="spinner" />}
+      </button>
 
       <div className="side-section side-convs">
         <div className="side-label">
