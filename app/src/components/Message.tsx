@@ -52,7 +52,9 @@ export function AssistantTurn({
   onOpenBook,
   onFillGaps,
   onContinue,
+  author,
 }: {
+  author: string;
   item: Extract<Item, { kind: "assistant" }>;
   live: boolean;
   onOpenBook: (bookId: string, page: string, by: "label" | "pdf") => void;
@@ -76,9 +78,9 @@ export function AssistantTurn({
       <div className="msg-paper">
         <div className="paper-head">
           <span className="avatar" aria-hidden>
-            <span>∂</span>
+            <span>📖</span>
           </span>
-          <span className="paper-who">המורה</span>
+          <span className="paper-who">{author}</span>
           <span className="pill pill-mini">{MODE_LABEL[item.mode]}</span>
           <span className="paper-spacer" />
           {words > 0 && <span className="paper-stat">{words.toLocaleString("he-IL")} מילים</span>}

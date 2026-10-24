@@ -3,7 +3,7 @@
 // and the new turn with study context and book pages. A section lesson is written
 // in planned parts (one call per part) so its length never depends on one long answer.
 import { create, all } from "mathjs";
-import { BOOKS, getBook, readPages, searchBook } from "./books";
+import { BOOKS, getBook, readPages, searchBook, sectionsAround } from "./books";
 import { SYSTEM_PROMPT } from "./prompt";
 import type { Progress, Runtime, SampleTool } from "./runtime";
 import type { Activity, Effort, Mode, StoredMessage } from "./types";
@@ -106,6 +106,8 @@ function studyContext(mode: Mode, progress: Progress, activeBook: string, memory
     }
   }
   const mem = memory.trim() ? `\n<course_memory>\n${memory.trim()}\n</course_memory>` : "";
+  const sections = at ? sectionsAround(activeBook, at) : "";
+  if (sections) pages = `\nSection map of ${activeBook} around the reader's position (start pages; a section ends where the next one starts):\n${sections}` + pages;
   return `<study_context>\nDate: ${new Date().toISOString().slice(0, 10)}\nActive book: ${activeBook}\nReading positions:\n${lines.join("\n")}\nRequested message type: ${MODE_TEXT[mode]}${mem}${pages}\n</study_context>`;
 }
 
@@ -236,22 +238,22 @@ export interface LessonPlan {
 }
 
 const PLAN_INSTRUCTIONS = `
-PLANNING STEP. Do not write the lesson yet. The app will write it in parts, one call per part, from your plan.
-1. Locate the section in the book (the pages in <study_context>, read_book_pages, search_book). Find every example, figure, formula and claim of the section (or of this part of it, if the section must be split across messages).
+PLANNING STEP. Do not write the text yet. The app will write it in parts, one call per part, from your plan.
+1. Using the section map and pages in <study_context> (and read_book_pages / search_book), find the section that starts at or contains the reader's position, where it ends, and whether it opens a new chapter. Cover only this section (or this part of it, if it must be split across messages); never run into the next section. Find every example, figure, formula, claim and story in it.
 2. Run compute (batched, one or two calls) for every number the lesson will state: worked examples, verifications of the book's results, the case study's numbers. Note any error you find in the book.
 3. Reply with ONLY one JSON object:
-{"section": "§12 Theory of invariants", "pages": "238–241", "split": {"part": 1, "of": 1},
+{"chapter": "III Analytic geometry", "newChapter": false, "section": "§12 Theory of invariants", "pages": "238–241", "split": {"part": 1, "of": 1},
  "parts": [{"title": "…", "covers": "what this part teaches, which book examples and figures, which derivations", "blocks": ["story", "think", "history"], "words": 1200}],
  "facts": ["I1 = A + C = 6 for x^2-6xy+5y^2-2x+4y+3 (computed)", "…"],
  "next": "what the next message will cover"}
-Rules for the plan: 3 to 5 parts; the words add up to at least 4200 Hebrew words; part 1 opens with the story (and the plan block when the section is split across messages) followed by the problem/why-hard/idea paragraphs; every example and figure of the section is assigned to exactly one part; the case study, the history block(s), at least four domain blocks, think questions, refresh blocks and figure reconstructions are assigned to parts; the last part holds the exercises (book + new), the product(s) if one truly fits, and the sentence about the next message. "facts" lists the computed values with what they mean, so later parts state them exactly.`.trim();
+Rules for the plan: everything is written in the authors' voice (see <voice>), so describe the parts as sections of the expanded edition, not as commentary on the book; 3 to 5 parts; the words add up to at least 4200 Hebrew words; part 1 opens with the chapter opening if "newChapter" is true, then the section heading as in the book, then the story (the section's own story if it tells one) and the plan block when the section is split across messages, followed by the problem/why-hard/idea paragraphs; every derivation is planned step by step with no unexplained jumps; every example and figure of the section is assigned to exactly one part; the case study, the history block(s), at least four domain blocks, think questions, refresh blocks and figure reconstructions are assigned to parts; the last part holds the exercises (book + new), the product(s) if one truly fits, and the sentence about the next message. "facts" lists the computed values with what they mean, so later parts state them exactly.`.trim();
 
 function partInstructions(plan: LessonPlan, k: number, writtenSoFar: string) {
   const p = plan.parts[k];
   const n = plan.parts.length;
   const last = k === n - 1;
   const prior = writtenSoFar.length > 60000 ? `[…start omitted…]\n${writtenSoFar.slice(-60000)}` : writtenSoFar;
-  return `WRITING STEP: part ${k + 1} of ${n} of the lesson.
+  return `WRITING STEP: part ${k + 1} of ${n} of this section of the expanded edition. Write as the authors (see <voice>): never "the book says", "the authors write" or "in the text".
 Lesson plan (yours, from the planning step):
 ${JSON.stringify(plan, null, 1)}
 
@@ -259,7 +261,7 @@ ${prior ? `The lesson text written so far (parts 1–${k}), which the learner is
 Now write ONLY part ${k + 1}: «${p.title}». It covers: ${p.covers}.${p.blocks?.length ? ` Blocks for this part: ${p.blocks.join(", ")}.` : ""}
 Length: about ${p.words ?? 1100} Hebrew words of real teaching (more is fine, less is not).
 ${k === 0 ? "Start the lesson (no preamble about the plan or the parts)." : "Continue seamlessly from the last sentence above: no greeting, no recap, no repeated heading; open with the explicit transition from where the text stopped."}
-Do not write material that belongs to later parts. State computed values exactly as in "facts" (run compute for anything new).
+Do not write material that belongs to later parts. Teach step by step: every step of a derivation on its own line with its reason in words. Put [[עמ' N]] at the paragraph where the printed page changes. State computed values exactly as in "facts" (run compute for anything new).
 ${last ? "This is the last part: finish with the exercises, the product block(s) if one truly fits, and the sentence about the next message. Then call record_progress (with \"(חלק k/n)\" in the section name if the section continues in another message)." : "Do not end the lesson and do not write exercises yet."}`;
 }
 

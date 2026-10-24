@@ -249,3 +249,91 @@ export function searchBook(bookId: string, query: string, max = 10) {
   }
   return hits.sort((x, y) => y.score - x.score || x.pdf - y.pdf).slice(0, max);
 }
+
+/* ---------------- sections and chapters ---------------- */
+export interface SectionEntry {
+  chapter: string;
+  id: string;
+  title: string;
+  /** printed page where it starts */
+  page: string;
+}
+
+const sectionCache = new Map<string, SectionEntry[]>();
+
+/** Chapters and sections with their start pages: from the table of contents (math books)
+ * or from the "6-3 Title" headings at the top of sections (Feynman). */
+export function sectionMap(bookId: string): SectionEntry[] {
+  const cached = sectionCache.get(bookId);
+  if (cached) return cached;
+  const book = memory.get(bookId);
+  const meta = BOOKS.find((b) => b.id === bookId);
+  if (!book || !meta) return [];
+  const out: SectionEntry[] = [];
+  if (meta.labels === "numeric") {
+    let chapter = "";
+    const seen = new Set<string>();
+    const lines = book.pages.slice(0, 40).flatMap((p) => p.text.split("\n").map((l) => l.replace(/\s+/g, " ").trim()));
+    const add = (e: SectionEntry) => {
+      const key = `${e.chapter}|${e.id}`;
+      if (!seen.has(key)) seen.add(key), out.push(e);
+    };
+    for (let i = 0; i < lines.length; i++) {
+      const l = lines[i];
+      let m: RegExpExecArray | null;
+      if ((m = /^CHAPTER ([IVXL]+)\b\s*(.*?)\s*(\d{1,4})?$/i.exec(l))) {
+        chapter = `${m[1]} ${m[2]}`.trim();
+        if (m[3]) add({ chapter, id: `Chapter ${m[1]}`, title: m[2], page: m[3] });
+        continue;
+      }
+      let title = "";
+      let page = "";
+      let id = "";
+      if ((m = /^§\s?(\d+)\.\s*(.+?)\s+(\d{1,4})$/.exec(l))) [id, title, page] = [m[1], m[2], m[3]];
+      else if ((m = /^§\s?(\d+)\.\s*(.+)$/.exec(l))) {
+        const n = /^(.*?)\s*(\d{1,4})$/.exec(lines[i + 1] ?? "");
+        if (n) [id, title, page] = [m[1], `${m[2]} ${n[1]}`.trim(), n[2]];
+      }
+      // running heads repeat sections in capitals; the contents use mixed case
+      if (id && title !== title.toUpperCase()) add({ chapter, id: `§${id}`, title, page });
+    }
+  } else {
+    const seen = new Set<string>();
+    for (const p of book.pages) {
+      if (!p.label) continue;
+      const ch = p.label.split("-")[0];
+      for (const l of p.text.split("\n")) {
+        const m = /^\s*(\d{1,2})-(\d{1,2})\s+([A-Z][^\d]{3,70})$/.exec(l);
+        if (m && m[1] === ch && !seen.has(`${m[1]}-${m[2]}`)) {
+          seen.add(`${m[1]}-${m[2]}`);
+          out.push({ chapter: m[1], id: `${m[1]}-${m[2]}`, title: m[3].trim(), page: p.label });
+        }
+      }
+    }
+  }
+  sectionCache.set(bookId, out);
+  return out;
+}
+
+/** Orders printed labels: "240" numerically, "6-3" by chapter then page. */
+function labelKey(label: string) {
+  const [a, b] = label.split("-").map(Number);
+  return b === undefined ? a : a * 1000 + b;
+}
+
+/** The sections around a printed page, for the tutor's context. */
+export function sectionsAround(bookId: string, page: string, before = 3, after = 8) {
+  const map = sectionMap(bookId);
+  if (!map.length || !page) return "";
+  const k = labelKey(page);
+  let idx = -1;
+  map.forEach((e, i) => {
+    if (labelKey(e.page) <= k) idx = i;
+  });
+  const lines = map.slice(Math.max(0, idx - before), idx + after + 1).map((e) => {
+    const mark = map.indexOf(e) === idx ? "  ← the reader is here" : "";
+    const chap = e.id.startsWith("Chapter") ? "" : e.chapter ? ` [chapter ${e.chapter.split(" ")[0]}]` : "";
+    return `- printed ${e.page}: ${e.id} ${e.title}${chap}${mark}`;
+  });
+  return lines.join("\n");
+}

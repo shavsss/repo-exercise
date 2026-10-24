@@ -22,6 +22,13 @@ export function Badge({ text }: { text: string }) {
       <span className="badge badge-src">🔗 {title}</span>
     );
   }
+  const page = /^עמ['׳]?\s*(.+)$/.exec(t);
+  if (page)
+    return (
+      <span className="badge badge-page" title="העמוד בספר המודפס">
+        📄 עמ' <bdi dir="ltr">{page[1]}</bdi>
+      </span>
+    );
   if (t.startsWith("מהספר")) return <span className="badge badge-book">📘 {t}</span>;
   if (t.startsWith("תוספת")) return <span className="badge badge-add">➕ {t}</span>;
   if (t.startsWith("היפותטי")) return <span className="badge badge-hypo">≈ {t}</span>;

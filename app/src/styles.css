@@ -935,9 +935,7 @@ a {
   background: var(--paper);
   display: grid;
   place-items: center;
-  font-family: serif;
-  font-size: 18px;
-  font-style: italic;
+  font-size: 14px;
 }
 .msg-assistant.is-live .avatar {
   animation: spin 3s linear infinite;
@@ -2364,4 +2362,15 @@ a {
   background: color-mix(in srgb, var(--yellow) 30%, var(--paper));
   font-size: 14px;
   font-weight: 700;
+}
+
+.badge-page {
+  float: left;
+  margin: 4px 0 2px 10px;
+  border-color: var(--ink-faint);
+  color: var(--ink-soft);
+  background: var(--paper-2);
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 11px;
 }

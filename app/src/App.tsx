@@ -420,6 +420,8 @@ export function App() {
       : []),
   ];
   const lastItem = items[items.length - 1];
+  const convBook = BOOKS.find((b) => b.id === (conv?.bookId ?? activeBook)) ?? book;
+  const author = `${convBook.series === "math" ? "מתמטיקה" : "פיינמן"} · ${convBook.volume.split(":")[0]}`;
   // A new section gets its own conversation; the next part of a split section stays here.
   const startsNewChat = messages.some((m) => m.role === "assistant" && m.mode === "lesson") && !sectionUnfinished(prog?.section);
 
@@ -502,6 +504,7 @@ export function App() {
               ) : (
                 <AssistantTurn
                   key={it.key}
+                  author={author}
                   item={it}
                   live={busy && !!live && i === items.length - 1}
                   onOpenBook={(bookId, page, by) => setViewer({ bookId, page, by })}
