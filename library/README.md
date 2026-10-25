@@ -7,6 +7,7 @@
 | `military/books/reference/` | ספרי עזר שאינם חלק מתוכנית הלימודים |
 | `military/articles/` | המאמרים שמשלימים את הספרים. מפתח ב-[`military/articles/README.md`](military/articles/README.md) |
 | `military/doctrine/` | דוקטרינה שהספרים לא מכסים. מפתח ב-[`military/doctrine/README.md`](military/doctrine/README.md) |
+| `military/syllabus/` | תוכנית הלימודים: `syllabus.py` הוא המקור, `build.py` בודק כיסוי ומייצר את `SYLLABUS.md` ו-`syllabus.json` |
 
 ## ספרי הליבה הצבאית
 
