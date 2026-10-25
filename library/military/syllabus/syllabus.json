@@ -70,16 +70,6 @@
    "title": "Hiles & Ahmad, ML Framework for RF Fingerprinting (2025)",
    "pages": 14
   },
-  "A01.5a": {
-   "file": "articles/01.5a_US7508344_TDOA-FDOA.pdf",
-   "title": "US 7,508,344, TDOA/FDOA location",
-   "pages": 14
-  },
-  "A01.5b": {
-   "file": "articles/01.5b_US7667640_Geolocation.pdf",
-   "title": "US 7,667,640, emitter geolocation via satellite signals",
-   "pages": 18
-  },
   "A02.1": {
    "file": "articles/02.1_Ward_STAP-LL-TR-1015.pdf",
    "title": "Ward, Space-Time Adaptive Processing for Airborne Radar, LL TR-1015 (1994)",
@@ -170,11 +160,6 @@
    "title": "Ufimtsev, Method of Edge Waves in the Physical Theory of Diffraction",
    "pages": 241
   },
-  "A08.3": {
-   "file": "articles/08.3_Yeh_Towed-Decoys-Monopulse.pdf",
-   "title": "Yeh, Towed Decoys against a Monopulse Seeker, NPS (1995)",
-   "pages": 46
-  },
   "A08.4": {
    "file": "articles/08.4_SISO-STD-002-2021_Link16.pdf",
    "title": "SISO-STD-002-2021, Standard for Link 16 Simulation",
@@ -225,11 +210,6 @@
    "title": "Review on the Hydro- and Thermo-Dynamic Wakes of Underwater Vehicles (2024)",
    "pages": 18
   },
-  "A10.11": {
-   "file": "articles/10.11_US4203163_Torpedo-Passive-Homing.pdf",
-   "title": "US 4,203,163, passive acoustic homing torpedo",
-   "pages": 7
-  },
   "D5": {
    "file": "doctrine/D5_ATP7-100.1_Russian-Tactics_2024.pdf",
    "title": "ATP 7-100.1 Russian Tactics (2024)",
@@ -240,10 +220,10 @@
    "title": "ATP 7-100.3 Chinese Tactics (2021)",
    "pages": 252
   },
-  "D7": {
-   "file": "doctrine/D7_USSR-GSA-Lectures_EW-in-Offensive-Operations.pdf",
-   "title": "USSR General Staff Academy Lectures: EW in Offensive Operations",
-   "pages": 28
+  "D8": {
+   "file": "doctrine/D8_ATP3-09.12_FA-Target-Acquisition_2015.pdf",
+   "title": "ATP 3-09.12 Field Artillery Target Acquisition (2015)",
+   "pages": 144
   }
  },
  "parts": [
@@ -2079,18 +2059,6 @@
      ],
      "note": "פרק 6: דיוק מערכות איכון",
      "role": "main"
-    },
-    {
-     "doc": "A01.5a",
-     "pages": null,
-     "note": "אלגוריתם TDOA/FDOA",
-     "role": "article"
-    },
-    {
-     "doc": "A01.5b",
-     "pages": null,
-     "note": "איכון דרך לוויינים",
-     "role": "article"
     }
    ]
   },
@@ -2187,12 +2155,6 @@
      ],
      "note": "10.3–10.7",
      "role": "main"
-    },
-    {
-     "doc": "A08.3",
-     "pages": null,
-     "note": "פיתיון נגרר מול ראש ביות מונופולס",
-     "role": "article"
     }
    ]
   },
@@ -2377,6 +2339,24 @@
      ],
      "note": "פרק 1: היסטוריה וסקירה",
      "role": "supp"
+    },
+    {
+     "doc": "B05",
+     "pages": [
+      666,
+      666
+     ],
+     "note": "12.5: העברת זמן",
+     "role": "supp"
+    },
+    {
+     "doc": "B05",
+     "pages": [
+      670,
+      672
+     ],
+     "note": "12.9: יישומים ממשלתיים וצבאיים",
+     "role": "supp"
     }
    ]
   },
@@ -2506,6 +2486,15 @@
      ],
      "note": "פרק 7",
      "role": "main"
+    },
+    {
+     "doc": "B05",
+     "pages": [
+      681,
+      684
+     ],
+     "note": "נספח B: יציבות מקורות תדר (שעונים)",
+     "role": "supp"
     }
    ]
   },
@@ -2585,6 +2574,15 @@
      ],
      "note": "7.3: ניתוח שגיאות ניווט של טיל שיוט",
      "role": "supp"
+    },
+    {
+     "doc": "B08",
+     "pages": [
+      324,
+      331
+     ],
+     "note": "8.7: עזרי ניווט: TACAN, VOR/DME, ILS",
+     "role": "supp"
     }
    ]
   },
@@ -2611,6 +2609,27 @@
   },
   {
    "id": "M5.10",
+   "part": "P5",
+   "tier": "adv",
+   "title": "שילוב חיישנים בכלי יבשתי וסיוע רשת",
+   "en": "Land-vehicle sensor integration and network assistance",
+   "prereq": [
+    "M5.8"
+   ],
+   "sources": [
+    {
+     "doc": "B05",
+     "pages": [
+      507,
+      574
+     ],
+     "note": "9.3–9.4: חישוב מיקום מצטבר, התאמה למפה, A-GPS",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M5.11",
    "part": "P5",
    "tier": "core",
    "title": "ניווט בלי GPS: TERCOM ואותות הזדמנות",
@@ -3370,16 +3389,16 @@
    "id": "M8.6",
    "part": "P8",
    "tier": "ref",
-   "title": "ניווט אזרחי ו-FMS",
-   "en": "Civil navigation and FMS",
+   "title": "FMS וניהול תעבורה אווירית",
+   "en": "FMS and air traffic management",
    "sources": [
     {
      "doc": "B08",
      "pages": [
       314,
-      331
+      323
      ],
-     "note": "8.6–8.7",
+     "note": "8.6: מערכת ניהול טיסה",
      "role": "main"
     },
     {
@@ -3388,7 +3407,7 @@
       347,
       355
      ],
-     "note": "8.10",
+     "note": "8.10: GATM",
      "role": "main"
     }
    ]
@@ -3728,12 +3747,6 @@
      ],
      "note": "פרק 26",
      "role": "main"
-    },
-    {
-     "doc": "A10.11",
-     "pages": null,
-     "note": "ביות אקוסטי פסיבי",
-     "role": "article"
     }
    ]
   },
@@ -3791,6 +3804,91 @@
    "id": "M11.2",
    "part": "P11",
    "tier": "core",
+   "title": "איתור ארטילריה ואש נגד סוללות",
+   "en": "Weapon-locating radar and counterfire",
+   "prereq": [
+    "M11.1",
+    "M2.15"
+   ],
+   "sources": [
+    {
+     "doc": "D8",
+     "pages": [
+      19,
+      40
+     ],
+     "note": "פרקים 2–3: אש נגד סוללות, היבטים טכניים של פריסת מכ\"ם איתור",
+     "role": "main"
+    },
+    {
+     "doc": "D8",
+     "pages": [
+      51,
+      96
+     ],
+     "note": "פרקים 5–7: AN/TPQ-36/37, TPQ-53, TPQ-50: אפיון, גילוי, אימות ואיכון, פעולה תחת ECM",
+     "role": "main"
+    },
+    {
+     "doc": "D8",
+     "pages": [
+      113,
+      118
+     ],
+     "note": "נספח D: מיסוך",
+     "role": "main"
+    },
+    {
+     "doc": "D8",
+     "pages": [
+      131,
+      141
+     ],
+     "note": "נספח G: התרעה מפני רקטות, ארטילריה ומרגמות",
+     "role": "main"
+    },
+    {
+     "doc": "D8",
+     "pages": [
+      11,
+      18
+     ],
+     "note": "פרק 1: ארגון איתור המטרות",
+     "role": "supp"
+    },
+    {
+     "doc": "D8",
+     "pages": [
+      41,
+      50
+     ],
+     "note": "פרק 4: אופן ההפעלה",
+     "role": "supp"
+    },
+    {
+     "doc": "D8",
+     "pages": [
+      97,
+      104
+     ],
+     "note": "נספח A",
+     "role": "supp"
+    },
+    {
+     "doc": "D8",
+     "pages": [
+      123,
+      130
+     ],
+     "note": "נספח F: כלים ונהלים",
+     "role": "supp"
+    }
+   ]
+  },
+  {
+   "id": "M11.3",
+   "part": "P11",
+   "tier": "core",
    "title": "חומרי נפץ, ראשי קרב, הדף ורסיסים",
    "en": "Explosives and warheads",
    "sources": [
@@ -3806,7 +3904,7 @@
    ]
   },
   {
-   "id": "M11.3",
+   "id": "M11.4",
    "part": "P11",
    "tier": "core",
    "title": "קריטריוני נזק, Pk ו-CEP",
@@ -3827,13 +3925,13 @@
    ]
   },
   {
-   "id": "M11.4",
+   "id": "M11.5",
    "part": "P11",
    "tier": "core",
    "title": "ראשי קרב מיוחדים ותחמושת טנקים",
    "en": "Special warheads and tank ammunition",
    "prereq": [
-    "M11.2"
+    "M11.3"
    ],
    "sources": [
     {
@@ -3857,13 +3955,13 @@
    ]
   },
   {
-   "id": "M11.5",
+   "id": "M11.6",
    "part": "P11",
    "tier": "core",
    "title": "מיגון טנקים: שריון, ERA ו-APS",
    "en": "Tank protection",
    "prereq": [
-    "M11.4"
+    "M11.5"
    ],
    "sources": [
     {
@@ -3878,7 +3976,7 @@
    ]
   },
   {
-   "id": "M11.6",
+   "id": "M11.7",
    "part": "P11",
    "tier": "core",
    "title": "ניידות טנקים: מנועים, תמסורת, מתלים",
@@ -3896,7 +3994,7 @@
    ]
   },
   {
-   "id": "M11.7",
+   "id": "M11.8",
    "part": "P11",
    "tier": "adv",
    "title": "התפתחות הטנק: מלחמה קרה ומעבר לה",
@@ -3914,7 +4012,7 @@
    ]
   },
   {
-   "id": "M11.8",
+   "id": "M11.9",
    "part": "P11",
    "tier": "ref",
    "title": "התפתחות הטנק עד 1945",
@@ -3932,7 +4030,7 @@
    ]
   },
   {
-   "id": "M11.9",
+   "id": "M11.10",
    "part": "P11",
    "tier": "adv",
    "title": "נשק גרעיני והשפעותיו",
@@ -3951,27 +4049,6 @@
   },
   {
    "id": "M12.1",
-   "part": "P12",
-   "tier": "core",
-   "title": "ל\"א בדוקטרינה הסובייטית",
-   "en": "Soviet EW doctrine",
-   "prereq": [
-    "M4.7"
-   ],
-   "sources": [
-    {
-     "doc": "D7",
-     "pages": [
-      1,
-      28
-     ],
-     "note": "הרצאות האקדמיה של המטה הכללי",
-     "role": "main"
-    }
-   ]
-  },
-  {
-   "id": "M12.2",
    "part": "P12",
    "tier": "core",
    "title": "הגנה אווירית ול\"א רוסיות בשטח",
@@ -4020,7 +4097,7 @@
    ]
   },
   {
-   "id": "M12.3",
+   "id": "M12.2",
    "part": "P12",
    "tier": "adv",
    "title": "הטקטיקה הרוסית: מבנה, סיור, אש, הגנה והתקפה",
@@ -4074,7 +4151,7 @@
    ]
   },
   {
-   "id": "M12.4",
+   "id": "M12.3",
    "part": "P12",
    "tier": "core",
    "title": "יכולות משולבות סיניות: חיל האוויר, הצי, כוח הרקטות, ל\"מ ותקשורת",
@@ -4122,7 +4199,7 @@
    ]
   },
   {
-   "id": "M12.5",
+   "id": "M12.4",
    "part": "P12",
    "tier": "adv",
    "title": "הטקטיקה הסינית: מבנה, לוחמת מערכות, הגנה והתקפה",
@@ -4285,17 +4362,25 @@
    "doc": "B05",
    "pages": [
     651,
-    678
+    665
    ],
-   "reason": "פרק 12: שווקים ויישומים אזרחיים"
+   "reason": "12.1–12.4: שווקים, יישומים אזרחיים ומיפוי"
   },
   {
    "doc": "B05",
    "pages": [
-    681,
-    684
+    667,
+    669
    ],
-   "reason": "נספח B: יציבות מקורות תדר"
+   "reason": "12.6–12.8: שירותים מסחריים ו-LBS"
+  },
+  {
+   "doc": "B05",
+   "pages": [
+    673,
+    678
+   ],
+   "reason": "12.10–12.11: ציוד לפי שוק ותחזיות פיננסיות"
   },
   {
    "doc": "B05",
@@ -4472,6 +4557,38 @@
     252
    ],
    "reason": "מילון ואינדקס"
+  },
+  {
+   "doc": "D8",
+   "pages": [
+    1,
+    10
+   ],
+   "reason": "שער ותוכן"
+  },
+  {
+   "doc": "D8",
+   "pages": [
+    105,
+    112
+   ],
+   "reason": "נספחים B–C: יומן ירי ואימון מובנה"
+  },
+  {
+   "doc": "D8",
+   "pages": [
+    119,
+    122
+   ],
+   "reason": "נספח E: דרישות תמיכה"
+  },
+  {
+   "doc": "D8",
+   "pages": [
+    142,
+    144
+   ],
+   "reason": "מילון ומקורות"
   }
  ]
 }

@@ -6,7 +6,7 @@
 
 **תפקיד המקור:** ★ מקור ראשי. ◇ השלמה מספר אחר. 📄 מאמר או מסמך.
 
-**סה"כ:** 123 מודולים: 98 ליבה, 15 מתקדם, 10 עיון.
+**סה"כ:** 124 מודולים: 98 ליבה, 16 מתקדם, 10 עיון.
 
 | חלק | מודולים | עמ' ספר בליבה | עמ' מאמרים בליבה | שיעורי ליבה (אומדן) | עמ' ספר במתקדם |
 |---|---|---|---|---|---|
@@ -14,16 +14,16 @@
 | P1 השכבה הפיזית: אנטנות, התפשטות וקשר | 4 | 184 | 72 | 12 | 0 |
 | P2 מכ"ם | 19 | 855 | 269 | 57 | 73 |
 | P3 EO/IR | 14 | 575 | 0 | 39 | 65 |
-| P4 לוחמה אלקטרונית | 15 | 373 | 459 | 27 | 0 |
-| P5 ניווט ו-GNSS | 10 | 433 | 26 | 29 | 202 |
+| P4 לוחמה אלקטרונית | 15 | 373 | 381 | 27 | 0 |
+| P5 ניווט ו-GNSS | 11 | 449 | 26 | 31 | 270 |
 | P6 טילים: דינמיקה, הנחיה ובקרה | 11 | 650 | 44 | 44 | 0 |
 | P7 הגנה אווירית ומפני טילים, ושו"ב | 8 | 195 | 985 | 13 | 36 |
 | P8 פלטפורמות אוויר ואוויוניקה | 7 | 74 | 155 | 6 | 36 |
 | P9 כטב"מים, רחפנים והגנה מפניהם | 8 | 238 | 41 | 19 | 44 |
-| P10 מערכות ימיות | 5 | 60 | 359 | 25 | 0 |
-| P11 אפקטים של נשק ושריון | 9 | 120 | 0 | 8 | 157 |
-| P12 האויב: דוקטרינה והפעלה | 5 | 106 | 0 | 7 | 415 |
-| **סה"כ** | 123 | 4073 | 2410 | 302 | 1028 |
+| P10 מערכות ימיות | 5 | 60 | 352 | 25 | 0 |
+| P11 אפקטים של נשק ושריון | 10 | 239 | 0 | 16 | 157 |
+| P12 האויב: דוקטרינה והפעלה | 4 | 78 | 0 | 5 | 415 |
+| **סה"כ** | 124 | 4180 | 2325 | 310 | 1096 |
 
 האומדן: שיעור לכל כ-15 עמודי ספר, כולל השלמות. מאמר לא מוסיף שיעורים משלו: המורה משלב ממנו את מה שחדש בתוך שיעורי המודול. מודול שכולו מאמרים נספר לפי עמודי המאמר.
 
@@ -370,12 +370,10 @@
 - ★ Military Avionics Systems, עמ' PDF 255–262: 6.2–6.3
 
 ### M4.6 איכון משדרים: גאומטריה, דיוק, AOA, אינטרפרומטר, דופלר, TDOA/FDOA
-*Emitter location* · **ליבה** · 70 עמ' ספר + 32 עמ' מאמרים · כ-5 שיעורים · דרישות: M0.8, M4.2, M0.6
+*Emitter location* · **ליבה** · 70 עמ' ספר · כ-5 שיעורים · דרישות: M0.8, M4.2, M0.6
 
 - ★ EW 101, עמ' PDF 165–198: פרק 8
 - ★ EW 102, עמ' PDF 172–207: פרק 6: דיוק מערכות איכון
-- 📄 US 7,508,344, TDOA/FDOA location (כולו): אלגוריתם TDOA/FDOA
-- 📄 US 7,667,640, emitter geolocation via satellite signals (כולו): איכון דרך לוויינים
 
 ### M4.7 שיבוש: J/S, burn-through ושיבוש כיסוי
 *Jamming fundamentals* · **ליבה** · 25 עמ' ספר · כ-2 שיעורים · דרישות: M2.2, M1.4
@@ -391,11 +389,10 @@
 - 📄 Nityananda, Spurs in DRFM and Applications of DRFM, NPS (1993) (כולו): DRFM
 
 ### M4.9 פיתיונות
-*Decoys* · **ליבה** · 18 עמ' ספר + 46 עמ' מאמרים · כ-1 שיעורים · דרישות: M4.7, M2.4
+*Decoys* · **ליבה** · 18 עמ' ספר · כ-1 שיעורים · דרישות: M4.7, M2.4
 
 - ★ EW 101, עמ' PDF 245–249: 10.1
 - ★ EW 101, עמ' PDF 252–264: 10.3–10.7
-- 📄 Yeh, Towed Decoys against a Monopulse Seeker, NPS (1995) (כולו): פיתיון נגרר מול ראש ביות מונופולס
 
 ### M4.10 אמצעי נגד ב-IR והגנה עצמית
 *IR countermeasures and defensive aids* · **ליבה** · 24 עמ' ספר + 81 עמ' מאמרים · כ-2 שיעורים · דרישות: M3.10, M4.7
@@ -434,10 +431,12 @@
 ## חלק 5: ניווט ו-GNSS
 
 ### M5.1 יסודות ניווט לווייני: TOA, מערכות צירים, מסלולים, זמן
-*Satnav fundamentals* · **ליבה** · 66 עמ' ספר · כ-4 שיעורים · דרישות: M0.6, M0.8
+*Satnav fundamentals* · **ליבה** · 70 עמ' ספר · כ-5 שיעורים · דרישות: M0.6, M0.8
 
 - ★ Understanding GPS, עמ' PDF 37–82: פרק 2
 - ◇ Understanding GPS, עמ' PDF 17–36: פרק 1: היסטוריה וסקירה
+- ◇ Understanding GPS, עמ' PDF 666: 12.5: העברת זמן
+- ◇ Understanding GPS, עמ' PDF 670–672: 12.9: יישומים ממשלתיים וצבאיים
 
 ### M5.2 מקטעי המערכת
 *System segments* · **מתקדם** · 46 עמ' ספר · כ-3 שיעורים · דרישות: M5.1
@@ -463,9 +462,10 @@
 - 📄 Liu, Lo, Walter, GNSS Interference Localization Using ADS-B (2022) (כולו): איכון משבש מנתוני ADS-B
 
 ### M5.6 ביצועים: שגיאות, DOP, שערוך PVT ואמינות
-*Stand-alone performance* · **ליבה** · 78 עמ' ספר · כ-5 שיעורים · דרישות: M5.4
+*Stand-alone performance* · **ליבה** · 82 עמ' ספר · כ-5 שיעורים · דרישות: M5.4
 
 - ★ Understanding GPS, עמ' PDF 317–394: פרק 7
+- ◇ Understanding GPS, עמ' PDF 681–684: נספח B: יציבות מקורות תדר (שעונים)
 
 ### M5.7 GPS דיפרנציאלי
 *Differential GPS* · **מתקדם** · 80 עמ' ספר · כ-5 שיעורים · דרישות: M5.6
@@ -473,20 +473,26 @@
 - ★ Understanding GPS, עמ' PDF 395–474: פרק 8
 
 ### M5.8 ניווט אינרציאלי ושילוב עם GPS
-*INS and integration* · **ליבה** · 76 עמ' ספר · כ-5 שיעורים · דרישות: M5.6, M2.15
+*INS and integration* · **ליבה** · 84 עמ' ספר · כ-6 שיעורים · דרישות: M5.6, M2.15
 
 - ★ Understanding GPS, עמ' PDF 475–506: 9.1–9.2
 - ★ Military Avionics Systems, עמ' PDF 303–313: 8.1–8.5
 - ★ Military Avionics Systems, עמ' PDF 332–346: 8.8–8.9
 - ◇ Principles of Naval Weapons Systems, עמ' PDF 243–252: פרק 20
 - ◇ Missile Guidance and Control Systems, עמ' PDF 558–565: 7.3: ניתוח שגיאות ניווט של טיל שיוט
+- ◇ Military Avionics Systems, עמ' PDF 324–331: 8.7: עזרי ניווט: TACAN, VOR/DME, ILS
 
 ### M5.9 מערכות GNSS אחרות: Galileo, GLONASS, BeiDou
 *Other GNSS* · **מתקדם** · 76 עמ' ספר · כ-5 שיעורים · דרישות: M5.3
 
 - ★ Understanding GPS, עמ' PDF 575–650: פרקים 10–11
 
-### M5.10 ניווט בלי GPS: TERCOM ואותות הזדמנות
+### M5.10 שילוב חיישנים בכלי יבשתי וסיוע רשת
+*Land-vehicle sensor integration and network assistance* · **מתקדם** · 68 עמ' ספר · כ-5 שיעורים · דרישות: M5.8
+
+- ★ Understanding GPS, עמ' PDF 507–574: 9.3–9.4: חישוב מיקום מצטבר, התאמה למפה, A-GPS
+
+### M5.11 ניווט בלי GPS: TERCOM ואותות הזדמנות
 *Alt-PNT* · **ליבה** · 25 עמ' ספר + 4 עמ' מאמרים · כ-2 שיעורים · דרישות: M5.8
 
 - ★ Missile Guidance and Control Systems, עמ' PDF 566–590: 7.4: TERCOM
@@ -647,11 +653,11 @@
 - ★ Military Avionics Systems, עמ' PDF 432–470: 11.1–11.4
 - ◇ Military Avionics Systems, עמ' PDF 471–502: 11.5–11.7
 
-### M8.6 ניווט אזרחי ו-FMS
-*Civil navigation and FMS* · **עיון** · 27 עמ' ספר · כ-2 שיעורים
+### M8.6 FMS וניהול תעבורה אווירית
+*FMS and air traffic management* · **עיון** · 19 עמ' ספר · כ-1 שיעורים
 
-- ★ Military Avionics Systems, עמ' PDF 314–331: 8.6–8.7
-- ★ Military Avionics Systems, עמ' PDF 347–355: 8.10
+- ★ Military Avionics Systems, עמ' PDF 314–323: 8.6: מערכת ניהול טיסה
+- ★ Military Avionics Systems, עמ' PDF 347–355: 8.10: GATM
 
 ### M8.7 מערכות ניהול הכלי
 *Vehicle management systems* · **עיון** · 32 עמ' ספר · כ-2 שיעורים
@@ -728,10 +734,9 @@
 - 📄 Review on the Hydro- and Thermo-Dynamic Wakes of Underwater Vehicles (2024) (כולו): שובלים של כלי תת-ימי
 
 ### M10.4 טורפדות ומוקשים
-*Torpedoes and mines* · **ליבה** · 10 עמ' ספר + 7 עמ' מאמרים · כ-1 שיעורים · דרישות: M10.3
+*Torpedoes and mines* · **ליבה** · 10 עמ' ספר · כ-1 שיעורים · דרישות: M10.3
 
 - ★ Principles of Naval Weapons Systems, עמ' PDF 299–308: פרק 26
-- 📄 US 4,203,163, passive acoustic homing torpedo (כולו): ביות אקוסטי פסיבי
 
 ### M10.5 הגנה עצמית של ספינה מול טילי ים-ים
 *Ship self-defense* · **ליבה** · 317 עמ' מאמרים · כ-21 שיעורים · דרישות: M1.3, M4.9, M4.10
@@ -747,55 +752,62 @@
 
 - ★ Principles of Naval Weapons Systems, עמ' PDF 253–264: פרק 21
 
-### M11.2 חומרי נפץ, ראשי קרב, הדף ורסיסים
+### M11.2 איתור ארטילריה ואש נגד סוללות
+*Weapon-locating radar and counterfire* · **ליבה** · 119 עמ' ספר · כ-8 שיעורים · דרישות: M11.1, M2.15
+
+- ★ ATP 3-09.12 Field Artillery Target Acquisition (2015), עמ' PDF 19–40: פרקים 2–3: אש נגד סוללות, היבטים טכניים של פריסת מכ"ם איתור
+- ★ ATP 3-09.12 Field Artillery Target Acquisition (2015), עמ' PDF 51–96: פרקים 5–7: AN/TPQ-36/37, TPQ-53, TPQ-50: אפיון, גילוי, אימות ואיכון, פעולה תחת ECM
+- ★ ATP 3-09.12 Field Artillery Target Acquisition (2015), עמ' PDF 113–118: נספח D: מיסוך
+- ★ ATP 3-09.12 Field Artillery Target Acquisition (2015), עמ' PDF 131–141: נספח G: התרעה מפני רקטות, ארטילריה ומרגמות
+- ◇ ATP 3-09.12 Field Artillery Target Acquisition (2015), עמ' PDF 11–18: פרק 1: ארגון איתור המטרות
+- ◇ ATP 3-09.12 Field Artillery Target Acquisition (2015), עמ' PDF 41–50: פרק 4: אופן ההפעלה
+- ◇ ATP 3-09.12 Field Artillery Target Acquisition (2015), עמ' PDF 97–104: נספח A
+- ◇ ATP 3-09.12 Field Artillery Target Acquisition (2015), עמ' PDF 123–130: נספח F: כלים ונהלים
+
+### M11.3 חומרי נפץ, ראשי קרב, הדף ורסיסים
 *Explosives and warheads* · **ליבה** · 18 עמ' ספר · כ-1 שיעורים
 
 - ★ Principles of Naval Weapons Systems, עמ' PDF 265–282: פרקים 22–23
 
-### M11.3 קריטריוני נזק, Pk ו-CEP
+### M11.4 קריטריוני נזק, Pk ו-CEP
 *Damage criteria, Pk, CEP* · **ליבה** · 12 עמ' ספר · כ-1 שיעורים · דרישות: M0.4
 
 - ★ Principles of Naval Weapons Systems, עמ' PDF 283–294: פרק 24
 
-### M11.4 ראשי קרב מיוחדים ותחמושת טנקים
-*Special warheads and tank ammunition* · **ליבה** · 27 עמ' ספר · כ-2 שיעורים · דרישות: M11.2
+### M11.5 ראשי קרב מיוחדים ותחמושת טנקים
+*Special warheads and tank ammunition* · **ליבה** · 27 עמ' ספר · כ-2 שיעורים · דרישות: M11.3
 
 - ★ Principles of Naval Weapons Systems, עמ' PDF 295–298: פרק 25: חודר שריון, EFP, אנרגיה קינטית, FAE
 - ★ Tanks: 100 Years of Evolution, עמ' PDF 290–312: נספח I: עוצמת התותח
 
-### M11.5 מיגון טנקים: שריון, ERA ו-APS
-*Tank protection* · **ליבה** · 19 עמ' ספר · כ-1 שיעורים · דרישות: M11.4
+### M11.6 מיגון טנקים: שריון, ERA ו-APS
+*Tank protection* · **ליבה** · 19 עמ' ספר · כ-1 שיעורים · דרישות: M11.5
 
 - ★ Tanks: 100 Years of Evolution, עמ' PDF 312–330: נספח II
 
-### M11.6 ניידות טנקים: מנועים, תמסורת, מתלים
+### M11.7 ניידות טנקים: מנועים, תמסורת, מתלים
 *Tank mobility* · **ליבה** · 32 עמ' ספר · כ-2 שיעורים
 
 - ★ Tanks: 100 Years of Evolution, עמ' PDF 330–361: נספח III
 
-### M11.7 התפתחות הטנק: מלחמה קרה ומעבר לה
+### M11.8 התפתחות הטנק: מלחמה קרה ומעבר לה
 *Tank evolution since 1945* · **מתקדם** · 114 עמ' ספר · כ-8 שיעורים
 
 - ★ Tanks: 100 Years of Evolution, עמ' PDF 176–289: פרקים 9–12: חמש המעצמות, הפריפריה (כולל ישראל), אסיה, אפילוג
 
-### M11.8 התפתחות הטנק עד 1945
+### M11.9 התפתחות הטנק עד 1945
 *Tank evolution to 1945* · **עיון** · 163 עמ' ספר · כ-11 שיעורים
 
 - ★ Tanks: 100 Years of Evolution, עמ' PDF 13–175: פרקים 1–8
 
-### M11.9 נשק גרעיני והשפעותיו
+### M11.10 נשק גרעיני והשפעותיו
 *Nuclear weapons and effects* · **מתקדם** · 43 עמ' ספר · כ-3 שיעורים
 
 - ★ Principles of Naval Weapons Systems, עמ' PDF 309–351: פרקים 27–30
 
 ## חלק 12: האויב: דוקטרינה והפעלה
 
-### M12.1 ל"א בדוקטרינה הסובייטית
-*Soviet EW doctrine* · **ליבה** · 28 עמ' ספר · כ-2 שיעורים · דרישות: M4.7
-
-- ★ USSR General Staff Academy Lectures: EW in Offensive Operations, עמ' PDF 1–28: הרצאות האקדמיה של המטה הכללי
-
-### M12.2 הגנה אווירית ול"א רוסיות בשטח
+### M12.1 הגנה אווירית ול"א רוסיות בשטח
 *Russian air defense and EW* · **ליבה** · 48 עמ' ספר · כ-3 שיעורים · דרישות: M7.1, M4.7
 
 - ★ ATP 7-100.1 Russian Tactics (2024), עמ' PDF 100–110: IADS ו-EW בסיור ובאבטחה
@@ -803,7 +815,7 @@
 - ★ ATP 7-100.1 Russian Tactics (2024), עמ' PDF 223–240: נספחים C, D, E, F: תמיכה אווירית, הגנה אווירית, נ"ט, EW
 - ★ ATP 7-100.1 Russian Tactics (2024), עמ' PDF 255–260: נספח J: מערכות שו"ב אוטומטיות
 
-### M12.3 הטקטיקה הרוסית: מבנה, סיור, אש, הגנה והתקפה
+### M12.2 הטקטיקה הרוסית: מבנה, סיור, אש, הגנה והתקפה
 *Russian tactics* · **מתקדם** · 213 עמ' ספר · כ-14 שיעורים
 
 - ★ ATP 7-100.1 Russian Tactics (2024), עמ' PDF 15–99: פרקים 1–4
@@ -812,7 +824,7 @@
 - ★ ATP 7-100.1 Russian Tactics (2024), עמ' PDF 241–254: נספחים G–I
 - ★ ATP 7-100.1 Russian Tactics (2024), עמ' PDF 261–275: נספח K
 
-### M12.4 יכולות משולבות סיניות: חיל האוויר, הצי, כוח הרקטות, ל"מ ותקשורת
+### M12.3 יכולות משולבות סיניות: חיל האוויר, הצי, כוח הרקטות, ל"מ ותקשורת
 *Chinese joint capabilities* · **ליבה** · 30 עמ' ספר · כ-2 שיעורים · דרישות: M7.1
 
 - ★ ATP 7-100.3 Chinese Tactics (2021), עמ' PDF 51–58: פרק 3
@@ -820,7 +832,7 @@
 - ★ ATP 7-100.3 Chinese Tactics (2021), עמ' PDF 217–226: נספחים C–D: הגנה אווירית ותעופה
 - ★ ATP 7-100.3 Chinese Tactics (2021), עמ' PDF 229–230: נספח F: רשת ותקשורת
 
-### M12.5 הטקטיקה הסינית: מבנה, לוחמת מערכות, הגנה והתקפה
+### M12.4 הטקטיקה הסינית: מבנה, לוחמת מערכות, הגנה והתקפה
 *Chinese tactics* · **מתקדם** · 202 עמ' ספר · כ-13 שיעורים
 
 - ★ ATP 7-100.3 Chinese Tactics (2021), עמ' PDF 15–50: פרקים 1–2
@@ -846,8 +858,9 @@
 | EW 102 | 276–291 | ביבליוגרפיה ואינדקס |
 | Understanding GPS | 1–16 | שער, תוכן ופתח דבר |
 | Understanding GPS | 507–574 | 9.3–9.4: רכב יבשתי וסיוע רשת (אזרחי) |
-| Understanding GPS | 651–678 | פרק 12: שווקים ויישומים אזרחיים |
-| Understanding GPS | 681–684 | נספח B: יציבות מקורות תדר |
+| Understanding GPS | 651–665 | 12.1–12.4: שווקים, יישומים אזרחיים ומיפוי |
+| Understanding GPS | 667–669 | 12.6–12.8: שירותים מסחריים ו-LBS |
+| Understanding GPS | 673–678 | 12.10–12.11: ציוד לפי שוק ותחזיות פיננסיות |
 | Understanding GPS | 691–723 | על המחברים ואינדקס |
 | Missile Guidance and Control Systems | 1–15 | שער, תוכן ופתח דבר |
 | Missile Guidance and Control Systems | 678–681 | אינדקס |
@@ -870,6 +883,10 @@
 | ATP 7-100.1 Russian Tactics (2024) | 276–280 | מילון ואינדקס |
 | ATP 7-100.3 Chinese Tactics (2021) | 1–14 | שער ותוכן |
 | ATP 7-100.3 Chinese Tactics (2021) | 247–252 | מילון ואינדקס |
+| ATP 3-09.12 Field Artillery Target Acquisition (2015) | 1–10 | שער ותוכן |
+| ATP 3-09.12 Field Artillery Target Acquisition (2015) | 105–112 | נספחים B–C: יומן ירי ואימון מובנה |
+| ATP 3-09.12 Field Artillery Target Acquisition (2015) | 119–122 | נספח E: דרישות תמיכה |
+| ATP 3-09.12 Field Artillery Target Acquisition (2015) | 142–144 | מילון ומקורות |
 
 ## בדיקת כיסוי
 
