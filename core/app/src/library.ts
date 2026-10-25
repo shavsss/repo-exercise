@@ -46,6 +46,8 @@ export interface LibraryIndex {
   docs: Record<string, DocMeta>;
   parts: Part[];
   modules: Module[];
+  /** bundle name → URL, for bundles kept in the artifact's asset store instead of lib/ */
+  assets?: Record<string, string>;
 }
 export interface PageText {
   /** printed page label, if detected */
@@ -99,7 +101,7 @@ async function cached<T>(name: string, version: string): Promise<T> {
       return hit;
     }
   }
-  const res = await fetch(`lib/${name}`);
+  const res = await fetch(index?.assets?.[name] ?? `lib/${name}`);
   if (!res.ok) throw new Error(`לא הצלחתי לטעון את ${name} (${res.status})`);
   const data = (await res.json()) as T;
   memory.set(key, data);

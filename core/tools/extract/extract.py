@@ -12,21 +12,26 @@ Run with the OCR venv: python extract.py [DOC ...] [--pages A-B] [--force]
 import argparse
 import html
 import json
+import os
 import re
+import shutil
 import subprocess
 import sys
 import tempfile
 from pathlib import Path
 
 import numpy as np
-from PIL import Image
+from PIL import Image, ImageFilter
 from scipy import ndimage
 
 ROOT = Path(__file__).resolve().parents[3]
 LIB = ROOT / "library" / "military"
-OUT = ROOT / "core" / "build" / "lib"
+OUT = Path(os.environ.get("EXTRACT_OUT", ROOT / "core" / "build" / "lib"))
 sys.path.insert(0, str(LIB / "syllabus"))
 from syllabus import DOCS  # noqa: E402
+
+sys.path.insert(0, str(ROOT / "core" / "tools"))
+from source_pdf import source_pdf  # noqa: E402
 
 CAPTION = re.compile(r"^\s*(FIGURE|Figure|FIG\.|Fig\.|Plate|PLATE)\s*[A-Z]?\d+([-.–]\d+[a-z]?)?\b|^\s*(ABOVE|BELOW|LEFT|RIGHT|TOP|BOTTOM|OPPOSITE)\s*[•·]")
 RUNNING = re.compile(r"^\s*(Figure|Fig\.)\s*[\d.\-–]+\.?,?\s+(shows|show|illustrates|depicts|is|are|was|gives|presents|compares|plots|summarizes|contains|and|also|indicates|represents|describes)\b")
@@ -83,8 +88,20 @@ def render(pdf, page, dpi, gray=True):
         return Image.open(f).copy()
 
 
+def even_light(img):
+    """A photographed page with its uneven lighting and dark surroundings flattened to white
+    (each pixel divided by a heavy blur of its neighbourhood)."""
+    a = np.asarray(img.convert("L"), dtype=float)
+    radius = max(8, img.width / 62)  # about 1/6 inch, so text strokes are not part of the background
+    bg = np.asarray(img.convert("L").filter(ImageFilter.GaussianBlur(radius)), dtype=float) + 1
+    return Image.fromarray(np.clip(a / bg * 235, 0, 255).astype("uint8"))
+
+
 def ocr_page(pdf, page):
-    """OCR a page; returns (text, lines in points)."""
+    """OCR a page; returns (text, lines in points). Tesseract when it is installed (it keeps
+    the reading order of columns and the spaces between words), else RapidOCR."""
+    if shutil.which("tesseract"):
+        return ocr_tesseract(pdf, page)
     img = render(pdf, page, 200, gray=False)
     res, _ = ocr_engine()(np.array(img))
     if not res:
@@ -97,6 +114,45 @@ def ocr_page(pdf, page):
     lines.sort(key=lambda l: (round(l["box"][1] / 6), l["box"][0]))
     text = "\n".join(l["text"] for l in lines)
     return text, lines
+
+
+def tesseract_tsv(img):
+    with tempfile.TemporaryDirectory() as tmp:
+        f = Path(tmp) / "p.png"
+        img.save(f)
+        return subprocess.run(["tesseract", str(f), "-", "--psm", "3", "tsv"], capture_output=True, text=True,
+                              env={**os.environ, "OMP_THREAD_LIMIT": "1"}).stdout
+
+
+def ocr_tesseract(pdf, page, dpi=300):
+    return tsv_lines(tesseract_tsv(even_light(render(pdf, page, dpi))), 72 / dpi)
+
+
+def tsv_lines(tsv, scale):
+    """(text in reading order, lines in points) from tesseract TSV output."""
+    lines, order = {}, []
+    for row in tsv.splitlines()[1:]:
+        c = row.split("\t")
+        if len(c) < 12 or c[0] != "5" or not c[11].strip():
+            continue
+        key = (int(c[2]), int(c[3]), int(c[4]))
+        x, y, w, h = (int(v) for v in c[6:10])
+        if key not in lines:
+            lines[key] = {"words": [], "box": [x, y, x + w, y + h]}
+            order.append(key)
+        ln = lines[key]
+        ln["words"].append(c[11])
+        ln["box"] = [min(ln["box"][0], x), min(ln["box"][1], y), max(ln["box"][2], x + w), max(ln["box"][3], y + h)]
+    out, text, last_par = [], [], None
+    for key in order:
+        ln = lines[key]
+        t = " ".join(ln["words"])
+        out.append({"box": [v * scale for v in ln["box"]], "text": t, "n": len(ln["words"])})
+        if last_par is not None and key[:2] != last_par:
+            text.append("")
+        text.append(t)
+        last_par = key[:2]
+    return "\n".join(text), out
 
 
 def label_candidates(lines, h):
@@ -160,7 +216,7 @@ def find_figures(pdf, page, info, scanned):
     W, H = info["w"], info["h"]
     lines = info["lines"]
     img = render(pdf, page, DETECT_DPI)
-    a = np.array(img)
+    a = np.array(even_light(img) if scanned else img)
     s = DETECT_DPI / 72
     ink = a < 190
     # running head and foot are never part of a figure
@@ -244,7 +300,7 @@ def crop(pdf, page, box, out):
 
 def process(doc, page_range=None, force=False):
     rel, title = DOCS[doc]
-    pdf = LIB / rel
+    pdf = source_pdf(LIB, rel)
     n = page_count(pdf)
     out = OUT / doc
     (out / "fig").mkdir(parents=True, exist_ok=True)
