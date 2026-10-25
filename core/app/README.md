@@ -1,6 +1,6 @@
 # מעבדת הליבה · Core Lab
 
-**האפליקציה:** ראו את הכתובת ב-[`CLAUDE.md`](../../CLAUDE.md).
+**האפליקציה:** https://claude.ai/artifact/1tTftT3T7L7p67ofNzvfc9
 
 מורה פרטי שמלמד את הליבה הטכנית הצבאית מתוך הספרייה שב-`library/military/`, מודול אחר מודול, לפי תוכנית הלימודים (`library/military/syllabus/`). כמו מעבדת הלמידה, הדף רץ כ-Artifact ב-claude.ai: אין שרת ואין מפתח API, והוא פונה ל-Claude דרך `claude.use("sample")` ומבקש את Claude Opus 5.5. כללי הלימוד נמצאים ב-[`src/prompt.ts`](src/prompt.ts) ובעברית ב-[`docs/CORE_TEACHING_RULES.md`](../../docs/CORE_TEACHING_RULES.md).
 

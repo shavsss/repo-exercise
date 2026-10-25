@@ -35,6 +35,11 @@ SHORT = {
 }
 
 
+
+def dumps(value):
+    """Compact JSON; U+FFFD is escaped because the artifact publisher rejects it."""
+    return json.dumps(value, ensure_ascii=False, separators=(",", ":")).replace("\ufffd", "\\ufffd")
+
 def short(doc):
     if doc in SHORT:
         return SHORT[doc]
@@ -119,7 +124,7 @@ def bundle(prefix, items, folder):
     names = []
     for i, content in enumerate(files):
         name = f"{folder}/{prefix}-{i}.json"
-        (OUT / name).write_text(json.dumps(content, ensure_ascii=False, separators=(",", ":")))
+        (OUT / name).write_text(dumps(content))
         names.append(name)
         for key in content:
             index[key] = i
@@ -139,7 +144,7 @@ def main():
         pages = json.loads((src / "pages.json").read_text())
         figs = json.loads((src / "figures.json").read_text()) if (src / "figures.json").exists() else {}
         text = {k: {"l": v.get("label"), "t": v["text"], **({"o": 1} if v.get("ocr") else {})} for k, v in pages.items()}
-        (OUT / "text" / f"{doc}.json").write_text(json.dumps(text, ensure_ascii=False, separators=(",", ":")))
+        (OUT / "text" / f"{doc}.json").write_text(dumps(text))
 
         fig_items = []
         fig_pages = {}
@@ -196,7 +201,7 @@ def main():
             digest.update(str(f.stat().st_size).encode())
     digest.update(json.dumps(index, sort_keys=True).encode())
     index["version"] = digest.hexdigest()[:12]
-    (OUT / "index.json").write_text(json.dumps(index, ensure_ascii=False, separators=(",", ":")))
+    (OUT / "index.json").write_text(dumps(index))
     total = sum(f.stat().st_size for f in OUT.rglob("*.json"))
     print(f"wrote {sum(1 for _ in OUT.rglob('*.json'))} files, {total / 1e6:.1f} MB")
 
