@@ -1,7 +1,7 @@
 // The claude.ai artifact runtime: Claude (`sample`), the per-user store (`db`)
 // and the viewer's id (`user`). Every capability may be absent (null): the app
 // then runs without that feature instead of failing.
-import type { Mode, ModuleProgress, StoredMessage } from "./types";
+import type { LessonNote, Mode, ModuleProgress, StoredMessage } from "./types";
 
 /* ---- minimal shapes of the runtime namespaces this page uses ---- */
 export interface SampleTool {
@@ -189,6 +189,30 @@ export class Store {
 
   async touch(convId: string, count: number) {
     await this.convs().doc(convId).update({ updatedAt: Date.now(), count });
+  }
+
+  /* ---- the shared notebook of the lessons: profile/notes/<id> ---- */
+  watchNotes(fn: (list: LessonNote[]) => void) {
+    return this.profile
+      .collection("notes")
+      .orderBy("ts", "desc")
+      .limit(1000)
+      .onSnapshot((s) => fn(s.docs.map((d) => ({ ...(d.data() as LessonNote), id: d.id }))));
+  }
+
+  async addNote(note: LessonNote) {
+    const ref = this.profile.collection("notes").doc();
+    const { id: _id, ...body } = note;
+    await ref.set(clean({ ...body, text: body.text.slice(0, 20000) }) as unknown as Record<string, unknown>);
+    return ref.id;
+  }
+
+  async updateNote(id: string, patch: Partial<LessonNote>) {
+    await this.profile.collection("notes").doc(id).update(clean(patch) as Record<string, unknown>);
+  }
+
+  async deleteNote(id: string) {
+    await this.profile.collection("notes").doc(id).delete();
   }
 
   async deleteConversation(convId: string) {

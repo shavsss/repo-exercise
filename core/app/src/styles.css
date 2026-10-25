@@ -2136,3 +2136,34 @@ button.crumb:hover {
 .s3d-wrap.is-big .s3d-stage { aspect-ratio: auto; height: min(78vh, calc(100vh - 220px)); }
 .s3d-scrim { position: fixed; inset: 0; z-index: 59; background: rgb(0 0 0 / 55%); }
 
+
+/* the lesson's shared notebook */
+.notes-btn { position: relative; }
+.notes-count { position: absolute; inset: 2px 2px auto auto; min-width: 15px; height: 15px; padding: 0 3px; border-radius: 8px; background: var(--accent); color: var(--on-accent); font: 600 10px/15px var(--mono); text-align: center; }
+.notes-modal { width: min(760px, 100%); }
+.notes-tools { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
+.seg button { all: unset; cursor: pointer; padding: 3px 12px; font-size: 0.8rem; color: var(--ink); }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.seg button:disabled { opacity: 0.45; cursor: default; }
+.seg button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.notes-tools select { font: inherit; font-size: 0.8rem; padding: 3px 6px; border: 1px solid var(--line); border-radius: 3px; background: var(--paper); color: var(--ink); }
+.note-add { display: grid; gap: 8px; padding: 10px; border: 1.5px dashed var(--line-strong); border-radius: 3px; margin-bottom: 14px; }
+.note-add textarea, .note-edit textarea { font: inherit; font-size: 0.9rem; width: 100%; padding: 6px 8px; border: 1px solid var(--line); border-radius: 3px; background: var(--paper); color: var(--ink); resize: vertical; }
+.note-add .btn { justify-self: start; }
+.note-kinds { display: flex; gap: 6px; flex-wrap: wrap; }
+.note-kinds .chip[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.notes { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.note { --nk: var(--blue); border-inline-start: 3px solid var(--nk); padding: 6px 10px; background: var(--paper); border-radius: 2px; }
+.note-k-article { --nk: var(--k-story); }
+.note-k-interview { --nk: var(--k-history); }
+.note-k-deepen { --nk: var(--k-domain); }
+.note-k-note { --nk: var(--muted); }
+.note-head { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; font-size: 0.78rem; color: var(--muted); }
+.note-kind { font-weight: 700; color: var(--nk); }
+.note-actions { margin-inline-start: auto; display: flex; gap: 10px; }
+.note-text { font-size: 0.92rem; }
+.note-text p { margin: 4px 0; }
+.note-edit { display: grid; gap: 6px; margin-top: 6px; }
+.note-edit .btn { justify-self: start; }
+.act-note { color: var(--k-story); }

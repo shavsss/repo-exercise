@@ -5,7 +5,8 @@ export type Effort = "low" | "medium" | "high";
 export type Activity =
   | { t: "read"; doc: string; from: number; to: number; ok: boolean; note?: string }
   | { t: "search"; query: string; hits: number }
-  | { t: "compute"; script: string; output: string; ok: boolean };
+  | { t: "compute"; script: string; output: string; ok: boolean }
+  | { t: "note"; kind: string; text: string };
 
 export interface StoredMessage {
   role: "user" | "assistant";
@@ -55,3 +56,18 @@ export interface ModuleProgress {
   quizScore?: string;
   updatedAt?: number;
 }
+
+/** A point kept in the lesson's shared notebook, by the learner or the tutor. */
+export type NoteKind = "article" | "interview" | "deepen" | "note";
+export interface LessonNote {
+  id?: string;
+  who: "learner" | "tutor";
+  kind: NoteKind;
+  text: string;
+  moduleId: string;
+  /** lesson index; -1 = the module quiz */
+  lesson: number;
+  lessonTitle?: string;
+  ts: number;
+}
+export const NOTE_KIND_LABEL: Record<NoteKind, string> = { article: "רעיון למאמר", interview: "שאלה לראיון", deepen: "להעמקה", note: "הערה" };

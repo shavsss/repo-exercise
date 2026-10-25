@@ -3,7 +3,7 @@ import { connect, type ConvMeta, type Runtime, type SampleError } from "./runtim
 import { docMeta, loadIndex, moduleState, type LibraryIndex, type Module } from "./library";
 import { INITIAL_MEMORY, askTutor, composeLesson, planModule, updateMemory, type PartPlan } from "./tutor";
 import { toItems } from "./segments";
-import type { Activity, Effort, ModuleProgress, Mode, StoredMessage } from "./types";
+import type { Activity, Effort, LessonNote, ModuleProgress, Mode, NoteKind, StoredMessage } from "./types";
 import { ModuleMap, STATE_LABEL, TIER_LABEL, type Selection } from "./components/ModuleMap";
 import { Topbar, type Crumb } from "./components/Topbar";
 import { AssistantTurn, DimensionHead, UserBubble } from "./components/Message";
@@ -13,6 +13,7 @@ import { MemoryPanel } from "./components/MemoryPanel";
 import { MdContext } from "./components/Markdown";
 import { SourceTag } from "./components/blocks/SourceTag";
 import { Icon } from "./components/Icon";
+import { NotesPanel } from "./components/NotesPanel";
 
 interface Notice {
   level: "info" | "warn" | "error";
@@ -89,6 +90,10 @@ export function App() {
   const [sidePref, setSidePref] = usePersisted<"open" | "closed">("core-lab:side", "open");
   const [memoryOpen, setMemoryOpen] = useState(false);
   const [memoryBusy, setMemoryBusy] = useState(false);
+  const [notes, setNotes] = useState<LessonNote[]>([]);
+  const [notesOpen, setNotesOpen] = useState(false);
+  const notesRef = useRef(notes);
+  notesRef.current = notes;
   const scrollRef = useRef<HTMLDivElement>(null);
   const stick = useRef(true);
   const ctl = useRef<AbortController | null>(null);
@@ -125,6 +130,7 @@ export function App() {
           setModsReady(true);
         }),
         r.store.watchConversations(setConvs),
+        r.store.watchNotes(setNotes),
       ];
     });
     return () => {
@@ -168,6 +174,24 @@ export function App() {
       } catch {
         notify({ level: "warn", text: "ההתקדמות במודול עודכנה רק בתצוגה הזו. השמירה ב-claude.ai נכשלה." });
       }
+    },
+    [rt],
+  );
+
+  /** Adds a point to a lesson's shared notebook (kept in this view when there is no store). */
+  const addNote = useCallback(
+    async (kind: NoteKind, text: string, who: LessonNote["who"], m: Module, idx: number) => {
+      const lessonTitle = idx >= 0 ? modsRef.current[m.id]?.lessons?.[idx]?.title : "מבחן מסכם";
+      const note: LessonNote = { who, kind, text, moduleId: m.id, lesson: idx, ts: Date.now(), ...(lessonTitle ? { lessonTitle } : {}) };
+      if (rt?.store) {
+        try {
+          await rt.store.addNote(note);
+          return;
+        } catch {
+          notify({ level: "warn", text: "הפריט נוסף למחברת רק בתצוגה הזו. השמירה ב-claude.ai נכשלה." });
+        }
+      }
+      setNotes((all) => [{ ...note, id: `local-${note.ts}` }, ...all]);
     },
     [rt],
   );
@@ -305,9 +329,11 @@ export function App() {
           onStatus: (status: string) => setLive((l) => (l ? { ...l, status } : l)),
           onCheckpoint: (plan: PartPlan, partsDone: number, text: string) => save({ plan, partsDone, text }, true),
           onText: show,
+          onNote: (kind: NoteKind, text: string) => addNote(kind, text, "tutor", m, idx),
         };
         const lessons = modsRef.current[m.id]?.lessons;
-        const base = { rt, history, effort, module: m, lessons, lessonIdx: idx, memory, signal: ctl.current.signal, cb };
+        const lessonNotes = notesRef.current.filter((n) => n.moduleId === m.id && n.lesson === idx);
+        const base = { rt, history, effort, module: m, lessons, lessonIdx: idx, memory, notes: lessonNotes, signal: ctl.current.signal, cb };
         const plan = answer.plan as PartPlan | undefined;
         if (sendMode === "lesson" && !images.length && (!resume || plan || !resume.text)) {
           const res = await composeLesson({ ...base, text: userMsg.text, resume: plan ? { plan, partsDone: answer.partsDone ?? 0, text: answer.text } : undefined });
@@ -376,7 +402,7 @@ export function App() {
         }
       }
     },
-    [effort, memory, finishLesson, saveModule],
+    [effort, memory, finishLesson, saveModule, addNote],
   );
 
   const send = useCallback(
@@ -471,6 +497,7 @@ export function App() {
       quick.push(
         { label: "הסבר שוב, לאט יותר", text: "החלק האחרון היה מהיר מדי בשבילי. הסבר אותו שוב, לאט יותר ומלמטה למעלה, עם עוד דוגמה מספרית פשוטה.", mode: "clarify" },
         { label: "עוד תרגילים", text: "תן לי עוד תרגילים על השיעור: חישובי מהנדס והערכות אנליסט, מדורגים מקל לקשה, עם פתרונות מלאים שאומתו בחישוב.", mode: "clarify" },
+        { label: "למאמר ולראיון", text: "מה מהשיעור הזה שווה מאמר או ראיון? הצע זוויות למאמר ושאלות לראיון עם מומחה, ושמור את הטובות במחברת השיעור.", mode: "clarify" },
         { label: "מקרה בוחן נוסף", text: "הוסף מקרה בוחן מעמיק נוסף לשיעור, אירוע מבצעי או מערכת שעוד לא הופיעו, עם מודל ומספרים מחושבים.", mode: "clarify" },
       );
   }
@@ -503,6 +530,8 @@ export function App() {
             : undefined
         }
         onMemory={() => setMemoryOpen(true)}
+        onNotes={() => setNotesOpen(true)}
+        notesCount={module && lessonIdx !== undefined ? notes.filter((n) => n.moduleId === module.id && n.lesson === lessonIdx).length : notes.length}
       />
       <div className="body">
         {index ? (
@@ -613,6 +642,28 @@ export function App() {
         {viewer && <SourceViewer doc={viewer.doc} page={viewer.page} onPage={(p) => setViewer({ ...viewer, page: p })} onClose={() => setViewer(null)} />}
       </div>
 
+      {notesOpen && (
+        <NotesPanel
+          notes={notes}
+          here={module && lessonIdx !== undefined ? { moduleId: module.id, lesson: lessonIdx } : null}
+          hereLabel={module && lessonIdx !== undefined ? `${module.id} · ${isQuiz ? "מבחן מסכם" : `שיעור ${lessonIdx + 1}: ${lesson?.title ?? ""}`}` : ""}
+          canWrite={!!rt}
+          onAdd={(kind, text) => module && lessonIdx !== undefined && addNote(kind, text, "learner", module, lessonIdx)}
+          onUpdate={(id, patch) => {
+            if (id.startsWith("local-") || !rt?.store) setNotes((all) => all.map((n) => (n.id === id ? { ...n, ...patch } : n)));
+            else rt.store.updateNote(id, patch).catch(() => notify({ level: "error", text: "העדכון לא נשמר." }));
+          }}
+          onDelete={(id) => {
+            if (id.startsWith("local-") || !rt?.store) setNotes((all) => all.filter((n) => n.id !== id));
+            else rt.store.deleteNote(id).catch(() => notify({ level: "error", text: "המחיקה לא נשמרה." }));
+          }}
+          onClose={() => setNotesOpen(false)}
+          onOpen={(moduleId, l) => {
+            setNotesOpen(false);
+            setSelection({ moduleId, lesson: l });
+          }}
+        />
+      )}
       {memoryOpen && (
         <MemoryPanel
           memory={memory}

@@ -44,6 +44,7 @@ const slug = (s) =>
 let profile = null;
 const modules = {};
 const convs = new Map();
+const notebook = [];
 for (const f of walk(dump).filter((f) => f.endsWith(".json"))) {
   const rel = path.relative(dump, f).split(path.sep).join("/");
   let m;
@@ -55,6 +56,8 @@ for (const f of walk(dump).filter((f) => f.endsWith(".json"))) {
     const c = convs.get(m[1]) ?? { id: m[1], meta: {}, msgs: [] };
     c.meta = read(f);
     convs.set(m[1], c);
+  } else if (/profile\/notes\/[^/]+\.json$/.test(rel)) {
+    notebook.push(read(f));
   } else if ((m = /modules\/([^/]+)\.json$/.exec(rel))) {
     modules[m[1]] = read(f);
   } else if (/\/profile\.json$/.test(rel)) {
@@ -110,9 +113,23 @@ for (const c of [...convs.values()].sort((a, b) => String(a.meta.moduleId).local
 // conversations deleted in the app are removed here too (git history keeps them)
 for (const f of fs.readdirSync(lessonsDir)) if (f.endsWith(".md") && !written.has(f)) fs.rmSync(path.join(lessonsDir, f));
 
+// the lessons' shared notebook: article ideas, interview questions, points to deepen
+const KIND = { article: "רעיון למאמר", interview: "שאלה לראיון", deepen: "להעמקה", note: "הערה" };
+const byLesson = new Map();
+for (const n of notebook.sort((a, b) => (a.moduleId ?? "").localeCompare(b.moduleId ?? "") || (a.lesson ?? 0) - (b.lesson ?? 0) || (a.ts ?? 0) - (b.ts ?? 0))) {
+  const k = `${n.moduleId} · ${n.lesson === -1 ? "מבחן מסכם" : `שיעור ${(n.lesson ?? 0) + 1}${n.lessonTitle ? `: ${n.lessonTitle}` : ""}`}`;
+  byLesson.set(k, [...(byLesson.get(k) ?? []), n]);
+}
+fs.writeFileSync(
+  path.join(notes, "NOTEBOOK.md"),
+  `# מחברת השיעורים\n\nמה שהלומד והמורה שמרו בשיעורים: רעיונות למאמרים, שאלות לראיונות ונקודות להעמקה.\n\n${
+    [...byLesson].map(([k, list]) => `## ${k}\n\n${list.map((n) => `- **${KIND[n.kind] ?? n.kind}** (${n.who === "tutor" ? "המורה" : "הלומד"}, ${date(n.ts)}): ${String(n.text).replace(/\n+/g, " ")}`).join("\n")}`).join("\n\n") || "עדיין אין פריטים."
+  }\n`,
+);
+
 fs.writeFileSync(
   path.join(notes, "README.md"),
-  `# מחברת הליבה\n\nגיבוי אוטומטי של מעבדת הליבה: נוצר מתוך מסד הנתונים של ה-Artifact.\n\n- [זיכרון הקורס](MEMORY.md)\n- [התקדמות במודולים](PROGRESS.md)\n\n## שיחות\n\n${index.length ? index.join("\n") : "עדיין אין שיחות."}\n`,
+  `# מחברת הליבה\n\nגיבוי אוטומטי של מעבדת הליבה: נוצר מתוך מסד הנתונים של ה-Artifact.\n\n- [זיכרון הקורס](MEMORY.md)\n- [התקדמות במודולים](PROGRESS.md)\n- [מחברת השיעורים](NOTEBOOK.md)\n\n## שיחות\n\n${index.length ? index.join("\n") : "עדיין אין שיחות."}\n`,
 );
 
 // raw snapshot for a full restore
@@ -124,4 +141,4 @@ for (const f of walk(dump).filter((f) => f.endsWith(".json"))) {
   fs.copyFileSync(f, path.join(snap, rel));
 }
 
-console.log(`profile: ${profile ? "yes" : "no"}, modules: ${Object.keys(modules).length}, conversations: ${index.length}`);
+console.log(`profile: ${profile ? "yes" : "no"}, modules: ${Object.keys(modules).length}, conversations: ${index.length}, notebook items: ${notebook.length}`);

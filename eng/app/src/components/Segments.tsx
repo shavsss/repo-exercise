@@ -23,6 +23,16 @@ export function ActivitySeg({ a, onOpenSource }: { a: Activity; onOpenSource: (d
       </div>
     );
 
+  if (a.t === "note")
+    return (
+      <div className="act act-note">
+        <Icon name="exercise" size={14} />
+        <span>
+          נשמר במחברת השיעור ({a.kind}): {a.text.length > 120 ? a.text.slice(0, 120) + "…" : a.text}
+        </span>
+      </div>
+    );
+
   if (a.t === "search")
     return (
       <div className="act">

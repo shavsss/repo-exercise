@@ -10,7 +10,7 @@ export const CALLOUTS: Record<string, { label: string; icon: string }> = {
   formula: { label: "נוסחת מפתח", icon: "formula" },
   refresh: { label: "רענון כלי", icon: "refresh" },
   domain: { label: "חיבור לתחום", icon: "domain" },
-  casestudy: { label: "מקרה בוחן", icon: "casestudy" },
+  casestudy: { label: "מקרה הנדסי", icon: "casestudy" },
   model: { label: "בניית מודל", icon: "model" },
   erratum: { label: "תיקון", icon: "erratum" },
   fieldsystems: { label: "מערכות בשטח", icon: "fieldsystems" },

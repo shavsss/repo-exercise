@@ -8,7 +8,7 @@ import { create, all } from "mathjs";
 import { docMeta, getIndex, readPages, searchLibrary, type Module } from "./library";
 import { SYSTEM_PROMPT, libraryList } from "./prompt";
 import type { Runtime, SampleTool } from "./runtime";
-import type { Activity, Effort, LessonSpec, Mode, StoredMessage } from "./types";
+import { NOTE_KIND_LABEL, type Activity, type Effort, type LessonNote, type LessonSpec, type Mode, type NoteKind, type StoredMessage } from "./types";
 
 const math = create(all, {});
 const MODEL = "claude-opus-5-5";
@@ -70,6 +70,8 @@ export interface TurnCallbacks {
   onStatus?: (status: string) => void;
   /** a safe point to save: the part plan exists and `partsDone` parts are written */
   onCheckpoint?: (plan: PartPlan, partsDone: number, text: string) => void;
+  /** the tutor saved a point to the lesson's shared notebook */
+  onNote?: (kind: NoteKind, text: string) => Promise<void> | void;
 }
 
 interface Base {
@@ -80,6 +82,8 @@ interface Base {
   lessons: LessonSpec[] | undefined;
   lessonIdx: number;
   memory: string;
+  /** this lesson's shared notebook so far */
+  notes?: LessonNote[];
   signal: AbortSignal;
   cb: TurnCallbacks;
 }
@@ -133,14 +137,20 @@ async function lessonPages(lesson: LessonSpec | undefined, m: Module) {
   return parts.join("\n\n");
 }
 
-function studyContext(o: { mode: Mode; module: Module; lessons?: LessonSpec[]; lessonIdx: number; memory: string; pages?: string }) {
+function studyContext(o: { mode: Mode; module: Module; lessons?: LessonSpec[]; lessonIdx: number; memory: string; pages?: string; notes?: LessonNote[] }) {
   const mem = o.memory.trim() ? `\n<course_memory>\n${o.memory.trim()}\n</course_memory>` : "";
+  const nb = o.notes?.length
+    ? `\n<lesson_notebook>\nThe shared notebook of this lesson (the learner's and yours):\n${o.notes
+        .slice(0, 60)
+        .map((n) => `- [${NOTE_KIND_LABEL[n.kind]}, ${n.who === "tutor" ? "tutor" : "learner"}] ${n.text.replace(/\s+/g, " ").slice(0, 600)}`)
+        .join("\n")}\n</lesson_notebook>`
+    : "";
   const plan = planBlock(o.lessons, o.lessonIdx);
   return `<study_context>
 Date: ${new Date().toISOString().slice(0, 10)}
 Requested message type: ${o.mode}
 ${moduleBlock(o.module)}
-${plan}${mem}${o.pages ? `\n\nSource pages for this lesson:\n${o.pages}` : ""}
+${plan}${mem}${nb}${o.pages ? `\n\nSource pages for this lesson:\n${o.pages}` : ""}
 </study_context>`;
 }
 
@@ -207,6 +217,28 @@ function buildTools(cb: TurnCallbacks, docs: string[]): SampleTool[] {
         return hits.length ? hits.map((h) => ({ tag: `[[${h.doc}:${h.page}]]`, printed: h.label, snippet: h.snippet })) : "No matches.";
       },
     },
+    ...(cb.onNote
+      ? [
+          {
+            name: "save_lesson_note",
+            description:
+              "Save a point to the shared notebook of this lesson, which the learner and you both keep: an idea for an article the learner may write, a question worth asking an expert in an interview, a point to study more deeply later, or a short note. Write it in Hebrew, self-contained (it is read later, outside the lesson). Save only what is worth keeping, a few per lesson at most, and never the same point twice (see <lesson_notebook>).",
+            inputSchema: {
+              type: "object" as const,
+              properties: { kind: { type: "string", enum: ["article", "interview", "deepen", "note"] }, text: { type: "string" } },
+              required: ["kind", "text"],
+            },
+            async execute(input: Record<string, unknown>) {
+              const kind = (["article", "interview", "deepen", "note"].includes(String(input.kind)) ? input.kind : "note") as NoteKind;
+              const t = String(input.text ?? "").trim();
+              if (!t) return "Empty note, nothing saved.";
+              await cb.onNote!(kind, t);
+              cb.onActivity({ t: "note", kind: NOTE_KIND_LABEL[kind], text: t });
+              return `Saved to the lesson notebook as ${NOTE_KIND_LABEL[kind]}.`;
+            },
+          } satisfies SampleTool,
+        ]
+      : []),
     {
       name: "compute",
       description: "Evaluate a math.js script, one statement per line, variables persisting between lines (complex numbers, matrices, det, inv, eigs, derivative, simplify, units like 10 GHz to Hz, log10, bignumber). Returns every line with its value. Batch all the numbers you need into one call.",
@@ -336,10 +368,10 @@ MODULE PLANNING STEP. Split this module into lessons. Do not teach yet.
 /* ---------------- one answer (clarify / free / quiz / continuation) ---------------- */
 
 export async function askTutor(opts: Base & { mode: Mode; text: string; images: File[]; continuing?: boolean }) {
-  const { rt, history, text, mode, effort, images, module: m, lessons, lessonIdx, memory, signal, cb, continuing = false } = opts;
+  const { rt, history, text, mode, effort, images, module: m, lessons, lessonIdx, memory, notes, signal, cb, continuing = false } = opts;
   if (!rt.sample) throw { code: "not_granted", message: "sample unavailable" };
   const extra = mode === "quiz" && !continuing ? `\n\n${QUIZ_INSTRUCTIONS}` : "";
-  const last = `${studyContext({ mode, module: m, lessons, lessonIdx, memory })}\n\n${text || "(ראו את התמונה המצורפת)"}${images.length ? `\n\n[${images.length} תמונות מצורפות מהלומד]` : ""}${extra}`;
+  const last = `${studyContext({ mode, module: m, lessons, lessonIdx, memory, notes })}\n\n${text || "(ראו את התמונה המצורפת)"}${images.length ? `\n\n[${images.length} תמונות מצורפות מהלומד]` : ""}${extra}`;
   const turns = fitHistory(history, bytes(last), continuing);
   return rt.sample([...turns, { role: "user", content: last }], {
     model: MODEL,
@@ -395,11 +427,11 @@ ${last ? "This is the last part: write the coverage block, the exercises, the fi
 }
 
 export async function composeLesson(opts: Base & { text: string; resume?: { plan: PartPlan; partsDone: number; text: string } }) {
-  const { rt, history, text, effort, module: m, lessons, lessonIdx, memory, signal, cb, resume } = opts;
+  const { rt, history, text, effort, module: m, lessons, lessonIdx, memory, notes, signal, cb, resume } = opts;
   if (!rt.sample) throw { code: "not_granted", message: "sample unavailable" };
   cb.onStatus?.("טוען את עמודי המקור של השיעור");
   const pages = await lessonPages(lessons?.[lessonIdx], m);
-  const ctx = studyContext({ mode: "lesson", module: m, lessons, lessonIdx, memory, pages });
+  const ctx = studyContext({ mode: "lesson", module: m, lessons, lessonIdx, memory, pages, notes });
   const tools = rt.canUseTools ? buildTools(cb, moduleDocs(m)) : null;
 
   let plan = resume?.plan;

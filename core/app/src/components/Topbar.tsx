@@ -17,6 +17,8 @@ export function Topbar({
   onToggleSide,
   onToggleViewer,
   onMemory,
+  onNotes,
+  notesCount,
 }: {
   crumbs: Crumb[];
   counter?: string;
@@ -27,6 +29,8 @@ export function Topbar({
   onToggleSide: () => void;
   onToggleViewer?: () => void;
   onMemory: () => void;
+  onNotes: () => void;
+  notesCount: number;
 }) {
   const { dark } = useTheme();
   return (
@@ -56,6 +60,10 @@ export function Topbar({
       </span>
       <button className={`icon-btn ${memoryBusy ? "is-busy" : ""}`} onClick={onMemory} aria-label="זיכרון הקורס" title={memoryBusy ? "זיכרון הקורס מתעדכן" : "זיכרון הקורס"}>
         <Icon name="memory" />
+      </button>
+      <button className="icon-btn notes-btn" onClick={onNotes} aria-label="מחברת השיעור" title="מחברת השיעור: מאמרים, ראיונות ונקודות להעמקה">
+        <Icon name="exercise" />
+        {notesCount > 0 && <span className="notes-count">{notesCount}</span>}
       </button>
       {onToggleViewer && (
         <button className="icon-btn" onClick={onToggleViewer} aria-pressed={viewerOpen} aria-label="מציג המקורות" title="מציג המקורות">
