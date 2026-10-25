@@ -6,7 +6,7 @@
 
 **תפקיד המקור:** ★ מקור ראשי. ◇ השלמה מספר אחר. ✎ תרגילים (לא נספרים באומדן השיעורים).
 
-**סה"כ:** 310 מודולים: 229 ליבה, 66 מתקדם, 15 עיון.
+**סה"כ:** 316 מודולים: 234 ליבה, 66 מתקדם, 16 עיון.
 
 | חלק | מודולים | עמ' בליבה | שיעורי ליבה (אומדן) | עמ' במתקדם | עמ' בעיון |
 |---|---|---|---|---|---|
@@ -37,7 +37,8 @@
 | P24 פריפריה: פיזיקה מודרנית: יחסות וקוונטים | 13 | 255 | 16 | 405 | 0 |
 | P25 פריפריה: התקני מוליכים למחצה ותכנון שבבים | 13 | 463 | 31 | 460 | 77 |
 | P26 העשרה מתמטית | 5 | 0 | 0 | 316 | 0 |
-| **סה"כ** | 310 | 12798 | 859 | 4065 | 746 |
+| P27 גשר: הנדסת מערכות | 6 | 220 | 15 | 0 | 37 |
+| **סה"כ** | 316 | 13018 | 874 | 4065 | 783 |
 
 האומדן: שיעור לכל כ-15 עמודי מקור, כולל השלמות. בהשלמות המורה מלמד רק את מה שחדש לעומת המקור הראשי.
 
@@ -2277,6 +2278,57 @@
 
 - ★ Kolmogorov et al., Mathematics: Its Content, Methods and Meaning, Vol. 3, עמ' PDF 271–360: XX: Groups and Other Algebraic Systems
 
+## חלק 27: גשר: הנדסת מערכות
+
+### M27.1 יסודות הנדסת מערכות ומחזור החיים של פרויקט
+*Systems engineering fundamentals and the project life cycle* · **ליבה** · 42 עמ' · כ-3 שיעורים
+
+- ★ NASA Systems Engineering Handbook, Rev 2, עמ' PDF 11–12: 1: Introduction
+- ★ NASA Systems Engineering Handbook, Rev 2, עמ' PDF 13–26: 2: Fundamentals of Systems Engineering
+- ★ NASA Systems Engineering Handbook, Rev 2, עמ' PDF 27–52: 3: NASA Program/Project Life Cycle
+
+### M27.2 תכנון המערכת: ציפיות, דרישות, פירוק לוגי ופתרון
+*System design: expectations, requirements, decomposition, design solution* · **ליבה** · 42 עמ' · כ-3 שיעורים · דרישות: M27.1
+
+- ★ NASA Systems Engineering Handbook, Rev 2, עמ' PDF 53–86: 4: System Design Processes
+- ◇ NASA Systems Engineering Handbook, Rev 2, עמ' PDF 207–210: C: How to Write a Good Requirement: Checklist
+- ◇ NASA Systems Engineering Handbook, Rev 2, עמ' PDF 215: F: Functional, Timing, and State Analysis
+- ◇ NASA Systems Engineering Handbook, Rev 2, עמ' PDF 261–263: S: Concept of Operations Annotated Outline
+
+### M27.3 מימוש המוצר: אינטגרציה, אימות, תיקוף ומסירה
+*Product realization: integration, verification, validation, transition* · **ליבה** · 49 עמ' · כ-3 שיעורים · דרישות: M27.2
+
+- ★ NASA Systems Engineering Handbook, Rev 2, עמ' PDF 87–122: 5: Product Realization
+- ◇ NASA Systems Engineering Handbook, Rev 2, עמ' PDF 211–212: D: Requirements Verification Matrix
+- ◇ NASA Systems Engineering Handbook, Rev 2, עמ' PDF 213–214: E: Creating the Validation Plan with a Validation Requirements Matrix
+- ◇ NASA Systems Engineering Handbook, Rev 2, עמ' PDF 224–225: H: Integration Plan Outline
+- ◇ NASA Systems Engineering Handbook, Rev 2, עמ' PDF 226–232: I: Verification and Validation Plan Outline
+
+### M27.4 ניהול טכני רוחבי: תכנון, דרישות, ממשקים, סיכונים ותצורה
+*Crosscutting technical management: planning, requirements, interfaces, risk, configuration* · **ליבה** · 59 עמ' · כ-4 שיעורים · דרישות: M27.3
+
+- ★ NASA Systems Engineering Handbook, Rev 2, עמ' PDF 123–164: 6 §6.1–6.6: Crosscutting Technical Management
+- ◇ NASA Systems Engineering Handbook, Rev 2, עמ' PDF 233–244: J: SEMP Content Outline
+- ◇ NASA Systems Engineering Handbook, Rev 2, עמ' PDF 245: K: Technical Plans
+- ◇ NASA Systems Engineering Handbook, Rev 2, עמ' PDF 246–248: L: Interface Requirements
+- ◇ NASA Systems Engineering Handbook, Rev 2, עמ' PDF 249: M: CM Plan Outline
+
+### M27.5 הערכה טכנית, ניתוח החלטות ובשלות טכנולוגית
+*Technical assessment, decision analysis, technology readiness* · **ליבה** · 28 עמ' · כ-2 שיעורים · דרישות: M27.4, M6.1
+
+- ★ NASA Systems Engineering Handbook, Rev 2, עמ' PDF 165–182: 6 §6.7–6.8: Crosscutting Technical Management
+- ◇ NASA Systems Engineering Handbook, Rev 2, עמ' PDF 216–223: G: Technology Assessment/Insertion
+- ◇ NASA Systems Engineering Handbook, Rev 2, עמ' PDF 250: N: Guidance on Technical Peer Reviews/Inspections
+- ◇ NASA Systems Engineering Handbook, Rev 2, עמ' PDF 252: P: SOW Review Checklist
+
+### M27.6 מילון, ראשי תיבות, שילוב האדם במערכת והפעלה
+*Glossary, acronyms, human systems integration, operations* · **עיון** · 37 עמ' · כ-2 שיעורים · דרישות: M27.1
+
+- ★ NASA Systems Engineering Handbook, Rev 2, עמ' PDF 183–185: A: Acronyms
+- ★ NASA Systems Engineering Handbook, Rev 2, עמ' PDF 186–206: B: Glossary
+- ★ NASA Systems Engineering Handbook, Rev 2, עמ' PDF 254–260: R: HSI Plan Content Outline
+- ★ NASA Systems Engineering Handbook, Rev 2, עמ' PDF 264–269: T: Systems Engineering in Phase E
+
 ## פערים ידועים במקורות
 
 - חוזק חומרים: ספר הלימוד (E13) הוא Gere במהדורה 6 (2004), וספר הפתרונות (E13a) הוא Gere & Goodno במהדורה 8. סדר הפרקים זהה, אבל מספור הסעיפים והבעיות שונה במקצת (למשל, במהדורה 8 יש §1.2 חזרה על סטטיקה), ולכן המורה מתאים בעיה לסעיף לפי הנושא ולא לפי המספר.
@@ -2362,7 +2414,11 @@
 | Tse & Viswanath, Fundamentals of Wireless Communication | 562–580 | סיום: References (562-569), Index (570-580) |
 | Weste & Harris, CMOS VLSI Design | 1–27 | פתיחה: Cover, title, copyright, dedication, contents (8-23), preface (24-26), blank (27) |
 | Weste & Harris, CMOS VLSI Design | 812–867 | סיום: References (812-843), Index (844-864), Credits (865), design-rules card (866), purchase/access page (867) |
+| NASA Systems Engineering Handbook, Rev 2 | 1–10 | פתיחה: title, contents, lists of figures, tables and boxes, preface, acknowledgments |
+| NASA Systems Engineering Handbook, Rev 2 | 270–297 | סיום: References Cited, Bibliography |
 | The Feynman Lectures on Physics, Vol. III | 28–64 | פרקים 1–2 זהים לפיינמן I פרקים 37–38 (נלמדים שם, M24.3) |
+| NASA Systems Engineering Handbook, Rev 2 | 251–251 | נספח O: עמוד ריק (Reserved) |
+| NASA Systems Engineering Handbook, Rev 2 | 253–253 | נספח Q: עמוד ריק (Reserved) |
 | The Feynman Lectures on Physics, Vol. III | 612–656 | נספח: הדפסה חוזרת של פיינמן II פרקים 34–35 (נלמדים שם, M12.1–M12.2) |
 
 ## בדיקת כיסוי

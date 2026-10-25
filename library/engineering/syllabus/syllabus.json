@@ -164,6 +164,11 @@
    "file": "library/engineering/books/E25_CMOS-VLSI-Design_Weste-Harris_4ed.pdf",
    "title": "Weste & Harris, CMOS VLSI Design",
    "pages": 867
+  },
+  "E26": {
+   "file": "library/engineering/books/E26_NASA-Systems-Engineering-Handbook_Rev2_2016.pdf",
+   "title": "NASA Systems Engineering Handbook, Rev 2",
+   "pages": 297
   }
  },
  "parts": [
@@ -274,6 +279,10 @@
   {
    "id": "P26",
    "title": "העשרה מתמטית"
+  },
+  {
+   "id": "P27",
+   "title": "גשר: הנדסת מערכות"
   }
  ],
  "modules": [
@@ -12557,6 +12566,302 @@
      "role": "main"
     }
    ]
+  },
+  {
+   "id": "M27.1",
+   "part": "P27",
+   "tier": "core",
+   "title": "יסודות הנדסת מערכות ומחזור החיים של פרויקט",
+   "en": "Systems engineering fundamentals and the project life cycle",
+   "prereq": [],
+   "sources": [
+    {
+     "doc": "E26",
+     "pages": [
+      11,
+      12
+     ],
+     "note": "1: Introduction",
+     "role": "main"
+    },
+    {
+     "doc": "E26",
+     "pages": [
+      13,
+      26
+     ],
+     "note": "2: Fundamentals of Systems Engineering",
+     "role": "main"
+    },
+    {
+     "doc": "E26",
+     "pages": [
+      27,
+      52
+     ],
+     "note": "3: NASA Program/Project Life Cycle",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M27.2",
+   "part": "P27",
+   "tier": "core",
+   "title": "תכנון המערכת: ציפיות, דרישות, פירוק לוגי ופתרון",
+   "en": "System design: expectations, requirements, decomposition, design solution",
+   "prereq": [
+    "M27.1"
+   ],
+   "sources": [
+    {
+     "doc": "E26",
+     "pages": [
+      53,
+      86
+     ],
+     "note": "4: System Design Processes",
+     "role": "main"
+    },
+    {
+     "doc": "E26",
+     "pages": [
+      207,
+      210
+     ],
+     "note": "C: How to Write a Good Requirement: Checklist",
+     "role": "supp"
+    },
+    {
+     "doc": "E26",
+     "pages": [
+      215,
+      215
+     ],
+     "note": "F: Functional, Timing, and State Analysis",
+     "role": "supp"
+    },
+    {
+     "doc": "E26",
+     "pages": [
+      261,
+      263
+     ],
+     "note": "S: Concept of Operations Annotated Outline",
+     "role": "supp"
+    }
+   ]
+  },
+  {
+   "id": "M27.3",
+   "part": "P27",
+   "tier": "core",
+   "title": "מימוש המוצר: אינטגרציה, אימות, תיקוף ומסירה",
+   "en": "Product realization: integration, verification, validation, transition",
+   "prereq": [
+    "M27.2"
+   ],
+   "sources": [
+    {
+     "doc": "E26",
+     "pages": [
+      87,
+      122
+     ],
+     "note": "5: Product Realization",
+     "role": "main"
+    },
+    {
+     "doc": "E26",
+     "pages": [
+      211,
+      212
+     ],
+     "note": "D: Requirements Verification Matrix",
+     "role": "supp"
+    },
+    {
+     "doc": "E26",
+     "pages": [
+      213,
+      214
+     ],
+     "note": "E: Creating the Validation Plan with a Validation Requirements Matrix",
+     "role": "supp"
+    },
+    {
+     "doc": "E26",
+     "pages": [
+      224,
+      225
+     ],
+     "note": "H: Integration Plan Outline",
+     "role": "supp"
+    },
+    {
+     "doc": "E26",
+     "pages": [
+      226,
+      232
+     ],
+     "note": "I: Verification and Validation Plan Outline",
+     "role": "supp"
+    }
+   ]
+  },
+  {
+   "id": "M27.4",
+   "part": "P27",
+   "tier": "core",
+   "title": "ניהול טכני רוחבי: תכנון, דרישות, ממשקים, סיכונים ותצורה",
+   "en": "Crosscutting technical management: planning, requirements, interfaces, risk, configuration",
+   "prereq": [
+    "M27.3"
+   ],
+   "sources": [
+    {
+     "doc": "E26",
+     "pages": [
+      123,
+      164
+     ],
+     "note": "6 §6.1–6.6: Crosscutting Technical Management",
+     "role": "main"
+    },
+    {
+     "doc": "E26",
+     "pages": [
+      233,
+      244
+     ],
+     "note": "J: SEMP Content Outline",
+     "role": "supp"
+    },
+    {
+     "doc": "E26",
+     "pages": [
+      245,
+      245
+     ],
+     "note": "K: Technical Plans",
+     "role": "supp"
+    },
+    {
+     "doc": "E26",
+     "pages": [
+      246,
+      248
+     ],
+     "note": "L: Interface Requirements",
+     "role": "supp"
+    },
+    {
+     "doc": "E26",
+     "pages": [
+      249,
+      249
+     ],
+     "note": "M: CM Plan Outline",
+     "role": "supp"
+    }
+   ]
+  },
+  {
+   "id": "M27.5",
+   "part": "P27",
+   "tier": "core",
+   "title": "הערכה טכנית, ניתוח החלטות ובשלות טכנולוגית",
+   "en": "Technical assessment, decision analysis, technology readiness",
+   "prereq": [
+    "M27.4",
+    "M6.1"
+   ],
+   "sources": [
+    {
+     "doc": "E26",
+     "pages": [
+      165,
+      182
+     ],
+     "note": "6 §6.7–6.8: Crosscutting Technical Management",
+     "role": "main"
+    },
+    {
+     "doc": "E26",
+     "pages": [
+      216,
+      223
+     ],
+     "note": "G: Technology Assessment/Insertion",
+     "role": "supp"
+    },
+    {
+     "doc": "E26",
+     "pages": [
+      250,
+      250
+     ],
+     "note": "N: Guidance on Technical Peer Reviews/Inspections",
+     "role": "supp"
+    },
+    {
+     "doc": "E26",
+     "pages": [
+      252,
+      252
+     ],
+     "note": "P: SOW Review Checklist",
+     "role": "supp"
+    }
+   ]
+  },
+  {
+   "id": "M27.6",
+   "part": "P27",
+   "tier": "ref",
+   "title": "מילון, ראשי תיבות, שילוב האדם במערכת והפעלה",
+   "en": "Glossary, acronyms, human systems integration, operations",
+   "prereq": [
+    "M27.1"
+   ],
+   "sources": [
+    {
+     "doc": "E26",
+     "pages": [
+      183,
+      185
+     ],
+     "note": "A: Acronyms",
+     "role": "main"
+    },
+    {
+     "doc": "E26",
+     "pages": [
+      186,
+      206
+     ],
+     "note": "B: Glossary",
+     "role": "main"
+    },
+    {
+     "doc": "E26",
+     "pages": [
+      254,
+      260
+     ],
+     "note": "R: HSI Plan Content Outline",
+     "role": "main"
+    },
+    {
+     "doc": "E26",
+     "pages": [
+      264,
+      269
+     ],
+     "note": "T: Systems Engineering in Phase E",
+     "role": "main"
+    }
+   ]
   }
  ],
  "skip": [
@@ -13121,12 +13426,44 @@
    "reason": "סיום: References (812-843), Index (844-864), Credits (865), design-rules card (866), purchase/access page (867)"
   },
   {
+   "doc": "E26",
+   "pages": [
+    1,
+    10
+   ],
+   "reason": "פתיחה: title, contents, lists of figures, tables and boxes, preface, acknowledgments"
+  },
+  {
+   "doc": "E26",
+   "pages": [
+    270,
+    297
+   ],
+   "reason": "סיום: References Cited, Bibliography"
+  },
+  {
    "doc": "F3",
    "pages": [
     28,
     64
    ],
    "reason": "פרקים 1–2 זהים לפיינמן I פרקים 37–38 (נלמדים שם, M24.3)"
+  },
+  {
+   "doc": "E26",
+   "pages": [
+    251,
+    251
+   ],
+   "reason": "נספח O: עמוד ריק (Reserved)"
+  },
+  {
+   "doc": "E26",
+   "pages": [
+    253,
+    253
+   ],
+   "reason": "נספח Q: עמוד ריק (Reserved)"
   },
   {
    "doc": "F3",

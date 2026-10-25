@@ -47,6 +47,7 @@ DOCS = {
     "E23": ("library/engineering/books/E23_Wireless-Communication_Tse-Viswanath_2005.pdf", "Tse & Viswanath, Fundamentals of Wireless Communication"),
     "E24": ("library/engineering/books/E24_Semiconductor-Devices_Hu_2010.pdf", "Hu, Modern Semiconductor Devices for Integrated Circuits"),
     "E25": ("library/engineering/books/E25_CMOS-VLSI-Design_Weste-Harris_4ed.pdf", "Weste & Harris, CMOS VLSI Design"),
+    "E26": ("library/engineering/books/E26_NASA-Systems-Engineering-Handbook_Rev2_2016.pdf", "NASA Systems Engineering Handbook, Rev 2"),
 }
 
 PARTS = [
@@ -77,6 +78,7 @@ PARTS = [
     ("P24", "פריפריה: פיזיקה מודרנית: יחסות וקוונטים"),
     ("P25", "פריפריה: התקני מוליכים למחצה ותכנון שבבים"),
     ("P26", "העשרה מתמטית"),
+    ("P27", "גשר: הנדסת מערכות"),
 ]
 
 
@@ -646,6 +648,19 @@ MODULES = [
     mod("M26.3", "P26", "adv", "גאומטריה לא אוקלידית וגאומטריה רימנית", "Non-Euclidean and Riemannian geometry", c("K3", "XVII"), prereq=["M1.4"]),
     mod("M26.4", "P26", "adv", "טופולוגיה", "Topology", c("K3", "XVIII"), prereq=["M26.2"]),
     mod("M26.5", "P26", "adv", "חבורות ומערכות אלגבריות אחרות", "Groups and other algebraic systems", c("K3", "XX"), prereq=["M1.5", "M8.2"]),
+    # ---------------- P27 ----------------
+    mod("M27.1", "P27", "core", "יסודות הנדסת מערכות ומחזור החיים של פרויקט", "Systems engineering fundamentals and the project life cycle",
+        cs("E26", "1", "2", "3")),
+    mod("M27.2", "P27", "core", "תכנון המערכת: ציפיות, דרישות, פירוק לוגי ופתרון", "System design: expectations, requirements, decomposition, design solution",
+        c("E26", "4"), *[c("E26", x, f"{x}: {title('E26', x)}", "supp") for x in 'CFS'], prereq=["M27.1"]),
+    mod("M27.3", "P27", "core", "מימוש המוצר: אינטגרציה, אימות, תיקוף ומסירה", "Product realization: integration, verification, validation, transition",
+        c("E26", "5"), *[c("E26", x, f"{x}: {title('E26', x)}", "supp") for x in 'DEHI'], prereq=["M27.2"]),
+    mod("M27.4", "P27", "core", "ניהול טכני רוחבי: תכנון, דרישות, ממשקים, סיכונים ותצורה", "Crosscutting technical management: planning, requirements, interfaces, risk, configuration",
+        sec("E26", "6", "6.1", "6.6"), *[c("E26", x, f"{x}: {title('E26', x)}", "supp") for x in 'JKLM'], prereq=["M27.3"]),
+    mod("M27.5", "P27", "core", "הערכה טכנית, ניתוח החלטות ובשלות טכנולוגית", "Technical assessment, decision analysis, technology readiness",
+        sec("E26", "6", "6.7", "6.8"), *[c("E26", x, f"{x}: {title('E26', x)}", "supp") for x in 'GNP'], prereq=["M27.4", "M6.1"]),
+    mod("M27.6", "P27", "ref", "מילון, ראשי תיבות, שילוב האדם במערכת והפעלה", "Glossary, acronyms, human systems integration, operations",
+        *[c("E26", x, f"{x}: {title('E26', x)}", "main") for x in 'ABRT'], prereq=["M27.1"]),
 ]
 
 # Pages that are deliberately not taught, with the reason: every front and back
@@ -654,6 +669,8 @@ MODULES = [
 SKIP = [(d, a, b, f"{'פתיחה' if k == 'FRONT' else 'סיום'}: {what}") for d in DOCS for k in ("FRONT", "BACK") for a, b, what in matter(d, k)]
 SKIP += [
     ("F3", 28, 64, "פרקים 1–2 זהים לפיינמן I פרקים 37–38 (נלמדים שם, M24.3)"),
+    ("E26", 251, 251, "נספח O: עמוד ריק (Reserved)"),
+    ("E26", 253, 253, "נספח Q: עמוד ריק (Reserved)"),
     ("F3", 612, 656, "נספח: הדפסה חוזרת של פיינמן II פרקים 34–35 (נלמדים שם, M12.1–M12.2)"),
 ]
 
