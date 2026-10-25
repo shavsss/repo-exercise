@@ -168,8 +168,29 @@ def label_candidates(lines, h):
     return out
 
 
-def resolve_labels(pages):
+# Printed page = PDF page - offset, for documents whose labels OCR cannot find reliably
+# (photographed pages, where "Table 7-9" reads like a chapter-page label). Ranges are PDF pages.
+LABEL_OFFSETS = {
+    # SMAD: front matter has no numbers; PDF 544-577 repeat 510-543 (chapter 18 is missing from
+    # the scan); PDF 1046-1067 repeat chapter 5 (printed 83-104)
+    "B12": [(18, 543, 17), (544, 577, 51), (578, 1045, 13), (1046, 1067, 963)],
+}
+
+
+def fixed_labels(doc, pages):
+    ranges = LABEL_OFFSETS.get(doc)
+    if not ranges:
+        return False
+    for k in pages:
+        off = next((o for a, b, o in ranges if a <= int(k) <= b), None)
+        pages[k]["label"] = str(int(k) - off) if off is not None else None
+    return True
+
+
+def resolve_labels(pages, doc=None):
     """Pick for each page the printed number that agrees with its neighbours' offset."""
+    if fixed_labels(doc, pages):
+        return
     keys = sorted(int(k) for k in pages)
     offs = {k: [c - k for c in pages[str(k)].get("cands", []) if isinstance(c, int)] for k in keys}
     for k in keys:
@@ -335,7 +356,7 @@ def process(doc, page_range=None, force=False):
                     entries.append({"file": name, "caption": cap, "w": w, "h": h, "box": [round(v, 1) for v in box]})
                 if entries:
                     figs[key] = entries
-        resolve_labels(pages)
+        resolve_labels(pages, doc)
         pages_file.write_text(json.dumps(pages, ensure_ascii=False))
         figs_file.write_text(json.dumps(figs, ensure_ascii=False))
         print(f"{doc}: pages {start}-{stop} done; figures so far {sum(len(v) for v in figs.values())}", flush=True)

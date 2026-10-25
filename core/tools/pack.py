@@ -28,7 +28,7 @@ OUT = ROOT / "core" / "app" / "artifact" / "lib"
 # lib/, because the published files of one version are limited to 256 MB. Their bundles are
 # written to ASSETS, uploaded by hand (Artifact publish with asset: true), and the URLs the
 # upload returns are kept in ASSET_URLS, from which index.json maps each bundle to its URL.
-ASSET_DOCS = {"B12"}
+ASSET_DOCS = {"B12", "B13"}
 ASSETS = ROOT / "core" / "app" / "artifact" / "assets"
 ASSET_URLS = ROOT / "core" / "tools" / "asset_urls.json"
 sys.path.insert(0, str(LIB / "syllabus"))
@@ -40,7 +40,7 @@ BUNDLE = 6_000_000
 SHORT = {
     "B01": "EW 101", "B02": "POMR I", "B02a": "POMR II", "B02b": "POMR III", "B03": "Driggers", "B04": "EW 102",
     "B05": "Kaplan GPS", "B06": "Siouris", "B07": "AMD SE", "B08": "Avionics", "B09": "UAV", "B10": "Naval Weapons",
-    "B11": "Tanks", "B12": "SMAD", "D5": "ATP 7-100.1", "D6": "ATP 7-100.3", "D8": "ATP 3-09.12", "D9": "ATP 3-01.81",
+    "B11": "Tanks", "B12": "SMAD", "B13": "Fleeman", "D5": "ATP 7-100.1", "D6": "ATP 7-100.3", "D8": "ATP 3-09.12", "D9": "ATP 3-01.81",
 }
 
 

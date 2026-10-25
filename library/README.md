@@ -27,5 +27,7 @@
 | 09 | Introduction to UAV Systems | Fahlstrom, Gleason, Sadraey | Wiley, 2022 (מהדורה 5) | PDF |
 | 10 | Principles of Naval Weapons Systems | CDR Joseph Hall (עורך), USNA | — | PDF |
 | 11 | Tanks: 100 Years of Evolution | Richard M. Ogorkiewicz | Osprey, 2015 | PDF |
+| 12 | Space Mission Engineering: The New SMAD | Wertz, Everett, Puschell (עורכים) | Microcosm, 2011 | תיקייה `12_SMAD/` עם 11 חלקי PDF מצולמים, בלי שכבת טקסט. בסריקה חסר פרק 18 (הנעה), ובמקומו פרק 17 מופיע פעמיים |
+| 13 | Tactical Missile Design | Eugene L. Fleeman | AIAA, 2001 (מהדורה 1) | PDF סרוק, בלי שכבת טקסט |
 
-EW 103 ו-SMAD הוצאו מהתוכנית. כל הספרים שלמים, עם שכבת טקסט ואיורים.
+EW 103 הוצא מהתוכנית. ספרים 01–11 שלמים, עם שכבת טקסט ואיורים. את 12 ו-13 קוראים דרך OCR (`core/tools/extract/extract.py`).
