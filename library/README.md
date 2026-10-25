@@ -21,8 +21,7 @@
 | 07 | Air and Missile Defense Systems Engineering | Boord, Hoffman | CRC Press, 2016 | PDF |
 | 08 | Military Avionics Systems | Moir, Seabridge | Wiley, 2006 | PDF |
 | 09 | Introduction to UAV Systems | Fahlstrom, Gleason, Sadraey | Wiley, 2022 (מהדורה 5) | PDF |
-| 10 | EW 103: Tactical Battlefield Communications EW | David Adamy | Artech House, 2009 | טקסט בלבד |
-| 11 | Principles of Naval Weapons Systems | CDR Joseph Hall (עורך), USNA | — | PDF |
-| 12 | Tanks: 100 Years of Evolution | Richard M. Ogorkiewicz | Osprey, 2015 | טקסט מלא, PDF של חלק 2 בלבד |
+| 10 | Principles of Naval Weapons Systems | CDR Joseph Hall (עורך), USNA | — | PDF |
+| 11 | Tanks: 100 Years of Evolution | Richard M. Ogorkiewicz | Osprey, 2015 | PDF |
 
-חסרים: PDF של EW 103, וחלק 1 של ה-PDF של ספר הטנקים (בשבילם צריך את האיורים). SMAD הוצא מהתוכנית.
+EW 103 ו-SMAD הוצאו מהתוכנית. כל הספרים שלמים, עם שכבת טקסט ואיורים.
