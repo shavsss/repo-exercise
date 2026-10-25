@@ -6,19 +6,20 @@
 
 | ספר | קבצים |
 |---|---|
-| 1. EW 101 | 01.3–01.5 |
-| 2. Principles of Modern Radar | 02.1–02.3 |
+| 1. EW 101 | 01.1, 01.3–01.5 |
+| 2. Principles of Modern Radar | 02.1–02.5 |
 | 3. Introduction to IR and EO Systems | 03.1, 03.3 |
 | 4. EW 102 | 04.1, 04.2 |
-| 5. Understanding GPS/GNSS | 05.1, 05.3 |
+| 5. Understanding GPS/GNSS | 05.1, 05.3, 05.4 |
 | 6. Missile Guidance and Control (Siouris) | 06.1, 06.2 |
 | 7. Air and Missile Defense Systems Engineering | 07.1, 07.2 |
 | 8. Military Avionics Systems | 08.1–08.4, 08.7, 08.9 |
+| 9. Introduction to UAV Systems | 09.1 |
 | 11. Principles of Naval Weapons Systems | 11.2–11.6, 11.8, 11.11 |
 
 ## חסרים (הלומד מעלה)
 
-01.1, 02.4, 02.5, 02.6, 03.2, 04.3, 04.4, 05.2, 05.4, 09.1, 11.9, 12.1, והדוח המלא של APS (07.2). האתרים שלהם חוסמים הורדה מכאן.
+02.6, 03.2, 04.3, 04.4, 05.2, 11.9, 12.1, והדוח המלא של APS (07.2). האתרים שלהם חוסמים הורדה מכאן.
 
 ## הערות
 
