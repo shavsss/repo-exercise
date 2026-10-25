@@ -188,7 +188,7 @@ export function App() {
           signal: ctl.current.signal,
           cb: { onText: () => {}, onActivity: () => {}, onStatus: (status) => setPlanning({ moduleId: m.id, status }) },
         });
-        await saveModule(m.id, { lessons: res.lessons, uncovered: res.uncovered, done: [], convs: modsRef.current[m.id]?.convs ?? {} });
+        await saveModule(m.id, { lessons: res.lessons, uncovered: res.uncovered, uncoveredPages: res.uncoveredPages, done: [], convs: modsRef.current[m.id]?.convs ?? {} });
       } catch (err) {
         const e = err as SampleError;
         if (e.code !== "cancelled") notify({ level: "error", text: `החלוקה לשיעורים נכשלה. ${ERROR_COPY[e.code] ?? ERROR_COPY.upstream_error}` });
@@ -812,6 +812,9 @@ function ModulePage({
             </li>
           </ol>
           {prog?.uncovered?.length ? <p className="muted">סעיפים שהחלוקה לא שייכה בעצמה, וצורפו לשיעור הקרוב אליהם: {prog.uncovered.join(" · ")}</p> : null}
+          {prog?.uncoveredPages?.length ? (
+            <p className="muted">עמודים שהחלוקה לא שייכה בעצמה, וצורפו לשיעור הקרוב אליהם: {prog.uncoveredPages.map((g) => `${docMeta(g.doc)?.short ?? g.doc} ${g.pages[0]}–${g.pages[1]}`).join(" · ")}</p>
+          ) : null}
           {canPlan && !(prog?.done ?? []).length && (
             <button className="btn small" onClick={onPlan}>
               חלק מחדש לשיעורים

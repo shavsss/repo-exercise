@@ -12,18 +12,18 @@
 |---|---|---|---|---|---|
 | P0 יסודות: הכלים המתמטיים והפיזיקליים | 8 | 210 | 0 | 16 | 0 |
 | P1 השכבה הפיזית: אנטנות, התפשטות וקשר | 4 | 184 | 72 | 12 | 0 |
-| P2 מכ"ם | 39 | 1389 | 448 | 92 | 841 |
+| P2 מכ"ם | 39 | 1392 | 448 | 92 | 841 |
 | P3 EO/IR | 14 | 575 | 0 | 39 | 65 |
 | P4 לוחמה אלקטרונית | 16 | 431 | 381 | 31 | 0 |
 | P5 ניווט ו-GNSS | 11 | 449 | 26 | 31 | 270 |
 | P6 טילים: דינמיקה, הנחיה ובקרה | 11 | 650 | 44 | 44 | 0 |
 | P7 הגנה אווירית ומפני טילים, ושו"ב | 10 | 293 | 985 | 20 | 36 |
 | P8 פלטפורמות אוויר ואוויוניקה | 7 | 74 | 155 | 6 | 36 |
-| P9 כטב"מים, רחפנים והגנה מפניהם | 8 | 275 | 41 | 18 | 44 |
+| P9 כטב"מים, רחפנים והגנה מפניהם | 8 | 277 | 41 | 19 | 44 |
 | P10 מערכות ימיות | 5 | 60 | 352 | 25 | 0 |
-| P11 אפקטים של נשק ושריון | 10 | 239 | 0 | 16 | 157 |
-| P12 האויב: דוקטרינה והפעלה | 4 | 78 | 0 | 5 | 415 |
-| **סה"כ** | 147 | 4907 | 2504 | 355 | 1864 |
+| P11 אפקטים של נשק ושריון | 10 | 240 | 0 | 16 | 160 |
+| P12 האויב: דוקטרינה והפעלה | 4 | 78 | 0 | 5 | 419 |
+| **סה"כ** | 147 | 4913 | 2504 | 356 | 1871 |
 
 האומדן: שיעור לכל כ-15 עמודי ספר, כולל השלמות. מאמר לא מוסיף שיעורים משלו: המורה משלב ממנו את מה שחדש בתוך שיעורי המודול. מודול שכולו מאמרים נספר לפי עמודי המאמר.
 
@@ -122,11 +122,12 @@
 ## חלק 2: מכ"ם
 
 ### M2.1 רעיון המכ"ם, תצורות, מדידות ויישומים
-*Radar overview* · **ליבה** · 106 עמ' ספר · כ-7 שיעורים · דרישות: M0.2
+*Radar overview* · **ליבה** · 109 עמ' ספר · כ-7 שיעורים · דרישות: M0.2
 
 - ★ Principles of Modern Radar, עמ' PDF 40–41: 1.1–1.2
 - ★ Principles of Modern Radar, עמ' PDF 55–61: 1.5: מונוסטטי/ביסטטי, CW/פולסי
 - ★ Principles of Modern Radar, עמ' PDF 64–90: 1.7–1.9: מדידות, פונקציות ויישומים
+- ◇ Principles of Modern Radar, עמ' PDF 93–95: 1.13: תרגילים
 - ◇ Principles of Naval Weapons Systems, עמ' PDF 89–110: פרקים 8–9: מכ"ם פולסי ו-CW/FMCW
 - ◇ Military Avionics Systems, עמ' PDF 122–134: 3.1–3.4: עקרונות ואופני מכ"ם במטוס
 - ◇ EW 102, עמ' PDF 50–52: 3.1: המכ"ם מנקודת המבט של EW
@@ -823,9 +824,9 @@
 - ★ Introduction to UAV Systems, עמ' PDF 437–452: פרק 20
 
 ### M9.7 גילוי רחפנים והגנה מפניהם
-*Drone detection and C-UAS* · **ליבה** · 37 עמ' ספר + 41 עמ' מאמרים · כ-2 שיעורים · דרישות: M2.13, M3.10, M4.3
+*Drone detection and C-UAS* · **ליבה** · 39 עמ' ספר + 41 עמ' מאמרים · כ-3 שיעורים · דרישות: M2.13, M3.10, M4.3
 
-- ★ ATP 3-01.81 Counter-Unmanned Aircraft System (2023), עמ' PDF 9–14: פרק 1: איום הכטב"מים וערוצי התקשורת שלהם
+- ★ ATP 3-01.81 Counter-Unmanned Aircraft System (2023), עמ' PDF 7–14: מבוא ופרק 1: איום הכטב"מים וערוצי התקשורת שלהם
 - ★ ATP 3-01.81 Counter-Unmanned Aircraft System (2023), עמ' PDF 21–42: פרקים 3–4: אמצעים פסיביים ואקטיביים, רצף יירוט לפי זמן ומרחק, פעולה התקפית
 - ★ ATP 3-01.81 Counter-Unmanned Aircraft System (2023), עמ' PDF 47–49: נספח B: מערכות C-UAS
 - ◇ ATP 3-01.81 Counter-Unmanned Aircraft System (2023), עמ' PDF 15–20: פרק 2: תכנון לפי דרג
@@ -878,12 +879,13 @@
 - ★ Principles of Naval Weapons Systems, עמ' PDF 253–264: פרק 21
 
 ### M11.2 איתור ארטילריה ואש נגד סוללות
-*Weapon-locating radar and counterfire* · **ליבה** · 119 עמ' ספר · כ-8 שיעורים · דרישות: M11.1, M2.15
+*Weapon-locating radar and counterfire* · **ליבה** · 120 עמ' ספר · כ-8 שיעורים · דרישות: M11.1, M2.15
 
 - ★ ATP 3-09.12 Field Artillery Target Acquisition (2015), עמ' PDF 19–40: פרקים 2–3: אש נגד סוללות, היבטים טכניים של פריסת מכ"ם איתור
 - ★ ATP 3-09.12 Field Artillery Target Acquisition (2015), עמ' PDF 51–96: פרקים 5–7: AN/TPQ-36/37, TPQ-53, TPQ-50: אפיון, גילוי, אימות ואיכון, פעולה תחת ECM
 - ★ ATP 3-09.12 Field Artillery Target Acquisition (2015), עמ' PDF 113–118: נספח D: מיסוך
 - ★ ATP 3-09.12 Field Artillery Target Acquisition (2015), עמ' PDF 131–141: נספח G: התרעה מפני רקטות, ארטילריה ומרגמות
+- ◇ ATP 3-09.12 Field Artillery Target Acquisition (2015), עמ' PDF 9: מבוא
 - ◇ ATP 3-09.12 Field Artillery Target Acquisition (2015), עמ' PDF 11–18: פרק 1: ארגון איתור המטרות
 - ◇ ATP 3-09.12 Field Artillery Target Acquisition (2015), עמ' PDF 41–50: פרק 4: אופן ההפעלה
 - ◇ ATP 3-09.12 Field Artillery Target Acquisition (2015), עמ' PDF 97–104: נספח A
@@ -916,9 +918,10 @@
 - ★ Tanks: 100 Years of Evolution, עמ' PDF 330–361: נספח III
 
 ### M11.8 התפתחות הטנק: מלחמה קרה ומעבר לה
-*Tank evolution since 1945* · **מתקדם** · 114 עמ' ספר · כ-8 שיעורים
+*Tank evolution since 1945* · **מתקדם** · 117 עמ' ספר · כ-8 שיעורים
 
 - ★ Tanks: 100 Years of Evolution, עמ' PDF 176–289: פרקים 9–12: חמש המעצמות, הפריפריה (כולל ישראל), אסיה, אפילוג
+- ◇ Tanks: 100 Years of Evolution, עמ' PDF 8–10: מבוא: מבט על מאה שנות התפתחות
 
 ### M11.9 התפתחות הטנק עד 1945
 *Tank evolution to 1945* · **עיון** · 163 עמ' ספר · כ-11 שיעורים
@@ -941,9 +944,9 @@
 - ★ ATP 7-100.1 Russian Tactics (2024), עמ' PDF 255–260: נספח J: מערכות שו"ב אוטומטיות
 
 ### M12.2 הטקטיקה הרוסית: מבנה, סיור, אש, הגנה והתקפה
-*Russian tactics* · **מתקדם** · 213 עמ' ספר · כ-14 שיעורים
+*Russian tactics* · **מתקדם** · 215 עמ' ספר · כ-14 שיעורים
 
-- ★ ATP 7-100.1 Russian Tactics (2024), עמ' PDF 15–99: פרקים 1–4
+- ★ ATP 7-100.1 Russian Tactics (2024), עמ' PDF 13–99: מבוא ופרקים 1–4
 - ★ ATP 7-100.1 Russian Tactics (2024), עמ' PDF 111–137: פרק 5 עד הקרב האלקטרומגנטי
 - ★ ATP 7-100.1 Russian Tactics (2024), עמ' PDF 151–222: פרקים 6–7 ונספחים A–B
 - ★ ATP 7-100.1 Russian Tactics (2024), עמ' PDF 241–254: נספחים G–I
@@ -958,9 +961,9 @@
 - ★ ATP 7-100.3 Chinese Tactics (2021), עמ' PDF 229–230: נספח F: רשת ותקשורת
 
 ### M12.4 הטקטיקה הסינית: מבנה, לוחמת מערכות, הגנה והתקפה
-*Chinese tactics* · **מתקדם** · 202 עמ' ספר · כ-13 שיעורים
+*Chinese tactics* · **מתקדם** · 204 עמ' ספר · כ-14 שיעורים
 
-- ★ ATP 7-100.3 Chinese Tactics (2021), עמ' PDF 15–50: פרקים 1–2
+- ★ ATP 7-100.3 Chinese Tactics (2021), עמ' PDF 13–50: מבוא ופרקים 1–2
 - ★ ATP 7-100.3 Chinese Tactics (2021), עמ' PDF 59–74: פרק 4
 - ★ ATP 7-100.3 Chinese Tactics (2021), עמ' PDF 85–216: פרקים 6–9 ונספחים A–B
 - ★ ATP 7-100.3 Chinese Tactics (2021), עמ' PDF 227–228: נספח E
@@ -972,11 +975,13 @@
 |---|---|---|
 | EW 101 | 1–22 | שער, תוכן ופתח דבר |
 | Principles of Modern Radar | 1–39 | שער, תוכן, פתח דבר ורשימות קיצורים |
-| Principles of Modern Radar | 91–95 | 1.10: מבנה הספר |
+| Principles of Modern Radar | 91–92 | 1.10–1.12: מבנה הספר, קריאה נוספת ומקורות |
 | Principles of Modern Radar | 152–153 | דף שער לחלק |
 | Principles of Modern Radar | 344–345 | דף שער לחלק |
 | Principles of Modern Radar | 530–531 | דף שער לחלק |
-| Principles of Modern Radar | 935–962 | מקורות ואינדקס |
+| Principles of Modern Radar | 935–935 | עמוד ריק |
+| Principles of Modern Radar | 936–941 | נספח B: תשובות לתרגילים נבחרים (משמשות את המורה בתרגילים) |
+| Principles of Modern Radar | 942–962 | אינדקס |
 | Principles of Modern Radar, Vol. II: Advanced Techniques | 1–25 | שער, תוכן, פתח דבר ותורמים |
 | Principles of Modern Radar, Vol. II: Advanced Techniques | 42–43 | דף שער לחלק |
 | Principles of Modern Radar, Vol. II: Advanced Techniques | 234–235 | דף שער לחלק |
@@ -992,7 +997,6 @@
 | EW 102 | 1–17 | שער, תוכן ופתח דבר |
 | EW 102 | 276–291 | ביבליוגרפיה ואינדקס |
 | Understanding GPS | 1–16 | שער, תוכן ופתח דבר |
-| Understanding GPS | 507–574 | 9.3–9.4: רכב יבשתי וסיוע רשת (אזרחי) |
 | Understanding GPS | 651–665 | 12.1–12.4: שווקים, יישומים אזרחיים ומיפוי |
 | Understanding GPS | 667–669 | 12.6–12.8: שירותים מסחריים ו-LBS |
 | Understanding GPS | 673–678 | 12.10–12.11: ציוד לפי שוק ותחזיות פיננסיות |
@@ -1012,17 +1016,19 @@
 | Introduction to UAV Systems | 453–457 | אינדקס |
 | Principles of Naval Weapons Systems | 1–12 | שער ותוכן |
 | Principles of Naval Weapons Systems | 63–74 | פרק 5: יסודות מחשבים |
-| Tanks: 100 Years of Evolution | 1–12 | שער, תוכן ומבוא |
+| Tanks: 100 Years of Evolution | 1–7 | שער ותוכן |
+| Tanks: 100 Years of Evolution | 11–12 | תודות |
 | Tanks: 100 Years of Evolution | 362–426 | הערות ואינדקס |
-| ATP 7-100.1 Russian Tactics (2024) | 1–14 | שער ותוכן |
+| ATP 7-100.1 Russian Tactics (2024) | 1–12 | שער ותוכן |
 | ATP 7-100.1 Russian Tactics (2024) | 276–280 | מילון ואינדקס |
-| ATP 7-100.3 Chinese Tactics (2021) | 1–14 | שער ותוכן |
+| ATP 7-100.3 Chinese Tactics (2021) | 1–12 | שער ותוכן |
 | ATP 7-100.3 Chinese Tactics (2021) | 247–252 | מילון ואינדקס |
-| ATP 3-09.12 Field Artillery Target Acquisition (2015) | 1–10 | שער ותוכן |
+| ATP 3-09.12 Field Artillery Target Acquisition (2015) | 1–8 | שער ותוכן |
+| ATP 3-09.12 Field Artillery Target Acquisition (2015) | 10–10 | עמוד ריק |
 | ATP 3-09.12 Field Artillery Target Acquisition (2015) | 105–112 | נספחים B–C: יומן ירי ואימון מובנה |
 | ATP 3-09.12 Field Artillery Target Acquisition (2015) | 119–122 | נספח E: דרישות תמיכה |
 | ATP 3-09.12 Field Artillery Target Acquisition (2015) | 142–144 | מילון ומקורות |
-| ATP 3-01.81 Counter-Unmanned Aircraft System (2023) | 1–8 | שער ותוכן |
+| ATP 3-01.81 Counter-Unmanned Aircraft System (2023) | 1–6 | שער, תוכן והקדמה |
 | ATP 3-01.81 Counter-Unmanned Aircraft System (2023) | 43–46 | נספח A: משאבי אימון |
 | ATP 3-01.81 Counter-Unmanned Aircraft System (2023) | 50–58 | מילון ומקורות |
 

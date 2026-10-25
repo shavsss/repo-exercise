@@ -88,6 +88,9 @@ type Turn = { role: "user" | "assistant"; content: string };
 
 const TIER_TEXT = { core: "ליבה", adv: "מתקדם", ref: "עיון" };
 
+/** "Answers to Selected Problems" appendices (PDF pages); they are not taught, only used to check exercises. */
+const ANSWER_KEYS: Record<string, [number, number]> = { B02: [936, 941], B02a: [848, 853] };
+
 function moduleBlock(m: Module) {
   const srcs = m.sources
     .map((s) => {
@@ -97,10 +100,14 @@ function moduleBlock(m: Module) {
     })
     .join("\n");
   const secs = m.sections.map((s) => `- ${s.doc}:${s.page} ${s.title}`).join("\n");
+  const keys = moduleDocs(m)
+    .filter((d) => ANSWER_KEYS[d])
+    .map((d) => `${d} PDF pages ${ANSWER_KEYS[d].join("–")}`)
+    .join("; ");
   return `Module ${m.id} «${m.title}» (${m.en}), tier: ${m.tier} (${TIER_TEXT[m.tier]})${m.prereq?.length ? `, after: ${m.prereq.join(", ")}` : ""}
 Sources:
 ${srcs}
-${secs ? `Section headings in these pages (DOC:PAGE title):\n${secs}` : "No section headings were detected; use the pages themselves."}`;
+${secs ? `Section headings in these pages (DOC:PAGE title):\n${secs}` : "No section headings were detected; use the pages themselves."}${keys ? `\nAnswer keys of the books' end-of-chapter problems (check your solutions of book exercises against them): ${keys}` : ""}`;
 }
 
 function planBlock(lessons: LessonSpec[] | undefined, idx: number) {
@@ -226,7 +233,43 @@ export function uncoveredSections(m: Module, lessons: LessonSpec[]) {
   return m.sections.filter((s) => !covered.some((c) => c.includes(norm(s.title)) || norm(s.title).includes(c))).map((s) => s.title);
 }
 
-export async function planModule(o: { rt: Runtime; module: Module; memory: string; effort: Effort; signal: AbortSignal; cb: TurnCallbacks }): Promise<{ lessons: LessonSpec[]; uncovered: string[] }> {
+/** Page runs of the module's books (main sources and supplements) that no lesson's pages include. */
+export function uncoveredPages(m: Module, lessons: LessonSpec[]) {
+  const out: { doc: string; pages: [number, number] }[] = [];
+  for (const src of m.sources) {
+    if (src.role === "article") continue;
+    const inLesson = (p: number) => lessons.some((l) => l.sources.some((s) => s.doc === src.doc && s.pages[0] <= p && p <= s.pages[1]));
+    let start = 0;
+    for (let p = src.pages[0]; p <= src.pages[1] + 1; p++) {
+      const missing = p <= src.pages[1] && !inLesson(p);
+      if (missing && !start) start = p;
+      if (!missing && start) {
+        out.push({ doc: src.doc, pages: [start, p - 1] });
+        start = 0;
+      }
+    }
+  }
+  return out;
+}
+
+/** Adds a page run to the lesson whose pages of the same document are nearest; returns that lesson. */
+function attachPages(lessons: LessonSpec[], doc: string, [a, b]: [number, number]) {
+  let best = lessons[lessons.length - 1];
+  let bd = Infinity;
+  for (const l of lessons)
+    for (const s of l.sources)
+      if (s.doc === doc) {
+        const d = b < s.pages[0] ? s.pages[0] - b : a > s.pages[1] ? a - s.pages[1] : 0;
+        if (d < bd) [best, bd] = [l, d];
+      }
+  const src = best.sources.find((s) => s.doc === doc);
+  // extend a range only across a small gap; otherwise list the run as its own range
+  if (src && bd <= 3) src.pages = [Math.min(src.pages[0], a), Math.max(src.pages[1], b)];
+  else best.sources.push({ doc, pages: [a, b] });
+  return best;
+}
+
+export async function planModule(o: { rt: Runtime; module: Module; memory: string; effort: Effort; signal: AbortSignal; cb: TurnCallbacks }): Promise<{ lessons: LessonSpec[]; uncovered: string[]; uncoveredPages: { doc: string; pages: [number, number] }[] }> {
   const { rt, module: m, memory, effort, signal, cb } = o;
   if (!rt.sample) throw { code: "not_granted", message: "sample unavailable" };
   cb.onStatus?.("קורא את מקורות המודול ומחלק אותו לשיעורים");
@@ -246,14 +289,19 @@ The opening pages of each source, for orientation:
 ${peek.join("\n\n")}
 
 MODULE PLANNING STEP. Split this module into lessons. Do not teach yet.
-1. Every section heading listed above must be covered by exactly one lesson, fully. If no headings were detected, cover every page of the main sources. Supplements and articles are folded into the lesson whose topic they extend (articles: only what they add beyond the books).
+1. Every section heading listed above must be covered by exactly one lesson, fully, and every page of every main source and supplement must fall inside the "sources" pages of some lesson (the app checks both). If no headings were detected for a source, read its pages and split it by the topics you find there. Supplements and articles are folded into the lesson whose topic they extend (articles: only what they add beyond the books).
 2. Where two sources treat the same topic, put them in the same lesson and say in "focus" how they are combined, so nothing is taught twice and nothing is left out.
 3. Each lesson must hold enough for the depth bar (about 4000 Hebrew words for a core or advanced module) without being cramped: as a rule of thumb 10–20 dense book pages per lesson. Keep the order of the main source unless the logic of prerequisites says otherwise.
 4. Reply with ONLY a JSON array: [{"title": "Hebrew lesson title", "covers": ["exact section headings as listed"], "sources": [{"doc": "B02", "pages": [96, 110]}], "focus": "what the lesson teaches, which examples and figures, how sources are combined"}]${feedback}`;
   let lessons: LessonSpec[] = [];
   let uncovered: string[] = [];
+  let gaps: { doc: string; pages: [number, number] }[] = [];
   for (let attempt = 0; attempt < 2; attempt++) {
-    const turn = ask(attempt ? `\n\nYour previous plan left these sections uncovered: ${uncovered.join("; ")}. Return the full plan again with every section covered.` : "");
+    const missed = [
+      ...(uncovered.length ? [`these sections are not in any lesson's "covers": ${uncovered.join("; ")}`] : []),
+      ...(gaps.length ? [`these pages are not in any lesson's "sources": ${gaps.map((g) => `${g.doc} ${g.pages[0]}–${g.pages[1]}`).join(", ")}`] : []),
+    ];
+    const turn = ask(attempt ? `\n\nYour previous plan left gaps: ${missed.join("; and ")}. Return the full plan again with everything covered.` : "");
     const res = await rt.sample.json<LessonSpec[]>([...fitHistory([], bytes(turn)), { role: "user", content: turn }], {
       model: MODEL,
       modelTier: "complex",
@@ -271,25 +319,18 @@ MODULE PLANNING STEP. Split this module into lessons. Do not teach yet.
       }));
     if (!lessons.length) throw { code: "invalid_json", message: "no lessons" };
     uncovered = uncoveredSections(m, lessons);
-    if (!uncovered.length) break;
+    gaps = uncoveredPages(m, lessons);
+    if (!uncovered.length && !gaps.length) break;
   }
   // anything still missing goes to the lesson whose pages are nearest, so nothing is dropped
   for (const title of uncovered) {
     const sec = m.sections.find((s) => s.title === title)!;
-    let best = lessons[lessons.length - 1];
-    let bd = Infinity;
-    for (const l of lessons)
-      for (const s of l.sources)
-        if (s.doc === sec.doc) {
-          const d = sec.page < s.pages[0] ? s.pages[0] - sec.page : sec.page > s.pages[1] ? sec.page - s.pages[1] : 0;
-          if (d < bd) [best, bd] = [l, d];
-        }
-    best.covers.push(title);
-    const src = best.sources.find((s) => s.doc === sec.doc);
-    if (src) src.pages = [Math.min(src.pages[0], sec.page), Math.max(src.pages[1], sec.page)];
-    else best.sources.push({ doc: sec.doc, pages: [sec.page, sec.page + 2] });
+    attachPages(lessons, sec.doc, [sec.page, sec.page]).covers.push(title);
   }
-  return { lessons, uncovered };
+  // pages still outside every lesson (after the sections were placed) join the nearest lesson too
+  const pageGaps = uncoveredPages(m, lessons);
+  for (const g of pageGaps) attachPages(lessons, g.doc, g.pages);
+  return { lessons, uncovered, uncoveredPages: pageGaps };
 }
 
 /* ---------------- one answer (clarify / free / quiz / continuation) ---------------- */

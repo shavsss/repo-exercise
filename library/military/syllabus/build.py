@@ -1,7 +1,7 @@
 """Check the syllabus and write syllabus.json and SYLLABUS.md.
 
 Checks: every page of every book and doctrine document belongs to a module or
-to SKIP, every article is used, every prerequisite exists and comes earlier,
+to SKIP (and not to both), every article is used, every prerequisite exists and comes earlier,
 and every page range is inside its document.
 """
 import json
@@ -44,7 +44,10 @@ def main():
             if not (1 <= a <= b <= pages[d]):
                 errors.append(f"{m['id']}: {d} pages {a}-{b} outside 1-{pages[d]}")
             covered[d].update(range(a, b + 1))
-    for d, a, b, _ in SKIP:
+    for d, a, b, reason in SKIP:
+        taught = covered[d] & set(range(a, b + 1))
+        if taught:
+            errors.append(f"{d}: pages {min(taught)}-{max(taught)} are both in a module and skipped ({reason})")
         covered[d].update(range(a, b + 1))
 
     gaps = {}

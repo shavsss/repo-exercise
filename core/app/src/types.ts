@@ -45,6 +45,8 @@ export interface ModuleProgress {
   lessons?: LessonSpec[];
   /** sections the plan did not assign (should be empty) */
   uncovered?: string[];
+  /** page runs the plan left out, attached to the nearest lesson by the app */
+  uncoveredPages?: { doc: string; pages: [number, number] }[];
   /** indices of the lessons that were written to the end */
   done?: number[];
   /** lesson index → conversation id */
