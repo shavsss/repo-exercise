@@ -11,7 +11,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-from syllabus import DOCS, MODULES, PARTS, SKIP
+from syllabus import DOCS, GAPS, MODULES, PARTS, SKIP
 
 ROOT = Path(__file__).resolve().parents[3]
 HERE = Path(__file__).resolve().parent
@@ -71,6 +71,7 @@ def main():
         "parts": [{"id": i, "title": t} for i, t in PARTS],
         "modules": MODULES,
         "skip": [{"doc": d, "pages": [a, b], "reason": r} for d, a, b, r in SKIP],
+        "gaps": GAPS,
     }
     (HERE / "syllabus.json").write_text(json.dumps(data, ensure_ascii=False, indent=1))
     (HERE / "SYLLABUS.md").write_text(render(data, pages, gaps))
@@ -114,7 +115,7 @@ def render(data, pages, gaps):
     out.append("")
     out.append("**דרגות:** ליבה = נלמד במלואו. מתקדם = אחרי הליבה של אותו חלק. עיון = לא נלמד כשיעור, זמין לפי צורך.")
     out.append("")
-    out.append("**תפקיד המקור:** ★ מקור ראשי. ◇ השלמה מספר אחר.")
+    out.append("**תפקיד המקור:** ★ מקור ראשי. ◇ השלמה מספר אחר. ✎ תרגילים (לא נספרים באומדן השיעורים).")
     out.append("")
     counts = {t: sum(1 for m in data["modules"] if m["tier"] == t) for t in TIER}
     out.append(f"**סה\"כ:** {len(data['modules'])} מודולים: {counts['core']} ליבה, {counts['adv']} מתקדם, {counts['ref']} עיון.")
@@ -136,7 +137,7 @@ def render(data, pages, gaps):
     out.append("")
     out.append("האומדן: שיעור לכל כ-15 עמודי מקור, כולל השלמות. בהשלמות המורה מלמד רק את מה שחדש לעומת המקור הראשי.")
     out.append("")
-    mark = {"main": "★", "supp": "◇"}
+    mark = {"main": "★", "supp": "◇", "ex": "✎"}
     for pid, ptitle in [(p["id"], p["title"]) for p in data["parts"]]:
         mods = [m for m in data["modules"] if m["part"] == pid]
         out.append(f"## {pid.replace('P', 'חלק ')}: {ptitle}")
@@ -151,6 +152,11 @@ def render(data, pages, gaps):
             for src in m["sources"]:
                 out.append(f"- {mark[src['role']]} {cite(src, docs)}")
             out.append("")
+    out.append("## פערים ידועים במקורות")
+    out.append("")
+    for g in data["gaps"]:
+        out.append(f"- {g}")
+    out.append("")
     out.append("## עמודים שלא נלמדים")
     out.append("")
     out.append("| מקור | עמודים | סיבה |")
