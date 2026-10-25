@@ -224,6 +224,11 @@
    "file": "doctrine/D8_ATP3-09.12_FA-Target-Acquisition_2015.pdf",
    "title": "ATP 3-09.12 Field Artillery Target Acquisition (2015)",
    "pages": 144
+  },
+  "D9": {
+   "file": "doctrine/D9_ATP3-01.81_Counter-UAS_2023.pdf",
+   "title": "ATP 3-01.81 Counter-Unmanned Aircraft System (2023)",
+   "pages": 58
   }
  },
  "parts": [
@@ -3609,6 +3614,42 @@
    ],
    "sources": [
     {
+     "doc": "D9",
+     "pages": [
+      9,
+      14
+     ],
+     "note": "פרק 1: איום הכטב\"מים וערוצי התקשורת שלהם",
+     "role": "main"
+    },
+    {
+     "doc": "D9",
+     "pages": [
+      21,
+      42
+     ],
+     "note": "פרקים 3–4: אמצעים פסיביים ואקטיביים, רצף יירוט לפי זמן ומרחק, פעולה התקפית",
+     "role": "main"
+    },
+    {
+     "doc": "D9",
+     "pages": [
+      47,
+      49
+     ],
+     "note": "נספח B: מערכות C-UAS",
+     "role": "main"
+    },
+    {
+     "doc": "D9",
+     "pages": [
+      15,
+      20
+     ],
+     "note": "פרק 2: תכנון לפי דרג",
+     "role": "supp"
+    },
+    {
      "doc": "A09.1",
      "pages": null,
      "note": "גילוי וסיווג בכל אמצעי החישה",
@@ -4587,6 +4628,30 @@
    "pages": [
     142,
     144
+   ],
+   "reason": "מילון ומקורות"
+  },
+  {
+   "doc": "D9",
+   "pages": [
+    1,
+    8
+   ],
+   "reason": "שער ותוכן"
+  },
+  {
+   "doc": "D9",
+   "pages": [
+    43,
+    46
+   ],
+   "reason": "נספח A: משאבי אימון"
+  },
+  {
+   "doc": "D9",
+   "pages": [
+    50,
+    58
    ],
    "reason": "מילון ומקורות"
   }
