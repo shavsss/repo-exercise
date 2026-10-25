@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Markdown } from "../Markdown";
-import { parseHeaders } from "./Callout";
+import { Frame, parseHeaders } from "./Callout";
 import { isSolved, setSolved } from "../../solved";
 
 function hash(s: string) {
@@ -24,42 +24,37 @@ export function Exercise({ source }: { source: string }) {
   const [solved, setSolvedState] = useState(() => isSolved(id));
   useEffect(() => setSolvedState(isSolved(id)), [id]);
   const level = Math.max(1, Math.min(3, Number(headers.level) || 1));
-  const fromBook = (headers.source ?? "").includes("ספר");
+  const src = (headers.source ?? "").trim();
+  const isTag = /^\[?\[?[A-Z]\d+[a-z]?(?:\.\d+)?:\d+\]?\]?$/.test(src);
 
   return (
-    <section className={`callout callout-exercise tone-${fromBook ? "blue" : "teal"} ${solved ? "is-solved" : ""}`} data-block="exercise">
-      <header className="callout-head">
-        <span className="pill pill-solid">
-          <span className="pill-icon">✏️</span>תרגיל
-        </span>
-        {headers.title && (
-          <h4 className="callout-title">
-            <Markdown text={headers.title} inline />
-          </h4>
-        )}
-      </header>
-      <div className="callout-meta">
-        {headers.source && (fromBook ? "📘 " : "🆕 ") + headers.source}
-        <span className="ex-level" title={`רמת קושי ${level} מתוך 3`}>
-          {"◆".repeat(level)}
-          {"◇".repeat(3 - level)}
-        </span>
-      </div>
-      <div className="callout-body">
-        <Markdown text={problemText.trim()} />
-      </div>
+    <Frame
+      kind="exercise"
+      label={solved ? "תרגיל · נפתר" : "תרגיל"}
+      icon={solved ? "check" : "exercise"}
+      title={headers.title}
+      meta={
+        <>
+          {src && (isTag ? <Markdown text={`מהמקור: [[${src.replace(/^\[\[|\]\]$/g, "")}]]`} inline /> : <span>{src === "חדש" ? "תרגיל חדש" : src}</span>)}
+          <span className="ex-level" title={`רמת קושי ${level} מתוך 3`}>
+            רמה {level}/3
+          </span>
+        </>
+      }
+    >
+      <Markdown text={problemText.trim()} />
       <div className="ex-actions">
         {hintPart.trim() && (
-          <button className={`chip ${show === "hint" ? "is-on" : ""}`} onClick={() => setShow(show === "hint" ? "none" : "hint")}>
-            💡 רמז
+          <button className={`btn small ${show === "hint" ? "is-on" : ""}`} onClick={() => setShow(show === "hint" ? "none" : "hint")}>
+            רמז
           </button>
         )}
         {solutionPart.trim() && (
-          <button className={`chip ${show === "solution" ? "is-on" : ""}`} onClick={() => setShow(show === "solution" ? "none" : "solution")}>
-            🔓 פתרון מלא
+          <button className={`btn small ${show === "solution" ? "is-on" : ""}`} onClick={() => setShow(show === "solution" ? "none" : "solution")}>
+            פתרון מלא
           </button>
         )}
-        <label className={`chip chip-check ${solved ? "is-on" : ""}`}>
+        <label className={`btn small check ${solved ? "is-on" : ""}`}>
           <input
             type="checkbox"
             checked={solved}
@@ -68,16 +63,14 @@ export function Exercise({ source }: { source: string }) {
               setSolvedState(e.target.checked);
             }}
           />
-          {solved ? "✓ פתרתי" : "סמנו כשפתרתם"}
+          {solved ? "פתרתי" : "סמנו כשפתרתם"}
         </label>
       </div>
       {show !== "none" && (
-        <div className="reveal is-open">
-          <div className="reveal-inner">
-            <Markdown text={(show === "hint" ? hintPart : solutionPart).trim()} />
-          </div>
+        <div className="reveal">
+          <Markdown text={(show === "hint" ? hintPart : solutionPart).trim()} />
         </div>
       )}
-    </section>
+    </Frame>
   );
 }

@@ -41,7 +41,7 @@ const textOf = (segments: Segment[]) =>
 /** Plain-text words of an answer (no JSON, SVG or math) — for the depth bar. */
 export function countWords(segments: Segment[]) {
   const text = textOf(segments)
-    .replace(/```(chart|table|interactive|svg|mermaid)[\s\S]*?```/g, " ")
+    .replace(/```(chart|table|interactive|svg|mermaid|sim|anim|figure)[\s\S]*?```/g, " ")
     .replace(/\$\$[\s\S]*?\$\$/g, " ")
     .replace(/\$[^$\n]*\$/g, " ")
     .replace(/^@\w+:.*$/gm, " ")
@@ -56,23 +56,28 @@ export interface BarCheck {
   detail?: string;
 }
 
-/** Automatic check of the learner's depth bar for a section lesson (rule 36). */
-export function depthBar(segments: Segment[]): BarCheck[] {
+/** Automatic check of the depth bar for a lesson (rule 32). `full` is false for a reference-tier lesson. */
+export function depthBar(segments: Segment[], full = true): BarCheck[] {
   const text = textOf(segments);
   const count = (lang: string) => (text.match(new RegExp("```" + lang + "\\b", "g")) ?? []).length;
   const words = countWords(segments);
   const firstBlock = /```(\w+)/.exec(text)?.[1];
-  const graphics = count("chart") + count("svg") + count("mermaid") + count("interactive") + count("table");
-  const computed = segments.some((s) => s.t === "activity" && s.a.t === "compute") || count("chart") + count("table") > 0;
-  return [
-    { key: "words", label: "4000+ מילים", ok: words >= 4000, detail: words.toLocaleString("he-IL") },
-    { key: "story", label: "פתיחה בסיפור", ok: count("story") > 0 && !["mermaid", "svg", "chart"].includes(firstBlock ?? "") },
+  const graphics = count("chart") + count("svg") + count("mermaid") + count("interactive") + count("table") + count("sim") + count("anim");
+  const computed = segments.some((s) => s.t === "activity" && s.a.t === "compute") || count("chart") + count("table") + count("sim") > 0;
+  const tags = (text.match(/\[\[[A-Za-z]\d+[a-z]?(?:\.\d+)?:\d+\]\]/g) ?? []).length;
+  const checks: BarCheck[] = [
+    { key: "words", label: full ? "4000+ מילים" : "אורך", ok: !full || words >= 4000, detail: words.toLocaleString("he-IL") },
+    { key: "story", label: "פתיחה בסיפור", ok: count("story") > 0 && !["mermaid", "svg", "chart", "figure"].includes(firstBlock ?? "") },
     { key: "think", label: "שאלות עצירה", ok: count("think") > 0, detail: String(count("think")) },
     { key: "history", label: "רקע למודל", ok: count("history") > 0 },
     { key: "case", label: "מקרה בוחן", ok: count("casestudy") > 0 },
-    { key: "domains", label: "4 תחומים", ok: count("domain") >= 4, detail: String(count("domain")) },
-    { key: "graphics", label: "גרפיקה", ok: graphics > 0, detail: String(graphics) },
+    { key: "domains", label: "4 חיבורים לליבה", ok: count("domain") >= 4, detail: String(count("domain")) },
+    { key: "figures", label: "איורים מהמקור", ok: count("figure") > 0, detail: String(count("figure")) },
+    { key: "graphics", label: "גרפיקה וסימולציה", ok: graphics > 0, detail: String(graphics) },
+    { key: "tags", label: "תגיות עמוד", ok: tags > 0, detail: String(tags) },
     { key: "code", label: "מספרים מחישוב", ok: computed },
+    { key: "coverage", label: "בדיקת כיסוי", ok: count("coverage") > 0 },
     { key: "exercises", label: "תרגילים", ok: count("exercise") >= 2, detail: String(count("exercise")) },
   ];
+  return full ? checks : checks.filter((c) => ["words", "think", "figures", "tags", "coverage", "exercises"].includes(c.key));
 }

@@ -16,7 +16,7 @@ import {
   YAxis,
 } from "recharts";
 
-export const SERIES_COLORS = ["#ff6b35", "#3a86ff", "#ff3d7f", "#2ec4b6", "#8b5cf6", "#ffbe0b", "#8ac926", "#f15bb5"];
+export const SERIES_COLORS = ["var(--s1)", "var(--s2)", "var(--s3)", "var(--s4)", "var(--s5)", "var(--s6)"];
 
 function parseSpec(source: string): { spec?: any; error?: string } {
   try {
@@ -45,7 +45,7 @@ function Frame({ kind, title, caption, children, provenance }: { kind: string; t
 }
 
 function Pending({ live, msg }: { live: boolean; msg: string }) {
-  return <div className={`viz-pending ${live ? "is-live" : "is-error"}`}>{live ? "⏳ ממתין להשלמת הבלוק…" : `⚠️ ${msg}`}</div>;
+  return <div className={`viz-pending ${live ? "is-live" : "is-error"}`}>{live ? "ממתין להשלמת הבלוק…" : `${msg}`}</div>;
 }
 
 function toNumber(v: unknown): number | null {
@@ -97,7 +97,7 @@ export function ChartBlock({ source, live }: { source: string; live: boolean }) 
   if (computed.error || !computed.series.length) return <Frame kind="chart" title={spec.title}><Pending live={live} msg={computed.error ?? "אין סדרות לחישוב"} /></Frame>;
   const series = computed.series;
   const type: string = d.type ?? "line";
-  const prov = "⚙️ מחושב בדף (math.js)";
+  const prov = "מחושב בדף · math.js";
   const r = { spec };
 
   const axisProps = { stroke: "var(--ink-soft)", tick: { fill: "var(--ink-soft)", fontSize: 12 }, tickLine: false };
@@ -122,7 +122,7 @@ export function ChartBlock({ source, live }: { source: string; live: boolean }) 
       <CartesianGrid stroke="var(--grid)" strokeDasharray="3 4" />
       {xAxis}
       {yAxis}
-      <Tooltip contentStyle={{ background: "var(--paper)", border: "2px solid var(--ink)", borderRadius: 10, direction: "ltr" }} />
+      <Tooltip contentStyle={{ background: "var(--paper)", border: "1px solid var(--line)", borderRadius: 2, direction: "ltr" }} />
       <Legend wrapperStyle={{ paddingTop: 8 }} />
     </>
   );
@@ -153,7 +153,7 @@ export function ChartBlock({ source, live }: { source: string; live: boolean }) 
         <BarChart data={rows} margin={margin}>
           {common}
           {series.map((s, i) => (
-            <Bar key={s.name} dataKey={s.name} fill={SERIES_COLORS[i % SERIES_COLORS.length]} stroke="var(--ink)" strokeWidth={1.5} radius={[6, 6, 0, 0]} />
+            <Bar key={s.name} dataKey={s.name} fill={SERIES_COLORS[i % SERIES_COLORS.length]} stroke="var(--ink)" strokeWidth={1} radius={[2, 2, 0, 0]} />
           ))}
         </BarChart>
       );
@@ -214,7 +214,7 @@ export function TableBlock({ source, live }: { source: string; live: boolean }) 
     }),
   );
   return (
-    <Frame kind="table" title={spec.title} caption={spec.caption} provenance="⚙️ מחושב בדף (math.js)">
+    <Frame kind="table" title={spec.title} caption={spec.caption} provenance="מחושב בדף · math.js">
       <div className="table-wrap">
         <table className="data-table">
           <thead>

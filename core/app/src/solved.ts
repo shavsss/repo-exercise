@@ -1,6 +1,6 @@
 // Exercises the learner marked as solved: a per-browser convenience, so storage
 // failures (private mode, blocked storage) just mean nothing is remembered.
-const KEY = "study-lab:solved";
+const KEY = "core-lab:solved";
 const listeners = new Set<() => void>();
 
 function read(): Record<string, number> {

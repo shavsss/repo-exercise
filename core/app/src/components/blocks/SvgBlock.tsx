@@ -19,10 +19,10 @@ export function SvgBlock({ source }: { source: string }) {
           <i />
         </span>
         <span className="viz-title">{fromBook ? "שחזור איור" : "איור"}</span>
-        {headers.source && <span className="viz-prov">{fromBook ? "📘 " : "➕ "}{headers.source}</span>}
+        {headers.source && <span className="viz-prov">{headers.source}</span>}
       </div>
       <div className="viz-body svg-body" dir="ltr">
-        {clean.includes("<svg") ? <div dangerouslySetInnerHTML={{ __html: clean }} /> : <div className="viz-pending is-live">⏳ ממתין להשלמת האיור…</div>}
+        {clean.includes("<svg") ? <div dangerouslySetInnerHTML={{ __html: clean }} /> : <div className="viz-pending is-live">ממתין להשלמת האיור…</div>}
       </div>
       {headers.caption && (
         <figcaption>
