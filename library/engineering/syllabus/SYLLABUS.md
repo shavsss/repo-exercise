@@ -26,7 +26,7 @@
 | P13 גשר: תרמודינמיקה ואנרגיה | 18 | 816 | 56 | 200 | 92 |
 | P14 גשר: מעבר חום | 12 | 490 | 32 | 238 | 46 |
 | P15 גשר: זורמים ואווירונאוטיקה | 18 | 834 | 57 | 82 | 1 |
-| P16 גשר: מבנים וחומרים | 18 | 376 | 32 | 196 | 60 |
+| P16 גשר: מבנים וחומרים | 18 | 1015 | 68 | 196 | 134 |
 | P17 גשר: למידת מכונה ולמידה עמוקה | 15 | 415 | 29 | 108 | 26 |
 | P18 גשר: למידה מחיזוקים | 9 | 360 | 24 | 146 | 0 |
 | P19 גשר: רובוטיקה | 11 | 415 | 26 | 43 | 12 |
@@ -37,7 +37,7 @@
 | P24 פריפריה: פיזיקה מודרנית: יחסות וקוונטים | 13 | 255 | 16 | 405 | 0 |
 | P25 פריפריה: התקני מוליכים למחצה ותכנון שבבים | 13 | 463 | 31 | 460 | 77 |
 | P26 העשרה מתמטית | 5 | 0 | 0 | 316 | 0 |
-| **סה"כ** | 310 | 12159 | 823 | 4065 | 672 |
+| **סה"כ** | 310 | 12798 | 859 | 4065 | 746 |
 
 האומדן: שיעור לכל כ-15 עמודי מקור, כולל השלמות. בהשלמות המורה מלמד רק את מה שחדש לעומת המקור הראשי.
 
@@ -1382,45 +1382,78 @@
 - ★ The Feynman Lectures on Physics, Vol. II, עמ' PDF 494–506: 39: Elastic Materials
 
 ### M16.2 מתיחה, לחיצה, גזירה ואיברים בעומס צירי
-*Tension, compression, shear, axially loaded members* · **ליבה** · 0 עמ' · כ-1 שיעורים · דרישות: M16.1
+*Tension, compression, shear, axially loaded members* · **ליבה** · 136 עמ' · כ-9 שיעורים · דרישות: M16.1
 
-- ✎ Gere & Goodno, Mechanics of Materials (solutions manual), עמ' PDF 115–230: 1: Tension, Compression, and Shear (ספר פתרונות: בעיות ופתרונות בלבד)
-- ✎ Gere & Goodno, Mechanics of Materials (solutions manual), עמ' PDF 231–396: 2: Axially Loaded Members (ספר פתרונות: בעיות ופתרונות בלבד)
+- ★ Gere, Mechanics of Materials (6th ed.), עמ' PDF 25–72: 1: Tension, Compression, and Shear
+- ✎ Gere, Mechanics of Materials (6th ed.), עמ' PDF 73–90: 1: תרגילים
+- ★ Gere, Mechanics of Materials (6th ed.), עמ' PDF 91–178: 2: Axially Loaded Members
+- ✎ Gere, Mechanics of Materials (6th ed.), עמ' PDF 179–208: 2: תרגילים
+- ✎ Gere & Goodno, Mechanics of Materials, 8th ed. (solutions manual), עמ' PDF 115–230: 1: Tension, Compression, and Shear (ספר פתרונות: בעיות ופתרונות בלבד)
+- ✎ Gere & Goodno, Mechanics of Materials, 8th ed. (solutions manual), עמ' PDF 231–396: 2: Axially Loaded Members (ספר פתרונות: בעיות ופתרונות בלבד)
 
 ### M16.3 פיתול
-*Torsion* · **ליבה** · 0 עמ' · כ-1 שיעורים · דרישות: M16.2
+*Torsion* · **ליבה** · 60 עמ' · כ-4 שיעורים · דרישות: M16.2
 
-- ✎ Gere & Goodno, Mechanics of Materials (solutions manual), עמ' PDF 397–498: 3: Torsion (ספר פתרונות: בעיות ופתרונות בלבד)
+- ★ Gere, Mechanics of Materials (6th ed.), עמ' PDF 209–268: 3: Torsion
+- ✎ Gere, Mechanics of Materials (6th ed.), עמ' PDF 269–287: 3: תרגילים
+- ✎ Gere & Goodno, Mechanics of Materials, 8th ed. (solutions manual), עמ' PDF 397–498: 3: Torsion (ספר פתרונות: בעיות ופתרונות בלבד)
 
 ### M16.4 כוחות גזירה, מומנטי כפיפה ומאמצים בקורות
-*Shear forces, bending moments, stresses in beams* · **ליבה** · 0 עמ' · כ-1 שיעורים · דרישות: M16.2
+*Shear forces, bending moments, stresses in beams* · **ליבה** · 151 עמ' · כ-10 שיעורים · דרישות: M16.2
 
-- ✎ Gere & Goodno, Mechanics of Materials (solutions manual), עמ' PDF 499–548: 4: Shear Forces and Bending Moments (ספר פתרונות: בעיות ופתרונות בלבד)
-- ✎ Gere & Goodno, Mechanics of Materials (solutions manual), עמ' PDF 549–670: 5: Stresses in Beams (Basic Topics) (ספר פתרונות: בעיות ופתרונות בלבד)
-- ✎ Gere & Goodno, Mechanics of Materials (solutions manual), עמ' PDF 671–750: 6: Stresses in Beams (Advanced Topics) (ספר פתרונות: בעיות ופתרונות בלבד)
+- ★ Gere, Mechanics of Materials (6th ed.), עמ' PDF 288–315: 4: Shear Forces and Bending Moments
+- ✎ Gere, Mechanics of Materials (6th ed.), עמ' PDF 316–323: 4: תרגילים
+- ★ Gere, Mechanics of Materials (6th ed.), עמ' PDF 324–389: 5: Stresses in Beams (Basic Topics)
+- ✎ Gere, Mechanics of Materials (6th ed.), עמ' PDF 390–416: 5: תרגילים
+- ★ Gere, Mechanics of Materials (6th ed.), עמ' PDF 417–473: 6: Stresses in Beams (Advanced Topics)
+- ✎ Gere, Mechanics of Materials (6th ed.), עמ' PDF 474–487: 6: תרגילים
+- ✎ Gere & Goodno, Mechanics of Materials, 8th ed. (solutions manual), עמ' PDF 499–548: 4: Shear Forces and Bending Moments (ספר פתרונות: בעיות ופתרונות בלבד)
+- ✎ Gere & Goodno, Mechanics of Materials, 8th ed. (solutions manual), עמ' PDF 549–670: 5: Stresses in Beams (Basic Topics) (ספר פתרונות: בעיות ופתרונות בלבד)
+- ✎ Gere & Goodno, Mechanics of Materials, 8th ed. (solutions manual), עמ' PDF 671–750: 6: Stresses in Beams (Advanced Topics) (ספר פתרונות: בעיות ופתרונות בלבד)
 
 ### M16.5 ניתוח מאמץ ועיבור ויישומי מאמץ מישורי
-*Analysis of stress and strain, plane stress applications* · **ליבה** · 0 עמ' · כ-1 שיעורים · דרישות: M16.4
+*Analysis of stress and strain, plane stress applications* · **ליבה** · 103 עמ' · כ-7 שיעורים · דרישות: M16.4
 
-- ✎ Gere & Goodno, Mechanics of Materials (solutions manual), עמ' PDF 751–838: 7: Analysis of Stress and Strain (ספר פתרונות: בעיות ופתרונות בלבד)
-- ✎ Gere & Goodno, Mechanics of Materials (solutions manual), עמ' PDF 839–906: 8: Applications of Plane Stress (Pressure Vessels, Beams, and Combined Loadings) (ספר פתרונות: בעיות ופתרונות בלבד)
+- ★ Gere, Mechanics of Materials (6th ed.), עמ' PDF 488–548: 7: Analysis of Stress and Strain
+- ✎ Gere, Mechanics of Materials (6th ed.), עמ' PDF 549–564: 7: תרגילים
+- ★ Gere, Mechanics of Materials (6th ed.), עמ' PDF 565–606: 8: Applications of Plane Stress (Pressure Vessels, Beams, and Combined Loadings)
+- ✎ Gere, Mechanics of Materials (6th ed.), עמ' PDF 607–617: 8: תרגילים
+- ✎ Gere & Goodno, Mechanics of Materials, 8th ed. (solutions manual), עמ' PDF 751–838: 7: Analysis of Stress and Strain (ספר פתרונות: בעיות ופתרונות בלבד)
+- ✎ Gere & Goodno, Mechanics of Materials, 8th ed. (solutions manual), עמ' PDF 839–906: 8: Applications of Plane Stress (Pressure Vessels, Beams, and Combined Loadings) (ספר פתרונות: בעיות ופתרונות בלבד)
 
 ### M16.6 שקיעת קורות וקורות לא מסוימות סטטית
-*Deflections of beams, statically indeterminate beams* · **ליבה** · 0 עמ' · כ-1 שיעורים · דרישות: M16.4
+*Deflections of beams, statically indeterminate beams* · **ליבה** · 124 עמ' · כ-8 שיעורים · דרישות: M16.4
 
-- ✎ Gere & Goodno, Mechanics of Materials (solutions manual), עמ' PDF 907–998: 9: Deflections of Beams (ספר פתרונות: בעיות ופתרונות בלבד)
-- ✎ Gere & Goodno, Mechanics of Materials (solutions manual), עמ' PDF 999–1056: 10: Statically Indeterminate Beams (ספר פתרונות: בעיות ופתרונות בלבד)
+- ★ Gere, Mechanics of Materials (6th ed.), עמ' PDF 618–710: 9: Deflections of Beams
+- ✎ Gere, Mechanics of Materials (6th ed.), עמ' PDF 711–730: 9: תרגילים
+- ★ Gere, Mechanics of Materials (6th ed.), עמ' PDF 731–761: 10: Statically Indeterminate Beams
+- ✎ Gere, Mechanics of Materials (6th ed.), עמ' PDF 762–771: 10: תרגילים
+- ✎ Gere & Goodno, Mechanics of Materials, 8th ed. (solutions manual), עמ' PDF 907–998: 9: Deflections of Beams (ספר פתרונות: בעיות ופתרונות בלבד)
+- ✎ Gere & Goodno, Mechanics of Materials, 8th ed. (solutions manual), עמ' PDF 999–1056: 10: Statically Indeterminate Beams (ספר פתרונות: בעיות ופתרונות בלבד)
 
 ### M16.7 עמודים וקריסה
-*Columns and buckling* · **ליבה** · 0 עמ' · כ-1 שיעורים · דרישות: M16.6
+*Columns and buckling* · **ליבה** · 65 עמ' · כ-4 שיעורים · דרישות: M16.6
 
-- ✎ Gere & Goodno, Mechanics of Materials (solutions manual), עמ' PDF 1057–1138: 11: Columns (ספר פתרונות: בעיות ופתרונות בלבד)
+- ★ Gere, Mechanics of Materials (6th ed.), עמ' PDF 772–836: 11: Columns
+- ✎ Gere, Mechanics of Materials (6th ed.), עמ' PDF 837–851: 11: תרגילים
+- ✎ Gere & Goodno, Mechanics of Materials, 8th ed. (solutions manual), עמ' PDF 1057–1138: 11: Columns (ספר פתרונות: בעיות ופתרונות בלבד)
 
-### M16.8 מרכזי כובד, מומנטי התמד ושאלות חזרה
-*Centroids, moments of inertia, FE review problems* · **עיון** · 0 עמ' · כ-1 שיעורים · דרישות: M16.2
+### M16.8 מרכזי כובד, מומנטי התמד, טבלאות ושאלות חזרה
+*Centroids, moments of inertia, reference tables, FE review problems* · **עיון** · 74 עמ' · כ-5 שיעורים · דרישות: M16.2
 
-- ✎ Gere & Goodno, Mechanics of Materials (solutions manual), עמ' PDF 1139–1170: 12: Review of Centroids and Moments of Inertia (ספר פתרונות: בעיות ופתרונות בלבד)
-- ✎ Gere & Goodno, Mechanics of Materials (solutions manual), עמ' PDF 29–114: A: FE exam review problems (ספר פתרונות: בעיות ופתרונות בלבד)
+- ★ Gere, Mechanics of Materials (6th ed.), עמ' PDF 852–875: 12: Review of Centroids and Moments of Inertia
+- ✎ Gere, Mechanics of Materials (6th ed.), עמ' PDF 876–882: 12: תרגילים
+- ◇ Gere, Mechanics of Materials (6th ed.), עמ' PDF 891–904: A: Systems of Units and Conversion Factors
+- ◇ Gere, Mechanics of Materials (6th ed.), עמ' PDF 905–910: B: Problem Solving
+- ◇ Gere, Mechanics of Materials (6th ed.), עמ' PDF 911–914: C: Mathematical Formulas
+- ◇ Gere, Mechanics of Materials (6th ed.), עמ' PDF 915–920: D: Properties of Plane Areas
+- ◇ Gere, Mechanics of Materials (6th ed.), עמ' PDF 921–926: E: Properties of Structural-Steel Shapes
+- ◇ Gere, Mechanics of Materials (6th ed.), עמ' PDF 927–928: F: Properties of Structural Lumber
+- ◇ Gere, Mechanics of Materials (6th ed.), עמ' PDF 929–934: G: Deflections and Slopes of Beams
+- ◇ Gere, Mechanics of Materials (6th ed.), עמ' PDF 935–940: H: Properties of Materials
+- ✎ Gere, Mechanics of Materials (6th ed.), עמ' PDF 941–956: תשובות לבעיות
+- ✎ Gere & Goodno, Mechanics of Materials, 8th ed. (solutions manual), עמ' PDF 1139–1170: 12: Review of Centroids and Moments of Inertia (ספר פתרונות: בעיות ופתרונות בלבד)
+- ✎ Gere & Goodno, Mechanics of Materials, 8th ed. (solutions manual), עמ' PDF 29–114: A: FE exam review problems (ספר פתרונות: בעיות ופתרונות בלבד)
 
 ### M16.9 מבוא לבחירת חומרים ותהליך התכנון
 *Introduction to materials selection and the design process* · **ליבה** · 30 עמ' · כ-2 שיעורים · דרישות: M16.2
@@ -2246,7 +2279,7 @@
 
 ## פערים ידועים במקורות
 
-- Gere & Goodno (E13) הוא ספר הפתרונות למרצה: בעיות ופתרונות בלבד, בלי התאוריה. במודולים M16.2–M16.8 התאוריה נשענת כרגע על פיינמן II פרקים 31, 38–39 (M16.1). כדאי למצוא את ספר הלימוד עצמו.
+- חוזק חומרים: ספר הלימוד (E13) הוא Gere במהדורה 6 (2004), וספר הפתרונות (E13a) הוא Gere & Goodno במהדורה 8. סדר הפרקים זהה, אבל מספור הסעיפים והבעיות שונה במקצת (למשל, במהדורה 8 יש §1.2 חזרה על סטטיקה), ולכן המורה מתאים בעיה לסעיף לפי הנושא ולא לפי המספר.
 - Horowitz & Hill (E09): חסרים פרק 1 (מכוסה ב-M11.1 מספר התרגול E09a), עמוד מודפס 644, והנספחים G–K והאינדקס.
 - Ashby (E12): חסר עמוד מודפס 283 (בתוך §10.3).
 - פיינמן II: חסרים פרק 40 (The Flow of Dry Water, זרימה אידאלית) ופרק 42 (Curved Space, יחסות כללית). M15.1 מתחיל מפרק 41.
@@ -2302,8 +2335,11 @@
 | Anderson, Introduction to Flight | 914–929 | סיום: answer key for even-numbered problems (914-917), index (918-929) |
 | Ashby, Materials Selection in Mechanical Design | 1–17 | פתיחה: half-title, blank, title, copyright, contents (v-x), preface, features of the fourth edition, blank |
 | Ashby, Materials Selection in Mechanical Design | 657–664 | סיום: index (657-662), blank (663-664) |
-| Gere & Goodno, Mechanics of Materials (solutions manual) | 1–2 | פתיחה: title page (iii), contents (v) |
-| Gere & Goodno, Mechanics of Materials (solutions manual) | 3–28 | סיום: answers to problems (printed 1057-1082, bound before the chapters) |
+| Gere, Mechanics of Materials (6th ed.) | 1–24 | פתיחה: cover, title, copyright, contents, preface, symbols, Greek alphabet |
+| Gere, Mechanics of Materials (6th ed.) | 883–890 | סיום: References and Historical Notes |
+| Gere, Mechanics of Materials (6th ed.) | 957–964 | סיום: Name Index, Subject Index |
+| Gere & Goodno, Mechanics of Materials, 8th ed. (solutions manual) | 1–2 | פתיחה: title page (iii), contents (v) |
+| Gere & Goodno, Mechanics of Materials, 8th ed. (solutions manual) | 3–28 | סיום: answers to problems (printed 1057-1082, bound before the chapters) |
 | MacKay, Sustainable Energy – Without the Hot Air | 1–13 | פתיחה: cover, endorsements, title, copyright, dedication, preface, contents |
 | MacKay, Sustainable Energy – Without the Hot Air | 357–383 | סיום: list of web links (357-360), bibliography (361-367), index (368-379), about the author (380), power and carbon translation charts (381-382), web site page (383) |
 | Çengel & Boles, Thermodynamics: An Engineering Approach | 1–25 | פתיחה: cover, title, copyright, quotes on ethics, about the authors, brief contents, contents, preface, online resources |

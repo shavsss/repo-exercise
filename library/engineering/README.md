@@ -19,7 +19,8 @@
 | E10 | גשר: מנועים והנעה | Hughes & Drury, *Electric Motors and Drives* | 4th | הלומד | `E10_Electric-Motors-Drives_Hughes-Drury_4ed.pdf` |
 | E11 | גשר: אווירונאוטיקה | Anderson, *Introduction to Flight* | 8th | הלומד | `E11_Introduction-to-Flight_Anderson_8ed.pdf` |
 | E12 | גשר: חומרים ופשרות | Ashby, *Materials Selection in Mechanical Design* (חסר עמוד מודפס 283, עמוד 300 ב-PDF) | 4th, 2011 | הלומד | `E12_Materials-Selection_Ashby_4ed_2011.pdf` |
-| E13 | גשר: חוזק חומרים | Gere & Goodno, *Mechanics of Materials* | 8th, 2013 | הלומד | `E13_Mechanics-of-Materials_Gere-Goodno_8ed.pdf` |
+| E13 | גשר: חוזק חומרים | Gere, *Mechanics of Materials* (ספר הלימוד) | 6th, 2004 | הלומד | `E13_Mechanics-of-Materials_Gere_6ed_2004.pdf` |
+| E13a | גשר: חוזק חומרים (תרגול) | Gere & Goodno, *Mechanics of Materials*, ספר הפתרונות למרצה | 8th, 2013 | הלומד | `E13a_Mechanics-of-Materials-Solutions_Gere-Goodno_8ed.pdf` |
 | E14 | גשר: אנרגיה | MacKay, *Sustainable Energy – Without the Hot Air* | 2009 | Claude | `E14_Sustainable-Energy_MacKay_2009.pdf` |
 | E15 | גשר: תרמודינמיקה | Çengel & Boles, *Thermodynamics: An Engineering Approach* | 9th | הלומד | `E15_Thermodynamics_Cengel-Boles_9ed.pdf` |
 | E16 | גשר: מעבר חום | Lienhard, *A Heat Transfer Textbook* | 6th, 2024 | Claude | `E16_Heat-Transfer_Lienhard_6ed_2024.pdf` |

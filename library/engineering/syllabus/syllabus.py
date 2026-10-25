@@ -33,7 +33,8 @@ DOCS = {
     "E10": ("library/engineering/books/E10_Electric-Motors-Drives_Hughes-Drury_4ed.pdf", "Hughes & Drury, Electric Motors and Drives"),
     "E11": ("library/engineering/books/E11_Introduction-to-Flight_Anderson_8ed.pdf", "Anderson, Introduction to Flight"),
     "E12": ("library/engineering/books/E12_Materials-Selection_Ashby_4ed_2011.pdf", "Ashby, Materials Selection in Mechanical Design"),
-    "E13": ("library/engineering/books/E13_Mechanics-of-Materials_Gere-Goodno_8ed.pdf", "Gere & Goodno, Mechanics of Materials (solutions manual)"),
+    "E13": ("library/engineering/books/E13_Mechanics-of-Materials_Gere_6ed_2004.pdf", "Gere, Mechanics of Materials (6th ed.)"),
+    "E13a": ("library/engineering/books/E13a_Mechanics-of-Materials-Solutions_Gere-Goodno_8ed.pdf", "Gere & Goodno, Mechanics of Materials, 8th ed. (solutions manual)"),
     "E14": ("library/engineering/books/E14_Sustainable-Energy_MacKay_2009.pdf", "MacKay, Sustainable Energy – Without the Hot Air"),
     "E15": ("library/engineering/books/E15_Thermodynamics_Cengel-Boles_9ed.pdf", "Çengel & Boles, Thermodynamics: An Engineering Approach"),
     "E16": ("library/engineering/books/E16_Heat-Transfer_Lienhard_6ed_2024.pdf", "Lienhard, A Heat Transfer Textbook"),
@@ -129,8 +130,8 @@ def probs(doc, num):
 def mod(id, part, tier, title_he, en, *sources, prereq=()):
     flat = [s for group in sources for s in group]
     for s in flat:
-        # E13 is the instructor's solutions manual: problems and solutions, no theory
-        if s["doc"] == "E13":
+        # E13a is the instructor's solutions manual: problems and solutions, no theory
+        if s["doc"] == "E13a":
             s["role"] = "ex"
             s["note"] = s["note"].replace("תרגילים", "בעיות ופתרונות") if s["note"].endswith("תרגילים") else s["note"] + " (ספר פתרונות: בעיות ופתרונות בלבד)"
     return dict(id=id, part=part, tier=tier, title=title_he, en=en, prereq=list(prereq), sources=flat)
@@ -456,17 +457,18 @@ MODULES = [
     mod("M16.1", "P16", "core", "טנזורים, אלסטיות וחומרים אלסטיים", "Tensors, elasticity, elastic materials",
         cs("F2", "31", "38", "39"), prereq=["M8.2", "M2.5"]),
     mod("M16.2", "P16", "core", "מתיחה, לחיצה, גזירה ואיברים בעומס צירי", "Tension, compression, shear, axially loaded members",
-        cs("E13", "1", "2"), prereq=["M16.1"]),
-    mod("M16.3", "P16", "core", "פיתול", "Torsion", c("E13", "3"), prereq=["M16.2"]),
+        cs("E13", "1", "2"), cs("E13a", "1", "2"), prereq=["M16.1"]),
+    mod("M16.3", "P16", "core", "פיתול", "Torsion", c("E13", "3"), c("E13a", "3"), prereq=["M16.2"]),
     mod("M16.4", "P16", "core", "כוחות גזירה, מומנטי כפיפה ומאמצים בקורות", "Shear forces, bending moments, stresses in beams",
-        cs("E13", "4", "5", "6"), prereq=["M16.2"]),
+        cs("E13", "4", "5", "6"), cs("E13a", "4", "5", "6"), prereq=["M16.2"]),
     mod("M16.5", "P16", "core", "ניתוח מאמץ ועיבור ויישומי מאמץ מישורי", "Analysis of stress and strain, plane stress applications",
-        cs("E13", "7", "8"), prereq=["M16.4"]),
+        cs("E13", "7", "8"), cs("E13a", "7", "8"), prereq=["M16.4"]),
     mod("M16.6", "P16", "core", "שקיעת קורות וקורות לא מסוימות סטטית", "Deflections of beams, statically indeterminate beams",
-        cs("E13", "9", "10"), prereq=["M16.4"]),
-    mod("M16.7", "P16", "core", "עמודים וקריסה", "Columns and buckling", c("E13", "11"), prereq=["M16.6"]),
-    mod("M16.8", "P16", "ref", "מרכזי כובד, מומנטי התמד ושאלות חזרה", "Centroids, moments of inertia, FE review problems",
-        c("E13", "12"), c("E13", "A", "A: FE exam review problems", "ex"), prereq=["M16.2"]),
+        cs("E13", "9", "10"), cs("E13a", "9", "10"), prereq=["M16.4"]),
+    mod("M16.7", "P16", "core", "עמודים וקריסה", "Columns and buckling", c("E13", "11"), c("E13a", "11"), prereq=["M16.6"]),
+    mod("M16.8", "P16", "ref", "מרכזי כובד, מומנטי התמד, טבלאות ושאלות חזרה", "Centroids, moments of inertia, reference tables, FE review problems",
+        c("E13", "12"), *[c("E13", x, f"{x}: {title('E13', x)}", "supp") for x in "ABCDEFGH"], c("E13", "ANS", "תשובות לבעיות", "ex"),
+        c("E13a", "12"), c("E13a", "A", "A: FE exam review problems", "ex"), prereq=["M16.2"]),
     mod("M16.9", "P16", "core", "מבוא לבחירת חומרים ותהליך התכנון", "Introduction to materials selection and the design process",
         cs("E12", "1", "2"), prereq=["M16.2"]),
     mod("M16.10", "P16", "core", "חומרים הנדסיים ותכונותיהם", "Engineering materials and their properties", c("E12", "3"), prereq=["M16.9"]),
@@ -657,7 +659,7 @@ SKIP += [
 
 # Known gaps in the sources, shown in SYLLABUS.md.
 GAPS = [
-    "Gere & Goodno (E13) הוא ספר הפתרונות למרצה: בעיות ופתרונות בלבד, בלי התאוריה. במודולים M16.2–M16.8 התאוריה נשענת כרגע על פיינמן II פרקים 31, 38–39 (M16.1). כדאי למצוא את ספר הלימוד עצמו.",
+    "חוזק חומרים: ספר הלימוד (E13) הוא Gere במהדורה 6 (2004), וספר הפתרונות (E13a) הוא Gere & Goodno במהדורה 8. סדר הפרקים זהה, אבל מספור הסעיפים והבעיות שונה במקצת (למשל, במהדורה 8 יש §1.2 חזרה על סטטיקה), ולכן המורה מתאים בעיה לסעיף לפי הנושא ולא לפי המספר.",
     "Horowitz & Hill (E09): חסרים פרק 1 (מכוסה ב-M11.1 מספר התרגול E09a), עמוד מודפס 644, והנספחים G–K והאינדקס.",
     "Ashby (E12): חסר עמוד מודפס 283 (בתוך §10.3).",
     "פיינמן II: חסרים פרק 40 (The Flow of Dry Water, זרימה אידאלית) ופרק 42 (Curved Space, יחסות כללית). M15.1 מתחיל מפרק 41.",

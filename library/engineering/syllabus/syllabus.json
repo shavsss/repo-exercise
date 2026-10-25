@@ -96,8 +96,13 @@
    "pages": 664
   },
   "E13": {
-   "file": "library/engineering/books/E13_Mechanics-of-Materials_Gere-Goodno_8ed.pdf",
-   "title": "Gere & Goodno, Mechanics of Materials (solutions manual)",
+   "file": "library/engineering/books/E13_Mechanics-of-Materials_Gere_6ed_2004.pdf",
+   "title": "Gere, Mechanics of Materials (6th ed.)",
+   "pages": 964
+  },
+  "E13a": {
+   "file": "library/engineering/books/E13a_Mechanics-of-Materials-Solutions_Gere-Goodno_8ed.pdf",
+   "title": "Gere & Goodno, Mechanics of Materials, 8th ed. (solutions manual)",
    "pages": 1170
   },
   "E14": {
@@ -7595,6 +7600,42 @@
     {
      "doc": "E13",
      "pages": [
+      25,
+      72
+     ],
+     "note": "1: Tension, Compression, and Shear",
+     "role": "main"
+    },
+    {
+     "doc": "E13",
+     "pages": [
+      73,
+      90
+     ],
+     "note": "1: תרגילים",
+     "role": "ex"
+    },
+    {
+     "doc": "E13",
+     "pages": [
+      91,
+      178
+     ],
+     "note": "2: Axially Loaded Members",
+     "role": "main"
+    },
+    {
+     "doc": "E13",
+     "pages": [
+      179,
+      208
+     ],
+     "note": "2: תרגילים",
+     "role": "ex"
+    },
+    {
+     "doc": "E13a",
+     "pages": [
       115,
       230
      ],
@@ -7602,7 +7643,7 @@
      "role": "ex"
     },
     {
-     "doc": "E13",
+     "doc": "E13a",
      "pages": [
       231,
       396
@@ -7625,6 +7666,24 @@
     {
      "doc": "E13",
      "pages": [
+      209,
+      268
+     ],
+     "note": "3: Torsion",
+     "role": "main"
+    },
+    {
+     "doc": "E13",
+     "pages": [
+      269,
+      287
+     ],
+     "note": "3: תרגילים",
+     "role": "ex"
+    },
+    {
+     "doc": "E13a",
+     "pages": [
       397,
       498
      ],
@@ -7646,6 +7705,60 @@
     {
      "doc": "E13",
      "pages": [
+      288,
+      315
+     ],
+     "note": "4: Shear Forces and Bending Moments",
+     "role": "main"
+    },
+    {
+     "doc": "E13",
+     "pages": [
+      316,
+      323
+     ],
+     "note": "4: תרגילים",
+     "role": "ex"
+    },
+    {
+     "doc": "E13",
+     "pages": [
+      324,
+      389
+     ],
+     "note": "5: Stresses in Beams (Basic Topics)",
+     "role": "main"
+    },
+    {
+     "doc": "E13",
+     "pages": [
+      390,
+      416
+     ],
+     "note": "5: תרגילים",
+     "role": "ex"
+    },
+    {
+     "doc": "E13",
+     "pages": [
+      417,
+      473
+     ],
+     "note": "6: Stresses in Beams (Advanced Topics)",
+     "role": "main"
+    },
+    {
+     "doc": "E13",
+     "pages": [
+      474,
+      487
+     ],
+     "note": "6: תרגילים",
+     "role": "ex"
+    },
+    {
+     "doc": "E13a",
+     "pages": [
       499,
       548
      ],
@@ -7653,7 +7766,7 @@
      "role": "ex"
     },
     {
-     "doc": "E13",
+     "doc": "E13a",
      "pages": [
       549,
       670
@@ -7662,7 +7775,7 @@
      "role": "ex"
     },
     {
-     "doc": "E13",
+     "doc": "E13a",
      "pages": [
       671,
       750
@@ -7685,6 +7798,42 @@
     {
      "doc": "E13",
      "pages": [
+      488,
+      548
+     ],
+     "note": "7: Analysis of Stress and Strain",
+     "role": "main"
+    },
+    {
+     "doc": "E13",
+     "pages": [
+      549,
+      564
+     ],
+     "note": "7: תרגילים",
+     "role": "ex"
+    },
+    {
+     "doc": "E13",
+     "pages": [
+      565,
+      606
+     ],
+     "note": "8: Applications of Plane Stress (Pressure Vessels, Beams, and Combined Loadings)",
+     "role": "main"
+    },
+    {
+     "doc": "E13",
+     "pages": [
+      607,
+      617
+     ],
+     "note": "8: תרגילים",
+     "role": "ex"
+    },
+    {
+     "doc": "E13a",
+     "pages": [
       751,
       838
      ],
@@ -7692,7 +7841,7 @@
      "role": "ex"
     },
     {
-     "doc": "E13",
+     "doc": "E13a",
      "pages": [
       839,
       906
@@ -7715,6 +7864,42 @@
     {
      "doc": "E13",
      "pages": [
+      618,
+      710
+     ],
+     "note": "9: Deflections of Beams",
+     "role": "main"
+    },
+    {
+     "doc": "E13",
+     "pages": [
+      711,
+      730
+     ],
+     "note": "9: תרגילים",
+     "role": "ex"
+    },
+    {
+     "doc": "E13",
+     "pages": [
+      731,
+      761
+     ],
+     "note": "10: Statically Indeterminate Beams",
+     "role": "main"
+    },
+    {
+     "doc": "E13",
+     "pages": [
+      762,
+      771
+     ],
+     "note": "10: תרגילים",
+     "role": "ex"
+    },
+    {
+     "doc": "E13a",
+     "pages": [
       907,
       998
      ],
@@ -7722,7 +7907,7 @@
      "role": "ex"
     },
     {
-     "doc": "E13",
+     "doc": "E13a",
      "pages": [
       999,
       1056
@@ -7745,6 +7930,24 @@
     {
      "doc": "E13",
      "pages": [
+      772,
+      836
+     ],
+     "note": "11: Columns",
+     "role": "main"
+    },
+    {
+     "doc": "E13",
+     "pages": [
+      837,
+      851
+     ],
+     "note": "11: תרגילים",
+     "role": "ex"
+    },
+    {
+     "doc": "E13a",
+     "pages": [
       1057,
       1138
      ],
@@ -7757,14 +7960,113 @@
    "id": "M16.8",
    "part": "P16",
    "tier": "ref",
-   "title": "מרכזי כובד, מומנטי התמד ושאלות חזרה",
-   "en": "Centroids, moments of inertia, FE review problems",
+   "title": "מרכזי כובד, מומנטי התמד, טבלאות ושאלות חזרה",
+   "en": "Centroids, moments of inertia, reference tables, FE review problems",
    "prereq": [
     "M16.2"
    ],
    "sources": [
     {
      "doc": "E13",
+     "pages": [
+      852,
+      875
+     ],
+     "note": "12: Review of Centroids and Moments of Inertia",
+     "role": "main"
+    },
+    {
+     "doc": "E13",
+     "pages": [
+      876,
+      882
+     ],
+     "note": "12: תרגילים",
+     "role": "ex"
+    },
+    {
+     "doc": "E13",
+     "pages": [
+      891,
+      904
+     ],
+     "note": "A: Systems of Units and Conversion Factors",
+     "role": "supp"
+    },
+    {
+     "doc": "E13",
+     "pages": [
+      905,
+      910
+     ],
+     "note": "B: Problem Solving",
+     "role": "supp"
+    },
+    {
+     "doc": "E13",
+     "pages": [
+      911,
+      914
+     ],
+     "note": "C: Mathematical Formulas",
+     "role": "supp"
+    },
+    {
+     "doc": "E13",
+     "pages": [
+      915,
+      920
+     ],
+     "note": "D: Properties of Plane Areas",
+     "role": "supp"
+    },
+    {
+     "doc": "E13",
+     "pages": [
+      921,
+      926
+     ],
+     "note": "E: Properties of Structural-Steel Shapes",
+     "role": "supp"
+    },
+    {
+     "doc": "E13",
+     "pages": [
+      927,
+      928
+     ],
+     "note": "F: Properties of Structural Lumber",
+     "role": "supp"
+    },
+    {
+     "doc": "E13",
+     "pages": [
+      929,
+      934
+     ],
+     "note": "G: Deflections and Slopes of Beams",
+     "role": "supp"
+    },
+    {
+     "doc": "E13",
+     "pages": [
+      935,
+      940
+     ],
+     "note": "H: Properties of Materials",
+     "role": "supp"
+    },
+    {
+     "doc": "E13",
+     "pages": [
+      941,
+      956
+     ],
+     "note": "תשובות לבעיות",
+     "role": "ex"
+    },
+    {
+     "doc": "E13a",
      "pages": [
       1139,
       1170
@@ -7773,7 +8075,7 @@
      "role": "ex"
     },
     {
-     "doc": "E13",
+     "doc": "E13a",
      "pages": [
       29,
       114
@@ -12606,12 +12908,36 @@
    "doc": "E13",
    "pages": [
     1,
+    24
+   ],
+   "reason": "פתיחה: cover, title, copyright, contents, preface, symbols, Greek alphabet"
+  },
+  {
+   "doc": "E13",
+   "pages": [
+    883,
+    890
+   ],
+   "reason": "סיום: References and Historical Notes"
+  },
+  {
+   "doc": "E13",
+   "pages": [
+    957,
+    964
+   ],
+   "reason": "סיום: Name Index, Subject Index"
+  },
+  {
+   "doc": "E13a",
+   "pages": [
+    1,
     2
    ],
    "reason": "פתיחה: title page (iii), contents (v)"
   },
   {
-   "doc": "E13",
+   "doc": "E13a",
    "pages": [
     3,
     28
@@ -12812,7 +13138,7 @@
   }
  ],
  "gaps": [
-  "Gere & Goodno (E13) הוא ספר הפתרונות למרצה: בעיות ופתרונות בלבד, בלי התאוריה. במודולים M16.2–M16.8 התאוריה נשענת כרגע על פיינמן II פרקים 31, 38–39 (M16.1). כדאי למצוא את ספר הלימוד עצמו.",
+  "חוזק חומרים: ספר הלימוד (E13) הוא Gere במהדורה 6 (2004), וספר הפתרונות (E13a) הוא Gere & Goodno במהדורה 8. סדר הפרקים זהה, אבל מספור הסעיפים והבעיות שונה במקצת (למשל, במהדורה 8 יש §1.2 חזרה על סטטיקה), ולכן המורה מתאים בעיה לסעיף לפי הנושא ולא לפי המספר.",
   "Horowitz & Hill (E09): חסרים פרק 1 (מכוסה ב-M11.1 מספר התרגול E09a), עמוד מודפס 644, והנספחים G–K והאינדקס.",
   "Ashby (E12): חסר עמוד מודפס 283 (בתוך §10.3).",
   "פיינמן II: חסרים פרק 40 (The Flow of Dry Water, זרימה אידאלית) ופרק 42 (Curved Space, יחסות כללית). M15.1 מתחיל מפרק 41.",
