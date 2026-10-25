@@ -57,4 +57,4 @@ cd /tmp/harness && python3 -m http.server 5190  # http://localhost:5190/test.htm
 
 ## פרסום
 
-הדף הוא `artifact/index.html`, עם `dist/app.js`, `dist/app.css` וכל הקבצים שב-`artifact/lib/`. הכול יחד כ-210MB, ולכן מפרסמים בכמה פעימות לאותה כתובת (עד 64MB בכל פעימה). החבילות שב-`artifact/assets/` מועלות למאגר הקבצים (ראו BUILD_GUIDE, סעיף 11.5). ההרשאות: `sample` (עם תמונות), `db`, `user` ו-`assets`. פרטים ב-[`docs/BUILD_GUIDE.md`](../../docs/BUILD_GUIDE.md).
+הדף הוא `artifact/index.html`, עם `dist/app.js`, `dist/app.css` וכל הקבצים שב-`artifact/lib/`. הכול יחד כ-210MB, ולכן מפרסמים בכמה פעימות לאותה כתובת (עד 64MB בכל פעימה). החבילות שב-`artifact/assets/` מועלות למאגר הקבצים (ראו BUILD_GUIDE, סעיף 11.5). ההרשאות: `sample` (עם תמונות), `db`, `user`, `assets` ו-`downloads`. פרטים ב-[`docs/BUILD_GUIDE.md`](../../docs/BUILD_GUIDE.md).

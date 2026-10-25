@@ -10,11 +10,12 @@ files; the Kolmogorov pages are flagged as OCR, so pack.py adds page images.
 Run with the OCR venv: python eng/tools/extract.py [DOC ...] [--pages A-B] [--force]
 """
 import json
+import os
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-OUT = ROOT / "eng" / "build" / "lib"
+OUT = Path(os.environ.get("EXTRACT_OUT", ROOT / "eng" / "build" / "lib"))
 sys.path.insert(0, str(ROOT / "library" / "engineering" / "syllabus"))
 from syllabus import DOCS  # noqa: E402
 
