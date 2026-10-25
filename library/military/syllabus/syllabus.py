@@ -370,7 +370,8 @@ MODULES = [
          sources=[s("B04", 208, 235, "פרק 7")]),
     dict(id="M4.13", part="P4", tier="ref", title="ממשק מפעיל ותצוגות EW", en="EW operator interface",
          sources=[s("B01", 108, 124, "5.4–5.6")]),
-    dict(id="M4.14", part="P4", tier="ref", title="סימולציה ואמולציה של EW", en="EW simulation",
+    dict(id="M4.14", part="P4", tier="adv", title="סימולציה ואמולציה של EW", en="EW simulation",
+         prereq=["M4.7", "M4.8"],
          sources=[s("B01", 265, 300, "פרק 11 (ה-PDF נגמר בעמ' 278 המודפס)")]),
     dict(id="M4.15", part="P4", tier="core", title="מאגר תרגילים פתורים ב-EW", en="EW problem bank",
          sources=[s("B04", 236, 275, "נספחים A–B: בעיות עם פתרונות, והפניות ל-EW 101")]),
@@ -527,7 +528,8 @@ MODULES = [
                   s("D9", 47, 49, "נספח B: מערכות C-UAS"), sup("D9", 15, 20, "פרק 2: תכנון לפי דרג"),
                   art("A09.1", "גילוי וסיווג בכל אמצעי החישה"), art("A02.4", "סיווג לפי מטען במכ\"ם רב-סטטי"),
                   art("A02.5", "מיקרו-דופלר: רחפן מול ציפור")]),
-    dict(id="M9.8", part="P9", tier="ref", title="שיגור ונחיתה", en="Launch and recovery",
+    dict(id="M9.8", part="P9", tier="adv", title="שיגור ונחיתה", en="Launch and recovery",
+         prereq=["M9.2"],
          sources=[s("B09", 397, 436, "פרקים 17–19")]),
 
     # ---------------- P10 ----------------

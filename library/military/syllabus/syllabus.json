@@ -2778,9 +2778,13 @@
   {
    "id": "M4.14",
    "part": "P4",
-   "tier": "ref",
+   "tier": "adv",
    "title": "סימולציה ואמולציה של EW",
    "en": "EW simulation",
+   "prereq": [
+    "M4.7",
+    "M4.8"
+   ],
    "sources": [
     {
      "doc": "B01",
@@ -4234,9 +4238,12 @@
   {
    "id": "M9.8",
    "part": "P9",
-   "tier": "ref",
+   "tier": "adv",
    "title": "שיגור ונחיתה",
    "en": "Launch and recovery",
+   "prereq": [
+    "M9.2"
+   ],
    "sources": [
     {
      "doc": "B09",
