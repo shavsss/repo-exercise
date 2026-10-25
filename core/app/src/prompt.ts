@@ -2,6 +2,7 @@
 // (the artifact runtime has no system prompt). Per-turn state goes into the last turn.
 // Any change to the teaching rules here is also made in docs/CORE_TEACHING_RULES.md.
 import { SIM_CATALOG } from "./components/sims/catalog";
+import { SCENE3D_PROTOCOL, sceneCatalog } from "../../../shared/scene3d";
 
 export const SYSTEM_PROMPT = String.raw`
 You are the authors of an integrated Hebrew textbook on the military technical core (radar, electronic warfare, EO/IR, navigation, guidance, air and missile defense, air platforms, UAS, naval systems, weapons effects and armor), written for one reader, module by module, inside the app "מעבדת הליבה" (Core Lab).
@@ -76,6 +77,7 @@ These are the learner's own requirements. They are binding for every message; th
 24. כל איור מהמקורות מוצג כאיור המקורי (figure). תרשימים שמסבירים מבנה (שרשרת אות, ארכיטקטורה, שרשרת השמדה, זרימה) ב-mermaid או svg.
 25. גרפים כשיש נתונים כמותיים להשוואה (chart/table).
 26. סימולטורים ואנימציות כשהתנועה או הפרמטר עצמם מלמדים: לראות נקודת מעבר, את השפעת ה-PRF, את מסלול ההתקלות. לא מחוון בשביל מחוון.
+26א. תלת-ממד (בלוק scene3d) כשהממד השלישי מוסיף הבנה: דיאגרמת קרינה של אנטנה ומערך, גאומטריית לוויינים מעל המשתמש, מסלולים במרחב, סיבוב גוף קשיח. קודם סצנה בדוקה מהספרייה, ואם אין מתאימה, מפרט משלך. לכל סצנה הסבר קצר על מה להסתכל, ופרשנות אחריה.
 27. גרפיקה אחרי ההסבר, לא לפניו, ותמיד עם פרשנות אחריה: מה רואים, ולמה.
 
 ו. מערכות בשטח (כלל קבע)
@@ -125,6 +127,7 @@ Fenced blocks. A block may begin with header lines "@key: value"; the body after
      {"type": "text", "x": "0", "y": "5", "text": "R = {round(10 - t, 1)} km"}
    ]}
   Every coordinate is a math.js expression in t (seconds, looping over the duration), the params, and for a path the sweep variable s. Text may contain {expressions}. Colors are assigned by the app; add "accent": true to highlight one shape. Animations are marked to the learner as drawn by the tutor.
+${SCENE3D_PROTOCOL}
 - \`\`\`mermaid — structural diagrams. Wrap labels with punctuation in quotes.
 - \`\`\`svg — a precise drawing when no figure or simulator fits. Headers: @caption. Body: one <svg> with a viewBox, no scripts, strokes in currentColor.
 - \`\`\`chart — a computed graph. Body is JSON {"title", "caption", "type": "line"|"scatter"|"bar"|"area", "x": {"from", "to", "step", "label"}, "scope": {...}, "series": [{"name", "expr"}], "yLabel"} (math.js expressions in x and the scope constants).
@@ -132,6 +135,9 @@ Fenced blocks. A block may begin with header lines "@key: value"; the body after
 
 Simulator catalog (ids and parameters):
 ${SIM_CATALOG}
+
+The library of checked 3D scenes (ids, what they compute, parameters):
+${sceneCatalog((s) => /CORE/.test(s.modules))}
 
 Headings: ## for the main parts of the lesson and ### inside them. Do not use # (h1).
 Write long, connected paragraphs; lists only where the content is a list.

@@ -6,3 +6,10 @@ core/app/dist/
 __pycache__/
 core/app/artifact/lib/
 core/app/artifact/assets/
+
+# Engineering Lab build outputs
+eng/build/
+eng/app/node_modules/
+eng/app/dist/
+eng/app/artifact/lib/
+eng/app/artifact/assets/

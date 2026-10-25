@@ -11,6 +11,11 @@
 | `core/` | מעבדת הליבה: אפליקציה נפרדת שמלמדת את `library/military/`. ראו [`core/app/README.md`](core/app/README.md) |
 | `docs/CORE_LAB_PLAN.md` | החלטות התכנון והעיצוב של מעבדת הליבה |
 | `docs/CORE_TEACHING_RULES.md` | כללי הלימוד של מעבדת הליבה, בעברית |
+| `library/engineering/` | ספריית ההנדסה: הספרים (`books/`, E01–E26) ותוכנית הלימודים (`syllabus/`, 316 מודולים). מפתח ב-`library/engineering/README.md` |
+| `eng/` | מעבדת ההנדסה: אפליקציה שלישית, על הקוד של מעבדת הליבה. ראו [`eng/app/README.md`](eng/app/README.md) |
+| `docs/ENG_LAB_PLAN.md` | החלטות התכנון והעיצוב של מעבדת ההנדסה |
+| `docs/ENG_TEACHING_RULES.md` | כללי הלימוד של מעבדת ההנדסה (רמה 2.5), בעברית |
+| `shared/scene3d/` | רכיב התלת-ממד המשותף: מנוע, ספריית סצנות בדוקות ופורמט המפרט של המורה |
 | `app/` | קוד האפליקציה (React + Vite), ראו [`app/README.md`](app/README.md) |
 | `app/src/prompt.ts` | ההנחיות שהמורה מקבל בכל קריאה, כולל כללי הלימוד |
 | `app/artifact/` | הדף שמתפרסם, והטקסט המחולץ של הספרים (`books/*.json`) |

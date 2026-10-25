@@ -41,7 +41,7 @@ const textOf = (segments: Segment[]) =>
 /** Plain-text words of an answer (no JSON, SVG or math) — for the depth bar. */
 export function countWords(segments: Segment[]) {
   const text = textOf(segments)
-    .replace(/```(chart|table|interactive|svg|mermaid|sim|anim|figure)[\s\S]*?```/g, " ")
+    .replace(/```(chart|table|interactive|svg|mermaid|sim|anim|figure|scene3d)[\s\S]*?```/g, " ")
     .replace(/\$\$[\s\S]*?\$\$/g, " ")
     .replace(/\$[^$\n]*\$/g, " ")
     .replace(/^@\w+:.*$/gm, " ")
@@ -62,7 +62,7 @@ export function depthBar(segments: Segment[], full = true): BarCheck[] {
   const count = (lang: string) => (text.match(new RegExp("```" + lang + "\\b", "g")) ?? []).length;
   const words = countWords(segments);
   const firstBlock = /```(\w+)/.exec(text)?.[1];
-  const graphics = count("chart") + count("svg") + count("mermaid") + count("interactive") + count("table") + count("sim") + count("anim");
+  const graphics = count("chart") + count("svg") + count("mermaid") + count("interactive") + count("table") + count("sim") + count("anim") + count("scene3d");
   const computed = segments.some((s) => s.t === "activity" && s.a.t === "compute") || count("chart") + count("table") + count("sim") > 0;
   const tags = (text.match(/\[\[[A-Za-z]\d+[a-z]?(?:\.\d+)?:\d+\]\]/g) ?? []).length;
   const checks: BarCheck[] = [

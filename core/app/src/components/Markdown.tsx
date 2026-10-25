@@ -15,6 +15,7 @@ import { FigureBlock } from "./blocks/Figure";
 import { SimBlock } from "./blocks/Sim";
 import { AnimBlock } from "./blocks/Anim";
 import { SourceTag } from "./blocks/SourceTag";
+import { Scene3DBlock } from "./blocks/Scene3D";
 
 export interface MdContextValue {
   live: boolean;
@@ -67,6 +68,7 @@ function FencedBlock({ lang, code }: { lang: string; code: string }) {
   if (lang === "figure") return <FigureBlock source={code} />;
   if (lang === "sim") return <SimBlock source={code} live={ctx.live} />;
   if (lang === "anim") return <AnimBlock source={code} live={ctx.live} />;
+  if (lang === "scene3d") return <Scene3DBlock source={code} live={ctx.live} />;
   if (lang === "chart") return <ChartBlock source={code} live={ctx.live} />;
   if (lang === "table") return <TableBlock source={code} live={ctx.live} />;
   if (lang === "mermaid") return <MermaidBlock code={code} live={ctx.live} />;
