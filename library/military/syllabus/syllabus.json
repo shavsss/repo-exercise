@@ -10,6 +10,11 @@
    "title": "Principles of Modern Radar",
    "pages": 962
   },
+  "B02b": {
+   "file": "books/02b_Principles-of-Modern-Radar-Vol3-Applications_Melvin-Scheer_2014.pdf",
+   "title": "Principles of Modern Radar, Vol. III: Radar Applications",
+   "pages": 821
+  },
   "B03": {
    "file": "books/03_Intro-IR-EO-Systems_Driggers_2ed_2012.pdf",
    "title": "Introduction to IR and EO Systems",
@@ -828,6 +833,15 @@
      ],
      "note": "3.1: המכ\"ם מנקודת המבט של EW",
      "role": "supp"
+    },
+    {
+     "doc": "B02b",
+     "pages": [
+      26,
+      41
+     ],
+     "note": "כרך III, פרק 1: יישומי מכ\"ם",
+     "role": "supp"
     }
    ]
   },
@@ -1334,14 +1348,32 @@
   {
    "id": "M2.16",
    "part": "P2",
-   "tier": "adv",
-   "title": "מכ\"ם מוטס, GMTI ו-STAP",
-   "en": "Airborne radar and STAP",
+   "tier": "core",
+   "title": "מכ\"ם מוטס: פולס-דופלר, GMTI ו-STAP",
+   "en": "Airborne radar: pulse-Doppler, GMTI, STAP",
    "prereq": [
     "M2.13",
     "M1.2"
    ],
    "sources": [
+    {
+     "doc": "B02b",
+     "pages": [
+      200,
+      275
+     ],
+     "note": "כרך III, פרק 5: מכ\"ם פולס-דופלר מוטס",
+     "role": "main"
+    },
+    {
+     "doc": "B02b",
+     "pages": [
+      408,
+      455
+     ],
+     "note": "כרך III, פרק 9: גילוי מטרות נעות על הקרקע (SMTI)",
+     "role": "main"
+    },
     {
      "doc": "A02.1",
      "pages": null,
@@ -1355,7 +1387,7 @@
       150
      ],
      "note": "3.6–3.7: מכ\"ם דופלר ושימושים נוספים",
-     "role": "main"
+     "role": "supp"
     },
     {
      "doc": "B08",
@@ -1455,6 +1487,205 @@
       529
      ],
      "note": "12.3–12.5 ופרק 13: מבנה המעבד, FLOPS, מימוש",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M2.20",
+   "part": "P2",
+   "tier": "core",
+   "title": "מכ\"ם CW ו-FMCW",
+   "en": "CW and FMCW radar",
+   "prereq": [
+    "M2.7",
+    "M2.12"
+   ],
+   "sources": [
+    {
+     "doc": "B02b",
+     "pages": [
+      42,
+      111
+     ],
+     "note": "כרך III, פרק 2",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M2.21",
+   "part": "P2",
+   "tier": "core",
+   "title": "מכ\"ם גלים מילימטריים (MMW)",
+   "en": "MMW radar",
+   "prereq": [
+    "M1.3",
+    "M2.20"
+   ],
+   "sources": [
+    {
+     "doc": "B02b",
+     "pages": [
+      112,
+      141
+     ],
+     "note": "כרך III, פרק 3",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M2.22",
+   "part": "P2",
+   "tier": "core",
+   "title": "מכ\"ם בקרת אש",
+   "en": "Fire-control radar",
+   "prereq": [
+    "M2.15",
+    "M2.14"
+   ],
+   "sources": [
+    {
+     "doc": "B02b",
+     "pages": [
+      142,
+      199
+     ],
+     "note": "כרך III, פרק 4",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M2.23",
+   "part": "P2",
+   "tier": "core",
+   "title": "מכ\"ם מערך מופע רב-משימתי",
+   "en": "Multifunction phased array radar",
+   "prereq": [
+    "M1.2",
+    "M2.15"
+   ],
+   "sources": [
+    {
+     "doc": "B02b",
+     "pages": [
+      276,
+      309
+     ],
+     "note": "כרך III, פרק 6",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M2.24",
+   "part": "P2",
+   "tier": "core",
+   "title": "מכ\"ם ביסטטי פסיבי",
+   "en": "Passive bistatic radar",
+   "prereq": [
+    "M2.13"
+   ],
+   "sources": [
+    {
+     "doc": "B02b",
+     "pages": [
+      524,
+      567
+     ],
+     "note": "כרך III, פרק 11",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M2.25",
+   "part": "P2",
+   "tier": "adv",
+   "title": "SAR מהחלל",
+   "en": "Space-based SAR",
+   "prereq": [
+    "M2.17"
+   ],
+   "sources": [
+    {
+     "doc": "B02b",
+     "pages": [
+      456,
+      523
+     ],
+     "note": "כרך III, פרק 10",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M2.26",
+   "part": "P2",
+   "tier": "adv",
+   "title": "מכ\"ם חודר עלווה (FOPEN)",
+   "en": "Foliage-penetrating radar",
+   "prereq": [
+    "M2.17"
+   ],
+   "sources": [
+    {
+     "doc": "B02b",
+     "pages": [
+      660,
+      715
+     ],
+     "note": "כרך III, פרק 14",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M2.27",
+   "part": "P2",
+   "tier": "adv",
+   "title": "מכ\"ם בקרת תעבורה אווירית ו-SSR",
+   "en": "Air traffic control radar and SSR",
+   "prereq": [
+    "M2.13"
+   ],
+   "sources": [
+    {
+     "doc": "B02b",
+     "pages": [
+      568,
+      615
+     ],
+     "note": "כרך III, פרק 12",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M2.28",
+   "part": "P2",
+   "tier": "ref",
+   "title": "מכ\"ם מזג אוויר, חודר קרקע ומשטרתי",
+   "en": "Weather, ground-penetrating and police radar",
+   "sources": [
+    {
+     "doc": "B02b",
+     "pages": [
+      616,
+      659
+     ],
+     "note": "כרך III, פרק 13",
+     "role": "main"
+    },
+    {
+     "doc": "B02b",
+     "pages": [
+      716,
+      803
+     ],
+     "note": "כרך III, פרקים 15–16",
      "role": "main"
     }
    ]
@@ -3147,6 +3378,50 @@
    "id": "M7.7",
    "part": "P7",
    "tier": "core",
+   "title": "מכ\"ם להגנה מפני טילים בליסטיים",
+   "en": "Ballistic missile defense radar",
+   "prereq": [
+    "M7.6",
+    "M2.23"
+   ],
+   "sources": [
+    {
+     "doc": "B02b",
+     "pages": [
+      310,
+      347
+     ],
+     "note": "כרך III, פרק 7",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M7.8",
+   "part": "P7",
+   "tier": "core",
+   "title": "מכ\"ם התרעה מוקדמת קרקעי",
+   "en": "Ground-based early warning radar",
+   "prereq": [
+    "M7.1",
+    "M2.23"
+   ],
+   "sources": [
+    {
+     "doc": "B02b",
+     "pages": [
+      348,
+      407
+     ],
+     "note": "כרך III, פרק 8",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M7.9",
+   "part": "P7",
+   "tier": "core",
    "title": "Link 16, שו\"ב ולוחמה מרושתת",
    "en": "Link 16, C2 and networked warfare",
    "prereq": [
@@ -3193,7 +3468,7 @@
    ]
   },
   {
-   "id": "M7.8",
+   "id": "M7.10",
    "part": "P7",
    "tier": "ref",
    "title": "הנדסת מערכות: מחזור החיים",
@@ -4350,6 +4625,22 @@
     962
    ],
    "reason": "מקורות ואינדקס"
+  },
+  {
+   "doc": "B02b",
+   "pages": [
+    1,
+    25
+   ],
+   "reason": "שער, תוכן, פתח דבר ותורמים"
+  },
+  {
+   "doc": "B02b",
+   "pages": [
+    804,
+    821
+   ],
+   "reason": "אינדקס"
   },
   {
    "doc": "B03",

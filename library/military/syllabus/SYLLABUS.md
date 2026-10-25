@@ -6,24 +6,24 @@
 
 **תפקיד המקור:** ★ מקור ראשי. ◇ השלמה מספר אחר. 📄 מאמר או מסמך.
 
-**סה"כ:** 124 מודולים: 98 ליבה, 16 מתקדם, 10 עיון.
+**סה"כ:** 135 מודולים: 106 ליבה, 18 מתקדם, 11 עיון.
 
 | חלק | מודולים | עמ' ספר בליבה | עמ' מאמרים בליבה | שיעורי ליבה (אומדן) | עמ' ספר במתקדם |
 |---|---|---|---|---|---|
 | P0 יסודות: הכלים המתמטיים והפיזיקליים | 8 | 210 | 0 | 16 | 0 |
 | P1 השכבה הפיזית: אנטנות, התפשטות וקשר | 4 | 184 | 72 | 12 | 0 |
-| P2 מכ"ם | 19 | 855 | 269 | 57 | 73 |
+| P2 מכ"ם | 28 | 1241 | 448 | 83 | 235 |
 | P3 EO/IR | 14 | 575 | 0 | 39 | 65 |
 | P4 לוחמה אלקטרונית | 15 | 373 | 381 | 27 | 0 |
 | P5 ניווט ו-GNSS | 11 | 449 | 26 | 31 | 270 |
 | P6 טילים: דינמיקה, הנחיה ובקרה | 11 | 650 | 44 | 44 | 0 |
-| P7 הגנה אווירית ומפני טילים, ושו"ב | 8 | 195 | 985 | 13 | 36 |
+| P7 הגנה אווירית ומפני טילים, ושו"ב | 10 | 293 | 985 | 20 | 36 |
 | P8 פלטפורמות אוויר ואוויוניקה | 7 | 74 | 155 | 6 | 36 |
 | P9 כטב"מים, רחפנים והגנה מפניהם | 8 | 275 | 41 | 18 | 44 |
 | P10 מערכות ימיות | 5 | 60 | 352 | 25 | 0 |
 | P11 אפקטים של נשק ושריון | 10 | 239 | 0 | 16 | 157 |
 | P12 האויב: דוקטרינה והפעלה | 4 | 78 | 0 | 5 | 415 |
-| **סה"כ** | 124 | 4217 | 2325 | 309 | 1096 |
+| **סה"כ** | 135 | 4701 | 2504 | 342 | 1258 |
 
 האומדן: שיעור לכל כ-15 עמודי ספר, כולל השלמות. מאמר לא מוסיף שיעורים משלו: המורה משלב ממנו את מה שחדש בתוך שיעורי המודול. מודול שכולו מאמרים נספר לפי עמודי המאמר.
 
@@ -122,7 +122,7 @@
 ## חלק 2: מכ"ם
 
 ### M2.1 רעיון המכ"ם, תצורות, מדידות ויישומים
-*Radar overview* · **ליבה** · 74 עמ' ספר · כ-5 שיעורים · דרישות: M0.2
+*Radar overview* · **ליבה** · 90 עמ' ספר · כ-6 שיעורים · דרישות: M0.2
 
 - ★ Principles of Modern Radar, עמ' PDF 40–41: 1.1–1.2
 - ★ Principles of Modern Radar, עמ' PDF 55–61: 1.5: מונוסטטי/ביסטטי, CW/פולסי
@@ -130,6 +130,7 @@
 - ◇ Principles of Naval Weapons Systems, עמ' PDF 89–110: פרקים 8–9: מכ"ם פולסי ו-CW/FMCW
 - ◇ Military Avionics Systems, עמ' PDF 122–134: 3.1–3.4: עקרונות ואופני מכ"ם במטוס
 - ◇ EW 102, עמ' PDF 50–52: 3.1: המכ"ם מנקודת המבט של EW
+- ◇ Principles of Modern Radar, Vol. III: Radar Applications, עמ' PDF 26–41: כרך III, פרק 1: יישומי מכ"ם
 
 ### M2.2 משוואת המכ"ם
 *The radar range equation* · **ליבה** · 42 עמ' ספר · כ-3 שיעורים · דרישות: M2.1, M0.1
@@ -224,11 +225,13 @@
 - 📄 Arulampalam et al., A Tutorial on Particle Filters (2002) (כולו): מסנן חלקיקים
 - 📄 Vo, Vo, Phung, Labeled RFS and the Bayes Multi-Target Tracking Filter (2014) (כולו): עקיבה מודרנית אחר מטרות מרובות (GLMB)
 
-### M2.16 מכ"ם מוטס, GMTI ו-STAP
-*Airborne radar and STAP* · **מתקדם** · 10 עמ' ספר + 179 עמ' מאמרים · כ-1 שיעורים · דרישות: M2.13, M1.2
+### M2.16 מכ"ם מוטס: פולס-דופלר, GMTI ו-STAP
+*Airborne radar: pulse-Doppler, GMTI, STAP* · **ליבה** · 134 עמ' ספר + 179 עמ' מאמרים · כ-9 שיעורים · דרישות: M2.13, M1.2
 
+- ★ Principles of Modern Radar, Vol. III: Radar Applications, עמ' PDF 200–275: כרך III, פרק 5: מכ"ם פולס-דופלר מוטס
+- ★ Principles of Modern Radar, Vol. III: Radar Applications, עמ' PDF 408–455: כרך III, פרק 9: גילוי מטרות נעות על הקרקע (SMTI)
 - 📄 Ward, Space-Time Adaptive Processing for Airborne Radar, LL TR-1015 (1994) (כולו): המקור של STAP
-- ★ Military Avionics Systems, עמ' PDF 146–150: 3.6–3.7: מכ"ם דופלר ושימושים נוספים
+- ◇ Military Avionics Systems, עמ' PDF 146–150: 3.6–3.7: מכ"ם דופלר ושימושים נוספים
 - ◇ Military Avionics Systems, עמ' PDF 48–52: 1.6–1.7: מעקב שדה קרב והתרעה מוקדמת מוטסת
 
 ### M2.17 הדמיית מכ"ם: SAR ו-ISAR
@@ -248,6 +251,52 @@
 *Radar signal processor* · **מתקדם** · 63 עמ' ספר · כ-4 שיעורים · דרישות: M2.13
 
 - ★ Principles of Modern Radar, עמ' PDF 467–529: 12.3–12.5 ופרק 13: מבנה המעבד, FLOPS, מימוש
+
+### M2.20 מכ"ם CW ו-FMCW
+*CW and FMCW radar* · **ליבה** · 70 עמ' ספר · כ-5 שיעורים · דרישות: M2.7, M2.12
+
+- ★ Principles of Modern Radar, Vol. III: Radar Applications, עמ' PDF 42–111: כרך III, פרק 2
+
+### M2.21 מכ"ם גלים מילימטריים (MMW)
+*MMW radar* · **ליבה** · 30 עמ' ספר · כ-2 שיעורים · דרישות: M1.3, M2.20
+
+- ★ Principles of Modern Radar, Vol. III: Radar Applications, עמ' PDF 112–141: כרך III, פרק 3
+
+### M2.22 מכ"ם בקרת אש
+*Fire-control radar* · **ליבה** · 58 עמ' ספר · כ-4 שיעורים · דרישות: M2.15, M2.14
+
+- ★ Principles of Modern Radar, Vol. III: Radar Applications, עמ' PDF 142–199: כרך III, פרק 4
+
+### M2.23 מכ"ם מערך מופע רב-משימתי
+*Multifunction phased array radar* · **ליבה** · 34 עמ' ספר · כ-2 שיעורים · דרישות: M1.2, M2.15
+
+- ★ Principles of Modern Radar, Vol. III: Radar Applications, עמ' PDF 276–309: כרך III, פרק 6
+
+### M2.24 מכ"ם ביסטטי פסיבי
+*Passive bistatic radar* · **ליבה** · 44 עמ' ספר · כ-3 שיעורים · דרישות: M2.13
+
+- ★ Principles of Modern Radar, Vol. III: Radar Applications, עמ' PDF 524–567: כרך III, פרק 11
+
+### M2.25 SAR מהחלל
+*Space-based SAR* · **מתקדם** · 68 עמ' ספר · כ-5 שיעורים · דרישות: M2.17
+
+- ★ Principles of Modern Radar, Vol. III: Radar Applications, עמ' PDF 456–523: כרך III, פרק 10
+
+### M2.26 מכ"ם חודר עלווה (FOPEN)
+*Foliage-penetrating radar* · **מתקדם** · 56 עמ' ספר · כ-4 שיעורים · דרישות: M2.17
+
+- ★ Principles of Modern Radar, Vol. III: Radar Applications, עמ' PDF 660–715: כרך III, פרק 14
+
+### M2.27 מכ"ם בקרת תעבורה אווירית ו-SSR
+*Air traffic control radar and SSR* · **מתקדם** · 48 עמ' ספר · כ-3 שיעורים · דרישות: M2.13
+
+- ★ Principles of Modern Radar, Vol. III: Radar Applications, עמ' PDF 568–615: כרך III, פרק 12
+
+### M2.28 מכ"ם מזג אוויר, חודר קרקע ומשטרתי
+*Weather, ground-penetrating and police radar* · **עיון** · 132 עמ' ספר · כ-9 שיעורים
+
+- ★ Principles of Modern Radar, Vol. III: Radar Applications, עמ' PDF 616–659: כרך III, פרק 13
+- ★ Principles of Modern Radar, Vol. III: Radar Applications, עמ' PDF 716–803: כרך III, פרקים 15–16
 
 ## חלק 3: EO/IR
 
@@ -602,7 +651,17 @@
 - 📄 Sessler et al., Countermeasures, UCS/MIT (2000) (כולו): מטעים ואמצעי נגד בשלב האמצע
 - 📄 Barton et al., APS Study on Boost-Phase Intercept Systems (2004) (כולו): יירוט בשלב ההאצה
 
-### M7.7 Link 16, שו"ב ולוחמה מרושתת
+### M7.7 מכ"ם להגנה מפני טילים בליסטיים
+*Ballistic missile defense radar* · **ליבה** · 38 עמ' ספר · כ-3 שיעורים · דרישות: M7.6, M2.23
+
+- ★ Principles of Modern Radar, Vol. III: Radar Applications, עמ' PDF 310–347: כרך III, פרק 7
+
+### M7.8 מכ"ם התרעה מוקדמת קרקעי
+*Ground-based early warning radar* · **ליבה** · 60 עמ' ספר · כ-4 שיעורים · דרישות: M7.1, M2.23
+
+- ★ Principles of Modern Radar, Vol. III: Radar Applications, עמ' PDF 348–407: כרך III, פרק 8
+
+### M7.9 Link 16, שו"ב ולוחמה מרושתת
 *Link 16, C2 and networked warfare* · **ליבה** · 10 עמ' ספר + 322 עמ' מאמרים · כ-1 שיעורים · דרישות: M0.5, M4.11
 
 - ★ Military Avionics Systems, עמ' PDF 295–302: 7.4–7.5: קישורי נתונים ולוחמה מרושתת
@@ -611,7 +670,7 @@
 - 📄 Gonzales et al., Air-to-Air Combat With and Without Link 16, RAND MG-268 (כולו): קרב אוויר עם Link 16 ובלעדיו
 - ◇ Principles of Naval Weapons Systems, עמ' PDF 135–136: רשתות עקיבה
 
-### M7.8 הנדסת מערכות: מחזור החיים
+### M7.10 הנדסת מערכות: מחזור החיים
 *Systems engineering lifecycle* · **עיון** · 20 עמ' ספר · כ-1 שיעורים
 
 - ★ Air and Missile Defense Systems Engineering, עמ' PDF 24–43: פרק 2
@@ -856,6 +915,8 @@
 | Principles of Modern Radar | 344–345 | דף שער לחלק |
 | Principles of Modern Radar | 530–531 | דף שער לחלק |
 | Principles of Modern Radar | 935–962 | מקורות ואינדקס |
+| Principles of Modern Radar, Vol. III: Radar Applications | 1–25 | שער, תוכן, פתח דבר ותורמים |
+| Principles of Modern Radar, Vol. III: Radar Applications | 804–821 | אינדקס |
 | Introduction to IR and EO Systems | 1–15 | שער, תוכן ופתח דבר |
 | Introduction to IR and EO Systems | 573–600 | רשימות סמלים ואינדקס |
 | EW 102 | 1–17 | שער, תוכן ופתח דבר |
