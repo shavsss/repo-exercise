@@ -6,15 +6,15 @@
 
 **תפקיד המקור:** ★ מקור ראשי. ◇ השלמה מספר אחר. 📄 מאמר או מסמך.
 
-**סה"כ:** 135 מודולים: 106 ליבה, 18 מתקדם, 11 עיון.
+**סה"כ:** 147 מודולים: 109 ליבה, 27 מתקדם, 11 עיון.
 
 | חלק | מודולים | עמ' ספר בליבה | עמ' מאמרים בליבה | שיעורי ליבה (אומדן) | עמ' ספר במתקדם |
 |---|---|---|---|---|---|
 | P0 יסודות: הכלים המתמטיים והפיזיקליים | 8 | 210 | 0 | 16 | 0 |
 | P1 השכבה הפיזית: אנטנות, התפשטות וקשר | 4 | 184 | 72 | 12 | 0 |
-| P2 מכ"ם | 28 | 1241 | 448 | 83 | 235 |
+| P2 מכ"ם | 39 | 1389 | 448 | 92 | 841 |
 | P3 EO/IR | 14 | 575 | 0 | 39 | 65 |
-| P4 לוחמה אלקטרונית | 15 | 373 | 381 | 27 | 0 |
+| P4 לוחמה אלקטרונית | 16 | 431 | 381 | 31 | 0 |
 | P5 ניווט ו-GNSS | 11 | 449 | 26 | 31 | 270 |
 | P6 טילים: דינמיקה, הנחיה ובקרה | 11 | 650 | 44 | 44 | 0 |
 | P7 הגנה אווירית ומפני טילים, ושו"ב | 10 | 293 | 985 | 20 | 36 |
@@ -23,7 +23,7 @@
 | P10 מערכות ימיות | 5 | 60 | 352 | 25 | 0 |
 | P11 אפקטים של נשק ושריון | 10 | 239 | 0 | 16 | 157 |
 | P12 האויב: דוקטרינה והפעלה | 4 | 78 | 0 | 5 | 415 |
-| **סה"כ** | 135 | 4701 | 2504 | 342 | 1258 |
+| **סה"כ** | 147 | 4907 | 2504 | 355 | 1864 |
 
 האומדן: שיעור לכל כ-15 עמודי ספר, כולל השלמות. מאמר לא מוסיף שיעורים משלו: המורה משלב ממנו את מה שחדש בתוך שיעורי המודול. מודול שכולו מאמרים נספר לפי עמודי המאמר.
 
@@ -122,7 +122,7 @@
 ## חלק 2: מכ"ם
 
 ### M2.1 רעיון המכ"ם, תצורות, מדידות ויישומים
-*Radar overview* · **ליבה** · 90 עמ' ספר · כ-6 שיעורים · דרישות: M0.2
+*Radar overview* · **ליבה** · 106 עמ' ספר · כ-7 שיעורים · דרישות: M0.2
 
 - ★ Principles of Modern Radar, עמ' PDF 40–41: 1.1–1.2
 - ★ Principles of Modern Radar, עמ' PDF 55–61: 1.5: מונוסטטי/ביסטטי, CW/פולסי
@@ -131,6 +131,7 @@
 - ◇ Military Avionics Systems, עמ' PDF 122–134: 3.1–3.4: עקרונות ואופני מכ"ם במטוס
 - ◇ EW 102, עמ' PDF 50–52: 3.1: המכ"ם מנקודת המבט של EW
 - ◇ Principles of Modern Radar, Vol. III: Radar Applications, עמ' PDF 26–41: כרך III, פרק 1: יישומי מכ"ם
+- ◇ Principles of Modern Radar, Vol. II: Advanced Techniques, עמ' PDF 26–41: כרך II, פרק 1: סקירת הטכניקות המתקדמות
 
 ### M2.2 משוואת המכ"ם
 *The radar range equation* · **ליבה** · 42 עמ' ספר · כ-3 שיעורים · דרישות: M2.1, M0.1
@@ -217,19 +218,19 @@
 - ★ Principles of Modern Radar, עמ' PDF 357–358: 9.5: מונופולס
 
 ### M2.15 עקיבה: מסנני קלמן, מודלי תנועה, שיוך
-*Tracking* · **ליבה** · 79 עמ' ספר + 28 עמ' מאמרים · כ-5 שיעורים · דרישות: M2.14
+*Tracking* · **ליבה** · 79 עמ' ספר + 15 עמ' מאמרים · כ-5 שיעורים · דרישות: M2.14
 
 - ★ Principles of Modern Radar, עמ' PDF 750–809: פרק 19
 - ◇ Principles of Naval Weapons Systems, עמ' PDF 125–136: פרק 11: עקיבה סרבו, TWS, עקיבה במערך מופע
 - ◇ Military Avionics Systems, עמ' PDF 151–157: 3.8: עקיבת מטרה
 - 📄 Arulampalam et al., A Tutorial on Particle Filters (2002) (כולו): מסנן חלקיקים
-- 📄 Vo, Vo, Phung, Labeled RFS and the Bayes Multi-Target Tracking Filter (2014) (כולו): עקיבה מודרנית אחר מטרות מרובות (GLMB)
 
 ### M2.16 מכ"ם מוטס: פולס-דופלר, GMTI ו-STAP
-*Airborne radar: pulse-Doppler, GMTI, STAP* · **ליבה** · 134 עמ' ספר + 179 עמ' מאמרים · כ-9 שיעורים · דרישות: M2.13, M1.2
+*Airborne radar: pulse-Doppler, GMTI, STAP* · **ליבה** · 180 עמ' ספר + 179 עמ' מאמרים · כ-12 שיעורים · דרישות: M2.13, M1.2
 
 - ★ Principles of Modern Radar, Vol. III: Radar Applications, עמ' PDF 200–275: כרך III, פרק 5: מכ"ם פולס-דופלר מוטס
 - ★ Principles of Modern Radar, Vol. III: Radar Applications, עמ' PDF 408–455: כרך III, פרק 9: גילוי מטרות נעות על הקרקע (SMTI)
+- ★ Principles of Modern Radar, Vol. II: Advanced Techniques, עמ' PDF 478–523: כרך II, פרק 10: דיכוי קלאטר ב-STAP
 - 📄 Ward, Space-Time Adaptive Processing for Airborne Radar, LL TR-1015 (1994) (כולו): המקור של STAP
 - ◇ Military Avionics Systems, עמ' PDF 146–150: 3.6–3.7: מכ"ם דופלר ושימושים נוספים
 - ◇ Military Avionics Systems, עמ' PDF 48–52: 1.6–1.7: מעקב שדה קרב והתרעה מוקדמת מוטסת
@@ -297,6 +298,62 @@
 
 - ★ Principles of Modern Radar, Vol. III: Radar Applications, עמ' PDF 616–659: כרך III, פרק 13
 - ★ Principles of Modern Radar, Vol. III: Radar Applications, עמ' PDF 716–803: כרך III, פרקים 15–16
+
+### M2.29 עקיבה מרובת מטרות ומיזוג חיישנים
+*Multitarget, multisensor tracking* · **ליבה** · 34 עמ' ספר + 13 עמ' מאמרים · כ-2 שיעורים · דרישות: M2.15
+
+- ★ Principles of Modern Radar, Vol. II: Advanced Techniques, עמ' PDF 694–727: כרך II, פרק 15
+- 📄 Vo, Vo, Phung, Labeled RFS and the Bayes Multi-Target Tracking Filter (2014) (כולו): עקיבה מודרנית אחר מטרות מרובות (GLMB)
+
+### M2.30 אלומה ספרתית אדפטיבית וביטול משבשים
+*Adaptive digital beamforming* · **ליבה** · 52 עמ' ספר · כ-3 שיעורים · דרישות: M1.2, M2.9
+
+- ★ Principles of Modern Radar, Vol. II: Advanced Techniques, עמ' PDF 426–477: כרך II, פרק 9
+
+### M2.31 צורות גל מתקדמות לדחיסת פולס
+*Advanced pulse compression waveforms* · **מתקדם** · 68 עמ' ספר · כ-5 שיעורים · דרישות: M2.12
+
+- ★ Principles of Modern Radar, Vol. II: Advanced Techniques, עמ' PDF 44–111: כרך II, פרק 2: Stretch, stepped chirp, NLFM, stepped frequency, מסננים לא-מתואמים
+
+### M2.32 מכ"ם MIMO ותכנון צורות גל
+*MIMO radar* · **מתקדם** · 60 עמ' ספר · כ-4 שיעורים · דרישות: M2.30
+
+- ★ Principles of Modern Radar, Vol. II: Advanced Techniques, עמ' PDF 112–171: כרך II, פרקים 3–4
+
+### M2.33 שחזור דליל ו-Compressed Sensing במכ"ם
+*Sparse reconstruction and compressed sensing* · **מתקדם** · 62 עמ' ספר · כ-4 שיעורים · דרישות: M2.12
+
+- ★ Principles of Modern Radar, Vol. II: Advanced Techniques, עמ' PDF 172–233: כרך II, פרק 5
+
+### M2.34 SAR מתקדם: Spotlight, Stripmap ו-InSAR
+*Advanced SAR* · **מתקדם** · 188 עמ' ספר · כ-13 שיעורים · דרישות: M2.17
+
+- ★ Principles of Modern Radar, Vol. II: Advanced Techniques, עמ' PDF 236–423: כרך II, פרקים 6–8
+
+### M2.35 קידוד מרחב-זמן לאנטנות אקטיביות
+*Space-time coding* · **מתקדם** · 30 עמ' ספר · כ-2 שיעורים · דרישות: M2.16
+
+- ★ Principles of Modern Radar, Vol. II: Advanced Techniques, עמ' PDF 524–553: כרך II, פרק 11
+
+### M2.36 פולרימטריה במכ"ם
+*Radar polarimetry* · **מתקדם** · 42 עמ' ספר · כ-3 שיעורים · דרישות: M2.4
+
+- ★ Principles of Modern Radar, Vol. II: Advanced Techniques, עמ' PDF 614–655: כרך II, פרק 13
+
+### M2.37 זיהוי מטרות אוטומטי (ATR) במכ"ם
+*Radar ATR* · **מתקדם** · 38 עמ' ספר · כ-3 שיעורים · דרישות: M2.17
+
+- ★ Principles of Modern Radar, Vol. II: Advanced Techniques, עמ' PDF 656–693: כרך II, פרק 14
+
+### M2.38 גילוי בני אדם במכ"ם ומיקרו-דופלר
+*Dismount detection and micro-Doppler* · **מתקדם** · 34 עמ' ספר · כ-2 שיעורים · דרישות: M2.13
+
+- ★ Principles of Modern Radar, Vol. II: Advanced Techniques, עמ' PDF 730–763: כרך II, פרק 16
+
+### M2.39 עיבוד מתקדם במכ"ם ביסטטי פסיבי
+*Advanced passive bistatic radar processing* · **מתקדם** · 84 עמ' ספר · כ-6 שיעורים · דרישות: M2.24
+
+- ★ Principles of Modern Radar, Vol. II: Advanced Techniques, עמ' PDF 764–847: כרך II, פרק 17
 
 ## חלק 3: EO/IR
 
@@ -476,6 +533,11 @@
 *EW problem bank* · **ליבה** · 40 עמ' ספר · כ-3 שיעורים
 
 - ★ EW 102, עמ' PDF 236–275: נספחים A–B: בעיות עם פתרונות, והפניות ל-EW 101
+
+### M4.16 הגנה אלקטרונית של המכ"ם (EP / ECCM)
+*Electronic protection* · **ליבה** · 58 עמ' ספר · כ-4 שיעורים · דרישות: M4.8, M2.13, M2.30
+
+- ★ Principles of Modern Radar, Vol. II: Advanced Techniques, עמ' PDF 554–611: כרך II, פרק 12: התקפה, נוסחאות EW, הגנה באנטנה, במשדר, במעורר, במקלט, במעבד
 
 ## חלק 5: ניווט ו-GNSS
 
@@ -915,6 +977,14 @@
 | Principles of Modern Radar | 344–345 | דף שער לחלק |
 | Principles of Modern Radar | 530–531 | דף שער לחלק |
 | Principles of Modern Radar | 935–962 | מקורות ואינדקס |
+| Principles of Modern Radar, Vol. II: Advanced Techniques | 1–25 | שער, תוכן, פתח דבר ותורמים |
+| Principles of Modern Radar, Vol. II: Advanced Techniques | 42–43 | דף שער לחלק |
+| Principles of Modern Radar, Vol. II: Advanced Techniques | 234–235 | דף שער לחלק |
+| Principles of Modern Radar, Vol. II: Advanced Techniques | 424–425 | דף שער לחלק |
+| Principles of Modern Radar, Vol. II: Advanced Techniques | 612–613 | דף שער לחלק |
+| Principles of Modern Radar, Vol. II: Advanced Techniques | 728–729 | דף שער לחלק |
+| Principles of Modern Radar, Vol. II: Advanced Techniques | 848–853 | תשובות לתרגילים נבחרים (משמשות את המורה בתרגילים) |
+| Principles of Modern Radar, Vol. II: Advanced Techniques | 854–876 | השלמות ואינדקס |
 | Principles of Modern Radar, Vol. III: Radar Applications | 1–25 | שער, תוכן, פתח דבר ותורמים |
 | Principles of Modern Radar, Vol. III: Radar Applications | 804–821 | אינדקס |
 | Introduction to IR and EO Systems | 1–15 | שער, תוכן ופתח דבר |

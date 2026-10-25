@@ -10,6 +10,11 @@
    "title": "Principles of Modern Radar",
    "pages": 962
   },
+  "B02a": {
+   "file": "books/02a_Principles-of-Modern-Radar-Vol2-Advanced_Melvin-Scheer_2013.pdf",
+   "title": "Principles of Modern Radar, Vol. II: Advanced Techniques",
+   "pages": 876
+  },
   "B02b": {
    "file": "books/02b_Principles-of-Modern-Radar-Vol3-Applications_Melvin-Scheer_2014.pdf",
    "title": "Principles of Modern Radar, Vol. III: Radar Applications",
@@ -842,6 +847,15 @@
      ],
      "note": "כרך III, פרק 1: יישומי מכ\"ם",
      "role": "supp"
+    },
+    {
+     "doc": "B02a",
+     "pages": [
+      26,
+      41
+     ],
+     "note": "כרך II, פרק 1: סקירת הטכניקות המתקדמות",
+     "role": "supp"
     }
    ]
   },
@@ -1336,12 +1350,6 @@
      "pages": null,
      "note": "מסנן חלקיקים",
      "role": "article"
-    },
-    {
-     "doc": "A02.3",
-     "pages": null,
-     "note": "עקיבה מודרנית אחר מטרות מרובות (GLMB)",
-     "role": "article"
     }
    ]
   },
@@ -1372,6 +1380,15 @@
       455
      ],
      "note": "כרך III, פרק 9: גילוי מטרות נעות על הקרקע (SMTI)",
+     "role": "main"
+    },
+    {
+     "doc": "B02a",
+     "pages": [
+      478,
+      523
+     ],
+     "note": "כרך II, פרק 10: דיכוי קלאטר ב-STAP",
      "role": "main"
     },
     {
@@ -1686,6 +1703,244 @@
       803
      ],
      "note": "כרך III, פרקים 15–16",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M2.29",
+   "part": "P2",
+   "tier": "core",
+   "title": "עקיבה מרובת מטרות ומיזוג חיישנים",
+   "en": "Multitarget, multisensor tracking",
+   "prereq": [
+    "M2.15"
+   ],
+   "sources": [
+    {
+     "doc": "B02a",
+     "pages": [
+      694,
+      727
+     ],
+     "note": "כרך II, פרק 15",
+     "role": "main"
+    },
+    {
+     "doc": "A02.3",
+     "pages": null,
+     "note": "עקיבה מודרנית אחר מטרות מרובות (GLMB)",
+     "role": "article"
+    }
+   ]
+  },
+  {
+   "id": "M2.30",
+   "part": "P2",
+   "tier": "core",
+   "title": "אלומה ספרתית אדפטיבית וביטול משבשים",
+   "en": "Adaptive digital beamforming",
+   "prereq": [
+    "M1.2",
+    "M2.9"
+   ],
+   "sources": [
+    {
+     "doc": "B02a",
+     "pages": [
+      426,
+      477
+     ],
+     "note": "כרך II, פרק 9",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M2.31",
+   "part": "P2",
+   "tier": "adv",
+   "title": "צורות גל מתקדמות לדחיסת פולס",
+   "en": "Advanced pulse compression waveforms",
+   "prereq": [
+    "M2.12"
+   ],
+   "sources": [
+    {
+     "doc": "B02a",
+     "pages": [
+      44,
+      111
+     ],
+     "note": "כרך II, פרק 2: Stretch, stepped chirp, NLFM, stepped frequency, מסננים לא-מתואמים",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M2.32",
+   "part": "P2",
+   "tier": "adv",
+   "title": "מכ\"ם MIMO ותכנון צורות גל",
+   "en": "MIMO radar",
+   "prereq": [
+    "M2.30"
+   ],
+   "sources": [
+    {
+     "doc": "B02a",
+     "pages": [
+      112,
+      171
+     ],
+     "note": "כרך II, פרקים 3–4",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M2.33",
+   "part": "P2",
+   "tier": "adv",
+   "title": "שחזור דליל ו-Compressed Sensing במכ\"ם",
+   "en": "Sparse reconstruction and compressed sensing",
+   "prereq": [
+    "M2.12"
+   ],
+   "sources": [
+    {
+     "doc": "B02a",
+     "pages": [
+      172,
+      233
+     ],
+     "note": "כרך II, פרק 5",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M2.34",
+   "part": "P2",
+   "tier": "adv",
+   "title": "SAR מתקדם: Spotlight, Stripmap ו-InSAR",
+   "en": "Advanced SAR",
+   "prereq": [
+    "M2.17"
+   ],
+   "sources": [
+    {
+     "doc": "B02a",
+     "pages": [
+      236,
+      423
+     ],
+     "note": "כרך II, פרקים 6–8",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M2.35",
+   "part": "P2",
+   "tier": "adv",
+   "title": "קידוד מרחב-זמן לאנטנות אקטיביות",
+   "en": "Space-time coding",
+   "prereq": [
+    "M2.16"
+   ],
+   "sources": [
+    {
+     "doc": "B02a",
+     "pages": [
+      524,
+      553
+     ],
+     "note": "כרך II, פרק 11",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M2.36",
+   "part": "P2",
+   "tier": "adv",
+   "title": "פולרימטריה במכ\"ם",
+   "en": "Radar polarimetry",
+   "prereq": [
+    "M2.4"
+   ],
+   "sources": [
+    {
+     "doc": "B02a",
+     "pages": [
+      614,
+      655
+     ],
+     "note": "כרך II, פרק 13",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M2.37",
+   "part": "P2",
+   "tier": "adv",
+   "title": "זיהוי מטרות אוטומטי (ATR) במכ\"ם",
+   "en": "Radar ATR",
+   "prereq": [
+    "M2.17"
+   ],
+   "sources": [
+    {
+     "doc": "B02a",
+     "pages": [
+      656,
+      693
+     ],
+     "note": "כרך II, פרק 14",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M2.38",
+   "part": "P2",
+   "tier": "adv",
+   "title": "גילוי בני אדם במכ\"ם ומיקרו-דופלר",
+   "en": "Dismount detection and micro-Doppler",
+   "prereq": [
+    "M2.13"
+   ],
+   "sources": [
+    {
+     "doc": "B02a",
+     "pages": [
+      730,
+      763
+     ],
+     "note": "כרך II, פרק 16",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M2.39",
+   "part": "P2",
+   "tier": "adv",
+   "title": "עיבוד מתקדם במכ\"ם ביסטטי פסיבי",
+   "en": "Advanced passive bistatic radar processing",
+   "prereq": [
+    "M2.24"
+   ],
+   "sources": [
+    {
+     "doc": "B02a",
+     "pages": [
+      764,
+      847
+     ],
+     "note": "כרך II, פרק 17",
      "role": "main"
     }
    ]
@@ -2543,6 +2798,29 @@
       275
      ],
      "note": "נספחים A–B: בעיות עם פתרונות, והפניות ל-EW 101",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M4.16",
+   "part": "P4",
+   "tier": "core",
+   "title": "הגנה אלקטרונית של המכ\"ם (EP / ECCM)",
+   "en": "Electronic protection",
+   "prereq": [
+    "M4.8",
+    "M2.13",
+    "M2.30"
+   ],
+   "sources": [
+    {
+     "doc": "B02a",
+     "pages": [
+      554,
+      611
+     ],
+     "note": "כרך II, פרק 12: התקפה, נוסחאות EW, הגנה באנטנה, במשדר, במעורר, במקלט, במעבד",
      "role": "main"
     }
    ]
@@ -4625,6 +4903,70 @@
     962
    ],
    "reason": "מקורות ואינדקס"
+  },
+  {
+   "doc": "B02a",
+   "pages": [
+    1,
+    25
+   ],
+   "reason": "שער, תוכן, פתח דבר ותורמים"
+  },
+  {
+   "doc": "B02a",
+   "pages": [
+    42,
+    43
+   ],
+   "reason": "דף שער לחלק"
+  },
+  {
+   "doc": "B02a",
+   "pages": [
+    234,
+    235
+   ],
+   "reason": "דף שער לחלק"
+  },
+  {
+   "doc": "B02a",
+   "pages": [
+    424,
+    425
+   ],
+   "reason": "דף שער לחלק"
+  },
+  {
+   "doc": "B02a",
+   "pages": [
+    612,
+    613
+   ],
+   "reason": "דף שער לחלק"
+  },
+  {
+   "doc": "B02a",
+   "pages": [
+    728,
+    729
+   ],
+   "reason": "דף שער לחלק"
+  },
+  {
+   "doc": "B02a",
+   "pages": [
+    848,
+    853
+   ],
+   "reason": "תשובות לתרגילים נבחרים (משמשות את המורה בתרגילים)"
+  },
+  {
+   "doc": "B02a",
+   "pages": [
+    854,
+    876
+   ],
+   "reason": "השלמות ואינדקס"
   },
   {
    "doc": "B02b",

@@ -15,6 +15,7 @@
 |---|---|---|---|---|
 | 01 | EW 101: A First Course in Electronic Warfare | David Adamy | Artech House, 2001 | PDF |
 | 02 | Principles of Modern Radar: Basic Principles | Richards, Scheer, Holm | SciTech, 2010 (מהדורה 1) | PDF |
+| 02a | Principles of Modern Radar, Vol. II: Advanced Techniques | Melvin, Scheer | SciTech, 2013 | PDF |
 | 02b | Principles of Modern Radar, Vol. III: Radar Applications | Melvin, Scheer | SciTech, 2014 | PDF |
 | 03 | Introduction to Infrared and Electro-Optical Systems | Driggers, Friedman, Nichols | Artech House, 2012 (מהדורה 2) | PDF |
 | 04 | EW 102: A Second Course in Electronic Warfare | David Adamy | Artech House, 2004 | PDF |
