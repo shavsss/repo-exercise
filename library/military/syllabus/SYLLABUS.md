@@ -6,24 +6,24 @@
 
 **תפקיד המקור:** ★ מקור ראשי. ◇ השלמה מספר אחר. 📄 מאמר או מסמך.
 
-**סה"כ:** 147 מודולים: 109 ליבה, 27 מתקדם, 11 עיון.
+**סה"כ:** 155 מודולים: 115 ליבה, 29 מתקדם, 11 עיון.
 
 | חלק | מודולים | עמ' ספר בליבה | עמ' מאמרים בליבה | שיעורי ליבה (אומדן) | עמ' ספר במתקדם |
 |---|---|---|---|---|---|
 | P0 יסודות: הכלים המתמטיים והפיזיקליים | 8 | 210 | 0 | 16 | 0 |
 | P1 השכבה הפיזית: אנטנות, התפשטות וקשר | 4 | 184 | 72 | 12 | 0 |
-| P2 מכ"ם | 39 | 1389 | 448 | 92 | 841 |
+| P2 מכ"ם | 39 | 1392 | 448 | 92 | 841 |
 | P3 EO/IR | 14 | 575 | 0 | 39 | 65 |
 | P4 לוחמה אלקטרונית | 16 | 431 | 381 | 31 | 0 |
 | P5 ניווט ו-GNSS | 11 | 449 | 26 | 31 | 270 |
-| P6 טילים: דינמיקה, הנחיה ובקרה | 11 | 650 | 44 | 44 | 0 |
-| P7 הגנה אווירית ומפני טילים, ושו"ב | 10 | 293 | 985 | 20 | 36 |
+| P6 טילים: דינמיקה, הנחיה ובקרה | 19 | 842 | 44 | 60 | 60 |
+| P7 הגנה אווירית ומפני טילים, ושו"ב | 10 | 307 | 985 | 21 | 36 |
 | P8 פלטפורמות אוויר ואוויוניקה | 7 | 74 | 155 | 6 | 36 |
 | P9 כטב"מים, רחפנים והגנה מפניהם | 8 | 275 | 41 | 18 | 44 |
 | P10 מערכות ימיות | 5 | 60 | 352 | 25 | 0 |
-| P11 אפקטים של נשק ושריון | 10 | 239 | 0 | 16 | 157 |
+| P11 אפקטים של נשק ושריון | 10 | 250 | 0 | 17 | 157 |
 | P12 האויב: דוקטרינה והפעלה | 4 | 78 | 0 | 5 | 415 |
-| **סה"כ** | 147 | 4907 | 2504 | 355 | 1864 |
+| **סה"כ** | 155 | 5127 | 2504 | 373 | 1924 |
 
 האומדן: שיעור לכל כ-15 עמודי ספר, כולל השלמות. מאמר לא מוסיף שיעורים משלו: המורה משלב ממנו את מה שחדש בתוך שיעורי המודול. מודול שכולו מאמרים נספר לפי עמודי המאמר.
 
@@ -146,11 +146,12 @@
 - ★ Principles of Modern Radar, עמ' PDF 124–151: פרק 3
 
 ### M2.4 חתימת מכ"ם (RCS), פיזור וחמקנות
-*RCS, scattering and stealth* · **ליבה** · 62 עמ' ספר + 241 עמ' מאמרים · כ-4 שיעורים · דרישות: M2.2
+*RCS, scattering and stealth* · **ליבה** · 65 עמ' ספר + 241 עמ' מאמרים · כ-4 שיעורים · דרישות: M2.2
 
 - ★ Principles of Modern Radar, עמ' PDF 248–283: פרק 6: פיזיקת החזרה, שלושה משטרי פיזור, פיזור בתדר גבוה
 - ★ Military Avionics Systems, עמ' PDF 193–204: 4.6: חמקנות
 - ◇ EW 101, עמ' PDF 250–251: 10.2: RCS והספק מוחזר
+- ◇ Tactical Missile Design (Fleeman), עמ' PDF 183–185: Fleeman 6.4: חתימות טיל בנשיאה ובשיגור
 - ◇ Introduction to UAV Systems, עמ' PDF 290–301: 11.5: הפחתת חתימה
 - 📄 Ufimtsev, Method of Edge Waves in the Physical Theory of Diffraction (כולו): התאוריה הפיזיקלית של עקיפה: הבסיס לעיצוב חמקני
 
@@ -618,12 +619,13 @@
 - ★ Missile Guidance and Control Systems, עמ' PDF 30–67: פרק 2
 
 ### M6.2 אווירודינמיקה, מודל הטיל וטייס אוטומטי
-*Aerodynamics, missile model, autopilots* · **ליבה** · 114 עמ' ספר · כ-8 שיעורים · דרישות: M6.1, M0.7
+*Aerodynamics, missile model, autopilots* · **ליבה** · 128 עמ' ספר · כ-9 שיעורים · דרישות: M6.1, M0.7
 
 - ★ Missile Guidance and Control Systems, עמ' PDF 68–113: 3.1–3.3
 - ★ Missile Guidance and Control Systems, עמ' PDF 144–169: 3.5–3.6: טייסים אוטומטיים
 - ◇ Introduction to UAV Systems, עמ' PDF 81–102: פרק 3: אווירודינמיקה בסיסית
 - ◇ Introduction to UAV Systems, עמ' PDF 121–140: פרק 5: יציבות ובקרה
+- ◇ Tactical Missile Design (Fleeman), עמ' PDF 55–68: Fleeman 2.10–2.11: חלופות בקרת טיסה (כנף, קנרד, זנב, TVC, סילוני צד) ותמרון
 
 ### M6.3 שלבי ההנחיה ושיטות יירוט
 *Guidance phases and intercept techniques* · **ליבה** · 30 עמ' ספר · כ-2 שיעורים · דרישות: M6.1
@@ -638,22 +640,25 @@
 - ★ Missile Guidance and Control Systems, עמ' PDF 189–249: 4.3–4.7
 
 ### M6.5 הנחיה אופטימלית, הנחיה משותפת ושלב הסיום
-*Optimal guidance and end game* · **ליבה** · 34 עמ' ספר + 15 עמ' מאמרים · כ-2 שיעורים · דרישות: M6.4
+*Optimal guidance and end game* · **ליבה** · 45 עמ' ספר + 15 עמ' מאמרים · כ-3 שיעורים · דרישות: M6.4
 
 - ★ Missile Guidance and Control Systems, עמ' PDF 250–283: 4.8–4.9
+- ★ Tactical Missile Design (Fleeman), עמ' PDF 172–182: Fleeman 6.3: מרחק החטאה: קבוע זמן, יחס תמרון, ברק ורעש ראש ביות
 - 📄 Zhu, Wang, Lin, Consensus-Based Impact-Time-Control Guidance (2017) (כולו): הנחיה לשליטה בזמן פגיעה
 
 ### M6.6 ראשי ביות ומודל מערכת ההנחיה
-*Seekers and guidance system model* · **ליבה** · 37 עמ' ספר · כ-2 שיעורים · דרישות: M6.4, M2.14
+*Seekers and guidance system model* · **ליבה** · 39 עמ' ספר · כ-3 שיעורים · דרישות: M6.4, M2.14
 
 - ★ Missile Guidance and Control Systems, עמ' PDF 114–143: 3.4
 - ★ Air and Missile Defense Systems Engineering, עמ' PDF 257–263: 9.3: מקורות רעש בראש ביות: ברק (glint), כיפה
+- ◇ Tactical Missile Design (Fleeman), עמ' PDF 130–131: Fleeman 4.13: חומרי כיפת ראש הביות
 
 ### M6.7 מסירת חימוש: בעיית ההפצצה, דיוק ומעטפת שיגור
-*Weapon delivery* · **ליבה** · 140 עמ' ספר · כ-9 שיעורים · דרישות: M6.1
+*Weapon delivery* · **ליבה** · 150 עמ' ספר · כ-10 שיעורים · דרישות: M6.1
 
 - ★ Missile Guidance and Control Systems, עמ' PDF 284–379: פרק 5
 - ★ Military Avionics Systems, עמ' PDF 356–399: פרק 9: נשיאת חימוש והנחיה
+- ★ Tactical Missile Design (Fleeman), עמ' PDF 194–203: Fleeman 6.8: שילוב בפלטפורמת השיגור: מטוס, ספינה, צוללת, משגר קרקעי
 
 ### M6.8 טילים בליסטיים: שני גופים, למברט, כניסה חוזרת
 *Ballistic missiles* · **ליבה** · 147 עמ' ספר · כ-10 שיעורים · דרישות: M6.1
@@ -667,10 +672,53 @@
 - 📄 Acton, Hypersonic Boost-Glide Weapons, SGS (2015) (כולו)
 
 ### M6.10 טילי שיוט
-*Cruise missiles* · **ליבה** · 35 עמ' ספר · כ-2 שיעורים · דרישות: M6.2
+*Cruise missiles* · **ליבה** · 38 עמ' ספר · כ-3 שיעורים · דרישות: M6.2
 
 - ★ Missile Guidance and Control Systems, עמ' PDF 536–557: 7.1–7.2
 - ◇ Missile Guidance and Control Systems, עמ' PDF 591–603: 7.5: GPS בטיל שיוט
+- ◇ Tactical Missile Design (Fleeman), עמ' PDF 138–140: Fleeman 5.4–5.6: ביצועי שיוט (ברגה), טיסה יציבה ועיצוב מסלול
+
+### M6.12 תכנון טיל קונספטואלי: דרייברים, תהליך וטיל בסיס
+*Conceptual missile design process* · **ליבה** · 16 עמ' ספר · כ-1 שיעורים · דרישות: M6.2
+
+- ★ Tactical Missile Design (Fleeman), עמ' PDF 20–35: Fleeman פרק 1: מאפייני טיל טקטי, תהליך התכנון, פרמטרי גודל, טיל בסיס
+
+### M6.13 אווירודינמיקה של תצורת הטיל: קוטר, חרטום, כנפיים, יציבות וזנב
+*Aerodynamic configuration sizing* · **ליבה** · 42 עמ' ספר · כ-3 שיעורים · דרישות: M6.12
+
+- ★ Tactical Missile Design (Fleeman), עמ' PDF 36–77: Fleeman פרק 2: קוטר, חרטום, גוף מרים, כוח נורמלי, גרר, צורת משטחים, יציבות, גודל זנב
+
+### M6.14 הנעת טילים: מנוע רקטי מוצק ו-ramjet
+*Missile propulsion: solid rocket and ramjet* · **ליבה** · 30 עמ' ספר · כ-2 שיעורים · דרישות: M6.12
+
+- ★ Tactical Missile Design (Fleeman), עמ' PDF 78–107: Fleeman פרק 3: חלופות הנעה, ramjet ומבואות אוויר, דלק, מנוע רקטי, גרעין, מעטפת ונחיר
+
+### M6.15 משקל, מבנה, חומרים וחימום אווירודינמי
+*Weight, structure, materials, aero heating* · **ליבה** · 26 עמ' ספר · כ-2 שיעורים · דרישות: M6.12
+
+- ★ Tactical Missile Design (Fleeman), עמ' PDF 108–133: Fleeman פרק 4: חיזוי משקל, מרכז כובד, מקדם ביטחון, חומרים, בידוד, כיפה, מאמץ תרמי
+
+### M6.16 ביצועי טיסה: מעטפת, טווח, פנייה, האצה וזווית הובלה
+*Missile flight performance* · **ליבה** · 14 עמ' ספר · כ-1 שיעורים · דרישות: M6.13, M6.14, M6.15
+
+- ★ Tactical Missile Design (Fleeman), עמ' PDF 134–147: Fleeman פרק 5: מעטפת טיסה, שיוט, רדיוס וקצב פנייה, גלישה, האצה, זווית הובלה
+
+### M6.17 מדדי איכות של טיל: עמידות, חתימות, שרידות, אמינות ועלות
+*Measures of merit* · **ליבה** · 24 עמ' ספר · כ-2 שיעורים · דרישות: M6.16, M6.5
+
+- ★ Tactical Missile Design (Fleeman), עמ' PDF 148–160: Fleeman 6.1: עמידות: מזג אוויר, אמצעי נגד, ראש ביות
+- ★ Tactical Missile Design (Fleeman), עמ' PDF 183–193: Fleeman 6.4–6.7: חתימות בנשיאה ובשיגור, שרידות, אמינות, עלות
+
+### M6.18 דוגמאות גזירה: טיל אוויר-אוויר רקטי וטיל ramjet
+*Missile sizing examples* · **מתקדם** · 34 עמ' ספר · כ-2 שיעורים · דרישות: M6.17
+
+- ★ Tactical Missile Design (Fleeman), עמ' PDF 204–237: Fleeman פרק 7: דרישת טווח, כנף לתמרון, משקל מול החטאה, חלופות דלק, תכנון ממוחשב
+
+### M6.19 תהליך הפיתוח, מפת טכנולוגיות ולקחי תכנון
+*Development process and lessons learned* · **מתקדם** · 26 עמ' ספר · כ-2 שיעורים · דרישות: M6.12
+
+- ★ Tactical Missile Design (Fleeman), עמ' PDF 238–251: Fleeman פרק 8: TRL, שלבי פיתוח, שילוב תת-מערכות, טכנולוגיות חדשות
+- ★ Tactical Missile Design (Fleeman), עמ' PDF 252–263: Fleeman פרק 9: סיכום ולקחים
 
 ### M6.11 נספחי Siouris: קבועים, אטמוספירה, סיווג ומאגר טילים
 *Siouris appendices* · **עיון** · 66 עמ' ספר · כ-4 שיעורים
@@ -692,9 +740,10 @@
 - ★ Air and Missile Defense Systems Engineering, עמ' PDF 70–113: פרק 5
 
 ### M7.3 תכנון מקדים: מרחב הקרב, ניתוח יירוט ותכנון המיירט
-*Preliminary design* · **ליבה** · 78 עמ' ספר · כ-5 שיעורים · דרישות: M7.2, M6.6
+*Preliminary design* · **ליבה** · 92 עמ' ספר · כ-6 שיעורים · דרישות: M7.2, M6.6, M6.16
 
 - ★ Air and Missile Defense Systems Engineering, עמ' PDF 114–191: פרק 6
+- ◇ Tactical Missile Design (Fleeman), עמ' PDF 204–217: Fleeman 7.1–7.3: גזירת טיל לטווח, לתמרון ולמרחק החטאה
 
 ### M7.4 ניתוחי פשרות והקצאת דרישות
 *Trades and allocation* · **מתקדם** · 36 עמ' ספר · כ-2 שיעורים · דרישות: M7.3
@@ -890,9 +939,10 @@
 - ◇ ATP 3-09.12 Field Artillery Target Acquisition (2015), עמ' PDF 123–130: נספח F: כלים ונהלים
 
 ### M11.3 חומרי נפץ, ראשי קרב, הדף ורסיסים
-*Explosives and warheads* · **ליבה** · 18 עמ' ספר · כ-1 שיעורים
+*Explosives and warheads* · **ליבה** · 29 עמ' ספר · כ-2 שיעורים
 
 - ★ Principles of Naval Weapons Systems, עמ' PDF 265–282: פרקים 22–23
+- ★ Tactical Missile Design (Fleeman), עמ' PDF 161–171: Fleeman 6.2: קטלניות ראש קרב: הדף-רסס, מטען חלול, פגיעה ישירה (hit-to-kill)
 
 ### M11.4 קריטריוני נזק, Pk ו-CEP
 *Damage criteria, Pk, CEP* · **ליבה** · 12 עמ' ספר · כ-1 שיעורים · דרישות: M0.4
@@ -999,6 +1049,9 @@
 | Understanding GPS | 691–723 | על המחברים ואינדקס |
 | Missile Guidance and Control Systems | 1–15 | שער, תוכן ופתח דבר |
 | Missile Guidance and Control Systems | 678–681 | אינדקס |
+| Tactical Missile Design (Fleeman) | 1–19 | שער, תוכן ופתח דבר |
+| Tactical Missile Design (Fleeman) | 264–275 | נספחים: סימונים, קיצורים והמרת יחידות |
+| Tactical Missile Design (Fleeman) | 276–286 | מקורות, ביבליוגרפיה ואינדקס |
 | Air and Missile Defense Systems Engineering | 1–21 | שער, תוכן, רשימות איורים ופתח דבר |
 | Air and Missile Defense Systems Engineering | 264–268 | קיצורים וכריכה |
 | Military Avionics Systems | 1–24 | שער, תוכן ופתח דבר |

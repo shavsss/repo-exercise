@@ -21,6 +21,7 @@
 | 04 | EW 102: A Second Course in Electronic Warfare | David Adamy | Artech House, 2004 | PDF |
 | 05 | Understanding GPS: Principles and Applications | Kaplan, Hegarty | Artech House, 2006 (מהדורה 2) | PDF |
 | 06 | Missile Guidance and Control Systems | George M. Siouris | Springer, 2004 | PDF |
+| 06a | Tactical Missile Design | Eugene L. Fleeman | AIAA, 2001 (מהדורה 1) | PDF סרוק, בלי שכבת טקסט |
 | 07 | Air and Missile Defense Systems Engineering | Boord, Hoffman | CRC Press, 2016 | PDF |
 | 08 | Military Avionics Systems | Moir, Seabridge | Wiley, 2006 | PDF |
 | 09 | Introduction to UAV Systems | Fahlstrom, Gleason, Sadraey | Wiley, 2022 (מהדורה 5) | PDF |
