@@ -76,5 +76,18 @@
   };
   sample.limits = async () => ({ maxPromptBytes: 262144, images: { maxCount: 5 }, tools: { maxCount: 16 } });
   window.__db = docs;
+  // Asset-store bundles: their URLs (index.json "assets") and lib/ paths are served from the harness's assets/.
+  const realFetch = window.fetch.bind(window);
+  let assetNames = null;
+  window.fetch = async (url, opts) => {
+    if (typeof url === "string" && url.startsWith("/_blob/")) {
+      assetNames ??= realFetch("lib/index.json").then((r) => r.json()).then((ix) => Object.fromEntries(Object.entries(ix.assets ?? {}).map(([k, v]) => [v, k])));
+      const name = (await assetNames)[url];
+      if (name) return realFetch(`assets/${name}`, opts);
+    }
+    const res = await realFetch(url, opts);
+    if (!res.ok && typeof url === "string" && url.startsWith("lib/")) return realFetch(`assets/${url.slice(4)}`, opts);
+    return res;
+  };
   window.claude = { use: async (name) => ({ sample, db, user }[name] ?? null) };
 })();
