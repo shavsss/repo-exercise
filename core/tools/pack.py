@@ -24,15 +24,23 @@ ROOT = Path(__file__).resolve().parents[2]
 LIB = ROOT / "library" / "military"
 BUILD = ROOT / "core" / "build" / "lib"
 OUT = ROOT / "core" / "app" / "artifact" / "lib"
+# Documents whose figure and page-image bundles live in the artifact's asset store instead of
+# lib/, because the published files of one version are limited to 256 MB. Their bundles are
+# written to ASSETS, uploaded by hand (Artifact publish with asset: true), and the URLs the
+# upload returns are kept in ASSET_URLS, from which index.json maps each bundle to its URL.
+ASSET_DOCS = {"B12"}
+ASSETS = ROOT / "core" / "app" / "artifact" / "assets"
+ASSET_URLS = ROOT / "core" / "tools" / "asset_urls.json"
 sys.path.insert(0, str(LIB / "syllabus"))
 from syllabus import DOCS, MODULES, PARTS, SKIP  # noqa: E402
+from source_pdf import source_pdf  # noqa: E402
 
 BUNDLE = 6_000_000
 
 SHORT = {
     "B01": "EW 101", "B02": "POMR I", "B02a": "POMR II", "B02b": "POMR III", "B03": "Driggers", "B04": "EW 102",
     "B05": "Kaplan GPS", "B06": "Siouris", "B07": "AMD SE", "B08": "Avionics", "B09": "UAV", "B10": "Naval Weapons",
-    "B11": "Tanks", "D5": "ATP 7-100.1", "D6": "ATP 7-100.3", "D8": "ATP 3-09.12", "D9": "ATP 3-01.81",
+    "B11": "Tanks", "B12": "SMAD", "D5": "ATP 7-100.1", "D6": "ATP 7-100.3", "D8": "ATP 3-09.12", "D9": "ATP 3-01.81",
 }
 
 
@@ -159,17 +167,20 @@ def webp_data(path):
     return "data:image/webp;base64," + base64.b64encode(Path(path).read_bytes()).decode()
 
 
-def page_image(pdf, page):
+def page_image(pdf, page, dpi=110, quality=50):
     with tempfile.TemporaryDirectory() as tmp:
-        subprocess.run(["pdftoppm", "-f", str(page), "-l", str(page), "-r", "110", "-gray", "-png", str(pdf), f"{tmp}/p"], check=True, capture_output=True)
+        subprocess.run(["pdftoppm", "-f", str(page), "-l", str(page), "-r", str(dpi), "-gray", "-png", str(pdf), f"{tmp}/p"], check=True, capture_output=True)
         im = Image.open(next(Path(tmp).glob("p*.png")))
         out = Path(tmp) / "p.webp"
-        im.save(out, "WEBP", quality=50, method=6)
+        im.save(out, "WEBP", quality=quality, method=6)
         return webp_data(out)
 
 
 def bundle(prefix, items, folder):
-    """Split (key, data URI, meta) items into files under folder; returns file names and key→file index."""
+    """Split (key, data URI, meta) items into files under folder (in lib/, or in the asset folder
+    for ASSET_DOCS); returns file names and key→file index."""
+    root = ASSETS if prefix in ASSET_DOCS else OUT
+    (root / folder).mkdir(parents=True, exist_ok=True)
     files, index, cur, size = [], {}, {}, 0
     for key, value in items:
         n = len(json.dumps(value))
@@ -183,11 +194,21 @@ def bundle(prefix, items, folder):
     names = []
     for i, content in enumerate(files):
         name = f"{folder}/{prefix}-{i}.json"
-        (OUT / name).write_text(dumps(content))
+        (root / name).write_text(dumps(content))
         names.append(name)
         for key in content:
             index[key] = i
     return names, index
+
+
+def asset_urls(docs):
+    """bundle name → asset URL for the bundles of ASSET_DOCS (warns about any not uploaded yet)."""
+    urls = json.loads(ASSET_URLS.read_text()) if ASSET_URLS.exists() else {}
+    names = [n for d in ASSET_DOCS if d in docs for n in docs[d]["figFiles"] + docs[d]["pgFiles"]]
+    missing = [n for n in names if n not in urls]
+    if missing:
+        print(f"not in the asset store yet (upload from {ASSETS.relative_to(ROOT)}, then add to {ASSET_URLS.name}):", ", ".join(missing))
+    return {n: urls[n] for n in names if n in urls}
 
 
 def main():
@@ -215,7 +236,7 @@ def main():
                     fig_pages.setdefault(k, []).append(e["caption"][:140])
         fig_files, fig_index = bundle(doc, fig_items, "fig")
 
-        pdf = LIB / rel
+        pdf = source_pdf(LIB, rel)
         ocr_pages = [k for k in sorted(pages, key=int) if pages[k].get("ocr")]
         cache = src / "pg"
         cache.mkdir(exist_ok=True)
@@ -223,7 +244,8 @@ def main():
         for k in ocr_pages:
             f = cache / f"p{int(k):04d}.json"
             if not f.exists():
-                f.write_text(json.dumps(page_image(pdf, int(k))))
+                # a book photographed page by page is all page images: a little smaller each
+                f.write_text(json.dumps(page_image(pdf, int(k), *((100, 40) if doc in ASSET_DOCS else ()))))
             pg_items.append((k, json.loads(f.read_text())))
         pg_files, pg_index = bundle(doc, pg_items, "pg")
 
@@ -262,8 +284,9 @@ def main():
         m["sections"] = heads
         modules.append(m)
     index = {"docs": docs, "parts": [{"id": i, "title": t} for i, t in PARTS], "modules": modules}
+    index["assets"] = asset_urls(docs)
     digest = hashlib.sha1()
-    for f in sorted(OUT.rglob("*.json")):
+    for f in sorted([*OUT.rglob("*.json"), *ASSETS.rglob("*.json")]):
         if f.name != "index.json":
             digest.update(f.name.encode())
             digest.update(str(f.stat().st_size).encode())

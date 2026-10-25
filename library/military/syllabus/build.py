@@ -18,8 +18,14 @@ TIER = {"core": "ליבה", "adv": "מתקדם", "ref": "עיון"}
 
 
 def page_count(path):
-    out = subprocess.run(["pdfinfo", str(ROOT / path)], capture_output=True, text=True).stdout
-    return int(re.search(r"Pages:\s+(\d+)", out).group(1))
+    """Pages of a PDF, or of a folder of PDF parts read in name order as one document."""
+    p = ROOT / path
+    parts = sorted(p.glob("*.pdf")) if p.is_dir() else [p]
+    total = 0
+    for f in parts:
+        out = subprocess.run(["pdfinfo", str(f)], capture_output=True, text=True).stdout
+        total += int(re.search(r"Pages:\s+(\d+)", out).group(1))
+    return total
 
 
 def main():
