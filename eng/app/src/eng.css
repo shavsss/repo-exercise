@@ -161,3 +161,4 @@
 .viewer-rail:hover { background: var(--hover); }
 .viewer-rail:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
 @media (max-width: 900px) { .viewer-rail { position: fixed; inset: auto 0 90px auto; height: auto; border: 1px solid var(--line); border-radius: 4px 0 0 4px; z-index: 30; } }
+.rm-node:focus { outline: none; }

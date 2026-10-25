@@ -25,7 +25,11 @@ BUILD = ROOT / "eng" / "build" / "lib"
 OUT = ROOT / "eng" / "app" / "artifact" / "lib"
 # Documents whose figure and page-image bundles live in the artifact's asset store
 # instead of lib/, because the published files of one version are limited to 256 MB.
+# Chosen in main(): the heaviest documents move there until lib/ fits LIB_BUDGET.
 ASSET_DOCS = set()
+LIB_BUDGET = 215_000_000
+# asset-store bundles are larger (one upload call each; an asset may be up to 20 MiB)
+ASSET_BUNDLE = 18_000_000
 ASSETS = ROOT / "eng" / "app" / "artifact" / "assets"
 ASSET_URLS = ROOT / "eng" / "tools" / "asset_urls.json"
 sys.path.insert(0, str(SYL))
@@ -97,7 +101,7 @@ def bundle(prefix, items, folder):
     files, index, cur, size = [], {}, {}, 0
     for key, value in items:
         n = len(json.dumps(value))
-        if cur and size + n > BUNDLE:
+        if cur and size + n > (ASSET_BUNDLE if prefix in ASSET_DOCS else BUNDLE):
             files.append(cur)
             cur, size = {}, 0
         cur[key] = value
@@ -124,7 +128,35 @@ def asset_urls(docs):
     return {n: urls[n] for n in names if n in urls}
 
 
+def heavy_bytes(doc):
+    """Estimated size of a document's figure and page-image bundles (base64 inflates by 4/3)."""
+    src = BUILD / doc
+    fig = sum(f.stat().st_size for f in (src / "fig").glob("*.webp")) * 4 / 3 if (src / "fig").exists() else 0
+    pg = sum(f.stat().st_size for f in (src / "pg").glob("*.json")) if (src / "pg").exists() else 0
+    return fig + pg
+
+
+def choose_asset_docs():
+    text = sum((BUILD / d / "pages.json").stat().st_size for d in DOCS if (BUILD / d / "pages.json").exists())
+    heavy = {d: heavy_bytes(d) for d in DOCS if (BUILD / d).exists()}
+    total = text + sum(heavy.values())
+    chosen = set()
+    for d in sorted(heavy, key=heavy.get, reverse=True):
+        if total <= LIB_BUDGET:
+            break
+        chosen.add(d)
+        total -= heavy[d]
+    print(f"asset store: {sorted(chosen)}; lib/ about {total / 1e6:.0f} MB")
+    return chosen
+
+
 def main():
+    global ASSET_DOCS
+    ASSET_DOCS = choose_asset_docs()
+    for root in (OUT, ASSETS):
+        for d in ("fig", "pg"):
+            for f in (root / d).glob("*.json") if (root / d).exists() else []:
+                f.unlink()
     for d in ("text", "fig", "pg"):
         (OUT / d).mkdir(parents=True, exist_ok=True)
     docs = {}
@@ -158,7 +190,7 @@ def main():
             f = cache / f"p{int(k):04d}.json"
             if not f.exists():
                 # a book photographed page by page is all page images: a little smaller each
-                f.write_text(json.dumps(page_image(pdf, int(k), *((100, 40) if doc in ASSET_DOCS else ()))))
+                f.write_text(json.dumps(page_image(pdf, int(k))))
             pg_items.append((k, json.loads(f.read_text())))
         pg_files, pg_index = bundle(doc, pg_items, "pg")
 
