@@ -6,7 +6,8 @@
 
 | נתיב | מה זה |
 |---|---|
-| קובצי ה-PDF וה-TXT בשורש | הספרים: Mathematics: Its Content, Methods and Meaning (כרכים 1–3) והרצאות פיינמן (כרכים I–III; כרך III הוא `2a717fb9….pdf`) |
+| `library/math-physics/` | הספרים: Mathematics: Its Content, Methods and Meaning (כרכים 1–3) והרצאות פיינמן (כרכים I–III) |
+| `library/military/` | הליבה הצבאית (אפליקציה נפרדת, בתכנון): ספרים ממוספרים, מאמרים, דוקטרינה. מפתח ב-`library/README.md` |
 | `app/` | קוד האפליקציה (React + Vite), ראו [`app/README.md`](app/README.md) |
 | `app/src/prompt.ts` | ההנחיות שהמורה מקבל בכל קריאה, כולל כללי הלימוד |
 | `app/artifact/` | הדף שמתפרסם, והטקסט המחולץ של הספרים (`books/*.json`) |
