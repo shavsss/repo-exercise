@@ -8,6 +8,7 @@ import { ModuleMap, STATE_LABEL, TIER_LABEL, type Selection } from "./components
 import { Topbar, type Crumb } from "./components/Topbar";
 import { AssistantTurn, DimensionHead, UserBubble } from "./components/Message";
 import { Composer, type QuickAction } from "./components/Composer";
+import { ReadingDock, ReadingProgress, useResumePosition } from "./components/ReadingAids";
 import { SourceViewer } from "./components/SourceViewer";
 import { MemoryPanel } from "./components/MemoryPanel";
 import { MdContext } from "./components/Markdown";
@@ -476,6 +477,9 @@ export function App() {
     scrollRef.current?.scrollTo({ top: 0 });
   }, [selection?.moduleId, selection?.lesson]);
 
+  const inLesson = !!module && lessonIdx !== undefined;
+  const resume = useResumePosition(scrollRef, inLesson ? `${module!.id}:${lessonIdx}` : null, items.length > 0 && !busy, busy);
+
   const openSource = useCallback((doc: string, page: number) => setViewer({ doc, page }), []);
 
   /* ---- view ---- */
@@ -547,6 +551,16 @@ export function App() {
         {sideOpen && <div className="scrim" onClick={() => setSideOpen(false)} />}
 
         <main className="main">
+          <ReadingProgress scrollRef={scrollRef} />
+          {resume.resumed && (
+            <div className="resume-chip" role="status">
+              <span>חזרנו למקום שבו הפסקת לקרוא</span>
+              <button className="link" onClick={resume.toTop}>לראש השיעור</button>
+              <button className="icon-btn" onClick={resume.dismiss} aria-label="סגור">
+                <Icon name="close" size={14} />
+              </button>
+            </div>
+          )}
           <div className="scroll" ref={scrollRef} onScroll={() => {
             const el = scrollRef.current!;
             stick.current = el.scrollHeight - el.scrollTop - el.clientHeight < 120;
@@ -618,6 +632,7 @@ export function App() {
                 </div>
               ))}
             </div>
+            {inLesson && items.length > 0 && <ReadingDock scrollRef={scrollRef} version={items} />}
           </div>
           {module && lessonIdx !== undefined && (lesson || isQuiz) && (
             <Composer

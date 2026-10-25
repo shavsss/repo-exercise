@@ -9,8 +9,10 @@ export interface Reading {
   space: "normal" | "airy";
   width: "narrow" | "medium" | "wide";
   surface: "theme" | "paper" | "soft";
+  /** focus: the map, the source rail and the composer's extras step aside */
+  focus: "off" | "on";
 }
-export const DEFAULT_READING: Reading = { font: "plex", size: "m", space: "airy", width: "medium", surface: "theme" };
+export const DEFAULT_READING: Reading = { font: "plex", size: "m", space: "airy", width: "medium", surface: "theme", focus: "off" };
 
 const KEY = "eng-lab:reading";
 const listeners = new Set<() => void>();
@@ -29,6 +31,7 @@ function apply() {
   r.dataset.readSpace = current.space;
   r.dataset.readWidth = current.width;
   r.dataset.surface = current.surface;
+  r.dataset.focus = current.focus;
 }
 apply();
 

@@ -50,6 +50,9 @@ export function Composer({
 }) {
   const [text, setText] = useState("");
   const [images, setImages] = useState<{ file: File; url: string }[]>([]);
+  const [allQuick, setAllQuick] = useState(false);
+  // a long row of shortcuts takes height from the text; the first ones stay, the rest wait
+  const shown = allQuick || quick.length <= 3 ? quick : quick.slice(0, 2);
   const fileRef = useRef<HTMLInputElement>(null);
   const taRef = useRef<HTMLTextAreaElement>(null);
 
@@ -72,11 +75,16 @@ export function Composer({
     <div className="composer-wrap">
       {quick.length > 0 && !busy && !text && (
         <div className="quick-row">
-          {quick.map((q) => (
+          {shown.map((q) => (
             <button key={q.label} className={`btn small ${q.primary ? "primary" : ""}`} disabled={disabled} onClick={() => onSend(q.text, [])} data-mode={q.mode}>
               {q.label}
             </button>
           ))}
+          {shown.length < quick.length && (
+            <button className="btn small ghost quick-more" onClick={() => setAllQuick(true)}>
+              עוד {quick.length - shown.length}…
+            </button>
+          )}
         </div>
       )}
       <div className="composer">

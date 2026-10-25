@@ -41,8 +41,8 @@
 - הקוד ב-`core/app/`, וההנחיות למורה ב-`core/app/src/prompt.ts`. כל שינוי בכללים נעשה גם שם וגם ב-`docs/CORE_TEACHING_RULES.md`.
 - הספרייה בדף (`core/app/artifact/lib/`) נוצרת מה-PDF: `core/tools/extract/extract.py` ואז `core/tools/pack.py`. התוצרים לא ב-git; אם `core/build/` חסר, מריצים את החילוץ מחדש.
 - פרסום: `cd core/app && npm run build`, ואז Artifact publish של `core/app/artifact/index.html` עם `app.js` ו-`app.css` מ-`dist/`. קבצי `lib/` כבר מפורסמים ונשמרים בין גרסאות, ומפרסמים אותם מחדש רק אם הם משתנים (בכמה פעימות, עד 64MB לפעימה). האיורים ותמונות העמודים של SMAD נמצאים במאגר הקבצים של ה-Artifact, והכתובות שלהם ב-`core/tools/asset_urls.json` (BUILD_GUIDE, סעיף 11.5). ההרשאות: `sample` (עם תמונות), `db`, `user`, `assets` ו-`downloads` (ייצוא מחברת השיעור).
-- תצוגת קריאה (כפתור Aa): גופן, גודל, ריווח, רוחב ורקע, ב-`src/reading.ts` וב-`src/reading.css`, באותו קוד בשתי האפליקציות.
-- תלת-ממד: בלוק `scene3d` מהרכיב המשותף `shared/scene3d/` (אותו קוד כמו במעבדת ההנדסה). מחברת שיעור משותפת ללומד ולמורה ב-`profile/notes/`.
+- תצוגת קריאה (כפתור Aa): גופן, גודל, ריווח, רוחב, רקע ומצב ריכוז, ב-`src/reading.ts` וב-`src/reading.css`. בשיעור: פס התקדמות, חזרה למקום שבו הפסיקו לקרוא (לכל שיעור, בדפדפן), ותוכן שיעור צף עם זמן הקריאה שנשאר (`src/components/ReadingAids.tsx`). אותו קוד בשתי האפליקציות.
+- תלת-ממד: בלוק `scene3d` מהרכיב המשותף `shared/scene3d/` (אותו קוד כמו במעבדת ההנדסה). הסצנות של לנצ'סטר מסומנות ב-`CORE` בשדה `modules` (עשר: ארבע משותפות ושש ב-`scenes_core.ts`). מחברת שיעור משותפת ללומד ולמורה ב-`profile/notes/`.
 - הנתונים: `data/users/<id>/profile` (זיכרון, מודולים שנלמדו), `profile/modules/<מודול>` (שיעורים, ציון מבחן), `profile/convs/...` (שיחה לכל שיעור), `profile/notes/...` (מחברת השיעורים).
 
 ## גילואה (מעבדת ההנדסה)

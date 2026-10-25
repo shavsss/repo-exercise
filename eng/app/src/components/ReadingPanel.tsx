@@ -7,6 +7,7 @@ const OPTIONS: { key: keyof Reading; label: string; values: [string, string][] }
   { key: "space", label: "ריווח שורות", values: [["normal", "רגיל"], ["airy", "מרווח"]] },
   { key: "width", label: "רוחב הטור", values: [["narrow", "צר"], ["medium", "בינוני"], ["wide", "רחב"]] },
   { key: "surface", label: "רקע הקריאה", values: [["theme", "לפי בהיר/כהה"], ["paper", "נייר"], ["soft", "כהה רך"]] },
+  { key: "focus", label: "מצב ריכוז (בלי המפה ובלי כפתורי העזר)", values: [["off", "כבוי"], ["on", "פועל"]] },
 ];
 
 /** Reading settings: a small popover under the top bar. */
