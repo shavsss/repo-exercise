@@ -17,6 +17,10 @@ fs.copyFileSync(path.join(here, "stub.js"), path.join(out, "stub.js"));
 const lib = path.join(out, "lib");
 fs.rmSync(lib, { recursive: true, force: true });
 fs.symlinkSync(path.join(app, "artifact", "lib"), lib);
+// bundles kept in the artifact's asset store (pack.py ASSET_DOCS) are served from here; stub.js maps their URLs
+const assets = path.join(out, "assets");
+fs.rmSync(assets, { recursive: true, force: true });
+if (fs.existsSync(path.join(app, "artifact", "assets"))) fs.symlinkSync(path.join(app, "artifact", "assets"), assets);
 
 // The first module, and a figure from its main source, for the scripted lesson.
 const index = JSON.parse(fs.readFileSync(path.join(app, "artifact", "lib", "index.json"), "utf8"));
