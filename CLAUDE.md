@@ -44,6 +44,15 @@
 - תלת-ממד: בלוק `scene3d` מהרכיב המשותף `shared/scene3d/` (אותו קוד כמו במעבדת ההנדסה). מחברת שיעור משותפת ללומד ולמורה ב-`profile/notes/`.
 - הנתונים: `data/users/<id>/profile` (זיכרון, מודולים שנלמדו), `profile/modules/<מודול>` (שיעורים, ציון מבחן), `profile/convs/...` (שיחה לכל שיעור), `profile/notes/...` (מחברת השיעורים).
 
+## מעבדת ההנדסה
+
+- כתובת קבועה: https://claude.ai/artifact/LtW5eytwQFZ4wAXhDSAw3k. אפליקציה שלישית, נפרדת משתי האחרות. החלטות התכנון ב-`docs/ENG_LAB_PLAN.md`.
+- הקוד ב-`eng/app/` (על הקוד של מעבדת הליבה), וההנחיות למורה ב-`eng/app/src/prompt.ts`. כל שינוי בכללים נעשה גם שם וגם ב-`docs/ENG_TEACHING_RULES.md`.
+- הספרייה: `eng/tools/extract.py` ואז `eng/tools/pack.py`. התוצרים (`eng/build/`, `eng/app/artifact/lib/`, `eng/app/artifact/assets/`) לא ב-git. תשעה מסמכים כבדים (E09, E09a, E12, E13, E15, E25, K1–K3) נמצאים במאגר הקבצים של ה-Artifact, והכתובות שלהם ב-`eng/tools/asset_urls.json`.
+- פרסום: `cd eng/app && npm run build`, ואז Artifact publish של `eng/app/artifact/index.html` עם `app.js` ו-`app.css` מ-`dist/`. קבצי `lib/` נשמרים בין גרסאות. ההרשאות: `sample` (עם תמונות), `db`, `user`, `downloads` ו-`assets`.
+- תלת-ממד: הרכיב המשותף `shared/scene3d/`, שגם מעבדת הליבה משתמשת בו. שינוי בו משפיע על שתי האפליקציות, וצריך לבנות ולפרסם את שתיהן.
+- הנתונים: כמו במעבדת הליבה (`profile`, `profile/modules/`, `profile/convs/`, `profile/notes/`), במסד הנתונים של ה-Artifact הזה.
+
 ## מוסכמות
 
 - הלומד כותב בעברית. תשובות, ממשק ומסמכים בעברית; קוד ושמות מזהים באנגלית.
