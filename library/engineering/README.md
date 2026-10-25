@@ -32,6 +32,7 @@
 | E23 | פריפריה: תקשורת אלחוטית | Tse & Viswanath, *Fundamentals of Wireless Communication* | 2005 | Claude | `E23_Wireless-Communication_Tse-Viswanath_2005.pdf` |
 | E24 | פריפריה: פיזיקת התקנים | Hu, *Modern Semiconductor Devices for Integrated Circuits* | 2010 | Claude | `E24_Semiconductor-Devices_Hu_2010.pdf` |
 | E25 | פריפריה: תכנון שבבים | Weste & Harris, *CMOS VLSI Design: A Circuits and Systems Perspective* | 4th, 2011 | הלומד | `E25_CMOS-VLSI-Design_Weste-Harris_4ed.pdf` |
+| E26 | גשר: הנדסת מערכות | NASA, *Systems Engineering Handbook* (NASA/SP-2016-6105, מסמך ציבורי) | Rev 2, 2016 | Claude | `E26_NASA-Systems-Engineering-Handbook_Rev2_2016.pdf` |
 
 **עוד חסרים:** סוף הספר של Horowitz & Hill (מעמ' 1062), עמוד 283 ב-Ashby, ו-PDF של פיינמן כרכים I ו-II (כרגע ב-`library/math-physics/` כ-`.txt`, בלי איורים).
 
