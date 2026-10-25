@@ -127,7 +127,7 @@ export function Interactive({ source, live }: { source: string; live: boolean })
   }, [parsed]);
 
   if (!parsed || !compiled)
-    return <div className={`viz-pending ${live ? "is-live" : "is-error"}`}>{live ? "⏳ ממתין להשלמת הכלי האינטראקטיבי…" : "⚠️ הגדרת הכלי האינטראקטיבי אינה JSON תקין"}</div>;
+    return <div className={`viz-pending ${live ? "is-live" : "is-error"}`}>{live ? "ממתין להשלמת הכלי האינטראקטיבי…" : "הגדרת הכלי האינטראקטיבי אינה JSON תקין"}</div>;
 
   const params = parsed.params ?? [];
   const scope: Record<string, number> = {};
@@ -186,7 +186,7 @@ export function Interactive({ source, live }: { source: string; live: boolean })
           <i />
           <i />
         </span>
-        <span className="viz-title">🎛️ {parsed.title ?? "כלי אינטראקטיבי"}</span>
+        <span className="viz-title">{parsed.title ?? "כלי אינטראקטיבי"}</span>
         <span className="viz-prov">חישוב חי (mathjs)</span>
       </div>
       <div className="viz-body interactive-body">

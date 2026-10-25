@@ -11,29 +11,11 @@ function init(dark: boolean) {
     startOnLoad: false,
     securityLevel: "strict",
     theme: "base",
-    fontFamily: "Rubik, sans-serif",
+    fontFamily: "IBM Plex Sans Hebrew, IBM Plex Sans, sans-serif",
     flowchart: { nodeSpacing: 28, rankSpacing: 46, padding: 12, curve: "basis" },
     themeVariables: dark
-      ? {
-          background: "#16131f",
-          primaryColor: "#2a2140",
-          primaryTextColor: "#f6efe4",
-          primaryBorderColor: "#ff6b35",
-          lineColor: "#ff9a6b",
-          secondaryColor: "#1d2c3f",
-          tertiaryColor: "#2b1830",
-          fontSize: "15px",
-        }
-      : {
-          background: "#fffaf0",
-          primaryColor: "#ffe3d3",
-          primaryTextColor: "#1d1b26",
-          primaryBorderColor: "#1d1b26",
-          lineColor: "#1d1b26",
-          secondaryColor: "#dbeaff",
-          tertiaryColor: "#f3e6ff",
-          fontSize: "15px",
-        },
+      ? { background: "#0e2c4f", primaryColor: "#123a64", primaryTextColor: "#e8f1fb", primaryBorderColor: "#9cc3e8", lineColor: "#9cc3e8", secondaryColor: "#174673", tertiaryColor: "#0e2c4f", fontSize: "15px" }
+      : { background: "#ffffff", primaryColor: "#f3f7fa", primaryTextColor: "#14283c", primaryBorderColor: "#14283c", lineColor: "#3d5a74", secondaryColor: "#fbeee8", tertiaryColor: "#ffffff", fontSize: "15px" },
   });
 }
 
@@ -80,7 +62,7 @@ export function MermaidBlock({ code, live }: { code: string; live: boolean }) {
       </div>
       <div className="viz-body mermaid-body">
         {svg ? <div dangerouslySetInnerHTML={{ __html: svg }} /> : null}
-        {!svg && (error && !live ? <div className="viz-pending is-error">⚠️ התרשים לא נבנה: {error.slice(0, 160)}</div> : <div className="viz-pending is-live">⏳ בונה תרשים…</div>)}
+        {!svg && (error && !live ? <div className="viz-pending is-error">התרשים לא נבנה: {error.slice(0, 160)}</div> : <div className="viz-pending is-live">בונה תרשים…</div>)}
       </div>
     </figure>
   );

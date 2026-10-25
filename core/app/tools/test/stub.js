@@ -36,10 +36,10 @@
   async function sample(input, opts) {
     opts = opts || {};
     window.__log = window.__log || [];
-    if (typeof input === "string") { window.__log.push("memory"); return { text: "# זיכרון הקורס\n\n## מה נלמד\n- §12 אינווריאנטים (מעודכן)", truncated: false, modelTierApplied: "default" }; }
+    if (typeof input === "string") { window.__log.push("memory"); return { text: "# זיכרון הקורס\n\n## מה נלמד\n- שיעור בדיקה (מעודכן)", truncated: false, modelTierApplied: "default" }; }
     const last = input[input.length - 1].content;
     const m = /WRITING STEP: part (\d+) of (\d+)/.exec(last);
-    window.__log.push(m ? "part" + m[1] : "other");
+    window.__log.push(m ? "part" + m[1] : /MODULE QUIZ/.test(last) ? "quiz" : "other");
     window.__lastInput = input;
     const tools = opts.tools || [];
     const call = (name, args) => tools.find((x) => x.name === name).execute(args, { signal: new AbortController().signal });
@@ -51,19 +51,28 @@
         opts.onText && opts.onText({ text: t, delta: t });
         return { text: t, truncated: true, modelTierApplied: "complex", modelApplied: "claude-opus-5-5" };
       }
-      text = k === 2 ? " והמשך חלק שני." : k === 1 ? window.__answer : "## חלק " + k + "\n\nסוף השיעור.";
+      text = k === 2 ? " והמשך חלק שני." : k === 1 ? window.__answer : "## חלק " + k + "\n\nסוף השיעור.\n\n```coverage\n- כל הסעיפים נלמדו\n```";
+      if (k === 1) await call("read_source_pages", { doc: window.__doc, from: 1, to: 2 });
       if (k === 3 && !window.__fast) await new Promise((r) => setTimeout(r, 4000));
-      if (k === n) await call("record_progress", { book_id: "math1", page: "245", section: "§12 (חלק 1/2)" });
-    } else text = "תשובה רגילה.";
+    } else if (/התשובות שלי/.test(last)) text = "בדיקה מלאה. [[ציון: 85/100]]";
+    else if (/MODULE QUIZ/.test(last)) text = "1. שאלה ראשונה\n2. שאלה שנייה";
+    else text = "תשובה רגילה.";
     let shown = "";
     for (const part of text.match(/[\s\S]{1,400}/g)) { shown += part; opts.onText && opts.onText({ text: shown, delta: part }); await new Promise((r) => setTimeout(r, 20)); }
     return { text, truncated: false, modelTierApplied: "complex", modelApplied: "claude-opus-5-5" };
   }
   sample.json = async (input, opts) => {
-    window.__log = window.__log || []; window.__log.push("plan");
+    window.__log = window.__log || [];
+    const last = input[input.length - 1].content;
     const tools = opts.tools || [];
-    await tools.find((x) => x.name === "compute").execute({ script: "1+1" }, {});
-    return { section: "§12", pages: "238–245", parts: [{ title: "א", covers: "x", words: 1200 }, { title: "ב", covers: "y", words: 1500 }, { title: "ג", covers: "z", words: 1500 }], facts: ["2"] };
+    if (/MODULE PLANNING STEP/.test(last)) {
+      window.__log.push("module-plan");
+      await new Promise((r) => setTimeout(r, 300));
+      return window.__lessons;
+    }
+    window.__log.push("plan");
+    await tools.find((x) => x.name === "compute").execute({ script: "R = 50\n10*log10(R)" }, {});
+    return { title: "שיעור", parts: [{ title: "א", covers: "x", words: 1200 }, { title: "ב", covers: "y", words: 1500 }, { title: "ג", covers: "z", words: 1500 }], facts: ["2"] };
   };
   sample.limits = async () => ({ maxPromptBytes: 262144, images: { maxCount: 5 }, tools: { maxCount: 16 } });
   window.__db = docs;

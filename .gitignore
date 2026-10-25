@@ -4,3 +4,4 @@ core/build/
 core/app/node_modules/
 core/app/dist/
 __pycache__/
+core/app/artifact/lib/

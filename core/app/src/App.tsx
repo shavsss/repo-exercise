@@ -1,18 +1,18 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { connect, type ConvMeta, type Progress, type Runtime, type SampleError } from "./runtime";
-import { BOOKS, INITIAL_PROGRESS, guessBook, importFile, loadAll } from "./books";
-import { INITIAL_MEMORY, askTutor, composeLesson, updateMemory, type LessonPlan } from "./tutor";
-import { countWords, toItems } from "./segments";
-import type { Activity, Effort, Mode, StoredMessage } from "./types";
-import { Sidebar } from "./components/Sidebar";
-import { Hud } from "./components/Hud";
-import { AssistantTurn, UserBubble } from "./components/Message";
+import { connect, type ConvMeta, type Runtime, type SampleError } from "./runtime";
+import { docMeta, loadIndex, moduleState, type LibraryIndex, type Module } from "./library";
+import { INITIAL_MEMORY, askTutor, composeLesson, planModule, updateMemory, type PartPlan } from "./tutor";
+import { toItems } from "./segments";
+import type { Activity, Effort, ModuleProgress, Mode, StoredMessage } from "./types";
+import { ModuleMap, STATE_LABEL, TIER_LABEL, type Selection } from "./components/ModuleMap";
+import { Topbar, type Crumb } from "./components/Topbar";
+import { AssistantTurn, DimensionHead, UserBubble } from "./components/Message";
 import { Composer, type QuickAction } from "./components/Composer";
-import { BookViewer } from "./components/BookViewer";
-import { FlowField } from "./components/FlowField";
+import { SourceViewer } from "./components/SourceViewer";
 import { MemoryPanel } from "./components/MemoryPanel";
-import { Outline } from "./components/Outline";
-import { onSolvedChange, solvedCount } from "./solved";
+import { MdContext } from "./components/Markdown";
+import { SourceTag } from "./components/blocks/SourceTag";
+import { Icon } from "./components/Icon";
 
 interface Notice {
   level: "info" | "warn" | "error";
@@ -24,115 +24,105 @@ const MAX_PARTS = 4;
 const SAVE_EVERY = 8000;
 const CONTINUE_TEXT = "התשובה הקודמת נקטעה באורך המרבי. המשך בדיוק מהמקום שבו נעצרה, מאמצע המשפט אם צריך, בלי לחזור על דבר ובלי הקדמה.";
 
-/** "§13 … (חלק 1/2)": the section continues in the next message. */
-function sectionUnfinished(section?: string) {
-  const m = /(?:חלק|part)\s*(\d+)\s*(?:\/|מתוך|of)\s*(\d+)/i.exec(section ?? "");
-  return !!m && Number(m[1]) < Number(m[2]);
-}
-
 const ERROR_COPY: Record<string, string> = {
   not_granted: "הדף לא קיבל הרשאה לפנות ל-Claude. אפשר לאשר אותה בתפריט ההרשאות של ה-Artifact.",
   sampling_disabled: "Claude אינו זמין בחשבון הזה.",
   rate_limited: "הגעת למגבלת השימוש כרגע. נסה שוב בעוד כמה דקות.",
   session_expired: "צריך להתחבר מחדש ל-claude.ai.",
-  prompt_too_large: "השיחה ארוכה מדי לשליחה אחת. כדאי לפתוח שיחה חדשה לסעיף הבא.",
+  prompt_too_large: "הבקשה גדולה מדי לשליחה אחת. כדאי לשאול על חלק קטן יותר.",
   refused: "Claude סירב לבקשה הזו. אפשר לנסח אותה אחרת.",
   empty_completion: "לא התקבלה תשובה. נסה לבקש פחות בבת אחת.",
   image_rejected: "התמונה לא התקבלה (סוג או גודל). נסה קובץ אחר.",
+  invalid_json: "התכנון שהתקבל לא היה תקין. אפשר לנסות שוב.",
   upstream_error: "החיבור ל-Claude נקטע. אפשר לנסות שוב.",
 };
 
-/** The conversation to reopen on the next visit (a per-browser convenience). */
-function rememberConv(id: string) {
+function readLocal(key: string) {
   try {
-    localStorage.setItem("study-lab:conv", id);
+    return localStorage.getItem(key);
   } catch {
-    // not remembered
+    return null;
+  }
+}
+function writeLocal(key: string, v: string) {
+  try {
+    localStorage.setItem(key, v);
+  } catch {
+    // a per-browser convenience only
   }
 }
 
 function usePersisted<T extends string>(key: string, initial: T): [T, (v: T) => void] {
-  const [v, setV] = useState<T>(() => {
-    try {
-      return (localStorage.getItem(key) as T) ?? initial;
-    } catch {
-      return initial;
-    }
-  });
-  const set = (next: T) => {
-    setV(next);
-    try {
-      localStorage.setItem(key, next);
-    } catch {
-      // not persisted
-    }
-  };
-  return [v, set];
+  const [v, setV] = useState<T>(() => (readLocal(key) as T) ?? initial);
+  return [v, (next: T) => (setV(next), writeLocal(key, next))];
 }
+
+const narrow = () => window.matchMedia("(max-width: 900px)").matches;
 
 export function App() {
   const [rt, setRt] = useState<Runtime | null>(null);
-  const [progress, setProgress] = useState<Progress>(INITIAL_PROGRESS);
+  const [index, setIndex] = useState<LibraryIndex | null>(null);
+  const [indexError, setIndexError] = useState("");
   const [memory, setMemory] = useState(INITIAL_MEMORY);
-  const [memoryOpen, setMemoryOpen] = useState(false);
-  const [memoryBusy, setMemoryBusy] = useState(false);
-  const [convs, setConvs] = useState<ConvMeta[]>([]);
-  const [conv, setConv] = useState<ConvMeta | null>(null);
+  const [doneList, setDoneList] = useState<string[]>([]);
+  const [mods, setMods] = useState<Record<string, ModuleProgress>>({});
+  const modsRef = useRef(mods);
+  modsRef.current = mods;
+  const [, setConvs] = useState<ConvMeta[]>([]);
+  const [selection, setSelectionState] = useState<Selection | null>(() => {
+    try {
+      return JSON.parse(readLocal("core-lab:sel") ?? "null");
+    } catch {
+      return null;
+    }
+  });
+  const [convId, setConvId] = useState<string | null>(null);
   const [messages, setMessages] = useState<StoredMessage[]>([]);
   const [live, setLive] = useState<StoredMessage | null>(null);
   const [busy, setBusy] = useState(false);
+  const [planning, setPlanning] = useState<{ moduleId: string; status: string } | null>(null);
   const [notices, setNotices] = useState<Notice[]>([]);
-  const [loaded, setLoaded] = useState<Record<string, { pages: number; fileName: string; lastLabel: string | null }>>({});
-  const [importing, setImporting] = useState<{ bookId: string; done: number; total: number } | null>(null);
-  const [activeBook, setActiveBook] = usePersisted<string>("study-lab:book", "math1");
-  const [mode, setMode] = usePersisted<Mode>("study-lab:mode", "lesson");
-  const [effort, setEffort] = usePersisted<Effort>("study-lab:effort", "high");
-  const [viewer, setViewer] = useState<{ bookId: string; page: string; by: "label" | "pdf" } | null>(null);
-  const [sideOpen, setSideOpen] = useState(false); // drawer on narrow screens
-  const [sidePref, setSidePref] = usePersisted<"open" | "closed">("study-lab:side", "open");
-  const [outlinePref, setOutlinePref] = usePersisted<"open" | "closed">("study-lab:outline", "closed");
-  const narrow = () => window.matchMedia("(max-width: 860px)").matches;
-  const overlayOutline = () => window.matchMedia("(max-width: 1200px)").matches;
-  // on a small screen the outline is an overlay, so it starts closed
-  useEffect(() => {
-    if (overlayOutline()) setOutlinePref("closed");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  const [solved, setSolved] = useState(solvedCount);
-  const [readPct, setReadPct] = useState(0);
+  const [viewer, setViewer] = useState<{ doc: string; page: number } | null>(null);
+  const [mode, setMode] = useState<Mode>("clarify");
+  const [effort, setEffort] = usePersisted<Effort>("core-lab:effort", "high");
+  const [sideOpen, setSideOpen] = useState(false);
+  const [sidePref, setSidePref] = usePersisted<"open" | "closed">("core-lab:side", "open");
+  const [memoryOpen, setMemoryOpen] = useState(false);
+  const [memoryBusy, setMemoryBusy] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const stick = useRef(true);
   const ctl = useRef<AbortController | null>(null);
+  const planned = useRef(new Set<string>());
+  /** the stored module progress has arrived (or there is no store) */
+  const [modsReady, setModsReady] = useState(false);
 
-  useEffect(() => onSolvedChange(() => setSolved(solvedCount())), []);
+  const done = useMemo(() => new Set(doneList), [doneList]);
+  const notify = (n: Notice) => setNotices((all) => [...all, n]);
 
-  const refreshLoaded = useCallback(async () => {
-    const all = await loadAll();
-    setLoaded(
-      Object.fromEntries(
-        [...all.values()].map((b) => [b.id, { pages: b.pages.length, fileName: b.fileName, lastLabel: [...b.pages].reverse().find((p) => p.label)?.label ?? null }]),
-      ),
-    );
-  }, []);
-
-  // Runtime, the learner's stored data, and the books cached in this browser.
+  /* ---- runtime, library index and the learner's stored data ---- */
   useEffect(() => {
-    refreshLoaded();
     let unsubs: (() => void)[] = [];
     let alive = true;
+    loadIndex()
+      .then((ix) => alive && setIndex(ix))
+      .catch((e) => alive && setIndexError((e as Error).message));
     connect().then(async (r) => {
       if (!alive) return;
       setRt(r);
       if (!r.store) return;
       try {
-        await r.store.ensureProfile(INITIAL_PROGRESS, INITIAL_MEMORY);
+        await r.store.ensureProfile(INITIAL_MEMORY);
       } catch {
         // a view-only viewer cannot write; reading still works
       }
       unsubs = [
         r.store.watchProfile((p) => {
-          setProgress(Object.keys(p.progress).length ? p.progress : INITIAL_PROGRESS);
           setMemory(p.memory || INITIAL_MEMORY);
+          setDoneList(p.done);
+        }),
+        r.store.watchModules((m) => {
+          setMods(m);
+          setModsReady(true);
         }),
         r.store.watchConversations(setConvs),
       ];
@@ -141,50 +131,126 @@ export function App() {
       alive = false;
       unsubs.forEach((u) => u());
     };
-  }, [refreshLoaded]);
+  }, []);
 
-  const openConversation = useCallback(
-    async (c: ConvMeta) => {
-      setConv(c);
-      setMessages([]);
+  const module = useMemo(() => (selection && index ? index.modules.find((m) => m.id === selection.moduleId) : undefined), [selection, index]);
+  const prog = module ? mods[module.id] : undefined;
+  const lessonIdx = selection?.lesson;
+  const lesson = lessonIdx !== undefined && lessonIdx >= 0 ? prog?.lessons?.[lessonIdx] : undefined;
+  const isQuiz = lessonIdx === -1;
+  const state = module ? moduleState(module, done) : "locked";
+
+  const setSelection = useCallback(
+    (s: Selection | null) => {
+      if (busy) return;
+      setSelectionState(s);
+      writeLocal("core-lab:sel", JSON.stringify(s));
       setNotices([]);
-      rememberConv(c.id);
-      if (rt?.store) {
-        try {
-          setMessages(await rt.store.loadMessages(c.id));
-        } catch {
-          setNotices([{ level: "error", text: "לא הצלחתי לטעון את השיחה." }]);
-        }
+      if (narrow()) setSideOpen(false);
+      if (s) rt?.store?.setCurrent(s.moduleId).catch(() => {});
+    },
+    [busy, rt],
+  );
+
+  // a locked module (e.g. remembered from another state) falls back to its page
+  useEffect(() => {
+    if (module && state === "locked" && selection?.lesson !== undefined) setSelection({ moduleId: module.id });
+  }, [module, state, selection, setSelection]);
+
+  /** Merges a patch into a module's progress, in the view and in the store. */
+  const saveModule = useCallback(
+    async (id: string, patch: Partial<ModuleProgress>) => {
+      const next = { ...(modsRef.current[id] ?? {}), ...patch };
+      modsRef.current = { ...modsRef.current, [id]: next };
+      setMods(modsRef.current);
+      try {
+        await rt?.store?.saveModule(id, next);
+      } catch {
+        notify({ level: "warn", text: "ההתקדמות במודול עודכנה רק בתצוגה הזו. השמירה ב-claude.ai נכשלה." });
       }
     },
     [rt],
   );
 
-  // Reopen the last conversation once the list arrives.
-  const restored = useRef(false);
-  useEffect(() => {
-    if (restored.current || !convs.length) return;
-    restored.current = true;
-    let last: string | null = null;
-    try {
-      last = localStorage.getItem("study-lab:conv");
-    } catch {
-      // ignore
-    }
-    const c = convs.find((x) => x.id === last);
-    if (c) openConversation(c);
-  }, [convs, openConversation]);
-
-  const saveProgress = useCallback(
-    async (bookId: string, patch: Partial<Progress[string]>) => {
-      setProgress((p) => ({ ...p, [bookId]: { ...(p[bookId] ?? { page: "1" }), ...patch, updatedAt: Date.now() } }));
+  /* ---- entering a module: split it into lessons once ---- */
+  const runPlan = useCallback(
+    async (m: Module) => {
+      if (!rt?.sample || busy) return;
+      setBusy(true);
+      setPlanning({ moduleId: m.id, status: "קורא את מקורות המודול" });
+      ctl.current = new AbortController();
       try {
-        await rt?.store?.setProgress(bookId, patch, progress);
-      } catch {
-        setNotices((n) => [...n, { level: "warn", text: "ההתקדמות עודכנה רק בתצוגה הזו. השמירה ב-claude.ai נכשלה." }]);
+        const res = await planModule({
+          rt,
+          module: m,
+          memory,
+          effort,
+          signal: ctl.current.signal,
+          cb: { onText: () => {}, onActivity: () => {}, onStatus: (status) => setPlanning({ moduleId: m.id, status }) },
+        });
+        await saveModule(m.id, { lessons: res.lessons, uncovered: res.uncovered, done: [], convs: modsRef.current[m.id]?.convs ?? {} });
+      } catch (err) {
+        const e = err as SampleError;
+        if (e.code !== "cancelled") notify({ level: "error", text: `החלוקה לשיעורים נכשלה. ${ERROR_COPY[e.code] ?? ERROR_COPY.upstream_error}` });
+      } finally {
+        setPlanning(null);
+        setBusy(false);
       }
     },
-    [progress, rt],
+    [rt, busy, memory, effort, saveModule],
+  );
+
+  useEffect(() => {
+    if (!module || !rt?.sample || state === "locked" || prog?.lessons?.length || busy) return;
+    if (planned.current.has(module.id)) return;
+    // wait for the stored progress before deciding the module has no plan
+    if (rt.store && !modsReady) return;
+    planned.current.add(module.id);
+    runPlan(module);
+  });
+
+  /* ---- the conversation of the selected lesson or quiz ---- */
+  const wantedConv = module && lessonIdx !== undefined ? (isQuiz ? prog?.quizConv : prog?.convs?.[String(lessonIdx)]) : undefined;
+  useEffect(() => {
+    if (busy) return;
+    if (!wantedConv) {
+      setConvId(null);
+      setMessages([]);
+      return;
+    }
+    if (wantedConv === convId) return;
+    setConvId(wantedConv);
+    setMessages([]);
+    if (rt?.store && !wantedConv.startsWith("local-"))
+      rt.store
+        .loadMessages(wantedConv)
+        .then(setMessages)
+        .catch(() => notify({ level: "error", text: "לא הצלחתי לטעון את השיחה." }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [wantedConv, rt]);
+
+  useEffect(() => {
+    setMode(isQuiz ? "quiz" : "clarify");
+  }, [isQuiz, lessonIdx, module?.id]);
+
+  /** Marks a lesson finished; the module is learned when all its lessons are. */
+  const finishLesson = useCallback(
+    async (m: Module, idx: number) => {
+      const p = modsRef.current[m.id];
+      const list = [...new Set([...(p?.done ?? []), idx])].sort((a, b) => a - b);
+      await saveModule(m.id, { done: list });
+      if (p?.lessons && list.length >= p.lessons.length && !doneList.includes(m.id)) {
+        const next = [...doneList, m.id];
+        setDoneList(next);
+        notify({ level: "info", text: `המודול ${m.id} נלמד. המודולים שתלויים בו נפתחו.` });
+        try {
+          await rt?.store?.setDone(next);
+        } catch {
+          notify({ level: "warn", text: "סימון המודול כנלמד לא נשמר ב-claude.ai." });
+        }
+      }
+    },
+    [doneList, rt, saveModule],
   );
 
   /**
@@ -193,17 +259,16 @@ export function App() {
    * at most a few seconds; `resume` continues such a draft in place.
    */
   const generate = useCallback(
-    async (o: { rt: Runtime; convId: string; history: StoredMessage[]; userMsg: StoredMessage; sendMode: Mode; images: File[]; resume?: StoredMessage }) => {
-      const { rt, convId, history, userMsg, sendMode, images, resume } = o;
-      const store = rt.store && !convId.startsWith("local-") ? rt.store : null;
-      const msgId = resume?.id ?? store?.newMessageId(convId) ?? `m${Date.now()}`;
+    async (o: { rt: Runtime; m: Module; idx: number; cid: string; history: StoredMessage[]; userMsg: StoredMessage; sendMode: Mode; images: File[]; resume?: StoredMessage }) => {
+      const { rt, m, idx, cid, history, userMsg, sendMode, images, resume } = o;
+      const store = rt.store && !cid.startsWith("local-") ? rt.store : null;
+      const msgId = resume?.id ?? store?.newMessageId(cid) ?? `m${Date.now()}`;
       const activity: Activity[] = [...(resume?.activity ?? [])];
       let answer: StoredMessage = resume
         ? { ...resume, interrupted: undefined, truncated: undefined, draft: true, activity }
         : { role: "assistant", text: "", mode: sendMode, ts: Date.now(), activity, draft: true, id: msgId };
       let shown = answer.text;
 
-      // Draft saves: one write at a time, at most every SAVE_EVERY ms between safe points.
       let chain: Promise<void> = Promise.resolve();
       let lastSave = 0;
       let saveFailed = false;
@@ -213,8 +278,8 @@ export function App() {
         lastSave = Date.now();
         const snapshot = { ...answer, activity: [...activity] };
         chain = chain.then(() =>
-          store.saveMessage(convId, msgId, snapshot).catch(() => {
-            if (!saveFailed) setNotices((n) => [...n, { level: "warn", text: "שמירת הטיוטה ב-claude.ai נכשלה; התשובה תישמר בסוף." }]);
+          store.saveMessage(cid, msgId, snapshot).catch(() => {
+            if (!saveFailed) notify({ level: "warn", text: "שמירת הטיוטה ב-claude.ai נכשלה; התשובה תישמר בסוף." });
             saveFailed = true;
           }),
         );
@@ -228,41 +293,37 @@ export function App() {
         setLive((l) => (l ? { ...l, text: t } : l));
         save({ text: t });
       };
-      save({}, true); // the empty draft marks the answer as started
+      save({}, true);
 
+      let ok = false;
       try {
         const cb = {
           onActivity: (a: Activity) => {
             activity.push(a);
             setLive((l) => (l ? { ...l, activity: [...activity] } : l));
           },
-          onProgress: (bookId: string, page: string, section: string) => saveProgress(bookId, { page, section, lessons: (progress[bookId]?.lessons ?? 0) + 1 }),
           onStatus: (status: string) => setLive((l) => (l ? { ...l, status } : l)),
-          onCheckpoint: (plan: LessonPlan, partsDone: number, text: string) => save({ plan, partsDone, text }, true),
+          onCheckpoint: (plan: PartPlan, partsDone: number, text: string) => save({ plan, partsDone, text }, true),
           onText: show,
         };
-        const base = { rt, history, mode: sendMode, effort, progress, activeBook, memory, signal: ctl.current.signal, cb };
-        const plan = answer.plan as LessonPlan | undefined;
+        const lessons = modsRef.current[m.id]?.lessons;
+        const base = { rt, history, effort, module: m, lessons, lessonIdx: idx, memory, signal: ctl.current.signal, cb };
+        const plan = answer.plan as PartPlan | undefined;
         if (sendMode === "lesson" && !images.length && (!resume || plan || !resume.text)) {
-          // A section lesson: planned, then written part by part (or resumed from the saved part).
-          const res = await composeLesson({
-            ...base,
-            text: userMsg.text,
-            resume: plan ? { plan, partsDone: answer.partsDone ?? 0, text: answer.text } : undefined,
-          });
+          const res = await composeLesson({ ...base, text: userMsg.text, resume: plan ? { plan, partsDone: answer.partsDone ?? 0, text: answer.text } : undefined });
           answer = { ...answer, text: res.text, model: res.model };
         } else {
           let full = answer.text;
           let res: Awaited<ReturnType<typeof askTutor>> | null = null;
           if (!full) {
-            res = await askTutor({ ...base, text: userMsg.text, images });
+            res = await askTutor({ ...base, mode: sendMode, text: userMsg.text, images });
             full = res.text;
           }
-          // Continue a cut-off answer (or a resumed draft) from where its text stops.
           for (let part = 1; (res === null || res.truncated) && part <= MAX_PARTS; part++) {
             const before = full;
             res = await askTutor({
               ...base,
+              mode: sendMode,
               history: [...history, userMsg, { ...answer, text: full }],
               text: CONTINUE_TEXT,
               images: [],
@@ -274,11 +335,12 @@ export function App() {
           answer = { ...answer, text: full, model: res?.modelApplied ?? `רמת מודל: ${res?.modelTierApplied}`, ...(res?.truncated ? { truncated: true } : {}) };
         }
         answer = { ...answer, draft: undefined, plan: undefined, partsDone: undefined };
+        ok = !answer.truncated;
       } catch (err) {
         const e = err as SampleError;
         // keep the draft fields so "continue" can resume from the last saved part
         answer = { ...answer, text: e.code === "refused" ? "" : shown || (e.text ?? ""), interrupted: true, draft: undefined };
-        if (e.code !== "cancelled") setNotices((n) => [...n, { level: "error", text: ERROR_COPY[e.code] ?? ERROR_COPY.upstream_error }]);
+        if (e.code !== "cancelled") notify({ level: "error", text: ERROR_COPY[e.code] ?? ERROR_COPY.upstream_error });
       }
       answer = { ...answer, activity };
       setLive(null);
@@ -286,36 +348,40 @@ export function App() {
       await chain;
       if (store) {
         try {
-          if (answer.text || activity.length) await store.saveMessage(convId, msgId, answer);
-          await store.touch(convId, history.length + 2);
+          if (answer.text || activity.length) await store.saveMessage(cid, msgId, answer);
+          await store.touch(cid, history.length + 2);
         } catch {
-          setNotices((n) => [...n, { level: "warn", text: "חלק מהשיחה לא נשמר ב-claude.ai." }]);
+          notify({ level: "warn", text: "חלק מהשיחה לא נשמר ב-claude.ai." });
         }
       }
       setBusy(false);
 
-      // Fold a finished lesson into the course memory (a short, separate call).
-      if (sendMode === "lesson" && answer.text && !answer.interrupted) {
+      if (!ok || !answer.text) return;
+      if (sendMode === "lesson" && idx >= 0) await finishLesson(m, idx);
+      const score = /\[\[ציון:\s*([^\]]+)\]\]/.exec(answer.text)?.[1]?.trim();
+      if (sendMode === "quiz" && score) await saveModule(m.id, { quizScore: score });
+      if (sendMode === "lesson" || (sendMode === "quiz" && score)) {
         setMemoryBusy(true);
         try {
-          const next = await updateMemory(rt, memory, answer, userMsg.text, progress);
+          const where = `${m.id} «${m.title}», ${idx >= 0 ? `שיעור ${idx + 1} מתוך ${modsRef.current[m.id]?.lessons?.length ?? "?"}` : "מבחן מסכם"}`;
+          const next = await updateMemory(rt, memory, answer, userMsg.text, where);
           if (next) {
             setMemory(next);
             await rt.store?.setMemory(next);
           }
         } catch {
-          setNotices((n) => [...n, { level: "warn", text: "זיכרון הקורס לא עודכן הפעם. אפשר לעדכן אותו ידנית מהכפתור 🧠." }]);
+          notify({ level: "warn", text: "זיכרון הקורס לא עודכן הפעם. אפשר לעדכן אותו ידנית." });
         } finally {
           setMemoryBusy(false);
         }
       }
     },
-    [effort, progress, activeBook, memory, saveProgress],
+    [effort, memory, finishLesson, saveModule],
   );
 
   const send = useCallback(
-    async (text: string, images: File[], sendMode: Mode = mode, title?: string, fresh = false) => {
-      if (busy || !rt) return;
+    async (text: string, images: File[], sendMode: Mode = mode) => {
+      if (busy || !rt || !module || lessonIdx === undefined) return;
       if (!rt.sample) {
         setNotices([{ level: "error", text: "Claude אינו זמין בתצוגה הזו. פתח את הדף ב-claude.ai כשאתה מחובר." }]);
         return;
@@ -323,36 +389,37 @@ export function App() {
       setBusy(true);
       setNotices([]);
       stick.current = true;
-      const history = fresh ? [] : messages;
       const userMsg: StoredMessage = { role: "user", text, mode: sendMode, ts: Date.now(), ...(images.length ? { images: images.length } : {}) };
-      let c = fresh ? null : conv;
-      if (!c) {
-        const t = (title || text || "תמונה").replace(/\s+/g, " ").slice(0, 60);
+      let cid = convId;
+      if (!cid) {
+        const title = isQuiz ? `${module.id} · מבחן מסכם` : `${module.id} · שיעור ${lessonIdx + 1}: ${lesson?.title ?? ""}`;
         try {
-          c = rt.store ? await rt.store.createConversation(t, activeBook) : null;
+          cid = rt.store ? (await rt.store.createConversation(title.slice(0, 90), module.id, lessonIdx)).id : null;
         } catch {
-          setNotices([{ level: "warn", text: "לא הצלחתי לשמור את השיחה ב-claude.ai. היא תישאר רק בתצוגה הזו." }]);
+          notify({ level: "warn", text: "לא הצלחתי לשמור את השיחה ב-claude.ai. היא תישאר רק בתצוגה הזו." });
         }
-        c ??= { id: `local-${Date.now()}`, title: t, bookId: activeBook, createdAt: Date.now(), updatedAt: Date.now(), count: 0 };
-        setConv(c);
-        rememberConv(c.id);
+        cid ??= `local-${Date.now()}`;
+        setConvId(cid);
+        if (isQuiz) await saveModule(module.id, { quizConv: cid });
+        else await saveModule(module.id, { convs: { ...(modsRef.current[module.id]?.convs ?? {}), [String(lessonIdx)]: cid } });
       }
+      const history = messages;
       setMessages([...history, userMsg]);
-      if (rt.store && !c.id.startsWith("local-")) {
+      if (rt.store && !cid.startsWith("local-")) {
         try {
-          await rt.store.addMessage(c.id, userMsg, history.length + 1);
+          await rt.store.saveMessage(cid, rt.store.newMessageId(cid), userMsg);
         } catch {
-          setNotices((n) => [...n, { level: "warn", text: "חלק מהשיחה לא נשמר ב-claude.ai." }]);
+          notify({ level: "warn", text: "חלק מהשיחה לא נשמר ב-claude.ai." });
         }
       }
-      await generate({ rt, convId: c.id, history, userMsg, sendMode, images });
+      await generate({ rt, m: module, idx: lessonIdx, cid, history, userMsg, sendMode, images });
     },
-    [busy, rt, conv, messages, mode, activeBook, generate],
+    [busy, rt, module, lessonIdx, lesson, isQuiz, convId, messages, mode, generate, saveModule],
   );
 
   /** Continues the last answer of this conversation from its saved draft. */
   const resumeLast = useCallback(async () => {
-    if (busy || !rt?.sample || !conv) return;
+    if (busy || !rt?.sample || !convId || !module || lessonIdx === undefined) return;
     const last = messages[messages.length - 1];
     const userIdx = messages.length - 2;
     if (last?.role !== "assistant" || messages[userIdx]?.role !== "user") return;
@@ -360,8 +427,8 @@ export function App() {
     setNotices([]);
     stick.current = true;
     setMessages(messages.slice(0, -1));
-    await generate({ rt, convId: conv.id, history: messages.slice(0, userIdx), userMsg: messages[userIdx], sendMode: last.mode, images: [], resume: last });
-  }, [busy, rt, conv, messages, generate]);
+    await generate({ rt, m: module, idx: lessonIdx, cid: convId, history: messages.slice(0, userIdx), userMsg: messages[userIdx], sendMode: last.mode, images: [], resume: last });
+  }, [busy, rt, convId, module, lessonIdx, messages, generate]);
 
   // Warn before closing the page while an answer is being written.
   useEffect(() => {
@@ -371,192 +438,180 @@ export function App() {
     return () => window.removeEventListener("beforeunload", warn);
   }, [busy]);
 
-  const onPickFiles = useCallback(
-    async (files: File[], forBook?: string) => {
-      for (const f of files) {
-        const bookId = forBook ?? guessBook(f.name);
-        if (!bookId) {
-          setNotices((n) => [...n, { level: "warn", text: `לא זיהיתי לאיזה ספר שייך הקובץ "${f.name}". אפשר לטעון אותו מהכפתור ⬆ של הספר עצמו.` }]);
-          continue;
-        }
-        setImporting({ bookId, done: 0, total: 0 });
-        try {
-          await importFile(f, bookId, (done, total) => setImporting({ bookId, done, total }));
-        } catch (e) {
-          setNotices((n) => [...n, { level: "error", text: `טעינת "${f.name}" נכשלה: ${(e as Error).message}` }]);
-        }
-      }
-      setImporting(null);
-      refreshLoaded();
-    },
-    [refreshLoaded],
-  );
-
   const all = useMemo(() => (live ? [...messages, live] : messages), [messages, live]);
   const items = useMemo(() => toItems(all), [all]);
-  const totalWords = useMemo(() => items.reduce((s, it) => s + (it.kind === "assistant" ? countWords(it.segments) : 0), 0), [items]);
+  const hasLesson = messages.some((m) => m.role === "assistant" && m.mode === "lesson" && !m.interrupted && !m.draft);
 
   useEffect(() => {
     const el = scrollRef.current;
     if (el && busy && stick.current) el.scrollTop = el.scrollHeight;
   }, [items, busy]);
+  useEffect(() => {
+    scrollRef.current?.scrollTo({ top: 0 });
+  }, [selection?.moduleId, selection?.lesson]);
 
-  const onScroll = () => {
-    const el = scrollRef.current!;
-    stick.current = el.scrollHeight - el.scrollTop - el.clientHeight < 120;
-    setReadPct(el.scrollHeight > el.clientHeight ? el.scrollTop / (el.scrollHeight - el.clientHeight) : 0);
-  };
+  const openSource = useCallback((doc: string, page: number) => setViewer({ doc, page }), []);
 
-  const book = BOOKS.find((b) => b.id === activeBook) ?? BOOKS[0];
-  const prog = progress[book.id];
-  const startPage = prog?.page ?? (book.series === "physics" ? "1-1" : "1");
-  const seriesName = book.series === "math" ? "מתמטיקה" : "פיינמן";
-  const volume = book.volume.split(":")[0];
-  const quick: QuickAction[] = [
-    {
-      label: `📖 ${sectionUnfinished(prog?.section) ? "החלק הבא של הסעיף" : "השיעור הבא"}: ${seriesName} ${volume}, עמ' ${startPage}`,
-      title: `📖 ${seriesName} ${volume} · עמ' ${startPage}`,
-      text: sectionUnfinished(prog?.section)
-        ? `המשך לחלק הבא של הסעיף (${prog?.section}), החל מהעמוד המודפס ${startPage}.`
-        : `למד אותי את הסעיף הבא בספר ${book.title}, החל מהעמוד המודפס ${startPage}${prog?.section ? ` (הסעיף האחרון שלמדנו: ${prog.section})` : ""}.`,
-      mode: "lesson",
-    },
-    ...(items.length
-      ? [
-          { label: "🐢 הסבר שוב, לאט יותר", text: "החלק האחרון היה מהיר מדי בשבילי. הסבר אותו שוב, לאט יותר ומלמטה למעלה, עם עוד דוגמה מספרית פשוטה.", mode: "clarify" as Mode },
-          { label: "✏️ עוד תרגילים", text: "תן לי עוד תרגילים על החומר האחרון, מדורגים מקל לקשה, כולל פתרונות מלאים שאומתו בחישוב.", mode: "clarify" as Mode },
-          { label: "🔬 מקרה בוחן נוסף", text: "הוסף מקרה בוחן מעמיק נוסף לחומר האחרון, מתחום שעוד לא הופיע, עם מודל ומספרים מחושבים.", mode: "clarify" as Mode },
-        ]
-      : []),
-  ];
-  const lastItem = items[items.length - 1];
-  const convBook = BOOKS.find((b) => b.id === (conv?.bookId ?? activeBook)) ?? book;
-  const author = `${convBook.series === "math" ? "מתמטיקה" : "פיינמן"} · ${convBook.volume.split(":")[0]}`;
-  // A new section gets its own conversation; the next part of a split section stays here.
-  const startsNewChat = messages.some((m) => m.role === "assistant" && m.mode === "lesson") && !sectionUnfinished(prog?.section);
+  /* ---- view ---- */
+  const part = module && index ? index.parts.find((p) => p.id === module.part) : undefined;
+  const crumbs: Crumb[] = [{ label: "מפת המודולים", onClick: () => setSelection(null) }];
+  if (part) crumbs.push({ label: `${part.id} ${part.title}`, onClick: () => (setSidePref("open"), setSideOpen(true)) });
+  if (module) crumbs.push({ label: `${module.id} ${module.title}`, onClick: () => setSelection({ moduleId: module.id }) });
+  if (lesson) crumbs.push({ label: lesson.title });
+  if (isQuiz) crumbs.push({ label: "מבחן מסכם" });
+  const nLessons = prog?.lessons?.length ?? 0;
+  const counter = lesson ? `שיעור ${(lessonIdx ?? 0) + 1}/${nLessons}` : isQuiz ? "מבחן" : module && nLessons ? `${prog?.done?.length ?? 0}/${nLessons} שיעורים` : undefined;
+  const fullBar = module?.tier !== "ref";
+
+  const quick: QuickAction[] = [];
+  if (lesson && !busy) {
+    if (!hasLesson && !messages.some((m) => m.role === "assistant" && m.mode === "lesson"))
+      quick.push({ label: `כתוב את שיעור ${(lessonIdx ?? 0) + 1}`, text: `כתוב את שיעור ${(lessonIdx ?? 0) + 1} במודול ${module!.id}: ${lesson.title}.`, mode: "lesson", primary: true });
+    else if (hasLesson)
+      quick.push(
+        { label: "הסבר שוב, לאט יותר", text: "החלק האחרון היה מהיר מדי בשבילי. הסבר אותו שוב, לאט יותר ומלמטה למעלה, עם עוד דוגמה מספרית פשוטה.", mode: "clarify" },
+        { label: "עוד תרגילים", text: "תן לי עוד תרגילים על השיעור: חישובי מהנדס והערכות אנליסט, מדורגים מקל לקשה, עם פתרונות מלאים שאומתו בחישוב.", mode: "clarify" },
+        { label: "מקרה בוחן נוסף", text: "הוסף מקרה בוחן מעמיק נוסף לשיעור, אירוע מבצעי או מערכת שעוד לא הופיעו, עם מודל ומספרים מחושבים.", mode: "clarify" },
+      );
+  }
+  if (isQuiz && !busy && !messages.length) quick.push({ label: "התחל את המבחן", text: `התחל את המבחן המסכם של מודול ${module?.id}.`, mode: "quiz", primary: true });
+
+  const status = !rt ? "connecting" : rt.sample ? "live" : "off";
+  const sideVisible = narrow() ? sideOpen : sidePref === "open";
+  const nextLesson = lessonIdx !== undefined && lessonIdx >= 0 && lessonIdx + 1 < nLessons ? lessonIdx + 1 : lessonIdx !== undefined && lessonIdx >= 0 && lessonIdx + 1 === nLessons ? -1 : null;
+  const mdCtx = useMemo(() => ({ live: false, idPrefix: "page", openSource }), [openSource]);
 
   return (
-    <div className={`app ${sidePref === "closed" ? "side-collapsed" : ""} ${outlinePref === "open" ? "outline-open" : ""}`}>
-      <Sidebar
-        collapsed={sidePref === "closed"}
-        onExpand={() => setSidePref("open")}
-        progress={progress}
-        loaded={loaded}
-        importing={importing}
-        activeBook={book.id}
-        setActiveBook={(id) => (setActiveBook(id), setSideOpen(false))}
-        onOpenBook={(id) => setViewer({ bookId: id, page: progress[id]?.page ?? "1", by: progress[id] ? "label" : "pdf" })}
-        onSetPage={(id, page) => saveProgress(id, { page })}
-        onPickFiles={onPickFiles}
-        conversations={convs}
-        currentId={conv?.id}
-        onPick={(id) => {
-          const c = convs.find((x) => x.id === id);
-          if (busy || !c) return;
-          openConversation(c);
-          setSideOpen(false);
-        }}
-        onNew={() => {
-          if (busy) return;
-          setConv(null);
-          setMessages([]);
-          setNotices([]);
-          setSideOpen(false);
-        }}
-        onDelete={async (id) => {
-          try {
-            await rt?.store?.deleteConversation(id);
-          } catch {
-            setNotices((n) => [...n, { level: "error", text: "המחיקה נכשלה." }]);
-          }
-          if (conv?.id === id) {
-            setConv(null);
-            setMessages([]);
-          }
-        }}
-        canSave={!!rt?.store}
-        onOpenMemory={() => (setMemoryOpen(true), setSideOpen(false))}
+    <div className={`app ${sidePref === "closed" ? "side-collapsed" : ""} ${viewer ? "viewer-open" : ""}`}>
+      <Topbar
+        crumbs={crumbs}
+        counter={counter}
+        status={status}
+        sideOpen={sideVisible}
+        viewerOpen={!!viewer}
         memoryBusy={memoryBusy}
-        open={sideOpen}
-        onClose={() => setSideOpen(false)}
+        onToggleSide={() => (narrow() ? setSideOpen(!sideOpen) : setSidePref(sidePref === "open" ? "closed" : "open"))}
+        onToggleViewer={
+          viewer || module
+            ? () => {
+                if (viewer) setViewer(null);
+                else if (module) {
+                  const s = lesson?.sources[0] ?? module.sources[0];
+                  setViewer({ doc: s.doc, page: s.pages[0] });
+                }
+              }
+            : undefined
+        }
+        onMemory={() => setMemoryOpen(true)}
       />
-      {sideOpen && <div className="side-scrim" onClick={() => setSideOpen(false)} />}
+      <div className="body">
+        {index ? (
+          <ModuleMap index={index} done={done} progress={mods} selection={selection} onSelect={setSelection} open={sideOpen} onClose={() => setSideOpen(false)} />
+        ) : (
+          <nav className={`sidebar ${sideOpen ? "is-open" : ""}`}>
+            <div className="side-head">
+              <div className="side-title">מפת המודולים</div>
+            </div>
+            <div className="block-pending">{indexError || "טוען את הספרייה…"}</div>
+          </nav>
+        )}
+        {sideOpen && <div className="scrim" onClick={() => setSideOpen(false)} />}
 
-      <main className="main">
-        <Hud
-          book={book}
-          lastLabel={loaded[book.id]?.lastLabel ?? null}
-          progress={progress}
-          words={totalWords}
-          solved={solved}
-          status={!rt ? "connecting" : rt.sample ? "live" : "off"}
-          title={conv?.title ?? "שיחה חדשה"}
-          sideOpen={narrow() ? sideOpen : sidePref === "open"}
-          outlineOpen={outlinePref === "open"}
-          onToggleSide={() => (narrow() ? setSideOpen(!sideOpen) : setSidePref(sidePref === "open" ? "closed" : "open"))}
-          onToggleOutline={() => setOutlinePref(outlinePref === "open" ? "closed" : "open")}
-        />
-        <div className="read-progress" style={{ transform: `scaleX(${readPct})` }} />
-        <div className="chat-scroll" ref={scrollRef} onScroll={onScroll}>
-          <div className="chat-col">
-            {rt && !rt.sample && (
-              <div className="banner banner-warn">אין כאן חיבור ל-Claude. פתח את הדף ב-claude.ai כשאתה מחובר, ואשר לו לפנות ל-Claude כשתתבקש.</div>
-            )}
-            {rt && rt.sample && !rt.store && (
-              <div className="banner banner-warn">השיחות לא יישמרו בתצוגה הזו (צריך להיות מחובר ל-claude.ai עם הרשאת כתיבה).</div>
-            )}
-            {!loaded[book.id] && (
-              <div className="banner banner-demo">
-                <b>טוען את הספר…</b> אם זה לא מסתיים, אפשר לטעון את קובץ ה-{book.series === "math" || book.id === "feyn3" ? "PDF" : "TXT"} של {seriesName} {volume} מהמחשב (הכפתור ⬆ בכרטיס במדף).
-              </div>
-            )}
-            {items.length === 0 && (
-              <Welcome page={startPage} label={`${seriesName} ${volume}`} color={book.color} onStart={() => send(quick[0].text, [], "lesson", quick[0].title)} disabled={!rt?.sample || busy} />
-            )}
-            {items.map((it, i) =>
-              it.kind === "user" ? (
-                <UserBubble key={it.key} item={it} />
-              ) : (
-                <AssistantTurn
-                  key={it.key}
-                  author={author}
-                  item={it}
-                  live={busy && !!live && i === items.length - 1}
-                  onOpenBook={(bookId, page, by) => setViewer({ bookId, page, by })}
-                  onFillGaps={(missing) =>
-                    send(`בהודעה הקודמת חסרו לפי בדיקת הרף: ${missing.join(", ")}. השלם עכשיו את החסר ברמה המלאה, בהמשך ישיר לשיעור ובלי לחזור על מה שכבר נכתב.`, [], "lesson")
-                  }
-                  onContinue={it === lastItem && !busy ? resumeLast : undefined}
-                />
-              ),
-            )}
-            {notices.map((n, i) => (
-              <div key={i} className={`banner banner-${n.level}`}>
-                {n.text}
-              </div>
-            ))}
+        <main className="main">
+          <div className="scroll" ref={scrollRef} onScroll={() => {
+            const el = scrollRef.current!;
+            stick.current = el.scrollHeight - el.scrollTop - el.clientHeight < 120;
+          }}>
+            <div className="col">
+              {rt && !rt.sample && <div className="banner banner-warn">אין כאן חיבור ל-Claude. פתח את הדף ב-claude.ai כשאתה מחובר, ואשר לו לפנות ל-Claude כשתתבקש.</div>}
+              {rt && rt.sample && !rt.store && <div className="banner banner-warn">השיחות וההתקדמות לא יישמרו בתצוגה הזו (צריך להיות מחובר ל-claude.ai עם הרשאת כתיבה).</div>}
+              {indexError && <div className="banner banner-error">{indexError}</div>}
+
+              {!module && index && <Overview index={index} done={done} mods={mods} onSelect={setSelection} />}
+
+              {module && lessonIdx === undefined && (
+                <MdContext.Provider value={mdCtx}>
+                  <ModulePage
+                    m={module}
+                    state={state}
+                    prog={prog}
+                    done={done}
+                    planning={planning?.moduleId === module.id ? planning.status : null}
+                    canPlan={!!rt?.sample && !busy}
+                    onPlan={() => runPlan(module)}
+                    onStop={() => ctl.current?.abort()}
+                    onSelect={setSelection}
+                    index={index!}
+                  />
+                </MdContext.Provider>
+              )}
+
+              {module && lessonIdx !== undefined && (
+                <>
+                  {items.length === 0 && (
+                    <MdContext.Provider value={mdCtx}>
+                      {lesson && <LessonIntro m={module} idx={lessonIdx} lesson={lesson} total={nLessons} />}
+                      {isQuiz && <QuizIntro m={module} prog={prog} />}
+                      {!lesson && !isQuiz && <div className="block-pending">השיעור הזה עוד לא תוכנן.</div>}
+                    </MdContext.Provider>
+                  )}
+                  {items.map((it, i) =>
+                    it.kind === "user" ? (
+                      <UserBubble key={it.key} item={it} />
+                    ) : (
+                      <AssistantTurn
+                        key={it.key}
+                        item={it}
+                        live={busy && !!live && i === items.length - 1}
+                        header={lesson ? { code: `${module.id} · ${(lessonIdx ?? 0) + 1}/${nLessons}`, title: lesson.title, sub: module.title } : undefined}
+                        fullBar={fullBar}
+                        onOpenSource={openSource}
+                        onFillGaps={(missing) =>
+                          send(`בשיעור חסרו לפי בדיקת הרף: ${missing.join(", ")}. השלם עכשיו את מה שחסר ברמה המלאה, בהמשך ישיר לשיעור ובלי לחזור על מה שכבר נכתב.`, [], "clarify")
+                        }
+                        onContinue={i === items.length - 1 && !busy ? resumeLast : undefined}
+                      />
+                    ),
+                  )}
+                  {hasLesson && !busy && nextLesson !== null && (
+                    <div className="next-row">
+                      <button className="btn primary" onClick={() => setSelection({ moduleId: module.id, lesson: nextLesson })}>
+                        {nextLesson === -1 ? "למבחן המסכם של המודול" : `לשיעור ${nextLesson + 1}: ${prog?.lessons?.[nextLesson]?.title}`}
+                        <Icon name="next" size={16} />
+                      </button>
+                    </div>
+                  )}
+                </>
+              )}
+              {notices.map((n, i) => (
+                <div key={i} className={`banner banner-${n.level}`}>
+                  {n.text}
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-        <Composer
-          busy={busy}
-          onSend={(t, im) => send(t, im)}
-          onQuick={(q) => send(q.text, [], q.mode, q.title, q === quick[0] && startsNewChat)}
-          onStop={() => ctl.current?.abort()}
-          quick={quick}
-          mode={mode}
-          setMode={setMode}
-          effort={effort}
-          setEffort={setEffort}
-          canAttach={!!rt?.canSendImages}
-        />
-      </main>
+          {module && lessonIdx !== undefined && (lesson || isQuiz) && (
+            <Composer
+              busy={busy}
+              onSend={(t, im) => {
+                const q = quick.find((x) => x.text === t);
+                send(t, im, q ? q.mode : mode);
+              }}
+              onStop={() => ctl.current?.abort()}
+              quick={quick}
+              modes={isQuiz ? ["quiz", "clarify"] : ["clarify", "free"]}
+              mode={mode}
+              setMode={setMode}
+              effort={effort}
+              setEffort={setEffort}
+              canAttach={!!rt?.canSendImages}
+              disabled={!rt?.sample}
+            />
+          )}
+        </main>
 
-      {outlinePref === "open" && (
-        <>
-          <div className="side-scrim outline-scrim" onClick={() => setOutlinePref("closed")} />
-          <Outline items={items} onClose={() => setOutlinePref("closed")} onNavigate={() => overlayOutline() && setOutlinePref("closed")} />
-        </>
-      )}
+        {viewer && <SourceViewer doc={viewer.doc} page={viewer.page} onPage={(p) => setViewer({ ...viewer, page: p })} onClose={() => setViewer(null)} />}
+      </div>
 
       {memoryOpen && (
         <MemoryPanel
@@ -569,55 +624,268 @@ export function App() {
             try {
               await rt?.store?.setMemory(text);
             } catch {
-              setNotices((n) => [...n, { level: "error", text: "שמירת הזיכרון נכשלה." }]);
+              notify({ level: "error", text: "שמירת הזיכרון נכשלה." });
             }
           }}
         />
       )}
-      {viewer && <BookViewer bookId={viewer.bookId} start={viewer.page} by={viewer.by} onClose={() => setViewer(null)} />}
     </div>
   );
 }
 
-function Welcome({ page, label, color, onStart, disabled }: { page: string; label: string; color: string; onStart: () => void; disabled: boolean }) {
+/* ---------------- pages ---------------- */
+
+function Overview({ index, done, mods, onSelect }: { index: LibraryIndex; done: Set<string>; mods: Record<string, ModuleProgress>; onSelect: (s: Selection) => void }) {
+  const open = index.modules.filter((m) => moduleState(m, done) === "open");
+  const started = open.filter((m) => mods[m.id]?.lessons?.length);
+  const fresh = open.filter((m) => !mods[m.id]?.lessons?.length && m.tier === "core");
+  const counts = { done: done.size, open: open.length, locked: index.modules.length - done.size - open.length };
+  const pick = [...started, ...fresh].slice(0, 8);
   return (
-    <div className="welcome window">
-      <div className="window-bar">
-        <span className="window-stripes" aria-hidden />
-        <span className="window-title">STUDY·LAB</span>
-        <span className="window-stripes" aria-hidden />
-      </div>
-      <div className="welcome-stage">
-        <FlowField className="welcome-canvas" density={1.3} />
-        <div className="welcome-copy">
-          <div className="welcome-kicker">
-            <span className="pill pill-label">מוכן לשיעור</span>
+    <div className="overview">
+      <DimensionHead code="CORE LAB" title="מעבדת הליבה" sub="הליבה הטכנית: מכ״ם, ל״א, EO/IR, ניווט, הנחיה, הגנה אווירית, פלטפורמות. מודול אחר מודול, מתוך הספרייה." />
+      <dl className="stats">
+        {(["done", "open", "locked"] as const).map((k) => (
+          <div key={k} className={`stat st-${k}`}>
+            <dt>{STATE_LABEL[k]}</dt>
+            <dd dir="ltr">{counts[k]}</dd>
           </div>
-          <h1 className="welcome-title">
-            מעבדת <span className="grad">הלמידה</span>
-          </h1>
-          <p className="welcome-sub">שיעור מעמיק על כל סעיף: סיפור פתיחה, גזירות צעד אחר צעד, שחזור של כל איור, מקרה בוחן ותרגילים. כל מספר מחושב.</p>
-          <button className="btn btn-hero" onClick={onStart} disabled={disabled} style={{ ["--accent" as string]: color }}>
-            ▶ התחל מעמ' {page} · {label}
-          </button>
-        </div>
-      </div>
-      <div className="welcome-legend">
-        {[
-          ["📜", "סיפור פתיחה", "amber"],
-          ["🤔", "עצרו וחשבו", "violet"],
-          ["∑", "נוסחת מפתח", "blue"],
-          ["🔬", "מקרה בוחן", "cyan"],
-          ["🌍", "4 תחומים", "teal"],
-          ["🎛️", "אינטראקטיבי", "orange"],
-          ["⚠️", "טעויות בספר", "red"],
-          ["✏️", "תרגילים", "lime"],
-        ].map(([icon, l, tone]) => (
-          <span key={l} className={`chip tone-chip-${tone}`}>
-            {icon} {l}
-          </span>
         ))}
-      </div>
+      </dl>
+      <h2 className="section-title">{started.length ? "להמשיך מכאן" : "מודולים זמינים להתחלה"}</h2>
+      <ul className="cards">
+        {pick.map((m) => {
+          const p = mods[m.id];
+          return (
+            <li key={m.id}>
+              <button className="card" onClick={() => onSelect({ moduleId: m.id })}>
+                <span className="card-id" dir="ltr">
+                  {m.id}
+                </span>
+                <span className="card-title">{m.title}</span>
+                <span className="card-en" dir="ltr">
+                  {m.en}
+                </span>
+                <span className="card-foot">
+                  <span className={`tier tier-${m.tier}`}>{TIER_LABEL[m.tier]}</span>
+                  {p?.lessons?.length ? (
+                    <span>
+                      {p.done?.length ?? 0}/{p.lessons.length} שיעורים
+                    </span>
+                  ) : (
+                    <span>{m.sources.reduce((s, x) => s + x.pages[1] - x.pages[0] + 1, 0)} עמ'</span>
+                  )}
+                </span>
+              </button>
+            </li>
+          );
+        })}
+      </ul>
+      <p className="muted">
+        מודול נפתח כשכל הדרישות המוקדמות שלו נלמדו, ומסומן כנלמד כשכל השיעורים שלו נכתבו עד הסוף. ההסבר למודול נעול מופיע בלחיצה עליו במפה.
+      </p>
     </div>
   );
 }
+
+function SourceList({ m }: { m: Module }) {
+  const ROLE = { main: "מקור ראשי", supp: "השלמה", article: "מאמר" };
+  return (
+    <ul className="sources">
+      {m.sources.map((s, i) => (
+        <li key={i} className={`src src-${s.role}`}>
+          <span className="src-role">{ROLE[s.role]}</span>
+          <span className="src-name">
+            <SourceTag doc={s.doc} page={s.pages[0]} />
+            {s.pages[1] > s.pages[0] && (
+              <span className="muted" dir="ltr">
+                {" "}
+                ({s.pages[1] - s.pages[0] + 1} עמ')
+              </span>
+            )}
+          </span>
+          {s.note && <span className="src-note">{s.note}</span>}
+          <span className="src-title" dir="ltr">
+            {docMeta(s.doc)?.title}
+          </span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function ModulePage({
+  m,
+  state,
+  prog,
+  done,
+  planning,
+  canPlan,
+  onPlan,
+  onStop,
+  onSelect,
+  index,
+}: {
+  m: Module;
+  state: "done" | "open" | "locked";
+  prog?: ModuleProgress;
+  done: Set<string>;
+  planning: string | null;
+  canPlan: boolean;
+  onPlan: () => void;
+  onStop: () => void;
+  onSelect: (s: Selection) => void;
+  index: LibraryIndex;
+}) {
+  const lessons = prog?.lessons ?? [];
+  const missing = (m.prereq ?? []).filter((x) => !done.has(x));
+  return (
+    <div className="module-page">
+      <DimensionHead code={m.id} title={m.title} sub={`${m.en} · ${TIER_LABEL[m.tier]} · ${STATE_LABEL[state]}`} />
+      {state === "locked" && (
+        <div className="banner banner-warn">
+          המודול נעול. הוא ייפתח אחרי שיילמדו:{" "}
+          {missing.map((x, i) => (
+            <span key={x}>
+              {i > 0 && ", "}
+              <button className="link" onClick={() => onSelect({ moduleId: x })}>
+                <bdi dir="ltr">{x}</bdi> {index.modules.find((y) => y.id === x)?.title}
+              </button>
+            </span>
+          ))}
+        </div>
+      )}
+      <h2 className="section-title">המקורות</h2>
+      <SourceList m={m} />
+      {m.prereq?.length ? (
+        <p className="muted">
+          נשען על:{" "}
+          {m.prereq.map((x, i) => (
+            <span key={x}>
+              {i > 0 && " · "}
+              <bdi dir="ltr">{x}</bdi> {index.modules.find((y) => y.id === x)?.title}
+            </span>
+          ))}
+        </p>
+      ) : null}
+
+      <h2 className="section-title">השיעורים</h2>
+      {planning ? (
+        <div className="live-status">
+          <span className="spinner" />
+          {planning}
+          <button className="btn small" onClick={onStop}>
+            עצור
+          </button>
+        </div>
+      ) : lessons.length ? (
+        <>
+          <ol className="lesson-list">
+            {lessons.map((l, i) => {
+              const isDone = (prog?.done ?? []).includes(i);
+              return (
+                <li key={i} className={isDone ? "is-done" : ""}>
+                  <button className="lesson-card" onClick={() => onSelect({ moduleId: m.id, lesson: i })}>
+                    <span className="lesson-no" dir="ltr">
+                      {i + 1}
+                    </span>
+                    <span className="lesson-body">
+                      <span className="lesson-title">{l.title}</span>
+                      <span className="lesson-covers">{l.covers.join(" · ")}</span>
+                    </span>
+                    <span className={`state state-${isDone ? "done" : "open"}`}>{isDone ? "הושלם" : prog?.convs?.[String(i)] ? "בתהליך" : "לא התחיל"}</span>
+                  </button>
+                </li>
+              );
+            })}
+            <li>
+              <button className="lesson-card quiz" onClick={() => onSelect({ moduleId: m.id, lesson: -1 })}>
+                <span className="lesson-no">
+                  <Icon name="quiz" size={16} />
+                </span>
+                <span className="lesson-body">
+                  <span className="lesson-title">מבחן מסכם</span>
+                  <span className="lesson-covers">חישובי מהנדס והערכות אנליסט על כל המודול</span>
+                </span>
+                {prog?.quizScore && <span className="state state-done">{prog.quizScore}</span>}
+              </button>
+            </li>
+          </ol>
+          {prog?.uncovered?.length ? <p className="muted">סעיפים שהחלוקה לא שייכה בעצמה, וצורפו לשיעור הקרוב אליהם: {prog.uncovered.join(" · ")}</p> : null}
+          {canPlan && !(prog?.done ?? []).length && (
+            <button className="btn small" onClick={onPlan}>
+              חלק מחדש לשיעורים
+            </button>
+          )}
+        </>
+      ) : state === "locked" ? (
+        <p className="muted">החלוקה לשיעורים תיעשה כשהמודול ייפתח.</p>
+      ) : (
+        <div className="empty">
+          <p>המורה מחלק את המודול לשיעורים לפי הסעיפים: כל סעיף בעמודי המודול מקבל שיעור, חפיפות בין המקורות מאוחדות, ובסוף נבדק שלא הושמט דבר.</p>
+          <button className="btn primary" onClick={onPlan} disabled={!canPlan}>
+            חלק לשיעורים
+          </button>
+        </div>
+      )}
+
+      {m.sections.length > 0 && (
+        <details className="sections">
+          <summary>סעיפים בעמודי המודול ({m.sections.length})</summary>
+          <ul>
+            {m.sections.map((s, i) => (
+              <li key={i} className={`depth-${s.depth}`}>
+                <SourceTag doc={s.doc} page={s.page} /> <span dir="ltr">{s.title}</span>
+              </li>
+            ))}
+          </ul>
+        </details>
+      )}
+    </div>
+  );
+}
+
+function LessonIntro({ m, idx, lesson, total }: { m: Module; idx: number; lesson: NonNullable<ModuleProgress["lessons"]>[number]; total: number }) {
+  return (
+    <div className="lesson-intro">
+      <DimensionHead code={`${m.id} · ${idx + 1}/${total}`} title={lesson.title} sub={m.title} />
+      <p>{lesson.focus}</p>
+      <h2 className="section-title">מה השיעור מכסה</h2>
+      <ul className="covers">
+        {lesson.covers.map((c, i) => (
+          <li key={i} dir="auto">
+            {c}
+          </li>
+        ))}
+      </ul>
+      <h2 className="section-title">עמודי המקור</h2>
+      <ul className="src-pages">
+        {lesson.sources.map((s, i) => (
+          <li key={i}>
+            <SourceTag doc={s.doc} page={s.pages[0]} />
+            {s.pages[1] > s.pages[0] && (
+              <span className="muted">
+                {" "}
+                עד <SourceTag doc={s.doc} page={s.pages[1]} />
+              </span>
+            )}
+          </li>
+        ))}
+      </ul>
+      <p className="muted">השיעור נכתב בחלקים, ונשמר תוך כדי כתיבה. אם הדפדפן נסגר באמצע, הכתיבה ממשיכה מהחלק שנעצר.</p>
+    </div>
+  );
+}
+
+function QuizIntro({ m, prog }: { m: Module; prog?: ModuleProgress }) {
+  const n = prog?.lessons?.length ?? 0;
+  const d = prog?.done?.length ?? 0;
+  return (
+    <div className="lesson-intro">
+      <DimensionHead code={`${m.id} · מבחן`} title={`מבחן מסכם: ${m.title}`} />
+      <p>שש עד שמונה שאלות על כל המודול: חצי חישובי מהנדס עם מספרים אמיתיים, וחצי שאלות של אנליסט על מערכות בשטח. עונים בהודעה אחת, והמורה בודק כל תשובה ונותן ציון.</p>
+      {d < n && <p className="muted">נלמדו {d} מתוך {n} שיעורים. אפשר לגשת למבחן גם עכשיו, אבל הוא מכסה את כל המודול.</p>}
+    </div>
+  );
+}
+

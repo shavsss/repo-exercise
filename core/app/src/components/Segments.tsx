@@ -1,64 +1,53 @@
 import { useState } from "react";
 import type { Activity } from "../types";
-import { BOOKS } from "../books";
+import { docMeta } from "../library";
+import { Icon } from "./Icon";
 
-const BOOK_SHORT: Record<string, string> = {
-  math1: "מתמטיקה א׳",
-  math2: "מתמטיקה ב׳",
-  math3: "מתמטיקה ג׳",
-  feyn1: "פיינמן I",
-  feyn2: "פיינמן II",
-  feyn3: "פיינמן III",
-};
-
-export function ActivitySeg({ a, onOpenBook }: { a: Activity; onOpenBook: (bookId: string, page: string, by: "label" | "pdf") => void }) {
+/** One tool call of the tutor: a page read, a search, or a computation. */
+export function ActivitySeg({ a, onOpenSource }: { a: Activity; onOpenSource: (doc: string, page: number) => void }) {
   const [open, setOpen] = useState(false);
-  const color = "book" in a ? (BOOKS.find((b) => b.id === a.book)?.color ?? "var(--orange)") : "var(--orange)";
-  const book = "book" in a ? (BOOK_SHORT[a.book] ?? a.book) : "";
 
   if (a.t === "compute")
     return (
-      <div className={`seg-code ${a.ok ? "" : "is-error"}`}>
-        <button className="seg-code-head" onClick={() => setOpen(!open)}>
-          <span className="term-dots" aria-hidden>
-            <i />
-            <i />
-            <i />
-          </span>
-          <span className="seg-code-title">{a.ok ? "חישוב שרץ (math.js): המספרים מכאן" : "בחישוב הייתה שגיאה"}</span>
-          <span className="seg-caret">{open ? "▲" : "▼"}</span>
+      <div className={`act act-compute ${a.ok ? "" : "is-error"}`}>
+        <button className="act-head" onClick={() => setOpen(!open)} aria-expanded={open}>
+          <Icon name="calc" size={14} />
+          <span>{a.ok ? "חישוב שרץ בדף (math.js): המספרים בשיעור מכאן" : "בחישוב הייתה שגיאה"}</span>
+          <span className="act-caret">{open ? "הסתר" : "הצג"}</span>
         </button>
         {open && (
-          <div className="seg-code-body" dir="ltr">
-            <pre className="code-out">{a.output}</pre>
-          </div>
+          <pre className="act-out" dir="ltr">
+            {a.output}
+          </pre>
         )}
       </div>
     );
 
-  let icon = "📖";
-  let label = "";
-  if (a.t === "read") label = `קרא ב${book}: עמ' ${a.from}${a.to !== a.from ? `–${a.to}` : ""}${a.by === "pdf" ? " (PDF)" : ""}${a.ok ? "" : " — נכשל"}`;
-  if (a.t === "search") {
-    icon = "🔍";
-    label = `חיפש ב${book}: “${a.query}” · ${a.hits} תוצאות`;
-  }
-  if (a.t === "progress") {
-    icon = "📌";
-    label = `נשמרה התקדמות: ${book}, עמ' ${a.page}${a.section ? ` — ${a.section}` : ""}`;
-  }
+  if (a.t === "search")
+    return (
+      <div className="act">
+        <Icon name="search" size={14} />
+        <span>
+          חיפוש בספרייה: <bdi dir="ltr">“{a.query}”</bdi> · {a.hits} תוצאות
+        </span>
+      </div>
+    );
+
+  const name = docMeta(a.doc)?.short ?? a.doc;
   return (
-    <div className={`seg-tool ${a.t === "read" && !a.ok ? "is-error" : ""}`} style={{ ["--accent" as string]: color }}>
-      <span className="seg-tool-chip">
-        <span>{icon}</span>
-        <span className="seg-tool-label">{label}</span>
+    <div className={`act ${a.ok ? "" : "is-error"}`}>
+      <Icon name="book" size={14} />
+      <span>
+        קרא ב-<bdi>{name}</bdi>: עמודי PDF {a.from}
+        {a.to !== a.from ? `–${a.to}` : ""}
+        {a.ok ? "" : " (נכשל)"}
       </span>
-      {a.t === "read" && a.ok && (
-        <button className="mini-link" onClick={() => onOpenBook(a.book, a.from, a.by === "pdf" ? "pdf" : "label")}>
-          פתח בספר ↗
+      {a.ok && (
+        <button className="link" onClick={() => onOpenSource(a.doc, a.from)}>
+          פתח
         </button>
       )}
-      {a.t === "read" && a.note && <span className="seg-note">{a.note}</span>}
+      {a.note && <span className="act-note">{a.note}</span>}
     </div>
   );
 }

@@ -11,18 +11,36 @@ import { MermaidBlock } from "./blocks/Mermaid";
 import { SvgBlock } from "./blocks/SvgBlock";
 import { Interactive } from "./blocks/Interactive";
 import { Badge } from "./blocks/Badge";
+import { FigureBlock } from "./blocks/Figure";
+import { SimBlock } from "./blocks/Sim";
+import { AnimBlock } from "./blocks/Anim";
+import { SourceTag } from "./blocks/SourceTag";
 
 export interface MdContextValue {
   live: boolean;
   idPrefix: string;
+  openSource: (doc: string, page: number) => void;
 }
-export const MdContext = createContext<MdContextValue>({ live: false, idPrefix: "m" });
+export const MdContext = createContext<MdContextValue>({ live: false, idPrefix: "m", openSource: () => {} });
 
-/** [[tag]] → inline code with a marker, outside fenced blocks, so the code renderer can draw a pill. */
+const SOURCE_TAG = /^([A-Za-z]\d+[a-z]?(?:\.\d+)?):(\d+)$/;
+
+/**
+ * Before parsing: [[tag]] becomes inline code with a marker (outside fenced blocks), so
+ * the code renderer can draw a pill or a source tag; figure blocks get their number in
+ * the order they appear in the message.
+ */
 function preprocess(src: string) {
+  let fig = 0;
   return src
     .split(/(```[\s\S]*?(?:```|$))/g)
-    .map((part, i) => (i % 2 === 1 ? part : part.replace(/\[\[([^\]\n]{1,200})\]\]/g, (_m, inner) => "`§b:" + inner + "`")))
+    .map((part, i) => {
+      if (i % 2 === 1) return part.replace(/^```figure[ \t]*\n/, () => `\`\`\`figure\n@no: ${++fig}\n`);
+      return part
+        // a one-line $$…$$ paragraph is display math (remark-math reads it as inline, which rejects \tag)
+        .replace(/^[ \t]*\$\$([^\n]+?)\$\$[ \t]*$/gm, (_m, tex: string) => `$$\n${tex.trim()}\n$$`)
+        .replace(/\[\[([^\]\n]{1,200})\]\]/g, (_m, inner: string) => (SOURCE_TAG.test(inner.trim()) ? "`§s:" + inner.trim() + "`" : "`§b:" + inner + "`"));
+    })
     .join("");
 }
 
@@ -46,6 +64,9 @@ function FencedBlock({ lang, code }: { lang: string; code: string }) {
   const ctx = useContext(MdContext);
   if (lang === "think") return <Think body={code} />;
   if (lang === "exercise") return <Exercise source={code} />;
+  if (lang === "figure") return <FigureBlock source={code} />;
+  if (lang === "sim") return <SimBlock source={code} live={ctx.live} />;
+  if (lang === "anim") return <AnimBlock source={code} live={ctx.live} />;
   if (lang === "chart") return <ChartBlock source={code} live={ctx.live} />;
   if (lang === "table") return <TableBlock source={code} live={ctx.live} />;
   if (lang === "mermaid") return <MermaidBlock code={code} live={ctx.live} />;
@@ -77,6 +98,10 @@ const components: Components = {
   },
   code({ children, className }) {
     const raw = textOf(children);
+    if (!className && raw.startsWith("§s:")) {
+      const m = SOURCE_TAG.exec(raw.slice(3));
+      if (m) return <SourceTag doc={m[1]} page={Number(m[2])} />;
+    }
     if (!className && raw.startsWith("§b:")) return <Badge text={raw.slice(3)} />;
     return <code className="inline-code">{children}</code>;
   },
@@ -110,7 +135,7 @@ export const Markdown = memo(function Markdown({ text, inline = false }: { text:
   return (
     <ReactMarkdown
       remarkPlugins={[remarkGfm, [remarkMath, { singleDollarTextMath: true }]]}
-      rehypePlugins={[[rehypeKatex, { throwOnError: false, strict: "ignore" }]]}
+      rehypePlugins={[[rehypeKatex, { throwOnError: false, strict: "ignore", trust: false }]]}
       components={inline ? inlineComponents : components}
     >
       {preprocess(text)}
