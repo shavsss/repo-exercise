@@ -8,7 +8,7 @@ import { ModuleMap, STATE_LABEL, TIER_LABEL, type Selection } from "./components
 import { Topbar, type Crumb } from "./components/Topbar";
 import { AssistantTurn, DimensionHead, UserBubble } from "./components/Message";
 import { Composer, type QuickAction } from "./components/Composer";
-import { ReadingDock, ReadingProgress, useResumePosition } from "./components/ReadingAids";
+import { LessonToc, ReadingDock, ReadingProgress, useResumePosition, useTocPanel } from "./components/ReadingAids";
 import { SourceViewer } from "./components/SourceViewer";
 import { MemoryPanel } from "./components/MemoryPanel";
 import { MdContext } from "./components/Markdown";
@@ -478,6 +478,9 @@ export function App() {
   }, [selection?.moduleId, selection?.lesson]);
 
   const inLesson = !!module && lessonIdx !== undefined;
+  const [tocOpen, setTocOpen] = useTocPanel();
+  // the contents panel shares the left side with the source viewer, and gives way to it
+  const showToc = inLesson && !viewer;
   const resume = useResumePosition(scrollRef, inLesson ? `${module!.id}:${lessonIdx}` : null, items.length > 0 && !busy, busy);
 
   const openSource = useCallback((doc: string, page: number) => setViewer({ doc, page }), []);
@@ -513,7 +516,7 @@ export function App() {
   const mdCtx = useMemo(() => ({ live: false, idPrefix: "page", openSource }), [openSource]);
 
   return (
-    <div className={`app ${sidePref === "closed" ? "side-collapsed" : ""} ${viewer ? "viewer-open" : ""}`}>
+    <div className={`app ${sidePref === "closed" ? "side-collapsed" : ""} ${viewer ? "viewer-open" : ""} ${showToc && tocOpen ? "has-toc" : ""}`}>
       <Topbar
         crumbs={crumbs}
         counter={counter}
@@ -653,6 +656,8 @@ export function App() {
             />
           )}
         </main>
+
+        {showToc && <LessonToc scrollRef={scrollRef} version={items} open={tocOpen} setOpen={setTocOpen} />}
 
         {viewer && <SourceViewer doc={viewer.doc} page={viewer.page} onPage={(p) => setViewer({ ...viewer, page: p })} onClose={() => setViewer(null)} />}
       </div>

@@ -1,42 +1,42 @@
 /* Engineering Lab additions to the Core Lab drawing style: 3D scenes, notebooks,
    the ring map, level-2.5 tags, the "today" block and the folded source viewer. */
 :root {
-  --k-today: #b0490f;
-  --k-derivation: #3d5a74;
-  --k-notebook: #4f7a12;
-  --l25-structure: #2f6fae;
-  --l25-origin: #6a4cb0;
-  --l25-limits: #b42318;
-  --l25-magnitude: #9b5a00;
-  --l25-tradeoff: #1f7a73;
-  --l25-shared: #0e6f8f;
-  --l25-critique: #8a3ea0;
+  --k-today: #9a4f12;
+  --k-derivation: #44493a;
+  --k-notebook: #4f6f1a;
+  --l25-structure: #355f7d;
+  --l25-origin: #6a4c8c;
+  --l25-limits: #a3161a;
+  --l25-magnitude: #8a6100;
+  --l25-tradeoff: #2f6b5f;
+  --l25-shared: #2e6577;
+  --l25-critique: #7b3f78;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --k-today: #ff9a5c;
-    --k-derivation: #9cb9d6;
-    --k-notebook: #b6e36b;
-    --l25-structure: #8cc4ff;
-    --l25-origin: #c3a6ff;
-    --l25-limits: #ff8a80;
-    --l25-magnitude: #f2c14e;
-    --l25-tradeoff: #6fd3c8;
-    --l25-shared: #7fd6f0;
-    --l25-critique: #e0a3f0;
+    --k-today: #e6a75c;
+    --k-derivation: #c4c3b2;
+    --k-notebook: #b9d77f;
+    --l25-structure: #94bfdc;
+    --l25-origin: #c9b0ef;
+    --l25-limits: #ff8f84;
+    --l25-magnitude: #e0c46c;
+    --l25-tradeoff: #8fd0c0;
+    --l25-shared: #8fcde0;
+    --l25-critique: #e2b2ec;
   }
 }
 :root[data-theme="dark"] {
-  --k-today: #ff9a5c;
-  --k-derivation: #9cb9d6;
-  --k-notebook: #b6e36b;
-  --l25-structure: #8cc4ff;
-  --l25-origin: #c3a6ff;
-  --l25-limits: #ff8a80;
-  --l25-magnitude: #f2c14e;
-  --l25-tradeoff: #6fd3c8;
-  --l25-shared: #7fd6f0;
-  --l25-critique: #e0a3f0;
+  --k-today: #e6a75c;
+  --k-derivation: #c4c3b2;
+  --k-notebook: #b9d77f;
+  --l25-structure: #94bfdc;
+  --l25-origin: #c9b0ef;
+  --l25-limits: #ff8f84;
+  --l25-magnitude: #e0c46c;
+  --l25-tradeoff: #8fd0c0;
+  --l25-shared: #8fcde0;
+  --l25-critique: #e2b2ec;
 }
 
 .block-today { --k: var(--k-today); }

@@ -115,36 +115,22 @@ function minutesLeft(el: HTMLElement) {
   return Math.round((words * left) / 150);
 }
 
-/**
- * Floating aids at the bottom corner of a lesson: the lesson's headings with the one being
- * read marked, the reading time left, and the focus switch.
- */
-export function ReadingDock({
-  scrollRef,
-  version,
-}: {
-  scrollRef: RefObject<HTMLDivElement | null>;
-  version: unknown;
-}) {
-  const r = useReading();
-  const [open, setOpen] = useState(false);
-  const [heads, setHeads] = useState<
-    { id: string; text: string; level: number }[]
-  >([]);
+type Head = { id: string; text: string; level: number };
+const clean = (t: string) => t.replace(/[*_`$]/g, "");
+const goTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+
+/** The lesson's headings, the one being read, and the reading time left below it. */
+function useHeadings(scrollRef: RefObject<HTMLDivElement | null>, version: unknown) {
+  const [heads, setHeads] = useState<Head[]>([]);
   const [current, setCurrent] = useState("");
   const [left, setLeft] = useState(0);
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
-    const list = [
-      ...el.querySelectorAll<HTMLElement>(".prose h2[id], .prose h3[id]"),
-    ].map((h) => ({
-      id: h.id,
-      text: h.textContent ?? "",
-      level: h.tagName === "H2" ? 2 : 3,
-    }));
-    setHeads(list);
-  }, [scrollRef, version, open]);
+    setHeads(
+      [...el.querySelectorAll<HTMLElement>(".prose h2[id], .prose h3[id]")].map((h) => ({ id: h.id, text: clean(h.textContent ?? ""), level: h.tagName === "H2" ? 2 : 3 })),
+    );
+  }, [scrollRef, version]);
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
@@ -171,13 +157,81 @@ export function ReadingDock({
       el.removeEventListener("scroll", on);
     };
   }, [scrollRef, heads, version]);
+  return { heads, current, left };
+}
+
+const TOC_KEY = "lesson-toc";
+/** Whether the lesson-contents panel is open; kept in this browser. */
+export function useTocPanel() {
+  const [open, setOpen] = useState(() => {
+    try {
+      return localStorage.getItem(TOC_KEY) !== "closed";
+    } catch {
+      return true;
+    }
+  });
+  const set = (o: boolean) => {
+    setOpen(o);
+    try {
+      localStorage.setItem(TOC_KEY, o ? "open" : "closed");
+    } catch {
+      // for this visit only
+    }
+  };
+  return [open, set] as const;
+}
+
+/**
+ * The lesson's contents, fixed beside the text on wide screens: every heading, the one being
+ * read marked, and the reading time left. Folds to a narrow rail.
+ */
+export function LessonToc({ scrollRef, version, open, setOpen }: { scrollRef: RefObject<HTMLDivElement | null>; version: unknown; open: boolean; setOpen: (o: boolean) => void }) {
+  const { heads, current, left } = useHeadings(scrollRef, version);
+  if (!open)
+    return (
+      <button className="toc-rail" onClick={() => setOpen(true)} aria-label="פתח את תוכן השיעור" title="פתח את תוכן השיעור">
+        <Icon name="coverage" size={16} />
+        <span>תוכן השיעור</span>
+      </button>
+    );
+  return (
+    <aside className="lesson-toc" aria-label="תוכן השיעור">
+      <header className="lesson-toc-head">
+        <span>תוכן השיעור</span>
+        <button className="icon-btn" onClick={() => setOpen(false)} aria-label="סגור את תוכן השיעור" title="סגור">
+          <Icon name="close" size={15} />
+        </button>
+      </header>
+      {heads.length ? (
+        <nav className="lesson-toc-list">
+          {heads.map((h) => (
+            <button key={h.id} className={`lvl-${h.level} ${h.id === current ? "is-current" : ""}`} aria-current={h.id === current ? "location" : undefined} onClick={() => goTo(h.id)}>
+              {h.text}
+            </button>
+          ))}
+        </nav>
+      ) : (
+        <p className="lesson-toc-empty">הכותרות של השיעור יופיעו כאן כשייכתב.</p>
+      )}
+      {left > 1 && <footer className="lesson-toc-foot">עוד כ-{left} דקות קריאה</footer>}
+    </aside>
+  );
+}
+
+/**
+ * Floating aids at the bottom corner of a lesson: the focus switch, and on narrow screens
+ * (or with the contents panel closed) the headings with the one being read marked.
+ */
+export function ReadingDock({ scrollRef, version }: { scrollRef: RefObject<HTMLDivElement | null>; version: unknown }) {
+  const r = useReading();
+  const [open, setOpen] = useState(false);
+  const { heads, current, left } = useHeadings(scrollRef, version);
   useEffect(() => {
     if (!open) return;
     const esc = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
     window.addEventListener("keydown", esc);
     return () => window.removeEventListener("keydown", esc);
   }, [open]);
-  const clean = (t: string) => t.replace(/[*_`$]/g, "");
   const now = heads.find((h) => h.id === current);
   const focus = r.focus === "on";
   return (
@@ -190,9 +244,7 @@ export function ReadingDock({
                 key={h.id}
                 className={`lvl-${h.level} ${h.id === current ? "is-current" : ""}`}
                 onClick={() => {
-                  document
-                    .getElementById(h.id)
-                    ?.scrollIntoView({ behavior: "smooth", block: "start" });
+                  goTo(h.id);
                   setOpen(false);
                 }}
               >
