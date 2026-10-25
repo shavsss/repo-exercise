@@ -1,0 +1,6 @@
+
+# Core Lab build outputs
+core/build/
+core/app/node_modules/
+core/app/dist/
+__pycache__/
