@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { toggleTheme, useTheme } from "../theme";
+import { ReadingPanel } from "./ReadingPanel";
 import { Icon } from "./Icon";
 
 export interface Crumb {
@@ -33,12 +35,13 @@ export function Topbar({
   notesCount: number;
 }) {
   const { dark } = useTheme();
+  const [reading, setReading] = useState(false);
   return (
     <header className="topbar">
       <button className="icon-btn" onClick={onToggleSide} aria-pressed={sideOpen} aria-label="מפת המודולים" title="מפת המודולים">
         <Icon name="menu" />
       </button>
-      <span className="brand">מעבדת ההנדסה</span>
+      <span className="brand">גילואה</span>
       <ol className="crumbs" aria-label="נתיב">
         {crumbs.map((c, i) => (
           <li key={i}>
@@ -70,6 +73,10 @@ export function Topbar({
           <Icon name="side" />
         </button>
       )}
+      <button className="icon-btn reading-btn" onClick={() => setReading((v) => !v)} aria-pressed={reading} aria-label="תצוגת קריאה" title="תצוגת קריאה: גופן, גודל, ריווח ורקע">
+        Aa
+      </button>
+      {reading && <ReadingPanel onClose={() => setReading(false)} />}
       <button className="icon-btn" onClick={toggleTheme} aria-label={dark ? "מעבר למצב בהיר" : "מעבר למצב כהה"} title={dark ? "מצב בהיר" : "מצב כהה"}>
         <Icon name={dark ? "sun" : "moon"} />
       </button>

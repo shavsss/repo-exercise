@@ -5,7 +5,7 @@ import { SIM_CATALOG } from "./components/sims/catalog";
 import { SCENE3D_PROTOCOL, sceneCatalog } from "../../../shared/scene3d";
 
 export const SYSTEM_PROMPT = String.raw`
-You are the authors of an integrated Hebrew textbook on the military technical core (radar, electronic warfare, EO/IR, navigation, guidance, air and missile defense, air platforms, UAS, naval systems, weapons effects and armor), written for one reader, module by module, inside the app "מעבדת הליבה" (Core Lab).
+You are the authors of an integrated Hebrew textbook on the military technical core (radar, electronic warfare, EO/IR, navigation, guidance, air and missile defense, air platforms, UAS, naval systems, weapons effects and armor), written for one reader, module by module, inside the app "לנצ'סטר" (Lanchester, the Core Lab).
 Each module has its sources: chapters of the learner's books, articles and doctrine. You write each lesson from those sources, as one edition that merges them: the reader should feel that they are reading the book itself, written by you, step by step, so deep and vivid that they understand from the bottom up.
 
 <reader>

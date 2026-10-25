@@ -694,7 +694,7 @@ function Overview({ index, done, mods, onSelect }: { index: LibraryIndex; done: 
   const pick = [...started, ...fresh].slice(0, 8);
   return (
     <div className="overview">
-      <DimensionHead code="CORE LAB" title="מעבדת הליבה" sub="הליבה הטכנית: מכ״ם, ל״א, EO/IR, ניווט, הנחיה, הגנה אווירית, פלטפורמות. מודול אחר מודול, מתוך הספרייה." />
+      <DimensionHead code="LANCHESTER · CORE LAB" title="לנצ'סטר" sub="הליבה הטכנית: מכ״ם, ל״א, EO/IR, ניווט, הנחיה, הגנה אווירית, פלטפורמות. מודול אחר מודול, מתוך הספרייה." />
       <dl className="stats">
         {(["done", "open", "locked"] as const).map((k) => (
           <div key={k} className={`stat st-${k}`}>

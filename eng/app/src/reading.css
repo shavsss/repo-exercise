@@ -1,0 +1,163 @@
+/* Reading: the lesson text is set for long reading. Typeface, size, line spacing,
+   column width and the reading surface come from the reader's settings (reading.ts),
+   as data-attributes on the root. */
+:root {
+  --read-font: var(--font);
+  --read-size: 17px;
+  --read-lh: 1.9;
+  --measure: 38rem;
+}
+:root[data-read-font="frank"] { --read-font: "Frank Ruhl Libre", "IBM Plex Sans Hebrew", serif; }
+:root[data-read-font="assistant"] { --read-font: "Assistant", "IBM Plex Sans Hebrew", sans-serif; }
+:root[data-read-size="s"] { --read-size: 15.5px; }
+:root[data-read-size="l"] { --read-size: 18.5px; }
+:root[data-read-size="xl"] { --read-size: 20px; }
+:root[data-read-space="normal"] { --read-lh: 1.7; }
+:root[data-read-width="narrow"] { --measure: 33rem; }
+:root[data-read-width="wide"] { --measure: 46rem; }
+
+/* paper: warm off-white, softer ink */
+:root[data-surface="paper"] {
+  --bg: #f1ece2;
+  --paper: #faf7f0;
+  --sheet: #fffdf8;
+  --ink: #2a2723;
+  --ink-soft: #4b463f;
+  --muted: #776f64;
+  --line: #ddd5c6;
+  --line-strong: #b3a891;
+  --grid-line: #ebe4d6;
+  --grid-major: #ddd3c1;
+  --hover: #f0e9dc;
+  --sel: #ebe3d3;
+  color-scheme: light;
+}
+/* soft dark: neutral charcoal instead of the blueprint blue, for long evening reading */
+:root[data-surface="soft"] {
+  --bg: #17181b;
+  --paper: #1e1f23;
+  --sheet: #222328;
+  --ink: #e6e3dc;
+  --ink-soft: #c8c4bb;
+  --muted: #9b968c;
+  --line: #34363c;
+  --line-strong: #5a5d65;
+  --grid-line: #26282d;
+  --grid-major: #30333a;
+  --accent: #ff8a5b;
+  --accent-soft: #3a2a24;
+  --on-accent: #17181b;
+  --ok: #7fd3a8;
+  --warn: #e9c46a;
+  --blue: #9cc8f5;
+  --err: #ff8f84;
+  --hover: #26282d;
+  --sel: #2b2d33;
+  --shadow: none;
+  --k-plan: #a9b4c0;
+  --k-story: #e9c46a;
+  --k-history: #c8b0f5;
+  --k-formula: #9cc8f5;
+  --k-think: #e2acef;
+  --k-refresh: #dcd07a;
+  --k-domain: #7fd3c8;
+  --k-casestudy: #8fd3e8;
+  --k-model: #b9de7f;
+  --k-erratum: #ff8f84;
+  --k-fieldsystems: #ff8a5b;
+  --k-coverage: #a9b4c0;
+  --k-exercise: #9cc8f5;
+  --s1: #ff8a5b;
+  --s2: #9cc8f5;
+  --s3: #7fd3c8;
+  --s4: #c8b0f5;
+  --s5: #e9c46a;
+  --s6: #e6e3dc;
+  color-scheme: dark;
+}
+
+/* the lesson text itself */
+.prose {
+  font-family: var(--read-font);
+  font-size: var(--read-size);
+  line-height: var(--read-lh);
+  color: var(--ink);
+  text-rendering: optimizeLegibility;
+  font-kerning: normal;
+}
+.prose p { margin: 0 0 1.15em; }
+.prose li { margin: 0.35em 0; }
+.prose h2 {
+  font-family: var(--font);
+  font-size: 1.45em;
+  line-height: 1.3;
+  margin: 2.4em 0 0.8em;
+  padding-bottom: 0.35em;
+}
+.prose h3 {
+  font-family: var(--font);
+  font-size: 1.15em;
+  line-height: 1.4;
+  margin: 1.9em 0 0.6em;
+}
+.prose strong { font-weight: 600; }
+.prose .katex { font-size: 1.08em; }
+.prose .katex-display { margin: 1.4em 0; }
+.prose .block { padding: 22px 20px 8px; margin: 34px 0 26px; }
+.prose .block-body { line-height: calc(var(--read-lh) - 0.1); }
+
+/* inline tags: quieter, so a line of text is not broken by boxes */
+.prose .badge {
+  font-family: var(--font);
+  font-size: 0.72em;
+  line-height: 1.35;
+  padding: 0 5px;
+  vertical-align: 0.12em;
+}
+.prose .badge-l25 {
+  border: none;
+  border-bottom: 1.5px solid var(--c);
+  border-radius: 0;
+  padding: 0 1px;
+  background: none;
+}
+.prose .badge-l25::before { content: ""; }
+
+/* the column adapts to the chosen width; the composer follows it */
+.col { max-width: calc(var(--measure) + 32px); }
+@media (max-width: 700px) {
+  :root { --read-size: 16.5px; }
+  :root[data-read-size="l"] { --read-size: 17.5px; }
+  :root[data-read-size="xl"] { --read-size: 19px; }
+}
+
+/* the reading settings popover */
+.reading-pop {
+  position: fixed;
+  z-index: 70;
+  top: calc(56px + env(safe-area-inset-top, 0px));
+  inset-inline-end: max(12px, env(safe-area-inset-left, 0px));
+  width: min(380px, calc(100vw - 24px));
+  background: var(--sheet);
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  box-shadow: 0 10px 30px rgb(0 0 0 / 18%);
+  padding: 10px 14px 12px;
+  display: grid;
+  gap: 10px;
+}
+.reading-head { display: flex; justify-content: space-between; align-items: center; font-weight: 600; }
+.reading-row { display: grid; gap: 4px; }
+.reading-label { font-size: 0.78rem; color: var(--muted); }
+.reading-row .seg { flex-wrap: wrap; border-radius: 4px; }
+.reading-sample {
+  margin: 0;
+  padding: 8px 10px;
+  border: 1px dashed var(--line);
+  font-family: var(--read-font);
+  font-size: var(--read-size);
+  line-height: var(--read-lh);
+  background: var(--paper);
+  color: var(--ink);
+}
+.reading-btn { font: 600 15px/1 var(--read-font); width: 34px; }

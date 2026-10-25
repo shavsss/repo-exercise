@@ -708,7 +708,7 @@ function Overview({ index, done, mods, onSelect }: { index: LibraryIndex; done: 
   const pick = [...started, ...fresh].slice(0, 8);
   return (
     <div className="overview">
-      <DimensionHead code="ENG LAB" title="מעבדת ההנדסה" sub="הנדסה ברמה 2.5: מבנה, מקור, גבולות, סדר גודל, פשרה, מבנה משותף וביקורת. עמוד שדרה, חמישה צמתים, גשרים ופריפריה, מתוך הספרייה." />
+      <DimensionHead code="GILUA · ENG LAB" title="גילואה" sub="הנדסה ברמה 2.5: מבנה, מקור, גבולות, סדר גודל, פשרה, מבנה משותף וביקורת. עמוד שדרה, חמישה צמתים, גשרים ופריפריה, מתוך הספרייה." />
       <dl className="stats">
         {(["done", "open", "locked"] as const).map((k) => (
           <div key={k} className={`stat st-${k}`}>

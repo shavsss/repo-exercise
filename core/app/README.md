@@ -1,4 +1,4 @@
-# מעבדת הליבה · Core Lab
+# לנצ'סטר · מעבדת הליבה
 
 **האפליקציה:** https://claude.ai/artifact/1tTftT3T7L7p67ofNzvfc9
 

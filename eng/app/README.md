@@ -1,4 +1,4 @@
-# מעבדת ההנדסה · Engineering Lab
+# גילואה · מעבדת ההנדסה
 
 **האפליקציה:** https://claude.ai/artifact/LtW5eytwQFZ4wAXhDSAw3k
 
