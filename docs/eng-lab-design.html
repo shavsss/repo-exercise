@@ -66,10 +66,17 @@ textarea { font: inherit; font-size: 14px; color: var(--ink); background: var(--
 .scene .tap { position: absolute; inset: 8px 8px auto auto; font-size: 11px; padding: 2px 8px; border-radius: 3px; background: #000a; color: #fff; pointer-events: none; }
 .scene .tap[hidden] { display: none; }
 .scene .fallback { position: absolute; inset: 0; display: grid; place-items: center; font-size: 13px; color: #c9d4cb; padding: 12px; text-align: center; }
-.scene .hud { position: absolute; inset: 8px auto auto 8px; font-family: var(--f-mono); font-size: 11px; line-height: 1.5; padding: 4px 8px; border-radius: 3px; background: #000b; color: #e7f2ea; pointer-events: none; direction: ltr; text-align: left; font-variant-numeric: tabular-nums; }
+.scene .hud { position: absolute; inset: 8px auto auto 8px; font-family: var(--f-mono); font-size: 11px; line-height: 1.5; padding: 4px 8px; border-radius: 3px; background: #000b; color: #e7f2ea; pointer-events: none; direction: ltr; text-align: left; font-variant-numeric: tabular-nums; white-space: pre; }
 .scene .badge { position: absolute; inset: 8px 8px auto auto; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 3px; pointer-events: none; }
 .badge.lib { background: #1f6f8b; color: #fff; }
 .badge.tut { background: #b26a00; color: #fff; }
+.scene .pick { position: absolute; max-width: 250px; font-size: 12px; line-height: 1.45; padding: 6px 9px; border-radius: 4px; background: #000d; color: #eef4f0; pointer-events: none; display: grid; gap: 2px; z-index: 2; }
+.scene .pick b { font-size: 12.5px; color: #ffd27a; }
+.scene .cap3d { position: absolute; inset: auto 8px 8px 8px; font-size: 12px; line-height: 1.45; padding: 6px 30px 6px 9px; border-radius: 4px; background: #000c; color: #eef4f0; }
+.scene .cap3d .x { all: unset; cursor: pointer; position: absolute; inset: 3px 6px auto auto; font-size: 15px; line-height: 1; padding: 2px 4px; }
+.scene .cap3d .x:focus-visible { outline: 2px solid #fff; }
+.scene:has(.cap3d) .hint { display: none; }
+.scene .info-btn { all: unset; cursor: pointer; position: absolute; inset: auto 8px 8px auto; font-size: 12px; padding: 1px 8px; border-radius: 3px; background: #000a; color: #fff; }
 .ctrl { display: grid; gap: 4px; font-family: var(--f-mono); font-size: 11.5px; color: var(--muted); }
 .ctrl label { display: grid; grid-template-columns: 2.4em 1fr 3.4em; gap: 8px; align-items: center; direction: ltr; }
 .ctrl input[type=range] { width: 100%; accent-color: var(--accent); }
@@ -140,20 +147,26 @@ pre.spec { margin: 0; font-family: var(--f-mono); font-size: 10.5px; line-height
 
 <div class="wrap">
   <header>
-    <div class="eyebrow">מעבדת ההנדסה · תכנון העיצוב · סבב 1</div>
+    <div class="eyebrow">מעבדת ההנדסה · תכנון העיצוב · סבב 2</div>
     <h1>איך מעבדת ההנדסה תיראה</h1>
     <p class="lead">אפליקציה שלישית, נפרדת ממעבדת הלמידה וממעבדת הליבה: 310 מודולים, עמוד שדרה, חמישה צמתים, גשרים ופריפריה, ברמה 2.5. הדף בנוי משני חלקים. החלק הראשון הוא התלת-ממד, ובו כל הסצנות חיות ומחושבות מהפיזיקה של המודול. החלק השני הוא הממשק. בחר אפשרות אחת בכל שאלה, והוסף הערה אם צריך. הבחירות נשמרות אוטומטית, ואני קורא אותן מכאן.</p>
     <div class="meter"><div class="bar"><i id="bar"></i></div><span id="count">0 / 0</span><span class="save" id="save">מתחבר…</span></div>
     <nav class="toc" aria-label="חלקי הדף"><a href="#partA">חלק א: תלת-ממד</a><a href="#partB">חלק ב: הממשק</a><a href="#free">הערה חופשית</a></nav>
   </header>
 
-  <div class="part" id="partA"><h2>חלק א: תלת-ממד</h2><p>הסצנות כאן הן לא איורים. כל אחת מחושבת בזמן אמת: חוק קולון, מודל פרסת המערבולות של Anderson, תורת הקורות של אוילר-ברנולי, משוואת החום בהפרשים סופיים, משוואות אוילר לגוף קשיח. גרור כדי לסובב. לזום: לחץ על הסצנה ואז גלול, או צבוט בטלפון.</p></div>
+  <div class="part" id="partA"><h2>חלק א: תלת-ממד</h2><p>הסצנות כאן הן לא איורים. כל אחת מחושבת בזמן אמת: חוק קולון, מודל פרסת המערבולות של Anderson, תורת הקורות של אוילר-ברנולי, משוואת החום בהפרשים סופיים, משוואות אוילר לגוף קשיח. גרור כדי לסובב. לזום: לחץ על הסצנה ואז גלול, או צבוט בטלפון. לחיצה קצרה על רכיב מראה מהו.</p></div>
 
   <section class="q" id="gallery" aria-labelledby="h-gallery">
     <div class="q-head"><span class="q-num">גלריה</span><h3 id="h-gallery">שמונה סצנות משמונה תחומים בתוכנית</h3></div>
     <p class="why">כך נראה תלת-ממד ברמה שאני מכוון אליה. סמן ליד כל סצנה אם היא ברמה שאתה מצפה לה. אם משהו חסר (חדות, תנועה, מספרים על המסך), כתוב בהערה בסוף החלק.</p>
     <div class="tools"><span>רקע הסצנות:</span><div class="seg" role="group" aria-label="רקע הסצנות"><button type="button" data-bg="dark" aria-pressed="true">כהה</button><button type="button" data-bg="light" aria-pressed="false">בהיר</button></div><button type="button" class="tbtn" id="pause" aria-pressed="false">עצור תנועה</button></div>
     <div class="gallery" id="gal"></div>
+  </section>
+
+  <section class="q" id="core3d" aria-labelledby="h-core3d">
+    <div class="q-head"><span class="q-num">סבב 2</span><h3 id="h-core3d">אותו רכיב במעבדת הליבה</h3></div>
+    <p class="why">רכיב התלת-ממד נבנה פעם אחת, כאן, ואחר כך נכנס גם למעבדת הליבה כסוג בלוק נוסף. שתי הסצנות האלה מהתוכנית של הליבה. הן מראות גם את שלוש התוספות שביקשת: הסבר קצר על הסצנה (אפשר לסגור אותו), לחיצה על רכיב כדי לראות מהו, ומסלולים. לחץ על לוויין כדי להדגיש את המסלול שלו, או על אונה כדי לראות את ההגבר שלה. הלחיצה עובדת עכשיו גם בכל סצנות הגלריה.</p>
+    <div class="gallery" id="gal2"></div>
   </section>
 
   <div id="qsA" style="display:grid;gap:20px"></div>
@@ -190,6 +203,13 @@ const GAL = [
   { id: "motor", t: "השדה המסתובב במנוע השראה", ref: "M12.6 · Hughes פרק 5", d: "שלושה סלילים עם זרמים בהפרש של 120°. כל אחד יוצר שדה פועם, והסכום (החץ הזהוב) הוא שדה בעוצמה קבועה שמסתובב. הרוטור מפגר אחריו בהחלקה של 10%." },
 ];
 
+const cap = t => `<div class="cap3d"><button type="button" class="x" aria-label="סגור את ההסבר">×</button><span>${t}</span></div>`;
+const GAL2 = [
+  { id: "array", t: "מערך מופע 8×8 וההיגוי שלו", ref: "ליבה M1.2 · Principles of Modern Radar §9.7, EW 101 §3.4", d: "דיאגרמת הקרינה בתלת-ממד, ב-dB, מחושבת מגורם המערך. האלומה נסרקת בין −40° ל-+40°. צבע האלמנטים הוא המופע שלהם, והמספרים משמאל הם רוחב האלומה וההכוונה, שגדלים ויורדים עם cosθ₀.",
+    extra: `<div class="hud"></div>` + cap("גובה המשטח הוא ההגבר בכל כיוון, עד −40 dB. לחץ על אונה, על אלמנט או על החץ.") },
+  { id: "gnss", t: "גאומטריית GPS מעל המשתמש", ref: "ליבה M5.1 · M5.6 · Understanding GPS פרקים 2, 7", d: "24 לוויינים בשישה מישורים בנטייה של 55°, בקנה מידה אמיתי. הקווים הם קווי הראייה ללוויינים שמעל 5°, והצבע הוא ההגבהה. ה-DOP מחושב בכל רגע מהגאומטריה עצמה: (GᵀG)⁻¹.",
+    extra: `<div class="hud"></div>` + cap("שעה מדומה עוברת ב-12 שניות. לחץ על לוויין כדי להדגיש את המסלול שלו, ועל המשתמש או האופק להסבר.") },
+];
 const QA = [
   { id: "use3d", title: "כמה תלת-ממד", why: "תלת-ממד הוא כלי הבנה: שדות, סיבובים, זרימה, רובוטים, מבנים וגבישים. הוא כבד יותר מגרף דו-ממדי, ולא כל נושא צריך אותו. הסצנה החיה באפשרות השנייה מראה מה קורה כשגם גרף רגיל הופך למשטח.", opts: [
     { id: "where", t: "בכל מקום שהממד השלישי מוסיף הבנה", rec: true, d: "שדות, סיבובים, זרימה, רובוטיקה, מבנים, גבישים ומשטחי אופטימיזציה. גרפים של אותות ובודה נשארים דו-ממדיים וחדים.", p: mini(`<div class="row"><span class="chip on">שדות E/B</span><span class="chip on">גוף קשיח</span><span class="chip on">זרימה</span><span class="chip on">זרוע רובוטית</span><span class="chip on">משטח הפסד</span></div><div class="box">${bodeSvg}</div><div class="k">אות בזמן, בודה, ספקטרום: דו-ממד</div>`) },
@@ -284,6 +304,11 @@ const qHTML = (q, n) => `<section class="q" id="${q.id}" aria-labelledby="h-${q.
 </section>`;
 document.getElementById("qsA").innerHTML = QA.map((q, i) => qHTML(q, i + 1)).join("");
 document.getElementById("qsB").innerHTML = QB.map((q, i) => qHTML(q, QA.length + i + 1)).join("");
+document.getElementById("gal2").innerHTML = GAL2.map(g => `
+  <div class="gcard">${scene("g-" + g.id, true, g.extra)}
+    <div class="g-title">${g.t}</div><div class="g-ref">${g.ref}</div><div class="g-desc">${g.d}</div>
+    <div class="rate" role="group" aria-label="הרמה של ${g.t}"><button type="button" data-g="${g.id}" data-v="yes" aria-pressed="false">ברמה הנכונה</button><button type="button" data-g="${g.id}" data-v="no" aria-pressed="false">צריך יותר</button></div>
+  </div>`).join("") + `<label class="note" for="note-core3d" style="grid-column:1/-1">הערה על הסצנות של הליבה<textarea id="note-core3d" data-note="core3d" rows="1"></textarea></label>`;
 document.getElementById("gal").innerHTML = GAL.map(g => `
   <div class="gcard">${scene("g-" + g.id, true)}
     <div class="g-title">${g.t}</div><div class="g-ref">${g.ref}</div><div class="g-desc">${g.d}</div>
@@ -453,7 +478,8 @@ function mount(el, make, o = {}) {
   c.target.set(...(o.target || [0, 0, 0])); c.enableDamping = true; c.dampingFactor = .08; c.enablePan = false; c.enableZoom = false;
   c.minDistance = o.minD || 2; c.maxDistance = o.maxD || 40;
   c.autoRotate = !!o.spin && !reduceMotion; c.autoRotateSpeed = o.spin || .5;
-  cv.addEventListener("pointerdown", () => { c.enableZoom = true; c.autoRotate = false; });
+  cv.addEventListener("pointerdown", e => { c.enableZoom = true; c.autoRotate = false; v.down = [e.clientX, e.clientY]; });
+  cv.addEventListener("pointerup", e => { if (v.down && Math.hypot(e.clientX - v.down[0], e.clientY - v.down[1]) < 6) pick(v, e); v.down = null; });
   el.addEventListener("pointerleave", () => { c.enableZoom = false; });
   if (coarse) {
     c.enabled = false;
@@ -463,7 +489,7 @@ function mount(el, make, o = {}) {
   v.rebuild = () => { disposeScene(v.scene); v.scene = new THREE.Scene(); v.api = make(v.scene, v) || {}; v.drawn = false; };
   v.rebuild();
   const size = () => {
-    const dpr = Math.min(2, window.devicePixelRatio || 1), w = el.clientWidth, h = el.clientHeight; if (!w || !h) return;
+    const dpr = Math.min(coarse ? 1.5 : 2, window.devicePixelRatio || 1), w = el.clientWidth, h = el.clientHeight; if (!w || !h) return;
     v.pw = Math.round(w * dpr); v.ph = Math.round(h * dpr); cv.width = v.pw; cv.height = v.ph;
     v.camera.aspect = w / h; v.camera.updateProjectionMatrix(); v.drawn = false;
   };
@@ -471,6 +497,23 @@ function mount(el, make, o = {}) {
   new IntersectionObserver(([en]) => { v.visible = en.isIntersecting; }, { rootMargin: "120px" }).observe(el);
   E.views.push(v);
   return v;
+}
+const ray = window.THREE ? new THREE.Raycaster() : null;
+if (ray) { ray.params.Line.threshold = .04; ray.params.Points = { threshold: .05 }; }
+function pick(v, e) {
+  const r = v.cv.getBoundingClientRect();
+  ray.setFromCamera(new THREE.Vector2((e.clientX - r.left) / r.width * 2 - 1, -(e.clientY - r.top) / r.height * 2 + 1), v.camera);
+  let found = null;
+  for (const h of ray.intersectObjects(v.scene.children, true)) { let o = h.object; while (o && !o.userData.info) o = o.parent; if (o) { found = [o, h]; break; } }
+  let tip = v.el.querySelector(".pick");
+  if (!tip) { tip = document.createElement("div"); tip.className = "pick"; tip.setAttribute("role", "status"); tip.innerHTML = "<b></b><span></span>"; v.el.appendChild(tip); }
+  if (v.api.onPick) v.api.onPick(found && found[0], found && found[1]);
+  if (!found) { tip.hidden = true; return; }
+  const inf = typeof found[0].userData.info === "function" ? found[0].userData.info(found[1]) : found[0].userData.info;
+  tip.querySelector("b").textContent = inf.t; tip.querySelector("span").textContent = inf.x || "";
+  tip.hidden = false;
+  const x = e.clientX - r.left, y = e.clientY - r.top;
+  tip.style.left = Math.max(6, Math.min(x + 12, r.width - 256)) + "px"; tip.style.top = Math.max(6, Math.min(y + 12, r.height - tip.offsetHeight - 6)) + "px";
 }
 let lastNow = performance.now();
 function frame(now) {
@@ -497,6 +540,7 @@ function frame(now) {
 }
 
 /* ---------- small helpers ---------- */
+const info = (o, t, x) => { o.userData.info = typeof t === "function" ? t : { t, x }; return o; };
 const V3 = (x, y, z) => new THREE.Vector3(x, y, z);
 const std = (color, o = {}) => new THREE.MeshStandardMaterial(Object.assign({ color, roughness: .45, metalness: .1, envMapIntensity: .45 }, o));
 const glow = (r, color, i = 1.2) => new THREE.Mesh(new THREE.SphereGeometry(r, 24, 16), std(color, { emissive: color, emissiveIntensity: i, roughness: .3 }));
@@ -540,9 +584,9 @@ function sWave(sc, v) {
   const N = 150, S = 10, geo = new THREE.PlaneGeometry(S, S, N, N); geo.rotateX(-Math.PI / 2);
   const pos = geo.attributes.position, col = new Float32Array(pos.count * 3);
   geo.setAttribute("color", new THREE.BufferAttribute(col, 3));
-  sc.add(new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ vertexColors: true, roughness: .22, metalness: 0, envMapIntensity: .3, side: THREE.DoubleSide })));
+  sc.add(info(new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ vertexColors: true, roughness: .22, metalness: 0, envMapIntensity: .3, side: THREE.DoubleSide })), h => { const a = Math.hypot(h.point.x + 1.5, h.point.z), b = Math.hypot(h.point.x - 1.5, h.point.z), dl = Math.abs(a - b) * 3.4 / (2 * Math.PI); return { t: "משטח הגובה", x: `הפרש המרחקים לשני המקורות כאן: ${dl.toFixed(2)} אורכי גל. ${Math.abs(dl - Math.round(dl)) < .15 ? "קרוב לשלם: התאבכות בונה." : Math.abs(dl - Math.round(dl)) > .35 ? "קרוב לחצי: התאבכות הורסת." : "בין לבין."}` }; }));
   const src = [[-1.5, 0], [1.5, 0]];
-  src.forEach(([x, z]) => { const p = new THREE.Mesh(new THREE.CylinderGeometry(.05, .05, 1.6, 16), std(0xffc857, { emissive: 0xffc857, emissiveIntensity: .8 })); p.position.set(x, .2, z); sc.add(p); });
+  src.forEach(([x, z]) => { const p = new THREE.Mesh(new THREE.CylinderGeometry(.05, .05, 1.6, 16), std(0xffc857, { emissive: 0xffc857, emissiveIntensity: .8 })); p.position.set(x, .2, z); sc.add(info(p, "מקור גל", "מקור נקודתי שמתנודד בתדר קבוע. שני המקורות באותו מופע, במרחק של כ-1.6 אורכי גל זה מזה.")); });
   const k = 3.4, w = 3.2, A = .34, X = new Float32Array(pos.count), Z = new Float32Array(pos.count);
   for (let i = 0; i < pos.count; i++) { X[i] = pos.getX(i); Z[i] = pos.getZ(i); }
   return { update(t) {
@@ -561,8 +605,8 @@ function sDipole(sc, v) {
   studio(sc, v.look, { floor: -2.6 });
   const q = [[+1, V3(-1.3, 0, 0)], [-1, V3(1.3, 0, 0)]];
   const Ef = p => { const e = V3(0, 0, 0); for (const [s, c] of q) { const d = p.clone().sub(c), r = d.length(); e.addScaledVector(d, s / (r * r * r)); } return e; };
-  const plus = glow(.2, 0xe5484d, 1.4); plus.position.copy(q[0][1]); sc.add(plus);
-  const minus = glow(.2, 0x3e8ef7, 1.4); minus.position.copy(q[1][1]); sc.add(minus);
+  const plus = glow(.2, 0xe5484d, 1.4); plus.position.copy(q[0][1]); sc.add(info(plus, "מטען חיובי +q", "קווי השדה יוצאים ממנו. בקרבתו השדה הוא כמעט של מטען בודד, ∝ 1/r²."));
+  const minus = glow(.2, 0x3e8ef7, 1.4); minus.position.copy(q[1][1]); sc.add(info(minus, "מטען שלילי −q", "קווי השדה נכנסים אליו. רחוק משני המטענים השדה דועך כמו 1/r³, כי המטענים כמעט מבטלים זה את זה."));
   [[0xff5a5a, q[0][1]], [0x5aa0ff, q[1][1]]].forEach(([c, p]) => { const l = new THREE.PointLight(c, 1.2, 3); l.position.copy(p); sc.add(l); });
   const movers = [], n = 34, ga = Math.PI * (3 - Math.sqrt(5));
   for (let i = 0; i < n; i++) {
@@ -577,7 +621,7 @@ function sDipole(sc, v) {
     }
     if (pts.length < 6) continue;
     sp.unshift(sp[0]);
-    const tube = colorTube(pts, sp, -3.5, 2.5, .013, CM.viridis, .18); sc.add(tube);
+    const tube = colorTube(pts, sp, -3.5, 2.5, .013, CM.viridis, .18); sc.add(info(tube, "קו שדה", "משיק לכיוון E בכל נקודה. הצבע הוא log|E|: צהוב ליד המטענים, סגול רחוק."));
     for (let k = 0; k < 2; k++) movers.push([tube.userData.curve, (i * .137 + k * .5) % 1]);
   }
   const dots = new THREE.InstancedMesh(new THREE.SphereGeometry(.035, 12, 8), std(0xffe9a8, { emissive: 0xffe9a8, emissiveIntensity: 1 }), movers.length); sc.add(dots);
@@ -594,7 +638,7 @@ function sDipole(sc, v) {
   }
   const tex = new THREE.DataTexture(data, T, T, THREE.RGBAFormat); tex.needsUpdate = true; tex.encoding = THREE.sRGBEncoding;
   const slice = new THREE.Mesh(new THREE.PlaneGeometry(2 * ext, 2 * ext), new THREE.MeshBasicMaterial({ map: tex, transparent: true, opacity: .75, side: THREE.DoubleSide, depthWrite: false }));
-  slice.rotation.x = -Math.PI / 2; sc.add(slice);
+  slice.rotation.x = -Math.PI / 2; sc.add(info(slice, "מישור חתך", "הצבע הוא עוצמת השדה, והקווים הבהירים הם קווי שווי פוטנציאל. הם תמיד ניצבים לקווי השדה."));
   const M = new THREE.Matrix4();
   return { update(t) { movers.forEach(([c, off], i) => { M.setPosition(c.getPointAt((off + t * .06) % 1)); dots.setMatrixAt(i, M); }); dots.instanceMatrix.needsUpdate = true; } };
 }
@@ -629,7 +673,7 @@ function horseshoe(G = 2.3, bh = 2.67, rc = .14) {
 function wingFlow(sc, look, o = {}) {
   const C = 1.6, s = 3.4, hs = horseshoe(2.3, s * Math.PI / 4);
   const wing = new THREE.Mesh(wingMesh(C, s), std(look === "light" ? 0xbfc8d0 : 0xc9d2da, { metalness: .6, roughness: .3 }));
-  wing.castShadow = true; sc.add(wing);
+  wing.castShadow = true; sc.add(info(wing, "כנף NACA 2412", "מיתר 1.6, מוטה 6.8, זווית התקפה 6°. במודל היא מוחלפת במערבולת קשורה אחת ברבע המיתר."));
   const seeds = [];
   for (const side of [-1, 1]) for (const r of [.28, .55]) for (let k = 0; k < 8; k++) { const a = k * Math.PI / 4 + (r > .4 ? Math.PI / 8 : 0); seeds.push(V3(-3, r * Math.sin(a), side * hs.bh + r * Math.cos(a))); }
   for (const z of [-1.9, -.95, 0, .95, 1.9]) for (const y of [.5, -.5]) seeds.push(V3(-3, y, z));
@@ -640,7 +684,7 @@ function wingFlow(sc, look, o = {}) {
       const a = hs.v(p).normalize(), mid = p.clone().addScaledVector(a, h / 2), b = hs.v(mid);
       p = p.clone().addScaledVector(b.clone().normalize(), h); pts.push(p.clone()); sp.push(b.length());
     }
-    const tube = colorTube(pts, sp, .55, 1.6, .012, CM.viridis, .15); sc.add(tube); lines.push(tube.userData.curve);
+    const tube = colorTube(pts, sp, .55, 1.6, .012, CM.viridis, .15); sc.add(info(tube, "קו זרם", "מחושב מחוק ביו-סבר לשלושת קטעי המערבולת ועוד הזרם החופשי. הצבע הוא המהירות: צהוב מהיר, סגול איטי.")); lines.push(tube.userData.curve);
   }
   const dash = new THREE.LineDashedMaterial({ color: 0xffc857, dashSize: .15, gapSize: .12, transparent: true, opacity: .6 });
   [[-1, 1]].flat().forEach(side => { const l = new THREE.Line(new THREE.BufferGeometry().setFromPoints([V3(0, 0, side * hs.bh), V3(10, 0, side * hs.bh)]), dash); l.computeLineDistances(); sc.add(l); });
@@ -665,7 +709,7 @@ function sLoss(sc, v) {
   }
   geo.setAttribute("color", new THREE.BufferAttribute(col, 3)); geo.computeVertexNormals();
   const surf = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ vertexColors: true, roughness: .5, metalness: 0, envMapIntensity: .25, side: THREE.DoubleSide }));
-  surf.receiveShadow = true; sc.add(surf);
+  surf.receiveShadow = true; sc.add(info(surf, h => ({ t: "משטח ההפסד", x: `f(${h.point.x.toFixed(2)}, ${h.point.z.toFixed(2)}) = ${f(h.point.x, h.point.z).toFixed(3)}. הקווים הכהים הם קווי גובה.` })));
   const run = (beta, lr) => {
     let x = -3.2, y = 3.0, vx = 0, vy = 0; const path = [];
     for (let s = 0; s < 500; s++) {
@@ -675,10 +719,10 @@ function sLoss(sc, v) {
     }
     return new THREE.CatmullRomCurve3(path);
   };
-  const paths = [[run(0, .06), 0xffffff], [run(.9, .035), 0xff7a45]];
-  const balls = paths.map(([c, color]) => {
-    sc.add(new THREE.Mesh(new THREE.TubeGeometry(c, 500, .022, 6, false), std(color, { emissive: color, emissiveIntensity: .5, roughness: .3 })));
-    const b = glow(.12, color, .5); b.castShadow = true; sc.add(b); return [c, b];
+  const paths = [[run(0, .06), 0xffffff, "ירידה בגרדיאנט רגילה", "η = 0.06, בלי תנע. נעצרת במינימום המקומי הראשון שבדרך."], [run(.9, .035), 0xff7a45, "ירידה בגרדיאנט עם תנע", "η = 0.035, β = 0.9. התנע נושא אותה מעבר לגבעה למינימום העמוק."]];
+  const balls = paths.map(([c, color, t, x]) => {
+    sc.add(info(new THREE.Mesh(new THREE.TubeGeometry(c, 500, .022, 6, false), std(color, { emissive: color, emissiveIntensity: .5, roughness: .3 })), t, x));
+    const b = glow(.12, color, .5); b.castShadow = true; sc.add(info(b, t, x)); return [c, b];
   });
   return { update(t) { const u = Math.min(1, (t * .1) % 1.3); balls.forEach(([c, b]) => b.position.copy(c.getPointAt(u)).add(V3(0, .1, 0))); } };
 }
@@ -698,7 +742,7 @@ function crystalGroup(look) {
   const am = new THREE.InstancedMesh(new THREE.SphereGeometry(.17, 32, 20), new THREE.MeshPhysicalMaterial({ color: 0xffffff, roughness: .3, metalness: .3, clearcoat: .5, envMapIntensity: .5 }), P.length);
   const M = new THREE.Matrix4(), cA = new THREE.Color(look === "light" ? 0x4f6a86 : 0x6f8fb0), cS = new THREE.Color(0xff8a3d);
   P.forEach((p, i) => { M.makeTranslation(p.x, p.y, p.z); am.setMatrixAt(i, M); am.setColorAt(i, i === special ? cS : cA); });
-  am.castShadow = true; grp.add(am);
+  am.castShadow = true; grp.add(info(am, h => h.instanceId === special ? { t: "אטום Si עם הטטרהדר שלו", x: "ארבעה שכנים במרחק a√3/4 = 2.35 Å, בזווית 109.5° זה מזה. זה הקשר sp³." } : { t: "אטום Si", x: "קבוע הסריג a = 5.43 Å. בכל תא יחידה 8 אטומים." }));
   const bonds = [], dmax = a * Math.sqrt(3) / 4 * 1.05;
   for (let i = 0; i < P.length; i++) for (let j = i + 1; j < P.length; j++) if (P[i].distanceTo(P[j]) < dmax) bonds.push([i, j]);
   const bm = new THREE.InstancedMesh(new THREE.CylinderGeometry(.045, .045, 1, 12), new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: .45, metalness: .3, envMapIntensity: .4 }), bonds.length);
@@ -708,10 +752,10 @@ function crystalGroup(look) {
     M.compose(P[i].clone().add(P[j]).multiplyScalar(.5), Q, Sc); bm.setMatrixAt(k, M);
     bm.setColorAt(k, i === special || j === special ? cS : cB);
   });
-  bm.castShadow = true; grp.add(bm);
+  bm.castShadow = true; grp.add(info(bm, "קשר קוולנטי Si–Si", "אורך 2.35 Å. אנרגיית הקשר כ-2.3 eV, ופער האנרגיה של הגביש 1.12 eV."));
   const cell = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(a, a, a)), new THREE.LineBasicMaterial({ color: 0xffc857 }));
   cell.position.set(-a / 2, -a / 2, -a / 2);
-  grp.add(cell);
+  grp.add(info(cell, "תא יחידה קובי", "צלע a = 5.43 Å. שני סריגי FCC מוזזים ברבע אלכסון זה מזה."));
   return grp;
 }
 function sCrystal(sc, v) { studio(sc, v.look, { floor: -3, shadow: 6 }); const g = crystalGroup(v.look); sc.add(g); return {}; }
@@ -725,12 +769,12 @@ function sBeam(sc, v) {
     const p = g.attributes.position; g.userData.o = Float32Array.from(p.array);
     g.setAttribute("color", new THREE.BufferAttribute(new Float32Array(p.count * 3), 3));
     const m = new THREE.Mesh(g, new THREE.MeshStandardMaterial({ vertexColors: true, roughness: .5, metalness: .1, envMapIntensity: .3 }));
-    m.castShadow = true; sc.add(m); return g;
+    m.castShadow = true; sc.add(info(m, h => { const xi = Math.min(1, Math.max(0, h.point.x / L)); return { t: "קורת I", x: `x/L = ${xi.toFixed(2)}. המומנט כאן הוא ${(100 * (1 - xi)).toFixed(0)}% מהמומנט בריתום, והמאמץ σ = M·y/I גדל ליניארית עם המרחק מהציר הניטרלי.` }; })); return g;
   });
   const ghost = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(L, hgt, bf)), new THREE.LineBasicMaterial({ color: v.look === "light" ? 0x55606a : 0x8fa3b5, transparent: true, opacity: .5 }));
   ghost.position.set(L / 2, 0, 0); sc.add(ghost);
-  const wall = new THREE.Mesh(new THREE.BoxGeometry(.5, 3.4, 2.2), std(v.look === "light" ? 0x9aa4ac : 0x3a434b, { roughness: .9 })); wall.position.set(-.25, -.5, 0); wall.receiveShadow = true; sc.add(wall);
-  const ar = arrow(0xffc857, .04, .12, .3); sc.add(ar);
+  const wall = new THREE.Mesh(new THREE.BoxGeometry(.5, 3.4, 2.2), std(v.look === "light" ? 0x9aa4ac : 0x3a434b, { roughness: .9 })); wall.position.set(-.25, -.5, 0); wall.receiveShadow = true; sc.add(info(wall, "ריתום", "שקיעה אפס ושיפוע אפס. כאן מומנט הכפיפה מקסימלי, PL."));
+  const ar = arrow(0xffc857, .04, .12, .3); sc.add(info(ar, "עומס P בקצה", "שקיעת הקצה δ = PL³/(3EI). כפל באורך הקורה: פי 8 בשקיעה."));
   return { update(t) {
     const P = .55 + .45 * Math.sin(t * .9), tip = 1.1 * P;
     for (const g of parts) {
@@ -769,7 +813,7 @@ function sHeat(sc, v) {
   const pos = geo.attributes.position, col = new Float32Array(pos.count * 3);
   geo.setAttribute("color", new THREE.BufferAttribute(col, 3));
   const plate = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ vertexColors: true, roughness: .4, metalness: 0, envMapIntensity: .25, side: THREE.DoubleSide }));
-  plate.castShadow = true; sc.add(plate);
+  plate.castShadow = true; sc.add(info(plate, h => { const i = Math.round((h.point.x / S + .5) * (N - 1)), j = Math.round((h.point.z / S + .5) * (N - 1)), k = Math.min(N * N - 1, Math.max(0, j * N + i)); return { t: "הלוח", x: `טמפרטורה ${(100 * T[k] / Tmax).toFixed(0)}% מהסקאלה. השפות מוחזקות ב-0, והקווים הם איזותרמות.` }; }));
   const base = new THREE.Mesh(new THREE.BoxGeometry(S + .3, .14, S + .3), std(0x4a5560, { metalness: .7, roughness: .35 })); base.position.y = -.09; base.receiveShadow = true; sc.add(base);
   const draw = () => {
     for (let i = 0; i < pos.count; i++) {
@@ -802,10 +846,10 @@ function motorGroup() {
     for (let i = 0; i < 64; i++) { const th = 2 * Math.PI * i / 64, cx = Math.cos(th), sy = Math.sin(th); pts.push(V3(0, .36 * Math.sign(cx) * Math.abs(cx) ** .35, 1.0 * Math.sign(sy) * Math.abs(sy) ** .35)); }
     const tube = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts, true), 128, .085, 10, true), std(0xb87333, { metalness: .9, roughness: .35 }));
     tube.position.set(1.32 * Math.cos(a), 1.32 * Math.sin(a), 0); tube.rotation.z = a;
-    tube.userData.role = "accent"; grp.add(tube); coils.push(tube);
+    tube.userData.role = "accent"; grp.add(info(tube, `סליל ${"ABC"[COIL_PHASE[k][0]]}${COIL_PHASE[k][1] < 0 ? "−" : "+"}`, "סליל של פאזה אחת. הזוהר הוא הזרם: אדום בכיוון אחד, כחול בשני.")); coils.push(tube);
   }
   const rotor = new THREE.Group(); grp.add(rotor);
-  const core = new THREE.Mesh(new THREE.CylinderGeometry(.96, .96, 1.7, 64), std(0x9aa3aa)); core.rotation.x = Math.PI / 2; core.userData.role = "body"; rotor.add(core);
+  const core = new THREE.Mesh(new THREE.CylinderGeometry(.96, .96, 1.7, 64), std(0x9aa3aa)); core.rotation.x = Math.PI / 2; core.userData.role = "body"; rotor.add(info(core, "רוטור כלוב סנאי", "המוטות מקוצרים בטבעות בקצוות. השדה המסתובב משרה בהם זרם, והזרם יוצר מומנט."));
   for (let i = 0; i < 18; i++) { const a = 2 * Math.PI * i / 18, b = new THREE.Mesh(new THREE.BoxGeometry(.11, .11, 1.9), std(0xc0c6cc)); b.position.set(.9 * Math.cos(a), .9 * Math.sin(a), 0); b.rotation.z = a; b.userData.role = "accent2"; rotor.add(b); }
   for (const z of [-.95, .95]) { const ring = new THREE.Mesh(new THREE.TorusGeometry(.9, .07, 12, 64), std(0xc0c6cc)); ring.position.z = z; ring.userData.role = "accent2"; rotor.add(ring); }
   const shaft = new THREE.Mesh(new THREE.CylinderGeometry(.16, .16, 3.4, 32), std(0xd0d5da)); shaft.rotation.x = Math.PI / 2; shaft.userData.role = "body"; rotor.add(shaft);
@@ -819,8 +863,8 @@ function sMotor(sc, v) {
   const m = motorGroup(); sc.add(m.grp);
   m.coils.forEach(c => { c.material = std(0xb87333, { metalness: .85, roughness: .35, emissive: 0x000000 }); });
   const front = new THREE.Group(); front.position.z = 1.3; sc.add(front);
-  const phaseArrows = [0, 1, 2].map(i => { const a = arrow(PHASE_COL[i], .035, .09, .22); front.add(a); return a; });
-  const res = arrow(0xffc857, .06, .15, .32); res.position.z = .04; front.add(res);
+  const phaseArrows = [0, 1, 2].map(i => { const a = arrow(PHASE_COL[i], .035, .09, .22); front.add(info(a, `השדה של פאזה ${"ABC"[i]}`, "פועם לאורך ציר קבוע, i = cos(ωt − 120°·k). לבד הוא לא מסתובב.")); return a; });
+  const res = arrow(0xffc857, .06, .15, .32); res.position.z = .04; front.add(info(res, "השדה השקול", "סכום שלושת החצים הצבעוניים. אורכו קבוע, 1.5 מהשיא של פאזה אחת, והוא מסתובב בתדר הרשת."));
   const w = 1.4, slip = .1;
   return { update(t) {
     const cur = [0, 1, 2].map(i => Math.cos(w * t - i * 2 * Math.PI / 3));
@@ -969,8 +1013,7 @@ function sGyro(sc, v) {
     const L = Math.hypot(...w.map((x, i) => I[i] * x)), En = .5 * w.reduce((s, x, i) => s + I[i] * x * x, 0);
     if (hud) hud.textContent = `I = ${I.map(x => x.toFixed(3)).join(" < ")}\n|L| = ${L.toFixed(5)}  (Δ ${((L / L0 - 1) * 100).toExponential(1)}%)\nE   = ${En.toFixed(5)}  (Δ ${((En / E0 - 1) * 100).toExponential(1)}%)`;
   };
-  if (hud) hud.style.whiteSpace = "pre";
-  show();
+    show();
   return { update(t, dt) {
     if (!dt) return;
     const h = .002, n = Math.max(1, Math.round(dt / h));
@@ -1054,6 +1097,96 @@ function sPoleZero(sc, v) {
   return {};
 }
 
+/* ---------- core lab: planar phased array, 3D pattern (core M1.2) ---------- */
+function sArray(sc, v) {
+  studio(sc, v.look, { floor: -.06, gridSize: 12, fog: false });
+  const N = 8, d = .5, R = 2.4, floorDB = -40, pitch = .32, D2R = Math.PI / 180;
+  const AF = x => { const a = Math.PI * d * x, s1 = Math.sin(a); return Math.abs(s1) < 1e-7 ? 1 : Math.abs(Math.sin(N * a) / (N * s1)); };
+  const back = new THREE.Mesh(new THREE.BoxGeometry(N * pitch + .2, .06, N * pitch + .2), std(0x2a3036, { metalness: .5, roughness: .5 })); back.position.y = -.03; sc.add(info(back, "מישור הארקה", "מחזיר את הקרינה קדימה, ולכן יש רק חצי מרחב מול המערך."));
+  const els = new THREE.InstancedMesh(new THREE.BoxGeometry(.2, .03, .2), new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: .5, roughness: .35, envMapIntensity: .5 }), N * N);
+  const M = new THREE.Matrix4(), C = new THREE.Color();
+  for (let i = 0; i < N; i++) for (let j = 0; j < N; j++) { M.makeTranslation((i - (N - 1) / 2) * pitch, .015, (j - (N - 1) / 2) * pitch); els.setMatrixAt(i * N + j, M); els.setColorAt(i * N + j, C.setHSL(0, 0, .8)); }
+  let u0 = 0, th0 = 0;
+  sc.add(info(els, h => { const i = Math.floor(h.instanceId / N), j = h.instanceId % N, ph = ((-360 * d * i * u0) % 360 + 360) % 360; return { t: `אלמנט (${i + 1}, ${j + 1})`, x: `מופע ${ph.toFixed(0)}° יחסית לאלמנט (1, 1). הפרש מופע קבוע בין שכנים, 360°·d·sinθ₀/λ, הוא מה שמסיט את האלומה. הצבע הוא המופע.` }; }));
+  const geo = new THREE.SphereGeometry(1, 180, 90, 0, Math.PI * 2, 0, Math.PI / 2);
+  const pos = geo.attributes.position, dir = Float32Array.from(pos.array), col = new Float32Array(pos.count * 3);
+  geo.setAttribute("color", new THREE.BufferAttribute(col, 3));
+  const gainDB = (dx, dy, dz) => 20 * Math.log10(AF(dx - u0) * AF(dz) * Math.sqrt(Math.max(dy, 0)) + 1e-9);
+  const lobe = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ vertexColors: true, roughness: .45, metalness: 0, envMapIntensity: .3, side: THREE.DoubleSide }));
+  sc.add(info(lobe, h => { const p = h.point.clone().normalize(), g = gainDB(p.x, p.y, p.z), el = Math.asin(Math.max(-1, Math.min(1, p.x))) / D2R; return { t: g > -3 ? "אלומה ראשית" : g > -16 ? "אונת צד" : "אונה רחוקה", x: `${g.toFixed(1)} dB יחסית לשיא, ${el.toFixed(0)}° במישור הסריקה. באילוף אחיד אונת הצד הראשונה היא −13.3 dB.` }; }));
+  const ax = arrow(0xffc857, .025, .07, .18); sc.add(info(ax, "כיוון ההיגוי θ₀", "כאן כל האלמנטים מגיעים באותו מופע, והשדות מתחברים."));
+  const hud = v.el.querySelector(".hud");
+  return { update(t) {
+    th0 = 40 * Math.sin(t * .35) * D2R; u0 = Math.sin(th0);
+    for (let k = 0; k < pos.count; k++) {
+      const dx = dir[3 * k], dy = dir[3 * k + 1], dz = dir[3 * k + 2], g = gainDB(dx, dy, dz), r = R * Math.max(.004, (g - floorDB) / -floorDB);
+      pos.setXYZ(k, dx * r, dy * r + .01, dz * r); col.set(cmap(CM.viridis, (g - floorDB) / -floorDB), 3 * k);
+    }
+    pos.needsUpdate = true; geo.attributes.color.needsUpdate = true; geo.computeVertexNormals();
+    for (let i = 0; i < N; i++) { C.setHSL(((-d * i * u0) % 1 + 1) % 1, .75, .55); for (let j = 0; j < N; j++) els.setColorAt(i * N + j, C); }
+    els.instanceColor.needsUpdate = true;
+    ax.set(V3(u0, Math.cos(th0), 0), R + .35);
+    if (hud) hud.textContent = `θ0 = ${(th0 / D2R).toFixed(1).padStart(5)}°\nbeamwidth ≈ ${(0.886 / (N * d * Math.cos(th0)) / D2R).toFixed(1)}°\nD ≈ ${(10 * Math.log10(Math.PI * N * N * Math.cos(th0))).toFixed(1)} dBi`;
+  } };
+}
+
+/* ---------- core lab: GPS constellation over the user, live DOP (core M5.1, M5.6) ---------- */
+function sGnss(sc, v) {
+  studio(sc, v.look, { fog: false });
+  const D2R = Math.PI / 180, RS = 26560 / 6371, inc = 55 * D2R, lat = 32.08 * D2R, lon = 34.78 * D2R;
+  const map = a => V3(a[0], a[2], -a[1]);
+  const up = map([Math.cos(lat) * Math.cos(lon), Math.cos(lat) * Math.sin(lon), Math.sin(lat)]);
+  const east = map([-Math.sin(lon), Math.cos(lon), 0]), north = map([-Math.sin(lat) * Math.cos(lon), -Math.sin(lat) * Math.sin(lon), Math.cos(lat)]);
+  const earth = new THREE.Mesh(new THREE.SphereGeometry(1, 96, 64), std(v.look === "light" ? 0x2a5d96 : 0x113a6e, { roughness: .9, metalness: 0, envMapIntensity: .15 }));
+  sc.add(info(earth, "כדור הארץ", "רדיוס 6,371 ק\"מ. הקנה מידה של המסלולים אמיתי: הלוויינים בגובה פי 3.2 מהרדיוס."));
+  const grat = [];
+  for (let la = -60; la <= 60; la += 30) for (let lo = 0; lo < 360; lo += 4) { const f = (a, b) => map([Math.cos(a * D2R) * Math.cos(b * D2R), Math.cos(a * D2R) * Math.sin(b * D2R), Math.sin(a * D2R)]).multiplyScalar(1.002); grat.push(f(la, lo), f(la, lo + 4)); }
+  for (let lo = 0; lo < 360; lo += 30) for (let la = -88; la < 88; la += 4) { const f = (a, b) => map([Math.cos(a * D2R) * Math.cos(b * D2R), Math.cos(a * D2R) * Math.sin(b * D2R), Math.sin(a * D2R)]).multiplyScalar(1.002); grat.push(f(la, lo), f(la + 4, lo)); }
+  sc.add(new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(grat), new THREE.LineBasicMaterial({ color: 0x8cc4ee, transparent: true, opacity: .3 })));
+  sc.add(new THREE.Mesh(new THREE.SphereGeometry(1.04, 64, 48), new THREE.MeshBasicMaterial({ color: 0x5fb7d6, transparent: true, opacity: .1, side: THREE.BackSide, blending: THREE.AdditiveBlending, depthWrite: false })));
+  const user = glow(.03, 0xffc857, 1.5); user.position.copy(up); sc.add(info(user, "המשתמש: תל אביב", "32.1°N, 34.8°E. מסכת הגבהה 5°: לוויין נמוך מזה לא נספר."));
+  const horizon = new THREE.Mesh(new THREE.CircleGeometry(.55, 64), new THREE.MeshBasicMaterial({ color: 0xffc857, transparent: true, opacity: .12, side: THREE.DoubleSide, depthWrite: false }));
+  horizon.position.copy(up.clone().multiplyScalar(1.004)); horizon.quaternion.setFromUnitVectors(V3(0, 0, 1), up); sc.add(info(horizon, "האופק המקומי", "מה שמעל המישור הזה (ועוד 5°) נראה למקלט."));
+  const eci = new THREE.Group(); sc.add(eci);
+  const eciPos = (O, u, r = RS) => V3(r * (Math.cos(O) * Math.cos(u) - Math.sin(O) * Math.sin(u) * Math.cos(inc)), r * Math.sin(u) * Math.sin(inc), -r * (Math.sin(O) * Math.cos(u) + Math.cos(O) * Math.sin(u) * Math.cos(inc)));
+  const PCOL = [0xe5484d, 0xf59e0b, 0x30a46c, 0x3e8ef7, 0x8e4ec6, 0xe54d9e];
+  const rings = [0, 1, 2, 3, 4, 5].map(p => { const pts = []; for (let k = 0; k <= 180; k++) pts.push(eciPos(p * 60 * D2R, 2 * Math.PI * k / 180)); const l = new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), new THREE.LineBasicMaterial({ color: PCOL[p], transparent: true, opacity: .22 })); eci.add(l); return l; });
+  const bodyG = new THREE.BoxGeometry(.07, .07, .07), panelG = new THREE.BoxGeometry(.24, .004, .07);
+  const sats = [];
+  for (let p = 0; p < 6; p++) for (let k = 0; k < 4; k++) {
+    const g = new THREE.Group(); g.add(new THREE.Mesh(bodyG, std(0xd8b45a, { metalness: .8, roughness: .3, emissive: PCOL[p], emissiveIntensity: .35 })));
+    for (const s of [-1, 1]) { const pn = new THREE.Mesh(panelG, std(0x24427a, { metalness: .6, roughness: .3, emissive: 0x1a3a7a, emissiveIntensity: .4 })); pn.position.x = s * .16; g.add(pn); }
+    const sat = { g, p, k, u0: k * Math.PI / 2 + p * 15 * D2R, el: 0, az: 0, vis: false };
+    eci.add(info(g, () => ({ t: `לוויין GPS, מישור ${"ABCDEF"[p]}, חריץ ${k + 1}`, x: `גובה 20,190 ק"מ, מחזור 11:58 שעות. הגבהה ${sat.el.toFixed(0)}°, אזימוט ${sat.az.toFixed(0)}°, ${sat.vis ? "נראה למקלט" : "לא נראה (מתחת לאופק או למסכה)"}. המסלול שלו מודגש.` })));
+    sats.push(sat);
+  }
+  const losBuf = new Float32Array(24 * 6), losCol = new Float32Array(24 * 6), losG = new THREE.BufferGeometry();
+  losG.setAttribute("position", new THREE.BufferAttribute(losBuf, 3)); losG.setAttribute("color", new THREE.BufferAttribute(losCol, 3));
+  sc.add(new THREE.LineSegments(losG, new THREE.LineBasicMaterial({ vertexColors: true, transparent: true, opacity: .85 })));
+  const hud = v.el.querySelector(".hud"), wp = V3(0, 0, 0);
+  const inv4 = A => { const n = 4, m = A.map((r, i) => [...r, ...[0, 1, 2, 3].map(j => +(i === j))]); for (let c = 0; c < n; c++) { let piv = c; for (let r = c + 1; r < n; r++) if (Math.abs(m[r][c]) > Math.abs(m[piv][c])) piv = r; [m[c], m[piv]] = [m[piv], m[c]]; const d = m[c][c]; if (Math.abs(d) < 1e-12) return null; for (let j = 0; j < 2 * n; j++) m[c][j] /= d; for (let r = 0; r < n; r++) if (r !== c) { const f = m[r][c]; for (let j = 0; j < 2 * n; j++) m[r][j] -= f * m[c][j]; } } return m.map(r => r.slice(n)); };
+  let sel = -1;
+  return {
+    onPick(o) { sel = o ? (sats.find(s => s.g === o) || { p: -1 }).p : -1; rings.forEach((r, p) => { r.material.opacity = sel === -1 ? .22 : p === sel ? 1 : .08; }); },
+    update(t) {
+      const T = t * .2, th = 2 * Math.PI * T / 23.934; eci.rotation.y = -th; eci.updateMatrixWorld(true);
+      const rows = []; let n = 0;
+      for (const s of sats) {
+        s.g.position.copy(eciPos(s.p * 60 * D2R, s.u0 + 2 * Math.PI * T / 11.967)); s.g.lookAt(0, 0, 0); s.g.updateMatrixWorld(true);
+        s.g.getWorldPosition(wp); const los = wp.clone().sub(up).normalize();
+        const e = los.dot(east), nn = los.dot(north), uu = los.dot(up);
+        s.el = Math.asin(uu) / D2R; s.az = (Math.atan2(e, nn) / D2R + 360) % 360; s.vis = s.el > 5;
+        if (s.vis) { rows.push([-e, -nn, -uu, 1]); losBuf.set([up.x, up.y, up.z, wp.x, wp.y, wp.z], 6 * n); const c = cmap(CM.viridis, s.el / 90); losCol.set([...c, ...c], 6 * n); n++; }
+      }
+      losG.setDrawRange(0, 2 * n); losG.attributes.position.needsUpdate = true; losG.attributes.color.needsUpdate = true;
+      let dop = "—";
+      if (rows.length >= 4) { const H = [0, 1, 2, 3].map(i => [0, 1, 2, 3].map(j => rows.reduce((a, r) => a + r[i] * r[j], 0))), Q = inv4(H); if (Q) dop = `GDOP ${Math.sqrt(Q[0][0] + Q[1][1] + Q[2][2] + Q[3][3]).toFixed(2)}  PDOP ${Math.sqrt(Q[0][0] + Q[1][1] + Q[2][2]).toFixed(2)}\nHDOP ${Math.sqrt(Q[0][0] + Q[1][1]).toFixed(2)}  VDOP ${Math.sqrt(Q[2][2]).toFixed(2)}`; }
+      const hh = Math.floor(T % 24), mm = Math.floor((T * 60) % 60);
+      if (hud) hud.textContent = `t = +${String(hh).padStart(2, "0")}:${String(mm).padStart(2, "0")}  visible ${rows.length}/24\n${dop}`;
+    },
+  };
+}
+
 /* ---------- mount everything ---------- */
 const MOUNTS = {
   "g-wave": el => mount(el, sWave, { cam: [7, 5.2, 7.5], target: [0, -.3, 0] }),
@@ -1064,6 +1197,8 @@ const MOUNTS = {
   "g-beam": el => mount(el, sBeam, { cam: [7.2, 2.2, 6.2], target: [2.8, -.5, 0] }),
   "g-heat": el => mount(el, sHeat, { cam: [5.4, 4.6, 6.2], target: [0, .3, 0] }),
   "g-motor": el => mount(el, sMotor, { cam: [2.4, 1.9, 6.4], target: [0, 0, .4] }),
+  "g-array": el => mount(el, sArray, { cam: [4.6, 3.4, 4.8], target: [0, 1, 0], maxD: 16 }),
+  "g-gnss": el => mount(el, sGnss, { cam: [8.3, 5.8, -2.3], target: [1.1, .85, -.77], maxD: 30, minD: 2.5 }),
   "u-polezero": el => mount(el, sPoleZero, { cam: [4.2, 3.6, 4.4], target: [0, .5, 0], spin: .5 }),
   "st-cad": el => mount(el, styleScene("cad"), { cam: [5.4, 3.8, 6.2], target: [0, 2.0, 0], tone: THREE.NoToneMapping }),
   "st-pbr": el => mount(el, styleScene("pbr"), { cam: [5.4, 3.8, 6.2], target: [0, 2.0, 0] }),
@@ -1084,13 +1219,14 @@ document.getElementById("tour-next").addEventListener("click", () => goTour(tour
 ["th1", "th2", "th3"].forEach(id => document.getElementById(id).addEventListener("input", e => { document.getElementById("o-" + id).textContent = e.target.value + "°"; }));
 document.querySelectorAll("[data-bg]").forEach(b => b.addEventListener("click", () => {
   document.querySelectorAll("[data-bg]").forEach(x => x.setAttribute("aria-pressed", x === b));
-  document.querySelectorAll('#gal [data-mount]').forEach(el => { if (el._view) { el._view.look = b.dataset.bg; el._view.rebuild(); } });
+  document.querySelectorAll('#gal [data-mount], #gal2 [data-mount]').forEach(el => { if (el._view) { el._view.look = b.dataset.bg; el._view.rebuild(); } });
 }));
 document.querySelectorAll("[data-obj]").forEach(b => b.addEventListener("click", () => {
   STYLE_OBJ = b.dataset.obj;
   document.querySelectorAll("[data-obj]").forEach(x => x.setAttribute("aria-pressed", x === b));
   ["cad", "pbr", "illus", "wire"].forEach(k => { const el = document.querySelector(`[data-mount="st-${k}"]`); if (el && el._view) { el._view.camera.position.set(...(STYLE_OBJ === "arm" ? [5.4, 3.8, 6.2] : [5.6, 3.8, 5.6])); el._view.controls.target.set(0, STYLE_OBJ === "arm" ? 2.0 : 2.1, 0); el._view.rebuild(); } });
 }));
+document.addEventListener("click", e => { const x = e.target.closest(".cap3d .x"); if (x) x.closest(".cap3d").hidden = true; });
 document.getElementById("pause").addEventListener("click", e => { E.paused = !E.paused; e.currentTarget.setAttribute("aria-pressed", E.paused); e.currentTarget.textContent = E.paused ? "המשך תנועה" : "עצור תנועה"; });
 if (reduceMotion) { const p = document.getElementById("pause"); p.textContent = "התנועה כבויה לפי הגדרות המערכת"; p.disabled = true; }
 </script>
