@@ -20,7 +20,8 @@ export interface ListItem {
 }
 export type ImgSize = "s" | "m" | "l";
 export type Block =
-  | { id: string; t: "h"; level: 1 | 2 | 3; html: string; plain?: boolean; emoji?: string }
+  /** cont: more text of the section above it (after a box), drawn under its text, no number */
+  | { id: string; t: "h"; level: 1 | 2 | 3; html: string; plain?: boolean; emoji?: string; cont?: boolean }
   | { id: string; t: "p"; html: string }
   | { id: string; t: "list"; ordered: boolean; items: ListItem[] }
   | { id: string; t: "box"; kind: BoxKind; html: string; latex?: string }
@@ -125,23 +126,34 @@ export function textOf(html: string) {
     .replace(/&amp;/g, "&");
 }
 
-/** Numbers of the headings (1, 1.1, 1.1.1) and of the display equations, by block id. */
+/**
+ * Numbers of the headings (1, 1.1, 1.1.1) and of the display equations, by block id. A section's
+ * continuation (cont) gets its section's number in `conts`, to be drawn hidden, for alignment.
+ */
 export function numbering(blocks: Block[]) {
   const heads = new Map<string, string>();
+  const conts = new Map<string, string>();
+  const last: (string | undefined)[] = [];
   const eqs = new Map<string, number>();
   const c = [0, 0, 0];
   let eq = 0;
   for (const b of blocks) {
-    if (b.t === "h" && !b.plain) {
+    if (b.t === "h" && b.cont) {
+      const n = last[b.level - 1];
+      if (n) conts.set(b.id, n);
+    } else if (b.t === "h" && !b.plain) {
       const i = b.level - 1;
       c[i]++;
       for (let j = i + 1; j < 3; j++) c[j] = 0;
-      heads.set(b.id, c.slice(0, i + 1).map((n) => n || 1).join("."));
+      const n = c.slice(0, i + 1).map((x) => x || 1).join(".");
+      heads.set(b.id, n);
+      last[i] = n;
+      last.length = i + 1;
     } else if ((b.t === "math" && !b.plain && b.latex.trim()) || (b.t === "box" && b.kind === "eq" && b.latex?.trim())) {
       eqs.set(b.id, ++eq);
     }
   }
-  return { heads, eqs };
+  return { heads, eqs, conts };
 }
 
 /** Numbers of the items of a numbered list: 1, 2 at the top level; a, b below; i, ii below that. */
@@ -189,7 +201,9 @@ export function toMarkdown(title: string, blocks: Block[]) {
   const out: string[] = [];
   let first = true;
   for (const b of blocks) {
-    if (b.t === "h") {
+    if (b.t === "h" && b.cont) {
+      if (textOf(b.html).trim()) out.push(inlineMd(b.html));
+    } else if (b.t === "h") {
       const n = heads.get(b.id);
       const hashes = first && b.plain ? "#" : "#".repeat(Math.min(6, b.level + 1));
       out.push(`${hashes} ${b.emoji ? b.emoji + " " : ""}${n ? n + " " : ""}${inlineMd(b.html)}`);

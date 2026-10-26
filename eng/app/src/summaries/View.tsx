@@ -19,6 +19,13 @@ function Ro({ html, className }: { html: string; className?: string }) {
 export function BlockView({ b, n, eq }: { b: Block; n?: string; eq?: number }) {
   switch (b.t) {
     case "h": {
+      if (b.cont)
+        return (
+          <div className={`sm-h sm-h${b.level} is-cont`}>
+            {n && <span className="sm-num sm-cont-pad">{n}</span>}
+            <Ro html={b.html} />
+          </div>
+        );
       const H = (`h${Math.min(6, b.level + 1)}` as "h2" | "h3" | "h4");
       return (
         <H className={`sm-h sm-h${b.level}`}>
@@ -117,12 +124,12 @@ function PicView({ b }: { b: Extract<Block, { t: "img" } | { t: "fig" }> }) {
  * full; "open all" shows everything.
  */
 export function ReviewView({ blocks }: { blocks: Block[] }) {
-  const { heads, eqs } = useMemo(() => numbering(blocks), [blocks]);
+  const { heads, eqs, conts } = useMemo(() => numbering(blocks), [blocks]);
   const [open, setOpen] = useState<Set<string>>(new Set());
   const sections = useMemo(() => {
     const out: { head: Block | null; body: Block[] }[] = [{ head: null, body: [] }];
     for (const b of blocks) {
-      if (b.t === "h" && b.level <= 2) out.push({ head: b, body: [] });
+      if (b.t === "h" && b.level <= 2 && !b.cont) out.push({ head: b, body: [] });
       else out[out.length - 1].body.push(b);
     }
     return out.filter((s) => s.head || s.body.length);
@@ -150,7 +157,7 @@ export function ReviewView({ blocks }: { blocks: Block[] }) {
             )}
             {shown.map((b) => (
               <div key={b.id} className="sm-block">
-                <BlockView b={b} n={heads.get(b.id)} eq={eqs.get(b.id)} />
+                <BlockView b={b} n={heads.get(b.id) ?? conts.get(b.id)} eq={eqs.get(b.id)} />
               </div>
             ))}
             {!isOpen && s.body.length > shown.length && <div className="sm-sec-more">{s.body.length - shown.length} פסקאות נוספות</div>}

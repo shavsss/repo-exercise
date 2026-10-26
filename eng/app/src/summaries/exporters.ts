@@ -187,7 +187,9 @@ export async function toDocx(title: string, blocks: Block[]) {
   const { heads, eqs } = numbering(blocks);
   const children: (Paragraph | Table)[] = [];
   for (const b of blocks) {
-    if (b.t === "h") {
+    if (b.t === "h" && b.cont) {
+      if (textOf(b.html).trim()) children.push(...paras(b.html));
+    } else if (b.t === "h") {
       const n = heads.get(b.id);
       const level = b.plain && b === blocks[0] ? HeadingLevel.TITLE : [HeadingLevel.HEADING_1, HeadingLevel.HEADING_2, HeadingLevel.HEADING_3][b.level - 1];
       children.push(para([new TextRun({ text: `${b.emoji ? b.emoji + " " : ""}${n ? n + " " : ""}`, font: FONT, rightToLeft: true, bold: b.level < 3 }), ...runs(b.html, { bold: b.level < 3 })], { heading: level, spacing: { before: 240, after: 120 } }));
@@ -263,7 +265,9 @@ export async function toHtml(title: string, blocks: Block[]) {
   const { heads, eqs } = numbering(blocks);
   const out: string[] = [];
   for (const b of blocks) {
-    if (b.t === "h") {
+    if (b.t === "h" && b.cont) {
+      if (textOf(b.html).trim()) out.push(`<div class="p">${inl(b.html)}</div>`);
+    } else if (b.t === "h") {
       const n = heads.get(b.id);
       const tag = b.plain && b === blocks[0] ? "h1" : `h${b.level + 1}`;
       out.push(`<${tag}>${b.emoji ? `${b.emoji} ` : ""}${n ? `<span class="num">${n}</span>` : ""}${inl(b.html)}</${tag}>`);

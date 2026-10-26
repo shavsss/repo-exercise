@@ -203,7 +203,7 @@ export function Editor({
   const [drag, setDrag] = useState<{ id: string; over: string | null; after: boolean } | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
   const fileAfter = useRef<string | null>(null);
-  const { heads, eqs } = useMemo(() => numbering(blocks), [blocks]);
+  const { heads, eqs, conts } = useMemo(() => numbering(blocks), [blocks]);
 
   useLayoutEffect(() => {
     const r = focusReq.current;
@@ -525,6 +525,16 @@ export function Editor({
         html = last.nodeName === "OL" ? `<ol start="${n}"><li><br></li></ol>` : "<ul><li><br></li></ul>";
       }
     }
+    // a box inside a section written in its heading: the text after it goes on in that section
+    let k = i - 1;
+    while (k >= 0 && (blocks[k].t === "box" || (blocks[k].t === "p" && !textOf((blocks[k] as Extract<Block, { t: "p" }>).html).trim()))) k--;
+    const sec = blocks[k];
+    if (!html && sec?.t === "h" && (!sec.plain || sec.cont)) {
+      const nc: Block = { id: uid(), t: "h", level: sec.level, html: "", cont: true };
+      insertAfter(id, nc);
+      focus(nc.id, "start");
+      return;
+    }
     const next = blocks[i + 1];
     if (next && next.t === "p" && !textOf(next.html).trim()) {
       if (html) patch(next.id, { html }, "struct");
@@ -710,6 +720,22 @@ export function Editor({
     switch (b.t) {
       case "h": {
         const n = heads.get(b.id);
+        if (b.cont)
+          return (
+            <div className={`sm-h sm-h${b.level} is-cont`}>
+              <span className="sm-emoji-wrap sm-cont-pad" contentEditable={false} aria-hidden>
+                <button className="sm-emoji-btn" tabIndex={-1}>
+                  ☺
+                </button>
+              </span>
+              {conts.get(b.id) && (
+                <span className="sm-num sm-cont-pad" contentEditable={false} aria-hidden>
+                  {conts.get(b.id)}
+                </span>
+              )}
+              <Rich fkey={b.id} html={b.html} placeholder="המשך הסעיף" onChange={(h) => patch(b.id, { html: h })} onKeyDown={textKeys(b)} onMath={openInline} />
+            </div>
+          );
         return (
           <div className={`sm-h sm-h${b.level}`}>
             <span className="sm-emoji-wrap" contentEditable={false}>

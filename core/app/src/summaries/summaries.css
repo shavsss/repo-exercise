@@ -313,3 +313,7 @@ span.im .katex { font-size: 1.04em; }
 .sm-rich li ul, .sm-ro li ul { list-style: circle; }
 .sm-rich li li ul, .sm-ro li li ul { list-style: square; }
 .sm-rich li::marker, .sm-ro li::marker { color: var(--accent); }
+
+/* the rest of a section after a box: under the section's text, no number of its own */
+.sm-cont-pad { visibility: hidden; }
+.sm-h.is-cont { margin-top: 0; }

@@ -183,7 +183,9 @@ function summaryMd(s) {
   let eq = 0;
   const out = [];
   for (const b of s.blocks ?? []) {
-    if (b.t === "h") {
+    if (b.t === "h" && b.cont) {
+      if (plain(b.html).trim()) out.push(plain(b.html));
+    } else if (b.t === "h") {
       let n = "";
       if (!b.plain) {
         c[b.level - 1]++;
