@@ -10,7 +10,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-from syllabus import DOCS, MODULES, PARTS, SKIP
+from syllabus import DOCS, MODULES, PARTS, REF_DOCS, SKIP
 
 ROOT = Path(__file__).resolve().parent.parent
 HERE = Path(__file__).resolve().parent
@@ -49,7 +49,10 @@ def main():
             a, b = src["pages"] or (1, pages[d])
             if not (1 <= a <= b <= pages[d]):
                 errors.append(f"{m['id']}: {d} pages {a}-{b} outside 1-{pages[d]}")
-            covered[d].update(range(a, b + 1))
+            if (src["role"] == "ref") != (d in REF_DOCS):
+                errors.append(f"{m['id']}: {d} must be {'an analysis reference' if d in REF_DOCS else 'a taught source'}")
+            if src["role"] != "ref":
+                covered[d].update(range(a, b + 1))
     for d, a, b, reason in SKIP:
         taught = covered[d] & set(range(a, b + 1))
         if taught:
@@ -58,9 +61,9 @@ def main():
 
     gaps = {}
     for d in DOCS:
-        if d.startswith("A"):
+        if d.startswith("A") or d in REF_DOCS:
             if d not in used:
-                errors.append(f"article {d} is not used by any module")
+                errors.append(f"{'article' if d.startswith('A') else 'reference'} {d} is not used by any module")
             continue
         missing = sorted(set(range(1, pages[d] + 1)) - covered[d])
         if missing:
@@ -121,7 +124,7 @@ def render(data, pages, gaps):
     out.append("")
     out.append("**דרגות:** ליבה = נלמד במלואו. מתקדם = אחרי הליבה של אותו חלק. עיון = לא נלמד כשיעור, זמין לפי צורך.")
     out.append("")
-    out.append("**תפקיד המקור:** ★ מקור ראשי. ◇ השלמה מספר אחר. 📄 מאמר או מסמך.")
+    out.append("**תפקיד המקור:** ★ מקור ראשי. ◇ השלמה מספר אחר. 📄 מאמר או מסמך. ⚙ מקור עזר לניתוח: לא נלמד כחומר שיעור; המורה משתמש בו כדי לקחת את התוצאה הטכנית של המודול לתוצאה מבצעית, והלומד מתכנן את הניתוח (חקר ביצועים, שרידות, לוגיסטיקה).")
     out.append("")
     counts = {t: sum(1 for m in data["modules"] if m["tier"] == t) for t in TIER}
     out.append(f"**סה\"כ:** {len(data['modules'])} מודולים: {counts['core']} ליבה, {counts['adv']} מתקדם, {counts['ref']} עיון.")
@@ -143,7 +146,7 @@ def render(data, pages, gaps):
     out.append("")
     out.append("האומדן: שיעור לכל כ-15 עמודי ספר, כולל השלמות. מאמר לא מוסיף שיעורים משלו: המורה משלב ממנו את מה שחדש בתוך שיעורי המודול. מודול שכולו מאמרים נספר לפי עמודי המאמר.")
     out.append("")
-    mark = {"main": "★", "supp": "◇", "article": "📄"}
+    mark = {"main": "★", "supp": "◇", "article": "📄", "ref": "⚙"}
     for pid, ptitle in [(p["id"], p["title"]) for p in data["parts"]]:
         mods = [m for m in data["modules"] if m["part"] == pid]
         out.append(f"## {pid.replace('P', 'חלק ')}: {ptitle}")

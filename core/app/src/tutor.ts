@@ -99,7 +99,7 @@ function moduleBlock(m: Module) {
   const srcs = m.sources
     .map((s) => {
       const d = docMeta(s.doc);
-      const role = s.role === "main" ? "main source" : s.role === "supp" ? "supplement" : "article";
+      const role = s.role === "main" ? "main source" : s.role === "supp" ? "supplement" : s.role === "ref" ? "analysis reference (not lesson material; read with read_source_pages for the from-performance-to-outcome section and the analysis-design exercise)" : "article";
       return `- ${role}: ${s.doc} (${d?.short ?? s.doc}), PDF pages ${s.pages[0]}–${s.pages[1]}${s.note ? `: ${s.note}` : ""}`;
     })
     .join("\n");
@@ -122,7 +122,7 @@ function planBlock(lessons: LessonSpec[] | undefined, idx: number) {
 }
 
 async function lessonPages(lesson: LessonSpec | undefined, m: Module) {
-  const ranges = lesson?.sources?.length ? lesson.sources : m.sources.filter((s) => s.role !== "article").map((s) => ({ doc: s.doc, pages: s.pages }));
+  const ranges = lesson?.sources?.length ? lesson.sources : m.sources.filter((s) => s.role !== "article" && s.role !== "ref").map((s) => ({ doc: s.doc, pages: s.pages }));
   const total = ranges.reduce((s, r) => s + (r.pages[1] - r.pages[0] + 1), 0) || 1;
   const parts: string[] = [];
   for (const r of ranges) {
@@ -269,7 +269,7 @@ export function uncoveredSections(m: Module, lessons: LessonSpec[]) {
 export function uncoveredPages(m: Module, lessons: LessonSpec[]) {
   const out: { doc: string; pages: [number, number] }[] = [];
   for (const src of m.sources) {
-    if (src.role === "article") continue;
+    if (src.role === "article" || src.role === "ref") continue;
     const inLesson = (p: number) => lessons.some((l) => l.sources.some((s) => s.doc === src.doc && s.pages[0] <= p && p <= s.pages[1]));
     let start = 0;
     for (let p = src.pages[0]; p <= src.pages[1] + 1; p++) {
@@ -307,7 +307,7 @@ export async function planModule(o: { rt: Runtime; module: Module; memory: strin
   cb.onStatus?.("קורא את מקורות המודול ומחלק אותו לשיעורים");
   // the opening of every source range, so the plan sees what each part is about
   const peek: string[] = [];
-  for (const s of m.sources) {
+  for (const s of m.sources.filter((x) => x.role !== "ref")) {
     try {
       const { text } = await readPages(s.doc, s.pages[0], Math.min(s.pages[1], s.pages[0] + 1), 3500);
       peek.push(text);
@@ -321,7 +321,7 @@ The opening pages of each source, for orientation:
 ${peek.join("\n\n")}
 
 MODULE PLANNING STEP. Split this module into lessons. Do not teach yet.
-1. Every section heading listed above must be covered by exactly one lesson, fully, and every page of every main source and supplement must fall inside the "sources" pages of some lesson (the app checks both). If no headings were detected for a source, read its pages and split it by the topics you find there. Supplements and articles are folded into the lesson whose topic they extend (articles: only what they add beyond the books).
+1. Every section heading listed above must be covered by exactly one lesson, fully, and every page of every main source and supplement must fall inside the "sources" pages of some lesson (the app checks both). If no headings were detected for a source, read its pages and split it by the topics you find there. Supplements and articles are folded into the lesson whose topic they extend (articles: only what they add beyond the books). Analysis references are not lesson material: leave them out of the lessons' "sources".
 2. Where two sources treat the same topic, put them in the same lesson and say in "focus" how they are combined, so nothing is taught twice and nothing is left out.
 3. Each lesson must hold enough for the depth bar (about 4000 Hebrew words for a core or advanced module) without being cramped: as a rule of thumb 10–20 dense book pages per lesson. Keep the order of the main source unless the logic of prerequisites says otherwise.
 4. Reply with ONLY a JSON array: [{"title": "Hebrew lesson title", "covers": ["exact section headings as listed"], "sources": [{"doc": "B02", "pages": [96, 110]}], "focus": "what the lesson teaches, which examples and figures, how sources are combined"}]${feedback}`;

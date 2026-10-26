@@ -19,7 +19,8 @@ export interface Source {
   doc: string;
   pages: [number, number];
   note: string;
-  role: "main" | "supp" | "article";
+  /** ref: an analysis reference (operations research, survivability, logistics), not lesson material */
+  role: "main" | "supp" | "article" | "ref";
 }
 export interface Section {
   doc: string;

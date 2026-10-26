@@ -744,7 +744,7 @@ function Overview({ index, done, mods, onSelect }: { index: LibraryIndex; done: 
                       {p.done?.length ?? 0}/{p.lessons.length} שיעורים
                     </span>
                   ) : (
-                    <span>{m.sources.reduce((s, x) => s + x.pages[1] - x.pages[0] + 1, 0)} עמ'</span>
+                    <span>{m.sources.filter((x) => x.role !== "ref").reduce((s, x) => s + x.pages[1] - x.pages[0] + 1, 0)} עמ'</span>
                   )}
                 </span>
               </button>
@@ -760,7 +760,7 @@ function Overview({ index, done, mods, onSelect }: { index: LibraryIndex; done: 
 }
 
 function SourceList({ m }: { m: Module }) {
-  const ROLE = { main: "מקור ראשי", supp: "השלמה", article: "מאמר" };
+  const ROLE = { main: "מקור ראשי", supp: "השלמה", article: "מאמר", ref: "עזר לניתוח" };
   return (
     <ul className="sources">
       {m.sources.map((s, i) => (

@@ -32,7 +32,7 @@ ASSET_DOCS = {"B12", "B13"}
 ASSETS = ROOT / "core" / "app" / "artifact" / "assets"
 ASSET_URLS = ROOT / "core" / "tools" / "asset_urls.json"
 sys.path.insert(0, str(LIB / "syllabus"))
-from syllabus import DOCS, MODULES, PARTS, SKIP  # noqa: E402
+from syllabus import DOCS, MODULES, PARTS, REF_DOCS, SKIP  # noqa: E402
 from source_pdf import source_pdf  # noqa: E402
 
 BUNDLE = 6_000_000
@@ -40,7 +40,7 @@ BUNDLE = 6_000_000
 SHORT = {
     "B01": "EW 101", "B02": "POMR I", "B02a": "POMR II", "B02b": "POMR III", "B03": "Driggers", "B04": "EW 102",
     "B05": "Kaplan GPS", "B06": "Siouris", "B07": "AMD SE", "B08": "Avionics", "B09": "UAV", "B10": "Naval Weapons",
-    "B11": "Tanks", "B12": "SMAD", "B13": "Fleeman", "D5": "ATP 7-100.1", "D6": "ATP 7-100.3", "D8": "ATP 3-09.12", "D9": "ATP 3-01.81",
+    "B11": "Tanks", "B12": "SMAD", "B13": "Fleeman", "B14": "Washburn & Kress", "B15": "Przemieniecki", "B16": "Ball", "B17": "Van Creveld", "D5": "ATP 7-100.1", "D6": "ATP 7-100.3", "D8": "ATP 3-09.12", "D9": "ATP 3-01.81",
 }
 
 
@@ -211,65 +211,67 @@ def asset_urls(docs):
     return {n: urls[n] for n in names if n in urls}
 
 
-def main():
-    for d in ("text", "fig", "pg"):
-        (OUT / d).mkdir(parents=True, exist_ok=True)
-    docs = {}
-    sections = {}
-    for doc, (rel, title) in DOCS.items():
-        src = BUILD / doc
-        if not (src / "pages.json").exists():
-            print("not extracted yet:", doc)
-            continue
-        pages = json.loads((src / "pages.json").read_text())
-        figs = json.loads((src / "figures.json").read_text()) if (src / "figures.json").exists() else {}
-        text = {k: {"l": v.get("label"), "t": v["text"], **({"o": 1} if v.get("ocr") else {})} for k, v in pages.items()}
-        (OUT / "text" / f"{doc}.json").write_text(dumps(text))
+def pack_doc(doc, rel, title, with_images=True):
+    """Writes the text (and figure and page-image bundles) of one extracted document; returns
+    its index entry and its section headings, or None when it is not extracted yet."""
+    src = BUILD / doc
+    if not (src / "pages.json").exists():
+        print("not extracted yet:", doc)
+        return None
+    pages = json.loads((src / "pages.json").read_text())
+    figs = json.loads((src / "figures.json").read_text()) if (src / "figures.json").exists() and with_images else {}
+    text = {k: {"l": v.get("label"), "t": v["text"], **({"o": 1} if v.get("ocr") else {})} for k, v in pages.items()}
+    (OUT / "text" / f"{doc}.json").write_text(dumps(text))
 
-        fig_items = []
-        fig_pages = {}
-        for k in sorted(figs, key=int):
-            for j, e in enumerate(figs[k]):
-                f = src / "fig" / e["file"]
-                if f.exists():
-                    fig_items.append((f"{k}-{j}", {"c": e["caption"], "w": e["w"], "h": e["h"], "d": webp_data(f)}))
-                    fig_pages.setdefault(k, []).append(e["caption"][:140])
-        fig_files, fig_index = bundle(doc, fig_items, "fig")
+    fig_items = []
+    fig_pages = {}
+    for k in sorted(figs, key=int):
+        for j, e in enumerate(figs[k]):
+            f = src / "fig" / e["file"]
+            if f.exists():
+                fig_items.append((f"{k}-{j}", {"c": e["caption"], "w": e["w"], "h": e["h"], "d": webp_data(f)}))
+                fig_pages.setdefault(k, []).append(e["caption"][:140])
+    fig_files, fig_index = bundle(doc, fig_items, "fig")
 
-        pdf = source_pdf(LIB, rel)
-        ocr_pages = [k for k in sorted(pages, key=int) if pages[k].get("ocr")]
-        cache = src / "pg"
-        cache.mkdir(exist_ok=True)
-        pg_items = []
-        for k in ocr_pages:
-            f = cache / f"p{int(k):04d}.json"
-            if not f.exists():
-                # a book photographed page by page is all page images: a little smaller each
-                f.write_text(json.dumps(page_image(pdf, int(k), *((100, 40) if doc in ASSET_DOCS else ()))))
-            pg_items.append((k, json.loads(f.read_text())))
-        pg_files, pg_index = bundle(doc, pg_items, "pg")
+    pdf = source_pdf(LIB, rel)
+    ocr_pages = [k for k in sorted(pages, key=int) if pages[k].get("ocr")] if with_images else []
+    cache = src / "pg"
+    cache.mkdir(exist_ok=True)
+    pg_items = []
+    for k in ocr_pages:
+        f = cache / f"p{int(k):04d}.json"
+        if not f.exists():
+            # a book photographed page by page is all page images: a little smaller each
+            f.write_text(json.dumps(page_image(pdf, int(k), *((100, 40) if doc in ASSET_DOCS else ()))))
+        pg_items.append((k, json.loads(f.read_text())))
+    pg_files, pg_index = bundle(doc, pg_items, "pg")
 
-        # The PDF outline when it reaches section level (about one heading per 8 pages);
-        # else numbered headings in the text; else headings by font, without bold-only
-        # ones when those make it denser than one heading per 2 pages.
-        skip = {p for d, a, b, _ in SKIP if d == doc for p in range(a, b + 1)}
-        enough = len(pages) / 8
-        secs = outline_sections(pdf)
-        if len(secs) < enough:
-            secs = text_sections(pages, skip)
-        if len(secs) < enough:
-            secs = font_sections(pdf, skip)
-            if len(secs) > len(pages) / 2:
-                secs = font_sections(pdf, skip, bold=False)
-        sections[doc] = secs
-        docs[doc] = {
-            "title": title, "short": short(doc), "kind": kind(doc), "pages": len(pages),
-            "figs": fig_pages, "figFiles": fig_files, "figIndex": fig_index,
-            "pgFiles": pg_files, "pgIndex": pg_index,
-        }
-        print(f"{doc}: {len(pages)} pages, {len(fig_items)} figures in {len(fig_files)} files, {len(pg_items)} page images, {len(secs)} sections")
+    # The PDF outline when it reaches section level (about one heading per 8 pages);
+    # else numbered headings in the text; else headings by font, without bold-only
+    # ones when those make it denser than one heading per 2 pages.
+    skip = {p for d, a, b, _ in SKIP if d == doc for p in range(a, b + 1)}
+    enough = len(pages) / 8
+    secs = outline_sections(pdf)
+    if len(secs) < enough:
+        secs = text_sections(pages, skip)
+    if len(secs) < enough:
+        secs = font_sections(pdf, skip)
+        if len(secs) > len(pages) / 2:
+            secs = font_sections(pdf, skip, bold=False)
+    entry = {
+        "title": title, "short": short(doc), "kind": kind(doc), "pages": len(pages),
+        "figs": fig_pages, "figFiles": fig_files, "figIndex": fig_index,
+        "pgFiles": pg_files, "pgIndex": pg_index,
+    }
+    print(f"{doc}: {len(pages)} pages, {len(fig_items)} figures in {len(fig_files)} files, {len(pg_items)} page images, {len(secs)} sections")
+    return entry, secs
 
-    modules = []
+
+def module_list(docs, sections, base_modules=None):
+    """The syllabus modules with their page ranges and the section headings in their taught
+    pages. With base_modules (from a published index), headings are kept from there."""
+    base = {m["id"]: m for m in base_modules or []}
+    out = []
     for m in MODULES:
         m = json.loads(json.dumps(m))
         heads = []
@@ -279,10 +281,15 @@ def main():
             a, b = s["pages"] or (1, docs[s["doc"]]["pages"])
             s["pages"] = [a, b]
             for h in sections.get(s["doc"], []):
-                if a <= h["page"] <= b and s["role"] != "article":
+                if a <= h["page"] <= b and s["role"] not in ("article", "ref"):
                     heads.append({"doc": s["doc"], "page": h["page"], "title": h["title"], "depth": h["depth"]})
-        m["sections"] = heads
-        modules.append(m)
+        m["sections"] = base[m["id"]]["sections"] if m["id"] in base else heads
+        m["sources"] = [s for s in m["sources"] if s["doc"] in docs]
+        out.append(m)
+    return out
+
+
+def write_index(docs, modules):
     index = {"docs": docs, "parts": [{"id": i, "title": t} for i, t in PARTS], "modules": modules}
     index["assets"] = asset_urls(docs)
     digest = hashlib.sha1()
@@ -293,6 +300,37 @@ def main():
     digest.update(json.dumps(index, sort_keys=True).encode())
     index["version"] = digest.hexdigest()[:12]
     (OUT / "index.json").write_text(dumps(index))
+
+
+def main():
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--only", nargs="*", help="pack only these documents, onto --base")
+    ap.add_argument("--base", help="the published lib/index.json, for --only")
+    args = ap.parse_args()
+    for d in ("text", "fig", "pg"):
+        (OUT / d).mkdir(parents=True, exist_ok=True)
+    if args.only:
+        # Adds documents to an index already published, without the rest of the library on
+        # disk: their files are written to lib/, and index.json is the published one with these
+        # documents and the current syllabus. Analysis references (REF_DOCS) are packed as text only.
+        base = json.loads(Path(args.base).read_text())
+        docs = base["docs"]
+        for doc in args.only:
+            rel, title = DOCS[doc]
+            r = pack_doc(doc, rel, title, with_images=doc not in REF_DOCS)
+            if r:
+                docs[doc] = r[0]
+        write_index(docs, module_list(docs, {}, base["modules"]))
+        print("wrote", ", ".join(f"text/{d}.json" for d in args.only), "and index.json")
+        return
+    docs = {}
+    sections = {}
+    for doc, (rel, title) in DOCS.items():
+        r = pack_doc(doc, rel, title)
+        if r:
+            docs[doc], sections[doc] = r
+    write_index(docs, module_list(docs, sections))
     total = sum(f.stat().st_size for f in OUT.rglob("*.json"))
     print(f"wrote {sum(1 for _ in OUT.rglob('*.json'))} files, {total / 1e6:.1f} MB")
 

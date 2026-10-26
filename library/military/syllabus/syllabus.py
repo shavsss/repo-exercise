@@ -20,6 +20,10 @@ DOCS = {
     "B10": ("books/10_Principles-of-Naval-Weapons-Systems_Hall.pdf", "Principles of Naval Weapons Systems"),
     "B11": ("books/11_Tanks-100-Years_Ogorkiewicz_2015.pdf", "Tanks: 100 Years of Evolution"),
     "B12": ("books/12_SMAD", "Space Mission Engineering: The New SMAD (2011)"),
+    "B14": ("books/14_Combat-Modeling_Washburn-Kress_2009.pdf", "Washburn & Kress, Combat Modeling (2009)"),
+    "B15": ("books/15_Mathematical-Methods-Defense-Analyses_Przemieniecki_3ed_2000.pdf", "Przemieniecki, Mathematical Methods in Defense Analyses, 3rd ed. (2000)"),
+    "B16": ("books/16_Aircraft-Combat-Survivability_Ball_2ed_2003.pdf", "Ball, The Fundamentals of Aircraft Combat Survivability Analysis and Design, 2nd ed. (2003)"),
+    "B17": ("books/17_Supplying-War_van-Creveld_1977.pdf", "Van Creveld, Supplying War: Logistics from Wallenstein to Patton (1977)"),
     "A01.1": ("articles/01.1_Qu_Deinterleaving-Review.pdf", "Qu et al., Radar Signal Deinterleaving review (2025)"),
     "A01.3": ("articles/01.3_OShea_OTA-DL-Signal-Classification.pdf", "O'Shea, Roy, Clancy, Over-the-Air DL Signal Classification (2018)"),
     "A01.4": ("articles/01.4_Hiles_RF-Fingerprinting.pdf", "Hiles & Ahmad, ML Framework for RF Fingerprinting (2025)"),
@@ -81,6 +85,12 @@ def s(doc, a, b, note="", role="main"):
 
 def sup(doc, a, b, note=""):
     return s(doc, a, b, note, "supp")
+
+
+def ref(doc, a, b, note):
+    """An analysis reference: not taught as lesson material. The tutor uses it to carry the
+    module's result to an operational outcome (and the learner designs the analysis)."""
+    return {"doc": doc, "pages": [a, b], "note": note, "role": "ref"}
 
 
 def art(doc, note=""):
@@ -660,6 +670,66 @@ MODULES = [
     dict(id="M13.22", part="P13", tier="ref", title="נספחי SMAD: נתוני חלליות, כוכבי לכת, נוסחאות מסלול וגאומטריה, זמן ויחידות", en="SMAD appendices",
          sources=[s("B12", 962, 1001, "נספחים A–G"), s("B12", 1038, 1045, "טבלאות פרמטרים של לווייני כדור הארץ")]),
 ]
+
+# ---------------- analysis references ----------------
+# Operations research, survivability and logistics. The learner has read Washburn & Kress (B14)
+# and Przemieniecki (B15); they, Ball (B16) and Van Creveld (B17) are not taught as modules.
+# In the modules below the tutor closes the loop from the module's technical result to an
+# operational outcome with the method these pages give, and the learner designs the analysis.
+REF_DOCS = {"B14", "B15", "B16", "B17"}
+REFS = {
+    "M0.4": [ref("B14", 239, 257, "נספח A: הסתברות לאנליסט"), ref("B14", 264, 267, "נספח C: סימולציית מונטה קרלו")],
+    "M2.3": [ref("B14", 137, 164, "פרק 7: חיפוש, רוחב סריקה ושלושת חוקי הגילוי"), ref("B15", 282, 303, "פרק 10: גילוי מטרה, הצצות וחיפוש רציף")],
+    "M2.4": [ref("B16", 580, 596, "4.4.4: הקטנת חתימה כחלק משרידות"), ref("B16", 474, 560, "4.3: הערכת חשיפה (susceptibility)")],
+    "M2.10": [ref("B15", 282, 288, "10.1–10.2: הסתברות גילוי מצטברת מהצצות"), ref("B14", 141, 148, "7.3: חוקי הגילוי")],
+    "M2.22": [ref("B16", 398, 418, "3.7: מבצעי האיום, שרשרת ההיתקלות")],
+    "M3.9": [ref("B14", 141, 148, "7.3: חוקי הגילוי")],
+    "M3.10": [ref("B14", 137, 150, "7.1–7.4: חיפוש ורוחב סריקה")],
+    "M3.11": [ref("B14", 137, 164, "פרק 7: חיפוש"), ref("B15", 282, 303, "פרק 10: גילוי מטרה")],
+    "M4.1": [ref("B16", 277, 305, "3.2: איום ההגנה האווירית"), ref("B16", 398, 418, "3.7: מבצעי האיום")],
+    "M4.4": [ref("B14", 150, 157, "7.5: חלוקה אופטימלית של מאמץ חיפוש")],
+    "M4.7": [ref("B16", 569, 579, "4.4.3: משבשי רעש והטעיה כאמצעי שרידות")],
+    "M4.9": [ref("B16", 597, 607, "4.4.5: אמצעים מתכלים")],
+    "M4.10": [ref("B16", 566, 568, "4.4.2: התרעת איום"), ref("B16", 597, 607, "4.4.5: אמצעים מתכלים")],
+    "M6.3": [ref("B14", 21, 51, "פרק 2: ירי בלי משוב, SSKP ממרחק החטאה"), ref("B16", 339, 358, "3.5: תהליכי נזק ואפקטים סופיים")],
+    "M6.4": [ref("B14", 21, 39, "2.2–2.3: הסתברות השמדה מיריה אחת ומכמה יריות")],
+    "M6.7": [ref("B15", 32, 41, "פרק 2: נתוני ביצועי נשק, פיזור וטעות שיטתית"), ref("B15", 55, 62, "3.7: CEP והשמדת מטרה נקודתית")],
+    "M6.8": [ref("B15", 164, 185, "6.1–6.3: הגנה בשכבות, MIRV ותורת המשחקים ב-ABM")],
+    "M6.10": [ref("B15", 186, 197, "6.4–6.5: נתיבי חדירה אופטימליים ופונקציית איום"), ref("B14", 70, 83, "פרק 4: הגנת מטרה")],
+    "M7.1": [ref("B14", 70, 83, "פרק 4: הגנת מטרה"), ref("B15", 206, 219, "פרק 7: הגנה מפני טילים בזירה, הסתברות חדירה"), ref("B17", 12, 15, "מבוא: לוגיסטיקה כגבול של כל תוכנית")],
+    "M7.2": [ref("B14", 8, 20, "פרק 1: סיווג מודלים וקיצורי דרך במידול"), ref("B16", 430, 468, "3.9: ניתוח משימה-איום")],
+    "M7.3": [ref("B14", 52, 69, "פרק 3: ירי עם משוב, shoot-look-shoot"), ref("B15", 164, 173, "6.1–6.2: הגנה בשכבות")],
+    "M7.4": [ref("B15", 304, 319, "פרק 11: שיטות אופטימיזציה"), ref("B14", 258, 263, "נספח B: אופטימיזציה"), ref("B16", 789, 796, "6.3: ניתוחי פשרות לשיפור שרידות")],
+    "M7.6": [ref("B14", 77, 83, "4.3: הגנת מטרות מרובות מול מתקפת ICBM"), ref("B15", 170, 185, "6.2–6.3: MIRV ותורת המשחקים")],
+    "M7.10": [ref("B15", 252, 281, "פרק 9: אמינות, תחזוקתיות וזמינות מבצעית"), ref("B16", 156, 197, "1.4–1.6: תכנון לשרידות, מידול וסימולציה, ניסויים"), ref("B17", 326, 333, "סיכום: לוגיסטיקה כאילוץ תכנון")],
+    "M8.1": [ref("B16", 257, 276, "3.1: תפקידים ומשימות של כלי טיס צבאיים")],
+    "M8.3": [ref("B15", 134, 141, "5.1–5.2: דו-קרב רציף ודו-קרב תלוי זמן")],
+    "M8.7": [ref("B15", 252, 257, "9.1–9.4: אמינות טורית ומקבילית, דוגמת קרב אוויר"), ref("B16", 720, 762, "5.4: הפחתת פגיעות, יתירות והפרדה")],
+    "M9.1": [ref("B14", 188, 213, "פרק 9: כלי טיס בלתי מאוישים")],
+    "M9.3": [ref("B14", 188, 203, "9.2: ניתוב כטב\"ם")],
+    "M9.7": [ref("B14", 70, 83, "פרק 4: הגנת מטרה"), ref("B14", 40, 51, "2.4: כמה יריות, כמה מטרות, מטח אחד"), ref("B15", 207, 219, "7.2–7.3: הסתברות חדירה")],
+    "M10.4": [ref("B14", 165, 187, "פרק 8: לוחמת מוקשים")],
+    "M10.5": [ref("B14", 52, 69, "פרק 3: shoot-look-shoot"), ref("B15", 207, 219, "7.2–7.3: הסתברות חדירה והסתברות לאפס חודרים")],
+    "M11.1": [ref("B15", 32, 41, "פרק 2: פיזור ונקודת פגיעה ממוצעת")],
+    "M11.2": [ref("B15", 103, 107, "4.4: אש שטח, החוק הלינארי")],
+    "M11.3": [ref("B16", 339, 358, "3.5: תהליכי נזק ואפקטים סופיים"), ref("B15", 82, 89, "3.14–3.15: פונקציות נזק לרסיסים ורדיוס אפקטיבי")],
+    "M11.4": [ref("B15", 42, 91, "פרק 3: מטרות סבילות, CEP ופונקציות נזק"), ref("B14", 21, 51, "פרק 2: ירי בלי משוב"), ref("B16", 679, 719, "5.3: הערכת פגיעות")],
+    "M11.6": [ref("B16", 720, 730, "5.4.1–5.4.3: עקרונות הפחתת פגיעות")],
+    "M11.7": [ref("B17", 205, 258, "פרק 5: ברברוסה, הצבא החצי-ממונע"), ref("B17", 288, 325, "פרק 7: נורמנדי, צריכת דלק וקצב התקדמות")],
+    "M11.8": [ref("B17", 288, 325, "פרק 7: חזית רחבה או חוד צר")],
+    "M11.9": [ref("B17", 205, 287, "פרקים 5–6: ברברוסה וצפון אפריקה")],
+    "M11.10": [ref("B15", 198, 205, "6.6: מודלי מספיקות לכוחות אסטרטגיים")],
+    "M12.1": [ref("B16", 277, 305, "3.2: איום ההגנה האווירית"), ref("B16", 419, 429, "3.8: נשק הגנה אווירית של האיום")],
+    "M12.2": [ref("B15", 92, 133, "פרק 4: מודלי קרב דטרמיניסטיים, לנצ'סטר"), ref("B14", 84, 114, "פרק 5: מודלי שחיקה"), ref("B17", 205, 258, "פרק 5: ברברוסה, לוגיסטיקה במרחבי רוסיה")],
+    "M12.3": [ref("B14", 115, 136, "פרק 6: תורת המשחקים ומשחקי מלחמה")],
+    "M12.4": [ref("B15", 220, 251, "פרק 8: היתקלויות של כוחות הטרוגניים"), ref("B14", 103, 114, "5.5–5.6: צבירה, ערכים ו-FATHM"), ref("B17", 111, 157, "פרק 3: מסילות ברזל ותכנון מבצעי")],
+    "M13.2": [ref("B14", 8, 20, "פרק 1: סיווג מודלים וקיצורי דרך במידול")],
+    "M13.17": [ref("B15", 252, 281, "פרק 9: אמינות וזמינות"), ref("B17", 326, 333, "סיכום: לוגיסטיקה כאילוץ")],
+}
+_ids = {m["id"] for m in MODULES}
+for _mid, _refs in REFS.items():
+    assert _mid in _ids, _mid
+    next(m for m in MODULES if m["id"] == _mid)["sources"].extend(_refs)
 
 # Pages that are deliberately not taught, with the reason. Everything else in a
 # document must belong to some module.
