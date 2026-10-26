@@ -32,10 +32,24 @@ export function cleanHtml(html: string) {
     if (!li.firstChild || /^(OL|UL)$/.test((li.firstChild as Element).tagName ?? "")) li.prepend(document.createElement("br"));
   });
   box.querySelectorAll("ol, ul").forEach((l) => !l.querySelector("li") && l.remove());
-  // a mark left with nothing in it (where the caret left a mark) is dropped
-  box.querySelectorAll("mark").forEach((m) => !(m.textContent ?? "").replace(/\u200b/g, "") && !m.querySelector("br, span.im") && m.remove());
+  dropEmptyMarks(box);
   const res = box.innerHTML.replace(/\u200b/g, "");
   return res === "<br>" ? "" : res.replace(/<mark(?! class="hl-[yrbgpo]")[^>]*>/g, "<mark>");
+}
+
+/**
+ * Marks with no text left in them (a line break, or the invisible character a mark typed into
+ * starts with) are unwrapped: drawn, they are thin coloured bars, and what is typed beside them
+ * goes into them. The mark the caret stands in (`keep`) stays, so a mark turned on stays on.
+ */
+export function dropEmptyMarks(root: HTMLElement, keep: Element | null = null) {
+  let changed = false;
+  root.querySelectorAll("mark").forEach((m) => {
+    if (m === keep || (m.textContent ?? "").replace(/[\u200b\s]/g, "") || m.querySelector("span.im")) return;
+    m.replaceWith(...Array.from(m.childNodes).filter((n) => n.nodeType !== 3 || (n.textContent ?? "").replace(/\u200b/g, "")));
+    changed = true;
+  });
+  return changed;
 }
 
 /** Draws the equations inside a line (KaTeX) where they are not drawn yet; a numbered list that

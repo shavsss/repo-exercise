@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import type { Block, BoxKind, ListItem, MarkColor } from "./model";
 import { BOX_EMOJI, BOX_LABEL, HEAD_EMOJI, MARK_LABEL, emptyBlock, flatLists, itemNumbers, numbering, textOf, uid } from "./model";
-import { activeEditable, applyMark, applyStyle, atLiStart, caret, caretLi, caretMark, caretOnEdgeLine, retagList, cleanHtml, convertDollars, hydrateMath, indentLi, insertMathAt, leaveMark, linePrefix, listEndsBlock, liText, outdentLi, pastedHtml, placeCaret, splitAtCaret, swapListKind } from "./rich";
+import { activeEditable, applyMark, applyStyle, atLiStart, caret, caretLi, caretMark, caretOnEdgeLine, dropEmptyMarks, retagList, cleanHtml, convertDollars, hydrateMath, indentLi, insertMathAt, leaveMark, linePrefix, listEndsBlock, liText, outdentLi, pastedHtml, placeCaret, splitAtCaret, swapListKind } from "./rich";
 import { MathEditor, MathView } from "./MathEdit";
 import { Picture } from "./Picture";
 import { storeImage } from "./media";
@@ -157,6 +157,7 @@ function Rich({ fkey, html, onChange, onKeyDown, placeholder, className, onMath 
   useLayoutEffect(() => {
     const e = el.current!;
     if (document.activeElement !== e && cleanHtml(e.innerHTML) !== html) e.innerHTML = html;
+    if (document.activeElement !== e) dropEmptyMarks(e); // left in summaries saved before
     hydrateMath(e);
   }, [html]);
   return (
@@ -169,6 +170,7 @@ function Rich({ fkey, html, onChange, onKeyDown, placeholder, className, onMath 
       data-ph={placeholder}
       onInput={() => {
         const e = el.current!;
+        dropEmptyMarks(e, caretMark());
         convertDollars(e);
         hydrateMath(e);
         const h = cleanHtml(e.innerHTML);
@@ -176,6 +178,10 @@ function Rich({ fkey, html, onChange, onKeyDown, placeholder, className, onMath 
         onChange(h);
       }}
       onKeyDown={onKeyDown}
+      onBlur={() => {
+        // leaving the block: no empty mark stays behind
+        if (dropEmptyMarks(el.current!)) onChange(cleanHtml(el.current!.innerHTML));
+      }}
       onClick={(e) => {
         const span = (e.target as HTMLElement).closest<HTMLElement>("span.im");
         if (span && onMath) onMath(span);
@@ -229,7 +235,13 @@ export function Editor({
   /** what is on at the caret, so the ribbon shows it while writing */
   const [fmt, setFmt] = useState<Fmt>(NO_FMT);
   const [pop, setPop] = useState<"list" | "proof" | null>(null);
-  const refreshFmt = () =>
+  const refreshFmt = () => {
+    // a mark turned on and left empty goes when the caret moves away from it
+    const ed = activeEditable();
+    if (ed) dropEmptyMarks(ed, caretMark());
+    setFmtNow();
+  };
+  const setFmtNow = () =>
     setFmt((old) => {
       const n = readFmt();
       return JSON.stringify(n) === JSON.stringify(old) ? old : n;

@@ -1,7 +1,7 @@
 import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import type { Block, BoxKind, Summary } from "./model";
 import { BOX_EMOJI, BOX_LABEL, itemNumbers, numbering, textOf } from "./model";
-import { hydrateMath } from "./rich";
+import { dropEmptyMarks, hydrateMath } from "./rich";
 import { MathView } from "./MathEdit";
 import { useFigureSrc } from "./Picture";
 import { SHAPE_HEX } from "./media";
@@ -10,7 +10,10 @@ import { SHAPE_HEX } from "./media";
 function Ro({ html, className }: { html: string; className?: string }) {
   const r = useRef<HTMLSpanElement>(null);
   useLayoutEffect(() => {
-    if (r.current) hydrateMath(r.current);
+    if (r.current) {
+      dropEmptyMarks(r.current);
+      hydrateMath(r.current);
+    }
   }, [html]);
   return <span ref={r} className={className} dangerouslySetInnerHTML={{ __html: html }} />;
 }
