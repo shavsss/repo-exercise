@@ -1,11 +1,121 @@
 // Text editing inside one block: the HTML each editable keeps, the caret, marks, and
 // splitting a block at the caret. Same file in both labs.
 import DOMPurify from "dompurify";
+import katex from "katex";
 
-/** The only markup a block keeps: bold, italic, the four marks, line breaks, sub/superscript. */
+/**
+ * The only markup a block keeps: bold, italic, the four marks, line breaks, sub/superscript,
+ * and equations inside a line, kept as <span class="im" data-tex="…"></span> (drawn by
+ * hydrateMath; what is drawn is not kept).
+ */
 export function cleanHtml(html: string) {
-  const out = DOMPurify.sanitize(html.replace(/\n/g, "<br>"), { ALLOWED_TAGS: ["b", "strong", "i", "em", "mark", "br", "sub", "sup"], ALLOWED_ATTR: ["class"] });
-  return out === "<br>" ? "" : out.replace(/<mark(?! class="hl-[yrbg]")[^>]*>/g, "<mark>");
+  const box = document.createElement("div");
+  box.innerHTML = html.replace(/\n/g, "<br>");
+  box.querySelectorAll("span.im").forEach((s) => {
+    const n = document.createElement("span");
+    n.className = "im";
+    n.setAttribute("data-tex", s.getAttribute("data-tex") ?? "");
+    s.replaceWith(n);
+  });
+  const out = DOMPurify.sanitize(box.innerHTML, { ALLOWED_TAGS: ["b", "strong", "i", "em", "mark", "br", "sub", "sup", "span"], ALLOWED_ATTR: ["class", "data-tex"] });
+  box.innerHTML = out;
+  // other spans the browser adds while typing are unwrapped
+  box.querySelectorAll("span:not(.im)").forEach((s) => s.replaceWith(...Array.from(s.childNodes)));
+  const res = box.innerHTML;
+  return res === "<br>" ? "" : res.replace(/<mark(?! class="hl-[yrbg]")[^>]*>/g, "<mark>");
+}
+
+/** Draws the equations inside a line (KaTeX) where they are not drawn yet. */
+export function hydrateMath(root: HTMLElement) {
+  root.querySelectorAll<HTMLElement>("span.im").forEach((s) => {
+    const tex = s.getAttribute("data-tex") ?? "";
+    if (s.dataset.done === tex && s.childNodes.length) return;
+    try {
+      katex.render(tex || "\\square", s, { throwOnError: false, strict: "ignore" });
+    } catch {
+      s.textContent = tex;
+    }
+    s.contentEditable = "false";
+    s.dataset.done = tex;
+    s.title = "לחץ לעריכת המשוואה";
+  });
+}
+
+function mathSpan(tex: string) {
+  const s = document.createElement("span");
+  s.className = "im";
+  s.setAttribute("data-tex", tex);
+  return s;
+}
+
+/** "$…$" typed in the text becomes an equation inside the line; true when one was made. */
+export function convertDollars(el: HTMLElement) {
+  const walk = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+  let node = walk.nextNode() as Text | null;
+  while (node) {
+    const m = /\$([^$\n]+)\$/.exec(node.data);
+    if (m && !node.parentElement?.closest("span.im")) {
+      const after = node.splitText(m.index);
+      const rest = after.splitText(m[0].length);
+      const span = mathSpan(m[1].trim());
+      after.replaceWith(span);
+      const space = document.createTextNode(rest.data.startsWith(" ") ? "" : "\u00a0");
+      span.after(space);
+      hydrateMath(el);
+      const r = document.createRange();
+      r.setStartAfter(space);
+      r.collapse(true);
+      const sel = window.getSelection();
+      sel?.removeAllRanges();
+      sel?.addRange(r);
+      return true;
+    }
+    node = walk.nextNode() as Text | null;
+  }
+  return false;
+}
+
+/** Puts an equation into the text at a saved position. */
+export function insertMathAt(range: Range, tex: string) {
+  const span = mathSpan(tex);
+  range.deleteContents();
+  range.insertNode(span);
+  const space = document.createTextNode("\u00a0");
+  span.after(space);
+  const host = span.closest<HTMLElement>("[data-edit]");
+  if (host) {
+    hydrateMath(host);
+    placeAfter(space);
+    host.dispatchEvent(new Event("input", { bubbles: true }));
+  }
+}
+
+function placeAfter(n: Node) {
+  const r = document.createRange();
+  r.setStartAfter(n);
+  r.collapse(true);
+  const sel = window.getSelection();
+  sel?.removeAllRanges();
+  sel?.addRange(r);
+}
+
+/**
+ * What is pasted from a lesson keeps its equations: KaTeX output carries its LaTeX in an
+ * annotation, which becomes an equation inside the line; the rest becomes plain text with
+ * bold, italic and line breaks.
+ */
+export function pastedHtml(html: string) {
+  // an inert document: nothing in it runs or loads; what is kept goes through cleanHtml
+  const box = new DOMParser().parseFromString(html, "text/html").body;
+  box.querySelectorAll(".katex-display, .katex, math").forEach((k) => {
+    if (!k.isConnected) return;
+    const tex = k.querySelector('annotation[encoding="application/x-tex"]')?.textContent?.trim();
+    if (tex) k.replaceWith(mathSpan(tex));
+  });
+  box.querySelectorAll("script, style, button, svg, .katex-mathml").forEach((x) => x.remove());
+  box.querySelectorAll("p, div, li, h1, h2, h3, h4, h5, h6, tr, blockquote").forEach((b) => b.after(document.createElement("br")));
+  const out = cleanHtml(box.innerHTML).replace(/(<br>\s*){3,}/g, "<br><br>").replace(/^(<br>)+|(<br>)+$/g, "");
+  return out;
 }
 
 function selRange(el: HTMLElement) {

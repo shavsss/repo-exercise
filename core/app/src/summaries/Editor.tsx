@@ -1,7 +1,7 @@
 import { useLayoutEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import type { Block, BoxKind, ListItem, MarkColor } from "./model";
-import { BOX_LABEL, MARK_LABEL, emptyBlock, itemNumbers, numbering, textOf, uid } from "./model";
-import { applyMark, applyStyle, caret, caretOnEdgeLine, cleanHtml, placeCaret, splitAtCaret } from "./rich";
+import { BOX_EMOJI, BOX_LABEL, HEAD_EMOJI, MARK_LABEL, emptyBlock, itemNumbers, numbering, textOf, uid } from "./model";
+import { activeEditable, applyMark, applyStyle, caret, caretOnEdgeLine, cleanHtml, convertDollars, hydrateMath, insertMathAt, pastedHtml, placeCaret, splitAtCaret } from "./rich";
 import { MathEditor, MathView } from "./MathEdit";
 import { Picture } from "./Picture";
 import { storeImage } from "./media";
@@ -16,29 +16,49 @@ interface InsertItem {
   label: string;
   hint: string;
   keys: string;
+  /** a shorter name for the ribbon */
+  short?: string;
   make?: () => Block;
 }
 const INSERT: InsertItem[] = [
-  { id: "p", label: "פסקה", hint: "טקסט רגיל", keys: "p פסקה טקסט", make: () => emptyBlock("p") },
-  { id: "h1", label: "כותרת פרק", hint: "1, 2, 3", keys: "h1 כותרת פרק", make: () => ({ ...(emptyBlock("h") as Extract<Block, { t: "h" }>), level: 1 }) },
-  { id: "h2", label: "כותרת סעיף", hint: "1.1, 1.2", keys: "h2 סעיף כותרת", make: () => ({ ...(emptyBlock("h") as Extract<Block, { t: "h" }>), level: 2 }) },
-  { id: "h3", label: "תת-סעיף", hint: "1.1.1", keys: "h3 תת סעיף", make: () => ({ ...(emptyBlock("h") as Extract<Block, { t: "h" }>), level: 3 }) },
-  { id: "ul", label: "רשימת תבליטים", hint: "- ורווח", keys: "ul רשימה תבליטים", make: () => emptyBlock("list") },
-  { id: "ol", label: "רשימה ממוספרת", hint: "1. ורווח", keys: "ol רשימה ממוספרת מספרים", make: () => ({ ...(emptyBlock("list") as Extract<Block, { t: "list" }>), ordered: true }) },
+  { id: "p", label: "פסקה", short: "פסקה", hint: "טקסט רגיל", keys: "p פסקה טקסט", make: () => emptyBlock("p") },
+  { id: "h1", label: "כותרת פרק", short: "פרק", hint: "1, 2, 3", keys: "h1 כותרת פרק", make: () => ({ ...(emptyBlock("h") as Extract<Block, { t: "h" }>), level: 1 }) },
+  { id: "h2", label: "כותרת סעיף", short: "סעיף", hint: "1.1, 1.2", keys: "h2 סעיף כותרת", make: () => ({ ...(emptyBlock("h") as Extract<Block, { t: "h" }>), level: 2 }) },
+  { id: "h3", label: "תת-סעיף", short: "תת-סעיף", hint: "1.1.1", keys: "h3 תת סעיף", make: () => ({ ...(emptyBlock("h") as Extract<Block, { t: "h" }>), level: 3 }) },
+  { id: "ul", label: "רשימת תבליטים", short: "• רשימה", hint: "- ורווח", keys: "ul רשימה תבליטים", make: () => emptyBlock("list") },
+  { id: "ol", label: "רשימה ממוספרת", short: "1. רשימה", hint: "1. ורווח", keys: "ol רשימה ממוספרת מספרים", make: () => ({ ...(emptyBlock("list") as Extract<Block, { t: "list" }>), ordered: true }) },
   ...(Object.keys(BOX_LABEL) as BoxKind[]).map((k) => ({ id: `box-${k}`, label: BOX_LABEL[k], hint: "תיבה", keys: `תיבה box ${BOX_LABEL[k]}`, make: () => ({ ...(emptyBlock("box") as Extract<Block, { t: "box" }>), kind: k, ...(k === "eq" ? { latex: "" } : {}) }) })),
-  { id: "math", label: "משוואה", hint: "ממוספרת", keys: "math משוואה נוסחה $$", make: () => emptyBlock("math") },
-  { id: "img", label: "תמונה מהמחשב", hint: "או הדבק Ctrl+V", keys: "img תמונה צילום" },
-  { id: "fig", label: "איור מהספר", hint: "מספרי הספרייה", keys: "fig איור ספר" },
-  { id: "hr", label: "קו מפריד", hint: "", keys: "hr קו מפריד", make: () => emptyBlock("hr") },
+  { id: "math", label: "משוואה", short: "∑ משוואה", hint: "ממוספרת", keys: "math משוואה נוסחה $$", make: () => emptyBlock("math") },
+  { id: "img", label: "תמונה מהמחשב", short: "🖼 תמונה", hint: "או הדבק Ctrl+V", keys: "img תמונה צילום" },
+  { id: "fig", label: "איור מהספר", short: "📖 איור מהספר", hint: "מספרי הספרייה", keys: "fig איור ספר" },
+  { id: "hr", label: "קו מפריד", short: "― קו", hint: "", keys: "hr קו מפריד", make: () => emptyBlock("hr") },
 ];
 const MARKS: MarkColor[] = ["y", "r", "b", "g"];
 
+/** Symbols that are not on the keyboard: the character for text, and its LaTeX for an equation. */
+const SYMBOLS: { title: string; items: [string, string][] }[] = [
+  { title: "יווניות", items: "α\\alpha β\\beta γ\\gamma δ\\delta ε\\varepsilon ζ\\zeta η\\eta θ\\theta κ\\kappa λ\\lambda μ\\mu ν\\nu ξ\\xi π\\pi ρ\\rho σ\\sigma τ\\tau φ\\varphi χ\\chi ψ\\psi ω\\omega".split(" ").map((x) => [x[0], x.slice(1)] as [string, string]) },
+  { title: "יווניות גדולות", items: "Γ\\Gamma Δ\\Delta Θ\\Theta Λ\\Lambda Ξ\\Xi Π\\Pi Σ\\Sigma Φ\\Phi Ψ\\Psi Ω\\Omega".split(" ").map((x) => [x[0], x.slice(1)] as [string, string]) },
+  { title: "יחסים", items: [["≈", "\\approx"], ["≠", "\\ne"], ["≡", "\\equiv"], ["≤", "\\le"], ["≥", "\\ge"], ["≪", "\\ll"], ["≫", "\\gg"], ["∝", "\\propto"], ["∼", "\\sim"], ["≅", "\\cong"]] },
+  { title: "פעולות", items: [["±", "\\pm"], ["∓", "\\mp"], ["×", "\\times"], ["·", "\\cdot"], ["÷", "\\div"], ["√", "\\sqrt{}"], ["∞", "\\infty"], ["∂", "\\partial"], ["∇", "\\nabla"], ["∑", "\\sum"], ["∏", "\\prod"], ["∫", "\\int"], ["∮", "\\oint"]] },
+  { title: "חצים", items: [["→", "\\to"], ["←", "\\leftarrow"], ["↔", "\\leftrightarrow"], ["⇒", "\\Rightarrow"], ["⇐", "\\Leftarrow"], ["⇔", "\\Leftrightarrow"], ["↑", "\\uparrow"], ["↓", "\\downarrow"]] },
+  { title: "עוד", items: [["°", "^\\circ"], ["′", "'"], ["∈", "\\in"], ["∉", "\\notin"], ["⊂", "\\subset"], ["∪", "\\cup"], ["∩", "\\cap"], ["∀", "\\forall"], ["∃", "\\exists"], ["∠", "\\angle"], ["⊥", "\\perp"], ["∥", "\\parallel"], ["ℏ", "\\hbar"], ["Å", "\\text{Å}"], ["‰", "\\text{‰}"], ["²", "^2"], ["³", "^3"], ["⁻¹", "^{-1}"], ["½", "\\frac12"]] },
+];
+
+/** Puts a symbol where the writing is: an open equation field, or the text. */
+function insertSymbol(ch: string, tex: string) {
+  const a = document.activeElement as (HTMLElement & { insert?: (s: string) => void }) | null;
+  if (a && a.tagName === "MATH-FIELD" && a.insert) return a.insert(tex);
+  if (activeEditable()) document.execCommand("insertText", false, ch);
+}
+
 /* ---------------- one editable ---------------- */
-function Rich({ fkey, html, onChange, onKeyDown, placeholder, className }: { fkey: string; html: string; onChange: (h: string) => void; onKeyDown?: (e: React.KeyboardEvent<HTMLDivElement>) => void; placeholder?: string; className?: string }) {
+function Rich({ fkey, html, onChange, onKeyDown, placeholder, className, onMath }: { fkey: string; html: string; onChange: (h: string) => void; onKeyDown?: (e: React.KeyboardEvent<HTMLDivElement>) => void; placeholder?: string; className?: string; onMath?: (span: HTMLElement) => void }) {
   const el = useRef<HTMLDivElement>(null);
   useLayoutEffect(() => {
     const e = el.current!;
     if (document.activeElement !== e && cleanHtml(e.innerHTML) !== html) e.innerHTML = html;
+    hydrateMath(e);
   }, [html]);
   return (
     <div
@@ -50,15 +70,24 @@ function Rich({ fkey, html, onChange, onKeyDown, placeholder, className }: { fke
       data-ph={placeholder}
       onInput={() => {
         const e = el.current!;
+        convertDollars(e);
+        hydrateMath(e);
         const h = cleanHtml(e.innerHTML);
         if (!h && e.innerHTML) e.innerHTML = "";
         onChange(h);
       }}
       onKeyDown={onKeyDown}
+      onClick={(e) => {
+        const span = (e.target as HTMLElement).closest<HTMLElement>("span.im");
+        if (span && onMath) onMath(span);
+      }}
       onPaste={(e) => {
         if (e.clipboardData.files.length) return; // pictures: the editor takes them
         e.preventDefault();
-        document.execCommand("insertText", false, e.clipboardData.getData("text/plain"));
+        const html = e.clipboardData.getData("text/html");
+        // from a lesson: its equations stay equations
+        if (html) document.execCommand("insertHTML", false, pastedHtml(html));
+        else document.execCommand("insertText", false, e.clipboardData.getData("text/plain"));
       }}
     />
   );
@@ -76,6 +105,7 @@ export function Editor({
   canRedo,
   onPickFigure,
   viewTab,
+  zoom = 1,
 }: {
   blocks: Block[];
   update: Upd;
@@ -87,13 +117,48 @@ export function Editor({
   canRedo: boolean;
   /** opens the figure picker; the chosen figure is inserted after the given block */
   onPickFigure: (after: string | null) => void;
-  /** the contents of the ribbon's third tab (view, export, status) */
+  /** the contents of the ribbon's third row (view, export, status) */
   viewTab: ReactNode;
+  zoom?: number;
 }) {
   const focusReq = useRef<{ key: string; where: Where; at: number } | null>(null);
   const [editingMath, setEditingMath] = useState<string | null>(null);
   const [menu, setMenu] = useState<{ id: string; filter: string; sel: number } | null>(null);
-  const [tab, setTab] = useState<"insert" | "edit" | "view">("insert");
+  const [showView, setShowView] = useState(false);
+  const [showSymbols, setShowSymbols] = useState(false);
+  const [emojiFor, setEmojiFor] = useState<string | null>(null);
+  /** the small equation editor for an equation inside a line: a new one at a place in the text, or one already there */
+  const [inline, setInline] = useState<{ top: number; left: number; tex: string; span?: HTMLElement; range?: Range; host: HTMLElement } | null>(null);
+  const inlineTex = useRef("");
+  const openInline = (span?: HTMLElement) => {
+    const host = span ? span.closest<HTMLElement>("[data-edit]") : activeEditable();
+    if (!host) return;
+    const sel = window.getSelection();
+    const range = !span && sel?.rangeCount ? sel.getRangeAt(0).cloneRange() : undefined;
+    const r = span ? span.getBoundingClientRect() : (range?.getClientRects()[0] ?? host.getBoundingClientRect());
+    const tex = span?.getAttribute("data-tex") ?? (range && !range.collapsed ? range.toString() : "");
+    inlineTex.current = tex;
+    setInline({ top: Math.min(r.bottom + 6, window.innerHeight - 140), left: Math.max(12, Math.min(r.left - 40, window.innerWidth - 380)), tex, span, range, host });
+  };
+  const closeInline = (how: "enter" | "escape" | "blur") => {
+    const st = inline;
+    setInline(null);
+    if (!st) return;
+    const tex = inlineTex.current.trim();
+    if (st.span) {
+      if (how !== "escape") {
+        if (!tex) st.span.remove();
+        else {
+          st.span.setAttribute("data-tex", tex);
+          delete st.span.dataset.done;
+          hydrateMath(st.host);
+        }
+        st.host.dispatchEvent(new Event("input", { bubbles: true }));
+      }
+      placeCaret(st.host, "end");
+    } else if (st.range && tex && how !== "escape") insertMathAt(st.range, tex);
+    else placeCaret(st.host, "end");
+  };
   const [drag, setDrag] = useState<{ id: string; over: string | null; after: boolean } | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
   const fileAfter = useRef<string | null>(null);
@@ -223,6 +288,11 @@ export function Editor({
       applyMark(e.key === "0" ? null : `hl-${MARKS[Number(e.key) - 1]}`);
       return;
     }
+    if ((e.ctrlKey || e.metaKey) && (e.key === "m" || e.key === "M" || e.code === "KeyM")) {
+      e.preventDefault();
+      openInline();
+      return;
+    }
     const c = caret(el);
     if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) {
       e.preventDefault();
@@ -324,6 +394,11 @@ export function Editor({
     if (e.altKey && /^[0-4]$/.test(e.key)) {
       e.preventDefault();
       applyMark(e.key === "0" ? null : `hl-${MARKS[Number(e.key) - 1]}`);
+      return;
+    }
+    if ((e.ctrlKey || e.metaKey) && (e.key === "m" || e.key === "M" || e.code === "KeyM")) {
+      e.preventDefault();
+      openInline();
       return;
     }
     if (e.key === "Tab") {
@@ -451,15 +526,32 @@ export function Editor({
         const n = heads.get(b.id);
         return (
           <div className={`sm-h sm-h${b.level}`}>
+            <span className="sm-emoji-wrap" contentEditable={false}>
+              <button className={`sm-emoji-btn ${b.emoji ? "has" : ""}`} onClick={() => setEmojiFor(emojiFor === b.id ? null : b.id)} title="אימוג'י לכותרת" aria-label="אימוג'י לכותרת">
+                {b.emoji || "☺"}
+              </button>
+              {emojiFor === b.id && (
+                <span className="sm-emoji-pop" role="listbox" onMouseDown={(e) => e.preventDefault()}>
+                  {HEAD_EMOJI.map((x) => (
+                    <button key={x} onClick={() => (patch(b.id, { emoji: x } as Partial<Block>, "struct"), setEmojiFor(null))}>
+                      {x}
+                    </button>
+                  ))}
+                  <button className="sm-emoji-none" onClick={() => (patch(b.id, { emoji: undefined } as Partial<Block>, "struct"), setEmojiFor(null))}>
+                    בלי
+                  </button>
+                </span>
+              )}
+            </span>
             {n && <span className="sm-num" contentEditable={false}>{n}</span>}
-            <Rich fkey={b.id} html={b.html} placeholder={b.level === 1 ? "כותרת פרק" : b.level === 2 ? "כותרת סעיף" : "תת-סעיף"} onChange={(h) => patch(b.id, { html: h })} onKeyDown={textKeys(b)} />
+            <Rich fkey={b.id} html={b.html} placeholder={b.level === 1 ? "כותרת פרק" : b.level === 2 ? "כותרת סעיף" : "תת-סעיף"} onChange={(h) => patch(b.id, { html: h })} onKeyDown={textKeys(b)} onMath={openInline} />
           </div>
         );
       }
       case "p":
         return (
           <div className="sm-p">
-            <Rich fkey={b.id} html={b.html} placeholder="כתוב, או / לתפריט" onChange={(h) => paraInput(b, h)} onKeyDown={textKeys(b)} />
+            <Rich fkey={b.id} html={b.html} placeholder="כתוב, או / לתפריט" onChange={(h) => paraInput(b, h)} onKeyDown={textKeys(b)} onMath={openInline} />
             {menu?.id === b.id && <SlashMenu items={filtered(menu.filter)} sel={menu.sel} onPick={(it) => doInsert(it, b.id)} />}
           </div>
         );
@@ -472,7 +564,7 @@ export function Editor({
                 <span className="sm-bullet" contentEditable={false}>
                   {b.ordered ? nums[i] : ["•", "◦", "▪"][it.level] ?? "•"}
                 </span>
-                <Rich fkey={`${b.id}:${i}`} html={it.html} placeholder={i === 0 ? "פריט" : ""} onChange={(h) => patch(b.id, { items: b.items.map((x, j) => (j === i ? { ...x, html: h } : x)) } as Partial<Block>)} onKeyDown={listKeys(b, i)} />
+                <Rich fkey={`${b.id}:${i}`} html={it.html} placeholder={i === 0 ? "פריט" : ""} onChange={(h) => patch(b.id, { items: b.items.map((x, j) => (j === i ? { ...x, html: h } : x)) } as Partial<Block>)} onKeyDown={listKeys(b, i)} onMath={openInline} />
               </div>
             ))}
           </div>
@@ -482,6 +574,9 @@ export function Editor({
         return (
           <div className={`sm-box box-${b.kind}`}>
             <div className="sm-box-head" contentEditable={false}>
+              <span className="sm-box-emoji" aria-hidden>
+                {BOX_EMOJI[b.kind]}
+              </span>
               <select value={b.kind} aria-label="סוג התיבה" onChange={(e) => patch(b.id, { kind: e.target.value as BoxKind, ...(e.target.value === "eq" && b.latex === undefined ? { latex: "" } : {}) } as Partial<Block>, "struct")}>
                 {(Object.keys(BOX_LABEL) as BoxKind[]).map((k) => (
                   <option key={k} value={k}>
@@ -502,7 +597,7 @@ export function Editor({
                 )}
               </div>
             )}
-            <Rich fkey={b.id} html={b.html} placeholder={b.kind === "eq" ? "מה כל סימן, ומתי היא נכונה" : "כתוב כאן"} onChange={(h) => patch(b.id, { html: h })} onKeyDown={textKeys(b)} />
+            <Rich fkey={b.id} html={b.html} placeholder={b.kind === "eq" ? "מה כל סימן, ומתי היא נכונה" : "כתוב כאן"} onChange={(h) => patch(b.id, { html: h })} onKeyDown={textKeys(b)} onMath={openInline} />
           </div>
         );
       case "math":
@@ -552,124 +647,138 @@ export function Editor({
       }}
     >
       <div className="sm-ribbon" onMouseDown={(e) => (e.target as HTMLElement).tagName !== "SELECT" && e.preventDefault()}>
-        <div className="sm-ribbon-tabs" role="tablist">
-          {(
-            [
-              ["insert", "הוספה"],
-              ["edit", "עריכה"],
-              ["view", "תצוגה וייצוא"],
-            ] as const
-          ).map(([k, l]) => (
-            <button key={k} role="tab" aria-selected={tab === k} onClick={() => setTab(k)}>
-              {l}
+        <div className="sm-row sm-row-insert">
+          <span className="sm-row-label">הוספה</span>
+          <div className="sm-group">
+            {INSERT.slice(0, 6).map((it) => (
+              <button key={it.id} className="sm-tbtn" onClick={() => doInsert(it, current)} title={`${it.label}${it.hint ? ` · ${it.hint}` : ""}`}>
+                {it.short ?? it.label}
+              </button>
+            ))}
+          </div>
+          <div className="sm-group">
+            {INSERT.filter((x) => x.id.startsWith("box-")).map((it) => (
+              <button key={it.id} className={`sm-tbtn box-chip ${it.id}`} onClick={() => doInsert(it, current)}>
+                {BOX_EMOJI[it.id.slice(4) as BoxKind]} {it.label}
+              </button>
+            ))}
+          </div>
+          <div className="sm-group">
+            {INSERT.filter((x) => ["math", "img", "fig", "hr"].includes(x.id)).map((it) => (
+              <button key={it.id} className="sm-tbtn" onClick={() => doInsert(it, current)} title={`${it.label}${it.hint ? ` · ${it.hint}` : ""}`}>
+                {it.short ?? it.label}
+              </button>
+            ))}
+          </div>
+          <span className="sm-ribbon-sp" />
+          <button className="sm-tbtn" aria-pressed={showView} onClick={() => setShowView(!showView)}>
+            תצוגה וייצוא {showView ? "▴" : "▾"}
+          </button>
+        </div>
+        <div className="sm-row sm-row-edit">
+          <span className="sm-row-label">עריכה</span>
+          <div className="sm-group">
+            <button className="sm-tbtn" onClick={() => applyStyle("bold")} title="מודגש (Ctrl+B)">
+              <b>B</b>
             </button>
-          ))}
+            <button className="sm-tbtn" onClick={() => applyStyle("italic")} title="נטוי (Ctrl+I)">
+              <i>I</i>
+            </button>
+            <button className="sm-tbtn" onClick={() => activeEditable() && document.execCommand("superscript")} title="כתב עילי">
+              x²
+            </button>
+            <button className="sm-tbtn" onClick={() => activeEditable() && document.execCommand("subscript")} title="כתב תחתי">
+              x₂
+            </button>
+          </div>
+          <div className="sm-group">
+            {MARKS.map((m, i) => (
+              <button key={m} className={`sm-tbtn mark-btn hl-${m}`} onClick={() => applyMark(`hl-${m}`)} title={`${MARK_LABEL[m]} (Alt+${i + 1})`}>
+                {MARK_LABEL[m].split(" ")[0]}
+              </button>
+            ))}
+            <button className="sm-tbtn" onClick={() => applyMark(null)} title="Alt+0">
+              נקה
+            </button>
+          </div>
+          <div className="sm-group">
+            <button className="sm-tbtn" onClick={() => openInline()} title="משוואה קטנה בתוך המשפט (Ctrl+M, או $…$ בטקסט)">
+              ∑ בשורה
+            </button>
+            <button className="sm-tbtn" aria-pressed={showSymbols} onClick={() => setShowSymbols(!showSymbols)} title="אותיות יווניות וסימנים">
+              Ω סימנים
+            </button>
+          </div>
+          <div className="sm-group">
+            <select className="sm-select" value="" aria-label="המר את הבלוק" disabled={!cur || !["p", "h", "list", "box"].includes(cur.t)} onChange={(e) => convert(e.target.value)}>
+              <option value="">המר ל…</option>
+              <option value="p">פסקה</option>
+              <option value="h1">כותרת פרק</option>
+              <option value="h2">כותרת סעיף</option>
+              <option value="h3">תת-סעיף</option>
+              <option value="ul">רשימת תבליטים</option>
+              <option value="ol">רשימה ממוספרת</option>
+              {(Object.keys(BOX_LABEL) as BoxKind[]).map((k) => (
+                <option key={k} value={`box-${k}`}>
+                  תיבה: {BOX_LABEL[k]}
+                </option>
+              ))}
+            </select>
+            {/* always there, so the ribbon keeps its height when the selected block changes */}
+            <button className="sm-tbtn" disabled={!(cur?.t === "h" || cur?.t === "math")} aria-pressed={cur?.t === "h" || cur?.t === "math" ? !!cur.plain : false} onClick={() => (cur?.t === "h" || cur?.t === "math") && patch(cur.id, { plain: !cur.plain } as Partial<Block>, "struct")}>
+              בלי מספר
+            </button>
+            <button className="sm-tbtn" disabled={cur?.t !== "list"} onClick={() => cur?.t === "list" && patch(cur.id, { ordered: !cur.ordered } as Partial<Block>, "struct")}>
+              {cur?.t === "list" && cur.ordered ? "לתבליטים" : "למספור"}
+            </button>
+          </div>
+          <div className="sm-group">
+            <button className="sm-tbtn" disabled={!cur} onClick={() => cur && move(cur.id, -1)} title="הזז למעלה">
+              ↑
+            </button>
+            <button className="sm-tbtn" disabled={!cur} onClick={() => cur && move(cur.id, 1)} title="הזז למטה">
+              ↓
+            </button>
+            <button className="sm-tbtn" disabled={!cur} onClick={() => cur && insertAfter(cur.id, { ...JSON.parse(JSON.stringify(cur)), id: uid() })}>
+              שכפל
+            </button>
+            <button className="sm-tbtn danger" disabled={!cur} onClick={() => cur && remove(cur.id)}>
+              מחק בלוק
+            </button>
+          </div>
           <span className="sm-ribbon-sp" />
           <button className="sm-tbtn" disabled={!canUndo} onClick={onUndo} title="בטל (מבנה)">
-            ↶ בטל
+            ↶
           </button>
           <button className="sm-tbtn" disabled={!canRedo} onClick={onRedo} title="בצע שוב">
-            ↷ שוב
+            ↷
           </button>
         </div>
-        <div className="sm-ribbon-body">
-          {tab === "insert" && (
-            <>
-              <div className="sm-group">
-                {INSERT.slice(0, 6).map((it) => (
-                  <button key={it.id} className="sm-tbtn" onClick={() => doInsert(it, current)} title={it.hint}>
-                    {it.label}
+        {showSymbols && (
+          <div className="sm-row sm-symbols" aria-label="סימנים">
+            {SYMBOLS.map((g) => (
+              <div key={g.title} className="sm-group">
+                <span className="sm-sym-title">{g.title}</span>
+                {g.items.map(([ch, tex]) => (
+                  <button key={ch} className="sm-sym" onClick={() => insertSymbol(ch, tex)} title={tex}>
+                    {ch}
                   </button>
                 ))}
               </div>
-              <div className="sm-group">
-                {INSERT.filter((x) => x.id.startsWith("box-")).map((it) => (
-                  <button key={it.id} className={`sm-tbtn box-chip ${it.id}`} onClick={() => doInsert(it, current)}>
-                    {it.label}
-                  </button>
-                ))}
-              </div>
-              <div className="sm-group">
-                {INSERT.filter((x) => ["math", "img", "fig", "hr"].includes(x.id)).map((it) => (
-                  <button key={it.id} className="sm-tbtn" onClick={() => doInsert(it, current)} title={it.hint}>
-                    {it.label}
-                  </button>
-                ))}
-              </div>
-            </>
-          )}
-          {tab === "edit" && (
-            <>
-              <div className="sm-group">
-                <button className="sm-tbtn" onClick={() => applyStyle("bold")} title="Ctrl+B">
-                  <b>מודגש</b>
-                </button>
-                <button className="sm-tbtn" onClick={() => applyStyle("italic")} title="Ctrl+I">
-                  <i>נטוי</i>
-                </button>
-              </div>
-              <div className="sm-group">
-                {MARKS.map((m, i) => (
-                  <button key={m} className={`sm-tbtn mark-btn hl-${m}`} onClick={() => applyMark(`hl-${m}`)} title={`Alt+${i + 1}`}>
-                    {MARK_LABEL[m]}
-                  </button>
-                ))}
-                <button className="sm-tbtn" onClick={() => applyMark(null)} title="Alt+0">
-                  נקה סימון
-                </button>
-              </div>
-              <div className="sm-group">
-                <select className="sm-select" value="" aria-label="המר את הבלוק" disabled={!cur || !["p", "h", "list", "box"].includes(cur.t)} onChange={(e) => convert(e.target.value)}>
-                  <option value="">המר ל…</option>
-                  <option value="p">פסקה</option>
-                  <option value="h1">כותרת פרק</option>
-                  <option value="h2">כותרת סעיף</option>
-                  <option value="h3">תת-סעיף</option>
-                  <option value="ul">רשימת תבליטים</option>
-                  <option value="ol">רשימה ממוספרת</option>
-                  {(Object.keys(BOX_LABEL) as BoxKind[]).map((k) => (
-                    <option key={k} value={`box-${k}`}>
-                      תיבה: {BOX_LABEL[k]}
-                    </option>
-                  ))}
-                </select>
-                {cur?.t === "h" && (
-                  <button className="sm-tbtn" aria-pressed={!!cur.plain} onClick={() => patch(cur.id, { plain: !cur.plain } as Partial<Block>, "struct")}>
-                    בלי מספר
-                  </button>
-                )}
-                {cur?.t === "math" && (
-                  <button className="sm-tbtn" aria-pressed={!!cur.plain} onClick={() => patch(cur.id, { plain: !cur.plain } as Partial<Block>, "struct")}>
-                    בלי מספר
-                  </button>
-                )}
-                {cur?.t === "list" && (
-                  <button className="sm-tbtn" onClick={() => patch(cur.id, { ordered: !cur.ordered } as Partial<Block>, "struct")}>
-                    {cur.ordered ? "לתבליטים" : "למספור"}
-                  </button>
-                )}
-              </div>
-              <div className="sm-group">
-                <button className="sm-tbtn" disabled={!cur} onClick={() => cur && move(cur.id, -1)}>
-                  ↑ הזז למעלה
-                </button>
-                <button className="sm-tbtn" disabled={!cur} onClick={() => cur && move(cur.id, 1)}>
-                  ↓ הזז למטה
-                </button>
-                <button className="sm-tbtn" disabled={!cur} onClick={() => cur && insertAfter(cur.id, { ...JSON.parse(JSON.stringify(cur)), id: uid() })}>
-                  שכפל
-                </button>
-                <button className="sm-tbtn danger" disabled={!cur} onClick={() => cur && remove(cur.id)}>
-                  מחק בלוק
-                </button>
-              </div>
-            </>
-          )}
-          {tab === "view" && viewTab}
-        </div>
+            ))}
+          </div>
+        )}
+        {showView && <div className="sm-row sm-row-view">{viewTab}</div>}
       </div>
 
-      <div className="sm-page">
+      {inline && (
+        <div className="sm-inline-pop" style={{ top: inline.top, left: inline.left }} onMouseDown={(e) => e.stopPropagation()}>
+          <MathEditor latex={inline.tex} onChange={(v) => (inlineTex.current = v)} onDone={closeInline} />
+          <small>Enter לסיום · Esc לביטול · ריק מוחק</small>
+        </div>
+      )}
+
+      <div className="sm-page" style={{ zoom }}>
         {blocks.map((b) => (
           <div
             key={b.id}

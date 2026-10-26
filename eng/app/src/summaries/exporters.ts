@@ -29,7 +29,7 @@ import {
 import { convertLatexToMathMl } from "mathlive";
 import { figure } from "../library";
 import type { Block, BoxKind, ImgSize, MarkColor } from "./model";
-import { BOX_LABEL, esc, itemNumbers, numbering, textOf } from "./model";
+import { BOX_EMOJI, BOX_LABEL, esc, itemNumbers, numbering, textOf } from "./model";
 import { flatten } from "./media";
 
 type MathComponent = ConstructorParameters<typeof DMath>[0]["children"][number];
@@ -41,6 +41,7 @@ const BOX_COLOR: Record<BoxKind, [string, string]> = {
   ex: ["8A6100", "F4EBD6"],
   err: ["A3161A", "F6E0DD"],
   q: ["9A4F12", "F4E5D6"],
+  con: ["2E7D32", "E2F0E3"],
 };
 const WIDTH: Record<ImgSize, number> = { s: 200, m: 380, l: 600 };
 const FONT = "Arial";
@@ -111,10 +112,10 @@ function wordMath(latex: string): DMath {
 }
 
 /* ---------------- inline HTML → runs ---------------- */
-function runs(html: string, base: { bold?: boolean; color?: string } = {}): TextRun[] {
+function runs(html: string, base: { bold?: boolean; color?: string } = {}): (TextRun | DMath)[] {
   const box = document.createElement("div");
   box.innerHTML = html;
-  const out: TextRun[] = [];
+  const out: (TextRun | DMath)[] = [];
   const walk = (node: Node, st: { bold?: boolean; italics?: boolean; mark?: MarkColor; sub?: boolean; sup?: boolean }) => {
     if (node.nodeType === 3) {
       const text = node.textContent ?? "";
@@ -138,6 +139,10 @@ function runs(html: string, base: { bold?: boolean; color?: string } = {}): Text
     if (node.nodeType !== 1) return;
     const el = node as Element;
     const tag = el.tagName.toLowerCase();
+    if (tag === "span" && el.classList.contains("im")) {
+      out.push(wordMath(el.getAttribute("data-tex") ?? ""));
+      return;
+    }
     if (tag === "br") {
       out.push(new TextRun({ text: "", break: 1 }));
       return;
@@ -169,7 +174,7 @@ export async function toDocx(title: string, blocks: Block[]) {
     if (b.t === "h") {
       const n = heads.get(b.id);
       const level = b.plain && b === blocks[0] ? HeadingLevel.TITLE : [HeadingLevel.HEADING_1, HeadingLevel.HEADING_2, HeadingLevel.HEADING_3][b.level - 1];
-      children.push(para([new TextRun({ text: `${n ? n + " " : ""}${textOf(b.html)}`, font: FONT, rightToLeft: true, bold: true })], { heading: level, spacing: { before: 240, after: 120 } }));
+      children.push(para([new TextRun({ text: `${b.emoji ? b.emoji + " " : ""}${n ? n + " " : ""}`, font: FONT, rightToLeft: true, bold: true }), ...runs(b.html, { bold: true })], { heading: level, spacing: { before: 240, after: 120 } }));
     } else if (b.t === "p") {
       if (textOf(b.html).trim()) children.push(para(runs(b.html)));
     } else if (b.t === "list") {
@@ -177,7 +182,7 @@ export async function toDocx(title: string, blocks: Block[]) {
       b.items.forEach((it, i) => children.push(para([new TextRun({ text: `${b.ordered ? nums[i] : "•"} `, font: FONT, rightToLeft: true }), ...runs(it.html)], { indent: { start: 360 * (it.level + 1), hanging: 280 }, spacing: { after: 60, line: 300 } })));
     } else if (b.t === "box") {
       const [fg, bg] = BOX_COLOR[b.kind];
-      const inner: Paragraph[] = [para([new TextRun({ text: BOX_LABEL[b.kind], font: FONT, bold: true, color: fg, size: 20, rightToLeft: true })], { spacing: { after: 60 } })];
+      const inner: Paragraph[] = [para([new TextRun({ text: `${BOX_EMOJI[b.kind]} ${BOX_LABEL[b.kind]}`, font: FONT, bold: true, color: fg, size: 20, rightToLeft: true })], { spacing: { after: 60 } })];
       if (b.latex?.trim()) inner.push(new Paragraph({ alignment: AlignmentType.CENTER, children: [wordMath(b.latex), ...(eqs.get(b.id) ? [new TextRun({ text: `   (${eqs.get(b.id)})`, font: FONT })] : [])] }));
       if (textOf(b.html).trim()) inner.push(para(runs(b.html)));
       const side = { style: BorderStyle.SINGLE, size: 18, color: fg };
@@ -217,18 +222,22 @@ p{margin:0 0 .6em}mark{color:inherit;border-radius:2px;padding:0 2px}.hl-y{backg
 .box-def{background:#e4ecf1;border-color:#355f7d}.box-def .lbl{color:#355f7d}.box-eq{background:#ece6f1;border-color:#6a4c8c}.box-eq .lbl{color:#6a4c8c}
 .box-ex{background:#f4ebd6;border-color:#8a6100}.box-ex .lbl{color:#8a6100}.box-err{background:#f6e0dd;border-color:#a3161a}.box-err .lbl{color:#a3161a}
 .box-q{background:#f4e5d6;border-color:#9a4f12}.box-q .lbl{color:#9a4f12}
+.box-con{background:#e2f0e3;border-color:#2e7d32}.box-con .lbl{color:#2e7d32}
 .eq{display:flex;justify-content:center;align-items:center;gap:1.2em;margin:.8em 0;direction:ltr}.eqn{color:var(--muted);font-size:.85em}
 math{font-size:1.1em}figure{margin:1em auto;text-align:center}figure img{max-width:100%}figcaption{font-size:.85em;color:var(--muted)}
 figure.s{max-width:33%}figure.m{max-width:62%}figure.l{max-width:100%}ul.l,ol.l{padding-inline-start:1.4em;margin:.2em 0 .8em}li.lv1{margin-inline-start:1.4em}li.lv2{margin-inline-start:2.8em}
 hr{border:none;border-top:1px solid var(--line);margin:1.4em 0}`;
 
-const mathHtml = (latex: string) => {
+const mathHtml = (latex: string, display = true) => {
   try {
-    return `<math display="block">${convertLatexToMathMl(latex)}</math>`;
+    return `<math${display ? ' display="block"' : ""}>${convertLatexToMathMl(latex)}</math>`;
   } catch {
     return `<code>${esc(latex)}</code>`;
   }
 };
+const unq = (s: string) => s.replace(/&quot;/g, '"').replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&");
+/** equations inside a line, as MathML */
+const inl = (html: string) => html.replace(/<span[^>]*data-tex="([^"]*)"[^>]*>.*?<\/span>/g, (_, t) => mathHtml(unq(t), false));
 
 /** The summary as one HTML file that opens in any browser, pictures included. */
 export async function toHtml(title: string, blocks: Block[]) {
@@ -238,14 +247,14 @@ export async function toHtml(title: string, blocks: Block[]) {
     if (b.t === "h") {
       const n = heads.get(b.id);
       const tag = b.plain && b === blocks[0] ? "h1" : `h${b.level + 1}`;
-      out.push(`<${tag}>${n ? `<span class="num">${n}</span>` : ""}${b.html}</${tag}>`);
+      out.push(`<${tag}>${b.emoji ? `${b.emoji} ` : ""}${n ? `<span class="num">${n}</span>` : ""}${inl(b.html)}</${tag}>`);
     } else if (b.t === "p") {
-      if (textOf(b.html).trim()) out.push(`<p>${b.html}</p>`);
+      if (textOf(b.html).trim()) out.push(`<p>${inl(b.html)}</p>`);
     } else if (b.t === "list") {
       const nums = itemNumbers(b.items);
-      out.push(`<ul class="l" style="list-style:none">${b.items.map((it, i) => `<li class="lv${it.level}">${b.ordered ? nums[i] : "•"} ${it.html}</li>`).join("")}</ul>`);
+      out.push(`<ul class="l" style="list-style:none">${b.items.map((it, i) => `<li class="lv${it.level}">${b.ordered ? nums[i] : "•"} ${inl(it.html)}</li>`).join("")}</ul>`);
     } else if (b.t === "box") {
-      out.push(`<div class="box box-${b.kind}"><span class="lbl">${BOX_LABEL[b.kind]}</span>${b.latex?.trim() ? `<div class="eq">${mathHtml(b.latex)}${eqs.get(b.id) ? `<span class="eqn">(${eqs.get(b.id)})</span>` : ""}</div>` : ""}${textOf(b.html).trim() ? `<p>${b.html}</p>` : ""}</div>`);
+      out.push(`<div class="box box-${b.kind}"><span class="lbl">${BOX_EMOJI[b.kind]} ${BOX_LABEL[b.kind]}</span>${b.latex?.trim() ? `<div class="eq">${mathHtml(b.latex)}${eqs.get(b.id) ? `<span class="eqn">(${eqs.get(b.id)})</span>` : ""}</div>` : ""}${textOf(b.html).trim() ? `<p>${inl(b.html)}</p>` : ""}</div>`);
     } else if (b.t === "math") {
       if (b.latex.trim()) out.push(`<div class="eq">${mathHtml(b.latex)}${eqs.get(b.id) ? `<span class="eqn">(${eqs.get(b.id)})</span>` : ""}</div>`);
     } else if (b.t === "img" || b.t === "fig") {

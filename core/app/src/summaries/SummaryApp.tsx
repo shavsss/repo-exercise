@@ -19,6 +19,8 @@ interface Prefs {
   bg: Bg;
   follow: boolean;
   tree: boolean;
+  /** the page's zoom, 0.7–1.8 */
+  zoom: number;
 }
 type View = "edit" | "review" | { filter: FilterKind };
 
@@ -29,9 +31,9 @@ function usePrefs(lab: string) {
   const key = `${lab}:summaries`;
   const [p, setP] = useState<Prefs>(() => {
     try {
-      return { module: null, bg: "lines", follow: true, tree: true, ...JSON.parse(localStorage.getItem(key) ?? "{}") };
+      return { module: null, bg: "lines", follow: true, tree: true, zoom: 1, ...JSON.parse(localStorage.getItem(key) ?? "{}") };
     } catch {
-      return { module: null, bg: "lines", follow: true, tree: true };
+      return { module: null, bg: "lines", follow: true, tree: true, zoom: 1 };
     }
   });
   const set = (patch: Partial<Prefs>) =>
@@ -409,6 +411,17 @@ export function SummaryApp({ lab, name }: { lab: string; name: string }) {
         </div>
         <span className="topbar-spacer" />
         <span className={`sm-save st-${saveState}`}>{saveLabel}</span>
+        {tab === "sum" && (
+          <span className="sm-zoom" role="group" aria-label="זום">
+            <button onClick={() => setPrefs({ zoom: Math.max(0.7, Math.round((prefs.zoom - 0.1) * 10) / 10) })} aria-label="הקטן" title="הקטן">
+              −
+            </button>
+            <span>{Math.round(prefs.zoom * 100)}%</span>
+            <button onClick={() => setPrefs({ zoom: Math.min(1.8, Math.round((prefs.zoom + 0.1) * 10) / 10) })} aria-label="הגדל" title="הגדל">
+              +
+            </button>
+          </span>
+        )}
         <label className="sm-follow" title="כשעוברים שיעור בחלון השיעורים, הסיכום עובר לאותו מודול ולסעיף של השיעור. הגלילה כאן נשארת חופשית.">
           <input type="checkbox" checked={prefs.follow} onChange={(e) => setPrefs({ follow: e.target.checked })} /> עוקב אחרי השיעור
         </label>
@@ -471,6 +484,7 @@ export function SummaryApp({ lab, name }: { lab: string; name: string }) {
                     canRedo={redo.current.length > 0}
                     onPickFigure={(after) => setPickAfter(after)}
                     viewTab={viewTab}
+                    zoom={prefs.zoom}
                   />
                 )}
                 {view === "review" && (
@@ -480,7 +494,9 @@ export function SummaryApp({ lab, name }: { lab: string; name: string }) {
                         חזרה לעריכה
                       </button>
                     </div>
-                    <ReviewView blocks={doc.blocks} />
+                    <div style={{ zoom: prefs.zoom }}>
+                      <ReviewView blocks={doc.blocks} />
+                    </div>
                   </>
                 )}
                 {typeof view === "object" && (

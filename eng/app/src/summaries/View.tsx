@@ -1,9 +1,19 @@
-import { useMemo, useState } from "react";
+import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import type { Block, BoxKind, Summary } from "./model";
-import { BOX_LABEL, itemNumbers, numbering, textOf } from "./model";
+import { BOX_EMOJI, BOX_LABEL, itemNumbers, numbering, textOf } from "./model";
+import { hydrateMath } from "./rich";
 import { MathView } from "./MathEdit";
 import { useFigureSrc } from "./Picture";
 import { SHAPE_HEX } from "./media";
+
+/** Block HTML, read-only, with its equations inside lines drawn. */
+function Ro({ html, className }: { html: string; className?: string }) {
+  const r = useRef<HTMLSpanElement>(null);
+  useLayoutEffect(() => {
+    if (r.current) hydrateMath(r.current);
+  }, [html]);
+  return <span ref={r} className={className} dangerouslySetInnerHTML={{ __html: html }} />;
+}
 
 /** One block, read-only. */
 export function BlockView({ b, n, eq }: { b: Block; n?: string; eq?: number }) {
@@ -12,13 +22,18 @@ export function BlockView({ b, n, eq }: { b: Block; n?: string; eq?: number }) {
       const H = (`h${Math.min(6, b.level + 1)}` as "h2" | "h3" | "h4");
       return (
         <H className={`sm-h sm-h${b.level}`}>
+          {b.emoji && <span className="sm-emoji-ro">{b.emoji}</span>}
           {n && <span className="sm-num">{n}</span>}
-          <span dangerouslySetInnerHTML={{ __html: b.html }} />
+          <Ro html={b.html} />
         </H>
       );
     }
     case "p":
-      return <p className="sm-p sm-ro" dangerouslySetInnerHTML={{ __html: b.html }} />;
+      return (
+        <p className="sm-p sm-ro">
+          <Ro html={b.html} />
+        </p>
+      );
     case "list": {
       const nums = itemNumbers(b.items);
       return (
@@ -26,7 +41,7 @@ export function BlockView({ b, n, eq }: { b: Block; n?: string; eq?: number }) {
           {b.items.map((it, i) => (
             <div key={i} className={`sm-li lvl-${it.level}`}>
               <span className="sm-bullet">{b.ordered ? nums[i] : ["•", "◦", "▪"][it.level] ?? "•"}</span>
-              <span className="sm-ro" dangerouslySetInnerHTML={{ __html: it.html }} />
+              <Ro className="sm-ro" html={it.html} />
             </div>
           ))}
         </div>
@@ -36,6 +51,7 @@ export function BlockView({ b, n, eq }: { b: Block; n?: string; eq?: number }) {
       return (
         <div className={`sm-box box-${b.kind}`}>
           <div className="sm-box-head">
+            <span className="sm-box-emoji">{BOX_EMOJI[b.kind]}</span>
             <span className="sm-box-label">{BOX_LABEL[b.kind]}</span>
           </div>
           {b.latex?.trim() && (
@@ -44,7 +60,11 @@ export function BlockView({ b, n, eq }: { b: Block; n?: string; eq?: number }) {
               {eq && <span className="sm-eqn">({eq})</span>}
             </div>
           )}
-          {textOf(b.html).trim() && <div className="sm-ro" dangerouslySetInnerHTML={{ __html: b.html }} />}
+          {textOf(b.html).trim() && (
+            <div className="sm-ro">
+              <Ro html={b.html} />
+            </div>
+          )}
         </div>
       );
     case "math":

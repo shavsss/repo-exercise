@@ -138,10 +138,11 @@ fs.writeFileSync(
 );
 
 // the summaries notebook (#summary): one Markdown file with every module's summary
-const BOX = { def: "הגדרה", eq: "נוסחה מרכזית", ex: "דוגמה מספרית", err: "טעות נפוצה", q: "שאלה פתוחה" };
+const BOX = { def: "📘 הגדרה", eq: "🧮 נוסחה מרכזית", ex: "🔢 דוגמה מספרית", err: "⚠️ טעות נפוצה", q: "❓ שאלה פתוחה", con: "✅ מסקנה" };
 const MARK = { y: "חשוב", r: "טעות", b: "הגדרה", g: "תובנה" };
 const plain = (h) =>
   String(h ?? "")
+    .replace(/<span[^>]*data-tex="([^"]*)"[^>]*>.*?<\/span>/g, (_, t) => `$${t.replace(/&quot;/g, '"').replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&")}$`)
     .replace(/<br\s*\/?>/gi, "\n")
     .replace(/<\/?(b|strong)>/gi, "**")
     .replace(/<\/?(i|em)>/gi, "*")
@@ -163,7 +164,7 @@ function summaryMd(s) {
         for (let j = b.level; j < 3; j++) c[j] = 0;
         n = c.slice(0, b.level).map((x) => x || 1).join(".") + " ";
       }
-      out.push(`${"#".repeat(Math.min(6, b.level + 2))} ${n}${plain(b.html)}`);
+      out.push(`${"#".repeat(Math.min(6, b.level + 2))} ${b.emoji ? b.emoji + " " : ""}${n}${plain(b.html)}`);
     } else if (b.t === "p") {
       if (plain(b.html).trim()) out.push(plain(b.html));
     } else if (b.t === "list") {

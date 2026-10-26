@@ -1,7 +1,7 @@
 // The summaries notebook: one summary per module, made of blocks. The same file is in both
 // labs (core/app and eng/app); keep the copies identical.
 
-export type BoxKind = "def" | "eq" | "ex" | "err" | "q";
+export type BoxKind = "def" | "eq" | "ex" | "err" | "q" | "con";
 export type MarkColor = "y" | "r" | "b" | "g";
 export type ShapeColor = MarkColor | "k";
 export interface Shape {
@@ -20,7 +20,7 @@ export interface ListItem {
 }
 export type ImgSize = "s" | "m" | "l";
 export type Block =
-  | { id: string; t: "h"; level: 1 | 2 | 3; html: string; plain?: boolean }
+  | { id: string; t: "h"; level: 1 | 2 | 3; html: string; plain?: boolean; emoji?: string }
   | { id: string; t: "p"; html: string }
   | { id: string; t: "list"; ordered: boolean; items: ListItem[] }
   | { id: string; t: "box"; kind: BoxKind; html: string; latex?: string }
@@ -44,7 +44,10 @@ export interface SummaryMeta {
   words: number;
 }
 
-export const BOX_LABEL: Record<BoxKind, string> = { def: "הגדרה", eq: "נוסחה מרכזית", ex: "דוגמה מספרית", err: "טעות נפוצה", q: "שאלה פתוחה" };
+export const BOX_LABEL: Record<BoxKind, string> = { def: "הגדרה", eq: "נוסחה מרכזית", ex: "דוגמה מספרית", err: "טעות נפוצה", q: "שאלה פתוחה", con: "מסקנה" };
+export const BOX_EMOJI: Record<BoxKind, string> = { def: "📘", eq: "🧮", ex: "🔢", err: "⚠️", q: "❓", con: "✅" };
+/** emojis offered beside a heading */
+export const HEAD_EMOJI = ["📡", "🎯", "🛰️", "🚀", "✈️", "🛡️", "⚡", "🔋", "📶", "🔭", "🌡️", "🌊", "🧲", "⚙️", "🔧", "🧮", "📐", "📊", "📈", "🗺️", "🧭", "💡", "🧠", "🔍", "⚠️", "✅", "❓", "📌", "🔥", "⭐", "📘", "📝", "🎓", "🏁", "⏱️", "💰"];
 export const MARK_LABEL: Record<MarkColor, string> = { y: "חשוב", r: "טעות או אזהרה", b: "הגדרה", g: "תובנה" };
 export const STATUS_LABEL: Record<SummaryStatus, string> = { none: "לא התחיל", draft: "טיוטה", done: "מוכן" };
 
@@ -76,8 +79,12 @@ export function seedBlocks(title: string, lessons: string[]): Block[] {
 export const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
 /** Plain text of a fragment of the block HTML. */
+const unq = (s: string) => s.replace(/&quot;/g, '"').replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&");
+/** equations inside a line, as $…$ */
+const dollars = (html: string) => html.replace(/<span[^>]*data-tex="([^"]*)"[^>]*>.*?<\/span>/g, (_, t) => `$${unq(t)}$`);
+
 export function textOf(html: string) {
-  return html
+  return dollars(html)
     .replace(/<br\s*\/?>/gi, "\n")
     .replace(/<[^>]+>/g, "")
     .replace(/&nbsp;/g, " ")
@@ -154,7 +161,7 @@ export function toMarkdown(title: string, blocks: Block[]) {
     if (b.t === "h") {
       const n = heads.get(b.id);
       const hashes = first && b.plain ? "#" : "#".repeat(Math.min(6, b.level + 1));
-      out.push(`${hashes} ${n ? n + " " : ""}${inlineMd(b.html)}`);
+      out.push(`${hashes} ${b.emoji ? b.emoji + " " : ""}${n ? n + " " : ""}${inlineMd(b.html)}`);
     } else if (b.t === "p") {
       if (textOf(b.html).trim()) out.push(inlineMd(b.html));
     } else if (b.t === "list") {
@@ -162,7 +169,7 @@ export function toMarkdown(title: string, blocks: Block[]) {
       out.push(b.items.map((it, i) => `${"   ".repeat(it.level)}${b.ordered ? nums[i] : "-"} ${inlineMd(it.html)}`).join("\n"));
     } else if (b.t === "box") {
       const body = [b.latex?.trim() ? `$$${b.latex}$$${eqs.get(b.id) ? ` (${eqs.get(b.id)})` : ""}` : "", inlineMd(b.html)].filter(Boolean).join("\n> ");
-      out.push(`> **${BOX_LABEL[b.kind]}:** ${body}`);
+      out.push(`> ${BOX_EMOJI[b.kind]} **${BOX_LABEL[b.kind]}:** ${body}`);
     } else if (b.t === "math") {
       if (b.latex.trim()) out.push(`$$${b.latex}$$${eqs.get(b.id) ? ` (${eqs.get(b.id)})` : ""}`);
     } else if (b.t === "img") {
