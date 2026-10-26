@@ -44,6 +44,25 @@ export function cleanHtml(html: string) {
  */
 export function dropEmptyMarks(root: HTMLElement, keep: Element | null = null) {
   let changed = false;
+  // a mark inside another mark: the inner one (the later colour) wins; the outer one is split around it
+  for (let inner = root.querySelector("mark mark"); inner; inner = root.querySelector("mark mark")) {
+    const outer = inner.parentElement!.closest("mark")!;
+    const piece = (r: Range) => {
+      const m = outer.cloneNode(false) as HTMLElement;
+      m.appendChild(r.extractContents());
+      return m;
+    };
+    const head = document.createRange();
+    head.setStart(outer, 0);
+    head.setEndBefore(inner);
+    outer.before(piece(head));
+    const tail = document.createRange();
+    tail.setStartAfter(inner);
+    tail.setEnd(outer, outer.childNodes.length);
+    outer.after(piece(tail));
+    outer.replaceWith(...Array.from(outer.childNodes));
+    changed = true;
+  }
   root.querySelectorAll("mark").forEach((m) => {
     if (m === keep || (m.textContent ?? "").replace(/[\u200b\s]/g, "") || m.querySelector("span.im")) return;
     m.replaceWith(...Array.from(m.childNodes).filter((n) => n.nodeType !== 3 || (n.textContent ?? "").replace(/\u200b/g, "")));

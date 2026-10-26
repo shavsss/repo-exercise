@@ -114,7 +114,8 @@
 .sm-num { color: var(--accent); font-family: var(--mono); font-weight: 500; font-size: 0.85em; flex: none; }
 .sm-block:first-child .sm-h1 { margin-top: 0; font-size: 1.6em; }
 .sm-ro { word-break: break-word; }
-mark { color: inherit; padding: 0 2px; border-radius: 2px; }
+/* no padding: an empty mark, or the seam between marks, would show as a thin coloured bar */
+mark { color: inherit; padding: 0; border-radius: 0; }
 mark.hl-y, .hl-y mark { background: var(--hl-y); } mark.hl-r { background: var(--hl-r); } mark.hl-b { background: var(--hl-b); } mark.hl-g { background: var(--hl-g); } mark.hl-p { background: var(--hl-p); } mark.hl-o { background: var(--hl-o); }
 mark:not([class]) { background: var(--hl-y); }
 
