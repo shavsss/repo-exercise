@@ -290,8 +290,23 @@ export function applyMark(cls: string | null) {
     return true;
   }
   const r = sel.getRangeAt(0);
+  const anc = r.commonAncestorContainer;
+  const outer = (anc.nodeType === 1 ? (anc as Element) : anc.parentElement)?.closest("mark");
+  // the same colour again on text that has it: the colour comes off
+  if (cls && outer && el.contains(outer) && outer.classList.contains(cls)) cls = null;
   const frag = r.extractContents();
   frag.querySelectorAll("mark").forEach((m) => m.replaceWith(...Array.from(m.childNodes)));
+  if (outer && el.contains(outer) && outer.isConnected) {
+    // the selection was inside one mark: split it there, so what comes back is outside it
+    const tail = document.createRange();
+    tail.setStart(r.startContainer, r.startOffset);
+    tail.setEnd(outer, outer.childNodes.length);
+    const after = outer.cloneNode(false) as HTMLElement;
+    after.appendChild(tail.extractContents());
+    outer.after(after);
+    r.setStartAfter(outer);
+    r.collapse(true);
+  }
   if (cls) {
     const m = document.createElement("mark");
     m.className = cls;
