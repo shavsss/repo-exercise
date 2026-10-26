@@ -360,3 +360,66 @@
 :root[data-focus="on"] .lesson-toc,
 :root[data-focus="on"] .toc-rail { display: none; }
 :root[data-focus="on"] .has-toc .mini-toc-btn { display: inline-flex; }
+
+/* ---------- "הסבר פשוט": a small panel on the right of the lesson ---------- */
+.explain-rail {
+  all: unset;
+  box-sizing: border-box;
+  cursor: pointer;
+  flex: none;
+  width: 34px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 0;
+  border-inline-end: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--ink-soft);
+  font-size: 0.8rem;
+}
+.explain-rail span { writing-mode: vertical-rl; }
+.explain-rail:hover { color: var(--ink); background: var(--hover); }
+.explain-rail:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.explain-panel {
+  flex: none;
+  width: 310px;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: var(--bg);
+  border-inline-end: 1px solid var(--line);
+}
+.explain-head { display: flex; align-items: center; justify-content: space-between; padding: 12px 14px 6px; font-weight: 600; font-size: 0.9rem; }
+.explain-ask { display: grid; gap: 6px; padding: 4px 12px 10px; border-bottom: 1px solid var(--line); }
+.explain-ask textarea { resize: vertical; min-height: 3.2em; font: inherit; font-size: 0.88rem; padding: 6px 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--paper, var(--bg)); color: var(--ink); }
+.explain-ask .btn { justify-self: start; }
+.explain-body { flex: 1; overflow-y: auto; padding: 10px 14px 16px; font-size: 0.9rem; }
+.explain-hint { margin: 0; color: var(--muted); font-size: 0.82rem; line-height: 1.5; }
+.explain-q { margin: 0 0 10px; padding: 6px 10px; border-inline-start: 3px solid var(--accent); background: var(--sel); color: var(--ink-soft); font-size: 0.82rem; line-height: 1.5; }
+.explain-wait { color: var(--muted); font-size: 0.85rem; }
+.explain-answer { font-size: 0.9rem; line-height: 1.7; }
+.explain-answer p { margin: 0 0 0.6em; }
+.explain-answer table { font-size: 0.82rem; }
+.explain-model { margin-top: 8px; color: var(--muted); font-size: 0.72rem; }
+.explain-chip {
+  position: fixed;
+  z-index: 60;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border: 1px solid var(--line-strong, var(--line));
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--bg);
+  font: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgb(0 0 0 / 18%);
+}
+@media (max-width: 1100px) {
+  .explain-rail { display: none; }
+  .explain-panel { position: fixed; inset-block: 0; inset-inline-start: 0; z-index: 50; box-shadow: 0 0 24px rgb(0 0 0 / 20%); }
+}
+:root[data-focus="on"] .explain-rail { display: none; }

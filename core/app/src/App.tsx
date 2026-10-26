@@ -10,6 +10,7 @@ import { AssistantTurn, DimensionHead, UserBubble } from "./components/Message";
 import { Composer, type QuickAction } from "./components/Composer";
 import { lessonChannel } from "./summaries/SummaryApp";
 import { LessonToc, ReadingDock, ReadingProgress, useResumePosition, useTocPanel } from "./components/ReadingAids";
+import { ExplainPanel } from "./components/Explain";
 import { SourceViewer } from "./components/SourceViewer";
 import { MemoryPanel } from "./components/MemoryPanel";
 import { MdContext } from "./components/Markdown";
@@ -573,6 +574,7 @@ export function App() {
         )}
         {sideOpen && <div className="scrim" onClick={() => setSideOpen(false)} />}
 
+        {inLesson && <ExplainPanel rt={rt} scrollRef={scrollRef} lessonKey={`${module!.id}:${lessonIdx}`} lessonTitle={`${module!.id} · ${lesson?.title ?? module!.title}`} />}
         <main className="main">
           <ReadingProgress scrollRef={scrollRef} />
           {resume.resumed && (

@@ -36,6 +36,13 @@
   async function sample(input, opts) {
     opts = opts || {};
     window.__log = window.__log || [];
+    if (typeof input === "string" && input.includes("<question>")) {
+      window.__log.push("explain:" + opts.model);
+      window.__explainInput = input;
+      const t = "**מושגים:** ביט: ספרה בינארית, 0 או 1.\n\n**הרעיון בפשטות:** כל ספרה מ-$\\{-2,\\dots,2\\}$ שווה שני ביטים.\n\n**דוגמה קטנה:** $7/2 = 3.5$.";
+      opts.onText && opts.onText({ text: t, delta: t });
+      return { text: t, truncated: false, modelTierApplied: "quick", modelApplied: opts.model };
+    }
     if (typeof input === "string") { window.__log.push("memory"); return { text: "# זיכרון הקורס\n\n## מה נלמד\n- שיעור בדיקה (מעודכן)", truncated: false, modelTierApplied: "default" }; }
     const last = input[input.length - 1].content;
     const m = /WRITING STEP: part (\d+) of (\d+)/.exec(last);
