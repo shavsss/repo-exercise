@@ -61,8 +61,36 @@ interface Fmt {
   sub: boolean;
   mark: string | null;
   list: "ol" | "ul" | null;
+  /** the bullet of the bulleted list at the caret ("" for the plain dot) */
+  bullet: string;
 }
-const NO_FMT: Fmt = { b: false, i: false, sup: false, sub: false, mark: null, list: null };
+const NO_FMT: Fmt = { b: false, i: false, sup: false, sub: false, mark: null, list: null, bullet: "" };
+/** bullets a list can have: its class (b-…), the sign, and its name */
+const BULLETS: [string, string, string][] = [
+  ["", "•", "עיגול"],
+  ["circle", "◦", "עיגול ריק"],
+  ["square", "▪", "ריבוע"],
+  ["dash", "–", "קו"],
+  ["arrow", "←", "חץ"],
+  ["check", "✓", "וי"],
+  ["star", "★", "כוכב"],
+  ["diamond", "◆", "יהלום"],
+];
+/** the bulleted list at the caret gets another bullet */
+function setBullet(kind: string) {
+  const el = activeEditable();
+  const list = el ? caretLi(el)?.parentElement : null;
+  if (!el || !list || list.tagName !== "UL") return;
+  list.className = kind ? `b-${kind}` : "";
+  if (!kind) list.removeAttribute("class");
+  el.dispatchEvent(new Event("input", { bubbles: true }));
+}
+/** whether the caret is on a line below the first line of an editable */
+function onLaterLine(el: HTMLElement) {
+  const c = caret(el);
+  const pre = linePrefix(el) ?? "";
+  return !!c && !!(el.textContent ?? "").slice(0, Math.max(0, c.before - pre.length)).replace(/\u200b/g, "").trim();
+}
 function readFmt(): Fmt {
   const el = activeEditable();
   if (!el) return NO_FMT;
@@ -74,7 +102,16 @@ function readFmt(): Fmt {
     }
   };
   const li = caretLi(el);
-  return { b: q("bold"), i: q("italic"), sup: q("superscript"), sub: q("subscript"), mark: caretMark()?.className.match(/hl-[yrbg]/)?.[0] ?? null, list: li ? (li.parentElement?.tagName === "OL" ? "ol" : "ul") : null };
+  const list = li?.parentElement;
+  return {
+    b: q("bold"),
+    i: q("italic"),
+    sup: q("superscript"),
+    sub: q("subscript"),
+    mark: caretMark()?.className.match(/hl-[yrbg]/)?.[0] ?? null,
+    list: list ? (list.tagName === "OL" ? "ol" : "ul") : null,
+    bullet: list?.className.match(/b-(\w+)/)?.[1] ?? "",
+  };
 }
 
 /* ---------------- one editable ---------------- */
@@ -154,6 +191,7 @@ export function Editor({
   const [emojiFor, setEmojiFor] = useState<string | null>(null);
   /** what is on at the caret, so the ribbon shows it while writing */
   const [fmt, setFmt] = useState<Fmt>(NO_FMT);
+  const [bulletPop, setBulletPop] = useState(false);
   const refreshFmt = () =>
     setFmt((old) => {
       const n = readFmt();
@@ -264,10 +302,15 @@ export function Editor({
     const cur = at ? blocks.find((b) => b.id === at) : null;
     const replace = cur && cur.t === "p" && !textOf(cur.html).trim().replace(/^\/\S*/, "").trim();
     if ((item.id === "ul" || item.id === "ol") && !replace) {
-      // the list goes into the paragraph or box being written, at the caret
+      // the list goes into the block being written, at the caret; in a heading (a section written
+      // in its heading) on a new line under its text
       const el = activeEditable();
       const tb = el ? blocks.find((x) => x.id === el.dataset.edit) : null;
-      if (el && tb && (tb.t === "p" || tb.t === "box")) {
+      if (el && tb && (tb.t === "p" || tb.t === "box" || tb.t === "h")) {
+        if (tb.t === "h" && !caretLi(el) && !onLaterLine(el)) {
+          placeCaret(el, "end");
+          document.execCommand("insertLineBreak");
+        }
         document.execCommand(item.id === "ol" ? "insertOrderedList" : "insertUnorderedList");
         return;
       }
@@ -344,7 +387,7 @@ export function Editor({
       openInline();
       return;
     }
-    if (b.t !== "h" && listKeysIn(b, el, e)) return;
+    if (listKeysIn(b, el, e)) return;
     if (e.key === "Enter" && e.shiftKey && !e.nativeEvent.isComposing) {
       // a new line in the same block; a mark does not go on to it
       e.preventDefault();
@@ -448,11 +491,37 @@ export function Editor({
    * of the list (at the end of the block, into a new paragraph block); Tab and Shift+Tab: nesting
    * (1.1, 1.2); "- " or "1. " at the start of a line opens a list. True when the key was taken.
    */
-  const listKeysIn = (b: Extract<Block, { t: "p" | "box" }>, el: HTMLElement, e: React.KeyboardEvent<HTMLDivElement>) => {
+  const listKeysIn = (b: Extract<Block, { t: "p" | "box" | "h" }>, el: HTMLElement, e: React.KeyboardEvent<HTMLDivElement>) => {
     const changed = () => el.dispatchEvent(new Event("input", { bubbles: true }));
     const li = caretLi(el);
+    const space = e.key === " " && !e.ctrlKey && !e.altKey && !e.metaKey;
+    if (li && space) {
+      // "- " or "1. " at the start of an empty item: a list inside the list, of that kind, under the item before
+      const pre = (linePrefix(el) ?? "").replace(/\u200b/g, "");
+      const kind = /^[-*•]$/.test(pre) ? "UL" : /^1[.)]$/.test(pre) ? "OL" : null;
+      if (kind && liText(li).replace(/\u200b/g, "").trim() === pre) {
+        e.preventDefault();
+        for (let k = 0; k < pre.length; k++) document.execCommand("delete");
+        indentLi(li);
+        const list = li.parentElement!;
+        if (list.tagName !== kind) {
+          const nl = document.createElement(kind.toLowerCase());
+          nl.append(...Array.from(list.childNodes));
+          list.replaceWith(nl);
+          placeCaret(el, 0);
+          const r = document.createRange();
+          r.setStart(li, 0);
+          r.collapse(true);
+          window.getSelection()?.removeAllRanges();
+          window.getSelection()?.addRange(r);
+        }
+        changed();
+        return true;
+      }
+    }
     if (!li) {
-      if (e.key === " " && !e.ctrlKey && !e.altKey && !e.metaKey) {
+      // in a heading, a list starts only on a line below its text (after Shift+Enter)
+      if (space && (b.t !== "h" || onLaterLine(el))) {
         const pre = linePrefix(el);
         const kind = pre && /^[-*•]$/.test(pre) ? "ul" : pre && /^1[.)]$/.test(pre) ? "ol" : null;
         if (kind) {
@@ -489,7 +558,7 @@ export function Editor({
         el.innerHTML = h;
         patch(b.id, { html: h });
         if (b.t === "box") leaveBox(b.id);
-        else if (!h) placeCaret(el, "start"); // the list was all there was: the paragraph stays, plain
+        else if (!h && b.t === "p") placeCaret(el, "start"); // the list was all there was: the paragraph stays, plain
         else {
           const nb = emptyBlock("p");
           insertAfter(b.id, nb);
@@ -952,6 +1021,20 @@ export function Editor({
             >
               1. ⇄ •
             </button>
+            <span className="sm-bullets-wrap">
+              <button className="sm-tbtn" disabled={fmt.list !== "ul"} aria-expanded={bulletPop} title="סימן התבליטים של הרשימה שבה הסמן" onClick={() => setBulletPop(!bulletPop)}>
+                {BULLETS.find((x) => x[0] === fmt.bullet)?.[1] ?? "•"} ▾
+              </button>
+              {bulletPop && (
+                <span className="sm-bullets-pop" role="listbox">
+                  {BULLETS.map(([k, ch, name]) => (
+                    <button key={k} aria-pressed={fmt.bullet === k} title={name} onClick={act(() => (setBullet(k), setBulletPop(false)))}>
+                      {ch}
+                    </button>
+                  ))}
+                </span>
+              )}
+            </span>
           </div>
           <div className="sm-group">
             <button className="sm-tbtn" disabled={!cur} onClick={() => cur && move(cur.id, -1)} title="הזז למעלה">

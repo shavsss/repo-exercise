@@ -145,8 +145,8 @@ function flatLists(html) {
   if (!/<(ol|ul)[ >]/.test(html)) return html;
   const stack = [];
   let out = "";
-  for (const part of html.split(/(<\/?(?:ol|ul|li)(?: start="\d+")?>)/)) {
-    const m = /^<(\/?)(ol|ul|li)(?: start="(\d+)")?>$/.exec(part);
+  for (const part of html.split(/(<\/?(?:ol|ul|li)(?: [a-z-]+="[^"]*")*>)/)) {
+    const m = /^<(\/?)(ol|ul|li)((?: [a-z-]+="[^"]*")*)>$/.exec(part);
     if (!m) {
       out += stack.length ? part.replace(/<br>$/, "") : part;
       continue;
@@ -154,7 +154,7 @@ function flatLists(html) {
     const [, close, tag] = m;
     if (tag !== "li") {
       if (close) stack.pop();
-      else stack.push({ ordered: tag === "ol", n: Number(m[3] ?? 1) - 1 });
+      else stack.push({ ordered: tag === "ol", n: Number(/start="(\d+)"/.exec(m[3])?.[1] ?? 1) - 1 });
       out += "\u0004";
     } else if (close) out += "\u0004";
     else if (stack.length) {
@@ -192,7 +192,11 @@ function summaryMd(s) {
         for (let j = b.level; j < 3; j++) c[j] = 0;
         n = c.slice(0, b.level).map((x) => x || 1).join(".") + " ";
       }
-      out.push(`${"#".repeat(Math.min(6, b.level + 2))} ${b.emoji ? b.emoji + " " : ""}${n}${plain(b.html)}`);
+      // a list written under the heading's text goes below the heading line
+      const html = String(b.html ?? "");
+      const i = html.search(/<(ol|ul)[ >]/);
+      out.push(`${"#".repeat(Math.min(6, b.level + 2))} ${b.emoji ? b.emoji + " " : ""}${n}${plain(i < 0 ? html : html.slice(0, i))}`);
+      if (i >= 0) out.push(plain(html.slice(i)));
     } else if (b.t === "p") {
       if (plain(b.html).trim()) out.push(plain(b.html));
     } else if (b.t === "list") {

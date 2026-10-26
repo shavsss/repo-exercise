@@ -90,10 +90,10 @@ const dollars = (html: string) => html.replace(/<span[^>]*data-tex="([^"]*)"[^>]
  */
 export function flatLists(html: string, pad: (depth: number) => string = (d) => "   ".repeat(d)) {
   if (!/<(ol|ul)[ >]/.test(html)) return html;
-  const stack: { ordered: boolean; n: number }[] = [];
+  const stack: { ordered: boolean; n: number; bullet: string }[] = [];
   let out = "";
-  for (const part of html.split(/(<\/?(?:ol|ul|li)(?: start="\d+")?>)/)) {
-    const m = /^<(\/?)(ol|ul|li)(?: start="(\d+)")?>$/.exec(part);
+  for (const part of html.split(/(<\/?(?:ol|ul|li)(?: [a-z-]+="[^"]*")*>)/)) {
+    const m = /^<(\/?)(ol|ul|li)((?: [a-z-]+="[^"]*")*)>$/.exec(part);
     if (!m) {
       // the break that holds an empty item open, or ends an item, is not a line of its own
       out += stack.length ? part.replace(/<br>$/, "") : part;
@@ -102,17 +102,26 @@ export function flatLists(html: string, pad: (depth: number) => string = (d) => 
     const [, close, tag] = m;
     if (tag !== "li") {
       if (close) stack.pop();
-      else stack.push({ ordered: tag === "ol", n: Number(m[3] ?? 1) - 1 });
+      else stack.push({ ordered: tag === "ol", n: Number(/start="(\d+)"/.exec(m[3])?.[1] ?? 1) - 1, bullet: BULLET_SIGN[/b-(\w+)/.exec(m[3])?.[1] ?? ""] ?? "•" });
       out += "\u0004";
     } else if (close) out += "\u0004";
     else if (stack.length) {
       const top = stack[stack.length - 1];
       top.n++;
       const nums = stack.filter((x) => x.ordered).map((x) => x.n);
-      out += `\u0004${pad(stack.length - 1)}${top.ordered ? (nums.length === 1 ? `${nums[0]}.` : nums.join(".")) : "•"} `;
+      out += `\u0004${pad(stack.length - 1)}${top.ordered ? (nums.length === 1 ? `${nums[0]}.` : nums.join(".")) : top.bullet} `;
     }
   }
   return out.replace(/(<br>)?\u0004(<br>)?/g, "\u0004").replace(/\u0004+/g, "<br>").replace(/^<br>|<br>$/g, "");
+}
+
+/** The sign of each kind of bullet (the class b-… of a bulleted list). */
+export const BULLET_SIGN: Record<string, string> = { "": "•", circle: "◦", square: "▪", dash: "–", arrow: "←", check: "✓", star: "★", diamond: "◆" };
+
+/** A heading's own text, and a list written under it in the same block (for the exports). */
+export function headParts(html: string) {
+  const i = html.search(/<(ol|ul)[ >]/);
+  return i < 0 ? { head: html, rest: "" } : { head: html.slice(0, i).replace(/(<br>)+$/, ""), rest: html.slice(i) };
 }
 
 export function textOf(html: string) {
@@ -206,7 +215,9 @@ export function toMarkdown(title: string, blocks: Block[]) {
     } else if (b.t === "h") {
       const n = heads.get(b.id);
       const hashes = first && b.plain ? "#" : "#".repeat(Math.min(6, b.level + 1));
-      out.push(`${hashes} ${b.emoji ? b.emoji + " " : ""}${n ? n + " " : ""}${inlineMd(b.html)}`);
+      const { head, rest } = headParts(b.html);
+      out.push(`${hashes} ${b.emoji ? b.emoji + " " : ""}${n ? n + " " : ""}${inlineMd(head)}`);
+      if (rest) out.push(inlineMd(rest));
     } else if (b.t === "p") {
       if (textOf(b.html).trim()) out.push(inlineMd(b.html));
     } else if (b.t === "list") {

@@ -29,7 +29,7 @@ import {
 import { convertLatexToMathMl } from "mathlive";
 import { figure } from "../library";
 import type { Block, BoxKind, ImgSize, MarkColor } from "./model";
-import { BOX_EMOJI, BOX_LABEL, esc, flatLists, itemNumbers, numbering, textOf } from "./model";
+import { BOX_EMOJI, BOX_LABEL, BULLET_SIGN, esc, flatLists, headParts, itemNumbers, numbering, textOf } from "./model";
 import { flatten } from "./media";
 
 type MathComponent = ConstructorParameters<typeof DMath>[0]["children"][number];
@@ -192,7 +192,9 @@ export async function toDocx(title: string, blocks: Block[]) {
     } else if (b.t === "h") {
       const n = heads.get(b.id);
       const level = b.plain && b === blocks[0] ? HeadingLevel.TITLE : [HeadingLevel.HEADING_1, HeadingLevel.HEADING_2, HeadingLevel.HEADING_3][b.level - 1];
-      children.push(para([new TextRun({ text: `${b.emoji ? b.emoji + " " : ""}${n ? n + " " : ""}`, font: FONT, rightToLeft: true, bold: b.level < 3 }), ...runs(b.html, { bold: b.level < 3 })], { heading: level, spacing: { before: 240, after: 120 } }));
+      const { head, rest } = headParts(b.html);
+      children.push(para([new TextRun({ text: `${b.emoji ? b.emoji + " " : ""}${n ? n + " " : ""}`, font: FONT, rightToLeft: true, bold: b.level < 3 }), ...runs(head, { bold: b.level < 3 })], { heading: level, spacing: { before: 240, after: 120 } }));
+      if (rest) children.push(...paras(rest));
     } else if (b.t === "p") {
       if (textOf(b.html).trim()) children.push(...paras(b.html));
     } else if (b.t === "list") {
@@ -247,7 +249,8 @@ figure.s{max-width:33%}figure.m{max-width:62%}figure.l{max-width:100%}ul.l,ol.l{
 hr{border:none;border-top:1px solid var(--line);margin:1.4em 0}.p{margin:0 0 .6em}
 .p ol,.p ul{margin:.1em 0 .2em;padding-inline-start:2.1em}.p ol{list-style:none;counter-reset:li}.p ol>li{counter-increment:li;position:relative}
 .p ol>li::before{content:counters(li,".") ".";position:absolute;inset-inline-end:100%;margin-inline-end:.45em;color:var(--accent);font-family:"IBM Plex Mono",monospace;font-size:.86em}
-.p li ol>li::before{content:counters(li,".")}.p li ol,.p li ul{margin:0;padding-inline-start:2.4em}.p li ul{list-style:circle}`;
+.p li ol>li::before{content:counters(li,".")}.p li ol,.p li ul{margin:0;padding-inline-start:2.4em}.p li ul{list-style:circle}
+${Object.entries(BULLET_SIGN).filter(([k]) => k).map(([k, c]) => `.p ul.b-${k}{list-style-type:"${c}  "}`).join("")}`;
 
 const mathHtml = (latex: string, display = true) => {
   try {
@@ -270,7 +273,9 @@ export async function toHtml(title: string, blocks: Block[]) {
     } else if (b.t === "h") {
       const n = heads.get(b.id);
       const tag = b.plain && b === blocks[0] ? "h1" : `h${b.level + 1}`;
-      out.push(`<${tag}>${b.emoji ? `${b.emoji} ` : ""}${n ? `<span class="num">${n}</span>` : ""}${inl(b.html)}</${tag}>`);
+      const { head, rest } = headParts(b.html);
+      out.push(`<${tag}>${b.emoji ? `${b.emoji} ` : ""}${n ? `<span class="num">${n}</span>` : ""}${inl(head)}</${tag}>`);
+      if (rest) out.push(`<div class="p">${inl(rest)}</div>`);
     } else if (b.t === "p") {
       if (textOf(b.html).trim()) out.push(`<div class="p">${inl(b.html)}</div>`);
     } else if (b.t === "list") {

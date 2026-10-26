@@ -367,15 +367,32 @@ function caretAtStartOf(n: Node) {
   sel?.addRange(r);
 }
 
+/** The caret where it was, after its item moved (the nodes inside the item stay the same). */
+function keepCaret() {
+  const sel = window.getSelection();
+  const r = sel?.rangeCount ? sel.getRangeAt(0) : null;
+  const at = r ? { n: r.startContainer, o: r.startOffset } : null;
+  return (fallback: Node) => {
+    if (at && at.n.isConnected) {
+      const back = document.createRange();
+      back.setStart(at.n, Math.min(at.o, at.n.nodeType === 3 ? (at.n as Text).length : at.n.childNodes.length));
+      back.collapse(true);
+      sel?.removeAllRanges();
+      sel?.addRange(back);
+    } else caretAtStartOf(fallback);
+  };
+}
+
 /** Tab: the item goes under the item before it (1.1). False when there is none. */
 export function indentLi(li: HTMLElement) {
   const prev = li.previousElementSibling;
   const list = li.parentElement;
   if (!prev || prev.tagName !== "LI" || !list) return false;
   const last = prev.lastElementChild;
+  const back = keepCaret();
   const sub = isList(last) ? last : prev.appendChild(document.createElement(list.tagName.toLowerCase()));
   sub.appendChild(li);
-  caretAtStartOf(li.firstChild ?? li);
+  back(li.firstChild ?? li);
   return true;
 }
 
@@ -384,6 +401,7 @@ export function indentLi(li: HTMLElement) {
  * after it become its own. At the top level the item leaves the list and becomes a line.
  */
 export function outdentLi(li: HTMLElement) {
+  const back = keepCaret();
   const list = li.parentElement!;
   const after: Element[] = [];
   for (let n = li.nextElementSibling; n; n = n.nextElementSibling) after.push(n);
@@ -396,7 +414,7 @@ export function outdentLi(li: HTMLElement) {
     }
     parentLi.after(li);
     if (!list.children.length) list.remove();
-    caretAtStartOf(li.firstChild ?? li);
+    back(li.firstChild ?? li);
     return;
   }
   if (after.length) {
@@ -413,7 +431,7 @@ export function outdentLi(li: HTMLElement) {
   list.after(...line, ...subs);
   li.remove();
   if (!list.children.length) list.remove();
-  caretAtStartOf(line[0]);
+  back(line[0]);
 }
 
 /** Whether a list is the last thing in an editable (only breaks or spaces after it). */
