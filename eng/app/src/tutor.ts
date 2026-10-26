@@ -71,7 +71,7 @@ export interface TurnCallbacks {
   /** a safe point to save: the part plan exists and `partsDone` parts are written */
   onCheckpoint?: (plan: PartPlan, partsDone: number, text: string) => void;
   /** the tutor saved a point to the lesson's shared notebook */
-  onNote?: (kind: NoteKind, text: string) => Promise<void> | void;
+  onNote?: (kind: NoteKind, text: string, addTo?: string) => Promise<void> | void;
 }
 
 interface Base {
@@ -84,6 +84,8 @@ interface Base {
   memory: string;
   /** this lesson's shared notebook so far */
   notes?: LessonNote[];
+  /** the rest of the notebook (other lessons and modules), so the tutor can relate to it */
+  allNotes?: LessonNote[];
   signal: AbortSignal;
   cb: TurnCallbacks;
 }
@@ -137,20 +139,26 @@ async function lessonPages(lesson: LessonSpec | undefined, m: Module) {
   return parts.join("\n\n");
 }
 
-function studyContext(o: { mode: Mode; module: Module; lessons?: LessonSpec[]; lessonIdx: number; memory: string; pages?: string; notes?: LessonNote[] }) {
+function studyContext(o: { mode: Mode; module: Module; lessons?: LessonSpec[]; lessonIdx: number; memory: string; pages?: string; notes?: LessonNote[]; allNotes?: LessonNote[] }) {
   const mem = o.memory.trim() ? `\n<course_memory>\n${o.memory.trim()}\n</course_memory>` : "";
   const nb = o.notes?.length
     ? `\n<lesson_notebook>\nThe shared notebook of this lesson (the learner's and yours):\n${o.notes
         .slice(0, 60)
-        .map((n) => `- [${NOTE_KIND_LABEL[n.kind]}, ${n.who === "tutor" ? "tutor" : "learner"}] ${n.text.replace(/\s+/g, " ").slice(0, 600)}`)
+        .map((n) => `- (id ${n.id ?? "?"}) [${NOTE_KIND_LABEL[n.kind]}, ${n.who === "tutor" ? "tutor" : "learner"}] ${n.text.replace(/\s+/g, " ").slice(0, 600)}`)
         .join("\n")}\n</lesson_notebook>`
+    : "";
+  const rest = o.allNotes?.length
+    ? `\n<notebook>\nThe rest of the shared notebook, from other lessons (articles in full, other items shortened). When something in this lesson connects to an item here, say so in the lesson ("this is close to point 3 of the article idea about …"):\n${o.allNotes
+        .slice(0, 50)
+        .map((n) => `- (id ${n.id ?? "?"}) [${NOTE_KIND_LABEL[n.kind]}, ${n.moduleId}] ${n.kind === "article" ? n.text.slice(0, 1500) : n.text.replace(/\s+/g, " ").slice(0, 220)}`)
+        .join("\n")}\n</notebook>`
     : "";
   const plan = planBlock(o.lessons, o.lessonIdx);
   return `<study_context>
 Date: ${new Date().toISOString().slice(0, 10)}
 Requested message type: ${o.mode}
 ${moduleBlock(o.module)}
-${plan}${mem}${nb}${o.pages ? `\n\nSource pages for this lesson:\n${o.pages}` : ""}
+${plan}${mem}${nb}${rest}${o.pages ? `\n\nSource pages for this lesson:\n${o.pages}` : ""}
 </study_context>`;
 }
 
@@ -222,19 +230,20 @@ function buildTools(cb: TurnCallbacks, docs: string[]): SampleTool[] {
           {
             name: "save_lesson_note",
             description:
-              "Save a point to the shared notebook of this lesson, which the learner and you both keep: an idea for an article the learner may write, a question worth asking an expert in an interview, a point to study more deeply later, or a short note. Write it in Hebrew, self-contained (it is read later, outside the lesson). Save only what is worth keeping, a few per lesson at most, and never the same point twice (see <lesson_notebook>).",
+              "Save a point to the shared notebook of this lesson, which the learner and you both keep: an idea for an article the learner may write, a question worth asking an expert in an interview, a point to study more deeply later, or a short note. Write it in Hebrew, self-contained (it is read later, outside the lesson). Save only what is worth keeping, a few per lesson at most, and never the same point twice (see <lesson_notebook> and <notebook>). To add a point to an item that already exists (a new point for an article idea, for example), pass its id as add_to: the text is appended to it as a new point. When the learner asks you to add something, add exactly that.",
             inputSchema: {
               type: "object" as const,
-              properties: { kind: { type: "string", enum: ["article", "interview", "deepen", "note"] }, text: { type: "string" } },
+              properties: { kind: { type: "string", enum: ["article", "interview", "deepen", "note"] }, text: { type: "string" }, add_to: { type: "string", description: "id of an existing notebook item to append this point to" } },
               required: ["kind", "text"],
             },
             async execute(input: Record<string, unknown>) {
               const kind = (["article", "interview", "deepen", "note"].includes(String(input.kind)) ? input.kind : "note") as NoteKind;
               const t = String(input.text ?? "").trim();
               if (!t) return "Empty note, nothing saved.";
-              await cb.onNote!(kind, t);
+              const addTo = input.add_to ? String(input.add_to) : undefined;
+              await cb.onNote!(kind, t, addTo);
               cb.onActivity({ t: "note", kind: NOTE_KIND_LABEL[kind], text: t });
-              return `Saved to the lesson notebook as ${NOTE_KIND_LABEL[kind]}.`;
+              return addTo ? `Added as a new point to notebook item ${addTo}.` : `Saved to the lesson notebook as ${NOTE_KIND_LABEL[kind]}.`;
             },
           } satisfies SampleTool,
         ]
@@ -368,10 +377,10 @@ MODULE PLANNING STEP. Split this module into lessons. Do not teach yet.
 /* ---------------- one answer (clarify / free / quiz / continuation) ---------------- */
 
 export async function askTutor(opts: Base & { mode: Mode; text: string; images: File[]; continuing?: boolean }) {
-  const { rt, history, text, mode, effort, images, module: m, lessons, lessonIdx, memory, notes, signal, cb, continuing = false } = opts;
+  const { rt, history, text, mode, effort, images, module: m, lessons, lessonIdx, memory, notes, allNotes, signal, cb, continuing = false } = opts;
   if (!rt.sample) throw { code: "not_granted", message: "sample unavailable" };
   const extra = mode === "quiz" && !continuing ? `\n\n${QUIZ_INSTRUCTIONS}` : "";
-  const last = `${studyContext({ mode, module: m, lessons, lessonIdx, memory, notes })}\n\n${text || "(ראו את התמונה המצורפת)"}${images.length ? `\n\n[${images.length} תמונות מצורפות מהלומד]` : ""}${extra}`;
+  const last = `${studyContext({ mode, module: m, lessons, lessonIdx, memory, notes, allNotes })}\n\n${text || "(ראו את התמונה המצורפת)"}${images.length ? `\n\n[${images.length} תמונות מצורפות מהלומד]` : ""}${extra}`;
   const turns = fitHistory(history, bytes(last), continuing);
   return rt.sample([...turns, { role: "user", content: last }], {
     model: MODEL,
@@ -428,11 +437,11 @@ ${last ? "This is the last part: write the coverage block, the exercises, the to
 }
 
 export async function composeLesson(opts: Base & { text: string; resume?: { plan: PartPlan; partsDone: number; text: string } }) {
-  const { rt, history, text, effort, module: m, lessons, lessonIdx, memory, notes, signal, cb, resume } = opts;
+  const { rt, history, text, effort, module: m, lessons, lessonIdx, memory, notes, allNotes, signal, cb, resume } = opts;
   if (!rt.sample) throw { code: "not_granted", message: "sample unavailable" };
   cb.onStatus?.("טוען את עמודי המקור של השיעור");
   const pages = await lessonPages(lessons?.[lessonIdx], m);
-  const ctx = studyContext({ mode: "lesson", module: m, lessons, lessonIdx, memory, pages, notes });
+  const ctx = studyContext({ mode: "lesson", module: m, lessons, lessonIdx, memory, pages, notes, allNotes });
   const tools = rt.canUseTools ? buildTools(cb, moduleDocs(m)) : null;
 
   let plan = resume?.plan;
@@ -536,5 +545,73 @@ Rewrite the whole memory in Hebrew Markdown with exactly these sections, merging
 ## קשיים, שאלות פתוחות והעדפות — what the learner found hard, asked, or prefers (keep the existing preferences).
 Keep it under about 2000 words; compress older entries rather than dropping them. Reply with the memory only.`;
   const res = await rt.sample(prompt, { modelTier: "default", effort: "low", cache: false });
+  return res.text.trim();
+}
+
+/* ---------------- the summaries notebook (only when the learner asks) ---------------- */
+
+const noActivity = { onText: () => {}, onActivity: () => {} } as TurnCallbacks;
+
+/** Checks the learner's summary of a module against its sources: what is wrong, what is missing. */
+export async function reviewSummary(o: { rt: Runtime; module: Module; lessons?: LessonSpec[]; summary: string; memory: string; signal: AbortSignal; onText?: (t: string) => void }) {
+  const { rt, module: m } = o;
+  if (!rt.sample) throw { code: "not_granted", message: "sample unavailable" };
+  const prompt = `${moduleBlock(m)}
+${planBlock(o.lessons, -1)}
+${o.memory.trim() ? `\n<course_memory>\n${o.memory.trim()}\n</course_memory>\n` : ""}
+The learner's own summary of this module (Markdown, equations in $$…$$):
+<<<
+${o.summary.slice(0, 120000)}
+>>>
+
+Check the summary against the module's sources (read the pages you need with read_source_pages) and against what was taught. Reply in Hebrew, short and concrete, under these headings, as numbered lists, and leave out a heading with nothing under it:
+### מה לא מדויק
+(quote the line from the summary, then what is right, with a page tag [[DOC:PAGE]])
+### מה חסר
+(only what is central to the module, not every detail)
+### משוואות
+(an equation that is wrong, or is missing a condition or the meaning of a symbol)
+### הצעה אחת
+(the one change that would make this summary most useful for review)
+Do not rewrite the summary and do not praise it.`;
+  const res = await rt.sample(prompt, {
+    model: MODEL,
+    modelTier: "complex",
+    effort: "medium",
+    signal: o.signal,
+    cache: false,
+    onText: o.onText ? ({ text }) => o.onText!(text) : undefined,
+    ...(rt.canUseTools ? { tools: buildTools(noActivity, moduleDocs(m)) } : {}),
+  });
+  return res.text;
+}
+
+export interface SummaryQuestion {
+  q: string;
+  a: string;
+}
+
+/** Review questions built only from what the learner wrote in the summary. */
+export async function quizFromSummary(o: { rt: Runtime; module: Module; summary: string; count?: number; signal: AbortSignal }) {
+  if (!o.rt.sample) throw { code: "not_granted", message: "sample unavailable" };
+  const prompt = `The learner's own summary of module ${o.module.id} «${o.module.title}» (Markdown, equations in $$…$$):
+<<<
+${o.summary.slice(0, 100000)}
+>>>
+
+Write ${o.count ?? 6} review questions in Hebrew built only from what this summary says, so that answering them checks whether the learner remembers and understands his own summary: a mix of a definition, an equation and what each term means, a number to estimate, a "why", and a common mistake. Order them from easy to hard. Equations in $…$. Reply with ONLY a JSON array: [{"q": "the question", "a": "the expected answer, short, from the summary"}]`;
+  const res = await o.rt.sample.json<SummaryQuestion[]>(prompt, { model: MODEL, modelTier: "default", effort: "low", signal: o.signal, cache: false });
+  return (Array.isArray(res) ? res : []).filter((x) => x && typeof x.q === "string").map((x) => ({ q: x.q, a: String(x.a ?? "") }));
+}
+
+/** A short check of one answer to a review question. */
+export async function checkSummaryAnswer(o: { rt: Runtime; question: SummaryQuestion; answer: string; signal: AbortSignal }) {
+  if (!o.rt.sample) throw { code: "not_granted", message: "sample unavailable" };
+  const prompt = `Review question (Hebrew): ${o.question.q}
+Expected answer, from the learner's summary: ${o.question.a}
+The learner answered: ${o.answer}
+
+In Hebrew, two to four sentences: is it right, partly right or wrong; what is missing or mistaken; and the one thing to remember. Start with ✓, ◐ or ✗. Equations in $…$.`;
+  const res = await o.rt.sample(prompt, { model: MODEL, modelTier: "quick", effort: "low", signal: o.signal, cache: false });
   return res.text.trim();
 }

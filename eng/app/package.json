@@ -9,9 +9,11 @@
   "type": "module",
   "private": "true",
   "dependencies": {
+    "docx": "^9.14.0",
     "dompurify": "^3.4.17",
     "katex": "^0.19.1",
     "mathjs": "^15.2.0",
+    "mathlive": "^0.111.1",
     "mermaid": "^12.2.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",

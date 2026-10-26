@@ -2,6 +2,7 @@
 // and the viewer's id (`user`). Every capability may be absent (null): the app
 // then runs without that feature instead of failing.
 import type { LessonNote, Mode, ModuleProgress, StoredMessage } from "./types";
+import type { Summary, SummaryMeta } from "./summaries/model";
 
 /* ---- minimal shapes of the runtime namespaces this page uses ---- */
 export interface SampleTool {
@@ -69,6 +70,7 @@ declare global {
   interface Window {
     claude?: { use(name: string): Promise<any> };
     __downloads?: { save(r: { filename: string; data: Uint8Array | string }): Promise<{ status: string }> } | null;
+    __assets?: { upload(b: Blob): Promise<{ id: string; url: string }> } | null;
   }
 }
 
@@ -83,6 +85,7 @@ export async function connect(): Promise<Runtime> {
   const use = (name: string) => window.claude?.use(name).catch(() => null) ?? Promise.resolve(null);
   const [sample, db, user, downloads] = (await Promise.all([use("sample"), use("db"), use("user"), use("downloads")])) as [SampleFn | null, DB | null, User | null, Window["__downloads"]];
   window.__downloads = downloads ?? null;
+  window.__assets = (await use("assets")) ?? null;
   const limits = sample ? await sample.limits().catch(() => null) : null;
   const uid = user ? await user.id() : null;
   return { sample, canSendImages: !!limits?.images, canUseTools: !!limits?.tools, store: db && uid ? new Store(db, uid) : null };
@@ -214,6 +217,27 @@ export class Store {
 
   async deleteNote(id: string) {
     await this.profile.collection("notes").doc(id).delete();
+  }
+
+  /* ---- the summaries notebook: profile/summaries/<module id>, with a small
+     profile/summaryMeta/<module id> beside it for the tree ---- */
+  watchSummaryMeta(fn: (m: Record<string, SummaryMeta>) => void) {
+    return this.profile.collection("summaryMeta").onSnapshot((s) => fn(Object.fromEntries(s.docs.map((d) => [d.id, d.data() as SummaryMeta]))));
+  }
+
+  async loadSummary(moduleId: string): Promise<Summary | null> {
+    const s = await this.profile.collection("summaries").doc(moduleId).get();
+    return s.exists ? (s.data() as Summary) : null;
+  }
+
+  async saveSummary(sum: Summary, meta: SummaryMeta) {
+    await this.profile.collection("summaries").doc(sum.moduleId).set(clean(sum) as unknown as Record<string, unknown>);
+    await this.profile.collection("summaryMeta").doc(sum.moduleId).set(clean(meta) as unknown as Record<string, unknown>);
+  }
+
+  async allSummaries(): Promise<Summary[]> {
+    const s = await this.profile.collection("summaries").get();
+    return s.docs.map((d) => d.data() as Summary);
   }
 
   async deleteConversation(convId: string) {

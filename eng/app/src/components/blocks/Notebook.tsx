@@ -17,6 +17,7 @@ interface Spec {
 declare global {
   interface Window {
     __downloads?: { save(r: { filename: string; data: Uint8Array | string }): Promise<{ status: string }> } | null;
+    __assets?: { upload(b: Blob): Promise<{ id: string; url: string }> } | null;
   }
 }
 

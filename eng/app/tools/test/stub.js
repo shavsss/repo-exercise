@@ -90,6 +90,6 @@
     if (!res.ok && typeof url === "string" && url.startsWith("lib/")) return realFetch(`assets/${url.slice(4)}`, opts);
     return res;
   };
-  const downloads = { save: async ({ filename, data }) => { window.__saved = { filename, size: data.length ?? data.byteLength }; return { status: "saved" }; } };
+  const downloads = { save: async ({ filename, data }) => { window.__saved = { filename, size: data.length ?? data.byteLength }; (window.__savedAll ??= []).push({ filename, data }); return { status: "saved" }; } };
   window.claude = { use: async (name) => ({ sample, db, user, downloads }[name] ?? null) };
 })();

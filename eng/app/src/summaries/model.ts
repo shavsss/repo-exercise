@@ -1,0 +1,176 @@
+// The summaries notebook: one summary per module, made of blocks. The same file is in both
+// labs (core/app and eng/app); keep the copies identical.
+
+export type BoxKind = "def" | "eq" | "ex" | "err" | "q";
+export type MarkColor = "y" | "r" | "b" | "g";
+export type ShapeColor = MarkColor | "k";
+export interface Shape {
+  t: "arrow" | "rect" | "ellipse" | "text";
+  /** corners in a 0–1000 box over the picture, so the shapes follow its size */
+  x1: number;
+  y1: number;
+  x2: number;
+  y2: number;
+  color: ShapeColor;
+  text?: string;
+}
+export interface ListItem {
+  html: string;
+  level: number;
+}
+export type ImgSize = "s" | "m" | "l";
+export type Block =
+  | { id: string; t: "h"; level: 1 | 2 | 3; html: string; plain?: boolean }
+  | { id: string; t: "p"; html: string }
+  | { id: string; t: "list"; ordered: boolean; items: ListItem[] }
+  | { id: string; t: "box"; kind: BoxKind; html: string; latex?: string }
+  | { id: string; t: "math"; latex: string; plain?: boolean }
+  | { id: string; t: "img"; src: string; w: number; h: number; size: ImgSize; side?: boolean; caption: string; marks: Shape[] }
+  | { id: string; t: "fig"; doc: string; key: string; size: ImgSize; side?: boolean; caption: string; marks: Shape[] }
+  | { id: string; t: "hr" };
+export type BlockType = Block["t"];
+
+export type SummaryStatus = "none" | "draft" | "done";
+export interface Summary {
+  moduleId: string;
+  blocks: Block[];
+  status: SummaryStatus;
+  updatedAt: number;
+}
+/** what the tree needs, kept apart so the tree does not load every summary */
+export interface SummaryMeta {
+  status: SummaryStatus;
+  updatedAt: number;
+  words: number;
+}
+
+export const BOX_LABEL: Record<BoxKind, string> = { def: "הגדרה", eq: "נוסחה מרכזית", ex: "דוגמה מספרית", err: "טעות נפוצה", q: "שאלה פתוחה" };
+export const MARK_LABEL: Record<MarkColor, string> = { y: "חשוב", r: "טעות או אזהרה", b: "הגדרה", g: "תובנה" };
+export const STATUS_LABEL: Record<SummaryStatus, string> = { none: "לא התחיל", draft: "טיוטה", done: "מוכן" };
+
+export const uid = () => Math.random().toString(36).slice(2, 10);
+
+export function emptyBlock(t: BlockType, extra: Partial<Block> = {}): Block {
+  const id = uid();
+  const b: Record<BlockType, Block> = {
+    h: { id, t: "h", level: 1, html: "" },
+    p: { id, t: "p", html: "" },
+    list: { id, t: "list", ordered: false, items: [{ html: "", level: 0 }] },
+    box: { id, t: "box", kind: "def", html: "" },
+    math: { id, t: "math", latex: "" },
+    img: { id, t: "img", src: "", w: 0, h: 0, size: "m", caption: "", marks: [] },
+    fig: { id, t: "fig", doc: "", key: "", size: "m", caption: "", marks: [] },
+    hr: { id, t: "hr" },
+  };
+  return { ...b[t], ...extra } as Block;
+}
+
+/** The first blocks of a new summary: the module's title and a section per lesson. */
+export function seedBlocks(title: string, lessons: string[]): Block[] {
+  const out: Block[] = [{ ...(emptyBlock("h") as Extract<Block, { t: "h" }>), html: esc(title), plain: true }];
+  if (!lessons.length) out.push(emptyBlock("p"));
+  for (const l of lessons) out.push({ ...(emptyBlock("h") as Extract<Block, { t: "h" }>), html: esc(l) }, emptyBlock("p"));
+  return out;
+}
+
+export const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+/** Plain text of a fragment of the block HTML. */
+export function textOf(html: string) {
+  return html
+    .replace(/<br\s*\/?>/gi, "\n")
+    .replace(/<[^>]+>/g, "")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&amp;/g, "&");
+}
+
+/** Numbers of the headings (1, 1.1, 1.1.1) and of the display equations, by block id. */
+export function numbering(blocks: Block[]) {
+  const heads = new Map<string, string>();
+  const eqs = new Map<string, number>();
+  const c = [0, 0, 0];
+  let eq = 0;
+  for (const b of blocks) {
+    if (b.t === "h" && !b.plain) {
+      const i = b.level - 1;
+      c[i]++;
+      for (let j = i + 1; j < 3; j++) c[j] = 0;
+      heads.set(b.id, c.slice(0, i + 1).map((n) => n || 1).join("."));
+    } else if ((b.t === "math" && !b.plain && b.latex.trim()) || (b.t === "box" && b.kind === "eq" && b.latex?.trim())) {
+      eqs.set(b.id, ++eq);
+    }
+  }
+  return { heads, eqs };
+}
+
+/** Numbers of the items of a numbered list: 1, 2 at the top level; a, b below; i, ii below that. */
+export function itemNumbers(items: ListItem[]) {
+  const c = [0, 0, 0];
+  const roman = ["i", "ii", "iii", "iv", "v", "vi", "vii", "viii", "ix", "x", "xi", "xii"];
+  return items.map((it) => {
+    const l = Math.min(2, it.level);
+    c[l]++;
+    for (let j = l + 1; j < 3; j++) c[j] = 0;
+    return l === 0 ? `${c[0]}.` : l === 1 ? `${String.fromCharCode(0x5d0 + c[1] - 1)}.` : `${roman[c[2] - 1] ?? c[2]}.`;
+  });
+}
+
+export function wordCount(blocks: Block[]) {
+  let n = 0;
+  const w = (s: string) => (n += textOf(s).split(/\s+/).filter(Boolean).length);
+  for (const b of blocks) {
+    if (b.t === "p" || b.t === "h" || b.t === "box") w(b.html);
+    if (b.t === "list") b.items.forEach((i) => w(i.html));
+    if (b.t === "img" || b.t === "fig") w(b.caption);
+  }
+  return n;
+}
+
+/** Inline HTML (b, i, mark, br) as Markdown; marks stay as <mark>, which GitHub shows. */
+export function inlineMd(html: string) {
+  return textOf(
+    html
+      .replace(/<(b|strong)>/gi, "**")
+      .replace(/<\/(b|strong)>/gi, "**")
+      .replace(/<(i|em)>/gi, "*")
+      .replace(/<\/(i|em)>/gi, "*")
+      .replace(/<mark class="hl-(\w)">/gi, "\u0001$1\u0002")
+      .replace(/<\/mark>/gi, "\u0003"),
+  )
+    .replace(/\u0001(\w)\u0002/g, (_, c) => `<mark title="${MARK_LABEL[c as MarkColor] ?? ""}">`)
+    .replace(/\u0003/g, "</mark>")
+    .replace(/\*\*\s*\*\*/g, "");
+}
+
+/** The summary as Markdown, with $$…$$ math: for the tutor, and the same shape as the backup. */
+export function toMarkdown(title: string, blocks: Block[]) {
+  const { heads, eqs } = numbering(blocks);
+  const out: string[] = [];
+  let first = true;
+  for (const b of blocks) {
+    if (b.t === "h") {
+      const n = heads.get(b.id);
+      const hashes = first && b.plain ? "#" : "#".repeat(Math.min(6, b.level + 1));
+      out.push(`${hashes} ${n ? n + " " : ""}${inlineMd(b.html)}`);
+    } else if (b.t === "p") {
+      if (textOf(b.html).trim()) out.push(inlineMd(b.html));
+    } else if (b.t === "list") {
+      const nums = itemNumbers(b.items);
+      out.push(b.items.map((it, i) => `${"   ".repeat(it.level)}${b.ordered ? nums[i] : "-"} ${inlineMd(it.html)}`).join("\n"));
+    } else if (b.t === "box") {
+      const body = [b.latex?.trim() ? `$$${b.latex}$$${eqs.get(b.id) ? ` (${eqs.get(b.id)})` : ""}` : "", inlineMd(b.html)].filter(Boolean).join("\n> ");
+      out.push(`> **${BOX_LABEL[b.kind]}:** ${body}`);
+    } else if (b.t === "math") {
+      if (b.latex.trim()) out.push(`$$${b.latex}$$${eqs.get(b.id) ? ` (${eqs.get(b.id)})` : ""}`);
+    } else if (b.t === "img") {
+      out.push(`![${b.caption}](${b.src})${b.marks.length ? " (עם סימונים)" : ""}`);
+    } else if (b.t === "fig") {
+      out.push(`[איור מהספר ${b.doc}, ${b.key}]${b.caption ? ` ${b.caption}` : ""}`);
+    } else if (b.t === "hr") out.push("---");
+    first = false;
+  }
+  return `${out.join("\n\n")}\n`.replace(/^/, title && !(blocks[0]?.t === "h") ? `# ${title}\n\n` : "");
+}

@@ -8,6 +8,7 @@ import { ModuleMap, STATE_LABEL, TIER_LABEL, type Selection } from "./components
 import { Topbar, type Crumb } from "./components/Topbar";
 import { AssistantTurn, DimensionHead, UserBubble } from "./components/Message";
 import { Composer, type QuickAction } from "./components/Composer";
+import { lessonChannel } from "./summaries/SummaryApp";
 import { LessonToc, ReadingDock, ReadingProgress, useResumePosition, useTocPanel } from "./components/ReadingAids";
 import { SourceViewer } from "./components/SourceViewer";
 import { MemoryPanel } from "./components/MemoryPanel";
@@ -145,6 +146,13 @@ export function App() {
   const module = useMemo(() => (selection && index ? index.modules.find((m) => m.id === selection.moduleId) : undefined), [selection, index]);
   const prog = module ? mods[module.id] : undefined;
   const lessonIdx = selection?.lesson;
+  // the summaries window (#summary) follows the lesson open here
+  useEffect(() => {
+    if (typeof BroadcastChannel === "undefined" || !selection?.moduleId) return;
+    const ch = new BroadcastChannel(lessonChannel("gilua"));
+    ch.postMessage({ moduleId: selection.moduleId, lesson: selection.lesson });
+    ch.close();
+  }, [selection?.moduleId, selection?.lesson]);
   const lesson = lessonIdx !== undefined && lessonIdx >= 0 ? prog?.lessons?.[lessonIdx] : undefined;
   const isQuiz = lessonIdx === -1;
   const state = module ? moduleState(module, done) : "locked";
@@ -182,6 +190,17 @@ export function App() {
   );
 
   /** Adds a point to a lesson's shared notebook (kept in this view when there is no store). */
+  /** the tutor adds a point to an item already in the notebook */
+  const appendToNote = useCallback(
+    async (id: string, text: string) => {
+      const n = notesRef.current.find((x) => x.id === id);
+      if (!n) return;
+      const body = `${n.text.trim()}\n- ${text.trim()}`;
+      if (id.startsWith("local-") || !rt?.store) setNotes((all) => all.map((x) => (x.id === id ? { ...x, text: body } : x)));
+      else await rt.store.updateNote(id, { text: body });
+    },
+    [rt],
+  );
   const addNote = useCallback(
     async (kind: NoteKind, text: string, who: LessonNote["who"], m: Module, idx: number) => {
       const lessonTitle = idx >= 0 ? modsRef.current[m.id]?.lessons?.[idx]?.title : "מבחן מסכם";
@@ -332,11 +351,12 @@ export function App() {
           onStatus: (status: string) => setLive((l) => (l ? { ...l, status } : l)),
           onCheckpoint: (plan: PartPlan, partsDone: number, text: string) => save({ plan, partsDone, text }, true),
           onText: show,
-          onNote: (kind: NoteKind, text: string) => addNote(kind, text, "tutor", m, idx),
+          onNote: (kind: NoteKind, text: string, addTo?: string) => (addTo ? appendToNote(addTo, text) : addNote(kind, text, "tutor", m, idx)),
         };
         const lessons = modsRef.current[m.id]?.lessons;
         const lessonNotes = notesRef.current.filter((n) => n.moduleId === m.id && n.lesson === idx);
-        const base = { rt, history, effort, module: m, lessons, lessonIdx: idx, memory, notes: lessonNotes, signal: ctl.current.signal, cb };
+        const allNotes = notesRef.current.filter((n) => !(n.moduleId === m.id && n.lesson === idx));
+        const base = { rt, history, effort, module: m, lessons, lessonIdx: idx, memory, notes: lessonNotes, allNotes, signal: ctl.current.signal, cb };
         const plan = answer.plan as PartPlan | undefined;
         if (sendMode === "lesson" && !images.length && (!resume || plan || !resume.text)) {
           const res = await composeLesson({ ...base, text: userMsg.text, resume: plan ? { plan, partsDone: answer.partsDone ?? 0, text: answer.text } : undefined });

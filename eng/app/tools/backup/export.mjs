@@ -45,6 +45,7 @@ let profile = null;
 const modules = {};
 const convs = new Map();
 const notebook = [];
+const summaries = [];
 for (const f of walk(dump).filter((f) => f.endsWith(".json"))) {
   const rel = path.relative(dump, f).split(path.sep).join("/");
   let m;
@@ -56,6 +57,10 @@ for (const f of walk(dump).filter((f) => f.endsWith(".json"))) {
     const c = convs.get(m[1]) ?? { id: m[1], meta: {}, msgs: [] };
     c.meta = read(f);
     convs.set(m[1], c);
+  } else if (/profile\/summaries\/[^/]+\.json$/.test(rel)) {
+    summaries.push(read(f));
+  } else if (/profile\/summaryMeta\/[^/]+\.json$/.test(rel)) {
+    // the tree's status, also inside each summary
   } else if (/profile\/notes\/[^/]+\.json$/.test(rel)) {
     notebook.push(read(f));
   } else if ((m = /modules\/([^/]+)\.json$/.exec(rel))) {
@@ -123,13 +128,74 @@ for (const n of notebook.sort((a, b) => (a.moduleId ?? "").localeCompare(b.modul
 fs.writeFileSync(
   path.join(notes, "NOTEBOOK.md"),
   `# מחברת השיעורים\n\nמה שהלומד והמורה שמרו בשיעורים: רעיונות למאמרים, שאלות לראיונות ונקודות להעמקה.\n\n${
-    [...byLesson].map(([k, list]) => `## ${k}\n\n${list.map((n) => `- **${KIND[n.kind] ?? n.kind}** (${n.who === "tutor" ? "המורה" : "הלומד"}, ${date(n.ts)}): ${String(n.text).replace(/\n+/g, " ")}`).join("\n")}`).join("\n\n") || "עדיין אין פריטים."
+    [...byLesson].map(([k, list]) => `## ${k}\n\n${list.map((n) => { const [head, ...pts] = String(n.text).split("\n"); return `- **${KIND[n.kind] ?? n.kind}** (${n.who === "tutor" ? "המורה" : "הלומד"}, ${date(n.ts)}): ${head}${pts.filter((x) => x.trim()).map((x) => `\n   - ${x.replace(/^\s*[-•]\s*/, "")}`).join("")}`; }).join("\n")}`).join("\n\n") || "עדיין אין פריטים."
   }\n`,
 );
 
 fs.writeFileSync(
   path.join(notes, "README.md"),
-  `# מחברת ההנדסה\n\nגיבוי אוטומטי של מעבדת ההנדסה: נוצר מתוך מסד הנתונים של ה-Artifact.\n\n- [זיכרון הקורס](MEMORY.md)\n- [התקדמות במודולים](PROGRESS.md)\n- [מחברת השיעורים](NOTEBOOK.md)\n\n## שיחות\n\n${index.length ? index.join("\n") : "עדיין אין שיחות."}\n`,
+  `# מחברת ההנדסה\n\nגיבוי אוטומטי של מעבדת ההנדסה: נוצר מתוך מסד הנתונים של ה-Artifact.\n\n- [זיכרון הקורס](MEMORY.md)\n- [התקדמות במודולים](PROGRESS.md)\n- [מחברת השיעורים](NOTEBOOK.md)\n- [הסיכומים](SUMMARIES.md)\n\n## שיחות\n\n${index.length ? index.join("\n") : "עדיין אין שיחות."}\n`,
+);
+
+// the summaries notebook (#summary): one Markdown file with every module's summary
+const BOX = { def: "הגדרה", eq: "נוסחה מרכזית", ex: "דוגמה מספרית", err: "טעות נפוצה", q: "שאלה פתוחה" };
+const MARK = { y: "חשוב", r: "טעות", b: "הגדרה", g: "תובנה" };
+const plain = (h) =>
+  String(h ?? "")
+    .replace(/<br\s*\/?>/gi, "\n")
+    .replace(/<\/?(b|strong)>/gi, "**")
+    .replace(/<\/?(i|em)>/gi, "*")
+    .replace(/<mark class="hl-(\w)">/gi, (_, c) => `<mark title="${MARK[c] ?? ""}">`)
+    .replace(/<(?!\/?mark)[^>]+>/g, "")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&amp;/g, "&");
+function summaryMd(s) {
+  const c = [0, 0, 0];
+  let eq = 0;
+  const out = [];
+  for (const b of s.blocks ?? []) {
+    if (b.t === "h") {
+      let n = "";
+      if (!b.plain) {
+        c[b.level - 1]++;
+        for (let j = b.level; j < 3; j++) c[j] = 0;
+        n = c.slice(0, b.level).map((x) => x || 1).join(".") + " ";
+      }
+      out.push(`${"#".repeat(Math.min(6, b.level + 2))} ${n}${plain(b.html)}`);
+    } else if (b.t === "p") {
+      if (plain(b.html).trim()) out.push(plain(b.html));
+    } else if (b.t === "list") {
+      const k = [0, 0, 0];
+      out.push(
+        (b.items ?? [])
+          .map((it) => {
+            const l = Math.min(2, it.level ?? 0);
+            k[l]++;
+            for (let j = l + 1; j < 3; j++) k[j] = 0;
+            return `${"   ".repeat(l)}${b.ordered ? `${k[l]}.` : "-"} ${plain(it.html)}`;
+          })
+          .join("\n"),
+      );
+    } else if (b.t === "box") {
+      const m = b.latex?.trim() ? `$$${b.latex}$$${b.kind === "eq" ? ` (${++eq})` : ""}` : "";
+      out.push(`> **${BOX[b.kind] ?? b.kind}:** ${[m, plain(b.html)].filter((x) => x.trim()).join("\n> ")}`);
+    } else if (b.t === "math") {
+      if (b.latex?.trim()) out.push(`$$${b.latex}$$${b.plain ? "" : ` (${++eq})`}`);
+    } else if (b.t === "img") out.push(`[תמונה${b.caption ? `: ${b.caption}` : ""}]${String(b.src).startsWith("data:") ? "" : ` (${b.src})`}`);
+    else if (b.t === "fig") out.push(`[איור מהספר ${b.doc}, עמ' PDF ${String(b.key).split("-")[0]}${b.caption ? `: ${b.caption}` : ""}]`);
+    else if (b.t === "hr") out.push("---");
+  }
+  return out.join("\n\n");
+}
+const STATUS = { none: "לא התחיל", draft: "טיוטה", done: "מוכן" };
+const sums = [...summaries].filter((s) => (s.blocks ?? []).length).sort((a, b) => String(a.moduleId).localeCompare(String(b.moduleId), "en", { numeric: true }));
+fs.writeFileSync(
+  path.join(notes, "SUMMARIES.md"),
+  `# הסיכומים\n\nהסיכומים שכתבתי, מודול אחר מודול (מתוך מחברת הסיכומים, #summary). תמונות מופיעות כקישור.\n\n${
+    sums.map((s) => `## ${s.moduleId} · ${syllabus.modules.find((m) => m.id === s.moduleId)?.title ?? ""} (${STATUS[s.status] ?? ""}, ${date(s.updatedAt)})\n\n${summaryMd(s)}`).join("\n\n---\n\n") || "עדיין אין סיכומים."
+  }\n`,
 );
 
 // raw snapshot for a full restore
@@ -141,4 +207,4 @@ for (const f of walk(dump).filter((f) => f.endsWith(".json"))) {
   fs.copyFileSync(f, path.join(snap, rel));
 }
 
-console.log(`profile: ${profile ? "yes" : "no"}, modules: ${Object.keys(modules).length}, conversations: ${index.length}, notebook items: ${notebook.length}`);
+console.log(`profile: ${profile ? "yes" : "no"}, modules: ${Object.keys(modules).length}, conversations: ${index.length}, notebook items: ${notebook.length}, summaries: ${sums.length}`);
