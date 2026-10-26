@@ -355,16 +355,9 @@ export function Editor({
     const c = caret(el);
     if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) {
       e.preventDefault();
-      // in a paragraph or a box, Enter after a line with text opens a numbered item under it
-      // (Shift+Enter is a plain line; Enter on the empty item leaves, into a new block)
-      if (b.t !== "h" && (linePrefix(el) ?? "").replace(/\u200b/g, "").trim()) {
-        document.execCommand("insertLineBreak");
-        leaveMark();
-        document.execCommand("insertOrderedList");
-        return;
-      }
       if (b.t === "box") {
-        // Enter on an empty line at the end leaves the box
+        // Enter at the end leaves the box, into the paragraph after it; inside the text it is
+        // a new line (Shift+Enter is a new line anywhere)
         if (c && c.before === c.total) {
           const h = cleanHtml(cleanHtml(el.innerHTML).replace(/(<br>|\n|\s)+$/, "").replace(/<br>(<\/mark>)$/, "$1"));
           el.innerHTML = h;
@@ -374,6 +367,32 @@ export function Editor({
           document.execCommand("insertLineBreak");
           leaveMark();
         }
+        return;
+      }
+      if (b.t === "h") {
+        // a heading: Enter opens the next heading of the same level (1.2.4 → 1.2.5); Enter on
+        // an empty heading makes it a plain paragraph
+        if (!textOf(cleanHtml(el.innerHTML)).replace(/\u200b/g, "").trim()) {
+          update((bs) => bs.map((x) => (x.id === b.id ? ({ id: b.id, t: "p", html: "" } as Block) : x)), "struct");
+          focus(b.id, "start");
+          return;
+        }
+        const { head, tail } = splitAtCaret(el);
+        const nh: Block = { id: uid(), t: "h", level: b.level, html: tail };
+        update((bs) => {
+          const i = idx(bs, b.id);
+          const c2 = bs.map((x) => (x.id === b.id ? ({ ...x, html: head } as Block) : x));
+          return [...c2.slice(0, i + 1), nh, ...c2.slice(i + 1)];
+        }, "struct");
+        focus(nh.id, "start");
+        return;
+      }
+      // in a paragraph, Enter after a line with text opens a numbered item under it
+      // (Shift+Enter is a plain line; Enter on the empty item leaves, into a new block)
+      if ((linePrefix(el) ?? "").replace(/\u200b/g, "").trim()) {
+        document.execCommand("insertLineBreak");
+        leaveMark();
+        document.execCommand("insertOrderedList");
         return;
       }
       const { head, tail } = splitAtCaret(el);
