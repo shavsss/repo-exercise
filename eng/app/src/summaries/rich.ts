@@ -457,3 +457,42 @@ export function swapListKind(el: HTMLElement) {
   el.dispatchEvent(new Event("input", { bubbles: true }));
   return true;
 }
+
+/**
+ * Copying text with equations (from a lesson, or from the summary). The browser leaves KaTeX's
+ * LaTeX (its annotation) out of what it copies, so 2^{128} would arrive as "2128". The copy is
+ * written here instead: each equation as an equation inside a line (span.im) in the HTML, and as
+ * $…$ in the plain text. A selection that starts or ends inside an equation takes all of it.
+ */
+export function copyWithMath(e: ClipboardEvent) {
+  const sel = window.getSelection();
+  if (!sel || !sel.rangeCount || sel.isCollapsed || !e.clipboardData) return;
+  const a = document.activeElement;
+  if (a && /^(INPUT|TEXTAREA|MATH-FIELD)$/.test(a.tagName)) return;
+  const r = sel.getRangeAt(0).cloneRange();
+  const whole = (n: Node) => {
+    const el = (n.nodeType === 1 ? (n as Element) : n.parentElement)?.closest(".katex-display, .katex, span.im");
+    return el ? (el.closest(".katex-display") ?? el.closest("span.im") ?? el) : null;
+  };
+  const s0 = whole(r.startContainer);
+  if (s0) r.setStartBefore(s0);
+  const e0 = whole(r.endContainer);
+  if (e0) r.setEndAfter(e0);
+  const box = document.createElement("div");
+  box.appendChild(r.cloneContents());
+  if (!box.querySelector(".katex, span.im")) return; // no equations: the browser's own copy
+  box.querySelectorAll("span.im").forEach((x) => box.contains(x) && x.replaceWith(mathSpan(x.getAttribute("data-tex") ?? "")));
+  box.querySelectorAll(".katex-display, .katex").forEach((k) => {
+    if (!box.contains(k)) return;
+    const tex = k.querySelector('annotation[encoding="application/x-tex"]')?.textContent?.trim();
+    k.replaceWith(tex ? mathSpan(tex) : document.createTextNode(k.querySelector(".katex-html")?.textContent ?? ""));
+  });
+  box.querySelectorAll("script, style, button, svg").forEach((x) => x.remove());
+  const text = box.cloneNode(true) as HTMLElement;
+  text.querySelectorAll("span.im").forEach((x) => x.replaceWith(`$${x.getAttribute("data-tex")}$`));
+  text.querySelectorAll("br").forEach((x) => x.replaceWith("\n"));
+  text.querySelectorAll("p, div, li, h1, h2, h3, h4, h5, h6, tr").forEach((x) => x.append("\n"));
+  e.clipboardData.setData("text/html", box.innerHTML);
+  e.clipboardData.setData("text/plain", (text.textContent ?? "").replace(/\n{3,}/g, "\n\n").trim());
+  e.preventDefault();
+}

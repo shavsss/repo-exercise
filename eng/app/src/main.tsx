@@ -8,9 +8,12 @@ import "./reading";
 import "./summaries/summaries.css";
 import { App } from "./App";
 import { SummaryApp } from "./summaries/SummaryApp";
+import { copyWithMath } from "./summaries/rich";
 
 document.documentElement.lang = "he";
 document.documentElement.dir = "rtl";
+// equations copied from a lesson reach the summaries as equations, not as their drawn letters
+document.addEventListener("copy", copyWithMath);
 
 /** The lessons, or with #summary after the address the summaries notebook (in its own window). */
 function Root() {
