@@ -165,7 +165,7 @@ const para = (children: (TextRun | DMath | ImageRun)[], extra: Record<string, un
  * of its own with its number (1., 1.1) or bullet, indented by depth.
  */
 function paras(html: string, base: { bold?: boolean; color?: string } = {}) {
-  if (!/<(ol|ul)>/.test(html)) return [para(runs(html, base))];
+  if (!/<(ol|ul)[ >]/.test(html)) return [para(runs(html, base))];
   return flatLists(html, (d) => `\u0005${d}\u0005`)
     .split(/<br>/)
     .map((line) => {
@@ -256,7 +256,7 @@ const mathHtml = (latex: string, display = true) => {
 };
 const unq = (s: string) => s.replace(/&quot;/g, '"').replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&");
 /** equations inside a line, as MathML */
-const inl = (html: string) => html.replace(/<span[^>]*data-tex="([^"]*)"[^>]*>.*?<\/span>/g, (_, t) => mathHtml(unq(t), false));
+const inl = (html: string) => html.replace(/<ol start="(\d+)">/g, (_, n) => `<ol start="${n}" style="counter-reset:li ${Number(n) - 1}">`).replace(/<span[^>]*data-tex="([^"]*)"[^>]*>.*?<\/span>/g, (_, t) => mathHtml(unq(t), false));
 
 /** The summary as one HTML file that opens in any browser, pictures included. */
 export async function toHtml(title: string, blocks: Block[]) {

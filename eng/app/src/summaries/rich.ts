@@ -23,7 +23,7 @@ export function cleanHtml(html: string) {
     n.setAttribute("data-tex", s.getAttribute("data-tex") ?? "");
     s.replaceWith(n);
   });
-  const out = DOMPurify.sanitize(box.innerHTML, { ALLOWED_TAGS: ["b", "strong", "i", "em", "mark", "br", "sub", "sup", "span", "ul", "ol", "li"], ALLOWED_ATTR: ["class", "data-tex"] });
+  const out = DOMPurify.sanitize(box.innerHTML, { ALLOWED_TAGS: ["b", "strong", "i", "em", "mark", "br", "sub", "sup", "span", "ul", "ol", "li"], ALLOWED_ATTR: ["class", "data-tex", "start"] });
   box.innerHTML = out;
   // other spans the browser adds while typing are unwrapped
   box.querySelectorAll("span:not(.im)").forEach((s) => s.replaceWith(...Array.from(s.childNodes)));
@@ -38,8 +38,10 @@ export function cleanHtml(html: string) {
   return res === "<br>" ? "" : res.replace(/<mark(?! class="hl-[yrbg]")[^>]*>/g, "<mark>");
 }
 
-/** Draws the equations inside a line (KaTeX) where they are not drawn yet. */
+/** Draws the equations inside a line (KaTeX) where they are not drawn yet; a numbered list that
+ * goes on from an earlier one (after a box) starts at its number. */
 export function hydrateMath(root: HTMLElement) {
+  root.querySelectorAll<HTMLElement>("ol[start]").forEach((o) => (o.style.counterReset = `sm-li ${Number(o.getAttribute("start")) - 1 || 0}`));
   root.querySelectorAll<HTMLElement>("span.im").forEach((s) => {
     const tex = s.getAttribute("data-tex") ?? "";
     if (s.dataset.done === tex && s.childNodes.length) return;

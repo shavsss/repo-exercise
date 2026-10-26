@@ -88,11 +88,11 @@ const dollars = (html: string) => html.replace(/<span[^>]*data-tex="([^"]*)"[^>]
  * draws them) or a bullet, indented by its depth.
  */
 export function flatLists(html: string, pad: (depth: number) => string = (d) => "   ".repeat(d)) {
-  if (!/<(ol|ul)>/.test(html)) return html;
+  if (!/<(ol|ul)[ >]/.test(html)) return html;
   const stack: { ordered: boolean; n: number }[] = [];
   let out = "";
-  for (const part of html.split(/(<\/?(?:ol|ul|li)>)/)) {
-    const m = /^<(\/?)(ol|ul|li)>$/.exec(part);
+  for (const part of html.split(/(<\/?(?:ol|ul|li)(?: start="\d+")?>)/)) {
+    const m = /^<(\/?)(ol|ul|li)(?: start="(\d+)")?>$/.exec(part);
     if (!m) {
       // the break that holds an empty item open, or ends an item, is not a line of its own
       out += stack.length ? part.replace(/<br>$/, "") : part;
@@ -101,7 +101,7 @@ export function flatLists(html: string, pad: (depth: number) => string = (d) => 
     const [, close, tag] = m;
     if (tag !== "li") {
       if (close) stack.pop();
-      else stack.push({ ordered: tag === "ol", n: 0 });
+      else stack.push({ ordered: tag === "ol", n: Number(m[3] ?? 1) - 1 });
       out += "\u0004";
     } else if (close) out += "\u0004";
     else if (stack.length) {

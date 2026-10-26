@@ -142,11 +142,11 @@ const BOX = { def: "📘 הגדרה", eq: "🧮 נוסחה מרכזית", ex: "�
 const MARK = { y: "חשוב", r: "טעות", b: "הגדרה", g: "תובנה" };
 /** Lists inside a block, as lines with their numbers (1., 1.1) or bullets; as flatLists in the app. */
 function flatLists(html) {
-  if (!/<(ol|ul)>/.test(html)) return html;
+  if (!/<(ol|ul)[ >]/.test(html)) return html;
   const stack = [];
   let out = "";
-  for (const part of html.split(/(<\/?(?:ol|ul|li)>)/)) {
-    const m = /^<(\/?)(ol|ul|li)>$/.exec(part);
+  for (const part of html.split(/(<\/?(?:ol|ul|li)(?: start="\d+")?>)/)) {
+    const m = /^<(\/?)(ol|ul|li)(?: start="(\d+)")?>$/.exec(part);
     if (!m) {
       out += stack.length ? part.replace(/<br>$/, "") : part;
       continue;
@@ -154,7 +154,7 @@ function flatLists(html) {
     const [, close, tag] = m;
     if (tag !== "li") {
       if (close) stack.pop();
-      else stack.push({ ordered: tag === "ol", n: 0 });
+      else stack.push({ ordered: tag === "ol", n: Number(m[3] ?? 1) - 1 });
       out += "\u0004";
     } else if (close) out += "\u0004";
     else if (stack.length) {

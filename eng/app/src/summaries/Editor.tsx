@@ -355,10 +355,17 @@ export function Editor({
     const c = caret(el);
     if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) {
       e.preventDefault();
+      // in a paragraph or a box, Enter after a line with text opens a numbered item under it
+      // (Shift+Enter is a plain line; Enter on the empty item leaves, into a new block)
+      if (b.t !== "h" && (linePrefix(el) ?? "").replace(/\u200b/g, "").trim()) {
+        document.execCommand("insertLineBreak");
+        leaveMark();
+        document.execCommand("insertOrderedList");
+        return;
+      }
       if (b.t === "box") {
-        // inside a box Enter is a new line; Enter on an empty last line leaves the box
-        // the second Enter: the caret at the end, on a line with nothing on it
-        if (c && c.before === c.total && !(linePrefix(el) ?? "x").replace(/\u200b/g, "") && /(<br>|\n)/.test(el.innerHTML)) {
+        // Enter on an empty line at the end leaves the box
+        if (c && c.before === c.total) {
           const h = cleanHtml(cleanHtml(el.innerHTML).replace(/(<br>|\n|\s)+$/, "").replace(/<br>(<\/mark>)$/, "$1"));
           el.innerHTML = h;
           patch(b.id, { html: h });
@@ -463,6 +470,7 @@ export function Editor({
         el.innerHTML = h;
         patch(b.id, { html: h });
         if (b.t === "box") leaveBox(b.id);
+        else if (!h) placeCaret(el, "start"); // the list was all there was: the paragraph stays, plain
         else {
           const nb = emptyBlock("p");
           insertAfter(b.id, nb);
@@ -485,9 +493,26 @@ export function Editor({
 
   /** Out of a box at its end: into the empty paragraph after it if there is one, else a new one. */
   const leaveBox = (id: string) => {
-    const next = blocks[idx(blocks, id) + 1];
-    if (next && next.t === "p" && !textOf(next.html).trim()) return focusNow(next.id, "start");
-    const nb = emptyBlock("p");
+    const i = idx(blocks, id);
+    // a box in the middle of a list: the list goes on after it, with the next number
+    const prev = blocks[i - 1];
+    let html = "";
+    if (prev && (prev.t === "p" || prev.t === "box")) {
+      const body = new DOMParser().parseFromString(prev.html, "text/html").body;
+      let last = body.lastChild;
+      while (last && (last.nodeName === "BR" || (last.nodeType === 3 && !last.textContent!.trim()))) last = last.previousSibling;
+      if (last && (last.nodeName === "OL" || last.nodeName === "UL")) {
+        const n = (Number((last as Element).getAttribute("start")) || 1) + (last as Element).querySelectorAll(":scope > li").length;
+        html = last.nodeName === "OL" ? `<ol start="${n}"><li><br></li></ol>` : "<ul><li><br></li></ul>";
+      }
+    }
+    const next = blocks[i + 1];
+    if (next && next.t === "p" && !textOf(next.html).trim()) {
+      if (html) patch(next.id, { html }, "struct");
+      if (html) return focus(next.id, "start");
+      return focusNow(next.id, "start");
+    }
+    const nb = { ...(emptyBlock("p") as Extract<Block, { t: "p" }>), html };
     insertAfter(id, nb);
     focus(nb.id, "start");
   };
