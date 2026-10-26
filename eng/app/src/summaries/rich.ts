@@ -32,7 +32,9 @@ export function cleanHtml(html: string) {
     if (!li.firstChild || /^(OL|UL)$/.test((li.firstChild as Element).tagName ?? "")) li.prepend(document.createElement("br"));
   });
   box.querySelectorAll("ol, ul").forEach((l) => !l.querySelector("li") && l.remove());
-  const res = box.innerHTML;
+  // a mark left with nothing in it (where the caret left a mark) is dropped
+  box.querySelectorAll("mark").forEach((m) => !(m.textContent ?? "").replace(/\u200b/g, "") && !m.querySelector("br, span.im") && m.remove());
+  const res = box.innerHTML.replace(/\u200b/g, "");
   return res === "<br>" ? "" : res.replace(/<mark(?! class="hl-[yrbg]")[^>]*>/g, "<mark>");
 }
 
@@ -223,11 +225,68 @@ export function activeEditable(): HTMLElement | null {
   return e ?? null;
 }
 
-/** Wraps the selection in a mark of one colour (or removes marks from it, with null). */
+/** The mark the caret stands in, if any. */
+export function caretMark() {
+  const el = activeEditable();
+  const n = window.getSelection()?.anchorNode;
+  const m = n ? (n.nodeType === 1 ? (n as Element) : n.parentElement)?.closest("mark") : null;
+  return m && el?.contains(m) ? (m as HTMLElement) : null;
+}
+
+function caretAfter(n: Node) {
+  const sel = window.getSelection();
+  const r = document.createRange();
+  r.setStart(n, n.nodeType === 3 ? (n as Text).length : n.childNodes.length);
+  r.collapse(true);
+  sel?.removeAllRanges();
+  sel?.addRange(r);
+}
+
+/**
+ * The caret leaves the mark it stands in: what is typed next is not marked. What follows the
+ * caret inside the mark stays marked. True when there was a mark to leave.
+ */
+export function leaveMark() {
+  const m = caretMark();
+  const sel = window.getSelection();
+  if (!m || !sel || !sel.rangeCount) return false;
+  const r = sel.getRangeAt(0);
+  const tail = document.createRange();
+  tail.setStart(r.startContainer, r.startOffset);
+  tail.setEnd(m, m.childNodes.length);
+  const frag = tail.extractContents();
+  const z = document.createTextNode("\u200b");
+  m.after(z);
+  if ((frag.textContent ?? "").replace(/\u200b/g, "") || frag.querySelector?.("span.im")) {
+    const rest = document.createElement("mark");
+    rest.className = m.className;
+    rest.appendChild(frag);
+    z.after(rest);
+  } else z.after(frag); // only the break that ends the block: not marked
+  if (!(m.textContent ?? "").replace(/\u200b/g, "") && !m.querySelector("br, span.im")) m.remove();
+  caretAfter(z);
+  return true;
+}
+
+/** Wraps the selection in a mark of one colour (or removes marks from it, with null). With no
+ * selection it turns the mark on or off for what is typed next. */
 export function applyMark(cls: string | null) {
   const el = activeEditable();
   const sel = window.getSelection();
-  if (!el || !sel || !sel.rangeCount || sel.isCollapsed) return false;
+  if (!el || !sel || !sel.rangeCount) return false;
+  if (sel.isCollapsed) {
+    const was = caretMark();
+    if (was) leaveMark();
+    if (cls && (!was || !was.classList.contains(cls))) {
+      const m = document.createElement("mark");
+      m.className = cls;
+      const z = document.createTextNode("\u200b");
+      m.appendChild(z);
+      sel.getRangeAt(0).insertNode(m);
+      caretAfter(z);
+    }
+    return true;
+  }
   const r = sel.getRangeAt(0);
   const frag = r.extractContents();
   frag.querySelectorAll("mark").forEach((m) => m.replaceWith(...Array.from(m.childNodes)));

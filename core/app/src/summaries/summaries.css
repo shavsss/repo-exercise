@@ -79,7 +79,8 @@
 .sm-tbtn { font: inherit; font-size: 0.82rem; padding: 4px 9px; border: 1px solid var(--line); border-radius: 4px; background: var(--paper); color: var(--ink); cursor: pointer; white-space: nowrap; }
 .sm-tbtn:hover:not(:disabled) { border-color: var(--line-strong); background: var(--hover); }
 .sm-tbtn:disabled { opacity: 0.45; cursor: default; }
-.sm-tbtn[aria-pressed="true"] { background: var(--sel); border-color: var(--line-strong); font-weight: 600; }
+.sm-tbtn[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); font-weight: 600; }
+.sm-tbtn.mark-btn[aria-pressed="true"] { color: var(--ink); box-shadow: 0 0 0 2px var(--ink); border-color: var(--ink); }
 .sm-tbtn.danger { color: var(--err); }
 .sm-tbtn:focus-visible, .sm-tabs button:focus-visible, .sm-ribbon-tabs [role="tab"]:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
 .sm-tbtn.mark-btn.hl-y { background: var(--hl-y); } .sm-tbtn.mark-btn.hl-r { background: var(--hl-r); } .sm-tbtn.mark-btn.hl-b { background: var(--hl-b); } .sm-tbtn.mark-btn.hl-g { background: var(--hl-g); }
@@ -109,7 +110,7 @@
 .sm-h .sm-rich { flex: 1; min-width: 0; }
 .sm-h1 { font-size: 1.42em; margin-top: var(--sm-lh); }
 .sm-h2 { font-size: 1.17em; margin-top: calc(var(--sm-lh) / 2); }
-.sm-h3 { font-size: 1.02em; }
+.sm-h3 { font-size: 1.02em; font-weight: 400; }
 .sm-num { color: var(--accent); font-family: var(--mono); font-weight: 500; font-size: 0.85em; flex: none; }
 .sm-block:first-child .sm-h1 { margin-top: 0; font-size: 1.6em; }
 .sm-ro { word-break: break-word; }

@@ -1,7 +1,7 @@
-import { useLayoutEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import type { Block, BoxKind, ListItem, MarkColor } from "./model";
 import { BOX_EMOJI, BOX_LABEL, HEAD_EMOJI, MARK_LABEL, emptyBlock, flatLists, itemNumbers, numbering, textOf, uid } from "./model";
-import { activeEditable, applyMark, applyStyle, atLiStart, caret, caretLi, caretOnEdgeLine, cleanHtml, convertDollars, hydrateMath, indentLi, insertMathAt, linePrefix, listEndsBlock, liText, outdentLi, pastedHtml, placeCaret, splitAtCaret, swapListKind } from "./rich";
+import { activeEditable, applyMark, applyStyle, atLiStart, caret, caretLi, caretMark, caretOnEdgeLine, cleanHtml, convertDollars, hydrateMath, indentLi, insertMathAt, leaveMark, linePrefix, listEndsBlock, liText, outdentLi, pastedHtml, placeCaret, splitAtCaret, swapListKind } from "./rich";
 import { MathEditor, MathView } from "./MathEdit";
 import { Picture } from "./Picture";
 import { storeImage } from "./media";
@@ -51,6 +51,30 @@ function insertSymbol(ch: string, tex: string) {
   const a = document.activeElement as (HTMLElement & { insert?: (s: string) => void }) | null;
   if (a && a.tagName === "MATH-FIELD" && a.insert) return a.insert(tex);
   if (activeEditable()) document.execCommand("insertText", false, ch);
+}
+
+/** What is on where the caret is: bold, italic, sub/superscript, a mark, a list. */
+interface Fmt {
+  b: boolean;
+  i: boolean;
+  sup: boolean;
+  sub: boolean;
+  mark: string | null;
+  list: "ol" | "ul" | null;
+}
+const NO_FMT: Fmt = { b: false, i: false, sup: false, sub: false, mark: null, list: null };
+function readFmt(): Fmt {
+  const el = activeEditable();
+  if (!el) return NO_FMT;
+  const q = (c: string) => {
+    try {
+      return document.queryCommandState(c);
+    } catch {
+      return false;
+    }
+  };
+  const li = caretLi(el);
+  return { b: q("bold"), i: q("italic"), sup: q("superscript"), sub: q("subscript"), mark: caretMark()?.className.match(/hl-[yrbg]/)?.[0] ?? null, list: li ? (li.parentElement?.tagName === "OL" ? "ol" : "ul") : null };
 }
 
 /* ---------------- one editable ---------------- */
@@ -128,6 +152,22 @@ export function Editor({
   const [showView, setShowView] = useState(false);
   const [showSymbols, setShowSymbols] = useState(false);
   const [emojiFor, setEmojiFor] = useState<string | null>(null);
+  /** what is on at the caret, so the ribbon shows it while writing */
+  const [fmt, setFmt] = useState<Fmt>(NO_FMT);
+  const refreshFmt = () =>
+    setFmt((old) => {
+      const n = readFmt();
+      return JSON.stringify(n) === JSON.stringify(old) ? old : n;
+    });
+  useEffect(() => {
+    document.addEventListener("selectionchange", refreshFmt);
+    return () => document.removeEventListener("selectionchange", refreshFmt);
+  }, []);
+  /** a ribbon action, then the ribbon shows the new state */
+  const act = (fn: () => unknown) => () => {
+    fn();
+    refreshFmt();
+  };
   /** the small equation editor for an equation inside a line: a new one at a place in the text, or one already there */
   const [inline, setInline] = useState<{ top: number; left: number; tex: string; span?: HTMLElement; range?: Range; host: HTMLElement } | null>(null);
   const inlineTex = useRef("");
@@ -296,6 +336,7 @@ export function Editor({
     if (e.altKey && /^[0-4]$/.test(e.key)) {
       e.preventDefault();
       applyMark(e.key === "0" ? null : `hl-${MARKS[Number(e.key) - 1]}`);
+      refreshFmt();
       return;
     }
     if ((e.ctrlKey || e.metaKey) && (e.key === "m" || e.key === "M" || e.code === "KeyM")) {
@@ -304,19 +345,28 @@ export function Editor({
       return;
     }
     if (b.t !== "h" && listKeysIn(b, el, e)) return;
+    if (e.key === "Enter" && e.shiftKey && !e.nativeEvent.isComposing) {
+      // a new line in the same block; a mark does not go on to it
+      e.preventDefault();
+      document.execCommand("insertLineBreak");
+      leaveMark();
+      return;
+    }
     const c = caret(el);
     if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) {
       e.preventDefault();
       if (b.t === "box") {
         // inside a box Enter is a new line; Enter on an empty last line leaves the box
-        if (c && c.before === c.total && /(<br>|\n)\s*$/.test(el.innerHTML)) {
-          const h = cleanHtml(el.innerHTML.replace(/(<br>|\n|\s)+$/, ""));
+        // the second Enter: the caret at the end, on a line with nothing on it
+        if (c && c.before === c.total && !(linePrefix(el) ?? "x").replace(/\u200b/g, "") && /(<br>|\n)/.test(el.innerHTML)) {
+          const h = cleanHtml(cleanHtml(el.innerHTML).replace(/(<br>|\n|\s)+$/, "").replace(/<br>(<\/mark>)$/, "$1"));
           el.innerHTML = h;
           patch(b.id, { html: h });
-          const nb = emptyBlock("p");
-          insertAfter(b.id, nb);
-          focus(nb.id, "start");
-        } else document.execCommand("insertLineBreak");
+          leaveBox(b.id);
+        } else {
+          document.execCommand("insertLineBreak");
+          leaveMark();
+        }
         return;
       }
       const { head, tail } = splitAtCaret(el);
@@ -396,7 +446,12 @@ export function Editor({
       return true;
     }
     if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) {
-      if (liText(li).trim() || li.querySelector("span.im")) return true; // the browser opens the next item
+      if (liText(li).replace(/\u200b/g, "").trim() || li.querySelector("span.im")) {
+        e.preventDefault();
+        document.execCommand("insertParagraph"); // the next item
+        leaveMark();
+        return true;
+      }
       e.preventDefault();
       const list = li.parentElement!;
       const nested = list.parentElement?.tagName === "LI";
@@ -407,9 +462,12 @@ export function Editor({
         const h = cleanHtml(el.innerHTML.replace(/(<br>|\s)+$/, ""));
         el.innerHTML = h;
         patch(b.id, { html: h });
-        const nb = emptyBlock("p");
-        insertAfter(b.id, nb);
-        focus(nb.id, "start");
+        if (b.t === "box") leaveBox(b.id);
+        else {
+          const nb = emptyBlock("p");
+          insertAfter(b.id, nb);
+          focus(nb.id, "start");
+        }
         return true;
       }
       outdentLi(li);
@@ -423,6 +481,15 @@ export function Editor({
       return true;
     }
     return false;
+  };
+
+  /** Out of a box at its end: into the empty paragraph after it if there is one, else a new one. */
+  const leaveBox = (id: string) => {
+    const next = blocks[idx(blocks, id) + 1];
+    if (next && next.t === "p" && !textOf(next.html).trim()) return focusNow(next.id, "start");
+    const nb = emptyBlock("p");
+    insertAfter(id, nb);
+    focus(nb.id, "start");
   };
 
   /** Markdown-like shortcuts at the start of a paragraph, and the "/" menu. */
@@ -462,6 +529,7 @@ export function Editor({
     if (e.altKey && /^[0-4]$/.test(e.key)) {
       e.preventDefault();
       applyMark(e.key === "0" ? null : `hl-${MARKS[Number(e.key) - 1]}`);
+      refreshFmt();
       return;
     }
     if ((e.ctrlKey || e.metaKey) && (e.key === "m" || e.key === "M" || e.code === "KeyM")) {
@@ -725,7 +793,7 @@ export function Editor({
           <span className="sm-row-label">הוספה</span>
           <div className="sm-group">
             {INSERT.slice(0, 6).map((it) => (
-              <button key={it.id} className="sm-tbtn" onClick={() => doInsert(it, current)} title={`${it.label}${it.hint ? ` · ${it.hint}` : ""}`}>
+              <button key={it.id} className="sm-tbtn" aria-pressed={it.id === "ul" || it.id === "ol" ? fmt.list === it.id : undefined} onClick={act(() => doInsert(it, current))} title={`${it.label}${it.hint ? ` · ${it.hint}` : ""}`}>
                 {it.short ?? it.label}
               </button>
             ))}
@@ -752,26 +820,26 @@ export function Editor({
         <div className="sm-row sm-row-edit">
           <span className="sm-row-label">עריכה</span>
           <div className="sm-group">
-            <button className="sm-tbtn" onClick={() => applyStyle("bold")} title="מודגש (Ctrl+B)">
+            <button className="sm-tbtn" aria-pressed={fmt.b} onClick={act(() => applyStyle("bold"))} title="מודגש (Ctrl+B). לחיצה נוספת מכבה">
               <b>B</b>
             </button>
-            <button className="sm-tbtn" onClick={() => applyStyle("italic")} title="נטוי (Ctrl+I)">
+            <button className="sm-tbtn" aria-pressed={fmt.i} onClick={act(() => applyStyle("italic"))} title="נטוי (Ctrl+I). לחיצה נוספת מכבה">
               <i>I</i>
             </button>
-            <button className="sm-tbtn" onClick={() => activeEditable() && document.execCommand("superscript")} title="כתב עילי">
+            <button className="sm-tbtn" aria-pressed={fmt.sup} onClick={act(() => activeEditable() && document.execCommand("superscript"))} title="כתב עילי">
               x²
             </button>
-            <button className="sm-tbtn" onClick={() => activeEditable() && document.execCommand("subscript")} title="כתב תחתי">
+            <button className="sm-tbtn" aria-pressed={fmt.sub} onClick={act(() => activeEditable() && document.execCommand("subscript"))} title="כתב תחתי">
               x₂
             </button>
           </div>
           <div className="sm-group">
             {MARKS.map((m, i) => (
-              <button key={m} className={`sm-tbtn mark-btn hl-${m}`} onClick={() => applyMark(`hl-${m}`)} title={`${MARK_LABEL[m]} (Alt+${i + 1})`}>
+              <button key={m} className={`sm-tbtn mark-btn hl-${m}`} aria-pressed={fmt.mark === `hl-${m}`} onClick={act(() => applyMark(`hl-${m}`))} title={`${MARK_LABEL[m]} (Alt+${i + 1}). בלי בחירה: מדליק או מכבה לטקסט הבא`}>
                 {MARK_LABEL[m].split(" ")[0]}
               </button>
             ))}
-            <button className="sm-tbtn" onClick={() => applyMark(null)} title="Alt+0">
+            <button className="sm-tbtn" onClick={act(() => applyMark(null))} title="Alt+0">
               נקה
             </button>
           </div>

@@ -190,7 +190,7 @@ export async function toDocx(title: string, blocks: Block[]) {
     if (b.t === "h") {
       const n = heads.get(b.id);
       const level = b.plain && b === blocks[0] ? HeadingLevel.TITLE : [HeadingLevel.HEADING_1, HeadingLevel.HEADING_2, HeadingLevel.HEADING_3][b.level - 1];
-      children.push(para([new TextRun({ text: `${b.emoji ? b.emoji + " " : ""}${n ? n + " " : ""}`, font: FONT, rightToLeft: true, bold: true }), ...runs(b.html, { bold: true })], { heading: level, spacing: { before: 240, after: 120 } }));
+      children.push(para([new TextRun({ text: `${b.emoji ? b.emoji + " " : ""}${n ? n + " " : ""}`, font: FONT, rightToLeft: true, bold: b.level < 3 }), ...runs(b.html, { bold: b.level < 3 })], { heading: level, spacing: { before: 240, after: 120 } }));
     } else if (b.t === "p") {
       if (textOf(b.html).trim()) children.push(...paras(b.html));
     } else if (b.t === "list") {
@@ -232,7 +232,7 @@ const HTML_CSS = `
 body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.9 "IBM Plex Sans Hebrew",Arial,sans-serif;direction:rtl}
 main{max-width:46rem;margin:24px auto;padding:32px 40px;background:var(--paper);border:1px solid var(--line);
 background-image:linear-gradient(to left,transparent 2.4rem,#e8a4a0 2.4rem,#e8a4a0 calc(2.4rem + 1px),transparent calc(2.4rem + 1px));}
-h1,h2,h3,h4{line-height:1.35;margin:1.4em 0 .4em}.num{color:var(--accent);font-family:"IBM Plex Mono",monospace;margin-inline-end:.4em;font-weight:500}
+h1,h2,h3,h4{line-height:1.35;margin:1.4em 0 .4em}h4{font-weight:400}.num{color:var(--accent);font-family:"IBM Plex Mono",monospace;margin-inline-end:.4em;font-weight:500}
 p{margin:0 0 .6em}mark{color:inherit;border-radius:2px;padding:0 2px}.hl-y{background:#fff1a6}.hl-r{background:#f7c9c3}.hl-b{background:#cfe1f2}.hl-g{background:#d2ebd4}
 .box{border-radius:6px;padding:10px 14px;margin:14px 0;border-inline-start:4px solid}.box .lbl{display:block;font-size:.78em;font-weight:700;letter-spacing:.02em}
 .box-def{background:#e4ecf1;border-color:#355f7d}.box-def .lbl{color:#355f7d}.box-eq{background:#ece6f1;border-color:#6a4c8c}.box-eq .lbl{color:#6a4c8c}
