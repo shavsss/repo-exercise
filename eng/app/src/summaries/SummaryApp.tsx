@@ -21,7 +21,15 @@ interface Prefs {
   tree: boolean;
   /** the page's zoom, 0.7–1.8 */
   zoom: number;
+  /** how wide the page is: as a book's column, wider, or the whole window */
+  width: Width;
 }
+type Width = "normal" | "wide" | "full";
+const WIDTHS: [Width, string][] = [
+  ["normal", "רגיל"],
+  ["wide", "רחב"],
+  ["full", "מלא"],
+];
 type View = "edit" | "review" | { filter: FilterKind };
 
 /** The channel on which the lessons window says which lesson is open. */
@@ -31,9 +39,9 @@ function usePrefs(lab: string) {
   const key = `${lab}:summaries`;
   const [p, setP] = useState<Prefs>(() => {
     try {
-      return { module: null, bg: "lines", follow: true, tree: true, zoom: 1, ...JSON.parse(localStorage.getItem(key) ?? "{}") };
+      return { module: null, bg: "lines", follow: true, tree: true, zoom: 1, width: "wide", ...JSON.parse(localStorage.getItem(key) ?? "{}") };
     } catch {
-      return { module: null, bg: "lines", follow: true, tree: true, zoom: 1 };
+      return { module: null, bg: "lines", follow: true, tree: true, zoom: 1, width: "wide" };
     }
   });
   const set = (patch: Partial<Prefs>) =>
@@ -394,7 +402,7 @@ export function SummaryApp({ lab, name }: { lab: string; name: string }) {
   const saveLabel = { idle: "", saving: "שומר…", saved: "נשמר", local: "נשמר בדפדפן בלבד", error: "לא נשמר, אנסה שוב" }[saveState];
 
   return (
-    <div className={`sm-app bg-${prefs.bg}`}>
+    <div className={`sm-app bg-${prefs.bg} w-${prefs.width}`}>
       <header className="sm-top">
         <button className="icon-btn" onClick={() => setPrefs({ tree: !prefs.tree })} aria-pressed={prefs.tree} title="רשימת המודולים" aria-label="רשימת המודולים">
           <Icon name="menu" />
@@ -420,6 +428,16 @@ export function SummaryApp({ lab, name }: { lab: string; name: string }) {
             <button onClick={() => setPrefs({ zoom: Math.min(1.8, Math.round((prefs.zoom + 0.1) * 10) / 10) })} aria-label="הגדל" title="הגדל">
               +
             </button>
+          </span>
+        )}
+        {tab === "sum" && (
+          <span className="sm-zoom sm-width" role="group" aria-label="רוחב הדף" title="רוחב הדף">
+            <span>רוחב</span>
+            {WIDTHS.map(([w, label]) => (
+              <button key={w} aria-pressed={prefs.width === w} onClick={() => setPrefs({ width: w })}>
+                {label}
+              </button>
+            ))}
           </span>
         )}
         <label className="sm-follow" title="כשעוברים שיעור בחלון השיעורים, הסיכום עובר לאותו מודול ולסעיף של השיעור. הגלילה כאן נשארת חופשית.">

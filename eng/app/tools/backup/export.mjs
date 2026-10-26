@@ -140,8 +140,34 @@ fs.writeFileSync(
 // the summaries notebook (#summary): one Markdown file with every module's summary
 const BOX = { def: "📘 הגדרה", eq: "🧮 נוסחה מרכזית", ex: "🔢 דוגמה מספרית", err: "⚠️ טעות נפוצה", q: "❓ שאלה פתוחה", con: "✅ מסקנה" };
 const MARK = { y: "חשוב", r: "טעות", b: "הגדרה", g: "תובנה" };
+/** Lists inside a block, as lines with their numbers (1., 1.1) or bullets; as flatLists in the app. */
+function flatLists(html) {
+  if (!/<(ol|ul)>/.test(html)) return html;
+  const stack = [];
+  let out = "";
+  for (const part of html.split(/(<\/?(?:ol|ul|li)>)/)) {
+    const m = /^<(\/?)(ol|ul|li)>$/.exec(part);
+    if (!m) {
+      out += stack.length ? part.replace(/<br>$/, "") : part;
+      continue;
+    }
+    const [, close, tag] = m;
+    if (tag !== "li") {
+      if (close) stack.pop();
+      else stack.push({ ordered: tag === "ol", n: 0 });
+      out += "\u0004";
+    } else if (close) out += "\u0004";
+    else if (stack.length) {
+      const top = stack[stack.length - 1];
+      top.n++;
+      const nums = stack.filter((x) => x.ordered).map((x) => x.n);
+      out += `\u0004${"   ".repeat(stack.length - 1)}${top.ordered ? (nums.length === 1 ? `${nums[0]}.` : nums.join(".")) : "-"} `;
+    }
+  }
+  return out.replace(/(<br>)?\u0004(<br>)?/g, "\u0004").replace(/\u0004+/g, "<br>").replace(/^<br>|<br>$/g, "");
+}
 const plain = (h) =>
-  String(h ?? "")
+  flatLists(String(h ?? ""))
     .replace(/<span[^>]*data-tex="([^"]*)"[^>]*>.*?<\/span>/g, (_, t) => `$${t.replace(/&quot;/g, '"').replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&")}$`)
     .replace(/<br\s*\/?>/gi, "\n")
     .replace(/<\/?(b|strong)>/gi, "**")

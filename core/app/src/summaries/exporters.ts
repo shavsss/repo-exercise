@@ -29,7 +29,7 @@ import {
 import { convertLatexToMathMl } from "mathlive";
 import { figure } from "../library";
 import type { Block, BoxKind, ImgSize, MarkColor } from "./model";
-import { BOX_EMOJI, BOX_LABEL, esc, itemNumbers, numbering, textOf } from "./model";
+import { BOX_EMOJI, BOX_LABEL, esc, flatLists, itemNumbers, numbering, textOf } from "./model";
 import { flatten } from "./media";
 
 type MathComponent = ConstructorParameters<typeof DMath>[0]["children"][number];
@@ -160,6 +160,22 @@ function runs(html: string, base: { bold?: boolean; color?: string } = {}): (Tex
 }
 const para = (children: (TextRun | DMath | ImageRun)[], extra: Record<string, unknown> = {}) => new Paragraph({ bidirectional: true, alignment: AlignmentType.START, spacing: { after: 120, line: 300 }, children, ...extra });
 
+/**
+ * A block's text as Word paragraphs: its lines, and each item of a list inside it as a paragraph
+ * of its own with its number (1., 1.1) or bullet, indented by depth.
+ */
+function paras(html: string, base: { bold?: boolean; color?: string } = {}) {
+  if (!/<(ol|ul)>/.test(html)) return [para(runs(html, base))];
+  return flatLists(html, (d) => `\u0005${d}\u0005`)
+    .split(/<br>/)
+    .map((line) => {
+      const m = /^\u0005(\d+)\u0005/.exec(line);
+      if (!m) return para(runs(line, base), { spacing: { after: 40, line: 300 } });
+      const d = Number(m[1]);
+      return para(runs(line.slice(m[0].length), base), { indent: { start: 360 * (d + 1), hanging: 300 }, spacing: { after: 40, line: 300 } });
+    });
+}
+
 async function picture(b: Extract<Block, { t: "img" } | { t: "fig" }>) {
   const src = b.t === "img" ? b.src : (await figure(b.doc, b.key))?.d;
   if (!src) return null;
@@ -176,7 +192,7 @@ export async function toDocx(title: string, blocks: Block[]) {
       const level = b.plain && b === blocks[0] ? HeadingLevel.TITLE : [HeadingLevel.HEADING_1, HeadingLevel.HEADING_2, HeadingLevel.HEADING_3][b.level - 1];
       children.push(para([new TextRun({ text: `${b.emoji ? b.emoji + " " : ""}${n ? n + " " : ""}`, font: FONT, rightToLeft: true, bold: true }), ...runs(b.html, { bold: true })], { heading: level, spacing: { before: 240, after: 120 } }));
     } else if (b.t === "p") {
-      if (textOf(b.html).trim()) children.push(para(runs(b.html)));
+      if (textOf(b.html).trim()) children.push(...paras(b.html));
     } else if (b.t === "list") {
       const nums = itemNumbers(b.items);
       b.items.forEach((it, i) => children.push(para([new TextRun({ text: `${b.ordered ? nums[i] : "•"} `, font: FONT, rightToLeft: true }), ...runs(it.html)], { indent: { start: 360 * (it.level + 1), hanging: 280 }, spacing: { after: 60, line: 300 } })));
@@ -184,7 +200,7 @@ export async function toDocx(title: string, blocks: Block[]) {
       const [fg, bg] = BOX_COLOR[b.kind];
       const inner: Paragraph[] = [para([new TextRun({ text: `${BOX_EMOJI[b.kind]} ${BOX_LABEL[b.kind]}`, font: FONT, bold: true, color: fg, size: 20, rightToLeft: true })], { spacing: { after: 60 } })];
       if (b.latex?.trim()) inner.push(new Paragraph({ alignment: AlignmentType.CENTER, children: [wordMath(b.latex), ...(eqs.get(b.id) ? [new TextRun({ text: `   (${eqs.get(b.id)})`, font: FONT })] : [])] }));
-      if (textOf(b.html).trim()) inner.push(para(runs(b.html)));
+      if (textOf(b.html).trim()) inner.push(...paras(b.html));
       const side = { style: BorderStyle.SINGLE, size: 18, color: fg };
       const none = { style: BorderStyle.NONE, size: 0, color: "FFFFFF" };
       children.push(
@@ -226,7 +242,10 @@ p{margin:0 0 .6em}mark{color:inherit;border-radius:2px;padding:0 2px}.hl-y{backg
 .eq{display:flex;justify-content:center;align-items:center;gap:1.2em;margin:.8em 0;direction:ltr}.eqn{color:var(--muted);font-size:.85em}
 math{font-size:1.1em}figure{margin:1em auto;text-align:center}figure img{max-width:100%}figcaption{font-size:.85em;color:var(--muted)}
 figure.s{max-width:33%}figure.m{max-width:62%}figure.l{max-width:100%}ul.l,ol.l{padding-inline-start:1.4em;margin:.2em 0 .8em}li.lv1{margin-inline-start:1.4em}li.lv2{margin-inline-start:2.8em}
-hr{border:none;border-top:1px solid var(--line);margin:1.4em 0}`;
+hr{border:none;border-top:1px solid var(--line);margin:1.4em 0}.p{margin:0 0 .6em}
+.p ol,.p ul{margin:.1em 0 .2em;padding-inline-start:2.1em}.p ol{list-style:none;counter-reset:li}.p ol>li{counter-increment:li;position:relative}
+.p ol>li::before{content:counters(li,".") ".";position:absolute;inset-inline-end:100%;margin-inline-end:.45em;color:var(--accent);font-family:"IBM Plex Mono",monospace;font-size:.86em}
+.p li ol>li::before{content:counters(li,".")}.p li ol,.p li ul{margin:0;padding-inline-start:2.4em}.p li ul{list-style:circle}`;
 
 const mathHtml = (latex: string, display = true) => {
   try {
@@ -249,12 +268,12 @@ export async function toHtml(title: string, blocks: Block[]) {
       const tag = b.plain && b === blocks[0] ? "h1" : `h${b.level + 1}`;
       out.push(`<${tag}>${b.emoji ? `${b.emoji} ` : ""}${n ? `<span class="num">${n}</span>` : ""}${inl(b.html)}</${tag}>`);
     } else if (b.t === "p") {
-      if (textOf(b.html).trim()) out.push(`<p>${inl(b.html)}</p>`);
+      if (textOf(b.html).trim()) out.push(`<div class="p">${inl(b.html)}</div>`);
     } else if (b.t === "list") {
       const nums = itemNumbers(b.items);
       out.push(`<ul class="l" style="list-style:none">${b.items.map((it, i) => `<li class="lv${it.level}">${b.ordered ? nums[i] : "•"} ${inl(it.html)}</li>`).join("")}</ul>`);
     } else if (b.t === "box") {
-      out.push(`<div class="box box-${b.kind}"><span class="lbl">${BOX_EMOJI[b.kind]} ${BOX_LABEL[b.kind]}</span>${b.latex?.trim() ? `<div class="eq">${mathHtml(b.latex)}${eqs.get(b.id) ? `<span class="eqn">(${eqs.get(b.id)})</span>` : ""}</div>` : ""}${textOf(b.html).trim() ? `<p>${inl(b.html)}</p>` : ""}</div>`);
+      out.push(`<div class="box box-${b.kind}"><span class="lbl">${BOX_EMOJI[b.kind]} ${BOX_LABEL[b.kind]}</span>${b.latex?.trim() ? `<div class="eq">${mathHtml(b.latex)}${eqs.get(b.id) ? `<span class="eqn">(${eqs.get(b.id)})</span>` : ""}</div>` : ""}${textOf(b.html).trim() ? `<div class="p">${inl(b.html)}</div>` : ""}</div>`);
     } else if (b.t === "math") {
       if (b.latex.trim()) out.push(`<div class="eq">${mathHtml(b.latex)}${eqs.get(b.id) ? `<span class="eqn">(${eqs.get(b.id)})</span>` : ""}</div>`);
     } else if (b.t === "img" || b.t === "fig") {

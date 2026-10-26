@@ -1,7 +1,7 @@
 import { useLayoutEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import type { Block, BoxKind, ListItem, MarkColor } from "./model";
-import { BOX_EMOJI, BOX_LABEL, HEAD_EMOJI, MARK_LABEL, emptyBlock, itemNumbers, numbering, textOf, uid } from "./model";
-import { activeEditable, applyMark, applyStyle, caret, caretOnEdgeLine, cleanHtml, convertDollars, hydrateMath, insertMathAt, pastedHtml, placeCaret, splitAtCaret } from "./rich";
+import { BOX_EMOJI, BOX_LABEL, HEAD_EMOJI, MARK_LABEL, emptyBlock, flatLists, itemNumbers, numbering, textOf, uid } from "./model";
+import { activeEditable, applyMark, applyStyle, atLiStart, caret, caretLi, caretOnEdgeLine, cleanHtml, convertDollars, hydrateMath, indentLi, insertMathAt, linePrefix, listEndsBlock, liText, outdentLi, pastedHtml, placeCaret, splitAtCaret, swapListKind } from "./rich";
 import { MathEditor, MathView } from "./MathEdit";
 import { Picture } from "./Picture";
 import { storeImage } from "./media";
@@ -25,8 +25,9 @@ const INSERT: InsertItem[] = [
   { id: "h1", label: "כותרת פרק", short: "פרק", hint: "1, 2, 3", keys: "h1 כותרת פרק", make: () => ({ ...(emptyBlock("h") as Extract<Block, { t: "h" }>), level: 1 }) },
   { id: "h2", label: "כותרת סעיף", short: "סעיף", hint: "1.1, 1.2", keys: "h2 סעיף כותרת", make: () => ({ ...(emptyBlock("h") as Extract<Block, { t: "h" }>), level: 2 }) },
   { id: "h3", label: "תת-סעיף", short: "תת-סעיף", hint: "1.1.1", keys: "h3 תת סעיף", make: () => ({ ...(emptyBlock("h") as Extract<Block, { t: "h" }>), level: 3 }) },
-  { id: "ul", label: "רשימת תבליטים", short: "• רשימה", hint: "- ורווח", keys: "ul רשימה תבליטים", make: () => emptyBlock("list") },
-  { id: "ol", label: "רשימה ממוספרת", short: "1. רשימה", hint: "1. ורווח", keys: "ol רשימה ממוספרת מספרים", make: () => ({ ...(emptyBlock("list") as Extract<Block, { t: "list" }>), ordered: true }) },
+  // a list lives inside a paragraph or a box: in the block being written, or in a new paragraph
+  { id: "ul", label: "רשימת תבליטים", short: "• רשימה", hint: "- ורווח", keys: "ul רשימה תבליטים", make: () => ({ ...(emptyBlock("p") as Extract<Block, { t: "p" }>), html: "<ul><li><br></li></ul>" }) },
+  { id: "ol", label: "רשימה ממוספרת", short: "1. רשימה", hint: "1. ורווח", keys: "ol רשימה ממוספרת מספרים", make: () => ({ ...(emptyBlock("p") as Extract<Block, { t: "p" }>), html: "<ol><li><br></li></ol>" }) },
   ...(Object.keys(BOX_LABEL) as BoxKind[]).map((k) => ({ id: `box-${k}`, label: BOX_LABEL[k], hint: "תיבה", keys: `תיבה box ${BOX_LABEL[k]}`, make: () => ({ ...(emptyBlock("box") as Extract<Block, { t: "box" }>), kind: k, ...(k === "eq" ? { latex: "" } : {}) }) })),
   { id: "math", label: "משוואה", short: "∑ משוואה", hint: "ממוספרת", keys: "math משוואה נוסחה $$", make: () => emptyBlock("math") },
   { id: "img", label: "תמונה מהמחשב", short: "🖼 תמונה", hint: "או הדבק Ctrl+V", keys: "img תמונה צילום" },
@@ -222,6 +223,15 @@ export function Editor({
     setMenu(null);
     const cur = at ? blocks.find((b) => b.id === at) : null;
     const replace = cur && cur.t === "p" && !textOf(cur.html).trim().replace(/^\/\S*/, "").trim();
+    if ((item.id === "ul" || item.id === "ol") && !replace) {
+      // the list goes into the paragraph or box being written, at the caret
+      const el = activeEditable();
+      const tb = el ? blocks.find((x) => x.id === el.dataset.edit) : null;
+      if (el && tb && (tb.t === "p" || tb.t === "box")) {
+        document.execCommand(item.id === "ol" ? "insertOrderedList" : "insertUnorderedList");
+        return;
+      }
+    }
     const anchor = replace ? (idx(blocks, cur!.id) > 0 ? blocks[idx(blocks, cur!.id) - 1].id : null) : at;
     if (replace) update((bs) => bs.filter((b) => b.id !== cur!.id), "struct");
     if (item.id === "img") {
@@ -293,6 +303,7 @@ export function Editor({
       openInline();
       return;
     }
+    if (b.t !== "h" && listKeysIn(b, el, e)) return;
     const c = caret(el);
     if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) {
       e.preventDefault();
@@ -355,6 +366,65 @@ export function Editor({
     }
   };
 
+  /**
+   * A list inside a paragraph or a box. Enter: a new item (the browser makes it); Shift+Enter:
+   * a new line in the same item; Enter on an empty item: up one level, and at the top level out
+   * of the list (at the end of the block, into a new paragraph block); Tab and Shift+Tab: nesting
+   * (1.1, 1.2); "- " or "1. " at the start of a line opens a list. True when the key was taken.
+   */
+  const listKeysIn = (b: Extract<Block, { t: "p" | "box" }>, el: HTMLElement, e: React.KeyboardEvent<HTMLDivElement>) => {
+    const changed = () => el.dispatchEvent(new Event("input", { bubbles: true }));
+    const li = caretLi(el);
+    if (!li) {
+      if (e.key === " " && !e.ctrlKey && !e.altKey && !e.metaKey) {
+        const pre = linePrefix(el);
+        const kind = pre && /^[-*•]$/.test(pre) ? "ul" : pre && /^1[.)]$/.test(pre) ? "ol" : null;
+        if (kind) {
+          e.preventDefault();
+          for (let k = 0; k < pre!.length; k++) document.execCommand("delete");
+          document.execCommand(kind === "ol" ? "insertOrderedList" : "insertUnorderedList");
+          return true;
+        }
+      }
+      return false;
+    }
+    if (e.key === "Tab") {
+      e.preventDefault();
+      if (e.shiftKey) outdentLi(li);
+      else if (!indentLi(li)) return true;
+      changed();
+      return true;
+    }
+    if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) {
+      if (liText(li).trim() || li.querySelector("span.im")) return true; // the browser opens the next item
+      e.preventDefault();
+      const list = li.parentElement!;
+      const nested = list.parentElement?.tagName === "LI";
+      if (!nested && !li.nextElementSibling && !li.querySelector("ol, ul") && listEndsBlock(el, list)) {
+        // the second Enter: out of the list, into a new block
+        li.remove();
+        if (!list.querySelector("li")) list.remove();
+        const h = cleanHtml(el.innerHTML.replace(/(<br>|\s)+$/, ""));
+        el.innerHTML = h;
+        patch(b.id, { html: h });
+        const nb = emptyBlock("p");
+        insertAfter(b.id, nb);
+        focus(nb.id, "start");
+        return true;
+      }
+      outdentLi(li);
+      changed();
+      return true;
+    }
+    if (e.key === "Backspace" && atLiStart(li)) {
+      e.preventDefault();
+      outdentLi(li);
+      changed();
+      return true;
+    }
+    return false;
+  };
+
   /** Markdown-like shortcuts at the start of a paragraph, and the "/" menu. */
   const paraInput = (b: Extract<Block, { t: "p" }>, h: string) => {
     const t = textOf(h);
@@ -365,8 +435,6 @@ export function Editor({
       [/^###\s/, () => ({ id: b.id, t: "h", level: 3, html: "" })],
       [/^##\s/, () => ({ id: b.id, t: "h", level: 2, html: "" })],
       [/^#\s/, () => ({ id: b.id, t: "h", level: 1, html: "" })],
-      [/^[-*•]\s/, () => ({ id: b.id, t: "list", ordered: false, items: [{ html: "", level: 0 }] })],
-      [/^1[.)]\s/, () => ({ id: b.id, t: "list", ordered: true, items: [{ html: "", level: 0 }] })],
       [/^>\s/, () => ({ id: b.id, t: "box", kind: "def", html: "" })],
       [/^\$\$$/, () => ({ id: b.id, t: "math", latex: "" })],
     ];
@@ -482,11 +550,17 @@ export function Editor({
   const cur = blocks.find((b) => b.id === current) ?? null;
   const convert = (to: string) => {
     if (!cur) return;
-    const html = cur.t === "p" || cur.t === "h" || cur.t === "box" ? cur.html : cur.t === "list" ? cur.items.map((x) => x.html).join("<br>") : "";
+    const html = cur.t === "p" || cur.t === "h" || cur.t === "box" ? cur.html : cur.t === "list" ? itemsHtml(cur.items, cur.ordered) : "";
     let nb: Block | null = null;
     if (to === "p") nb = { id: cur.id, t: "p", html };
-    else if (/^h[123]$/.test(to)) nb = { id: cur.id, t: "h", level: Number(to[1]) as 1 | 2 | 3, html };
-    else if (to === "ul" || to === "ol") nb = { id: cur.id, t: "list", ordered: to === "ol", items: html.split(/<br>/).map((h) => ({ html: h, level: 0 })) };
+    else if (/^h[123]$/.test(to)) nb = { id: cur.id, t: "h", level: Number(to[1]) as 1 | 2 | 3, html: cleanHtml(flatLists(html, () => "")) };
+    else if (to === "ul" || to === "ol") {
+      // the lines of the block become the items of a list inside it
+      const tag = to;
+      const lines = cleanHtml(flatLists(html, () => "").replace(/(^|<br>)(•|\d+(\.\d+)*\.?) /g, "$1")).split(/<br>/);
+      const list = `<${tag}>${lines.map((l) => `<li>${l || "<br>"}</li>`).join("")}</${tag}>`;
+      nb = cur.t === "box" ? { ...cur, html: list } : { id: cur.id, t: "p", html: list };
+    }
     else if (to.startsWith("box-")) nb = { id: cur.id, t: "box", kind: to.slice(4) as BoxKind, html, ...(cur.t === "box" && cur.latex ? { latex: cur.latex } : {}) };
     if (nb) {
       update((bs) => bs.map((b) => (b.id === cur.id ? nb! : b)), "struct");
@@ -728,8 +802,17 @@ export function Editor({
             <button className="sm-tbtn" disabled={!(cur?.t === "h" || cur?.t === "math")} aria-pressed={cur?.t === "h" || cur?.t === "math" ? !!cur.plain : false} onClick={() => (cur?.t === "h" || cur?.t === "math") && patch(cur.id, { plain: !cur.plain } as Partial<Block>, "struct")}>
               בלי מספר
             </button>
-            <button className="sm-tbtn" disabled={cur?.t !== "list"} onClick={() => cur?.t === "list" && patch(cur.id, { ordered: !cur.ordered } as Partial<Block>, "struct")}>
-              {cur?.t === "list" && cur.ordered ? "לתבליטים" : "למספור"}
+            <button
+              className="sm-tbtn"
+              disabled={!(cur?.t === "list" || cur?.t === "p" || cur?.t === "box")}
+              title="הרשימה שבה הסמן: מספרים או תבליטים"
+              onClick={() => {
+                if (cur?.t === "list") return patch(cur.id, { ordered: !cur.ordered } as Partial<Block>, "struct");
+                const el = activeEditable();
+                if (el) swapListKind(el);
+              }}
+            >
+              1. ⇄ •
             </button>
           </div>
           <div className="sm-group">
@@ -840,6 +923,26 @@ export function Editor({
       />
     </div>
   );
+}
+
+/** The items of an old list block, as a list inside a paragraph (levels become nesting). */
+function itemsHtml(items: ListItem[], ordered: boolean) {
+  const tag = ordered ? "ol" : "ul";
+  let out = "";
+  let depth = -1;
+  for (const it of items) {
+    const l = Math.min(it.level, depth + 1);
+    if (l > depth) out += `<${tag}><li>`;
+    else {
+      out += "</li>";
+      for (; depth > l; depth--) out += `</${tag}></li>`;
+      out += "<li>";
+    }
+    depth = l;
+    out += it.html || "<br>";
+  }
+  for (; depth >= 0; depth--) out += `</li></${tag}>`;
+  return out;
 }
 
 function SlashMenu({ items, sel, onPick }: { items: InsertItem[]; sel: number; onPick: (it: InsertItem) => void }) {

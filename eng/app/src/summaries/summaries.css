@@ -89,7 +89,10 @@
 .sm-lbl { display: inline-flex; align-items: center; gap: 6px; font-size: 0.8rem; color: var(--muted); }
 
 /* ---------- the sheet ---------- */
-.sm-page { max-width: calc(var(--measure) + 120px); margin: 18px auto 80px; padding: 28px 72px 40px 40px; padding-inline: 76px 40px; background-color: var(--sm-paper); border: 1px solid var(--line); box-shadow: 0 1px 2px rgb(0 0 0 / 5%), 0 8px 24px rgb(0 0 0 / 5%); min-height: 70vh; font-family: var(--read-font); font-size: var(--read-size); line-height: var(--sm-lh); color: var(--ink); position: relative; }
+.sm-app { --sm-w: calc(var(--measure) + 420px); }
+.sm-app.w-normal { --sm-w: calc(var(--measure) + 120px); }
+.sm-app.w-full { --sm-w: none; }
+.sm-page { max-width: var(--sm-w); margin: 18px auto 80px; padding: 28px 72px 40px 40px; padding-inline: 76px 40px; background-color: var(--sm-paper); border: 1px solid var(--line); box-shadow: 0 1px 2px rgb(0 0 0 / 5%), 0 8px 24px rgb(0 0 0 / 5%); min-height: 70vh; font-family: var(--read-font); font-size: var(--read-size); line-height: var(--sm-lh); color: var(--ink); position: relative; }
 .bg-lines .sm-page { background-image: linear-gradient(to left, transparent 54px, var(--sm-margin) 54px, var(--sm-margin) 56px, transparent 56px), repeating-linear-gradient(to bottom, transparent 0, transparent calc(var(--sm-lh) - 1px), var(--sm-rule) calc(var(--sm-lh) - 1px), var(--sm-rule) var(--sm-lh)); background-position: 0 0, 0 27px; }
 .bg-grid .sm-page { background-image: linear-gradient(to left, transparent 54px, var(--sm-margin) 54px, var(--sm-margin) 56px, transparent 56px), repeating-linear-gradient(to bottom, transparent 0, transparent 23px, var(--sm-rule) 23px, var(--sm-rule) 24px), repeating-linear-gradient(to left, transparent 0, transparent 23px, var(--sm-rule) 23px, var(--sm-rule) 24px); }
 .sm-block { position: relative; border-radius: 3px; }
@@ -292,3 +295,20 @@ span.im .katex { font-size: 1.04em; }
 .sm-row-insert .sm-tbtn { font-size: 0.8rem; padding: 4px 8px; }
 .sm-row .sm-group { padding-inline-end: 10px; gap: 3px; }
 .sm-row .sm-select { max-width: 110px; }
+
+/* page width */
+.sm-app.w-full .sm-page { margin-inline: 18px; }
+.sm-width button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.sm-width > span { min-width: 0; padding: 0 6px; }
+
+/* lists inside a paragraph or a box: numbered 1., 1.1, 1.1.1; bullets •, ◦, ▪ */
+.sm-rich ol, .sm-rich ul, .sm-ro ol, .sm-ro ul { margin: 0.1em 0 0.2em; padding-inline-start: 2.1em; }
+.sm-rich ol, .sm-ro ol { list-style: none; counter-reset: sm-li; }
+.sm-rich ol > li, .sm-ro ol > li { counter-increment: sm-li; position: relative; }
+.sm-rich ol > li::before, .sm-ro ol > li::before { content: counters(sm-li, ".") "."; position: absolute; inset-inline-end: 100%; margin-inline-end: 0.45em; white-space: nowrap; color: var(--accent); font-family: var(--mono); font-size: 0.86em; line-height: inherit; top: 0.08em; }
+.sm-rich li ol > li::before, .sm-ro li ol > li::before { content: counters(sm-li, "."); }
+.sm-rich li ol, .sm-rich li ul, .sm-ro li ol, .sm-ro li ul { margin: 0; padding-inline-start: 2.4em; }
+.sm-rich ul, .sm-ro ul { list-style: disc; }
+.sm-rich li ul, .sm-ro li ul { list-style: circle; }
+.sm-rich li li ul, .sm-ro li li ul { list-style: square; }
+.sm-rich li::marker, .sm-ro li::marker { color: var(--accent); }

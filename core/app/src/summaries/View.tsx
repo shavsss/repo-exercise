@@ -30,9 +30,9 @@ export function BlockView({ b, n, eq }: { b: Block; n?: string; eq?: number }) {
     }
     case "p":
       return (
-        <p className="sm-p sm-ro">
+        <div className="sm-p sm-ro">
           <Ro html={b.html} />
-        </p>
+        </div>
       );
     case "list": {
       const nums = itemNumbers(b.items);

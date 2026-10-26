@@ -83,8 +83,39 @@ const unq = (s: string) => s.replace(/&quot;/g, '"').replace(/&lt;/g, "<").repla
 /** equations inside a line, as $…$ */
 const dollars = (html: string) => html.replace(/<span[^>]*data-tex="([^"]*)"[^>]*>.*?<\/span>/g, (_, t) => `$${unq(t)}$`);
 
+/**
+ * Lists inside a block, as lines: each item with its number (1., 1.1, 1.1.1, as the editor
+ * draws them) or a bullet, indented by its depth.
+ */
+export function flatLists(html: string, pad: (depth: number) => string = (d) => "   ".repeat(d)) {
+  if (!/<(ol|ul)>/.test(html)) return html;
+  const stack: { ordered: boolean; n: number }[] = [];
+  let out = "";
+  for (const part of html.split(/(<\/?(?:ol|ul|li)>)/)) {
+    const m = /^<(\/?)(ol|ul|li)>$/.exec(part);
+    if (!m) {
+      // the break that holds an empty item open, or ends an item, is not a line of its own
+      out += stack.length ? part.replace(/<br>$/, "") : part;
+      continue;
+    }
+    const [, close, tag] = m;
+    if (tag !== "li") {
+      if (close) stack.pop();
+      else stack.push({ ordered: tag === "ol", n: 0 });
+      out += "\u0004";
+    } else if (close) out += "\u0004";
+    else if (stack.length) {
+      const top = stack[stack.length - 1];
+      top.n++;
+      const nums = stack.filter((x) => x.ordered).map((x) => x.n);
+      out += `\u0004${pad(stack.length - 1)}${top.ordered ? (nums.length === 1 ? `${nums[0]}.` : nums.join(".")) : "•"} `;
+    }
+  }
+  return out.replace(/(<br>)?\u0004(<br>)?/g, "\u0004").replace(/\u0004+/g, "<br>").replace(/^<br>|<br>$/g, "");
+}
+
 export function textOf(html: string) {
-  return dollars(html)
+  return dollars(flatLists(html))
     .replace(/<br\s*\/?>/gi, "\n")
     .replace(/<[^>]+>/g, "")
     .replace(/&nbsp;/g, " ")
