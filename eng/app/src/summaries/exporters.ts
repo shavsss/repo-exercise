@@ -29,12 +29,13 @@ import {
 import { convertLatexToMathMl } from "mathlive";
 import { figure } from "../library";
 import type { Block, BoxKind, ImgSize, MarkColor } from "./model";
-import { BOX_EMOJI, BOX_LABEL, BULLET_SIGN, esc, flatLists, headParts, itemNumbers, numbering, textOf } from "./model";
+import { BOX_EMOJI, BOX_LABEL, BULLET_SIGN, PROOF_LABEL, esc, flatLists, headParts, itemNumbers, numbering, textOf } from "./model";
 import { flatten } from "./media";
 
 type MathComponent = ConstructorParameters<typeof DMath>[0]["children"][number];
 
-const MARK_FILL: Record<MarkColor, string> = { y: "FFF1A6", r: "F7C9C3", b: "CFE1F2", g: "D2EBD4" };
+const PROOF_HEX: Record<string, string> = { def: "#355f7d", hyp: "#b0590c", giv: "#555", dev: "#6a4c8c", con: "#2e7d32" };
+const MARK_FILL: Record<MarkColor, string> = { y: "FFF1A6", r: "F7C9C3", b: "CFE1F2", g: "D2EBD4", p: "E6D6F2", o: "FBDDBF" };
 const BOX_COLOR: Record<BoxKind, [string, string]> = {
   def: ["355F7D", "E4ECF1"],
   eq: ["6A4C8C", "ECE6F1"],
@@ -152,7 +153,7 @@ function runs(html: string, base: { bold?: boolean; color?: string } = {}): (Tex
     if (tag === "i" || tag === "em") next.italics = true;
     if (tag === "sub") next.sub = true;
     if (tag === "sup") next.sup = true;
-    if (tag === "mark") next.mark = (el.className.match(/hl-([yrbg])/)?.[1] as MarkColor) ?? "y";
+    if (tag === "mark") next.mark = (el.className.match(/hl-([yrbgpo])/)?.[1] as MarkColor) ?? "y";
     el.childNodes.forEach((c) => walk(c, next));
   };
   box.childNodes.forEach((c) => walk(c, {}));
@@ -237,7 +238,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.9 "IBM Plex Sans
 main{max-width:46rem;margin:24px auto;padding:32px 40px;background:var(--paper);border:1px solid var(--line);
 background-image:linear-gradient(to left,transparent 2.4rem,#e8a4a0 2.4rem,#e8a4a0 calc(2.4rem + 1px),transparent calc(2.4rem + 1px));}
 h1,h2,h3,h4{line-height:1.35;margin:1.4em 0 .4em}h4{font-weight:400}.num{color:var(--accent);font-family:"IBM Plex Mono",monospace;margin-inline-end:.4em;font-weight:500}
-p{margin:0 0 .6em}mark{color:inherit;border-radius:2px;padding:0 2px}.hl-y{background:#fff1a6}.hl-r{background:#f7c9c3}.hl-b{background:#cfe1f2}.hl-g{background:#d2ebd4}
+p{margin:0 0 .6em}mark{color:inherit;border-radius:2px;padding:0 2px}.hl-y{background:#fff1a6}.hl-r{background:#f7c9c3}.hl-b{background:#cfe1f2}.hl-g{background:#d2ebd4}.hl-p{background:#e6d6f2}.hl-o{background:#fbddbf}
 .box{border-radius:6px;padding:10px 14px;margin:14px 0;border-inline-start:4px solid}.box .lbl{display:block;font-size:.78em;font-weight:700;letter-spacing:.02em}
 .box-def{background:#e4ecf1;border-color:#355f7d}.box-def .lbl{color:#355f7d}.box-eq{background:#ece6f1;border-color:#6a4c8c}.box-eq .lbl{color:#6a4c8c}
 .box-ex{background:#f4ebd6;border-color:#8a6100}.box-ex .lbl{color:#8a6100}.box-err{background:#f6e0dd;border-color:#a3161a}.box-err .lbl{color:#a3161a}
@@ -250,7 +251,10 @@ hr{border:none;border-top:1px solid var(--line);margin:1.4em 0}.p{margin:0 0 .6e
 .p ol,.p ul{margin:.1em 0 .2em;padding-inline-start:2.1em}.p ol{list-style:none;counter-reset:li}.p ol>li{counter-increment:li;position:relative}
 .p ol>li::before{content:counters(li,".") ".";position:absolute;inset-inline-end:100%;margin-inline-end:.45em;color:var(--accent);font-family:"IBM Plex Mono",monospace;font-size:.86em}
 .p li ol>li::before{content:counters(li,".")}.p li ol,.p li ul{margin:0;padding-inline-start:2.4em}.p li ul{list-style:circle}
-${Object.entries(BULLET_SIGN).filter(([k]) => k).map(([k, c]) => `.p ul.b-${k}{list-style-type:"${c}  "}`).join("")}`;
+${Object.entries(BULLET_SIGN).filter(([k]) => k).map(([k, c]) => `.p ul.b-${k}{list-style-type:"${c}  "}`).join("")}
+.p ol.n-heb>li::before{content:counter(li,hebrew) "."}.p ol.n-alpha>li::before{content:counter(li,lower-alpha) "."}.p ol.n-roman>li::before{content:counter(li,lower-roman) "."}
+.p ol.proof{padding-inline-start:0;counter-reset:def hyp giv dev con}.p ol.proof>li{counter-increment:none}.p ol.proof>li::before{position:static;margin-inline-end:.4em;font-family:inherit;font-weight:700;font-size:1em}
+${Object.entries(PROOF_LABEL).map(([k, l]) => `.p ol.proof>li.k-${k}{counter-increment:${k}}.p ol.proof>li.k-${k}::before{content:"${l} " counter(${k}) ":";color:${PROOF_HEX[k]}}`).join("")}`;
 
 const mathHtml = (latex: string, display = true) => {
   try {

@@ -139,7 +139,8 @@ fs.writeFileSync(
 
 // the summaries notebook (#summary): one Markdown file with every module's summary
 const BOX = { def: "📘 הגדרה", eq: "🧮 נוסחה מרכזית", ex: "🔢 דוגמה מספרית", err: "⚠️ טעות נפוצה", q: "❓ שאלה פתוחה", con: "✅ מסקנה" };
-const MARK = { y: "חשוב", r: "טעות", b: "הגדרה", g: "תובנה" };
+const MARK = { y: "חשוב", r: "טעות", b: "הגדרה", g: "תובנה", p: "משתנה", o: "הנחת יסוד" };
+const PROOF = { def: "הגדרה", hyp: "הנחה", giv: "נתון", dev: "פיתוח", con: "מסקנה" };
 /** Lists inside a block, as lines with their numbers (1., 1.1) or bullets; as flatLists in the app. */
 function flatLists(html) {
   if (!/<(ol|ul)[ >]/.test(html)) return html;
@@ -154,12 +155,18 @@ function flatLists(html) {
     const [, close, tag] = m;
     if (tag !== "li") {
       if (close) stack.pop();
-      else stack.push({ ordered: tag === "ol", n: Number(/start="(\d+)"/.exec(m[3])?.[1] ?? 1) - 1 });
+      else stack.push({ ordered: tag === "ol", n: Number(/start="(\d+)"/.exec(m[3])?.[1] ?? 1) - 1, proof: /class="[^"]*\bproof\b/.test(m[3]) ? {} : null });
       out += "\u0004";
     } else if (close) out += "\u0004";
     else if (stack.length) {
       const top = stack[stack.length - 1];
       top.n++;
+      if (top.proof) {
+        const k = /k-(\w+)/.exec(m[3])?.[1] ?? "def";
+        top.proof[k] = (top.proof[k] ?? 0) + 1;
+        out += `\u0004${"   ".repeat(stack.length - 1)}**${PROOF[k] ?? k} ${top.proof[k]}:** `;
+        continue;
+      }
       const nums = stack.filter((x) => x.ordered).map((x) => x.n);
       out += `\u0004${"   ".repeat(stack.length - 1)}${top.ordered ? (nums.length === 1 ? `${nums[0]}.` : nums.join(".")) : "-"} `;
     }

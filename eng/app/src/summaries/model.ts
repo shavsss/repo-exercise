@@ -2,7 +2,7 @@
 // labs (core/app and eng/app); keep the copies identical.
 
 export type BoxKind = "def" | "eq" | "ex" | "err" | "q" | "con";
-export type MarkColor = "y" | "r" | "b" | "g";
+export type MarkColor = "y" | "r" | "b" | "g" | "p" | "o";
 export type ShapeColor = MarkColor | "k";
 export interface Shape {
   t: "arrow" | "rect" | "ellipse" | "text";
@@ -49,7 +49,7 @@ export const BOX_LABEL: Record<BoxKind, string> = { def: "הגדרה", eq: "נו
 export const BOX_EMOJI: Record<BoxKind, string> = { def: "📘", eq: "🧮", ex: "🔢", err: "⚠️", q: "❓", con: "✅" };
 /** emojis offered beside a heading */
 export const HEAD_EMOJI = ["📡", "🎯", "🛰️", "🚀", "✈️", "🛡️", "⚡", "🔋", "📶", "🔭", "🌡️", "🌊", "🧲", "⚙️", "🔧", "🧮", "📐", "📊", "📈", "🗺️", "🧭", "💡", "🧠", "🔍", "⚠️", "✅", "❓", "📌", "🔥", "⭐", "📘", "📝", "🎓", "🏁", "⏱️", "💰"];
-export const MARK_LABEL: Record<MarkColor, string> = { y: "חשוב", r: "טעות או אזהרה", b: "הגדרה", g: "תובנה" };
+export const MARK_LABEL: Record<MarkColor, string> = { y: "חשוב", r: "טעות או אזהרה", b: "הגדרה", g: "תובנה", p: "משתנה (הגדרת משתנים)", o: "הנחה (הנחת יסוד)" };
 export const STATUS_LABEL: Record<SummaryStatus, string> = { none: "לא התחיל", draft: "טיוטה", done: "מוכן" };
 
 export const uid = () => Math.random().toString(36).slice(2, 10);
@@ -90,7 +90,7 @@ const dollars = (html: string) => html.replace(/<span[^>]*data-tex="([^"]*)"[^>]
  */
 export function flatLists(html: string, pad: (depth: number) => string = (d) => "   ".repeat(d)) {
   if (!/<(ol|ul)[ >]/.test(html)) return html;
-  const stack: { ordered: boolean; n: number; bullet: string }[] = [];
+  const stack: { ordered: boolean; n: number; bullet: string; style: string; proof: Record<string, number> | null }[] = [];
   let out = "";
   for (const part of html.split(/(<\/?(?:ol|ul|li)(?: [a-z-]+="[^"]*")*>)/)) {
     const m = /^<(\/?)(ol|ul|li)((?: [a-z-]+="[^"]*")*)>$/.exec(part);
@@ -102,17 +102,39 @@ export function flatLists(html: string, pad: (depth: number) => string = (d) => 
     const [, close, tag] = m;
     if (tag !== "li") {
       if (close) stack.pop();
-      else stack.push({ ordered: tag === "ol", n: Number(/start="(\d+)"/.exec(m[3])?.[1] ?? 1) - 1, bullet: BULLET_SIGN[/b-(\w+)/.exec(m[3])?.[1] ?? ""] ?? "•" });
+      else {
+        const cls = /class="([^"]*)"/.exec(m[3])?.[1] ?? "";
+        stack.push({ ordered: tag === "ol", n: Number(/start="(\d+)"/.exec(m[3])?.[1] ?? 1) - 1, bullet: BULLET_SIGN[/b-(\w+)/.exec(cls)?.[1] ?? ""] ?? "•", style: /n-(\w+)/.exec(cls)?.[1] ?? "", proof: /\bproof\b/.test(cls) ? {} : null });
+      }
       out += "\u0004";
     } else if (close) out += "\u0004";
     else if (stack.length) {
       const top = stack[stack.length - 1];
       top.n++;
-      const nums = stack.filter((x) => x.ordered).map((x) => x.n);
-      out += `\u0004${pad(stack.length - 1)}${top.ordered ? (nums.length === 1 ? `${nums[0]}.` : nums.join(".")) : top.bullet} `;
+      if (top.proof) {
+        // a proof list: each kind of step numbered on its own ("הנחה 2:")
+        const k = /k-(\w+)/.exec(m[3])?.[1] ?? "def";
+        top.proof[k] = (top.proof[k] ?? 0) + 1;
+        out += `\u0004${pad(stack.length - 1)}${PROOF_LABEL[k] ?? k} ${top.proof[k]}: `;
+        continue;
+      }
+      const nums = stack.filter((x) => x.ordered && !x.proof).map((x) => x.n);
+      const num = top.style ? `${numIn(top.n, top.style)}.` : nums.length === 1 ? `${nums[0]}.` : nums.join(".");
+      out += `\u0004${pad(stack.length - 1)}${top.ordered ? num : top.bullet} `;
     }
   }
   return out.replace(/(<br>)?\u0004(<br>)?/g, "\u0004").replace(/\u0004+/g, "<br>").replace(/^<br>|<br>$/g, "");
+}
+
+/** The steps of a proof list (ol.proof, each item li.k-…), each numbered on its own. */
+export const PROOF_LABEL: Record<string, string> = { def: "הגדרה", hyp: "הנחה", giv: "נתון", dev: "פיתוח", con: "מסקנה" };
+/** Numbered lists counted in letters (class n-…): Hebrew, Latin, Roman. */
+export const NUM_STYLE: Record<string, string> = { heb: "א.", alpha: "a.", roman: "i." };
+function numIn(n: number, style: string) {
+  if (style === "heb") return "אבגדהוזחטיכלמנסעפצקרשת"[n - 1] ?? String(n);
+  if (style === "alpha") return "abcdefghijklmnopqrstuvwxyz"[n - 1] ?? String(n);
+  if (style === "roman") return ["i", "ii", "iii", "iv", "v", "vi", "vii", "viii", "ix", "x", "xi", "xii"][n - 1] ?? String(n);
+  return String(n);
 }
 
 /** The sign of each kind of bullet (the class b-… of a bulleted list). */

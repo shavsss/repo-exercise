@@ -11,21 +11,21 @@
   --sm-err: #a3161a; --sm-err-bg: #f7e2df;
   --sm-q: #9a4f12; --sm-q-bg: #f5e7d9;
   --sm-con: #2e7d32; --sm-con-bg: #e3f1e4;
-  --hl-y: #fbe983; --hl-r: #f6c2bb; --hl-b: #c6dcef; --hl-g: #c9e6cc;
+  --hl-y: #fbe983; --hl-r: #f6c2bb; --hl-b: #c6dcef; --hl-g: #c9e6cc; --hl-p: #e3d0f2; --hl-o: #fcd6b0;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --sm-paper: #1d2019; --sm-rule: #2b3127; --sm-margin: #5e3330;
     --sm-def: #94bfdc; --sm-def-bg: #1f2a31; --sm-eq: #c9b0ef; --sm-eq-bg: #29233a; --sm-ex: #e0c46c; --sm-ex-bg: #2e2a1a;
     --sm-err: #ff8f84; --sm-err-bg: #36201e; --sm-q: #e6a75c; --sm-q-bg: #33281c; --sm-con: #8fd39a; --sm-con-bg: #1d2f22;
-    --hl-y: #6b5a17; --hl-r: #6a2c27; --hl-b: #24445e; --hl-g: #2b4d31;
+    --hl-y: #6b5a17; --hl-r: #6a2c27; --hl-b: #24445e; --hl-g: #2b4d31; --hl-p: #4a2f60; --hl-o: #6e4115;
   }
 }
 :root[data-theme="dark"] {
   --sm-paper: #1d2019; --sm-rule: #2b3127; --sm-margin: #5e3330;
   --sm-def: #94bfdc; --sm-def-bg: #1f2a31; --sm-eq: #c9b0ef; --sm-eq-bg: #29233a; --sm-ex: #e0c46c; --sm-ex-bg: #2e2a1a;
   --sm-err: #ff8f84; --sm-err-bg: #36201e; --sm-q: #e6a75c; --sm-q-bg: #33281c; --sm-con: #8fd39a; --sm-con-bg: #1d2f22;
-  --hl-y: #6b5a17; --hl-r: #6a2c27; --hl-b: #24445e; --hl-g: #2b4d31;
+  --hl-y: #6b5a17; --hl-r: #6a2c27; --hl-b: #24445e; --hl-g: #2b4d31; --hl-p: #4a2f60; --hl-o: #6e4115;
 }
 
 /* ---------- frame ---------- */
@@ -83,7 +83,7 @@
 .sm-tbtn.mark-btn[aria-pressed="true"] { color: var(--ink); box-shadow: 0 0 0 2px var(--ink); border-color: var(--ink); }
 .sm-tbtn.danger { color: var(--err); }
 .sm-tbtn:focus-visible, .sm-tabs button:focus-visible, .sm-ribbon-tabs [role="tab"]:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
-.sm-tbtn.mark-btn.hl-y { background: var(--hl-y); } .sm-tbtn.mark-btn.hl-r { background: var(--hl-r); } .sm-tbtn.mark-btn.hl-b { background: var(--hl-b); } .sm-tbtn.mark-btn.hl-g { background: var(--hl-g); }
+.sm-tbtn.mark-btn.hl-y { background: var(--hl-y); } .sm-tbtn.mark-btn.hl-r { background: var(--hl-r); } .sm-tbtn.mark-btn.hl-b { background: var(--hl-b); } .sm-tbtn.mark-btn.hl-g { background: var(--hl-g); } .sm-tbtn.mark-btn.hl-p { background: var(--hl-p); } .sm-tbtn.mark-btn.hl-o { background: var(--hl-o); }
 .sm-tbtn.box-chip { border-inline-start-width: 3px; }
 .sm-tbtn.box-box-def { border-inline-start-color: var(--sm-def); } .sm-tbtn.box-box-eq { border-inline-start-color: var(--sm-eq); } .sm-tbtn.box-box-ex { border-inline-start-color: var(--sm-ex); } .sm-tbtn.box-box-err { border-inline-start-color: var(--sm-err); } .sm-tbtn.box-box-q { border-inline-start-color: var(--sm-q); }
 .sm-select { font: inherit; font-size: 0.82rem; padding: 3px 6px; border: 1px solid var(--line); border-radius: 4px; background: var(--paper); color: var(--ink); }
@@ -115,7 +115,7 @@
 .sm-block:first-child .sm-h1 { margin-top: 0; font-size: 1.6em; }
 .sm-ro { word-break: break-word; }
 mark { color: inherit; padding: 0 2px; border-radius: 2px; }
-mark.hl-y, .hl-y mark { background: var(--hl-y); } mark.hl-r { background: var(--hl-r); } mark.hl-b { background: var(--hl-b); } mark.hl-g { background: var(--hl-g); }
+mark.hl-y, .hl-y mark { background: var(--hl-y); } mark.hl-r { background: var(--hl-r); } mark.hl-b { background: var(--hl-b); } mark.hl-g { background: var(--hl-g); } mark.hl-p { background: var(--hl-p); } mark.hl-o { background: var(--hl-o); }
 mark:not([class]) { background: var(--hl-y); }
 
 .sm-list .sm-li { display: flex; gap: 8px; align-items: baseline; }
@@ -333,3 +333,26 @@ span.im .katex { font-size: 1.04em; }
 .sm-bullets-pop button[aria-pressed="true"] { border-color: var(--ink); }
 /* a list written under a heading's text: plain text, not the heading's weight */
 .sm-h .sm-rich ol, .sm-h .sm-rich ul, .sm-h .sm-ro ol, .sm-h ol, .sm-h ul { font-weight: 400; font-size: var(--read-size, 1rem); }
+
+/* numbered lists in letters */
+.sm-rich ol.n-heb > li::before, .sm-ro ol.n-heb > li::before { content: counter(sm-li, hebrew) "."; }
+.sm-rich ol.n-alpha > li::before, .sm-ro ol.n-alpha > li::before { content: counter(sm-li, lower-alpha) "."; }
+.sm-rich ol.n-roman > li::before, .sm-ro ol.n-roman > li::before { content: counter(sm-li, lower-roman) "."; }
+
+/* a proof list: הגדרה 1, הנחה 1, נתון 1, פיתוח 1, מסקנה 1, each kind counted on its own */
+.sm-app { --pf-def: #355f7d; --pf-hyp: #b0590c; --pf-giv: #5f6152; --pf-dev: #6a4c8c; --pf-con: #2e7d32; }
+.sm-rich ol.proof, .sm-ro ol.proof { padding-inline-start: 0; counter-reset: pf-def pf-hyp pf-giv pf-dev pf-con; }
+.sm-rich ol.proof > li, .sm-ro ol.proof > li { counter-increment: pf-def; margin-bottom: 0.15em; }
+.sm-rich ol.proof > li::before, .sm-ro ol.proof > li::before { content: "הגדרה " counter(pf-def) ":"; position: static; margin-inline-end: 0.4em; font-family: var(--font); font-size: 0.95em; font-weight: 700; color: var(--pf-def); top: auto; }
+.sm-rich ol.proof > li.k-hyp, .sm-ro ol.proof > li.k-hyp { counter-increment: pf-hyp; }
+.sm-rich ol.proof > li.k-hyp::before, .sm-ro ol.proof > li.k-hyp::before { content: "הנחה " counter(pf-hyp) ":"; color: var(--pf-hyp); }
+.sm-rich ol.proof > li.k-giv, .sm-ro ol.proof > li.k-giv { counter-increment: pf-giv; }
+.sm-rich ol.proof > li.k-giv::before, .sm-ro ol.proof > li.k-giv::before { content: "נתון " counter(pf-giv) ":"; color: var(--pf-giv); }
+.sm-rich ol.proof > li.k-dev, .sm-ro ol.proof > li.k-dev { counter-increment: pf-dev; }
+.sm-rich ol.proof > li.k-dev::before, .sm-ro ol.proof > li.k-dev::before { content: "פיתוח " counter(pf-dev) ":"; color: var(--pf-dev); }
+.sm-rich ol.proof > li.k-con, .sm-ro ol.proof > li.k-con { counter-increment: pf-con; }
+.sm-rich ol.proof > li.k-con::before, .sm-ro ol.proof > li.k-con::before { content: "מסקנה " counter(pf-con) ":"; color: var(--pf-con); }
+.sm-proof-pop button { width: auto; padding: 0 9px; font-size: 0.82rem; font-weight: 600; }
+.sm-proof-pop .k-def { color: var(--pf-def); } .sm-proof-pop .k-hyp { color: var(--pf-hyp); } .sm-proof-pop .k-giv { color: var(--pf-giv); } .sm-proof-pop .k-dev { color: var(--pf-dev); } .sm-proof-pop .k-con { color: var(--pf-con); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .sm-app { --pf-def: #8fb8d6; --pf-hyp: #f0a35e; --pf-giv: #b9bba8; --pf-dev: #c3a6e0; --pf-con: #8fcf92; } }
+:root[data-theme="dark"] .sm-app { --pf-def: #8fb8d6; --pf-hyp: #f0a35e; --pf-giv: #b9bba8; --pf-dev: #c3a6e0; --pf-con: #8fcf92; }

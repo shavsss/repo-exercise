@@ -35,7 +35,7 @@ export function cleanHtml(html: string) {
   // a mark left with nothing in it (where the caret left a mark) is dropped
   box.querySelectorAll("mark").forEach((m) => !(m.textContent ?? "").replace(/\u200b/g, "") && !m.querySelector("br, span.im") && m.remove());
   const res = box.innerHTML.replace(/\u200b/g, "");
-  return res === "<br>" ? "" : res.replace(/<mark(?! class="hl-[yrbg]")[^>]*>/g, "<mark>");
+  return res === "<br>" ? "" : res.replace(/<mark(?! class="hl-[yrbgpo]")[^>]*>/g, "<mark>");
 }
 
 /** Draws the equations inside a line (KaTeX) where they are not drawn yet; a numbered list that
@@ -463,17 +463,20 @@ export function swapListKind(el: HTMLElement) {
   const li = caretLi(el);
   const list = li?.parentElement;
   if (!li || !list) return false;
-  const sel = window.getSelection();
-  const r = sel?.rangeCount ? sel.getRangeAt(0).cloneRange() : null;
-  const nl = document.createElement(list.tagName === "OL" ? "ul" : "ol");
-  nl.append(...Array.from(list.childNodes));
-  list.replaceWith(nl);
-  if (r) {
-    sel!.removeAllRanges();
-    sel!.addRange(r);
-  }
+  retagList(list, list.tagName === "OL" ? "ul" : "ol");
   el.dispatchEvent(new Event("input", { bubbles: true }));
   return true;
+}
+
+/** A list becomes numbered or bulleted (its items and the caret stay); the new element. */
+export function retagList(list: HTMLElement, tag: "ol" | "ul") {
+  if (list.tagName.toLowerCase() === tag) return list;
+  const back = keepCaret();
+  const nl = document.createElement(tag);
+  nl.append(...Array.from(list.childNodes));
+  list.replaceWith(nl);
+  back(nl.firstChild ?? nl);
+  return nl;
 }
 
 /**

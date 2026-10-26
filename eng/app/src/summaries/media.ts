@@ -3,7 +3,7 @@
 import type { Shape, ShapeColor } from "./model";
 
 /** Fixed colours for the marks drawn on pictures, readable on any picture. */
-export const SHAPE_HEX: Record<ShapeColor, string> = { y: "#e0a800", r: "#d32f2f", b: "#1f6fb2", g: "#2e7d32", k: "#222222" };
+export const SHAPE_HEX: Record<ShapeColor, string> = { y: "#e0a800", r: "#d32f2f", b: "#1f6fb2", g: "#2e7d32", p: "#7b3fa0", o: "#d9730d", k: "#222222" };
 
 function loadImage(src: string): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {

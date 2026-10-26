@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import type { Block, BoxKind, ListItem, MarkColor } from "./model";
 import { BOX_EMOJI, BOX_LABEL, HEAD_EMOJI, MARK_LABEL, emptyBlock, flatLists, itemNumbers, numbering, textOf, uid } from "./model";
-import { activeEditable, applyMark, applyStyle, atLiStart, caret, caretLi, caretMark, caretOnEdgeLine, cleanHtml, convertDollars, hydrateMath, indentLi, insertMathAt, leaveMark, linePrefix, listEndsBlock, liText, outdentLi, pastedHtml, placeCaret, splitAtCaret, swapListKind } from "./rich";
+import { activeEditable, applyMark, applyStyle, atLiStart, caret, caretLi, caretMark, caretOnEdgeLine, retagList, cleanHtml, convertDollars, hydrateMath, indentLi, insertMathAt, leaveMark, linePrefix, listEndsBlock, liText, outdentLi, pastedHtml, placeCaret, splitAtCaret, swapListKind } from "./rich";
 import { MathEditor, MathView } from "./MathEdit";
 import { Picture } from "./Picture";
 import { storeImage } from "./media";
@@ -34,7 +34,7 @@ const INSERT: InsertItem[] = [
   { id: "fig", label: "איור מהספר", short: "📖 איור מהספר", hint: "מספרי הספרייה", keys: "fig איור ספר" },
   { id: "hr", label: "קו מפריד", short: "― קו", hint: "", keys: "hr קו מפריד", make: () => emptyBlock("hr") },
 ];
-const MARKS: MarkColor[] = ["y", "r", "b", "g"];
+const MARKS: MarkColor[] = ["y", "r", "b", "g", "p", "o"];
 
 /** Symbols that are not on the keyboard: the character for text, and its LaTeX for an equation. */
 const SYMBOLS: { title: string; items: [string, string][] }[] = [
@@ -63,26 +63,61 @@ interface Fmt {
   list: "ol" | "ul" | null;
   /** the bullet of the bulleted list at the caret ("" for the plain dot) */
   bullet: string;
+  /** the list at the caret, as "ul:b-dash", "ol:n-heb", "ol:proof" */
+  kind: string;
+  /** in a proof list, the kind of the step at the caret */
+  step: string;
 }
-const NO_FMT: Fmt = { b: false, i: false, sup: false, sub: false, mark: null, list: null, bullet: "" };
-/** bullets a list can have: its class (b-…), the sign, and its name */
-const BULLETS: [string, string, string][] = [
-  ["", "•", "עיגול"],
-  ["circle", "◦", "עיגול ריק"],
-  ["square", "▪", "ריבוע"],
-  ["dash", "–", "קו"],
-  ["arrow", "←", "חץ"],
-  ["check", "✓", "וי"],
-  ["star", "★", "כוכב"],
-  ["diamond", "◆", "יהלום"],
+const NO_FMT: Fmt = { b: false, i: false, sup: false, sub: false, mark: null, list: null, bullet: "", kind: "", step: "" };
+/** the kinds of list the ribbon offers: tag, class, sign, name */
+const LIST_KINDS: ["ol" | "ul", string, string, string][] = [
+  ["ul", "", "•", "עיגול"],
+  ["ul", "b-circle", "◦", "עיגול ריק"],
+  ["ul", "b-square", "▪", "ריבוע"],
+  ["ul", "b-dash", "–", "קו"],
+  ["ul", "b-arrow", "←", "חץ"],
+  ["ul", "b-check", "✓", "וי"],
+  ["ul", "b-star", "★", "כוכב"],
+  ["ul", "b-diamond", "◆", "יהלום"],
+  ["ol", "", "1.", "מספרים (1.1)"],
+  ["ol", "n-heb", "א.", "אותיות"],
+  ["ol", "n-alpha", "a.", "אותיות לטיניות"],
+  ["ol", "n-roman", "i.", "ספרות רומיות"],
 ];
-/** the bulleted list at the caret gets another bullet */
-function setBullet(kind: string) {
+/** the steps of a proof list, each numbered on its own */
+const PROOF_STEPS: [string, string][] = [
+  ["def", "הגדרה"],
+  ["hyp", "הנחה"],
+  ["giv", "נתון"],
+  ["dev", "פיתוח"],
+  ["con", "מסקנה"],
+];
+/**
+ * The list at the caret becomes this kind, or (with no list there) a list of this kind starts on
+ * the caret's line; in a heading, on a new line under its text. Proof steps: the step's kind.
+ */
+function applyListKind(tag: "ol" | "ul", cls: string, step?: string) {
   const el = activeEditable();
-  const list = el ? caretLi(el)?.parentElement : null;
-  if (!el || !list || list.tagName !== "UL") return;
-  list.className = kind ? `b-${kind}` : "";
-  if (!kind) list.removeAttribute("class");
+  if (!el) return;
+  let li = caretLi(el);
+  if (!li) {
+    if (el.closest(".sm-h") && !onLaterLine(el)) {
+      placeCaret(el, "end");
+      document.execCommand("insertLineBreak");
+    }
+    document.execCommand(tag === "ol" ? "insertOrderedList" : "insertUnorderedList");
+    li = caretLi(el);
+  }
+  const old = li?.parentElement;
+  if (!li || !old) return;
+  // a step chosen inside a proof list changes only that step
+  if (!(step && old.classList.contains("proof"))) {
+    const list = retagList(old, tag);
+    if (cls) list.className = cls;
+    else list.removeAttribute("class");
+  }
+  if (step) li.className = `k-${step}`;
+  else li.removeAttribute("class");
   el.dispatchEvent(new Event("input", { bubbles: true }));
 }
 /** whether the caret is on a line below the first line of an editable */
@@ -108,9 +143,11 @@ function readFmt(): Fmt {
     i: q("italic"),
     sup: q("superscript"),
     sub: q("subscript"),
-    mark: caretMark()?.className.match(/hl-[yrbg]/)?.[0] ?? null,
+    mark: caretMark()?.className.match(/hl-[yrbgpo]/)?.[0] ?? null,
     list: list ? (list.tagName === "OL" ? "ol" : "ul") : null,
     bullet: list?.className.match(/b-(\w+)/)?.[1] ?? "",
+    kind: list ? `${list.tagName.toLowerCase()}:${list.className.match(/(?:b|n)-\w+|proof/)?.[0] ?? ""}` : "",
+    step: list?.classList.contains("proof") ? (li!.className.match(/k-(\w+)/)?.[1] ?? "def") : "",
   };
 }
 
@@ -191,7 +228,7 @@ export function Editor({
   const [emojiFor, setEmojiFor] = useState<string | null>(null);
   /** what is on at the caret, so the ribbon shows it while writing */
   const [fmt, setFmt] = useState<Fmt>(NO_FMT);
-  const [bulletPop, setBulletPop] = useState(false);
+  const [pop, setPop] = useState<"list" | "proof" | null>(null);
   const refreshFmt = () =>
     setFmt((old) => {
       const n = readFmt();
@@ -376,7 +413,7 @@ export function Editor({
         return;
       }
     }
-    if (e.altKey && /^[0-4]$/.test(e.key)) {
+    if (e.altKey && /^[0-6]$/.test(e.key)) {
       e.preventDefault();
       applyMark(e.key === "0" ? null : `hl-${MARKS[Number(e.key) - 1]}`);
       refreshFmt();
@@ -589,7 +626,7 @@ export function Editor({
       const body = new DOMParser().parseFromString(prev.html, "text/html").body;
       let last = body.lastChild;
       while (last && (last.nodeName === "BR" || (last.nodeType === 3 && !last.textContent!.trim()))) last = last.previousSibling;
-      if (last && (last.nodeName === "OL" || last.nodeName === "UL")) {
+      if (last && (last.nodeName === "OL" || last.nodeName === "UL") && !(last as Element).classList.contains("proof")) {
         const n = (Number((last as Element).getAttribute("start")) || 1) + (last as Element).querySelectorAll(":scope > li").length;
         html = last.nodeName === "OL" ? `<ol start="${n}"><li><br></li></ol>` : "<ul><li><br></li></ul>";
       }
@@ -649,7 +686,7 @@ export function Editor({
     const el = e.currentTarget;
     const it = b.items[i];
     const setItems = (items: ListItem[], kind: Change = "struct") => patch(b.id, { items } as Partial<Block>, kind);
-    if (e.altKey && /^[0-4]$/.test(e.key)) {
+    if (e.altKey && /^[0-6]$/.test(e.key)) {
       e.preventDefault();
       applyMark(e.key === "0" ? null : `hl-${MARKS[Number(e.key) - 1]}`);
       refreshFmt();
@@ -936,6 +973,34 @@ export function Editor({
                 {it.short ?? it.label}
               </button>
             ))}
+            <span className="sm-bullets-wrap">
+              <button className="sm-tbtn" aria-expanded={pop === "list"} aria-pressed={!!fmt.kind && fmt.kind !== "ol:proof"} title="עוד סוגי רשימה: תבליטים ומספור" onClick={() => setPop(pop === "list" ? null : "list")}>
+                {LIST_KINDS.find((x) => `${x[0]}:${x[1]}` === fmt.kind)?.[2] ?? "◦"} רשימה ▾
+              </button>
+              {pop === "list" && (
+                <span className="sm-bullets-pop" role="listbox">
+                  {LIST_KINDS.map(([tag, cls, sign, name]) => (
+                    <button key={tag + cls} aria-pressed={fmt.kind === `${tag}:${cls}`} title={name} onClick={act(() => (applyListKind(tag, cls), setPop(null)))}>
+                      {sign}
+                    </button>
+                  ))}
+                </span>
+              )}
+            </span>
+            <span className="sm-bullets-wrap">
+              <button className="sm-tbtn" aria-expanded={pop === "proof"} aria-pressed={fmt.kind === "ol:proof"} title="רשימת הוכחה: הגדרה 1, הנחה 1, נתון 1, פיתוח 1, מסקנה 1. כל סוג ממוספר לבד; Enter ממשיך באותו סוג" onClick={() => setPop(pop === "proof" ? null : "proof")}>
+                ∴ הוכחה ▾
+              </button>
+              {pop === "proof" && (
+                <span className="sm-bullets-pop sm-proof-pop" role="listbox">
+                  {PROOF_STEPS.map(([k, name]) => (
+                    <button key={k} className={`k-${k}`} aria-pressed={fmt.step === k} onClick={act(() => (applyListKind("ol", "proof", k), setPop(null)))}>
+                      {name}
+                    </button>
+                  ))}
+                </span>
+              )}
+            </span>
           </div>
           <div className="sm-group">
             {INSERT.filter((x) => x.id.startsWith("box-")).map((it) => (
@@ -1021,20 +1086,6 @@ export function Editor({
             >
               1. ⇄ •
             </button>
-            <span className="sm-bullets-wrap">
-              <button className="sm-tbtn" disabled={fmt.list !== "ul"} aria-expanded={bulletPop} title="סימן התבליטים של הרשימה שבה הסמן" onClick={() => setBulletPop(!bulletPop)}>
-                {BULLETS.find((x) => x[0] === fmt.bullet)?.[1] ?? "•"} ▾
-              </button>
-              {bulletPop && (
-                <span className="sm-bullets-pop" role="listbox">
-                  {BULLETS.map(([k, ch, name]) => (
-                    <button key={k} aria-pressed={fmt.bullet === k} title={name} onClick={act(() => (setBullet(k), setBulletPop(false)))}>
-                      {ch}
-                    </button>
-                  ))}
-                </span>
-              )}
-            </span>
           </div>
           <div className="sm-group">
             <button className="sm-tbtn" disabled={!cur} onClick={() => cur && move(cur.id, -1)} title="הזז למעלה">
