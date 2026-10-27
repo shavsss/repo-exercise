@@ -2,6 +2,8 @@
 // labs (core/app and eng/app); keep the copies identical.
 
 export type BoxKind = "def" | "eq" | "ex" | "err" | "q" | "con";
+/** how a box's text is aligned: start (right, in Hebrew), centre, end (left), or justified */
+export type BoxAlign = "start" | "center" | "end" | "justify";
 export type MarkColor = "y" | "r" | "b" | "g" | "p" | "o";
 export type ShapeColor = MarkColor | "k";
 export interface Shape {
@@ -25,7 +27,7 @@ export type Block =
   | { id: string; t: "p"; html: string }
   | { id: string; t: "list"; ordered: boolean; items: ListItem[] }
   /** title: a short title of the box's own, beside its kind ("מסקנה · למה SRT מהיר") */
-  | { id: string; t: "box"; kind: BoxKind; html: string; latex?: string; title?: string }
+  | { id: string; t: "box"; kind: BoxKind; html: string; latex?: string; title?: string; align?: BoxAlign }
   | { id: string; t: "math"; latex: string; plain?: boolean }
   | { id: string; t: "img"; src: string; w: number; h: number; size: ImgSize; side?: boolean; caption: string; marks: Shape[] }
   | { id: string; t: "fig"; doc: string; key: string; size: ImgSize; side?: boolean; caption: string; marks: Shape[] }

@@ -377,8 +377,12 @@ span.im .katex { font-size: 1.04em; }
 .sm-rich li ol.proof, .sm-ro li ol.proof { padding-inline-start: 2.4em; }
 
 /* a box's own short title, beside its kind */
-.sm-box-title { flex: 1; min-width: 0; border: 0; border-bottom: 1px dashed transparent; background: none; padding: 1px 2px; font: 600 0.95rem/1.4 var(--font); color: var(--ink); outline: none; }
+.sm-box-title { flex: 1; min-width: 0; border: 0; border-bottom: 1px dashed transparent; background: none; padding: 1px 2px; font: 700 0.95rem/1.4 var(--font); color: inherit; outline: none; }
 .sm-box-title::placeholder { color: var(--muted); font-weight: 400; opacity: 0; }
 .sm-block.is-current .sm-box-title::placeholder, .sm-box-title:hover::placeholder, .sm-box-title:focus::placeholder { opacity: 0.7; }
 .sm-box-title:hover, .sm-box-title:focus { border-bottom-color: currentColor; }
-.sm-box-title-ro { font: 600 0.95rem/1.4 var(--font); color: var(--ink); }
+.sm-box-title-ro { font: 700 0.95rem/1.4 var(--font); color: inherit; }
+/* a box's text: centred, to the left, or justified */
+.sm-rich.al-center, .sm-ro.al-center { text-align: center; } .sm-rich.al-end, .sm-ro.al-end { text-align: end; } .sm-rich.al-justify, .sm-ro.al-justify { text-align: justify; }
+.sm-align { display: inline-flex; gap: 1px; }
+.sm-align .sm-tbtn { padding-inline: 5px; display: inline-flex; align-items: center; }

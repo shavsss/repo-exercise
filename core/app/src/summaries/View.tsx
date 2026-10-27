@@ -73,7 +73,7 @@ export function BlockView({ b, n, eq }: { b: Block; n?: string; eq?: number }) {
             </div>
           )}
           {textOf(b.html).trim() && (
-            <div className="sm-ro">
+            <div className={`sm-ro ${b.align && b.align !== "start" ? `al-${b.align}` : ""}`}>
               <Ro html={b.html} />
             </div>
           )}

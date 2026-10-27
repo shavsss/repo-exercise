@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from "react";
-import type { Block, BoxKind, ListItem, MarkColor } from "./model";
+import type { Block, BoxAlign, BoxKind, ListItem, MarkColor } from "./model";
 import { BOX_EMOJI, BOX_LABEL, HEAD_EMOJI, MARK_LABEL, emptyBlock, flatLists, itemNumbers, numbering, textOf, uid } from "./model";
 import { activeEditable, applyMark, applyStyle, atLiStart, caret, caretLi, caretMark, caretOnEdgeLine, dedupeMath, dropEmptyMarks, tidyTex, retagList, cleanHtml, convertDollars, hydrateMath, indentLi, insertMathAt, leaveMark, linePrefix, listEndsBlock, liText, outdentLi, pastedHtml, placeCaret, splitAtCaret, swapListKind } from "./rich";
 import { MathEditor, MathView } from "./MathEdit";
@@ -69,6 +69,20 @@ interface Fmt {
   step: string;
 }
 const NO_FMT: Fmt = { b: false, i: false, sup: false, sub: false, mark: null, list: null, bullet: "", kind: "", step: "" };
+/** the four alignments of a box's text, with their icons (lines of the right lengths) */
+const alignIcon = (lines: [number, number][]) => (
+  <svg width="16" height="14" viewBox="0 0 16 14" aria-hidden>
+    {lines.map(([x, w], i) => (
+      <rect key={i} x={x} y={1 + i * 4} width={w} height="1.6" rx="0.8" fill="currentColor" />
+    ))}
+  </svg>
+);
+const ALIGNS: [BoxAlign, string, ReactNode][] = [
+  ["start", "יישור לימין", alignIcon([[0, 16], [6, 10], [0, 16], [4, 12]])],
+  ["center", "מרכז", alignIcon([[0, 16], [3, 10], [0, 16], [2, 12]])],
+  ["end", "יישור לשמאל", alignIcon([[0, 16], [0, 10], [0, 16], [0, 12]])],
+  ["justify", "יישור לשני הצדדים", alignIcon([[0, 16], [0, 16], [0, 16], [0, 16]])],
+];
 /** the kinds of list the ribbon offers: tag, class, sign, name */
 const LIST_KINDS: ["ol" | "ul", string, string, string][] = [
   ["ul", "", "•", "עיגול"],
@@ -999,7 +1013,7 @@ export function Editor({
                 )}
               </div>
             )}
-            <Rich fkey={b.id} html={b.html} placeholder={b.kind === "eq" ? "מה כל סימן, ומתי היא נכונה" : "כתוב כאן"} onChange={(h) => patch(b.id, { html: h })} onKeyDown={textKeys(b)} onMath={openInline} />
+            <Rich fkey={b.id} className={b.align && b.align !== "start" ? `al-${b.align}` : ""} html={b.html} placeholder={b.kind === "eq" ? "מה כל סימן, ומתי היא נכונה" : "כתוב כאן"} onChange={(h) => patch(b.id, { html: h })} onKeyDown={textKeys(b)} onMath={openInline} />
           </div>
         );
       case "math":
@@ -1154,6 +1168,21 @@ export function Editor({
                 </option>
               ))}
             </select>
+            {/* boxes only: how the text is aligned */}
+            <span className="sm-align" role="group" aria-label="יישור הטקסט בתיבה">
+              {ALIGNS.map(([a, name, icon]) => (
+                <button
+                  key={a}
+                  className="sm-tbtn"
+                  disabled={cur?.t !== "box"}
+                  aria-pressed={cur?.t === "box" && (cur.align ?? "start") === a}
+                  title={`${name} (בתיבות)`}
+                  onClick={() => cur?.t === "box" && patch(cur.id, { align: a === "start" ? undefined : a } as Partial<Block>, "struct")}
+                >
+                  {icon}
+                </button>
+              ))}
+            </span>
             {/* always there, so the ribbon keeps its height when the selected block changes */}
             <button className="sm-tbtn" disabled={!(cur?.t === "h" || cur?.t === "math")} aria-pressed={cur?.t === "h" || cur?.t === "math" ? !!cur.plain : false} onClick={() => (cur?.t === "h" || cur?.t === "math") && patch(cur.id, { plain: !cur.plain } as Partial<Block>, "struct")}>
               בלי מספר
