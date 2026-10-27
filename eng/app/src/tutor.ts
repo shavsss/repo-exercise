@@ -569,7 +569,7 @@ Rewrite the whole memory in Hebrew Markdown with exactly these sections, merging
 ## מקרים הנדסיים שכבר שימשו — so later lessons do not repeat them.
 ## טעויות שנמצאו במקורות — tag, what is wrong, what is right.
 ## קשיים, שאלות פתוחות והעדפות — what the learner found hard, asked, or prefers (keep the existing preferences).
-Keep it under about 2000 words; compress older entries rather than dropping them. Reply with the memory only.`;
+Keep it under about 2000 words; compress older entries rather than dropping them; never drop or merge away an entry of ## חיבורים פתוחים until a lesson closed it. Reply with the memory only.`;
   const res = await rt.sample(prompt, { modelTier: "default", effort: "low", cache: false });
   return res.text.trim();
 }

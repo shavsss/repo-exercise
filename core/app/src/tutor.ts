@@ -562,7 +562,7 @@ Rewrite the whole memory in Hebrew Markdown with exactly these sections, merging
 ## חיבורים פתוחים — from the fieldmap blocks: formula → field → the module where it will be taught. Add the new ones; remove an entry once a later lesson closed it with a domain block. The tutor closes these when it reaches that field.
 ## טעויות שנמצאו במקורות — tag, what is wrong, what is right.
 ## קשיים, שאלות פתוחות והעדפות — what the learner found hard, asked, or prefers (keep the existing preferences).
-Keep it under about 2000 words; compress older entries rather than dropping them. Reply with the memory only.`;
+Keep it under about 2000 words; compress older entries rather than dropping them; never drop or merge away an entry of ## חיבורים פתוחים until a lesson closed it. Reply with the memory only.`;
   const res = await rt.sample(prompt, { modelTier: "default", effort: "low", cache: false });
   return res.text.trim();
 }
