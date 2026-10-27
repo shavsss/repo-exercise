@@ -100,27 +100,46 @@ function applyListKind(tag: "ol" | "ul", cls: string, step?: string) {
   const el = activeEditable();
   if (!el) return;
   let li = caretLi(el);
+  const fresh = !li;
   if (!li) {
     if (el.closest(".sm-h") && !onLaterLine(el)) {
       placeCaret(el, "end");
       document.execCommand("insertLineBreak");
     }
     document.execCommand(tag === "ol" ? "insertOrderedList" : "insertUnorderedList");
-    li = caretLi(el);
+    // in an empty block the browser leaves the caret beside the new item, not in it
+    li = caretLi(el) ?? (Array.from(el.querySelectorAll("li")).find((x) => !liText(x).replace(/\u200b/g, "").trim()) as HTMLLIElement | undefined) ?? null;
+    if (li) placeCaretIn(li);
   }
   const old = li?.parentElement;
   if (!li || !old) return;
   const changed = () => el.dispatchEvent(new Event("input", { bubbles: true }));
   const isProof = old.classList.contains("proof");
-  // a step chosen inside a proof list changes only that step
   if (step && isProof) {
-    li.className = `k-${step}`;
+    // on an empty step, or at the very start of one: that step becomes this kind
+    if (!liText(li).replace(/\u200b/g, "").trim() || atLiStart(li)) {
+      li.className = `k-${step}`;
+      return changed();
+    }
+    // on a step with text: the next step, of this kind (נתון 1 → הנחה 1 → הנחה 2 → מסקנה 1)
+    const next = document.createElement("li");
+    next.className = `k-${step}`;
+    next.appendChild(document.createElement("br"));
+    li.after(next);
+    const r = document.createRange();
+    r.setStart(next, 0);
+    r.collapse(true);
+    window.getSelection()?.removeAllRanges();
+    window.getSelection()?.addRange(r);
     return changed();
   }
-  // the same family (another bullet, another numbering): the list at the caret changes
-  if (old.tagName.toLowerCase() === tag && isProof === (cls === "proof")) {
-    if (cls) old.className = cls;
-    else old.removeAttribute("class");
+  // a list just started here, or the same family (another bullet, another numbering): the list at
+  // the caret becomes this kind
+  if (fresh || (old.tagName.toLowerCase() === tag && isProof === (cls === "proof"))) {
+    const list = retagList(old, tag);
+    if (cls) list.className = cls;
+    else list.removeAttribute("class");
+    if (step) li.className = `k-${step}`;
     return changed();
   }
   // another family (bullets or a proof inside a numbered list, …): a list inside the list, as a
@@ -145,6 +164,13 @@ function applyListKind(tag: "ol" | "ul", cls: string, step?: string) {
   window.getSelection()?.removeAllRanges();
   window.getSelection()?.addRange(r);
   changed();
+}
+function placeCaretIn(li: HTMLElement) {
+  const r = document.createRange();
+  r.setStart(li, 0);
+  r.collapse(true);
+  window.getSelection()?.removeAllRanges();
+  window.getSelection()?.addRange(r);
 }
 /** whether the caret is on a line below the first line of an editable */
 function onLaterLine(el: HTMLElement) {
