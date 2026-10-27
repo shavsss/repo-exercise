@@ -81,6 +81,8 @@ export function dropEmptyMarks(root: HTMLElement, keep: Element | null = null) {
 export function tidyTex(tex: string) {
   return tex
     .replace(/\\(?:tag\*?|label)\{[^}]*\}|\\nonumber|\\notag/g, "")
+    // empty slots of a template that were left unfilled
+    .replace(/\\placeholder(?:\[[^\]]*\])?\{[^}]*\}/g, "{}")
     .split(/(\\text\{[^}]*\})/)
     .map((part, i) => (i % 2 ? part : part.replace(/\\_/g, "_").replace(/(^|[^\\a-zA-Z])(log|ln|lg|sin|cos|tan|cot|exp|lim|max|min|det|arg|sinh|cosh|tanh)(?![a-zA-Z])/g, "$1\\$2")))
     .join("")

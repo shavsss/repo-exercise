@@ -272,7 +272,7 @@ export function Editor({
     const r = span ? span.getBoundingClientRect() : (range?.getClientRects()[0] ?? host.getBoundingClientRect());
     const tex = span?.getAttribute("data-tex") ?? (range && !range.collapsed ? range.toString() : "");
     inlineTex.current = tex;
-    setInline({ top: Math.min(r.bottom + 6, window.innerHeight - 140), left: Math.max(12, Math.min(r.left - 40, window.innerWidth - 380)), tex, span, range, host });
+    setInline({ top: Math.min(r.bottom + 6, window.innerHeight - 140), left: Math.max(12, Math.min(r.left - 40, window.innerWidth - 580)), tex, span, range, host });
   };
   const closeInline = (how: "enter" | "escape" | "blur") => {
     const st = inline;

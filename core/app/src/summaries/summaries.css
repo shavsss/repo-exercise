@@ -275,7 +275,7 @@ span.im { display: inline-block; padding: 0 3px; margin: 0 1px; border-radius: 3
 span.im:hover { background: var(--sm-eq-bg); outline: 1px solid color-mix(in srgb, var(--sm-eq) 40%, transparent); }
 span.im .katex { font-size: 1.04em; }
 .sm-ro span.im, .sm-review span.im, .sm-filter span.im { cursor: default; }
-.sm-inline-pop { position: fixed; z-index: 70; width: 360px; max-width: calc(100vw - 24px); background: var(--sheet); border: 1px solid var(--line-strong); border-radius: 8px; padding: 8px; box-shadow: 0 14px 34px rgb(0 0 0 / 22%); display: grid; gap: 4px; }
+.sm-inline-pop { position: fixed; z-index: 70; width: 560px; max-width: calc(100vw - 24px); background: var(--sheet); border: 1px solid var(--line-strong); border-radius: 8px; padding: 8px; box-shadow: 0 14px 34px rgb(0 0 0 / 22%); display: grid; gap: 4px; }
 .sm-inline-pop small { color: var(--muted); font-size: 0.74rem; }
 
 /* ---------- the ribbon as rows: insert, then edit, then symbols and view on demand ---------- */
@@ -357,3 +357,20 @@ span.im .katex { font-size: 1.04em; }
 .sm-proof-pop .k-def { color: var(--pf-def); } .sm-proof-pop .k-hyp { color: var(--pf-hyp); } .sm-proof-pop .k-giv { color: var(--pf-giv); } .sm-proof-pop .k-dev { color: var(--pf-dev); } .sm-proof-pop .k-con { color: var(--pf-con); }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .sm-app { --pf-def: #8fb8d6; --pf-hyp: #f0a35e; --pf-giv: #b9bba8; --pf-dev: #c3a6e0; --pf-con: #8fcf92; } }
 :root[data-theme="dark"] .sm-app { --pf-def: #8fb8d6; --pf-hyp: #f0a35e; --pf-giv: #b9bba8; --pf-dev: #c3a6e0; --pf-con: #8fcf92; }
+
+/* the equation ribbon: structures to insert, above every equation field */
+.sm-mathedit-wrap { flex: 1; min-width: 0; display: grid; gap: 4px; }
+.sm-eqbar { display: flex; flex-wrap: wrap; gap: 2px; padding: 3px; background: var(--paper); border: 1px solid var(--line); border-radius: 6px; direction: rtl; }
+.sm-eqgroup { position: relative; }
+.sm-eqbtn { display: grid; justify-items: center; gap: 1px; min-width: 58px; padding: 3px 5px 2px; border: 1px solid transparent; border-radius: 4px; background: none; color: var(--ink); cursor: pointer; font: inherit; }
+.sm-eqbtn:hover, .sm-eqbtn[aria-expanded="true"] { background: var(--hover); border-color: var(--line); }
+.sm-eqicon { font-size: 1rem; line-height: 1.1; min-height: 1.9em; display: flex; align-items: center; }
+.sm-eqicon .katex { font-size: 1em; }
+.sm-eqlabel { font-size: 0.66rem; color: var(--muted); white-space: nowrap; }
+.sm-eqpop { position: absolute; top: calc(100% + 3px); inset-inline-start: 0; z-index: 80; display: grid; grid-template-columns: repeat(4, auto); font-size: 1.05rem; width: max-content; gap: 2px; padding: 5px; background: var(--sheet); border: 1px solid var(--line-strong); border-radius: 6px; box-shadow: 0 12px 30px rgb(0 0 0 / 20%); }
+.sm-eqpop.to-end { inset-inline-start: auto; inset-inline-end: 0; }
+.sm-eqpop button { min-height: 44px; padding: 4px 8px; border: 1px solid transparent; border-radius: 4px; background: none; color: var(--ink); cursor: pointer; font-size: 0.9rem; }
+.sm-eqpop button:hover { background: var(--hover); border-color: var(--line); }
+.sm-eqbtn { overflow: hidden; }
+.sm-eqpop button { display: flex; align-items: center; justify-content: center; }
+.sm-eqpop button > span, .sm-eqicon { pointer-events: none; }
