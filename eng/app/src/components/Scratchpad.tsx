@@ -241,6 +241,16 @@ export function Scratchpad({ rt, scrollRef, lessonKey, lessonTitle, onClose }: {
       return "normal";
     }
   });
+  /** a width dragged by hand (px), for the narrow and the wide sizes */
+  const [w, setW] = useState<number | null>(() => {
+    try {
+      return Number(localStorage.getItem("pad-w")) || null;
+    } catch {
+      return null;
+    }
+  });
+  const [dragging, setDragging] = useState(false);
+  const panel = useRef<HTMLElement>(null);
   const [editing, setEditing] = useState<string | null>(null);
   const [checking, setChecking] = useState(false);
   const [err, setErr] = useState("");
@@ -283,11 +293,42 @@ export function Scratchpad({ rt, scrollRef, lessonKey, lessonTitle, onClose }: {
   };
   const resize = (s: typeof size) => {
     setSize(s);
+    // a size chosen by its button starts from that size's own width
+    setW(null);
     try {
       localStorage.setItem("pad-size", s);
+      localStorage.removeItem("pad-w");
     } catch {
       // for this visit only
     }
+  };
+  /** dragging the edge toward the lesson: the panel is anchored on the left, so its width is the pointer's distance from there */
+  const startDrag = (e: React.PointerEvent<HTMLDivElement>) => {
+    const el = panel.current;
+    if (!el) return;
+    e.preventDefault();
+    const handle = e.currentTarget;
+    handle.setPointerCapture(e.pointerId);
+    const left = el.getBoundingClientRect().left;
+    const widthAt = (x: number) => Math.round(Math.max(280, Math.min(window.innerWidth - 160, x - left)));
+    setDragging(true);
+    document.body.classList.add("pad-resizing");
+    const move = (ev: PointerEvent) => setW(widthAt(ev.clientX));
+    const up = (ev: PointerEvent) => {
+      handle.removeEventListener("pointermove", move);
+      handle.removeEventListener("pointerup", up);
+      handle.removeEventListener("pointercancel", up);
+      document.body.classList.remove("pad-resizing");
+      setDragging(false);
+      try {
+        localStorage.setItem("pad-w", String(widthAt(ev.clientX)));
+      } catch {
+        // for this visit only
+      }
+    };
+    handle.addEventListener("pointermove", move);
+    handle.addEventListener("pointerup", up);
+    handle.addEventListener("pointercancel", up);
   };
 
   const check = async () => {
@@ -331,7 +372,8 @@ export function Scratchpad({ rt, scrollRef, lessonKey, lessonTitle, onClose }: {
 
   const pageNo = useMemo(() => (pad && page ? pad.pages.indexOf(page) : 0), [pad, page]);
   return (
-    <aside className={`pad-panel pad-${size}`} aria-label="מחברת">
+    <aside ref={panel} className={`pad-panel pad-${size}`} aria-label="מחברת" style={size !== "full" && w ? { width: w } : undefined}>
+      {size !== "full" && <div className={`pad-resize ${dragging ? "is-drag" : ""}`} role="separator" aria-orientation="vertical" aria-label="גרור כדי לשנות את הרוחב" title="גרור כדי לשנות את הרוחב (לחיצה כפולה מחזירה)" onPointerDown={startDrag} onDoubleClick={() => resize(size)} />}
       <header className="pad-head">
         <span className="pad-title">מחברת</span>
         {pad && page && (
