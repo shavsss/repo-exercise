@@ -110,15 +110,41 @@ function applyListKind(tag: "ol" | "ul", cls: string, step?: string) {
   }
   const old = li?.parentElement;
   if (!li || !old) return;
+  const changed = () => el.dispatchEvent(new Event("input", { bubbles: true }));
+  const isProof = old.classList.contains("proof");
   // a step chosen inside a proof list changes only that step
-  if (!(step && old.classList.contains("proof"))) {
-    const list = retagList(old, tag);
-    if (cls) list.className = cls;
-    else list.removeAttribute("class");
+  if (step && isProof) {
+    li.className = `k-${step}`;
+    return changed();
   }
-  if (step) li.className = `k-${step}`;
-  else li.removeAttribute("class");
-  el.dispatchEvent(new Event("input", { bubbles: true }));
+  // the same family (another bullet, another numbering): the list at the caret changes
+  if (old.tagName.toLowerCase() === tag && isProof === (cls === "proof")) {
+    if (cls) old.className = cls;
+    else old.removeAttribute("class");
+    return changed();
+  }
+  // another family (bullets or a proof inside a numbered list, …): a list inside the list, as a
+  // sub-section under the item at the caret; an empty item becomes its first item
+  const sub = document.createElement(tag);
+  if (cls) sub.className = cls;
+  let item: HTMLElement;
+  if (!liText(li).replace(/\u200b/g, "").trim() && li.previousElementSibling?.tagName === "LI") {
+    item = li;
+    li.previousElementSibling.appendChild(sub);
+  } else {
+    item = document.createElement("li");
+    item.appendChild(document.createElement("br"));
+    li.appendChild(sub);
+  }
+  sub.appendChild(item);
+  if (step) item.className = `k-${step}`;
+  else item.removeAttribute("class");
+  const r = document.createRange();
+  r.setStart(item, 0);
+  r.collapse(true);
+  window.getSelection()?.removeAllRanges();
+  window.getSelection()?.addRange(r);
+  changed();
 }
 /** whether the caret is on a line below the first line of an editable */
 function onLaterLine(el: HTMLElement) {

@@ -513,6 +513,8 @@ export function outdentLi(li: HTMLElement) {
     }
     parentLi.after(li);
     if (!list.children.length) list.remove();
+    // a proof step that leaves the proof list is a plain item again
+    if (!li.parentElement?.classList.contains("proof")) li.removeAttribute("class");
     back(li.firstChild ?? li);
     return;
   }

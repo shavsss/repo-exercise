@@ -254,7 +254,7 @@ hr{border:none;border-top:1px solid var(--line);margin:1.4em 0}.p{margin:0 0 .6e
 .p li ol>li::before{content:counters(li,".")}.p li ol,.p li ul{margin:0;padding-inline-start:2.4em}.p li ul{list-style:circle}
 ${Object.entries(BULLET_SIGN).filter(([k]) => k).map(([k, c]) => `.p ul.b-${k}{list-style-type:"${c}  "}`).join("")}
 .p ol.n-heb>li::before{content:counter(li,hebrew) "."}.p ol.n-alpha>li::before{content:counter(li,lower-alpha) "."}.p ol.n-roman>li::before{content:counter(li,lower-roman) "."}
-.p ol.proof{padding-inline-start:0;counter-reset:def hyp giv dev con}.p ol.proof>li{counter-increment:none}.p ol.proof>li::before{position:static;margin-inline-end:.4em;font-family:inherit;font-weight:700;font-size:1em}
+.p li ol.proof{padding-inline-start:2.4em}.p ol.proof{padding-inline-start:0;counter-reset:def hyp giv dev con}.p ol.proof>li{counter-increment:none}.p ol.proof>li::before{position:static;margin-inline-end:.4em;font-family:inherit;font-weight:700;font-size:1em}
 ${Object.entries(PROOF_LABEL).map(([k, l]) => `.p ol.proof>li.k-${k}{counter-increment:${k}}.p ol.proof>li.k-${k}::before{content:"${l} " counter(${k}) ":";color:${PROOF_HEX[k]}}`).join("")}`;
 
 const mathHtml = (latex: string, display = true) => {

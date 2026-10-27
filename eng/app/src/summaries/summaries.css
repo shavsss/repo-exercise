@@ -374,3 +374,4 @@ span.im .katex { font-size: 1.04em; }
 .sm-eqbtn { overflow: hidden; }
 .sm-eqpop button { display: flex; align-items: center; justify-content: center; }
 .sm-eqpop button > span, .sm-eqicon { pointer-events: none; }
+.sm-rich li ol.proof, .sm-ro li ol.proof { padding-inline-start: 2.4em; }
