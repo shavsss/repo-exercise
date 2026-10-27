@@ -45,6 +45,7 @@
     }
     if (typeof input === "string") { window.__log.push("memory"); return { text: "# זיכרון הקורס\n\n## מה נלמד\n- שיעור בדיקה (מעודכן)", truncated: false, modelTierApplied: "default" }; }
     const last = input[input.length - 1].content;
+    window.__prompts = window.__prompts || []; window.__prompts.push(String(last));
     const m = /WRITING STEP: part (\d+) of (\d+)/.exec(last);
     window.__log.push(m ? "part" + m[1] : /MODULE QUIZ/.test(last) ? "quiz" : "other");
     window.__lastInput = input;

@@ -31,6 +31,13 @@ export function Badge({ text }: { text: string }) {
       </span>
     );
   }
+  const term = /^מונח\s*:\s*([^|]+?)\s*\|\s*(.+)$/.exec(t);
+  if (term)
+    return (
+      <span className="term" tabIndex={0} data-def={term[2].trim()}>
+        {term[1]}
+      </span>
+    );
   const certainty = /^ודאות\s*:\s*(.+)$/.exec(t);
   if (certainty) {
     const v = certainty[1].trim();

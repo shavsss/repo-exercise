@@ -86,6 +86,8 @@ interface Base {
   notes?: LessonNote[];
   /** the rest of the notebook (other lessons and modules), so the tutor can relate to it */
   allNotes?: LessonNote[];
+  /** the modules the learner has finished, for <reader_stage> */
+  done?: string[];
   signal: AbortSignal;
   cb: TurnCallbacks;
 }
@@ -139,7 +141,27 @@ async function lessonPages(lesson: LessonSpec | undefined, m: Module) {
   return parts.join("\n\n");
 }
 
-function studyContext(o: { mode: Mode; module: Module; lessons?: LessonSpec[]; lessonIdx: number; memory: string; pages?: string; notes?: LessonNote[]; allNotes?: LessonNote[] }) {
+/**
+ * What the reader already knows, for the gradualness rules (ז): the stage by the module's part
+ * (א: P0–P3, ב: P4–P10, ג: P11 on) and the modules and parts the learner has finished.
+ */
+function readerStage(m: Module, done: string[] = []) {
+  const n = Number(/\d+/.exec(m.part)?.[0] ?? 0);
+  const stage = n <= 3 ? "א" : n <= 10 ? "ב" : "ג";
+  const desc = stage === "א" ? "שער ועמוד שדרה: כמעט שום תחום הנדסי עוד לא נלמד" : stage === "ב" ? "הצמתים: מותר להישען על הצמתים שנלמדו" : "גשרים ופריפריה: מותר להישען על כל מה שנלמד";
+  const idx = getIndex();
+  const mods = idx?.modules ?? [];
+  const finished = done.filter((id) => mods.some((x) => x.id === id));
+  const parts = [...new Set(finished.map((id) => mods.find((x) => x.id === id)?.part).filter(Boolean))].map((p) => `${p} · ${idx?.parts.find((x) => x.id === p)?.title ?? ""}`);
+  return `<reader_stage>
+שלב ${stage} (${desc}). המודול הנוכחי: ${m.id}, בחלק ${m.part}.
+מודולים שהלומד סיים: ${finished.length ? finished.slice(-40).join(", ") : "עוד אף אחד"}.
+חלקים שהלומד למד בהם: ${parts.length ? parts.join("; ") : "עוד אף אחד"}.
+כל תחום אחר זר ללומד: דוגמאות, מונחים ומפת התחומים לפי כללים 23–27.
+</reader_stage>`;
+}
+
+function studyContext(o: { mode: Mode; module: Module; lessons?: LessonSpec[]; lessonIdx: number; memory: string; pages?: string; notes?: LessonNote[]; allNotes?: LessonNote[]; done?: string[] }) {
   const mem = o.memory.trim() ? `\n<course_memory>\n${o.memory.trim()}\n</course_memory>` : "";
   const nb = o.notes?.length
     ? `\n<lesson_notebook>\nThe shared notebook of this lesson (the learner's and yours):\n${o.notes
@@ -158,6 +180,7 @@ function studyContext(o: { mode: Mode; module: Module; lessons?: LessonSpec[]; l
 Date: ${new Date().toISOString().slice(0, 10)}
 Requested message type: ${o.mode}
 ${moduleBlock(o.module)}
+${readerStage(o.module, o.done)}
 ${plan}${mem}${nb}${rest}${o.pages ? `\n\nSource pages for this lesson:\n${o.pages}` : ""}
 </study_context>`;
 }
@@ -377,10 +400,10 @@ MODULE PLANNING STEP. Split this module into lessons. Do not teach yet.
 /* ---------------- one answer (clarify / free / quiz / continuation) ---------------- */
 
 export async function askTutor(opts: Base & { mode: Mode; text: string; images: File[]; continuing?: boolean }) {
-  const { rt, history, text, mode, effort, images, module: m, lessons, lessonIdx, memory, notes, allNotes, signal, cb, continuing = false } = opts;
+  const { rt, history, text, mode, effort, images, module: m, lessons, lessonIdx, memory, notes, allNotes, done, signal, cb, continuing = false } = opts;
   if (!rt.sample) throw { code: "not_granted", message: "sample unavailable" };
   const extra = mode === "quiz" && !continuing ? `\n\n${QUIZ_INSTRUCTIONS}` : "";
-  const last = `${studyContext({ mode, module: m, lessons, lessonIdx, memory, notes, allNotes })}\n\n${text || "(ראו את התמונה המצורפת)"}${images.length ? `\n\n[${images.length} תמונות מצורפות מהלומד]` : ""}${extra}`;
+  const last = `${studyContext({ mode, module: m, lessons, lessonIdx, memory, notes, allNotes, done })}\n\n${text || "(ראו את התמונה המצורפת)"}${images.length ? `\n\n[${images.length} תמונות מצורפות מהלומד]` : ""}${extra}`;
   const turns = fitHistory(history, bytes(last), continuing);
   return rt.sample([...turns, { role: "user", content: last }], {
     model: MODEL,
@@ -416,7 +439,7 @@ LESSON PLANNING STEP. Do not write the text yet. The app will write the lesson i
  "figures": ["E03:115:0", "…every figure of these pages, each assigned to a part"],
  "facts": ["induced drag share at cruise C_L = 0.5, AR = 9, e = 0.8: C_Di = 0.0111 (computed)", "…"],
  "next": "what the next lesson covers"}
-Rules for the plan: 3 to 5 parts; for a core or advanced module the words add up to at least 4200 Hebrew words unless the assigned material is genuinely short (then say so in the first part); part 1 opens with the plan block and the story, then the problem/why-hard/idea paragraphs; every derivation is planned (full, or a skeleton with the assumptions, per <reader>); every assigned section and every figure is assigned to exactly one part; all seven level-2.5 sections ("l25") are assigned to parts for the lesson's central results; the case study, at least two domain blocks, think questions, refresh blocks, scenes (scene3d) where the third dimension helps, and figures are assigned to parts; in a hub module (P4–P10) the last lesson of the module, or a lesson where an experiment teaches best, has a notebook block; the last part holds the coverage block, the exercises (estimates, trade-offs, finding errors), the today block and the sentence about the next lesson.`.trim();
+Rules for the plan: 3 to 5 parts; for a core or advanced module the words add up to at least 4200 Hebrew words unless the assigned material is genuinely short (then say so in the first part); part 1 opens with the plan block and the story, then the problem/why-hard/idea paragraphs; every derivation is planned (full, or a skeleton with the assumptions, per <reader>); every assigned section and every figure is assigned to exactly one part; all seven level-2.5 sections ("l25") are assigned to parts for the lesson's central results; the case study, the connections by <reader_stage> (a fieldmap block for every new central formula, full domain blocks only for familiar fields, at least two of the two kinds together; examples from familiar ground, rules 23–27), think questions, refresh blocks, scenes (scene3d) where the third dimension helps, and figures are assigned to parts; in a hub module (P4–P10) the last lesson of the module, or a lesson where an experiment teaches best, has a notebook block; the last part holds the coverage block, the exercises (estimates, trade-offs, finding errors), the today block and the sentence about the next lesson.`.trim();
 
 function partInstructions(plan: PartPlan, k: number, writtenSoFar: string) {
   const p = plan.parts[k];
@@ -441,7 +464,7 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
   if (!rt.sample) throw { code: "not_granted", message: "sample unavailable" };
   cb.onStatus?.("טוען את עמודי המקור של השיעור");
   const pages = await lessonPages(lessons?.[lessonIdx], m);
-  const ctx = studyContext({ mode: "lesson", module: m, lessons, lessonIdx, memory, pages, notes, allNotes });
+  const ctx = studyContext({ mode: "lesson", module: m, lessons, lessonIdx, memory, pages, notes, allNotes, done: opts.done });
   const tools = rt.canUseTools ? buildTools(cb, moduleDocs(m)) : null;
 
   let plan = resume?.plan;
@@ -501,6 +524,8 @@ export const INITIAL_MEMORY = `# זיכרון הקורס
 
 ## מבנים משותפים שזוהו
 
+## חיבורים פתוחים
+
 ## סימונים ומוסכמות
 
 ## מקרים הנדסיים שכבר שימשו
@@ -540,6 +565,7 @@ Rewrite the whole memory in Hebrew Markdown with exactly these sections, merging
 ## כלים ומושגים שנפגשו — each tool/concept: where it was first met, the number from that first example, and the order-of-magnitude to remember (the tutor uses this to refresh tools later).
 ## סימונים ומוסכמות — notation choices to keep consistent across sources.
 ## מבנים משותפים שזוהו — the same equation or structure recognized across fields (where each was seen).
+## חיבורים פתוחים — from the fieldmap blocks: formula → field → the module where it will be taught. Add the new ones; remove an entry once a later lesson closed it with a domain block. The tutor closes these when it reaches that field.
 ## מקרים הנדסיים שכבר שימשו — so later lessons do not repeat them.
 ## טעויות שנמצאו במקורות — tag, what is wrong, what is right.
 ## קשיים, שאלות פתוחות והעדפות — what the learner found hard, asked, or prefers (keep the existing preferences).
