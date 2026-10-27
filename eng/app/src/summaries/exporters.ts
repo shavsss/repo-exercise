@@ -204,7 +204,15 @@ export async function toDocx(title: string, blocks: Block[]) {
       b.items.forEach((it, i) => children.push(para([new TextRun({ text: `${b.ordered ? nums[i] : "•"} `, font: FONT, rightToLeft: true }), ...runs(it.html)], { indent: { start: 360 * (it.level + 1), hanging: 280 }, spacing: { after: 60, line: 300 } })));
     } else if (b.t === "box") {
       const [fg, bg] = BOX_COLOR[b.kind];
-      const inner: Paragraph[] = [para([new TextRun({ text: `${BOX_EMOJI[b.kind]} ${BOX_LABEL[b.kind]}`, font: FONT, bold: true, color: fg, size: 20, rightToLeft: true })], { spacing: { after: 60 } })];
+      const inner: Paragraph[] = [
+        para(
+          [
+            new TextRun({ text: `${BOX_EMOJI[b.kind]} ${BOX_LABEL[b.kind]}`, font: FONT, bold: true, color: fg, size: 20, rightToLeft: true }),
+            ...(b.title?.trim() ? [new TextRun({ text: `  ${b.title.trim()}`, font: FONT, bold: true, size: 23, rightToLeft: true })] : []),
+          ],
+          { spacing: { after: 60 } },
+        ),
+      ];
       if (b.latex?.trim()) inner.push(new Paragraph({ alignment: AlignmentType.CENTER, children: [wordMath(b.latex), ...(eqs.get(b.id) ? [new TextRun({ text: `   (${eqs.get(b.id)})`, font: FONT })] : [])] }));
       if (textOf(b.html).trim()) inner.push(...paras(b.html));
       const side = { style: BorderStyle.SINGLE, size: 18, color: fg };
@@ -241,7 +249,7 @@ background-image:linear-gradient(to left,transparent 2.4rem,#e8a4a0 2.4rem,#e8a4
 h1,h2,h3,h4{line-height:1.35;margin:1.4em 0 .4em}h4{font-weight:400}.num{color:var(--accent);font-family:"IBM Plex Mono",monospace;margin-inline-end:.4em;font-weight:500}
 p{margin:0 0 .6em}mark{color:inherit;padding:0}.hl-y{background:#fff1a6}.hl-r{background:#f7c9c3}.hl-b{background:#cfe1f2}.hl-g{background:#d2ebd4}.hl-p{background:#e6d6f2}.hl-o{background:#fbddbf}
 .box{border-radius:6px;padding:10px 14px;margin:14px 0;border-inline-start:4px solid}.box .lbl{display:block;font-size:.78em;font-weight:700;letter-spacing:.02em}
-.box-def{background:#e4ecf1;border-color:#355f7d}.box-def .lbl{color:#355f7d}.box-eq{background:#ece6f1;border-color:#6a4c8c}.box-eq .lbl{color:#6a4c8c}
+.box .ttl{color:var(--ink);font-size:1.25em;margin-inline-start:.6em}.box-def{background:#e4ecf1;border-color:#355f7d}.box-def .lbl{color:#355f7d}.box-eq{background:#ece6f1;border-color:#6a4c8c}.box-eq .lbl{color:#6a4c8c}
 .box-ex{background:#f4ebd6;border-color:#8a6100}.box-ex .lbl{color:#8a6100}.box-err{background:#f6e0dd;border-color:#a3161a}.box-err .lbl{color:#a3161a}
 .box-q{background:#f4e5d6;border-color:#9a4f12}.box-q .lbl{color:#9a4f12}
 .box-con{background:#e2f0e3;border-color:#2e7d32}.box-con .lbl{color:#2e7d32}
@@ -287,7 +295,7 @@ export async function toHtml(title: string, blocks: Block[]) {
       const nums = itemNumbers(b.items);
       out.push(`<ul class="l" style="list-style:none">${b.items.map((it, i) => `<li class="lv${it.level}">${b.ordered ? nums[i] : "•"} ${inl(it.html)}</li>`).join("")}</ul>`);
     } else if (b.t === "box") {
-      out.push(`<div class="box box-${b.kind}"><span class="lbl">${BOX_EMOJI[b.kind]} ${BOX_LABEL[b.kind]}</span>${b.latex?.trim() ? `<div class="eq">${mathHtml(b.latex)}${eqs.get(b.id) ? `<span class="eqn">(${eqs.get(b.id)})</span>` : ""}</div>` : ""}${textOf(b.html).trim() ? `<div class="p">${inl(b.html)}</div>` : ""}</div>`);
+      out.push(`<div class="box box-${b.kind}"><span class="lbl">${BOX_EMOJI[b.kind]} ${BOX_LABEL[b.kind]}${b.title?.trim() ? `<b class="ttl">${esc(b.title.trim())}</b>` : ""}</span>${b.latex?.trim() ? `<div class="eq">${mathHtml(b.latex)}${eqs.get(b.id) ? `<span class="eqn">(${eqs.get(b.id)})</span>` : ""}</div>` : ""}${textOf(b.html).trim() ? `<div class="p">${inl(b.html)}</div>` : ""}</div>`);
     } else if (b.t === "math") {
       if (b.latex.trim()) out.push(`<div class="eq">${mathHtml(b.latex)}${eqs.get(b.id) ? `<span class="eqn">(${eqs.get(b.id)})</span>` : ""}</div>`);
     } else if (b.t === "img" || b.t === "fig") {

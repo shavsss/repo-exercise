@@ -24,7 +24,8 @@ export type Block =
   | { id: string; t: "h"; level: 1 | 2 | 3; html: string; plain?: boolean; emoji?: string; cont?: boolean }
   | { id: string; t: "p"; html: string }
   | { id: string; t: "list"; ordered: boolean; items: ListItem[] }
-  | { id: string; t: "box"; kind: BoxKind; html: string; latex?: string }
+  /** title: a short title of the box's own, beside its kind ("מסקנה · למה SRT מהיר") */
+  | { id: string; t: "box"; kind: BoxKind; html: string; latex?: string; title?: string }
   | { id: string; t: "math"; latex: string; plain?: boolean }
   | { id: string; t: "img"; src: string; w: number; h: number; size: ImgSize; side?: boolean; caption: string; marks: Shape[] }
   | { id: string; t: "fig"; doc: string; key: string; size: ImgSize; side?: boolean; caption: string; marks: Shape[] }
@@ -247,7 +248,7 @@ export function toMarkdown(title: string, blocks: Block[]) {
       out.push(b.items.map((it, i) => `${"   ".repeat(it.level)}${b.ordered ? nums[i] : "-"} ${inlineMd(it.html)}`).join("\n"));
     } else if (b.t === "box") {
       const body = [b.latex?.trim() ? `$$${b.latex}$$${eqs.get(b.id) ? ` (${eqs.get(b.id)})` : ""}` : "", inlineMd(b.html)].filter(Boolean).join("\n> ");
-      out.push(`> ${BOX_EMOJI[b.kind]} **${BOX_LABEL[b.kind]}:** ${body}`);
+      out.push(`> ${BOX_EMOJI[b.kind]} **${BOX_LABEL[b.kind]}${b.title?.trim() ? ` · ${b.title.trim()}` : ""}:** ${body}`);
     } else if (b.t === "math") {
       if (b.latex.trim()) out.push(`$$${b.latex}$$${eqs.get(b.id) ? ` (${eqs.get(b.id)})` : ""}`);
     } else if (b.t === "img") {

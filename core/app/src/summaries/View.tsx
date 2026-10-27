@@ -64,6 +64,7 @@ export function BlockView({ b, n, eq }: { b: Block; n?: string; eq?: number }) {
           <div className="sm-box-head">
             <span className="sm-box-emoji">{BOX_EMOJI[b.kind]}</span>
             <span className="sm-box-label">{BOX_LABEL[b.kind]}</span>
+            {b.title?.trim() && <span className="sm-box-title-ro">{b.title}</span>}
           </div>
           {b.latex?.trim() && (
             <div className="sm-box-math">

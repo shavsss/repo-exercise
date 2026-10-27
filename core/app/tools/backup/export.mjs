@@ -220,7 +220,7 @@ function summaryMd(s) {
       );
     } else if (b.t === "box") {
       const m = b.latex?.trim() ? `$$${b.latex}$$${b.kind === "eq" ? ` (${++eq})` : ""}` : "";
-      out.push(`> **${BOX[b.kind] ?? b.kind}:** ${[m, plain(b.html)].filter((x) => x.trim()).join("\n> ")}`);
+      out.push(`> **${BOX[b.kind] ?? b.kind}${b.title?.trim() ? ` · ${b.title.trim()}` : ""}:** ${[m, plain(b.html)].filter((x) => x.trim()).join("\n> ")}`);
     } else if (b.t === "math") {
       if (b.latex?.trim()) out.push(`$$${b.latex}$$${b.plain ? "" : ` (${++eq})`}`);
     } else if (b.t === "img") out.push(`[תמונה${b.caption ? `: ${b.caption}` : ""}]${String(b.src).startsWith("data:") ? "" : ` (${b.src})`}`);

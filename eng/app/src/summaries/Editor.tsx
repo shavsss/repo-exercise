@@ -972,6 +972,20 @@ export function Editor({
                   </option>
                 ))}
               </select>
+              <input
+                className="sm-box-title"
+                value={b.title ?? ""}
+                placeholder="כותרת קצרה"
+                aria-label="כותרת התיבה"
+                onChange={(e) => patch(b.id, { title: e.target.value } as Partial<Block>)}
+                onKeyDown={(e) => {
+                  // Enter or ↓: into the box's text
+                  if (e.key === "Enter" || e.key === "ArrowDown") {
+                    e.preventDefault();
+                    focusNow(b.id, "start");
+                  }
+                }}
+              />
             </div>
             {b.kind === "eq" && (
               <div className="sm-box-math">
