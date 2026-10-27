@@ -356,7 +356,7 @@ export function App() {
         const lessons = modsRef.current[m.id]?.lessons;
         const lessonNotes = notesRef.current.filter((n) => n.moduleId === m.id && n.lesson === idx);
         const allNotes = notesRef.current.filter((n) => !(n.moduleId === m.id && n.lesson === idx));
-        const base = { rt, history, effort, module: m, lessons, lessonIdx: idx, memory, notes: lessonNotes, allNotes, signal: ctl.current.signal, cb };
+        const base = { rt, history, effort, module: m, lessons, lessonIdx: idx, memory, notes: lessonNotes, allNotes, done: doneList, signal: ctl.current.signal, cb };
         const plan = answer.plan as PartPlan | undefined;
         if (sendMode === "lesson" && !images.length && (!resume || plan || !resume.text)) {
           const res = await composeLesson({ ...base, text: userMsg.text, resume: plan ? { plan, partsDone: answer.partsDone ?? 0, text: answer.text } : undefined });
@@ -425,7 +425,7 @@ export function App() {
         }
       }
     },
-    [effort, memory, finishLesson, saveModule, addNote],
+    [effort, memory, doneList, finishLesson, saveModule, addNote],
   );
 
   const send = useCallback(

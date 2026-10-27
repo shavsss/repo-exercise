@@ -56,6 +56,16 @@ export interface BarCheck {
   detail?: string;
 }
 
+/** The seven level-2.5 tags used in a text ([[2.5: מבנה]] ...). */
+export function l25Tags(text: string) {
+  return new Set([...text.matchAll(/\[\[2\.5\s*:\s*([^\]]+)\]\]/g)].map((m) => m[1].trim()));
+}
+
+/** Field lines in the fieldmap blocks: each counts as one connection (rule 17, by stage). */
+function fieldmapLines(text: string) {
+  return [...text.matchAll(/```fieldmap\b([\s\S]*?)```/g)].reduce((n, m) => n + (m[1].match(/^\s*[-*]\s+\S/gm) ?? []).length, 0);
+}
+
 /** Automatic check of the depth bar for a lesson (rule 32). `full` is false for a reference-tier lesson. */
 export function depthBar(segments: Segment[], full = true): BarCheck[] {
   const text = textOf(segments);
@@ -65,13 +75,18 @@ export function depthBar(segments: Segment[], full = true): BarCheck[] {
   const graphics = count("chart") + count("svg") + count("mermaid") + count("interactive") + count("table") + count("sim") + count("anim") + count("scene3d");
   const computed = segments.some((s) => s.t === "activity" && s.a.t === "compute") || count("chart") + count("table") + count("sim") > 0;
   const tags = (text.match(/\[\[[A-Za-z]\d+[a-z]?(?:\.\d+)?:\d+\]\]/g) ?? []).length;
+  const l25 = l25Tags(text);
+  const SEVEN = ["מבנה", "מקור", "גבולות", "סדר גודל", "פשרה", "משמעות מבצעית", "ביקורת"];
+  const missing25 = SEVEN.filter((k) => ![...l25].some((t) => t.startsWith(k)));
+  const links = count("domain") + fieldmapLines(text);
   const checks: BarCheck[] = [
     { key: "words", label: full ? "4000+ מילים" : "אורך", ok: !full || words >= 4000, detail: words.toLocaleString("he-IL") },
     { key: "story", label: "פתיחה בסיפור", ok: count("story") > 0 && !["mermaid", "svg", "chart", "figure"].includes(firstBlock ?? "") },
+    { key: "l25", label: "שבעת סעיפי 2.5", ok: missing25.length === 0, detail: missing25.length ? `חסר: ${missing25.join(", ")}` : "7/7" },
     { key: "think", label: "שאלות עצירה", ok: count("think") > 0, detail: String(count("think")) },
     { key: "history", label: "רקע למודל", ok: count("history") > 0 },
     { key: "case", label: "מקרה בוחן", ok: count("casestudy") > 0 },
-    { key: "domains", label: "4 חיבורים לליבה", ok: count("domain") >= 4, detail: String(count("domain")) },
+    { key: "domains", label: "4 חיבורים לליבה", ok: links >= 4, detail: String(links) },
     { key: "figures", label: "איורים מהמקור", ok: count("figure") > 0, detail: String(count("figure")) },
     { key: "graphics", label: "גרפיקה וסימולציה", ok: graphics > 0, detail: String(graphics) },
     { key: "tags", label: "תגיות עמוד", ok: tags > 0, detail: String(tags) },
@@ -79,5 +94,5 @@ export function depthBar(segments: Segment[], full = true): BarCheck[] {
     { key: "coverage", label: "בדיקת כיסוי", ok: count("coverage") > 0 },
     { key: "exercises", label: "תרגילים", ok: count("exercise") >= 2, detail: String(count("exercise")) },
   ];
-  return full ? checks : checks.filter((c) => ["words", "think", "figures", "tags", "coverage", "exercises"].includes(c.key));
+  return full ? checks : checks.filter((c) => ["words", "l25", "think", "figures", "tags", "coverage", "exercises"].includes(c.key));
 }

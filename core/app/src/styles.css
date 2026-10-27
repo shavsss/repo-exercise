@@ -2164,3 +2164,75 @@ button.crumb:hover {
 .note-edit { display: grid; gap: 6px; margin-top: 6px; }
 .note-edit .btn { justify-self: start; }
 .act-note { color: var(--k-story); }
+
+/* level-2.5 tags (rule 38) */
+:root {
+  --l25-structure: #355f7d;
+  --l25-origin: #6a4c8c;
+  --l25-limits: #a3161a;
+  --l25-magnitude: #8a6100;
+  --l25-tradeoff: #2f6b5f;
+  --l25-operational: #5b6b1e;
+  --l25-critique: #7b3f78;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --l25-structure: #94bfdc;
+    --l25-origin: #c9b0ef;
+    --l25-limits: #ff8f84;
+    --l25-magnitude: #e0c46c;
+    --l25-tradeoff: #8fd0c0;
+    --l25-operational: #c4d98a;
+    --l25-critique: #e2b2ec;
+  }
+}
+:root[data-theme="dark"] {
+  --l25-structure: #94bfdc;
+  --l25-origin: #c9b0ef;
+  --l25-limits: #ff8f84;
+  --l25-magnitude: #e0c46c;
+  --l25-tradeoff: #8fd0c0;
+  --l25-operational: #c4d98a;
+  --l25-critique: #e2b2ec;
+}
+.badge-l25 {
+  --c: var(--l25-structure);
+  color: var(--c);
+  border-color: var(--c);
+  font-weight: 600;
+  cursor: help;
+}
+.badge-l25::before { content: "2.5 · "; font-family: var(--mono); font-weight: 400; opacity: 0.75; }
+.l25-origin { --c: var(--l25-origin); }
+.l25-limits { --c: var(--l25-limits); }
+.l25-magnitude { --c: var(--l25-magnitude); }
+.l25-tradeoff { --c: var(--l25-tradeoff); }
+.l25-operational { --c: var(--l25-operational); }
+.l25-critique { --c: var(--l25-critique); }
+
+/* foreign term with a one-line definition (rule 25) */
+.term {
+  border-bottom: 1px dotted var(--muted);
+  cursor: help;
+  position: relative;
+}
+.term:hover::after,
+.term:focus::after {
+  content: attr(data-def);
+  position: absolute;
+  inset-inline-start: 0;
+  top: calc(100% + 4px);
+  z-index: 30;
+  width: max-content;
+  max-width: 300px;
+  padding: 6px 9px;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  font-weight: normal;
+  white-space: normal;
+  color: var(--ink, inherit);
+  background: var(--panel, var(--bg));
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+}

@@ -86,6 +86,8 @@ interface Base {
   notes?: LessonNote[];
   /** the rest of the notebook (other lessons and modules), so the tutor can relate to it */
   allNotes?: LessonNote[];
+  /** modules the learner finished, for <reader_stage> */
+  done?: string[];
   signal: AbortSignal;
   cb: TurnCallbacks;
 }
@@ -139,7 +141,24 @@ async function lessonPages(lesson: LessonSpec | undefined, m: Module) {
   return parts.join("\n\n");
 }
 
-function studyContext(o: { mode: Mode; module: Module; lessons?: LessonSpec[]; lessonIdx: number; memory: string; pages?: string; notes?: LessonNote[]; allNotes?: LessonNote[] }) {
+/** The learner's stage (rules 41–45): what is familiar, so examples, terms and connections are gradual. */
+function readerStage(m: Module, done: string[] = []) {
+  const n = Number(/\d+/.exec(m.part)?.[0] ?? 0);
+  const stage = n <= 1 ? "א" : n <= 6 ? "ב" : "ג";
+  const desc = stage === "א" ? "הכלים והשכבה הפיזית: עוד אף תחום ליבה לא נלמד" : stage === "ב" ? "התחומים הראשונים: מותר להישען על התחומים שנלמדו" : "מותר להישען על כל מה שנלמד";
+  const idx = getIndex();
+  const mods = idx?.modules ?? [];
+  const finished = done.filter((id) => mods.some((x) => x.id === id));
+  const parts = [...new Set(finished.map((id) => mods.find((x) => x.id === id)?.part).filter(Boolean))].map((p) => `${p} · ${idx?.parts.find((x) => x.id === p)?.title ?? ""}`);
+  return `<reader_stage>
+שלב ${stage} (${desc}). המודול הנוכחי: ${m.id}, בחלק ${m.part}.
+מודולים שהלומד סיים: ${finished.length ? finished.slice(-40).join(", ") : "עוד אף אחד"}.
+חלקים שהלומד למד בהם: ${parts.length ? parts.join("; ") : "עוד אף אחד"}.
+המערכות, ההיסטוריה והאסטרטגיה מוכרות ללומד; המנגנון הטכני של תחום שעוד לא נלמד זר לו: דוגמאות, מונחים ומפת התחומים לפי כללים 41–45.
+</reader_stage>`;
+}
+
+function studyContext(o: { mode: Mode; module: Module; lessons?: LessonSpec[]; lessonIdx: number; memory: string; pages?: string; notes?: LessonNote[]; allNotes?: LessonNote[]; done?: string[] }) {
   const mem = o.memory.trim() ? `\n<course_memory>\n${o.memory.trim()}\n</course_memory>` : "";
   const nb = o.notes?.length
     ? `\n<lesson_notebook>\nThe shared notebook of this lesson (the learner's and yours):\n${o.notes
@@ -158,6 +177,7 @@ function studyContext(o: { mode: Mode; module: Module; lessons?: LessonSpec[]; l
 Date: ${new Date().toISOString().slice(0, 10)}
 Requested message type: ${o.mode}
 ${moduleBlock(o.module)}
+${readerStage(o.module, o.done)}
 ${plan}${mem}${nb}${rest}${o.pages ? `\n\nSource pages for this lesson:\n${o.pages}` : ""}
 </study_context>`;
 }
@@ -377,10 +397,10 @@ MODULE PLANNING STEP. Split this module into lessons. Do not teach yet.
 /* ---------------- one answer (clarify / free / quiz / continuation) ---------------- */
 
 export async function askTutor(opts: Base & { mode: Mode; text: string; images: File[]; continuing?: boolean }) {
-  const { rt, history, text, mode, effort, images, module: m, lessons, lessonIdx, memory, notes, allNotes, signal, cb, continuing = false } = opts;
+  const { rt, history, text, mode, effort, images, module: m, lessons, lessonIdx, memory, notes, allNotes, done, signal, cb, continuing = false } = opts;
   if (!rt.sample) throw { code: "not_granted", message: "sample unavailable" };
   const extra = mode === "quiz" && !continuing ? `\n\n${QUIZ_INSTRUCTIONS}` : "";
-  const last = `${studyContext({ mode, module: m, lessons, lessonIdx, memory, notes, allNotes })}\n\n${text || "(ראו את התמונה המצורפת)"}${images.length ? `\n\n[${images.length} תמונות מצורפות מהלומד]` : ""}${extra}`;
+  const last = `${studyContext({ mode, module: m, lessons, lessonIdx, memory, notes, allNotes, done })}\n\n${text || "(ראו את התמונה המצורפת)"}${images.length ? `\n\n[${images.length} תמונות מצורפות מהלומד]` : ""}${extra}`;
   const turns = fitHistory(history, bytes(last), continuing);
   return rt.sample([...turns, { role: "user", content: last }], {
     model: MODEL,
@@ -400,7 +420,7 @@ If the learner has answered: grade every answer (correct / partly / wrong), expl
 
 export interface PartPlan {
   title: string;
-  parts: { title: string; covers: string; blocks?: string[]; words?: number }[];
+  parts: { title: string; covers: string; blocks?: string[]; l25?: string[]; words?: number }[];
   figures?: string[];
   facts?: string[];
   next?: string;
@@ -412,11 +432,11 @@ LESSON PLANNING STEP. Do not write the text yet. The app will write the lesson i
 2. Run compute (batched, one or two calls) for every number the lesson will state: worked examples, verifications of the sources' results, the case study's numbers. Note any error you find.
 3. Reply with ONLY one JSON object:
 {"title": "Hebrew lesson title",
- "parts": [{"title": "…", "covers": "which sections/pages, which derivations, which figures and examples, which simulator", "blocks": ["story", "think", "history", "figure", "sim"], "words": 1200}],
+ "parts": [{"title": "…", "covers": "which sections/pages, which derivations, which figures and examples, which simulator", "blocks": ["story", "think", "history", "figure", "sim"], "l25": ["מבנה", "מקור"], "words": 1200}],
  "figures": ["B02:115:0", "…every figure of these pages, each assigned to a part"],
  "facts": ["SNR = 13.2 dB at R = 50 km for σ = 1 m² (computed)", "…"],
  "next": "what the next lesson covers"}
-Rules for the plan: 3 to 5 parts; for a core or advanced module the words add up to at least 4200 Hebrew words unless the assigned material is genuinely short (then say so in the first part); part 1 opens with the plan block and the story, then the problem/why-hard/idea paragraphs; every derivation is planned step by step; every assigned section and every figure is assigned to exactly one part; the case study, history block(s), at least four domain blocks, think questions, refresh blocks, simulators and figures are assigned to parts; the last part holds the coverage block, the exercises, the fieldsystems block (if a real connection exists) and the sentence about the next lesson.`.trim();
+Rules for the plan: 3 to 5 parts; for a core or advanced module the words add up to at least 4200 Hebrew words unless the assigned material is genuinely short (then say so in the first part); part 1 opens with the plan block and the story, then the problem/why-hard/idea paragraphs; every derivation is planned step by step; every assigned section and every figure is assigned to exactly one part; all seven level-2.5 sections ("l25") are assigned to parts for the lesson's central results; the case study, history block(s), the connections by <reader_stage> (a fieldmap block for every new central formula, full domain blocks only for fields already learned, at least four connections counting fieldmap lines and domain blocks together; technical explanations only from familiar ground, rules 41–45), think questions, refresh blocks, simulators and figures are assigned to parts; the last part holds the coverage block, the exercises, the fieldsystems block (if a real connection exists) and the sentence about the next lesson.`.trim();
 
 function partInstructions(plan: PartPlan, k: number, writtenSoFar: string) {
   const p = plan.parts[k];
@@ -428,10 +448,11 @@ Lesson plan (yours, from the planning step):
 ${JSON.stringify(plan, null, 1)}
 
 ${prior ? `The lesson text written so far (parts 1–${k}), which the learner is reading right now:\n<<<\n${prior}\n>>>\n` : ""}
-Now write ONLY part ${k + 1}: «${p.title}». It covers: ${p.covers}.${p.blocks?.length ? ` Blocks for this part: ${p.blocks.join(", ")}.` : ""}
+Now write ONLY part ${k + 1}: «${p.title}». It covers: ${p.covers}.${p.blocks?.length ? ` Blocks for this part: ${p.blocks.join(", ")}.` : ""}${p.l25?.length ? ` Level-2.5 sections for this part: ${p.l25.join(", ")}.` : ""}
 Length: about ${p.words ?? 1100} Hebrew words of real teaching (more is fine, less is not).
 ${k === 0 ? "Start the lesson (no preamble about the plan or the parts)." : "Continue seamlessly from the last sentence above: no greeting, no recap, no repeated heading; open with the explicit transition from where the text stopped. Continue the equation numbering from the last \\tag above."}
 Do not write material that belongs to later parts. Teach step by step: every step of a derivation on its own line with its reason in words. Put [[DOC:PAGE]] at the paragraph where the source page changes. Show each original figure assigned to this part with a figure block, then explain it. State computed values exactly as in "facts" (run compute for anything new).
+Tag every level-2.5 section this part covers ([[2.5: …]]) at the start of its paragraph.
 ${last ? "This is the last part: write the coverage block, the exercises, the fieldsystems block if a real connection exists, and the sentence about the next lesson." : "Do not end the lesson and do not write exercises yet."}`;
 }
 
@@ -440,7 +461,7 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
   if (!rt.sample) throw { code: "not_granted", message: "sample unavailable" };
   cb.onStatus?.("טוען את עמודי המקור של השיעור");
   const pages = await lessonPages(lessons?.[lessonIdx], m);
-  const ctx = studyContext({ mode: "lesson", module: m, lessons, lessonIdx, memory, pages, notes, allNotes });
+  const ctx = studyContext({ mode: "lesson", module: m, lessons, lessonIdx, memory, pages, notes, allNotes, done: opts.done });
   const tools = rt.canUseTools ? buildTools(cb, moduleDocs(m)) : null;
 
   let plan = resume?.plan;
@@ -502,6 +523,8 @@ export const INITIAL_MEMORY = `# זיכרון הקורס
 
 ## מקרי בוחן ומערכות שכבר שימשו
 
+## חיבורים פתוחים
+
 ## טעויות שנמצאו במקורות
 
 ## קשיים, שאלות פתוחות והעדפות
@@ -536,6 +559,7 @@ Rewrite the whole memory in Hebrew Markdown with exactly these sections, merging
 ## כלים ומושגים שנפגשו — each tool/concept: where it was first met and the number from that first example (the tutor uses this to refresh tools later).
 ## סימונים ומוסכמות — notation choices to keep consistent across sources.
 ## מקרי בוחן ומערכות שכבר שימשו — so later lessons do not repeat them.
+## חיבורים פתוחים — from the fieldmap blocks: formula → field → the module where it will be taught. Add the new ones; remove an entry once a later lesson closed it with a domain block. The tutor closes these when it reaches that field.
 ## טעויות שנמצאו במקורות — tag, what is wrong, what is right.
 ## קשיים, שאלות פתוחות והעדפות — what the learner found hard, asked, or prefers (keep the existing preferences).
 Keep it under about 2000 words; compress older entries rather than dropping them. Reply with the memory only.`;

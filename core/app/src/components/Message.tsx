@@ -61,6 +61,7 @@ const MAP_BLOCKS: [string, string][] = [
   ["sim", "סימולטורים"],
   ["casestudy", "מקרה בוחן"],
   ["domain", "חיבורים"],
+  ["fieldmap", "איפה הנוסחה עובדת"],
   ["fieldsystems", "מערכות בשטח"],
   ["erratum", "תיקונים"],
   ["coverage", "כיסוי"],

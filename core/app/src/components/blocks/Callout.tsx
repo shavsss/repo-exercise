@@ -10,6 +10,7 @@ export const CALLOUTS: Record<string, { label: string; icon: string }> = {
   formula: { label: "נוסחת מפתח", icon: "formula" },
   refresh: { label: "רענון כלי", icon: "refresh" },
   domain: { label: "חיבור לתחום", icon: "domain" },
+  fieldmap: { label: "איפה הנוסחה עובדת", icon: "domain" },
   casestudy: { label: "מקרה בוחן", icon: "casestudy" },
   model: { label: "בניית מודל", icon: "model" },
   erratum: { label: "תיקון", icon: "erratum" },
@@ -78,7 +79,7 @@ export function Callout({ kind, headers, children }: { kind: string; headers: Re
       kind={kind}
       label={label}
       icon={def.icon}
-      title={headers.title}
+      title={headers.title ?? (kind === "fieldmap" ? headers.formula : undefined)}
       meta={
         meta || headers.first || headers.page ? (
           <>
