@@ -61,11 +61,6 @@ export function l25Tags(text: string) {
   return new Set([...text.matchAll(/\[\[2\.5\s*:\s*([^\]]+)\]\]/g)].map((m) => m[1].trim()));
 }
 
-/** Field lines in the fieldmap blocks: each counts as one connection (rule 17, by stage). */
-function fieldmapLines(text: string) {
-  return [...text.matchAll(/```fieldmap\b([\s\S]*?)```/g)].reduce((n, m) => n + (m[1].match(/^\s*[-*]\s+\S/gm) ?? []).length, 0);
-}
-
 /** Automatic check of the depth bar for a lesson (rule 32). `full` is false for a reference-tier lesson. */
 export function depthBar(segments: Segment[], full = true): BarCheck[] {
   const text = textOf(segments);
@@ -78,7 +73,7 @@ export function depthBar(segments: Segment[], full = true): BarCheck[] {
   const l25 = l25Tags(text);
   const SEVEN = ["מבנה", "מקור", "גבולות", "סדר גודל", "פשרה", "משמעות מבצעית", "ביקורת"];
   const missing25 = SEVEN.filter((k) => ![...l25].some((t) => t.startsWith(k)));
-  const links = count("domain") + fieldmapLines(text);
+  const links = count("domain");
   const checks: BarCheck[] = [
     { key: "words", label: full ? "4000+ מילים" : "אורך", ok: !full || words >= 4000, detail: words.toLocaleString("he-IL") },
     { key: "story", label: "פתיחה בסיפור", ok: count("story") > 0 && !["mermaid", "svg", "chart", "figure"].includes(firstBlock ?? "") },
