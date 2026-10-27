@@ -233,6 +233,16 @@ export class Store {
     await this.profile.collection("summaryMeta").doc(sum.moduleId).set(clean(meta) as unknown as Record<string, unknown>);
   }
 
+  /* ---- the lesson notebook (drawings and worked solutions): profile/scratch/<module>__<lesson> ---- */
+  async loadScratch(key: string): Promise<Record<string, unknown> | null> {
+    const s = await this.profile.collection("scratch").doc(key).get();
+    return s.exists ? (s.data() as Record<string, unknown>) : null;
+  }
+
+  async saveScratch(key: string, data: Record<string, unknown>) {
+    await this.profile.collection("scratch").doc(key).set(clean(data));
+  }
+
   async allSummaries(): Promise<Summary[]> {
     const s = await this.profile.collection("summaries").get();
     return s.docs.map((d) => d.data() as Summary);

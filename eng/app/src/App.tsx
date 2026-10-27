@@ -9,7 +9,8 @@ import { Topbar, type Crumb } from "./components/Topbar";
 import { AssistantTurn, DimensionHead, UserBubble } from "./components/Message";
 import { Composer, type QuickAction } from "./components/Composer";
 import { lessonChannel } from "./summaries/SummaryApp";
-import { LessonToc, ReadingDock, ReadingProgress, useResumePosition, useTocPanel } from "./components/ReadingAids";
+import { LessonToc, ReadingDock, ReadingProgress, useResumePosition } from "./components/ReadingAids";
+import { Scratchpad } from "./components/Scratchpad";
 import { ExplainPanel } from "./components/Explain";
 import { SourceViewer } from "./components/SourceViewer";
 import { MemoryPanel } from "./components/MemoryPanel";
@@ -501,7 +502,9 @@ export function App() {
   }, [selection?.moduleId, selection?.lesson]);
 
   const inLesson = !!module && lessonIdx !== undefined;
-  const [tocOpen, setTocOpen] = useTocPanel();
+  /** the left of the lesson: the contents, or the notebook, or (mostly) neither */
+  const [leftDock, setLeftDock] = usePersisted<"" | "toc" | "pad">("eng-lab:left", "");
+  const tocOpen = leftDock === "toc";
   // the contents panel shares the left side with the source viewer, and gives way to it
   const showToc = inLesson && !(viewer && !viewerMin);
   const resume = useResumePosition(scrollRef, inLesson ? `${module!.id}:${lessonIdx}` : null, items.length > 0 && !busy, busy);
@@ -687,7 +690,23 @@ export function App() {
           )}
         </main>
 
-        {showToc && <LessonToc scrollRef={scrollRef} version={items} open={tocOpen} setOpen={setTocOpen} />}
+        {showToc &&
+          (leftDock === "toc" ? (
+            <LessonToc scrollRef={scrollRef} version={items} open setOpen={(o) => !o && setLeftDock("")} />
+          ) : leftDock === "pad" ? (
+            <Scratchpad rt={rt} scrollRef={scrollRef} lessonKey={`${module!.id}__${lessonIdx}`} lessonTitle={`${module!.id} · ${lesson?.title ?? module!.title}`} onClose={() => setLeftDock("")} />
+          ) : (
+            <div className="left-rail" role="tablist" aria-label="לוחות משמאל לשיעור">
+              <button className="left-rail-btn is-toc" onClick={() => setLeftDock("toc")} title="תוכן השיעור">
+                <Icon name="coverage" size={16} />
+                <span>תוכן השיעור</span>
+              </button>
+              <button className="left-rail-btn" onClick={() => setLeftDock("pad")} title="מחברת: שרטוטים ופתרונות לשיעור הזה">
+                <Icon name="exercise" size={16} />
+                <span>מחברת</span>
+              </button>
+            </div>
+          ))}
         {viewer && !viewerMin && <SourceViewer doc={viewer.doc} page={viewer.page} onPage={(p) => setViewer({ ...viewer, page: p })} onClose={() => setViewer(null)} onCollapse={() => setViewerMin(true)} />}
         {viewer && viewerMin && (
           <button className="viewer-rail" onClick={() => setViewerMin(false)} aria-label="פתח את מציג המקורות" title="פתח את מציג המקורות">

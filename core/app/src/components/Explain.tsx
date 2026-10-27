@@ -53,7 +53,7 @@ function textOf(r: Range) {
  * of the same or a higher level. With no point, the section being read (the last heading above
  * the top of the view).
  */
-function sectionAt(scroll: HTMLElement, at: Node | null) {
+export function sectionAt(scroll: HTMLElement, at: Node | null) {
   const heads = [...scroll.querySelectorAll<HTMLElement>(".prose h2[id], .prose h3[id]")];
   let head: HTMLElement | null = null;
   if (at) {
