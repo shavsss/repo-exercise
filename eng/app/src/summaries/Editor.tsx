@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import type { Block, BoxAlign, BoxKind, ListItem, MarkColor } from "./model";
 import { BOX_EMOJI, BOX_LABEL, HEAD_EMOJI, MARK_LABEL, emptyBlock, flatLists, itemNumbers, numbering, textOf, uid } from "./model";
-import { activeEditable, applyMark, applyStyle, atLiStart, caret, caretLi, caretMark, caretOnEdgeLine, dedupeMath, dropEmptyMarks, tidyTex, retagList, cleanHtml, convertDollars, hydrateMath, indentLi, insertMathAt, leaveMark, linePrefix, listEndsBlock, liText, outdentLi, pastedHtml, placeCaret, splitAtCaret, swapListKind } from "./rich";
+import { activeEditable, applyMark, applyStyle, atLiStart, caret, caretLi, caretMark, caretOnEdgeLine, dedupeMath, dropEmptyMarks, tidyLists, tidyTex, retagList, cleanHtml, convertDollars, hydrateMath, indentLi, insertMathAt, leaveMark, linePrefix, listEndsBlock, liText, outdentLi, pastedHtml, placeCaret, splitAtCaret, swapListKind } from "./rich";
 import { MathEditor, MathView } from "./MathEdit";
 import { Picture } from "./Picture";
 import { storeImage } from "./media";
@@ -227,6 +227,9 @@ function Rich({ fkey, html, onChange, onKeyDown, placeholder, className, onMath 
       // left in summaries saved before
       dropEmptyMarks(e);
       dedupeMath(e);
+      // (not a block just made with an empty list in it, where the caret is about to go)
+      if ((e.textContent ?? "").replace(/[\u200b\s]/g, "")) tidyLists(e);
+      hydrateMath(e);
     }
     hydrateMath(e);
   }, [html]);
@@ -252,7 +255,8 @@ function Rich({ fkey, html, onChange, onKeyDown, placeholder, className, onMath 
       onBlur={() => {
         // leaving the block: no empty mark stays behind
         const a = dropEmptyMarks(el.current!);
-        if (dedupeMath(el.current!) || a) onChange(cleanHtml(el.current!.innerHTML));
+        const l = tidyLists(el.current!);
+        if (dedupeMath(el.current!) || a || l) onChange(cleanHtml(el.current!.innerHTML));
       }}
       onClick={(e) => {
         const span = (e.target as HTMLElement).closest<HTMLElement>("span.im");

@@ -1,7 +1,7 @@
 import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import type { Block, BoxKind, Summary } from "./model";
 import { BOX_EMOJI, BOX_LABEL, itemNumbers, numbering, textOf } from "./model";
-import { dedupeMath, dropEmptyMarks, hydrateMath } from "./rich";
+import { dedupeMath, dropEmptyMarks, hydrateMath, tidyLists } from "./rich";
 import { MathView } from "./MathEdit";
 import { useFigureSrc } from "./Picture";
 import { SHAPE_HEX } from "./media";
@@ -13,6 +13,7 @@ function Ro({ html, className }: { html: string; className?: string }) {
     if (r.current) {
       dropEmptyMarks(r.current);
       dedupeMath(r.current);
+      tidyLists(r.current);
       hydrateMath(r.current);
     }
   }, [html]);

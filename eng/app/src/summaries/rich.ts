@@ -91,6 +91,37 @@ export function tidyTex(tex: string) {
 }
 
 /**
+ * Lists left untidy by editing: items with nothing in them (each drew a lone "1."), lists with no
+ * items, and two lists of the same kind side by side (a numbered list split by a removed line,
+ * whose numbers started again at 1) become one. `keep` is the item the caret is in.
+ */
+export function tidyLists(root: HTMLElement, keep: Element | null = null) {
+  let changed = false;
+  root.querySelectorAll("li").forEach((li) => {
+    if (li === keep || li.contains(keep) || li.querySelector("li, span.im") || liText(li).replace(/[\u200b\s]/g, "")) return;
+    li.remove();
+    changed = true;
+  });
+  root.querySelectorAll("ol, ul").forEach((l) => {
+    if (!l.querySelector("li")) {
+      l.remove();
+      changed = true;
+    }
+  });
+  root.querySelectorAll("ol, ul").forEach((l) => {
+    if (!l.isConnected) return;
+    let next = l.nextSibling;
+    while (next && next.nodeType === 3 && !next.textContent!.trim()) next = next.nextSibling;
+    if (next && next.nodeType === 1 && (next as Element).tagName === l.tagName && (next as Element).className === l.className) {
+      l.append(...Array.from(next.childNodes));
+      (next as Element).remove();
+      changed = true;
+    }
+  });
+  return changed;
+}
+
+/**
  * Two copies of the same equation side by side: a mark, a split or a copy that cut through an
  * equation leaves one on each side. One stays.
  */
@@ -519,7 +550,9 @@ export function outdentLi(li: HTMLElement) {
     return;
   }
   if (after.length) {
-    const rest = document.createElement(list.tagName.toLowerCase());
+    // the items after it stay one list with the one before: a numbered list goes on with its number
+    const rest = list.cloneNode(false) as HTMLElement;
+    if (list.tagName === "OL") rest.setAttribute("start", String((Number(list.getAttribute("start")) || 1) + Array.from(list.children).indexOf(li)));
     rest.append(...after);
     list.after(rest);
   }
