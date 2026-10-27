@@ -31,7 +31,7 @@
 
 - **מתי:** כל לילה ב-23:13, שעון ישראל (אחרי הגיבוי של מעבדת הלמידה).
 - **לאן:** אותו ענף `study-notes`, בתיקייה `core/`, כדי שהמחברות לא יתערבבו.
-- **מה:** הפרופיל, המודולים, מחברת השיעורים (`profile/notes`), הסיכומים (`profile/summaries`, לקובץ `core/notes/SUMMARIES.md`) והשיחות. הסקריפט והתוכנית נלקחים בכל ריצה מענף הפיתוח.
+- **מה:** הפרופיל, המודולים, מחברת השיעורים (`profile/notes`), הסיכומים (`profile/summaries`, לקובץ `core/notes/SUMMARIES.md`), מחברת השרטוטים והפתרונות (`profile/scratch`, לקובץ `core/notes/SCRATCH.md`, וכל שרטוט כקובץ SVG ב-`core/notes/scratch/`) והשיחות. הסקריפט והתוכנית נלקחים בכל ריצה מענף הפיתוח.
 - **שלבים:**
   1. ArtifactData `list` עם `out_dir`, מה-Artifact של מעבדת הליבה (הכתובת ב-`CLAUDE.md`):
      - `data/users/me` (הפרופיל: זיכרון, מודולים שנלמדו, מודול נוכחי)
@@ -50,4 +50,4 @@
 
 - **מתי:** כל לילה ב-23:37, שעון ישראל.
 - **לאן:** הענף `study-notes`, בתיקייה `eng/`.
-- **מה:** כמו בלנצ'סטר: `data/users/me`, `profile/modules`, `profile/notes`, `profile/summaries`, `profile/convs` וההודעות, ואז `node eng/app/tools/backup/export.mjs <dump> .`, שכותב את `eng/notes/` (כולל `SUMMARIES.md` ו-`NOTEBOOK.md`) ואת `eng/backup/db/`.
+- **מה:** כמו בלנצ'סטר: `data/users/me`, `profile/modules`, `profile/notes`, `profile/summaries`, `profile/scratch`, `profile/convs` וההודעות, ואז `node eng/app/tools/backup/export.mjs <dump> .`, שכותב את `eng/notes/` (כולל `SUMMARIES.md`, `NOTEBOOK.md`, ו-`SCRATCH.md` עם השרטוטים כ-SVG ב-`scratch/`) ואת `eng/backup/db/`.

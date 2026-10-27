@@ -46,6 +46,7 @@ const modules = {};
 const convs = new Map();
 const notebook = [];
 const summaries = [];
+const scratch = [];
 for (const f of walk(dump).filter((f) => f.endsWith(".json"))) {
   const rel = path.relative(dump, f).split(path.sep).join("/");
   let m;
@@ -57,6 +58,8 @@ for (const f of walk(dump).filter((f) => f.endsWith(".json"))) {
     const c = convs.get(m[1]) ?? { id: m[1], meta: {}, msgs: [] };
     c.meta = read(f);
     convs.set(m[1], c);
+  } else if ((m = /profile\/scratch\/([^/]+)\.json$/.exec(rel))) {
+    scratch.push({ key: m[1], ...read(f) });
   } else if (/profile\/summaries\/[^/]+\.json$/.test(rel)) {
     summaries.push(read(f));
   } else if (/profile\/summaryMeta\/[^/]+\.json$/.test(rel)) {
@@ -134,7 +137,7 @@ fs.writeFileSync(
 
 fs.writeFileSync(
   path.join(notes, "README.md"),
-  `# מחברת הליבה\n\nגיבוי אוטומטי של מעבדת הליבה: נוצר מתוך מסד הנתונים של ה-Artifact.\n\n- [זיכרון הקורס](MEMORY.md)\n- [התקדמות במודולים](PROGRESS.md)\n- [מחברת השיעורים](NOTEBOOK.md)\n- [הסיכומים](SUMMARIES.md)\n\n## שיחות\n\n${index.length ? index.join("\n") : "עדיין אין שיחות."}\n`,
+  `# מחברת הליבה\n\nגיבוי אוטומטי של מעבדת הליבה: נוצר מתוך מסד הנתונים של ה-Artifact.\n\n- [זיכרון הקורס](MEMORY.md)\n- [התקדמות במודולים](PROGRESS.md)\n- [מחברת השיעורים](NOTEBOOK.md)\n- [הסיכומים](SUMMARIES.md)\n- [מחברת השרטוטים והפתרונות](SCRATCH.md)\n\n## שיחות\n\n${index.length ? index.join("\n") : "עדיין אין שיחות."}\n`,
 );
 
 // the summaries notebook (#summary): one Markdown file with every module's summary
@@ -238,6 +241,66 @@ fs.writeFileSync(
   }\n`,
 );
 
+// the lesson notebook (drawings and worked solutions): SCRATCH.md, each drawing an SVG beside it
+const scratchDir = path.join(notes, "scratch");
+fs.rmSync(scratchDir, { recursive: true, force: true });
+const strokePath = (s) => {
+  const p = s.pts ?? [];
+  if (p.length < 4) return "";
+  if (s.k) {
+    let d = `M${p[0]} ${p[1]} L${p[p.length - 2]} ${p[p.length - 1]}`;
+    if (s.k === "arrow") {
+      const [x1, y1, x2, y2] = [p[0], p[1], p[p.length - 2], p[p.length - 1]];
+      const a = Math.atan2(y2 - y1, x2 - x1);
+      const L = 10 + (s.w ?? 2) * 3;
+      d += ` M${x2} ${y2} L${x2 - L * Math.cos(a - 0.45)} ${y2 - L * Math.sin(a - 0.45)} M${x2} ${y2} L${x2 - L * Math.cos(a + 0.45)} ${y2 - L * Math.sin(a + 0.45)}`;
+    }
+    return d;
+  }
+  let d = `M${p[0]} ${p[1]}`;
+  for (let i = 2; i < p.length - 2; i += 2) d += ` Q${p[i]} ${p[i + 1]} ${(p[i] + p[i + 2]) / 2} ${(p[i + 1] + p[i + 3]) / 2}`;
+  return d + ` L${p[p.length - 2]} ${p[p.length - 1]}`;
+};
+const drawingSvg = (b) => {
+  const W = 1000;
+  const h = b.h ?? 400;
+  const grid = [];
+  if (b.bg !== "plain") {
+    for (let x = 25; x < W; x += 25) grid.push(`<line x1="${x}" y1="0" x2="${x}" y2="${h}"/>`);
+    for (let y = 25; y < h; y += 25) grid.push(`<line x1="0" y1="${y}" x2="${W}" y2="${y}"/>`);
+  }
+  const axes = b.bg === "axes" ? `<g stroke="#888" stroke-width="1.4" fill="none"><line x1="40" y1="${h / 2}" x2="${W - 20}" y2="${h / 2}"/><line x1="${W / 2}" y1="${h - 20}" x2="${W / 2}" y2="20"/></g>` : "";
+  const strokes = (b.strokes ?? []).map((s) => `<path d="${strokePath(s)}" stroke="${s.c}" stroke-width="${s.w}" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`).join("");
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${h}" width="${W}" height="${h}"><rect width="${W}" height="${h}" fill="#fffdf7"/><g stroke="#e6e2d6" stroke-width="0.8">${grid.join("")}</g>${axes}${strokes}</svg>\n`;
+};
+const scratchMd = [];
+for (const sc of [...scratch].sort((a, b) => String(a.key).localeCompare(String(b.key), "en", { numeric: true }))) {
+  const [mod, lesson] = String(sc.key).split("__");
+  const pages = (sc.pages ?? []).filter((pg) => (pg.blocks ?? []).some((b) => (b.t === "draw" && b.strokes?.length) || (b.t === "text" && b.text?.trim()) || (b.t === "math" && b.latex?.trim())));
+  if (!pages.length) continue;
+  const part = [`## ${mod} · שיעור ${Number(lesson) + 1} · ${syllabus.modules.find((m) => m.id === mod)?.title ?? ""} (${date(sc.updatedAt)})`];
+  pages.forEach((pg, pi) => {
+    part.push(`### ${pg.title || `דף ${pi + 1}`}`);
+    let n = 0;
+    for (const b of pg.blocks ?? []) {
+      if (b.t === "text" && b.text?.trim()) part.push(b.text.trim());
+      else if (b.t === "math" && b.latex?.trim()) part.push(`$$${b.latex}$$`);
+      else if (b.t === "draw" && b.strokes?.length) {
+        const file = `${slug(sc.key)}-${pi + 1}-${++n}.svg`;
+        fs.mkdirSync(scratchDir, { recursive: true });
+        fs.writeFileSync(path.join(scratchDir, file), drawingSvg(b));
+        part.push(`![שרטוט ${n}](scratch/${file})`);
+      }
+    }
+    if (pg.check?.trim()) part.push(`> **בדיקת הפתרון:** ${pg.check.trim().replace(/\n/g, "\n> ")}`);
+  });
+  scratchMd.push(part.join("\n\n"));
+}
+fs.writeFileSync(
+  path.join(notes, "SCRATCH.md"),
+  `# מחברת השרטוטים והפתרונות\n\nמה שכתבתי ושרטטתי במחברת שליד השיעורים, שיעור אחר שיעור. השרטוטים בתיקייה scratch/.\n\n${scratchMd.join("\n\n---\n\n") || "עדיין אין כלום במחברת."}\n`,
+);
+
 // raw snapshot for a full restore
 const snap = path.join(root, "core", "backup", "db");
 fs.rmSync(snap, { recursive: true, force: true });
@@ -247,4 +310,4 @@ for (const f of walk(dump).filter((f) => f.endsWith(".json"))) {
   fs.copyFileSync(f, path.join(snap, rel));
 }
 
-console.log(`profile: ${profile ? "yes" : "no"}, modules: ${Object.keys(modules).length}, conversations: ${index.length}, notebook items: ${notebook.length}, summaries: ${sums.length}`);
+console.log(`profile: ${profile ? "yes" : "no"}, modules: ${Object.keys(modules).length}, conversations: ${index.length}, notebook items: ${notebook.length}, summaries: ${sums.length}, scratch: ${scratchMd.length}`);
