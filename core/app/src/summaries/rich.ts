@@ -513,6 +513,42 @@ function keepCaret() {
   };
 }
 
+/**
+ * Enter in a list item: the item splits at the caret, and what was after the caret starts the
+ * next item (an empty one at the end). Done here rather than by the browser, whose own command
+ * carries bold and other wrappers out of the item, leaving text outside the list and a stray
+ * numbered item. Items nested under this one stay with it; a proof step's kind goes on.
+ */
+export function splitLi(li: HTMLElement) {
+  const sel = window.getSelection();
+  if (!sel || !sel.rangeCount) return;
+  const r = sel.getRangeAt(0);
+  r.deleteContents();
+  const sub = Array.from(li.children).find(isList);
+  const tail = document.createRange();
+  tail.setStart(r.startContainer, r.startOffset);
+  if (sub) tail.setEndBefore(sub);
+  else tail.setEnd(li, li.childNodes.length);
+  const frag = tail.extractContents();
+  const next = li.cloneNode(false) as HTMLElement;
+  next.appendChild(frag);
+  const blank = (x: HTMLElement) => !liText(x).replace(/[\u200b\s]/g, "") && !x.querySelector("span.im");
+  if (blank(next)) next.replaceChildren(document.createElement("br"));
+  if (blank(li) && !li.querySelector(":scope > br")) li.insertBefore(document.createElement("br"), sub ?? null);
+  // a break left at the end of the item would draw an empty line under it
+  const own = Array.from(li.childNodes).filter((n) => !isList(n));
+  const last = own[own.length - 1];
+  if (last && last.nodeName === "BR" && own.length > 1) last.remove();
+  li.after(next);
+  const first = next.firstChild;
+  const at = document.createRange();
+  if (first && first.nodeType === 3) at.setStart(first, 0);
+  else at.setStart(next, 0);
+  at.collapse(true);
+  sel.removeAllRanges();
+  sel.addRange(at);
+}
+
 /** Tab: the item goes under the item before it (1.1). False when there is none. */
 export function indentLi(li: HTMLElement) {
   const prev = li.previousElementSibling;

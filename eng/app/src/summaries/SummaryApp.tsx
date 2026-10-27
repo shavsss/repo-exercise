@@ -85,6 +85,36 @@ export function SummaryApp({ lab, name }: { lab: string; name: string }) {
   const lastPush = useRef(0);
   const dirty = useRef(false);
   const pendingScroll = useRef<number | null>(null);
+
+  /* ---- where reading stopped, per module (in this browser), as in the lessons ---- */
+  const mainRef = useRef<HTMLElement>(null);
+  const posKey = `${lab}:summaries:pos`;
+  const readPos = (): Record<string, number> => {
+    try {
+      return JSON.parse(localStorage.getItem(posKey) ?? "{}");
+    } catch {
+      return {};
+    }
+  };
+  const restoredFor = useRef<string | null>(null);
+  /** while a module's place is being restored, its scrolling is not a new place */
+  const restoring = useRef(false);
+  const [resumed, setResumed] = useState(false);
+  const saveTimer = useRef(0);
+  const onMainScroll = () => {
+    const el = mainRef.current;
+    const id = doc?.moduleId;
+    if (!el || !id || restoredFor.current !== id || restoring.current) return;
+    clearTimeout(saveTimer.current);
+    saveTimer.current = window.setTimeout(() => {
+      try {
+        localStorage.setItem(posKey, JSON.stringify({ ...readPos(), [id]: Math.round(el.scrollTop) }));
+      } catch {
+        // for this visit only
+      }
+      if (el.scrollTop < 40) setResumed(false);
+    }, 300);
+  };
   const docRef = useRef(doc);
   docRef.current = doc;
   const [, bump] = useState(0);
@@ -196,6 +226,29 @@ export function SummaryApp({ lab, name }: { lab: string; name: string }) {
     // progress is read once, when the module opens
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [module?.id, rt, store]);
+  // a module opened: back to where reading stopped in it (unless the lessons window sends a section)
+  useEffect(() => {
+    if (!doc || restoredFor.current === doc.moduleId) return;
+    restoredFor.current = doc.moduleId;
+    setResumed(false);
+    if (pendingScroll.current != null) return;
+    const top = readPos()[doc.moduleId];
+    if (!top) return;
+    restoring.current = true;
+    // twice: the blocks and their equations take a frame or two to reach their height
+    requestAnimationFrame(() =>
+      requestAnimationFrame(() => {
+        const el = mainRef.current;
+        if (el) {
+          el.scrollTop = top;
+          if (el.scrollTop > 40) setResumed(true);
+        }
+        setTimeout(() => (restoring.current = false), 400);
+      }),
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [doc?.moduleId]);
+
   // after opening from the lessons window: the section of that lesson
   useEffect(() => {
     const n = pendingScroll.current;
@@ -471,7 +524,18 @@ export function SummaryApp({ lab, name }: { lab: string; name: string }) {
       ) : (
         <div className={`sm-body ${prefs.tree ? "" : "no-tree"} ${aux ? "has-aux" : ""}`}>
           {prefs.tree && tree}
-          <main className="sm-main">
+          <main className="sm-main" ref={mainRef} onScroll={onMainScroll}>
+            {resumed && (
+              <div className="resume-chip sm-resume" role="status">
+                <span>חזרנו למקום שבו הפסקת</span>
+                <button className="link" onClick={() => (mainRef.current?.scrollTo({ top: 0, behavior: "smooth" }), setResumed(false))}>
+                  לראש הסיכום
+                </button>
+                <button className="icon-btn" onClick={() => setResumed(false)} aria-label="סגור">
+                  <Icon name="close" size={14} />
+                </button>
+              </div>
+            )}
             {!index && <div className="block-pending">טוען את רשימת המודולים…</div>}
             {index && !module && (
               <div className="sm-empty">

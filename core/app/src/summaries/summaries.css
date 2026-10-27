@@ -386,3 +386,6 @@ span.im .katex { font-size: 1.04em; }
 .sm-rich.al-center, .sm-ro.al-center { text-align: center; } .sm-rich.al-end, .sm-ro.al-end { text-align: end; } .sm-rich.al-justify, .sm-ro.al-justify { text-align: justify; }
 .sm-align { display: inline-flex; gap: 1px; }
 .sm-align .sm-tbtn { padding-inline: 5px; display: inline-flex; align-items: center; }
+
+/* "back to where you stopped", kept in view at the top of the page */
+.sm-main > .resume-chip.sm-resume { position: fixed; top: auto; bottom: 20px; left: 50%; translate: -50% 0; z-index: 30; }

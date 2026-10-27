@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import type { Block, BoxAlign, BoxKind, ListItem, MarkColor } from "./model";
 import { BOX_EMOJI, BOX_LABEL, HEAD_EMOJI, MARK_LABEL, emptyBlock, flatLists, itemNumbers, numbering, textOf, uid } from "./model";
-import { activeEditable, applyMark, applyStyle, atLiStart, caret, caretLi, caretMark, caretOnEdgeLine, dedupeMath, dropEmptyMarks, tidyLists, tidyTex, retagList, cleanHtml, convertDollars, hydrateMath, indentLi, insertMathAt, leaveMark, linePrefix, listEndsBlock, liText, outdentLi, pastedHtml, placeCaret, splitAtCaret, swapListKind } from "./rich";
+import { activeEditable, applyMark, applyStyle, atLiStart, caret, caretLi, caretMark, caretOnEdgeLine, dedupeMath, dropEmptyMarks, splitLi, tidyLists, tidyTex, retagList, cleanHtml, convertDollars, hydrateMath, indentLi, insertMathAt, leaveMark, linePrefix, listEndsBlock, liText, outdentLi, pastedHtml, placeCaret, splitAtCaret, swapListKind } from "./rich";
 import { MathEditor, MathView } from "./MathEdit";
 import { Picture } from "./Picture";
 import { storeImage } from "./media";
@@ -668,8 +668,8 @@ export function Editor({
     if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) {
       if (liText(li).replace(/\u200b/g, "").trim() || li.querySelector("span.im")) {
         e.preventDefault();
-        document.execCommand("insertParagraph"); // the next item
-        leaveMark();
+        splitLi(li); // the next item
+        changed();
         return true;
       }
       e.preventDefault();
