@@ -59,9 +59,10 @@ export function compileExpr(expr: string) {
 }
 
 let promptCache = "";
-export function systemPrompt() {
+export function systemPrompt(lean = false) {
   if (!promptCache) promptCache = SYSTEM_PROMPT.replace("${LIBRARY}", libraryList(getIndex()?.docs ?? {}));
-  return promptCache;
+  // planning needs the book and the library, not the teaching rules
+  return lean ? promptCache.replace(/<goal>[\s\S]*?<\/goal>\n*/, "").replace(/<teaching_rules>[\s\S]*?<\/teaching_rules>\n*/, "") : promptCache;
 }
 
 export interface TurnCallbacks {
@@ -183,7 +184,7 @@ ${plan}${mem}${nb}${rest}${o.pages ? `\n\nSource pages for this lesson:\n${o.pag
 }
 
 /** Newest history first, until the budget is used. `keepLast` always sends the last turn. */
-function fitHistory(history: StoredMessage[], fixed: number, keepLast = false) {
+function fitHistory(history: StoredMessage[], fixed: number, keepLast = false, lean = false) {
   let used = fixed + bytes(systemPrompt());
   const kept: Turn[] = [];
   let dropped = 0;
@@ -199,7 +200,7 @@ function fitHistory(history: StoredMessage[], fixed: number, keepLast = false) {
     kept.unshift({ role: m.role, content: m.text });
   }
   while (kept.length && kept[0].role === "assistant") kept.shift();
-  const intro = systemPrompt() + (dropped ? `\n\n[${dropped} earlier turns of this conversation were omitted to fit the input limit; <course_memory> summarizes the course so far.]` : "");
+  const intro = systemPrompt(lean) + (dropped ? `\n\n[${dropped} earlier turns of this conversation were omitted to fit the input limit; <course_memory> summarizes the course so far.]` : "");
   return [{ role: "user", content: intro } as Turn, ...kept];
 }
 
@@ -363,12 +364,19 @@ MODULE PLANNING STEP. Split this module into lessons. Do not teach yet.
       ...(gaps.length ? [`these pages are not in any lesson's "sources": ${gaps.map((g) => `${g.doc} ${g.pages[0]}–${g.pages[1]}`).join(", ")}`] : []),
     ];
     const turn = ask(attempt ? `\n\nYour previous plan left gaps: ${missed.join("; and ")}. Return the full plan again with everything covered.` : "");
-    const res = await rt.sample.json<LessonSpec[]>([...fitHistory([], bytes(turn)), { role: "user", content: turn }], {
-      model: MODEL,
-      modelTier: "complex",
-      effort,
-      signal,
-      ...(rt.canUseTools ? { tools: buildTools(cb, moduleDocs(m)) } : { cache: false }),
+    const call = (lean: boolean) =>
+      rt.sample!.json<LessonSpec[]>([...fitHistory([], bytes(turn), false, lean), { role: "user", content: turn }], {
+        model: MODEL,
+        modelTier: "complex",
+        effort,
+        signal,
+        ...(rt.canUseTools ? { tools: buildTools(cb, moduleDocs(m)) } : { cache: false }),
+      });
+    // a refused plan is retried once with the book and library only, without the teaching rules
+    const res = await call(false).catch((e) => {
+      if ((e as { code?: string })?.code !== "refused") throw e;
+      cb.onStatus?.("מנסה שוב את החלוקה בהנחיות מקוצרות");
+      return call(true);
     });
     lessons = (Array.isArray(res) ? res : [])
       .filter((l) => l && typeof l.title === "string")
