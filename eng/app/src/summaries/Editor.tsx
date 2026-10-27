@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import type { Block, BoxAlign, BoxKind, ListItem, MarkColor } from "./model";
 import { BOX_EMOJI, BOX_LABEL, HEAD_EMOJI, MARK_LABEL, emptyBlock, flatLists, itemNumbers, numbering, textOf, uid } from "./model";
-import { activeEditable, applyMark, applyStyle, atLiStart, caret, caretLi, caretMark, caretOnEdgeLine, dedupeMath, dropEmptyMarks, lineToList, splitLi, tidyLists, tidyTex, retagList, cleanHtml, convertDollars, hydrateMath, indentLi, insertMathAt, leaveMark, linePrefix, listEndsBlock, liText, outdentLi, pastedHtml, placeCaret, splitAtCaret, swapListKind } from "./rich";
+import { activeEditable, applyMark, applyStyle, atLiStart, caret, caretLi, caretMark, caretOnEdgeLine, dedupeMath, dropEmptyMarks, lineToList, normalizeInline, splitLi, tidyAround, tidyLists, tidyTex, retagList, cleanHtml, convertDollars, hydrateMath, indentLi, insertMathAt, leaveMark, linePrefix, listEndsBlock, liText, outdentLi, pastedHtml, placeCaret, splitAtCaret, swapListKind } from "./rich";
 import { MathEditor, MathView } from "./MathEdit";
 import { Picture } from "./Picture";
 import { storeImage } from "./media";
@@ -114,6 +114,7 @@ function applyListKind(tag: "ol" | "ul", cls: string, step?: string) {
   const el = activeEditable();
   if (!el) return;
   const changed = () => el.dispatchEvent(new Event("input", { bubbles: true }));
+  tidyAround(el, normalizeInline);
   const li = caretLi(el);
   if (!li) {
     // no list here: the caret's line becomes a new list of this kind (in a heading, a new line under its text)
@@ -224,6 +225,7 @@ function Rich({ fkey, html, onChange, onKeyDown, placeholder, className, onMath 
       // left in summaries saved before
       dropEmptyMarks(e);
       dedupeMath(e);
+      normalizeInline(e);
       // (not a block just made with an empty list in it, where the caret is about to go)
       if ((e.textContent ?? "").replace(/[\u200b\s]/g, "")) tidyLists(e);
       hydrateMath(e);
@@ -252,7 +254,8 @@ function Rich({ fkey, html, onChange, onKeyDown, placeholder, className, onMath 
       onBlur={() => {
         // leaving the block: no empty mark stays behind
         const a = dropEmptyMarks(el.current!);
-        const l = tidyLists(el.current!);
+        const n = normalizeInline(el.current!);
+        const l = tidyLists(el.current!) || n;
         if (dedupeMath(el.current!) || a || l) onChange(cleanHtml(el.current!.innerHTML));
       }}
       onClick={(e) => {
@@ -611,6 +614,8 @@ export function Editor({
    */
   const listKeysIn = (b: Extract<Block, { t: "p" | "box" | "h" }>, el: HTMLElement, e: React.KeyboardEvent<HTMLDivElement>) => {
     const changed = () => el.dispatchEvent(new Event("input", { bubbles: true }));
+    // a key that works on lists: first, no bold or mark may hold a line break or a list
+    if (e.key === "Enter" || e.key === "Tab" || e.key === "Backspace" || e.key === " ") tidyAround(el, normalizeInline);
     const li = caretLi(el);
     const space = e.key === " " && !e.ctrlKey && !e.altKey && !e.metaKey;
     if (li && space) {

@@ -389,3 +389,6 @@ span.im .katex { font-size: 1.04em; }
 
 /* "back to where you stopped", kept in view at the top of the page */
 .sm-main > .resume-chip.sm-resume { position: fixed; top: auto; bottom: 20px; left: 50%; translate: -50% 0; z-index: 30; }
+
+/* an item with nothing in it still has a line's height (else its number sits on the next one's) */
+.sm-rich li:empty::after { content: "\200b"; }

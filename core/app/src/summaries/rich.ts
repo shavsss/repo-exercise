@@ -34,6 +34,7 @@ export function cleanHtml(html: string) {
   box.querySelectorAll("ol, ul").forEach((l) => !l.querySelector("li") && l.remove());
   dropEmptyMarks(box);
   dedupeMath(box);
+  normalizeInline(box);
   const res = box.innerHTML.replace(/\u200b/g, "");
   return res === "<br>" ? "" : res.replace(/<mark(?! class="hl-[yrbgpo]")[^>]*>/g, "<mark>");
 }
@@ -529,6 +530,51 @@ function keepCaret() {
   };
 }
 
+const INLINE = ["b", "strong", "i", "em", "mark", "sub", "sup"];
+/**
+ * Bold, italic, a mark and the like never hold a line break or a list: the browser's bold (and
+ * pasting) can wrap several lines and a whole list in one <strong>, and every list operation,
+ * which works line by line, then takes the whole of it. Such an element is split around each
+ * break and list (its style stays on both sides), and the same style nested in itself is undone.
+ */
+export function normalizeInline(root: HTMLElement) {
+  let changed = false;
+  const sel = INLINE.map((t) => `${t} > br, ${t} > ol, ${t} > ul`).join(", ");
+  for (let guard = 0; guard < 2000; guard++) {
+    const blocker = root.querySelector(sel);
+    if (!blocker) break;
+    const x = blocker.parentElement!;
+    // x keeps what is before the break; a copy of it takes what is after
+    const after = x.cloneNode(false) as HTMLElement;
+    for (let n = blocker.nextSibling; n; ) {
+      const nx = n.nextSibling;
+      after.appendChild(n);
+      n = nx;
+    }
+    x.after(blocker);
+    blocker.after(after);
+    const empty = (e: Element) => !(e.textContent ?? "").replace(/[\u200b]/g, "") && !e.querySelector("span.im, br, ol, ul");
+    if (empty(after)) after.remove();
+    if (empty(x)) x.remove();
+    changed = true;
+  }
+  // then the same style directly inside itself adds nothing
+  root.querySelectorAll("b > b, b > strong, strong > b, strong > strong, i > i, i > em, em > i, em > em, sub > sub, sup > sup").forEach((x) => {
+    if (!x.isConnected) return;
+    x.replaceWith(...Array.from(x.childNodes));
+    changed = true;
+  });
+  return changed;
+}
+
+/** Keeps the caret where it is while the editable's structure is tidied around it. */
+export function tidyAround(el: HTMLElement, fn: (el: HTMLElement) => boolean) {
+  const back = keepCaret();
+  const changed = fn(el);
+  if (changed) back(el);
+  return changed;
+}
+
 /**
  * The line the caret is on (between line breaks and lists, in the editable itself) becomes the
  * first item of a new list of this kind, placed where the line was. Done here rather than by the
@@ -536,6 +582,7 @@ function keepCaret() {
  * list into the new kind). Returns the new item, with the caret in it.
  */
 export function lineToList(el: HTMLElement, tag: "ol" | "ul", cls = "", itemCls = "", below = false) {
+  tidyAround(el, normalizeInline);
   const sel = window.getSelection();
   if (!sel || !sel.rangeCount) return null;
   const r = sel.getRangeAt(0);
