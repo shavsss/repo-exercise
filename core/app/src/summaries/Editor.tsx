@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import type { Block, BoxKind, ListItem, MarkColor } from "./model";
 import { BOX_EMOJI, BOX_LABEL, HEAD_EMOJI, MARK_LABEL, emptyBlock, flatLists, itemNumbers, numbering, textOf, uid } from "./model";
-import { activeEditable, applyMark, applyStyle, atLiStart, caret, caretLi, caretMark, caretOnEdgeLine, dropEmptyMarks, retagList, cleanHtml, convertDollars, hydrateMath, indentLi, insertMathAt, leaveMark, linePrefix, listEndsBlock, liText, outdentLi, pastedHtml, placeCaret, splitAtCaret, swapListKind } from "./rich";
+import { activeEditable, applyMark, applyStyle, atLiStart, caret, caretLi, caretMark, caretOnEdgeLine, dedupeMath, dropEmptyMarks, tidyTex, retagList, cleanHtml, convertDollars, hydrateMath, indentLi, insertMathAt, leaveMark, linePrefix, listEndsBlock, liText, outdentLi, pastedHtml, placeCaret, splitAtCaret, swapListKind } from "./rich";
 import { MathEditor, MathView } from "./MathEdit";
 import { Picture } from "./Picture";
 import { storeImage } from "./media";
@@ -157,7 +157,11 @@ function Rich({ fkey, html, onChange, onKeyDown, placeholder, className, onMath 
   useLayoutEffect(() => {
     const e = el.current!;
     if (document.activeElement !== e && cleanHtml(e.innerHTML) !== html) e.innerHTML = html;
-    if (document.activeElement !== e) dropEmptyMarks(e); // left in summaries saved before
+    if (document.activeElement !== e) {
+      // left in summaries saved before
+      dropEmptyMarks(e);
+      dedupeMath(e);
+    }
     hydrateMath(e);
   }, [html]);
   return (
@@ -277,7 +281,7 @@ export function Editor({
       if (how !== "escape") {
         if (!tex) st.span.remove();
         else {
-          st.span.setAttribute("data-tex", tex);
+          st.span.setAttribute("data-tex", tidyTex(tex));
           delete st.span.dataset.done;
           hydrateMath(st.host);
         }

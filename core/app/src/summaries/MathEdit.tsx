@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef } from "react";
 import katex from "katex";
 import { MathfieldElement } from "mathlive";
+import { tidyTex } from "./rich";
 
 // MathLive's fonts are KaTeX's, which the app already carries (katex.min.css, inlined);
 // it must not fetch its own, and it plays no sounds.
@@ -11,7 +12,7 @@ MathfieldElement.soundsDirectory = null;
 export function MathView({ latex, display = true }: { latex: string; display?: boolean }) {
   const html = useMemo(() => {
     try {
-      return katex.renderToString(latex, { displayMode: display, throwOnError: false, strict: "ignore" });
+      return katex.renderToString(display ? latex.replace(/\\_/g, "_") : tidyTex(latex), { displayMode: display, throwOnError: false, strict: "ignore" });
     } catch {
       return "";
     }

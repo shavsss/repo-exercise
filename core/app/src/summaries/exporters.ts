@@ -29,6 +29,7 @@ import {
 import { convertLatexToMathMl } from "mathlive";
 import { figure } from "../library";
 import type { Block, BoxKind, ImgSize, MarkColor } from "./model";
+import { tidyTex } from "./rich";
 import { BOX_EMOJI, BOX_LABEL, BULLET_SIGN, PROOF_LABEL, esc, flatLists, headParts, itemNumbers, numbering, textOf } from "./model";
 import { flatten } from "./media";
 
@@ -108,7 +109,7 @@ function toWord(n: Element): MathComponent[] {
   }
 }
 function wordMath(latex: string): DMath {
-  const m = mathml(latex);
+  const m = mathml(tidyTex(latex));
   return new DMath({ children: m ? toWord(m) : [new MathRun(latex)] });
 }
 
@@ -258,7 +259,7 @@ ${Object.entries(PROOF_LABEL).map(([k, l]) => `.p ol.proof>li.k-${k}{counter-inc
 
 const mathHtml = (latex: string, display = true) => {
   try {
-    return `<math${display ? ' display="block"' : ""}>${convertLatexToMathMl(latex)}</math>`;
+    return `<math${display ? ' display="block"' : ""}>${convertLatexToMathMl(tidyTex(latex))}</math>`;
   } catch {
     return `<code>${esc(latex)}</code>`;
   }

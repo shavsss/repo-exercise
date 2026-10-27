@@ -33,6 +33,7 @@ export function cleanHtml(html: string) {
   });
   box.querySelectorAll("ol, ul").forEach((l) => !l.querySelector("li") && l.remove());
   dropEmptyMarks(box);
+  dedupeMath(box);
   const res = box.innerHTML.replace(/\u200b/g, "");
   return res === "<br>" ? "" : res.replace(/<mark(?! class="hl-[yrbgpo]")[^>]*>/g, "<mark>");
 }
@@ -71,6 +72,48 @@ export function dropEmptyMarks(root: HTMLElement, keep: Element | null = null) {
   return changed;
 }
 
+/**
+ * LaTeX as it is kept and drawn: no equation number or label (they belong to a display
+ * equation, and inside a line KaTeX refuses them), "\_" as a subscript (a literal underscore is
+ * never meant in a summary), and log, sin, … as operators when written as plain letters.
+ * Text inside \text{…} is left as it is.
+ */
+export function tidyTex(tex: string) {
+  return tex
+    .replace(/\\(?:tag\*?|label)\{[^}]*\}|\\nonumber|\\notag/g, "")
+    .split(/(\\text\{[^}]*\})/)
+    .map((part, i) => (i % 2 ? part : part.replace(/\\_/g, "_").replace(/(^|[^\\a-zA-Z])(log|ln|lg|sin|cos|tan|cot|exp|lim|max|min|det|arg|sinh|cosh|tanh)(?![a-zA-Z])/g, "$1\\$2")))
+    .join("")
+    .replace(/\\(?:,|;|\s)+$/, "")
+    .trim();
+}
+
+/**
+ * Two copies of the same equation side by side: a mark, a split or a copy that cut through an
+ * equation leaves one on each side. One stays.
+ */
+export function dedupeMath(root: HTMLElement) {
+  let changed = false;
+  root.querySelectorAll("span.im").forEach((s) => {
+    const next = s.nextSibling;
+    if (next && next.nodeType === 1 && (next as Element).matches("span.im") && (next as Element).getAttribute("data-tex") === s.getAttribute("data-tex")) {
+      next.remove();
+      changed = true;
+    }
+  });
+  return changed;
+}
+
+/** A range that starts or ends inside an equation takes all of it (an equation is never cut). */
+export function wholeMath(r: Range) {
+  const im = (n: Node) => (n.nodeType === 1 ? (n as Element) : n.parentElement)?.closest("span.im");
+  const a = im(r.startContainer);
+  if (a) r.setStartBefore(a);
+  const b = im(r.endContainer);
+  if (b) r.setEndAfter(b);
+  return r;
+}
+
 /** Draws the equations inside a line (KaTeX) where they are not drawn yet; a numbered list that
  * goes on from an earlier one (after a box) starts at its number. */
 export function hydrateMath(root: HTMLElement) {
@@ -79,7 +122,7 @@ export function hydrateMath(root: HTMLElement) {
     const tex = s.getAttribute("data-tex") ?? "";
     if (s.dataset.done === tex && s.childNodes.length) return;
     try {
-      katex.render(tex || "\\square", s, { throwOnError: false, strict: "ignore" });
+      katex.render(tidyTex(tex) || "\\square", s, { throwOnError: false, strict: "ignore" });
     } catch {
       s.textContent = tex;
     }
@@ -125,7 +168,7 @@ export function convertDollars(el: HTMLElement) {
 
 /** Puts an equation into the text at a saved position. */
 export function insertMathAt(range: Range, tex: string) {
-  const span = mathSpan(tex);
+  const span = mathSpan(tidyTex(tex));
   range.deleteContents();
   range.insertNode(span);
   const space = document.createTextNode("\u00a0");
@@ -157,7 +200,7 @@ export function pastedHtml(html: string) {
   const box = new DOMParser().parseFromString(html, "text/html").body;
   box.querySelectorAll(".katex-display, .katex, math").forEach((k) => {
     if (!k.isConnected) return;
-    const tex = k.querySelector('annotation[encoding="application/x-tex"]')?.textContent?.trim();
+    const tex = tidyTex(k.querySelector('annotation[encoding="application/x-tex"]')?.textContent ?? "");
     if (tex) k.replaceWith(mathSpan(tex));
   });
   box.querySelectorAll("script, style, button, svg, .katex-mathml").forEach((x) => x.remove());
@@ -202,6 +245,12 @@ export function caretOnEdgeLine(el: HTMLElement, edge: "first" | "last") {
 export function splitAtCaret(el: HTMLElement) {
   const r = selRange(el);
   if (!r) return { head: el.innerHTML, tail: "" };
+  // a caret that stands inside an equation splits after it, never through it
+  const im = (r.startContainer.nodeType === 1 ? (r.startContainer as Element) : r.startContainer.parentElement)?.closest("span.im");
+  if (r.collapsed && im && el.contains(im)) {
+    r.setStartAfter(im);
+    r.collapse(true);
+  } else wholeMath(r);
   r.deleteContents();
   const tail = document.createRange();
   tail.setStart(r.startContainer, r.startOffset);
@@ -322,7 +371,7 @@ export function applyMark(cls: string | null) {
     }
     return true;
   }
-  const r = sel.getRangeAt(0);
+  const r = wholeMath(sel.getRangeAt(0));
   const anc = r.commonAncestorContainer;
   const outer = (anc.nodeType === 1 ? (anc as Element) : anc.parentElement)?.closest("mark");
   // the same colour again on text that has it: the colour comes off
@@ -553,7 +602,7 @@ export function copyWithMath(e: ClipboardEvent) {
   box.querySelectorAll("span.im").forEach((x) => box.contains(x) && x.replaceWith(mathSpan(x.getAttribute("data-tex") ?? "")));
   box.querySelectorAll(".katex-display, .katex").forEach((k) => {
     if (!box.contains(k)) return;
-    const tex = k.querySelector('annotation[encoding="application/x-tex"]')?.textContent?.trim();
+    const tex = tidyTex(k.querySelector('annotation[encoding="application/x-tex"]')?.textContent ?? "");
     k.replaceWith(tex ? mathSpan(tex) : document.createTextNode(k.querySelector(".katex-html")?.textContent ?? ""));
   });
   box.querySelectorAll("script, style, button, svg").forEach((x) => x.remove());

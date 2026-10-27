@@ -574,7 +574,7 @@ export function App() {
         )}
         {sideOpen && <div className="scrim" onClick={() => setSideOpen(false)} />}
 
-        {inLesson && <ExplainPanel rt={rt} scrollRef={scrollRef} lessonKey={`${module!.id}:${lessonIdx}`} lessonTitle={`${module!.id} · ${lesson?.title ?? module!.title}`} />}
+        {inLesson && <ExplainPanel rt={rt} scrollRef={scrollRef} lessonKey={`${module!.id}:${lessonIdx}`} lessonTitle={`${module!.id} · ${lesson?.title ?? module!.title}`} memory={memory} />}
         <main className="main">
           <ReadingProgress scrollRef={scrollRef} />
           {resume.resumed && (

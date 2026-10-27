@@ -1,6 +1,8 @@
-// "הסבר פשוט": a small side panel beside the lesson that explains a term or a paragraph the
-// learner did not follow, in the simplest words. A cheap, quick model; only the section being
-// read as context; no memory, no history, nothing saved. The main tutor is not touched.
+// "הסבר פשוט": a small side panel beside the lesson. A marked term or paragraph gets the
+// simplest explanation (terms, the idea, a small example); a typed question gets a short
+// conversation, which may tie the idea to earlier lessons (the course memory, read only) and to
+// the world. A cheap, quick model; the section being read and the last few turns as context;
+// nothing saved, and a new lesson starts a new conversation. The main tutor is not touched.
 // Same file in both labs.
 import { useEffect, useRef, useState, type RefObject } from "react";
 import type { Runtime } from "../runtime";
@@ -11,13 +13,25 @@ const EXPLAIN_MODEL = "claude-haiku-5-5";
 /** if the quick model is not available here, the usual one answers (and the panel says so) */
 const FALLBACK_MODEL = "claude-opus-5-5";
 const SECTION_CHARS = 12_000;
+const MEMORY_CHARS = 6_000;
+/** turns of this conversation sent with a new question */
+const KEEP_TURNS = 4;
 
-const INSTRUCTIONS = `אתה עוזר הסבר קצר שיושב בצד של שיעור. הלומד סימן ביטוי או פסקה שלא הבין, או שאל שאלה פשוטה.
-ענה בעברית, קצר (בערך 120–220 מילים), בדיוק במבנה הזה:
+const COMMON = `אתה עוזר קטן שיושב בצד של שיעור, ומדבר עם הלומד בעברית פשוטה וחמה, כמו חבר שמבין בחומר. המורה הראשי כותב את השיעור; אתה רק עוזר להבין אותו.
+יש לך: את הסעיף שהלומד קורא (<section>), את זיכרון הקורס (<course_memory>: מה כבר נלמד בשיעורים קודמים), ואת השיחה הקצרה שלכם עד עכשיו (<conversation>).
+נוסחאות ב-$…$. בלי פתיח ובלי סיכום. אל תמציא: אם משהו לא בסעיף, לא בזיכרון הקורס ולא ידע כללי מוכר, אמור שאתה לא בטוח והצע לשאול את המורה בצאט הראשי.`;
+
+const EXCERPT = `${COMMON}
+הלומד סימן קטע שלא הבין (<question>). ענה קצר (בערך 120–220 מילים), במבנה הזה:
 **מושגים:** הגדרה קלאסית קצרה לכל מושג שעלול להיות לא מובן בקטע, שורה לכל מושג.
 **הרעיון בפשטות:** 2–4 משפטים שאומרים מה הקטע אומר, בלי ז'רגון.
-**דוגמה קטנה:** דוגמה מספרית אחת, או טבלה זעירה, שמראה את הרעיון.
-כללים: הסתמך על הסעיף שבהקשר ועל הגדרות בסיס מוכרות בלבד; אל תוסיף עובדות חדשות על הנושא ואל תרחיב מעבר לשאלה. נוסחאות ב-$…$. בלי פתיח, בלי סיכום ובלי שאלות חזרה.`;
+**דוגמה קטנה:** דוגמה מספרית אחת, או טבלה זעירה, שמראה את הרעיון.`;
+
+const CHAT = `${COMMON}
+הלומד שאל שאלה (<question>), אולי המשך לשיחה. ענה כמו בשיחה: ישר לעניין, בערך 60–180 מילים, בלי כותרות ובלי מבנה קבוע.
+- שאלה רעיונית ("זה קשור ל…?", "למה זה ככה?", "איפה רואים את זה בעולם?"): ענה על הקשר עצמו. חבר לשיעורים קודמים רק אם הם באמת מופיעים בזיכרון הקורס, ואמור באיזה שיעור או נושא. חבר לעולם בדוגמה אחת מוחשית.
+- אם הלומד טועה, אמור את זה בעדינות ותקן.
+- מותר לשאול בחזרה שאלה קצרה אחת אם השאלה לא ברורה.`;
 
 /** Text of a range, with each equation as $…$ (KaTeX keeps its LaTeX in an annotation). */
 function textOf(r: Range) {
@@ -63,26 +77,36 @@ function sectionAt(scroll: HTMLElement, at: Node | null) {
   return { title: head?.textContent?.trim() ?? "", text: t.length > SECTION_CHARS ? t.slice(0, SECTION_CHARS) + "\n…" : t };
 }
 
-export function ExplainPanel({ rt, scrollRef, lessonKey, lessonTitle }: { rt: Runtime | null; scrollRef: RefObject<HTMLDivElement | null>; lessonKey: string; lessonTitle: string }) {
+interface Turn {
+  q: string;
+  a: string;
+  /** a marked excerpt (explained by the fixed structure), or a question in the conversation */
+  kind: "excerpt" | "chat";
+  model?: string;
+}
+
+export function ExplainPanel({ rt, scrollRef, lessonKey, lessonTitle, memory = "" }: { rt: Runtime | null; scrollRef: RefObject<HTMLDivElement | null>; lessonKey: string; lessonTitle: string; memory?: string }) {
   const [open, setOpen] = useState(false);
   const [q, setQ] = useState("");
-  const [asked, setAsked] = useState("");
-  const [answer, setAnswer] = useState("");
+  const [turns, setTurns] = useState<Turn[]>([]);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState("");
-  const [model, setModel] = useState("");
+  const bodyRef = useRef<HTMLDivElement>(null);
   const [chip, setChip] = useState<{ top: number; left: number; text: string; node: Node } | null>(null);
   const ctl = useRef<AbortController | null>(null);
 
-  // a new lesson: nothing carries over
+  // a new lesson: a new conversation
   useEffect(() => {
     ctl.current?.abort();
     setQ("");
-    setAsked("");
-    setAnswer("");
+    setTurns([]);
     setErr("");
-    setModel("");
   }, [lessonKey]);
+  // the newest answer in view
+  useEffect(() => {
+    const b = bodyRef.current;
+    if (b) b.scrollTop = b.scrollHeight;
+  }, [turns]);
 
   // text selected in the lesson: a small "הסבר" button beside it
   useEffect(() => {
@@ -110,20 +134,23 @@ export function ExplainPanel({ rt, scrollRef, lessonKey, lessonTitle }: { rt: Ru
     };
   }, [scrollRef]);
 
-  const ask = async (question: string, at: Node | null) => {
+  const ask = async (question: string, at: Node | null, kind: Turn["kind"]) => {
     const scroll = scrollRef.current;
-    if (!rt?.sample || !scroll || !question.trim()) return;
+    if (!rt?.sample || !scroll || !question.trim() || busy) return;
     ctl.current?.abort();
     const c = new AbortController();
     ctl.current = c;
     const sec = sectionAt(scroll, at);
-    const prompt = `${INSTRUCTIONS}\n\n<lesson>${lessonTitle}</lesson>\n<section title="${sec.title.replace(/"/g, "'")}">\n${sec.text}\n</section>\n\n<question>\n${question.trim()}\n</question>`;
-    setAsked(question.trim());
-    setAnswer("");
+    const past = turns.slice(-KEEP_TURNS).filter((t) => t.a);
+    const conversation = past.length ? `<conversation>\n${past.map((t) => `הלומד: ${t.q}\nאתה: ${t.a}`).join("\n\n")}\n</conversation>\n\n` : "";
+    const mem = memory.trim() ? `<course_memory>\n${memory.length > MEMORY_CHARS ? memory.slice(0, MEMORY_CHARS) + "\n…" : memory}\n</course_memory>\n\n` : "";
+    const prompt = `${kind === "excerpt" ? EXCERPT : CHAT}\n\n<lesson>${lessonTitle}</lesson>\n<section title="${sec.title.replace(/"/g, "'")}">\n${sec.text}\n</section>\n\n${mem}${conversation}<question>\n${question.trim()}\n</question>`;
+    const turn: Turn = { q: question.trim(), a: "", kind };
+    setTurns((ts) => [...ts, turn]);
+    const setLast = (patch: Partial<Turn>) => setTurns((ts) => ts.map((t, i) => (i === ts.length - 1 ? { ...t, ...patch } : t)));
     setErr("");
-    setModel("");
     setBusy(true);
-    const run = (m: string) => rt.sample!(prompt, { model: m, modelTier: "quick", effort: "low", signal: c.signal, onText: ({ text }) => setAnswer(text) });
+    const run = (m: string) => rt.sample!(prompt, { model: m, modelTier: "quick", effort: "low", signal: c.signal, onText: ({ text }) => setLast({ a: text }) });
     try {
       let res;
       try {
@@ -132,13 +159,19 @@ export function ExplainPanel({ rt, scrollRef, lessonKey, lessonTitle }: { rt: Ru
         if (c.signal.aborted) throw e;
         res = await run(FALLBACK_MODEL);
       }
-      setAnswer(res.text);
-      setModel(res.modelApplied ?? "");
+      setLast({ a: res.text, model: res.modelApplied ?? "" });
     } catch (e) {
-      if (!c.signal.aborted) setErr((e as { message?: string })?.message ?? "ההסבר לא הגיע. נסה שוב.");
+      if (!c.signal.aborted) {
+        setErr((e as { message?: string })?.message ?? "ההסבר לא הגיע. נסה שוב.");
+        setTurns((ts) => (ts.length && !ts[ts.length - 1].a ? ts.slice(0, -1) : ts));
+      }
     } finally {
       if (ctl.current === c) setBusy(false);
     }
+  };
+  const send = () => {
+    void ask(q, null, "chat");
+    setQ("");
   };
 
   const chipEl = chip && (
@@ -150,7 +183,7 @@ export function ExplainPanel({ rt, scrollRef, lessonKey, lessonTitle }: { rt: Ru
         setOpen(true);
         setQ("");
         setChip(null);
-        void ask(chip.text, chip.node);
+        void ask(chip.text, chip.node, "excerpt");
       }}
     >
       <Icon name="think" size={14} /> הסבר פשוט
@@ -176,45 +209,58 @@ export function ExplainPanel({ rt, scrollRef, lessonKey, lessonTitle }: { rt: Ru
             <Icon name="close" size={14} />
           </button>
         </header>
+        <div className="explain-body" ref={bodyRef}>
+          {!turns.length && (
+            <p className="explain-hint">
+              סמן קטע בשיעור ולחץ "הסבר פשוט" להסבר קצר (מושגים, הרעיון, דוגמה), או שאל כאן כמו בשיחה: "זה קשור למה שלמדנו על…?", "איפה רואים את זה בעולם?". השיחה נמחקת כשעוברים שיעור ולא נשמרת.
+            </p>
+          )}
+          {turns.map((t, i) => (
+            <div key={i} className="explain-turn">
+              <blockquote className="explain-q">{t.q.length > 220 ? t.q.slice(0, 220) + "…" : t.q}</blockquote>
+              {busy && i === turns.length - 1 && !t.a && <div className="explain-wait">חושב…</div>}
+              {t.a && (
+                <MdContext.Provider value={{ live: busy && i === turns.length - 1, idPrefix: `ex${i}`, openSource: () => {} }}>
+                  <div className="prose explain-answer">
+                    <Markdown text={t.a} />
+                  </div>
+                </MdContext.Provider>
+              )}
+              {t.model && !/haiku/i.test(t.model) && <div className="explain-model">המודל הרגיל ({t.model}), כי Haiku לא זמין כאן</div>}
+            </div>
+          ))}
+          {err && <div className="banner banner-error">{err}</div>}
+        </div>
         <form
           className="explain-ask"
           onSubmit={(e) => {
             e.preventDefault();
-            void ask(q, null);
-            setQ("");
+            send();
           }}
         >
           <textarea
             value={q}
-            rows={3}
-            placeholder="מושג או משפט שלא הבנת, או סמן טקסט בשיעור"
+            rows={2}
+            placeholder={turns.length ? "שאלת המשך…" : "שאלה, מושג או קשר לחומר קודם"}
             onChange={(e) => setQ(e.target.value)}
             onKeyDown={(e) => {
               if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) {
                 e.preventDefault();
-                void ask(q, null);
-                setQ("");
+                send();
               }
             }}
           />
-          <button className="btn small primary" disabled={!q.trim() || !rt?.sample}>
-            הסבר
-          </button>
+          <div className="explain-actions">
+            <button className="btn small primary" disabled={!q.trim() || !rt?.sample || busy}>
+              שלח
+            </button>
+            {turns.length > 0 && (
+              <button type="button" className="btn small" onClick={() => (ctl.current?.abort(), setTurns([]), setErr(""))}>
+                שיחה חדשה
+              </button>
+            )}
+          </div>
         </form>
-        <div className="explain-body">
-          {!asked && <p className="explain-hint">הסבר קצר: הגדרות, הרעיון בפשטות ודוגמה קטנה. מקבל רק את הסעיף שאתה קורא, לא זוכר שאלות קודמות ולא נשמר.</p>}
-          {asked && <blockquote className="explain-q">{asked.length > 220 ? asked.slice(0, 220) + "…" : asked}</blockquote>}
-          {busy && !answer && <div className="explain-wait">חושב…</div>}
-          {answer && (
-            <MdContext.Provider value={{ live: busy, idPrefix: "ex", openSource: () => {} }}>
-              <div className="prose explain-answer">
-                <Markdown text={answer} />
-              </div>
-            </MdContext.Provider>
-          )}
-          {err && <div className="banner banner-error">{err}</div>}
-          {model && !busy && <div className="explain-model">{/haiku/i.test(model) ? "Haiku" : `המודל הרגיל (${model}), כי Haiku לא זמין כאן`}</div>}
-        </div>
       </aside>
       {chipEl}
     </>
