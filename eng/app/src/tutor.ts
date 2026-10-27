@@ -147,17 +147,15 @@ async function lessonPages(lesson: LessonSpec | undefined, m: Module) {
  */
 function readerStage(m: Module, done: string[] = []) {
   const n = Number(/\d+/.exec(m.part)?.[0] ?? 0);
-  const stage = n <= 3 ? "א" : n <= 10 ? "ב" : "ג";
-  const desc = stage === "א" ? "שער ועמוד שדרה: כמעט שום תחום הנדסי עוד לא נלמד" : stage === "ב" ? "הצמתים: מותר להישען על הצמתים שנלמדו" : "גשרים ופריפריה: מותר להישען על כל מה שנלמד";
+  const gate = n <= 3;
   const idx = getIndex();
   const mods = idx?.modules ?? [];
   const finished = done.filter((id) => mods.some((x) => x.id === id));
   const parts = [...new Set(finished.map((id) => mods.find((x) => x.id === id)?.part).filter(Boolean))].map((p) => `${p} · ${idx?.parts.find((x) => x.id === p)?.title ?? ""}`);
   return `<reader_stage>
-שלב ${stage} (${desc}). המודול הנוכחי: ${m.id}, בחלק ${m.part}.
+${gate ? "שלב השער (P0–P3): כמעט שום תחום הנדסי עוד לא נלמד; דוגמאות, מונחים ומפת התחומים לפי כללים 23–27." : "הרמה המלאה (מ-P4): דוגמאות מכל תחום הנדסי וחיבורים מלאים לכל תחום; תחום שעוד לא נלמד מקבל משפט הקדמה."} המודול הנוכחי: ${m.id}, בחלק ${m.part}.
 מודולים שהלומד סיים: ${finished.length ? finished.slice(-40).join(", ") : "עוד אף אחד"}.
 חלקים שהלומד למד בהם: ${parts.length ? parts.join("; ") : "עוד אף אחד"}.
-כל תחום אחר זר ללומד: דוגמאות, מונחים ומפת התחומים לפי כללים 23–27.
 </reader_stage>`;
 }
 
@@ -439,7 +437,7 @@ LESSON PLANNING STEP. Do not write the text yet. The app will write the lesson i
  "figures": ["E03:115:0", "…every figure of these pages, each assigned to a part"],
  "facts": ["induced drag share at cruise C_L = 0.5, AR = 9, e = 0.8: C_Di = 0.0111 (computed)", "…"],
  "next": "what the next lesson covers"}
-Rules for the plan: 3 to 5 parts; for a core or advanced module the words add up to at least 4200 Hebrew words unless the assigned material is genuinely short (then say so in the first part); part 1 opens with the plan block and the story, then the problem/why-hard/idea paragraphs; every derivation is planned (full, or a skeleton with the assumptions, per <reader>); every assigned section and every figure is assigned to exactly one part; all seven level-2.5 sections ("l25") are assigned to parts for the lesson's central results; the case study, the connections by <reader_stage> (a fieldmap block for every new central formula, at least two full domain blocks to familiar fields in every lesson, plus a fieldmap for foreign fields; examples from familiar ground, rules 23–27), think questions, refresh blocks, scenes (scene3d) where the third dimension helps, and figures are assigned to parts; in a hub module (P4–P10) the last lesson of the module, or a lesson where an experiment teaches best, has a notebook block; the last part holds the coverage block, the exercises (estimates, trade-offs, finding errors), the today block and the sentence about the next lesson.`.trim();
+Rules for the plan: 3 to 5 parts; for a core or advanced module the words add up to at least 4200 Hebrew words unless the assigned material is genuinely short (then say so in the first part); part 1 opens with the plan block and the story, then the problem/why-hard/idea paragraphs; every derivation is planned (full, or a skeleton with the assumptions, per <reader>); every assigned section and every figure is assigned to exactly one part; all seven level-2.5 sections ("l25") are assigned to parts for the lesson's central results; the case study, the connections by <reader_stage> (a fieldmap block for every new central formula, at least two full domain blocks in every lesson (in the gateway stage P0–P3 to familiar fields, plus a fieldmap line for foreign ones; from P4 on to any field, at the full level); examples from familiar ground, rules 23–27), think questions, refresh blocks, scenes (scene3d) where the third dimension helps, and figures are assigned to parts; in a hub module (P4–P10) the last lesson of the module, or a lesson where an experiment teaches best, has a notebook block; the last part holds the coverage block, the exercises (estimates, trade-offs, finding errors), the today block and the sentence about the next lesson.`.trim();
 
 function partInstructions(plan: PartPlan, k: number, writtenSoFar: string) {
   const p = plan.parts[k];

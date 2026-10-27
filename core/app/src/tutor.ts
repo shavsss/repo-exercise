@@ -145,17 +145,15 @@ async function lessonPages(lesson: LessonSpec | undefined, m: Module) {
 /** The learner's stage (rules 41–45): what is familiar, so examples, terms and connections are gradual. */
 function readerStage(m: Module, done: string[] = []) {
   const n = Number(/\d+/.exec(m.part)?.[0] ?? 0);
-  const stage = n <= 1 ? "א" : n <= 6 ? "ב" : "ג";
-  const desc = stage === "א" ? "הכלים והשכבה הפיזית: עוד אף תחום ליבה לא נלמד" : stage === "ב" ? "התחומים הראשונים: מותר להישען על התחומים שנלמדו" : "מותר להישען על כל מה שנלמד";
+  const gate = n === 0;
   const idx = getIndex();
   const mods = idx?.modules ?? [];
   const finished = done.filter((id) => mods.some((x) => x.id === id));
   const parts = [...new Set(finished.map((id) => mods.find((x) => x.id === id)?.part).filter(Boolean))].map((p) => `${p} · ${idx?.parts.find((x) => x.id === p)?.title ?? ""}`);
   return `<reader_stage>
-שלב ${stage} (${desc}). המודול הנוכחי: ${m.id}, בחלק ${m.part}.
+${gate ? "שלב השער (P0): עוד אף תחום ליבה לא נלמד; ההסבר הטכני, המונחים ומפת התחומים לפי כללים 41–45." : "הרמה המלאה (מ-P1): מנגנונים מכל תחום וחיבורים מלאים, כולל הפיזיקה של התחום השני; מנגנון שעוד לא נלמד מקבל משפט הקדמה."} המודול הנוכחי: ${m.id}, בחלק ${m.part}.
 מודולים שהלומד סיים: ${finished.length ? finished.slice(-40).join(", ") : "עוד אף אחד"}.
 חלקים שהלומד למד בהם: ${parts.length ? parts.join("; ") : "עוד אף אחד"}.
-המערכות, ההיסטוריה והאסטרטגיה מוכרות ללומד; המנגנון הטכני של תחום שעוד לא נלמד זר לו: דוגמאות, מונחים ומפת התחומים לפי כללים 41–45.
 </reader_stage>`;
 }
 
@@ -444,7 +442,7 @@ LESSON PLANNING STEP. Do not write the text yet. The app will write the lesson i
  "figures": ["B02:115:0", "…every figure of these pages, each assigned to a part"],
  "facts": ["SNR = 13.2 dB at R = 50 km for σ = 1 m² (computed)", "…"],
  "next": "what the next lesson covers"}
-Rules for the plan: 3 to 5 parts; for a core or advanced module the words add up to at least 4200 Hebrew words unless the assigned material is genuinely short (then say so in the first part); part 1 opens with the plan block and the story, then the problem/why-hard/idea paragraphs; every derivation is planned step by step; every assigned section and every figure is assigned to exactly one part; all seven level-2.5 sections ("l25") are assigned to parts for the lesson's central results; the case study, history block(s), the connections by <reader_stage> (a fieldmap block for every new central formula, at least four full domain blocks in every lesson, written for a field not yet learned at the level of the system and its operational meaning; technical explanations only from familiar ground, rules 41–45), think questions, refresh blocks, simulators and figures are assigned to parts; the last part holds the coverage block, the exercises, the fieldsystems block (if a real connection exists) and the sentence about the next lesson.`.trim();
+Rules for the plan: 3 to 5 parts; for a core or advanced module the words add up to at least 4200 Hebrew words unless the assigned material is genuinely short (then say so in the first part); part 1 opens with the plan block and the story, then the problem/why-hard/idea paragraphs; every derivation is planned step by step; every assigned section and every figure is assigned to exactly one part; all seven level-2.5 sections ("l25") are assigned to parts for the lesson's central results; the case study, history block(s), the connections by <reader_stage> (a fieldmap block for every new central formula, at least four full domain blocks in every lesson, in the gateway stage P0, for a field not yet learned, at the level of the system and its operational meaning; from P1 on, full, including the mechanism; technical explanations only from familiar ground, rules 41–45), think questions, refresh blocks, simulators and figures are assigned to parts; the last part holds the coverage block, the exercises, the fieldsystems block (if a real connection exists) and the sentence about the next lesson.`.trim();
 
 function partInstructions(plan: PartPlan, k: number, writtenSoFar: string) {
   const p = plan.parts[k];
