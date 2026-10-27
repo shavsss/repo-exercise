@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import type { Block, BoxAlign, BoxKind, ListItem, MarkColor } from "./model";
 import { BOX_EMOJI, BOX_LABEL, HEAD_EMOJI, MARK_LABEL, emptyBlock, flatLists, itemNumbers, numbering, textOf, uid } from "./model";
-import { activeEditable, applyMark, applyStyle, atLiStart, caret, caretLi, caretMark, caretOnEdgeLine, dedupeMath, dropEmptyMarks, splitLi, tidyLists, tidyTex, retagList, cleanHtml, convertDollars, hydrateMath, indentLi, insertMathAt, leaveMark, linePrefix, listEndsBlock, liText, outdentLi, pastedHtml, placeCaret, splitAtCaret, swapListKind } from "./rich";
+import { activeEditable, applyMark, applyStyle, atLiStart, caret, caretLi, caretMark, caretOnEdgeLine, dedupeMath, dropEmptyMarks, lineToList, splitLi, tidyLists, tidyTex, retagList, cleanHtml, convertDollars, hydrateMath, indentLi, insertMathAt, leaveMark, linePrefix, listEndsBlock, liText, outdentLi, pastedHtml, placeCaret, splitAtCaret, swapListKind } from "./rich";
 import { MathEditor, MathView } from "./MathEdit";
 import { Picture } from "./Picture";
 import { storeImage } from "./media";
@@ -113,21 +113,19 @@ const PROOF_STEPS: [string, string][] = [
 function applyListKind(tag: "ol" | "ul", cls: string, step?: string) {
   const el = activeEditable();
   if (!el) return;
-  let li = caretLi(el);
-  const fresh = !li;
+  const changed = () => el.dispatchEvent(new Event("input", { bubbles: true }));
+  const li = caretLi(el);
   if (!li) {
+    // no list here: the caret's line becomes a new list of this kind (in a heading, a new line under its text)
     if (el.closest(".sm-h") && !onLaterLine(el)) {
       placeCaret(el, "end");
       document.execCommand("insertLineBreak");
     }
-    document.execCommand(tag === "ol" ? "insertOrderedList" : "insertUnorderedList");
-    // in an empty block the browser leaves the caret beside the new item, not in it
-    li = caretLi(el) ?? (Array.from(el.querySelectorAll("li")).find((x) => !liText(x).replace(/\u200b/g, "").trim()) as HTMLLIElement | undefined) ?? null;
-    if (li) placeCaretIn(li);
+    if (lineToList(el, tag, cls, step ? `k-${step}` : "", true)) changed();
+    return;
   }
-  const old = li?.parentElement;
-  if (!li || !old) return;
-  const changed = () => el.dispatchEvent(new Event("input", { bubbles: true }));
+  const old = li.parentElement;
+  if (!old) return;
   const isProof = old.classList.contains("proof");
   if (step && isProof) {
     // on an empty step, or at the very start of one: that step becomes this kind
@@ -147,9 +145,8 @@ function applyListKind(tag: "ol" | "ul", cls: string, step?: string) {
     window.getSelection()?.addRange(r);
     return changed();
   }
-  // a list just started here, or the same family (another bullet, another numbering): the list at
-  // the caret becomes this kind
-  if (fresh || (old.tagName.toLowerCase() === tag && isProof === (cls === "proof"))) {
+  // the same family (another bullet, another numbering): the list at the caret becomes this kind
+  if (old.tagName.toLowerCase() === tag && isProof === (cls === "proof")) {
     const list = retagList(old, tag);
     if (cls) list.className = cls;
     else list.removeAttribute("class");
@@ -432,11 +429,7 @@ export function Editor({
       const el = activeEditable();
       const tb = el ? blocks.find((x) => x.id === el.dataset.edit) : null;
       if (el && tb && (tb.t === "p" || tb.t === "box" || tb.t === "h")) {
-        if (tb.t === "h" && !caretLi(el) && !onLaterLine(el)) {
-          placeCaret(el, "end");
-          document.execCommand("insertLineBreak");
-        }
-        document.execCommand(item.id === "ol" ? "insertOrderedList" : "insertUnorderedList");
+        applyListKind(item.id, "");
         return;
       }
     }
@@ -560,7 +553,7 @@ export function Editor({
       if ((linePrefix(el) ?? "").replace(/\u200b/g, "").trim()) {
         document.execCommand("insertLineBreak");
         leaveMark();
-        document.execCommand("insertOrderedList");
+        if (lineToList(el, "ol")) el.dispatchEvent(new Event("input", { bubbles: true }));
         return;
       }
       const { head, tail } = splitAtCaret(el);
@@ -652,7 +645,7 @@ export function Editor({
         if (kind) {
           e.preventDefault();
           for (let k = 0; k < pre!.length; k++) document.execCommand("delete");
-          document.execCommand(kind === "ol" ? "insertOrderedList" : "insertUnorderedList");
+          if (lineToList(el, kind)) changed();
           return true;
         }
       }

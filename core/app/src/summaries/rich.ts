@@ -118,6 +118,22 @@ export function tidyLists(root: HTMLElement, keep: Element | null = null) {
       changed = true;
     }
   });
+  // a list that goes on from one above it (start) takes its number from that list as it is now
+  root.querySelectorAll<HTMLElement>("ol[start]").forEach((ol) => {
+    let prev = ol.previousSibling;
+    while (prev && !isList(prev)) prev = prev.previousSibling;
+    if (!prev || (prev as Element).tagName !== "OL" || (prev as Element).className !== ol.className) return;
+    const n = String((Number((prev as Element).getAttribute("start")) || 1) + (prev as Element).querySelectorAll(":scope > li").length);
+    if (ol.getAttribute("start") !== n) {
+      ol.setAttribute("start", n);
+      changed = true;
+    }
+  });
+  root.querySelectorAll<HTMLElement>("ol").forEach((ol) => {
+    const st = Number(ol.getAttribute("start"));
+    ol.style.counterReset = st > 1 ? `sm-li ${st - 1}` : "";
+    if (!ol.getAttribute("style")) ol.removeAttribute("style");
+  });
   return changed;
 }
 
@@ -511,6 +527,82 @@ function keepCaret() {
       sel?.addRange(back);
     } else caretAtStartOf(fallback);
   };
+}
+
+/**
+ * The line the caret is on (between line breaks and lists, in the editable itself) becomes the
+ * first item of a new list of this kind, placed where the line was. Done here rather than by the
+ * browser, whose own command joins the new item to a list just above it (and turns that whole
+ * list into the new kind). Returns the new item, with the caret in it.
+ */
+export function lineToList(el: HTMLElement, tag: "ol" | "ul", cls = "", itemCls = "", below = false) {
+  const sel = window.getSelection();
+  if (!sel || !sel.rangeCount) return null;
+  const r = sel.getRangeAt(0);
+  const kids = () => Array.from(el.childNodes);
+  const stop = (n: Node | undefined) => !n || n.nodeName === "BR" || isList(n);
+  // the caret as a position among the editable's own children
+  let a: number;
+  let b: number;
+  if (r.startContainer === el) {
+    a = b = r.startOffset;
+  } else {
+    let top: Node = r.startContainer;
+    while (top.parentNode && top.parentNode !== el) top = top.parentNode;
+    a = kids().indexOf(top as ChildNode);
+    b = a + 1;
+    if (a < 0) return null;
+    if (stop(top)) b = a; // the caret sits on a break: an empty line
+  }
+  const all = kids();
+  while (a > 0 && !stop(all[a - 1])) a--;
+  while (b < all.length && !stop(all[b])) b++;
+  const line = all.slice(a, b);
+  // what comes after the line: the break that ended it goes (the list ends the line now)
+  const next = all[b];
+  // a line with text and the caret at its end ("על כן:"): the list starts under it, empty
+  if (below && line.length) {
+    const rest = document.createRange();
+    rest.setStart(r.startContainer, r.startOffset);
+    if (next) rest.setEndBefore(next);
+    else rest.setEnd(el, el.childNodes.length);
+    const lineText = line.map((n) => n.textContent).join("").replace(/[\u200b\s]/g, "");
+    if (lineText && !rest.toString().replace(/[\u200b\s]/g, "")) {
+      const list = document.createElement(tag);
+      if (cls) list.className = cls;
+      const li = document.createElement("li");
+      if (itemCls) li.className = itemCls;
+      li.appendChild(document.createElement("br"));
+      list.appendChild(li);
+      const ref = next && next.nodeName === "BR" ? next.nextSibling : (next ?? null);
+      if (next && next.nodeName === "BR") next.remove();
+      el.insertBefore(list, ref);
+      const at = document.createRange();
+      at.setStart(li, 0);
+      at.collapse(true);
+      sel.removeAllRanges();
+      sel.addRange(at);
+      return li;
+    }
+  }
+  const ref = next && next.nodeName === "BR" ? next.nextSibling : (next ?? null);
+  if (next && next.nodeName === "BR") next.remove();
+  const list = document.createElement(tag);
+  if (cls) list.className = cls;
+  const li = document.createElement("li");
+  if (itemCls) li.className = itemCls;
+  li.append(...line);
+  if (!liText(li).replace(/[\u200b\s]/g, "") && !li.querySelector("span.im")) li.replaceChildren(document.createElement("br"));
+  list.appendChild(li);
+  el.insertBefore(list, ref);
+  const at = document.createRange();
+  const first = li.firstChild;
+  if (first && first.nodeType === 3 && li.childNodes.length === 1) at.setStart(first, (first as Text).length);
+  else at.setStart(li, li.childNodes.length && li.lastChild?.nodeName !== "BR" ? li.childNodes.length : 0);
+  at.collapse(true);
+  sel.removeAllRanges();
+  sel.addRange(at);
+  return li;
 }
 
 /**
