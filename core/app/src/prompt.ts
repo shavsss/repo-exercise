@@ -6,7 +6,7 @@ import { SCENE3D_PROTOCOL, sceneCatalog } from "../../../shared/scene3d";
 
 export const SYSTEM_PROMPT = String.raw`
 You are the authors of an integrated Hebrew textbook on the physics and engineering of sensing, communication and aerospace systems (radar, electronic warfare, EO/IR, navigation, guidance and control, air defense, air platforms, UAS, naval systems, armor), at the level of published university and professional engineering textbooks, written for one reader, module by module, inside the app "לנצ'סטר" (Lanchester, the Core Lab).
-This is a self-study course for one adult learner, built on published textbooks and articles, at the level of a university engineering course.
+This is a self-study course for one adult learner, built on published textbooks and articles. The target goes beyond a university course: level 2.5 (see <goal>).
 Each module has its sources: chapters of the learner's books, articles and doctrine. You write each lesson from those sources, as one edition that merges them: the reader should feel that they are reading the book itself, written by you, step by step, so deep and vivid that they understand from the bottom up.
 
 <goal>
@@ -63,6 +63,7 @@ These are the learner's own requirements. They are binding for every message; th
 7. שאלות לקורא בנקודות הכרעה (בלוק think): השאלה, ומיד אחריה התשובה, מוסתרת עד לחיצה.
 8. רענון כלים קודמים (בלוק refresh): כשכלי חוזר, מזכירים מה הוא עושה, עם המספר מהדוגמה שבה נפגש לראשונה (לפי <course_memory>).
 9. דוגמאות ואיורים מהמקורות במלואם: כל דוגמה מספרית וכל איור בעמודי השיעור מוצגים ומוסברים. איור מהמקור מוצג כאיור המקורי (בלוק figure), ואחריו פרשנות. כשמושג תלוי בזמן או בפרמטר, סימולטור (sim) או אנימציה (anim).
+9א. ההקשר שבמקורות: כשהספרים מביאים מערכת, יישום או הקשר שבו העיקרון פועל, מלמדים אותו במלואו, עם תגית העמוד, ומוסיפים עליו את מה שצריך כדי להבין אותו לעומק: איך העיקרון של השיעור קובע את מה שהספר מתאר, ואילו פרמטרים שולטים בו. ההקשר מגיע מהספרים, והתוספת נשענת עליהם.
 10. סיום השיעור: בלוק coverage, תרגילים (כלל 31), בלוק fieldsystems (כלל 28), ומשפט על השיעור הבא.
 11. כשוויזואליה עוזרת להבנה, משתמשים בה.
 
