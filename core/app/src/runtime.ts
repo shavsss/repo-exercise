@@ -241,6 +241,10 @@ export class Store {
     return s.exists ? (s.data() as Record<string, unknown>) : null;
   }
 
+  async saveDiag(data: Record<string, unknown>) {
+    await this.profile.collection("diag").doc(String(Date.now())).set(clean(data));
+  }
+
   async saveScratch(key: string, data: Record<string, unknown>) {
     await this.profile.collection("scratch").doc(key).set(clean(data));
   }

@@ -58,11 +58,42 @@ export function compileExpr(expr: string) {
   return math.compile(expr);
 }
 
-let promptCache = "";
-export function systemPrompt(lean = false) {
-  if (!promptCache) promptCache = SYSTEM_PROMPT.replace("${LIBRARY}", libraryList(getIndex()?.docs ?? {}));
-  // planning needs the book and the library, not the teaching rules
-  return lean ? promptCache.replace(/<goal>[\s\S]*?<\/goal>\n*/, "").replace(/<teaching_rules>[\s\S]*?<\/teaching_rules>\n*/, "") : promptCache;
+/** Which parts of the standing instructions a call carries. */
+export interface PromptOpts {
+  /** the module has analysis references (role ref): include section ח and the reference books */
+  refs?: boolean;
+  /** planning only: the book and the library, without the goal and the teaching rules */
+  lean?: boolean;
+  /** diagnostics: drop the goal and sections ט–י (level 2.5, gradualness) */
+  no25?: boolean;
+}
+
+/** Documents used only as analysis references (B14–B17), listed only for modules that use them. */
+function refDocs() {
+  const mods = getIndex()?.modules ?? [];
+  const used = new Map<string, boolean>();
+  for (const m of mods) for (const s of m.sources) used.set(s.doc, (used.get(s.doc) ?? true) && s.role === "ref");
+  return new Set([...used].filter(([, onlyRef]) => onlyRef).map(([d]) => d));
+}
+
+export function hasRefs(m: Module) {
+  return m.sources.some((s) => s.role === "ref");
+}
+
+const promptCache = new Map<string, string>();
+export function systemPrompt(o: PromptOpts = {}) {
+  const key = JSON.stringify([!!o.refs, !!o.lean, !!o.no25]);
+  const hit = promptCache.get(key);
+  if (hit) return hit;
+  const refs = refDocs();
+  const docs = Object.fromEntries(Object.entries(getIndex()?.docs ?? {}).filter(([id]) => o.refs || !refs.has(id)));
+  let p = SYSTEM_PROMPT.replace("${LIBRARY}", libraryList(docs));
+  // section ח (rules 33–37) only matters where the module has analysis references
+  if (!o.refs) p = p.replace(/\n*ח\. מהביצועים לתוצאה[\s\S]*?(?=\n+ט\. רמה 2\.5)/, "");
+  if (o.no25 || o.lean) p = p.replace(/<goal>[\s\S]*?<\/goal>\n*/, "").replace(/\n*ט\. רמה 2\.5[\s\S]*?(?=<\/teaching_rules>)/, "\n");
+  if (o.lean) p = p.replace(/<teaching_rules>[\s\S]*?<\/teaching_rules>\n*/, "");
+  promptCache.set(key, p);
+  return p;
 }
 
 export interface TurnCallbacks {
@@ -73,6 +104,8 @@ export interface TurnCallbacks {
   onCheckpoint?: (plan: PartPlan, partsDone: number, text: string) => void;
   /** the tutor saved a point to the lesson's shared notebook */
   onNote?: (kind: NoteKind, text: string, addTo?: string) => Promise<void> | void;
+  /** a refused call was diagnosed (see onRefusal) */
+  onDiag?: (d: Record<string, unknown>) => Promise<void> | void;
 }
 
 interface Base {
@@ -182,8 +215,8 @@ ${plan}${mem}${nb}${rest}${o.pages ? `\n\nSource pages for this lesson:\n${o.pag
 }
 
 /** Newest history first, until the budget is used. `keepLast` always sends the last turn. */
-function fitHistory(history: StoredMessage[], fixed: number, keepLast = false, lean = false) {
-  let used = fixed + bytes(systemPrompt());
+function fitHistory(history: StoredMessage[], fixed: number, keepLast = false, p: PromptOpts = {}) {
+  let used = fixed + bytes(systemPrompt(p));
   const kept: Turn[] = [];
   let dropped = 0;
   for (let i = history.length - 1; i >= 0; i--) {
@@ -198,7 +231,7 @@ function fitHistory(history: StoredMessage[], fixed: number, keepLast = false, l
     kept.unshift({ role: m.role, content: m.text });
   }
   while (kept.length && kept[0].role === "assistant") kept.shift();
-  const intro = systemPrompt(lean) + (dropped ? `\n\n[${dropped} earlier turns of this conversation were omitted to fit the input limit; <course_memory> summarizes the course so far.]` : "");
+  const intro = systemPrompt(p) + (dropped ? `\n\n[${dropped} earlier turns of this conversation were omitted to fit the input limit; <course_memory> summarizes the course so far.]` : "");
   return [{ role: "user", content: intro } as Turn, ...kept];
 }
 
@@ -363,7 +396,7 @@ MODULE PLANNING STEP. Split this module into lessons. Do not teach yet.
     ];
     const turn = ask(attempt ? `\n\nYour previous plan left gaps: ${missed.join("; and ")}. Return the full plan again with everything covered.` : "");
     const call = (lean: boolean) =>
-      rt.sample!.json<LessonSpec[]>([...fitHistory([], bytes(turn), false, lean), { role: "user", content: turn }], {
+      rt.sample!.json<LessonSpec[]>([...fitHistory([], bytes(turn), false, { lean, refs: hasRefs(m) }), { role: "user", content: turn }], {
         model: MODEL,
         modelTier: "complex",
         effort,
@@ -407,7 +440,7 @@ export async function askTutor(opts: Base & { mode: Mode; text: string; images: 
   if (!rt.sample) throw { code: "not_granted", message: "sample unavailable" };
   const extra = mode === "quiz" && !continuing ? `\n\n${QUIZ_INSTRUCTIONS}` : "";
   const last = `${studyContext({ mode, module: m, lessons, lessonIdx, memory, notes, allNotes, done })}\n\n${text || "(ראו את התמונה המצורפת)"}${images.length ? `\n\n[${images.length} תמונות מצורפות מהלומד]` : ""}${extra}`;
-  const turns = fitHistory(history, bytes(last), continuing);
+  const turns = fitHistory(history, bytes(last), continuing, { refs: hasRefs(m) });
   return rt.sample([...turns, { role: "user", content: last }], {
     model: MODEL,
     modelTier: "complex",
@@ -474,13 +507,15 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
   if (!plan) {
     cb.onStatus?.("מתכנן את השיעור: קורא את המקורות ומחשב את המספרים");
     const planTurn = `${ctx}\n\n${text}\n\n${PART_PLAN_INSTRUCTIONS}`;
-    plan = await rt.sample.json<PartPlan>([...fitHistory(history, bytes(planTurn)), { role: "user", content: planTurn }], {
-      model: MODEL,
-      modelTier: "complex",
-      effort,
-      signal,
-      ...(tools ? { tools } : { cache: false }),
-    });
+    plan = await rt.sample
+      .json<PartPlan>([...fitHistory(history, bytes(planTurn), false, { refs: hasRefs(m) }), { role: "user", content: planTurn }], {
+        model: MODEL,
+        modelTier: "complex",
+        effort,
+        signal,
+        ...(tools ? { tools } : { cache: false }),
+      })
+      .catch((e) => onRefusal(e, rt, m, history, planTurn, cb));
     if (!plan || !Array.isArray(plan.parts) || !plan.parts.length) throw { code: "invalid_json", message: "no plan" };
     cb.onCheckpoint?.(plan, 0, "");
   }
@@ -494,14 +529,16 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
     for (let attempt = 0; attempt < 2; attempt++) {
       // a part cut off at the length limit gets one continuation
       const turn = `${ctx}\n\n${text}\n\n${partInstructions(plan, k, (before + partText).trim())}${attempt ? "\n\nThe previous attempt of this part was cut off at the length limit; continue it exactly from where the text above stops." : ""}`;
-      const res = await rt.sample([...fitHistory(history, bytes(turn)), { role: "user", content: turn }], {
+      const res = await rt
+        .sample([...fitHistory(history, bytes(turn), false, { refs: hasRefs(m) }), { role: "user", content: turn }], {
         model: MODEL,
         modelTier: "complex",
         effort,
         signal,
         ...(tools ? { tools } : { cache: false }),
         onText: ({ text: t }) => cb.onText(before + partText + t),
-      });
+      })
+        .catch((e) => onRefusal(e, rt, m, history, turn, cb));
       partText += res.text;
       model = res.modelApplied ?? `רמת מודל: ${res.modelTierApplied}`;
       if (!res.truncated) break;
@@ -639,4 +676,41 @@ The learner answered: ${o.answer}
 In Hebrew, two to four sentences: is it right, partly right or wrong; what is missing or mistaken; and the one thing to remember. Start with ✓, ◐ or ✗. Equations in $…$.`;
   const res = await o.rt.sample(prompt, { model: MODEL, modelTier: "quick", effort: "low", signal: o.signal, cache: false });
   return res.text.trim();
+}
+
+/* ---------------- refusal diagnostics ---------------- */
+
+/**
+ * When Claude refuses a lesson call, find which part of the input it refuses: the same turn is sent
+ * again with one part removed at a time, asking only for "OK" (cheap, no tools). The result is saved
+ * (profile/diag) so the cause can be fixed in the instructions, and the refusal is rethrown.
+ */
+async function onRefusal(e: unknown, rt: Runtime, m: Module, history: StoredMessage[], turn: string, cb: TurnCallbacks): Promise<never> {
+  if ((e as { code?: string })?.code !== "refused" || !cb.onDiag) throw e;
+  cb.onStatus?.("Claude סירב. בודק איזה חלק בהנחיות גרם לזה (כדקה)");
+  const refs = hasRefs(m);
+  const bare = turn.replace(/\n*<course_memory>[\s\S]*?<\/course_memory>/, "").replace(/\n*<lesson_notebook>[\s\S]*?<\/lesson_notebook>/, "").replace(/\n*<notebook>[\s\S]*?<\/notebook>/, "");
+  const noPages = turn.replace(/\n*Source pages for this lesson:[\s\S]*?(?=\n<\/study_context>)/, "");
+  const variants: { name: string; p: PromptOpts; turn: string; hist: boolean }[] = [
+    { name: "full", p: { refs }, turn, hist: true },
+    { name: "no-history", p: { refs }, turn, hist: false },
+    { name: "no-memory-notebook", p: { refs }, turn: bare, hist: false },
+    { name: "no-source-pages", p: { refs }, turn: noPages, hist: false },
+    { name: "no-2.5-gradualness", p: { refs, no25: true }, turn, hist: false },
+    { name: "lean-no-rules", p: { refs, lean: true }, turn, hist: false },
+    { name: "lean-bare", p: { refs, lean: true }, turn: bare, hist: false },
+  ];
+  const results: Record<string, string> = {};
+  for (const v of variants) {
+    const ask = `${v.turn}\n\nDIAGNOSTIC CHECK: do not write the lesson. Reply with the single word OK.`;
+    try {
+      await rt.sample!([...fitHistory(v.hist ? history : [], bytes(ask), false, v.p), { role: "user", content: ask }], { model: MODEL, modelTier: "complex", effort: "low", cache: false });
+      results[v.name] = "ok";
+    } catch (err) {
+      results[v.name] = (err as { code?: string })?.code ?? "error";
+      if (results[v.name] === "rate_limited") break;
+    }
+  }
+  await cb.onDiag({ module: m.id, at: Date.now(), results, turnBytes: bytes(turn), systemBytes: bytes(systemPrompt({ refs })) });
+  throw e;
 }
