@@ -1,0 +1,28 @@
+{
+  "at": 1793173051366,
+  "module": "M0.2",
+  "results": {
+    "full": "refused",
+    "lean-no-rules": "ok",
+    "only-א": "refused",
+    "only-ב": "refused",
+    "only-ג": "refused",
+    "only-ד": "refused",
+    "only-ה": "refused",
+    "only-ו": "refused",
+    "only-ז": "refused",
+    "only-ט": "refused",
+    "only-י": "refused",
+    "without-א": "refused",
+    "without-ב": "refused",
+    "without-ג": "ok",
+    "without-ד": "refused",
+    "without-ה": "refused",
+    "without-ו": "refused",
+    "without-ז": "refused",
+    "without-ט": "refused",
+    "without-י": "refused"
+  },
+  "systemBytes": 48167,
+  "turnBytes": 54212
+}

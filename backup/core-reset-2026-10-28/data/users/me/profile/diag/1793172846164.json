@@ -1,0 +1,15 @@
+{
+  "at": 1793172846164,
+  "module": "M0.2",
+  "results": {
+    "full": "refused",
+    "lean-bare": "ok",
+    "lean-no-rules": "ok",
+    "no-2.5-gradualness": "refused",
+    "no-history": "refused",
+    "no-memory-notebook": "refused",
+    "no-source-pages": "refused"
+  },
+  "systemBytes": 48167,
+  "turnBytes": 46602
+}
