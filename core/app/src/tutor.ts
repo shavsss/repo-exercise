@@ -723,29 +723,32 @@ async function retryRefused<T>(call: (history: StoredMessage[]) => Promise<T>, h
  */
 async function onRefusal(e: unknown, rt: Runtime, m: Module, history: StoredMessage[], turn: string, cb: TurnCallbacks): Promise<never> {
   if ((e as { code?: string })?.code !== "refused" || !cb.onDiag) throw e;
-  cb.onStatus?.("Claude סירב. בודק אם הסירוב תלוי במודל (כדקה)");
+  cb.onStatus?.("Claude סירב. בודק איזה חלק מהשיעור גורם לזה (כשתי דקות)");
   const refs = hasRefs(m);
-  // removing sections of the rules flips the answer unpredictably (diags of 28.10), so test the
-  // other axis: the same full input on other models, efforts and with the tools
-  const variants: { name: string; model?: string; effort?: Effort; tools?: boolean; p: PromptOpts }[] = [
-    { name: "opus-low", model: MODEL, effort: "low", p: { refs } },
-    { name: "opus-high", model: MODEL, effort: "high", p: { refs } },
-    { name: "opus-tools", model: MODEL, effort: "low", tools: true, p: { refs } },
-    { name: "sonnet", model: "claude-sonnet-5-5", effort: "low", p: { refs } },
-    { name: "haiku", model: "claude-haiku-5-5", effort: "low", p: { refs } },
-    { name: "tier-complex", p: { refs } },
-    { name: "opus-lean", model: MODEL, effort: "low", p: { refs, lean: true } },
+  // Opus refuses even without the rules while Sonnet and Haiku accept the same input (diags of
+  // 28.10), so look inside the lesson's own input: the plan text, the memory, each source page
+  const pagesAt = turn.indexOf("Source pages for this lesson:");
+  const head = pagesAt >= 0 ? turn.slice(0, pagesAt) : turn;
+  const pagesText = pagesAt >= 0 ? turn.slice(pagesAt) : "";
+  const tail = /\n<\/study_context>[\s\S]*$/.exec(pagesText)?.[0] ?? "";
+  const pageChunks = pagesText.replace(tail, "").replace("Source pages for this lesson:\n", "").split(/\n(?==== \[\[)/).filter((x) => x.trim());
+  const noPlan = turn.replace(/Lesson plan of this module:[\s\S]*?(?=\n<course_memory>|\n<lesson_notebook>|\n<notebook>|\n\nSource pages|\n<\/study_context>)/, "");
+  const noMemory = turn.replace(/\n*<course_memory>[\s\S]*?<\/course_memory>/, "");
+  const minimal = `<study_context>\n${moduleBlock(m)}\n`;
+  const variants: { name: string; turn: string; p: PromptOpts }[] = [
+    { name: "lean-full", turn, p: { refs, lean: true } },
+    { name: "lean-no-pages", turn: head + tail, p: { refs, lean: true } },
+    { name: "lean-no-plan", turn: noPlan, p: { refs, lean: true } },
+    { name: "lean-no-memory", turn: noMemory, p: { refs, lean: true } },
+    { name: "full-no-plan", turn: noPlan, p: { refs } },
+    { name: "lean-pages-only", turn: `${minimal}${pagesText}`, p: { refs, lean: true } },
+    ...pageChunks.slice(0, 16).map((c) => ({ name: `page ${(/\[\[([A-Z]\d+[a-z]?:\d+)\]\]/.exec(c)?.[1] ?? "?")}`, turn: `${minimal}\nSource page:\n${c}\n</study_context>`, p: { refs, lean: true } })),
   ];
   const results: Record<string, string> = {};
   for (const v of variants) {
-    const ask = `${turn}\n\nDIAGNOSTIC CHECK: do not write the lesson. Reply with the single word OK.`;
+    const ask = `${v.turn}\n\nDIAGNOSTIC CHECK: do not write the lesson. Reply with the single word OK.`;
     try {
-      const res = await rt.sample!([...fitHistory([], bytes(ask), false, v.p), { role: "user", content: ask }], {
-        ...(v.model ? { model: v.model } : {}),
-        modelTier: "complex",
-        ...(v.effort ? { effort: v.effort } : {}),
-        ...(v.tools && rt.canUseTools ? { tools: buildTools(cb, moduleDocs(m)) } : { cache: false }),
-      });
+      const res = await rt.sample!([...fitHistory([], bytes(ask), false, v.p), { role: "user", content: ask }], { model: MODEL, modelTier: "complex", effort: "low", cache: false });
       results[v.name] = `ok (${res.modelApplied ?? res.modelTierApplied ?? "?"})`;
     } catch (err) {
       results[v.name] = (err as { code?: string })?.code ?? "error";
