@@ -80,6 +80,8 @@ export function AssistantTurn({
   onFillGaps,
   onContinue,
   notes,
+  onNoteSave,
+  onNoteDelete,
 }: {
   item: Extract<Item, { kind: "assistant" }>;
   live: boolean;
@@ -90,8 +92,10 @@ export function AssistantTurn({
   onOpenSource: (doc: string, page: number) => void;
   onFillGaps: (missing: string[]) => void;
   onContinue?: () => void;
-  /** this lesson's notebook, shown as notes in the margin */
+  /** the sticky notes the learner pulled into this lesson's margin */
   notes?: LessonNote[];
+  onNoteSave?: (id: string, patch: Partial<LessonNote>) => void;
+  onNoteDelete?: (id: string) => void;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const words = useMemo(() => countWords(item.segments), [item.segments]);
@@ -108,7 +112,7 @@ export function AssistantTurn({
   return (
     <article className={`msg-assistant ${live ? "is-live" : ""}`} ref={ref} data-key={item.key}>
       {header && item.mode === "lesson" && <DimensionHead {...header} />}
-      {!live && item.mode === "lesson" && notes?.length ? <MarginNotes root={ref} notes={notes} version={item.segments} /> : null}
+      {!live && item.mode === "lesson" && notes?.length && onNoteSave && onNoteDelete ? <MarginNotes root={ref} notes={notes} version={item.segments} onSave={onNoteSave} onDelete={onNoteDelete} /> : null}
       <div className="msg-meta">
         <span>{MODE_LABEL[item.mode]}</span>
         {words > 0 && <span dir="ltr">{words.toLocaleString("he-IL")} מילים</span>}

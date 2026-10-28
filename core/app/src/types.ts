@@ -68,7 +68,8 @@ export interface LessonNote {
   /** lesson index; -1 = the module quiz */
   lesson: number;
   lessonTitle?: string;
-  /** a short quote from the lesson paragraph the point came from, for the margin note */
+  /** a sticky note the learner pulled from the pad: shown in the lesson margin beside `anchor`, a quote from its paragraph */
+  margin?: boolean;
   anchor?: string;
   ts: number;
 }

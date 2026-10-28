@@ -233,7 +233,8 @@
 }
 .dock-row { display: flex; gap: 6px; }
 .mini-toc-btn,
-.dock-focus {
+.dock-focus,
+.dock-pad {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -252,6 +253,8 @@
 }
 .reading-dock:hover .mini-toc-btn,
 .reading-dock:hover .dock-focus,
+.reading-dock:hover .dock-pad,
+.dock-pad:focus-visible,
 .mini-toc-btn[aria-expanded="true"],
 .dock-focus.is-on,
 .mini-toc-btn:focus-visible,
@@ -502,11 +505,23 @@
 body.pad-resizing { cursor: col-resize; user-select: none; }
 @media (max-width: 1100px) { .pad-panel { position: fixed; } }
 
-/* ---------- notebook points as notes in the lesson margin (components/MarginNotes.tsx) ---------- */
+/* ---------- sticky notes pulled from the pad into the lesson margin (components/MarginNotes.tsx) ---------- */
+.dock-pad { color: var(--ink); }
+.dock-pad-stack { position: relative; width: 14px; height: 13px; background: var(--mn-paper); border: 1px solid color-mix(in srgb, var(--mn-ink) 30%, transparent); box-shadow: 2px 2px 0 -1px var(--mn-paper), 2px 2px 0 0 color-mix(in srgb, var(--mn-ink) 30%, transparent); }
+.mn-kinds { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; }
+.mn-k { all: unset; cursor: pointer; font-size: 0.7rem; font-weight: 600; padding: 1px 7px; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--nk) 50%, transparent); color: var(--nk); }
+.mn-k.k-deepen { --nk: var(--k-formula); } .mn-k.k-interview { --nk: var(--k-history); } .mn-k.k-article { --nk: var(--accent); } .mn-k.k-note { --nk: var(--k-domain); }
+.mn-k.is-on { background: var(--nk); color: var(--mn-paper); }
+.mn-k:focus-visible { outline: 2px solid var(--nk); outline-offset: 1px; }
+.mn-edit { width: 100%; box-sizing: border-box; resize: vertical; min-height: 6.5em; border: 0; border-top: 1px dashed color-mix(in srgb, var(--mn-ink) 25%, transparent); background: transparent; color: var(--mn-ink); font: inherit; line-height: 1.5; padding: 6px 0; outline: none; }
+.mn-actions { display: flex; justify-content: space-between; margin-top: 6px; }
+.mn-actions button { all: unset; cursor: pointer; font-size: 0.74rem; color: color-mix(in srgb, var(--mn-ink) 70%, transparent); padding: 2px 4px; }
+.mn-actions .mn-done { font-weight: 700; color: var(--nk); }
+.mn-actions button:focus-visible { outline: 2px solid var(--nk); }
+.mn-note.is-open .mn-face { cursor: default; }
 :root { --mn-paper: #fbf1c7; --mn-ink: #2c2a20; --mn-tape: rgb(214 205 170 / 70%); --mn-hl: rgb(233 196 106 / 28%); --mn-hl-on: rgb(233 196 106 / 60%); }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --mn-paper: #3a3622; --mn-ink: #efe9cf; --mn-tape: rgb(120 112 80 / 60%); --mn-hl: rgb(233 196 106 / 18%); --mn-hl-on: rgb(233 196 106 / 38%); } }
 :root[data-theme="dark"] { --mn-paper: #3a3622; --mn-ink: #efe9cf; --mn-tape: rgb(120 112 80 / 60%); --mn-hl: rgb(233 196 106 / 18%); --mn-hl-on: rgb(233 196 106 / 38%); }
-::highlight(mn-anchor) { background-color: var(--mn-hl); }
 ::highlight(mn-on) { background-color: var(--mn-hl-on); }
 .msg-assistant { position: relative; }
 .mn-layer { position: absolute; top: 0; inset-inline-end: -208px; width: 184px; height: 0; z-index: 3; }
@@ -534,6 +549,6 @@ body.pad-resizing { cursor: col-resize; user-select: none; }
 .is-narrow .mn-face::before { display: none; }
 .is-narrow .mn-kind { font-size: 0; margin: 0; color: inherit; }
 .is-narrow .mn-kind b { font-size: 0.72rem; font-weight: 600; }
-.is-narrow .mn-note.is-open .mn-face { width: min(280px, 78vw); height: auto; border-radius: 3px; background: var(--mn-paper); color: var(--mn-ink); border-top: 3px solid var(--nk); padding: 12px; display: block; }
+.is-narrow .mn-note.is-open .mn-face { width: min(280px, 78vw); height: auto; border-radius: 3px; background: var(--mn-paper); color: var(--mn-ink); border-top: 3px solid var(--nk); padding: 12px; display: block; box-shadow: 0 10px 24px -8px rgb(0 0 0 / 35%); }
 .is-narrow .mn-note.is-open .mn-kind { font-size: 0.74rem; color: var(--nk); margin-bottom: 3px; }
 @media print { .mn-layer { display: none; } }

@@ -10,6 +10,7 @@ import { AssistantTurn, DimensionHead, UserBubble } from "./components/Message";
 import { Composer, type QuickAction } from "./components/Composer";
 import { lessonChannel } from "./summaries/SummaryApp";
 import { LessonToc, ReadingDock, ReadingProgress, useResumePosition } from "./components/ReadingAids";
+import { noteAnchorHere } from "./components/MarginNotes";
 import { Scratchpad } from "./components/Scratchpad";
 import { ExplainPanel } from "./components/Explain";
 import { SourceViewer } from "./components/SourceViewer";
@@ -201,10 +202,24 @@ export function App() {
     },
     [rt],
   );
+  const updateNote = useCallback(
+    (id: string, patch: Partial<LessonNote>) => {
+      if (id.startsWith("local-") || !rt?.store) setNotes((all) => all.map((n) => (n.id === id ? { ...n, ...patch } : n)));
+      else rt.store.updateNote(id, patch).catch(() => notify({ level: "error", text: "העדכון לא נשמר." }));
+    },
+    [rt],
+  );
+  const deleteNote = useCallback(
+    (id: string) => {
+      if (id.startsWith("local-") || !rt?.store) setNotes((all) => all.filter((n) => n.id !== id));
+      else rt.store.deleteNote(id).catch(() => notify({ level: "error", text: "המחיקה לא נשמרה." }));
+    },
+    [rt],
+  );
   const addNote = useCallback(
     async (kind: NoteKind, text: string, who: LessonNote["who"], m: Module, idx: number, anchor?: string) => {
       const lessonTitle = idx >= 0 ? modsRef.current[m.id]?.lessons?.[idx]?.title : "מבחן מסכם";
-      const note: LessonNote = { who, kind, text, moduleId: m.id, lesson: idx, ts: Date.now(), ...(lessonTitle ? { lessonTitle } : {}), ...(anchor ? { anchor } : {}) };
+      const note: LessonNote = { who, kind, text, moduleId: m.id, lesson: idx, ts: Date.now(), ...(lessonTitle ? { lessonTitle } : {}), ...(anchor ? { anchor, margin: true } : {}) };
       if (rt?.store) {
         try {
           await rt.store.addNote(note);
@@ -351,7 +366,7 @@ export function App() {
           onStatus: (status: string) => setLive((l) => (l ? { ...l, status } : l)),
           onCheckpoint: (plan: PartPlan, partsDone: number, text: string) => save({ plan, partsDone, text }, true),
           onText: show,
-          onNote: (kind: NoteKind, text: string, addTo?: string, anchor?: string) => (addTo ? appendToNote(addTo, text) : addNote(kind, text, "tutor", m, idx, anchor)),
+          onNote: (kind: NoteKind, text: string, addTo?: string) => (addTo ? appendToNote(addTo, text) : addNote(kind, text, "tutor", m, idx)),
         };
         const lessons = modsRef.current[m.id]?.lessons;
         const lessonNotes = notesRef.current.filter((n) => n.moduleId === m.id && n.lesson === idx);
@@ -641,7 +656,9 @@ export function App() {
                           send(`בשיעור חסרו לפי בדיקת הרף: ${missing.join(", ")}. השלם עכשיו את מה שחסר ברמה המלאה, בהמשך ישיר לשיעור ובלי לחזור על מה שכבר נכתב.`, [], "clarify")
                         }
                         onContinue={i === items.length - 1 && !busy ? resumeLast : undefined}
-                        notes={lesson ? notes.filter((n) => n.moduleId === module.id && n.lesson === lessonIdx) : undefined}
+                        notes={lesson ? notes.filter((n) => n.margin && n.moduleId === module.id && n.lesson === lessonIdx) : undefined}
+                        onNoteSave={updateNote}
+                        onNoteDelete={deleteNote}
                       />
                     ),
                   )}
@@ -661,7 +678,21 @@ export function App() {
                 </div>
               ))}
             </div>
-            {inLesson && items.length > 0 && <ReadingDock scrollRef={scrollRef} version={items} />}
+            {inLesson && items.length > 0 && (
+              <ReadingDock
+                scrollRef={scrollRef}
+                version={items}
+                onPad={
+                  module && lessonIdx !== undefined && lessonIdx >= 0
+                    ? () => {
+                        const anchor = noteAnchorHere(scrollRef.current);
+                        if (!anchor) return notify({ level: "warn", text: "גלול לפסקה בשיעור, או סמן בה מילים, ואז שלוף פתק." });
+                        addNote("note", "", "learner", module, lessonIdx, anchor);
+                      }
+                    : undefined
+                }
+              />
+            )}
           </div>
           {module && lessonIdx !== undefined && (lesson || isQuiz) && (
             <Composer
@@ -711,14 +742,8 @@ export function App() {
           hereLabel={module && lessonIdx !== undefined ? `${module.id} · ${isQuiz ? "מבחן מסכם" : `שיעור ${lessonIdx + 1}: ${lesson?.title ?? ""}`}` : ""}
           canWrite={!!rt}
           onAdd={(kind, text) => module && lessonIdx !== undefined && addNote(kind, text, "learner", module, lessonIdx)}
-          onUpdate={(id, patch) => {
-            if (id.startsWith("local-") || !rt?.store) setNotes((all) => all.map((n) => (n.id === id ? { ...n, ...patch } : n)));
-            else rt.store.updateNote(id, patch).catch(() => notify({ level: "error", text: "העדכון לא נשמר." }));
-          }}
-          onDelete={(id) => {
-            if (id.startsWith("local-") || !rt?.store) setNotes((all) => all.filter((n) => n.id !== id));
-            else rt.store.deleteNote(id).catch(() => notify({ level: "error", text: "המחיקה לא נשמרה." }));
-          }}
+          onUpdate={updateNote}
+          onDelete={deleteNote}
           onClose={() => setNotesOpen(false)}
           onOpen={(moduleId, l) => {
             setNotesOpen(false);

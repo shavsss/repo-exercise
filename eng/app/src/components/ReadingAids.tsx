@@ -222,7 +222,7 @@ export function LessonToc({ scrollRef, version, open, setOpen }: { scrollRef: Re
  * Floating aids at the bottom corner of a lesson: the focus switch, and on narrow screens
  * (or with the contents panel closed) the headings with the one being read marked.
  */
-export function ReadingDock({ scrollRef, version }: { scrollRef: RefObject<HTMLDivElement | null>; version: unknown }) {
+export function ReadingDock({ scrollRef, version, onPad }: { scrollRef: RefObject<HTMLDivElement | null>; version: unknown; onPad?: () => void }) {
   const r = useReading();
   const [open, setOpen] = useState(false);
   const { heads, current, left } = useHeadings(scrollRef, version);
@@ -268,6 +268,12 @@ export function ReadingDock({ scrollRef, version }: { scrollRef: RefObject<HTMLD
               {left > 1 && (
                 <span className="mini-toc-left">· עוד כ-{left} דק'</span>
               )}
+            </button>
+          )}
+          {onPad && (
+            <button className="dock-pad" onPointerDown={(e) => e.preventDefault()} onClick={onPad} title="שלוף פתק לשוליים, ליד הטקסט המסומן או הפסקה שבראש המסך">
+              <span className="dock-pad-stack" aria-hidden="true" />
+              <span>פתק</span>
             </button>
           )}
           <button

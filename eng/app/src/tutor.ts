@@ -71,7 +71,7 @@ export interface TurnCallbacks {
   /** a safe point to save: the part plan exists and `partsDone` parts are written */
   onCheckpoint?: (plan: PartPlan, partsDone: number, text: string) => void;
   /** the tutor saved a point to the lesson's shared notebook */
-  onNote?: (kind: NoteKind, text: string, addTo?: string, anchor?: string) => Promise<void> | void;
+  onNote?: (kind: NoteKind, text: string, addTo?: string) => Promise<void> | void;
 }
 
 interface Base {
@@ -251,10 +251,10 @@ function buildTools(cb: TurnCallbacks, docs: string[]): SampleTool[] {
           {
             name: "save_lesson_note",
             description:
-              "Save a point to the shared notebook of this lesson, which the learner and you both keep: an idea for an article the learner may write, a question worth asking an expert in an interview, a point to study more deeply later, or a short note. Write it in Hebrew, self-contained (it is read later, outside the lesson). Save only what is worth keeping, a few per lesson at most, and never the same point twice (see <lesson_notebook> and <notebook>). To add a point to an item that already exists (a new point for an article idea, for example), pass its id as add_to: the text is appended to it as a new point. When the learner asks you to add something, add exactly that. Give anchor: a short exact quote (6 to 12 words) copied from the lesson paragraph where the point came up, so the note sits beside it in the margin.",
+              "Save a point to the shared notebook of this lesson, which the learner and you both keep: an idea for an article the learner may write, a question worth asking an expert in an interview, a point to study more deeply later, or a short note. Write it in Hebrew, self-contained (it is read later, outside the lesson). Save only what is worth keeping, a few per lesson at most, and never the same point twice (see <lesson_notebook> and <notebook>). To add a point to an item that already exists (a new point for an article idea, for example), pass its id as add_to: the text is appended to it as a new point. When the learner asks you to add something, add exactly that.",
             inputSchema: {
               type: "object" as const,
-              properties: { kind: { type: "string", enum: ["article", "interview", "deepen", "note"] }, text: { type: "string" }, add_to: { type: "string", description: "id of an existing notebook item to append this point to" }, anchor: { type: "string", description: "a short exact quote (6 to 12 words) from the lesson paragraph this point came from" } },
+              properties: { kind: { type: "string", enum: ["article", "interview", "deepen", "note"] }, text: { type: "string" }, add_to: { type: "string", description: "id of an existing notebook item to append this point to" } },
               required: ["kind", "text"],
             },
             async execute(input: Record<string, unknown>) {
@@ -262,7 +262,7 @@ function buildTools(cb: TurnCallbacks, docs: string[]): SampleTool[] {
               const t = String(input.text ?? "").trim();
               if (!t) return "Empty note, nothing saved.";
               const addTo = input.add_to ? String(input.add_to) : undefined;
-              await cb.onNote!(kind, t, addTo, input.anchor ? String(input.anchor).trim().slice(0, 200) : undefined);
+              await cb.onNote!(kind, t, addTo);
               cb.onActivity({ t: "note", kind: NOTE_KIND_LABEL[kind], text: t });
               return addTo ? `Added as a new point to notebook item ${addTo}.` : `Saved to the lesson notebook as ${NOTE_KIND_LABEL[kind]}.`;
             },
