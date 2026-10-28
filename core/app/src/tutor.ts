@@ -522,15 +522,18 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
   if (!plan) {
     cb.onStatus?.("מתכנן את השיעור: קורא את המקורות ומחשב את המספרים");
     const planTurn = `${ctx}\n\n${text}\n\n${PART_PLAN_INSTRUCTIONS}`;
-    plan = await rt.sample
-      .json<PartPlan>([...fitHistory(history, bytes(planTurn), false, { refs: hasRefs(m) }), { role: "user", content: planTurn }], {
-        model: MODEL,
-        modelTier: "complex",
-        effort,
-        signal,
-        ...(tools ? { tools } : { cache: false }),
-      })
-      .catch((e) => onRefusal(e, rt, m, history, planTurn, cb));
+    plan = await retryRefused(
+      (h) =>
+        rt.sample!.json<PartPlan>([...fitHistory(h, bytes(planTurn), false, { refs: hasRefs(m) }), { role: "user", content: planTurn }], {
+          model: MODEL,
+          modelTier: "complex",
+          effort,
+          signal,
+          ...(tools ? { tools } : { cache: false }),
+        }),
+      history,
+      cb,
+    ).catch((e) => onRefusal(e, rt, m, history, planTurn, cb));
     if (!plan || !Array.isArray(plan.parts) || !plan.parts.length) throw { code: "invalid_json", message: "no plan" };
     cb.onCheckpoint?.(plan, 0, "");
   }
@@ -544,16 +547,19 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
     for (let attempt = 0; attempt < 2; attempt++) {
       // a part cut off at the length limit gets one continuation
       const turn = `${ctx}\n\n${text}\n\n${partInstructions(plan, k, (before + partText).trim())}${attempt ? "\n\nThe previous attempt of this part was cut off at the length limit; continue it exactly from where the text above stops." : ""}`;
-      const res = await rt
-        .sample([...fitHistory(history, bytes(turn), false, { refs: hasRefs(m) }), { role: "user", content: turn }], {
-        model: MODEL,
-        modelTier: "complex",
-        effort,
-        signal,
-        ...(tools ? { tools } : { cache: false }),
-        onText: ({ text: t }) => cb.onText(before + partText + t),
-      })
-        .catch((e) => onRefusal(e, rt, m, history, turn, cb));
+      const res = await retryRefused(
+        (h) =>
+          rt.sample!([...fitHistory(h, bytes(turn), false, { refs: hasRefs(m) }), { role: "user", content: turn }], {
+            model: MODEL,
+            modelTier: "complex",
+            effort,
+            signal,
+            ...(tools ? { tools } : { cache: false }),
+            onText: ({ text: t }) => cb.onText(before + partText + t),
+          }),
+        history,
+        cb,
+      ).catch((e) => onRefusal(e, rt, m, history, turn, cb));
       partText += res.text;
       model = res.modelApplied ?? `רמת מודל: ${res.modelTierApplied}`;
       if (!res.truncated) break;
@@ -693,7 +699,23 @@ In Hebrew, two to four sentences: is it right, partly right or wrong; what is mi
   return res.text.trim();
 }
 
-/* ---------------- refusal diagnostics ---------------- */
+/* ---------------- refusals ---------------- */
+
+/**
+ * Claude's refusals of these lessons are borderline and not repeatable (the same input passed and
+ * failed on different tries, diag of 28.10), so a refused call is tried twice more, without the
+ * earlier turns of the conversation; the lesson's instructions and material stay the same.
+ */
+async function retryRefused<T>(call: (history: StoredMessage[]) => Promise<T>, history: StoredMessage[], cb: TurnCallbacks): Promise<T> {
+  for (let i = 0; ; i++) {
+    try {
+      return await call(i ? [] : history);
+    } catch (e) {
+      if ((e as { code?: string })?.code !== "refused" || i >= 2) throw e;
+      cb.onStatus?.(`Claude סירב; מנסה שוב (${i + 1} מתוך 2)`);
+    }
+  }
+}
 
 /**
  * When Claude refuses a lesson call, find which part of the input it refuses: the same turn is sent
