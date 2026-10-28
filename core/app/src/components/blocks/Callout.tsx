@@ -14,7 +14,7 @@ export const CALLOUTS: Record<string, { label: string; icon: string }> = {
   casestudy: { label: "מקרה בוחן", icon: "casestudy" },
   model: { label: "בניית מודל", icon: "model" },
   erratum: { label: "תיקון", icon: "erratum" },
-  fieldsystems: { label: "מערכות בשטח", icon: "fieldsystems" },
+  fieldsystems: { label: "דוגמאות הנדסיות מהעולם", icon: "fieldsystems" },
   coverage: { label: "בדיקת כיסוי", icon: "coverage" },
 };
 

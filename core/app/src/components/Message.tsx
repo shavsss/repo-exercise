@@ -62,7 +62,7 @@ const MAP_BLOCKS: [string, string][] = [
   ["casestudy", "מקרה בוחן"],
   ["domain", "חיבורים"],
   ["fieldmap", "איפה הנוסחה עובדת"],
-  ["fieldsystems", "מערכות בשטח"],
+  ["fieldsystems", "דוגמאות הנדסיות מהעולם"],
   ["erratum", "תיקונים"],
   ["coverage", "כיסוי"],
   ["exercise", "תרגילים"],
