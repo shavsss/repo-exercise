@@ -23,19 +23,19 @@
   --hover: #eeebdf;
   --sel: #e7e3d3;
   --shadow: 0 1px 2px rgb(34 38 29 / 6%), 0 6px 18px rgb(34 38 29 / 6%);
-  --k-plan: #5f6650;
-  --k-story: #9a4f12;
-  --k-history: #6a4c8c;
-  --k-formula: #355f7d;
-  --k-think: #6b5a1e;
-  --k-refresh: #6f6a12;
-  --k-domain: #2f6b5f;
-  --k-casestudy: #2e6577;
-  --k-model: #4f6f1a;
-  --k-erratum: #a3161a;
-  --k-fieldsystems: #b3261e;
-  --k-coverage: #5f6650;
-  --k-exercise: #355f7d;
+  --k-plan: #5b6248;
+  --k-story: #a14a0c;
+  --k-history: #6d3fa0;
+  --k-formula: #1f5f9e;
+  --k-think: #a16207;
+  --k-refresh: #6b7a00;
+  --k-domain: #0f766e;
+  --k-casestudy: #1d4e89;
+  --k-model: #3f7a1a;
+  --k-erratum: #b91c1c;
+  --k-fieldsystems: #be123c;
+  --k-coverage: #5b6248;
+  --k-exercise: #c2410c;
   --s1: #b3261e;
   --s2: #355f7d;
   --s3: #2f6b5f;
@@ -1318,10 +1318,12 @@ button.crumb:hover {
 .block {
   --k: var(--k-plan);
   position: relative;
-  border: 1.5px dashed var(--k);
+  border: 2px dashed var(--k);
   border-radius: 3px;
   padding: 20px 18px 6px;
   margin: 30px 0 22px;
+  /* a faint wash of the block's own color, so its kind reads at a glance */
+  background: color-mix(in srgb, var(--k) 5%, transparent);
 }
 .block-head {
   display: flex;
@@ -1340,7 +1342,7 @@ button.crumb:hover {
   background: var(--paper);
   color: var(--k);
   padding: 0 6px;
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   font-weight: 700;
   line-height: 1.6;
   letter-spacing: 0.01em;
@@ -1379,7 +1381,8 @@ button.crumb:hover {
 .block-refresh {
   --k: var(--k-refresh);
 }
-.block-domain {
+.block-domain,
+.block-fieldmap {
   --k: var(--k-domain);
 }
 .block-casestudy {

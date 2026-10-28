@@ -1,9 +1,9 @@
 /* Engineering Lab additions to the Core Lab drawing style: 3D scenes, notebooks,
    the ring map, level-2.5 tags, the "today" block and the folded source viewer. */
 :root {
-  --k-today: #9a4f12;
-  --k-derivation: #44493a;
-  --k-notebook: #4f6f1a;
+  --k-today: #be123c;
+  --k-derivation: #3b5b8c;
+  --k-notebook: #15803d;
   --l25-structure: #355f7d;
   --l25-origin: #6a4c8c;
   --l25-limits: #a3161a;
