@@ -493,7 +493,7 @@ LESSON PLANNING STEP. Do not write the text yet. The app will write the lesson i
  "facts": ["SNR = 13.2 dB at R = 50 km for σ = 1 m² (computed)", "…"],
  "next": "what the next lesson covers"}
 Write the plan (titles, "covers", "facts", "next") in plain engineering language: physics, signals, receivers, links, and published system parameters. Name every topic by its engineering content (interference and the signal-to-interference ratio, detection range, link margin), the case study as an engineering design question, and the exercises as engineering calculations; do not frame anything as attacking, defeating or targeting.
-Rules for the plan: 3 to 5 parts; for a core or advanced module the words add up to at least 4200 Hebrew words unless the assigned material is genuinely short (then say so in the first part); part 1 opens with the plan block and the story, then the problem/why-hard/idea paragraphs; every derivation is planned step by step; every assigned section and every figure is assigned to exactly one part; all seven level-2.5 sections ("l25") are assigned to parts for the lesson's central results; the case study, history block(s), the connections by <reader_stage> (a fieldmap block for every new central formula, at least four full domain blocks in every lesson, in the gateway stage P0, for a field not yet learned, at the level of the system and its operational meaning; from P1 on, full, including the mechanism; technical explanations only from familiar ground, rules 41–45), think questions, refresh blocks, simulators and figures are assigned to parts; the last part holds the coverage block, the exercises, the fieldsystems block (if a real connection exists) and the sentence about the next lesson.`.trim();
+Rules for the plan: 3 to 5 parts; for a core or advanced module the words add up to at least 4200 Hebrew words unless the assigned material is genuinely short (then say so in the first part); part 1 opens with the plan block and the story, then the problem/why-hard/idea paragraphs; every derivation is planned step by step; every assigned section and every figure is assigned to exactly one part; all seven level-2.5 sections ("l25") are assigned to parts for the lesson's central results; the case study, history block(s), the connections by <reader_stage> (a fieldmap block for every new central formula, at least four full domain blocks in every lesson, in the gateway stage P0, for a field not yet learned, at the level of what the system does, with the mechanism left to its module; from P1 on, full, including the mechanism; technical explanations only from familiar ground, rules 41–45), think questions, refresh blocks, simulators and figures are assigned to parts; the last part holds the coverage block, the exercises, the fieldsystems block (if a real connection exists) and the sentence about the next lesson.`.trim();
 
 function partInstructions(plan: PartPlan, k: number, writtenSoFar: string) {
   const p = plan.parts[k];
@@ -599,14 +599,12 @@ export const INITIAL_MEMORY = `# זיכרון הקורס
 
 ## קשיים, שאלות פתוחות והעדפות
 - מתמטיקה, פיזיקה והנדסה: מתחילים מאפס, כל כלי נבנה כשצריך אותו, גזירות צעד אחר צעד.
-- מערכות, פרמטרים, מקרי בוחן ו-OSINT: רמה גבוהה; לא מסבירים מה היא מערכת מוכרת.
-- חשובות לו "דוגמאות הנדסיות מהעולם" מהתעשיות המרכזיות (רוסיה, ארה"ב, סין, טורקיה, ישראל, דרום קוריאה, אירופה) ושמות בשפת המקור.
 `;
 
 export async function updateMemory(rt: Runtime, memory: string, answer: StoredMessage, request: string, where: string) {
   if (!rt.sample) return null;
   const body = answer.text.length > 90000 ? answer.text.slice(0, 90000) + "\n[…]" : answer.text;
-  const prompt = `You maintain the running memory of a personal course in which a tutor teaches one learner the military technical core (radar, EW, EO/IR, navigation, guidance, air defense, platforms), in Hebrew, module by module. The tutor reads this memory before every answer, so it is how later lessons refer back to earlier ones.
+  const prompt = `You maintain the running memory of a personal course in which a tutor teaches one learner the physics and engineering of sensing, communication and aerospace systems (radar, EW, EO/IR, navigation, guidance, platforms), in Hebrew, module by module. The tutor reads this memory before every answer, so it is how later lessons refer back to earlier ones.
 
 Current memory:
 <<<
