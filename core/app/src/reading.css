@@ -32,6 +32,22 @@
   --sel: #ebe3d3;
   color-scheme: light;
 }
+/* warm paper: the whole page in the warm tone of the opening story, for long reading */
+:root[data-surface="warm"] {
+  --bg: #e6ddcb;
+  --paper: #f1eadc;
+  --sheet: #f6f0e4;
+  --ink: #2b2620;
+  --ink-soft: #4a4238;
+  --muted: #776b5b;
+  --line: #d9ccb4;
+  --line-strong: #ae9c7d;
+  --grid-line: #e6dccb;
+  --grid-major: #d6c9b1;
+  --hover: #ebe1cf;
+  --sel: #e3d7c1;
+  color-scheme: light;
+}
 /* soft dark: neutral charcoal instead of the blueprint blue, for long evening reading */
 :root[data-surface="soft"] {
   --bg: #17181b;

@@ -8,7 +8,7 @@ export interface Reading {
   size: "s" | "m" | "l" | "xl";
   space: "normal" | "airy";
   width: "narrow" | "medium" | "wide";
-  surface: "theme" | "paper" | "soft";
+  surface: "theme" | "paper" | "warm" | "soft";
   /** focus: the map, the source rail and the composer's extras step aside */
   focus: "off" | "on";
 }
