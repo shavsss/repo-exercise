@@ -5,6 +5,8 @@ import { Markdown, MdContext, slug } from "./Markdown";
 import { ActivitySeg } from "./Segments";
 import { CALLOUTS } from "./blocks/Callout";
 import { Icon } from "./Icon";
+import { MarginNotes } from "./MarginNotes";
+import type { LessonNote } from "../types";
 
 export function UserBubble({ item }: { item: Extract<Item, { kind: "user" }> }) {
   return (
@@ -77,6 +79,7 @@ export function AssistantTurn({
   onOpenSource,
   onFillGaps,
   onContinue,
+  notes,
 }: {
   item: Extract<Item, { kind: "assistant" }>;
   live: boolean;
@@ -87,6 +90,8 @@ export function AssistantTurn({
   onOpenSource: (doc: string, page: number) => void;
   onFillGaps: (missing: string[]) => void;
   onContinue?: () => void;
+  /** this lesson's notebook, shown as notes in the margin */
+  notes?: LessonNote[];
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const words = useMemo(() => countWords(item.segments), [item.segments]);
@@ -103,6 +108,7 @@ export function AssistantTurn({
   return (
     <article className={`msg-assistant ${live ? "is-live" : ""}`} ref={ref} data-key={item.key}>
       {header && item.mode === "lesson" && <DimensionHead {...header} />}
+      {!live && item.mode === "lesson" && notes?.length ? <MarginNotes root={ref} notes={notes} version={item.segments} /> : null}
       <div className="msg-meta">
         <span>{MODE_LABEL[item.mode]}</span>
         {words > 0 && <span dir="ltr">{words.toLocaleString("he-IL")} מילים</span>}

@@ -68,6 +68,8 @@ export interface LessonNote {
   /** lesson index; -1 = the module quiz */
   lesson: number;
   lessonTitle?: string;
+  /** a short quote from the lesson paragraph the point came from, for the margin note */
+  anchor?: string;
   ts: number;
 }
 export const NOTE_KIND_LABEL: Record<NoteKind, string> = { article: "רעיון למאמר", interview: "שאלה לראיון", deepen: "להעמקה", note: "הערה" };

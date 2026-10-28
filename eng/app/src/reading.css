@@ -501,3 +501,39 @@
 .pad-resize:hover::after, .pad-resize.is-drag::after { opacity: 1; }
 body.pad-resizing { cursor: col-resize; user-select: none; }
 @media (max-width: 1100px) { .pad-panel { position: fixed; } }
+
+/* ---------- notebook points as notes in the lesson margin (components/MarginNotes.tsx) ---------- */
+:root { --mn-paper: #fbf1c7; --mn-ink: #2c2a20; --mn-tape: rgb(214 205 170 / 70%); --mn-hl: rgb(233 196 106 / 28%); --mn-hl-on: rgb(233 196 106 / 60%); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --mn-paper: #3a3622; --mn-ink: #efe9cf; --mn-tape: rgb(120 112 80 / 60%); --mn-hl: rgb(233 196 106 / 18%); --mn-hl-on: rgb(233 196 106 / 38%); } }
+:root[data-theme="dark"] { --mn-paper: #3a3622; --mn-ink: #efe9cf; --mn-tape: rgb(120 112 80 / 60%); --mn-hl: rgb(233 196 106 / 18%); --mn-hl-on: rgb(233 196 106 / 38%); }
+::highlight(mn-anchor) { background-color: var(--mn-hl); }
+::highlight(mn-on) { background-color: var(--mn-hl-on); }
+.msg-assistant { position: relative; }
+.mn-layer { position: absolute; top: 0; inset-inline-end: -208px; width: 184px; height: 0; z-index: 3; }
+.mn-layer.is-narrow { inset-inline-end: -12px; width: 0; }
+.mn-note { --nk: var(--k-domain); position: absolute; inset-inline-start: 0; width: 184px; }
+.mn-note.k-deepen { --nk: var(--k-formula); }
+.mn-note.k-interview { --nk: var(--k-history); }
+.mn-note.k-article { --nk: var(--accent); }
+.mn-note.k-note { --nk: var(--k-domain); }
+.mn-face { all: unset; box-sizing: border-box; display: block; width: 100%; cursor: pointer; background: var(--mn-paper); color: var(--mn-ink); border-top: 3px solid var(--nk); padding: 16px 12px 10px; box-shadow: 0 1px 1px rgb(0 0 0 / 8%), 0 8px 16px -6px rgb(0 0 0 / 22%); transform: rotate(-1deg); font-family: var(--font); font-size: 0.82rem; line-height: 1.5; position: relative; transition: transform 0.15s, box-shadow 0.15s; }
+.mn-note:nth-child(even) .mn-face { transform: rotate(0.8deg); }
+.mn-note.by-me .mn-face { border-top-style: dashed; }
+.mn-face::before { content: ""; position: absolute; top: -8px; inset-inline-start: 38%; width: 56px; height: 16px; background: var(--mn-tape); transform: rotate(-3deg); }
+.mn-face:focus-visible { outline: 2px solid var(--nk); outline-offset: 2px; }
+.mn-kind { display: block; font-size: 0.74rem; font-weight: 700; color: var(--nk); margin-bottom: 3px; }
+.mn-kind b { font-family: var(--mono); font-weight: 500; }
+.mn-text { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; white-space: pre-line; }
+.mn-note:hover .mn-face { transform: rotate(0); box-shadow: 0 2px 3px rgb(0 0 0 / 10%), 0 12px 22px -8px rgb(0 0 0 / 28%); }
+.mn-note.is-open { z-index: 6; }
+.mn-note.is-open .mn-face { transform: none; max-height: 70vh; overflow-y: auto; }
+.mn-note.is-open .mn-text { display: block; -webkit-line-clamp: none; }
+/* narrow: a numbered marker at the column's edge, opening into the text */
+.is-narrow .mn-note { width: auto; inset-inline-start: auto; inset-inline-end: 0; }
+.is-narrow .mn-face { width: 24px; height: 24px; padding: 0; border: 0; border-radius: 50%; background: var(--nk); color: var(--paper); display: grid; place-items: center; transform: none; box-shadow: 0 1px 3px rgb(0 0 0 / 20%); }
+.is-narrow .mn-face::before { display: none; }
+.is-narrow .mn-kind { font-size: 0; margin: 0; color: inherit; }
+.is-narrow .mn-kind b { font-size: 0.72rem; font-weight: 600; }
+.is-narrow .mn-note.is-open .mn-face { width: min(280px, 78vw); height: auto; border-radius: 3px; background: var(--mn-paper); color: var(--mn-ink); border-top: 3px solid var(--nk); padding: 12px; display: block; }
+.is-narrow .mn-note.is-open .mn-kind { font-size: 0.74rem; color: var(--nk); margin-bottom: 3px; }
+@media print { .mn-layer { display: none; } }

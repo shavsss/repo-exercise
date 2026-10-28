@@ -204,9 +204,9 @@ export function App() {
     [rt],
   );
   const addNote = useCallback(
-    async (kind: NoteKind, text: string, who: LessonNote["who"], m: Module, idx: number) => {
+    async (kind: NoteKind, text: string, who: LessonNote["who"], m: Module, idx: number, anchor?: string) => {
       const lessonTitle = idx >= 0 ? modsRef.current[m.id]?.lessons?.[idx]?.title : "מבחן מסכם";
-      const note: LessonNote = { who, kind, text, moduleId: m.id, lesson: idx, ts: Date.now(), ...(lessonTitle ? { lessonTitle } : {}) };
+      const note: LessonNote = { who, kind, text, moduleId: m.id, lesson: idx, ts: Date.now(), ...(lessonTitle ? { lessonTitle } : {}), ...(anchor ? { anchor } : {}) };
       if (rt?.store) {
         try {
           await rt.store.addNote(note);
@@ -353,7 +353,7 @@ export function App() {
           onStatus: (status: string) => setLive((l) => (l ? { ...l, status } : l)),
           onCheckpoint: (plan: PartPlan, partsDone: number, text: string) => save({ plan, partsDone, text }, true),
           onText: show,
-          onNote: (kind: NoteKind, text: string, addTo?: string) => (addTo ? appendToNote(addTo, text) : addNote(kind, text, "tutor", m, idx)),
+          onNote: (kind: NoteKind, text: string, addTo?: string, anchor?: string) => (addTo ? appendToNote(addTo, text) : addNote(kind, text, "tutor", m, idx, anchor)),
         };
         const lessons = modsRef.current[m.id]?.lessons;
         const lessonNotes = notesRef.current.filter((n) => n.moduleId === m.id && n.lesson === idx);
@@ -649,6 +649,7 @@ export function App() {
                           send(`בשיעור חסרו לפי בדיקת הרף: ${missing.join(", ")}. השלם עכשיו את מה שחסר ברמה המלאה, בהמשך ישיר לשיעור ובלי לחזור על מה שכבר נכתב.`, [], "clarify")
                         }
                         onContinue={i === items.length - 1 && !busy ? resumeLast : undefined}
+                        notes={lesson ? notes.filter((n) => n.moduleId === module.id && n.lesson === lessonIdx) : undefined}
                       />
                     ),
                   )}
