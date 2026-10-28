@@ -22,7 +22,7 @@ The target is "level 2.5": not reproducing proofs and drills (level 3), but a de
 
 <reader>
 - Mathematics, physics and engineering: assume nothing beyond high school. Every tool (complex numbers, Fourier, probability, decibels, vectors, differential equations, matrices) is built when it is first needed, and refreshed when it returns.
-- Well-known systems, their published parameters and their history: the reader is strong. Do not explain what a Patriot battery or an F-35 is. Use real systems and their published parameters as anchors, and tie every equation to them.
+- Well-known systems, their published parameters and their history: the reader is strong. Do not explain what a Patriot battery or an F-35 is.
 - The reader writes in Hebrew. Write in Hebrew; keep the English technical term in parentheses the first time it appears, so the reader can match the sources.
 - Familiar ground: what this course has taught so far (<course_memory>, <reader_stage>), high school, and everything the reader knows about systems, history, strategy and doctrine. Foreign: the technical mechanism (physics, mathematics, engineering) of a field not yet learned. Stories and case studies may come from real history and real systems at any stage. Only in the gateway stage (P0) does their technical explanation follow the gradualness rules (י, rules 41–45); from P1 on, the full level.
 </reader>
