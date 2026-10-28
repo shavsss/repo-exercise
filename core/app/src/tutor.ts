@@ -66,6 +66,16 @@ export interface PromptOpts {
   lean?: boolean;
   /** diagnostics: drop the goal and sections ט–י (level 2.5, gradualness) */
   no25?: boolean;
+  /** diagnostics: drop one section of the teaching rules (its Hebrew letter), or keep only that one */
+  drop?: string;
+  only?: string;
+}
+
+/** Splits the teaching rules into their lettered sections (א. … ב. …). */
+function ruleSections(p: string) {
+  const body = /<teaching_rules>\n([\s\S]*?)<\/teaching_rules>/.exec(p)?.[1] ?? "";
+  const parts = body.split(/\n(?=[א-ת]\. )/);
+  return { head: parts[0].match(/^[א-ת]\. /) ? "" : parts.shift() ?? "", sections: parts };
 }
 
 /** Documents used only as analysis references (B14–B17), listed only for modules that use them. */
@@ -82,7 +92,7 @@ export function hasRefs(m: Module) {
 
 const promptCache = new Map<string, string>();
 export function systemPrompt(o: PromptOpts = {}) {
-  const key = JSON.stringify([!!o.refs, !!o.lean, !!o.no25]);
+  const key = JSON.stringify([!!o.refs, !!o.lean, !!o.no25, o.drop ?? "", o.only ?? ""]);
   const hit = promptCache.get(key);
   if (hit) return hit;
   const refs = refDocs();
@@ -91,6 +101,11 @@ export function systemPrompt(o: PromptOpts = {}) {
   // section ח (rules 33–37) only matters where the module has analysis references
   if (!o.refs) p = p.replace(/\n*ח\. מהביצועים לתוצאה[\s\S]*?(?=\n+ט\. רמה 2\.5)/, "");
   if (o.no25 || o.lean) p = p.replace(/<goal>[\s\S]*?<\/goal>\n*/, "").replace(/\n*ט\. רמה 2\.5[\s\S]*?(?=<\/teaching_rules>)/, "\n");
+  if (o.drop || o.only) {
+    const { head, sections } = ruleSections(p);
+    const kept = sections.filter((s) => (o.only ? s.startsWith(o.only + ". ") : !s.startsWith(o.drop + ". ")));
+    p = p.replace(/<teaching_rules>\n[\s\S]*?<\/teaching_rules>/, `<teaching_rules>\n${head}\n${kept.join("\n")}\n</teaching_rules>`);
+  }
   if (o.lean) p = p.replace(/<teaching_rules>[\s\S]*?<\/teaching_rules>\n*/, "");
   promptCache.set(key, p);
   return p;
@@ -687,19 +702,17 @@ In Hebrew, two to four sentences: is it right, partly right or wrong; what is mi
  */
 async function onRefusal(e: unknown, rt: Runtime, m: Module, history: StoredMessage[], turn: string, cb: TurnCallbacks): Promise<never> {
   if ((e as { code?: string })?.code !== "refused" || !cb.onDiag) throw e;
-  cb.onStatus?.("Claude סירב. בודק איזה חלק בהנחיות גרם לזה (כדקה)");
+  cb.onStatus?.("Claude סירב. בודק איזה סעיף בכללים גרם לזה (כדקה)");
   const refs = hasRefs(m);
-  const bare = turn.replace(/\n*<course_memory>[\s\S]*?<\/course_memory>/, "").replace(/\n*<lesson_notebook>[\s\S]*?<\/lesson_notebook>/, "").replace(/\n*<notebook>[\s\S]*?<\/notebook>/, "");
-  const noPages = turn.replace(/\n*Source pages for this lesson:[\s\S]*?(?=\n<\/study_context>)/, "");
+  // the turn itself passed without the rules (diag of 28.10), so look for the section: each one removed, and each one alone
+  const letters = ruleSections(systemPrompt({ refs })).sections.map((x) => x[0]);
   const variants: { name: string; p: PromptOpts; turn: string; hist: boolean }[] = [
-    { name: "full", p: { refs }, turn, hist: true },
-    { name: "no-history", p: { refs }, turn, hist: false },
-    { name: "no-memory-notebook", p: { refs }, turn: bare, hist: false },
-    { name: "no-source-pages", p: { refs }, turn: noPages, hist: false },
-    { name: "no-2.5-gradualness", p: { refs, no25: true }, turn, hist: false },
+    { name: "full", p: { refs }, turn, hist: false },
+    ...letters.map((l) => ({ name: `without-${l}`, p: { refs, drop: l }, turn, hist: false })),
+    ...letters.map((l) => ({ name: `only-${l}`, p: { refs, only: l }, turn, hist: false })),
     { name: "lean-no-rules", p: { refs, lean: true }, turn, hist: false },
-    { name: "lean-bare", p: { refs, lean: true }, turn: bare, hist: false },
   ];
+
   const results: Record<string, string> = {};
   for (const v of variants) {
     const ask = `${v.turn}\n\nDIAGNOSTIC CHECK: do not write the lesson. Reply with the single word OK.`;
