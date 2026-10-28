@@ -702,17 +702,16 @@ In Hebrew, two to four sentences: is it right, partly right or wrong; what is mi
 /* ---------------- refusals ---------------- */
 
 /**
- * Claude's refusals of these lessons are borderline and not repeatable (the same input passed and
- * failed on different tries, diag of 28.10), so a refused call is tried twice more, without the
- * earlier turns of the conversation; the lesson's instructions and material stay the same.
+ * A refused lesson call is tried once more without the earlier turns of the conversation (the
+ * history is the only part of the input that a retry can drop without changing the lesson).
  */
 async function retryRefused<T>(call: (history: StoredMessage[]) => Promise<T>, history: StoredMessage[], cb: TurnCallbacks): Promise<T> {
   for (let i = 0; ; i++) {
     try {
       return await call(i ? [] : history);
     } catch (e) {
-      if ((e as { code?: string })?.code !== "refused" || i >= 2) throw e;
-      cb.onStatus?.(`Claude סירב; מנסה שוב (${i + 1} מתוך 2)`);
+      if ((e as { code?: string })?.code !== "refused" || i >= 1) throw e;
+      cb.onStatus?.("Claude סירב; מנסה שוב בלי התורות הקודמות");
     }
   }
 }
@@ -724,23 +723,30 @@ async function retryRefused<T>(call: (history: StoredMessage[]) => Promise<T>, h
  */
 async function onRefusal(e: unknown, rt: Runtime, m: Module, history: StoredMessage[], turn: string, cb: TurnCallbacks): Promise<never> {
   if ((e as { code?: string })?.code !== "refused" || !cb.onDiag) throw e;
-  cb.onStatus?.("Claude סירב. בודק איזה סעיף בכללים גרם לזה (כדקה)");
+  cb.onStatus?.("Claude סירב. בודק אם הסירוב תלוי במודל (כדקה)");
   const refs = hasRefs(m);
-  // the turn itself passed without the rules (diag of 28.10), so look for the section: each one removed, and each one alone
-  const letters = ruleSections(systemPrompt({ refs })).sections.map((x) => x[0]);
-  const variants: { name: string; p: PromptOpts; turn: string; hist: boolean }[] = [
-    { name: "full", p: { refs }, turn, hist: false },
-    ...letters.map((l) => ({ name: `without-${l}`, p: { refs, drop: l }, turn, hist: false })),
-    ...letters.map((l) => ({ name: `only-${l}`, p: { refs, only: l }, turn, hist: false })),
-    { name: "lean-no-rules", p: { refs, lean: true }, turn, hist: false },
+  // removing sections of the rules flips the answer unpredictably (diags of 28.10), so test the
+  // other axis: the same full input on other models, efforts and with the tools
+  const variants: { name: string; model?: string; effort?: Effort; tools?: boolean; p: PromptOpts }[] = [
+    { name: "opus-low", model: MODEL, effort: "low", p: { refs } },
+    { name: "opus-high", model: MODEL, effort: "high", p: { refs } },
+    { name: "opus-tools", model: MODEL, effort: "low", tools: true, p: { refs } },
+    { name: "sonnet", model: "claude-sonnet-5-5", effort: "low", p: { refs } },
+    { name: "haiku", model: "claude-haiku-5-5", effort: "low", p: { refs } },
+    { name: "tier-complex", p: { refs } },
+    { name: "opus-lean", model: MODEL, effort: "low", p: { refs, lean: true } },
   ];
-
   const results: Record<string, string> = {};
   for (const v of variants) {
-    const ask = `${v.turn}\n\nDIAGNOSTIC CHECK: do not write the lesson. Reply with the single word OK.`;
+    const ask = `${turn}\n\nDIAGNOSTIC CHECK: do not write the lesson. Reply with the single word OK.`;
     try {
-      await rt.sample!([...fitHistory(v.hist ? history : [], bytes(ask), false, v.p), { role: "user", content: ask }], { model: MODEL, modelTier: "complex", effort: "low", cache: false });
-      results[v.name] = "ok";
+      const res = await rt.sample!([...fitHistory([], bytes(ask), false, v.p), { role: "user", content: ask }], {
+        ...(v.model ? { model: v.model } : {}),
+        modelTier: "complex",
+        ...(v.effort ? { effort: v.effort } : {}),
+        ...(v.tools && rt.canUseTools ? { tools: buildTools(cb, moduleDocs(m)) } : { cache: false }),
+      });
+      results[v.name] = `ok (${res.modelApplied ?? res.modelTierApplied ?? "?"})`;
     } catch (err) {
       results[v.name] = (err as { code?: string })?.code ?? "error";
       if (results[v.name] === "rate_limited") break;
