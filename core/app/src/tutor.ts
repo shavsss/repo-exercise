@@ -170,7 +170,8 @@ ${secs ? `Section headings in these pages (DOC:PAGE title):\n${secs}` : "No sect
 function planBlock(lessons: LessonSpec[] | undefined, idx: number) {
   if (!lessons?.length) return "";
   return `Lesson plan of this module:\n${lessons
-    .map((l, i) => `${i + 1}. ${l.title}${i === idx ? "  ← THIS LESSON" : ""}\n   covers: ${l.covers.join("; ")}\n   pages: ${l.sources.map((s) => `${s.doc} ${s.pages[0]}–${s.pages[1]}`).join(", ")}\n   focus: ${l.focus}`)
+    // the focus is sent only for this lesson: the other lessons' notes are not needed to write it
+    .map((l, i) => `${i + 1}. ${l.title}${i === idx ? "  ← THIS LESSON" : ""}\n   covers: ${l.covers.join("; ")}\n   pages: ${l.sources.map((s) => `${s.doc} ${s.pages[0]}–${s.pages[1]}`).join(", ")}${i === idx ? `\n   focus: ${l.focus}` : ""}`)
     .join("\n")}`;
 }
 
@@ -400,7 +401,8 @@ MODULE PLANNING STEP. Split this module into lessons. Do not teach yet.
 1. Every section heading listed above must be covered by exactly one lesson, fully, and every page of every main source and supplement must fall inside the "sources" pages of some lesson (the app checks both). If no headings were detected for a source, read its pages and split it by the topics you find there. Supplements and articles are folded into the lesson whose topic they extend (articles: only what they add beyond the books). Analysis references are not lesson material: leave them out of the lessons' "sources".
 2. Where two sources treat the same topic, put them in the same lesson and say in "focus" how they are combined, so nothing is taught twice and nothing is left out.
 3. Each lesson must hold enough for the depth bar (about 4000 Hebrew words for a core or advanced module) without being cramped: as a rule of thumb 10–20 dense book pages per lesson. Keep the order of the main source unless the logic of prerequisites says otherwise.
-4. Reply with ONLY a JSON array: [{"title": "Hebrew lesson title", "covers": ["exact section headings as listed"], "sources": [{"doc": "B02", "pages": [96, 110]}], "focus": "what the lesson teaches, which examples and figures, how sources are combined"}]${feedback}`;
+4. Write every "title" and "focus" in plain engineering language: the physics, the signals, the receivers and links, and published system parameters. Name each topic by its engineering content (interference, signal-to-interference ratio, detection range) rather than by what it is used against.
+5. Reply with ONLY a JSON array: [{"title": "Hebrew lesson title", "covers": ["exact section headings as listed"], "sources": [{"doc": "B02", "pages": [96, 110]}], "focus": "what the lesson teaches, which examples and figures, how sources are combined"}]${feedback}`;
   let lessons: LessonSpec[] = [];
   let uncovered: string[] = [];
   let gaps: { doc: string; pages: [number, number] }[] = [];
@@ -490,6 +492,7 @@ LESSON PLANNING STEP. Do not write the text yet. The app will write the lesson i
  "figures": ["B02:115:0", "…every figure of these pages, each assigned to a part"],
  "facts": ["SNR = 13.2 dB at R = 50 km for σ = 1 m² (computed)", "…"],
  "next": "what the next lesson covers"}
+Write the plan (titles, "covers", "facts", "next") in plain engineering language: physics, signals, receivers, links, and published system parameters. Name every topic by its engineering content (interference and the signal-to-interference ratio, detection range, link margin), the case study as an engineering design question, and the exercises as engineering calculations; do not frame anything as attacking, defeating or targeting.
 Rules for the plan: 3 to 5 parts; for a core or advanced module the words add up to at least 4200 Hebrew words unless the assigned material is genuinely short (then say so in the first part); part 1 opens with the plan block and the story, then the problem/why-hard/idea paragraphs; every derivation is planned step by step; every assigned section and every figure is assigned to exactly one part; all seven level-2.5 sections ("l25") are assigned to parts for the lesson's central results; the case study, history block(s), the connections by <reader_stage> (a fieldmap block for every new central formula, at least four full domain blocks in every lesson, in the gateway stage P0, for a field not yet learned, at the level of the system and its operational meaning; from P1 on, full, including the mechanism; technical explanations only from familiar ground, rules 41–45), think questions, refresh blocks, simulators and figures are assigned to parts; the last part holds the coverage block, the exercises, the fieldsystems block (if a real connection exists) and the sentence about the next lesson.`.trim();
 
 function partInstructions(plan: PartPlan, k: number, writtenSoFar: string) {
@@ -498,8 +501,11 @@ function partInstructions(plan: PartPlan, k: number, writtenSoFar: string) {
   const last = k === n - 1;
   const prior = writtenSoFar.length > 60000 ? `[…start omitted…]\n${writtenSoFar.slice(-60000)}` : writtenSoFar;
   return `WRITING STEP: part ${k + 1} of ${n} of this lesson. Write as the authors (see <voice>).
-Lesson plan (yours, from the planning step):
-${JSON.stringify(plan, null, 1)}
+Lesson plan (yours, from the planning step): «${plan.title}», ${n} parts:
+${plan.parts.map((x, i) => `${i + 1}. ${x.title}${i === k ? "  ← THIS PART" : ""}`).join("\n")}
+Figures of the lesson: ${(plan.figures ?? []).join(", ") || "none"}.
+Computed facts: ${(plan.facts ?? []).map((f) => `\n- ${f}`).join("")}
+${last && plan.next ? `Next lesson: ${plan.next}` : ""}
 
 ${prior ? `The lesson text written so far (parts 1–${k}), which the learner is reading right now:\n<<<\n${prior}\n>>>\n` : ""}
 Now write ONLY part ${k + 1}: «${p.title}». It covers: ${p.covers}.${p.blocks?.length ? ` Blocks for this part: ${p.blocks.join(", ")}.` : ""}${p.l25?.length ? ` Level-2.5 sections for this part: ${p.l25.join(", ")}.` : ""}

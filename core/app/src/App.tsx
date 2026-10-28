@@ -352,7 +352,6 @@ export function App() {
           onCheckpoint: (plan: PartPlan, partsDone: number, text: string) => save({ plan, partsDone, text }, true),
           onText: show,
           onNote: (kind: NoteKind, text: string, addTo?: string) => (addTo ? appendToNote(addTo, text) : addNote(kind, text, "tutor", m, idx)),
-          onDiag: (d: Record<string, unknown>) => rt.store?.saveDiag(d).catch(() => {}),
         };
         const lessons = modsRef.current[m.id]?.lessons;
         const lessonNotes = notesRef.current.filter((n) => n.moduleId === m.id && n.lesson === idx);
