@@ -13,10 +13,12 @@ export interface Reading {
   focus: "off" | "on";
   /** quiet interface sounds (sound.ts) */
   sound: "soft" | "off";
+  /** how loud the sounds are, 0–100 */
+  volume: number;
   /** the lab's own pointer, or the system one */
   cursor: "lab" | "system";
 }
-export const DEFAULT_READING: Reading = { font: "plex", size: "m", space: "airy", width: "medium", surface: "theme", focus: "off", sound: "soft", cursor: "lab" };
+export const DEFAULT_READING: Reading = { font: "plex", size: "m", space: "airy", width: "medium", surface: "theme", focus: "off", sound: "soft", volume: 60, cursor: "lab" };
 
 const KEY = "eng-lab:reading";
 const listeners = new Set<() => void>();
@@ -37,6 +39,7 @@ function apply() {
   r.dataset.surface = current.surface;
   r.dataset.focus = current.focus;
   r.dataset.sound = current.sound;
+  r.dataset.volume = String(current.volume);
   r.dataset.cursor = current.cursor;
 }
 apply();

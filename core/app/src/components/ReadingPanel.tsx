@@ -1,7 +1,8 @@
 import { DEFAULT_READING, setReading, useReading, type Reading } from "../reading";
+import { play } from "../sound";
 import { Icon } from "./Icon";
 
-const OPTIONS: { key: keyof Reading; label: string; values: [string, string][] }[] = [
+const OPTIONS: { key: Exclude<keyof Reading, "volume">; label: string; values: [string, string][] }[] = [
   { key: "font", label: "גופן", values: [["plex", "IBM Plex"], ["frank", "פרנק-רוהל"], ["assistant", "Assistant"]] },
   { key: "size", label: "גודל", values: [["s", "קטן"], ["m", "בינוני"], ["l", "גדול"], ["xl", "גדול מאוד"]] },
   { key: "space", label: "ריווח שורות", values: [["normal", "רגיל"], ["airy", "מרווח"]] },
@@ -15,6 +16,10 @@ const OPTIONS: { key: keyof Reading; label: string; values: [string, string][] }
 /** Reading settings: a small popover under the top bar. */
 export function ReadingPanel({ onClose }: { onClose: () => void }) {
   const r = useReading();
+  const nudge = (d: number) => {
+    setReading({ volume: Math.min(100, Math.max(0, r.volume + d)) });
+    play("key");
+  };
   return (
     <div className="reading-pop" role="dialog" aria-label="תצוגת קריאה">
       <header className="reading-head">
@@ -35,6 +40,30 @@ export function ReadingPanel({ onClose }: { onClose: () => void }) {
           </div>
         </div>
       ))}
+      <div className="reading-row">
+        <span className="reading-label">עוצמת הצלילים</span>
+        <div className="reading-vol">
+          <button className="icon-btn" aria-label="חלש יותר" onClick={() => nudge(-10)} disabled={r.volume <= 0}>
+            −
+          </button>
+          <input
+            type="range"
+            min={0}
+            max={100}
+            step={5}
+            value={r.volume}
+            aria-label="עוצמת הצלילים"
+            disabled={r.sound === "off"}
+            onChange={(e) => setReading({ volume: Number(e.target.value) })}
+            onPointerUp={() => play("key")}
+            onKeyUp={() => play("key")}
+          />
+          <button className="icon-btn" aria-label="חזק יותר" onClick={() => nudge(10)} disabled={r.volume >= 100}>
+            +
+          </button>
+          <span className="reading-vol-num">{r.volume}</span>
+        </div>
+      </div>
       <p className="reading-sample">
         כשמכפילים את המוטה ומשאירים את העילוי קבוע, הגרר המושרה יורד פי ארבעה, כי הוא הפוך לריבוע המוטה.
       </p>

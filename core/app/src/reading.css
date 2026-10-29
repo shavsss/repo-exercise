@@ -166,6 +166,10 @@
 .reading-row { display: grid; gap: 4px; }
 .reading-label { font-size: 0.78rem; color: var(--muted); }
 .reading-row .seg { flex-wrap: wrap; border-radius: 4px; }
+.reading-vol { display: flex; align-items: center; gap: 6px; }
+.reading-vol input[type="range"] { flex: 1; min-width: 0; accent-color: var(--accent); }
+.reading-vol .icon-btn { width: 26px; height: 26px; font-size: 1rem; line-height: 1; }
+.reading-vol-num { min-width: 2.2em; text-align: center; font-size: 0.78rem; color: var(--muted); font-variant-numeric: tabular-nums; }
 .reading-sample {
   margin: 0;
   padding: 8px 10px;

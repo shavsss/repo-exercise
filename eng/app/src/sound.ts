@@ -1,14 +1,19 @@
 // Quiet interface sounds, synthesized in the browser (no files): a soft wooden tick when typing,
 // a muted tap on buttons, a short rising pair when an answer or a block opens, a faint rustle while
 // a 3D scene is dragged, and a small chord when a lesson is finished. Only on actions, never while
-// reading or scrolling. Turned off from the reading settings (data-sound="off" on the root).
+// reading or scrolling. Turned off from the reading settings (data-sound="off" on the root), and the
+// volume (0–100, data-volume on the root) is set there too.
 // Chosen in docs/sound-cursor.html ("soft"). Identical in both labs.
 
 let ctx: AudioContext | null = null;
 let master: GainNode | null = null;
-const VOLUME = 0.3;
 
-const enabled = () => document.documentElement.dataset.sound !== "off";
+const enabled = () => document.documentElement.dataset.sound !== "off" && volume() > 0;
+/** master gain from the 0–100 setting, on a curve the ear hears as even steps (60 is about 0.33) */
+const volume = () => {
+  const v = Number(document.documentElement.dataset.volume ?? 60);
+  return Number.isFinite(v) ? Math.pow(Math.min(100, Math.max(0, v)) / 100, 2) * 0.9 : 0.33;
+};
 
 function audio() {
   if (!ctx) {
@@ -16,9 +21,9 @@ function audio() {
     if (!AC) return null;
     ctx = new AC();
     master = ctx.createGain();
-    master.gain.value = VOLUME;
     master.connect(ctx.destination);
   }
+  if (master) master.gain.value = volume();
   if (ctx.state === "suspended") void ctx.resume();
   return ctx;
 }
@@ -63,7 +68,11 @@ function noise(dur: number, { freq = 3000, q = 1, gain = 0.15, type = "bandpass"
 }
 
 const CUES = {
-  key: () => noise(0.03, { freq: 1800 + Math.random() * 500, q: 3, gain: 0.08 }),
+  // a short wooden tick: a bright burst of noise with a tiny high click on top, a little different each key
+  key: () => {
+    noise(0.028, { freq: 2300 + Math.random() * 700, q: 1.2, gain: 0.55 });
+    tone(1700 + Math.random() * 300, 0.02, { gain: 0.07 });
+  },
   click: () => tone(520, 0.07, { gain: 0.12, glide: 0.7 }),
   open: () => {
     tone(440, 0.12, { gain: 0.09 });
