@@ -1,0 +1,277 @@
+<title>צלילים ומצביע</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a control strip (sound set, volume, pointer style) over a small mock of the lesson screen to try them on. */
+:root {
+  --bg: #ece4d6; --paper: #f4ede2; --sheet: #faf6ee; --ink: #22261d; --ink-soft: #44493a; --muted: #676a58;
+  --line: #ddd2bf; --line-strong: #ae9f84; --accent: #b3261e;
+  --k-formula: #1f5f9e; --k-think: #a16207; --k-domain: #0f766e;
+  --font: "IBM Plex Sans Hebrew", "Assistant", Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --bg: #1f1e1d; --paper: #262624; --sheet: #2d2c2a; --ink: #ece9e1; --ink-soft: #c9c5bb; --muted: #9d998f; --line: #3a3936; --line-strong: #5c5a55; --accent: #f08a7e; --k-formula: #94bfdc; --k-think: #e0c46c; --k-domain: #8fd0c0; color-scheme: dark; }
+}
+:root[data-theme="dark"] { --bg: #1f1e1d; --paper: #262624; --sheet: #2d2c2a; --ink: #ece9e1; --ink-soft: #c9c5bb; --muted: #9d998f; --line: #3a3936; --line-strong: #5c5a55; --accent: #f08a7e; --k-formula: #94bfdc; --k-think: #e0c46c; --k-domain: #8fd0c0; color-scheme: dark; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font); direction: rtl; }
+.wrap { max-width: 60rem; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 24px 60px; display: grid; gap: 18px; }
+h1 { margin: 0; font-size: 1.3rem; }
+.lead { margin: 0; color: var(--ink-soft); line-height: 1.6; max-width: 46rem; }
+.panel { background: var(--paper); border: 1px solid var(--line); border-radius: 6px; padding: 14px 16px; display: grid; gap: 12px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.row > span { min-width: 6rem; font-size: 0.88rem; color: var(--muted); }
+.opt { font: inherit; font-size: 0.88rem; padding: 6px 12px; border: 1px solid var(--line-strong); background: var(--sheet); color: var(--ink); border-radius: 4px; cursor: pointer; }
+.opt[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.opt:focus-visible, .btn:focus-visible, textarea:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+input[type="range"] { accent-color: var(--accent); width: 160px; }
+.desc { font-size: 0.85rem; color: var(--ink-soft); margin: 0; line-height: 1.5; }
+
+/* mock lesson */
+.mock { background: var(--paper); border: 1px solid var(--line); border-radius: 6px; padding: 20px; display: grid; gap: 16px; }
+.mock p { margin: 0; line-height: 1.85; font-size: 16px; }
+.blk { border: 2px dashed var(--k-think); border-radius: 3px; padding: 16px 16px 10px; position: relative; background: color-mix(in srgb, var(--k-think) 5%, transparent); }
+.blk .tab { position: absolute; top: -0.85em; inset-inline-start: 12px; background: var(--paper); padding: 0 6px; font-size: 0.85rem; font-weight: 700; color: var(--k-think); }
+.btns { display: flex; flex-wrap: wrap; gap: 8px; }
+.btn { font: inherit; font-size: 0.9rem; padding: 7px 14px; border-radius: 4px; border: 1px solid var(--line-strong); background: var(--sheet); color: var(--ink); cursor: pointer; }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+textarea { width: 100%; font: inherit; font-size: 0.95rem; padding: 10px 12px; border: 1px solid var(--line-strong); border-radius: 6px; background: var(--sheet); color: var(--ink); resize: vertical; min-height: 70px; }
+.scene { height: 200px; border: 1px solid var(--line); border-radius: 4px; background: var(--sheet); position: relative; overflow: hidden; cursor: grab; touch-action: none; }
+.scene:active { cursor: grabbing; }
+.scene canvas { width: 100%; height: 100%; display: block; }
+.scene .cap { position: absolute; bottom: 6px; inset-inline-start: 10px; font-size: 0.78rem; color: var(--muted); }
+.ans { color: var(--ink-soft); margin-top: 8px; }
+
+/* pointers */
+.cur { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 50; display: none; will-change: transform; }
+body.c-arrow, body.c-arrow * { cursor: none !important; }
+body.c-arrow .cur-arrow { display: block; }
+.cur-arrow svg { width: 30px; height: 30px; filter: drop-shadow(0 3px 4px rgb(0 0 0 / 35%)); transition: transform 0.12s; transform-origin: 3px 3px; }
+.cur-arrow.is-down svg { transform: scale(0.86); }
+.cur-arrow.is-link svg path:first-child { fill: var(--accent); }
+body.c-ring .cur-ring { display: block; }
+.cur-ring { width: 34px; height: 34px; margin: -17px 0 0 -17px; border: 1.5px solid var(--accent); border-radius: 50%; transition: width 0.18s, height 0.18s, margin 0.18s, background-color 0.18s, opacity 0.2s; }
+.cur-ring.is-link { width: 52px; height: 52px; margin: -26px 0 0 -26px; background: color-mix(in srgb, var(--accent) 12%, transparent); }
+.cur-ring.is-down { width: 24px; height: 24px; margin: -12px 0 0 -12px; }
+.cur-ring.is-text { width: 4px; height: 26px; margin: -13px 0 0 -2px; border-radius: 2px; background: var(--accent); border: 0; }
+body.c-trail canvas.cur-trail { display: block; position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 49; }
+@media (prefers-reduced-motion: reduce) { .cur-ring { transition: none; } }
+@media (hover: none) { .cur { display: none !important; } body.c-arrow, body.c-arrow * { cursor: auto !important; } }
+</style>
+
+<div class="wrap">
+  <h1>צלילים ומצביע</h1>
+  <p class="lead">הצלילים נוצרים בדפדפן ולא מקבצים, והם שקטים בכוונה: נגיעה קטנה בכל פעולה, לא מוזיקה. הם מתחילים רק אחרי הלחיצה הראשונה. נסו בחלק התחתון: הקלידו בתיבה, לחצו על הכפתורים, פתחו את שאלת העצירה וסובבו את הקובייה.</p>
+
+  <section class="panel" aria-label="הגדרות">
+    <div class="row" role="group" aria-label="ערכת צלילים">
+      <span>צלילים</span>
+      <button class="opt" id="s-off" data-s="off" aria-pressed="false">כבוי</button>
+      <button class="opt" id="s-soft" data-s="soft" aria-pressed="true">רך</button>
+      <button class="opt" id="s-mech" data-s="mech" aria-pressed="false">מכני</button>
+      <button class="opt" id="s-console" data-s="console" aria-pressed="false">קונסולה</button>
+    </div>
+    <p class="desc" id="s-desc"></p>
+    <div class="row">
+      <span>עוצמה</span>
+      <input type="range" id="vol" min="0" max="100" value="45" aria-label="עוצמה">
+    </div>
+    <div class="row" role="group" aria-label="מצביע">
+      <span>מצביע</span>
+      <button class="opt" id="c-none" data-c="none" aria-pressed="false">רגיל</button>
+      <button class="opt" id="c-arrow" data-c="arrow" aria-pressed="true">חץ גדול</button>
+      <button class="opt" id="c-ring" data-c="ring" aria-pressed="false">טבעת</button>
+      <button class="opt" id="c-trail" data-c="trail" aria-pressed="false">שובל</button>
+    </div>
+    <p class="desc" id="c-desc"></p>
+  </section>
+
+  <section class="mock" aria-label="מסך לדוגמה">
+    <p>בכל שרשרת אות, ממשדר דרך אנטנה, מרחב ומטרה ועד מקלט, הגדלים מתפרשים על פני סדרי גודל רבים. לכן מהנדסים עובדים בדציבלים: כפל הופך לחיבור, וכל הטווח מחרק ועד ספינה נכנס לסרגל אחד.</p>
+    <div class="blk">
+      <div class="tab">שאלת עצירה</div>
+      <p>אם log 2 ≈ 0.301, כמה זה log 8?</p>
+      <div class="btns"><button class="btn" id="reveal" data-snd="open">הצג תשובה</button></div>
+      <p class="ans" id="ans" hidden>8 = 2³, ולכן log 8 = 3 · 0.301 = 0.903.</p>
+    </div>
+    <div class="scene" id="scene" data-snd="drag"><canvas id="cv"></canvas><span class="cap">גררו כדי לסובב</span></div>
+    <textarea id="ta" placeholder="הקלידו כאן שאלה…" aria-label="תיבת הקלדה"></textarea>
+    <div class="btns">
+      <button class="btn primary" id="send" data-snd="send">שלח</button>
+      <button class="btn" id="b2" data-snd="click">הסבר שוב, לאט יותר</button>
+      <button class="btn" id="b3" data-snd="click">עוד תרגילים</button>
+      <button class="btn" id="done" data-snd="done">סיימתי את השיעור</button>
+    </div>
+  </section>
+</div>
+
+<div class="cur cur-arrow" id="curArrow"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M3 3 L3 24 L9 18.5 L13 27 L17 25.2 L13 17 L21 17 Z" fill="#f4ede2" stroke="#22261d" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+<div class="cur cur-ring" id="curRing"></div>
+<canvas class="cur cur-trail" id="curTrail"></canvas>
+
+<script>
+/* ---------- sound: tiny synthesized cues (no files) ---------- */
+let ctx = null, master = null;
+let set = "soft", vol = 0.45;
+function audio() {
+  if (!ctx) {
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return null;
+    ctx = new AC();
+    master = ctx.createGain();
+    master.connect(ctx.destination);
+  }
+  master.gain.value = vol;
+  if (ctx.state === "suspended") ctx.resume();
+  return ctx;
+}
+function tone(f, dur, { type = "sine", gain = 0.2, attack = 0.004, glide = 0, delay = 0 } = {}) {
+  const c = audio(); if (!c) return;
+  const t = c.currentTime + delay;
+  const o = c.createOscillator(), g = c.createGain();
+  o.type = type; o.frequency.setValueAtTime(f, t);
+  if (glide) o.frequency.exponentialRampToValueAtTime(Math.max(30, f * glide), t + dur);
+  g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(gain, t + attack); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+  o.connect(g); g.connect(master); o.start(t); o.stop(t + dur + 0.02);
+}
+function noise(dur, { freq = 3000, q = 1, gain = 0.15, type = "bandpass", delay = 0 } = {}) {
+  const c = audio(); if (!c) return;
+  const t = c.currentTime + delay;
+  const len = Math.max(1, Math.floor(c.sampleRate * dur));
+  const buf = c.createBuffer(1, len, c.sampleRate), d = buf.getChannelData(0);
+  for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 3);
+  const s = c.createBufferSource(), f = c.createBiquadFilter(), g = c.createGain();
+  s.buffer = buf; f.type = type; f.frequency.value = freq; f.Q.value = q; g.gain.value = gain;
+  s.connect(f); f.connect(g); g.connect(master); s.start(t);
+}
+const SETS = {
+  soft: {
+    desc: "רך: נקישות עץ קטנות בהקלדה, 'טק' עמום בכפתורים, ואקורד קצר כשמסיימים. הכי מתאים לקריאה ארוכה.",
+    key: () => noise(0.03, { freq: 1800 + Math.random() * 500, q: 3, gain: 0.08 }),
+    click: () => tone(520, 0.07, { gain: 0.12, glide: 0.7 }),
+    open: () => { tone(440, 0.12, { gain: 0.09 }); tone(660, 0.16, { gain: 0.07, delay: 0.05 }); },
+    send: () => { tone(500, 0.1, { gain: 0.11, glide: 1.6 }); noise(0.08, { freq: 2500, gain: 0.05, delay: 0.02 }); },
+    drag: () => noise(0.05, { freq: 900, q: 0.8, gain: 0.03, type: "lowpass" }),
+    done: () => [523, 659, 784].forEach((f, i) => tone(f, 0.5, { gain: 0.08, delay: i * 0.07 })),
+    hover: () => tone(1200, 0.025, { gain: 0.02 })
+  },
+  mech: {
+    desc: "מכני: מקלדת מכנית בהקלדה, 'קליק' חד בכפתורים, ומתג כבד כששולחים. מרגיש מוחשי.",
+    key: () => { noise(0.018, { freq: 4200, q: 2, gain: 0.12 }); tone(180, 0.03, { gain: 0.05, type: "triangle" }); },
+    click: () => { noise(0.02, { freq: 3200, q: 4, gain: 0.16 }); tone(140, 0.05, { gain: 0.08, type: "triangle" }); },
+    open: () => { noise(0.03, { freq: 2600, q: 3, gain: 0.12 }); tone(220, 0.08, { gain: 0.06, type: "triangle", delay: 0.03 }); },
+    send: () => { noise(0.04, { freq: 2000, q: 2, gain: 0.18 }); tone(110, 0.12, { gain: 0.1, type: "square", glide: 0.6 }); },
+    drag: () => noise(0.015, { freq: 5000, q: 6, gain: 0.04 }),
+    done: () => { tone(392, 0.12, { gain: 0.1, type: "triangle" }); tone(784, 0.25, { gain: 0.08, type: "triangle", delay: 0.1 }); },
+    hover: () => noise(0.01, { freq: 6000, q: 8, gain: 0.02 })
+  },
+  console: {
+    desc: "קונסולה: ביפים של מערכת ומסך מבצעים, עלייה דיגיטלית כששולחים. הכי 'מתוח', וגם הכי בולט.",
+    key: () => tone(1800 + Math.random() * 400, 0.018, { gain: 0.04, type: "square" }),
+    click: () => tone(880, 0.06, { gain: 0.07, type: "square" }),
+    open: () => { tone(660, 0.05, { gain: 0.06, type: "square" }); tone(990, 0.07, { gain: 0.05, type: "square", delay: 0.06 }); },
+    send: () => [440, 660, 880].forEach((f, i) => tone(f, 0.06, { gain: 0.06, type: "square", delay: i * 0.05 })),
+    drag: () => tone(300 + Math.random() * 60, 0.02, { gain: 0.02, type: "sawtooth" }),
+    done: () => [523, 784, 1047, 1568].forEach((f, i) => tone(f, 0.09, { gain: 0.06, type: "square", delay: i * 0.06 })),
+    hover: () => tone(2400, 0.012, { gain: 0.015, type: "square" })
+  },
+  off: { desc: "כבוי: אין צלילים בכלל." }
+};
+function play(kind) { if (set === "off") return; const fn = SETS[set][kind]; if (fn) fn(); }
+
+/* ---------- wire the mock ---------- */
+document.querySelectorAll("[data-snd]").forEach((el) => {
+  if (el.dataset.snd === "drag") return;
+  el.addEventListener("click", () => play(el.dataset.snd));
+  el.addEventListener("pointerenter", () => play("hover"));
+});
+document.getElementById("reveal").addEventListener("click", () => {
+  const a = document.getElementById("ans"); a.hidden = !a.hidden;
+  document.getElementById("reveal").textContent = a.hidden ? "הצג תשובה" : "הסתר תשובה";
+});
+document.getElementById("ta").addEventListener("keydown", (e) => { if (e.key.length === 1 || e.key === "Backspace" || e.key === "Enter") play("key"); });
+
+/* a small wireframe cube to drag */
+const cv = document.getElementById("cv"), g2 = cv.getContext("2d");
+let rx = -0.5, ry = 0.7, dragging = false, lx = 0, ly = 0, lastTick = 0;
+const V = [[-1,-1,-1],[1,-1,-1],[1,1,-1],[-1,1,-1],[-1,-1,1],[1,-1,1],[1,1,1],[-1,1,1]];
+const E = [[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]];
+function draw() {
+  const r = cv.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
+  cv.width = r.width * dpr; cv.height = r.height * dpr; g2.setTransform(dpr, 0, 0, dpr, 0, 0);
+  g2.clearRect(0, 0, r.width, r.height);
+  const s = Math.min(r.width, r.height) * 0.2, cx = r.width / 2, cy = r.height / 2;
+  const P = V.map(([x, y, z]) => { let X = x * Math.cos(ry) + z * Math.sin(ry), Z = -x * Math.sin(ry) + z * Math.cos(ry); let Y = y * Math.cos(rx) - Z * Math.sin(rx); Z = y * Math.sin(rx) + Z * Math.cos(rx); const k = 3.5 / (3.5 + Z); return [cx + X * s * k, cy + Y * s * k]; });
+  g2.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue("--k-formula"); g2.lineWidth = 1.6;
+  E.forEach(([a, b]) => { g2.beginPath(); g2.moveTo(...P[a]); g2.lineTo(...P[b]); g2.stroke(); });
+}
+const scene = document.getElementById("scene");
+scene.addEventListener("pointerdown", (e) => { dragging = true; lx = e.clientX; ly = e.clientY; scene.setPointerCapture(e.pointerId); play("click"); });
+scene.addEventListener("pointermove", (e) => {
+  if (!dragging) return;
+  ry += (e.clientX - lx) * 0.01; rx += (e.clientY - ly) * 0.01; lx = e.clientX; ly = e.clientY; draw();
+  const now = performance.now(); if (now - lastTick > 70) { play("drag"); lastTick = now; }
+});
+scene.addEventListener("pointerup", () => (dragging = false));
+window.addEventListener("resize", draw); draw();
+
+/* ---------- pointers ---------- */
+let cur = "arrow";
+const arrow = document.getElementById("curArrow"), ring = document.getElementById("curRing"), trail = document.getElementById("curTrail");
+const tg = trail.getContext("2d");
+let mx = -100, my = -100, ax = -100, ay = -100, pts = [];
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+addEventListener("pointermove", (e) => {
+  mx = e.clientX; my = e.clientY;
+  const t = e.target;
+  const link = !!t.closest("button, a, .scene");
+  const text = !!t.closest("textarea, input[type=text], p");
+  [arrow, ring].forEach((el) => { el.classList.toggle("is-link", link); el.classList.toggle("is-text", !link && text && el === ring); });
+});
+addEventListener("pointerdown", () => { arrow.classList.add("is-down"); ring.classList.add("is-down"); });
+addEventListener("pointerup", () => { arrow.classList.remove("is-down"); ring.classList.remove("is-down"); });
+function frame() {
+  const k = reduce ? 1 : 0.22;
+  ax += (mx - ax) * k; ay += (my - ay) * k;
+  if (cur === "arrow") arrow.style.transform = `translate(${mx - 3}px, ${my - 3}px)`;
+  if (cur === "ring") ring.style.transform = `translate(${ax}px, ${ay}px)`;
+  if (cur === "trail") {
+    const dpr = window.devicePixelRatio || 1;
+    if (trail.width !== innerWidth * dpr) { trail.width = innerWidth * dpr; trail.height = innerHeight * dpr; }
+    tg.setTransform(dpr, 0, 0, dpr, 0, 0); tg.clearRect(0, 0, innerWidth, innerHeight);
+    pts.push([mx, my]); if (pts.length > 18) pts.shift();
+    const col = getComputedStyle(document.documentElement).getPropertyValue("--accent").trim();
+    pts.forEach(([x, y], i) => { tg.globalAlpha = (i + 1) / pts.length * 0.55; tg.fillStyle = col; tg.beginPath(); tg.arc(x, y, 1.5 + i * 0.22, 0, Math.PI * 2); tg.fill(); });
+    tg.globalAlpha = 1;
+  }
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+
+const C_DESC = {
+  none: "רגיל: המצביע של המערכת.",
+  arrow: "חץ גדול: חץ בצבעי המעבדה, מעט גדול יותר עם צל, נלחץ כשלוחצים והופך אדום מעל כפתורים. כמו בדוגמה ששלחת.",
+  ring: "טבעת: עיגול שעוקב אחרי העכבר באיחור קל, גדל מעל כפתורים והופך לקו מעל טקסט. המצביע הרגיל נשאר.",
+  trail: "שובל: נקודות שנמשכות אחרי המצביע ונעלמות. בולט, מתאים פחות לקריאה ארוכה."
+};
+
+/* ---------- controls ---------- */
+const vEl = document.getElementById("vol");
+function pickS(v) { set = v; document.getElementById("s-desc").textContent = SETS[v].desc; document.querySelectorAll("[data-s]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.s === v))); play("open"); save(); }
+function pickC(v) {
+  cur = v; document.body.className = v === "none" ? "" : "c-" + v;
+  document.getElementById("c-desc").textContent = C_DESC[v];
+  document.querySelectorAll("[data-c]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.c === v)));
+  pts = []; save();
+}
+function save() { try { localStorage.setItem("sc:v", JSON.stringify({ set, cur, vol })); } catch (e) {} }
+document.querySelectorAll("[data-s]").forEach((b) => b.addEventListener("click", () => pickS(b.dataset.s)));
+document.querySelectorAll("[data-c]").forEach((b) => b.addEventListener("click", () => pickC(b.dataset.c)));
+vEl.addEventListener("input", () => { vol = vEl.value / 100; if (master) master.gain.value = vol; save(); });
+vEl.addEventListener("change", () => play("click"));
+try { const s = JSON.parse(localStorage.getItem("sc:v") || "{}"); if (s.vol != null) { vol = s.vol; vEl.value = Math.round(vol * 100); } if (s.set) set = s.set; if (s.cur) cur = s.cur; } catch (e) {}
+document.getElementById("s-desc").textContent = SETS[set].desc;
+document.querySelectorAll("[data-s]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.s === set)));
+pickC(cur);
+</script>
