@@ -163,11 +163,119 @@ export function play(cue: Cue) {
   safely(CUES[cue]);
 }
 
+/* ---- background noise for reading: its own channel and volume, apart from the cues ----
+ * Steady broadband noise masks the small sounds around (talk, a fan, steps) that pull attention;
+ * brown is the deepest and the gentlest, pink is brighter, rain is pink noise shaped like rain on a
+ * window. Set in the reading settings (data-noise, data-noise-volume on the root). */
+type NoiseKind = "brown" | "pink" | "rain";
+let bed: { kind: NoiseKind; src: AudioBufferSourceNode; gain: GainNode } | null = null;
+const buffers = new Map<NoiseKind, AudioBuffer>();
+
+function noiseBuffer(c: AudioContext, kind: NoiseKind) {
+  const cached = buffers.get(kind);
+  if (cached) return cached;
+  const sr = c.sampleRate;
+  const len = sr * 12;
+  const fade = Math.floor(sr * 0.5);
+  const buf = c.createBuffer(2, len, sr);
+  for (let ch = 0; ch < 2; ch++) {
+    const d = buf.getChannelData(ch);
+    let last = 0;
+    let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
+    for (let i = 0; i < len + fade; i++) {
+      const white = Math.random() * 2 - 1;
+      let v: number;
+      if (kind === "brown") {
+        last = (last + 0.02 * white) / 1.02;
+        v = last * 3.5;
+      } else {
+        // pink: Paul Kellet's filter
+        b0 = 0.99886 * b0 + white * 0.0555179;
+        b1 = 0.99332 * b1 + white * 0.0750759;
+        b2 = 0.969 * b2 + white * 0.153852;
+        b3 = 0.8665 * b3 + white * 0.3104856;
+        b4 = 0.55 * b4 + white * 0.5329522;
+        b5 = -0.7616 * b5 - white * 0.016898;
+        v = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362) * 0.11;
+        b6 = white * 0.115926;
+        // rain: the pink bed, plus soft drops here and there
+        if (kind === "rain" && Math.random() < 0.0009) v += (Math.random() * 2 - 1) * 0.5;
+      }
+      // the loop's end fades into its start, so it never clicks
+      if (i < len) d[i] = v;
+      else {
+        const k = (i - len) / fade;
+        d[i - len] = d[i - len] * k + v * (1 - k);
+      }
+    }
+  }
+  buffers.set(kind, buf);
+  return buf;
+}
+
+function noiseLevel() {
+  const v = Number(document.documentElement.dataset.noiseVolume ?? 35);
+  return Number.isFinite(v) ? Math.pow(Math.min(100, Math.max(0, v)) / 100, 2) * 0.6 : 0.07;
+}
+
+/** Starts, changes or stops the background noise to match the reading settings. */
+function syncNoise() {
+  const want = document.documentElement.dataset.noise as NoiseKind | "off" | undefined;
+  const c = want && want !== "off" ? audio() : ctx;
+  if (!c) return;
+  const now = c.currentTime;
+  if (bed && bed.kind !== want) {
+    const old = bed;
+    old.gain.gain.cancelScheduledValues(now);
+    old.gain.gain.setValueAtTime(old.gain.gain.value, now);
+    old.gain.gain.linearRampToValueAtTime(0, now + 0.8);
+    old.src.stop(now + 0.9);
+    bed = null;
+  }
+  if (!want || want === "off") return;
+  if (!bed) {
+    const src = c.createBufferSource();
+    src.buffer = noiseBuffer(c, want);
+    src.loop = true;
+    const gain = c.createGain();
+    gain.gain.value = 0;
+    let out: AudioNode = src;
+    if (want === "rain") {
+      // rain sits in the middle and the top, without the rumble
+      const hp = c.createBiquadFilter();
+      hp.type = "highpass";
+      hp.frequency.value = 400;
+      const lp = c.createBiquadFilter();
+      lp.type = "lowpass";
+      lp.frequency.value = 7000;
+      src.connect(hp);
+      hp.connect(lp);
+      out = lp;
+    }
+    out.connect(gain);
+    gain.connect(c.destination);
+    src.start();
+    bed = { kind: want, src, gain };
+  }
+  bed.gain.gain.cancelScheduledValues(now);
+  bed.gain.gain.setValueAtTime(bed.gain.gain.value, now);
+  bed.gain.gain.linearRampToValueAtTime(noiseLevel(), now + 1.5);
+}
+
 let installed = false;
 /** Listens once on the document: typing, buttons, opened answers and dragged 3D scenes. */
 export function installSounds() {
   if (installed) return;
   installed = true;
+  // the noise follows the settings; a browser lets it start only after the first touch or key
+  new MutationObserver(syncNoise).observe(document.documentElement, { attributes: true, attributeFilter: ["data-noise", "data-noise-volume"] });
+  const first = () => {
+    syncNoise();
+    document.removeEventListener("pointerdown", first, true);
+    document.removeEventListener("keydown", first, true);
+  };
+  document.addEventListener("pointerdown", first, true);
+  document.addEventListener("keydown", first, true);
   const down = new Set<string>();
   document.addEventListener(
     "keydown",

@@ -4,6 +4,7 @@
   --sm-lh: 32px;
   --sm-paper: #fdfcf6;
   --sm-rule: #cfdbe6;
+  --sm-dot: #c3ccd4;
   --sm-margin: #e6a7a0;
   --sm-def: #355f7d; --sm-def-bg: #e6eef3;
   --sm-eq: #6a4c8c; --sm-eq-bg: #eee8f3;
@@ -15,14 +16,14 @@
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --sm-paper: #1d2019; --sm-rule: #2b3127; --sm-margin: #5e3330;
+    --sm-paper: #1d2019; --sm-rule: #2b3127; --sm-dot: #3a4136; --sm-margin: #5e3330;
     --sm-def: #94bfdc; --sm-def-bg: #1f2a31; --sm-eq: #c9b0ef; --sm-eq-bg: #29233a; --sm-ex: #e0c46c; --sm-ex-bg: #2e2a1a;
     --sm-err: #ff8f84; --sm-err-bg: #36201e; --sm-q: #e6a75c; --sm-q-bg: #33281c; --sm-con: #8fd39a; --sm-con-bg: #1d2f22;
     --hl-y: #6b5a17; --hl-r: #6a2c27; --hl-b: #24445e; --hl-g: #2b4d31; --hl-p: #4a2f60; --hl-o: #6e4115;
   }
 }
 :root[data-theme="dark"] {
-  --sm-paper: #1d2019; --sm-rule: #2b3127; --sm-margin: #5e3330;
+  --sm-paper: #1d2019; --sm-rule: #2b3127; --sm-dot: #3a4136; --sm-margin: #5e3330;
   --sm-def: #94bfdc; --sm-def-bg: #1f2a31; --sm-eq: #c9b0ef; --sm-eq-bg: #29233a; --sm-ex: #e0c46c; --sm-ex-bg: #2e2a1a;
   --sm-err: #ff8f84; --sm-err-bg: #36201e; --sm-q: #e6a75c; --sm-q-bg: #33281c; --sm-con: #8fd39a; --sm-con-bg: #1d2f22;
   --hl-y: #6b5a17; --hl-r: #6a2c27; --hl-b: #24445e; --hl-g: #2b4d31; --hl-p: #4a2f60; --hl-o: #6e4115;
@@ -96,8 +97,9 @@
 .sm-page { max-width: var(--sm-w); margin: 18px auto 80px; padding: 28px 72px 40px 40px; padding-inline: 76px 40px; background-color: var(--sm-paper); border: 1px solid var(--line); box-shadow: 0 1px 2px rgb(0 0 0 / 5%), 0 8px 24px rgb(0 0 0 / 5%); min-height: 70vh; font-family: var(--read-font); font-size: var(--read-size); line-height: var(--sm-lh); color: var(--ink); position: relative; }
 /* ruled paper as one small tile repeated (one gradient the height of a long page loses lines in Chrome), and the margin line on its own */
 .bg-lines .sm-page { background-image: linear-gradient(to bottom, transparent calc(var(--sm-lh) - 1px), var(--sm-rule) calc(var(--sm-lh) - 1px)); background-size: 100% var(--sm-lh); background-position: 0 27px; }
+.bg-dots .sm-page { background-image: radial-gradient(circle, var(--sm-dot) 1.1px, transparent 1.4px); background-size: 22px 22px; background-position: 11px 11px; }
 .bg-grid .sm-page { background-image: linear-gradient(to bottom, transparent 23px, var(--sm-rule) 23px), linear-gradient(to left, transparent 23px, var(--sm-rule) 23px); background-size: 24px 24px; }
-.bg-lines .sm-page::before, .bg-grid .sm-page::before { content: ""; position: absolute; top: 0; bottom: 0; right: 54px; width: 2px; background: var(--sm-margin); pointer-events: none; }
+.bg-lines .sm-page::before, .bg-grid .sm-page::before, .bg-dots .sm-page::before { content: ""; position: absolute; top: 0; bottom: 0; right: 54px; width: 2px; background: var(--sm-margin); pointer-events: none; }
 .sm-block { position: relative; border-radius: 3px; }
 .sm-block.is-current { background: color-mix(in srgb, var(--sel) 35%, transparent); }
 .sm-block.drop-before { box-shadow: 0 -2px 0 var(--accent); }
@@ -253,7 +255,7 @@ mark:not([class]) { background: var(--hl-y); }
   .sm-aux { position: fixed; inset: 46px 0 0 auto; inset-inline-end: 0; width: min(380px, 92vw); z-index: 31; box-shadow: 0 10px 30px rgb(0 0 0 / 20%); }
   .sm-page { padding-inline: 46px 18px; margin: 10px 8px 60px; }
   .bg-lines .sm-page, .bg-grid .sm-page { background-image: linear-gradient(to bottom, transparent calc(var(--sm-lh) - 1px), var(--sm-rule) calc(var(--sm-lh) - 1px)); background-size: 100% var(--sm-lh); }
-  .bg-lines .sm-page::before, .bg-grid .sm-page::before { display: none; }
+  .bg-lines .sm-page::before, .bg-grid .sm-page::before, .bg-dots .sm-page::before { display: none; }
   .sm-handle { inset-inline-start: -24px; }
   .sm-figpick-body { grid-template-columns: 1fr; }
   .sm-figpick-pages { max-height: 30vh; border-inline-end: 0; border-bottom: 1px solid var(--line); }
@@ -395,3 +397,19 @@ span.im .katex { font-size: 1.04em; }
 
 /* an item with nothing in it still has a line's height (else its number sits on the next one's) */
 .sm-rich li:empty::after { content: "\200b"; }
+
+/* ---- spelling and completion (Spelling.tsx); the browser's own checker is off on the page ---- */
+::highlight(sm-spell) { text-decoration: underline wavy color-mix(in srgb, #c2410c 75%, transparent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.sm-ghost { position: fixed; z-index: 40; transform: translateX(0); display: flex; align-items: center; gap: 6px; direction: rtl; pointer-events: none; white-space: nowrap; }
+.sm-ghost-rest { color: var(--muted); opacity: 0.75; }
+.sm-ghost-tab { font: 600 0.62rem/1 var(--mono) !important; color: var(--muted); border: 1px solid var(--line-strong); border-radius: 3px; padding: 2px 4px; background: var(--sheet); }
+.sm-ghost-more { display: flex; gap: 4px; pointer-events: auto; font: 0.8rem/1.2 var(--font); }
+.sm-ghost-more button { all: unset; cursor: pointer; padding: 2px 7px; border-radius: 10px; background: var(--sheet); border: 1px solid var(--line); color: var(--ink-soft); }
+.sm-ghost-more button:hover { border-color: var(--accent); color: var(--accent); }
+.sm-spell-pop { position: fixed; z-index: 45; transform: translateX(-50%); min-width: 170px; max-width: 260px; display: grid; gap: 1px; padding: 4px; background: var(--sheet); border: 1px solid var(--line-strong); border-radius: 6px; box-shadow: 0 10px 28px rgb(0 0 0 / 18%); font-family: var(--font); font-size: 0.9rem; line-height: 1.4; direction: rtl; }
+.sm-spell-opt { all: unset; cursor: pointer; padding: 5px 10px; border-radius: 4px; font-weight: 600; color: var(--ink); }
+.sm-spell-opt:hover, .sm-spell-opt:focus-visible { background: var(--accent-soft); }
+.sm-spell-none { padding: 5px 10px; color: var(--muted); }
+.sm-spell-acts { display: flex; gap: 4px; border-top: 1px solid var(--line); margin-top: 3px; padding-top: 4px; }
+.sm-spell-acts button { all: unset; cursor: pointer; flex: 1; white-space: nowrap; text-align: center; padding: 4px 6px; border-radius: 4px; font-size: 0.8rem; color: var(--ink-soft); }
+.sm-spell-acts button:hover { background: var(--accent-soft); color: var(--accent); }

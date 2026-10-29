@@ -15,10 +15,15 @@ export interface Reading {
   sound: "soft" | "off";
   /** how loud the sounds are, 0–100 */
   volume: number;
+  /** background noise while reading, and the kind the dock button turns on */
+  noise: "off" | "brown" | "pink" | "rain";
+  noiseKind: "brown" | "pink" | "rain";
+  /** how loud the background noise is, 0–100, apart from the sounds */
+  noiseVolume: number;
   /** the lab's own pointer, or the system one */
   cursor: "lab" | "system";
 }
-export const DEFAULT_READING: Reading = { font: "plex", size: "m", space: "airy", width: "medium", surface: "theme", focus: "off", sound: "soft", volume: 60, cursor: "lab" };
+export const DEFAULT_READING: Reading = { font: "plex", size: "m", space: "airy", width: "medium", surface: "theme", focus: "off", sound: "soft", volume: 60, noise: "off", noiseKind: "brown", noiseVolume: 35, cursor: "lab" };
 
 const KEY = "eng-lab:reading";
 const listeners = new Set<() => void>();
@@ -40,6 +45,8 @@ function apply() {
   r.dataset.focus = current.focus;
   r.dataset.sound = current.sound;
   r.dataset.volume = String(current.volume);
+  r.dataset.noise = current.noise;
+  r.dataset.noiseVolume = String(current.noiseVolume);
   r.dataset.cursor = current.cursor;
 }
 apply();

@@ -12,11 +12,14 @@ import { FigurePicker } from "./FigurePicker";
 import { FilterView, ReviewView, type FilterKind } from "./View";
 import { ModuleNotes, NotebookView, TutorPanel } from "./Panels";
 import { saveFile, toDocx, toHtml } from "./exporters";
+import { Spelling } from "./Spelling";
 
-type Bg = "lines" | "grid" | "plain";
+type Bg = "dots" | "lines" | "grid" | "plain";
 interface Prefs {
   module: string | null;
   bg: Bg;
+  /** set once the old "lines" default was moved to "dots" */
+  bg2?: boolean;
   follow: boolean;
   tree: boolean;
   /** the page's zoom, 0.7–1.8 */
@@ -39,9 +42,12 @@ function usePrefs(lab: string) {
   const key = `${lab}:summaries`;
   const [p, setP] = useState<Prefs>(() => {
     try {
-      return { module: null, bg: "lines", follow: true, tree: true, zoom: 1, width: "wide", ...JSON.parse(localStorage.getItem(key) ?? "{}") };
+      const saved = JSON.parse(localStorage.getItem(key) ?? "{}");
+      // the ruled lines were the default until the dots (text never sat on them): moved over once
+      if (saved.bg === "lines" && !saved.bg2) saved.bg = "dots";
+      return { module: null, bg: "dots", follow: true, tree: true, zoom: 1, width: "wide", ...saved, bg2: true };
     } catch {
-      return { module: null, bg: "lines", follow: true, tree: true, zoom: 1, width: "wide" };
+      return { module: null, bg: "dots", follow: true, tree: true, zoom: 1, width: "wide" };
     }
   });
   const set = (patch: Partial<Prefs>) =>
@@ -147,6 +153,15 @@ export function SummaryApp({ lab, name }: { lab: string; name: string }) {
   const module = index?.modules.find((m) => m.id === prefs.module) ?? null;
   const store = rt?.store ?? null;
   const localKey = (id: string) => `${lab}:summary:${id}`;
+  // the learner's own dictionary: in the profile, or in this browser without a store
+  const loadWords = useCallback(async () => (store ? store.loadWords() : (JSON.parse(localStorage.getItem(`${lab}:dict`) ?? "[]") as string[])), [store, lab]);
+  const saveWords = useCallback(
+    (words: string[]) => {
+      if (store) store.saveWords(words).catch(() => alertBox("המילון לא נשמר."));
+      else localStorage.setItem(`${lab}:dict`, JSON.stringify(words));
+    },
+    [store, lab],
+  );
 
   /* ---- saving: a second after the last change, and when leaving a module ---- */
   const persist = useCallback(
@@ -443,6 +458,7 @@ export function SummaryApp({ lab, name }: { lab: string; name: string }) {
         <label className="sm-lbl">
           רקע הדף
           <select className="sm-select" value={prefs.bg} onChange={(e) => setPrefs({ bg: e.target.value as Bg })}>
+            <option value="dots">נקודות</option>
             <option value="lines">שורות, כמו מחברת</option>
             <option value="grid">משבצות</option>
             <option value="plain">חלק</option>
@@ -554,6 +570,7 @@ export function SummaryApp({ lab, name }: { lab: string; name: string }) {
             )}
             {module && doc && doc.moduleId === module.id && (
               <>
+                {view === "edit" && <Spelling load={loadWords} save={saveWords} />}
                 {view === "edit" && (
                   <Editor
                     blocks={doc.blocks}

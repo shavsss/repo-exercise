@@ -277,6 +277,19 @@ export function ReadingDock({ scrollRef, version, onPad }: { scrollRef: RefObjec
             </button>
           )}
           <button
+            className={`dock-noise ${r.noise !== "off" ? "is-on" : ""}`}
+            onClick={() => setReading({ noise: r.noise === "off" ? r.noiseKind : "off" })}
+            aria-pressed={r.noise !== "off"}
+            title={r.noise === "off" ? "רעש רקע לריכוז (הסוג והעוצמה בהגדרות Aa)" : "כיבוי רעש הרקע"}
+          >
+            <span className="dock-noise-wave" aria-hidden="true">
+              <i />
+              <i />
+              <i />
+            </span>
+            <span>רעש רקע</span>
+          </button>
+          <button
             className={`dock-focus ${focus ? "is-on" : ""}`}
             onClick={() => setReading({ focus: focus ? "off" : "on" })}
             aria-pressed={focus}

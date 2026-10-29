@@ -1248,7 +1248,7 @@ export function Editor({
         </div>
       )}
 
-      <div className="sm-page" style={{ zoom }}>
+      <div className="sm-page" style={{ zoom }} spellCheck={false}>
         {blocks.map((b) => (
           <div
             key={b.id}

@@ -249,6 +249,16 @@ export class Store {
     await this.profile.collection("scratch").doc(key).set(clean(data));
   }
 
+  /* ---- the learner's own dictionary for the summaries' spelling: profile/dict/mine ---- */
+  async loadWords(): Promise<string[]> {
+    const s = await this.profile.collection("dict").doc("mine").get();
+    return s.exists ? ((s.data() as { words?: string[] }).words ?? []) : [];
+  }
+
+  async saveWords(words: string[]) {
+    await this.profile.collection("dict").doc("mine").set({ words });
+  }
+
   async allSummaries(): Promise<Summary[]> {
     const s = await this.profile.collection("summaries").get();
     return s.docs.map((d) => d.data() as Summary);

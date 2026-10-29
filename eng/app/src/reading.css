@@ -238,6 +238,7 @@
 .dock-row { display: flex; gap: 6px; }
 .mini-toc-btn,
 .dock-focus,
+.dock-noise,
 .dock-pad {
   display: inline-flex;
   align-items: center;
@@ -258,6 +259,9 @@
 .reading-dock:hover .mini-toc-btn,
 .reading-dock:hover .dock-focus,
 .reading-dock:hover .dock-pad,
+.reading-dock:hover .dock-noise,
+.dock-noise.is-on,
+.dock-noise:focus-visible,
 .dock-pad:focus-visible,
 .mini-toc-btn[aria-expanded="true"],
 .dock-focus.is-on,
@@ -556,3 +560,14 @@ body.pad-resizing { cursor: col-resize; user-select: none; }
 .is-narrow .mn-note.is-open .mn-face { width: min(280px, 78vw); height: auto; border-radius: 3px; background: var(--mn-paper); color: var(--mn-ink); border-top: 3px solid var(--nk); padding: 12px; display: block; box-shadow: 0 10px 24px -8px rgb(0 0 0 / 35%); }
 .is-narrow .mn-note.is-open .mn-kind { font-size: 0.74rem; color: var(--nk); margin-bottom: 3px; }
 @media print { .mn-layer { display: none; } }
+
+/* ---------- background noise (sound.ts): the dock button, three bars that sway while it plays ---------- */
+.dock-noise.is-on { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+.dock-noise-wave { display: inline-flex; align-items: center; gap: 2px; height: 12px; }
+.dock-noise-wave i { display: block; width: 2px; height: 5px; border-radius: 1px; background: currentColor; }
+.dock-noise-wave i:nth-child(2) { height: 9px; }
+.dock-noise.is-on .dock-noise-wave i { animation: noise-sway 1.6s ease-in-out infinite; }
+.dock-noise.is-on .dock-noise-wave i:nth-child(2) { animation-delay: -0.5s; }
+.dock-noise.is-on .dock-noise-wave i:nth-child(3) { animation-delay: -1s; }
+@keyframes noise-sway { 0%, 100% { height: 4px; } 50% { height: 11px; } }
+@media (prefers-reduced-motion: reduce) { .dock-noise.is-on .dock-noise-wave i { animation: none; } }
