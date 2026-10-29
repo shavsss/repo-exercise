@@ -4,10 +4,13 @@ import "katex/dist/katex.min.css";
 import "./styles.css";
 import "./reading.css";
 import "./reading";
+import { installSounds } from "./sound";
 import "./summaries/summaries.css";
 import { App } from "./App";
 import { SummaryApp } from "./summaries/SummaryApp";
 import { copyWithMath } from "./summaries/rich";
+
+installSounds();
 
 document.documentElement.lang = "he";
 document.documentElement.dir = "rtl";

@@ -11,6 +11,7 @@ import { Composer, type QuickAction } from "./components/Composer";
 import { lessonChannel } from "./summaries/SummaryApp";
 import { LessonToc, ReadingDock, ReadingProgress, useResumePosition } from "./components/ReadingAids";
 import { noteAnchorHere } from "./components/MarginNotes";
+import { play } from "./sound";
 import { Scratchpad } from "./components/Scratchpad";
 import { ExplainPanel } from "./components/Explain";
 import { SourceViewer } from "./components/SourceViewer";
@@ -299,6 +300,7 @@ export function App() {
   /** Marks a lesson finished; the module is learned when all its lessons are. */
   const finishLesson = useCallback(
     async (m: Module, idx: number) => {
+      play("done");
       const p = modsRef.current[m.id];
       const list = [...new Set([...(p?.done ?? []), idx])].sort((a, b) => a - b);
       await saveModule(m.id, { done: list });

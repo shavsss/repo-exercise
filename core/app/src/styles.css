@@ -2239,3 +2239,9 @@ button.crumb:hover {
   border-radius: 4px;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
 }
+
+/* themed pointer (reading settings: "מצביע"); text fields keep the text cursor. Chosen in docs/sound-cursor.html */
+:root[data-cursor="lab"] body { cursor: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2226%22 height=%2226%22 viewBox=%220 0 26 26%22%3E%3Cpath d=%22M2 2 L2 21 L7.2 16.2 L10.6 23.6 L14 22 L10.6 14.8 L17.6 14.8 Z%22 fill=%22%23e9e1c8%22 stroke=%22%232a2e22%22 stroke-width=%221.5%22 stroke-linejoin=%22round%22/%3E%3Ccircle cx=%222.6%22 cy=%222.6%22 r=%222.1%22 fill=%22%23b3261e%22/%3E%3C/svg%3E") 2 2, auto; }
+:root[data-cursor="lab"] :is(button, a, summary, label, select, [role="button"], [role="tab"], .seg button, .mn-face, .lesson-card, .opt) { cursor: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2228%22 height=%2228%22 viewBox=%220 0 28 28%22%3E%3Ccircle cx=%2214%22 cy=%2214%22 r=%228.5%22 fill=%22rgba%28179,38,30,0.12%29%22 stroke=%22%23b3261e%22 stroke-width=%221.8%22/%3E%3Cpath d=%22M14 1.5v6M14 20.5v6M1.5 14h6M20.5 14h6%22 stroke=%22%232a2e22%22 stroke-width=%221.8%22 stroke-linecap=%22round%22/%3E%3Ccircle cx=%2214%22 cy=%2214%22 r=%221.8%22 fill=%22%23b3261e%22/%3E%3C/svg%3E") 14 14, pointer; }
+:root[data-cursor="lab"] :is(textarea, input:not([type="range"]):not([type="checkbox"]):not([type="radio"]), [contenteditable="true"], math-field) { cursor: text; }
+:root[data-cursor="lab"] button:disabled { cursor: not-allowed; }

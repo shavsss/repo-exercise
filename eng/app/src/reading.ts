@@ -11,8 +11,12 @@ export interface Reading {
   surface: "theme" | "paper" | "warm" | "soft";
   /** focus: the map, the source rail and the composer's extras step aside */
   focus: "off" | "on";
+  /** quiet interface sounds (sound.ts) */
+  sound: "soft" | "off";
+  /** the lab's own pointer, or the system one */
+  cursor: "lab" | "system";
 }
-export const DEFAULT_READING: Reading = { font: "plex", size: "m", space: "airy", width: "medium", surface: "theme", focus: "off" };
+export const DEFAULT_READING: Reading = { font: "plex", size: "m", space: "airy", width: "medium", surface: "theme", focus: "off", sound: "soft", cursor: "lab" };
 
 const KEY = "eng-lab:reading";
 const listeners = new Set<() => void>();
@@ -32,6 +36,8 @@ function apply() {
   r.dataset.readWidth = current.width;
   r.dataset.surface = current.surface;
   r.dataset.focus = current.focus;
+  r.dataset.sound = current.sound;
+  r.dataset.cursor = current.cursor;
 }
 apply();
 
