@@ -1,4 +1,4 @@
-// Quiet interface sounds, synthesized in the browser (no files): a soft wooden tick when typing,
+// Quiet interface sounds, synthesized in the browser (no files): the sound of a mechanical keyboard when typing,
 // a muted tap on buttons, a short rising pair when an answer or a block opens, a faint rustle while
 // a 3D scene is dragged, and a small chord when a lesson is finished. Only on actions, never while
 // reading or scrolling. Turned off from the reading settings (data-sound="off" on the root), and the
@@ -21,7 +21,15 @@ function audio() {
     if (!AC) return null;
     ctx = new AC();
     master = ctx.createGain();
-    master.connect(ctx.destination);
+    // a limiter after the volume, so loud keys at full volume never clip
+    const limit = ctx.createDynamicsCompressor();
+    limit.threshold.value = -6;
+    limit.knee.value = 0;
+    limit.ratio.value = 12;
+    limit.attack.value = 0.001;
+    limit.release.value = 0.05;
+    master.connect(limit);
+    limit.connect(ctx.destination);
   }
   if (master) master.gain.value = volume();
   if (ctx.state === "suspended") void ctx.resume();
@@ -67,12 +75,72 @@ function noise(dur: number, { freq = 3000, q = 1, gain = 0.15, type = "bandpass"
   s.start(t);
 }
 
+/**
+ * A mechanical key (a tactile, "brown" switch), modelled on a recorded keyboard: a faint tactile bump,
+ * ~20ms later the loud bottom-out clack (a noise burst ringing at two resonances of the keycap and case,
+ * ~1kHz and ~2.5kHz, gone in ~15ms, with a little air above 6kHz), and a lighter clack when the key comes
+ * back up. Each key has its own voice, so the same key always sounds the same; the long keys are deeper.
+ */
+type Voice = { lo: number; hi: number; air: number };
+const VOICES: Voice[] = Array.from({ length: 14 }, (_, i) => ({
+  lo: 880 + ((i * 37) % 260),
+  hi: 2250 + ((i * 113) % 700),
+  air: 0.35 + ((i * 7) % 5) * 0.08,
+}));
+const WIDE: Voice = { lo: 620, hi: 1700, air: 0.25 };
+const WIDE_KEYS = new Set(["Space", "Enter", "NumpadEnter", "Backspace", "ShiftLeft", "ShiftRight", "Tab"]);
+
+function voiceOf(code: string): Voice {
+  if (WIDE_KEYS.has(code)) return WIDE;
+  let h = 0;
+  for (const ch of code) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
+  return VOICES[h % VOICES.length];
+}
+
+/** one clack: a decaying noise burst through the two resonances, plus a band of air */
+function clack(v: Voice, level: number, delay: number, length = 0.04) {
+  const c = audio();
+  if (!c || !master) return;
+  const t = c.currentTime + delay;
+  const len = Math.floor(c.sampleRate * length);
+  const buf = c.createBuffer(1, len, c.sampleRate);
+  const d = buf.getChannelData(0);
+  for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 6);
+  const src = c.createBufferSource();
+  src.buffer = buf;
+  const out = c.createGain();
+  out.gain.value = level;
+  out.connect(master);
+  const band = (type: BiquadFilterType, freq: number, q: number, gain: number) => {
+    const f = c.createBiquadFilter();
+    f.type = type;
+    f.frequency.value = freq;
+    f.Q.value = q;
+    const g = c.createGain();
+    g.gain.value = gain;
+    src.connect(f);
+    f.connect(g);
+    g.connect(out);
+  };
+  const jitter = () => 0.97 + Math.random() * 0.06;
+  band("bandpass", v.lo * jitter(), 5, 4.2);
+  band("bandpass", v.hi * jitter(), 6, 5.5);
+  band("highpass", 6500, 0.7, v.air);
+  src.start(t);
+}
+
+function keyDown(code: string) {
+  const v = voiceOf(code);
+  noise(0.012, { freq: 3200, q: 1.5, gain: 0.25 }); // the tactile bump
+  clack(v, 0.65, 0.02, v === WIDE ? 0.07 : 0.045);
+}
+function keyUp(code: string) {
+  const v = voiceOf(code);
+  clack({ ...v, lo: v.lo * 1.15, hi: v.hi * 1.08 }, 0.2, 0, 0.03);
+}
+
 const CUES = {
-  // a short wooden tick: a bright burst of noise with a tiny high click on top, a little different each key
-  key: () => {
-    noise(0.028, { freq: 2300 + Math.random() * 700, q: 1.2, gain: 0.55 });
-    tone(1700 + Math.random() * 300, 0.02, { gain: 0.07 });
-  },
+  key: () => keyDown("KeyA"),
   click: () => tone(520, 0.07, { gain: 0.12, glide: 0.7 }),
   open: () => {
     tone(440, 0.12, { gain: 0.09 });
@@ -83,13 +151,16 @@ const CUES = {
 };
 export type Cue = keyof typeof CUES;
 
-export function play(cue: Cue) {
+function safely(f: () => void) {
   if (!enabled()) return;
   try {
-    CUES[cue]();
+    f();
   } catch {
     // no sound in this view
   }
+}
+export function play(cue: Cue) {
+  safely(CUES[cue]);
 }
 
 let installed = false;
@@ -97,13 +168,25 @@ let installed = false;
 export function installSounds() {
   if (installed) return;
   installed = true;
+  const down = new Set<string>();
   document.addEventListener(
     "keydown",
     (e) => {
       const t = e.target as HTMLElement | null;
       if (!t || e.ctrlKey || e.metaKey || e.altKey) return;
       const typing = t.matches?.("textarea, input:not([type=range]):not([type=checkbox]):not([type=radio]), [contenteditable=''], [contenteditable='true']") || !!t.closest?.("[contenteditable='true'], math-field");
-      if (typing && (e.key.length === 1 || e.key === "Backspace" || e.key === "Enter")) play("key");
+      if (typing && !e.repeat && (e.key.length === 1 || e.key === "Backspace" || e.key === "Enter")) {
+        down.add(e.code);
+        safely(() => keyDown(e.code));
+      }
+    },
+    true,
+  );
+  // the key coming back up, only for keys whose press was heard
+  document.addEventListener(
+    "keyup",
+    (e) => {
+      if (down.delete(e.code)) safely(() => keyUp(e.code));
     },
     true,
   );
