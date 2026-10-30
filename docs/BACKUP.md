@@ -33,14 +33,12 @@
 - **לאן:** אותו ענף `study-notes`, בתיקייה `core/`, כדי שהמחברות לא יתערבבו.
 - **מה:** הפרופיל, המודולים, מחברת השיעורים (`profile/notes`), הסיכומים (`profile/summaries`, לקובץ `core/notes/SUMMARIES.md`), מחברת השרטוטים והפתרונות (`profile/scratch`, לקובץ `core/notes/SCRATCH.md`, וכל שרטוט כקובץ SVG ב-`core/notes/scratch/`) והשיחות. הסקריפט והתוכנית נלקחים בכל ריצה מענף הפיתוח.
 - **שלבים:**
-  1. ArtifactData `list` עם `out_dir`, מה-Artifact של מעבדת הליבה (הכתובת ב-`CLAUDE.md`):
-     - `data/users/me` (הפרופיל: זיכרון, מודולים שנלמדו, מודול נוכחי)
-     - `data/users/me/profile/modules` (חלוקת השיעורים וההתקדמות בכל מודול)
-     - `data/users/me/profile/convs`, ואחר כך `data/users/me/profile/convs/<cid>/msgs` לכל שיחה
+  1. ArtifactData `list` עם `out_dir`, מה-Artifact של מעבדת הליבה (הכתובת ב-`CLAUDE.md`), לכל האוספים שבטבלה למטה ("האוספים שמגבים").
   2. `node core/app/tools/backup/export.mjs <dump> .` כותב:
      - `core/notes/MEMORY.md`, `core/notes/PROGRESS.md` (טבלה לכל חלק: מצב, שיעורים, ציון) ו-`core/notes/README.md`
-     - `core/notes/lessons/*.md`, קובץ לכל שיחה, לפי מודול ושיעור
-     - `core/backup/db/`, עותק JSON גולמי
+     - `core/notes/lessons/*.md`, קובץ לכל שיחה, לפי מודול ושיעור (הודעה ארוכה מחוברת מההמשכים שלה)
+     - `NOTEBOOK.md`, `SUMMARIES.md`, `SCRATCH.md` (והשרטוטים ב-`scratch/`), `CONSULTS.md`, `CALIBRATION.md`, `LEVEL3.md`, `PRODUCTS.md`, `REVIEWS.md` ו-`MEMORY_LOG.md`
+     - `core/backup/db/`, עותק JSON גולמי של כל מה שנקרא, כולל האוספים שאין להם קובץ MD
   3. commit ו-push, רק אם משהו השתנה.
 - **שחזור:** כמו במעבדת הלמידה, עם ArtifactData `batch` מתוך `core/backup/db` אל ה-Artifact של מעבדת הליבה.
 
@@ -50,10 +48,41 @@
 
 - **מתי:** כל לילה ב-23:37, שעון ישראל.
 - **לאן:** הענף `study-notes`, בתיקייה `eng/`.
-- **מה:** כמו בלנצ'סטר: `data/users/me`, `profile/modules`, `profile/notes`, `profile/summaries`, `profile/scratch`, `profile/convs` וההודעות, ואז `node eng/app/tools/backup/export.mjs <dump> .`, שכותב את `eng/notes/` (כולל `SUMMARIES.md`, `NOTEBOOK.md`, ו-`SCRATCH.md` עם השרטוטים כ-SVG ב-`scratch/`) ואת `eng/backup/db/`.
+- **מה:** כמו בלנצ'סטר: כל האוספים שבטבלה למטה, מה-Artifact של גילואה, ואז `node eng/app/tools/backup/export.mjs <dump> .`, שכותב את `eng/notes/` (אותם קבצים כמו בלנצ'סטר) ואת `eng/backup/db/`.
 
 ## מה נוסף בשתי המעבדות (31.10)
 
 - **הודעה ארוכה:** טקסט של יותר מ-100 אלף תווים נשמר בהמשכים, ב-`profile/convs/<cid>/msgs/<mid>/more/<n>`, וההודעה מסמנת כמה המשכים יש לה (`textParts`). בגיבוי קוראים גם את `.../msgs/<mid>/more` לכל הודעה שיש לה `textParts`, ו-`export.mjs` מחבר אותם. (עד 30.10 טקסט ארוך נחתך ב-110 אלף תווים; שיעורים שנחתכו כך נשארו כמו שהם.)
-- **גרסאות של זיכרון הקורס:** לפני כל החלפה של הזיכרון, הנוסח הקודם נשמר ב-`profile/memlog/<ts>` (`memory`, `reason`, `at`), ואף גרסה לא נמחקת. בלוח הזיכרון אפשר לראות גרסה ולשחזר אותה. כדאי לגבות גם את האוסף הזה.
+- **גרסאות של זיכרון הקורס:** לפני כל החלפה של הזיכרון, הנוסח הקודם נשמר ב-`profile/memlog/<ts>` (`memory`, `reason`, `at`), ואף גרסה לא נמחקת. בלוח הזיכרון אפשר לראות גרסה ולשחזר אותה. בגיבוי: `MEMORY_LOG.md`.
 - **מונה שימוש:** `profile/usage/<יום>__<סשן>`, מסמך לכל פתיחה של הדף בכל יום: קריאות לפי מודל, זמן, שיעורים ומילים. **אבחון סירובים:** `profile/diag/<ts>`.
+- **אוספים חדשים נוספים:** יומן אירועים (`profile/events`), כיול שאלות think (`profile/calib`), כרטיסי התייעצות (`profile/consults/<מודול>__<שיעור>/cards`), תשובות רמה 3 (`profile/level3`), העיתון והמשוב עליו (`profile/news`, `profile/news/_index`, `profile/newsfb`), מוצר החודש (`profile/products`) והסקירות השבועיות (`profile/reviews`). כולם בטבלה שלמטה.
+
+## האוספים שמגבים (לנצ'סטר וגילואה)
+
+אותה רשימה בשתי המעבדות, כל אחת מה-Artifact שלה. כל שורה היא קריאה של ArtifactData `action: "list"` עם `collection` כמו בטבלה, `out_dir` לתיקיית ה-dump, ו-`query.limit` 1000; אם חוזר `next_cursor`, ממשיכים עם `query.cursor` עד הסוף. אוסף ריק או חסר הוא תקין (גם הסקריפט מסתדר בלעדיו). `<P>` הוא `data/users/me/profile`.
+
+| collection | מה יש בו | בגיבוי |
+|---|---|---|
+| `data/users/me` | הפרופיל: זיכרון, מודולים שנלמדו, מודול נוכחי | `MEMORY.md`, `PROGRESS.md` |
+| `<P>/modules` | חלוקת השיעורים וההתקדמות בכל מודול | `PROGRESS.md` |
+| `<P>/convs` | השיחות (כותרת, מודול, שיעור) | `lessons/*.md` |
+| `<P>/convs/<cid>/msgs` | ההודעות, לכל שיחה שחזרה בשורה הקודמת | `lessons/*.md` |
+| `<P>/convs/<cid>/msgs/<mid>/more` | ההמשכים של הודעה ארוכה, רק להודעה שיש לה `textParts` (1 ומעלה) | מחובר להודעה ב-`lessons/*.md` |
+| `<P>/notes` | מחברת השיעורים | `NOTEBOOK.md` |
+| `<P>/summaries`, `<P>/summaryMeta` | הסיכומים ומצב העץ | `SUMMARIES.md` |
+| `<P>/scratch` | מחברת השרטוטים והפתרונות | `SCRATCH.md`, `scratch/*.svg` |
+| `<P>/dict` | המילון האישי (`mine`) | גולמי |
+| `<P>/memlog` | גרסאות קודמות של זיכרון הקורס | `MEMORY_LOG.md` |
+| `<P>/calib` | כיול שאלות think: ביטחון ותוצאה | `CALIBRATION.md` |
+| `<P>/consults` | כרטיסי ההתייעצות: מסמך לכל שיעור (`<מודול>__<שיעור>`) | גולמי |
+| `<P>/consults/<key>/cards` | הכרטיסים עצמם, לכל מסמך שחזר בשורה הקודמת | `CONSULTS.md` |
+| `<P>/level3` | תשובות לבלוקים של רמה 3, מסמך לכל שיעור | `LEVEL3.md` |
+| `<P>/products` | מוצר החודש (`<YYYY-MM>`) | `PRODUCTS.md` |
+| `<P>/reviews` | הסקירה השבועית (`<YYYY-Www>`) | `REVIEWS.md` |
+| `<P>/news` | גיליונות העיתון וה-`_index` | גולמי |
+| `<P>/newsfb` | מה נקרא ודורג בכל גיליון | גולמי |
+| `<P>/events` | יומן אירועים (אף פעם לא נכתב מחדש) | גולמי |
+| `<P>/usage` | מונה שימוש, מסמך ליום ולסשן | גולמי |
+| `<P>/diag` | אבחון סירובים | גולמי |
+
+הסדר: קודם האוספים העליונים, ואז השלבים המקוננים: לכל `<cid>` מ-`convs` קוראים את `msgs`, לכל הודעה עם `textParts` את `more` שלה, ולכל `<key>` מ-`consults` את `cards`. ב-`out_dir` כל מסמך נשמר כ-`<dump>/<collection>/<doc_id>.json`, וזה המבנה שהסקריפט קורא; הוא מעתיק את כל ה-dump ל-`backup/db/` כמו שהוא, כך שגם אוסף שאין לו קובץ MD נשמר לשחזור.
