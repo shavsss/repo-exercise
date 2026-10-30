@@ -10,8 +10,8 @@ import { Markdown, MdContext } from "./Markdown";
 import { Icon } from "./Icon";
 
 const EXPLAIN_MODEL = "claude-haiku-5-5";
-/** if the quick model is not available here, the usual one answers (and the panel says so) */
-const FALLBACK_MODEL = "claude-opus-5-5";
+// if the quick model is not available here, the call names no model and runs on the quick tier:
+// naming the main model would count the call at that model's tier (sample.d.ts, `model`)
 const SECTION_CHARS = 12_000;
 const MEMORY_CHARS = 6_000;
 /** turns of this conversation sent with a new question */
@@ -150,14 +150,14 @@ export function ExplainPanel({ rt, scrollRef, lessonKey, lessonTitle, memory = "
     const setLast = (patch: Partial<Turn>) => setTurns((ts) => ts.map((t, i) => (i === ts.length - 1 ? { ...t, ...patch } : t)));
     setErr("");
     setBusy(true);
-    const run = (m: string) => rt.sample!(prompt, { model: m, modelTier: "quick", effort: "low", signal: c.signal, onText: ({ text }) => setLast({ a: text }) });
+    const run = (m?: string) => rt.sample!(prompt, { ...(m ? { model: m } : {}), modelTier: "quick", effort: "low", signal: c.signal, onText: ({ text }) => setLast({ a: text }) });
     try {
       let res;
       try {
         res = await run(EXPLAIN_MODEL);
       } catch (e) {
         if (c.signal.aborted) throw e;
-        res = await run(FALLBACK_MODEL);
+        res = await run();
       }
       setLast({ a: res.text, model: res.modelApplied ?? "" });
     } catch (e) {

@@ -8,6 +8,7 @@ import { create, all } from "mathjs";
 import { docMeta, getIndex, readPages, searchLibrary, type Module } from "./library";
 import { SYSTEM_PROMPT, libraryList } from "./prompt";
 import type { Runtime, SampleTool } from "./runtime";
+import { joinContinuation, looksCut } from "./truncation";
 import { NOTE_KIND_LABEL, type Activity, type Effort, type LessonNote, type LessonSpec, type Mode, type NoteKind, type StoredMessage } from "./types";
 
 const math = create(all, {});
@@ -58,16 +59,48 @@ export function compileExpr(expr: string) {
   return math.compile(expr);
 }
 
-let promptCache = "";
-export function systemPrompt() {
-  if (!promptCache) promptCache = SYSTEM_PROMPT.replace("${LIBRARY}", libraryList(getIndex()?.docs ?? {}));
-  return promptCache;
+/** Which parts of the standing instructions a call carries (as in Lanchester). */
+export interface PromptOpts {
+  /** planning and diagnostics: the book and the library, without the goal and the teaching rules */
+  lean?: boolean;
+  /** diagnostics: drop the goal and sections ב and ז (level 2.5, gradualness) */
+  no25?: boolean;
+  /** diagnostics: drop sections of the teaching rules (their Hebrew letters), or keep only that one */
+  drop?: string;
+  only?: string;
+}
+
+/** Splits the teaching rules into their lettered sections (א. … ב. …). */
+function ruleSections(p: string) {
+  const body = /<teaching_rules>\n([\s\S]*?)<\/teaching_rules>/.exec(p)?.[1] ?? "";
+  const parts = body.split(/\n(?=[א-ת]\. )/);
+  return { head: parts[0].match(/^[א-ת]\. /) ? "" : parts.shift() ?? "", sections: parts };
+}
+
+const promptCache = new Map<string, string>();
+export function systemPrompt(o: PromptOpts = {}) {
+  const key = JSON.stringify([!!o.lean, !!o.no25, o.drop ?? "", o.only ?? ""]);
+  const hit = promptCache.get(key);
+  if (hit) return hit;
+  let p = SYSTEM_PROMPT.replace("${LIBRARY}", libraryList(getIndex()?.docs ?? {}));
+  if (o.no25 || o.lean) p = p.replace(/<goal>[\s\S]*?<\/goal>\n*/, "");
+  const drop = (o.drop ?? "") + (o.no25 ? "בז" : "");
+  if (drop || o.only) {
+    const { head, sections } = ruleSections(p);
+    const kept = sections.filter((x) => (o.only ? x.startsWith(o.only + ". ") : !drop.includes(x[0])));
+    p = p.replace(/<teaching_rules>\n[\s\S]*?<\/teaching_rules>/, `<teaching_rules>\n${head}\n${kept.join("\n")}\n</teaching_rules>`);
+  }
+  if (o.lean) p = p.replace(/<teaching_rules>[\s\S]*?<\/teaching_rules>\n*/, "");
+  promptCache.set(key, p);
+  return p;
 }
 
 export interface TurnCallbacks {
   onText: (text: string) => void;
   onActivity: (a: Activity) => void;
   onStatus?: (status: string) => void;
+  /** a refused call was diagnosed (see onRefusal) */
+  onDiag?: (d: Record<string, unknown>) => Promise<void> | void;
   /** a safe point to save: the part plan exists and `partsDone` parts are written */
   onCheckpoint?: (plan: PartPlan, partsDone: number, text: string) => void;
   /** the tutor saved a point to the lesson's shared notebook */
@@ -121,7 +154,8 @@ ${secs ? `Section headings in these pages (DOC:PAGE title):\n${secs}` : "No sect
 function planBlock(lessons: LessonSpec[] | undefined, idx: number) {
   if (!lessons?.length) return "";
   return `Lesson plan of this module:\n${lessons
-    .map((l, i) => `${i + 1}. ${l.title}${i === idx ? "  ← THIS LESSON" : ""}\n   covers: ${l.covers.join("; ")}\n   pages: ${l.sources.map((s) => `${s.doc} ${s.pages[0]}–${s.pages[1]}`).join(", ")}\n   focus: ${l.focus}`)
+    // the focus is sent only for this lesson: the other lessons' notes are not needed to write it
+    .map((l, i) => `${i + 1}. ${l.title}${i === idx ? "  ← THIS LESSON" : ""}\n   covers: ${l.covers.join("; ")}\n   pages: ${l.sources.map((s) => `${s.doc} ${s.pages[0]}–${s.pages[1]}`).join(", ")}${i === idx ? `\n   focus: ${l.focus}` : ""}`)
     .join("\n")}`;
 }
 
@@ -184,8 +218,8 @@ ${plan}${mem}${nb}${rest}${o.pages ? `\n\nSource pages for this lesson:\n${o.pag
 }
 
 /** Newest history first, until the budget is used. `keepLast` always sends the last turn. */
-function fitHistory(history: StoredMessage[], fixed: number, keepLast = false) {
-  let used = fixed + bytes(systemPrompt());
+function fitHistory(history: StoredMessage[], fixed: number, keepLast = false, p: PromptOpts = {}) {
+  let used = fixed + bytes(systemPrompt(p));
   const kept: Turn[] = [];
   let dropped = 0;
   for (let i = history.length - 1; i >= 0; i--) {
@@ -200,7 +234,7 @@ function fitHistory(history: StoredMessage[], fixed: number, keepLast = false) {
     kept.unshift({ role: m.role, content: m.text });
   }
   while (kept.length && kept[0].role === "assistant") kept.shift();
-  const intro = systemPrompt() + (dropped ? `\n\n[${dropped} earlier turns of this conversation were omitted to fit the input limit; <course_memory> summarizes the course so far.]` : "");
+  const intro = systemPrompt(p) + (dropped ? `\n\n[${dropped} earlier turns of this conversation were omitted to fit the input limit; <course_memory> summarizes the course so far.]` : "");
   return [{ role: "user", content: intro } as Turn, ...kept];
 }
 
@@ -364,12 +398,19 @@ MODULE PLANNING STEP. Split this module into lessons. Do not teach yet.
       ...(gaps.length ? [`these pages are not in any lesson's "sources": ${gaps.map((g) => `${g.doc} ${g.pages[0]}–${g.pages[1]}`).join(", ")}`] : []),
     ];
     const turn = ask(attempt ? `\n\nYour previous plan left gaps: ${missed.join("; and ")}. Return the full plan again with everything covered.` : "");
-    const res = await rt.sample.json<LessonSpec[]>([...fitHistory([], bytes(turn)), { role: "user", content: turn }], {
-      model: MODEL,
-      modelTier: "complex",
-      effort,
-      signal,
-      ...(rt.canUseTools ? { tools: buildTools(cb, moduleDocs(m)) } : { cache: false }),
+    const call = (lean: boolean) =>
+      rt.sample!.json<LessonSpec[]>([...fitHistory([], bytes(turn), false, { lean }), { role: "user", content: turn }], {
+        model: MODEL,
+        modelTier: "complex",
+        effort,
+        signal,
+        ...(rt.canUseTools ? { tools: buildTools(cb, moduleDocs(m)) } : { cache: false }),
+      });
+    // a refused plan is retried once with the book and library only, without the teaching rules
+    const res = await call(false).catch((e) => {
+      if ((e as { code?: string })?.code !== "refused") throw e;
+      cb.onStatus?.("מנסה שוב את החלוקה בהנחיות מקוצרות");
+      return call(true);
     });
     lessons = (Array.isArray(res) ? res : [])
       .filter((l) => l && typeof l.title === "string")
@@ -445,8 +486,11 @@ function partInstructions(plan: PartPlan, k: number, writtenSoFar: string) {
   const last = k === n - 1;
   const prior = writtenSoFar.length > 60000 ? `[…start omitted…]\n${writtenSoFar.slice(-60000)}` : writtenSoFar;
   return `WRITING STEP: part ${k + 1} of ${n} of this lesson. Write as the authors (see <voice>).
-Lesson plan (yours, from the planning step):
-${JSON.stringify(plan, null, 1)}
+Lesson plan (yours, from the planning step): «${plan.title}», ${n} parts:
+${plan.parts.map((x, i) => `${i + 1}. ${x.title}${i === k ? "  ← THIS PART" : ""}`).join("\n")}
+Figures of the lesson: ${(plan.figures ?? []).join(", ") || "none"}.
+Computed facts: ${(plan.facts ?? []).map((f) => `\n- ${f}`).join("")}
+${last && plan.next ? `Next lesson: ${plan.next}` : ""}
 
 ${prior ? `The lesson text written so far (parts 1–${k}), which the learner is reading right now:\n<<<\n${prior}\n>>>\n` : ""}
 Now write ONLY part ${k + 1}: «${p.title}». It covers: ${p.covers}.${p.blocks?.length ? ` Blocks for this part: ${p.blocks.join(", ")}.` : ""}${p.l25?.length ? ` Level-2.5 sections for this part: ${p.l25.join(", ")}.` : ""}
@@ -456,6 +500,8 @@ Do not write material that belongs to later parts. Teach step by step: every ste
 Tag every level-2.5 section this part covers ([[2.5: …]]) at the start of its paragraph.
 ${last ? "This is the last part: write the coverage block, the exercises, the today block, and the sentence about the next lesson." : "Do not end the lesson and do not write exercises yet."}`;
 }
+
+const PART_CONTINUE = "The previous attempt of this part stopped before its end (at the length limit, mid-sentence or inside an unclosed block). Continue it exactly from where the text above stops: do not repeat any of it, close any open block, and finish the part.";
 
 export async function composeLesson(opts: Base & { text: string; resume?: { plan: PartPlan; partsDone: number; text: string } }) {
   const { rt, history, text, effort, module: m, lessons, lessonIdx, memory, notes, allNotes, signal, cb, resume } = opts;
@@ -469,13 +515,18 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
   if (!plan) {
     cb.onStatus?.("מתכנן את השיעור: קורא את המקורות ומחשב את המספרים");
     const planTurn = `${ctx}\n\n${text}\n\n${PART_PLAN_INSTRUCTIONS}`;
-    plan = await rt.sample.json<PartPlan>([...fitHistory(history, bytes(planTurn)), { role: "user", content: planTurn }], {
-      model: MODEL,
-      modelTier: "complex",
-      effort,
-      signal,
-      ...(tools ? { tools } : { cache: false }),
-    });
+    plan = await retryRefused(
+      (h) =>
+        rt.sample!.json<PartPlan>([...fitHistory(h, bytes(planTurn)), { role: "user", content: planTurn }], {
+          model: MODEL,
+          modelTier: "complex",
+          effort,
+          signal,
+          ...(tools ? { tools } : { cache: false }),
+        }),
+      history,
+      cb,
+    ).catch((e) => onRefusal(e, rt, m, history, planTurn, cb));
     if (!plan || !Array.isArray(plan.parts) || !plan.parts.length) throw { code: "invalid_json", message: "no plan" };
     cb.onCheckpoint?.(plan, 0, "");
   }
@@ -486,20 +537,26 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
     cb.onStatus?.(`כותב חלק ${k + 1} מתוך ${plan.parts.length}: ${plan.parts[k].title}`);
     const before = written ? written + "\n\n" : "";
     let partText = "";
-    for (let attempt = 0; attempt < 2; attempt++) {
-      // a part cut off at the length limit gets one continuation
-      const turn = `${ctx}\n\n${text}\n\n${partInstructions(plan, k, (before + partText).trim())}${attempt ? "\n\nThe previous attempt of this part was cut off at the length limit; continue it exactly from where the text above stops." : ""}`;
-      const res = await rt.sample([...fitHistory(history, bytes(turn)), { role: "user", content: turn }], {
-        model: MODEL,
-        modelTier: "complex",
-        effort,
-        signal,
-        ...(tools ? { tools } : { cache: false }),
-        onText: ({ text: t }) => cb.onText(before + partText + t),
-      });
-      partText += res.text;
+    for (let attempt = 0; attempt < 3; attempt++) {
+      // a part cut off at the length limit, or ending mid-sentence or inside a block (truncation.ts), gets up to two continuations
+      const turn = `${ctx}\n\n${text}\n\n${partInstructions(plan, k, (before + partText).trim())}${attempt ? `\n\n${PART_CONTINUE}` : ""}`;
+      const res = await retryRefused(
+        (h) =>
+          rt.sample!([...fitHistory(h, bytes(turn)), { role: "user", content: turn }], {
+            model: MODEL,
+            modelTier: "complex",
+            effort,
+            signal,
+            ...(tools ? { tools } : { cache: false }),
+            onText: ({ text: t }) => cb.onText(before + joinContinuation(partText, t)),
+          }),
+        history,
+        cb,
+      ).catch((e) => onRefusal(e, rt, m, history, turn, cb));
+      partText = joinContinuation(partText, res.text);
       model = res.modelApplied ?? `רמת מודל: ${res.modelTierApplied}`;
-      if (!res.truncated) break;
+      if (!res.truncated && !looksCut(partText).cut) break;
+      cb.onStatus?.(`חלק ${k + 1} נעצר באמצע; ממשיך אותו מהמקום שבו נעצר`);
     }
     written = (before + partText).trim();
     cb.onText(written);
@@ -624,7 +681,7 @@ ${o.summary.slice(0, 100000)}
 >>>
 
 Write ${o.count ?? 6} review questions in Hebrew built only from what this summary says, so that answering them checks whether the learner remembers and understands his own summary: a mix of a definition, an equation and what each term means, a number to estimate, a "why", and a common mistake. Order them from easy to hard. Equations in $…$. Reply with ONLY a JSON array: [{"q": "the question", "a": "the expected answer, short, from the summary"}]`;
-  const res = await o.rt.sample.json<SummaryQuestion[]>(prompt, { model: MODEL, modelTier: "default", effort: "low", signal: o.signal, cache: false });
+  const res = await o.rt.sample.json<SummaryQuestion[]>(prompt, { modelTier: "default", effort: "low", signal: o.signal, cache: false });
   return (Array.isArray(res) ? res : []).filter((x) => x && typeof x.q === "string").map((x) => ({ q: x.q, a: String(x.a ?? "") }));
 }
 
@@ -636,6 +693,76 @@ Expected answer, from the learner's summary: ${o.question.a}
 The learner answered: ${o.answer}
 
 In Hebrew, two to four sentences: is it right, partly right or wrong; what is missing or mistaken; and the one thing to remember. Start with ✓, ◐ or ✗. Equations in $…$.`;
-  const res = await o.rt.sample(prompt, { model: MODEL, modelTier: "quick", effort: "low", signal: o.signal, cache: false });
+  const res = await o.rt.sample(prompt, { modelTier: "quick", effort: "low", signal: o.signal, cache: false });
   return res.text.trim();
+}
+
+/* ---------------- refusals (as in Lanchester) ---------------- */
+
+/**
+ * A refused lesson call is tried once more without the earlier turns of the conversation (the
+ * history is the only part of the input that a retry can drop without changing the lesson).
+ */
+async function retryRefused<T>(call: (history: StoredMessage[]) => Promise<T>, history: StoredMessage[], cb: TurnCallbacks): Promise<T> {
+  for (let i = 0; ; i++) {
+    try {
+      return await call(i ? [] : history);
+    } catch (e) {
+      if ((e as { code?: string })?.code !== "refused" || i >= 1) throw e;
+      cb.onStatus?.("Claude סירב; מנסה שוב בלי התורות הקודמות");
+    }
+  }
+}
+
+/** Diagnostics run at most once per module per day (they cost several calls); kept in the browser. */
+function diagAllowed(moduleId: string) {
+  const key = `diag:${moduleId}:${new Date().toISOString().slice(0, 10)}`;
+  try {
+    if (localStorage.getItem(key)) return false;
+    localStorage.setItem(key, "1");
+  } catch {
+    // no browser storage: diagnose anyway
+  }
+  return true;
+}
+
+/**
+ * When Claude refuses a lesson call, find which part of the input it refuses: the same turn is sent
+ * again with one part removed at a time, asking only for "OK" (cheap, no tools). The result is saved
+ * (profile/diag) so the cause can be fixed in the instructions, and the refusal is rethrown.
+ */
+async function onRefusal(e: unknown, rt: Runtime, m: Module, history: StoredMessage[], turn: string, cb: TurnCallbacks): Promise<never> {
+  if ((e as { code?: string })?.code !== "refused" || !cb.onDiag || !diagAllowed(m.id)) throw e;
+  cb.onStatus?.("Claude סירב. בודק איזה חלק מהשיעור גורם לזה (כדקה)");
+  const pagesAt = turn.indexOf("Source pages for this lesson:");
+  const head = pagesAt >= 0 ? turn.slice(0, pagesAt) : turn;
+  const pagesText = pagesAt >= 0 ? turn.slice(pagesAt) : "";
+  const tail = /\n<\/study_context>[\s\S]*$/.exec(pagesText)?.[0] ?? "";
+  const pageChunks = pagesText.replace(tail, "").replace("Source pages for this lesson:\n", "").split(/\n(?==== \[\[)/).filter((x) => x.trim());
+  const noPlan = turn.replace(/Lesson plan of this module:[\s\S]*?(?=\n<course_memory>|\n<lesson_notebook>|\n<notebook>|\n\nSource pages|\n<\/study_context>)/, "");
+  const noMemory = turn.replace(/\n*<course_memory>[\s\S]*?<\/course_memory>/, "");
+  const minimal = `<study_context>\n${moduleBlock(m)}\n`;
+  // at most four variants, and the source pages one by one only when the pages are the cause
+  const variants: { name: string; turn: string; p: PromptOpts }[] = [
+    { name: "lean-full", turn, p: { lean: true } },
+    { name: "full-no-plan", turn: noPlan, p: {} },
+    { name: "lean-no-pages", turn: head + tail, p: { lean: true } },
+    { name: "lean-no-memory", turn: noMemory, p: { lean: true } },
+  ];
+  const pageProbes = pageChunks.slice(0, 4).map((c) => ({ name: `page ${(/\[\[([A-Z]\d+[a-z]?:\d+)\]\]/.exec(c)?.[1] ?? "?")}`, turn: `${minimal}\nSource page:\n${c}\n</study_context>`, p: { lean: true } }));
+  const results: Record<string, string> = {};
+  for (let i = 0; i < variants.length; i++) {
+    const v = variants[i];
+    if (i === variants.length - 1 && results["lean-full"] === "refused" && results["lean-no-pages"]?.startsWith("ok")) variants.push(...pageProbes);
+    const ask = `${v.turn}\n\nDIAGNOSTIC CHECK: do not write the lesson. Reply with the single word OK.`;
+    try {
+      const res = await rt.sample!([...fitHistory([], bytes(ask), false, v.p), { role: "user", content: ask }], { model: MODEL, modelTier: "complex", effort: "low", cache: false });
+      results[v.name] = `ok (${res.modelApplied ?? res.modelTierApplied ?? "?"})`;
+    } catch (err) {
+      results[v.name] = (err as { code?: string })?.code ?? "error";
+      if (results[v.name] === "rate_limited") break;
+    }
+  }
+  await Promise.resolve(cb.onDiag({ module: m.id, at: Date.now(), results, turnBytes: bytes(turn), systemBytes: bytes(systemPrompt()) })).catch(() => {});
+  throw e;
 }

@@ -47,12 +47,16 @@ const convs = new Map();
 const notebook = [];
 const summaries = [];
 const scratch = [];
+const more = new Map();
 for (const f of walk(dump).filter((f) => f.endsWith(".json"))) {
   const rel = path.relative(dump, f).split(path.sep).join("/");
   let m;
-  if ((m = /convs\/([^/]+)\/msgs\/([^/]+)\.json$/.exec(rel))) {
+  if ((m = /convs\/([^/]+)\/msgs\/([^/]+)\/more\/(\d+)\.json$/.exec(rel))) {
+    // the rest of a long message's text (Store.saveMessage), joined below
+    more.set(`${m[1]}/${m[2]}/${m[3]}`, String(read(f).text ?? ""));
+  } else if ((m = /convs\/([^/]+)\/msgs\/([^/]+)\.json$/.exec(rel))) {
     const c = convs.get(m[1]) ?? { id: m[1], meta: {}, msgs: [] };
-    c.msgs.push(read(f));
+    c.msgs.push({ ...read(f), _id: m[2] });
     convs.set(m[1], c);
   } else if ((m = /convs\/([^/]+)\.json$/.exec(rel))) {
     const c = convs.get(m[1]) ?? { id: m[1], meta: {}, msgs: [] };
@@ -102,6 +106,7 @@ const written = new Set();
 const index = [];
 for (const c of [...convs.values()].sort((a, b) => String(a.meta.moduleId).localeCompare(String(b.meta.moduleId), "en", { numeric: true }) || (a.meta.lesson ?? 0) - (b.meta.lesson ?? 0))) {
   if (!c.msgs.length) continue;
+  for (const msg of c.msgs) for (let i = 1; i <= (msg.textParts ?? 0); i++) msg.text += more.get(`${c.id}/${msg._id}/${i}`) ?? "";
   c.msgs.sort((a, b) => (a.ts ?? 0) - (b.ts ?? 0));
   const lesson = c.meta.lesson === -1 ? "quiz" : String((c.meta.lesson ?? 0) + 1).padStart(2, "0");
   const name = `${slug(c.meta.moduleId ?? "M")}-${lesson}-${slug(c.meta.title)}-${c.id.slice(0, 6)}.md`;

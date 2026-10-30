@@ -3,6 +3,7 @@
 // then runs without that feature instead of failing.
 import type { LessonNote, Mode, ModuleProgress, StoredMessage } from "./types";
 import type { Summary, SummaryMeta } from "./summaries/model";
+import { withUsage } from "./usage";
 
 /* ---- minimal shapes of the runtime namespaces this page uses ---- */
 export interface SampleTool {
@@ -88,7 +89,8 @@ export async function connect(): Promise<Runtime> {
   window.__assets = (await use("assets")) ?? null;
   const limits = sample ? await sample.limits().catch(() => null) : null;
   const uid = user ? await user.id() : null;
-  return { sample, canSendImages: !!limits?.images, canUseTools: !!limits?.tools, store: db && uid ? new Store(db, uid) : null };
+  // every call is counted (usage.ts)
+  return withUsage({ sample, canSendImages: !!limits?.images, canUseTools: !!limits?.tools, store: db && uid ? new Store(db, uid) : null });
 }
 
 /* ---- per-user data under data/users/<id>/:
@@ -112,6 +114,9 @@ export interface ConvMeta {
 }
 
 const clean = <T,>(v: T) => JSON.parse(JSON.stringify(v)) as T;
+/** Characters of message text in the message document, and in each continuation document. */
+const MSG_CHARS = 100_000;
+const MORE_CHARS = 110_000;
 
 export class Store {
   private profile: DocRef;
@@ -174,7 +179,17 @@ export class Store {
 
   async loadMessages(convId: string): Promise<StoredMessage[]> {
     const s = await this.convs().doc(convId).collection("msgs").orderBy("ts").get();
-    return s.docs.map((d) => ({ ...(d.data() as StoredMessage), id: d.id }));
+    const msgs = s.docs.map((d) => ({ ...(d.data() as StoredMessage), id: d.id }));
+    // a text longer than one document continues in msgs/<id>/more/<n> (see saveMessage)
+    for (const m of msgs) {
+      const n = (m as { textParts?: number }).textParts ?? 0;
+      if (!n) continue;
+      const more = this.convs().doc(convId).collection("msgs").doc(m.id!).collection("more");
+      const parts = await Promise.all(Array.from({ length: n }, (_, i) => more.doc(String(i + 1)).get().catch(() => null)));
+      m.text += parts.map((p) => String(p?.data()?.text ?? "")).join("");
+      delete (m as { textParts?: number }).textParts;
+    }
+    return msgs;
   }
 
   newMessageId(convId: string) {
@@ -185,10 +200,19 @@ export class Store {
   async saveMessage(convId: string, id: string, msg: StoredMessage) {
     const { status: _status, id: _id, ...rest } = msg;
     const body = clean(rest) as StoredMessage;
-    // a document holds at most 256 KiB
-    if (body.text.length > 110_000) body.text = body.text.slice(0, 110_000) + "\n\n…";
+    // a document holds at most 256 KiB: the text beyond MSG_CHARS goes to msgs/<id>/more/<n>
+    // (written first, so the message never points at parts that are not there yet)
+    const ref = this.convs().doc(convId).collection("msgs").doc(id);
+    const overflow = body.text.length > MSG_CHARS ? body.text.slice(MSG_CHARS) : "";
+    if (overflow) {
+      body.text = body.text.slice(0, MSG_CHARS);
+      const chunks: string[] = [];
+      for (let i = 0; i < overflow.length; i += MORE_CHARS) chunks.push(overflow.slice(i, i + MORE_CHARS));
+      for (let i = 0; i < chunks.length; i++) await ref.collection("more").doc(String(i + 1)).set({ text: chunks[i] });
+      (body as { textParts?: number }).textParts = chunks.length;
+    }
     if (body.activity && JSON.stringify(body.activity).length > 40_000) body.activity = body.activity.slice(-20);
-    await this.convs().doc(convId).collection("msgs").doc(id).set(body as unknown as Record<string, unknown>);
+    await ref.set(body as unknown as Record<string, unknown>);
   }
 
   async touch(convId: string, count: number) {
@@ -264,9 +288,39 @@ export class Store {
     return s.docs.map((d) => d.data() as Summary);
   }
 
+  /* ---- course memory: the latest text, and every earlier version in profile/memlog/<ts> ---- */
+  async getMemory(): Promise<string | null> {
+    const s = await this.profile.get();
+    return s.exists ? String(s.data()?.memory ?? "") : null;
+  }
+
+  /** Keeps a version of the memory before it is replaced (additive: versions are never removed). */
+  async logMemory(v: { memory: string; reason: string; replacedBy?: string }) {
+    await this.profile.collection("memlog").doc(`${Date.now()}_${Math.random().toString(36).slice(2, 6)}`).set(clean({ ...v, at: Date.now() }));
+  }
+
+  async loadMemoryLog(limit = 60): Promise<{ id: string; memory: string; reason: string; at: number }[]> {
+    const s = await this.profile.collection("memlog").orderBy("at", "desc").limit(limit).get();
+    return s.docs.map((d) => ({ id: d.id, memory: String(d.data()?.memory ?? ""), reason: String(d.data()?.reason ?? ""), at: Number(d.data()?.at ?? 0) }));
+  }
+
+  /* ---- usage counter: profile/usage/<day>__<session>, one document per page session and day ---- */
+  async saveUsage(id: string, data: Record<string, unknown>) {
+    await this.profile.collection("usage").doc(id).set(clean(data));
+  }
+
+  async loadUsage(limit = 400): Promise<Record<string, unknown>[]> {
+    const s = await this.profile.collection("usage").orderBy("day", "desc").limit(limit).get();
+    return s.docs.map((d) => ({ ...d.data(), id: d.id }));
+  }
+
   async deleteConversation(convId: string) {
     const msgs = await this.convs().doc(convId).collection("msgs").get();
-    for (const d of msgs.docs) await this.convs().doc(convId).collection("msgs").doc(d.id).delete();
+    for (const d of msgs.docs) {
+      const n = Number(d.data()?.textParts ?? 0);
+      for (let i = 1; i <= n; i++) await this.convs().doc(convId).collection("msgs").doc(d.id).collection("more").doc(String(i)).delete();
+      await this.convs().doc(convId).collection("msgs").doc(d.id).delete();
+    }
     await this.convs().doc(convId).delete();
   }
 }

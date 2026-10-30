@@ -8,6 +8,7 @@ import { create, all } from "mathjs";
 import { docMeta, getIndex, readPages, searchLibrary, type Module } from "./library";
 import { SYSTEM_PROMPT, libraryList } from "./prompt";
 import type { Runtime, SampleTool } from "./runtime";
+import { joinContinuation, looksCut } from "./truncation";
 import { NOTE_KIND_LABEL, type Activity, type Effort, type LessonNote, type LessonSpec, type Mode, type NoteKind, type StoredMessage } from "./types";
 
 const math = create(all, {});
@@ -516,6 +517,8 @@ Tag every level-2.5 section this part covers ([[2.5: …]]) at the start of its 
 ${last ? "This is the last part: write the coverage block, the exercises, the fieldsystems block if a real connection exists, and the sentence about the next lesson." : "Do not end the lesson and do not write exercises yet."}`;
 }
 
+const PART_CONTINUE = "The previous attempt of this part stopped before its end (at the length limit, mid-sentence or inside an unclosed block). Continue it exactly from where the text above stops: do not repeat any of it, close any open block, and finish the part.";
+
 export async function composeLesson(opts: Base & { text: string; resume?: { plan: PartPlan; partsDone: number; text: string } }) {
   const { rt, history, text, effort, module: m, lessons, lessonIdx, memory, notes, allNotes, signal, cb, resume } = opts;
   if (!rt.sample) throw { code: "not_granted", message: "sample unavailable" };
@@ -550,9 +553,9 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
     cb.onStatus?.(`כותב חלק ${k + 1} מתוך ${plan.parts.length}: ${plan.parts[k].title}`);
     const before = written ? written + "\n\n" : "";
     let partText = "";
-    for (let attempt = 0; attempt < 2; attempt++) {
-      // a part cut off at the length limit gets one continuation
-      const turn = `${ctx}\n\n${text}\n\n${partInstructions(plan, k, (before + partText).trim())}${attempt ? "\n\nThe previous attempt of this part was cut off at the length limit; continue it exactly from where the text above stops." : ""}`;
+    for (let attempt = 0; attempt < 3; attempt++) {
+      // a part cut off at the length limit, or ending mid-sentence or inside a block (truncation.ts), gets up to two continuations
+      const turn = `${ctx}\n\n${text}\n\n${partInstructions(plan, k, (before + partText).trim())}${attempt ? `\n\n${PART_CONTINUE}` : ""}`;
       const res = await retryRefused(
         (h) =>
           rt.sample!([...fitHistory(h, bytes(turn), false, { refs: hasRefs(m) }), { role: "user", content: turn }], {
@@ -561,14 +564,15 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
             effort,
             signal,
             ...(tools ? { tools } : { cache: false }),
-            onText: ({ text: t }) => cb.onText(before + partText + t),
+            onText: ({ text: t }) => cb.onText(before + joinContinuation(partText, t)),
           }),
         history,
         cb,
       ).catch((e) => onRefusal(e, rt, m, history, turn, cb));
-      partText += res.text;
+      partText = joinContinuation(partText, res.text);
       model = res.modelApplied ?? `רמת מודל: ${res.modelTierApplied}`;
-      if (!res.truncated) break;
+      if (!res.truncated && !looksCut(partText).cut) break;
+      cb.onStatus?.(`חלק ${k + 1} נעצר באמצע; ממשיך אותו מהמקום שבו נעצר`);
     }
     written = (before + partText).trim();
     cb.onText(written);
@@ -687,7 +691,7 @@ ${o.summary.slice(0, 100000)}
 >>>
 
 Write ${o.count ?? 6} review questions in Hebrew built only from what this summary says, so that answering them checks whether the learner remembers and understands his own summary: a mix of a definition, an equation and what each term means, a number to estimate, a "why", and a common mistake. Order them from easy to hard. Equations in $…$. Reply with ONLY a JSON array: [{"q": "the question", "a": "the expected answer, short, from the summary"}]`;
-  const res = await o.rt.sample.json<SummaryQuestion[]>(prompt, { model: MODEL, modelTier: "default", effort: "low", signal: o.signal, cache: false });
+  const res = await o.rt.sample.json<SummaryQuestion[]>(prompt, { modelTier: "default", effort: "low", signal: o.signal, cache: false });
   return (Array.isArray(res) ? res : []).filter((x) => x && typeof x.q === "string").map((x) => ({ q: x.q, a: String(x.a ?? "") }));
 }
 
@@ -699,7 +703,7 @@ Expected answer, from the learner's summary: ${o.question.a}
 The learner answered: ${o.answer}
 
 In Hebrew, two to four sentences: is it right, partly right or wrong; what is missing or mistaken; and the one thing to remember. Start with ✓, ◐ or ✗. Equations in $…$.`;
-  const res = await o.rt.sample(prompt, { model: MODEL, modelTier: "quick", effort: "low", signal: o.signal, cache: false });
+  const res = await o.rt.sample(prompt, { modelTier: "quick", effort: "low", signal: o.signal, cache: false });
   return res.text.trim();
 }
 
@@ -725,9 +729,21 @@ async function retryRefused<T>(call: (history: StoredMessage[]) => Promise<T>, h
  * again with one part removed at a time, asking only for "OK" (cheap, no tools). The result is saved
  * (profile/diag) so the cause can be fixed in the instructions, and the refusal is rethrown.
  */
+/** Diagnostics run at most once per module per day (they cost several calls); kept in the browser. */
+function diagAllowed(moduleId: string) {
+  const key = `diag:${moduleId}:${new Date().toISOString().slice(0, 10)}`;
+  try {
+    if (localStorage.getItem(key)) return false;
+    localStorage.setItem(key, "1");
+  } catch {
+    // no browser storage: diagnose anyway
+  }
+  return true;
+}
+
 async function onRefusal(e: unknown, rt: Runtime, m: Module, history: StoredMessage[], turn: string, cb: TurnCallbacks): Promise<never> {
-  if ((e as { code?: string })?.code !== "refused" || !cb.onDiag) throw e;
-  cb.onStatus?.("Claude סירב. בודק איזה חלק מהשיעור גורם לזה (כשתי דקות)");
+  if ((e as { code?: string })?.code !== "refused" || !cb.onDiag || !diagAllowed(m.id)) throw e;
+  cb.onStatus?.("Claude סירב. בודק איזה חלק מהשיעור גורם לזה (כדקה)");
   const refs = hasRefs(m);
   // Opus refuses even without the rules while Sonnet and Haiku accept the same input (diags of
   // 28.10), so look inside the lesson's own input: the plan text, the memory, each source page
@@ -739,17 +755,19 @@ async function onRefusal(e: unknown, rt: Runtime, m: Module, history: StoredMess
   const noPlan = turn.replace(/Lesson plan of this module:[\s\S]*?(?=\n<course_memory>|\n<lesson_notebook>|\n<notebook>|\n\nSource pages|\n<\/study_context>)/, "");
   const noMemory = turn.replace(/\n*<course_memory>[\s\S]*?<\/course_memory>/, "");
   const minimal = `<study_context>\n${moduleBlock(m)}\n`;
+  // at most four variants, and the source pages one by one only when the pages are the cause
+  // (each probe is an Opus call; docs/research/R3_critic_tech.md asks for a cap)
   const variants: { name: string; turn: string; p: PromptOpts }[] = [
     { name: "lean-full", turn, p: { refs, lean: true } },
-    { name: "lean-no-pages", turn: head + tail, p: { refs, lean: true } },
-    { name: "lean-no-plan", turn: noPlan, p: { refs, lean: true } },
-    { name: "lean-no-memory", turn: noMemory, p: { refs, lean: true } },
     { name: "full-no-plan", turn: noPlan, p: { refs } },
-    { name: "lean-pages-only", turn: `${minimal}${pagesText}`, p: { refs, lean: true } },
-    ...pageChunks.slice(0, 16).map((c) => ({ name: `page ${(/\[\[([A-Z]\d+[a-z]?:\d+)\]\]/.exec(c)?.[1] ?? "?")}`, turn: `${minimal}\nSource page:\n${c}\n</study_context>`, p: { refs, lean: true } })),
+    { name: "lean-no-pages", turn: head + tail, p: { refs, lean: true } },
+    { name: "lean-no-memory", turn: noMemory, p: { refs, lean: true } },
   ];
+  const pageProbes = pageChunks.slice(0, 4).map((c) => ({ name: `page ${(/\[\[([A-Z]\d+[a-z]?:\d+)\]\]/.exec(c)?.[1] ?? "?")}`, turn: `${minimal}\nSource page:\n${c}\n</study_context>`, p: { refs, lean: true } }));
   const results: Record<string, string> = {};
-  for (const v of variants) {
+  for (let i = 0; i < variants.length; i++) {
+    const v = variants[i];
+    if (i === variants.length - 1 && results["lean-full"] === "refused" && results["lean-no-pages"]?.startsWith("ok")) variants.push(...pageProbes);
     const ask = `${v.turn}\n\nDIAGNOSTIC CHECK: do not write the lesson. Reply with the single word OK.`;
     try {
       const res = await rt.sample!([...fitHistory([], bytes(ask), false, v.p), { role: "user", content: ask }], { model: MODEL, modelTier: "complex", effort: "low", cache: false });
@@ -759,6 +777,6 @@ async function onRefusal(e: unknown, rt: Runtime, m: Module, history: StoredMess
       if (results[v.name] === "rate_limited") break;
     }
   }
-  await cb.onDiag({ module: m.id, at: Date.now(), results, turnBytes: bytes(turn), systemBytes: bytes(systemPrompt({ refs })) });
+  await Promise.resolve(cb.onDiag({ module: m.id, at: Date.now(), results, turnBytes: bytes(turn), systemBytes: bytes(systemPrompt({ refs })) })).catch(() => {});
   throw e;
 }
