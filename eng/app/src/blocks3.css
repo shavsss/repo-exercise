@@ -1,0 +1,217 @@
+/* The level-3 blocks (predict, errorhunt, verify, lab) and decide: a quiet panel with a side bar,
+   no frame and no animation. Colors come from the theme tokens, so light and dark both follow.
+   Identical in both apps. */
+.b3 {
+  --b3: var(--line-strong);
+  margin: 26px 0 22px;
+  padding: 10px 16px 6px;
+  border-inline-start: 3px solid color-mix(in srgb, var(--b3) 70%, transparent);
+  background: color-mix(in srgb, var(--b3) 4%, transparent);
+  border-start-end-radius: 3px;
+  border-end-end-radius: 3px;
+}
+.b3-predict {
+  --b3: var(--k-think);
+}
+.b3-errorhunt {
+  --b3: var(--k-erratum);
+}
+.b3-verify {
+  --b3: var(--ok);
+}
+.b3-lab {
+  --b3: var(--blue);
+}
+.b3-decide {
+  --b3: var(--k-casestudy);
+}
+.b3-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 2px 10px;
+  margin-bottom: 4px;
+}
+.b3-label {
+  color: color-mix(in srgb, var(--b3) 80%, var(--ink));
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+.b3-title {
+  margin: 0;
+  font-size: 1.0625rem;
+  font-weight: 700;
+}
+.b3-meta {
+  font-size: 0.8125rem;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+.b3-body > :last-child {
+  margin-bottom: 0.7em;
+}
+.b3-output {
+  background: var(--sheet);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  padding: 2px 12px;
+  margin: 6px 0 10px;
+}
+.b3-form {
+  display: grid;
+  gap: 8px;
+  margin: 8px 0 10px;
+}
+.b3-field {
+  display: grid;
+  gap: 4px;
+  font-size: 0.875rem;
+  color: var(--ink-soft);
+}
+.b3-field textarea,
+.b3-range input {
+  font: inherit;
+  font-size: 0.9375rem;
+  color: var(--ink);
+  background: var(--sheet);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  padding: 6px 8px;
+  width: 100%;
+  box-sizing: border-box;
+  resize: vertical;
+}
+.b3-field textarea:focus,
+.b3-range input:focus {
+  outline: 2px solid color-mix(in srgb, var(--b3) 45%, transparent);
+  outline-offset: 0;
+  border-color: color-mix(in srgb, var(--b3) 60%, var(--line));
+}
+.b3-range {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.875rem;
+  color: var(--ink-soft);
+}
+.b3-range input {
+  width: 7.5em;
+  flex: 0 0 auto;
+}
+.b3-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+  margin: 8px 0 10px;
+}
+.b3-btn {
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid color-mix(in srgb, var(--b3) 55%, var(--line));
+  border-radius: 3px;
+  padding: 5px 12px;
+  cursor: pointer;
+  justify-self: start;
+}
+.b3-btn:hover:not(:disabled) {
+  background: var(--hover);
+}
+.b3-btn:disabled {
+  color: var(--muted);
+  border-color: var(--line);
+  cursor: default;
+}
+.b3-btn-quiet {
+  border-color: var(--line);
+  font-weight: 500;
+}
+.b3-mine {
+  margin: 8px 0;
+  padding: 6px 10px;
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--b3) 7%, transparent);
+  font-size: 0.9375rem;
+}
+.b3-mine > :last-child {
+  margin-bottom: 0.3em;
+}
+.b3-mine-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--muted);
+  margin-bottom: 2px;
+}
+.b3-mine-range {
+  display: inline-block;
+  direction: ltr;
+  unicode-bidi: isolate;
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  color: var(--ink-soft);
+  margin: 0 0 0 12px;
+}
+.b3-verdict {
+  display: inline-block;
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+.b3-verdict.in {
+  color: var(--ok);
+}
+.b3-verdict.out {
+  color: var(--warn);
+}
+.b3-reveal {
+  border-top: 1px dashed var(--line);
+  padding-top: 8px;
+  margin-top: 6px;
+}
+.b3-checks {
+  list-style: none;
+  padding: 0;
+  margin: 6px 0 8px;
+}
+.b3-checks li {
+  margin: 4px 0;
+}
+.b3-checks label,
+.b3-done {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  cursor: pointer;
+}
+.b3-checks input,
+.b3-done input {
+  accent-color: var(--b3);
+  flex: 0 0 auto;
+  transform: translateY(2px);
+}
+.b3-checks li.is-done span {
+  color: var(--ink-soft);
+}
+.b3-done {
+  font-size: 0.875rem;
+  color: var(--ink-soft);
+}
+.b3-count {
+  font-size: 0.8125rem;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+@media (max-width: 520px) {
+  .b3 {
+    padding: 8px 10px 4px;
+    margin-inline: 0;
+  }
+  .b3-range input {
+    width: 6em;
+  }
+}
