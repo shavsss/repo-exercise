@@ -71,8 +71,18 @@
 .flow-parts li.is-done {
   color: var(--ink-soft);
 }
-.flow-parts li.is-done::marker {
-  content: "✓  ";
+.flow-parts {
+  list-style: none;
+  padding: 0;
+}
+.flow-mark {
+  display: inline-block;
+  min-width: 1.4em;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.flow-parts li.is-done .flow-mark {
+  color: var(--ok);
 }
 .flow-parts li.is-now {
   color: var(--ink);
@@ -179,7 +189,8 @@
   justify-items: center;
   text-align: center;
   gap: 18px;
-  max-width: 28rem;
+  width: min(28rem, 100%);
+  min-width: 0;
 }
 .flow-break-clock {
   font-size: 0.9375rem;
@@ -269,6 +280,9 @@
 .flow-close-btn.is-lesson {
   display: block;
   margin: 18px auto 0;
+}
+.flow-overlay > * {
+  min-width: 0;
 }
 .flow-overlay {
   position: fixed;

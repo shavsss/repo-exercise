@@ -19,7 +19,17 @@ function when(ts: number) {
   return key === dayKey() ? `היום ב-${hm}` : key === dayKey(y) ? `אתמול ב-${hm}` : `ב-${d.getDate()}.${d.getMonth() + 1}, ${hm}`;
 }
 
-export function MorningCard({ rt, modules, mods, onGo }: { rt: Runtime | null; modules: { id: string; title: string }[]; mods: Record<string, ModuleProgress>; onGo: (s: { moduleId: string; lesson?: number }) => void }) {
+export function MorningCard({
+  rt,
+  modules,
+  mods,
+  onGo,
+}: {
+  rt: Runtime | null;
+  modules: { id: string; title: string }[];
+  mods: Record<string, ModuleProgress>;
+  onGo: (s: { moduleId: string; lesson?: number }) => void;
+}) {
   useDay();
   const [day, setDay] = useState<DayDoc | null | undefined>(undefined);
   const [recall, setRecall] = useState<RecallQuestion[]>([]);

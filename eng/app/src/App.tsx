@@ -21,7 +21,7 @@ import { SourceTag } from "./components/blocks/SourceTag";
 import { Icon } from "./components/Icon";
 import { RingMap } from "./components/RingMap";
 import { NotesPanel } from "./components/NotesPanel";
-import { isNewDay, rememberedSelection, stopOf, useDayClock } from "./day";
+import { isNewDay, lastSelection, stopOf, useDayClock } from "./day";
 import { usePrefetch, usePrefetchDriver, useSettlePrefetched } from "./prefetch";
 import { WaitPanel } from "./components/WaitPanel";
 import { BreakLine } from "./components/BreakLine";
@@ -544,7 +544,7 @@ export function App() {
     mods: modsRef,
     notes: notesRef,
     selection,
-    fallback: rememberedSelection,
+    fallback: lastSelection,
     memory,
     memoryBusy,
     busy,
@@ -570,7 +570,7 @@ export function App() {
     setMemoryBusy,
   });
   const closeDay = (variant: "home" | "lesson") =>
-    index && <CloseDay rt={rt} mods={mods} stop={stopOf(selection ?? rememberedSelection(), index.modules, mods)} ahead={prefetch.target} onClosed={prefetch.request} variant={variant} />;
+    index && <CloseDay rt={rt} mods={mods} stop={stopOf(selection ?? lastSelection(), index.modules, mods)} ahead={prefetch.target} onClosed={prefetch.request} variant={variant} />;
   /** the left of the lesson: the contents, or the notebook, or (mostly) neither */
   const [leftDock, setLeftDock] = usePersisted<"" | "toc" | "pad">("eng-lab:left", "");
   const tocOpen = leftDock === "toc";

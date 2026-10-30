@@ -92,7 +92,8 @@ function boot() {
     rememberedSel = null;
   }
   const today = dayKey();
-  newDay = !!saved && saved.date !== today && Date.now() - (saved.lastActivity ?? 0) > 6 * 3600_000;
+  // no count in this browser yet (the first open after this was added) counts as a new day too
+  newDay = !!rememberedSel && (!saved || (saved.date !== today && Date.now() - (saved.lastActivity ?? 0) > 6 * 3600_000));
   local = saved && saved.date === today ? { ...fresh(today), ...saved } : fresh(today);
   doc = { date: today, activeSec: local.activeSec };
 }
@@ -223,6 +224,12 @@ export function useDay() {
 /** first open after a night away: the lab opens on the home screen, where the morning card is */
 export const isNewDay = () => (B(), newDay);
 export const rememberedSelection = () => (B(), rememberedSel);
+/** the lesson opened last today, or else the one remembered from the last visit (for closing the day from the home screen) */
+export function lastSelection(): { moduleId: string; lesson?: number } | null {
+  B();
+  const s = doc.seen?.at(-1);
+  return s ? { moduleId: s.moduleId, lesson: s.lesson } : rememberedSel;
+}
 
 /* ---- breaks (N2, N3, N4, N8): only at a boundary, once, then quiet ---- */
 export function breakDue(afterMin: number) {
@@ -272,10 +279,10 @@ export function skipMorning() {
 }
 export const morningSkipped = () => (B(), local.morningSkipped === dayKey());
 
-/** The day to open with: the last closed day (today's too), or else the last day before today. */
+/** The day to open with: the last day before today, or today once it was closed. */
 export async function lastDay(s: Store): Promise<DayDoc | null> {
   const days = (await s.recentDays(7)) as unknown as DayDoc[];
-  return days.find((d) => d.closedAt) ?? days.find((d) => d.date < dayKey()) ?? null;
+  return days.find((d) => d.date < dayKey() || d.closedAt) ?? null;
 }
 
 /**
@@ -336,7 +343,10 @@ function convsOnce(s: Store): Promise<ConvMeta[]> {
 
 /** Two questions from the latest lessons: one from the last lesson and one from the lesson before it when there is one. */
 export async function gatherRecall(s: Store, mods: Record<string, ModuleProgress>): Promise<RecallQuestion[]> {
-  const convs = (await convsOnce(s)).filter((c) => c.lesson >= 0).sort((a, b) => b.updatedAt - a.updatedAt).slice(0, 5);
+  const convs = (await convsOnce(s))
+    .filter((c) => c.lesson >= 0)
+    .sort((a, b) => b.updatedAt - a.updatedAt)
+    .slice(0, 5);
   const pools: { think: RecallQuestion[]; keep: RecallQuestion[] }[] = [];
   for (const c of convs) {
     if (pools.length >= 3) break;
@@ -348,7 +358,10 @@ export async function gatherRecall(s: Store, mods: Record<string, ModuleProgress
     }
     // a lesson written ahead that he has not opened yet is not his to be asked about
     if (msgs.some((m) => m.prefetched && !m.prefetchSeen)) continue;
-    const text = msgs.filter((m) => m.role === "assistant" && m.text).map((m) => m.text).join("\n\n");
+    const text = msgs
+      .filter((m) => m.role === "assistant" && m.text)
+      .map((m) => m.text)
+      .join("\n\n");
     const title = mods[c.moduleId]?.lessons?.[c.lesson]?.title;
     pools.push(recallFrom(text, `${c.moduleId} · שיעור ${c.lesson + 1}${title ? `: ${title}` : ""}`));
   }

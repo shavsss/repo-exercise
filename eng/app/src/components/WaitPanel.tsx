@@ -102,6 +102,9 @@ export function WaitPanel({ rt, live, spec, lessonKey, moduleTitle }: { rt: Runt
           <ol className="flow-parts">
             {plan.parts.map((p, i) => (
               <li key={i} className={i < partsDone ? "is-done" : i === partsDone ? "is-now" : ""}>
+                <span className="flow-mark" aria-hidden="true">
+                  {i < partsDone ? "✓" : i + 1}
+                </span>
                 {p.title}
               </li>
             ))}

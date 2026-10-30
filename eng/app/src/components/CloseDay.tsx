@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import type { Runtime } from "../runtime";
 import type { ModuleProgress } from "../types";
 import { closeDay, dayTitle, gatherRecall, useDay, type DayStop } from "../day";
@@ -26,8 +27,12 @@ function Stamp({ lab, animate, date }: { lab: "core" | "eng"; animate: boolean; 
           <rect x="1" y="1" width="118" height="30" fill="none" />
           <line x1="1" y1="16" x2="119" y2="16" />
           <line x1="60" y1="1" x2="60" y2="31" />
-          <text x="30" y="12">DATE</text>
-          <text x="90" y="12">CHECKED</text>
+          <text x="30" y="12">
+            DATE
+          </text>
+          <text x="90" y="12">
+            CHECKED
+          </text>
           <text className="ini" x="30" y="27">
             {date}
           </text>
@@ -111,68 +116,79 @@ export function CloseDay({
       <button className={`btn small quiet flow-close-btn is-${variant}`} onClick={() => setPhase("form")}>
         סגור את היום
       </button>
-      {phase !== "idle" && (
-        <div className="flow-overlay" onClick={(e) => e.target === e.currentTarget && phase !== "saving" && finish()}>
-          <div className="flow-close" role="dialog" aria-label="סגירת היום">
-            <div className="flow-close-sheet">
-              {phase === "stamped" && <Stamp lab={lab} animate={full} date={date} />}
-              <span className="flow-kicker">{dayTitle(now)}</span>
-              <h2 className="flow-close-title">היום</h2>
-              {seen.length > 0 && (
-                <ul className="flow-facts">
-                  {seen.map((s) => (
-                    <li key={`${s.moduleId}:${s.lesson}`}>
-                      <span className="flow-tag">נלמד</span>
-                      <span>
-                        {s.moduleId} · {s.lesson < 0 ? "מבחן מסכם" : `שיעור ${s.lesson + 1}`}
-                        {s.title ? `: ${s.title}` : ""}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-              {stop && (
-                <p className="flow-close-stop">
-                  <span className="flow-tag">עצרת ב</span>
-                  <span>{stop.label}</span>
-                </p>
-              )}
-              {phase === "stamped" ? (
-                <div className="flow-close-done" role="status">
-                  {next.trim() ? <q>{next.trim()}</q> : null}
-                  <p>{next.trim() ? "נשמר. מחר: שתי שאלות, ואז הצעד הזה." : "נשמר. מחר: איפה עצרת, ושתי שאלות."}</p>
-                  {writing && (
-                    <p className="flow-hint">
-                      שיעור {writing.idx + 1}{writing.title ? `, «${writing.title}»,` : ""} נכתב עכשיו, כל עוד הלשונית פתוחה.
-                    </p>
-                  )}
-                </div>
-              ) : (
-                <label className="flow-field">
-                  <span>הצעד הראשון של מחר</span>
-                  <input type="text" value={next} onChange={(e) => setNext(e.target.value)} onKeyDown={(e) => e.key === "Enter" && phase === "form" && submit()} placeholder="משפט אחד: מה בדיוק, ואיפה. אפשר גם להשאיר ריק." autoFocus maxLength={300} />
-                </label>
-              )}
-            </div>
-            <div className="flow-close-actions">
-              {phase === "stamped" ? (
-                <button className="btn primary" onClick={finish} autoFocus>
-                  סגור
-                </button>
-              ) : (
-                <>
-                  <button className="btn primary" onClick={submit} disabled={phase === "saving"}>
-                    סגור את היום
+      {phase !== "idle" &&
+        createPortal(
+          <div className="flow-overlay" onClick={(e) => e.target === e.currentTarget && phase !== "saving" && finish()}>
+            <div className="flow-close" role="dialog" aria-label="סגירת היום">
+              <div className="flow-close-sheet">
+                {phase === "stamped" && <Stamp lab={lab} animate={full} date={date} />}
+                <span className="flow-kicker">{dayTitle(now)}</span>
+                <h2 className="flow-close-title">היום</h2>
+                {seen.length > 0 && (
+                  <ul className="flow-facts">
+                    {seen.map((s) => (
+                      <li key={`${s.moduleId}:${s.lesson}`}>
+                        <span className="flow-tag">נלמד</span>
+                        <span>
+                          {s.moduleId} · {s.lesson < 0 ? "מבחן מסכם" : `שיעור ${s.lesson + 1}`}
+                          {s.title ? `: ${s.title}` : ""}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                {stop && (
+                  <p className="flow-close-stop">
+                    <span className="flow-tag">עצרת ב</span>
+                    <span>{stop.label}</span>
+                  </p>
+                )}
+                {phase === "stamped" ? (
+                  <div className="flow-close-done" role="status">
+                    {next.trim() ? <q>{next.trim()}</q> : null}
+                    <p>{next.trim() ? "נשמר. מחר: שתי שאלות, ואז הצעד הזה." : "נשמר. מחר: איפה עצרת, ושתי שאלות."}</p>
+                    {writing && (
+                      <p className="flow-hint">
+                        שיעור {writing.idx + 1}
+                        {writing.title ? `, «${writing.title}»,` : ""} נכתב עכשיו, כל עוד הלשונית פתוחה.
+                      </p>
+                    )}
+                  </div>
+                ) : (
+                  <label className="flow-field">
+                    <span>הצעד הראשון של מחר</span>
+                    <input
+                      type="text"
+                      value={next}
+                      onChange={(e) => setNext(e.target.value)}
+                      onKeyDown={(e) => e.key === "Enter" && phase === "form" && submit()}
+                      placeholder="משפט אחד: מה בדיוק, ואיפה. אפשר גם להשאיר ריק."
+                      autoFocus
+                      maxLength={300}
+                    />
+                  </label>
+                )}
+              </div>
+              <div className="flow-close-actions">
+                {phase === "stamped" ? (
+                  <button className="btn primary" onClick={finish} autoFocus>
+                    סגור
                   </button>
-                  <button className="btn quiet" onClick={finish} disabled={phase === "saving"}>
-                    ביטול
-                  </button>
-                </>
-              )}
+                ) : (
+                  <>
+                    <button className="btn primary" onClick={submit} disabled={phase === "saving"}>
+                      סגור את היום
+                    </button>
+                    <button className="btn quiet" onClick={finish} disabled={phase === "saving"}>
+                      ביטול
+                    </button>
+                  </>
+                )}
+              </div>
             </div>
-          </div>
-        </div>
-      )}
+          </div>,
+          document.body,
+        )}
     </>
   );
 }

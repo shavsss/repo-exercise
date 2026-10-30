@@ -204,7 +204,7 @@ const CUES = {
     const bp = biq(c, "bandpass", rnd(900, 1400), 1.6);
     const g = c.createGain();
     g.gain.setValueAtTime(0, t);
-    g.gain.linearRampToValueAtTime(0.42 * db(rnd(-1, 1)), t + 0.015);
+    g.gain.linearRampToValueAtTime(0.21 * db(rnd(-1, 1)), t + 0.015);
     g.gain.linearRampToValueAtTime(0, t + dur);
     s.connect(bp);
     bp.connect(g);

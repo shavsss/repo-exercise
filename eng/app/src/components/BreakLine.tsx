@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type RefObject } from "react";
+import { createPortal } from "react-dom";
 import { useReading } from "../reading";
 import { holdNoise } from "../sound";
 import { breakDue, declineBreak, endBreak, minutesSinceBreak, snoozeBreak, takeBreak } from "../day";
@@ -25,7 +26,19 @@ interface Boundary {
   next?: string;
 }
 
-export function BreakLine({ scrollRef, busy, nextTitle, onBreak, prefetching }: { scrollRef: RefObject<HTMLDivElement | null>; busy: boolean; nextTitle?: string; onBreak: () => void; prefetching?: string }) {
+export function BreakLine({
+  scrollRef,
+  busy,
+  nextTitle,
+  onBreak,
+  prefetching,
+}: {
+  scrollRef: RefObject<HTMLDivElement | null>;
+  busy: boolean;
+  nextTitle?: string;
+  onBreak: () => void;
+  prefetching?: string;
+}) {
   const r = useReading();
   const [line, setLine] = useState<Boundary | null>(null);
   const [onBreakAt, setOnBreakAt] = useState(0);
@@ -104,10 +117,13 @@ export function BreakLine({ scrollRef, busy, nextTitle, onBreak, prefetching }: 
 
   if (onBreakAt) {
     const min = Math.floor((Date.now() - onBreakAt) / 60_000);
-    return (
+    return createPortal(
       <div className="flow-break" role="dialog" aria-label="הפסקה">
         <div className="flow-break-in">
-          <div className="flow-break-clock">הפסקה · {min} דקות{waiting ? ` · ${waiting} מחכה` : ""}</div>
+          <div className="flow-break-clock">
+            הפסקה · {min < 1 ? "התחילה עכשיו" : min === 1 ? "דקה אחת" : `${min} דקות`}
+            {waiting ? ` · ${waiting} מחכה` : ""}
+          </div>
           <p className="flow-break-main">לקום, להסתכל רחוק, מים.</p>
           <p className="flow-break-sub">חמש הדקות הראשונות בלי טלפון. אחר כך מה שתרצה.</p>
           {prefetching && <p className="flow-break-sub">בינתיים נכתב {prefetching}.</p>}
@@ -115,7 +131,8 @@ export function BreakLine({ scrollRef, busy, nextTitle, onBreak, prefetching }: 
             חזרתי
           </button>
         </div>
-      </div>
+      </div>,
+      document.body,
     );
   }
   if (held)
