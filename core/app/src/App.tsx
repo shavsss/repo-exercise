@@ -11,6 +11,7 @@ import { Composer, type QuickAction } from "./components/Composer";
 import { lessonChannel } from "./summaries/SummaryApp";
 import { LessonToc, ReadingDock, ReadingProgress, useResumePosition } from "./components/ReadingAids";
 import { noteAnchorHere } from "./components/MarginNotes";
+import { SectionDots } from "./components/SectionDots";
 import { play } from "./sound";
 import { Scratchpad } from "./components/Scratchpad";
 import { ExplainPanel } from "./components/Explain";
@@ -597,6 +598,7 @@ export function App() {
         {inLesson && <ExplainPanel rt={rt} scrollRef={scrollRef} lessonKey={`${module!.id}:${lessonIdx}`} lessonTitle={`${module!.id} · ${lesson?.title ?? module!.title}`} memory={memory} />}
         <main className="main">
           <ReadingProgress scrollRef={scrollRef} />
+          {inLesson && items.length > 0 && <SectionDots scrollRef={scrollRef} version={items} />}
           {resume.resumed && (
             <div className="resume-chip" role="status">
               <span>חזרנו למקום שבו הפסקת לקרוא</span>
@@ -693,6 +695,7 @@ export function App() {
                       }
                     : undefined
                 }
+                onNotebook={showToc ? () => setLeftDock("pad") : undefined}
               />
             )}
           </div>

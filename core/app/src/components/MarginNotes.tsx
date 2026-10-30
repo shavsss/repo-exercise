@@ -1,14 +1,30 @@
-// Sticky notes the learner pulls from the pad ("פתק" in the reading dock) into the empty margin beside
+// Notes the learner pulls from the pad ("פתק" in the reading dock) into the empty margin beside
 // the lesson, each at the height of the paragraph it was pulled at (its `anchor` quote). A lesson starts
-// with none. All notes keep one small size; a click opens the full note, where it is edited, given a
-// kind, or deleted. Where the margin is too narrow, a small numbered marker at the paragraph's edge
-// opens it instead. Identical in both labs.
+// with none. Each is a quiet index card with a numbered tab toward the text (style B, round 5); all keep
+// one small size, and a click opens the full note, where it is edited, given a kind, or deleted. Where
+// the margin is too narrow, a small numbered tab at the paragraph's edge opens it instead. Identical in
+// both labs.
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type RefObject } from "react";
 import { NOTE_KIND_LABEL, type LessonNote, type NoteKind } from "../types";
 
-const NOTE_W = 184;
-const GAP = 24;
+const NOTE_W = 200;
+const GAP = 28;
 const KINDS: NoteKind[] = ["note", "deepen", "interview", "article"];
+/** a small mark per kind; the two that lead outward (an expert, an article) take the lab's accent */
+const SYM: Record<NoteKind, string> = { note: "·", deepen: "↓", interview: "?", article: "¶" };
+const OUT: NoteKind[] = ["interview", "article"];
+/** the margin a note needs beside the text: the card, the gap with its tab, and a little air */
+const NEED = NOTE_W + GAP + 10;
+
+/** Each lesson turn has its own notes layer; the column moves aside while any of them asks. */
+const shifting = new Map<object, HTMLElement>();
+function shiftColumn(who: object, col: HTMLElement | null) {
+  const was = shifting.get(who);
+  if (col) shifting.set(who, col);
+  else shifting.delete(who);
+  const on = new Set(shifting.values());
+  for (const c of [was, col]) if (c) c.classList.toggle("mn-shift", on.has(c));
+}
 
 type Placed = { key: string; note: LessonNote; top: number; num: number; range: Range | null };
 
@@ -82,23 +98,31 @@ export function MarginNotes({
   const [draft, setDraft] = useState("");
   const layer = useRef<HTMLDivElement>(null);
   const seen = useRef(new Set<string>());
+  const me = useRef({});
 
   const layout = useCallback(() => {
     const el = root.current;
     if (!el) return;
     const box = el.getBoundingClientRect();
     const scroller = el.closest(".scroll")?.getBoundingClientRect();
-    setWide(!!scroller && box.left - scroller.left >= NOTE_W + GAP + 10);
+    // the column stays centred while the margin holds the notes; when it does not, but the page
+    // does, the column moves aside to make room (the "mn-shift" class on .col), else small tabs
+    const room = scroller ? scroller.width - box.width - 32 : 0;
+    const centred = room / 2 >= NEED;
     const found = notes
       .filter((n) => n.id && n.anchor)
       .map((note) => ({ note, at: locate(el, note.anchor!) }))
       .filter((x) => x.at)
       .map((x) => ({ key: x.note.id!, note: x.note, range: x.at!.range, y: x.at!.el.getBoundingClientRect().top - box.top }))
       .sort((a, b) => a.y - b.y || a.note.ts - b.note.ts);
+    const shift = !centred && room >= NEED + 16 && found.length > 0;
+    setWide(centred || shift);
+    shiftColumn(me.current, shift ? el.closest<HTMLElement>(".col") : null);
     setPlaced(found.map((x, k) => ({ key: x.key, note: x.note, range: x.range, top: x.y, num: k + 1 })));
   }, [root, notes]);
 
   useLayoutEffect(layout, [layout, version]);
+  useEffect(() => () => shiftColumn(me.current, null), []);
   useEffect(() => {
     const el = root.current;
     if (!el) return;
@@ -179,8 +203,9 @@ export function MarginNotes({
         return (
           <div
             key={p.key}
-            className={`mn-note k-${p.note.kind} ${isOpen ? "is-open" : ""}`}
+            className={`mn-note k-${p.note.kind} ${OUT.includes(p.note.kind) ? "is-out" : ""} ${isOpen ? "is-open" : ""}`}
             data-top={p.top}
+            data-n={p.num}
             onPointerEnter={() => setHot(p.key)}
             onPointerLeave={() => setHot(null)}
           >
@@ -219,7 +244,10 @@ export function MarginNotes({
                 title={wide ? "לחיצה פותחת את הפתק" : NOTE_KIND_LABEL[p.note.kind]}
               >
                 <span className="mn-kind">
-                  {NOTE_KIND_LABEL[p.note.kind]} <b>{p.num}</b>
+                  <i className="mn-sym" aria-hidden="true">
+                    {SYM[p.note.kind]}
+                  </i>
+                  <span className="mn-label">{NOTE_KIND_LABEL[p.note.kind]}</span> <b>{p.num}</b>
                 </span>
                 {wide && <span className="mn-text">{p.note.text}</span>}
               </button>

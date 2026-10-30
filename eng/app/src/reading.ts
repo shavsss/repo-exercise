@@ -23,13 +23,25 @@ export interface Reading {
   /** the lab's own pointer, or the system one */
   cursor: "lab" | "system";
 }
-export const DEFAULT_READING: Reading = { font: "plex", size: "m", space: "airy", width: "medium", surface: "theme", focus: "off", sound: "soft", volume: 60, noise: "off", noiseKind: "brown", noiseVolume: 35, cursor: "lab" };
+export const DEFAULT_READING: Reading = { font: "plex", size: "l", space: "airy", width: "medium", surface: "theme", focus: "off", sound: "soft", volume: 60, noise: "off", noiseKind: "brown", noiseVolume: 35, cursor: "lab" };
 
 const KEY = "eng-lab:reading";
 const listeners = new Set<() => void>();
+/** Settings saved before the defaults changed (round 5: 18.5px text) keep every value the reader
+ *  picked; a value still at the old default moves to the new one. `touched` lists the keys the
+ *  reader set from now on, so a later change of defaults can tell the two apart. */
+type Saved = Partial<Reading> & { v?: number; touched?: (keyof Reading)[] };
+const OLD_DEFAULTS: Partial<Reading> = { size: "m" };
+let touched: (keyof Reading)[] = [];
 let current: Reading = (() => {
   try {
-    return { ...DEFAULT_READING, ...JSON.parse(localStorage.getItem(KEY) ?? "{}") };
+    const saved: Saved = JSON.parse(localStorage.getItem(KEY) ?? "{}");
+    touched = Array.isArray(saved.touched) ? saved.touched : [];
+    const { v, touched: _t, ...picked } = saved;
+    if (!v)
+      for (const k of Object.keys(OLD_DEFAULTS) as (keyof Reading)[])
+        if (picked[k] === OLD_DEFAULTS[k] && !touched.includes(k)) delete picked[k];
+    return { ...DEFAULT_READING, ...picked };
   } catch {
     return DEFAULT_READING;
   }
@@ -53,8 +65,9 @@ apply();
 
 export function setReading(patch: Partial<Reading>) {
   current = { ...current, ...patch };
+  for (const k of Object.keys(patch) as (keyof Reading)[]) if (!touched.includes(k)) touched.push(k);
   try {
-    localStorage.setItem(KEY, JSON.stringify(current));
+    localStorage.setItem(KEY, JSON.stringify({ ...current, v: 2, touched }));
   } catch {
     // kept for this visit only
   }
