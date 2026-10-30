@@ -1,0 +1,303 @@
+<title>מומחה עם AI</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans+Hebrew:wght@400;500;600;700&family=Secular+One&display=swap">
+<style>
+/* Layout: a bench notebook. One reading column (~70ch); wide figures (milestone ranges, domain table) break out to 1100px. */
+:root {
+  --bg: #eef0ea; --paper: #f8f9f5; --ink: #1d231f; --ink-soft: #46504a; --muted: #6a736d; --line: #d3d9d1;
+  --trace: #0f6b5c; --trace-soft: #dcebe6; --amber: #a35c00; --amber-soft: #f5e7d2; --red: #ad2c22; --red-soft: #f3dfdb;
+  --deep: #0f6b5c; --core: #2d5d99; --supp: #7a6a3a;
+  --display: "Secular One", "IBM Plex Sans Hebrew", system-ui, sans-serif;
+  --font: "IBM Plex Sans Hebrew", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #161a18; --paper: #1d2220; --ink: #e6ebe7; --ink-soft: #c0c8c2; --muted: #95a099; --line: #333b37;
+    --trace: #5fd0b8; --trace-soft: #1f3530; --amber: #f0b45e; --amber-soft: #3a2e1d; --red: #ff8f84; --red-soft: #3b2522;
+    --deep: #5fd0b8; --core: #8fb7ee; --supp: #d6c38c; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #161a18; --paper: #1d2220; --ink: #e6ebe7; --ink-soft: #c0c8c2; --muted: #95a099; --line: #333b37;
+  --trace: #5fd0b8; --trace-soft: #1f3530; --amber: #f0b45e; --amber-soft: #3a2e1d; --red: #ff8f84; --red-soft: #3b2522;
+  --deep: #5fd0b8; --core: #8fb7ee; --supp: #d6c38c; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 16.5px; line-height: 1.7; }
+.wrap { direction: rtl; max-width: 1100px; margin: 0 auto; padding-block: 28px 80px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.col { max-width: 72ch; }
+h1, h2 { font-family: var(--display); font-weight: 400; text-wrap: balance; line-height: 1.25; }
+h1 { font-size: clamp(2rem, 6vw, 3.1rem); margin: 6px 0 10px; }
+h2 { font-size: clamp(1.35rem, 3.2vw, 1.75rem); margin: 52px 0 10px; }
+h3 { font-size: 1.05rem; margin: 18px 0 6px; }
+.eyebrow { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.06em; color: var(--muted); }
+.lede { font-size: 1.12rem; color: var(--ink-soft); }
+p { margin: 0 0 12px; }
+a { color: var(--trace); }
+.thesis { border: 1.5px solid var(--ink); background: var(--paper); padding: 16px 18px; margin: 22px 0; display: grid; gap: 10px; }
+.thesis b.v { font-family: var(--display); font-weight: 400; font-size: 1.15rem; }
+.conds { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; margin: 8px 0 0; padding: 0; list-style: none; counter-reset: c; }
+.conds li { counter-increment: c; border-top: 2px solid var(--trace); padding-top: 6px; font-size: 0.94rem; min-width: 0; }
+.conds li::before { content: counter(c); font-family: var(--mono); color: var(--trace); font-weight: 600; margin-inline-end: 6px; }
+.lev { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin: 12px 0; }
+.lev > div { background: var(--paper); border: 1px solid var(--line); padding: 12px 14px; min-width: 0; }
+.lev h3 { margin: 0 0 4px; }
+.lev .ex { font-size: 0.9rem; color: var(--ink-soft); }
+.k { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+figure { margin: 18px 0; }
+figcaption { font-size: 0.88rem; color: var(--muted); margin-top: 6px; }
+.chart { background: var(--paper); border: 1px solid var(--line); padding: 12px; overflow-x: auto; }
+.chart svg { display: block; min-width: 640px; width: 100%; height: auto; direction: ltr; }
+.legend { display: flex; gap: 14px; flex-wrap: wrap; font-size: 0.85rem; color: var(--ink-soft); margin-bottom: 6px; }
+.sw { display: inline-block; width: 12px; height: 12px; vertical-align: -1px; margin-inline-end: 5px; border-radius: 2px; }
+table { border-collapse: collapse; width: 100%; font-size: 0.92rem; }
+th, td { text-align: right; padding: 7px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 600; color: var(--ink-soft); font-size: 0.82rem; }
+td.n { font-family: var(--mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.tbl { overflow-x: auto; background: var(--paper); border: 1px solid var(--line); }
+.chip { display: inline-block; font-size: 0.74rem; font-weight: 600; padding: 1px 8px; border-radius: 3px; white-space: nowrap; }
+.r-deep { background: var(--trace-soft); color: var(--deep); }
+.r-core { background: color-mix(in srgb, var(--core) 15%, transparent); color: var(--core); }
+.r-supporting { background: color-mix(in srgb, var(--supp) 18%, transparent); color: var(--supp); }
+.v-supported { color: var(--trace); } .v-partial { color: var(--amber); } .v-not_yet { color: var(--red); }
+.filters { display: flex; gap: 6px; flex-wrap: wrap; margin: 10px 0; }
+.filters button { all: unset; cursor: pointer; font-size: 0.85rem; padding: 4px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--paper); }
+.filters button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.filters button:focus-visible, summary:focus-visible { outline: 2px solid var(--trace); outline-offset: 2px; }
+details.dom { border-bottom: 1px solid var(--line); }
+details.dom summary { cursor: pointer; display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 10px; align-items: baseline; padding: 9px 10px; list-style: none; }
+details.dom summary::-webkit-details-marker { display: none; }
+details.dom summary .nm { font-weight: 600; min-width: 0; }
+details.dom summary .tg { font-size: 0.84rem; color: var(--ink-soft); display: block; font-weight: 400; }
+details.dom[open] summary { background: color-mix(in srgb, var(--trace) 6%, transparent); }
+.three { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; padding: 4px 10px 14px; }
+.three > div { min-width: 0; font-size: 0.92rem; }
+.three h4 { margin: 4px 0 2px; font-size: 0.8rem; font-family: var(--mono); color: var(--muted); letter-spacing: 0.04em; }
+.meta { padding: 0 10px 12px; font-size: 0.86rem; color: var(--ink-soft); }
+.loop { display: flex; flex-wrap: wrap; gap: 0; margin: 14px 0; }
+.loop div { flex: 1 1 150px; padding: 10px 12px; border: 1px solid var(--line); background: var(--paper); margin-inline-end: -1px; margin-top: -1px; min-width: 0; }
+.loop b { display: block; font-family: var(--display); font-weight: 400; font-size: 1.1rem; color: var(--trace); }
+.tiers { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; }
+.tiers > div { background: var(--paper); border: 1px solid var(--line); padding: 12px 14px; min-width: 0; }
+.tiers .price { font-family: var(--mono); font-size: 1.25rem; font-weight: 600; }
+.tiers .rec { border: 1.5px solid var(--trace); }
+ol.plain, ul.plain { padding-inline-start: 20px; margin: 6px 0 12px; }
+ol.plain li, ul.plain li { margin-bottom: 6px; }
+.note { font-size: 0.88rem; color: var(--muted); }
+.files { font-family: var(--mono); font-size: 0.82rem; color: var(--ink-soft); direction: ltr; text-align: left; overflow-wrap: anywhere; }
+@media (max-width: 560px) { details.dom summary { grid-template-columns: minmax(0, 1fr) auto; } details.dom summary .hrs { display: none; } }
+@media (prefers-reduced-motion: no-preference) { details.dom[open] .three { animation: fade .18s ease-out; } @keyframes fade { from { opacity: .4 } to { opacity: 1 } } }
+</style>
+
+<div class="wrap">
+  <div class="col">
+    <div class="eyebrow">סבב 5 · מחקר מומחיות · 30.10.2026</div>
+    <h1>מומחה עם AI</h1>
+    <p class="lede">מה זה מומחה כשה-AI מחשב, כותב קוד ומפעיל כלים; איך מגיעים לזה בכל 36 התחומים, גם כמתכנן וכבונה; וכמה זמן זה לוקח, בכנות.</p>
+
+    <div class="thesis">
+      <div><span class="eyebrow">התזה שנבדקה</span><br>אדם אחד עם הבנה עמוקה, וה-AI כמחשבון, מתכנת וטכנאי, עושה עבודה של מומחה שפעם דרשה צוות ושנים של תרגול ידני.</div>
+      <div><b class="v">נכונה, בחמישה תנאים.</b> בניתוח, סימולציה, נתונים ותוכנה: תפוקה של 3–6 אנשים, אחרי כשנה של בניית מודל פנימי (לפני כן פי 1.5–2). בחומרה עד אב-טיפוס פי 1.5–3. בייצור, הסמכה ושטח כמעט בלי שינוי.</div>
+      <ol class="conds">
+        <li>חיזוי סדר גודל, סימן ומגמה לפני כל הרצה</li>
+        <li>אימות כל תוצאה חשובה בדרך שנייה</li>
+        <li>ידיים על חומרה ונתונים אמיתיים</li>
+        <li>תרגול קבוע בלי AI, כמו טייס שטס ידנית</li>
+        <li>שותפים לייצור, הסמכה ושטח</li>
+      </ol>
+    </div>
+
+    <p>המדד הקודם מדד בכלים של העולם הישן: פתרון תרגילים ביד, כתיבת קוד, אימון מודלים. מכאן יצאו "בודק בינוני" ו"מתחת לג'וניור כמתכנן". בעולם החדש הקוד והכלים מואצלים, והשאלה היא אחרת: האם אתה יודע לנסח את הבעיה, לבחור מודל, לחזות את התוצאה, לאמת אותה ולחתום עליה.</p>
+  </div>
+
+  <h2>מה זה מומחה, בשלוש שכבות</h2>
+  <div class="col"><p>כל אחד מ-36 התחומים מוגדר כך. הדוגמה מעיבוד אותות ומכ"ם.</p></div>
+  <div class="lev">
+    <div><h3>בראש, בלי כלים</h3><p>מבנה התחום, משוואות היסוד, סדרי גודל, הנחות ומתי הן נשברות, הפשרות המרכזיות.</p><p class="ex">משוואת המכ"ם ומה כל איבר עושה; רוחב פס מול רזולוציה; מה קורה ל-SNR כשמכפילים טווח (R⁴, כלומר ‎−12 dB).</p></div>
+    <div><h3>מאצילים לסוכן</h3><p>חישובים, קוד, סימולציות, עיבוד נתונים, שרטוטים, חיפוש בספרות, תיעוד.</p><p class="ex">Monte Carlo של הסתברות גילוי; matched filter; עיבוד הקלטת I/Q; גרפים.</p></div>
+    <div><h3>חייבים לדעת לבדוק</h3><p>שהתוצאה הגיונית, שהמודל מתאים, שהקוד עושה מה שכתוב, שהמדידה תקפה. השכבה הזו גדלה, כי יש יותר תוצרים לבדוק.</p><p class="ex">Pd מול SNR לעומת עקומות Albersheim; שהספקטרום בתדר הנכון; שאין aliasing; מקרה גבול ידוע.</p></div>
+  </div>
+
+  <h2>מתי מגיעים</h2>
+  <div class="col"><p>חודשים מהיום, ב-8 שעות ביום ועוד שעת טלפון. כל פס הוא טווח P10–P90, והנקודה היא P50. <b>בכיר</b>: תוכנית הלימודים של הגל ועוד כ-45% מעבודת המומחה, עם אות חיצוני ראשון. <b>מומחה</b>: כל מסלול המעבדות, מחקר, לקוחות ומנטורים, ומחזור שיפוט חיצוני. <b>principal</b>: עבודה של קריירה, ונבנית בעיקר בעבודה בתשלום.</p></div>
+  <figure>
+    <div class="chart">
+      <div class="legend"><span><span class="sw" style="background:var(--trace)"></span>בכיר</span><span><span class="sw" style="background:var(--core)"></span>מומחה</span><span><span class="sw" style="background:var(--supp)"></span>principal</span><span><span class="sw" style="background:transparent;border:1.5px dashed var(--ink-soft)"></span>אם הסוכנים ממשיכים להשתפר (P50)</span></div>
+      <svg id="mchart" viewBox="0 0 900 330" role="img" aria-label="אבני דרך לפי גל ורמה, בחודשים"></svg>
+    </div>
+    <figcaption>מקור: <span class="k">X_model.py</span> (6,000 הרצות). הצוות האדום העריך מומחה בגרעין גל 1 (מכ"ם, EW, PNT, אנטנות והשדרה) ב-38 חודשים (28–54), ו-senior בכל 36 התחומים ב-66 (50–96). המודל שמרני יותר, כי הוא מוסיף תקורת מחקר ושיפוט חיצוני וגל 1 שלו רחב (14 תחומים). הטווח הכן: מומחה בגל 1 בעוד 3–5 שנים; senior בכל התחומים בעוד 5.5–10.5 שנים.</figcaption>
+  </figure>
+
+  <h2>36 התחומים: יעד מול התחזית הקודמת</h2>
+  <div class="col"><p>שלושה תפקידים, ואף תחום לא נגמר מתחת ל-senior. <span class="chip r-deep">עומק</span> יעד principal בנישה; <span class="chip r-core">ליבה</span> יעד senior expert; <span class="chip r-supporting">תומך</span> יעד senior שמתכנן ומאמת עם כלי AI. לחיצה על תחום פותחת את שלוש השכבות.</p></div>
+  <div class="filters" role="group" aria-label="סינון תחומים">
+    <button data-f="all" aria-pressed="true">הכל</button>
+    <button data-f="deep" aria-pressed="false">עומק</button>
+    <button data-f="core" aria-pressed="false">ליבה</button>
+    <button data-f="supporting" aria-pressed="false">תומך</button>
+    <button data-f="w1" aria-pressed="false">גל 1</button>
+  </div>
+  <div class="tbl" id="doms"></div>
+  <p class="note">התזה בכל תחום: <b class="v-supported">נתמכת</b> (קוד, סימולציה, נתונים פתוחים), <b class="v-partial">חלקית</b> (חומרה, שטח, ידע של אנשי מקצוע), <b class="v-not_yet">עדיין לא</b> (EW: הידע המכריע מסווג; בתחום הפתוח היעד הוא מומחה ES/EW). השעות הן תוספת על תוכנית הלימודים עד רמת principal; "מעבדה" היא החלק המעשי מתוכן (E3).</p>
+
+  <div class="col">
+    <h2>איך לומדים עכשיו: רמה 3</h2>
+    <p>שבעת סעיפי רמה 2.5 נשארים. מעליהם, לכל תוצאה מרכזית, לולאה אחת:</p>
+  </div>
+  <div class="loop">
+    <div><b>לחזות</b>מספר עם טווח של 90%, ואיזה פרמטר שולט. נעול עד שנכתב.</div>
+    <div><b>להאציל</b>מפרט, קלטים, הנחות, בדיקות קבלה. הסוכן כותב ומריץ.</div>
+    <div><b>לאמת</b>לפחות שלוש בדיקות בלתי תלויות: ממדים, מקרה גבול, פתרון ידוע, מדידה.</div>
+    <div><b>להסביר</b>במילים שלך: למה זה סביר, ומה הסטייה מהתחזית מלמדת.</div>
+  </div>
+  <div class="col">
+    <ul class="plain">
+      <li><b>בלוקים חדשים בשתי האפליקציות:</b> <span class="k">predict</span>, <span class="k">lab</span> (משימה מובלת בסוף כל שיעור ליבה), <span class="k">verify</span>, <span class="k">errorhunt</span> (לפחות חצי מטעויות אמיתיות של סוכנים).</li>
+      <li><b>קאנון ביד:</b> כ-40 גזירות ובעיות לכל גל, בזמן מוגבל ובלי כלים, עם סבב חזרה כל 6 שבועות. כל השאר מואצל.</li>
+      <li><b>כלים אמיתיים:</b> Claude Code, Python ו-git פתוח מהיום הראשון. האפליקציה היא המאמן, היומן והבוחן.</li>
+      <li><b>הכוונת סוכנים מתורגלת כמו גזירה:</b> מפרט שסוכן יכול לבצע, אורקלים לבדיקה, כמה סוכנים במקביל, קריאת diff.</li>
+      <li><b>הגנות מפני מומחיות חלולה:</b> ציון כיול לכל תחום, יום בלי AI בשבוע, בדיקה מושהית אחרי 14 יום, הגנה בעל פה, מדד חיצוני כל רבעון, וסקירת גבול כל חצי שנה על בנצ'מרק פרטי.</li>
+    </ul>
+    <p class="note">הראיות: Bastani (PNAS 2025): ‎−17% במבחן בלי AI למי שהשתמש בלי מגבלות. Shen ו-Tamkin (Anthropic 2026): 24–39% בבוחן הבנה למי שהאציל הכל, 65–86% למי שביקש קוד ושאל עליו. Kestin (Sci. Rep. 2025): מורה AI עם מבנה הכפיל את הלמידה. Budzyń (Lancet G&amp;H 2025): רופאים מנוסים איבדו מיומנות תוך חודשים. העלות: כ-25–35% יותר זמן למודול.</p>
+
+    <h2>ידיים על החומר</h2>
+    <p>154 מעבדות, 7,375 שעות, בכל 36 התחומים. בכל מעבדה ה-AI כותב קוד, מפעיל מכשירים (Python, SCPI) ומעבד נתונים, ואתה מנסח, חוזה, בוחר ומאמת. גל 1 נבנה כמערכת אחת שגדלה: צומת חישה על Raspberry Pi 5 עם מכ"ם פסיבי (KrakenSDR, ADS-B כאמת), ניטור הפרעות GNSS (ZED-F9P) וכיוון.</p>
+  </div>
+  <div class="tiers">
+    <div><div class="eyebrow">מינימלי · עכשיו</div><div class="price">$1,504</div><div class="note">כ-5,400 ₪ כולל מע"מ · 3,465 שעות מעבדה</div><p>RTL-SDR, ADALM-Pluto, NanoVNA, tinySA Ultra, מנחתים, קופסה מסוככת, ZED-F9P, מכ"ם 60 GHz של TI, ספסל בסיסי.</p></div>
+    <div class="rec"><div class="eyebrow">מומלץ · לאורך גל 1</div><div class="price">$8,249</div><div class="note">כ-29,700 ₪ · 6,695 שעות מעבדה</div><p>ועוד KrakenSDR, bladeRF, IWR6843 עם DCA1000, בסיס RTK, סקופ, ספק מתכנת, מצלמה תרמית, Crazyflie, מדפסת תלת-ממד, כ-400 שעות GPU.</p></div>
+    <div><div class="eyebrow">מלא · גלים 2–3</div><div class="price">$22,312</div><div class="note">כ-80,000 ₪ · כל 7,375 השעות</div><p>ועוד ADI Phaser (מערך X-band), USRP B210, HackRF Pro, LimeSDR, ZED-F9R, רחפן X500, רובר ROS 2, מארז מסוכך, שעון GPS.</p></div>
+  </div>
+  <div class="col">
+    <p class="note">החוק כחלק מהתכנון: באוויר קליטה בלבד; שידור רק בכבל עם מנחתים או בכלוב, אחרי בדיקת דליפה; רישיון חובב רדיו בחודשים 2–4; פיקוח יצוא לפני מוצר או לקוח בחו"ל; צנזורה לפני ניתוח שנוגע לאמצעים ביטחוניים בישראל. מנוי AI כ-$100–200 בחודש, מחוץ לתקציב.</p>
+
+    <h2>פרויקטים ברמת דוקטורט שהם גם מוצרים</h2>
+    <p>11 פרויקטים לגל 1, כל אחד בנוי סביב אמת חיצונית (סימולטור, נתון ידוע, מדידה), כי שם סוכן מהיר וגם נכון. מתחילים בשלושה צירים:</p>
+    <ol class="plain">
+      <li><b>מגדלור (מוצר):</b> מצפה הפרעות GNSS במזרח הים התיכון, מאוויר (ADS-B) ומקרקע (חיישנים של כ-$350). מבדיל זיוף משיבוש ורואה הפרעה בגובה הקרקע. מפה ציבורית, API ודוחות. הכנסה ראשונה בעוד 6–12 חודשים [הערכה].</li>
+      <li><b>גלאי זיוף (מחקר):</b> זיהוי זיוף במקלט עם מבחנים סטטיסטיים מכוילים, על מאגרים פתוחים ואחר כך על F9P בכבל ובקופסה מסוככת. ספרייה פתוחה עם רישוי ליצרני רחפנים.</li>
+      <li><b>רתמת אימות (תזה):</b> איך מאמתים קוד DSP ואומדנים שסוכן כתב. היא גם המדידה של התזה עצמה: שעות, באגים שנתפסו, באגים שנמלטו.</li>
+    </ol>
+    <p class="note">ציוד התחלתי כ-$900, כולו בקליטה. לקוחות מחודש 1 (חמש שיחות), וניתוח פומבי של אירוע הפרעה אמיתי בחודש 2. מימון אפשרי: תנופה, INNOFENSE, MEIMAD.</p>
+
+    <h2>מי מאשר שאתה מומחה</h2>
+    <p>שני ערוצים בכל רמה, ואחד מהם תמיד אנושי ומחוץ לתוכנית.</p>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>רמה</th><th>חודשים (E4)</th><th>אותות חיצוניים</th></tr></thead>
+    <tbody id="ladder"></tbody>
+  </table></div>
+
+  <div class="col">
+    <h2>מה הצוות האדום שינה</h2>
+    <p>שני פאנלים: ספקנים (מהנדס ראשי שמגייס, פרופסור שמריץ בחינות הסמכה, חוקר שחיקה) ואופטימיים (CTO של סטארטאפ ביטחוני, מייסד יחיד ב-RF, חוקר סוכנים). 13 מתוך 16 מקורות שנבדקו נכונים, ואף אחד לא בדוי. ההכרעות:</p>
+    <ol class="plain">
+      <li><b>תפקיד ורמה לכל תחום,</b> כולל שש תקרות מבניות (אזור ויריב, לוגיסטיקה, ימי, אפקטי נשק, C2 בפועל, אלקטרוניקה בייצור) עם תפקיד מפורש.</li>
+      <li><b>שני מנטורים בשם עד חודש 4,</b> ושלוש בחינות quals מדומות מול מרצה עד חודש 18.</li>
+      <li><b>חוזה ניסיון בתשלום בצוות קיים עד חודש 15.</b></li>
+      <li><b>חזרת חומרה מלאה אחת:</b> לוח שתכננת עם סוכן, 5–10 יחידות, בדיקת קבלה, EMI ותרמי.</li>
+      <li><b>מוצר אחד, שני צירים,</b> ושאר הפרויקטים נכנסים כשציר נסגר.</li>
+      <li><b>שער התואר בחודש 6:</b> קורסים עם בחינה באוניברסיטה הפתוחה, או B.Sc. מלא ומעבר לטכניון. בתעשייה הביטחונית הגדולה יש מסנן תואר, ו"מהנדס רשום" שמור בחוק.</li>
+    </ol>
+
+    <h2>90 הימים הראשונים</h2>
+    <ol class="plain">
+      <li>ציוד מינימלי, ומקלט ZED-F9P אחד בבית.</li>
+      <li>מגדלור שלב 0: נתוני ADS-B ציבוריים ומפה ראשונה; חמש שיחות עם לקוחות.</li>
+      <li>גלאי זיוף שלב 0: שחזור תוצאה מהספרות על FGI-SpoofRepo.</li>
+      <li>יומן קבוע לכל הרצת סוכן: מפרט, תחזית, בדיקות, באגים.</li>
+      <li>בשיעורים: <span class="k">predict</span> ו-<span class="k">errorhunt</span>, יום בלי AI, קאנון גל 1.</li>
+      <li>הרשמה לבחינת חובב רדיו, PR ראשון ל-GNSS-SDR או GNU Radio, פנייה למנטורים.</li>
+    </ol>
+    <p>ההחלטות מחכות בלוח ההחלטות של הסבב. כל הרמות כאן הן תחזית, והן הופכות לנתון כשבוחן אנושי ראשון מאשר אותן על מדגם תחומים.</p>
+
+    <h2>המקורות</h2>
+    <p class="files">docs/research/round5/expert/ · S_synthesis.md · E1_expertise_ai_world.md · E2_domain_targets.{md,json} · E3_practice_track.{md,json} · E4_external_validation.{md,json} · E5_pedagogy_apps.md · E6_projects_products.{md,json} · R_redteam.md · X_model.py · LV2_benchmark.{md,json}</p>
+  </div>
+</div>
+
+<script>
+const DATA = /*DATA*/null;
+const ROLE_HE = { deep: "עומק", core: "ליבה", supporting: "תומך" };
+const V_HE = { supported: "נתמכת", partial: "חלקית", not_yet: "עדיין לא" };
+function el(t, a = {}, ...k) { const e = document.createElement(t); for (const [n, v] of Object.entries(a)) { if (n === "class") e.className = v; else e.setAttribute(n, v); } for (const c of k) e.append(c); return e; }
+
+// milestone chart
+(function () {
+  const svg = document.getElementById("mchart"), NS = "http://www.w3.org/2000/svg";
+  const W = 900, L = 150, R = 20, T = 14, rowH = 30, gap = 14, max = 330;
+  const x = m => L + (m / max) * (W - L - R);
+  const mk = (t, a) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); svg.append(e); return e; };
+  const css = getComputedStyle(document.documentElement);
+  const col = { senior: "var(--trace)", expert: "var(--core)", principal: "var(--supp)" };
+  const label = { 1: "גל 1 · חישה, EW, PNT", 2: "גל 2 · ליבה", 3: "גל 3 · תומכים" };
+  let y = T;
+  const rows = [];
+  for (const w of [1, 2, 3]) { for (const m of ["senior", "expert", "principal"]) rows.push([w, m]); }
+  const H = T + 3 * (3 * rowH + gap) + 30;
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  for (let m = 0; m <= max; m += 30) {
+    mk("line", { x1: x(m), x2: x(m), y1: T - 4, y2: H - 26, stroke: "var(--line)", "stroke-width": 1 });
+    const t = mk("text", { x: x(m), y: H - 10, "text-anchor": "middle", "font-size": 11, fill: "var(--muted)", "font-family": "IBM Plex Mono, monospace" });
+    t.textContent = m === 0 ? "0" : (m % 12 === 0 ? `${m / 12}y` : m);
+  }
+  const MS = DATA.milestones;
+  for (const w of [1, 2, 3]) {
+    const t = mk("text", { x: L - 10, y: y + rowH * 1.5 + 4, "text-anchor": "end", "font-size": 13, "font-weight": 600, fill: "var(--ink)", "font-family": "IBM Plex Sans Hebrew, sans-serif" });
+    t.textContent = label[w];
+    for (const m of ["senior", "expert", "principal"]) {
+      const v = MS.base[w][m], a = MS.ai_trend[w][m];
+      mk("rect", { x: x(v[0]), y: y + 7, width: Math.max(2, x(v[2]) - x(v[0])), height: rowH - 14, rx: 3, fill: col[m], opacity: 0.85 });
+      mk("circle", { cx: x(v[1]), cy: y + rowH / 2, r: 5.5, fill: "var(--paper)", stroke: "var(--ink)", "stroke-width": 2 });
+      mk("line", { x1: x(a[1]), x2: x(a[1]), y1: y + 3, y2: y + rowH - 3, stroke: "var(--ink-soft)", "stroke-width": 1.5, "stroke-dasharray": "3 2" });
+      const lab = mk("text", { x: x(v[2]) + 6, y: y + rowH / 2 + 4, "font-size": 11.5, fill: "var(--ink-soft)", "font-family": "IBM Plex Mono, monospace" });
+      lab.textContent = `${Math.round(v[1])}`;
+      if (x(v[2]) + 40 > W) { lab.setAttribute("x", x(v[0]) - 6); lab.setAttribute("text-anchor", "end"); }
+      y += rowH;
+    }
+    y += gap;
+  }
+})();
+
+// domain list
+let filt = "all";
+function renderDoms() {
+  const root = document.getElementById("doms");
+  root.textContent = "";
+  const order = { deep: 0, core: 1, supporting: 2 };
+  const rows = DATA.domains.filter(d => filt === "all" || (filt === "w1" ? d.wave === 1 : d.role === filt))
+    .sort((a, b) => a.wave - b.wave || order[a.role] - order[b.role]);
+  for (const d of rows) {
+    const det = el("details", { class: "dom" });
+    const sum = el("summary", {},
+      el("span", { class: "nm" }, d.name_he, el("span", { class: "tg" }, `היה: ${d.old.knowledge || "—"} · ${d.old.industry || "—"}  ←  יעד: ${d.target.industry_role}`)),
+      el("span", {}, el("span", { class: "chip r-" + d.role }, ROLE_HE[d.role]), " ", el("span", { class: "k", style: "font-size:.8rem;color:var(--muted)" }, "גל " + d.wave)),
+      el("span", { class: "hrs k", style: "font-size:.85rem" }, `${d.extra_hours.p50.toLocaleString("en-US")} ש'`));
+    det.append(sum);
+    det.append(el("div", { class: "three" },
+      el("div", {}, el("h4", {}, "בראש"), d.hold_in_head_he),
+      el("div", {}, el("h4", {}, "מאצילים"), d.delegate_he),
+      el("div", {}, el("h4", {}, "בודקים"), d.must_verify_he)));
+    const meta = el("div", { class: "meta" });
+    meta.append(el("b", { class: "v-" + d.thesis_verdict }, "התזה: " + (V_HE[d.thesis_verdict] || d.thesis_verdict)), ` · ידע ${d.target.academia_knowledge} · שעות נוספות P10–P90 ${d.extra_hours.p10.toLocaleString("en-US")}–${d.extra_hours.p90.toLocaleString("en-US")}` + (d.lab_hours ? `, מתוכן מעבדה ${d.lab_hours}` : ""));
+    if (d.real_build_he) meta.append(el("br"), "בנייה אמיתית: " + d.real_build_he);
+    det.append(meta);
+    root.append(det);
+  }
+}
+document.querySelectorAll(".filters button").forEach(b => b.addEventListener("click", () => {
+  filt = b.dataset.f;
+  document.querySelectorAll(".filters button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+  renderDoms();
+}));
+renderDoms();
+
+// ladder
+(function () {
+  const HE = { junior: "ג'וניור", mid: "בינוני", senior: "בכיר", expert: "מומחה", principal: "principal" };
+  const tb = document.getElementById("ladder");
+  for (const r of DATA.ladder) tb.append(el("tr", {}, el("td", {}, el("b", {}, HE[r.level] || r.level)), el("td", { class: "n" }, r.months_est), el("td", {}, r.signals.join(" · "))));
+})();
+</script>

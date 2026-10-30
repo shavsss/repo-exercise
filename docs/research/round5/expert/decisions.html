@@ -1,0 +1,286 @@
+<title>לוח החלטות המומחה</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans+Hebrew:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: the same drafting-paper board family as the status board; tabs on top; decision cards in one column on the phone, two on desktop */
+:root {
+  --bg: #ece4d6; --paper: #f7f2e9; --sheet: #fbf8f2; --ink: #23271e; --ink-soft: #4b5043; --muted: #6c7062; --line: #d9cebb;
+  --accent: #b3261e; --accent-soft: #f3e0d9; --olive: #5b6248; --blue: #1f5f9e; --blue-soft: #e3ecf5;
+  --ok: #3f7a1a; --ok-soft: #e4eedb; --warn: #a16207; --warn-soft: #f6ead0;
+  --font: "IBM Plex Sans Hebrew", "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1f1e1d; --paper: #262624; --sheet: #2c2b29; --ink: #ece8df; --ink-soft: #c9c4b8; --muted: #a39e93; --line: #3d3c38;
+    --accent: #ff8f84; --accent-soft: #3b2724; --olive: #b5b8a0; --blue: #94bfdc; --blue-soft: #233140;
+    --ok: #b9d77f; --ok-soft: #2a3324; --warn: #e6c46c; --warn-soft: #3a3220; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1f1e1d; --paper: #262624; --sheet: #2c2b29; --ink: #ece8df; --ink-soft: #c9c4b8; --muted: #a39e93; --line: #3d3c38;
+  --accent: #ff8f84; --accent-soft: #3b2724; --olive: #b5b8a0; --blue: #94bfdc; --blue-soft: #233140;
+  --ok: #b9d77f; --ok-soft: #2a3324; --warn: #e6c46c; --warn-soft: #3a3220; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 16px; line-height: 1.65; }
+.wrap { direction: rtl; max-width: 1080px; margin: 0 auto; padding-block: 22px 70px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+header.top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 10px; margin-bottom: 14px; }
+h1 { margin: 0; font-size: clamp(1.5rem, 4vw, 2rem); line-height: 1.2; }
+.sub { margin: 4px 0 0; color: var(--ink-soft); font-size: 0.95rem; max-width: 70ch; }
+.sum { display: flex; gap: 8px; flex-wrap: wrap; }
+.pill { font-size: 0.82rem; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--line); background: var(--paper); white-space: nowrap; }
+.pill b { font-family: var(--mono); }
+nav.tabs { display: flex; gap: 4px; flex-wrap: wrap; border-bottom: 1.5px solid var(--ink); margin-bottom: 18px; }
+nav.tabs button { all: unset; cursor: pointer; padding: 9px 14px; font-weight: 600; font-size: 0.95rem; color: var(--ink-soft); border: 1px solid transparent; border-bottom: none; border-radius: 6px 6px 0 0; }
+nav.tabs button[aria-selected="true"] { background: var(--paper); border-color: var(--line); color: var(--ink); }
+nav.tabs button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+section[hidden] { display: none !important; }
+.lead { color: var(--ink-soft); max-width: 75ch; margin: 0 0 14px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; }
+.card { background: var(--paper); border: 1px solid var(--line); padding: 14px 16px; min-width: 0; }
+.card h3 { margin: 0 0 6px; font-size: 1.02rem; display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+.card p { margin: 0 0 8px; }
+.tag { font-size: 0.74rem; font-weight: 600; padding: 1px 8px; border-radius: 3px; white-space: nowrap; }
+.t-done { background: var(--ok-soft); color: var(--ok); }
+.t-wait { background: var(--warn-soft); color: var(--warn); }
+.t-next { background: var(--blue-soft); color: var(--blue); }
+.t-fix { background: var(--accent-soft); color: var(--accent); }
+.lvl-grp { margin: 18px 0 8px; font-size: 1.05rem; border-bottom: 1px solid var(--line); padding-bottom: 4px; }
+.lvl-grp span { color: var(--muted); font-weight: 400; font-size: 0.9rem; }
+.dom { display: grid; grid-template-columns: minmax(150px, 230px) 1fr auto; gap: 12px; align-items: start; padding: 10px 0; border-bottom: 1px dashed var(--line); }
+.dom:last-child { border-bottom: none; }
+.dom .name { font-weight: 600; }
+.dom .lvl { font-size: 0.78rem; color: var(--blue); display: block; font-weight: 600; }
+.dom .can { color: var(--ink-soft); font-size: 0.94rem; }
+.dom .vs { margin-top: 6px; padding: 6px 10px; border-inline-start: 3px solid var(--blue); background: color-mix(in srgb, var(--blue) 7%, transparent); color: var(--ink); font-size: 0.92rem; }
+.dom .bench { margin-top: 3px; font-size: 0.78rem; color: var(--muted); }
+.dom .k { font-size: 0.8rem; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+@media (max-width: 620px) { .dom { grid-template-columns: 1fr; gap: 2px; } }
+.filter { display: flex; gap: 6px; flex-wrap: wrap; margin: 0 0 12px; }
+.filter button { all: unset; cursor: pointer; font-size: 0.85rem; padding: 4px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--paper); }
+.filter button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.filter button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.dec { border-inline-start: 4px solid var(--warn); }
+.dec.s-approve { border-inline-start-color: var(--ok); }
+.dec.s-change { border-inline-start-color: var(--accent); }
+.dec.s-later { border-inline-start-color: var(--muted); }
+.dec .rec { font-size: 0.9rem; color: var(--ink-soft); }
+.acts { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+.acts button { all: unset; cursor: pointer; font-size: 0.86rem; font-weight: 600; padding: 5px 12px; border-radius: 5px; border: 1px solid var(--line); background: var(--sheet); }
+.acts button[aria-pressed="true"].a-approve { background: var(--ok); color: var(--sheet); border-color: var(--ok); }
+.acts button[aria-pressed="true"].a-change { background: var(--accent); color: var(--sheet); border-color: var(--accent); }
+.acts button[aria-pressed="true"].a-later { background: var(--muted); color: var(--sheet); border-color: var(--muted); }
+.acts button:focus-visible, textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+textarea { width: 100%; min-height: 56px; margin-top: 8px; font: inherit; font-size: 0.9rem; padding: 8px 10px; border: 1px solid var(--line); background: var(--sheet); color: var(--ink); border-radius: 4px; resize: vertical; direction: rtl; }
+.saved { font-size: 0.78rem; color: var(--muted); margin-top: 4px; min-height: 1em; }
+.banner { font-size: 0.88rem; padding: 8px 12px; border: 1px dashed var(--line); color: var(--ink-soft); margin-bottom: 12px; }
+.steps { counter-reset: s; list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.steps li { counter-increment: s; position: relative; padding: 12px 16px; padding-inline-start: 50px; background: var(--paper); border: 1px solid var(--line); }
+.steps li::before { content: counter(s); position: absolute; inset-inline-start: 14px; top: 11px; font-family: var(--mono); font-weight: 600; color: var(--accent); font-size: 1.05rem; }
+.steps .needs { display: block; font-size: 0.84rem; color: var(--muted); margin-top: 4px; }
+.steps .ready { color: var(--ok); font-weight: 600; }
+a { color: var(--blue); }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.ui-state { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; }
+.foot { text-align: center; color: var(--muted); font-size: 0.8rem; margin-top: 28px; }
+.dec .why { font-size: 0.84rem; color: var(--muted); margin: 0 0 6px; }
+.dec .grp { font-family: var(--mono); font-size: 0.72rem; color: var(--olive); letter-spacing: 0.04em; }
+.ms { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+.ms th, .ms td { text-align: right; padding: 7px 8px; border-bottom: 1px solid var(--line); }
+.ms td.n { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.tw { overflow-x: auto; background: var(--paper); border: 1px solid var(--line); margin-bottom: 14px; }
+</style>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>לוח החלטות המומחה</h1>
+      <p class="sub">סבב 5: מומחה בכל תחום, גם כמתכנן וכבונה, כשה-AI מחשב, כותב קוד ומפעיל כלים. כאן ההחלטות שהמחקר מבקש ממך, עם ההמלצה שלי לכל אחת. הדוח המלא: <a href="https://claude.ai/artifact/WhsWEFiusi6N2d6WocFf6w">מומחה עם AI</a> · לוח המצב: <a href="https://claude.ai/artifact/Cbp7n6ognmbFzrnn7LUeQ8">לוח מצב המעבדות</a></p>
+    </div>
+    <div class="sum" id="sum"></div>
+  </header>
+
+  <nav class="tabs" role="tablist" aria-label="מסכים">
+    <button role="tab" id="tab-decide" aria-controls="decide" aria-selected="true">מחכה להחלטה</button>
+    <button role="tab" id="tab-time" aria-controls="time" aria-selected="false">הזמן</button>
+    <button role="tab" id="tab-next" aria-controls="next" aria-selected="false">90 הימים הראשונים</button>
+  </nav>
+
+  <section id="decide" role="tabpanel" aria-labelledby="tab-decide">
+    <p class="lead">לחץ "מאשר", "לשנות" או "אחר כך", והוסף הערה אם תרצה. הבחירות נשמרות, ואני קורא אותן מכאן.</p>
+    <div class="banner" id="dbState">טוען את ההחלטות השמורות…</div>
+    <div class="filter" role="group" aria-label="סינון">
+      <button aria-pressed="true" data-f="all">הכול</button>
+      <button aria-pressed="false" data-f="open">פתוחות</button>
+      <button aria-pressed="false" data-f="approve">אושרו</button>
+      <button aria-pressed="false" data-f="change">לשנות</button>
+      <button aria-pressed="false" data-f="later">אחר כך</button>
+    </div>
+    <div class="grid" id="decList"></div>
+  </section>
+
+  <section id="time" role="tabpanel" aria-labelledby="tab-time" hidden>
+    <p class="lead">חודשים מהיום, ב-8 שעות ביום ועוד שעת טלפון (P50, ובסוגריים P10–P90). <strong>בכיר</strong>: תוכנית הלימודים של הגל ועוד כ-45% מעבודת המומחה, עם אות חיצוני ראשון. <strong>מומחה</strong>: כל מסלול המעבדות, מחקר, לקוחות ומנטורים, ומחזור שיפוט חיצוני. <strong>principal</strong>: עבודה של קריירה, ונבנית בעיקר בעבודה בתשלום. 10 שעות ביום מקצרות כל אבן דרך בכ-14%.</p>
+    <div class="tw"><table class="ms">
+      <thead><tr><th>גל</th><th>בכיר</th><th>מומחה</th><th>principal</th><th>אם הסוכנים ממשיכים להשתפר</th></tr></thead>
+      <tbody>
+        <tr><td>1 · חישה, EW, PNT, אנטנות והשדרה (14 תחומים)</td><td class="n">29 (25–34)</td><td class="n">57 (50–66)</td><td class="n">185 (150–234)</td><td class="n">27 / 51 / 126</td></tr>
+        <tr><td>2 · ליבה (תקשורת, EO/IR, טילים, AMD, חלל, ML, OR…)</td><td class="n">81 (70–94)</td><td class="n">106 (93–122)</td><td class="n">223 (173–294)</td><td class="n">66 / 85 / 147</td></tr>
+        <tr><td>3 · תומכים</td><td class="n">125 (108–144)</td><td class="n">149 (129–171)</td><td class="n">238 (180–322)</td><td class="n">93 / 109 / 156</td></tr>
+      </tbody>
+    </table></div>
+    <p class="lead">הצוות האדום העריך מומחה בגרעין גל 1 ב-38 חודשים (28–54), ו-senior בכל 36 התחומים ב-66 (50–96). המודל שמרני יותר, כי הוא מוסיף תקורת מחקר ושיפוט חיצוני, וגל 1 שלו רחב יותר. הטווח הכן: <strong>מומחה בגל 1 בעוד 3–5 שנים; senior בכל התחומים בעוד 5.5–10.5 שנים.</strong> המודל: <code>docs/research/round5/expert/X_model.py</code>.</p>
+  </section>
+
+  <section id="next" role="tabpanel" aria-labelledby="tab-next" hidden>
+    <p class="lead">הסדר המומלץ. מתחת לכל צעד כתוב איזו החלטה הוא צריך. הסימון מתעדכן לפי ההחלטות שלך.</p>
+    <ol class="steps" id="stepList"></ol>
+  </section>
+
+  <p class="foot">עודכן ב-30.10.2026 · ההחלטות נשמרות במסד הנתונים של הדף הזה</p>
+</div>
+
+<script>
+const DECISIONS = [
+  { id: "target", grp: "היעד", title: "יעד: מומחה בתפקיד בכל 36 התחומים, בשלושה תפקידים", rec: "8 תחומי עומק (מכ\"ם, EW, PNT, אנטנות, אותות, שערוך, השדרה המתמטית, ארגז הכלים) עם יעד principal בנישה; 15 תחומי ליבה עם יעד senior expert; 13 תומכים עם יעד senior שמתכנן ומאמת עם כלי AI. אף תחום לא נגמר מתחת ל-senior. לכל תחום שלוש שכבות: מה בראש, מה מאצילים, מה חייבים לבדוק.", why: "E2, LV2. הצוות האדום הציע 'מסרק' עם 4–6 שיניים; ההמלצה שלי שומרת יעד מומחה בכל תחום, בתפקיד מוגדר." },
+  { id: "ceilings", grp: "היעד", title: "תפקיד מפורש לשש התקרות המבניות", rec: "אזור ויריב, לוגיסטיקה, ימי ותת-ימי, אפקטי נשק, C2 בפועל, ואלקטרוניקה ברמת ייצור. בהם המאמץ לבדו לא מספיק: שפה ומקורות ראשוניים, ניסיון מבצעי או קו ייצור. היעד: מומחה בתפקיד שהוגדר במפורש, למשל 'אנליסט OSINT טכני' או 'מתכנן-מאמת עם AI עד אב-טיפוס'. EW בתחום הפתוח: מומחה ES/EW.", why: "R §4, E2 (מבחן התזה)." },
+  { id: "level3", grp: "דרך הלימוד", title: "רמה 3 בשתי האפליקציות: לחזות, להאציל, לאמת, להסביר", rec: "שבעת סעיפי 2.5 נשארים. מעליהם: בלוקים predict, lab (משימה מובלת בסוף כל שיעור ליבה), verify (שלוש בדיקות בלתי תלויות) ו-errorhunt. כללים חדשים: גילואה 28–39, לנצ'סטר 46–57, בשפה הנדסית. עלות: כ-25–35% יותר זמן למודול.", why: "E5 §2. ראיות: Bastani 2025, Shen ו-Tamkin 2026, Kestin 2025." },
+  { id: "canon", grp: "דרך הלימוד", title: "קאנון ביד: כ-40 גזירות ובעיות לכל גל", rec: "בגל 1: משוואת המכ\"ם, CRLB, Pd/Pfa, matched filter, DOP, EKF, J/S, מערך ועוד. בזמן מוגבל, בלי כלים, סבב חזרה כל 6 שבועות. מחליף את '10% בלי AI' הכללי. כל השאר מואצל; שורות קוד ביד רק בכ-30 הגרעינים של הקאנון.", why: "R שינויים 2 ו-3. בחינות הסמכה בודקות שטף ביד; Shen ו-Tamkin: 'קוד ואז שאלות' עדיף על הקלדה." },
+  { id: "realtools", grp: "דרך הלימוד", title: "כלים אמיתיים במקום IDE בדפדפן", rec: "העבודה המעשית ב-Claude Code, Python מקומי או Colab, ב-git פתוח מהיום הראשון. האפליקציות הן המאמן, היומן והבוחן: יומן ניסויים, ציון כיול, ימים בלי AI, הגנה בעל פה, ייצוא לתיק ולבודק. המהנדס-השותף בדפדפן (Pyodide) לא נבנה כרגע.", why: "R שינוי 10. התעשייה מגייסת להכוונת סוכנים במאגר אמיתי; JOSS 2026 דורש פיתוח פתוח." },
+  { id: "guards", grp: "דרך הלימוד", title: "ההגנות מפני מומחיות חלולה", rec: "ציון כיול לכל תחום (יעד 80–95% מהתחזיות בטווח 90%), יום בלי AI בשבוע, בדיקה מושהית 14 יום אחרי מודול, מבחן העברה בלי AI ≥70%, פער עם/בלי AI ≤20 נקודות, ולפחות חצי מ-errorhunt מבאגים אמיתיים של סוכנים.", why: "E5 §4, R שינוי 11. Budzyń 2025: מומחים איבדו מיומנות תוך חודשים." },
+  { id: "frontier", grp: "דרך הלימוד", title: "סקירת גבול כל חצי שנה, על בנצ'מרק פרטי", rec: "כ-50 משימות מהעבודה שלך, שרצות על כל מודל חדש. מה שהסוכן כבר עושה נכון עובר להאצלה; מה שהוא נכשל בו נשאר בקאנון. כך התוכנית לא מתיישנת כשהסוכנים משתפרים (אורך המשימות שלהם מכפיל את עצמו בערך כל 4 חודשים).", why: "R שינוי 9; METR Time Horizon." },
+  { id: "budget", grp: "מעשי", title: "ציוד: מינימלי עכשיו, מומלץ לאורך גל 1", rec: "עכשיו: כ-$1,500 (כ-5,400 ₪): RTL-SDR, ADALM-Pluto, NanoVNA, tinySA Ultra, מנחתים, קופסה מסוככת, ZED-F9P, מכ\"ם 60 GHz של TI. לאורך גל 1, לפי הצורך: עד $8,249 (כ-29,700 ₪). המלא ($22,312) רק בגלים 2–3. מנוי AI כ-$100–200 בחודש, בנפרד.", why: "E3. 154 מעבדות, 7,375 שעות, בכל 36 התחומים." },
+  { id: "hwcycle", grp: "מעשי", title: "חזרת חומרה מלאה אחת בגל 1", rec: "חיישן הקרקע של מגדלור עובר מלוחות מוכנים ללוח שתכננת עם סוכן (LNA, מסנן, מתח, מארז), ייצור קטן של 5–10 יחידות, בדיקת קבלה, EMI ותרמי. כך נבנה הצד שאין לו תחליף: הפער בין סימולציה לחומרה.", why: "R שינוי 6. PCBInnoBench: סוכנים משלימים 22% ממשימות PCB אמיתיות." },
+  { id: "legal", grp: "מעשי", title: "החוק כחלק מהתכנון", rec: "באוויר: קליטה בלבד, בלי פענוח תוכן של תקשורת פרטית. שידור: רק בכבל עם מנחתים או בכלוב, אחרי בדיקת דליפה. רישיון חובב רדיו בחודשים 2–4. רחפן מעל 250 גרם: רישום ורישיון. פיקוח יצוא לפני מוצר או לקוח בחו\"ל. בדיקה מול הצנזורה לפני ניתוח שנוגע לאמצעים ביטחוניים בישראל.", why: "E3, E4, E6 §3, R שינוי 14." },
+  { id: "portfolio", grp: "פרויקטים", title: "שלושה צירים: מגדלור, גלאי זיוף, רתמת אימות", rec: "מגדלור (מוצר): מצפה הפרעות GNSS במזרח הים התיכון, מאוויר ומקרקע. גלאי זיוף (מחקר): זיהוי זיוף במקלט עם מבחנים מכוילים. רתמת אימות (תזה): איך מאמתים קוד שסוכן כתב, וגם המדידה של התזה. כ-$900, הכל בקליטה. שמונת הפרויקטים האחרים נכנסים כשציר נסגר.", why: "E6, R שינוי 7." },
+  { id: "customers", grp: "פרויקטים", title: "לקוחות מחודש 1, ניתוח פומבי בחודש 2", rec: "חמש שיחות (מבטח ימי, מפעיל רחפנים, מפעיל תזמון) לפני כתיבת ה-API. בחודש 2: ניתוח פומבי של אירוע הפרעה אמיתי בישראל, אזרחי, אחרי בדיקת צנזורה. מימון אפשרי: תנופה, INNOFENSE, MEIMAD.", why: "R שינוי 8. השוק של P1 צפוף (SkAI, Flightradar24, GPSPATRON)." },
+  { id: "mentors", grp: "מדידה חיצונית", title: "שני מנטורים בשם עד חודש 4, ובחינות quals מדומות", rec: "מהנדס מכ\"ם או EW בדימוס, וחוקר PNT. שעה בחודש בתשלום, בעל פה. ושלוש בחינות בסגנון quals מול מרצה עד חודש 18. הם מכיילים את הבוחן ב-AI, וכל הרמות הופכות מתחזית לנתון.", why: "R שינוי 4; E4 §6. מחליף את 'שני אנשי מקצוע פעם ברבעון' בלוח המצב." },
+  { id: "quarterly", grp: "מדידה חיצונית", title: "אות חיצוני שאתה לא שולט בו, בכל רבעון", rec: "אחד מאלה: בוחן אנושי, PR שמוזג (GNSS-SDR, GNU Radio), דירוג בתחרות, ביקורת בתשלום, מאמר שהתקבל, לקוח. רבעון בלי אחד מהם מסומן בלוח המדדים. יעדים ראשונים: ION GNSS+ 2027 או COMCAS 2027.", why: "R שינוי 12; E4 סולם ולוח שנה 2027." },
+  { id: "contract", grp: "מדידה חיצונית", title: "חוזה ניסיון בתשלום בצוות קיים עד חודש 15", rec: "2–8 שבועות בסטארטאפ או בחברת RF, על בעיה שלהם. ניסיון צוות, ביקורת תכן ואחריות מול מישהו אחר, שאי אפשר לבנות לבד.", why: "R שינוי 5. כך מגייסים FDE ב-Palantir, Shield AI ו-Anduril." },
+  { id: "degree", grp: "מדידה חיצונית", title: "שער התואר: החלטה בחודש 6", rec: "מסלול א: קורסים בודדים עם בחינה באוניברסיטה הפתוחה, לתעודות ולכיול. מסלול ב: B.Sc. מלא באוניברסיטה הפתוחה ומעבר לטכניון. ההכרעה לפי היעד: בתעשייה הביטחונית הגדולה יש מסנן תואר, ו'מהנדס רשום' שמור בחוק; במוצר ובסטארטאפ מכריעים התיק והחוזה. עכשיו מחליטים רק שההחלטה תהיה בחודש 6.", why: "R שינוי 13. משרות מכ\"ם ו-EW באלביט ובאלתא מבקשות B.Sc." },
+  { id: "timeline", grp: "הזמן", title: "לקבל את לוח הזמנים החדש", rec: "בכיר בגל 1 בעוד כ-2.5 שנים; מומחה בגל 1 בעוד 3–5 שנים; senior בכל 36 התחומים בעוד 5.5–10.5 שנים; principal בתחומי העומק לאורך 10–15 שנה, בעיקר בעבודה בתשלום. תוכנית הלימודים עצמה (28.5 חודשים) לא נחתכת, והעומק לא נחתך. נבדק מחדש אחרי שבועיים של מדידה, ואחר כך כל חצי שנה.", why: "X_model.py, R §6. ראו לשונית 'הזמן'." },
+];
+const NAMES = Object.fromEntries(DECISIONS.map(d => [d.id, d.title]));
+const STEPS = [
+  { t: "לקנות את הציוד המינימלי ולהתקין מקלט ZED-F9P בבית.", needs: ["budget", "legal"] },
+  { t: "להוסיף לשיעורים את predict ו-errorhunt, יום בלי AI בשבוע, ולפתוח את קאנון גל 1.", needs: ["level3", "canon", "guards"] },
+  { t: "מגדלור, שלב 0: נתוני ADS-B ציבוריים, מפה ראשונה, חמש שיחות עם לקוחות.", needs: ["portfolio", "customers"] },
+  { t: "גלאי זיוף, שלב 0: לשחזר תוצאה מהספרות על FGI-SpoofRepo.", needs: ["portfolio"] },
+  { t: "רתמת אימות: יומן קבוע לכל הרצת סוכן (מפרט, תחזית, בדיקות, באגים שנתפסו ושנמלטו), ב-git פתוח.", needs: ["realtools", "portfolio"] },
+  { t: "להירשם לבחינת חובב רדיו, לשלוח PR ראשון ל-GNSS-SDR או GNU Radio, ולפנות לשני מנטורים.", needs: ["legal", "mentors", "quarterly"] },
+  { t: "לכתוב את טבלת התפקידים הסופית לכל 36 התחומים ולהכניס אותה ללוח המצב.", needs: ["target", "ceilings"] },
+  { t: "חודש 2: ניתוח פומבי של אירוע הפרעה אמיתי, אחרי בדיקת צנזורה.", needs: ["customers", "legal"] },
+  { t: "חודש 6: שער התואר, וסקירת הגבול הראשונה על הבנצ'מרק הפרטי.", needs: ["degree", "frontier"] },
+];
+
+let state = {};
+let db = null;
+let filter = "all";
+
+function el(tag, attrs = {}, ...kids) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) {
+    if (k.startsWith("on")) e.addEventListener(k.slice(2), v);
+    else if (k === "class") e.className = v;
+    else e.setAttribute(k, v);
+  }
+  for (const k of kids) if (k != null) e.append(k);
+  return e;
+}
+
+function renderSummary() {
+  const n = s => DECISIONS.filter(d => (state[d.id]?.state || "") === s).length;
+  const open = DECISIONS.filter(d => !state[d.id]?.state).length;
+  const root = document.getElementById("sum");
+  root.textContent = "";
+  root.append(el("span", { class: "pill" }, "פתוחות ", el("b", {}, String(open))),
+           el("span", { class: "pill" }, "אושרו ", el("b", {}, String(n("approve")))),
+           el("span", { class: "pill" }, "לשנות ", el("b", {}, String(n("change")))),
+           el("span", { class: "pill" }, "אחר כך ", el("b", {}, String(n("later")))));
+}
+
+function renderDecisions() {
+  const root = document.getElementById("decList");
+  root.textContent = "";
+  for (const d of DECISIONS) {
+    const st = state[d.id]?.state || "";
+    if (filter === "open" && st) continue;
+    if (filter !== "all" && filter !== "open" && st !== filter) continue;
+    const card = el("div", { class: "card dec" + (st ? " s-" + st : "") });
+    card.append(el("div", { class: "grp" }, d.grp), el("h3", {}, d.title), el("p", { class: "rec" }, d.rec), el("p", { class: "why" }, "מקור: " + d.why));
+    const acts = el("div", { class: "acts", role: "group", "aria-label": d.title });
+    for (const [v, label] of [["approve", "מאשר"], ["change", "לשנות"], ["later", "אחר כך"]]) {
+      acts.append(el("button", { class: "a-" + v, "aria-pressed": String(st === v), onclick: () => save(d.id, { state: st === v ? "" : v }) }, label));
+    }
+    const ta = el("textarea", { id: "note-" + d.id, placeholder: "הערה (לא חובה): מה לשנות, או הסתייגות", "aria-label": "הערה על " + d.title });
+    ta.value = state[d.id]?.note || "";
+    let timer;
+    ta.addEventListener("input", () => { clearTimeout(timer); timer = setTimeout(() => save(d.id, { note: ta.value.trim() }), 800); });
+    card.append(acts, ta, el("div", { class: "saved", id: "saved-" + d.id }));
+    root.append(card);
+  }
+}
+
+function renderSteps() {
+  const root = document.getElementById("stepList");
+  root.textContent = "";
+  for (const s of STEPS) {
+    const missing = s.needs.filter(id => state[id]?.state !== "approve");
+    const needs = el("span", { class: "needs" });
+    if (!missing.length) needs.append(el("span", { class: "ready" }, "מוכן להתחיל: כל ההחלטות אושרו"));
+    else needs.append("מחכה ל: " + missing.map(id => NAMES[id]).join(" · "));
+    root.append(el("li", {}, s.t, needs));
+  }
+}
+
+function renderAll() { renderSummary(); renderDecisions(); renderSteps(); }
+
+async function save(id, patch) {
+  state[id] = { ...(state[id] || {}), ...patch, at: Date.now() };
+  renderAll();
+  if (!db) { const f = document.getElementById("saved-" + id); if (f) f.textContent = "לא נשמר: אין חיבור לשמירה בדף הזה"; return; }
+  try {
+    await db.collection("decisions").doc(id).set(state[id]);
+    const f = document.getElementById("saved-" + id); if (f) f.textContent = "נשמר";
+  } catch (e) {
+    const f = document.getElementById("saved-" + id); if (f) f.textContent = "לא נשמר. נסה שוב בעוד רגע.";
+  }
+}
+
+const tabs = [...document.querySelectorAll('[role="tab"]')];
+function show(id) {
+  for (const t of tabs) {
+    const on = t.getAttribute("aria-controls") === id;
+    t.setAttribute("aria-selected", String(on));
+    document.getElementById(t.getAttribute("aria-controls")).hidden = !on;
+  }
+  try { history.replaceState(null, "", "#" + id); } catch {}
+}
+tabs.forEach(t => t.addEventListener("click", () => show(t.getAttribute("aria-controls"))));
+document.querySelectorAll(".filter button").forEach(b => b.addEventListener("click", () => {
+  filter = b.dataset.f;
+  document.querySelectorAll(".filter button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+  renderDecisions();
+}));
+const start = (location.hash || "").slice(1);
+if (["decide", "time", "next"].includes(start)) show(start);
+
+renderAll();
+
+(async () => {
+  const banner = document.getElementById("dbState");
+  const timeout = setTimeout(() => { banner.textContent = "השמירה לא זמינה כרגע. אפשר לסמן, אבל הבחירות לא יישמרו."; }, 10000);
+  try { db = window.claude ? await window.claude.use("db") : null; } catch { db = null; }
+  if (!db) { clearTimeout(timeout); banner.textContent = "השמירה זמינה רק כשהדף פתוח ב-claude.ai ואתה מחובר."; return; }
+  db.collection("decisions").onSnapshot(snap => {
+    clearTimeout(timeout);
+    const next = {};
+    snap.docs.forEach(doc => { next[doc.id] = doc.data(); });
+    const active = document.activeElement;
+    state = next;
+    banner.textContent = "הבחירות שלך נשמרות כאן אוטומטית.";
+    if (!(active && active.tagName === "TEXTAREA")) renderAll(); else { renderSummary(); renderSteps(); }
+  }, () => { clearTimeout(timeout); banner.textContent = "לא הצלחתי לטעון את הבחירות השמורות."; });
+})();
+</script>
