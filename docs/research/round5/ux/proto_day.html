@@ -46,7 +46,7 @@ header p{margin:.2rem 0 0;color:var(--ink-soft);max-width:44rem}
 .dock .left,.dock .right{display:flex;gap:.4rem;align-items:center;flex-wrap:wrap}
 .chip{border:1px solid var(--line);border-radius:6px;padding:.15rem .55rem;background:var(--paper)}
 .clock{font-variant-numeric:tabular-nums;color:var(--muted);cursor:default}
-.clock.over{color:var(--accent)}
+.clock.over{color:var(--ink);font-weight:600}
 .btn{font:inherit;font-size:.92rem;border-radius:7px;padding:.45rem 1rem;cursor:pointer;border:1px solid var(--line-strong);background:var(--sheet);color:var(--ink)}
 .btn.primary{background:var(--ink);color:var(--sheet);border-color:var(--ink)}
 .btn.quiet{border-color:transparent;background:transparent;color:var(--muted);text-decoration:underline;text-underline-offset:3px}
@@ -78,7 +78,8 @@ textarea,input[type=text]{font:inherit;width:100%;box-sizing:border-box;border:1
 .hold{font-size:.85rem;color:var(--muted)}
 /* break screen */
 .brk{display:grid;place-items:center;text-align:center;gap:1.4rem;padding-block:1.5rem}
-.brk .timer{font-family:var(--serif);font-size:3.2rem;font-variant-numeric:tabular-nums;color:var(--ink-soft);line-height:1}
+.brk .timer{font-size:.95rem;font-variant-numeric:tabular-nums;color:var(--muted)}
+.brk .main{font-family:var(--serif);font-size:1.45rem;margin:0;max-width:28rem;line-height:1.5}
 .brk ol{list-style:none;padding:0;margin:0;display:grid;gap:.55rem;text-align:start;max-width:26rem}
 .brk li{display:flex;gap:.7rem;align-items:baseline}
 .brk li .k{font-size:.78rem;color:var(--muted);min-width:4.5rem}
@@ -136,22 +137,21 @@ textarea,input[type=text]{font:inherit;width:100%;box-sizing:border-box;border:1
 
 <script>
 const WHY={
- warm:'<b>למה:</b> שליפה מאתמול לפני חומר חדש היא אחת ההשפעות החזקות בחקר הלמידה (מטא-אנליזות על אפקט הבדיקה והמרווח, דרגה A). השאלות נכתבות אתמול במסך הסגירה, אז הבוקר לא מחכה למודל. 3–5 שאלות, כ-10 דקות, ו"דלג" תמיד גלוי.',
- bound:'<b>למה:</b> הפרעה בגבול משימה עולה פחות מהפרעה באמצע (Iqbal & Bailey 2006, דרגה B). לכן אין טיימר: ההצעה נבדקת רק בסוף חלק, סוף סעיף או אחרי שאלת חשיבה, ומופיעה רק אם עברו 75 דקות (הסף שלך, בהגדרות Aa). "עוד חלק אחד" משתיק עד הגבול הבא.',
+ warm:'<b>למה:</b> שליפה מאתמול לפני חומר חדש היא אחת ההשפעות החזקות בחקר הלמידה (מטא-אנליזות על אפקט הבדיקה והמרווח, דרגה A). השאלות נכתבות אתמול בערב, אז הבוקר לא מחכה למודל. שתי שאלות, כ-5 דקות, ו"דלג" תמיד גלוי. אין ברכה קבועה: הכותרת היא מה שמחכה היום.',
+ bound:'<b>למה:</b> הפרעה בגבול משימה עולה פחות מהפרעה באמצע (Iqbal & Bailey 2006, דרגה B). לכן אין טיימר: ההצעה נבדקת רק בסוף חלק, סוף סעיף או אחרי שאלת חשיבה, ומופיעה רק אם עבר הסף (75 דקות או כל שני חלקים, לבחירתך). "עוד חלק אחד" משתיק עד הגבול הבא.',
  brk:'<b>למה:</b> הפסקות קצרות משפרות בעיקר את התחושה ומעט את הביצוע (Albulescu 2022, מטא-אנליזה). הפסקה בלי מסך ובלי פיד עדיפה. השעון סופר למעלה, לא לאחור: אין "נגמר הזמן".',
  ret:'<b>למה:</b> רוב העלות של הפסקה היא החזרה. שורה אחת עם המשפט האחרון שקראת וכותרת החלק הבא, שנעלמת בגלילה הראשונה. מרחיב את "חזרה למקום שבו הפסיקו" שכבר קיים.',
- close:'<b>למה:</b> כתיבת תוכנית קונקרטית למשימה פתוחה מורידה מחשבות טורדניות (Masicampo & Baumeister 2011; Scullin 2018, דרגה B). רוב השדות כבר מלאים מהנתונים. מה שנכתב כאן הופך לחימום של מחר.'
+ close:'<b>למה:</b> כתיבת תוכנית קונקרטית למשימה פתוחה מורידה מחשבות טורדניות (Masicampo & Baumeister 2011; Scullin 2018, דרגה B). המסך פותח במה שנעשה היום, ורק אחר כך במה שמחכה. רוב השדות מלאים מהנתונים. נפתח רק מכפתור, לא מוצע. האקורד יורד, ורעש הרקע דועך.'
 };
 const page=document.getElementById('page'),why=document.getElementById('why'),clock=document.getElementById('clock');
 let actx=null;
 function chime(){try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();const t=actx.currentTime;
- [[523.25,0],[659.25,.11]].forEach(([f,d])=>{const o=actx.createOscillator(),g=actx.createGain(),lp=actx.createBiquadFilter();lp.type='lowpass';lp.frequency.value=2400;
+ [[783.99,0],[659.25,.13],[523.25,.26]].forEach(([f,d])=>{const o=actx.createOscillator(),g=actx.createGain(),lp=actx.createBiquadFilter();lp.type='lowpass';lp.frequency.value=2400;
  o.type='sine';o.frequency.value=f;g.gain.setValueAtTime(0,t+d);g.gain.linearRampToValueAtTime(.06,t+d+.012);g.gain.exponentialRampToValueAtTime(.0001,t+d+.9);
  o.connect(lp);lp.connect(g);g.connect(actx.destination);o.start(t+d);o.stop(t+d+1)})}catch(e){}}
 
 const Q=[
  {q:'למה הצורה של גיליון A4 נשמרת בקיפול לחצי רק אם יחס הצלעות מקיים $r^2=2$?',a:'לחצי יש צלעות $r/2$ ו-1, כלומר יחס $2/r$. הצורה נשמרת אם $r=2/r$, ולכן $r^2=2$.',src:'שיעור 2 · הסיפור'},
- {q:'מה ההבדל בין גוף גאומטרי לצורה גאומטרית?',a:'גוף גאומטרי מפשיט מן החומר ושומר צורה ומידות. צורה גאומטרית מפשיטה גם מן ההתפשטות: משטח, קו ונקודה.',src:'שיעור 2 · הגדרה'},
  {q:'סיבוב של 72° לא מחזיר שום סריג לעצמו. מאיזו הנחה זה נובע, ומה שכטמן שבר ב-1982?',a:'מהמחזוריות: בבסיס הסריג טבלת הסיבוב שלמה, ו-$2\\cos72°=0.618$ לא שלם. שכטמן לא הפריך את המשפט; הוא שבר את ההנחה שכל מוצק מסודר הוא מחזורי.',src:'שיעור 2 · פדורוב · חיבור פתוח'},
 ];
 let qi=0;
@@ -160,13 +160,13 @@ function renderMath(s){return s.replace(/\$([^$]+)\$/g,(m,x)=>'<span dir="ltr" s
 function warm(){
  const q=Q[qi];
  page.innerHTML=`<div class="col warm">
-  <div><div class="kicker">יום שישי · 30.10 · 07:30</div><p class="greet">בוקר טוב.</p></div>
-  <div class="where">אתמול עצרת ב: <span>M0.1</span><span>שיעור 2</span><span>חלק 2 מתוך 4</span></div>
+  <div><div class="kicker">יום שישי · 30.10</div><p class="greet">האלכסון והצלע</p></div>
+  <div class="where">אתמול עצרת ב-M0.1 · שיעור 2, בסוף חלק 2. לפני שממשיכים, שתי שאלות מאתמול.</div>
   <div class="q" id="q">
    <div class="row" style="justify-content:space-between"><span class="n">שאלה ${qi+1} מתוך ${Q.length}</span><span class="dots">${Q.map((_,i)=>`<i class="${i<=qi?'on':''}"></i>`).join('')}</span></div>
    <p style="margin:0">${renderMath(q.q)}</p>
-   <textarea id="wa" rows="2" placeholder="במילים שלך, בלי להציץ"></textarea>
-   <div class="conf" id="conf"><span class="hold">כמה אתה בטוח?</span>
+   <textarea id="wa" rows="2" placeholder="במילים שלך. גם שתי מילים מספיקות."></textarea>
+   <div class="conf" id="conf"><span style="color:var(--ink-soft)">כמה אתה בטוח?</span>
     <button class="btn" data-c="sure">בטוח</button><button class="btn" data-c="think">חושב שכן</button><button class="btn" data-c="guess">מנחש</button></div>
    <div id="out"></div>
    <span class="src">מתוך: ${q.src}</span>
@@ -187,7 +187,7 @@ function warm(){
 function warmDone(){
  qi=0;
  page.innerHTML=`<div class="col warm">
-  <div><div class="kicker">החימום הסתיים · 9 דקות</div><p class="greet">מוכן.</p></div>
+  <div class="kicker">החימום הסתיים · 6 דקות</div>
   <div class="first"><span class="kicker">הצעד הראשון שכתבת אתמול ב-18:52</span>
    <q>לעבור על ההוכחה שאין לאלכסון ולצלע מידה משותפת, בדרך של הריבוע הקטן, ולשרטט אותה במחברת.</q>
    <div class="row"><button class="btn primary">קח אותי לשם</button><span class="hold">שיעור 2 · חלק 3 · "האלכסון והצלע"</span></div>
@@ -204,12 +204,12 @@ function bound(){
  clock.textContent='88′ · היום 4:02';clock.classList.add('over');
  page.innerHTML=`<div class="col">${LESSON}
   <div class="boundary" id="bc">
-   <div class="line"><b>סוף חלק 2 מתוך 4</b><span class="sep">·</span><span>88 דקות מההפסקה האחרונה</span></div>
+   <div class="line"><b>סוף חלק 2 מתוך 4</b><span class="sep">·</span><span title="88 דקות">כשעה וחצי מההפסקה האחרונה</span></div>
    <div class="line">אחרי ההפסקה: חלק 3, "האלכסון והצלע: קטעים בלי מידה משותפת".</div>
-   <div class="row"><button class="btn primary" id="go">הפסקה</button><button class="btn" id="one">עוד חלק אחד</button></div>
+   <div class="row"><button class="btn" id="go">הפסקה</button><button class="btn" id="one">עוד חלק אחד</button></div>
   </div></div>`;
  document.getElementById('go').onclick=()=>select('brk');
- document.getElementById('one').onclick=()=>{document.getElementById('bc').innerHTML='<p class="hold">בסדר. לא אציע שוב עד סוף חלק 3, ולא לפני 30 דקות.</p>';clock.classList.remove('over')};
+ document.getElementById('one').onclick=()=>{document.getElementById('bc').innerHTML='<p class="hold">לא אציע שוב לפני סוף חלק 3.</p>';clock.classList.remove('over')};
 }
 
 let tick=null;
@@ -217,18 +217,13 @@ function brk(){
  clock.textContent='בהפסקה';clock.classList.remove('over');
  let s=0;
  page.innerHTML=`<div class="col brk">
-  <div class="kicker">הפסקה · חלק 3 מחכה</div>
-  <div class="timer" id="tm" aria-label="זמן הפסקה">0:00</div>
-  <ol>
-   <li><span class="k">קודם</span><span>החוצה, או לחלון. להסתכל רחוק.</span></li>
-   <li><span class="k">אחר כך</span><span>לקום, להתמתח, מים.</span></li>
-   <li><span class="k">אם יש זמן</span><span>להסביר לעצמך בקול מה זה מספר רציונלי, בלי לחזור למסך.</span></li>
-  </ol>
-  <p class="phone">את חמש הדקות הראשונות עדיף בלי טלפון.</p>
+  <div class="timer" id="tm">הפסקה · 0 דקות · חלק 3 מחכה</div>
+  <p class="main">להסביר לעצמך בקול מה זה מספר רציונלי, רחוק מהמסך.</p>
+  <p class="phone">ולהסתכל רחוק, לקום, מים.</p>
   <button class="btn primary" id="back">חזרתי</button>
  </div>`;
  clearInterval(tick);
- tick=setInterval(()=>{s+=7;const el=document.getElementById('tm');if(!el)return clearInterval(tick);el.textContent=Math.floor(s/60)+':'+String(s%60).padStart(2,'0')},1000);
+ tick=setInterval(()=>{s+=1;const el=document.getElementById('tm');if(!el)return clearInterval(tick);el.textContent='הפסקה · '+s+' דקות · חלק 3 מחכה'},4000);
  document.getElementById('back').onclick=()=>select('ret');
 }
 
@@ -238,7 +233,7 @@ function ret(){
  page.innerHTML=`<div class="ret" id="rh"><span>היית ב:</span><em>"…ושלושה שלישים נפרדים לא יפילו צבי."</em><span class="hold">· הבא: חלק 3</span></div>
  <div class="col">${LESSON}<h2>האלכסון והצלע: קטעים בלי מידה משותפת</h2>
  <p>שאלת החוט: האם כל שני קטעים ניתנים למדידה זה בזה, אם רק מחלקים את היחידה מספיק? אם כן, כל יחס בין גדלים הוא שבר, והרציונליים של המדידה מספיקים לכל דבר. כדי לשאול זאת בדיוק צריך שם למצב שבו השארית נעלמת בסוף.</p>
- <p class="hold">(גלול, או חכה כמה שניות: השורה למעלה נעלמת.)</p></div>`;
+ </div>`;
  const rh=document.getElementById('rh');
  const hide=()=>rh&&rh.classList.add('gone');
  setTimeout(hide,6000);page.addEventListener('wheel',hide,{once:true});page.addEventListener('touchmove',hide,{once:true});
@@ -246,30 +241,31 @@ function ret(){
 
 function close(){
  clearInterval(tick);
- clock.textContent='היום 8:47';clock.classList.remove('over');
+ clock.textContent='';clock.classList.remove('over');
  page.innerHTML=`<div class="col close">
-  <div><div class="kicker">סגירת היום · 18:45</div><h2 style="margin-top:.2rem">סוגרים את היום</h2></div>
-  <div class="field"><label>איפה עצרתי</label><div class="auto">M0.1 · שיעור 2 · חלק 4, אחרי "מספר ממשי כחתך". (מולא לבד)</div></div>
-  <div class="field"><label>מה נשאר פתוח</label>
+  <div><div class="kicker">יום שישי · 30.10</div><h2 style="margin-top:.2rem">היום</h2></div>
+  <ul class="open">
+   <li><span class="tag">נלמד</span><span>M0.1 שיעור 2, חלקים 3–4: האלכסון והצלע, המספר הממשי כחתך</span></li>
+   <li><span class="tag">נפתר</span><span>2 דפים במחברת, אחד נבדק</span></li>
+   <li><span class="tag">נכתב</span><span>סיכום M0.1 §2, ו-4 פתקים בשוליים</span></li>
+   <li><span class="tag">טעית בביטחון</span><span>"כל שבר מצומצם הוא ייחודי" · כדאי לחזור מחר</span></li>
+  </ul>
+  <div class="field"><label>מחכה למחר</label>
    <ul class="open">
-    <li><span class="tag">שאלת חשיבה</span><span>"למה הרציונליים צפופים אבל לא שלמים?" (לא נענתה)</span></li>
-    <li><span class="tag">שאלה למומחה</span><span>פתק בשוליים: האם יש סריג בממד 4 עם סיבוב מסדר 5?</span></li>
-    <li><span class="tag">מחברת</span><span>דף "הריבוע הקטן" בלי "בדוק את הפתרון"</span></li>
+    <li><span class="tag">שאלת חשיבה</span><span>למה הרציונליים צפופים אבל לא שלמים?</span></li>
+    <li><span class="tag">שאלה למומחה</span><span>האם יש סריג בממד 4 עם סיבוב מסדר 5?</span></li>
+    <li><span class="tag">מחברת</span><span>דף "הריבוע הקטן", עוד לא נבדק</span></li>
    </ul></div>
   <div class="field"><label for="next">הצעד הראשון של מחר</label>
    <input type="text" id="next" value="לבדוק את דף הריבוע הקטן, ואז חלק 4 מההתחלה.">
-   <span class="hold">משפט אחד: מה בדיוק, ואיפה. מחר בבוקר הוא יחכה לך אחרי החימום.</span></div>
-  <div class="scale">
-   <label for="fat">עייפות <input type="range" id="fat" min="1" max="5" value="3"></label>
-   <label for="foc">ריכוז <input type="range" id="foc" min="1" max="5" value="4"></label>
-  </div>
-  <div class="field"><span class="kicker">היום שלך</span>
+   <span class="hold">משפט אחד: מה בדיוק, ואיפה. מחר הוא יחכה לך אחרי שתי שאלות החימום.</span></div>
+  <div class="field"><span class="kicker">צורת היום</span>
    <div class="daystrip" aria-label="סרגל היום">
-    <span class="d3" style="flex:15"></span><span class="d1" style="flex:90"></span><span class="brk-s" style="flex:20"></span><span class="d1" style="flex:40"></span><span class="d2" style="flex:40"></span><span class="brk-s" style="flex:45"></span><span class="d3" style="flex:20"></span><span class="brk-s" style="flex:60"></span><span class="d1" style="flex:80"></span><span class="brk-s" style="flex:15"></span><span class="d2" style="flex:75"></span><span class="brk-s" style="flex:30"></span><span class="d3" style="flex:70"></span><span class="brk-s" style="flex:15"></span><span class="d3" style="flex:60"></span>
+    <span class="d3" style="flex:15" title="07:30 חימום"></span><span class="d1" style="flex:90" title="07:45 שיעור"></span><span class="brk-s" style="flex:20"></span><span class="d1" style="flex:40"></span><span class="d2" style="flex:40" title="מחברת"></span><span class="brk-s" style="flex:45"></span><span class="d3" style="flex:20"></span><span class="brk-s" style="flex:60"></span><span class="d1" style="flex:80"></span><span class="brk-s" style="flex:15"></span><span class="d2" style="flex:75"></span><span class="brk-s" style="flex:30"></span><span class="d3" style="flex:70"></span><span class="brk-s" style="flex:15"></span><span class="d3" style="flex:60"></span>
    </div>
-   <div class="legend"><span><i class="d1"></i>שיעור צפוף 3:30</span><span><i class="d2"></i>תרגול 1:55</span><span><i class="d3"></i>חזרה וסיכומים 2:45</span><span><i class="brk-s"></i>הפסקות</span></div>
+   <div class="legend"><span><i class="d1"></i>שיעור</span><span><i class="d2"></i>תרגול</span><span><i class="d3"></i>חזרה וסיכומים</span><span><i class="brk-s"></i>הפסקות</span></div>
   </div>
-  <div class="row"><button class="btn primary" id="sv">סגור את היום</button><span id="ok" class="saved" hidden>נשמר. החימום של מחר מוכן: 4 שאלות.</span></div>
+  <div class="row"><button class="btn primary" id="sv">סגור את היום</button><span id="ok" class="saved" hidden>נשמר. מחר: שתי שאלות, ואז הצעד הזה.</span></div>
  </div>`;
  document.getElementById('sv').onclick=()=>{document.getElementById('ok').hidden=false;chime()};
 }

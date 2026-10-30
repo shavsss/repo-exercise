@@ -76,7 +76,7 @@ h1{font-family:var(--serif);font-size:1.65rem;margin:0;font-weight:700}
 [data-dir="b"] .note .ty{border-bottom:1px solid var(--line);padding-bottom:3px;margin-bottom:4px}
 [data-dir="b"] .note[data-t="q"]{border-top:2px dotted var(--mn-accent)}
 [data-dir="b"] .note[data-t="a"]{border-top:3px double var(--mn-accent)}
-[data-dir="b"] .tick{display:block;position:absolute;width:6px;height:6px;background:var(--mn-rule)}
+[data-dir="b"] .tick{font-size:0;display:block;position:absolute;width:6px;height:6px;background:var(--mn-rule)}
 
 /* ===== C: typeset side notes ===== */
 [data-dir="c"] .sup{display:inline}
@@ -86,6 +86,17 @@ h1{font-family:var(--serif);font-size:1.65rem;margin:0;font-weight:700}
 [data-dir="c"] .note .tx{display:inline;-webkit-line-clamp:unset}
 [data-dir="c"] .note .ty{display:block}
 
+
+/* ===== H: pencil with a margin number (hybrid after the 90-day simulation) ===== */
+[data-dir="h"] .note{font:400 calc(var(--read-size)*.82)/1.55 var(--font);color:var(--mn-ink);padding-inline-start:10px;border-inline-start:1px solid var(--mn-rule)}
+[data-dir="h"] .note .ty{font-size:12.5px}
+[data-dir="h"] .note[data-t="q"]{border-inline-start:2px dotted var(--mn-accent)}
+[data-dir="h"] .note[data-t="a"]{border-inline-start:3px double var(--mn-accent)}
+[data-dir="h"] .note .tx{-webkit-line-clamp:6}
+[data-dir="h"] .note .num{display:none}
+[data-dir="h"] .tick{display:block;position:absolute;width:auto;height:auto;background:none;font:500 11px/1 var(--mono);color:var(--mn-quiet)}
+[data-dir="h"] .tick.out{color:var(--mn-accent)}
+.sheet[data-w="narrow"][data-dir="h"] .tick{display:block}
 /* ===== today: yellow sticky (for comparison) ===== */
 [data-dir="old"] .note{font:400 .82rem/1.5 var(--font);color:var(--ink);background:var(--old-paper);padding:16px 10px 10px;box-shadow:0 8px 16px -6px rgb(0 0 0/22%);border-top:3px solid var(--c);width:184px;transform:rotate(-1deg)}
 [data-dir="old"] .note:nth-child(2n){transform:rotate(.8deg)}
@@ -97,6 +108,7 @@ h1{font-family:var(--serif);font-size:1.65rem;margin:0;font-weight:700}
 
 /* ===== narrow: in-flow ===== */
 .sheet[data-w="narrow"] .stage{padding-inline-end:0;max-width:36rem}
+.sheet[data-w="narrow"][data-dir="h"] .stage{padding-inline-start:4px}
 .sheet[data-w="narrow"] .notes,.sheet[data-w="narrow"] .leader{display:none}
 .sheet[data-w="narrow"] .sup{display:inline}
 .sheet[data-w="narrow"] .inflow.show{display:block;font:400 var(--mn-size)/var(--mn-lh) var(--font);color:var(--mn-ink);margin:-.4em 0 1em;padding-inline-start:12px;border-inline-start:1px solid var(--mn-rule);margin-inline-start:1.4em}
@@ -113,7 +125,7 @@ h1{font-family:var(--serif);font-size:1.65rem;margin:0;font-weight:700}
 
   <div class="bar" role="group" aria-label="תצוגה">
     <span class="lbl">סגנון</span>
-    <div class="seg" id="dir"><button data-v="a" aria-pressed="true">א · עיפרון</button><button data-v="b" aria-pressed="false">ב · כרטיסייה</button><button data-v="c" aria-pressed="false">ג · הערות צד</button><button data-v="old" aria-pressed="false">היום</button></div>
+    <div class="seg" id="dir"><button data-v="h" aria-pressed="true">עיפרון עם מספר</button><button data-v="a" aria-pressed="false">א · עיפרון</button><button data-v="b" aria-pressed="false">ב · כרטיסייה</button><button data-v="c" aria-pressed="false">ג · הערות צד</button><button data-v="old" aria-pressed="false">היום</button></div>
     <span class="lbl">מעבדה</span>
     <div class="seg" id="lab"><button data-v="lan" aria-pressed="true">לנצ'סטר</button><button data-v="gil" aria-pressed="false">גילואה</button></div>
     <span class="lbl">רוחב</span>
@@ -123,7 +135,7 @@ h1{font-family:var(--serif);font-size:1.65rem;margin:0;font-weight:700}
   </div>
   <p class="desc" id="desc"></p>
 
-  <div class="sheet" id="sheet" data-dir="a" data-w="wide">
+  <div class="sheet" id="sheet" data-dir="h" data-w="wide">
     <div class="stage" id="stage">
       <div class="col" id="col">
         <h2>מכללים מן הניסיון אל הוכחה</h2>
@@ -148,6 +160,7 @@ const NOTES=[
  {n:4,t:'a',sym:'¶',ty:'רעיון למאמר',tx:'הנחות שלא נאמרו: מאדפו ועד שכטמן, ומה זה אומר על מודלים מבצעיים שנבנו על נתוני עבר.'},
 ];
 const DESC={
+ h:'<b>עיפרון עם מספר (מומלץ אחרי הסימולציה).</b> הגוף של א, בלי שום סימן בתוך הטקסט, כך שהנוסחאות לא מתבלבלות. מספר קטן בשוליים של העמודה, בגובה השורה, הוא החיבור הקבוע. ברחיפה המשפט נצבע ומופיע קו מוביל. פתק ארוך נחתך אחרי 6 שורות, ולחיצה פותחת אותו.',
  a:'<b>א · עיפרון בשוליים.</b> בלי תיבה ובלי רקע: קו דק בצד וטקסט בגוון עיפרון. המשפט שהפתק שייך אליו מסומן תמיד בקו תחתון דק; ברחיפה הוא נצבע ומופיע קו מוביל. הכי שקט, ומתאים למפה שמסמנים עליה בעיפרון.',
  b:'<b>ב · כרטיסייה.</b> כרטיס תיוק בגוון אחד מעל הדף, עם לשונית ממוספרת שפונה לטקסט, וצל של פיקסל אחד. ריבוע קטן בקצה העמודה מסמן את השורה. הכי "חומרי", והמספרים עוזרים למצוא פתק.',
  c:'<b>ג · הערות צד.</b> כמו בספר מודפס: מספר קטן בתוך הטקסט, ואותו מספר בשוליים בגובה השורה, בגופן הספרי. בלי שום מסגרת. הכי יפה ו"ספרי".',
@@ -167,8 +180,8 @@ function build(){
   const inf=document.createElement('div');inf.className='inflow'+(out?' out':'');inf.innerHTML=`<div class="ty"><span class="sym">${d.sym}</span> ${d.ty}</div>${d.tx}`;
   anc.closest('p').after(inf);
   const ld=document.createElement('div');ld.className='leader';stage.appendChild(ld);
-  const tk=document.createElement('span');tk.className='tick';stage.appendChild(tk);
-  const on=v=>{anc.classList.toggle('on',v);ld.classList.toggle('on',v&&sheet.dataset.dir==='a')};
+  const tk=document.createElement('span');tk.className='tick'+(out?' out':'');tk.textContent=d.n;tk.style.cursor='pointer';tk.addEventListener('mouseenter',()=>on(true));tk.addEventListener('mouseleave',()=>on(false));tk.addEventListener('click',()=>{if(sheet.dataset.w==='narrow')inf.classList.toggle('show')});stage.appendChild(tk);
+  const on=v=>{anc.classList.toggle('on',v);ld.classList.toggle('on',v&&(sheet.dataset.dir==='a'||sheet.dataset.dir==='h'))};
   [el,sup].forEach(x=>{x.addEventListener('mouseenter',()=>on(true));x.addEventListener('mouseleave',()=>on(false));x.addEventListener('focus',()=>on(true));x.addEventListener('blur',()=>on(false))});
   el.addEventListener('click',()=>{el.classList.toggle('open');layout()});
   sup.addEventListener('click',()=>{if(sheet.dataset.w==='narrow')inf.classList.toggle('show')});
@@ -190,7 +203,7 @@ function layout(){
   d.ld.style.top=(lineTop+r.height*0.62)+'px';
   const left=nr.right-sr.left, right=cr.left-sr.left;
   d.ld.style.left=Math.min(left,right)+'px';d.ld.style.width=Math.abs(right-left)+'px';
-  d.tk.style.top=(lineTop+r.height/2-3)+'px';d.tk.style.left=(cr.left-sr.left-14)+'px';
+  const isH=sheet.dataset.dir==='h';d.tk.style.top=(lineTop+r.height/2-(isH?6:3))+'px';d.tk.style.left=(cr.left-sr.left-(isH?(sheet.dataset.w==='narrow'?0:18):14))+'px';if(isH&&sheet.dataset.w==='narrow'){d.tk.style.left='';d.tk.style.right='-14px'}else d.tk.style.right='';
  });
 }
 function seg(id,fn){const g=document.getElementById(id);g.querySelectorAll('button').forEach(b=>b.onclick=()=>{g.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));fn(b.dataset.v);requestAnimationFrame(layout)})}
@@ -198,7 +211,7 @@ seg('dir',v=>{sheet.dataset.dir=v;document.getElementById('desc').innerHTML=DESC
 seg('lab',v=>{document.documentElement.dataset.lab=v});
 seg('wid',v=>{sheet.dataset.w=v});
 seg('thm',v=>{if(v==='auto')delete document.documentElement.dataset.theme;else document.documentElement.dataset.theme=v});
-document.getElementById('desc').innerHTML=DESC.a;
+document.getElementById('desc').innerHTML=DESC.h;
 addEventListener('resize',layout);
 if(document.fonts)document.fonts.ready.then(layout);
 build();
