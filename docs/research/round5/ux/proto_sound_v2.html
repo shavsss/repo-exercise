@@ -492,6 +492,8 @@ function makeRoom(c, dest, opts) {
 
 /* events: every one is built fresh from random parameters, so no two are the same.
    All start softly (>= 15 ms rise) and sit far away (low-passed, panned, a little room). Levels are relative to the bed. */
+/** event gains, calibrated with the measurement below so each sits where the spec puts it relative to the bed */
+const EVG = { page: 0.7, shift: 1.25, book: 0.45, door: 3.5, steps: 1.0, creak: 0.2 };
 const SYNTH = {
   /** a page: 2-3 overlapping rustles of filtered noise, the last one the "flip", 0.35-0.7 s */
   page(c, dest, t) {
@@ -502,7 +504,7 @@ const SYNTH = {
       const bp = biq(c, "bandpass", cf * rnd(0.8, 1.25), rnd(0.5, 0.9));
       const hp = biq(c, "highpass", 450, 0.7);
       const g = c.createGain(); const t0 = t + (i / n) * dur * rnd(0.6, 0.9), len = dur * rnd(0.35, 0.6);
-      const peak = 0.028 * db(lvl) * (i === n - 1 ? 1 : 0.6);
+      const peak = EVG.page * db(lvl) * (i === n - 1 ? 1 : 0.6);
       g.gain.setValueAtTime(0, t0); g.gain.linearRampToValueAtTime(peak, t0 + len * 0.35); g.gain.linearRampToValueAtTime(0, t0 + len);
       s.connect(hp); hp.connect(bp); bp.connect(g); g.connect(lp); s.start(t0); s.stop(t0 + len + 0.02);
     }
@@ -513,7 +515,7 @@ const SYNTH = {
     const dur = rnd(0.6, 1.2), pan = rnd(-0.8, 0.8), lvl = rnd(-5, -1), f = rnd(500, 850);
     const s = c.createBufferSource(); s.buffer = noiseBuf(c, dur, 0);
     const lp = biq(c, "lowpass", f, 0.6), g = c.createGain(), p = c.createStereoPanner(); p.pan.value = pan;
-    const pk = 0.05 * db(lvl);
+    const pk = EVG.shift * db(lvl);
     g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(pk, t + dur * 0.4); g.gain.linearRampToValueAtTime(pk * 0.5, t + dur * 0.7); g.gain.linearRampToValueAtTime(0, t + dur);
     s.connect(lp); lp.connect(g); g.connect(p); p.connect(dest); s.start(t); s.stop(t + dur + 0.02);
     return { dur: +dur.toFixed(2), lp: Math.round(f), pan: +pan.toFixed(2), dB: +lvl.toFixed(1) };
@@ -523,9 +525,9 @@ const SYNTH = {
     const f = rnd(90, 140), pan = rnd(-0.6, 0.6), lvl = rnd(-6, -2);
     const p = c.createStereoPanner(); p.pan.value = pan; p.connect(dest);
     const o = c.createOscillator(); o.frequency.setValueAtTime(f, t); o.frequency.exponentialRampToValueAtTime(f * 0.8, t + 0.18);
-    const g = c.createGain(); g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(0.06 * db(lvl), t + 0.02); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.22);
+    const g = c.createGain(); g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(EVG.book * db(lvl), t + 0.02); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.22);
     o.connect(g); g.connect(p); o.start(t); o.stop(t + 0.25);
-    const s = c.createBufferSource(); s.buffer = noiseBuf(c, 0.12, 3); const lp = biq(c, "lowpass", rnd(250, 400), 0.7); const g2 = gainN(c, 0.05 * db(lvl));
+    const s = c.createBufferSource(); s.buffer = noiseBuf(c, 0.12, 3); const lp = biq(c, "lowpass", rnd(250, 400), 0.7); const g2 = gainN(c, EVG.book * 0.8 * db(lvl));
     s.connect(lp); lp.connect(g2); g2.connect(p); s.start(t + 0.004);
     return { hz: Math.round(f), pan: +pan.toFixed(2), dB: +lvl.toFixed(1) };
   },
@@ -534,7 +536,7 @@ const SYNTH = {
     const pan = rnd(-0.9, 0.9), lvl = rnd(-8, -4), dur = rnd(0.3, 0.5);
     const s = c.createBufferSource(); s.buffer = noiseBuf(c, dur, 2);
     const lp = biq(c, "lowpass", rnd(160, 240), 0.9), g = c.createGain(), p = c.createStereoPanner(); p.pan.value = pan;
-    g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(0.16 * db(lvl), t + 0.03); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(EVG.door * db(lvl), t + 0.03); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
     s.connect(lp); lp.connect(g); g.connect(p); p.connect(dest); s.start(t);
     return { dur: +dur.toFixed(2), pan: +pan.toFixed(2), dB: +lvl.toFixed(1) };
   },
@@ -543,7 +545,7 @@ const SYNTH = {
     const n = 6 + Math.floor(Math.random() * 5), gap = rnd(0.5, 0.6), p = c.createStereoPanner(); p.pan.value = -0.8; p.connect(dest);
     p.pan.linearRampToValueAtTime(0.8, t + n * gap);
     for (let i = 0; i < n; i++) {
-      const s = c.createBufferSource(); s.buffer = noiseBuf(c, 0.08, 4); const lp = biq(c, "lowpass", 500, 0.8); const g = gainN(c, 0.07);
+      const s = c.createBufferSource(); s.buffer = noiseBuf(c, 0.08, 4); const lp = biq(c, "lowpass", 500, 0.8); const g = gainN(c, EVG.steps);
       s.connect(lp); lp.connect(g); g.connect(p); s.start(t + i * gap);
     }
     return { n, gap: +gap.toFixed(2) };
@@ -552,7 +554,7 @@ const SYNTH = {
   creak(c, dest, t) {
     const f = rnd(300, 500), o = c.createOscillator(); o.type = "sawtooth";
     o.frequency.setValueAtTime(f, t); o.frequency.linearRampToValueAtTime(f * rnd(1.3, 1.6), t + 0.45);
-    const bp = biq(c, "bandpass", 900, 2), g = c.createGain(); g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(0.012, t + 0.05); g.gain.linearRampToValueAtTime(0, t + 0.5);
+    const bp = biq(c, "bandpass", 900, 2), g = c.createGain(); g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(EVG.creak, t + 0.05); g.gain.linearRampToValueAtTime(0, t + 0.5);
     o.connect(bp); bp.connect(g); g.connect(dest); o.start(t); o.stop(t + 0.55);
     return { hz: Math.round(f) };
   },
@@ -659,7 +661,9 @@ async function renderShort(build) {
 async function measureAll() {
   const rows = [];
   const add = (name, m, note) => rows.push({ name, peak: +m.peak.toFixed(1), rms: +m.rms.toFixed(1), note: note || "" });
-  add("הקלדה v1, לחיצה (50ms סביב השיא)", await renderShort((c, cue) => { TYPING.v1.down(c, cue, 0.05, "KeyF"); }));
+  const v1s = []; for (let i = 0; i < 6; i++) v1s.push(await renderShort((c, cue) => { TYPING.v1.down(c, cue, 0.05, "KeyF"); }));
+  const pk1 = v1s.map((m) => m.peak);
+  add("הקלדה v1, לחיצה (6 דגימות, ממוצע)", { peak: pk1.reduce((a, b) => a + b) / 6, rms: v1s.map((m) => m.rms).reduce((a, b) => a + b) / 6 }, "פיזור שיא " + (Math.max(...pk1) - Math.min(...pk1)).toFixed(1) + "dB");
   const v2s = [];
   for (let i = 0; i < 6; i++) v2s.push(await renderShort((c, cue) => { TYPING.v2.lastDown = -9; TYPING.v2.recent = []; TYPING.v2.down(c, cue, 0.05, "KeyF"); }));
   const pk = v2s.map((m) => m.peak);
@@ -674,7 +678,7 @@ async function measureAll() {
   add("ספרייה v1, 12 שניות", await render(12, (c, cue, noise) => { const s = c.createBufferSource(); s.buffer = libraryV1Buffer(c); s.connect(noise); s.start(); }), "כולל דף בשנייה 7.3");
   add("ספרייה v2, אוויר בלבד, 20 שניות", await render(20, (c, cue, noise) => { const r = makeRoom(c, noise, {}); r.events = false; r.out.gain.value = 1; r.tick(20); }));
   add("דף מתהפך v2 (50ms סביב השיא, בלי האוויר)", await renderShort((c, cue, noise) => { const g = gainN(c, 1); g.connect(noise); SYNTH.page(c, g, 0.05); }));
-  add("ספר על שולחן v2 (בלי האוויר)", await renderShort((c, cue, noise) => { const g = gainN(c, 1); g.connect(noise); SYNTH.book(c, g, 0.05); }));
+  for (const k of ["shift", "book", "door", "steps", "creak"]) add(EVENTS[k].he + " v2 (בלי האוויר)", await renderShort((c, cue, noise) => { const g = gainN(c, 1); g.connect(noise); SYNTH[k](c, g, 0.05); }));
   return rows;
 }
 $("#runMeasure").addEventListener("click", async () => {

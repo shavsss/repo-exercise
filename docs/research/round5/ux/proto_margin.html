@@ -1,0 +1,206 @@
+<title>פתקים בשוליים: שלושה כיוונים</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@400;500;600&family=IBM+Plex+Mono:wght@500&family=Frank+Ruhl+Libre:wght@400;500;700&display=swap">
+<style>
+/* Layout: the lesson column centred, margin notes on its outer (left) side; a control bar above switches direction, lab and width. Tokens from core/app/src/styles.css plus the F5 --mn-* tokens. */
+:root{
+  --bg:#ece4d6; --paper:#f4ede2; --sheet:#faf6ee; --ink:#22261d; --ink-soft:#44493a; --muted:#5c5f4e;
+  --line:#ddd2bf; --line-strong:#ae9f84;
+  --mn-ink:#4a4a40; --mn-quiet:#7d7969; --mn-rule:#b9ad95;
+  --lan:#9b2c22; --gil:#2a5c8a; --mn-accent:var(--lan);
+  --old-paper:#fbf1c7; --old-c1:#0f766e; --old-c2:#1f5f9e; --old-c3:#6d3fa0; --old-c4:#b91c1c;
+  --font:"IBM Plex Sans Hebrew",system-ui,sans-serif; --serif:"Frank Ruhl Libre","IBM Plex Sans Hebrew",serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+  --read-size:18px; --mn-size:calc(var(--read-size)*.78); --mn-lh:1.55;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#1f1e1d; --paper:#262624; --sheet:#2d2c2a; --ink:#dedad1; --ink-soft:#c9c5bb; --muted:#bab5ab;
+  --line:#3a3936; --line-strong:#5c5a55; --mn-ink:#bdb8ad; --mn-quiet:#8c887e; --mn-rule:#55534e;
+  --lan:#e79a8f; --gil:#9cc1e0; --old-paper:#3a3622; --old-c1:#8fd0c0; --old-c2:#94bfdc; --old-c3:#c9b0ef; --old-c4:#ff8f84; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#1f1e1d; --paper:#262624; --sheet:#2d2c2a; --ink:#dedad1; --ink-soft:#c9c5bb; --muted:#bab5ab;
+  --line:#3a3936; --line-strong:#5c5a55; --mn-ink:#bdb8ad; --mn-quiet:#8c887e; --mn-rule:#55534e;
+  --lan:#e79a8f; --gil:#9cc1e0; --old-paper:#3a3622; --old-c1:#8fd0c0; --old-c2:#94bfdc; --old-c3:#c9b0ef; --old-c4:#ff8f84; color-scheme:dark}
+:root[data-lab="gil"]{--mn-accent:var(--gil)}
+html{direction:rtl}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);margin:0;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 60px}
+.wrap{max-width:72rem;margin:0 auto;display:grid;gap:14px}
+h1{font-family:var(--serif);font-size:1.65rem;margin:0;font-weight:700}
+.lede{margin:0;color:var(--ink-soft);line-height:1.7;max-width:46rem}
+.bar{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;padding:10px 0;border-block:1px solid var(--line);position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);z-index:5}
+.seg{display:flex;gap:2px;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:2px}
+.seg button{font:inherit;font-size:.86rem;border:0;background:transparent;color:var(--ink-soft);padding:.3rem .7rem;border-radius:6px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--sheet)}
+.seg button:focus-visible{outline:2px solid var(--mn-accent);outline-offset:1px}
+.lbl{font-size:.78rem;color:var(--muted)}
+.desc{font-size:.9rem;color:var(--ink-soft);line-height:1.65;max-width:52rem;margin:0}
+.desc b{font-weight:600;color:var(--ink)}
+/* the page */
+.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:6px;padding:2.4rem 1.2rem 3rem;overflow:hidden}
+.stage{box-sizing:border-box;position:relative;margin:0 auto;max-width:calc(36rem + 17rem);padding-inline-end:17rem}
+.sheet[data-w="laptop"] .stage{max-width:calc(36rem + 13rem);padding-inline-end:13rem}
+.col{max-width:36rem;font-size:var(--read-size);line-height:1.8}
+.col h2{font-family:var(--serif);font-size:1.4em;margin:0 0 .6em;font-weight:700;line-height:1.3}
+.col p{margin:0 0 1em}
+.col b{font-weight:600}
+.m{font-family:Georgia,serif;font-style:italic;unicode-bidi:isolate;direction:ltr;display:inline-block}
+.notes{position:absolute;inset-block:0;inset-inline-end:0;width:15rem}
+.sheet[data-w="laptop"] .notes{width:11.5rem}
+.note{position:absolute;inset-inline:0;cursor:pointer;transition:opacity .12s}
+.note .ty{display:flex;gap:.35em;align-items:baseline;font-size:.82em;color:var(--mn-quiet);font-weight:600;font-family:var(--font)}
+.note .sym{font-family:var(--mono);font-weight:500}
+.note.out .sym{color:var(--mn-accent)}
+.note .tx{display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
+.note.open .tx{-webkit-line-clamp:unset}
+.leader{position:absolute;height:0;border-top:1px dashed var(--mn-rule);opacity:0;transition:opacity .12s;pointer-events:none}
+.leader.on{opacity:1}
+.anc{transition:background-color .12s}
+.anc.on{background:color-mix(in srgb,var(--mn-accent) 13%,transparent);border-radius:2px}
+.sup{unicode-bidi:isolate;margin-inline-start:2px;display:none;font:500 .66em/0 var(--font);vertical-align:.6em;color:var(--mn-accent);font-variant-numeric:tabular-nums;padding-inline:1px 2px;cursor:pointer}
+.tick{display:none}
+.inflow{display:none}
+
+/* ===== A: pencil in the margin ===== */
+[data-dir="a"] .anc{text-decoration:underline 1px var(--mn-rule);text-underline-offset:5px}
+[data-dir="a"] .note{font:400 var(--mn-size)/var(--mn-lh) var(--font);color:var(--mn-ink);padding-inline-start:10px;border-inline-start:1px solid var(--mn-rule)}
+[data-dir="a"] .note[data-t="q"]{border-inline-start-style:dotted;border-inline-start-width:2px;border-inline-start-color:var(--mn-accent)}
+[data-dir="a"] .note[data-t="a"]{border-inline-start:3px double var(--mn-accent)}
+[data-dir="a"] .note .tx{-webkit-mask-image:linear-gradient(#000 72%,transparent)}
+[data-dir="a"] .note.open .tx{-webkit-mask-image:none}
+
+/* ===== B: index-card tab ===== */
+[data-dir="b"] .note{font:400 var(--mn-size)/var(--mn-lh) var(--font);color:var(--mn-ink);background:var(--paper);border:1px solid var(--line);border-radius:2px;box-shadow:0 1px 0 var(--line);padding:7px 10px 9px;margin-inline-start:18px}
+[data-dir="b"] .note::before{content:attr(data-n);position:absolute;inset-inline-start:-19px;top:6px;width:18px;height:22px;background:var(--paper);border:1px solid var(--line);border-inline-end:0;border-radius:0 3px 3px 0;font:500 11px/22px var(--mono);text-align:center;color:var(--mn-quiet)}
+[data-dir="b"] .note.out::before{color:var(--mn-accent);box-shadow:inset -2px 0 0 var(--mn-accent)}
+[data-dir="b"] .note .ty{border-bottom:1px solid var(--line);padding-bottom:3px;margin-bottom:4px}
+[data-dir="b"] .note[data-t="q"]{border-top:2px dotted var(--mn-accent)}
+[data-dir="b"] .note[data-t="a"]{border-top:3px double var(--mn-accent)}
+[data-dir="b"] .tick{display:block;position:absolute;width:6px;height:6px;background:var(--mn-rule)}
+
+/* ===== C: typeset side notes ===== */
+[data-dir="c"] .sup{display:inline}
+[data-dir="c"] .note{font:400 calc(var(--mn-size)*1.06)/var(--mn-lh) var(--serif);color:var(--ink-soft);max-width:15em;margin-inline-start:.6rem}
+[data-dir="c"] .note .ty{font-size:.74em;letter-spacing:.02em}
+[data-dir="c"] .note .num{color:var(--mn-accent);font:500 .9em var(--font);font-variant-numeric:tabular-nums;margin-inline-end:.35em}
+[data-dir="c"] .note .tx{display:inline;-webkit-line-clamp:unset}
+[data-dir="c"] .note .ty{display:block}
+
+/* ===== today: yellow sticky (for comparison) ===== */
+[data-dir="old"] .note{font:400 .82rem/1.5 var(--font);color:var(--ink);background:var(--old-paper);padding:16px 10px 10px;box-shadow:0 8px 16px -6px rgb(0 0 0/22%);border-top:3px solid var(--c);width:184px;transform:rotate(-1deg)}
+[data-dir="old"] .note:nth-child(2n){transform:rotate(.8deg)}
+[data-dir="old"] .note::after{content:"";position:absolute;top:-8px;inset-inline-start:40%;width:46px;height:14px;background:rgb(220 205 170/.7)}
+[data-dir="old"] .note .ty{color:var(--c);font-size:.78rem}
+[data-dir="old"] .note .tx{-webkit-line-clamp:4}
+[data-dir="old"] .note[data-t="n"]{--c:var(--old-c1)} [data-dir="old"] .note[data-t="d"]{--c:var(--old-c2)}
+[data-dir="old"] .note[data-t="q"]{--c:var(--old-c3)} [data-dir="old"] .note[data-t="a"]{--c:var(--old-c4)}
+
+/* ===== narrow: in-flow ===== */
+.sheet[data-w="narrow"] .stage{padding-inline-end:0;max-width:36rem}
+.sheet[data-w="narrow"] .notes,.sheet[data-w="narrow"] .leader{display:none}
+.sheet[data-w="narrow"] .sup{display:inline}
+.sheet[data-w="narrow"] .inflow.show{display:block;font:400 var(--mn-size)/var(--mn-lh) var(--font);color:var(--mn-ink);margin:-.4em 0 1em;padding-inline-start:12px;border-inline-start:1px solid var(--mn-rule);margin-inline-start:1.4em}
+.sheet[data-w="narrow"] .inflow .ty{font-size:.82em;color:var(--mn-quiet);font-weight:600}
+.sheet[data-w="narrow"] .inflow.out .sym{color:var(--mn-accent)}
+.foot{font-size:.82rem;color:var(--muted);line-height:1.6}
+@media (max-width:820px){.sheet{padding:1.6rem .9rem 2rem}.bar{position:static}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+  <h1>פתקים בשוליים: שלושה כיוונים</h1>
+  <p class="lede">כתבת שאתה מקווה שהפתקים לא ייראו כמו בתמונות. כאן אותו קטע שיעור עם אותם ארבעה פתקים בשלושה סגנונות חדשים, וגם הסגנון של היום להשוואה. רחף מעל פתק כדי לראות לאיזה משפט הוא שייך, ולחץ כדי לפתוח אותו.</p>
+
+  <div class="bar" role="group" aria-label="תצוגה">
+    <span class="lbl">סגנון</span>
+    <div class="seg" id="dir"><button data-v="a" aria-pressed="true">א · עיפרון</button><button data-v="b" aria-pressed="false">ב · כרטיסייה</button><button data-v="c" aria-pressed="false">ג · הערות צד</button><button data-v="old" aria-pressed="false">היום</button></div>
+    <span class="lbl">מעבדה</span>
+    <div class="seg" id="lab"><button data-v="lan" aria-pressed="true">לנצ'סטר</button><button data-v="gil" aria-pressed="false">גילואה</button></div>
+    <span class="lbl">רוחב</span>
+    <div class="seg" id="wid"><button data-v="wide" aria-pressed="true">מסך רחב</button><button data-v="laptop" aria-pressed="false">מחשב נייד</button><button data-v="narrow" aria-pressed="false">צר</button></div>
+    <span class="lbl">ערכה</span>
+    <div class="seg" id="thm"><button data-v="auto" aria-pressed="true">אוטומטי</button><button data-v="light" aria-pressed="false">בהיר</button><button data-v="dark" aria-pressed="false">כהה</button></div>
+  </div>
+  <p class="desc" id="desc"></p>
+
+  <div class="sheet" id="sheet" data-dir="a" data-w="wide">
+    <div class="stage" id="stage">
+      <div class="col" id="col">
+        <h2>מכללים מן הניסיון אל הוכחה</h2>
+        <p>המילה גאומטריה פירושה מדידת אדמה, והידע הראשון היה כללי חישוב: שטח מלבן הוא מכפלת הצלעות, נפח של מחסן, קיבולת של כלי. המצרים והבבלים חישבו שטחים ונפחים פשוטים וידעו "בדיוק ניכר" את יחס ההיקף לקוטר, אבל אין אצלם משפט והוכחה: אוסף כללים שנלמדו מניסיון.</p>
+        <p data-p="1"><b>הנחה נסתרת בכלל בלי הוכחה.</b> כלל שנלמד מניסיון נכון רק בצורות שעליהן נוסה. בכתובות מקדש אדפו שטח של מרובע מחושב כ"ממוצע זוג צלעות נגדיות כפול ממוצע הזוג השני". זה מדויק רק במלבן: במעוין שצלעו 10 וזוויתו 60° הכלל נותן 100 במקום 86.6. <span class="anc" data-n="1">ההנחה שלא נאמרה היא "הזוויות ישרות", ושום דבר בכלל עצמו לא מזהיר מתי היא נשברת.</span></p>
+        <p data-p="2">אבל ניסיון חוזר אינו הוכחה שהאקסיומה הכרחית. ה"יסודות" של אוקלידס בנו את הגאומטריה כולה על אקסיומות כאלה, וכאלפיים שנה לא נגעו ביסודות. <span class="anc" data-n="2">לובצ'בסקי פרסם ב-1829 גאומטריה שבה דרך נקודה מחוץ לישר עוברים כמה ישרים מקבילים</span>, ובלטרמי הראה ב-1868 שהיא עקבית בדיוק כמו של אוקלידס. אקסיומת המקבילים היא לכן בחירה, שהניסיון שלנו, בקנה מידה של שדות ובניינים, אינו יכול להכריע.</p>
+        <h2>פדורוב: 230 קבוצות, ולמה אין סימטריה מסדר 5</h2>
+        <p data-p="3">אותה הפשטה פתרה בעיה בפיזיקה. פדורוב ראה בגביש "מערכת סדירה של גופים גאומטריים במקום מערכת של אטומים", ומצא את כל קבוצות הסימטריה האפשריות של מערכת כזאת: <span class="anc" data-n="3">בדיוק 230</span>. התאוריה אוששה אחר כך בתצפית על גבישים. בסריג מותרים רק סיבובים מסדרים 1, 2, 3, 4 ו-6: העקבה של טבלת הסיבוב שלמה, ולכן <span class="m">2cos θ</span> שלם, ולסיבוב של 72° <span class="m">2cos 72° = 0.618</span>.</p>
+        <p data-p="4"><b>הנחה שנשברה, ומשפט שנשאר.</b> ב-1982 צילם שכטמן סגסוגת שתמונת העקיפה שלה חדה כמו של גביש, ובעלת סימטריה מסדר 5. המשפט לא נפל: הוא נכון לכל מבנה מחזורי. <span class="anc" data-n="4">נשברה ההנחה שלא נאמרה, שכל מוצק מסודר הוא מחזורי.</span> ב-1992 שונתה הגדרת הגביש מ"מחזורי" ל"בעל תמונת עקיפה בדידה".</p>
+      </div>
+      <div class="notes" id="notes"></div>
+    </div>
+  </div>
+  <p class="foot">תוכן השיעור מתוך שיעור M0.1 (K1:31–33). הפתקים כתובים לדוגמה. ברוחב "מחשב נייד" יש לפתקים כ-11 ס"מ פחות מקום, כמו במסך 1366–1440 עם המגירה סגורה. במצב "צר" הפתק נפתח בתוך הטקסט, מתחת לפסקה, ולא מעליו.</p>
+</div>
+
+<script>
+const NOTES=[
+ {n:1,t:'n',sym:'·',ty:'הערה',tx:'אותו דבר במודל לנצ\'סטר: הריבוע נכון רק כשכל יחידה יכולה לירות בכל יחידה. ההנחה לא כתובה בנוסחה.'},
+ {n:2,t:'d',sym:'↓',ty:'להעמקה',tx:'כרך 3, הפרק על גאומטריה לא אוקלידית. לבדוק איך בלטרמי בנה מודל בתוך הגאומטריה הרגילה.'},
+ {n:3,t:'q',sym:'?',ty:'שאלה למומחה',tx:'בממד 4 יש סריג עם סיבוב מסדר 5? אם כן, איך זה מתיישב עם נימוק העקבה?'},
+ {n:4,t:'a',sym:'¶',ty:'רעיון למאמר',tx:'הנחות שלא נאמרו: מאדפו ועד שכטמן, ומה זה אומר על מודלים מבצעיים שנבנו על נתוני עבר.'},
+];
+const DESC={
+ a:'<b>א · עיפרון בשוליים.</b> בלי תיבה ובלי רקע: קו דק בצד וטקסט בגוון עיפרון. המשפט שהפתק שייך אליו מסומן תמיד בקו תחתון דק; ברחיפה הוא נצבע ומופיע קו מוביל. הכי שקט, ומתאים למפה שמסמנים עליה בעיפרון.',
+ b:'<b>ב · כרטיסייה.</b> כרטיס תיוק בגוון אחד מעל הדף, עם לשונית ממוספרת שפונה לטקסט, וצל של פיקסל אחד. ריבוע קטן בקצה העמודה מסמן את השורה. הכי "חומרי", והמספרים עוזרים למצוא פתק.',
+ c:'<b>ג · הערות צד.</b> כמו בספר מודפס: מספר קטן בתוך הטקסט, ואותו מספר בשוליים בגובה השורה, בגופן הספרי. בלי שום מסגרת. הכי יפה ו"ספרי".',
+ old:'<b>היום.</b> פתק צהוב מוטה עם סלוטייפ, צל עמוק ופס צבע לכל סוג. הצהוב באותה בהירות כמו הדף, ולכן הוא נראה ככתם; הצל הופך אותו לדבר הכי רועש בעמוד.'
+};
+const sheet=document.getElementById('sheet'),stage=document.getElementById('stage'),notesEl=document.getElementById('notes'),col=document.getElementById('col');
+function build(){
+ notesEl.innerHTML='';stage.querySelectorAll('.leader,.tick').forEach(e=>e.remove());
+ col.querySelectorAll('.sup,.inflow').forEach(e=>e.remove());
+ NOTES.forEach(d=>{
+  const out=d.t==='q'||d.t==='a';
+  const el=document.createElement('div');el.className='note'+(out?' out':'');el.dataset.t=d.t;el.dataset.n=d.n;el.tabIndex=0;
+  el.innerHTML=`<div class="ty"><span class="num">${d.n}</span><span class="sym">${d.sym}</span><span>${d.ty}</span></div><div class="tx">${d.tx}</div>`;
+  notesEl.appendChild(el);
+  const anc=col.querySelector(`.anc[data-n="${d.n}"]`);
+  const sup=document.createElement('sup');sup.className='sup';sup.textContent=d.n;sup.tabIndex=0;anc.after(sup);
+  const inf=document.createElement('div');inf.className='inflow'+(out?' out':'');inf.innerHTML=`<div class="ty"><span class="sym">${d.sym}</span> ${d.ty}</div>${d.tx}`;
+  anc.closest('p').after(inf);
+  const ld=document.createElement('div');ld.className='leader';stage.appendChild(ld);
+  const tk=document.createElement('span');tk.className='tick';stage.appendChild(tk);
+  const on=v=>{anc.classList.toggle('on',v);ld.classList.toggle('on',v&&sheet.dataset.dir==='a')};
+  [el,sup].forEach(x=>{x.addEventListener('mouseenter',()=>on(true));x.addEventListener('mouseleave',()=>on(false));x.addEventListener('focus',()=>on(true));x.addEventListener('blur',()=>on(false))});
+  el.addEventListener('click',()=>{el.classList.toggle('open');layout()});
+  sup.addEventListener('click',()=>{if(sheet.dataset.w==='narrow')inf.classList.toggle('show')});
+  d.el=el;d.anc=anc;d.ld=ld;d.tk=tk;
+ });
+ layout();
+}
+function layout(){
+ const sr=stage.getBoundingClientRect(),cr=col.getBoundingClientRect();
+ let floor=-1e9;
+ NOTES.forEach(d=>{
+  const r=d.anc.getClientRects()[0];if(!r)return;
+  const lineTop=r.top-sr.top;
+  const top=Math.max(lineTop-2,floor);
+  d.el.style.top=top+'px';
+  floor=top+d.el.offsetHeight+14;
+  // leader from column's outer edge to the note
+  const nr=d.el.getBoundingClientRect();
+  d.ld.style.top=(lineTop+r.height*0.62)+'px';
+  const left=nr.right-sr.left, right=cr.left-sr.left;
+  d.ld.style.left=Math.min(left,right)+'px';d.ld.style.width=Math.abs(right-left)+'px';
+  d.tk.style.top=(lineTop+r.height/2-3)+'px';d.tk.style.left=(cr.left-sr.left-14)+'px';
+ });
+}
+function seg(id,fn){const g=document.getElementById(id);g.querySelectorAll('button').forEach(b=>b.onclick=()=>{g.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));fn(b.dataset.v);requestAnimationFrame(layout)})}
+seg('dir',v=>{sheet.dataset.dir=v;document.getElementById('desc').innerHTML=DESC[v]});
+seg('lab',v=>{document.documentElement.dataset.lab=v});
+seg('wid',v=>{sheet.dataset.w=v});
+seg('thm',v=>{if(v==='auto')delete document.documentElement.dataset.theme;else document.documentElement.dataset.theme=v});
+document.getElementById('desc').innerHTML=DESC.a;
+addEventListener('resize',layout);
+if(document.fonts)document.fonts.ready.then(layout);
+build();
+const mq=matchMedia('(max-width: 900px)');function auto(){if(mq.matches&&sheet.dataset.w!=='narrow')document.querySelector('#wid [data-v="narrow"]').click()}auto();
+</script>

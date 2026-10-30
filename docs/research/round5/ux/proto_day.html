@@ -1,0 +1,286 @@
+<title>יום לימוד: פתיחה, גבול וסגירה</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@400;500;600&family=Frank+Ruhl+Libre:wght@500;700&display=swap">
+<style>
+/* Layout: the app's centre column inside a quiet frame; a strip of five moments above it. Tokens copied from core/app/src/styles.css (מפת מבצעים). */
+:root{
+  --bg:#ece4d6; --paper:#f4ede2; --sheet:#faf6ee; --ink:#22261d; --ink-soft:#44493a; --muted:#676a58;
+  --line:#ddd2bf; --line-strong:#ae9f84; --accent:#b3261e; --accent-soft:#f3e0d9; --ok:#3f7a34; --warn:#8a6100;
+  --amber:#f6ead0; --amber-line:#d8b56a; --hover:#efe7da;
+  --font:"IBM Plex Sans Hebrew",system-ui,sans-serif; --serif:"Frank Ruhl Libre","IBM Plex Sans Hebrew",serif;
+  --measure:40rem;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#1f1e1d; --paper:#262624; --sheet:#2d2c2a; --ink:#ece9e1; --ink-soft:#c9c5bb; --muted:#9d998f;
+  --line:#3a3936; --line-strong:#5c5a55; --accent:#f08a7e; --accent-soft:#3a2522; --ok:#93cf86; --warn:#e0c46c;
+  --amber:#2f2a1e; --amber-line:#7a6430; --hover:#2f2e2c; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#1f1e1d; --paper:#262624; --sheet:#2d2c2a; --ink:#ece9e1; --ink-soft:#c9c5bb; --muted:#9d998f;
+  --line:#3a3936; --line-strong:#5c5a55; --accent:#f08a7e; --accent-soft:#3a2522; --ok:#93cf86; --warn:#e0c46c;
+  --amber:#2f2a1e; --amber-line:#7a6430; --hover:#2f2e2c; color-scheme:dark}
+html{direction:rtl}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.75;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 48px}
+.wrap{max-width:62rem;margin:0 auto;display:grid;gap:18px}
+header h1{font-family:var(--serif);font-weight:700;font-size:1.7rem;margin:0;text-wrap:balance}
+header p{margin:.2rem 0 0;color:var(--ink-soft);max-width:44rem}
+.strip{display:flex;flex-wrap:wrap;gap:6px;border-bottom:1px solid var(--line);padding-bottom:10px}
+.strip button{font:inherit;font-size:.9rem;border:1px solid var(--line);background:var(--paper);color:var(--ink-soft);
+  padding:.35rem .8rem;border-radius:999px;cursor:pointer;display:flex;gap:.45rem;align-items:center}
+.strip button .t{font-variant-numeric:tabular-nums;color:var(--muted);font-size:.8rem}
+.strip button[aria-selected="true"]{background:var(--ink);color:var(--sheet);border-color:var(--ink)}
+.strip button[aria-selected="true"] .t{color:var(--line)}
+.strip button:focus-visible,.btn:focus-visible,textarea:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.why{font-size:.88rem;color:var(--muted);border-inline-start:2px solid var(--line-strong);padding-inline-start:.7rem;max-width:46rem}
+.why b{color:var(--ink-soft);font-weight:600}
+/* the app frame */
+.frame{background:var(--paper);border:1px solid var(--line);border-radius:10px;overflow:hidden;display:grid;grid-template-rows:auto 1fr auto;min-height:540px}
+.top{display:flex;justify-content:space-between;align-items:center;padding:.5rem 1rem;border-bottom:1px solid var(--line);font-size:.85rem;color:var(--muted)}
+.top b{color:var(--ink-soft);font-weight:500}
+.page{background:var(--sheet);padding:2rem 1.2rem 2.5rem;position:relative}
+.col{max-width:var(--measure);margin:0 auto;display:grid;gap:1rem}
+.col p{margin:0}
+.col h2{font-family:var(--serif);font-size:1.35rem;margin:.4rem 0 0;font-weight:700}
+.dock{display:flex;gap:.4rem;align-items:center;justify-content:space-between;padding:.45rem 1rem;border-top:1px solid var(--line);font-size:.82rem;color:var(--muted);flex-wrap:wrap}
+.dock .left,.dock .right{display:flex;gap:.4rem;align-items:center;flex-wrap:wrap}
+.chip{border:1px solid var(--line);border-radius:6px;padding:.15rem .55rem;background:var(--paper)}
+.clock{font-variant-numeric:tabular-nums;color:var(--muted);cursor:default}
+.clock.over{color:var(--accent)}
+.btn{font:inherit;font-size:.92rem;border-radius:7px;padding:.45rem 1rem;cursor:pointer;border:1px solid var(--line-strong);background:var(--sheet);color:var(--ink)}
+.btn.primary{background:var(--ink);color:var(--sheet);border-color:var(--ink)}
+.btn.quiet{border-color:transparent;background:transparent;color:var(--muted);text-decoration:underline;text-underline-offset:3px}
+.row{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
+.kicker{font-size:.78rem;letter-spacing:.04em;color:var(--muted)}
+/* warm-up */
+.warm{display:grid;gap:1.1rem}
+.warm .greet{font-family:var(--serif);font-size:1.5rem;font-weight:700;margin:0}
+.where{display:flex;gap:.6rem;flex-wrap:wrap;color:var(--ink-soft);font-size:.92rem}
+.where span{border-bottom:1px dotted var(--line-strong)}
+.q{border:1px solid var(--line);border-radius:8px;padding:1rem 1.1rem;display:grid;gap:.7rem;background:var(--paper)}
+.q .n{font-size:.78rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.q .src{font-size:.78rem;color:var(--muted)}
+textarea,input[type=text]{font:inherit;width:100%;box-sizing:border-box;border:1px solid var(--line);border-radius:6px;background:var(--sheet);color:var(--ink);padding:.5rem .65rem;resize:vertical}
+.conf{display:flex;gap:.4rem;flex-wrap:wrap}
+.conf .btn{font-size:.85rem;padding:.3rem .8rem}
+.ans{border-inline-start:3px solid var(--ok);padding:.2rem .8rem;color:var(--ink-soft);font-size:.95rem}
+.ans.amber{border-color:var(--amber-line);background:var(--amber);border-radius:0 6px 6px 0}
+.dots{display:flex;gap:6px;align-items:center}
+.dots i{width:8px;height:8px;border-radius:50%;background:var(--line)}
+.dots i.on{background:var(--ink-soft)}
+.first{border-top:1px solid var(--line);padding-top:1rem;display:grid;gap:.5rem}
+.first q{font-family:var(--serif);font-size:1.12rem;quotes:"״" "״"}
+/* boundary card */
+.boundary{margin-top:.5rem;border-top:1px solid var(--line);padding-top:1.1rem;display:grid;gap:.6rem}
+.boundary .line{display:flex;gap:.6rem;flex-wrap:wrap;font-size:.92rem;color:var(--ink-soft)}
+.boundary .line b{font-weight:600;color:var(--ink)}
+.boundary .sep{color:var(--line-strong)}
+.hold{font-size:.85rem;color:var(--muted)}
+/* break screen */
+.brk{display:grid;place-items:center;text-align:center;gap:1.4rem;padding-block:1.5rem}
+.brk .timer{font-family:var(--serif);font-size:3.2rem;font-variant-numeric:tabular-nums;color:var(--ink-soft);line-height:1}
+.brk ol{list-style:none;padding:0;margin:0;display:grid;gap:.55rem;text-align:start;max-width:26rem}
+.brk li{display:flex;gap:.7rem;align-items:baseline}
+.brk li .k{font-size:.78rem;color:var(--muted);min-width:4.5rem}
+.brk .phone{font-size:.88rem;color:var(--muted)}
+/* return hint */
+.ret{position:sticky;top:0;z-index:2;margin:-2rem -1.2rem 1rem;padding:.55rem 1.2rem;background:var(--paper);border-bottom:1px solid var(--line);font-size:.88rem;color:var(--ink-soft);display:flex;gap:.6rem;align-items:baseline;flex-wrap:wrap;transition:opacity .4s}
+.ret em{font-style:normal;font-family:var(--serif);color:var(--ink)}
+.ret.gone{opacity:0}
+/* close */
+.close{display:grid;gap:1.2rem}
+.field{display:grid;gap:.35rem}
+.field label{font-weight:600;font-size:.95rem}
+.field .auto{font-size:.92rem;color:var(--ink-soft);background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:.5rem .7rem}
+.open{list-style:none;margin:0;padding:0;display:grid;gap:.3rem;font-size:.92rem}
+.open li{display:flex;gap:.6rem;align-items:baseline}
+.open .tag{font-size:.75rem;color:var(--muted);min-width:5.5rem}
+.scale{display:flex;gap:1.2rem;flex-wrap:wrap}
+.scale label{display:flex;gap:.5rem;align-items:center;font-size:.9rem;color:var(--ink-soft)}
+.scale input{accent-color:var(--ink-soft)}
+.daystrip{display:flex;height:14px;border-radius:3px;overflow:hidden;gap:2px}
+.daystrip span{display:block;height:100%}
+.d1{background:var(--ink-soft)} .d2{background:var(--line-strong)} .d3{background:var(--line)} .brk-s{background:transparent;border:1px dashed var(--line)}
+.legend{display:flex;gap:1rem;flex-wrap:wrap;font-size:.78rem;color:var(--muted)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-inline-end:.3rem;vertical-align:-1px}
+.saved{color:var(--ok);font-size:.9rem}
+@media (max-width:560px){.page{padding:1.4rem .9rem 2rem}.ret{margin:-1.4rem -.9rem 1rem;padding-inline:.9rem}.brk .timer{font-size:2.5rem}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>יום לימוד: פתיחה, גבול וסגירה</h1>
+    <p>אב-טיפוס של חמישה רגעים ביום ארוך, בתוך העמודה של השיעור כמו שבחרת. אין בו טיימר שקוטע קריאה: כל הצעה מופיעה רק בגבול טבעי, ואפשר לדלג עליה בלחיצה אחת.</p>
+  </header>
+
+  <nav class="strip" role="tablist" aria-label="רגעי היום">
+    <button role="tab" id="tab-warm" aria-selected="true" data-v="warm"><span class="t">07:30</span>חימום בוקר</button>
+    <button role="tab" id="tab-bound" aria-selected="false" data-v="bound"><span class="t">09:15</span>סוף חלק</button>
+    <button role="tab" id="tab-brk" aria-selected="false" data-v="brk"><span class="t">09:16</span>הפסקה</button>
+    <button role="tab" id="tab-ret" aria-selected="false" data-v="ret"><span class="t">09:34</span>חזרה</button>
+    <button role="tab" id="tab-close" aria-selected="false" data-v="close"><span class="t">18:45</span>סגירת היום</button>
+  </nav>
+
+  <p class="why" id="why"></p>
+
+  <section class="frame" aria-live="polite">
+    <div class="top"><span><b>M0.1</b> · גאומטריה, מדידה והמספר הממשי · שיעור 2</span><span class="dots" aria-label="חלק 2 מתוך 4"><i class="on"></i><i class="on"></i><i></i><i></i></span></div>
+    <div class="page" id="page"></div>
+    <div class="dock">
+      <div class="right"><span class="chip">Aa</span><span class="chip">פתק</span><span class="chip">רעש רקע</span><span class="chip">ריכוז</span></div>
+      <div class="left"><span class="clock" id="clock" title="זמן פעיל מאז ההפסקה האחרונה · היום">42′ · היום 3:10</span></div>
+    </div>
+  </section>
+</div>
+
+<script>
+const WHY={
+ warm:'<b>למה:</b> שליפה מאתמול לפני חומר חדש היא אחת ההשפעות החזקות בחקר הלמידה (מטא-אנליזות על אפקט הבדיקה והמרווח, דרגה A). השאלות נכתבות אתמול במסך הסגירה, אז הבוקר לא מחכה למודל. 3–5 שאלות, כ-10 דקות, ו"דלג" תמיד גלוי.',
+ bound:'<b>למה:</b> הפרעה בגבול משימה עולה פחות מהפרעה באמצע (Iqbal & Bailey 2006, דרגה B). לכן אין טיימר: ההצעה נבדקת רק בסוף חלק, סוף סעיף או אחרי שאלת חשיבה, ומופיעה רק אם עברו 75 דקות (הסף שלך, בהגדרות Aa). "עוד חלק אחד" משתיק עד הגבול הבא.',
+ brk:'<b>למה:</b> הפסקות קצרות משפרות בעיקר את התחושה ומעט את הביצוע (Albulescu 2022, מטא-אנליזה). הפסקה בלי מסך ובלי פיד עדיפה. השעון סופר למעלה, לא לאחור: אין "נגמר הזמן".',
+ ret:'<b>למה:</b> רוב העלות של הפסקה היא החזרה. שורה אחת עם המשפט האחרון שקראת וכותרת החלק הבא, שנעלמת בגלילה הראשונה. מרחיב את "חזרה למקום שבו הפסיקו" שכבר קיים.',
+ close:'<b>למה:</b> כתיבת תוכנית קונקרטית למשימה פתוחה מורידה מחשבות טורדניות (Masicampo & Baumeister 2011; Scullin 2018, דרגה B). רוב השדות כבר מלאים מהנתונים. מה שנכתב כאן הופך לחימום של מחר.'
+};
+const page=document.getElementById('page'),why=document.getElementById('why'),clock=document.getElementById('clock');
+let actx=null;
+function chime(){try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();const t=actx.currentTime;
+ [[523.25,0],[659.25,.11]].forEach(([f,d])=>{const o=actx.createOscillator(),g=actx.createGain(),lp=actx.createBiquadFilter();lp.type='lowpass';lp.frequency.value=2400;
+ o.type='sine';o.frequency.value=f;g.gain.setValueAtTime(0,t+d);g.gain.linearRampToValueAtTime(.06,t+d+.012);g.gain.exponentialRampToValueAtTime(.0001,t+d+.9);
+ o.connect(lp);lp.connect(g);g.connect(actx.destination);o.start(t+d);o.stop(t+d+1)})}catch(e){}}
+
+const Q=[
+ {q:'למה הצורה של גיליון A4 נשמרת בקיפול לחצי רק אם יחס הצלעות מקיים $r^2=2$?',a:'לחצי יש צלעות $r/2$ ו-1, כלומר יחס $2/r$. הצורה נשמרת אם $r=2/r$, ולכן $r^2=2$.',src:'שיעור 2 · הסיפור'},
+ {q:'מה ההבדל בין גוף גאומטרי לצורה גאומטרית?',a:'גוף גאומטרי מפשיט מן החומר ושומר צורה ומידות. צורה גאומטרית מפשיטה גם מן ההתפשטות: משטח, קו ונקודה.',src:'שיעור 2 · הגדרה'},
+ {q:'סיבוב של 72° לא מחזיר שום סריג לעצמו. מאיזו הנחה זה נובע, ומה שכטמן שבר ב-1982?',a:'מהמחזוריות: בבסיס הסריג טבלת הסיבוב שלמה, ו-$2\\cos72°=0.618$ לא שלם. שכטמן לא הפריך את המשפט; הוא שבר את ההנחה שכל מוצק מסודר הוא מחזורי.',src:'שיעור 2 · פדורוב · חיבור פתוח'},
+];
+let qi=0;
+function renderMath(s){return s.replace(/\$([^$]+)\$/g,(m,x)=>'<span dir="ltr" style="font-family:Georgia,serif;font-style:italic;unicode-bidi:isolate">'+x.replace(/\^(\d)/g,'<sup>$1</sup>').replace(/\\cos/g,'cos ')+'</span>')}
+
+function warm(){
+ const q=Q[qi];
+ page.innerHTML=`<div class="col warm">
+  <div><div class="kicker">יום שישי · 30.10 · 07:30</div><p class="greet">בוקר טוב.</p></div>
+  <div class="where">אתמול עצרת ב: <span>M0.1</span><span>שיעור 2</span><span>חלק 2 מתוך 4</span></div>
+  <div class="q" id="q">
+   <div class="row" style="justify-content:space-between"><span class="n">שאלה ${qi+1} מתוך ${Q.length}</span><span class="dots">${Q.map((_,i)=>`<i class="${i<=qi?'on':''}"></i>`).join('')}</span></div>
+   <p style="margin:0">${renderMath(q.q)}</p>
+   <textarea id="wa" rows="2" placeholder="במילים שלך, בלי להציץ"></textarea>
+   <div class="conf" id="conf"><span class="hold">כמה אתה בטוח?</span>
+    <button class="btn" data-c="sure">בטוח</button><button class="btn" data-c="think">חושב שכן</button><button class="btn" data-c="guess">מנחש</button></div>
+   <div id="out"></div>
+   <span class="src">מתוך: ${q.src}</span>
+  </div>
+  <div class="row"><button class="btn quiet" id="skip">דלג על החימום</button></div>
+ </div>`;
+ page.querySelectorAll('#conf .btn').forEach(b=>b.onclick=()=>{
+  const c=b.dataset.c,empty=!document.getElementById('wa').value.trim();
+  page.querySelectorAll('#conf .btn').forEach(x=>x.disabled=true);
+  b.classList.add('primary');
+  const amber=c==='sure'&&qi===2;
+  document.getElementById('out').innerHTML=`<div class="ans ${amber?'amber':''}">${amber?'<b>שווה לבדוק שוב:</b> ':''}${renderMath(q.a)}</div>
+   <div class="row" style="margin-top:.6rem">${qi<Q.length-1?'<button class="btn primary" id="nx">הבאה</button>':'<button class="btn primary" id="nx">סיום</button>'}${empty?'<span class="hold">גם תשובה בראש נחשבת.</span>':''}</div>`;
+  document.getElementById('nx').onclick=()=>{qi<Q.length-1?(qi++,warm()):warmDone()};
+ });
+ document.getElementById('skip').onclick=warmDone;
+}
+function warmDone(){
+ qi=0;
+ page.innerHTML=`<div class="col warm">
+  <div><div class="kicker">החימום הסתיים · 9 דקות</div><p class="greet">מוכן.</p></div>
+  <div class="first"><span class="kicker">הצעד הראשון שכתבת אתמול ב-18:52</span>
+   <q>לעבור על ההוכחה שאין לאלכסון ולצלע מידה משותפת, בדרך של הריבוע הקטן, ולשרטט אותה במחברת.</q>
+   <div class="row"><button class="btn primary">קח אותי לשם</button><span class="hold">שיעור 2 · חלק 3 · "האלכסון והצלע"</span></div>
+  </div>
+ </div>`;
+}
+
+const LESSON=`<h2>מדידה: הנחה וספירה</h2>
+<p><b>מדידה</b> של גודל היא שתי פעולות: פעולה שמתאימה לסוג הגודל, הנחת סרגל על קטע, מילוי כלי מדורג או ספירת תנודות של מטוטלת, ואחריה ספירה של מספר הפעמים. בקטע הראשונה גאומטרית והשנייה חשבונית.</p>
+<p>כמעט תמיד היחידה לא נכנסת בגודל מספר שלם של פעמים, ונשארת שארית. כדי לבטא אותה מחלקים את היחידה לחלקים, וכך, לפי הממצאים ההיסטוריים, נולדו השברים: מחלוקה והשוואה של גדלים רציפים, ולא מחלוקת עצמים שלמים. שלושה חצים הם מושג; שליש חץ אינו, ושלושה שלישים נפרדים לא יפילו צבי.</p>
+<p><b>מספר רציונלי</b> פירושו יחס של שני שלמים, <span dir="ltr" style="font-family:Georgia,serif;font-style:italic">p/q</span> עם <span dir="ltr" style="font-family:Georgia,serif;font-style:italic">q≠0</span>, והמדידה הרחיבה את המספר מן השלמים אל הרציונליים.</p>`;
+
+function bound(){
+ clock.textContent='88′ · היום 4:02';clock.classList.add('over');
+ page.innerHTML=`<div class="col">${LESSON}
+  <div class="boundary" id="bc">
+   <div class="line"><b>סוף חלק 2 מתוך 4</b><span class="sep">·</span><span>88 דקות מההפסקה האחרונה</span></div>
+   <div class="line">אחרי ההפסקה: חלק 3, "האלכסון והצלע: קטעים בלי מידה משותפת".</div>
+   <div class="row"><button class="btn primary" id="go">הפסקה</button><button class="btn" id="one">עוד חלק אחד</button></div>
+  </div></div>`;
+ document.getElementById('go').onclick=()=>select('brk');
+ document.getElementById('one').onclick=()=>{document.getElementById('bc').innerHTML='<p class="hold">בסדר. לא אציע שוב עד סוף חלק 3, ולא לפני 30 דקות.</p>';clock.classList.remove('over')};
+}
+
+let tick=null;
+function brk(){
+ clock.textContent='בהפסקה';clock.classList.remove('over');
+ let s=0;
+ page.innerHTML=`<div class="col brk">
+  <div class="kicker">הפסקה · חלק 3 מחכה</div>
+  <div class="timer" id="tm" aria-label="זמן הפסקה">0:00</div>
+  <ol>
+   <li><span class="k">קודם</span><span>החוצה, או לחלון. להסתכל רחוק.</span></li>
+   <li><span class="k">אחר כך</span><span>לקום, להתמתח, מים.</span></li>
+   <li><span class="k">אם יש זמן</span><span>להסביר לעצמך בקול מה זה מספר רציונלי, בלי לחזור למסך.</span></li>
+  </ol>
+  <p class="phone">את חמש הדקות הראשונות עדיף בלי טלפון.</p>
+  <button class="btn primary" id="back">חזרתי</button>
+ </div>`;
+ clearInterval(tick);
+ tick=setInterval(()=>{s+=7;const el=document.getElementById('tm');if(!el)return clearInterval(tick);el.textContent=Math.floor(s/60)+':'+String(s%60).padStart(2,'0')},1000);
+ document.getElementById('back').onclick=()=>select('ret');
+}
+
+function ret(){
+ clearInterval(tick);
+ clock.textContent='0′ · היום 4:02';
+ page.innerHTML=`<div class="ret" id="rh"><span>היית ב:</span><em>"…ושלושה שלישים נפרדים לא יפילו צבי."</em><span class="hold">· הבא: חלק 3</span></div>
+ <div class="col">${LESSON}<h2>האלכסון והצלע: קטעים בלי מידה משותפת</h2>
+ <p>שאלת החוט: האם כל שני קטעים ניתנים למדידה זה בזה, אם רק מחלקים את היחידה מספיק? אם כן, כל יחס בין גדלים הוא שבר, והרציונליים של המדידה מספיקים לכל דבר. כדי לשאול זאת בדיוק צריך שם למצב שבו השארית נעלמת בסוף.</p>
+ <p class="hold">(גלול, או חכה כמה שניות: השורה למעלה נעלמת.)</p></div>`;
+ const rh=document.getElementById('rh');
+ const hide=()=>rh&&rh.classList.add('gone');
+ setTimeout(hide,6000);page.addEventListener('wheel',hide,{once:true});page.addEventListener('touchmove',hide,{once:true});
+}
+
+function close(){
+ clearInterval(tick);
+ clock.textContent='היום 8:47';clock.classList.remove('over');
+ page.innerHTML=`<div class="col close">
+  <div><div class="kicker">סגירת היום · 18:45</div><h2 style="margin-top:.2rem">סוגרים את היום</h2></div>
+  <div class="field"><label>איפה עצרתי</label><div class="auto">M0.1 · שיעור 2 · חלק 4, אחרי "מספר ממשי כחתך". (מולא לבד)</div></div>
+  <div class="field"><label>מה נשאר פתוח</label>
+   <ul class="open">
+    <li><span class="tag">שאלת חשיבה</span><span>"למה הרציונליים צפופים אבל לא שלמים?" (לא נענתה)</span></li>
+    <li><span class="tag">שאלה למומחה</span><span>פתק בשוליים: האם יש סריג בממד 4 עם סיבוב מסדר 5?</span></li>
+    <li><span class="tag">מחברת</span><span>דף "הריבוע הקטן" בלי "בדוק את הפתרון"</span></li>
+   </ul></div>
+  <div class="field"><label for="next">הצעד הראשון של מחר</label>
+   <input type="text" id="next" value="לבדוק את דף הריבוע הקטן, ואז חלק 4 מההתחלה.">
+   <span class="hold">משפט אחד: מה בדיוק, ואיפה. מחר בבוקר הוא יחכה לך אחרי החימום.</span></div>
+  <div class="scale">
+   <label for="fat">עייפות <input type="range" id="fat" min="1" max="5" value="3"></label>
+   <label for="foc">ריכוז <input type="range" id="foc" min="1" max="5" value="4"></label>
+  </div>
+  <div class="field"><span class="kicker">היום שלך</span>
+   <div class="daystrip" aria-label="סרגל היום">
+    <span class="d3" style="flex:15"></span><span class="d1" style="flex:90"></span><span class="brk-s" style="flex:20"></span><span class="d1" style="flex:40"></span><span class="d2" style="flex:40"></span><span class="brk-s" style="flex:45"></span><span class="d3" style="flex:20"></span><span class="brk-s" style="flex:60"></span><span class="d1" style="flex:80"></span><span class="brk-s" style="flex:15"></span><span class="d2" style="flex:75"></span><span class="brk-s" style="flex:30"></span><span class="d3" style="flex:70"></span><span class="brk-s" style="flex:15"></span><span class="d3" style="flex:60"></span>
+   </div>
+   <div class="legend"><span><i class="d1"></i>שיעור צפוף 3:30</span><span><i class="d2"></i>תרגול 1:55</span><span><i class="d3"></i>חזרה וסיכומים 2:45</span><span><i class="brk-s"></i>הפסקות</span></div>
+  </div>
+  <div class="row"><button class="btn primary" id="sv">סגור את היום</button><span id="ok" class="saved" hidden>נשמר. החימום של מחר מוכן: 4 שאלות.</span></div>
+ </div>`;
+ document.getElementById('sv').onclick=()=>{document.getElementById('ok').hidden=false;chime()};
+}
+
+const VIEWS={warm,bound,brk,ret,close};
+function select(v){
+ document.querySelectorAll('.strip button').forEach(b=>b.setAttribute('aria-selected',b.dataset.v===v));
+ why.innerHTML=WHY[v];
+ if(v!=='bound'&&v!=='brk'&&v!=='ret'&&v!=='close'){clock.textContent='42′ · היום 3:10';clock.classList.remove('over')}
+ VIEWS[v]();
+}
+document.querySelectorAll('.strip button').forEach(b=>b.onclick=()=>select(b.dataset.v));
+const h=(location.hash||'').slice(1);select(VIEWS[h]?h:'warm');
+</script>
