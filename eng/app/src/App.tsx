@@ -29,6 +29,12 @@ import { LabTabView, LabTabsNav, useNewsUnread, type LabTab } from "./labtabs/La
 import { saveMemoryVersion, updateMemorySafely } from "./memoryLog";
 import { joinContinuation, looksCut } from "./truncation";
 import { countLesson } from "./usage";
+import { isNewDay, lastSelection, stopOf, useDayClock } from "./day";
+import { stopPrefetch, usePrefetch, usePrefetchDriver, useSettlePrefetched } from "./prefetch";
+import { WaitPanel } from "./components/WaitPanel";
+import { BreakLine } from "./components/BreakLine";
+import { MorningCard } from "./components/MorningCard";
+import { CloseDay } from "./components/CloseDay";
 
 interface Notice {
   level: "info" | "warn" | "error";
@@ -87,7 +93,8 @@ export function App() {
   const [, setConvs] = useState<ConvMeta[]>([]);
   const [selection, setSelectionState] = useState<Selection | null>(() => {
     try {
-      return JSON.parse(readLocal("eng-lab:sel") ?? "null");
+      // the first open after a night away starts on the home screen, with the morning card
+      return isNewDay() ? null : JSON.parse(readLocal("eng-lab:sel") ?? "null");
     } catch {
       return null;
     }
@@ -381,7 +388,10 @@ export function App() {
             setLive((l) => (l ? { ...l, activity: [...activity] } : l));
           },
           onStatus: (status: string) => setLive((l) => (l ? { ...l, status } : l)),
-          onCheckpoint: (plan: PartPlan, partsDone: number, text: string) => save({ plan, partsDone, partsChars: text.length, text }, true),
+          onCheckpoint: (plan: PartPlan, partsDone: number, text: string) => {
+            setLive((l) => (l ? { ...l, plan, partsDone } : l));
+            return save({ plan, partsDone, partsChars: text.length, text }, true);
+          },
           onDiag: store ? (d: Record<string, unknown>) => store.saveDiag(d) : undefined,
           onText: show,
           onNote: (kind: NoteKind, text: string, addTo?: string) => (addTo ? appendToNote(addTo, text) : addNote(kind, text, "tutor", m, idx)),
@@ -520,7 +530,15 @@ export function App() {
     return () => window.removeEventListener("beforeunload", warn);
   }, [busy]);
 
-  const all = useMemo(() => (live ? [...messages, live] : messages), [messages, live]);
+  // a lesson written ahead (prefetch.ts) is followed live when it is opened while it is written
+  const pf = usePrefetch();
+  const following = pf.running && !!module && pf.key === `${module.id}:${lessonIdx}`;
+  const pfLive = following ? pf.live : null;
+  useEffect(() => {
+    if (pf.doneConv && pf.doneConv === convId && rt?.store && !busy) rt.store.loadMessages(convId).then(setMessages).catch(() => {});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pf.seq]);
+  const all = useMemo(() => (live ? [...messages, live] : pfLive ? [...messages.filter((m) => m.role === "user" || m.id !== pfLive.id), pfLive] : messages), [messages, live, pfLive]);
   const items = useMemo(() => toItems(all), [all]);
   const hasLesson = messages.some((m) => m.role === "assistant" && m.mode === "lesson" && !m.interrupted && !m.draft);
 
@@ -533,6 +551,40 @@ export function App() {
   }, [selection?.moduleId, selection?.lesson]);
 
   const inLesson = !!module && lessonIdx !== undefined;
+  useDayClock(rt, module && lesson && lessonIdx !== undefined ? { moduleId: module.id, lesson: lessonIdx, title: lesson.title } : null);
+  const prefetch = usePrefetchDriver({
+    rt,
+    index,
+    mods: modsRef,
+    notes: notesRef,
+    selection,
+    fallback: lastSelection,
+    memory,
+    memoryBusy,
+    busy,
+    effort,
+    done: doneList,
+    saveModule,
+    onNote: (m, idx) => (kind, text, addTo) => (addTo ? appendToNote(addTo, text) : addNote(kind, text, "tutor", m, idx)),
+  });
+  useSettlePrefetched({
+    rt,
+    convId,
+    messages,
+    busy,
+    module,
+    idx: lessonIdx,
+    prog,
+    memory,
+    finish: finishLesson,
+    onMemory: async (next) => {
+      setMemory(next);
+      await rt?.store?.setMemory(next);
+    },
+    setMemoryBusy,
+  });
+  const closeDay = (variant: "home" | "lesson") =>
+    index && <CloseDay rt={rt} mods={mods} stop={stopOf(selection ?? lastSelection(), index.modules, mods)} ahead={prefetch.target} onClosed={prefetch.request} variant={variant} />;
   /** the left of the lesson: the contents, or the notebook, or (mostly) neither */
   const [leftDock, setLeftDock] = usePersisted<"" | "toc" | "pad">("eng-lab:left", "");
   const tocOpen = leftDock === "toc";
@@ -641,7 +693,9 @@ export function App() {
               {rt && rt.sample && !rt.store && <div className="banner banner-warn">השיחות וההתקדמות לא יישמרו בתצוגה הזו (צריך להיות מחובר ל-claude.ai עם הרשאת כתיבה).</div>}
               {indexError && <div className="banner banner-error">{indexError}</div>}
 
+              {!module && index && <MorningCard rt={rt} modules={index.modules} mods={mods} onGo={setSelection} />}
               {!module && index && <Overview index={index} done={done} mods={mods} onSelect={setSelection} />}
+              {!module && closeDay("home")}
 
               {module && lessonIdx === undefined && (
                 <MdContext.Provider value={mdCtx}>
@@ -676,19 +730,22 @@ export function App() {
                       <AssistantTurn
                         key={it.key}
                         item={it}
-                        live={busy && !!live && i === items.length - 1}
+                        live={((busy && !!live) || !!pfLive) && i === items.length - 1}
                         header={lesson ? { code: `${module.id} · ${(lessonIdx ?? 0) + 1}/${nLessons}`, title: lesson.title, sub: module.title } : undefined}
                         fullBar={fullBar}
                         onOpenSource={openSource}
                         onFillGaps={(missing) =>
                           send(`בשיעור חסרו לפי בדיקת הרף: ${missing.join(", ")}. השלם עכשיו את מה שחסר ברמה המלאה, בהמשך ישיר לשיעור ובלי לחזור על מה שכבר נכתב.`, [], "clarify")
                         }
-                        onContinue={i === items.length - 1 && !busy ? resumeLast : undefined}
+                        onContinue={i === items.length - 1 && !busy && !following ? resumeLast : undefined}
                         notes={lesson ? notes.filter((n) => n.margin && n.moduleId === module.id && n.lesson === lessonIdx) : undefined}
                         onNoteSave={updateNote}
                         onNoteDelete={deleteNote}
                       />
                     ),
+                  )}
+                  {(live ?? pfLive)?.mode === "lesson" && (
+                    <WaitPanel rt={rt} live={(live ?? pfLive)!} spec={lesson} lessonKey={`${module.id}:${lessonIdx}`} moduleTitle={module.title} />
                   )}
                   {hasLesson && !busy && nextLesson !== null && (
                     <div className="next-row">
@@ -700,12 +757,22 @@ export function App() {
                   )}
                 </>
               )}
+              {hasLesson && !busy && closeDay("lesson")}
               {notices.map((n, i) => (
                 <div key={i} className={`banner banner-${n.level}`}>
                   {n.text}
                 </div>
               ))}
             </div>
+            {inLesson && items.length > 0 && (
+              <BreakLine
+                scrollRef={scrollRef}
+                busy={busy || following}
+                nextTitle={nextLesson !== null && nextLesson >= 0 ? `שיעור ${nextLesson + 1}, «${prog?.lessons?.[nextLesson]?.title ?? ""}»` : undefined}
+                onBreak={prefetch.request}
+                prefetching={pf.running ? `שיעור ${Number(pf.key.split(":")[1]) + 1}` : undefined}
+              />
+            )}
             {inLesson && items.length > 0 && (
               <ReadingDock
                 scrollRef={scrollRef}
@@ -725,12 +792,12 @@ export function App() {
           </div>
           {module && lessonIdx !== undefined && (lesson || isQuiz) && (
             <Composer
-              busy={busy}
+              busy={busy || following}
               onSend={(t, im) => {
                 const q = quick.find((x) => x.text === t);
                 send(t, im, q ? q.mode : mode);
               }}
-              onStop={() => ctl.current?.abort()}
+              onStop={() => (following ? stopPrefetch() : ctl.current?.abort())}
               quick={quick}
               modes={isQuiz ? ["quiz", "clarify"] : ["clarify", "free"]}
               mode={mode}
