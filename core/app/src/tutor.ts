@@ -517,7 +517,7 @@ Tag every level-2.5 section this part covers ([[2.5: …]]) at the start of its 
 ${last ? "This is the last part: write the coverage block, the exercises, the fieldsystems block if a real connection exists, and the sentence about the next lesson." : "Do not end the lesson and do not write exercises yet."}`;
 }
 
-const PART_CONTINUE = "The previous attempt of this part stopped before its end (at the length limit, mid-sentence or inside an unclosed block). Continue it exactly from where the text above stops: do not repeat any of it, close any open block, and finish the part.";
+const PART_CONTINUE = "The previous attempt of this part was cut off before its end (at the length limit, mid-sentence or inside an unclosed block). Continue it exactly from where the text above stops: do not repeat any of it, close any open block, and finish the part.";
 
 export async function composeLesson(opts: Base & { text: string; resume?: { plan: PartPlan; partsDone: number; text: string } }) {
   const { rt, history, text, effort, module: m, lessons, lessonIdx, memory, notes, allNotes, signal, cb, resume } = opts;
@@ -572,7 +572,7 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
       partText = joinContinuation(partText, res.text);
       model = res.modelApplied ?? `רמת מודל: ${res.modelTierApplied}`;
       if (!res.truncated && !looksCut(partText).cut) break;
-      cb.onStatus?.(`חלק ${k + 1} נעצר באמצע; ממשיך אותו מהמקום שבו נעצר`);
+      if (attempt < 2) cb.onStatus?.(`חלק ${k + 1} נעצר באמצע; ממשיך אותו מהמקום שבו נעצר`);
     }
     written = (before + partText).trim();
     cb.onText(written);
