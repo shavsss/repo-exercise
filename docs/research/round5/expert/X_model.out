@@ -1,0 +1,66 @@
+=== Round 5 time model (N = 6000) ===
+domains: 36, wave-1 deep: 8
+roles: {'deep': 8, 'core': 15, 'supporting': 13}
+sum of domain P50 extra hours (as estimated): 35,050 h
+  curriculum (F, 8 h + 1 phone)          P10    22.8  P50    28.5  P90    35.6  months
+  expert track hours (gross)             P10 27262.4  P50 37738.0  P90 52073.9  h
+  expert track months (net of overlap)   P10   163.1  P50   228.9  P90   320.1  months
+  EVERYTHING to target                   P10   191.4  P50   257.6  P90   349.5  months
+  wave 1 at expert (backbone + wave 1)   P10    69.2  P50    92.8  P90   125.5  months
+  wave-1 expert-track hours              P10  9765.4  P50 13490.5  P90 18672.3  h
+  P(everything <= 36 months) = 0.00
+  P(everything <= 48 months) = 0.00
+  P(everything <= 60 months) = 0.00
+  P(everything <= 72 months) = 0.00
+  P(everything <= 84 months) = 0.00
+  P(wave 1 expert <= 12 months) = 0.00
+  P(wave 1 expert <= 18 months) = 0.00
+  P(wave 1 expert <= 24 months) = 0.00
+  P(wave 1 expert <= 30 months) = 0.00
+
+=== Per role, P50 extra hours (as estimated) ===
+  core            15,700 h
+  deep            12,700 h
+  supporting       6,650 h
+
+=== Top 12 domains by P50 extra hours ===
+  MIL · Radar                                                            deep          1600   2400   3600
+  MIL · Electronic warfare and electromagnetic spectrum operations       deep          1500   2200   3400
+  MIL · Positioning, navigation and timing                               deep          1200   1800   2800
+  MIL · Antennas and propagation                                         deep          1100   1700   2600
+  ENG · Control and estimation                                           deep          1000   1600   2500
+  ENG · Electronics and circuits                                         core           900   1400   2200
+  MIL · Missiles: propulsion, guidance, control and design               core           900   1400   2200
+  ENG · Signals and systems                                              deep           800   1300   2000
+  MIL · Unmanned systems and counter-UAS                                 core           800   1300   2000
+  ENG · Mathematics foundations                                          deep           700   1200   2000
+  ENG · Information theory and communications                            core           700   1100   1700
+  ENG · Machine learning and deep learning                               core           700   1100   1700
+
+E3 cross-check: total lab hours reported by E3 = None
+
+  EVERYTHING at 10 h/day (EFH x 7.3/6.3) P10   165.1  P50   222.3  P90   301.6  months
+
+=== Staged waves, scenario 'base' (months from today) ===
+  wave 1 senior                          P10    40.6  P50    54.0  P90    73.0  months
+  wave 1 expert                          P10    87.3  P50   118.3  P90   162.7  months
+  wave 2 senior                          P10   115.5  P50   153.3  P90   207.9  months
+  wave 2 expert                          P10   141.5  P50   189.4  P90   258.9  months
+  wave 3 senior                          P10   158.8  P50   210.8  P90   287.2  months
+  wave 3 expert                          P10   173.3  P50   232.2  P90   317.9  months
+
+=== Staged waves, scenario 'ai_trend' (months from today) ===
+  wave 1 senior                          P10    36.3  P50    46.8  P90    61.0  months
+  wave 1 expert                          P10    70.7  P50    89.5  P90   115.2  months
+  wave 2 senior                          P10    87.9  P50   109.2  P90   140.1  months
+  wave 2 expert                          P10   102.9  P50   129.1  P90   168.1  months
+  wave 3 senior                          P10   112.4  P50   141.2  P90   183.7  months
+  wave 3 expert                          P10   120.7  P50   152.9  P90   201.3  months
+
+=== Staged waves, scenario 'paid' (months from today) ===
+  wave 1 senior                          P10    40.0  P50    54.1  P90    73.0  months
+  wave 1 expert                          P10    86.7  P50   118.6  P90   162.5  months
+  wave 2 senior                          P10   108.6  P50   146.5  P90   197.7  months
+  wave 2 expert                          P10   129.1  P50   174.7  P90   238.7  months
+  wave 3 senior                          P10   142.8  P50   191.9  P90   260.3  months
+  wave 3 expert                          P10   154.3  P50   208.7  P90   284.3  months

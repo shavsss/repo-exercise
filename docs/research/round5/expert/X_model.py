@@ -136,7 +136,68 @@ if labs:
         pass
 
 # Scenario: what if he studies 10 h/day (EFH 7.3 mode) — the 'strong individual' line in F.
-tot10 = []
-for i in range(N):
-    tot10.append(res["total"][i] * 6.3 / 7.3)
+tot10 = [t * 6.3 / 7.3 for t in res["total"]]
 print("\n" + line("EVERYTHING at 10 h/day (EFH x 7.3/6.3)", tot10))
+
+# ---------------------------------------------------------------------------
+# Staged plan: waves in order (E2 'wave' field), curriculum interleaved by wave.
+# Curriculum share per wave [J]: wave 1 (backbone + sensing/EW/PNT) 0.38, wave 2 0.37, wave 3 0.25.
+# Milestones per wave: 'senior' = curriculum of the wave + SENIOR_SHARE of its expert-track hours,
+# 'expert' = all of them. SENIOR_SHARE 0.30 / 0.40 / 0.50 [J] (senior is reached well before expert;
+# industry ladders put senior at ~5 y and principal at ~10–15 y, i.e. ~40% of the way [estimate]).
+# Scenarios:
+#   base      E2 hours as estimated (they already assume AI saves 30–50% on software work)
+#   ai_trend  agents keep improving: the hours of month m are multiplied by max(0.55, 0.93**(m/12)) [J]
+#             (METR task horizon doubling ~4–7 months; we assume only a 7%/yr gain in his hours,
+#             because framing, verification, bench and field time do not shrink with agents)
+#   paid      from the start of wave 2, 30% of expert-track hours are done as paid project work
+#             (products, contracts) that adds 2 h/day of capacity he would not study otherwise [J]
+# ---------------------------------------------------------------------------
+CURR_SHARE = {1: 0.38, 2: 0.37, 3: 0.25}
+
+
+def staged(scn):
+    out = {(w, m): [] for w in (1, 2, 3) for m in ("senior", "expert")}
+    for _ in range(N):
+        zc = random.gauss(0, 1)
+        efh = tri(5.6, 6.3, 7.0) * 24.5
+        cur_h = curr_m(zc) * 6.3 * 24.5
+        zs = random.gauss(0, 1)
+        ai = tri(0.8, 1.0, 1.3)
+        ov = tri(0.05, 0.15, 0.30)
+        ss = tri(0.30, 0.40, 0.50)
+        ext = {1: 0.0, 2: 0.0, 3: 0.0}
+        for d in doms:
+            z = 0.6 * zs + 0.8 * random.gauss(0, 1)
+            ext[d["wave"]] += lognorm_from(*hours(d))(z) * ai * (1 - ov)
+        t = 0.0  # months
+
+        def spend(h, t):
+            # advance time t (months) by h effective hours under the scenario
+            while h > 1e-6:
+                cap = efh
+                if scn == "paid" and t >= t_w2:
+                    cap = efh + 2 * 24.5 * 0.85
+                f = max(0.55, 0.93 ** (t / 12)) if scn == "ai_trend" else 1.0
+                step = min(1.0, h * f / cap)
+                h -= step * cap / f
+                t += step
+            return t
+        t_w2 = 1e9
+        for w in (1, 2, 3):
+            if w == 2:
+                t_w2 = t
+            t = spend(CURR_SHARE[w] * cur_h, t)
+            t_sen = spend(ss * ext[w], t)
+            t = spend((1 - ss) * ext[w], t_sen)
+            out[(w, "senior")].append(t_sen)
+            out[(w, "expert")].append(t)
+    return out
+
+
+for scn in ("base", "ai_trend", "paid"):
+    o = staged(scn)
+    print(f"\n=== Staged waves, scenario '{scn}' (months from today) ===")
+    for w in (1, 2, 3):
+        for m in ("senior", "expert"):
+            print(line(f"wave {w} {m}", o[(w, m)]))

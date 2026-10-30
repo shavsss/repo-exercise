@@ -28,6 +28,21 @@
    "domains": 36,
    "labs": 154,
    "hours_all": 7375,
+   "hours_wave1_core": 2280,
+   "wave1_deferred_labs": [
+    "CE5",
+    "CE6",
+    "EL4",
+    "EL5",
+    "EL6",
+    "FQ4",
+    "JU4",
+    "MA5",
+    "ML3",
+    "PE4",
+    "SG5",
+    "SG6"
+   ],
    "hours_expert_path": 6265,
    "hours_by_wave": {
     "רציף": 340,
@@ -168,20 +183,7 @@
     ]
    }
   },
-  "unused_equipment": [
-   "awr1843",
-   "bgt60",
-   "cloud_full",
-   "consumables",
-   "hackrf_pro",
-   "ham",
-   "jetson",
-   "kraken2",
-   "limesdr",
-   "litevna",
-   "positioner",
-   "ramsey"
-  ]
+  "unused_equipment": []
  },
  "equipment": {
   "rtlsdr": {
@@ -626,6 +628,8 @@
       "pluto"
      ],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": true,
      "ai_role": "כותב קוד לכידה ופירוק; הלומד קובע מראש את פיזור הערכים העצמיים מתוך SNR",
      "verification": "ערכים עצמיים מול σ²(1+M·SNR), שתי רמות ניחות",
      "portfolio_output": "מחברת + הערת שיטה"
@@ -639,6 +643,8 @@
      "tools": "numpy, scipy.stats",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": true,
      "ai_role": "מריץ 10⁶ ניסויים ומשרטט; הלומד בוחר סף ומנבא Pd",
      "verification": "חי-בריבוע ו-Marcum Q, רווח סמך לפי N",
      "portfolio_output": "פונקציה בדוקה ב-rfcalc"
@@ -654,6 +660,8 @@
       "kraken"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": true,
      "ai_role": "מנסח את הבעיה בקוד; הלומד מגדיר אילוצים ובוחר פשרה בין רוחב אלומה לאונות צד",
      "verification": "אונות צד חזויות מול מדידה עם משדר ייחוס",
      "portfolio_output": "דוח + גרף חזוי/נמדד"
@@ -670,6 +678,8 @@
       "rf_kit"
      ],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": true,
      "ai_role": "כותב אמדים ו-sweep; הלומד גוזר את הגבול ומנבא היכן האמד נשבר (threshold effect)",
      "verification": "שונות מול CRLB לכל צעד מנחת",
      "portfolio_output": "גרף פרסומי + הערה"
@@ -685,6 +695,8 @@
       "kraken"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מממש OMP/ℓ1 ובסיס השוואה MUSIC; הלומד מגדיר ניסוי, מנבא רזולוציה, בוחר מדדים",
      "verification": "כיוון אמת (GPS/מפה), RMSE מול CRLB",
      "portfolio_output": "טיוטת preprint"
@@ -726,6 +738,8 @@
       "rtlsdr"
      ],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": true,
      "ai_role": "כותב לכידה ופענוח; הלומד מנבא רוחב סרט ורמת רעש",
      "verification": "עוצמה בקו מול חישוב עם NF, השוואה ל-tinySA",
      "portfolio_output": "מחברת"
@@ -742,6 +756,8 @@
       "antennas"
      ],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": true,
      "ai_role": "כותב preamble detector, CRC ופענוח; הלומד מתכנן ספי גילוי",
      "verification": "השוואה ל-dump1090 ו-OpenSky כאמת, שיעור החמצה",
      "portfolio_output": "קוד פתוח + נתונים ב-SigMF"
@@ -759,6 +775,8 @@
       "rtlsdr"
      ],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": true,
      "ai_role": "מתזמן sweep של SNR וסף; הלומד מנבא את עקומת ROC",
      "verification": "ROC נמדד מול נוסחה, תקציב שגיאה של רמת אות",
      "portfolio_output": "גרף + הערת אימות"
@@ -774,6 +792,8 @@
       "pluto"
      ],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": true,
      "ai_role": "כותב בלוק ובדיקות QA; הלומד קובע מפרט (taps, decimation, latency)",
      "verification": "תגובת תדר נמדדת עם tone sweep, latency נמדד",
      "portfolio_output": "בלוק בגיטהאב"
@@ -789,6 +809,8 @@
       "kraken"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מממש ומשווה; הלומד צופה את גבול ההפרדה",
      "verification": "RMSE מול CRLB, שני טונים בכבל",
      "portfolio_output": "דוח השוואה"
@@ -805,6 +827,8 @@
       "bladerf"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "כותב HDL ו-testbench; הלומד קובע fixed-point ותקציב רעש כימות",
      "verification": "SNR כימות חזוי מול נמדד, bit-exact מול מודל Python",
      "portfolio_output": "ריפו + הערה"
@@ -841,6 +865,8 @@
      "tools": "numpy, filterpy",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": true,
      "ai_role": "כותב מסנן וסימולציה; הלומד קובע Q/R ומנבא את רצועת NEES",
      "verification": "χ² 95% על 50 ריצות",
      "portfolio_output": "מחברת"
@@ -854,6 +880,8 @@
      "tools": "gnss_lib_py",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": true,
      "ai_role": "מעבד נתונים וכותב EKF; הלומד בוחר מודל תנועה",
      "verification": "שגיאה מול ground truth של GSDC",
      "portfolio_output": "ציון מול leaderboard"
@@ -870,6 +898,8 @@
       "mcu"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": true,
      "ai_role": "כותב מנהלי התקן ומסנן; הלומד מתכנן את התקלה (נפילת GNSS, קפיצה)",
      "verification": "NEES/NIS, סחיפה בזמן ההפסקה מול חיזוי מ-bias של IMU",
      "portfolio_output": "דוח + נתונים פתוחים"
@@ -885,6 +915,8 @@
       "crazyflie"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": true,
      "ai_role": "מריץ זיהוי וטיונינג; הלומד בוחר מבנה מודל ומנבא overshoot",
      "verification": "צעד נמדד מול סימולציה",
      "portfolio_output": "וידאו + דוח"
@@ -898,6 +930,8 @@
      "tools": "pyulog, flight_review",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מנתח מאות לוגים ציבוריים; הלומד מגדיר מדדי תקלה",
      "verification": "תקלות מתויגות ידנית כאמת",
      "portfolio_output": "כלי + דוח"
@@ -913,6 +947,8 @@
       "crazyflie"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "כותב בקר; הלומד קובע אילוצים ותקציב חישוב",
      "verification": "מסלול נמדד מול חזוי, הפרות אילוץ",
      "portfolio_output": "וידאו + הערה"
@@ -962,6 +998,8 @@
       "psu"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": true,
      "ai_role": "כותב בקרת SCPI למכשירים; הלומד מנבא את תגובת הצעד",
      "verification": "צעד נמדד מול SPICE",
      "portfolio_output": "מחברת ספסל"
@@ -979,6 +1017,8 @@
       "noise_source"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": true,
      "ai_role": "מציע טופולוגיה ו-layout; הלומד בוחר רכיבים ובודק יציבות (K-factor)",
      "verification": "S21 ב-VNA, NF ב-Y-factor מול סימולציה",
      "portfolio_output": "לוח עובד + דוח"
@@ -995,6 +1035,8 @@
       "jlcpcb"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": true,
      "ai_role": "מריץ EM; הלומד קובע מפרט (IL, דחייה)",
      "verification": "S21 נמדד מול EM",
      "portfolio_output": "לוח + קבצים"
@@ -1011,6 +1053,8 @@
       "scope"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "כותב קושחת דגימה וניתוח FFT; הלומד מנבא ENOB",
      "verification": "SINAD נמדד מול חיזוי",
      "portfolio_output": "דוח"
@@ -1028,6 +1072,8 @@
       "jlcpcb"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מציע תכנון; הלומד בוחר תדר מיתוג ובודק לולאה",
      "verification": "ripple ונצילות מול חיזוי, EMI ב-tinySA",
      "portfolio_output": "לוח"
@@ -1044,6 +1090,8 @@
       "nanovna"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מתכנן ומייצר BOM; הלומד כותב מפרט ובדיקות קבלה",
      "verification": "בדיקות קבלה מול מפרט",
      "portfolio_output": "מוצר קטן לתיק"
@@ -1086,6 +1134,8 @@
       "cloud_min"
      ],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": true,
      "ai_role": "כותב מודל ואימון; הלומד בוחר מדדים ומנבא דיוק לפי SNR",
      "verification": "עקומת דיוק מול ספרות, baseline פשוט",
      "portfolio_output": "מחברת"
@@ -1103,6 +1153,8 @@
       "cloud_rec"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": true,
      "ai_role": "בונה צינור הקלטה ותיוג; הלומד מתכנן את המאגר",
      "verification": "דיוק סינתטי→אמיתי, כיול (ECE)",
      "portfolio_output": "מאגר פתוח + דוח"
@@ -1118,6 +1170,8 @@
       "cloud_rec"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מאמן ומריץ התקפות; הלומד מגדיר את פיצול ה-OOD",
      "verification": "דיוק standard/extended operating conditions",
      "portfolio_output": "דוח"
@@ -1135,6 +1189,10 @@
       "cloud_rec"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [
+      "cloud_full"
+     ],
+     "wave1_core": true,
      "ai_role": "מאמן ומנתח; הלומד מתכנן ניסוי איסוף ומפרט וודאות",
      "verification": "בדיקה על נתונים שלא נראו, אי-ודאות מכוילת",
      "portfolio_output": "מאמר (משותף ל-RD6)"
@@ -1166,6 +1224,8 @@
      "tools": "notebook, script",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מחשב ציונים ומגמות; הלומד כותב את החיזוי לפני כל הרצה",
      "verification": "ציון מול מדידה, 100+ חיזויים",
      "portfolio_output": "רישום כיול"
@@ -1182,6 +1242,8 @@
       "tinysa"
      ],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מציע אומדנים מתחרים; הלומד מעריך לבד קודם",
      "verification": "יחס שגיאה ממוצע",
      "portfolio_output": "טבלה"
@@ -1195,6 +1257,8 @@
      "tools": "pytest",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "שותל באגים בקוד שלו; הלומד מחפש",
      "verification": "שיעור תפיסה, זמן לתפיסה",
      "portfolio_output": "יומן"
@@ -1208,6 +1272,8 @@
      "tools": "",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מנסח טיוטות; הלומד אחראי לטיעון ולמספרים",
      "verification": "הערות מומחה, יומן תיקונים",
      "portfolio_output": "10 פרסומים"
@@ -1240,6 +1306,8 @@
      "tools": "git, Claude Code, GitHub Actions",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": true,
      "ai_role": "כותב קוד ובדיקות; הלומד כותב מפרט וסוקר כל diff",
      "verification": "כל commit עם בדיקה עוברת",
      "portfolio_output": "ריפו מסודר"
@@ -1256,6 +1324,8 @@
       "psu"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": true,
      "ai_role": "כותב דרייברים; הלומד מגדיר תסריט מדידה",
      "verification": "קריאה ידנית מול אוטומטית",
      "portfolio_output": "ספריית מדידה"
@@ -1272,6 +1342,8 @@
       "scope"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": true,
      "ai_role": "כותב קושחה; הלומד קובע תקציב זמן",
      "verification": "latency נמדד בסקופ (GPIO toggle)",
      "portfolio_output": "קושחה"
@@ -1285,6 +1357,8 @@
      "tools": "pandas",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "אוסף נתונים; הלומד בונה את הטיעון",
      "verification": "ביקורת מומחה",
      "portfolio_output": "מאמר"
@@ -1318,6 +1392,8 @@
      "tools": "Python, pytest, hypothesis",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": true,
      "ai_role": "כותב קוד ובדיקות; הלומד בוחר דוגמאות מהספרים כ-oracle",
      "verification": "100% מדוגמאות הספר",
      "portfolio_output": "חבילה ב-PyPI"
@@ -1333,6 +1409,8 @@
       "zed_f9p"
      ],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": true,
      "ai_role": "מעבד 24 שעות לוג; הלומד מנבא CEP",
      "verification": "CEP נמדד מול σ_UERE·HDOP",
      "portfolio_output": "גרף"
@@ -1350,6 +1428,8 @@
       "tinysa"
      ],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": true,
      "ai_role": "מתזמן מדידה; הלומד כותב תקציב",
      "verification": "פער חזוי/נמדד בכל שלב",
      "portfolio_output": "טבלה"
@@ -1363,6 +1443,8 @@
      "tools": "Sphinx",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "כותב תיעוד; הלומד סוקר נכונות",
      "verification": "issues מבחוץ, ביקורת",
      "portfolio_output": "מוצר צד"
@@ -1403,6 +1485,8 @@
       "antennas"
      ],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": true,
      "ai_role": "מריץ NEC וכותב ניתוח Touchstone; הלומד מתכנן מידות",
      "verification": "תדר תהודה ו-SWR נמדדים מול מודל",
      "portfolio_output": "אנטנה + דוח"
@@ -1420,6 +1504,11 @@
       "pluto"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [
+      "positioner",
+      "litevna"
+     ],
+     "wave1_core": true,
      "ai_role": "מריץ EM ומעבד דפוס; הלומד קובע מצע ו-feed",
      "verification": "S11 ודפוס נמדדים (סיבוב ידני או positioner) מול EM",
      "portfolio_output": "דוח"
@@ -1435,6 +1524,8 @@
       "phaser"
      ],
      "tier_needed": "full",
+     "optional_upgrades": [],
+     "wave1_core": true,
      "ai_role": "כותב בקרת מופעים ומדידה; הלומד מנבא אונות צד ומיקומי null",
      "verification": "דפוס נמדד מול AF תיאורטי",
      "portfolio_output": "דוח + וידאו"
@@ -1451,6 +1542,8 @@
       "antennas"
      ],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": true,
      "ai_role": "מריץ מודלים ומעבד drive test; הלומד בוחר נקודות ומנבא אובדן",
      "verification": "dB חזוי מול נמדד בשדרי FM/DVB-T/סלולר (קליטה בלבד)",
      "portfolio_output": "מפה + דוח"
@@ -1464,6 +1557,8 @@
      "tools": "Python, GIS",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": true,
      "ai_role": "בונה אופטימיזציה; הלומד מגדיר איומים ומטרות",
      "verification": "מודל מאומת מ-AN4, ביקורת מקצוען",
      "portfolio_output": "מאמר"
@@ -1503,6 +1598,8 @@
      "tools": "RadarSimPy, numpy",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": true,
      "ai_role": "כותב שרשרת וסימולציה; הלומד מנבא SNR ו-Pd לכל מטרה",
      "verification": "Pd/Pfa מול משוואת מכ\"ם ו-Swerling",
      "portfolio_output": "ספרייה"
@@ -1518,6 +1615,11 @@
       "radar60"
      ],
      "tier_needed": "min",
+     "optional_upgrades": [
+      "bgt60",
+      "awr1843"
+     ],
+     "wave1_core": true,
      "ai_role": "כותב קונפיגורציה ועיבוד; הלומד בוחר chirp ומנבא רזולוציה ו-SNR",
      "verification": "SNR נמדד מול משוואת מכ\"ם למחזיר בכמה מרחקים (R⁴)",
      "portfolio_output": "דוח"
@@ -1534,6 +1636,8 @@
       "dca1000"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": true,
      "ai_role": "כותב קליטה ועיבוד זווית; הלומד מנבא רזולוציה זוויתית ושגיאות כיול",
      "verification": "זווית נמדדת מול סרגל, תקציב שגיאה",
      "portfolio_output": "נתונים + דוח"
@@ -1550,6 +1654,11 @@
       "rpi5"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [
+      "kraken2",
+      "hackrf_pro"
+     ],
+     "wave1_core": true,
      "ai_role": "כותב CAF, ניקוי clutter ו-tracking; הלומד בוחר משדר ייחוס וגאומטריה ומנבא טווח גילוי",
      "verification": "delay-Doppler מול ADS-B",
      "portfolio_output": "צומת פסיבי עובד"
@@ -1565,6 +1674,8 @@
       "phaser"
      ],
      "tier_needed": "full",
+     "optional_upgrades": [],
+     "wave1_core": true,
      "ai_role": "כותב עיבוד; הלומד מתכנן ניסוי ומנבא רזולוציה",
      "verification": "תמונה מול גאומטריה ידועה",
      "portfolio_output": "דוח"
@@ -1582,6 +1693,10 @@
       "cloud_rec"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [
+      "cloud_full"
+     ],
+     "wave1_core": true,
      "ai_role": "בונה צינורות ומודלים; הלומד מנסח שאלה, השערות וניסוי",
      "verification": "חיזוי RCS ותדר להבים מול מדידה, בדיקת OOD",
      "portfolio_output": "מאמר ל-IEEE RadarConf"
@@ -1628,6 +1743,8 @@
       "tinysa"
      ],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": true,
      "ai_role": "מעבד הקלטות ומציע זיהוי; הלומד מסווג ומצדיק",
      "verification": "זיהוי מול טבלת הקצאות התדרים",
      "portfolio_output": "מאגר SigMF"
@@ -1645,6 +1762,8 @@
       "pluto"
      ],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": true,
      "ai_role": "כותב sweep אוטומטי; הלומד מגדיר סף קבלה",
      "verification": "דליפה נמדדת בכמה תדרים מול סף",
      "portfolio_output": "פרוטוקול בטיחות"
@@ -1663,6 +1782,11 @@
       "shield_box"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [
+      "ramsey",
+      "limesdr"
+     ],
+     "wave1_core": true,
      "ai_role": "בונה משדר, jammer ומקלט; הלומד מנבא BER לכל J/S",
      "verification": "BER מול תיאוריה לכל סוג jammer",
      "portfolio_output": "דוח"
@@ -1678,6 +1802,8 @@
       "kraken"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": true,
      "ai_role": "מעבד ומשרטט; הלומד מתכנן מיקומים ותקציב שגיאה",
      "verification": "כיוון נמדד מול אמת, CEP של מיקום",
      "portfolio_output": "דוח + מפה"
@@ -1695,6 +1821,8 @@
       "shield_box"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": true,
      "ai_role": "בונה מודל וסימולציה; הלומד קובע הנחות",
      "verification": "מודל מול מדידה בכבל (EW3)",
      "portfolio_output": "מאמר"
@@ -1711,6 +1839,8 @@
       "b210"
      ],
      "tier_needed": "full",
+     "optional_upgrades": [],
+     "wave1_core": true,
      "ai_role": "מאמן ומנתח; הלומד מתכנן מחקר וכותב טיעון",
      "verification": "OOD על הקלטות שלו, ביקורת מומחה",
      "portfolio_output": "מאמר"
@@ -1756,6 +1886,8 @@
       "zed_f9p_base"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": true,
      "ai_role": "מעבד ומשרטט; הלומד מנבא זמן התכנסות ודיוק",
      "verification": "דיוק מול נקודת ייחוס ידועה",
      "portfolio_output": "דוח"
@@ -1769,6 +1901,8 @@
      "tools": "gnss_lib_py",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": true,
      "ai_role": "כותב WLS/EKF; הלומד בוחר מודלים",
      "verification": "שגיאה מול ground truth",
      "portfolio_output": "מחברת"
@@ -1785,6 +1919,8 @@
       "antennas"
      ],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": true,
      "ai_role": "מגדיר את התצורה ומנתח; הלומד מנבא C/N0 וזמן רכישה",
      "verification": "PVT מול F9P במקביל",
      "portfolio_output": "דוח"
@@ -1801,6 +1937,8 @@
       "rpi5"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": true,
      "ai_role": "בונה צינור נתונים ומפה; הלומד מגדיר אינדיקטורים",
      "verification": "השוואה ל-GPSJam/Flightradar24 ולמדדי המקלט שלו (AGC, jamInd)",
      "portfolio_output": "לוח מחוונים חי"
@@ -1817,6 +1955,8 @@
       "mcu"
      ],
      "tier_needed": "full",
+     "optional_upgrades": [],
+     "wave1_core": true,
      "ai_role": "כותב מסנן; הלומד מתכנן תרחישים",
      "verification": "NEES, שגיאה בזמן זיוף מוקלט",
      "portfolio_output": "דוח"
@@ -1834,6 +1974,8 @@
       "cloud_rec"
      ],
      "tier_needed": "full",
+     "optional_upgrades": [],
+     "wave1_core": true,
      "ai_role": "בונה גלאים וניתוח; הלומד מנסח שאלה וניסוי",
      "verification": "אירועים מתועדים מול גלאי, השוואה ל-ION ITM 2025",
      "portfolio_output": "מאמר"
@@ -1864,6 +2006,8 @@
      "tools": "SunCalc, EO Browser, Overpass",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מציע; הלומד מאמת",
      "verification": "מול אמת ידועה",
      "portfolio_output": "תרגילים"
@@ -1877,6 +2021,8 @@
      "tools": "SNAP, pyroSAR",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מעבד; הלומד מפרש",
      "verification": "מול אירוע ידוע",
      "portfolio_output": "דוח"
@@ -1890,6 +2036,8 @@
      "tools": "",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מסכם; הלומד שופט",
      "verification": "יומן",
      "portfolio_output": "פרסום"
@@ -1905,6 +2053,8 @@
       "rtlsdr"
      ],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מעבד; הלומד מנתח",
      "verification": "מקורות נוספים",
      "portfolio_output": "פרסום"
@@ -1946,6 +2096,8 @@
       "rf_kit"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "כותב מדידה; הלומד מנבא NF",
      "verification": "NF מול datasheet",
      "portfolio_output": "דוח"
@@ -1961,6 +2113,8 @@
       "scope"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מעבד; הלומד מנבא ערכים",
      "verification": "התאמה ל-T",
      "portfolio_output": "הערה"
@@ -1977,6 +2131,8 @@
       "jlcpcb"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מריץ; הלומד מגדיר רשת וגבולות",
      "verification": "S11 נמדד מול EM",
      "portfolio_output": "דוח"
@@ -1993,6 +2149,8 @@
       "antennas"
      ],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מעבד; הלומד בוחר גאומטריה",
      "verification": "dB חזוי מול נמדד",
      "portfolio_output": "דוח"
@@ -2008,6 +2166,8 @@
       "radar60"
      ],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מממש מודל; הלומד מנבא RCS",
      "verification": "RCS נמדד מול מודל",
      "portfolio_output": "מאמר קצר"
@@ -2045,6 +2205,8 @@
       "rf_kit"
      ],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "בונה שרשרת; הלומד מנבא BER",
      "verification": "BER מול Q-function",
      "portfolio_output": "דוח"
@@ -2062,6 +2224,8 @@
       "cloud_rec"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "בונה סימולציה ושרשרת; הלומד מתכנן ניסוי",
      "verification": "BLER סימולציה מול כבל",
      "portfolio_output": "דוח"
@@ -2077,6 +2241,8 @@
       "pluto"
      ],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "בונה סצנה; הלומד בוחר נקודות",
      "verification": "RSRP נמדד מול ray tracing",
      "portfolio_output": "מפה"
@@ -2093,6 +2259,8 @@
       "shield_box"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מגדיר רשת; הלומד מנבא throughput",
      "verification": "throughput מול טבלאות MCS",
      "portfolio_output": "דוח"
@@ -2108,6 +2276,8 @@
       "cloud_rec"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מאמן; הלומד מגדיר ניסוי",
      "verification": "BLER מול baseline",
      "portfolio_output": "מאמר"
@@ -2142,6 +2312,8 @@
      "tools": "Gymnasium, Stable-Baselines3",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מריץ; הלומד מנבא שונות",
      "verification": "10 זרעים, רווחי סמך",
      "portfolio_output": "מחברת"
@@ -2157,6 +2329,8 @@
       "cloud_rec"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מאמן; הלומד בונה baseline אנליטי",
      "verification": "miss distance מול PN",
      "portfolio_output": "דוח"
@@ -2172,6 +2346,8 @@
       "crazyflie"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מאמן; הלומד קובע טווחי randomization",
      "verification": "ביצועים אמיתיים מול סימולציה",
      "portfolio_output": "וידאו + דוח"
@@ -2189,6 +2365,8 @@
       "shield_box"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מאמן; הלומד מגדיר מרחב פעולה",
      "verification": "throughput מול baseline",
      "portfolio_output": "מאמר"
@@ -2223,6 +2401,8 @@
      "tools": "ROS 2 Jazzy, Gazebo",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מגדיר; הלומד קובע משימה",
      "verification": "זמן ומסלול מול תכנון",
      "portfolio_output": "ריפו"
@@ -2236,6 +2416,8 @@
      "tools": "evo, ORB-SLAM3/OpenVINS",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מריץ; הלומד מנבא סחיפה",
      "verification": "ATE/RPE",
      "portfolio_output": "דוח"
@@ -2252,6 +2434,8 @@
       "rover_kit"
      ],
      "tier_needed": "full",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "כותב nodes; הלומד מתכנן ניסוי",
      "verification": "סימון ground truth בסרט מדידה/AprilTags",
      "portfolio_output": "וידאו + דוח"
@@ -2267,6 +2451,8 @@
       "crazyflie"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "כותב; הלומד מגדיר כשלים",
      "verification": "שגיאת מיקום",
      "portfolio_output": "דוח"
@@ -2302,6 +2488,8 @@
       "thermal_cam"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מעבד; הלומד מנבא MTF",
      "verification": "מול datasheet וגוף שחור DIY",
      "portfolio_output": "דוח"
@@ -2318,6 +2506,8 @@
       "crazyflie"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מעבד; הלומד מנבא טווחים",
      "verification": "טווח נמדד מול מודל",
      "portfolio_output": "דוח"
@@ -2333,6 +2523,8 @@
       "thermal_cam"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מריץ; הלומד מגדיר מקרה",
      "verification": "מדידה מול מודל",
      "portfolio_output": "דוח"
@@ -2346,6 +2538,8 @@
      "tools": "Python",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "בונה מודל; הלומד מנתח פערים",
      "verification": "השוואה לנתונים פומביים",
      "portfolio_output": "מאמר"
@@ -2384,6 +2578,8 @@
       "lora_nodes"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מנתח לוגים; הלומד מנבא PDR",
      "verification": "מדידה מול link budget",
      "portfolio_output": "דוח"
@@ -2397,6 +2593,8 @@
      "tools": "ns-3, EMANE",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "בונה סימולציה; הלומד מגדיר תרחיש",
      "verification": "מול CM1 ומול ספרות",
      "portfolio_output": "דוח"
@@ -2414,6 +2612,8 @@
       "shield_box"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "בונה; הלומד מנבא אובדן קישור",
      "verification": "J/S לאובדן מול חיזוי",
      "portfolio_output": "דוח"
@@ -2429,6 +2629,8 @@
       "b210"
      ],
      "tier_needed": "full",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "בונה; הלומד מנסח שאלה",
      "verification": "מודל מול ניסוי",
      "portfolio_output": "מאמר"
@@ -2466,6 +2668,8 @@
       "qfh"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מעבד; הלומד מנבא זמני מעבר ודופלר",
      "verification": "דופלר נמדד מול TLE",
      "portfolio_output": "תמונות + גרף"
@@ -2482,6 +2686,8 @@
       "rtlsdr"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מגדיר; הלומד בוחר יעדים",
      "verification": "תצפיות מאומתות ברשת",
      "portfolio_output": "תחנה ציבורית"
@@ -2495,6 +2701,8 @@
      "tools": "Orekit, Basilisk, skyfield",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "בונה סימולציה; הלומד מגדיר תרחיש",
      "verification": "מול CSIS/ספרות",
      "portfolio_output": "דוח"
@@ -2508,6 +2716,8 @@
      "tools": "",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "טיוטה; הלומד אחראי",
      "verification": "ביקורת מומחה",
      "portfolio_output": "פרסום"
@@ -2544,6 +2754,8 @@
      "tools": "PX4, ArduPilot, QGroundControl",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מגדיר; הלומד מתכנן משימה",
      "verification": "לוג מול תכנון",
      "portfolio_output": "ריפו"
@@ -2559,6 +2771,8 @@
       "quad_kit"
      ],
      "tier_needed": "full",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "עוזר בתצורה וניפוי; הלומד מרכיב ומכייל",
      "verification": "זמן טיסה חזוי מול נמדד",
      "portfolio_output": "רחפן + לוגים"
@@ -2577,6 +2791,10 @@
       "crazyflie"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [
+      "jetson"
+     ],
+     "wave1_core": false,
      "ai_role": "בונה צינורות; הלומד מתכנן ניסוי",
      "verification": "Pd לפי טווח וחיישן מול חיזוי",
      "portfolio_output": "מטריצה נמדדת"
@@ -2590,6 +2808,8 @@
      "tools": "Python",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "בונה מודל; הלומד מגדיר",
      "verification": "מול UA3 ודיווחי שטח",
      "portfolio_output": "מאמר"
@@ -2622,6 +2842,8 @@
      "tools": "SimPy",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "בונה; הלומד מגדיר שלבים",
      "verification": "רגישות מול ספרות",
      "portfolio_output": "דוח"
@@ -2639,6 +2861,10 @@
       "rpi5"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [
+      "jetson"
+     ],
+     "wave1_core": false,
      "ai_role": "כותב; הלומד מגדיר מפרט latency",
      "verification": "latency נמדד מקצה לקצה",
      "portfolio_output": "מערכת עובדת"
@@ -2652,6 +2878,8 @@
      "tools": "",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מסכם; הלומד מראיין",
      "verification": "כיול מול ראיונות",
      "portfolio_output": "פרסום"
@@ -2692,6 +2920,8 @@
       "psu"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מעבד; הלומד מנבא",
      "verification": "מדידה מול מודל",
      "portfolio_output": "דוח"
@@ -2708,6 +2938,8 @@
       "scope"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מכוון; הלומד בוחר רוחבי פס",
      "verification": "זרמים נמדדים מול מודל",
      "portfolio_output": "דוח"
@@ -2724,6 +2956,8 @@
       "thermo_daq"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מתאים מודל; הלומד מנבא",
      "verification": "מתח וחום מול מדידה",
      "portfolio_output": "דוח"
@@ -2737,6 +2971,8 @@
      "tools": "pandapower, PyPSA",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "בונה; הלומד מגדיר תרחישים",
      "verification": "מול נתוני ייחוס",
      "portfolio_output": "דוח"
@@ -2750,6 +2986,8 @@
      "tools": "PyPSA",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מריץ; הלומד מנסח שאלה",
      "verification": "ניתוח רגישות",
      "portfolio_output": "מאמר"
@@ -2787,6 +3025,8 @@
       "thermo_daq"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מריץ; הלומד מנבא",
      "verification": "טמפ' מול זמן",
      "portfolio_output": "דוח"
@@ -2803,6 +3043,8 @@
       "cloud_rec"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מגדיר; הלומד קובע תנאי שפה",
      "verification": "מול מדידה",
      "portfolio_output": "דוח"
@@ -2818,6 +3060,8 @@
       "thermal_cam"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מעבד; הלומד מנבא",
      "verification": "מול מצלמה",
      "portfolio_output": "דוח"
@@ -2834,6 +3078,8 @@
       "thermo_daq"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מתכנן; הלומד מחליט",
      "verification": "מדידה בשמש",
      "portfolio_output": "מוצר"
@@ -2867,6 +3113,8 @@
       "thrust_stand"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מריץ; הלומד מנבא דחף",
      "verification": "דחף נמדד מול חזוי",
      "portfolio_output": "דוח"
@@ -2880,6 +3128,8 @@
      "tools": "OpenVSP, ArduPilot SITL",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מריץ; הלומד מגדיר",
      "verification": "מול לוג",
      "portfolio_output": "דוח"
@@ -2895,6 +3145,8 @@
       "cloud_rec"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מריץ; הלומד מגדיר רשת",
      "verification": "Cd מול נתוני NASA",
      "portfolio_output": "דוח"
@@ -2908,6 +3160,8 @@
      "tools": "Python",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מחשב; הלומד מנתח",
      "verification": "מול ספרות",
      "portfolio_output": "מאמר"
@@ -2940,6 +3194,8 @@
      "tools": "CalculiX, FreeCAD",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מריץ; הלומד מנבא כוח שבר",
      "verification": "מול ST2",
      "portfolio_output": "דוח"
@@ -2956,6 +3212,8 @@
       "thrust_stand"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מעבד; הלומד מתכנן",
      "verification": "כוח נמדד מול FEA",
      "portfolio_output": "דוח + וידאו"
@@ -2971,6 +3229,8 @@
       "mcu"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מעבד FFT; הלומד מנבא תדרים",
      "verification": "תדרים מול FEA",
      "portfolio_output": "דוח"
@@ -2987,6 +3247,8 @@
       "thrust_stand"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מעבד; הלומד מנבא",
      "verification": "S-N מול מדידה",
      "portfolio_output": "דוח"
@@ -3020,6 +3282,8 @@
      "tools": "Python",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "כותב; הלומד מנבא miss distance",
      "verification": "עקומות Zarchan",
      "portfolio_output": "ספרייה"
@@ -3033,6 +3297,8 @@
      "tools": "Python",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "כותב; הלומד מתכנן",
      "verification": "adjoint מול Monte Carlo",
      "portfolio_output": "דוח"
@@ -3048,6 +3314,8 @@
       "rocket_kit"
      ],
      "tier_needed": "full",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מריץ; הלומד מנבא apogee",
      "verification": "apogee נמדד מול חזוי",
      "portfolio_output": "דוח"
@@ -3063,6 +3331,8 @@
       "cloud_rec"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "בונה; הלומד מנסח",
      "verification": "רגישות, ביקורת",
      "portfolio_output": "מאמר"
@@ -3093,6 +3363,8 @@
      "tools": "Python",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "בונה; הלומד מכייל",
      "verification": "מול נתוני 2024–26",
      "portfolio_output": "דוח"
@@ -3108,6 +3380,8 @@
       "rtlsdr"
      ],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "כותב; הלומד מגדיר",
      "verification": "OSPA מול אמת",
      "portfolio_output": "דוח"
@@ -3121,6 +3395,8 @@
      "tools": "Python",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "בונה; הלומד מנסח",
      "verification": "ביקורת מקצוען",
      "portfolio_output": "מאמר"
@@ -3152,6 +3428,8 @@
      "tools": "Python",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מחשב; הלומד מנבא",
      "verification": "מול ספרות",
      "portfolio_output": "דוח"
@@ -3168,6 +3446,8 @@
       "mcu"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מעבד; הלומד מנבא",
      "verification": "תאוצה מול מודל",
      "portfolio_output": "דוח"
@@ -3181,6 +3461,8 @@
      "tools": "Python",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מחשב; הלומד מנתח",
      "verification": "רגישות",
      "portfolio_output": "פרסום"
@@ -3217,6 +3499,8 @@
       "iwr6843"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מעבד; הלומד מנבא PO",
      "verification": "מדידה מול PO",
      "portfolio_output": "דוח"
@@ -3230,6 +3514,8 @@
      "tools": "Python",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "בונה; הלומד מנתח",
      "verification": "רגישות",
      "portfolio_output": "מאמר"
@@ -3247,6 +3533,8 @@
       "printer"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מעבד; הלומד מתכנן שינוי",
      "verification": "לפני/אחרי",
      "portfolio_output": "דוח"
@@ -3281,6 +3569,8 @@
      "tools": "Python",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "בונה; הלומד מכייל",
      "verification": "מול נתונים פומביים",
      "portfolio_output": "דוח"
@@ -3297,6 +3587,8 @@
       "rtlsdr"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מעבד; הלומד מנבא",
      "verification": "קווים טונליים מול סוג אונייה",
      "portfolio_output": "דוח"
@@ -3313,6 +3605,8 @@
       "mcu"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "כותב; הלומד מנבא",
      "verification": "טווח מול משוואת סונאר",
      "portfolio_output": "דוח"
@@ -3326,6 +3620,8 @@
      "tools": "Python",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "בונה; הלומד מנסח",
      "verification": "ביקורת",
      "portfolio_output": "פרסום"
@@ -3354,6 +3650,8 @@
      "tools": "SysML v2/SysON, Markdown",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מנסח טיוטות; הלומד מחליט",
      "verification": "כל דרישה עם בדיקה",
      "portfolio_output": "תיק SE"
@@ -3367,6 +3665,8 @@
      "tools": "",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מציע UCAs; הלומד בוחר",
      "verification": "ביקורת",
      "portfolio_output": "דוח"
@@ -3380,6 +3680,8 @@
      "tools": "pytest, CI",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "כותב; הלומד מגדיר",
      "verification": "CI ירוק",
      "portfolio_output": "ריפו"
@@ -3393,6 +3695,8 @@
      "tools": "",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "טיוטה; הלומד אחראי",
      "verification": "ביקורת",
      "portfolio_output": "פרסום"
@@ -3423,6 +3727,8 @@
      "tools": "Python",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מתאים; הלומד מנבא",
      "verification": "מול נתון היסטורי",
      "portfolio_output": "מחברת"
@@ -3436,6 +3742,8 @@
      "tools": "SimPy, Mesa",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "בונה; הלומד מגדיר",
      "verification": "validation",
      "portfolio_output": "דוח"
@@ -3449,6 +3757,8 @@
      "tools": "",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "משחק תפקיד; הלומד מתכנן",
      "verification": "תחקיר",
      "portfolio_output": "דוח"
@@ -3464,6 +3774,8 @@
       "cloud_rec"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "בונה; הלומד מנסח",
      "verification": "validation + ביקורת",
      "portfolio_output": "מאמר"
@@ -3492,6 +3804,8 @@
      "tools": "pandas",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "אוסף; הלומד מכייל",
      "verification": "מול דיווחים",
      "portfolio_output": "דוח"
@@ -3505,6 +3819,8 @@
      "tools": "OR-Tools, Pyomo",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מנסח; הלומד מגדיר",
      "verification": "רגישות",
      "portfolio_output": "דוח"
@@ -3518,6 +3834,8 @@
      "tools": "Streamlit",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "בונה; הלומד אחראי",
      "verification": "ביקורת",
      "portfolio_output": "כלי ציבורי"
@@ -3549,6 +3867,8 @@
      "tools": "pandas",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מחלץ; הלומד מכייל",
      "verification": "מול נתוני תוכנית",
      "portfolio_output": "דוח"
@@ -3565,6 +3885,8 @@
       "scope"
      ],
      "tier_needed": "rec",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מנסח; הלומד מריץ בדיקות",
      "verification": "בדיקות קבלה",
      "portfolio_output": "תוכנית T&E"
@@ -3578,6 +3900,8 @@
      "tools": "pandas",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "אוסף; הלומד מנתח",
      "verification": "ביקורת",
      "portfolio_output": "מאמר"
@@ -3606,6 +3930,8 @@
      "tools": "QGIS, Copernicus",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מודד; הלומד מנבא",
      "verification": "מול מקורות פתוחים",
      "portfolio_output": "דוח"
@@ -3619,6 +3945,8 @@
      "tools": "",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "מתרגם; הלומד מאמת",
      "verification": "בדיקה צולבת",
      "portfolio_output": "הערכה"
@@ -3632,6 +3960,8 @@
      "tools": "",
      "equipment": [],
      "tier_needed": "min",
+     "optional_upgrades": [],
+     "wave1_core": false,
      "ai_role": "טיוטה; הלומד אחראי",
      "verification": "ביקורת",
      "portfolio_output": "פרסום"
