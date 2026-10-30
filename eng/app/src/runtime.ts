@@ -297,6 +297,21 @@ export class Store {
     return this.profile.collection(name);
   }
 
+  /* ---- the study day, counted quietly (day.ts): profile/days/<YYYY-MM-DD> ---- */
+  async loadDay(date: string): Promise<Record<string, unknown> | null> {
+    const s = await this.profile.collection("days").doc(date).get();
+    return s.exists ? (s.data() ?? null) : null;
+  }
+
+  async saveDay(date: string, data: Record<string, unknown>) {
+    await this.profile.collection("days").doc(date).set(clean(data));
+  }
+
+  async recentDays(n: number): Promise<Record<string, unknown>[]> {
+    const s = await this.profile.collection("days").orderBy("date", "desc").limit(n).get();
+    return s.docs.map((d) => ({ ...d.data(), date: d.id }));
+  }
+
   async allSummaries(): Promise<Summary[]> {
     const s = await this.profile.collection("summaries").get();
     return s.docs.map((d) => d.data() as Summary);

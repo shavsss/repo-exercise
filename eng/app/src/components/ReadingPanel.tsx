@@ -2,7 +2,7 @@ import { DEFAULT_READING, setReading, useReading, type Reading } from "../readin
 import { play } from "../sound";
 import { Icon } from "./Icon";
 
-type Choice = Exclude<keyof Reading, "volume" | "noiseVolume" | "noiseKind">;
+type Choice = Exclude<keyof Reading, "volume" | "noiseVolume" | "noiseKind" | "rv">;
 const OPTIONS: { key: Choice; label: string; values: [string, string][] }[] = [
   { key: "font", label: "גופן", values: [["plex", "IBM Plex"], ["frank", "פרנק-רוהל"], ["assistant", "Assistant"]] },
   { key: "size", label: "גודל", values: [["s", "קטן"], ["m", "בינוני"], ["l", "גדול"], ["xl", "גדול מאוד"]] },
@@ -12,7 +12,10 @@ const OPTIONS: { key: Choice; label: string; values: [string, string][] }[] = [
   { key: "focus", label: "מצב ריכוז (בלי המפה ובלי כפתורי העזר)", values: [["off", "כבוי"], ["on", "פועל"]] },
   { key: "sound", label: "צלילים", values: [["soft", "רכים"], ["off", "כבויים"]] },
   { key: "cursor", label: "מצביע", values: [["lab", "של המעבדה"], ["system", "רגיל"]] },
-  { key: "noise", label: "רעש רקע בקריאה", values: [["off", "כבוי"], ["brown", "חום (עמוק)"], ["pink", "ורוד"], ["rain", "גשם"]] },
+  { key: "noise", label: "רעש רקע בקריאה", values: [["off", "כבוי"], ["library", "חדר ספרייה"], ["brown", "חום (עמוק)"], ["pink", "ורוד"], ["rain", "גשם"]] },
+  { key: "focusNoise", label: "רעש שנחלש לבד אחרי 25 דקות של קריאה", values: [["off", "כבוי"], ["on", "פועל"]] },
+  { key: "breaks", label: "הצעת הפסקה בסוף חלק", values: [["on", "פועלת"], ["off", "כבויה"]] },
+  { key: "breakAfter", label: "אחרי כמה דקות של קריאה", values: [["45", "45"], ["60", "60"], ["75", "75"], ["90", "90"], ["120", "120"]] },
 ];
 
 /** A 0–100 slider with − and + beside it. */

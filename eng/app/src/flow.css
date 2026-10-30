@@ -1,0 +1,525 @@
+/* The study day's flow (round 5): the wait while a lesson is written, the quiet break line, the break screen,
+   the morning card and closing the day with its stamp. Nothing loops; the one-time stamp is the only motion.
+   Identical in both labs. */
+:root {
+  --stamp-ink: #9b2c22;
+  --blueprint: #2a5c8a;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --stamp-ink: #e79a8f;
+    --blueprint: #9cc1e0;
+  }
+}
+:root[data-theme="dark"] {
+  --stamp-ink: #e79a8f;
+  --blueprint: #9cc1e0;
+}
+
+.flow-kicker {
+  font-size: 0.8125rem;
+  color: var(--muted);
+  letter-spacing: 0.01em;
+}
+.flow-hint {
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+.flow-line .btn.quiet,
+.flow-close .btn.quiet,
+.flow-close-btn {
+  border-color: transparent;
+  background: transparent;
+  color: var(--muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.flow-line .btn.quiet:hover:not(:disabled),
+.flow-close .btn.quiet:hover:not(:disabled),
+.flow-close-btn:hover:not(:disabled) {
+  color: var(--ink);
+  background: transparent;
+  border-color: transparent;
+}
+
+/* ---- while a lesson is written: no spinner, no caret race ---- */
+.flow-wait {
+  display: grid;
+  gap: 10px;
+  margin: 18px 0 8px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--paper);
+  color: var(--ink-soft);
+  font-size: 0.9375rem;
+}
+.flow-wait-title {
+  font-weight: 600;
+  color: var(--ink);
+}
+.flow-wait-covers,
+.flow-parts {
+  margin: 0;
+  padding-inline-start: 1.2rem;
+  display: grid;
+  gap: 2px;
+}
+.flow-parts li {
+  color: var(--muted);
+}
+.flow-parts li.is-done {
+  color: var(--ink-soft);
+}
+.flow-parts {
+  list-style: none;
+  padding: 0;
+}
+.flow-mark {
+  display: inline-block;
+  min-width: 1.4em;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.flow-parts li.is-done .flow-mark {
+  color: var(--ok);
+}
+.flow-parts li.is-now {
+  color: var(--ink);
+  font-weight: 500;
+}
+.flow-bar {
+  position: relative;
+  height: 2px;
+  background: var(--line);
+  max-width: 22rem;
+}
+.flow-bar i {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  background: var(--ink-soft);
+  transition: width 0.6s ease-out;
+}
+.flow-q {
+  display: grid;
+  gap: 6px;
+  justify-items: start;
+  border-top: 1px solid var(--line);
+  padding-top: 10px;
+}
+.flow-q .md,
+.flow-q p {
+  margin: 0;
+}
+.flow-a {
+  border-inline-start: 3px solid var(--ok);
+  padding: 2px 10px;
+  color: var(--ink-soft);
+  justify-self: stretch;
+}
+/* the wait replaces the old moving status of a live lesson */
+.msg-assistant.is-live:has(~ .flow-wait) .live-status,
+.msg-assistant.is-live:has(~ .flow-wait) .typing {
+  display: none;
+}
+.msg-assistant.is-live:has(~ .flow-wait) .caret {
+  display: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .flow-bar i {
+    transition: none;
+  }
+}
+
+/* ---- the quiet break line, above the reading dock ---- */
+.flow-line {
+  position: sticky;
+  bottom: 58px;
+  z-index: 5;
+  margin: 12px auto 0;
+  max-width: min(var(--measure, 42rem), calc(100% - 32px));
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px 12px;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--paper);
+  box-shadow: var(--shadow);
+  font-size: 0.875rem;
+  color: var(--ink-soft);
+}
+.flow-line.is-quiet {
+  color: var(--muted);
+  box-shadow: none;
+}
+.flow-line-text {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 8px;
+  min-width: 0;
+}
+.flow-line-text b {
+  color: var(--ink);
+  font-weight: 600;
+}
+.flow-sep {
+  color: var(--line-strong);
+}
+.flow-line-actions {
+  display: flex;
+  gap: 6px;
+}
+
+/* ---- the break: a calm screen over the lesson ---- */
+.flow-break {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: var(--bg);
+}
+.flow-break-in {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: 18px;
+  width: min(28rem, 100%);
+  min-width: 0;
+}
+.flow-break-clock {
+  font-size: 0.9375rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.flow-break-main {
+  margin: 0;
+  font-family: "Frank Ruhl Libre", var(--font);
+  font-size: 1.5rem;
+  line-height: 1.5;
+  color: var(--ink);
+}
+.flow-break-sub {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+
+/* ---- the morning card ---- */
+.flow-morning {
+  display: grid;
+  gap: 14px;
+  margin: 0 0 24px;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--sheet);
+  box-shadow: var(--shadow);
+}
+.flow-morning-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+}
+.flow-skip {
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+.flow-where {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 12px;
+  color: var(--ink-soft);
+}
+.flow-where b {
+  color: var(--ink);
+  font-weight: 600;
+}
+.flow-mq {
+  display: grid;
+  gap: 10px;
+}
+.flow-mq .flow-q {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 10px 12px;
+  background: var(--paper);
+}
+.flow-n,
+.flow-src {
+  font-size: 0.75rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.flow-step {
+  display: grid;
+  gap: 4px;
+  border-top: 1px solid var(--line);
+  padding-top: 12px;
+}
+.flow-step q,
+.flow-close-done q {
+  font-family: "Frank Ruhl Libre", var(--font);
+  font-size: 1.125rem;
+  color: var(--ink);
+  quotes: "״" "״";
+}
+
+/* ---- closing the day ---- */
+.flow-close-btn.is-home {
+  margin-top: 4px;
+}
+.flow-close-btn.is-lesson {
+  display: block;
+  margin: 18px auto 0;
+}
+.flow-overlay > * {
+  min-width: 0;
+}
+.flow-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: rgb(0 0 0 / 28%);
+}
+.flow-close {
+  width: min(34rem, 100%);
+  max-height: calc(100dvh - 32px);
+  overflow-y: auto;
+  display: grid;
+  gap: 14px;
+  padding: 18px;
+  border-radius: 10px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+}
+.flow-close-sheet {
+  position: relative;
+  display: grid;
+  gap: 10px;
+  padding: 16px;
+  border-radius: 6px;
+  background: var(--sheet);
+  border: 1px solid var(--line);
+  min-height: 130px;
+}
+.flow-close-title {
+  margin: 0;
+  font-family: "Frank Ruhl Libre", var(--font);
+  font-size: 1.375rem;
+  color: var(--ink);
+}
+.flow-facts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 4px;
+  font-size: 0.9375rem;
+}
+.flow-facts li,
+.flow-close-stop {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  margin: 0;
+  font-size: 0.9375rem;
+  color: var(--ink-soft);
+}
+.flow-tag {
+  font-size: 0.75rem;
+  color: var(--muted);
+  min-width: 4.2rem;
+  flex: none;
+}
+.flow-field {
+  display: grid;
+  gap: 6px;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  color: var(--ink);
+}
+.flow-field input {
+  font: inherit;
+  font-weight: 400;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--paper);
+  color: var(--ink);
+  padding: 0.5rem 0.65rem;
+}
+.flow-field input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+.flow-close-done {
+  display: grid;
+  gap: 6px;
+}
+.flow-close-done p {
+  margin: 0;
+  color: var(--ink-soft);
+}
+.flow-close-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* the stamp: pressed once, then still */
+.flow-stamp-svg.core {
+  position: absolute;
+  top: 8px;
+  inset-inline-end: 10px;
+  width: 104px;
+  height: 104px;
+  pointer-events: none;
+}
+.flow-stamp-svg.core circle {
+  stroke: var(--stamp-ink);
+}
+.flow-stamp-svg.core text {
+  fill: var(--stamp-ink);
+  text-anchor: middle;
+  font-family: "Frank Ruhl Libre", var(--font);
+}
+.flow-stamp-svg .st-main {
+  font-size: 22px;
+  font-weight: 700;
+}
+.flow-stamp-svg .st-date {
+  font-size: 11px;
+  font-family: var(--mono) !important;
+}
+.flow-stamp-svg .stamp {
+  transform-origin: 50% 50%;
+  transform-box: fill-box;
+  transform: rotate(-8deg);
+  opacity: 0.88;
+}
+.flow-stamp-svg .ink {
+  opacity: 0;
+}
+.flow-stamp-svg.core.go .stamp {
+  animation: flow-press 0.18s ease-in both 0.6s;
+}
+.flow-stamp-svg.core.go .ink {
+  animation: flow-ink 0.7s ease-out both 0.78s;
+}
+@keyframes flow-press {
+  from {
+    transform: scale(1.15) rotate(-8deg);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) rotate(-8deg);
+    opacity: 0.88;
+  }
+}
+@keyframes flow-ink {
+  from {
+    opacity: 0.45;
+  }
+  to {
+    opacity: 0;
+  }
+}
+.flow-stamp-svg.eng.frame {
+  position: absolute;
+  inset: 4px;
+  width: calc(100% - 8px);
+  height: calc(100% - 8px);
+  pointer-events: none;
+}
+.flow-stamp-svg.eng.tb {
+  position: absolute;
+  bottom: 10px;
+  inset-inline-end: 10px;
+  width: 132px;
+  height: 36px;
+  pointer-events: none;
+}
+.flow-stamp-svg.eng rect,
+.flow-stamp-svg.eng line {
+  stroke: var(--blueprint);
+}
+.flow-stamp-svg.eng text {
+  fill: var(--blueprint);
+  font-family: var(--mono);
+  font-size: 7px;
+  text-anchor: middle;
+}
+.flow-stamp-svg.eng .ini {
+  font-size: 9px;
+}
+.flow-stamp-svg.eng.tb rect,
+.flow-stamp-svg.eng.tb line {
+  stroke-width: 0.8;
+}
+.flow-close-sheet:has(.flow-stamp-svg.eng.tb) {
+  padding-bottom: 56px;
+}
+.flow-stamp-svg.eng .bp {
+  stroke-width: 1;
+  stroke-dasharray: 6 5;
+  opacity: 0.6;
+}
+.flow-stamp-svg.eng .bp-fill {
+  stroke-width: 1.6;
+}
+.flow-stamp-svg.eng.go .bp-fill {
+  stroke-dasharray: 300;
+  animation: flow-solid 0.9s ease-in-out both 0.6s;
+}
+.flow-stamp-svg.eng.go .ini {
+  animation: flow-fade 0.3s both 1.4s;
+}
+@keyframes flow-solid {
+  from {
+    stroke-dashoffset: 300;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes flow-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .flow-stamp-svg *,
+  .flow-stamp-svg.go * {
+    animation: none !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .flow-line {
+    bottom: 54px;
+  }
+  .flow-stamp-svg.core {
+    width: 84px;
+    height: 84px;
+  }
+  .flow-break-main {
+    font-size: 1.3rem;
+  }
+}
