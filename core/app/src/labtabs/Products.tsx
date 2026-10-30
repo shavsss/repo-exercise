@@ -35,6 +35,7 @@ export function ProductsTab({ lab, rt }: LabTabProps) {
   const [month, setMonth] = useState(thisMonth);
   const [p, setP] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
+  const [loadErr, setLoadErr] = useState(false);
   const [stage, setStage] = useState<StageId>("idea");
   const [saved, setSaved] = useState<"" | "saving" | "saved" | "error">("");
   const timer = useRef<number | undefined>(undefined);
@@ -50,6 +51,7 @@ export function ProductsTab({ lab, rt }: LabTabProps) {
   useEffect(() => {
     let live = true;
     setLoading(true);
+    setLoadErr(false);
     (store ? loadProduct(store, month) : Promise.resolve(null))
       .then((doc) => {
         if (!live) return;
@@ -62,7 +64,8 @@ export function ProductsTab({ lab, rt }: LabTabProps) {
           setStage(first?.id ?? "retro");
         }
       })
-      .catch(() => live && (setLoading(false), setSaved("error")));
+      // a document that did not load is never replaced by an empty one
+      .catch(() => live && (setLoading(false), setLoadErr(true)));
     return () => {
       live = false;
     };
@@ -143,6 +146,8 @@ export function ProductsTab({ lab, rt }: LabTabProps) {
 
       {loading ? (
         <p className="lt-empty">טוען…</p>
+      ) : loadErr ? (
+        <p className="lt-empty">המוצר של {monthLabel(month)} לא נטען. אפשר לרענן את הדף.</p>
       ) : !p ? (
         <div className="prod-start">
           <p className="lt-empty">המוצר של {monthLabel(month)} מתחיל ברעיון: שאלה, למי זה, ובמה זה טוב יותר ממה שקיים.</p>
