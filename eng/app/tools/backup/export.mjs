@@ -8,6 +8,9 @@
 //   <dump>/data/users/<id>/profile/modules/<module id>.json
 //   <dump>/data/users/<id>/profile/convs/<cid>.json
 //   <dump>/data/users/<id>/profile/convs/<cid>/msgs/<mid>.json
+//   <dump>/data/users/<id>/profile/convs/<cid>/msgs/<mid>/more/<n>.json
+//   <dump>/data/users/<id>/profile/<collection>/<doc>.json for the other collections (docs/BACKUP.md),
+//   and <dump>/data/users/<id>/profile/consults/<module>__<lesson>/cards/<card>.json
 // Output (overwritten on every run, so unchanged data gives no git diff):
 //   eng/notes/MEMORY.md, eng/notes/PROGRESS.md, eng/notes/README.md,
 //   eng/notes/lessons/<module>-<lesson>-<title>.md (one file per conversation),
@@ -48,6 +51,12 @@ const notebook = [];
 const summaries = [];
 const scratch = [];
 const more = new Map();
+const memlog = [];
+const calib = [];
+const consultCards = [];
+const level3 = [];
+const products = [];
+const reviews = [];
 for (const f of walk(dump).filter((f) => f.endsWith(".json"))) {
   const rel = path.relative(dump, f).split(path.sep).join("/");
   let m;
@@ -62,6 +71,20 @@ for (const f of walk(dump).filter((f) => f.endsWith(".json"))) {
     const c = convs.get(m[1]) ?? { id: m[1], meta: {}, msgs: [] };
     c.meta = read(f);
     convs.set(m[1], c);
+  } else if ((m = /profile\/consults\/([^/]+)\/cards\/([^/]+)\.json$/.exec(rel))) {
+    consultCards.push({ ...read(f), id: m[2], lessonKey: m[1] });
+  } else if (/profile\/(consults|events|usage|diag|news|newsfb|dict)\/[^/]+\.json$/.test(rel)) {
+    // kept only in the raw snapshot below
+  } else if (/profile\/memlog\/[^/]+\.json$/.test(rel)) {
+    memlog.push(read(f));
+  } else if ((m = /profile\/calib\/([^/]+)\.json$/.exec(rel))) {
+    calib.push({ id: m[1], ...read(f) });
+  } else if ((m = /profile\/level3\/([^/]+)\.json$/.exec(rel))) {
+    level3.push({ ...read(f), key: m[1] });
+  } else if ((m = /profile\/products\/([^/]+)\.json$/.exec(rel))) {
+    products.push({ ...read(f), month: m[1] });
+  } else if ((m = /profile\/reviews\/([^/]+)\.json$/.exec(rel))) {
+    reviews.push({ ...read(f), id: m[1] });
   } else if ((m = /profile\/scratch\/([^/]+)\.json$/.exec(rel))) {
     scratch.push({ key: m[1], ...read(f) });
   } else if (/profile\/summaries\/[^/]+\.json$/.test(rel)) {
@@ -142,7 +165,7 @@ fs.writeFileSync(
 
 fs.writeFileSync(
   path.join(notes, "README.md"),
-  `# מחברת ההנדסה\n\nגיבוי אוטומטי של מעבדת ההנדסה: נוצר מתוך מסד הנתונים של ה-Artifact.\n\n- [זיכרון הקורס](MEMORY.md)\n- [התקדמות במודולים](PROGRESS.md)\n- [מחברת השיעורים](NOTEBOOK.md)\n- [הסיכומים](SUMMARIES.md)\n- [מחברת השרטוטים והפתרונות](SCRATCH.md)\n\n## שיחות\n\n${index.length ? index.join("\n") : "עדיין אין שיחות."}\n`,
+  `# מחברת ההנדסה\n\nגיבוי אוטומטי של מעבדת ההנדסה: נוצר מתוך מסד הנתונים של ה-Artifact.\n\n- [זיכרון הקורס](MEMORY.md)\n- [התקדמות במודולים](PROGRESS.md)\n- [מחברת השיעורים](NOTEBOOK.md)\n- [הסיכומים](SUMMARIES.md)\n- [מחברת השרטוטים והפתרונות](SCRATCH.md)\n- [כרטיסי ההתייעצות](CONSULTS.md)\n- [כיול: שאלות think](CALIBRATION.md)\n- [תשובות רמה 3](LEVEL3.md)\n- [מוצר החודש](PRODUCTS.md)\n- [הסקירות השבועיות](REVIEWS.md)\n- [גרסאות של זיכרון הקורס](MEMORY_LOG.md)\n\n## שיחות\n\n${index.length ? index.join("\n") : "עדיין אין שיחות."}\n`,
 );
 
 // the summaries notebook (#summary): one Markdown file with every module's summary
@@ -306,6 +329,136 @@ fs.writeFileSync(
   `# מחברת השרטוטים והפתרונות\n\nמה שכתבתי ושרטטתי במחברת שליד השיעורים, שיעור אחר שיעור. השרטוטים בתיקייה scratch/.\n\n${scratchMd.join("\n\n---\n\n") || "עדיין אין כלום במחברת."}\n`,
 );
 
+// ---- the collections added on 31.10: memory versions, calibration, consultation cards,
+// level-3 answers, the month's product and the weekly reviews. Each file is written even when
+// its collection is absent (an older dump), so the README links always open.
+const when = (ms) => (ms ? new Date(ms).toISOString().slice(0, 16).replace("T", " ") : "");
+const modTitle = (id) => syllabus.modules.find((m) => m.id === id)?.title ?? "";
+const lessonLabel = (key) => {
+  const [mod, l] = String(key).split("__");
+  const n = Number(l);
+  return `${mod} · ${n === -1 ? "מבחן מסכם" : l !== undefined && Number.isFinite(n) ? `שיעור ${n + 1}` : l ?? ""}${modTitle(mod) ? ` · ${modTitle(mod)}` : ""}`;
+};
+const byKey = (a, b) => String(a).localeCompare(String(b), "en", { numeric: true });
+const quote = (s) => String(s ?? "").trim().replace(/\n/g, "\n> ");
+const cell = (s) => String(s ?? "").replace(/\|/g, "\\|").replace(/\n+/g, " ").trim();
+
+// course memory versions (profile/memlog), newest first
+fs.writeFileSync(
+  path.join(notes, "MEMORY_LOG.md"),
+  `# גרסאות של זיכרון הקורס\n\nכל נוסח קודם של זיכרון הקורס, לפני שהוחלף (מהחדש לישן). הנוסח הנוכחי ב-[MEMORY.md](MEMORY.md).\n\n${
+    [...memlog].sort((a, b) => (b.at ?? 0) - (a.at ?? 0)).map((v) => `## ${when(v.at)}${v.reason ? ` · ${v.reason}` : ""}\n\n<details><summary>הנוסח (${String(v.memory ?? "").length} תווים)</summary>\n\n${String(v.memory ?? "").trim()}\n\n</details>`).join("\n\n") || "עדיין אין גרסאות קודמות."
+  }\n`,
+);
+
+// calibration of the think questions (profile/calib)
+const CONF = { 1: "מנחש", 2: "די בטוח", 3: "בטוח" };
+const GRADE = { right: "צדקתי", partial: "בחלקו", wrong: "טעיתי" };
+const ctab = { 1: {}, 2: {}, 3: {} };
+for (const r of calib) if (ctab[r.conf]) ctab[r.conf][r.grade ?? "open"] = (ctab[r.conf][r.grade ?? "open"] ?? 0) + 1;
+const calibByLesson = new Map();
+for (const r of [...calib].sort((a, b) => byKey(a.moduleId, b.moduleId) || (a.lesson ?? 0) - (b.lesson ?? 0) || (a.ts ?? 0) - (b.ts ?? 0))) {
+  const k = `${r.moduleId}__${r.lesson}`;
+  calibByLesson.set(k, [...(calibByLesson.get(k) ?? []), r]);
+}
+fs.writeFileSync(
+  path.join(notes, "CALIBRATION.md"),
+  `# כיול: שאלות think\n\nכמה הייתי בטוח לפני התשובה, ואם צדקתי.\n\n${
+    calib.length
+      ? `| ביטחון | צדקתי | בחלקו | טעיתי | בלי בדיקה |\n|---|---|---|---|---|\n${[1, 2, 3].map((c) => `| ${CONF[c]} | ${ctab[c].right ?? 0} | ${ctab[c].partial ?? 0} | ${ctab[c].wrong ?? 0} | ${ctab[c].open ?? 0} |`).join("\n")}\n\n${[...calibByLesson]
+          .map(([k, list]) => `## ${lessonLabel(k)}\n\n${list.map((r) => `- **${CONF[r.conf] ?? r.conf} → ${GRADE[r.grade] ?? "בלי בדיקה"}**${r.conf === 3 && r.grade === "wrong" ? " ⚠️" : ""} (${date(r.ts)}): ${cell(r.q)}${String(r.answer ?? "").trim() ? `\n   - עניתי: ${cell(r.answer)}` : ""}`).join("\n")}`)
+          .join("\n\n")}`
+      : "עדיין אין תשובות."
+  }\n`,
+);
+
+// consultation cards (profile/consults/<module>__<lesson>/cards)
+const CKIND = { explain: "הסבר פשוט", why: "למה?", example: "דוגמה", check: "בדוק אותי", ask: "שאלה" };
+const cardsByLesson = new Map();
+for (const c of consultCards) cardsByLesson.set(c.lessonKey, [...(cardsByLesson.get(c.lessonKey) ?? []), c]);
+fs.writeFileSync(
+  path.join(notes, "CONSULTS.md"),
+  `# כרטיסי ההתייעצות\n\nהשאלות ששאלתי בתוך השיעורים, ליד הפסקה שעליה שאלתי, עם התשובות.\n\n${
+    [...cardsByLesson]
+      .sort(([a], [b]) => byKey(a, b))
+      .map(([k, list]) => `## ${lessonLabel(k)}\n\n${list
+        .sort((a, b) => (a.ts ?? 0) - (b.ts ?? 0))
+        .map((c) => `### ${CKIND[c.kind] ?? c.kind ?? "שאלה"} · ${date(c.ts)}${c.hidden ? " · (הוסר מהשיעור)" : ""}\n\n${c.anchor ? `ליד: "${cell(c.anchor).slice(0, 160)}"\n\n` : ""}${c.quote ? `> ${quote(c.quote)}\n\n` : ""}${(c.turns ?? []).map((t) => `**שאלה${t.discuss ? " (דיון)" : ""}:** ${String(t.q ?? "").trim()}\n\n**תשובה${t.model ? ` · ${t.model}` : ""}${t.cut ? " · (נקטע)" : ""}:**\n\n${String(t.a ?? "").trim()}`).join("\n\n")}`)
+        .join("\n\n")}`)
+      .join("\n\n---\n\n") || "עדיין אין כרטיסים."
+  }\n`,
+);
+
+// level-3 answers (profile/level3/<module>__<lesson>)
+const L3KIND = { predict: "תחזית", errorhunt: "ציד שגיאות", verify: "אימות", lab: "משימת מעבדה", decide: "החלטה" };
+fs.writeFileSync(
+  path.join(notes, "LEVEL3.md"),
+  `# תשובות רמה 3\n\nמה שכתבתי בבלוקים של רמה 3: תחזיות, ציד שגיאות, אימות, משימות מעבדה והחלטות.\n\n${
+    [...level3]
+      .filter((d) => d.items && typeof d.items === "object" && Object.keys(d.items).length)
+      .sort((a, b) => byKey(a.key, b.key))
+      .map((d) => `## ${lessonLabel(d.key)} (${date(d.updatedAt)})\n\n${Object.values(d.items)
+        .filter(Boolean)
+        .sort((a, b) => (a.at ?? 0) - (b.at ?? 0))
+        .map((a) => {
+          const bits = [String(a.text ?? "").trim() ? cell(a.text) : "", a.low || a.high ? `טווח 90%: ${a.low ?? "?"}–${a.high ?? "?"}` : "", a.checked?.length ? `סומנו ${a.checked.length} בדיקות` : "", a.done ? "בוצע" : "", a.noError ? "לדעתי אין שגיאה" : "", a.revealed ? "(נפתחה תשובת הייחוס)" : ""].filter(Boolean);
+          return `- **${L3KIND[a.kind] ?? a.kind}:** ${bits.join(" · ") || "—"}`;
+        })
+        .join("\n")}`)
+      .join("\n\n") || "עדיין אין תשובות."
+  }\n`,
+);
+
+// the month's product (profile/products/<YYYY-MM>)
+const STAGE = { idea: "רעיון", legal: "בדיקת חוקיות", spec: "מפרט ושוק", design: "תכן ותחזיות", verify: "תוכנית אימות", package: "אריזה", retro: "סיכום" };
+const LEGAL = { na: "לא נוגע", ok: "בסדר כמו שהוא", adjust: "בסדר עם התאמה", ask: "לברר קודם" };
+const NEXT = { users: "למשתמשים", v2: "גרסה 2", sale: "מכירה", close: "סגירה" };
+const field = (label, v) => (String(v ?? "").trim() ? `**${label}:** ${String(v).trim()}` : "");
+const productMd = (p) => {
+  const out = [`## ${p.month}${p.title ? ` · ${p.title}` : ""} (${date(p.updatedAt)})`];
+  const sec = (id, lines) => {
+    const l = lines.filter(Boolean);
+    if (l.length) out.push(`### ${STAGE[id]}\n\n${l.join("\n\n")}`);
+  };
+  sec("idea", [field("השאלה", p.idea?.question), field("למי", p.idea?.forWhom), field("במה זה טוב יותר", p.idea?.better), field("מהשיעורים", p.idea?.fromLessons)]);
+  const ans = Object.entries(p.legal?.answers ?? {}).filter(([, v]) => v);
+  sec("legal", [ans.length ? ans.map(([k, v]) => `- ${k}: ${LEGAL[v] ?? v}${String(p.legal?.notes?.[k] ?? "").trim() ? ` (${cell(p.legal.notes[k])})` : ""}`).join("\n") : "", field("התאמות", p.legal?.adjustments), p.legal?.doneAt ? `נחתם ב-${date(p.legal.doneAt)}` : ""]);
+  const comps = (p.spec?.competitors ?? []).filter((c) => String(c?.name ?? "").trim());
+  sec("spec", [field("מפרט", p.spec?.spec), comps.length ? `**מתחרים:**\n${comps.map((c) => `- ${c.name}${c.url ? ` (${c.url})` : ""}${c.note ? `: ${cell(c.note)}` : ""}`).join("\n")}` : "", field("בנצ'מרק", p.spec?.benchmark), field("מחיר", p.spec?.price)]);
+  const preds = (p.design?.predictions ?? []).filter((x) => String(x?.quantity ?? "").trim());
+  sec("design", [field("החלטות", p.design?.decisions), field("פשרות", p.design?.tradeoffs), preds.length ? `| גודל | תחזית | בסיס | בפועל |\n|---|---|---|---|\n${preds.map((x) => `| ${cell(x.quantity)} | ${cell(x.value)} | ${cell(x.basis)} | ${cell(x.actual)} |`).join("\n")}` : ""]);
+  const checks = (p.verify?.checks ?? []).filter((c) => String(c?.result ?? "").trim());
+  sec("verify", [checks.length ? `| תוצאה | סוג | איך | מתי עובר | מצב |\n|---|---|---|---|---|\n${checks.map((c) => `| ${cell(c.result)} | ${cell(c.kind)} | ${cell(c.how)} | ${cell(c.pass)} | ${cell(c.status)} |`).join("\n")}` : "", field("baseline", p.verify?.baseline)]);
+  const ticked = Object.values(p.package?.checklist ?? {}).filter(Boolean).length;
+  sec("package", [ticked ? `סומנו ${ticked} פריטים ברשימת הבדיקה` : "", field("מאגר", p.package?.repo), (p.package?.comparables ?? []).filter((c) => String(c?.name ?? "").trim()).map((c) => `- ${c.name}${c.url ? ` (${c.url})` : ""}`).join("\n")]);
+  sec("retro", [field("מה עבד", p.retro?.worked), field("מה נכשל", p.retro?.failed), field("מה למדתי", p.retro?.learned), p.retro?.next ? `**הלאה:** ${NEXT[p.retro.next] ?? p.retro.next}` : ""]);
+  const crit = Object.entries(p.critiques ?? {}).filter(([, c]) => String(c?.text ?? "").trim());
+  if (crit.length) out.push(`### ביקורת המורה\n\n${crit.map(([k, c]) => `**${STAGE[k] ?? k}** (${date(c.at)}):\n\n${c.text.trim()}`).join("\n\n")}`);
+  return out.join("\n\n");
+};
+fs.writeFileSync(
+  path.join(notes, "PRODUCTS.md"),
+  `# מוצר החודש\n\nסביבת העבודה של המוצר החודשי, חודש אחר חודש.\n\n${[...products].sort((a, b) => byKey(b.month, a.month)).map(productMd).join("\n\n---\n\n") || "עדיין אין מוצרים."}\n`,
+);
+
+// the weekly reviews (profile/reviews/<YYYY-Www>), newest first
+const reviewMd = (r) => {
+  const out = [`## ${r.id}${r.week?.from ? ` (${r.week.from} – ${r.week.to})` : ""}${r.example ? " · דוגמה" : ""}`];
+  if (r.summary) out.push(String(r.summary).trim());
+  const doms = (Array.isArray(r.domains) ? r.domains : []).filter(Boolean);
+  if (doms.length) out.push(`| תחום | עכשיו | יעד | שינוי | ראיות | הצעד הבא |\n|---|---|---|---|---|---|\n${doms.map((d) => `| ${cell(d.name ?? d.id)} | ${d.score ?? ""} | ${d.targetScore ?? ""} | ${d.delta ?? ""} | ${cell(d.evidence)} | ${cell(d.next)} |`).join("\n")}`);
+  for (const v of (Array.isArray(r.reviewers) ? r.reviewers : []).filter(Boolean)) out.push(`### ${v.title ?? v.persona ?? "סוקר"}\n\n${[v.focus ? `*${v.focus}*` : "", String(v.notes ?? "").trim(), v.verdict ? `**שורה תחתונה:** ${v.verdict}` : ""].filter(Boolean).join("\n\n")}`);
+  if (r.calibration) out.push(`**כיול:** ${r.calibration.predictions ?? 0} תחזיות${r.calibration.brier !== undefined ? `, Brier ${r.calibration.brier}` : ""}, ${r.calibration.confidentWrong ?? 0} בטוח-וטעה. ${r.calibration.note ?? ""}`);
+  if (r.product) out.push(`**מוצר החודש:** ${r.product.title ?? r.product.month} · ${r.product.stage} · ${r.product.score}. ${r.product.notes ?? ""}`);
+  if (r.leadDecide) out.push(`**מוביל ומחליט:** ${r.leadDecide.score}. ${r.leadDecide.note ?? ""}${(r.leadDecide.items ?? []).map((i) => `\n- ${i.title} (${i.score}): ${cell(i.note)}`).join("")}`);
+  if (r.actions?.length) out.push(`**לשבוע הבא:**\n${r.actions.map((a) => `- ${a.text}${a.domain ? ` (${a.domain})` : ""}`).join("\n")}`);
+  return out.join("\n\n");
+};
+fs.writeFileSync(
+  path.join(notes, "REVIEWS.md"),
+  `# הסקירות השבועיות\n\nהסקירה החיצונית של כל שבוע (מהחדשה לישנה).\n\n${[...reviews].sort((a, b) => byKey(b.id, a.id)).map(reviewMd).join("\n\n---\n\n") || "עדיין אין סקירות."}\n`,
+);
+
 // raw snapshot for a full restore
 const snap = path.join(root, "eng", "backup", "db");
 fs.rmSync(snap, { recursive: true, force: true });
@@ -315,4 +468,4 @@ for (const f of walk(dump).filter((f) => f.endsWith(".json"))) {
   fs.copyFileSync(f, path.join(snap, rel));
 }
 
-console.log(`profile: ${profile ? "yes" : "no"}, modules: ${Object.keys(modules).length}, conversations: ${index.length}, notebook items: ${notebook.length}, summaries: ${sums.length}, scratch: ${scratchMd.length}`);
+console.log(`profile: ${profile ? "yes" : "no"}, modules: ${Object.keys(modules).length}, conversations: ${index.length}, notebook items: ${notebook.length}, summaries: ${sums.length}, scratch: ${scratchMd.length}, memory versions: ${memlog.length}, calibration: ${calib.length}, consultation cards: ${consultCards.length}, level-3 lessons: ${level3.length}, products: ${products.length}, reviews: ${reviews.length}`);
