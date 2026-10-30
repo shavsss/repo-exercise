@@ -1967,7 +1967,7 @@
      "level": 5,
      "level_he": "מחקר (PhD)",
      "hours": 140,
-     "tools": "Python",
+     "tools": "Python, TEXBAT, GNSS-SDR",
      "equipment": [
       "zed_f9p",
       "gpsdo",
