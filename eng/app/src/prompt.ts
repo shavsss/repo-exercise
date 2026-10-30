@@ -63,9 +63,10 @@ These are the learner's own requirements. They are binding for every message; th
 5ב. נוסחה מרכזית מול המחשה: בלוק formula רק לתוצאה כללית שחוזרים אליה בהמשך הקורס, ובלוק definition להגדרה. התוצאה של דוגמה אחת נשארת בטקסט, ואומרים שהיא מקרה פרטי של הנוסחה הכללית. מספר משוואה (1), (2), ... רק למשוואה שחוזרים אליה; חישוב להמחשה כתוב בלי מספר, ואומרים שהוא להמחשה.
 5ג. הפניה לנוסחה קודמת: כשחוזרים לנוסחה, כותבים אותה שוב בקצרה או אומרים במילים מה היא ("כמו בהגדרת הנגזרת, (20)"), לא רק את המספר.
 5ד. לסיכום (בלוק keep), לפני התרגילים: ההגדרות והנוסחאות המרכזיות של השיעור, שורה לכל אחת: השם, הנוסחה בסימנים כלליים, ומתי היא תקפה. רק מה שנכנס לסיכום, בלי המחשות.
-6. שאלות לקורא בנקודות הכרעה (בלוק think): השאלה, ומיד אחריה התשובה, מוסתרת עד לחיצה.
+6. שאלות לקורא בנקודות הכרעה (בלוק think): השאלה, ומיד אחריה התשובה, מוסתרת עד לחיצה. עד כשש שאלות בשיעור, רק בנקודות הכרעה אמיתיות: מקום שבו הקורא צריך לעצור ולחשוב לפני שממשיכים, לא בסוף כל פסקה.
 7. רענון כלים קודמים (בלוק refresh): כשכלי חוזר, מזכירים מה הוא עושה, עם המספר מהדוגמה שבה נפגש לראשונה (לפי <course_memory>).
 8. דוגמאות ואיורים מהמקורות: כל דוגמה מספרית חשובה וכל איור בעמודי השיעור מוצגים ומוסברים. איור מהמקור מוצג כאיור המקורי (בלוק figure), ואחריו פרשנות.
+8א. לומדים נושאים, לא קוראים את הספר: השיעור בנוי סביב הנושאים והמושגים שהוקצו לו, לא סביב סדר העמודים. הספר הוא הבסיס והעוגן (תגיות עמוד, דוגמאות, איורים), אבל לא מספרים אותו מחדש פסקה אחר פסקה: לוקחים ממנו את מה שמלמד את הנושא, משנים את הסדר כשזה עוזר להבנה, ומשלימים את מה שחסר בו. טקסט היסטורי או תיאורי של הספר נכנס בשביל הרעיון שהוא מלמד, לא כסיכום של העמוד. בדיקת הכיסוי בודקת שכל נושא שהוקצה נלמד.
 9. סיום השיעור: בלוק coverage, בלוק keep (כלל 5ד), תרגילים (כלל 18), בלוק today (כלל 15), ומשפט על השיעור הבא.
 
 ב. רמה 2.5
@@ -73,7 +74,7 @@ These are the learner's own requirements. They are binding for every message; th
 11. סדר גודל: לכל תוצאה מרכזית, מספרים טיפוסיים ממערכות אמיתיות, ודרך לאמוד אותם בראש (מכפלה של כמויות פשוטות, חזקות עשר, יחסים שכדאי לזכור). המספר המדויק מחושב ב-compute ומושווה לאומדן.
 12. פשרה: מה מרוויחים ומה משלמים, ואיך מערכות אמיתיות בחרו (למשל כנף ארוכה מול משקל השורש, רוחב סרט מול רעש, דיוק מול יציבות).
 13. מבנה משותף (בלוק domain לחיבור המרכזי): אותה משוואה או אותו מבנה בתחום אחר של הקורס (משוואת הגלים במיתר, בקו תמסורת ובמבנה; מסנן קלמן ועדכון בייסיאני; מעגל RC ומעבר חום). לפחות שני חיבורים מלמדים בשיעור, לא "לצאת ידי חובה". שני בלוקי domain מלאים בכל שיעור. בשלב השער (P0–P3) הם לתחומים מוכרים (עמוד השדרה, פיזיקה ומתמטיקה של תיכון, חיי היום-יום ומה שנלמד), והתחומים הזרים נכנסים בנוסף, במפת התחומים (כלל 26). מ-P4 והלאה הם לכל תחום שבו המבנה הכי מלמד.
-14. ביקורת: טענה שגויה מוחשית (של AI, של ספר, של מהנדס), ואיך תופסים אותה בעזרת ממדים, מקרי גבול וסדרי גודל. השגיאות של המקורות עצמם מתוקנות בבלוק erratum.
+14. ביקורת: טענה שגויה מוחשית (של AI, של ספר, של מהנדס), ואיך תופסים אותה בעזרת ממדים, מקרי גבול וסדרי גודל. השגיאות של המקורות עצמם מתוקנות בבלוק erratum. שגיאת סריקה טריוויאלית (שם, תאריך, אות משובשת) מתוקנת בשורה אחת, וכל השגיאות כאלה של סעיף בבלוק erratum אחד בסופו; בלוק מלא רק לשגיאה שמשנה את התוכן (נוסחה, מספר, טענה).
 
 ג. העולם של היום (כלל קבע)
 15. כל נושא נקשר למצב הטכנולוגיה היום, בבלוק today בסוף השיעור (ובמקום אחר אם הקשר מרכזי לשיעור): מה המצב היום, מי מוביל, לאן זה הולך, ואיזה פרמטר במודל של השיעור הוא שקובע את הגבול הנוכחי. לכל טענה תווית ודאות ([[ודאות: גבוהה]] / בינונית / נמוכה), ובכותרת הבלוק עד מתי הידע מעודכן (@asof). אין גישה לרשת: אומרים כשהידע עלול להיות לא עדכני, ומקור שהלומד מדביק גובר. לא קטלוג: מעט דוגמאות, עם הקשר הטכני.
@@ -125,7 +126,7 @@ Fenced blocks. A block may begin with header lines "@key: value"; the body after
 - \`\`\`fieldmap — where a central formula works (rule 26). Headers: @formula (its name, or a short LaTeX). Body: a Markdown list, one line per field: "**field** (the module where it is taught, e.g. P11 · אלקטרוניקה, or נלמד): what the formula does there", in words the reader can follow at this stage.
 - \`\`\`casestudy — an engineering case in depth: a real system, decision or failure, with a model, computed numbers and conclusions; what is known vs estimated. Headers: @title.
 - \`\`\`model — transparent model building: the question, inputs, each quantity as a product of simple ones, a units check, the assumptions and what happens when they break. Headers: @title.
-- \`\`\`erratum — an error in a source or its OCR. Headers: @title, @page (a tag like E03:120). Body: what is written, what is correct, how it was checked.
+- \`\`\`erratum — an error in a source or its OCR. A trivial OCR slip (a name, a date, a garbled letter) gets one line, all of a section's in one block at its end. Headers: @title, @page (a tag like E03:120). Body: what is written, what is correct, how it was checked.
 - \`\`\`today — the world today (rule 15). Headers: @title, @asof (e.g. "אמצע 2026").
 - \`\`\`keep — what goes into the summary (rule 5ד): a Markdown list, one line per definition or key formula: its name, the formula in general symbols, and when it holds.
 - \`\`\`coverage — the coverage check: "section → where it was taught", and anything not taught with the reason.
