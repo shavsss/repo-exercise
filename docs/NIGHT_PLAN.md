@@ -32,7 +32,8 @@ Talk to the learner ONLY in Hebrew, short and direct. Code identifiers in Englis
   - Keep the engineering wording that fixed Lanchester's refusals (`CLAUDE.md`, "סירוב של Claude"). Run a refusal smoke test on 3 Lanchester modules after rule changes, if a real Claude call is possible from the session. If it is not, review the plan and part prompts for the patterns that caused refusals.
 - **Shared code:** whatever is "identical in both apps" (`sound.ts`, `reading.ts`, `summaries/`, `MarginNotes`, `Explain`, `Scratchpad`, `ReadingAids`, `shared/scene3d/`) is changed in both, and both are built and published.
 - **Git:** commit often. Push to `claude/confident-heisenberg-4r8fha` and fast-forward `claude/compassionate-meitner-dx0zxf` to it (the nightly backup routines take scripts from that branch). Never rewrite history.
-- **Status updates:** send the learner a short Hebrew status with a screenshot when a package is published (he reads them in the morning). Update the status board at the end (see 4).
+- **No updates to the learner during the night:** he is asleep. Send him only the final summary in the morning (section 4). Keep a running log in `docs/NIGHT_LOG.md`: for each package, what is done, published and tested, and what is in progress. Commit and push it after every package, so that a restarted session can continue from it. When the morning handoff is done, write the line `HANDOFF_DONE` at the end of the log.
+- **Watchdog:** a watchdog checks every 10 minutes that this session is still working. If it sends "continue", read `docs/NIGHT_LOG.md` and `git log`, then continue from where the work stopped. Never redo published work.
 - **Work style:** use subagents in parallel per app or package, and finish each package with an adversarial review pass. Spend effort where the learner will feel it tomorrow morning.
 
 ## 3. Work packages (priority order; P1 must be live by morning)
