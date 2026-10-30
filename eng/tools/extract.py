@@ -6,6 +6,7 @@ sources need no PDF work: Feynman I and II exist only as text (app/artifact/book
 feyn1.json, feyn2.json), and Kolmogorov's three volumes are scans whose OCR text
 the learning lab already has (math1-3.json). Their pages are taken from those
 files; the Kolmogorov pages are flagged as OCR, so pack.py adds page images.
+Trefethen & Bau (E07) has a text layer that is only noise, so all its pages are OCR'd.
 
 Run with the OCR venv: python eng/tools/extract.py [DOC ...] [--pages A-B] [--force]
 """
@@ -25,6 +26,8 @@ import extract as core  # noqa: E402
 core.LIB = ROOT
 core.OUT = OUT
 core.DOCS = DOCS
+# Trefethen & Bau: Type-3 fonts with no Unicode map, so pdftotext gives control characters
+core.OCR_DOCS = {"E07"}
 
 # documents taken from the learning lab's text files: doc → (file, OCR'd scan)
 TEXT_ONLY = {

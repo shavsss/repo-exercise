@@ -38,6 +38,9 @@ RUNNING = re.compile(r"^\s*(Figure|Fig\.)\s*[\d.\-–]+\.?,?\s+(shows|show|illus
 DETECT_DPI = 100
 CROP_DPI = 150
 MAX_W = 1100
+# Documents OCR'd on every page: their text layer is noise (Type-3 fonts without a Unicode
+# map give many "words" of control characters, so the word count does not flag them)
+OCR_DOCS = set()
 
 _ocr = None
 
@@ -340,7 +343,7 @@ def process(doc, page_range=None, force=False):
                 continue
             info = geo[i] if i < len(geo) else {"w": 612, "h": 792, "lines": []}
             text = page_text(pdf, page)
-            scanned = len(text.split()) < 15
+            scanned = doc in OCR_DOCS or len(text.split()) < 15
             if scanned:
                 text, olines = ocr_page(pdf, page)
                 if olines:

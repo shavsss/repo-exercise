@@ -6,6 +6,8 @@ syllabus, and writes eng/app/artifact/lib/ in the same format as the Core Lab:
   text/<doc>.json       page text, printed labels, OCR flags
   fig/<doc>-<k>.json    figure crops as data URIs, in bundles of about 6 MB
   pg/<doc>-<k>.json     page images of OCR'd pages (their equations are unreliable as text)
+With --only DOC... --base <published lib/index.json>, only those documents are repacked onto
+the published index (the rest of the library need not be on disk).
 Section headings come from the syllabus maps (library/engineering/syllabus/toc/), which
 were checked by hand, rather than from the PDF outline.
 """
@@ -150,59 +152,50 @@ def choose_asset_docs():
     return chosen
 
 
-def main():
-    global ASSET_DOCS
-    ASSET_DOCS = choose_asset_docs()
-    for root in (OUT, ASSETS):
-        for d in ("fig", "pg"):
-            for f in (root / d).glob("*.json") if (root / d).exists() else []:
-                f.unlink()
-    for d in ("text", "fig", "pg"):
-        (OUT / d).mkdir(parents=True, exist_ok=True)
-    docs = {}
-    sections = {}
-    for doc, (rel, title) in DOCS.items():
-        src = BUILD / doc
-        if not (src / "pages.json").exists():
-            print("not extracted yet:", doc)
-            continue
-        pages = json.loads((src / "pages.json").read_text())
-        figs = json.loads((src / "figures.json").read_text()) if (src / "figures.json").exists() else {}
-        text = {k: {"l": v.get("label"), "t": v["text"], **({"o": 1} if v.get("ocr") else {})} for k, v in pages.items()}
-        (OUT / "text" / f"{doc}.json").write_text(dumps(text))
+def pack_doc(doc, rel, title):
+    """Write the text, figure and page-image files of one document; returns (index entry, sections)."""
+    src = BUILD / doc
+    if not (src / "pages.json").exists():
+        print("not extracted yet:", doc)
+        return None
+    pages = json.loads((src / "pages.json").read_text())
+    figs = json.loads((src / "figures.json").read_text()) if (src / "figures.json").exists() else {}
+    text = {k: {"l": v.get("label"), "t": v["text"], **({"o": 1} if v.get("ocr") else {})} for k, v in pages.items()}
+    (OUT / "text" / f"{doc}.json").write_text(dumps(text))
 
-        fig_items = []
-        fig_pages = {}
-        for k in sorted(figs, key=int):
-            for j, e in enumerate(figs[k]):
-                f = src / "fig" / e["file"]
-                if f.exists():
-                    fig_items.append((f"{k}-{j}", {"c": e["caption"], "w": e["w"], "h": e["h"], "d": webp_data(f)}))
-                    fig_pages.setdefault(k, []).append(e["caption"][:140])
-        fig_files, fig_index = bundle(doc, fig_items, "fig")
+    fig_items = []
+    fig_pages = {}
+    for k in sorted(figs, key=int):
+        for j, e in enumerate(figs[k]):
+            f = src / "fig" / e["file"]
+            if f.exists():
+                fig_items.append((f"{k}-{j}", {"c": e["caption"], "w": e["w"], "h": e["h"], "d": webp_data(f)}))
+                fig_pages.setdefault(k, []).append(e["caption"][:140])
+    fig_files, fig_index = bundle(doc, fig_items, "fig")
 
-        pdf = source_pdf(rel)
-        ocr_pages = [k for k in sorted(pages, key=int) if pages[k].get("ocr")] if pdf else []
-        cache = src / "pg"
-        cache.mkdir(exist_ok=True)
-        pg_items = []
-        for k in ocr_pages:
-            f = cache / f"p{int(k):04d}.json"
-            if not f.exists():
-                # a book photographed page by page is all page images: a little smaller each
-                f.write_text(json.dumps(page_image(pdf, int(k))))
-            pg_items.append((k, json.loads(f.read_text())))
-        pg_files, pg_index = bundle(doc, pg_items, "pg")
+    pdf = source_pdf(rel)
+    ocr_pages = [k for k in sorted(pages, key=int) if pages[k].get("ocr")] if pdf else []
+    cache = src / "pg"
+    cache.mkdir(exist_ok=True)
+    pg_items = []
+    for k in ocr_pages:
+        f = cache / f"p{int(k):04d}.json"
+        if not f.exists():
+            # a book photographed page by page is all page images: a little smaller each
+            f.write_text(json.dumps(page_image(pdf, int(k))))
+        pg_items.append((k, json.loads(f.read_text())))
+    pg_files, pg_index = bundle(doc, pg_items, "pg")
 
-        secs = toc_sections(doc)
-        sections[doc] = secs
-        docs[doc] = {
-            "title": title, "short": short(doc), "kind": kind(doc), "pages": len(pages),
-            "figs": fig_pages, "figFiles": fig_files, "figIndex": fig_index,
-            "pgFiles": pg_files, "pgIndex": pg_index,
-        }
-        print(f"{doc}: {len(pages)} pages, {len(fig_items)} figures in {len(fig_files)} files, {len(pg_items)} page images, {len(secs)} sections")
+    secs = toc_sections(doc)
+    print(f"{doc}: {len(pages)} pages, {len(fig_items)} figures in {len(fig_files)} files, {len(pg_items)} page images, {len(secs)} sections")
+    return {
+        "title": title, "short": short(doc), "kind": kind(doc), "pages": len(pages),
+        "figs": fig_pages, "figFiles": fig_files, "figIndex": fig_index,
+        "pgFiles": pg_files, "pgIndex": pg_index,
+    }, secs
 
+
+def module_list(docs, sections):
     modules = []
     for m in MODULES:
         m = json.loads(json.dumps(m))
@@ -217,8 +210,11 @@ def main():
                     heads.append({"doc": s["doc"], "page": h["page"], "title": h["title"], "depth": h["depth"]})
         m["sections"] = heads
         modules.append(m)
-    index = {"docs": docs, "parts": [{"id": i, "title": t} for i, t in PARTS], "modules": modules}
-    index["assets"] = asset_urls(docs)
+    return modules
+
+
+def write_index(docs, modules, assets):
+    index = {"docs": docs, "parts": [{"id": i, "title": t} for i, t in PARTS], "modules": modules, "assets": assets}
     digest = hashlib.sha1()
     for f in sorted([*OUT.rglob("*.json"), *ASSETS.rglob("*.json")]):
         if f.name != "index.json":
@@ -227,6 +223,47 @@ def main():
     digest.update(json.dumps(index, sort_keys=True).encode())
     index["version"] = digest.hexdigest()[:12]
     (OUT / "index.json").write_text(dumps(index))
+
+
+def main():
+    global ASSET_DOCS
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--only", nargs="*", help="pack only these documents, onto --base")
+    ap.add_argument("--base", help="the published lib/index.json, for --only")
+    args = ap.parse_args()
+    for d in ("text", "fig", "pg"):
+        (OUT / d).mkdir(parents=True, exist_ok=True)
+    if args.only:
+        # Repacks documents onto the published index, without the rest of the library on disk:
+        # their files are written to lib/, and index.json is the published one with their entries
+        # replaced. Asset-store documents and URLs are kept from the published index.
+        base = json.loads(Path(args.base).read_text())
+        docs = base["docs"]
+        ASSET_DOCS = {d for d, e in docs.items() if any(n in base["assets"] for n in e["figFiles"] + e["pgFiles"])}
+        for doc in args.only:
+            for f in [*(OUT / "fig").glob(f"{doc}-*.json"), *(OUT / "pg").glob(f"{doc}-*.json")]:
+                f.unlink()
+            rel, title = DOCS[doc]
+            r = pack_doc(doc, rel, title)
+            if r:
+                docs[doc] = r[0]
+        # module headings come from the syllabus maps, not the text, so the published ones stand
+        write_index(docs, base["modules"], base["assets"])
+        print("wrote", ", ".join(f"text/{d}.json" for d in args.only), "their fig/ and pg/ files, and index.json")
+        return
+    ASSET_DOCS = choose_asset_docs()
+    for root in (OUT, ASSETS):
+        for d in ("fig", "pg"):
+            for f in (root / d).glob("*.json") if (root / d).exists() else []:
+                f.unlink()
+    docs = {}
+    sections = {}
+    for doc, (rel, title) in DOCS.items():
+        r = pack_doc(doc, rel, title)
+        if r:
+            docs[doc], sections[doc] = r
+    write_index(docs, module_list(docs, sections), asset_urls(docs))
     total = sum(f.stat().st_size for f in OUT.rglob("*.json"))
     print(f"wrote {sum(1 for _ in OUT.rglob('*.json'))} files, {total / 1e6:.1f} MB")
 
