@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { toggleTheme, useTheme } from "../theme";
 import { ReadingPanel } from "./ReadingPanel";
 import { Icon } from "./Icon";
@@ -21,6 +21,7 @@ export function Topbar({
   onMemory,
   onNotes,
   notesCount,
+  tabs,
 }: {
   crumbs: Crumb[];
   counter?: string;
@@ -33,6 +34,8 @@ export function Topbar({
   onMemory: () => void;
   onNotes: () => void;
   notesCount: number;
+  /** the tabs beside the lessons (src/labtabs/) */
+  tabs?: ReactNode;
 }) {
   const { dark } = useTheme();
   const [reading, setReading] = useState(false);
@@ -42,6 +45,7 @@ export function Topbar({
         <Icon name="menu" />
       </button>
       <span className="brand">לנצ'סטר</span>
+      {tabs}
       <ol className="crumbs" aria-label="נתיב">
         {crumbs.map((c, i) => (
           <li key={i}>

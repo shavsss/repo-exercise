@@ -1,0 +1,250 @@
+{
+ "id": "2026-W44",
+ "app": "core",
+ "number": 1,
+ "window": {
+  "from": "2026-10-23",
+  "to": "2026-10-29"
+ },
+ "publishedAt": 1793319780000,
+ "generator": {
+  "sha": "example",
+  "runId": "example"
+ },
+ "snapshot": {
+  "current": "M0.1",
+  "done": 0,
+  "upcoming": [
+   "M0.2",
+   "M0.3",
+   "M0.4"
+  ]
+ },
+ "lead": "n1",
+ "sections": [
+  {
+   "id": "radar",
+   "title": "מכ\"ם ול\"א",
+   "items": [
+    "n1",
+    "n2"
+   ]
+  },
+  {
+   "id": "space",
+   "title": "חלל",
+   "items": [
+    "n3"
+   ]
+  },
+  {
+   "id": "cost",
+   "title": "עלות ובדיקות",
+   "items": [
+    "n4"
+   ]
+  },
+  {
+   "id": "models",
+   "title": "מודלים מבצעיים ותקנים",
+   "items": [
+    "n5"
+   ]
+  }
+ ],
+ "picks10": [
+  "n4"
+ ],
+ "items": [
+  {
+   "id": "n1",
+   "kind": "paper",
+   "domain": "radar",
+   "headline": "גילוי בהפרעה עם CFAR מסתגל: כמה dB באמת מרוויחים",
+   "dek": "מאמר משווה שלוש שיטות CFAR על מאגר פתוח של הדי ים, ומודד את ההפסד מול הגלאי האופטימלי.",
+   "body": "כש-$P_{fa}$ קבוע, כל CFAR משלם הפסד מול גלאי שיודע את רמת הרעש. המאמר מודד על הדי ים אמיתיים: CA-CFAR מפסיד כ-2 dB, OS-CFAR כ-1.2 dB, והגרסה המסתגלת כ-0.8 dB. בהפרעה הטרוגנית ההבדלים גדלים.",
+   "why": "ה-dB שלמדת לחשב במשוואת הקשר הם כאן מטבע ההשוואה: 1 dB של הפסד גילוי הוא כ-6% בטווח, לפי $R^4$.",
+   "certainty": "preprint",
+   "sanity": {
+    "check": "סדר גודל",
+    "result": "pass",
+    "note": "1 dB ← טווח פי $10^{1/40}$ ≈ 1.06"
+   },
+   "sources": [
+    {
+     "url": "https://example.org/paper/adaptive-cfar",
+     "title": "Adaptive CFAR in sea clutter",
+     "publisher": "מקור לדוגמה: מאגר מאמרים",
+     "tier": "B",
+     "publishedAt": "2026-10-26",
+     "openAccess": true,
+     "quote": "the adaptive detector loses 0.8 dB relative to the clairvoyant detector"
+    }
+   ],
+   "connects": [
+    {
+     "moduleId": "M0.1",
+     "rel": "current",
+     "concept": "דציבלים",
+     "why": "ההפסד נמדד ב-dB, וההמרה לטווח היא תרגיל ישיר מהשיעור."
+    },
+    {
+     "moduleId": "M2.3",
+     "rel": "later",
+     "concept": "גילוי בהפרעה",
+     "why": "המודול על חיפוש וגילוי בהפרעה בונה את ה-CFAR מההתחלה."
+    }
+   ],
+   "idea": {
+    "title": "מחשבון הפסד CFAR",
+    "kind": "article",
+    "pitch": "מאמר קצר שמראה, במספרים מהמאמר, איך הפסד של dB אחד מתורגם לטווח ולזמן התרעה. ניתוח בלבד, ממקורות פתוחים.",
+    "hours": 5,
+    "uses": [
+     "M0.1",
+     "M2.3"
+    ]
+   }
+  },
+  {
+   "id": "n2",
+   "kind": "standard",
+   "domain": "radar",
+   "headline": "הקצאת ספקטרום: עדכון בטבלת הפסים למכ\"ם קצר טווח אזרחי",
+   "dek": "גוף התקינה פרסם טיוטת עדכון לפסים המותרים למכ\"ם רכב ותעשייה.",
+   "body": "הטיוטה מרחיבה את הפס המותר ומגדירה מחדש את מגבלת ההספק בשידור. ההשפעה ההנדסית: רוחב פס גדול יותר מאפשר הפרדה טובה יותר בטווח, $\\Delta R = c/2B$.",
+   "why": "קשר ישיר בין רגולציה לביצועים: הפס המותר קובע את הפרדת הטווח.",
+   "certainty": "official",
+   "sources": [
+    {
+     "url": "https://example.org/standard/srd-radar",
+     "title": "Draft amendment: short-range radar bands",
+     "publisher": "מקור לדוגמה: גוף תקינה",
+     "tier": "A",
+     "publishedAt": "2026-10-24",
+     "openAccess": true
+    }
+   ],
+   "connects": [
+    {
+     "moduleId": "M2.1",
+     "rel": "next",
+     "concept": "הפרדת טווח",
+     "why": "המודול הראשון במכ\"ם מגדיר את הפרדת הטווח."
+    }
+   ]
+  },
+  {
+   "id": "n3",
+   "kind": "data",
+   "domain": "space",
+   "headline": "בקשת רישוי לקבוצת לוויינים: מה אפשר לחשב מהנתונים הפתוחים",
+   "dek": "הבקשה מפרטת גבהים, נטיות ומספר מישורים, ומאפשרת לחשב זמן חזרה וכיסוי.",
+   "body": "מהגובה בבקשה, זמן המחזור לפי קפלר הוא כ-95 דקות. עם מספר המישורים והלוויינים בכל מישור אפשר לחשב את הפער בין מעברים מעל נקודה נתונה.",
+   "why": "תרגיל מכניקת מסלולים על נתון אמיתי, לפני המודול על חלל.",
+   "certainty": "official",
+   "sanity": {
+    "check": "קפלר",
+    "result": "pass",
+    "note": "550 ק\"מ ← כ-95.6 דקות"
+   },
+   "sources": [
+    {
+     "url": "https://example.org/filing/constellation",
+     "title": "Constellation filing",
+     "publisher": "מקור לדוגמה: רשות רישוי",
+     "tier": "A",
+     "publishedAt": "2026-10-23",
+     "openAccess": true
+    }
+   ],
+   "connects": [
+    {
+     "moduleId": "M13.1",
+     "rel": "later",
+     "concept": "מסלולים",
+     "why": "חלק החלל פותח בזה."
+    }
+   ]
+  },
+  {
+   "id": "n4",
+   "kind": "report",
+   "domain": "cost",
+   "headline": "דוח מבקר: עלות לשעת ניסוי עלתה, ומספר הניסויים ירד",
+   "dek": "דוח פתוח על תוכנית ניסויים מראה איך צמצום ניסויים מגדיל את אי-הוודאות בהערכת הביצועים.",
+   "body": "הדוח מפרסם את מספר הניסויים המתוכנן מול המבוצע. עם פחות ניסויים, רווח הסמך על הסתברות ההצלחה גדל: עם 10 ניסויים ו-9 הצלחות, הגבול התחתון ב-90% הוא כ-0.66.",
+   "why": "החשבון של רווח סמך מתוך מעט ניסויים הוא הסתברות בסיסית, ותראה אותו בכל דוח ניסוי.",
+   "certainty": "official",
+   "sanity": {
+    "check": "בינומי",
+    "result": "pass",
+    "note": "Clopper-Pearson, 9/10, 90% חד-צדדי ≈ 0.66"
+   },
+   "sources": [
+    {
+     "url": "https://example.org/report/test-program",
+     "title": "Test program review",
+     "publisher": "מקור לדוגמה: מבקר ממשלתי",
+     "tier": "A",
+     "publishedAt": "2026-10-27",
+     "openAccess": true
+    }
+   ],
+   "connects": [
+    {
+     "moduleId": "M0.4",
+     "rel": "next",
+     "concept": "רווח סמך",
+     "why": "המודול על הסתברות ורעש."
+    }
+   ],
+   "read10": {
+    "minutes": 9
+   }
+  },
+  {
+   "id": "n5",
+   "kind": "standard",
+   "domain": "models",
+   "headline": "תקן כטב\"מים אזרחי: דרישות חדשות לזיהוי מרחוק",
+   "dek": "התקן מגדיר מה כלי טיס בלתי מאויש משדר על עצמו, ובאיזה קצב.",
+   "body": "התקן מחייב שידור של מיקום, גובה ומזהה בקצב קבוע, ומגדיר את הדיוק הנדרש. מבחינה הנדסית זו בעיית קישור: הספק, טווח ורגישות המקלט.",
+   "why": "משוואת הקשר החד-כיווני, על מקרה רגולטורי פתוח.",
+   "certainty": "official",
+   "sources": [
+    {
+     "url": "https://example.org/standard/remote-id",
+     "title": "Remote identification",
+     "publisher": "מקור לדוגמה: רשות תעופה",
+     "tier": "A",
+     "publishedAt": "2026-10-25",
+     "openAccess": true
+    }
+   ],
+   "connects": [
+    {
+     "moduleId": "M1.4",
+     "rel": "later",
+     "concept": "תקציב קישור",
+     "why": "המודול על משוואת הקשר החד-כיווני."
+    }
+   ],
+   "crossRef": {
+    "app": "eng",
+    "issueId": "2026-W44",
+    "itemId": "n6"
+   }
+  }
+ ],
+ "stats": {
+  "candidates": 188,
+  "fetched": 29,
+  "verified": 5,
+  "dropped": {
+   "quote": 2,
+   "date": 3
+  }
+ },
+ "example": true
+}

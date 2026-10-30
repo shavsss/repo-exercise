@@ -99,5 +99,17 @@
     return res;
   };
   const downloads = { save: async ({ filename, data }) => { window.__saved = { filename, size: data.length ?? data.byteLength }; (window.__savedAll ??= []).push({ filename, data }); return { status: "saved" }; } };
-  window.claude = { use: async (name) => ({ sample, db, user, downloads }[name] ?? null) };
+  // ?seed in the address: sample documents for the tabs beside the lessons (tools/test/samples/), added once
+  function seed() {
+    if (seed.done || !/[?&]seed\b/.test(location.search)) return;
+    seed.done = true;
+    const now = new Date();
+    const month = now.getFullYear() + "-" + String(now.getMonth() + 1).padStart(2, "0");
+    for (const [rel, doc] of Object.entries(window.__seed || {})) {
+      const p = "data/users/u_test/profile/" + rel.replace("__MONTH__", month);
+      if (!docs.has(p)) docs.set(p, JSON.parse(JSON.stringify(doc).replace(/__MONTH__/g, month)));
+    }
+    localStorage.setItem("stubdb", JSON.stringify([...docs]));
+  }
+  window.claude = { use: async (name) => (seed(), { sample, db, user, downloads }[name] ?? null) };
 })();

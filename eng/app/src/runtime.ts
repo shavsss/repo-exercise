@@ -253,6 +253,12 @@ export class Store {
     await this.profile.collection("dict").doc("mine").set({ words });
   }
 
+  /** A collection under the profile, for the tabs that keep their own documents
+      (news, newsfb, products, reviews: see docs/NEWS_SCHEMA.md and docs/REVIEW_SCHEMA.md). */
+  sub(name: string) {
+    return this.profile.collection(name);
+  }
+
   async allSummaries(): Promise<Summary[]> {
     const s = await this.profile.collection("summaries").get();
     return s.docs.map((d) => d.data() as Summary);
