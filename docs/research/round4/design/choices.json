@@ -1,0 +1,53 @@
+{
+ "q1-layout": {
+  "choice": "center-drawer",
+  "label": "עמודה במרכז, תוכן במגירה",
+  "note": "ככה והפתקים כן נמאים בצד. הסטייל של הפתקים אני מקווה זה לא כמו התמונות."
+ },
+ "q2-blocks": {
+  "choice": "tiers",
+  "label": "שלוש דרגות עם פס צד"
+ },
+ "q3-commit": {
+  "choice": "three-buttons",
+  "label": "שלושה כפתורי ביטחון"
+ },
+ "q4-confwrong": {
+  "choice": "amber-card",
+  "label": "כרטיס ענבר"
+ },
+ "q5-consult": {
+  "choice": "anchored",
+  "label": "כרטיס מתחת לפסקה"
+ },
+ "q6-typing": {
+  "choice": "soft",
+  "label": "רך ושקט",
+  "volume": 94
+ },
+ "q6-chimes": {
+  "choice": "pair",
+  "label": "זוג צלילים רך"
+ },
+ "q6-noise": {
+  "choice": "library",
+  "label": "חדר ספרייה",
+  "noiseVolume": 35
+ },
+ "q7-theme": {
+  "choice": "cream-graphite",
+  "label": "שמנת וגרפיט"
+ },
+ "q7-density": {
+  "choice": "comfortable",
+  "label": "נוח"
+ },
+ "q8-cursor": {
+  "choice": "themed",
+  "label": "מצביע לפי המעבדה"
+ },
+ "q9-progress": {
+  "choice": "dots",
+  "label": "נקודות סעיפים"
+ }
+}
