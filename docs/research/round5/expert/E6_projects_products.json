@@ -1,0 +1,976 @@
+{
+ "_meta": {
+  "doc": "E6_projects_products.md",
+  "date": "2026-10-30",
+  "wave": 1,
+  "score": "learning x product x feasibility (1-5 each); ties broken by earlier time to first income",
+  "tags": "time/price/budget fields are [estimate]; sources are [evidence]",
+  "thesis_evidence": {
+   "supports": [
+    "https://gpsjam.org/about",
+    "https://www.rtl-sdr.com/wardragon-passive-radar-with-blah2-and-ads-b-delay-doppler-truth/",
+    "https://en.wikipedia.org/wiki/METR",
+    "https://aitopics.org/doc/arxivorg:15CDC7A1"
+   ],
+   "limits": [
+    "https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/",
+    "https://arxiv.org/abs/2505.14354",
+    "https://neurips.cc/virtual/2026/poster/139034"
+   ],
+   "rule": "agent + automatic oracle (simulator, ground truth, closed form) = fast and reliable; agent without oracle = fast and wrong"
+  }
+ },
+ "ranking": [
+  "P1",
+  "P2",
+  "P3",
+  "P7",
+  "P4",
+  "P5",
+  "P6",
+  "P11",
+  "P8",
+  "P9",
+  "P10"
+ ],
+ "top3": [
+  "P1",
+  "P2",
+  "P3"
+ ],
+ "start_portfolio_months_1_3": {
+  "projects": [
+   "P1",
+   "P2",
+   "P11"
+  ],
+  "hardware_usd_estimate": 900
+ },
+ "evolution": [
+  {
+   "months": "4-9",
+   "add": [
+    "P4",
+    "P5",
+    "P3"
+   ],
+   "actions": [
+    "Tnufa/INNOFENSE application for P1",
+    "approach academic co-advisor"
+   ]
+  },
+  {
+   "months": "9-18",
+   "add": [
+    "P10",
+    "P7",
+    "P8"
+   ],
+   "actions": [
+    "P1 paid",
+    "P2 preprint",
+    "P3 pilot"
+   ]
+  },
+  {
+   "months": "18-30",
+   "add": [
+    "P6",
+    "P9"
+   ],
+   "actions": [
+    "merge P1+P2+P5 into one PNT observatory product"
+   ]
+  }
+ ],
+ "funding_il": [
+  {
+   "name": "Tnufa",
+   "url": "https://innovationisrael.org.il/en/programs/ideation-tnufa-incentive-program/",
+   "amount": "~NIS 200k, 80%, royalties (verify)"
+  },
+  {
+   "name": "INNOFENSE",
+   "url": "https://ddrd-mafat.mod.gov.il/en/mafat-for-startups/innofense",
+   "amount": "NIS 200k, no equity, TRL 3-5"
+  },
+  {
+   "name": "MEIMAD",
+   "url": "https://innovationisrael.org.il/en/?p=1066",
+   "amount": "100% of approved budget, TRL 2-5"
+  },
+  {
+   "name": "Applied research with DDR&D",
+   "url": "https://innovationisrael.org.il/en/?p=21817"
+  }
+ ],
+ "legal_il": {
+  "transmit": "license required; cabled/shielded only; amateur license as milestone (https://www.gov.il/en/service/radio-amateurs-certificates)",
+  "receive": "confirm with Ministry of Communications",
+  "content_decoding": "wiretap law risk: PHY features and public broadcasts only",
+  "export": "defense: Defense Export Control Law 2007 via DECA incl. marketing license; dual-use: Ministry of Economy per Wassenaar (https://www.bis.doc.gov/index.php?id=1147)"
+ },
+ "projects": [
+  {
+   "id": "P1",
+   "name": "Migdalor",
+   "title": "Integrated air+ground GNSS interference observatory, Eastern Mediterranean",
+   "scores": {
+    "learning": 4,
+    "product": 5,
+    "feasibility": 5,
+    "total": 100
+   },
+   "research_question": "Fuse aircraft NIC/NACp with low-cost ground C/N0/AGC sensors to localize jammers/spoofers and discriminate spoofing from jamming with calibrated uncertainty.",
+   "why_phd": "Heterogeneous fusion with horizon/blockage model, NEES-calibrated uncertainty, spoof-vs-jam test; ADS-B misses ground-level interference.",
+   "mve": {
+    "hardware": "2-3x (Raspberry Pi + u-blox ZED-F9P + RTL-SDR v4); OpenSky / ADS-B Exchange",
+    "budget_usd_estimate": 900
+   },
+   "time_to_first_income_months_estimate": [
+    6,
+    12
+   ],
+   "product_path": "open-core: public map; paid API, sensors, monthly regional reports",
+   "pricing_hypothesis_estimate": "report $300-1,500/mo; API $200-2,000/mo; sensor $1,500 + subscription",
+   "lv_domains": [
+    "MIL · Positioning, navigation and timing",
+    "ENG · Control and estimation",
+    "ENG · Signals and systems",
+    "MIL · Antennas and propagation",
+    "MIL · Electronic warfare and electromagnetic spectrum operations",
+    "MIL · Defense analysis craft: OSINT, claims checking and communication",
+    "ENG · Machine learning and deep learning"
+   ],
+   "risks": [
+    "SkAI/Flightradar24 own the air layer; differentiate on ground layer + fusion",
+    "political sensitivity of locating Israeli emitters: publish impact indices, not IDF emitter locations"
+   ],
+   "external_validation": [
+    "ION GNSS+",
+    "NAVIGATION journal",
+    "paying customer"
+   ],
+   "agents_do": [
+    "OpenSky ingest",
+    "UBX parser",
+    "time-series DB",
+    "hex grid",
+    "filter runs",
+    "site/API"
+   ],
+   "learner_owns": [
+    "received-power and horizon model",
+    "NIC vs NACp semantics",
+    "event definition",
+    "calibration vs NOTAMs",
+    "sensor siting",
+    "claims"
+   ],
+   "legal": "receive-only; ADS-B is public broadcast; never transmit GNSS",
+   "stages": [
+    {
+     "month": "1",
+     "milestone": "OpenSky pipeline + daily Israel map",
+     "output": "repo + post"
+    },
+    {
+     "month": "2-3",
+     "milestone": "first ground sensor, air vs ground",
+     "output": "post + open data"
+    },
+    {
+     "month": "4-6",
+     "milestone": "localization filter + spoof/jam test",
+     "output": "paper draft"
+    },
+    {
+     "month": "6-9",
+     "milestone": "3 sensors + beta API",
+     "output": "demo + customer talks"
+    },
+    {
+     "month": "9-15",
+     "milestone": "paid report then subscription",
+     "output": "first income"
+    }
+   ],
+   "sources": {
+    "gap": [
+     "https://navi.ion.org/content/72/3/navi.716",
+     "https://rntfnd.org/2025/02/19/gnss-disruption-at-sea-level-an-interference-study-in-the-baltic-sea-gps-world/",
+     "https://web.stanford.edu/group/scpnt/gpslab/pubs/papers/Lo_ION_ITM_2026_Observations_of_Spoofing.pdf"
+    ],
+    "market": [
+     "https://www.bizportal.co.il/marketopionion/news/article/20037351",
+     "https://npr.org/2024/04/22/1245847903/israel-gps-spoofing",
+     "https://gpsjam.org/about",
+     "https://runwaygirlnetwork.com/2025/04/lufthansa-systems-lido-solutions-skai-data-services/",
+     "https://gpspatron.com/gp-probe-din-l1/",
+     "https://www.trysignalbase.com/news/funding/distributed-spectrum-secures-25m-in-series-a-funding-to-revolutionize-radio-spectrum-sensing"
+    ]
+   }
+  },
+  {
+   "id": "P2",
+   "name": "Spoof detector",
+   "title": "Receiver-level GNSS spoofing detection with calibrated statistical tests",
+   "scores": {
+    "learning": 5,
+    "product": 4,
+    "feasibility": 4,
+    "total": 80
+   },
+   "research_question": "Do physics consistency tests plus a small learner give controlled-Pfa spoofing detection that transfers from IQ datasets to a low-cost raw-measurement receiver?",
+   "why_phd": "Composite Neyman-Pearson detector, cross-dataset evaluation, transfer to F9P raw, adaptive adversary.",
+   "mve": {
+    "hardware": "gnss-sdr / FGI-GSRx on FGI-SpoofRepo + Tuni2025; F9P from P1; HackRF for cabled tests",
+    "budget_usd_estimate": 340
+   },
+   "time_to_first_income_months_estimate": [
+    9,
+    18
+   ],
+   "product_path": "open-core library; licensing to drone/receiver makers; ground layer of P1",
+   "pricing_hypothesis_estimate": "pilot license $5-50k",
+   "lv_domains": [
+    "MIL · Positioning, navigation and timing",
+    "ENG · Signals and systems",
+    "ENG · Control and estimation",
+    "ENG · Information theory and communications",
+    "MIL · Electronic warfare and electromagnetic spectrum operations",
+    "ENG · Machine learning and deep learning"
+   ],
+   "risks": [
+    "commercial receivers add built-in detection; value is independent cross-dataset evaluation"
+   ],
+   "external_validation": [
+    "ION GNSS+",
+    "IEEE TAES",
+    "NAVIGATION"
+   ],
+   "agents_do": [
+    "converters",
+    "SDR receiver runs on 17+ scenarios",
+    "feature extraction",
+    "ROC plots"
+   ],
+   "learner_owns": [
+    "spoofed-signal model",
+    "derivation of each test",
+    "Pfa thresholds",
+    "scenario-level train/test split",
+    "threat model"
+   ],
+   "legal": "no over-the-air spoofing; datasets; cabled + attenuators + shielded box after confirming with Ministry of Communications",
+   "stages": [
+    {
+     "month": "1-2",
+     "milestone": "reproduce dataset results",
+     "output": "notebook + post"
+    },
+    {
+     "month": "3-5",
+     "milestone": "composite detector + cross-dataset ROC",
+     "output": "arXiv preprint"
+    },
+    {
+     "month": "6-9",
+     "milestone": "transfer to F9P raw + cabled test",
+     "output": "open library + paper"
+    },
+    {
+     "month": "9-15",
+     "milestone": "pilot with a maker",
+     "output": "pilot"
+    }
+   ],
+   "sources": {
+    "gap": [
+     "https://research.fi/en/results/dataset/72849149-10a9-4622-b497-98d4290f9c5f",
+     "https://zenodo.org/records/15623460"
+    ],
+    "market": [
+     "https://en.globes.co.il/en/article-1001329009",
+     "https://www.kedglobal.com/newsView/ked202304250014"
+    ]
+   }
+  },
+  {
+   "id": "P3",
+   "name": "Spectrum trainer",
+   "title": "RF/EW environment simulator for training and ML data generation",
+   "scores": {
+    "learning": 4,
+    "product": 4,
+    "feasibility": 4,
+    "total": 64
+   },
+   "research_question": "What fidelity (propagation, hardware impairments, jammer model) is needed for sim-trained classifiers to transfer, and how to quantify the sim-to-real gap per component?",
+   "why_phd": "Systematic fidelity-vs-transfer ablation on EW and drone signals with ground truth from P1/P4/P5/P8.",
+   "mve": {
+    "hardware": "software only (TorchSig, Sionna RT or simple terrain model); cloud GPU ~$50/mo",
+    "budget_usd_estimate": 0
+   },
+   "time_to_first_income_months_estimate": [
+    6,
+    12
+   ],
+   "product_path": "training software license + workshops + synthetic-data service",
+   "pricing_hypothesis_estimate": "workshop $2-5k; school annual license $10-30k",
+   "lv_domains": [
+    "MIL · Electronic warfare and electromagnetic spectrum operations",
+    "MIL · Antennas and propagation",
+    "MIL · Unmanned systems and counter-UAS",
+    "MIL · Communications, datalinks and networks",
+    "ENG · Machine learning and deep learning",
+    "ENG · Systems engineering"
+   ],
+   "risks": [
+    "a 'game' without validation: every model checked against measurement"
+   ],
+   "external_validation": [
+    "MILCOM",
+    "IEEE RadarConf",
+    "training customer"
+   ],
+   "agents_do": [
+    "engine",
+    "UI",
+    "scenario generators",
+    "data pipeline"
+   ],
+   "learner_owns": [
+    "J/S and burn-through model",
+    "propagation",
+    "what matters to the operator",
+    "transfer experiment design",
+    "checks vs Adamy/Richards"
+   ],
+   "legal": "no emissions; marketing to foreign militaries = defense know-how, needs DECA registration and marketing license; civilian version first",
+   "stages": [
+    {
+     "month": "1-2",
+     "milestone": "J/S + link + horizon lab (Artifact)",
+     "output": "page + post"
+    },
+    {
+     "month": "3-6",
+     "milestone": "drone vs jammer scenario with coverage map",
+     "output": "demo, training kit"
+    },
+    {
+     "month": "6-12",
+     "milestone": "sim-to-real ablation",
+     "output": "paper"
+    },
+    {
+     "month": "9-18",
+     "milestone": "license to school/company",
+     "output": "income"
+    }
+   ],
+   "sources": {
+    "gap": [
+     "https://github.com/torchdsp/torchsig",
+     "https://research.birmingham.ac.uk/en/publications/urban-bird-drone-classification-with-synthetic-micro-doppler-spec"
+    ],
+    "market": [
+     "https://dev.ua/en/news/v-ufds-ziavytsia-multypleier-1781686092",
+     "https://mod.gov.ua/en/news/scaling-up-the-aviation-personnel-training-system-in-2025",
+     "https://www.nextgov.com/defense/2025/12/now-you-can-train-next-drone-war-simulated-ukrainian-front-lines/410279/"
+    ]
+   }
+  },
+  {
+   "id": "P4",
+   "name": "Passive eye",
+   "title": "Passive radar on Israeli FM/DVB-T illuminators, ADS-B-validated, then drones",
+   "scores": {
+    "learning": 5,
+    "product": 3,
+    "feasibility": 4,
+    "total": 60
+   },
+   "research_question": "Detection limit for RCS~0.01 m^2 targets with low-cost passive radar vs integration time, direct-path cancellation and geometry; does multistatic close the gap?",
+   "why_phd": "Full detection budget validated on aircraft via adsbdd, multistatic tracker, empirical drone limit.",
+   "mve": {
+    "hardware": "KrakenSDR ($499) + FM/UHF Yagis + Pi5/laptop; ADS-B from P1",
+    "budget_usd_estimate": 800
+   },
+   "time_to_first_income_months_estimate": [
+    12,
+    24
+   ],
+   "product_path": "kits + installation service + labeled data",
+   "pricing_hypothesis_estimate": "kit $3-8k",
+   "lv_domains": [
+    "MIL · Radar",
+    "ENG · Signals and systems",
+    "MIL · Antennas and propagation",
+    "MIL · Unmanned systems and counter-UAS",
+    "ENG · Control and estimation",
+    "ENG · Electronics and circuits"
+   ],
+   "risks": [
+    "drone RCS too small at useful range (then a scientific limit result)",
+    "export sensitivity"
+   ],
+   "external_validation": [
+    "IEEE RadarConf",
+    "IET Radar, Sonar & Navigation"
+   ],
+   "agents_do": [
+    "blah2/KrakenSDR adaptation",
+    "adsbdd hookup",
+    "tracker",
+    "display"
+   ],
+   "learner_owns": [
+    "bistatic radar equation",
+    "illuminator and geometry choice",
+    "direct-path cancellation",
+    "detection budget",
+    "failure interpretation"
+   ],
+   "legal": "receive-only; check Wassenaar Cat. 6 classification with Ministry of Economy before selling abroad (KrakenRF pulled code for regulatory reasons)",
+   "stages": [
+    {
+     "month": "4-5",
+     "milestone": "aircraft on FM with ADS-B truth",
+     "output": "video + post"
+    },
+    {
+     "month": "6-8",
+     "milestone": "DVB-T + tracker",
+     "output": "repo / blah2 contribution"
+    },
+    {
+     "month": "9-12",
+     "milestone": "drone detection limit",
+     "output": "paper"
+    },
+    {
+     "month": "12-18",
+     "milestone": "deployment kit",
+     "output": "pilot"
+    }
+   ],
+   "sources": {
+    "gap": [
+     "https://publica-rest.fraunhofer.de/server/api/core/bitstreams/7eda759d-5477-4a8e-b6e8-a0377bc4a7c5/content",
+     "https://forge.k3s.fr/github-mirrors/blah2",
+     "https://spl.ics.forth.gr/news-announcements/ai-enhanced-passive-radar-leveraging.html"
+    ],
+    "market": [
+     "https://www.psmarketresearch.com/market-analysis/counter-uas-rf-detection-market-report",
+     "https://www.rtl-sdr.com/wardragon-passive-radar-with-blah2-and-ads-b-delay-doppler-truth/"
+    ]
+   }
+  },
+  {
+   "id": "P5",
+   "name": "Compass",
+   "title": "Low-cost coherent DoA array with online self-calibration in multipath",
+   "scores": {
+    "learning": 5,
+    "product": 3,
+    "feasibility": 4,
+    "total": 60
+   },
+   "research_question": "Does physics-model + learned-residual self-calibration reach the CRLB on a 5-channel low-cost array in urban multipath, using ADS-B as known sources?",
+   "why_phd": "Hybrid calibration with CRLB comparison and self-calibration from signals of opportunity.",
+   "mve": {
+    "hardware": "KrakenSDR from P4 + 5-element circular array; later ADALM-PHASER (~GBP 2,184) in shielded setup",
+    "budget_usd_estimate": 150
+   },
+   "time_to_first_income_months_estimate": [
+    10,
+    18
+   ],
+   "product_path": "localization module inside P1",
+   "pricing_hypothesis_estimate": "via P1",
+   "lv_domains": [
+    "MIL · Antennas and propagation",
+    "ENG · Signals and systems",
+    "ENG · Control and estimation",
+    "MIL · Electronic warfare and electromagnetic spectrum operations",
+    "ENG · Electronics and circuits",
+    "ENG · Mathematics foundations"
+   ],
+   "risks": [
+    "urban multipath stronger than model: start in open terrain"
+   ],
+   "external_validation": [
+    "ICASSP",
+    "IEEE APS",
+    "EuCAP"
+   ],
+   "agents_do": [
+    "MUSIC/ESPRIT",
+    "calibration pipelines",
+    "display"
+   ],
+   "learner_owns": [
+    "array model",
+    "CRLB",
+    "mutual coupling",
+    "when to trust the learner"
+   ],
+   "legal": "receive-only; PHASER transmits: shielded box/absorber or licensed band (Israeli amateur microwave access cut in 2020)",
+   "stages": [
+    {
+     "month": "5-6",
+     "milestone": "DoA on ADS-B vs truth",
+     "output": "post"
+    },
+    {
+     "month": "7-10",
+     "milestone": "self-calibration vs CRLB",
+     "output": "preprint"
+    },
+    {
+     "month": "10-14",
+     "milestone": "integrate into P1",
+     "output": "product"
+    },
+    {
+     "month": "14+",
+     "milestone": "PHASER beamforming",
+     "output": "paper"
+    }
+   ],
+   "sources": {
+    "gap": [
+     "https://www.krakenrf.com/product-page/krakensdr",
+     "https://www.digikey.co.uk/en/products/detail/analog-devices-inc/EVAL-CN0566-RPIZ/18729877"
+    ],
+    "market": [
+     "https://neuronfeed.com/startups/distributed-spectrum"
+    ]
+   }
+  },
+  {
+   "id": "P6",
+   "name": "Shachar",
+   "title": "GNSS-free drone navigation with map matching and certified integrity",
+   "scores": {
+    "learning": 4,
+    "product": 5,
+    "feasibility": 3,
+    "total": 60
+   },
+   "research_question": "How to give calibrated protection levels to orthophoto-matching + VIO navigation and detect false matches before they corrupt the filter?",
+   "why_phd": "RAIM-like integrity framework for visual measurements with measured tail distributions, NEES/NIS and fault tests.",
+   "mve": {
+    "hardware": "Pi5 + camera + IMU; orthophoto; F9P truth",
+    "budget_usd_estimate": 250
+   },
+   "time_to_first_income_months_estimate": [
+    18,
+    30
+   ],
+   "product_path": "software module for drone makers; MEIMAD / INNOFENSE",
+   "pricing_hypothesis_estimate": "module license (to be priced in customer talks)",
+   "lv_domains": [
+    "MIL · Positioning, navigation and timing",
+    "ENG · Control and estimation",
+    "ENG · Robotics",
+    "MIL · Unmanned systems and counter-UAS",
+    "ENG · Machine learning and deep learning",
+    "ENG · Systems engineering"
+   ],
+   "risks": [
+    "crowded fast field: differentiate on integrity, not accuracy"
+   ],
+   "external_validation": [
+    "ION GNSS+",
+    "NAVIGATION",
+    "pilot"
+   ],
+   "agents_do": [
+    "matching pipeline",
+    "VIO",
+    "runs and tests"
+   ],
+   "learner_owns": [
+    "error model",
+    "protection-level definition",
+    "fault tests",
+    "what counts as safe"
+   ],
+   "legal": "flights only per CAAI rules in authorized areas; start with public recordings, handheld or vehicle",
+   "stages": [
+    {
+     "month": "9-12",
+     "milestone": "reproduce NaviLoc on public data",
+     "output": "post"
+    },
+    {
+     "month": "12-16",
+     "milestone": "integrity + NEES",
+     "output": "preprint"
+    },
+    {
+     "month": "16-24",
+     "milestone": "flights",
+     "output": "paper + pilot"
+    }
+   ],
+   "sources": {
+    "gap": [
+     "https://www.preprints.org/manuscript/202512.2340",
+     "https://www.mdpi.com/2504-446X/9/10/709",
+     "https://inertiallabs.com/wp-content/uploads/2026/07/VINS-MultiTest.pdf"
+    ],
+    "market": [
+     "https://jpost.com/defense-and-tech/article-879612"
+    ]
+   }
+  },
+  {
+   "id": "P7",
+   "name": "Rosh Chetz",
+   "title": "Open-set, cross-receiver RF drone detection and identification",
+   "scores": {
+    "learning": 4,
+    "product": 4,
+    "feasibility": 4,
+    "total": 64
+   },
+   "research_question": "Open-set drone identification (reject unseen models) that holds across days and receivers.",
+   "why_phd": "Leak-free evaluation protocol (split by day/receiver) + a method that passes it + own multi-receiver dataset.",
+   "mve": {
+    "hardware": "open datasets (RFUAV etc.) + HackRF/B210 + 1-2 authorized drones",
+    "budget_usd_estimate": 400
+   },
+   "time_to_first_income_months_estimate": [
+    14,
+    24
+   ],
+   "product_path": "OEM model/software for sensor makers",
+   "pricing_hypothesis_estimate": "OEM license (to be priced)",
+   "lv_domains": [
+    "MIL · Unmanned systems and counter-UAS",
+    "MIL · Electronic warfare and electromagnetic spectrum operations",
+    "ENG · Machine learning and deep learning",
+    "ENG · Signals and systems",
+    "MIL · Communications, datalinks and networks"
+   ],
+   "risks": [
+    "market dominated by large firms",
+    "legal sensitivity of control-link content"
+   ],
+   "external_validation": [
+    "WiSec",
+    "IEEE TIFS",
+    "RFUAV/DroneRF benchmark"
+   ],
+   "agents_do": [
+    "dataset loading",
+    "training",
+    "evaluation",
+    "edge optimization"
+   ],
+   "learner_owns": [
+    "anti-leakage protocol",
+    "signal model (FHSS, OFDM)",
+    "what counts as identification"
+   ],
+   "legal": "energy/spectral features only; decoding control-link content may count as wiretapping (1979 law): lawyer check before marketing",
+   "stages": [
+    {
+     "month": "8-10",
+     "milestone": "leakage audit of datasets",
+     "output": "post"
+    },
+    {
+     "month": "10-14",
+     "milestone": "open-set cross-receiver method",
+     "output": "paper"
+    },
+    {
+     "month": "14-20",
+     "milestone": "edge detector for SDR",
+     "output": "OEM license"
+    }
+   ],
+   "sources": {
+    "gap": [
+     "https://arxiv.org/html/2606.10031",
+     "https://arxiv.org/pdf/2510.09405",
+     "https://arxiv.org/abs/2503.09033v2"
+    ],
+    "market": [
+     "https://www.motorolasolutions.com/content/dam/msi/investors/doc_presentations/2026/06-01-26-presentation_msi_intent_to_acquire_d-fend_final.pdf",
+     "https://www.unmannedairspace.info/counter-uas-systems-and-policies/ondas-to-acquire-sentrycs/",
+     "https://www.psmarketresearch.com/market-analysis/counter-uas-rf-detection-market-report"
+    ]
+   }
+  },
+  {
+   "id": "P8",
+   "name": "Kanaf",
+   "title": "Sim-to-real micro-Doppler dataset and generator (mmWave + K-band)",
+   "scores": {
+    "learning": 4,
+    "product": 3,
+    "feasibility": 4,
+    "total": 48
+   },
+   "research_question": "Parametric micro-Doppler generator calibrated on low-cost radar: which model component explains how much of the gap?",
+   "why_phd": "Calibrated generator + component ablation + first public IWR6843 drone dataset.",
+   "mve": {
+    "hardware": "TI IWR6843ISK + DCA1000 + fan or tethered drone, indoors",
+    "budget_usd_estimate": 800
+   },
+   "time_to_first_income_months_estimate": [
+    18,
+    30
+   ],
+   "product_path": "open dataset + commercial generator",
+   "pricing_hypothesis_estimate": "small",
+   "lv_domains": [
+    "MIL · Radar",
+    "ENG · Signals and systems",
+    "ENG · Machine learning and deep learning",
+    "MIL · Unmanned systems and counter-UAS"
+   ],
+   "risks": [
+    "low income: mainly serves P3 and reputation"
+   ],
+   "external_validation": [
+    "IEEE Transactions on Radar Systems",
+    "IEEE RadarConf",
+    "dataset citations"
+   ],
+   "agents_do": [
+    "generator",
+    "raw converter",
+    "training"
+   ],
+   "learner_owns": [
+    "micro-Doppler physics",
+    "resolution",
+    "experiment design"
+   ],
+   "legal": "60 GHz short-range radar likely exempt: verify Ministry of Communications exemption list; indoor/netted measurements",
+   "stages": [
+    {
+     "month": "10-12",
+     "milestone": "measurements + generator",
+     "output": "Zenodo dataset"
+    },
+    {
+     "month": "12-16",
+     "milestone": "ablation",
+     "output": "paper"
+    }
+   ],
+   "sources": {
+    "gap": [
+     "https://arxiv.org/pdf/2308.06479",
+     "https://research.birmingham.ac.uk/en/publications/urban-bird-drone-classification-with-synthetic-micro-doppler-spec"
+    ],
+    "market": []
+   }
+  },
+  {
+   "id": "P9",
+   "name": "Or bli lavyan",
+   "title": "LEO signals-of-opportunity PNT (Iridium/Orbcomm/Starlink Doppler)",
+   "scores": {
+    "learning": 5,
+    "product": 3,
+    "feasibility": 2,
+    "total": 30
+   },
+   "research_question": "Doppler-positioning accuracy from LEO signals on a cheap receiver with public TLEs, and orbit-error correction without a ground network.",
+   "why_phd": "Single-receiver orbit-error-robust Doppler positioning.",
+   "mve": {
+    "hardware": "SDR + Ku LNB or L-band antenna",
+    "budget_usd_estimate": 300
+   },
+   "time_to_first_income_months_estimate": [
+    24,
+    36
+   ],
+   "product_path": "research / consortium",
+   "pricing_hypothesis_estimate": "n/a",
+   "lv_domains": [
+    "MIL · Positioning, navigation and timing",
+    "MIL · Space systems and space warfare",
+    "ENG · Signals and systems",
+    "ENG · Control and estimation",
+    "MIL · Antennas and propagation"
+   ],
+   "risks": [
+    "hard; dependent on Starlink signal changes"
+   ],
+   "external_validation": [
+    "ION GNSS+",
+    "ION PLANS"
+   ],
+   "agents_do": [
+    "Doppler extraction",
+    "orbit propagation",
+    "filters"
+   ],
+   "learner_owns": [
+    "signal model",
+    "orbit error model",
+    "estimator design"
+   ],
+   "legal": "receive-only; Doppler/timing only, no content decoding",
+   "stages": [
+    {
+     "month": "15-18",
+     "milestone": "Orbcomm/Iridium Doppler",
+     "output": "post"
+    },
+    {
+     "month": "18-24",
+     "milestone": "Starlink",
+     "output": "preprint"
+    }
+   ],
+   "sources": {
+    "gap": [
+     "https://arxiv.org/abs/2210.11578",
+     "https://www.gpsworld.com/low-cost-antennas-power-high-precision-space-based-positioning/",
+     "https://navi.ion.org/custom-print/151466"
+    ],
+    "market": [
+     "https://satnews.com/2026/10/22/xona-space-systems-secures-250m-series-d-at-2-45b-valuation-to-scale-pulsar-pnt-fleet/"
+    ]
+   }
+  },
+  {
+   "id": "P10",
+   "name": "RF-ML audit",
+   "title": "Evaluation harness and leakage audit for RF/radar ML datasets",
+   "scores": {
+    "learning": 3,
+    "product": 2,
+    "feasibility": 5,
+    "total": 30
+   },
+   "research_question": "How many published results on RadioML, RFUAV, DroneRF and SEI survive clean splits by recording, day and receiver?",
+   "why_phd": "Reproducibility study + SigMF-based harness.",
+   "mve": {
+    "hardware": "software, cloud GPU",
+    "budget_usd_estimate": 0
+   },
+   "time_to_first_income_months_estimate": [
+    null,
+    null
+   ],
+   "product_path": "reputation; feeds P7",
+   "pricing_hypothesis_estimate": "none",
+   "lv_domains": [
+    "ENG · Machine learning and deep learning",
+    "ENG · Signals and systems",
+    "MIL · Defense analysis craft: OSINT, claims checking and communication"
+   ],
+   "risks": [
+    "little; reputation lever"
+   ],
+   "external_validation": [
+    "NeurIPS Datasets & Benchmarks",
+    "IEEE DySPAN"
+   ],
+   "agents_do": [
+    "harness",
+    "reruns"
+   ],
+   "learner_owns": [
+    "split definitions",
+    "what counts as leakage"
+   ],
+   "legal": "none",
+   "stages": [
+    {
+     "month": "6-9",
+     "milestone": "audit 3 datasets",
+     "output": "reproducibility paper + tool"
+    }
+   ],
+   "sources": {
+    "gap": [
+     "https://arxiv.org/html/2606.10031"
+    ],
+    "market": []
+   }
+  },
+  {
+   "id": "P11",
+   "name": "Verification harness",
+   "title": "How to verify AI-agent-written DSP and estimation code (backbone, cross-project)",
+   "scores": {
+    "learning": 4,
+    "product": 3,
+    "feasibility": 5,
+    "total": 60
+   },
+   "research_question": "Which oracles (closed form, CRLB, book examples, Monte Carlo, invariants) catch how many agent errors in signal/estimation code, at what cost?",
+   "why_phd": "Empirical measurement across his own 10 projects: bug types, catching oracle, escape rate; direct test of the solo+AI thesis.",
+   "mve": {
+    "hardware": "bug log + oracles/ test library",
+    "budget_usd_estimate": 0
+   },
+   "time_to_first_income_months_estimate": [
+    9,
+    15
+   ],
+   "product_path": "workshops and consulting for 'RF engineer leading agents'",
+   "pricing_hypothesis_estimate": "$1-3k per workshop",
+   "lv_domains": [
+    "ENG · Engineering judgment (cross-cutting)",
+    "ENG · Mathematics foundations",
+    "ENG · Signals and systems",
+    "ENG · Control and estimation",
+    "ENG · Periphery: discrete math, algorithms, computer systems, chips"
+   ],
+   "risks": [
+    "small n: log every bug from day one"
+   ],
+   "external_validation": [
+    "ICSE SEIP",
+    "IEEE Software"
+   ],
+   "agents_do": [
+    "write tests to his spec"
+   ],
+   "learner_owns": [
+    "which invariants are true",
+    "design of planted bugs"
+   ],
+   "legal": "none",
+   "stages": [
+    {
+     "month": "1-3",
+     "milestone": "30 oracles + log",
+     "output": "repo + post"
+    },
+    {
+     "month": "6",
+     "milestone": "first analysis",
+     "output": "post"
+    },
+    {
+     "month": "12",
+     "milestone": "paper + workshop",
+     "output": "income"
+    }
+   ],
+   "sources": {
+    "gap": [
+     "https://arxiv.org/abs/2505.14354",
+     "https://neurips.cc/virtual/2026/poster/139034",
+     "https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/"
+    ],
+    "market": []
+   }
+  }
+ ]
+}
