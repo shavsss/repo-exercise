@@ -9,7 +9,9 @@ What changes, module by module:
     the published library (B13 before its OCR) wait for it, so such a module may have none;
   - an existing module keeps its section headings and every source it had (never removal),
     and takes the syllabus's tier, titles, prerequisites and added sources;
-  - every module gets its curriculum fields (enrich.attach): items, testout, brief, reading.
+  - every module gets its curriculum fields (enrich.attach): items, testout, brief, reading;
+  - with --headings (from core/tools/doc_sections.py), a module new in the index takes
+    the headings found in its taught pages (as pack.py derives them), e.g. after B13's OCR.
 The documents, the asset map and the version stay as published: no text, figure or page-image
 file changes, so the copies browsers keep under that version stay valid. Only index.json is
 republished.
@@ -35,7 +37,18 @@ def key(s):
     return (s["doc"], tuple(s["pages"]), s["role"])
 
 
-def patch(app, base):
+def taught_heads(sources, heads):
+    """The headings in a module's taught pages (not articles or refs), as pack.module_list."""
+    out = []
+    for s in sources:
+        a, b = s["pages"]
+        for h in heads.get(s["doc"], []):
+            if a <= h["page"] <= b and s["role"] not in ("article", "ref"):
+                out.append({"doc": s["doc"], "page": h["page"], "title": h["title"], "depth": h["depth"]})
+    return out
+
+
+def patch(app, base, heads=None):
     sys.path.insert(0, str(SYL[app]))
     syl = importlib.import_module("syllabus")
     docs = base["docs"]
@@ -62,6 +75,8 @@ def patch(app, base):
         else:
             m["sections"] = []
         m["sources"] = sources
+        if not prev and heads:
+            m["sections"] = taught_heads(sources, heads)
         modules.append(m)
     ids = {m["id"] for m in modules}
     lost = [i for i in old if i not in ids]
@@ -78,9 +93,10 @@ def main():
     ap.add_argument("--app", choices=["core", "eng"], required=True)
     ap.add_argument("--base", required=True, help="the published lib/index.json")
     ap.add_argument("--out", required=True)
+    ap.add_argument("--headings", help="{doc: headings} from core/tools/doc_sections.py")
     a = ap.parse_args()
     base = json.loads(Path(a.base).read_text())
-    new = patch(a.app, base)
+    new = patch(a.app, base, json.loads(Path(a.headings).read_text()) if a.headings else None)
     Path(a.out).parent.mkdir(parents=True, exist_ok=True)
     Path(a.out).write_text(dumps(new))
     added = [m["id"] for m in new["modules"] if m["id"] not in {x["id"] for x in base["modules"]}]
