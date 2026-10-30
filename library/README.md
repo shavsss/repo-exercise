@@ -28,7 +28,7 @@
 | 10 | Principles of Naval Weapons Systems | CDR Joseph Hall (עורך), USNA | — | PDF |
 | 11 | Tanks: 100 Years of Evolution | Richard M. Ogorkiewicz | Osprey, 2015 | PDF |
 | 12 | Space Mission Engineering: The New SMAD | Wertz, Everett, Puschell (עורכים) | Microcosm, 2011 | תיקייה `12_SMAD/` עם 11 חלקי PDF מצולמים, בלי שכבת טקסט. בסריקה חסר פרק 18 (הנעה), ובמקומו פרק 17 מופיע פעמיים |
-| 13 | Tactical Missile Design | Eugene L. Fleeman | AIAA, 2001 (מהדורה 1) | PDF סרוק, בלי שכבת טקסט. בספרייה, לא בתוכנית הלימודים |
+| 13 | Tactical Missile Design | Eugene L. Fleeman | AIAA, 2001 (מהדורה 1) | PDF סרוק, נקרא ב-OCR (B13). בספריית לנצ'סטר; עמוד PDF = עמוד מודפס + 19 |
 | 14 | Combat Modeling | Alan Washburn, Moshe Kress | Springer, 2009 | PDF. מקור עזר לניתוח (לא נלמד כמודול) |
 | 15 | Mathematical Methods in Defense Analyses | J. S. Przemieniecki | AIAA, 2000 (מהדורה 3) | PDF. מקור עזר לניתוח |
 | 16 | The Fundamentals of Aircraft Combat Survivability Analysis and Design | Robert E. Ball | AIAA, 2003 (מהדורה 2) | PDF. מקור עזר לניתוח: שרידות, חשיפה ופגיעות |

@@ -10,6 +10,7 @@ syllabus, and writes core/app/artifact/lib/:
 import base64
 import hashlib
 import json
+import os
 import re
 import subprocess
 import sys
@@ -23,13 +24,14 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parents[2]
 LIB = ROOT / "library" / "military"
 BUILD = ROOT / "core" / "build" / "lib"
-OUT = ROOT / "core" / "app" / "artifact" / "lib"
+# PACK_OUT=<dir>/lib writes the files elsewhere (the asset bundles then go to <dir>/assets)
+OUT = Path(os.environ.get("PACK_OUT", ROOT / "core" / "app" / "artifact" / "lib"))
 # Documents whose figure and page-image bundles live in the artifact's asset store instead of
 # lib/, because the published files of one version are limited to 256 MB. Their bundles are
 # written to ASSETS, uploaded by hand (Artifact publish with asset: true), and the URLs the
 # upload returns are kept in ASSET_URLS, from which index.json maps each bundle to its URL.
 ASSET_DOCS = {"B12", "B13"}
-ASSETS = ROOT / "core" / "app" / "artifact" / "assets"
+ASSETS = OUT.parent / "assets"
 ASSET_URLS = ROOT / "core" / "tools" / "asset_urls.json"
 sys.path.insert(0, str(LIB / "syllabus"))
 from syllabus import DOCS, MODULES, PARTS, REF_DOCS, SKIP  # noqa: E402
@@ -209,7 +211,7 @@ def asset_urls(docs):
     names = [n for d in ASSET_DOCS if d in docs for n in docs[d]["figFiles"] + docs[d]["pgFiles"]]
     missing = [n for n in names if n not in urls]
     if missing:
-        print(f"not in the asset store yet (upload from {ASSETS.relative_to(ROOT)}, then add to {ASSET_URLS.name}):", ", ".join(missing))
+        print(f"not in the asset store yet (upload from {ASSETS}, then add to {ASSET_URLS.name}):", ", ".join(missing))
     return {n: urls[n] for n in names if n in urls}
 
 
@@ -309,6 +311,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--only", nargs="*", help="pack only these documents, onto --base")
     ap.add_argument("--base", help="the published lib/index.json, for --only")
+    ap.add_argument("--keep-modules", action="store_true",
+                    help="with --only: keep the base index's modules as they are (only documents change)")
     args = ap.parse_args()
     for d in ("text", "fig", "pg"):
         (OUT / d).mkdir(parents=True, exist_ok=True)
@@ -323,7 +327,7 @@ def main():
             r = pack_doc(doc, rel, title, with_images=doc not in REF_DOCS)
             if r:
                 docs[doc] = r[0]
-        write_index(docs, module_list(docs, {}, base["modules"]))
+        write_index(docs, base["modules"] if args.keep_modules else module_list(docs, {}, base["modules"]))
         print("wrote", ", ".join(f"text/{d}.json" for d in args.only), "and index.json")
         return
     docs = {}
