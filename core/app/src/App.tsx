@@ -21,7 +21,7 @@ import { SourceTag } from "./components/blocks/SourceTag";
 import { Icon } from "./components/Icon";
 import { NotesPanel } from "./components/NotesPanel";
 import { isNewDay, lastSelection, stopOf, useDayClock } from "./day";
-import { usePrefetch, usePrefetchDriver, useSettlePrefetched } from "./prefetch";
+import { stopPrefetch, usePrefetch, usePrefetchDriver, useSettlePrefetched } from "./prefetch";
 import { WaitPanel } from "./components/WaitPanel";
 import { BreakLine } from "./components/BreakLine";
 import { MorningCard } from "./components/MorningCard";
@@ -770,7 +770,7 @@ export function App() {
                 const q = quick.find((x) => x.text === t);
                 send(t, im, q ? q.mode : mode);
               }}
-              onStop={() => ctl.current?.abort()}
+              onStop={() => (following ? stopPrefetch() : ctl.current?.abort())}
               quick={quick}
               modes={isQuiz ? ["quiz", "clarify"] : ["clarify", "free"]}
               mode={mode}
