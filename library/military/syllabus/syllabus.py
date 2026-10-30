@@ -20,6 +20,7 @@ DOCS = {
     "B10": ("books/10_Principles-of-Naval-Weapons-Systems_Hall.pdf", "Principles of Naval Weapons Systems"),
     "B11": ("books/11_Tanks-100-Years_Ogorkiewicz_2015.pdf", "Tanks: 100 Years of Evolution"),
     "B12": ("books/12_SMAD", "Space Mission Engineering: The New SMAD (2011)"),
+    "B13": ("books/13_Tactical-Missile-Design_Fleeman_2001.pdf", "Fleeman, Tactical Missile Design (2001)"),
     "B14": ("books/14_Combat-Modeling_Washburn-Kress_2009.pdf", "Washburn & Kress, Combat Modeling (2009)"),
     "B15": ("books/15_Mathematical-Methods-Defense-Analyses_Przemieniecki_3ed_2000.pdf", "Przemieniecki, Mathematical Methods in Defense Analyses, 3rd ed. (2000)"),
     "B16": ("books/16_Aircraft-Combat-Survivability_Ball_2ed_2003.pdf", "Ball, The Fundamentals of Aircraft Combat Survivability Analysis and Design, 2nd ed. (2003)"),
@@ -76,6 +77,7 @@ PARTS = [
     ("P11", "אפקטים של נשק ושריון"),
     ("P12", "האויב: דוקטרינה והפעלה"),
     ("P13", "חלל: מסלולים, לוויינים, תקשורת לוויינית ושיגור"),
+    ("P14", "ניתוח הגנה: מידול לחימה, עלות, לוגיסטיקה ו-OSINT"),
 ]
 
 
@@ -372,7 +374,8 @@ MODULES = [
     dict(id="M4.10", part="P4", tier="core", title="אמצעי נגד ב-IR והגנה עצמית", en="IR countermeasures and defensive aids",
          prereq=["M3.10", "M4.7"],
          sources=[s("B04", 99, 106, "4.2–4.3: טילי IR וסורקי קו"), s("B04", 118, 123, "4.7: אמצעי נגד IR"),
-                  s("B08", 269, 278, "6.5: מערכות הגנה עצמית"), art("A03.3", "אמצעי נגד מול ראשי ביות Spin-scan ו-Con-scan")]),
+                  s("B08", 269, 278, "6.5: מערכות הגנה עצמית"), art("A03.3", "אמצעי נגד מול ראשי ביות Spin-scan ו-Con-scan"),
+                  sup("B16", 561, 565, "4.4.1–4.4.3: התרעת איום ומשבשים (Ball)")]),
     dict(id="M4.11", part="P4", tier="core", title="אותות LPI ול\"א בתקשורת", en="LPI signals and communications EW",
          prereq=["M0.5", "M4.7"],
          sources=[s("B01", 145, 164, "פרק 7: קפיצת תדר, צ'ירפ, DSSS, שיבוש חלקי"),
@@ -467,14 +470,16 @@ MODULES = [
     # ---------------- P7 ----------------
     dict(id="M7.1", part="P7", tier="core", title="בעיית ההגנה מפני טילים ומדדי האפקטיביות", en="The AMD problem and MOEs",
          prereq=["M2.2", "M6.4"],
-         sources=[s("B07", 22, 23, "פרק 1"), s("B07", 44, 69, "פרקים 3–4: הסביבה, זמן תגובה, עוצמת אש, עמידות לחדירה")]),
+         sources=[s("B07", 22, 23, "פרק 1"), s("B07", 44, 69, "פרקים 3–4: הסביבה, זמן תגובה, עוצמת אש, עמידות לחדירה"),
+                  sup("B15", 164, 185, "6.1–6.3: הגנה בשכבות, Pk מצטבר (Przemieniecki)"), sup("B15", 206, 219, "פרק 7: הגנה מפני טילים בזירה, הסתברות חדירה")]),
     dict(id="M7.2", part="P7", tier="core", title="דרישות מערכת: CONOPS, ארכיטקטורה, חיישנים ומערך יירוט", en="AMD system requirements",
          prereq=["M7.1"],
          sources=[s("B07", 70, 113, "פרק 5")]),
     dict(id="M7.3", part="P7", tier="core", title="תכנון מקדים: מרחב הקרב, ניתוח יירוט ותכנון המיירט", en="Preliminary design",
          prereq=["M7.2", "M6.6"],
-         sources=[s("B07", 114, 191, "פרק 6")]),
-    dict(id="M7.4", part="P7", tier="adv", title="ניתוחי פשרות והקצאת דרישות", en="Trades and allocation",
+         sources=[s("B07", 114, 191, "פרק 6"), sup("B15", 142, 163, "5.3–5.5: שחיקה סטוכסטית והקצאת shoot-look-shoot"),
+                  sup("B14", 52, 83, "פרקים 3–4: ירי עם משוב, shoot-look-shoot, Pk של מטח")]),
+    dict(id="M7.4", part="P7", tier="core", title="ניתוחי פשרות והקצאת דרישות, מטחים, מלאי מיירטים ויחס עלויות", en="Trades and allocation + raids, magazines and cost-exchange",
          prereq=["M7.3"],
          sources=[s("B07", 192, 227, "פרקים 7–8")]),
     dict(id="M7.5", part="P7", tier="core", title="הפיזיקה של תכנון AMD: טיסת מיירט וכדור הארץ", en="Interceptor flight analysis",
@@ -494,7 +499,7 @@ MODULES = [
          sources=[s("B08", 295, 302, "7.4–7.5: קישורי נתונים ולוחמה מרושתת"),
                   art("A08.4", "התקן: הודעות, TDMA, שכבה פיזית"), art("A08.7", "IP על גבי Link 16"),
                   art("A08.9", "קרב אוויר עם Link 16 ובלעדיו"), sup("B10", 135, 136, "רשתות עקיבה")]),
-    dict(id="M7.10", part="P7", tier="ref", title="הנדסת מערכות: מחזור החיים", en="Systems engineering lifecycle",
+    dict(id="M7.10", part="P7", tier="core", title="הנדסת מערכות: מחזור החיים, ניסוי והערכה וראיות מניסויים", en="Systems engineering lifecycle + T&E and test evidence",
          sources=[s("B07", 24, 43, "פרק 2")]),
 
     # ---------------- P8 ----------------
@@ -554,7 +559,7 @@ MODULES = [
     dict(id="M10.3", part="P10", tier="core", title="מערכות סונאר וגילוי לא-אקוסטי", en="Sonar systems and non-acoustic detection",
          prereq=["M10.2", "M2.15"],
          sources=[s("B10", 211, 226, "פרק 17"), art("A10.5", "עקיבה בסונאר אקטיבי"), art("A10.6", "עקיבה בסונאר רב-סטטי"),
-                  art("A10.8", "שובלים של כלי תת-ימי")]),
+                  art("A10.8", "שובלים של כלי תת-ימי"), sup("B14", 146, 161, "7.4, 7.6: סיור מחסום ומטרות נעות (חיפוש תת-ימי)")]),
     dict(id="M10.4", part="P10", tier="core", title="טורפדות ומוקשים", en="Torpedoes and mines",
          prereq=["M10.3"],
          sources=[s("B10", 299, 308, "פרק 26")]),
@@ -598,14 +603,16 @@ MODULES = [
          prereq=["M7.1", "M4.7"],
          sources=[s("D5", 100, 110, "IADS ו-EW בסיור ובאבטחה"), s("D5", 138, 150, "הקרב האלקטרומגנטי ותמיכה אווירית"),
                   s("D5", 223, 240, "נספחים C, D, E, F: תמיכה אווירית, הגנה אווירית, נ\"ט, EW"),
-                  s("D5", 255, 260, "נספח J: מערכות שו\"ב אוטומטיות")]),
+                  s("D5", 255, 260, "נספח J: מערכות שו\"ב אוטומטיות"),
+                  sup("D5", 163, 180, "מתחמי סיור-אש (recon-strike), מתוך M12.2")]),
     dict(id="M12.2", part="P12", tier="adv", title="הטקטיקה הרוסית: מבנה, סיור, אש, הגנה והתקפה", en="Russian tactics",
          sources=[s("D5", 13, 99, "מבוא ופרקים 1–4"), s("D5", 111, 137, "פרק 5 עד הקרב האלקטרומגנטי"),
                   s("D5", 151, 222, "פרקים 6–7 ונספחים A–B"), s("D5", 241, 254, "נספחים G–I"), s("D5", 261, 275, "נספח K")]),
     dict(id="M12.3", part="P12", tier="core", title="יכולות משולבות סיניות: חיל האוויר, הצי, כוח הרקטות, ל\"מ ותקשורת", en="Chinese joint capabilities",
          prereq=["M7.1"],
          sources=[s("D6", 51, 58, "פרק 3"), s("D6", 75, 84, "פרק 5: מבצעי מידע"),
-                  s("D6", 217, 226, "נספחים C–D: הגנה אווירית ותעופה"), s("D6", 229, 230, "נספח F: רשת ותקשורת")]),
+                  s("D6", 217, 226, "נספחים C–D: הגנה אווירית ותעופה"), s("D6", 229, 230, "נספח F: רשת ותקשורת"),
+                  sup("D6", 59, 74, "לוחמת מערכות של צבא סין, מתוך M12.4")]),
     dict(id="M12.4", part="P12", tier="adv", title="הטקטיקה הסינית: מבנה, לוחמת מערכות, הגנה והתקפה", en="Chinese tactics",
          sources=[s("D6", 13, 50, "מבוא ופרקים 1–2"), s("D6", 59, 74, "פרק 4"), s("D6", 85, 216, "פרקים 6–9 ונספחים A–B"),
                   s("D6", 227, 228, "נספח E"), s("D6", 231, 246, "נספח G")]),
@@ -669,13 +676,65 @@ MODULES = [
          sources=[s("B12", 916, 961, "פרקים 29–30")]),
     dict(id="M13.22", part="P13", tier="ref", title="נספחי SMAD: נתוני חלליות, כוכבי לכת, נוסחאות מסלול וגאומטריה, זמן ויחידות", en="SMAD appendices",
          sources=[s("B12", 962, 1001, "נספחים A–G"), s("B12", 1038, 1045, "טבלאות פרמטרים של לווייני כדור הארץ")]),
+    # ---------------- added by the topic-based curriculum (docs/research/round3/final/F_curriculum.json) ----------------
+    # Appended here so every prerequisite comes earlier; the map shows each one in its part.
+    # Modules without library pages are taught from their topic items (curriculum.json) and reading list.
+    dict(id="M6.12", part="P6", tier="core", title="תכן מושגי של טיל טקטי (Fleeman): גורמי תכן, קביעת ממדים, פשרות הנעה, חימום וכיפות, עלות",
+         en="Tactical missile conceptual design (Fleeman B13): drivers, sizing, propulsion trades, heating and domes, cost",
+         prereq=["M6.2", "M6.4"],
+         sources=[s("B13", 19, 236, "פרקים 1–7 (סריקה בתמונות: נדרש OCR)")]),
+    dict(id="M6.13", part="P6", tier="adv", title="תכן טילים טקטיים: הפרקים המתקדמים (Fleeman פרקים 8–9)",
+         en="Tactical missile design, advanced chapters (Fleeman ch.8-9)",
+         prereq=["M6.12"],
+         sources=[s("B13", 237, 262, "פרקים 8–9"), sup("B13", 263, 286, "נספחים: תרגילים, מקרי תכן וטבלאות")]),
+    dict(id="M8.8", part="P8", tier="core", title="שרידות כלי טיס (Ball): חשיפה, פגיעוּת, עצי השבתה, שחיקה במשימה ובמערכה, שיעורי אבדות היסטוריים",
+         en="Combat survivability (Ball): susceptibility, vulnerability, kill trees, mission and campaign attrition, historical loss rates",
+         prereq=["M0.4", "M2.4", "M11.4"],
+         sources=[s("B16", 25, 105, "1.1: יסודות השרידות, P_S = 1 − P_H·P_K|H, שרידות במערכה"),
+                  s("B16", 106, 141, "1.2: שיעורי אבדות היסטוריים"), sup("B16", 198, 226, "1.7: סיכום ובעיות"),
+                  sup("B16", 227, 256, "פרק 2: מבנה כלי הטיס"), s("B16", 303, 338, "3.3–3.4: מינוח, מאפייני האיום, מנגנוני נזק"),
+                  sup("B16", 469, 473, "4.1–4.2: תוכנית החשיפה"), sup("B16", 608, 626, "4.4.6–4.4.7: דיכוי איומים וטקטיקה"),
+                  s("B16", 627, 678, "5.1–5.2: פגיעוּת, רכיבים קריטיים, FMECA ועצי השבתה"),
+                  s("B16", 763, 788, "6.1–6.2: הערכת שרידות במשימה ובמערכה"), sup("B16", 797, 801, "6.4: מסקנות")]),
+    dict(id="M8.9", part="P8", tier="core", title="קיבולת של כוח אווירי: קצב גיחות, בסיסים ושרידותם, תדלוק אווירי",
+         en="Air campaign capacity: sortie generation, basing and air-base attack, tankers",
+         prereq=["M8.8", "M9.2"], sources=[]),
+    dict(id="M9.9", part="P9", tier="core", title="רחפנים חד-כיווניים, FPV וכלכלת מלחמת הרחפנים: מחלקת Shahed, FPV, סיב אופטי, ייצור המוני ויחס עלויות בהגנה",
+         en="One-way attack drones, FPV and drone-war economics (Shahed-class, FPV, fiber-optic, mass production, C-UAS cost-exchange)",
+         prereq=["M9.7", "M9.5", "M8.8"], sources=[]),
+    dict(id="M13.23", part="P13", tier="core", title="שליטה בחלל: טקסונומיה של יכולות נגד-חלל, מודעות למצב בחלל, פעולות קרבה, חוסן ופיזור, תלות במסחרי",
+         en="Space control: counterspace taxonomy, SDA, RPO, resilience and proliferation, commercial dependence",
+         prereq=["M13.5", "M13.6", "M7.6"], sources=[]),
+    dict(id="M14.1", part="P14", tier="core", title="מידול לחימה: סוגי מודלים ומדדי אפקטיביות, משוואות לנצ'סטר ומודל המטחים, יחסי חילוף, מודלים ומשחקי מלחמה כראיה",
+         en="Combat modeling: model types and MOEs, Lanchester and salvo attrition, exchange ratios, models and wargames as evidence",
+         prereq=["M0.4", "M7.1"],
+         sources=[s("B14", 8, 20, "1.2–1.3: סוגי מודלים וקיצורי דרך"), s("B14", 84, 114, "פרק 5: מודלי שחיקה, משוואות לנצ'סטר"),
+                  s("B15", 92, 141, "פרקים 4–5: מודלי קרב דטרמיניסטיים וסטוכסטיים"), s("B15", 320, 329, "פרק 12: מידול של מבצעים"),
+                  sup("B15", 22, 31, "פרק 1: שיטות מדעיות בניתוח הגנה"), sup("B14", 214, 238, "פרק 10: מודלים של טרור ומרד")]),
+    dict(id="M14.2", part="P14", tier="core", title="רכש, עלות ובסיס תעשייתי: הגדרות עלות, עלות מחזור חיים, עקומות למידה, תקציבים כנתונים, TRL/MRL, האצת ייצור וחומרים קריטיים",
+         en="Acquisition, cost and industrial base: cost definitions, LCC, learning curves, budgets as data, TRL/MRL, surge and critical materials",
+         prereq=["M14.1", "M7.10"],
+         sources=[sup("B16", 139, 155, "1.3.1–1.3.6: תהליך הרכש DoD 5000"), sup("B12", 306, 413, "פרקים 11–13: אומדן עלויות (בעיקר פרק 11)")]),
+    dict(id="M14.3", part="P14", tier="core", title="לוגיסטיקה וקיימוּת: צריכה, קיבולת קווי אספקה, תחמושת מול מלאים, כשירות, לוגיסטיקה תחת איום ובמלחמת רחפנים",
+         en="Logistics and sustainment: consumption, LOC capacity, munitions vs stockpiles, readiness, contested and drone-war logistics (van Creveld promoted)",
+         prereq=["M14.1"],
+         sources=[s("B17", 158, 204, "פרק 4: הלוגיסטיקה של תוכנית שליפן"), s("B17", 205, 333, "פרקים 5–8: ברברוסה, צפון אפריקה, פטון, מסקנות"),
+                  sup("B17", 16, 110, "פרקים 1–2: שיטת המחסנים ונפוליאון")]),
+    dict(id="M14.4", part="P14", tier="core", title="OSINT והערכת יכולות: דימות, איכון גאוגרפי, אימות, ADS-B/AIS, הערכת סדר כוחות, הערכה כוללת והטיות ניתוח",
+         en="OSINT and capability assessment: imagery, geolocation, verification, ADS-B/AIS, OOB estimation, net assessment, analytic bias",
+         prereq=["M3.10", "M13.11", "M5.5", "M8.4"], sources=[]),
+    dict(id="M14.5", part="P14", tier="core", title="כתיבה וראיונות של אנליסט (מסכם): מבנה מאמר, ראיונות מומחים, אי-ודאות, גרפים הוגנים, ביקורת על מכוני מחקר, בדיקת AI",
+         en="Writing and interviewing as an analyst (capstone): article structure, expert interviews, uncertainty, honest charts, think-tank critique, AI-checking",
+         prereq=["M14.1", "M14.2", "M14.3", "M14.4"], sources=[]),
 ]
 
 # ---------------- analysis references ----------------
 # Operations research, survivability and logistics. The learner has read Washburn & Kress (B14)
-# and Przemieniecki (B15); they, Ball (B16) and Van Creveld (B17) are not taught as modules.
-# In the modules below the tutor closes the loop from the module's technical result to an
-# operational outcome with the method these pages give, and the learner designs the analysis.
+# and Przemieniecki (B15). In the modules below (role ref) the tutor closes the loop from the
+# module's technical result to an operational outcome with the method these pages give, and the
+# learner designs the analysis. Since the topic-based curriculum, some of their pages are also
+# taught (role main/supp in M7.1, M7.3, M10.3, M4.10, M8.8, M14.1–M14.3); what he has read opens
+# with a test-out diagnostic (rule 32א).
 REF_DOCS = {"B14", "B15", "B16", "B17"}
 REFS = {
     "M0.4": [ref("B14", 239, 257, "נספח A: הסתברות לאנליסט"), ref("B14", 264, 267, "נספח C: סימולציית מונטה קרלו")],
@@ -696,9 +755,9 @@ REFS = {
     "M6.7": [ref("B15", 32, 41, "פרק 2: נתוני ביצועי נשק, פיזור וטעות שיטתית"), ref("B15", 55, 62, "3.7: CEP והשמדת מטרה נקודתית")],
     "M6.8": [ref("B15", 164, 185, "6.1–6.3: הגנה בשכבות, MIRV ותורת המשחקים ב-ABM")],
     "M6.10": [ref("B15", 186, 197, "6.4–6.5: נתיבי חדירה אופטימליים ופונקציית איום"), ref("B14", 70, 83, "פרק 4: הגנת מטרה")],
-    "M7.1": [ref("B14", 70, 83, "פרק 4: הגנת מטרה"), ref("B15", 206, 219, "פרק 7: הגנה מפני טילים בזירה, הסתברות חדירה"), ref("B17", 12, 15, "מבוא: לוגיסטיקה כגבול של כל תוכנית")],
+    "M7.1": [ref("B14", 70, 83, "פרק 4: הגנת מטרה"), ref("B17", 12, 15, "מבוא: לוגיסטיקה כגבול של כל תוכנית")],
     "M7.2": [ref("B14", 8, 20, "פרק 1: סיווג מודלים וקיצורי דרך במידול"), ref("B16", 430, 468, "3.9: ניתוח משימה-איום")],
-    "M7.3": [ref("B14", 52, 69, "פרק 3: ירי עם משוב, shoot-look-shoot"), ref("B15", 164, 173, "6.1–6.2: הגנה בשכבות")],
+    "M7.3": [ref("B15", 164, 173, "6.1–6.2: הגנה בשכבות")],
     "M7.4": [ref("B15", 304, 319, "פרק 11: שיטות אופטימיזציה"), ref("B14", 258, 263, "נספח B: אופטימיזציה"), ref("B16", 789, 796, "6.3: ניתוחי פשרות לשיפור שרידות")],
     "M7.6": [ref("B14", 77, 83, "4.3: הגנת מטרות מרובות מול מתקפת ICBM"), ref("B15", 170, 185, "6.2–6.3: MIRV ותורת המשחקים")],
     "M7.10": [ref("B15", 252, 281, "פרק 9: אמינות, תחזוקתיות וזמינות מבצעית"), ref("B16", 156, 197, "1.4–1.6: תכנון לשרידות, מידול וסימולציה, ניסויים"), ref("B17", 326, 333, "סיכום: לוגיסטיקה כאילוץ תכנון")],
@@ -762,6 +821,7 @@ SKIP = [
     ("D8", 1, 8, "שער ותוכן"), ("D8", 10, 10, "עמוד ריק"), ("D8", 105, 112, "נספחים B–C: יומן ירי ואימון מובנה"),
     ("D8", 119, 122, "נספח E: דרישות תמיכה"), ("D8", 142, 144, "מילון ומקורות"),
     ("B12", 1, 17, "שער, תוכן, הקדמה ומחברים"), ("B12", 544, 577, "כפילות של עמ' PDF 510–543 (פרק 17) בסריקה, במקום פרק 18"),
-    ("B12", 1002, 1037, "אינדקס"), ("B12", 1046, 1067, "כפילות של פרק 5 (עמ' 83–104) בסוף הסריקה"),
+    ("B12", 1002, 1037, "אינדקס"),
+    ("B13", 1, 18, "שער, תוכן והקדמה"), ("B12", 1046, 1067, "כפילות של פרק 5 (עמ' 83–104) בסוף הסריקה"),
     ("D9", 1, 6, "שער, תוכן והקדמה"), ("D9", 43, 46, "נספח A: משאבי אימון"), ("D9", 50, 58, "מילון ומקורות"),
 ]

@@ -1691,6 +1691,24 @@
      ],
      "note": "19: תרגילים",
      "role": "ex"
+    },
+    {
+     "doc": "E05",
+     "pages": [
+      250,
+      251
+     ],
+     "note": "14 §14.2–14.3: התניה בגאוסיאן רב-ממדי (דלתא בליבה, מתוך M6.9)",
+     "role": "supp"
+    },
+    {
+     "doc": "E05",
+     "pages": [
+      268,
+      273
+     ],
+     "note": "16 §16.1–16.2: ערבוב סיבתי (דלתא בליבה, מתוך M6.10)",
+     "role": "supp"
     }
    ]
   },
@@ -4473,6 +4491,51 @@
      ],
      "note": "28: Electromagnetic Radiation",
      "role": "main"
+    },
+    {
+     "doc": "F1",
+     "pages": [
+      316,
+      326
+     ],
+     "note": "34: אפקטים יחסותיים בקרינה ודופלר (דלתא בליבה, מתוך M9.14)",
+     "role": "supp"
+    },
+    {
+     "doc": "F2",
+     "pages": [
+      331,
+      341
+     ],
+     "note": "27: אנרגיה ותנע של השדה, וקטור פוינטינג (דלתא בליבה, מתוך M9.16)",
+     "role": "supp"
+    },
+    {
+     "doc": "F2",
+     "pages": [
+      404,
+      412
+     ],
+     "note": "32 §32-1–32-4: מקדם שבירה בחומר צפוף (דלתא בליבה, מתוך M9.14)",
+     "role": "supp"
+    },
+    {
+     "doc": "F2",
+     "pages": [
+      413,
+      416
+     ],
+     "note": "32 §32-6–32-7: גלים במתכות ועומק חדירה (דלתא בליבה, מתוך M9.14)",
+     "role": "supp"
+    },
+    {
+     "doc": "F2",
+     "pages": [
+      417,
+      429
+     ],
+     "note": "33: החזרה מפני שטח, משוואות פרנל (דלתא בליבה, מתוך M9.14)",
+     "role": "supp"
     }
    ]
   },
@@ -5017,6 +5080,24 @@
      ],
      "note": "22: AC Circuits",
      "role": "main"
+    },
+    {
+     "doc": "E09",
+     "pages": [
+      984,
+      988
+     ],
+     "note": "נספח A: האוסצילוסקופ (מדידה, מתוך M11.14)",
+     "role": "supp"
+    },
+    {
+     "doc": "E09",
+     "pages": [
+      998,
+      1000
+     ],
+     "note": "נספח F: קווי עומס (מתוך M11.14)",
+     "role": "supp"
     }
    ]
   },
@@ -11139,6 +11220,15 @@
      ],
      "note": "14: Very Good Linear Codes Exist",
      "role": "main"
+    },
+    {
+     "doc": "E23",
+     "pages": [
+      183,
+      194
+     ],
+     "note": "5 §5.1–5.2: קיבולת AWGN ושנון-הארטלי (דלתא בליבה, מתוך M23.8)",
+     "role": "supp"
     }
    ]
   },
@@ -12862,6 +12952,30 @@
      "role": "main"
     }
    ]
+  },
+  {
+   "id": "M10.10",
+   "part": "P10",
+   "tier": "core",
+   "title": "אלמנטים סופיים ונפחים סופיים: גלרקין וריץ, רשתות, FEM בפועל ואיך קוראים תוצאת FEM",
+   "en": "Finite elements and finite volumes: Galerkin/Ritz, meshing, FEM in practice and how to read an FEM result",
+   "prereq": [
+    "M10.6",
+    "M10.1"
+   ],
+   "sources": []
+  },
+  {
+   "id": "M13.19",
+   "part": "P13",
+   "tier": "core",
+   "title": "מערכות הספק ורשת החשמל: יחידות יחסיות ותלת-פאזי, זרימת הספק, תקלות והגנות, יציבות ובקרת תדר, פגיעוּת הרשת",
+   "en": "Power systems and the grid: per-unit and three-phase, power flow, faults and protection, stability and frequency control, grid vulnerability",
+   "prereq": [
+    "M13.17",
+    "M12.1"
+   ],
+   "sources": []
   }
  ],
  "skip": [

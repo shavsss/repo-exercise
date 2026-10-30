@@ -6,7 +6,7 @@
 
 **תפקיד המקור:** ★ מקור ראשי. ◇ השלמה מספר אחר. 📄 מאמר או מסמך. ⚙ מקור עזר לניתוח: לא נלמד כחומר שיעור; המורה משתמש בו כדי לקחת את התוצאה הטכנית של המודול לתוצאה מבצעית, והלומד מתכנן את הניתוח (חקר ביצועים, שרידות, לוגיסטיקה).
 
-**סה"כ:** 169 מודולים: 119 ליבה, 35 מתקדם, 15 עיון.
+**סה"כ:** 180 מודולים: 131 ליבה, 35 מתקדם, 14 עיון.
 
 | חלק | מודולים | עמ' ספר בליבה | עמ' מאמרים בליבה | שיעורי ליבה (אומדן) | עמ' ספר במתקדם |
 |---|---|---|---|---|---|
@@ -14,17 +14,18 @@
 | P1 השכבה הפיזית: אנטנות, התפשטות וקשר | 4 | 184 | 72 | 12 | 0 |
 | P2 מכ"ם | 39 | 1392 | 448 | 92 | 841 |
 | P3 EO/IR | 14 | 575 | 0 | 39 | 65 |
-| P4 לוחמה אלקטרונית | 16 | 431 | 381 | 31 | 36 |
+| P4 לוחמה אלקטרונית | 16 | 436 | 381 | 31 | 36 |
 | P5 ניווט ו-GNSS | 11 | 449 | 26 | 31 | 270 |
-| P6 טילים: דינמיקה, הנחיה ובקרה | 11 | 650 | 44 | 44 | 0 |
-| P7 הגנה אווירית ומפני טילים, ושו"ב | 10 | 293 | 985 | 20 | 36 |
-| P8 פלטפורמות אוויר ואוויוניקה | 7 | 74 | 155 | 6 | 36 |
-| P9 כטב"מים, רחפנים והגנה מפניהם | 8 | 277 | 41 | 19 | 84 |
-| P10 מערכות ימיות | 5 | 60 | 352 | 25 | 0 |
+| P6 טילים: דינמיקה, הנחיה ובקרה | 13 | 868 | 44 | 59 | 50 |
+| P7 הגנה אווירית ומפני טילים, ושו"ב | 10 | 439 | 985 | 29 | 0 |
+| P8 פלטפורמות אוויר ואוויוניקה | 9 | 393 | 155 | 28 | 36 |
+| P9 כטב"מים, רחפנים והגנה מפניהם | 9 | 277 | 41 | 20 | 84 |
+| P10 מערכות ימיות | 5 | 76 | 352 | 26 | 0 |
 | P11 אפקטים של נשק ושריון | 10 | 240 | 0 | 16 | 160 |
-| P12 האויב: דוקטרינה והפעלה | 4 | 78 | 0 | 5 | 419 |
-| P13 חלל: מסלולים, לוויינים, תקשורת לוויינית ושיגור | 22 | 362 | 0 | 24 | 214 |
-| **סה"כ** | 169 | 5275 | 2504 | 380 | 2161 |
+| P12 האויב: דוקטרינה והפעלה | 4 | 112 | 0 | 7 | 419 |
+| P13 חלל: מסלולים, לוויינים, תקשורת לוויינית ושיגור | 23 | 362 | 0 | 25 | 214 |
+| P14 ניתוח הגנה: מידול לחימה, עלות, לוגיסטיקה ו-OSINT | 5 | 535 | 0 | 37 | 0 |
+| **סה"כ** | 180 | 6548 | 2504 | 468 | 2175 |
 
 האומדן: שיעור לכל כ-15 עמודי ספר, כולל השלמות. מאמר לא מוסיף שיעורים משלו: המורה משלב ממנו את מה שחדש בתוך שיעורי המודול. מודול שכולו מאמרים נספר לפי עמודי המאמר.
 
@@ -521,12 +522,13 @@
 - ⚙ Ball, The Fundamentals of Aircraft Combat Survivability Analysis and Design, 2nd ed. (2003), עמ' PDF 597–607: 4.4.5: אמצעים מתכלים
 
 ### M4.10 אמצעי נגד ב-IR והגנה עצמית
-*IR countermeasures and defensive aids* · **ליבה** · 24 עמ' ספר + 81 עמ' מאמרים · כ-2 שיעורים · דרישות: M3.10, M4.7
+*IR countermeasures and defensive aids* · **ליבה** · 29 עמ' ספר + 81 עמ' מאמרים · כ-2 שיעורים · דרישות: M3.10, M4.7
 
 - ★ EW 102, עמ' PDF 99–106: 4.2–4.3: טילי IR וסורקי קו
 - ★ EW 102, עמ' PDF 118–123: 4.7: אמצעי נגד IR
 - ★ Military Avionics Systems, עמ' PDF 269–278: 6.5: מערכות הגנה עצמית
 - 📄 Chang, The IR Missile (Spin-Scan and Con-Scan Seekers) Countermeasures, NPS (1994) (כולו): אמצעי נגד מול ראשי ביות Spin-scan ו-Con-scan
+- ◇ Ball, The Fundamentals of Aircraft Combat Survivability Analysis and Design, 2nd ed. (2003), עמ' PDF 561–565: 4.4.1–4.4.3: התרעת איום ומשבשים (Ball)
 - ⚙ Ball, The Fundamentals of Aircraft Combat Survivability Analysis and Design, 2nd ed. (2003), עמ' PDF 566–568: 4.4.2: התרעת איום
 - ⚙ Ball, The Fundamentals of Aircraft Combat Survivability Analysis and Design, 2nd ed. (2003), עמ' PDF 597–607: 4.4.5: אמצעים מתכלים
 
@@ -708,15 +710,27 @@
 - ★ Missile Guidance and Control Systems, עמ' PDF 604–665: נספחים A–F
 - ★ Missile Guidance and Control Systems, עמ' PDF 674–677: נספחים H–I
 
+### M6.12 תכן מושגי של טיל טקטי (Fleeman): גורמי תכן, קביעת ממדים, פשרות הנעה, חימום וכיפות, עלות
+*Tactical missile conceptual design (Fleeman B13): drivers, sizing, propulsion trades, heating and domes, cost* · **ליבה** · 218 עמ' ספר · כ-15 שיעורים · דרישות: M6.2, M6.4
+
+- ★ Fleeman, Tactical Missile Design (2001), עמ' PDF 19–236: פרקים 1–7 (סריקה בתמונות: נדרש OCR)
+
+### M6.13 תכן טילים טקטיים: הפרקים המתקדמים (Fleeman פרקים 8–9)
+*Tactical missile design, advanced chapters (Fleeman ch.8-9)* · **מתקדם** · 50 עמ' ספר · כ-3 שיעורים · דרישות: M6.12
+
+- ★ Fleeman, Tactical Missile Design (2001), עמ' PDF 237–262: פרקים 8–9
+- ◇ Fleeman, Tactical Missile Design (2001), עמ' PDF 263–286: נספחים: תרגילים, מקרי תכן וטבלאות
+
 ## חלק 7: הגנה אווירית ומפני טילים, ושו"ב
 
 ### M7.1 בעיית ההגנה מפני טילים ומדדי האפקטיביות
-*The AMD problem and MOEs* · **ליבה** · 28 עמ' ספר · כ-2 שיעורים · דרישות: M2.2, M6.4
+*The AMD problem and MOEs* · **ליבה** · 64 עמ' ספר · כ-4 שיעורים · דרישות: M2.2, M6.4
 
 - ★ Air and Missile Defense Systems Engineering, עמ' PDF 22–23: פרק 1
 - ★ Air and Missile Defense Systems Engineering, עמ' PDF 44–69: פרקים 3–4: הסביבה, זמן תגובה, עוצמת אש, עמידות לחדירה
+- ◇ Przemieniecki, Mathematical Methods in Defense Analyses, 3rd ed. (2000), עמ' PDF 164–185: 6.1–6.3: הגנה בשכבות, Pk מצטבר (Przemieniecki)
+- ◇ Przemieniecki, Mathematical Methods in Defense Analyses, 3rd ed. (2000), עמ' PDF 206–219: פרק 7: הגנה מפני טילים בזירה, הסתברות חדירה
 - ⚙ Washburn & Kress, Combat Modeling (2009), עמ' PDF 70–83: פרק 4: הגנת מטרה
-- ⚙ Przemieniecki, Mathematical Methods in Defense Analyses, 3rd ed. (2000), עמ' PDF 206–219: פרק 7: הגנה מפני טילים בזירה, הסתברות חדירה
 - ⚙ Van Creveld, Supplying War: Logistics from Wallenstein to Patton (1977), עמ' PDF 12–15: מבוא: לוגיסטיקה כגבול של כל תוכנית
 
 ### M7.2 דרישות מערכת: CONOPS, ארכיטקטורה, חיישנים ומערך יירוט
@@ -727,14 +741,15 @@
 - ⚙ Ball, The Fundamentals of Aircraft Combat Survivability Analysis and Design, 2nd ed. (2003), עמ' PDF 430–468: 3.9: ניתוח משימה-איום
 
 ### M7.3 תכנון מקדים: מרחב הקרב, ניתוח יירוט ותכנון המיירט
-*Preliminary design* · **ליבה** · 78 עמ' ספר · כ-5 שיעורים · דרישות: M7.2, M6.6
+*Preliminary design* · **ליבה** · 132 עמ' ספר · כ-9 שיעורים · דרישות: M7.2, M6.6
 
 - ★ Air and Missile Defense Systems Engineering, עמ' PDF 114–191: פרק 6
-- ⚙ Washburn & Kress, Combat Modeling (2009), עמ' PDF 52–69: פרק 3: ירי עם משוב, shoot-look-shoot
+- ◇ Przemieniecki, Mathematical Methods in Defense Analyses, 3rd ed. (2000), עמ' PDF 142–163: 5.3–5.5: שחיקה סטוכסטית והקצאת shoot-look-shoot
+- ◇ Washburn & Kress, Combat Modeling (2009), עמ' PDF 52–83: פרקים 3–4: ירי עם משוב, shoot-look-shoot, Pk של מטח
 - ⚙ Przemieniecki, Mathematical Methods in Defense Analyses, 3rd ed. (2000), עמ' PDF 164–173: 6.1–6.2: הגנה בשכבות
 
-### M7.4 ניתוחי פשרות והקצאת דרישות
-*Trades and allocation* · **מתקדם** · 36 עמ' ספר · כ-2 שיעורים · דרישות: M7.3
+### M7.4 ניתוחי פשרות והקצאת דרישות, מטחים, מלאי מיירטים ויחס עלויות
+*Trades and allocation + raids, magazines and cost-exchange* · **ליבה** · 36 עמ' ספר · כ-2 שיעורים · דרישות: M7.3
 
 - ★ Air and Missile Defense Systems Engineering, עמ' PDF 192–227: פרקים 7–8
 - ⚙ Przemieniecki, Mathematical Methods in Defense Analyses, 3rd ed. (2000), עמ' PDF 304–319: פרק 11: שיטות אופטימיזציה
@@ -774,8 +789,8 @@
 - 📄 Gonzales et al., Air-to-Air Combat With and Without Link 16, RAND MG-268 (כולו): קרב אוויר עם Link 16 ובלעדיו
 - ◇ Principles of Naval Weapons Systems, עמ' PDF 135–136: רשתות עקיבה
 
-### M7.10 הנדסת מערכות: מחזור החיים
-*Systems engineering lifecycle* · **עיון** · 20 עמ' ספר · כ-1 שיעורים
+### M7.10 הנדסת מערכות: מחזור החיים, ניסוי והערכה וראיות מניסויים
+*Systems engineering lifecycle + T&E and test evidence* · **ליבה** · 20 עמ' ספר · כ-1 שיעורים
 
 - ★ Air and Missile Defense Systems Engineering, עמ' PDF 24–43: פרק 2
 - ⚙ Przemieniecki, Mathematical Methods in Defense Analyses, 3rd ed. (2000), עמ' PDF 252–281: פרק 9: אמינות, תחזוקתיות וזמינות מבצעית
@@ -833,6 +848,24 @@
 - ★ Military Avionics Systems, עמ' PDF 400–431: פרק 10
 - ⚙ Przemieniecki, Mathematical Methods in Defense Analyses, 3rd ed. (2000), עמ' PDF 252–257: 9.1–9.4: אמינות טורית ומקבילית, דוגמת קרב אוויר
 - ⚙ Ball, The Fundamentals of Aircraft Combat Survivability Analysis and Design, 2nd ed. (2003), עמ' PDF 720–762: 5.4: הפחתת פגיעות, יתירות והפרדה
+
+### M8.8 שרידות כלי טיס (Ball): חשיפה, פגיעוּת, עצי השבתה, שחיקה במשימה ובמערכה, שיעורי אבדות היסטוריים
+*Combat survivability (Ball): susceptibility, vulnerability, kill trees, mission and campaign attrition, historical loss rates* · **ליבה** · 319 עמ' ספר · כ-21 שיעורים · דרישות: M0.4, M2.4, M11.4
+
+- ★ Ball, The Fundamentals of Aircraft Combat Survivability Analysis and Design, 2nd ed. (2003), עמ' PDF 25–105: 1.1: יסודות השרידות, P_S = 1 − P_H·P_K|H, שרידות במערכה
+- ★ Ball, The Fundamentals of Aircraft Combat Survivability Analysis and Design, 2nd ed. (2003), עמ' PDF 106–141: 1.2: שיעורי אבדות היסטוריים
+- ◇ Ball, The Fundamentals of Aircraft Combat Survivability Analysis and Design, 2nd ed. (2003), עמ' PDF 198–226: 1.7: סיכום ובעיות
+- ◇ Ball, The Fundamentals of Aircraft Combat Survivability Analysis and Design, 2nd ed. (2003), עמ' PDF 227–256: פרק 2: מבנה כלי הטיס
+- ★ Ball, The Fundamentals of Aircraft Combat Survivability Analysis and Design, 2nd ed. (2003), עמ' PDF 303–338: 3.3–3.4: מינוח, מאפייני האיום, מנגנוני נזק
+- ◇ Ball, The Fundamentals of Aircraft Combat Survivability Analysis and Design, 2nd ed. (2003), עמ' PDF 469–473: 4.1–4.2: תוכנית החשיפה
+- ◇ Ball, The Fundamentals of Aircraft Combat Survivability Analysis and Design, 2nd ed. (2003), עמ' PDF 608–626: 4.4.6–4.4.7: דיכוי איומים וטקטיקה
+- ★ Ball, The Fundamentals of Aircraft Combat Survivability Analysis and Design, 2nd ed. (2003), עמ' PDF 627–678: 5.1–5.2: פגיעוּת, רכיבים קריטיים, FMECA ועצי השבתה
+- ★ Ball, The Fundamentals of Aircraft Combat Survivability Analysis and Design, 2nd ed. (2003), עמ' PDF 763–788: 6.1–6.2: הערכת שרידות במשימה ובמערכה
+- ◇ Ball, The Fundamentals of Aircraft Combat Survivability Analysis and Design, 2nd ed. (2003), עמ' PDF 797–801: 6.4: מסקנות
+
+### M8.9 קיבולת של כוח אווירי: קצב גיחות, בסיסים ושרידותם, תדלוק אווירי
+*Air campaign capacity: sortie generation, basing and air-base attack, tankers* · **ליבה** · 0 עמ' מאמרים · כ-1 שיעורים · דרישות: M8.8, M9.2
+
 
 ## חלק 9: כטב"מים, רחפנים והגנה מפניהם
 
@@ -892,6 +925,10 @@
 
 - ★ Introduction to UAV Systems, עמ' PDF 397–436: פרקים 17–19
 
+### M9.9 רחפנים חד-כיווניים, FPV וכלכלת מלחמת הרחפנים: מחלקת Shahed, FPV, סיב אופטי, ייצור המוני ויחס עלויות בהגנה
+*One-way attack drones, FPV and drone-war economics (Shahed-class, FPV, fiber-optic, mass production, C-UAS cost-exchange)* · **ליבה** · 0 עמ' מאמרים · כ-1 שיעורים · דרישות: M9.7, M9.5, M8.8
+
+
 ## חלק 10: מערכות ימיות
 
 ### M10.1 אקוסטיקה תת-ימית
@@ -905,12 +942,13 @@
 - ★ Principles of Naval Weapons Systems, עמ' PDF 193–210: פרק 16
 
 ### M10.3 מערכות סונאר וגילוי לא-אקוסטי
-*Sonar systems and non-acoustic detection* · **ליבה** · 16 עמ' ספר + 35 עמ' מאמרים · כ-1 שיעורים · דרישות: M10.2, M2.15
+*Sonar systems and non-acoustic detection* · **ליבה** · 32 עמ' ספר + 35 עמ' מאמרים · כ-2 שיעורים · דרישות: M10.2, M2.15
 
 - ★ Principles of Naval Weapons Systems, עמ' PDF 211–226: פרק 17
 - 📄 Coraluppi & Carthel, Advances in Active Sonar Tracking (2006) (כולו): עקיבה בסונאר אקטיבי
 - 📄 NURC Multistatic Tracking Benchmark (כולו): עקיבה בסונאר רב-סטטי
 - 📄 Review on the Hydro- and Thermo-Dynamic Wakes of Underwater Vehicles (2024) (כולו): שובלים של כלי תת-ימי
+- ◇ Washburn & Kress, Combat Modeling (2009), עמ' PDF 146–161: 7.4, 7.6: סיור מחסום ומטרות נעות (חיפוש תת-ימי)
 
 ### M10.4 טורפדות ומוקשים
 *Torpedoes and mines* · **ליבה** · 10 עמ' ספר · כ-1 שיעורים · דרישות: M10.3
@@ -1005,12 +1043,13 @@
 ## חלק 12: האויב: דוקטרינה והפעלה
 
 ### M12.1 הגנה אווירית ול"א רוסיות בשטח
-*Russian air defense and EW* · **ליבה** · 48 עמ' ספר · כ-3 שיעורים · דרישות: M7.1, M4.7
+*Russian air defense and EW* · **ליבה** · 66 עמ' ספר · כ-4 שיעורים · דרישות: M7.1, M4.7
 
 - ★ ATP 7-100.1 Russian Tactics (2024), עמ' PDF 100–110: IADS ו-EW בסיור ובאבטחה
 - ★ ATP 7-100.1 Russian Tactics (2024), עמ' PDF 138–150: הקרב האלקטרומגנטי ותמיכה אווירית
 - ★ ATP 7-100.1 Russian Tactics (2024), עמ' PDF 223–240: נספחים C, D, E, F: תמיכה אווירית, הגנה אווירית, נ"ט, EW
 - ★ ATP 7-100.1 Russian Tactics (2024), עמ' PDF 255–260: נספח J: מערכות שו"ב אוטומטיות
+- ◇ ATP 7-100.1 Russian Tactics (2024), עמ' PDF 163–180: מתחמי סיור-אש (recon-strike), מתוך M12.2
 - ⚙ Ball, The Fundamentals of Aircraft Combat Survivability Analysis and Design, 2nd ed. (2003), עמ' PDF 277–305: 3.2: איום ההגנה האווירית
 - ⚙ Ball, The Fundamentals of Aircraft Combat Survivability Analysis and Design, 2nd ed. (2003), עמ' PDF 419–429: 3.8: נשק הגנה אווירית של האיום
 
@@ -1027,12 +1066,13 @@
 - ⚙ Van Creveld, Supplying War: Logistics from Wallenstein to Patton (1977), עמ' PDF 205–258: פרק 5: ברברוסה, לוגיסטיקה במרחבי רוסיה
 
 ### M12.3 יכולות משולבות סיניות: חיל האוויר, הצי, כוח הרקטות, ל"מ ותקשורת
-*Chinese joint capabilities* · **ליבה** · 30 עמ' ספר · כ-2 שיעורים · דרישות: M7.1
+*Chinese joint capabilities* · **ליבה** · 46 עמ' ספר · כ-3 שיעורים · דרישות: M7.1
 
 - ★ ATP 7-100.3 Chinese Tactics (2021), עמ' PDF 51–58: פרק 3
 - ★ ATP 7-100.3 Chinese Tactics (2021), עמ' PDF 75–84: פרק 5: מבצעי מידע
 - ★ ATP 7-100.3 Chinese Tactics (2021), עמ' PDF 217–226: נספחים C–D: הגנה אווירית ותעופה
 - ★ ATP 7-100.3 Chinese Tactics (2021), עמ' PDF 229–230: נספח F: רשת ותקשורת
+- ◇ ATP 7-100.3 Chinese Tactics (2021), עמ' PDF 59–74: לוחמת מערכות של צבא סין, מתוך M12.4
 - ⚙ Washburn & Kress, Combat Modeling (2009), עמ' PDF 115–136: פרק 6: תורת המשחקים ומשחקי מלחמה
 
 ### M12.4 הטקטיקה הסינית: מבנה, לוחמת מערכות, הגנה והתקפה
@@ -1163,6 +1203,43 @@
 - ★ Space Mission Engineering: The New SMAD (2011), עמ' PDF 962–1001: נספחים A–G
 - ★ Space Mission Engineering: The New SMAD (2011), עמ' PDF 1038–1045: טבלאות פרמטרים של לווייני כדור הארץ
 
+### M13.23 שליטה בחלל: טקסונומיה של יכולות נגד-חלל, מודעות למצב בחלל, פעולות קרבה, חוסן ופיזור, תלות במסחרי
+*Space control: counterspace taxonomy, SDA, RPO, resilience and proliferation, commercial dependence* · **ליבה** · 0 עמ' מאמרים · כ-1 שיעורים · דרישות: M13.5, M13.6, M7.6
+
+
+## חלק 14: ניתוח הגנה: מידול לחימה, עלות, לוגיסטיקה ו-OSINT
+
+### M14.1 מידול לחימה: סוגי מודלים ומדדי אפקטיביות, משוואות לנצ'סטר ומודל המטחים, יחסי חילוף, מודלים ומשחקי מלחמה כראיה
+*Combat modeling: model types and MOEs, Lanchester and salvo attrition, exchange ratios, models and wargames as evidence* · **ליבה** · 139 עמ' ספר · כ-9 שיעורים · דרישות: M0.4, M7.1
+
+- ★ Washburn & Kress, Combat Modeling (2009), עמ' PDF 8–20: 1.2–1.3: סוגי מודלים וקיצורי דרך
+- ★ Washburn & Kress, Combat Modeling (2009), עמ' PDF 84–114: פרק 5: מודלי שחיקה, משוואות לנצ'סטר
+- ★ Przemieniecki, Mathematical Methods in Defense Analyses, 3rd ed. (2000), עמ' PDF 92–141: פרקים 4–5: מודלי קרב דטרמיניסטיים וסטוכסטיים
+- ★ Przemieniecki, Mathematical Methods in Defense Analyses, 3rd ed. (2000), עמ' PDF 320–329: פרק 12: מידול של מבצעים
+- ◇ Przemieniecki, Mathematical Methods in Defense Analyses, 3rd ed. (2000), עמ' PDF 22–31: פרק 1: שיטות מדעיות בניתוח הגנה
+- ◇ Washburn & Kress, Combat Modeling (2009), עמ' PDF 214–238: פרק 10: מודלים של טרור ומרד
+
+### M14.2 רכש, עלות ובסיס תעשייתי: הגדרות עלות, עלות מחזור חיים, עקומות למידה, תקציבים כנתונים, TRL/MRL, האצת ייצור וחומרים קריטיים
+*Acquisition, cost and industrial base: cost definitions, LCC, learning curves, budgets as data, TRL/MRL, surge and critical materials* · **ליבה** · 125 עמ' ספר · כ-8 שיעורים · דרישות: M14.1, M7.10
+
+- ◇ Ball, The Fundamentals of Aircraft Combat Survivability Analysis and Design, 2nd ed. (2003), עמ' PDF 139–155: 1.3.1–1.3.6: תהליך הרכש DoD 5000
+- ◇ Space Mission Engineering: The New SMAD (2011), עמ' PDF 306–413: פרקים 11–13: אומדן עלויות (בעיקר פרק 11)
+
+### M14.3 לוגיסטיקה וקיימוּת: צריכה, קיבולת קווי אספקה, תחמושת מול מלאים, כשירות, לוגיסטיקה תחת איום ובמלחמת רחפנים
+*Logistics and sustainment: consumption, LOC capacity, munitions vs stockpiles, readiness, contested and drone-war logistics (van Creveld promoted)* · **ליבה** · 271 עמ' ספר · כ-18 שיעורים · דרישות: M14.1
+
+- ★ Van Creveld, Supplying War: Logistics from Wallenstein to Patton (1977), עמ' PDF 158–204: פרק 4: הלוגיסטיקה של תוכנית שליפן
+- ★ Van Creveld, Supplying War: Logistics from Wallenstein to Patton (1977), עמ' PDF 205–333: פרקים 5–8: ברברוסה, צפון אפריקה, פטון, מסקנות
+- ◇ Van Creveld, Supplying War: Logistics from Wallenstein to Patton (1977), עמ' PDF 16–110: פרקים 1–2: שיטת המחסנים ונפוליאון
+
+### M14.4 OSINT והערכת יכולות: דימות, איכון גאוגרפי, אימות, ADS-B/AIS, הערכת סדר כוחות, הערכה כוללת והטיות ניתוח
+*OSINT and capability assessment: imagery, geolocation, verification, ADS-B/AIS, OOB estimation, net assessment, analytic bias* · **ליבה** · 0 עמ' מאמרים · כ-1 שיעורים · דרישות: M3.10, M13.11, M5.5, M8.4
+
+
+### M14.5 כתיבה וראיונות של אנליסט (מסכם): מבנה מאמר, ראיונות מומחים, אי-ודאות, גרפים הוגנים, ביקורת על מכוני מחקר, בדיקת AI
+*Writing and interviewing as an analyst (capstone): article structure, expert interviews, uncertainty, honest charts, think-tank critique, AI-checking* · **ליבה** · 0 עמ' מאמרים · כ-1 שיעורים · דרישות: M14.1, M14.2, M14.3, M14.4
+
+
 ## עמודים שלא נלמדים
 
 | מקור | עמודים | סיבה |
@@ -1225,6 +1302,7 @@
 | Space Mission Engineering: The New SMAD (2011) | 1–17 | שער, תוכן, הקדמה ומחברים |
 | Space Mission Engineering: The New SMAD (2011) | 544–577 | כפילות של עמ' PDF 510–543 (פרק 17) בסריקה, במקום פרק 18 |
 | Space Mission Engineering: The New SMAD (2011) | 1002–1037 | אינדקס |
+| Fleeman, Tactical Missile Design (2001) | 1–18 | שער, תוכן והקדמה |
 | Space Mission Engineering: The New SMAD (2011) | 1046–1067 | כפילות של פרק 5 (עמ' 83–104) בסוף הסריקה |
 | ATP 3-01.81 Counter-Unmanned Aircraft System (2023) | 1–6 | שער, תוכן והקדמה |
 | ATP 3-01.81 Counter-Unmanned Aircraft System (2023) | 43–46 | נספח A: משאבי אימון |

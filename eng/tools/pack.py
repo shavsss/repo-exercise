@@ -35,6 +35,8 @@ ASSET_URLS = ROOT / "eng" / "tools" / "asset_urls.json"
 sys.path.insert(0, str(SYL))
 from syllabus import DOCS, MODULES, PARTS, SKIP  # noqa: E402
 from toc import load  # noqa: E402
+sys.path.insert(0, str(ROOT / "tools" / "curriculum"))
+from enrich import attach  # noqa: E402  (topic items, test-out, reading lists)
 
 BUNDLE = 6_000_000
 
@@ -217,7 +219,7 @@ def main():
                     heads.append({"doc": s["doc"], "page": h["page"], "title": h["title"], "depth": h["depth"]})
         m["sections"] = heads
         modules.append(m)
-    index = {"docs": docs, "parts": [{"id": i, "title": t} for i, t in PARTS], "modules": modules}
+    index = {"docs": docs, "parts": [{"id": i, "title": t} for i, t in PARTS], "modules": attach(modules, "eng")}
     index["assets"] = asset_urls(docs)
     digest = hashlib.sha1()
     for f in sorted([*OUT.rglob("*.json"), *ASSETS.rglob("*.json")]):
