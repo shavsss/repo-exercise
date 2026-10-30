@@ -383,7 +383,7 @@ export function ConsultLayer({
       const q = question ?? KIND_Q[kind];
       setCards((all) => [...all, card]);
       cardsRef.current = [...cardsRef.current, card];
-      setUi((all) => ({ ...all, [card.id]: { ...UI0, level, discuss: !q, draft: kind === "check" && !q ? "אז אם הבנתי: " : "", focus: !q } }));
+      setUi((all) => ({ ...all, [card.id]: { ...UI0, level, discuss: !q, draft: q || (kind === "check" ? "אז אם הבנתי: " : ""), focus: !q } }));
       window.getSelection()?.removeAllRanges();
       setBar(null);
       if (q) void ask(card.id, q, level, false);
