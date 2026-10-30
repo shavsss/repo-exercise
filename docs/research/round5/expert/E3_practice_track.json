@@ -1,0 +1,3642 @@
+{
+ "_meta": {
+  "title": "E3 practice track: AI-native labs per domain",
+  "date": "2026-10-30",
+  "fx_ils_per_usd": 3.05,
+  "fx_mark": "evidence (moneyexchangerate.org, early Oct 2026)",
+  "vat": 1.18,
+  "ils_landed_note": "USD x 3.05 x 1.18 VAT, shipping not included [estimate]",
+  "levels": {
+   "1": "כניסה",
+   "2": "מעשי",
+   "3": "מתקדם",
+   "4": "מומחה",
+   "5": "מחקר (PhD)"
+  },
+  "lab_protocol": [
+   "frame",
+   "predict (number + interval)",
+   "error budget",
+   "AI builds (code, SCPI, processing)",
+   "known-case check",
+   "measure",
+   "compare to theory, residuals",
+   "AI error log",
+   "portfolio output"
+  ],
+  "totals": {
+   "domains": 36,
+   "labs": 154,
+   "hours_all": 7375,
+   "hours_expert_path": 6265,
+   "hours_by_wave": {
+    "רציף": 340,
+    "גל 1": 2815,
+    "גל 2": 1795,
+    "גל 3": 1585,
+    "גל 4": 840
+   },
+   "hours_by_level": {
+    "כניסה": 215,
+    "מעשי": 855,
+    "מתקדם": 2315,
+    "מומחה": 2180,
+    "מחקר (PhD)": 1810
+   },
+   "hours_runnable_by_tier": {
+    "min": 3465,
+    "rec": 6695,
+    "full": 7375
+   }
+  },
+  "budget_tiers": {
+   "min": {
+    "usd": 1504,
+    "ils_list": 4590,
+    "ils_landed": 5410,
+    "items": [
+     "rtlsdr",
+     "pluto",
+     "nanovna",
+     "tinysa",
+     "rf_kit",
+     "antennas",
+     "shield_diy",
+     "zed_f9p",
+     "radar60",
+     "bench_basic",
+     "cloud_min"
+    ]
+   },
+   "rec": {
+    "usd": 8249,
+    "ils_list": 25160,
+    "ils_landed": 29690,
+    "items": [
+     "rtlsdr",
+     "pluto",
+     "nanovna",
+     "tinysa",
+     "rf_kit",
+     "antennas",
+     "shield_diy",
+     "zed_f9p",
+     "radar60",
+     "bench_basic",
+     "cloud_min",
+     "kraken",
+     "bladerf",
+     "iwr6843",
+     "dca1000",
+     "zed_f9p_base",
+     "scope",
+     "psu",
+     "thermal_cam",
+     "crazyflie",
+     "rpi5",
+     "shield_box",
+     "printer",
+     "thrust_stand",
+     "thermo_daq",
+     "hydrophone",
+     "noise_source",
+     "jlcpcb",
+     "lora_nodes",
+     "qfh",
+     "mcu",
+     "cloud_rec",
+     "ham",
+     "consumables"
+    ]
+   },
+   "full": {
+    "usd": 22312,
+    "ils_list": 68050,
+    "ils_landed": 80300,
+    "items": [
+     "rtlsdr",
+     "pluto",
+     "nanovna",
+     "tinysa",
+     "rf_kit",
+     "antennas",
+     "shield_diy",
+     "zed_f9p",
+     "radar60",
+     "bench_basic",
+     "cloud_min",
+     "kraken",
+     "bladerf",
+     "iwr6843",
+     "dca1000",
+     "zed_f9p_base",
+     "scope",
+     "psu",
+     "thermal_cam",
+     "crazyflie",
+     "rpi5",
+     "shield_box",
+     "printer",
+     "thrust_stand",
+     "thermo_daq",
+     "hydrophone",
+     "noise_source",
+     "jlcpcb",
+     "lora_nodes",
+     "qfh",
+     "mcu",
+     "cloud_rec",
+     "ham",
+     "consumables",
+     "phaser",
+     "b210",
+     "hackrf_pro",
+     "limesdr",
+     "litevna",
+     "awr1843",
+     "bgt60",
+     "zed_f9r",
+     "quad_kit",
+     "jetson",
+     "ramsey",
+     "positioner",
+     "gpsdo",
+     "rover_kit",
+     "kraken2",
+     "rocket_kit",
+     "cloud_full"
+    ]
+   }
+  },
+  "unused_equipment": [
+   "awr1843",
+   "bgt60",
+   "cloud_full",
+   "consumables",
+   "hackrf_pro",
+   "ham",
+   "jetson",
+   "kraken2",
+   "limesdr",
+   "litevna",
+   "positioner",
+   "ramsey"
+  ]
+ },
+ "equipment": {
+  "rtlsdr": {
+   "name": "RTL-SDR Blog V4/V4L + dipole kit",
+   "usd": 50,
+   "ils_landed": 180,
+   "tier": "min",
+   "mark": "estimate",
+   "source": "https://www.sdrstore.eu/"
+  },
+  "pluto": {
+   "name": "ADALM-Pluto (AD9363, 325 MHz-3.8 GHz, TX+RX)",
+   "usd": 230,
+   "ils_landed": 830,
+   "tier": "min",
+   "mark": "evidence",
+   "source": "https://www.digikey.com/en/products/detail/analog-devices-inc/ADALM-PLUTO/6624230"
+  },
+  "nanovna": {
+   "name": "NanoVNA-H4",
+   "usd": 60,
+   "ils_landed": 220,
+   "tier": "min",
+   "mark": "evidence",
+   "source": "https://eleshop.eu/test-measure/vector-network-analysers/vna.html"
+  },
+  "tinysa": {
+   "name": "tinySA Ultra (ZS-405), spectrum analyzer to 5.3/6 GHz",
+   "usd": 139,
+   "ils_landed": 500,
+   "tier": "min",
+   "mark": "evidence",
+   "source": "https://www.cnx-software.com/2025/12/15/tinysa-is-a-low-cost-handheld-spectrum-analyzer-with-built-in-signal-generator/"
+  },
+  "rf_kit": {
+   "name": "SMA kit: fixed attenuators 10/20/30 dB, step attenuator, combiner/splitter, 50-ohm loads, DC blocks, cables",
+   "usd": 150,
+   "ils_landed": 540,
+   "tier": "min",
+   "mark": "estimate",
+   "source": ""
+  },
+  "antennas": {
+   "name": "Basic antennas: dipole kit, 1090 MHz, active GNSS L1/L2",
+   "usd": 80,
+   "ils_landed": 290,
+   "tier": "min",
+   "mark": "estimate",
+   "source": ""
+  },
+  "shield_diy": {
+   "name": "DIY shield box: die-cast enclosure, SMA bulkheads, RF gasket, absorber",
+   "usd": 60,
+   "ils_landed": 220,
+   "tier": "min",
+   "mark": "estimate",
+   "source": ""
+  },
+  "zed_f9p": {
+   "name": "ArduSimple simpleRTK2B Budget (u-blox ZED-F9P) + L1/L2 antenna",
+   "usd": 290,
+   "ils_landed": 1040,
+   "tier": "min",
+   "mark": "evidence",
+   "source": "https://www.ardusimple.com/"
+  },
+  "radar60": {
+   "name": "TI IWRL6432BOOST 60 GHz FMCW radar EVM",
+   "usd": 145,
+   "ils_landed": 520,
+   "tier": "min",
+   "mark": "evidence",
+   "source": "https://www.digikey.es/en/products/detail/texas-instruments/IWRL6432BOOST/21296838"
+  },
+  "bench_basic": {
+   "name": "Multimeter, Pinecil soldering iron, breadboards, parts",
+   "usd": 200,
+   "ils_landed": 720,
+   "tier": "min",
+   "mark": "estimate",
+   "source": ""
+  },
+  "cloud_min": {
+   "name": "GPU credits (Colab/Kaggle + ~40 GPU-h)",
+   "usd": 100,
+   "ils_landed": 360,
+   "tier": "min",
+   "mark": "estimate",
+   "source": ""
+  },
+  "kraken": {
+   "name": "KrakenSDR 5-ch coherent + 5 antennas",
+   "usd": 600,
+   "ils_landed": 2160,
+   "tier": "rec",
+   "mark": "evidence",
+   "source": "https://www.krakenrf.com/product-page/krakensdr"
+  },
+  "bladerf": {
+   "name": "Nuand bladeRF 2.0 micro xA4 (2x2, 47 MHz-6 GHz)",
+   "usd": 540,
+   "ils_landed": 1940,
+   "tier": "rec",
+   "mark": "evidence",
+   "source": "https://nuand.com/shop"
+  },
+  "iwr6843": {
+   "name": "TI IWR6843ISK 60 GHz 3TX/4RX",
+   "usd": 210,
+   "ils_landed": 760,
+   "tier": "rec",
+   "mark": "evidence",
+   "source": "https://www.arrow.com/en/products/iwr6843isk/texas-instruments"
+  },
+  "dca1000": {
+   "name": "TI DCA1000EVM raw ADC capture",
+   "usd": 697,
+   "ils_landed": 2510,
+   "tier": "rec",
+   "mark": "evidence",
+   "source": "https://fat.lcsc.com/product-image/C3647167.html"
+  },
+  "zed_f9p_base": {
+   "name": "Second ZED-F9P (RTK base) + antenna",
+   "usd": 290,
+   "ils_landed": 1040,
+   "tier": "rec",
+   "mark": "evidence",
+   "source": "https://www.ardusimple.com/"
+  },
+  "scope": {
+   "name": "Siglent SDS804X HD (12-bit, 4 ch, SCPI over LAN)",
+   "usd": 438,
+   "ils_landed": 1580,
+   "tier": "rec",
+   "mark": "evidence",
+   "source": "https://shop-us.siglent.com/?p=2831"
+  },
+  "psu": {
+   "name": "Programmable bench PSU 30 V/5 A (SCPI)",
+   "usd": 120,
+   "ils_landed": 430,
+   "tier": "rec",
+   "mark": "estimate",
+   "source": ""
+  },
+  "thermal_cam": {
+   "name": "Thermal camera 256x192 (InfiRay P2 Pro class)",
+   "usd": 250,
+   "ils_landed": 900,
+   "tier": "rec",
+   "mark": "estimate",
+   "source": ""
+  },
+  "crazyflie": {
+   "name": "Bitcraze Crazyflie 2.1+ + Flow deck",
+   "usd": 350,
+   "ils_landed": 1260,
+   "tier": "rec",
+   "mark": "estimate",
+   "source": "https://www.bitcraze.io/"
+  },
+  "rpi5": {
+   "name": "Raspberry Pi 5 8 GB + SSD",
+   "usd": 120,
+   "ils_landed": 430,
+   "tier": "rec",
+   "mark": "estimate",
+   "source": ""
+  },
+  "shield_box": {
+   "name": "Commercial RF shield box 0.3-6 GHz (used Ramsey STE3000B ~ $815 on eBay; Asian boxes cheaper)",
+   "usd": 450,
+   "ils_landed": 1620,
+   "tier": "rec",
+   "mark": "estimate",
+   "source": "https://www.ebay.de/itm/146416082221"
+  },
+  "printer": {
+   "name": "3D printer (Bambu A1 class)",
+   "usd": 350,
+   "ils_landed": 1260,
+   "tier": "rec",
+   "mark": "estimate",
+   "source": ""
+  },
+  "thrust_stand": {
+   "name": "Load cell + HX711 test/thrust stand + BLDC + ESC",
+   "usd": 120,
+   "ils_landed": 430,
+   "tier": "rec",
+   "mark": "estimate",
+   "source": ""
+  },
+  "thermo_daq": {
+   "name": "Thermocouples + MAX31856 + MCU",
+   "usd": 60,
+   "ils_landed": 220,
+   "tier": "rec",
+   "mark": "estimate",
+   "source": ""
+  },
+  "hydrophone": {
+   "name": "Hydrophone + USB audio interface",
+   "usd": 250,
+   "ils_landed": 900,
+   "tier": "rec",
+   "mark": "estimate",
+   "source": ""
+  },
+  "noise_source": {
+   "name": "Wideband noise source + LNA",
+   "usd": 60,
+   "ils_landed": 220,
+   "tier": "rec",
+   "mark": "estimate",
+   "source": ""
+  },
+  "jlcpcb": {
+   "name": "JLCPCB fabrication + assembly, 5-6 runs",
+   "usd": 300,
+   "ils_landed": 1080,
+   "tier": "rec",
+   "mark": "estimate",
+   "source": "https://jlcpcb.com/"
+  },
+  "lora_nodes": {
+   "name": "3 Meshtastic LoRa nodes (locally approved band)",
+   "usd": 90,
+   "ils_landed": 320,
+   "tier": "rec",
+   "mark": "estimate",
+   "source": ""
+  },
+  "qfh": {
+   "name": "137 MHz QFH / V-dipole antenna",
+   "usd": 30,
+   "ils_landed": 110,
+   "tier": "rec",
+   "mark": "estimate",
+   "source": ""
+  },
+  "mcu": {
+   "name": "RP2040 / STM32 Nucleo boards + IMU, accelerometer breakouts",
+   "usd": 60,
+   "ils_landed": 220,
+   "tier": "rec",
+   "mark": "estimate",
+   "source": ""
+  },
+  "cloud_rec": {
+   "name": "GPU cloud ~400 H100-h at ~$2-3.3/h",
+   "usd": 1000,
+   "ils_landed": 3600,
+   "tier": "rec",
+   "mark": "evidence",
+   "source": "https://www.spheron.network/blog/runpod-h100-pricing-2026/"
+  },
+  "ham": {
+   "name": "Amateur radio exam + station fees + IARC manual",
+   "usd": 60,
+   "ils_landed": 220,
+   "tier": "rec",
+   "mark": "estimate",
+   "source": "https://www.gov.il/he/service/radio-amateurs-certificates"
+  },
+  "consumables": {
+   "name": "Consumables, connectors, spares",
+   "usd": 300,
+   "ils_landed": 1080,
+   "tier": "rec",
+   "mark": "estimate",
+   "source": ""
+  },
+  "phaser": {
+   "name": "Analog Devices CN0566 'Phaser' X-band phased-array kit (incl. Pluto + RPi)",
+   "usd": 2500,
+   "ils_landed": 9000,
+   "tier": "full",
+   "mark": "evidence",
+   "source": "https://www.analog.com/en/resources/reference-designs/circuits-from-the-lab/cn0566.html"
+  },
+  "b210": {
+   "name": "Ettus USRP B210 with enclosure (2x2, 70 MHz-6 GHz, 56 MHz)",
+   "usd": 2330,
+   "ils_landed": 8390,
+   "tier": "full",
+   "mark": "evidence",
+   "source": "https://www.ettus.com/product-categories/usrp-bus-series/"
+  },
+  "hackrf_pro": {
+   "name": "Great Scott Gadgets HackRF Pro",
+   "usd": 400,
+   "ils_landed": 1440,
+   "tier": "full",
+   "mark": "evidence",
+   "source": "https://www.sparkfun.com/hackrf-pro.html"
+  },
+  "limesdr": {
+   "name": "LimeSDR Mini 2.0",
+   "usd": 400,
+   "ils_landed": 1440,
+   "tier": "full",
+   "mark": "estimate",
+   "source": ""
+  },
+  "litevna": {
+   "name": "LiteVNA-64 (50 kHz-6.3 GHz)",
+   "usd": 160,
+   "ils_landed": 580,
+   "tier": "full",
+   "mark": "evidence",
+   "source": "https://eleshop.eu/test-measure/vector-network-analysers/vna.html"
+  },
+  "awr1843": {
+   "name": "TI AWR1843BOOST 77 GHz",
+   "usd": 299,
+   "ils_landed": 1080,
+   "tier": "full",
+   "mark": "evidence",
+   "source": "https://octopart.com/part/texas-instruments/AWR1843BOOST"
+  },
+  "bgt60": {
+   "name": "Infineon DEMO BGT60TR13C 60 GHz",
+   "usd": 200,
+   "ils_landed": 720,
+   "tier": "full",
+   "mark": "evidence",
+   "source": "https://uk.farnell.com/infineon/demobgt60tr13ctobo1/demo-eval-board-radar-sensor-60ghz/dp/4035678"
+  },
+  "zed_f9r": {
+   "name": "u-blox ZED-F9R (GNSS + IMU dead reckoning) board",
+   "usd": 300,
+   "ils_landed": 1080,
+   "tier": "full",
+   "mark": "estimate",
+   "source": ""
+  },
+  "quad_kit": {
+   "name": "Holybro X500 V2 + Pixhawk 6C PX4 kit",
+   "usd": 900,
+   "ils_landed": 3240,
+   "tier": "full",
+   "mark": "estimate",
+   "source": "https://holybro.com/"
+  },
+  "jetson": {
+   "name": "NVIDIA Jetson Orin Nano Super",
+   "usd": 249,
+   "ils_landed": 900,
+   "tier": "full",
+   "mark": "estimate",
+   "source": ""
+  },
+  "ramsey": {
+   "name": "Ramsey STE3300-class shielded test enclosure",
+   "usd": 1475,
+   "ils_landed": 5310,
+   "tier": "full",
+   "mark": "evidence",
+   "source": "https://www.saelig.com/RWTTE/ste3300.htm"
+  },
+  "positioner": {
+   "name": "DIY antenna positioner (stepper + encoder)",
+   "usd": 150,
+   "ils_landed": 540,
+   "tier": "full",
+   "mark": "estimate",
+   "source": ""
+  },
+  "gpsdo": {
+   "name": "GPSDO 10 MHz/PPS reference",
+   "usd": 150,
+   "ils_landed": 540,
+   "tier": "full",
+   "mark": "estimate",
+   "source": ""
+  },
+  "rover_kit": {
+   "name": "ROS 2 rover (TurtleBot 4 Lite class)",
+   "usd": 1300,
+   "ils_landed": 4680,
+   "tier": "full",
+   "mark": "estimate",
+   "source": ""
+  },
+  "kraken2": {
+   "name": "Second KrakenSDR (multistatic passive radar)",
+   "usd": 500,
+   "ils_landed": 1800,
+   "tier": "full",
+   "mark": "evidence",
+   "source": "https://www.krakenrf.com/product-page/krakensdr"
+  },
+  "rocket_kit": {
+   "name": "Model rocket + flight computer/altimeter + club fees",
+   "usd": 250,
+   "ils_landed": 900,
+   "tier": "full",
+   "mark": "estimate",
+   "source": ""
+  },
+  "cloud_full": {
+   "name": "GPU cloud, additional ~1,000 H100-h",
+   "usd": 2500,
+   "ils_landed": 9000,
+   "tier": "full",
+   "mark": "estimate",
+   "source": "https://www.spheron.network/blog/lambda-cloud-h100-pricing-2026/"
+  }
+ },
+ "domains": [
+  {
+   "domain": "ENG · Mathematics foundations",
+   "domain_he": "יסודות מתמטיים",
+   "wave": 1,
+   "wave_he": "גל 1",
+   "required_real_build": "מטריצת קווריאנס, CRLB ובימפורמר קמור, כולם על אותות שהוא עצמו מקליט",
+   "hours": 215,
+   "new_equipment": [
+    "pluto",
+    "kraken",
+    "rf_kit"
+   ],
+   "new_equipment_cost_usd": 980,
+   "new_equipment_cost_ils_landed": 3530,
+   "all_equipment": [
+    "kraken",
+    "pluto",
+    "rf_kit"
+   ],
+   "all_equipment_cost_usd": 980,
+   "labs": [
+    {
+     "id": "MA1",
+     "title": "SVD ומספר מקורות: מטריצת קווריאנס של אותות אמיתיים",
+     "level": 2,
+     "level_he": "מעשי",
+     "hours": 30,
+     "tools": "numpy, scipy, pyadi-iio",
+     "equipment": [
+      "pluto"
+     ],
+     "tier_needed": "min",
+     "ai_role": "כותב קוד לכידה ופירוק; הלומד קובע מראש את פיזור הערכים העצמיים מתוך SNR",
+     "verification": "ערכים עצמיים מול σ²(1+M·SNR), שתי רמות ניחות",
+     "portfolio_output": "מחברת + הערת שיטה"
+    },
+    {
+     "id": "MA2",
+     "title": "Monte Carlo מול נוסחה סגורה: Pd/Pfa של גלאי ריבועי",
+     "level": 2,
+     "level_he": "מעשי",
+     "hours": 25,
+     "tools": "numpy, scipy.stats",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "מריץ 10⁶ ניסויים ומשרטט; הלומד בוחר סף ומנבא Pd",
+     "verification": "חי-בריבוע ו-Marcum Q, רווח סמך לפי N",
+     "portfolio_output": "פונקציה בדוקה ב-rfcalc"
+    },
+    {
+     "id": "MA3",
+     "title": "אופטימיזציה קמורה: תכנון משקלות מערך ב-CVXPY ומדידה",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 40,
+     "tools": "cvxpy",
+     "equipment": [
+      "kraken"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "מנסח את הבעיה בקוד; הלומד מגדיר אילוצים ובוחר פשרה בין רוחב אלומה לאונות צד",
+     "verification": "אונות צד חזויות מול מדידה עם משדר ייחוס",
+     "portfolio_output": "דוח + גרף חזוי/נמדד"
+    },
+    {
+     "id": "MA4",
+     "title": "אמד ו-CRLB: אמד תדר והשהיה על אות בכבל, סריקת SNR במנחת",
+     "level": 4,
+     "level_he": "מומחה",
+     "hours": 40,
+     "tools": "numpy",
+     "equipment": [
+      "pluto",
+      "rf_kit"
+     ],
+     "tier_needed": "min",
+     "ai_role": "כותב אמדים ו-sweep; הלומד גוזר את הגבול ומנבא היכן האמד נשבר (threshold effect)",
+     "verification": "שונות מול CRLB לכל צעד מנחת",
+     "portfolio_output": "גרף פרסומי + הערה"
+    },
+    {
+     "id": "MA5",
+     "title": "פרויקט חישובי: sparse recovery ל-DOA על הקלטות KrakenSDR",
+     "level": 5,
+     "level_he": "מחקר (PhD)",
+     "hours": 80,
+     "tools": "cvxpy, numpy",
+     "equipment": [
+      "kraken"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "מממש OMP/ℓ1 ובסיס השוואה MUSIC; הלומד מגדיר ניסוי, מנבא רזולוציה, בוחר מדדים",
+     "verification": "כיוון אמת (GPS/מפה), RMSE מול CRLB",
+     "portfolio_output": "טיוטת preprint"
+    }
+   ]
+  },
+  {
+   "domain": "ENG · Signals and systems",
+   "domain_he": "אותות ומערכות",
+   "wave": 1,
+   "wave_he": "גל 1",
+   "required_real_build": "שרשרת SDR מקצה לקצה: לכידה, סינון, שערוך ספקטרלי וגילוי, על אותות אמיתיים",
+   "hours": 215,
+   "new_equipment": [
+    "rtlsdr",
+    "antennas",
+    "bladerf"
+   ],
+   "new_equipment_cost_usd": 670,
+   "new_equipment_cost_ils_landed": 2410,
+   "all_equipment": [
+    "antennas",
+    "bladerf",
+    "kraken",
+    "pluto",
+    "rf_kit",
+    "rtlsdr"
+   ],
+   "all_equipment_cost_usd": 1650,
+   "labs": [
+    {
+     "id": "SG1",
+     "title": "שרשרת SDR ראשונה: FM, Welch, חלונות",
+     "level": 1,
+     "level_he": "כניסה",
+     "hours": 20,
+     "tools": "PySDR, GNU Radio, inspectrum",
+     "equipment": [
+      "rtlsdr"
+     ],
+     "tier_needed": "min",
+     "ai_role": "כותב לכידה ופענוח; הלומד מנבא רוחב סרט ורמת רעש",
+     "verification": "עוצמה בקו מול חישוב עם NF, השוואה ל-tinySA",
+     "portfolio_output": "מחברת"
+    },
+    {
+     "id": "SG2",
+     "title": "מפענח ADS-B מאפס",
+     "level": 2,
+     "level_he": "מעשי",
+     "hours": 30,
+     "tools": "numpy, pyModeS",
+     "equipment": [
+      "rtlsdr",
+      "antennas"
+     ],
+     "tier_needed": "min",
+     "ai_role": "כותב preamble detector, CRC ופענוח; הלומד מתכנן ספי גילוי",
+     "verification": "השוואה ל-dump1090 ו-OpenSky כאמת, שיעור החמצה",
+     "portfolio_output": "קוד פתוח + נתונים ב-SigMF"
+    },
+    {
+     "id": "SG3",
+     "title": "ROC נמדד מול תיאוריה בכבל",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 30,
+     "tools": "numpy",
+     "equipment": [
+      "pluto",
+      "rf_kit",
+      "rtlsdr"
+     ],
+     "tier_needed": "min",
+     "ai_role": "מתזמן sweep של SNR וסף; הלומד מנבא את עקומת ROC",
+     "verification": "ROC נמדד מול נוסחה, תקציב שגיאה של רמת אות",
+     "portfolio_output": "גרף + הערת אימות"
+    },
+    {
+     "id": "SG4",
+     "title": "סינון רב-קצב ובלוק GNU Radio OOT בזמן אמת",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 35,
+     "tools": "GNU Radio 3.10, gr_modtool",
+     "equipment": [
+      "pluto"
+     ],
+     "tier_needed": "min",
+     "ai_role": "כותב בלוק ובדיקות QA; הלומד קובע מפרט (taps, decimation, latency)",
+     "verification": "תגובת תדר נמדדת עם tone sweep, latency נמדד",
+     "portfolio_output": "בלוק בגיטהאב"
+    },
+    {
+     "id": "SG5",
+     "title": "שערוך ספקטרלי ברזולוציה גבוהה: MUSIC, ESPRIT, AR",
+     "level": 4,
+     "level_he": "מומחה",
+     "hours": 40,
+     "tools": "numpy, scipy",
+     "equipment": [
+      "kraken"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "מממש ומשווה; הלומד צופה את גבול ההפרדה",
+     "verification": "RMSE מול CRLB, שני טונים בכבל",
+     "portfolio_output": "דוח השוואה"
+    },
+    {
+     "id": "SG6",
+     "title": "DSP בחומרה: מסנן ו-FFT ב-FPGA של Pluto/bladeRF",
+     "level": 4,
+     "level_he": "מומחה",
+     "hours": 60,
+     "tools": "Vivado/LiteX, HDL",
+     "equipment": [
+      "pluto",
+      "bladerf"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "כותב HDL ו-testbench; הלומד קובע fixed-point ותקציב רעש כימות",
+     "verification": "SNR כימות חזוי מול נמדד, bit-exact מול מודל Python",
+     "portfolio_output": "ריפו + הערה"
+    }
+   ]
+  },
+  {
+   "domain": "ENG · Control and estimation",
+   "domain_he": "בקרה ושערוך",
+   "wave": 1,
+   "wave_he": "גל 1",
+   "required_real_build": "EKF על IMU+GNSS אמיתיים עם NEES/NIS, ובקר שטס על Crazyflie",
+   "hours": 240,
+   "new_equipment": [
+    "zed_f9p",
+    "mcu",
+    "crazyflie"
+   ],
+   "new_equipment_cost_usd": 700,
+   "new_equipment_cost_ils_landed": 2520,
+   "all_equipment": [
+    "crazyflie",
+    "mcu",
+    "zed_f9p"
+   ],
+   "all_equipment_cost_usd": 700,
+   "labs": [
+    {
+     "id": "CE1",
+     "title": "Kalman ליניארי ומבחני עקביות NEES/NIS",
+     "level": 1,
+     "level_he": "כניסה",
+     "hours": 20,
+     "tools": "numpy, filterpy",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "כותב מסנן וסימולציה; הלומד קובע Q/R ומנבא את רצועת NEES",
+     "verification": "χ² 95% על 50 ריצות",
+     "portfolio_output": "מחברת"
+    },
+    {
+     "id": "CE2",
+     "title": "EKF על נתוני טלפון (GnssLogger, GSDC 2023)",
+     "level": 2,
+     "level_he": "מעשי",
+     "hours": 40,
+     "tools": "gnss_lib_py",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "מעבד נתונים וכותב EKF; הלומד בוחר מודל תנועה",
+     "verification": "שגיאה מול ground truth של GSDC",
+     "portfolio_output": "ציון מול leaderboard"
+    },
+    {
+     "id": "CE3",
+     "title": "EKF/UKF על ZED-F9P + IMU, תרחיש תקלה",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 50,
+     "tools": "numpy, pyubx2",
+     "equipment": [
+      "zed_f9p",
+      "mcu"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "כותב מנהלי התקן ומסנן; הלומד מתכנן את התקלה (נפילת GNSS, קפיצה)",
+     "verification": "NEES/NIS, סחיפה בזמן ההפסקה מול חיזוי מ-bias של IMU",
+     "portfolio_output": "דוח + נתונים פתוחים"
+    },
+    {
+     "id": "CE4",
+     "title": "זיהוי מערכת ובקרה על Crazyflie: PID ואז LQR",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 50,
+     "tools": "cflib, python-control",
+     "equipment": [
+      "crazyflie"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "מריץ זיהוי וטיונינג; הלומד בוחר מבנה מודל ומנבא overshoot",
+     "verification": "צעד נמדד מול סימולציה",
+     "portfolio_output": "וידאו + דוח"
+    },
+    {
+     "id": "CE5",
+     "title": "לוגי PX4: עקביות EKF2 וזיהוי תקלות",
+     "level": 4,
+     "level_he": "מומחה",
+     "hours": 40,
+     "tools": "pyulog, flight_review",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "מנתח מאות לוגים ציבוריים; הלומד מגדיר מדדי תקלה",
+     "verification": "תקלות מתויגות ידנית כאמת",
+     "portfolio_output": "כלי + דוח"
+    },
+    {
+     "id": "CE6",
+     "title": "MPC עם אילוצים על Crazyflie",
+     "level": 4,
+     "level_he": "מומחה",
+     "hours": 40,
+     "tools": "acados/CasADi",
+     "equipment": [
+      "crazyflie"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "כותב בקר; הלומד קובע אילוצים ותקציב חישוב",
+     "verification": "מסלול נמדד מול חזוי, הפרות אילוץ",
+     "portfolio_output": "וידאו + הערה"
+    }
+   ]
+  },
+  {
+   "domain": "ENG · Electronics and circuits",
+   "domain_he": "אלקטרוניקה ומעגלים",
+   "wave": 1,
+   "wave_he": "גל 1",
+   "required_real_build": "LNA, מסנן וספק שהוא מתכנן, מייצר ב-JLCPCB ומודד",
+   "hours": 260,
+   "new_equipment": [
+    "bench_basic",
+    "scope",
+    "psu",
+    "nanovna",
+    "jlcpcb",
+    "noise_source",
+    "tinysa"
+   ],
+   "new_equipment_cost_usd": 1317,
+   "new_equipment_cost_ils_landed": 4740,
+   "all_equipment": [
+    "bench_basic",
+    "jlcpcb",
+    "mcu",
+    "nanovna",
+    "noise_source",
+    "psu",
+    "scope",
+    "tinysa"
+   ],
+   "all_equipment_cost_usd": 1377,
+   "labs": [
+    {
+     "id": "EL1",
+     "title": "ספסל ראשון: סקופ, ספק, הלחמה; ngspice מול מעגל",
+     "level": 1,
+     "level_he": "כניסה",
+     "hours": 25,
+     "tools": "LTspice, ngspice, pyvisa",
+     "equipment": [
+      "bench_basic",
+      "scope",
+      "psu"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "כותב בקרת SCPI למכשירים; הלומד מנבא את תגובת הצעד",
+     "verification": "צעד נמדד מול SPICE",
+     "portfolio_output": "מחברת ספסל"
+    },
+    {
+     "id": "EL2",
+     "title": "LNA ל-front-end: Qucs-S, KiCad, ייצור ומדידה",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 60,
+     "tools": "Qucs-S, KiCad",
+     "equipment": [
+      "nanovna",
+      "jlcpcb",
+      "noise_source"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "מציע טופולוגיה ו-layout; הלומד בוחר רכיבים ובודק יציבות (K-factor)",
+     "verification": "S21 ב-VNA, NF ב-Y-factor מול סימולציה",
+     "portfolio_output": "לוח עובד + דוח"
+    },
+    {
+     "id": "EL3",
+     "title": "מסנן RF ל-SDR: openEMS ואז PCB ומדידה",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 40,
+     "tools": "openEMS, KiCad",
+     "equipment": [
+      "nanovna",
+      "jlcpcb"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "מריץ EM; הלומד קובע מפרט (IL, דחייה)",
+     "verification": "S21 נמדד מול EM",
+     "portfolio_output": "לוח + קבצים"
+    },
+    {
+     "id": "EL4",
+     "title": "קדמת ADC: anti-alias, ENOB, jitter",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 40,
+     "tools": "ngspice, numpy",
+     "equipment": [
+      "mcu",
+      "scope"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "כותב קושחת דגימה וניתוח FFT; הלומד מנבא ENOB",
+     "verification": "SINAD נמדד מול חיזוי",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "EL5",
+     "title": "ספק ממותג (buck) לצומת שטח: ripple ו-EMI",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 35,
+     "tools": "LTspice, KiCad",
+     "equipment": [
+      "scope",
+      "tinysa",
+      "jlcpcb"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "מציע תכנון; הלומד בוחר תדר מיתוג ובודק לולאה",
+     "verification": "ripple ונצילות מול חיזוי, EMI ב-tinySA",
+     "portfolio_output": "לוח"
+    },
+    {
+     "id": "EL6",
+     "title": "לוח מוצר: LNA+מסנן GNSS או צומת ניטור RF",
+     "level": 4,
+     "level_he": "מומחה",
+     "hours": 60,
+     "tools": "KiCad",
+     "equipment": [
+      "jlcpcb",
+      "nanovna"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "מתכנן ומייצר BOM; הלומד כותב מפרט ובדיקות קבלה",
+     "verification": "בדיקות קבלה מול מפרט",
+     "portfolio_output": "מוצר קטן לתיק"
+    }
+   ]
+  },
+  {
+   "domain": "ENG · Machine learning and deep learning",
+   "domain_he": "למידת מכונה",
+   "wave": 1,
+   "wave_he": "גל 1",
+   "required_real_build": "מסווג אותות שאומן גם על הקלטות שלו, עם בדיקות OOD",
+   "hours": 220,
+   "new_equipment": [
+    "cloud_min",
+    "cloud_rec",
+    "iwr6843",
+    "dca1000"
+   ],
+   "new_equipment_cost_usd": 2007,
+   "new_equipment_cost_ils_landed": 7220,
+   "all_equipment": [
+    "bladerf",
+    "cloud_min",
+    "cloud_rec",
+    "dca1000",
+    "iwr6843",
+    "pluto"
+   ],
+   "all_equipment_cost_usd": 2777,
+   "labs": [
+    {
+     "id": "ML1",
+     "title": "סיווג אפנון על RadioML 2018.01A",
+     "level": 2,
+     "level_he": "מעשי",
+     "hours": 30,
+     "tools": "PyTorch",
+     "equipment": [
+      "cloud_min"
+     ],
+     "tier_needed": "min",
+     "ai_role": "כותב מודל ואימון; הלומד בוחר מדדים ומנבא דיוק לפי SNR",
+     "verification": "עקומת דיוק מול ספרות, baseline פשוט",
+     "portfolio_output": "מחברת"
+    },
+    {
+     "id": "ML2",
+     "title": "מאגר משלו: הקלטות SigMF בכבל, domain shift",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 50,
+     "tools": "PyTorch, SigMF",
+     "equipment": [
+      "pluto",
+      "bladerf",
+      "cloud_rec"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "בונה צינור הקלטה ותיוג; הלומד מתכנן את המאגר",
+     "verification": "דיוק סינתטי→אמיתי, כיול (ECE)",
+     "portfolio_output": "מאגר פתוח + דוח"
+    },
+    {
+     "id": "ML3",
+     "title": "SAR ATR על MSTAR עם OOD ו-adversarial",
+     "level": 4,
+     "level_he": "מומחה",
+     "hours": 60,
+     "tools": "PyTorch",
+     "equipment": [
+      "cloud_rec"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "מאמן ומריץ התקפות; הלומד מגדיר את פיצול ה-OOD",
+     "verification": "דיוק standard/extended operating conditions",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "ML4",
+     "title": "רחפן מול ציפור: מיקרו-דופלר, DIAT-μSAT והקלטות mmWave שלו",
+     "level": 5,
+     "level_he": "מחקר (PhD)",
+     "hours": 80,
+     "tools": "PyTorch",
+     "equipment": [
+      "iwr6843",
+      "dca1000",
+      "cloud_rec"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "מאמן ומנתח; הלומד מתכנן ניסוי איסוף ומפרט וודאות",
+     "verification": "בדיקה על נתונים שלא נראו, אי-ודאות מכוילת",
+     "portfolio_output": "מאמר (משותף ל-RD6)"
+    }
+   ]
+  },
+  {
+   "domain": "ENG · Engineering judgment (cross-cutting)",
+   "domain_he": "שיקול דעת הנדסי",
+   "wave": 0,
+   "wave_he": "רציף",
+   "required_real_build": "רישום כיול ציבורי: חיזויים מתועדים מול מדידות",
+   "hours": 190,
+   "new_equipment": [],
+   "new_equipment_cost_usd": 0,
+   "new_equipment_cost_ils_landed": 0,
+   "all_equipment": [
+    "bench_basic",
+    "tinysa"
+   ],
+   "all_equipment_cost_usd": 339,
+   "labs": [
+    {
+     "id": "JU1",
+     "title": "יומן חיזויים: כל מעבדה מתחילה בחיזוי עם רווח, ציון Brier/log",
+     "level": 2,
+     "level_he": "מעשי",
+     "hours": 60,
+     "tools": "notebook, script",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "מחשב ציונים ומגמות; הלומד כותב את החיזוי לפני כל הרצה",
+     "verification": "ציון מול מדידה, 100+ חיזויים",
+     "portfolio_output": "רישום כיול"
+    },
+    {
+     "id": "JU2",
+     "title": "Fermi bench: 30 אומדנים פיזיים ומדידה מהירה",
+     "level": 2,
+     "level_he": "מעשי",
+     "hours": 30,
+     "tools": "",
+     "equipment": [
+      "bench_basic",
+      "tinysa"
+     ],
+     "tier_needed": "min",
+     "ai_role": "מציע אומדנים מתחרים; הלומד מעריך לבד קודם",
+     "verification": "יחס שגיאה ממוצע",
+     "portfolio_output": "טבלה"
+    },
+    {
+     "id": "JU3",
+     "title": "יומן שגיאות AI ותרגיל seeded bugs",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 40,
+     "tools": "pytest",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "שותל באגים בקוד שלו; הלומד מחפש",
+     "verification": "שיעור תפיסה, זמן לתפיסה",
+     "portfolio_output": "יומן"
+    },
+    {
+     "id": "JU4",
+     "title": "10 ביקורות מפורסמות שנבדקו על ידי מומחה בשם",
+     "level": 5,
+     "level_he": "מחקר (PhD)",
+     "hours": 60,
+     "tools": "",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "מנסח טיוטות; הלומד אחראי לטיעון ולמספרים",
+     "verification": "הערות מומחה, יומן תיקונים",
+     "portfolio_output": "10 פרסומים"
+    }
+   ]
+  },
+  {
+   "domain": "ENG · Periphery: discrete math, algorithms, computer systems, chips",
+   "domain_he": "שוליים: אלגוריתמים, מערכות מחשב, שבבים",
+   "wave": 1,
+   "wave_he": "גל 1",
+   "required_real_build": "אוטומציית מכשירים ב-SCPI ומערכת embedded בזמן אמת",
+   "hours": 130,
+   "new_equipment": [],
+   "new_equipment_cost_usd": 0,
+   "new_equipment_cost_ils_landed": 0,
+   "all_equipment": [
+    "mcu",
+    "psu",
+    "scope"
+   ],
+   "all_equipment_cost_usd": 618,
+   "labs": [
+    {
+     "id": "PE1",
+     "title": "שליטה בכלים: git, pytest, CI, ניהול סוכני AI על ריפו",
+     "level": 1,
+     "level_he": "כניסה",
+     "hours": 30,
+     "tools": "git, Claude Code, GitHub Actions",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "כותב קוד ובדיקות; הלומד כותב מפרט וסוקר כל diff",
+     "verification": "כל commit עם בדיקה עוברת",
+     "portfolio_output": "ריפו מסודר"
+    },
+    {
+     "id": "PE2",
+     "title": "בקרת מכשירים ב-SCPI/pyvisa",
+     "level": 2,
+     "level_he": "מעשי",
+     "hours": 20,
+     "tools": "pyvisa",
+     "equipment": [
+      "scope",
+      "psu"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "כותב דרייברים; הלומד מגדיר תסריט מדידה",
+     "verification": "קריאה ידנית מול אוטומטית",
+     "portfolio_output": "ספריית מדידה"
+    },
+    {
+     "id": "PE3",
+     "title": "embedded בזמן אמת: CMSIS-DSP על STM32/RP2040",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 40,
+     "tools": "C, CMSIS-DSP",
+     "equipment": [
+      "mcu",
+      "scope"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "כותב קושחה; הלומד קובע תקציב זמן",
+     "verification": "latency נמדד בסקופ (GPIO toggle)",
+     "portfolio_output": "קושחה"
+    },
+    {
+     "id": "PE4",
+     "title": "ניתוח שרשרת אספקה של מחשוב AI, נבדק על ידי איש תעשייה",
+     "level": 4,
+     "level_he": "מומחה",
+     "hours": 40,
+     "tools": "pandas",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "אוסף נתונים; הלומד בונה את הטיעון",
+     "verification": "ביקורת מומחה",
+     "portfolio_output": "מאמר"
+    }
+   ]
+  },
+  {
+   "domain": "MIL · Foundations: the quantitative toolkit",
+   "domain_he": "ארגז כלים כמותי",
+   "wave": 1,
+   "wave_he": "גל 1",
+   "required_real_build": "ספריית rfcalc שנבדקת גם מול דוגמאות ספר וגם מול מדידות שלו",
+   "hours": 130,
+   "new_equipment": [],
+   "new_equipment_cost_usd": 0,
+   "new_equipment_cost_ils_landed": 0,
+   "all_equipment": [
+    "pluto",
+    "rf_kit",
+    "tinysa",
+    "zed_f9p"
+   ],
+   "all_equipment_cost_usd": 809,
+   "labs": [
+    {
+     "id": "FQ1",
+     "title": "ספריית rfcalc: מכ\"ם, EW, link budget, CEP, DOP",
+     "level": 2,
+     "level_he": "מעשי",
+     "hours": 50,
+     "tools": "Python, pytest, hypothesis",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "כותב קוד ובדיקות; הלומד בוחר דוגמאות מהספרים כ-oracle",
+     "verification": "100% מדוגמאות הספר",
+     "portfolio_output": "חבילה ב-PyPI"
+    },
+    {
+     "id": "FQ2",
+     "title": "CEP של המקלט שלו מול חיזוי DOP",
+     "level": 2,
+     "level_he": "מעשי",
+     "hours": 20,
+     "tools": "rfcalc, pyubx2",
+     "equipment": [
+      "zed_f9p"
+     ],
+     "tier_needed": "min",
+     "ai_role": "מעבד 24 שעות לוג; הלומד מנבא CEP",
+     "verification": "CEP נמדד מול σ_UERE·HDOP",
+     "portfolio_output": "גרף"
+    },
+    {
+     "id": "FQ3",
+     "title": "link budget נמדד בכבל, ±1 dB",
+     "level": 2,
+     "level_he": "מעשי",
+     "hours": 20,
+     "tools": "rfcalc",
+     "equipment": [
+      "pluto",
+      "rf_kit",
+      "tinysa"
+     ],
+     "tier_needed": "min",
+     "ai_role": "מתזמן מדידה; הלומד כותב תקציב",
+     "verification": "פער חזוי/נמדד בכל שלב",
+     "portfolio_output": "טבלה"
+    },
+    {
+     "id": "FQ4",
+     "title": "rfcalc כמוצר: תיעוד, דוגמאות, ביקורת עמית",
+     "level": 4,
+     "level_he": "מומחה",
+     "hours": 40,
+     "tools": "Sphinx",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "כותב תיעוד; הלומד סוקר נכונות",
+     "verification": "issues מבחוץ, ביקורת",
+     "portfolio_output": "מוצר צד"
+    }
+   ]
+  },
+  {
+   "domain": "MIL · Antennas and propagation",
+   "domain_he": "אנטנות והתפשטות",
+   "wave": 1,
+   "wave_he": "גל 1",
+   "required_real_build": "אנטנות שהוא בונה ומודד, מערך מכוון, ומודל התפשטות מעל שטח אמיתי שאומת במדידה",
+   "hours": 255,
+   "new_equipment": [
+    "phaser"
+   ],
+   "new_equipment_cost_usd": 2500,
+   "new_equipment_cost_ils_landed": 9000,
+   "all_equipment": [
+    "antennas",
+    "jlcpcb",
+    "nanovna",
+    "phaser",
+    "pluto",
+    "rtlsdr"
+   ],
+   "all_equipment_cost_usd": 3220,
+   "labs": [
+    {
+     "id": "AN1",
+     "title": "דיפול ו-Yagi: בנייה, S11 ב-NanoVNA מול NEC2",
+     "level": 1,
+     "level_he": "כניסה",
+     "hours": 25,
+     "tools": "PyNEC/4nec2, scikit-rf",
+     "equipment": [
+      "nanovna",
+      "antennas"
+     ],
+     "tier_needed": "min",
+     "ai_role": "מריץ NEC וכותב ניתוח Touchstone; הלומד מתכנן מידות",
+     "verification": "תדר תהודה ו-SWR נמדדים מול מודל",
+     "portfolio_output": "אנטנה + דוח"
+    },
+    {
+     "id": "AN2",
+     "title": "Patch: openEMS, PCB, מדידת S11 ודפוס קרינה",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 50,
+     "tools": "openEMS, KiCad",
+     "equipment": [
+      "nanovna",
+      "jlcpcb",
+      "pluto"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "מריץ EM ומעבד דפוס; הלומד קובע מצע ו-feed",
+     "verification": "S11 ודפוס נמדדים (סיבוב ידני או positioner) מול EM",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "AN3",
+     "title": "מערך: beam steering, tapering, נמכים",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 50,
+     "tools": "pyadi-iio",
+     "equipment": [
+      "phaser"
+     ],
+     "tier_needed": "full",
+     "ai_role": "כותב בקרת מופעים ומדידה; הלומד מנבא אונות צד ומיקומי null",
+     "verification": "דפוס נמדד מול AF תיאורטי",
+     "portfolio_output": "דוח + וידאו"
+    },
+    {
+     "id": "AN4",
+     "title": "התפשטות מעל שטח: ITM ו-ITU-R P.526 עם DEM מול מדידות קליטה",
+     "level": 4,
+     "level_he": "מומחה",
+     "hours": 60,
+     "tools": "pycraf, SPLAT!/Signal-Server, SRTM",
+     "equipment": [
+      "rtlsdr",
+      "antennas"
+     ],
+     "tier_needed": "min",
+     "ai_role": "מריץ מודלים ומעבד drive test; הלומד בוחר נקודות ומנבא אובדן",
+     "verification": "dB חזוי מול נמדד בשדרי FM/DVB-T/סלולר (קליטה בלבד)",
+     "portfolio_output": "מפה + דוח"
+    },
+    {
+     "id": "AN5",
+     "title": "פרויקט: מיקום חיישני C-UAS ופערי כיסוי בגובה נמוך",
+     "level": 5,
+     "level_he": "מחקר (PhD)",
+     "hours": 70,
+     "tools": "Python, GIS",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "בונה אופטימיזציה; הלומד מגדיר איומים ומטרות",
+     "verification": "מודל מאומת מ-AN4, ביקורת מקצוען",
+     "portfolio_output": "מאמר"
+    }
+   ]
+  },
+  {
+   "domain": "MIL · Radar",
+   "domain_he": "מכ\"ם",
+   "wave": 1,
+   "wave_he": "גל 1",
+   "required_real_build": "שרשרת מכ\"ם על נתונים גולמיים שלו (60 GHz, X-band, פסיבי) ומחקר רחפן מול ציפור",
+   "hours": 430,
+   "new_equipment": [
+    "radar60",
+    "rpi5"
+   ],
+   "new_equipment_cost_usd": 265,
+   "new_equipment_cost_ils_landed": 950,
+   "all_equipment": [
+    "cloud_rec",
+    "dca1000",
+    "iwr6843",
+    "kraken",
+    "phaser",
+    "radar60",
+    "rpi5"
+   ],
+   "all_equipment_cost_usd": 5272,
+   "labs": [
+    {
+     "id": "RD1",
+     "title": "שרשרת מכ\"ם בפייתון: pulse compression, Doppler, CFAR, tracking",
+     "level": 2,
+     "level_he": "מעשי",
+     "hours": 40,
+     "tools": "RadarSimPy, numpy",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "כותב שרשרת וסימולציה; הלומד מנבא SNR ו-Pd לכל מטרה",
+     "verification": "Pd/Pfa מול משוואת מכ\"ם ו-Swerling",
+     "portfolio_output": "ספרייה"
+    },
+    {
+     "id": "RD2",
+     "title": "FMCW 60 GHz: range-Doppler וכיול מחזיר פינתי",
+     "level": 2,
+     "level_he": "מעשי",
+     "hours": 40,
+     "tools": "TI mmWave SDK, OpenRadar",
+     "equipment": [
+      "radar60"
+     ],
+     "tier_needed": "min",
+     "ai_role": "כותב קונפיגורציה ועיבוד; הלומד בוחר chirp ומנבא רזולוציה ו-SNR",
+     "verification": "SNR נמדד מול משוואת מכ\"ם למחזיר בכמה מרחקים (R⁴)",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "RD3",
+     "title": "נתונים גולמיים: IWR6843 + DCA1000, MIMO virtual array",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 60,
+     "tools": "mmwave-studio, OpenRadar",
+     "equipment": [
+      "iwr6843",
+      "dca1000"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "כותב קליטה ועיבוד זווית; הלומד מנבא רזולוציה זוויתית ושגיאות כיול",
+     "verification": "זווית נמדדת מול סרגל, תקציב שגיאה",
+     "portfolio_output": "נתונים + דוח"
+    },
+    {
+     "id": "RD4",
+     "title": "מכ\"ם פסיבי (קליטה בלבד): FM/DVB-T, אמת ADS-B",
+     "level": 4,
+     "level_he": "מומחה",
+     "hours": 80,
+     "tools": "blah2, KrakenSDR heimdall",
+     "equipment": [
+      "kraken",
+      "rpi5"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "כותב CAF, ניקוי clutter ו-tracking; הלומד בוחר משדר ייחוס וגאומטריה ומנבא טווח גילוי",
+     "verification": "delay-Doppler מול ADS-B",
+     "portfolio_output": "צומת פסיבי עובד"
+    },
+    {
+     "id": "RD5",
+     "title": "X-band: FMCW + beamforming, SAR קטן על מסילה",
+     "level": 4,
+     "level_he": "מומחה",
+     "hours": 60,
+     "tools": "pyadi-iio",
+     "equipment": [
+      "phaser"
+     ],
+     "tier_needed": "full",
+     "ai_role": "כותב עיבוד; הלומד מתכנן ניסוי ומנבא רזולוציה",
+     "verification": "תמונה מול גאומטריה ידועה",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "RD6",
+     "title": "PhD: רחפן מול ציפור, RCS ומיקרו-דופלר, מאגר משלו + DIAT-μSAT + RadarScenes/CARRADA",
+     "level": 5,
+     "level_he": "מחקר (PhD)",
+     "hours": 150,
+     "tools": "PyTorch",
+     "equipment": [
+      "iwr6843",
+      "dca1000",
+      "cloud_rec"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "בונה צינורות ומודלים; הלומד מנסח שאלה, השערות וניסוי",
+     "verification": "חיזוי RCS ותדר להבים מול מדידה, בדיקת OOD",
+     "portfolio_output": "מאמר ל-IEEE RadarConf"
+    }
+   ]
+  },
+  {
+   "domain": "MIL · Electronic warfare and electromagnetic spectrum operations",
+   "domain_he": "לוחמה אלקטרונית",
+   "wave": 1,
+   "wave_he": "גל 1",
+   "required_real_build": "ספסל EW מכובל ומסוכך: jammer מול קישור ומול מכ\"ם, DF ומסווג אותות",
+   "hours": 320,
+   "new_equipment": [
+    "shield_diy",
+    "shield_box",
+    "b210"
+   ],
+   "new_equipment_cost_usd": 2840,
+   "new_equipment_cost_ils_landed": 10220,
+   "all_equipment": [
+    "b210",
+    "bladerf",
+    "cloud_rec",
+    "kraken",
+    "pluto",
+    "rf_kit",
+    "rtlsdr",
+    "shield_box",
+    "shield_diy",
+    "tinysa"
+   ],
+   "all_equipment_cost_usd": 5549,
+   "labs": [
+    {
+     "id": "EW1",
+     "title": "סקר ספקטרום (קליטה בלבד), תיוג SigMF",
+     "level": 1,
+     "level_he": "כניסה",
+     "hours": 25,
+     "tools": "inspectrum, SigMF, GNU Radio",
+     "equipment": [
+      "rtlsdr",
+      "tinysa"
+     ],
+     "tier_needed": "min",
+     "ai_role": "מעבד הקלטות ומציע זיהוי; הלומד מסווג ומצדיק",
+     "verification": "זיהוי מול טבלת הקצאות התדרים",
+     "portfolio_output": "מאגר SigMF"
+    },
+    {
+     "id": "EW2",
+     "title": "בדיקת סיכוך (shielding effectiveness): תנאי לכל שידור",
+     "level": 2,
+     "level_he": "מעשי",
+     "hours": 15,
+     "tools": "",
+     "equipment": [
+      "shield_diy",
+      "tinysa",
+      "pluto"
+     ],
+     "tier_needed": "min",
+     "ai_role": "כותב sweep אוטומטי; הלומד מגדיר סף קבלה",
+     "verification": "דליפה נמדדת בכמה תדרים מול סף",
+     "portfolio_output": "פרוטוקול בטיחות"
+    },
+    {
+     "id": "EW3",
+     "title": "J/S בכבל: jammer רעש, טון ו-swept מול קישור נתונים",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 50,
+     "tools": "GNU Radio",
+     "equipment": [
+      "pluto",
+      "bladerf",
+      "rf_kit",
+      "shield_box"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "בונה משדר, jammer ומקלט; הלומד מנבא BER לכל J/S",
+     "verification": "BER מול תיאוריה לכל סוג jammer",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "EW4",
+     "title": "DF: MUSIC ב-KrakenSDR על משדר ידוע, triangulation",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 50,
+     "tools": "KrakenSDR DSP",
+     "equipment": [
+      "kraken"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "מעבד ומשרטט; הלומד מתכנן מיקומים ותקציב שגיאה",
+     "verification": "כיוון נמדד מול אמת, CEP של מיקום",
+     "portfolio_output": "דוח + מפה"
+    },
+    {
+     "id": "EW5",
+     "title": "מודל עימות: burn-through, jammer מול datalink ומול GNSS",
+     "level": 4,
+     "level_he": "מומחה",
+     "hours": 60,
+     "tools": "rfcalc",
+     "equipment": [
+      "pluto",
+      "bladerf",
+      "shield_box"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "בונה מודל וסימולציה; הלומד קובע הנחות",
+     "verification": "מודל מול מדידה בכבל (EW3)",
+     "portfolio_output": "מאמר"
+    },
+    {
+     "id": "EW6",
+     "title": "PhD: מסווג עמיד ל-domain shift + ציר זמן CM/CCM (וייטנאם עד אוקראינה)",
+     "level": 5,
+     "level_he": "מחקר (PhD)",
+     "hours": 120,
+     "tools": "PyTorch",
+     "equipment": [
+      "cloud_rec",
+      "b210"
+     ],
+     "tier_needed": "full",
+     "ai_role": "מאמן ומנתח; הלומד מתכנן מחקר וכותב טיעון",
+     "verification": "OOD על הקלטות שלו, ביקורת מומחה",
+     "portfolio_output": "מאמר"
+    }
+   ]
+  },
+  {
+   "domain": "MIL · Positioning, navigation and timing",
+   "domain_he": "ניווט, מיקום ותזמון (PNT)",
+   "wave": 1,
+   "wave_he": "גל 1",
+   "required_real_build": "RTK שלו, מקלט GNSS תוכנה על IQ שהקליט, ומפת הפרעות אזורית עם ניטור עצמאי",
+   "hours": 400,
+   "new_equipment": [
+    "zed_f9p_base",
+    "zed_f9r",
+    "gpsdo"
+   ],
+   "new_equipment_cost_usd": 740,
+   "new_equipment_cost_ils_landed": 2660,
+   "all_equipment": [
+    "antennas",
+    "cloud_rec",
+    "gpsdo",
+    "mcu",
+    "pluto",
+    "rpi5",
+    "zed_f9p",
+    "zed_f9p_base",
+    "zed_f9r"
+   ],
+   "all_equipment_cost_usd": 2520,
+   "labs": [
+    {
+     "id": "PN1",
+     "title": "RTKLIB: base+rover (או NTRIP), דיוק מול זמן, multipath",
+     "level": 2,
+     "level_he": "מעשי",
+     "hours": 40,
+     "tools": "RTKLIB, pyubx2",
+     "equipment": [
+      "zed_f9p",
+      "zed_f9p_base"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "מעבד ומשרטט; הלומד מנבא זמן התכנסות ודיוק",
+     "verification": "דיוק מול נקודת ייחוס ידועה",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "PN2",
+     "title": "gnss_lib_py על GSDC 2023 ולוגים מהטלפון שלו",
+     "level": 2,
+     "level_he": "מעשי",
+     "hours": 40,
+     "tools": "gnss_lib_py",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "כותב WLS/EKF; הלומד בוחר מודלים",
+     "verification": "שגיאה מול ground truth",
+     "portfolio_output": "מחברת"
+    },
+    {
+     "id": "PN3",
+     "title": "GNSS-SDR על IQ שהוקלט: acquisition, tracking, PVT",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 60,
+     "tools": "GNSS-SDR",
+     "equipment": [
+      "pluto",
+      "antennas"
+     ],
+     "tier_needed": "min",
+     "ai_role": "מגדיר את התצורה ומנתח; הלומד מנבא C/N0 וזמן רכישה",
+     "verification": "PVT מול F9P במקביל",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "PN4",
+     "title": "מפת הפרעות מ-ADS-B (NIC/NACp) למזרח הים התיכון + ניטור ב-F9P",
+     "level": 4,
+     "level_he": "מומחה",
+     "hours": 60,
+     "tools": "OpenSky, pandas, pyubx2",
+     "equipment": [
+      "zed_f9p",
+      "rpi5"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "בונה צינור נתונים ומפה; הלומד מגדיר אינדיקטורים",
+     "verification": "השוואה ל-GPSJam/Flightradar24 ולמדדי המקלט שלו (AGC, jamInd)",
+     "portfolio_output": "לוח מחוונים חי"
+    },
+    {
+     "id": "PN5",
+     "title": "GNSS/INS משולב: loose ואז tight, תרחישי זיוף",
+     "level": 4,
+     "level_he": "מומחה",
+     "hours": 60,
+     "tools": "numpy",
+     "equipment": [
+      "zed_f9r",
+      "mcu"
+     ],
+     "tier_needed": "full",
+     "ai_role": "כותב מסנן; הלומד מתכנן תרחישים",
+     "verification": "NEES, שגיאה בזמן זיוף מוקלט",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "PN6",
+     "title": "PhD: זיהוי ואפיון זיוף במקלטים זולים על נתונים אזוריים",
+     "level": 5,
+     "level_he": "מחקר (PhD)",
+     "hours": 140,
+     "tools": "Python",
+     "equipment": [
+      "zed_f9p",
+      "gpsdo",
+      "cloud_rec"
+     ],
+     "tier_needed": "full",
+     "ai_role": "בונה גלאים וניתוח; הלומד מנסח שאלה וניסוי",
+     "verification": "אירועים מתועדים מול גלאי, השוואה ל-ION ITM 2025",
+     "portfolio_output": "מאמר"
+    }
+   ]
+  },
+  {
+   "domain": "MIL · Defense analysis craft: OSINT, claims checking and communication",
+   "domain_he": "מלאכת הניתוח: OSINT ובדיקת טענות",
+   "wave": 0,
+   "wave_he": "רציף",
+   "required_real_build": "ניתוח אירוע אמיתי מ-ADS-B/AIS/GNSS ומתמונות SAR",
+   "hours": 150,
+   "new_equipment": [],
+   "new_equipment_cost_usd": 0,
+   "new_equipment_cost_ils_landed": 0,
+   "all_equipment": [
+    "rtlsdr"
+   ],
+   "all_equipment_cost_usd": 50,
+   "labs": [
+    {
+     "id": "OS1",
+     "title": "גאולוקציה וכרונולוקציה",
+     "level": 2,
+     "level_he": "מעשי",
+     "hours": 30,
+     "tools": "SunCalc, EO Browser, Overpass",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "מציע; הלומד מאמת",
+     "verification": "מול אמת ידועה",
+     "portfolio_output": "תרגילים"
+    },
+    {
+     "id": "OS2",
+     "title": "שינויים ב-Sentinel-1 SAR",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 40,
+     "tools": "SNAP, pyroSAR",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "מעבד; הלומד מפרש",
+     "verification": "מול אירוע ידוע",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "OS3",
+     "title": "בדיקת טענות + יומן תיקונים ציבורי",
+     "level": 4,
+     "level_he": "מומחה",
+     "hours": 40,
+     "tools": "",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "מסכם; הלומד שופט",
+     "verification": "יומן",
+     "portfolio_output": "פרסום"
+    },
+    {
+     "id": "OS4",
+     "title": "RF OSINT: ADS-B/AIS/הפרעות GNSS לאירוע אמיתי",
+     "level": 4,
+     "level_he": "מומחה",
+     "hours": 40,
+     "tools": "OpenSky, pandas",
+     "equipment": [
+      "rtlsdr"
+     ],
+     "tier_needed": "min",
+     "ai_role": "מעבד; הלומד מנתח",
+     "verification": "מקורות נוספים",
+     "portfolio_output": "פרסום"
+    }
+   ]
+  },
+  {
+   "domain": "ENG · Physics",
+   "domain_he": "פיזיקה",
+   "wave": 2,
+   "wave_he": "גל 2",
+   "required_real_build": "מדידת רעש תרמי, אובדן מסלול ופיזור, מול מודל פיזיקלי",
+   "hours": 180,
+   "new_equipment": [],
+   "new_equipment_cost_usd": 0,
+   "new_equipment_cost_ils_landed": 0,
+   "all_equipment": [
+    "antennas",
+    "jlcpcb",
+    "nanovna",
+    "noise_source",
+    "radar60",
+    "rf_kit",
+    "rtlsdr",
+    "scope"
+   ],
+   "all_equipment_cost_usd": 1283,
+   "labs": [
+    {
+     "id": "PH1",
+     "title": "טמפרטורת רעש ו-kTB: Y-factor",
+     "level": 2,
+     "level_he": "מעשי",
+     "hours": 25,
+     "tools": "numpy",
+     "equipment": [
+      "noise_source",
+      "rtlsdr",
+      "rf_kit"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "כותב מדידה; הלומד מנבא NF",
+     "verification": "NF מול datasheet",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "PH2",
+     "title": "רעש ג'ונסון בנגד מול 4kTRB",
+     "level": 2,
+     "level_he": "מעשי",
+     "hours": 15,
+     "tools": "",
+     "equipment": [
+      "scope"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "מעבד; הלומד מנבא ערכים",
+     "verification": "התאמה ל-T",
+     "portfolio_output": "הערה"
+    },
+    {
+     "id": "PH3",
+     "title": "אלקטרומגנטיות חישובית: openEMS מול VNA",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 40,
+     "tools": "openEMS",
+     "equipment": [
+      "nanovna",
+      "jlcpcb"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "מריץ; הלומד מגדיר רשת וגבולות",
+     "verification": "S11 נמדד מול EM",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "PH4",
+     "title": "עקיפה ואזורי Fresnel: מדידת קליטה מאחורי מכשול",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 40,
+     "tools": "ITU-R P.526",
+     "equipment": [
+      "rtlsdr",
+      "antennas"
+     ],
+     "tier_needed": "min",
+     "ai_role": "מעבד; הלומד בוחר גאומטריה",
+     "verification": "dB חזוי מול נמדד",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "PH5",
+     "title": "פיזור (Mie/PO): RCS של כדור וגליל מול מדידת mmWave",
+     "level": 4,
+     "level_he": "מומחה",
+     "hours": 60,
+     "tools": "numpy",
+     "equipment": [
+      "radar60"
+     ],
+     "tier_needed": "min",
+     "ai_role": "מממש מודל; הלומד מנבא RCS",
+     "verification": "RCS נמדד מול מודל",
+     "portfolio_output": "מאמר קצר"
+    }
+   ]
+  },
+  {
+   "domain": "ENG · Information theory and communications",
+   "domain_he": "תורת המידע ותקשורת",
+   "wave": 2,
+   "wave_he": "גל 2",
+   "required_real_build": "קישורים דיגיטליים בכבל עם BER מדוד, ורשת LTE/5G פרטית בקופסה מסוככת",
+   "hours": 250,
+   "new_equipment": [],
+   "new_equipment_cost_usd": 0,
+   "new_equipment_cost_ils_landed": 0,
+   "all_equipment": [
+    "bladerf",
+    "cloud_rec",
+    "pluto",
+    "rf_kit",
+    "shield_box"
+   ],
+   "all_equipment_cost_usd": 2370,
+   "labs": [
+    {
+     "id": "IC1",
+     "title": "BPSK/QPSK בכבל: BER מול Eb/N0",
+     "level": 2,
+     "level_he": "מעשי",
+     "hours": 30,
+     "tools": "GNU Radio, numpy",
+     "equipment": [
+      "pluto",
+      "rf_kit"
+     ],
+     "tier_needed": "min",
+     "ai_role": "בונה שרשרת; הלומד מנבא BER",
+     "verification": "BER מול Q-function",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "IC2",
+     "title": "OFDM עם קידוד וערוץ דועך: Sionna ואז SDR",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 50,
+     "tools": "Sionna PHY",
+     "equipment": [
+      "pluto",
+      "bladerf",
+      "cloud_rec"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "בונה סימולציה ושרשרת; הלומד מתכנן ניסוי",
+     "verification": "BLER סימולציה מול כבל",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "IC3",
+     "title": "Sionna RT: מפת כיסוי מול מדידת תאים (קליטה בלבד)",
+     "level": 4,
+     "level_he": "מומחה",
+     "hours": 50,
+     "tools": "Sionna RT, OSM",
+     "equipment": [
+      "pluto"
+     ],
+     "tier_needed": "min",
+     "ai_role": "בונה סצנה; הלומד בוחר נקודות",
+     "verification": "RSRP נמדד מול ray tracing",
+     "portfolio_output": "מפה"
+    },
+    {
+     "id": "IC4",
+     "title": "srsRAN בכבל ובקופסה: throughput מול SNR",
+     "level": 4,
+     "level_he": "מומחה",
+     "hours": 50,
+     "tools": "srsRAN 4G/5G, Open5GS",
+     "equipment": [
+      "bladerf",
+      "shield_box"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "מגדיר רשת; הלומד מנבא throughput",
+     "verification": "throughput מול טבלאות MCS",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "IC5",
+     "title": "קידוד מאומן (Sionna) מול LDPC baseline",
+     "level": 5,
+     "level_he": "מחקר (PhD)",
+     "hours": 70,
+     "tools": "Sionna",
+     "equipment": [
+      "cloud_rec"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "מאמן; הלומד מגדיר ניסוי",
+     "verification": "BLER מול baseline",
+     "portfolio_output": "מאמר"
+    }
+   ]
+  },
+  {
+   "domain": "ENG · Reinforcement learning",
+   "domain_he": "למידת חיזוק",
+   "wave": 2,
+   "wave_he": "גל 2",
+   "required_real_build": "מדיניות RL שעוברת מסימולציה ל-Crazyflie אמיתי",
+   "hours": 200,
+   "new_equipment": [],
+   "new_equipment_cost_usd": 0,
+   "new_equipment_cost_ils_landed": 0,
+   "all_equipment": [
+    "bladerf",
+    "cloud_rec",
+    "crazyflie",
+    "pluto",
+    "shield_box"
+   ],
+   "all_equipment_cost_usd": 2570,
+   "labs": [
+    {
+     "id": "RL1",
+     "title": "PPO על Gymnasium עם בדיקת זרעים",
+     "level": 1,
+     "level_he": "כניסה",
+     "hours": 20,
+     "tools": "Gymnasium, Stable-Baselines3",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "מריץ; הלומד מנבא שונות",
+     "verification": "10 זרעים, רווחי סמך",
+     "portfolio_output": "מחברת"
+    },
+    {
+     "id": "RL2",
+     "title": "יירוט רחפן בסימולציה: PPO מול PN",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 50,
+     "tools": "PyTorch",
+     "equipment": [
+      "cloud_rec"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "מאמן; הלומד בונה baseline אנליטי",
+     "verification": "miss distance מול PN",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "RL3",
+     "title": "sim-to-real עם domain randomization על Crazyflie",
+     "level": 4,
+     "level_he": "מומחה",
+     "hours": 60,
+     "tools": "Gymnasium, cflib",
+     "equipment": [
+      "crazyflie"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "מאמן; הלומד קובע טווחי randomization",
+     "verification": "ביצועים אמיתיים מול סימולציה",
+     "portfolio_output": "וידאו + דוח"
+    },
+    {
+     "id": "RL4",
+     "title": "סוכן ספקטרום מול jammer בכבל",
+     "level": 5,
+     "level_he": "מחקר (PhD)",
+     "hours": 70,
+     "tools": "GNU Radio, PyTorch",
+     "equipment": [
+      "pluto",
+      "bladerf",
+      "shield_box"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "מאמן; הלומד מגדיר מרחב פעולה",
+     "verification": "throughput מול baseline",
+     "portfolio_output": "מאמר"
+    }
+   ]
+  },
+  {
+   "domain": "ENG · Robotics",
+   "domain_he": "רובוטיקה",
+   "wave": 2,
+   "wave_he": "גל 2",
+   "required_real_build": "רובוט אמיתי עם SLAM ותכנון, מול ground truth",
+   "hours": 185,
+   "new_equipment": [
+    "rover_kit"
+   ],
+   "new_equipment_cost_usd": 1300,
+   "new_equipment_cost_ils_landed": 4680,
+   "all_equipment": [
+    "crazyflie",
+    "rover_kit",
+    "rpi5"
+   ],
+   "all_equipment_cost_usd": 1770,
+   "labs": [
+    {
+     "id": "RB1",
+     "title": "ROS 2 + Gazebo, Nav2",
+     "level": 1,
+     "level_he": "כניסה",
+     "hours": 25,
+     "tools": "ROS 2 Jazzy, Gazebo",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "מגדיר; הלומד קובע משימה",
+     "verification": "זמן ומסלול מול תכנון",
+     "portfolio_output": "ריפו"
+    },
+    {
+     "id": "RB2",
+     "title": "VIO/SLAM על EuRoC/TUM מול ground truth",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 40,
+     "tools": "evo, ORB-SLAM3/OpenVINS",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "מריץ; הלומד מנבא סחיפה",
+     "verification": "ATE/RPE",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "RB3",
+     "title": "rover אמיתי: SLAM + planner",
+     "level": 4,
+     "level_he": "מומחה",
+     "hours": 70,
+     "tools": "ROS 2",
+     "equipment": [
+      "rpi5",
+      "rover_kit"
+     ],
+     "tier_needed": "full",
+     "ai_role": "כותב nodes; הלומד מתכנן ניסוי",
+     "verification": "סימון ground truth בסרט מדידה/AprilTags",
+     "portfolio_output": "וידאו + דוח"
+    },
+    {
+     "id": "RB4",
+     "title": "נחיל Crazyflie: מיקום יחסי ומבחן עמידות",
+     "level": 4,
+     "level_he": "מומחה",
+     "hours": 50,
+     "tools": "crazyswarm2",
+     "equipment": [
+      "crazyflie"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "כותב; הלומד מגדיר כשלים",
+     "verification": "שגיאת מיקום",
+     "portfolio_output": "דוח"
+    }
+   ]
+  },
+  {
+   "domain": "MIL · Electro-optical and infrared sensing",
+   "domain_he": "אלקטרו-אופטיקה ואינפרא-אדום",
+   "wave": 2,
+   "wave_he": "גל 2",
+   "required_real_build": "אפיון מצלמה תרמית (NETD, MTF) וניסוי טווח גילוי של רחפן",
+   "hours": 170,
+   "new_equipment": [
+    "thermal_cam"
+   ],
+   "new_equipment_cost_usd": 250,
+   "new_equipment_cost_ils_landed": 900,
+   "all_equipment": [
+    "crazyflie",
+    "thermal_cam"
+   ],
+   "all_equipment_cost_usd": 600,
+   "labs": [
+    {
+     "id": "EO1",
+     "title": "NETD, MTF (slanted edge) וכיול רדיומטרי",
+     "level": 2,
+     "level_he": "מעשי",
+     "hours": 30,
+     "tools": "OpenCV, numpy",
+     "equipment": [
+      "thermal_cam"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "מעבד; הלומד מנבא MTF",
+     "verification": "מול datasheet וגוף שחור DIY",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "EO2",
+     "title": "Johnson/TTP: טווח גילוי רחפן, ניסוי שטח",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 40,
+     "tools": "Python",
+     "equipment": [
+      "thermal_cam",
+      "crazyflie"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "מעבד; הלומד מנבא טווחים",
+     "verification": "טווח נמדד מול מודל",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "EO3",
+     "title": "חתימה ושקיפות אטמוספרית (libRadtran)",
+     "level": 4,
+     "level_he": "מומחה",
+     "hours": 40,
+     "tools": "libRadtran",
+     "equipment": [
+      "thermal_cam"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "מריץ; הלומד מגדיר מקרה",
+     "verification": "מדידה מול מודל",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "EO4",
+     "title": "מודל טווח למצלמה על רחפן מול תוצאות שדה פומביות",
+     "level": 5,
+     "level_he": "מחקר (PhD)",
+     "hours": 60,
+     "tools": "Python",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "בונה מודל; הלומד מנתח פערים",
+     "verification": "השוואה לנתונים פומביים",
+     "portfolio_output": "מאמר"
+    }
+   ]
+  },
+  {
+   "domain": "MIL · Communications, datalinks and networks",
+   "domain_he": "תקשורת וקישורי נתונים",
+   "wave": 2,
+   "wave_he": "גל 2",
+   "required_real_build": "רשת mesh אמיתית ו-datalink בכבל תחת jammer",
+   "hours": 195,
+   "new_equipment": [
+    "lora_nodes"
+   ],
+   "new_equipment_cost_usd": 90,
+   "new_equipment_cost_ils_landed": 320,
+   "all_equipment": [
+    "b210",
+    "bladerf",
+    "lora_nodes",
+    "pluto",
+    "shield_box"
+   ],
+   "all_equipment_cost_usd": 3640,
+   "labs": [
+    {
+     "id": "CM1",
+     "title": "Meshtastic mesh: PDR ו-latency",
+     "level": 2,
+     "level_he": "מעשי",
+     "hours": 25,
+     "tools": "Meshtastic",
+     "equipment": [
+      "lora_nodes"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "מנתח לוגים; הלומד מנבא PDR",
+     "verification": "מדידה מול link budget",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "CM2",
+     "title": "MANET ב-ns-3/EMANE תחת jamming",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 50,
+     "tools": "ns-3, EMANE",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "בונה סימולציה; הלומד מגדיר תרחיש",
+     "verification": "מול CM1 ומול ספרות",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "CM3",
+     "title": "MAVLink datalink בכבל מול jammer",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 40,
+     "tools": "MAVLink, GNU Radio",
+     "equipment": [
+      "pluto",
+      "bladerf",
+      "shield_box"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "בונה; הלומד מנבא אובדן קישור",
+     "verification": "J/S לאובדן מול חיזוי",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "CM4",
+     "title": "PhD: רשת נחיל/חטיבה תחת EW, מודל + ניסוי מאמת",
+     "level": 5,
+     "level_he": "מחקר (PhD)",
+     "hours": 80,
+     "tools": "ns-3",
+     "equipment": [
+      "b210"
+     ],
+     "tier_needed": "full",
+     "ai_role": "בונה; הלומד מנסח שאלה",
+     "verification": "מודל מול ניסוי",
+     "portfolio_output": "מאמר"
+    }
+   ]
+  },
+  {
+   "domain": "MIL · Space systems and space warfare",
+   "domain_he": "מערכות חלל",
+   "wave": 2,
+   "wave_he": "גל 2",
+   "required_real_build": "תחנת קרקע שקולטת לוויינים ומתאימה מסלול לעקומת דופלר",
+   "hours": 190,
+   "new_equipment": [
+    "qfh"
+   ],
+   "new_equipment_cost_usd": 30,
+   "new_equipment_cost_ils_landed": 110,
+   "all_equipment": [
+    "qfh",
+    "rpi5",
+    "rtlsdr"
+   ],
+   "all_equipment_cost_usd": 200,
+   "labs": [
+    {
+     "id": "SP1",
+     "title": "NOAA/Meteor: קליטה ועקומת דופלר מול SGP4",
+     "level": 2,
+     "level_he": "מעשי",
+     "hours": 30,
+     "tools": "SatDump, skyfield",
+     "equipment": [
+      "rtlsdr",
+      "qfh"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "מעבד; הלומד מנבא זמני מעבר ודופלר",
+     "verification": "דופלר נמדד מול TLE",
+     "portfolio_output": "תמונות + גרף"
+    },
+    {
+     "id": "SP2",
+     "title": "תחנת SatNOGS / TinyGS",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 40,
+     "tools": "SatNOGS",
+     "equipment": [
+      "rpi5",
+      "rtlsdr"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "מגדיר; הלומד בוחר יעדים",
+     "verification": "תצפיות מאומתות ברשת",
+     "portfolio_output": "תחנה ציבורית"
+    },
+    {
+     "id": "SP3",
+     "title": "כיסוי וזמן חזרה של קונסטלציה, חוסן מול ASAT",
+     "level": 4,
+     "level_he": "מומחה",
+     "hours": 60,
+     "tools": "Orekit, Basilisk, skyfield",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "בונה סימולציה; הלומד מגדיר תרחיש",
+     "verification": "מול CSIS/ספרות",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "SP4",
+     "title": "פרק בסגנון CSIS Space Threat Assessment",
+     "level": 5,
+     "level_he": "מחקר (PhD)",
+     "hours": 60,
+     "tools": "",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "טיוטה; הלומד אחראי",
+     "verification": "ביקורת מומחה",
+     "portfolio_output": "פרסום"
+    }
+   ]
+  },
+  {
+   "domain": "MIL · Unmanned systems and counter-UAS",
+   "domain_he": "כטב\"מים ונגד-כטב\"מ",
+   "wave": 2,
+   "wave_he": "גל 2",
+   "required_real_build": "רחפן שהוא בונה, ומטריצת חיישני גילוי נמדדת",
+   "hours": 265,
+   "new_equipment": [
+    "quad_kit"
+   ],
+   "new_equipment_cost_usd": 900,
+   "new_equipment_cost_ils_landed": 3240,
+   "all_equipment": [
+    "crazyflie",
+    "quad_kit",
+    "radar60",
+    "rtlsdr",
+    "thermal_cam"
+   ],
+   "all_equipment_cost_usd": 1695,
+   "labs": [
+    {
+     "id": "UA1",
+     "title": "PX4/ArduPilot SITL + Gazebo, failsafe ולוגים",
+     "level": 1,
+     "level_he": "כניסה",
+     "hours": 25,
+     "tools": "PX4, ArduPilot, QGroundControl",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "מגדיר; הלומד מתכנן משימה",
+     "verification": "לוג מול תכנון",
+     "portfolio_output": "ריפו"
+    },
+    {
+     "id": "UA2",
+     "title": "בניית רחפן ו-HIL, טיסה מורשית",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 60,
+     "tools": "PX4",
+     "equipment": [
+      "quad_kit"
+     ],
+     "tier_needed": "full",
+     "ai_role": "עוזר בתצורה וניפוי; הלומד מרכיב ומכייל",
+     "verification": "זמן טיסה חזוי מול נמדד",
+     "portfolio_output": "רחפן + לוגים"
+    },
+    {
+     "id": "UA3",
+     "title": "גילוי רחפן: RF (Remote ID, קליטה), mmWave, תרמי, אקוסטי",
+     "level": 4,
+     "level_he": "מומחה",
+     "hours": 80,
+     "tools": "Python",
+     "equipment": [
+      "radar60",
+      "thermal_cam",
+      "rtlsdr",
+      "crazyflie"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "בונה צינורות; הלומד מתכנן ניסוי",
+     "verification": "Pd לפי טווח וחיישן מול חיזוי",
+     "portfolio_output": "מטריצה נמדדת"
+    },
+    {
+     "id": "UA4",
+     "title": "PhD: מודל C-UAS (RCS −20 עד −30 dBsm, ציפורים, cost-exchange)",
+     "level": 5,
+     "level_he": "מחקר (PhD)",
+     "hours": 100,
+     "tools": "Python",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "בונה מודל; הלומד מגדיר",
+     "verification": "מול UA3 ודיווחי שטח",
+     "portfolio_output": "מאמר"
+    }
+   ]
+  },
+  {
+   "domain": "MIL · C4ISR, kill chains and targeting",
+   "domain_he": "C4ISR ושרשרת הרג",
+   "wave": 2,
+   "wave_he": "גל 2",
+   "required_real_build": "שרשרת חיישן→החלטה אמיתית עם latency נמדד",
+   "hours": 160,
+   "new_equipment": [],
+   "new_equipment_cost_usd": 0,
+   "new_equipment_cost_ils_landed": 0,
+   "all_equipment": [
+    "kraken",
+    "rpi5",
+    "rtlsdr"
+   ],
+   "all_equipment_cost_usd": 770,
+   "labs": [
+    {
+     "id": "C41",
+     "title": "מודל latency של שרשרת הרג (SimPy)",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 40,
+     "tools": "SimPy",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "בונה; הלומד מגדיר שלבים",
+     "verification": "רגישות מול ספרות",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "C42",
+     "title": "שרשרת אמיתית: ADS-B/KrakenSDR → fusion → תצוגה",
+     "level": 4,
+     "level_he": "מומחה",
+     "hours": 60,
+     "tools": "Python, Kafka/ZeroMQ",
+     "equipment": [
+      "rtlsdr",
+      "kraken",
+      "rpi5"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "כותב; הלומד מגדיר מפרט latency",
+     "verification": "latency נמדד מקצה לקצה",
+     "portfolio_output": "מערכת עובדת"
+    },
+    {
+     "id": "C43",
+     "title": "ראיונות מקצוענים וכיול המודל",
+     "level": 5,
+     "level_he": "מחקר (PhD)",
+     "hours": 60,
+     "tools": "",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "מסכם; הלומד מראיין",
+     "verification": "כיול מול ראיונות",
+     "portfolio_output": "פרסום"
+    }
+   ]
+  },
+  {
+   "domain": "ENG · Electric machines and power",
+   "domain_he": "מכונות חשמל והספק",
+   "wave": 3,
+   "wave_he": "גל 3",
+   "required_real_build": "ספסל BLDC עם FOC ומודל סוללה מדוד",
+   "hours": 205,
+   "new_equipment": [
+    "thrust_stand",
+    "thermo_daq"
+   ],
+   "new_equipment_cost_usd": 180,
+   "new_equipment_cost_ils_landed": 650,
+   "all_equipment": [
+    "psu",
+    "scope",
+    "thermo_daq",
+    "thrust_stand"
+   ],
+   "all_equipment_cost_usd": 738,
+   "labs": [
+    {
+     "id": "PW1",
+     "title": "BLDC: Kv, R, מומנט ויעילות",
+     "level": 2,
+     "level_he": "מעשי",
+     "hours": 25,
+     "tools": "",
+     "equipment": [
+      "thrust_stand",
+      "scope",
+      "psu"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "מעבד; הלומד מנבא",
+     "verification": "מדידה מול מודל",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "PW2",
+     "title": "FOC ב-VESC/ODrive",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 40,
+     "tools": "VESC Tool",
+     "equipment": [
+      "thrust_stand",
+      "scope"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "מכוון; הלומד בוחר רוחבי פס",
+     "verification": "זרמים נמדדים מול מודל",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "PW3",
+     "title": "מודל ECM לסוללה ופריקה",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 30,
+     "tools": "PyBaMM",
+     "equipment": [
+      "psu",
+      "thermo_daq"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "מתאים מודל; הלומד מנבא",
+     "verification": "מתח וחום מול מדידה",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "PW4",
+     "title": "זרימת עומס ו-N-1 ברשת אמיתית",
+     "level": 4,
+     "level_he": "מומחה",
+     "hours": 50,
+     "tools": "pandapower, PyPSA",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "בונה; הלומד מגדיר תרחישים",
+     "verification": "מול נתוני ייחוס",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "PW5",
+     "title": "חוסן רשת תחת תקיפה מתואמת",
+     "level": 5,
+     "level_he": "מחקר (PhD)",
+     "hours": 60,
+     "tools": "PyPSA",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "מריץ; הלומד מנסח שאלה",
+     "verification": "ניתוח רגישות",
+     "portfolio_output": "מאמר"
+    }
+   ]
+  },
+  {
+   "domain": "ENG · Thermodynamics and heat transfer",
+   "domain_he": "תרמודינמיקה ומעבר חום",
+   "wave": 3,
+   "wave_he": "גל 3",
+   "required_real_build": "מארז שטח שתוכנן תרמית ונמדד",
+   "hours": 150,
+   "new_equipment": [
+    "printer"
+   ],
+   "new_equipment_cost_usd": 350,
+   "new_equipment_cost_ils_landed": 1260,
+   "all_equipment": [
+    "cloud_rec",
+    "printer",
+    "thermal_cam",
+    "thermo_daq"
+   ],
+   "all_equipment_cost_usd": 1660,
+   "labs": [
+    {
+     "id": "TH1",
+     "title": "מודל lumped למארז מול thermocouple",
+     "level": 2,
+     "level_he": "מעשי",
+     "hours": 25,
+     "tools": "numpy",
+     "equipment": [
+      "thermo_daq"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "מריץ; הלומד מנבא",
+     "verification": "טמפ' מול זמן",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "TH2",
+     "title": "conjugate HT ב-OpenFOAM/FEniCS ללוח עם heat sink",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 45,
+     "tools": "OpenFOAM",
+     "equipment": [
+      "thermo_daq",
+      "cloud_rec"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "מגדיר; הלומד קובע תנאי שפה",
+     "verification": "מול מדידה",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "TH3",
+     "title": "חתימת IR של מנוע/סוללה מול מצלמה",
+     "level": 4,
+     "level_he": "מומחה",
+     "hours": 40,
+     "tools": "Python",
+     "equipment": [
+      "thermal_cam"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "מעבד; הלומד מנבא",
+     "verification": "מול מצלמה",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "TH4",
+     "title": "צומת SDR שטח: שמש, IP67, תכנון ובנייה",
+     "level": 4,
+     "level_he": "מומחה",
+     "hours": 40,
+     "tools": "",
+     "equipment": [
+      "printer",
+      "thermo_daq"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "מתכנן; הלומד מחליט",
+     "verification": "מדידה בשמש",
+     "portfolio_output": "מוצר"
+    }
+   ]
+  },
+  {
+   "domain": "ENG · Fluids, aerodynamics and propulsion",
+   "domain_he": "זורמים, אווירודינמיקה והנעה",
+   "wave": 3,
+   "wave_he": "גל 3",
+   "required_real_build": "מדידת דחף מדחף מול תחזית, ו-OpenVSP מול לוג טיסה",
+   "hours": 190,
+   "new_equipment": [],
+   "new_equipment_cost_usd": 0,
+   "new_equipment_cost_ils_landed": 0,
+   "all_equipment": [
+    "cloud_rec",
+    "thrust_stand"
+   ],
+   "all_equipment_cost_usd": 1120,
+   "labs": [
+    {
+     "id": "FL1",
+     "title": "XFOIL/XFLR5 ומדחף מול ספסל דחף",
+     "level": 2,
+     "level_he": "מעשי",
+     "hours": 30,
+     "tools": "XFOIL, XFLR5",
+     "equipment": [
+      "thrust_stand"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "מריץ; הלומד מנבא דחף",
+     "verification": "דחף נמדד מול חזוי",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "FL2",
+     "title": "OpenVSP + VSPAERO לכנף קבועה, מול לוג טיסה",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 50,
+     "tools": "OpenVSP, ArduPilot SITL",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "מריץ; הלומד מגדיר",
+     "verification": "מול לוג",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "FL3",
+     "title": "SU2: זרימה דחיסה סביב גוף טיל",
+     "level": 4,
+     "level_he": "מומחה",
+     "hours": 60,
+     "tools": "SU2",
+     "equipment": [
+      "cloud_rec"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "מריץ; הלומד מגדיר רשת",
+     "verification": "Cd מול נתוני NASA",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "FL4",
+     "title": "חימום היפרסוני: Sutton-Graves מול טענות פומביות",
+     "level": 5,
+     "level_he": "מחקר (PhD)",
+     "hours": 50,
+     "tools": "Python",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "מחשב; הלומד מנתח",
+     "verification": "מול ספרות",
+     "portfolio_output": "מאמר"
+    }
+   ]
+  },
+  {
+   "domain": "ENG · Structures and materials",
+   "domain_he": "מבנים וחומרים",
+   "wave": 3,
+   "wave_he": "גל 3",
+   "required_real_build": "חלק מודפס שנבדק עד שבר מול FEA",
+   "hours": 150,
+   "new_equipment": [],
+   "new_equipment_cost_usd": 0,
+   "new_equipment_cost_ils_landed": 0,
+   "all_equipment": [
+    "mcu",
+    "printer",
+    "thrust_stand"
+   ],
+   "all_equipment_cost_usd": 530,
+   "labs": [
+    {
+     "id": "ST1",
+     "title": "FEA ב-CalculiX/FEniCS לזרוע רחפן",
+     "level": 2,
+     "level_he": "מעשי",
+     "hours": 30,
+     "tools": "CalculiX, FreeCAD",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "מריץ; הלומד מנבא כוח שבר",
+     "verification": "מול ST2",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "ST2",
+     "title": "בדיקה עד שבר עם תא עומס",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 40,
+     "tools": "",
+     "equipment": [
+      "printer",
+      "thrust_stand"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "מעבד; הלומד מתכנן",
+     "verification": "כוח נמדד מול FEA",
+     "portfolio_output": "דוח + וידאו"
+    },
+    {
+     "id": "ST3",
+     "title": "modal: מודל מול אקסלרומטר",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 30,
+     "tools": "numpy",
+     "equipment": [
+      "mcu"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "מעבד FFT; הלומד מנבא תדרים",
+     "verification": "תדרים מול FEA",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "ST4",
+     "title": "עייפות: מחזורים ואומדן חיים",
+     "level": 4,
+     "level_he": "מומחה",
+     "hours": 50,
+     "tools": "Python",
+     "equipment": [
+      "printer",
+      "thrust_stand"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "מעבד; הלומד מנבא",
+     "verification": "S-N מול מדידה",
+     "portfolio_output": "דוח"
+    }
+   ]
+  },
+  {
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "domain_he": "טילים",
+   "wave": 3,
+   "wave_he": "גל 3",
+   "required_real_build": "סימולציית engagement מאומתת וטיל דגם עם לוג מעוף מול תחזית",
+   "hours": 250,
+   "new_equipment": [
+    "rocket_kit"
+   ],
+   "new_equipment_cost_usd": 250,
+   "new_equipment_cost_ils_landed": 900,
+   "all_equipment": [
+    "cloud_rec",
+    "rocket_kit"
+   ],
+   "all_equipment_cost_usd": 1250,
+   "labs": [
+    {
+     "id": "MS1",
+     "title": "3-DOF עם PN, רעש מחפש ותמרון מול Zarchan",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 50,
+     "tools": "Python",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "כותב; הלומד מנבא miss distance",
+     "verification": "עקומות Zarchan",
+     "portfolio_output": "ספרייה"
+    },
+    {
+     "id": "MS2",
+     "title": "6-DOF עם אוטופילוט ו-adjoint",
+     "level": 4,
+     "level_he": "מומחה",
+     "hours": 60,
+     "tools": "Python",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "כותב; הלומד מתכנן",
+     "verification": "adjoint מול Monte Carlo",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "MS3",
+     "title": "RocketPy/OpenRocket מול לוג אלטימטר/IMU",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 40,
+     "tools": "RocketPy, OpenRocket",
+     "equipment": [
+      "rocket_kit"
+     ],
+     "tier_needed": "full",
+     "ai_role": "מריץ; הלומד מנבא apogee",
+     "verification": "apogee נמדד מול חזוי",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "MS4",
+     "title": "PhD: מחפש תחת הפרעה ב-6DOF",
+     "level": 5,
+     "level_he": "מחקר (PhD)",
+     "hours": 100,
+     "tools": "Python",
+     "equipment": [
+      "cloud_rec"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "בונה; הלומד מנסח",
+     "verification": "רגישות, ביקורת",
+     "portfolio_output": "מאמר"
+    }
+   ]
+  },
+  {
+   "domain": "MIL · Air and missile defense",
+   "domain_he": "הגנה אווירית וטילית",
+   "wave": 3,
+   "wave_he": "גל 3",
+   "required_real_build": "tracker והקצאת מיירטים על מסלולי ADS-B אמיתיים",
+   "hours": 190,
+   "new_equipment": [],
+   "new_equipment_cost_usd": 0,
+   "new_equipment_cost_ils_landed": 0,
+   "all_equipment": [
+    "rtlsdr"
+   ],
+   "all_equipment_cost_usd": 50,
+   "labs": [
+    {
+     "id": "AD1",
+     "title": "קיבולת: raid מול מלאי שכבתי וקצב ייצור",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 50,
+     "tools": "Python",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "בונה; הלומד מכייל",
+     "verification": "מול נתוני 2024–26",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "AD2",
+     "title": "מסלולי ADS-B כמטס: tracker + WTA",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 40,
+     "tools": "Stone Soup, scipy",
+     "equipment": [
+      "rtlsdr"
+     ],
+     "tier_needed": "min",
+     "ai_role": "כותב; הלומד מגדיר",
+     "verification": "OSPA מול אמת",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "AD3",
+     "title": "PhD: מודל AMD פתוח עם cost-exchange",
+     "level": 5,
+     "level_he": "מחקר (PhD)",
+     "hours": 100,
+     "tools": "Python",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "בונה; הלומד מנסח",
+     "verification": "ביקורת מקצוען",
+     "portfolio_output": "מאמר"
+    }
+   ]
+  },
+  {
+   "domain": "MIL · Weapons effects, lethality and protection",
+   "domain_he": "השפעת נשק וקטלניות",
+   "wave": 3,
+   "wave_he": "גל 3",
+   "required_real_build": "מגדל הפלה בטוח עם אקסלרומטר ופאנלים מודפסים מול מודל אנרגיה",
+   "hours": 120,
+   "new_equipment": [],
+   "new_equipment_cost_usd": 0,
+   "new_equipment_cost_ils_landed": 0,
+   "all_equipment": [
+    "mcu",
+    "printer"
+   ],
+   "all_equipment_cost_usd": 410,
+   "labs": [
+    {
+     "id": "WE1",
+     "title": "Gurney, פיזור רסיסים, Carleton מול cookie-cutter",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 40,
+     "tools": "Python",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "מחשב; הלומד מנבא",
+     "verification": "מול ספרות",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "WE2",
+     "title": "מגדל הפלה: פאנלים מודפסים",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 30,
+     "tools": "",
+     "equipment": [
+      "printer",
+      "mcu"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "מעבד; הלומד מנבא",
+     "verification": "תאוצה מול מודל",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "WE3",
+     "title": "Pk ושטח קטלני למקרה ציבורי",
+     "level": 4,
+     "level_he": "מומחה",
+     "hours": 50,
+     "tools": "Python",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "מחשב; הלומד מנתח",
+     "verification": "רגישות",
+     "portfolio_output": "פרסום"
+    }
+   ]
+  },
+  {
+   "domain": "MIL · Platforms and survivability",
+   "domain_he": "פלטפורמות ושרידות",
+   "wave": 3,
+   "wave_he": "גל 3",
+   "required_real_build": "RCS נמדד של מטרות קטנות ושינוי עיצוב מדוד",
+   "hours": 140,
+   "new_equipment": [],
+   "new_equipment_cost_usd": 0,
+   "new_equipment_cost_ils_landed": 0,
+   "all_equipment": [
+    "iwr6843",
+    "printer",
+    "radar60",
+    "thermal_cam"
+   ],
+   "all_equipment_cost_usd": 955,
+   "labs": [
+    {
+     "id": "PS1",
+     "title": "RCS נמדד: מחזיר פינתי, רחפן, צלחת",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 40,
+     "tools": "numpy",
+     "equipment": [
+      "radar60",
+      "iwr6843"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "מעבד; הלומד מנבא PO",
+     "verification": "מדידה מול PO",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "PS2",
+     "title": "שרידות ושחיקה במערכה אווירית (Ball + B15)",
+     "level": 4,
+     "level_he": "מומחה",
+     "hours": 60,
+     "tools": "Python",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "בונה; הלומד מנתח",
+     "verification": "רגישות",
+     "portfolio_output": "מאמר"
+    },
+    {
+     "id": "PS3",
+     "title": "חתימה משולבת (RCS+IR) לרחפן ושינוי עיצוב",
+     "level": 4,
+     "level_he": "מומחה",
+     "hours": 40,
+     "tools": "",
+     "equipment": [
+      "radar60",
+      "thermal_cam",
+      "printer"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "מעבד; הלומד מתכנן שינוי",
+     "verification": "לפני/אחרי",
+     "portfolio_output": "דוח"
+    }
+   ]
+  },
+  {
+   "domain": "MIL · Naval and undersea warfare",
+   "domain_he": "לוחמה ימית ותת-ימית",
+   "wave": 3,
+   "wave_he": "גל 3",
+   "required_real_build": "הקלטת הידרופון של אוניות עם AIS כאמת, וסונאר קטן בבריכה",
+   "hours": 190,
+   "new_equipment": [
+    "hydrophone"
+   ],
+   "new_equipment_cost_usd": 250,
+   "new_equipment_cost_ils_landed": 900,
+   "all_equipment": [
+    "hydrophone",
+    "mcu",
+    "rtlsdr"
+   ],
+   "all_equipment_cost_usd": 360,
+   "labs": [
+    {
+     "id": "NV1",
+     "title": "Hughes salvo + עומק מחסנית, ים סוף 2023–25",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 50,
+     "tools": "Python",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "בונה; הלומד מכייל",
+     "verification": "מול נתונים פומביים",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "NV2",
+     "title": "הידרופון במרינה + AIS כאמת",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 40,
+     "tools": "numpy, AIS-catcher",
+     "equipment": [
+      "hydrophone",
+      "rtlsdr"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "מעבד; הלומד מנבא",
+     "verification": "קווים טונליים מול סוג אונייה",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "NV3",
+     "title": "סונאר אקטיבי קטן בבריכה",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 30,
+     "tools": "Python",
+     "equipment": [
+      "hydrophone",
+      "mcu"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "כותב; הלומד מנבא",
+     "verification": "טווח מול משוואת סונאר",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "NV4",
+     "title": "תרחיש ימי בסגנון CNA",
+     "level": 5,
+     "level_he": "מחקר (PhD)",
+     "hours": 70,
+     "tools": "Python",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "בונה; הלומד מנסח",
+     "verification": "ביקורת",
+     "portfolio_output": "פרסום"
+    }
+   ]
+  },
+  {
+   "domain": "ENG · Systems engineering",
+   "domain_he": "הנדסת מערכות",
+   "wave": 4,
+   "wave_he": "גל 4",
+   "required_real_build": "מחזור SE מלא על צומת המכ\"ם הפסיבי שלו",
+   "hours": 170,
+   "new_equipment": [],
+   "new_equipment_cost_usd": 0,
+   "new_equipment_cost_ils_landed": 0,
+   "all_equipment": [],
+   "all_equipment_cost_usd": 0,
+   "labs": [
+    {
+     "id": "SE1",
+     "title": "דרישות, ארכיטקטורה ומטריצת אימות לצומת RD4",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 40,
+     "tools": "SysML v2/SysON, Markdown",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "מנסח טיוטות; הלומד מחליט",
+     "verification": "כל דרישה עם בדיקה",
+     "portfolio_output": "תיק SE"
+    },
+    {
+     "id": "SE2",
+     "title": "STPA על מערכת אמיתית",
+     "level": 4,
+     "level_he": "מומחה",
+     "hours": 40,
+     "tools": "",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "מציע UCAs; הלומד בוחר",
+     "verification": "ביקורת",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "SE3",
+     "title": "Digital thread: דרישות ↔ בדיקות אוטומטיות",
+     "level": 4,
+     "level_he": "מומחה",
+     "hours": 40,
+     "tools": "pytest, CI",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "כותב; הלומד מגדיר",
+     "verification": "CI ירוק",
+     "portfolio_output": "ריפו"
+    },
+    {
+     "id": "SE4",
+     "title": "case study: מחזור חיים של מוצר צד",
+     "level": 5,
+     "level_he": "מחקר (PhD)",
+     "hours": 50,
+     "tools": "",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "טיוטה; הלומד אחראי",
+     "verification": "ביקורת",
+     "portfolio_output": "פרסום"
+    }
+   ]
+  },
+  {
+   "domain": "MIL · Operations research and combat modeling",
+   "domain_he": "חקר ביצועים ומידול קרבי",
+   "wave": 4,
+   "wave_he": "גל 4",
+   "required_real_build": "מודל DES/agent-based שכויל מול נתון היסטורי ומשחק מלחמה שהוא מריץ",
+   "hours": 240,
+   "new_equipment": [],
+   "new_equipment_cost_usd": 0,
+   "new_equipment_cost_ils_landed": 0,
+   "all_equipment": [
+    "cloud_rec"
+   ],
+   "all_equipment_cost_usd": 1000,
+   "labs": [
+    {
+     "id": "OR1",
+     "title": "Lanchester ו-salvo מכוילים",
+     "level": 2,
+     "level_he": "מעשי",
+     "hours": 30,
+     "tools": "Python",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "מתאים; הלומד מנבא",
+     "verification": "מול נתון היסטורי",
+     "portfolio_output": "מחברת"
+    },
+    {
+     "id": "OR2",
+     "title": "DES/ABM (SimPy, Mesa)",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 50,
+     "tools": "SimPy, Mesa",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "בונה; הלומד מגדיר",
+     "verification": "validation",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "OR3",
+     "title": "משחק מלחמה עם שחקנים וסוכני AI",
+     "level": 4,
+     "level_he": "מומחה",
+     "hours": 40,
+     "tools": "",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "משחק תפקיד; הלומד מתכנן",
+     "verification": "תחקיר",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "OR4",
+     "title": "תזה NPS-style: שחיקה במלחמת רחפנים",
+     "level": 5,
+     "level_he": "מחקר (PhD)",
+     "hours": 120,
+     "tools": "Python",
+     "equipment": [
+      "cloud_rec"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "בונה; הלומד מנסח",
+     "verification": "validation + ביקורת",
+     "portfolio_output": "מאמר"
+    }
+   ]
+  },
+  {
+   "domain": "MIL · Logistics, sustainment and force generation",
+   "domain_he": "לוגיסטיקה",
+   "wave": 4,
+   "wave_he": "גל 4",
+   "required_real_build": "לוח מחוונים חי של צריכה מול ייצור מנתונים פומביים",
+   "hours": 130,
+   "new_equipment": [],
+   "new_equipment_cost_usd": 0,
+   "new_equipment_cost_ils_landed": 0,
+   "all_equipment": [],
+   "all_equipment_cost_usd": 0,
+   "labs": [
+    {
+     "id": "LG1",
+     "title": "צריכה מול ייצור: פגזים ומיירטים",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 50,
+     "tools": "pandas",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "אוסף; הלומד מכייל",
+     "verification": "מול דיווחים",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "LG2",
+     "title": "אופטימיזציית שרשרת אספקה",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 40,
+     "tools": "OR-Tools, Pyomo",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "מנסח; הלומד מגדיר",
+     "verification": "רגישות",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "LG3",
+     "title": "פרסום ולוח מחוונים חי",
+     "level": 4,
+     "level_he": "מומחה",
+     "hours": 40,
+     "tools": "Streamlit",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "בונה; הלומד אחראי",
+     "verification": "ביקורת",
+     "portfolio_output": "כלי ציבורי"
+    }
+   ]
+  },
+  {
+   "domain": "MIL · Acquisition, cost, test & evaluation, industrial base, policy",
+   "domain_he": "רכש, עלות וניסוי",
+   "wave": 4,
+   "wave_he": "גל 4",
+   "required_real_build": "תוכנית T&E ובדיקות קבלה אמיתיות למוצר שלו, ואומדן עלות מ-SAR",
+   "hours": 140,
+   "new_equipment": [],
+   "new_equipment_cost_usd": 0,
+   "new_equipment_cost_ils_landed": 0,
+   "all_equipment": [
+    "scope",
+    "tinysa"
+   ],
+   "all_equipment_cost_usd": 577,
+   "labs": [
+    {
+     "id": "AQ1",
+     "title": "אומדן עלות מ-Selected Acquisition Reports",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 50,
+     "tools": "pandas",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "מחלץ; הלומד מכייל",
+     "verification": "מול נתוני תוכנית",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "AQ2",
+     "title": "DOT&E ותוכנית T&E למוצר שלו",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 40,
+     "tools": "",
+     "equipment": [
+      "tinysa",
+      "scope"
+     ],
+     "tier_needed": "rec",
+     "ai_role": "מנסח; הלומד מריץ בדיקות",
+     "verification": "בדיקות קבלה",
+     "portfolio_output": "תוכנית T&E"
+    },
+    {
+     "id": "AQ3",
+     "title": "בסיס תעשייתי: צווארי בקבוק",
+     "level": 4,
+     "level_he": "מומחה",
+     "hours": 50,
+     "tools": "pandas",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "אוסף; הלומד מנתח",
+     "verification": "ביקורת",
+     "portfolio_output": "מאמר"
+    }
+   ]
+  },
+  {
+   "domain": "MIL · Adversary systems, doctrine and capability assessment",
+   "domain_he": "מערכות יריב ודוקטרינה",
+   "wave": 4,
+   "wave_he": "גל 4",
+   "required_real_build": "מדידה מתמונות לוויין של אנטנת מכ\"ם → תדר ורוחב אלומה משוערים",
+   "hours": 160,
+   "new_equipment": [],
+   "new_equipment_cost_usd": 0,
+   "new_equipment_cost_ils_landed": 0,
+   "all_equipment": [],
+   "all_equipment_cost_usd": 0,
+   "labs": [
+    {
+     "id": "AV1",
+     "title": "מדידת אנטנה מתמונה ונגזרת פיזיקלית",
+     "level": 3,
+     "level_he": "מתקדם",
+     "hours": 40,
+     "tools": "QGIS, Copernicus",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "מודד; הלומד מנבא",
+     "verification": "מול מקורות פתוחים",
+     "portfolio_output": "דוח"
+    },
+    {
+     "id": "AV2",
+     "title": "מקורות ראשוניים (CASI, תרגום מכונה + בדיקה)",
+     "level": 4,
+     "level_he": "מומחה",
+     "hours": 60,
+     "tools": "",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "מתרגם; הלומד מאמת",
+     "verification": "בדיקה צולבת",
+     "portfolio_output": "הערכה"
+    },
+    {
+     "id": "AV3",
+     "title": "הערכת יכולת מבוקרת על ידי מומחה",
+     "level": 5,
+     "level_he": "מחקר (PhD)",
+     "hours": 60,
+     "tools": "",
+     "equipment": [],
+     "tier_needed": "min",
+     "ai_role": "טיוטה; הלומד אחראי",
+     "verification": "ביקורת",
+     "portfolio_output": "פרסום"
+    }
+   ]
+  }
+ ]
+}
