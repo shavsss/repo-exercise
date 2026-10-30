@@ -1,0 +1,79 @@
+reading module texts ...
+adjudicated vs A: kappa 0.92; adjudicated vs B: kappa 0.72
+== 119 items over 192 pages ==
+agreement A vs B: raw 0.76, Cohen kappa 0.65, linear-weighted kappa 0.73
+confusion (rows A, cols B):      K    S    C
+                         K      24    9    0
+                         S      16   27    3
+                         C       0    0   40
+disagreements:
+   1.1    A=S B=K fan= 63 proj=-            F3..F6=0111  functional; variational problem (admissible functions, boundary condit
+   1.6    A=K B=S fan=  2 proj=-            F3..F6=0100  Hamilton / Ostrogradsky principle of stationary action
+   2.4    A=K B=S fan=  5 proj=-            F3..F6=1100  resonance width gamma and Q = w0/gamma (incl. energy definition of Q)
+   2.7    A=S B=K fan= 13 proj=-            F3..F6=0110  stored energy and mean absorbed power of a forced oscillator
+   3.3    A=S B=K fan= 31 proj=-            F3..F6=0110  e^{-at}u(t) <-> 1/(a + jw): first-order low-pass, magnitude and phase
+   3.5    A=S B=K fan= 13 proj=-            F3..F6=0110  duality; ideal low-pass impulse response is a sinc
+   4.7    A=S B=K fan= 42 proj=-            F3..F6=0110  covariance and correlation; |rho| <= 1; independence => rho = 0, not c
+   5.6    A=S B=K fan= 37 proj=-            F3..F6=1010  SNR form of the RRE; maximum detection range for a required SNR
+   5.8    A=S B=K fan= 17 proj=-            F3..F6=1010  loss budget: transmit, atmospheric (rain 0.8 dB/km), processing losses
+   5.11   A=S B=K fan= 28 proj=-            F3..F6=1010  average-power / energy form of the RRE (energy on target)
+   6.3    A=S B=K fan=  6 proj=P01          F3..F6=1010  link loss in practical dB units: 32.44 + 20 log F + 20 log D
+   7.2    A=S B=K fan= 20 proj=-            F3..F6=0110  point-mass missile EOM: thrust (T = Tvac - p Ae), drag, lift, mass flo
+   7.6    A=S B=K fan=  2 proj=P06          F3..F6=1110  pure pursuit: capture needs kappa > 1; terminal g blow-up
+   8.2    A=S B=K fan= 27 proj=-            F3..F6=0110  curvature kappa = 1/rho = d theta/ds; small-deflection kappa ~ v''
+   8.5    A=K B=S fan=  2 proj=-            F3..F6=1100  moment-curvature M = E I kappa
+   8.6    A=K B=S fan=  4 proj=-            F3..F6=1000  flexure formula sigma = -M y / I; section modulus S = I/c
+   9.1    A=S B=K fan= 16 proj=P05,P14      F3..F6=1000  four functional requirements of missile defence (sense, decide, engage
+   9.2    A=S B=C fan= 69 proj=P05          F3..F6=1001  raid types (stream vs simultaneous) and saturation
+   9.8    A=S B=K fan=  0 proj=P05,P14      F3..F6=1000  cost-exchange ratio: interceptor vs defended asset
+   10.3   A=K B=S fan=  2 proj=-            F3..F6=1100  Breguet range (propeller and jet)
+   10.4   A=S B=K fan= 14 proj=-            F3..F6=1010  endurance (propeller and jet)
+   10.5   A=K B=S fan=  7 proj=-            F3..F6=1100  (L/D)max where induced = parasite drag; its speed
+   10.6   A=K B=S fan=  4 proj=-            F3..F6=1100  rate of climb from excess power (P_avail - P_req)/W
+   11.1   A=K B=S fan=  7 proj=-            F3..F6=1100  locality (temporal, spatial) and the hierarchy illusion
+   12.1   A=K B=S fan=  6 proj=-            F3..F6=1000  design-process flow: stakeholder expectations -> ConOps -> requirement
+   13.1   A=S B=K fan=  5 proj=P05          F3..F6=1000  layered IADS: strategic to tactical layers, fighters integrated
+   13.3   A=S B=C fan=  1 proj=-            F3..F6=1001  REB (EW) categories and integration with air defence
+   14.1   A=S B=C fan=  3 proj=-            F3..F6=1001  avionics integration trend: federated -> integrated (cost, complexity,
+   F1 threshold  4: kappa 0.70; B distribution {'K': 48, 'C': 43, 'S': 28}
+   F1 threshold 12: kappa 0.65; B distribution {'K': 40, 'C': 43, 'S': 36}
+   F1 threshold 20: kappa 0.70; B distribution {'K': 36, 'C': 43, 'S': 40}
+
+== objective keystone signals by FINAL tier (median / mean) ==
+  K: n= 37  fan-out median  16 mean  25.5;  in both apps 73%;  used by a project 73%;  home-module descendants mean 41.4
+  S: n= 42  fan-out median   3 mean   9.7;  in both apps 45%;  used by a project 7%;  home-module descendants mean 31.9
+  C: n= 40  fan-out median   9 mean  10.7;  in both apps 45%;  used by a project 0%;  home-module descendants mean 25.6
+  P(fan-out of a K item > that of an S item) = 0.75;  K > C: 0.68;  S > C: 0.42
+
+== R8 strict CRs vs final tier ==
+  R8 strict (24): {'K': 21, 'S': 3};   not strict (95): {'S': 39, 'C': 40, 'K': 16}
+
+== distribution per sample and per book class (FINAL tier; items per page) ==
+  S1   A  16 pp  K  1  S  6  C  1
+  S2   B  15 pp  K  5  S  3  C  3
+  S3   D  15 pp  K  2  S  5  C  1
+  S4   C  12 pp  K  6  S  5  C  4
+  S5   E  15 pp  K  7  S  2  C  4
+  S6   E  14 pp  K  2  S  3  C  2
+  S7   E  15 pp  K  2  S  4  C  4
+  S8   D  16 pp  K  2  S  3  C  5
+  S9   F  15 pp  K  4  S  1  C  4
+  S10  F  15 pp  K  3  S  6  C  3
+  S11  F  12 pp  K  1  S  1  C  2
+  S12  F  10 pp  K  1  S  1  C  2
+  S13  G  11 pp  K  1  S  1  C  2
+  S14  G  11 pp  K  0  S  1  C  3
+  class A Kolmogorov survey math                     n=1  16 pp: K 0.062  S 0.375  C 0.062  per page;  shares K 12% S 75% C 12%
+  class B Feynman                                    n=1  15 pp: K 0.333  S 0.200  C 0.200  per page;  shares K 45% S 27% C 27%
+  class C theorem-dense text                         n=1  12 pp: K 0.500  S 0.417  C 0.333  per page;  shares K 40% S 33% C 27%
+  class D engineering textbook                       n=2  31 pp: K 0.129  S 0.258  C 0.194  per page;  shares K 22% S 44% C 33%
+  class E radar/EW/missile technical                 n=3  44 pp: K 0.250  S 0.205  C 0.227  per page;  shares K 37% S 30% C 33%
+  class F applied / systems / descriptive-technical  n=4  52 pp: K 0.173  S 0.173  C 0.212  per page;  shares K 31% S 31% C 38%
+  class G doctrine / roles                           n=2  22 pp: K 0.045  S 0.091  C 0.227  per page;  shares K 12% S 25% C 62%
+  pooled: K 37 (31%), S 42 (35%), C 40 (34%); per page K 0.193 S 0.219 C 0.208
+  rater A alone: K 33 S 46 C 40
+  rater B alone: K 40 S 36 C 43
+  rater maxrule alone: K 49 S 30 C 40
+  home app Gilua: K 30% S 40% C 30% (n=60)
+  home app Lanchester: K 32% S 31% C 37% (n=59)
+  by kind: DEF: K3 S2 C6; FACT: K0 S5 C32; MOD: K7 S5 C1; RES: K27 S30 C1

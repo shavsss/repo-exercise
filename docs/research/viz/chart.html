@@ -1,0 +1,36 @@
+<!doctype html><html dir="rtl"><head><meta charset="utf-8"><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@400;600;700&display=swap" rel="stylesheet">
+<style>body{font-family:"IBM Plex Sans Hebrew",sans-serif;background:#f4ede2;color:#23271e;margin:0;padding:28px 36px;width:1100px}
+h2{margin:0 0 4px;font-size:22px}p.s{margin:0 0 18px;color:#5b6248;font-size:14px}
+.row{display:grid;grid-template-columns:300px 1fr;gap:14px;align-items:center;margin:9px 0;font-size:14px}
+.track{position:relative;height:26px;background:#ece4d6;border:1px solid #ddd2bf}
+.bar{position:absolute;top:3px;height:20px;border-radius:2px}
+.lbl{position:absolute;top:4px;font-size:12px;font-weight:600;white-space:nowrap}
+.axis{display:grid;grid-template-columns:300px 1fr;gap:14px;font-size:12px;color:#74786a}
+.ticks{position:relative;height:18px}.ticks span{position:absolute;transform:translateX(50%)}
+.box{display:flex;gap:18px;margin-top:26px}.card{flex:1;background:#faf6ee;border:1px solid #ddd2bf;padding:14px 16px}
+.card b{font-size:26px;display:block}.k{color:#b3261e}.g{color:#3f7a1a}.bl{color:#1f5f9e}
+</style></head><body>
+<h2>כמה חודשים: כל ההערכות של המחקר על אותו ציר</h2>
+<p class="s">הכול בשתי האפליקציות, בעומק המלא. הפס הוא הטווח; הקו הכהה הוא האמצע. 0–36 חודשים.</p>
+<div id="rows"></div>
+<div class="axis"><div></div><div class="ticks" id="ticks"></div></div>
+<div class="box">
+<div class="card"><span>שיעור 2 היום</span><b class="k">12,215 מילים</b>שיעור אחד, הרבה מעבר לחומר</div>
+<div class="card"><span>שיעור 2 לפי הכללים החדשים</span><b class="g">6,282 מילים</b>89 יחידות עומק · עמוק יותר בנושא עצמו לפי שופט עיוור</div>
+<div class="card"><span>המספר שמכריע את לוח הזמנים</span><b class="bl">4 או 7 דקות לעמוד?</b>4 → בערך שנה · 7 → שנה וחצי עד שנתיים · נמדד בשבועיים הראשונים</div>
+</div>
+<script>
+const max=36, W=720;
+const d=[
+["חזון 3 (מודל ראשון, אופטימי)",8,8,8,"#9aa08a"],
+["מכפילי זמן (שעה בטלפון, דילוג על הידוע)",5.7,7.9,6.7,"#9aa08a"],
+["ספירה עצמאית מחדש, 6–7 שעות",15,24,19,"#be7a5a"],
+["מודל מיושב על נתונים שנמדדו, 8–10 שעות",17,24,20,"#b3261e"],
+["דרגות עומק לפי תוצאה, 8 שעות",23,34,28,"#7a1a14"],
+["פורצי הגבולות על בסיס זה",15,20,17.5,"#1f5f9e"]];
+const R=document.getElementById('rows');
+for(const [n,a,b,m,c] of d){const r=document.createElement('div');r.className='row';
+const x=v=>W*(1-v/max);
+r.innerHTML=`<div>${n}</div><div class="track" style="width:${W}px"><div class="bar" style="right:${W*a/max}px;width:${Math.max(4,W*(b-a)/max)}px;background:${c}"></div><div class="bar" style="right:${W*m/max-1}px;width:3px;background:#23271e"></div><div class="lbl" dir="ltr" style="right:${W*b/max+8}px">${a===b?a:a+"–"+b}</div></div>`;R.appendChild(r);}
+const T=document.getElementById('ticks');T.style.width=W+'px';for(let v=0;v<=36;v+=6){const s=document.createElement('span');s.textContent=v;s.style.right=(W*v/max)+'px';T.appendChild(s);}
+</script></body></html>

@@ -1,0 +1,1033 @@
+<title>שיעור פעיל v2</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Hebrew:wght@400;500;600;700&family=Noto+Sans+Math&display=swap" rel="stylesheet">
+<style>
+/* ===== v2 tokens. Few semantic tiers: core / act / ctx, plus 4 states. ===== */
+:root{
+  color-scheme: light;
+  --bg:#ebe3d4;        /* desk */
+  --paper:#f7f2e8;     /* reading sheet */
+  --raised:#fdfaf4;    /* cards, popovers */
+  --ink:#1f2319;
+  --ink-2:#3e4335;
+  --muted:#565947;     /* >= 5.5:1 on --paper; used for meta at >= 13px */
+  --line:#dccfb9;
+  --line-2:#b9aa8d;
+  --accent:#a8321f;    /* lab mark, you-are-here. Used sparingly */
+  --core:#2e3a86;      /* tier 1: definition, formula, keep */
+  --core-bg:#eeeef3;
+  --act:#17577f;       /* tier 2: commit, step, exercise, ask */
+  --act-bg:#e7eef0;
+  --act-ink:#ffffff;
+  --ctx:#7d7659;       /* tier 3: story, history, case, domain, erratum, meta */
+  --ctx-bg:#f0eadc;
+  --ok:#2c6a28;  --ok-bg:#e3eedb;
+  --bad:#a1281d; --bad-bg:#f6e2dc;
+  --hot:#8f5300; --hot-bg:#f8e9cf;   /* confident error */
+  --earned:#2c6a28;
+  --sel:#f1dfa6;
+  --focus:#17577f;
+  --shadow:0 1px 2px rgb(31 35 25/7%),0 8px 24px rgb(31 35 25/8%);
+  --bar-h:56px;
+  --font:"IBM Plex Sans Hebrew","IBM Plex Sans",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+  --math:"Noto Sans Math","STIX Two Math","Cambria Math",math;
+  --fs:18px; --lh:1.8;
+  --measure:39rem;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+    --bg:#1b1a19; --paper:#232220; --raised:#2b2a27;
+    --ink:#ebe7dd; --ink-2:#cdc8bc; --muted:#a9a497;
+    --line:#38362f; --line-2:#56534b;
+    --accent:#f08a7e;
+    --core:#aeb7f2; --core-bg:#262838;
+    --act:#86c1e6; --act-bg:#1f2b31; --act-ink:#10202a;
+    --ctx:#bdb594; --ctx-bg:#29271f;
+    --ok:#93d08b; --ok-bg:#1f2c1d;
+    --bad:#ff958a; --bad-bg:#3a2320;
+    --hot:#efbd62; --hot-bg:#352a17;
+    --earned:#93d08b; --sel:#5a4c1e; --focus:#86c1e6;
+    --shadow:0 1px 2px rgb(0 0 0/30%),0 10px 30px rgb(0 0 0/35%);
+  }
+}
+:root[data-theme="dark"]{
+    color-scheme: dark;
+    --bg:#1b1a19; --paper:#232220; --raised:#2b2a27;
+    --ink:#ebe7dd; --ink-2:#cdc8bc; --muted:#a9a497;
+    --line:#38362f; --line-2:#56534b;
+    --accent:#f08a7e;
+    --core:#aeb7f2; --core-bg:#262838;
+    --act:#86c1e6; --act-bg:#1f2b31; --act-ink:#10202a;
+    --ctx:#bdb594; --ctx-bg:#29271f;
+    --ok:#93d08b; --ok-bg:#1f2c1d;
+    --bad:#ff958a; --bad-bg:#3a2320;
+    --hot:#efbd62; --hot-bg:#352a17;
+    --earned:#93d08b; --sel:#5a4c1e; --focus:#86c1e6;
+    --shadow:0 1px 2px rgb(0 0 0/30%),0 10px 30px rgb(0 0 0/35%);
+}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:var(--fs);line-height:var(--lh);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+::selection{background:var(--sel)}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px;border-radius:4px}
+.wrap{direction:rtl;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-bottom:calc(var(--bar-h) + 28px)}
+
+/* ===== top bar ===== */
+.top{position:sticky;top:0;z-index:30;background:var(--bg);border-bottom:1px solid var(--line);margin:0 calc(-1 * max(16px,env(safe-area-inset-right,0px))) 0 calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding:0 max(16px,env(safe-area-inset-right,0px)) 0 max(16px,env(safe-area-inset-left,0px))}
+.top-in{max-width:1240px;margin:0 auto;height:52px;display:flex;align-items:center;gap:12px}
+.mark{display:flex;align-items:center;gap:8px;font-weight:700;font-size:17px;white-space:nowrap}
+.mark svg{color:var(--accent)}
+.crumb{color:var(--muted);font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:1}
+.crumb b{color:var(--ink-2);font-weight:500}
+.tb{display:flex;gap:4px;align-items:center}
+.icon-btn{height:36px;min-width:36px;padding:0 9px;border:1px solid transparent;background:none;border-radius:8px;color:var(--ink-2);display:inline-flex;align-items:center;justify-content:center;gap:6px;font-size:14px}
+.icon-btn:hover{background:var(--paper);border-color:var(--line)}
+.icon-btn[aria-pressed="true"]{background:var(--paper);border-color:var(--line-2)}
+.demo-badge{font-size:13px;color:var(--hot);border:1px dashed var(--hot);border-radius:999px;padding:1px 10px;white-space:nowrap}
+.hair{position:absolute;inset:auto 0 -1px 0;height:2px;background:transparent}
+.hair i{display:block;height:100%;width:0;background:var(--accent);margin-inline-start:0;transition:width .15s linear}
+
+/* ===== layout ===== */
+.layout{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:250px minmax(0,1fr);gap:28px;padding-top:22px}
+.outline{position:sticky;top:74px;align-self:start;max-height:calc(100vh - 74px - var(--bar-h) - 16px);overflow:auto;padding:4px 2px 12px;font-size:14px;scrollbar-width:thin}
+main{min-width:0}
+.sheet{background:var(--paper);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:44px 48px 64px 48px;position:relative}
+.col{max-width:var(--measure);margin-inline-start:0;margin-inline-end:auto}
+@media (min-width:1180px){
+  .sheet{padding-left:12.5rem}   /* end-side margin column for sources + notes */
+}
+
+/* ===== outline ===== */
+.ol-h{font-size:13px;color:var(--muted);letter-spacing:.02em;margin:0 0 8px;display:flex;justify-content:space-between;align-items:baseline}
+.ol-list{list-style:none;margin:0;padding:0;border-inline-start:2px solid var(--line)}
+.ol-list li{position:relative}
+.ol-list a{display:block;padding:4px 14px 4px 6px;color:var(--ink-2);text-decoration:none;border-radius:0 6px 6px 0;line-height:1.45}
+.ol-list a:hover{background:var(--paper)}
+.ol-list .lv3 a{padding-inline-start:26px;font-size:13.5px}
+.ol-list .kr a{padding-inline-start:26px;font-size:13.5px;color:var(--core)}
+.ol-list .cm a{padding-inline-start:26px;font-size:13.5px;color:var(--muted)}
+.ol-list .lv2>a{font-weight:600;color:var(--ink);margin-top:8px}
+.ol-list .future a{color:var(--muted);font-weight:500}
+.ol-list li.here>a{background:var(--paper);color:var(--ink)}
+.ol-list li.here::before{content:"";position:absolute;inset-inline-start:-6px;top:11px;width:10px;height:10px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px var(--bg)}
+.ol-here{font-size:12.5px;color:var(--accent);font-weight:600;margin-inline-start:6px}
+.glyph{display:inline-block;width:1.2em;font-family:var(--mono);font-size:12.5px;text-align:center}
+.g-ok{color:var(--ok)} .g-bad{color:var(--bad)} .g-hot{color:var(--hot)} .g-pend{color:var(--muted)} .g-skip{color:var(--muted)}
+.ol-foot{margin-top:18px;padding-top:12px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+.cal{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;align-items:center;margin-top:8px}
+.cal .dots{display:flex;gap:4px;flex-wrap:wrap;min-height:14px}
+.cal .d{width:12px;height:12px;border-radius:3px;border:1.5px solid currentColor}
+.cal .d.ok{color:var(--ok);background:var(--ok)} .cal .d.bad{color:var(--bad)} .cal .d.hot{color:var(--hot);background:var(--hot)}
+.words{margin-top:10px;line-height:1.5}
+
+/* ===== typography ===== */
+.kicker{font-size:14px;color:var(--muted);margin:0 0 6px}
+h1{font-size:31px;line-height:1.25;margin:0 0 10px;font-weight:700;letter-spacing:-.005em}
+.lede{font-size:15px;color:var(--muted);margin:0 0 28px;display:flex;flex-wrap:wrap;gap:4px 14px}
+h2{font-size:25px;line-height:1.3;margin:56px 0 14px;font-weight:700;scroll-margin-top:80px}
+h3{font-size:20.5px;line-height:1.35;margin:36px 0 10px;font-weight:600;scroll-margin-top:80px}
+p{margin:0 0 1em}
+.col>p, .blk p{hyphens:manual}
+b,strong{font-weight:600}
+.sec-num{font-family:var(--mono);font-size:.6em;color:var(--muted);font-weight:500;margin-inline-end:8px;vertical-align:.2em}
+code{font-family:var(--mono);font-size:.86em;background:var(--ctx-bg);padding:1px 5px;border-radius:4px;direction:ltr;unicode-bidi:isolate}
+
+/* source chips: in the end margin on wide screens, at paragraph end on narrow */
+[data-src]{position:relative}
+@media (min-width:1180px){
+  [data-src]::before{content:attr(data-src);position:absolute;left:-11.2rem;top:.32em;width:8.6rem;text-align:left;font:12.5px/1.4 var(--mono);color:var(--muted);direction:ltr}
+}
+@media (max-width:1179px){
+  [data-src]::after{content:"\00a0\00b7\00a0" attr(data-src);font:12.5px var(--mono);color:var(--muted);white-space:nowrap;unicode-bidi:isolate;direction:ltr}
+}
+/* math */
+.katex{unicode-bidi:isolate;direction:ltr;white-space:nowrap;font-size:1.04em}
+math{font-family:var(--math)}
+.tex-fallback{font-family:var(--mono);font-size:.9em;direction:ltr;unicode-bidi:isolate;white-space:nowrap}
+.eq{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:12px;margin:14px 0}
+.eq-body{overflow-x:auto;overflow-y:hidden;display:flex;justify-content:safe center;direction:ltr;padding:6px 0;scrollbar-width:thin}
+.eq-body .katex{font-size:1.18em;white-space:nowrap}
+.eq-body.scrolls{-webkit-mask-image:linear-gradient(to left,transparent 0,#000 28px);mask-image:linear-gradient(to left,transparent 0,#000 28px)}
+.eq-body.scrolls.at-end{-webkit-mask-image:none;mask-image:none}
+.eq-no{font:500 14px var(--mono);color:var(--core);min-width:2.4em;text-align:left;direction:ltr}
+.eqref{color:var(--core);text-decoration:none;border-bottom:1px dotted var(--core);font-family:var(--mono);font-size:.9em;cursor:help;white-space:nowrap}
+/* inline semantic marks */
+.t25{font:500 12px/1 var(--mono);color:var(--ctx);border:1px solid color-mix(in oklab,var(--ctx) 45%,transparent);border-radius:999px;padding:2px 7px;margin-inline-end:6px;vertical-align:.15em;white-space:nowrap}
+.cert{font-size:12.5px;color:var(--muted);white-space:nowrap}
+.cert::before{content:"◆ ";font-size:9px;vertical-align:.15em}
+.term{border-bottom:1.5px dotted var(--core);cursor:help;position:relative}
+.term:hover::after,.term:focus::after{content:attr(data-def);position:absolute;z-index:20;inset-inline-start:0;top:calc(100% + 6px);width:min(19rem,70vw);background:var(--raised);color:var(--ink);border:1px solid var(--line-2);border-radius:8px;padding:8px 11px;font-size:14px;line-height:1.55;font-weight:400;box-shadow:var(--shadow)}
+
+/* ===== block tiers ===== */
+.blk{margin:22px 0;position:relative;border-radius:10px}
+.blk-l{display:flex;gap:8px;align-items:baseline;font-size:13px;font-weight:600;letter-spacing:.02em;margin-bottom:4px}
+.blk-l .k{color:var(--muted);font-weight:500}
+.blk-t{font-weight:600;font-size:16.5px;color:var(--ink)}
+/* tier 1 core: full hairline frame, tinted, the only framed things */
+.core{border:1px solid color-mix(in oklab,var(--core) 38%,transparent);background:var(--core-bg);padding:14px 20px 8px}
+.core .blk-l{color:var(--core)}
+.core.formula .eq-body .katex{font-size:1.14em}
+.valid{font-size:14px;color:var(--ink-2);border-top:1px solid color-mix(in oklab,var(--core) 22%,transparent);padding-top:8px;margin-top:4px}
+.valid b{color:var(--core);font-weight:600}
+/* tier 2 act: spine in action colour */
+.act{border-inline-start:4px solid var(--act);background:var(--act-bg);padding:14px 18px 14px 18px;border-radius:0 10px 10px 0}
+.act>.blk-l{color:var(--act)}
+/* tier 3 ctx: muted spine, transparent */
+.ctx{border-inline-start:3px solid color-mix(in oklab,var(--ctx) 55%,transparent);padding:2px 18px 2px 4px;border-radius:0}
+.ctx>.blk-l{color:var(--ctx)}
+.ctx.boxed{background:var(--ctx-bg);border-radius:0 10px 10px 0;padding:12px 18px}
+.steps{list-style:none;margin:6px 0 0;padding:0;counter-reset:st}
+.steps li{position:relative;padding-inline-start:2.2em;margin:0 0 .65em}
+.steps li::before{counter-increment:st;content:counter(st);position:absolute;inset-inline-start:0;top:.15em;width:1.55em;height:1.55em;border-radius:50%;border:1.5px solid var(--act);color:var(--act);font:600 13px/1.4 var(--mono);display:grid;place-items:center}
+.steps li.hinge::before{background:var(--act);color:var(--act-ink)}
+.assume{display:inline;font-size:.93em;color:var(--ink-2)}
+.assume b{color:var(--hot)}
+
+/* ===== commit ===== */
+.commit{margin:26px 0;background:var(--raised);border:1px solid var(--line);border-inline-start:4px solid var(--act);border-radius:0 12px 12px 0;padding:14px 18px 16px;position:relative}
+.commit .blk-l{color:var(--act)}
+.commit .q{margin:2px 0 12px;font-weight:500}
+.opts{display:grid;gap:8px;margin:0 0 12px}
+.opt{display:grid;grid-template-columns:2em 1fr;align-items:baseline;text-align:start;border:1.5px solid var(--line);background:var(--paper);border-radius:10px;padding:8px 12px;line-height:1.55;transition:border-color .12s,background .12s}
+.opt:hover{border-color:var(--line-2)}
+.opt .n{font:500 13px var(--mono);color:var(--muted)}
+.opt[aria-checked="true"]{border-color:var(--act);background:var(--act-bg)}
+.opt[aria-checked="true"] .n{color:var(--act)}
+.opt:disabled{cursor:default}
+.opt.is-key{border-color:var(--ok);background:var(--ok-bg)}
+.opt.is-mine-bad{border-color:var(--bad);background:var(--bad-bg);text-decoration:line-through;text-decoration-color:color-mix(in oklab,var(--bad) 60%,transparent)}
+.field{display:flex;gap:8px;align-items:center;margin:0 0 12px;flex-wrap:wrap}
+.field input{flex:1;min-width:0;height:44px;border:1.5px solid var(--line-2);background:var(--paper);border-radius:10px;padding:0 12px}
+.field input:focus{outline:none;border-color:var(--act);box-shadow:0 0 0 3px color-mix(in oklab,var(--act) 20%,transparent)}
+.field input.num{direction:ltr;text-align:left;font-family:var(--mono);max-width:12rem}
+.field .unit{font-size:14px;color:var(--muted)}
+.conf{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.conf .lab{font-size:13.5px;color:var(--muted);margin-inline-end:4px}
+.cbtn{height:40px;padding:0 14px;border-radius:10px;border:1.5px solid var(--act);background:transparent;color:var(--act);font-weight:600;font-size:15px;display:inline-flex;align-items:center;gap:7px}
+.cbtn .bars{display:inline-flex;gap:2px;align-items:flex-end;height:13px}
+.cbtn .bars i{width:3px;background:currentColor;border-radius:1px;opacity:.28}
+.cbtn .bars i:nth-child(1){height:5px}.cbtn .bars i:nth-child(2){height:9px}.cbtn .bars i:nth-child(3){height:13px}
+.cbtn[data-c="1"] .bars i:nth-child(1),.cbtn[data-c="2"] .bars i:nth-child(-n+2),.cbtn[data-c="3"] .bars i{opacity:1}
+.cbtn:hover:not(:disabled){background:var(--act);color:var(--act-ink)}
+.cbtn:disabled{opacity:.38;cursor:default}
+.skip{background:none;border:0;color:var(--muted);font-size:13.5px;text-decoration:underline;text-underline-offset:3px;margin-inline-start:auto;padding:6px 2px}
+.hintrow{display:flex;align-items:center;gap:8px;margin:-4px 0 10px;font-size:13.5px;color:var(--muted)}
+.ladder{display:inline-flex;gap:4px}
+.ladder i{width:8px;height:8px;border-radius:50%;border:1.5px solid var(--act)}
+.ladder i.on{background:var(--act)}
+.hint{font-size:15px;background:var(--act-bg);border-radius:8px;padding:6px 10px;margin:0 0 10px}
+.mini{font-size:13px;color:var(--muted);margin-top:8px}
+/* verdict */
+.verdict{display:none;margin-top:12px}
+.commit.done .verdict{display:block}
+.commit.done .conf,.commit.done .field,.commit.done .hintrow{display:none}
+.pill{display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:14px;border-radius:999px;padding:3px 12px 3px 12px}
+.pill.ok{background:var(--ok-bg);color:var(--ok)}
+.pill.bad{background:var(--bad-bg);color:var(--bad)}
+.pill.hot{background:var(--hot-bg);color:var(--hot)}
+.pill.neutral{background:var(--ctx-bg);color:var(--ink-2)}
+.why{margin:10px 0 0;font-size:16.5px}
+.why .mine{color:var(--bad)}
+.why .lbl{font-size:13px;font-weight:600;color:var(--muted);display:block;margin-bottom:2px}
+.ce{margin-top:12px;border:1.5px solid var(--hot);background:var(--hot-bg);border-radius:12px;padding:12px 16px 14px;animation:rise .35s ease-out}
+.ce h4{margin:0 0 4px;font-size:16px;color:var(--hot);display:flex;align-items:center;gap:8px}
+.ce .fix{background:var(--raised);border-radius:8px;padding:8px 12px;margin:8px 0;font-weight:500}
+.ce .srs{font-size:13.5px;color:var(--ink-2);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.ce .srs .chip{font:12.5px var(--mono);border:1px solid var(--line-2);border-radius:6px;padding:0 6px}
+.ce .own{display:flex;gap:8px;margin-top:10px}
+.ce .own input{flex:1;min-width:0;height:38px;border:1px solid var(--line-2);border-radius:8px;background:var(--raised);padding:0 10px}
+.ce .own button{height:38px;border-radius:8px;border:1px solid var(--hot);background:transparent;color:var(--hot);font-weight:600;padding:0 12px}
+@keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.pre-note{font-size:13.5px;color:var(--muted);margin:-6px 0 10px}
+
+/* ===== gate (content after an unanswered commit: present, veiled, one tap away) ===== */
+.gate{position:relative}
+.gate.veiled>.gate-body{filter:blur(5px);opacity:.55;user-select:none;pointer-events:none;max-height:220px;overflow:hidden;-webkit-mask-image:linear-gradient(#000 40%,transparent);mask-image:linear-gradient(#000 40%,transparent)}
+.gate-cta{display:none}
+.gate.veiled .gate-cta{display:flex;position:absolute;inset:auto 0 18px 0;justify-content:center;gap:10px;align-items:center;flex-wrap:wrap;font-size:14px;color:var(--ink-2)}
+.gate-cta button{border:1px solid var(--line-2);background:var(--raised);border-radius:999px;padding:5px 14px;font-size:14px}
+
+/* ===== earned collapse ===== */
+.earn .earn-head{display:none}
+.earn.folded .earn-head{display:flex}
+.earn-head{align-items:center;gap:10px;flex-wrap:wrap;border:1px dashed color-mix(in oklab,var(--earned) 55%,transparent);border-radius:10px;padding:8px 14px;margin:14px 0;background:color-mix(in oklab,var(--ok-bg) 70%,var(--paper));font-size:15.5px}
+.earn-head .ck{width:22px;height:22px;border-radius:50%;background:var(--earned);color:var(--paper);display:grid;place-items:center;font-size:13px;flex:none}
+.earn-head .sum{flex:1;min-width:12rem}
+.earn-head .meta{font-size:13px;color:var(--muted);white-space:nowrap}
+.earn-head button{border:0;background:none;color:var(--earned);font-weight:600;text-decoration:underline dotted;text-underline-offset:4px;padding:4px 2px}
+.earn-body{display:grid;grid-template-rows:1fr;transition:grid-template-rows .32s ease}
+.earn-body>div{overflow:hidden;min-height:0}
+.earn.folded .earn-body{grid-template-rows:0fr}
+.earn.folded .earn-body>div{visibility:hidden;transition:visibility 0s .32s}
+.earn.reopened>.earn-body>div{border-inline-start:2px solid color-mix(in oklab,var(--earned) 50%,transparent);padding-inline-start:12px}
+.flag-yours{outline:2px solid color-mix(in oklab,var(--hot) 60%,transparent);outline-offset:6px;border-radius:6px}
+.flag-tag{display:inline-block;font-size:12.5px;font-weight:600;color:var(--hot);background:var(--hot-bg);border-radius:6px;padding:0 8px;margin-bottom:6px}
+
+/* ===== depth layer ===== */
+.depth{margin:22px 0;border-inline-start:2px solid var(--line-2);padding-inline-start:16px}
+.depth-h{display:flex;align-items:center;gap:8px;border:0;background:none;padding:0;font-size:13.5px;color:var(--muted);font-weight:600}
+.depth-h .lvl{font:500 12px var(--mono);border:1px solid var(--line-2);border-radius:4px;padding:0 5px}
+.depth-h .chev{transition:transform .2s}
+.depth.closed .chev{transform:rotate(90deg)}
+.depth.closed .depth-b{display:none}
+.depth-b{margin-top:6px;font-size:17px;color:var(--ink-2)}
+
+/* figure + table */
+figure{margin:24px 0;text-align:center}
+figure svg{max-width:100%;height:auto;color:var(--ink-2)}
+figcaption{font-size:14px;color:var(--muted);margin-top:6px}
+.tbl-wrap{overflow-x:auto;margin:16px 0;border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:15px}
+caption{caption-side:top;text-align:start;font-size:13px;font-weight:600;color:var(--muted);padding:8px 12px 4px}
+th,td{padding:5px 12px;border-top:1px solid var(--line);text-align:left;direction:ltr;font-family:var(--mono);font-size:14px;white-space:nowrap}
+th{font-family:var(--font);font-weight:600;color:var(--ink-2);font-size:13.5px}
+tbody tr:nth-child(even){background:color-mix(in oklab,var(--ctx-bg) 60%,transparent)}
+.neg{color:var(--bad)}
+.elide{color:var(--muted);font-size:14.5px;border-top:1px dashed var(--line-2);border-bottom:1px dashed var(--line-2);padding:8px 0;margin:22px 0}
+
+/* keep card */
+.keep{border:1.5px solid var(--core);background:var(--core-bg);border-radius:14px;padding:18px 22px 14px;margin:44px 0 24px}
+.keep h3{margin:0 0 10px;color:var(--core);font-size:19px}
+.keep ul{margin:0;padding:0;list-style:none}
+.keep li{padding:8px 0;border-top:1px solid color-mix(in oklab,var(--core) 18%,transparent);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:baseline}
+.keep li:first-child{border-top:0}
+.keep .st{font-size:12.5px;font-weight:600;border-radius:999px;padding:0 9px;white-space:nowrap}
+.st.read{color:var(--muted);border:1px solid var(--line-2)}
+.st.forged{color:var(--act);border:1px solid var(--act)}
+.st.proved{color:var(--paper);background:var(--earned)}
+.thread{margin-top:14px;background:var(--raised);border-radius:10px;padding:10px 14px;font-size:15.5px}
+
+/* margin notes */
+.mnote{position:absolute;left:-11.6rem;width:9.4rem;background:color-mix(in oklab,#f2d97a 55%,var(--raised));color:#2d2a1e;border-radius:4px 4px 4px 12px;padding:8px 10px 10px;font-size:13.5px;line-height:1.5;box-shadow:0 1px 2px rgb(0 0 0/12%),0 4px 10px rgb(0 0 0/8%);transform:rotate(-.6deg);z-index:2}
+:root[data-theme="dark"] .mnote{background:#4a4226;color:#efe6c4}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .mnote{background:#4a4226;color:#efe6c4}}
+.mnote .kind{font-size:11.5px;font-weight:700;opacity:.75;display:block}
+.mnote textarea{width:100%;border:0;background:transparent;resize:vertical;min-height:4.2em;font-size:13.5px;line-height:1.5;padding:0}
+.mnote textarea:focus{outline:none}
+.mnote-pin{display:none}
+@media (max-width:1179px){
+  .mnote{position:static;width:auto;transform:none;margin:8px 0 14px;border-radius:8px}
+}
+
+/* ===== selection popover + anchored answer ===== */
+.selpop{position:fixed;z-index:60;display:none;background:var(--ink);color:var(--paper);border-radius:10px;padding:4px;box-shadow:var(--shadow);gap:2px}
+.selpop.on{display:flex}
+.selpop button{border:0;background:transparent;color:inherit;font-size:14px;padding:6px 11px;border-radius:7px;display:flex;align-items:center;gap:6px}
+.selpop button:hover{background:color-mix(in oklab,var(--paper) 16%,transparent)}
+.ans{margin:4px 0 20px;background:var(--raised);border:1px solid var(--line-2);border-radius:12px;padding:12px 16px 12px;position:relative;box-shadow:var(--shadow);animation:rise .25s ease-out;font-size:16.5px}
+.ans::before{content:"";position:absolute;top:-7px;inset-inline-start:28px;width:12px;height:12px;background:var(--raised);border-top:1px solid var(--line-2);border-inline-start:1px solid var(--line-2);transform:rotate(45deg)}
+.ans-h{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);margin-bottom:6px}
+.ans-h .who{font-weight:600;color:var(--act)}
+.ans-h .x{margin-inline-start:auto;border:0;background:none;font-size:18px;color:var(--muted);line-height:1;padding:2px 6px}
+.ans q{display:block;quotes:none;font-size:14px;color:var(--muted);border-inline-start:2px solid var(--line-2);padding-inline-start:8px;margin-bottom:8px;max-height:3em;overflow:hidden}
+.ans .demo{font-size:12px;font-weight:600;color:var(--hot);border:1px dashed var(--hot);border-radius:999px;padding:0 8px}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.chip-b{border:1px solid var(--act);color:var(--act);background:transparent;border-radius:999px;padding:3px 12px;font-size:14px}
+.chip-b:hover{background:var(--act-bg)}
+.chip-b:disabled{opacity:.45}
+.ans .more{border-top:1px solid var(--line);margin-top:10px;padding-top:8px}
+.ans .more .lbl{font-size:12.5px;font-weight:700;color:var(--act);display:block}
+.ans dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 12px}
+.ans dt{font-size:13px;font-weight:700;color:var(--muted)}
+.ans dd{margin:0}
+.eq-peek{position:fixed;z-index:70;background:var(--raised);border:1px solid var(--core);border-radius:10px;padding:8px 14px;box-shadow:var(--shadow);direction:ltr;display:none;max-width:92vw;overflow:auto}
+.eq-peek.on{display:block}
+
+/* ===== bottom bar (opaque, one strip) ===== */
+.bar{position:fixed;inset:auto 0 0 0;z-index:40;height:var(--bar-h);background:var(--raised);border-top:1px solid var(--line);display:flex;justify-content:center;padding-left:max(10px,env(safe-area-inset-left,0px));padding-right:max(10px,env(safe-area-inset-right,0px));padding-bottom:env(safe-area-inset-bottom,0px);direction:rtl}
+.bar-in{max-width:1240px;width:100%;display:flex;align-items:center;gap:10px}
+.where{display:flex;flex-direction:column;line-height:1.25;min-width:0;max-width:16rem;border:0;background:none;text-align:start;padding:0 4px}
+.where .s{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.where .t{font-size:12.5px;color:var(--muted);white-space:nowrap}
+.askpill{flex:1;min-width:0;display:flex;align-items:center;gap:8px;height:40px;border:1px solid var(--line-2);border-radius:999px;background:var(--paper);padding:0 6px 0 14px}
+.askpill input{flex:1;min-width:0;border:0;background:transparent;height:100%}
+.askpill input:focus{outline:none}
+.askpill:focus-within{border-color:var(--act);box-shadow:0 0 0 3px color-mix(in oklab,var(--act) 18%,transparent)}
+.askpill .send{width:30px;height:30px;border-radius:50%;border:0;background:var(--act);color:var(--act-ink);display:grid;place-items:center}
+.bar .tool{height:40px;border:1px solid transparent;background:none;border-radius:10px;padding:0 10px;display:inline-flex;align-items:center;gap:6px;color:var(--ink-2);font-size:14px;white-space:nowrap}
+.bar .tool:hover{background:var(--paper);border-color:var(--line)}
+.bar .tool[aria-pressed="true"]{background:var(--act-bg);color:var(--act);border-color:var(--act)}
+.only-m{display:none!important}
+.scrim{display:none}
+.toast{position:fixed;z-index:80;bottom:calc(var(--bar-h) + 14px);left:50%;transform:translateX(-50%);background:var(--ink);color:var(--paper);border-radius:10px;padding:8px 16px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s}
+.toast.on{opacity:1}
+
+/* focus mode */
+.focus .outline,.focus .crumb{display:none}
+.focus .layout{grid-template-columns:minmax(0,1fr)}
+.focus main{max-width:56rem;margin:0 auto;width:100%}
+
+/* ===== narrow ===== */
+@media (max-width:900px){
+  .layout{grid-template-columns:minmax(0,1fr);gap:0;padding-top:12px}
+  .outline{position:fixed;z-index:50;inset:auto 0 var(--bar-h) 0;top:auto;max-height:62vh;background:var(--raised);border-top:1px solid var(--line-2);border-radius:16px 16px 0 0;padding:14px max(18px,env(safe-area-inset-right,0px)) 18px max(18px,env(safe-area-inset-left,0px));box-shadow:0 -10px 30px rgb(0 0 0/18%);transform:translateY(105%);transition:transform .25s ease;visibility:hidden}
+  .outline.open{transform:none;visibility:visible}
+  .only-m{display:inline-flex!important}
+  .scrim{position:fixed;inset:0;background:rgb(0 0 0/28%);z-index:45;display:none}
+  .scrim.on{display:block}
+}
+@media (max-width:640px){
+  :root{--fs:17px;--lh:1.75}
+  .sheet{padding:24px 18px 40px;border-radius:12px;margin:0 -4px}
+  h1{font-size:25px} h2{font-size:21.5px;margin-top:44px} h3{font-size:18.5px}
+  .core{padding:12px 14px 6px}
+  .act,.ctx.boxed{padding:12px 14px}
+  .commit{padding:12px 14px 14px}
+  .crumb,.demo-badge .long{display:none}
+  .bar .tool .lab,.where{display:none}
+  .bar-in{gap:4px}
+  .cbtn{flex:1;justify-content:center;padding:0 8px;font-size:14.5px}
+  .conf .lab{width:100%}
+  .skip{margin-inline-start:0}
+  .eq-no{font-size:12.5px;min-width:2em}
+  .eq{gap:6px}
+  .core.formula .eq-body .katex{font-size:1.02em}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
+</style>
+
+<div class="wrap" id="app">
+  <header class="top">
+    <div class="top-in">
+      <div class="mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5v4M12 16.5v4M3.5 12h4M16.5 12h4"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/></svg>גילואה</div>
+      <div class="crumb">P0 שער · <b>M0.1 מבט כללי על המתמטיקה</b> · שיעור 2 מתוך 3</div>
+      <span class="demo-badge" title="כל התשובות של המורה בסקיצה מוכנות מראש">סקיצה<span class="long"> · תשובות לדוגמה</span></span>
+      <div class="tb">
+        <button class="icon-btn" id="soundBtn" aria-pressed="true" title="צלילי משוב" aria-label="צלילי משוב"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7" id="sndwave"/></svg></button>
+        <button class="icon-btn" id="themeBtn" title="ערכה" aria-label="ערכה"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3a9 9 0 1 0 9 9A7 7 0 0 1 12 3z"/></svg><span id="themeLbl" style="font-size:13px">אוטומטית</span></button>
+      </div>
+    </div>
+    <div class="hair"><i id="hair"></i></div>
+  </header>
+
+  <div class="layout">
+    <nav class="outline" id="outline" aria-label="תוכן השיעור">
+      <div class="ol-h"><span>תוכן השיעור</span><span id="olTime"></span></div>
+      <ul class="ol-list" id="olList"></ul>
+      <div class="ol-foot">
+        <div>הכיול שלך בשיעור</div>
+        <div class="cal" id="cal"></div>
+        <div class="words" id="words"></div>
+      </div>
+    </nav>
+    <div class="scrim" id="scrim"></div>
+
+    <main id="main">
+      <article class="sheet" id="sheet">
+       <div class="col" id="col">
+        <p class="kicker">K1 · קולמוגורוב, כרך א' · עמ' 29–44</p>
+        <h1>גאומטריה, מדידה והמספר הממשי</h1>
+        <div class="lede"><span>4 סעיפים</span><span>5 תוצאות מרכזיות</span><span>6,282 מילים · כ-43 דק' קריאה</span><span>5 התחייבויות</span></div>
+
+        <div class="commit" data-c="c0"></div>
+
+        <section class="blk ctx boxed" data-kind="story">
+          <div class="blk-l">סיפור <span class="blk-t">גיליון שמתקפל לעצמו</span></div>
+          <p>מקפלים גיליון A4 לחצי ומקבלים A5 באותה צורה בדיוק, רק קטן יותר. אם הצלעות הן $1$ ו-$r$, לחצי יש צלעות $r/2$ ו-$1$, והיחס שלו $2/r$.</p>
+          <div class="commit" data-c="c1"></div>
+          <div class="gate veiled" data-gate="c1">
+            <div class="gate-body">
+              <div class="earn" data-earn="c1" data-sum="$r=2/r$ ולכן $r^2=2$, ‏$r=\sqrt2$">
+                <div class="earn-head"></div>
+                <div class="earn-body"><div><p>הצורה נשמרת רק אם $r=2/r$, כלומר $r^2=2$.</p></div></div>
+              </div>
+              <p style="margin-bottom:0">התקן מממש את זה במילימטרים שלמים: ‏A4 הוא $210\times297$, כלומר $99/70$, גדול ב-0.005% מן הנדרש; ‏A0 הוא $841\times1189$, כלומר $41/29$, קטן ב-0.03%; ו-A5, ‏$148\times210$, כבר שגוי ב-0.33%. ונשארת שאלה: האם יש בכלל זוג שלמים שנותן את היחס בדיוק, אם רק נקטין את היחידה מספיק?</p>
+            </div>
+            <div class="gate-cta"><span>ההמשך נפתח כשתתחייב למעלה</span><button data-open-gate="c1">פתח בלי לענות</button></div>
+          </div>
+        </section>
+
+        <h2 id="s1"><span class="sec-num">1</span>גאומטריה: צורה בלי חומר</h2>
+        <p data-src="K1:29–30" data-ask="geom">השאלה של הסיפור היא על קטעים אידאליים, והם נולדים כשהגאומטריה מפשיטה גוף ממשי. את הקו הישר האדם לא מצא מוכן בטבע: קרן אור וגזע עץ ישרים רק בקירוב. הוא הכיר את הצורה אחרי שעיצב חומר בעצמו, מתח מיתר בקשת, חצב אבן ותחם שדה, ורק אז ראה בצורה משהו שאפשר לחשוב עליו בנפרד מן החומר.</p>
+        <p data-src="K1:32" data-ask="geom">מה שנשאר אחרי ההפשטה צריך שם מדויק, כי כל משפט בגאומטריה עוסק רק בו.</p>
+
+        <section class="blk core" data-kind="definition" id="def1">
+          <div class="blk-l">הגדרה <span class="blk-t">גוף גאומטרי וצורה גאומטרית</span></div>
+          <p><b>גוף גאומטרי</b> הוא גוף ממשי שמתייחסים אליו רק מבחינת הצורה המרחבית שלו, כולל המידות שלו, תוך התעלמות מכל תכונה אחרת: צפיפות, צבע, משקל, חומר.</p>
+          <p><b>צורה גאומטרית</b> מפשיטה גם מן ההתפשטות במרחב: <b>משטח</b> הוא צורה בעלת שני ממדים, <b>קו</b> בעל ממד אחד, ו<b>נקודה</b> בלי ממד כלל, מקום שנקבע עד גבול הדיוק, עד שאין לו חלקים.</p>
+        </section>
+
+        <p data-ask="geom"><b>איך זה בנוי.</b> שתי הפשטות באות זו אחר זו: הראשונה מוחקת את החומר ומשאירה גוף, השנייה מוחקת גם את העובי ומשאירה צורה. בלי השנייה אין קו בלי רוחב, ולכן אין משפט שעוסק בו. <b>דוגמה:</b> כדור פלדה וטיפת מים באותו רדיוס הם אותו גוף גאומטרי. לכן נפח כדור, $\tfrac43\pi R^3$, נכון לכלי, לכוכב ולטיפה.</p>
+
+        <h3 id="s1b">מכללים מן הניסיון אל הוכחה</h3>
+        <p data-src="K1:30–31">המילה גאומטריה פירושה מדידת אדמה, והידע הראשון היה כללי חישוב. המצרים והבבלים חישבו שטחים ונפחים פשוטים וידעו "בדיוק ניכר" את יחס ההיקף לקוטר, אבל אין אצלם משפט והוכחה. הדיוק אכן ניכר: בפפירוס של אחמס $\pi\approx(16/9)^2=3.1605$, גדול ב-0.60%; אצל הבבלים $\pi\approx3\tfrac18=3.125$, קטן ב-0.53% <span class="cert">ודאות גבוהה</span>.</p>
+        <p data-ask="edfu"><b>הנחה נסתרת בכלל בלי הוכחה.</b> בכתובות מקדש אדפו במצרים (המאה ה-2 לפנה"ס) שטח של מרובע מחושב כ"ממוצע זוג צלעות נגדיות כפול ממוצע הזוג השני". זה מדויק רק במלבן: במעוין שצלעו 10 וזוויתו 60° הכלל נותן 100 במקום 86.6, הגזמה של 15.5%. ההנחה שלא נאמרה היא "הזוויות ישרות", ושום דבר בכלל עצמו לא מזהיר מתי היא נשברת.</p>
+        <p data-src="K1:32">כאן ההוכחה נעשית הכרחית: אי אפשר לערוך ניסוי בקו חסר רוחב. מה שנשאר הוא להסיק מסקנות ממסקנות, ומשפט שלא הוכח אינו שייך לגאומטריה, כי הוא אינו עוסק ב"צורות טהורות".</p>
+        <div class="elide">בסקיצה מוצג קטע מן הסעיף. בשיעור עצמו ממשיכים כאן: אוקלידס ולובצ'בסקי, <b>פדורוב: 230 קבוצות, ולמה אין סימטריה מסדר 5</b>, ו<b>מדידה: הנחה וספירה</b>, במלואם.</div>
+
+        <h2 id="s2"><span class="sec-num">2</span>האלכסון והצלע: קטעים בלי מידה משותפת</h2>
+        <p data-src="K1:35">שאלת החוט: האם כל שני קטעים ניתנים למדידה זה בזה, אם רק מחלקים את היחידה מספיק? אם כן, כל יחס בין גדלים הוא שבר, והרציונליים של המדידה מספיקים לכל דבר. כדי לשאול זאת בדיוק צריך שם למצב שבו השארית נעלמת בסוף.</p>
+
+        <section class="blk core" data-kind="definition" id="def2" data-ask="commens">
+          <div class="blk-l">הגדרה <span class="blk-t">קטעים בני-מידה משותפת</span></div>
+          <p>יהיו $a$ ו-$b$ שני קטעים, או שני גדלים מאותו סוג. הם <b>בני-מידה משותפת</b> אם קיים קטע $e$ ושני שלמים חיוביים $m,n$ כך ש-$a=m\,e$ ו-$b=n\,e$: הקטע $e$ נכנס בכל אחד מהם מספר שלם של פעמים.</p>
+          <p>אם אין קטע כזה, $a$ ו-$b$ <b>זרים במידתם</b>. התנאי הכרחי ומספיק לכך שהיחס $b/a$ רציונלי.</p>
+        </section>
+        <p data-ask="commens"><b>איך זה בנוי.</b> ההגדרה אינה דורשת ש-$e$ יהיה היחידה המקורית, אלא שיהיה <b>איזה</b> קטע משותף, קטן ככל שנרצה. לכן "זרים במידתם" היא טענה חזקה מאוד: אין שום חלוקה, עדינה ככל שתהיה, שמסתיימת בלי שארית. <b>דוגמה:</b> קטעים של 0.6 ו-1.4 מטר הם בני-מידה, עם $e=0.2$ מטר.</p>
+
+        <p id="naive"><b>הדרך הנאיבית.</b> במשך דורות השאלה לא עלתה: מי שמחלק או מודד ונתקל בשארית זעירה זורק אותה. דמוקריטוס הלך רחוק יותר. בזמנו צורה עוד לא הופרדה מגוף, ולכן גם צורות גאומטריות היו בעיניו עשויות אטומים: שטח הוא סכום של שורות אטומים, ונפח סכום של שכבות. כך מצא, לפי עדות ארכימדס, שנפח חרוט הוא שליש מנפח הגליל שסביבו; את ההוכחה נתן מאוחר יותר אאודוקסוס <span class="cert">ודאות גבוהה</span>.</p>
+        <p data-ask="cone"><b>כמה מדויקות השכבות.</b> נחתוך חרוט בגובה $h$ וברדיוס בסיס $R$ ל-$n$ שכבות שוות עובי, ונחליף כל שכבה בגליל ברדיוס הגדול שלה. נפח הערימה הוא $\pi R^2h\left(\tfrac13+\tfrac1{2n}+\tfrac1{6n^2}\right)$. השגיאה היחסית יורדת כמו $1/n$: בעשר שכבות היא 15.5%, ושגיאה של 1% דורשת 151 שכבות. עם הרדיוס שבאמצע כל שכבה השגיאה יורדת כמו $1/n^2$: חמש שכבות מספיקות ל-1%.</p>
+        <p data-src="K1:43"><b>למה הסתירה הורסת את האטומים.</b> אם כל קטע עשוי מספר סופי של אטומים שווים, האטום עצמו הוא קטע משותף לכל שני קטעים, וכל שני קטעים בני-מידה. לכן מספיק זוג אחד של קטעים זרים במידתם כדי להפיל את האטומיזם הגאומטרי. הזוג נמצא בריבוע. <b>זוגי</b> פירושו מתחלק ב-2 בלי שארית, ו<b>אי-זוגי</b> פירושו שאינו זוגי.</p>
+
+        <div class="commit" data-c="c2"></div>
+
+        <div class="gate veiled" data-gate="c2">
+          <div class="gate-body">
+            <section class="blk act" data-kind="derivation" id="der1" data-ask="wellorder">
+              <div class="blk-l">גזירה <span class="blk-t">האלכסון והצלע זרים במידתם</span><span class="t25">2.5 · מקור</span></div>
+              <ol class="steps">
+                <li>יהיו $a$ צלע הריבוע ו-$b$ האלכסון. לפי פיתגורס $b^2=a^2+a^2=2a^2$, ולכן $(b/a)^2=2$. <span class="assume"><b>הנחה:</b> הריבוע נמצא במישור אוקלידי.</span></li>
+                <li>נניח בשלילה ש-$b/a=p/q$, עם $p,q$ שלמים חיוביים. <span class="assume"><b>הנחה:</b> אפשר לבחור את $p/q$ מצומצם, כי לקבוצת המכנים יש איבר קטן ביותר (הסדר הטוב; לא נאמר בעמוד).</span></li>
+                <li>מ-$(p/q)^2=2$ נקבל $p^2=2q^2$, ולכן $p^2$ זוגי.</li>
+                <li id="step4"><div class="commit" data-c="c3" style="margin:4px 0 0"></div><div class="step4-text" hidden>ריבוע של אי-זוגי הוא אי-זוגי, $(2m+1)^2=4m^2+4m+1$, ולכן $p$ עצמו זוגי: $p=2p_1$.</div></li>
+                <li>מציבים: $4p_1^2=2q^2$, כלומר $q^2=2p_1^2$. לכן $q^2$ זוגי, ולפי צעד 4 גם $q$ זוגי.</li>
+                <li class="hinge"><b>כאן הצורה עובדת:</b> $p$ ו-$q$ שניהם זוגיים, בסתירה לבחירה בצעד 2. אין שבר כזה.</li>
+              </ol>
+            </section>
+          </div>
+          <div class="gate-cta"><span>הגזירה נפתחת כשתתחייב למעלה</span><button data-open-gate="c2">פתח בלי לענות</button></div>
+        </div>
+
+        <section class="blk core formula" data-kind="formula" id="eq1" data-ask="bound">
+          <div class="blk-l">נוסחה מרכזית <span class="blk-t">אי-פריקות האלכסון והצלע</span></div>
+          <div class="eq"><div class="eq-body">$$p^2\neq2q^2,\qquad p,q\in\mathbb{Z},\ \ p,q\ge1$$</div><span class="eq-no">(1)</span></div>
+          <p class="valid"><b>תחום תקפות:</b> לכל ריבוע במישור אוקלידי. $p,q$ שלמים חיוביים כלשהם; בניסוח גאומטרי, $b/a$ אינו רציונלי.</p>
+        </section>
+
+        <p data-ask="bound"><span class="t25">2.5 · מבנה</span><b>מה זה אומר.</b> <a class="eqref" href="#eq1" data-eq="eq1">(1)</a> אומרת יותר מ"$p^2$ שונה מ-$2q^2$". שני הצדדים שלמים, ולכן $p^2-2q^2$ הוא שלם שאינו 0, וגודלו לפחות 1. ממנו נגזר חסם על כל שבר:</p>
+
+        <section class="blk core formula" data-kind="formula" id="eq2" data-ask="bound">
+          <div class="blk-l">נוסחה מרכזית <span class="blk-t">חסם הקירוב של √2</span></div>
+          <div class="eq"><div class="eq-body">$$\Bigl|\frac pq-\sqrt2\Bigr|=\frac{|p^2-2q^2|}{q^2\left(\frac pq+\sqrt2\right)}\ \ge\ \frac{1}{q^2\left(\frac pq+\sqrt2\right)}\ \approx\ \frac{1}{2\sqrt2\,q^2}$$</div><span class="eq-no">(2)</span></div>
+          <p class="valid"><b>תחום תקפות:</b> לכל שלמים חיוביים $p,q$. אי-השוויון בא מ-$|p^2-2q^2|\ge1$, כלומר מ-<a class="eqref" href="#eq1" data-eq="eq1">(1)</a>. הקירוב האחרון תקף כש-$p/q$ קרוב ל-$\sqrt2$; ב-$q=2$ הוא שגוי ב-3%.</p>
+        </section>
+
+        <p data-ask="bound"><span class="t25">2.5 · סדר גודל</span><b>הקריאה הכמותית.</b> שבר עם מכנה $q$ אינו יכול להתקרב ל-$\sqrt2$ יותר מבערך $0.35/q^2$. השברים הטובים ביותר כמעט נוגעים בחסם: $577/408$ שגוי ב-$2.12\cdot10^{-6}$, ו-<a class="eqref" href="#eq2" data-eq="eq2">(2)</a> נותן עבורו $2.12\cdot10^{-6}$.</p>
+
+        <div class="commit" data-c="c4"></div>
+
+        <div class="earn" data-earn="c4" data-sum="שום מדידה סופית לא תראה שיחס אינו רציונלי: זו תוצאה של הוכחה בלבד">
+          <div class="earn-head"></div>
+          <div class="earn-body"><div>
+            <p data-ask="bound"><span class="t25">2.5 · גבולות</span><b>מדידה אינה מכריעה.</b> שום מדידה סופית לא תראה שיחס אינו רציונלי. לפי <a class="eqref" href="#eq2" data-eq="eq2">(2)</a>, שבר שנמצא בתוך $10^{-9}$ מ-$\sqrt2$ חייב מכנה של 18,803 לפחות, והראשון שבאמת נכנס הוא $47321/33461$, רחוק מ-$\sqrt2$ רק $3.2\cdot10^{-10}$. אי-הפריקות היא תוצאה של הוכחה בלבד.</p>
+          </div></div>
+        </div>
+
+        <section class="depth" id="depth1">
+          <button class="depth-h" aria-expanded="true"><span class="chev">▾</span><span class="lvl">עומק</span>על מה זה באמת נשען</button>
+          <div class="depth-b">
+            <div class="earn" data-earn="c2" data-sum="'מצומצם' הוא הסדר הטוב; ירידה אינסופית היא אותו טיעון; פירוק יחיד לא נדרש כאן">
+              <div class="earn-head"></div>
+              <div class="earn-body"><div>
+                <p data-ask="wellorder" id="u37">ההוכחה השתמשה רק בזוגיות ובכך שלמכנים יש קטן ביותר. אפשר לנסח אותה בלי "מצומצם": מ-$p^2=2q^2$ קיבלנו זוג קטן יותר, $q^2=2p_1^2$ עם $q&lt;p$; מזה זוג קטן עוד יותר, וכן הלאה, סדרה יורדת אינסופית של שלמים חיוביים, שאינה קיימת. ירידה אינסופית וצמצום הם אותו טיעון, ושניהם הם הסדר הטוב. פירוק יחיד לגורמים ראשוניים לא נדרש כאן; הוא נדרש בהוכחה האחרת, שסופרת גורמי 2: ב-$p^2$ מספרם זוגי, וב-$2q^2$ אי-זוגי.</p>
+              </div></div>
+            </div>
+          </div>
+        </section>
+
+        <p data-ask="anthy"><b>הוכחה שנייה, בלי מספרים.</b> היוונים כנראה הגיעו לתגלית בחיסור הדדי, כמו באלגוריתם של אוקלידס למידה משותפת <span class="cert">ודאות בינונית</span>. מורידים את הצלע מן האלכסון, ומן השארית נבנה ריבוע קטן יותר, שבו היחס בין האלכסון לצלע זהה לזה של הגדול. לכן הצעד חוזר בלי סוף, ואלגוריתם שאינו נעצר פירושו שאין מידה משותפת. במספרים זה השבר המשולב $\sqrt2=[1;2,2,2,\ldots]$.</p>
+
+        <figure>
+          <svg width="420" height="250" viewBox="0 0 420 250" role="img" aria-label="ריבוע עם אלכסון, והריבוע הקטן שנבנה מן השארית">
+            <g fill="none" stroke="currentColor" stroke-width="1.6">
+              <rect x="40" y="20" width="200" height="200"/>
+              <line x1="40" y1="220" x2="240" y2="20" stroke-width="2.2"/>
+              <path d="M240 220 L181.4 161.4" stroke="var(--act)" stroke-width="2.4"/>
+              <rect x="181.4" y="161.4" width="58.6" height="58.6" stroke="var(--act)" stroke-dasharray="4 3"/>
+            </g>
+            <g font-family="IBM Plex Mono, monospace" font-size="15" fill="currentColor">
+              <text x="132" y="240">a</text><text x="20" y="124">a</text><text x="128" y="112">b</text>
+              <text x="198" y="155" fill="var(--act)">b−a</text>
+            </g>
+            <g font-family="IBM Plex Sans Hebrew, sans-serif" font-size="14" fill="currentColor" text-anchor="start">
+              <text x="268" y="70">מורידים a מ-b,</text>
+              <text x="268" y="92">ומן השארית b−a</text>
+              <text x="268" y="114">נבנה ריבוע קטן</text>
+              <text x="268" y="136">באותו יחס, b/a.</text>
+              <text x="268" y="168" fill="var(--act)">הצעד חוזר בלי סוף</text>
+            </g>
+          </svg>
+          <figcaption>איור 1: חיסור הדדי באלכסון ובצלע. סכמה שצוירה לשיעור, לא מן הספר.</figcaption>
+        </figure>
+
+        <div class="tbl-wrap"><table id="conv"><caption>השברים המקרבים של √2 · השגיאה מחליפה סימן ויורדת בערך פי 6 בכל שורה</caption><thead><tr><th>p</th><th>q</th><th>p/q − √2</th><th>p² − 2q²</th></tr></thead><tbody></tbody></table></div>
+
+        <p><b>עוגנים לזכור.</b> $\sqrt2\approx1.41421356$; ‏$99/70$ שגוי ב-$7.2\cdot10^{-5}$; ובכל שבר מקרב $p^2-2q^2=\pm1$, ולכן <a class="eqref" href="#eq2" data-eq="eq2">(2)</a> הוא בו כמעט שוויון.</p>
+
+        <section class="blk ctx" data-kind="history">
+          <div class="blk-l">היסטוריה <span class="blk-t">ליוונים היה המבחן, לא האובייקט</span></div>
+          <p data-src="K1:36">ביוון של המאה ה-5 לפנה"ס, בלי מושג של מספר אי-רציונלי, המשמעות הייתה שליחס בין האלכסון לצלע <b>אין מספר בכלל</b>. התשובה היוונית הייתה תורת יחסים שעוקפת את המספר, המיוחסת לאאודוקסוס: שני יחסים $a:b$ ו-$c:d$ שווים אם הם ממיינים את כל השברים $n/m$ באותה דרך, לקטנים מהם ולגדולים מהם. בדיוק בכלי הזה הגדיר דדקינד מספר ממשי ב-1872 <span class="cert">ודאות גבוהה</span>.</p>
+        </section>
+
+        <p data-ask="mils"><span class="t25">2.5 · פשרה</span><b>יחס אי-רציונלי מכריח בחירה.</b> במעגל יש $2\pi\cdot1000=6283.19$ אלפיות רדיאן, ולכן אין מספר שלם של אלפיות אמיתיות בסיבוב. נאט"ו בחרה 6400, ‏$2^8\cdot25$, והכלל "אלפית אחת היא מטר בקילומטר" שגוי שם ב-1.8%; ברוסיה נבחר 6000, שמתחלק גם ב-3, והכלל שגוי ב-4.7%. מרוויחים חלוקה נוחה של המעגל ומשלמים בשגיאה של כלל האצבע, בדיוק כמו התקן של הנייר.</p>
+        <p><span class="t25">2.5 · ביקורת</span><b>שוויון שלא יתקיים.</b> "כדי לבדוק ש-$x$ הוא שורש 2, בודקים <code>x*x == 2</code>." במחשב כל מספר הוא שבר בינארי סופי, כלומר רציונלי, ולפי <a class="eqref" href="#eq1" data-eq="eq1">(1)</a> הריבוע שלו לעולם אינו 2; בפועל <code>sqrt(2)**2</code> מחזיר <code>2.0000000000000004</code>. בודקים ש-$|x^2-2|$ קטן מסף, לעולם לא שוויון.</p>
+
+        <section class="blk ctx boxed" data-kind="casestudy">
+          <div class="blk-l">מקרה <span class="blk-t">YBC 7289: שורש 2 בבבל</span></div>
+          <p>לוח חרס בבלי, מבערך 1800–1600 לפנה"ס, מראה ריבוע ועל האלכסון שלו מספר בבסיס 60: $1;24,51,10=1.41421296$. השגיאה $-6.0\cdot10^{-7}$ קטנה פי שמונה מן הרזולוציה של הכתיב עצמו, ולכן המספר הוא תוצאה של חישוב ולא של מדידה. הבבלים עבדו עם $\sqrt2$ כמספר שמקרבים כרצונם, בלי לשאול אם הוא שבר; את השאלה שאלו היוונים.</p>
+        </section>
+
+        <section class="blk ctx" data-kind="erratum">
+          <div class="blk-l">תיקון סריקה <span class="k">K1:35–36</span></div>
+          <p style="font-size:16px">בעמוד כתוב "b2 = a2 -f a2" ו-"q2 = 2ql"; הנכון $b^2=a^2+a^2$ ו-$q^2=2p_1^2$.</p>
+        </section>
+
+        <h2 id="s3"><span class="sec-num">3</span>המספר הממשי: מדידה שלא נגמרת</h2>
+        <p data-src="K1:37">היחס בין האלכסון לצלע אינו שבר, ועדיין הוא גודל ממשי, ולכן צריך מספר חדש. שאלת החוט: איזה מספר הוא, ואיך מחשבים בו כשאי אפשר לכתוב אותו עד הסוף?</p>
+        <div class="elide">בסקיצה הסעיף נעצר כאן. בשיעור: ניוטון, המדידה שמייצרת ספרות (גזירה), נוסחאות (3)–(4), הגדרת המספר הממשי, ביטים, וסעיף 4, <b>הבדיד והרציף</b>.</div>
+
+        <section class="blk act" data-kind="exercise" id="ex1">
+          <div class="blk-l">תרגיל · הערכה <span class="blk-t">כמה קרוב יכול שבר עם מכנה 1000 להגיע ל-√2?</span></div>
+          <p>בלי מחשבון: לפי <a class="eqref" href="#eq2" data-eq="eq2">(2)</a>, מהי השגיאה הקטנה ביותר האפשרית של שבר $p/1000$ מ-$\sqrt2$? אחר כך חשבו את השגיאה של $1414/1000$, והסבירו את הפער.</p>
+          <div class="chips"><button class="chip-b" data-reveal="exh">רמז</button><button class="chip-b" data-reveal="exs">פתרון</button></div>
+          <p id="exh" hidden class="hint" style="margin-top:10px">$1/(2\sqrt2)\approx0.35$. אחר כך חשבו את $|p^2-2q^2|$ עבור $1414$ ו-$1000$.</p>
+          <p id="exs" hidden style="margin-top:10px"><b>אומדן:</b> $0.35/10^6=3.5\cdot10^{-7}$. <b>חישוב:</b> $\sqrt2-1.414=2.14\cdot10^{-4}$, פי 600 מן החסם, כי $1414^2-2\cdot1000^2=-604$. השבר המקרב $1393/985$ שגוי ב-$3.64\cdot10^{-7}$, בדיוק על החסם.</p>
+        </section>
+
+        <section class="keep" id="keep">
+          <h3>לסיכום · מה לקחת מהשיעור</h3>
+          <ul id="keepList">
+            <li><span><b>בני-מידה משותפת:</b> $a=me,\ b=ne$ לקטע $e$ ושלמים $m,n$. האלכסון והצלע אינם: $p^2\neq2q^2$ <a class="eqref" href="#eq1" data-eq="eq1">(1)</a>, במישור אוקלידי.</span><span class="st read" data-k="c2">נלמד</span></li>
+            <li><span><b>חסם הקירוב:</b> $|p/q-\sqrt2|\gtrsim1/(2\sqrt2\,q^2)$ <a class="eqref" href="#eq2" data-eq="eq2">(2)</a>; שווה כמעט בשברים המקרבים.</span><span class="st read" data-k="c4">נלמד</span></li>
+            <li><span><b>מדידה מול הוכחה:</b> שום מדידה סופית לא מכריעה אי-רציונליות.</span><span class="st read" data-k="c4b">נלמד</span></li>
+            <li><span><b>עוגנים:</b> $\sqrt2\approx1.41421356$; ‏$99/70$; ‏A4 הוא $210\times297$; בסריג רק סדרי סיבוב $1,2,3,4,6$.</span><span class="st read" data-k="c1">נלמד</span></li>
+          </ul>
+          <div class="thread" id="threadBack">שאלת החוט: תחזור לכאן בסוף השיעור, עם התשובה שנתת בפתיחה.</div>
+        </section>
+       </div>
+      </article>
+    </main>
+  </div>
+
+  <div class="bar" role="toolbar" aria-label="כלי השיעור">
+    <div class="bar-in">
+      <button class="tool only-m" id="olBtn" aria-label="תוכן השיעור"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16M4 12h10M4 18h13"/></svg><span class="lab">תוכן</span></button>
+      <button class="where" id="where" title="תוכן השיעור"><span class="s" id="whereS">פתיחה</span><span class="t" id="whereT"></span></button>
+      <form class="askpill" id="askForm" autocomplete="off"><input id="askIn" placeholder="שאל על מה שקראת עכשיו…" aria-label="שאלה למורה"><button class="send" aria-label="שלח"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button></form>
+      <button class="tool" id="noteBtn" title="פתק בשוליים"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4h14v11l-5 5H5z"/><path d="M14 20v-5h5"/></svg><span class="lab">פתק</span></button>
+      <button class="tool" id="focusBtn" aria-pressed="false" title="ריכוז"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg><span class="lab">ריכוז</span></button>
+    </div>
+  </div>
+
+  <div class="selpop" id="selpop" role="toolbar" aria-label="פעולות על הטקסט המסומן">
+    <button data-act="ask">שאל</button>
+    <button data-act="simple">הסבר פשוט</button>
+    <button data-act="note">פתק</button>
+  </div>
+  <div class="eq-peek" id="peek"></div>
+  <div class="toast" id="toast"></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+"use strict";
+var $=function(s,r){return (r||document).querySelector(s)}, $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+var root=document.documentElement; root.lang="he";
+function store(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
+
+/* ---------- math ---------- */
+function renderMath(el){
+  if(window.renderMathInElement){
+    try{
+      renderMathInElement(el,{delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],output:"mathml",throwOnError:false,ignoredTags:["script","noscript","style","textarea","pre","code","input"]});
+      return;
+    }catch(e){}
+  }
+  // fallback: show TeX as isolated LTR mono text
+  var walker=document.createTreeWalker(el,NodeFilter.SHOW_TEXT,null),nodes=[],n;
+  while((n=walker.nextNode())) if(n.nodeValue.indexOf("$")>-1 && !n.parentNode.closest("textarea,input,code")) nodes.push(n);
+  nodes.forEach(function(t){
+    var parts=t.nodeValue.split(/(\$\$[^$]+\$\$|\$[^$]+\$)/g),f=document.createDocumentFragment();
+    parts.forEach(function(p){ if(/^\$/.test(p)){var b=document.createElement("bdi");b.className="tex-fallback";b.dir="ltr";b.textContent=p.replace(/^\$+|\$+$/g,"");f.appendChild(b)} else f.appendChild(document.createTextNode(p)) });
+    t.parentNode.replaceChild(f,t);
+  });
+}
+
+/* ---------- sound (synthesised, soft, only on actions) ---------- */
+var soundOn=store("v2:sound")!=="0", actx=null;
+function tone(seq){
+  if(!soundOn) return;
+  try{
+    actx=actx||new (window.AudioContext||window.webkitAudioContext)();
+    var t=actx.currentTime;
+    seq.forEach(function(s){
+      var o=actx.createOscillator(),g=actx.createGain();
+      o.type=s.w||"sine"; o.frequency.value=s.f;
+      g.gain.setValueAtTime(0.0001,t+s.at); g.gain.exponentialRampToValueAtTime(s.g||0.06,t+s.at+0.015); g.gain.exponentialRampToValueAtTime(0.0001,t+s.at+s.d);
+      o.connect(g); g.connect(actx.destination); o.start(t+s.at); o.stop(t+s.at+s.d+0.02);
+    });
+  }catch(e){}
+}
+var SND={
+  ok:function(){tone([{f:659,at:0,d:.18},{f:988,at:.09,d:.32,g:.05}])},
+  bad:function(){tone([{f:330,at:0,d:.22,w:"triangle",g:.05}])},
+  hot:function(){tone([{f:392,at:0,d:.25,w:"triangle",g:.05},{f:311,at:.14,d:.4,w:"triangle",g:.045}])},
+  fold:function(){tone([{f:880,at:0,d:.06,g:.03}])},
+  pick:function(){tone([{f:520,at:0,d:.05,g:.025}])}
+};
+$("#soundBtn").addEventListener("click",function(){soundOn=!soundOn;store("v2:sound",soundOn?"1":"0");this.setAttribute("aria-pressed",soundOn);$("#sndwave").style.opacity=soundOn?1:.15;if(soundOn)SND.pick()});
+$("#sndwave").style.opacity=soundOn?1:.15;$("#soundBtn").setAttribute("aria-pressed",soundOn);
+
+/* ---------- theme ---------- */
+var THEMES=["auto","light","dark"],TL={auto:"אוטומטית",light:"בהירה",dark:"כהה"};
+function setTheme(t){ if(t==="auto") root.removeAttribute("data-theme"); else root.setAttribute("data-theme",t); $("#themeLbl").textContent=TL[t]; store("v2:theme",t)}
+var th=store("v2:theme"); setTheme(THEMES.indexOf(th)>-1?th:"auto");
+$("#themeBtn").addEventListener("click",function(){var cur=root.getAttribute("data-theme")||"auto";setTheme(THEMES[(THEMES.indexOf(cur)+1)%3])});
+
+/* ---------- toast ---------- */
+var tt;function toast(m){var e=$("#toast");e.textContent=m;e.classList.add("on");clearTimeout(tt);tt=setTimeout(function(){e.classList.remove("on")},2600)}
+
+/* ---------- commits ---------- */
+var CONF={1:"מנחש",2:"די בטוח",3:"בטוח"};
+var C={
+  c0:{type:"choice",pretest:true,label:"שאלת החוט · לפני הקריאה",
+      q:"אם רק נקטין את היחידה מספיק, האם תמיד יש זוג שלמים שיחסם הוא בדיוק יחס האלכסון לצלע של ריבוע?",
+      note:"טעות כאן לא עולה כלום: זה מכין את הקריאה. נחזור לשאלה בסוף השיעור.",
+      opts:["כן, תמיד יש","לא, אין זוג כזה","תלוי בדיוק של מכשיר המדידה"],key:1,title:"שאלת החוט",
+      out:"(1): אין זוג כזה"},
+  c1:{type:"num",label:"לפני שממשיכים · מספר",q:"גיליון שחציו דומה לו: מה יחס הצלעות $r$? (שלוש ספרות אחרי הנקודה)",
+      key:Math.SQRT2,tol:0.01,unit:"",ph:"למשל 1.5",title:"יחס הנייר",
+      why:"$r=2/r$, ולכן $r^2=2$ ו-$r=\\sqrt2\\approx1.414$.",
+      attract:{"2":"2 הוא $r^2$, לא $r$: שכחת להוציא שורש.","1.5":"1.5 הוא $3/2$, השבר המקרב הראשון. קרוב, אבל $1.5^2=2.25$.","0.707":"זה $1/\\sqrt2$: היחס הפוך, הצלע הקצרה חלקי הארוכה."},
+      fix:"הצורה נשמרת ⇔ $r=2/r$ ⇔ $r^2=2$."},
+  c2:{type:"choice",label:"התחייבות · בחירה",title:"על מה נשען 'מצומצם'",
+      q:"ההוכחה תתחיל ב\"נניח ש-$b/a=p/q$, שבר מצומצם\". על מה נשען \"אפשר לקחת אותו מצומצם\"?",
+      opts:["פירוק יחיד של שלמים לגורמים ראשוניים","בכל קבוצה לא ריקה של שלמים חיוביים יש איבר קטן ביותר","העובדה ש-2 ראשוני","אף אחת מאלה"],key:1,
+      why:"מבין כל השברים השווים ל-$b/a$ לוקחים את בעל המכנה הקטן ביותר. אילו היה למונה ולמכנה שלו גורם משותף, היה שבר שווה עם מכנה קטן עוד יותר.",
+      attract:{0:"פירוק יחיד הוא הנימוק שזוכרים מבית הספר, והוא באמת נדרש בהוכחה האחרת, זו שסופרת גורמי 2. כאן מספיק לבחור את המכנה הקטן ביותר.",2:"ש-2 ראשוני משמש אחר כך, בצעד 4 (\"$p^2$ זוגי ⇒ $p$ זוגי\"), לא בבחירת השבר.",3:"יש תכונה אחת שעליה זה נשען, ולא נאמרה בעמוד: הסדר הטוב."},
+      fix:"\"מצומצם\" = \"המכנה הקטן ביותר\" = הסדר הטוב של השלמים החיוביים."},
+  c3:{type:"line",label:"הצעד שלך · שורה אחת",title:"צעד 4 בגזירה",
+      q:"צעד 4: למה מכך ש-$p^2$ זוגי נובע ש-$p$ עצמו זוגי?",ph:"משפט אחד…",
+      hints:["מה קורה כשמעלים מספר אי-זוגי בריבוע?","כתבו אי-זוגי כ-$2m+1$ ופתחו את $(2m+1)^2$.","$(2m+1)^2=4m^2+4m+1$: אי-זוגי. לכן $p$ לא יכול להיות אי-זוגי."],
+      test:/(אי.?זוגי|לא.?זוגי|2m\s*\+\s*1|odd|4m\^?2|שלילה|contrapos)/i,
+      why:"ריבוע של אי-זוגי הוא אי-זוגי, $(2m+1)^2=4m^2+4m+1$. לכן אם $p^2$ זוגי, $p$ אינו אי-זוגי.",
+      attract:{line:"התשובה שלך לא הזכירה מה קורה לאי-זוגי בריבוע, וזה כל הצעד."},
+      fix:"$p$ אי-זוגי ⇒ $p^2$ אי-זוגי; לכן $p^2$ זוגי ⇒ $p$ זוגי (שלילת המסקנה).",
+      grader:"בסקיצה: בדיקת מילות מפתח. באפליקציה: Haiku מול מפתח ומחוון, 2–4 ש'."},
+  c4:{type:"choice",label:"התחייבות · בחירה",title:"מדידה מול הוכחה",
+      q:"מודדים את יחס האלכסון לצלע במכשיר שמדויק עד $10^{-9}$. האם מדידה כזאת יכולה להראות שהיחס אינו שבר?",
+      opts:["כן, אם תשע הספרות אינן חוזרות על עצמן","לא בתשע ספרות, אבל כן בעשרים","לא, בשום מספר סופי של ספרות","אף אחת מאלה"],key:2,
+      why:"כל תוצאה סופית היא קטע ברוחב $10^{-k}$, ויש בו תמיד שברים. לפי (2) הם רק צריכים מכנה גדול.",
+      attract:{0:"גם $1/17$ לא חוזר בתוך תשע ספרות (המחזור שלו 16). היעדר חזרה בחלון סופי לא אומר כלום.",1:"אין $k$ שבו זה משתנה: בכל רוחב $10^{-k}$ יש שבר, עם מכנה של בערך $10^{k/2}$.",3:"התשובה היא (ג): אף מספר סופי של ספרות."},
+      fix:"מדידה סופית = קטע; בכל קטע יש שבר. אי-רציונליות מוכיחים, לא מודדים."}
+};
+var state={}; try{state=JSON.parse(store("v2:state")||"{}")}catch(e){state={}}
+function save(){store("v2:state",JSON.stringify(state))}
+
+function confRow(){
+  return '<div class="conf" role="group" aria-label="התחייבות עם רמת ביטחון"><span class="lab">התחייב:</span>'+
+    [1,2,3].map(function(c){return '<button class="cbtn" data-c="'+c+'" disabled><span class="bars" aria-hidden="true"><i></i><i></i><i></i></span>'+CONF[c]+'</button>'}).join("")+
+    '<button class="skip" type="button">דלג, הראה תשובה</button></div>';
+}
+function buildCommit(el){
+  var id=el.getAttribute("data-c"),c=C[id],h='<div class="blk-l">'+c.label+'</div><p class="q">'+c.q+'</p>';
+  if(c.pretest) h+='<p class="pre-note">'+c.note+'</p>';
+  if(c.type==="choice"){
+    h+='<div class="opts" role="radiogroup">'+c.opts.map(function(o,i){return '<button class="opt" role="radio" aria-checked="false" data-i="'+i+'"><span class="n">'+"אבגד"[i]+'</span><span>'+o+'</span></button>'}).join("")+'</div>';
+  } else if(c.type==="num"){
+    h+='<div class="field"><input class="num" inputmode="decimal" placeholder="'+c.ph+'" aria-label="תשובה מספרית"><span class="unit">סובלנות ±'+c.tol+'</span></div>';
+  } else {
+    h+='<div class="field"><input placeholder="'+c.ph+'" aria-label="תשובה בשורה אחת"></div><div class="hintrow"><span class="ladder">'+c.hints.map(function(){return "<i></i>"}).join("")+'</span><button type="button" class="skip hintbtn" style="margin:0">רמז</button></div><div class="hints"></div>';
+  }
+  h+=confRow()+'<div class="verdict" aria-live="polite"></div>';
+  el.innerHTML=h; el.tabIndex=-1;
+  var sel=null,hintsUsed=0;
+  function ready(){var v=answer();$$(".cbtn",el).forEach(function(b){b.disabled=(v===null||v==="")})}
+  function answer(){ if(c.type==="choice") return sel; var i=$("input",el); return i? i.value.trim():null }
+  $$(".opt",el).forEach(function(b){b.addEventListener("click",function(){ if(el.classList.contains("done"))return; sel=+b.dataset.i; $$(".opt",el).forEach(function(x){x.setAttribute("aria-checked",x===b)}); SND.pick(); ready(); })});
+  var inp=$(".field input",el);
+  if(inp){inp.addEventListener("input",ready);inp.addEventListener("keydown",function(e){if(e.key==="Enter"&&inp.value.trim()){e.preventDefault();ready();$(".cbtn",el).focus()}})}
+  var hb=$(".hintbtn",el);
+  if(hb) hb.addEventListener("click",function(){ if(hintsUsed>=c.hints.length)return; var p=document.createElement("p");p.className="hint";p.textContent=c.hints[hintsUsed];$(".hints",el).appendChild(p);renderMath(p);$$(".ladder i",el)[hintsUsed].classList.add("on");hintsUsed++; if(hintsUsed>=c.hints.length)hb.disabled=true; });
+  $$(".cbtn",el).forEach(function(b){b.addEventListener("click",function(){commit(id,el,answer(),+b.dataset.c,hintsUsed)})});
+  $(".skip:not(.hintbtn)",el).addEventListener("click",function(){commit(id,el,null,0,hintsUsed)});
+  el.addEventListener("keydown",function(e){
+    if(el.classList.contains("done")||e.target.tagName==="INPUT")return;
+    if(c.type==="choice"&&/^[1-4]$/.test(e.key)&&c.opts[+e.key-1]){ $$(".opt",el)[+e.key-1].click(); $(".cbtn",el).focus(); e.preventDefault() }
+    if(e.target.classList.contains("cbtn")&&(e.key==="ArrowLeft"||e.key==="ArrowRight")){var bs=$$(".cbtn",el),i=bs.indexOf(e.target),d=(e.key==="ArrowLeft")?1:-1;bs[(i+d+3)%3].focus();e.preventDefault()}
+  });
+  renderMath(el);
+  if(state[id]) restore(id,el);
+}
+function grade(c,ans){
+  if(ans===null||ans==="") return null;
+  if(c.type==="choice") return ans===c.key;
+  if(c.type==="num"){ var s=String(ans).replace(",",".").replace(/√\s*2|sqrt\s*\(?2\)?|שורש\s*2/i,"1.41421"); var v=parseFloat(s); return isFinite(v)&&Math.abs(v-c.key)<=c.tol }
+  return c.test.test(ans);
+}
+function commit(id,el,ans,conf,hints){
+  var c=C[id],ok=grade(c,ans);
+  state[id]={ans:ans,conf:conf,ok:ok,hints:hints||0,t:Date.now()}; save();
+  showVerdict(id,el,true);
+  applyConsequences(id,true);
+  refreshOutline(); refreshKeep();
+}
+function restore(id,el){ showVerdict(id,el,false); applyConsequences(id,false) }
+function ansText(c,a){ if(a===null||a===undefined)return "—"; return c.type==="choice"? "("+"אבגד"[a]+") "+c.opts[a] : a }
+function showVerdict(id,el,fresh){
+  var c=C[id],s=state[id],v=$(".verdict",el),h="";
+  el.classList.add("done");
+  $$(".opt",el).forEach(function(b,i){b.disabled=true; if(c.pretest)return; if(i===c.key)b.classList.add("is-key"); if(s.ans===i&&!s.ok)b.classList.add("is-mine-bad")});
+  if(c.pretest){
+    h='<span class="pill neutral">נשמר · '+(CONF[s.conf]||"דילגת")+'</span><p class="why">ענית '+ansText(c,s.ans)+'. נחזור לזה בסוף השיעור, בכרטיס "לסיכום".</p>';
+    v.innerHTML=h; renderMath(v); if(fresh)SND.pick(); return;
+  }
+  var mine=c.type==="choice"?null:s.ans, attractTxt="";
+  if(!s.ok&&s.ans!==null){ if(c.type==="choice") attractTxt=c.attract[s.ans]||""; else if(c.type==="num"){var k=String(s.ans).trim(); attractTxt=c.attract[k]||("התשובה שלך, "+k+", רחוקה מ-$\\sqrt2\\approx1.414$ ביותר מ-"+c.tol+".")} else attractTxt=c.attract.line }
+  if(s.ans===null){
+    h='<span class="pill neutral">דילגת · ההסבר פתוח</span><p class="why"><span class="lbl">התשובה</span>'+(c.type==="choice"?"("+"אבגד"[c.key]+") ":"")+c.why+'</p><p class="mini">נכנס לתור החזרה כמו טעות: מחר.</p>';
+  } else if(s.ok&&s.conf===3){
+    h='<span class="pill ok">✓ צדקת · '+CONF[3]+'</span><p class="why">'+c.why+'</p>'+(earnTargets(id).length?'<p class="mini">הקטע שהוכחת קופל למטה, עם כל המילים שלו. לחיצה פותחת.</p>':"");
+  } else if(s.ok){
+    h='<span class="pill ok">✓ צדקת · '+CONF[s.conf]+'</span><p class="why"><span class="lbl">'+(s.conf===1?"ניחשת נכון, אז הנה למה":"נכון, והנה הנימוק המלא")+'</span>'+c.why+'</p><p class="mini">לא קיפלנו כלום: ביטחון נמוך משאיר את ההסבר פתוח.</p>';
+  } else if(s.conf===3){
+    h='<span class="pill hot">טעות בביטחון</span>'+
+      (c.type!=="choice"?'<p class="why"><span class="lbl">ענית</span><span class="mine">'+escapeHtml(String(s.ans))+'</span></p>':"")+
+      '<div class="ce" role="note"><h4><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17v.5"/></svg>זה הרגע הכי טוב ללמוד</h4>'+
+      '<p style="margin:0 0 6px"><b>למה התשובה שלך מפתה:</b> '+attractTxt+'</p>'+
+      '<div class="fix">'+c.fix+'</div>'+
+      '<p style="margin:6px 0"><span class="lbl" style="font-size:13px;font-weight:600;color:var(--muted)">הנימוק</span><br>'+c.why+'</p>'+
+      '<div class="srs">נכנס לתור החזרה: <span class="chip">מחר</span><span class="chip">+3 ימים</span><span class="chip">+8 ימים</span></div>'+
+      '<form class="own"><input placeholder="במילים שלך, שורה אחת (לא חובה)" aria-label="ניסוח במילים שלך"><button>שמור</button></form></div>';
+  } else {
+    h='<span class="pill bad">✗ לא הפעם · '+CONF[s.conf]+'</span>'+
+      (c.type!=="choice"?'<p class="why"><span class="lbl">ענית</span><span class="mine">'+escapeHtml(String(s.ans))+'</span></p>':"")+
+      '<p class="why"><span class="lbl">למה זה מפתה</span>'+attractTxt+'</p><p class="why"><span class="lbl">הנימוק</span>'+c.why+'</p><p class="mini">נכנס לתור החזרה: מחר.</p>';
+  }
+  if(c.grader&&s.ans!==null) h+='<p class="mini">'+c.grader+(s.hints?" · רמזים: "+s.hints+"/3":"")+'</p>';
+  v.innerHTML=h; renderMath(v);
+  var f=$(".own",v); if(f) f.addEventListener("submit",function(e){e.preventDefault();var i=$("input",f);if(!i.value.trim())return;f.outerHTML='<p class="mini" style="color:var(--hot)">נשמר לכרטיס החזרה: "'+escapeHtml(i.value.trim())+'"</p>'});
+  if(fresh){ if(s.ans===null)SND.pick(); else if(s.ok)SND.ok(); else if(s.conf===3)SND.hot(); else SND.bad(); }
+}
+function bidiHtml(h){return h.replace(/√\s?\d+/g,function(m){return '<bdi dir="ltr">'+m+'</bdi>'})}
+function fixBidi(el){var w=document.createTreeWalker(el,NodeFilter.SHOW_TEXT,null),ns=[],n;while((n=w.nextNode()))if(/√\s?\d/.test(n.nodeValue)&&!n.parentNode.closest('math,bdi,th,td,code'))ns.push(n);ns.forEach(function(t){var sp=document.createElement('span');sp.innerHTML=bidiHtml(escapeHtml(t.nodeValue));t.parentNode.replaceChild(sp,t)})}
+function escapeHtml(s){return s.replace(/[&<>"]/g,function(ch){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[ch]})}
+function earnTargets(id){return $$('[data-earn="'+id+'"]')}
+function applyConsequences(id,fresh){
+  var s=state[id];
+  // open the gate in any case (never lock material)
+  $$('[data-gate="'+id+'"]').forEach(function(g){g.classList.remove("veiled")});
+  if(id==="c3"){ var t=$(".step4-text"); t.hidden=false; }
+  earnTargets(id).forEach(function(e){
+    if(s.ok&&s.conf===3) fold(e,fresh);
+  });
+  if(id==="c2"&&s.ans!==null&&!s.ok){ var u=$("#u37"); if(u&&!u.previousElementSibling?.classList?.contains("flag-tag")){ var tag=document.createElement("span");tag.className="flag-tag";tag.textContent="חשוב לך: כאן נמצאת הטעות מן ההתחייבות";u.parentNode.insertBefore(tag,u);u.classList.add("flag-yours")} var d=$("#depth1"); d.classList.remove("closed"); }
+}
+function wordsOf(el){return (el.textContent||"").trim().split(/\s+/).filter(Boolean).length}
+function fold(e,fresh){
+  var head=$(".earn-head",e),body=$(".earn-body>div",e),w=wordsOf(body);
+  head.innerHTML='<span class="ck" aria-hidden="true">✓</span><span class="sum"><b>הוכחת את זה.</b> '+e.dataset.sum+'</span><span class="meta">'+w+' מילים, מקופלות</span><button type="button" aria-expanded="false">פתח</button>';
+  renderMath(head);
+  e.classList.add("folded"); e.classList.remove("reopened");
+  $("button",head).addEventListener("click",function(){ e.classList.remove("folded"); e.classList.add("reopened"); SND.fold(); refreshWords(); });
+  if(fresh) SND.fold();
+  refreshWords();
+}
+fixBidi($("#col"));
+$$(".commit").forEach(buildCommit);
+$$("[data-open-gate]").forEach(function(b){b.addEventListener("click",function(){var g=b.closest(".gate");g.classList.remove("veiled");toast("נפתח. ההתחייבות עדיין מחכה למעלה, אם תרצה.")})});
+$$("[data-reveal]").forEach(function(b){b.addEventListener("click",function(){var t=$("#"+b.dataset.reveal);t.hidden=!t.hidden})});
+$$(".depth-h").forEach(function(b){b.addEventListener("click",function(){var d=b.parentNode;d.classList.toggle("closed");b.setAttribute("aria-expanded",!d.classList.contains("closed"))})});
+
+/* ---------- convergents table (computed) ---------- */
+(function(){var rows=[[3,2],[7,5],[17,12],[41,29],[99,70],[239,169],[577,408],[1393,985]],tb=$("#conv tbody");
+rows.forEach(function(r){var e=r[0]/r[1]-Math.SQRT2,d=r[0]*r[0]-2*r[1]*r[1];var tr=document.createElement("tr");tr.innerHTML="<td>"+r[0]+"</td><td>"+r[1]+"</td><td class='"+(e<0?"neg":"")+"'>"+(e>0?"+":"−")+Math.abs(e).toExponential(2).replace("e-"," × 10^-")+"</td><td>"+(d>0?"+":"−")+Math.abs(d)+"</td>";tb.appendChild(tr)})})();
+
+/* ---------- outline + you are here ---------- */
+var sheet=$("#sheet");
+function outlineItems(){
+  var items=[];
+  $$("h2, h3, .core.formula, .commit, #keep",sheet).forEach(function(el){
+    if(el.matches("#keep h3"))return;
+    if(el.matches(".commit")&&el.closest(".commit")!==el)return;
+    if(el.matches("h2")) items.push({el:el,lv:"lv2",txt:el.textContent.replace(/^\d/,"").trim(),future:el.id==="s3"});
+    else if(el.matches("h3")) items.push({el:el,lv:"lv3",txt:el.textContent});
+    else if(el.matches(".formula")) items.push({el:el,lv:"kr",txt:$(".eq-no",el).textContent+" "+$(".blk-t",el).textContent});
+    else if(el.id==="keep") items.push({el:el,lv:"lv2",txt:"לסיכום"});
+    else { var id=el.dataset.c; items.push({el:el,lv:"cm",txt:C[id].title,c:id}) }
+  });
+  items.unshift({el:$("h1",sheet),lv:"lv2",txt:"פתיחה"});
+  return items;
+}
+var OL=outlineItems();
+function glyph(id){var s=state[id];if(!s)return '<span class="glyph g-pend" aria-label="ממתין">○</span>';if(s.ans===null)return '<span class="glyph g-skip" aria-label="דילגת">–</span>';if(C[id].pretest)return '<span class="glyph g-pend">•</span>';if(s.ok)return '<span class="glyph g-ok" aria-label="נכון">✓</span>';if(s.conf===3)return '<span class="glyph g-hot" aria-label="טעות בביטחון">!</span>';return '<span class="glyph g-bad" aria-label="שגוי">✗</span>'}
+function refreshOutline(){
+  var ul=$("#olList");ul.innerHTML="";
+  OL.forEach(function(it,i){
+    var li=document.createElement("li");li.className=it.lv+(it.future?" future":"");li.dataset.i=i;
+    li.innerHTML='<a href="#">'+(it.c?glyph(it.c):"")+bidiHtml(escapeHtml(it.txt))+'</a>';
+    $("a",li).addEventListener("click",function(e){e.preventDefault();it.el.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});closeSheet()});
+    ul.appendChild(li);
+  });
+  // calibration rail
+  var cal=$("#cal"),h="";
+  [3,2,1].forEach(function(cf){var ds=Object.keys(state).filter(function(k){return !C[k].pretest&&state[k].conf===cf}).map(function(k){var s=state[k];return '<span class="d '+(s.ok?"ok":(cf===3?"hot":"bad"))+'" title="'+C[k].title+'"></span>'}).join("");h+='<span>'+CONF[cf]+'</span><span class="dots">'+ds+'</span>'});
+  cal.innerHTML=h;
+  onScroll();
+}
+function refreshWords(){
+  var all=wordsOf($("#col")),fold=0;$$(".earn.folded .earn-body>div").forEach(function(d){fold+=wordsOf(d)});
+  $("#words").innerHTML="במסך: "+all.toLocaleString("he-IL")+" מילים"+(fold?"<br>מתוכן "+fold+" מקופלות כי הוכחת אותן. כולן נשארות בשיעור.":". שום דבר לא קופל.");
+}
+var hereIdx=-1;
+function onScroll(){
+  var y=window.scrollY,H=document.documentElement.scrollHeight-innerHeight;
+  $("#hair").style.width=(H>0?Math.min(100,y/H*100):0)+"%";
+  var line=innerHeight*0.32,idx=0;
+  OL.forEach(function(it,i){ if(it.el.getBoundingClientRect().top<line) idx=i });
+  var lis=$$("#olList li");
+  lis.forEach(function(li,i){li.classList.toggle("here",i===idx); var tag=$(".ol-here",li); if(tag)tag.remove()});
+  if(lis[idx]){ var sp=document.createElement("span");sp.className="ol-here";sp.textContent="אתה כאן";$("a",lis[idx]).appendChild(sp) }
+  // section label + time left in section (145 wpm)
+  var sec=null; for(var i=idx;i>=0;i--){ if(OL[i].lv==="lv2"){sec=OL[i];break} }
+  var next=null; for(var j=idx+1;j<OL.length;j++){ if(OL[j].lv==="lv2"){next=OL[j];break} }
+  var w=0; $$("#col > *").forEach(function(el){ if(next&&(el===next.el||!(el.compareDocumentPosition(next.el)&Node.DOCUMENT_POSITION_FOLLOWING)))return; var r=el.getBoundingClientRect(); if(r.bottom>line&&!el.matches(".earn.folded")) w+=wordsOf(el) });
+  var m=Math.max(1,Math.round(w/145));
+  $("#whereS").textContent=sec?sec.txt:"פתיחה";
+  $("#whereT").textContent="עוד כ-"+m+" דק' בסעיף";
+  $("#olTime").textContent="עוד "+m+" דק'";
+  hereIdx=idx;
+}
+var raf=0;addEventListener("scroll",function(){if(!raf)raf=requestAnimationFrame(function(){raf=0;onScroll()})},{passive:true});
+addEventListener("resize",onScroll);
+
+/* ---------- keep card ---------- */
+function refreshKeep(){
+  $$("#keepList .st").forEach(function(st){
+    var k=st.dataset.k.replace("b",""),s=state[k];
+    st.className="st read";st.textContent="נלמד";
+    if(s&&s.ok){ if(s.conf===3){st.className="st proved";st.textContent="הוכח ✓"} else {st.className="st forged";st.textContent="חושל"} }
+    else if(s&&s.ans!==null&&!s.ok){st.className="st forged";st.style.color="var(--hot)";st.style.borderColor="var(--hot)";st.textContent="בתור החזרה"}
+  });
+  var s0=state.c0,tb=$("#threadBack");
+  if(s0){ tb.innerHTML='<b>שאלת החוט, שוב.</b> בפתיחה ענית '+ansText(C.c0,s0.ans)+' ('+(CONF[s0.conf]||"דילגת")+'). עכשיו התשובה בידיך: '+C.c0.out+'. '+(s0.ans===C.c0.key?"צדקת כבר בפתיחה, ועכשיו יש לך הוכחה.":"השיעור הוא ההוכחה שזה לא כך.")}
+  renderMath(tb);
+}
+
+/* ---------- inline ask on selection ---------- */
+var A={
+  wellorder:{s:"<b>סדר טוב</b>: בכל קבוצה לא ריקה של שלמים חיוביים יש איבר קטן ביותר. כאן הקבוצה היא כל המכנים $q$ שעבורם $b/a=p/q$. בוחרים את הקטן, והשבר הזה מצומצם בהכרח.",
+    deeper:"למה זה לא טריוויאלי: ברציונליים החיוביים אין סדר טוב. לקבוצה $\\{1/n\\}$ אין איבר קטן ביותר. לכן הטיעון רץ על המכנים, שהם שלמים, ולא על השברים עצמם.",
+    derive:"ירידה אינסופית: מ-$p^2=2q^2$ נובע $q^2=2p_1^2$ עם $q<p$. חוזרים ומקבלים סדרה יורדת אינסופית של שלמים חיוביים. סדר טוב אומר שאין כזו.",
+    example:"$\\sqrt3$: אותו מבנה בדיוק, עם \"מתחלק ב-3\" במקום \"זוגי\". ב-$\\sqrt4$ הטיעון נשבר בצעד 4, כי $p^2$ זוגי ו-$p=2$, ואין סתירה."},
+  commens:{s:"$a$ ו-$b$ בני-מידה כשיש סרגל אחד $e$ שנכנס בשניהם מספר שלם של פעמים. זה בדיוק \"$b/a$ הוא שבר\": $b/a=n/m$.",
+    deeper:"החוזק של \"זרים במידתם\": הטענה היא על כל $e$, קטן ככל שיהיה. לכן שום מכשיר, שום יחידה ושום חלוקה לא יספיקו.",
+    derive:"אם $a=me$ ו-$b=ne$ אז $b/a=n/m$. בכיוון השני, אם $b/a=n/m$ קחו $e=a/m$: אז $a=me$ ו-$b=(n/m)a=ne$.",
+    example:"מחזורי שני פנסים מהבהבים: הם חוזרים לסנכרון רק אם יחס המחזורים רציונלי. ביחס $\\sqrt2$ הם מתקרבים אחרי 7, 17, 99 מחזורים, ואף פעם לא בדיוק."},
+  bound:{s:"שבר עם מכנה $q$ לא יכול להתקרב ל-$\\sqrt2$ יותר מבערך $0.35/q^2$, כי המונה $|p^2-2q^2|$ הוא שלם שאינו 0, ולכן לפחות 1.",
+    deeper:"זה מקרה פרטי של משפט ליוביל: מספר אלגברי ממעלה $d$ לא מתקרב בשברים יותר מ-$c/q^d$. ל-$\\sqrt2$ ‏$d=2$, ולכן $q^2$.",
+    derive:"$p^2-2q^2=(p-\\sqrt2q)(p+\\sqrt2q)$. מחלקים ב-$q^2$ ומקבלים $(p/q-\\sqrt2)(p/q+\\sqrt2)=(p^2-2q^2)/q^2$, ומשם (2).",
+    example:"$99/70$: החסם נותן $1/(70^2\\cdot2.83)=7.2\\cdot10^{-5}$, והשגיאה בפועל $7.2\\cdot10^{-5}$. זה הנייר A4."},
+  cone:{s:"ערימת גלילים מגזימה בנפח החרוט, והשגיאה היחסית היא בערך $3/(2n)$: באמת 15.5% ב-10 שכבות.",deeper:"עם רדיוס האמצע השגיאה היא $-1/(4n^2)$ יחסית. זה כלל נקודת האמצע של האינטגרציה, שעוד יחזור בשיעורי האנליזה.",derive:"$\\sum_{k=1}^n \\pi(kR/n)^2(h/n)=\\pi R^2h\\,\\frac{n(n+1)(2n+1)}{6n^3}$, ופותחים.",example:"ב-$n=151$: $\\tfrac{1}{2\\cdot151}\\cdot3\\approx0.99\\%$."},
+  geom:{s:"ההפשטה מוחקת תכונות בשתי מדרגות: קודם החומר (נשאר גוף), ואז העובי (נשארת צורה). רק על הצורה אפשר לנסח משפט מדויק.",deeper:"זה גם המקור לתחולה הרחבה: משפט על צורה נכון לכל גוף שיש לו אותה צורה, מפלדה ועד כוכב.",derive:"אין כאן גזירה. זו הגדרה, והמבחן שלה הוא אם היא מפרידה בין מה שהמשפט צריך לבין מה שלא.",example:"נפח כדור, $\\tfrac43\\pi R^3$, נכון לטיפה ולכוכב באותה מידה."},
+  edfu:{s:"הכלל של אדפו מניח בשקט שהזוויות ישרות. במלבן הוא מדויק, ובכל צורה אחרת מגזים.",deeper:"זו אותה תבנית כמו בכל כלל אצבע הנדסי: הכלל נכון בתחום שבו נוסה, ולא אומר איפה התחום נגמר.",derive:"מעוין: $\\tfrac{10+10}{2}\\cdot\\tfrac{10+10}{2}=100$, אבל השטח $10\\cdot10\\cdot\\sin60°=86.6$.",example:"טרפז עם בסיסים 10 ו-6 ושוקיים 5: הכלל נותן 40, והשטח האמיתי 36.7."},
+  anthy:{s:"מורידים את הצלע מן האלכסון ומקבלים ריבוע קטן באותו יחס. אם התהליך לא נעצר לעולם, אין מידה משותפת.",deeper:"זה האלגוריתם של אוקלידס על קטעים. בשלמים הוא תמיד נעצר, ובקטעים זרים במידתם הוא לא נעצר.",derive:"השבר המשולב: $\\sqrt2=1+\\cfrac{1}{2+\\cfrac{1}{2+\\cdots}}$, וכל קטיעה שלו נותנת שבר מקרב מן הטבלה.",example:"$3/2,\\ 7/5,\\ 17/12,\\ 41/29$: הקטיעות הראשונות."},
+  mils:{s:"אין מספר שלם של אלפיות רדיאן בסיבוב, ולכן כל צבא בוחר שבר נוח ומשלם בשגיאת כלל האצבע.",deeper:"6400 מתחלק בשתיים שמונה פעמים, וזה נוח לחלוקת גזרות. 6000 מתחלק גם ב-3.",derive:"$2\\pi\\cdot1000/6400=0.982$, ו-$2\\pi\\cdot1000/6000=1.047$.",example:"ב-6400 אלפית אחת על 1 ק\"מ היא 0.98 מ'."}
+};
+var GENERIC={s:"בסקיצה אין תשובה מוכנה לקטע הזה. באפליקציה המורה עונה כאן בשתיים-שלוש שורות, עם הסעיף, זיכרון הקורס ומחברת השיעור כהקשר.",deeper:"באפליקציה: הרחבה של כ-120 מילים, מעוגנת לאותה פסקה.",derive:"באפליקציה: גזירה קצרה, צעד אחר צעד, עם ההנחות מסומנות.",example:"באפליקציה: דוגמה מספרית אחת, מקרקע מוכרת."};
+var CHIP={deeper:"העמק",derive:"גזור",example:"דוגמה"};
+var selpop=$("#selpop"),selInfo=null;
+function blockOf(node){ var el=node.nodeType===1?node:node.parentNode; return el.closest("#col > p, #col > section, #col .gate-body > section, #col .earn-body p, #col .depth-b p, #col section p, #col .blk") }
+document.addEventListener("selectionchange",function(){
+  var s=getSelection();
+  if(!s||s.isCollapsed||!s.toString().trim()){ selpop.classList.remove("on"); return }
+  var r=s.getRangeAt(0); if(!$("#col").contains(r.commonAncestorContainer)||r.commonAncestorContainer.parentNode.closest(".commit,input,textarea")){selpop.classList.remove("on");return}
+  var b=r.getBoundingClientRect(); if(!b.width&&!b.height)return;
+  selInfo={text:s.toString().trim().slice(0,240),block:blockOf(r.startContainer)};
+  selpop.classList.add("on");
+  var w=selpop.offsetWidth,h=selpop.offsetHeight,x=Math.min(innerWidth-w-8,Math.max(8,b.left+b.width/2-w/2)),y=b.top-h-10;
+  if(y<60) y=b.bottom+10;
+  if(innerWidth<640){ y=innerHeight-parseInt(getComputedStyle(root).getPropertyValue("--bar-h"))-h-12; x=(innerWidth-w)/2 }
+  selpop.style.left=x+"px"; selpop.style.top=y+"px";
+});
+selpop.addEventListener("mousedown",function(e){e.preventDefault()});
+selpop.addEventListener("click",function(e){
+  var b=e.target.closest("button"); if(!b||!selInfo)return;
+  var act=b.dataset.act; selpop.classList.remove("on");
+  if(act==="note") addNote(selInfo.block,selInfo.text);
+  else showAnswer(selInfo.block,selInfo.text,act==="simple");
+  getSelection().removeAllRanges();
+});
+function keyFor(block){ var el=block; while(el&&el!==document.body){ if(el.dataset&&el.dataset.ask)return el.dataset.ask; el=el.parentNode } return null }
+function showAnswer(block,quote,simple,question){
+  if(!block) block=currentBlock();
+  var k=keyFor(block),a=A[k]||GENERIC,anchor=block;
+  while(anchor.parentNode&&!anchor.parentNode.matches('#col,.depth-b,.earn-body>div'))anchor=anchor.parentNode;
+  if(anchor.parentNode.matches('.earn-body>div')&&anchor.closest('.earn.folded'))anchor=anchor.closest('.earn');
+  $$(".ans").forEach(function(x){x.remove()});
+  var d=document.createElement("div");d.className="ans";d.setAttribute("role","region");d.setAttribute("aria-label","תשובה מעוגנת");
+  var body=simple? '<dl><dt>מושגים</dt><dd>'+(a.ex1||a.s.split(".")[0]+".")+'</dd><dt>הרעיון</dt><dd>'+a.deeper+'</dd><dt>דוגמה</dt><dd>'+a.example+'</dd></dl>' : '<p style="margin:0">'+a.s+'</p>';
+  d.innerHTML='<div class="ans-h"><span class="who">'+(simple?"הסבר פשוט":"המורה")+'</span><span class="demo">דוגמה: תשובה מוכנה מראש</span><button class="x" aria-label="סגור">×</button></div>'+
+    (quote?'<q>'+escapeHtml(quote)+'</q>':(question?'<q>'+escapeHtml(question)+'</q>':""))+body+
+    '<div class="chips">'+(simple?"":Object.keys(CHIP).map(function(c){return '<button class="chip-b" data-chip="'+c+'">'+CHIP[c]+'</button>'}).join(""))+'<button class="chip-b" data-chip="note">שמור לפתק</button></div>';
+  anchor.parentNode.insertBefore(d,anchor.nextSibling);
+  renderMath(d);
+  $(".x",d).addEventListener("click",function(){d.remove()});
+  $$("[data-chip]",d).forEach(function(c){c.addEventListener("click",function(){
+    if(c.dataset.chip==="note"){ addNote(block,(quote||question||"")+" → "+$("p,dl",d).textContent.slice(0,140)); c.disabled=true; return }
+    var m=document.createElement("div");m.className="more";m.innerHTML='<span class="lbl">'+CHIP[c.dataset.chip]+'</span>'+a[c.dataset.chip];renderMath(m);
+    d.insertBefore(m,$(".chips",d)); c.disabled=true; SND.pick();
+  })});
+  var r=d.getBoundingClientRect(); if(r.bottom>innerHeight-70||r.top<60) d.scrollIntoView({block:"center",behavior:"smooth"});
+}
+function currentBlock(){ var line=innerHeight*0.38,best=null; $$("#col p, #col .blk").forEach(function(p){var r=p.getBoundingClientRect(); if(r.top<line&&r.bottom>0&&p.offsetParent)best=p}); return best||$("#col p") }
+$("#askForm").addEventListener("submit",function(e){e.preventDefault();var q=$("#askIn").value.trim();if(!q)return;showAnswer(currentBlock(),"",false,q);$("#askIn").value=""});
+
+/* ---------- margin notes ---------- */
+var KINDS=["הערה","להעמקה","שאלה למומחה","רעיון למאמר"];
+function addNote(block,quote,text,kind){
+  block=block||currentBlock(); if(block.closest(".earn"))block=block.closest(".earn");
+  var n=document.createElement("aside");n.className="mnote";
+  n.innerHTML='<span class="kind">'+(kind||KINDS[0])+'</span><textarea aria-label="פתק">'+escapeHtml(text||"")+'</textarea>';
+  if(quote) n.title="מעוגן ל: "+quote;
+  if(innerWidth>=1180){ var sr=sheet.getBoundingClientRect(),br=block.getBoundingClientRect(); n.style.top=(br.top-sr.top)+"px"; sheet.appendChild(n); avoidOverlap(); }
+  else block.parentNode.insertBefore(n,block.nextSibling);
+  if(!text) $("textarea",n).focus({preventScroll:true});
+  var k=$(".kind",n);k.style.cursor="pointer";k.title="החלף סוג";k.addEventListener("click",function(){k.textContent=KINDS[(KINDS.indexOf(k.textContent)+1)%4]});
+}
+function avoidOverlap(){var ns=$$(".sheet > .mnote").sort(function(a,b){return parseFloat(a.style.top)-parseFloat(b.style.top)}),last=-1e9;ns.forEach(function(n){var t=parseFloat(n.style.top);if(t<last+8){t=last+8;n.style.top=t+"px"}last=t+n.offsetHeight})}
+$("#noteBtn").addEventListener("click",function(){addNote(currentBlock(),"")});
+
+/* ---------- equation peek ---------- */
+var peek=$("#peek");
+$$(".eqref").forEach(function(a){
+  function show(){var src=$("#"+a.dataset.eq+" .eq-body");if(!src)return;peek.innerHTML=src.innerHTML;peek.classList.add("on");var r=a.getBoundingClientRect(),w=peek.offsetWidth;peek.style.left=Math.max(8,Math.min(innerWidth-w-8,r.left+r.width/2-w/2))+"px";peek.style.top=(r.top-peek.offsetHeight-8<56?r.bottom+8:r.top-peek.offsetHeight-8)+"px"}
+  a.addEventListener("mouseenter",show);a.addEventListener("focus",show);
+  a.addEventListener("mouseleave",function(){peek.classList.remove("on")});a.addEventListener("blur",function(){peek.classList.remove("on")});
+  a.addEventListener("click",function(e){e.preventDefault();peek.classList.remove("on");$("#"+a.dataset.eq).scrollIntoView({block:"center",behavior:"smooth"})});
+});
+
+/* ---------- bottom bar, focus, mobile outline sheet ---------- */
+var ol=$("#outline"),scrim=$("#scrim");
+function openSheet(){ol.classList.add("open");scrim.classList.add("on")}
+function closeSheet(){ol.classList.remove("open");scrim.classList.remove("on")}
+$("#olBtn").addEventListener("click",function(){ol.classList.contains("open")?closeSheet():openSheet()});
+$("#where").addEventListener("click",function(){ if(innerWidth<=900) openSheet(); else ol.scrollTop=0 });
+scrim.addEventListener("click",closeSheet);
+$("#focusBtn").addEventListener("click",function(){var on=!$("#app").classList.contains("focus");$("#app").classList.toggle("focus",on);this.setAttribute("aria-pressed",on);onScroll()});
+document.addEventListener("keydown",function(e){ if(e.key==="Escape"){closeSheet();selpop.classList.remove("on");$$(".ans").forEach(function(x){x.remove()})} });
+
+/* ---------- boot ---------- */
+function boot(){
+  renderMath($("#col"));
+  refreshOutline(); refreshKeep(); refreshWords();
+  // a pre-existing margin note (from an earlier session)
+  addNote($("#naive"),"דמוקריטוס","לבדוק את עדות ארכימדס ב'שיטה' (Method), למאמר על אטומיזם ורציפות.","להעמקה");
+  $$('.eq-body').forEach(function(b){function u(){b.classList.toggle('scrolls',b.scrollWidth>b.clientWidth+2);b.classList.toggle('at-end',b.scrollLeft+b.clientWidth>=b.scrollWidth-2)}u();b.addEventListener('scroll',u,{passive:true});addEventListener('resize',u)});
+  onScroll();
+}
+if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",boot); else boot();
+window.__v2={state:state,C:C,reset:function(){store("v2:state","{}");location.reload()}};
+})();
+</script>

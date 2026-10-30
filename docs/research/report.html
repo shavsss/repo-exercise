@@ -1,0 +1,318 @@
+<title>חזון גילואה ולנצ'סטר</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans+Hebrew:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: one reading column on drafting paper; marker-red rail for decisions; tables in their own scroll boxes */
+:root {
+  --bg: #ece4d6; --paper: #f7f2e9; --ink: #23271e; --ink-soft: #4b5043; --muted: #6c7062; --line: #d9cebb;
+  --accent: #b3261e; --accent-soft: #f3e0d9; --olive: #5b6248; --blue: #1f5f9e; --blue-soft: #e3ecf5; --ok: #3f7a1a; --ok-soft: #e4eedb;
+  --font: "IBM Plex Sans Hebrew", "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1f1e1d; --paper: #262624; --ink: #ece8df; --ink-soft: #c9c4b8; --muted: #a39e93; --line: #3a3935;
+    --accent: #ff8f84; --accent-soft: #3b2724; --olive: #b5b8a0; --blue: #94bfdc; --blue-soft: #233140; --ok: #b9d77f; --ok-soft: #2a3324;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1f1e1d; --paper: #262624; --ink: #ece8df; --ink-soft: #c9c4b8; --muted: #a39e93; --line: #3a3935;
+  --accent: #ff8f84; --accent-soft: #3b2724; --olive: #b5b8a0; --blue: #94bfdc; --blue-soft: #233140; --ok: #b9d77f; --ok-soft: #2a3324;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 17px; line-height: 1.75; }
+.wrap { direction: rtl; max-width: 840px; margin: 0 auto; padding-block: 28px 80px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.sheet { background: var(--paper); border: 1px solid var(--line); padding: 34px clamp(18px, 5vw, 56px) 44px; }
+.eyebrow { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.08em; color: var(--accent); display: flex; align-items: center; gap: 10px; }
+.eyebrow::before, .eyebrow::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+h1 { font-size: clamp(1.9rem, 5vw, 2.5rem); line-height: 1.2; margin: 14px 0 6px; text-wrap: balance; text-align: center; }
+.sub { text-align: center; color: var(--ink-soft); margin: 0 auto 26px; max-width: 62ch; }
+h2 { font-size: 1.45rem; margin: 46px 0 10px; padding-top: 14px; border-top: 1.5px solid var(--ink); text-wrap: balance; display: flex; gap: 12px; align-items: baseline; }
+h2 .n { font-family: var(--mono); font-size: 0.85rem; color: var(--accent); font-weight: 600; }
+h3 { font-size: 1.12rem; margin: 26px 0 6px; text-wrap: balance; }
+p, li { max-width: 68ch; }
+p { margin: 0 0 12px; }
+ul, ol { padding-inline-start: 1.3em; margin: 0 0 14px; }
+li { margin-bottom: 6px; }
+strong { font-weight: 650; }
+.num { font-family: var(--mono); font-variant-numeric: tabular-nums; font-size: 0.92em; direction: ltr; unicode-bidi: isolate; }
+nav.toc { border: 1px solid var(--line); padding: 14px 18px; margin: 0 0 8px; }
+nav.toc b { font-size: 0.8rem; letter-spacing: 0.06em; color: var(--muted); display: block; margin-bottom: 6px; }
+nav.toc ol { columns: 2; column-gap: 28px; margin: 0; padding-inline-start: 1.2em; }
+nav.toc a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line); }
+nav.toc a:hover, nav.toc a:focus-visible { color: var(--accent); border-color: var(--accent); }
+@media (max-width: 560px) { nav.toc ol { columns: 1; } }
+.bottom { border-inline-start: 4px solid var(--accent); background: var(--accent-soft); padding: 16px 20px; margin: 18px 0 8px; }
+.bottom p:last-child { margin-bottom: 0; }
+.good { border-inline-start: 4px solid var(--ok); background: var(--ok-soft); padding: 14px 18px; margin: 14px 0; }
+.good p:last-child { margin-bottom: 0; }
+.note { border: 1px dashed var(--line); padding: 12px 16px; color: var(--ink-soft); font-size: 0.93rem; margin: 14px 0; }
+.tbl { overflow-x: auto; margin: 12px 0 18px; border: 1px solid var(--line); }
+table { border-collapse: collapse; width: 100%; min-width: 540px; font-size: 0.93rem; line-height: 1.55; }
+th, td { text-align: start; padding: 9px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 0.8rem; letter-spacing: 0.03em; color: var(--muted); font-weight: 600; background: color-mix(in srgb, var(--line) 30%, transparent); }
+tr:last-child td { border-bottom: 0; }
+.links { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin: 12px 0 18px; }
+.links a { display: block; border: 1px solid var(--line); padding: 12px 14px; text-decoration: none; color: var(--ink); min-width: 0; }
+.links a b { display: block; color: var(--blue); }
+.links a span { font-size: 0.9rem; color: var(--ink-soft); }
+.links a:hover, .links a:focus-visible { border-color: var(--blue); }
+.decide { counter-reset: d; list-style: none; padding: 0; display: grid; gap: 10px; }
+.decide li { counter-increment: d; max-width: none; border: 1px solid var(--line); padding: 12px 16px; position: relative; padding-inline-start: 52px; margin: 0; }
+.decide li::before { content: counter(d); position: absolute; inset-inline-start: 14px; top: 11px; font-family: var(--mono); font-weight: 600; color: var(--accent); font-size: 1.1rem; }
+.decide .rec { display: block; font-size: 0.9rem; color: var(--ink-soft); margin-top: 4px; }
+.phase { border-inline-start: 2px solid var(--olive); padding-inline-start: 16px; margin: 0 0 16px; }
+.phase h3 { margin-top: 6px; }
+.phase .meta { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.foot { text-align: center; color: var(--muted); font-size: 0.82rem; margin-top: 30px; }
+</style>
+
+<div class="wrap">
+<article class="sheet">
+  <div class="eyebrow">GILUA · LANCHESTER · מחקר מסכם</div>
+  <h1>חזון גילואה ולנצ'סטר</h1>
+  <p class="sub">שלושה סבבי מחקר, כחמישים סוכנים, ניסויים עם שופטים עיוורים, שמונה פאנלים שקראו את הספרים, ומודלים של זמן שנבדקו זה מול זה. מה צריך ללמוד, איך כל שיעור צריך להיראות, וכמה זמן זה באמת לוקח.</p>
+
+  <nav class="toc" aria-label="תוכן">
+    <b>תוכן</b>
+    <ol>
+      <li><a href="#bottom">השורה התחתונה</a></li>
+      <li><a href="#what">מה לומדים: תוכנית הלימודים לפי נושאים</a></li>
+      <li><a href="#lesson">השיעור: צפוף, עמוק ופעיל</a></li>
+      <li><a href="#ask">התייעצות בתוך השיעור</a></li>
+      <li><a href="#ui">הממשק</a></li>
+      <li><a href="#memory">זכירה, תרגול ושימוש</a></li>
+      <li><a href="#projects">תיק פרויקטים חי</a></li>
+      <li><a href="#day">היום, השבוע והגלים</a></li>
+      <li><a href="#time">לוח הזמנים, בלי ייפוי</a></li>
+      <li><a href="#fix">תיקונים דחופים</a></li>
+      <li><a href="#build">סדר הבנייה</a></li>
+      <li><a href="#decide">ההחלטות שלך</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="bottom"><span class="n">01</span>השורה התחתונה</h2>
+  <div class="bottom">
+    <p><strong>המטרה היא מומחיות בהרבה תחומים, וזו דרך ארוכה.</strong> כל החומר של שתי האפליקציות, בעומק המלא ועם זכירה של לפחות 90% מכל פריט גם אחרי שנה, לוקח בערך <strong>22 חודשים</strong> (בטווח 18–28) ב-8 שעות ביום ועוד שעה בטלפון. הליבה של שתיהן לוקחת בערך <strong>18 חודשים</strong> (14.5–22.5). זה בערך פי שניים עד שלושה מהר יותר מתואר באוניברסיטה, בהיקף של יותר משני תארים, וברמת מומחה.</p>
+    <p><strong>ארבעה דברים מאפשרים את זה:</strong> לומדים לפי נושאים ולא לפי עמודים, ומה שלא חשוב למטרה לא נלמד. השיעור צפוף בחצי מהמילים בלי לאבד עומק. הלומד פעיל ומחויב לתשובה בתוך השיעור עצמו. והזכירה בנויה לפי דרגת החשיבות של כל פריט.</p>
+    <p><strong>הסדר:</strong> מתמקצעים תחום אחר תחום, בגלים, ועמוד השדרה רץ לאורך כל הדרך. כל תחום נסגר ברמת מומחה, נבדק מבחוץ, ומלווה בפרויקטים ברמה גבוהה, לא בתרגילים.</p>
+  </div>
+  <div class="links">
+    <a href="https://claude.ai/artifact/GPjuTuzYDLDoEdyg94jxcH"><b>אב-טיפוס: שיעור פעיל</b><span>על התוכן האמיתי של שיעור 2. מתחייבים לפני שפותחים, שיחה סוקרטית, חיזוי וסימולציה, ושאלות על טקסט מסומן</span></a>
+    <a href="https://claude.ai/artifact/R9xKXS1izeXro1f16AtWQy"><b>סקיצות: היום, הפנקס, הכור</b><span>מסך היום, פנקס התוצאות של שתי האפליקציות, הכור, מעבדת המכ"ם וניסוי השבועיים</span></a>
+  </div>
+
+  <h2 id="what"><span class="n">02</span>מה לומדים: תוכנית הלימודים לפי נושאים</h2>
+  <p>הספרים הם מפה של מה שחשוב, לא רשימה של עמודים לקרוא. לכן נבנתה תוכנית חדשה בארבעה שלבים:</p>
+  <ol>
+    <li><strong>מרשם סעיפים:</strong> כל סעיף ותת-סעיף בשתי הספריות סווג לפי סוג, ונספרו בו התוצאות המרכזיות. גילואה: 4,492 סעיפים מ-34 ספרים. לנצ'סטר: 1,548 סעיפים.</li>
+    <li><strong>מפת ידע עצמאית:</strong> מה מומחה בכל תחום צריך לדעת, בלי קשר לספרים. המקורות: גופי ידע מקצועיים, תוכניות ליבה של אוניברסיטאות מובילות, דרישות הסמכה, ותוכניות לימוד מתקדמות במכ"ם, בלוחמה אלקטרונית ובחקר ביצועים. יצאו 1,286 תתי-נושאים.</li>
+    <li><strong>איחוד:</strong> מפה אחת לשתי האפליקציות. כל נושא נלמד פעם אחת, והאפליקציה השנייה מקבלת שיעור "מה חדש כאן".</li>
+    <li><strong>שמונה פאנלים של מומחים מדמים:</strong> הם קראו את הספרים עצמם, אימתו כל נושא, הכריעו על כל סעיף שלא הותאם לנושא, והוסיפו מה שהמפות פספסו. כשהיה ספק, החומר נשאר.</li>
+  </ol>
+  <div class="tbl"><table>
+    <thead><tr><th></th><th>גילואה</th><th>לנצ'סטר</th></tr></thead>
+    <tbody>
+      <tr><td>מודולים</td><td>318, מהם 2 חדשים</td><td>180, מהם 11 חדשים</td></tr>
+      <tr><td>עמודים שנלמדים</td><td><span class="num">14,820</span></td><td><span class="num">9,081</span>, כולל כ-1,100 עמודים מספרי חקר הביצועים, שעד עכשיו שימשו רק כעזר</td></tr>
+      <tr><td>לא נדרשים למטרה</td><td><span class="num">3,046</span> (17%): נספחים, טבלאות, היסטוריה, תרגילים, סיכומים, מעבדות מעבדים מיושנות</td><td><span class="num">477</span> (6%)</td></tr>
+      <tr><td>מבחן דילוג (לא הסרה)</td><td>כ-115 עמודים</td><td>כ-2,600 עמודים: תיאורים, דוקטרינה ומבצעים</td></tr>
+      <tr><td>תוצאות מרכזיות</td><td><span class="num">1,872</span></td><td><span class="num">739</span></td></tr>
+      <tr><td>פריטי לימוד שנוספו</td><td>261</td><td>305</td></tr>
+    </tbody>
+  </table></div>
+  <h3>מה חדש בתוכנית</h3>
+  <ul>
+    <li><strong>גילואה:</strong> מודול אלמנטים סופיים ונפחים סופיים, ומודול מערכות הספק ורשת החשמל. בנוסף, כמה נושאים עוברים ממודולים מתקדמים לליבה: וקטור פוינטינג, אפקט דופלר, Shannon–Hartley ומדידה במעבדה.</li>
+    <li><strong>לנצ'סטר:</strong>
+      <ul>
+        <li>תכן טילים, לפי הספר של Fleeman (שני מודולים).</li>
+        <li>שרידות בקרב, לפי Ball.</li>
+        <li>כושר מערכה אווירית.</li>
+        <li>לוחמת רחפנים וכלכלתה.</li>
+        <li>שליטה בחלל.</li>
+        <li>חלק חדש שלם: מידול קרבי (חוקי לנצ'סטר עוברים לליבה, מודל המטחים ויחסי חילוף); רכש, עלות ובסיס תעשייתי; לוגיסטיקה; מודיעין גלוי והערכת יכולות; כתיבה וראיונות.</li>
+      </ul>
+    </li>
+    <li><strong>ההכרעות שלך:</strong>
+      <ul>
+        <li>עלות היא נושא מפתח.</li>
+        <li>חובות פרסום, ישראל והאזור מוזכרים רק כהקשר.</li>
+        <li>שיפוט ראיות והתשה נלמדים בתוך מודולי מידול קרבי, הגנה אווירית, וניסוי והערכה.</li>
+        <li>מה שנראה כבר מוכר לך עובר מבחן קצר: אם עברת, הוא מוצג בקיצור; אם לא, הוא נלמד במלואו.</li>
+      </ul>
+    </li>
+    <li><strong>הסדר:</strong> המיקום של כל מודול חדש נקבע לפי הדרישות המוקדמות שלו.</li>
+  </ul>
+
+  <h2 id="lesson"><span class="n">03</span>השיעור: צפוף, עמוק ופעיל</h2>
+  <p>שאלת אם השיעורים ארוכים בלי להוסיף עומק. לא סמכנו על דעה, אלא מדדנו ובדקנו בשופטים עיוורים, שלא ידעו איזו גרסה היא החדשה:</p>
+  <ul>
+    <li><strong>מדידה:</strong> בערך חצי משיעור בגילואה לא מוסיף עומק חדש. עיקר הבזבוז הוא סיפור מחדש של הספר עמוד אחר עמוד, חזרות, צבע היסטורי ושילוט.</li>
+    <li><strong>שכתוב של שני פרקים, שלושה סבבים:</strong> הגרסה הסופית שומרת 100% מיחידות העומק ב-73% מהמילים. שופט עיוור הראה שהיא עונה על כל 12 השאלות הקשות שנבנו מהמקור, וגם מתקנת טעויות שהיו במקור.</li>
+    <li><strong>שיעור 2 נכתב מאפס לפי כללים חדשים</strong>, בשלושה סבבים של כללים:
+      <ul>
+        <li><strong>בסבב הראשון</strong> השיעור נכתב טוב יותר, אבל אבדו "פנינים" של סמכות.</li>
+        <li><strong>בסבב השני</strong> הן חזרו. השיעור נעשה עמוק יותר מהקיים בנושא עצמו, בחצי מהמילים (כ-6,200 לעומת כ-12,200). השופט שקרא כמוך נתן 8.5 לעומת 6.5.</li>
+        <li><strong>הסבב השלישי</strong> מבטיח שיישומים ששייכים למודולים מאוחרים לא ילכו לאיבוד. הם נרשמים בפנקס, ושם חובה ללמד אותם בעומק מלא.</li>
+      </ul>
+    </li>
+  </ul>
+  <h3>כללי הכתיבה החדשים, בעיקר</h3>
+  <ul>
+    <li><strong>יחידת השיעור:</strong> אחת או שתיים תוצאות מרכזיות, לא מספר עמודים קבוע. הכללים מכסים גם איך מתכננים, ובודקים בסוף שכל נושא שהוקצה נלמד.</li>
+    <li><strong>תכנון משני מקורות:</strong> כל רעיון בעמודים, ועוד "שכבת סמכות" לכל תוצאה מרכזית:
+      <ul>
+        <li>הנחה נסתרת, ומקרה אמיתי שבו היא נשברה;</li>
+        <li>ניתוח שגיאה כמותי;</li>
+        <li>הוכחה שנייה;</li>
+        <li>החיבור החזק ביותר לתחום אחר;</li>
+        <li>מקרה מכריע עם מספרים;</li>
+        <li>טעות מקצועית נפוצה.</li>
+      </ul>
+      מה שעובר את הסף לא נחתך בגלל אורך. במקום לחתוך, מפצלים את השיעור.
+    </li>
+    <li><strong>סדר הצגה:</strong> הגדרה מתמטית לפני דוגמה. נוסחה מרכזית מסומנת בבירור ובנפרד מהמחשה. חוט אחד שעובר דרך השיעור כולו.</li>
+    <li><strong>מה אסור:</strong> רשימה סגורה של סוגי ריפוד אסורים. כל סמל מוגדר בהופעה הראשונה שלו, ושום צעד ביניים לא מושמט.</li>
+    <li><strong>שער עומק לפני פרסום:</strong> מבחן קשה, מגרסה קודמת או מטיוטה עמוקה עצמאית, שהשיעור החדש חייב לעבור במלואו.</li>
+    <li><strong>כרטיס "לסיכום":</strong> בסוף כל שיעור, עם ההגדרות, הנוסחאות ומספרים לזכור.</li>
+  </ul>
+  <h3>איך שיעור מתנהל</h3>
+  <ul>
+    <li><strong>פתיחה:</strong> שליפה מהשיעור הקודם, ושאלות ניחוש לפני הקריאה. השאלות האלה חוזרות במקום שבו השיעור עונה עליהן.</li>
+    <li><strong>מתחייבים לפני שפותחים:</strong> בחירה, מספר או שורה אחת. רמת ביטחון נשאלת רק בנקודות המפתח. הטקסט שעונה על השאלה מוסתר עד שעונים, ותמיד אפשר לפתוח אותו בלי לענות.</li>
+    <li><strong>טעות בביטחון גבוה:</strong> מקבלת כרטיס מיוחד שמסביר למה התשובה מפתה, והנקודה נכנסת לתור החזרה.</li>
+    <li><strong>"הצעד שלך" בגזירה:</strong> אם טועים, נפתחת שיחה סוקרטית קצרה, צעד אחד בכל פעם.</li>
+    <li><strong>חיזוי, צפייה, הסבר:</strong> בסימולציות חוזים לפני שמזיזים.</li>
+    <li><strong>מה שהוכחת:</strong> מתקפל. הקיפול מציין כמה מילים קופלו, אומר שהן נשארות בשיעור, ומזכיר שהן ייבדקו שוב. שום דבר לא מוסר.</li>
+    <li><strong>סיום:</strong> כרטיס "לסיכום" עם משבצות להשלים, ושורת "הסבר במילים שלך".</li>
+  </ul>
+
+  <h2 id="ask"><span class="n">04</span>התייעצות בתוך השיעור</h2>
+  <p><strong>האבחון, מתוך הקוד:</strong> כל שאלת הבהרה נשלחת עם כל כללי השיעור, כולל "לפחות 4,000 מילים" ו"שבע תגיות בכל שיעור". ההוראה לשאלת הבהרה היא "עומק מלא, עם גזירות ואיורים", בלי גבול אורך. ולפני השאלה בשיחה עומד שיעור של 15 אלף מילים, שהמודל מחקה. לכן שאלה של שלוש מילים קיבלה כ-2,000 מילים. הצ'אט הצדדי רץ על המודל הקטן ברמת חשיבה נמוכה, עם תבנית קבועה שמסתיימת בדוגמה, ובלי חישוב.</p>
+  <p><strong>המערכת החדשה, אחת במקום שתיים:</strong></p>
+  <ul>
+    <li><strong>איפה שואלים:</strong> מסמנים טקסט ושואלים לפי סוג השאלה (11 סוגים, לכל אחד צורה ואורך משלו). התשובה מופיעה ככרטיס צמוד לפסקה ונשמרת בשוליים.</li>
+    <li><strong>מבנה התשובה:</strong> המשפט הראשון עונה ישירות. כל טעות או תיקון נאמרים מיד.</li>
+    <li><strong>העומק לא נחתך:</strong> כל מה שנדחה הופך לכפתור, כמו "העמק", "גזור", "דוגמה" או "חבר ל…", עד טיפול ברמת שיעור בנקודה עצמה.</li>
+    <li><strong>מודלים:</strong> מודל חזק לכל תשובה אמיתית. המודל הקטן רק מנתב שאלות ומגדיר מונחים.</li>
+    <li><strong>מה המורה מקבל:</strong> הפסקה, רשימת המשוואות, זיכרון הקורס והפתקים, אבל לא את כללי השיעור.</li>
+    <li><strong>כל שאלה נשמרת</strong> ומזינה את זיכרון הקורס ואת החזרה.</li>
+  </ul>
+  <p>בסימולציה על שבע השאלות האמיתיות שלך, האורך ירד מכ-9,500 מילים לכ-1,760, וכל נקודה מהתשובות המקוריות נשארה נגישה. את ההנחיות עוד צריך להריץ על המודל עצמו. זה חלק מהשבועיים של המדידה.</p>
+
+  <h2 id="ui"><span class="n">05</span>הממשק</h2>
+  <p><strong>בדיקת המצב היום:</strong> השיעור הקיים נבדק בדפדפן בכל הרוחבים והערכות. נמצא:</p>
+  <ul>
+    <li>השורה הצפה נכתבת על גבי הטקסט.</li>
+    <li>יש 19 צבעי בלוקים עם מסגרות מקווקוות, ולכן צבע כבר לא מסמן חשיבות.</li>
+    <li>נוסחאות נשברות בתוך שורה עברית.</li>
+    <li>אין "אתה כאן".</li>
+    <li>בטלפון השיעור שבור.</li>
+  </ul>
+  <p><strong>שלושה סבבי עיצוב,</strong> עם ביקורת מהזווית שלך ובדיקה ביום של 8 שעות. אב-הטיפוס הסופי:</p>
+  <ul>
+    <li>שלוש רמות צבע במקום 19.</li>
+    <li>שורה תחתונה אחת יציבה.</li>
+    <li>תוכן שיעור עם "אתה כאן".</li>
+    <li>מספר משוואה רק לנוסחאות מרכזיות, עם הצצה כשמרחפים עליו.</li>
+    <li>התחייבות שנענתה מתכווצת לשורה אחת.</li>
+    <li>צליל רק על טעות בביטחון.</li>
+    <li>ערכת לילה חמה, ותזכורת להפסקה אחרי 25 דקות.</li>
+  </ul>
+  <p><strong>מה נשמר:</strong> שמנת וגרפיט, הגופן, פתקי השוליים, "הסבר פשוט", התלת-ממד והאיורים מהמקור.</p>
+
+  <h2 id="memory"><span class="n">06</span>זכירה, תרגול ושימוש</h2>
+  <ul>
+    <li><strong>יעד:</strong> לפחות 90% זכירה של כל פריט, גם אחרי חצי שנה וגם אחרי שנה, בעומק שהדרגה שלו דורשת:
+      <ul>
+        <li><strong>תוצאת מפתח:</strong> בונים מחדש את המבנה וההנחות, נותנים גבולות, ומספר בהערכה בראש.</li>
+        <li><strong>תוצאה תומכת:</strong> הנחות, גבול ומספר.</li>
+        <li><strong>פריט הקשר:</strong> הגדרה מדויקת ושימוש נכון.</li>
+      </ul>
+    </li>
+    <li><strong>חזרה שהיא גם תרגול ושימוש:</strong> בונים מחדש שלד גזירה, מעריכים עם טווח ורמת ביטחון, מוצאים טעות, מסבירים לעורך, ומשווים מבנה בין תחומים. בכ-60% מהמשימות, משימה אחת בודקת כמה פריטים.</li>
+    <li><strong>מדיניות לפי דרגה:</strong> תוצאה תומכת נבדקת דרך תוצאת המפתח שלה. פריט הקשר נשמר בעיקר דרך שימוש בשיעורים הבאים, עם רשת ביטחון של חזרה כשהוא נחלש.</li>
+    <li><strong>"הוכח":</strong> רק אחרי בדיקות פתע מאוחרות. לתוצאת מפתח: שלוש בדיקות ויישום אחד.</li>
+    <li><strong>המבחן החודשי:</strong> שעה, בלי חומר, עם 20% שאלות מעמודים שלא נלמדו. הוא המדד האמיתי, והמערכת לא מסמנת לעצמה.</li>
+    <li><strong>מצב כיס בטלפון:</strong> כשעה ביום, בזמנים מתים.</li>
+  </ul>
+
+  <h2 id="projects"><span class="n">07</span>תיק פרויקטים חי</h2>
+  <ul>
+    <li><strong>רעיונות נלכדים בזמן הלימוד:</strong> בפתקי השוליים נוסף סוג "רעיון לפרויקט או מוצר", וגם המורה מציע רעיונות כשהוא מזהה חיבור.</li>
+    <li><strong>הערכה בלילה:</strong> לכל רעיון נבדקים המודולים שהוא דורש ומה מהם כבר נלמד, הזמן, מה הוא ילמד אותך, וערך הסמכות שלו: מאמר, הדגמה או מוצר.</li>
+    <li><strong>מיון פעם בשבוע,</strong> ביום הייצור. כל הרעיונות נשמרים.</li>
+    <li><strong>הפרויקט מושך את הלימוד:</strong> המודולים שהוא דורש עולים בתור.</li>
+    <li><strong>רף גבוה:</strong> נתונים אמיתיים, או מודל פיזיקלי שאתה כותב, עם תחזיות לפני כל הרצה. אימות מול הספרות עם תקציב שגיאה. שאלה פתוחה. ותוצר שאפשר לפרסם או להציג למומחה. פרויקט בסיסי הוא תרגיל, ומקומו בשיעור.</li>
+    <li><strong>עוגן להתחלה:</strong> מעבדת תקציב המכ"ם והלוחמה האלקטרונית, ומעקב ויירוט.</li>
+    <li><strong>תקציב זמן:</strong> כ-10–15% מהשבוע.</li>
+    <li><strong>מוצר אמיתי:</strong> אם נולד, הוא עובר להחלטה נפרדת.</li>
+  </ul>
+
+  <h2 id="day"><span class="n">08</span>היום, השבוע והגלים</h2>
+  <ul>
+    <li><strong>8 שעות הן הבסיס היעיל לאורך חודשים:</strong> שיעורים חדשים וצפופים בבוקר, עד כ-5 שעות, עם תנומה בצהריים. אחר הצהריים: כור, חזרה, פרויקטים ומאמרים. שעה נוספת בטלפון, בהליכה ובזמנים מתים.</li>
+    <li><strong>10 שעות:</strong> מוסיפות רק בחודש הראשון. בהמשך הן לא נותנות יותר מ-8, ולכן אינן היעד.</li>
+    <li><strong>שבוע:</strong> שישה ימים, עם יום שישי קל, ושבוע קל אחת ל-6–7 שבועות.</li>
+    <li><strong>גלי התמקצעות:</strong> בכל תקופה מתמקצעים לעומק בתחום אחד, ועמוד השדרה רץ במקביל. תחום נסגר רק כשהמבחן הנעול והבחינה בעל פה עוברים, לא כשהשיעורים נכתבו.</li>
+    <li><strong>מעקב עייפות:</strong> המערכת עוקבת אחרי דיוק, זמני תגובה, כיול ומהירות קריאה לפי שעה ביום, ומעבירה לעבודה קלה כשהמדדים יורדים.</li>
+  </ul>
+
+  <h2 id="time"><span class="n">09</span>לוח הזמנים, בלי ייפוי</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>היקף</th><th>8 שעות + שעה בטלפון</th><th>אמצע</th></tr></thead>
+    <tbody>
+      <tr><td>הכול, שתי האפליקציות, עומק מלא, זכירה של 90% לפחות</td><td><span class="num">18–28</span> חודשים</td><td><strong>כ-22 חודשים</strong></td></tr>
+      <tr><td>הליבה של שתיהן</td><td><span class="num">14.5–22.5</span> חודשים</td><td><strong>כ-18 חודשים</strong></td></tr>
+    </tbody>
+  </table></div>
+  <ul>
+    <li><strong>לאן הולך הזמן:</strong> כ-1,450–1,690 שעות שיעורים, ועוד כ-1,200 שעות זכירה (כולל השליפות שבתוך השיעורים). השאר הולך להתייעצות, לכור, לפרויקטים ולמאמרים.</li>
+    <li><strong>איך הגענו לזה:</strong> ההערכות נעו בין 6 חודשים ל-34, ונבדקו זה מול זה בכמה סבבים. המודל האופטימי הראשון החסיר זמן שהתוכנית עצמה כוללת. המודלים הכבדים תמחרו את פריטי ההקשר כמו תוצאות מפתח. המספר שלמעלה מתקן את שניהם.</li>
+    <li><strong>מה עוד יכול להזיז אותו:</strong> המהירות האמיתית שלך, כלומר דקות לעמוד ומהירות קריאה. כמה מהחומר הצבאי אתה כבר יודע. ואם מודל הזיכרון שייבנה על התשובות שלך יראה זכירה טובה מהמשוער, זה יורד לכ-21.6 ו-17.5 חודשים. הכול נמדד בשבועיים הראשונים, ולוח הזמנים מתעדכן מנתונים כל שבוע.</li>
+  </ul>
+
+  <h2 id="fix"><span class="n">10</span>תיקונים דחופים</h2>
+  <ul>
+    <li><strong>הטקסט של Trefethen ו-Bau לא קריא:</strong> במודולי הליבה M8.3–M8.10, כ-330 עמודים, המורה מקבל רעש. צריך זיהוי תווים מחדש. הצעתי לך משימה נפרדת לזה.</li>
+    <li><strong>ספרים סרוקים בלי טקסט:</strong> Fleeman ו-SMAD צריכים זיהוי תווים.</li>
+    <li><strong>פרקים שחסרים בעותקים:</strong> פרק ההנעה ב-SMAD, פרקים 40 ו-42 בכרך II של פיינמן, ופרק 1 של Horowitz ו-Hill.</li>
+    <li><strong>הגנה מסירובים בגילואה:</strong> אין. גילואה עדיין שולחת לכל חלק את התוכנית המלאה, וזה הדפוס שגרם לסירובים בלנצ'סטר.</li>
+    <li><strong>זיהוי שיעור שנקטע:</strong> שיעור 3 בגילואה נגמר באמצע תרגיל, והאפליקציה לא שמה לב.</li>
+    <li><strong>באג עלות:</strong> קריאות "זולות" נספרות כקריאות למודל החזק.</li>
+    <li><strong>ממשק:</strong> השורה הצפה מכסה טקסט, והשיעור שבור בטלפון.</li>
+    <li><strong>שלוש טענות לא מדויקות בשיעורים:</strong> זווית הירי עם גרר, ERP מול EIRP, ותיקוני GPS. ועוד יחס חצים לא נכון בסצנה של המכל.</li>
+    <li><strong>עוד 26 תיקונים בספרייה ובתוכנית,</strong> מפורטים במסמכי העבודה. למשל תיוג מחדש של כ-220 עמודים מ-MacKay שסווגו בטעות כהיסטוריה.</li>
+  </ul>
+
+  <h2 id="build"><span class="n">11</span>סדר הבנייה</h2>
+  <div class="phase"><h3>שלב 0: אמת וחסינות</h3><div class="meta">כ-3 סשנים</div>
+    <p>הגנות מסירוב בגילואה, זיהוי שיעור שנקטע, תיקון באג העלות, מונה שימוש, יומן גרסאות לזיכרון, בדיקת עובדות, ותיקוני הספרייה הדחופים (זיהוי התווים).</p></div>
+  <div class="phase"><h3>שלב 1: השיעור החדש</h3><div class="meta">כ-5–6 סשנים</div>
+    <p>כללי הכתיבה החדשים בשתי האפליקציות. התחייבות לפני חשיפה, עם יומן אירועים. מערכת ההתייעצות המאוחדת. הממשק החדש לשיעור. ובדיקה כפולה: במחשב ובטלפון.</p></div>
+  <div class="phase"><h3>שלב 2: מפעל הלילה ותוכנית הלימודים החדשה</h3><div class="meta">כ-5 סשנים</div>
+    <p>שלושה ניסויים קטנים קודם, ואז כתיבת שיעורים מראש עם בדיקות ושער עומק. פנקס התוצאות. התוכנית החדשה לפי נושאים, עם המודולים החדשים ומבחני הדילוג.</p></div>
+  <div class="phase"><h3>שבועיים של מדידה</h3>
+    <p>דקות לעמוד, מהירות קריאה, קיפול שגוי, השוואה בין השיעור הצפוף לארוך, השהיה מול זכירה, שעות אפקטיביות, וזכירה של פריטי ההקשר. בסוף: תזכיר החלטה, ולוח זמנים מעודכן מנתונים.</p></div>
+  <div class="phase"><h3>שלב 3 והלאה</h3>
+    <p>זכירה וחזרה, מבחנים נעולים ובחינה בעל פה, תיק הפרויקטים החי, גשר בין שתי האפליקציות, מצב כיס בטלפון, ומעקב עייפות. כל שינוי נכנס לבד, ונבדק בשיעורים אמיתיים לפני הבא.</p></div>
+
+  <h2 id="decide"><span class="n">12</span>ההחלטות שלך</h2>
+  <ol class="decide">
+    <li>לאשר את שלב 0.<span class="rec">אמת וחסינות, כולל זיהוי התווים לספרים.</span></li>
+    <li>לאשר את כללי הכתיבה החדשים במקום הרצפה של 4,000 מילים.<span class="rec">שיעור לפי תוצאות מרכזיות, עם שכבת סמכות ושער עומק. השופטים העיוורים הראו שזה עמוק יותר, בחצי מהמילים.</span></li>
+    <li>לאשר את תוכנית הלימודים החדשה לפי נושאים.<span class="rec">עם המודולים החדשים, עם מה שלא נדרש, ועם מבחני הדילוג. אם יש נושא שלדעתך כן נדרש או לא נדרש, זה הזמן לומר.</span></li>
+    <li>לבחור את גל ההתמקצעות הראשון.<span class="rec">ההמלצה: חקר ביצועים ומידול קרבי, יחד עם עמוד השדרה. זה התחום החזק שלך, עם הכי מעט דרישות מוקדמות.</span></li>
+    <li>לאשר את מדיניות הזכירה לפי דרגה, ואת שעת הטלפון.</li>
+    <li>לאשר את מפעל הלילה.<span class="rec">שלושה ניסויים קטנים קודם.</span></li>
+    <li>שני אנשי מקצוע לשיחה פעם ברבעון.<span class="rec">הם המדד החיצוני לרמת המומחה.</span></li>
+  </ol>
+  <p class="note">מאחורי הדוח עומדים מסמכי עבודה של כמאה אלף מילים: ניסויים, מודלים, פאנלים ותוכנית לימודים מלאה סעיף אחר סעיף. אם תרצה, אשמור אותם במאגר.</p>
+  <p class="foot">נכתב ב-30.10.2026. לא שונה דבר באפליקציות.</p>
+</article>
+</div>

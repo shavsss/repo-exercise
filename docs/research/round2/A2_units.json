@@ -1,0 +1,3775 @@
+{
+ "scheme": "Manual depth-unit coding of every block of three lessons (A2 density experiment).\n\nCoding scheme (see A2_density.md §1):\n  A block is coded with\n    units : the NEW depth units it introduces (short descriptions; prefix = unit type)\n    alloc : how its words (after auto-removed certainty tags) split across functions, in %:\n        c core      words that carry a new unit (definition, result, derivation step, number, critique...)\n        i illus     worked numbers / instances that only confirm a unit already introduced\n        r restate   repetition of content from this lesson or earlier lessons (recaps, refresh, summaries)\n        n narr      narration of the book/source (\"K1:62 says\", \"the text takes a position\", coverage)\n        h hist      historical colour (names, dates, anecdotes) not needed for any unit\n        m meta      signposting, previews, \"let's stop here\", lesson-structure talk\n        s scaf      scaffolding of basics below level 2.5 (school algebra, keystrokes, figure walk-throughs)\n        d dup       figure captions / tables / charts that duplicate the prose\n        e err       OCR errata\n        p payload   JSON/code (scene3d, anim, chart, notebook) - interactive, not prose\n        x practice  exercises (retrieval practice; valuable, but no new unit)\n  Unit types: DEF definition, RES result, STEP derivation step carrying an assumption, LIM limit/validity,\n  OOM order-of-magnitude anchor, TRD trade-off, MAP cross-domain mapping, CRT critique/error,\n  OPS operational meaning, PRX practitioner fact, STR structural/epistemic insight.",
+ "lessons": {
+  "gilua_L3": {
+   "file": "lesson_06x36q0uxkua5ggoifkz.md",
+   "n_units": 230,
+   "units": [
+    {
+     "id": "gilua_L3:b2:0",
+     "block": 2,
+     "type": "RES",
+     "desc": "RES range R=v^2 sin2t/g",
+     "alloc_of_block": "c35 h55 m10"
+    },
+    {
+     "id": "gilua_L3:b2:1",
+     "block": 2,
+     "type": "RES",
+     "desc": "RES complementary angles same range (15/75)",
+     "alloc_of_block": "c35 h55 m10"
+    },
+    {
+     "id": "gilua_L3:b2:2",
+     "block": 2,
+     "type": "OOM",
+     "desc": "OOM 30 deg -> 86.6%",
+     "alloc_of_block": "c35 h55 m10"
+    },
+    {
+     "id": "gilua_L3:b3:3",
+     "block": 3,
+     "type": "STR",
+     "desc": "STR algebra asks what is x; gunner asks how y depends on x and where it peaks",
+     "alloc_of_block": "c70 m30"
+    },
+    {
+     "id": "gilua_L3:b4:4",
+     "block": 4,
+     "type": "STR",
+     "desc": "STR no language for dependence; instantaneous-velocity paradox",
+     "alloc_of_block": "c80 m20"
+    },
+    {
+     "id": "gilua_L3:b6:5",
+     "block": 6,
+     "type": "STR",
+     "desc": "STR development by generalisation, not demolition (Pythagoras -> distance formula)",
+     "alloc_of_block": "c40 n40 m20"
+    },
+    {
+     "id": "gilua_L3:b7:6",
+     "block": 7,
+     "type": "STR",
+     "desc": "STR four periods of mathematics",
+     "alloc_of_block": "n50 h30 c20"
+    },
+    {
+     "id": "gilua_L3:b9:7",
+     "block": 9,
+     "type": "DEF",
+     "desc": "DEF Ptolemy chord = 2 sin(half angle); tables as prediction tools",
+     "alloc_of_block": "h45 c25 n15 r15"
+    },
+    {
+     "id": "gilua_L3:b11:8",
+     "block": 11,
+     "type": "RES",
+     "desc": "RES parabolic segment = 4/3 ah = 2/3 rectangle",
+     "alloc_of_block": "c60 m25 s15"
+    },
+    {
+     "id": "gilua_L3:b13:9",
+     "block": 13,
+     "type": "STEP",
+     "desc": "STEP only parabola property used: new triangles = 1/4 previous",
+     "alloc_of_block": "c90 m10"
+    },
+    {
+     "id": "gilua_L3:b14:10",
+     "block": 14,
+     "type": "DEF",
+     "desc": "DEF exhaustion = proof by contradiction replacing the limit",
+     "alloc_of_block": "c85 m15"
+    },
+    {
+     "id": "gilua_L3:b14:11",
+     "block": 14,
+     "type": "OOM",
+     "desc": "OOM residual (1/4)^n/3, 0.6 digit per step",
+     "alloc_of_block": "c85 m15"
+    },
+    {
+     "id": "gilua_L3:b15:12",
+     "block": 15,
+     "type": "STR",
+     "desc": "STR discovery (The Method) vs proof",
+     "alloc_of_block": "h75 c20 r5"
+    },
+    {
+     "id": "gilua_L3:b16:13",
+     "block": 16,
+     "type": "TRD",
+     "desc": "TRD structure-exploiting method converges geometrically, beats any uniform grid",
+     "alloc_of_block": "r55 c35 i10"
+    },
+    {
+     "id": "gilua_L3:b17:14",
+     "block": 17,
+     "type": "STR",
+     "desc": "STR computation bounds, structure fixes the exact value; cancellation risk",
+     "alloc_of_block": "c70 r20 i10"
+    },
+    {
+     "id": "gilua_L3:b18:15",
+     "block": 18,
+     "type": "RES",
+     "desc": "RES isoperimetric theorem",
+     "alloc_of_block": "c70 h15 m15"
+    },
+    {
+     "id": "gilua_L3:b18:16",
+     "block": 18,
+     "type": "OOM",
+     "desc": "OOM sphere/cube = sqrt(6/pi)=1.382",
+     "alloc_of_block": "c70 h15 m15"
+    },
+    {
+     "id": "gilua_L3:b18:17",
+     "block": 18,
+     "type": "STR",
+     "desc": "STR proving optimality needs comparison with all shapes",
+     "alloc_of_block": "c70 h15 m15"
+    },
+    {
+     "id": "gilua_L3:b19:18",
+     "block": 19,
+     "type": "RES",
+     "desc": "RES infinitely many primes (Euclid)",
+     "alloc_of_block": "h60 c40"
+    },
+    {
+     "id": "gilua_L3:b20:19",
+     "block": 20,
+     "type": "RES",
+     "desc": "RES Greek geometric algebra: completing the square with areas",
+     "alloc_of_block": "c55 h15 m20 r10"
+    },
+    {
+     "id": "gilua_L3:b21:20",
+     "block": 21,
+     "type": "STR",
+     "desc": "STR Greek homogeneity = dimensional check",
+     "alloc_of_block": "c90 m10"
+    },
+    {
+     "id": "gilua_L3:b21:21",
+     "block": 21,
+     "type": "PRX",
+     "desc": "PRX engineers re-impose it on purpose",
+     "alloc_of_block": "c90 m10"
+    },
+    {
+     "id": "gilua_L3:b22:22",
+     "block": 22,
+     "type": "RES",
+     "desc": "RES Apollonius y^2=2px with segments",
+     "alloc_of_block": "c55 h35 n10"
+    },
+    {
+     "id": "gilua_L3:b22:23",
+     "block": 22,
+     "type": "STR",
+     "desc": "STR three Greek gaps: negatives/zero, free irrational, letter symbols",
+     "alloc_of_block": "c55 h35 n10"
+    },
+    {
+     "id": "gilua_L3:b24:24",
+     "block": 24,
+     "type": "STR",
+     "desc": "STR old theories breed problems they cannot solve; needs historical conditions",
+     "alloc_of_block": "n60 c25 h15"
+    },
+    {
+     "id": "gilua_L3:b26:25",
+     "block": 26,
+     "type": "MAP",
+     "desc": "MAP Nine Chapters elimination = Gaussian elimination",
+     "alloc_of_block": "c55 h35 m10"
+    },
+    {
+     "id": "gilua_L3:b26:26",
+     "block": 26,
+     "type": "STR",
+     "desc": "STR negatives born from an algorithm",
+     "alloc_of_block": "c55 h35 m10"
+    },
+    {
+     "id": "gilua_L3:b29:27",
+     "block": 29,
+     "type": "STR",
+     "desc": "STR negatives are direction/relation, not quantity",
+     "alloc_of_block": "c40 h45 i15"
+    },
+    {
+     "id": "gilua_L3:b30:28",
+     "block": 30,
+     "type": "STR",
+     "desc": "STR irrationals as numbers free algebra from geometry",
+     "alloc_of_block": "c50 h25 r25"
+    },
+    {
+     "id": "gilua_L3:b31:29",
+     "block": 31,
+     "type": "DEF",
+     "desc": "DEF al-jabr = move negative term, al-muqabala = cancel equal terms",
+     "alloc_of_block": "h70 c30"
+    },
+    {
+     "id": "gilua_L3:b32:30",
+     "block": 32,
+     "type": "DEF",
+     "desc": "DEF algebra = formal rules preserving equality",
+     "alloc_of_block": "c50 h40 n10"
+    },
+    {
+     "id": "gilua_L3:b34:31",
+     "block": 34,
+     "type": "STR",
+     "desc": "STR the model decides which solutions are visible; spurious vs real 2nd roots",
+     "alloc_of_block": "c85 r15"
+    },
+    {
+     "id": "gilua_L3:b35:32",
+     "block": 35,
+     "type": "DEF",
+     "desc": "DEF algorithm = procedure valid for every input",
+     "alloc_of_block": "c90 m10"
+    },
+    {
+     "id": "gilua_L3:b37:33",
+     "block": 37,
+     "type": "STR",
+     "desc": "STR content before form: without symbols each rule re-proved per case",
+     "alloc_of_block": "c45 r35 n20"
+    },
+    {
+     "id": "gilua_L3:b39:34",
+     "block": 39,
+     "type": "RES",
+     "desc": "RES Cardano formula",
+     "alloc_of_block": "c40 i50 m10"
+    },
+    {
+     "id": "gilua_L3:b40:35",
+     "block": 40,
+     "type": "STR",
+     "desc": "STR complex numbers forced by real-to-real computation (Bombelli)",
+     "alloc_of_block": "c55 h25 i20"
+    },
+    {
+     "id": "gilua_L3:b41:36",
+     "block": 41,
+     "type": "RES",
+     "desc": "RES cube root has 3 values; casus irreducibilis",
+     "alloc_of_block": "c55 r25 i20"
+    },
+    {
+     "id": "gilua_L3:b42:37",
+     "block": 42,
+     "type": "DEF",
+     "desc": "DEF parameter: letters for knowns turn an equation into a family",
+     "alloc_of_block": "c70 h20 m10"
+    },
+    {
+     "id": "N1",
+     "block": 44,
+     "type": "DEF",
+     "desc": "DEF Napier defines log by its rate: growth rate inversely proportional to the quantity, y'=c/x (not as inverse of a^y)",
+     "alloc_of_block": "c60 n25 m15"
+    },
+    {
+     "id": "N2",
+     "block": 45,
+     "type": "LIM",
+     "desc": "LIM domain x>0; as x->0 the rate diverges and y->-inf",
+     "alloc_of_block": "c80 m20"
+    },
+    {
+     "id": "N3",
+     "block": 45,
+     "type": "RES",
+     "desc": "RES with y(1)=0 the solution is unique: y=c ln x",
+     "alloc_of_block": "c80 m20"
+    },
+    {
+     "id": "N4",
+     "block": 46,
+     "type": "STEP",
+     "desc": "STEP Napier model: point P moves with speed = remaining distance x -> source of 1/x; P slows and never arrives",
+     "alloc_of_block": "c70 i10 h10 n10"
+    },
+    {
+     "id": "N5",
+     "block": 46,
+     "type": "STEP",
+     "desc": "STEP point Q moves at constant speed = P initial speed (10^7): Q distance is a clock; NL(x)= Q distance when P has x left",
+     "alloc_of_block": "c70 i10 h10 n10"
+    },
+    {
+     "id": "N6",
+     "block": 46,
+     "type": "PRX",
+     "desc": "PRX 10^7 = radius of contemporary sine tables (so all sines were integers)",
+     "alloc_of_block": "c70 i10 h10 n10"
+    },
+    {
+     "id": "N7",
+     "block": 46,
+     "type": "RES",
+     "desc": "RES NL(x)=10^7 ln(10^7/x), i.e. c=-10^7, y=0 at x=10^7; NL(5e6)=6,931,472",
+     "alloc_of_block": "c70 i10 h10 n10"
+    },
+    {
+     "id": "N8",
+     "block": 46,
+     "type": "STR",
+     "desc": "STR Napier had no instantaneous velocity; motion intuition = variable/function concept before Newton-Leibniz",
+     "alloc_of_block": "c70 i10 h10 n10"
+    },
+    {
+     "id": "N9",
+     "block": 47,
+     "type": "STR",
+     "desc": "STR the need: turn multiplication of 7-digit numbers into addition",
+     "alloc_of_block": "c50 m50"
+    },
+    {
+     "id": "N10",
+     "block": 48,
+     "type": "STEP",
+     "desc": "STEP compare y at x and kx: increments c*d/x and c*k*d/(kx) equal - the k cancels; this is exactly where the 1/x form is used",
+     "alloc_of_block": "c90 i10"
+    },
+    {
+     "id": "N11",
+     "block": 48,
+     "type": "RES",
+     "desc": "RES y(kx)=y(x)+y(k): log of product = sum of logs",
+     "alloc_of_block": "c90 i10"
+    },
+    {
+     "id": "N12",
+     "block": 48,
+     "type": "RES",
+     "desc": "RES y(k^m)=m*y(k) (integer then rational m); base b defined by y(b)=1 so y=log_b",
+     "alloc_of_block": "c90 i10"
+    },
+    {
+     "id": "N13",
+     "block": 48,
+     "type": "OOM",
+     "desc": "OOM c=1 gives ln with base e=2.71828; log10 needs c=1/ln10=0.4343",
+     "alloc_of_block": "c90 i10"
+    },
+    {
+     "id": "N14",
+     "block": 49,
+     "type": "STR",
+     "desc": "STR scale invariance: change of units shifts log by a constant; the ratio, not the difference, controls; log = the function that measures ratios as distances",
+     "alloc_of_block": "c70 i20 m10"
+    },
+    {
+     "id": "N15",
+     "block": 49,
+     "type": "RES",
+     "desc": "RES ln x = 2.3026 log10 x; c only sets the unit (ln/log10/log2)",
+     "alloc_of_block": "c70 i20 m10"
+    },
+    {
+     "id": "N16",
+     "block": 50,
+     "type": "CRT",
+     "desc": "CRT Napier's NL decreases with x and does not satisfy (7): NL(x)+NL(y)=NL(xy/10^7); users corrected by powers of 10^7; Briggs+Napier moved to log1=0, log10=1",
+     "alloc_of_block": "e50 c35 h15"
+    },
+    {
+     "id": "N17",
+     "block": 51,
+     "type": "RES",
+     "desc": "RES ln x <= x-1 (tangent bound), from rate 1/x being >1 left of 1 and <1 right of 1",
+     "alloc_of_block": "c60 r30 m10"
+    },
+    {
+     "id": "N18",
+     "block": 51,
+     "type": "RES",
+     "desc": "RES radix economy b/ln b >= e, minimum at b=e (one-line proof via N17 with x=b/e)",
+     "alloc_of_block": "c60 r30 m10"
+    },
+    {
+     "id": "N19",
+     "block": 51,
+     "type": "OOM",
+     "desc": "OOM base 3 costs +0.46% over e, base 2 +6.1%, base 10 +60%",
+     "alloc_of_block": "c60 r30 m10"
+    },
+    {
+     "id": "N20",
+     "block": 52,
+     "type": "OOM",
+     "desc": "OOM 2^10~10^3 => log10 2~0.30 (err 0.34%); via (7): log5=0.699, log8=0.903, log6=0.778",
+     "alloc_of_block": "c60 i25 r15"
+    },
+    {
+     "id": "N21",
+     "block": 52,
+     "type": "OOM",
+     "desc": "OOM dB=10log10 power ratio: x2 power = 3.01 dB, x10^6 = 60 dB; x2 voltage = 6.02 dB because P~V^2",
+     "alloc_of_block": "c60 i25 r15"
+    },
+    {
+     "id": "N22",
+     "block": 52,
+     "type": "MAP",
+     "desc": "MAP ADC: each extra bit doubles levels => +6.02 dB SNR",
+     "alloc_of_block": "c60 i25 r15"
+    },
+    {
+     "id": "N23",
+     "block": 53,
+     "type": "TRD",
+     "desc": "TRD log table vs slide rule: table 14 digits, 3 lookups+1 add+interp, cost paid once (years of hand computation) / rule: speed, few digits",
+     "alloc_of_block": "c70 h10 r10 i10"
+    },
+    {
+     "id": "N24",
+     "block": 53,
+     "type": "OOM",
+     "desc": "OOM slide-rule error: 0.1 mm on 25 cm => ln10*0.1/250 = 9.2e-4 relative = ~3 significant figures",
+     "alloc_of_block": "c70 h10 r10 i10"
+    },
+    {
+     "id": "N25",
+     "block": 53,
+     "type": "STR",
+     "desc": "STR slide rule has constant RELATIVE error over the scale (it measures ratios) = floating point (vs fixed point)",
+     "alloc_of_block": "c70 h10 r10 i10"
+    },
+    {
+     "id": "N26",
+     "block": 53,
+     "type": "PRX",
+     "desc": "PRX 3 digits sufficed for bridges and aircraft for ~300 years (1620s-1970s) because loads/material data are no better",
+     "alloc_of_block": "c70 h10 r10 i10"
+    },
+    {
+     "id": "N27",
+     "block": 54,
+     "type": "LIM",
+     "desc": "LIM no 0 and no negatives on a slide rule (0 is at -inf); left end is 1 (log1=0)",
+     "alloc_of_block": "c90 r10"
+    },
+    {
+     "id": "N28",
+     "block": 54,
+     "type": "LIM",
+     "desc": "LIM log does not simplify addition: log(a+b) is no simple function of log a, log b",
+     "alloc_of_block": "c90 r10"
+    },
+    {
+     "id": "N29",
+     "block": 54,
+     "type": "STR",
+     "desc": "STR every transform buys one cheap operation and makes another expensive",
+     "alloc_of_block": "c90 r10"
+    },
+    {
+     "id": "N30",
+     "block": 54,
+     "type": "STR",
+     "desc": "STR slide-rule user tracks sign and power of ten himself; rule gives digits only = mantissa/exponent split",
+     "alloc_of_block": "c90 r10"
+    },
+    {
+     "id": "N31",
+     "block": 56,
+     "type": "MAP",
+     "desc": "MAP dB: two uncorrelated 60 dB sources = 63.0 dB (power adds, dB do not); cascades add in dB (+20-6+20=34)",
+     "alloc_of_block": "c65 r20 i15"
+    },
+    {
+     "id": "N32",
+     "block": 56,
+     "type": "MAP",
+     "desc": "MAP octave = x2 frequency, 12 equal-ratio semitones, keys ~ log2 f; transposition invariance = scale invariance",
+     "alloc_of_block": "c65 r20 i15"
+    },
+    {
+     "id": "N33",
+     "block": 56,
+     "type": "MAP/OOM",
+     "desc": "MAP/OOM Richter: +1 = x10 amplitude, energy ~ amplitude^1.5 => x31.6 per unit, x1000 per 2 units",
+     "alloc_of_block": "c65 r20 i15"
+    },
+    {
+     "id": "N34",
+     "block": 56,
+     "type": "STR",
+     "desc": "STR use a log scale when the quantity spans many orders of magnitude and ratios matter; senses are roughly logarithmic",
+     "alloc_of_block": "c65 r20 i15"
+    },
+    {
+     "id": "N35",
+     "block": 57,
+     "type": "MAP",
+     "desc": "MAP number of digits of a number ~ its log",
+     "alloc_of_block": "c70 r30"
+    },
+    {
+     "id": "N36",
+     "block": 57,
+     "type": "MAP",
+     "desc": "MAP Bode plots: log-log axes turn a cascade of systems into addition of lines",
+     "alloc_of_block": "c70 r30"
+    },
+    {
+     "id": "N37",
+     "block": 57,
+     "type": "MAP",
+     "desc": "MAP information = log(number of possibilities); independent probabilities multiply => information adds",
+     "alloc_of_block": "c70 r30"
+    },
+    {
+     "id": "N38",
+     "block": 57,
+     "type": "MAP",
+     "desc": "MAP isothermal gas work depends on volume ratio, not difference",
+     "alloc_of_block": "c70 r30"
+    },
+    {
+     "id": "N39",
+     "block": 57,
+     "type": "MAP",
+     "desc": "MAP diode: voltage rises a fixed step per doubling of current => log circuits",
+     "alloc_of_block": "c70 r30"
+    },
+    {
+     "id": "N40",
+     "block": 57,
+     "type": "MAP",
+     "desc": "MAP binary search: steps ~ log N; a 1000x bigger dictionary costs ~10 more steps",
+     "alloc_of_block": "c70 r30"
+    },
+    {
+     "id": "gilua_L3:b61:78",
+     "block": 61,
+     "type": "RES",
+     "desc": "RES s=gt^2/2",
+     "alloc_of_block": "c40 i40 h20"
+    },
+    {
+     "id": "gilua_L3:b61:79",
+     "block": 61,
+     "type": "RES",
+     "desc": "RES odd-number law 1:3:5",
+     "alloc_of_block": "c40 i40 h20"
+    },
+    {
+     "id": "gilua_L3:b62:80",
+     "block": 62,
+     "type": "STR",
+     "desc": "STR constant second difference <-> quadratic <-> constant acceleration",
+     "alloc_of_block": "c80 r20"
+    },
+    {
+     "id": "gilua_L3:b63:81",
+     "block": 63,
+     "type": "DEF",
+     "desc": "DEF function: each x gets a definite y",
+     "alloc_of_block": "c60 n25 r15"
+    },
+    {
+     "id": "gilua_L3:b63:82",
+     "block": 63,
+     "type": "DEF",
+     "desc": "DEF variable = abstraction of a changing quantity",
+     "alloc_of_block": "c60 n25 r15"
+    },
+    {
+     "id": "gilua_L3:b65:83",
+     "block": 65,
+     "type": "RES",
+     "desc": "RES E=mv^2/2 (school)",
+     "alloc_of_block": "c30 s30 i40"
+    },
+    {
+     "id": "gilua_L3:b66:84",
+     "block": 66,
+     "type": "RES",
+     "desc": "RES Q=RI^2 (school)",
+     "alloc_of_block": "c30 s30 i40"
+    },
+    {
+     "id": "gilua_L3:b68:85",
+     "block": 68,
+     "type": "RES",
+     "desc": "RES triangle S=x^2 tan(a)/2",
+     "alloc_of_block": "c40 i40 s20"
+    },
+    {
+     "id": "gilua_L3:b69:86",
+     "block": 69,
+     "type": "STR",
+     "desc": "STR four laws are one form y=ax^2/2",
+     "alloc_of_block": "c55 i30 m15"
+    },
+    {
+     "id": "gilua_L3:b69:87",
+     "block": 69,
+     "type": "RES",
+     "desc": "RES rate ax = velocity, momentum, 2RI, height",
+     "alloc_of_block": "c55 i30 m15"
+    },
+    {
+     "id": "gilua_L3:b70:88",
+     "block": 70,
+     "type": "MAP",
+     "desc": "MAP braking distance v^2/2b (12 m vs 48 m)",
+     "alloc_of_block": "c60 i25 r15"
+    },
+    {
+     "id": "gilua_L3:b70:89",
+     "block": 70,
+     "type": "MAP",
+     "desc": "MAP spring kx^2/2",
+     "alloc_of_block": "c60 i25 r15"
+    },
+    {
+     "id": "gilua_L3:b70:90",
+     "block": 70,
+     "type": "OOM",
+     "desc": "OOM rule: 2x in -> 4x out",
+     "alloc_of_block": "c60 i25 r15"
+    },
+    {
+     "id": "gilua_L3:b71:91",
+     "block": 71,
+     "type": "MAP",
+     "desc": "MAP I^2R -> HV transmission",
+     "alloc_of_block": "c65 s20 r15"
+    },
+    {
+     "id": "gilua_L3:b71:92",
+     "block": 71,
+     "type": "MAP",
+     "desc": "MAP drag ~v^2",
+     "alloc_of_block": "c65 s20 r15"
+    },
+    {
+     "id": "gilua_L3:b71:93",
+     "block": 71,
+     "type": "MAP",
+     "desc": "MAP strain energy",
+     "alloc_of_block": "c65 s20 r15"
+    },
+    {
+     "id": "gilua_L3:b71:94",
+     "block": 71,
+     "type": "MAP",
+     "desc": "MAP squared error",
+     "alloc_of_block": "c65 s20 r15"
+    },
+    {
+     "id": "gilua_L3:b71:95",
+     "block": 71,
+     "type": "MAP",
+     "desc": "MAP LQR cost",
+     "alloc_of_block": "c65 s20 r15"
+    },
+    {
+     "id": "gilua_L3:b71:96",
+     "block": 71,
+     "type": "MAP",
+     "desc": "MAP least squares in DL",
+     "alloc_of_block": "c65 s20 r15"
+    },
+    {
+     "id": "gilua_L3:b72:97",
+     "block": 72,
+     "type": "DEF",
+     "desc": "DEF y=f(x) arbitrary dependence",
+     "alloc_of_block": "c60 n30 m10"
+    },
+    {
+     "id": "gilua_L3:b74:98",
+     "block": 74,
+     "type": "DEF",
+     "desc": "DEF analysis",
+     "alloc_of_block": "c40 n60"
+    },
+    {
+     "id": "gilua_L3:b75:99",
+     "block": 75,
+     "type": "STR",
+     "desc": "STR concepts sharpen through the problems they solve",
+     "alloc_of_block": "n55 c25 m20"
+    },
+    {
+     "id": "gilua_L3:b76:100",
+     "block": 76,
+     "type": "STR",
+     "desc": "STR two unknowns become a dependence",
+     "alloc_of_block": "c70 n15 s15"
+    },
+    {
+     "id": "gilua_L3:b76:101",
+     "block": 76,
+     "type": "DEF",
+     "desc": "DEF F(x,y)=0",
+     "alloc_of_block": "c70 n15 s15"
+    },
+    {
+     "id": "gilua_L3:b78:102",
+     "block": 78,
+     "type": "DEF",
+     "desc": "DEF locus",
+     "alloc_of_block": "c70 s30"
+    },
+    {
+     "id": "gilua_L3:b80:103",
+     "block": 80,
+     "type": "RES",
+     "desc": "RES circle via Pythagoras = distance formula",
+     "alloc_of_block": "c50 r30 s20"
+    },
+    {
+     "id": "gilua_L3:b81:104",
+     "block": 81,
+     "type": "STR",
+     "desc": "STR geometry becomes computation (both directions)",
+     "alloc_of_block": "c50 n40 r10"
+    },
+    {
+     "id": "gilua_L3:b82:105",
+     "block": 82,
+     "type": "RES",
+     "desc": "RES circle is not a function; F(x,y)=0 more general; parametric form",
+     "alloc_of_block": "c80 r20"
+    },
+    {
+     "id": "gilua_L3:b83:106",
+     "block": 83,
+     "type": "MAP",
+     "desc": "MAP range fix = circle; two circles two points; LSQ with noise",
+     "alloc_of_block": "c70 r20 m10"
+    },
+    {
+     "id": "gilua_L3:b83:107",
+     "block": 83,
+     "type": "PRX",
+     "desc": "PRX GNSS clock = 4th unknown",
+     "alloc_of_block": "c70 r20 m10"
+    },
+    {
+     "id": "gilua_L3:b85:108",
+     "block": 85,
+     "type": "STEP",
+     "desc": "STEP independence of motions (no air)",
+     "alloc_of_block": "c90 r10"
+    },
+    {
+     "id": "gilua_L3:b85:109",
+     "block": 85,
+     "type": "STEP",
+     "desc": "STEP g constant",
+     "alloc_of_block": "c90 r10"
+    },
+    {
+     "id": "gilua_L3:b85:110",
+     "block": 85,
+     "type": "STEP",
+     "desc": "STEP eliminate t (Descartes)",
+     "alloc_of_block": "c90 r10"
+    },
+    {
+     "id": "gilua_L3:b85:111",
+     "block": 85,
+     "type": "RES",
+     "desc": "RES trajectory y=x tan t - g x^2/(2v^2cos^2 t)",
+     "alloc_of_block": "c90 r10"
+    },
+    {
+     "id": "gilua_L3:b86:112",
+     "block": 86,
+     "type": "OOM",
+     "desc": "OOM 155 mm: 69.7 km, 17.4 km apex, 119 s",
+     "alloc_of_block": "c80 i10 m10"
+    },
+    {
+     "id": "gilua_L3:b86:113",
+     "block": 86,
+     "type": "LIM",
+     "desc": "LIM g drop 0.55%",
+     "alloc_of_block": "c80 i10 m10"
+    },
+    {
+     "id": "gilua_L3:b86:114",
+     "block": 86,
+     "type": "LIM",
+     "desc": "LIM curvature 381 m",
+     "alloc_of_block": "c80 i10 m10"
+    },
+    {
+     "id": "gilua_L3:b86:115",
+     "block": 86,
+     "type": "STR",
+     "desc": "STR exact vacuum path is a Kepler ellipse",
+     "alloc_of_block": "c80 i10 m10"
+    },
+    {
+     "id": "gilua_L3:b86:116",
+     "block": 86,
+     "type": "LIM",
+     "desc": "LIM real range 20-25 km ~1/3",
+     "alloc_of_block": "c80 i10 m10"
+    },
+    {
+     "id": "gilua_L3:b88:117",
+     "block": 88,
+     "type": "RES",
+     "desc": "RES drag path asymmetric",
+     "alloc_of_block": "c70 s15 i15"
+    },
+    {
+     "id": "gilua_L3:b88:118",
+     "block": 88,
+     "type": "RES",
+     "desc": "RES drag/weight = rho v^2 Cd/(2g m/A)",
+     "alloc_of_block": "c70 s15 i15"
+    },
+    {
+     "id": "gilua_L3:b88:119",
+     "block": 88,
+     "type": "OOM",
+     "desc": "OOM shell 5.6",
+     "alloc_of_block": "c70 s15 i15"
+    },
+    {
+     "id": "gilua_L3:b88:120",
+     "block": 88,
+     "type": "OOM",
+     "desc": "OOM stone 0.115",
+     "alloc_of_block": "c70 s15 i15"
+    },
+    {
+     "id": "gilua_L3:b88:121",
+     "block": 88,
+     "type": "STR",
+     "desc": "STR v^2 kills the model",
+     "alloc_of_block": "c70 s15 i15"
+    },
+    {
+     "id": "gilua_L3:b89:122",
+     "block": 89,
+     "type": "RES",
+     "desc": "RES v* where drag=weight (349 m/s)",
+     "alloc_of_block": "c85 i15"
+    },
+    {
+     "id": "gilua_L3:b89:123",
+     "block": 89,
+     "type": "STR",
+     "desc": "STR regimes v>>v* air-dominated, v<<v* parabola",
+     "alloc_of_block": "c85 i15"
+    },
+    {
+     "id": "gilua_L3:b89:124",
+     "block": 89,
+     "type": "LIM",
+     "desc": "LIM Cd varies with Mach",
+     "alloc_of_block": "c85 i15"
+    },
+    {
+     "id": "gilua_L3:b90:125",
+     "block": 90,
+     "type": "CRT",
+     "desc": "CRT three checks on \"parabola -> 70 km\"",
+     "alloc_of_block": "c75 r15 m10"
+    },
+    {
+     "id": "gilua_L3:b90:126",
+     "block": 90,
+     "type": "CRT",
+     "desc": "CRT correct claim: parabola iff drag/weight<<1",
+     "alloc_of_block": "c75 r15 m10"
+    },
+    {
+     "id": "gilua_L3:b90:127",
+     "block": 90,
+     "type": "CRT",
+     "desc": "CRT reverse error \"air always matters\"",
+     "alloc_of_block": "c75 r15 m10"
+    },
+    {
+     "id": "gilua_L3:b95:128",
+     "block": 95,
+     "type": "RES",
+     "desc": "RES velocity = slope of tangent of s(t)",
+     "alloc_of_block": "c70 n30"
+    },
+    {
+     "id": "gilua_L3:b98:129",
+     "block": 98,
+     "type": "DEF",
+     "desc": "DEF difference quotient",
+     "alloc_of_block": "c85 i15"
+    },
+    {
+     "id": "gilua_L3:b98:130",
+     "block": 98,
+     "type": "RES",
+     "desc": "RES (x^2)'=2x",
+     "alloc_of_block": "c85 i15"
+    },
+    {
+     "id": "gilua_L3:b98:131",
+     "block": 98,
+     "type": "DEF",
+     "desc": "DEF limit, never set h=0",
+     "alloc_of_block": "c85 i15"
+    },
+    {
+     "id": "gilua_L3:b98:132",
+     "block": 98,
+     "type": "RES",
+     "desc": "RES v=gt",
+     "alloc_of_block": "c85 i15"
+    },
+    {
+     "id": "gilua_L3:b98:133",
+     "block": 98,
+     "type": "RES",
+     "desc": "RES constant-factor rule",
+     "alloc_of_block": "c85 i15"
+    },
+    {
+     "id": "gilua_L3:b100:134",
+     "block": 100,
+     "type": "RES",
+     "desc": "RES forward-difference error gh/2 ~ h x curvature",
+     "alloc_of_block": "c70 i20 m10"
+    },
+    {
+     "id": "gilua_L3:b100:135",
+     "block": 100,
+     "type": "RES",
+     "desc": "RES central difference exact for parabola, error ~h^2",
+     "alloc_of_block": "c70 i20 m10"
+    },
+    {
+     "id": "gilua_L3:b101:136",
+     "block": 101,
+     "type": "DEF",
+     "desc": "DEF integral = accumulation = area under v(t)",
+     "alloc_of_block": "c70 n30"
+    },
+    {
+     "id": "gilua_L3:b103:137",
+     "block": 103,
+     "type": "DEF",
+     "desc": "DEF Riemann sum (left) 36.79 vs 44.145",
+     "alloc_of_block": "c50 i30 r20"
+    },
+    {
+     "id": "gilua_L3:b104:138",
+     "block": 104,
+     "type": "RES",
+     "desc": "RES midpoint exact for linear integrand",
+     "alloc_of_block": "r60 c30 i10"
+    },
+    {
+     "id": "gilua_L3:b105:139",
+     "block": 105,
+     "type": "STR",
+     "desc": "STR forward diff and left sum = same error; central and midpoint = same fix",
+     "alloc_of_block": "c80 m20"
+    },
+    {
+     "id": "gilua_L3:b107:140",
+     "block": 107,
+     "type": "RES",
+     "desc": "RES fundamental theorem",
+     "alloc_of_block": "c85 m15"
+    },
+    {
+     "id": "gilua_L3:b107:141",
+     "block": 107,
+     "type": "LIM",
+     "desc": "LIM requires continuity",
+     "alloc_of_block": "c85 m15"
+    },
+    {
+     "id": "gilua_L3:b108:142",
+     "block": 108,
+     "type": "STEP",
+     "desc": "STEP strip h x f(x) needs continuity",
+     "alloc_of_block": "c55 i30 r15"
+    },
+    {
+     "id": "gilua_L3:b109:143",
+     "block": 109,
+     "type": "STR",
+     "desc": "STR limit replaces the infinitesimal",
+     "alloc_of_block": "c50 h25 r25"
+    },
+    {
+     "id": "gilua_L3:b110:144",
+     "block": 110,
+     "type": "STR",
+     "desc": "STR FTC turns area into a mechanical procedure (art -> algorithm)",
+     "alloc_of_block": "c55 r30 i15"
+    },
+    {
+     "id": "gilua_L3:b111:145",
+     "block": 111,
+     "type": "RES",
+     "desc": "RES F=dp/dt",
+     "alloc_of_block": "c60 n20 r20"
+    },
+    {
+     "id": "gilua_L3:b111:146",
+     "block": 111,
+     "type": "STR",
+     "desc": "STR force known, motion wanted -> integration; velocity-dependent force",
+     "alloc_of_block": "c60 n20 r20"
+    },
+    {
+     "id": "gilua_L3:b112:147",
+     "block": 112,
+     "type": "RES",
+     "desc": "RES max where derivative=0",
+     "alloc_of_block": "c55 i25 r20"
+    },
+    {
+     "id": "gilua_L3:b112:148",
+     "block": 112,
+     "type": "OOM",
+     "desc": "OOM flat max: 30 deg -> 60.4 km",
+     "alloc_of_block": "c55 i25 r20"
+    },
+    {
+     "id": "gilua_L3:b112:149",
+     "block": 112,
+     "type": "LIM",
+     "desc": "LIM drag moves optimum below 45",
+     "alloc_of_block": "c55 i25 r20"
+    },
+    {
+     "id": "gilua_L3:b113:150",
+     "block": 113,
+     "type": "PRX",
+     "desc": "PRX Paris gun 120 km, 1640 m/s, ~50 deg, stratosphere",
+     "alloc_of_block": "c50 i25 h25"
+    },
+    {
+     "id": "gilua_L3:b113:151",
+     "block": 113,
+     "type": "OOM",
+     "desc": "OOM vacuum 256-274 km vs real ~130",
+     "alloc_of_block": "c50 i25 h25"
+    },
+    {
+     "id": "gilua_L3:b115:152",
+     "block": 115,
+     "type": "DEF",
+     "desc": "DEF differential equation: unknown is a function",
+     "alloc_of_block": "c50 i30 r20"
+    },
+    {
+     "id": "gilua_L3:b117:153",
+     "block": 117,
+     "type": "RES",
+     "desc": "RES tank ODE A dh/dt=Q-h/R",
+     "alloc_of_block": "c65 i20 s15"
+    },
+    {
+     "id": "gilua_L3:b117:154",
+     "block": 117,
+     "type": "RES",
+     "desc": "RES equilibrium h=QR",
+     "alloc_of_block": "c65 i20 s15"
+    },
+    {
+     "id": "gilua_L3:b117:155",
+     "block": 117,
+     "type": "RES",
+     "desc": "RES exponential solution tau=AR",
+     "alloc_of_block": "c65 i20 s15"
+    },
+    {
+     "id": "gilua_L3:b117:156",
+     "block": 117,
+     "type": "STR",
+     "desc": "STR self-correction -> exponential decay",
+     "alloc_of_block": "c65 i20 s15"
+    },
+    {
+     "id": "gilua_L3:b118:157",
+     "block": 118,
+     "type": "OOM",
+     "desc": "OOM 63/86/95/99% at 1..5 tau",
+     "alloc_of_block": "c90 i10"
+    },
+    {
+     "id": "gilua_L3:b119:158",
+     "block": 119,
+     "type": "MAP",
+     "desc": "MAP Newton cooling = same ODE",
+     "alloc_of_block": "c50 i30 r20"
+    },
+    {
+     "id": "gilua_L3:b119:159",
+     "block": 119,
+     "type": "STR",
+     "desc": "STR reservoir + filling-dependent leak -> first order",
+     "alloc_of_block": "c50 i30 r20"
+    },
+    {
+     "id": "gilua_L3:b120:160",
+     "block": 120,
+     "type": "MAP",
+     "desc": "MAP RC charging",
+     "alloc_of_block": "c60 r25 s15"
+    },
+    {
+     "id": "gilua_L3:b120:161",
+     "block": 120,
+     "type": "MAP",
+     "desc": "MAP control time constant",
+     "alloc_of_block": "c60 r25 s15"
+    },
+    {
+     "id": "gilua_L3:b120:162",
+     "block": 120,
+     "type": "MAP",
+     "desc": "MAP drug half-life",
+     "alloc_of_block": "c60 r25 s15"
+    },
+    {
+     "id": "gilua_L3:b120:163",
+     "block": 120,
+     "type": "MAP",
+     "desc": "MAP gradient descent",
+     "alloc_of_block": "c60 r25 s15"
+    },
+    {
+     "id": "gilua_L3:b121:164",
+     "block": 121,
+     "type": "DEF",
+     "desc": "DEF calculus of variations",
+     "alloc_of_block": "n50 h20 c30"
+    },
+    {
+     "id": "gilua_L3:b121:165",
+     "block": 121,
+     "type": "DEF",
+     "desc": "DEF qualitative theory (stability)",
+     "alloc_of_block": "n50 h20 c30"
+    },
+    {
+     "id": "gilua_L3:b122:166",
+     "block": 122,
+     "type": "STR",
+     "desc": "STR FTA proved by analysis",
+     "alloc_of_block": "c40 n60"
+    },
+    {
+     "id": "gilua_L3:b124:167",
+     "block": 124,
+     "type": "DEF",
+     "desc": "DEF projective geometry from perspective",
+     "alloc_of_block": "n50 h20 c30"
+    },
+    {
+     "id": "gilua_L3:b124:168",
+     "block": 124,
+     "type": "DEF",
+     "desc": "DEF probability from mass phenomena",
+     "alloc_of_block": "n50 h20 c30"
+    },
+    {
+     "id": "gilua_L3:b125:169",
+     "block": 125,
+     "type": "CRT",
+     "desc": "CRT s=v*t with varying v = one-rectangle sum, error 1/2",
+     "alloc_of_block": "c70 i30"
+    },
+    {
+     "id": "gilua_L3:b127:170",
+     "block": 127,
+     "type": "TRD",
+     "desc": "TRD truncation h/2|f''| vs rounding eps|f|/h; h*~sqrt(eps)",
+     "alloc_of_block": "c70 i20 r10"
+    },
+    {
+     "id": "gilua_L3:b127:171",
+     "block": 127,
+     "type": "RES",
+     "desc": "RES central: h*~eps^(1/3), err eps^(2/3)",
+     "alloc_of_block": "c70 i20 r10"
+    },
+    {
+     "id": "gilua_L3:b127:172",
+     "block": 127,
+     "type": "CRT",
+     "desc": "CRT h=1e-15 gives noise (~0.6)",
+     "alloc_of_block": "c70 i20 r10"
+    },
+    {
+     "id": "gilua_L3:b128:173",
+     "block": 128,
+     "type": "PRX",
+     "desc": "PRX autodiff has no truncation error",
+     "alloc_of_block": "c80 r20"
+    },
+    {
+     "id": "gilua_L3:b128:174",
+     "block": 128,
+     "type": "PRX",
+     "desc": "PRX finite differences as gradient check",
+     "alloc_of_block": "c80 r20"
+    },
+    {
+     "id": "gilua_L3:b130:175",
+     "block": 130,
+     "type": "MAP",
+     "desc": "MAP W=int p dV = nRT ln(V2/V1)",
+     "alloc_of_block": "c45 n35 r20"
+    },
+    {
+     "id": "gilua_L3:b130:176",
+     "block": 130,
+     "type": "MAP",
+     "desc": "MAP field of a charge distribution = integral",
+     "alloc_of_block": "c45 n35 r20"
+    },
+    {
+     "id": "E1",
+     "block": 131,
+     "type": "RES",
+     "desc": "RES closed cylinder of given volume with least surface has h=d",
+     "alloc_of_block": "c50 n40 m10"
+    },
+    {
+     "id": "E2",
+     "block": 133,
+     "type": "TRD",
+     "desc": "TRD why it is an optimisation: squat tank pays for ends, tall thin tank pays for wall",
+     "alloc_of_block": "c70 s15 r15"
+    },
+    {
+     "id": "E3",
+     "block": 133,
+     "type": "STR",
+     "desc": "STR new difficulty: two variables (r,h) tied by a constraint (V fixed)",
+     "alloc_of_block": "c70 s15 r15"
+    },
+    {
+     "id": "E4",
+     "block": 134,
+     "type": "RES",
+     "desc": "RES substitution method: h=V/(pi r^2), S(r)=2pi r^2+2V/r, S'=0 => V=2pi r^3 => h=2r",
+     "alloc_of_block": "c75 m25"
+    },
+    {
+     "id": "E5",
+     "block": 134,
+     "type": "LIM",
+     "desc": "LIM substitution needs a solvable constraint; usually impossible (trajectories, robots, system design) -> Lagrange",
+     "alloc_of_block": "c75 m25"
+    },
+    {
+     "id": "E6",
+     "block": 135,
+     "type": "DEF",
+     "desc": "DEF partial derivative (others held fixed): dS/dr=4pi r+2pi h, dS/dh=2pi r",
+     "alloc_of_block": "c95 r5"
+    },
+    {
+     "id": "E7",
+     "block": 135,
+     "type": "DEF",
+     "desc": "DEF gradient: points to steepest ascent, perpendicular to level curves",
+     "alloc_of_block": "c95 r5"
+    },
+    {
+     "id": "E8",
+     "block": 135,
+     "type": "STEP",
+     "desc": "STEP at constrained min a small move along the constraint leaves S unchanged to first order => grad S perp constraint; grad V perp constraint => grad S = lambda grad V",
+     "alloc_of_block": "c95 r5"
+    },
+    {
+     "id": "E9",
+     "block": 135,
+     "type": "DEF",
+     "desc": "DEF Lagrangian L=S-lambda(V-V0): stationarity in r,h gives (28), in lambda gives the constraint",
+     "alloc_of_block": "c95 r5"
+    },
+    {
+     "id": "E10",
+     "block": 135,
+     "type": "RES",
+     "desc": "RES dL/dh => lambda=2/r; dL/dr => 4pi r+2pi h-4pi h=0 => h=2r; V0=2pi r^3",
+     "alloc_of_block": "c95 r5"
+    },
+    {
+     "id": "E11",
+     "block": 136,
+     "type": "RES",
+     "desc": "RES r=(V/2pi)^(1/3), S_min=6 pi r^2",
+     "alloc_of_block": "c90 s10"
+    },
+    {
+     "id": "E12",
+     "block": 136,
+     "type": "LIM",
+     "desc": "LIM valid for closed cylinder, same price and thickness per m2 everywhere, only area counted",
+     "alloc_of_block": "c90 s10"
+    },
+    {
+     "id": "E13",
+     "block": 137,
+     "type": "STR",
+     "desc": "STR lambda = shadow price = dS_min/dV: area cost of one more unit of volume",
+     "alloc_of_block": "c80 i20"
+    },
+    {
+     "id": "E14",
+     "block": 137,
+     "type": "RES/OOM",
+     "desc": "RES/OOM S_min ~ V^(2/3): doubling V => x1.59 area; dS/dV=(2/3)S/V=2/r = 3.69 m2 per m3 at 1 m3",
+     "alloc_of_block": "c80 i20"
+    },
+    {
+     "id": "E15",
+     "block": 137,
+     "type": "STR",
+     "desc": "STR the shape is set by balancing end cost (~r^2) against wall cost (~rh)",
+     "alloc_of_block": "c80 i20"
+    },
+    {
+     "id": "E16",
+     "block": 138,
+     "type": "OOM",
+     "desc": "OOM 1 m3: r=0.542 m, d=h=1.084 m, S=5.54 m2; mental route: h=d=1 m holds pi/4=0.79 m3 -> scale by 1.08",
+     "alloc_of_block": "c80 i20"
+    },
+    {
+     "id": "E17",
+     "block": 138,
+     "type": "OOM",
+     "desc": "OOM cube of 1 m3 = 6 m2 (+8%); sphere 4.84 m2 (0.874x); best cylinder ~14% worse than sphere (isoperimetric)",
+     "alloc_of_block": "c80 i20"
+    },
+    {
+     "id": "E18",
+     "block": 138,
+     "type": "PRX",
+     "desc": "PRX cylinder wins anyway: rolled sheet, stands on the floor",
+     "alloc_of_block": "c80 i20"
+    },
+    {
+     "id": "E19",
+     "block": 140,
+     "type": "STR",
+     "desc": "STR at the optimum the level curve S=S_min TOUCHES the constraint curve; crossing would mean a cheaper tank exists",
+     "alloc_of_block": "c60 i25 s15"
+    },
+    {
+     "id": "E20",
+     "block": 140,
+     "type": "STR",
+     "desc": "STR grad S ~ (4,1) at every optimum; optimum slides along h=2r as V changes (scale invariance)",
+     "alloc_of_block": "c60 i25 s15"
+    },
+    {
+     "id": "E21",
+     "block": 141,
+     "type": "RES",
+     "desc": "RES shape penalty S/S_min = k^(-2/3)(1+2k)/3 ~ 1+(k-1)^2/9 with k=h/d (2nd log-derivative = 2/9)",
+     "alloc_of_block": "c75 m25"
+    },
+    {
+     "id": "E22",
+     "block": 143,
+     "type": "OOM",
+     "desc": "OOM h/d 1.1 => +0.10%, 1.5 => +1.75%, 2 => +5.0%, 0.5 => +5.8%",
+     "alloc_of_block": "c80 r10 m10"
+    },
+    {
+     "id": "E23",
+     "block": 143,
+     "type": "STR",
+     "desc": "STR smooth minimum: 1st derivative 0 => deviation is quadratic => near the optimum you cannot lose much nor gain much from precision (cannon: 30 deg loses 13%)",
+     "alloc_of_block": "c80 r10 m10"
+    },
+    {
+     "id": "E24",
+     "block": 143,
+     "type": "STR",
+     "desc": "STR the real limit is the assumptions: breaking one moves the optimum itself, not just the cost around it",
+     "alloc_of_block": "c80 r10 m10"
+    },
+    {
+     "id": "E25",
+     "block": 144,
+     "type": "MAP",
+     "desc": "MAP near any smooth minimum the cost is a quadratic bowl (y=a x^2/2): control tuning, squared-error training, least-squares position fix",
+     "alloc_of_block": "c65 r25 m10"
+    },
+    {
+     "id": "E26",
+     "block": 144,
+     "type": "MAP",
+     "desc": "MAP minimum cost under a budget = tangency of iso-cost and budget curves; lambda = value of one more budget unit",
+     "alloc_of_block": "c65 r25 m10"
+    },
+    {
+     "id": "E27",
+     "block": 144,
+     "type": "MAP",
+     "desc": "MAP temperature is a Lagrange multiplier (thermo bridge)",
+     "alloc_of_block": "c65 r25 m10"
+    },
+    {
+     "id": "E28",
+     "block": 145,
+     "type": "RES",
+     "desc": "RES ends k times dearer per m2 => h/d=k (lambda=2/r unchanged; step 6 gives h=2kr)",
+     "alloc_of_block": "c90 m10"
+    },
+    {
+     "id": "E29",
+     "block": 145,
+     "type": "OOM",
+     "desc": "OOM ends 2x dearer but built with h=d => +5.8%",
+     "alloc_of_block": "c90 m10"
+    },
+    {
+     "id": "E30",
+     "block": 145,
+     "type": "STR",
+     "desc": "STR the optimal shape reveals the price ratio: dear ends -> tall/narrow; free floor -> squat",
+     "alloc_of_block": "c90 m10"
+    },
+    {
+     "id": "E31",
+     "block": 146,
+     "type": "PRX",
+     "desc": "PRX 355 ml can: d~66 mm, h~122 mm, h/d~1.85; area-optimal would be d=h=76.7 mm",
+     "alloc_of_block": "c80 i15 m5"
+    },
+    {
+     "id": "E32",
+     "block": 146,
+     "type": "PRX",
+     "desc": "PRX can ends are several times thicker and harder alloy (pressure, opening) => k~2 => h/d~2, close to 1.85",
+     "alloc_of_block": "c80 i15 m5"
+    },
+    {
+     "id": "E33",
+     "block": 146,
+     "type": "OOM",
+     "desc": "OOM ideal cylinder of d=66.2 mm holding 355 ml: h=103 mm (h/d 1.56), only +2.1% area; rest of height = neck, domed bottom, headspace",
+     "alloc_of_block": "c80 i15 m5"
+    },
+    {
+     "id": "E34",
+     "block": 146,
+     "type": "TRD",
+     "desc": "TRD real cost function adds grip, filling and vending machines built for one diameter, shelf space",
+     "alloc_of_block": "c80 i15 m5"
+    },
+    {
+     "id": "E35",
+     "block": 147,
+     "type": "STEP",
+     "desc": "STEP big tanks: wall thickness set by hoop stress = rho g z r / sigma (grows with depth and radius)",
+     "alloc_of_block": "c80 i10 m10"
+    },
+    {
+     "id": "E36",
+     "block": 147,
+     "type": "RES",
+     "desc": "RES steel volume = V(2 t_min/h + rho g h/sigma) (integral over height + constraint)",
+     "alloc_of_block": "c80 i10 m10"
+    },
+    {
+     "id": "E37",
+     "block": 147,
+     "type": "RES",
+     "desc": "RES h_opt = sqrt(2 t_min sigma/(rho g)) - independent of volume",
+     "alloc_of_block": "c80 i10 m10"
+    },
+    {
+     "id": "E38",
+     "block": 147,
+     "type": "OOM",
+     "desc": "OOM t_min=6 mm, sigma=160 MPa => 14.0 m (water), 15.2 m (oil)",
+     "alloc_of_block": "c80 i10 m10"
+    },
+    {
+     "id": "E39",
+     "block": 147,
+     "type": "PRX",
+     "desc": "PRX real large fuel tanks ~15-20 m tall, grow in diameter to tens of m",
+     "alloc_of_block": "c80 i10 m10"
+    },
+    {
+     "id": "E40",
+     "block": 147,
+     "type": "LIM",
+     "desc": "LIM model ignores wind, earthquake, foundations, land cost",
+     "alloc_of_block": "c80 i10 m10"
+    },
+    {
+     "id": "E41",
+     "block": 148,
+     "type": "CRT",
+     "desc": "CRT check \"h=d is optimal\": what is minimised (area vs cost -> (31)); limiting cases: free floor -> h/d=1/2; thickness ~ depth -> h/d<<1",
+     "alloc_of_block": "c75 r15 m10"
+    },
+    {
+     "id": "E42",
+     "block": 148,
+     "type": "STR",
+     "desc": "STR flatness: +/-50% from h=d costs <2%, so constraints outside the model decide; correct statement: closed cylinder, equal price per m2 -> area min at h=d, very flat",
+     "alloc_of_block": "c75 r15 m10"
+    },
+    {
+     "id": "E43",
+     "block": 148,
+     "type": "STR",
+     "desc": "STR with a flat minimum a wrong assumption moves the decision more than numerical inaccuracy",
+     "alloc_of_block": "c75 r15 m10"
+    },
+    {
+     "id": "gilua_L3:b149:220",
+     "block": 149,
+     "type": "DEF",
+     "desc": "DEF brachistochrone: unknown is a whole curve",
+     "alloc_of_block": "c70 n30"
+    },
+    {
+     "id": "gilua_L3:b151:221",
+     "block": 151,
+     "type": "TRD",
+     "desc": "TRD steep start vs longer path",
+     "alloc_of_block": "c75 i25"
+    },
+    {
+     "id": "gilua_L3:b151:222",
+     "block": 151,
+     "type": "RES",
+     "desc": "RES cycloid",
+     "alloc_of_block": "c75 i25"
+    },
+    {
+     "id": "gilua_L3:b151:223",
+     "block": 151,
+     "type": "OOM",
+     "desc": "OOM 1.003 vs 1.189 s (15.6%)",
+     "alloc_of_block": "c75 i25"
+    },
+    {
+     "id": "gilua_L3:b152:224",
+     "block": 152,
+     "type": "STR",
+     "desc": "STR variations: first-order invariance under deformation -> ODE for the curve",
+     "alloc_of_block": "c50 h40 r10"
+    },
+    {
+     "id": "gilua_L3:b152:225",
+     "block": 152,
+     "type": "RES",
+     "desc": "RES tautochrone (Huygens clock)",
+     "alloc_of_block": "c50 h40 r10"
+    },
+    {
+     "id": "gilua_L3:b153:226",
+     "block": 153,
+     "type": "MAP",
+     "desc": "MAP seismic inverse problem",
+     "alloc_of_block": "n70 c20 r10"
+    },
+    {
+     "id": "gilua_L3:b155:227",
+     "block": 155,
+     "type": "STR",
+     "desc": "STR rigor completes a theory, does not start it",
+     "alloc_of_block": "n60 c25 r15"
+    },
+    {
+     "id": "gilua_L3:b156:228",
+     "block": 156,
+     "type": "STR",
+     "desc": "STR axioms summarise material; concept of function decided by problems (Fourier jumps)",
+     "alloc_of_block": "c35 n35 r20 m10"
+    },
+    {
+     "id": "gilua_L3:b157:229",
+     "block": 157,
+     "type": "STR",
+     "desc": "STR axioms = model spec: they show where a theory ends",
+     "alloc_of_block": "c75 r25"
+    }
+   ]
+  },
+  "gilua_L1": {
+   "file": "lesson_ktrbl523bg4ofmod6i5b.md",
+   "n_units": 148,
+   "units": [
+    {
+     "id": "gilua_L1:b1:0",
+     "block": 1,
+     "type": "PRX",
+     "desc": "PRX FDIV: 5/1066 SRT table cells believed unreachable",
+     "alloc_of_block": "c35 h55 m10"
+    },
+    {
+     "id": "gilua_L1:b1:1",
+     "block": 1,
+     "type": "OOM",
+     "desc": "OOM error 6.1e-5 = 4 of 19 digits",
+     "alloc_of_block": "c35 h55 m10"
+    },
+    {
+     "id": "gilua_L1:b2:2",
+     "block": 2,
+     "type": "STR",
+     "desc": "STR tests pass almost always yet say nothing about all inputs",
+     "alloc_of_block": "c80 m20"
+    },
+    {
+     "id": "gilua_L1:b3:3",
+     "block": 3,
+     "type": "OOM",
+     "desc": "OOM 2^128=3.4e38 inputs, 1e21 years",
+     "alloc_of_block": "c90 m10"
+    },
+    {
+     "id": "gilua_L1:b3:4",
+     "block": 3,
+     "type": "STR",
+     "desc": "STR testing = sampling, misses narrow corners",
+     "alloc_of_block": "c90 m10"
+    },
+    {
+     "id": "gilua_L1:b4:5",
+     "block": 4,
+     "type": "DEF",
+     "desc": "DEF proof = general statement covering all inputs via invariant",
+     "alloc_of_block": "c55 m35 r10"
+    },
+    {
+     "id": "gilua_L1:b6:6",
+     "block": 6,
+     "type": "DEF",
+     "desc": "DEF abstraction (line from string)",
+     "alloc_of_block": "c35 n50 i15"
+    },
+    {
+     "id": "gilua_L1:b9:7",
+     "block": 9,
+     "type": "STR",
+     "desc": "STR three marks of mathematics",
+     "alloc_of_block": "c65 n20 r15"
+    },
+    {
+     "id": "gilua_L1:b9:8",
+     "block": 9,
+     "type": "STR",
+     "desc": "STR causal chain marks -> proof only",
+     "alloc_of_block": "c65 n20 r15"
+    },
+    {
+     "id": "gilua_L1:b10:9",
+     "block": 10,
+     "type": "STR",
+     "desc": "STR models discover, proof decides",
+     "alloc_of_block": "c50 n30 r20"
+    },
+    {
+     "id": "gilua_L1:b11:10",
+     "block": 11,
+     "type": "STR",
+     "desc": "STR measurement gives inequality",
+     "alloc_of_block": "c75 n15 m10"
+    },
+    {
+     "id": "gilua_L1:b11:11",
+     "block": 11,
+     "type": "STR",
+     "desc": "STR finite cases vs all",
+     "alloc_of_block": "c75 n15 m10"
+    },
+    {
+     "id": "gilua_L1:b11:12",
+     "block": 11,
+     "type": "STEP",
+     "desc": "STEP Pappus proof, only SAS assumed",
+     "alloc_of_block": "c75 n15 m10"
+    },
+    {
+     "id": "gilua_L1:b12:13",
+     "block": 12,
+     "type": "LIM",
+     "desc": "LIM proof certain relative to axioms/model, not world",
+     "alloc_of_block": "c70 m30"
+    },
+    {
+     "id": "gilua_L1:b13:14",
+     "block": 13,
+     "type": "STR",
+     "desc": "STR rigor not absolute; HW proof only as good as spec",
+     "alloc_of_block": "c30 n40 r20 m10"
+    },
+    {
+     "id": "gilua_L1:b14:15",
+     "block": 14,
+     "type": "OOM",
+     "desc": "OOM 2^10~10^3",
+     "alloc_of_block": "c85 m15"
+    },
+    {
+     "id": "gilua_L1:b14:16",
+     "block": 14,
+     "type": "OOM",
+     "desc": "OOM 1.024^n correction",
+     "alloc_of_block": "c85 m15"
+    },
+    {
+     "id": "gilua_L1:b14:17",
+     "block": 14,
+     "type": "OOM",
+     "desc": "OOM year = pi x 1e7 s",
+     "alloc_of_block": "c85 m15"
+    },
+    {
+     "id": "gilua_L1:b15:18",
+     "block": 15,
+     "type": "OOM",
+     "desc": "OOM 2^32 -> 4.3 s",
+     "alloc_of_block": "c70 r30"
+    },
+    {
+     "id": "gilua_L1:b15:19",
+     "block": 15,
+     "type": "STR",
+     "desc": "STR boundary small-finite vs huge-finite",
+     "alloc_of_block": "c70 r30"
+    },
+    {
+     "id": "gilua_L1:b16:20",
+     "block": 16,
+     "type": "PRX",
+     "desc": "PRX SRT redundant digit set",
+     "alloc_of_block": "r60 c25 h15"
+    },
+    {
+     "id": "gilua_L1:b16:21",
+     "block": 16,
+     "type": "STR",
+     "desc": "STR test discovers, proof excludes",
+     "alloc_of_block": "r60 c25 h15"
+    },
+    {
+     "id": "gilua_L1:b19:22",
+     "block": 19,
+     "type": "STR",
+     "desc": "STR physics consumes and commissions math",
+     "alloc_of_block": "n70 c30"
+    },
+    {
+     "id": "gilua_L1:b20:23",
+     "block": 20,
+     "type": "CRT",
+     "desc": "CRT apply math only with deep theory (Titius-Bode 38.8 vs 30.07)",
+     "alloc_of_block": "c70 n15 m15"
+    },
+    {
+     "id": "gilua_L1:b20:24",
+     "block": 20,
+     "type": "CRT",
+     "desc": "CRT curve fit does not extrapolate (ML)",
+     "alloc_of_block": "c70 n15 m15"
+    },
+    {
+     "id": "gilua_L1:b22:25",
+     "block": 22,
+     "type": "DEF",
+     "desc": "DEF forward vs inverse problem",
+     "alloc_of_block": "c50 m50"
+    },
+    {
+     "id": "gilua_L1:b23:26",
+     "block": 23,
+     "type": "STEP",
+     "desc": "STEP residuals = noise if model complete",
+     "alloc_of_block": "c80 h10 m10"
+    },
+    {
+     "id": "gilua_L1:b23:27",
+     "block": 23,
+     "type": "OOM",
+     "desc": "OOM 2 arcmin = 1.57e6 km",
+     "alloc_of_block": "c80 h10 m10"
+    },
+    {
+     "id": "gilua_L1:b23:28",
+     "block": 23,
+     "type": "STEP",
+     "desc": "STEP single planet in ecliptic, fit residuals",
+     "alloc_of_block": "c80 h10 m10"
+    },
+    {
+     "id": "gilua_L1:b24:29",
+     "block": 24,
+     "type": "RES",
+     "desc": "RES perturbation ratio formula",
+     "alloc_of_block": "c75 h15 i10"
+    },
+    {
+     "id": "gilua_L1:b24:30",
+     "block": 24,
+     "type": "OOM",
+     "desc": "OOM 1.6e-4",
+     "alloc_of_block": "c75 h15 i10"
+    },
+    {
+     "id": "gilua_L1:b24:31",
+     "block": 24,
+     "type": "OOM",
+     "desc": "OOM synodic 171 y, 1822 conjunction",
+     "alloc_of_block": "c75 h15 i10"
+    },
+    {
+     "id": "gilua_L1:b27:32",
+     "block": 27,
+     "type": "STR",
+     "desc": "STR 1/d^2 sharpness",
+     "alloc_of_block": "c80 m20"
+    },
+    {
+     "id": "gilua_L1:b27:33",
+     "block": 27,
+     "type": "STR",
+     "desc": "STR radial at conjunction, tangential sign flip",
+     "alloc_of_block": "c80 m20"
+    },
+    {
+     "id": "gilua_L1:b27:34",
+     "block": 27,
+     "type": "PRX",
+     "desc": "PRX indirect term",
+     "alloc_of_block": "c80 m20"
+    },
+    {
+     "id": "gilua_L1:b29:35",
+     "block": 29,
+     "type": "STR",
+     "desc": "STR timing constrained, mass x distance degenerate",
+     "alloc_of_block": "c85 h15"
+    },
+    {
+     "id": "gilua_L1:b29:36",
+     "block": 29,
+     "type": "CRT",
+     "desc": "CRT Vulcan: same method, wrong theory",
+     "alloc_of_block": "c85 h15"
+    },
+    {
+     "id": "gilua_L1:b29:37",
+     "block": 29,
+     "type": "STR",
+     "desc": "STR residual: missing cause or failing theory",
+     "alloc_of_block": "c85 h15"
+    },
+    {
+     "id": "gilua_L1:b30:38",
+     "block": 30,
+     "type": "STR",
+     "desc": "STR math proves the implication; observation tests assumptions",
+     "alloc_of_block": "c50 r50"
+    },
+    {
+     "id": "gilua_L1:b31:39",
+     "block": 31,
+     "type": "MAP",
+     "desc": "MAP Bayesian estimation",
+     "alloc_of_block": "c85 r15"
+    },
+    {
+     "id": "gilua_L1:b31:40",
+     "block": 31,
+     "type": "STR",
+     "desc": "STR posterior elongated / ill-posed in one direction",
+     "alloc_of_block": "c85 r15"
+    },
+    {
+     "id": "gilua_L1:b31:41",
+     "block": 31,
+     "type": "MAP",
+     "desc": "MAP TDOA, system ID, Kalman innovations",
+     "alloc_of_block": "c85 r15"
+    },
+    {
+     "id": "gilua_L1:b32:42",
+     "block": 32,
+     "type": "RES",
+     "desc": "RES c=1/sqrt(mu0 eps0)",
+     "alloc_of_block": "c45 h45 m10"
+    },
+    {
+     "id": "gilua_L1:b32:43",
+     "block": 32,
+     "type": "STR",
+     "desc": "STR observation->law->derivation->technology cycle",
+     "alloc_of_block": "c45 h45 m10"
+    },
+    {
+     "id": "gilua_L1:b33:44",
+     "block": 33,
+     "type": "STR",
+     "desc": "STR complex analysis solves wing and dam",
+     "alloc_of_block": "c40 h40 m20"
+    },
+    {
+     "id": "gilua_L1:b34:45",
+     "block": 34,
+     "type": "STR",
+     "desc": "STR both obey Laplace",
+     "alloc_of_block": "c90 i10"
+    },
+    {
+     "id": "gilua_L1:b34:46",
+     "block": 34,
+     "type": "RES",
+     "desc": "RES analytic f gives phi and psi",
+     "alloc_of_block": "c90 i10"
+    },
+    {
+     "id": "gilua_L1:b34:47",
+     "block": 34,
+     "type": "RES",
+     "desc": "RES conformal maps preserve Laplace",
+     "alloc_of_block": "c90 i10"
+    },
+    {
+     "id": "gilua_L1:b34:48",
+     "block": 34,
+     "type": "RES",
+     "desc": "RES Kutta-Joukowski L=rho V Gamma",
+     "alloc_of_block": "c90 i10"
+    },
+    {
+     "id": "gilua_L1:b34:49",
+     "block": 34,
+     "type": "OOM",
+     "desc": "OOM Gamma~241 m2/s",
+     "alloc_of_block": "c90 i10"
+    },
+    {
+     "id": "gilua_L1:b35:50",
+     "block": 35,
+     "type": "STR",
+     "desc": "STR non-Euclidean -> GR -> GPS",
+     "alloc_of_block": "h55 c30 m15"
+    },
+    {
+     "id": "gilua_L1:b37:51",
+     "block": 37,
+     "type": "STR",
+     "desc": "STR four questions with engineering parallels",
+     "alloc_of_block": "n60 c40"
+    },
+    {
+     "id": "gilua_L1:b41:52",
+     "block": 41,
+     "type": "STR",
+     "desc": "STR three steps of abstraction",
+     "alloc_of_block": "c45 n45 m10"
+    },
+    {
+     "id": "gilua_L1:b42:53",
+     "block": 42,
+     "type": "STR",
+     "desc": "STR equality by pairing, without counting",
+     "alloc_of_block": "c60 i40"
+    },
+    {
+     "id": "gilua_L1:b43:54",
+     "block": 43,
+     "type": "DEF",
+     "desc": "DEF number via one-to-one correspondence",
+     "alloc_of_block": "c45 n45 r10"
+    },
+    {
+     "id": "gilua_L1:b44:55",
+     "block": 44,
+     "type": "RES",
+     "desc": "RES pigeonhole",
+     "alloc_of_block": "c85 r15"
+    },
+    {
+     "id": "gilua_L1:b44:56",
+     "block": 44,
+     "type": "RES",
+     "desc": "RES no lossless compressor shortens all files",
+     "alloc_of_block": "c85 r15"
+    },
+    {
+     "id": "gilua_L1:b45:57",
+     "block": 45,
+     "type": "RES",
+     "desc": "RES commutativity",
+     "alloc_of_block": "c45 h40 n15"
+    },
+    {
+     "id": "gilua_L1:b45:58",
+     "block": 45,
+     "type": "RES",
+     "desc": "RES ordinal = cardinal independent of order",
+     "alloc_of_block": "c45 h40 n15"
+    },
+    {
+     "id": "gilua_L1:b46:59",
+     "block": 46,
+     "type": "STR",
+     "desc": "STR properties of a number = its relations",
+     "alloc_of_block": "c50 n50"
+    },
+    {
+     "id": "gilua_L1:b47:60",
+     "block": 47,
+     "type": "MAP",
+     "desc": "MAP Peano",
+     "alloc_of_block": "c85 r15"
+    },
+    {
+     "id": "gilua_L1:b47:61",
+     "block": 47,
+     "type": "MAP",
+     "desc": "MAP abstract data type; FDIV spec as relation",
+     "alloc_of_block": "c85 r15"
+    },
+    {
+     "id": "gilua_L1:b49:62",
+     "block": 49,
+     "type": "STR",
+     "desc": "STR symbol gives body to concept",
+     "alloc_of_block": "c40 n40 h20"
+    },
+    {
+     "id": "gilua_L1:b50:63",
+     "block": 50,
+     "type": "STR",
+     "desc": "STR symbol turns argument into computation = algorithm",
+     "alloc_of_block": "c60 n40"
+    },
+    {
+     "id": "gilua_L1:b52:64",
+     "block": 52,
+     "type": "STR",
+     "desc": "STR additive / alphabetic / positional principles",
+     "alloc_of_block": "d50 c50"
+    },
+    {
+     "id": "gilua_L1:b53:65",
+     "block": 53,
+     "type": "STR",
+     "desc": "STR alphabetic short but no column multiplication (27x27)",
+     "alloc_of_block": "c80 r20"
+    },
+    {
+     "id": "gilua_L1:b53:66",
+     "block": 53,
+     "type": "STR",
+     "desc": "STR principle independent of base",
+     "alloc_of_block": "c80 r20"
+    },
+    {
+     "id": "gilua_L1:b54:67",
+     "block": 54,
+     "type": "STR",
+     "desc": "STR position<->power is what enables multiplication; abacus",
+     "alloc_of_block": "c70 h20 r10"
+    },
+    {
+     "id": "gilua_L1:b55:68",
+     "block": 55,
+     "type": "STR",
+     "desc": "STR positional is the key, base secondary",
+     "alloc_of_block": "c50 h30 n20"
+    },
+    {
+     "id": "gilua_L1:b56:69",
+     "block": 56,
+     "type": "RES",
+     "desc": "RES N=sum d_k b^k",
+     "alloc_of_block": "c90 m10"
+    },
+    {
+     "id": "gilua_L1:b56:70",
+     "block": 56,
+     "type": "RES",
+     "desc": "RES m=floor(log_b N)+1",
+     "alloc_of_block": "c90 m10"
+    },
+    {
+     "id": "gilua_L1:b57:71",
+     "block": 57,
+     "type": "STR",
+     "desc": "STR finite symbols + weight rule",
+     "alloc_of_block": "c85 r15"
+    },
+    {
+     "id": "gilua_L1:b57:72",
+     "block": 57,
+     "type": "STR",
+     "desc": "STR b^j b^k=b^(j+k) -> digit products suffice",
+     "alloc_of_block": "c85 r15"
+    },
+    {
+     "id": "gilua_L1:b59:73",
+     "block": 59,
+     "type": "STEP",
+     "desc": "STEP division with remainder, termination",
+     "alloc_of_block": "c75 i25"
+    },
+    {
+     "id": "gilua_L1:b59:74",
+     "block": 59,
+     "type": "STEP",
+     "desc": "STEP digit-count bounds",
+     "alloc_of_block": "c75 i25"
+    },
+    {
+     "id": "gilua_L1:b60:75",
+     "block": 60,
+     "type": "OOM",
+     "desc": "OOM 10^6 in bases",
+     "alloc_of_block": "c80 r20"
+    },
+    {
+     "id": "gilua_L1:b60:76",
+     "block": 60,
+     "type": "OOM",
+     "desc": "OOM log2 10=3.32",
+     "alloc_of_block": "c80 r20"
+    },
+    {
+     "id": "gilua_L1:b60:77",
+     "block": 60,
+     "type": "OOM",
+     "desc": "OOM 64-bit = 19.3 digits; double 15-16",
+     "alloc_of_block": "c80 r20"
+    },
+    {
+     "id": "gilua_L1:b63:78",
+     "block": 63,
+     "type": "STR",
+     "desc": "STR carry rule in odometers/adders",
+     "alloc_of_block": "c40 r40 m20"
+    },
+    {
+     "id": "gilua_L1:b64:79",
+     "block": 64,
+     "type": "RES",
+     "desc": "RES full adder",
+     "alloc_of_block": "c90 r10"
+    },
+    {
+     "id": "gilua_L1:b64:80",
+     "block": 64,
+     "type": "RES",
+     "desc": "RES ripple carry linear",
+     "alloc_of_block": "c90 r10"
+    },
+    {
+     "id": "gilua_L1:b64:81",
+     "block": 64,
+     "type": "RES",
+     "desc": "RES lookahead log depth",
+     "alloc_of_block": "c90 r10"
+    },
+    {
+     "id": "gilua_L1:b65:82",
+     "block": 65,
+     "type": "RES",
+     "desc": "RES schoolbook n^2",
+     "alloc_of_block": "c75 h15 i10"
+    },
+    {
+     "id": "gilua_L1:b65:83",
+     "block": 65,
+     "type": "RES",
+     "desc": "RES Karatsuba identity",
+     "alloc_of_block": "c75 h15 i10"
+    },
+    {
+     "id": "gilua_L1:b65:84",
+     "block": 65,
+     "type": "OOM",
+     "desc": "OOM n^1.585, x17.6 at 1000",
+     "alloc_of_block": "c75 h15 i10"
+    },
+    {
+     "id": "gilua_L1:b66:85",
+     "block": 66,
+     "type": "STR",
+     "desc": "STR multiplication = convolution + carry",
+     "alloc_of_block": "c80 i20"
+    },
+    {
+     "id": "gilua_L1:b66:86",
+     "block": 66,
+     "type": "RES",
+     "desc": "RES FFT multiplication",
+     "alloc_of_block": "c80 i20"
+    },
+    {
+     "id": "gilua_L1:b66:87",
+     "block": 66,
+     "type": "PRX",
+     "desc": "PRX GMP switches methods",
+     "alloc_of_block": "c80 i20"
+    },
+    {
+     "id": "gilua_L1:b66:88",
+     "block": 66,
+     "type": "MAP",
+     "desc": "MAP FIR via FFT",
+     "alloc_of_block": "c80 i20"
+    },
+    {
+     "id": "gilua_L1:b67:89",
+     "block": 67,
+     "type": "DEF",
+     "desc": "DEF zero as placeholder",
+     "alloc_of_block": "c35 h65"
+    },
+    {
+     "id": "gilua_L1:b68:90",
+     "block": 68,
+     "type": "STR",
+     "desc": "STR zero became a number through relations",
+     "alloc_of_block": "c60 r40"
+    },
+    {
+     "id": "gilua_L1:b70:91",
+     "block": 70,
+     "type": "RES",
+     "desc": "RES radix economy b/ln b",
+     "alloc_of_block": "c85 m15"
+    },
+    {
+     "id": "gilua_L1:b70:92",
+     "block": 70,
+     "type": "OOM",
+     "desc": "OOM values per base",
+     "alloc_of_block": "c85 m15"
+    },
+    {
+     "id": "gilua_L1:b70:93",
+     "block": 70,
+     "type": "STR",
+     "desc": "STR base 4 = base 2",
+     "alloc_of_block": "c85 m15"
+    },
+    {
+     "id": "gilua_L1:b71:94",
+     "block": 71,
+     "type": "TRD",
+     "desc": "TRD noise margin V, V/2, V/9",
+     "alloc_of_block": "c75 h25"
+    },
+    {
+     "id": "gilua_L1:b71:95",
+     "block": 71,
+     "type": "PRX",
+     "desc": "PRX Setun",
+     "alloc_of_block": "c75 h25"
+    },
+    {
+     "id": "gilua_L1:b71:96",
+     "block": 71,
+     "type": "PRX",
+     "desc": "PRX MLC/TLC/QLC, modulation",
+     "alloc_of_block": "c75 h25"
+    },
+    {
+     "id": "gilua_L1:b72:97",
+     "block": 72,
+     "type": "RES",
+     "desc": "RES finite fractions iff prime factors divide base",
+     "alloc_of_block": "c85 h15"
+    },
+    {
+     "id": "gilua_L1:b72:98",
+     "block": 72,
+     "type": "PRX",
+     "desc": "PRX base 60 divisors",
+     "alloc_of_block": "c85 h15"
+    },
+    {
+     "id": "gilua_L1:b72:99",
+     "block": 72,
+     "type": "PRX",
+     "desc": "PRX BCD 83%, decimal FP",
+     "alloc_of_block": "c85 h15"
+    },
+    {
+     "id": "gilua_L1:b73:100",
+     "block": 73,
+     "type": "LIM",
+     "desc": "LIM overflow = mod 2^n (Ariane, Y2K)",
+     "alloc_of_block": "c80 h20"
+    },
+    {
+     "id": "gilua_L1:b73:101",
+     "block": 73,
+     "type": "PRX",
+     "desc": "PRX unary/thermometer code",
+     "alloc_of_block": "c80 h20"
+    },
+    {
+     "id": "gilua_L1:b73:102",
+     "block": 73,
+     "type": "PRX",
+     "desc": "PRX DAC monotonicity",
+     "alloc_of_block": "c80 h20"
+    },
+    {
+     "id": "gilua_L1:b73:103",
+     "block": 73,
+     "type": "LIM",
+     "desc": "LIM non-integers need infinite digits",
+     "alloc_of_block": "c80 h20"
+    },
+    {
+     "id": "gilua_L1:b74:104",
+     "block": 74,
+     "type": "CRT",
+     "desc": "CRT 32->64 bit is x4.29e9",
+     "alloc_of_block": "c90 m10"
+    },
+    {
+     "id": "gilua_L1:b74:105",
+     "block": 74,
+     "type": "CRT",
+     "desc": "CRT decimal is not cheaper",
+     "alloc_of_block": "c90 m10"
+    },
+    {
+     "id": "gilua_L1:b76:106",
+     "block": 76,
+     "type": "STR",
+     "desc": "STR pre-theory arithmetic = solved cases without theorems",
+     "alloc_of_block": "c40 h45 r15"
+    },
+    {
+     "id": "gilua_L1:b78:107",
+     "block": 78,
+     "type": "STR",
+     "desc": "STR arbitrary n, n->n+1, infinity",
+     "alloc_of_block": "c50 n30 i20"
+    },
+    {
+     "id": "gilua_L1:b80:108",
+     "block": 80,
+     "type": "RES",
+     "desc": "RES forall = infinite conjunction",
+     "alloc_of_block": "c70 m30"
+    },
+    {
+     "id": "gilua_L1:b80:109",
+     "block": 80,
+     "type": "STR",
+     "desc": "STR induction is necessary",
+     "alloc_of_block": "c70 m30"
+    },
+    {
+     "id": "gilua_L1:b81:110",
+     "block": 81,
+     "type": "RES",
+     "desc": "RES infinitely many primes",
+     "alloc_of_block": "c85 h15"
+    },
+    {
+     "id": "gilua_L1:b81:111",
+     "block": 81,
+     "type": "STEP",
+     "desc": "STEP every n>1 has prime divisor (well-ordering)",
+     "alloc_of_block": "c85 h15"
+    },
+    {
+     "id": "gilua_L1:b82:112",
+     "block": 82,
+     "type": "CRT",
+     "desc": "CRT proof does not say N is prime",
+     "alloc_of_block": "c80 i20"
+    },
+    {
+     "id": "gilua_L1:b84:113",
+     "block": 84,
+     "type": "CRT",
+     "desc": "CRT Euler n^2+n+41",
+     "alloc_of_block": "c70 h30"
+    },
+    {
+     "id": "gilua_L1:b84:114",
+     "block": 84,
+     "type": "CRT",
+     "desc": "CRT Fermat numbers",
+     "alloc_of_block": "c70 h30"
+    },
+    {
+     "id": "gilua_L1:b84:115",
+     "block": 84,
+     "type": "CRT",
+     "desc": "CRT Polya 906M; counterexamples sit where structure dictates",
+     "alloc_of_block": "c70 h30"
+    },
+    {
+     "id": "gilua_L1:b85:116",
+     "block": 85,
+     "type": "TRD",
+     "desc": "TRD exhaustive / random / formal",
+     "alloc_of_block": "c80 r20"
+    },
+    {
+     "id": "gilua_L1:b85:117",
+     "block": 85,
+     "type": "RES",
+     "desc": "RES rule of three",
+     "alloc_of_block": "c80 r20"
+    },
+    {
+     "id": "gilua_L1:b85:118",
+     "block": 85,
+     "type": "PRX",
+     "desc": "PRX industry mix",
+     "alloc_of_block": "c80 r20"
+    },
+    {
+     "id": "gilua_L1:b86:119",
+     "block": 86,
+     "type": "MAP",
+     "desc": "MAP hypothesis tests",
+     "alloc_of_block": "c100"
+    },
+    {
+     "id": "gilua_L1:b86:120",
+     "block": 86,
+     "type": "MAP",
+     "desc": "MAP generalisation bounds, adversarial examples",
+     "alloc_of_block": "c100"
+    },
+    {
+     "id": "gilua_L1:b87:121",
+     "block": 87,
+     "type": "LIM",
+     "desc": "LIM spec gap (Ariane, MCO)",
+     "alloc_of_block": "c70 r15 m15"
+    },
+    {
+     "id": "gilua_L1:b87:122",
+     "block": 87,
+     "type": "LIM",
+     "desc": "LIM model gap (RTL vs silicon)",
+     "alloc_of_block": "c70 r15 m15"
+    },
+    {
+     "id": "gilua_L1:b87:123",
+     "block": 87,
+     "type": "LIM",
+     "desc": "LIM tools/axioms; trusted core",
+     "alloc_of_block": "c70 r15 m15"
+    },
+    {
+     "id": "gilua_L1:b91:124",
+     "block": 91,
+     "type": "STR",
+     "desc": "STR applicability ~ breadth, abstraction limited",
+     "alloc_of_block": "c50 n50"
+    },
+    {
+     "id": "gilua_L1:b93:125",
+     "block": 93,
+     "type": "DEF",
+     "desc": "DEF additivity Q(A u B)=Q(A)+Q(B)",
+     "alloc_of_block": "c80 n20"
+    },
+    {
+     "id": "gilua_L1:b93:126",
+     "block": 93,
+     "type": "STR",
+     "desc": "STR property of quantity + process",
+     "alloc_of_block": "c80 n20"
+    },
+    {
+     "id": "gilua_L1:b94:127",
+     "block": 94,
+     "type": "STEP",
+     "desc": "STEP hidden assumption: union does not change components",
+     "alloc_of_block": "c80 r20"
+    },
+    {
+     "id": "gilua_L1:b95:128",
+     "block": 95,
+     "type": "OOM",
+     "desc": "OOM 1.93 L, -3.5%",
+     "alloc_of_block": "c80 i20"
+    },
+    {
+     "id": "gilua_L1:b95:129",
+     "block": 95,
+     "type": "STR",
+     "desc": "STR sign depends on intermolecular forces",
+     "alloc_of_block": "c80 i20"
+    },
+    {
+     "id": "gilua_L1:b96:130",
+     "block": 96,
+     "type": "DEF",
+     "desc": "DEF extensive/intensive",
+     "alloc_of_block": "c80 i20"
+    },
+    {
+     "id": "gilua_L1:b96:131",
+     "block": 96,
+     "type": "DEF",
+     "desc": "DEF excess volume",
+     "alloc_of_block": "c80 i20"
+    },
+    {
+     "id": "gilua_L1:b96:132",
+     "block": 96,
+     "type": "DEF",
+     "desc": "DEF partial molar volume (linearisation)",
+     "alloc_of_block": "c80 i20"
+    },
+    {
+     "id": "gilua_L1:b97:133",
+     "block": 97,
+     "type": "STR",
+     "desc": "STR conserved quantities add",
+     "alloc_of_block": "c80 r20"
+    },
+    {
+     "id": "gilua_L1:b97:134",
+     "block": 97,
+     "type": "STR",
+     "desc": "STR enthalpy of mixing",
+     "alloc_of_block": "c80 r20"
+    },
+    {
+     "id": "gilua_L1:b98:135",
+     "block": 98,
+     "type": "MAP",
+     "desc": "MAP dB vs power",
+     "alloc_of_block": "c100"
+    },
+    {
+     "id": "gilua_L1:b98:136",
+     "block": 98,
+     "type": "MAP",
+     "desc": "MAP conductance",
+     "alloc_of_block": "c100"
+    },
+    {
+     "id": "gilua_L1:b98:137",
+     "block": 98,
+     "type": "MAP",
+     "desc": "MAP reliability product 0.366",
+     "alloc_of_block": "c100"
+    },
+    {
+     "id": "gilua_L1:b98:138",
+     "block": 98,
+     "type": "MAP",
+     "desc": "MAP variances add",
+     "alloc_of_block": "c100"
+    },
+    {
+     "id": "gilua_L1:b99:139",
+     "block": 99,
+     "type": "TRD",
+     "desc": "TRD volume vs mass metering",
+     "alloc_of_block": "c70 i30"
+    },
+    {
+     "id": "gilua_L1:b100:140",
+     "block": 100,
+     "type": "CRT",
+     "desc": "CRT 60+60 dB",
+     "alloc_of_block": "c80 r20"
+    },
+    {
+     "id": "gilua_L1:b100:141",
+     "block": 100,
+     "type": "RES",
+     "desc": "RES dB sum formula, coherent 66",
+     "alloc_of_block": "c80 r20"
+    },
+    {
+     "id": "gilua_L1:b100:142",
+     "block": 100,
+     "type": "CRT",
+     "desc": "CRT limit-case and dimension tests",
+     "alloc_of_block": "c80 r20"
+    },
+    {
+     "id": "gilua_L1:b107:143",
+     "block": 107,
+     "type": "PRX",
+     "desc": "PRX AMD/Intel FP proofs",
+     "alloc_of_block": "c60 h40"
+    },
+    {
+     "id": "gilua_L1:b107:144",
+     "block": 107,
+     "type": "PRX",
+     "desc": "PRX seL4 23:1",
+     "alloc_of_block": "c60 h40"
+    },
+    {
+     "id": "gilua_L1:b107:145",
+     "block": 107,
+     "type": "PRX",
+     "desc": "PRX CompCert vs Csmith",
+     "alloc_of_block": "c60 h40"
+    },
+    {
+     "id": "gilua_L1:b107:146",
+     "block": 107,
+     "type": "PRX",
+     "desc": "PRX Lean/AlphaProof",
+     "alloc_of_block": "c60 h40"
+    },
+    {
+     "id": "gilua_L1:b107:147",
+     "block": 107,
+     "type": "STR",
+     "desc": "STR spec cost is the limit",
+     "alloc_of_block": "c60 h40"
+    }
+   ]
+  },
+  "lanchester_L1": {
+   "file": "7bttypv4wjoxwlsdobdy.md",
+   "n_units": 84,
+   "units": [
+    {
+     "id": "lanchester_L1:b2:0",
+     "block": 2,
+     "type": "STR",
+     "desc": "STR chains multiply ratios",
+     "alloc_of_block": "h70 c20 m10"
+    },
+    {
+     "id": "lanchester_L1:b3:1",
+     "block": 3,
+     "type": "OOM",
+     "desc": "OOM RCS spans 11 orders",
+     "alloc_of_block": "c70 i30"
+    },
+    {
+     "id": "lanchester_L1:b3:2",
+     "block": 3,
+     "type": "OOM",
+     "desc": "OOM power spans 20 orders",
+     "alloc_of_block": "c70 i30"
+    },
+    {
+     "id": "lanchester_L1:b4:3",
+     "block": 4,
+     "type": "STR",
+     "desc": "STR no linear ruler covers the range",
+     "alloc_of_block": "s60 c40"
+    },
+    {
+     "id": "lanchester_L1:b5:4",
+     "block": 5,
+     "type": "STR",
+     "desc": "STR represent a number by its exponent",
+     "alloc_of_block": "c60 s40"
+    },
+    {
+     "id": "lanchester_L1:b9:5",
+     "block": 9,
+     "type": "RES",
+     "desc": "RES 10^a 10^b = 10^(a+b)",
+     "alloc_of_block": "s70 c30"
+    },
+    {
+     "id": "lanchester_L1:b10:6",
+     "block": 10,
+     "type": "DEF",
+     "desc": "DEF log10",
+     "alloc_of_block": "s50 c50"
+    },
+    {
+     "id": "lanchester_L1:b11:7",
+     "block": 11,
+     "type": "RES",
+     "desc": "RES product/quotient/power rules",
+     "alloc_of_block": "s60 c40"
+    },
+    {
+     "id": "lanchester_L1:b14:8",
+     "block": 14,
+     "type": "LIM",
+     "desc": "LIM only positive quantities",
+     "alloc_of_block": "c40 s60"
+    },
+    {
+     "id": "lanchester_L1:b15:9",
+     "block": 15,
+     "type": "OOM",
+     "desc": "OOM log2~0.3",
+     "alloc_of_block": "c70 i30"
+    },
+    {
+     "id": "lanchester_L1:b16:10",
+     "block": 16,
+     "type": "STR",
+     "desc": "STR linear vs log representations, never mix",
+     "alloc_of_block": "c60 s40"
+    },
+    {
+     "id": "lanchester_L1:b17:11",
+     "block": 17,
+     "type": "PRX",
+     "desc": "PRX convert to dB early, back late",
+     "alloc_of_block": "c80 m20"
+    },
+    {
+     "id": "lanchester_L1:b20:12",
+     "block": 20,
+     "type": "DEF",
+     "desc": "DEF every dB value is a ratio",
+     "alloc_of_block": "c60 i40"
+    },
+    {
+     "id": "lanchester_L1:b21:13",
+     "block": 21,
+     "type": "DEF",
+     "desc": "DEF bel too coarse",
+     "alloc_of_block": "c50 s30 i20"
+    },
+    {
+     "id": "lanchester_L1:b21:14",
+     "block": 21,
+     "type": "DEF",
+     "desc": "DEF decibel",
+     "alloc_of_block": "c50 s30 i20"
+    },
+    {
+     "id": "lanchester_L1:b24:15",
+     "block": 24,
+     "type": "RES",
+     "desc": "RES N(dB)=10logN and inverse",
+     "alloc_of_block": "c70 s30"
+    },
+    {
+     "id": "lanchester_L1:b28:16",
+     "block": 28,
+     "type": "STR",
+     "desc": "STR 0 dB = x1, not zero power",
+     "alloc_of_block": "c70 s30"
+    },
+    {
+     "id": "lanchester_L1:b33:17",
+     "block": 33,
+     "type": "STR",
+     "desc": "STR equal spacing = equal ratios",
+     "alloc_of_block": "c70 i30"
+    },
+    {
+     "id": "lanchester_L1:b33:18",
+     "block": 33,
+     "type": "STR",
+     "desc": "STR orders of magnitude dominate",
+     "alloc_of_block": "c70 i30"
+    },
+    {
+     "id": "lanchester_L1:b34:19",
+     "block": 34,
+     "type": "LIM",
+     "desc": "LIM no dB for 0/negatives; meters show -inf",
+     "alloc_of_block": "c70 i30"
+    },
+    {
+     "id": "lanchester_L1:b34:20",
+     "block": 34,
+     "type": "LIM",
+     "desc": "LIM second rule of the scale",
+     "alloc_of_block": "c70 i30"
+    },
+    {
+     "id": "lanchester_L1:b35:21",
+     "block": 35,
+     "type": "CRT",
+     "desc": "CRT negative power in dB",
+     "alloc_of_block": "c60 s40"
+    },
+    {
+     "id": "lanchester_L1:b37:22",
+     "block": 37,
+     "type": "MAP",
+     "desc": "MAP radar",
+     "alloc_of_block": "c70 m30"
+    },
+    {
+     "id": "lanchester_L1:b37:23",
+     "block": 37,
+     "type": "MAP",
+     "desc": "MAP EW J/S",
+     "alloc_of_block": "c70 m30"
+    },
+    {
+     "id": "lanchester_L1:b37:24",
+     "block": 37,
+     "type": "MAP",
+     "desc": "MAP GNSS",
+     "alloc_of_block": "c70 m30"
+    },
+    {
+     "id": "lanchester_L1:b37:25",
+     "block": 37,
+     "type": "MAP",
+     "desc": "MAP sonar",
+     "alloc_of_block": "c70 m30"
+    },
+    {
+     "id": "lanchester_L1:b40:26",
+     "block": 40,
+     "type": "DEF",
+     "desc": "DEF dBm",
+     "alloc_of_block": "c40 s30 i30"
+    },
+    {
+     "id": "lanchester_L1:b41:27",
+     "block": 41,
+     "type": "OOM",
+     "desc": "OOM 0.02 dB = 0.47%; integer dB is enough",
+     "alloc_of_block": "c50 i50"
+    },
+    {
+     "id": "lanchester_L1:b42:28",
+     "block": 42,
+     "type": "DEF",
+     "desc": "DEF dBW vs dBm; reference must be named",
+     "alloc_of_block": "c80 i20"
+    },
+    {
+     "id": "lanchester_L1:b43:29",
+     "block": 43,
+     "type": "RES",
+     "desc": "RES dBm = dBW + 30",
+     "alloc_of_block": "c40 s60"
+    },
+    {
+     "id": "lanchester_L1:b46:30",
+     "block": 46,
+     "type": "OOM",
+     "desc": "OOM each prefix = 30 dB; 1 W = 30 dBm",
+     "alloc_of_block": "c80 i20"
+    },
+    {
+     "id": "lanchester_L1:b46:31",
+     "block": 46,
+     "type": "OOM",
+     "desc": "OOM 200 dB transmitter-to-noise",
+     "alloc_of_block": "c80 i20"
+    },
+    {
+     "id": "lanchester_L1:b47:32",
+     "block": 47,
+     "type": "RES",
+     "desc": "RES dBm + dB = dBm",
+     "alloc_of_block": "c60 i40"
+    },
+    {
+     "id": "lanchester_L1:b49:33",
+     "block": 49,
+     "type": "DEF",
+     "desc": "DEF dBsm, dBi table",
+     "alloc_of_block": "c60 d40"
+    },
+    {
+     "id": "lanchester_L1:b50:34",
+     "block": 50,
+     "type": "DEF",
+     "desc": "DEF dBsm",
+     "alloc_of_block": "c70 s30"
+    },
+    {
+     "id": "lanchester_L1:b50:35",
+     "block": 50,
+     "type": "DEF",
+     "desc": "DEF dBi, 0 dBi = isotropic",
+     "alloc_of_block": "c70 s30"
+    },
+    {
+     "id": "lanchester_L1:b53:36",
+     "block": 53,
+     "type": "MAP",
+     "desc": "MAP radar parameters in dB",
+     "alloc_of_block": "c50 d50"
+    },
+    {
+     "id": "lanchester_L1:b54:37",
+     "block": 54,
+     "type": "DEF",
+     "desc": "DEF gain vs loss sign convention",
+     "alloc_of_block": "c80 s20"
+    },
+    {
+     "id": "lanchester_L1:b55:38",
+     "block": 55,
+     "type": "PRX",
+     "desc": "PRX GPS -158.5 dBW",
+     "alloc_of_block": "c50 i30 r20"
+    },
+    {
+     "id": "lanchester_L1:b55:39",
+     "block": 55,
+     "type": "OOM",
+     "desc": "OOM below thermal noise",
+     "alloc_of_block": "c50 i30 r20"
+    },
+    {
+     "id": "lanchester_L1:b55:40",
+     "block": 55,
+     "type": "OOM",
+     "desc": "OOM path loss ~182 dB",
+     "alloc_of_block": "c50 i30 r20"
+    },
+    {
+     "id": "lanchester_L1:b55:41",
+     "block": 55,
+     "type": "PRX",
+     "desc": "PRX link budget",
+     "alloc_of_block": "c50 i30 r20"
+    },
+    {
+     "id": "lanchester_L1:b56:42",
+     "block": 56,
+     "type": "OPS",
+     "desc": "OPS GPS inherently weak; jammer advantage",
+     "alloc_of_block": "c70 r30"
+    },
+    {
+     "id": "lanchester_L1:b57:43",
+     "block": 57,
+     "type": "PRX",
+     "desc": "PRX J/S 39.9 dB",
+     "alloc_of_block": "c70 i30"
+    },
+    {
+     "id": "lanchester_L1:b57:44",
+     "block": 57,
+     "type": "OPS",
+     "desc": "OPS tolerable jamming power",
+     "alloc_of_block": "c70 i30"
+    },
+    {
+     "id": "lanchester_L1:b58:45",
+     "block": 58,
+     "type": "MAP",
+     "desc": "MAP sigma plays antenna-gain role; two-way path",
+     "alloc_of_block": "c50 r30 m20"
+    },
+    {
+     "id": "lanchester_L1:b61:46",
+     "block": 61,
+     "type": "STR",
+     "desc": "STR log no longer saves computation; value = mental sense",
+     "alloc_of_block": "c50 h30 s20"
+    },
+    {
+     "id": "lanchester_L1:b61:47",
+     "block": 61,
+     "type": "RES",
+     "desc": "RES power rule z(dB)=a y(dB)",
+     "alloc_of_block": "c50 h30 s20"
+    },
+    {
+     "id": "lanchester_L1:b63:48",
+     "block": 63,
+     "type": "OOM",
+     "desc": "OOM dBs-to-remember table",
+     "alloc_of_block": "d50 c50"
+    },
+    {
+     "id": "lanchester_L1:b65:49",
+     "block": 65,
+     "type": "OOM",
+     "desc": "OOM 1 dB ~ 1.25 derivation",
+     "alloc_of_block": "c60 s40"
+    },
+    {
+     "id": "lanchester_L1:b66:50",
+     "block": 66,
+     "type": "OOM",
+     "desc": "OOM decomposition 7 dB = 5",
+     "alloc_of_block": "c40 i60"
+    },
+    {
+     "id": "lanchester_L1:b69:51",
+     "block": 69,
+     "type": "STR",
+     "desc": "STR decomposition errors accumulate",
+     "alloc_of_block": "c60 i40"
+    },
+    {
+     "id": "lanchester_L1:b72:52",
+     "block": 72,
+     "type": "OOM",
+     "desc": "OOM max error 1.4%; resets every 10 dB",
+     "alloc_of_block": "c80 i20"
+    },
+    {
+     "id": "lanchester_L1:b73:53",
+     "block": 73,
+     "type": "OOM",
+     "desc": "OOM negatives and large numbers",
+     "alloc_of_block": "c40 i60"
+    },
+    {
+     "id": "lanchester_L1:b76:54",
+     "block": 76,
+     "type": "TRD",
+     "desc": "TRD gains of dB",
+     "alloc_of_block": "c70 i30"
+    },
+    {
+     "id": "lanchester_L1:b76:55",
+     "block": 76,
+     "type": "RES",
+     "desc": "RES power addition formula",
+     "alloc_of_block": "c70 i30"
+    },
+    {
+     "id": "lanchester_L1:b77:56",
+     "block": 77,
+     "type": "DEF",
+     "desc": "DEF SPL re 1 uPa",
+     "alloc_of_block": "c70 i20 s10"
+    },
+    {
+     "id": "lanchester_L1:b77:57",
+     "block": 77,
+     "type": "RES",
+     "desc": "RES 20 log for pressure",
+     "alloc_of_block": "c70 i20 s10"
+    },
+    {
+     "id": "lanchester_L1:b77:58",
+     "block": 77,
+     "type": "PRX",
+     "desc": "PRX water vs air references",
+     "alloc_of_block": "c70 i20 s10"
+    },
+    {
+     "id": "lanchester_L1:b79:59",
+     "block": 79,
+     "type": "CRT",
+     "desc": "CRT 3 dB is not exactly 2",
+     "alloc_of_block": "c80 i20"
+    },
+    {
+     "id": "lanchester_L1:b80:60",
+     "block": 80,
+     "type": "CRT",
+     "desc": "CRT dBm + dBm",
+     "alloc_of_block": "c80 r20"
+    },
+    {
+     "id": "lanchester_L1:b81:61",
+     "block": 81,
+     "type": "CRT",
+     "desc": "CRT missing reference unit",
+     "alloc_of_block": "c60 n40"
+    },
+    {
+     "id": "lanchester_L1:b82:62",
+     "block": 82,
+     "type": "CRT",
+     "desc": "CRT 10log for voltage",
+     "alloc_of_block": "c70 m30"
+    },
+    {
+     "id": "lanchester_L1:b85:63",
+     "block": 85,
+     "type": "RES",
+     "desc": "RES template 1",
+     "alloc_of_block": "c50 s50"
+    },
+    {
+     "id": "lanchester_L1:b86:64",
+     "block": 86,
+     "type": "RES",
+     "desc": "RES template 2",
+     "alloc_of_block": "c50 s50"
+    },
+    {
+     "id": "lanchester_L1:b87:65",
+     "block": 87,
+     "type": "RES",
+     "desc": "RES template 3",
+     "alloc_of_block": "c80 r20"
+    },
+    {
+     "id": "lanchester_L1:b88:66",
+     "block": 88,
+     "type": "STR",
+     "desc": "STR at most one absolute term per side",
+     "alloc_of_block": "c80 r20"
+    },
+    {
+     "id": "lanchester_L1:b88:67",
+     "block": 88,
+     "type": "STR",
+     "desc": "STR N reveals the power",
+     "alloc_of_block": "c80 r20"
+    },
+    {
+     "id": "lanchester_L1:b90:68",
+     "block": 90,
+     "type": "RES",
+     "desc": "RES spreading loss 32+20logd+20logf",
+     "alloc_of_block": "c90 s10"
+    },
+    {
+     "id": "lanchester_L1:b91:69",
+     "block": 91,
+     "type": "RES",
+     "desc": "RES loss = (4 pi d f/c)^2",
+     "alloc_of_block": "c60 m40"
+    },
+    {
+     "id": "lanchester_L1:b92:70",
+     "block": 92,
+     "type": "STEP",
+     "desc": "STEP constant 32.44 from units",
+     "alloc_of_block": "c50 s50"
+    },
+    {
+     "id": "lanchester_L1:b93:71",
+     "block": 93,
+     "type": "LIM",
+     "desc": "LIM constant depends on units (-147.55, 92.45)",
+     "alloc_of_block": "c70 i30"
+    },
+    {
+     "id": "lanchester_L1:b94:72",
+     "block": 94,
+     "type": "MAP",
+     "desc": "MAP EW",
+     "alloc_of_block": "c80 r20"
+    },
+    {
+     "id": "lanchester_L1:b94:73",
+     "block": 94,
+     "type": "MAP",
+     "desc": "MAP GNSS 182-184 dB",
+     "alloc_of_block": "c80 r20"
+    },
+    {
+     "id": "lanchester_L1:b94:74",
+     "block": 94,
+     "type": "MAP",
+     "desc": "MAP radar 40logR",
+     "alloc_of_block": "c80 r20"
+    },
+    {
+     "id": "lanchester_L1:b95:75",
+     "block": 95,
+     "type": "OOM",
+     "desc": "OOM x2 distance = 6 dB / 12 dB",
+     "alloc_of_block": "c80 i20"
+    },
+    {
+     "id": "lanchester_L1:b95:76",
+     "block": 95,
+     "type": "OOM",
+     "desc": "OOM GPS loss estimate",
+     "alloc_of_block": "c80 i20"
+    },
+    {
+     "id": "lanchester_L1:b96:77",
+     "block": 96,
+     "type": "OOM",
+     "desc": "OOM RCS x10 -> range x1.78",
+     "alloc_of_block": "c50 m50"
+    },
+    {
+     "id": "lanchester_L1:b98:78",
+     "block": 98,
+     "type": "STR",
+     "desc": "STR link-by-link analysis",
+     "alloc_of_block": "c70 r30"
+    },
+    {
+     "id": "lanchester_L1:b99:79",
+     "block": 99,
+     "type": "DEF",
+     "desc": "DEF link margin",
+     "alloc_of_block": "c80 i20"
+    },
+    {
+     "id": "lanchester_L1:b99:80",
+     "block": 99,
+     "type": "DEF",
+     "desc": "DEF EIRP",
+     "alloc_of_block": "c80 i20"
+    },
+    {
+     "id": "lanchester_L1:b105:81",
+     "block": 105,
+     "type": "PRX",
+     "desc": "PRX ADC 6.02N+1.76",
+     "alloc_of_block": "c70 i20 m10"
+    },
+    {
+     "id": "lanchester_L1:b105:82",
+     "block": 105,
+     "type": "PRX",
+     "desc": "PRX receiver dynamic range",
+     "alloc_of_block": "c70 i20 m10"
+    },
+    {
+     "id": "lanchester_L1:b105:83",
+     "block": 105,
+     "type": "PRX",
+     "desc": "PRX where the 200 dB go",
+     "alloc_of_block": "c70 i20 m10"
+    }
+   ]
+  }
+ },
+ "rewrite_checklists": {
+  "log": {
+   "rewrite_file": "A2_rewrite_log.md",
+   "missing_in_v2": [],
+   "orig_prose_words": 1880,
+   "v2_words": 1032,
+   "ratio": 0.549,
+   "units": [
+    {
+     "id": "N1",
+     "desc": "DEF Napier defines log by its rate: growth rate inversely proportional to the quantity, y'=c/x (not as inverse of a^y)",
+     "orig_block": 44,
+     "v2_location": "¶2: ```formula @title: הלוגריתם כמשוואה דיפרנציאלית $$y'=\\frac{c"
+    },
+    {
+     "id": "N2",
+     "desc": "LIM domain x>0; as x->0 the rate diverges and y->-inf",
+     "orig_block": 45,
+     "v2_location": "¶2: ```formula @title: הלוגריתם כמשוואה דיפרנציאלית $$y'=\\frac{c"
+    },
+    {
+     "id": "N3",
+     "desc": "RES with y(1)=0 the solution is unique: y=c ln x",
+     "orig_block": 45,
+     "v2_location": "¶2: ```formula @title: הלוגריתם כמשוואה דיפרנציאלית $$y'=\\frac{c"
+    },
+    {
+     "id": "N4",
+     "desc": "STEP Napier model: point P moves with speed = remaining distance x -> source of 1/x; P slows and never arrives",
+     "orig_block": 46,
+     "v2_location": "¶3: **איך נאפייר הגיע ל-(5).** שתי נקודות יוצאות יחד. P רצה על ק"
+    },
+    {
+     "id": "N5",
+     "desc": "STEP point Q moves at constant speed = P initial speed (10^7): Q distance is a clock; NL(x)= Q distance when P has x left",
+     "orig_block": 46,
+     "v2_location": "¶3: **איך נאפייר הגיע ל-(5).** שתי נקודות יוצאות יחד. P רצה על ק"
+    },
+    {
+     "id": "N6",
+     "desc": "PRX 10^7 = radius of contemporary sine tables (so all sines were integers)",
+     "orig_block": 46,
+     "v2_location": "¶3: **איך נאפייר הגיע ל-(5).** שתי נקודות יוצאות יחד. P רצה על ק"
+    },
+    {
+     "id": "N7",
+     "desc": "RES NL(x)=10^7 ln(10^7/x), i.e. c=-10^7, y=0 at x=10^7; NL(5e6)=6,931,472",
+     "orig_block": 46,
+     "v2_location": "¶3: **איך נאפייר הגיע ל-(5).** שתי נקודות יוצאות יחד. P רצה על ק"
+    },
+    {
+     "id": "N8",
+     "desc": "STR Napier had no instantaneous velocity; motion intuition = variable/function concept before Newton-Leibniz",
+     "orig_block": 46,
+     "v2_location": "¶1: האסטרונומים של 1600 היו צריכים דבר אחד: להפוך כפל של מספרים "
+    },
+    {
+     "id": "N9",
+     "desc": "STR the need: turn multiplication of 7-digit numbers into addition",
+     "orig_block": 47,
+     "v2_location": "¶1: האסטרונומים של 1600 היו צריכים דבר אחד: להפוך כפל של מספרים "
+    },
+    {
+     "id": "N10",
+     "desc": "STEP compare y at x and kx: increments c*d/x and c*k*d/(kx) equal - the k cancels; this is exactly where the 1/x form is used",
+     "orig_block": 48,
+     "v2_location": "¶5: ```derivation @title: מ-$y'=c/x$ לכפל שהופך לחיבור צעד 1: מג"
+    },
+    {
+     "id": "N11",
+     "desc": "RES y(kx)=y(x)+y(k): log of product = sum of logs",
+     "orig_block": 48,
+     "v2_location": "¶5: ```derivation @title: מ-$y'=c/x$ לכפל שהופך לחיבור צעד 1: מג"
+    },
+    {
+     "id": "N12",
+     "desc": "RES y(k^m)=m*y(k) (integer then rational m); base b defined by y(b)=1 so y=log_b",
+     "orig_block": 48,
+     "v2_location": "¶5: ```derivation @title: מ-$y'=c/x$ לכפל שהופך לחיבור צעד 1: מג"
+    },
+    {
+     "id": "N13",
+     "desc": "OOM c=1 gives ln with base e=2.71828; log10 needs c=1/ln10=0.4343",
+     "orig_block": 48,
+     "v2_location": "¶5: ```derivation @title: מ-$y'=c/x$ לכפל שהופך לחיבור צעד 1: מג"
+    },
+    {
+     "id": "N14",
+     "desc": "STR scale invariance: change of units shifts log by a constant; the ratio, not the difference, controls; log = the function that measures ratios as distances",
+     "orig_block": 49,
+     "v2_location": "¶6: **העיקרון: הלוגריתם מודד יחסים כמרחקים.** (5) אינה משתנה כשמ"
+    },
+    {
+     "id": "N15",
+     "desc": "RES ln x = 2.3026 log10 x; c only sets the unit (ln/log10/log2)",
+     "orig_block": 49,
+     "v2_location": "¶6: **העיקרון: הלוגריתם מודד יחסים כמרחקים.** (5) אינה משתנה כשמ"
+    },
+    {
+     "id": "N16",
+     "desc": "CRT Napier's NL decreases with x and does not satisfy (7): NL(x)+NL(y)=NL(xy/10^7); users corrected by powers of 10^7; Briggs+Napier moved to log1=0, log10=1",
+     "orig_block": 50,
+     "v2_location": "¶7: ה-NL המקורי **יורד** כש-$x$ עולה ($c=-10^7$), ולכן אינו מקיי"
+    },
+    {
+     "id": "N17",
+     "desc": "RES ln x <= x-1 (tangent bound), from rate 1/x being >1 left of 1 and <1 right of 1",
+     "orig_block": 51,
+     "v2_location": "¶8: **תוצאה בשורה אחת: למה $e$ הוא הבסיס הזול ביותר.** לפי (5) ע"
+    },
+    {
+     "id": "N18",
+     "desc": "RES radix economy b/ln b >= e, minimum at b=e (one-line proof via N17 with x=b/e)",
+     "orig_block": 51,
+     "v2_location": "¶8: **תוצאה בשורה אחת: למה $e$ הוא הבסיס הזול ביותר.** לפי (5) ע"
+    },
+    {
+     "id": "N19",
+     "desc": "OOM base 3 costs +0.46% over e, base 2 +6.1%, base 10 +60%",
+     "orig_block": 51,
+     "v2_location": "¶8: **תוצאה בשורה אחת: למה $e$ הוא הבסיס הזול ביותר.** לפי (5) ע"
+    },
+    {
+     "id": "N20",
+     "desc": "OOM 2^10~10^3 => log10 2~0.30 (err 0.34%); via (7): log5=0.699, log8=0.903, log6=0.778",
+     "orig_block": 52,
+     "v2_location": "¶9: **עוגנים לזכור.** - $2^{10}\\approx10^3$, ולכן $\\log_{10}2\\ap"
+    },
+    {
+     "id": "N21",
+     "desc": "OOM dB=10log10 power ratio: x2 power = 3.01 dB, x10^6 = 60 dB; x2 voltage = 6.02 dB because P~V^2",
+     "orig_block": 52,
+     "v2_location": "¶9: **עוגנים לזכור.** - $2^{10}\\approx10^3$, ולכן $\\log_{10}2\\ap"
+    },
+    {
+     "id": "N22",
+     "desc": "MAP ADC: each extra bit doubles levels => +6.02 dB SNR",
+     "orig_block": 52,
+     "v2_location": "¶9: **עוגנים לזכור.** - $2^{10}\\approx10^3$, ולכן $\\log_{10}2\\ap"
+    },
+    {
+     "id": "N23",
+     "desc": "TRD log table vs slide rule: table 14 digits, 3 lookups+1 add+interp, cost paid once (years of hand computation) / rule: speed, few digits",
+     "orig_block": 53,
+     "v2_location": "¶10: **הפשרה: טבלה מול סרגל חישוב.** הלוגריתם אינו מבטל את עבודת "
+    },
+    {
+     "id": "N24",
+     "desc": "OOM slide-rule error: 0.1 mm on 25 cm => ln10*0.1/250 = 9.2e-4 relative = ~3 significant figures",
+     "orig_block": 53,
+     "v2_location": "¶10: **הפשרה: טבלה מול סרגל חישוב.** הלוגריתם אינו מבטל את עבודת "
+    },
+    {
+     "id": "N25",
+     "desc": "STR slide rule has constant RELATIVE error over the scale (it measures ratios) = floating point (vs fixed point)",
+     "orig_block": 53,
+     "v2_location": "¶10: **הפשרה: טבלה מול סרגל חישוב.** הלוגריתם אינו מבטל את עבודת "
+    },
+    {
+     "id": "N26",
+     "desc": "PRX 3 digits sufficed for bridges and aircraft for ~300 years (1620s-1970s) because loads/material data are no better",
+     "orig_block": 53,
+     "v2_location": "¶10: **הפשרה: טבלה מול סרגל חישוב.** הלוגריתם אינו מבטל את עבודת "
+    },
+    {
+     "id": "N27",
+     "desc": "LIM no 0 and no negatives on a slide rule (0 is at -inf); left end is 1 (log1=0)",
+     "orig_block": 54,
+     "v2_location": "¶11: ```think בסרגל חישוב אין שנתה 0, אין מספרים שליליים, ואי אפש"
+    },
+    {
+     "id": "N28",
+     "desc": "LIM log does not simplify addition: log(a+b) is no simple function of log a, log b",
+     "orig_block": 54,
+     "v2_location": "¶11: ```think בסרגל חישוב אין שנתה 0, אין מספרים שליליים, ואי אפש"
+    },
+    {
+     "id": "N29",
+     "desc": "STR every transform buys one cheap operation and makes another expensive",
+     "orig_block": 54,
+     "v2_location": "¶11: ```think בסרגל חישוב אין שנתה 0, אין מספרים שליליים, ואי אפש"
+    },
+    {
+     "id": "N30",
+     "desc": "STR slide-rule user tracks sign and power of ten himself; rule gives digits only = mantissa/exponent split",
+     "orig_block": 54,
+     "v2_location": "¶11: ```think בסרגל חישוב אין שנתה 0, אין מספרים שליליים, ואי אפש"
+    },
+    {
+     "id": "N31",
+     "desc": "MAP dB: two uncorrelated 60 dB sources = 63.0 dB (power adds, dB do not); cascades add in dB (+20-6+20=34)",
+     "orig_block": 56,
+     "v2_location": "¶13: | תחום | מה מוכפל | מה נובע מ-(7) | |---|---|---| | רעש ואות"
+    },
+    {
+     "id": "N32",
+     "desc": "MAP octave = x2 frequency, 12 equal-ratio semitones, keys ~ log2 f; transposition invariance = scale invariance",
+     "orig_block": 56,
+     "v2_location": "¶13: | תחום | מה מוכפל | מה נובע מ-(7) | |---|---|---| | רעש ואות"
+    },
+    {
+     "id": "N33",
+     "desc": "MAP/OOM Richter: +1 = x10 amplitude, energy ~ amplitude^1.5 => x31.6 per unit, x1000 per 2 units",
+     "orig_block": 56,
+     "v2_location": "¶13: | תחום | מה מוכפל | מה נובע מ-(7) | |---|---|---| | רעש ואות"
+    },
+    {
+     "id": "N34",
+     "desc": "STR use a log scale when the quantity spans many orders of magnitude and ratios matter; senses are roughly logarithmic",
+     "orig_block": 56,
+     "v2_location": "¶12: **איפה עוד זה עובד.** בכל מקום שבו \"צעד שווה\" פירושו כפל שוו"
+    },
+    {
+     "id": "N35",
+     "desc": "MAP number of digits of a number ~ its log",
+     "orig_block": 57,
+     "v2_location": "¶13: | תחום | מה מוכפל | מה נובע מ-(7) | |---|---|---| | רעש ואות"
+    },
+    {
+     "id": "N36",
+     "desc": "MAP Bode plots: log-log axes turn a cascade of systems into addition of lines",
+     "orig_block": 57,
+     "v2_location": "¶13: | תחום | מה מוכפל | מה נובע מ-(7) | |---|---|---| | רעש ואות"
+    },
+    {
+     "id": "N37",
+     "desc": "MAP information = log(number of possibilities); independent probabilities multiply => information adds",
+     "orig_block": 57,
+     "v2_location": "¶13: | תחום | מה מוכפל | מה נובע מ-(7) | |---|---|---| | רעש ואות"
+    },
+    {
+     "id": "N38",
+     "desc": "MAP isothermal gas work depends on volume ratio, not difference",
+     "orig_block": 57,
+     "v2_location": "¶13: | תחום | מה מוכפל | מה נובע מ-(7) | |---|---|---| | רעש ואות"
+    },
+    {
+     "id": "N39",
+     "desc": "MAP diode: voltage rises a fixed step per doubling of current => log circuits",
+     "orig_block": 57,
+     "v2_location": "¶13: | תחום | מה מוכפל | מה נובע מ-(7) | |---|---|---| | רעש ואות"
+    },
+    {
+     "id": "N40",
+     "desc": "MAP binary search: steps ~ log N; a 1000x bigger dictionary costs ~10 more steps",
+     "orig_block": 57,
+     "v2_location": "¶13: | תחום | מה מוכפל | מה נובע מ-(7) | |---|---|---| | רעש ואות"
+    }
+   ]
+  },
+  "lagrange": {
+   "rewrite_file": "A2_rewrite_lagrange.md",
+   "missing_in_v2": [],
+   "orig_prose_words": 1692,
+   "v2_words": 1167,
+   "ratio": 0.69,
+   "units": [
+    {
+     "id": "E1",
+     "desc": "RES closed cylinder of given volume with least surface has h=d",
+     "orig_block": 131,
+     "v2_location": "¶1: **השאלה.** מכל גלילי סגור בנפח נתון: איזו צורה צורכת הכי מעט"
+    },
+    {
+     "id": "E2",
+     "desc": "TRD why it is an optimisation: squat tank pays for ends, tall thin tank pays for wall",
+     "orig_block": 133,
+     "v2_location": "¶1: **השאלה.** מכל גלילי סגור בנפח נתון: איזו צורה צורכת הכי מעט"
+    },
+    {
+     "id": "E3",
+     "desc": "STR new difficulty: two variables (r,h) tied by a constraint (V fixed)",
+     "orig_block": 133,
+     "v2_location": "¶1: **השאלה.** מכל גלילי סגור בנפח נתון: איזו צורה צורכת הכי מעט"
+    },
+    {
+     "id": "E4",
+     "desc": "RES substitution method: h=V/(pi r^2), S(r)=2pi r^2+2V/r, S'=0 => V=2pi r^3 => h=2r",
+     "orig_block": 134,
+     "v2_location": "¶2: **דרך ההצבה, ולמה היא לא מספיקה.** מחלצים $h=V/(\\pi r^2)$ ומ"
+    },
+    {
+     "id": "E5",
+     "desc": "LIM substitution needs a solvable constraint; usually impossible (trajectories, robots, system design) -> Lagrange",
+     "orig_block": 134,
+     "v2_location": "¶2: **דרך ההצבה, ולמה היא לא מספיקה.** מחלצים $h=V/(\\pi r^2)$ ומ"
+    },
+    {
+     "id": "E6",
+     "desc": "DEF partial derivative (others held fixed): dS/dr=4pi r+2pi h, dS/dh=2pi r",
+     "orig_block": 135,
+     "v2_location": "¶3: ```definition @title: נגזרת חלקית וגרדיאנט לפונקציה של שני מ"
+    },
+    {
+     "id": "E7",
+     "desc": "DEF gradient: points to steepest ascent, perpendicular to level curves",
+     "orig_block": 135,
+     "v2_location": "¶3: ```definition @title: נגזרת חלקית וגרדיאנט לפונקציה של שני מ"
+    },
+    {
+     "id": "E8",
+     "desc": "STEP at constrained min a small move along the constraint leaves S unchanged to first order => grad S perp constraint; grad V perp constraint => grad S = lambda grad V",
+     "orig_block": 135,
+     "v2_location": "¶5: ```derivation @title: כופלי לגרנז' על המכל נקודת מוצא: ממזער"
+    },
+    {
+     "id": "E9",
+     "desc": "DEF Lagrangian L=S-lambda(V-V0): stationarity in r,h gives (28), in lambda gives the constraint",
+     "orig_block": 135,
+     "v2_location": "¶5: ```derivation @title: כופלי לגרנז' על המכל נקודת מוצא: ממזער"
+    },
+    {
+     "id": "E10",
+     "desc": "RES dL/dh => lambda=2/r; dL/dr => 4pi r+2pi h-4pi h=0 => h=2r; V0=2pi r^3",
+     "orig_block": 135,
+     "v2_location": "¶5: ```derivation @title: כופלי לגרנז' על המכל נקודת מוצא: ממזער"
+    },
+    {
+     "id": "E11",
+     "desc": "RES r=(V/2pi)^(1/3), S_min=6 pi r^2",
+     "orig_block": 136,
+     "v2_location": "¶6: ```formula @title: המכל הגלילי האופטימלי $$h=d,\\quad r=\\Big("
+    },
+    {
+     "id": "E12",
+     "desc": "LIM valid for closed cylinder, same price and thickness per m2 everywhere, only area counted",
+     "orig_block": 136,
+     "v2_location": "¶6: ```formula @title: המכל הגלילי האופטימלי $$h=d,\\quad r=\\Big("
+    },
+    {
+     "id": "E13",
+     "desc": "STR lambda = shadow price = dS_min/dV: area cost of one more unit of volume",
+     "orig_block": 137,
+     "v2_location": "¶7: **מה $\\lambda$ אומר.** $\\lambda$ הוא **מחיר הצל** של האילוץ:"
+    },
+    {
+     "id": "E14",
+     "desc": "RES/OOM S_min ~ V^(2/3): doubling V => x1.59 area; dS/dV=(2/3)S/V=2/r = 3.69 m2 per m3 at 1 m3",
+     "orig_block": 137,
+     "v2_location": "¶7: **מה $\\lambda$ אומר.** $\\lambda$ הוא **מחיר הצל** של האילוץ:"
+    },
+    {
+     "id": "E15",
+     "desc": "STR the shape is set by balancing end cost (~r^2) against wall cost (~rh)",
+     "orig_block": 137,
+     "v2_location": "¶7: **מה $\\lambda$ אומר.** $\\lambda$ הוא **מחיר הצל** של האילוץ:"
+    },
+    {
+     "id": "E16",
+     "desc": "OOM 1 m3: r=0.542 m, d=h=1.084 m, S=5.54 m2; mental route: h=d=1 m holds pi/4=0.79 m3 -> scale by 1.08",
+     "orig_block": 138,
+     "v2_location": "¶8: **עוגנים לזכור.** מכל של 1 מ\"ק: $r=0.542$ מ', $d=h=1.084$ מ'"
+    },
+    {
+     "id": "E17",
+     "desc": "OOM cube of 1 m3 = 6 m2 (+8%); sphere 4.84 m2 (0.874x); best cylinder ~14% worse than sphere (isoperimetric)",
+     "orig_block": 138,
+     "v2_location": "¶8: **עוגנים לזכור.** מכל של 1 מ\"ק: $r=0.542$ מ', $d=h=1.084$ מ'"
+    },
+    {
+     "id": "E18",
+     "desc": "PRX cylinder wins anyway: rolled sheet, stands on the floor",
+     "orig_block": 138,
+     "v2_location": "¶8: **עוגנים לזכור.** מכל של 1 מ\"ק: $r=0.542$ מ', $d=h=1.084$ מ'"
+    },
+    {
+     "id": "E19",
+     "desc": "STR at the optimum the level curve S=S_min TOUCHES the constraint curve; crossing would mean a cheaper tank exists",
+     "orig_block": 140,
+     "v2_location": "¶7: **מה $\\lambda$ אומר.** $\\lambda$ הוא **מחיר הצל** של האילוץ:"
+    },
+    {
+     "id": "E20",
+     "desc": "STR grad S ~ (4,1) at every optimum; optimum slides along h=2r as V changes (scale invariance)",
+     "orig_block": 140,
+     "v2_location": "¶7: **מה $\\lambda$ אומר.** $\\lambda$ הוא **מחיר הצל** של האילוץ:"
+    },
+    {
+     "id": "E21",
+     "desc": "RES shape penalty S/S_min = k^(-2/3)(1+2k)/3 ~ 1+(k-1)^2/9 with k=h/d (2nd log-derivative = 2/9)",
+     "orig_block": 141,
+     "v2_location": "¶10: **המינימום השטוח.** נסמן $\\kappa=h/d$. בנפח קבוע $$\\frac S{S"
+    },
+    {
+     "id": "E22",
+     "desc": "OOM h/d 1.1 => +0.10%, 1.5 => +1.75%, 2 => +5.0%, 0.5 => +5.8%",
+     "orig_block": 143,
+     "v2_location": "¶10: **המינימום השטוח.** נסמן $\\kappa=h/d$. בנפח קבוע $$\\frac S{S"
+    },
+    {
+     "id": "E23",
+     "desc": "STR smooth minimum: 1st derivative 0 => deviation is quadratic => near the optimum you cannot lose much nor gain much from precision (cannon: 30 deg loses 13%)",
+     "orig_block": 143,
+     "v2_location": "¶10: **המינימום השטוח.** נסמן $\\kappa=h/d$. בנפח קבוע $$\\frac S{S"
+    },
+    {
+     "id": "E24",
+     "desc": "STR the real limit is the assumptions: breaking one moves the optimum itself, not just the cost around it",
+     "orig_block": 143,
+     "v2_location": "¶10: **המינימום השטוח.** נסמן $\\kappa=h/d$. בנפח קבוע $$\\frac S{S"
+    },
+    {
+     "id": "E25",
+     "desc": "MAP near any smooth minimum the cost is a quadratic bowl (y=a x^2/2): control tuning, squared-error training, least-squares position fix",
+     "orig_block": 144,
+     "v2_location": "¶12: | תחום | המקבילה | |---|---| | בקרה, למידה ומיקום | ליד כל מ"
+    },
+    {
+     "id": "E26",
+     "desc": "MAP minimum cost under a budget = tangency of iso-cost and budget curves; lambda = value of one more budget unit",
+     "orig_block": 144,
+     "v2_location": "¶12: | תחום | המקבילה | |---|---| | בקרה, למידה ומיקום | ליד כל מ"
+    },
+    {
+     "id": "E27",
+     "desc": "MAP temperature is a Lagrange multiplier (thermo bridge)",
+     "orig_block": 144,
+     "v2_location": "¶12: | תחום | המקבילה | |---|---| | בקרה, למידה ומיקום | ליד כל מ"
+    },
+    {
+     "id": "E28",
+     "desc": "RES ends k times dearer per m2 => h/d=k (lambda=2/r unchanged; step 6 gives h=2kr)",
+     "orig_block": 145,
+     "v2_location": "¶13: ```think כל מ\"ר של תחתית ומכסה עולה פי $k$ ממ\"ר של דופן. נחש"
+    },
+    {
+     "id": "E29",
+     "desc": "OOM ends 2x dearer but built with h=d => +5.8%",
+     "orig_block": 145,
+     "v2_location": "¶13: ```think כל מ\"ר של תחתית ומכסה עולה פי $k$ ממ\"ר של דופן. נחש"
+    },
+    {
+     "id": "E30",
+     "desc": "STR the optimal shape reveals the price ratio: dear ends -> tall/narrow; free floor -> squat",
+     "orig_block": 145,
+     "v2_location": "¶13: ```think כל מ\"ר של תחתית ומכסה עולה פי $k$ ממ\"ר של דופן. נחש"
+    },
+    {
+     "id": "E31",
+     "desc": "PRX 355 ml can: d~66 mm, h~122 mm, h/d~1.85; area-optimal would be d=h=76.7 mm",
+     "orig_block": 146,
+     "v2_location": "¶14: **פחית משקה: פשרה, לא טעות.** לפחית של 355 מ\"ל יש קוטר של כ-"
+    },
+    {
+     "id": "E32",
+     "desc": "PRX can ends are several times thicker and harder alloy (pressure, opening) => k~2 => h/d~2, close to 1.85",
+     "orig_block": 146,
+     "v2_location": "¶14: **פחית משקה: פשרה, לא טעות.** לפחית של 355 מ\"ל יש קוטר של כ-"
+    },
+    {
+     "id": "E33",
+     "desc": "OOM ideal cylinder of d=66.2 mm holding 355 ml: h=103 mm (h/d 1.56), only +2.1% area; rest of height = neck, domed bottom, headspace",
+     "orig_block": 146,
+     "v2_location": "¶14: **פחית משקה: פשרה, לא טעות.** לפחית של 355 מ\"ל יש קוטר של כ-"
+    },
+    {
+     "id": "E34",
+     "desc": "TRD real cost function adds grip, filling and vending machines built for one diameter, shelf space",
+     "orig_block": 146,
+     "v2_location": "¶14: **פחית משקה: פשרה, לא טעות.** לפחית של 355 מ\"ל יש קוטר של כ-"
+    },
+    {
+     "id": "E35",
+     "desc": "STEP big tanks: wall thickness set by hoop stress = rho g z r / sigma (grows with depth and radius)",
+     "orig_block": 147,
+     "v2_location": "¶15: **מכל אגירה גדול: כשהעובי תלוי בעומק.** **הנחה חדשה:** הדופן"
+    },
+    {
+     "id": "E36",
+     "desc": "RES steel volume = V(2 t_min/h + rho g h/sigma) (integral over height + constraint)",
+     "orig_block": 147,
+     "v2_location": "¶15: **מכל אגירה גדול: כשהעובי תלוי בעומק.** **הנחה חדשה:** הדופן"
+    },
+    {
+     "id": "E37",
+     "desc": "RES h_opt = sqrt(2 t_min sigma/(rho g)) - independent of volume",
+     "orig_block": 147,
+     "v2_location": "¶15: **מכל אגירה גדול: כשהעובי תלוי בעומק.** **הנחה חדשה:** הדופן"
+    },
+    {
+     "id": "E38",
+     "desc": "OOM t_min=6 mm, sigma=160 MPa => 14.0 m (water), 15.2 m (oil)",
+     "orig_block": 147,
+     "v2_location": "¶15: **מכל אגירה גדול: כשהעובי תלוי בעומק.** **הנחה חדשה:** הדופן"
+    },
+    {
+     "id": "E39",
+     "desc": "PRX real large fuel tanks ~15-20 m tall, grow in diameter to tens of m",
+     "orig_block": 147,
+     "v2_location": "¶15: **מכל אגירה גדול: כשהעובי תלוי בעומק.** **הנחה חדשה:** הדופן"
+    },
+    {
+     "id": "E40",
+     "desc": "LIM model ignores wind, earthquake, foundations, land cost",
+     "orig_block": 147,
+     "v2_location": "¶15: **מכל אגירה גדול: כשהעובי תלוי בעומק.** **הנחה חדשה:** הדופן"
+    },
+    {
+     "id": "E41",
+     "desc": "CRT check \"h=d is optimal\": what is minimised (area vs cost -> (31)); limiting cases: free floor -> h/d=1/2; thickness ~ depth -> h/d<<1",
+     "orig_block": 148,
+     "v2_location": "¶16: **ביקורת: \"גובה שווה לקוטר הוא הצורה האופטימלית\".** שלוש בדי"
+    },
+    {
+     "id": "E42",
+     "desc": "STR flatness: +/-50% from h=d costs <2%, so constraints outside the model decide; correct statement: closed cylinder, equal price per m2 -> area min at h=d, very flat",
+     "orig_block": 148,
+     "v2_location": "¶16: **ביקורת: \"גובה שווה לקוטר הוא הצורה האופטימלית\".** שלוש בדי"
+    },
+    {
+     "id": "E43",
+     "desc": "STR with a flat minimum a wrong assumption moves the decision more than numerical inaccuracy",
+     "orig_block": 148,
+     "v2_location": "¶16: **ביקורת: \"גובה שווה לקוטר הוא הצורה האופטימלית\".** שלוש בדי"
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,86 @@
+{
+ "S1": {
+  "doc": "K2",
+  "pages": 16,
+  "words": 5369,
+  "kind": "math derivation (Kolmogorov calc. of variations)"
+ },
+ "S2": {
+  "doc": "F1",
+  "pages": 15,
+  "words": 10007,
+  "kind": "Feynman (resonance + transients)"
+ },
+ "S3": {
+  "doc": "E01",
+  "pages": 15,
+  "words": 3604,
+  "kind": "signals (Oppenheim CTFT 4.1-4.2)"
+ },
+ "S4": {
+  "doc": "E05",
+  "pages": 12,
+  "words": 3810,
+  "kind": "probability (Wasserman ch 3)"
+ },
+ "S5": {
+  "doc": "B02",
+  "pages": 15,
+  "words": 7361,
+  "kind": "radar (Richards radar equation)"
+ },
+ "S6": {
+  "doc": "B01",
+  "pages": 14,
+  "words": 3753,
+  "kind": "EW (EW101 jamming J/S, burn-through)"
+ },
+ "S7": {
+  "doc": "B06",
+  "pages": 15,
+  "words": 4898,
+  "kind": "missiles (Siouris PN)"
+ },
+ "S8": {
+  "doc": "E13",
+  "pages": 16,
+  "words": 6227,
+  "kind": "engineering bridge (Gere beams 5.2-5.6)"
+ },
+ "S9": {
+  "doc": "B07",
+  "pages": 15,
+  "words": 5827,
+  "kind": "OR / systems (AMD SE effectiveness)"
+ },
+ "S10": {
+  "doc": "B09",
+  "pages": 15,
+  "words": 5799,
+  "kind": "descriptive (UAV performance)"
+ },
+ "S11": {
+  "doc": "E22",
+  "pages": 12,
+  "words": 2771,
+  "kind": "computer systems (Patterson-Hennessy memory hierarchy)"
+ },
+ "S12": {
+  "doc": "E26",
+  "pages": 10,
+  "words": 4248,
+  "kind": "SE process (NASA SE handbook ch 4)"
+ },
+ "S13": {
+  "doc": "D5",
+  "pages": 11,
+  "words": 3484,
+  "kind": "doctrine (ATP 7-100.1 Russian AD/EW)"
+ },
+ "S14": {
+  "doc": "B08",
+  "pages": 11,
+  "words": 3245,
+  "kind": "descriptive (Military Avionics roles)"
+ }
+}

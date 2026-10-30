@@ -1,0 +1,397 @@
+<title>לוח מצב המעבדות</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans+Hebrew:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: a drafting-paper board; tabs on top; cards in one column on the phone, two on desktop */
+:root {
+  --bg: #ece4d6; --paper: #f7f2e9; --sheet: #fbf8f2; --ink: #23271e; --ink-soft: #4b5043; --muted: #6c7062; --line: #d9cebb;
+  --accent: #b3261e; --accent-soft: #f3e0d9; --olive: #5b6248; --blue: #1f5f9e; --blue-soft: #e3ecf5;
+  --ok: #3f7a1a; --ok-soft: #e4eedb; --warn: #a16207; --warn-soft: #f6ead0;
+  --font: "IBM Plex Sans Hebrew", "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1f1e1d; --paper: #262624; --sheet: #2c2b29; --ink: #ece8df; --ink-soft: #c9c4b8; --muted: #a39e93; --line: #3d3c38;
+    --accent: #ff8f84; --accent-soft: #3b2724; --olive: #b5b8a0; --blue: #94bfdc; --blue-soft: #233140;
+    --ok: #b9d77f; --ok-soft: #2a3324; --warn: #e6c46c; --warn-soft: #3a3220; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1f1e1d; --paper: #262624; --sheet: #2c2b29; --ink: #ece8df; --ink-soft: #c9c4b8; --muted: #a39e93; --line: #3d3c38;
+  --accent: #ff8f84; --accent-soft: #3b2724; --olive: #b5b8a0; --blue: #94bfdc; --blue-soft: #233140;
+  --ok: #b9d77f; --ok-soft: #2a3324; --warn: #e6c46c; --warn-soft: #3a3220; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 16px; line-height: 1.65; }
+.wrap { direction: rtl; max-width: 1080px; margin: 0 auto; padding-block: 22px 70px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+header.top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 10px; margin-bottom: 14px; }
+h1 { margin: 0; font-size: clamp(1.5rem, 4vw, 2rem); line-height: 1.2; }
+.sub { margin: 4px 0 0; color: var(--ink-soft); font-size: 0.95rem; max-width: 70ch; }
+.sum { display: flex; gap: 8px; flex-wrap: wrap; }
+.pill { font-size: 0.82rem; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--line); background: var(--paper); white-space: nowrap; }
+.pill b { font-family: var(--mono); }
+nav.tabs { display: flex; gap: 4px; flex-wrap: wrap; border-bottom: 1.5px solid var(--ink); margin-bottom: 18px; }
+nav.tabs button { all: unset; cursor: pointer; padding: 9px 14px; font-weight: 600; font-size: 0.95rem; color: var(--ink-soft); border: 1px solid transparent; border-bottom: none; border-radius: 6px 6px 0 0; }
+nav.tabs button[aria-selected="true"] { background: var(--paper); border-color: var(--line); color: var(--ink); }
+nav.tabs button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+section[hidden] { display: none !important; }
+.lead { color: var(--ink-soft); max-width: 75ch; margin: 0 0 14px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; }
+.card { background: var(--paper); border: 1px solid var(--line); padding: 14px 16px; min-width: 0; }
+.card h3 { margin: 0 0 6px; font-size: 1.02rem; display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+.card p { margin: 0 0 8px; }
+.tag { font-size: 0.74rem; font-weight: 600; padding: 1px 8px; border-radius: 3px; white-space: nowrap; }
+.t-done { background: var(--ok-soft); color: var(--ok); }
+.t-wait { background: var(--warn-soft); color: var(--warn); }
+.t-next { background: var(--blue-soft); color: var(--blue); }
+.t-fix { background: var(--accent-soft); color: var(--accent); }
+.lvl-grp { margin: 18px 0 8px; font-size: 1.05rem; border-bottom: 1px solid var(--line); padding-bottom: 4px; }
+.lvl-grp span { color: var(--muted); font-weight: 400; font-size: 0.9rem; }
+.dom { display: grid; grid-template-columns: minmax(150px, 230px) 1fr auto; gap: 12px; align-items: start; padding: 10px 0; border-bottom: 1px dashed var(--line); }
+.dom:last-child { border-bottom: none; }
+.dom .name { font-weight: 600; }
+.dom .lvl { font-size: 0.78rem; color: var(--blue); display: block; font-weight: 600; }
+.dom .can { color: var(--ink-soft); font-size: 0.94rem; }
+.dom .k { font-size: 0.8rem; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+@media (max-width: 620px) { .dom { grid-template-columns: 1fr; gap: 2px; } }
+.filter { display: flex; gap: 6px; flex-wrap: wrap; margin: 0 0 12px; }
+.filter button { all: unset; cursor: pointer; font-size: 0.85rem; padding: 4px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--paper); }
+.filter button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.filter button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.dec { border-inline-start: 4px solid var(--warn); }
+.dec.s-approve { border-inline-start-color: var(--ok); }
+.dec.s-change { border-inline-start-color: var(--accent); }
+.dec.s-later { border-inline-start-color: var(--muted); }
+.dec .rec { font-size: 0.9rem; color: var(--ink-soft); }
+.acts { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+.acts button { all: unset; cursor: pointer; font-size: 0.86rem; font-weight: 600; padding: 5px 12px; border-radius: 5px; border: 1px solid var(--line); background: var(--sheet); }
+.acts button[aria-pressed="true"].a-approve { background: var(--ok); color: var(--sheet); border-color: var(--ok); }
+.acts button[aria-pressed="true"].a-change { background: var(--accent); color: var(--sheet); border-color: var(--accent); }
+.acts button[aria-pressed="true"].a-later { background: var(--muted); color: var(--sheet); border-color: var(--muted); }
+.acts button:focus-visible, textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+textarea { width: 100%; min-height: 56px; margin-top: 8px; font: inherit; font-size: 0.9rem; padding: 8px 10px; border: 1px solid var(--line); background: var(--sheet); color: var(--ink); border-radius: 4px; resize: vertical; direction: rtl; }
+.saved { font-size: 0.78rem; color: var(--muted); margin-top: 4px; min-height: 1em; }
+.banner { font-size: 0.88rem; padding: 8px 12px; border: 1px dashed var(--line); color: var(--ink-soft); margin-bottom: 12px; }
+.steps { counter-reset: s; list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.steps li { counter-increment: s; position: relative; padding: 12px 16px; padding-inline-start: 50px; background: var(--paper); border: 1px solid var(--line); }
+.steps li::before { content: counter(s); position: absolute; inset-inline-start: 14px; top: 11px; font-family: var(--mono); font-weight: 600; color: var(--accent); font-size: 1.05rem; }
+.steps .needs { display: block; font-size: 0.84rem; color: var(--muted); margin-top: 4px; }
+.steps .ready { color: var(--ok); font-weight: 600; }
+a { color: var(--blue); }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.ui-state { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; }
+.foot { text-align: center; color: var(--muted); font-size: 0.8rem; margin-top: 28px; }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>לוח מצב המעבדות</h1>
+      <p class="sub">גילואה ולנצ'סטר: לאיזו רמה מגיעים בכל תחום, מה כבר קיים, מה מחכה להחלטה שלך, ומה הצעדים הבאים.</p>
+    </div>
+    <div class="sum" id="sum"></div>
+  </header>
+
+  <nav class="tabs" role="tablist" aria-label="מסכים">
+    <button role="tab" id="tab-levels" aria-controls="levels" aria-selected="true">הרמה בכל תחום</button>
+    <button role="tab" id="tab-decide" aria-controls="decide" aria-selected="false">מחכה להחלטה</button>
+    <button role="tab" id="tab-status" aria-controls="status" aria-selected="false">מה קיים</button>
+    <button role="tab" id="tab-ui" aria-controls="ui" aria-selected="false">הממשק</button>
+    <button role="tab" id="tab-next" aria-controls="next" aria-selected="false">הצעדים הבאים</button>
+  </nav>
+
+  <!-- ===== levels ===== -->
+  <section id="levels" role="tabpanel" aria-labelledby="tab-levels">
+    <p class="lead">הרמה המשותפת לכל התחומים היא רמה 2.5. לכל תוצאה מרכזית יודעים: את המבנה; את שלד הגזירה ואיפה נכנסת כל הנחה; את הגבולות; סדר גודל בראש בטווח של 10–20%; את הפשרות; את אותו מבנה בתחום אחר; ואיך תופסים טעות. בלנצ'סטר נוספת המשמעות המבצעית. מעל זה, כל תחום נסגר רק כשעוברים מבחן נעול ובחינה בעל פה מול "מהנדס בכיר". המספרים בצד הם כמה תתי-נושאי מפתח ותומכים יש בתחום.</p>
+    <div id="levelList"></div>
+  </section>
+
+  <!-- ===== decisions ===== -->
+  <section id="decide" role="tabpanel" aria-labelledby="tab-decide" hidden>
+    <p class="lead">כל החלטה עם ההמלצה שלי. לחץ "מאשר", "לשנות" או "אחר כך", והוסף הערה אם תרצה. הבחירות נשמרות, ואני קורא אותן מכאן.</p>
+    <div class="banner" id="dbState">טוען את ההחלטות השמורות…</div>
+    <div class="filter" role="group" aria-label="סינון">
+      <button aria-pressed="true" data-f="all">הכול</button>
+      <button aria-pressed="false" data-f="open">פתוחות</button>
+      <button aria-pressed="false" data-f="approve">אושרו</button>
+      <button aria-pressed="false" data-f="change">לשנות</button>
+      <button aria-pressed="false" data-f="later">אחר כך</button>
+    </div>
+    <div class="grid" id="decList"></div>
+  </section>
+
+  <!-- ===== status ===== -->
+  <section id="status" role="tabpanel" aria-labelledby="tab-status" hidden>
+    <p class="lead">מה כבר בנוי ופועל באפליקציות, מה הושלם במחקר, ומה פתוח.</p>
+    <div class="grid" id="statusList"></div>
+  </section>
+
+  <!-- ===== ui ===== -->
+  <section id="ui" role="tabpanel" aria-labelledby="tab-ui" hidden>
+    <p class="lead"><strong>לא, הממשק שהוצג עוד לא סופי.</strong> זה אב-טיפוס בגרסה 3, שעבר שלושה סבבי עיצוב וביקורת. ההחלטה עליו היא שלך. לפני שהוא נכנס לאפליקציות צריך שלושה דברים: שתעבור עליו ותגיד מה לשנות; ריצה שלו על שיעור אמיתי עם המורה האמיתי; ובדיקה בפועל במחשב ובטלפון.</p>
+    <div class="ui-state" id="uiList"></div>
+    <p style="margin-top:14px">אב-הטיפוס: <a href="https://claude.ai/artifact/GPjuTuzYDLDoEdyg94jxcH">שיעור פעיל, גרסה 3</a> · <a href="https://claude.ai/artifact/R9xKXS1izeXro1f16AtWQy">סקיצות: היום, הפנקס, הכור</a> · <a href="https://claude.ai/artifact/2yNhNf63i7cHxukmjq5Py3">הדוח המסכם</a></p>
+  </section>
+
+  <!-- ===== next ===== -->
+  <section id="next" role="tabpanel" aria-labelledby="tab-next" hidden>
+    <p class="lead">הסדר המומלץ. מתחת לכל צעד כתוב מה הוא צריך: איזו החלטה, או איזה צעד קודם. הסימון מתעדכן לפי ההחלטות שלך.</p>
+    <ol class="steps" id="stepList"></ol>
+  </section>
+
+  <p class="foot">עודכן ב-30.10.2026 · ההחלטות נשמרות במסד הנתונים של הדף הזה</p>
+</div>
+
+<script>
+const LEVELS = [
+  { grp: "גילואה · עמוד השדרה", note: "היסוד שכל השאר נשען עליו", items: [
+    ["יסודות מתמטיקה", "עמוד שדרה, רמה 2.5 מלאה", "לגזור את שלד התוצאות (אנליזה, אלגברה לינארית, משוואות דיפרנציאליות, הסתברות, אופטימיזציה, שיטות נומריות), לדעת מתי שיטה נשברת ולזהות אותו מבנה מתמטי בכל תחום", "47 / 72"],
+    ["פיזיקה", "עמוד שדרה, רמה 2.5 מלאה", "מכניקה, אלקטרומגנטיות, גלים, תרמו-סטטיסטית ופיזיקה מודרנית ברמה של הסבר מנגנון וסדר גודל לכל תופעה הנדסית", "16 / 42"],
+  ]},
+  { grp: "גילואה · חמשת הצמתים", note: "הכי לעומק", items: [
+    ["אותות ומערכות", "צומת: עומק מלא", "פורייה ודגימה, מסננים, רעש וקוונטיזציה, פשרת זמן מול רוחב סרט; לנתח ולבקר תכן של שרשרת עיבוד אותות", "12 / 22"],
+    ["בקרה ושערוך", "צומת: עומק מלא", "יציבות, משוב, מרחב מצב, קלמן ושערוך, גבול קרמר-ראו; לשפוט חוג בקרה וטענות על דיוק עקיבה", "13 / 31"],
+    ["תורת המידע ותקשורת", "צומת: עומק מלא", "שאנון, קוד, תקציב קשר, השהיה ורוחב פס; לאמוד בראש מה אפשרי בערוץ נתון", "8 / 24"],
+  ]},
+  { grp: "גילואה · גשרים", note: "רמה 2.5 בכל תחום", items: [
+    ["אלקטרוניקה ומעגלים", "גשר, רמה 2.5", "מעגלים, רכיבים, טולרנסים, רעש וחום; לקרוא תכן ולמצוא בו את הסיכון", "5 / 31"],
+    ["מכונות חשמליות והספק", "גשר, רמה 2.5", "מנועים, הנעה, רשת חשמל ויציבותה; כולל מודול חדש לרשת", "4 / 26"],
+    ["תרמודינמיקה ומעבר חום", "גשר, רמה 2.5", "מאזני אנרגיה, מחזורים, הולכה וקירור; סדרי גודל של חום במערכות", "7 / 27"],
+    ["זורמים, אווירודינמיקה והנעה", "גשר, רמה 2.5", "עילוי, גרר, שכבת גבול, הנעה; לבדוק ביצועי כלי טיס בראש", "10 / 38"],
+    ["מבנים וחומרים", "גשר, רמה 2.5", "מאמצים, כשל, עייפות, בחירת חומרים, אלמנטים סופיים בפועל", "8 / 36"],
+    ["למידת מכונה ולמידה עמוקה", "גשר, רמה 2.5", "אימון, הכללה, דליפה והערכה, חוקי קנה מידה, מודלי שפה; לשפוט טענות על AI", "6 / 31"],
+    ["למידה מחיזוקים", "גשר, רמה 2.5", "מבנה הבעיה, אלגוריתמים מרכזיים, ומעבר מסימולציה למציאות", "5 / 13"],
+    ["רובוטיקה", "גשר, רמה 2.5", "קינמטיקה, תכנון, תפיסה ומיקום עצמי; מה עובד בשטח ומה לא", "2 / 20"],
+    ["הנדסת מערכות", "גשר, רמה 2.5", "דרישות, אמינות וכשל ממקור משותף, ניסוי ואימות, מרווחים ועלות", "17 / 32"],
+    ["שיפוט הנדסי", "חוצה תחומים, רמה 2.5", "הערכה בראש, אי-ודאות במדידה, בדיקת שפיות של פלט ממחשב ומ-AI, חקירת שורש כשל", "12 / 11"],
+  ]},
+  { grp: "גילואה · פריפריה", note: "רמה 2: עבודה, לא גזירה", items: [
+    ["אלגוריתמים, מחשבים ושבבים", "פריפריה, רמה 2", "סיבוכיות, ארכיטקטורה, הספק של מעבדים, כוח חישוב של AI; מספיק כדי לשפוט ולשאול נכון", "3 / 29"],
+  ]},
+  { grp: "לנצ'סטר · חישה ולוחמה אלקטרונית", note: "רמה 2.5 עם משמעות מבצעית", items: [
+    ["יסודות כמותיים", "רמה 2.5", "הסתברות, סטטיסטיקה, מודלים ואומדנים כפי שאנליסט ביטחוני משתמש בהם", "27 / 15"],
+    ["אנטנות והתפשטות", "רמה 2.5", "שבח, אלומה, אופק ונחתות; מה קובע טווח בפועל", "8 / 7"],
+    ["מכ\"ם", "רמה 2.5 מלאה", "משוואת המכ\"ם, גילוי ועיבוד, מעקב, חמקנות ונגד-חמקנות; לבדוק כל טענת טווח", "27 / 20"],
+    ["חישה אלקטרו-אופטית ותת-אדום", "רמה 2.5", "חתימות, גלאים, טווח גילוי וזיהוי", "9 / 9"],
+    ["לוחמה אלקטרונית", "רמה 2.5 מלאה", "יחס שיבוש לאות, הגנה אלקטרונית, מטעים, מחזור אמצעי נגד ונגד-נגד, טילים נגד מכ\"ם, עלות ירייה באנרגיה מכוונת", "26 / 19"],
+    ["תקשורת וקישורי נתונים", "רמה 2.5", "קישורים, רשתות טקטיות, פעולה בקשר פגוע, רחפנים מונחי סיב", "10 / 8"],
+    ["ניווט ותזמון", "רמה 2.5", "GPS, שגיאות ודילול דיוק, שיבוש והחזקת שעון", "9 / 5"],
+  ]},
+  { grp: "לנצ'סטר · נשק, הגנה ופלטפורמות", note: "רמה 2.5 עם משמעות מבצעית", items: [
+    ["טילים: הנעה, הנחיה ובקרה", "רמה 2.5 מלאה", "משוואת הרקטה, ניווט יחסי, מעטפות, משחק הסיום ותכן לפי Fleeman", "30 / 15"],
+    ["הגנה אווירית ונגד טילים", "רמה 2.5 מלאה", "הגנה בשכבות, ירי-בדיקה-ירי, רוויה, מלאי מיירטים ויחס עלות", "23 / 7"],
+    ["שליטה, מודיעין ושרשרת ירי", "רמה 2.5", "זמני שרשרת, איחוד חיישנים, הערכת נזק והטיותיה", "13 / 12"],
+    ["מערכות חלל", "רמה 2.5", "מסלולים, כיסוי, תקציב מהירות, שליטה בחלל", "19 / 8"],
+    ["כלים בלתי מאוישים ונגדם", "רמה 2.5", "רחפנים, לוחמת רחפנים וכלכלתה, הגנה נגדם", "13 / 7"],
+    ["השפעות נשק והגנה", "רמה 2.5 · ספרי הקורס כפי שהם", "החומר שבספרים נשאר במלואו", "17 / 11"],
+    ["פלטפורמות ושרידות", "רמה 2.5", "שרידות לפי Ball, חתימות, עצי פגיעה ופשרות תכן", "10 / 10"],
+    ["לוחמה ימית ותת-ימית", "רמה 2.5", "משוואת הסונר, מטחים ימיים, מאזן תת-ימי", "9 / 6"],
+  ]},
+  { grp: "לנצ'סטר · ניתוח ומערכה", note: "רמת אנליסט בכיר", items: [
+    ["חקר ביצועים ומידול קרבי", "רמה 2.5 מלאה", "חוקי לנצ'סטר, מודל המטחים, יחסי חילוף, מודלים ומשחקי מלחמה כראיה", "25 / 22"],
+    ["לוגיסטיקה ובניין כוח", "רמה 2.5", "צריכה, קווי אספקה, תחמושת מול מלאי, כשירות", "6 / 10"],
+    ["רכש, עלות, ניסוי ותעשייה", "רמה 2.5", "הגדרות עלות, עקומות למידה, תקציבים כנתונים, ניסוי והערכה, כושר ייצור", "14 / 10"],
+    ["מערכות יריב והערכת יכולות", "רמה 2.5", "הערכה שיטתית של יכולת מול טענה", "11 / 3"],
+    ["מלאכת הניתוח ובדיקת טענות", "רמה 2.5", "מודיעין גלוי, בדיקת טענות, כתיבה וראיונות", "12 / 8"],
+  ]},
+];
+
+const DECISIONS = [
+  { id: "phase0", title: "לאשר את שלב 0: אמת וחסינות", rec: "הגנות מסירוב בגילואה, זיהוי שיעור שנקטע, באג העלות, מונה שימוש, יומן גרסאות לזיכרון, בדיקת עובדות, וזיהוי תווים לספרים. אין בו סיכון לחומר, והוא מגן על כל השאר." },
+  { id: "ocr", title: "לתקן עכשיו את הטקסט של Trefethen ו-Bau", rec: "היום המורה מקבל רעש במודולי הליבה M8.3–M8.10. זו המשימה הנפרדת שהוצעה לך ככרטיס." },
+  { id: "rules", title: "כללי הכתיבה החדשים במקום הרצפה של 4,000 מילים", rec: "שיעור לפי תוצאות מרכזיות, עם שכבת סמכות ושער עומק. בשופטים עיוורים: עמוק יותר, בחצי מהמילים." },
+  { id: "curriculum", title: "תוכנית הלימודים החדשה לפי נושאים", rec: "13 מודולים חדשים, 566 פריטים שנוספו, 17% מעמודי גילואה ו-6% מעמודי לנצ'סטר לא נדרשים, ומבחני דילוג במקום הסרה. זה הזמן לומר אם נושא כלשהו כן נדרש או לא." },
+  { id: "wave1", title: "גל ההתמקצעות הראשון", rec: "ההמלצה: חקר ביצועים ומידול קרבי, יחד עם עמוד השדרה. זה התחום החזק שלך, עם הכי מעט דרישות מוקדמות." },
+  { id: "retention", title: "מדיניות זכירה לפי דרגה, ושעה ביום בטלפון", rec: "תוצאה תומכת נבדקת דרך תוצאת המפתח שלה. פריט הקשר נשמר דרך שימוש, עם רשת ביטחון. אחרי שנה הזכירה נשארת לפחות 93% בכל דרגה." },
+  { id: "factory", title: "מפעל הלילה לכתיבת שיעורים מראש", rec: "קודם שלושה ניסויים קטנים: הרשאת כתיבה, משך סשן ושימוש. אחר כך אין המתנה, וכל שיעור עובר בדיקות ושער עומק." },
+  { id: "consult", title: "מערכת ההתייעצות המאוחדת", rec: "שאלה על טקסט מסומן, תשובה ישירה וקצרה, וכפתורי העמקה עד רמת שיעור. מחליפה את הצ'אט הצדדי ואת שאלות ההבהרה הנוכחיות." },
+  { id: "ui", title: "כיוון הממשק (אב-טיפוס, גרסה 3)", rec: "לעבור על אב-הטיפוס ולסמן מה לשנות. אחר כך ריצה על שיעור אמיתי ובדיקה במחשב ובטלפון, ורק אז הכנסה לאפליקציות." },
+  { id: "projects", title: "תיק פרויקטים חי ברמה גבוהה", rec: "רעיונות נלכדים בזמן הלימוד, מיון שבועי, 10–15% מהזמן, ושני עוגנים בהתחלה: מעבדת תקציב מכ\"ם ולוחמה אלקטרונית, ומעקב ויירוט." },
+  { id: "pilot", title: "שבועיים של מדידה לפני קביעת לוח הזמנים", rec: "דקות לעמוד, מהירות קריאה, קיפול שגוי, צפוף מול ארוך, ושעות אפקטיביות. בסוף: לוח זמנים מעודכן מנתונים." },
+  { id: "experts", title: "שני אנשי מקצוע לשיחה פעם ברבעון", rec: "הם המדד החיצוני לרמת המומחה, מעבר למבחנים הנעולים." },
+  { id: "saveDocs", title: "לשמור את מסמכי המחקר במאגר", rec: "כמאה אלף מילים: ניסויים, מודלים, פאנלים ותוכנית לימודים מלאה סעיף אחר סעיף. כרגע הם בתיקייה זמנית ויימחקו בסוף הסשן." },
+];
+
+const STATUS = [
+  ["done", "גילואה ולנצ'סטר פועלות", "מורה שכותב שיעורים בחלקים, מפת מודולים, תלת-ממד, מחברת סיכומים עם עורך משוואות ובדיקת איות, פתקים בשוליים, מחברת שרטוטים, \"הסבר פשוט\", צלילים ורעש רקע."],
+  ["done", "כללי הגדרה ונוסחה (מאושרים ופועלים)", "הגדרה לפני דוגמה, נוסחה מרכזית מול המחשה, חוט אחד, נושאים ולא עמודים, עד כשש שאלות, בלוקי \"הגדרה\" ו\"לסיכום\"."],
+  ["done", "מחקר: מה לומדים", "מרשם של כל סעיפי הספרים, שתי מפות ידע עצמאיות, איחוד, ושמונה פאנלים שקראו את הספרים. תוכנית סופית לפי נושאים."],
+  ["done", "מחקר: איך השיעור נכתב", "שלושה סבבי כללים, שעברו שופטים עיוורים. הגרסה הסופית עמוקה יותר בחצי מהמילים."],
+  ["done", "מחקר: התייעצות, ממשק וזכירה", "אבחון ועיצוב של ההתייעצות, שלושה סבבי ממשק, ומודל זכירה מדומה יום אחר יום."],
+  ["done", "מחקר: לוח זמנים", "כ-22 חודשים לכול, כ-18 לליבה, ב-8 שעות ועוד שעה בטלפון. ייבדק מול מדידה אמיתית."],
+  ["fix", "טקסט לא קריא: Trefethen ו-Bau", "המורה מקבל רעש ב-M8.3–M8.10. יש משימה מוצעת לתיקון."],
+  ["fix", "ספרים סרוקים בלי טקסט ופרקים חסרים", "Fleeman, SMAD; פרק ההנעה של SMAD; פיינמן כרך II פרקים 40 ו-42; פרק 1 של Horowitz ו-Hill."],
+  ["fix", "גילואה בלי הגנה מסירובים", "שולחת לכל חלק את התוכנית המלאה, הדפוס שגרם לסירובים בלנצ'סטר."],
+  ["fix", "שיעור שנקטע לא מזוהה", "שיעור 3 בגילואה נגמר באמצע תרגיל."],
+  ["fix", "ממשק: שורה צפה וטלפון", "השורה הצפה מכסה טקסט, והשיעור שבור ברוחב טלפון."],
+  ["wait", "כל השינויים הגדולים", "כללים חדשים, תוכנית חדשה, התייעצות, ממשק, מפעל לילה וזכירה. מחכים להחלטות שלך בלשונית \"מחכה להחלטה\"."],
+];
+
+const UI_STATE = [
+  ["done", "הוחלט ונשאר", "ערכות שמנת וגרפיט, הגופן, פתקי שוליים, \"הסבר פשוט\", תלת-ממד ואיורים מהמקור."],
+  ["wait", "מוצע, מחכה לך", "שלוש רמות צבע במקום 19, שורה תחתונה אחת, תוכן שיעור עם \"אתה כאן\", התחייבות לפני חשיפה, כרטיס טעות בביטחון, קיפול של מה שהוכחת, ערכת לילה."],
+  ["wait", "מוצע, מחכה לך", "שאלה על טקסט מסומן עם תשובה צמודה ורמות העמקה, לוח שאלות בצד, ותשובות שנשמרות בשוליים."],
+  ["next", "עוד לא נבדק", "ריצה עם המורה האמיתי, ביצועים בשיעור ארוך, ונגישות מלאה."],
+];
+
+const STEPS = [
+  { t: "תיקון הטקסט של Trefethen ו-Bau", needs: ["ocr"] },
+  { t: "שלב 0: אמת וחסינות (כ-3 סשנים)", needs: ["phase0"] },
+  { t: "מעבר שלך על אב-הטיפוס, וסבב תיקונים לממשק", needs: ["ui"] },
+  { t: "שלב 1: כללי הכתיבה, התחייבות לפני חשיפה, ההתייעצות והממשק החדש (כ-5–6 סשנים)", needs: ["rules", "consult", "ui"] },
+  { t: "שלב 2: מפעל הלילה ותוכנית הלימודים החדשה (כ-5 סשנים)", needs: ["factory", "curriculum"] },
+  { t: "שבועיים של מדידה, ותזכיר החלטה עם לוח זמנים מעודכן", needs: ["pilot"] },
+  { t: "גל ההתמקצעות הראשון, עם זכירה, מבחנים נעולים ופרויקט עוגן", needs: ["wave1", "retention", "projects"] },
+  { t: "שיחה רבעונית עם אנשי מקצוע", needs: ["experts"] },
+];
+
+const NAMES = Object.fromEntries(DECISIONS.map(d => [d.id, d.title]));
+let state = {};      // id -> {state, note}
+let filter = "all";
+let db = null;
+
+const el = (tag, attrs = {}, ...kids) => {
+  const n = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) {
+    if (k === "class") n.className = v; else if (k.startsWith("on")) n.addEventListener(k.slice(2), v); else n.setAttribute(k, v);
+  }
+  for (const k of kids) n.append(k?.nodeType ? k : document.createTextNode(k ?? ""));
+  return n;
+};
+const tagFor = s => ({ done: ["הושלם", "t-done"], wait: ["מחכה להחלטה", "t-wait"], next: ["הבא", "t-next"], fix: ["לתקן", "t-fix"] }[s]);
+
+function renderLevels() {
+  const root = document.getElementById("levelList");
+  root.textContent = "";
+  for (const g of LEVELS) {
+    root.append(el("h3", { class: "lvl-grp" }, g.grp + " ", el("span", {}, "· " + g.note)));
+    const box = el("div", { class: "card" });
+    for (const [name, lvl, can, k] of g.items) {
+      box.append(el("div", { class: "dom" },
+        el("div", {}, el("span", { class: "name" }, name), el("span", { class: "lvl" }, lvl)),
+        el("div", { class: "can" }, can),
+        el("div", { class: "k", title: "תתי-נושאי מפתח ותומכים" }, (() => { const [a, b] = k.split("/").map(x => x.trim()); return "מפתח " + a + " · תומך " + b; })())));
+    }
+    root.append(box);
+  }
+}
+
+function renderSummary() {
+  const vals = DECISIONS.map(d => state[d.id]?.state);
+  const n = s => vals.filter(v => v === s).length;
+  const open = vals.filter(v => !v).length;
+  const s = document.getElementById("sum");
+  s.textContent = "";
+  s.append(el("span", { class: "pill" }, "פתוחות ", el("b", {}, String(open))),
+           el("span", { class: "pill" }, "אושרו ", el("b", {}, String(n("approve")))),
+           el("span", { class: "pill" }, "לשנות ", el("b", {}, String(n("change")))),
+           el("span", { class: "pill" }, "אחר כך ", el("b", {}, String(n("later")))));
+}
+
+function renderDecisions() {
+  const root = document.getElementById("decList");
+  root.textContent = "";
+  for (const d of DECISIONS) {
+    const st = state[d.id]?.state || "";
+    if (filter === "open" && st) continue;
+    if (filter !== "all" && filter !== "open" && st !== filter) continue;
+    const card = el("div", { class: "card dec" + (st ? " s-" + st : "") });
+    card.append(el("h3", {}, d.title), el("p", { class: "rec" }, d.rec));
+    const acts = el("div", { class: "acts", role: "group", "aria-label": d.title });
+    for (const [v, label] of [["approve", "מאשר"], ["change", "לשנות"], ["later", "אחר כך"]]) {
+      acts.append(el("button", { class: "a-" + v, "aria-pressed": String(st === v), onclick: () => save(d.id, { state: st === v ? "" : v }) }, label));
+    }
+    const ta = el("textarea", { id: "note-" + d.id, placeholder: "הערה (לא חובה): מה לשנות, או הסתייגות", "aria-label": "הערה על " + d.title });
+    ta.value = state[d.id]?.note || "";
+    let timer;
+    ta.addEventListener("input", () => { clearTimeout(timer); timer = setTimeout(() => save(d.id, { note: ta.value.trim() }), 800); });
+    const saved = el("div", { class: "saved", id: "saved-" + d.id });
+    card.append(acts, ta, saved);
+    root.append(card);
+  }
+}
+
+function renderStatus() {
+  const root = document.getElementById("statusList");
+  root.textContent = "";
+  for (const [s, title, text] of STATUS) {
+    const [lab, cls] = tagFor(s);
+    root.append(el("div", { class: "card" }, el("h3", {}, el("span", { class: "tag " + cls }, lab), title), el("p", {}, text)));
+  }
+  const ui = document.getElementById("uiList");
+  ui.textContent = "";
+  for (const [s, title, text] of UI_STATE) {
+    const [lab, cls] = tagFor(s);
+    ui.append(el("div", { class: "card" }, el("h3", {}, el("span", { class: "tag " + cls }, lab), title), el("p", {}, text)));
+  }
+}
+
+function renderSteps() {
+  const root = document.getElementById("stepList");
+  root.textContent = "";
+  for (const s of STEPS) {
+    const missing = s.needs.filter(id => state[id]?.state !== "approve");
+    const needs = el("span", { class: "needs" });
+    if (!missing.length) needs.append(el("span", { class: "ready" }, "מוכן להתחיל: כל ההחלטות אושרו"));
+    else needs.append("מחכה ל: " + missing.map(id => NAMES[id]).join(" · "));
+    root.append(el("li", {}, s.t, needs));
+  }
+}
+
+function renderAll() { renderSummary(); renderDecisions(); renderSteps(); }
+
+async function save(id, patch) {
+  state[id] = { ...(state[id] || {}), ...patch, at: Date.now() };
+  renderAll();
+  const flag = document.getElementById("saved-" + id);
+  if (!db) { if (flag) flag.textContent = "לא נשמר: אין חיבור לשמירה בדף הזה"; return; }
+  try {
+    await db.collection("decisions").doc(id).set(state[id]);
+    const f = document.getElementById("saved-" + id); if (f) f.textContent = "נשמר";
+  } catch (e) {
+    const f = document.getElementById("saved-" + id); if (f) f.textContent = "לא נשמר. נסה שוב בעוד רגע.";
+  }
+}
+
+// tabs
+const tabs = [...document.querySelectorAll('[role="tab"]')];
+function show(id) {
+  for (const t of tabs) {
+    const on = t.getAttribute("aria-controls") === id;
+    t.setAttribute("aria-selected", String(on));
+    document.getElementById(t.getAttribute("aria-controls")).hidden = !on;
+  }
+  try { history.replaceState(null, "", "#" + id); } catch {}
+}
+tabs.forEach(t => t.addEventListener("click", () => show(t.getAttribute("aria-controls"))));
+document.querySelectorAll(".filter button").forEach(b => b.addEventListener("click", () => {
+  filter = b.dataset.f;
+  document.querySelectorAll(".filter button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+  renderDecisions();
+}));
+const start = (location.hash || "").slice(1);
+if (["levels", "decide", "status", "ui", "next"].includes(start)) show(start);
+
+renderLevels(); renderStatus(); renderAll();
+
+// saved decisions
+(async () => {
+  const banner = document.getElementById("dbState");
+  const timeout = setTimeout(() => { banner.textContent = "השמירה לא זמינה כרגע. אפשר לסמן, אבל הבחירות לא יישמרו."; }, 10000);
+  try {
+    db = window.claude ? await window.claude.use("db") : null;
+  } catch { db = null; }
+  if (!db) { clearTimeout(timeout); banner.textContent = "השמירה זמינה רק כשהדף פתוח ב-claude.ai ואתה מחובר."; return; }
+  db.collection("decisions").onSnapshot(snap => {
+    clearTimeout(timeout);
+    const next = {};
+    snap.docs.forEach(doc => { next[doc.id] = doc.data(); });
+    const active = document.activeElement;
+    state = next;
+    banner.textContent = "הבחירות שלך נשמרות כאן אוטומטית.";
+    if (!(active && active.tagName === "TEXTAREA")) renderAll(); else { renderSummary(); renderSteps(); }
+  }, () => { clearTimeout(timeout); banner.textContent = "לא הצלחתי לטעון את הבחירות השמורות."; });
+})();
+</script>

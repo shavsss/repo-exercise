@@ -1,0 +1,143 @@
+== Measured CR density (CRs per page) by class: strict / standard / liberal; n samples ==
+  A Kolmogorov survey math                        0.188 / 0.250 / 0.375   n=1
+  B Feynman                                       0.200 / 0.400 / 0.600   n=1
+  C theorem-dense text (prob/opt/LA/ML/CS math)   0.250 / 0.583 / 1.083   n=1
+  D engineering textbook with worked examples     0.097 / 0.194 / 0.355   n=2
+  E radar/EW/EO/GNSS/missile technical            0.159 / 0.273 / 0.500   n=3
+  F applied / systems / descriptive-technical     0.096 / 0.212 / 0.365   n=4
+  G doctrine / history / roles                    0.020 / 0.045 / 0.136   n=2
+  H articles, theses (not sampled)                0.080 / 0.212 / 0.365   n=0
+  pooled over 14 samples, 192 pages: strict 0.125, standard 0.245, liberal 0.432
+
+== Page share by class (main + 0.5 supp + 0.35 article), and weighted strict density ==
+  G core  12380 pp  A: 5.6% B: 7.9% C:25.1% D:51.8% F: 9.6%   strict 0.148  standard 0.312
+  G adv    3978 pp  A: 9.5% B:14.4% C:24.6% D:44.2% F: 7.3%   strict 0.158  standard 0.326
+  L core   5848 pp  E:57.7% F:22.4% G: 5.0% H:15.0%   strict 0.126  standard 0.239
+  L adv    2156 pp  E:56.0% F:18.6% G:24.8% H: 0.6%   strict 0.112  standard 0.205
+
+== Deterministic mode, hour breakdown ==
+BOTH: eff pages 21112, CR/page 0.124, CRs 2614, lessons 1634, total 2454 h, all-in min/CR 56, learner min per effective page 7.0
+    reading           607
+    active_cr         557
+    active_supp       141
+    review            349
+    dialogue          223
+    forge             149
+    notebook           56
+    lesson_ovh        109
+    gen_wait           85
+    testout_diag       38
+    projects          120
+    articles           40
+    build_pilot        40
+    r7_savings        -60
+CORE: eff pages 15592, CR/page 0.124, CRs 1926, lessons 1204, total 1868 h, all-in min/CR 58, learner min per effective page 7.2
+    reading           448
+    active_cr         411
+    active_supp       104
+    review            262
+    dialogue          164
+    forge             110
+    notebook           41
+    lesson_ovh         80
+    gen_wait           63
+    testout_diag       30
+    projects          120
+    articles           40
+    build_pilot        40
+    r7_savings        -45
+
+== Fatigue curve (mode a=0.13; low 0.07, high 0.20): effective hours per desk day ==
+   4 h -> 4.00  (a=.07: 4.00, a=.20: 4.00); delivered h/month at mode incl. adherence 72
+   5 h -> 5.00  (a=.07: 5.00, a=.20: 5.00); delivered h/month at mode incl. adherence 91
+   6 h -> 5.87  (a=.07: 5.93, a=.20: 5.80); delivered h/month at mode incl. adherence 107
+   7 h -> 6.61  (a=.07: 6.79, a=.20: 6.40); delivered h/month at mode incl. adherence 118
+   8 h -> 7.22  (a=.07: 7.58, a=.20: 6.80); delivered h/month at mode incl. adherence 125
+   9 h -> 7.70  (a=.07: 8.30, a=.20: 7.00); delivered h/month at mode incl. adherence 130
+  10 h -> 8.05  (a=.07: 8.95, a=.20: 7.00); delivered h/month at mode incl. adherence 132
+
+== Monte Carlo N=20000: months P10/P50/P90 and P(<= 6/8/10/12) ==
+CORE of both: hours P10/P50/P90 1793/2081/2432; CRs 1492/2022/2779; all-in min/CR P50 62
+    5+0   19.9 /  23.5 /  27.9   <=6: 0.00  <=8: 0.00  <=10: 0.00  <=12: 0.00  <=15: 0.00  <=18: 0.02
+    5+1   17.3 /  20.4 /  24.2   <=6: 0.00  <=8: 0.00  <=10: 0.00  <=12: 0.00  <=15: 0.01  <=18: 0.17
+    6+0   16.9 /  20.0 /  23.7   <=6: 0.00  <=8: 0.00  <=10: 0.00  <=12: 0.00  <=15: 0.01  <=18: 0.21
+    6+1   14.9 /  17.6 /  20.8   <=6: 0.00  <=8: 0.00  <=10: 0.00  <=12: 0.00  <=15: 0.11  <=18: 0.58
+    7+0   15.4 /  18.3 /  21.7   <=6: 0.00  <=8: 0.00  <=10: 0.00  <=12: 0.00  <=15: 0.07  <=18: 0.46
+    7+1   13.7 /  16.2 /  19.2   <=6: 0.00  <=8: 0.00  <=10: 0.00  <=12: 0.01  <=15: 0.28  <=18: 0.79
+    8+0   14.5 /  17.2 /  20.6   <=6: 0.00  <=8: 0.00  <=10: 0.00  <=12: 0.00  <=15: 0.15  <=18: 0.63
+    8+1   13.0 /  15.4 /  18.3   <=6: 0.00  <=8: 0.00  <=10: 0.00  <=12: 0.03  <=15: 0.43  <=18: 0.88
+    9+0   13.9 /  16.6 /  20.0   <=6: 0.00  <=8: 0.00  <=10: 0.00  <=12: 0.01  <=15: 0.23  <=18: 0.71
+    9+1   12.5 /  14.9 /  17.9   <=6: 0.00  <=8: 0.00  <=10: 0.00  <=12: 0.06  <=15: 0.52  <=18: 0.91
+   10+0   13.6 /  16.5 /  20.1   <=6: 0.00  <=8: 0.00  <=10: 0.00  <=12: 0.02  <=15: 0.27  <=18: 0.72
+   10+1   12.3 /  14.7 /  17.9   <=6: 0.00  <=8: 0.00  <=10: 0.00  <=12: 0.07  <=15: 0.55  <=18: 0.91
+  [ideal V3/A1 calendar, same hours] 7+0: P50 12.4   10+0: P50 8.8
+BOTH, everything: hours P10/P50/P90 2342/2728/3198; CRs 2028/2748/3770; all-in min/CR P50 60
+    5+0   25.9 /  30.8 /  36.6   <=6: 0.00  <=8: 0.00  <=10: 0.00  <=12: 0.00  <=15: 0.00  <=18: 0.00
+    5+1   22.5 /  26.6 /  31.7   <=6: 0.00  <=8: 0.00  <=10: 0.00  <=12: 0.00  <=15: 0.00  <=18: 0.00
+    6+0   22.0 /  26.1 /  31.1   <=6: 0.00  <=8: 0.00  <=10: 0.00  <=12: 0.00  <=15: 0.00  <=18: 0.00
+    6+1   19.4 /  23.0 /  27.3   <=6: 0.00  <=8: 0.00  <=10: 0.00  <=12: 0.00  <=15: 0.00  <=18: 0.03
+    7+0   20.1 /  23.8 /  28.4   <=6: 0.00  <=8: 0.00  <=10: 0.00  <=12: 0.00  <=15: 0.00  <=18: 0.02
+    7+1   17.9 /  21.1 /  25.2   <=6: 0.00  <=8: 0.00  <=10: 0.00  <=12: 0.00  <=15: 0.00  <=18: 0.11
+    8+0   18.9 /  22.5 /  26.9   <=6: 0.00  <=8: 0.00  <=10: 0.00  <=12: 0.00  <=15: 0.00  <=18: 0.05
+    8+1   16.9 /  20.0 /  24.0   <=6: 0.00  <=8: 0.00  <=10: 0.00  <=12: 0.00  <=15: 0.02  <=18: 0.21
+    9+0   18.1 /  21.7 /  26.2   <=6: 0.00  <=8: 0.00  <=10: 0.00  <=12: 0.00  <=15: 0.00  <=18: 0.09
+    9+1   16.3 /  19.4 /  23.4   <=6: 0.00  <=8: 0.00  <=10: 0.00  <=12: 0.00  <=15: 0.03  <=18: 0.29
+   10+0   17.7 /  21.5 /  26.3   <=6: 0.00  <=8: 0.00  <=10: 0.00  <=12: 0.00  <=15: 0.01  <=18: 0.12
+   10+1   16.0 /  19.3 /  23.4   <=6: 0.00  <=8: 0.00  <=10: 0.00  <=12: 0.00  <=15: 0.04  <=18: 0.32
+  [ideal V3/A1 calendar, same hours] 7+0: P50 16.2   10+0: P50 11.4
+
+== R9 effective-hours curve (EFH/day by month, +-15%), light Friday + light week in 7, D1 cap 4.3-5 h ==
+   CORE of both       7 h   14.8 /  18.3 /  22.9   <=6: 0.00  <=8: 0.00  <=10: 0.00  <=12: 0.00  <=15: 0.12  <=18: 0.46   D1 share of work P50 0.57
+   CORE of both       8 h   14.0 /  17.4 /  21.8   <=6: 0.00  <=8: 0.00  <=10: 0.00  <=12: 0.01  <=15: 0.19  <=18: 0.58   D1 share of work P50 0.57
+   CORE of both       9 h   14.2 /  17.5 /  22.1   <=6: 0.00  <=8: 0.00  <=10: 0.00  <=12: 0.01  <=15: 0.18  <=18: 0.56   D1 share of work P50 0.57
+   CORE of both      10 h   14.3 /  17.7 /  22.3   <=6: 0.00  <=8: 0.00  <=10: 0.00  <=12: 0.01  <=15: 0.16  <=18: 0.53   D1 share of work P50 0.57
+   BOTH, everything   7 h   19.3 /  24.0 /  30.1   <=6: 0.00  <=8: 0.00  <=10: 0.00  <=12: 0.00  <=15: 0.00  <=18: 0.04   D1 share of work P50 0.59
+   BOTH, everything   8 h   18.3 /  22.7 /  28.6   <=6: 0.00  <=8: 0.00  <=10: 0.00  <=12: 0.00  <=15: 0.01  <=18: 0.08   D1 share of work P50 0.59
+   BOTH, everything   9 h   18.5 /  23.1 /  29.1   <=6: 0.00  <=8: 0.00  <=10: 0.00  <=12: 0.00  <=15: 0.00  <=18: 0.07   D1 share of work P50 0.59
+   BOTH, everything  10 h   18.7 /  23.3 /  29.4   <=6: 0.00  <=8: 0.00  <=10: 0.00  <=12: 0.00  <=15: 0.00  <=18: 0.06   D1 share of work P50 0.59
+  mode split: D1 (dense first pass) 1499 h = 61%; lighter modes 955 h = 39%
+   7 h steady: EFH 5.7/day; D1 needs 3.48 EFH/day (cap 4.1-4.75) -> total EFH binds; light work absorbs 2.22 EFH/day
+   8 h steady: EFH 6.0/day; D1 needs 3.67 EFH/day (cap 4.1-4.75) -> total EFH binds; light work absorbs 2.33 EFH/day
+   10 h steady: EFH 5.8/day; D1 needs 3.54 EFH/day (cap 4.1-4.75) -> total EFH binds; light work absorbs 2.26 EFH/day
+  D1 cap binds only if D1 share > 4.4/EFH = 73% (8 h) / 76% (10 h). With D1 at 61%, extra late hours can only be used for the 955 h of light work.
+
+== Share done at full depth by month 6 and 8 (P50; core first, then adv; both apps interleaved) ==
+  6+0:  6 mo: core  30% (P10  26, P90  36), adv   0%, all  23% | 8 mo: core  40% (P10  34, P90  48), adv   0%, all  31%
+  6+1:  6 mo: core  35% (P10  29, P90  41), adv   0%, all  26% | 8 mo: core  46% (P10  39, P90  55), adv   0%, all  35%
+  7+0:  6 mo: core  33% (P10  28, P90  39), adv   0%, all  25% | 8 mo: core  44% (P10  37, P90  53), adv   0%, all  34%
+  7+1:  6 mo: core  38% (P10  32, P90  45), adv   0%, all  29% | 8 mo: core  50% (P10  42, P90  59), adv   0%, all  38%
+  8+0:  6 mo: core  35% (P10  30, P90  42), adv   0%, all  27% | 8 mo: core  47% (P10  39, P90  56), adv   0%, all  36%
+  8+1:  6 mo: core  40% (P10  33, P90  47), adv   0%, all  30% | 8 mo: core  53% (P10  44, P90  63), adv   0%, all  40%
+  9+0:  6 mo: core  37% (P10  30, P90  44), adv   0%, all  28% | 8 mo: core  49% (P10  40, P90  59), adv   0%, all  37%
+  9+1:  6 mo: core  41% (P10  34, P90  49), adv   0%, all  31% | 8 mo: core  55% (P10  45, P90  65), adv   0%, all  42%
+  10+0:  6 mo: core  37% (P10  30, P90  45), adv   0%, all  28% | 8 mo: core  49% (P10  40, P90  60), adv   0%, all  38%
+  10+1:  6 mo: core  41% (P10  34, P90  50), adv   0%, all  32% | 8 mo: core  55% (P10  45, P90  67), adv   0%, all  42%
+
+== h/day needed (desk, +1 mobile) to finish everything by deadline, P50 / P80 ==
+   8 months: >10 / >10
+  10 months: >10 / >10
+  12 months: >10 / >10
+  15 months: >10 / >10
+  18 months: >10 / >10
+
+== Tornado: BOTH, 8+1 h, others at mode ==
+  base 17.6
+  wpp          [160 .. 400]   16.1 ->  20.2  swing 4.1
+  dens_all     [x0.70 .. x1.42]   15.9 ->  19.9  swing 4.0
+  act_cr       [10 .. 22]   16.3 ->  19.5  swing 3.2
+  adh0         [0.85 .. 1.0]   19.0 ->  16.3  swing 2.7
+  lost         [0.05 .. 0.18]   16.7 ->  19.4  swing 2.7
+  dialog_cr    [2 .. 12]   16.6 ->  19.2  swing 2.6
+  forge_cr     [0 .. 10]   16.6 ->  19.2  swing 2.6
+  net_eff      [0.85 .. 1.0]   19.1 ->  16.5  swing 2.6
+  rev_min      [0.8 .. 3.0]   16.9 ->  19.3  swing 2.4
+  wpm          [110 .. 190]   19.0 ->  16.6  swing 2.4
+  adh_slope    [0.0 .. 0.05]   16.8 ->  18.6  swing 1.8
+  fat_a        [0.07 .. 0.2]   16.9 ->  18.6  swing 1.7
+  dedup        [0.06 .. 0.2]   18.5 ->  16.8  swing 1.6
+  sel_bias     [0.75 .. 1.0]   16.8 ->  18.5  swing 1.6
+
+== Scenario: pilot finds the optimistic corner on the 3 measurable unknowns ==
+  wpm 190, act_cr 10, dialog 2                  BOTH 6+1: 16.3 / 8+1: 14.3 / 10+1: 13.6   CORE 6+1: 12.6 / 8+1: 11.0 / 10+1: 10.5
+  + density x0.7, wpp 180                       BOTH 6+1: 14.5 / 8+1: 12.7 / 10+1: 12.2   CORE 6+1: 11.2 / 8+1: 9.8 / 10+1: 9.4
+  + fatigue a=0.07, adherence 1.0, lost 5%      BOTH 6+1: 12.7 / 8+1: 10.2 / 10+1: 8.8   CORE 6+1: 9.8 / 8+1: 7.9 / 10+1: 6.8

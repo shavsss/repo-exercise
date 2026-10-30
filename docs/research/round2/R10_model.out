@@ -1,0 +1,129 @@
+== Tier densities used (items per page, adjudicated; H = F x 0.08/strict_F) ==
+  A: K 0.062  S 0.375  C 0.062
+  B: K 0.333  S 0.200  C 0.200
+  C: K 0.500  S 0.417  C 0.333
+  D: K 0.129  S 0.258  C 0.194
+  E: K 0.250  S 0.205  C 0.227
+  F: K 0.173  S 0.173  C 0.212
+  G: K 0.045  S 0.091  C 0.227
+  H: K 0.144  S 0.144  C 0.176
+
+== Page-weighted tier mix per app/tier (main + 0.5 supp + 0.35 art, before dedup) ==
+  G core: K 0.239 S 0.292 C 0.223 per page -> shares K 32% S 39% C 30%
+  G adv : K 0.247 S 0.294 C 0.218 per page -> shares K 33% S 39% C 29%
+  L core: K 0.207 S 0.183 C 0.216 per page -> shares K 34% S 30% C 36%
+  L adv : K 0.184 S 0.170 C 0.224 per page -> shares K 32% S 29% C 39%
+
+== Deterministic mode: hours by component ==
+  R8 reference: BOTH 2454 h (2614 strict CRs), CORE 1868 h
+  TIERED (adjudicated)                                       BOTH:  3360 h | K  4201 S  4750 C  4665 | words/page  280 | lessons  1847
+  TIERED (adjudicated)                                       CORE:  2545 h | K  3113 S  3531 C  3451 | words/page  281 | lessons  1368
+  TIERED, rater A labels                                     BOTH:  3285 h | K  3780 S  5171 C  4665 | words/page  271 | lessons  1785
+  TIERED, rater A labels                                     CORE:  2489 h | K  2797 S  3846 C  3451 | words/page  271 | lessons  1322
+  TIERED, rater B labels                                     BOTH:  3418 h | K  4600 S  4245 C  4787 | words/page  288 | lessons  1899
+  TIERED, rater B labels                                     CORE:  2586 h | K  3388 S  3193 C  3522 | words/page  288 | lessons  1405
+  TIERED-MAX (disagreement -> higher tier)                   BOTH:  3558 h | K  5422 S  3529 C  4665 | words/page  307 | lessons  2026
+  TIERED-MAX (disagreement -> higher tier)                   CORE:  2692 h | K  4016 S  2627 C  3451 | words/page  308 | lessons  1501
+  TIERED + SAFEGUARDS (promote 15% of S, all-tier exams)     BOTH:  3640 h | K  4914 S  4038 C  4665 | words/page  296 | lessons  1951
+  TIERED + SAFEGUARDS (promote 15% of S, all-tier exams)     CORE:  2760 h | K  3642 S  3001 C  3451 | words/page  297 | lessons  1446
+  TIERED + SAFEGUARDS + KEYSTONE CLUSTERS [P]                BOTH:  3069 h | K  4914 S  4038 C  4665 | words/page  254 | lessons  1674
+  TIERED + SAFEGUARDS + KEYSTONE CLUSTERS [P]                CORE:  2337 h | K  3642 S  3001 C  3451 | words/page  255 | lessons  1240
+  LITERAL (every item gets all 7 facets + forge + review)    BOTH:  7198 h | K 13616 S     0 C     0 | words/page  534 | lessons  3521
+  LITERAL (every item gets all 7 facets + forge + review)    CORE:  5386 h | K 10094 S     0 C     0 | words/page  536 | lessons  2609
+  component breakdown, TIERED (adjudicated), BOTH:
+     reading          679
+     active_K         706
+     active_S         277
+     active_C          39
+     active_supp      141
+     review_K         298
+     review_SC         79
+     modchecks        114
+     dialogue         306
+     forge_K          188
+     notebook          94
+     lesson_ovh       123
+     gen_wait          96
+     testout_diag      38
+     projects         120
+     articles          40
+     build_pilot       40
+     exams_extra        0
+     savings          -20
+  D1 dense share 61% (reading, active work, lesson overhead, generation wait)
+  per K item (active+review+forge, mode): 17.0 min; K words read 750 -> 5.2 min
+
+== Waterfall: from R8 to TIERED (BOTH apps; hours at mode | MC P50 months at 8+1) ==
+  W0 R8 regime in this code: K = strict CRs, S/C read only, 250 w/page, R7 savings          2455 h | 20.1 mo
+  W1 + keystones at the measured K granularity (rubric), full treatment each                2782 h | 22.5 mo
+  W2 + S items get their supporting treatment (commit, review via keystone)                 3170 h | 25.9 mo
+  W3 + C items get definition + where-used minutes                                          3224 h | 26.5 mo
+  W4 + lesson words built per tier (not a flat 250/page); R7 savings -> 20 h (= TIERED)     3360 h | 27.8 mo
+
+== Monte Carlo N=20000: months P10 / P50 / P90 (R8 calendar: fatigue curve, adherence, lost days, light weeks) ==
+  R8 reference                                 EVERYTHING h  2344/ 2731/ 3195 | 7+1: 17.9/21.1/25.1 8+1: 16.9/20.0/23.9 9+1: 16.3/19.5/23.3 10+1: 16.0/19.2/23.3
+  R8 reference                                 CORE       h  1794/ 2083/ 2431 | 7+1: 13.7/16.2/19.2 8+1: 13.0/15.4/18.2 9+1: 12.5/14.9/17.8 10+1: 12.3/14.7/17.8
+  TIERED (adjudicated)                         EVERYTHING h  3189/ 3785/ 4591 | 7+1: 24.2/29.3/35.9 8+1: 22.9/27.8/34.1 9+1: 22.2/26.9/33.3 10+1: 21.7/26.7/33.2
+  TIERED (adjudicated)                         CORE       h  2423/ 2870/ 3474 | 7+1: 18.5/22.2/27.2 8+1: 17.5/21.1/25.9 9+1: 16.9/20.5/25.3 10+1: 16.6/20.3/25.2
+  TIERED, rater A labels                       EVERYTHING h  3134/ 3713/ 4486 | 7+1: 23.8/28.7/35.1 8+1: 22.6/27.3/33.4 9+1: 21.8/26.4/32.6 10+1: 21.4/26.2/32.5
+  TIERED, rater A labels                       CORE       h  2381/ 2817/ 3393 | 7+1: 18.2/21.8/26.6 8+1: 17.2/20.7/25.3 9+1: 16.6/20.1/24.7 10+1: 16.3/19.9/24.7
+  TIERED, rater B labels                       EVERYTHING h  3231/ 3841/ 4664 | 7+1: 24.6/29.7/36.4 8+1: 23.2/28.1/34.7 9+1: 22.4/27.3/33.8 10+1: 22.0/27.1/33.7
+  TIERED, rater B labels                       CORE       h  2451/ 2910/ 3528 | 7+1: 18.7/22.6/27.6 8+1: 17.7/21.4/26.3 9+1: 17.1/20.8/25.6 10+1: 16.8/20.6/25.6
+  TIERED-MAX (disagreement -> higher tier)     EVERYTHING h  3340/ 3981/ 4846 | 7+1: 25.4/30.7/37.9 8+1: 24.0/29.2/36.0 9+1: 23.2/28.3/35.1 10+1: 22.8/28.0/35.0
+  TIERED-MAX (disagreement -> higher tier)     CORE       h  2534/ 3015/ 3664 | 7+1: 19.3/23.4/28.7 8+1: 18.3/22.1/27.3 9+1: 17.7/21.5/26.6 10+1: 17.3/21.3/26.5
+  TIERED + SAFEGUARDS (promote 15% of S, all-t EVERYTHING h  3466/ 4119/ 4998 | 7+1: 26.3/31.8/39.1 8+1: 24.9/30.2/37.2 9+1: 24.0/29.3/36.3 10+1: 23.6/29.0/36.2
+  TIERED + SAFEGUARDS (promote 15% of S, all-t CORE       h  2634/ 3124/ 3785 | 7+1: 20.0/24.2/29.7 8+1: 19.0/23.0/28.2 9+1: 18.3/22.3/27.5 10+1: 18.0/22.0/27.4
+  TIERED + SAFEGUARDS + KEYSTONE CLUSTERS [P]  EVERYTHING h  2967/ 3520/ 4244 | 7+1: 22.6/27.2/33.2 8+1: 21.3/25.8/31.6 9+1: 20.6/25.0/30.8 10+1: 20.2/24.8/30.8
+  TIERED + SAFEGUARDS + KEYSTONE CLUSTERS [P]  CORE       h  2265/ 2681/ 3227 | 7+1: 17.3/20.8/25.3 8+1: 16.4/19.7/24.1 9+1: 15.8/19.1/23.5 10+1: 15.5/18.9/23.5
+  LITERAL (every item gets all 7 facets + forg EVERYTHING h  6592/ 7965/ 9764 | 7+1: 49.9/61.1/75.8 8+1: 47.2/58.0/72.0 9+1: 45.6/56.2/70.3 10+1: 44.8/55.7/70.1
+  LITERAL (every item gets all 7 facets + forg CORE       h  4936/ 5961/ 7314 | 7+1: 37.4/45.9/56.8 8+1: 35.4/43.5/54.0 9+1: 34.2/42.2/52.8 10+1: 33.6/41.7/52.6
+
+== P(finish <= 12 / 15 / 18 months), 8+1 and 10+1 ==
+  R8 reference                                 EVERYTHING 8+1: 0.00 0.02 0.21  10+1: 0.00 0.04 0.32
+  R8 reference                                 CORE       8+1: 0.03 0.43 0.88  10+1: 0.08 0.55 0.91
+  TIERED (adjudicated)                         EVERYTHING 8+1: 0.00 0.00 0.00  10+1: 0.00 0.00 0.01
+  TIERED (adjudicated)                         CORE       8+1: 0.00 0.01 0.14  10+1: 0.00 0.03 0.23
+  TIERED, rater A labels                       EVERYTHING 8+1: 0.00 0.00 0.00  10+1: 0.00 0.00 0.01
+  TIERED, rater A labels                       CORE       8+1: 0.00 0.01 0.17  10+1: 0.00 0.03 0.26
+  TIERED, rater B labels                       EVERYTHING 8+1: 0.00 0.00 0.00  10+1: 0.00 0.00 0.00
+  TIERED, rater B labels                       CORE       8+1: 0.00 0.01 0.12  10+1: 0.00 0.02 0.21
+  TIERED-MAX (disagreement -> higher tier)     EVERYTHING 8+1: 0.00 0.00 0.00  10+1: 0.00 0.00 0.00
+  TIERED-MAX (disagreement -> higher tier)     CORE       8+1: 0.00 0.00 0.08  10+1: 0.00 0.01 0.15
+  TIERED + SAFEGUARDS (promote 15% of S, all-t EVERYTHING 8+1: 0.00 0.00 0.00  10+1: 0.00 0.00 0.00
+  TIERED + SAFEGUARDS (promote 15% of S, all-t CORE       8+1: 0.00 0.00 0.05  10+1: 0.00 0.01 0.10
+  TIERED + SAFEGUARDS + KEYSTONE CLUSTERS [P]  EVERYTHING 8+1: 0.00 0.00 0.01  10+1: 0.00 0.00 0.02
+  TIERED + SAFEGUARDS + KEYSTONE CLUSTERS [P]  CORE       8+1: 0.00 0.03 0.27  10+1: 0.00 0.07 0.38
+  LITERAL (every item gets all 7 facets + forg EVERYTHING 8+1: 0.00 0.00 0.00  10+1: 0.00 0.00 0.00
+  LITERAL (every item gets all 7 facets + forg CORE       8+1: 0.00 0.00 0.00  10+1: 0.00 0.00 0.00
+
+== no mobile hour, P50 months (for comparison with R8 s0) ==
+  R8 reference                                 EVERYTHING 7: 23.8 8: 22.5 9: 21.7 10: 21.5 | CORE 7: 18.3 8: 17.2 9: 16.6 10: 16.5
+  TIERED (adjudicated)                         EVERYTHING 7: 33.0 8: 31.1 9: 30.1 10: 29.8 | CORE 7: 25.1 8: 23.7 9: 22.9 10: 22.6
+  TIERED, rater A labels                       EVERYTHING 7: 32.4 8: 30.5 9: 29.5 10: 29.2 | CORE 7: 24.6 8: 23.2 9: 22.5 10: 22.2
+  TIERED, rater B labels                       EVERYTHING 7: 33.5 8: 31.6 9: 30.6 10: 30.2 | CORE 7: 25.4 8: 24.0 9: 23.2 10: 23.0
+  TIERED-MAX (disagreement -> higher tier)     EVERYTHING 7: 34.7 8: 32.7 9: 31.6 10: 31.3 | CORE 7: 26.3 8: 24.8 9: 24.0 10: 23.8
+  TIERED + SAFEGUARDS (promote 15% of S, all-t EVERYTHING 7: 35.9 8: 33.8 9: 32.7 10: 32.4 | CORE 7: 27.3 8: 25.7 9: 24.9 10: 24.6
+  TIERED + SAFEGUARDS + KEYSTONE CLUSTERS [P]  EVERYTHING 7: 30.7 8: 29.0 9: 28.0 10: 27.6 | CORE 7: 23.5 8: 22.1 9: 21.4 10: 21.1
+  LITERAL (every item gets all 7 facets + forg EVERYTHING 7: 69.1 8: 65.0 9: 62.9 10: 62.2 | CORE 7: 51.8 8: 48.7 9: 47.2 10: 46.6
+
+== R9 effective-hours curve (no separate mobile hour), P50 months ==
+  R8 reference                                 EVERYTHING 7h 23.9 8h 22.7 10h 23.3 | CORE 7h 18.3 8h 17.4 10h 17.8
+  TIERED (adjudicated)                         EVERYTHING 7h 33.3 8h 31.6 10h 32.5 | CORE 7h 25.3 8h 24.0 10h 24.5
+  TIERED + SAFEGUARDS (promote 15% of S, all-t EVERYTHING 7h 36.2 8h 34.4 10h 35.3 | CORE 7h 27.5 8h 26.1 10h 26.8
+  TIERED + SAFEGUARDS + KEYSTONE CLUSTERS [P]  EVERYTHING 7h 30.9 8h 29.3 10h 30.1 | CORE 7h 23.6 8h 22.4 10h 23.0
+  LITERAL (every item gets all 7 facets + forg EVERYTHING 7h 69.6 8h 66.3 10h 68.2 | CORE 7h 52.3 8h 49.6 10h 51.0
+
+== Tornado, TIERED both apps, 8+1, others at mode ==
+  base 24.1
+  size_exp     [0.3 .. 0.8]   26.0 ->  21.8  swing 4.2
+  act_cr       [10 .. 22]   22.4 ->  26.4  swing 4.0
+  sel_bias     [0.75 .. 1.0]   22.2 ->  26.0  swing 3.8
+  dialog_cr    [2 .. 12]   22.7 ->  26.1  swing 3.3
+  forge_cr     [0 .. 10]   22.7 ->  26.1  swing 3.3
+  rev_min      [0.8 .. 3.0]   23.1 ->  26.2  swing 3.1
+  wK           [500 .. 1100]   22.9 ->  25.7  swing 2.7
+  wpm          [110 .. 190]   25.6 ->  22.9  swing 2.7
+  actS         [2 .. 6]   23.2 ->  25.5  swing 2.2
+  tier_shift   [-0.15 .. 0.15]   23.3 ->  24.9  swing 1.6
+  w0           [25 .. 90]   23.5 ->  25.0  swing 1.5
+  wS           [180 .. 420]   23.6 ->  24.8  swing 1.2

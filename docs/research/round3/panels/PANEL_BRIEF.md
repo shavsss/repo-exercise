@@ -1,0 +1,18 @@
+# Expert panel brief (shared by all panels)
+
+You are an expert panel for ONE group of domains (given in your prompt). Read-only on the repo; write only your two output files in this folder (panels/).
+
+Context: research/CONTEXT.md. The learner's principle (critical): the books are a MAP of what is important to learn; pages don't matter; learn EVERY important topic and subtopic at full depth (level 2.5: structure, derivation skeleton and assumptions, limits, orders of magnitude, trade-offs, cross-domain structure, critique; in the military app also operational meaning), miss NOTHING important, and do not spend time on what is not important for the goal (an authority with excellent cross-domain judgment, who writes articles and interviews experts). When in doubt, KEEP.
+
+Inputs (round3/): merge/MG_topics.json (unified map: domains → subtopics with importance K/S/C/N, coverage full/partial/missing, hosts, matches; plus `gaps`, `crosswalk_sections`, `unified_pairs`), merge/MG_report.md (method; the automatic matching is reliable only for strong matches; ~50% precision in the middle band; 18% of Gilua pages matched nothing), registry/S_eng_registry.json and registry/S_mil_registry.json (sections with type, CR and K/S/C estimates), bok/B_eng_map.json and bok/B_mil_map.json (independent maps with reasons and sources), the syllabi (/home/user/repo-exercise/library/engineering/syllabus/syllabus.json + toc/*.md; /home/user/repo-exercise/library/military/syllabus/syllabus.json + SYLLABUS.md), book text per PDF page in /home/user/repo-exercise/eng/app/artifact/lib/text/<DOC>.json ({"page": {"t": text}}) and, for military books, the PDFs under /home/user/repo-exercise/library/military/ (use `pdftotext -f N -l M -layout file.pdf -` to read pages; some are image-only scans — say so) and /home/user/repo-exercise/core/app/artifact/lib/text/*.json where present.
+
+Tasks for your domains:
+1. VERIFY COVERAGE: for every K and S subtopic, find where the books really teach it (read the actual text of the candidate sections; search the text JSON/PDFs by keywords) → final status full / partial (what is missing) / missing, with exact module + section references.
+2. GAPS: for every subtopic marked missing/partial, confirm by search; if truly missing, specify what must be added (the central results / items) and the best host module (ID), respecting prerequisites.
+3. UNMATCHED / NOT-NEEDED MATERIAL: for the modules in your domains, review every book section that the merge left unmatched or marked N-only or non-teaching: decide KEEP (which subtopic it serves) or NOT NEEDED (reason), conservatively. Report pages per decision.
+4. ADD what the maps missed: any subtopic an authority in this domain must know that is absent from both the BoK map and the books.
+5. IMPORTANCE: confirm or change K/S/C/N per subtopic, with a one-line reason tied to the goal (fan-out, judgment, operational meaning, projects, articles). Round up when unsure.
+6. Output:
+   - panels/<PANEL_ID>.json: {"domains": [...], "subtopics": [{id, name, importance, status, where: [{module, doc, section, pages}], missing_items, host_for_gap, reason}], "added": [...], "sections_not_needed": [{module, doc, section, pages, reason}], "sections_kept_unmatched": [...], "totals": {...}}
+   - panels/<PANEL_ID>.md: a readable report: counts, the most important gaps, the biggest not-needed blocks, and anything surprising.
+Work efficiently (Python for search and bookkeeping, careful reading where it matters). Finish within ~75 minutes; write the files even if some items remain rough (mark them). Reply ~200 words with the key counts.

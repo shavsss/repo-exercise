@@ -1,0 +1,154 @@
+====================================================================== 
+2. CLASSIFIER VALIDATION (125 random sections, hand-labelled true type)
+exact 9-type accuracy 0.71; 5-group accuracy 0.73; teach-vs-nonteach accuracy 0.94
+rows = true, cols = auto
+              theor deriv examp histo summa notes probl appen front
+theory           41     4     8     3     0     0     4     0     0
+derivation        3     9     0     0     0     0     0     0     0
+examples          3     0     3     3     0     0     1     0     0
+history           2     0     0     7     0     1     1     0     0
+summary           0     0     0     0     9     0     0     0     0
+notes_biblio      0     0     0     0     0     7     0     0     0
+problems          0     0     0     0     0     0     3     0     0
+appendix_ref      1     0     0     0     1     1     0    10     0
+front             0     0     0     0     0     0     0     0     0
+  theory        precision 0.82 recall 0.68 (n true 60)
+  derivation    precision 0.69 recall 0.75 (n true 12)
+  examples      precision 0.27 recall 0.30 (n true 10)
+  history       precision 0.54 recall 0.64 (n true 11)
+  summary       precision 0.90 recall 1.00 (n true 9)
+  notes_biblio  precision 0.78 recall 1.00 (n true 7)
+  problems      precision 0.33 recall 1.00 (n true 3)
+  appendix_ref  precision 1.00 recall 0.77 (n true 13)
+====================================================================== 
+3. COUNT MODEL (Poisson GLM, offset-free, ridge 1.0)
+coefficients (strict CR model):
+  const                    -2.645
+  type:derivation          -0.355
+  type:examples            -0.420
+  type:history             +0.003
+  type:nonteach            -0.837
+  class:B_feynman          +0.396
+  class:C_theorem_dense    -0.069
+  class:D_eng_textbook     -0.205
+  class:E_descriptive_practice -0.302
+  log_pages                +0.944
+  log1p_eql/p              +0.548
+  log1p_thm+dfn/p          +0.260
+  log1p_ex/p               +0.336
+
+held-out error, 5-fold x 40 repeats on the 125 random sections:
+  strict GLM                                  MAE/section 0.31 | fold-total error mean -1%, |err| median 13%, P90 34%
+  strict class-rate x pages (teaching types)  MAE/section 0.30 | fold-total error mean -11%, |err| median 18%, P90 35%
+  strict ENSEMBLE mean(GLM, class-rate)       MAE/section 0.30 | fold-total error mean -1%, |err| median 13%, P90 33%
+  strict flat rate x pages                    MAE/section 0.37 | fold-total error mean +4%, |err| median 17%, P90 39%
+  strict R8 0.124 x pages                     MAE/section 0.38 | fold-total error mean +24%, |err| median 22%, P90 58%
+  K      GLM                                  MAE/section 0.32 | fold-total error mean +19%, |err| median 20%, P90 59%
+  K      class-rate x pages (teaching types)  MAE/section 0.30 | fold-total error mean +5%, |err| median 17%, P90 45%
+  K      ENSEMBLE mean(GLM, class-rate)       MAE/section 0.31 | fold-total error mean +19%, |err| median 18%, P90 56%
+  K      flat rate x pages                    MAE/section 0.38 | fold-total error mean +27%, |err| median 21%, P90 74%
+  S      GLM                                  MAE/section 0.49 | fold-total error mean +2%, |err| median 8%, P90 23%
+  S      class-rate x pages (teaching types)  MAE/section 0.52 | fold-total error mean -8%, |err| median 14%, P90 28%
+  S      ENSEMBLE mean(GLM, class-rate)       MAE/section 0.49 | fold-total error mean +4%, |err| median 8%, P90 23%
+  S      flat rate x pages                    MAE/section 0.61 | fold-total error mean +8%, |err| median 13%, P90 36%
+  C      GLM                                  MAE/section 0.57 | fold-total error mean +3%, |err| median 7%, P90 19%
+  C      class-rate x pages (teaching types)  MAE/section 0.81 | fold-total error mean -7%, |err| median 14%, P90 32%
+  C      ENSEMBLE mean(GLM, class-rate)       MAE/section 0.64 | fold-total error mean +6%, |err| median 8%, P90 23%
+  C      flat rate x pages                    MAE/section 0.78 | fold-total error mean +10%, |err| median 12%, P90 37%
+
+sample (125 random) by TRUE type: n, pages, strict/K/S/C per page
+  theory        n= 60 pp= 285.6  strict 0.151  K 0.116  S 0.294  C 0.347
+  derivation    n= 12 pp=  94.0  strict 0.138  K 0.085  S 0.266  C 0.181
+  appendix_ref  n= 13 pp=  64.7  strict 0.031  K 0.031  S 0.139  C 0.201
+  history       n= 11 pp=  54.0  strict 0.000  K 0.000  S 0.056  C 0.315
+  examples      n= 10 pp=  44.3  strict 0.045  K 0.023  S 0.203  C 0.339
+  notes_biblio  n=  7 pp=  19.7  strict 0.000  K 0.000  S 0.000  C 0.000
+  summary       n=  9 pp=  19.0  strict 0.000  K 0.000  S 0.000  C 0.158
+  problems      n=  3 pp=   1.0  strict 0.000  K 0.000  S 0.000  C 0.000
+  ALL           n=125 pp=582.3  strict 0.103  K 0.076  S 0.223  C 0.282
+sample by book class: n, pages, strict/page, K/page
+  A_math_survey            n= 10 pp=  72.0 strict 0.139 K 0.056
+  B_feynman                n=  9 pp=  23.0 strict 0.261 K 0.217
+  C_theorem_dense          n= 25 pp=  89.3 strict 0.146 K 0.134
+  D_eng_textbook           n= 43 pp= 190.3 strict 0.110 K 0.089
+  E_descriptive_practice   n= 38 pp= 207.7 strict 0.048 K 0.029
+====================================================================== 
+4. SECTION-LEVEL OVERLAP
+content sections compared: 3754
+pairs with score >= 0.30: 3017
+  score [0.55,9): 23 pairs, cross-book 1
+  score [0.45,0.55): 38 pairs, cross-book 7
+  score [0.38,0.45): 87 pairs, cross-book 13
+  score [0.3,0.38): 428 pairs, cross-book 38
+sections marked as deltas: strong 57, moderate 65, weak 110
+cross-book delta pairs (score >= 0.33): 40; examples:
+   0.56 M23.1 E01:8/8.6 Pulse-Amplitude Modulation => M23.2 E02:12/12.1 Pulse Amplitude Modulation
+   0.53 M11.8 E09:8/8.25 Counters => M25.11 E25:11/11.5 Counters
+   0.53 M13.3 F1:44/44-6 Entropy => M13.7 E15:7/7-1 Entropy
+   0.53 M20.1 E20:1/1.8 Proof by Contradiction => M21.1 E21:1/1.6 Proof by Contradiction
+   0.52 M4.1 E02:2/2.5 Discrete-Time Processing of Continuous-T => M4.8 E01:7/7.4 Discrete-Time Processing of Continuous-T
+   0.51 M20.10 E20:22/22.4 Divide-and-Conquer Recurrences => M21.3 E21:5/5.4 Solving Divide-and-Conquer Recurrences
+   0.50 M11.11 E09:13/13.18 Frequency modulation => M23.1 E01:8/8.7 Sinusoidal Frequency Modulation
+   0.49 M13.2 F1:42/42-2 Thermionic emission => M25.3 E24:4/4.17 Thermionic Emission Theory
+   0.43 M24.8 F3:14/14-1 Electrons and holes in semiconductors => M25.1 E24:1/1.5 Electrons and Holes
+   0.43 M12.2 F2:35/35-2 The Stern-Gerlach experiment => M24.5 F3:5/5-3 Stern-Gerlach filters in series
+   0.42 M14.6 E16:6/6.2 Laminar incompressible boundary layer on => M15.7 E11:4/4.16 Results for a Laminar Boundary Layer
+   0.40 M20.7 E20:12/12.6 Coloring => M21.7 E21:19/19.7 Vertex Coloring
+====================================================================== 
+5. TOTALS
+main  core          pages   11743 | strict   1358 -> dedup   1336 | K   1219->  1200  S   3167->  3114  C   4122->  4060 | strict/page 0.116; R8 0.124 x pages =   1456
+main  adv           pages    3891 | strict    462 -> dedup    453 | K    416->   407  S   1010->   992  C   1313->  1294 | strict/page 0.119; R8 0.124 x pages =    482
+main  ref           pages     733 | strict     40 -> dedup     39 | K     34->    34  S    119->   117  C    187->   183 | strict/page 0.055; R8 0.124 x pages =     91
+main  core+adv+ref  pages   16367 | strict   1860 -> dedup   1828 | K   1669->  1640  S   4296->  4223  C   5623->  5538 | strict/page 0.114; R8 0.124 x pages =   2030
+supp  core          pages    1275 | strict    116 -> dedup    116 | K    108->   108  S    294->   293  C    389->   387 | strict/page 0.091; R8 0.124 x pages =    158
+supp  adv           pages     174 | strict      9 -> dedup      9 | K      7->     7  S     20->    20  C     37->    37 | strict/page 0.053; R8 0.124 x pages =     22
+supp  ref           pages      50 | strict      1 -> dedup      1 | K      1->     1  S      4->     4  C      8->     8 | strict/page 0.025; R8 0.124 x pages =      6
+supp  core+adv+ref  pages    1499 | strict    127 -> dedup    127 | K    117->   117  S    318->   317  C    434->   432 | strict/page 0.085; R8 0.124 x pages =    186
+
+sections by type (used sections; pages = unique section pages):
+  theory        n= 2255 pages=   9720 strict=  1096 K=   962 S=  2578 C=  3545
+  derivation    n=  672 pages=   2737 strict=   427 K=   407 S=   912 C=   823
+  examples      n=  513 pages=   2193 strict=   272 K=   230 S=   669 C=   821
+  appendix_ref  n=  256 pages=   1226 strict=    58 K=    56 S=   156 C=   202
+  history       n=  421 pages=   1124 strict=    89 K=    88 S=   167 C=   463
+  notes_biblio  n=  137 pages=    375 strict=     9 K=     8 S=    37 C=    80
+  problems      n=   97 pages=    269 strict=    24 K=    25 S=    50 C=    50
+  summary       n=  141 pages=    221 strict=    11 K=    10 S=    45 C=    72
+  ALL           n= 4492 pages=  17866 strict=  1987 K=  1786 S=  4614 C=  6056
+
+by book (unique used sections): pages, est strict, strict/page, R8-at-0.124, ratio
+  E26   E_descriptive_practice   pp    257 strict   11.5 (0.045/p) K   10.1  R8   31.9  ratio 0.36
+  E22   E_descriptive_practice   pp   1357 strict   67.1 (0.049/p) K   50.5  R8  168.3  ratio 0.40
+  E14   E_descriptive_practice   pp    343 strict   18.7 (0.055/p) K   14.4  R8   42.5  ratio 0.44
+  E10   E_descriptive_practice   pp    403 strict   24.2 (0.060/p) K   19.4  R8   50.0  ratio 0.48
+  E12   E_descriptive_practice   pp    593 strict   36.6 (0.062/p) K   24.7  R8   73.5  ratio 0.50
+  E09a  E_descriptive_practice   pp    611 strict   37.9 (0.062/p) K   27.0  R8   75.8  ratio 0.50
+  E09   E_descriptive_practice   pp    941 strict   61.6 (0.065/p) K   43.6  R8  116.7  ratio 0.53
+  E21   E_descriptive_practice   pp    638 strict   46.0 (0.072/p) K   29.3  R8   79.1  ratio 0.58
+  E25   E_descriptive_practice   pp    729 strict   58.0 (0.080/p) K   37.6  R8   90.4  ratio 0.64
+  E13   D_eng_textbook           pp    713 strict   64.6 (0.091/p) K   64.5  R8   88.4  ratio 0.73
+  E18   D_eng_textbook           pp    480 strict   45.6 (0.095/p) K   40.7  R8   59.5  ratio 0.77
+  E17   D_eng_textbook           pp    425 strict   40.4 (0.095/p) K   38.9  R8   52.7  ratio 0.77
+  E16   D_eng_textbook           pp    774 strict   78.8 (0.102/p) K   64.2  R8   96.0  ratio 0.82
+  E11   D_eng_textbook           pp    856 strict   92.0 (0.107/p) K   77.0  R8  106.1  ratio 0.87
+  E08   D_eng_textbook           pp    526 strict   59.6 (0.113/p) K   48.2  R8   65.2  ratio 0.91
+  E24   D_eng_textbook           pp    271 strict   30.8 (0.114/p) K   25.3  R8   33.6  ratio 0.92
+  E01   D_eng_textbook           pp    615 strict   70.4 (0.114/p) K   59.3  R8   76.3  ratio 0.92
+  E19   D_eng_textbook           pp    470 strict   54.4 (0.116/p) K   43.2  R8   58.3  ratio 0.93
+  E23   D_eng_textbook           pp    455 strict   53.1 (0.117/p) K   44.7  R8   56.4  ratio 0.94
+  E15   D_eng_textbook           pp    741 strict   91.9 (0.124/p) K   65.8  R8   91.9  ratio 1.00
+  E03   D_eng_textbook           pp    473 strict   60.6 (0.128/p) K   45.2  R8   58.7  ratio 1.03
+  K3    A_math_survey            pp    350 strict   45.6 (0.130/p) K   17.5  R8   43.4  ratio 1.05
+  K2    A_math_survey            pp    372 strict   50.2 (0.135/p) K   20.7  R8   46.1  ratio 1.09
+  K1    A_math_survey            pp    356 strict   48.1 (0.135/p) K   20.0  R8   44.1  ratio 1.09
+  E07   C_theorem_dense          pp    266 strict   39.7 (0.149/p) K   45.3  R8   33.0  ratio 1.20
+  E20   C_theorem_dense          pp    552 strict   84.2 (0.153/p) K   99.6  R8   68.4  ratio 1.23
+  E06   C_theorem_dense          pp    577 strict   91.8 (0.159/p) K  100.0  R8   71.5  ratio 1.28
+  E02   C_theorem_dense          pp    241 strict   38.5 (0.160/p) K   44.4  R8   29.9  ratio 1.29
+  E04   C_theorem_dense          pp    585 strict   94.0 (0.161/p) K  104.6  R8   72.5  ratio 1.30
+  E05   C_theorem_dense          pp    341 strict   63.8 (0.187/p) K   64.7  R8   42.3  ratio 1.51
+  F3    B_feynman                pp    547 strict  112.8 (0.206/p) K  137.3  R8   67.8  ratio 1.66
+  F1    B_feynman                pp    501 strict  105.0 (0.209/p) K  128.6  R8   62.1  ratio 1.69
+  F2    B_feynman                pp    507 strict  110.0 (0.217/p) K  129.4  R8   62.9  ratio 1.75
+by class: {'A_math_survey': '0.133/p over 1078 pp', 'B_feynman': '0.211/p over 1555 pp', 'C_theorem_dense': '0.161/p over 2562 pp', 'D_eng_textbook': '0.109/p over 6799 pp', 'E_descriptive_practice': '0.062/p over 5872 pp'}
+non-teaching section pages (summary/notes/problems/appendix/front) inside module ranges: 2091 of 17866

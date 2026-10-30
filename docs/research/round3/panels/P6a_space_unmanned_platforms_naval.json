@@ -1,0 +1,4426 @@
+{
+ "panel": "P6a_space_unmanned_platforms_naval",
+ "domains": [
+  "MIL · Space systems and space warfare",
+  "MIL · Unmanned systems and counter-UAS",
+  "MIL · Platforms and survivability",
+  "MIL · Naval and undersea warfare"
+ ],
+ "subtopics": [
+  {
+   "id": "M:SP.1.1",
+   "name": "Kepler's laws, orbital period, vis-viva",
+   "domain": "MIL · Space systems and space warfare",
+   "topic": "Orbital mechanics",
+   "importance": "K",
+   "importance_was": "K",
+   "status": "full",
+   "status_was": "full",
+   "where": [
+    {
+     "module": "M13.4",
+     "doc": "B12",
+     "section": "SMAD 9.1 Keplerian orbits",
+     "pages": [
+      215,
+      221
+     ]
+    },
+    {
+     "module": "M15.15 (Gilua)",
+     "doc": "E11",
+     "section": "8.4-8.6 orbit equation, Kepler",
+     "pages": [
+      690,
+      702
+     ]
+    },
+    {
+     "module": "M2.2 (Gilua)",
+     "doc": "F1",
+     "section": "7-2 Kepler",
+     "pages": null
+    }
+   ],
+   "missing_items": [],
+   "host_for_gap": null,
+   "test_out": false,
+   "reason": "Foundation of every space estimate (period, velocity, energy); fan-out to BMD trajectories."
+  },
+  {
+   "id": "M:SP.1.2",
+   "name": "Orbit types: LEO, MEO, GEO, HEO/Molniya, SSO",
+   "domain": "MIL · Space systems and space warfare",
+   "topic": "Orbital mechanics",
+   "importance": "K",
+   "importance_was": "K",
+   "status": "full",
+   "status_was": "missing",
+   "where": [
+    {
+     "module": "M13.4",
+     "doc": "B12",
+     "section": "SMAD 9.3 terminology, 9.5 specialized orbits (GEO, SSO, Molniya, repeat-track, frozen)",
+     "pages": [
+      225,
+      242
+     ]
+    },
+    {
+     "module": "M13.6",
+     "doc": "B12",
+     "section": "SMAD 10.4 selecting Earth-referenced orbits",
+     "pages": [
+      275,
+      281
+     ]
+    },
+    {
+     "module": "M13.22",
+     "doc": "B12",
+     "section": "App. I Earth satellite parameters (lookup)",
+     "pages": [
+      1038,
+      1045
+     ]
+    }
+   ],
+   "missing_items": [],
+   "host_for_gap": null,
+   "test_out": false,
+   "reason": "Merge false miss (SMAD is image-only). Orbit regime choice drives every military space trade."
+  },
+  {
+   "id": "M:SP.1.3",
+   "name": "Perturbations (J2, drag), orbit lifetime",
+   "domain": "MIL · Space systems and space warfare",
+   "topic": "Orbital mechanics",
+   "importance": "S",
+   "importance_was": "S",
+   "status": "full",
+   "status_was": "full",
+   "where": [
+    {
+     "module": "M13.4",
+     "doc": "B12",
+     "section": "SMAD 9.4 perturbations, geopotential, decay",
+     "pages": [
+      226,
+      233
+     ]
+    }
+   ],
+   "missing_items": [],
+   "host_for_gap": null,
+   "test_out": false,
+   "reason": "Merge matched E06 sensitivity analysis (false). J2/SSO and drag lifetime are needed for LEO constellation and debris judgment."
+  },
+  {
+   "id": "M:SP.1.4",
+   "name": "Delta-v budgets and maneuver costs (Hohmann, plane change)",
+   "domain": "MIL · Space systems and space warfare",
+   "topic": "Orbital mechanics",
+   "importance": "K",
+   "importance_was": "K",
+   "status": "full",
+   "status_was": "partial",
+   "where": [
+    {
+     "module": "M13.4",
+     "doc": "B12",
+     "section": "SMAD 9.6 orbit maneuvers (Hohmann, plane change)",
+     "pages": [
+      243,
+      249
+     ]
+    },
+    {
+     "module": "M13.6",
+     "doc": "B12",
+     "section": "SMAD 10.3 Delta-V budget, 10.5 transfer/parking orbits",
+     "pages": [
+      268,
+      285
+     ]
+    },
+    {
+     "module": "M15.16 (Gilua)",
+     "doc": "E11",
+     "section": "ch.9 propulsion, rocket equation",
+     "pages": [
+      747,
+      829
+     ]
+    }
+   ],
+   "missing_items": [
+    "SMAD ch.18 (rocket equations, staging, chemical and electric propulsion; book pp.527-564) is MISSING from the scan (PDF 544-577 duplicate ch.17). Rocket equation is covered by Gilua M15.16; in-space electric propulsion (Isp vs thrust trade, Hall thrusters for maneuverable satellites) is not covered anywhere."
+   ],
+   "host_for_gap": "M13.12 (add a short electric-propulsion item) or obtain SMAD ch.18",
+   "test_out": false,
+   "reason": "Delta-v is the currency of maneuver, co-orbital ASAT and constellation replenishment."
+  },
+  {
+   "id": "M:SP.1.5",
+   "name": "Ground track and revisit",
+   "domain": "MIL · Space systems and space warfare",
+   "topic": "Orbital mechanics",
+   "importance": "K",
+   "importance_was": "K",
+   "status": "full",
+   "status_was": "full",
+   "where": [
+    {
+     "module": "M13.5",
+     "doc": "B12",
+     "section": "SMAD 8.4 single target/ground station pass parameters",
+     "pages": [
+      197,
+      201
+     ]
+    },
+    {
+     "module": "M13.6",
+     "doc": "B12",
+     "section": "SMAD 10.2 coverage performance, 10.4 repeat ground tracks",
+     "pages": [
+      256,
+      281
+     ]
+    }
+   ],
+   "missing_items": [],
+   "host_for_gap": null,
+   "test_out": false,
+   "reason": "Merge matched radar tracking (M2.15) and Bayesian \"revisited\" (false). Revisit is the core ISR-from-space metric."
+  },
+  {
+   "id": "M:SP.2.1",
+   "name": "Earth-central angle, footprint, elevation constraints",
+   "domain": "MIL · Space systems and space warfare",
+   "topic": "Mission geometry and coverage",
+   "importance": "K",
+   "importance_was": "K",
+   "status": "full",
+   "status_was": "missing",
+   "where": [
+    {
+     "module": "M13.5",
+     "doc": "B12",
+     "section": "SMAD 8.1-8.3 spherical geometry, looking at Earth from space (Earth-central angle, nadir angle, elevation, access area)",
+     "pages": [
+      167,
+      196
+     ]
+    },
+    {
+     "module": "M13.22",
+     "doc": "B12",
+     "section": "App. D mission geometry formulas",
+     "pages": [
+      986,
+      991
+     ]
+    }
+   ],
+   "missing_items": [],
+   "host_for_gap": null,
+   "test_out": false,
+   "reason": "Verified on PDF 189 (Fig. 8-26/8-27). Merge false miss; the module M13.5 was labeled C_only and must be treated as K."
+  },
+  {
+   "id": "M:SP.2.2",
+   "name": "Constellation design (Walker), number of satellites for continuous coverage",
+   "domain": "MIL · Space systems and space warfare",
+   "topic": "Mission geometry and coverage",
+   "importance": "K",
+   "importance_was": "K",
+   "status": "full",
+   "status_was": "full",
+   "where": [
+    {
+     "module": "M13.6",
+     "doc": "B12",
+     "section": "SMAD 10.6 constellation design (Walker), 10.2 coverage",
+     "pages": [
+      256,
+      293
+     ]
+    }
+   ],
+   "missing_items": [],
+   "host_for_gap": null,
+   "test_out": false,
+   "reason": "Number of satellites for continuous coverage is a top-3 estimate for any space article."
+  },
+  {
+   "id": "M:SP.2.3",
+   "name": "Access windows and revisit statistics",
+   "domain": "MIL · Space systems and space warfare",
+   "topic": "Mission geometry and coverage",
+   "importance": "K",
+   "importance_was": "K",
+   "status": "full",
+   "status_was": "missing",
+   "where": [
+    {
+     "module": "M13.6",
+     "doc": "B12",
+     "section": "SMAD 10.2 coverage figures of merit (percent coverage, max/mean gap, mean response time)",
+     "pages": [
+      256,
+      267
+     ]
+    },
+    {
+     "module": "M13.5",
+     "doc": "B12",
+     "section": "SMAD 8.4 pass duration",
+     "pages": [
+      197,
+      201
+     ]
+    }
+   ],
+   "missing_items": [],
+   "host_for_gap": null,
+   "test_out": false,
+   "reason": "Merge false miss. Access windows/response time = operational meaning of a constellation."
+  },
+  {
+   "id": "M:SP.3.1",
+   "name": "EO imaging from space: aperture, GSD, swath trade",
+   "domain": "MIL · Space systems and space warfare",
+   "topic": "Space payloads and missions",
+   "importance": "K",
+   "importance_was": "K",
+   "status": "full",
+   "status_was": "missing",
+   "where": [
+    {
+     "module": "M13.11",
+     "doc": "B12",
+     "section": "SMAD 17.1-17.2 observation payload design and sizing (GSD, aperture, diffraction, swath, data rate)",
+     "pages": [
+      511,
+      539
+     ]
+    }
+   ],
+   "missing_items": [
+    "Post-2011 state of the art (Maxar WorldView Legion 30 cm, Planet SkySat/Pelican) as numeric anchors"
+   ],
+   "host_for_gap": null,
+   "test_out": false,
+   "reason": "Verified on PDF 525. Merge false miss (section was unmapped_teaching_review)."
+  },
+  {
+   "id": "M:SP.3.2",
+   "name": "Space SAR: resolution, revisit, area rate",
+   "domain": "MIL · Space systems and space warfare",
+   "topic": "Space payloads and missions",
+   "importance": "K",
+   "importance_was": "K",
+   "status": "full",
+   "status_was": "partial",
+   "where": [
+    {
+     "module": "M13.11",
+     "doc": "B12",
+     "section": "SMAD 17.1 SAR from space: resolution, PRF limits, swath",
+     "pages": [
+      521,
+      526
+     ]
+    },
+    {
+     "module": "M2.25",
+     "doc": "B02b",
+     "section": "Vol.III ch.10 space-based SAR",
+     "pages": [
+      456,
+      523
+     ]
+    },
+    {
+     "module": "M2.34",
+     "doc": "B02a",
+     "section": "Vol.II ch.6-8 SAR modes, InSAR",
+     "pages": [
+      236,
+      423
+     ]
+    }
+   ],
+   "missing_items": [
+    "Small-SAT SAR constellations (ICEYE, Capella, Umbra): revisit vs resolution vs cost"
+   ],
+   "host_for_gap": null,
+   "test_out": false,
+   "reason": "Upgraded from partial: SMAD 17.1 has the SAR equations (verified PDF 525)."
+  },
+  {
+   "id": "M:SP.3.3",
+   "name": "SIGINT and RF geolocation constellations",
+   "domain": "MIL · Space systems and space warfare",
+   "topic": "Space payloads and missions",
+   "importance": "K",
+   "importance_was": "S",
+   "status": "partial",
+   "status_was": "full",
+   "where": [
+    {
+     "module": "M4.5",
+     "doc": "B08",
+     "section": "6.2-6.3 SIGINT and ESM",
+     "pages": [
+      255,
+      262
+     ]
+    },
+    {
+     "module": "M4.6",
+     "doc": "B04",
+     "section": "ch.6 TDOA/FDOA emitter location accuracy",
+     "pages": [
+      172,
+      207
+     ]
+    }
+   ],
+   "missing_items": [
+    "Space-based RF geolocation: formation-flying TDOA/FDOA from LEO, accuracy vs baseline and SNR",
+    "History/roles: ELINT satellites (GRAB, NOSS-type ocean surveillance), commercial RF sensing (HawkEye 360) and its use against GNSS jammers and dark ships"
+   ],
+   "host_for_gap": "M13.9 (apply M4.6 geometry to orbital baselines)",
+   "test_out": false,
+   "reason": "Raised S->K: space SIGINT underpins ocean surveillance and anti-ship targeting; the geometry is already taught, only the space application is missing."
+  },
+  {
+   "id": "M:SP.3.4",
+   "name": "Missile warning and tracking IR satellites",
+   "domain": "MIL · Space systems and space warfare",
+   "topic": "Space payloads and missions",
+   "importance": "K",
+   "importance_was": "K",
+   "status": "partial",
+   "status_was": "partial",
+   "where": [
+    {
+     "module": "M7.6",
+     "doc": "A07.2",
+     "section": "APS boost-phase study: SBIRS-High role and timelines",
+     "pages": null
+    },
+    {
+     "module": "M7.6",
+     "doc": "A07.1",
+     "section": "UCS/MIT Countermeasures: SBIRS-Low discrimination",
+     "pages": null
+    },
+    {
+     "module": "M7.8",
+     "doc": "B02b",
+     "section": "early-warning context; DSP mention p.326",
+     "pages": [
+      326,
+      334
+     ]
+    },
+    {
+     "module": "M13.11",
+     "doc": "B12",
+     "section": "SMAD 17.2 sizing method (applicable to IR)",
+     "pages": [
+      525,
+      539
+     ]
+    }
+   ],
+   "missing_items": [
+    "Physics of plume detection from GEO/HEO/LEO (SWIR/MWIR, solar-blind band, Earth background clutter, revisit/latency)",
+    "Architecture evolution DSP -> SBIRS -> Next-Gen OPIR -> proliferated tracking layer (PWSA/HBTSS) and why hypersonic glide vehicles force LEO tracking",
+    "Warning-time arithmetic and its operational meaning (launch detection -> cueing radars)"
+   ],
+   "host_for_gap": "M13.11 (cross-link M7.6, M6.9)",
+   "test_out": false,
+   "reason": "Strategic warning and BMD cueing; hypersonic debate depends on it."
+  },
+  {
+   "id": "M:SP.3.5",
+   "name": "SATCOM payloads: transponders, spot beams, protected SATCOM",
+   "domain": "MIL · Space systems and space warfare",
+   "topic": "Space payloads and missions",
+   "importance": "K",
+   "importance_was": "K",
+   "status": "full",
+   "status_was": "full",
+   "where": [
+    {
+     "module": "M13.10",
+     "doc": "B12",
+     "section": "SMAD ch.16 comms architectures, link analysis, payload design",
+     "pages": [
+      472,
+      509
+     ]
+    },
+    {
+     "module": "M4.12",
+     "doc": "B04",
+     "section": "ch.7 communication satellite links; 7.8 uplink/downlink jamming",
+     "pages": [
+      208,
+      235
+     ]
+    }
+   ],
+   "missing_items": [
+    "Protected SATCOM specifics (nulling antennas, AEHF/ESS waveforms) only qualitatively"
+   ],
+   "host_for_gap": null,
+   "test_out": false,
+   "reason": "Full; merge also matched M8.4 RF propagation (weak)."
+  },
+  {
+   "id": "M:SP.3.6",
+   "name": "Commercial imagery and analytics market",
+   "domain": "MIL · Space systems and space warfare",
+   "topic": "Space payloads and missions",
+   "importance": "K",
+   "importance_was": "K",
+   "status": "partial",
+   "status_was": "missing",
+   "where": [
+    {
+     "module": "M13.1",
+     "doc": "B12",
+     "section": "SMAD 2.1.4 commercial community (GeoEye-1), 1.4 spaceflight economics",
+     "pages": [
+      33,
+      59
+     ]
+    }
+   ],
+   "missing_items": [
+    "Today's commercial EO/SAR/RF market: players, price per image, resolution/revisit tiers, analytics",
+    "Use of commercial imagery in Ukraine/Gaza; shutter control and licensing; dependence risk"
+   ],
+   "host_for_gap": "M13.11",
+   "test_out": false,
+   "reason": "Articles and OSINT rely on commercial imagery; the 2011 text predates the market."
+  },
+  {
+   "id": "M:SP.4.1",
+   "name": "Subsystem budgets: mass, power, thermal, propulsion",
+   "domain": "MIL · Space systems and space warfare",
+   "topic": "Spacecraft engineering",
+   "importance": "S",
+   "importance_was": "S",
+   "status": "full",
+   "status_was": "partial",
+   "where": [
+    {
+     "module": "M13.8",
+     "doc": "B12",
+     "section": "SMAD 14.4-14.6 subsystems and preliminary budgets",
+     "pages": [
+      428,
+      448
+     ]
+    },
+    {
+     "module": "M13.22",
+     "doc": "B12",
+     "section": "App. A mass and power distribution",
+     "pages": [
+      960,
+      967
+     ]
+    },
+    {
+     "module": "M13.15",
+     "doc": "B12",
+     "section": "SMAD 21.2 power",
+     "pages": [
+      654,
+      675
+     ]
+    }
+   ],
+   "missing_items": [],
+   "host_for_gap": null,
+   "test_out": false,
+   "reason": "Merge partial (matched E25 \"Pitfalls\") was false; SMAD has it fully."
+  },
+  {
+   "id": "M:SP.4.2",
+   "name": "ADCS and pointing",
+   "domain": "MIL · Space systems and space warfare",
+   "topic": "Spacecraft engineering",
+   "importance": "S",
+   "importance_was": "C",
+   "status": "full",
+   "status_was": "missing",
+   "where": [
+    {
+     "module": "M13.13",
+     "doc": "B12",
+     "section": "SMAD 19.1 attitude determination and control",
+     "pages": [
+      578,
+      603
+     ]
+    }
+   ],
+   "missing_items": [],
+   "host_for_gap": null,
+   "test_out": false,
+   "reason": "Raised C->S: pointing knowledge sets geolocation accuracy of space ISR and laser-comm feasibility; teach overview only."
+  },
+  {
+   "id": "M:SP.4.3",
+   "name": "TT&C and ground segment",
+   "domain": "MIL · Space systems and space warfare",
+   "topic": "Spacecraft engineering",
+   "importance": "S",
+   "importance_was": "S",
+   "status": "full",
+   "status_was": "full",
+   "where": [
+    {
+     "module": "M13.15",
+     "doc": "B12",
+     "section": "SMAD 21.1 TT&C",
+     "pages": [
+      640,
+      653
+     ]
+    },
+    {
+     "module": "M13.20",
+     "doc": "B12",
+     "section": "SMAD 28.1 antenna services",
+     "pages": [
+      893,
+      904
+     ]
+    }
+   ],
+   "missing_items": [],
+   "host_for_gap": null,
+   "test_out": false,
+   "reason": "Ground segment and TT&C are the most attackable part of a space system."
+  },
+  {
+   "id": "M:SP.4.4",
+   "name": "Onboard processing and edge computing",
+   "domain": "MIL · Space systems and space warfare",
+   "topic": "Spacecraft engineering",
+   "importance": "C",
+   "importance_was": "C",
+   "status": "full",
+   "status_was": "missing",
+   "where": [
+    {
+     "module": "M13.14",
+     "doc": "B12",
+     "section": "SMAD ch.20 on-board processing",
+     "pages": [
+      614,
+      639
+     ]
+    }
+   ],
+   "missing_items": [],
+   "host_for_gap": null,
+   "test_out": false,
+   "reason": "Context only."
+  },
+  {
+   "id": "M:SP.4.5",
+   "name": "Structures, mechanisms, thermal detail",
+   "domain": "MIL · Space systems and space warfare",
+   "topic": "Spacecraft engineering",
+   "importance": "N",
+   "importance_was": "N",
+   "status": "full",
+   "status_was": "partial",
+   "where": [
+    {
+     "module": "M13.16",
+     "doc": "B12",
+     "section": "SMAD ch.22",
+     "pages": [
+      676,
+      713
+     ]
+    }
+   ],
+   "missing_items": [],
+   "host_for_gap": null,
+   "test_out": false,
+   "reason": "Detail; keep only radiative thermal balance as cross-domain physics."
+  },
+  {
+   "id": "M:SP.4.6",
+   "name": "Small satellites, CubeSats capability limits",
+   "domain": "MIL · Space systems and space warfare",
+   "topic": "Spacecraft engineering",
+   "importance": "K",
+   "importance_was": "K",
+   "status": "full",
+   "status_was": "full",
+   "where": [
+    {
+     "module": "M13.18",
+     "doc": "B12",
+     "section": "SMAD 25.3-25.5 SmallSats and CubeSats",
+     "pages": [
+      804,
+      841
+     ]
+    }
+   ],
+   "missing_items": [
+    "Post-2011 capability of 6U-16U military CubeSats; proliferated cheap buses"
+   ],
+   "host_for_gap": null,
+   "test_out": false,
+   "reason": "Small-sat capability limits underpin the proliferation/resilience argument."
+  },
+  {
+   "id": "M:SP.5.1",
+   "name": "Launch vehicle performance and cost per kg trends",
+   "domain": "MIL · Space systems and space warfare",
+   "topic": "Launch",
+   "importance": "K",
+   "importance_was": "K",
+   "status": "partial",
+   "status_was": "full",
+   "where": [
+    {
+     "module": "M13.12",
+     "doc": "B12",
+     "section": "SMAD 26.1 launch vehicle selection, 26.3 mechanics of launch, 26.5 available vehicles (2011)",
+     "pages": [
+      842,
+      873
+     ]
+    },
+    {
+     "module": "M15.16 (Gilua)",
+     "doc": "E11",
+     "section": "rocket equation and staging",
+     "pages": [
+      747,
+      829
+     ]
+    }
+   ],
+   "missing_items": [
+    "Cost-per-kg trend after 2011 (Falcon 9 reuse, Starship projections), launch cadence, Chinese commercial launchers"
+   ],
+   "host_for_gap": "M13.12",
+   "test_out": false,
+   "reason": "Merge matched UAV launch pages in B09 (false). Launch cost is the single biggest driver of the proliferated-space revolution."
+  },
+  {
+   "id": "M:SP.5.2",
+   "name": "Responsive launch and reconstitution",
+   "domain": "MIL · Space systems and space warfare",
+   "topic": "Launch",
+   "importance": "S",
+   "importance_was": "S",
+   "status": "partial",
+   "status_was": "partial",
+   "where": [
+    {
+     "module": "M13.1",
+     "doc": "B12",
+     "section": "SMAD 2.1.3 military community: ORS, responsive space",
+     "pages": [
+      50,
+      51
+     ]
+    },
+    {
+     "module": "M13.19",
+     "doc": "B12",
+     "section": "SMAD 27.10 modernizing launch operations",
+     "pages": [
+      889,
+      890
+     ]
+    }
+   ],
+   "missing_items": [
+    "Tactically responsive space (e.g. Victus Nox), reconstitution after ASAT attack, on-orbit spares"
+   ],
+   "host_for_gap": "M13.12",
+   "test_out": false,
+   "reason": "Reconstitution is one of the eight survivability strategies applied to space."
+  },
+  {
+   "id": "M:SP.5.3",
+   "name": "Launch site and range operations",
+   "domain": "MIL · Space systems and space warfare",
+   "topic": "Launch",
+   "importance": "C",
+   "importance_was": "C",
+   "status": "full",
+   "status_was": "full",
+   "where": [
+    {
+     "module": "M13.19",
+     "doc": "B12",
+     "section": "SMAD ch.27",
+     "pages": [
+      874,
+      891
+     ]
+    }
+   ],
+   "missing_items": [],
+   "host_for_gap": null,
+   "test_out": false,
+   "reason": "Context."
+  },
+  {
+   "id": "M:SP.6.1",
+   "name": "Radiation, space weather effects on systems",
+   "domain": "MIL · Space systems and space warfare",
+   "topic": "Space environment",
+   "importance": "S",
+   "importance_was": "S",
+   "status": "full",
+   "status_was": "full",
+   "where": [
+    {
+     "module": "M13.3",
+     "doc": "B12",
+     "section": "SMAD 7.1-7.3 space weather, magnetic field, radiation belts",
+     "pages": [
+      144,
+      153
+     ]
+    }
+   ],
+   "missing_items": [],
+   "host_for_gap": null,
+   "test_out": false,
+   "reason": "Merge matched Feynman radiation (weak); SMAD covers it."
+  },
+  {
+   "id": "M:SP.6.2",
+   "name": "Debris and Kessler syndrome; ASAT test consequences",
+   "domain": "MIL · Space systems and space warfare",
+   "topic": "Space environment",
+   "importance": "K",
+   "importance_was": "K",
+   "status": "partial",
+   "status_was": "missing",
+   "where": [
+    {
+     "module": "M13.3",
+     "doc": "B12",
+     "section": "SMAD 7.5 orbital debris (densities, hypervelocity, catalog >10 cm LEO, SSN)",
+     "pages": [
+      156,
+      165
+     ]
+    },
+    {
+     "module": "M13.21",
+     "doc": "B12",
+     "section": "SMAD ch.30 end of mission, IADC 25-year rule, disposal",
+     "pages": [
+      950,
+      959
+     ]
+    }
+   ],
+   "missing_items": [
+    "Kessler cascade: critical density and self-sustaining fragmentation altitudes",
+    "ASAT tests and their debris (FY-1C 2007, USA-193 2008, Mission Shakti 2019, Kosmos-1408 2021): debris lifetime vs altitude",
+    "Mega-constellation conjunction/avoidance statistics"
+   ],
+   "host_for_gap": "M13.3",
+   "test_out": false,
+   "reason": "Verified PDF 156-157. Debris is the strategic constraint on kinetic counterspace."
+  },
+  {
+   "id": "M:SP.7.1",
+   "name": "Counterspace taxonomy: kinetic, co-orbital, directed energy, EW, cyber",
+   "domain": "MIL · Space systems and space warfare",
+   "topic": "Counterspace and space control",
+   "importance": "K",
+   "importance_was": "K",
+   "status": "partial",
+   "status_was": "missing",
+   "where": [
+    {
+     "module": "M4.12",
+     "doc": "B04",
+     "section": "7.8 uplink/downlink jamming (EW subset of counterspace)",
+     "pages": [
+      233,
+      235
+     ]
+    },
+    {
+     "module": "M13.1",
+     "doc": "B12",
+     "section": "SMAD 2.1.3 one paragraph on space as high ground, SSA",
+     "pages": [
+      50,
+      51
+     ]
+    },
+    {
+     "module": "(unlinked)",
+     "doc": "B16",
+     "section": "problem 1.1.74 survivability strategies for a satellite system",
+     "pages": [
+      220,
+      221
+     ]
+    }
+   ],
+   "missing_items": [
+    "Taxonomy: direct-ascent kinetic, co-orbital (RPO), directed energy (dazzle/blind), RF jamming/spoofing, cyber, ground-segment attack",
+    "Physics of each: DA-ASAT reach from BMD-class interceptors (link M6.8/M7.6), co-orbital delta-v and timelines (link SMAD 8.5 relative motion), laser dazzle geometry",
+    "State capabilities and tests (China SC-19/DN-series, Russia Nudol/Kosmos-2543 and nesting dolls, US SM-3 USA-193), reversible vs irreversible effects, escalation and attribution"
+   ],
+   "host_for_gap": "M13.23 (new, core): Space control: counterspace, SDA, resilience",
+   "test_out": false,
+   "reason": "Commonly missing in textbooks; central to every space-warfare article. No open textbook in the library teaches it."
+  },
+  {
+   "id": "M:SP.7.2",
+   "name": "Space domain awareness: sensors and catalog",
+   "domain": "MIL · Space systems and space warfare",
+   "topic": "Counterspace and space control",
+   "importance": "K",
+   "importance_was": "K",
+   "status": "partial",
+   "status_was": "missing",
+   "where": [
+    {
+     "module": "M7.7",
+     "doc": "B02b",
+     "section": "7.1 BMD/MW/SSA radar missions, SSN, conjunction analysis",
+     "pages": [
+      310,
+      317
+     ]
+    },
+    {
+     "module": "M2.20",
+     "doc": "B02b",
+     "section": "2.5.10 Space Fence (VHF multistatic)",
+     "pages": [
+      106,
+      106
+     ]
+    },
+    {
+     "module": "M13.3",
+     "doc": "B12",
+     "section": "SMAD 7.5 catalog size, trackable thresholds",
+     "pages": [
+      156,
+      157
+     ]
+    },
+    {
+     "module": "(unlinked to space)",
+     "doc": "B15",
+     "section": "10.3 high-altitude detection law (space surveillance)",
+     "pages": [
+      287,
+      289
+     ]
+    }
+   ],
+   "missing_items": [
+    "Optical/telescopic GEO surveillance and its limits (sunlight, weather)",
+    "Catalog maintenance, orbit determination and covariance; conjunction probability (Pc)",
+    "Object characterization (light curves, ISAR); commercial SDA (LeoLabs, ExoAnalytic)",
+    "RPO detection: why \"inspector\" satellites are hard to attribute"
+   ],
+   "host_for_gap": "M13.23 (new, core): Space control: counterspace, SDA, resilience",
+   "test_out": false,
+   "reason": "Without SDA there is no space control, attribution or debris judgment."
+  },
+  {
+   "id": "M:SP.7.3",
+   "name": "Resilience via proliferation, maneuver, disaggregation",
+   "domain": "MIL · Space systems and space warfare",
+   "topic": "Counterspace and space control",
+   "importance": "K",
+   "importance_was": "K",
+   "status": "partial",
+   "status_was": "missing",
+   "where": [
+    {
+     "module": "M13.17",
+     "doc": "B12",
+     "section": "SMAD 23.1-23.2 LEO communications constellations; LEO monolithic vs distributed architectures",
+     "pages": [
+      714,
+      723
+     ]
+    },
+    {
+     "module": "M13.7",
+     "doc": "B12",
+     "section": "SMAD 13.4 cost vs reliability",
+     "pages": [
+      383,
+      391
+     ]
+    },
+    {
+     "module": "(unlinked)",
+     "doc": "B16",
+     "section": "1.1.13 system survivability: eight strategies (threat avoidance, deception, active defense, hardness, redundancy, threat-effect tolerance, proliferation, reconstitution)",
+     "pages": [
+      86,
+      88
+     ]
+    }
+   ],
+   "missing_items": [
+    "Proliferated LEO architectures (SDA PWSA, Starlink/Starshield) as a resilience argument, with cost-exchange vs ASAT",
+    "Maneuver, on-orbit spares, hosted payloads, multi-orbit diversity",
+    "Starlink in Ukraine: jamming and resilience lessons"
+   ],
+   "host_for_gap": "M13.23 (new, core): Space control: counterspace, SDA, resilience",
+   "test_out": false,
+   "reason": "Ball's eight strategies give a rigorous frame; link B16 pp.86-88 to the new module."
+  },
+  {
+   "id": "M:SP.7.4",
+   "name": "Space law and norms (OST, debris norms)",
+   "domain": "MIL · Space systems and space warfare",
+   "topic": "Counterspace and space control",
+   "importance": "S",
+   "importance_was": "S",
+   "status": "full",
+   "status_was": "missing",
+   "where": [
+    {
+     "module": "M13.7",
+     "doc": "B12",
+     "section": "SMAD 12.3 law and policy considerations",
+     "pages": [
+      354,
+      371
+     ]
+    },
+    {
+     "module": "M13.21",
+     "doc": "B12",
+     "section": "SMAD 30.1 IADC guidelines",
+     "pages": [
+      950,
+      951
+     ]
+    }
+   ],
+   "missing_items": [
+    "2022 DA-ASAT test moratorium pledges; Artemis Accords (one paragraph)"
+   ],
+   "host_for_gap": null,
+   "test_out": false,
+   "reason": "OST basics present; minor update only."
+  },
+  {
+   "id": "M:SP.8.1",
+   "name": "Space cost estimation and program risk",
+   "domain": "MIL · Space systems and space warfare",
+   "topic": "Space economics and programs",
+   "importance": "S",
+   "importance_was": "S",
+   "status": "full",
+   "status_was": "missing",
+   "where": [
+    {
+     "module": "M13.7",
+     "doc": "B12",
+     "section": "SMAD ch.11 cost estimating (CERs, learning curve)",
+     "pages": [
+      306,
+      341
+     ]
+    },
+    {
+     "module": "M13.17",
+     "doc": "B12",
+     "section": "SMAD 24.2 space system risk analysis",
+     "pages": [
+      781,
+      793
+     ]
+    }
+   ],
+   "missing_items": [],
+   "host_for_gap": null,
+   "test_out": false,
+   "reason": "Merge false miss."
+  },
+  {
+   "id": "M:SP.8.2",
+   "name": "Commercial-military integration and dependency",
+   "domain": "MIL · Space systems and space warfare",
+   "topic": "Space economics and programs",
+   "importance": "K",
+   "importance_was": "K",
+   "status": "partial",
+   "status_was": "missing",
+   "where": [
+    {
+     "module": "M13.1",
+     "doc": "B12",
+     "section": "SMAD 1.4 economics, 2.1.4 commercial, 2.2 differences between communities",
+     "pages": [
+      33,
+      59
+     ]
+    }
+   ],
+   "missing_items": [
+    "Military dependence on commercial SATCOM/imagery (Starlink, Maxar) and legal status of commercial satellites as targets",
+    "Contracting models (data buys, Starshield), shutter control, wartime reliability"
+   ],
+   "host_for_gap": "M13.23 (new, core): Space control: counterspace, SDA, resilience",
+   "test_out": false,
+   "reason": "Defining 2022-2026 issue; 2011 text predates it."
+  },
+  {
+   "id": "M:SP.9.1",
+   "name": "Spacecraft computer architecture detail",
+   "domain": "MIL · Space systems and space warfare",
+   "topic": "SMAD detail (skip-list)",
+   "importance": "N",
+   "importance_was": "N",
+   "status": "full",
+   "status_was": "full",
+   "where": [
+    {
+     "module": "M13.14",
+     "doc": "B12",
+     "section": "SMAD ch.20",
+     "pages": [
+      614,
+      639
+     ]
+    }
+   ],
+   "missing_items": [],
+   "host_for_gap": null,
+   "test_out": false,
+   "reason": "Detail, not needed for the goal."
+  },
+  {
+   "id": "M:SP.9.2",
+   "name": "Mechanisms and deployables",
+   "domain": "MIL · Space systems and space warfare",
+   "topic": "SMAD detail (skip-list)",
+   "importance": "N",
+   "importance_was": "N",
+   "status": "full",
+   "status_was": "partial",
+   "where": [
+    {
+     "module": "M13.16",
+     "doc": "B12",
+     "section": "SMAD 22.1 structures and mechanisms",
+     "pages": [
+      676,
+      697
+     ]
+    }
+   ],
+   "missing_items": [],
+   "host_for_gap": null,
+   "test_out": false,
+   "reason": "Merge matched Feynman color vision (false). Not needed."
+  },
+  {
+   "id": "M:SP.9.3",
+   "name": "Thermal control design",
+   "domain": "MIL · Space systems and space warfare",
+   "topic": "SMAD detail (skip-list)",
+   "importance": "N",
+   "importance_was": "N",
+   "status": "full",
+   "status_was": "full",
+   "where": [
+    {
+     "module": "M13.16",
+     "doc": "B12",
+     "section": "SMAD 22.2 thermal control",
+     "pages": [
+      698,
+      713
+     ]
+    }
+   ],
+   "missing_items": [],
+   "host_for_gap": null,
+   "test_out": false,
+   "reason": "Keep only radiative balance (cross-domain)."
+  },
+  {
+   "id": "M:SP.9.4",
+   "name": "Planetary data appendices",
+   "domain": "MIL · Space systems and space warfare",
+   "topic": "SMAD detail (skip-list)",
+   "importance": "N",
+   "importance_was": "N",
+   "status": "full",
+   "status_was": "full",
+   "where": [
+    {
+     "module": "M13.22",
+     "doc": "B12",
+     "section": "App. B, E-I",
+     "pages": null
+    }
+   ],
+   "missing_items": [],
+   "host_for_gap": null,
+   "test_out": false,
+   "reason": "Lookup only."
+  },
+  {
+   "id": "M:SP.9.5",
+   "name": "Manufacturing and integration process detail",
+   "domain": "MIL · Space systems and space warfare",
+   "topic": "SMAD detail (skip-list)",
+   "importance": "C",
+   "importance_was": "C",
+   "status": "full",
+   "status_was": "full",
+   "where": [
+    {
+     "module": "M13.17",
+     "doc": "B12",
+     "section": "SMAD 23.3-23.7",
+     "pages": [
+      724,
+      765
+     ]
+    }
+   ],
+   "missing_items": [],
+   "host_for_gap": null,
+   "test_out": false,
+   "reason": "Context."
+  },
+  {
+   "id": "M:SP.9.6",
+   "name": "Inflatable structures",
+   "domain": "MIL · Space systems and space warfare",
+   "topic": "SMAD detail (skip-list)",
+   "importance": "N",
+   "importance_was": "N",
+   "status": "full",
+   "status_was": "missing",
+   "where": [
+    {
+     "module": "M13.18",
+     "doc": "B12",
+     "section": "SMAD 25.2 inflatable structures",
+     "pages": [
+      799,
+      803
+     ]
+    }
+   ],
+   "missing_items": [],
+   "host_for_gap": null,
+   "test_out": false,
+   "reason": "Merge false miss; not needed anyway."
+  },
+  {
+   "id": "M:UAS.1.1",
+   "name": "UAS classes (Group 1-5), missions and trade-offs",
+   "domain": "MIL · Unmanned systems and counter-UAS",
+   "topic": "UAS fundamentals",
+   "importance": "S",
+   "importance_was": "S",
+   "status": "full",
+   "status_was": "full",
+   "where": [
+    {
+     "module": "M9.1",
+     "doc": "B09",
+     "section": "ch.1-2 history, classes, examples by size group, expendable UAVs",
+     "pages": [
+      35,
+      78
+     ]
+    },
+    {
+     "module": "M9.7",
+     "doc": "D9",
+     "section": "ch.1 threat UAS groups 1-5 (incl. Shahed row)",
+     "pages": [
+      9,
+      14
+     ]
+    }
+   ],
+   "missing_items": [],
+   "host_for_gap": null,
+   "test_out": true,
+   "reason": "Learner's military background makes this a test-out candidate."
+  },
+  {
+   "id": "M:UAS.1.2",
+   "name": "Endurance and range equations (Breguet, battery energy density)",
+   "domain": "MIL · Unmanned systems and counter-UAS",
+   "topic": "UAS fundamentals",
+   "importance": "K",
+   "importance_was": "K",
+   "status": "full",
+   "status_was": "full",
+   "where": [
+    {
+     "module": "M9.2",
+     "doc": "B09",
+     "section": "4 range, endurance; 6 sources of electric energy, power and thrust",
+     "pages": [
+      103,
+      166
+     ]
+    },
+    {
+     "module": "M15.x (Gilua)",
+     "doc": "E11",
+     "section": "6.12-6.13 range and endurance (Breguet)",
+     "pages": null
+    }
+   ],
+   "missing_items": [
+    "Battery specific energy (Wh/kg) as a scaling law for small drones (endurance vs mass)"
+   ],
+   "host_for_gap": null,
+   "test_out": false,
+   "reason": "Breguet/energy-density scaling is the core order-of-magnitude tool for every drone claim."
+  },
+  {
+   "id": "M:UAS.1.3",
+   "name": "Payload-endurance-cost trade",
+   "domain": "MIL · Unmanned systems and counter-UAS",
+   "topic": "UAS fundamentals",
+   "importance": "K",
+   "importance_was": "K",
+   "status": "partial",
+   "status_was": "missing",
+   "where": [
+    {
+     "module": "M9.2",
+     "doc": "B09",
+     "section": "ch.4 performance",
+     "pages": [
+      103,
+      120
+     ]
+    },
+    {
+     "module": "M9.4",
+     "doc": "B09",
+     "section": "11.1-11.4 payloads, carriage and delivery",
+     "pages": [
+      279,
+      289
+     ]
+    },
+    {
+     "module": "M13.9",
+     "doc": "B12",
+     "section": "SMAD ch.15 payload trades (analogue)",
+     "pages": [
+      456,
+      471
+     ]
+    }
+   ],
+   "missing_items": [
+    "Explicit sizing loop: payload mass fraction -> gross weight -> endurance -> unit cost; worked trade curves"
+   ],
+   "host_for_gap": "M9.2",
+   "test_out": false,
+   "reason": "Needed to judge any \"cheap long-range drone\" claim."
+  },
+  {
+   "id": "M:UAS.1.4",
+   "name": "Attritable vs exquisite: cost per effect",
+   "domain": "MIL · Unmanned systems and counter-UAS",
+   "topic": "UAS fundamentals",
+   "importance": "K",
+   "importance_was": "K",
+   "status": "partial",
+   "status_was": "missing",
+   "where": [
+    {
+     "module": "M9.1",
+     "doc": "B09",
+     "section": "2.x expendable UAVs (Switchblade)",
+     "pages": [
+      74,
+      78
+     ]
+    },
+    {
+     "module": "(unlinked)",
+     "doc": "B16",
+     "section": "1.1.11 managed and virtual attrition",
+     "pages": [
+      75,
+      77
+     ]
+    },
+    {
+     "module": "M7.4",
+     "doc": "B16",
+     "section": "6.3 survivability enhancement trade studies (cost-effectiveness)",
+     "pages": [
+      789,
+      796
+     ]
+    },
+    {
+     "module": "M13.7",
+     "doc": "B12",
+     "section": "SMAD 13.4 cost vs reliability (analogue)",
+     "pages": [
+      383,
+      391
+     ]
+    }
+   ],
+   "missing_items": [
+    "Cost-per-effect formalism: platform cost x loss rate + munition cost per target killed",
+    "Mass vs quality (link Lanchester square law), attritable CCA concepts, Ukraine data"
+   ],
+   "host_for_gap": "M9.9 (new, core): One-way attack drones, FPV and drone-war economics",
+   "test_out": false,
+   "reason": "Upgraded missing->partial: the analytic pieces exist in Ball; the drone application is missing."
+  },
+  {
+   "id": "M:UAS.1.5",
+   "name": "Launch and recovery",
+   "domain": "MIL · Unmanned systems and counter-UAS",
+   "topic": "UAS fundamentals",
+   "importance": "C",
+   "importance_was": "C",
+   "status": "full",
+   "status_was": "full",
+   "where": [
+    {
+     "module": "M9.8",
+     "doc": "B09",
+     "section": "ch.17-19 launch and recovery",
+     "pages": [
+      397,
+      436
+     ]
+    }
+   ],
+   "missing_items": [],
+   "host_for_gap": null,
+   "test_out": true,
+   "reason": "Context; whole module M9.8 is a test-out candidate."
+  },
+  {
+   "id": "M:UAS.2.1",
+   "name": "Levels of autonomy and human control",
+   "domain": "MIL · Unmanned systems and counter-UAS",
+   "topic": "Control, autonomy and payloads",
+   "importance": "K",
+   "importance_was": "K",
+   "status": "full",
+   "status_was": "full",
+   "where": [
+    {
+     "module": "M9.3",
+     "doc": "B09",
+     "section": "ch.9 levels of control, autopilot, autonomy",
+     "pages": [
+      215,
+      244
+     ]
+    },
+    {
+     "module": "M9.4",
+     "doc": "B09",
+     "section": "11.6 autonomy for weapon payloads",
+     "pages": [
+      302,
+      308
+     ]
+    }
+   ],
+   "missing_items": [],
+   "host_for_gap": null,
+   "test_out": false,
+   "reason": "Ethics/human-control debate fan-out."
+  },
+  {
+   "id": "M:UAS.2.2",
+   "name": "Terminal guidance autonomy (machine vision lock-on) under EW",
+   "domain": "MIL · Unmanned systems and counter-UAS",
+   "topic": "Control, autonomy and payloads",
+   "importance": "K",
+   "importance_was": "K",
+   "status": "partial",
+   "status_was": "missing",
+   "where": [
+    {
+     "module": "M9.3",
+     "doc": "B09",
+     "section": "9.x autonomy",
+     "pages": [
+      238,
+      244
+     ]
+    },
+    {
+     "module": "M9.4",
+     "doc": "B09",
+     "section": "11.6 autonomy for weapon payloads",
+     "pages": [
+      302,
+      308
+     ]
+    }
+   ],
+   "missing_items": [
+    "Terminal (\"last-mile\") visual lock-on autonomy under jamming; ATR error rates and their consequences",
+    "Fiber-optic-controlled drones as the counter-EW response",
+    "Link to Gilua E17 learned perception"
+   ],
+   "host_for_gap": "M9.4",
+   "test_out": false,
+   "reason": "Decisive in the current EW-drone cycle."
+  },
+  {
+   "id": "M:UAS.2.3",
+   "name": "Swarm concepts: coordination, communication needs, real state",
+   "domain": "MIL · Unmanned systems and counter-UAS",
+   "topic": "Control, autonomy and payloads",
+   "importance": "S",
+   "importance_was": "S",
+   "status": "partial",
+   "status_was": "missing",
+   "where": [
+    {
+     "module": "M9.3",
+     "doc": "B09",
+     "section": "autonomy levels incl. swarm cognizance",
+     "pages": [
+      240,
+      240
+     ]
+    },
+    {
+     "module": "M9.1",
+     "doc": "B14",
+     "section": "9.3 unmanned combat aerial vehicles, swarms over target (ref)",
+     "pages": [
+      201,
+      213
+     ]
+    }
+   ],
+   "missing_items": [
+    "Coordination/communication scaling of swarms; real fielded state vs claims"
+   ],
+   "host_for_gap": "M9.3",
+   "test_out": false,
+   "reason": "Frequent hype in articles; need a calibrated view."
+  },
+  {
+   "id": "M:UAS.2.4",
+   "name": "Payload types: EO/IR, SIGINT, EW, munitions",
+   "domain": "MIL · Unmanned systems and counter-UAS",
+   "topic": "Control, autonomy and payloads",
+   "importance": "S",
+   "importance_was": "S",
+   "status": "full",
+   "status_was": "partial",
+   "where": [
+    {
+     "module": "M9.4",
+     "doc": "B09",
+     "section": "ch.11-12 payloads",
+     "pages": [
+      279,
+      322
+     ]
+    },
+    {
+     "module": "M3.10",
+     "doc": "B09",
+     "section": "10.1-10.5 sensor payloads, detection/recognition",
+     "pages": [
+      247,
+      278
+     ]
+    }
+   ],
+   "missing_items": [],
+   "host_for_gap": null,
+   "test_out": true,
+   "reason": "Partly test-out."
+  },
+  {
+   "id": "M:UAS.3.1",
+   "name": "Loitering munition design and kill chain",
+   "domain": "MIL · Unmanned systems and counter-UAS",
+   "topic": "Loitering munitions and one-way attack drones",
+   "importance": "K",
+   "importance_was": "K",
+   "status": "partial",
+   "status_was": "missing",
+   "where": [
+    {
+     "module": "M9.1",
+     "doc": "B09",
+     "section": "expendable UAVs/Switchblade",
+     "pages": [
+      74,
+      78
+     ]
+    },
+    {
+     "module": "M9.4",
+     "doc": "B09",
+     "section": "carriage and delivery (loitering munition note)",
+     "pages": [
+      284,
+      289
+     ]
+    },
+    {
+     "module": "M9.7",
+     "doc": "D9",
+     "section": "loitering munition definition",
+     "pages": [
+      10,
+      10
+     ]
+    },
+    {
+     "module": "M12.1",
+     "doc": "D5",
+     "section": "App. Russian UAS table (Lancet)",
+     "pages": [
+      227,
+      227
+     ]
+    }
+   ],
+   "missing_items": [
+    "Design trade: warhead mass vs range vs loiter time vs seeker vs datalink",
+    "Kill chain timing and effectiveness data (Harop, Lancet, Switchblade 600)"
+   ],
+   "host_for_gap": "M9.9 (new, core): One-way attack drones, FPV and drone-war economics",
+   "test_out": false,
+   "reason": "Major modern weapon class; texts only define it."
+  },
+  {
+   "id": "M:UAS.3.2",
+   "name": "Shahed-class one-way attack drones: cost, range, raid sizes",
+   "domain": "MIL · Unmanned systems and counter-UAS",
+   "topic": "Loitering munitions and one-way attack drones",
+   "importance": "K",
+   "importance_was": "K",
+   "status": "missing",
+   "status_was": "missing",
+   "where": [
+    {
+     "module": "M9.7",
+     "doc": "D9",
+     "section": "threat table row only",
+     "pages": [
+      10,
+      10
+     ]
+    }
+   ],
+   "missing_items": [
+    "Shahed-136/Geran-2 design (piston engine, ~40-50 kg warhead, ~1,500-2,500 km, unit cost tens of $k), navigation (GNSS+CRPA), production",
+    "Raid size, saturation and interception statistics (Ukraine 2022-26, Israel April 2024)",
+    "Cost exchange vs interceptors and guns"
+   ],
+   "host_for_gap": "M9.9 (new, core): One-way attack drones, FPV and drone-war economics",
+   "test_out": false,
+   "reason": "Central to air-defense economics debates."
+  },
+  {
+   "id": "M:UAS.3.3",
+   "name": "FPV drones: kill rates, supply, operator training, EW cycle",
+   "domain": "MIL · Unmanned systems and counter-UAS",
+   "topic": "Loitering munitions and one-way attack drones",
+   "importance": "K",
+   "importance_was": "K",
+   "status": "missing",
+   "status_was": "missing",
+   "where": [
+    {
+     "module": "M9.3",
+     "doc": "B09",
+     "section": "FPV/video piloting definition",
+     "pages": [
+      198,
+      198
+     ]
+    }
+   ],
+   "missing_items": [
+    "FPV kill chain, hit-rate estimates, production volumes, operator training pipeline",
+    "EW <-> counter-EW cycle (frequency agility, relays, fiber-optic, terminal autonomy)"
+   ],
+   "host_for_gap": "M9.9 (new, core): One-way attack drones, FPV and drone-war economics",
+   "test_out": false,
+   "reason": "Defining feature of the Ukraine war."
+  },
+  {
+   "id": "M:UAS.3.4",
+   "name": "Mass production and supply chains of drones",
+   "domain": "MIL · Unmanned systems and counter-UAS",
+   "topic": "Loitering munitions and one-way attack drones",
+   "importance": "K",
+   "importance_was": "K",
+   "status": "missing",
+   "status_was": "missing",
+   "where": [],
+   "missing_items": [
+    "Mass production and supply chains (motors, batteries, cameras, Chinese components), unit cost learning curves"
+   ],
+   "host_for_gap": "M9.9 (new, core): One-way attack drones, FPV and drone-war economics (cross-link Acquisition domain)",
+   "test_out": false,
+   "reason": "Industrial capacity determines drone-war outcomes."
+  },
+  {
+   "id": "M:UAS.4.1",
+   "name": "Detection: radar, RF, EO/IR, acoustic; small-RCS problem",
+   "domain": "MIL · Unmanned systems and counter-UAS",
+   "topic": "Counter-UAS",
+   "importance": "K",
+   "importance_was": "K",
+   "status": "partial",
+   "status_was": "partial",
+   "where": [
+    {
+     "module": "M9.7",
+     "doc": "D9",
+     "section": "ch.1 threat and comm channels",
+     "pages": [
+      7,
+      14
+     ]
+    },
+    {
+     "module": "M9.7",
+     "doc": "A09.1",
+     "section": "ML drone detection across radar/RF/EO/acoustic",
+     "pages": null
+    },
+    {
+     "module": "M9.7",
+     "doc": "A02.4",
+     "section": "multistatic radar payload classification",
+     "pages": null
+    },
+    {
+     "module": "M9.7",
+     "doc": "A02.5",
+     "section": "micro-Doppler drones vs birds",
+     "pages": null
+    }
+   ],
+   "missing_items": [
+    "Quantitative detection range for RCS 0.001-0.01 m2 (R ~ sigma^1/4) and low/slow clutter",
+    "RF detection fails against autonomous and fiber-optic drones; acoustic ranges"
+   ],
+   "host_for_gap": "M9.7",
+   "test_out": false,
+   "reason": "Close to full via articles; add the quantitative anchors."
+  },
+  {
+   "id": "M:UAS.4.2",
+   "name": "Defeat: jamming, spoofing, guns, missiles, lasers, interceptor drones, nets",
+   "domain": "MIL · Unmanned systems and counter-UAS",
+   "topic": "Counter-UAS",
+   "importance": "K",
+   "importance_was": "K",
+   "status": "partial",
+   "status_was": "partial",
+   "where": [
+    {
+     "module": "M9.7",
+     "doc": "D9",
+     "section": "ch.3-4 defeat methods list (jamming, spoofing, nets, DE, HPM, capture), App. B equipment",
+     "pages": [
+      21,
+      49
+     ]
+    }
+   ],
+   "missing_items": [
+    "Physics and numbers per defeat: laser power/dwell (tens of kW, seconds), HPM range, gun Pk vs small targets (airburst), interceptor drones",
+    "Layered defense design"
+   ],
+   "host_for_gap": "M9.7",
+   "test_out": false,
+   "reason": "Doctrine lists, no physics."
+  },
+  {
+   "id": "M:UAS.4.3",
+   "name": "C-UAS cost-exchange and layered economics",
+   "domain": "MIL · Unmanned systems and counter-UAS",
+   "topic": "Counter-UAS",
+   "importance": "K",
+   "importance_was": "K",
+   "status": "partial",
+   "status_was": "missing",
+   "where": [
+    {
+     "module": "M9.7",
+     "doc": "B14",
+     "section": "ch.4 target defense; 2.4 salvos (ref)",
+     "pages": [
+      43,
+      83
+     ]
+    },
+    {
+     "module": "M9.7",
+     "doc": "B15",
+     "section": "7.2-7.3 probability of penetration (ref)",
+     "pages": [
+      207,
+      219
+     ]
+    }
+   ],
+   "missing_items": [
+    "Cost-exchange ratio model and magazine depth; layered cost-per-intercept economics"
+   ],
+   "host_for_gap": "M9.7",
+   "test_out": false,
+   "reason": "Upgraded missing->partial: the math is in the ref books; the economic layer is missing."
+  },
+  {
+   "id": "M:UAS.4.4",
+   "name": "Passive defenses (nets, cages, hardening)",
+   "domain": "MIL · Unmanned systems and counter-UAS",
+   "topic": "Counter-UAS",
+   "importance": "S",
+   "importance_was": "S",
+   "status": "full",
+   "status_was": "missing",
+   "where": [
+    {
+     "module": "M9.7",
+     "doc": "D9",
+     "section": "ch.3 passive air defense measures (camouflage, dispersion, hardening)",
+     "pages": [
+      21,
+      27
+     ]
+    }
+   ],
+   "missing_items": [
+    "Vehicle cages/nets effectiveness (Ukraine)"
+   ],
+   "host_for_gap": null,
+   "test_out": true,
+   "reason": "Doctrine-level full; test-out candidate."
+  },
+  {
+   "id": "M:UAS.5.1",
+   "name": "USVs (Black Sea attack drones) and their defense",
+   "domain": "MIL · Unmanned systems and counter-UAS",
+   "topic": "Maritime and ground unmanned systems",
+   "importance": "K",
+   "importance_was": "K",
+   "status": "missing",
+   "status_was": "missing",
+   "where": [],
+   "missing_items": [
+    "Attack USVs (Magura, Sea Baby) vs Black Sea Fleet: design, guidance, detection difficulty (low freeboard/RCS), defense by guns/helicopters, cost exchange"
+   ],
+   "host_for_gap": "M10.5",
+   "test_out": false,
+   "reason": "Changed host from M9.4 to M10.5 (ship self-defense) where the defense side is taught."
+  },
+  {
+   "id": "M:UAS.5.2",
+   "name": "UUVs and seabed warfare",
+   "domain": "MIL · Unmanned systems and counter-UAS",
+   "topic": "Maritime and ground unmanned systems",
+   "importance": "S",
+   "importance_was": "S",
+   "status": "missing",
+   "status_was": "missing",
+   "where": [],
+   "missing_items": [
+    "UUV energy/endurance underwater, navigation and acoustic-comms limits (bits/s), seabed warfare and cable/pipeline vulnerability"
+   ],
+   "host_for_gap": "M10.3",
+   "test_out": false,
+   "reason": "Seabed infrastructure is a rising strategic topic."
+  },
+  {
+   "id": "M:UAS.5.3",
+   "name": "UGVs: logistics and combat roles",
+   "domain": "MIL · Unmanned systems and counter-UAS",
+   "topic": "Maritime and ground unmanned systems",
+   "importance": "S",
+   "importance_was": "S",
+   "status": "missing",
+   "status_was": "missing",
+   "where": [
+    {
+     "module": "M12.2",
+     "doc": "D5",
+     "section": "UGV mentions in Russian reconnaissance",
+     "pages": [
+      74,
+      100
+     ]
+    }
+   ],
+   "missing_items": [
+    "UGV logistics/casevac/combat roles, mobility and comms limits, Ukraine use"
+   ],
+   "host_for_gap": "M9.9 (new, core): One-way attack drones, FPV and drone-war economics",
+   "test_out": false,
+   "reason": ""
+  },
+  {
+   "id": "M:UAS.6.1",
+   "name": "Washburn & Kress UAV chapter: search, detection, information value",
+   "domain": "MIL · Unmanned systems and counter-UAS",
+   "topic": "Learning from UAS models",
+   "importance": "S",
+   "importance_was": "S",
+   "status": "full",
+   "status_was": "missing",
+   "where": [
+    {
+     "module": "M9.1",
+     "doc": "B14",
+     "section": "ch.9 UAV routing, UCAV, information value (ref)",
+     "pages": [
+      188,
+      213
+     ]
+    }
+   ],
+   "missing_items": [],
+   "host_for_gap": null,
+   "test_out": false,
+   "reason": "Merge false miss (refs B14-B17 were outside the registry). Note M9.1 is adv tier; the ch.9 search/route model should be reachable from core."
+  },
+  {
+   "id": "M:SUR.1.1",
+   "name": "Survivability = 1 - susceptibility x vulnerability",
+   "domain": "MIL · Platforms and survivability",
+   "topic": "Survivability framework",
+   "importance": "K",
+   "importance_was": "K",
+   "status": "partial",
+   "status_was": "missing",
+   "where": [
+    {
+     "module": "(unlinked)",
+     "doc": "B16",
+     "section": "ch.1.1.1-1.1.8 survivability, susceptibility, vulnerability, killability; PS = 1 - PH*PK|H; Table 1.2",
+     "pages": [
+      25,
+      60
+     ]
+    },
+    {
+     "module": "(unlinked)",
+     "doc": "B16",
+     "section": "6.1-6.2 survivability program, measures and equations",
+     "pages": [
+      763,
+      788
+     ]
+    }
+   ],
+   "missing_items": [
+    "Material exists but is NOT linked to any module: the core of Ball is outside the syllabus"
+   ],
+   "host_for_gap": "M8.8 (new, core): Combat survivability (Ball): susceptibility, vulnerability, killability, campaign attrition",
+   "test_out": false,
+   "reason": "Merge false miss (B16 outside registry). The central framework of platform survivability."
+  },
+  {
+   "id": "M:SUR.1.2",
+   "name": "Kill chain from threat's view (search-detect-track-engage-hit-kill)",
+   "domain": "MIL · Platforms and survivability",
+   "topic": "Survivability framework",
+   "importance": "K",
+   "importance_was": "K",
+   "status": "partial",
+   "status_was": "missing",
+   "where": [
+    {
+     "module": "(unlinked)",
+     "doc": "B16",
+     "section": "Table 1.2 PA*PD|A*PL|D*PI|L*PH|I chain",
+     "pages": [
+      56,
+      60
+     ]
+    },
+    {
+     "module": "M2.4",
+     "doc": "B16",
+     "section": "4.3 susceptibility modeling: detection, tracking, flyout, miss distance (ref)",
+     "pages": [
+      474,
+      560
+     ]
+    },
+    {
+     "module": "M7.2",
+     "doc": "B07",
+     "section": "ch.5 engagement requirements (defender view)",
+     "pages": [
+      70,
+      113
+     ]
+    }
+   ],
+   "missing_items": [
+    "Link B16 1.1 chain to the new module; teach the threat kill chain as product of conditional probabilities and where each countermeasure acts"
+   ],
+   "host_for_gap": "M8.8 (new, core): Combat survivability (Ball): susceptibility, vulnerability, killability, campaign attrition",
+   "test_out": false,
+   "reason": ""
+  },
+  {
+   "id": "M:SUR.1.3",
+   "name": "Mission attrition rate and campaign survivability",
+   "domain": "MIL · Platforms and survivability",
+   "topic": "Survivability framework",
+   "importance": "K",
+   "importance_was": "K",
+   "status": "partial",
+   "status_was": "missing",
+   "where": [
+    {
+     "module": "(unlinked)",
+     "doc": "B16",
+     "section": "1.1.5-1.1.6 mission loss rate, campaign survivability CS=(1-LR)^N, aircraft remaining, tour of duty",
+     "pages": [
+      48,
+      56
+     ]
+    },
+    {
+     "module": "(unlinked)",
+     "doc": "B16",
+     "section": "1.2.1 historical loss rates",
+     "pages": [
+      106,
+      112
+     ]
+    }
+   ],
+   "missing_items": [
+    "Modern loss-rate data (Ukraine air war, 1991, 2003) to calibrate"
+   ],
+   "host_for_gap": "M8.8 (new, core): Combat survivability (Ball): susceptibility, vulnerability, killability, campaign attrition",
+   "test_out": false,
+   "reason": "Exactly in Ball, unlinked."
+  },
+  {
+   "id": "M:SUR.2.1",
+   "name": "Signature reduction across RF, IR, visual, acoustic",
+   "domain": "MIL · Platforms and survivability",
+   "topic": "Susceptibility reduction",
+   "importance": "K",
+   "importance_was": "K",
+   "status": "full",
+   "status_was": "full",
+   "where": [
+    {
+     "module": "M2.4",
+     "doc": "B02",
+     "section": "ch.6 RCS physics",
+     "pages": [
+      248,
+      283
+     ]
+    },
+    {
+     "module": "M2.4",
+     "doc": "B08",
+     "section": "4.6 stealth",
+     "pages": [
+      193,
+      204
+     ]
+    },
+    {
+     "module": "M2.4",
+     "doc": "B09",
+     "section": "11.5 signature reduction",
+     "pages": [
+      290,
+      301
+     ]
+    },
+    {
+     "module": "M2.4",
+     "doc": "B16",
+     "section": "4.3.2 aircraft signatures; 4.4.4 signature reduction (ref)",
+     "pages": [
+      475,
+      596
+     ]
+    }
+   ],
+   "missing_items": [
+    "Acoustic and visual signatures only briefly"
+   ],
+   "host_for_gap": null,
+   "test_out": false,
+   "reason": ""
+  },
+  {
+   "id": "M:SUR.2.2",
+   "name": "Threat warning, expendables, jamming, tactics",
+   "domain": "MIL · Platforms and survivability",
+   "topic": "Susceptibility reduction",
+   "importance": "S",
+   "importance_was": "S",
+   "status": "full",
+   "status_was": "partial",
+   "where": [
+    {
+     "module": "M4.10",
+     "doc": "B16",
+     "section": "4.4.2 threat warning; 4.4.5 expendables (ref)",
+     "pages": [
+      566,
+      607
+     ]
+    },
+    {
+     "module": "M4.7",
+     "doc": "B16",
+     "section": "4.4.3 noise jammers and deceivers (ref)",
+     "pages": [
+      569,
+      579
+     ]
+    },
+    {
+     "module": "M4.1",
+     "doc": "B08",
+     "section": "6.1 EW overview",
+     "pages": [
+      251,
+      254
+     ]
+    },
+    {
+     "module": "(unlinked)",
+     "doc": "B16",
+     "section": "4.4.6-4.4.7 threat suppression, tactics, flight performance",
+     "pages": [
+      608,
+      617
+     ]
+    }
+   ],
+   "missing_items": [
+    "Link B16 pp.608-617 (SEAD/tactics as susceptibility reduction)"
+   ],
+   "host_for_gap": "M4.10",
+   "test_out": true,
+   "reason": "Partly test-out for an ex-military learner."
+  },
+  {
+   "id": "M:SUR.2.3",
+   "name": "Engagement envelopes and exposure calculation",
+   "domain": "MIL · Platforms and survivability",
+   "topic": "Susceptibility reduction",
+   "importance": "K",
+   "importance_was": "K",
+   "status": "full",
+   "status_was": "partial",
+   "where": [
+    {
+     "module": "M2.4",
+     "doc": "B16",
+     "section": "4.3.3-4.3.6 detection, tracking, engagement, flyout, miss distance (ref)",
+     "pages": [
+      502,
+      560
+     ]
+    },
+    {
+     "module": "M7.2",
+     "doc": "B16",
+     "section": "3.9 mission-threat analysis (ref)",
+     "pages": [
+      430,
+      468
+     ]
+    },
+    {
+     "module": "M7.2",
+     "doc": "B07",
+     "section": "ch.5",
+     "pages": [
+      70,
+      113
+     ]
+    }
+   ],
+   "missing_items": [],
+   "host_for_gap": null,
+   "test_out": false,
+   "reason": "Upgraded partial->full."
+  },
+  {
+   "id": "M:SUR.3.1",
+   "name": "FMECA, critical components, kill trees, P(k/h)",
+   "domain": "MIL · Platforms and survivability",
+   "topic": "Vulnerability reduction",
+   "importance": "K",
+   "importance_was": "S",
+   "status": "partial",
+   "status_was": "missing",
+   "where": [
+    {
+     "module": "(unlinked)",
+     "doc": "B16",
+     "section": "5.1-5.2 vulnerability program, combat data, critical component analysis, FMECA, kill modes, kill trees",
+     "pages": [
+      627,
+      678
+     ]
+    },
+    {
+     "module": "M11.4",
+     "doc": "B16",
+     "section": "5.3 vulnerability assessment: Pk|h, vulnerable area (ref)",
+     "pages": [
+      679,
+      719
+     ]
+    },
+    {
+     "module": "(unlinked)",
+     "doc": "B16",
+     "section": "ch.2 aircraft anatomy, flight-essential functions",
+     "pages": [
+      227,
+      256
+     ]
+    }
+   ],
+   "missing_items": [
+    "Link B16 5.1-5.2 and ch.2"
+   ],
+   "host_for_gap": "M8.8 (new, core): Combat survivability (Ball): susceptibility, vulnerability, killability, campaign attrition",
+   "test_out": false,
+   "reason": "Raised S->K: vulnerable area Av = sum Ap*Pk|h is the quantitative heart of vulnerability."
+  },
+  {
+   "id": "M:SUR.3.2",
+   "name": "Redundancy, separation, shielding, fire suppression",
+   "domain": "MIL · Platforms and survivability",
+   "topic": "Vulnerability reduction",
+   "importance": "S",
+   "importance_was": "S",
+   "status": "full",
+   "status_was": "missing",
+   "where": [
+    {
+     "module": "M8.7",
+     "doc": "B16",
+     "section": "5.4 vulnerability reduction: ABCDEs, redundancy, separation, fire suppression (ref)",
+     "pages": [
+      720,
+      762
+     ]
+    },
+    {
+     "module": "M11.6",
+     "doc": "B16",
+     "section": "5.4.1-5.4.3 (ref)",
+     "pages": [
+      720,
+      730
+     ]
+    },
+    {
+     "module": "M8.7",
+     "doc": "B15",
+     "section": "9.1-9.4 series/parallel reliability (ref)",
+     "pages": [
+      252,
+      257
+     ]
+    }
+   ],
+   "missing_items": [
+    "Hosted in M8.7 (ref tier, utility systems): move to the new survivability module"
+   ],
+   "host_for_gap": "M8.8 (new, core): Combat survivability (Ball): susceptibility, vulnerability, killability, campaign attrition",
+   "test_out": false,
+   "reason": ""
+  },
+  {
+   "id": "M:SUR.3.3",
+   "name": "Battle damage repair",
+   "domain": "MIL · Platforms and survivability",
+   "topic": "Vulnerability reduction",
+   "importance": "C",
+   "importance_was": "C",
+   "status": "partial",
+   "status_was": "missing",
+   "where": [
+    {
+     "module": "(unlinked)",
+     "doc": "B16",
+     "section": "1.1.16 battle damage repair",
+     "pages": [
+      103,
+      105
+     ]
+    }
+   ],
+   "missing_items": [],
+   "host_for_gap": null,
+   "test_out": false,
+   "reason": "Context."
+  },
+  {
+   "id": "M:SUR.4.1",
+   "name": "Fighter generations and capability discriminators",
+   "domain": "MIL · Platforms and survivability",
+   "topic": "Air platforms and avionics",
+   "importance": "S",
+   "importance_was": "S",
+   "status": "partial",
+   "status_was": "partial",
+   "where": [
+    {
+     "module": "M8.1",
+     "doc": "B08",
+     "section": "1.x air superiority, roles",
+     "pages": [
+      31,
+      35
+     ]
+    },
+    {
+     "module": "M6.7",
+     "doc": "B08",
+     "section": "F-35",
+     "pages": [
+      388,
+      393
+     ]
+    },
+    {
+     "module": "M8.1",
+     "doc": "B16",
+     "section": "3.1 military aircraft roles and missions (ref)",
+     "pages": [
+      257,
+      276
+     ]
+    }
+   ],
+   "missing_items": [
+    "Generation taxonomy and real discriminators (signature, sensor fusion, networking, range/payload), 6th-gen programs, J-20/Su-57 assessment"
+   ],
+   "host_for_gap": "M8.1",
+   "test_out": true,
+   "reason": "Test-out candidate for basics."
+  },
+  {
+   "id": "M:SUR.4.2",
+   "name": "Avionics architecture and data buses",
+   "domain": "MIL · Platforms and survivability",
+   "topic": "Air platforms and avionics",
+   "importance": "C",
+   "importance_was": "C",
+   "status": "full",
+   "status_was": "full",
+   "where": [
+    {
+     "module": "M8.2",
+     "doc": "B08",
+     "section": "2.1-2.5 architectures and buses",
+     "pages": [
+      71,
+      106
+     ]
+    }
+   ],
+   "missing_items": [],
+   "host_for_gap": null,
+   "test_out": false,
+   "reason": ""
+  },
+  {
+   "id": "M:SUR.4.3",
+   "name": "Sensor fusion in fighters",
+   "domain": "MIL · Platforms and survivability",
+   "topic": "Air platforms and avionics",
+   "importance": "S",
+   "importance_was": "S",
+   "status": "partial",
+   "status_was": "partial",
+   "where": [
+    {
+     "module": "M3.8",
+     "doc": "B03",
+     "section": "image fusion",
+     "pages": [
+      361,
+      364
+     ]
+    },
+    {
+     "module": "M6.7",
+     "doc": "B08",
+     "section": "F-35 integrated sensors",
+     "pages": [
+      388,
+      393
+     ]
+    }
+   ],
+   "missing_items": [
+    "Multi-sensor track fusion concept in 5th-gen fighters (link M2.15 tracking, Gilua estimation)"
+   ],
+   "host_for_gap": "M6.7",
+   "test_out": false,
+   "reason": ""
+  },
+  {
+   "id": "M:SUR.4.4",
+   "name": "HUD/HMD and cueing",
+   "domain": "MIL · Platforms and survivability",
+   "topic": "Air platforms and avionics",
+   "importance": "C",
+   "importance_was": "C",
+   "status": "full",
+   "status_was": "missing",
+   "where": [
+    {
+     "module": "M8.5",
+     "doc": "B08",
+     "section": "11.3-11.4 HUD, HMD",
+     "pages": [
+      439,
+      470
+     ]
+    }
+   ],
+   "missing_items": [],
+   "host_for_gap": null,
+   "test_out": false,
+   "reason": "Merge false miss."
+  },
+  {
+   "id": "M:SUR.4.5",
+   "name": "IFF and transponders",
+   "domain": "MIL · Platforms and survivability",
+   "topic": "Air platforms and avionics",
+   "importance": "S",
+   "importance_was": "S",
+   "status": "full",
+   "status_was": "full",
+   "where": [
+    {
+     "module": "M8.4",
+     "doc": "B08",
+     "section": "7.1, 7.3 CNI, transponders, IFF",
+     "pages": [
+      279,
+      294
+     ]
+    }
+   ],
+   "missing_items": [],
+   "host_for_gap": null,
+   "test_out": true,
+   "reason": "Test-out candidate."
+  },
+  {
+   "id": "M:SUR.4.6",
+   "name": "Air combat maneuvering energy concepts",
+   "domain": "MIL · Platforms and survivability",
+   "topic": "Air platforms and avionics",
+   "importance": "S",
+   "importance_was": "S",
+   "status": "full",
+   "status_was": "full",
+   "where": [
+    {
+     "module": "M8.3",
+     "doc": "A08.1",
+     "section": "Boyd Aerial Attack Study",
+     "pages": null
+    },
+    {
+     "module": "M8.3",
+     "doc": "B06",
+     "section": "5.16 missile launch envelope",
+     "pages": [
+      368,
+      374
+     ]
+    },
+    {
+     "module": "M8.3",
+     "doc": "B15",
+     "section": "5.1-5.2 duels (ref)",
+     "pages": [
+      134,
+      141
+     ]
+    }
+   ],
+   "missing_items": [
+    "Energy-maneuverability (specific excess power Ps) explicitly"
+   ],
+   "host_for_gap": "M8.3",
+   "test_out": true,
+   "reason": "Test-out candidate for tactics; keep E-M physics."
+  },
+  {
+   "id": "M:SUR.4.7",
+   "name": "FMS and air traffic management",
+   "domain": "MIL · Platforms and survivability",
+   "topic": "Air platforms and avionics",
+   "importance": "N",
+   "importance_was": "N",
+   "status": "full",
+   "status_was": "full",
+   "where": [
+    {
+     "module": "M8.6",
+     "doc": "B08",
+     "section": "8.6 FMS, 8.10 GATM",
+     "pages": [
+      314,
+      355
+     ]
+    }
+   ],
+   "missing_items": [],
+   "host_for_gap": null,
+   "test_out": false,
+   "reason": "Not needed."
+  },
+  {
+   "id": "M:SUR.5.1",
+   "name": "Sortie generation rate and its drivers",
+   "domain": "MIL · Platforms and survivability",
+   "topic": "Sortie generation and basing",
+   "importance": "K",
+   "importance_was": "K",
+   "status": "partial",
+   "status_was": "missing",
+   "where": [
+    {
+     "module": "(unlinked)",
+     "doc": "B16",
+     "section": "1.1.10 survivability and effectiveness: sortie generation rate, mission availability",
+     "pages": [
+      68,
+      74
+     ]
+    },
+    {
+     "module": "(unlinked)",
+     "doc": "B15",
+     "section": "ch.12 aircraft-state Markov model of air operations",
+     "pages": [
+      320,
+      329
+     ]
+    },
+    {
+     "module": "M13.17",
+     "doc": "B15",
+     "section": "9.9-9.10 maintainability, operational availability (ref)",
+     "pages": [
+      276,
+      279
+     ]
+    }
+   ],
+   "missing_items": [
+    "SGR drivers (turnaround, mission-capable rate, aircrew, munitions loading), surge vs sustained, real MC rates"
+   ],
+   "host_for_gap": "M8.9 (new, core): Air campaign capacity: sortie generation, basing, tankers",
+   "test_out": false,
+   "reason": "Upgraded missing->partial: the definitions and a model exist, unlinked."
+  },
+  {
+   "id": "M:SUR.5.2",
+   "name": "Air base attack and resilience (runway cratering, shelters, dispersal)",
+   "domain": "MIL · Platforms and survivability",
+   "topic": "Sortie generation and basing",
+   "importance": "K",
+   "importance_was": "K",
+   "status": "missing",
+   "status_was": "missing",
+   "where": [
+    {
+     "module": "M6.8",
+     "doc": "B15",
+     "section": "passive defense by shelters (for missiles), p.174 (ref)",
+     "pages": [
+      174,
+      174
+     ]
+    }
+   ],
+   "missing_items": [
+    "Runway cratering and repair time, hardened shelters, dispersal (ACE), missile threat to bases (PLARF), sortie degradation models"
+   ],
+   "host_for_gap": "M8.9 (new, core): Air campaign capacity: sortie generation, basing, tankers",
+   "test_out": false,
+   "reason": "Central to Taiwan/Pacific analysis."
+  },
+  {
+   "id": "M:SUR.5.3",
+   "name": "Tanker and range constraints",
+   "domain": "MIL · Platforms and survivability",
+   "topic": "Sortie generation and basing",
+   "importance": "K",
+   "importance_was": "K",
+   "status": "missing",
+   "status_was": "missing",
+   "where": [
+    {
+     "module": "M8.1",
+     "doc": "B08",
+     "section": "1.10 air-to-air refuelling (descriptive)",
+     "pages": [
+      59,
+      62
+     ]
+    }
+   ],
+   "missing_items": [
+    "Combat radius vs tanker offload (Breguet), tanker vulnerability, Pacific distances"
+   ],
+   "host_for_gap": "M8.9 (new, core): Air campaign capacity: sortie generation, basing, tankers (prereq UAS.1.2 Breguet)",
+   "test_out": false,
+   "reason": ""
+  },
+  {
+   "id": "M:SUR.6.1",
+   "name": "Avionics bus standards (1553, ARINC, Fibre Channel) detail",
+   "domain": "MIL · Platforms and survivability",
+   "topic": "Platform detail (skip-list)",
+   "importance": "N",
+   "importance_was": "N",
+   "status": "full",
+   "status_was": "missing",
+   "where": [
+    {
+     "module": "M8.2",
+     "doc": "B08",
+     "section": "2.2 aerospace data buses",
+     "pages": [
+      84,
+      93
+     ]
+    }
+   ],
+   "missing_items": [],
+   "host_for_gap": null,
+   "test_out": false,
+   "reason": "Merge false miss; not needed."
+  },
+  {
+   "id": "M:SUR.6.2",
+   "name": "Vehicle management systems (fuel, hydraulics)",
+   "domain": "MIL · Platforms and survivability",
+   "topic": "Platform detail (skip-list)",
+   "importance": "N",
+   "importance_was": "N",
+   "status": "full",
+   "status_was": "full",
+   "where": [
+    {
+     "module": "M8.7",
+     "doc": "B08",
+     "section": "ch.10",
+     "pages": [
+      400,
+      431
+     ]
+    }
+   ],
+   "missing_items": [],
+   "host_for_gap": null,
+   "test_out": false,
+   "reason": "Not needed."
+  },
+  {
+   "id": "M:SUR.6.3",
+   "name": "Displays technology detail",
+   "domain": "MIL · Platforms and survivability",
+   "topic": "Platform detail (skip-list)",
+   "importance": "N",
+   "importance_was": "N",
+   "status": "full",
+   "status_was": "missing",
+   "where": [
+    {
+     "module": "M8.5",
+     "doc": "B08",
+     "section": "11.5-11.7 display technology",
+     "pages": [
+      471,
+      502
+     ]
+    }
+   ],
+   "missing_items": [],
+   "host_for_gap": null,
+   "test_out": false,
+   "reason": "Not needed."
+  },
+  {
+   "id": "M:SUR.6.4",
+   "name": "Tank powertrain and suspension detail",
+   "domain": "MIL · Platforms and survivability",
+   "topic": "Platform detail (skip-list)",
+   "importance": "N",
+   "importance_was": "N",
+   "status": "full",
+   "status_was": "missing",
+   "where": [
+    {
+     "module": "M11.7",
+     "doc": "B11",
+     "section": "App. III mobility",
+     "pages": [
+      330,
+      361
+     ]
+    }
+   ],
+   "missing_items": [],
+   "host_for_gap": null,
+   "test_out": false,
+   "reason": "Out of panel scope (weapons effects panel)."
+  },
+  {
+   "id": "M:SUR.7.1",
+   "name": "Armored vehicle survivability onion (don't be seen... don't be killed)",
+   "domain": "MIL · Platforms and survivability",
+   "topic": "Land platform survivability",
+   "importance": "K",
+   "importance_was": "K",
+   "status": "partial",
+   "status_was": "missing",
+   "where": [
+    {
+     "module": "M11.6",
+     "doc": "B11",
+     "section": "App. II protection: armour materials, ERA, active protection",
+     "pages": [
+      312,
+      330
+     ]
+    },
+    {
+     "module": "M11.6",
+     "doc": "B16",
+     "section": "5.4.1-5.4.3 vulnerability reduction principles (ref)",
+     "pages": [
+      720,
+      730
+     ]
+    }
+   ],
+   "missing_items": [
+    "Explicit layered \"onion\" (not seen / not acquired / not hit / not penetrated / not killed) mapped to Ball's susceptibility x vulnerability",
+    "Top-attack and drone threat to armor, cages, APS performance"
+   ],
+   "host_for_gap": "M11.6",
+   "test_out": true,
+   "reason": "Concept likely known to the learner (test-out of the framing), but the drone-era update is missing."
+  },
+  {
+   "id": "M:SUR.7.2",
+   "name": "Signature management of ground vehicles (thermal, acoustic)",
+   "domain": "MIL · Platforms and survivability",
+   "topic": "Land platform survivability",
+   "importance": "S",
+   "importance_was": "S",
+   "status": "missing",
+   "status_was": "missing",
+   "where": [
+    {
+     "module": "M11.8",
+     "doc": "B11",
+     "section": "Shtora and scattered mentions",
+     "pages": [
+      190,
+      190
+     ]
+    }
+   ],
+   "missing_items": [
+    "Thermal/acoustic/visual signature management of ground vehicles (multispectral camouflage, exhaust cooling)"
+   ],
+   "host_for_gap": "M11.6",
+   "test_out": false,
+   "reason": ""
+  },
+  {
+   "id": "M:SUR.7.3",
+   "name": "Crew survivability vs vehicle kill (mobility/firepower/catastrophic kills)",
+   "domain": "MIL · Platforms and survivability",
+   "topic": "Land platform survivability",
+   "importance": "S",
+   "importance_was": "S",
+   "status": "missing",
+   "status_was": "missing",
+   "where": [
+    {
+     "module": "(analogue)",
+     "doc": "B16",
+     "section": "aircraft kill categories (attrition, mission abort)",
+     "pages": [
+      27,
+      28
+     ]
+    }
+   ],
+   "missing_items": [
+    "M/F/K-kill definitions for AFVs, crew survivability (ammunition compartmentalization, blow-out panels), turret-toss data"
+   ],
+   "host_for_gap": "M11.6",
+   "test_out": false,
+   "reason": ""
+  },
+  {
+   "id": "M:SUR.8.1",
+   "name": "Ship vulnerability: how many hits to put out of action (staying power)",
+   "domain": "MIL · Platforms and survivability",
+   "topic": "Naval platform survivability",
+   "importance": "K",
+   "importance_was": "K",
+   "status": "missing",
+   "status_was": "missing",
+   "where": [
+    {
+     "module": "(mention)",
+     "doc": "B16",
+     "section": "surface-ship deactivation diagram mention",
+     "pages": [
+      751,
+      751
+     ]
+    }
+   ],
+   "missing_items": [
+    "Ship staying power: hits to put out of action vs displacement (historical data), damage control",
+    "Hughes salvo model link (NAV.4.2)"
+   ],
+   "host_for_gap": "M10.5",
+   "test_out": false,
+   "reason": "No open text in the library covers it."
+  },
+  {
+   "id": "M:SUR.8.2",
+   "name": "Ship signatures and EMCON at sea",
+   "domain": "MIL · Platforms and survivability",
+   "topic": "Naval platform survivability",
+   "importance": "S",
+   "importance_was": "S",
+   "status": "partial",
+   "status_was": "missing",
+   "where": [
+    {
+     "module": "M10.2",
+     "doc": "B10",
+     "section": "16 self-noise, radiated noise",
+     "pages": [
+      193,
+      198
+     ]
+    },
+    {
+     "module": "M10.4",
+     "doc": "B10",
+     "section": "26 degaussing, influence signatures",
+     "pages": [
+      303,
+      303
+     ]
+    },
+    {
+     "module": "M10.5",
+     "doc": "A10.4",
+     "section": "ship IR signature vs IR ASCM",
+     "pages": null
+    },
+    {
+     "module": "M10.5",
+     "doc": "A10.3",
+     "section": "ship RCS and chaff seduction",
+     "pages": null
+    },
+    {
+     "module": "M2.17",
+     "doc": "B08",
+     "section": "EMCON",
+     "pages": [
+      203,
+      203
+     ]
+    }
+   ],
+   "missing_items": [
+    "Integrated ship signature management; EMCON tactics vs passive ESM/OTH targeting"
+   ],
+   "host_for_gap": "M10.5",
+   "test_out": false,
+   "reason": "Upgraded missing->partial."
+  },
+  {
+   "id": "M:NAV.1.1",
+   "name": "Sound speed profile, propagation paths, convergence zones",
+   "domain": "MIL · Naval and undersea warfare",
+   "topic": "Underwater acoustics",
+   "importance": "K",
+   "importance_was": "K",
+   "status": "full",
+   "status_was": "partial",
+   "where": [
+    {
+     "module": "M10.1",
+     "doc": "B10",
+     "section": "15 propagation paths, SVP, layer, shadow zone, CZ, bottom bounce, ray tracing",
+     "pages": [
+      181,
+      192
+     ]
+    }
+   ],
+   "missing_items": [
+    "Deep sound channel only mentioned (p.221); Arctic/shallow-water acoustics"
+   ],
+   "host_for_gap": null,
+   "test_out": false,
+   "reason": "Upgraded partial->full (Hall ch.15 covers it at intro level)."
+  },
+  {
+   "id": "M:NAV.1.2",
+   "name": "Sonar equation (active and passive)",
+   "domain": "MIL · Naval and undersea warfare",
+   "topic": "Underwater acoustics",
+   "importance": "K",
+   "importance_was": "K",
+   "status": "full",
+   "status_was": "full",
+   "where": [
+    {
+     "module": "M10.2",
+     "doc": "B10",
+     "section": "16 active/passive sonar equation, DI, DT, TL, FOM",
+     "pages": [
+      191,
+      210
+     ]
+    }
+   ],
+   "missing_items": [],
+   "host_for_gap": null,
+   "test_out": false,
+   "reason": ""
+  },
+  {
+   "id": "M:NAV.1.3",
+   "name": "Noise sources and ship/submarine signatures",
+   "domain": "MIL · Naval and undersea warfare",
+   "topic": "Underwater acoustics",
+   "importance": "S",
+   "importance_was": "S",
+   "status": "full",
+   "status_was": "full",
+   "where": [
+    {
+     "module": "M10.2",
+     "doc": "B10",
+     "section": "16 ambient noise, self-noise, cavitation",
+     "pages": [
+      193,
+      198
+     ]
+    },
+    {
+     "module": "M10.3",
+     "doc": "A10.8",
+     "section": "hydro/thermo wakes of underwater vehicles",
+     "pages": null
+    }
+   ],
+   "missing_items": [
+    "Submarine quieting trend (source level decline) and tonal signatures"
+   ],
+   "host_for_gap": null,
+   "test_out": false,
+   "reason": "Merge matched E09 electronics noise (false); Hall is the real source."
+  },
+  {
+   "id": "M:NAV.2.1",
+   "name": "Sonar types (hull, towed array, dipping, sonobuoys)",
+   "domain": "MIL · Naval and undersea warfare",
+   "topic": "ASW systems",
+   "importance": "S",
+   "importance_was": "S",
+   "status": "full",
+   "status_was": "full",
+   "where": [
+    {
+     "module": "M10.3",
+     "doc": "B10",
+     "section": "17 active/passive systems, VDS, TASS, sonobuoys, bistatic",
+     "pages": [
+      209,
+      222
+     ]
+    },
+    {
+     "module": "M10.3",
+     "doc": "A10.5",
+     "section": "active sonar tracking",
+     "pages": null
+    },
+    {
+     "module": "M10.3",
+     "doc": "A10.6",
+     "section": "multistatic benchmark",
+     "pages": null
+    }
+   ],
+   "missing_items": [],
+   "host_for_gap": null,
+   "test_out": false,
+   "reason": ""
+  },
+  {
+   "id": "M:NAV.2.2",
+   "name": "Non-acoustic detection (MAD, wake, space-based)",
+   "domain": "MIL · Naval and undersea warfare",
+   "topic": "ASW systems",
+   "importance": "S",
+   "importance_was": "S",
+   "status": "full",
+   "status_was": "full",
+   "where": [
+    {
+     "module": "M10.3",
+     "doc": "B10",
+     "section": "17 non-acoustic detection: visual, radar, IR, MAD",
+     "pages": [
+      223,
+      226
+     ]
+    },
+    {
+     "module": "M10.3",
+     "doc": "A10.8",
+     "section": "wakes",
+     "pages": null
+    }
+   ],
+   "missing_items": [
+    "Space-based detection claims (the \"transparent ocean\" debate)"
+   ],
+   "host_for_gap": null,
+   "test_out": false,
+   "reason": ""
+  },
+  {
+   "id": "M:NAV.2.3",
+   "name": "ASW search and barrier models",
+   "domain": "MIL · Naval and undersea warfare",
+   "topic": "ASW systems",
+   "importance": "K",
+   "importance_was": "K",
+   "status": "partial",
+   "status_was": "missing",
+   "where": [
+    {
+     "module": "M3.10/M2.3/M3.11",
+     "doc": "B14",
+     "section": "7.2-7.6 sweep width, detection laws, barrier patrol, moving targets (ref, not linked to naval modules)",
+     "pages": [
+      138,
+      161
+     ]
+    },
+    {
+     "module": "M2.3/M3.11",
+     "doc": "B15",
+     "section": "ch.10 target detection, search (ref)",
+     "pages": [
+      282,
+      303
+     ]
+    }
+   ],
+   "missing_items": [
+    "Link B14 7.4 barrier patrol (pp.146-148) and 7.6 (pp.154-161) to M10.3; ASW applications (datum search, sonobuoy patterns, barrier vs transiting SSN)"
+   ],
+   "host_for_gap": "M10.3",
+   "test_out": false,
+   "reason": "Material exists; needs linking and an ASW worked example."
+  },
+  {
+   "id": "M:NAV.3.1",
+   "name": "Torpedo guidance and effects",
+   "domain": "MIL · Naval and undersea warfare",
+   "topic": "Torpedoes and mines",
+   "importance": "S",
+   "importance_was": "S",
+   "status": "full",
+   "status_was": "full",
+   "where": [
+    {
+     "module": "M10.4",
+     "doc": "B10",
+     "section": "26 torpedoes",
+     "pages": [
+      299,
+      302
+     ]
+    }
+   ],
+   "missing_items": [
+    "Torpedo speed-range-noise trade, wake homing"
+   ],
+   "host_for_gap": null,
+   "test_out": false,
+   "reason": ""
+  },
+  {
+   "id": "M:NAV.3.2",
+   "name": "Mine warfare: minefield models, MCM rates",
+   "domain": "MIL · Naval and undersea warfare",
+   "topic": "Torpedoes and mines",
+   "importance": "K",
+   "importance_was": "K",
+   "status": "full",
+   "status_was": "full",
+   "where": [
+    {
+     "module": "M10.4",
+     "doc": "B10",
+     "section": "26 mines, influence mechanisms",
+     "pages": [
+      302,
+      308
+     ]
+    },
+    {
+     "module": "M10.4",
+     "doc": "B14",
+     "section": "ch.8 mine warfare: minefield models, UMPM, clearance, mine games (ref)",
+     "pages": [
+      164,
+      187
+     ]
+    }
+   ],
+   "missing_items": [],
+   "host_for_gap": null,
+   "test_out": false,
+   "reason": ""
+  },
+  {
+   "id": "M:NAV.4.1",
+   "name": "Ship self-defense layers vs ASCM",
+   "domain": "MIL · Naval and undersea warfare",
+   "topic": "Ship defense and naval salvo warfare",
+   "importance": "K",
+   "importance_was": "K",
+   "status": "partial",
+   "status_was": "missing",
+   "where": [
+    {
+     "module": "M10.5",
+     "doc": "A10.3",
+     "section": "Kumar 1990: ASM problem, hard/soft kill layers, CIWS, chaff",
+     "pages": null
+    },
+    {
+     "module": "M10.5",
+     "doc": "A10.4",
+     "section": "IR offboard decoys",
+     "pages": null
+    },
+    {
+     "module": "M10.5",
+     "doc": "A10.2",
+     "section": "low-altitude maritime radar detection",
+     "pages": null
+    },
+    {
+     "module": "M10.5",
+     "doc": "B15",
+     "section": "7.2-7.3 probability of penetration (ref)",
+     "pages": [
+      207,
+      219
+     ]
+    },
+    {
+     "module": "M10.5",
+     "doc": "B14",
+     "section": "ch.3 shoot-look-shoot (ref)",
+     "pages": [
+      52,
+      69
+     ]
+    },
+    {
+     "module": "M2.x",
+     "doc": "B02b",
+     "section": "4 fire-control radar, CIWS",
+     "pages": [
+      187,
+      190
+     ]
+    }
+   ],
+   "missing_items": [
+    "Modern layers with numbers (SM-2/SM-6/ESSM/RAM/CIWS ranges, Pk, reaction time)",
+    "Red Sea 2023-25 and Moskva lessons; cost per intercept"
+   ],
+   "host_for_gap": "M10.5",
+   "test_out": false,
+   "reason": "Upgraded missing->partial (articles were outside the registry)."
+  },
+  {
+   "id": "M:NAV.4.2",
+   "name": "Hughes salvo model and staying power",
+   "domain": "MIL · Naval and undersea warfare",
+   "topic": "Ship defense and naval salvo warfare",
+   "importance": "K",
+   "importance_was": "K",
+   "status": "missing",
+   "status_was": "missing",
+   "where": [],
+   "missing_items": [
+    "Hughes salvo equations (striking power, staying power, defensive power, scouting), \"fire effectively first\", stochastic critique (Armstrong)"
+   ],
+   "host_for_gap": "M10.5 (prereq Lanchester: M12.2 ref B14 ch.5)",
+   "test_out": false,
+   "reason": "The standard model for naval combat; absent from every library book."
+  },
+  {
+   "id": "M:NAV.4.3",
+   "name": "VLS reload at sea and magazine constraints",
+   "domain": "MIL · Naval and undersea warfare",
+   "topic": "Ship defense and naval salvo warfare",
+   "importance": "K",
+   "importance_was": "K",
+   "status": "missing",
+   "status_was": "missing",
+   "where": [],
+   "missing_items": [
+    "VLS magazine depth, at-sea reload limits, magazine-depth vs salvo-size arithmetic"
+   ],
+   "host_for_gap": "M10.5",
+   "test_out": false,
+   "reason": ""
+  },
+  {
+   "id": "M:NAV.4.4",
+   "name": "Anti-ship ballistic missiles and long-range kill chains",
+   "domain": "MIL · Naval and undersea warfare",
+   "topic": "Ship defense and naval salvo warfare",
+   "importance": "K",
+   "importance_was": "K",
+   "status": "partial",
+   "status_was": "full",
+   "where": [
+    {
+     "module": "M6.8",
+     "doc": "B06",
+     "section": "6.x ballistic missiles (generic)",
+     "pages": [
+      380,
+      518
+     ]
+    },
+    {
+     "module": "M2.20",
+     "doc": "B02b",
+     "section": "2.5.9 OTH radar (Jindalee)",
+     "pages": [
+      105,
+      106
+     ]
+    }
+   ],
+   "missing_items": [
+    "ASBM specifics (DF-21D/DF-26 terminal seeker, MaRV), OTH targeting chain (space ISR, OTH radar, SIGINT) and its disruption"
+   ],
+   "host_for_gap": "M10.5 (cross-link M6.8, M13.23)",
+   "test_out": false,
+   "reason": "Merge \"full\" was a false match on the M6.8 intro page."
+  },
+  {
+   "id": "M:NAV.5.1",
+   "name": "Transducer and array design detail",
+   "domain": "MIL · Naval and undersea warfare",
+   "topic": "Naval engineering detail (skip-list)",
+   "importance": "N",
+   "importance_was": "N",
+   "status": "partial",
+   "status_was": "partial",
+   "where": [
+    {
+     "module": "M10.3",
+     "doc": "B10",
+     "section": "17 transducer array basics",
+     "pages": [
+      210,
+      210
+     ]
+    }
+   ],
+   "missing_items": [],
+   "host_for_gap": null,
+   "test_out": false,
+   "reason": "Not needed."
+  },
+  {
+   "id": "M:NAV.5.2",
+   "name": "Detailed ray-tracing computation",
+   "domain": "MIL · Naval and undersea warfare",
+   "topic": "Naval engineering detail (skip-list)",
+   "importance": "N",
+   "importance_was": "N",
+   "status": "full",
+   "status_was": "full",
+   "where": [
+    {
+     "module": "M10.1",
+     "doc": "B10",
+     "section": "15 ray tracing",
+     "pages": [
+      184,
+      190
+     ]
+    }
+   ],
+   "missing_items": [],
+   "host_for_gap": null,
+   "test_out": false,
+   "reason": "Merge matched optical ray tracing (false)."
+  },
+  {
+   "id": "M:NAV.6.1",
+   "name": "Distributed maritime operations and fleet architecture debates",
+   "domain": "MIL · Naval and undersea warfare",
+   "topic": "Naval force employment",
+   "importance": "S",
+   "importance_was": "S",
+   "status": "missing",
+   "status_was": "missing",
+   "where": [],
+   "missing_items": [
+    "Distributed maritime operations, numbers vs quality, unmanned fleet architecture debates"
+   ],
+   "host_for_gap": "M10.5",
+   "test_out": false,
+   "reason": ""
+  },
+  {
+   "id": "M:NAV.6.2",
+   "name": "Submarine vs surface fleet balance and undersea advantage",
+   "domain": "MIL · Naval and undersea warfare",
+   "topic": "Naval force employment",
+   "importance": "K",
+   "importance_was": "S",
+   "status": "missing",
+   "status_was": "missing",
+   "where": [],
+   "missing_items": [
+    "Undersea advantage: SSN/SSK capabilities, AUKUS, Chinese ASW gap, submarine vs surface survivability under missile threat"
+   ],
+   "host_for_gap": "M10.3",
+   "test_out": false,
+   "reason": "Raised S->K: strategic balance question for any naval article."
+  },
+  {
+   "id": "M:NAV.6.3",
+   "name": "Littoral threats (coastal missiles, drones, mines) to navies",
+   "domain": "MIL · Naval and undersea warfare",
+   "topic": "Naval force employment",
+   "importance": "K",
+   "importance_was": "K",
+   "status": "missing",
+   "status_was": "missing",
+   "where": [
+    {
+     "module": "M12.1/M12.2",
+     "doc": "D5",
+     "section": "coastal missile and artillery troops mentions",
+     "pages": [
+      35,
+      35
+     ]
+    },
+    {
+     "module": "M12.4",
+     "doc": "D6",
+     "section": "land-based antiship systems mention",
+     "pages": [
+      19,
+      19
+     ]
+    }
+   ],
+   "missing_items": [
+    "Littoral A2/AD: coastal ASCM batteries, drones, mines vs navies (Black Sea, Red Sea, Taiwan Strait)"
+   ],
+   "host_for_gap": "M10.5",
+   "test_out": false,
+   "reason": ""
+  }
+ ],
+ "added": [
+  {
+   "id": "ADD:SP.1",
+   "domain": "Space",
+   "name": "Satellite relative motion and RPO (Clohessy-Wiltshire): inspector and co-orbital operations",
+   "importance": "K",
+   "status": "partial",
+   "where": [
+    {
+     "module": "M13.5",
+     "doc": "B12",
+     "section": "SMAD 8.5 satellite relative motion",
+     "pages": [
+      202,
+      207
+     ]
+    }
+   ],
+   "missing_items": [
+    "Application to RPO/co-orbital ASAT timelines and delta-v"
+   ],
+   "host_for_gap": "M13.23 (new, core): Space control: counterspace, SDA, resilience",
+   "reason": "Physics base for the most-discussed counterspace threat."
+  },
+  {
+   "id": "ADD:SP.2",
+   "domain": "Space",
+   "name": "Mega-constellations (Starlink/Guowang): capacity, economics, military use and vulnerability",
+   "importance": "K",
+   "status": "partial",
+   "where": [
+    {
+     "module": "M13.17",
+     "doc": "B12",
+     "section": "SMAD 23.1-23.2",
+     "pages": [
+      714,
+      723
+     ]
+    }
+   ],
+   "missing_items": [
+    "2019-2026 constellation data, user terminals, jamming resistance"
+   ],
+   "host_for_gap": "M13.23 (new, core): Space control: counterspace, SDA, resilience",
+   "reason": "Defining change in space since the textbook."
+  },
+  {
+   "id": "ADD:SP.3",
+   "domain": "Space",
+   "name": "In-space and electric propulsion (missing SMAD ch.18)",
+   "importance": "S",
+   "status": "missing",
+   "where": [],
+   "missing_items": [
+    "Isp vs thrust, Hall thrusters, maneuverable satellites, station-keeping budgets"
+   ],
+   "host_for_gap": "M13.12 / obtain SMAD ch.18 pages",
+   "reason": "Scan gap; maneuver is a counterspace and resilience lever."
+  },
+  {
+   "id": "ADD:SP.4",
+   "domain": "Space",
+   "name": "Space-object signatures and detectability (optical brightness, RCS of satellites)",
+   "importance": "S",
+   "status": "missing",
+   "where": [],
+   "missing_items": [
+    "Visual magnitude vs size/altitude; stealthy satellites claims"
+   ],
+   "host_for_gap": "M13.23 (new, core): Space control: counterspace, SDA, resilience",
+   "reason": "Needed to judge SDA and hiding claims."
+  },
+  {
+   "id": "ADD:UAS.1",
+   "domain": "UAS",
+   "name": "EW vs drone datalinks: J/S geometry for control/video links, frequency agility, relays, fiber-optic tethers",
+   "importance": "K",
+   "status": "partial",
+   "where": [
+    {
+     "module": "M9.5",
+     "doc": "B09",
+     "section": "ch.13-16 anti-jam margin, SNR budget",
+     "pages": [
+      325,
+      394
+     ]
+    },
+    {
+     "module": "M4.11",
+     "doc": "B04",
+     "section": "5.7-5.10 comm jamming",
+     "pages": [
+      150,
+      171
+     ]
+    }
+   ],
+   "missing_items": [
+    "Application to FPV/Group 1-2 links; fiber-optic drones"
+   ],
+   "host_for_gap": "M9.9 (new, core): One-way attack drones, FPV and drone-war economics",
+   "reason": "Physics of the current drone-EW cycle; base exists in M9.5."
+  },
+  {
+   "id": "ADD:UAS.2",
+   "domain": "UAS",
+   "name": "Drone navigation without GNSS (visual odometry, terrain/scene matching, CRPA antennas)",
+   "importance": "S",
+   "status": "missing",
+   "where": [],
+   "missing_items": [
+    "Methods, accuracy, EW resistance"
+   ],
+   "host_for_gap": "M9.3 (cross-link P5)",
+   "reason": "Determines effect of GNSS jamming on drones and Shahed-class weapons."
+  },
+  {
+   "id": "ADD:SUR.1",
+   "domain": "Platforms",
+   "name": "System survivability strategies (Ball's eight: avoidance, deception, active defense, hardness, redundancy, threat-effect tolerance, proliferation, reconstitution) applied beyond aircraft (bases, ships, space, networks)",
+   "importance": "K",
+   "status": "partial",
+   "where": [
+    {
+     "module": "(unlinked)",
+     "doc": "B16",
+     "section": "1.1.13",
+     "pages": [
+      86,
+      88
+     ]
+    }
+   ],
+   "missing_items": [
+    "Link and apply cross-domain"
+   ],
+   "host_for_gap": "M8.8 (new, core): Combat survivability (Ball): susceptibility, vulnerability, killability, campaign attrition",
+   "reason": "One framework for every survivability question; strong cross-domain structure."
+  },
+  {
+   "id": "ADD:SUR.2",
+   "domain": "Platforms",
+   "name": "Rotary-wing survivability (MANPADS, small arms, low-level flight)",
+   "importance": "S",
+   "status": "partial",
+   "where": [
+    {
+     "module": "(unlinked)",
+     "doc": "B16",
+     "section": "2.3 rotary-wing anatomy",
+     "pages": [
+      247,
+      256
+     ]
+    }
+   ],
+   "missing_items": [
+    "Loss data and countermeasures (DIRCM)"
+   ],
+   "host_for_gap": "M8.8 (new, core): Combat survivability (Ball): susceptibility, vulnerability, killability, campaign attrition",
+   "reason": "High-loss platform class in recent wars."
+  },
+  {
+   "id": "ADD:NAV.1",
+   "domain": "Naval",
+   "name": "Seabed infrastructure (cables, pipelines) vulnerability and protection",
+   "importance": "S",
+   "status": "missing",
+   "where": [],
+   "missing_items": [
+    "Cable network facts, repair capacity, sabotage incidents (Nord Stream, Baltic 2023-25)"
+   ],
+   "host_for_gap": "M10.3",
+   "reason": "Recurring hybrid-war topic."
+  },
+  {
+   "id": "ADD:NAV.2",
+   "domain": "Naval",
+   "name": "Over-the-horizon maritime targeting kill chain (find-fix-track-target at sea)",
+   "importance": "K",
+   "status": "partial",
+   "where": [
+    {
+     "module": "M2.20",
+     "doc": "B02b",
+     "section": "OTH radar",
+     "pages": [
+      105,
+      106
+     ]
+    },
+    {
+     "module": "M4.6",
+     "doc": "B04",
+     "section": "emitter location",
+     "pages": [
+      172,
+      207
+     ]
+    }
+   ],
+   "missing_items": [
+    "End-to-end chain with latencies; counter-targeting"
+   ],
+   "host_for_gap": "M10.5",
+   "reason": "The decisive variable in anti-ship warfare; links space, EW and missiles."
+  }
+ ],
+ "sections_not_needed": [
+  {
+   "module": "M8.1",
+   "doc": "B08",
+   "section": "Training aircraft role 1.14",
+   "pages": [
+    67,
+    68
+   ],
+   "reason": "Descriptive role list, no analytic content",
+   "test_out": true
+  },
+  {
+   "module": "M8.1",
+   "doc": "B08",
+   "section": "Summary",
+   "pages": [
+    69,
+    70
+   ],
+   "reason": "Non-teaching summary",
+   "test_out": true
+  },
+  {
+   "module": "M8.2",
+   "doc": "B08",
+   "section": "2.2 aerospace data buses (1553/ARINC 429 detail)",
+   "pages": [
+    84,
+    93
+   ],
+   "reason": "SUR.6.1 (N) detail",
+   "test_out": true
+  },
+  {
+   "module": "M8.2",
+   "doc": "B08",
+   "section": "2.4 COTS data buses",
+   "pages": [
+    98,
+    101
+   ],
+   "reason": "Bus standards detail (N)",
+   "test_out": true
+  },
+  {
+   "module": "M8.5",
+   "doc": "B08",
+   "section": "11.5-11.7 head-down displays, microdisplays, visibility",
+   "pages": [
+    471,
+    502
+   ],
+   "reason": "SUR.6.3 (N) display technology",
+   "test_out": true
+  },
+  {
+   "module": "M8.6",
+   "doc": "B08",
+   "section": "8.6 FMS",
+   "pages": [
+    314,
+    323
+   ],
+   "reason": "SUR.4.7 (N) civil-style flight management; navigation covered in P5",
+   "test_out": true
+  },
+  {
+   "module": "M8.6",
+   "doc": "B08",
+   "section": "8.10 GATM",
+   "pages": [
+    347,
+    355
+   ],
+   "reason": "Civil air traffic management (N)",
+   "test_out": true
+  },
+  {
+   "module": "M8.7",
+   "doc": "B08",
+   "section": "ch.10 utility systems (fuel, hydraulics, ordnance control)",
+   "pages": [
+    400,
+    431
+   ],
+   "reason": "SUR.6.2 (N); keep only B16 5.4 ref which should move to the survivability module",
+   "test_out": true
+  },
+  {
+   "module": "M9.2",
+   "doc": "B09",
+   "section": "7.x structural members, materials, composites, construction, basic structural calculations",
+   "pages": [
+    167,
+    190
+   ],
+   "reason": "Supp role; duplicated by Gilua structures modules; keep 7.2 basic flight loads (171-174)",
+   "test_out": true
+  },
+  {
+   "module": "M9.3",
+   "doc": "B09",
+   "section": "8.x MPCS physical configuration, LAN elements, pilot-in-command",
+   "pages": [
+    197,
+    214
+   ],
+   "reason": "Ground-station hardware/regulatory detail; keep MPCS architecture and mission planning (202-205, 208-210)",
+   "test_out": true
+  },
+  {
+   "module": "M9.4",
+   "doc": "B09",
+   "section": "12.x chemical detection, meteorological sensors, robotic arm, package and cargo, urban air mobility",
+   "pages": [
+    313,
+    322
+   ],
+   "reason": "Civil/niche payloads (C); keep pseudo-satellites 315-317",
+   "test_out": true
+  },
+  {
+   "module": "M9.8",
+   "doc": "B09",
+   "section": "18.1 conventional takeoff theory",
+   "pages": [
+    397,
+    414
+   ],
+   "reason": "Duplicates Gilua aircraft performance; UAS.1.5 is C",
+   "test_out": true
+  },
+  {
+   "module": "M9.8",
+   "doc": "B09",
+   "section": "overall conclusions",
+   "pages": [
+    434,
+    436
+   ],
+   "reason": "Summary",
+   "test_out": true
+  },
+  {
+   "module": "M13.2",
+   "doc": "B12",
+   "section": "SMAD ch.3 SME process, 6.1-6.2 and 6.4-6.7 requirements documentation, SE tools, standards",
+   "pages": [
+    62,
+    77,
+    122,
+    128,
+    133,
+    142
+   ],
+   "reason": "Process material duplicated by Gilua NASA SE handbook; keep ch.4-5 (architecture alternatives, mission utility/figures of merit) and 6.3 error analysis",
+   "test_out": true
+  },
+  {
+   "module": "M13.3",
+   "doc": "B12",
+   "section": "7.4 microgravity",
+   "pages": [
+    154,
+    155
+   ],
+   "reason": "Not relevant to military space",
+   "test_out": true
+  },
+  {
+   "module": "M13.4",
+   "doc": "B12",
+   "section": "9.2 orbits of the Moon and planets",
+   "pages": [
+    222,
+    224
+   ],
+   "reason": "Not relevant",
+   "test_out": true
+  },
+  {
+   "module": "M13.6",
+   "doc": "B12",
+   "section": "10.7 interplanetary orbits",
+   "pages": [
+    294,
+    305
+   ],
+   "reason": "Not relevant",
+   "test_out": true
+  },
+  {
+   "module": "M13.7",
+   "doc": "B12",
+   "section": "12.1-12.2 sources of financing, GAAP/ROI",
+   "pages": [
+    342,
+    353
+   ],
+   "reason": "Business finance (C)",
+   "test_out": true
+  },
+  {
+   "module": "M13.11",
+   "doc": "B12",
+   "section": "17.3 VIIRS sample mission",
+   "pages": [
+    540,
+    541
+   ],
+   "reason": "Civil weather-instrument detail",
+   "test_out": true
+  },
+  {
+   "module": "M13.12",
+   "doc": "B12",
+   "section": "26.2 launch history; 26.4 launch environments (loads, acoustics)",
+   "pages": [
+    854,
+    855,
+    860,
+    870
+   ],
+   "reason": "History and environment detail (C)",
+   "test_out": true
+  },
+  {
+   "module": "M13.14",
+   "doc": "B12",
+   "section": "ch.20 on-board processing",
+   "pages": [
+    614,
+    639
+   ],
+   "reason": "SP.9.1 (N)",
+   "test_out": true
+  },
+  {
+   "module": "M13.16",
+   "doc": "B12",
+   "section": "22.1 structures and mechanisms",
+   "pages": [
+    676,
+    697
+   ],
+   "reason": "SP.4.5/SP.9.2 (N); keep 22.2 thermal intro for radiative balance",
+   "test_out": true
+  },
+  {
+   "module": "M13.17",
+   "doc": "B12",
+   "section": "23.3-23.7 manufacturing, integration and test",
+   "pages": [
+    724,
+    765
+   ],
+   "reason": "SP.9.5 (C); keep 23.1-23.2 and ch.24",
+   "test_out": true
+  },
+  {
+   "module": "M13.18",
+   "doc": "B12",
+   "section": "25.1 space tethers, 25.2 inflatable structures",
+   "pages": [
+    794,
+    803
+   ],
+   "reason": "SP.9.6 (N)",
+   "test_out": true
+  },
+  {
+   "module": "M13.19",
+   "doc": "B12",
+   "section": "27.2-27.9, 27.11 launch-site preparations, reviews, transport, launch day",
+   "pages": [
+    876,
+    888,
+    890,
+    891
+   ],
+   "reason": "SP.5.3 (C); keep 27.1 sites/restrictions and 27.10",
+   "test_out": true
+  },
+  {
+   "module": "M13.20",
+   "doc": "B12",
+   "section": "28.2 data distribution, 28.4-28.6 examples, trends",
+   "pages": [
+    905,
+    908,
+    911,
+    915
+   ],
+   "reason": "Ground-system detail (C)",
+   "test_out": true
+  },
+  {
+   "module": "M13.21",
+   "doc": "B12",
+   "section": "ch.29 mission operations",
+   "pages": [
+    916,
+    949
+   ],
+   "reason": "Operations process detail (C); keep ch.30 end of mission",
+   "test_out": true
+  },
+  {
+   "module": "M13.22",
+   "doc": "B12",
+   "section": "App. B planetary data, E time systems, F coordinate transforms/quaternions, H units",
+   "pages": [
+    968,
+    975,
+    992,
+    998
+   ],
+   "reason": "Lookup tables; keep App. A, C, D, I",
+   "test_out": true
+  },
+  {
+   "module": "(B16 unlinked)",
+   "doc": "B16",
+   "section": "front matter, 1.3 US policies and organization (JTCG, SURVIAC admin)",
+   "pages": [
+    1,
+    24
+   ],
+   "reason": "Non-teaching",
+   "test_out": true
+  },
+  {
+   "module": "(B16 unlinked)",
+   "doc": "B16",
+   "section": "1.3 survivability policies, procedures, organizations",
+   "pages": [
+    142,
+    155
+   ],
+   "reason": "US bureaucracy detail",
+   "test_out": true
+  },
+  {
+   "module": "(B16 unlinked)",
+   "doc": "B16",
+   "section": "3.6 radar and IR fundamentals",
+   "pages": [
+    359,
+    397
+   ],
+   "reason": "Duplicates P2/P3 radar and EO/IR modules",
+   "test_out": true
+  },
+  {
+   "module": "(B16 unlinked)",
+   "doc": "B16",
+   "section": "acronyms, App. A WWII-era aircraft survivability history, App. B probability primer, index",
+   "pages": [
+    801,
+    928
+   ],
+   "reason": "History/duplicate of P0 probability; App. B Markov kill-state examples (888-896) may serve as exercises",
+   "test_out": true
+  }
+ ],
+ "sections_kept_unmatched": [
+  {
+   "module": "M8.1",
+   "doc": "B08",
+   "section": "opening, intro, air superiority, strategic bomber, battlefield surveillance, photo-recon, AAR, transport, UAV roles",
+   "pages": [
+    25,
+    66
+   ],
+   "serves": [
+    "M:SUR.4.1",
+    "M:SUR.5.3",
+    "M:C4ISR"
+   ],
+   "reason": "Short context; test-out candidate for this learner"
+  },
+  {
+   "module": "M8.2",
+   "doc": "B08",
+   "section": "2.1 evolution of avionics architectures; 2.3 JIAWG",
+   "pages": [
+    71,
+    83
+   ],
+   "serves": [
+    "M:SUR.4.2"
+   ],
+   "reason": "Federated vs integrated/open architecture debate (C)"
+  },
+  {
+   "module": "M8.5",
+   "doc": "B08",
+   "section": "11.1-11.4 crew station, HUD, HMD",
+   "pages": [
+    432,
+    470
+   ],
+   "serves": [
+    "M:SUR.4.4"
+   ],
+   "reason": "HMD cueing changes WVR combat (C); test-out"
+  },
+  {
+   "module": "M9.1",
+   "doc": "B09",
+   "section": "Global Hawk, Predator, ethical concerns",
+   "pages": [
+    48,
+    58
+   ],
+   "serves": [
+    "M:UAS.1.1",
+    "M:UAS.2.1"
+   ],
+   "reason": "Ethics of armed autonomy matters for articles"
+  },
+  {
+   "module": "M9.2",
+   "doc": "B09",
+   "section": "climbing, gliding flight; propulsion classification; sources of electric energy; dynamic loads",
+   "pages": [
+    112,
+    176
+   ],
+   "serves": [
+    "M:UAS.1.2"
+   ],
+   "reason": "Battery energy sources pp.154-158 are K for small-drone endurance"
+  },
+  {
+   "module": "M9.3",
+   "doc": "B09",
+   "section": "MPCS architecture, mission planning, overview, navigation and target location",
+   "pages": [
+    202,
+    232
+   ],
+   "serves": [
+    "M:UAS.2.1",
+    "M:PNT"
+   ],
+   "reason": "Target location error from UAS is K for ISR/targeting"
+  },
+  {
+   "module": "M9.4",
+   "doc": "B09",
+   "section": "history of lethal UAVs, armed-UAV requirements, carriage and delivery",
+   "pages": [
+    281,
+    289
+   ],
+   "serves": [
+    "M:UAS.3.1",
+    "M:UAS.2.4"
+   ],
+   "reason": ""
+  },
+  {
+   "module": "M9.5",
+   "doc": "B09",
+   "section": "data-link functions, attributes, interfaces, frequency, margin sources, compression and data-rate trades, pitfalls",
+   "pages": [
+    325,
+    394
+   ],
+   "serves": [
+    "ADD:UAS.1",
+    "M:UAS.2.2"
+   ],
+   "reason": "The datalink is the drone's Achilles heel; all K/S"
+  },
+  {
+   "module": "M9.6",
+   "doc": "B09",
+   "section": "rotary-wing configurations, hybrid, quadcopters",
+   "pages": [
+    437,
+    452
+   ],
+   "serves": [
+    "M:UAS.1.2",
+    "M:UAS.3.3"
+   ],
+   "reason": "Quadcopter physics is K for the FPV era"
+  },
+  {
+   "module": "M9.7",
+   "doc": "D9",
+   "section": "threat UAS; defensive and offensive C-UAS actions",
+   "pages": [
+    9,
+    42
+   ],
+   "serves": [
+    "M:UAS.1.1",
+    "M:UAS.4.2",
+    "M:UAS.4.4"
+   ],
+   "reason": ""
+  },
+  {
+   "module": "M9.8",
+   "doc": "B09",
+   "section": "landing/recovery methods and trade-offs",
+   "pages": [
+    415,
+    433
+   ],
+   "serves": [
+    "M:UAS.1.5"
+   ],
+   "reason": "C, one compressed lesson; whole module test-out candidate"
+  },
+  {
+   "module": "M13.5",
+   "doc": "B12",
+   "section": "SMAD ch.8 mission geometry (merge C_only)",
+   "pages": [
+    166,
+    213
+   ],
+   "serves": [
+    "M:SP.2.1",
+    "M:SP.1.5",
+    "ADD:SP.1"
+   ],
+   "reason": "Reclassify as K"
+  },
+  {
+   "module": "M13.11",
+   "doc": "B12",
+   "section": "SMAD ch.17 observation payloads (merge unmapped)",
+   "pages": [
+    510,
+    539,
+    542,
+    543
+   ],
+   "serves": [
+    "M:SP.3.1",
+    "M:SP.3.2",
+    "M:SP.3.4"
+   ],
+   "reason": "Reclassify as K"
+  },
+  {
+   "module": "M13.22",
+   "doc": "B12",
+   "section": "App. A mass/power, C Keplerian & coverage summary, D geometry formulas, I satellite parameters",
+   "pages": [
+    960,
+    967,
+    976,
+    991,
+    1038,
+    1045
+   ],
+   "serves": [
+    "M:SP.4.1",
+    "M:SP.2.1",
+    "M:SP.1.2"
+   ],
+   "reason": "Lookup for orders of magnitude, no lesson"
+  },
+  {
+   "module": "(B16 unlinked)",
+   "doc": "B16",
+   "section": "1.1 fundamentals: survivability equations, campaign survivability, effectiveness, managed attrition, system survivability",
+   "pages": [
+    25,
+    105
+   ],
+   "serves": [
+    "M:SUR.1.1",
+    "M:SUR.1.2",
+    "M:SUR.1.3",
+    "M:SUR.5.1",
+    "M:SP.7.3",
+    "ADD:SUR.1"
+   ],
+   "reason": "Most important unlinked block of the domain"
+  },
+  {
+   "module": "(B16 unlinked)",
+   "doc": "B16",
+   "section": "1.2 historical loss rates, lessons learned",
+   "pages": [
+    106,
+    141
+   ],
+   "serves": [
+    "M:SUR.1.3"
+   ],
+   "reason": "Calibration data; history parts test-out"
+  },
+  {
+   "module": "(B16 unlinked)",
+   "doc": "B16",
+   "section": "1.7 conclusions and chapter-1 problems",
+   "pages": [
+    198,
+    226
+   ],
+   "serves": [
+    "M:SUR.1.1"
+   ],
+   "reason": "Exercise bank for the tutor"
+  },
+  {
+   "module": "(B16 unlinked)",
+   "doc": "B16",
+   "section": "ch.2 aircraft anatomy and flight-essential functions",
+   "pages": [
+    227,
+    256
+   ],
+   "serves": [
+    "M:SUR.3.1",
+    "ADD:SUR.2"
+   ],
+   "reason": ""
+  },
+  {
+   "module": "(B16 unlinked)",
+   "doc": "B16",
+   "section": "3.3-3.4 survivability terminology, threat characteristics, warheads",
+   "pages": [
+    303,
+    338
+   ],
+   "serves": [
+    "M:SUR.1.1",
+    "M:WE"
+   ],
+   "reason": "Cross-link M11.3"
+  },
+  {
+   "module": "(B16 unlinked)",
+   "doc": "B16",
+   "section": "4.1-4.2 susceptibility program; 4.4.1 terms",
+   "pages": [
+    469,
+    473
+   ],
+   "serves": [
+    "M:SUR.1.2"
+   ],
+   "reason": ""
+  },
+  {
+   "module": "(B16 unlinked)",
+   "doc": "B16",
+   "section": "4.4.6-4.4.7 threat suppression, tactics; problems",
+   "pages": [
+    608,
+    626
+   ],
+   "serves": [
+    "M:SUR.2.2"
+   ],
+   "reason": ""
+  },
+  {
+   "module": "(B16 unlinked)",
+   "doc": "B16",
+   "section": "5.1-5.2 vulnerability program, critical component analysis, FMECA, kill trees",
+   "pages": [
+    627,
+    678
+   ],
+   "serves": [
+    "M:SUR.3.1"
+   ],
+   "reason": ""
+  },
+  {
+   "module": "(B16 unlinked)",
+   "doc": "B16",
+   "section": "6.1-6.2 survivability program, measures and equations; 6.4 conclusions",
+   "pages": [
+    763,
+    788
+   ],
+   "serves": [
+    "M:SUR.1.1"
+   ],
+   "reason": ""
+  },
+  {
+   "module": "(B15 unlinked)",
+   "doc": "B15",
+   "section": "ch.12 modeling of military operations (aircraft-state Markov model)",
+   "pages": [
+    320,
+    329
+   ],
+   "serves": [
+    "M:SUR.5.1"
+   ],
+   "reason": ""
+  },
+  {
+   "module": "(B14 relink)",
+   "doc": "B14",
+   "section": "7.4 barrier patrol, 7.6 moving targets",
+   "pages": [
+    146,
+    161
+   ],
+   "serves": [
+    "M:NAV.2.3"
+   ],
+   "reason": "Already linked to M2.3/M3.10/M3.11; add as ref to M10.3"
+  }
+ ],
+ "totals": {
+  "subtopics": 103,
+  "by_status": {
+   "full": 55,
+   "partial": 32,
+   "missing": 16
+  },
+  "KS": 83,
+  "KS_full": 37,
+  "KS_partial": 30,
+  "KS_missing": 16,
+  "K_missing": 11,
+  "status_changed": 50,
+  "importance_changed": [
+   [
+    "M:SP.3.3",
+    "S",
+    "K"
+   ],
+   [
+    "M:SP.4.2",
+    "C",
+    "S"
+   ],
+   [
+    "M:SUR.3.1",
+    "S",
+    "K"
+   ],
+   [
+    "M:NAV.6.2",
+    "S",
+    "K"
+   ]
+  ],
+  "merge_false_misses": 16,
+  "added": 10,
+  "test_out_subtopics": 9,
+  "pages_not_needed": 629,
+  "pages_kept_unmatched": 801,
+  "new_modules_proposed": [
+   "M13.23 (new, core): Space control: counterspace, SDA, resilience",
+   "M9.9 (new, core): One-way attack drones, FPV and drone-war economics",
+   "M8.8 (new, core): Combat survivability (Ball): susceptibility, vulnerability, killability, campaign attrition",
+   "M8.9 (new, core): Air campaign capacity: sortie generation, basing, tankers"
+  ],
+  "by_domain": {
+   "Space systems and space warfare": {
+    "full": 27,
+    "partial": 10
+   },
+   "Unmanned systems and counter-UAS": {
+    "full": 7,
+    "partial": 8,
+    "missing": 6
+   },
+   "Platforms and survivability": {
+    "partial": 10,
+    "full": 13,
+    "missing": 5
+   },
+   "Naval and undersea warfare": {
+    "full": 8,
+    "partial": 4,
+    "missing": 5
+   }
+  }
+ },
+ "notes": [
+  "SMAD (B12) is an image-only scan; verified by viewing TOC (PDF 6-9) and pages 156-157, 189, 525. Book->PDF offset +17 through ch.17, +13 from ch.19 (ch.18 propulsion missing from scan; PDF 544-577 duplicate ch.17).",
+  "B14-B17 ref books and all articles were outside the merge registry; many \"missing\" labels were false for that reason.",
+  "Merge false matches found: SP.1.5->M2.15 tracking, SP.5.1->B09 UAV launch, SP.1.3->E06, SP.9.2->Feynman color vision, NAV.5.2->optical ray tracing, NAV.1.3->E09 electronics noise, NAV.4.4->M6.8 intro page."
+ ]
+}
