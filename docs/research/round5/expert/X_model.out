@@ -42,25 +42,42 @@ E3 cross-check: total lab hours reported by E3 = None
   EVERYTHING at 10 h/day (EFH x 7.3/6.3) P10   165.1  P50   222.3  P90   301.6  months
 
 === Staged waves, scenario 'base' (months from today) ===
-  wave 1 senior                          P10    40.6  P50    54.0  P90    73.0  months
-  wave 1 expert                          P10    87.3  P50   118.3  P90   162.7  months
-  wave 2 senior                          P10   115.5  P50   153.3  P90   207.9  months
-  wave 2 expert                          P10   141.5  P50   189.4  P90   258.9  months
-  wave 3 senior                          P10   158.8  P50   210.8  P90   287.2  months
-  wave 3 expert                          P10   173.3  P50   232.2  P90   317.9  months
+  wave 1 senior                          P10    24.6  P50    29.0  P90    33.9  months
+  wave 1 expert                          P10    50.1  P50    57.3  P90    65.7  months
+  wave 1 principal                       P10   150.0  P50   185.4  P90   233.5  months
+  wave 2 senior                          P10    70.5  P50    81.4  P90    94.2  months
+  wave 2 expert                          P10    92.7  P50   106.2  P90   122.1  months
+  wave 2 principal                       P10   172.9  P50   223.4  P90   293.8  months
+  wave 3 senior                          P10   108.0  P50   124.7  P90   144.2  months
+  wave 3 expert                          P10   129.2  P50   148.7  P90   171.3  months
+  wave 3 principal                       P10   179.7  P50   237.9  P90   321.9  months
+  P(wave 1 expert <= 24) = 0.00
+  P(wave 1 expert <= 36) = 0.00
+  P(wave 1 expert <= 48) = 0.04
+  P(wave 1 expert <= 60) = 0.66
+  P(all waves senior <= 60) = 0.00
+  P(all waves senior <= 72) = 0.00
+  P(all waves senior <= 96) = 0.01
+  P(all waves senior <= 120) = 0.37
 
 === Staged waves, scenario 'ai_trend' (months from today) ===
-  wave 1 senior                          P10    36.3  P50    46.8  P90    61.0  months
-  wave 1 expert                          P10    70.7  P50    89.5  P90   115.2  months
-  wave 2 senior                          P10    87.9  P50   109.2  P90   140.1  months
-  wave 2 expert                          P10   102.9  P50   129.1  P90   168.1  months
-  wave 3 senior                          P10   112.4  P50   141.2  P90   183.7  months
-  wave 3 expert                          P10   120.7  P50   152.9  P90   201.3  months
+  wave 1 senior                          P10    23.0  P50    26.7  P90    31.0  months
+  wave 1 expert                          P10    45.1  P50    50.8  P90    57.4  months
+  wave 1 principal                       P10   107.1  P50   126.5  P90   153.5  months
+  wave 2 senior                          P10    58.7  P50    66.3  P90    74.5  months
+  wave 2 expert                          P10    75.6  P50    84.6  P90    94.3  months
+  wave 2 principal                       P10   120.1  P50   147.4  P90   186.5  months
+  wave 3 senior                          P10    83.1  P50    93.0  P90   103.8  months
+  wave 3 expert                          P10    98.1  P50   109.1  P90   121.7  months
+  wave 3 principal                       P10   123.9  P50   155.5  P90   202.2  months
 
 === Staged waves, scenario 'paid' (months from today) ===
-  wave 1 senior                          P10    40.0  P50    54.1  P90    73.0  months
-  wave 1 expert                          P10    86.7  P50   118.6  P90   162.5  months
-  wave 2 senior                          P10   108.6  P50   146.5  P90   197.7  months
-  wave 2 expert                          P10   129.1  P50   174.7  P90   238.7  months
-  wave 3 senior                          P10   142.8  P50   191.9  P90   260.3  months
-  wave 3 expert                          P10   154.3  P50   208.7  P90   284.3  months
+  wave 1 senior                          P10    24.7  P50    28.0  P90    32.0  months
+  wave 1 expert                          P10    46.0  P50    51.7  P90    58.4  months
+  wave 1 principal                       P10   123.1  P50   152.2  P90   188.6  months
+  wave 2 senior                          P10    60.8  P50    69.1  P90    79.4  months
+  wave 2 expert                          P10    79.6  P50    90.1  P90   102.7  months
+  wave 2 principal                       P10   141.8  P50   182.1  P90   236.2  months
+  wave 3 senior                          P10    90.3  P50   103.1  P90   118.9  months
+  wave 3 expert                          P10   108.5  P50   123.4  P90   141.4  months
+  wave 3 principal                       P10   147.0  P50   193.8  P90   258.2  months

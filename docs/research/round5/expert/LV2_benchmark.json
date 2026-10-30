@@ -1,0 +1,2391 @@
+{
+ "_meta": {
+  "question": "Per domain: the expert target for an AI-augmented practitioner, the old projection (LV, round 4), and when the plan reaches senior and expert in role.",
+  "yardstick": "Fluency = solves and verifies with AI tools under timed exam conditions and finds planted errors in agent output. Industry = the designer/builder role done with AI, not only the reviewer role.",
+  "milestones": "Months from 30.10.2026, P10/P50/P90, from X_model.py (staged waves). 'base' = E2 hours as estimated; 'ai_trend' = agents keep improving (his hours shrink 7%/yr, floor 0.55). senior/expert/principal as defined in X_model.py v2.",
+  "sources": [
+   "E2_domain_targets.json",
+   "E3_practice_track.json",
+   "X_model.out",
+   "round4/LV_benchmark.json"
+  ]
+ },
+ "domains": [
+  {
+   "id": "ENG · Mathematics foundations",
+   "name_he": "יסודות מתמטיים",
+   "role": "deep",
+   "wave": 1,
+   "old": {
+    "knowledge": "A2–A3",
+    "fluency": "A1",
+    "industry": "mid"
+   },
+   "target": {
+    "academia_knowledge": "A4: ליבת תואר שני באלגברה לינארית נומרית, הסתברות וסטטיסטיקה, אופטימיזציה קמורה",
+    "academia_fluency": "A4 עם כלים: פותר ומאמת במבחן זמן עם AI, ומוצא שגיאות שתולות",
+    "industry_role": "principal applied-math / estimation engineer בנישת החישה (hands-on, AI-augmented)",
+    "defense_role": "אנליסט בכיר שבונה ומאמת בעצמו את המודל האנליטי"
+   },
+   "hold_in_head_he": "פירוק עצמי ו-SVD, התניה, ריבועים פחותים כהטלה, דואליות וקמירות, חוק המספרים הגדולים, CLT וזנבות כבדים, יציבות שיטות נומריות; כ-30 תוצאות עוגן שהוא משחזר על נייר בדקות.",
+   "delegate_he": "אלגברה ארוכה, גזירות, מימוש סולברים, ניסויי מונטה קרלו, בדיקה סימבולית, הפקת תרגילים ושאלות מבחן.",
+   "must_verify_he": "כל תוצאה בשתי דרכים: אנליטית מול נומרית, או שני סוכנים בלתי תלויים; בדיקת ממדים ומקרי קצה; השוואה למקרה סגור ידוע; נימוק קצר במילים שלו למה זה נכון.",
+   "thesis_verdict": "supported",
+   "extra_hours": {
+    "p10": 700,
+    "p50": 1200,
+    "p90": 2000,
+    "basis_he": "החלק המעשי של כ-4 קורסי תואר שני (4×6 ECTS×27 ש' ≈ 650 ש', כמחציתו מעשי ≈ 325) + 3 פרויקטים של 200–300 ש' + הכנה למבחנים חיצוניים. בלי ספירה כפולה עם פרויקטי המכ\"ם והאומדן [estimate]."
+   },
+   "lab_hours": 215,
+   "real_build_he": "מטריצת קווריאנס, CRLB ובימפורמר קמור, כולם על אותות שהוא עצמו מקליט",
+   "senior_months": {
+    "base": [
+     24.6,
+     29.0,
+     33.9
+    ],
+    "ai_trend": [
+     23.0,
+     26.7,
+     31.0
+    ]
+   },
+   "expert_months": {
+    "base": [
+     50.1,
+     57.3,
+     65.7
+    ],
+    "ai_trend": [
+     45.1,
+     50.8,
+     57.4
+    ]
+   },
+   "principal_months": {
+    "base": [
+     150.0,
+     185.4,
+     233.5
+    ],
+    "ai_trend": [
+     107.1,
+     126.5,
+     153.5
+    ]
+   },
+   "confidence": "medium"
+  },
+  {
+   "id": "ENG · Physics",
+   "name_he": "פיזיקה",
+   "role": "core",
+   "wave": 2,
+   "old": {
+    "knowledge": "A2",
+    "fluency": "A1",
+    "industry": "senior (OOM only)"
+   },
+   "target": {
+    "academia_knowledge": "A3: אלקטרומגנטיות ופיזיקה סטטיסטית של שנה ג'",
+    "academia_fluency": "A3 עם כלים",
+    "industry_role": "senior physicist-engineer למידול EM וחישה (AI-augmented)",
+    "defense_role": "אנליסט טכני בכיר (בדיקות שפיות פיזיקליות)"
+   },
+   "hold_in_head_he": "משוואות מקסוול בשתי הצורות, משוואת הגלים, עכבה, גבול עקיפה λ/D, פרנל והחזרה, קרינת גוף שחור, kT ורעש תרמי ורעש שוט, ניתוח ממדים, חוקי שימור.",
+   "delegate_he": "חישובים, סימולציות, ציורים, חיפוש ערכי חומרים.",
+   "must_verify_he": "מקרי גבול, שימור אנרגיה בסימולציה, מבחן התכנסות רשת, מדידה מול מודל.",
+   "thesis_verdict": "partial",
+   "extra_hours": {
+    "p10": 600,
+    "p50": 1000,
+    "p90": 1600,
+    "basis_he": "החלק המעשי של 2 קורסים מתקדמים (~300 ש') + 2 פרויקטים חישוביים-ניסויים של 250 ש' + הקמת ספסל [estimate]."
+   },
+   "lab_hours": 180,
+   "real_build_he": "מדידת רעש תרמי, אובדן מסלול ופיזור, מול מודל פיזיקלי",
+   "senior_months": {
+    "base": [
+     70.5,
+     81.4,
+     94.2
+    ],
+    "ai_trend": [
+     58.7,
+     66.3,
+     74.5
+    ]
+   },
+   "expert_months": {
+    "base": [
+     92.7,
+     106.2,
+     122.1
+    ],
+    "ai_trend": [
+     75.6,
+     84.6,
+     94.3
+    ]
+   },
+   "principal_months": {
+    "base": [
+     172.9,
+     223.4,
+     293.8
+    ],
+    "ai_trend": [
+     120.1,
+     147.4,
+     186.5
+    ]
+   },
+   "confidence": "medium"
+  },
+  {
+   "id": "ENG · Signals and systems",
+   "name_he": "אותות ומערכות",
+   "role": "deep",
+   "wave": 1,
+   "old": {
+    "knowledge": "A3",
+    "fluency": "A2-",
+    "industry": "mid"
+   },
+   "target": {
+    "academia_knowledge": "A4: DSP לתואר שני (6.341), כולל multirate ואומדן ספקטרלי",
+    "academia_fluency": "A4 עם כלים",
+    "industry_role": "principal DSP / sensing signal-processing engineer (hands-on, AI-augmented)",
+    "defense_role": "סמכות טכנית לטענות עיבוד אותות"
+   },
+   "hold_in_head_he": "משפט הדגימה ו-aliasing, רזולוציית DFT מול חלון, רווח עיבוד 10log(N), מסנן מותאם, Wiener והלבנה, ROC ו-CFAR, יציבות במישור z, רעש קוונטיזציה 6.02N+1.76 dB.",
+   "delegate_he": "מימוש, גרפים, סריקות פרמטרים, וקטורי בדיקה, שלד HDL.",
+   "must_verify_he": "חבילת וקטורי בדיקה זהובים (טון ידוע + רעש: SNR יוצא = SNR נכנס + רווח), Parseval, השוואה ל-GNU Radio או MATLAB, הקלטות אמת.",
+   "thesis_verdict": "supported",
+   "extra_hours": {
+    "p10": 800,
+    "p50": 1300,
+    "p90": 2000,
+    "basis_he": "שרשרת מלאה (~400 ש' עם AI), נקודה קבועה ו-FPGA (~300), ספסל ונתונים (~200), ביקורת ופרסום (~150) + אימון קריאה [estimate]. השרשרת משרתת גם מכ\"ם ו-EW ונספרת כאן פעם אחת."
+   },
+   "lab_hours": 215,
+   "real_build_he": "שרשרת SDR מקצה לקצה: לכידה, סינון, שערוך ספקטרלי וגילוי, על אותות אמיתיים",
+   "senior_months": {
+    "base": [
+     24.6,
+     29.0,
+     33.9
+    ],
+    "ai_trend": [
+     23.0,
+     26.7,
+     31.0
+    ]
+   },
+   "expert_months": {
+    "base": [
+     50.1,
+     57.3,
+     65.7
+    ],
+    "ai_trend": [
+     45.1,
+     50.8,
+     57.4
+    ]
+   },
+   "principal_months": {
+    "base": [
+     150.0,
+     185.4,
+     233.5
+    ],
+    "ai_trend": [
+     107.1,
+     126.5,
+     153.5
+    ]
+   },
+   "confidence": "medium"
+  },
+  {
+   "id": "ENG · Control and estimation",
+   "name_he": "בקרה ושערוך",
+   "role": "deep",
+   "wave": 1,
+   "old": {
+    "knowledge": "A3",
+    "fluency": "A2-",
+    "industry": "mid"
+   },
+   "target": {
+    "academia_knowledge": "A4: EE263/6.241 ומסננים לא לינאריים",
+    "academia_fluency": "A4 עם כלים",
+    "industry_role": "principal estimation / tracking engineer (GNC), hands-on, AI-augmented",
+    "defense_role": "סמכות טכנית בכירה לטענות מעקב ובקרת אש"
+   },
+   "hold_in_head_he": "מרחב מצב, צפיות ובקרות, משוואות קלמן ומשמעותן, Riccati, מרווחי הגבר ופאזה, גבול השהיה, אינטגרל Bode, רעיון IMM, שיוך נתונים.",
+   "delegate_he": "קוד, מונטה קרלו, גרפים, גזירת יעקוביאנים (עם בדיקה סימבולית).",
+   "must_verify_he": "NEES/NIS מול χ², מונטה קרלו מול אמת, יעקוביאן סימבולי מול הפרש סופי, תגובת מדרגה ותדר בחומרה.",
+   "thesis_verdict": "supported",
+   "extra_hours": {
+    "p10": 1000,
+    "p50": 1600,
+    "p90": 2500,
+    "basis_he": "שני פרויקטים ברמת תזה (800–1000 ש' כל אחד, AI חוסך כ-30–40% מהמימוש) + חומרה קשורה [estimate]."
+   },
+   "lab_hours": 240,
+   "real_build_he": "EKF על IMU+GNSS אמיתיים עם NEES/NIS, ובקר שטס על Crazyflie",
+   "senior_months": {
+    "base": [
+     24.6,
+     29.0,
+     33.9
+    ],
+    "ai_trend": [
+     23.0,
+     26.7,
+     31.0
+    ]
+   },
+   "expert_months": {
+    "base": [
+     50.1,
+     57.3,
+     65.7
+    ],
+    "ai_trend": [
+     45.1,
+     50.8,
+     57.4
+    ]
+   },
+   "principal_months": {
+    "base": [
+     150.0,
+     185.4,
+     233.5
+    ],
+    "ai_trend": [
+     107.1,
+     126.5,
+     153.5
+    ]
+   },
+   "confidence": "medium"
+  },
+  {
+   "id": "ENG · Information theory and communications",
+   "name_he": "תורת המידע ותקשורת",
+   "role": "core",
+   "wave": 2,
+   "old": {
+    "knowledge": "A3–A4 concepts",
+    "fluency": "A2",
+    "industry": "mid"
+   },
+   "target": {
+    "academia_knowledge": "A4 במושגים, A3 ברשתות",
+    "academia_fluency": "A3–A4 עם כלים",
+    "industry_role": "senior comms systems engineer (PHY/link), hands-on, AI-augmented",
+    "defense_role": "אנליסט בכיר לפגיעות קשרי נתונים לשיבוש"
+   },
+   "hold_in_head_he": "שאנון, Eb/N0, רווח קידוד, סדר פיזור, OFDM (CP, תת-נושאים), סנכרון, סטטיסטיקת דעיכה, near-far, רווח עיבוד בפיזור ספקטרום.",
+   "delegate_he": "סימולציה, עקומות BER, פענוח פרוטוקולים.",
+   "must_verify_he": "BER מול תאוריה ב-AWGN וריילי, לולאת כבל ב-SDR, השוואה בין כלים.",
+   "thesis_verdict": "supported",
+   "extra_hours": {
+    "p10": 700,
+    "p50": 1100,
+    "p90": 1700,
+    "basis_he": "פרויקט ברמת תזה (~700 ש' עם AI) + רשתות (~200) + מדידות (~150) [estimate]."
+   },
+   "lab_hours": 250,
+   "real_build_he": "קישורים דיגיטליים בכבל עם BER מדוד, ורשת LTE/5G פרטית בקופסה מסוככת",
+   "senior_months": {
+    "base": [
+     70.5,
+     81.4,
+     94.2
+    ],
+    "ai_trend": [
+     58.7,
+     66.3,
+     74.5
+    ]
+   },
+   "expert_months": {
+    "base": [
+     92.7,
+     106.2,
+     122.1
+    ],
+    "ai_trend": [
+     75.6,
+     84.6,
+     94.3
+    ]
+   },
+   "principal_months": {
+    "base": [
+     172.9,
+     223.4,
+     293.8
+    ],
+    "ai_trend": [
+     120.1,
+     147.4,
+     186.5
+    ]
+   },
+   "confidence": "medium"
+  },
+  {
+   "id": "ENG · Electronics and circuits",
+   "name_he": "אלקטרוניקה ומעגלים",
+   "role": "core",
+   "wave": 1,
+   "old": {
+    "knowledge": "A2-",
+    "fluency": "A1",
+    "industry": "junior"
+   },
+   "target": {
+    "academia_knowledge": "A3",
+    "academia_fluency": "A3 עם כלים וספסל",
+    "industry_role": "senior hardware integrator לחזיתות RF ואנלוגיות (מתכנן עם AI, בונה ומודד)",
+    "defense_role": "אנליסט טכני בכיר לחומרה"
+   },
+   "hold_in_head_he": "אוהם, KCL/KVL, עכבה והתאמה, יציבות מגבר ו-GBW, noise figure ו-Friis, לולאות הארקה, ניתוק, הפחתה תרמית, יסודות S-parameters.",
+   "delegate_he": "טיוטות סכמה, הרצות SPICE, BOM, מועמדי פריסה, סקריפטי בדיקה.",
+   "must_verify_he": "מדידה (סקופ, NanoVNA, מנתח ספקטרום) מול SPICE; רשימת בדיקת first-article; שתי דרכים לכל מספר קריטי.",
+   "thesis_verdict": "partial",
+   "extra_hours": {
+    "p10": 900,
+    "p50": 1400,
+    "p90": 2200,
+    "basis_he": "חמש בניות של 150–250 ש' (כולל המתנה לייצור ודיבוג) + מעבדת מבוא מקבילה לשני קורסי מעבדה (~300) [estimate]. AI מקצר תכן, לא מדידה."
+   },
+   "lab_hours": 260,
+   "real_build_he": "LNA, מסנן וספק שהוא מתכנן, מייצר ב-JLCPCB ומודד",
+   "senior_months": {
+    "base": [
+     24.6,
+     29.0,
+     33.9
+    ],
+    "ai_trend": [
+     23.0,
+     26.7,
+     31.0
+    ]
+   },
+   "expert_months": {
+    "base": [
+     50.1,
+     57.3,
+     65.7
+    ],
+    "ai_trend": [
+     45.1,
+     50.8,
+     57.4
+    ]
+   },
+   "principal_months": {
+    "base": [
+     150.0,
+     185.4,
+     233.5
+    ],
+    "ai_trend": [
+     107.1,
+     126.5,
+     153.5
+    ]
+   },
+   "confidence": "low"
+  },
+  {
+   "id": "ENG · Electric machines and power",
+   "name_he": "מכונות חשמל והספק",
+   "role": "supporting",
+   "wave": 3,
+   "old": {
+    "knowledge": "A2 (grids <A2)",
+    "fluency": "A1–A2",
+    "industry": "junior–mid"
+   },
+   "target": {
+    "academia_knowledge": "A3",
+    "academia_fluency": "A3 עם כלים",
+    "industry_role": "senior power / energy integrator (AI-augmented)",
+    "defense_role": "אנליסט בכיר לחוסן רשת ואנרגיה"
+   },
+   "hold_in_head_he": "P=VI, הפסדים, שרשרת נצילות, צפיפות אנרגיה, עקומת מומנט-מהירות, per-unit, N-1.",
+   "delegate_he": "מודלים, סימולציות, גיליונות.",
+   "must_verify_he": "מאזן אנרגיה, מקרי IEEE 14-bus, מדידת דחף וזרם של מנוע רחפן.",
+   "thesis_verdict": "supported",
+   "extra_hours": {
+    "p10": 300,
+    "p50": 500,
+    "p90": 850,
+    "basis_he": "שני פרויקטים קטנים (~200 כל אחד) + קריאה מודרכת [estimate]."
+   },
+   "lab_hours": 205,
+   "real_build_he": "ספסל BLDC עם FOC ומודל סוללה מדוד",
+   "senior_months": {
+    "base": [
+     108.0,
+     124.7,
+     144.2
+    ],
+    "ai_trend": [
+     83.1,
+     93.0,
+     103.8
+    ]
+   },
+   "expert_months": {
+    "base": [
+     129.2,
+     148.7,
+     171.3
+    ],
+    "ai_trend": [
+     98.1,
+     109.1,
+     121.7
+    ]
+   },
+   "principal_months": {
+    "base": [
+     179.7,
+     237.9,
+     321.9
+    ],
+    "ai_trend": [
+     123.9,
+     155.5,
+     202.2
+    ]
+   },
+   "confidence": "medium"
+  },
+  {
+   "id": "ENG · Thermodynamics and heat transfer",
+   "name_he": "תרמודינמיקה ומעבר חום",
+   "role": "supporting",
+   "wave": 3,
+   "old": {
+    "knowledge": "A2",
+    "fluency": "A1–A2",
+    "industry": "mid"
+   },
+   "target": {
+    "academia_knowledge": "A2–A3",
+    "academia_fluency": "A3 עם כלים",
+    "industry_role": "senior thermal integrator (AI-augmented)",
+    "defense_role": "אנליסט בכיר למאזני חום וחתימות"
+   },
+   "hold_in_head_he": "שלושת המנגנונים, התנגדות תרמית, מספרי Biot ו-Nusselt בסדר גודל, סטפן-בולצמן, נצילות קרנו.",
+   "delegate_he": "פתרון נומרי, טבלאות, גרפים.",
+   "must_verify_he": "מאזן אנרגיה, מדידה תרמית.",
+   "thesis_verdict": "supported",
+   "extra_hours": {
+    "p10": 280,
+    "p50": 450,
+    "p90": 750,
+    "basis_he": "פרויקט אחד (~250) + תרגול מקרים [estimate]."
+   },
+   "lab_hours": 150,
+   "real_build_he": "מארז שטח שתוכנן תרמית ונמדד",
+   "senior_months": {
+    "base": [
+     108.0,
+     124.7,
+     144.2
+    ],
+    "ai_trend": [
+     83.1,
+     93.0,
+     103.8
+    ]
+   },
+   "expert_months": {
+    "base": [
+     129.2,
+     148.7,
+     171.3
+    ],
+    "ai_trend": [
+     98.1,
+     109.1,
+     121.7
+    ]
+   },
+   "principal_months": {
+    "base": [
+     179.7,
+     237.9,
+     321.9
+    ],
+    "ai_trend": [
+     123.9,
+     155.5,
+     202.2
+    ]
+   },
+   "confidence": "medium"
+  },
+  {
+   "id": "ENG · Fluids, aerodynamics and propulsion",
+   "name_he": "זורמים, אווירודינמיקה והנעה",
+   "role": "supporting",
+   "wave": 3,
+   "old": {
+    "knowledge": "A2",
+    "fluency": "A1–A2",
+    "industry": "junior (senior on perf. claims)"
+   },
+   "target": {
+    "academia_knowledge": "A3",
+    "academia_fluency": "A3 עם כלים",
+    "industry_role": "senior aero/performance integrator (AI-augmented)",
+    "defense_role": "אנליסט בכיר לטענות ביצועים"
+   },
+   "hold_in_head_he": "עילוי וגרר, L/D, ריינולדס ומאך, Breguet, משוואת הרקטה, חימום אווירודינמי בסדר גודל.",
+   "delegate_he": "סימולציה ותכנון גיאומטריה.",
+   "must_verify_he": "השוואה ללוגי טיסה, מקרים מהספר.",
+   "thesis_verdict": "partial",
+   "extra_hours": {
+    "p10": 350,
+    "p50": 600,
+    "p90": 1000,
+    "basis_he": "שני פרויקטים (~250 כל אחד) + טיסות [estimate]."
+   },
+   "lab_hours": 190,
+   "real_build_he": "מדידת דחף מדחף מול תחזית, ו-OpenVSP מול לוג טיסה",
+   "senior_months": {
+    "base": [
+     108.0,
+     124.7,
+     144.2
+    ],
+    "ai_trend": [
+     83.1,
+     93.0,
+     103.8
+    ]
+   },
+   "expert_months": {
+    "base": [
+     129.2,
+     148.7,
+     171.3
+    ],
+    "ai_trend": [
+     98.1,
+     109.1,
+     121.7
+    ]
+   },
+   "principal_months": {
+    "base": [
+     179.7,
+     237.9,
+     321.9
+    ],
+    "ai_trend": [
+     123.9,
+     155.5,
+     202.2
+    ]
+   },
+   "confidence": "medium"
+  },
+  {
+   "id": "ENG · Structures and materials",
+   "name_he": "מבנים וחומרים",
+   "role": "supporting",
+   "wave": 3,
+   "old": {
+    "knowledge": "A2",
+    "fluency": "A1–A2",
+    "industry": "junior (mid–senior on materials)"
+   },
+   "target": {
+    "academia_knowledge": "A3",
+    "academia_fluency": "A3 עם כלים",
+    "industry_role": "senior structures integrator (AI-augmented)",
+    "defense_role": "אנליסט בכיר לחומרים ושרידות מבנית"
+   },
+   "hold_in_head_he": "מאמץ ועיבור, קורה ופיתול, קריסה, עייפות (S-N), מדדי חומר של Ashby.",
+   "delegate_he": "FEA, CAD, חישובים.",
+   "must_verify_he": "פתרון קורה אנליטי, מבחן הרס.",
+   "thesis_verdict": "supported",
+   "extra_hours": {
+    "p10": 300,
+    "p50": 500,
+    "p90": 850,
+    "basis_he": "פרויקט תכן-בנייה-בדיקה (~300) + עייפות [estimate]."
+   },
+   "lab_hours": 150,
+   "real_build_he": "חלק מודפס שנבדק עד שבר מול FEA",
+   "senior_months": {
+    "base": [
+     108.0,
+     124.7,
+     144.2
+    ],
+    "ai_trend": [
+     83.1,
+     93.0,
+     103.8
+    ]
+   },
+   "expert_months": {
+    "base": [
+     129.2,
+     148.7,
+     171.3
+    ],
+    "ai_trend": [
+     98.1,
+     109.1,
+     121.7
+    ]
+   },
+   "principal_months": {
+    "base": [
+     179.7,
+     237.9,
+     321.9
+    ],
+    "ai_trend": [
+     123.9,
+     155.5,
+     202.2
+    ]
+   },
+   "confidence": "medium"
+  },
+  {
+   "id": "ENG · Machine learning and deep learning",
+   "name_he": "למידת מכונה",
+   "role": "core",
+   "wave": 2,
+   "old": {
+    "knowledge": "A3",
+    "fluency": "A1–A2",
+    "industry": "mid (claims only)"
+   },
+   "target": {
+    "academia_knowledge": "A4",
+    "academia_fluency": "A4 עם כלים",
+    "industry_role": "senior ML engineer לנתוני RF וחיישנים (AI-augmented)",
+    "defense_role": "אנליסט AI-assurance בכיר"
+   },
+   "hold_in_head_he": "הטיה-שונות, הכללה, כיול, אופני דליפה, חשבון קנה מידה ו-compute, הטיה אינדוקטיבית של קונבולוציה ו-attention, מדדים.",
+   "delegate_he": "קוד אימון, ניסויים, ablations, תשתית.",
+   "must_verify_he": "held-out לפי זמן וחיישן, baselines פשוטים, ablations, ביקורת תוויות.",
+   "thesis_verdict": "supported",
+   "extra_hours": {
+    "p10": 700,
+    "p50": 1100,
+    "p90": 1700,
+    "basis_he": "שלושה פרויקטים של 250–350 ש' + פריסה [estimate]."
+   },
+   "lab_hours": 220,
+   "real_build_he": "מסווג אותות שאומן גם על הקלטות שלו, עם בדיקות OOD",
+   "senior_months": {
+    "base": [
+     70.5,
+     81.4,
+     94.2
+    ],
+    "ai_trend": [
+     58.7,
+     66.3,
+     74.5
+    ]
+   },
+   "expert_months": {
+    "base": [
+     92.7,
+     106.2,
+     122.1
+    ],
+    "ai_trend": [
+     75.6,
+     84.6,
+     94.3
+    ]
+   },
+   "principal_months": {
+    "base": [
+     172.9,
+     223.4,
+     293.8
+    ],
+    "ai_trend": [
+     120.1,
+     147.4,
+     186.5
+    ]
+   },
+   "confidence": "medium"
+  },
+  {
+   "id": "ENG · Reinforcement learning",
+   "name_he": "למידת חיזוק",
+   "role": "supporting",
+   "wave": 3,
+   "old": {
+    "knowledge": "A3 found., <A3 deep",
+    "fluency": "A1–A2",
+    "industry": "junior–mid"
+   },
+   "target": {
+    "academia_knowledge": "A3–A4",
+    "academia_fluency": "A3 עם כלים",
+    "industry_role": "senior RL integrator (AI-augmented)",
+    "defense_role": "אנליסט בכיר לטענות אוטונומיה"
+   },
+   "hold_in_head_he": "MDP, Bellman, policy gradient, exploration, sim-to-real.",
+   "delegate_he": "קוד וסריקות.",
+   "must_verify_he": "זרעים מרובים, baseline של בקרה קלאסית.",
+   "thesis_verdict": "supported",
+   "extra_hours": {
+    "p10": 280,
+    "p50": 450,
+    "p90": 800,
+    "basis_he": "פרויקט אחד (~300) [estimate]."
+   },
+   "lab_hours": 200,
+   "real_build_he": "מדיניות RL שעוברת מסימולציה ל-Crazyflie אמיתי",
+   "senior_months": {
+    "base": [
+     108.0,
+     124.7,
+     144.2
+    ],
+    "ai_trend": [
+     83.1,
+     93.0,
+     103.8
+    ]
+   },
+   "expert_months": {
+    "base": [
+     129.2,
+     148.7,
+     171.3
+    ],
+    "ai_trend": [
+     98.1,
+     109.1,
+     121.7
+    ]
+   },
+   "principal_months": {
+    "base": [
+     179.7,
+     237.9,
+     321.9
+    ],
+    "ai_trend": [
+     123.9,
+     155.5,
+     202.2
+    ]
+   },
+   "confidence": "medium"
+  },
+  {
+   "id": "ENG · Robotics",
+   "name_he": "רובוטיקה",
+   "role": "supporting",
+   "wave": 3,
+   "old": {
+    "knowledge": "A2–A3 (perception A1)",
+    "fluency": "A1–A2",
+    "industry": "junior"
+   },
+   "target": {
+    "academia_knowledge": "A3",
+    "academia_fluency": "A3 עם כלים",
+    "industry_role": "senior robotics integrator (AI-augmented)",
+    "defense_role": "אנליסט בכיר לטענות אוטונומיה"
+   },
+   "hold_in_head_he": "קינמטיקה, מצלמת חריר, epipolar, VIO, תכנון מסלול.",
+   "delegate_he": "קוד, כיול, הרצות.",
+   "must_verify_he": "אמת קרקעית, כיול מצלמה-IMU.",
+   "thesis_verdict": "partial",
+   "extra_hours": {
+    "p10": 400,
+    "p50": 650,
+    "p90": 1100,
+    "basis_he": "פרויקט אינטגרציה (~450) [estimate]."
+   },
+   "lab_hours": 185,
+   "real_build_he": "רובוט אמיתי עם SLAM ותכנון, מול ground truth",
+   "senior_months": {
+    "base": [
+     108.0,
+     124.7,
+     144.2
+    ],
+    "ai_trend": [
+     83.1,
+     93.0,
+     103.8
+    ]
+   },
+   "expert_months": {
+    "base": [
+     129.2,
+     148.7,
+     171.3
+    ],
+    "ai_trend": [
+     98.1,
+     109.1,
+     121.7
+    ]
+   },
+   "principal_months": {
+    "base": [
+     179.7,
+     237.9,
+     321.9
+    ],
+    "ai_trend": [
+     123.9,
+     155.5,
+     202.2
+    ]
+   },
+   "confidence": "medium"
+  },
+  {
+   "id": "ENG · Systems engineering",
+   "name_he": "הנדסת מערכות",
+   "role": "core",
+   "wave": 1,
+   "old": {
+    "knowledge": "A3–A4 concepts",
+    "fluency": "n/a",
+    "industry": "mid (senior reviewer)"
+   },
+   "target": {
+    "academia_knowledge": "A4",
+    "academia_fluency": "A4 עם כלים (מבחן מקרה)",
+    "industry_role": "senior systems engineer / tech lead של מוצר קטן (AI-augmented)",
+    "defense_role": "סוקר SE בכיר של תוכניות"
+   },
+   "hold_in_head_he": "מחזור החיים, תכונות דרישה טובה, פירוק פונקציונלי, ניהול ממשקים, מטריצת אימות, STPA, ניהול סיכונים ו-margins.",
+   "delegate_he": "מסמכים, מודלים, מטריצות, בדיקות עקיבות.",
+   "must_verify_he": "כל דרישה נעקבת לבדיקה; ביקורת עמיתים חיצונית; הערכה לפי SECF.",
+   "thesis_verdict": "partial",
+   "extra_hours": {
+    "p10": 600,
+    "p50": 1000,
+    "p90": 1600,
+    "basis_he": "מקביל לפרויקט גמר בתואר שני ב-SE (~600) + MBSE (~200) + מבחן [estimate]."
+   },
+   "lab_hours": 170,
+   "real_build_he": "מחזור SE מלא על צומת המכ\"ם הפסיבי שלו",
+   "senior_months": {
+    "base": [
+     24.6,
+     29.0,
+     33.9
+    ],
+    "ai_trend": [
+     23.0,
+     26.7,
+     31.0
+    ]
+   },
+   "expert_months": {
+    "base": [
+     50.1,
+     57.3,
+     65.7
+    ],
+    "ai_trend": [
+     45.1,
+     50.8,
+     57.4
+    ]
+   },
+   "principal_months": {
+    "base": [
+     150.0,
+     185.4,
+     233.5
+    ],
+    "ai_trend": [
+     107.1,
+     126.5,
+     153.5
+    ]
+   },
+   "confidence": "medium"
+  },
+  {
+   "id": "ENG · Engineering judgment (cross-cutting)",
+   "name_he": "שיקול דעת הנדסי",
+   "role": "core",
+   "wave": 1,
+   "old": {
+    "knowledge": ">MSc grad if measured",
+    "fluency": "n/a",
+    "industry": "senior–principal reviewer"
+   },
+   "target": {
+    "academia_knowledge": "מעבר ל-MSc (אין מקבילה ישירה)",
+    "academia_fluency": "10–20% שגיאה באומדן בעל פה, נמדד",
+    "industry_role": "principal-level reviewer / integrator (AI-augmented)",
+    "defense_role": "אנליסט בכיר-ראשי בבדיקת טענות"
+   },
+   "hold_in_head_he": "ספריית סדרי גודל לכל תחום, רשימות כשל טיפוסיות, כללי אצבע ומקורם.",
+   "delegate_he": "חיפוש נתונים, חישוב מפורט, ניסוח.",
+   "must_verify_he": "רשומת תחזיות מתוארכת מול אמת (Brier, יחס שגיאה).",
+   "thesis_verdict": "supported",
+   "extra_hours": {
+    "p10": 400,
+    "p50": 700,
+    "p90": 1200,
+    "basis_he": "כ-1 ש' לתחזית כולל מעקב, 10 ביקורות של 30–40 ש' [estimate]."
+   },
+   "lab_hours": 190,
+   "real_build_he": "רישום כיול ציבורי: חיזויים מתועדים מול מדידות",
+   "senior_months": {
+    "base": [
+     24.6,
+     29.0,
+     33.9
+    ],
+    "ai_trend": [
+     23.0,
+     26.7,
+     31.0
+    ]
+   },
+   "expert_months": {
+    "base": [
+     50.1,
+     57.3,
+     65.7
+    ],
+    "ai_trend": [
+     45.1,
+     50.8,
+     57.4
+    ]
+   },
+   "principal_months": {
+    "base": [
+     150.0,
+     185.4,
+     233.5
+    ],
+    "ai_trend": [
+     107.1,
+     126.5,
+     153.5
+    ]
+   },
+   "confidence": "medium"
+  },
+  {
+   "id": "ENG · Periphery: discrete math, algorithms, computer systems, chips",
+   "name_he": "שוליים: אלגוריתמים, מערכות מחשב, שבבים",
+   "role": "supporting",
+   "wave": 1,
+   "old": {
+    "knowledge": "A2 survey",
+    "fluency": "A1",
+    "industry": "junior eng / mid analyst"
+   },
+   "target": {
+    "academia_knowledge": "A2–A3",
+    "academia_fluency": "A3 עם כלים",
+    "industry_role": "senior software / compute integrator (AI-augmented)",
+    "defense_role": "אנליסט בכיר לשבבים ומחשוב"
+   },
+   "hold_in_head_he": "סיבוכיות, מבני נתונים, זיכרון ומטמון, roofline, Amdahl, זמן אמת ופסיקות, git.",
+   "delegate_he": "כתיבת קוד, בדיקות, תיעוד.",
+   "must_verify_he": "בדיקות אוטומטיות, קריאת diff, profiling.",
+   "thesis_verdict": "supported",
+   "extra_hours": {
+    "p10": 350,
+    "p50": 600,
+    "p90": 1000,
+    "basis_he": "כ-200 ש' שטף כלים + embedded (~200) + אנליזה [estimate]. חלק משעות הקוד נספר בפרויקטים האחרים."
+   },
+   "lab_hours": 130,
+   "real_build_he": "אוטומציית מכשירים ב-SCPI ומערכת embedded בזמן אמת",
+   "senior_months": {
+    "base": [
+     24.6,
+     29.0,
+     33.9
+    ],
+    "ai_trend": [
+     23.0,
+     26.7,
+     31.0
+    ]
+   },
+   "expert_months": {
+    "base": [
+     50.1,
+     57.3,
+     65.7
+    ],
+    "ai_trend": [
+     45.1,
+     50.8,
+     57.4
+    ]
+   },
+   "principal_months": {
+    "base": [
+     150.0,
+     185.4,
+     233.5
+    ],
+    "ai_trend": [
+     107.1,
+     126.5,
+     153.5
+    ]
+   },
+   "confidence": "medium"
+  },
+  {
+   "id": "MIL · Foundations: the quantitative toolkit",
+   "name_he": "ארגז כלים כמותי",
+   "role": "deep",
+   "wave": 1,
+   "old": {
+    "knowledge": "A3",
+    "fluency": "A2",
+    "industry": "senior analyst"
+   },
+   "target": {
+    "academia_knowledge": "A4",
+    "academia_fluency": "A4 עם כלים: כל חישוב תקני בדקות",
+    "industry_role": "principal-level toolsmith לניתוח חישה ו-EW",
+    "defense_role": "אנליסט בכיר (שטף RAND/CNA)"
+   },
+   "hold_in_head_he": "אריתמטיקת dB, משוואות מכ\"ם ו-J/S בצורה אחת לפחות, Pd/Pfa, CRB, DOP, CEP, מערכות קואורדינטות, MOE/MOP.",
+   "delegate_he": "קוד, בדיקות, תיעוד.",
+   "must_verify_he": "כל פונקציה מול דוגמה מספרית מהספר (PoMR, EW101, Kaplan); CI.",
+   "thesis_verdict": "supported",
+   "extra_hours": {
+    "p10": 300,
+    "p50": 500,
+    "p90": 800,
+    "basis_he": "כ-60 פונקציות × 4–6 ש' כולל בדיקות + תיעוד [estimate]."
+   },
+   "lab_hours": 130,
+   "real_build_he": "ספריית rfcalc שנבדקת גם מול דוגמאות ספר וגם מול מדידות שלו",
+   "senior_months": {
+    "base": [
+     24.6,
+     29.0,
+     33.9
+    ],
+    "ai_trend": [
+     23.0,
+     26.7,
+     31.0
+    ]
+   },
+   "expert_months": {
+    "base": [
+     50.1,
+     57.3,
+     65.7
+    ],
+    "ai_trend": [
+     45.1,
+     50.8,
+     57.4
+    ]
+   },
+   "principal_months": {
+    "base": [
+     150.0,
+     185.4,
+     233.5
+    ],
+    "ai_trend": [
+     107.1,
+     126.5,
+     153.5
+    ]
+   },
+   "confidence": "high"
+  },
+  {
+   "id": "MIL · Antennas and propagation",
+   "name_he": "אנטנות והתפשטות",
+   "role": "deep",
+   "wave": 1,
+   "old": {
+    "knowledge": "A3",
+    "fluency": "A2",
+    "industry": "senior analyst"
+   },
+   "target": {
+    "academia_knowledge": "A4",
+    "academia_fluency": "A4 עם כלים",
+    "industry_role": "principal antenna / propagation engineer לחישה (hands-on, AI-augmented)",
+    "defense_role": "סמכות טכנית לכיסוי ופריסת חיישנים"
+   },
+   "hold_in_head_he": "רווח, צמצם, רוחב אלומה, פקטור מערך, אונות סבכה, צימוד הדדי, Friis, אזורי פרנל, כדור 4/3, multipath, סדרי גודל של ניחות גשם וגזים.",
+   "delegate_he": "סימולציה, עיבוד DEM, גרפים.",
+   "must_verify_he": "דיפול ו-patch אנליטיים, התכנסות רשת, דפוס מדוד, מדידות שפורסמו.",
+   "thesis_verdict": "partial",
+   "extra_hours": {
+    "p10": 1100,
+    "p50": 1700,
+    "p90": 2600,
+    "basis_he": "שני פרויקטים ברמת תזה (תכן-מדידה, התפשטות) כ-700 ש' כל אחד עם AI + ספסל [estimate]."
+   },
+   "lab_hours": 255,
+   "real_build_he": "אנטנות שהוא בונה ומודד, מערך מכוון, ומודל התפשטות מעל שטח אמיתי שאומת במדידה",
+   "senior_months": {
+    "base": [
+     24.6,
+     29.0,
+     33.9
+    ],
+    "ai_trend": [
+     23.0,
+     26.7,
+     31.0
+    ]
+   },
+   "expert_months": {
+    "base": [
+     50.1,
+     57.3,
+     65.7
+    ],
+    "ai_trend": [
+     45.1,
+     50.8,
+     57.4
+    ]
+   },
+   "principal_months": {
+    "base": [
+     150.0,
+     185.4,
+     233.5
+    ],
+    "ai_trend": [
+     107.1,
+     126.5,
+     153.5
+    ]
+   },
+   "confidence": "medium"
+  },
+  {
+   "id": "MIL · Radar",
+   "name_he": "מכ\"ם",
+   "role": "deep",
+   "wave": 1,
+   "old": {
+    "knowledge": "A4 concepts",
+    "fluency": "A2–A3",
+    "industry": "senior analyst"
+   },
+   "target": {
+    "academia_knowledge": "A4–A5: רמת qualifying exam במכ\"ם",
+    "academia_fluency": "A4 עם כלים",
+    "industry_role": "principal radar systems engineer, גילוי מטרות קטנות (hands-on, AI-augmented)",
+    "defense_role": "סמכות טכנית למכ\"ם וחישת C-UAS (קוד פתוח)"
+   },
+   "hold_in_head_he": "משוואת המכ\"ם בכל צורותיה, פונקציית עמימות, רזולוציה, clutter ו-MTI ורעיון STAP, CFAR, תורת גילוי, מיקרו-דופלר, ECCM.",
+   "delegate_he": "קוד עיבוד וסימולציה, ציורים, ניהול נתונים, טיוטות.",
+   "must_verify_he": "כיול במחזיר פינתי, מטרות ידועות, סימולציה מול מדידה, השוואה בין כלים, תקציב SNR מראש.",
+   "thesis_verdict": "partial",
+   "extra_hours": {
+    "p10": 1600,
+    "p50": 2400,
+    "p90": 3600,
+    "basis_he": "שלושה פרויקטים מחקריים (~600–800 ש' כל אחד עם AI) + מאמר (~300) + ספסל. כשליש מחקר PhD (5,000–7,000 ש'), כי הידע כבר מכוסה בשיעורים [estimate]."
+   },
+   "lab_hours": 430,
+   "real_build_he": "שרשרת מכ\"ם על נתונים גולמיים שלו (60 GHz, X-band, פסיבי) ומחקר רחפן מול ציפור",
+   "senior_months": {
+    "base": [
+     24.6,
+     29.0,
+     33.9
+    ],
+    "ai_trend": [
+     23.0,
+     26.7,
+     31.0
+    ]
+   },
+   "expert_months": {
+    "base": [
+     50.1,
+     57.3,
+     65.7
+    ],
+    "ai_trend": [
+     45.1,
+     50.8,
+     57.4
+    ]
+   },
+   "principal_months": {
+    "base": [
+     150.0,
+     185.4,
+     233.5
+    ],
+    "ai_trend": [
+     107.1,
+     126.5,
+     153.5
+    ]
+   },
+   "confidence": "medium"
+  },
+  {
+   "id": "MIL · Electro-optical and infrared sensing",
+   "name_he": "אלקטרו-אופטיקה ואינפרא-אדום",
+   "role": "core",
+   "wave": 2,
+   "old": {
+    "knowledge": "A3",
+    "fluency": "A2",
+    "industry": "mid–senior analyst"
+   },
+   "target": {
+    "academia_knowledge": "A3–A4",
+    "academia_fluency": "A3 עם כלים",
+    "industry_role": "senior EO/IR systems engineer (AI-augmented)",
+    "defense_role": "אנליסט בכיר לטענות טווח וגילוי"
+   },
+   "hold_in_head_he": "פלאנק, MTF, NETD, Johnson/TTP, תמסורת, ניגוד.",
+   "delegate_he": "מודל, עיבוד תמונה.",
+   "must_verify_he": "מדידה בשטח, השוואה לתוצאות שפורסמו.",
+   "thesis_verdict": "partial",
+   "extra_hours": {
+    "p10": 600,
+    "p50": 1000,
+    "p90": 1600,
+    "basis_he": "פרויקט ברמת תזה (~700) + מדידות [estimate]."
+   },
+   "lab_hours": 170,
+   "real_build_he": "אפיון מצלמה תרמית (NETD, MTF) וניסוי טווח גילוי של רחפן",
+   "senior_months": {
+    "base": [
+     70.5,
+     81.4,
+     94.2
+    ],
+    "ai_trend": [
+     58.7,
+     66.3,
+     74.5
+    ]
+   },
+   "expert_months": {
+    "base": [
+     92.7,
+     106.2,
+     122.1
+    ],
+    "ai_trend": [
+     75.6,
+     84.6,
+     94.3
+    ]
+   },
+   "principal_months": {
+    "base": [
+     172.9,
+     223.4,
+     293.8
+    ],
+    "ai_trend": [
+     120.1,
+     147.4,
+     186.5
+    ]
+   },
+   "confidence": "medium"
+  },
+  {
+   "id": "MIL · Electronic warfare and electromagnetic spectrum operations",
+   "name_he": "לוחמה אלקטרונית",
+   "role": "deep",
+   "wave": 1,
+   "old": {
+    "knowledge": "A3–A4",
+    "fluency": "A2–A3",
+    "industry": "senior analyst (open source)"
+   },
+   "target": {
+    "academia_knowledge": "A4: תעודות NPS 292/294 כולל מעבדות",
+    "academia_fluency": "A4 עם כלים",
+    "industry_role": "principal ES/EW systems engineer, תחום פתוח (hands-on, AI-augmented)",
+    "defense_role": "סמכות EW בכירה במקור פתוח"
+   },
+   "hold_in_head_he": "J/S, burn-through, משוואת טווח ES, רווח עיבוד LPI, deinterleaving, דיוק DOA, מחזור CM/CCM וקצביו.",
+   "delegate_he": "קוד, סימולציה, סיווג, טיוטות.",
+   "must_verify_he": "ספסל כבל עם אותות ידועים, סימולציה מול מדידה, נתוני ניסוי פתוחים.",
+   "thesis_verdict": "not_yet",
+   "extra_hours": {
+    "p10": 1500,
+    "p50": 2200,
+    "p90": 3400,
+    "basis_he": "שלושה פרויקטים (~600 ש' כל אחד) + מחקר היסטורי (~300) + ספסל. נשען על שרשרת ה-DSP והמכ\"ם בלי לספור אותה שוב [estimate]."
+   },
+   "lab_hours": 320,
+   "real_build_he": "ספסל EW מכובל ומסוכך: jammer מול קישור ומול מכ\"ם, DF ומסווג אותות",
+   "senior_months": {
+    "base": [
+     24.6,
+     29.0,
+     33.9
+    ],
+    "ai_trend": [
+     23.0,
+     26.7,
+     31.0
+    ]
+   },
+   "expert_months": {
+    "base": [
+     50.1,
+     57.3,
+     65.7
+    ],
+    "ai_trend": [
+     45.1,
+     50.8,
+     57.4
+    ]
+   },
+   "principal_months": {
+    "base": [
+     150.0,
+     185.4,
+     233.5
+    ],
+    "ai_trend": [
+     107.1,
+     126.5,
+     153.5
+    ]
+   },
+   "confidence": "medium"
+  },
+  {
+   "id": "MIL · Communications, datalinks and networks",
+   "name_he": "תקשורת וקישורי נתונים",
+   "role": "core",
+   "wave": 2,
+   "old": {
+    "knowledge": "A3 links / A2 nets",
+    "fluency": "A2",
+    "industry": "mid analyst"
+   },
+   "target": {
+    "academia_knowledge": "A3–A4",
+    "academia_fluency": "A3 עם כלים",
+    "industry_role": "senior tactical comms engineer (AI-augmented)",
+    "defense_role": "אנליסט בכיר לקשרי נתונים"
+   },
+   "hold_in_head_he": "תקציב לינק, TDMA ו-Link 16 ברמת ארכיטקטורה, LPI, ניתוב ב-MANET, השהיה.",
+   "delegate_he": "סימולציה, גרפים.",
+   "must_verify_he": "מול תאוריה, מול מדידת SDR.",
+   "thesis_verdict": "partial",
+   "extra_hours": {
+    "p10": 500,
+    "p50": 800,
+    "p90": 1300,
+    "basis_he": "תוספת על פרויקט התקשורת ב-ENG (~500) + רשת [estimate]."
+   },
+   "lab_hours": 195,
+   "real_build_he": "רשת mesh אמיתית ו-datalink בכבל תחת jammer",
+   "senior_months": {
+    "base": [
+     70.5,
+     81.4,
+     94.2
+    ],
+    "ai_trend": [
+     58.7,
+     66.3,
+     74.5
+    ]
+   },
+   "expert_months": {
+    "base": [
+     92.7,
+     106.2,
+     122.1
+    ],
+    "ai_trend": [
+     75.6,
+     84.6,
+     94.3
+    ]
+   },
+   "principal_months": {
+    "base": [
+     172.9,
+     223.4,
+     293.8
+    ],
+    "ai_trend": [
+     120.1,
+     147.4,
+     186.5
+    ]
+   },
+   "confidence": "medium"
+  },
+  {
+   "id": "MIL · Positioning, navigation and timing",
+   "name_he": "ניווט, מיקום ותזמון (PNT)",
+   "role": "deep",
+   "wave": 1,
+   "old": {
+    "knowledge": "A3",
+    "fluency": "A2",
+    "industry": "senior analyst"
+   },
+   "target": {
+    "academia_knowledge": "A4: GNSS לתואר שני כולל INS ותזמון",
+    "academia_fluency": "A4 עם כלים",
+    "industry_role": "principal GNSS / alt-PNT engineer (hands-on, AI-augmented)",
+    "defense_role": "סמכות טכנית לשיבוש והטעיה"
+   },
+   "hold_in_head_he": "משוואת הפסאודו-טווח, DOP, C/N0, J/N, ספי לולאות עקיבה, צמיחת שגיאת INS, Allan deviation, מסגרות.",
+   "delegate_he": "עיבוד, קוד, מפות.",
+   "must_verify_he": "נתוני תחנות IGS, השוואת מקלטים, IQ מוקלט, מפות קליטה מול NIC.",
+   "thesis_verdict": "supported",
+   "extra_hours": {
+    "p10": 1200,
+    "p50": 1800,
+    "p90": 2800,
+    "basis_he": "שלושה פרויקטים (~500 כל אחד) + תזמון ומאמר; ההתכה נספרת באומדן [estimate]."
+   },
+   "lab_hours": 400,
+   "real_build_he": "RTK שלו, מקלט GNSS תוכנה על IQ שהקליט, ומפת הפרעות אזורית עם ניטור עצמאי",
+   "senior_months": {
+    "base": [
+     24.6,
+     29.0,
+     33.9
+    ],
+    "ai_trend": [
+     23.0,
+     26.7,
+     31.0
+    ]
+   },
+   "expert_months": {
+    "base": [
+     50.1,
+     57.3,
+     65.7
+    ],
+    "ai_trend": [
+     45.1,
+     50.8,
+     57.4
+    ]
+   },
+   "principal_months": {
+    "base": [
+     150.0,
+     185.4,
+     233.5
+    ],
+    "ai_trend": [
+     107.1,
+     126.5,
+     153.5
+    ]
+   },
+   "confidence": "medium"
+  },
+  {
+   "id": "MIL · Missiles: propulsion, guidance, control and design",
+   "name_he": "טילים",
+   "role": "core",
+   "wave": 2,
+   "old": {
+    "knowledge": "A3–A4 concepts",
+    "fluency": "A2",
+    "industry": "senior analyst"
+   },
+   "target": {
+    "academia_knowledge": "A4",
+    "academia_fluency": "A4 עם כלים",
+    "industry_role": "senior missile GNC / performance engineer (AI-augmented)",
+    "defense_role": "אנליסט בכיר לטענות טילים"
+   },
+   "hold_in_head_he": "PN ו-APN, קבוע זמן מערכת, מרחק החטאה, Δv, אווירודינמיקה בסדר גודל, עמידות מבנית.",
+   "delegate_he": "סימולציה ומונטה קרלו.",
+   "must_verify_he": "Zarchan, פתרון סגור, adjoint מול מונטה קרלו.",
+   "thesis_verdict": "partial",
+   "extra_hours": {
+    "p10": 900,
+    "p50": 1400,
+    "p90": 2200,
+    "basis_he": "פרויקט ברמת תזה NPS (~800–1000 ש', AI חוסך במימוש) [estimate]."
+   },
+   "lab_hours": 250,
+   "real_build_he": "סימולציית engagement מאומתת וטיל דגם עם לוג מעוף מול תחזית",
+   "senior_months": {
+    "base": [
+     70.5,
+     81.4,
+     94.2
+    ],
+    "ai_trend": [
+     58.7,
+     66.3,
+     74.5
+    ]
+   },
+   "expert_months": {
+    "base": [
+     92.7,
+     106.2,
+     122.1
+    ],
+    "ai_trend": [
+     75.6,
+     84.6,
+     94.3
+    ]
+   },
+   "principal_months": {
+    "base": [
+     172.9,
+     223.4,
+     293.8
+    ],
+    "ai_trend": [
+     120.1,
+     147.4,
+     186.5
+    ]
+   },
+   "confidence": "medium"
+  },
+  {
+   "id": "MIL · Air and missile defense",
+   "name_he": "הגנה אווירית וטילית",
+   "role": "core",
+   "wave": 2,
+   "old": {
+    "knowledge": "A3",
+    "fluency": "A2",
+    "industry": "senior analyst (open source)"
+   },
+   "target": {
+    "academia_knowledge": "A4",
+    "academia_fluency": "A4 עם כלים",
+    "industry_role": "senior AMD systems analyst (AI-augmented)",
+    "defense_role": "אנליסט בכיר ברמת RAND/CSIS"
+   },
+   "hold_in_head_he": "דליפה שכבתית, עומק מחסנית, Pk, עלות-החלפה, מכנים.",
+   "delegate_he": "קוד וסריקות.",
+   "must_verify_he": "נתונים ציבוריים מוצלבים, רגישות.",
+   "thesis_verdict": "supported",
+   "extra_hours": {
+    "p10": 600,
+    "p50": 1000,
+    "p90": 1600,
+    "basis_he": "פרויקט ברמת תזה (~700) [estimate]."
+   },
+   "lab_hours": 190,
+   "real_build_he": "tracker והקצאת מיירטים על מסלולי ADS-B אמיתיים",
+   "senior_months": {
+    "base": [
+     70.5,
+     81.4,
+     94.2
+    ],
+    "ai_trend": [
+     58.7,
+     66.3,
+     74.5
+    ]
+   },
+   "expert_months": {
+    "base": [
+     92.7,
+     106.2,
+     122.1
+    ],
+    "ai_trend": [
+     75.6,
+     84.6,
+     94.3
+    ]
+   },
+   "principal_months": {
+    "base": [
+     172.9,
+     223.4,
+     293.8
+    ],
+    "ai_trend": [
+     120.1,
+     147.4,
+     186.5
+    ]
+   },
+   "confidence": "medium"
+  },
+  {
+   "id": "MIL · C4ISR, kill chains and targeting",
+   "name_he": "C4ISR ושרשרת הרג",
+   "role": "core",
+   "wave": 2,
+   "old": {
+    "knowledge": "A2",
+    "fluency": "A1–A2",
+    "industry": "junior–mid (unmeasured)"
+   },
+   "target": {
+    "academia_knowledge": "A3–A4",
+    "academia_fluency": "A3 עם כלים",
+    "industry_role": "senior C4ISR systems analyst (AI-augmented)",
+    "defense_role": "אנליסט בכיר"
+   },
+   "hold_in_head_he": "F2T2EA, השהיות, VoI, ארכיטקטורות C2.",
+   "delegate_he": "מודל וגרפים.",
+   "must_verify_he": "ראיונות ומקרים מתועדים.",
+   "thesis_verdict": "partial",
+   "extra_hours": {
+    "p10": 500,
+    "p50": 900,
+    "p90": 1500,
+    "basis_he": "מודל (~400) + ראיונות (~200) + השלמת מקורות [estimate]."
+   },
+   "lab_hours": 160,
+   "real_build_he": "שרשרת חיישן→החלטה אמיתית עם latency נמדד",
+   "senior_months": {
+    "base": [
+     70.5,
+     81.4,
+     94.2
+    ],
+    "ai_trend": [
+     58.7,
+     66.3,
+     74.5
+    ]
+   },
+   "expert_months": {
+    "base": [
+     92.7,
+     106.2,
+     122.1
+    ],
+    "ai_trend": [
+     75.6,
+     84.6,
+     94.3
+    ]
+   },
+   "principal_months": {
+    "base": [
+     172.9,
+     223.4,
+     293.8
+    ],
+    "ai_trend": [
+     120.1,
+     147.4,
+     186.5
+    ]
+   },
+   "confidence": "low"
+  },
+  {
+   "id": "MIL · Space systems and space warfare",
+   "name_he": "מערכות חלל",
+   "role": "core",
+   "wave": 2,
+   "old": {
+    "knowledge": "A3",
+    "fluency": "A2",
+    "industry": "mid analyst"
+   },
+   "target": {
+    "academia_knowledge": "A3–A4",
+    "academia_fluency": "A3 עם כלים",
+    "industry_role": "senior space systems analyst (AI-augmented)",
+    "defense_role": "אנליסט חלל בכיר"
+   },
+   "hold_in_head_he": "קפלר, Δv, J2, כיסוי, תקציב לינק לווייני.",
+   "delegate_he": "חישובי מסלול.",
+   "must_verify_he": "TLE מול תצפית, מקרי ספר.",
+   "thesis_verdict": "supported",
+   "extra_hours": {
+    "p10": 600,
+    "p50": 1000,
+    "p90": 1600,
+    "basis_he": "פרויקט ברמת תזה (~700) + תחנה [estimate]."
+   },
+   "lab_hours": 190,
+   "real_build_he": "תחנת קרקע שקולטת לוויינים ומתאימה מסלול לעקומת דופלר",
+   "senior_months": {
+    "base": [
+     70.5,
+     81.4,
+     94.2
+    ],
+    "ai_trend": [
+     58.7,
+     66.3,
+     74.5
+    ]
+   },
+   "expert_months": {
+    "base": [
+     92.7,
+     106.2,
+     122.1
+    ],
+    "ai_trend": [
+     75.6,
+     84.6,
+     94.3
+    ]
+   },
+   "principal_months": {
+    "base": [
+     172.9,
+     223.4,
+     293.8
+    ],
+    "ai_trend": [
+     120.1,
+     147.4,
+     186.5
+    ]
+   },
+   "confidence": "medium"
+  },
+  {
+   "id": "MIL · Unmanned systems and counter-UAS",
+   "name_he": "כטב\"מים ונגד-כטב\"מ",
+   "role": "core",
+   "wave": 1,
+   "old": {
+    "knowledge": "A2–A3",
+    "fluency": "A2",
+    "industry": "mid analyst"
+   },
+   "target": {
+    "academia_knowledge": "A3–A4",
+    "academia_fluency": "A3 עם כלים",
+    "industry_role": "senior C-UAS systems engineer (hands-on, AI-augmented)",
+    "defense_role": "אנליסט C-UAS בכיר"
+   },
+   "hold_in_head_he": "RCS של רחפנים, טווחי גילוי, קשרי C2, עלות-החלפה.",
+   "delegate_he": "קוד, מודלים, תכן.",
+   "must_verify_he": "טיסות, מדידות, דיווחי שטח.",
+   "thesis_verdict": "partial",
+   "extra_hours": {
+    "p10": 800,
+    "p50": 1300,
+    "p90": 2000,
+    "basis_he": "בנייה וטיסות (~400) + מודל (~400) + עדכון שוטף (~200 בשנה) [estimate]."
+   },
+   "lab_hours": 265,
+   "real_build_he": "רחפן שהוא בונה, ומטריצת חיישני גילוי נמדדת",
+   "senior_months": {
+    "base": [
+     24.6,
+     29.0,
+     33.9
+    ],
+    "ai_trend": [
+     23.0,
+     26.7,
+     31.0
+    ]
+   },
+   "expert_months": {
+    "base": [
+     50.1,
+     57.3,
+     65.7
+    ],
+    "ai_trend": [
+     45.1,
+     50.8,
+     57.4
+    ]
+   },
+   "principal_months": {
+    "base": [
+     150.0,
+     185.4,
+     233.5
+    ],
+    "ai_trend": [
+     107.1,
+     126.5,
+     153.5
+    ]
+   },
+   "confidence": "medium"
+  },
+  {
+   "id": "MIL · Weapons effects, lethality and protection",
+   "name_he": "השפעת נשק וקטלניות",
+   "role": "supporting",
+   "wave": 3,
+   "old": {
+    "knowledge": "A2",
+    "fluency": "A1–A2",
+    "industry": "junior–mid analyst"
+   },
+   "target": {
+    "academia_knowledge": "A3",
+    "academia_fluency": "A3 עם כלים",
+    "industry_role": "senior lethality analyst (AI-augmented)",
+    "defense_role": "אנליסט בכיר"
+   },
+   "hold_in_head_he": "Gurney, CEP→Pk, שטח קטלני.",
+   "delegate_he": "מודל.",
+   "must_verify_he": "מקרים מהספר.",
+   "thesis_verdict": "partial",
+   "extra_hours": {
+    "p10": 280,
+    "p50": 450,
+    "p90": 800,
+    "basis_he": "פרויקט (~300) [estimate]."
+   },
+   "lab_hours": 120,
+   "real_build_he": "מגדל הפלה בטוח עם אקסלרומטר ופאנלים מודפסים מול מודל אנרגיה",
+   "senior_months": {
+    "base": [
+     108.0,
+     124.7,
+     144.2
+    ],
+    "ai_trend": [
+     83.1,
+     93.0,
+     103.8
+    ]
+   },
+   "expert_months": {
+    "base": [
+     129.2,
+     148.7,
+     171.3
+    ],
+    "ai_trend": [
+     98.1,
+     109.1,
+     121.7
+    ]
+   },
+   "principal_months": {
+    "base": [
+     179.7,
+     237.9,
+     321.9
+    ],
+    "ai_trend": [
+     123.9,
+     155.5,
+     202.2
+    ]
+   },
+   "confidence": "low"
+  },
+  {
+   "id": "MIL · Platforms and survivability",
+   "name_he": "פלטפורמות ושרידות",
+   "role": "supporting",
+   "wave": 3,
+   "old": {
+    "knowledge": "A3",
+    "fluency": "A2",
+    "industry": "mid–senior analyst"
+   },
+   "target": {
+    "academia_knowledge": "A3",
+    "academia_fluency": "A3 עם כלים",
+    "industry_role": "senior survivability analyst (AI-augmented)",
+    "defense_role": "אנליסט בכיר"
+   },
+   "hold_in_head_he": "susceptibility מול vulnerability, שיעורי שחיקה.",
+   "delegate_he": "מודל.",
+   "must_verify_he": "היסטוריה.",
+   "thesis_verdict": "supported",
+   "extra_hours": {
+    "p10": 280,
+    "p50": 450,
+    "p90": 800,
+    "basis_he": "פרויקט (~300) [estimate]."
+   },
+   "lab_hours": 140,
+   "real_build_he": "RCS נמדד של מטרות קטנות ושינוי עיצוב מדוד",
+   "senior_months": {
+    "base": [
+     108.0,
+     124.7,
+     144.2
+    ],
+    "ai_trend": [
+     83.1,
+     93.0,
+     103.8
+    ]
+   },
+   "expert_months": {
+    "base": [
+     129.2,
+     148.7,
+     171.3
+    ],
+    "ai_trend": [
+     98.1,
+     109.1,
+     121.7
+    ]
+   },
+   "principal_months": {
+    "base": [
+     179.7,
+     237.9,
+     321.9
+    ],
+    "ai_trend": [
+     123.9,
+     155.5,
+     202.2
+    ]
+   },
+   "confidence": "medium"
+  },
+  {
+   "id": "MIL · Naval and undersea warfare",
+   "name_he": "לוחמה ימית ותת-ימית",
+   "role": "supporting",
+   "wave": 3,
+   "old": {
+    "knowledge": "A2",
+    "fluency": "A1–A2",
+    "industry": "junior–mid analyst"
+   },
+   "target": {
+    "academia_knowledge": "A3",
+    "academia_fluency": "A3 עם כלים",
+    "industry_role": "senior naval systems analyst (AI-augmented)",
+    "defense_role": "אנליסט בכיר"
+   },
+   "hold_in_head_he": "Hughes salvo, משוואת הסונאר.",
+   "delegate_he": "מודל.",
+   "must_verify_he": "נתונים פתוחים.",
+   "thesis_verdict": "partial",
+   "extra_hours": {
+    "p10": 280,
+    "p50": 450,
+    "p90": 800,
+    "basis_he": "פרויקט (~300) [estimate]."
+   },
+   "lab_hours": 190,
+   "real_build_he": "הקלטת הידרופון של אוניות עם AIS כאמת, וסונאר קטן בבריכה",
+   "senior_months": {
+    "base": [
+     108.0,
+     124.7,
+     144.2
+    ],
+    "ai_trend": [
+     83.1,
+     93.0,
+     103.8
+    ]
+   },
+   "expert_months": {
+    "base": [
+     129.2,
+     148.7,
+     171.3
+    ],
+    "ai_trend": [
+     98.1,
+     109.1,
+     121.7
+    ]
+   },
+   "principal_months": {
+    "base": [
+     179.7,
+     237.9,
+     321.9
+    ],
+    "ai_trend": [
+     123.9,
+     155.5,
+     202.2
+    ]
+   },
+   "confidence": "low"
+  },
+  {
+   "id": "MIL · Operations research and combat modeling",
+   "name_he": "חקר ביצועים ומידול קרבי",
+   "role": "core",
+   "wave": 2,
+   "old": {
+    "knowledge": "A3–A4 concepts",
+    "fluency": "A2",
+    "industry": "associate (mid) analyst"
+   },
+   "target": {
+    "academia_knowledge": "A4",
+    "academia_fluency": "A4 עם כלים",
+    "industry_role": "senior OR analyst (AI-augmented)",
+    "defense_role": "אנליסט בכיר RAND/CNA"
+   },
+   "hold_in_head_he": "לנצ'סטר, salvo, תורת חיפוש, תכנון ניסויים, אימות.",
+   "delegate_he": "סימולציה, סטטיסטיקה.",
+   "must_verify_he": "היסטוריה, רגישות, השוואה.",
+   "thesis_verdict": "supported",
+   "extra_hours": {
+    "p10": 700,
+    "p50": 1100,
+    "p90": 1800,
+    "basis_he": "תזת NPS (~800–1000) עם AI [estimate]."
+   },
+   "lab_hours": 240,
+   "real_build_he": "מודל DES/agent-based שכויל מול נתון היסטורי ומשחק מלחמה שהוא מריץ",
+   "senior_months": {
+    "base": [
+     70.5,
+     81.4,
+     94.2
+    ],
+    "ai_trend": [
+     58.7,
+     66.3,
+     74.5
+    ]
+   },
+   "expert_months": {
+    "base": [
+     92.7,
+     106.2,
+     122.1
+    ],
+    "ai_trend": [
+     75.6,
+     84.6,
+     94.3
+    ]
+   },
+   "principal_months": {
+    "base": [
+     172.9,
+     223.4,
+     293.8
+    ],
+    "ai_trend": [
+     120.1,
+     147.4,
+     186.5
+    ]
+   },
+   "confidence": "medium"
+  },
+  {
+   "id": "MIL · Logistics, sustainment and force generation",
+   "name_he": "לוגיסטיקה",
+   "role": "supporting",
+   "wave": 3,
+   "old": {
+    "knowledge": "A2",
+    "fluency": "A1",
+    "industry": "junior analyst"
+   },
+   "target": {
+    "academia_knowledge": "A3",
+    "academia_fluency": "A3 עם כלים",
+    "industry_role": "senior logistics analyst (AI-augmented)",
+    "defense_role": "אנליסט בכיר"
+   },
+   "hold_in_head_he": "מקדמי תכנון, צריכה, ייצור.",
+   "delegate_he": "מודל.",
+   "must_verify_he": "נתונים מוצלבים.",
+   "thesis_verdict": "partial",
+   "extra_hours": {
+    "p10": 250,
+    "p50": 400,
+    "p90": 700,
+    "basis_he": "פרויקט (~250) [estimate]."
+   },
+   "lab_hours": 130,
+   "real_build_he": "לוח מחוונים חי של צריכה מול ייצור מנתונים פומביים",
+   "senior_months": {
+    "base": [
+     108.0,
+     124.7,
+     144.2
+    ],
+    "ai_trend": [
+     83.1,
+     93.0,
+     103.8
+    ]
+   },
+   "expert_months": {
+    "base": [
+     129.2,
+     148.7,
+     171.3
+    ],
+    "ai_trend": [
+     98.1,
+     109.1,
+     121.7
+    ]
+   },
+   "principal_months": {
+    "base": [
+     179.7,
+     237.9,
+     321.9
+    ],
+    "ai_trend": [
+     123.9,
+     155.5,
+     202.2
+    ]
+   },
+   "confidence": "low"
+  },
+  {
+   "id": "MIL · Acquisition, cost, test & evaluation, industrial base, policy",
+   "name_he": "רכש, עלות וניסוי",
+   "role": "supporting",
+   "wave": 3,
+   "old": {
+    "knowledge": "A2–A3",
+    "fluency": "A2",
+    "industry": "junior–mid analyst"
+   },
+   "target": {
+    "academia_knowledge": "A3",
+    "academia_fluency": "A3 עם כלים",
+    "industry_role": "senior cost / T&E analyst (AI-augmented)",
+    "defense_role": "אנליסט בכיר"
+   },
+   "hold_in_head_he": "LCC, עקומות למידה, סטטיסטיקת ניסוי.",
+   "delegate_he": "חישוב.",
+   "must_verify_he": "נתונים.",
+   "thesis_verdict": "supported",
+   "extra_hours": {
+    "p10": 280,
+    "p50": 450,
+    "p90": 800,
+    "basis_he": "פרויקט (~300) [estimate]."
+   },
+   "lab_hours": 140,
+   "real_build_he": "תוכנית T&E ובדיקות קבלה אמיתיות למוצר שלו, ואומדן עלות מ-SAR",
+   "senior_months": {
+    "base": [
+     108.0,
+     124.7,
+     144.2
+    ],
+    "ai_trend": [
+     83.1,
+     93.0,
+     103.8
+    ]
+   },
+   "expert_months": {
+    "base": [
+     129.2,
+     148.7,
+     171.3
+    ],
+    "ai_trend": [
+     98.1,
+     109.1,
+     121.7
+    ]
+   },
+   "principal_months": {
+    "base": [
+     179.7,
+     237.9,
+     321.9
+    ],
+    "ai_trend": [
+     123.9,
+     155.5,
+     202.2
+    ]
+   },
+   "confidence": "medium"
+  },
+  {
+   "id": "MIL · Adversary systems, doctrine and capability assessment",
+   "name_he": "מערכות יריב ודוקטרינה",
+   "role": "supporting",
+   "wave": 3,
+   "old": {
+    "knowledge": "A2",
+    "fluency": "n/a",
+    "industry": "junior–mid analyst"
+   },
+   "target": {
+    "academia_knowledge": "A3",
+    "academia_fluency": "A3 עם כלים",
+    "industry_role": "senior capability-assessment analyst (AI-augmented)",
+    "defense_role": "אנליסט בכיר"
+   },
+   "hold_in_head_he": "מבנה כוח, תורות, שיטות הערכה.",
+   "delegate_he": "תרגום, חיפוש.",
+   "must_verify_he": "מונחים מול מילון צבאי, מומחה.",
+   "thesis_verdict": "partial",
+   "extra_hours": {
+    "p10": 400,
+    "p50": 700,
+    "p90": 1300,
+    "basis_he": "קריאה שיטתית (~400) + הערכה (~200) [estimate]."
+   },
+   "lab_hours": 160,
+   "real_build_he": "מדידה מתמונות לוויין של אנטנת מכ\"ם → תדר ורוחב אלומה משוערים",
+   "senior_months": {
+    "base": [
+     108.0,
+     124.7,
+     144.2
+    ],
+    "ai_trend": [
+     83.1,
+     93.0,
+     103.8
+    ]
+   },
+   "expert_months": {
+    "base": [
+     129.2,
+     148.7,
+     171.3
+    ],
+    "ai_trend": [
+     98.1,
+     109.1,
+     121.7
+    ]
+   },
+   "principal_months": {
+    "base": [
+     179.7,
+     237.9,
+     321.9
+    ],
+    "ai_trend": [
+     123.9,
+     155.5,
+     202.2
+    ]
+   },
+   "confidence": "low"
+  },
+  {
+   "id": "MIL · Defense analysis craft: OSINT, claims checking and communication",
+   "name_he": "מלאכת הניתוח: OSINT ובדיקת טענות",
+   "role": "core",
+   "wave": 1,
+   "old": {
+    "knowledge": "seminar",
+    "fluency": "n/a",
+    "industry": "mid–senior (writing)"
+   },
+   "target": {
+    "academia_knowledge": "מעבר לסמינר תואר שני",
+    "academia_fluency": "-",
+    "industry_role": "senior OSINT / technical analyst (AI-augmented)",
+    "defense_role": "אנליסט ובודק טענות בכיר"
+   },
+   "hold_in_head_he": "שיטות אימות, הטיות, סדרי גודל.",
+   "delegate_he": "איסוף, תרגום, טיוטות.",
+   "must_verify_he": "כל מקור נפתח ונקרא; גיאולוקציה כפולה.",
+   "thesis_verdict": "supported",
+   "extra_hours": {
+    "p10": 500,
+    "p50": 900,
+    "p90": 1500,
+    "basis_he": "כלי OSINT (~200) + 10–15 פרסומים [estimate]."
+   },
+   "lab_hours": 150,
+   "real_build_he": "ניתוח אירוע אמיתי מ-ADS-B/AIS/GNSS ומתמונות SAR",
+   "senior_months": {
+    "base": [
+     24.6,
+     29.0,
+     33.9
+    ],
+    "ai_trend": [
+     23.0,
+     26.7,
+     31.0
+    ]
+   },
+   "expert_months": {
+    "base": [
+     50.1,
+     57.3,
+     65.7
+    ],
+    "ai_trend": [
+     45.1,
+     50.8,
+     57.4
+    ]
+   },
+   "principal_months": {
+    "base": [
+     150.0,
+     185.4,
+     233.5
+    ],
+    "ai_trend": [
+     107.1,
+     126.5,
+     153.5
+    ]
+   },
+   "confidence": "medium"
+  }
+ ]
+}
