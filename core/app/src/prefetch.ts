@@ -3,6 +3,7 @@ import type { Runtime } from "./runtime";
 import type { LibraryIndex, Module } from "./library";
 import { composeLesson, updateMemory, type PartPlan } from "./tutor";
 import type { Activity, Effort, LessonNote, ModuleProgress, NoteKind, StoredMessage } from "./types";
+import { fitsLesson, loadShelf } from "./shelf";
 
 // The next lesson is written while the learner is away: at a break and at "close the day"
 // (docs/research/round5/ux, r5-prefetch). It is the same lesson the "כתוב את שיעור" button writes, in the same
@@ -103,6 +104,8 @@ async function run(j: Job) {
     chain = chain.then(() => store.saveMessage(at, msgId, snapshot).catch(() => {}));
   };
   try {
+    // a lesson the nightly session already left on the shelf (shelf.ts) is offered as it is, not written again
+    if (!cid && fitsLesson(await loadShelf(store, m.id, idx), spec)) return;
     if (cid) {
       // something is already there: it belongs to the learner (and to resumeLast)
       if ((await store.loadMessages(cid)).length) return;

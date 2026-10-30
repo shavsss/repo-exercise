@@ -172,6 +172,10 @@ const page = fs.readFileSync(path.join(app, "artifact", "index.html"), "utf8");
 // Sample documents for the newspaper, product and review tabs; stub.js adds them when the address has ?seed.
 const sample = (f) => JSON.parse(fs.readFileSync(path.join(here, "samples", f), "utf8"));
 const seedDocs = { "news/2026-W44": sample("news.json"), "reviews/2026-W44": sample("review.json"), "products/__MONTH__": sample("product.json") };
+// a lesson on the ready shelf (docs/SHELF_SCHEMA.md) for lesson 2 of the scripted module, matched by title (the app attaches unassigned pages to the planned sources)
+const shelf = sample("shelf.json");
+seedDocs[`shelf/${mod.id}__1`] = { ...shelf.doc, app: "core", moduleId: mod.id, spec: { title: lessons[1].title }, title: lessons[1].title };
+for (const [n, part] of Object.entries(shelf.more)) seedDocs[`shelf/${mod.id}__1/more/${n}`] = part;
 fs.writeFileSync(
   path.join(out, "test.html"),
   `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body>` +

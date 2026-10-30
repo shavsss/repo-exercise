@@ -30,6 +30,7 @@ import { joinContinuation, looksCut } from "./truncation";
 import { countLesson } from "./usage";
 import { isNewDay, lastSelection, stopOf, useDayClock } from "./day";
 import { stopPrefetch, usePrefetch, usePrefetchDriver, useSettlePrefetched } from "./prefetch";
+import { ShelfOffer } from "./components/ShelfOffer";
 import { WaitPanel } from "./components/WaitPanel";
 import { BreakLine } from "./components/BreakLine";
 import { MorningCard } from "./components/MorningCard";
@@ -710,6 +711,20 @@ export function App() {
                 <>
                   {items.length === 0 && (
                     <MdContext.Provider value={mdCtx}>
+                      {lesson && !wantedConv && !convId && rt?.store && !following && (
+                        <ShelfOffer
+                          store={rt.store}
+                          m={module}
+                          idx={lessonIdx}
+                          spec={lesson}
+                          disabled={busy}
+                          onAdopt={async (cid, msgs) => {
+                            setConvId(cid);
+                            setMessages(msgs);
+                            await saveModule(module.id, { convs: { ...(modsRef.current[module.id]?.convs ?? {}), [String(lessonIdx)]: cid } });
+                          }}
+                        />
+                      )}
                       {lesson && <LessonIntro m={module} idx={lessonIdx} lesson={lesson} total={nLessons} />}
                       {isQuiz && <QuizIntro m={module} prog={prog} />}
                       {!lesson && !isQuiz && <div className="block-pending">השיעור הזה עוד לא תוכנן.</div>}
