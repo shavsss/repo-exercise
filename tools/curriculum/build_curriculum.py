@@ -19,6 +19,8 @@ ROOT = Path(__file__).resolve().parents[2]
 F = ROOT / "docs/research/round3/final/F_curriculum.json"
 R = {"mil": ROOT / "docs/research/round4/reading/R_mil.json", "eng": ROOT / "docs/research/round4/reading/R_eng.json"}
 H = ROOT / "tools/curriculum/sources_p2h.json"
+# Lanchester's tutor-facing wording (engineering register; see the file's "about")
+WORDING = {"mil": ROOT / "tools/curriculum/wording_mil.json"}
 OUT = {"mil": ROOT / "library/military/syllabus/curriculum.json", "eng": ROOT / "library/engineering/syllabus/curriculum.json"}
 
 KIND = {"deepen existing lesson": "deepen", "new lesson item": "new", "delta link to primary": "delta", "C-level mention": "mention"}
@@ -99,6 +101,37 @@ def reading_h(x):
     return out
 
 
+# Tutor-facing text fields; a reading item's title, authors and org are bibliographic and stay.
+TEXT_FIELDS = {"items": ("n", "teach"), "testout": ("t", "why"), "brief": ("t", "why"), "reading": ("why", "focus", "topic")}
+
+
+def reword(mods, path):
+    """Applies the wording overrides of `path` in place; returns how many fields changed.
+    Fails on a replacement that matches nothing (stale after a source change)."""
+    rules = json.loads(path.read_text())["replace"]
+    used = [0] * len(rules)
+    changed = 0
+    for e in mods.values():
+        for f, keys in TEXT_FIELDS.items():
+            for x in e.get(f, []):
+                for k in keys:
+                    v = x.get(k)
+                    if not isinstance(v, str):
+                        continue
+                    new = v
+                    for i, (a, b) in enumerate(rules):
+                        if a in new:
+                            new = new.replace(a, b)
+                            used[i] += 1
+                    if new != v:
+                        x[k] = new
+                        changed += 1
+    stale = [a for (a, _), n in zip(rules, used) if not n]
+    if stale:
+        raise SystemExit(f"{path.name}: replacements that match nothing: {stale}")
+    return changed
+
+
 def main():
     f = json.loads(F.read_text())
     h = json.loads(H.read_text())
@@ -125,10 +158,11 @@ def main():
             if x["app"] == app:
                 mods[x["module"]]["reading"].append(reading_h(x))
         mods = {k: {f: v for f, v in e.items() if v} for k, e in mods.items()}
+        reworded = reword(mods, WORDING[app]) if app in WORDING else 0
         out = {
             "meta": {
                 "built_by": "tools/curriculum/build_curriculum.py",
-                "from": [str(F.relative_to(ROOT)), str(R[app].relative_to(ROOT)), str(H.relative_to(ROOT))],
+                "from": [str(F.relative_to(ROOT)), str(R[app].relative_to(ROOT)), str(H.relative_to(ROOT))] + ([str(WORDING[app].relative_to(ROOT))] if app in WORDING else []),
                 "fields": {
                     "items": "lesson items added by the topic-based curriculum: n name, imp K/S/C, k new|deepen|delta|mention, teach what to add, primary (for delta) the module that teaches it in full, to 1 = test-out candidate",
                     "testout": "sections (t, d doc, p PDF pages) or subtopics (sub 1) taught after a short diagnostic: pass = condensed lesson with the full text one click away and a later recheck; otherwise the full lesson",
@@ -140,7 +174,7 @@ def main():
         }
         OUT[app].write_text(json.dumps(out, ensure_ascii=False, indent=0) + "\n")
         n = {k: sum(len(e.get(k, [])) for e in mods.values()) for k in ("items", "testout", "brief", "reading")}
-        print(app, OUT[app].relative_to(ROOT), n)
+        print(app, OUT[app].relative_to(ROOT), n, f"reworded {reworded} fields" if reworded else "")
 
 
 if __name__ == "__main__":
