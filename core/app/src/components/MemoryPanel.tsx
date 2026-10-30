@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Markdown } from "./Markdown";
 import { Icon } from "./Icon";
+import { CalibView } from "./Calibration";
 
-export function MemoryPanel({ memory, busy, canSave, onClose, onSave }: { memory: string; busy: boolean; canSave: boolean; onClose: () => void; onSave: (text: string) => void }) {
+export function MemoryPanel({ memory, busy, canSave, onClose, onSave, onOpenLesson }: { memory: string; busy: boolean; canSave: boolean; onClose: () => void; onSave: (text: string) => void; onOpenLesson?: (moduleId: string, lesson: number) => void }) {
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState(memory);
   return (
@@ -37,6 +38,7 @@ export function MemoryPanel({ memory, busy, canSave, onClose, onSave }: { memory
         ) : (
           <div className="modal-body prose">
             <Markdown text={memory} />
+            <CalibView onOpen={onOpenLesson} />
           </div>
         )}
       </div>

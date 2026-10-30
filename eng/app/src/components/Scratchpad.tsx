@@ -9,7 +9,7 @@ import type { Runtime } from "../runtime";
 import { Markdown, MdContext } from "./Markdown";
 import { Icon } from "./Icon";
 import { MathEditor, MathView } from "../summaries/MathEdit";
-import { sectionAt } from "./Explain";
+import { sectionAt } from "./lessonText";
 
 const CHECK_MODEL = "claude-opus-5-5";
 const VB_W = 1000;

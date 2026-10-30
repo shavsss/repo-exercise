@@ -1,0 +1,271 @@
+/* Consultation cards (components/Consult.tsx), commit before reveal on the think questions
+   (components/Confidence.tsx) and the calibration view (components/Calibration.tsx).
+   Quiet: the lesson's own tokens, thin rules, no looping animation. Same file in both labs. */
+
+/* ---------- the rail on the right of the lesson: a question about the paragraph at the top ---------- */
+.consult-rail {
+  all: unset;
+  box-sizing: border-box;
+  cursor: pointer;
+  flex: none;
+  width: 34px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 0;
+  border-inline-end: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--ink-soft);
+  font-size: 0.8rem;
+}
+.consult-rail span { writing-mode: vertical-rl; }
+.consult-rail:hover { color: var(--ink); background: var(--hover); }
+.consult-rail:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+@media (max-width: 1100px) {
+  .consult-rail { width: 30px; }
+}
+@media (max-width: 560px) {
+  /* a phone: marked text is the way in, and the column keeps its width */
+  .consult-rail { display: none; }
+}
+
+/* ---------- the toolbar over marked text ---------- */
+.consult-bar {
+  position: fixed;
+  z-index: 60;
+  display: flex;
+  flex-wrap: wrap;
+  max-width: calc(100vw - 16px);
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  background: var(--ink);
+  box-shadow: 0 4px 14px rgb(0 0 0 / 18%);
+  overflow: hidden;
+}
+.consult-bar button {
+  all: unset;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 10px;
+  min-height: 34px;
+  color: var(--bg);
+  font-size: 0.8rem;
+}
+.consult-bar button + button { border-inline-start: 1px solid color-mix(in srgb, var(--bg) 22%, transparent); }
+.consult-bar button:hover, .consult-bar button:focus-visible { background: color-mix(in srgb, var(--bg) 14%, transparent); }
+.consult-bar-main { font-weight: 600; }
+
+/* ---------- the card under the paragraph ---------- */
+.consult-host { margin: -0.35em 0 1.1em; }
+.consult-card {
+  position: relative;
+  border: 1px solid var(--line-strong);
+  border-inline-start: 3px solid var(--k-think, var(--accent));
+  border-radius: 6px;
+  background: var(--sheet, var(--paper));
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+.consult-card::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  inset-inline-start: 1.6em;
+  width: 10px;
+  height: 10px;
+  background: var(--sheet, var(--paper));
+  border-top: 1px solid var(--line-strong);
+  border-inline-start: 1px solid var(--line-strong);
+  transform: rotate(45deg);
+}
+.consult-head { display: flex; align-items: center; gap: 4px; padding: 2px 4px 2px 6px; }
+.consult-toggle {
+  all: unset;
+  box-sizing: border-box;
+  cursor: pointer;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  min-height: 34px;
+}
+.consult-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; border-radius: 4px; }
+.consult-kind { flex: none; font-size: 0.74rem; font-weight: 600; color: var(--k-think, var(--accent)); }
+.consult-title { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--ink-soft); font-size: 0.86rem; }
+.consult-card.is-open .consult-title { white-space: normal; color: var(--muted); font-size: 0.8rem; }
+.consult-card.is-open .consult-title { display: none; }
+.consult-count { flex: none; font-size: 0.7rem; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 0 6px; }
+.consult-caret { flex: none; color: var(--muted); font-size: 0.8rem; }
+.consult-card.is-open .consult-caret { transform: rotate(180deg); }
+.consult-x { flex: none; opacity: 0.6; }
+.consult-x:hover { opacity: 1; }
+.consult-body { padding: 0 14px 12px; display: grid; gap: 8px; }
+.consult-quote { margin: 0; padding: 2px 10px; border-inline-start: 2px solid var(--line-strong); color: var(--muted); font-size: 0.8rem; line-height: 1.5; }
+.consult-earlier { justify-self: start; font-size: 0.78rem; }
+.consult-turn { display: grid; gap: 4px; }
+.consult-turn.is-discuss + .consult-turn.is-discuss { border-top: 1px dashed var(--line); padding-top: 8px; }
+.consult-q { color: var(--ink-soft); font-size: 0.84rem; font-weight: 600; white-space: pre-wrap; display: flex; flex-wrap: wrap; gap: 6px; align-items: baseline; }
+.consult-lvl { font-weight: 400; font-size: 0.68rem; color: var(--muted); border: 1px solid var(--line); border-radius: 3px; padding: 0 5px; }
+.consult-wait { color: var(--muted); font-size: 0.84rem; }
+.consult-answer { font-size: 0.92rem; line-height: 1.7; max-width: none; }
+.consult-answer p { margin: 0 0 0.55em; }
+.consult-answer > :last-child { margin-bottom: 0; }
+.consult-more { justify-self: start; }
+.consult-err { color: var(--err); font-size: 0.82rem; }
+.consult-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.consult-chip {
+  all: unset;
+  box-sizing: border-box;
+  cursor: pointer;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  padding: 2px 10px;
+  min-height: 28px;
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  background: var(--paper);
+}
+.consult-chip.is-fixed { border-style: dashed; color: var(--muted); }
+.consult-chip:hover:not(:disabled) { color: var(--ink); border-color: var(--ink-soft); }
+.consult-chip:disabled { opacity: 0.5; cursor: default; }
+.consult-chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.consult-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding-top: 6px; border-top: 1px solid var(--line); }
+.consult-levels { display: inline-flex; border: 1px solid var(--line); border-radius: 5px; overflow: hidden; }
+.consult-levels button,
+.consult-discuss {
+  all: unset;
+  box-sizing: border-box;
+  cursor: pointer;
+  padding: 3px 8px;
+  min-height: 28px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.74rem;
+  color: var(--muted);
+}
+.consult-levels button + button { border-inline-start: 1px solid var(--line); }
+.consult-levels button b { font-family: var(--mono); font-weight: 500; font-size: 0.68rem; }
+.consult-levels button.is-on { background: var(--sel); color: var(--ink); }
+.consult-levels button:disabled { cursor: default; opacity: 0.6; }
+.consult-discuss { border: 1px solid var(--line); border-radius: 5px; }
+.consult-discuss.is-on { background: var(--sel); color: var(--ink); border-color: var(--line-strong); }
+.consult-levels button:focus-visible, .consult-discuss:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.consult-ask { display: flex; gap: 6px; align-items: flex-end; }
+.consult-ask textarea {
+  flex: 1;
+  min-width: 0;
+  resize: vertical;
+  min-height: 2.6em;
+  font: inherit;
+  font-size: 0.86rem;
+  padding: 6px 8px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--paper);
+  color: var(--ink);
+}
+@media (max-width: 560px) {
+  .consult-body { padding: 0 10px 10px; }
+  .consult-levels button { padding: 3px 6px; }
+}
+
+/* ---------- commit before reveal ---------- */
+.commit { display: grid; gap: 8px; margin: 4px 0 6px; }
+.commit-write { justify-self: start; font-size: 0.84rem; }
+.commit-mine {
+  font: inherit;
+  font-size: 0.9rem;
+  resize: vertical;
+  min-height: 2.6em;
+  padding: 6px 8px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--paper);
+  color: var(--ink);
+}
+.commit-conf { display: flex; border: 1px solid var(--line-strong); border-radius: 5px; overflow: hidden; max-width: 30rem; }
+.commit-conf button {
+  all: unset;
+  box-sizing: border-box;
+  cursor: pointer;
+  flex: 1;
+  display: grid;
+  justify-items: center;
+  gap: 3px;
+  padding: 6px 4px;
+  min-height: 44px;
+  font-size: 0.86rem;
+  color: var(--ink-soft);
+  background: var(--paper);
+}
+.commit-conf button + button { border-inline-start: 1px solid var(--line); }
+.commit-conf button:hover:not(:disabled) { background: var(--hover); color: var(--ink); }
+.commit-conf button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.commit-conf button:disabled { opacity: 0.55; cursor: default; }
+.conf-bars { display: inline-flex; gap: 2px; align-items: flex-end; height: 0.8em; }
+.conf-bars i { display: block; width: 3px; background: var(--line-strong); }
+.conf-bars i:nth-child(1) { height: 40%; }
+.conf-bars i:nth-child(2) { height: 70%; }
+.conf-bars i:nth-child(3) { height: 100%; }
+.conf-bars.l1 i:nth-child(1), .conf-bars.l2 i:nth-child(-n + 2), .conf-bars.l3 i { background: var(--k-think, var(--accent)); }
+.commit-hint { font-size: 0.8rem; color: var(--muted); }
+.commit-hint .link { font-size: inherit; }
+.commit-yours { display: grid; gap: 2px; padding: 4px 10px; border-inline-start: 2px solid var(--line-strong); font-size: 0.88rem; white-space: pre-wrap; }
+.commit-yours span { font-size: 0.74rem; color: var(--muted); }
+.commit-yours.is-short { font-size: 0.78rem; color: var(--muted); }
+.commit .reveal { margin-bottom: 0; }
+.commit-grade { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 0.84rem; color: var(--muted); }
+.commit-grade button {
+  all: unset;
+  box-sizing: border-box;
+  cursor: pointer;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  padding: 2px 12px;
+  min-height: 32px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--ink-soft);
+  background: var(--paper);
+}
+.commit-grade button:hover { color: var(--ink); border-color: var(--ink-soft); }
+.commit-grade button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.commit-verdict { font-size: 0.84rem; font-weight: 600; width: fit-content; padding: 1px 10px; border-radius: 999px; background: var(--sel); color: var(--ink-soft); }
+.commit-verdict span { font-weight: 400; }
+.commit-verdict.is-right { color: var(--ok); background: color-mix(in srgb, var(--ok) 12%, transparent); }
+.commit-hot {
+  display: grid;
+  gap: 6px;
+  padding: 10px 12px;
+  border: 1px solid color-mix(in srgb, var(--warn) 55%, transparent);
+  border-inline-start: 3px solid var(--warn);
+  border-radius: 5px;
+  background: color-mix(in srgb, var(--warn) 9%, var(--paper));
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+.commit-hot-h { color: var(--warn); font-weight: 700; font-size: 0.86rem; }
+.commit-hot b { color: var(--ink); }
+.commit-hot-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+
+/* ---------- the calibration view, under the course memory ---------- */
+.calib { margin-top: 1.6em; padding-top: 1em; border-top: 1px solid var(--line); }
+.calib-h { margin: 0 0 0.5em; font-size: 1rem; }
+.calib-note { color: var(--muted); font-size: 0.84rem; margin: 0.5em 0; }
+.calib-table { border-collapse: collapse; font-size: 0.86rem; }
+.calib-table th, .calib-table td { padding: 3px 12px; border-bottom: 1px solid var(--line); text-align: center; }
+.calib-table tbody th { text-align: start; font-weight: 600; color: var(--ink-soft); }
+.calib-table thead th { font-weight: 500; color: var(--muted); font-size: 0.78rem; }
+.calib-table .is-hot { color: var(--warn); font-weight: 700; }
+.calib-table .is-muted { color: var(--muted); }
+.calib-hot { margin: 0.5em 0 0; padding-inline-start: 1.2em; font-size: 0.86rem; display: grid; gap: 4px; }

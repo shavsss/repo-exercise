@@ -13,7 +13,8 @@ import { LessonToc, ReadingDock, ReadingProgress, useResumePosition } from "./co
 import { noteAnchorHere } from "./components/MarginNotes";
 import { play } from "./sound";
 import { Scratchpad } from "./components/Scratchpad";
-import { ExplainPanel } from "./components/Explain";
+import { ConsultLayer } from "./components/Consult";
+import { LessonPlaceCtx } from "./events";
 import { SourceViewer } from "./components/SourceViewer";
 import { MemoryPanel } from "./components/MemoryPanel";
 import { MdContext } from "./components/Markdown";
@@ -526,6 +527,7 @@ export function App() {
   const showToc = inLesson && !(viewer && !viewerMin);
   const resume = useResumePosition(scrollRef, inLesson ? `${module!.id}:${lessonIdx}` : null, items.length > 0 && !busy, busy);
 
+  const lessonPlace = useMemo(() => (module && lessonIdx !== undefined ? { moduleId: module.id, lesson: lessonIdx, title: lesson?.title ?? module.title } : null), [module, lessonIdx, lesson]);
   const openSource = useCallback((doc: string, page: number) => {
     setViewer({ doc, page });
     setViewerMin(false);
@@ -602,8 +604,9 @@ export function App() {
         )}
         {sideOpen && <div className="scrim" onClick={() => setSideOpen(false)} />}
 
-        {inLesson && <ExplainPanel rt={rt} scrollRef={scrollRef} lessonKey={`${module!.id}:${lessonIdx}`} lessonTitle={`${module!.id} · ${lesson?.title ?? module!.title}`} memory={memory} />}
+        {inLesson && <ConsultLayer rt={rt} scrollRef={scrollRef} lessonKey={`${module!.id}__${lessonIdx}`} place={lessonPlace!} lessonTitle={`${module!.id} · ${lesson?.title ?? module!.title}`} memory={memory} version={items} onOpenSource={openSource} />}
         <main className="main">
+          <LessonPlaceCtx.Provider value={lessonPlace}>
           <ReadingProgress scrollRef={scrollRef} />
           {resume.resumed && (
             <div className="resume-chip" role="status">
@@ -722,6 +725,7 @@ export function App() {
               disabled={!rt?.sample}
             />
           )}
+          </LessonPlaceCtx.Provider>
         </main>
 
         {showToc &&
@@ -772,6 +776,7 @@ export function App() {
           busy={memoryBusy}
           canSave={!!rt?.store}
           onClose={() => setMemoryOpen(false)}
+          onOpenLesson={(moduleId, l) => (setMemoryOpen(false), setSelection({ moduleId, lesson: l }))}
           onSave={async (text) => {
             setMemory(text);
             try {
