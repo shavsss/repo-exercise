@@ -81,7 +81,10 @@
     }
     window.__log.push("plan");
     await tools.find((x) => x.name === "compute").execute({ script: "R = 50\n10*log10(R)" }, {});
-    return { title: "שיעור", parts: [{ title: "א", covers: "x", words: 1200 }, { title: "ב", covers: "y", words: 1500 }, { title: "ג", covers: "z", words: 1500 }], facts: ["2"] };
+    // a plan in the depth-rules schema that passes the app's plan check (no repair call)
+    const units = ["ASM", "QNT", "PRX", "CRT"].map((type, i) => ({ id: "U" + (i + 1), r: "R1", type, tier: "key", src: "auth", part: 1, text: "יחידה " + (i + 1), q: "שאלת בחינה " + (i + 1) }));
+    const l25 = ["מבנה", "מקור", "גבולות", "סדר גודל", "פשרה", "מבנה משותף", "משמעות מבצעית", "ביקורת"];
+    return { title: "שיעור", results: [{ id: "R1", text: "תוצאה", thread: "שאלת החוט" }], units, parts: [{ title: "א", covers: "x", units: units.map((u) => u.id), blocks: ["think:U2", "predict", "verify", "errorhunt"], l25, estimate: 120 }, { title: "ב", covers: "y", estimate: 0 }, { title: "ג", covers: "z", blocks: ["lab", "decide"], estimate: 0 }], facts: ["2"] };
   };
   sample.limits = async () => ({ maxPromptBytes: 262144, images: { maxCount: 5 }, tools: { maxCount: 16 } });
   window.__db = docs;
