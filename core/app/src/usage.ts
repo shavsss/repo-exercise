@@ -1,8 +1,10 @@
 // The usage counter (identical in both apps): every call to Claude made by this page is counted
 // by the model it ran on, with its time and output size, and every lesson by its words. The
 // runtime gives no quota reading, so this is how the real load is measured (calls a day per model,
-// words per lesson, generation minutes). Each page session writes its own document per day,
-// profile/usage/<day>__<session>, so two open tabs never overwrite each other's counts.
+// words per lesson, generation minutes). Each page session keeps its own entry in the day's
+// document, profile/usage/<day> { day, sessions: { <session>: counts } }, so two open tabs never
+// overwrite each other's counts (a tab rewrites only its own entry; the first format, one document
+// per <day>__<session>, is still read by Store.loadUsage).
 import type { Runtime, SampleFn, SampleOptions, Store } from "./runtime";
 
 export interface UsageDoc {
@@ -31,12 +33,37 @@ const blank = (day: string): UsageDoc => ({ day, session, calls: {}, ms: {}, cha
 let store: Store | null = null;
 let doc = blank(today());
 let timer: ReturnType<typeof setTimeout> | null = null;
+let chain: Promise<unknown> = Promise.resolve();
+/** sessions kept by name in one day's document; the older ones are summed into "_older" */
+const SESSIONS_PER_DAY = 40;
+
+/** The day's document with this session's counts in it (exported for the tests). */
+export function mergeUsageDay(old: Record<string, unknown> | null, mine: UsageDoc) {
+  const sessions: Record<string, UsageDoc> = { ...((old?.sessions as Record<string, UsageDoc>) ?? {}), [mine.session]: mine };
+  const named = Object.values(sessions).filter((x) => x.session !== "_older").sort((a, b) => b.updatedAt - a.updatedAt);
+  if (named.length > SESSIONS_PER_DAY) {
+    const older = sessions._older ?? blank(mine.day);
+    older.session = "_older";
+    for (const x of named.slice(SESSIONS_PER_DAY)) {
+      for (const k of ["calls", "ms", "chars", "errors"] as const) for (const [key, v] of Object.entries(x[k] ?? {})) add(older[k], key, v);
+      older.lessons += x.lessons ?? 0;
+      older.lessonWords += x.lessonWords ?? 0;
+      older.lessonMs += x.lessonMs ?? 0;
+      older.updatedAt = Math.max(older.updatedAt, x.updatedAt ?? 0);
+      delete sessions[x.session];
+    }
+    sessions._older = older;
+  }
+  return { day: mine.day, sessions, updatedAt: Date.now() };
+}
 
 function flush() {
   timer = null;
   if (!store) return;
   doc.updatedAt = Date.now();
-  store.saveUsage(`${doc.day}__${session}`, doc as unknown as Record<string, unknown>).catch(() => {});
+  const mine = JSON.parse(JSON.stringify(doc)) as UsageDoc;
+  const s = store;
+  chain = chain.catch(() => {}).then(() => s.saveUsage(mine.day, (old) => mergeUsageDay(old, mine) as unknown as Record<string, unknown>)).catch(() => {});
 }
 function touch() {
   // a new day starts a new document (the old one was already written)

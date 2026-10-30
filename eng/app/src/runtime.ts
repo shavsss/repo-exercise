@@ -112,9 +112,36 @@ export interface ConvMeta {
 }
 
 const clean = <T,>(v: T) => JSON.parse(JSON.stringify(v)) as T;
-/** Characters of message text in the message document, and in each continuation document. */
-const MSG_CHARS = 100_000;
-const MORE_CHARS = 110_000;
+/**
+ * Bytes of one stored document, all fields together (the db allows 256 KiB). Measured in UTF-8 as
+ * stored: Hebrew takes two bytes a character, and a newline or a backslash in JSON two.
+ */
+const DOC_BYTES = 200_000;
+/** memory versions younger than this stay in their own documents (see Store.logMemory) */
+const MEMLOG_DAYS = 30;
+export const utf8Bytes = (s: string) => new TextEncoder().encode(s).length;
+
+/** Cuts a text into pieces of at most `first` bytes (the first) and `max` bytes (the others), as JSON strings. */
+export function splitUtf8(s: string, first: number, max: number): string[] {
+  const out: string[] = [];
+  let budget = first;
+  for (let i = 0; i < s.length || !out.length; ) {
+    let j = i;
+    let b = 0;
+    while (j < s.length) {
+      const c = s.codePointAt(j)!;
+      const n = c === 0x22 || c === 0x5c ? 2 : c < 0x20 ? (c === 10 || c === 9 || c === 13 ? 2 : 6) : c < 0x80 ? 1 : c < 0x800 ? 2 : c < 0x10000 ? 3 : 4;
+      if (b + n > budget) break;
+      b += n;
+      j += c > 0xffff ? 2 : 1;
+    }
+    if (j === i && budget >= max) j = i + (s.codePointAt(i)! > 0xffff ? 2 : 1);
+    out.push(s.slice(i, j));
+    i = j;
+    budget = max;
+  }
+  return out;
+}
 
 export class Store {
   private profile: DocRef;
@@ -198,18 +225,19 @@ export class Store {
   async saveMessage(convId: string, id: string, msg: StoredMessage) {
     const { status: _status, id: _id, ...rest } = msg;
     const body = clean(rest) as StoredMessage;
-    // a document holds at most 256 KiB: the text beyond MSG_CHARS goes to msgs/<id>/more/<n>
+    // a document holds at most 256 KiB: the text beyond what fits in DOC_BYTES, next to the other
+    // fields (the plan, the activity), goes to msgs/<id>/more/<n>
     // (written first, so the message never points at parts that are not there yet)
     const ref = this.convs().doc(convId).collection("msgs").doc(id);
-    const overflow = body.text.length > MSG_CHARS ? body.text.slice(MSG_CHARS) : "";
-    if (overflow) {
-      body.text = body.text.slice(0, MSG_CHARS);
-      const chunks: string[] = [];
-      for (let i = 0; i < overflow.length; i += MORE_CHARS) chunks.push(overflow.slice(i, i + MORE_CHARS));
+    if (body.activity && utf8Bytes(JSON.stringify(body.activity)) > 40_000) body.activity = body.activity.slice(-20);
+    const others = utf8Bytes(JSON.stringify({ ...body, text: "", textParts: 999 }));
+    const pieces = splitUtf8(body.text, DOC_BYTES - others, DOC_BYTES - 100);
+    if (pieces.length > 1) {
+      body.text = pieces[0];
+      const chunks = pieces.slice(1);
       for (let i = 0; i < chunks.length; i++) await ref.collection("more").doc(String(i + 1)).set({ text: chunks[i] });
       (body as { textParts?: number }).textParts = chunks.length;
     }
-    if (body.activity && JSON.stringify(body.activity).length > 40_000) body.activity = body.activity.slice(-20);
     await ref.set(body as unknown as Record<string, unknown>);
   }
 
@@ -308,24 +336,64 @@ export class Store {
     return s.exists ? String(s.data()?.memory ?? "") : null;
   }
 
-  /** Keeps a version of the memory before it is replaced (additive: versions are never removed). */
+  /**
+   * Keeps a version of the memory before it is replaced. A version stays in its own document for
+   * MEMLOG_DAYS; older ones are folded into memlog/m-<YYYY-MM> (the last version of each day, as
+   * many as fit in one document), so the log grows by months and not by lessons. The full history
+   * is also in the nightly backup (notes/MEMORY_LOG.md in git).
+   */
   async logMemory(v: { memory: string; reason: string; replacedBy?: string }) {
     await this.profile.collection("memlog").doc(`${Date.now()}_${Math.random().toString(36).slice(2, 6)}`).set(clean({ ...v, at: Date.now() }));
+    await this.foldMemoryLog().catch(() => {});
+  }
+
+  private async foldMemoryLog() {
+    const col = this.profile.collection("memlog");
+    const cutoff = Date.now() - MEMLOG_DAYS * 86_400_000;
+    const old = (await col.orderBy("at", "asc").limit(40).get()).docs.filter((d) => !Array.isArray(d.data()?.versions) && Number(d.data()?.at ?? 0) < cutoff);
+    const byMonth = new Map<string, DocSnap[]>();
+    for (const d of old) {
+      const m = `m-${new Date(Number(d.data()?.at)).toISOString().slice(0, 7)}`;
+      byMonth.set(m, [...(byMonth.get(m) ?? []), d]);
+    }
+    for (const [m, list] of byMonth) {
+      const ref = col.doc(m);
+      const prev = await ref.get();
+      const versions = [...((prev.exists && (prev.data()?.versions as Record<string, unknown>[])) || []), ...list.map((d) => ({ ...d.data(), id: d.id }) as Record<string, unknown>)];
+      // the last version of each day, and the newest ones when even those do not fit
+      const byDay = new Map<string, Record<string, unknown>>();
+      for (const x of versions.sort((a, b) => Number(a.at) - Number(b.at))) byDay.set(new Date(Number(x.at)).toISOString().slice(0, 10), x);
+      let keep = [...byDay.values()];
+      while (keep.length > 1 && utf8Bytes(JSON.stringify(keep)) > 190_000) keep = keep.slice(1);
+      await ref.set(clean({ month: m.slice(2), versions: keep, at: Number(keep[keep.length - 1]?.at ?? 0) }));
+      for (const d of list) await col.doc(d.id).delete();
+    }
   }
 
   async loadMemoryLog(limit = 60): Promise<{ id: string; memory: string; reason: string; at: number }[]> {
     const s = await this.profile.collection("memlog").orderBy("at", "desc").limit(limit).get();
-    return s.docs.map((d) => ({ id: d.id, memory: String(d.data()?.memory ?? ""), reason: String(d.data()?.reason ?? ""), at: Number(d.data()?.at ?? 0) }));
+    // a month document (see foldMemoryLog) holds several versions
+    const all = s.docs.flatMap((d) => (Array.isArray(d.data()?.versions) ? (d.data()!.versions as Record<string, unknown>[]).map((x) => ({ ...x, id: String(x.id ?? d.id) })) : [{ ...d.data(), id: d.id } as Record<string, unknown>]));
+    return all
+      .map((x) => ({ id: String(x.id), memory: String(x.memory ?? ""), reason: String(x.reason ?? ""), at: Number(x.at ?? 0) }))
+      .sort((a, b) => b.at - a.at)
+      .slice(0, limit);
   }
 
-  /* ---- usage counter: profile/usage/<day>__<session>, one document per page session and day ---- */
-  async saveUsage(id: string, data: Record<string, unknown>) {
-    await this.profile.collection("usage").doc(id).set(clean(data));
+  /* ---- usage counter: profile/usage/<day>, { day, sessions: { <session>: counts } } (first format:
+     one document per page session and day, <day>__<session>; still read) ---- */
+  async saveUsage(day: string, merge: (old: Record<string, unknown> | null) => Record<string, unknown>) {
+    const ref = this.profile.collection("usage").doc(day);
+    const old = await ref.get();
+    await ref.set(clean(merge(old.exists ? (old.data() ?? null) : null)));
   }
 
   async loadUsage(limit = 400): Promise<Record<string, unknown>[]> {
     const s = await this.profile.collection("usage").orderBy("day", "desc").limit(limit).get();
-    return s.docs.map((d) => ({ ...d.data(), id: d.id }));
+    return s.docs.flatMap((d) => {
+      const sessions = d.data()?.sessions as Record<string, Record<string, unknown>> | undefined;
+      return sessions ? Object.entries(sessions).map(([k, v]) => ({ ...v, id: `${d.id}__${k}` })) : [{ ...d.data(), id: d.id }];
+    });
   }
 
   async deleteConversation(convId: string) {

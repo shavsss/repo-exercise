@@ -28,6 +28,8 @@ export interface StoredMessage {
   /** for a lesson in progress: the part plan and how many parts are already written */
   plan?: unknown;
   partsDone?: number;
+  /** draft of a lesson: the length of the text of the finished parts (the rest is the part being written) */
+  partsChars?: number;
 }
 
 /** One lesson of a module, as the tutor planned it on entering the module. */

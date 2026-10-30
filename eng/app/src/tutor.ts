@@ -11,7 +11,7 @@ import type { Runtime, SampleTool } from "./runtime";
 import { joinContinuation, looksCut } from "./truncation";
 import { NOTE_KIND_LABEL, type Activity, type Effort, type LessonNote, type LessonSpec, type Mode, type NoteKind, type StoredMessage } from "./types";
 import { curriculumBlock } from "./curriculum";
-import { decideLine, decideSlot, missingUnits, planGaps, planRepairTurn, unitCompletion, unitLines, unitsOfPart, type PlanUnit } from "./lessonGate";
+import { applyPlanRepair, decideLine, decideSlot, missingUnits, planGaps, planRepairTurn, unitCompletion, unitLines, unitsOfPart, type PlanUnit } from "./lessonGate";
 
 const math = create(all, {});
 const MODEL = "claude-opus-5-5";
@@ -539,8 +539,8 @@ async function gatePlan(plan: PartPlan, planTurn: string, o: Base, tools: Sample
   if (!gaps.length || !o.rt.sample) return plan;
   o.cb.onStatus?.("בודק את התוכנית מול כללי העומק ומשלים");
   const turn = `${planTurn}\n\n${planRepairTurn(plan, gaps)}`;
-  const fixed = await o.rt.sample
-    .json<PartPlan>([...fitHistory(o.history, bytes(turn)), { role: "user", content: turn }], {
+  const patch = await o.rt.sample
+    .json<unknown>([...fitHistory(o.history, bytes(turn)), { role: "user", content: turn }], {
       model: MODEL,
       modelTier: "complex",
       effort: o.effort,
@@ -548,6 +548,7 @@ async function gatePlan(plan: PartPlan, planTurn: string, o: Base, tools: Sample
       ...(tools ? { tools } : { cache: false }),
     })
     .catch(() => null);
+  const fixed = patch ? applyPlanRepair(plan, patch) : null;
   return fixed && Array.isArray(fixed.parts) && fixed.parts.length && check(fixed).length < gaps.length ? fixed : plan;
 }
 

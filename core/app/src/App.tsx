@@ -379,7 +379,7 @@ export function App() {
             setLive((l) => (l ? { ...l, activity: [...activity] } : l));
           },
           onStatus: (status: string) => setLive((l) => (l ? { ...l, status } : l)),
-          onCheckpoint: (plan: PartPlan, partsDone: number, text: string) => save({ plan, partsDone, text }, true),
+          onCheckpoint: (plan: PartPlan, partsDone: number, text: string) => save({ plan, partsDone, partsChars: text.length, text }, true),
           onDiag: store ? (d: Record<string, unknown>) => store.saveDiag(d) : undefined,
           onText: show,
           onNote: (kind: NoteKind, text: string, addTo?: string) => (addTo ? appendToNote(addTo, text) : addNote(kind, text, "tutor", m, idx)),
@@ -390,7 +390,7 @@ export function App() {
         const base = { rt, history, effort, module: m, lessons, lessonIdx: idx, memory, notes: lessonNotes, allNotes, done: doneList, signal: ctl.current.signal, cb };
         const plan = answer.plan as PartPlan | undefined;
         if (sendMode === "lesson" && !images.length && (!resume || plan || !resume.text)) {
-          const res = await composeLesson({ ...base, text: userMsg.text, resume: plan ? { plan, partsDone: answer.partsDone ?? 0, text: answer.text } : undefined });
+          const res = await composeLesson({ ...base, text: userMsg.text, resume: plan ? { plan, partsDone: answer.partsDone ?? 0, text: answer.partsChars !== undefined ? answer.text.slice(0, answer.partsChars) : answer.text } : undefined });
           answer = { ...answer, text: res.text, model: res.model };
         } else {
           let full = answer.text;
@@ -415,7 +415,7 @@ export function App() {
           }
           answer = { ...answer, text: full, model: res?.modelApplied ?? `רמת מודל: ${res?.modelTierApplied}`, ...(res?.truncated ? { truncated: true } : {}) };
         }
-        answer = { ...answer, draft: undefined, plan: undefined, partsDone: undefined };
+        answer = { ...answer, draft: undefined, plan: undefined, partsDone: undefined, partsChars: undefined };
         ok = !answer.truncated;
       } catch (err) {
         const e = err as SampleError;

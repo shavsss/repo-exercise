@@ -2,9 +2,13 @@
 // think questions (how sure he was before the answer, and whether he was right), and the
 // consultation cards of each lesson. Everything lives in new collections under the profile, so the
 // older documents are never touched:
-//   profile/events/<ts-rand>              one event, never rewritten
-//   profile/calib/<question id>           the latest answer to one think question
-//   profile/consults/<module>__<lesson>   { lessonKey, count, updatedAt }, with cards/<card id> below
+//   profile/events/<YYYY-MM-DD>           { day, entries: [...] }, the day's events (newest 500)
+//   profile/calib/<module>__<lesson>      { lessonKey, items: { <question id>: record } }
+//   profile/consults/<module>__<lesson>   { lessonKey, count, updatedAt }, with cards/pack-<n> below,
+//                                         each { pack: true, cards: [...] } up to PACK_BYTES
+// A db holds at most 25,000 documents, so each collection grows by days or lessons, not by clicks
+// (docs/BUILD_GUIDE.md, "תקציב המסמכים"). The first format (profile/events/<ts-rand>, one event
+// each; profile/calib/<question id>; consults/<key>/cards/<card id>, one card each) is still read.
 // Reaches the store through the runtime directly (db and user), so the components that use it need
 // no wiring; with no store (a preview, or no write access) it keeps everything in this view only.
 // Same file in both labs.
@@ -27,6 +31,9 @@ interface Doc {
   set(d: Record<string, unknown>): Promise<void>;
   collection(p: string): Col;
 }
+
+/** UTF-8 size of a value as stored (a db document holds at most 256 KiB). */
+export const jsonBytes = (v: unknown) => new TextEncoder().encode(JSON.stringify(v)).length;
 
 let profileP: Promise<Doc | null> | null = null;
 /** The learner's profile document, or null when this view has no store. */
@@ -64,6 +71,14 @@ async function get(path: [string, string]): Promise<Record<string, unknown> | nu
   const s = await p.collection(path[0]).doc(path[1]).get();
   return s.exists ? (s.data() ?? null) : null;
 }
+/** Read-modify-write of one document, one at a time per path in this view. */
+const chains = new Map<string, Promise<unknown>>();
+function modify(path: [string, string], f: (old: Record<string, unknown> | null) => Record<string, unknown>) {
+  const key = path.join("/");
+  const run = (chains.get(key) ?? Promise.resolve()).catch(() => {}).then(async () => put(path, f(await get(path))));
+  chains.set(key, run);
+  return run;
+}
 
 /** A short stable id for a text (FNV-1a, base 36). */
 export function hashId(s: string) {
@@ -83,11 +98,34 @@ export const LessonPlaceCtx = createContext<LessonPlace | null>(null);
 /* ---------------- the events log ---------------- */
 export type EventType = "think.commit" | "think.grade" | "think.skip" | "think.reset" | "consult.ask" | "consult.more";
 
+const EVENTS_PER_DAY = 500;
+const dayOf = (ts: number) => {
+  const d = new Date(ts);
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+};
+let pendingEvents: Record<string, unknown>[] = [];
+let eventsTimer: ReturnType<typeof setTimeout> | null = null;
+/** Writes the waiting events into their day's document (a few seconds after the first one). */
+function flushEvents() {
+  eventsTimer = null;
+  const byDay = new Map<string, Record<string, unknown>[]>();
+  for (const e of pendingEvents) byDay.set(dayOf(e.ts as number), [...(byDay.get(dayOf(e.ts as number)) ?? []), e]);
+  pendingEvents = [];
+  for (const [day, list] of byDay)
+    modify(["events", day], (old) => {
+      const prev = Array.isArray(old?.entries) ? (old!.entries as Record<string, unknown>[]) : [];
+      const seen = new Set(prev.map((e) => e.id));
+      return { day, entries: [...prev, ...list.filter((e) => !seen.has(e.id))].slice(-EVENTS_PER_DAY), updatedAt: Date.now() };
+    }).catch(() => {});
+}
+if (typeof window !== "undefined") window.addEventListener("pagehide", () => eventsTimer && (clearTimeout(eventsTimer), flushEvents()));
+
 /** Appends one event. Never awaited by the caller and never throws: the log must not slow the lesson. */
 export function logEvent(type: EventType, place: LessonPlace | null, data: Record<string, unknown> = {}) {
   const ts = Date.now();
   const id = `${ts}-${Math.random().toString(36).slice(2, 7)}`;
-  put(["events", id], { type, ts, moduleId: place?.moduleId ?? null, lesson: place?.lesson ?? null, ...data }).catch(() => {});
+  pendingEvents.push({ id, type, ts, moduleId: place?.moduleId ?? null, lesson: place?.lesson ?? null, ...data });
+  eventsTimer ??= setTimeout(flushEvents, 3000);
 }
 
 /* ---------------- calibration of the think questions ---------------- */
@@ -116,24 +154,41 @@ export function thinkId(place: LessonPlace | null, question: string) {
   return `${place ? `${place.moduleId}__${place.lesson}__` : ""}${hashId(question.replace(/\s+/g, " ").trim())}`.replace(/\//g, "_");
 }
 
+/** The lesson document a question id is kept in: `<module>__<lesson>` (its prefix), or "misc". */
+export const calibDocOf = (id: string) => /^(.+__-?\d+)__[^_]+$/.exec(id)?.[1] ?? "misc";
+
 export async function loadCalib(id: string): Promise<CalibRecord | null> {
   try {
-    return (await get(["calib", id])) as CalibRecord | null;
+    const doc = await get(["calib", calibDocOf(id)]);
+    const rec = (doc?.items as Record<string, CalibRecord> | undefined)?.[id];
+    // the first format: one document per question
+    return rec ?? ((await get(["calib", id])) as CalibRecord | null);
   } catch {
     return null;
   }
 }
 
 export async function saveCalib(rec: CalibRecord) {
-  await put(["calib", rec.id], rec as unknown as Record<string, unknown>);
+  const key = calibDocOf(rec.id);
+  await modify(["calib", key], (old) => ({ lessonKey: key, items: { ...((old?.items as object) ?? {}), [rec.id]: rec }, updatedAt: Date.now() }));
   window.dispatchEvent(new Event("calib:changed"));
+}
+
+/** The records of calib documents in either format, the newest answer per question. */
+export function flattenCalib(docs: Record<string, unknown>[]): CalibRecord[] {
+  const out = new Map<string, CalibRecord>();
+  for (const d of docs) {
+    const list = d.items && typeof d.items === "object" ? (Object.values(d.items) as CalibRecord[]) : d.conf ? [d as unknown as CalibRecord] : [];
+    for (const r of list) if (!out.has(r.id) || (out.get(r.id)!.ts ?? 0) < (r.ts ?? 0)) out.set(r.id, r);
+  }
+  return [...out.values()];
 }
 
 export async function allCalib(): Promise<CalibRecord[]> {
   const p = await profile();
-  if (!p) return [...local.entries()].filter(([k]) => k.startsWith("calib/")).map(([, v]) => v as unknown as CalibRecord);
+  if (!p) return flattenCalib([...local.entries()].filter(([k]) => k.startsWith("calib/")).map(([, v]) => v));
   const s = await p.collection("calib").limit(5000).get();
-  return s.docs.map((d) => d.data() as unknown as CalibRecord);
+  return flattenCalib(s.docs.map((d) => d.data() ?? {}));
 }
 
 export type CalibTable = Record<Conf, Record<Grade | "open", number>>;
@@ -181,20 +236,81 @@ export interface ConsultCard {
   hidden?: boolean;
 }
 
-const CARD_BYTES = 180_000;
+/** bytes of one card, and of one pack of cards (a document holds at most 256 KiB) */
+const CARD_BYTES = 150_000;
+const PACK_BYTES = 180_000;
+
+/** Where each card of a lesson is kept: its pack (`pack-<n>`), or its own document (first format). */
+interface CardPlace {
+  doc: string;
+  own: boolean;
+}
+const places = new Map<string, Map<string, CardPlace>>();
+const packs = new Map<string, Map<string, ConsultCard[]>>();
+const consultChains = new Map<string, Promise<unknown>>();
 
 export async function loadConsults(lessonKey: string): Promise<ConsultCard[]> {
   const p = await profile();
-  if (!p) return [...local.entries()].filter(([k]) => k.startsWith(`consults/${lessonKey}/cards/`)).map(([, v]) => v as unknown as ConsultCard);
-  const s = await p.collection("consults").doc(lessonKey).collection("cards").limit(500).get();
-  return s.docs.map((d) => ({ ...(d.data() as unknown as ConsultCard), id: d.id })).sort((a, b) => a.ts - b.ts);
+  const prefix = `consults/${lessonKey}/cards/`;
+  const docs = p
+    ? (await p.collection("consults").doc(lessonKey).collection("cards").limit(500).get()).docs.map((d) => ({ id: d.id, data: d.data() ?? {} }))
+    : [...local.entries()].filter(([k]) => k.startsWith(prefix)).map(([k, v]) => ({ id: k.slice(prefix.length), data: v }));
+  const where = new Map<string, CardPlace>();
+  const byPack = new Map<string, ConsultCard[]>();
+  const out: ConsultCard[] = [];
+  for (const d of docs) {
+    if (Array.isArray(d.data.cards)) {
+      const list = d.data.cards as ConsultCard[];
+      byPack.set(d.id, list);
+      for (const c of list) {
+        where.set(c.id, { doc: d.id, own: false });
+        out.push(c);
+      }
+    } else {
+      where.set(d.id, { doc: d.id, own: true });
+      out.push({ ...(d.data as unknown as ConsultCard), id: d.id });
+    }
+  }
+  places.set(lessonKey, where);
+  packs.set(lessonKey, byPack);
+  return out.sort((a, b) => a.ts - b.ts);
 }
 
-export async function saveConsult(lessonKey: string, card: ConsultCard, count: number) {
+/** Saves one card (writes of a lesson go one at a time, since a pack holds several cards). */
+export function saveConsult(lessonKey: string, card: ConsultCard, count: number) {
+  const run = (consultChains.get(lessonKey) ?? Promise.resolve()).catch(() => {}).then(() => writeConsult(lessonKey, card, count));
+  consultChains.set(lessonKey, run);
+  return run;
+}
+
+async function writeConsult(lessonKey: string, card: ConsultCard, count: number) {
   const c = clean(card);
   // a document holds at most 256 KiB: the oldest answers of a long thread are shortened first
-  for (let i = 0; JSON.stringify(c).length > CARD_BYTES && i < c.turns.length - 1; i++) c.turns[i].a = c.turns[i].a.slice(0, 600) + "\n…";
-  await put(["consults", lessonKey, "cards", card.id], c as unknown as Record<string, unknown>);
+  for (let i = 0; jsonBytes(c) > CARD_BYTES && i < c.turns.length - 1; i++) c.turns[i].a = c.turns[i].a.slice(0, 600) + "\n…";
+  if (!places.has(lessonKey)) await loadConsults(lessonKey);
+  const where = places.get(lessonKey)!;
+  const byPack = packs.get(lessonKey)!;
+  const at = where.get(c.id);
+  const writePack = (id: string, list: ConsultCard[]) => {
+    byPack.set(id, list);
+    return put(["consults", lessonKey, "cards", id], { pack: true, cards: list, updatedAt: Date.now() });
+  };
+  if (at?.own) {
+    // a card of the first format stays in its own document
+    await put(["consults", lessonKey, "cards", c.id], c as unknown as Record<string, unknown>);
+  } else {
+    const inPack = at ? (byPack.get(at.doc) ?? []).map((x) => (x.id === c.id ? c : x)) : null;
+    if (at && inPack && jsonBytes(inPack) <= PACK_BYTES) await writePack(at.doc, inPack);
+    else {
+      // a new card, or one that outgrew its pack: the first pack with room, or a new one
+      const ids = [...byPack.keys()].filter((k) => /^pack-\d+$/.test(k)).sort((a, b) => +a.slice(5) - +b.slice(5));
+      const room = ids.find((k) => k !== at?.doc && jsonBytes([...(byPack.get(k) ?? []), c]) <= PACK_BYTES);
+      const target = room ?? `pack-${(ids.length ? +ids[ids.length - 1].slice(5) : 0) + 1}`;
+      await writePack(target, [...(byPack.get(target) ?? []), c]);
+      where.set(c.id, { doc: target, own: false });
+      if (at) await writePack(at.doc, (byPack.get(at.doc) ?? []).filter((x) => x.id !== c.id));
+    }
+  }
   await put(["consults", lessonKey], { lessonKey, count, updatedAt: Date.now() });
 }
 
