@@ -1,0 +1,439 @@
+/* Round 5 look (docs/research/round5/decisions: design_choices.json, ux5_choices.json), laid over
+   styles.css and reading.css. The same file in both labs.
+   - typography: about 68 characters a line at 18.5px, softer dark ink, stronger small grey text
+   - blocks: three tiers with a side bar (what to remember framed, what to do barred, context quiet)
+   - layout: the column in the centre, the lesson contents in a drawer, notes in the margin
+   - margin notes: style B, an index card with a numbered tab toward the text
+   - progress: section dots in the margin
+   - motion: no looping animations
+   - phone (400px): no horizontal scroll, the reading aids in a bottom bar that never covers text */
+
+/* ---------- tokens ---------- */
+:root {
+  /* block tiers: core = framed (definition, key formula, "to keep"), act = a strong side bar
+     (questions, exercises, derivations, models), ctx = a quiet side bar (story, history, links) */
+  --tier-core: #2e3a86;
+  --tier-core-bg: #eceaf4;
+  --tier-act: #17577f;
+  --tier-act-bg: #e6eef1;
+  --tier-ctx: #7d7659;
+  --tier-ctx-bg: #efe9dc;
+  /* a neutral side bar, for blocks that should stay out of the way (predict, lab, verify, errorhunt) */
+  --tier-quiet: #8a8470;
+  --tier-quiet-bg: color-mix(in srgb, var(--tier-quiet) 7%, transparent);
+  /* margin notes, style B */
+  --mn-card: var(--sheet);
+  --mn-card-ink: #4a4a40;
+  --mn-quiet: #6f6b5c;
+  --mn-rule: #b9ad95;
+  --mn-accent: var(--accent);
+  /* the bottom reading bar */
+  --dock-h: 40px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --tier-core: #aeb7f2;
+    --tier-core-bg: #2a2b36;
+    --tier-act: #86c1e6;
+    --tier-act-bg: #24303a;
+    --tier-ctx: #bdb594;
+    --tier-ctx-bg: #2e2c26;
+    --tier-quiet: #9a968b;
+    --mn-card-ink: #c9c4b9;
+    --mn-quiet: #a29e93;
+    --mn-rule: #55534e;
+  }
+}
+:root[data-theme="dark"] {
+  --tier-core: #aeb7f2;
+  --tier-core-bg: #2a2b36;
+  --tier-act: #86c1e6;
+  --tier-act-bg: #24303a;
+  --tier-ctx: #bdb594;
+  --tier-ctx-bg: #2e2c26;
+  --tier-quiet: #9a968b;
+  --mn-card-ink: #c9c4b9;
+  --mn-quiet: #a29e93;
+  --mn-rule: #55534e;
+}
+
+/* stronger small grey text (meta, labels, reading time): APCA Lc 72 on cream */
+:root:not([data-theme="dark"])[data-surface="theme"] {
+  --muted: #5c5f4e;
+}
+/* softer dark ink for hours of reading (#dedad1: 10.9:1 instead of 12.5:1), stronger small grey (7.4:1) */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"])[data-surface="theme"] {
+    --ink: #dedad1;
+    --muted: #bab5ab;
+  }
+}
+:root[data-theme="dark"][data-surface="theme"] {
+  --ink: #dedad1;
+  --muted: #bab5ab;
+}
+
+/* ---------- typography: the measure follows the text size, about 68 characters a line ---------- */
+:root {
+  /* average width of a Hebrew character with its spaces, in em, per typeface (F1 §1.2) */
+  --char-em: 0.456;
+  --chars: 68;
+  --measure: calc(var(--read-size) * var(--char-em) * var(--chars));
+  --read-lh: 1.8;
+}
+:root[data-read-font="frank"] { --char-em: 0.405; }
+:root[data-read-font="assistant"] { --char-em: 0.389; }
+:root[data-read-width="narrow"] { --chars: 60; --measure: calc(var(--read-size) * var(--char-em) * var(--chars)); }
+:root[data-read-width="wide"] { --chars: 80; --measure: calc(var(--read-size) * var(--char-em) * var(--chars)); }
+:root[data-read-space="normal"] { --read-lh: 1.65; }
+:root[data-read-size="s"],
+:root[data-read-size="m"] { --read-lh: 1.85; }
+:root[data-read-size="xl"] { --read-lh: 1.75; }
+:root[data-read-space="normal"][data-read-size] { --read-lh: 1.65; }
+/* the home and module pages are lists, not reading: they keep a roomier column */
+.col:not(:has(.msg-assistant, .lesson-intro)) { max-width: max(calc(var(--measure) + 32px), 44rem); }
+
+/* ---------- blocks: three tiers with a side bar ---------- */
+.prose .block,
+.block {
+  --tier-c: var(--tier-ctx);
+  --tier-bg: var(--tier-ctx-bg);
+  --k: var(--tier-c);
+  border: 0;
+  border-radius: 0;
+  border-inline-start: 3px solid color-mix(in srgb, var(--tier-c) 60%, transparent);
+  background: var(--tier-bg);
+  padding: 12px 18px 4px;
+  margin: 26px 0 24px;
+}
+/* the label sits on the first line, not on the frame */
+.block .block-tab {
+  position: static;
+  background: none;
+  padding: 0;
+  color: var(--tier-c);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+.block .block-head { align-items: baseline; gap: 2px 10px; margin-bottom: 4px; }
+.block .block-title,
+.prose .block .block-title { margin: 0; font-size: 1.02em; line-height: 1.45; font-weight: 600; color: var(--ink); }
+.block .block-body > :last-child { margin-bottom: 0.7em; }
+
+/* tier: core, framed. What has to be remembered. */
+.block.tier-core,
+.block:is(.block-definition, .block-formula, .block-keep) {
+  --tier-c: var(--tier-core);
+  --tier-bg: var(--tier-core-bg);
+  border: 1px solid color-mix(in srgb, var(--tier-c) 70%, transparent);
+  border-radius: 3px;
+  padding: 14px 20px 6px;
+}
+/* tier: act, a strong side bar. Something to do or follow step by step. */
+.block.tier-act,
+.block:is(.block-think, .block-exercise, .block-derivation, .block-model, .block-notebook) {
+  --tier-c: var(--tier-act);
+  --tier-bg: var(--tier-act-bg);
+  border: 0;
+  border-inline-start: 4px solid var(--tier-c);
+  border-radius: 0;
+}
+/* tier: ctx, a quiet side bar. Story, history, links to fields, the world today. (the default above) */
+.block.tier-ctx {
+  --tier-c: var(--tier-ctx);
+  --tier-bg: var(--tier-ctx-bg);
+}
+/* a correction keeps its own red bar inside the quiet tier */
+.block-erratum { --tier-c: var(--k-erratum); --tier-bg: color-mix(in srgb, var(--k-erratum) 6%, transparent); }
+/* neutral: a side bar that stays out of the way */
+.block.tier-quiet {
+  --tier-c: var(--tier-quiet);
+  --tier-bg: var(--tier-quiet-bg);
+  border: 0;
+  border-inline-start: 3px solid var(--tier-c);
+  border-radius: 0;
+}
+.block .reveal { border-top-color: color-mix(in srgb, var(--tier-c) 45%, transparent); }
+@media (max-width: 900px) {
+  .prose .block, .block { padding: 10px 12px 2px; }
+  .block.tier-core, .block:is(.block-definition, .block-formula, .block-keep) { padding: 12px 14px 4px; }
+}
+
+/* ---------- layout: the lesson contents in a drawer over the left of the page ---------- */
+.lesson-toc {
+  position: fixed;
+  top: calc(54px + env(safe-area-inset-top, 0px));
+  bottom: 0;
+  inset-inline-end: 0;
+  z-index: 46;
+  width: min(300px, 86vw);
+  background: var(--sheet);
+  border-inline-start: 1px solid var(--line-strong);
+  box-shadow: 0 0 28px rgb(0 0 0 / 16%);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+/* the drawer leaves the text where it is: the rail's width stays beside the page while it is open */
+@media (min-width: 701px) {
+  .app.has-toc .main { margin-inline-end: 34px; }
+  :root[data-focus="on"] .app.has-toc .main { margin-inline-end: 0; }
+}
+@media (max-width: 1100px) {
+  .lesson-toc { display: flex; }
+  .left-rail-btn.is-toc { display: flex; }
+}
+.lesson-toc-list .is-current { border-inline-start-color: var(--accent); }
+
+/* ---------- margin notes, style B: an index card with a numbered tab toward the text ---------- */
+.mn-layer { inset-inline-end: -228px; width: 200px; }
+.mn-note { width: 200px; }
+.mn-face {
+  background: var(--mn-card);
+  color: var(--mn-card-ink);
+  border: 1px solid var(--line);
+  border-top: 1px solid var(--line);
+  border-radius: 2px;
+  box-shadow: 0 1px 0 var(--line);
+  padding: 7px 10px 9px;
+  margin-inline-start: 18px;
+  width: calc(100% - 18px);
+  transform: none;
+  font-size: calc(var(--read-size) * 0.76);
+  line-height: 1.55;
+  transition: border-color 0.12s;
+}
+.mn-note:nth-child(even) .mn-face { transform: none; }
+.mn-face::before { display: none; }
+/* the tab: the note's number, on the side that faces the text */
+.mn-layer.is-wide .mn-note::before {
+  content: attr(data-n);
+  position: absolute;
+  inset-inline-start: 0;
+  top: 6px;
+  z-index: 1;
+  width: 18px;
+  height: 22px;
+  box-sizing: border-box;
+  background: var(--mn-card);
+  border: 1px solid var(--line);
+  border-inline-end: 0;
+  border-start-start-radius: 3px;
+  border-end-start-radius: 3px;
+  font: 500 11px/20px var(--mono);
+  text-align: center;
+  color: var(--mn-quiet);
+  pointer-events: none;
+}
+.mn-layer.is-wide .mn-note.is-out::before { color: var(--mn-accent); box-shadow: inset 2px 0 0 var(--mn-accent); }
+.mn-layer.is-wide .mn-note.is-out .mn-face { border-top: 2px dotted var(--mn-accent); }
+.mn-layer.is-wide .mn-note.k-article .mn-face { border-top: 3px double var(--mn-accent); }
+.mn-kind {
+  display: flex;
+  gap: 0.4em;
+  align-items: baseline;
+  font-size: 0.82em;
+  font-weight: 600;
+  color: var(--mn-quiet);
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 3px;
+  margin-bottom: 4px;
+}
+.mn-sym { font-style: normal; font-family: var(--mono); font-weight: 500; }
+.mn-note.is-out .mn-sym { color: var(--mn-accent); }
+.mn-kind b { display: none; }
+.mn-text { -webkit-line-clamp: 5; }
+.mn-note:hover .mn-face { transform: none; box-shadow: 0 1px 0 var(--line); border-color: var(--line-strong); }
+.mn-note.is-open .mn-face { box-shadow: 0 6px 18px rgb(0 0 0 / 12%); border-color: var(--line-strong); }
+.mn-face:focus-visible { outline: 2px solid var(--mn-accent); outline-offset: 2px; }
+/* the open card: calm chips for the kind, a plain writing area */
+.mn-k { --nk: var(--mn-quiet); font-weight: 500; border-color: var(--line); color: var(--ink-soft); border-radius: 2px; }
+.mn-k.is-on { background: var(--ink); color: var(--sheet); border-color: var(--ink); }
+.mn-edit { color: var(--ink); border-top-color: var(--line); font-size: inherit; }
+.mn-actions button { color: var(--mn-quiet); }
+.mn-actions .mn-done { color: var(--ink); font-weight: 600; }
+::highlight(mn-on) { background-color: color-mix(in srgb, var(--mn-accent) 14%, transparent); }
+/* the column moves aside while notes need the margin and the page has the room (MarginNotes.tsx) */
+.col.mn-shift { max-width: calc(var(--measure) + 32px + 256px); padding-inline-end: 272px; }
+/* narrow: a small numbered tab at the paragraph's edge, the card opens over the text */
+.col:has(.mn-layer.is-narrow) { padding-inline-end: 26px; }
+.mn-layer.is-narrow { inset-inline-end: -24px; }
+.is-narrow .mn-face {
+  width: 20px;
+  height: 22px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--line-strong);
+  border-inline-start: 0;
+  border-radius: 0 3px 3px 0;
+  background: var(--mn-card);
+  color: var(--mn-quiet);
+  box-shadow: none;
+  display: grid;
+  place-items: center;
+}
+.is-narrow .mn-note.is-out .mn-face { color: var(--mn-accent); box-shadow: inset -2px 0 0 var(--mn-accent); }
+.is-narrow .mn-kind { border: 0; padding: 0; margin: 0; font-size: 0; }
+.is-narrow .mn-kind b { display: inline; font: 500 11px/1 var(--mono); }
+.is-narrow .mn-sym, .is-narrow .mn-label { display: none; }
+.is-narrow .mn-note.is-open .mn-face {
+  width: min(300px, 80vw);
+  height: auto;
+  padding: 8px 10px 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: 2px;
+  background: var(--mn-card);
+  color: var(--mn-card-ink);
+  display: block;
+  box-shadow: 0 10px 26px -8px rgb(0 0 0 / 30%);
+}
+.is-narrow .mn-note.is-open .mn-kind { font-size: 0.82em; color: var(--mn-quiet); margin-bottom: 4px; }
+/* the dock's note button: a small card, not a yellow pad */
+.dock-pad-stack { background: var(--sheet); border-color: var(--line-strong); box-shadow: 2px 2px 0 -1px var(--sheet), 2px 2px 0 0 var(--line-strong); }
+
+/* ---------- progress: section dots in the margin ---------- */
+.sec-dots {
+  position: absolute;
+  inset-inline-start: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 4;
+  display: grid;
+  gap: 12px;
+  padding: 6px 0;
+}
+.sec-dot {
+  all: unset;
+  box-sizing: border-box;
+  position: relative;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1.5px solid var(--line-strong);
+  background: var(--sheet);
+  cursor: pointer;
+}
+.sec-dot::after { content: ""; position: absolute; inset: -6px; }
+.sec-dot.is-done { background: var(--line-strong); }
+.sec-dot.is-here { background: var(--accent); border-color: var(--accent); transform: scale(1.25); }
+.sec-dot:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.sec-dot-label {
+  position: absolute;
+  inset-inline-start: 18px;
+  top: 50%;
+  transform: translateY(-50%) scale(0.8);
+  white-space: nowrap;
+  max-width: 260px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background: var(--ink);
+  color: var(--paper);
+  font: 500 0.78rem/1.6 var(--font);
+  padding: 0 8px;
+  border-radius: 3px;
+  opacity: 0;
+  pointer-events: none;
+}
+.sec-dot:not(.is-here) .sec-dot-label { transform: translateY(-50%); }
+.sec-dot:hover .sec-dot-label,
+.sec-dot:focus-visible .sec-dot-label { opacity: 1; }
+/* the dots replace the progress line where there is a margin for them */
+@media (min-width: 701px) {
+  .read-progress { display: none; }
+}
+@media (max-width: 700px) {
+  .sec-dots { display: none; }
+}
+:root[data-focus="on"] .sec-dots { opacity: 0.6; }
+
+/* ---------- the reading bar: at the bottom of the text, never over it ---------- */
+.reading-dock {
+  position: sticky;
+  bottom: 0;
+  height: auto;
+  z-index: 6;
+  background: color-mix(in srgb, var(--paper) 96%, transparent);
+  border-top: 1px solid var(--line);
+}
+.dock-inner {
+  position: relative;
+  inset: auto;
+  bottom: auto;
+  max-width: calc(var(--measure) + 32px);
+  margin: 0 auto;
+  padding: 5px 16px;
+  justify-items: stretch;
+}
+.dock-row { flex-wrap: nowrap; gap: 6px; align-items: center; min-width: 0; }
+.mini-toc-btn,
+.dock-focus,
+.dock-noise,
+.dock-pad,
+.dock-notebook {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--sheet);
+  backdrop-filter: none;
+  color: var(--ink-soft);
+  font: 500 0.8rem/1 var(--font);
+  cursor: pointer;
+  opacity: 1;
+  min-width: 0;
+  flex: none;
+}
+.mini-toc-btn { flex: 0 1 auto; }
+.mini-toc-btn:hover,
+.dock-focus:hover,
+.dock-noise:hover,
+.dock-pad:hover,
+.dock-notebook:hover { border-color: var(--line-strong); color: var(--ink); }
+.dock-notebook { display: none; }
+/* the contents open upward from the bar */
+.mini-toc-list { position: absolute; bottom: calc(100% + 6px); inset-inline-start: 16px; }
+.col.mn-shift + .reading-dock .dock-inner { max-width: calc(var(--measure) + 32px + 256px); padding-inline-end: 272px; }
+
+/* ---------- motion: nothing loops while reading ---------- */
+.icon-btn.is-busy { animation: none; }
+.spinner { animation: spin 0.9s ease-out 1; border-color: var(--line-strong); border-top-color: var(--accent); }
+.dock-noise.is-on .dock-noise-wave i { animation-iteration-count: 2; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---------- phone and narrow windows ---------- */
+.app { height: 100dvh; }
+@media (max-width: 700px) {
+  /* the top bar fits: smaller buttons, the connection is a dot */
+  .topbar { gap: 2px; padding-inline: max(6px, env(safe-area-inset-right, 0px)) max(6px, env(safe-area-inset-left, 0px)); }
+  .topbar .icon-btn { width: 32px; height: 32px; }
+  .counter { font-size: 0.72rem; padding: 0 4px; }
+  .conn { margin-inline: 2px; }
+  .crumbs { flex: 1 1 0; }
+  .crumb.is-last { max-width: none; overflow: hidden; text-overflow: ellipsis; }
+  /* the left rail steps aside: contents and notebook are in the reading bar */
+  .left-rail { display: none; }
+  .dock-notebook { display: inline-flex; }
+  .explain-rail { width: 24px; font-size: 0.72rem; }
+  .col { padding-inline: 14px; }
+  .dock-inner { padding: 5px 10px calc(5px + env(safe-area-inset-bottom, 0px)); }
+  .dock-row { gap: 4px; overflow-x: auto; scrollbar-width: none; }
+  .mini-toc-btn, .dock-focus, .dock-noise, .dock-pad, .dock-notebook { padding: 0 8px; gap: 4px; }
+  .mini-toc-now { max-width: 96px; }
+  .dock-noise > span:last-child, .dock-focus > span { display: none; }
+  .mini-toc-list { inset-inline-start: 10px; width: calc(100vw - 20px); }
+  .composer-wrap { padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px)); }
+  /* panels that open over the page take its width, under the top bar */
+  .pad-panel, .pad-panel.pad-wide { width: 100vw; inset-inline: 0; }
+  .explain-panel { width: 100vw; }
+  .prose .katex-display { overflow-x: auto; overflow-y: hidden; padding-block: 2px; }
+  .prose table { display: block; overflow-x: auto; }
+}

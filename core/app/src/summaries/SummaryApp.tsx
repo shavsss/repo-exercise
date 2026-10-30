@@ -403,7 +403,15 @@ export function SummaryApp({ lab, name }: { lab: string; name: string }) {
                 const st = meta[m.id]?.status ?? "none";
                 return (
                   <li key={m.id}>
-                    <button className={`sm-tree-mod ${m.id === prefs.module ? "is-on" : ""}`} onClick={() => void open(m.id)} title={STATUS_LABEL[st]}>
+                    <button
+                      className={`sm-tree-mod ${m.id === prefs.module ? "is-on" : ""}`}
+                      onClick={() => {
+                        void open(m.id);
+                        // on a phone the list lies over the page: it steps aside once a module is picked
+                        if (window.matchMedia?.("(max-width: 1000px)").matches) setPrefs({ tree: false });
+                      }}
+                      title={STATUS_LABEL[st]}
+                    >
                       <span className={`sm-dot st-${st}`} />
                       <span className="sm-mod-id">{m.id}</span>
                       <span className="sm-mod-title">{m.title}</span>

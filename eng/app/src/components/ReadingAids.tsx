@@ -99,7 +99,7 @@ export function useResumePosition(scrollRef: RefObject<HTMLDivElement | null>, k
     resumed,
     dismiss: () => setResumed(false),
     toTop: () => (
-      scrollRef.current?.scrollTo({ top: 0, behavior: "smooth" }),
+      scrollRef.current?.scrollTo({ top: 0, behavior: glide() }),
       setResumed(false)
     ),
   };
@@ -117,10 +117,12 @@ function minutesLeft(el: HTMLElement) {
 
 type Head = { id: string; text: string; level: number };
 const clean = (t: string) => t.replace(/[*_`$]/g, "");
-const goTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+/** a glide, unless the viewer asked the system for less motion */
+export const glide = (): ScrollBehavior => (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth");
+export const goTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: glide(), block: "start" });
 
 /** The lesson's headings, the one being read, and the reading time left below it. */
-function useHeadings(scrollRef: RefObject<HTMLDivElement | null>, version: unknown) {
+export function useHeadings(scrollRef: RefObject<HTMLDivElement | null>, version: unknown) {
   const [heads, setHeads] = useState<Head[]>([]);
   const [current, setCurrent] = useState("");
   const [left, setLeft] = useState(0);
@@ -182,11 +184,26 @@ export function useTocPanel() {
 }
 
 /**
- * The lesson's contents, fixed beside the text on wide screens: every heading, the one being
- * read marked, and the reading time left. Folds to a narrow rail.
+ * The lesson's contents in a drawer over the left of the page, so the text stays centred and the
+ * margin notes keep their place: every heading, the one being read marked, and the reading time
+ * left. Escape or a click outside closes it. Folds to a narrow rail.
  */
 export function LessonToc({ scrollRef, version, open, setOpen }: { scrollRef: RefObject<HTMLDivElement | null>; version: unknown; open: boolean; setOpen: (o: boolean) => void }) {
   const { heads, current, left } = useHeadings(scrollRef, version);
+  const close = useRef(setOpen);
+  close.current = setOpen;
+  useEffect(() => {
+    if (!open) return;
+    const away = (e: Event) => {
+      if (e instanceof KeyboardEvent ? e.key === "Escape" : !(e.target as HTMLElement).closest?.(".lesson-toc, .left-rail")) close.current(false);
+    };
+    document.addEventListener("keydown", away);
+    document.addEventListener("pointerdown", away);
+    return () => {
+      document.removeEventListener("keydown", away);
+      document.removeEventListener("pointerdown", away);
+    };
+  }, [open]);
   if (!open)
     return (
       <button className="toc-rail" onClick={() => setOpen(true)} aria-label="פתח את תוכן השיעור" title="פתח את תוכן השיעור">
@@ -222,7 +239,7 @@ export function LessonToc({ scrollRef, version, open, setOpen }: { scrollRef: Re
  * Floating aids at the bottom corner of a lesson: the focus switch, and on narrow screens
  * (or with the contents panel closed) the headings with the one being read marked.
  */
-export function ReadingDock({ scrollRef, version, onPad }: { scrollRef: RefObject<HTMLDivElement | null>; version: unknown; onPad?: () => void }) {
+export function ReadingDock({ scrollRef, version, onPad, onNotebook }: { scrollRef: RefObject<HTMLDivElement | null>; version: unknown; onPad?: () => void; onNotebook?: () => void }) {
   const r = useReading();
   const [open, setOpen] = useState(false);
   const { heads, current, left } = useHeadings(scrollRef, version);
@@ -274,6 +291,12 @@ export function ReadingDock({ scrollRef, version, onPad }: { scrollRef: RefObjec
             <button className="dock-pad" onPointerDown={(e) => e.preventDefault()} onClick={onPad} title="שלוף פתק לשוליים, ליד הטקסט המסומן או הפסקה שבראש המסך">
               <span className="dock-pad-stack" aria-hidden="true" />
               <span>פתק</span>
+            </button>
+          )}
+          {onNotebook && (
+            <button className="dock-notebook" onClick={onNotebook} title="מחברת: שרטוטים ופתרונות לשיעור הזה">
+              <Icon name="exercise" size={15} />
+              <span>מחברת</span>
             </button>
           )}
           <button
