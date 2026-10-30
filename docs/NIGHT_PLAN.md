@@ -123,6 +123,26 @@ Source: `docs/research/round2/A3_factory.md`.
 - **Evaluators:** nightly evaluator agents update the live level per domain.
 - Use the remote trigger tools.
 
+### P2-G. The lead-and-decide track (approved by the learner, 30.10)
+His target is to lead and decide across many domains, not to be a single-function engineer. Give that a fixed place in both apps, at the same depth as everything else:
+- **Cross-domain trade studies:** each one has a decision, alternatives, numbers per domain, and a sensitivity analysis.
+- **Architecture choice:** pick an architecture against alternatives and defend it.
+- **Design review:** review someone else's design. Planted errors span several domains.
+- **Leading a team of agents:** run a large task with a team of agents. He sets the split, the interfaces and the acceptance tests.
+
+How it is built:
+- As lesson blocks and periodic exercises, built from what he has already learned.
+- The weekly external review scores it.
+- "Systems engineering" and "engineering judgment" feed it, but do not replace it.
+- Add it to the teaching rules in both apps and to the docs.
+- Do not add a separate quarterly integration-project rule: the learner said the cross-domain projects will come naturally as he learns.
+
+### P2-H. Stronger sources for domains whose material is mostly tutor-written (approved by the learner, 30.10)
+- **Domains:** C4ISR and kill chains, logistics and sustainment, adversary systems and doctrine, weapons effects and lethality. Also check the other domains with low confidence in `docs/research/round4/LV_benchmark.md` and `round5/expert/LV2_benchmark.md`.
+- **Sources:** for each domain, add authoritative open sources to the fixed reading lists and to the material the tutor receives. Examples: doctrine publications, GAO, CBO and RAND studies, textbooks, peer-reviewed papers. Link each source to its module and topic, and check every link.
+- **First review:** schedule the first external review of these domains early, in the first weekly review that reaches them. Do not wait until the end.
+- **Same depth:** the depth target is the same as in every other domain.
+
 ### P3. Data fixes (heavy; start them in the background early, finish if time allows)
 - OCR for Trefethen & Bau (Gilua M8.3–M8.10), Fleeman B13 and SMAD B12 (image-only).
 - The chapters that are not extracted yet: SMAD ch.18, Feynman II ch.40 and ch.42, Horowitz & Hill ch.1.
