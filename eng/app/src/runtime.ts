@@ -271,6 +271,16 @@ export class Store {
     await this.profile.collection("scratch").doc(key).set(clean(data));
   }
 
+  /* ---- the learner's answers to the level-3 blocks (predict, errorhunt, verify, lab, decide): profile/level3/<module>__<lesson> ---- */
+  async loadLevel3(key: string): Promise<Record<string, unknown> | null> {
+    const s = await this.profile.collection("level3").doc(key).get();
+    return s.exists ? (s.data() as Record<string, unknown>) : null;
+  }
+
+  async saveLevel3(key: string, data: Record<string, unknown>) {
+    await this.profile.collection("level3").doc(key).set(clean(data));
+  }
+
   /* ---- the learner's own dictionary for the summaries' spelling: profile/dict/mine ---- */
   async loadWords(): Promise<string[]> {
     const s = await this.profile.collection("dict").doc("mine").get();

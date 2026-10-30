@@ -19,6 +19,7 @@ import { LessonPlaceCtx } from "./events";
 import { SourceViewer } from "./components/SourceViewer";
 import { MemoryPanel } from "./components/MemoryPanel";
 import { MdContext } from "./components/Markdown";
+import { setLevel3Scope } from "./level3";
 import { SourceTag } from "./components/blocks/SourceTag";
 import { Icon } from "./components/Icon";
 import { NotesPanel } from "./components/NotesPanel";
@@ -166,6 +167,8 @@ export function App() {
   }, [selection?.moduleId, selection?.lesson]);
   const lesson = lessonIdx !== undefined && lessonIdx >= 0 ? prog?.lessons?.[lessonIdx] : undefined;
   const isQuiz = lessonIdx === -1;
+  // the learner's answers to predict/errorhunt/verify/lab/decide blocks belong to the open lesson
+  useEffect(() => setLevel3Scope(rt?.store ?? null, module && lessonIdx !== undefined ? `${module.id}__${lessonIdx}` : ""), [rt, module, lessonIdx]);
   const state = module ? moduleState(module, done) : "locked";
 
   const setSelection = useCallback(

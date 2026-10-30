@@ -16,6 +16,7 @@ import { SimBlock } from "./blocks/Sim";
 import { AnimBlock } from "./blocks/Anim";
 import { SourceTag } from "./blocks/SourceTag";
 import { Scene3DBlock } from "./blocks/Scene3D";
+import { Decide, ErrorHunt, Lab, Predict, Verify } from "./blocks/Level3";
 
 export interface MdContextValue {
   live: boolean;
@@ -38,6 +39,10 @@ function preprocess(src: string) {
     .map((part, i) => {
       if (i % 2 === 1) return part.replace(/^```figure[ \t]*\n/, () => `\`\`\`figure\n@no: ${++fig}\n`);
       return part
+        // hidden unit markers (<!--U7-->) and audit lines of the depth rules never show
+        .replace(/<!--[\s\S]*?-->/g, "")
+        // one cut off mid-way (a part that stopped inside its audit line) must not swallow what follows
+        .replace(/<!--[^\n]*$/gm, "")
         // a one-line $$…$$ paragraph is display math (remark-math reads it as inline, which rejects \tag)
         .replace(/^[ \t]*\$\$([^\n]+?)\$\$[ \t]*$/gm, (_m, tex: string) => `$$\n${tex.trim()}\n$$`)
         .replace(/\[\[([^\]\n]{1,200})\]\]/g, (_m, inner: string) => (SOURCE_TAG.test(inner.trim()) ? "`§s:" + inner.trim() + "`" : "`§b:" + inner + "`"));
@@ -64,6 +69,11 @@ function textOf(node: ReactNode): string {
 function FencedBlock({ lang, code }: { lang: string; code: string }) {
   const ctx = useContext(MdContext);
   if (lang === "think") return <Think body={code} />;
+  if (lang === "predict") return <Predict source={code} />;
+  if (lang === "errorhunt") return <ErrorHunt source={code} />;
+  if (lang === "verify") return <Verify source={code} />;
+  if (lang === "lab") return <Lab source={code} />;
+  if (lang === "decide") return <Decide source={code} />;
   if (lang === "exercise") return <Exercise source={code} />;
   if (lang === "figure") return <FigureBlock source={code} />;
   if (lang === "sim") return <SimBlock source={code} live={ctx.live} />;

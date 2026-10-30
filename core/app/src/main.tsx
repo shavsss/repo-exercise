@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import "katex/dist/katex.min.css";
 import "./styles.css";
 import "./reading.css";
+import "./blocks3.css";
 import "./reading";
 import { installSounds } from "./sound";
 import "./summaries/summaries.css";
