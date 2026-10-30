@@ -24,6 +24,9 @@ import { Icon } from "./components/Icon";
 import { NotesPanel } from "./components/NotesPanel";
 import { ModuleTopics, ReadingList } from "./components/ReadingList";
 import { LabTabView, LabTabsNav, useNewsUnread, type LabTab } from "./labtabs/LabTabs";
+import { saveMemoryVersion, updateMemorySafely } from "./memoryLog";
+import { joinContinuation, looksCut } from "./truncation";
+import { countLesson } from "./usage";
 
 interface Notice {
   level: "info" | "warn" | "error";
@@ -33,7 +36,7 @@ interface Notice {
 const MAX_PARTS = 4;
 /** How often a draft is saved while text streams (plus at every plan/part boundary). */
 const SAVE_EVERY = 8000;
-const CONTINUE_TEXT = "התשובה הקודמת נקטעה באורך המרבי. המשך בדיוק מהמקום שבו נעצרה, מאמצע המשפט אם צריך, בלי לחזור על דבר ובלי הקדמה.";
+const CONTINUE_TEXT = "התשובה הקודמת נקטעה לפני סופה (באורך המרבי, באמצע משפט או בתוך בלוק פתוח). המשך בדיוק מהמקום שבו נעצרה, מאמצע המשפט אם צריך, בלי לחזור על דבר ובלי הקדמה.";
 
 const ERROR_COPY: Record<string, string> = {
   not_granted: "הדף לא קיבל הרשאה לפנות ל-Claude. אפשר לאשר אותה בתפריט ההרשאות של ה-Artifact.",
@@ -41,7 +44,7 @@ const ERROR_COPY: Record<string, string> = {
   rate_limited: "הגעת למגבלת השימוש כרגע. נסה שוב בעוד כמה דקות.",
   session_expired: "צריך להתחבר מחדש ל-claude.ai.",
   prompt_too_large: "הבקשה גדולה מדי לשליחה אחת. כדאי לשאול על חלק קטן יותר.",
-  refused: "Claude סירב לבקשה הזו. אפשר לנסח אותה אחרת.",
+  refused: "Claude סירב להמשיך את הבקשה הזו. מה שנכתב עד כאן נשמר, ו'המשך' ינסה שוב מהחלק האחרון.",
   empty_completion: "לא התקבלה תשובה. נסה לבקש פחות בבת אחת.",
   image_rejected: "התמונה לא התקבלה (סוג או גודל). נסה קובץ אחר.",
   invalid_json: "התכנון שהתקבל לא היה תקין. אפשר לנסות שוב.",
@@ -365,6 +368,7 @@ export function App() {
       save({}, true);
 
       let ok = false;
+      const started = Date.now();
       try {
         const cb = {
           onActivity: (a: Activity) => {
@@ -373,6 +377,7 @@ export function App() {
           },
           onStatus: (status: string) => setLive((l) => (l ? { ...l, status } : l)),
           onCheckpoint: (plan: PartPlan, partsDone: number, text: string) => save({ plan, partsDone, text }, true),
+          onDiag: store ? (d: Record<string, unknown>) => store.saveDiag(d) : undefined,
           onText: show,
           onNote: (kind: NoteKind, text: string, addTo?: string) => (addTo ? appendToNote(addTo, text) : addNote(kind, text, "tutor", m, idx)),
         };
@@ -391,7 +396,8 @@ export function App() {
             res = await askTutor({ ...base, mode: sendMode, text: userMsg.text, images });
             full = res.text;
           }
-          for (let part = 1; (res === null || res.truncated) && part <= MAX_PARTS; part++) {
+          let cuts = 0;
+          for (let part = 1; (res === null || res.truncated || (looksCut(full).cut && cuts++ < 1)) && part <= MAX_PARTS; part++) {
             const before = full;
             res = await askTutor({
               ...base,
@@ -400,9 +406,9 @@ export function App() {
               text: CONTINUE_TEXT,
               images: [],
               continuing: true,
-              cb: { ...cb, onText: (t: string) => show(before + t) },
+              cb: { ...cb, onText: (t: string) => show(joinContinuation(before, t)) },
             });
-            full = before + res.text;
+            full = joinContinuation(before, res.text);
           }
           answer = { ...answer, text: full, model: res?.modelApplied ?? `רמת מודל: ${res?.modelTierApplied}`, ...(res?.truncated ? { truncated: true } : {}) };
         }
@@ -411,7 +417,7 @@ export function App() {
       } catch (err) {
         const e = err as SampleError;
         // keep the draft fields so "continue" can resume from the last saved part
-        answer = { ...answer, text: e.code === "refused" ? "" : shown || (e.text ?? ""), interrupted: true, draft: undefined };
+        answer = { ...answer, text: shown || (e.text ?? ""), interrupted: true, draft: undefined };
         if (e.code !== "cancelled") notify({ level: "error", text: ERROR_COPY[e.code] ?? ERROR_COPY.upstream_error });
       }
       answer = { ...answer, activity };
@@ -430,17 +436,16 @@ export function App() {
 
       if (!ok || !answer.text) return;
       if (sendMode === "lesson" && idx >= 0) await finishLesson(m, idx);
+      if (sendMode === "lesson") countLesson(answer.text, Date.now() - started);
       const score = /\[\[ציון:\s*([^\]]+)\]\]/.exec(answer.text)?.[1]?.trim();
       if (sendMode === "quiz" && score) await saveModule(m.id, { quizScore: score });
       if (sendMode === "lesson" || (sendMode === "quiz" && score)) {
         setMemoryBusy(true);
         try {
           const where = `${m.id} «${m.title}», ${idx >= 0 ? `שיעור ${idx + 1} מתוך ${modsRef.current[m.id]?.lessons?.length ?? "?"}` : "מבחן מסכם"}`;
-          const next = await updateMemory(rt, memory, answer, userMsg.text, where);
-          if (next) {
-            setMemory(next);
-            await rt.store?.setMemory(next);
-          }
+          // re-read from the db, so an edit made during the lesson is not overwritten; versions are kept (memoryLog.ts)
+          const next = await updateMemorySafely({ rt, update: updateMemory, fallback: memory, answer, request: userMsg.text, where });
+          if (next) setMemory(next);
         } catch {
           notify({ level: "warn", text: "זיכרון הקורס לא עודכן הפעם. אפשר לעדכן אותו ידנית." });
         } finally {
@@ -773,12 +778,14 @@ export function App() {
           memory={memory}
           busy={memoryBusy}
           canSave={!!rt?.store}
+          store={rt?.store}
           onClose={() => setMemoryOpen(false)}
           onOpenLesson={(moduleId, l) => (setMemoryOpen(false), setSelection({ moduleId, lesson: l }))}
-          onSave={async (text) => {
+          onSave={async (text, reason = "לפני עריכה ידנית") => {
+            const prev = memory;
             setMemory(text);
             try {
-              await rt?.store?.setMemory(text);
+              if (rt?.store) await saveMemoryVersion(rt.store, (await rt.store.getMemory().catch(() => null)) ?? prev, text, reason);
             } catch {
               notify({ level: "error", text: "שמירת הזיכרון נכשלה." });
             }

@@ -68,10 +68,16 @@
         opts.onText && opts.onText({ text: t, delta: t });
         return { text: t, truncated: true, modelTierApplied: "complex", modelApplied: "claude-opus-5-5" };
       }
-      text = k === 2 ? " והמשך חלק שני." : k === 1 ? window.__answer : "## חלק " + k + "\n\nסוף השיעור.\n\n```coverage\n- כל הסעיפים נלמדו\n```";
+      // the last part first stops mid-sentence without `truncated` (truncation.ts finds it), then is continued
+      if (k === n && !last.includes("cut off")) {
+        const t = "## חלק " + k + "\n\nסוף השיעור מתחיל כאן ונעצר באמצע";
+        opts.onText && opts.onText({ text: t, delta: t });
+        if (!window.__fast) await new Promise((r) => setTimeout(r, 4000));
+        return { text: t, truncated: false, modelTierApplied: "complex", modelApplied: "claude-opus-5-5" };
+      }
+      text = k === 2 ? " והמשך חלק שני." : k === 1 ? window.__answer : "המשפט.\n\nסוף השיעור.\n\n```coverage\n- כל הסעיפים נלמדו\n```";
       if (k === 1) await call("read_source_pages", { doc: window.__doc, from: 1, to: 2 });
       if (k === 1 && tools.some((x) => x.name === "save_lesson_note")) await call("save_lesson_note", { kind: "article", text: "רעיון למאמר לבדיקה: איך המורה שומר נקודה." });
-      if (k === 3 && !window.__fast) await new Promise((r) => setTimeout(r, 4000));
     } else if (/התשובות שלי/.test(last)) text = "בדיקה מלאה. [[ציון: 85/100]]";
     else if (/MODULE QUIZ/.test(last)) text = "1. שאלה ראשונה\n2. שאלה שנייה";
     else text = "תשובה רגילה.";
