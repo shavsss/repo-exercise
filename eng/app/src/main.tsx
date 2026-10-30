@@ -7,6 +7,7 @@ import "./reading.css";
 import "./reading";
 import { installSounds } from "./sound";
 import "./summaries/summaries.css";
+import "./labtabs/labtabs.css";
 import "./look5.css";
 import { App } from "./App";
 import { SummaryApp } from "./summaries/SummaryApp";

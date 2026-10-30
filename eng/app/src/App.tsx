@@ -24,6 +24,7 @@ import { Icon } from "./components/Icon";
 import { RingMap } from "./components/RingMap";
 import { NotesPanel } from "./components/NotesPanel";
 import { ModuleTopics, ReadingList } from "./components/ReadingList";
+import { LabTabView, LabTabsNav, useNewsUnread, type LabTab } from "./labtabs/LabTabs";
 
 interface Notice {
   level: "info" | "warn" | "error";
@@ -113,6 +114,8 @@ export function App() {
   const [modsReady, setModsReady] = useState(false);
 
   const done = useMemo(() => new Set(doneList), [doneList]);
+  const [tab, setTab] = useState<LabTab>("study");
+  const newsUnread = useNewsUnread(rt, tab);
   const notify = (n: Notice) => setNotices((all) => [...all, n]);
 
   /* ---- runtime, library index and the learner's stored data ---- */
@@ -570,8 +573,9 @@ export function App() {
   return (
     <div className={`app ${sidePref === "closed" ? "side-collapsed" : ""} ${viewer ? (viewerMin ? "viewer-min" : "viewer-open") : ""} ${showToc && tocOpen ? "has-toc" : ""}`}>
       <Topbar
-        crumbs={crumbs}
-        counter={counter}
+        tabs={<LabTabsNav tab={tab} onTab={setTab} unread={newsUnread} />}
+        crumbs={tab === "study" ? crumbs : []}
+        counter={tab === "study" ? counter : undefined}
         status={status}
         sideOpen={sideVisible}
         viewerOpen={!!viewer}
@@ -593,7 +597,7 @@ export function App() {
         onNotes={() => setNotesOpen(true)}
         notesCount={module && lessonIdx !== undefined ? notes.filter((n) => n.moduleId === module.id && n.lesson === lessonIdx).length : notes.length}
       />
-      <div className="body">
+      <div className="body" style={tab === "study" ? undefined : { display: "none" }}>
         {index ? (
           <ModuleMap index={index} done={done} progress={mods} selection={selection} onSelect={setSelection} open={sideOpen} onClose={() => setSideOpen(false)} />
         ) : (
@@ -757,6 +761,9 @@ export function App() {
           </button>
         )}
       </div>
+      {tab !== "study" && (
+        <LabTabView tab={tab} lab="eng" rt={rt} index={index} done={done} current={selection?.moduleId ?? null} onOpenModule={(moduleId) => (setTab("study"), setSelection({ moduleId }))} />
+      )}
 
       {notesOpen && (
         <NotesPanel

@@ -149,10 +149,13 @@ ${doc}:${figPage}:0
 `;
 
 const page = fs.readFileSync(path.join(app, "artifact", "index.html"), "utf8");
+// Sample documents for the newspaper, product and review tabs; stub.js adds them when the address has ?seed.
+const sample = (f) => JSON.parse(fs.readFileSync(path.join(here, "samples", f), "utf8"));
+const seedDocs = { "news/2026-W44": sample("news.json"), "reviews/2026-W44": sample("review.json"), "products/__MONTH__": sample("product.json") };
 fs.writeFileSync(
   path.join(out, "test.html"),
   `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body>` +
-    `<script src="stub.js"></script><script>window.__answer=${JSON.stringify(answer)};window.__lessons=${JSON.stringify(lessons)};window.__doc=${JSON.stringify(doc)};window.__module=${JSON.stringify(mod.id)}</script>${page}</body></html>`,
+    `<script src="stub.js"></script><script>window.__answer=${JSON.stringify(answer)};window.__lessons=${JSON.stringify(lessons)};window.__doc=${JSON.stringify(doc)};window.__module=${JSON.stringify(mod.id)};window.__seed=${JSON.stringify(seedDocs)}</script>${page}</body></html>`,
 );
 // A second page whose lesson shows every checked 3D scene, for a quick check of the whole library.
 const ids = [...fs.readFileSync(path.resolve(app, "../../shared/scene3d/scenes.ts"), "utf8").matchAll(/\bid: "([a-z_0-9]+)",\s+title:/g)].map((m) => m[1]);

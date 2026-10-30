@@ -1,0 +1,196 @@
+{
+ "id": "2026-W44",
+ "app": "eng",
+ "week": {
+  "from": "2026-10-26",
+  "to": "2026-11-01"
+ },
+ "createdAt": 1793509200000,
+ "generator": {
+  "sha": "example",
+  "runId": "example"
+ },
+ "summary": "שבוע ראשון של מדידה. **הבסיס במתמטיקה ובמכניקה נבנה כמו שצריך:** ההגזרות נכונות, והתחזיות לפני החישוב היו בסדר הגודל הנכון ב-7 מתוך 9. **הפער המרכזי הוא אימות:** בשני תרגילים התשובה של הסוכן התקבלה בלי בדיקה שנייה, ובאחד מהם היא הייתה שגויה בפקטור 2.",
+ "trend": "up",
+ "scope": {
+  "lessons": [
+   {
+    "moduleId": "M1.1",
+    "lesson": 0,
+    "title": "פונקציה, גבול ונגזרת"
+   },
+   {
+    "moduleId": "M2.1",
+    "lesson": 1,
+    "title": "שימור אנרגיה"
+   }
+  ],
+  "answers": 14
+ },
+ "domains": [
+  {
+   "id": "ENG · Mathematics foundations",
+   "name": "יסודות מתמטיים",
+   "target": {
+    "knowledge": "A4",
+    "fluency": "A4 עם כלים",
+    "industry": "principal"
+   },
+   "now": {
+    "knowledge": "A2",
+    "fluency": "A1",
+    "industry": "junior"
+   },
+   "score": 1.6,
+   "targetScore": 4.5,
+   "delta": 0.2,
+   "evidence": "גזירה נכונה של טיילור מסדר שני; טעות סימן אחת שתוקנה לבד.",
+   "gap": "עוד לא נבדק מול שגיאה שתולה בפלט של סוכן.",
+   "next": "שני תרגילי 'מצא את השגיאה' בשיעור הבא.",
+   "confidence": "medium",
+   "reviewer": "r2"
+  },
+  {
+   "id": "ENG · Physics",
+   "name": "פיזיקה",
+   "target": {
+    "knowledge": "A3",
+    "fluency": "A3",
+    "industry": "senior"
+   },
+   "now": {
+    "knowledge": "A2",
+    "fluency": "A1",
+    "industry": "junior"
+   },
+   "score": 1.4,
+   "targetScore": 3.5,
+   "delta": 0.3,
+   "evidence": "תחזית אנרגיה לפני חישוב, נכונה עד 10%.",
+   "next": "בעיה אחת עם תנאי שפה לא סטנדרטיים.",
+   "confidence": "medium",
+   "reviewer": "r2"
+  },
+  {
+   "id": "ENG · Signals and systems",
+   "name": "אותות ומערכות",
+   "target": {
+    "knowledge": "A4",
+    "fluency": "A4",
+    "industry": "principal"
+   },
+   "now": {
+    "knowledge": "A1",
+    "fluency": "A1",
+    "industry": "junior"
+   },
+   "score": 0.6,
+   "targetScore": 4.5,
+   "evidence": "עוד לא נלמד; נמדד רק מתשובה אחת על ממוצע נע.",
+   "confidence": "low",
+   "reviewer": "r1"
+  },
+  {
+   "id": "ENG · Systems engineering",
+   "name": "הנדסת מערכות",
+   "target": {
+    "knowledge": "A4",
+    "fluency": "n/a",
+    "industry": "senior"
+   },
+   "now": {
+    "knowledge": "A1",
+    "industry": "junior"
+   },
+   "score": 0.8,
+   "targetScore": 4,
+   "evidence": "מפרט מוצר החודש: שתי דרישות מתוך חמש עם מבחן קבלה.",
+   "next": "מבחן קבלה לכל דרישה במפרט.",
+   "confidence": "low",
+   "reviewer": "r1"
+  },
+  {
+   "id": "ENG · Engineering judgment (cross-cutting)",
+   "name": "שיקול דעת הנדסי",
+   "target": {
+    "knowledge": "מעבר ל-MSc",
+    "industry": "principal"
+   },
+   "now": {
+    "industry": "mid"
+   },
+   "score": 2.1,
+   "targetScore": 5,
+   "delta": 0.1,
+   "evidence": "בחר נכון בין שני מודלים לפי תחום התקפות; לא בדק את התוצאה של הסוכן פעמיים.",
+   "gap": "אימות כפול כהרגל.",
+   "confidence": "medium",
+   "reviewer": "r1"
+  }
+ ],
+ "reviewers": [
+  {
+   "id": "r1",
+   "persona": "senior_engineer",
+   "title": "מהנדס מערכות בכיר",
+   "focus": "מוצר החודש, מפרט ואימות",
+   "notes": "1. הרעיון חד: שאלה אחת, משתמש ברור.\n2. המפרט עוד לא ניתן לבדיקה: \"מדויק יותר\" בלי מספר ובלי בנצ'מרק.\n3. תוכנית האימות כוללת בדיקה אחת. צריך שנייה, בלתי תלויה (פותר שני או נתון ציבורי).",
+   "verdict": "בכיוון הנכון. השבוע הבא: מספרים במפרט ובדיקה שנייה."
+  },
+  {
+   "id": "r2",
+   "persona": "domain_expert",
+   "title": "מומחה מתמטיקה שימושית",
+   "focus": "השיעורים והתשובות",
+   "notes": "- ההגזרות נקיות, והנימוק במילים טוב.\n- בתרגיל 4 התשובה של הסוכן התקבלה כפי שהיא, והייתה שגויה בפקטור 2. בדיקת ממדים הייתה תופסת את זה בחצי דקה.\n- מומלץ: בדיקת ממדים ומקרה קצה לפני כל תשובה סופית.",
+   "verdict": "רמה טובה לשלב. ההרגל החסר הוא בדיקה שנייה."
+  }
+ ],
+ "calibration": {
+  "predictions": 9,
+  "brier": 0.18,
+  "confidentWrong": 1,
+  "overconfident": 2,
+  "underconfident": 1,
+  "note": "שבע תחזיות מתוך תשע בסדר הגודל הנכון. תחזית אחת \"בטוח\" שגויה (בתרגיל 4)."
+ },
+ "product": {
+  "month": "2026-11",
+  "title": "מחשבון שגיאות GNSS",
+  "stage": "מפרט ושוק",
+  "score": 5,
+  "checklist": {
+   "passed": 2,
+   "total": 9
+  },
+  "notes": "בדיקת החוקיות הושלמה (קליטה בלבד). המפרט צריך מספרים ובנצ'מרק ציבורי."
+ },
+ "leadDecide": {
+  "score": 3,
+  "items": [
+   {
+    "kind": "trade",
+    "title": "חיישן זול מול מדויק",
+    "score": 4,
+    "note": "החלופות נכונות; אין ניתוח רגישות."
+   }
+  ],
+  "note": "המסלול מתחיל. השבוע הבא: מחקר פשרות אחד עם ניתוח רגישות."
+ },
+ "actions": [
+  {
+   "text": "בדיקת ממדים ומקרה קצה לפני כל תשובה סופית",
+   "domain": "יסודות מתמטיים"
+  },
+  {
+   "text": "מספר ובנצ'מרק לכל דרישה במפרט המוצר",
+   "domain": "הנדסת מערכות"
+  },
+  {
+   "text": "בדיקה שנייה ובלתי תלויה בתוכנית האימות",
+   "domain": "שיקול דעת הנדסי"
+  }
+ ],
+ "human": [],
+ "example": true
+}

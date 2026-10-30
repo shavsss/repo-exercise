@@ -1,0 +1,1057 @@
+/* The tabs beside the lessons (src/labtabs/): the weekly paper, the month's product and
+   the weekly external review. Only the shared tokens of styles.css; quiet, no looping
+   animation. The same file in both apps. */
+
+/* ---------------- the tab bar in the top bar ---------------- */
+.labtabs {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: none;
+}
+.labtabs-toggle {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 10px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: var(--sheet);
+  color: var(--ink);
+  font-size: 0.875rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.labtabs-list {
+  display: flex;
+  gap: 2px;
+}
+.labtab {
+  position: relative;
+  border: none;
+  background: none;
+  padding: 6px 10px;
+  border-radius: 3px;
+  color: var(--muted);
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+.labtab:hover {
+  background: var(--hover);
+  color: var(--ink);
+}
+.labtab.is-on {
+  color: var(--ink);
+  font-weight: 600;
+  box-shadow: inset 0 -2px 0 var(--accent);
+}
+.labtabs-icon {
+  display: none;
+}
+.labtab-page .katex {
+  unicode-bidi: isolate;
+}
+.labtabs-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  margin-inline-start: 6px;
+  vertical-align: 0.15em;
+}
+@media (max-width: 1180px) {
+  .labtabs-toggle {
+    display: inline-flex;
+  }
+  .labtabs-list {
+    display: none;
+    position: absolute;
+    top: calc(100% + 6px);
+    inset-inline-start: 0;
+    z-index: 45;
+    flex-direction: column;
+    min-width: 170px;
+    padding: 4px;
+    background: var(--sheet);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    box-shadow: var(--shadow);
+  }
+  .labtabs.is-open .labtabs-list {
+    display: flex;
+  }
+  .labtab {
+    text-align: start;
+    padding: 8px 10px;
+  }
+  .labtab.is-on {
+    box-shadow: inset -3px 0 0 var(--accent);
+  }
+}
+/* where the brand folds away, the tabs fold into one square button (the top bar is full there) */
+@media (max-width: 900px) {
+  .labtabs-toggle {
+    position: relative;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    justify-content: center;
+    border-color: transparent;
+    background: none;
+    color: var(--ink-soft);
+  }
+  .labtabs-icon {
+    display: block;
+  }
+  .labtabs-cur,
+  .labtabs-chev {
+    display: none;
+  }
+  .labtabs-toggle .labtabs-dot {
+    position: absolute;
+    top: 6px;
+    inset-inline-end: 5px;
+    margin: 0;
+  }
+}
+
+/* ---------------- the page of a tab ---------------- */
+.labtab-page {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--paper);
+}
+.lt-wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 24px 16px 64px;
+}
+.lt-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px 24px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 18px;
+}
+.lt-head h1 {
+  font: 700 clamp(1.5rem, 3.4vw, 2rem) / 1.2 "Frank Ruhl Libre", var(--font);
+  margin: 4px 0 6px;
+}
+.lt-head-side {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.lt-kicker {
+  font-size: 0.8125rem;
+  color: var(--muted);
+  font-weight: 500;
+}
+.lt-h2 {
+  font: 700 1.2rem/1.3 "Frank Ruhl Libre", var(--font);
+  margin: 28px 0 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--line);
+}
+.lt-empty {
+  margin: 48px auto;
+  max-width: 34rem;
+  text-align: center;
+  color: var(--ink-soft);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+.lt-err {
+  color: var(--err);
+  font-size: 0.9rem;
+}
+.lt-example {
+  margin: 12px 0;
+  padding: 8px 12px;
+  border: 1px dashed var(--line-strong);
+  border-radius: 3px;
+  color: var(--ink-soft);
+  font-size: 0.875rem;
+}
+.lt-note {
+  margin: 0 0 14px;
+  padding: 10px 14px;
+  background: var(--sheet);
+  border: 1px solid var(--line);
+  border-inline-start: 3px solid var(--blue);
+  border-radius: 3px;
+  color: var(--ink-soft);
+}
+.lt-spacer {
+  flex: 1;
+}
+.lt-n {
+  font: 400 0.75rem var(--mono);
+  color: var(--muted);
+  margin-inline-start: 6px;
+}
+.lt-picker {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+.lt-picker select,
+.lt-input {
+  font: inherit;
+  color: var(--ink);
+  background: var(--sheet);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  padding: 5px 8px;
+  min-width: 0;
+}
+.lt-picker select {
+  font-size: 0.875rem;
+  max-width: 60vw;
+}
+.lt-input:focus,
+.lt-picker select:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: -1px;
+}
+textarea.lt-input {
+  resize: vertical;
+  line-height: 1.6;
+}
+.lt-chip {
+  border: 1px solid var(--line-strong);
+  background: var(--sheet);
+  color: var(--ink-soft);
+  border-radius: 999px;
+  padding: 3px 11px;
+  font-size: 0.8125rem;
+}
+.lt-chip:hover {
+  border-color: var(--ink-soft);
+}
+.lt-chip[aria-pressed="true"],
+.lt-chip[aria-checked="true"] {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+.lt-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8125rem;
+  color: var(--ink-soft);
+}
+.lt-check input {
+  accent-color: var(--accent);
+}
+.lt-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 7px;
+  border-radius: 3px;
+  border: 1px solid var(--line-strong);
+  color: var(--ink-soft);
+  background: var(--sheet);
+  font-size: 0.75rem;
+  line-height: 1.6;
+  white-space: nowrap;
+}
+.lt-date {
+  font: 400 0.75rem var(--mono);
+  color: var(--muted);
+}
+.lt-card {
+  background: var(--sheet);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 12px 14px;
+  min-width: 0;
+}
+.lt-card h4 {
+  margin: 0 0 8px;
+  font-size: 0.875rem;
+  color: var(--ink);
+}
+.lt-card ul,
+.lt-card ol {
+  margin: 0;
+  padding-inline-start: 18px;
+  display: grid;
+  gap: 6px;
+  font-size: 0.875rem;
+}
+.lt-card p {
+  margin: 6px 0;
+  font-size: 0.875rem;
+}
+.lt-box {
+  margin: 12px 0;
+  padding: 10px 14px;
+  background: var(--sheet);
+  border: 1px solid var(--line);
+  border-inline-start: 3px solid var(--line-strong);
+  border-radius: 3px;
+  font-size: 0.9rem;
+}
+.lt-box p {
+  margin: 4px 0;
+}
+.lt-box-h {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  margin-bottom: 4px;
+}
+.lt-box.tb {
+  border-inline-start-color: var(--k-history);
+}
+.lt-box.idea {
+  border-inline-start-color: var(--k-domain);
+}
+.lt-box.critique {
+  border-inline-start-color: var(--blue);
+  margin-top: 18px;
+}
+.lt-act {
+  border: 1px solid transparent;
+  background: none;
+  color: var(--muted);
+  font-size: 0.8125rem;
+  padding: 2px 8px;
+  border-radius: 3px;
+}
+.lt-act:hover {
+  border-color: var(--line);
+  color: var(--ink);
+}
+.lt-act[aria-pressed="true"] {
+  color: var(--accent);
+  border-color: var(--line);
+}
+.lt-ok {
+  color: var(--ok);
+  font-size: 0.875rem;
+}
+
+/* certainty colors (N_design §1.5) */
+.c-official,
+.c-peer,
+.c-corroborated,
+.s-pass {
+  border-color: var(--ok);
+  color: var(--ok);
+}
+.c-preprint {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+.c-single,
+.c-vendor,
+.s-fail {
+  border-color: var(--warn);
+  color: var(--warn);
+}
+.c-vendor {
+  border-style: dashed;
+}
+.c-disputed {
+  border-color: var(--err);
+  color: var(--err);
+}
+
+/* ---------------- the weekly paper ---------------- */
+.news-mast {
+  text-align: center;
+  padding: 6px 0 10px;
+  border-bottom: 3px double var(--ink);
+}
+.news-kicker {
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+.news-mast h1 {
+  font: 700 clamp(2.4rem, 7vw, 3.6rem) / 1 "Frank Ruhl Libre", var(--font);
+  margin: 6px 0;
+}
+.news-sub {
+  font: 500 0.95rem/1.5 "Frank Ruhl Libre", var(--font);
+  color: var(--ink-soft);
+}
+.news-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 16px;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--ink);
+  font-size: 0.8125rem;
+  color: var(--ink-soft);
+}
+.news-lead {
+  padding: 18px 0 20px;
+  border-bottom: 2px solid var(--ink);
+}
+.news-lead h2 {
+  font: 700 clamp(1.6rem, 4vw, 2.2rem) / 1.2 "Frank Ruhl Libre", var(--font);
+  margin: 8px 0;
+}
+.news-lead .news-dek {
+  font: 500 1.1rem/1.5 "Frank Ruhl Libre", var(--font);
+}
+.news-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 0;
+}
+.news-filters .lt-check {
+  margin-inline-start: 8px;
+}
+.news-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 28px;
+  align-items: start;
+}
+.news-side {
+  position: sticky;
+  top: 12px;
+  display: grid;
+  gap: 14px;
+}
+.news-flow {
+  columns: 2 320px;
+  column-gap: 28px;
+  column-rule: 1px solid var(--line);
+}
+.news-section {
+  break-inside: avoid-column;
+  padding-bottom: 6px;
+}
+.news-section h3 {
+  display: flex;
+  align-items: baseline;
+  font: 700 1.2rem/1.2 "Frank Ruhl Libre", var(--font);
+  margin: 4px 0 6px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--ink);
+}
+.news-item {
+  break-inside: avoid;
+  padding: 12px 0 14px;
+  border-bottom: 1px solid var(--line);
+}
+.news-item:last-child {
+  border-bottom: 0;
+}
+.news-item h4 {
+  font: 700 1.15rem/1.3 "Frank Ruhl Libre", var(--font);
+  margin: 8px 0 4px;
+}
+.news-tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px;
+}
+.news-dek {
+  margin: 0 0 6px;
+  color: var(--ink-soft);
+}
+.news-body {
+  margin: 6px 0;
+}
+.news-why {
+  margin: 10px 0;
+  padding: 8px 12px;
+  background: var(--sheet);
+  border: 1px solid var(--line);
+  border-inline-start: 3px solid var(--accent);
+  border-radius: 3px;
+  font-size: 0.9rem;
+}
+.news-why p {
+  margin: 0;
+}
+.news-why-h,
+.news-conn-h {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.news-why-h {
+  color: var(--accent);
+}
+.news-conn {
+  margin: 10px 0 4px;
+}
+.news-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.news-chip {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 5px;
+  max-width: 100%;
+  padding: 2px 9px;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  background: var(--sheet);
+  color: var(--ink);
+  font-size: 0.8125rem;
+  text-align: start;
+}
+.news-chip b {
+  font: 600 0.75rem var(--mono);
+}
+.news-rel {
+  font-size: 0.6875rem;
+  color: var(--muted);
+}
+.news-chip.r-learned {
+  border-color: var(--ok);
+}
+.news-chip.r-learned .news-rel {
+  color: var(--ok);
+}
+.news-chip.r-current {
+  border-color: var(--warn);
+}
+.news-chip.r-current .news-rel {
+  color: var(--warn);
+}
+.news-chip.r-next {
+  border-color: var(--blue);
+}
+.news-chip.r-later {
+  border-color: var(--blue);
+  border-style: dashed;
+}
+.news-chip:hover {
+  background: var(--hover);
+}
+.news-conn-why {
+  margin: 6px 0 0;
+  padding-inline-start: 18px;
+  font-size: 0.8125rem;
+  color: var(--ink-soft);
+}
+.news-quote {
+  margin: 10px 0;
+  padding: 2px 12px;
+  border-inline-start: 2px solid var(--line-strong);
+  color: var(--ink-soft);
+  font-size: 0.875rem;
+  font-style: italic;
+}
+.news-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 8px;
+  margin-top: 8px;
+}
+.news-src {
+  font-size: 0.8125rem;
+  color: var(--blue);
+}
+.news-stats p {
+  color: var(--ink-soft);
+}
+
+/* ---------------- the month's product ---------------- */
+.lt-saved {
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+.lt-saved.error {
+  color: var(--warn);
+}
+.prod-start {
+  text-align: center;
+}
+.prod-start .lt-empty {
+  margin-bottom: 18px;
+}
+.prod-rail {
+  list-style: none;
+  margin: 0 0 18px;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+}
+.prod-step {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 4px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--sheet);
+  color: var(--ink-soft);
+  font-size: 0.8125rem;
+}
+.prod-step:hover {
+  border-color: var(--line-strong);
+}
+.prod-step-n {
+  display: inline-grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid var(--line-strong);
+  font: 600 0.75rem var(--mono);
+}
+.prod-step.is-part .prod-step-n {
+  border-color: var(--warn);
+  color: var(--warn);
+}
+.prod-step.is-done .prod-step-n {
+  border-color: var(--ok);
+  background: var(--ok);
+  color: var(--paper);
+}
+.prod-step.is-wait {
+  opacity: 0.6;
+}
+.prod-step.is-on {
+  border-color: var(--accent);
+  color: var(--ink);
+  font-weight: 600;
+  box-shadow: inset 0 -2px 0 var(--accent);
+}
+.prod-step-l {
+  text-align: center;
+  line-height: 1.3;
+}
+.prod-panel {
+  background: var(--sheet);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 16px 18px 18px;
+}
+.prod-panel-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.prod-panel-head h2 {
+  margin: 0 0 2px;
+  font: 700 1.25rem/1.3 "Frank Ruhl Libre", var(--font);
+}
+.prod-fields {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+  display: grid;
+  gap: 14px;
+}
+.prod-fields:disabled {
+  opacity: 0.55;
+}
+.lt-field {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+.lt-field-l {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+.lt-field-h {
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+.lt-field .lt-input {
+  width: 100%;
+  background: var(--paper);
+}
+.lt-rows {
+  display: grid;
+  gap: 6px;
+}
+.lt-row {
+  display: grid;
+  gap: 6px;
+  align-items: center;
+}
+.lt-row .lt-input {
+  background: var(--paper);
+  font-size: 0.875rem;
+}
+.lt-del {
+  width: 30px;
+  height: 30px;
+  font-size: 1.1rem;
+}
+.lt-add {
+  justify-self: start;
+}
+.lt-meter {
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-inline-start: 3px solid var(--warn);
+  border-radius: 3px;
+  background: var(--paper);
+  font-size: 0.875rem;
+}
+.lt-meter.is-ok {
+  border-inline-start-color: var(--ok);
+}
+.prod-check {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 6px 16px;
+}
+.prod-check label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+}
+.prod-check input {
+  accent-color: var(--accent);
+}
+.prod-next {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.875rem;
+  color: var(--ink-soft);
+}
+.prod-domains {
+  font-size: 0.875rem;
+  color: var(--ink-soft);
+}
+.prod-domains summary {
+  cursor: pointer;
+  color: var(--blue);
+}
+.prod-domains ul {
+  margin: 8px 0 0;
+  padding-inline-start: 18px;
+  display: grid;
+  gap: 4px;
+}
+.prod-legal {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 10px;
+  counter-reset: lq;
+}
+.prod-legal li {
+  counter-increment: lq;
+  display: grid;
+  gap: 6px;
+  padding: 10px 12px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-inline-start: 3px solid var(--line);
+  border-radius: 3px;
+}
+.prod-legal li.a-ok,
+.prod-legal li.a-na {
+  border-inline-start-color: var(--ok);
+}
+.prod-legal li.a-adjust {
+  border-inline-start-color: var(--blue);
+}
+.prod-legal li.a-ask {
+  border-inline-start-color: var(--warn);
+}
+.prod-legal-q {
+  font-weight: 600;
+}
+.prod-legal-q::before {
+  content: counter(lq);
+  margin-inline-end: 8px;
+  font-family: var(--mono);
+  color: var(--muted);
+}
+.prod-legal-hint {
+  font-size: 0.8125rem;
+  line-height: 1.6;
+}
+.prod-legal-a {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.prod-legal-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+  font-size: 0.875rem;
+}
+
+/* ---------------- the weekly review ---------------- */
+.rev-summary {
+  display: grid;
+  gap: 6px;
+  justify-items: start;
+}
+.rev-summary .prose {
+  font-size: 1.02rem;
+}
+.rev-scope {
+  font-size: 0.875rem;
+}
+.t-up {
+  border-color: var(--ok);
+  color: var(--ok);
+}
+.t-down {
+  border-color: var(--warn);
+  color: var(--warn);
+}
+.rev-legend {
+  font-size: 0.8125rem;
+  margin-bottom: 8px;
+}
+.rev-key {
+  display: inline-block;
+  width: 14px;
+  height: 8px;
+  vertical-align: 0.05em;
+  margin-inline-start: 6px;
+}
+.rev-key.now {
+  background: var(--blue);
+}
+.rev-key.target {
+  width: 2px;
+  height: 12px;
+  background: var(--accent);
+}
+.rev-domains {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+}
+.rev-domain {
+  border-bottom: 1px solid var(--line);
+}
+.rev-domain-row {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(150px, 15rem) minmax(0, 1fr) 72px;
+  align-items: center;
+  gap: 14px;
+  padding: 9px 2px;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  text-align: start;
+}
+.rev-domain-row:hover {
+  background: var(--hover);
+}
+.rev-domain-name {
+  font-size: 0.9rem;
+}
+.rev-bar {
+  position: relative;
+  height: 10px;
+  background: var(--line);
+  border-radius: 2px;
+}
+.rev-bar-now {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  background: var(--blue);
+  border-radius: 2px;
+}
+.rev-bar-target {
+  position: absolute;
+  top: -4px;
+  bottom: -4px;
+  width: 2px;
+  margin-inline-start: -1px;
+  background: var(--accent);
+}
+.rev-num {
+  font: 500 0.8125rem var(--mono);
+  text-align: end;
+}
+.rev-num .up {
+  color: var(--ok);
+}
+.rev-num .down {
+  color: var(--warn);
+}
+.rev-domain-more {
+  padding: 0 4px 10px;
+  font-size: 0.875rem;
+}
+.rev-domain-more p {
+  margin: 4px 0;
+}
+.rev-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+  margin-top: 24px;
+}
+.rev-dl {
+  display: flex;
+  gap: 18px;
+  margin: 0 0 6px;
+}
+.rev-dl dt {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+.rev-dl dd {
+  margin: 0;
+  font: 600 1.2rem var(--mono);
+}
+.rev-score {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin-bottom: 6px;
+}
+.rev-score-n {
+  color: var(--muted);
+  font: 400 0.8125rem var(--mono);
+}
+.rev-score-n b {
+  color: var(--ink);
+  font: 600 1.4rem var(--mono);
+}
+.rev-score-bar {
+  flex: 1;
+  height: 6px;
+  margin-inline-start: 10px;
+  background: var(--line);
+  border-radius: 2px;
+  position: relative;
+  align-self: center;
+}
+.rev-score-bar span {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  background: var(--ok);
+  border-radius: 2px;
+}
+.rev-ld {
+  list-style: none;
+  padding: 0 !important;
+}
+.rev-reviewers {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 14px;
+}
+.rev-reviewer .prose {
+  font-size: 0.9rem;
+}
+.rev-persona {
+  margin-bottom: 2px;
+}
+.rev-verdict {
+  font-weight: 600;
+  border-top: 1px solid var(--line);
+  padding-top: 8px;
+}
+.rev-human {
+  padding-inline-start: 18px;
+  display: grid;
+  gap: 6px;
+  font-size: 0.9rem;
+}
+.rev-foot {
+  margin-top: 28px;
+  font-size: 0.8125rem;
+}
+
+/* ---------------- narrow screens ---------------- */
+@media (max-width: 900px) {
+  .news-layout {
+    grid-template-columns: 1fr;
+  }
+  .news-side {
+    position: static;
+  }
+  .prod-rail {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+@media (max-width: 600px) {
+  .lt-wrap {
+    padding: 18px 16px 48px;
+  }
+  .prod-rail {
+    display: flex;
+    overflow-x: auto;
+    gap: 4px;
+    padding-bottom: 4px;
+  }
+  .prod-rail li {
+    flex: none;
+  }
+  .prod-step {
+    flex-direction: row;
+    padding: 6px 10px;
+  }
+  .prod-panel {
+    padding: 14px 12px;
+  }
+  .prod-panel-head {
+    flex-direction: column;
+  }
+  .lt-row {
+    grid-template-columns: 1fr auto !important;
+  }
+  .lt-row .lt-input {
+    grid-column: 1;
+  }
+  .lt-row .lt-del {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .rev-domain-row {
+    grid-template-columns: minmax(0, 1fr) 64px;
+    gap: 4px 10px;
+  }
+  .rev-bar {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+  .rev-reviewers {
+    grid-template-columns: 1fr;
+  }
+}
