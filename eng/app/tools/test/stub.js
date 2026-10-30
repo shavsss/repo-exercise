@@ -36,6 +36,16 @@
   async function sample(input, opts) {
     opts = opts || {};
     window.__log = window.__log || [];
+    if (typeof input === "string" && input.includes("<level>")) {
+      // a consultation card: a short answer by level, with the "more" chips
+      window.__log.push("consult:" + opts.model);
+      window.__consultInput = input;
+      const lvl = /<level>רמה (\d)/.exec(input)?.[1] ?? "1";
+      const t = lvl === "0" ? "כי כל ספרה מ-$\\{-2,\\dots,2\\}$ נושאת שני ביטים." : "כי כל ספרה מ-$\\{-2,\\dots,2\\}$ נושאת שני ביטים, ולכן המספר כולו מוכפל.\n\nהצעד הראשון: כותבים את הספרה כסכום של שתי ספרות בינאריות. הצעד השני: סוכמים.\n\n<<עוד: למה דווקא שני ביטים | מה קורה בבסיס 3>>";
+      let shown = "";
+      for (const part of t.match(/[\s\S]{1,30}/g)) { shown += part; opts.onText && opts.onText({ text: shown, delta: part }); await new Promise((r) => setTimeout(r, 15)); }
+      return { text: t, truncated: false, modelTierApplied: opts.modelTier, modelApplied: opts.model };
+    }
     if (typeof input === "string" && input.includes("<question>")) {
       window.__log.push("explain:" + opts.model);
       window.__explainInput = input;

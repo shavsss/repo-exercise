@@ -56,6 +56,7 @@ const BLOCKS = ".prose p, .prose li, .prose h2, .prose h3, .prose h4, .prose td"
 
 function locate(root: HTMLElement, anchor: string): { el: HTMLElement; range: Range | null } | null {
   for (const p of root.querySelectorAll<HTMLElement>(BLOCKS)) {
+    if (p.closest(".consult-host")) continue; // a consultation card's answer is not the lesson
     const r = rangeOf(p, anchor);
     if (r) return { el: p, range: r };
   }
@@ -71,6 +72,7 @@ export function noteAnchorHere(scroller: HTMLElement | null): string | null {
   if (picked.trim() && !picked.includes("\n")) return picked.trim().slice(0, 160);
   const top = scroller.getBoundingClientRect().top;
   for (const p of scroller.querySelectorAll<HTMLElement>(".msg-assistant .prose p, .msg-assistant .prose li")) {
+    if (p.closest(".consult-host")) continue;
     const r = p.getBoundingClientRect();
     const t = (p.textContent ?? "").trim();
     if (r.bottom > top + 40 && t.length > 20) return t.slice(0, 80);
