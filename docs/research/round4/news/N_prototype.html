@@ -1,0 +1,791 @@
+<title>השבועון: אב-טיפוס</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Hebrew:wght@400;500;600;700&family=Frank+Ruhl+Libre:wght@500;700;900&display=swap">
+<style>
+:root {
+  --bg: #efe8dc;
+  --paper: #f7f2e9;
+  --sheet: #fbf8f2;
+  --ink: #22261d;
+  --ink-soft: #44493a;
+  --muted: #676a58;
+  --line: #ddd2bf;
+  --line-strong: #ae9f84;
+  --accent: #b3261e;
+  --accent-soft: #f3e0d9;
+  --on-accent: #ffffff;
+  --ok: #3f7a34;
+  --ok-soft: #e3eedc;
+  --cur: #9a5b00;
+  --cur-soft: #f6e8cc;
+  --blue: #355f7d;
+  --blue-soft: #dfe8ef;
+  --warn: #8a6100;
+  --err: #a3161a;
+  --hover: #efe7da;
+  --tb: #6d3fa0;
+  --tb-soft: #ece4f5;
+  --idea: #0f766e;
+  --idea-soft: #dcefec;
+  --shadow: 0 1px 2px rgb(34 38 29 / 6%), 0 6px 18px rgb(34 38 29 / 6%);
+  --font: "IBM Plex Sans Hebrew", "IBM Plex Sans", system-ui, sans-serif;
+  --serif: "Frank Ruhl Libre", "IBM Plex Sans Hebrew", serif;
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --gutter: max(16px, env(safe-area-inset-left), env(safe-area-inset-right));
+  color-scheme: light;
+}
+:root[data-app="eng"] { --accent: #2c5d86; --accent-soft: #dde8f1; --bg: #f1ece2; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1f1e1d; --paper: #262624; --sheet: #2d2c2a; --ink: #ece9e1; --ink-soft: #c9c5bb;
+    --muted: #9d998f; --line: #3a3936; --line-strong: #5c5a55; --accent: #f08a7e; --accent-soft: #3a2522;
+    --on-accent: #1f1e1d; --ok: #93cf86; --ok-soft: #26321f; --cur: #e8b860; --cur-soft: #3a3020;
+    --blue: #94bfdc; --blue-soft: #22303a; --warn: #e0c46c; --err: #ff8f84; --hover: #2f2e2c;
+    --tb: #c9b0ef; --tb-soft: #2e2738; --idea: #7fd1c4; --idea-soft: #1d3330; --shadow: none;
+    color-scheme: dark;
+  }
+  :root[data-app="eng"]:not([data-theme="light"]) { --accent: #94bfdc; --accent-soft: #22303a; }
+}
+:root[data-theme="dark"] {
+  --bg: #1f1e1d; --paper: #262624; --sheet: #2d2c2a; --ink: #ece9e1; --ink-soft: #c9c5bb;
+  --muted: #9d998f; --line: #3a3936; --line-strong: #5c5a55; --accent: #f08a7e; --accent-soft: #3a2522;
+  --on-accent: #1f1e1d; --ok: #93cf86; --ok-soft: #26321f; --cur: #e8b860; --cur-soft: #3a3020;
+  --blue: #94bfdc; --blue-soft: #22303a; --warn: #e0c46c; --err: #ff8f84; --hover: #2f2e2c;
+  --tb: #c9b0ef; --tb-soft: #2e2738; --idea: #7fd1c4; --idea-soft: #1d3330; --shadow: none;
+  color-scheme: dark;
+}
+:root[data-theme="dark"][data-app="eng"] { --accent: #94bfdc; --accent-soft: #22303a; }
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 15px/1.6 var(--font); direction: rtl; }
+button { font: inherit; color: inherit; cursor: pointer; }
+a { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.wrap { max-width: 1180px; margin: 0 auto; padding: 0 var(--gutter) 48px; }
+
+/* top bar */
+.bar { position: sticky; top: 0; z-index: 20; background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
+.bar .wrap { display: flex; align-items: center; gap: 10px; padding-top: 8px; padding-bottom: 8px; flex-wrap: wrap; }
+.tabs { display: flex; gap: 2px; font-size: 13px; color: var(--muted); }
+.tabs span { padding: 4px 8px; border-radius: 4px; }
+.tabs .on { background: var(--paper); color: var(--ink); font-weight: 600; box-shadow: inset 0 -2px 0 var(--accent); }
+.spacer { flex: 1; }
+.seg { display: inline-flex; border: 1px solid var(--line-strong); border-radius: 6px; overflow: hidden; }
+.seg button { border: 0; background: transparent; padding: 4px 10px; font-size: 13px; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+.iconbtn { border: 1px solid var(--line-strong); background: transparent; border-radius: 6px; padding: 4px 10px; font-size: 13px; }
+.iconbtn:hover { background: var(--hover); }
+
+/* example banner */
+.example { margin: 14px 0 0; padding: 10px 14px; border: 1.5px dashed var(--accent); border-radius: 6px; background: var(--accent-soft); font-size: 13.5px; color: var(--ink); }
+.example b { color: var(--accent); }
+
+/* masthead */
+.mast { text-align: center; padding: 22px 0 10px; border-bottom: 3px double var(--ink); }
+.mast .kicker { font: 500 12.5px/1 var(--font); color: var(--muted); }
+.f { font-family: var(--mono); font-size: .92em; unicode-bidi: isolate; direction: ltr; white-space: nowrap; }
+@media (max-width: 480px) { .tabs span:not(.on) { display: none; } }
+.mast h1 { font: 900 clamp(40px, 9vw, 76px)/1 var(--serif); margin: 8px 0 6px; letter-spacing: -.01em; }
+.mast .sub { font: 500 15px/1.4 var(--serif); color: var(--ink-soft); }
+.metaline { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 16px; border-bottom: 1px solid var(--ink); padding: 6px 0; font-size: 12.5px; color: var(--ink-soft); }
+.metaline .mono { font-family: var(--mono); }
+.me { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; padding: 10px 0; font-size: 13px; color: var(--ink-soft); border-bottom: 1px solid var(--line); }
+.me b { color: var(--ink); }
+
+/* filters */
+.filters { display: flex; flex-wrap: wrap; gap: 6px; padding: 12px 0; align-items: center; }
+.filters .lbl { font-size: 12px; color: var(--muted); margin-inline-end: 4px; }
+.fchip { border: 1px solid var(--line-strong); background: var(--sheet); border-radius: 999px; padding: 3px 11px; font-size: 13px; }
+.fchip[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.fchip .n { font-family: var(--mono); font-size: 11px; opacity: .7; margin-inline-start: 4px; }
+
+/* layout */
+.layout { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 28px; align-items: start; }
+.side { position: sticky; top: 60px; display: grid; gap: 18px; }
+@media (max-width: 900px) { .layout { grid-template-columns: 1fr; } .side { position: static; } }
+
+/* lead */
+.lead { display: grid; grid-template-columns: 1.35fr 1fr; gap: 22px; padding: 18px 0 22px; border-bottom: 2px solid var(--ink); }
+.lead h2 { font: 700 clamp(26px, 4.4vw, 38px)/1.15 var(--serif); margin: 6px 0 10px; }
+.lead .dek { font: 500 17px/1.5 var(--serif); color: var(--ink-soft); margin: 0 0 10px; }
+.lead .why { background: var(--sheet); border: 1px solid var(--line); border-inline-start: 4px solid var(--accent); padding: 12px 14px; border-radius: 4px; }
+.lead .why h4 { margin: 0 0 6px; font-size: 13px; color: var(--accent); }
+.lead figure { margin: 12px 0 0; }
+.lead figure svg { width: 100%; height: auto; display: block; border: 1px solid var(--line); background: var(--sheet); border-radius: 4px; }
+.lead figcaption { font-size: 12px; color: var(--muted); margin-top: 4px; }
+@media (max-width: 700px) { .lead { grid-template-columns: 1fr; } }
+
+/* sections */
+.flow { columns: 2 330px; column-gap: 30px; column-rule: 1px solid var(--line); }
+.section { padding: 18px 0 6px; break-inside: avoid; }
+.section > h3 { display: flex; align-items: baseline; gap: 10px; font: 700 20px/1.2 var(--serif); margin: 0 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--ink); }
+.section > h3 .cnt { font: 400 12px var(--mono); color: var(--muted); }
+.cols { display: block; }
+.cols .item:last-child { border-bottom: 0; }
+
+/* item */
+.item { padding: 14px 0 16px; border-bottom: 1px solid var(--line); min-width: 0; }
+.item.read { opacity: .72; }
+.item.hidden { display: none; }
+.tags { display: flex; flex-wrap: wrap; gap: 5px; align-items: center; font-size: 11.5px; }
+.tag { display: inline-flex; align-items: center; gap: 4px; padding: 1px 7px; border-radius: 3px; border: 1px solid var(--line-strong); color: var(--ink-soft); background: var(--sheet); white-space: nowrap; }
+.tag.ex { border-color: var(--accent); color: var(--accent); font-weight: 600; background: var(--accent-soft); }
+.tag.c-official { border-color: var(--ok); color: var(--ok); }
+.tag.c-peer { border-color: var(--ok); color: var(--ok); }
+.tag.c-corroborated { border-color: var(--ok); color: var(--ok); }
+.tag.c-preprint { border-color: var(--blue); color: var(--blue); }
+.tag.c-single { border-color: var(--warn); color: var(--warn); }
+.tag.c-vendor { border-color: var(--warn); color: var(--warn); border-style: dashed; }
+.tag.c-disputed { border-color: var(--err); color: var(--err); }
+.tag .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.date { font: 400 11.5px var(--mono); color: var(--muted); }
+.item h4 { font: 700 19px/1.3 var(--serif); margin: 8px 0 4px; }
+.item .dek { margin: 0 0 6px; color: var(--ink-soft); }
+.body { margin: 6px 0; }
+.body[hidden] { display: none; }
+.more { border: 0; background: none; color: var(--accent); padding: 0; font-size: 13px; }
+
+.conn { margin: 10px 0 4px; }
+.conn .ttl { font-size: 11.5px; font-weight: 600; color: var(--muted); margin-bottom: 4px; }
+.chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.chip { display: inline-flex; align-items: center; gap: 5px; padding: 2px 9px 2px 8px; border-radius: 999px; font-size: 12.5px; border: 1px solid; background: var(--sheet); max-width: 100%; text-align: start; }
+.chip .id { font: 500 11px var(--mono); }
+.chip .t { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.chip.learned { color: var(--ok); border-color: var(--ok); background: var(--ok-soft); }
+.chip.current { color: var(--cur); border-color: var(--cur); background: var(--cur-soft); font-weight: 600; }
+.chip.next { color: var(--blue); border-color: var(--blue); background: var(--blue-soft); }
+.chip.later { color: var(--blue); border-color: var(--blue); border-style: dashed; }
+.chip.outside { color: var(--muted); border-color: var(--line-strong); }
+.chip:hover { filter: brightness(.96); }
+.connwhy { font-size: 13px; color: var(--ink-soft); margin: 6px 0 0; padding-inline-start: 10px; border-inline-start: 2px solid var(--line); }
+.connwhy[hidden] { display: none; }
+
+.box { margin: 10px 0 0; padding: 10px 12px; border-radius: 4px; font-size: 13.5px; }
+.box h5 { margin: 0 0 4px; font-size: 12.5px; }
+.box.tb { background: var(--tb-soft); border-inline-start: 3px solid var(--tb); }
+.box.tb h5 { color: var(--tb); }
+.box.idea { background: var(--idea-soft); border-inline-start: 3px solid var(--idea); }
+.box.idea h5 { color: var(--idea); }
+.oldnew { display: grid; grid-template-columns: auto 1fr; gap: 2px 8px; margin-top: 4px; }
+.oldnew .k { font-size: 11.5px; font-weight: 600; color: var(--muted); }
+.box .meta { font-size: 11.5px; color: var(--muted); margin-top: 4px; font-family: var(--mono); }
+.sanity { margin-top: 8px; font-size: 12.5px; display: flex; gap: 6px; align-items: baseline; }
+.sanity b.pass { color: var(--ok); } .sanity b.fail { color: var(--err); }
+.cross { margin-top: 8px; font-size: 12.5px; color: var(--ink-soft); }
+.cross button { border: 0; background: none; color: var(--accent); padding: 0; text-decoration: underline; font-size: 12.5px; }
+
+.src { margin-top: 8px; font-size: 12.5px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 10px; }
+.src .lnk { color: var(--accent); text-decoration: underline dotted; cursor: not-allowed; }
+.acts { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.act { border: 1px solid var(--line); background: transparent; border-radius: 5px; padding: 3px 9px; font-size: 12.5px; color: var(--ink-soft); }
+.act:hover { background: var(--hover); }
+.act[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+/* sidebar */
+.panel { background: var(--paper); border: 1px solid var(--line); border-radius: 6px; padding: 14px; box-shadow: var(--shadow); }
+.panel h3 { margin: 0 0 10px; font: 700 17px/1.2 var(--serif); display: flex; justify-content: space-between; align-items: baseline; }
+.panel h3 small { font: 400 11px var(--mono); color: var(--muted); }
+.pick { display: block; width: 100%; text-align: start; border: 0; border-bottom: 1px solid var(--line); background: none; padding: 8px 0; }
+.pick:last-child { border-bottom: 0; }
+.pick .min { font: 500 11px var(--mono); color: var(--accent); }
+.pick .h { display: block; font: 600 14px/1.35 var(--serif); margin-top: 2px; }
+.pick:hover .h { text-decoration: underline; }
+.funnel { display: grid; gap: 6px; font-size: 12.5px; }
+.funnel .row { display: grid; grid-template-columns: 76px 1fr 34px; gap: 8px; align-items: center; }
+.funnel .barx { height: 8px; background: var(--line); border-radius: 4px; overflow: hidden; }
+.funnel .barx i { display: block; height: 100%; background: var(--ink-soft); }
+.funnel .row:last-child .barx i { background: var(--ok); }
+.funnel .v { font-family: var(--mono); text-align: end; }
+.drops { font-size: 12px; color: var(--muted); margin-top: 8px; }
+.legend { display: grid; gap: 6px; font-size: 12.5px; }
+.legend .chip { font-size: 11.5px; }
+
+.archive { list-style: none; margin: 0; padding: 0; }
+.archive li button { width: 100%; text-align: start; border: 0; background: none; padding: 7px 0; border-bottom: 1px solid var(--line); display: grid; grid-template-columns: auto 1fr; gap: 0 10px; }
+.archive .no { font: 500 12px var(--mono); color: var(--muted); padding-top: 2px; }
+.archive .ah { font-size: 13px; }
+.archive .cur .ah { font-weight: 600; }
+
+.foot { margin-top: 30px; padding-top: 12px; border-top: 3px double var(--ink); font-size: 12.5px; color: var(--muted); }
+
+.toast { position: fixed; inset-inline: var(--gutter); bottom: 16px; margin: 0 auto; max-width: 520px; background: var(--ink); color: var(--bg); padding: 10px 14px; border-radius: 6px; font-size: 13.5px; opacity: 0; transform: translateY(8px); transition: .2s; pointer-events: none; z-index: 50; }
+.toast.on { opacity: 1; transform: none; }
+.empty { padding: 30px 0; color: var(--muted); text-align: center; }
+</style>
+
+<div class="bar">
+  <div class="wrap">
+    <div class="tabs" aria-label="לשוניות האפליקציה (המחשה)"><span>שיעור</span><span>סיכומים</span><span class="on">עיתון</span></div>
+    <div class="spacer"></div>
+    <div class="seg" role="group" aria-label="מעבדה">
+      <button type="button" data-app="eng" aria-pressed="true">גילואה</button>
+      <button type="button" data-app="core" aria-pressed="false">לנצ'סטר</button>
+    </div>
+    <button type="button" class="iconbtn" id="themeBtn" aria-label="החלף ערכת צבעים">בהיר/כהה</button>
+  </div>
+</div>
+
+<main class="wrap">
+  <p class="example"><b>גיליון לדוגמה.</b> כל הידיעות כאן בדויות, להמחשת המבנה בלבד: הכותרות להמחשה, אין קישורים אמיתיים ואין מספרים אמיתיים. בגיליון אמיתי כל ידיעה נשענת על קישור שנשלף באותו שבוע ועל ציטוט שנמצא בטקסט שלו.</p>
+
+  <header class="mast">
+    <div class="kicker" id="kicker"></div>
+    <h1 id="mastTitle">השבועון</h1>
+    <div class="sub" id="mastSub"></div>
+  </header>
+  <div class="metaline">
+    <span id="issueNo"></span>
+    <span id="issueWin" class="mono" dir="ltr"></span>
+    <span id="issueStats"></span>
+  </div>
+  <div class="me" id="me"></div>
+
+  <div class="filters" id="secFilters" aria-label="סינון לפי תחום"></div>
+  <div class="filters" id="relFilters" aria-label="סינון לפי קשר לקורס"></div>
+
+  <div class="layout">
+    <div id="paper"></div>
+    <aside class="side" id="side"></aside>
+  </div>
+
+  <footer class="foot" id="foot"></footer>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  "use strict";
+
+  var REL = {
+    learned: "נלמד",
+    current: "עכשיו",
+    next: "בקרוב",
+    later: "בהמשך הקורס",
+    outside: "מחוץ לתוכנית"
+  };
+  var CERT = {
+    official: "רשמי",
+    peer: "שפוט",
+    preprint: "מאמר לא שפוט",
+    single: "דיווח יחיד",
+    corroborated: "מאומת בשני מקורות",
+    vendor: "טענת יצרן",
+    disputed: "שנוי במחלוקת"
+  };
+  var KIND = { paper: "מאמר", report: "דוח", system: "מערכת חדשה", standard: "תקן", data: "נתונים" };
+
+  var MOD = {
+    eng: {
+      "M0.2": "אטומים בתנועה ופיזיקה בסיסית", "M1.1": "פונקציה, גבול, נגזרת וטיילור", "M1.2": "אינטגרל וטורים",
+      "M1.3": "גאומטריה אנליטית", "M1.5": "משוואות אלגבריות ומרוכבים", "M3.1": "משוואות דיפרנציאליות רגילות",
+      "M4.6": "התמרת פורייה הבדידה", "M5.6": "משערכי מצב ומסנן קלמן", "M5.9": "בקרת PID",
+      "M8.11": "אינטרפולציה ואינטגרציה נומרית", "M8.12": "שיטות קירוב וחישוב", "M11.9": "ממירים",
+      "M13.15": "מאזן האנרגיה", "M13.17": "אנרגיה בת-קיימא ואגירה", "M14.10": "מעבר חום בקרינה",
+      "M14.6": "שכבות גבול", "M15.7": "זרימה צמיגה וגרר", "M15.15": "טיסה בחלל", "M16.11": "מפות תכונות החומרים",
+      "M16.12": "בחירת חומר", "M17.7": "טרנספורמרים", "M18.7": "גרדיאנט מדיניות", "M19.8": "בקרת רובוטים",
+      "M23.7": "מערכות סלולריות", "M23.9": "MIMO", "M25.4": "טרנזיסטור MOS", "M25.8": "השהיה והספק בשבב",
+      "M27.1": "יסודות הנדסת מערכות", "M27.5": "בשלות טכנולוגית", "M9.6": "דיאלקטריים", "M6.11": "שיטות סימולציה",
+      "M12.4": "ממירי אלקטרוניקת הספק"
+    },
+    core: {
+      "M0.1": "דציבלים ומשוואת הקשר", "M0.2": "גלים ופיזיקה אלקטרומגנטית", "M0.3": "אותות וספקטרום",
+      "M0.4": "הסתברות, רעש ואותות אקראיים", "M0.5": "אפנון ותקשורת ספרתית", "M0.6": "שערוך וריבועים פחותים",
+      "M0.7": "מערכות בקרה בסיסיות", "M1.4": "משוואת הקשר ורגישות מקלט", "M2.2": "משוואת המכ\"ם",
+      "M2.20": "מכ\"ם CW ו-FMCW", "M2.21": "מכ\"ם גלים מילימטריים", "M2.8": "רכיבי המכ\"ם", "M5.5": "שיבוש והתחזות בניווט",
+      "M5.6": "ביצועי ניווט ו-DOP", "M7.1": "בעיית ההגנה ומדדי האפקטיביות", "M7.10": "מחזור חיים, ניסויים וראיות",
+      "M9.3": "תחנת שליטה ואוטונומיה", "M9.5": "קישורי נתונים", "M13.1": "מבוא לחלל", "M13.3": "סביבת החלל",
+      "M14.1": "מידול לחימה", "M14.2": "עלות ומחזור חיים"
+    }
+  };
+
+  var ISSUES = {
+    eng: {
+      title: "השבועון של גילואה",
+      sub: "הנדסה ומדע, ממופים למה שלמדת ולמה שבדרך",
+      kicker: "מעבדת ההנדסה · גיליון לדוגמה",
+      no: 7, win: "23.10–29.10.2026", built: "30.10.2026, 02:51",
+      me: { current: "M1.3", done: 4, next: "M1.4, M1.5, M1.6, M2.1 …" },
+      stats: { candidates: 286, fetched: 41, verified: 13, dropped: { "לא רלוונטי": 231, "ציטוט לא נמצא": 3, "בודק עצמאי": 4, "כפילות": 14, "מחוץ לחלון": 2 } },
+      archive: [
+        { no: 7, h: "דוגמה: קירוב טיילור אדפטיבי במעבדי קצה" },
+        { no: 6, h: "דוגמה: מדידה מדויקת של קבוע יסוד" },
+        { no: 5, h: "דוגמה: שבב ממיר מהיר" },
+        { no: 4, h: "דוגמה: מפת חומרים מרוכבים" }
+      ],
+      sections: [
+        { id: "math", t: "מתמטיקה ופיזיקה" }, { id: "sig", t: "אותות ובקרה" }, { id: "com", t: "תקשורת" },
+        { id: "chip", t: "אלקטרוניקה ושבבים" }, { id: "pow", t: "הספק ואנרגיה" }, { id: "fluid", t: "תרמו, זרימה ואווירו" },
+        { id: "mat", t: "מבנים וחומרים" }, { id: "ai", t: "ML/AI ורובוטיקה" }, { id: "se", t: "הנדסת מערכות ותקנים" },
+        { id: "space", t: "חלל כהנדסה" }
+      ],
+      lead: "e1",
+      picks: ["e2", "e11", "e8"],
+      items: [
+        { id: "e1", sec: "math", kind: "paper", cert: "preprint", tier: "B", src: "ארכיב, קטגוריית חישוב נומרי (מקור לדוגמה)", date: "27.10.2026",
+          h: "דוגמה: מאמר מציע לבחור את סדר טור טיילור תוך כדי ריצה, כדי לחסוך חישוב במעבד קטן",
+          dek: "כותרת להמחשה. הרעיון: לבחור את מספר האיברים בטור לפי הערכת השארית בכל צעד, במקום סדר קבוע.",
+          body: "בגיליון אמיתי כאן יבוא תקציר של המאמר בכ-150 מילים: מה הבעיה, מה השיטה, מה נמדד ובאיזה תנאים. השאלה שהמורה ישאל אותך בעקבותיו: איזו הערכה של השארית בצורת לגרנז' מספיקה כדי להחליט מתי לעצור, ואיפה ההנחה על הנגזרת הבאה נשברת.",
+          why: "נוסחת השארית של טיילור שלמדת ב-M1.1 היא כל המנגנון כאן. זו דוגמה טובה לתוצאה מהספר שעובדת היום בשבב, ותחזור אליה במשוואות דיפרנציאליות.",
+          conn: [["M1.1", "learned", "שארית לגרנז'", "כלל העצירה הוא חסם השארית שגזרת: `|R_n| ≤ M·|x−a|^(n+1)/(n+1)!`"], ["M3.1", "next", "שיטות צעד", "שיטות רונגה-קוטה הן טיילור בלי לחשב נגזרות; שם תראה שוב את בחירת הצעד."], ["M8.12", "later", "שיטות קירוב", "בחירת סדר מול גודל צעד היא שקלול שגיאה מול חישוב."]],
+          idea: { kind: "פרויקט", t: "מחשבון 'כמה איברים צריך'", pitch: "סקריפט פייתון קטן שמקבל פונקציה, נקודה ודיוק, ומחזיר את מספר האיברים לפי חסם לגרנז', מול מספר האיברים שבאמת נדרש. מתאים לשרטוט במחברת.", hours: 3, uses: ["M1.1", "M8.12"] },
+          figure: true },
+        { id: "e2", sec: "math", kind: "data", cert: "official", tier: "A", src: "מכון תקנים ומדידה לאומי (מקור לדוגמה)", date: "24.10.2026",
+          h: "דוגמה: מדידה חדשה של קבוע פיזיקלי משפרת את אי-הוודאות בסדר גודל",
+          dek: "כותרת להמחשה של ידיעת 'נתונים': ערך חדש, אי-ודאות חדשה, ומה זה משנה.",
+          body: "בגיליון אמיתי: הערך, אי-הוודאות היחסית, השיטה, והשוואה לערך המקובל הקודם. ההערה של המורה תשאל למה שיפור באי-הוודאות הוא חדשות גם כשהערך כמעט לא זז.",
+          why: "בפרק 1 של פיינמן ראית איך קבועי יסוד קובעים סדרי גודל. כאן רואים איך מודדים אחד מהם, ועד כמה המספר בספר מדויק באמת.",
+          conn: [["M0.2", "learned", "סדרי גודל באטום", "המספר בספר מעוגל לשתי ספרות; השינוי מתחת לספרות האלה."]],
+          sanity: ["pass", "שינוי הערך קטן מאי-הוודאות הקודמת: עקבי."], r10: 6 },
+        { id: "e3", sec: "sig", kind: "paper", cert: "preprint", tier: "B", src: "ארכיב, מערכות ובקרה (מקור לדוגמה)", date: "26.10.2026",
+          h: "דוגמה: מסנן קלמן שמכייל את רעש המדידה של עצמו",
+          dek: "כותרת להמחשה. השיטה מעריכה את מטריצת רעש המדידה תוך כדי ריצה במקום לקבוע אותה מראש.",
+          body: "בגיליון אמיתי: מה ההנחה על הרעש, מה קורה כשהיא נשברת, ומה גודל השיפור בניסוי. המורה יציין שזה רחוק בקורס, ויעשה ממנו 'חיבור פתוח' שייסגר ב-M5.6.",
+          why: "רחוק ממך היום, אבל זו מערכת שתראה בכל מקום: ניווט, רובוטיקה, מכ\"ם. נשמר כחיבור פתוח בזיכרון הקורס.",
+          conn: [["M5.6", "later", "מסנן קלמן", "שם תגזור את הרווח; כאן שואלים מה קורה כשה-R שהנחת שגוי."], ["M6.11", "later", "סימולציה", "הבדיקה במאמר היא מונטה קרלו."]],
+          cross: ["core", "גם בשבועון של לנצ'סטר, מזווית העקיבה (M2.15)."] },
+        { id: "e4", sec: "com", kind: "standard", cert: "official", tier: "A", src: "גוף תקינה לתקשורת סלולרית (מקור לדוגמה)", date: "25.10.2026",
+          h: "דוגמה: מהדורת תקן סלולרי חדשה מוסיפה פרק על קישור ישיר ללוויין",
+          dek: "כותרת להמחשה של ידיעת 'תקן': מה השתנה בהגדרות, ולמה זה מעניין מהנדס.",
+          body: "בגיליון אמיתי: אילו פרמטרים נקבעו (רוחב סרט, היסט דופלר מותר, תקציב קישור), ואיפה זה נוגע בחומר. כאן מספיקה דוגמה למבנה.",
+          why: "תקציב קישור הוא הנושא הראשון בתקשורת, ודופלר של לוויין מסלול נמוך הוא תרגיל של פרק שלם.",
+          conn: [["M23.7", "later", "מערכות סלולריות", ""], ["M23.9", "later", "MIMO", ""]] },
+        { id: "e5", sec: "chip", kind: "system", cert: "vendor", tier: "D", src: "בלוג טכני של יצרן שבבים (מקור לדוגמה)", date: "28.10.2026",
+          h: "דוגמה: יצרן מציג שבב מכ\"ם 77 GHz בטכנולוגיית CMOS עם מערך אנטנות על המארז",
+          dek: "כותרת להמחשה של 'מערכת חדשה' ממקור יצרן: טענות הביצועים מסומנות כטענת יצרן.",
+          body: "בגיליון אמיתי: הספק שידור, מספר ערוצים, צריכת הספק, והטענה המרכזית. הבדיקה בפייתון משווה את הטווח הנטען למשוואת המכ\"ם עם ההספק וההגבר שהיצרן עצמו מסר.",
+          why: "השבב הוא פגישה של שלושה חלקים בקורס: טרנזיסטור MOS בתדר גבוה, ממירים, ועיבוד אותות FMCW בפורייה.",
+          conn: [["M25.4", "later", "טרנזיסטור MOS", ""], ["M11.9", "later", "ממירים", "קצב הדגימה של הממיר קובע את טווח המרחק המרבי ב-FMCW."], ["M4.6", "later", "DFT", "המרחק נמדד כתדר הפעימה, דרך FFT."]],
+          sanity: ["pass", "הטווח הנטען בתוך 20% מהחישוב לפי הנתונים שנמסרו (דוגמה למה שנבדק)."],
+          cross: ["core", "גם בשבועון של לנצ'סטר, כמערכת מכ\"ם גלים מילימטריים (M2.21)."] },
+        { id: "e6", sec: "pow", kind: "report", cert: "official", tier: "A", src: "מעבדה לאומית לאנרגיה (מקור לדוגמה)", date: "23.10.2026",
+          h: "דוגמה: דוח שנתי על עלות אגירה בסוללות ברשת החשמל",
+          dek: "כותרת להמחשה. דוח עם סדרת נתונים לאורך שנים, ומכאן עדכון לספר האנרגיה.",
+          body: "בגיליון אמיתי: עלות לקוט\"ש מותקן, יעילות הלוך-חזור, משך אגירה טיפוסי, ומה מניח הדוח על מחזורי חיים.",
+          why: "ספר האנרגיה בספרייה בונה את כל החשבון על מספרים מלפני כמעט עשרים שנה. כאן מסומן מה התיישן ומה עדיין עומד.",
+          conn: [["M13.17", "later", "אגירה", ""], ["M13.15", "later", "מאזן אנרגיה", ""]],
+          tb: { book: "ספר האנרגיה שבספרייה", page: "עמוד לדוגמה", ed: "מהדורה ישנה", old: "מחיר האגירה בסוללות כפי שהספר מניח (בדוגמה: מספר מאותה תקופה).", now: "המספר מהדוח החדש, עם הקישור וטווח אי-הוודאות (בדוגמה: לא מוצג).", status: "התיישן" } },
+        { id: "e7", sec: "fluid", kind: "paper", cert: "peer", tier: "B", src: "כתב עת שפוט בזרימה (מקור לדוגמה)", date: "22.10.2026",
+          h: "דוגמה: ניסוי מנהרת רוח מודד הפחתת גרר חיכוך בשכבת גבול עם מרקם משטח",
+          dek: "כותרת להמחשה. השאלה המעניינת: באיזה מספר ריינולדס האפקט נעלם.",
+          body: "בגיליון אמיתי: התנאים, תחום מספרי ריינולדס, השיפור הנמדד ואי-הוודאות. המורה יקשר לאנלוגיה של ריינולדס בין מעבר חום לגרר.",
+          why: "גרר חיכוך ומעבר חום בהסעה הם אותה שכבת גבול בשני תחומים, וזה בדיוק 'אותו מבנה' של רמה 2.5.",
+          conn: [["M15.7", "later", "גרר צמיג", ""], ["M14.6", "later", "שכבות גבול", ""]] },
+        { id: "e8", sec: "mat", kind: "data", cert: "peer", tier: "B", src: "מאגר נתוני חומרים אקדמי (מקור לדוגמה)", date: "26.10.2026",
+          h: "דוגמה: מאגר פתוח חדש של תכונות חומרים מרוכבים, עם קובץ נתונים להורדה",
+          dek: "כותרת להמחשה של ידיעת 'נתונים' שאפשר לבנות ממנה משהו.",
+          body: "בגיליון אמיתי: כמה חומרים, אילו תכונות, רישיון השימוש, ואיכות המדידות.",
+          why: "מפות התכונות של אשבי הן הכלי המרכזי בבחירת חומר. נתונים פתוחים הם הזדמנות לבנות מפה משלך.",
+          conn: [["M16.11", "later", "מפות תכונות", ""], ["M16.12", "later", "בחירת חומר", ""]],
+          idea: { kind: "פרויקט", t: "מפת אשבי אינטראקטיבית", pitch: "לטעון את הנתונים ולצייר מפת קשיחות מול צפיפות עם קווי מדד ביצוע (`E/ρ`, `E^½/ρ`). אפשר לפרסם כדף קטן ולצרף למאמר.", hours: 6, uses: ["M16.11", "M16.12"] },
+          r10: 8 },
+        { id: "e9", sec: "ai", kind: "paper", cert: "preprint", tier: "B", src: "מאמר מחקר של מעבדת AI (מקור לדוגמה)", date: "27.10.2026",
+          h: "דוגמה: מעבדת בינה מלאכותית מפרסמת שיטה לאימון בקר רובוט בסימולציה והעברה לחומרה",
+          dek: "כותרת להמחשה. השאלה ההנדסית: כמה מהפער בין סימולציה למציאות נסגר, ואיך מדדו.",
+          body: "בגיליון אמיתי: הארכיטקטורה, איך הוגרלו פרמטרי הסימולציה, ומה נמדד על החומרה. הסימון 'מאמר לא שפוט' נשאר עד שיש שיפוט או שחזור.",
+          why: "למידה מחיזוקים ובקרת רובוטים הם חלקים מאוחרים בקורס; הידיעה נשמרת כחיבור פתוח.",
+          conn: [["M18.7", "later", "גרדיאנט מדיניות", ""], ["M19.8", "later", "בקרת רובוטים", ""], ["M17.7", "later", "טרנספורמרים", ""]] },
+        { id: "e10", sec: "ai", kind: "paper", cert: "preprint", tier: "B", src: "ארכיב, רובוטיקה (מקור לדוגמה)", date: "25.10.2026",
+          h: "דוגמה: מאמר על ניווט אוטונומי של רחפן בין מכשולים בלי GPS",
+          dek: "כותרת להמחשה של ידיעה משותפת לשתי המעבדות.",
+          body: "בגיליון אמיתי: חיישנים, מבנה הבקר, שיעור ההצלחה ובאילו תנאים. כאן הזווית ההנדסית: השערוך והבקרה.",
+          why: "שילוב חיישנים ושערוך מצב, אותו מבנה כמו במסנן קלמן.",
+          conn: [["M19.8", "later", "בקרת רובוטים", ""], ["M5.6", "later", "שערוך מצב", ""]],
+          cross: ["core", "גם בשבועון של לנצ'סטר, מזווית האוטונומיה ותחנת השליטה (M9.3)."] },
+        { id: "e11", sec: "se", kind: "report", cert: "official", tier: "A", src: "סוכנות חלל, דוחות טכניים (מקור לדוגמה)", date: "24.10.2026",
+          h: "דוגמה: סוכנות חלל מעדכנת את הנחיות הערכת הבשלות הטכנולוגית",
+          dek: "כותרת להמחשה: עדכון למסמך שהספר בספרייה מצטט.",
+          body: "בגיליון אמיתי: מה השתנה בהגדרות הרמות, אילו ראיות נדרשות עכשיו למעבר רמה, ואיך זה משנה סקירות תכנון.",
+          why: "בשלות טכנולוגית היא שפה משותפת בין מהנדסים למנהלים, ותצטרך אותה בכל ראיון עם מומחה.",
+          conn: [["M27.5", "later", "בשלות טכנולוגית", ""], ["M27.1", "later", "מחזור חיים", ""]],
+          tb: { book: "מדריך הנדסת המערכות שבספרייה", page: "עמוד לדוגמה", ed: "המהדורה שבספרייה", old: "הגדרת רמת הבשלות כפי שהיא במהדורה שבספרייה.", now: "ההגדרה המעודכנת, עם ההבדל מסומן (בדוגמה: לא מוצג).", status: "עודכן" },
+          r10: 9 },
+        { id: "e12", sec: "space", kind: "report", cert: "official", tier: "A", src: "סוכנות חלל, שרת דוחות טכניים (מקור לדוגמה)", date: "23.10.2026",
+          h: "דוגמה: דוח טכני על בקרה תרמית בלוויין קטן אחרי שנה במסלול",
+          dek: "כותרת להמחשה. דוח עם נתוני טלמטריה מול התכנון.",
+          body: "בגיליון אמיתי: טווח הטמפרטורות שתוכנן מול הנמדד, ציפויי המשטח, ומה הסבירו בפער.",
+          why: "מאזן קרינה פשוט (פליטה מול בליעה) נותן את סדר הגודל בדקה. זה תרגיל טוב לרמה 2.5 גם לפני שלמדת את הפרק.",
+          conn: [["M14.10", "later", "קרינה תרמית", "`T⁴ ∝ αS/εσ`: היחס `α/ε` קובע את הטמפרטורה."], ["M15.15", "later", "טיסה בחלל", ""]],
+          sanity: ["pass", "סדר הגודל של הטמפרטורה מתאים למאזן קרינה עם נתוני הציפוי (דוגמה)."] },
+        { id: "e13", sec: "chip", kind: "paper", cert: "peer", tier: "B", src: "כנס מעגלים משולבים, מאמר פתוח (מקור לדוגמה)", date: "22.10.2026",
+          h: "דוגמה: ממיר אנלוגי-ספרתי חסכוני בהספק לחיישנים",
+          dek: "כותרת להמחשה. מדד הטיב של ממירים (אנרגיה לצעד המרה) מאפשר להשוות בין תכנונים.",
+          body: "בגיליון אמיתי: רזולוציה, קצב, הספק, ומדד הטיב, מול גבולות ידועים.",
+          why: "מדד טיב הוא דרך לחשוב כמו מהנדס: מספר אחד שמשווה תכנונים שונים.",
+          conn: [["M11.9", "later", "ממירים", ""], ["M25.8", "later", "הספק בשבב", ""]] }
+      ]
+    },
+
+    core: {
+      title: "השבועון של לנצ'סטר",
+      sub: "מקורות גלויים ברמת הניתוח, ממופים לקורס",
+      kicker: "מעבדת הליבה · גיליון לדוגמה",
+      no: 7, win: "23.10–29.10.2026", built: "30.10.2026, 04:12",
+      me: { current: "M0.4", done: 3, next: "M0.5, M0.6, M0.7, M0.8 …" },
+      stats: { candidates: 198, fetched: 34, verified: 10, dropped: { "לא רלוונטי": 152, "ציטוט לא נמצא": 2, "בודק עצמאי": 3, "כפילות": 9, "מחוץ לתחום": 4 } },
+      archive: [
+        { no: 7, h: "דוגמה: דוח ביקורת על עלות מחזור חיים" },
+        { no: 6, h: "דוגמה: הפרעות לניווט לווייני" },
+        { no: 5, h: "דוגמה: תקן ממשק לתחנות שליטה" }
+      ],
+      sections: [
+        { id: "radar", t: "מכ\"ם, תקשורת וספקטרום" }, { id: "nav", t: "ניווט" }, { id: "amd", t: "הגנה אווירית" },
+        { id: "uas", t: "כטב\"מים ואוטונומיה" }, { id: "space", t: "חלל" }, { id: "cost", t: "עלות, ניסויים ומודלים" }
+      ],
+      lead: "c1",
+      picks: ["c1", "c8", "c9"],
+      items: [
+        { id: "c1", sec: "cost", kind: "report", cert: "official", tier: "A", src: "גוף ביקורת ממשלתי (מקור לדוגמה)", date: "28.10.2026",
+          h: "דוגמה: דוח ביקורת ממשלתי על עלות מחזור החיים של תוכנית מכ\"ם",
+          dek: "כותרת להמחשה. דוחות ביקורת הם המקור הגלוי הטוב ביותר לעלות, ללוח זמנים ולראיות ניסוי.",
+          body: "בגיליון אמיתי: העלות המתוכננת מול הנוכחית, הסיבות לחריגה כפי שהדוח מציין, ומה נאמר על הניסויים. הקריאה מלמדת לקרוא דוח: מה מקור המספר, מה בסיס השנה, מה נכלל במחזור החיים.",
+          why: "עלות היא חלק מהידע של מומחה. הדוח מראה איך מחשבים מחזור חיים ולמה תוכניות חורגות.",
+          conn: [["M14.2", "later", "עלות ומחזור חיים", "בסיס שנת המטבע ועקומת הלמידה: שני מקורות לבלבול בהשוואת מספרים."], ["M7.10", "later", "ראיות ניסוי", ""], ["M0.1", "learned", "דציבלים", "שיפור ביצועים מוצג בדוח ב-dB; תרגם לאחוזי טווח."]],
+          idea: { kind: "מאמר", t: "איך לקרוא דוח ביקורת בעשר דקות", pitch: "מדריך קצר לקוראים: חמש שאלות לשאול על כל מספר עלות בדוח, עם דוגמה מהדוח עצמו.", hours: 4, uses: ["M14.2", "M7.10"] },
+          figure: true },
+        { id: "c2", sec: "radar", kind: "system", cert: "vendor", tier: "D", src: "בלוג טכני של יצרן שבבים (מקור לדוגמה)", date: "28.10.2026",
+          h: "דוגמה: שבב מכ\"ם 77 GHz עם מערך אנטנות על המארז",
+          dek: "כותרת להמחשה. אותה ידיעה כמו בגילואה, מזווית המערכת: טווח, רזולוציה ועמידות להפרעה.",
+          body: "בגיליון אמיתי: מה הטווח והרזולוציה הנטענים, ואיך הם נובעים מרוחב הסרט ומההספק. הבדיקה משווה את הטווח למשוואת המכ\"ם.",
+          why: "רזולוציית מרחק ב-FMCW היא `c/2B`, ותדר הפעימה נמדד בפורייה, שניהם מחומר שכבר למדת.",
+          conn: [["M0.3", "learned", "פורייה", "המרחק הוא תדר פעימה; ההפרדה בין מטרות היא רזולוציית התדר."], ["M2.20", "later", "FMCW", ""], ["M2.21", "later", "גלים מילימטריים", ""]],
+          sanity: ["pass", "הרזולוציה הנטענת מתאימה ל-`c/2B` עם רוחב הסרט שנמסר (דוגמה)."],
+          tb: { book: "ספר המכ\"ם שבספרייה", page: "עמוד לדוגמה", ed: "מהדורה ישנה", old: "הספר מציג מכ\"ם גלים מילימטריים כרכיבים נפרדים ויקרים.", now: "שבב יחיד עם משדר, מקלט וממירים; מה שמשתנה הוא העלות והאינטגרציה, לא הפיזיקה.", status: "עודכן" },
+          cross: ["eng", "גם בשבועון של גילואה, מזווית השבב והממירים (M25.4, M11.9)."] },
+        { id: "c3", sec: "radar", kind: "report", cert: "peer", tier: "B", src: "מכון מחקר, דוח על ספקטרום (מקור לדוגמה)", date: "26.10.2026",
+          h: "דוגמה: דוח מכון מחקר על חלוקת ספקטרום בין מכ\"ם לתקשורת",
+          dek: "כותרת להמחשה. הוויכוח על תדרים הוא ויכוח על משוואת הקשר.",
+          body: "בגיליון אמיתי: אילו תחומי תדר בוויכוח, מה הטענות של כל צד, ואילו חישובי הפרעה מוצגים.",
+          why: "חישוב הפרעה בין מערכות הוא משוואת קשר עם רעש ורגישות מקלט, מה שאתה לומד עכשיו.",
+          conn: [["M0.4", "current", "רעש", "יחס אות לרעש בכניסת המקלט הוא הקריטריון בכל טענה בדוח."], ["M1.4", "next", "רגישות מקלט", ""], ["M0.1", "learned", "תקציב קישור ב-dB", ""]] },
+        { id: "c4", sec: "nav", kind: "report", cert: "corroborated", tier: "A", src: "רשות תעופה ודוח עיתונאי (מקורות לדוגמה)", date: "25.10.2026",
+          h: "דוגמה: דיווחים על הפרעות לניווט לווייני בטיסות אזרחיות",
+          dek: "כותרת להמחשה של 'מאומת בשני מקורות': הודעה רשמית ודיווח עצמאי מסכימים על הממצא המרכזי.",
+          body: "בגיליון אמיתי: מה דווח, באיזה היקף, ומה ההנחיות לטייסים. אין כאן מיקומים בזמן אמת או מעקב אחרי פעילות מבצעית.",
+          why: "עוצמת האות מלוויין ניווט נמוכה מאוד ביחס לרעש; זה מסביר בחשבון של שורה אחת למה קל להפריע לה.",
+          conn: [["M0.4", "current", "רעש תרמי", "`kTB` בטמפרטורת החדר: האות מתחת לרעש לפני עיבוד."], ["M5.5", "later", "שיבוש והתחזות", ""], ["M0.1", "learned", "dB", ""]],
+          r10: 7 },
+        { id: "c5", sec: "amd", kind: "report", cert: "peer", tier: "B", src: "מכון מחקר ביטחוני (מקור לדוגמה)", date: "24.10.2026",
+          h: "דוגמה: ניתוח של מכון מחקר על יחס העלות בין מיירטים לאיומים",
+          dek: "כותרת להמחשה. ברמת הניתוח: מדדי אפקטיביות, עלות ומלאי, לא טקטיקה.",
+          body: "בגיליון אמיתי: ההנחות, הטבלה המרכזית והמסקנה. בדוגמה הזו בדיקת סדר הגודל נכשלה, והידיעה הופכת לתרגיל: מצא את הטעות.",
+          why: "יחס עלות לבדו מטעה; צריך את ההסתברות ליירוט ואת שווי הנכס המוגן. זה מדד אפקטיביות, לא מספר אחד.",
+          conn: [["M7.1", "later", "מדדי אפקטיביות", ""], ["M14.1", "later", "מידול לחימה", ""], ["M0.4", "current", "הסתברות", "הסתברות ליירוט עם שני מיירטים: `1−(1−p)²`."]],
+          sanity: ["fail", "סכום השורות בטבלה לא מתאים לסך שבדוח (דוגמה). הוצע כתרגיל 'מצא את השגיאה'."] },
+        { id: "c6", sec: "uas", kind: "paper", cert: "preprint", tier: "B", src: "ארכיב, רובוטיקה (מקור לדוגמה)", date: "25.10.2026",
+          h: "דוגמה: מאמר על ניווט אוטונומי של רחפן בלי GPS",
+          dek: "כותרת להמחשה. אותו מאמר כמו בגילואה, מזווית תחנת השליטה ורמות האוטונומיה.",
+          body: "בגיליון אמיתי: איזה חלק מהמשימה אוטונומי, מה המפעיל רואה, ומה קורה כשהקישור נקטע.",
+          why: "רמות אוטונומיה וחלוקת העבודה בין אדם למכונה הן שאלת תכנון מרכזית ב-M9.3.",
+          conn: [["M9.3", "later", "אוטונומיה", ""], ["M0.7", "next", "בקרה בסיסית", ""]],
+          cross: ["eng", "גם בשבועון של גילואה, מזווית השערוך והבקרה (M19.8)."] },
+        { id: "c7", sec: "uas", kind: "standard", cert: "official", tier: "A", src: "גוף תקינה לתעופה (מקור לדוגמה)", date: "23.10.2026",
+          h: "דוגמה: טיוטת תקן ממשק פתוח בין תחנת שליטה לכלי בלתי מאויש",
+          dek: "כותרת להמחשה של ידיעת 'תקן'.",
+          body: "בגיליון אמיתי: מה התקן מגדיר (הודעות, השהיות, אבטחה), ומה הוא משאיר פתוח.",
+          why: "ממשקים פתוחים קובעים מי יכול לבנות מה. זה גם נושא טוב לראיון עם מומחה.",
+          conn: [["M9.3", "later", "תחנת שליטה", ""], ["M9.5", "later", "קישורי נתונים", ""]],
+          idea: { kind: "ראיון", t: "שלוש שאלות למומחה תקינה", pitch: "מה ייכנס לגרסה הסופית, מי מתנגד ולמה, ומה זה משנה ליצרן קטן.", hours: 2, uses: ["M9.3"] } },
+        { id: "c8", sec: "space", kind: "report", cert: "official", tier: "A", src: "סוכנות חלל (מקור לדוגמה)", date: "27.10.2026",
+          h: "דוגמה: דוח על פסולת חלל במסלול נמוך ועל הסתברות התנגשות",
+          dek: "כותרת להמחשה. דוח עם נתוני צפיפות לפי גובה.",
+          body: "בגיליון אמיתי: הצפיפות לפי גובה, מספר תמרוני ההתחמקות, והמודל להסתברות התנגשות.",
+          why: "הסתברות התנגשות היא תרגיל ישיר בהסתברות שאתה לומד עכשיו: צפיפות × חתך × מהירות יחסית × זמן.",
+          conn: [["M0.4", "current", "הסתברות ותהליך פואסון", "מספר התנגשויות צפוי `λ = n·σ·v·t`, והסתברות לאחת לפחות `1−e^(−λ)`."], ["M13.3", "later", "סביבת החלל", ""], ["M13.1", "later", "מבוא לחלל", ""]],
+          r10: 8 },
+        { id: "c9", sec: "cost", kind: "report", cert: "official", tier: "A", src: "גוף הערכת ניסויים (מקור לדוגמה)", date: "23.10.2026",
+          h: "דוגמה: דוח הערכת ניסויים: איך מסיקים אמינות ממספר קטן של ניסויים",
+          dek: "כותרת להמחשה. השאלה הסטטיסטית: כמה ניסויים מוצלחים צריך כדי לטעון אמינות מסוימת.",
+          body: "בגיליון אמיתי: מספר הניסויים, ההצלחות, והמסקנה שהדוח מסיק, מול חישוב רווח סמך שאתה יכול לעשות בעצמך.",
+          why: "כלל 'שלוש חלקי n': אחרי n הצלחות בלי כישלון, החסם העליון לשיעור כישלון ב-95% הוא בערך `3/n`.",
+          conn: [["M0.4", "current", "הסתברות", "`(1−p)^n = 0.05` נותן `p ≈ 3/n`."], ["M7.10", "later", "ראיות ניסוי", ""]],
+          r10: 6 },
+        { id: "c10", sec: "cost", kind: "paper", cert: "preprint", tier: "B", src: "ארכיב, חקר ביצועים (מקור לדוגמה)", date: "22.10.2026",
+          h: "דוגמה: מאמר שבודק את חוקי לנצ'סטר מול נתונים היסטוריים",
+          dek: "כותרת להמחשה. האם הקרבות מתנהגים לפי החוק הריבועי, הלינארי או משהו ביניהם.",
+          body: "בגיליון אמיתי: הנתונים, שיטת ההתאמה, והמעריך שנמצא, עם אזהרות על הטיית בחירה.",
+          why: "שם האפליקציה. המודול M14.1 יגזור את החוקים; כאן רואים איך בודקים מודל מול נתונים.",
+          conn: [["M14.1", "later", "מידול לחימה", ""], ["M0.6", "next", "ריבועים פחותים", "המעריך נמצא בהתאמה לינארית על לוגריתמים."]],
+          idea: { kind: "פרויקט", t: "התאמת מעריך לנצ'סטר", pitch: "לשחזר את ההתאמה בפייתון על נתונים פתוחים, ולהראות איך המעריך משתנה עם בחירת הנתונים.", hours: 5, uses: ["M0.6", "M14.1"] } }
+      ]
+    }
+  };
+
+  /* ---------- state (per-viewer conveniences only; page renders without it) ---------- */
+  function load(k, d) { try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } }
+  function save(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+
+  var app = load("news:app", "eng");
+  if (!ISSUES[app]) app = "eng";
+  var fb = load("news:fb", {});
+  var secFilter = "all";
+  var relFilter = "all";
+
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }).replace(/`([^`]+)`/g, '<span class="f">$1</span>'); }
+
+  var toastT;
+  function toast(msg) { var t = $("#toast"); t.textContent = msg; t.classList.add("on"); clearTimeout(toastT); toastT = setTimeout(function () { t.classList.remove("on"); }, 2600); }
+
+  function relsOf(it) { return it.conn.map(function (c) { return c[1]; }); }
+  function matches(it) {
+    if (secFilter !== "all" && it.sec !== secFilter) return false;
+    if (relFilter === "mine") return relsOf(it).some(function (r) { return r === "learned" || r === "current"; });
+    if (relFilter === "soon") return relsOf(it).some(function (r) { return r === "next"; });
+    if (relFilter === "saved") return !!(fb[it.id] && fb[it.id].saved);
+    return true;
+  }
+
+  function chipHTML(c, appKey) {
+    var name = MOD[appKey][c[0]] || "";
+    return '<button type="button" class="chip ' + c[1] + '" data-mod="' + c[0] + '" title="' + esc(REL[c[1]] + ": " + c[2]) + '">' +
+      '<span class="id">' + c[0] + '</span><span class="t">' + esc(name) + '</span></button>';
+  }
+
+  function itemNode(it, issue, isLead) {
+    var f = fb[it.id] || {};
+    var n = el("article", "item" + (f.read ? " read" : ""));
+    n.id = "it-" + it.id;
+    var secT = issue.sections.filter(function (s) { return s.id === it.sec; })[0].t;
+    var tags = '<span class="tag ex">דוגמה</span>' +
+      '<span class="tag c-' + it.cert + '"><span class="dot"></span>' + CERT[it.cert] + '</span>' +
+      '<span class="tag">' + KIND[it.kind] + '</span>' +
+      '<span class="tag" title="דרגת המקור">מקור ' + it.tier + '</span>' +
+      (it.r10 ? '<span class="tag">' + it.r10 + ' דק\' קריאה</span>' : "") +
+      '<span class="date">' + it.date + '</span>';
+    var h = '<div class="tags">' + tags + '</div>';
+    if (isLead) {
+      n.className = "lead";
+      var left = '<div>' + h + '<h2>' + esc(it.h) + '</h2><p class="dek">' + esc(it.dek) + '</p><p class="body">' + esc(it.body) + '</p>' + srcHTML(it) + '</div>';
+      var right = '<div><div class="why"><h4>למה זה חשוב לך</h4>' + esc(it.why) + '</div>' + connHTML(it) + figureHTML(issue) + extrasHTML(it) + actsHTML(it) + '</div>';
+      n.innerHTML = left + right;
+      return n;
+    }
+    n.innerHTML = h + '<h4>' + esc(it.h) + '</h4><p class="dek">' + esc(it.dek) + '</p>' +
+      '<p class="body" hidden>' + esc(it.body) + '<br><b>למה זה חשוב לך:</b> ' + esc(it.why) + '</p>' +
+      '<button type="button" class="more" aria-expanded="false">קרא עוד</button>' +
+      connHTML(it) + extrasHTML(it) + srcHTML(it) + actsHTML(it);
+    n.dataset.sec = secT;
+    return n;
+  }
+
+  function connHTML(it) {
+    var whys = it.conn.filter(function (c) { return c[3]; }).map(function (c) { return '<b>' + c[0] + '</b> · ' + esc(c[3]); }).join("<br>");
+    return '<div class="conn"><div class="ttl">מתחבר למה שלמדת</div><div class="chips">' +
+      it.conn.map(function (c) { return chipHTML(c, app); }).join("") + '</div>' +
+      (whys ? '<p class="connwhy">' + whys + '</p>' : "") + '</div>';
+  }
+
+  function extrasHTML(it) {
+    var s = "";
+    if (it.sanity) s += '<div class="sanity"><span>בדיקת סדר גודל:</span><b class="' + it.sanity[0] + '">' + (it.sanity[0] === "pass" ? "עוברת" : "לא עוברת") + '</b><span>' + esc(it.sanity[1]) + '</span></div>';
+    if (it.tb) s += '<div class="box tb"><h5>עדכון לספר · ' + esc(it.tb.status) + '</h5>' + esc(it.tb.book) +
+      '<div class="oldnew"><span class="k">בספר</span><span>' + esc(it.tb.old) + '</span><span class="k">היום</span><span>' + esc(it.tb.now) + '</span></div>' +
+      '<div class="meta">' + esc(it.tb.page) + ' · ' + esc(it.tb.ed) + '</div></div>';
+    if (it.idea) s += '<div class="box idea"><h5>רעיון ל' + esc(it.idea.kind) + ': ' + esc(it.idea.t) + '</h5>' + esc(it.idea.pitch) +
+      '<div class="meta">כ-' + it.idea.hours + ' שעות · ' + it.idea.uses.join(", ") + '</div></div>';
+    if (it.cross) s += '<div class="cross">' + esc(it.cross[1]) + ' <button type="button" data-cross="' + it.cross[0] + '">עבור לשם</button></div>';
+    return s;
+  }
+
+  function srcHTML(it) {
+    return '<div class="src"><span>' + esc(it.src) + '</span><span class="lnk" title="בגיליון אמיתי: קישור שנשלף השבוע">קישור לדוגמה (לא פעיל)</span></div>';
+  }
+
+  function actsHTML(it) {
+    var f = fb[it.id] || {};
+    return '<div class="acts">' +
+      '<button type="button" class="act" data-act="read" aria-pressed="' + !!f.read + '">' + (f.read ? "נקרא" : "סמן כנקרא") + '</button>' +
+      '<button type="button" class="act" data-act="saved" aria-pressed="' + !!f.saved + '">שמור</button>' +
+      '<button type="button" class="act" data-act="up" aria-pressed="' + (f.useful === 1) + '">מועיל</button>' +
+      '<button type="button" class="act" data-act="down" aria-pressed="' + (f.useful === -1) + '">לא רלוונטי</button>' +
+      '<button type="button" class="act" data-act="ask">שאל את המורה</button>' +
+      '<button type="button" class="act" data-act="note">פתק להעמקה</button></div>';
+  }
+
+  function figureHTML(issue) {
+    // A small, plainly schematic figure for the lead: not data.
+    var eng = app === "eng";
+    var path = "", pts = [];
+    for (var i = 0; i <= 40; i++) {
+      var x = i / 40 * 3;
+      var y = eng ? Math.exp(-x) : 1 / (1 + Math.pow(x, 2));
+      pts.push((20 + i * 6.5).toFixed(1) + "," + (100 - y * 80).toFixed(1));
+    }
+    path = pts.join(" ");
+    var steps = eng ? [2, 3, 5, 4, 6, 3, 2, 2] : [3, 4, 6, 7, 8, 9, 9.5, 10];
+    var bars = steps.map(function (v, k) { return '<rect x="' + (300 + k * 13) + '" y="' + (100 - v * 7) + '" width="9" height="' + (v * 7) + '" fill="currentColor" opacity=".55"/>'; }).join("");
+    return '<figure><svg viewBox="0 0 420 120" role="img" aria-label="איור סכמטי לדוגמה" style="color:var(--accent)">' +
+      '<line x1="20" y1="100" x2="285" y2="100" stroke="var(--line-strong)"/><line x1="20" y1="10" x2="20" y2="100" stroke="var(--line-strong)"/>' +
+      '<polyline points="' + path + '" fill="none" stroke="currentColor" stroke-width="2"/>' +
+      '<line x1="300" y1="100" x2="410" y2="100" stroke="var(--line-strong)"/>' + bars +
+      '<text x="150" y="115" font-size="10" fill="var(--muted)" text-anchor="middle">' + (eng ? "שארית מול סדר (סכמה)" : "עלות מול שנה (סכמה)") + '</text>' +
+      '<text x="355" y="115" font-size="10" fill="var(--muted)" text-anchor="middle">' + (eng ? "איברים לכל צעד" : "עלות מצטברת") + '</text></svg>' +
+      '<figcaption>איור סכמטי, לא נתונים. בגיליון אמיתי: גרף שנבנה בפייתון מהנתונים שבמקור, עם הפניה.</figcaption></figure>';
+  }
+
+  function render() {
+    var issue = ISSUES[app];
+    document.documentElement.setAttribute("data-app", app);
+    document.querySelectorAll(".seg button").forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.app === app)); });
+    $("#kicker").textContent = issue.kicker;
+    $("#mastTitle").textContent = issue.title;
+    $("#mastSub").textContent = issue.sub;
+    $("#issueNo").innerHTML = "גיליון " + issue.no + " · נבנה <bdi>" + issue.built + "</bdi>";
+    $("#issueWin").textContent = issue.win;
+    $("#issueStats").textContent = issue.items.length + " ידיעות · " + issue.sections.length + " מדורים";
+    var me = issue.me;
+    $("#me").innerHTML = '<span>המצב שלך בקורס: <b>' + me.current + '</b> ' + esc(MOD[app][me.current] || (app === "eng" ? "גאומטריה אנליטית" : "")) + '</span><span>נלמדו <b>' + me.done + '</b> מודולים</span><span>הבאים: ' + me.next + '</span>';
+
+    // section filters
+    var sf = $("#secFilters"); sf.innerHTML = '<span class="lbl">מדור</span>';
+    var all = [{ id: "all", t: "הכל" }].concat(issue.sections);
+    all.forEach(function (s) {
+      var cnt = s.id === "all" ? issue.items.length : issue.items.filter(function (i) { return i.sec === s.id; }).length;
+      if (!cnt) return;
+      var b = el("button", "fchip", esc(s.t) + '<span class="n">' + cnt + '</span>');
+      b.type = "button"; b.setAttribute("aria-pressed", String(secFilter === s.id));
+      b.onclick = function () { secFilter = s.id; render(); };
+      sf.appendChild(b);
+    });
+    var rf = $("#relFilters"); rf.innerHTML = '<span class="lbl">קשר לקורס</span>';
+    [["all", "הכל"], ["mine", "קשור למה שלמדתי"], ["soon", "מה שבדרך"], ["saved", "שמורים"]].forEach(function (r) {
+      var b = el("button", "fchip", r[1]); b.type = "button"; b.setAttribute("aria-pressed", String(relFilter === r[0]));
+      b.onclick = function () { relFilter = r[0]; render(); };
+      rf.appendChild(b);
+    });
+
+    // paper
+    var paper = $("#paper"); paper.innerHTML = "";
+    var byId = {}; issue.items.forEach(function (i) { byId[i.id] = i; });
+    var lead = byId[issue.lead];
+    var any = false;
+    if (lead && matches(lead)) { paper.appendChild(itemNode(lead, issue, true)); any = true; }
+    var flow = el("div", "flow");
+    issue.sections.forEach(function (s) {
+      var its = issue.items.filter(function (i) { return i.sec === s.id && i.id !== issue.lead && matches(i); });
+      if (!its.length) return;
+      any = true;
+      var sec = el("section", "section");
+      sec.innerHTML = '<h3>' + esc(s.t) + '<span class="cnt">' + its.length + '</span></h3>';
+      var cols = el("div", "cols");
+      its.forEach(function (i) { cols.appendChild(itemNode(i, issue, false)); });
+      sec.appendChild(cols);
+      flow.appendChild(sec);
+    });
+    paper.appendChild(flow);
+    if (!any) paper.appendChild(el("p", "empty", "אין ידיעות שמתאימות לסינון."));
+
+    renderSide(issue, byId);
+    var st = issue.stats;
+    var drops = Object.keys(st.dropped).map(function (k) { return k + " " + st.dropped[k]; }).join(" · ");
+    $("#foot").innerHTML = 'הגיליון נבנה בסשן ענן שבועי. כל ידיעה אמיתית: קישור שנשלף השבוע (סטטוס 200), ציטוט שנמצא בטקסט, ובדיקה של בודק עצמאי שראה רק את המקור. ידיעות שנפסלו: ' + esc(drops) + '. <b>כל התוכן בעמוד הזה הוא דוגמה.</b>';
+  }
+
+  function renderSide(issue, byId) {
+    var side = $("#side"); side.innerHTML = "";
+    var p1 = el("div", "panel");
+    p1.innerHTML = '<h3>לקרוא ב-10 דקות <small>' + issue.picks.length + '</small></h3>';
+    issue.picks.forEach(function (id) {
+      var it = byId[id]; if (!it) return;
+      var b = el("button", "pick", '<span class="min">' + (it.r10 || 8) + ' דק\' · ' + CERT[it.cert] + '</span><span class="h">' + esc(it.h) + '</span>');
+      b.type = "button"; b.onclick = function () { jump(id); };
+      p1.appendChild(b);
+    });
+    side.appendChild(p1);
+
+    var tbs = issue.items.filter(function (i) { return i.tb; });
+    var ideas = issue.items.filter(function (i) { return i.idea; });
+    var p2 = el("div", "panel");
+    p2.innerHTML = '<h3>בגיליון הזה</h3>';
+    [["עדכונים לספר", tbs, "tb"], ["רעיונות לפרויקט ולמאמר", ideas, "idea"]].forEach(function (g) {
+      if (!g[1].length) return;
+      var hh = el("div", "", '<div style="font-size:12px;font-weight:600;color:var(--' + g[2] + ');margin:6px 0 2px">' + g[0] + '</div>');
+      p2.appendChild(hh);
+      g[1].forEach(function (it) {
+        var label = g[2] === "tb" ? it.tb.book + ": " + it.tb.status : it.idea.t;
+        var b = el("button", "pick", '<span class="h" style="font-size:13px">' + esc(label) + '</span>');
+        b.type = "button"; b.onclick = function () { jump(it.id); };
+        p2.appendChild(b);
+      });
+    });
+    side.appendChild(p2);
+
+    var st = issue.stats;
+    var p3 = el("div", "panel");
+    var rows = [["מועמדים", st.candidates], ["נקראו", st.fetched], ["אומתו", st.verified]];
+    p3.innerHTML = '<h3>המסננת <small>דוגמה</small></h3><div class="funnel">' + rows.map(function (r) {
+      return '<div class="row"><span>' + r[0] + '</span><span class="barx"><i style="width:' + Math.max(3, r[1] / st.candidates * 100) + '%"></i></span><span class="v">' + r[1] + '</span></div>';
+    }).join("") + '</div><div class="drops">רק מה שעבר את כל הבדיקות נכנס לגיליון. גיליון דל עדיף על ריפוד.</div>';
+    side.appendChild(p3);
+
+    var p4 = el("div", "panel");
+    p4.innerHTML = '<h3>מקרא</h3><div class="legend">' +
+      ["learned", "current", "next", "later", "outside"].map(function (r) { return '<div><span class="chip ' + r + '"><span class="t">' + REL[r] + '</span></span></div>'; }).join("") +
+      '</div><div class="tags" style="margin-top:10px">' + Object.keys(CERT).map(function (c) { return '<span class="tag c-' + c + '"><span class="dot"></span>' + CERT[c] + '</span>'; }).join("") + '</div>';
+    side.appendChild(p4);
+
+    var p5 = el("div", "panel");
+    p5.innerHTML = '<h3>ארכיון <small>' + issue.archive.length + '</small></h3>';
+    var ul = el("ul", "archive");
+    issue.archive.forEach(function (a) {
+      var li = el("li", a.no === issue.no ? "cur" : "");
+      var b = el("button", "", '<span class="no">#' + a.no + '</span><span class="ah">' + esc(a.h) + '</span>');
+      b.type = "button";
+      b.onclick = function () { if (a.no === issue.no) { window.scrollTo({ top: 0, behavior: "smooth" }); } else { toast("בארכיון האמיתי ייפתח גיליון " + a.no + ". באב-הטיפוס יש גיליון אחד לכל מעבדה."); } };
+      li.appendChild(b); ul.appendChild(li);
+    });
+    p5.appendChild(ul);
+    side.appendChild(p5);
+  }
+
+  function jump(id) {
+    secFilter = "all"; relFilter = "all"; render();
+    var n = document.getElementById("it-" + id);
+    if (n) { n.scrollIntoView({ behavior: "smooth", block: "start" }); n.style.transition = "background .6s"; n.style.background = "var(--accent-soft)"; setTimeout(function () { n.style.background = ""; }, 900); }
+  }
+
+  document.addEventListener("click", function (e) {
+    var t = e.target.closest("button"); if (!t) return;
+    if (t.classList.contains("more")) {
+      var b = t.previousElementSibling; var open = b.hidden; b.hidden = !open;
+      t.textContent = open ? "סגור" : "קרא עוד"; t.setAttribute("aria-expanded", String(open)); return;
+    }
+    if (t.dataset.mod) { toast("בדף האמיתי: נפתח המודול " + t.dataset.mod + (MOD[app][t.dataset.mod] ? " (" + MOD[app][t.dataset.mod] + ")" : "") + "."); return; }
+    if (t.dataset.cross) { app = t.dataset.cross; save("news:app", app); secFilter = "all"; relFilter = "all"; render(); window.scrollTo({ top: 0 }); toast("עברת לשבועון של " + (app === "eng" ? "גילואה" : "לנצ'סטר") + ". באפליקציה אמיתית: קישור לאפליקציה השנייה."); return; }
+    var act = t.dataset.act; if (!act) return;
+    var art = t.closest(".item, .lead"); var id = art.id.slice(3);
+    var f = fb[id] || (fb[id] = {});
+    if (act === "read") f.read = !f.read;
+    else if (act === "saved") f.saved = !f.saved;
+    else if (act === "up") f.useful = f.useful === 1 ? 0 : 1;
+    else if (act === "down") f.useful = f.useful === -1 ? 0 : -1;
+    else if (act === "ask") { toast("בדף האמיתי: נפתח לוח 'הסבר פשוט' עם תקציר הידיעה והציטוט, כי למורה בדף אין אינטרנט."); return; }
+    else if (act === "note") { toast("בדף האמיתי: נוסף פתק 'להעמקה' למחברת השיעור, עם הקישור."); return; }
+    save("news:fb", fb);
+    if (act === "down" && f.useful === -1) toast("נרשם. הריצה של השבוע הבא תוריד את המשקל של מקור ותחום כזה, עד 20%.");
+    render();
+    var again = document.getElementById("it-" + id); if (again && again.querySelector('[data-act="' + act + '"]')) again.querySelector('[data-act="' + act + '"]').focus({ preventScroll: true });
+  });
+
+  document.querySelectorAll(".seg button").forEach(function (b) {
+    b.addEventListener("click", function () { app = b.dataset.app; save("news:app", app); secFilter = "all"; relFilter = "all"; render(); });
+  });
+
+  var theme = load("news:theme", null);
+  if (theme) document.documentElement.setAttribute("data-theme", theme);
+  $("#themeBtn").addEventListener("click", function () {
+    var cur = document.documentElement.getAttribute("data-theme") ||
+      (window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    var nx = cur === "dark" ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", nx); save("news:theme", nx);
+  });
+
+  render();
+})();
+</script>

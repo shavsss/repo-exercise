@@ -1,0 +1,1291 @@
+<title>לוח העיצוב של המעבדות</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<script>document.documentElement.setAttribute("dir", "rtl"); document.documentElement.setAttribute("lang", "he");</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Hebrew:wght@400;500;600;700&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<style>
+/* Layout: one reading sheet of design questions; each question is a row of live variant cards that wrap to one column on a phone.
+   Palette: the labs' own "operations map" tokens (cream paper / warm graphite), so every variant is judged in the real look. */
+:root {
+  --bg: #ece4d6;
+  --paper: #f4ede2;
+  --sheet: #faf6ee;
+  --raised: #fdfaf4;
+  --ink: #22261d;
+  --ink-2: #44493a;
+  --muted: #565947;
+  --line: #ddd2bf;
+  --line-2: #ae9f84;
+  --accent-l: #b3261e;
+  --accent-l-soft: #f3e0d9;
+  --accent-g: #1f5f9e;
+  --accent-g-soft: #dde8f3;
+  --accent: var(--accent-l);
+  --accent-soft: var(--accent-l-soft);
+  --on-accent: #ffffff;
+  --core: #2e3a86;
+  --core-bg: #eceaf4;
+  --act: #17577f;
+  --act-bg: #e6eef1;
+  --ctx: #7d7659;
+  --ctx-bg: #efe9dc;
+  --ok: #2c6a28;
+  --ok-bg: #e2eedb;
+  --bad: #a1281d;
+  --bad-bg: #f5e1dc;
+  --hot: #8f5300;
+  --hot-bg: #f7ead0;
+  --k-def: #3b3a9e;
+  --k-formula: #1f5f9e;
+  --k-think: #a16207;
+  --k-story: #a14a0c;
+  --k-deriv: #3b5b8c;
+  --k-case: #1d4e89;
+  --mn-paper: #fbf1c7;
+  --mn-ink: #2c2a20;
+  --scrim: rgb(34 38 29 / 28%);
+  --shadow: 0 1px 2px rgb(34 38 29 / 6%), 0 6px 18px rgb(34 38 29 / 7%);
+  --focus: #17577f;
+  /* fixed sample palettes for the theme question (they are shown as swatches, so they do not follow the page theme) */
+  --tc-bg: #ece4d6; --tc-sheet: #faf6ee; --tc-ink: #22261d; --tc-muted: #5a5d4c; --tc-line: #ddd2bf; --tc-core: #2e3a86; --tc-core-bg: #eceaf4; --tc-act: #17577f; --tc-act-bg: #e6eef1; --tc-accent: #b3261e;
+  --tg-bg: #1f1e1d; --tg-sheet: #2d2c2a; --tg-ink: #ece9e1; --tg-muted: #a9a497; --tg-line: #3a3936; --tg-core: #aeb7f2; --tg-core-bg: #2c2d3a; --tg-act: #86c1e6; --tg-act-bg: #26313a; --tg-accent: #f08a7e;
+  --tn-bg: #17120d; --tn-sheet: #211a13; --tn-ink: #e9d9bf; --tn-muted: #a8957a; --tn-line: #3a2f22; --tn-core: #e3b77a; --tn-core-bg: #2d2317; --tn-act: #d69a5c; --tn-act-bg: #2a2016; --tn-accent: #e0805a;
+  --te-bg: #e3e3df; --te-sheet: #f1f1ee; --te-ink: #141414; --te-muted: #55554f; --te-line: #c9c9c3; --te-core: #141414; --te-core-bg: #e6e6e1; --te-act: #3a3a36; --te-act-bg: #e9e9e4; --te-accent: #141414;
+  --font: "IBM Plex Sans Hebrew", "IBM Plex Sans", "Arial Hebrew", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1b1a19; --paper: #232220; --sheet: #2b2a27; --raised: #302f2b;
+    --ink: #ebe7dd; --ink-2: #cdc8bc; --muted: #a9a497; --line: #3a3833; --line-2: #5c5a52;
+    --accent-l: #f08a7e; --accent-l-soft: #3a2522; --accent-g: #8fbde6; --accent-g-soft: #22303c; --on-accent: #1b1a19;
+    --core: #aeb7f2; --core-bg: #2a2b36; --act: #86c1e6; --act-bg: #24303a; --ctx: #bdb594; --ctx-bg: #2e2c26;
+    --ok: #93d08b; --ok-bg: #243221; --bad: #ff958a; --bad-bg: #3a2421; --hot: #efbd62; --hot-bg: #3a2f1a;
+    --k-def: #b9b6f2; --k-formula: #94bfdc; --k-think: #e0c46c; --k-story: #e6a75c; --k-deriv: #c4c3b2; --k-case: #8fcde0;
+    --mn-paper: #3a3622; --mn-ink: #efe9cf; --scrim: rgb(0 0 0 / 45%); --shadow: none; --focus: #86c1e6;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1b1a19; --paper: #232220; --sheet: #2b2a27; --raised: #302f2b;
+  --ink: #ebe7dd; --ink-2: #cdc8bc; --muted: #a9a497; --line: #3a3833; --line-2: #5c5a52;
+  --accent-l: #f08a7e; --accent-l-soft: #3a2522; --accent-g: #8fbde6; --accent-g-soft: #22303c; --on-accent: #1b1a19;
+  --core: #aeb7f2; --core-bg: #2a2b36; --act: #86c1e6; --act-bg: #24303a; --ctx: #bdb594; --ctx-bg: #2e2c26;
+  --ok: #93d08b; --ok-bg: #243221; --bad: #ff958a; --bad-bg: #3a2421; --hot: #efbd62; --hot-bg: #3a2f1a;
+  --k-def: #b9b6f2; --k-formula: #94bfdc; --k-think: #e0c46c; --k-story: #e6a75c; --k-deriv: #c4c3b2; --k-case: #8fcde0;
+  --mn-paper: #3a3622; --mn-ink: #efe9cf; --scrim: rgb(0 0 0 / 45%); --shadow: none; --focus: #86c1e6;
+  color-scheme: dark;
+}
+:root[data-lab="gil"] { --accent: var(--accent-g); --accent-soft: var(--accent-g-soft); }
+
+* { box-sizing: border-box; }
+html { direction: rtl; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 16px; line-height: 1.6; margin: 0; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--paper); }
+.wrap { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 0 72px; }
+.inner { max-width: 1240px; margin-inline: auto; }
+button, input, textarea, select { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+h1, h2, h3 { text-wrap: balance; margin: 0; }
+.mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.m { unicode-bidi: isolate; direction: ltr; white-space: nowrap; display: inline-block; }
+.m math { font-size: 1.05em; }
+.mfb { font-family: var(--mono); font-size: .92em; }
+.md { display: block; text-align: center; overflow-x: auto; overflow-y: hidden; padding: .2em 0; }
+.md .m { white-space: nowrap; }
+
+/* header */
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: var(--paper); border-bottom: 1px solid var(--line); margin-inline: calc(-1 * max(16px, env(safe-area-inset-right, 0px))) calc(-1 * max(16px, env(safe-area-inset-left, 0px))); padding: 8px max(16px, env(safe-area-inset-right, 0px)) 8px max(16px, env(safe-area-inset-left, 0px)); }
+.top-in { max-width: 1240px; margin-inline: auto; display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 15px; }
+.brand-mark { width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--accent); position: relative; flex: none; }
+.brand-mark::after { content: ""; position: absolute; inset: 3px; border-radius: 50%; background: var(--accent); }
+.top-ctl { display: flex; flex-wrap: wrap; gap: 8px; margin-inline-start: auto; align-items: center; }
+.seg { display: inline-flex; border: 1px solid var(--line-2); border-radius: 6px; overflow: hidden; background: var(--sheet); }
+.seg button { border: 0; background: none; padding: 4px 10px; font-size: 13px; cursor: pointer; color: var(--ink-2); }
+.seg button + button { border-inline-start: 1px solid var(--line); }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.sync { font-size: 12.5px; color: var(--muted); display: inline-flex; align-items: center; gap: 6px; }
+.sync i { width: 8px; height: 8px; border-radius: 50%; background: var(--line-2); display: inline-block; }
+.sync[data-s="db"] i { background: var(--ok); }
+.sync[data-s="local"] i, .sync[data-s="err"] i { background: var(--hot); }
+
+.hero { padding: 36px 0 18px; display: grid; gap: 10px; max-width: 760px; }
+.hero h1 { font-size: clamp(26px, 4vw, 34px); line-height: 1.25; font-weight: 700; }
+.hero p { margin: 0; color: var(--ink-2); font-size: 16.5px; }
+.hero .src { font-size: 13px; color: var(--muted); }
+
+/* summary of choices */
+.summary { margin: 14px 0 8px; background: var(--sheet); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; }
+.summary h2 { font-size: 15px; font-weight: 600; margin-bottom: 8px; display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+.summary h2 span { font-weight: 400; color: var(--muted); font-size: 13px; }
+.sum-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 270px), 1fr)); gap: 4px 20px; margin: 0; padding: 0; list-style: none; }
+.sum-list a { display: grid; grid-template-columns: 2.4em 1fr; gap: 6px; text-decoration: none; color: inherit; padding: 4px 0; border-bottom: 1px dotted var(--line); font-size: 14px; }
+.sum-list .n { font-family: var(--mono); color: var(--muted); font-size: 12.5px; padding-top: 2px; }
+.sum-list .v { color: var(--muted); }
+.sum-list .v.on { color: var(--ink); font-weight: 600; }
+.sum-list .v.on::before { content: "✓ "; color: var(--ok); }
+
+/* questions */
+.q { padding: 40px 0 8px; border-top: 1px solid var(--line); margin-top: 28px; scroll-margin-top: 64px; }
+.q-head { display: grid; grid-template-columns: auto 1fr; gap: 4px 14px; align-items: baseline; max-width: 820px; }
+.q-num { justify-self: start; width: fit-content; font-family: var(--mono); font-size: 14px; color: var(--accent); border: 1px solid var(--accent); border-radius: 4px; padding: 0 6px; }
+.q-head h2 { font-size: 22px; font-weight: 600; line-height: 1.3; }
+.q-head p { grid-column: 2; margin: 2px 0 0; color: var(--ink-2); font-size: 15px; }
+.q-tools { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; margin: 14px 0 0; font-size: 14px; color: var(--ink-2); }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 16px; margin-top: 18px; align-items: start; }
+.grid.g4 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); }
+.card { background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 12px; display: grid; gap: 10px; min-width: 0; position: relative; }
+.card.chosen { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset; }
+.card.big { grid-column: 1 / -1; }
+.card-meta { display: grid; gap: 4px; }
+.card-meta h3 { font-size: 16px; font-weight: 600; display: flex; flex-wrap: wrap; gap: 6px 8px; align-items: center; }
+.tag { font-size: 11.5px; font-weight: 500; border: 1px solid var(--line-2); color: var(--muted); border-radius: 999px; padding: 0 8px; line-height: 1.6; }
+.tag.cur { border-color: var(--act); color: var(--act); }
+.tag.chosen-tag { border-color: var(--accent); background: var(--accent); color: var(--on-accent); }
+.card-meta p { margin: 0; font-size: 14px; color: var(--ink-2); line-height: 1.55; }
+.card-meta .pc { font-size: 13px; color: var(--muted); }
+.card-act { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.btn { border: 1px solid var(--line-2); background: var(--sheet); border-radius: 6px; padding: 5px 12px; font-size: 14px; cursor: pointer; min-height: 34px; }
+.btn:hover { background: var(--raised); border-color: var(--ink-2); }
+.btn.pri { background: var(--ink); color: var(--paper); border-color: var(--ink); font-weight: 600; }
+.btn.pri[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.btn.ghost { background: none; border-color: transparent; color: var(--muted); padding-inline: 6px; }
+.btn.ghost:hover { color: var(--ink); background: none; border-color: transparent; text-decoration: underline; }
+.btn:disabled { opacity: .55; cursor: default; }
+.note-row { margin-top: 14px; display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: start; max-width: 820px; }
+.note-row label { grid-column: 1 / -1; font-size: 13.5px; color: var(--ink-2); }
+.note-row textarea { width: 100%; min-height: 46px; resize: vertical; border: 1px solid var(--line-2); border-radius: 6px; background: var(--sheet); padding: 8px 10px; font-size: 15px; line-height: 1.5; }
+.note-row .st { grid-column: 1 / -1; font-size: 12.5px; color: var(--muted); min-height: 1.2em; }
+.switch { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; }
+.switch input { width: 34px; height: 18px; appearance: none; border-radius: 999px; background: var(--line-2); position: relative; cursor: pointer; margin: 0; flex: none; }
+.switch input::after { content: ""; position: absolute; top: 2px; inset-inline-start: 2px; width: 14px; height: 14px; border-radius: 50%; background: var(--sheet); transition: inset-inline-start .15s; }
+.switch input:checked { background: var(--act); }
+.switch input:checked::after { inset-inline-start: 18px; }
+
+/* preview frame: a scale model of the lesson screen */
+.pv { position: relative; height: 290px; overflow: hidden; border: 1px solid var(--line); border-radius: 8px; background: var(--sheet); font-size: 11px; line-height: 1.7; color: var(--ink); isolation: isolate; }
+.card.big .pv { height: 520px; font-size: 14px; }
+.pv.auto { height: auto; font-size: 12.5px; }
+.pv p { margin: 0 0 .7em; }
+.pv h4 { margin: 0 0 .5em; font-size: 1.35em; font-weight: 600; line-height: 1.3; }
+.pv h5 { margin: .8em 0 .4em; font-size: 1.12em; font-weight: 600; }
+.pv .src { font-family: var(--mono); color: var(--muted); font-size: .82em; }
+.pv-pad { padding: .9em 1.1em; }
+.pv-fade::after { content: ""; position: absolute; inset: auto 0 0 0; height: 36px; background: linear-gradient(to bottom, transparent, var(--sheet)); pointer-events: none; z-index: 3; }
+
+/* mini app chrome */
+.app { display: grid; height: 100%; grid-template-rows: auto 1fr auto; }
+.app-top { display: flex; align-items: center; gap: .8em; padding: .35em .9em; border-bottom: 1px solid var(--line); background: var(--paper); font-size: .88em; color: var(--muted); white-space: nowrap; overflow: hidden; }
+.app-top b { color: var(--ink); font-weight: 600; }
+.app-bar { display: flex; gap: .7em; align-items: center; padding: .35em .9em; border-top: 1px solid var(--line); background: var(--paper); font-size: .86em; color: var(--muted); white-space: nowrap; overflow: hidden; }
+.app-bar .pill { flex: 1; border: 1px solid var(--line-2); border-radius: 999px; padding: .1em .8em; color: var(--muted); background: var(--sheet); min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.app-main { min-height: 0; overflow: hidden; display: grid; }
+.outline { padding: .8em .7em; border-inline-end: 1px solid var(--line); font-size: .86em; overflow: hidden; background: var(--paper); }
+.outline .oh { color: var(--muted); font-size: .9em; margin-bottom: .5em; }
+.outline ol { list-style: none; margin: 0; padding: 0; display: grid; gap: .35em; }
+.outline li { position: relative; padding-inline-start: .9em; color: var(--ink-2); line-height: 1.35; }
+.outline li.h3 { padding-inline-start: 1.7em; color: var(--muted); }
+.outline li.kr { color: var(--core); padding-inline-start: 1.7em; }
+.outline li.here { color: var(--ink); font-weight: 600; }
+.outline li.here::before { content: ""; position: absolute; inset-inline-start: -.2em; top: .4em; width: .55em; height: .55em; border-radius: 50%; background: var(--accent); }
+.outline .here-lab { display: block; font-weight: 400; color: var(--accent); font-size: .85em; }
+.col-text { padding: .9em 1.1em; overflow: hidden; min-width: 0; }
+.margin { padding: .9em .6em; overflow: hidden; display: grid; align-content: start; gap: .8em; }
+.sticky { background: var(--mn-paper); color: var(--mn-ink); border-top: 3px solid var(--k-think); padding: .7em .6em .5em; font-size: .86em; line-height: 1.45; transform: rotate(-1deg); box-shadow: 0 1px 1px rgb(0 0 0 / 8%), 0 6px 12px -6px rgb(0 0 0 / 25%); }
+.sticky b { display: block; font-size: .85em; color: var(--k-think); }
+.chip-src { font-family: var(--mono); font-size: .8em; color: var(--muted); }
+.ndot { display: inline-grid; place-items: center; width: 1.5em; height: 1.5em; border-radius: 50%; background: var(--mn-paper); color: var(--mn-ink); font-size: .78em; font-family: var(--mono); border: 1px solid var(--line-2); vertical-align: .1em; }
+.drawer { position: absolute; inset-block: 0; inset-inline-start: 0; width: 46%; background: var(--paper); border-inline-end: 1px solid var(--line-2); z-index: 5; transform: translateX(105%); transition: transform .25s; box-shadow: var(--shadow); }
+.drawer.open { transform: none; }
+.drawer-scrim { position: absolute; inset: 0; background: var(--scrim); z-index: 4; opacity: 0; pointer-events: none; transition: opacity .25s; }
+.drawer.open + .drawer-scrim { opacity: 1; pointer-events: auto; }
+.burger { border: 1px solid var(--line-2); background: var(--sheet); border-radius: 4px; cursor: pointer; font-size: 1em; padding: 0 .5em; color: var(--ink); }
+.rail { border-inline-start: 1px solid var(--line); padding: .8em .7em; background: var(--paper); overflow: hidden; display: grid; align-content: start; gap: .6em; font-size: .9em; }
+.rail .rh { color: var(--muted); font-size: .9em; }
+.rail .rf { border: 1px solid var(--line); background: var(--sheet); border-radius: 4px; padding: .4em .5em; display: grid; gap: .2em; }
+.rail .rf.cur { border-color: var(--core); box-shadow: 0 0 0 1px var(--core) inset; }
+.rail .rf small { color: var(--muted); font-size: .85em; }
+.rail .rf .md { font-size: .95em; }
+
+/* blocks: base + four styling variants */
+.blk { margin: .8em 0; padding: .6em .85em; position: relative; }
+.blk-lab { font-size: .82em; font-weight: 600; display: flex; gap: .5em; align-items: center; margin-bottom: .2em; }
+.blk-title { font-weight: 600; }
+.blk p:last-child { margin-bottom: 0; }
+.blk .ic { display: none; }
+.blk.def { --kc: var(--k-def); }
+.blk.formula { --kc: var(--k-formula); }
+.blk.think { --kc: var(--k-think); }
+.blk.story { --kc: var(--k-story); }
+.blk.deriv { --kc: var(--k-deriv); }
+.blk.case { --kc: var(--k-case); }
+.bs-tier .blk.core { border: 1px solid var(--core); background: var(--core-bg); border-radius: 3px; }
+.bs-tier .blk.core .blk-lab { color: var(--core); }
+.bs-tier .blk.act { border-inline-start: 4px solid var(--act); background: var(--act-bg); }
+.bs-tier .blk.act .blk-lab { color: var(--act); }
+.bs-tier .blk.ctx { border-inline-start: 3px solid color-mix(in srgb, var(--ctx) 60%, transparent); background: var(--ctx-bg); }
+.bs-tier .blk.ctx .blk-lab { color: var(--ctx); }
+.bs-tint .blk { background: color-mix(in srgb, var(--kc) 9%, var(--sheet)); border-radius: 10px; padding: .75em .95em; }
+.bs-tint .blk .blk-lab span:first-child { background: color-mix(in srgb, var(--kc) 16%, var(--sheet)); color: var(--kc); border-radius: 999px; padding: 0 .7em; font-weight: 600; }
+.bs-min .blk { padding: .1em 2.1em .1em 0; }
+.bs-min .blk .ic { display: grid; place-items: center; position: absolute; inset-inline-start: 0; top: .15em; width: 1.6em; height: 1.6em; color: var(--kc); font-size: 1em; font-weight: 700; border-radius: 50%; border: 1.5px solid currentColor; font-family: var(--mono); line-height: 1; }
+.bs-min .blk .blk-lab { color: var(--kc); }
+.bs-dash .blk { border: 2px dashed var(--kc); border-radius: 6px; margin-top: 1.3em; padding-top: .9em; }
+.bs-dash .blk .blk-lab { position: absolute; top: -.9em; inset-inline-start: .8em; background: var(--sheet); color: var(--kc); padding: 0 .4em; }
+.bs-dash .blk .blk-lab .blk-title { color: var(--ink); }
+
+/* commit widget */
+.cm { background: var(--raised); border: 1px solid var(--line); border-inline-start: 4px solid var(--act); padding: .7em .85em; margin: .8em 0; border-radius: 3px; }
+.cm-h { display: flex; gap: .6em; align-items: center; font-size: .82em; color: var(--act); font-weight: 600; margin-bottom: .3em; flex-wrap: wrap; }
+.cm-h .sp { margin-inline-start: auto; }
+.cm-h .lnk { background: none; border: 0; color: var(--muted); cursor: pointer; font-size: 1em; padding: 0; text-decoration: underline; }
+.cm-q { margin: 0 0 .6em; }
+.opts { display: grid; gap: .35em; }
+.opt { display: flex; gap: .6em; align-items: center; min-height: 2.9em; border: 1px solid var(--line); background: var(--sheet); border-radius: 5px; padding: .3em .7em; cursor: pointer; text-align: start; width: 100%; font-size: 1em; flex-wrap: wrap; }
+.opt .k { font-family: var(--mono); color: var(--muted); flex: none; }
+.opt .t { flex: 1; min-width: 8em; }
+.opt[aria-checked="true"] { border-color: var(--act); background: var(--act-bg); }
+.opt.right { border-color: var(--ok); background: var(--ok-bg); }
+.opt.wrong { border-color: var(--bad); background: var(--bad-bg); }
+.opt.hotw { border-color: var(--hot); background: var(--hot-bg); }
+.conf { display: flex; margin-top: .6em; border: 1px solid var(--line-2); border-radius: 5px; overflow: hidden; }
+.conf button { flex: 1; border: 0; background: var(--sheet); padding: .45em .3em; cursor: pointer; font-size: .95em; display: grid; justify-items: center; gap: .15em; min-height: 2.9em; }
+.conf button + button { border-inline-start: 1px solid var(--line); }
+.conf button:disabled { opacity: .55; cursor: default; }
+.conf button:not(:disabled):hover { background: var(--act-bg); }
+.bars { display: inline-flex; gap: 2px; align-items: end; height: .8em; }
+.bars i { width: 3px; background: var(--line-2); display: block; }
+.bars i:nth-child(1) { height: 40%; } .bars i:nth-child(2) { height: 70%; } .bars i:nth-child(3) { height: 100%; }
+.bars.l1 i:nth-child(1), .bars.l2 i:nth-child(-n+2), .bars.l3 i { background: var(--act); }
+.hint { font-size: .85em; color: var(--muted); margin-top: .4em; }
+.inline-conf { display: inline-flex; gap: .3em; flex-wrap: wrap; align-items: center; font-size: .85em; }
+.inline-conf .lbl { color: var(--muted); }
+.inline-conf button { border: 1px solid var(--act); background: var(--sheet); color: var(--act); border-radius: 999px; padding: 0 .7em; cursor: pointer; font-size: 1em; min-height: 2em; }
+.inline-conf button:hover { background: var(--act-bg); }
+.answer-btn { margin-top: .6em; }
+.verdict { margin-top: .6em; display: grid; gap: .3em; animation: rise .25s ease-out; }
+.pillv { display: inline-flex; width: fit-content; align-items: center; gap: .4em; font-weight: 600; font-size: .9em; padding: .1em .7em; border-radius: 999px; }
+.pillv.ok { background: var(--ok-bg); color: var(--ok); }
+.pillv.bad { background: var(--bad-bg); color: var(--bad); }
+.pillv.hot { background: var(--hot-bg); color: var(--hot); }
+.pillv.neu { background: var(--line); color: var(--ink-2); }
+.why { font-size: .95em; color: var(--ink-2); }
+.sched { font-size: .85em; color: var(--muted); }
+@keyframes rise { from { transform: translateY(6px); opacity: 0; } to { transform: none; opacity: 1; } }
+
+/* confident-wrong variants */
+.ce-card { border: 1.5px solid var(--hot); background: var(--hot-bg); border-radius: 6px; padding: .7em .85em; display: grid; gap: .45em; animation: rise .3s ease-out; }
+.ce-card .ce-h { color: var(--hot); font-weight: 700; font-size: .92em; display: flex; gap: .5em; align-items: center; flex-wrap: wrap; }
+.ce-card .fix { background: var(--raised); border-radius: 4px; padding: .35em .6em; font-weight: 500; }
+.ce-card .go { color: var(--act); font-size: .9em; }
+.ce-inline { margin: .1em 0 .2em; padding: .45em .7em .45em .7em; border-inline-start: 3px solid var(--hot); background: color-mix(in srgb, var(--hot-bg) 70%, var(--sheet)); font-size: .93em; display: grid; gap: .25em; overflow: hidden; animation: grow .35s ease-out; transform-origin: top; }
+@keyframes grow { from { max-height: 0; opacity: 0; } to { max-height: 20em; opacity: 1; } }
+.ce-mgrid { display: grid; grid-template-columns: 1fr 34%; gap: .8em; align-items: start; }
+.ce-call { position: relative; border: 1px solid var(--hot); background: var(--hot-bg); border-radius: 5px; padding: .5em .6em; font-size: .88em; line-height: 1.45; display: grid; gap: .3em; animation: rise .3s ease-out; }
+.ce-call::before { content: ""; position: absolute; top: 1.2em; inset-inline-start: -.85em; width: .85em; border-top: 1.5px dashed var(--hot); }
+.ce-call b { color: var(--hot); }
+.mark-hot { color: var(--hot); font-weight: 700; }
+
+/* consultation */
+.qcard { border: 1px solid var(--act); background: var(--raised); border-radius: 6px; padding: .6em .8em; position: relative; margin: .2em 0 .9em; display: grid; gap: .4em; }
+.qcard::before { content: ""; position: absolute; top: -6px; inset-inline-start: 2em; width: 10px; height: 10px; background: var(--raised); border-top: 1px solid var(--act); border-inline-start: 1px solid var(--act); transform: rotate(45deg); }
+.qquote { font-size: .85em; color: var(--muted); border-inline-start: 2px solid var(--line-2); padding-inline-start: .5em; }
+.qa { font-size: .95em; }
+.qchips { display: flex; flex-wrap: wrap; gap: .35em; font-size: .82em; }
+.qchips span { border: 1px solid var(--line-2); border-radius: 999px; padding: 0 .6em; color: var(--ink-2); background: var(--sheet); }
+.demo-badge { font-size: .78em; color: var(--muted); border: 1px dashed var(--line-2); border-radius: 3px; padding: 0 .4em; width: fit-content; }
+.turn { display: grid; gap: .15em; font-size: .93em; }
+.turn .who { font-size: .8em; color: var(--muted); font-weight: 600; }
+.turn.me .who { color: var(--accent); }
+.turn.me .tx { background: var(--accent-soft); border-radius: 5px; padding: .25em .55em; width: fit-content; max-width: 100%; }
+.side-panel { border-inline-start: 1px solid var(--line-2); background: var(--paper); padding: .7em .8em; display: grid; align-content: start; gap: .55em; overflow: auto; min-width: 0; }
+.side-panel .sph { font-size: .85em; color: var(--muted); display: flex; gap: .5em; }
+.anchor-hl { background: color-mix(in srgb, var(--act) 14%, transparent); border-radius: 2px; }
+.sheet { position: absolute; inset-inline: 0; bottom: 0; height: 52%; background: var(--raised); border-top: 1px solid var(--line-2); border-radius: 12px 12px 0 0; box-shadow: 0 -8px 20px -10px rgb(0 0 0 / 30%); padding: .5em .9em .7em; display: grid; align-content: start; gap: .45em; overflow: auto; z-index: 4; transition: height .3s; }
+.sheet .grab { width: 3em; height: 4px; border-radius: 4px; background: var(--line-2); margin: 0 auto .3em; }
+.disc .sheet { height: 88%; }
+.stack { display: grid; gap: .45em; }
+.only-disc { display: none; }
+.disc .only-disc { display: grid; }
+.disc .no-disc, .grid:not(.disc) .only-disc { display: none; }
+.composer { display: flex; gap: .4em; align-items: center; border: 1px solid var(--line-2); border-radius: 999px; padding: .2em .7em; font-size: .88em; color: var(--muted); background: var(--sheet); }
+.composer .anc { border: 1px solid var(--act); color: var(--act); border-radius: 999px; padding: 0 .5em; font-size: .9em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 55%; }
+
+/* sound panels */
+.vol-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 12px 24px; margin-top: 16px; background: var(--sheet); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; max-width: 820px; }
+.vol { display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; font-size: 14px; align-items: center; }
+.vol input[type="range"] { grid-column: 1 / -1; width: 100%; accent-color: var(--act); }
+.vol output { font-family: var(--mono); font-size: 13px; color: var(--muted); }
+.snd { display: grid; gap: 8px; }
+.snd textarea { width: 100%; min-height: 54px; resize: vertical; border: 1px solid var(--line-2); border-radius: 6px; background: var(--sheet); padding: 8px; font-size: 15px; }
+.snd .row { display: flex; gap: 6px; flex-wrap: wrap; }
+.wave { height: 54px; border: 1px solid var(--line); border-radius: 6px; background: var(--sheet); display: block; width: 100%; }
+.play { display: inline-flex; align-items: center; gap: 8px; }
+.play[aria-pressed="true"] { background: var(--act); color: var(--sheet); border-color: var(--act); }
+.eq { display: inline-flex; gap: 2px; align-items: end; height: 12px; }
+.eq i { width: 3px; background: currentColor; height: 30%; display: block; }
+.play[aria-pressed="true"] .eq i { animation: eq 1s ease-in-out infinite; }
+.play[aria-pressed="true"] .eq i:nth-child(2) { animation-delay: .2s; }
+.play[aria-pressed="true"] .eq i:nth-child(3) { animation-delay: .4s; }
+@keyframes eq { 0%, 100% { height: 30%; } 50% { height: 100%; } }
+.spec-row { margin-top: 14px; max-width: 820px; display: grid; gap: 6px; }
+.spec-row .lab { font-size: 13px; color: var(--muted); }
+
+/* themes */
+.th { --p-bg: var(--tc-bg); --p-sheet: var(--tc-sheet); --p-ink: var(--tc-ink); --p-muted: var(--tc-muted); --p-line: var(--tc-line); --p-core: var(--tc-core); --p-core-bg: var(--tc-core-bg); --p-act: var(--tc-act); --p-act-bg: var(--tc-act-bg); --p-accent: var(--tc-accent); background: var(--p-bg); color: var(--p-ink); padding: .8em; height: 100%; }
+.th.g { --p-bg: var(--tg-bg); --p-sheet: var(--tg-sheet); --p-ink: var(--tg-ink); --p-muted: var(--tg-muted); --p-line: var(--tg-line); --p-core: var(--tg-core); --p-core-bg: var(--tg-core-bg); --p-act: var(--tg-act); --p-act-bg: var(--tg-act-bg); --p-accent: var(--tg-accent); }
+.th.n { --p-bg: var(--tn-bg); --p-sheet: var(--tn-sheet); --p-ink: var(--tn-ink); --p-muted: var(--tn-muted); --p-line: var(--tn-line); --p-core: var(--tn-core); --p-core-bg: var(--tn-core-bg); --p-act: var(--tn-act); --p-act-bg: var(--tn-act-bg); --p-accent: var(--tn-accent); }
+.th.e { --p-bg: var(--te-bg); --p-sheet: var(--te-sheet); --p-ink: var(--te-ink); --p-muted: var(--te-muted); --p-line: var(--te-line); --p-core: var(--te-core); --p-core-bg: var(--te-core-bg); --p-act: var(--te-act); --p-act-bg: var(--te-act-bg); --p-accent: var(--te-accent); }
+.th-sheet { background: var(--p-sheet); border: 1px solid var(--p-line); border-radius: 4px; padding: .8em 1em; height: 100%; overflow: hidden; }
+.th h4 { color: var(--p-ink); }
+.th h4::before { content: ""; display: inline-block; width: .5em; height: .5em; border-radius: 50%; background: var(--p-accent); margin-inline-end: .4em; vertical-align: .15em; }
+.th .tdef { border: 1px solid var(--p-core); background: var(--p-core-bg); padding: .5em .7em; margin: .6em 0; border-radius: 3px; }
+.th .tdef .tl { color: var(--p-core); font-size: .85em; display: block; font-weight: 600; }
+.th .tthink { border-inline-start: 4px solid var(--p-act); background: var(--p-act-bg); padding: .45em .7em; }
+.th .tthink .tl { color: var(--p-act); font-size: .85em; display: block; font-weight: 600; }
+.th .tm { color: var(--p-muted); font-size: .85em; }
+.th.e .tdef { border-width: 1.5px; }
+.split { display: grid; grid-template-columns: 1fr 1fr; height: 100%; }
+.dens-c { font-size: 1em; line-height: 1.85; }
+.dens-k { font-size: .93em; line-height: 1.5; }
+.dens-k p { margin-bottom: .4em; }
+.dens-k .blk { margin: .45em 0; padding: .35em .6em; }
+.dens-k h4 { margin-bottom: .25em; }
+
+/* cursors */
+.cz-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: .6em; padding: .7em; height: 100%; }
+.cz { border: 1px dashed var(--line-2); border-radius: 6px; padding: .6em .7em; display: grid; align-content: start; gap: .5em; background: var(--paper); min-width: 0; }
+.cz .lab { font-size: .85em; color: var(--muted); font-weight: 600; }
+.cz .fake-btn { border: 1px solid var(--line-2); background: var(--sheet); border-radius: 5px; padding: .3em .7em; width: fit-content; font-size: 1em; }
+.cz .fake-in { border: 1px solid var(--line-2); background: var(--sheet); border-radius: 5px; padding: .3em .6em; width: 100%; font-size: 1em; }
+.cz-preview { display: flex; gap: .8em; align-items: center; font-size: .85em; color: var(--muted); flex-wrap: wrap; }
+.cz-preview img { width: 26px; height: 26px; background: var(--sheet); border: 1px solid var(--line); border-radius: 4px; padding: 2px; }
+
+/* progress */
+.pg { display: grid; height: 100%; grid-template-rows: auto 1fr; }
+.pg-body { display: grid; min-height: 0; }
+.pg-scroll { overflow-y: auto; padding: .9em 1.1em; min-height: 0; scroll-behavior: smooth; }
+.pg-scroll section { padding-bottom: 1.2em; }
+.pg-top { position: relative; padding: .35em .9em; border-bottom: 1px solid var(--line); background: var(--paper); font-size: .88em; color: var(--muted); display: flex; gap: .6em; white-space: nowrap; overflow: hidden; }
+.pg-top b { color: var(--ink); font-weight: 600; overflow: hidden; text-overflow: ellipsis; }
+.pg-hair { position: absolute; inset-inline-start: 0; bottom: -1px; height: 3px; background: var(--accent); width: 0; transition: width .15s; }
+.dots { display: grid; align-content: center; gap: .9em; padding: 0 .6em; border-inline-start: 1px solid var(--line); background: var(--paper); }
+.dots button { width: .8em; height: .8em; border-radius: 50%; border: 1.5px solid var(--line-2); background: var(--sheet); padding: 0; cursor: pointer; position: relative; }
+.dots button.done { background: var(--line-2); }
+.dots button.here { background: var(--accent); border-color: var(--accent); transform: scale(1.25); }
+.dots button.here::after { content: attr(data-l); position: absolute; inset-inline-end: 1.6em; top: 50%; transform: translateY(-50%); white-space: nowrap; background: var(--ink); color: var(--paper); font-size: .85em; padding: .05em .5em; border-radius: 3px; }
+.outline li { cursor: pointer; }
+.outline li.done { color: var(--muted); }
+.outline li.done::after { content: " ✓"; color: var(--ok); }
+.mins { font-family: var(--mono); color: var(--muted); font-size: .85em; }
+
+.foot { margin-top: 48px; border-top: 1px solid var(--line); padding-top: 18px; font-size: 13.5px; color: var(--muted); max-width: 820px; display: grid; gap: 6px; }
+.toast { position: fixed; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); inset-inline-start: max(16px, env(safe-area-inset-right, 0px)); background: var(--ink); color: var(--paper); padding: 8px 14px; border-radius: 6px; font-size: 14px; z-index: 40; opacity: 0; transform: translateY(8px); transition: opacity .2s, transform .2s; pointer-events: none; max-width: calc(100vw - 32px); }
+.toast.on { opacity: 1; transform: none; }
+
+@media (max-width: 640px) {
+  .q-head { grid-template-columns: 1fr; }
+  .q-head p { grid-column: 1; }
+  .q-head h2 { font-size: 19px; }
+  .top-ctl { margin-inline-start: 0; }
+  .pv { height: 300px; }
+  .card.big .pv { height: 440px; font-size: 12.5px; }
+  .note-row { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="top-in">
+      <div class="brand"><span class="brand-mark" aria-hidden="true"></span>לוח העיצוב של המעבדות</div>
+      <div class="top-ctl">
+        <span class="seg" role="group" aria-label="ערכת צבעים של הדף">
+          <button type="button" data-th="auto" aria-pressed="true">אוטומטי</button>
+          <button type="button" data-th="light" aria-pressed="false">בהיר</button>
+          <button type="button" data-th="dark" aria-pressed="false">כהה</button>
+        </span>
+        <span class="seg" role="group" aria-label="מעבדה">
+          <button type="button" data-lab="core" aria-pressed="true">לנצ'סטר</button>
+          <button type="button" data-lab="gil" aria-pressed="false">גילואה</button>
+        </span>
+        <label class="switch"><input type="checkbox" id="snd-on" checked> צלילים</label>
+        <span class="sync" id="sync" data-s="wait"><i></i><span>מתחבר…</span></span>
+      </div>
+    </div>
+  </header>
+  <main class="inner">
+    <section class="hero">
+      <h1>איך ייראה, יישמע וירגיש מסך השיעור</h1>
+      <p>תשע שאלות עיצוב, ובכל אחת שתיים עד ארבע אפשרויות חיות, בנויות מהשיעור האמיתי על האלכסון והצלע (K1:29–44). לחץ, ענה, הקלד והאזן, ואז בחר אחת בכל שאלה וכתוב הערה אם יש. הבחירות נשמרות, ו-Claude קורא אותן כשהוא בונה את המסך.</p>
+      <p class="src">תווית "ההצעה הנוכחית" מסמנת את מה שאב-הטיפוס v3 הציע; "באפליקציה היום" מסמנת את מה שרץ עכשיו. הכפתורים למעלה מחליפים בין בהיר לכהה ובין צבע לנצ'סטר לגילואה בכל הדף.</p>
+    </section>
+    <section class="summary" aria-labelledby="sum-h">
+      <h2 id="sum-h">הבחירות שלך <span id="sum-count">0 מתוך 12</span></h2>
+      <ul class="sum-list" id="sum-list"></ul>
+    </section>
+    <div id="qs"></div>
+    <footer class="foot">
+      <div>כל תשובות המורה בדף הן תשובות מוכנות מראש לצורך ההדגמה. הצלילים מסונתזים בדפדפן באותה שיטה כמו <span class="mono">sound.ts</span>, ונשמעים רק אחרי לחיצה.</div>
+      <div id="foot-sync">הבחירות נשמרות במסד הנתונים של הדף, באוסף <span class="mono">design_choices</span>, ועותק גם בדפדפן הזה.</div>
+    </footer>
+  </main>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+"use strict";
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+/* ---------- math ---------- */
+function M(tex, display) {
+  let h;
+  try {
+    if (!window.katex) throw 0;
+    h = katex.renderToString(tex, { output: "mathml", throwOnError: false, displayMode: !!display });
+  } catch (e) {
+    h = '<span class="mfb">' + esc(tex) + "</span>";
+  }
+  const s = '<span class="m" dir="ltr">' + h + "</span>";
+  return display ? '<span class="md">' + s + "</span>" : s;
+}
+function tx(s) {
+  return s
+    .replace(/\$\$([^$]+)\$\$/g, (_, t) => M(t, true))
+    .replace(/\$([^$]+)\$/g, (_, t) => M(t))
+    .replace(/\*\*([^*]+)\*\*/g, "<b>$1</b>");
+}
+
+/* ---------- lesson content (verbatim from lesson_1.md, section 2) ---------- */
+const L = {
+  h2: "האלכסון והצלע: קטעים בלי מידה משותפת",
+  p1: "שאלת החוט: האם כל שני קטעים ניתנים למדידה זה בזה, אם רק מחלקים את היחידה מספיק? אם כן, כל יחס בין גדלים הוא שבר, והרציונליים של המדידה מספיקים לכל דבר. כדי לשאול זאת בדיוק צריך שם למצב שבו השארית נעלמת בסוף.",
+  defT: "קטעים בני-מידה משותפת",
+  def: "יהיו $a$ ו-$b$ שני קטעים, או שני גדלים מאותו סוג. הם **בני-מידה משותפת** אם קיים קטע $e$ ושני שלמים חיוביים $m,n$ כך ש-$a=m\\,e$ ו-$b=n\\,e$: הקטע $e$ נכנס בכל אחד מהם מספר שלם של פעמים. אם אין קטע כזה, $a$ ו-$b$ **זרים במידתם**.",
+  how: "**איך זה בנוי.** ההגדרה אינה דורשת ש-$e$ יהיה היחידה המקורית, אלא שיהיה **איזה** קטע משותף, קטן ככל שנרצה. לכן \"זרים במידתם\" היא טענה חזקה מאוד: אין שום חלוקה, עדינה ככל שתהיה, שמסתיימת בלי שארית.",
+  naive: "**הדרך הנאיבית.** במשך דורות השאלה לא עלתה: מי שמחלק או מודד ונתקל בשארית זעירה זורק אותה, כי למדידה בדיוק אינסופי אין מובן מעשי. דמוקריטוס הלך רחוק יותר: שטח הוא סכום של שורות אטומים, ונפח סכום של שכבות.",
+  atoms: "**למה הסתירה הורסת את האטומים.** אם כל קטע עשוי מספר סופי של אטומים שווים, האטום עצמו הוא קטע משותף לכל שני קטעים, וכל שני קטעים בני-מידה. לכן מספיק זוג אחד של קטעים זרים במידתם כדי להפיל את האטומיזם הגאומטרי.",
+  storyT: "גיליון שמתקפל לעצמו",
+  story: "מקפלים גיליון A4 לחצי ומקבלים A5 באותה צורה בדיוק, רק קטן יותר. אם הצלעות הן $1$ ו-$r$, לחצי יש צלעות $r/2$ ו-$1$, והיחס שלו $2/r$. הצורה נשמרת רק אם $r=2/r$, כלומר $r^2=2$.",
+  thinkQ: "ההוכחה תתחיל ב\"נניח ש-$b/a=p/q$, שבר מצומצם\". על מה נשען \"אפשר לקחת אותו מצומצם\"?",
+  opts: ["פירוק יחיד של שלמים לגורמים ראשוניים", "בכל קבוצה לא ריקה של שלמים חיוביים יש איבר קטן ביותר", "העובדה ש-2 ראשוני", "אף אחת מאלה"],
+  right: 1,
+  thinkA: "(ב). מבין כל השברים השווים ל-$b/a$ לוקחים את בעל המכנה הקטן ביותר. אילו היה למונה ולמכנה שלו גורם משותף, היה שבר שווה עם מכנה קטן עוד יותר.",
+  tempts: ["פירוק יחיד הוא הנימוק של הוכחה אחרת לאותו משפט (ספירת הגורמים 2 בשני צדי $p^2=2q^2$). כאן הצמצום צריך רק שלקבוצת המכנים יהיה איבר קטן ביותר.", "", "העובדה ש-2 ראשוני נכנסת בצעד 4 (ריבוע של אי-זוגי הוא אי-זוגי), לא בבחירת השבר המצומצם.", "יש כאן הנחה, והיא פשוט לא נאמרה בעמוד: הסדר הטוב של השלמים החיוביים."],
+  tempt: "פירוק יחיד הוא הנימוק של הוכחה אחרת לאותו משפט (ספירת הגורמים 2 בשני צדי $p^2=2q^2$). כאן הצמצום צריך רק שלקבוצת המכנים יהיה איבר קטן ביותר.",
+  fix: "\"מצומצם\" ⇐ סדר טוב: בוחרים את המכנה הקטן ביותר.",
+  derT: "האלכסון והצלע זרים במידתם",
+  der: ["**צעד 1:** לפי משפט פיתגורס $b^2=a^2+a^2=2a^2$, ולכן $(b/a)^2=2$.", "**צעד 2:** נניח בשלילה ש-$b/a=p/q$, מצומצם. **הנחה:** לקבוצת המכנים האפשריים יש איבר קטן ביותר.", "**צעד 3:** מ-$(p/q)^2=2$ נקבל $p^2=2q^2$, ולכן $p^2$ זוגי."],
+  f1T: "אי-פריקות האלכסון והצלע",
+  f1: "p^2\\neq2q^2,\\qquad p,q\\in\\mathbb{Z},\\ p,q\\ge1 \\quad (1)",
+  f2T: "חסם הקירוב של √2",
+  f2: "\\left|\\tfrac pq-\\sqrt2\\right|\\ \\ge\\ \\frac{1}{q^2\\left(\\frac pq+\\sqrt2\\right)} \\quad (2)",
+  f3: "\\tfrac{AB}{CD}=n_0.n_1n_2n_3\\ldots \\quad (3)",
+  think2: "מודדים את יחס האלכסון לצלע במכשיר שמדויק עד $10^{-9}$. האם מדידה כזאת יכולה להראות שהיחס אינו שבר?",
+  outline: [
+    { t: "גאומטריה: צורה בלי חומר", c: "" },
+    { t: "מדידה: הנחה וספירה", c: "h3" },
+    { t: "האלכסון והצלע", c: "here" },
+    { t: "(1) אי-פריקות האלכסון והצלע", c: "kr" },
+    { t: "(2) חסם הקירוב של √2", c: "kr" },
+    { t: "המספר הממשי: מדידה שלא נגמרת", c: "" },
+    { t: "הבדיד והרציף", c: "" },
+  ],
+  note: "לבדוק אם ISO 216 מגדיר את היחס √2 או רק את המילימטרים.",
+  askQ: "למה צריך כאן סדר טוב? לא מספיק לחלק במחלק המשותף הגדול?",
+  askA: "אפשר, אבל אז צריך לדעת שהמחלק המשותף הגדול קיים. אלגוריתם אוקלידס נעצר רק כי השאריות יורדות ואינן יכולות לרדת לנצח, וזו שוב אותה הנחה: איבר קטן ביותר.",
+  disc: [
+    ["me", "אז בכל הוכחה כזאת מסתתר סדר טוב?"],
+    ["t", "כמעט בכל הוכחה שמתחילה ב\"נבחר את הקטן ביותר\" או ב\"התהליך נעצר\". בשלמים זה מובטח; זו בדיוק ההנחה שהעמוד לא אומר."],
+    ["me", "ובממשיים זה נשבר?"],
+    ["t", "כן. לקטע $(0,1)$ אין איבר קטן ביותר, ולכן אין שם \"צמצום\". במקומו נכנסת תכונת הרציפות (5), שתגיע בסעיף הבא."],
+  ],
+};
+
+/* ---------- block renderer ---------- */
+const ICON = { def: "≡", formula: "∑", think: "?", story: "❝", deriv: "↳", case: "▣" };
+const LAB = { def: "הגדרה", formula: "נוסחה מרכזית", think: "שאלה", story: "סיפור", deriv: "גזירה", case: "מקרה" };
+const TIER = { def: "core", formula: "core", think: "act", deriv: "act", story: "ctx", case: "ctx" };
+function blk(kind, title, body) {
+  return '<div class="blk ' + kind + " " + TIER[kind] + '"><span class="ic" aria-hidden="true">' + ICON[kind] + '</span><div class="blk-lab"><span>' + LAB[kind] + "</span>" + (title ? '<span class="blk-title">' + tx(title) + "</span>" : "") + "</div>" + body + "</div>";
+}
+const P = (s) => "<p>" + tx(s) + "</p>";
+const defBlk = () => blk("def", L.defT, P(L.def));
+const storyBlk = () => blk("story", L.storyT, P(L.story));
+const f1Blk = () => blk("formula", L.f1T, M(L.f1, true));
+const thinkStub = () => blk("think", "", P(L.thinkQ) + '<p class="src">4 אפשרויות · ענה לפני שתמשיך</p>');
+const derBlk = () => blk("deriv", L.derT, L.der.map(P).join(""));
+function outlineHTML(cls) {
+  return '<nav class="outline ' + (cls || "") + '"><div class="oh">תוכן השיעור · <span class="mins">עוד 14 דק\'</span></div><ol>' +
+    L.outline.map((o) => '<li class="' + o.c + '">' + esc(o.t) + (o.c === "here" ? '<span class="here-lab">אתה כאן</span>' : "") + "</li>").join("") + "</ol></nav>";
+}
+const appTop = (extra) => '<div class="app-top">' + (extra || "") + "<b>שיעור 2 · M0.1</b><span>האלכסון והצלע</span><span style=\"margin-inline-start:auto\">Aa</span></div>";
+const appBar = () => '<div class="app-bar"><span>☰</span><span class="pill">שאל על הפסקה הזאת…</span><span>פתק</span><span>ריכוז</span></div>';
+
+/* ---------- sound engine (same synthesis as eng/app/src/sound.ts) ---------- */
+const S = { ctx: null, master: null, cueVol: 60, noiseVol: 35, bed: null, buffers: new Map(), analyser: null };
+function enabled() { const cb = $("#snd-on"); return !cb || cb.checked; }
+function cueGain() { return Math.pow(S.cueVol / 100, 2) * 0.9; }
+function noiseGain() { return Math.pow(S.noiseVol / 100, 2) * 0.6; }
+function audio() {
+  if (!S.ctx) {
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return null;
+    S.ctx = new AC();
+    S.master = S.ctx.createGain();
+    const lim = S.ctx.createDynamicsCompressor();
+    lim.threshold.value = -6; lim.knee.value = 0; lim.ratio.value = 12; lim.attack.value = 0.001; lim.release.value = 0.05;
+    S.master.connect(lim); lim.connect(S.ctx.destination);
+    S.analyser = S.ctx.createAnalyser(); S.analyser.fftSize = 1024; S.analyser.smoothingTimeConstant = 0.85;
+  }
+  S.master.gain.value = cueGain();
+  if (S.ctx.state === "suspended") S.ctx.resume();
+  return S.ctx;
+}
+function safely(f) { if (!enabled()) return; try { f(); } catch (e) { /* no sound here */ } }
+function tone(f, dur, o) {
+  o = o || {};
+  const c = audio(); if (!c) return;
+  const t = c.currentTime + (o.delay || 0);
+  const osc = c.createOscillator(); const g = c.createGain();
+  osc.type = o.type || "sine";
+  osc.frequency.setValueAtTime(f, t);
+  if (o.glide) osc.frequency.exponentialRampToValueAtTime(Math.max(30, f * o.glide), t + dur);
+  g.gain.setValueAtTime(0, t);
+  g.gain.linearRampToValueAtTime(o.gain || 0.2, t + (o.att || 0.004));
+  g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+  osc.connect(g); g.connect(S.master);
+  osc.start(t); osc.stop(t + dur + 0.02);
+}
+function burst(dur, o) {
+  o = o || {};
+  const c = audio(); if (!c) return;
+  const t = c.currentTime + (o.delay || 0);
+  const len = Math.max(1, Math.floor(c.sampleRate * dur));
+  const buf = c.createBuffer(1, len, c.sampleRate); const d = buf.getChannelData(0);
+  for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 3);
+  const s = c.createBufferSource(); const f = c.createBiquadFilter(); const g = c.createGain();
+  s.buffer = buf; f.type = o.type || "bandpass"; f.frequency.value = o.freq || 3000; f.Q.value = o.q || 1; g.gain.value = o.gain || 0.15;
+  s.connect(f); f.connect(g); g.connect(S.master); s.start(t);
+}
+const VOICES = Array.from({ length: 14 }, (_, i) => ({ lo: 880 + ((i * 37) % 260), hi: 2250 + ((i * 113) % 700), air: 0.35 + ((i * 7) % 5) * 0.08 }));
+const WIDE = { lo: 620, hi: 1700, air: 0.25 };
+const WIDE_KEYS = new Set(["Space", "Enter", "NumpadEnter", "Backspace", "ShiftLeft", "ShiftRight", "Tab"]);
+function voiceOf(code) { if (WIDE_KEYS.has(code)) return WIDE; let h = 0; for (const ch of code) h = (h * 31 + ch.charCodeAt(0)) >>> 0; return VOICES[h % VOICES.length]; }
+function clack(v, level, delay, length, opt) {
+  opt = opt || {};
+  const c = audio(); if (!c) return;
+  const t = c.currentTime + delay;
+  const len = Math.floor(c.sampleRate * length);
+  const buf = c.createBuffer(1, len, c.sampleRate); const d = buf.getChannelData(0);
+  const sh = opt.shape || 6;
+  for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, sh);
+  const src = c.createBufferSource(); src.buffer = buf;
+  const out = c.createGain(); out.gain.value = level;
+  let tail = out;
+  if (opt.lp) { const lp = c.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = opt.lp; out.connect(lp); tail = lp; }
+  tail.connect(S.master);
+  const band = (type, freq, q, gain) => { const f = c.createBiquadFilter(); f.type = type; f.frequency.value = freq; f.Q.value = q; const g = c.createGain(); g.gain.value = gain; src.connect(f); f.connect(g); g.connect(out); };
+  const j = () => 0.97 + Math.random() * 0.06;
+  band("bandpass", v.lo * j(), 5, 4.2);
+  band("bandpass", v.hi * j(), 6, 5.5);
+  if (v.air) band("highpass", 6500, 0.7, v.air);
+  src.start(t);
+}
+const TYPING = {
+  brown: {
+    down(code) { const v = voiceOf(code); burst(0.012, { freq: 3200, q: 1.5, gain: 0.25 }); clack(v, 0.65, 0.02, v === WIDE ? 0.07 : 0.045); },
+    up(code) { const v = voiceOf(code); clack({ lo: v.lo * 1.15, hi: v.hi * 1.08, air: v.air }, 0.2, 0, 0.03); },
+  },
+  soft: {
+    // the same key voices, an octave of air removed, no tactile bump, a quieter and rounder bottom-out
+    down(code) { const v = voiceOf(code); clack({ lo: v.lo * 0.78, hi: v.hi * 0.7, air: 0 }, 0.32, 0.012, v === WIDE ? 0.06 : 0.04, { lp: 2600, shape: 8 }); },
+    up(code) { const v = voiceOf(code); clack({ lo: v.lo * 0.85, hi: v.hi * 0.75, air: 0 }, 0.07, 0, 0.025, { lp: 2400, shape: 8 }); },
+  },
+  none: { down() {}, up() {} },
+};
+const CHIMES = {
+  pair: {
+    right() { tone(440, 0.12, { gain: 0.09 }); tone(660, 0.18, { gain: 0.08, delay: 0.06 }); },
+    hot() { tone(330, 0.22, { gain: 0.1, type: "triangle" }); tone(247, 0.32, { gain: 0.09, type: "triangle", delay: 0.12 }); },
+    end() { [523, 659, 784].forEach((f, i) => tone(f, 0.5, { gain: 0.08, delay: i * 0.07 })); },
+  },
+  wood: {
+    // marimba-like: a fundamental that dies fast, plus a short fourth partial for the strike
+    note(f, d, g) { tone(f, 0.45, { gain: g, delay: d }); tone(f * 4, 0.06, { gain: g * 0.35, delay: d }); },
+    right() { this.note(784, 0, 0.12); this.note(988, 0.09, 0.1); },
+    hot() { this.note(392, 0, 0.13); this.note(330, 0.14, 0.12); },
+    end() { [523, 659, 784, 1047].forEach((f, i) => this.note(f, i * 0.09, 0.09)); },
+  },
+  tick: {
+    right() { tone(1320, 0.05, { gain: 0.08 }); },
+    hot() { tone(220, 0.09, { gain: 0.14, glide: 0.8 }); burst(0.03, { freq: 600, gain: 0.08, type: "lowpass" }); },
+    end() { tone(1320, 0.05, { gain: 0.07 }); tone(1760, 0.06, { gain: 0.06, delay: 0.08 }); },
+  },
+  none: { right() {}, hot() {}, end() {} },
+};
+function chimeSet() { const c = state["q6-chimes"] && state["q6-chimes"].choice; return CHIMES[c] || CHIMES.pair; }
+function cue(kind, set) { safely(() => (set || chimeSet())[kind]()); }
+function click() { safely(() => tone(520, 0.07, { gain: 0.12, glide: 0.7 })); }
+
+/* background noise beds: brown, pink and rain as in sound.ts, plus two new ones */
+function noiseBuffer(c, kind) {
+  if (S.buffers.has(kind)) return S.buffers.get(kind);
+  const sr = c.sampleRate, len = sr * 12, fade = Math.floor(sr * 0.5);
+  const buf = c.createBuffer(2, len, sr);
+  for (let ch = 0; ch < 2; ch++) {
+    const d = buf.getChannelData(ch);
+    let last = 0, b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0, lp = 0, lp2 = 0, prev = 0;
+    for (let i = 0; i < len + fade; i++) {
+      const white = Math.random() * 2 - 1;
+      let v;
+      b0 = 0.99886 * b0 + white * 0.0555179; b1 = 0.99332 * b1 + white * 0.0750759; b2 = 0.969 * b2 + white * 0.153852;
+      b3 = 0.8665 * b3 + white * 0.3104856; b4 = 0.55 * b4 + white * 0.5329522; b5 = -0.7616 * b5 - white * 0.016898;
+      const pink = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362) * 0.11; b6 = white * 0.115926;
+      last = (last + 0.02 * white) / 1.02;
+      const brown = last * 3.5;
+      const t = (i % len) / sr;
+      if (kind === "brown") v = brown;
+      else if (kind === "pink") v = pink;
+      else if (kind === "rain") { v = pink; if (Math.random() < 0.0009) v += (Math.random() * 2 - 1) * 0.5; }
+      else if (kind === "ocean") {
+        // waves every 6 s (the loop holds two), brighter as each one breaks; the right ear lags a little
+        const ph = ((t + ch * 0.4) % 6) / 6;
+        const env = 0.18 + 0.82 * Math.pow(Math.sin(Math.PI * ph), 2) * (ph < 0.55 ? 1 : 1 - (ph - 0.55) * 0.6);
+        const a = 0.02 + 0.2 * env;
+        lp += a * (pink * 2.2 - lp);
+        v = lp * (0.45 + 0.9 * env) + brown * 0.35;
+      } else if (kind === "library") {
+        // a quiet room: low air, a faint ventilation hum, and one page turned somewhere far away
+        lp += 0.04 * (brown - lp);
+        lp2 += 0.25 * (pink - lp2);
+        v = lp * 1.6 + lp2 * 0.12 + Math.sin(2 * Math.PI * 120 * t) * 0.006;
+        const pt = t - (ch ? 7.32 : 7.3);
+        if (pt > 0 && pt < 0.42) { const hp = white - prev; v += hp * 0.05 * Math.sin(Math.PI * pt / 0.42) * (0.6 + 0.4 * Math.random()); }
+      }
+      prev = white;
+      if (i < len) d[i] = v; else { const k = (i - len) / fade; d[i - len] = d[i - len] * k + v * (1 - k); }
+    }
+  }
+  S.buffers.set(kind, buf);
+  return buf;
+}
+function setNoise(kind) {
+  const c = kind ? audio() : S.ctx;
+  if (!c) return;
+  const now = c.currentTime;
+  if (S.bed && S.bed.kind !== kind) {
+    const old = S.bed;
+    old.gain.gain.cancelScheduledValues(now); old.gain.gain.setValueAtTime(old.gain.gain.value, now);
+    old.gain.gain.linearRampToValueAtTime(0, now + 0.8); old.src.stop(now + 0.9);
+    S.bed = null;
+  }
+  if (!kind) { drawSpec(false); return; }
+  if (!S.bed) {
+    const src = c.createBufferSource(); src.buffer = noiseBuffer(c, kind); src.loop = true;
+    const gain = c.createGain(); gain.gain.value = 0;
+    let out = src;
+    if (kind === "rain") {
+      const hp = c.createBiquadFilter(); hp.type = "highpass"; hp.frequency.value = 400;
+      const lp = c.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = 7000;
+      src.connect(hp); hp.connect(lp); out = lp;
+    }
+    out.connect(gain); gain.connect(c.destination); gain.connect(S.analyser);
+    src.start();
+    S.bed = { kind, src, gain };
+  }
+  S.bed.gain.gain.cancelScheduledValues(now);
+  S.bed.gain.gain.setValueAtTime(S.bed.gain.gain.value, now);
+  S.bed.gain.gain.linearRampToValueAtTime(noiseGain(), now + 1.5);
+  drawSpec(true);
+}
+let specRAF = 0;
+function drawSpec(on) {
+  const cv = $("#spec"); if (!cv) return;
+  cancelAnimationFrame(specRAF);
+  const g = cv.getContext("2d");
+  const W = (cv.width = cv.clientWidth * (window.devicePixelRatio || 1));
+  const H = (cv.height = cv.clientHeight * (window.devicePixelRatio || 1));
+  const cs = getComputedStyle(document.documentElement);
+  const col = cs.getPropertyValue("--act").trim() || "#17577f";
+  const mut = cs.getPropertyValue("--muted").trim() || "#888";
+  g.clearRect(0, 0, W, H);
+  if (!on || !S.analyser) {
+    g.fillStyle = mut; g.font = 12 * (window.devicePixelRatio || 1) + "px 'IBM Plex Sans Hebrew', sans-serif"; g.textAlign = "center"; g.textBaseline = "middle";
+    g.fillText("הספקטרום מופיע כשרעש רקע מתנגן", W / 2, H / 2);
+    return;
+  }
+  const data = new Uint8Array(S.analyser.frequencyBinCount);
+  const N = 64;
+  const frame = () => {
+    S.analyser.getByteFrequencyData(data);
+    g.clearRect(0, 0, W, H);
+    g.fillStyle = col;
+    const bw = W / N;
+    for (let i = 0; i < N; i++) {
+      // log-spaced bins, low on the right so the eye reads from the start side
+      const lo = Math.floor(Math.pow(data.length, i / N)), hi = Math.max(lo + 1, Math.floor(Math.pow(data.length, (i + 1) / N)));
+      let m = 0; for (let k = lo; k < hi && k < data.length; k++) m = Math.max(m, data[k]);
+      const h = (m / 255) * H;
+      g.fillRect(W - (i + 1) * bw + 1, H - h, bw - 2, h);
+    }
+    specRAF = requestAnimationFrame(frame);
+  };
+  frame();
+}
+
+/* ---------- state and persistence ---------- */
+const LS = "lab-design-choices-v1";
+let state = {};
+try { state = JSON.parse(localStorage.getItem(LS) || "{}") || {}; } catch (e) { state = {}; }
+function saveLocal() { try { localStorage.setItem(LS, JSON.stringify(state)); } catch (e) { /* storage unavailable */ } }
+let db = null, dbCol = null;
+const chains = {};
+function setSync(s, text) {
+  const el = $("#sync"); el.dataset.s = s; el.lastElementChild.textContent = text;
+  const f = $("#foot-sync");
+  if (s === "local") f.textContent = "המסד לא זמין בתצוגה הזאת, ולכן הבחירות נשמרות רק בדפדפן הזה. בדף שפורסם הן נשמרות במסד הנתונים, באוסף design_choices.";
+}
+async function persist(qid) {
+  const rec = state[qid];
+  saveLocal();
+  renderSummary();
+  if (!dbCol) return "local";
+  const body = { choice: rec.choice ?? null, label: rec.label ?? null, note: rec.note || "", at: rec.at };
+  if (rec.extra) Object.assign(body, rec.extra);
+  chains[qid] = (chains[qid] || Promise.resolve()).then(() => dbCol.doc(qid).set(body));
+  try { await chains[qid]; return "db"; } catch (e) { chains[qid] = Promise.resolve(); setSync("err", "שגיאת שמירה, נשמר מקומית"); return "err"; }
+}
+(async function connect() {
+  if (!window.claude || typeof window.claude.use !== "function") { setSync("local", "שמירה מקומית"); return; }
+  try { db = await window.claude.use("db"); } catch (e) { db = null; }
+  if (!db) { setSync("local", "שמירה מקומית"); return; }
+  try {
+    dbCol = db.collection("design_choices");
+    const slow = setTimeout(() => setSync("local", "המסד לא עונה, נשמר מקומית"), 10000);
+    dbCol.onSnapshot((snap) => {
+      clearTimeout(slow);
+      snap.docs.forEach((d) => { if (d.exists) { const v = d.data(); state[d.id] = { choice: v.choice, label: v.label, note: v.note || "", at: v.at, extra: pickExtra(v) }; } });
+      saveLocal();
+      applyAll();
+      setSync("db", "נשמר במסד");
+    }, () => { clearTimeout(slow); setSync("err", "המסד לא זמין, נשמר מקומית"); });
+  } catch (e) { setSync("local", "שמירה מקומית"); }
+})();
+function pickExtra(v) { const x = {}; for (const k of Object.keys(v)) if (!["choice", "label", "note", "at"].includes(k)) x[k] = v[k]; return Object.keys(x).length ? x : undefined; }
+
+let toastT = 0;
+function toast(msg) { const t = $("#toast"); t.textContent = msg; t.classList.add("on"); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove("on"), 2200); }
+const hhmm = (iso) => { try { return new Date(iso).toLocaleTimeString("he-IL", { hour: "2-digit", minute: "2-digit" }); } catch (e) { return ""; } };
+
+/* ---------- questions ---------- */
+const QS = [];
+function Qdef(q) { QS.push(q); }
+
+/* 1. layout */
+Qdef({
+  id: "q1-layout", num: "1", title: "פריסת מסך השיעור",
+  lead: "איפה יושבים תוכן השיעור, הפתקים והנוסחאות ביחס לטקסט. לחץ \"הצג גדול\" כדי לראות כל פריסה ברוחב מלא.",
+  big: true,
+  variants: [
+    { id: "outline-margin", name: "תוכן מימין, שוליים משמאל", cur: true,
+      desc: "עמודת תוכן קבועה מימין עם \"אתה כאן\", הטקסט באמצע, ובשוליים השמאליים פתקים ומספרי עמודים.",
+      pc: "בעד: הכל גלוי תמיד. נגד: הטקסט צר יותר כשהמסך קטן.",
+      html: () => '<div class="app">' + appTop() + '<div class="app-main" style="grid-template-columns:22% 1fr 22%">' + outlineHTML() +
+        '<div class="col-text bs-tier"><h4>' + L.h2 + "</h4>" + P(L.p1) + defBlk() + P(L.how) + thinkStub() + "</div>" +
+        '<aside class="margin"><span class="chip-src">K1:35</span><div class="sticky"><b>להעמקה</b>' + esc(L.note) + '</div><span class="chip-src">K1:36</span></aside></div>' + appBar() + "</div>" },
+    { id: "center-drawer", name: "עמודה במרכז, תוכן במגירה",
+      desc: "רק הטקסט, ממורכז ברוחב קריאה. תוכן השיעור נפתח במגירה (לחץ ☰), ופתקים הם מספרים קטנים בסוף הפסקה.",
+      pc: "בעד: הכי שקט, הכי רחב לטקסט. נגד: \"איפה אני\" דורש לחיצה.",
+      html: () => '<div class="app">' + appTop('<button type="button" class="burger" data-drawer aria-label="פתח את תוכן השיעור">☰</button>') +
+        '<div class="app-main" style="position:relative"><div class="col-text bs-tier" style="max-width:68%;margin-inline:auto"><h4>' + L.h2 + "</h4>" + P(L.p1 + ' <span class="ndot">1</span>') + defBlk() + P(L.how) + thinkStub() + "</div>" +
+        '<div class="drawer">' + outlineHTML() + '</div><div class="drawer-scrim" data-drawer></div></div>' + appBar() + "</div>" },
+    { id: "two-col-rail", name: "שתי עמודות ומסילת נוסחאות",
+      desc: "הטקסט מימין, ומשמאל מסילה דביקה עם הנוסחאות הממוספרות של השיעור; הנוסחה שהטקסט מדבר עליה מודגשת. תוכן השיעור עובר לשורת המיקום למעלה.",
+      pc: "בעד: (1) ו-(2) תמיד מול העיניים בגזירה. נגד: פחות מקום לפתקים.",
+      html: () => '<div class="app">' + appTop() + '<div class="app-main" style="grid-template-columns:1fr 32%"><div class="col-text bs-tier"><div class="src" style="margin-bottom:.4em">גאומטריה › <b style="color:var(--ink)">האלכסון והצלע</b> › (1)</div><h4>' + L.h2 + "</h4>" + P(L.atoms) + derBlk() + P("מכאן " + "$p^2\\neq2q^2$" + " לכל שלמים, וזו (1).") + "</div>" +
+        '<aside class="rail"><div class="rh">נוסחאות השיעור</div><div class="rf cur"><small>(1) ' + esc(L.f1T) + "</small>" + M("p^2\\neq2q^2", true) + '</div><div class="rf"><small>(2) ' + esc(L.f2T) + "</small>" + M("|p/q-\\sqrt2|\\ge\\tfrac{1}{2\\sqrt2\\,q^2}", true) + '</div><div class="rf"><small>(3) תוצאת המדידה · בהמשך</small><span style="color:var(--muted)">···</span></div><div class="sticky" style="margin-top:.4em"><b>פתק</b>' + esc(L.note) + "</div></aside></div>" + appBar() + "</div>" },
+  ],
+});
+
+/* 2. blocks */
+const blocksSample = () => storyBlk() + defBlk() + f1Blk() + thinkStub();
+Qdef({
+  id: "q2-blocks", num: "2", title: "סגנון הבלוקים",
+  lead: "אותם ארבעה בלוקים מהשיעור (סיפור, הגדרה, נוסחה מרכזית, שאלה) בארבעה סגנונות. השאלה היא כמה \"קול\" כל בלוק מקבל.",
+  grid: "g4",
+  variants: [
+    { id: "tiers", name: "שלוש דרגות עם פס צד", cur: true,
+      desc: "רק הגדרה, נוסחה ו\"לסיכום\" ממוסגרות. שאלות וגזירות מקבלות פס כחול, וסיפור או הקשר פס חאקי חלש.",
+      pc: "בעד: מה שצריך לזכור בולט לבד. נגד: פחות צבע, פחות \"שמח\".",
+      html: () => '<div class="pv-pad bs-tier">' + blocksSample() + "</div>", fade: true },
+    { id: "tint", name: "כרטיסים צבועים בעדינות",
+      desc: "כל בלוק כרטיס מעוגל ברקע של הצבע שלו, בלי מסגרת ובלי פס. התווית היא גלולה צבעונית.",
+      pc: "בעד: רך ונעים לעין. נגד: כל הבלוקים באותה עוצמה.",
+      html: () => '<div class="pv-pad bs-tint">' + blocksSample() + "</div>", fade: true },
+    { id: "minimal", name: "מינימלי, סמל בלבד",
+      desc: "אין רקע ואין מסגרת. סמל קטן בשוליים הימניים ותווית צבעונית אומרים מה הבלוק.",
+      pc: "בעד: הכי קרוב לספר. נגד: קל לפספס הגדרה בגלילה מהירה.",
+      html: () => '<div class="pv-pad bs-min">' + blocksSample() + "</div>", fade: true },
+    { id: "dashed", name: "מסגרת מקווקוות", app: true,
+      desc: "כך זה היום: לכל אחד מ-19 הסוגים צבע משלו ומסגרת מקווקוות עם לשונית.",
+      pc: "לשם השוואה.",
+      html: () => '<div class="pv-pad bs-dash">' + blocksSample() + "</div>", fade: true },
+  ],
+});
+
+/* 3. commit widget (interactive) */
+function commitHTML(mode, id) {
+  const opts = L.opts.map((o, i) => '<button type="button" class="opt" role="radio" aria-checked="false" data-i="' + i + '"><span class="k">' + "אבגד"[i] + '</span><span class="t">' + esc(o) + "</span></button>").join("");
+  let tail = "";
+  if (mode === "buttons") tail = '<div class="conf" role="group" aria-label="כמה אתה בטוח"><button type="button" data-c="1" disabled><span class="bars l1"><i></i><i></i><i></i></span>מנחש</button><button type="button" data-c="2" disabled><span class="bars l2"><i></i><i></i><i></i></span>די בטוח</button><button type="button" data-c="3" disabled><span class="bars l3"><i></i><i></i><i></i></span>בטוח</button></div><div class="hint">בחר תשובה, ואז לחץ כמה אתה בטוח. הלחיצה היא השליחה.</div>';
+  if (mode === "chips") tail = '<div class="hint">בחר תשובה; ליד התשובה יופיעו שלוש בחירות קטנות של ביטחון.</div>';
+  if (mode === "keyonly") tail = '<button type="button" class="btn pri answer-btn" data-answer disabled>ענה</button><div class="hint">שאלה רגילה: בלי ביטחון. רק ב-15 השאלות המרכזיות של השיעור מופיעים גם כפתורי הביטחון.</div>';
+  return '<div class="pv-pad"><div class="cm" data-cm="' + mode + '" id="' + id + '"><div class="cm-h"><span>' + (mode === "keyonly" ? "שאלה" : "שאלה מרכזית") + '</span><span class="sp"></span><button type="button" class="lnk" data-reset>התחל מחדש</button></div><p class="cm-q">' + tx(L.thinkQ) + '</p><div class="opts" role="radiogroup">' + opts + "</div>" + tail + '<div class="out"></div></div></div>';
+}
+function verdictHTML(i, conf) {
+  const right = i === L.right;
+  const cl = ["", "מנחש", "די בטוח", "בטוח"][conf] || "";
+  if (right) return '<div class="verdict"><span class="pillv ok">✓ צדקת' + (cl ? " · " + cl : "") + '</span><div class="why">' + (conf === 3 ? "ההסבר שאחרי השאלה יתקפל לשורה אחת, כי הוכחת אותו." : "ניחשת נכון, ולכן ההסבר נשאר פתוח.") + '</div><div class="sched">חוזר בעוד 3 ימים</div></div>';
+  if (conf === 3) return '<div class="verdict"><span class="pillv hot">◆ טעות בביטחון</span><div class="why"><b>למה זה מפתה:</b> ' + tx(L.tempts[i]) + '</div><div class="sched">חוזר מחר</div></div>';
+  return '<div class="verdict"><span class="pillv bad">✗ לא הפעם' + (cl ? " · " + cl : "") + '</span><div class="why"><b>למה זה מפתה:</b> ' + tx(L.tempts[i]) + '</div><div class="sched">חוזר מחר</div></div>';
+}
+function mountCommit(root) {
+  const cm = $(".cm", root); if (!cm) return;
+  const mode = cm.dataset.cm;
+  let sel = -1, done = false;
+  const reset = () => {
+    sel = -1; done = false;
+    $$(".opt", cm).forEach((o) => { o.setAttribute("aria-checked", "false"); o.classList.remove("right", "wrong", "hotw"); const ic = $(".inline-conf", o); if (ic) ic.remove(); });
+    $$(".conf button", cm).forEach((b) => (b.disabled = true));
+    const a = $("[data-answer]", cm); if (a) a.disabled = true;
+    $(".out", cm).innerHTML = "";
+  };
+  const finish = (conf) => {
+    if (done || sel < 0) return; done = true;
+    const right = sel === L.right;
+    $$(".opt", cm).forEach((o) => { const i = +o.dataset.i; if (i === L.right) o.classList.add("right"); else if (i === sel) o.classList.add(conf === 3 ? "hotw" : "wrong"); const ic = $(".inline-conf", o); if (ic) ic.remove(); });
+    $$(".conf button", cm).forEach((b) => (b.disabled = true));
+    const a = $("[data-answer]", cm); if (a) a.disabled = true;
+    $(".out", cm).innerHTML = verdictHTML(sel, conf);
+    if (right) cue("right"); else if (conf === 3) cue("hot");
+  };
+  cm.addEventListener("click", (e) => {
+    const t = e.target;
+    if (t.closest("[data-reset]")) { reset(); return; }
+    const ic = t.closest(".inline-conf button"); if (ic) { e.stopPropagation(); finish(+ic.dataset.c); return; }
+    const cb = t.closest(".conf button"); if (cb && !cb.disabled) { finish(+cb.dataset.c); return; }
+    if (t.closest("[data-answer]")) { finish(0); return; }
+    const o = t.closest(".opt"); if (!o || done) return;
+    sel = +o.dataset.i;
+    $$(".opt", cm).forEach((x) => { x.setAttribute("aria-checked", String(x === o)); const old = $(".inline-conf", x); if (old && x !== o) old.remove(); });
+    $$(".conf button", cm).forEach((b) => (b.disabled = false));
+    const a = $("[data-answer]", cm); if (a) a.disabled = false;
+    if (mode === "chips" && !$(".inline-conf", o)) {
+      const s = document.createElement("span"); s.className = "inline-conf";
+      s.innerHTML = '<span class="lbl">כמה בטוח?</span><button type="button" data-c="1">ניחוש</button><button type="button" data-c="2">די</button><button type="button" data-c="3">בטוח</button>';
+      o.appendChild(s);
+    }
+  });
+}
+Qdef({
+  id: "q3-commit", num: "3", title: "השאלה בתוך השיעור: איך עונים",
+  lead: "שאלת \"מצומצם\" מהשיעור, חיה. ענה בכל אחת מהשלוש (נסה גם טעות עם \"בטוח\") ושים לב כמה לחיצות וכמה מחשבה כל צורה דורשת.",
+  variants: [
+    { id: "three-buttons", name: "שלושה כפתורי ביטחון", cur: true,
+      desc: "אחרי הבחירה, שורה של מנחש / די בטוח / בטוח. כל כפתור הוא גם השליחה, כך שיש לחיצה אחת ואין ברירת מחדל.",
+      pc: "בעד: ברור ונוח במגע. נגד: עוד שורה בכל שאלה.",
+      html: (id) => commitHTML("buttons", id), mount: mountCommit, auto: true },
+    { id: "inline-chips", name: "ביטחון ליד התשובה",
+      desc: "הבחירה פותחת שלושה שבבים קטנים בתוך שורת התשובה עצמה. לחיצה על שבב שולחת.",
+      pc: "בעד: היד לא זזה, הכרטיס קצר. נגד: שבבים קטנים יותר במסך מגע.",
+      html: (id) => commitHTML("chips", id), mount: mountCommit, auto: true },
+    { id: "key-only", name: "בלי ביטחון, חוץ משאלות מרכזיות",
+      desc: "בשאלה רגילה רק \"ענה\". ביטחון נשאל רק ב-15 השאלות המרכזיות, אלה שיכולות לקפל טקסט.",
+      pc: "בעד: הכי מהיר, פחות החלטות ביום של 8 שעות. נגד: פחות מידע על כיול.",
+      html: (id) => commitHTML("keyonly", id), mount: mountCommit, auto: true },
+  ],
+});
+
+/* 4. confident-wrong feedback */
+function ceOpts(markInline) {
+  return L.opts.map((o, i) => {
+    const cls = i === L.right ? "right" : i === 0 ? "hotw" : "";
+    let row = '<div class="opt ' + cls + '" style="cursor:default"><span class="k">' + "אבגד"[i] + '</span><span class="t">' + esc(o) + (i === 0 ? ' <span class="mark-hot">· ענית, בטוח</span>' : "") + "</span></div>";
+    if (markInline && i === 0) row += '<div class="ce-inline" data-anim><b class="mark-hot">◆ למה זה מפתה</b><span>' + tx(L.tempt) + '</span><span><b>התיקון:</b> ' + tx(L.fix) + '</span><span class="sched">חוזר מחר · ↓ ההסבר מיד אחרי השאלה</span></div>';
+    return row;
+  }).join("");
+}
+Qdef({
+  id: "q4-confwrong", num: "4", title: "משוב על טעות בביטחון",
+  lead: "ענית (א) ולחצת \"בטוח\". זה הרגע שבו הזיכרון מתקן את עצמו הכי חזק. איך לתפוס אותו בלי להבהיל? \"הפעל שוב\" מנגן את הצליל ואת התנועה.",
+  variants: [
+    { id: "amber-card", name: "כרטיס ענבר", cur: true,
+      desc: "כרטיס ענבר מחליף את גוף השאלה: למה התשובה מפתה, שורת תיקון אחת, והפניה להסבר שבשיעור.",
+      pc: "בעד: אי אפשר לפספס. נגד: תופס מקום ועוצר את הקריאה.",
+      html: () => '<div class="pv-pad"><div class="cm"><div class="cm-h"><span>שאלה מרכזית</span></div><p class="cm-q">' + tx(L.thinkQ) + '</p><div class="ce-card" data-anim><div class="ce-h">◆ טעות בביטחון · זה הרגע הכי טוב ללמוד</div><div><b>ענית (א). למה זה מפתה:</b> ' + tx(L.tempt) + '</div><div class="fix">' + tx(L.fix) + '</div><div class="go">↓ ההסבר מיד כאן, בשיעור</div><div class="sched">חוזר מחר · ואחר כך אחרי 3 ו-8 ימים</div></div></div></div>' },
+    { id: "inline-expand", name: "נפתח בתוך התשובה",
+      desc: "האפשרויות נשארות. מתחת לתשובה שבחרת נפתחת שורה ענברית עם \"למה זה מפתה\" והתיקון, והנכונה מסומנת בירוק.",
+      pc: "בעד: רואים את הטעות ליד הנכונה. נגד: פחות בולט מכרטיס.",
+      html: () => '<div class="pv-pad"><div class="cm"><div class="cm-h"><span>שאלה מרכזית</span></div><p class="cm-q">' + tx(L.thinkQ) + '</p><div class="opts">' + ceOpts(true) + "</div></div></div>" },
+    { id: "margin-callout", name: "הערה בשוליים",
+      desc: "השאלה מתכווצת לשורת תוצאה, וההסבר יושב בשוליים לידה, מחובר בקו. הטקסט ממשיך לזרום.",
+      pc: "בעד: לא עוצר את הקריאה. נגד: בטלפון יורד מתחת לשאלה.",
+      html: () => '<div class="pv-pad"><div class="ce-mgrid"><div><div class="cm"><div class="cm-h"><span>שאלה מרכזית</span></div><p class="cm-q">' + tx(L.thinkQ) + '</p><span class="pillv hot">◆ ענית (א), בטוח · הנכונה: (ב)</span></div>' + P(L.thinkA) + '</div><aside class="ce-call" data-anim><b>◆ למה (א) מפתה</b><span>' + tx(L.tempt) + '</span><span class="sched">חוזר מחר</span></aside></div></div>' },
+  ].map((v) => Object.assign(v, { replay: true, auto: true })),
+});
+
+/* 5. consultation */
+const thread = () => '<div class="turn me"><span class="who">אתה</span><span class="tx">' + esc(L.askQ) + '</span></div><div class="turn"><span class="who">המורה</span><span>' + tx(L.askA) + "</span></div>";
+const discThread = () => L.disc.map(([w, t]) => '<div class="turn ' + (w === "me" ? "me" : "") + '"><span class="who">' + (w === "me" ? "אתה" : "המורה") + "</span><span" + (w === "me" ? ' class="tx"' : "") + ">" + tx(t) + "</span></div>").join("");
+const qchips = '<div class="qchips no-disc"><span>עמוק יותר</span><span>במילים אחרות</span><span>שמור לפתק</span><span>פתח בצד</span></div>';
+const anchorQuote = '<div class="qquote">על: «אפשר לבחור את p/q מצומצם, כי לקבוצת המכנים האפשריים יש איבר קטן ביותר»</div>';
+Qdef({
+  id: "q5-consult", num: "5", title: "איפה מופיעה התשובה כשאתה שואל",
+  lead: "שאלת על צעד 2 בגזירה. המתג \"מצב דיון\" מראה מה קורה כשהשאלה הופכת לשיחה של כמה תורות.",
+  tools: '<label class="switch"><input type="checkbox" id="disc-toggle"> מצב דיון (4 תורות)</label>',
+  variants: [
+    { id: "anchored", name: "כרטיס מתחת לפסקה", cur: true,
+      desc: "התשובה נפתחת ממש מתחת לפסקה ששאלת עליה, עם הציטוט. בדיון ארוך הכרטיס גדל, ואפשר לקפל אותו לשורה אחת.",
+      pc: "בעד: התשובה ליד הטקסט. נגד: דיון ארוך דוחף את השיעור למטה.",
+      html: () => '<div class="pv-pad bs-tier">' + derBlk().replace("לקבוצת המכנים", '<span class="anchor-hl">לקבוצת המכנים') .replace("ביותר.", "ביותר.</span>") + '<div class="qcard">' + anchorQuote + '<div class="no-disc stack qa">' + thread() + "</div>" + qchips + '<div class="only-disc stack">' + thread() + discThread() + '<div class="composer"><span class="anc">על: צעד 2</span>המשך לשאול…</div></div><span class="demo-badge">תשובה לדוגמה</span></div></div>', fade: true },
+    { id: "side-panel", name: "לוח בצד",
+      desc: "התשובות נפתחות בלוח משמאל, מקובצות לפי הפסקה. בטקסט נשאר רק סימון עדין ומספר.",
+      pc: "בעד: השיעור לא זז, דיון ארוך נוח. נגד: הטקסט מצטמצם כשהלוח פתוח.",
+      html: () => '<div class="app"><div class="app-main" style="grid-template-columns:1fr 40%"><div class="col-text bs-tier">' + derBlk().replace("לקבוצת המכנים", '<span class="anchor-hl">לקבוצת המכנים').replace("ביותר.", 'ביותר.</span> <span class="ndot">1</span>') + P(L.thinkA.replace("(ב). ", "")) + '</div><aside class="side-panel"><div class="sph"><b style="color:var(--ink)">שאלות על השיעור</b><span>· 1</span></div>' + anchorQuote + '<div class="no-disc stack">' + thread() + "</div>" + qchips + '<div class="only-disc stack">' + thread() + discThread() + "</div>" + '<div class="composer"><span class="anc">על: צעד 2</span>שאל…</div><span class="demo-badge">תשובה לדוגמה</span></aside></div></div>' },
+    { id: "bottom-sheet", name: "גיליון מלמטה",
+      desc: "התשובה עולה מלמטה ומכסה כמחצית המסך, כמו בטלפון. בדיון הגיליון עולה כמעט עד למעלה, וגרירה למטה מחזירה לשיעור.",
+      pc: "בעד: טבעי בטלפון, לא משנה את הפריסה. נגד: מסתיר את הטקסט ששאלת עליו.",
+      html: () => '<div class="pv-pad bs-tier" style="height:100%">' + derBlk().replace("לקבוצת המכנים", '<span class="anchor-hl">לקבוצת המכנים').replace("ביותר.", "ביותר.</span>") + P(L.thinkA.replace("(ב). ", "")) + '</div><div class="sheet"><div class="grab"></div>' + anchorQuote + '<div class="no-disc stack">' + thread() + "</div>" + qchips + '<div class="only-disc stack">' + thread() + discThread() + '</div><div class="composer"><span class="anc">על: צעד 2</span>שאל…</div></div>' },
+  ],
+});
+
+/* 6. sounds */
+const TYPE_PHRASE = "מדידה אינה מכריעה";
+function typingCard(kind) {
+  return '<div class="snd"><textarea id="type-' + kind + '" data-typing="' + kind + '" aria-label="הקלד כאן כדי לשמוע" placeholder="הקלד כאן כדי לשמוע…"></textarea><div class="row"><button type="button" class="btn" data-demo-type="' + kind + '">השמע משפט</button></div></div>';
+}
+Qdef({
+  id: "q6-typing", num: "6א", title: "צליל הקלדה",
+  lead: "כשאתה כותב פתק, תשובה או סיכום. הקלד בכל תיבה, או לחץ \"השמע משפט\". העוצמה כאן משותפת לכל צלילי הפעולות.",
+  sound: true, volRow: "cue",
+  variants: [
+    { id: "brown", name: "מקלדת מכנית, מתג חום", app: true, desc: "הקול של היום: נקישה מישושית קטנה, החבטה בתחתית, ושחרור קל. לכל מקש קול משלו, והמקשים הארוכים עמוקים יותר.", pc: "בעד: מספק, מרגיש כמו כלי. נגד: בולט בשעות ארוכות.", panel: () => typingCard("brown") },
+    { id: "soft", name: "רך ושקט", desc: "אותם קולות מקש, בלי האוויר ובלי הנקישה המישושית: חבטה עגולה ושקטה בערך בחצי עוצמה.", pc: "בעד: נוכח אבל לא מעייף. נגד: פחות \"מכני\".", panel: () => typingCard("soft") },
+    { id: "none", name: "בלי צליל", desc: "שקט מלא בזמן ההקלדה. שאר הצלילים לא משתנים.", pc: "בעד: אפס הסחה. נגד: מאבד את התחושה של כלי עבודה.", panel: () => typingCard("none") },
+  ],
+});
+function chimeCard(kind) {
+  return '<div class="snd"><div class="row"><button type="button" class="btn" data-chime="' + kind + '" data-k="right">✓ תשובה נכונה</button><button type="button" class="btn" data-chime="' + kind + '" data-k="hot">◆ טעות בביטחון</button><button type="button" class="btn" data-chime="' + kind + '" data-k="end">סוף סעיף</button></div></div>';
+}
+Qdef({
+  id: "q6-chimes", num: "6ב", title: "צלילי משוב",
+  lead: "שלושה רגעים בלבד משמיעים צליל: תשובה נכונה, טעות בביטחון וסוף סעיף. אף פעם לא בקריאה או בגלילה. הבחירה כאן קובעת גם את הצלילים בשאלות 3 ו-4 בדף.",
+  sound: true,
+  variants: [
+    { id: "pair", name: "זוג צלילים רך", cur: true, desc: "שני צלילים עולים לנכון, שניים יורדים ונמוכים לטעות בביטחון, ואקורד קצר לסוף סעיף. מבוסס על צלילי \"פתיחה\" ו\"סיום\" של היום.", pc: "בעד: מוכר, חם. נגד: מעט \"משחקי\".", panel: () => chimeCard("pair") },
+    { id: "wood", name: "מרימבה מעץ", desc: "פגיעה קצרה בעץ עם הד קטן. הטעות היא שני צלילים נמוכים, לא זמזם.", pc: "בעד: אורגני ונעים. נגד: צליל מוזיקלי יותר.", panel: () => chimeCard("wood") },
+    { id: "tick", name: "תקתוק אחד", desc: "נקישה קצרה אחת לנכון, חבטה נמוכה ועמומה לטעות. כמעט לא מורגש.", pc: "בעד: הכי דיסקרטי. נגד: קל לא לשמוע.", panel: () => chimeCard("tick") },
+    { id: "none", name: "בלי צלילי משוב", desc: "רק הסימון החזותי. צלילי ההקלדה ורעש הרקע לא משתנים.", pc: "", panel: () => chimeCard("none") },
+  ],
+});
+const NOISES = [
+  { id: "brown", name: "רעש חום", app: true, desc: "העמוק והעדין ביותר: רחש נמוך כמו רוח רחוקה או מנוע מטוס מבפנים. מסתיר דיבור ורעשים קטנים בלי להרגיש.", pc: "באפליקציה היום." },
+  { id: "pink", name: "רעש ורוד", app: true, desc: "בהיר יותר, מאוזן בין הנמוכים לגבוהים, כמו מפל רחוק. מסתיר טוב רעשים חדים.", pc: "באפליקציה היום." },
+  { id: "rain", name: "גשם", app: true, desc: "רעש ורוד בלי הרעם הנמוך, עם טיפות פה ושם, כמו גשם על חלון.", pc: "באפליקציה היום." },
+  { id: "library", name: "חדר ספרייה", fresh: true, desc: "שקט של חדר: אוויר נמוך מאוד, זמזום אוורור חלש, ופעם בכמה שניות דף שמתהפך רחוק. השקט ביותר כאן.", pc: "חדש. בעד: מרגיש כמו מקום, לא כמו רעש." },
+  { id: "ocean", name: "ים רחוק", fresh: true, desc: "גלים שנשברים כל כ-6 שניות: הרחש מתבהר כשהגל נשבר ונסוג. האוזן הימנית מאחרת מעט, כך שהצליל רחב.", pc: "חדש. בעד: קצב נשימה איטי. נגד: יש בו תנועה." },
+];
+function noiseCard(n) {
+  return '<div class="snd"><div class="row"><button type="button" class="btn play" data-noise="' + n.id + '" aria-pressed="false"><span class="eq" aria-hidden="true"><i></i><i></i><i></i></span><span class="pl">נגן</span></button></div></div>';
+}
+Qdef({
+  id: "q6-noise", num: "6ג", title: "רעש רקע לקריאה",
+  lead: "ערוץ נפרד מצלילי הפעולות, עם עוצמה משלו. נגן כל אחד דקה ושים לב איזה נעלם הכי מהר מהתודעה בזמן קריאה. רק אחד מתנגן בכל רגע, והמעבר ביניהם רך.",
+  sound: true, volRow: "noise", spec: true,
+  variants: NOISES.map((n) => ({ id: n.id, name: n.name, app: n.app, fresh: n.fresh, desc: n.desc, pc: n.pc, panel: () => noiseCard(n) })),
+  grid: "g4",
+});
+
+/* 7. themes and density */
+const themeBody = () => "<h4>" + L.h2 + "</h4><p>" + tx(L.how) + '</p><div class="tdef"><span class="tl">הגדרה · ' + L.defT + "</span>" + tx(L.def) + '</div><div class="tthink"><span class="tl">שאלה מרכזית</span>' + tx(L.thinkQ) + '</div><p class="tm">K1:35 · עוד 14 דק\' בסעיף</p>';
+Qdef({
+  id: "q7-theme", num: "7", title: "ערכת צבעים",
+  lead: "השיעור באותה פסקה בכל ערכה. הערכות כאן מוצגות כדוגמה קבועה, בלי קשר לבהיר או כהה של הדף.",
+  variants: [
+    { id: "cream-graphite", name: "שמנת וגרפיט", app: true, desc: "מה שיש היום: שמנת ביום, אפור-גרפיט חם בערב, לפי המערכת.", pc: "בעד: נבדק, קריא, מוכר.", html: () => '<div class="split"><div class="th"><div class="th-sheet">' + themeBody() + '</div></div><div class="th g"><div class="th-sheet">' + themeBody() + "</div></div></div>" },
+    { id: "night-warm", name: "לילה חם", desc: "ערכת לילה בלי שום כחול: חום כהה, דיו בצבע קלף, הדגשות ענבר. לשעות המאוחרות, כשהעין עייפה.", pc: "בעד: הכי רך בחושך. נגד: פחות הבחנה בין סוגי הבלוקים.", html: () => '<div class="th n"><div class="th-sheet">' + themeBody() + "</div></div>" },
+    { id: "eink", name: "דיו אפור (e-ink)", desc: "נייר אפור-בהיר ודיו שחור, כמעט בלי צבע: הבלוקים נבדלים בעובי ובצורה. כמו קורא ספרים אלקטרוני.", pc: "בעד: הכי פחות רעש חזותי. נגד: בלי צבע לנווט בו.", html: () => '<div class="th e"><div class="th-sheet">' + themeBody() + "</div></div>" },
+  ],
+});
+Qdef({
+  id: "q7-density", num: "7ב", title: "צפיפות",
+  lead: "אותו טקסט בשני מרווחים. נוח: גוף 18 עם ריווח 1.8. דחוס: מעט קטן יותר, ריווח 1.5 ובלוקים צמודים.",
+  variants: [
+    { id: "comfortable", name: "נוח", cur: true, desc: "יותר אוויר בין שורות ובלוקים. פחות טקסט על המסך, פחות עייפות.", pc: "", html: () => '<div class="pv-pad bs-tier dens-c"><h4>' + L.h2 + "</h4>" + P(L.p1) + defBlk() + P(L.how) + P(L.naive) + "</div>", fade: true },
+    { id: "compact", name: "דחוס", desc: "בערך שליש יותר טקסט על המסך. טוב לחזרה ולסקירה מהירה.", pc: "", html: () => '<div class="pv-pad bs-tier dens-k"><h4>' + L.h2 + "</h4>" + P(L.p1) + defBlk() + P(L.how) + P(L.naive) + P(L.atoms) + "</div>", fade: true },
+  ],
+});
+
+/* 8. cursors */
+const SVG = {
+  lArrow: '<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26"><path d="M2 2 L2 21 L7.2 16.2 L10.6 23.6 L14 22 L10.6 14.8 L17.6 14.8 Z" fill="#e9e1c8" stroke="#2a2e22" stroke-width="1.5" stroke-linejoin="round"/><circle cx="2.6" cy="2.6" r="2.1" fill="#b3261e"/></svg>',
+  lHover: '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28"><circle cx="14" cy="14" r="8.5" fill="rgba(179,38,30,0.12)" stroke="#b3261e" stroke-width="1.8"/><path d="M14 1.5v6M14 20.5v6M1.5 14h6M20.5 14h6" stroke="#2a2e22" stroke-width="1.8" stroke-linecap="round"/><circle cx="14" cy="14" r="1.8" fill="#b3261e"/></svg>',
+  gArrow: '<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26"><path d="M2 2 L2 21 L7.2 16.2 L10.6 23.6 L14 22 L10.6 14.8 L17.6 14.8 Z" fill="#1f3b63" stroke="#e8f0f8" stroke-width="1.5" stroke-linejoin="round"/></svg>',
+  gHover: '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28"><circle cx="14" cy="14" r="9" fill="rgba(31,95,158,0.10)" stroke="#1f5f9e" stroke-width="1.6" stroke-dasharray="3 2.2"/><path d="M14 8v12M8 14h12" stroke="#1f3b63" stroke-width="1.6" stroke-linecap="round"/><circle cx="14" cy="14" r="2.2" fill="#e8f0f8" stroke="#1f3b63" stroke-width="1.4"/></svg>',
+  lSub: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 26 26"><path d="M2 2 L2 21 L7.2 16.2 L10.6 23.6 L14 22 L10.6 14.8 L17.6 14.8 Z" fill="#2a2e22" stroke="#f4ede2" stroke-width="1.6" stroke-linejoin="round"/><circle cx="3" cy="3" r="2" fill="#b3261e"/></svg>',
+  lSubH: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="6" fill="none" stroke="#b3261e" stroke-width="1.6"/><circle cx="10" cy="10" r="1.6" fill="#2a2e22"/></svg>',
+  gSub: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 26 26"><path d="M2 2 L2 21 L7.2 16.2 L10.6 23.6 L14 22 L10.6 14.8 L17.6 14.8 Z" fill="#1f3b63" stroke="#f1f5f9" stroke-width="1.6" stroke-linejoin="round"/></svg>',
+  gSubH: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="6" fill="none" stroke="#1f5f9e" stroke-width="1.5" stroke-dasharray="2.4 1.8"/><circle cx="10" cy="10" r="1.5" fill="#1f3b63"/></svg>',
+};
+const curURL = (svg) => 'url("data:image/svg+xml,' + encodeURIComponent(svg) + '")';
+const CURSORS = {
+  themed: { l: [curURL(SVG.lArrow) + " 2 2, auto", curURL(SVG.lHover) + " 14 14, pointer"], g: [curURL(SVG.gArrow) + " 2 2, auto", curURL(SVG.gHover) + " 14 14, pointer"], prev: [SVG.lArrow, SVG.lHover, SVG.gArrow, SVG.gHover] },
+  subtle: { l: [curURL(SVG.lSub) + " 2 2, auto", curURL(SVG.lSubH) + " 10 10, pointer"], g: [curURL(SVG.gSub) + " 2 2, auto", curURL(SVG.gSubH) + " 10 10, pointer"], prev: [SVG.lSub, SVG.lSubH, SVG.gSub, SVG.gSubH] },
+  system: { l: ["auto", "pointer"], g: ["auto", "pointer"], prev: [] },
+};
+function cursorHTML(kind) {
+  const zone = (lab, k) => '<div class="cz" data-cz="' + kind + '" data-lab="' + k + '"><span class="lab">' + lab + "</span><p>" + tx("לפי משפט פיתגורס $b^2=2a^2$, ולכן $(b/a)^2=2$.") + '</p><span class="fake-btn" role="presentation">הראה תשובה</span><input class="fake-in" aria-label="שדה טקסט לדוגמה" placeholder="שדה טקסט: סמן רגיל" id="cz-' + kind + "-" + k + '"></div>';
+  return '<div class="cz-wrap">' + zone("לנצ'סטר", "l") + zone("גילואה", "g") + "</div>";
+}
+function mountCursor(root) {
+  $$(".cz", root).forEach((z) => {
+    const c = CURSORS[z.dataset.cz][z.dataset.lab];
+    z.style.cursor = c[0];
+    $$(".fake-btn", z).forEach((b) => (b.style.cursor = c[1]));
+    $$(".fake-in", z).forEach((b) => (b.style.cursor = "text"));
+  });
+}
+const cursorPrev = (kind) => { const p = CURSORS[kind].prev; return p.length ? '<div class="cz-preview">' + p.map((s, i) => '<img alt="" src="data:image/svg+xml,' + encodeURIComponent(s) + '">' + (i === 1 ? "<span>·</span>" : "")).join("") + "</div>" : '<div class="cz-preview">חץ ויד של המערכת</div>'; };
+Qdef({
+  id: "q8-cursor", num: "8", title: "מצביע העכבר",
+  lead: "רחף עם העכבר מעל שני האזורים בכל כרטיס: טקסט, כפתור ושדה. בשדות טקסט נשאר תמיד הסמן הרגיל. במסך מגע אין מצביע, והבחירה חלה רק במחשב.",
+  variants: [
+    { id: "themed", name: "מצביע לפי המעבדה", app: true, desc: "היום: בלנצ'סטר חץ חאקי עם נקודת סימון ומעל כפתורים כוונת אדומה; בגילואה חץ שרטוט כחול ומעל כפתורים מחוגה.", pc: "בעד: אופי ושמחה. נגד: גדול מעט מחץ רגיל.", html: () => cursorHTML("themed"), mount: mountCursor, auto: true, extra: () => cursorPrev("themed") },
+    { id: "subtle", name: "עדין", desc: "חץ כהה בגודל רגיל עם נקודה קטנה בצבע המעבדה, ומעל כפתורים טבעת דקה במקום כוונת.", pc: "בעד: נשאר אופי, פחות בולט. נגד: ההבדל בין המעבדות קטן.", html: () => cursorHTML("subtle"), mount: mountCursor, auto: true, extra: () => cursorPrev("subtle") },
+    { id: "system", name: "של המערכת", desc: "החץ והיד הרגילים של המחשב.", pc: "בעד: מוכר לגמרי. נגד: בלי זהות.", html: () => cursorHTML("system"), mount: mountCursor, auto: true, extra: () => cursorPrev("system") },
+  ],
+});
+
+/* 9. progress */
+const PG_SEC = [
+  { t: "גאומטריה: צורה בלי חומר", m: 9, b: [L.p1, "את הקו הישר האדם לא מצא מוכן בטבע: קרן אור וגזע עץ ישרים רק בקירוב. הוא הכיר את הצורה אחרי שעיצב חומר בעצמו."] },
+  { t: "מדידה: הנחה וספירה", m: 5, b: ["**מדידה** של גודל היא שתי פעולות: פעולה שמתאימה לסוג הגודל, ואחריה ספירה של מספר הפעמים.", "כמעט תמיד היחידה לא נכנסת בגודל מספר שלם של פעמים, ונשארת שארית. כך נולדו השברים."] },
+  { t: "האלכסון והצלע", m: 14, b: [L.how, L.naive, L.atoms] },
+  { t: "המספר הממשי: מדידה שלא נגמרת", m: 18, b: ["היחס בין האלכסון לצלע אינו שבר, ועדיין הוא גודל ממשי, ולכן צריך מספר חדש. איזה מספר הוא, ואיך מחשבים בו כשאי אפשר לכתוב אותו עד הסוף?", "ההגדרה הפורמלית תיגזר מתהליך המדידה עצמו."] },
+  { t: "הבדיד והרציף", m: 7, b: ["**מבחן החלוקה:** סבתא קנתה שלושה תפוחי אדמה וצריכה לחלק אותם שווה בין שני נכדים. הפתרון: פירה."] },
+];
+function pgScroll() { return '<div class="pg-scroll bs-tier">' + PG_SEC.map((s, i) => '<section data-s="' + i + '"><h4>' + s.t + "</h4>" + s.b.map(P).join("") + (i === 2 ? defBlk() : "") + "</section>").join("") + '<p class="src">סוף השיעור</p></div>'; }
+function pgHTML(kind) {
+  if (kind === "outline") return '<div class="app"><div class="app-main" style="grid-template-columns:30% 1fr"><nav class="outline"><div class="oh">תוכן השיעור · <span class="mins" data-mins>…</span></div><ol>' + PG_SEC.map((s, i) => '<li data-go="' + i + '">' + s.t + "</li>").join("") + "</ol></nav>" + pgScroll() + "</div></div>";
+  if (kind === "bar") return '<div class="pg"><div class="pg-top"><b data-sec>…</b><span class="mins" data-mins></span><span class="pg-hair" data-hair></span></div><div class="pg-body">' + pgScroll() + "</div></div>";
+  return '<div class="app"><div class="app-main" style="grid-template-columns:1fr auto">' + pgScroll() + '<div class="dots">' + PG_SEC.map((s, i) => '<button type="button" data-go="' + i + '" data-l="' + s.t + '" aria-label="' + s.t + '"></button>').join("") + "</div></div></div>";
+}
+function mountProgress(root) {
+  const sc = $(".pg-scroll", root); if (!sc) return;
+  const secs = $$("section", sc);
+  const upd = () => {
+    const y = sc.scrollTop + sc.clientHeight * 0.3;
+    let cur = 0; secs.forEach((s, i) => { if (s.offsetTop <= y) cur = i; });
+    const frac = Math.min(1, sc.scrollTop / Math.max(1, sc.scrollHeight - sc.clientHeight));
+    const left = PG_SEC.slice(cur + 1).reduce((a, s) => a + s.m, 0);
+    const curLeft = Math.max(1, Math.round(PG_SEC[cur].m * (1 - Math.min(1, (y - secs[cur].offsetTop) / Math.max(1, secs[cur].offsetHeight)))));
+    $$("[data-go]", root).forEach((el) => { const i = +el.dataset.go; el.classList.toggle("here", i === cur); el.classList.toggle("done", i < cur); });
+    $$(".outline li", root).forEach((li) => { const lab = $(".here-lab", li); if (li.classList.contains("here") && !lab) li.insertAdjacentHTML("beforeend", '<span class="here-lab">אתה כאן · עוד ' + curLeft + " דק'</span>"); else if (!li.classList.contains("here") && lab) lab.remove(); else if (lab) lab.textContent = "אתה כאן · עוד " + curLeft + " דק'"; });
+    const m = $("[data-mins]", root); if (m) m.textContent = "עוד " + (curLeft + left) + " דק' בשיעור";
+    const sec = $("[data-sec]", root); if (sec) sec.textContent = PG_SEC[cur].t + " · עוד " + curLeft + " דק'";
+    if (sec && m) m.textContent = "· " + Math.round(frac * 100) + "%";
+    const h = $("[data-hair]", root); if (h) h.style.width = frac * 100 + "%";
+  };
+  sc.addEventListener("scroll", upd, { passive: true });
+  root.addEventListener("click", (e) => { const g = e.target.closest("[data-go]"); if (!g) return; const s = secs[+g.dataset.go]; sc.scrollTop = s.offsetTop - 4; });
+  upd();
+}
+Qdef({
+  id: "q9-progress", num: "9", title: "התמצאות: איפה אני ומה נשאר",
+  lead: "גלול בתוך כל דוגמה (או לחץ על פריט). כל אחת אומרת \"אתה כאן\" ו\"כמה נשאר\" בדרך אחרת.",
+  variants: [
+    { id: "outline-here", name: "תוכן השיעור עם \"אתה כאן\"", cur: true, desc: "רשימת הסעיפים בצד, נקודה אדומה על הסעיף הנוכחי, ✓ על מה שעבר, וכמה דקות נשארו.", pc: "בעד: מפה מלאה. נגד: לוקח עמודה.", html: () => pgHTML("outline"), mount: mountProgress },
+    { id: "top-bar", name: "פס התקדמות עליון", desc: "שורה אחת למעלה: שם הסעיף, הדקות שנשארו בו, וקו אדום דק שמתמלא לאורך השיעור.", pc: "בעד: כמעט לא תופס מקום. נגד: לא רואים את הסעיפים הבאים.", html: () => pgHTML("bar"), mount: mountProgress },
+    { id: "dots", name: "נקודות סעיפים", desc: "טור נקודות בשוליים, אחת לכל סעיף. הנוכחית מודגשת ומציגה את שמה; לחיצה קופצת.", pc: "בעד: שקט, ועדיין רואים את המבנה. נגד: השמות מוסתרים.", html: () => pgHTML("dots"), mount: mountProgress },
+  ],
+});
+
+/* ---------- build ---------- */
+function variantCard(q, v) {
+  const id = q.id + "--" + v.id;
+  const tags = (v.cur ? '<span class="tag cur">ההצעה הנוכחית</span>' : "") + (v.app ? '<span class="tag">באפליקציה היום</span>' : "") + (v.fresh ? '<span class="tag cur">חדש</span>' : "");
+  let body = "";
+  if (v.html) body = '<div class="pv ' + (v.auto ? "auto " : "") + (v.fade ? "pv-fade" : "") + '" data-pv>' + v.html(id + "-w") + "</div>";
+  if (v.panel) body = v.panel();
+  if (v.extra) body += v.extra();
+  const acts = '<div class="card-act"><button type="button" class="btn pri" data-choose aria-pressed="false">בחר</button>' + (q.big ? '<button type="button" class="btn" data-big aria-pressed="false">הצג גדול</button>' : "") + (v.replay ? '<button type="button" class="btn" data-replay>הפעל שוב</button>' : "") + "</div>";
+  return '<article class="card" id="' + id + '" data-q="' + q.id + '" data-v="' + v.id + '">' + body + '<div class="card-meta"><h3>' + esc(v.name) + tags + '</h3><p>' + tx(v.desc) + "</p>" + (v.pc ? '<p class="pc">' + esc(v.pc) + "</p>" : "") + "</div>" + acts + "</article>";
+}
+function volRow(kind) {
+  if (kind === "cue") return '<div class="vol-row"><div class="vol"><label for="vol-cue">עוצמת הצלילים</label><output id="vol-cue-o">60</output><input type="range" id="vol-cue" min="0" max="100" value="60"></div><div style="font-size:13.5px;color:var(--muted);align-self:center">כמו "עוצמת הצלילים" בהגדרות Aa: ברירת מחדל 60, על עקומה שהאוזן שומעת כצעדים שווים.</div></div>';
+  return '<div class="vol-row"><div class="vol"><label for="vol-noise">עוצמת רעש הרקע</label><output id="vol-noise-o">35</output><input type="range" id="vol-noise" min="0" max="100" value="35"></div><div class="vol" style="align-content:center"><span style="font-size:13.5px;color:var(--muted)">ברירת מחדל 35, כמו היום. העוצמה נשמרת יחד עם הבחירה.</span><button type="button" class="btn" id="noise-stop" style="grid-column:1/-1;width:fit-content">עצור את הרעש</button></div></div>';
+}
+function build() {
+  const host = $("#qs");
+  host.innerHTML = QS.map((q) => {
+    return '<section class="q" id="' + q.id + '" aria-labelledby="' + q.id + '-h"><div class="q-head"><span class="q-num">' + q.num + '</span><h2 id="' + q.id + '-h">' + esc(q.title) + "</h2><p>" + tx(q.lead) + "</p></div>" +
+      (q.tools ? '<div class="q-tools">' + q.tools + "</div>" : "") + (q.volRow ? volRow(q.volRow) : "") +
+      (q.spec ? '<div class="spec-row"><span class="lab">מה מתנגן עכשיו, לפי תדר (נמוכים מימין)</span><canvas class="wave" id="spec" aria-hidden="true"></canvas></div>' : "") +
+      '<div class="grid ' + (q.grid || "") + '">' + q.variants.map((v) => variantCard(q, v)).join("") + "</div>" +
+      '<div class="note-row"><label for="note-' + q.id + '">הערה חופשית לשאלה הזאת (לא חובה)</label><textarea id="note-' + q.id + '" data-note="' + q.id + '" placeholder="למשל: אפשרות 2, אבל עם הנקודות של 3"></textarea><button type="button" class="btn" data-save-note="' + q.id + '">שמור הערה</button><span class="st" id="st-' + q.id + '"></span></div></section>';
+  }).join("");
+  QS.forEach((q) => q.variants.forEach((v) => { if (v.mount) v.mount($("#" + q.id + "--" + v.id)); }));
+  $$("textarea[data-note]").forEach((t) => { const r = state[t.dataset.note]; if (r && r.note) t.value = r.note; });
+  renderSummary();
+  applyAll();
+  drawSpec(false);
+}
+function renderSummary() {
+  let n = 0;
+  $("#sum-list").innerHTML = QS.map((q) => {
+    const r = state[q.id]; const v = r && r.choice && q.variants.find((x) => x.id === r.choice);
+    if (v) n++;
+    return '<li><a href="#' + q.id + '"><span class="n">' + q.num + "</span><span>" + esc(q.title) + '<br><span class="v' + (v ? " on" : "") + '">' + (v ? esc(v.name) : "עוד לא נבחר") + (r && r.note ? " · יש הערה" : "") + "</span></span></a></li>";
+  }).join("");
+  $("#sum-count").textContent = n + " מתוך " + QS.length;
+}
+function applyAll() {
+  $$(".card").forEach((c) => {
+    const r = state[c.dataset.q]; const on = !!(r && r.choice === c.dataset.v);
+    c.classList.toggle("chosen", on);
+    const b = $("[data-choose]", c); b.setAttribute("aria-pressed", String(on)); b.textContent = on ? "✓ נבחר" : "בחר";
+  });
+  QS.forEach((q) => {
+    const r = state[q.id]; const st = $("#st-" + q.id);
+    if (st) st.textContent = r && r.at ? "נשמר " + hhmm(r.at) + (r.choice ? "" : " (הערה בלי בחירה)") : "";
+    const t = $("#note-" + q.id); if (t && r && r.note && document.activeElement !== t && !t.value) t.value = r.note;
+  });
+  const nv = state["q6-noise"] && state["q6-noise"].extra && state["q6-noise"].extra.noiseVolume;
+  if (typeof nv === "number" && $("#vol-noise") && !S.touchedNoise) { $("#vol-noise").value = nv; $("#vol-noise-o").textContent = nv; S.noiseVol = nv; }
+  const cv = state["q6-typing"] && state["q6-typing"].extra && state["q6-typing"].extra.volume;
+  if (typeof cv === "number" && $("#vol-cue") && !S.touchedCue) { $("#vol-cue").value = cv; $("#vol-cue-o").textContent = cv; S.cueVol = cv; }
+  renderSummary();
+}
+function extraFor(qid) {
+  if (qid === "q6-noise") return { noiseVolume: S.noiseVol };
+  if (qid === "q6-typing") return { volume: S.cueVol };
+  return undefined;
+}
+async function choose(qid, vid) {
+  const q = QS.find((x) => x.id === qid); const v = q.variants.find((x) => x.id === vid);
+  const t = $("#note-" + qid);
+  state[qid] = { choice: vid, label: v.name, note: t ? t.value.trim() : "", at: new Date().toISOString(), extra: extraFor(qid) };
+  applyAll();
+  click();
+  const where = await persist(qid);
+  toast((where === "db" ? "נשמר: " : "נשמר בדפדפן: ") + q.num + " · " + v.name);
+}
+async function saveNote(qid) {
+  const t = $("#note-" + qid); const prev = state[qid] || {};
+  state[qid] = { choice: prev.choice ?? null, label: prev.label ?? null, note: t.value.trim(), at: new Date().toISOString(), extra: prev.extra || extraFor(qid) };
+  applyAll();
+  const where = await persist(qid);
+  toast(where === "db" ? "ההערה נשמרה" : "ההערה נשמרה בדפדפן");
+}
+
+/* ---------- events ---------- */
+document.addEventListener("click", (e) => {
+  const t = e.target;
+  const th = t.closest("[data-th]");
+  if (th) {
+    const v = th.dataset.th;
+    if (v === "auto") document.documentElement.removeAttribute("data-theme"); else document.documentElement.setAttribute("data-theme", v);
+    $$("[data-th]").forEach((b) => b.setAttribute("aria-pressed", String(b === th)));
+    try { localStorage.setItem("lab-design-theme", v); } catch (err) { /* ignore */ }
+    if (S.bed) drawSpec(true); else drawSpec(false);
+    return;
+  }
+  const lab = t.closest("[data-lab]:not(.cz)");
+  if (lab && lab.closest(".seg")) {
+    if (lab.dataset.lab === "gil") document.documentElement.setAttribute("data-lab", "gil"); else document.documentElement.removeAttribute("data-lab");
+    $$(".seg [data-lab]").forEach((b) => b.setAttribute("aria-pressed", String(b === lab)));
+    return;
+  }
+  const ch = t.closest("[data-choose]");
+  if (ch) { const c = ch.closest(".card"); choose(c.dataset.q, c.dataset.v); return; }
+  const sn = t.closest("[data-save-note]");
+  if (sn) { saveNote(sn.dataset.saveNote); return; }
+  const big = t.closest("[data-big]");
+  if (big) { const c = big.closest(".card"); const on = !c.classList.contains("big"); c.classList.toggle("big", on); big.setAttribute("aria-pressed", String(on)); big.textContent = on ? "הקטן" : "הצג גדול"; if (on) c.scrollIntoView({ block: "nearest", behavior: "smooth" }); return; }
+  const dr = t.closest("[data-drawer]");
+  if (dr) { const d = $(".drawer", dr.closest(".pv")); if (d) d.classList.toggle("open"); click(); return; }
+  const rp = t.closest("[data-replay]");
+  if (rp) {
+    const c = rp.closest(".card");
+    $$("[data-anim]", c).forEach((el) => { el.style.animation = "none"; void el.offsetWidth; el.style.animation = ""; });
+    cue("hot");
+    return;
+  }
+  const chm = t.closest("[data-chime]");
+  if (chm) { cue(chm.dataset.k, CHIMES[chm.dataset.chime]); return; }
+  const nz = t.closest("[data-noise]");
+  if (nz) {
+    const on = nz.getAttribute("aria-pressed") !== "true";
+    $$("[data-noise]").forEach((b) => { b.setAttribute("aria-pressed", "false"); $(".pl", b).textContent = "נגן"; });
+    if (on) { nz.setAttribute("aria-pressed", "true"); $(".pl", nz).textContent = "עצור"; setNoise(nz.dataset.noise); } else setNoise(null);
+    return;
+  }
+  if (t.closest("#noise-stop")) { $$("[data-noise]").forEach((b) => { b.setAttribute("aria-pressed", "false"); $(".pl", b).textContent = "נגן"; }); setNoise(null); return; }
+  const dt = t.closest("[data-demo-type]");
+  if (dt) {
+    const kind = dt.dataset.demoType; const ta = $("#type-" + kind);
+    const set = TYPING[kind]; let delay = 0; ta.value = "";
+    [...TYPE_PHRASE].forEach((chr, i) => {
+      delay += 70 + Math.random() * 90 + (chr === " " ? 60 : 0);
+      const code = chr === " " ? "Space" : "Key" + ((i * 7) % 26);
+      setTimeout(() => { safely(() => set.down(code)); ta.value += chr; setTimeout(() => safely(() => set.up(code)), 70 + Math.random() * 40); }, delay);
+    });
+    return;
+  }
+});
+document.addEventListener("change", (e) => {
+  if (e.target.id === "disc-toggle") $("#q5-consult .grid").classList.toggle("disc", e.target.checked);
+  if (e.target.id === "snd-on" && !e.target.checked) { $$("[data-noise]").forEach((b) => { b.setAttribute("aria-pressed", "false"); $(".pl", b).textContent = "נגן"; }); setNoise(null); }
+});
+document.addEventListener("input", (e) => {
+  if (e.target.id === "vol-cue") { S.touchedCue = true; S.cueVol = +e.target.value; $("#vol-cue-o").textContent = e.target.value; if (S.master) S.master.gain.value = cueGain(); }
+  if (e.target.id === "vol-noise") {
+    S.touchedNoise = true; S.noiseVol = +e.target.value; $("#vol-noise-o").textContent = e.target.value;
+    if (S.bed && S.ctx) { const now = S.ctx.currentTime; S.bed.gain.gain.cancelScheduledValues(now); S.bed.gain.gain.setValueAtTime(S.bed.gain.gain.value, now); S.bed.gain.gain.linearRampToValueAtTime(noiseGain(), now + 0.2); }
+  }
+});
+document.addEventListener("pointerup", (e) => {
+  if (e.target.id === "vol-cue") { click(); }
+});
+/* typing sounds: in a typing test box its own variant; in the note boxes, the chosen variant */
+const heard = new Map();
+document.addEventListener("keydown", (e) => {
+  const t = e.target;
+  if (!t || !t.matches || !t.matches("textarea, input[type=text], input:not([type])") || e.ctrlKey || e.metaKey || e.altKey || e.repeat) return;
+  if (!(e.key.length === 1 || e.key === "Backspace" || e.key === "Enter")) return;
+  const kind = t.dataset.typing || (state["q6-typing"] && state["q6-typing"].choice) || "brown";
+  const set = TYPING[kind] || TYPING.brown;
+  heard.set(e.code, set);
+  safely(() => set.down(e.code));
+}, true);
+document.addEventListener("keyup", (e) => { const set = heard.get(e.code); if (set) { heard.delete(e.code); safely(() => set.up(e.code)); } }, true);
+document.addEventListener("input", (e) => {
+  const t = e.target; if (!t.dataset || !t.dataset.note) return;
+  const st = $("#st-" + t.dataset.note); if (st) st.textContent = "לא נשמר עדיין · לחץ \"שמור הערה\" או בחר אפשרות";
+});
+
+try { const th = localStorage.getItem("lab-design-theme"); if (th && th !== "auto") { document.documentElement.setAttribute("data-theme", th); $$("[data-th]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.th === th))); } } catch (e) { /* ignore */ }
+build();
+window.addEventListener("resize", () => { if (!S.bed) drawSpec(false); });
+})();
+</script>
