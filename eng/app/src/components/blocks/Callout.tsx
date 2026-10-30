@@ -7,6 +7,7 @@ export const CALLOUTS: Record<string, { label: string; icon: string }> = {
   plan: { label: "מקום השיעור בתוכנית", icon: "plan" },
   story: { label: "פתיחה", icon: "story" },
   history: { label: "רקע: מי, מתי ולמה", icon: "history" },
+  definition: { label: "הגדרה", icon: "formula" },
   formula: { label: "נוסחת מפתח", icon: "formula" },
   refresh: { label: "רענון כלי", icon: "refresh" },
   domain: { label: "חיבור לתחום", icon: "domain" },
@@ -18,6 +19,7 @@ export const CALLOUTS: Record<string, { label: string; icon: string }> = {
   today: { label: "העולם של היום", icon: "fieldsystems" },
   derivation: { label: "גזירה", icon: "formula" },
   coverage: { label: "בדיקת כיסוי", icon: "coverage" },
+  keep: { label: "לסיכום: מה צריך לזכור", icon: "coverage" },
 };
 
 export const FIELDS: Record<string, string> = {

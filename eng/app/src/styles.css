@@ -27,6 +27,8 @@
   --k-story: #a14a0c;
   --k-history: #6d3fa0;
   --k-formula: #1f5f9e;
+  --k-definition: #3b3a9e;
+  --k-keep: #44493a;
   --k-think: #a16207;
   --k-refresh: #6b7a00;
   --k-domain: #0f766e;
@@ -74,6 +76,8 @@
     --k-story: #e6a75c;
     --k-history: #c9b0ef;
     --k-formula: #94bfdc;
+    --k-definition: #b9b6f2;
+    --k-keep: #c9ccb4;
     --k-think: #e0c46c;
     --k-refresh: #d4cf7a;
     --k-domain: #8fd0c0;
@@ -117,6 +121,8 @@
   --k-story: #e6a75c;
   --k-history: #c9b0ef;
   --k-formula: #94bfdc;
+  --k-definition: #b9b6f2;
+  --k-keep: #c9ccb4;
   --k-think: #e0c46c;
   --k-refresh: #d4cf7a;
   --k-domain: #8fd0c0;
@@ -1374,6 +1380,19 @@ button.crumb:hover {
 }
 .block-formula {
   --k: var(--k-formula);
+}
+/* a definition: the general mathematical statement, solid frame, before any example */
+.block-definition {
+  --k: var(--k-definition);
+  border-style: solid;
+}
+.block-definition .block-body {
+  font-size: 1.04em;
+}
+/* the end-of-lesson list of what goes into the summary */
+.block-keep {
+  --k: var(--k-keep);
+  border-style: solid;
 }
 .block-think {
   --k: var(--k-think);

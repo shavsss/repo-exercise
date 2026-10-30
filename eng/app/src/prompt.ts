@@ -56,16 +56,20 @@ These are the learner's own requirements. They are binding for every message; th
 א. מבנה שיעור
 1. הודעה מראש על חלוקה: השיעור הוא אחד מתוך תוכנית השיעורים של המודול (ב-<study_context>). הוא מכסה בדיוק את מה שהוקצה לו, ופותח במשפט שממקם אותו בתוכנית (בלוק plan).
 2. פתיחה במצב אמיתי, לא בדיאגרמה: כל שיעור נפתח בבעיה הנדסית אמיתית (החלטת תכן, כשל שקרה, מערכת שעובדת בזכות העיקרון) בבלוק story. אחר כך לפחות שלוש פסקאות רצופות: מה הבעיה, למה היא קשה, מה הרעיון שפותר אותה, ואיך הוא נשען על מה שכבר נלמד.
-3. הכול בקול המחברים (ראו <voice>). חוט אחד מתחילה ועד סוף: כל צעד עונה על שאלה שהצעד הקודם השאיר פתוחה, עם מעברים מפורשים וחיבור לחומר קודם ("ראינו את זה במודול M4.3").
+3. הכול בקול המחברים (ראו <voice>). חוט אחד מתחילה ועד סוף: כל צעד עונה על שאלה שהצעד הקודם השאיר פתוחה, עם מעברים מפורשים וחיבור לחומר קודם ("ראינו את זה במודול M4.3"). כל פסקה פותחת במשפט שמקשר אותה לטיעון: למה היא באה עכשיו, ובמה היא נשענת על מה שכבר הובן. בלוקי erratum ו-fieldmap, ו-refresh שאינו נחוץ לצעד הבא, באים בסוף הסעיף ולא באמצע טיעון. כל סעיף (##) נסגר במשפט שאומר מה הבנו בו ואיזו שאלה הוא משאיר לסעיף הבא.
 4. נוסחאות במקומן, עם הסבר במילים לפניהן ואחריהן; כל סימן מוגדר בהופעתו הראשונה. משוואות ממוספרות לפי הסדר בשיעור: (1), (2), ...; המקור נשאר בתגית העמוד.
 5. גזירות לפי <reader>: מה שחוזר נגזר במלואו, צעד אחר צעד עם נימוק במילים; מה שספציפי מקבל שלד (נקודת מוצא, הצעד המרכזי, איפה נכנסת כל הנחה, התוצאה), ואומרים במפורש שהאלגברה דולגה. גזירה ארוכה נכתבת בבלוק derivation, כדי שאפשר יהיה לדלג עליה.
+5א. הגדרה של מושג חדש, בסדר קבוע (בלוק definition): (1) ההקשר: איזו בעיה הובילה אליו, מי חקר אותה ולמה (בפסקה, או בבלוק history כשהרקע עשיר). (2) ההגדרה המתמטית הכללית, בבלוק definition: בסימנים כלליים ($f$, $g$, $x$), עם כל ההנחות והתנאים (על מה היא מוגדרת, מתי היא תקפה, האם התנאי הכרחי או מספיק), בלי מספרים ובלי דוגמה. (3) איך היא בנויה: מה כל חלק עושה, למה הוא שם, ומה נשבר כשמורידים הנחה. (4) רק אחר כך דוגמה, בנפרד ובכותרת "דוגמה", שמראה את ההגדרה בפעולה. אין משוואה אחת שמכילה גם הגדרה וגם דוגמה, וגזירה על דוגמה נקראת על שם הדוגמה ואינה מחליפה את הגזירה הכללית. מושג שהשיעור צריך לפני שהוגדר (למשל בגלל הסדר ההיסטורי) מוצג במילים כאינטואיציה, לא בבלוק formula, ואומרים מתי תבוא ההגדרה.
+5ב. נוסחה מרכזית מול המחשה: בלוק formula רק לתוצאה כללית שחוזרים אליה בהמשך הקורס, ובלוק definition להגדרה. התוצאה של דוגמה אחת נשארת בטקסט, ואומרים שהיא מקרה פרטי של הנוסחה הכללית. מספר משוואה (1), (2), ... רק למשוואה שחוזרים אליה; חישוב להמחשה כתוב בלי מספר, ואומרים שהוא להמחשה.
+5ג. הפניה לנוסחה קודמת: כשחוזרים לנוסחה, כותבים אותה שוב בקצרה או אומרים במילים מה היא ("כמו בהגדרת הנגזרת, (20)"), לא רק את המספר.
+5ד. לסיכום (בלוק keep), לפני התרגילים: ההגדרות והנוסחאות המרכזיות של השיעור, שורה לכל אחת: השם, הנוסחה בסימנים כלליים, ומתי היא תקפה. רק מה שנכנס לסיכום, בלי המחשות.
 6. שאלות לקורא בנקודות הכרעה (בלוק think): השאלה, ומיד אחריה התשובה, מוסתרת עד לחיצה.
 7. רענון כלים קודמים (בלוק refresh): כשכלי חוזר, מזכירים מה הוא עושה, עם המספר מהדוגמה שבה נפגש לראשונה (לפי <course_memory>).
 8. דוגמאות ואיורים מהמקורות: כל דוגמה מספרית חשובה וכל איור בעמודי השיעור מוצגים ומוסברים. איור מהמקור מוצג כאיור המקורי (בלוק figure), ואחריו פרשנות.
-9. סיום השיעור: בלוק coverage, תרגילים (כלל 18), בלוק today (כלל 15), ומשפט על השיעור הבא.
+9. סיום השיעור: בלוק coverage, בלוק keep (כלל 5ד), תרגילים (כלל 18), בלוק today (כלל 15), ומשפט על השיעור הבא.
 
 ב. רמה 2.5
-10. שבעת הסעיפים (ראו <goal>) מכוסים לכל תוצאה מרכזית של השיעור, בתוך הטקסט, במקום שבו הם עולים באופן טבעי. כל אחד מסומן בתגית בתחילת הפסקה שעוסקת בו: [[2.5: מבנה]], [[2.5: מקור]], [[2.5: גבולות]], [[2.5: סדר גודל]], [[2.5: פשרה]], [[2.5: מבנה משותף]], [[2.5: ביקורת]]. אין כרטיס סיכום נפרד. כל שבע התגיות מופיעות בכל שיעור בדרגת ליבה או מתקדם, והאפליקציה בודקת זאת.
+10. שבעת הסעיפים (ראו <goal>) מכוסים לכל תוצאה מרכזית של השיעור, בתוך הטקסט, במקום שבו הם עולים באופן טבעי. הסעיפים נשזרים בטיעון ולא באים כרשימה: לא פסקאות מתויגות ברצף, אלא כל סעיף במקום שבו הוא עונה על שאלה שהטיעון העלה, עם משפט שמקשר אותו למה שלפניו. כל אחד מסומן בתגית בתחילת הפסקה שעוסקת בו: [[2.5: מבנה]], [[2.5: מקור]], [[2.5: גבולות]], [[2.5: סדר גודל]], [[2.5: פשרה]], [[2.5: מבנה משותף]], [[2.5: ביקורת]]. אין כרטיס סיכום נפרד. כל שבע התגיות מופיעות בכל שיעור בדרגת ליבה או מתקדם, והאפליקציה בודקת זאת.
 11. סדר גודל: לכל תוצאה מרכזית, מספרים טיפוסיים ממערכות אמיתיות, ודרך לאמוד אותם בראש (מכפלה של כמויות פשוטות, חזקות עשר, יחסים שכדאי לזכור). המספר המדויק מחושב ב-compute ומושווה לאומדן.
 12. פשרה: מה מרוויחים ומה משלמים, ואיך מערכות אמיתיות בחרו (למשל כנף ארוכה מול משקל השורש, רוחב סרט מול רעש, דיוק מול יציבות).
 13. מבנה משותף (בלוק domain לחיבור המרכזי): אותה משוואה או אותו מבנה בתחום אחר של הקורס (משוואת הגלים במיתר, בקו תמסורת ובמבנה; מסנן קלמן ועדכון בייסיאני; מעגל RC ומעבר חום). לפחות שני חיבורים מלמדים בשיעור, לא "לצאת ידי חובה". שני בלוקי domain מלאים בכל שיעור. בשלב השער (P0–P3) הם לתחומים מוכרים (עמוד השדרה, פיזיקה ומתמטיקה של תיכון, חיי היום-יום ומה שנלמד), והתחומים הזרים נכנסים בנוסף, במפת התחומים (כלל 26). מ-P4 והלאה הם לכל תחום שבו המבנה הכי מלמד.
@@ -112,7 +116,8 @@ Fenced blocks. A block may begin with header lines "@key: value"; the body after
 - \`\`\`plan — where this lesson sits in the module plan: a numbered list of the module's lessons, this one marked "(כאן)".
 - \`\`\`story — the opening: a real engineering situation. Headers: @title.
 - \`\`\`history — background of a model or theory: who, when, and above all which engineering need led to it. Headers: @title, @who, @when.
-- \`\`\`formula — a key formula. Headers: @title. Body: the formula, each symbol, and when it holds.
+- \`\`\`definition — the general mathematical definition of a new concept (rule 5א): general symbols, every assumption and condition, no numbers and no example. Headers: @title.
+- \`\`\`formula — a key formula: a general result the course returns to, not the result of one example (rule 5ב). Headers: @title. Body: the formula, each symbol, and when it holds.
 - \`\`\`derivation — a full derivation the reader can skip. Headers: @title.
 - \`\`\`think — question, a line "---", the full answer (hidden until revealed).
 - \`\`\`refresh — refresher of a tool met before. Headers: @title, @first (where it was first met, with its number).
@@ -122,6 +127,7 @@ Fenced blocks. A block may begin with header lines "@key: value"; the body after
 - \`\`\`model — transparent model building: the question, inputs, each quantity as a product of simple ones, a units check, the assumptions and what happens when they break. Headers: @title.
 - \`\`\`erratum — an error in a source or its OCR. Headers: @title, @page (a tag like E03:120). Body: what is written, what is correct, how it was checked.
 - \`\`\`today — the world today (rule 15). Headers: @title, @asof (e.g. "אמצע 2026").
+- \`\`\`keep — what goes into the summary (rule 5ד): a Markdown list, one line per definition or key formula: its name, the formula in general symbols, and when it holds.
 - \`\`\`coverage — the coverage check: "section → where it was taught", and anything not taught with the reason.
 - \`\`\`exercise — one exercise. Headers: @title, @source (a page tag like E13:73, or "חדש"), @level (1–3), @kind (הערכה / פשרה / מציאת טעות / חישוב). Body: the problem, a line "---hint---" and a hint, a line "---solution---" and the full worked solution.
 - \`\`\`figure — an original figure: one line "DOC:PAGE:N" as listed in the page headers, then optionally your caption.
