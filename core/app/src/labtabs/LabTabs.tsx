@@ -1,4 +1,4 @@
-// The tabs beside the lessons: the weekly paper, the month's product and the weekly
+// The tabs beside the lessons: the review queue (src/review/), the weekly paper, the month's product and the weekly
 // external review. Wide screens show them in the top bar; narrow ones fold them into
 // one button with a short list. The same file in both apps (the lab's entry in config.ts).
 import { useEffect, useRef, useState } from "react";
@@ -9,11 +9,13 @@ import { listIssues, loadFb } from "./data";
 import { NewsTab } from "./News";
 import { ProductsTab } from "./Products";
 import { ReviewsTab } from "./Reviews";
+import { ReviewTab } from "../review/Review";
 
-export type LabTab = "study" | "news" | "products" | "reviews";
+export type LabTab = "study" | "review" | "news" | "products" | "reviews";
 
 const TABS: { id: LabTab; label: string }[] = [
   { id: "study", label: "לימוד" },
+  { id: "review", label: "חזרה" },
   { id: "news", label: "עיתון" },
   { id: "products", label: "מוצר החודש" },
   { id: "reviews", label: "ביקורת שבועית" },
@@ -56,7 +58,7 @@ export function LabTabsNav({ tab, onTab, unread }: { tab: LabTab; onTab: (t: Lab
   const cur = TABS.find((t) => t.id === tab)!;
   return (
     <nav ref={ref} className={`labtabs ${open ? "is-open" : ""}`} aria-label="לשוניות">
-      <button className="labtabs-toggle" onClick={() => setOpen(!open)} aria-expanded={open} aria-haspopup="true" aria-label={`לשוניות: ${cur.label}`} title="לימוד, עיתון, מוצר החודש, ביקורת שבועית">
+      <button className="labtabs-toggle" onClick={() => setOpen(!open)} aria-expanded={open} aria-haspopup="true" aria-label={`לשוניות: ${cur.label}`} title="לימוד, חזרה, עיתון, מוצר החודש, ביקורת שבועית">
         <svg className="labtabs-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden>
           <path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z" />
         </svg>
@@ -100,6 +102,7 @@ export interface LabTabProps {
 export function LabTabView({ tab, ...p }: LabTabProps & { tab: LabTab }) {
   return (
     <div className="labtab-page" key={tab}>
+      {tab === "review" && <ReviewTab {...p} />}
       {tab === "news" && <NewsTab {...p} />}
       {tab === "products" && <ProductsTab {...p} />}
       {tab === "reviews" && <ReviewsTab {...p} />}

@@ -53,6 +53,11 @@
       opts.onText && opts.onText({ text: t, delta: t });
       return { text: t, truncated: false, modelTierApplied: "quick", modelApplied: opts.model };
     }
+    if (typeof input === "string" && input.includes("<answer>")) {
+      // "נסח לי שאלה" on a review card (src/review/Review.tsx)
+      window.__log.push("ask:" + opts.modelTier);
+      return { text: "מה קובע את הטווח המרבי, ולמה הוא גדל רק כשורש רביעי של ההספק?", truncated: false, modelTierApplied: "quick" };
+    }
     if (typeof input === "string") { window.__log.push("memory"); return { text: "# זיכרון הקורס\n\n## מה נלמד\n- שיעור בדיקה (מעודכן)", truncated: false, modelTierApplied: "default" }; }
     const last = input[input.length - 1].content;
     const m = /WRITING STEP: part (\d+) of (\d+)/.exec(last);
@@ -119,8 +124,15 @@
   const downloads = { save: async ({ filename, data }) => { window.__saved = { filename, size: data.length ?? data.byteLength }; (window.__savedAll ??= []).push({ filename, data }); return { status: "saved" }; } };
   // ?seed in the address: sample documents for the tabs beside the lessons (tools/test/samples/), added once
   function seed() {
-    if (seed.done || !/[?&]seed\b/.test(location.search)) return;
+    if (seed.done) return;
     seed.done = true;
+    // ?review: a lesson read two days ago, a missed think question and a margin note (make-harness.mjs reviewDocs)
+    if (/[?&]review\b/.test(location.search))
+      for (const [rel, doc] of Object.entries(window.__seedReview || {})) {
+        const p = "data/users/u_test/profile/" + rel;
+        if (!docs.has(p)) docs.set(p, JSON.parse(JSON.stringify(doc).replace(/"__AGO(\d+)__"/g, (_, d) => String(Date.now() - d * 86400000))));
+      }
+    if (!/[?&]seed\b/.test(location.search)) return localStorage.setItem("stubdb", JSON.stringify([...docs]));
     const now = new Date();
     const month = now.getFullYear() + "-" + String(now.getMonth() + 1).padStart(2, "0");
     for (const [rel, doc] of Object.entries(window.__seed || {})) {
