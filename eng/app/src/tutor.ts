@@ -11,7 +11,7 @@ import type { Runtime, SampleTool } from "./runtime";
 import { joinContinuation, looksCut } from "./truncation";
 import { NOTE_KIND_LABEL, type Activity, type Effort, type LessonNote, type LessonSpec, type Mode, type NoteKind, type StoredMessage } from "./types";
 import { curriculumBlock } from "./curriculum";
-import { decideLine, decideSlot, missingUnits, planGaps, planRepairTurn, unitCompletion, unitLines, unitsOfPart, type PlanUnit } from "./lessonGate";
+import { applyPlanRepair, decideLine, decideSlot, missingUnits, planGaps, planRepairTurn, unitCompletion, unitLines, unitsOfPart, type PlanUnit } from "./lessonGate";
 
 const math = create(all, {});
 const MODEL = "claude-opus-5-5";
@@ -539,8 +539,8 @@ async function gatePlan(plan: PartPlan, planTurn: string, o: Base, tools: Sample
   if (!gaps.length || !o.rt.sample) return plan;
   o.cb.onStatus?.("בודק את התוכנית מול כללי העומק ומשלים");
   const turn = `${planTurn}\n\n${planRepairTurn(plan, gaps)}`;
-  const fixed = await o.rt.sample
-    .json<PartPlan>([...fitHistory(o.history, bytes(turn)), { role: "user", content: turn }], {
+  const patch = await o.rt.sample
+    .json<unknown>([...fitHistory(o.history, bytes(turn)), { role: "user", content: turn }], {
       model: MODEL,
       modelTier: "complex",
       effort: o.effort,
@@ -548,6 +548,7 @@ async function gatePlan(plan: PartPlan, planTurn: string, o: Base, tools: Sample
       ...(tools ? { tools } : { cache: false }),
     })
     .catch(() => null);
+  const fixed = patch ? applyPlanRepair(plan, patch) : null;
   return fixed && Array.isArray(fixed.parts) && fixed.parts.length && check(fixed).length < gaps.length ? fixed : plan;
 }
 
@@ -599,7 +600,7 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
         }),
       history,
       cb,
-    ).catch((e) => onRefusal(e, rt, m, history, planTurn, cb));
+    ).catch((e) => onRefusal(e, rt, m, history, planTurn, cb, signal));
     if (!plan || !Array.isArray(plan.parts) || !plan.parts.length) throw { code: "invalid_json", message: "no plan" };
     plan = await gatePlan(plan, planTurn, opts, tools);
     cb.onCheckpoint?.(plan, 0, "");
@@ -626,7 +627,7 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
           }),
         history,
         cb,
-      ).catch((e) => onRefusal(e, rt, m, history, turn, cb));
+      ).catch((e) => onRefusal(e, rt, m, history, turn, cb, signal));
       partText = joinContinuation(partText, res.text);
       model = res.modelApplied ?? `רמת מודל: ${res.modelTierApplied}`;
       if (!res.truncated && !looksCut(partText).cut) break;
@@ -806,7 +807,7 @@ function diagAllowed(moduleId: string) {
  * again with one part removed at a time, asking only for "OK" (cheap, no tools). The result is saved
  * (profile/diag) so the cause can be fixed in the instructions, and the refusal is rethrown.
  */
-async function onRefusal(e: unknown, rt: Runtime, m: Module, history: StoredMessage[], turn: string, cb: TurnCallbacks): Promise<never> {
+async function onRefusal(e: unknown, rt: Runtime, m: Module, history: StoredMessage[], turn: string, cb: TurnCallbacks, signal?: AbortSignal): Promise<never> {
   if ((e as { code?: string })?.code !== "refused" || !cb.onDiag || !diagAllowed(m.id)) throw e;
   cb.onStatus?.("Claude סירב. בודק איזה חלק מהשיעור גורם לזה (כדקה)");
   const pagesAt = turn.indexOf("Source pages for this lesson:");
@@ -826,16 +827,23 @@ async function onRefusal(e: unknown, rt: Runtime, m: Module, history: StoredMess
   ];
   const pageProbes = pageChunks.slice(0, 4).map((c) => ({ name: `page ${(/\[\[([A-Z]\d+[a-z]?:\d+)\]\]/.exec(c)?.[1] ?? "?")}`, turn: `${minimal}\nSource page:\n${c}\n</study_context>`, p: { lean: true } }));
   const results: Record<string, string> = {};
-  for (let i = 0; i < variants.length; i++) {
+  // the page probes are added once, after the four variants; never more than eight calls in all
+  let pagesAdded = false;
+  const MAX_PROBES = 8;
+  for (let i = 0; i < variants.length && i < MAX_PROBES; i++) {
+    if (signal?.aborted) break;
     const v = variants[i];
-    if (i === variants.length - 1 && results["lean-full"] === "refused" && results["lean-no-pages"]?.startsWith("ok")) variants.push(...pageProbes);
+    if (!pagesAdded && i === 3 && results["lean-full"] === "refused" && results["lean-no-pages"]?.startsWith("ok")) {
+      pagesAdded = true;
+      variants.push(...pageProbes);
+    }
     const ask = `${v.turn}\n\nDIAGNOSTIC CHECK: do not write the lesson. Reply with the single word OK.`;
     try {
-      const res = await rt.sample!([...fitHistory([], bytes(ask), false, v.p), { role: "user", content: ask }], { model: MODEL, modelTier: "complex", effort: "low", cache: false });
+      const res = await rt.sample!([...fitHistory([], bytes(ask), false, v.p), { role: "user", content: ask }], { model: MODEL, modelTier: "complex", effort: "low", cache: false, signal });
       results[v.name] = `ok (${res.modelApplied ?? res.modelTierApplied ?? "?"})`;
     } catch (err) {
       results[v.name] = (err as { code?: string })?.code ?? "error";
-      if (results[v.name] === "rate_limited") break;
+      if (results[v.name] === "rate_limited" || signal?.aborted) break;
     }
   }
   await Promise.resolve(cb.onDiag({ module: m.id, at: Date.now(), results, turnBytes: bytes(turn), systemBytes: bytes(systemPrompt()) })).catch(() => {});

@@ -72,13 +72,22 @@ for (const f of walk(dump).filter((f) => f.endsWith(".json"))) {
     c.meta = read(f);
     convs.set(m[1], c);
   } else if ((m = /profile\/consults\/([^/]+)\/cards\/([^/]+)\.json$/.exec(rel))) {
-    consultCards.push({ ...read(f), id: m[2], lessonKey: m[1] });
+    // a pack of cards (cards/pack-<n>, { cards: [...] }) or one card (the first format)
+    const d = read(f);
+    if (Array.isArray(d.cards)) for (const c of d.cards) consultCards.push({ ...c, lessonKey: m[1] });
+    else consultCards.push({ ...d, id: m[2], lessonKey: m[1] });
   } else if (/profile\/(consults|events|usage|diag|news|newsfb|dict)\/[^/]+\.json$/.test(rel)) {
     // kept only in the raw snapshot below
   } else if (/profile\/memlog\/[^/]+\.json$/.test(rel)) {
-    memlog.push(read(f));
+    // a month of older versions (memlog/m-<YYYY-MM>, { versions: [...] }) or one version
+    const d = read(f);
+    if (Array.isArray(d.versions)) memlog.push(...d.versions);
+    else memlog.push(d);
   } else if ((m = /profile\/calib\/([^/]+)\.json$/.exec(rel))) {
-    calib.push({ id: m[1], ...read(f) });
+    // a lesson's answers (calib/<module>__<lesson>, { items: {...} }) or one answer (the first format)
+    const d = read(f);
+    if (d.items && typeof d.items === "object") for (const [id, r] of Object.entries(d.items)) calib.push({ id, ...r });
+    else calib.push({ id: m[1], ...d });
   } else if ((m = /profile\/level3\/([^/]+)\.json$/.exec(rel))) {
     level3.push({ ...read(f), key: m[1] });
   } else if ((m = /profile\/products\/([^/]+)\.json$/.exec(rel))) {

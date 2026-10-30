@@ -68,13 +68,62 @@ export function planGaps(plan: GatePlan, o: { full: boolean; sections: string[] 
   return gaps;
 }
 
-/** The repair turn for a plan with gaps: fix by adding, never by cutting. */
-export function planRepairTurn(plan: unknown, gaps: string[]) {
-  return `PLAN CHECK (the app's depth gate). Your plan below does not yet meet the depth rules:
+/**
+ * The plan's structure without its free text: result and unit ids, unit types, tiers, sources and
+ * parts, and each part's unit list, block names and level-2.5 sections. The repair turn sends only
+ * this: a plan the model wrote, sent back whole into the input, was what Claude refused on 28.10
+ * (CLAUDE.md, "סירוב של Claude").
+ */
+export function planSkeleton(plan: GatePlan) {
+  return {
+    results: (plan.results ?? []).map((r) => ({ id: r.id })),
+    units: (plan.units ?? []).map((u) => ({ id: u.id, r: u.r, type: u.type, tier: u.tier, src: u.src, part: u.part, q: !!u.q?.trim() })),
+    parts: plan.parts.map((p, k) => ({ part: k + 1, units: p.units ?? [], blocks: (p.blocks ?? []).map((x) => String(x).split(/\s/)[0]), l25: p.l25 ?? [] })),
+  };
+}
+
+/** The repair turn for a plan with gaps: fix by adding, never by cutting. Asks for a patch, merged by applyPlanRepair. */
+export function planRepairTurn(plan: GatePlan, gaps: string[]) {
+  return `PLAN CHECK (the app's depth gate). The plan you wrote does not yet meet the depth rules:
 ${gaps.map((g) => `- ${g}`).join("\n")}
-Fix exactly these points by adding or reassigning units and blocks; never delete a unit or thin one to fix a gap, and keep everything else of the plan. Reply with the full corrected JSON object only, in the same schema.
-Your plan:
-${JSON.stringify(plan)}`;
+Its structure (ids, types and parts only; "q": true means the unit has its exam question):
+${JSON.stringify(planSkeleton(plan))}
+Fix exactly these points by adding or reassigning units and blocks; never delete a unit or thin one to fix a gap. Do not resend the plan: reply with ONLY one JSON patch object, which the app merges into the plan:
+{"units": [every new unit, and every unit you change, in full: {"id", "r", "type", "tier", "src", "part", "text", "q"}],
+ "parts": [only the parts you change: {"part": 1-based number, "units": [its full unit list], "blocks": [its full block list], "l25": [its full section list]}],
+ "results": [only if a result gap is listed: the full list, {"id", "text", "thread"}], "split": only if you move results to a later lesson}
+Write every new text in the same plain engineering language as the plan.`;
+}
+
+/** Merges a repair patch into a plan: units are added or updated by id (never removed), parts by number. */
+export function applyPlanRepair<T extends GatePlan>(plan: T, patch: unknown): T {
+  if (!patch || typeof patch !== "object") return plan;
+  const p = patch as { units?: unknown; parts?: unknown; results?: unknown; split?: unknown };
+  const out = JSON.parse(JSON.stringify(plan)) as T & { split?: unknown };
+  if (Array.isArray(p.units)) {
+    out.units ??= [];
+    for (const u of p.units as PlanUnit[]) {
+      if (!u || typeof u.id !== "string") continue;
+      const old = out.units.find((x) => x.id === u.id);
+      const fields = Object.fromEntries(Object.entries(u).filter(([, v]) => v !== undefined && v !== null && v !== ""));
+      if (old) Object.assign(old, fields);
+      else out.units.push(fields as unknown as PlanUnit);
+    }
+  }
+  if (Array.isArray(p.parts))
+    for (const q of p.parts as { part?: number; units?: unknown; blocks?: unknown; l25?: unknown }[]) {
+      const part = out.parts[Number(q?.part) - 1];
+      if (!part) continue;
+      if (Array.isArray(q.units)) part.units = q.units.map(String);
+      if (Array.isArray(q.blocks)) part.blocks = q.blocks.map(String);
+      if (Array.isArray(q.l25)) part.l25 = q.l25.map(String);
+    }
+  if (Array.isArray(p.results) && p.results.length) {
+    const prev = out.results ?? [];
+    out.results = (p.results as { id: string; text?: string; thread?: string }[]).filter((r) => r && typeof r.id === "string").map((r) => ({ ...prev.find((x) => x.id === r.id), ...r }));
+  }
+  if (p.split !== undefined && p.split !== null) out.split = p.split;
+  return out;
 }
 
 /** The unit ids marked in a text with <!--U7--> (also inside think answers). */

@@ -141,12 +141,12 @@ async function run(j: Job) {
         onStatus: (status) => save({ status }),
         onCheckpoint: (plan: PartPlan, partsDone: number, text: string) => {
           checkpointText = text;
-          save({ plan, partsDone, text }, true);
+          save({ plan, partsDone, partsChars: text.length, text }, true);
         },
         onNote: j.onNote,
       },
     });
-    answer = { ...answer, text: res.text, model: res.model, draft: undefined, plan: undefined, partsDone: undefined, status: undefined, activity };
+    answer = { ...answer, text: res.text, model: res.model, draft: undefined, plan: undefined, partsDone: undefined, partsChars: undefined, status: undefined, activity };
   } catch (err) {
     const e = err as { code?: string };
     // keep plan and partsDone, and only the text of the finished parts, so "המשך" goes on from the last part
