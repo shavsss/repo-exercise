@@ -1,0 +1,234 @@
+<title>משטח הקריאה v2</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@400;500;600&family=IBM+Plex+Mono:wght@500&family=Frank+Ruhl+Libre:wght@500;700&display=swap">
+<style>
+/* Layout: three stacked studies, each a pair (today | proposed) of the lesson surface at real size. Tokens from core/app/src/styles.css; "v2" values from F1. */
+:root{
+  --bg:#ece4d6; --paper:#f4ede2; --sheet:#faf6ee; --ink:#22261d; --ink-soft:#44493a;
+  --muted-old:#676a58; --muted:#5c5f4e; --line:#ddd2bf; --line-strong:#ae9f84;
+  --text-old:#22261d; --text-new:#22261d;
+  --accent:#b3261e; --lan:#9b2c22; --gil:#2a5c8a; --gil-soft:#dfe8f0;
+  --font:"IBM Plex Sans Hebrew",system-ui,sans-serif; --serif:"Frank Ruhl Libre","IBM Plex Sans Hebrew",serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#1f1e1d; --paper:#262624; --sheet:#2d2c2a; --ink:#dedad1; --ink-soft:#c9c5bb; --muted-old:#9d998f; --muted:#bab5ab;
+  --line:#3a3936; --line-strong:#5c5a55; --text-old:#ece9e1; --text-new:#dedad1; --accent:#f08a7e; --lan:#e79a8f; --gil:#9cc1e0; --gil-soft:#25313b; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#1f1e1d; --paper:#262624; --sheet:#2d2c2a; --ink:#dedad1; --ink-soft:#c9c5bb; --muted-old:#9d998f; --muted:#bab5ab;
+  --line:#3a3936; --line-strong:#5c5a55; --text-old:#ece9e1; --text-new:#dedad1; --accent:#f08a7e; --lan:#e79a8f; --gil:#9cc1e0; --gil-soft:#25313b; color-scheme:dark}
+html{direction:rtl}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);margin:0;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:22px 64px}
+.wrap{max-width:76rem;margin:0 auto;display:grid;gap:34px}
+h1{font-family:var(--serif);font-size:1.7rem;margin:0}
+h2{font-family:var(--serif);font-size:1.3rem;margin:0}
+.lede,.note{color:var(--ink-soft);max-width:48rem;margin:0}
+.note{font-size:.9rem}
+section{display:grid;gap:12px}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.pair.stack{grid-template-columns:1fr}
+.pane{min-width:0;background:var(--sheet);border:1px solid var(--line);border-radius:6px;display:grid;grid-template-rows:auto 1fr auto}
+.pane header{display:flex;justify-content:space-between;align-items:baseline;gap:8px;padding:.5rem .9rem;border-bottom:1px solid var(--line);font-size:.82rem;color:var(--muted)}
+.pane header b{color:var(--ink);font-weight:600}
+.pane footer{padding:.45rem .9rem;border-top:1px solid var(--line);font-size:.8rem;color:var(--muted);font-family:var(--mono);direction:ltr;text-align:right}
+.body{padding:1.4rem 1rem 1.6rem;overflow:hidden}
+.btn{font:inherit;font-size:.9rem;border:1px solid var(--line-strong);background:var(--sheet);color:var(--ink);border-radius:7px;padding:.4rem .9rem;cursor:pointer}
+.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.row{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
+.m{font-family:Georgia,serif;font-style:italic;unicode-bidi:isolate;direction:ltr;display:inline-block}
+/* study 1: typesetting */
+.t-old{font-size:17px;line-height:1.9;max-width:42rem;color:var(--text-old)}
+.t-new{font-size:18.5px;line-height:1.8;max-width:31em;color:var(--text-new)}
+.t-old p,.t-new p{margin:0 0 .9em}
+.t-old .meta{color:var(--muted-old)} .t-new .meta{color:var(--muted)}
+.meta{font-size:.78em}
+.t-old h3,.t-new h3{font-family:var(--serif);font-size:1.3em;margin:0 0 .5em;line-height:1.3}
+/* study 2: streaming */
+.stream{height:330px;overflow:auto;position:relative;scroll-behavior:auto}
+.stream .t-new,.stream .t-old{font-size:16px}
+.caret{display:inline-block;width:.55em;height:1.1em;background:var(--accent);vertical-align:-.15em}
+.spin{display:inline-block;width:12px;height:12px;border:2px solid var(--line-strong);border-top-color:var(--accent);border-radius:50%;animation:sp 1s linear infinite;vertical-align:-2px}
+@keyframes sp{to{transform:rotate(360deg)}}
+.calm-status{font-size:.82rem;color:var(--muted);display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
+.calm-status .bar{flex:1 1 6rem;height:2px;background:var(--line);position:relative;min-width:5rem}
+.calm-status .bar i{position:absolute;inset-block:0;inset-inline-start:0;background:var(--ink-soft);transition:width .6s}
+.para-in{animation:fade .45s ease-out both}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.below{position:sticky;bottom:0;margin-top:.5rem;text-align:center;font-size:.8rem;color:var(--muted);background:linear-gradient(transparent,var(--sheet) 40%);padding-top:1rem}
+.wait{border-top:1px solid var(--line);margin-top:1rem;padding-top:.8rem;font-size:.9rem;color:var(--ink-soft);display:grid;gap:.4rem}
+.wait .k{font-size:.75rem;color:var(--muted)}
+/* study 3: stamp */
+.stage3{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.card{background:var(--sheet);border:1px solid var(--line);border-radius:8px;padding:1.2rem 1.2rem 1.3rem;display:grid;gap:.8rem;min-width:0}
+.map{height:150px;border:1px solid var(--line);border-radius:4px;position:relative;overflow:hidden}
+.map svg{width:100%;height:100%;display:block}
+.card .id{font-family:var(--serif);font-size:1.2rem;font-weight:700}
+.card .fact{color:var(--muted);font-size:.9rem;margin:0}
+.card ul{margin:0;padding-inline-start:1.1rem;display:grid;gap:.2rem;font-size:.95rem}
+.card .k{font-size:.78rem;color:var(--muted)}
+.stamp{transform-origin:50% 50%;transform-box:fill-box}
+.go .stamp{animation:press .18s ease-in both .6s}
+.go .ink{animation:ink .7s ease-out both .78s}
+@keyframes press{from{transform:scale(1.15) rotate(-8deg);opacity:0}to{transform:scale(1) rotate(-8deg);opacity:1}}
+@keyframes ink{from{opacity:.45}to{opacity:0}}
+.stamp,.ink{opacity:0}
+.go .stamp{opacity:1}
+.bp{stroke-dasharray:6 5}
+.go .bp-fill{animation:solid .9s ease-in-out both .6s}
+@keyframes solid{from{stroke-dashoffset:300}to{stroke-dashoffset:0}}
+.bp-fill{stroke-dasharray:300;stroke-dashoffset:300}
+.ini{opacity:0}
+.go .ini{animation:fade .3s both 1.4s}
+.dep{opacity:.35;transition:opacity .4s 1.5s}
+.go .dep{opacity:1}
+.fadein{opacity:0}
+.go .fadein{animation:fade .3s both .9s}
+@media (max-width:820px){.pair,.stage3{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.go .stamp,.go .ini,.go .fadein,.go .dep{opacity:1}.go .bp-fill{stroke-dashoffset:0}}
+</style>
+
+<div class="wrap">
+  <header style="display:grid;gap:.4rem">
+    <h1>משטח הקריאה v2</h1>
+    <p class="lede">שלושה דברים שנבדקו בקוד ובמחקר: אורך השורה והניגודיות, מה קורה על המסך בזמן שהמורה כותב, ורגע סגירת המודול. בכל אחד, מימין מה שיש היום ומשמאל ההצעה, באותו גודל אמיתי.</p>
+  </header>
+
+  <section>
+    <h2>1 · שורה קצרה יותר, טקסט רך יותר בכהה</h2>
+    <p class="note">היום: 17px ועמודה של 42rem, כ-85 תווים בשורה (עם רווחים). ההצעה: 18.5px ועמודה של 31em, כ-68 תווים, ורווח שורות 1.8. בכהה הטקסט עובר מ-#ece9e1 ל-#dedad1 (ניגודיות 10.9:1 במקום 12.5:1), והטקסט האפור הקטן מתחזק כדי לעבור את הסף. הספירה למטה נמדדת בדף עצמו.</p>
+    <div class="pair stack">
+      <div class="pane"><header><b>היום</b><span>17px · 42rem · 1.9</span></header>
+        <div class="body"><div class="t-old" data-measure><h3>האלכסון והצלע</h3><p>שאלת החוט: האם כל שני קטעים ניתנים למדידה זה בזה, אם רק מחלקים את היחידה מספיק? אם כן, כל יחס בין גדלים הוא שבר, והרציונליים של המדידה מספיקים לכל דבר. כדי לשאול זאת בדיוק צריך שם למצב שבו השארית נעלמת בסוף.</p><p>נניח שהצלע והאלכסון של ריבוע הם כפולות שלמות של קטע אחד, <span class="m">s = q·e</span> ו-<span class="m">d = p·e</span>. אז <span class="m">p² = 2q²</span>, ואפשר להניח ש-<span class="m">p/q</span> מצומצם.</p><p class="meta">K1:35 · חלק 3 מתוך 4 · כ-6 דקות לסוף החלק</p></div></div>
+        <footer data-out></footer></div>
+      <div class="pane"><header><b>מוצע</b><span>18.5px · 31em · 1.8</span></header>
+        <div class="body"><div class="t-new" data-measure><h3>האלכסון והצלע</h3><p>שאלת החוט: האם כל שני קטעים ניתנים למדידה זה בזה, אם רק מחלקים את היחידה מספיק? אם כן, כל יחס בין גדלים הוא שבר, והרציונליים של המדידה מספיקים לכל דבר. כדי לשאול זאת בדיוק צריך שם למצב שבו השארית נעלמת בסוף.</p><p>נניח שהצלע והאלכסון של ריבוע הם כפולות שלמות של קטע אחד, <span class="m">s = q·e</span> ו-<span class="m">d = p·e</span>. אז <span class="m">p² = 2q²</span>, ואפשר להניח ש-<span class="m">p/q</span> מצומצם.</p><p class="meta">K1:35 · חלק 3 מתוך 4 · כ-6 דקות לסוף החלק</p></div></div>
+        <footer data-out></footer></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>2 · בזמן שהמורה כותב</h2>
+    <p class="note">כתיבה של חלק בשיעור לוקחת 2–5 דקות. היום כל מקטע שמגיע מצייר מחדש את כל השיעור, והדף קופץ לתחתית בלי מעבר; ריבוע אדום רץ בסוף הטקסט וגלגל מסתובב כל הזמן. ההצעה: פסקה מופיעה רק כשהיא שלמה, בדעיכה של 450ms; הדף לא זז אם קראת למעלה, ושורה למטה אומרת שיש עוד; במקום גלגל, פס דק עם זמן משוער. והזמן הזה לא מבוזבז: שאלה אחת מהחלק הקודם.</p>
+    <div class="row"><button class="btn" id="play">הפעל את שתי הגרסאות</button><span class="note" style="font-size:.82rem">גלול למעלה באחת מהן בזמן שהיא כותבת כדי להרגיש את ההבדל.</span></div>
+    <div class="pair">
+      <div class="pane"><header><b>היום</b><span id="s-old"><span class="spin"></span> כותב…</span></header>
+        <div class="body stream" id="old"><div class="t-old" id="old-t"></div></div><footer>scrollTop = scrollHeight · per chunk</footer></div>
+      <div class="pane"><header><b>מוצע</b><span class="calm-status" id="s-new"><span>חלק 3 מתוך 4</span><span class="bar"><i id="nb" style="width:0%"></i></span><span id="eta">כ-3 דקות</span></span></header>
+        <div class="body stream" id="new"><div class="t-new" id="new-t"></div><div class="below" id="more" hidden>↓ פסקה חדשה למטה</div>
+          <div class="wait" id="wait"><span class="k">בזמן שהחלק נכתב · מהחלק הקודם</span><span>למה סיבוב של 72° לא יכול להחזיר סריג לעצמו? תשובה בראש מספיקה.</span><span class="row"><button class="btn" style="font-size:.8rem;padding:.25rem .7rem" id="rev">הצג תשובה</button></span><span id="ans" hidden style="color:var(--muted)">כי בבסיס הסריג העקבה שלמה, ו-<span class="m">2cos 72° = 0.618</span>.</span></div></div>
+        <footer>paragraph-at-once · no follow when scrolled up</footer></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>3 · סגירת מודול: החותמת</h2>
+    <p class="note">רגע אחד בשבוע או שבועיים, ולכן מותר לו להיות חגיגי, אבל בלי קונפטי ובלי שבחים. עובדות: מתי, אחרי כמה שיעורים, ומה עבר לידיך. בלנצ'סטר חותמת "אושר" על המפה; בגילואה הקו המקווקו של הרכיב בשרטוט נעשה רציף, וראשי התיבות שלך מופיעים בטבלת הכותרת. המודול השני באותו יום מקבל גרסה שקטה יותר.</p>
+    <div class="row"><button class="btn" id="stampgo">הפעל שוב (עם צליל)</button></div>
+    <div class="stage3" id="stage3">
+      <div class="card">
+        <div class="map" style="background:var(--paper)"><svg viewBox="0 0 320 150" aria-label="קטע מהמפה">
+          <g stroke="var(--line-strong)" stroke-width="1" fill="none"><path d="M0 120 Q80 90 160 105 T320 80"/><path d="M0 135 Q90 110 170 122 T320 98" opacity=".6"/><path d="M0 30 Q100 50 180 35 T320 45" opacity=".5"/></g>
+          <g class="dep"><line x1="160" y1="75" x2="265" y2="38" stroke="var(--ink-soft)" stroke-width="1.2"/><line x1="160" y1="75" x2="270" y2="118" stroke="var(--ink-soft)" stroke-width="1.2"/>
+          <rect x="250" y="26" width="52" height="22" rx="3" fill="var(--sheet)" stroke="var(--ink-soft)"/><text x="276" y="41" font-size="11" text-anchor="middle" fill="var(--ink)" font-family="IBM Plex Mono">M1.3</text>
+          <rect x="250" y="107" width="52" height="22" rx="3" fill="var(--sheet)" stroke="var(--ink-soft)"/><text x="276" y="122" font-size="11" text-anchor="middle" fill="var(--ink)" font-family="IBM Plex Mono">M2.1</text></g>
+          <rect x="128" y="62" width="64" height="26" rx="3" fill="var(--sheet)" stroke="var(--ink)" stroke-width="1.4"/><text x="160" y="79" font-size="12" text-anchor="middle" fill="var(--ink)" font-family="IBM Plex Mono">M1.2</text>
+          <g class="stamp"><circle cx="105" cy="58" r="30" fill="none" stroke="var(--lan)" stroke-width="2.4"/><circle cx="105" cy="58" r="24" fill="none" stroke="var(--lan)" stroke-width="1"/><text x="105" y="64" font-size="15" text-anchor="middle" fill="var(--lan)" font-family="Frank Ruhl Libre" font-weight="700">אושר</text></g>
+          <circle class="ink" cx="105" cy="58" r="36" fill="none" stroke="var(--lan)" stroke-width="5"/>
+        </svg></div>
+        <div class="fadein" style="display:grid;gap:.6rem">
+          <div class="id">M1.2 · מודל לנצ'סטר הריבועי</div>
+          <p class="fact">נלמד ב-30 באוקטובר, אחרי 4 שיעורים.</p>
+          <div><span class="k">מה שעבר לידיך</span><ul><li>למה ריכוז כוח משתלם בריבוע</li><li>מתי המודל נשבר: עתודות, איכות, פיזור</li><li>החיבור לקינטיקה כימית (נסגר היום)</li></ul></div>
+          <p class="fact">נפתחו: M1.3 · M2.1</p>
+          <div class="row"><button class="btn">לסיכום המודול</button><button class="btn">להמשיך</button></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="map" style="background:var(--gil-soft)"><svg viewBox="0 0 320 150" aria-label="קטע מהשרטוט">
+                    <g class="dep" stroke="var(--gil)" fill="none" stroke-width="1.1"><rect x="220" y="22" width="70" height="30"/><rect x="220" y="98" width="70" height="30"/><line x1="170" y1="75" x2="220" y2="37"/><line x1="170" y1="75" x2="220" y2="113"/></g>
+          <text class="dep" x="255" y="41" font-size="10" text-anchor="middle" fill="var(--gil)" font-family="IBM Plex Mono">E2.1</text><text class="dep" x="255" y="117" font-size="10" text-anchor="middle" fill="var(--gil)" font-family="IBM Plex Mono">E3.4</text>
+          <rect class="bp" x="70" y="55" width="100" height="40" fill="none" stroke="var(--gil)" stroke-width="1.2"/>
+          <rect class="bp-fill" x="70" y="55" width="100" height="40" fill="none" stroke="var(--gil)" stroke-width="1.6"/>
+          <text x="120" y="79" font-size="11" text-anchor="middle" fill="var(--gil)" font-family="IBM Plex Mono">E1.3</text>
+          <g stroke="var(--gil)" fill="none" stroke-width=".8"><rect x="8" y="112" width="120" height="30"/><line x1="8" y1="127" x2="128" y2="127"/><line x1="68" y1="112" x2="68" y2="142"/></g>
+          <text x="98" y="123" font-size="7" text-anchor="middle" fill="var(--gil)" font-family="IBM Plex Mono">CHECKED</text><text x="38" y="123" font-size="7" text-anchor="middle" fill="var(--gil)" font-family="IBM Plex Mono">DATE</text>
+          <text class="ini" x="98" y="138" font-size="9" text-anchor="middle" fill="var(--gil)" font-family="IBM Plex Mono">✓</text><text class="ini" x="38" y="138" font-size="9" text-anchor="middle" fill="var(--gil)" font-family="IBM Plex Mono">30.10</text>
+        </svg></div>
+        <div class="fadein" style="display:grid;gap:.6rem">
+          <div class="id">E1.3 · שיווי משקל של גוף קשיח</div>
+          <p class="fact">נלמד ב-30 באוקטובר, אחרי 3 שיעורים.</p>
+          <div><span class="k">מה שעבר לידיך</span><ul><li>שש משוואות שיווי משקל, ומתי מספיקות שלוש</li><li>דיאגרמת גוף חופשי בלי לשכוח ריאקציה</li><li>מבנה מסוים סטטית מול לא מסוים</li></ul></div>
+          <p class="fact">נפתחו: E2.1 · E3.4</p>
+          <div class="row"><button class="btn">לסיכום המודול</button><button class="btn">להמשיך</button></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+// measure real chars/words per line in study 1
+function measure(){document.querySelectorAll('[data-measure]').forEach(box=>{
+ const p=box.querySelector('p');const r=document.createRange();r.selectNodeContents(p);
+ const lines=new Map();const text=p.textContent;const tn=[...p.childNodes].filter(n=>n.nodeType===3);
+ let chars=0;tn.forEach(n=>{for(let i=0;i<n.length;i++){const rr=document.createRange();rr.setStart(n,i);rr.setEnd(n,i+1);const b=rr.getClientRects()[0];if(!b)continue;const y=Math.round(b.top);lines.set(y,(lines.get(y)||'')+n.data[i])}});
+ const L=[...lines.values()].slice(0,-1);if(!L.length)return;
+ const avgC=L.reduce((a,s)=>a+s.length,0)/L.length, avgW=L.reduce((a,s)=>a+s.trim().split(/\s+/).length,0)/L.length;
+ box.closest('.pane').querySelector('[data-out]').textContent=`≈ ${avgC.toFixed(0)} chars · ${avgW.toFixed(1)} words / line`;
+});}
+(document.fonts?document.fonts.ready:Promise.resolve()).then(measure);addEventListener('resize',measure);
+
+// study 2: streaming
+const PARAS=[
+ 'שאלת החוט: האם כל שני קטעים ניתנים למדידה זה בזה, אם רק מחלקים את היחידה מספיק? אם כן, כל יחס בין גדלים הוא שבר.',
+ 'נניח שהצלע והאלכסון הם כפולות שלמות של קטע אחד e. לפי פיתגורס האלכסון בריבוע הוא פעמיים הצלע בריבוע, ולכן p² = 2q², ואפשר להניח שהשבר p/q מצומצם.',
+ 'אם p² זוגי אז גם p זוגי, נאמר p = 2k. נציב: 4k² = 2q², כלומר q² = 2k², ולכן גם q זוגי. שניהם זוגיים, בניגוד לצמצום.',
+ 'הסתירה לא נובעת מבחירה רעה של e: היא נובעת מכל בחירה. לכן אין קטע שנכנס מספר שלם של פעמים גם בצלע וגם באלכסון.',
+ 'זה מה שהיוונים קראו לו "חסרי מידה משותפת", והגילוי הזה הוא שהכריח להפריד בין גודל למספר.',
+ 'מכאן הדרך לממשיים: לתאר גודל לא בשבר אחד, אלא בסדרת קירובים שהולכת ומצטמצמת.'
+];
+let timer=null;
+function play(){
+ clearInterval(timer);
+ const ot=document.getElementById('old-t'),nt=document.getElementById('new-t'),ob=document.getElementById('old'),nb=document.getElementById('new');
+ ot.innerHTML='';nt.innerHTML='';ob.scrollTop=0;nb.scrollTop=0;document.getElementById('more').hidden=true;
+ const full=PARAS.join('\n');let i=0;let doneParas=0;let buf='';
+ document.getElementById('s-old').innerHTML='<span class="spin"></span> כותב…';
+ timer=setInterval(()=>{
+  const step=3+Math.floor(Math.random()*6);const chunk=full.slice(i,i+step);i+=step;
+  // old: re-render whole thing + caret + hard follow
+  const sofar=full.slice(0,i).split('\n');
+  ot.innerHTML=sofar.map((p,k)=>`<p>${p}${k===sofar.length-1&&i<full.length?'<span class="caret"></span>':''}</p>`).join('');
+  if(ob.scrollHeight-ob.scrollTop-ob.clientHeight<120)ob.scrollTop=ob.scrollHeight;
+  // new: append only completed paragraphs
+  const complete=full.slice(0,i).split('\n').length-1+(i>=full.length?1:0);
+  while(doneParas<complete){
+   const atBottom=nb.scrollHeight-nb.scrollTop-nb.clientHeight<40;
+   const p=document.createElement('p');p.className='para-in';p.textContent=PARAS[doneParas];nt.appendChild(p);doneParas++;
+   if(atBottom&&doneParas>2){nb.scrollTo({top:nb.scrollHeight,behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'})}
+   else if(!atBottom)document.getElementById('more').hidden=false;
+  }
+  const pct=Math.min(100,i/full.length*100);document.getElementById('nb').style.width=pct+'%';
+  document.getElementById('eta').textContent=pct>=100?'נכתב':pct>66?'פחות מדקה':pct>33?'כ-2 דקות':'כ-3 דקות';
+  if(i>=full.length){clearInterval(timer);document.getElementById('s-old').textContent='נכתב'}
+ },60);
+}
+document.getElementById('play').onclick=play;
+document.getElementById('new').addEventListener('scroll',e=>{const n=e.target;if(n.scrollHeight-n.scrollTop-n.clientHeight<40)document.getElementById('more').hidden=true});
+document.getElementById('rev').onclick=()=>{document.getElementById('ans').hidden=false};
+play();
+
+// study 3: stamp
+let ac=null;
+function stampSound(){try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();const t=ac.currentTime+.6;
+ // thud
+ const len=ac.sampleRate*.06,b=ac.createBuffer(1,len,ac.sampleRate),d=b.getChannelData(0);for(let i=0;i<len;i++)d[i]=(Math.random()*2-1)*(1-i/len);
+ const s=ac.createBufferSource();s.buffer=b;const lp=ac.createBiquadFilter();lp.type='lowpass';lp.frequency.value=200;const g=ac.createGain();g.gain.value=.5;s.connect(lp);lp.connect(g);g.connect(ac.destination);s.start(t);
+ // slow done chord
+ [523.25,659.25,783.99].forEach((f,k)=>{const o=ac.createOscillator(),gg=ac.createGain();o.frequency.value=f;const st=t+.12+k*.11;gg.gain.setValueAtTime(0,st);gg.gain.linearRampToValueAtTime(.05,st+.01);gg.gain.exponentialRampToValueAtTime(.0001,st+.9);o.connect(gg);gg.connect(ac.destination);o.start(st);o.stop(st+1)});
+}catch(e){}}
+function stamp(sound){const s=document.getElementById('stage3');s.classList.remove('go');void s.offsetWidth;s.classList.add('go');if(sound)stampSound()}
+document.getElementById('stampgo').onclick=()=>stamp(true);
+stamp(false);
+</script>
