@@ -1,0 +1,177 @@
+/* Module page: reading list, topic items, test-out and brief sections (ReadingList.tsx). Same file in both apps. */
+.rl,
+.mt {
+  margin-top: 20px;
+}
+.rl-count {
+  margin-inline-start: 10px;
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--muted);
+}
+.rl-intro {
+  font-size: 0.8125rem;
+  margin: 0 0 8px;
+}
+.rl-list,
+.mt-list,
+.mt-secs {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.rl-item {
+  padding: 10px 0;
+  border-bottom: 1px dashed var(--line);
+  font-size: 0.875rem;
+  min-width: 0;
+}
+.rl-item.is-core {
+  border-inline-start: 3px solid var(--accent);
+  padding-inline-start: 10px;
+}
+.rl-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+}
+.rl-title {
+  font-weight: 600;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+  flex: 1 1 16em;
+}
+.rl-title:hover {
+  color: var(--accent);
+}
+.rl-badges {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.rl-badge {
+  font-size: 0.6875rem;
+  padding: 1px 6px;
+  border: 1px solid var(--line-strong);
+  border-radius: 2px;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+.rl-badge.rl-core {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.rl-badge.rl-p2h {
+  border-color: var(--k-domain);
+  color: var(--k-domain);
+}
+.rl-meta {
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-top: 2px;
+  overflow-wrap: anywhere;
+  text-align: start;
+}
+.rl-id {
+  opacity: 0.8;
+}
+.rl-topic {
+  font-size: 0.8125rem;
+  color: var(--k-domain);
+  margin-top: 2px;
+}
+.rl-why,
+.rl-focus,
+.rl-note {
+  margin: 4px 0 0;
+  line-height: 1.55;
+}
+.rl-focus {
+  color: var(--ink-soft);
+}
+.rl-label {
+  margin-top: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+.rl-focus {
+  margin-top: 1px;
+}
+.rl-note {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+.mt-lead {
+  margin: 0 0 8px;
+  padding: 8px 10px;
+  border-inline-start: 3px solid var(--k-domain);
+  background: var(--paper);
+  font-size: 0.875rem;
+}
+.mt-group {
+  margin-top: 10px;
+  font-size: 0.875rem;
+}
+.mt-group summary {
+  cursor: pointer;
+  color: var(--ink-soft);
+  font-weight: 600;
+}
+.mt-explain {
+  font-size: 0.8125rem;
+  margin: 6px 0;
+}
+.mt-item {
+  display: flex;
+  gap: 10px;
+  padding: 6px 0;
+  border-bottom: 1px dashed var(--line);
+  min-width: 0;
+}
+.mt-imp {
+  flex: none;
+  width: 3.4em;
+  font-size: 0.6875rem;
+  padding-top: 2px;
+  color: var(--muted);
+}
+.imp-K .mt-imp {
+  color: var(--accent);
+  font-weight: 600;
+}
+.mt-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+.mt-body > * {
+  text-align: start;
+}
+.mt-name {
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+.mt-kind {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+.mt-teach {
+  font-size: 0.8125rem;
+  color: var(--ink-soft);
+  overflow-wrap: anywhere;
+}
+.mt-secs li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 10px;
+  padding: 3px 0;
+  overflow-wrap: anywhere;
+}
+.mt-pages {
+  font-size: 0.75rem;
+  color: var(--muted);
+}

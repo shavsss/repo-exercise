@@ -20,6 +20,7 @@ import { MdContext } from "./components/Markdown";
 import { SourceTag } from "./components/blocks/SourceTag";
 import { Icon } from "./components/Icon";
 import { NotesPanel } from "./components/NotesPanel";
+import { ModuleTopics, ReadingList } from "./components/ReadingList";
 
 interface Notice {
   level: "info" | "warn" | "error";
@@ -572,7 +573,7 @@ export function App() {
                 if (viewer) setViewer(null);
                 else if (module) {
                   const s = lesson?.sources[0] ?? module.sources[0];
-                  setViewer({ doc: s.doc, page: s.pages[0] });
+                  if (s) setViewer({ doc: s.doc, page: s.pages[0] });
                 }
               }
             : undefined
@@ -812,8 +813,10 @@ function Overview({ index, done, mods, onSelect }: { index: LibraryIndex; done: 
                     <span>
                       {p.done?.length ?? 0}/{p.lessons.length} שיעורים
                     </span>
-                  ) : (
+                  ) : m.sources.length ? (
                     <span>{m.sources.filter((x) => x.role !== "ref").reduce((s, x) => s + x.pages[1] - x.pages[0] + 1, 0)} עמ'</span>
+                  ) : (
+                    <span>{m.items?.length ?? 0} נושאים</span>
                   )}
                 </span>
               </button>
@@ -897,6 +900,7 @@ function ModulePage({
       )}
       <h2 className="section-title">המקורות</h2>
       <SourceList m={m} />
+      <ModuleTopics m={m} />
       {m.prereq?.length ? (
         <p className="muted">
           נשען על:{" "}
@@ -984,6 +988,7 @@ function ModulePage({
           </ul>
         </details>
       )}
+      <ReadingList m={m} />
     </div>
   );
 }
@@ -1001,7 +1006,7 @@ function LessonIntro({ m, idx, lesson, total }: { m: Module; idx: number; lesson
           </li>
         ))}
       </ul>
-      <h2 className="section-title">עמודי המקור</h2>
+      {lesson.sources.length > 0 && <h2 className="section-title">עמודי המקור</h2>}
       <ul className="src-pages">
         {lesson.sources.map((s, i) => (
           <li key={i}>
