@@ -1,0 +1,404 @@
+<title>מחברת הסיכומים</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Noto+Serif+Hebrew:wght@400;600&display=swap">
+<style>
+/* Layout: one sheet of decisions in four groups (structure, writing, the lab and the tutor,
+   review and backup). Every option carries a small live sample drawn in the labs' own look
+   (operations-map palette, IBM Plex), so the choice is made on the real thing. */
+:root {
+  --bg: #e6e3d7; --surface: #fbfaf4; --paper: #f5f3ea; --ink: #22261d; --soft: #44493a; --muted: #676a58;
+  --line: #d8d4c3; --line-strong: #a7a28a; --accent: #b3261e; --accent-soft: #f3e0d9;
+  --pick: #2f6b5f; --pick-soft: #dcebe5; --focus: #355f7d;
+  --c-def: #355f7d; --c-def-bg: #e4ecf1; --c-eq: #6a4c8c; --c-eq-bg: #ece6f1; --c-int: #2f6b5f; --c-int-bg: #e1eee9;
+  --c-ex: #8a6100; --c-ex-bg: #f4ebd6; --c-err: #a3161a; --c-err-bg: #f6e0dd; --c-sys: #5f6650; --c-sys-bg: #e9e9df;
+  --c-q: #9a4f12; --c-q-bg: #f4e5d6; --c-link: #2e6577; --c-link-bg: #e0ecf0;
+  --hl-y: #f6e27a; --hl-r: #f3b9b0; --hl-b: #bcd6ea; --hl-g: #c4e3c8;
+  --f-ui: "IBM Plex Sans Hebrew", Arial, sans-serif; --f-mono: "IBM Plex Mono", ui-monospace, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #141611; --surface: #21251c; --paper: #1b1e17; --ink: #e3e2d4; --soft: #c4c3b2; --muted: #a2a18d;
+  --line: #353a2d; --line-strong: #5f6552; --accent: #f08a7e; --accent-soft: #3a2522;
+  --pick: #8fd0c0; --pick-soft: #1f322c; --focus: #94bfdc;
+  --c-def: #94bfdc; --c-def-bg: #1f2a31; --c-eq: #c9b0ef; --c-eq-bg: #29233a; --c-int: #8fd0c0; --c-int-bg: #1c2d29;
+  --c-ex: #e0c46c; --c-ex-bg: #2e2a1a; --c-err: #ff8f84; --c-err-bg: #36201e; --c-sys: #b5b8a0; --c-sys-bg: #282b22;
+  --c-q: #e6a75c; --c-q-bg: #33281c; --c-link: #8fcde0; --c-link-bg: #1d2b30;
+  --hl-y: #6b5a17; --hl-r: #6a2c27; --hl-b: #24445e; --hl-g: #2b4d31;
+  color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #141611; --surface: #21251c; --paper: #1b1e17; --ink: #e3e2d4; --soft: #c4c3b2; --muted: #a2a18d;
+  --line: #353a2d; --line-strong: #5f6552; --accent: #f08a7e; --accent-soft: #3a2522;
+  --pick: #8fd0c0; --pick-soft: #1f322c; --focus: #94bfdc;
+  --c-def: #94bfdc; --c-def-bg: #1f2a31; --c-eq: #c9b0ef; --c-eq-bg: #29233a; --c-int: #8fd0c0; --c-int-bg: #1c2d29;
+  --c-ex: #e0c46c; --c-ex-bg: #2e2a1a; --c-err: #ff8f84; --c-err-bg: #36201e; --c-sys: #b5b8a0; --c-sys-bg: #282b22;
+  --c-q: #e6a75c; --c-q-bg: #33281c; --c-link: #8fcde0; --c-link-bg: #1d2b30;
+  --hl-y: #6b5a17; --hl-r: #6a2c27; --hl-b: #24445e; --hl-g: #2b4d31;
+  color-scheme: dark; }
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-ui); font-size: 15px; line-height: 1.6; direction: rtl; }
+.wrap { max-width: 1240px; margin: 0 auto; padding-block: 28px 80px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 22px; }
+.eyebrow { font-family: var(--f-mono); font-size: 12px; letter-spacing: .08em; color: var(--muted); }
+h1 { font-size: clamp(26px, 3.4vw, 34px); margin: 2px 0 6px; text-wrap: balance; }
+.lead { margin: 0; max-width: 78ch; color: var(--soft); }
+.status { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; margin-top: 10px; font-size: 13px; }
+.status b { font-family: var(--f-mono); font-weight: 500; }
+#save { color: var(--muted); } #save.err { color: var(--accent); }
+.toc { display: flex; gap: 8px; flex-wrap: wrap; }
+.toc a { font-size: 13px; color: var(--ink); text-decoration: none; border: 1px solid var(--line); background: var(--surface); padding: 3px 12px; border-radius: 999px; }
+.toc a:hover, .toc a:focus-visible { border-color: var(--focus); outline: none; }
+.given { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 14px 18px; display: grid; gap: 6px; }
+.given h2 { margin: 0; font-size: 16px; }
+.given ul { margin: 0; padding-inline-start: 20px; display: grid; gap: 4px; max-width: 100ch; }
+.group { padding-top: 6px; border-top: 3px solid var(--ink); display: grid; gap: 4px; margin-top: 8px; }
+.group h2 { margin: 6px 0 0; font-size: 22px; }
+.group p { margin: 0; color: var(--muted); max-width: 84ch; }
+section.q { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 16px; display: grid; gap: 12px; min-width: 0; scroll-margin-top: 12px; }
+.q-head { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+.q-num { font-family: var(--f-mono); font-size: 12px; color: var(--muted); }
+.q-head h3 { margin: 0; font-size: 18px; text-wrap: balance; }
+.q-kind { font-size: 12px; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 0 8px; }
+.q-state { margin-inline-start: auto; font-size: 13px; font-weight: 600; color: var(--muted); }
+.q-state.done { color: var(--pick); }
+.why { margin: 0; color: var(--soft); max-width: 88ch; }
+.opts { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); }
+.opts.wide { grid-template-columns: repeat(auto-fill, minmax(min(100%, 380px), 1fr)); }
+.opt { cursor: pointer; background: var(--paper); border: 1.5px solid var(--line); border-radius: 6px; padding: 10px; display: grid; gap: 8px; align-content: start; min-width: 0; text-align: start; color: inherit; font: inherit; }
+.opt:hover { border-color: var(--line-strong); }
+.opt:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.opt[aria-pressed="true"] { border-color: var(--pick); box-shadow: 0 0 0 3px var(--pick-soft); }
+.opt-head { display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+.opt-head b { font-size: 15px; }
+.opt-head .rec { font-size: 11px; font-weight: 600; color: var(--pick); border: 1px solid var(--pick); border-radius: 999px; padding: 0 7px; }
+.opt-head .tick { margin-inline-start: auto; font-size: 13px; color: var(--pick); font-weight: 700; visibility: hidden; }
+.opt[aria-pressed="true"] .tick { visibility: visible; }
+.opt .note { display: block; margin: 0; font-size: 13px; color: var(--soft); }
+textarea { width: 100%; min-height: 56px; font: 14px/1.55 var(--f-ui); color: var(--ink); background: var(--paper); border: 1px solid var(--line); border-radius: 6px; padding: 8px 10px; resize: vertical; }
+textarea:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
+textarea.big { min-height: 110px; }
+
+/* ---------- the samples ---------- */
+.smp { background: var(--surface); border: 1px solid var(--line); border-radius: 4px; padding: 10px 12px; font-size: 13px; line-height: 1.7; min-width: 0; overflow: hidden; }
+.smp h5 { margin: 0 0 4px; font-size: 14px; }
+.smp h6 { margin: 6px 0 2px; font-size: 12.5px; color: var(--soft); }
+.smp p { margin: 0 0 4px; }
+.smp ol, .smp ul { margin: 2px 0 4px; padding-inline-start: 18px; }
+.smp .n { font-family: var(--f-mono); color: var(--accent); margin-inline-end: 4px; font-size: .92em; }
+.smp .tag { font: 500 11px/1 var(--f-ui); color: var(--accent); border: 1px solid var(--line); padding: 1px 5px; border-radius: 3px; white-space: nowrap; }
+.smp math { font-size: 1.08em; }
+.smp .eqrow { display: flex; justify-content: center; align-items: center; gap: 14px; margin: 4px 0; direction: ltr; }
+.smp .eqn { font-family: var(--f-mono); font-size: 11px; color: var(--muted); }
+.smp .mono { font-family: var(--f-mono); font-size: 12px; direction: ltr; text-align: left; background: var(--paper); border: 1px solid var(--line); border-radius: 3px; padding: 4px 6px; white-space: pre-wrap; }
+.smp .ph { display: inline-block; min-width: 18px; height: 16px; border: 1.5px dashed var(--c-eq); border-radius: 2px; vertical-align: middle; }
+.smp .caret { display: inline-block; width: 1.5px; height: 1.1em; background: var(--ink); vertical-align: -2px; animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .smp .caret { animation: none; } }
+.smp .handle { color: var(--line-strong); font-family: var(--f-mono); margin-inline-end: 4px; }
+.smp .menu { border: 1px solid var(--line-strong); background: var(--surface); border-radius: 4px; padding: 4px; display: grid; gap: 1px; width: 150px; font-size: 12px; box-shadow: 0 6px 16px rgb(0 0 0 / 12%); margin-top: 4px; }
+.smp .menu span { padding: 2px 6px; border-radius: 3px; }
+.smp .menu span:first-child { background: var(--pick-soft); }
+.smp .bar { display: flex; gap: 4px; flex-wrap: wrap; border-bottom: 1px solid var(--line); padding-bottom: 5px; margin-bottom: 6px; }
+.smp .bar i { font-style: normal; font: 600 11px/1 var(--f-ui); border: 1px solid var(--line); border-radius: 3px; padding: 3px 5px; background: var(--paper); }
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.split > div { min-width: 0; }
+.hl-y { background: var(--hl-y); } .hl-r { background: var(--hl-r); } .hl-b { background: var(--hl-b); } .hl-g { background: var(--hl-g); }
+.smp mark { color: inherit; padding: 0 2px; border-radius: 2px; }
+.blk { border-radius: 4px; padding: 6px 9px; margin: 4px 0; font-size: 12.5px; }
+.blk .lbl { font: 600 10.5px/1.2 var(--f-ui); display: block; margin-bottom: 2px; letter-spacing: .02em; }
+.blk-def { background: var(--c-def-bg); } .blk-def .lbl { color: var(--c-def); }
+.blk-eq { background: var(--c-eq-bg); } .blk-eq .lbl { color: var(--c-eq); }
+.blk-int { background: var(--c-int-bg); } .blk-int .lbl { color: var(--c-int); }
+.blk-ex { background: var(--c-ex-bg); } .blk-ex .lbl { color: var(--c-ex); }
+.blk-err { background: var(--c-err-bg); } .blk-err .lbl { color: var(--c-err); }
+.blk-sys { background: var(--c-sys-bg); } .blk-sys .lbl { color: var(--c-sys); }
+.blk-q { background: var(--c-q-bg); } .blk-q .lbl { color: var(--c-q); }
+.blk-link { background: var(--c-link-bg); } .blk-link .lbl { color: var(--c-link); }
+.tree { font-size: 12.5px; line-height: 1.75; }
+.tree div { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tree .d1 { padding-inline-start: 14px; } .tree .d2 { padding-inline-start: 28px; }
+.tree .on { color: var(--accent); font-weight: 600; }
+.tree .dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-inline-end: 5px; vertical-align: 1px; }
+.dot-done { background: var(--pick); } .dot-draft { background: var(--c-ex); } .dot-none { background: var(--line-strong); }
+.scr { aspect-ratio: 16 / 9.4; max-width: 100%; background: var(--bg); border: 1px solid var(--line); border-radius: 4px; display: grid; grid-template-rows: 16px 1fr; overflow: hidden; font-size: 7.5px; line-height: 1.5; }
+.scr .tb { background: var(--surface); border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 5px; padding: 0 6px; font-weight: 600; }
+.scr .tb i { width: 5px; height: 5px; background: var(--accent); display: inline-block; }
+.scr .bd { display: grid; min-height: 0; }
+.scr .pane { padding: 6px; overflow: hidden; min-width: 0; }
+.scr .side { background: var(--bg); border-inline-end: 1px solid var(--line); color: var(--muted); }
+.scr .ed { background: var(--surface); }
+.scr .aux { background: var(--paper); border-inline-start: 1px solid var(--line); color: var(--muted); }
+.scr .ln { height: 3px; background: var(--line-strong); opacity: .55; border-radius: 2px; margin: 3px 0; }
+.scr .ln.s { width: 60%; } .scr .ln.m { width: 85%; }
+.scr .hd { font-weight: 700; color: var(--ink); margin-bottom: 2px; }
+.scr .cb { height: 12px; border-radius: 2px; margin: 4px 0; }
+.img-ph { display: grid; place-items: center; background: var(--paper); border: 1px solid var(--line); border-radius: 3px; height: 70px; color: var(--muted); font-size: 11px; position: relative; overflow: hidden; }
+.img-ph svg { width: 100%; height: 100%; }
+.cap { font-size: 11px; color: var(--muted); text-align: center; margin-top: 2px; }
+.card2 { border: 1px solid var(--line); border-radius: 6px; background: var(--surface); padding: 10px; display: grid; gap: 4px; font-size: 12.5px; box-shadow: 0 2px 0 var(--line); }
+.chip { font: 600 11px/1 var(--f-ui); border-radius: 999px; padding: 3px 8px; display: inline-block; }
+.chip-g { background: var(--pick-soft); color: var(--pick); } .chip-y { background: var(--c-ex-bg); color: var(--c-ex); } .chip-r { background: var(--accent-soft); color: var(--accent); }
+.final textarea { min-height: 120px; }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">גילואה · לנצ'סטר · סיכומים</div>
+    <h1>מחברת הסיכומים</h1>
+    <p class="lead">החלטות על מחברת הסיכומים שתחליף את הוורד. המטרה אחת: לסכם בנוחות, בסדר, עם צבעים, משוואות ותמונות, בלי להילחם בכלי. כל אפשרות מוצגת על קטע אמיתי מסיכום של משוואת המכ"ם. לחיצה על אפשרות בוחרת אותה; בשאלות שמסומנות "כמה" אפשר לבחור כמה. לכל שאלה יש שדה להערות. הכל נשמר כאן, ואני קורא את זה כשתגיד שסיימת.</p>
+    <div class="status"><b id="count">0 / 16</b><span id="save">מתחבר…</span></div>
+  </header>
+
+  <div class="given">
+    <h2>מה כבר סגור</h2>
+    <ul>
+      <li>מחברת נפרדת לגילואה ומחברת נפרדת ללנצ'סטר, כל אחת נפתחת בחלון משלה (למשל במסך השני).</li>
+      <li>שמירה אוטומטית תוך כדי כתיבה, וגיבוי לגיט פעם ביום: כל הסיכומים כקבצי Markdown עם התמונות, בתיקייה בריפו.</li>
+      <li>אותו מראה כמו המעבדות: מפת מבצעים, IBM Plex, בהיר וכהה.</li>
+      <li>ייצוא לוורד תמיד אפשרי, כדי שהסיכומים לא יהיו נעולים.</li>
+    </ul>
+  </div>
+
+  <nav class="toc" aria-label="ניווט בדף">
+    <a href="#g1">מבנה וארגון</a><a href="#g2">כתיבה</a><a href="#g3">המעבדה והמורה</a><a href="#g4">חזרה וגיבוי</a><a href="#final">הערות כלליות</a>
+  </nav>
+  <div id="qs"></div>
+
+  <section class="q final" id="final">
+    <div class="q-head"><h3>הערות כלליות</h3><span class="q-state" id="st-general"></span></div>
+    <p class="why">כל מה שלא נשאל: מה הכי הפריע בוורד, מה כן אהבת שם, ומה חייב להיות ביום הראשון.</p>
+    <textarea id="general" class="big" placeholder="לא חובה"></textarea>
+  </section>
+</div>
+
+<script>
+/* ---------- shared sample pieces ---------- */
+const EQ = `<math display="block"><msub><mi>R</mi><mi>max</mi></msub><mo>=</mo><msup><mrow><mo>(</mo><mfrac><mrow><msub><mi>P</mi><mi>t</mi></msub><msup><mi>G</mi><mn>2</mn></msup><msup><mi>λ</mi><mn>2</mn></msup><mi>σ</mi></mrow><mrow><msup><mrow><mo>(</mo><mn>4</mn><mi>π</mi><mo>)</mo></mrow><mn>3</mn></msup><mi>k</mi><msub><mi>T</mi><mi>s</mi></msub><mi>B</mi><mi>F</mi><mi>L</mi><mo>·</mo><msub><mi>SNR</mi><mi>min</mi></msub></mrow></mfrac><mo>)</mo></mrow><mrow><mn>1</mn><mo>/</mo><mn>4</mn></mrow></msup></math>`;
+const EQS = `<math><msub><mi>R</mi><mi>max</mi></msub><mo>∝</mo><mroot><mi>σ</mi><mn>4</mn></mroot></math>`;
+const tag = (t) => `<span class="tag">${t}</span>`;
+const radarSvg = `<svg viewBox="0 0 200 70" aria-hidden="true"><path d="M20 60 L20 40 L34 32 L28 46 Z" fill="var(--soft)"/><path d="M34 34 L175 8 L182 52 Z" fill="var(--c-def-bg)" stroke="var(--c-def)" stroke-width="1"/><path d="M150 26 l12 -4 l4 8 l-12 4 z" fill="var(--accent)"/><line x1="30" y1="38" x2="156" y2="28" stroke="var(--accent)" stroke-dasharray="3 3"/></svg>`;
+const B = (k, lbl, body) => `<div class="blk blk-${k}"><span class="lbl">${lbl}</span>${body}</div>`;
+const scr = (cols, panes) => `<div class="scr"><div class="tb"><i></i>לנצ'סטר · סיכומים <span style="font-weight:400;color:var(--muted)">/ P2 / M2.2</span></div><div class="bd" style="grid-template-columns:${cols}">${panes}</div></div>`;
+const lines = (n) => Array.from({ length: n }, (_, i) => `<div class="ln ${i % 3 === 2 ? "s" : i % 3 === 1 ? "m" : ""}"></div>`).join("");
+const treeSmp = `<div class="pane side"><div class="hd">מודולים</div>P1 השכבה הפיזית<br><b style="color:var(--accent)">P2 מכ"ם</b><br>&nbsp;M2.1<br>&nbsp;<b style="color:var(--accent)">M2.2</b><br>&nbsp;M2.3<br>P3 EO/IR</div>`;
+const edSmp = `<div class="pane ed"><div class="hd">משוואת המכ"ם</div>${lines(3)}<div class="cb" style="background:var(--c-def-bg)"></div>${lines(2)}<div class="cb" style="background:var(--c-eq-bg)"></div>${lines(3)}</div>`;
+
+/* ---------- the questions ---------- */
+const GROUPS = [
+  { id: "g1", title: "מבנה וארגון", text: "איפה כל סיכום יושב, ואיך מוצאים אותו." },
+  { id: "g2", title: "כתיבה", text: "מה שהציק בוורד: מספור, רשימות, צבעים, משוואות ותמונות." },
+  { id: "g3", title: "המעבדה והמורה", text: "איך המחברת מתחברת לשיעורים, לספרים ולמורה." },
+  { id: "g4", title: "חזרה, ייצוא וגיבוי", text: "מה עושים עם הסיכום אחרי שנכתב." },
+];
+const QS = [
+  // ---------------- structure ----------------
+  { id: "where", g: "g1", title: "איפה המחברת חיה", why: "שתי דרכים לקבל מחברת נפרדת לכל מעבדה בחלון משלה. ההבדל הוא אם היא חלק מהאפליקציה או דף נפרד לגמרי.",
+    opts: [
+      { id: "mode", name: "מצב סיכום באותה אפליקציה", rec: true, note: "אותה כתובת של גילואה או לנצ'סטר עם ‎#summary בסוף, פתוחה בחלון שני. היא רואה את הספרייה, את מחברת השיעור ואת המורה, ושני החלונות מדברים זה עם זה. מבחינתך זו מחברת נפרדת בחלון משלה.", html: `<div class="smp"><div class="mono">claude.ai/artifact/1tTf…  ← השיעור (מסך 1)\nclaude.ai/artifact/1tTf…#summary  ← הסיכום (מסך 2)</div></div>` },
+      { id: "separate", name: "דף נפרד לגמרי", note: "Artifact חדש לכל מעבדה. עצמאי, אבל לא רואה את הספרים, את המחברת ואת המורה של האפליקציה (לכל דף מסד נתונים משלו), ולכן שאלות 10–13 יעבדו חלקית.", html: `<div class="smp"><div class="mono">claude.ai/artifact/AAAA…  ← סיכומי לנצ'סטר\nclaude.ai/artifact/BBBB…  ← סיכומי גילואה</div></div>` },
+    ] },
+  { id: "unit", g: "g1", title: "יחידת הסיכום", why: "מה זה \"סיכום אחד\": מה פותחים, מה כותבים, ומה מסמנים כגמור.",
+    opts: [
+      { id: "module", name: "דף לכל מודול", rec: true, note: "סיכום אחד למודול, עם סעיף לכל שיעור שנוצר לבד. רואים את כל הנושא ברצף, וזה מה שחוזרים עליו לפני מבחן.", html: `<div class="smp tree"><div><b>M2.2 משוואת המכ"ם</b></div><div class="d1">1. שיעור 1: הצורה הבסיסית</div><div class="d1">2. שיעור 2: הפסדים ורעש</div><div class="d1">3. שיעור 3: גילוי וטווח</div></div>` },
+      { id: "lesson", name: "דף לכל שיעור", note: "דף קצר לכל שיעור. ממוקד, אבל הנושא מתפזר על כמה דפים.", html: `<div class="smp tree"><div><b>M2.2</b></div><div class="d1">▸ שיעור 1: הצורה הבסיסית</div><div class="d1">▸ שיעור 2: הפסדים ורעש</div><div class="d1">▸ שיעור 3: גילוי וטווח</div></div>` },
+      { id: "module-part", name: "דף למודול, ודף סינתזה לכל חלק", note: "כמו \"דף לכל מודול\", ובנוסף דף לכל חלק (למשל \"מכ\"ם\") שבו כותבים את התמונה הגדולה והקשרים בין המודולים.", html: `<div class="smp tree"><div><b>P2 מכ"ם · סינתזה</b></div><div class="d1">M2.1 רעיון המכ"ם</div><div class="d1"><b>M2.2 משוואת המכ"ם</b></div><div class="d1">M2.3 חיפוש וגילוי</div></div>` },
+    ] },
+  { id: "nav", g: "g1", title: "העץ והניווט", why: "איך רואים מה סוכם ומה לא, ואיך קופצים לסיכום.",
+    opts: [
+      { id: "syllabus", name: "עץ לפי תוכנית הלימודים, עם מצב", rec: true, note: "כל החלקים והמודולים, ונקודה צבעונית לכל אחד: מסוכם, טיוטה, לא התחיל. רואים מיד מה חסר.", html: `<div class="smp tree"><div>P2 מכ"ם</div><div class="d1"><span class="dot dot-done"></span>M2.1 רעיון המכ"ם</div><div class="d1 on"><span class="dot dot-draft"></span>M2.2 משוואת המכ"ם</div><div class="d1"><span class="dot dot-none"></span>M2.3 חיפוש וגילוי</div></div>` },
+      { id: "studied", name: "רק מה שכבר למדתי", note: "העץ מציג רק מודולים שהתחלת בהם, לפי סדר הלימוד. נקי, אבל לא רואים את התמונה המלאה.", html: `<div class="smp tree"><div class="d1"><span class="dot dot-done"></span>M0.1 דציבלים</div><div class="d1"><span class="dot dot-done"></span>M2.1 רעיון המכ"ם</div><div class="d1 on"><span class="dot dot-draft"></span>M2.2 משוואת המכ"ם</div></div>` },
+      { id: "search", name: "חיפוש ותגיות במקום עץ", note: "שורת חיפוש ותגיות חופשיות (\"נוסחה\", \"לחזור\"). גמיש, אבל בלי סדר קבוע.", html: `<div class="smp"><div class="mono">🔍 משוואת המכ"ם</div><div style="margin-top:6px"><span class="chip chip-y">לחזור</span> <span class="chip chip-g">נוסחה</span> <span class="chip chip-r">חשוב</span></div></div>` },
+    ] },
+  { id: "layout", g: "g1", title: "המסך של המחברת", why: "על המסך השני: מה פתוח קבוע ליד הטקסט.",
+    opts: [
+      { id: "three", name: "עץ, עורך ולוח עזר", note: "העץ מימין, הכתיבה באמצע, ולוח משמאל עם מחברת השיעור, עמודי מקור ושאלות למורה. הכל פתוח, אבל הכתיבה צרה יותר.", html: scr("20% 1fr 24%", treeSmp + edSmp + `<div class="pane aux"><div class="hd">עזר</div>מחברת השיעור<br>עמ' 78 בספר<br>שאל את המורה</div>`) },
+      { id: "two", name: "עץ ועורך, עזר בלחיצה", rec: true, note: "העץ מימין והכתיבה ברוחב נוח. לוח העזר נפתח רק כשצריך. מתאים למסך שני בגודל רגיל.", html: scr("22% 1fr", treeSmp + edSmp) },
+      { id: "focus", name: "עורך בלבד", note: "דף כתיבה מלא, והעץ נפתח כתפריט. הכי שקט, טוב למסך קטן.", html: scr("1fr", `<div class="pane ed" style="padding:6px 16%">${edSmp.replace('class="pane ed"', 'style=""')}</div>`) },
+    ] },
+  // ---------------- writing ----------------
+  { id: "editor", g: "g2", title: "סוג העורך", why: "הבחירה הכי חשובה: איך מרגישה הכתיבה עצמה.",
+    opts: [
+      { id: "blocks", name: "בלוקים", rec: true, note: "כמו Notion: כל פסקה, משוואה, תמונה ותיבה היא בלוק. מקלידים \"/\" ובוחרים מה להוסיף, וגוררים בלוקים כדי לסדר. מספור, רשימות וצבעים קורים לבד.", html: `<div class="smp"><p><span class="handle">⋮⋮</span>הטווח המרבי תלוי בשורש הרביעי של σ.</p><p><span class="handle">⋮⋮</span>/<span class="caret"></span></p><div class="menu"><span>∑ משוואה</span><span>🖼 תמונה</span><span>■ הגדרה</span><span>1. רשימה ממוספרת</span></div></div>` },
+      { id: "doc", name: "מסמך רציף עם סרגל", note: "כמו וורד: דף אחד וסרגל כפתורים למעלה. מוכר, אבל זה בדיוק מה שהיה מסורבל.", html: `<div class="smp"><div class="bar"><i>B</i><i>I</i><i>H1</i><i>H2</i><i>1.</i><i>•</i><i>∑</i><i>🖼</i><i>■</i></div><p>הטווח המרבי תלוי בשורש הרביעי של σ.<span class="caret"></span></p></div>` },
+      { id: "markdown", name: "Markdown עם תצוגה חיה", note: "כותבים טקסט פשוט עם סימנים (#, -, $…$) ורואים מיד את התוצאה. הכי מהיר למי שמכיר, דורש ללמוד את הסימנים.", html: `<div class="smp split"><div class="mono">## משוואת המכ"ם\n- תלוי ב-$\\sigma^{1/4}$\n- הפסדים: $L$</div><div><h5>משוואת המכ"ם</h5><ul><li>תלוי ב-${EQS}</li><li>הפסדים: L</li></ul></div></div>` },
+    ] },
+  { id: "numbering", g: "g2", title: "מספור, כותרות ורשימות", why: "מה שהיה סיוט בוורד. כאן זה אוטומטי; השאלה היא כמה.",
+    opts: [
+      { id: "full", name: "מספור מלא", rec: true, note: "כותרות ממוספרות לבד (1, 1.1, 1.2), רשימות ממוספרות לבד, ומשוואות ממוספרות (1), (2). מזיזים סעיף, הכל מתעדכן.", html: `<div class="smp"><h5><span class="n">2</span>הפסדים ורעש</h5><h6><span class="n">2.1</span>טמפרטורת רעש</h6><ol><li>רעש תרמי: kTB</li><li>מקדם רעש F</li></ol></div>` },
+      { id: "headings", name: "כותרות בלבד", note: "כותרות ממוספרות, רשימות עם תבליטים, משוואות בלי מספר.", html: `<div class="smp"><h5><span class="n">2</span>הפסדים ורעש</h5><h6><span class="n">2.1</span>טמפרטורת רעש</h6><ul><li>רעש תרמי: kTB</li><li>מקדם רעש F</li></ul></div>` },
+      { id: "none", name: "בלי מספור", note: "כותרות בגדלים שונים בלבד. נקי, אבל קשה להפנות \"לסעיף 2.1\".", html: `<div class="smp"><h5>הפסדים ורעש</h5><h6>טמפרטורת רעש</h6><ul><li>רעש תרמי: kTB</li><li>מקדם רעש F</li></ul></div>` },
+    ] },
+  { id: "math", g: "g2", title: "כתיבת משוואות", why: "התנאי שבגללו כדאי לעזוב את וורד בכלל. כל השלוש מוצגות כמו בדוגמה בסוף.",
+    opts: [
+      { id: "visual", name: "עורך ויזואלי", rec: true, note: "כמו העורך של וורד: הקלדת / יוצרת שבר, ^ חזקה, \\sigma אות יוונית, ומשבצות להשלמה. אפשר גם להדביק LaTeX.", html: `<div class="smp"><div class="eqrow">R<sub>max</sub> = ( <span style="display:inline-grid;text-align:center"><span style="border-bottom:1px solid">P<sub>t</sub> G<sup>2</sup> λ<sup>2</sup> <span class="ph"></span><span class="caret"></span></span><span><span class="ph"></span></span></span> )<sup>1/4</sup></div></div>` },
+      { id: "linear", name: "הקלדה רציפה בסגנון וורד", note: "כותבים בשורה אחת כמו ב-Alt+= בוורד, ומשוואה מוכנה מופיעה כשיוצאים מהשדה.", html: `<div class="smp"><div class="mono">R_max = (P_t G^2 λ^2 σ / ((4π)^3 k T_s B F L SNR_min))^(1/4)</div><div class="eqrow">${EQS} …</div></div>` },
+      { id: "latex", name: "LaTeX", note: "הכי מדויק וגמיש, דורש להכיר את התחביר.", html: `<div class="smp"><div class="mono">R_{max}=\\left(\\frac{P_t G^2\\lambda^2\\sigma}{(4\\pi)^3 kT_sBFL\\,SNR_{min}}\\right)^{1/4}</div></div>` },
+      { id: "result", name: "(כך זה ייראה בכל מקרה)", note: "לא אפשרות; רק התוצאה. בחר באחת משלוש האחרות.", html: `<div class="smp"><div class="eqrow">${EQ}<span class="eqn">(1)</span></div></div>`, inert: true },
+    ] },
+  { id: "images", g: "g2", title: "תמונות", why: "השני בסיוטים. כמה אפשר לעשות עם תמונה אחרי שהיא בפנים.", multi: true,
+    opts: [
+      { id: "paste", name: "הדבקה וגרירה", rec: true, note: "Ctrl+V מצילום מסך, או גרירת קובץ. התמונה נכנסת במקום הסמן, עם כיתוב מתחת.", html: `<div class="smp"><div class="img-ph">${radarSvg}</div><div class="cap">איור 1: אלומה, מטרה וקו ראייה</div></div>` },
+      { id: "size", name: "גודל ומיקום", rec: true, note: "שלושה גדלים בלחיצה (קטן, בינוני, רוחב מלא), ותמונה לצד טקסט.", html: `<div class="smp" style="display:grid;grid-template-columns:42% 1fr;gap:8px;align-items:center"><div class="img-ph" style="height:56px">${radarSvg}</div><p style="font-size:12px">הטקסט זורם ליד התמונה, והתמונה בגודל קטן.</p></div>` },
+      { id: "annotate", name: "סימון על התמונה", note: "חצים, מסגרות, מספרים וטקסט קצר על התמונה עצמה, בצבעי המחברת.", html: `<div class="smp"><div class="img-ph">${radarSvg.replace("</svg>", '<circle cx="156" cy="28" r="12" fill="none" stroke="var(--c-ex)" stroke-width="2"/><text x="120" y="62" font-size="9" fill="var(--c-ex)">σ ≈ 1 m²</text></svg>')}</div></div>` },
+      { id: "lib", name: "איור מהספר", rec: true, note: "בוחרים איור מספרי הספרייה לפי עמוד (כמו בשיעור), והוא נכנס עם התגית שלו. דורש \"מצב סיכום באותה אפליקציה\".", html: `<div class="smp"><div class="img-ph">איור 2-5 מהספר</div><div class="cap">${tag("POMR I · עמ' 78")}</div></div>` },
+    ] },
+  { id: "boxes", g: "g2", title: "תיבות צבעוניות", why: "החלוקה והצבע שחסרו. כל סוג תיבה עם צבע קבוע, כך שבחזרה העין מוצאת מיד את ההגדרות או את הטעויות. בחר את הסוגים שתרצה.", multi: true,
+    opts: [
+      { id: "def", name: "הגדרה", rec: true, html: B("def", "הגדרה", "σ (RCS): השטח שמטרה \"נראית\" כמו בעיני המכ\"ם, ביחידות מ\"ר.") },
+      { id: "eq", name: "נוסחה מרכזית", rec: true, html: B("eq", "נוסחה מרכזית", `<div class="eqrow" style="justify-content:flex-start">${EQS}</div>`) },
+      { id: "int", name: "אינטואיציה", rec: true, html: B("int", "אינטואיציה", "פי 16 בהספק נותן רק פי 2 בטווח, כי האות עובר את המרחק פעמיים.") },
+      { id: "ex", name: "דוגמה מספרית", rec: true, html: B("ex", "דוגמה מספרית", "σ קטן פי 10 ← הטווח קטן ב-44%.") },
+      { id: "err", name: "טעות נפוצה", rec: true, html: B("err", "טעות נפוצה", "לבלבל בין G בשידור ובקליטה כשהאנטנה משותפת.") },
+      { id: "sys", name: "מערכת בשטח", html: B("sys", "מערכת בשטח", "AN/TPY-2: הטווח מול מטרה של 0.01 מ\"ר.") },
+      { id: "q", name: "שאלה פתוחה", html: B("q", "שאלה פתוחה", "למה במכ\"ם ביסטטי זה R₁²R₂² ולא R⁴?") },
+      { id: "link", name: "קישור לתחום אחר", html: B("link", "קישור", "אותו שורש רביעי במשוואת הסונאר (M10.2).") },
+    ] },
+  { id: "marks", g: "g2", title: "מרקרים וצבע בתוך הטקסט", why: "הדגשה בתוך משפט, מעבר לתיבות.",
+    opts: [
+      { id: "meaning", name: "ארבעה מרקרים עם משמעות קבועה", rec: true, note: "צהוב חשוב, אדום טעות או אזהרה, כחול הגדרה, ירוק תובנה. קיצור מקלדת לכל אחד, ומקרא קבוע.", html: `<div class="smp"><p>הטווח תלוי ב-<mark class="hl-y">שורש הרביעי</mark> של σ. <mark class="hl-r">לא</mark> ליניארי. <mark class="hl-b">SNR</mark> הוא יחס אות לרעש; <mark class="hl-g">לכן הפסד של 3dB הוא 16% טווח</mark>.</p></div>` },
+      { id: "free", name: "צבעים חופשיים", note: "פלטה של כמה צבעים, בלי משמעות קבועה. גמיש, אבל בחזרה הצבע לא אומר כלום.", html: `<div class="smp"><p>הטווח תלוי ב-<mark class="hl-y">שורש הרביעי</mark> של σ, <mark class="hl-g">לא ליניארי</mark>.</p></div>` },
+      { id: "minimal", name: "מודגש ונטוי בלבד", note: "בלי צבע בטקסט; הצבע רק בתיבות.", html: `<div class="smp"><p>הטווח תלוי ב<b>שורש הרביעי</b> של σ, <i>לא ליניארי</i>.</p></div>` },
+    ] },
+  // ---------------- the lab and the tutor ----------------
+  { id: "sources", g: "g3", title: "תגיות מקור", why: "כמו בשיעור: הפניה לעמוד בספר בתוך הסיכום.",
+    opts: [
+      { id: "peek", name: "תגית שנפתחת", rec: true, note: "מקלידים @ ובוחרים ספר ועמוד. לחיצה על התגית מציגה את טקסט העמוד והאיורים שבו בחלון קטן.", html: `<div class="smp"><p>הצורה הבסיסית ${tag("POMR I · עמ' 78")} נגזרת מצפיפות ההספק במטרה.</p><div class="card2" style="font-size:11.5px">POMR I · עמ' 78: "The radar range equation relates…"</div></div>` },
+      { id: "label", name: "תגית בלבד", note: "התגית מופיעה, בלי לפתוח את העמוד.", html: `<div class="smp"><p>הצורה הבסיסית ${tag("POMR I · עמ' 78")} נגזרת מצפיפות ההספק.</p></div>` },
+      { id: "no", name: "לא צריך", note: "בלי הפניות לספרים בסיכום.", html: `<div class="smp"><p>הצורה הבסיסית נגזרת מצפיפות ההספק במטרה.</p></div>` },
+    ] },
+  { id: "tutor", g: "g3", title: "המורה במחברת", why: "מה המורה מותר לעשות בסיכום שלך. הוא אף פעם לא כותב לתוכו בלי שתאשר.", multi: true,
+    opts: [
+      { id: "check", name: "בדוק את הסיכום", rec: true, note: "המורה קורא את הסיכום מול המקורות והשיעורים, ומחזיר רשימה: מה חסר, מה לא מדויק, איזו משוואה שגויה. ההערות מופיעות בצד.", html: `<div class="smp">${B("err", "המורה · 2 הערות", "1. חסר L בהפסדים בשורה 4.<br>2. חסר מקרה בוחן של מכ\"ם אמיתי.")}</div>` },
+      { id: "quiz", name: "שאלות חזרה מהסיכום", rec: true, note: "שאלות שנבנות ממה שאתה כתבת, לא מהספר. עונים, והמורה בודק.", html: `<div class="smp"><div class="card2"><b>שאלה 3/8</b>אם σ קטן פי 10, בכמה קטן הטווח?</div></div>` },
+      { id: "ask", name: "שאלה על פסקה", note: "מסמנים פסקה ושואלים את המורה עליה; התשובה בלוח העזר.", html: `<div class="smp"><p><mark class="hl-b">למה שורש רביעי?</mark></p><div class="card2" style="font-size:11.5px">כי ההספק נחלש כ-1/R² בכל כיוון…</div></div>` },
+      { id: "draft", name: "השלם לי סעיף", note: "המורה מציע טיוטה לסעיף, ואתה מאשר, עורך או מוחק. חוסך זמן, אבל הסיכום פחות שלך.", html: `<div class="smp"><div class="blk" style="border:1px dashed var(--line-strong)"><span class="lbl" style="color:var(--muted)">הצעה של המורה · אשר / ערוך / מחק</span>טמפרטורת הרעש של המערכת…</div></div>` },
+    ] },
+  { id: "notebook", g: "g3", title: "מחברת השיעור", why: "הרעיונות למאמרים, השאלות לראיונות והנקודות להעמקה שנשמרו בשיעור.",
+    opts: [
+      { id: "side", name: "מוצגת בלוח העזר, אפשר לגרור", rec: true, note: "פריטי המחברת של המודול מופיעים בצד, וגוררים לסיכום את מה שרוצים.", html: `<div class="smp"><div class="card2" style="font-size:11.5px">💡 רעיון למאמר: יחס עלויות במכ"ם AESA מול PESA</div></div>` },
+      { id: "section", name: "סעיף קבוע בסוף כל סיכום", note: "הפריטים נכנסים לבד לסעיף \"מהשיעור\" בסוף הדף.", html: `<div class="smp"><h6>מהשיעור</h6><ul><li>רעיון למאמר: יחס עלויות…</li><li>להעמקה: מכ"ם ביסטטי</li></ul></div>` },
+      { id: "apart", name: "נפרד", note: "המחברת נשארת באפליקציה, הסיכום לבד.", html: `<div class="smp"><p style="color:var(--muted)">(בלי חיבור)</p></div>` },
+    ] },
+  { id: "sync", g: "g3", title: "שני מסכים יחד", why: "כשהשיעור פתוח במסך אחד והמחברת במסך השני.",
+    opts: [
+      { id: "follow", name: "המחברת עוקבת אחרי השיעור", rec: true, note: "פותחים שיעור במסך 1, והמחברת במסך 2 עוברת לבד לסיכום של אותו מודול ולסעיף של אותו שיעור.", html: `<div class="smp"><div class="mono">מסך 1: M2.2 · שיעור 2  →  מסך 2: סיכום M2.2 · סעיף 2</div></div>` },
+      { id: "button", name: "רק בלחיצה", note: "כפתור \"לסיכום של השיעור הזה\" בשיעור; המחברת לא זזה לבד.", html: `<div class="smp"><span class="chip chip-g">לסיכום של השיעור →</span></div>` },
+      { id: "none", name: "בלי חיבור", note: "שני חלונות עצמאיים.", html: `<div class="smp"><p style="color:var(--muted)">(בלי חיבור)</p></div>` },
+    ] },
+  // ---------------- review, export and backup ----------------
+  { id: "review", g: "g4", title: "מצב חזרה", why: "איך קוראים סיכום לפני מבחן או אחרי חודש.", multi: true,
+    opts: [
+      { id: "collapse", name: "מקופל", rec: true, note: "רק כותרות ותיבות; לחיצה פותחת סעיף. רואים את כל המודול במבט אחד.", html: `<div class="smp tree"><div>▸ 1. הצורה הבסיסית</div><div>▾ 2. הפסדים ורעש</div><div class="d1"><span class="blk blk-eq" style="display:inline-block;padding:1px 6px">נוסחה</span> <span class="blk blk-err" style="display:inline-block;padding:1px 6px">טעות נפוצה</span></div><div>▸ 3. גילוי וטווח</div></div>` },
+      { id: "boxes", name: "רק תיבות מסוג אחד", rec: true, note: "\"הראה רק נוסחאות\" או \"רק טעויות נפוצות\" מכל המודולים. דף נוסחאות למבחן בלחיצה.", html: `<div class="smp">${B("eq", "נוסחה · M2.2", `${EQS}`)}${B("eq", "נוסחה · M2.9", "SNR גדל פי n באינטגרציה קוהרנטית")}</div>` },
+      { id: "cards", name: "כרטיסיות", note: "כל הגדרה ונוסחה הופכות לכרטיס: צד אחד שם, צד שני תוכן. עם חזרה מרווחת.", html: `<div class="smp"><div class="card2" style="text-align:center"><b>RCS (σ)</b><span style="color:var(--muted)">לחץ להפוך</span></div></div>` },
+    ] },
+  { id: "export", g: "g4", title: "ייצוא", why: "להוציא את הסיכום מהמחברת.", multi: true,
+    opts: [
+      { id: "docx", name: "Word", rec: true, note: "קובץ ‎.docx עם הכותרות, התיבות כטבלאות צבעוניות, התמונות והמשוואות.", html: `<div class="smp"><span class="chip chip-g">M2.2.docx</span></div>` },
+      { id: "md", name: "Markdown", note: "קובץ טקסט עם המשוואות ב-LaTeX, כמו בגיבוי לגיט.", html: `<div class="smp"><span class="chip chip-g">M2.2.md</span></div>` },
+      { id: "html", name: "דף HTML לקריאה", note: "קובץ אחד שנפתח בכל דפדפן, עם העיצוב המלא. טוב לשמירה או לשליחה.", html: `<div class="smp"><span class="chip chip-g">M2.2.html</span></div>` },
+      { id: "part", name: "ייצוא חלק שלם", rec: true, note: "כל המודולים של חלק (למשל \"מכ\"ם\") בקובץ אחד, עם תוכן עניינים.", html: `<div class="smp"><span class="chip chip-g">P2 מכ"ם · 39 מודולים</span></div>` },
+    ] },
+  { id: "backup", g: "g4", title: "הגיבוי לגיט", why: "פעם ביום, כמו שסיכמנו. איך זה נראה בריפו.",
+    opts: [
+      { id: "tree", name: "קובץ לכל מודול, בתיקיות לפי חלקים", rec: true, note: "summaries/lanchester/P2/M2.2.md עם תמונות בתיקייה לידו. אפשר לקרוא ב-GitHub ישירות, ורואים בהיסטוריה מה השתנה כל יום.", html: `<div class="smp"><div class="mono">summaries/\n  lanchester/P2-radar/M2.2.md\n  lanchester/P2-radar/img/…\n  gilua/P15-fluids/M15.2.md</div></div>` },
+      { id: "single", name: "קובץ אחד לכל מעבדה", note: "summaries/lanchester.md אחד גדול. פשוט, אבל ארוך מאוד.", html: `<div class="smp"><div class="mono">summaries/lanchester.md\nsummaries/gilua.md</div></div>` },
+      { id: "raw", name: "גם עותק גולמי", note: "בנוסף לקבצי ה-Markdown, עותק JSON של מסד הנתונים, לשחזור מלא.", html: `<div class="smp"><div class="mono">backup/summaries/*.json</div></div>` },
+    ] },
+];
+
+/* ---------- state ---------- */
+const KEY = "summaries-design:v1";
+let state = { picks: {}, notes: {}, general: "" };
+try { state = Object.assign(state, JSON.parse(localStorage.getItem(KEY) || "{}")); } catch (e) {}
+const $ = (s) => document.querySelector(s);
+const selected = (q) => (state.picks[q.id] || "").split(",").filter(Boolean);
+
+function render() {
+  let html = "";
+  let n = 0;
+  for (const g of GROUPS) {
+    html += `<div class="group" id="${g.id}"><h2>${g.title}</h2><p>${g.text}</p></div>`;
+    for (const q of QS.filter((x) => x.g === g.id)) {
+      n++;
+      const sel = selected(q);
+      html += `<section class="q" id="q-${q.id}">
+        <div class="q-head"><span class="q-num">${String(n).padStart(2, "0")}</span><h3>${q.title}</h3><span class="q-kind">${q.multi ? "כמה" : "אחת"}</span><span class="q-state ${sel.length ? "done" : ""}">${sel.length ? "נבחר" : "לא נבחר"}</span></div>
+        <p class="why">${q.why}</p>
+        <div class="opts ${q.id === "layout" || q.id === "math" ? "wide" : ""}">${q.opts.map((o) => o.inert
+          ? `<div class="opt" style="cursor:default;border-style:dashed"><div class="opt-head"><b>${o.name}</b></div>${o.html}<p class="note">${o.note}</p></div>`
+          : `<button type="button" class="opt" data-q="${q.id}" data-o="${o.id}" aria-pressed="${sel.includes(o.id)}">
+            <span class="opt-head"><b>${o.name}</b>${o.rec ? '<span class="rec">ההמלצה שלי</span>' : ""}<span class="tick">✓ נבחר</span></span>
+            ${o.html}${o.note ? `<span class="note">${o.note}</span>` : ""}</button>`).join("")}</div>
+        <textarea id="note-${q.id}" data-note="${q.id}" placeholder="הערה לשאלה הזו (לא חובה)">${(state.notes[q.id] || "").replace(/</g, "&lt;")}</textarea>
+      </section>`;
+    }
+  }
+  $("#qs").innerHTML = html;
+  sync();
+}
+function sync() {
+  const done = QS.filter((q) => selected(q).length).length;
+  $("#count").textContent = `${done} / ${QS.length} החלטות`;
+  const g = $("#st-general");
+  g.textContent = state.general.trim() ? "יש הערות" : "לא חובה";
+  g.classList.toggle("done", !!state.general.trim());
+}
+
+/* ---------- saving: one document per decision in "choices" ---------- */
+let db = null;
+const msg = (t, e) => { const s = $("#save"); s.textContent = t; s.classList.toggle("err", !!e); };
+const queue = {}, busy = {};
+async function persist(key, value) {
+  try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
+  if (!db) return;
+  queue[key] = value;
+  if (busy[key]) return;
+  busy[key] = true;
+  while (key in queue) {
+    const v = queue[key]; delete queue[key];
+    try { await db.doc("choices/" + key).set({ value: v, at: new Date().toISOString() }); msg("נשמר"); }
+    catch (e) { msg("השמירה נכשלה. הבחירות נשמרות בינתיים בדפדפן בלבד.", true); break; }
+  }
+  busy[key] = false;
+}
+document.addEventListener("click", (e) => {
+  const b = e.target.closest("button.opt"); if (!b) return;
+  const q = QS.find((x) => x.id === b.dataset.q);
+  let sel = selected(q);
+  if (q.multi) sel = sel.includes(b.dataset.o) ? sel.filter((x) => x !== b.dataset.o) : [...sel, b.dataset.o];
+  else sel = sel[0] === b.dataset.o ? [] : [b.dataset.o];
+  state.picks[q.id] = sel.join(",");
+  document.querySelectorAll(`button.opt[data-q="${q.id}"]`).forEach((x) => x.setAttribute("aria-pressed", String(sel.includes(x.dataset.o))));
+  const st = b.closest("section").querySelector(".q-state");
+  st.textContent = sel.length ? "נבחר" : "לא נבחר"; st.classList.toggle("done", !!sel.length);
+  sync();
+  persist(q.id, state.picks[q.id]);
+});
+const timers = {};
+document.addEventListener("input", (e) => {
+  const t = e.target;
+  if (t.id === "general") { state.general = t.value; sync(); clearTimeout(timers.g); timers.g = setTimeout(() => persist("general", t.value), 900); return; }
+  const k = t.dataset && t.dataset.note; if (!k) return;
+  state.notes[k] = t.value;
+  clearTimeout(timers[k]); timers[k] = setTimeout(() => persist("note-" + k, t.value), 900);
+});
+render();
+$("#general").value = state.general || "";
+sync();
+(async () => {
+  try { db = window.claude && (await window.claude.use("db")); } catch (e) { db = null; }
+  if (!db) { msg("השמירה בשרת לא זמינה כאן. הבחירות נשמרות בדפדפן בלבד.", true); return; }
+  try {
+    const snap = await db.collection("choices").get();
+    for (const d of snap.docs) {
+      const v = d.data() && d.data().value; if (typeof v !== "string") continue;
+      if (d.id === "general") state.general = v;
+      else if (d.id.startsWith("note-")) state.notes[d.id.slice(5)] = v;
+      else state.picks[d.id] = v;
+    }
+    render(); $("#general").value = state.general || ""; sync();
+    msg(snap.empty ? "מחובר. הבחירות יישמרו כאן." : "מחובר. הבחירות הקודמות נטענו.");
+  } catch (e) { msg("לא הצלחתי לטעון בחירות קודמות.", true); }
+})();
+</script>

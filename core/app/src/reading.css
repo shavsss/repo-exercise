@@ -1,0 +1,573 @@
+/* Reading: the lesson text is set for long reading. Typeface, size, line spacing,
+   column width and the reading surface come from the reader's settings (reading.ts),
+   as data-attributes on the root. */
+:root {
+  --read-font: var(--font);
+  --read-size: 17px;
+  --read-lh: 1.9;
+  --measure: 38rem;
+}
+:root[data-read-font="frank"] { --read-font: "Frank Ruhl Libre", "IBM Plex Sans Hebrew", serif; }
+:root[data-read-font="assistant"] { --read-font: "Assistant", "IBM Plex Sans Hebrew", sans-serif; }
+:root[data-read-size="s"] { --read-size: 15.5px; }
+:root[data-read-size="l"] { --read-size: 18.5px; }
+:root[data-read-size="xl"] { --read-size: 20px; }
+:root[data-read-space="normal"] { --read-lh: 1.7; }
+:root[data-read-width="narrow"] { --measure: 33rem; }
+:root[data-read-width="wide"] { --measure: 46rem; }
+
+/* paper: warm off-white, softer ink */
+:root[data-surface="paper"] {
+  --bg: #f1ece2;
+  --paper: #faf7f0;
+  --sheet: #fffdf8;
+  --ink: #2a2723;
+  --ink-soft: #4b463f;
+  --muted: #776f64;
+  --line: #ddd5c6;
+  --line-strong: #b3a891;
+  --grid-line: #ebe4d6;
+  --grid-major: #ddd3c1;
+  --hover: #f0e9dc;
+  --sel: #ebe3d3;
+  color-scheme: light;
+}
+/* warm paper: the whole page in the warm tone of the opening story, for long reading */
+:root[data-surface="warm"] {
+  --bg: #e6ddcb;
+  --paper: #f1eadc;
+  --sheet: #f6f0e4;
+  --ink: #2b2620;
+  --ink-soft: #4a4238;
+  --muted: #776b5b;
+  --line: #d9ccb4;
+  --line-strong: #ae9c7d;
+  --grid-line: #e6dccb;
+  --grid-major: #d6c9b1;
+  --hover: #ebe1cf;
+  --sel: #e3d7c1;
+  color-scheme: light;
+}
+/* soft dark: neutral charcoal instead of the blueprint blue, for long evening reading */
+:root[data-surface="soft"] {
+  --bg: #17181b;
+  --paper: #1e1f23;
+  --sheet: #222328;
+  --ink: #e6e3dc;
+  --ink-soft: #c8c4bb;
+  --muted: #9b968c;
+  --line: #34363c;
+  --line-strong: #5a5d65;
+  --grid-line: #26282d;
+  --grid-major: #30333a;
+  --accent: #ff8a5b;
+  --accent-soft: #3a2a24;
+  --on-accent: #17181b;
+  --ok: #7fd3a8;
+  --warn: #e9c46a;
+  --blue: #9cc8f5;
+  --err: #ff8f84;
+  --hover: #26282d;
+  --sel: #2b2d33;
+  --shadow: none;
+  --k-plan: #a9b4c0;
+  --k-story: #e9c46a;
+  --k-history: #c8b0f5;
+  --k-formula: #9cc8f5;
+  --k-think: #e2acef;
+  --k-refresh: #dcd07a;
+  --k-domain: #7fd3c8;
+  --k-casestudy: #8fd3e8;
+  --k-model: #b9de7f;
+  --k-erratum: #ff8f84;
+  --k-fieldsystems: #ff8a5b;
+  --k-coverage: #a9b4c0;
+  --k-exercise: #9cc8f5;
+  --s1: #ff8a5b;
+  --s2: #9cc8f5;
+  --s3: #7fd3c8;
+  --s4: #c8b0f5;
+  --s5: #e9c46a;
+  --s6: #e6e3dc;
+  color-scheme: dark;
+}
+
+/* the lesson text itself */
+.prose {
+  font-family: var(--read-font);
+  font-size: var(--read-size);
+  line-height: var(--read-lh);
+  color: var(--ink);
+  text-rendering: optimizeLegibility;
+  font-kerning: normal;
+}
+.prose p { margin: 0 0 1.15em; }
+.prose li { margin: 0.35em 0; }
+.prose h2 {
+  font-family: var(--font);
+  font-size: 1.45em;
+  line-height: 1.3;
+  margin: 2.4em 0 0.8em;
+  padding-bottom: 0.35em;
+}
+.prose h3 {
+  font-family: var(--font);
+  font-size: 1.15em;
+  line-height: 1.4;
+  margin: 1.9em 0 0.6em;
+}
+.prose strong { font-weight: 600; }
+.prose .katex { font-size: 1.08em; }
+.prose .katex-display { margin: 1.4em 0; }
+.prose .block { padding: 22px 20px 8px; margin: 34px 0 26px; }
+.prose .block-body { line-height: calc(var(--read-lh) - 0.1); }
+
+/* inline tags: quieter, so a line of text is not broken by boxes */
+.prose .badge {
+  font-family: var(--font);
+  font-size: 0.72em;
+  line-height: 1.35;
+  padding: 0 5px;
+  vertical-align: 0.12em;
+}
+.prose .badge-l25 {
+  border: none;
+  border-bottom: 1.5px solid var(--c);
+  border-radius: 0;
+  padding: 0 1px;
+  background: none;
+}
+.prose .badge-l25::before { content: ""; }
+
+/* the column adapts to the chosen width; the composer follows it */
+.col { max-width: calc(var(--measure) + 32px); }
+@media (max-width: 700px) {
+  :root { --read-size: 16.5px; }
+  :root[data-read-size="l"] { --read-size: 17.5px; }
+  :root[data-read-size="xl"] { --read-size: 19px; }
+}
+
+/* the reading settings popover */
+.reading-pop {
+  position: fixed;
+  z-index: 70;
+  top: calc(56px + env(safe-area-inset-top, 0px));
+  inset-inline-end: max(12px, env(safe-area-inset-left, 0px));
+  width: min(380px, calc(100vw - 24px));
+  background: var(--sheet);
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  box-shadow: 0 10px 30px rgb(0 0 0 / 18%);
+  padding: 10px 14px 12px;
+  display: grid;
+  gap: 10px;
+}
+.reading-head { display: flex; justify-content: space-between; align-items: center; font-weight: 600; }
+.reading-row { display: grid; gap: 4px; }
+.reading-label { font-size: 0.78rem; color: var(--muted); }
+.reading-row .seg { flex-wrap: wrap; border-radius: 4px; }
+.reading-vol { display: flex; align-items: center; gap: 6px; }
+.reading-vol input[type="range"] { flex: 1; min-width: 0; accent-color: var(--accent); }
+.reading-vol .icon-btn { width: 26px; height: 26px; font-size: 1rem; line-height: 1; }
+.reading-vol-num { min-width: 2.2em; text-align: center; font-size: 0.78rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.reading-sample {
+  margin: 0;
+  padding: 8px 10px;
+  border: 1px dashed var(--line);
+  font-family: var(--read-font);
+  font-size: var(--read-size);
+  line-height: var(--read-lh);
+  background: var(--paper);
+  color: var(--ink);
+}
+.reading-btn { font: 600 15px/1 var(--read-font); width: 34px; }
+
+/* ---------- aids for long reading ---------- */
+.main { position: relative; }
+.read-progress {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2px;
+  z-index: 5;
+  pointer-events: none;
+}
+.read-progress i {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  opacity: 0.75;
+  transform-origin: right center;
+  transition: transform 0.12s linear;
+}
+.resume-chip {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  translate: -50% 0;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 8px 6px 12px;
+  background: var(--sheet);
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  box-shadow: 0 6px 20px rgb(0 0 0 / 14%);
+  font-size: 0.85rem;
+  white-space: nowrap;
+  animation: chip-in 0.25s ease-out;
+}
+@keyframes chip-in { from { opacity: 0; translate: -50% -6px; } }
+
+/* sticky at the bottom of the scrolling text, above the composer */
+.reading-dock {
+  position: sticky;
+  bottom: 12px;
+  height: 0;
+  z-index: 6;
+}
+.dock-inner {
+  position: absolute;
+  bottom: 0;
+  inset-inline-start: 14px;
+  display: grid;
+  justify-items: start;
+  gap: 6px;
+  max-width: min(340px, calc(100% - 28px));
+}
+.dock-row { display: flex; gap: 6px; }
+.mini-toc-btn,
+.dock-focus,
+.dock-noise,
+.dock-pad {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--sheet) 92%, transparent);
+  backdrop-filter: blur(6px);
+  color: var(--ink-soft);
+  font: 500 0.8rem/1 var(--font);
+  cursor: pointer;
+  opacity: 0.55;
+  transition: opacity 0.15s;
+  min-width: 0;
+}
+.reading-dock:hover .mini-toc-btn,
+.reading-dock:hover .dock-focus,
+.reading-dock:hover .dock-pad,
+.reading-dock:hover .dock-noise,
+.dock-noise.is-on,
+.dock-noise:focus-visible,
+.dock-pad:focus-visible,
+.mini-toc-btn[aria-expanded="true"],
+.dock-focus.is-on,
+.mini-toc-btn:focus-visible,
+.dock-focus:focus-visible { opacity: 1; }
+.mini-toc-now { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 190px; }
+.mini-toc-left { color: var(--muted); white-space: nowrap; }
+.mini-toc-list {
+  display: grid;
+  max-height: min(60vh, 460px);
+  overflow-y: auto;
+  width: min(340px, calc(100vw - 28px));
+  padding: 6px;
+  background: var(--sheet);
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  box-shadow: 0 10px 30px rgb(0 0 0 / 18%);
+}
+.mini-toc-list button {
+  text-align: start;
+  border: 0;
+  background: none;
+  color: var(--ink-soft);
+  font: 0.86rem/1.4 var(--font);
+  padding: 6px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.mini-toc-list button:hover { background: var(--hover); }
+.mini-toc-list .lvl-3 { padding-inline-start: 22px; font-size: 0.8rem; color: var(--muted); }
+.mini-toc-list .is-current { color: var(--ink); background: var(--sel); font-weight: 600; }
+.quick-more { background: none; border-style: dashed; }
+
+/* focus: the text alone. The map, the source rail and the composer's extras step aside;
+   the composer's tools come back when it is in use. */
+:root[data-focus="on"] .sidebar:not(.is-open),
+:root[data-focus="on"] .viewer-rail { display: none; }
+:root[data-focus="on"] .composer-wrap:not(:focus-within) .quick-row,
+:root[data-focus="on"] .composer:not(:focus-within) .composer-tools { display: none; }
+:root[data-focus="on"] .composer-wrap { padding-block: 8px; }
+:root[data-focus="on"] .topbar { opacity: 0.6; transition: opacity 0.2s; }
+:root[data-focus="on"] .topbar:hover,
+:root[data-focus="on"] .topbar:focus-within { opacity: 1; }
+
+@media (max-width: 700px) {
+  .dock-inner { inset-inline-start: 8px; }
+  .mini-toc-now { max-width: 120px; }
+  .mini-toc-left { display: none; }
+  .resume-chip { font-size: 0.8rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .read-progress i, .resume-chip { transition: none; animation: none; }
+}
+
+/* ---------- the lesson-contents panel, beside the text on the left ---------- */
+.lesson-toc {
+  flex: none;
+  width: 248px;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: var(--bg);
+  border-inline-start: 1px solid var(--line);
+}
+.lesson-toc-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px 6px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.lesson-toc-list {
+  flex: 1;
+  overflow-y: auto;
+  display: grid;
+  align-content: start;
+  gap: 1px;
+  padding: 4px 8px 12px;
+}
+.lesson-toc-list button {
+  all: unset;
+  box-sizing: border-box;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-inline-start: 2px solid transparent;
+  font-size: 0.86rem;
+  line-height: 1.4;
+  color: var(--ink-soft);
+}
+.lesson-toc-list button:hover { background: var(--hover); color: var(--ink); }
+.lesson-toc-list button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.lesson-toc-list .lvl-3 { padding-inline-start: 22px; font-size: 0.8rem; color: var(--muted); }
+.lesson-toc-list .is-current { border-inline-start-color: var(--accent); color: var(--ink); background: var(--sel); font-weight: 600; }
+.lesson-toc-empty { margin: 4px 14px; font-size: 0.82rem; color: var(--muted); }
+.lesson-toc-foot { padding: 8px 14px 12px; border-top: 1px solid var(--line); font-size: 0.8rem; color: var(--muted); }
+.toc-rail {
+  all: unset;
+  box-sizing: border-box;
+  cursor: pointer;
+  flex: none;
+  width: 34px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 0;
+  border-inline-start: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--ink-soft);
+  font-size: 0.8rem;
+}
+.toc-rail span { writing-mode: vertical-rl; }
+.toc-rail:hover { color: var(--ink); background: var(--hover); }
+.toc-rail:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+/* with the panel open on a wide screen, the floating contents button is not needed */
+@media (min-width: 1101px) {
+  .has-toc .mini-toc-btn { display: none; }
+}
+@media (max-width: 1100px) {
+  .lesson-toc, .toc-rail { display: none; }
+}
+:root[data-focus="on"] .lesson-toc,
+:root[data-focus="on"] .toc-rail { display: none; }
+:root[data-focus="on"] .has-toc .mini-toc-btn { display: inline-flex; }
+
+/* ---------- "הסבר פשוט": a small panel on the right of the lesson ---------- */
+.explain-rail {
+  all: unset;
+  box-sizing: border-box;
+  cursor: pointer;
+  flex: none;
+  width: 34px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 0;
+  border-inline-end: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--ink-soft);
+  font-size: 0.8rem;
+}
+.explain-rail span { writing-mode: vertical-rl; }
+.explain-rail:hover { color: var(--ink); background: var(--hover); }
+.explain-rail:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.explain-panel {
+  flex: none;
+  width: 310px;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: var(--bg);
+  border-inline-end: 1px solid var(--line);
+}
+.explain-head { display: flex; align-items: center; justify-content: space-between; padding: 12px 14px 6px; font-weight: 600; font-size: 0.9rem; }
+.explain-ask { display: grid; gap: 6px; padding: 10px 12px 12px; border-top: 1px solid var(--line); }
+.explain-actions { display: flex; gap: 6px; }
+.explain-turn + .explain-turn { margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--line); }
+.explain-ask textarea { resize: vertical; min-height: 3.2em; font: inherit; font-size: 0.88rem; padding: 6px 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--paper, var(--bg)); color: var(--ink); }
+.explain-ask .btn { justify-self: start; }
+.explain-body { flex: 1; overflow-y: auto; padding: 10px 14px 16px; font-size: 0.9rem; }
+.explain-hint { margin: 0; color: var(--muted); font-size: 0.82rem; line-height: 1.5; }
+.explain-q { margin: 0 0 10px; padding: 6px 10px; border-inline-start: 3px solid var(--accent); background: var(--sel); color: var(--ink-soft); font-size: 0.82rem; line-height: 1.5; }
+.explain-wait { color: var(--muted); font-size: 0.85rem; }
+.explain-answer { font-size: 0.9rem; line-height: 1.7; }
+.explain-answer p { margin: 0 0 0.6em; }
+.explain-answer table { font-size: 0.82rem; }
+.explain-model { margin-top: 8px; color: var(--muted); font-size: 0.72rem; }
+.explain-chip {
+  position: fixed;
+  z-index: 60;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border: 1px solid var(--line-strong, var(--line));
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--bg);
+  font: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgb(0 0 0 / 18%);
+}
+/* a narrow window (the artifact pane): the rail stays, the panel opens over the text */
+@media (max-width: 1100px) {
+  .explain-rail { width: 30px; }
+  .explain-panel { position: fixed; top: 56px; bottom: 0; inset-inline-start: 0; width: min(340px, 92vw); z-index: 45; box-shadow: 0 0 24px rgb(0 0 0 / 22%); }
+}
+
+/* ---------- the left of the lesson: one rail, two panels (contents, notebook), one at a time ---------- */
+.left-rail { flex: none; width: 34px; display: flex; flex-direction: column; border-inline-start: 1px solid var(--line); background: var(--bg); }
+.left-rail-btn { all: unset; box-sizing: border-box; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 12px 0; color: var(--ink-soft); font-size: 0.8rem; border-bottom: 1px solid var(--line); }
+.left-rail-btn span { writing-mode: vertical-rl; }
+.left-rail-btn:hover { color: var(--ink); background: var(--hover); }
+.left-rail-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+@media (max-width: 1100px) { .left-rail-btn.is-toc { display: none; } }
+/* in focus mode the notebook stays at hand; the contents tab steps aside (the floating contents button is there) */
+:root[data-focus="on"] .left-rail-btn.is-toc { display: none; }
+
+/* ---------- the notebook: drawings and worked solutions, per lesson ---------- */
+.pad-panel { --pad-paper: #fffdf7; flex: none; width: 380px; display: flex; flex-direction: column; min-height: 0; background: var(--bg); border-inline-start: 1px solid var(--line); }
+:root[data-theme="dark"] .pad-panel { --pad-paper: #1f2119; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .pad-panel { --pad-paper: #1f2119; } }
+.pad-panel.pad-wide, .pad-panel.pad-full { position: fixed; top: 56px; bottom: 0; inset-inline-end: 0; z-index: 45; box-shadow: 0 0 28px rgb(0 0 0 / 22%); }
+.pad-panel.pad-wide { width: min(900px, 72vw); }
+.pad-panel.pad-full { inset-inline-start: 0; width: auto; }
+@media (max-width: 1100px) { .pad-panel { position: fixed; top: 56px; bottom: 0; inset-inline-end: 0; z-index: 45; width: min(420px, 94vw); box-shadow: 0 0 28px rgb(0 0 0 / 22%); } }
+.pad-head { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+.pad-title { font-weight: 600; font-size: 0.9rem; }
+.pad-pages { display: inline-flex; gap: 4px; align-items: center; }
+.pad-pages select, .pad-select { font: inherit; font-size: 0.8rem; padding: 2px 4px; border: 1px solid var(--line); border-radius: 4px; background: var(--paper); color: var(--ink); }
+.pad-size { display: inline-flex; margin-inline-start: auto; }
+.pad-tbtn { font: inherit; font-size: 0.78rem; padding: 3px 7px; border: 1px solid var(--line); border-radius: 4px; background: var(--paper); color: var(--ink); cursor: pointer; }
+.pad-tbtn:hover { background: var(--hover); }
+.pad-tbtn[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.pad-tbtn:disabled { opacity: 0.45; cursor: default; }
+.pad-body { flex: 1; min-height: 0; overflow-y: auto; padding: 10px; display: grid; gap: 10px; align-content: start; }
+.pad-page-title { font: 600 0.95rem var(--font, inherit); border: 0; border-bottom: 1px dashed transparent; background: none; color: var(--ink); padding: 2px; }
+.pad-page-title:hover, .pad-page-title:focus { border-bottom-color: var(--line-strong, var(--line)); outline: none; }
+.pad-block { position: relative; }
+.pad-del { position: absolute; top: 2px; inset-inline-end: 2px; width: 22px; height: 22px; border: 0; border-radius: 4px; background: none; color: var(--muted); cursor: pointer; opacity: 0; font-size: 1rem; line-height: 1; }
+.pad-block:hover .pad-del { opacity: 1; }
+.pad-del:hover { background: var(--hover); color: var(--err, #b3261e); }
+.pad-tools { display: flex; flex-wrap: wrap; gap: 3px; align-items: center; margin-bottom: 4px; }
+.pad-sep { width: 1px; height: 18px; background: var(--line); margin: 0 3px; }
+.pad-color { width: 18px; height: 18px; border-radius: 50%; border: 2px solid transparent; cursor: pointer; padding: 0; }
+.pad-color[aria-pressed="true"] { border-color: var(--paper); box-shadow: 0 0 0 2px var(--ink); }
+.pad-width { width: 30px; display: inline-flex; align-items: center; justify-content: center; }
+.pad-width i { display: block; width: 16px; background: currentColor; border-radius: 3px; }
+.pad-svg { display: block; user-select: none; -webkit-user-select: none; width: 100%; height: auto; border: 1px solid var(--line); border-radius: 6px; touch-action: none; cursor: crosshair; background: var(--pad-paper); }
+.pad-svg.tool-erase { cursor: cell; }
+.pad-bg line { stroke: var(--line); stroke-width: 0.8; }
+.pad-axes line, .pad-axes path { stroke: var(--muted); stroke-width: 1.4; fill: none; }
+.pad-text { width: 100%; box-sizing: border-box; resize: vertical; font: inherit; font-size: 0.95rem; line-height: 1.6; padding: 6px 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--paper); color: var(--ink); }
+.pad-math { display: block; width: 100%; min-height: 40px; border: 1px dashed var(--line); border-radius: 6px; background: var(--paper); color: var(--ink); cursor: pointer; padding: 6px; }
+.pad-check { border: 1px solid var(--line); border-inline-start: 3px solid var(--accent); border-radius: 6px; padding: 8px 10px; background: var(--paper); }
+.pad-check h4 { margin: 0 0 4px; font-size: 0.82rem; color: var(--muted); }
+.pad-foot { display: flex; gap: 4px; align-items: center; padding: 8px 10px; border-top: 1px solid var(--line); }
+.pad-grow { flex: 1; }
+
+/* the notebook's edge toward the lesson: drag to set its width */
+.pad-panel { position: relative; }
+.pad-panel.pad-wide, .pad-panel.pad-full { position: fixed; }
+.pad-resize { position: absolute; top: 0; bottom: 0; inset-inline-start: -4px; width: 8px; cursor: col-resize; z-index: 5; touch-action: none; }
+.pad-resize::after { content: ""; position: absolute; top: 50%; inset-inline-start: 2px; width: 4px; height: 40px; margin-top: -20px; border-radius: 2px; background: var(--line-strong, var(--line)); opacity: 0; transition: opacity 0.15s; }
+.pad-resize:hover::after, .pad-resize.is-drag::after { opacity: 1; }
+body.pad-resizing { cursor: col-resize; user-select: none; }
+@media (max-width: 1100px) { .pad-panel { position: fixed; } }
+
+/* ---------- sticky notes pulled from the pad into the lesson margin (components/MarginNotes.tsx) ---------- */
+.dock-pad { color: var(--ink); }
+.dock-pad-stack { position: relative; width: 14px; height: 13px; background: var(--mn-paper); border: 1px solid color-mix(in srgb, var(--mn-ink) 30%, transparent); box-shadow: 2px 2px 0 -1px var(--mn-paper), 2px 2px 0 0 color-mix(in srgb, var(--mn-ink) 30%, transparent); }
+.mn-kinds { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; }
+.mn-k { all: unset; cursor: pointer; font-size: 0.7rem; font-weight: 600; padding: 1px 7px; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--nk) 50%, transparent); color: var(--nk); }
+.mn-k.k-deepen { --nk: var(--k-formula); } .mn-k.k-interview { --nk: var(--k-history); } .mn-k.k-article { --nk: var(--accent); } .mn-k.k-note { --nk: var(--k-domain); }
+.mn-k.is-on { background: var(--nk); color: var(--mn-paper); }
+.mn-k:focus-visible { outline: 2px solid var(--nk); outline-offset: 1px; }
+.mn-edit { width: 100%; box-sizing: border-box; resize: vertical; min-height: 6.5em; border: 0; border-top: 1px dashed color-mix(in srgb, var(--mn-ink) 25%, transparent); background: transparent; color: var(--mn-ink); font: inherit; line-height: 1.5; padding: 6px 0; outline: none; }
+.mn-actions { display: flex; justify-content: space-between; margin-top: 6px; }
+.mn-actions button { all: unset; cursor: pointer; font-size: 0.74rem; color: color-mix(in srgb, var(--mn-ink) 70%, transparent); padding: 2px 4px; }
+.mn-actions .mn-done { font-weight: 700; color: var(--nk); }
+.mn-actions button:focus-visible { outline: 2px solid var(--nk); }
+.mn-note.is-open .mn-face { cursor: default; }
+:root { --mn-paper: #fbf1c7; --mn-ink: #2c2a20; --mn-tape: rgb(214 205 170 / 70%); --mn-hl: rgb(233 196 106 / 28%); --mn-hl-on: rgb(233 196 106 / 60%); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --mn-paper: #3a3622; --mn-ink: #efe9cf; --mn-tape: rgb(120 112 80 / 60%); --mn-hl: rgb(233 196 106 / 18%); --mn-hl-on: rgb(233 196 106 / 38%); } }
+:root[data-theme="dark"] { --mn-paper: #3a3622; --mn-ink: #efe9cf; --mn-tape: rgb(120 112 80 / 60%); --mn-hl: rgb(233 196 106 / 18%); --mn-hl-on: rgb(233 196 106 / 38%); }
+::highlight(mn-on) { background-color: var(--mn-hl-on); }
+.msg-assistant { position: relative; }
+.mn-layer { position: absolute; top: 0; inset-inline-end: -208px; width: 184px; height: 0; z-index: 3; }
+.mn-layer.is-narrow { inset-inline-end: -12px; width: 0; }
+.mn-note { --nk: var(--k-domain); position: absolute; inset-inline-start: 0; width: 184px; }
+.mn-note.k-deepen { --nk: var(--k-formula); }
+.mn-note.k-interview { --nk: var(--k-history); }
+.mn-note.k-article { --nk: var(--accent); }
+.mn-note.k-note { --nk: var(--k-domain); }
+.mn-face { all: unset; box-sizing: border-box; display: block; width: 100%; cursor: pointer; background: var(--mn-paper); color: var(--mn-ink); border-top: 3px solid var(--nk); padding: 16px 12px 10px; box-shadow: 0 1px 1px rgb(0 0 0 / 8%), 0 8px 16px -6px rgb(0 0 0 / 22%); transform: rotate(-1deg); font-family: var(--font); font-size: 0.82rem; line-height: 1.5; position: relative; transition: transform 0.15s, box-shadow 0.15s; }
+.mn-note:nth-child(even) .mn-face { transform: rotate(0.8deg); }
+.mn-note.by-me .mn-face { border-top-style: dashed; }
+.mn-face::before { content: ""; position: absolute; top: -8px; inset-inline-start: 38%; width: 56px; height: 16px; background: var(--mn-tape); transform: rotate(-3deg); }
+.mn-face:focus-visible { outline: 2px solid var(--nk); outline-offset: 2px; }
+.mn-kind { display: block; font-size: 0.74rem; font-weight: 700; color: var(--nk); margin-bottom: 3px; }
+.mn-kind b { font-family: var(--mono); font-weight: 500; }
+.mn-text { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; white-space: pre-line; }
+.mn-note:hover .mn-face { transform: rotate(0); box-shadow: 0 2px 3px rgb(0 0 0 / 10%), 0 12px 22px -8px rgb(0 0 0 / 28%); }
+.mn-note.is-open { z-index: 6; }
+.mn-note.is-open .mn-face { transform: none; max-height: 70vh; overflow-y: auto; }
+.mn-note.is-open .mn-text { display: block; -webkit-line-clamp: none; }
+/* narrow: a numbered marker at the column's edge, opening into the text */
+.is-narrow .mn-note { width: auto; inset-inline-start: auto; inset-inline-end: 0; }
+.is-narrow .mn-face { width: 24px; height: 24px; padding: 0; border: 0; border-radius: 50%; background: var(--nk); color: var(--paper); display: grid; place-items: center; transform: none; box-shadow: 0 1px 3px rgb(0 0 0 / 20%); }
+.is-narrow .mn-face::before { display: none; }
+.is-narrow .mn-kind { font-size: 0; margin: 0; color: inherit; }
+.is-narrow .mn-kind b { font-size: 0.72rem; font-weight: 600; }
+.is-narrow .mn-note.is-open .mn-face { width: min(280px, 78vw); height: auto; border-radius: 3px; background: var(--mn-paper); color: var(--mn-ink); border-top: 3px solid var(--nk); padding: 12px; display: block; box-shadow: 0 10px 24px -8px rgb(0 0 0 / 35%); }
+.is-narrow .mn-note.is-open .mn-kind { font-size: 0.74rem; color: var(--nk); margin-bottom: 3px; }
+@media print { .mn-layer { display: none; } }
+
+/* ---------- background noise (sound.ts): the dock button, three bars that sway while it plays ---------- */
+.dock-noise.is-on { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+.dock-noise-wave { display: inline-flex; align-items: center; gap: 2px; height: 12px; }
+.dock-noise-wave i { display: block; width: 2px; height: 5px; border-radius: 1px; background: currentColor; }
+.dock-noise-wave i:nth-child(2) { height: 9px; }
+.dock-noise.is-on .dock-noise-wave i { animation: noise-sway 1.6s ease-in-out infinite; }
+.dock-noise.is-on .dock-noise-wave i:nth-child(2) { animation-delay: -0.5s; }
+.dock-noise.is-on .dock-noise-wave i:nth-child(3) { animation-delay: -1s; }
+@keyframes noise-sway { 0%, 100% { height: 4px; } 50% { height: 11px; } }
+@media (prefers-reduced-motion: reduce) { .dock-noise.is-on .dock-noise-wave i { animation: none; } }

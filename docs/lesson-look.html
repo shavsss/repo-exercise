@@ -1,0 +1,279 @@
+<title>מראה השיעור</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@400;500;600;700&family=Frank+Ruhl+Libre:wght@400;500;700;900&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column; a variant switcher on top changes only the styling of the same real lesson excerpt. */
+:root {
+  --bg: #e6e3d7; --paper: #f5f3ea; --sheet: #fbfaf4;
+  --ink: #22261d; --ink-soft: #44493a; --muted: #676a58;
+  --line: #d8d4c3; --line-strong: #a7a28a;
+  --accent: #b3261e; --accent-soft: #f3e0d9;
+  --k-story: #9a4f12; --k-history: #6a4c8c; --k-formula: #355f7d; --k-think: #6b5a1e;
+  --k-refresh: #6f6a12; --k-domain: #2f6b5f; --k-table: #5f6650; --k-exercise: #355f7d;
+  --w-story: #f6e9da; --w-history: #ece6f3; --w-formula: #e3ecf2; --w-think: #f1ecd8;
+  --w-refresh: #eeedd6; --w-domain: #ddeee9; --w-table: #ecebe2; --w-exercise: #e3ecf2;
+  --hl-25: #f6e7a6;
+  --font: "IBM Plex Sans Hebrew", "Assistant", Arial, sans-serif;
+  --serif: "Frank Ruhl Libre", "IBM Plex Sans Hebrew", Georgia, serif;
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --read: 17px; --lh: 1.9; --measure: 38rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #141611; --paper: #1b1e17; --sheet: #21251c;
+    --ink: #e3e2d4; --ink-soft: #c4c3b2; --muted: #a2a18d;
+    --line: #353a2d; --line-strong: #5f6552;
+    --accent: #f08a7e; --accent-soft: #3a2421;
+    --k-story: #e6a75c; --k-history: #c9b0ef; --k-formula: #94bfdc; --k-think: #d9c77a;
+    --k-refresh: #cfc96a; --k-domain: #8fd0c0; --k-table: #b9bca6; --k-exercise: #94bfdc;
+    --w-story: #2c2418; --w-history: #26212f; --w-formula: #1c2830; --w-think: #2a2717;
+    --w-refresh: #282716; --w-domain: #182a26; --w-table: #24261e; --w-exercise: #1c2830;
+    --hl-25: #4a4120;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #141611; --paper: #1b1e17; --sheet: #21251c;
+  --ink: #e3e2d4; --ink-soft: #c4c3b2; --muted: #a2a18d;
+  --line: #353a2d; --line-strong: #5f6552;
+  --accent: #f08a7e; --accent-soft: #3a2421;
+  --k-story: #e6a75c; --k-history: #c9b0ef; --k-formula: #94bfdc; --k-think: #d9c77a;
+  --k-refresh: #cfc96a; --k-domain: #8fd0c0; --k-table: #b9bca6; --k-exercise: #94bfdc;
+  --w-story: #2c2418; --w-history: #26212f; --w-formula: #1c2830; --w-think: #2a2717;
+  --w-refresh: #282716; --w-domain: #182a26; --w-table: #24261e; --w-exercise: #1c2830;
+  --hl-25: #4a4120;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font); direction: rtl; margin: 0; }
+.wrap { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 20px 60px; }
+
+/* switcher */
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); padding-block: 10px; border-bottom: 1px solid var(--line); margin-bottom: 18px; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.bar-in { max-width: calc(var(--measure) + 120px); margin: 0 auto; display: flex; flex-direction: column; gap: 8px; }
+.bar h1 { margin: 0; font-size: 1rem; font-weight: 700; }
+.bar p { margin: 0; font-size: 0.85rem; color: var(--muted); }
+.tabs { display: flex; flex-wrap: wrap; gap: 6px; }
+.tabs button { font: inherit; font-size: 0.9rem; padding: 6px 12px; border: 1px solid var(--line-strong); background: var(--paper); color: var(--ink); border-radius: 4px; cursor: pointer; }
+.tabs button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.tabs button:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.note { max-width: var(--measure); margin: 0 auto 14px; font-size: 0.9rem; color: var(--ink-soft); background: var(--paper); border: 1px solid var(--line); border-radius: 4px; padding: 10px 14px; line-height: 1.6; }
+
+/* the lesson */
+.lesson { max-width: calc(var(--measure) + 64px); margin: 0 auto; background: var(--paper); padding: 34px 32px 40px; border: 1px solid var(--line); font-size: var(--read); line-height: var(--lh); }
+.lesson h2 { font-size: 1.45rem; line-height: 1.35; margin: 0 0 0.8em; text-wrap: balance; }
+.lesson h3 { font-size: 1.15rem; margin: 1.8em 0 0.5em; }
+.lesson p { margin: 0 0 1em; }
+.chap-no, .pause { display: none; }
+math { font-size: 1.05em; }
+.eq { display: flex; align-items: center; justify-content: center; gap: 18px; margin: 1em 0 1.2em; direction: ltr; overflow-x: auto; }
+.eq .tag { font-family: var(--mono); font-size: 0.85em; color: var(--muted); }
+table { border-collapse: collapse; margin: 0.4em auto 0.8em; font-size: 0.95em; font-variant-numeric: tabular-nums; }
+th, td { border-bottom: 1px solid var(--line); padding: 4px 14px; text-align: center; }
+th { font-weight: 600; color: var(--ink-soft); }
+.tbl { overflow-x: auto; }
+
+/* inline marks: shared structure */
+.pg, .cert, .l25, .hyp { white-space: nowrap; }
+.term { border-bottom: 1px dotted var(--muted); cursor: help; position: relative; }
+.term:hover::after, .term:focus::after { content: attr(data-def); position: absolute; inset-inline-start: 0; top: calc(100% + 4px); z-index: 3; width: max-content; max-width: 280px; padding: 6px 9px; font-size: 0.82rem; line-height: 1.5; white-space: normal; color: var(--ink); background: var(--sheet); border: 1px solid var(--line); border-radius: 4px; }
+
+/* blocks: shared structure */
+.blk { --k: var(--k-table); --w: var(--w-table); position: relative; margin: 30px 0 22px; }
+.blk .tab { font-size: 0.8125rem; font-weight: 700; color: var(--k); }
+.blk h4 { margin: 0 0 6px; font-size: 1.05rem; }
+.blk .meta { font-size: 0.8125rem; color: var(--muted); margin-bottom: 6px; }
+.blk > :last-child { margin-bottom: 0.4em; }
+.k-story { --k: var(--k-story); --w: var(--w-story); }
+.k-history { --k: var(--k-history); --w: var(--w-history); }
+.k-formula { --k: var(--k-formula); --w: var(--w-formula); }
+.k-think { --k: var(--k-think); --w: var(--w-think); }
+.k-refresh { --k: var(--k-refresh); --w: var(--w-refresh); }
+.k-domain { --k: var(--k-domain); --w: var(--w-domain); }
+.k-exercise { --k: var(--k-exercise); --w: var(--w-exercise); }
+details > summary { cursor: pointer; list-style: none; }
+details > summary::-webkit-details-marker { display: none; }
+details > summary .q { font-weight: 600; }
+details > summary .open { font-size: 0.8rem; color: var(--k); margin-inline-start: 8px; white-space: nowrap; }
+details[open] > summary .open { display: none; }
+.ans { margin-top: 8px; }
+
+/* ===== A: as today ===== */
+[data-v="a"] .blk { border: 1.5px dashed var(--k); border-radius: 3px; padding: 20px 18px 6px; }
+[data-v="a"] .blk .tab { position: absolute; top: -0.85em; inset-inline-start: 12px; background: var(--paper); padding: 0 6px; }
+[data-v="a"] .pg, [data-v="a"] .cert, [data-v="a"] .l25, [data-v="a"] .hyp { font-size: 0.72em; border: 1px solid var(--line-strong); border-radius: 2px; padding: 0 5px; color: var(--muted); vertical-align: 0.12em; }
+[data-v="a"] .l25 { border: 0; border-bottom: 1.5px solid var(--k-formula); border-radius: 0; color: var(--k-formula); font-weight: 600; }
+[data-v="a"] .pg { color: var(--k-formula); }
+
+/* ===== B: quiet ===== */
+[data-v="b"] .blk { border-inline-start: 3px solid var(--k); padding: 2px 16px 2px 0; padding-inline: 16px 0; }
+[data-v="b"] .blk .tab { display: block; margin-bottom: 2px; letter-spacing: 0.02em; }
+[data-v="b"] .k-story { border: 0; padding: 0; }
+[data-v="b"] .k-story .tab { display: none; }
+[data-v="b"] .k-story h4 { font-family: var(--serif); font-size: 1.3rem; font-weight: 500; }
+[data-v="b"] .k-story p { font-family: var(--serif); font-size: 1.06em; }
+[data-v="b"] .pg { font-size: 0.68em; color: var(--muted); vertical-align: super; line-height: 0; font-family: var(--mono); }
+[data-v="b"] .cert { font-size: 0.68em; color: var(--muted); vertical-align: super; line-height: 0; }
+[data-v="b"] .l25 { font-size: 0.72em; color: var(--muted); font-weight: 600; margin-inline-end: 4px; }
+[data-v="b"] .term { border-bottom-color: var(--line-strong); }
+
+/* ===== C: book ===== */
+[data-v="c"] { --lh: 1.95; }
+[data-v="c"] .lesson { background: var(--sheet); padding-top: 48px; }
+[data-v="c"] .chap-no { display: block; font-family: var(--serif); font-size: 3.6rem; font-weight: 900; line-height: 1; color: var(--accent); margin-bottom: 4px; }
+[data-v="c"] .lesson h2 { font-family: var(--serif); font-size: 1.9rem; font-weight: 700; margin-bottom: 1.4em; padding-bottom: 0.6em; border-bottom: 1px solid var(--line); }
+[data-v="c"] .lesson h3 { font-family: var(--serif); font-weight: 700; font-size: 1.25rem; margin-top: 2.4em; }
+[data-v="c"] .blk { border-inline-start: 2px solid var(--k); padding-inline: 16px 0; }
+[data-v="c"] .blk .tab { display: block; letter-spacing: 0.03em; }
+[data-v="c"] .k-story { border: 0; padding: 0; margin-top: 0; }
+[data-v="c"] .k-story .tab { display: none; }
+[data-v="c"] .k-story h4 { display: none; }
+[data-v="c"] .k-story p { font-family: var(--serif); font-size: 1.12em; line-height: 1.85; }
+[data-v="c"] .k-story p:first-of-type::first-letter { font-family: var(--serif); font-size: 3.4em; float: right; line-height: 0.9; margin-inline-end: 8px; margin-top: 6px; color: var(--accent); font-weight: 700; }
+[data-v="c"] .pg { font-size: 0.68em; color: var(--muted); vertical-align: super; line-height: 0; font-family: var(--mono); }
+[data-v="c"] .cert { font-size: 0.68em; color: var(--muted); vertical-align: super; line-height: 0; }
+[data-v="c"] .l25 { font-size: 0.72em; color: var(--muted); font-weight: 600; margin-inline-end: 4px; }
+[data-v="c"] .pause { display: flex; align-items: center; gap: 12px; margin: 2.4em 0 1.6em; color: var(--muted); font-size: 0.85rem; }
+[data-v="c"] .pause::before, [data-v="c"] .pause::after { content: ""; flex: 1; border-top: 1px solid var(--line); }
+
+/* ===== D: color ===== */
+[data-v="d"] .lesson h2 { color: var(--accent); }
+[data-v="d"] .lesson h3 { color: var(--k-formula); }
+[data-v="d"] .blk { background: var(--w); border-radius: 6px; padding: 16px 18px 8px; }
+[data-v="d"] .blk .tab { display: inline-block; background: var(--k); color: var(--paper); border-radius: 3px; padding: 1px 8px; margin-bottom: 8px; font-size: 0.78rem; }
+[data-v="d"] .blk h4 { color: var(--k); }
+[data-v="d"] .k-story p { font-family: var(--serif); font-size: 1.06em; }
+[data-v="d"] .pg { font-size: 0.68em; color: var(--k-formula); vertical-align: super; line-height: 0; font-family: var(--mono); }
+[data-v="d"] .cert { font-size: 0.7em; color: var(--k-domain); vertical-align: super; line-height: 0; font-weight: 600; }
+[data-v="d"] .l25 { font-size: 0.78em; background: var(--hl-25); color: var(--ink); font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-inline-end: 4px; }
+[data-v="d"] .term { border-bottom: 2px solid var(--k-history); }
+[data-v="d"] .eq { background: var(--w-formula); border-radius: 6px; padding: 10px; }
+
+/* ===== E: more blocks ===== */
+[data-v="e"] .lesson { background: transparent; border: 0; padding: 0; }
+[data-v="e"] .lesson > h2 { background: var(--ink); color: var(--paper); padding: 16px 20px; border-radius: 6px; margin-bottom: 14px; }
+[data-v="e"] .card { background: var(--paper); border: 1px solid var(--line); border-radius: 6px; padding: 16px 20px 6px; margin-bottom: 12px; }
+[data-v="e"] .card > h3 { margin-top: 0; }
+[data-v="e"] .step { display: block; font-family: var(--mono); font-size: 0.75rem; color: var(--muted); margin-bottom: 4px; letter-spacing: 0.04em; }
+[data-v="e"] .blk { margin: 0 0 12px; background: var(--paper); border: 1px solid var(--line); border-top: 4px solid var(--k); border-radius: 6px; padding: 12px 20px 6px; }
+[data-v="e"] .blk .tab { display: block; margin-bottom: 4px; }
+[data-v="e"] .pg { font-size: 0.68em; color: var(--muted); vertical-align: super; line-height: 0; font-family: var(--mono); }
+[data-v="e"] .cert { font-size: 0.68em; color: var(--muted); vertical-align: super; line-height: 0; }
+[data-v="e"] .l25 { font-size: 0.72em; color: var(--k-formula); font-weight: 700; margin-inline-end: 4px; }
+.card { display: contents; }
+[data-v="e"] .card { display: block; }
+.step { display: none; }
+
+@media (max-width: 600px) {
+  .lesson { padding: 22px 16px 28px; }
+  [data-v="e"] .card, [data-v="e"] .blk { padding-inline: 14px; }
+}
+@media (prefers-reduced-motion: no-preference) { .lesson { transition: background-color 0.2s; } }
+</style>
+
+<div class="bar"><div class="wrap" style="padding-block:0"><div class="bar-in">
+  <h1>איך שיעור נראה: חמש גרסאות</h1>
+  <p>אותו קטע אמיתי מהשיעור על הדציבל (M0.1). רק העיצוב משתנה. קראו כמה פסקאות בכל גרסה.</p>
+  <div class="tabs" role="group" aria-label="גרסה">
+    <button id="t-a" data-set="a" aria-pressed="true">א. כמו היום</button>
+    <button id="t-b" data-set="b" aria-pressed="false">ב. שקט</button>
+    <button id="t-c" data-set="c" aria-pressed="false">ג. ספר</button>
+    <button id="t-d" data-set="d" aria-pressed="false">ד. צבעוני</button>
+    <button id="t-e" data-set="e" aria-pressed="false">ה. בלוקים</button>
+  </div>
+</div></div></div>
+
+<div class="wrap" id="root" data-v="a">
+  <p class="note" id="note"></p>
+
+  <article class="lesson">
+    <span class="chap-no">1</span>
+    <h2>פרק ראשון: למה בכלל לוגריתמים? כפל שהופך לחיבור</h2>
+
+    <section class="blk k-story">
+      <div class="tab">פתיחה</div>
+      <h4>מייל של כבל טלפון</h4>
+      <p>בשנות העשרים של המאה העשרים היו מהנדסי מערכת הטלפון האמריקנית (Bell System) צריכים לענות על שאלה פשוטה לכאורה: האם שיחה מניו יורק תישמע בשיקגו? הדיבור עבר בכבלים שהחלישו אותו בכל קילומטר, ובתחנות ממסר שבהן מגברים הגבירו אותו מחדש. ההחלשה של מקטע כבל אחד והגבר של מגבר אחד הם יחסים: האות יוצא חזק או חלש פי כמה ממה שנכנס. לכן בשרשרת של עשרות מקטעים ומגברים היחסים האלה מוכפלים זה בזה.</p>
+      <p>הפתרון שנבחר לראשונה היה מעשי: למדוד כל אובדן ב"מיילים של כבל תקני" (mile of standard cable), כלומר כמה מיילים של כבל ייחוס היו מחלישים את האות באותה מידה. כך אפשר היה לחבר: שני מקטעים, אחד של 5 מיילים תקניים ואחד של 3, נותנים 8.</p>
+    </section>
+
+    <section class="card">
+      <span class="step">הבעיה</span>
+      <p>הבעיה של מהנדסי הטלפון לא נעלמה. היא רק גדלה, וכל תחום שנלמד בקורס הזה חי בתוכה. בכל שרשרת אות, ממשדר דרך אנטנה, מרחב, מטרה ושוב מרחב ועד מקלט, הגדלים מתפרשים על פני סדרי גודל רבים. <span class="pg">B02:932</span> ניקח דוגמה מהמכ"ם: <span class="term" tabindex="0" data-def="השטח האפקטיבי שמטרה מציגה למכ&quot;ם, כלומר כמה מאנרגיית הגל היא מחזירה. נמדד ב-m²">RCS (חתך מכ"ם)</span> נע בין 10<sup>−5</sup> m² של חרק ובין 10<sup>6</sup> m² של נושאת מטוסים, פער של אחד-עשר סדרי גודל.</p>
+      <p>למה זה קשה? קודם כול, קשה להכפיל בראש מספרים כמו 1.41·10<sup>−16</sup> W, ההספק המינימלי שמקלט <span class="term" tabindex="0" data-def="מערכת ניווט לוויינית: המקלט מחשב את מיקומו לפי זמני ההגעה של אותות מלוויינים">GPS</span> על פני הקרקע מקבל מלוויין <span class="cert">ודאות גבוהה</span>, ועוד יותר קשה לא לטעות בסימן או במעריך כשיש עשרה גורמים בשרשרת.</p>
+    </section>
+
+    <section class="blk k-history">
+      <div class="tab">רקע</div>
+      <h4>הלוגריתם: כלי חישוב לאסטרונומים ולנווטים</h4>
+      <div class="meta">ג'ון נאפייר והנרי בריגס · 1614–1617</div>
+      <p>הלוגריתם נולד מצורך מעשי ולא כרעיון מופשט. אסטרונומים ונווטים ימיים עשו חישובים טריגונומטריים ארוכים, ובהם הכפלה של מספרים בני שש ושבע ספרות. נאפייר פרסם ב-1614 טבלאות שהופכות כפל לחיבור <span class="cert">ודאות גבוהה</span>.</p>
+    </section>
+
+    <div class="pause">סוף חלק · כ-6 דקות קריאה עד כאן</div>
+
+    <section class="card">
+      <h3>בונים את הלוגריתם, צעד אחר צעד</h3>
+      <p><span class="l25">2.5 · מקור</span> כל אחד מארבעת הכללים שנגזור עכשיו נובע מכלל אחד: כלל הכפל של החזקות. לכן נבנה קודם את הכלל הזה, אחר כך נגדיר את הלוגריתם, ומשם נגזור את השאר. הנחה אחת חוזרת לאורך כל הדרך: כל הגדלים חיוביים.</p>
+    </section>
+
+    <section class="card">
+      <span class="step">צעד 1</span>
+      <p><strong>כלל הכפל של החזקות.</strong> נספור אפסים. 10<sup>3</sup> = 1000 כולל שלושה אפסים, ו-10<sup>2</sup> = 100 כולל שניים. כשמכפילים אותם מקבלים 100,000, ובו חמישה אפסים. כל אפס של הגורם הראשון וכל אפס של הגורם השני נוסף לתוצאה, ולכן:</p>
+      <div class="eq"><math display="block"><msup><mn>10</mn><mi>a</mi></msup><mo>·</mo><msup><mn>10</mn><mi>b</mi></msup><mo>=</mo><msup><mn>10</mn><mrow><mi>a</mi><mo>+</mo><mi>b</mi></mrow></msup></math><span class="tag">(1)</span></div>
+    </section>
+
+    <section class="card">
+      <span class="step">צעד 2</span>
+      <p><strong>ההגדרה.</strong> הלוגריתם לפי בסיס 10 של מספר x הוא המעריך שבו צריך להעלות את 10 כדי לקבל את x. הוא עונה על השאלה "10 בחזקת כמה?".</p>
+      <div class="eq"><math display="block"><msub><mi>log</mi><mn>10</mn></msub><mi>x</mi><mo>=</mo><mi>y</mi><mspace width="1em"></mspace><mo>⟺</mo><mspace width="1em"></mspace><msup><mn>10</mn><mi>y</mi></msup><mo>=</mo><mi>x</mi></math><span class="tag">(2)</span></div>
+    </section>
+
+    <details class="blk k-think">
+      <summary><div class="tab">שאלת עצירה</div><span class="q">אם log 2 ≈ 0.301, כמה זה log 8 ו-log 5?</span><span class="open">הצג תשובה</span></summary>
+      <p class="ans">8 = 2³, ולכן log 8 = 3·0.301 = 0.903. ו-5 = 10/2, ולכן log 5 = 1 − 0.301 = 0.699.</p>
+    </details>
+
+    <section class="blk k-domain">
+      <div class="tab">חיבור: מכ"ם</div>
+      <h4>חתך מכ"ם ב-dBsm: מחרק ועד ספינה על סרגל אחד</h4>
+      <p><span class="pg">B02:932</span> במכ"ם, הגודל שמתאר "כמה המטרה גדולה בעיני המכ"ם" הוא חתך המכ"ם σ. מבטאים אותו ב-dBsm משום שהוא מתפרש מ-‎−50 dBsm‎ של חרק ועד ‎+60 dBsm‎ של נושאת מטוסים. σ ממלא במכ"ם את התפקיד שממלא הגבר האנטנה בקשר: גורם שמכפיל את ההספק החוזר, ולכן ב-dB הוא פשוט עוד איבר שמחברים לשרשרת. את המנגנון עצמו, משוואת המכ"ם, נלמד במודול M2.</p>
+    </section>
+
+    <section class="blk k-refresh">
+      <div class="tab">ה-dB שכדאי לזכור</div>
+      <div class="tbl"><table>
+        <thead><tr><th>dB</th><th>0</th><th>1</th><th>3</th><th>7</th><th>10</th></tr></thead>
+        <tbody><tr><td>פי</td><td>1</td><td>1.259</td><td>1.995</td><td>5.012</td><td>10</td></tr></tbody>
+      </table></div>
+    </section>
+
+    <details class="blk k-exercise">
+      <summary><div class="tab">תרגיל · רמה 1</div><span class="q">סולם ההספקים בראש: 1 MW ב-dBm וב-dBW</span><span class="open">פתח</span></summary>
+      <p class="ans">מוואט למגה-וואט יש שתי קידומות, ולכן 0 dBW + 60 = 60 dBW, ו-dBm = dBW + 30, כלומר 90 dBm.</p>
+    </details>
+  </article>
+</div>
+
+<script>
+const NOTES = {
+  a: "כמו היום: כל בלוק במסגרת מקווקוות, וכל תגית (עמוד, ודאות, 2.5) כגלולה עם מסגרת בתוך השורה.",
+  b: "שקט: התגיות קטנות ומורמות בצבע חלש, הבלוקים עם פס דק בצד במקום מסגרת, והסיפור בגופן קריאה בלי תיבה.",
+  c: "ספר: כמו השקט, ובנוסף פתיחת פרק עם מספר גדול, אות ראשונה מוגדלת בסיפור, וסימן עצירה בסוף כל חלק.",
+  d: "צבעוני: כל סוג בלוק ברקע צבעוני משלו עם תווית צבועה, סעיפי 2.5 מודגשים כמרקר, ומשוואות על רקע תכלת.",
+  e: "בלוקים: כל רעיון בכרטיס נפרד, צעדי הגזירה ממוספרים, וכל בלוק עם פס צבע עליון. קל לסרוק ולחזור למקום."
+};
+const root = document.getElementById("root");
+const note = document.getElementById("note");
+function setV(v) {
+  root.dataset.v = v;
+  note.textContent = NOTES[v];
+  document.querySelectorAll(".tabs button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.set === v)));
+  try { localStorage.setItem("lesson-look:v", v); } catch (e) {}
+}
+document.querySelectorAll(".tabs button").forEach((b) => b.addEventListener("click", () => setV(b.dataset.set)));
+let start = "a";
+try { start = localStorage.getItem("lesson-look:v") || "a"; } catch (e) {}
+setV(NOTES[start] ? start : "a");
+</script>

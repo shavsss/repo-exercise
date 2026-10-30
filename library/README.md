@@ -7,6 +7,7 @@
 | `military/books/reference/` | ספרי עזר שאינם חלק מתוכנית הלימודים |
 | `military/articles/` | המאמרים שמשלימים את הספרים. מפתח ב-[`military/articles/README.md`](military/articles/README.md) |
 | `military/doctrine/` | דוקטרינה שהספרים לא מכסים. מפתח ב-[`military/doctrine/README.md`](military/doctrine/README.md) |
+| `engineering/books/` | ספרי אפליקציית ההנדסה (בתכנון), ממוספרים E01–E25. מפתח ומי מביא כל ספר ב-[`engineering/README.md`](engineering/README.md) |
 | `military/syllabus/` | תוכנית הלימודים: `syllabus.py` הוא המקור, `build.py` בודק כיסוי ומייצר את `SYLLABUS.md` ו-`syllabus.json` |
 
 ## ספרי הליבה הצבאית
@@ -26,5 +27,11 @@
 | 09 | Introduction to UAV Systems | Fahlstrom, Gleason, Sadraey | Wiley, 2022 (מהדורה 5) | PDF |
 | 10 | Principles of Naval Weapons Systems | CDR Joseph Hall (עורך), USNA | — | PDF |
 | 11 | Tanks: 100 Years of Evolution | Richard M. Ogorkiewicz | Osprey, 2015 | PDF |
+| 12 | Space Mission Engineering: The New SMAD | Wertz, Everett, Puschell (עורכים) | Microcosm, 2011 | תיקייה `12_SMAD/` עם 11 חלקי PDF מצולמים, בלי שכבת טקסט. בסריקה חסר פרק 18 (הנעה), ובמקומו פרק 17 מופיע פעמיים |
+| 13 | Tactical Missile Design | Eugene L. Fleeman | AIAA, 2001 (מהדורה 1) | PDF סרוק, בלי שכבת טקסט. בספרייה, לא בתוכנית הלימודים |
+| 14 | Combat Modeling | Alan Washburn, Moshe Kress | Springer, 2009 | PDF. מקור עזר לניתוח (לא נלמד כמודול) |
+| 15 | Mathematical Methods in Defense Analyses | J. S. Przemieniecki | AIAA, 2000 (מהדורה 3) | PDF. מקור עזר לניתוח |
+| 16 | The Fundamentals of Aircraft Combat Survivability Analysis and Design | Robert E. Ball | AIAA, 2003 (מהדורה 2) | PDF. מקור עזר לניתוח: שרידות, חשיפה ופגיעות |
+| 17 | Supplying War: Logistics from Wallenstein to Patton | Martin van Creveld | Cambridge, 1977 | PDF. מקור עזר לניתוח: לוגיסטיקה |
 
-EW 103 ו-SMAD הוצאו מהתוכנית. כל הספרים שלמים, עם שכבת טקסט ואיורים.
+ספרים 14–17 הם מקורות עזר לניתוח (`role: "ref"` ב-`syllabus.py`): הם לא מתחלקים לשיעורים ולא נכנסים לבדיקת הכיסוי, והמורה משתמש בהם במודולים שמקושרים אליהם כדי לקחת את התוצאה הטכנית לתוצאה מבצעית (כללים 33–37 ב-`docs/CORE_TEACHING_RULES.md`). EW 103 הוצא מהתוכנית. ספרים 01–11 שלמים, עם שכבת טקסט ואיורים. את 12 קוראים דרך OCR (`core/tools/extract/extract.py`).

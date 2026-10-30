@@ -1,0 +1,828 @@
+// Text editing inside one block: the HTML each editable keeps, the caret, marks, and
+// splitting a block at the caret. Same file in both labs.
+import DOMPurify from "dompurify";
+import katex from "katex";
+
+/**
+ * The only markup a block keeps: bold, italic, the four marks, line breaks, sub/superscript,
+ * lists (ul, ol, li, nested), and equations inside a line, kept as
+ * <span class="im" data-tex="…"></span> (drawn by hydrateMath; what is drawn is not kept).
+ */
+export function cleanHtml(html: string) {
+  const box = document.createElement("div");
+  box.innerHTML = html.replace(/\n/g, "<br>");
+  // lines the browser wraps in div or p become lines with a break
+  box.querySelectorAll("div, p").forEach((d) => {
+    const prev = d.previousSibling;
+    if (prev && !(prev.nodeType === 1 && /^(BR|OL|UL)$/.test((prev as Element).tagName))) d.before(document.createElement("br"));
+    d.replaceWith(...Array.from(d.childNodes));
+  });
+  box.querySelectorAll("span.im").forEach((s) => {
+    const n = document.createElement("span");
+    n.className = "im";
+    n.setAttribute("data-tex", s.getAttribute("data-tex") ?? "");
+    s.replaceWith(n);
+  });
+  const out = DOMPurify.sanitize(box.innerHTML, { ALLOWED_TAGS: ["b", "strong", "i", "em", "mark", "br", "sub", "sup", "span", "ul", "ol", "li"], ALLOWED_ATTR: ["class", "data-tex", "start"] });
+  box.innerHTML = out;
+  // other spans the browser adds while typing are unwrapped
+  box.querySelectorAll("span:not(.im)").forEach((s) => s.replaceWith(...Array.from(s.childNodes)));
+  // a list item with nothing in it keeps a break, so the caret can stand in it
+  box.querySelectorAll("li").forEach((li) => {
+    if (!li.firstChild || /^(OL|UL)$/.test((li.firstChild as Element).tagName ?? "")) li.prepend(document.createElement("br"));
+  });
+  box.querySelectorAll("ol, ul").forEach((l) => !l.querySelector("li") && l.remove());
+  dropEmptyMarks(box);
+  dedupeMath(box);
+  normalizeInline(box);
+  const res = box.innerHTML.replace(/\u200b/g, "");
+  return res === "<br>" ? "" : res.replace(/<mark(?! class="hl-[yrbgpo]")[^>]*>/g, "<mark>");
+}
+
+/**
+ * Marks with no text left in them (a line break, or the invisible character a mark typed into
+ * starts with) are unwrapped: drawn, they are thin coloured bars, and what is typed beside them
+ * goes into them. The mark the caret stands in (`keep`) stays, so a mark turned on stays on.
+ */
+export function dropEmptyMarks(root: HTMLElement, keep: Element | null = null) {
+  let changed = false;
+  // a mark inside another mark: the inner one (the later colour) wins; the outer one is split around it
+  for (let inner = root.querySelector("mark mark"); inner; inner = root.querySelector("mark mark")) {
+    const outer = inner.parentElement!.closest("mark")!;
+    const piece = (r: Range) => {
+      const m = outer.cloneNode(false) as HTMLElement;
+      m.appendChild(r.extractContents());
+      return m;
+    };
+    const head = document.createRange();
+    head.setStart(outer, 0);
+    head.setEndBefore(inner);
+    outer.before(piece(head));
+    const tail = document.createRange();
+    tail.setStartAfter(inner);
+    tail.setEnd(outer, outer.childNodes.length);
+    outer.after(piece(tail));
+    outer.replaceWith(...Array.from(outer.childNodes));
+    changed = true;
+  }
+  root.querySelectorAll("mark").forEach((m) => {
+    if (m === keep || (m.textContent ?? "").replace(/[\u200b\s]/g, "") || m.querySelector("span.im")) return;
+    m.replaceWith(...Array.from(m.childNodes).filter((n) => n.nodeType !== 3 || (n.textContent ?? "").replace(/\u200b/g, "")));
+    changed = true;
+  });
+  return changed;
+}
+
+/**
+ * LaTeX as it is kept and drawn: no equation number or label (they belong to a display
+ * equation, and inside a line KaTeX refuses them), "\_" as a subscript (a literal underscore is
+ * never meant in a summary), and log, sin, … as operators when written as plain letters.
+ * Text inside \text{…} is left as it is.
+ */
+export function tidyTex(tex: string) {
+  return tex
+    .replace(/\\(?:tag\*?|label)\{[^}]*\}|\\nonumber|\\notag/g, "")
+    // empty slots of a template that were left unfilled
+    .replace(/\\placeholder(?:\[[^\]]*\])?\{[^}]*\}/g, "{}")
+    .split(/(\\text\{[^}]*\})/)
+    .map((part, i) => (i % 2 ? part : part.replace(/\\_/g, "_").replace(/(^|[^\\a-zA-Z])(log|ln|lg|sin|cos|tan|cot|exp|lim|max|min|det|arg|sinh|cosh|tanh)(?![a-zA-Z])/g, "$1\\$2")))
+    .join("")
+    .replace(/\\(?:,|;|\s)+$/, "")
+    .trim();
+}
+
+/**
+ * Lists left untidy by editing: items with nothing in them (each drew a lone "1."), lists with no
+ * items, and two lists of the same kind side by side (a numbered list split by a removed line,
+ * whose numbers started again at 1) become one. `keep` is the item the caret is in.
+ */
+export function tidyLists(root: HTMLElement, keep: Element | null = null) {
+  let changed = false;
+  root.querySelectorAll("li").forEach((li) => {
+    if (li === keep || li.contains(keep) || li.querySelector("li, span.im") || liText(li).replace(/[\u200b\s]/g, "")) return;
+    li.remove();
+    changed = true;
+  });
+  root.querySelectorAll("ol, ul").forEach((l) => {
+    if (!l.querySelector("li")) {
+      l.remove();
+      changed = true;
+    }
+  });
+  root.querySelectorAll("ol, ul").forEach((l) => {
+    if (!l.isConnected) return;
+    let next = l.nextSibling;
+    while (next && next.nodeType === 3 && !next.textContent!.trim()) next = next.nextSibling;
+    if (next && next.nodeType === 1 && (next as Element).tagName === l.tagName && (next as Element).className === l.className) {
+      l.append(...Array.from(next.childNodes));
+      (next as Element).remove();
+      changed = true;
+    }
+  });
+  // a list that goes on from one above it (start) takes its number from that list as it is now
+  root.querySelectorAll<HTMLElement>("ol[start]").forEach((ol) => {
+    let prev = ol.previousSibling;
+    while (prev && !isList(prev)) prev = prev.previousSibling;
+    if (!prev || (prev as Element).tagName !== "OL" || (prev as Element).className !== ol.className) return;
+    const n = String((Number((prev as Element).getAttribute("start")) || 1) + (prev as Element).querySelectorAll(":scope > li").length);
+    if (ol.getAttribute("start") !== n) {
+      ol.setAttribute("start", n);
+      changed = true;
+    }
+  });
+  root.querySelectorAll<HTMLElement>("ol").forEach((ol) => {
+    const st = Number(ol.getAttribute("start"));
+    ol.style.counterReset = st > 1 ? `sm-li ${st - 1}` : "";
+    if (!ol.getAttribute("style")) ol.removeAttribute("style");
+  });
+  return changed;
+}
+
+/**
+ * Two copies of the same equation side by side: a mark, a split or a copy that cut through an
+ * equation leaves one on each side. One stays.
+ */
+export function dedupeMath(root: HTMLElement) {
+  let changed = false;
+  root.querySelectorAll("span.im").forEach((s) => {
+    const next = s.nextSibling;
+    if (next && next.nodeType === 1 && (next as Element).matches("span.im") && (next as Element).getAttribute("data-tex") === s.getAttribute("data-tex")) {
+      next.remove();
+      changed = true;
+    }
+  });
+  return changed;
+}
+
+/** A range that starts or ends inside an equation takes all of it (an equation is never cut). */
+export function wholeMath(r: Range) {
+  const im = (n: Node) => (n.nodeType === 1 ? (n as Element) : n.parentElement)?.closest("span.im");
+  const a = im(r.startContainer);
+  if (a) r.setStartBefore(a);
+  const b = im(r.endContainer);
+  if (b) r.setEndAfter(b);
+  return r;
+}
+
+/** Draws the equations inside a line (KaTeX) where they are not drawn yet; a numbered list that
+ * goes on from an earlier one (after a box) starts at its number. */
+export function hydrateMath(root: HTMLElement) {
+  root.querySelectorAll<HTMLElement>("ol[start]").forEach((o) => (o.style.counterReset = `sm-li ${Number(o.getAttribute("start")) - 1 || 0}`));
+  root.querySelectorAll<HTMLElement>("span.im").forEach((s) => {
+    const tex = s.getAttribute("data-tex") ?? "";
+    if (s.dataset.done === tex && s.childNodes.length) return;
+    try {
+      katex.render(tidyTex(tex) || "\\square", s, { throwOnError: false, strict: "ignore" });
+    } catch {
+      s.textContent = tex;
+    }
+    s.contentEditable = "false";
+    s.dataset.done = tex;
+    s.title = "לחץ לעריכת המשוואה";
+  });
+}
+
+function mathSpan(tex: string) {
+  const s = document.createElement("span");
+  s.className = "im";
+  s.setAttribute("data-tex", tex);
+  return s;
+}
+
+/** "$…$" typed in the text becomes an equation inside the line; true when one was made. */
+export function convertDollars(el: HTMLElement) {
+  const walk = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+  let node = walk.nextNode() as Text | null;
+  while (node) {
+    const m = /\$([^$\n]+)\$/.exec(node.data);
+    if (m && !node.parentElement?.closest("span.im")) {
+      const after = node.splitText(m.index);
+      const rest = after.splitText(m[0].length);
+      const span = mathSpan(m[1].trim());
+      after.replaceWith(span);
+      const space = document.createTextNode(rest.data.startsWith(" ") ? "" : "\u00a0");
+      span.after(space);
+      hydrateMath(el);
+      const r = document.createRange();
+      r.setStartAfter(space);
+      r.collapse(true);
+      const sel = window.getSelection();
+      sel?.removeAllRanges();
+      sel?.addRange(r);
+      return true;
+    }
+    node = walk.nextNode() as Text | null;
+  }
+  return false;
+}
+
+/** Puts an equation into the text at a saved position. */
+export function insertMathAt(range: Range, tex: string) {
+  const span = mathSpan(tidyTex(tex));
+  range.deleteContents();
+  range.insertNode(span);
+  const space = document.createTextNode("\u00a0");
+  span.after(space);
+  const host = span.closest<HTMLElement>("[data-edit]");
+  if (host) {
+    hydrateMath(host);
+    placeAfter(space);
+    host.dispatchEvent(new Event("input", { bubbles: true }));
+  }
+}
+
+function placeAfter(n: Node) {
+  const r = document.createRange();
+  r.setStartAfter(n);
+  r.collapse(true);
+  const sel = window.getSelection();
+  sel?.removeAllRanges();
+  sel?.addRange(r);
+}
+
+/**
+ * What is pasted from a lesson keeps its equations: KaTeX output carries its LaTeX in an
+ * annotation, which becomes an equation inside the line; the rest becomes plain text with
+ * bold, italic and line breaks.
+ */
+export function pastedHtml(html: string) {
+  // an inert document: nothing in it runs or loads; what is kept goes through cleanHtml
+  const box = new DOMParser().parseFromString(html, "text/html").body;
+  box.querySelectorAll(".katex-display, .katex, math").forEach((k) => {
+    if (!k.isConnected) return;
+    const tex = tidyTex(k.querySelector('annotation[encoding="application/x-tex"]')?.textContent ?? "");
+    if (tex) k.replaceWith(mathSpan(tex));
+  });
+  box.querySelectorAll("script, style, button, svg, .katex-mathml").forEach((x) => x.remove());
+  box.querySelectorAll("p, div, li, h1, h2, h3, h4, h5, h6, tr, blockquote").forEach((b) => b.after(document.createElement("br")));
+  const out = cleanHtml(box.innerHTML).replace(/(<br>\s*){3,}/g, "<br><br>").replace(/^(<br>)+|(<br>)+$/g, "");
+  return out;
+}
+
+function selRange(el: HTMLElement) {
+  const sel = window.getSelection();
+  if (!sel || !sel.rangeCount) return null;
+  const r = sel.getRangeAt(0);
+  return el.contains(r.startContainer) ? r : null;
+}
+
+/** Characters before the caret, and in all, in an editable. */
+export function caret(el: HTMLElement) {
+  const r = selRange(el);
+  if (!r) return null;
+  const pre = document.createRange();
+  pre.selectNodeContents(el);
+  pre.setEnd(r.startContainer, r.startOffset);
+  return { before: pre.toString().length, total: (el.textContent ?? "").length, collapsed: r.collapsed };
+}
+
+/** Whether the caret sits on the first (or last) visual line of an editable. */
+export function caretOnEdgeLine(el: HTMLElement, edge: "first" | "last") {
+  const r = selRange(el);
+  if (!r) return false;
+  const rects = r.getClientRects();
+  const box = el.getBoundingClientRect();
+  const rect = rects.length ? rects[0] : null;
+  if (!rect || (rect.top === 0 && rect.bottom === 0)) {
+    const c = caret(el);
+    return !!c && (edge === "first" ? c.before === 0 : c.before === c.total);
+  }
+  const lh = parseFloat(getComputedStyle(el).lineHeight) || 24;
+  return edge === "first" ? rect.top - box.top < lh * 0.9 : box.bottom - rect.bottom < lh * 0.9;
+}
+
+/** Splits an editable at the caret: what stays, and the HTML that moves to a new block. */
+export function splitAtCaret(el: HTMLElement) {
+  const r = selRange(el);
+  if (!r) return { head: el.innerHTML, tail: "" };
+  // a caret that stands inside an equation splits after it, never through it
+  const im = (r.startContainer.nodeType === 1 ? (r.startContainer as Element) : r.startContainer.parentElement)?.closest("span.im");
+  if (r.collapsed && im && el.contains(im)) {
+    r.setStartAfter(im);
+    r.collapse(true);
+  } else wholeMath(r);
+  r.deleteContents();
+  const tail = document.createRange();
+  tail.setStart(r.startContainer, r.startOffset);
+  tail.setEnd(el, el.childNodes.length);
+  const box = document.createElement("div");
+  box.appendChild(tail.extractContents());
+  return { head: cleanHtml(el.innerHTML), tail: cleanHtml(box.innerHTML) };
+}
+
+/** Puts the caret at the start, the end, or a character offset of an editable. */
+export function placeCaret(el: HTMLElement, where: "start" | "end" | number) {
+  el.focus({ preventScroll: true });
+  const sel = window.getSelection();
+  if (!sel) return;
+  const r = document.createRange();
+  if (typeof where === "number") {
+    let left = where;
+    const walk = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+    let node = walk.nextNode() as Text | null;
+    while (node) {
+      if (left <= node.length) {
+        r.setStart(node, left);
+        r.collapse(true);
+        sel.removeAllRanges();
+        sel.addRange(r);
+        return;
+      }
+      left -= node.length;
+      node = walk.nextNode() as Text | null;
+    }
+    where = "end";
+  }
+  const lis = el.querySelectorAll("li");
+  const edge = where === "start" ? el.firstChild : el.lastChild;
+  // a block that starts (or ends) with a list: the caret goes into its first (or last) item
+  if (lis.length && edge && /^(OL|UL)$/.test((edge as Element).tagName ?? "")) {
+    const li = where === "start" ? lis[0] : lis[lis.length - 1];
+    const own = Array.from(li.childNodes).filter((n) => !/^(OL|UL)$/.test((n as Element).tagName ?? ""));
+    const last = own[own.length - 1];
+    if (where === "start" || !last || (last as Element).tagName === "BR") r.setStart(li, 0);
+    else r.setStartAfter(last);
+    r.collapse(true);
+  } else {
+    r.selectNodeContents(el);
+    r.collapse(where === "start");
+  }
+  sel.removeAllRanges();
+  sel.addRange(r);
+}
+
+/** The editable that holds the selection, if it is one of ours. */
+export function activeEditable(): HTMLElement | null {
+  const sel = window.getSelection();
+  const n = sel?.anchorNode;
+  const e = n ? (n.nodeType === 1 ? (n as Element) : n.parentElement)?.closest<HTMLElement>("[data-edit]") : null;
+  return e ?? null;
+}
+
+/** The mark the caret stands in, if any. */
+export function caretMark() {
+  const el = activeEditable();
+  const n = window.getSelection()?.anchorNode;
+  const m = n ? (n.nodeType === 1 ? (n as Element) : n.parentElement)?.closest("mark") : null;
+  return m && el?.contains(m) ? (m as HTMLElement) : null;
+}
+
+function caretAfter(n: Node) {
+  const sel = window.getSelection();
+  const r = document.createRange();
+  r.setStart(n, n.nodeType === 3 ? (n as Text).length : n.childNodes.length);
+  r.collapse(true);
+  sel?.removeAllRanges();
+  sel?.addRange(r);
+}
+
+/**
+ * The caret leaves the mark it stands in: what is typed next is not marked. What follows the
+ * caret inside the mark stays marked. True when there was a mark to leave.
+ */
+export function leaveMark() {
+  const m = caretMark();
+  const sel = window.getSelection();
+  if (!m || !sel || !sel.rangeCount) return false;
+  const r = sel.getRangeAt(0);
+  const tail = document.createRange();
+  tail.setStart(r.startContainer, r.startOffset);
+  tail.setEnd(m, m.childNodes.length);
+  const frag = tail.extractContents();
+  const z = document.createTextNode("\u200b");
+  m.after(z);
+  if ((frag.textContent ?? "").replace(/\u200b/g, "") || frag.querySelector?.("span.im")) {
+    const rest = document.createElement("mark");
+    rest.className = m.className;
+    rest.appendChild(frag);
+    z.after(rest);
+  } else z.after(frag); // only the break that ends the block: not marked
+  if (!(m.textContent ?? "").replace(/\u200b/g, "") && !m.querySelector("br, span.im")) m.remove();
+  caretAfter(z);
+  return true;
+}
+
+/** Wraps the selection in a mark of one colour (or removes marks from it, with null). With no
+ * selection it turns the mark on or off for what is typed next. */
+export function applyMark(cls: string | null) {
+  const el = activeEditable();
+  const sel = window.getSelection();
+  if (!el || !sel || !sel.rangeCount) return false;
+  if (sel.isCollapsed) {
+    const was = caretMark();
+    if (was) leaveMark();
+    if (cls && (!was || !was.classList.contains(cls))) {
+      const m = document.createElement("mark");
+      m.className = cls;
+      const z = document.createTextNode("\u200b");
+      m.appendChild(z);
+      sel.getRangeAt(0).insertNode(m);
+      caretAfter(z);
+    }
+    return true;
+  }
+  const r = wholeMath(sel.getRangeAt(0));
+  const anc = r.commonAncestorContainer;
+  const outer = (anc.nodeType === 1 ? (anc as Element) : anc.parentElement)?.closest("mark");
+  // the same colour again on text that has it: the colour comes off
+  if (cls && outer && el.contains(outer) && outer.classList.contains(cls)) cls = null;
+  const frag = r.extractContents();
+  frag.querySelectorAll("mark").forEach((m) => m.replaceWith(...Array.from(m.childNodes)));
+  if (outer && el.contains(outer) && outer.isConnected) {
+    // the selection was inside one mark: split it there, so what comes back is outside it
+    const tail = document.createRange();
+    tail.setStart(r.startContainer, r.startOffset);
+    tail.setEnd(outer, outer.childNodes.length);
+    const after = outer.cloneNode(false) as HTMLElement;
+    after.appendChild(tail.extractContents());
+    outer.after(after);
+    r.setStartAfter(outer);
+    r.collapse(true);
+  }
+  if (cls) {
+    const m = document.createElement("mark");
+    m.className = cls;
+    m.appendChild(frag);
+    r.insertNode(m);
+    sel.removeAllRanges();
+    const after = document.createRange();
+    after.selectNodeContents(m);
+    sel.addRange(after);
+  } else {
+    const first = frag.firstChild;
+    const last = frag.lastChild;
+    r.insertNode(frag);
+    if (first && last) {
+      const back = document.createRange();
+      back.setStartBefore(first);
+      back.setEndAfter(last);
+      sel.removeAllRanges();
+      sel.addRange(back);
+    }
+  }
+  // empty marks left behind at the edges of the selection
+  el.querySelectorAll("mark").forEach((m) => !m.textContent && m.remove());
+  el.dispatchEvent(new Event("input", { bubbles: true }));
+  return true;
+}
+
+/** Bold or italic on the selection, through the browser's own command (it keeps undo). */
+export function applyStyle(cmd: "bold" | "italic") {
+  if (!activeEditable()) return false;
+  document.execCommand(cmd);
+  return true;
+}
+
+/* ---------------- lists inside a block ---------------- */
+const isList = (n: Node | null): n is HTMLElement => !!n && n.nodeType === 1 && /^(OL|UL)$/.test((n as Element).tagName);
+
+/** The list item that holds the caret, inside an editable. */
+export function caretLi(el: HTMLElement) {
+  const r = selRange(el);
+  const n = r?.startContainer;
+  const li = n ? (n.nodeType === 1 ? (n as Element) : n.parentElement)?.closest("li") : null;
+  return li && el.contains(li) ? (li as HTMLLIElement) : null;
+}
+
+/** The item's own text, without the items nested under it. */
+export function liText(li: HTMLElement) {
+  return Array.from(li.childNodes)
+    .filter((n) => !isList(n))
+    .map((n) => (n.nodeType === 1 && (n as Element).matches("span.im") ? "∑" : n.textContent))
+    .join("");
+}
+
+/** Whether the caret stands at the very start of a list item. */
+export function atLiStart(li: HTMLElement) {
+  const sel = window.getSelection();
+  if (!sel || !sel.rangeCount || !sel.isCollapsed) return false;
+  const r = sel.getRangeAt(0);
+  const pre = document.createRange();
+  pre.setStart(li, 0);
+  pre.setEnd(r.startContainer, r.startOffset);
+  return !pre.toString().length && !pre.cloneContents().querySelector("span.im");
+}
+
+function caretAtStartOf(n: Node) {
+  const sel = window.getSelection();
+  const r = document.createRange();
+  if (n.nodeType === 3) r.setStart(n, 0);
+  else if ((n as Element).tagName === "BR") r.setStartBefore(n);
+  else r.setStart(n, 0);
+  r.collapse(true);
+  sel?.removeAllRanges();
+  sel?.addRange(r);
+}
+
+/** The caret where it was, after its item moved (the nodes inside the item stay the same). */
+function keepCaret() {
+  const sel = window.getSelection();
+  const r = sel?.rangeCount ? sel.getRangeAt(0) : null;
+  const at = r ? { n: r.startContainer, o: r.startOffset } : null;
+  return (fallback: Node) => {
+    if (at && at.n.isConnected) {
+      const back = document.createRange();
+      back.setStart(at.n, Math.min(at.o, at.n.nodeType === 3 ? (at.n as Text).length : at.n.childNodes.length));
+      back.collapse(true);
+      sel?.removeAllRanges();
+      sel?.addRange(back);
+    } else caretAtStartOf(fallback);
+  };
+}
+
+const INLINE = ["b", "strong", "i", "em", "mark", "sub", "sup"];
+/**
+ * Bold, italic, a mark and the like never hold a line break or a list: the browser's bold (and
+ * pasting) can wrap several lines and a whole list in one <strong>, and every list operation,
+ * which works line by line, then takes the whole of it. Such an element is split around each
+ * break and list (its style stays on both sides), and the same style nested in itself is undone.
+ */
+export function normalizeInline(root: HTMLElement) {
+  let changed = false;
+  const sel = INLINE.map((t) => `${t} > br, ${t} > ol, ${t} > ul`).join(", ");
+  for (let guard = 0; guard < 2000; guard++) {
+    const blocker = root.querySelector(sel);
+    if (!blocker) break;
+    const x = blocker.parentElement!;
+    // x keeps what is before the break; a copy of it takes what is after
+    const after = x.cloneNode(false) as HTMLElement;
+    for (let n = blocker.nextSibling; n; ) {
+      const nx = n.nextSibling;
+      after.appendChild(n);
+      n = nx;
+    }
+    x.after(blocker);
+    blocker.after(after);
+    const empty = (e: Element) => !(e.textContent ?? "").replace(/[\u200b]/g, "") && !e.querySelector("span.im, br, ol, ul");
+    if (empty(after)) after.remove();
+    if (empty(x)) x.remove();
+    changed = true;
+  }
+  // then the same style directly inside itself adds nothing
+  root.querySelectorAll("b > b, b > strong, strong > b, strong > strong, i > i, i > em, em > i, em > em, sub > sub, sup > sup").forEach((x) => {
+    if (!x.isConnected) return;
+    x.replaceWith(...Array.from(x.childNodes));
+    changed = true;
+  });
+  return changed;
+}
+
+/** Keeps the caret where it is while the editable's structure is tidied around it. */
+export function tidyAround(el: HTMLElement, fn: (el: HTMLElement) => boolean) {
+  const back = keepCaret();
+  const changed = fn(el);
+  if (changed) back(el);
+  return changed;
+}
+
+/**
+ * The line the caret is on (between line breaks and lists, in the editable itself) becomes the
+ * first item of a new list of this kind, placed where the line was. Done here rather than by the
+ * browser, whose own command joins the new item to a list just above it (and turns that whole
+ * list into the new kind). Returns the new item, with the caret in it.
+ */
+export function lineToList(el: HTMLElement, tag: "ol" | "ul", cls = "", itemCls = "", below = false) {
+  tidyAround(el, normalizeInline);
+  const sel = window.getSelection();
+  if (!sel || !sel.rangeCount) return null;
+  const r = sel.getRangeAt(0);
+  const kids = () => Array.from(el.childNodes);
+  const stop = (n: Node | undefined) => !n || n.nodeName === "BR" || isList(n);
+  // the caret as a position among the editable's own children
+  let a: number;
+  let b: number;
+  if (r.startContainer === el) {
+    a = b = r.startOffset;
+  } else {
+    let top: Node = r.startContainer;
+    while (top.parentNode && top.parentNode !== el) top = top.parentNode;
+    a = kids().indexOf(top as ChildNode);
+    b = a + 1;
+    if (a < 0) return null;
+    if (stop(top)) b = a; // the caret sits on a break: an empty line
+  }
+  const all = kids();
+  while (a > 0 && !stop(all[a - 1])) a--;
+  while (b < all.length && !stop(all[b])) b++;
+  const line = all.slice(a, b);
+  // what comes after the line: the break that ended it goes (the list ends the line now)
+  const next = all[b];
+  // a line with text and the caret at its end ("על כן:"): the list starts under it, empty
+  if (below && line.length) {
+    const rest = document.createRange();
+    rest.setStart(r.startContainer, r.startOffset);
+    if (next) rest.setEndBefore(next);
+    else rest.setEnd(el, el.childNodes.length);
+    const lineText = line.map((n) => n.textContent).join("").replace(/[\u200b\s]/g, "");
+    if (lineText && !rest.toString().replace(/[\u200b\s]/g, "")) {
+      const list = document.createElement(tag);
+      if (cls) list.className = cls;
+      const li = document.createElement("li");
+      if (itemCls) li.className = itemCls;
+      li.appendChild(document.createElement("br"));
+      list.appendChild(li);
+      const ref = next && next.nodeName === "BR" ? next.nextSibling : (next ?? null);
+      if (next && next.nodeName === "BR") next.remove();
+      el.insertBefore(list, ref);
+      const at = document.createRange();
+      at.setStart(li, 0);
+      at.collapse(true);
+      sel.removeAllRanges();
+      sel.addRange(at);
+      return li;
+    }
+  }
+  const ref = next && next.nodeName === "BR" ? next.nextSibling : (next ?? null);
+  if (next && next.nodeName === "BR") next.remove();
+  const list = document.createElement(tag);
+  if (cls) list.className = cls;
+  const li = document.createElement("li");
+  if (itemCls) li.className = itemCls;
+  li.append(...line);
+  if (!liText(li).replace(/[\u200b\s]/g, "") && !li.querySelector("span.im")) li.replaceChildren(document.createElement("br"));
+  list.appendChild(li);
+  el.insertBefore(list, ref);
+  const at = document.createRange();
+  const first = li.firstChild;
+  if (first && first.nodeType === 3 && li.childNodes.length === 1) at.setStart(first, (first as Text).length);
+  else at.setStart(li, li.childNodes.length && li.lastChild?.nodeName !== "BR" ? li.childNodes.length : 0);
+  at.collapse(true);
+  sel.removeAllRanges();
+  sel.addRange(at);
+  return li;
+}
+
+/**
+ * Enter in a list item: the item splits at the caret, and what was after the caret starts the
+ * next item (an empty one at the end). Done here rather than by the browser, whose own command
+ * carries bold and other wrappers out of the item, leaving text outside the list and a stray
+ * numbered item. Items nested under this one stay with it; a proof step's kind goes on.
+ */
+export function splitLi(li: HTMLElement) {
+  const sel = window.getSelection();
+  if (!sel || !sel.rangeCount) return;
+  const r = sel.getRangeAt(0);
+  r.deleteContents();
+  const sub = Array.from(li.children).find(isList);
+  const tail = document.createRange();
+  tail.setStart(r.startContainer, r.startOffset);
+  if (sub) tail.setEndBefore(sub);
+  else tail.setEnd(li, li.childNodes.length);
+  const frag = tail.extractContents();
+  const next = li.cloneNode(false) as HTMLElement;
+  next.appendChild(frag);
+  const blank = (x: HTMLElement) => !liText(x).replace(/[\u200b\s]/g, "") && !x.querySelector("span.im");
+  if (blank(next)) next.replaceChildren(document.createElement("br"));
+  if (blank(li) && !li.querySelector(":scope > br")) li.insertBefore(document.createElement("br"), sub ?? null);
+  // a break left at the end of the item would draw an empty line under it
+  const own = Array.from(li.childNodes).filter((n) => !isList(n));
+  const last = own[own.length - 1];
+  if (last && last.nodeName === "BR" && own.length > 1) last.remove();
+  li.after(next);
+  const first = next.firstChild;
+  const at = document.createRange();
+  if (first && first.nodeType === 3) at.setStart(first, 0);
+  else at.setStart(next, 0);
+  at.collapse(true);
+  sel.removeAllRanges();
+  sel.addRange(at);
+}
+
+/** Tab: the item goes under the item before it (1.1). False when there is none. */
+export function indentLi(li: HTMLElement) {
+  const prev = li.previousElementSibling;
+  const list = li.parentElement;
+  if (!prev || prev.tagName !== "LI" || !list) return false;
+  const last = prev.lastElementChild;
+  const back = keepCaret();
+  const sub = isList(last) ? last : prev.appendChild(document.createElement(list.tagName.toLowerCase()));
+  sub.appendChild(li);
+  back(li.firstChild ?? li);
+  return true;
+}
+
+/**
+ * Shift+Tab, or Enter on an empty nested item: the item goes up one level, and the items
+ * after it become its own. At the top level the item leaves the list and becomes a line.
+ */
+export function outdentLi(li: HTMLElement) {
+  const back = keepCaret();
+  const list = li.parentElement!;
+  const after: Element[] = [];
+  for (let n = li.nextElementSibling; n; n = n.nextElementSibling) after.push(n);
+  const parentLi = list.parentElement?.tagName === "LI" ? list.parentElement : null;
+  if (parentLi) {
+    if (after.length) {
+      const last = li.lastElementChild;
+      const sub = isList(last) ? last : li.appendChild(document.createElement(list.tagName.toLowerCase()));
+      sub.append(...after);
+    }
+    parentLi.after(li);
+    if (!list.children.length) list.remove();
+    // a proof step that leaves the proof list is a plain item again
+    if (!li.parentElement?.classList.contains("proof")) li.removeAttribute("class");
+    back(li.firstChild ?? li);
+    return;
+  }
+  if (after.length) {
+    // the items after it stay one list with the one before: a numbered list goes on with its number
+    const rest = list.cloneNode(false) as HTMLElement;
+    if (list.tagName === "OL") rest.setAttribute("start", String((Number(list.getAttribute("start")) || 1) + Array.from(list.children).indexOf(li)));
+    rest.append(...after);
+    list.after(rest);
+  }
+  const subs = Array.from(li.childNodes).filter(isList);
+  subs.forEach((x) => x.remove());
+  const line = Array.from(li.childNodes);
+  if (!liText(li).trim() && !li.querySelector("span.im")) line.splice(0, line.length, document.createElement("br"));
+  const next = list.nextSibling;
+  if (next && !isList(next) && line[line.length - 1]?.nodeName !== "BR") line.push(document.createElement("br"));
+  list.after(...line, ...subs);
+  li.remove();
+  if (!list.children.length) list.remove();
+  back(line[0]);
+}
+
+/** Whether a list is the last thing in an editable (only breaks or spaces after it). */
+export function listEndsBlock(el: HTMLElement, list: HTMLElement) {
+  for (let n = list.nextSibling; n; n = n.nextSibling) {
+    if (n.nodeType === 3 && !n.textContent!.trim()) continue;
+    if (n.nodeName === "BR") continue;
+    return false;
+  }
+  return el.contains(list);
+}
+
+/** The text from the start of the caret's line to the caret ("-" or "1." makes a list). */
+export function linePrefix(el: HTMLElement) {
+  const r = selRange(el);
+  if (!r || !r.collapsed) return null;
+  const pre = document.createRange();
+  pre.selectNodeContents(el);
+  pre.setEnd(r.startContainer, r.startOffset);
+  const box = document.createElement("div");
+  box.appendChild(pre.cloneContents());
+  box.querySelectorAll("br, li, ol, ul").forEach((b) => b.before("\n"));
+  const t = box.textContent ?? "";
+  return t.slice(t.lastIndexOf("\n") + 1);
+}
+
+/** A numbered list becomes bullets, or back, for the list that holds the caret. */
+export function swapListKind(el: HTMLElement) {
+  const li = caretLi(el);
+  const list = li?.parentElement;
+  if (!li || !list) return false;
+  retagList(list, list.tagName === "OL" ? "ul" : "ol");
+  el.dispatchEvent(new Event("input", { bubbles: true }));
+  return true;
+}
+
+/** A list becomes numbered or bulleted (its items and the caret stay); the new element. */
+export function retagList(list: HTMLElement, tag: "ol" | "ul") {
+  if (list.tagName.toLowerCase() === tag) return list;
+  const back = keepCaret();
+  const nl = document.createElement(tag);
+  nl.append(...Array.from(list.childNodes));
+  list.replaceWith(nl);
+  back(nl.firstChild ?? nl);
+  return nl;
+}
+
+/**
+ * Copying text with equations (from a lesson, or from the summary). The browser leaves KaTeX's
+ * LaTeX (its annotation) out of what it copies, so 2^{128} would arrive as "2128". The copy is
+ * written here instead: each equation as an equation inside a line (span.im) in the HTML, and as
+ * $…$ in the plain text. A selection that starts or ends inside an equation takes all of it.
+ */
+export function copyWithMath(e: ClipboardEvent) {
+  const sel = window.getSelection();
+  if (!sel || !sel.rangeCount || sel.isCollapsed || !e.clipboardData) return;
+  const a = document.activeElement;
+  if (a && /^(INPUT|TEXTAREA|MATH-FIELD)$/.test(a.tagName)) return;
+  const r = sel.getRangeAt(0).cloneRange();
+  const whole = (n: Node) => {
+    const el = (n.nodeType === 1 ? (n as Element) : n.parentElement)?.closest(".katex-display, .katex, span.im");
+    return el ? (el.closest(".katex-display") ?? el.closest("span.im") ?? el) : null;
+  };
+  const s0 = whole(r.startContainer);
+  if (s0) r.setStartBefore(s0);
+  const e0 = whole(r.endContainer);
+  if (e0) r.setEndAfter(e0);
+  const box = document.createElement("div");
+  box.appendChild(r.cloneContents());
+  if (!box.querySelector(".katex, span.im")) return; // no equations: the browser's own copy
+  box.querySelectorAll("span.im").forEach((x) => box.contains(x) && x.replaceWith(mathSpan(x.getAttribute("data-tex") ?? "")));
+  box.querySelectorAll(".katex-display, .katex").forEach((k) => {
+    if (!box.contains(k)) return;
+    const tex = tidyTex(k.querySelector('annotation[encoding="application/x-tex"]')?.textContent ?? "");
+    k.replaceWith(tex ? mathSpan(tex) : document.createTextNode(k.querySelector(".katex-html")?.textContent ?? ""));
+  });
+  box.querySelectorAll("script, style, button, svg").forEach((x) => x.remove());
+  const text = box.cloneNode(true) as HTMLElement;
+  text.querySelectorAll("span.im").forEach((x) => x.replaceWith(`$${x.getAttribute("data-tex")}$`));
+  text.querySelectorAll("br").forEach((x) => x.replaceWith("\n"));
+  text.querySelectorAll("p, div, li, h1, h2, h3, h4, h5, h6, tr").forEach((x) => x.append("\n"));
+  e.clipboardData.setData("text/html", box.innerHTML);
+  e.clipboardData.setData("text/plain", (text.textContent ?? "").replace(/\n{3,}/g, "\n\n").trim());
+  e.preventDefault();
+}
