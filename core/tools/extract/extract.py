@@ -3,7 +3,8 @@
 For every document in library/military/syllabus/syllabus.py this writes
 core/build/lib/<doc>/pages.json (text per PDF page, printed page label, whether
 the text came from OCR) and core/build/lib/<doc>/fig/*.webp with an index in
-figures.json. Pages without a text layer are OCR'd. Figures are found from
+figures.json. Pages without a usable text layer (none, or one that decodes to control
+characters) are OCR'd. Figures are found from
 their captions ("Figure 2-8", "FIGURE 2.1", "Fig. 3") and from embedded
 images, then cropped from a page render with the body text masked out.
 
@@ -75,6 +76,22 @@ def bbox_lines(pdf, first, last):
 
 def page_text(pdf, page):
     return run("pdftotext", "-f", str(page), "-l", str(page), str(pdf), "-").strip()
+
+
+WORD = re.compile(r"^[A-Za-z][a-z]{2,}[.,;:]?$")
+
+
+def unreadable(text):
+    """True when a page needs OCR: almost no text layer (a scan), or a text layer that decodes
+    to control characters with hardly a word in it (Type-3 fonts with no Unicode map, as in
+    Trefethen & Bau). Pages whose only garbled parts are equation symbols keep their text."""
+    words = text.split()
+    if len(words) < 15:
+        return True
+    chars = [c for c in text if not c.isspace()]
+    bad = sum(1 for c in chars if ord(c) < 32 or c == "\ufffd" or 0xE000 <= ord(c) <= 0xF8FF)
+    real = sum(1 for w in words if WORD.match(w) and re.search("[aeiouy]", w.lower()))
+    return bad > 0.05 * len(chars) and real < 0.02 * len(words)
 
 
 def render(pdf, page, dpi, gray=True):
@@ -272,6 +289,8 @@ def find_figures(pdf, page, info, scanned):
         for k, b in enumerate(comps):
             if k in used:
                 continue
+            if b[1] <= cy0 and b[3] >= cy1 and b[3] - b[1] < 60:
+                continue  # the caption's own ink (a figure made of text lines was masked out)
             # vertical gap between caption and component, or horizontal for side captions
             vg = max(0, b[1] - cy1, cy0 - b[3])
             hg = max(0, b[0] - cx1, cx0 - b[2])
@@ -340,7 +359,7 @@ def process(doc, page_range=None, force=False):
                 continue
             info = geo[i] if i < len(geo) else {"w": 612, "h": 792, "lines": []}
             text = page_text(pdf, page)
-            scanned = len(text.split()) < 15
+            scanned = unreadable(text)
             if scanned:
                 text, olines = ocr_page(pdf, page)
                 if olines:

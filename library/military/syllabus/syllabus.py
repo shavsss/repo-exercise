@@ -20,6 +20,7 @@ DOCS = {
     "B10": ("books/10_Principles-of-Naval-Weapons-Systems_Hall.pdf", "Principles of Naval Weapons Systems"),
     "B11": ("books/11_Tanks-100-Years_Ogorkiewicz_2015.pdf", "Tanks: 100 Years of Evolution"),
     "B12": ("books/12_SMAD", "Space Mission Engineering: The New SMAD (2011)"),
+    "B13": ("books/13_Tactical-Missile-Design_Fleeman_2001.pdf", "Fleeman, Tactical Missile Design (2001)"),
     "B14": ("books/14_Combat-Modeling_Washburn-Kress_2009.pdf", "Washburn & Kress, Combat Modeling (2009)"),
     "B15": ("books/15_Mathematical-Methods-Defense-Analyses_Przemieniecki_3ed_2000.pdf", "Przemieniecki, Mathematical Methods in Defense Analyses, 3rd ed. (2000)"),
     "B16": ("books/16_Aircraft-Combat-Survivability_Ball_2ed_2003.pdf", "Ball, The Fundamentals of Aircraft Combat Survivability Analysis and Design, 2nd ed. (2003)"),
@@ -763,5 +764,6 @@ SKIP = [
     ("D8", 119, 122, "נספח E: דרישות תמיכה"), ("D8", 142, 144, "מילון ומקורות"),
     ("B12", 1, 17, "שער, תוכן, הקדמה ומחברים"), ("B12", 544, 577, "כפילות של עמ' PDF 510–543 (פרק 17) בסריקה, במקום פרק 18"),
     ("B12", 1002, 1037, "אינדקס"), ("B12", 1046, 1067, "כפילות של פרק 5 (עמ' 83–104) בסוף הסריקה"),
+    ("B13", 1, 19, "שער, תוכן, פתח דבר והקדמה"), ("B13", 275, 275, "עמוד ריק"), ("B13", 280, 286, "אינדקס"),
     ("D9", 1, 6, "שער, תוכן והקדמה"), ("D9", 43, 46, "נספח A: משאבי אימון"), ("D9", 50, 58, "מילון ומקורות"),
 ]
