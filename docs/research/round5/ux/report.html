@@ -1,0 +1,189 @@
+<title>מקום לשעות ארוכות</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@400;500;600&family=IBM+Plex+Mono:wght@500&family=Frank+Ruhl+Libre:wght@500;700&display=swap">
+<style>
+/* Layout: a single reading column (the labs' own measure), a day-strip diagram, then priority tables. Tokens: the labs' cream/graphite, with the v2 dark ink this report recommends. */
+:root{
+  --bg:#ece4d6; --paper:#f4ede2; --sheet:#faf6ee; --ink:#22261d; --ink-soft:#44493a; --muted:#5c5f4e;
+  --line:#ddd2bf; --line-strong:#ae9f84; --accent:#9b2c22; --blue:#2a5c8a; --ok:#3f7a34; --amber-bg:#f6ead0; --amber-line:#c99a3a;
+  --d1:#44493a; --d2:#ae9f84; --d3:#d8ccb4;
+  --font:"IBM Plex Sans Hebrew",system-ui,sans-serif; --serif:"Frank Ruhl Libre","IBM Plex Sans Hebrew",serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#1f1e1d; --paper:#262624; --sheet:#2d2c2a; --ink:#dedad1; --ink-soft:#c9c5bb; --muted:#bab5ab;
+  --line:#3a3936; --line-strong:#5c5a55; --accent:#e79a8f; --blue:#9cc1e0; --ok:#93cf86; --amber-bg:#2f2a1e; --amber-line:#7a6430;
+  --d1:#c9c5bb; --d2:#7d7a72; --d3:#4a4844; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#1f1e1d; --paper:#262624; --sheet:#2d2c2a; --ink:#dedad1; --ink-soft:#c9c5bb; --muted:#bab5ab;
+  --line:#3a3936; --line-strong:#5c5a55; --accent:#e79a8f; --blue:#9cc1e0; --ok:#93cf86; --amber-bg:#2f2a1e; --amber-line:#7a6430;
+  --d1:#c9c5bb; --d2:#7d7a72; --d3:#4a4844; color-scheme:dark}
+html{direction:rtl}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);margin:0;font-size:17px;line-height:1.75;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 80px}
+main{max-width:46rem;margin:0 auto;display:grid;gap:1.1rem}
+h1{font-family:var(--serif);font-size:2.1rem;line-height:1.2;margin:0;text-wrap:balance}
+h2{font-family:var(--serif);font-size:1.45rem;margin:1.6rem 0 0;line-height:1.3;text-wrap:balance}
+h3{font-size:1.02rem;margin:.6rem 0 0;font-weight:600}
+p{margin:0}
+.meta{color:var(--muted);font-size:.88rem}
+.lede{font-size:1.1rem;color:var(--ink-soft)}
+.bottom{background:var(--sheet);border:1px solid var(--line);border-radius:8px;padding:1rem 1.2rem;display:grid;gap:.55rem}
+.bottom ol{margin:0;padding-inline-start:1.3rem;display:grid;gap:.45rem}
+.ev{font-family:var(--mono);font-size:.72rem;border:1px solid var(--line-strong);border-radius:4px;padding:0 .3rem;color:var(--muted);white-space:nowrap;vertical-align:1px}
+a{color:var(--accent);text-underline-offset:3px}
+.links{display:flex;flex-wrap:wrap;gap:.5rem}
+.links a{border:1px solid var(--line-strong);border-radius:999px;padding:.2rem .8rem;text-decoration:none;font-size:.9rem;color:var(--ink);background:var(--paper)}
+.links a:hover{border-color:var(--ink)}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:var(--sheet)}
+table{border-collapse:collapse;width:100%;font-size:.9rem;line-height:1.55}
+th,td{text-align:start;padding:.55rem .7rem;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:600;color:var(--muted);font-size:.78rem;background:var(--paper)}
+tr:last-child td{border-bottom:0}
+td.c{font-family:var(--mono);font-size:.8rem;white-space:nowrap;color:var(--ink-soft)}
+.pri{display:inline-block;font-family:var(--mono);font-size:.75rem;border-radius:4px;padding:0 .35rem;white-space:nowrap}
+.p0{background:var(--ink);color:var(--sheet)} .p1{border:1px solid var(--ink);color:var(--ink)} .p2{border:1px dashed var(--line-strong);color:var(--muted)}
+.callout{border-inline-start:3px solid var(--amber-line);background:var(--amber-bg);padding:.7rem 1rem;border-radius:0 6px 6px 0;font-size:.95rem}
+.kept{display:grid;grid-template-columns:repeat(auto-fill,minmax(13rem,1fr));gap:.4rem}
+.kept span{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:.35rem .6rem;font-size:.88rem}
+.kept span b{font-weight:600}
+ul.plain{margin:0;padding-inline-start:1.2rem;display:grid;gap:.35rem}
+/* day strip */
+.day{display:grid;gap:.4rem;background:var(--sheet);border:1px solid var(--line);border-radius:8px;padding:1rem}
+.strip{display:flex;height:22px;gap:2px}
+.strip span{display:block;height:100%;border-radius:2px}
+.strip .b{background:transparent;border:1px dashed var(--line-strong)}
+.d1{background:var(--d1)} .d2{background:var(--d2)} .d3{background:var(--d3)}
+.ticks{position:relative;height:18px;font-family:var(--mono);font-size:.68rem;color:var(--muted)}
+.ticks span{position:absolute;transform:translateX(50%)}
+.marks{position:relative;height:auto;min-height:110px}
+.mk{position:absolute;top:0;display:grid;justify-items:center;gap:2px;transform:translateX(50%);width:6.5rem;text-align:center}
+.mk i{width:1px;height:14px;background:var(--accent)}
+.mk em{font-style:normal;font-size:.72rem;line-height:1.3;color:var(--ink-soft)}
+.legend{display:flex;gap:1rem;flex-wrap:wrap;font-size:.8rem;color:var(--muted)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-inline-end:.3rem;vertical-align:-1px}
+@media (max-width:640px){h1{font-size:1.65rem}.marks{display:none}.daynote{display:block!important}}
+.daynote{display:none;font-size:.85rem;color:var(--ink-soft)}
+</style>
+
+<main>
+  <div class="meta">מחקר סבב 5 · נוחות והנאה · 30.10.2026</div>
+  <h1>מקום לשעות ארוכות</h1>
+  <p class="lede">ביקשת מקום שכיף להיות בו שעות בלי להתעייף. המחקר נעשה בחמישה מסלולים: עיניים, ראש וגוף, צליל, הנאה, וביקורת על הקוד עצמו. אחריהם רצו צוות אדום שבדק את המקורות וסימולציה של 90 יום מנקודת המבט שלך, ובסוף נבנו ארבעה אבות-טיפוס. זה הדוח: מה לשנות, למה, באיזה סדר, וכמה זה עולה.</p>
+
+  <div class="links">
+    <a href="https://claude.ai/artifact/1mddveQUYTeWBR2tyBxHEp">לוח הבחירות (17 החלטות)</a>
+    <a href="https://claude.ai/artifact/1mddveQUYTeWBR2tyBxHEp#r5-margin">פתקים בשוליים</a>
+    <a href="https://claude.ai/artifact/1mddveQUYTeWBR2tyBxHEp#r5-library">צליל</a>
+    <a href="https://claude.ai/artifact/1mddveQUYTeWBR2tyBxHEp#r5-breaks">מבנה היום</a>
+  </div>
+
+  <div class="bottom">
+    <h3 style="margin:0">השורה התחתונה</h3>
+    <ol>
+      <li><b>מה שמעייף היום הוא בעיקר מה שכבר קיים, לא מה שחסר.</b> הטקסט קופץ בזמן שהמורה כותב. יש אנימציות שלא נגמרות. ההקלדה משמיעה שני קליקים חדים בכל שדה. רוב מה שבחרת בסבב 4 עוד לא נבנה בכלל.</li>
+      <li><b>ההמתנה היא מקור העייפות שאף אחד לא תכנן.</b> כמה עשרות פעמים ביום מחכים 2–5 דקות מול גלגל מסתובב. אפשר לבטל את רוב ההמתנה: השיעור הבא נכתב בזמן ההפסקה. את מה שנשאר אפשר להפוך לשאלה.</li>
+      <li><b>חדר הספרייה שבחרת הוא לולאה של 12 שניות.</b> הדף מתהפך באותה שנייה כ-2,400 פעמים ביום, והמוח לומד לולאה כזו מהר <span class="ev">B</span>. גרסה 2 לא חוזרת על עצמה, וזה השינוי הכי משמעותי בצליל.</li>
+      <li><b>הפתקים בשוליים:</b> לא פתק צהוב, אלא "עיפרון עם מספר". קו דק, בלי תיבה ובלי סימן בתוך הטקסט. והם נשארים גלויים גם במחשב נייד.</li>
+      <li><b>מבנה היום בלי נדנוד.</b> אין טיימרים. הצעה להפסקה מופיעה רק בגבול של חלק, הבוקר מתחיל בשתי שאלות שהוכנו בערב, וסגירת היום היא כפתור. בלי רצפים, בלי נקודות ובלי קונפטי.</li>
+    </ol>
+  </div>
+
+  <h2>מה נשאר כמו שבחרת</h2>
+  <p>שום דבר מסבב 4 לא מתבטל. כמה דברים מקבלים תיקון בתוך הבחירה שלך, והתיקון מסומן.</p>
+  <div class="kept">
+    <span><b>עמודה במרכז</b>, תוכן במגירה</span>
+    <span><b>שלוש דרגות</b> בלוקים</span>
+    <span><b>שלושה כפתורי ביטחון</b></span>
+    <span><b>כרטיס ענבר</b> לטעות בביטחון</span>
+    <span><b>כרטיס מתחת לפסקה</b></span>
+    <span><b>הקלדה רכה, 94</b> · עם וריאציה עדינה</span>
+    <span><b>זוג צלילים</b> · "נפתח" יתוקן</span>
+    <span><b>חדר ספרייה, 35</b> · בלי לולאה</span>
+    <span><b>שמנת וגרפיט</b> · טקסט כהה רך יותר</span>
+    <span><b>צפיפות נוחה</b></span>
+    <span><b>מצביע לפי מעבדה</b></span>
+    <span><b>נקודות סעיפים</b></span>
+  </div>
+
+  <h2>הסדר: מה קודם</h2>
+  <p>P0 קודם לכל תכונה חדשה. העלות היא בסשנים של עבודה: S עד חצי סשן, M בערך סשן, L שניים ומעלה. דרגת הראיות היא אחרי הצוות האדום: A מטא-אנליזה, B מחקר מבוקר אחד, C מומחים או מנגנון סביר. כמעט כל מחקרי הטיפוגרפיה נעשו בכתב לטיני, ולכן לגבי עברית הם בדרגה C.</p>
+
+  <div class="tbl"><table>
+    <thead><tr><th>עדיפות</th><th>מה</th><th>למה</th><th>עלות</th></tr></thead>
+    <tbody>
+      <tr><td><span class="pri p0">P0</span></td><td><b>לבנות את מה שבחרת בסבב 4</b>: הקלדה רכה, שלושת כפתורי הביטחון, כרטיס ענבר, כרטיס מעוגן, שלוש דרגות, נקודות סעיפים</td><td>כבר הוחלט. כל השאר נשען על זה.</td><td class="c">L</td></tr>
+      <tr><td><span class="pri p0">P0</span></td><td><b>כתיבה שקטה</b>: פסקה מופיעה שלמה, הדף לא נגרר למטה אם קראת למעלה, בלי ריבוע אדום ובלי גלגל. במקומם פס דק עם זמן משוער</td><td>תנועה בשולי העין מושכת קשב <span class="ev">B</span>. היום הדף קופץ בכל מקטע (<span style="font-family:var(--mono);font-size:.8rem">App.tsx:511</span>)</td><td class="c">S–M</td></tr>
+      <tr><td><span class="pri p0">P0</span></td><td><b>אפס לולאות תנועה בזמן קריאה</b>: פסי הרעש, הגלגל, האייקון הפועם, סצנות שמסתובבות לבד. ולכבד את ההגדרה "הפחת תנועה"</td><td>תקציב תנועה <span class="ev">C</span>. אין סיבה שמשהו יזוז שעות ליד הטקסט</td><td class="c">S</td></tr>
+      <tr><td><span class="pri p0">P0</span></td><td><b>חדר ספרייה v2</b>: אוויר שמשתנה לאט, ואירועים בזמנים אקראיים (דף, כיסא, ספר, דלת רחוקה). בלי צעדים, שיעול או דיבור</td><td>לולאת רעש נלמדת בלי מודעות <span class="ev">B</span>. דיבור מפריע לקריאה גם בשקט <span class="ev">A</span></td><td class="c">M</td></tr>
+      <tr><td><span class="pri p0">P0</span></td><td><b>תיקוני צליל</b>: "נפתח" שנשמע כמו "נכון" הופך לצליל נייר קצר, הצלילים עולים ב-2–3dB, וההקלדה מקבלת וריאציה עדינה</td><td>צליל נדיר עם משמעות צריך להיות מעל צליל תכוף. וצליל שמשקר לגבי ההצלחה גרוע מצליל חסר</td><td class="c">S</td></tr>
+      <tr><td><span class="pri p0">P0</span></td><td><b>שורה של 60–72 תווים</b> שנגזרת מגודל הגופן. טקסט כהה <span style="font-family:var(--mono);font-size:.8rem">#dedad1</span>. אפור קטן חזק יותר בשני המצבים</td><td>היום כ-85 תווים. אורך שורה <span class="ev">B, לטיני</span>. האפור הקטן נכשל בסף הניגודיות</td><td class="c">S</td></tr>
+      <tr><td><span class="pri p0">P0</span></td><td><b>פתקים: עיפרון עם מספר</b>. מיושרים לשורה ולא לפסקה, גלויים גם במחשב נייד עם המגירה, וקוראים את גופן הקריאה</td><td>מה שביקשת. היום ברוחב 1366–1440 רואים רק נקודות צבעוניות</td><td class="c">M</td></tr>
+      <tr><td><span class="pri p1">P1</span></td><td><b>השיעור הבא נכתב בהפסקה</b> ובסגירת היום, כטיוטה שמחכה</td><td>חוסך בסימולציה כ-14 דקות המתנה ביום. התשתית (<span style="font-family:var(--mono);font-size:.8rem">draft: true</span>) קיימת</td><td class="c">M</td></tr>
+      <tr><td><span class="pri p1">P1</span></td><td><b>המתנה שיש לה צורה</b>: כותרות החלקים מהתכנון ושאלה מקדימה, במקום גלגל</td><td>שאלה לפני הלמידה משפרת זכירה של מה שנשאל <span class="ev">B</span></td><td class="c">S–M</td></tr>
+      <tr><td><span class="pri p1">P1</span></td><td><b>הצעת הפסקה בגבול חלק</b>, אחרי הסף (75 דקות או כל שני חלקים). "עוד חלק אחד" משתיק אותה. שלוש דחיות, וזה נגמר להיום. מערכת אחת, בלי תזכורת עיניים נפרדת</td><td>הפרעה בגבול זולה יותר <span class="ev">B</span>. הפסקות משפרות תחושה <span class="ev">A</span>, לא ביצוע בלמידה</td><td class="c">M</td></tr>
+      <tr><td><span class="pri p1">P1</span></td><td><b>כרטיס בוקר</b>: איפה עצרת, שתי שאלות שליפה שנכתבו בערב, והצעד שכתבת. בלי "בוקר טוב"</td><td>שליפה ומרווח <span class="ev">A בהסקה</span></td><td class="c">M</td></tr>
+      <tr><td><span class="pri p1">P1</span></td><td><b>סגירת היום, מכפתור</b>: קודם מה נעשה היום, אחר כך מה מחכה, ואז צעד אחד למחר. אקורד יורד ורעש שדועך</td><td>תוכנית למשימה פתוחה <span class="ev">B, לא שוחזר</span></td><td class="c">M</td></tr>
+      <tr><td><span class="pri p1">P1</span></td><td><b>הצליל מסמן את היום</b>: הרעש דועך בהפסקה, חוזר ב"חזרתי" ועולה מאפס בבוקר</td><td>האוזן היא הערוץ הכי פחות מתיש למסר "עכשיו משהו אחר" <span class="ev">C</span></td><td class="c">S</td></tr>
+      <tr><td><span class="pri p1">P1</span></td><td><b>לבדוק</b> שרעש הרקע לא מתנגן פעמיים כשחלון הסיכומים פתוח</td><td>חשד מקריאת הקוד, לא נבדק בדפדפן</td><td class="c">S</td></tr>
+      <tr><td><span class="pri p2">P2</span></td><td><b>החותמת</b> בסגירת מודול: עובדות ו"מה עבר לידיך", בלי שבחים. המודול השני באותו יום מקבל גרסה שקטה</td><td>משוב "עסיסי" עוזר עד גבול, ואחריו מזיק <span class="ev">B</span></td><td class="c">M</td></tr>
+      <tr><td><span class="pri p2">P2</span></td><td><b>יום אחד לשתי המעבדות</b>, דרך קישור שנושא את היום (חימום אחד, שעון אחד, סגירה אחת)</td><td>בסימולציה זה המעצבן הראשון מיום 2</td><td class="c">M</td></tr>
+      <tr><td><span class="pri p2">P2</span></td><td><b>רשימת "החוצה"</b>: כל השאלות למומחה ורעיונות למאמר משתי המעבדות, בלשונית אחת במחברת הסיכומים</td><td>הנכס שגדל הכי מהר (בערך 200 פתקים ביום 60). תחושת בעלות <span class="ev">B</span></td><td class="c">M</td></tr>
+      <tr><td><span class="pri p2">P2</span></td><td><b>תצוגת כיול</b> משלושת כפתורי הביטחון, ו<b>דפדוף במקש רווח</b> שמסמן איפה נגמר המסך הקודם</td><td>קורא מסך מעריך יותר מדי כמה הבין <span class="ev">A</span></td><td class="c">M</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>היום, עם המנגנונים</h2>
+  <p>יום של 9 שעות לימוד לפי המבנה המוצע. הסימונים מראים איפה כל מנגנון נכנס. כל השאר שקט.</p>
+  <div class="day">
+    <div class="strip" aria-label="סרגל יום מ-07:30 עד 19:00">
+      <span class="d3" style="flex:15"></span><span class="d1" style="flex:90"></span><span class="b" style="flex:20"></span><span class="d1" style="flex:40"></span><span class="d2" style="flex:40"></span><span class="b" style="flex:45"></span><span class="d3" style="flex:20"></span><span class="b" style="flex:60"></span><span class="d1" style="flex:80"></span><span class="b" style="flex:15"></span><span class="d2" style="flex:75"></span><span class="b" style="flex:30"></span><span class="d3" style="flex:70"></span><span class="b" style="flex:15"></span><span class="d3" style="flex:60"></span><span class="d3" style="flex:15;opacity:.6"></span>
+    </div>
+    <div class="ticks" aria-hidden="true"><span style="right:2%">07:30</span><span style="right:21.7%">10:00</span><span style="right:39%">12:00</span><span style="right:56.5%">14:00</span><span style="right:74%">16:00</span><span style="right:91.3%">18:00</span></div>
+    <div class="marks" aria-hidden="true">
+      <div class="mk" style="right:6%"><i></i><em>כרטיס בוקר: 2 שאלות</em></div>
+      <div class="mk" style="right:15.5%;top:52px"><i></i><em>הפסקה בגבול חלק · השיעור הבא נכתב</em></div>
+      <div class="mk" style="right:28%"><i></i><em>גיוון: למחברת</em></div>
+      <div class="mk" style="right:44%"><i></i><em>צהריים · הרעש דועך</em></div>
+      <div class="mk" style="right:60%;top:52px"><i></i><em>הפסקה בגבול חלק</em></div>
+      <div class="mk" style="right:78%"><i></i><em>סיכומים, פתקים</em></div>
+      <div class="mk" style="right:93%;top:52px"><i></i><em>סגור את היום (כפתור)</em></div>
+    </div>
+    <p class="daynote">07:30 כרטיס בוקר · 09:15 הפסקה בגבול חלק, והשיעור הבא נכתב · 10:30 גיוון למחברת · 12:00 צהריים, הרעש דועך · 14:20 הפסקה · 16:20 סיכומים · 18:45 סגירה מכפתור.</p>
+    <div class="legend"><span><i class="d1"></i>שיעור צפוף</span><span><i class="d2"></i>תרגול במחברת</span><span><i class="d3"></i>חזרה, סיכומים</span><span><i style="border:1px dashed var(--line-strong)"></i>הפסקה, תנועה, צהריים</span></div>
+  </div>
+  <p class="meta">המבנה מבוסס על מחקר היום הארוך מסבב 2 (R9). הזמנים לדוגמה. במודל של F2 (מודל, לא נתונים), רוב ההבדל בין יום שנגמר ב"שחוק" ליום סביר בא משלושה דברים: שאלות חשיבה בתוך הקריאה, תנומה, ואחר צהריים בלי שיעורים צפופים חדשים. ההפסקות עצמן תורמות פחות.</p>
+
+  <h2>פתקים בשוליים</h2>
+  <p>הפתק הצהוב נראה רע מכמה סיבות. הוא באותה בהירות כמו דף החאקי, ולכן נראה ככתם. הוא מוטה, יש עליו סלוטייפ, ולו הצל הכי עמוק בעמוד. לכל סוג יש צבע אחר. ובמחשב נייד הוא בכלל לא מופיע: רואים רק נקודות. נבדקו שלושה כיוונים, והסימולציה של 90 יום דירגה אותם ככה:</p>
+  <ul class="plain">
+    <li><b>עיפרון עם מספר (מומלץ).</b> קו דק בצד, טקסט בגוון עיפרון ומספר קטן בשולי העמודה בגובה השורה. בתוך הטקסט אין שום סימן, כך שליד נוסחה לא מופיע מספר שנראה כמו חזקה. רחיפה צובעת את המשפט ומציגה קו מוביל.</li>
+    <li><b>כרטיסייה.</b> הכי "חומרי", אבל ארבע קופסאות ליד הטקסט קרובות למה שלא רצית.</li>
+    <li><b>הערות צד בסגנון ספר.</b> יפה בצילום, אבל רחוק וקטן, והמספר העילי מבלבל בטקסט מתמטי.</li>
+  </ul>
+  <p>בכל הכיוונים: צבע אחד לכל מעבדה, אדום מעומעם בלנצ'סטר וכחול שרטוט בגילואה. ארבעת הסוגים מובחנים בסמל ובקו (· ↓ ? ¶). "שאלה למומחה" ו"רעיון למאמר", שבסוף יוצאים החוצה, מקבלים את צבע המעבדה.</p>
+
+  <h2>צליל לשמונה שעות</h2>
+  <ul class="plain">
+    <li><b>רעש רקע לא משפר קריאה.</b> הוא מסתיר רעשים אחרים. במטא-אנליזה של 2024, רעש לבן או ורוד עזר מעט לאנשים עם ADHD והזיק מעט לאחרים <span class="ev">A</span>. לכן הוא צריך להיות נמוך ויציב, ו-35 נכון.</li>
+    <li><b>מה שמסיח הוא שינוי.</b> רצף של צלילים נפרדים (צעדים, תקתוק שעון) ודיבור מובן <span class="ev">A</span>. לכן חדר v2 מכיל רק אירועים רכים ומרוחקים, כ-85 בשעה, אף פעם לא שניים בתוך 9 שניות.</li>
+    <li><b>ההקלדה שבחרת חזקה בכ-10dB מצליל ה"נכון".</b> בחרת אותה באוזן, ולכן לא מנמיכים אותה; מעלים את הצלילים שיש להם משמעות. ולא מנמיכים אוטומטית אחרי שעתיים: אצל מי שבחר 94 זה ירגיש כמו באג.</li>
+    <li><b>זהות לכל מעבדה רק בחומר:</b> עץ בלנצ'סטר, זכוכית בגילואה. אותם מרווחים, אותה משמעות.</li>
+    <li><b>"רעש שנחלש לבד" אחרי 25 דקות של קריאה:</b> אין לזה ראיה <span class="ev">C</span>. כדאי לנסות שבוע עם ושבוע בלי.</li>
+  </ul>
+
+  <h2>מה לא לבנות</h2>
+  <div class="callout">
+    <p><b>טיימרים שקוטעים פסקה.</b> גם 20-20-20 לא: אין מאחוריו ראיות לטיימר <span class="ev">C</span>. <b>מסנן אור כחול כ"בריאות".</b> משקפי אור כחול לא מורידים עייפות עיניים <span class="ev">A</span>, ו-Night Shift לא שינה שינה <span class="ev">B</span>. <b>"מצב כהה נגד קוצר ראייה".</b> מחקר של 7 אנשים ושעה אחת. <b>מד עייפות חי.</b> <b>רצפים, נקודות, דירוגים, קונפטי, תגים על זמן מסך.</b> הם פוגעים במוטיבציה הפנימית <span class="ev">A</span>, ומי שלומד 9 שעות ביום לא צריך סיבה לחזור, אלא שעות שמרגישות טוב. <b>"דלדול אגו" ו"עייפות החלטות" כבסיס לעיצוב:</b> לא שוחזרו.</p>
+  </div>
+
+  <h2>איך יודעים שזה עובד</h2>
+  <ul class="plain">
+    <li>שבועיים של ניסוי לשלושה דברים: אורך שורה, רעש שנחלש לבד, וסף ההפסקה בדקות או בחלקים. שבוע כך ושבוע כך.</li>
+    <li>שאלה אחת בשבוע, לא בכל יום: "איך הרגישו השעות האחרונות של היום?"</li>
+    <li>ספירה שקטה של רגעי חיכוך: שיעורים שנקטעו, דקות המתנה, שמירות שנכשלו. כל חיכוך בממשק הוא באג.</li>
+  </ul>
+
+  <h2>המסמכים</h2>
+  <p class="meta">כולם ב-<span style="font-family:var(--mono)">docs/research/round5/ux/</span>: F1 עייפות ראייה, F2 עייפות קוגניטיבית ומבנה היום, F3 צליל, F4 הנאה וזרימה, F5 ביקורת הקוד ותדריך הפתקים, R1 הצוות האדום, R2 סימולציית 90 יום, אבות-הטיפוס (<span style="font-family:var(--mono)">proto_*.html</span>) והצילומים (<span style="font-family:var(--mono)">shots/</span>). בכל מסמך, מקור שלא נבדק בסבב הזה מסומן "לא אומת". לא שונה קוד באפליקציות.</p>
+</main>
