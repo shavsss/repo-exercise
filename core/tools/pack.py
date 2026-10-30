@@ -34,6 +34,8 @@ ASSET_URLS = ROOT / "core" / "tools" / "asset_urls.json"
 sys.path.insert(0, str(LIB / "syllabus"))
 from syllabus import DOCS, MODULES, PARTS, REF_DOCS, SKIP  # noqa: E402
 from source_pdf import source_pdf  # noqa: E402
+sys.path.insert(0, str(ROOT / "tools" / "curriculum"))
+from enrich import attach  # noqa: E402  (topic items, test-out, reading lists)
 
 BUNDLE = 6_000_000
 
@@ -290,7 +292,7 @@ def module_list(docs, sections, base_modules=None):
 
 
 def write_index(docs, modules):
-    index = {"docs": docs, "parts": [{"id": i, "title": t} for i, t in PARTS], "modules": modules}
+    index = {"docs": docs, "parts": [{"id": i, "title": t} for i, t in PARTS], "modules": attach(modules, "core")}
     index["assets"] = asset_urls(docs)
     digest = hashlib.sha1()
     for f in sorted([*OUT.rglob("*.json"), *ASSETS.rglob("*.json")]):

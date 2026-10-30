@@ -49,8 +49,8 @@ def main():
             a, b = src["pages"] or (1, pages[d])
             if not (1 <= a <= b <= pages[d]):
                 errors.append(f"{m['id']}: {d} pages {a}-{b} outside 1-{pages[d]}")
-            if (src["role"] == "ref") != (d in REF_DOCS):
-                errors.append(f"{m['id']}: {d} must be {'an analysis reference' if d in REF_DOCS else 'a taught source'}")
+            if src["role"] == "ref" and d not in REF_DOCS:
+                errors.append(f"{m['id']}: role ref is only for the analysis references ({', '.join(sorted(REF_DOCS))}); {d} is a taught source")
             if src["role"] != "ref":
                 covered[d].update(range(a, b + 1))
     for d, a, b, reason in SKIP:

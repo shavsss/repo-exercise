@@ -2,6 +2,7 @@
 // the syllabus, page text, figure crops and page images of OCR'd pages. Files are
 // fetched on demand from lib/ next to the page and kept in IndexedDB, so a page is
 // downloaded once per browser.
+import type { CurriculumFields } from "./curriculum";
 
 export interface DocMeta {
   title: string;
@@ -27,7 +28,8 @@ export interface Section {
   title: string;
   depth: number;
 }
-export interface Module {
+/** A module of the syllabus; the curriculum fields (topic items, test-out, reading list) are optional. */
+export interface Module extends CurriculumFields {
   id: string;
   part: string;
   tier: "core" | "adv" | "ref";

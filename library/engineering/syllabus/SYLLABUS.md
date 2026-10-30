@@ -6,7 +6,7 @@
 
 **תפקיד המקור:** ★ מקור ראשי. ◇ השלמה מספר אחר. ✎ תרגילים (לא נספרים באומדן השיעורים).
 
-**סה"כ:** 316 מודולים: 234 ליבה, 66 מתקדם, 16 עיון.
+**סה"כ:** 318 מודולים: 236 ליבה, 66 מתקדם, 16 עיון.
 
 | חלק | מודולים | עמ' בליבה | שיעורי ליבה (אומדן) | עמ' במתקדם | עמ' בעיון |
 |---|---|---|---|---|---|
@@ -16,14 +16,14 @@
 | P3 עמוד השדרה: משוואות דיפרנציאליות ותנודות | 2 | 76 | 5 | 0 | 0 |
 | P4 צומת 1: אותות ומערכות לינאריות | 11 | 612 | 41 | 25 | 0 |
 | P5 צומת 2: דינמיקה, בקרה ושערוך מצב | 13 | 553 | 38 | 27 | 0 |
-| P6 צומת 3א: הסתברות וסטטיסטיקה | 11 | 357 | 23 | 54 | 0 |
+| P6 צומת 3א: הסתברות וסטטיסטיקה | 11 | 365 | 24 | 54 | 0 |
 | P7 צומת 3ב: אינפורמציה, הסקה ואותות אקראיים | 16 | 525 | 34 | 67 | 16 |
 | P8 צומת 4: אלגברה לינארית, אופטימיזציה ושיטות חישוב | 23 | 778 | 53 | 249 | 0 |
-| P9 צומת 5א: גלים, אלקטרומגנטיות ואופטיקה | 16 | 345 | 25 | 115 | 0 |
-| P10 צומת 5ב: משוואות שדה וסימולציה נומרית | 9 | 430 | 30 | 136 | 37 |
-| P11 גשר: אלקטרוניקה | 14 | 1065 | 71 | 120 | 76 |
+| P9 צומת 5א: גלים, אלקטרומגנטיות ואופטיקה | 16 | 393 | 28 | 115 | 0 |
+| P10 צומת 5ב: משוואות שדה וסימולציה נומרית | 10 | 430 | 31 | 136 | 37 |
+| P11 גשר: אלקטרוניקה | 14 | 1073 | 71 | 120 | 76 |
 | P12 גשר: מנועים חשמליים, הנעה וחומרים מגנטיים | 10 | 370 | 24 | 85 | 0 |
-| P13 גשר: תרמודינמיקה ואנרגיה | 18 | 816 | 56 | 200 | 92 |
+| P13 גשר: תרמודינמיקה ואנרגיה | 19 | 816 | 57 | 200 | 92 |
 | P14 גשר: מעבר חום | 12 | 490 | 32 | 238 | 46 |
 | P15 גשר: זורמים ואווירונאוטיקה | 18 | 834 | 57 | 82 | 1 |
 | P16 גשר: מבנים וחומרים | 18 | 1015 | 68 | 196 | 134 |
@@ -33,12 +33,12 @@
 | P20 פריפריה: מתמטיקה דיסקרטית | 10 | 339 | 23 | 108 | 0 |
 | P21 פריפריה: אלגוריתמים | 10 | 479 | 32 | 0 | 173 |
 | P22 פריפריה: מערכות מחשב | 10 | 1053 | 70 | 601 | 56 |
-| P23 פריפריה: תקשורת ספרתית ואלחוטית | 10 | 280 | 19 | 284 | 0 |
+| P23 פריפריה: תקשורת ספרתית ואלחוטית | 10 | 292 | 20 | 284 | 0 |
 | P24 פריפריה: פיזיקה מודרנית: יחסות וקוונטים | 13 | 255 | 16 | 405 | 0 |
 | P25 פריפריה: התקני מוליכים למחצה ותכנון שבבים | 13 | 463 | 31 | 460 | 77 |
 | P26 העשרה מתמטית | 5 | 0 | 0 | 316 | 0 |
 | P27 גשר: הנדסת מערכות | 6 | 220 | 15 | 0 | 37 |
-| **סה"כ** | 316 | 13018 | 874 | 4065 | 783 |
+| **סה"כ** | 318 | 13094 | 881 | 4065 | 783 |
 
 האומדן: שיעור לכל כ-15 עמודי מקור, כולל השלמות. בהשלמות המורה מלמד רק את מה שחדש לעומת המקור הראשי.
 
@@ -305,7 +305,7 @@
 - ◇ The Feynman Lectures on Physics, Vol. I, עמ' PDF 60–70: 6: Probability
 
 ### M6.2 משתנים מקריים ותוחלת
-*Random variables and expectation* · **ליבה** · 138 עמ' · כ-9 שיעורים · דרישות: M6.1
+*Random variables and expectation* · **ליבה** · 146 עמ' · כ-10 שיעורים · דרישות: M6.1
 
 - ★ Wasserman, All of Statistics, עמ' PDF 18–29: 1: Probability
 - ✎ Wasserman, All of Statistics, עמ' PDF 30–35: 1: תרגילים
@@ -320,6 +320,8 @@
 - ✎ Lehman, Leighton & Meyer, Mathematics for Computer Science, עמ' PDF 841–864: 18: תרגילים
 - ◇ Lehman, Leighton & Meyer, Mathematics for Computer Science, עמ' PDF 865–899: 19: Random Variables
 - ✎ Lehman, Leighton & Meyer, Mathematics for Computer Science, עמ' PDF 900–922: 19: תרגילים
+- ◇ Wasserman, All of Statistics, עמ' PDF 250–251: 14 §14.2–14.3: התניה בגאוסיאן רב-ממדי (דלתא בליבה, מתוך M6.9)
+- ◇ Wasserman, All of Statistics, עמ' PDF 268–273: 16 §16.1–16.2: ערבוב סיבתי (דלתא בליבה, מתוך M6.10)
 
 ### M6.3 אי-שוויונות והתכנסות של משתנים מקריים
 *Inequalities and convergence* · **ליבה** · 44 עמ' · כ-3 שיעורים · דרישות: M6.2
@@ -780,12 +782,17 @@
 - ★ The Feynman Lectures on Physics, Vol. II, עמ' PDF 198–212: 17: The Laws of Induction
 
 ### M9.9 משוואות מקסוול, פתרונותיהן וקרינה אלקטרומגנטית
-*Maxwell's equations, their solutions, EM radiation* · **ליבה** · 45 עמ' · כ-3 שיעורים · דרישות: M9.8, M9.1
+*Maxwell's equations, their solutions, EM radiation* · **ליבה** · 93 עמ' · כ-6 שיעורים · דרישות: M9.8, M9.1
 
 - ★ The Feynman Lectures on Physics, Vol. II, עמ' PDF 213–223: 18: The Maxwell Equations
 - ★ The Feynman Lectures on Physics, Vol. II, עמ' PDF 238–252: 20: Solutions of Maxwell's Equations in Free Space
 - ★ The Feynman Lectures on Physics, Vol. II, עמ' PDF 253–265: 21: Solutions of Maxwell's Equations with Currents and Charges
 - ★ The Feynman Lectures on Physics, Vol. I, עמ' PDF 261–266: 28: Electromagnetic Radiation
+- ◇ The Feynman Lectures on Physics, Vol. I, עמ' PDF 316–326: 34: אפקטים יחסותיים בקרינה ודופלר (דלתא בליבה, מתוך M9.14)
+- ◇ The Feynman Lectures on Physics, Vol. II, עמ' PDF 331–341: 27: אנרגיה ותנע של השדה, וקטור פוינטינג (דלתא בליבה, מתוך M9.16)
+- ◇ The Feynman Lectures on Physics, Vol. II, עמ' PDF 404–412: 32 §32-1–32-4: מקדם שבירה בחומר צפוף (דלתא בליבה, מתוך M9.14)
+- ◇ The Feynman Lectures on Physics, Vol. II, עמ' PDF 413–416: 32 §32-6–32-7: גלים במתכות ועומק חדירה (דלתא בליבה, מתוך M9.14)
+- ◇ The Feynman Lectures on Physics, Vol. II, עמ' PDF 417–429: 33: החזרה מפני שטח, משוואות פרנל (דלתא בליבה, מתוך M9.14)
 
 ### M9.10 תנועת מטענים בשדות חשמליים ומגנטיים
 *Motion of charges in electric and magnetic fields* · **ליבה** · 8 עמ' · כ-1 שיעורים · דרישות: M9.9
@@ -888,13 +895,19 @@
 - ★ Langtangen & Linge, Finite Difference Computing with PDEs, עמ' PDF 559–595: C: Software engineering; wave equation model
 - ✎ Langtangen & Linge, Finite Difference Computing with PDEs, עמ' PDF 596–598: C: תרגילים
 
+### M10.10 אלמנטים סופיים ונפחים סופיים: גלרקין וריץ, רשתות, FEM בפועל ואיך קוראים תוצאת FEM
+*Finite elements and finite volumes: Galerkin/Ritz, meshing, FEM in practice and how to read an FEM result* · **ליבה** · 0 עמ' · כ-1 שיעורים · דרישות: M10.6, M10.1
+
+
 ## חלק 11: גשר: אלקטרוניקה
 
 ### M11.1 יסודות המעגלים: מתח, זרם, RC, דיודות ומעגלי זרם חילופין
-*Circuit foundations and AC circuits* · **ליבה** · 99 עמ' · כ-7 שיעורים · דרישות: M9.8, M4.7
+*Circuit foundations and AC circuits* · **ליבה** · 107 עמ' · כ-7 שיעורים · דרישות: M9.8, M4.7
 
 - ★ Hayes & Horowitz, Student Manual for The Art of Electronics, עמ' PDF 9–89: 1: Foundations (הפרק החסר בעותק של Horowitz & Hill)
 - ★ The Feynman Lectures on Physics, Vol. II, עמ' PDF 266–283: 22: AC Circuits
+- ◇ Horowitz & Hill, The Art of Electronics, עמ' PDF 984–988: נספח A: האוסצילוסקופ (מדידה, מתוך M11.14)
+- ◇ Horowitz & Hill, The Art of Electronics, עמ' PDF 998–1000: נספח F: קווי עומס (מתוך M11.14)
 
 ### M11.2 טרנזיסטורים ביפולריים
 *Bipolar transistors* · **ליבה** · 106 עמ' · כ-7 שיעורים · דרישות: M11.1
@@ -1202,6 +1215,10 @@
 - ◇ MacKay, Sustainable Energy – Without the Hot Air, עמ' PDF 340–350: I: Quick reference
 - ◇ MacKay, Sustainable Energy – Without the Hot Air, עמ' PDF 351–354: J: Populations and areas
 - ◇ MacKay, Sustainable Energy – Without the Hot Air, עמ' PDF 355–356: K: UK energy history
+
+### M13.19 מערכות הספק ורשת החשמל: יחידות יחסיות ותלת-פאזי, זרימת הספק, תקלות והגנות, יציבות ובקרת תדר, פגיעוּת הרשת
+*Power systems and the grid: per-unit and three-phase, power flow, faults and protection, stability and frequency control, grid vulnerability* · **ליבה** · 0 עמ' · כ-1 שיעורים · דרישות: M13.17, M12.1
+
 
 ## חלק 14: גשר: מעבר חום
 
@@ -2008,11 +2025,12 @@
 - ★ Oppenheim & Verghese, Signals, Systems and Inference (MIT 6.011 notes), עמ' PDF 200–215: 12: Pulse Amplitude Modulation (PAM), Quadrature Amplitude Modulation (QAM)
 
 ### M23.3 קודים לתיקון שגיאות וערוצים אמיתיים
-*Error-correcting codes and real channels* · **ליבה** · 43 עמ' · כ-3 שיעורים · דרישות: M7.7, M8.1
+*Error-correcting codes and real channels* · **ליבה** · 55 עמ' · כ-4 שיעורים · דרישות: M7.7, M8.1
 
 - ★ MacKay, Information Theory, Inference and Learning Algorithms, עמ' PDF 188–202: 11: Error-Correcting Codes and Real Channels
 - ★ MacKay, Information Theory, Inference and Learning Algorithms, עמ' PDF 217–239: 13: Binary Codes
 - ★ MacKay, Information Theory, Inference and Learning Algorithms, עמ' PDF 240–244: 14: Very Good Linear Codes Exist
+- ◇ Tse & Viswanath, Fundamentals of Wireless Communication, עמ' PDF 183–194: 5 §5.1–5.2: קיבולת AWGN ושנון-הארטלי (דלתא בליבה, מתוך M23.8)
 
 ### M23.4 העברת מסרים וקודים מודרניים: LDPC, טורבו, מזרקה
 *Message passing and modern codes: LDPC, turbo, fountain* · **מתקדם** · 49 עמ' · כ-3 שיעורים · דרישות: M23.3, M7.10

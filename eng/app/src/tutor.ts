@@ -9,6 +9,7 @@ import { docMeta, getIndex, readPages, searchLibrary, type Module } from "./libr
 import { SYSTEM_PROMPT, libraryList } from "./prompt";
 import type { Runtime, SampleTool } from "./runtime";
 import { NOTE_KIND_LABEL, type Activity, type Effort, type LessonNote, type LessonSpec, type Mode, type NoteKind, type StoredMessage } from "./types";
+import { curriculumBlock } from "./curriculum";
 
 const math = create(all, {});
 const MODEL = "claude-opus-5-5";
@@ -115,7 +116,7 @@ function moduleBlock(m: Module) {
   return `Module ${m.id} «${m.title}» (${m.en}), tier: ${m.tier} (${TIER_TEXT[m.tier]})${m.prereq?.length ? `, after: ${m.prereq.join(", ")}` : ""}
 Sources:
 ${srcs}
-${secs ? `Section headings in these pages (DOC:PAGE title):\n${secs}` : "No section headings were detected; use the pages themselves."}${keys ? `\nAnswer keys of the books' end-of-chapter problems (check your solutions of book exercises against them): ${keys}` : ""}`;
+${secs ? `Section headings in these pages (DOC:PAGE title):\n${secs}` : "No section headings were detected; use the pages themselves."}${keys ? `\nAnswer keys of the books' end-of-chapter problems (check your solutions of book exercises against them): ${keys}` : ""}${curriculumBlock(m)}`;
 }
 
 function planBlock(lessons: LessonSpec[] | undefined, idx: number) {

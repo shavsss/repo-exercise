@@ -216,7 +216,9 @@ MODULES = [
     mod("M6.1", "P6", "core", "הסתברות: חוקים, אקסיומות וחוק המספרים הגדולים", "Probability: laws, axioms, law of large numbers",
         sec("K2", "XI", None, "4"), sup("F1", "6"), prereq=["M1.2"]),
     mod("M6.2", "P6", "core", "משתנים מקריים ותוחלת", "Random variables and expectation",
-        cs("E05", "1", "2", "3"), sups("E20", "IV", "17", "18", "19"), prereq=["M6.1"]),
+        cs("E05", "1", "2", "3"), sups("E20", "IV", "17", "18", "19"),
+        sec("E05", "14", "14.2", "14.3", "14 §14.2–14.3: התניה בגאוסיאן רב-ממדי (דלתא בליבה, מתוך M6.9)", "supp"),
+        sec("E05", "16", "16.1", "16.2", "16 §16.1–16.2: ערבוב סיבתי (דלתא בליבה, מתוך M6.10)", "supp"), prereq=["M6.1"]),
     mod("M6.3", "P6", "core", "אי-שוויונות והתכנסות של משתנים מקריים", "Inequalities and convergence",
         cs("E05", "4", "5"), sup("E20", "20"), prereq=["M6.2"]),
     mod("M6.4", "P6", "core", "מודלים, הסקה סטטיסטית, פונקציית ההתפלגות ובוטסטרפ", "Statistical inference, the cdf, the bootstrap",
@@ -315,7 +317,12 @@ MODULES = [
     mod("M9.7", "P9", "core", "מגנטוסטטיקה ופוטנציאל וקטורי", "Magnetostatics and the vector potential", cs("F2", "13", "14", "15"), prereq=["M9.4"]),
     mod("M9.8", "P9", "core", "זרמים מושרים וחוקי ההשראה", "Induced currents and the laws of induction", cs("F2", "16", "17"), prereq=["M9.7"]),
     mod("M9.9", "P9", "core", "משוואות מקסוול, פתרונותיהן וקרינה אלקטרומגנטית", "Maxwell's equations, their solutions, EM radiation",
-        cs("F2", "18", "20", "21"), c("F1", "28"), prereq=["M9.8", "M9.1"]),
+        cs("F2", "18", "20", "21"), c("F1", "28"),
+        sup("F1", "34", "34: אפקטים יחסותיים בקרינה ודופלר (דלתא בליבה, מתוך M9.14)"),
+        sup("F2", "27", "27: אנרגיה ותנע של השדה, וקטור פוינטינג (דלתא בליבה, מתוך M9.16)"),
+        sec("F2", "32", "32-1", "32-4", "32 §32-1–32-4: מקדם שבירה בחומר צפוף (דלתא בליבה, מתוך M9.14)", "supp"),
+        sec("F2", "32", "32-6", "32-7", "32 §32-6–32-7: גלים במתכות ועומק חדירה (דלתא בליבה, מתוך M9.14)", "supp"),
+        sup("F2", "33", "33: החזרה מפני שטח, משוואות פרנל (דלתא בליבה, מתוך M9.14)"), prereq=["M9.8", "M9.1"]),
     mod("M9.10", "P9", "core", "תנועת מטענים בשדות חשמליים ומגנטיים", "Motion of charges in electric and magnetic fields", c("F2", "29"), prereq=["M9.9"]),
     mod("M9.11", "P9", "core", "מהודי חלל ומוליכי גל", "Cavity resonators and waveguides", cs("F2", "23", "24"), prereq=["M9.9"]),
     mod("M9.12", "P9", "core", "אופטיקה: עקרון הזמן המינימלי ואופטיקה גאומטרית", "Optics: least time and geometrical optics",
@@ -345,7 +352,8 @@ MODULES = [
 
     # ---------------- P11 ----------------
     mod("M11.1", "P11", "core", "יסודות המעגלים: מתח, זרם, RC, דיודות ומעגלי זרם חילופין", "Circuit foundations and AC circuits",
-        c("E09a", "1", "1: Foundations (הפרק החסר בעותק של Horowitz & Hill)"), c("F2", "22"), prereq=["M9.8", "M4.7"]),
+        c("E09a", "1", "1: Foundations (הפרק החסר בעותק של Horowitz & Hill)"), c("F2", "22"),
+        sup("E09", "APP:A", "נספח A: האוסצילוסקופ (מדידה, מתוך M11.14)"), sup("E09", "APP:F", "נספח F: קווי עומס (מתוך M11.14)"), prereq=["M9.8", "M4.7"]),
     mod("M11.2", "P11", "core", "טרנזיסטורים ביפולריים", "Bipolar transistors", c("E09", "2"), sup("E09a", "2"), prereq=["M11.1"]),
     mod("M11.3", "P11", "core", "טרנזיסטורי אפקט שדה", "Field-effect transistors",
         c("E09", "3"), sup("E09a", "3"), sup("E09a", "3-rev"), prereq=["M11.2"]),
@@ -591,7 +599,7 @@ MODULES = [
     mod("M23.1", "P23", "core", "מערכות תקשורת: אפנון משרעת ותדר וריבוב", "Communication systems: AM, FM, multiplexing", c("E01", "8"), prereq=["M4.8"]),
     mod("M23.2", "P23", "core", "אפנון פולסים: PAM ו-QAM", "Pulse amplitude and quadrature amplitude modulation", c("E02", "12"), prereq=["M23.1", "M7.4"]),
     mod("M23.3", "P23", "core", "קודים לתיקון שגיאות וערוצים אמיתיים", "Error-correcting codes and real channels",
-        cs("E04", "11", "13", "14"), prereq=["M7.7", "M8.1"]),
+        cs("E04", "11", "13", "14"), sec("E23", "5", "5.1", "5.2", "5 §5.1–5.2: קיבולת AWGN ושנון-הארטלי (דלתא בליבה, מתוך M23.8)", "supp"), prereq=["M7.7", "M8.1"]),
     mod("M23.4", "P23", "adv", "העברת מסרים וקודים מודרניים: LDPC, טורבו, מזרקה", "Message passing and modern codes: LDPC, turbo, fountain",
         cs("E04", "16", "47", "48", "49", "50"), prereq=["M23.3", "M7.10"]),
     mod("M23.5", "P23", "core", "הערוץ האלחוטי", "The wireless channel", cs("E23", "1", "2"), prereq=["M23.2", "M9.9"]),
@@ -661,6 +669,14 @@ MODULES = [
         sec("E26", "6", "6.7", "6.8"), *[c("E26", x, f"{x}: {title('E26', x)}", "supp") for x in 'GNP'], prereq=["M27.4", "M6.1"]),
     mod("M27.6", "P27", "ref", "מילון, ראשי תיבות, שילוב האדם במערכת והפעלה", "Glossary, acronyms, human systems integration, operations",
         *[c("E26", x, f"{x}: {title('E26', x)}", "main") for x in 'ABRT'], prereq=["M27.1"]),
+
+    # ---------------- added by the topic-based curriculum (docs/research/round3/final/F_curriculum.json) ----------------
+    # No book in the library teaches these: the tutor teaches them from their topic items
+    # (curriculum.json) and the module's reading list. Appended so every prerequisite comes earlier.
+    mod("M10.10", "P10", "core", "אלמנטים סופיים ונפחים סופיים: גלרקין וריץ, רשתות, FEM בפועל ואיך קוראים תוצאת FEM",
+        "Finite elements and finite volumes: Galerkin/Ritz, meshing, FEM in practice and how to read an FEM result", prereq=["M10.6", "M10.1"]),
+    mod("M13.19", "P13", "core", "מערכות הספק ורשת החשמל: יחידות יחסיות ותלת-פאזי, זרימת הספק, תקלות והגנות, יציבות ובקרת תדר, פגיעוּת הרשת",
+        "Power systems and the grid: per-unit and three-phase, power flow, faults and protection, stability and frequency control, grid vulnerability", prereq=["M13.17", "M12.1"]),
 ]
 
 # Pages that are deliberately not taught, with the reason: every front and back
