@@ -1,0 +1,690 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>מעבדת צליל v2</title>
+<meta name="description" content="אב-טיפוס: הקלדה רכה, זוג צלילים וחדר ספרייה, בגרסה הנוכחית מול גרסה 2 עם וריאציה וללא לולאה">
+<style>
+:root {
+  --bg: #f4efe4; --sheet: #fbf8f1; --ink: #2a2a24; --muted: #6d6a5e; --line: #d9d2c0;
+  --accent: #8a4b2c; --accent-soft: #efe0d2; --ok: #3f6b3a; --warn: #9a6a12; --bad: #a1281d;
+  --ev-page: #8a4b2c; --ev-shift: #5b6f3c; --ev-book: #3f5f7e; --ev-door: #7a5a8a; --ev-bad: #a1281d;
+  --radius: 10px; --mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1d1e1c; --sheet: #262724; --ink: #e8e3d6; --muted: #a39e8f; --line: #3b3c37;
+    --accent: #e0956b; --accent-soft: #3a2c23; --ok: #9cc58f; --warn: #e2b55a; --bad: #f08a7e;
+    --ev-page: #e0956b; --ev-shift: #a9c27f; --ev-book: #8fb6dc; --ev-door: #c5a3d6; --ev-bad: #f08a7e;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1d1e1c; --sheet: #262724; --ink: #e8e3d6; --muted: #a39e8f; --line: #3b3c37;
+  --accent: #e0956b; --accent-soft: #3a2c23; --ok: #9cc58f; --warn: #e2b55a; --bad: #f08a7e;
+  --ev-page: #e0956b; --ev-shift: #a9c27f; --ev-book: #8fb6dc; --ev-door: #c5a3d6; --ev-bad: #f08a7e;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { background: var(--bg); color: var(--ink); font: 16px/1.6 "Segoe UI", "Assistant", "Arial Hebrew", Arial, sans-serif; }
+main { max-width: 1040px; margin: 0 auto; padding: 20px 16px 60px; }
+header h1 { font-size: 1.6rem; margin: 0 0 4px; }
+header p { margin: 0; color: var(--muted); }
+.bar { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; margin: 14px 0 18px; padding: 10px 14px; background: var(--sheet); border: 1px solid var(--line); border-radius: var(--radius); }
+.bar label { display: flex; align-items: center; gap: 8px; font-size: .92rem; }
+.bar output { font-family: var(--mono); min-width: 3.4em; color: var(--muted); font-size: .85rem; }
+section.card { background: var(--sheet); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; margin-bottom: 16px; }
+section.card h2 { margin: 0 0 4px; font-size: 1.2rem; }
+section.card > p.lead { margin: 0 0 12px; color: var(--muted); font-size: .93rem; }
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 720px) { .cols { grid-template-columns: 1fr; } }
+.col { border: 1px solid var(--line); border-radius: 8px; padding: 12px; min-width: 0; }
+.col h3 { margin: 0 0 6px; font-size: 1rem; }
+.col h3 small { font-weight: normal; color: var(--muted); }
+.col ul { margin: 6px 0 0; padding-inline-start: 18px; color: var(--muted); font-size: .86rem; }
+button { font: inherit; font-size: .9rem; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 7px; padding: 6px 12px; cursor: pointer; margin: 3px 0 3px 6px; }
+button:hover { border-color: var(--accent); }
+button.on { background: var(--accent); color: var(--sheet); border-color: var(--accent); }
+textarea { width: 100%; min-height: 76px; font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 7px; padding: 8px; resize: vertical; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; margin: 0 0 8px; }
+.seg button { margin: 0; border: 0; border-radius: 0; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; margin: 6px 0; }
+.chk { display: inline-flex; align-items: center; gap: 6px; font-size: .88rem; }
+.state { font-family: var(--mono); font-size: .8rem; color: var(--muted); direction: ltr; text-align: left; }
+#timeline { width: 100%; height: 64px; display: block; background: var(--bg); border: 1px solid var(--line); border-radius: 7px; }
+#log { list-style: none; margin: 8px 0 0; padding: 0; max-height: 220px; overflow: auto; font-size: .84rem; border-top: 1px solid var(--line); }
+#log li { display: grid; grid-template-columns: 4.2em 9em 1fr; gap: 8px; padding: 3px 2px; border-bottom: 1px dashed var(--line); }
+#log li .t { font-family: var(--mono); color: var(--muted); direction: ltr; text-align: right; }
+#log li .p { font-family: var(--mono); color: var(--muted); direction: ltr; text-align: left; overflow-wrap: anywhere; }
+.dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-inline-end: 6px; vertical-align: middle; }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: .82rem; color: var(--muted); margin-top: 6px; }
+table { border-collapse: collapse; width: 100%; font-size: .86rem; }
+th, td { border-bottom: 1px solid var(--line); padding: 4px 6px; text-align: right; }
+td.n { font-family: var(--mono); direction: ltr; text-align: left; }
+.note { font-size: .86rem; color: var(--muted); }
+.warnbox { border-inline-start: 3px solid var(--warn); padding: 4px 10px; background: var(--accent-soft); border-radius: 4px; font-size: .88rem; }
+.meter { height: 8px; background: var(--bg); border: 1px solid var(--line); border-radius: 4px; overflow: hidden; }
+.meter > i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .1s linear; }
+</style>
+</head>
+<body>
+<main>
+<header>
+  <h1>מעבדת צליל v2</h1>
+  <p>הקלדה רכה, זוג צלילים וחדר ספרייה: הגרסה של היום מול גרסה 2, שבנויה ל-8 שעות ביום. הכל מסונתז בדפדפן, בלי קבצים.</p>
+</header>
+
+<div class="bar">
+  <label>עוצמת הצלילים <input id="cueVol" type="range" min="0" max="100" value="94"><output id="cueVolO">94</output></label>
+  <label>עוצמת רעש הרקע <input id="noiseVol" type="range" min="0" max="100" value="35"><output id="noiseVolO">35</output></label>
+  <label>ערכה <select id="theme"><option value="">לפי המערכת</option><option value="light">בהיר</option><option value="dark">כהה</option></select></label>
+  <div style="flex:1;min-width:120px"><div class="meter" title="רמת היציאה"><i id="meter"></i></div></div>
+</div>
+
+<section class="card" id="typing">
+  <h2>הקלדה רכה</h2>
+  <p class="lead">כתבו בתיבה. בחרו גרסה למעלה, או השמיעו 10 שניות של הקלדה אוטומטית בקצב אנושי כדי לשמוע את ההבדל בלי להקליד.</p>
+  <div class="seg" role="group" aria-label="גרסת הקלדה">
+    <button data-typing="v1">v1 (היום)</button><button data-typing="v2" class="on">v2 (וריאציה)</button><button data-typing="off">שקט</button>
+  </div>
+  <textarea id="pad" placeholder="הקלידו כאן…"></textarea>
+  <div class="row">
+    <button id="autoV1">הקלדה אוטומטית v1</button><button id="autoV2">הקלדה אוטומטית v2</button>
+    <span class="state" id="typeState"></span>
+  </div>
+  <div class="cols">
+    <div class="col"><h3>v1 <small>כמו בלוח של סבב 4</small></h3>
+      <ul><li>לכל מקש קול קבוע (14 קולות), תדרי תהודה ±3%.</li><li>עוצמה, אורך ומסנן זהים בכל לחיצה.</li><li>אין התחשבות בקצב.</li></ul></div>
+    <div class="col"><h3>v2 <small>אותו קול, לא אותו צליל</small></h3>
+      <ul><li>עוצמה ±1.5dB, תהודות ±4% בנפרד, מסנן 2300–2900Hz, דעיכה וגוף משתנים.</li><li>הקלדה מהירה (רווח קטן מ-110ms) רכה ב-1–2.5dB, כמו אצבעות אמיתיות.</li><li>מעל 9 לחיצות בשנייה: מגבלת צפיפות, עד ‎-4dB.</li></ul></div>
+  </div>
+</section>
+
+<section class="card" id="chimes">
+  <h2>זוג צלילים</h2>
+  <p class="lead">"נכון" עולה בקווינטה, "טעות בביטחון" יורדת ונמוכה, "סוף סעיף" אקורד קצר. "×5" משמיע חמש פעמים ברצף, כדי לשמוע מה קורה אחרי שעה של אותו צליל.</p>
+  <div class="cols">
+    <div class="col"><h3>v1 <small>היום</small></h3>
+      <div class="row"><button data-chime="v1:right">נכון</button><button data-chime="v1:hot">טעות בביטחון</button><button data-chime="v1:end">סוף סעיף</button><button data-chime5="v1:right">נכון ×5</button></div>
+      <ul><li>סינוס טהור, התקפה 4ms.</li><li>כל השמעה זהה לקודמתה.</li></ul></div>
+    <div class="col"><h3>v2 <small>אותו מוטיב, נושם</small></h3>
+      <div class="row"><button data-chime="v2:right">נכון</button><button data-chime="v2:hot">טעות בביטחון</button><button data-chime="v2:end">סוף סעיף</button><button data-chime5="v2:right">נכון ×5</button></div>
+      <div class="row"><span class="chk">גוון: <select id="labVoice"><option value="core">לנצ'סטר (עץ)</option><option value="eng">גילואה (זכוכית)</option></select></span></div>
+      <ul><li>המרווחים והכיוון קבועים (זו המשמעות); כיוון ±8 סנט, עוצמה ±1dB, תזמון ±8ms.</li><li>התקפה 10ms והרמוני שני חלש: פחות "ביפ", יותר כלי.</li><li>אותו צליל בתוך 20 שניות: ‎-3dB וקצר יותר. לא יותר מצליל אחד ב-1.2 שניות.</li></ul></div>
+  </div>
+</section>
+
+<section class="card" id="room">
+  <h2>חדר ספרייה</h2>
+  <p class="lead">v1 הוא הלולאה של סבב 4: 12 שניות, ודף מתהפך בדיוק בשנייה 7.3 בכל סיבוב. v2 לא חוזר על עצמו: האוויר נבנה מגרגירים אקראיים, המסנן והעוצמה נודדים לאט, והאירועים מגיעים בזמנים אקראיים (תהליך פואסון), כל אחד מסונתז מחדש.</p>
+  <div class="seg" role="group" aria-label="חדר">
+    <button data-room="off" class="on">כבוי</button><button data-room="v1">v1 לולאה</button><button data-room="v2">v2 גנרטיבי</button>
+  </div>
+  <div class="row">
+    <span class="chk"><input type="checkbox" id="evOn" checked> <label for="evOn">אירועים</label></span>
+    <span class="chk"><input type="checkbox" id="demo"> <label for="demo">הדגמה: אירועים פי 6 (רק כדי לשמוע אותם)</label></span>
+    <span class="chk"><input type="checkbox" id="focus"> <label for="focus">מצב ריכוז: אחרי 25 דקות קריאה ‎-3dB לאט, וחצי מהאירועים</label></span>
+    <button id="skip25">דלג 25 דקות</button>
+  </div>
+  <div class="row">
+    <span class="chk"><input type="checkbox" id="badSteps"> <label for="badSteps">להשוואה בלבד: צעדים רחוקים</label></span>
+    <span class="chk"><input type="checkbox" id="badCreak"> <label for="badCreak">להשוואה בלבד: חריקת כיסא</label></span>
+    <span class="chk"><input type="checkbox" id="badHum"> <label for="badHum">להשוואה בלבד: זמזום 120Hz של v1</label></span>
+  </div>
+  <p class="warnbox">שלושת האחרונים לא בגרסה המומלצת: צעדים הם רצף של קטעים נפרדים (בדיוק מה שמפריע לזיכרון העבודה), חריקה היא גלישת גובה צליל, וזמזום הוא טון קבוע שהאוזן מוצאת מעצבן לאורך זמן.</p>
+  <svg id="timeline" viewBox="0 0 600 64" preserveAspectRatio="none" aria-label="ציר אירועים, 3 הדקות האחרונות"></svg>
+  <div class="legend">
+    <span><i class="dot" style="background:var(--ev-page)"></i>דף מתהפך</span>
+    <span><i class="dot" style="background:var(--ev-shift)"></i>תזוזה בכיסא (בד)</span>
+    <span><i class="dot" style="background:var(--ev-book)"></i>ספר מונח על שולחן</span>
+    <span><i class="dot" style="background:var(--ev-door)"></i>דלת רחוקה</span>
+    <span><i class="dot" style="background:var(--ev-bad)"></i>להשוואה</span>
+    <span class="state" id="bedState"></span>
+  </div>
+  <ol id="log" aria-live="polite"></ol>
+</section>
+
+<section class="card" id="measure">
+  <h2>מדידה</h2>
+  <p class="lead">כל צליל מרונדר במנותק (OfflineAudioContext) בעוצמה 94 / 35, ונמדד בשיא וב-RMS ביחס ל-0dBFS. כך המפרט נשען על מספרים ולא על אוזן אחת.</p>
+  <button id="runMeasure">מדוד</button>
+  <table id="mtable"><thead><tr><th>צליל</th><th>שיא dBFS</th><th>RMS dBFS</th><th>הערה</th></tr></thead><tbody></tbody></table>
+</section>
+</main>
+
+<script>
+"use strict";
+/* ================= shared ================= */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const rnd = (a, b) => a + Math.random() * (b - a);
+const db = (x) => Math.pow(10, x / 20);
+const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+const P = { cueVol: 94, noiseVol: 35, typing: "v2", lab: "core" };
+const cueGain = (v = P.cueVol) => Math.pow(v / 100, 2) * 0.9;     // as sound.ts
+const noiseGain = (v = P.noiseVol) => Math.pow(v / 100, 2) * 0.6;  // as sound.ts
+
+const A = { ctx: null, cue: null, noise: null, analyser: null };
+function audio() {
+  if (!A.ctx) {
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return null;
+    A.ctx = new AC();
+    const lim = A.ctx.createDynamicsCompressor();
+    lim.threshold.value = -6; lim.knee.value = 0; lim.ratio.value = 12; lim.attack.value = 0.001; lim.release.value = 0.05;
+    A.cue = A.ctx.createGain(); A.cue.gain.value = cueGain();
+    A.noise = A.ctx.createGain(); A.noise.gain.value = noiseGain();
+    A.analyser = A.ctx.createAnalyser(); A.analyser.fftSize = 2048;
+    A.cue.connect(lim); lim.connect(A.ctx.destination); lim.connect(A.analyser);
+    A.noise.connect(A.ctx.destination); A.noise.connect(A.analyser);
+    meterLoop();
+  }
+  if (A.ctx.state === "suspended") A.ctx.resume();
+  return A.ctx;
+}
+function meterLoop() {
+  const buf = new Float32Array(A.analyser.fftSize);
+  const step = () => {
+    A.analyser.getFloatTimeDomainData(buf);
+    let s = 0; for (let i = 0; i < buf.length; i++) s += buf[i] * buf[i];
+    const rms = Math.sqrt(s / buf.length);
+    const dbv = rms > 0 ? 20 * Math.log10(rms) : -100;
+    $("#meter").style.width = Math.max(0, Math.min(100, (dbv + 70) / 70 * 100)) + "%";
+    requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+function noiseBuf(c, dur, shape) {
+  const len = Math.max(1, Math.floor(c.sampleRate * dur));
+  const b = c.createBuffer(1, len, c.sampleRate); const d = b.getChannelData(0);
+  for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * (shape ? Math.pow(1 - i / len, shape) : 1);
+  return b;
+}
+function biq(c, type, f, q) { const n = c.createBiquadFilter(); n.type = type; n.frequency.value = f; if (q != null) n.Q.value = q; return n; }
+function gainN(c, g) { const n = c.createGain(); n.gain.value = g; return n; }
+
+/* ================= typing ================= */
+const VOICES = Array.from({ length: 14 }, (_, i) => ({ lo: 880 + ((i * 37) % 260), hi: 2250 + ((i * 113) % 700), air: 0.35 + ((i * 7) % 5) * 0.08 }));
+const WIDE = { lo: 620, hi: 1700, air: 0.25 };
+const WIDE_KEYS = new Set(["Space", "Enter", "NumpadEnter", "Backspace", "ShiftLeft", "ShiftRight", "Tab"]);
+function voiceOf(code) { if (WIDE_KEYS.has(code)) return WIDE; let h = 0; for (const ch of code) h = (h * 31 + ch.charCodeAt(0)) >>> 0; return VOICES[h % VOICES.length]; }
+
+/** one clack, as in options.html (v1). o: { lp, shape, jit:[loJ,hiJ] } */
+function clack(c, dest, t, v, level, length, o) {
+  const src = c.createBufferSource(); src.buffer = noiseBuf(c, length, o.shape || 6);
+  const out = gainN(c, level);
+  let tail = out;
+  if (o.lp) { const lp = biq(c, "lowpass", o.lp); out.connect(lp); tail = lp; }
+  tail.connect(dest);
+  const band = (type, f, q, g) => { const fl = biq(c, type, f, q); const gg = gainN(c, g); src.connect(fl); fl.connect(gg); gg.connect(out); };
+  const jl = o.jit ? o.jit[0] : 0.97 + Math.random() * 0.06, jh = o.jit ? o.jit[1] : 0.97 + Math.random() * 0.06;
+  band("bandpass", v.lo * jl, o.qlo || 5, 4.2);
+  band("bandpass", v.hi * jh, o.qhi || 6, 5.5);
+  if (v.air) band("highpass", 6500, 0.7, v.air);
+  src.start(t);
+}
+const TYPING = {
+  v1: {
+    down(c, dest, t, code) { const v = voiceOf(code); clack(c, dest, t + 0.012, { lo: v.lo * 0.78, hi: v.hi * 0.7, air: 0 }, 0.32, v === WIDE ? 0.06 : 0.04, { lp: 2600, shape: 8 }); },
+    up(c, dest, t, code) { const v = voiceOf(code); clack(c, dest, t, { lo: v.lo * 0.85, hi: v.hi * 0.75, air: 0 }, 0.07, 0.025, { lp: 2400, shape: 8 }); },
+  },
+  v2: {
+    lastDown: 0, recent: [],
+    /** the same key voice, never the same sound: level, resonances, body, damping and timing all vary a little */
+    down(c, dest, t, code) {
+      const v = voiceOf(code);
+      const now = t;
+      const iki = now - this.lastDown; this.lastDown = now;
+      this.recent = this.recent.filter((x) => now - x < 1); this.recent.push(now);
+      let lvl = rnd(-1.5, 1.5);                         // velocity scatter
+      if (iki < 0.11) lvl -= rnd(1, 2.5);                // fast runs are lighter, as with real fingers
+      else if (iki > 1.5) lvl += 0.8;                    // the first key after a pause lands a little firmer
+      const over = this.recent.length - 9;               // density cap: past 9 keys/s, -0.5dB per key, to -4dB
+      if (over > 0) lvl -= Math.min(4, over * 0.5);
+      const wide = v === WIDE;
+      clack(c, dest, t + rnd(0.010, 0.016), { lo: v.lo * 0.78, hi: v.hi * 0.7, air: 0 }, 0.32 * db(lvl), (wide ? 0.06 : 0.04) * rnd(0.9, 1.1),
+        { lp: rnd(2300, 2900), shape: rnd(7, 9), jit: [rnd(0.96, 1.04), rnd(0.96, 1.04)], qlo: rnd(4.2, 5.8), qhi: rnd(5, 7) });
+      this.upLvl = lvl;
+    },
+    up(c, dest, t, code) {
+      const v = voiceOf(code);
+      clack(c, dest, t + rnd(0, 0.006), { lo: v.lo * 0.85, hi: v.hi * 0.75, air: 0 }, 0.07 * db(rnd(-2, 1) + Math.min(0, this.upLvl || 0) * 0.5), 0.025 * rnd(0.85, 1.15),
+        { lp: rnd(2200, 2600), shape: rnd(7, 9), jit: [rnd(0.96, 1.04), rnd(0.96, 1.04)] });
+    },
+  },
+};
+const down = new Set();
+$("#pad").addEventListener("keydown", (e) => {
+  if (e.ctrlKey || e.metaKey || e.altKey || e.repeat) return;
+  if (!(e.key.length === 1 || e.key === "Backspace" || e.key === "Enter")) return;
+  if (P.typing === "off") return;
+  const c = audio(); if (!c) return;
+  down.add(e.code);
+  TYPING[P.typing].down(c, A.cue, c.currentTime, e.code);
+});
+$("#pad").addEventListener("keyup", (e) => {
+  if (!down.delete(e.code) || P.typing === "off") return;
+  const c = audio(); if (!c) return;
+  TYPING[P.typing].up(c, A.cue, c.currentTime, e.code);
+});
+$$("[data-typing]").forEach((b) => b.addEventListener("click", () => {
+  P.typing = b.dataset.typing; $$("[data-typing]").forEach((x) => x.classList.toggle("on", x === b)); $("#pad").focus();
+}));
+/** a 10 s run of human-like typing: words of 3-8 keys at ~6.5 keys/s, a space, and now and then a pause */
+function typingScript(seconds) {
+  const codes = "KeyA KeyS KeyD KeyF KeyJ KeyK KeyL KeyE KeyR KeyT KeyY KeyU KeyI KeyO KeyN KeyM".split(" ");
+  const ev = []; let t = 0;
+  while (t < seconds) {
+    const n = 3 + Math.floor(Math.random() * 6);
+    for (let i = 0; i < n; i++) { const hold = rnd(0.07, 0.12); ev.push([t, pick(codes), hold]); t += Math.max(0.06, rnd(0.09, 0.2)); }
+    ev.push([t, "Space", 0.1]); t += rnd(0.15, 0.3);
+    if (Math.random() < 0.15) t += rnd(0.6, 1.4);
+  }
+  return ev;
+}
+function autoType(ver) {
+  const c = audio(); if (!c) return;
+  const t0 = c.currentTime + 0.1; const set = TYPING[ver];
+  const s = typingScript(10);
+  // schedule in order so the v2 rhythm rules see real intervals
+  s.forEach(([t, code, hold]) => { set.down(c, A.cue, t0 + t, code); set.up(c, A.cue, t0 + t + hold, code); });
+  $("#typeState").textContent = ver + ": " + s.length + " keys / 10 s";
+}
+$("#autoV1").addEventListener("click", () => autoType("v1"));
+$("#autoV2").addEventListener("click", () => autoType("v2"));
+
+/* ================= chimes ================= */
+function tone(c, dest, t, f, dur, o) {
+  o = o || {};
+  const osc = c.createOscillator(); const g = c.createGain();
+  osc.type = o.type || "sine"; osc.frequency.setValueAtTime(f, t);
+  if (o.detune) osc.detune.setValueAtTime(o.detune, t);
+  g.gain.setValueAtTime(0, t);
+  g.gain.linearRampToValueAtTime(o.gain || 0.2, t + (o.att || 0.004));
+  g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+  osc.connect(g);
+  if (o.lp) { const lp = biq(c, "lowpass", o.lp, 0.5); g.connect(lp); lp.connect(dest); } else g.connect(dest);
+  osc.start(t); osc.stop(t + dur + 0.03);
+}
+const CH1 = {
+  right(c, d, t) { tone(c, d, t, 440, 0.12, { gain: 0.09 }); tone(c, d, t + 0.06, 660, 0.18, { gain: 0.08 }); },
+  hot(c, d, t) { tone(c, d, t, 330, 0.22, { gain: 0.1, type: "triangle" }); tone(c, d, t + 0.12, 247, 0.32, { gain: 0.09, type: "triangle" }); },
+  end(c, d, t) { [523, 659, 784].forEach((f, i) => tone(c, d, t + i * 0.07, f, 0.5, { gain: 0.08 })); },
+};
+/** v2 note: fixed pitch class, a few cents of drift, a soft attack and a quiet upper partial; the lab sets the partial */
+function note2(c, d, t, f, dur, g, k) {
+  const det = rnd(-8, 8) * k.detuneScale;
+  const gg = g * db(rnd(-1, 1)) * k.level;
+  const lp = k.lab === "eng" ? 3200 : 2400;
+  tone(c, d, t, f, dur * k.len, { gain: gg, att: 0.010, detune: det, lp });
+  if (k.lab === "eng") tone(c, d, t, f * 2, dur * 0.6 * k.len, { gain: gg * db(-18), att: 0.010, detune: det, lp });   // glass: octave partial
+  else tone(c, d, t, f * 4, 0.05, { gain: gg * db(-16), att: 0.003, detune: det, lp });                              // wood: a short strike partial
+}
+const CH2 = {
+  last: {}, lastAny: -9,
+  /** repeats of the same cue within 20 s come back 3 dB softer and 15% shorter; nothing faster than one cue per 1.2 s */
+  ctl(kind, now) {
+    if (now - this.lastAny < 1.2 && kind !== "end") return null;
+    const rep = this.last[kind] != null && now - this.last[kind] < 20;
+    this.last[kind] = now; this.lastAny = now;
+    return { level: rep ? db(-3) : 1, len: rep ? 0.85 : 1, detuneScale: 1, lab: P.lab };
+  },
+  right(c, d, t) { const k = this.ctl("right", t); if (!k) return false; const gap = rnd(0.052, 0.068); note2(c, d, t, 440, 0.13, 0.085, k); note2(c, d, t + gap, 660, 0.2, 0.075, k); return true; },
+  hot(c, d, t) { const k = this.ctl("hot", t); if (!k) return false; note2(c, d, t, 330, 0.24, 0.085, k); note2(c, d, t + rnd(0.11, 0.13), 247, 0.34, 0.08, k); return true; },
+  end(c, d, t) { const k = this.ctl("end", t); if (!k) return false; const sp = rnd(0.062, 0.078); [523.25, 659.25, 783.99].forEach((f, i) => note2(c, d, t + i * sp, f, 0.55, 0.07, k)); return true; },
+};
+$$("[data-chime]").forEach((b) => b.addEventListener("click", () => {
+  const c = audio(); if (!c) return; const [v, k] = b.dataset.chime.split(":");
+  (v === "v1" ? CH1 : CH2)[k](c, A.cue, c.currentTime + 0.01);
+}));
+$$("[data-chime5]").forEach((b) => b.addEventListener("click", () => {
+  const c = audio(); if (!c) return; const [v, k] = b.dataset.chime5.split(":");
+  // five answers 1.5 s apart: v1 is five identical copies, v2 settles 3 dB lower after the first
+  for (let i = 0; i < 5; i++) {
+    const t = c.currentTime + 0.05 + i * 1.5;
+    if (v === "v1") CH1[k](c, A.cue, t); else setTimeout(() => CH2[k](audio(), A.cue, audio().currentTime + 0.01), i * 1500 + 50);
+  }
+}));
+$("#labVoice").addEventListener("change", (e) => { P.lab = e.target.value; });
+
+/* ================= room v1: the 12 s loop from round 4 ================= */
+function pinkGen() {
+  let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
+  return (white) => {
+    b0 = 0.99886 * b0 + white * 0.0555179; b1 = 0.99332 * b1 + white * 0.0750759; b2 = 0.969 * b2 + white * 0.153852;
+    b3 = 0.8665 * b3 + white * 0.3104856; b4 = 0.55 * b4 + white * 0.5329522; b5 = -0.7616 * b5 - white * 0.016898;
+    const v = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362) * 0.11; b6 = white * 0.115926; return v;
+  };
+}
+function libraryV1Buffer(c) {
+  const sr = c.sampleRate, len = sr * 12, fade = Math.floor(sr * 0.5);
+  const buf = c.createBuffer(2, len, sr);
+  for (let ch = 0; ch < 2; ch++) {
+    const d = buf.getChannelData(ch); const pink = pinkGen();
+    let last = 0, lp = 0, lp2 = 0, prev = 0;
+    for (let i = 0; i < len + fade; i++) {
+      const white = Math.random() * 2 - 1; const pk = pink(white);
+      last = (last + 0.02 * white) / 1.02; const brown = last * 3.5;
+      const t = (i % len) / sr;
+      lp += 0.04 * (brown - lp); lp2 += 0.25 * (pk - lp2);
+      let v = lp * 1.6 + lp2 * 0.12 + Math.sin(2 * Math.PI * 120 * t) * 0.006;
+      const pt = t - (ch ? 7.32 : 7.3);
+      if (pt > 0 && pt < 0.42) { const hp = white - prev; v += hp * 0.05 * Math.sin(Math.PI * pt / 0.42) * (0.6 + 0.4 * Math.random()); }
+      prev = white;
+      if (i < len) d[i] = v; else { const k = (i - len) / fade; d[i - len] = d[i - len] * k + v * (1 - k); }
+    }
+  }
+  return buf;
+}
+
+/* ================= room v2: generative, no loop ================= */
+/** the air of the room, without hum and without events: 24 s of independent stereo, used only as grain material */
+function airPool(c) {
+  const sr = c.sampleRate, len = sr * 24;
+  const buf = c.createBuffer(2, len, sr);
+  for (let ch = 0; ch < 2; ch++) {
+    const d = buf.getChannelData(ch); const pink = pinkGen();
+    let last = 0, lp = 0, lp2 = 0;
+    for (let i = 0; i < len; i++) {
+      const white = Math.random() * 2 - 1; const pk = pink(white);
+      last = (last + 0.02 * white) / 1.02; lp += 0.04 * (last * 3.5 - lp); lp2 += 0.25 * (pk - lp2);
+      d[i] = lp * 1.6 + lp2 * 0.12;
+    }
+  }
+  return buf;
+}
+let SINE_WIN = null;
+function sineWindow() { if (!SINE_WIN) { SINE_WIN = new Float32Array(256); for (let i = 0; i < 256; i++) SINE_WIN[i] = Math.sin(Math.PI * i / 255); } return SINE_WIN; }
+
+/** a tiny room: decaying stereo noise as the impulse response (RT ~0.7 s), shared by all events */
+function roomIR(c) {
+  const sr = c.sampleRate, len = Math.floor(sr * 0.9);
+  const b = c.createBuffer(2, len, sr);
+  for (let ch = 0; ch < 2; ch++) { const d = b.getChannelData(ch); for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.exp(-i / (sr * 0.1)) * 0.35; }
+  return b;
+}
+
+const EVENTS = {
+  page:  { he: "דף מתהפך",      mean: 75,  min: 22, color: "--ev-page" },
+  shift: { he: "תזוזה בכיסא",   mean: 160, min: 45, color: "--ev-shift" },
+  book:  { he: "ספר על שולחן",  mean: 330, min: 90, color: "--ev-book" },
+  door:  { he: "דלת רחוקה",     mean: 720, min: 240, color: "--ev-door" },
+  steps: { he: "צעדים (השוואה)", mean: 90,  min: 30, color: "--ev-bad", bad: true },
+  creak: { he: "חריקה (השוואה)", mean: 90,  min: 30, color: "--ev-bad", bad: true },
+};
+const GLOBAL_GAP = 9;  // no two events closer than 9 s
+
+/** Builds a v2 room into `dest`. Returns a controller. Works on a live or an offline context. */
+function makeRoom(c, dest, opts) {
+  opts = opts || {};
+  const out = gainN(c, 0);
+  const drift = gainN(c, 1);          // the slow level wander (±1 dB) and the focus descent
+  const hvac = biq(c, "lowpass", 1200, 0.4);
+  drift.connect(out); out.connect(dest);
+  const busBed = gainN(c, 1); busBed.connect(hvac); hvac.connect(drift);
+  const busEv = gainN(c, 1);            // events skip the hvac filter but share the level
+  const verb = c.createConvolver(); verb.buffer = roomIR(c);
+  const wet = gainN(c, 0.32); const dry = gainN(c, 0.68);
+  busEv.connect(dry); dry.connect(drift); busEv.connect(verb); verb.connect(wet); wet.connect(drift);
+  const pool = airPool(c);
+  const R = { c, out, drift, hvac, busEv, log: opts.log || (() => {}), next: {}, lastEv: -99, grainT: 0, driftT: 0, alive: true, focusDb: 0, focus: false, demo: 1, enable: { page: 1, shift: 1, book: 1, door: 1 }, events: true, startT: c.currentTime, hum: null };
+
+  // grains: 5 s each, every 2.5 s, from a random place in the pool at a random rate; sine windows at 50% overlap keep the power flat
+  function grain(t) {
+    const s = c.createBufferSource(); s.buffer = pool; s.playbackRate.value = rnd(0.97, 1.03);
+    const g = c.createGain(); g.gain.setValueAtTime(0, t); g.gain.setValueCurveAtTime(sineWindow(), t, 5);
+    s.connect(g); g.connect(busBed);
+    s.start(t, rnd(0, pool.duration - 5.4)); s.stop(t + 5.05);
+  }
+  // slow wander: hvac cutoff 900-1600 Hz and level ±1 dB, each new target 25-60 s away, linear glide all the way
+  function wander(t) {
+    const dur = rnd(25, 60);
+    R.hvac.frequency.setValueAtTime(R.hvac.frequency.value, t);
+    R.hvac.frequency.linearRampToValueAtTime(rnd(900, 1600), t + dur);
+    const lvl = rnd(-1, 1) + R.focusDb;
+    R.drift.gain.cancelScheduledValues(t); R.drift.gain.setValueAtTime(R.drift.gain.value, t);
+    R.drift.gain.linearRampToValueAtTime(db(lvl), t + dur);
+    R.driftNow = { hz: R.hvac.frequency.value, lvl };
+    return t + dur;
+  }
+  function schedule(kind, t) {
+    const e = EVENTS[kind];
+    const mean = e.mean / R.demo * (R.focus && R.focusDb < -0.5 ? 2 : 1);
+    R.next[kind] = t + Math.max(e.min / R.demo, -Math.log(1 - Math.random()) * mean);
+  }
+  Object.keys(EVENTS).forEach((k) => schedule(k, R.startT + rnd(4, 10)));
+  R.reschedule = () => Object.keys(EVENTS).forEach((k) => schedule(k, c.currentTime));
+
+  R.tick = (until) => {
+    while (R.grainT < until) { if (R.grainT === 0) R.grainT = c.currentTime + 0.05; grain(R.grainT); R.grainT += 2.5; }
+    if (R.driftT < until) R.driftT = wander(Math.max(R.driftT, c.currentTime));
+    if (!R.events) return;
+    for (const k of Object.keys(EVENTS)) {
+      const e = EVENTS[k];
+      const on = e.bad ? opts.bad && opts.bad[k] : R.enable[k];
+      while (R.next[k] < until) {
+        const t = R.next[k];
+        if (on && t - R.lastEv >= GLOBAL_GAP / Math.max(1, R.demo / 2)) { const p = SYNTH[k](c, R.busEv, t); R.lastEv = t; R.log(k, t - R.startT, p); }
+        schedule(k, t);
+      }
+    }
+  };
+  R.setLevel = (g, ramp) => { const t = c.currentTime; out.gain.cancelScheduledValues(t); out.gain.setValueAtTime(out.gain.value, t); out.gain.linearRampToValueAtTime(g, t + (ramp || 8)); };
+  R.stop = (ramp) => { const t = c.currentTime; R.alive = false; out.gain.cancelScheduledValues(t); out.gain.setValueAtTime(out.gain.value, t); out.gain.linearRampToValueAtTime(0, t + (ramp || 3)); setTimeout(() => out.disconnect(), ((ramp || 3) + 0.5) * 1000); };
+  R.setHum = (on) => {
+    if (on && !R.hum) { const o = c.createOscillator(); o.frequency.value = 120; const g = gainN(c, 0.006); o.connect(g); g.connect(drift); o.start(); R.hum = { o, g }; }
+    else if (!on && R.hum) { R.hum.o.stop(); R.hum = null; }
+  };
+  R.setFocus = (on) => {
+    // focus: 3 dB down over 5 minutes, events at half the rate. Off: back over 20 s.
+    R.focus = on; R.focusDb = on ? -3 : 0;
+    const t = c.currentTime;
+    R.drift.gain.cancelScheduledValues(t); R.drift.gain.setValueAtTime(R.drift.gain.value, t);
+    R.drift.gain.linearRampToValueAtTime(db(R.focusDb), t + (on ? (opts.fastFocus ? 20 : 300) : 20));
+    R.driftT = t + (on ? (opts.fastFocus ? 20 : 300) : 20);
+    R.reschedule();
+  };
+  return R;
+}
+
+/* events: every one is built fresh from random parameters, so no two are the same.
+   All start softly (>= 15 ms rise) and sit far away (low-passed, panned, a little room). Levels are relative to the bed. */
+const SYNTH = {
+  /** a page: 2-3 overlapping rustles of filtered noise, the last one the "flip", 0.35-0.7 s */
+  page(c, dest, t) {
+    const dur = rnd(0.35, 0.7), n = 2 + (Math.random() < 0.5 ? 1 : 0), pan = rnd(-0.7, 0.7), cf = rnd(1100, 2400), lvl = rnd(-4, 0);
+    const p = c.createStereoPanner(); p.pan.value = pan; const lp = biq(c, "lowpass", rnd(3000, 4200), 0.5); lp.connect(p); p.connect(dest);
+    for (let i = 0; i < n; i++) {
+      const s = c.createBufferSource(); s.buffer = noiseBuf(c, dur, 0);
+      const bp = biq(c, "bandpass", cf * rnd(0.8, 1.25), rnd(0.5, 0.9));
+      const hp = biq(c, "highpass", 450, 0.7);
+      const g = c.createGain(); const t0 = t + (i / n) * dur * rnd(0.6, 0.9), len = dur * rnd(0.35, 0.6);
+      const peak = 0.028 * db(lvl) * (i === n - 1 ? 1 : 0.6);
+      g.gain.setValueAtTime(0, t0); g.gain.linearRampToValueAtTime(peak, t0 + len * 0.35); g.gain.linearRampToValueAtTime(0, t0 + len);
+      s.connect(hp); hp.connect(bp); bp.connect(g); g.connect(lp); s.start(t0); s.stop(t0 + len + 0.02);
+    }
+    return { dur: +dur.toFixed(2), cf: Math.round(cf), pan: +pan.toFixed(2), dB: +lvl.toFixed(1) };
+  },
+  /** someone shifts in a chair: cloth, low and slow, 0.6-1.2 s */
+  shift(c, dest, t) {
+    const dur = rnd(0.6, 1.2), pan = rnd(-0.8, 0.8), lvl = rnd(-5, -1), f = rnd(500, 850);
+    const s = c.createBufferSource(); s.buffer = noiseBuf(c, dur, 0);
+    const lp = biq(c, "lowpass", f, 0.6), g = c.createGain(), p = c.createStereoPanner(); p.pan.value = pan;
+    const pk = 0.05 * db(lvl);
+    g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(pk, t + dur * 0.4); g.gain.linearRampToValueAtTime(pk * 0.5, t + dur * 0.7); g.gain.linearRampToValueAtTime(0, t + dur);
+    s.connect(lp); lp.connect(g); g.connect(p); p.connect(dest); s.start(t); s.stop(t + dur + 0.02);
+    return { dur: +dur.toFixed(2), lp: Math.round(f), pan: +pan.toFixed(2), dB: +lvl.toFixed(1) };
+  },
+  /** a book set down on a table, far: a low thump, rounded (20 ms rise), 90-140 Hz body */
+  book(c, dest, t) {
+    const f = rnd(90, 140), pan = rnd(-0.6, 0.6), lvl = rnd(-6, -2);
+    const p = c.createStereoPanner(); p.pan.value = pan; p.connect(dest);
+    const o = c.createOscillator(); o.frequency.setValueAtTime(f, t); o.frequency.exponentialRampToValueAtTime(f * 0.8, t + 0.18);
+    const g = c.createGain(); g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(0.06 * db(lvl), t + 0.02); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.22);
+    o.connect(g); g.connect(p); o.start(t); o.stop(t + 0.25);
+    const s = c.createBufferSource(); s.buffer = noiseBuf(c, 0.12, 3); const lp = biq(c, "lowpass", rnd(250, 400), 0.7); const g2 = gainN(c, 0.05 * db(lvl));
+    s.connect(lp); lp.connect(g2); g2.connect(p); s.start(t + 0.004);
+    return { hz: Math.round(f), pan: +pan.toFixed(2), dB: +lvl.toFixed(1) };
+  },
+  /** a door closing two rooms away: only the low part gets through, slow rise, no latch click */
+  door(c, dest, t) {
+    const pan = rnd(-0.9, 0.9), lvl = rnd(-8, -4), dur = rnd(0.3, 0.5);
+    const s = c.createBufferSource(); s.buffer = noiseBuf(c, dur, 2);
+    const lp = biq(c, "lowpass", rnd(160, 240), 0.9), g = c.createGain(), p = c.createStereoPanner(); p.pan.value = pan;
+    g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(0.16 * db(lvl), t + 0.03); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    s.connect(lp); lp.connect(g); g.connect(p); p.connect(dest); s.start(t);
+    return { dur: +dur.toFixed(2), pan: +pan.toFixed(2), dB: +lvl.toFixed(1) };
+  },
+  /** comparison only: 6-10 footsteps, a regular sequence of separate segments (changing state) */
+  steps(c, dest, t) {
+    const n = 6 + Math.floor(Math.random() * 5), gap = rnd(0.5, 0.6), p = c.createStereoPanner(); p.pan.value = -0.8; p.connect(dest);
+    p.pan.linearRampToValueAtTime(0.8, t + n * gap);
+    for (let i = 0; i < n; i++) {
+      const s = c.createBufferSource(); s.buffer = noiseBuf(c, 0.08, 4); const lp = biq(c, "lowpass", 500, 0.8); const g = gainN(c, 0.07);
+      s.connect(lp); lp.connect(g); g.connect(p); s.start(t + i * gap);
+    }
+    return { n, gap: +gap.toFixed(2) };
+  },
+  /** comparison only: a chair creak, a pitch glide with a rough edge */
+  creak(c, dest, t) {
+    const f = rnd(300, 500), o = c.createOscillator(); o.type = "sawtooth";
+    o.frequency.setValueAtTime(f, t); o.frequency.linearRampToValueAtTime(f * rnd(1.3, 1.6), t + 0.45);
+    const bp = biq(c, "bandpass", 900, 2), g = c.createGain(); g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(0.012, t + 0.05); g.gain.linearRampToValueAtTime(0, t + 0.5);
+    o.connect(bp); bp.connect(g); g.connect(dest); o.start(t); o.stop(t + 0.55);
+    return { hz: Math.round(f) };
+  },
+};
+
+/* ---- live room control ---- */
+const ROOM = { mode: "off", v1: null, v2: null, timer: null, logT: [] };
+function roomLog(kind, at, params) {
+  const li = document.createElement("li");
+  const mm = Math.floor(at / 60), ss = Math.floor(at % 60);
+  li.innerHTML = '<span class="t">' + mm + ":" + String(ss).padStart(2, "0") + '</span><span><i class="dot" style="background:var(' + EVENTS[kind].color + ')"></i>' + EVENTS[kind].he + '</span><span class="p"></span>';
+  li.querySelector(".p").textContent = JSON.stringify(params);
+  $("#log").prepend(li);
+  while ($("#log").children.length > 60) $("#log").lastChild.remove();
+  ROOM.logT.push([kind, at]);
+  drawTimeline();
+}
+function drawTimeline() {
+  const svg = $("#timeline"); const now = ROOM.v2 ? ROOM.v2.c.currentTime - ROOM.v2.startT : 0;
+  const span = 180, x = (t) => 600 - ((now - t) / span) * 600;
+  let s = '<line x1="0" y1="32" x2="600" y2="32" stroke="var(--line)" />';
+  for (let m = 0; m <= 3; m++) s += '<text x="' + (600 - m * 200 - 2) + '" y="60" font-size="9" fill="var(--muted)" text-anchor="end">-' + m + "′</text>";
+  ROOM.logT = ROOM.logT.filter(([, t]) => now - t < span);
+  ROOM.logT.forEach(([k, t]) => { s += '<circle cx="' + x(t).toFixed(1) + '" cy="' + (EVENTS[k].bad ? 46 : 22) + '" r="5" fill="var(' + EVENTS[k].color + ')" />'; });
+  svg.innerHTML = s;
+}
+function setRoom(mode) {
+  const c = mode === "off" ? A.ctx : audio();
+  $$("[data-room]").forEach((x) => x.classList.toggle("on", x.dataset.room === mode));
+  ROOM.mode = mode;
+  if (ROOM.v1) { const v = ROOM.v1; const t = c.currentTime; v.g.gain.cancelScheduledValues(t); v.g.gain.setValueAtTime(v.g.gain.value, t); v.g.gain.linearRampToValueAtTime(0, t + 0.8); v.src.stop(t + 0.9); ROOM.v1 = null; }
+  if (ROOM.v2) { ROOM.v2.stop(3); ROOM.v2 = null; clearInterval(ROOM.timer); }
+  if (mode === "v1") {
+    const src = c.createBufferSource(); src.buffer = libraryV1Buffer(c); src.loop = true;
+    const g = gainN(c, 0); src.connect(g); g.connect(A.noise); src.start();
+    g.gain.linearRampToValueAtTime(1, c.currentTime + 1.5);
+    ROOM.v1 = { src, g };
+  } else if (mode === "v2") {
+    const r = makeRoom(c, A.noise, { log: roomLog, bad: { steps: $("#badSteps").checked, creak: $("#badCreak").checked }, fastFocus: true });
+    r.events = $("#evOn").checked; r.demo = $("#demo").checked ? 6 : 1; r.reschedule();
+    r.setHum($("#badHum").checked);
+    r.setLevel(1, 8);                      // 8 s fade-in
+    ROOM.v2 = r; ROOM.focusAt = null;
+    r.tick(c.currentTime + 6);
+    ROOM.timer = setInterval(() => {
+      if (!ROOM.v2) return;
+      r.tick(c.currentTime + 6); drawTimeline();
+      const d = r.driftNow || {};
+      $("#bedState").textContent = "hvac " + Math.round(r.hvac.frequency.value) + " Hz · drift " + (20 * Math.log10(r.drift.gain.value)).toFixed(1) + " dB" + (r.focus ? " · focus" : "");
+      if ($("#focus").checked && !r.focus && ROOM.focusAt != null && c.currentTime >= ROOM.focusAt) r.setFocus(true);
+    }, 1000);
+    if ($("#focus").checked) ROOM.focusAt = c.currentTime + 25 * 60;
+  }
+}
+$$("[data-room]").forEach((b) => b.addEventListener("click", () => setRoom(b.dataset.room)));
+$("#evOn").addEventListener("change", (e) => { if (ROOM.v2) ROOM.v2.events = e.target.checked; });
+$("#demo").addEventListener("change", (e) => { if (ROOM.v2) { ROOM.v2.demo = e.target.checked ? 6 : 1; ROOM.v2.reschedule(); } });
+$("#badSteps").addEventListener("change", () => setRoom(ROOM.mode));
+$("#badCreak").addEventListener("change", () => setRoom(ROOM.mode));
+$("#badHum").addEventListener("change", (e) => { if (ROOM.v2) ROOM.v2.setHum(e.target.checked); });
+$("#focus").addEventListener("change", (e) => {
+  if (!ROOM.v2) return;
+  if (e.target.checked) ROOM.focusAt = ROOM.v2.c.currentTime + 25 * 60; else { ROOM.focusAt = null; if (ROOM.v2.focus) ROOM.v2.setFocus(false); }
+});
+$("#skip25").addEventListener("click", () => {
+  if (!ROOM.v2) setRoom("v2");
+  $("#focus").checked = true; ROOM.v2.setFocus(true);
+});
+
+/* ---- volumes and theme ---- */
+$("#cueVol").addEventListener("input", (e) => { P.cueVol = +e.target.value; $("#cueVolO").textContent = P.cueVol; if (A.cue) A.cue.gain.value = cueGain(); });
+$("#noiseVol").addEventListener("input", (e) => {
+  P.noiseVol = +e.target.value; $("#noiseVolO").textContent = P.noiseVol;
+  if (A.noise) { const t = A.ctx.currentTime; A.noise.gain.cancelScheduledValues(t); A.noise.gain.setValueAtTime(A.noise.gain.value, t); A.noise.gain.linearRampToValueAtTime(noiseGain(), t + 0.3); }
+});
+$("#theme").addEventListener("change", (e) => { if (e.target.value) document.documentElement.dataset.theme = e.target.value; else delete document.documentElement.dataset.theme; });
+
+/* ================= offline measurement ================= */
+async function render(seconds, build) {
+  const sr = 48000; const c = new OfflineAudioContext(2, sr * seconds, sr);
+  const lim = c.createDynamicsCompressor(); lim.threshold.value = -6; lim.knee.value = 0; lim.ratio.value = 12; lim.attack.value = 0.001; lim.release.value = 0.05;
+  const cue = gainN(c, cueGain(94)); cue.connect(lim); lim.connect(c.destination);
+  const noise = gainN(c, noiseGain(35)); noise.connect(c.destination);
+  build(c, cue, noise);
+  const b = await c.startRendering();
+  let peak = 0, sum = 0; const L = b.getChannelData(0), R = b.getChannelData(1);
+  for (let i = 0; i < L.length; i++) { const a = Math.max(Math.abs(L[i]), Math.abs(R[i])); if (a > peak) peak = a; sum += (L[i] * L[i] + R[i] * R[i]) / 2; }
+  const rms = Math.sqrt(sum / L.length);
+  return { peak: 20 * Math.log10(peak || 1e-9), rms: 20 * Math.log10(rms || 1e-9) };
+}
+/** RMS over the loud part only (the 50 ms around the hit), for single short sounds */
+async function renderShort(build) {
+  const sr = 48000; const c = new OfflineAudioContext(2, sr * 1, sr);
+  const lim = c.createDynamicsCompressor(); lim.threshold.value = -6; lim.knee.value = 0; lim.ratio.value = 12; lim.attack.value = 0.001; lim.release.value = 0.05;
+  const cue = gainN(c, cueGain(94)); cue.connect(lim); lim.connect(c.destination);
+  const noise = gainN(c, noiseGain(35)); noise.connect(c.destination);
+  build(c, cue, noise);
+  const b = await c.startRendering(); const L = b.getChannelData(0), R = b.getChannelData(1);
+  let peak = 0, pi = 0; for (let i = 0; i < L.length; i++) { const a = Math.max(Math.abs(L[i]), Math.abs(R[i])); if (a > peak) { peak = a; pi = i; } }
+  const w = Math.floor(sr * 0.025); let s = 0, n = 0;
+  for (let i = Math.max(0, pi - w); i < Math.min(L.length, pi + w); i++) { s += (L[i] * L[i] + R[i] * R[i]) / 2; n++; }
+  return { peak: 20 * Math.log10(peak || 1e-9), rms: 20 * Math.log10(Math.sqrt(s / n) || 1e-9) };
+}
+async function measureAll() {
+  const rows = [];
+  const add = (name, m, note) => rows.push({ name, peak: +m.peak.toFixed(1), rms: +m.rms.toFixed(1), note: note || "" });
+  add("הקלדה v1, לחיצה (50ms סביב השיא)", await renderShort((c, cue) => { TYPING.v1.down(c, cue, 0.05, "KeyF"); }));
+  const v2s = [];
+  for (let i = 0; i < 6; i++) v2s.push(await renderShort((c, cue) => { TYPING.v2.lastDown = -9; TYPING.v2.recent = []; TYPING.v2.down(c, cue, 0.05, "KeyF"); }));
+  const pk = v2s.map((m) => m.peak);
+  add("הקלדה v2, לחיצה (6 דגימות, ממוצע)", { peak: pk.reduce((a, b) => a + b) / pk.length, rms: v2s.map((m) => m.rms).reduce((a, b) => a + b) / v2s.length }, "פיזור שיא " + (Math.max(...pk) - Math.min(...pk)).toFixed(1) + "dB");
+  add("הקלדה v1, 10 שניות רצופות", await render(10, (c, cue) => { typingScript(9.5).forEach(([t, k, h]) => { TYPING.v1.down(c, cue, t + 0.1, k); TYPING.v1.up(c, cue, t + 0.1 + h, k); }); }));
+  add("הקלדה v2, 10 שניות רצופות", await render(10, (c, cue) => { TYPING.v2.lastDown = -9; TYPING.v2.recent = []; typingScript(9.5).forEach(([t, k, h]) => { TYPING.v2.down(c, cue, t + 0.1, k); TYPING.v2.up(c, cue, t + 0.1 + h, k); }); }));
+  add("נכון v1", await renderShort((c, cue) => CH1.right(c, cue, 0.05)));
+  CH2.last = {}; CH2.lastAny = -9;
+  add("נכון v2 (ראשון)", await renderShort((c, cue) => { CH2.last = {}; CH2.lastAny = -9; CH2.right(c, cue, 0.05); }));
+  add("נכון v2 (חוזר בתוך 20 ש')", await renderShort((c, cue) => { CH2.last = { right: 0.01 - 5 }; CH2.lastAny = -9; CH2.right(c, cue, 0.05); }), "‎-3dB בכוונה");
+  add("סוף סעיף v1", await renderShort((c, cue) => CH1.end(c, cue, 0.05)));
+  add("ספרייה v1, 12 שניות", await render(12, (c, cue, noise) => { const s = c.createBufferSource(); s.buffer = libraryV1Buffer(c); s.connect(noise); s.start(); }), "כולל דף בשנייה 7.3");
+  add("ספרייה v2, אוויר בלבד, 20 שניות", await render(20, (c, cue, noise) => { const r = makeRoom(c, noise, {}); r.events = false; r.out.gain.value = 1; r.tick(20); }));
+  add("דף מתהפך v2 (50ms סביב השיא, בלי האוויר)", await renderShort((c, cue, noise) => { const g = gainN(c, 1); g.connect(noise); SYNTH.page(c, g, 0.05); }));
+  add("ספר על שולחן v2 (בלי האוויר)", await renderShort((c, cue, noise) => { const g = gainN(c, 1); g.connect(noise); SYNTH.book(c, g, 0.05); }));
+  return rows;
+}
+$("#runMeasure").addEventListener("click", async () => {
+  const tb = $("#mtable tbody"); tb.innerHTML = "<tr><td colspan=4>מודד…</td></tr>";
+  const rows = await measureAll();
+  tb.innerHTML = "";
+  rows.forEach((r) => { const tr = document.createElement("tr"); tr.innerHTML = "<td></td><td class=n></td><td class=n></td><td></td>"; tr.children[0].textContent = r.name; tr.children[1].textContent = r.peak; tr.children[2].textContent = r.rms; tr.children[3].textContent = r.note; tb.appendChild(tr); });
+});
+window.__measureAll = measureAll;
+drawTimeline();
+</script>
+</body>
+</html>
