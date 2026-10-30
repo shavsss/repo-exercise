@@ -864,7 +864,7 @@
 - ◇ Ball, The Fundamentals of Aircraft Combat Survivability Analysis and Design, 2nd ed. (2003), עמ' PDF 797–801: 6.4: מסקנות
 
 ### M8.9 קיבולת של כוח אווירי: קצב גיחות, בסיסים ושרידותם, תדלוק אווירי
-*Air campaign capacity: sortie generation, basing and air-base attack, tankers* · **ליבה** · 0 עמ' מאמרים · כ-1 שיעורים · דרישות: M8.8, M9.2
+*Air campaign capacity: sortie generation, basing and air-base resilience, tankers* · **ליבה** · 0 עמ' מאמרים · כ-1 שיעורים · דרישות: M8.8, M9.2
 
 
 ## חלק 9: כטב"מים, רחפנים והגנה מפניהם
@@ -926,7 +926,7 @@
 - ★ Introduction to UAV Systems, עמ' PDF 397–436: פרקים 17–19
 
 ### M9.9 רחפנים חד-כיווניים, FPV וכלכלת מלחמת הרחפנים: מחלקת Shahed, FPV, סיב אופטי, ייצור המוני ויחס עלויות בהגנה
-*One-way attack drones, FPV and drone-war economics (Shahed-class, FPV, fiber-optic, mass production, C-UAS cost-exchange)* · **ליבה** · 0 עמ' מאמרים · כ-1 שיעורים · דרישות: M9.7, M9.5, M8.8
+*One-way drones, FPV and drone-war economics (Shahed-class, FPV, fiber-optic, mass production, C-UAS cost-exchange)* · **ליבה** · 0 עמ' מאמרים · כ-1 שיעורים · דרישות: M9.7, M9.5, M8.8
 
 
 ## חלק 10: מערכות ימיות

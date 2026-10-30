@@ -6302,7 +6302,7 @@
    "part": "P8",
    "tier": "core",
    "title": "קיבולת של כוח אווירי: קצב גיחות, בסיסים ושרידותם, תדלוק אווירי",
-   "en": "Air campaign capacity: sortie generation, basing and air-base attack, tankers",
+   "en": "Air campaign capacity: sortie generation, basing and air-base resilience, tankers",
    "prereq": [
     "M8.8",
     "M9.2"
@@ -6314,7 +6314,7 @@
    "part": "P9",
    "tier": "core",
    "title": "רחפנים חד-כיווניים, FPV וכלכלת מלחמת הרחפנים: מחלקת Shahed, FPV, סיב אופטי, ייצור המוני ויחס עלויות בהגנה",
-   "en": "One-way attack drones, FPV and drone-war economics (Shahed-class, FPV, fiber-optic, mass production, C-UAS cost-exchange)",
+   "en": "One-way drones, FPV and drone-war economics (Shahed-class, FPV, fiber-optic, mass production, C-UAS cost-exchange)",
    "prereq": [
     "M9.7",
     "M9.5",

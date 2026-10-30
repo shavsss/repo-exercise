@@ -4,7 +4,8 @@
 "from": [
 "docs/research/round3/final/F_curriculum.json",
 "docs/research/round4/reading/R_mil.json",
-"tools/curriculum/sources_p2h.json"
+"tools/curriculum/sources_p2h.json",
+"tools/curriculum/wording_mil.json"
 ],
 "fields": {
 "items": "lesson items added by the topic-based curriculum: n name, imp K/S/C, k new|deepen|delta|mention, teach what to add, primary (for delta) the module that teaches it in full, to 1 = test-out candidate",
@@ -1685,10 +1686,10 @@
 "items": [
 {
 "id": "M:C4.4.2",
-"n": "AI/ML for detection/targeting (e.g., Maven-class) and limits",
+"n": "AI/ML for detection, classification and decision support (e.g., Maven-class): error rates and limits",
 "imp": "K",
 "k": "deepen",
-"teach": "AI for targeting (Maven, Lavender-class debates), error rates, base-rate effects."
+"teach": "AI decision-support systems for target recognition (Maven; the Lavender-class debate): measured error rates, base-rate effects and the consequences of false positives."
 },
 {
 "id": "M:C4.4.4",
@@ -2034,7 +2035,7 @@
 "n": "Laser dazzlers and anti-sensor lasers vs EO/IR (ISR drones, satellites), laser warning",
 "imp": "S",
 "k": "deepen",
-"teach": "dazzle/damage thresholds, ranges"
+"teach": "laser exposure thresholds for eyes and sensors (dazzle and damage, laser-safety physics), ranges"
 },
 {
 "id": "M:EW.10.3",
@@ -2195,10 +2196,10 @@
 },
 {
 "id": "M:EW.1.2",
-"n": "EW in the kill chain (find/fix/track/target/engage/assess)",
+"n": "EW across the sensor-to-effect chain (the F2T2EA stages)",
 "imp": "K",
 "k": "deepen",
-"teach": "mapping of each EW/EP function onto F2T2EA steps, which step EW breaks cheapest"
+"teach": "mapping of each EW/EP function onto the F2T2EA stages, and a cost-effectiveness comparison of EW functions stage by stage"
 },
 {
 "id": "M:EW.1.4",
@@ -2213,7 +2214,7 @@
 "n": "EW-cyber convergence (CEMA)",
 "imp": "S",
 "k": "new",
-"teach": "CEMA convergence, RF-delivered cyber effects"
+"teach": "CEMA convergence: the shared RF and network interface between EW and cyber"
 },
 {
 "id": "M:EW.12.2",
@@ -2884,15 +2885,15 @@
 "n": "Comms intercept and direction finding of tactical radios/phones",
 "imp": "K",
 "k": "deepen",
-"teach": "cellular/handset intercept and geolocation (IMSI catchers, Ukraine phone-based targeting)",
+"teach": "cellular/handset signal interception and geolocation physics (IMSI catchers; the Ukraine record of handset emissions as a detectable signature)",
 "to": 1
 },
 {
 "id": "M:COM.4.4",
-"n": "Cellular networks and civilian infrastructure use/exploitation",
+"n": "Cellular networks and civilian infrastructure in military use: dependence and signatures",
 "imp": "S",
 "k": "deepen",
-"teach": "military use/exploitation of civil cellular (targeting of phones, using networks for drones)",
+"teach": "military dependence on civil cellular networks (handset emissions as a detectable signature, cellular links as drone datalinks)",
 "to": 1
 }
 ],
@@ -2966,7 +2967,7 @@
 "sub": 1
 },
 {
-"t": "Cellular networks and civilian infrastructure use/exploitation",
+"t": "Cellular networks and civilian infrastructure in military use: dependence and signatures",
 "imp": "S",
 "sub": 1
 }
@@ -3499,7 +3500,7 @@
 "items": [
 {
 "id": "M:PNT.2.4",
-"n": "Effects on weapons: JDAM/GMLRS-class degradation under jamming",
+"n": "GNSS dependence of guided systems: JDAM/GMLRS-class accuracy degradation under interference",
 "imp": "K",
 "k": "deepen",
 "teach": "JDAM/GMLRS/Excalibur degradation under jamming in Ukraine, CEP growth with INS-only, M-code/SAASM"
@@ -4079,7 +4080,7 @@
 "why": "registry test-out candidate (descriptive/doctrine/history; operational background)"
 },
 {
-"t": "Bombing problem, unguided vs guided delivery errors",
+"t": "Delivery-accuracy problem: unguided vs guided error budgets",
 "imp": "S",
 "sub": 1
 },
@@ -4140,7 +4141,7 @@
 "n": "Launcher survivability and the Scud-hunt problem",
 "imp": "K",
 "k": "deepen",
-"teach": "Scud-hunt: TEL dwell/hide times, sensor revisit, sensor-to-shooter latency → P(kill before relocation); 1991 Gulf War evidence."
+"teach": "Scud-hunt: TEL dwell/hide times, sensor revisit, sensor-to-decision latency → probability of locating the launcher before it relocates (a search-theory race); 1991 Gulf War evidence."
 },
 {
 "id": "M:ACQ.5.2",
@@ -4158,10 +4159,10 @@
 },
 {
 "id": "M:ACQ.6.2",
-"n": "Deterrence theory and escalation dynamics with long-range strike",
+"n": "Deterrence theory and escalation dynamics of long-range precision systems",
 "imp": "S",
 "k": "new",
-"teach": "Deterrence theory, escalation dynamics with long-range conventional strike."
+"teach": "Deterrence theory, escalation dynamics of long-range conventional precision systems."
 },
 {
 "id": "M:ADV.3.1",
@@ -4288,14 +4289,14 @@
 },
 {
 "id": "M:MSL.12.1",
-"n": "Salvo sizing against defended targets",
+"n": "Salvo equation: saturation of a defended point (defense-design view)",
 "imp": "K",
 "k": "deepen",
-"teach": "Attacker-side salvo sizing vs defended target (salvo equation, leakers needed = n_attack - capacity), Hughes salvo model link to naval panel."
+"teach": "Salvo-equation analysis of a defended point (Hughes salvo model: leakers = salvo size − defensive capacity) as the saturation input to defense design; link to the naval panel."
 },
 {
 "id": "P6b:ADD.3",
-"n": "Low-cost long-range strike weapons (Shahed/Geran-class, cheap cruise missiles): cost-driven design and kinematics",
+"n": "Low-cost long-range one-way systems (Shahed/Geran-class, cheap cruise missiles): cost-driven design and kinematics",
 "imp": "K",
 "k": "delta",
 "primary": "mil:M9.9"
@@ -4535,10 +4536,10 @@
 },
 {
 "id": "M:AMD.5.5",
-"n": "Saturation raids and attacker salvo optimization",
+"n": "Saturation raids: the defense-capacity model (raid size vs fire channels)",
 "imp": "K",
 "k": "deepen",
-"teach": "Attacker salvo optimization vs fire channels, simultaneous-engagement limits."
+"teach": "Raid size and timing vs fire channels: the simultaneous-engagement limits of the defense (saturation threshold)."
 },
 {
 "id": "M:AMD.6.4",
@@ -4848,7 +4849,7 @@
 "n": "Weapon-target assignment",
 "imp": "S",
 "k": "deepen",
-"teach": "Formal weapon-target assignment (static WTA as nonlinear integer program, greedy/marginal-return heuristic, dynamic WTA in AMD battle management) is not stated as such."
+"teach": "Formal interceptor-threat assignment, the OR 'weapon-target assignment' problem (static WTA as nonlinear integer program, greedy/marginal-return heuristic, dynamic WTA in AMD battle management) is not stated as such."
 },
 {
 "id": "M:OR.12.1",
@@ -4869,7 +4870,7 @@
 "n": "Modeling C2 delay and decision latency",
 "imp": "S",
 "k": "deepen",
-"teach": "C2 latency in kill-chain models partially via AMD timeline; no general model."
+"teach": "C2 latency in sensor-to-effect chain models partially via AMD timeline; no general model."
 },
 {
 "id": "M:CRAFT.4.2",
@@ -4883,7 +4884,7 @@
 "n": "Attacker-defender cost models (who wins the marginal dollar)",
 "imp": "K",
 "k": "delta",
-"teach": "Cost-exchange done right: attacker cost per target vs defender cost per protected value, marginal-dollar rule, value-of-asset denominator, Iron Dome/Iron Beam arithmetic.",
+"teach": "Cost-exchange done right: threat cost per raid element vs defender cost per protected value, marginal-dollar rule, value-of-asset denominator, Iron Dome/Iron Beam arithmetic.",
 "primary": "mil:M3.13"
 },
 {
@@ -4896,17 +4897,17 @@
 },
 {
 "id": "P7+.2",
-"n": "Kill-chain time-sensitive targeting model (F2T2EA durations, dwell vs exposure time, probability chain)",
+"n": "Time-critical sensor-to-effect chain model (F2T2EA stage durations, dwell vs exposure time, series probability chain)",
 "imp": "K",
 "k": "delta",
 "primary": "mil:M7.9"
 },
 {
 "id": "M:CRAFT.2.2",
-"n": "Interception rate and kill claim analysis (denominators, definitions)",
+"n": "Interception-rate claim analysis (denominators, definitions)",
 "imp": "K",
 "k": "delta",
-"teach": "Interception-rate claims: denominators (engaged vs launched vs threatening), definitions of kill, partial intercepts.",
+"teach": "Interception-rate claims: denominators (engaged vs launched vs threatening), definitions of a successful intercept, partial intercepts.",
 "primary": "mil:M7.1"
 }
 ],
@@ -5202,7 +5203,7 @@
 "n": "Datalink latency and message timeliness budgets",
 "imp": "K",
 "k": "deepen",
-"teach": "end-to-end latency budget sensor->C2->shooter; track staleness vs target speed"
+"teach": "end-to-end latency budget sensor->C2->effector; track staleness vs target speed"
 },
 {
 "id": "M:COM.4.1",
@@ -5237,19 +5238,19 @@
 "n": "Engage-on-remote / launch-on-remote",
 "imp": "K",
 "k": "new",
-"teach": "Engage/launch-on-remote, CEC composite tracking, sensor-shooter decoupling, latency and track quality requirements."
+"teach": "Engage/launch-on-remote, CEC composite tracking, sensor-effector decoupling, latency and track quality requirements."
 },
 {
 "id": "M:C4.1.1",
-"n": "F2T2EA kill chain and find/fix/finish",
+"n": "The F2T2EA sensor-to-effect chain as a series-reliability model",
 "imp": "S",
 "k": "new",
-"teach": "F2T2EA definitions; find/fix/finish; kill chain as series reliability product (cross-ref B15 ch.9).",
+"teach": "F2T2EA stage definitions; the chain as a series-reliability product of stage probabilities and latencies (cross-ref B15 ch.9).",
 "to": 1
 },
 {
 "id": "M:C4.1.2",
-"n": "Kill-chain timing: time-critical targets, dwell vs latency",
+"n": "Sensor-to-effect chain timing: time-critical tracks, dwell time vs end-to-end latency",
 "imp": "K",
 "k": "new",
 "teach": "Time-critical targets: dwell vs latency model, P(target still there)."
@@ -5259,14 +5260,14 @@
 "n": "Sensor-to-shooter latency budgets end-to-end",
 "imp": "K",
 "k": "new",
-"teach": "End-to-end sensor-to-shooter latency budget (detection, processing, decision, communication, flight)."
+"teach": "End-to-end sensor-to-effector latency budget (detection, processing, decision, communication, flight)."
 },
 {
 "id": "M:C4.1.4",
-"n": "Kill webs and mosaic warfare concepts",
+"n": "Networked ('mosaic', 'kill web') architecture concepts: composability claims and evidence",
 "imp": "S",
 "k": "deepen",
-"teach": "Kill webs/mosaic concepts and critique."
+"teach": "Mosaic ('kill web') network-architecture concepts and their critique."
 },
 {
 "id": "M:C4.2.1",
@@ -5328,10 +5329,10 @@
 },
 {
 "id": "M:C4.3.5",
-"n": "Dynamic targeting and time-sensitive targeting",
+"n": "Time-sensitive decision processes: latency and timeline analysis",
 "imp": "K",
 "k": "new",
-"teach": "Dynamic/time-sensitive targeting process and timelines."
+"teach": "The time-sensitive decision process as a timeline model (stage durations, queueing, decision latency)."
 }
 ],
 "testout": [
@@ -5368,7 +5369,7 @@
 "sub": 1
 },
 {
-"t": "F2T2EA kill chain and find/fix/finish",
+"t": "The F2T2EA sensor-to-effect chain as a series-reliability model",
 "imp": "S",
 "sub": 1
 },
@@ -5392,8 +5393,8 @@
 "y": 2020,
 "u": "https://csbaonline.org/research/publications/mosaic-warfare-exploiting-artificial-intelligence-and-autonomous-systems-to-implement-decision-centric-operations",
 "core": true,
-"why": "The intellectual source of 'kill webs' and decision-centric warfare behind JADC2; know it to critique it.",
-"focus": "Ch.1-3: the argument against monolithic kill chains, the composability idea, and the wargame evidence offered (judge its strength).",
+"why": "The intellectual source of the mosaic network-architecture concept behind JADC2; read it to evaluate its claims.",
+"focus": "Ch.1-3: the argument against monolithic sensor-to-effect chains, the composability idea, and the wargame evidence offered (judge its strength).",
 "h": 2.5,
 "kind": "thinktank",
 "st": "blocked"
@@ -5457,7 +5458,7 @@
 "h": 2.0,
 "kind": "thinktank",
 "st": "ok",
-"topic": "Kill webs and distributed sensor-to-effector architectures (NIFC-CA case)",
+"topic": "Distributed sensor-to-effector network architectures (NIFC-CA case)",
 "p2h": 1
 },
 {
@@ -6260,10 +6261,10 @@
 },
 {
 "id": "M:SUR.1.2",
-"n": "Kill chain from threat's view (search-detect-track-engage-hit-kill)",
+"n": "The survivability chain seen from the threat side (Ball: search, detect, track, launch, intercept, hit)",
 "imp": "K",
 "k": "deepen",
-"teach": "Link B16 1.1 chain to the new module; teach the threat kill chain as product of conditional probabilities and where each countermeasure acts"
+"teach": "Link B16 1.1 chain to the new module; teach the threat engagement sequence as a product of conditional probabilities and where each survivability feature lowers it"
 },
 {
 "id": "ADD:SUR.2",
@@ -6320,7 +6321,7 @@
 "items": [
 {
 "id": "M:SUR.5.2",
-"n": "Air base attack and resilience (runway cratering, shelters, dispersal)",
+"n": "Air base resilience: runway damage and repair, hardened shelters, dispersal",
 "imp": "K",
 "k": "new",
 "teach": "Runway cratering and repair time, hardened shelters, dispersal (ACE), missile threat to bases (PLARF), sortie degradation models"
@@ -6348,8 +6349,8 @@
 "y": 1999,
 "u": "https://www.rand.org/pubs/monograph_reports/MR1028.html",
 "core": true,
-"why": "The classic quantitative model of how many missiles close an airbase (submunitions vs parked aircraft, runway cuts).",
-"focus": "The attack model (CEP, submunition patterns, aircraft on ramps) and the results tables; then ask how Ukraine 2022-25 airbase strikes compare.",
+"why": "The classic quantitative air-base vulnerability model (runway cuts and parked-aircraft exposure vs missile accuracy and submunition patterns), read as an input to base-resilience design.",
+"focus": "The vulnerability model (CEP, submunition patterns, aircraft on ramps) and the results tables; then compare with the 2022-25 Ukraine air-base record and the resilience measures it argues for.",
 "h": 2.0,
 "kind": "thinktank",
 "st": "ok"
@@ -7124,10 +7125,10 @@
 },
 {
 "id": "M:UAS.4.2",
-"n": "Defeat: jamming, spoofing, guns, missiles, lasers, interceptor drones, nets",
+"n": "C-UAS effectors and their physics: jamming, spoofing, guns, missiles, lasers, interceptor drones, nets",
 "imp": "K",
 "k": "deepen",
-"teach": "Physics and numbers per defeat: laser power/dwell (tens of kW, seconds), HPM range, gun Pk vs small targets (airburst), interceptor drones; Layered defense design"
+"teach": "Physics and numbers per C-UAS effector: laser power/dwell (tens of kW, seconds), HPM range, gun Pk vs small targets (airburst), interceptor drones; Layered defense design"
 },
 {
 "id": "M:AMD.4.4",
@@ -7378,21 +7379,21 @@
 "n": "Attritable vs exquisite: cost per effect",
 "imp": "K",
 "k": "deepen",
-"teach": "Cost-per-effect formalism: platform cost x loss rate + munition cost per target killed; Mass vs quality (link Lanchester square law), attritable CCA concepts, Ukraine data"
+"teach": "Cost-per-effect formalism: platform cost x loss rate + expendable cost per achieved effect; Mass vs quality (link Lanchester square law), attritable CCA concepts, Ukraine data"
 },
 {
 "id": "M:UAS.3.1",
-"n": "Loitering munition design and kill chain",
+"n": "Loitering munition design: system trades and the sensor-to-effect timeline",
 "imp": "K",
 "k": "deepen",
-"teach": "Design trade: warhead mass vs range vs loiter time vs seeker vs datalink; Kill chain timing and effectiveness data (Harop, Lancet, Switchblade 600)"
+"teach": "Design trade: payload mass vs range vs loiter time vs seeker vs datalink; timeline and published performance data (Harop, Lancet, Switchblade 600)"
 },
 {
 "id": "M:UAS.3.3",
-"n": "FPV drones: kill rates, supply, operator training, EW cycle",
+"n": "FPV drones: measured hit rates, supply, operator training, EW cycle",
 "imp": "K",
 "k": "new",
-"teach": "FPV kill chain, hit-rate estimates, production volumes, operator training pipeline; EW <-> counter-EW cycle (frequency agility, relays, fiber-optic, terminal autonomy)"
+"teach": "FPV system timeline, published hit-rate estimates, production volumes, operator training pipeline; EW <-> counter-EW cycle (frequency agility, relays, fiber-optic, terminal autonomy)"
 },
 {
 "id": "M:UAS.3.4",
@@ -7445,7 +7446,7 @@
 },
 {
 "id": "M:UAS.3.2",
-"n": "Shahed-class one-way attack drones: cost, range, raid sizes",
+"n": "Shahed-class one-way drones: cost, range, raid sizes and the interception record",
 "imp": "K",
 "k": "new",
 "teach": "Shahed-136/Geran-2 design (piston engine, ~40-50 kg warhead, ~1,500-2,500 km, unit cost tens of $k), navigation (GNSS+CRPA), production; Raid size, saturation and interception statistics (Ukraine 2022-26, Israel April 2024); Cost exchange vs interceptors and guns"
@@ -7474,7 +7475,7 @@
 "y": 2024,
 "u": "https://rusi.org/explore-our-research/publications/occasional-papers/mass-precision-strike-designing-uav-complexes-land-forces",
 "core": true,
-"why": "Turns Ukraine experience into force-design numbers: drones per target, hit rates, EW attrition, the mix of recon, strike and FPV.",
+"why": "Turns the Ukraine record into force-design data: drones expended per effect, hit rates, EW attrition, and the mix of reconnaissance and one-way systems.",
 "focus": "The numbers on sortie success and EW losses, and the recommended UAV complex structure.",
 "h": 1.5,
 "kind": "thinktank",
@@ -7626,10 +7627,10 @@
 "items": [
 {
 "id": "M:UAS.5.1",
-"n": "USVs (Black Sea attack drones) and their defense",
+"n": "USVs (the Black Sea one-way USVs) and ship defense against them",
 "imp": "K",
 "k": "new",
-"teach": "Attack USVs (Magura, Sea Baby) vs Black Sea Fleet: design, guidance, detection difficulty (low freeboard/RCS), defense by guns/helicopters, cost exchange"
+"teach": "One-way USVs (Magura, Sea Baby), the Black Sea case: design, guidance, detection difficulty (low freeboard/RCS), defense by guns/helicopters, cost exchange"
 },
 {
 "id": "M:SUR.8.1",
@@ -7643,7 +7644,7 @@
 "n": "Ship signatures and EMCON at sea",
 "imp": "S",
 "k": "deepen",
-"teach": "Integrated ship signature management; EMCON tactics vs passive ESM/OTH targeting"
+"teach": "Integrated ship signature management; EMCON vs passive ESM and OTH detection"
 },
 {
 "id": "M:NAV.4.1",
@@ -7654,10 +7655,10 @@
 },
 {
 "id": "M:NAV.4.4",
-"n": "Anti-ship ballistic missiles and long-range kill chains",
+"n": "Anti-ship ballistic missiles and long-range maritime sensor-to-effect chains",
 "imp": "K",
 "k": "deepen",
-"teach": "ASBM specifics (DF-21D/DF-26 terminal seeker, MaRV), OTH targeting chain (space ISR, OTH radar, SIGINT) and its disruption"
+"teach": "ASBM specifics (DF-21D/DF-26 terminal seeker, MaRV), OTH ocean-surveillance chain (space ISR, OTH radar, SIGINT) and its resilience to EW and deception"
 },
 {
 "id": "M:NAV.6.1",
@@ -7675,17 +7676,17 @@
 },
 {
 "id": "ADD:NAV.2",
-"n": "Over-the-horizon maritime targeting kill chain (find-fix-track-target at sea)",
+"n": "Over-the-horizon ocean surveillance and tracking chain (sensors, latency, track quality at sea)",
 "imp": "K",
 "k": "deepen",
-"teach": "End-to-end chain with latencies; counter-targeting"
+"teach": "End-to-end chain with latencies; signature control and deception against it (counter-targeting)"
 },
 {
 "id": "M:AMD.4.2",
 "n": "CIWS and gun-based defense; programmable ammunition",
 "imp": "S",
 "k": "deepen",
-"teach": "Gun engagement math: dispersion, rounds per kill, programmable airburst (AHEAD) vs drones."
+"teach": "CIWS fire-control math: dispersion, rounds per intercept, programmable airburst (AHEAD) vs drones."
 },
 {
 "id": "M:CRAFT.4.3",
@@ -7779,10 +7780,10 @@
 "items": [
 {
 "id": "M:C4.3.1",
-"n": "Joint targeting cycle and target development",
+"n": "The joint targeting cycle as a process model (phases, inputs, decision points, legal review)",
 "imp": "S",
 "k": "deepen",
-"teach": "Joint targeting cycle phases.",
+"teach": "Phases of the joint targeting cycle as a process-engineering model, with legal review and collateral damage estimation as constraints.",
 "to": 1
 },
 {
@@ -7911,7 +7912,7 @@
 "why": "registry test-out candidate (descriptive/doctrine/history; operational background)"
 },
 {
-"t": "Joint targeting cycle and target development",
+"t": "The joint targeting cycle as a process model (phases, inputs, decision points, legal review)",
 "imp": "S",
 "sub": 1
 },
@@ -7949,7 +7950,7 @@
 "h": 2.0,
 "kind": "doctrine",
 "st": "ok",
-"topic": "Joint targeting cycle, target development and collateral damage estimation methodology",
+"topic": "The joint targeting cycle as a process model, and collateral damage estimation methodology",
 "p2h": 1
 },
 {
@@ -7985,7 +7986,7 @@
 "h": 4.0,
 "kind": "standard",
 "st": "ok",
-"topic": "Blast loads, fragment velocity and penetration (engineering design data)",
+"topic": "Blast loads, fragment velocity and penetration (protective-structure design data)",
 "p2h": 1
 }
 ]
@@ -8012,12 +8013,12 @@
 "y": 2020,
 "u": "https://doi.org/10.2514/4.105913",
 "core": true,
-"why": "The NPS textbook of the effectiveness methodology (delivery accuracy, CEP, lethal area, damage functions) behind M11.4, at a quantitative level the library's sources do not reach.",
-"focus": "The chapters on delivery accuracy and CEP, target vulnerability and lethal area, and the single-weapon and multiple-weapon effectiveness calculations.",
+"why": "The NPS textbook of effectiveness methodology as applied probability (delivery accuracy, CEP, lethal-area and damage-function models) behind M11.4, at a quantitative level the library's sources do not reach.",
+"focus": "The chapters on delivery accuracy and CEP, target vulnerability and lethal area, and the single-shot and multiple-shot probability calculations (coverage problems).",
 "h": 5.0,
 "kind": "textbook",
 "st": "doi",
-"topic": "Effectiveness methods: Pk from CEP, lethal area, expected damage",
+"topic": "Effectiveness methodology as applied probability: Pk from CEP, lethal-area and coverage models",
 "p2h": 1,
 "pay": 1
 }
@@ -8035,10 +8036,10 @@
 },
 {
 "id": "M:SUR.7.1",
-"n": "Armored vehicle survivability onion (don't be seen... don't be killed)",
+"n": "Armored vehicle survivability onion (not seen, not acquired, not hit, not penetrated, crew survives)",
 "imp": "K",
 "k": "deepen",
-"teach": "Explicit layered \"onion\" (not seen / not acquired / not hit / not penetrated / not killed) mapped to Ball's susceptibility x vulnerability; Top-attack and drone threat to armor, cages, APS performance",
+"teach": "Explicit layered \"onion\" (not seen / not acquired / not hit / not penetrated / crew survives) mapped to Ball's susceptibility x vulnerability; Top-attack and drone threat to armor, cages, APS performance",
 "to": 1
 },
 {
@@ -8050,15 +8051,15 @@
 },
 {
 "id": "M:SUR.7.3",
-"n": "Crew survivability vs vehicle kill (mobility/firepower/catastrophic kills)",
+"n": "Crew survivability vs vehicle loss categories (mobility, firepower, catastrophic: M/F/K)",
 "imp": "S",
 "k": "new",
-"teach": "M/F/K-kill definitions for AFVs, crew survivability (ammunition compartmentalization, blow-out panels), turret-toss data"
+"teach": "M/F/K loss-category definitions for AFVs, crew survivability (ammunition compartmentalization, blow-out panels), turret-toss data"
 }
 ],
 "testout": [
 {
-"t": "Armored vehicle survivability onion (don't be seen... don't be killed)",
+"t": "Armored vehicle survivability onion (not seen, not acquired, not hit, not penetrated, crew survives)",
 "imp": "K",
 "sub": 1
 }
@@ -8585,7 +8586,7 @@
 "n": "Integrated air defense system architecture and its seams",
 "imp": "K",
 "k": "deepen",
-"teach": "IADS seams: sensor-shooter networks, C2 nodes, radar horizon gaps, mobility; analytical decomposition"
+"teach": "IADS architecture as a system: sensor-effector networks, C2 nodes, radar-horizon coverage limits, mobility; analytical decomposition"
 },
 {
 "id": "M:EW.8.4",
@@ -8603,7 +8604,7 @@
 },
 {
 "id": "M:ADV.1.3",
-"n": "Reconnaissance-strike/fire complexes",
+"n": "Reconnaissance-strike complexes (the Soviet doctrinal concept): structure and timelines",
 "imp": "K",
 "k": "deepen",
 "teach": "Concept spread across D5 and partly in adv M12.2; Ogarkov origin and 2022 Lancet/Orlan practice missing."
@@ -8746,7 +8747,7 @@
 "u": "https://www.rand.org/pubs/reports/R3000.html",
 "core": true,
 "why": "The Bekaa Valley SEAD as seen by Soviet analysts: drones as decoys and ELINT, integrated SEAD; the classic SEAD case.",
-"focus": "The account of the SAM-suppression sequence and the Soviet lessons drawn.",
+"focus": "The historical account of the 1982 SEAD campaign and the Soviet lessons drawn.",
 "h": 1.5,
 "kind": "classic",
 "st": "ok"
@@ -8774,7 +8775,7 @@
 "u": "https://www.cna.org/analyses/2021/08/russian-military-strategy-core-tenets-and-operational-concepts",
 "core": true,
 "why": "The standard open synthesis of Russian military thought from Russian-language sources; frames the air-defense and EW systems of M12.1 inside the concept they serve.",
-"focus": "The chapters on the strategic operation for destruction of critically important targets and on aerospace defense.",
+"focus": "The chapters on the doctrinal concept of the strategic operation (SODCIT) and on aerospace defense.",
 "h": 3.0,
 "kind": "thinktank",
 "st": "ok",
@@ -9080,7 +9081,7 @@
 "u": "https://archive.org/details/The_Russian_Way_of_War_Force_Structure_Tactics_and_Moderniza",
 "core": true,
 "why": "The most detailed open description of Russian ground-force organization, equipment and doctrine by the Army's foreign-military analysts; the reference for M12.2 beyond the ATP.",
-"focus": "The chapters on force structure, fires and air defense; read for the system parameters (organization, ranges, sensor-to-shooter links). Official copy on the FMSO bookshelf (APAN); the archive.org copy is v1.2 (2017).",
+"focus": "The chapters on force structure, fires and air defense; read for the system parameters (organization, ranges, sensor-to-effector links). Official copy on the FMSO bookshelf (APAN); the archive.org copy is v1.2 (2017).",
 "h": 4.0,
 "kind": "gov",
 "st": "ok",
@@ -9093,10 +9094,10 @@
 "items": [
 {
 "id": "M:C4.1.5",
-"n": "Kill-chain disruption as strategy (system destruction warfare)",
+"n": "PLA 'system destruction warfare' doctrine: a network-centric theory of victory and its analysis",
 "imp": "K",
 "k": "deepen",
-"teach": "Both sources are in advanced-tier modules; operational modelling of kill-chain disruption missing."
+"teach": "Both sources are in advanced-tier modules; analytical modelling of the doctrine (network resilience vs node loss) missing."
 },
 {
 "id": "M:ADV.2.1",
@@ -9107,10 +9108,10 @@
 },
 {
 "id": "M:ADV.2.2",
-"n": "PLARF missile forces and A2/AD kill chain",
+"n": "PLARF missile forces and the A2/AD surveillance network",
 "imp": "K",
 "k": "deepen",
-"teach": "PLARF inventory (DF-21D/26/17), A2/AD kill chain vs carriers (OTH radar, Yaogan) missing."
+"teach": "PLARF inventory (DF-21D/26/17), the A2/AD ocean-surveillance architecture against carrier groups (OTH radar, Yaogan) and its timelines missing."
 },
 {
 "id": "M:ADV.2.3",
@@ -9217,8 +9218,8 @@
 "y": 2015,
 "u": "https://www.rand.org/pubs/research_reports/RR392.html",
 "core": true,
-"why": "Ten transparent quantitative scorecards (airbase attack, air superiority, ASUW, counterspace...) with models and assumptions shown; a template for net assessment.",
-"focus": "Scorecard 1 (Chinese attacks on air bases) and 2 (air superiority) in full, with their models; skim the others' conclusions.",
+"why": "Ten transparent quantitative scorecards (air-base vulnerability, air superiority, ASUW, counterspace...) with models and assumptions shown; a template for net assessment.",
+"focus": "Scorecard 1 (the missile threat to US air bases) and 2 (air superiority) in full, with their models; skim the others' conclusions.",
 "h": 4.0,
 "kind": "thinktank",
 "st": "ok"
@@ -9232,7 +9233,7 @@
 "u": "https://www.rand.org/pubs/research_reports/RR1708.html",
 "core": true,
 "why": "How the PLA itself thinks about war as system-vs-system destruction; necessary to read PLA writing and the D6 doctrine correctly.",
-"focus": "Ch.2-3: the concepts and the target systems (C2, ISR, logistics).",
+"focus": "Ch.2-3: the doctrinal concepts and the systems they focus on (C2, ISR, logistics).",
 "h": 2.0,
 "kind": "thinktank",
 "st": "ok"
@@ -9866,7 +9867,7 @@
 "u": "https://news.viasat.com/blog/corporate/ka-sat-network-cyber-attack-overview",
 "core": false,
 "why": "The 24 Feb 2022 attack on Ukrainian SATCOM terminals: counterspace done through the ground segment; a key data point for M13.23.",
-"focus": "Whole note: attack vector (management network, modem wiper) and effect.",
+"focus": "Whole note: the incident's technical path (management network, modem wiper) and its effect.",
 "h": 0.3,
 "kind": "lessons",
 "st": "ok"
@@ -9898,7 +9899,7 @@
 },
 {
 "id": "M:C4.6.2",
-"n": "Space-based ISR for tactical targeting (latency, tasking)",
+"n": "Space-based ISR for time-critical tactical use (latency, tasking, revisit)",
 "imp": "K",
 "k": "deepen",
 "teach": "Tasking-to-delivery latency, commercial constellations, revisit for mobile targets."
@@ -10317,7 +10318,7 @@
 "n": "Counterspace taxonomy: kinetic, co-orbital, directed energy, EW, cyber",
 "imp": "K",
 "k": "deepen",
-"teach": "Taxonomy: direct-ascent kinetic, co-orbital (RPO), directed energy (dazzle/blind), RF jamming/spoofing, cyber, ground-segment attack; Physics of each: DA-ASAT reach from BMD-class interceptors (link M6.8/M7.6), co-orbital delta-v and timelines (link SMAD 8.5 relative motion), laser dazzle geometry; State capabilities and tests (China SC-19/DN-series, Russia Nudol/Kosmos-2543 and nesting dolls, US "
+"teach": "Taxonomy: direct-ascent kinetic, co-orbital (RPO), directed energy (dazzle/blind), RF jamming/spoofing, cyber, ground-segment threats; Physics of each: DA-ASAT reach from BMD-class interceptors (link M6.8/M7.6), co-orbital delta-v and timelines (link SMAD 8.5 relative motion), laser dazzle geometry; State capabilities and tests (China SC-19/DN-series, Russia Nudol/Kosmos-2543 and nesting dolls, US "
 },
 {
 "id": "M:SP.7.2",
@@ -10338,7 +10339,7 @@
 "n": "Commercial-military integration and dependency",
 "imp": "K",
 "k": "deepen",
-"teach": "Military dependence on commercial SATCOM/imagery (Starlink, Maxar) and legal status of commercial satellites as targets; Contracting models (data buys, Starshield), shutter control, wartime reliability"
+"teach": "Military dependence on commercial SATCOM/imagery (Starlink, Maxar) and legal status of commercial satellites in armed conflict (IHL); Contracting models (data buys, Starshield), shutter control, wartime reliability"
 },
 {
 "id": "ADD:SP.1",
@@ -10530,7 +10531,7 @@
 "n": "Decision theory, expected value, value of information",
 "imp": "K",
 "k": "deepen",
-"teach": "Military side: value of information of ISR (EVPI of a scouting asset), decision trees for targeting are not taught."
+"teach": "Military side: value of information of ISR (EVPI of a scouting asset), decision trees for allocation decisions are not taught."
 }
 ],
 "testout": [
@@ -10706,7 +10707,7 @@
 "n": "Cost-effectiveness analysis (Przemieniecki)",
 "imp": "K",
 "k": "deepen",
-"teach": "Military cost-effectiveness analysis (cost per target killed, equal-cost comparisons, Hitch-McKean) only partial; MG naming \"Przemieniecki\" is wrong (B15 has none)."
+"teach": "Military cost-effectiveness analysis (cost per unit of effectiveness, equal-cost comparisons, Hitch-McKean) only partial; MG naming \"Przemieniecki\" is wrong (B15 has none)."
 },
 {
 "id": "M:ACQ.1.1",
@@ -10964,7 +10965,7 @@
 "n": "Contested logistics under long-range fires",
 "imp": "K",
 "k": "new",
-"teach": "Contested logistics under long-range fires: depots in range of HIMARS/precision strike, dispersion cost, ports/airfields as targets."
+"teach": "Contested logistics under long-range precision fires: depot exposure within HIMARS-class range, the cost of dispersion, the vulnerability of ports and airfields."
 },
 {
 "id": "M:LOG.3.4",
