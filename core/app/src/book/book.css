@@ -782,3 +782,9 @@ button.bk-chip { cursor: pointer; padding: 6px 14px; }
 .bk-root.is-phone .bk-runhead { font-size: 11.5px; }
 .bk-root.is-phone .bk-bar-mid .bk-of { display: none; }
 .bk-facing .pad-resize { display: none; }
+.bk-consult-host .consult-card::before { display: none; }
+.bk-consult-host .consult-card { border-inline-start: 0; font-size: 0.95rem; }
+.bk-consult-host .consult-caret { display: none; }
+/* while the cover opens, only the closed book (the left half) lies on the desk */
+.bk-root.is-opening .bk-cover-edge { inset: -5px 50% -6px -9px; border-radius: 6px 2px 2px 6px; }
+.bk-root.is-opening .bk-stage::after { display: none; }

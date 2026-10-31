@@ -724,7 +724,8 @@ export function BookView(props: BookProps) {
 
   // the opening of the book: once a lesson in this visit, from its first spread, unless motion is reduced
   const [opening, setOpening] = useState(false);
-  useEffect(() => {
+  // before the first paint, so the open book never shows for a frame before its cover
+  useLayoutEffect(() => {
     if (!n || !g || opened.has(posKey)) return;
     opened.add(posKey);
     if (placeLoaded.current !== posKey || reduce || r.turn === "none" || r.turn === "fade" || curRef.current !== 0 || !spread || slot) return;
