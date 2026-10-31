@@ -36,6 +36,20 @@ export const FIELDS: Record<string, string> = {
   doctrine: "דוקטרינה",
   other: "תחום נוסף",
 };
+/** Neutral engineering codes the tutor may use for @field (the same fields, worded as engineering). */
+export const FIELD_ALIAS: Record<string, string> = {
+  rfsensing: "radar",
+  spectrum: "ew",
+  optics: "eoir",
+  control: "guidance",
+  airspace: "amd",
+  networks: "c2",
+  aero: "air",
+  autonomy: "uas",
+  marine: "naval",
+  vehicles: "armor",
+  methods: "doctrine",
+};
 
 /** Leading "@key: value" lines of a fenced block, then the Markdown body. */
 export function parseHeaders(src: string) {
@@ -74,7 +88,7 @@ export function Frame({ kind, label, icon, title, meta, children }: { kind: stri
 export function Callout({ kind, headers, children }: { kind: string; headers: Record<string, string>; children: ReactNode }) {
   const def = CALLOUTS[kind];
   let label = def.label;
-  if (kind === "domain") label = `חיבור: ${FIELDS[headers.field?.toLowerCase() ?? ""] ?? headers.field ?? FIELDS.other}`;
+  if (kind === "domain") label = `חיבור: ${FIELDS[FIELD_ALIAS[headers.field?.toLowerCase() ?? ""] ?? headers.field?.toLowerCase() ?? ""] ?? headers.field ?? FIELDS.other}`;
   const meta = [headers.who, headers.when, headers.company].filter(Boolean).join(" · ");
   return (
     <Frame
