@@ -57,9 +57,15 @@ export function Bench({ lab }: { lab: "gilua" | "lanchester" }) {
     let text = "";
     let error = "";
     let plan: unknown = null;
+    // keep the exact request of the first call (the system intro and the turn), to read it afterwards
+    const sent: { role: string; content: unknown }[][] = [];
+    const wrap = <F extends (...a: never[]) => unknown>(f: F) => ((msgs: { role: string; content: unknown }[], ...rest: unknown[]) => { sent.push(msgs); return (f as unknown as (...a: unknown[]) => unknown)(msgs, ...rest); }) as unknown as F;
+    const base = rt.sample!;
+    const sample = Object.assign(wrap(base), { ...base, json: wrap(base.json.bind(base)) }) as typeof base;
+    const rtx: Runtime = { ...rt, sample };
     try {
       const res = await composeLesson({
-        rt, history: [], effort: "high", module: m, lessons: prog!.lessons, lessonIdx: c.lesson, memory, planOnly,
+        rt: rtx, history: [], effort: "high", module: m, lessons: prog!.lessons, lessonIdx: c.lesson, memory, planOnly,
         signal: new AbortController().signal,
         text: `כתוב את שיעור ${c.lesson + 1} במודול ${c.module}: ${spec.title}.`,
         cb: { onText: (t) => { text = t; setCount(words(t)); }, onActivity: () => {}, onStatus: () => {} },
@@ -73,6 +79,9 @@ export function Bench({ lab }: { lab: "gilua" | "lanchester" }) {
     setLessonRules("current");
     const p = plan as { parts?: unknown[]; split?: unknown } | null;
     const result = { lab, rules, step: planOnly ? "plan" : "lesson", module: c.module, lesson: c.lesson, words: words(text), minutes: Math.round((Date.now() - t0) / 600) / 100, error, parts: p?.parts?.length ?? 0, split: p?.split ?? null, plan: planOnly ? JSON.stringify(plan).slice(0, 60000) : "", text, at: Date.now() };
+    const first = sent[0] ?? [];
+    const asText = (c: unknown) => (typeof c === "string" ? c : JSON.stringify(c));
+    if (planOnly) await rt.store!.saveBench(`${Date.now()}-${c.module}-request-${rules}`, { lab, rules, messages: first.length, system: asText(first[0]?.content ?? "").slice(0, 110000), turn: asText(first[first.length - 1]?.content ?? "").slice(0, 110000), at: Date.now() }).catch(() => say("שמירת הבקשה נכשלה"));
     await rt.store!.saveBench(`${Date.now()}-${c.module}-${result.step}-${rules}`, result).catch(() => say("שמירת התוצאה נכשלה"));
     say(`${step}: ${error ? `שגיאה (${error.slice(0, 80)})` : "עבר"}${planOnly ? ` · ${result.parts} חלקים${result.split ? " · עם פיצול" : ""}` : ` · ${result.words} מילים`} · ${result.minutes} דקות`);
     return { ok: !error };
