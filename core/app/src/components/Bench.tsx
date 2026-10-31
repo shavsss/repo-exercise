@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { connect, type Runtime } from "../runtime";
 import { loadIndex } from "../library";
-import { composeLesson, setLessonFeatures, setLessonRules, type LessonFeature } from "../tutor";
+import { composeLesson, planModule, setLessonFeatures, setLessonRules, type LessonFeature } from "../tutor";
 
 // The test bench (#bench): opened once, it runs a fixed sequence of tests with the real tutor by
 // itself and keeps every result in profile/bench/<id> (rules, step, words, minutes, refusal or empty
@@ -71,7 +71,21 @@ export function Bench({ lab }: { lab: "gilua" | "lanchester" }) {
     const index = await loadIndex();
     const memory = (await rt.store!.getMemory()) ?? "";
     const m = index.modules.find((x) => x.id === c.module);
-    const prog = await rt.store!.loadModule(c.module);
+    let prog = await rt.store!.loadModule(c.module);
+    // a module the learner has not opened: plan it here (kept in the bench only, never saved to his modules)
+    if (m && !prog?.lessons?.length) {
+      setLessonRules(rules);
+      setLessonFeatures(features);
+      const t1 = Date.now();
+      try {
+        const mp = await planModule({ rt, module: m, memory, effort: "high", signal: new AbortController().signal, cb: { onText: () => {}, onActivity: () => {}, onStatus: () => {} } });
+        prog = { ...(prog ?? {}), lessons: mp.lessons } as typeof prog;
+        await rt.store!.saveBench(`${Date.now()}-${c.module}-moduleplan-${rules}`, { lab, rules, features, step: "moduleplan", module: c.module, lessons: mp.lessons, uncovered: mp.uncovered, minutes: Math.round((Date.now() - t1) / 600) / 100, at: Date.now() });
+      } catch (e) {
+        const err = e as { code?: string; message?: string };
+        await rt.store!.saveBench(`${Date.now()}-${c.module}-moduleplan-${rules}`, { lab, rules, features, step: "moduleplan", module: c.module, error: `${err.code ?? "error"}: ${err.message ?? ""}`, minutes: Math.round((Date.now() - t1) / 600) / 100, at: Date.now() });
+      }
+    }
     const spec = prog?.lessons?.[c.lesson];
     if (!m || !spec) {
       say(`${c.module}: אין תוכנית שיעורים שמורה למודול`);
