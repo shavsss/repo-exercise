@@ -61,8 +61,17 @@ export function compileExpr(expr: string) {
 let promptCache = "";
 export function systemPrompt() {
   if (!promptCache) promptCache = SYSTEM_PROMPT.replace("${LIBRARY}", libraryList(getIndex()?.docs ?? {}));
-  return promptCache;
+  return liteSystem(promptCache);
 }
+
+/** Under the new lesson rules the system prompt drops the word floor and the closing-sentence-per-section rule. */
+function liteSystem(p: string) {
+  if (LESSON_RULES !== "lite") return p;
+  return p
+    .replace(/\n22\. רף אורך:[^\n]*/, "\n22. אורך: אין יעד מילים ואין רף. האורך נובע מיחידות העומק של השיעור (כללי התכנון). שיעור ארוך מתקצר רק בריפוד; שום נושא שהוקצה לא נשמט, ושום רמה לא יורדת.")
+    .replace(" כל סעיף (##) נסגר במשפט שאומר מה הבנו בו ואיזו שאלה הוא משאיר לסעיף הבא.", " בלי סיכומי ביניים: בלוק keep הוא הסיכום היחיד, וסעיף נגמר בטענה האחרונה שלו.");
+}
+
 
 export interface TurnCallbacks {
   onText: (text: string) => void;
@@ -353,7 +362,7 @@ ${peek.join("\n\n")}
 MODULE PLANNING STEP. Split this module into lessons. Do not teach yet.
 1. Every section heading listed above (of main sources and supplements) must be covered by exactly one lesson, fully, and every page of every main source and supplement must fall inside the "sources" pages of some lesson (the app checks both). If no headings were detected for a source, read its pages and split it by the topics you find there. Supplements are folded into the lesson whose topic they extend (only what they add beyond the main source). Exercise pages are not lesson material: do not put them in "sources"; the lessons draw exercises from them.
 2. Where two sources treat the same topic, put them in the same lesson and say in "focus" how they are combined, so nothing is taught twice and nothing is left out.
-3. Each lesson must hold enough for the depth bar (about 4000 Hebrew words for a core or advanced module, with the seven level-2.5 sections for its central results) without being cramped: as a rule of thumb 10–20 dense book pages per lesson. Keep the order of the main source unless the logic of prerequisites says otherwise.
+3. Each lesson must hold enough for the depth bar (${LESSON_RULES === "lite" ? "one or two central results at full depth, with no word target" : "about 4000 Hebrew words for a core or advanced module"}, with the seven level-2.5 sections for its central results) without being cramped: as a rule of thumb 10–20 dense book pages per lesson. Keep the order of the main source unless the logic of prerequisites says otherwise.
 4. Reply with ONLY a JSON array: [{"title": "Hebrew lesson title", "covers": ["exact section headings as listed"], "sources": [{"doc": "E03", "pages": [96, 110]}], "focus": "what the lesson teaches, which examples and figures, how sources are combined"}]${feedback}`;
   let lessons: LessonSpec[] = [];
   let uncovered: string[] = [];
@@ -421,7 +430,8 @@ If the learner has answered: grade every answer (correct / partly / wrong), expl
 
 export interface PartPlan {
   title: string;
-  parts: { title: string; covers: string; blocks?: string[]; l25?: string[]; words?: number }[];
+  parts: { title: string; covers: string; blocks?: string[]; l25?: string[]; words?: number; units?: number }[];
+  results?: string[];
   figures?: string[];
   facts?: string[];
   next?: string;
@@ -445,12 +455,16 @@ function partInstructions(plan: PartPlan, k: number, writtenSoFar: string) {
   const last = k === n - 1;
   const prior = writtenSoFar.length > 60000 ? `[…start omitted…]\n${writtenSoFar.slice(-60000)}` : writtenSoFar;
   return `WRITING STEP: part ${k + 1} of ${n} of this lesson. Write as the authors (see <voice>).
-Lesson plan (yours, from the planning step):
-${JSON.stringify(plan, null, 1)}
+${LESSON_RULES === "lite" ? `Lesson plan (yours, from the planning step): «${plan.title}», ${n} parts:
+${plan.parts.map((x, i) => `${i + 1}. ${x.title}${i === k ? "  ← THIS PART" : ""}`).join("\n")}
+${plan.results?.length ? `Central results: ${plan.results.join("; ")}\n` : ""}Figures of the lesson: ${(plan.figures ?? []).join(", ") || "none"}.
+Computed facts: ${(plan.facts ?? []).map((f) => `\n- ${f}`).join("")}
+${last && plan.next ? `Next lesson: ${plan.next}` : ""}` : `Lesson plan (yours, from the planning step):
+${JSON.stringify(plan, null, 1)}`}
 
 ${prior ? `The lesson text written so far (parts 1–${k}), which the learner is reading right now:\n<<<\n${prior}\n>>>\n` : ""}
 Now write ONLY part ${k + 1}: «${p.title}». It covers: ${p.covers}.${p.blocks?.length ? ` Blocks for this part: ${p.blocks.join(", ")}.` : ""}${p.l25?.length ? ` Level-2.5 sections for this part: ${p.l25.join(", ")}.` : ""}
-Length: about ${p.words ?? 1100} Hebrew words of real teaching (more is fine, less is not).
+${LESSON_RULES === "lite" ? `Depth units in this part: about ${p.units ?? "as planned"} (orientation only, never a target).` : `Length: about ${p.words ?? 1100} Hebrew words of real teaching (more is fine, less is not).`}
 ${k === 0 ? "Start the lesson (no preamble about the plan or the parts)." : "Continue seamlessly from the last sentence above: no greeting, no recap, no repeated heading; open with the explicit transition from where the text stopped. Continue the equation numbering from the last \\tag above."}
 Do not write material that belongs to later parts. Teach step by step: every step of a full derivation on its own line with its reason in words; a skeleton derivation names the starting point, the key step and where each assumption enters. Put [[DOC:PAGE]] at the paragraph where the source page changes. Show each original figure assigned to this part with a figure block, then explain it. State computed values exactly as in "facts" (run compute for anything new).
 Tag every level-2.5 section this part covers ([[2.5: …]]) at the start of its paragraph.
@@ -466,12 +480,19 @@ export function setLessonRules(r: "current" | "lite") {
   LESSON_RULES = r;
 }
 const LITE_PLAN = `
-CANDIDATE RULES FOR THIS LESSON (they replace the length rule and the 4200-word floor above). Depth is never cut: what does not fit moves to the next lesson.
-- Build the lesson around one or two central results of the assigned material, each at full depth: what it says, why it is true (derivation or skeleton with every assumption where it enters), where it stops working, its computed number, the decisive case, the critique, and its connections to other fields.
-- Size: a lesson that teaches its one or two central results at full depth usually takes 3500 to 5000 Hebrew words, in 2 to 4 parts of 900 to 1600 words. If the assigned material holds more central results than fit at full depth, do not compress anything: plan the first one or two now and add to the JSON "split": {"title": "Hebrew title of the next lesson", "covers": "the central results and pages that move to it"}. Split, never delete.
-- The words go to depth (derivations, numbers, limits, critique, connections), not to restating: no retelling the source page by page, no recap paragraphs, no "as we saw", no announcing what comes next. Every paragraph adds something new.
-- Keep the JSON short: "covers" one or two lines per part.`;
-const LITE_PART = `Candidate rules: write this part at full depth within its planned words (at most 15% more); if something does not fit, it belongs to the split lesson, never to a thinner treatment here. Every paragraph adds something new: no recap, no restating the source, no announcing. Depth through the derivation, the numbers and the critique.`;
+LESSON RULES (they replace the length rule and the 4200-word floor above). There is no word target and no floor: the length follows from the depth units. Nothing of the assigned material is dropped and nothing is taught below its level.
+- Central results: one or two per lesson. A central result is a formula, theorem, method or model the course returns to as a working tool, or that carries an engineering decision. Each one gets all seven level-2.5 sections, woven into the argument where it raises them, plus its authority layer: a hidden assumption with a real break (in the step where it enters), a quantitative reading (a bound or error growth, with a computed number), the decisive real case with computed numbers against published ones, a professional error and the check that catches it, a second structure ("what it really rests on"), and a strong mapping to another field.
+- Anchor claims: an idea of the pages that fixes a law, a count, a computation or an impossibility but is not central (in an overview chapter, most results of later topics are anchors). It gets the claim, one assumption or structure, and one number or case, in one or two paragraphs. The theory of a later topic enters only in its one-step form; the rest is a fieldmap line.
+- A depth unit is one idea with its own level-2.5 exam question. Plan the number of units per part. About 30 counted words per unit, for orientation only: one central result usually takes 80 to 120 units, two take 130 to 180.
+- Split only when the plan holds more than two central results, or more than 180 units: cut at a boundary between central results, each result moving with its units, anchors and case study, and add "split": {"title": "Hebrew title of the continuation lesson", "covers": "the results and pages that move to it"}. Never split because a lesson is long, and never thin or drop anything to avoid a split: every extra lesson lengthens the course.
+- Every idea of the assigned pages goes to a unit, to a background half-sentence, or to the split lesson. Before replying, check the list of section headings above: each one is in some part's "covers" or in "split".
+- Name the central results R1 (and R2) in "results". Only they get the seven [[2.5: …]] tags (each tag once per result), a ## section of their own, formula blocks and domain blocks. An anchor claim takes at most about six lines, with no formula block, no 2.5 tag and no domain block.
+- Connections: per central result one fieldmap block and one or two domain blocks, each saying exactly what maps and where the analogy breaks. A connection is made once, in one place, never repeated in prose or in another block.
+- The casestudy is a real system or event with computed numbers set against a published figure; any calculation the story promises is carried out in the lesson.
+- The keep block has at most six lines, each "name: …" and standing on its own.
+- Keep the JSON small: "results": ["R1: one line", "R2: one line"], and per part only "title", "covers" (one or two lines: headings, pages, results, the case study), "units" (a number), "blocks", "l25". No free-text reasoning and no unit list in the JSON.`;
+const LITE_PART = `LESSON RULES FOR THIS PART. Write every depth unit this part covers, each at its minimum: a definition = its context, the general definition block, how it is built, then a separate example; a result = the formula, every symbol, where it holds; an assumption = the assumption, the step where it enters, the case where it broke, what fell and what stayed; a quantitative reading = the bound or growth law, its reason in a line or two, one computed number; a limit = the condition, what happens beyond it, what replaces it; a trade-off = the gain, the cost, how much; a mapping = what maps to what, what carries over, where it breaks; a critique = the claim, the check, the correct statement; a case = the system, its numbers, against the model. Never write a unit below its minimum, and never above it without a new unit.
+Density: about 20 to 45 counted words per unit. Delete padding and only padding: talk about the lesson itself ("in the next part", "we begin with"); interim summaries (the keep block is the only summary); retelling the book ("the author shows"); historical color that teaches no idea; a second example that adds no unit; a story already told; the same mapping or number said twice; filler openers ("it is important to note"); lists of applications without a mechanism or a number; the theory of a later topic; rhetorical questions answered at once; empty adjectives ("deep", "elegant", "surprising").`;
 
 export async function composeLesson(opts: Base & { text: string; resume?: { plan: PartPlan; partsDone: number; text: string }; planOnly?: boolean }) {
   const { rt, history, text, effort, module: m, lessons, lessonIdx, memory, notes, allNotes, signal, cb, resume } = opts;

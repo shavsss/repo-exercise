@@ -105,7 +105,7 @@ export function Bench({ lab }: { lab: "gilua" | "lanchester" }) {
     }
     setLessonRules("current");
     const p = plan as { parts?: unknown[]; split?: unknown } | null;
-    const result = { lab, rules, step: planOnly ? "plan" : "lesson", module: c.module, lesson: c.lesson, words: words(text), minutes: Math.round((Date.now() - t0) / 600) / 100, error, parts: p?.parts?.length ?? 0, split: p?.split ?? null, plan: planOnly ? JSON.stringify(plan).slice(0, 60000) : "", text, at: Date.now() };
+    const result = { lab, rules, step: planOnly ? "plan" : "lesson", module: c.module, lesson: c.lesson, words: words(text), minutes: Math.round((Date.now() - t0) / 600) / 100, error, parts: p?.parts?.length ?? 0, split: p?.split ?? null, plan: JSON.stringify(plan).slice(0, 60000), text, at: Date.now() };
     const first = sent[0] ?? [];
     const asText = (c: unknown) => (typeof c === "string" ? c : JSON.stringify(c));
     if (planOnly) await rt.store!.saveBench(`${Date.now()}-${c.module}-request-${rules}`, { lab, rules, messages: first.length, system: asText(first[0]?.content ?? "").slice(0, 110000), turn: asText(first[first.length - 1]?.content ?? "").slice(0, 110000), at: Date.now() }).catch(() => say("שמירת הבקשה נכשלה"));

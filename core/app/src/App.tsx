@@ -347,8 +347,17 @@ export function App() {
       const lessons = p?.lessons;
       const cur = lessons?.[idx];
       if (!lessons || !cur || !split.title) return;
-      if (lessons[idx + 1]?.title === split.title) return;
+      if (lessons.some((l) => l.title === split.title)) return;
       const spec: LessonSpec = { title: split.title, covers: cur.covers, sources: cur.sources, focus: `המשך של «${cur.title}»: ${split.covers ?? ""}` };
+      // per-lesson data elsewhere (consults, scratch, level-3 answers, calibration) is keyed by the
+      // lesson index: when a later lesson has already been opened, the continuation goes to the end of
+      // the module instead, so nothing that exists moves under a different lesson
+      const later = Object.keys(p.convs ?? {}).some((k) => Number(k) > idx) || (p.done ?? []).some((k) => k > idx);
+      if (later) {
+        await saveModule(m.id, { lessons: [...lessons, spec] });
+        notify({ level: "info", text: `החומר שלא נכנס לשיעור בעומק מלא עבר לשיעור המשך בסוף המודול: «${split.title}».` });
+        return;
+      }
       const shift = (k: number) => (k > idx ? k + 1 : k);
       const convs = Object.fromEntries(Object.entries(p.convs ?? {}).map(([k, v]) => [String(shift(Number(k))), v]));
       const done = (p.done ?? []).map(shift);
