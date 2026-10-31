@@ -10,6 +10,7 @@ import { installSounds } from "./sound";
 import "./summaries/summaries.css";
 import "./labtabs/labtabs.css";
 import "./look5.css";
+import "./polish2.css";
 import { App } from "./App";
 import { SummaryApp } from "./summaries/SummaryApp";
 import { copyWithMath } from "./summaries/rich";

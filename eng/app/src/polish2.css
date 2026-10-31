@@ -1,0 +1,120 @@
+/* Second polish pass (after look5.css): the narrow top bar, a reading view that breathes on a
+   phone, margin notes that do not push the text around, a quieter focus ring on text fields, the
+   product stepper on a phone, and the vertical rail labels. Same file in both labs. */
+
+/* ---------- text fields: a thin ring in the lab's accent, still clearly visible ---------- */
+input:not([type="checkbox"], [type="radio"], [type="range"], [type="button"], [type="submit"]):focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[contenteditable="true"]:focus-visible,
+.lt-input:focus,
+.lt-picker select:focus,
+.flow-field input:focus-visible {
+  outline: 1.5px solid color-mix(in srgb, var(--accent) 55%, transparent);
+  outline-offset: 1px;
+}
+.b3-field textarea:focus,
+.b3-range input:focus {
+  outline: 1.5px solid color-mix(in srgb, var(--b3) 40%, transparent);
+  outline-offset: 0;
+}
+/* fields that show focus their own way keep it (the composer's frame, the note's card, the editors) */
+.composer-input:focus-visible,
+.mn-edit:focus-visible,
+.memory-edit:focus-visible,
+.pad-page-title:focus-visible,
+.sm-rich:focus-visible,
+.sm-caption:focus-visible,
+.sm-box-title:focus-visible { outline: none; }
+.composer:focus-within { border-color: color-mix(in srgb, var(--accent) 50%, var(--line-strong)); box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 22%, transparent); }
+
+/* ---------- vertical rails: Hebrew reads from the top down (the line turned counter-clockwise) ---------- */
+.consult-rail span,
+.toc-rail span,
+.explain-rail span,
+.left-rail-btn span {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
+/* ---------- top bar, narrow: the lesson's title in the room there is, or nothing ---------- */
+/* the counter's word goes on a phone ("3/3" is enough beside the title) */
+@media (max-width: 520px) {
+  .counter-word { display: none; }
+}
+@media (max-width: 700px) {
+  .crumbs { container: crumbs / inline-size; }
+}
+/* a sliver of a title ("ק…") says nothing: below a few letters the crumb steps aside for the counter */
+@container crumbs (max-width: 60px) {
+  .crumbs li { visibility: hidden; }
+}
+
+/* ---------- phone: the composer is one quiet line until it is used ---------- */
+@media (max-width: 700px) {
+  .composer-wrap { padding: 6px 10px calc(6px + env(safe-area-inset-bottom, 0px)); }
+  /* the extra chips (not the main action) come with the composer when it is in use */
+  .composer-wrap:not(:focus-within) .quick-row .btn:not(.primary) { display: none; }
+  .composer-wrap:not(:focus-within) .quick-row:not(:has(.btn.primary)) { display: none; }
+  .quick-row { margin-bottom: 6px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+  .quick-row .btn { flex: none; }
+  /* folded: empty, not in use, no picture waiting. While the tutor writes, the stop button stays at the line's end */
+  .composer:not(:focus-within):has(.composer-input:placeholder-shown):not(:has(.composer-images)) { display: flex; align-items: center; }
+  .composer:not(:focus-within):has(.composer-input:placeholder-shown):not(:has(.composer-images)) .composer-tools { padding: 0 4px; flex: none; }
+  .composer:not(:focus-within):has(.composer-input:placeholder-shown):not(:has(.composer-images)) .composer-tools > :not(.is-stop) { display: none; }
+  .composer:not(:focus-within):has(.composer-input:placeholder-shown):not(:has(.composer-images)) .composer-tools:not(:has(.is-stop)) { display: none; }
+  .composer:not(:focus-within):has(.composer-input:placeholder-shown):not(:has(.composer-images)) .composer-input {
+    flex: 1;
+    min-width: 0;
+    min-height: 38px;
+    height: 38px !important;
+    padding-block: 9px;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .composer-input::placeholder { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  /* the reading bar: one slim row */
+  .dock-inner { padding-block: 3px; }
+  .mini-toc-btn, .dock-focus, .dock-noise, .dock-pad, .dock-notebook { height: 28px; }
+}
+
+/* ---------- margin notes ---------- */
+/* the column moves aside only as far as the notes need (--mn-shift, MarginNotes.tsx), with no motion */
+.col.mn-shift {
+  max-width: calc(var(--measure) + 32px + var(--mn-shift, 256px));
+  padding-inline-end: calc(16px + var(--mn-shift, 256px));
+  transition: none;
+}
+.col.mn-shift + .reading-dock .dock-inner {
+  max-width: calc(var(--measure) + 32px + var(--mn-shift, 256px));
+  padding-inline-end: calc(16px + var(--mn-shift, 256px));
+}
+/* a phone: an open note is a sheet at the bottom, over the reading bar and composer, not over the text */
+@media (max-width: 700px) {
+  /* the numbered tab sits in the page's own gutter, at the screen's edge: the first note does not narrow the text */
+  .col:has(.mn-layer.is-narrow) { padding-inline-end: 14px; }
+  .mn-layer.is-narrow { inset-inline-end: -14px; }
+  .is-narrow .mn-note:not(.is-open) .mn-face { width: 14px; }
+  .mn-layer.is-narrow:has(.mn-note.is-open) { z-index: 60; }
+  .is-narrow .mn-note.is-open { position: fixed; inset: auto 0 0 0; top: auto !important; z-index: 60; width: auto; }
+  .is-narrow .mn-note.is-open .mn-face {
+    width: 100%;
+    max-height: min(48vh, 360px);
+    overflow-y: auto;
+    border-radius: 10px 10px 0 0;
+    border-inline: 0;
+    border-bottom: 0;
+    padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px));
+    box-shadow: 0 -8px 28px rgb(0 0 0 / 22%);
+    transform: none;
+  }
+}
+
+/* ---------- product of the month: the seven steps in two rows on a phone, all in view ---------- */
+@media (max-width: 600px) {
+  .prod-rail { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; overflow: visible; padding-bottom: 0; }
+  .prod-rail li { min-width: 0; }
+  .prod-step { flex-direction: column; gap: 3px; padding: 6px 2px; font-size: 0.75rem; height: 100%; }
+  .prod-step-n { width: 20px; height: 20px; font-size: 0.68rem; }
+  .prod-step-l { overflow-wrap: anywhere; }
+}

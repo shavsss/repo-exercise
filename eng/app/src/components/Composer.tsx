@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, type MouseEvent } from "react";
 import type { Effort, Mode } from "../types";
 import { MODE_LABEL } from "../runtime";
 import { Icon } from "./Icon";
@@ -64,6 +64,14 @@ export function Composer({
     if (taRef.current) taRef.current.style.height = "";
   };
 
+  // on a phone the extra chips show only while the composer is in use (polish2.css): a press on one
+  // keeps the focus in the text, so the row does not fold away under the finger
+  const keepFocus = (e: MouseEvent) => {
+    if (document.activeElement === taRef.current) e.preventDefault();
+  };
+  const [focused, setFocused] = useState(false);
+  const short = !focused && !text && (mode === "clarify" || mode === "free") && window.matchMedia?.("(max-width: 700px)").matches;
+
   const addFiles = (files: FileList | File[]) => {
     for (const f of Array.from(files)) {
       if (!canAttach || !f.type.startsWith("image/")) continue;
@@ -76,12 +84,12 @@ export function Composer({
       {quick.length > 0 && !busy && !text && (
         <div className="quick-row">
           {shown.map((q) => (
-            <button key={q.label} className={`btn small ${q.primary ? "primary" : ""}`} disabled={disabled} onClick={() => onSend(q.text, [])} data-mode={q.mode}>
+            <button key={q.label} className={`btn small ${q.primary ? "primary" : ""}`} disabled={disabled} onMouseDown={keepFocus} onClick={() => onSend(q.text, [])} data-mode={q.mode}>
               {q.label}
             </button>
           ))}
           {shown.length < quick.length && (
-            <button className="btn small ghost quick-more" onClick={() => setAllQuick(true)}>
+            <button className="btn small ghost quick-more" onMouseDown={keepFocus} onClick={() => setAllQuick(true)}>
               עוד {quick.length - shown.length}…
             </button>
           )}
@@ -103,7 +111,9 @@ export function Composer({
           className="composer-input"
           rows={1}
           value={text}
-          placeholder={PLACEHOLDER[mode]}
+          placeholder={short ? "שאל…" : PLACEHOLDER[mode]}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
           onChange={(e) => {
             setText(e.target.value);
             e.target.style.height = "";

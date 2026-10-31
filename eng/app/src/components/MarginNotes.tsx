@@ -16,14 +16,32 @@ const OUT: NoteKind[] = ["interview", "article"];
 /** the margin a note needs beside the text: the card, the gap with its tab, and a little air */
 const NEED = NOTE_W + GAP + 10;
 
-/** Each lesson turn has its own notes layer; the column moves aside while any of them asks. */
+/** Each lesson turn has its own notes layer; the column moves aside while any of them asks,
+ *  only as far as the notes need (`by`, px, the --mn-shift of polish2.css), and the paragraph at the
+ *  top of the view stays where it was. */
 const shifting = new Map<object, HTMLElement>();
-function shiftColumn(who: object, col: HTMLElement | null) {
+function shiftColumn(who: object, col: HTMLElement | null, by = 0) {
   const was = shifting.get(who);
   if (col) shifting.set(who, col);
   else shifting.delete(who);
   const on = new Set(shifting.values());
-  for (const c of [was, col]) if (c) c.classList.toggle("mn-shift", on.has(c));
+  for (const c of [was, col]) {
+    if (!c) continue;
+    const want = on.has(c);
+    const px = want && by > 0 ? `${Math.round(by)}px` : "";
+    if (c.classList.contains("mn-shift") === want && c.style.getPropertyValue("--mn-shift") === px) continue;
+    const sc = c.closest<HTMLElement>(".scroll");
+    const top = sc?.getBoundingClientRect().top ?? 0;
+    const mark = sc ? [...c.querySelectorAll<HTMLElement>(BLOCKS)].find((p) => p.getBoundingClientRect().bottom > top) : undefined;
+    const before = mark?.getBoundingClientRect().top;
+    c.classList.toggle("mn-shift", want);
+    if (px) c.style.setProperty("--mn-shift", px);
+    else c.style.removeProperty("--mn-shift");
+    if (sc && mark && before !== undefined) {
+      const moved = mark.getBoundingClientRect().top - before;
+      if (Math.abs(moved) >= 1) sc.scrollTop += moved;
+    }
+  }
 }
 
 type Placed = { key: string; note: LessonNote; top: number; num: number; range: Range | null };
@@ -119,7 +137,8 @@ export function MarginNotes({
       .sort((a, b) => a.y - b.y || a.note.ts - b.note.ts);
     const shift = !centred && room >= NEED + 16 && found.length > 0;
     setWide(centred || shift);
-    shiftColumn(me.current, shift ? el.closest<HTMLElement>(".col") : null);
+    // just enough for the card on the side of the column, never more than the old fixed step
+    shiftColumn(me.current, shift ? el.closest<HTMLElement>(".col") : null, Math.min(256, Math.max(24, 2 * (NEED + 8) - room)));
     setPlaced(found.map((x, k) => ({ key: x.key, note: x.note, range: x.range, top: x.y, num: k + 1 })));
   }, [root, notes]);
 
