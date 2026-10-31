@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { connect, type Runtime } from "../runtime";
 import { loadIndex } from "../library";
-import { composeLesson, setLessonRules } from "../tutor";
+import { composeLesson, setLessonFeatures, setLessonRules, type LessonFeature } from "../tutor";
 
 // The test bench (#bench): opened once, it runs a fixed sequence of tests with the real tutor by
 // itself and keeps every result in profile/bench/<id> (rules, step, words, minutes, refusal or empty
@@ -54,10 +54,10 @@ export function Bench({ lab }: { lab: "gilua" | "lanchester" }) {
       }
       last = id;
       busy = true;
-      const steps = (cmd.steps as { rules: Rules; planOnly: boolean; module: string; lesson: number }[]) ?? [];
+      const steps = (cmd.steps as { rules: Rules; planOnly: boolean; module: string; lesson: number; features?: LessonFeature[] }[]) ?? [];
       setState(`מריץ בדיקה ${id}…`);
       void (async () => {
-        for (const st of steps) await one(rt, st.rules, st.planOnly, { module: st.module, lesson: st.lesson });
+        for (const st of steps) await one(rt, st.rules, st.planOnly, { module: st.module, lesson: st.lesson }, st.features ?? []);
         await rt.store!.markBenchCmd({ ...cmd, done: true, finishedAt: Date.now() });
         say(`בדיקה ${id} הסתיימה.`);
       })().finally(() => (busy = false));
@@ -66,7 +66,7 @@ export function Bench({ lab }: { lab: "gilua" | "lanchester" }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rt]);
 
-  async function one(rt: Runtime, rules: Rules, planOnly: boolean, at?: { module: string; lesson: number }) {
+  async function one(rt: Runtime, rules: Rules, planOnly: boolean, at?: { module: string; lesson: number }, features: LessonFeature[] = []) {
     const c = at ?? CASES[lab];
     const index = await loadIndex();
     const memory = (await rt.store!.getMemory()) ?? "";
@@ -80,6 +80,7 @@ export function Bench({ lab }: { lab: "gilua" | "lanchester" }) {
     const step = `${planOnly ? "תוכנית בלבד" : "שיעור מלא"} · ${rules === "lite" ? "כללים חדשים" : "כללים נוכחיים"}`;
     say(`${c.module} שיעור ${c.lesson + 1} · ${step}: מתחיל`);
     setLessonRules(rules);
+    setLessonFeatures(features);
     const t0 = Date.now();
     let text = "";
     let error = "";
@@ -104,8 +105,9 @@ export function Bench({ lab }: { lab: "gilua" | "lanchester" }) {
       error = `${err.code ?? "error"}: ${err.message ?? ""}`;
     }
     setLessonRules("current");
+    setLessonFeatures([]);
     const p = plan as { parts?: unknown[]; split?: unknown } | null;
-    const result = { lab, rules, step: planOnly ? "plan" : "lesson", module: c.module, lesson: c.lesson, words: words(text), minutes: Math.round((Date.now() - t0) / 600) / 100, error, parts: p?.parts?.length ?? 0, split: p?.split ?? null, plan: JSON.stringify(plan).slice(0, 60000), text, at: Date.now() };
+    const result = { lab, rules, features, step: planOnly ? "plan" : "lesson", module: c.module, lesson: c.lesson, words: words(text), minutes: Math.round((Date.now() - t0) / 600) / 100, error, parts: p?.parts?.length ?? 0, split: p?.split ?? null, plan: JSON.stringify(plan).slice(0, 60000), text, at: Date.now() };
     const first = sent[0] ?? [];
     const asText = (c: unknown) => (typeof c === "string" ? c : JSON.stringify(c));
     if (planOnly) await rt.store!.saveBench(`${Date.now()}-${c.module}-request-${rules}`, { lab, rules, messages: first.length, system: asText(first[0]?.content ?? "").slice(0, 110000), turn: asText(first[first.length - 1]?.content ?? "").slice(0, 110000), at: Date.now() }).catch(() => say("שמירת הבקשה נכשלה"));

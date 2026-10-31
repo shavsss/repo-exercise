@@ -6,6 +6,8 @@
 // call per part, so its length never depends on one long answer.
 import { create, all } from "mathjs";
 import { docMeta, getIndex, readPages, searchLibrary, type Module } from "./library";
+import { curriculumBlock } from "./curriculum";
+import { decideLine, decideSlot } from "./lessonGate";
 import { SYSTEM_PROMPT, libraryList } from "./prompt";
 import type { Runtime, SampleTool } from "./runtime";
 import { NOTE_KIND_LABEL, type Activity, type Effort, type LessonNote, type LessonSpec, type Mode, type NoteKind, type StoredMessage } from "./types";
@@ -173,7 +175,7 @@ function moduleBlock(m: Module) {
   return `Module ${m.id} «${m.title}» (${m.en}), tier: ${m.tier} (${TIER_TEXT[m.tier]})${m.prereq?.length ? `, after: ${m.prereq.join(", ")}` : ""}
 Sources:
 ${srcs}
-${secs ? `Section headings in these pages (DOC:PAGE title):\n${secs}` : "No section headings were detected; use the pages themselves."}${keys ? `\nAnswer keys of the books' end-of-chapter problems (check your solutions of book exercises against them): ${keys}` : ""}`;
+${secs ? `Section headings in these pages (DOC:PAGE title):\n${secs}` : "No section headings were detected; use the pages themselves."}${keys ? `\nAnswer keys of the books' end-of-chapter problems (check your solutions of book exercises against them): ${keys}` : ""}${LESSON_RULES === "lite" && FEATURES.has("curriculum") ? curriculumBlock(m) : ""}`;
 }
 
 function planBlock(lessons: LessonSpec[] | undefined, idx: number) {
@@ -523,7 +525,7 @@ ${LESSON_RULES === "lite" ? `Depth units in this part: about ${p.units ?? "as pl
 ${k === 0 ? "Start the lesson (no preamble about the plan or the parts)." : "Continue seamlessly from the last sentence above: no greeting, no recap, no repeated heading; open with the explicit transition from where the text stopped. Continue the equation numbering from the last \\tag above."}
 Do not write material that belongs to later parts. Teach step by step: every step of a derivation on its own line with its reason in words. Put [[DOC:PAGE]] at the paragraph where the source page changes. Show each original figure assigned to this part with a figure block, then explain it. State computed values exactly as in "facts" (run compute for anything new).
 Tag every level-2.5 section this part covers ([[2.5: …]]) at the start of its paragraph.
-${last ? "This is the last part: write the coverage block, the exercises, the fieldsystems block if a real connection exists, and the sentence about the next lesson." : "Do not end the lesson and do not write exercises yet."}${LESSON_RULES === "lite" ? `\n${LITE_PART}` : ""}`;
+${last ? "This is the last part: write the coverage block, the exercises, the fieldsystems block if a real connection exists, and the sentence about the next lesson." : "Do not end the lesson and do not write exercises yet."}${LESSON_RULES === "lite" ? `\n${LITE_PART}${featurePart(p)}` : ""}`;
 }
 
 /**
@@ -549,6 +551,44 @@ LESSON RULES (they replace the length rule and the 4200-word floor above). There
 const LITE_PART = `LESSON RULES FOR THIS PART. Write every depth unit this part covers, each at its minimum: a definition = its context, the general definition block, how it is built, then a separate example; a result = the formula, every symbol, where it holds; an assumption = the assumption, the step where it enters, the case where it broke, what fell and what stayed; a quantitative reading = the bound or growth law, its reason in a line or two, one computed number; a limit = the condition, what happens beyond it, what replaces it; a trade-off = the gain, the cost, how much; a mapping = what maps to what, what carries over, where it breaks; a critique = the claim, the check, the correct statement; a case = the system, its numbers, against the model. Never write a unit below its minimum, and never above it without a new unit.
 Density: about 20 to 45 counted words per unit. Delete padding and only padding: talk about the lesson itself ("in the next part", "we begin with"); interim summaries (the keep block is the only summary); retelling the book ("the author shows"); historical color that teaches no idea; a second example that adds no unit; a story already told; the same mapping or number said twice; filler openers ("it is important to note"); lists of applications without a mechanism or a number; the theory of a later topic; rhetorical questions answered at once; empty adjectives ("deep", "elegant", "surprising").`;
 
+/**
+ * Parts of the lesson rules that the bench can switch on one at a time (after the 31.10 rollback
+ * each one comes back only once the real tutor has written lessons with it in both apps).
+ */
+export type LessonFeature = "curriculum" | "level3" | "decide" | "style";
+let FEATURES = new Set<LessonFeature>();
+export function setLessonFeatures(f: LessonFeature[]) {
+  FEATURES = new Set(f);
+}
+const LEVEL3_PLAN = `
+LEVEL 3 (led work): the AI computes and runs tools, the reader holds the understanding, the decisions, the verification and the judgment. Plan, in "blocks":
+- predict (2 to 4 per lesson): before a central number, simulation or result the lesson is about to compute, where the estimate teaches.
+- verify: after every computed or AI result the lesson draws a conclusion from.
+- errorhunt (in about every second lesson, at irregular intervals): an AI output with possibly one planted error; in about a third of them there is none.
+- lab (at the end of every core or advanced lesson, in the last part): a real build-or-analysis task the AI performs and the reader leads, in a professional open-source tool.`;
+const LEVEL3_PART = `LEVEL-3 BLOCKS (only those planned for this part):
+- \`\`\`predict, headers @title, @unit, @value (the computed number, plain digits, when there is one). Body: the question and what to estimate (a value with a 90% range, or the direction of a dependence: "what happens when X doubles"), a line "---", then the computed answer and the reasoning of the estimate.
+- \`\`\`verify, headers @title, @result. Body: a Markdown list of at least three independent checks, one per line, each with what we expect to see: dimensions and units; a limiting case with a known answer; conservation or symmetry; an analytic solution or a table from the sources (with its page tag); a change of resolution or step; the prediction; a second independent solver; public real data.
+- \`\`\`errorhunt, header @title. Body: an AI output (code, numbers, a derivation or a conclusion) that may hold one planted error (units; a factor 2 or 2π; dB against linear; power against amplitude; a sign; an assumption broken in the parameter range; windowing and aliasing; off-by-one; mean of a ratio against ratio of means; a simulation that did not converge), a line "---", then the solution: where the error is (or that there is none), how to catch it, and the check that would have caught it. The planted error lives only in this block.
+- \`\`\`lab, headers @title, @tools (open-source tools, e.g. NumPy and SciPy, python-control, scikit-rf, ngspice, OpenModelica, OpenFOAM, CalculiX, FEniCS, PyTorch), @time (e.g. "60–90 דקות"), @product (optional). Body: the engineering question; the spec the reader writes (question, inputs and their source, assumptions, success measure, acceptance tests, prediction; in the gateway stage a draft spec the reader completes); what the AI does; the 5 to 15 heart lines the reader writes himself; the verification (at least two independent checks); the explanation after (3 to 6 sentences in his words); one extension for a project.
+Code or output inside these blocks goes in a ~~~ fence (e.g. ~~~python), never in a backtick fence.`;
+const DECIDE_PART = `- \`\`\`decide, headers @kind (trade / architecture / review / agents), @title. Body: the brief and what the reader submits in writing, a line "---", then the reference analysis with its numbers, what was decisive, and the common mistakes.`;
+const STYLE_PART = `__STYLE__`;
+function featurePlan(lessons: number, idx: number, modulesDone: number) {
+  if (LESSON_RULES !== "lite") return "";
+  return `${FEATURES.has("level3") ? LEVEL3_PLAN : ""}${FEATURES.has("decide") ? decideLine(decideSlot(lessons, idx, modulesDone)) : ""}`;
+}
+function featurePart(p: { blocks?: string[] }) {
+  if (LESSON_RULES !== "lite") return "";
+  const b = (p.blocks ?? []).join(" ");
+  const out: string[] = [];
+  if (FEATURES.has("level3") && /predict|verify|errorhunt|lab/.test(b)) out.push(LEVEL3_PART);
+  if (FEATURES.has("decide") && /decide/.test(b)) out.push(`LEAD-AND-DECIDE BLOCK:\n${DECIDE_PART}`);
+  if (FEATURES.has("style") && STYLE_PART !== "__STYLE__") out.push(STYLE_PART);
+  return out.length ? `\n${out.join("\n")}` : "";
+}
+
+
 export async function composeLesson(opts: Base & { text: string; resume?: { plan: PartPlan; partsDone: number; text: string }; planOnly?: boolean }) {
   const { rt, history, text, effort, module: m, lessons, lessonIdx, memory, notes, allNotes, signal, cb, resume } = opts;
   if (!rt.sample) throw { code: "not_granted", message: "sample unavailable" };
@@ -560,7 +600,7 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
   let plan = resume?.plan;
   if (!plan) {
     cb.onStatus?.("מתכנן את השיעור: קורא את המקורות ומחשב את המספרים");
-    const planTurn = `${ctx}\n\n${text}\n\n${PART_PLAN_INSTRUCTIONS}${LESSON_RULES === "lite" ? LITE_PLAN : ""}`;
+    const planTurn = `${ctx}\n\n${text}\n\n${PART_PLAN_INSTRUCTIONS}${LESSON_RULES === "lite" ? LITE_PLAN : ""}${featurePlan(lessons?.length ?? 0, lessonIdx, opts.done?.length ?? 0)}`;
     plan = await retryRefused(
       (h) =>
         rt.sample!.json<PartPlan>([...fitHistory(h, bytes(planTurn), false, { refs: hasRefs(m) }), { role: "user", content: planTurn }], {
