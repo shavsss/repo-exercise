@@ -1,0 +1,97 @@
+# Night build 2 (night of 31.10–1.11.2026): everything we planned, verified against the real tutor
+
+The learner's words tonight: "Pay real attention to all the goals we planned yesterday. After all the tests, implement to our standards, with nothing missed or reduced, exactly on the path and plan from yesterday. You have an OK for everything. Tomorrow morning I hope to wake up and really find everything ready, not like today, when you disappointed me. About the book: I expect to say 'wow'."
+
+Talk to the learner only in Hebrew. He is asleep: send no updates during the night, only the morning report. Never put a model name in commits. Never frame anything as "no" or "missing": anything important is simply added.
+
+## 0. Read first
+1. `CLAUDE.md`, `docs/BUILD_GUIDE.md`, `docs/NIGHT_PLAN.md` (last night's plan), `docs/NIGHT_LOG.md` (what happened).
+2. The goals and decisions:
+   - `docs/research/round5/decisions/` (all his choices and his own words);
+   - `docs/research/round5/expert/S2_product_track.md` and `S3_no_tradeoff.md`;
+   - `docs/research/round3/final/F_curriculum.md` (topic-based curriculum);
+   - `docs/research/round2/RULES_v3.md` and `docs/research/round5/expert/E5_pedagogy_apps.md` (lesson rules, level 3).
+
+## 1. What happened today (lessons you must apply)
+- **The v3 lesson rules from last night broke both apps.** They were published without ever being run against the real tutor:
+  - Gilua: the planning JSON grew so large that it came back empty.
+  - Lanchester: the tutor's own free text was sent back into every part, which triggers refusals.
+- **Lesson writing was rolled back** to the 30.10 version (`tutor.ts`, `prompt.ts` in both apps). Everything else from last night stayed live:
+  - look, sound, review, tabs, consult, confidence, shelf, factory, backups.
+- **Lanchester had a second cause.** Since about 30.10 claude.ai refused EVERY Lanchester request, even "write one line about waves". The bench diagnosis found the cause: the field list "(radar, electronic warfare, EO/IR, navigation, guidance and control, air defense, air platforms, UAS, naval systems, armor)" in the first line of `core/app/src/prompt.ts`. It was replaced with "(physics, signals and engineering)" (v89).
+  - Treat any similar wording in what the tutor receives as a refusal risk.
+- **The real-tutor test bench now exists in both apps** (`src/components/Bench.tsx`, route `#bench`, button "בדיקה" in the top bar):
+  - It writes test lessons with the real tutor and stores each result in `profile/bench/<id>`: words, minutes, error, split, plan or text, and for plan steps the exact request (`-request-` docs).
+  - After its first automatic run it waits for commands: `profile/bench/_cmd` = `{ "id": "<new id>", "steps": [{ "rules": "current"|"lite", "planOnly": true|false, "module": "M0.1", "lesson": 3 }] }`. Write it with ArtifactData (`set`, with `if_version` from a read). The page sets `done: true` when it finishes.
+  - The learner leaves BOTH bench tabs open tonight, so you can test as often as you need.
+  - A publish reloads the open tab. After a reload it waits for commands, so **never publish an app while its `_cmd` is not `done`**. Lanchester (v89+) has the command channel. Gilua gets it on its next publish: its tab still runs the old automatic sequence, a full "lite" lesson for M0.1 lesson 4, started about 21:41 UTC. Let that finish before you publish Gilua.
+  - Read bench docs with `out_dir` and summarize them in bash. Lesson texts are large: read them in a subagent, not in your own context.
+- **Candidate "lite" rules exist behind `setLessonRules("lite")` in `tutor.ts`.** They are:
+  - 1–2 central results at full depth;
+  - 3500–5000 words;
+  - no restating;
+  - "split, never delete" into a continuation lesson.
+  
+  The app now inserts that continuation lesson (`insertSplit` in `App.tsx`). Planning with lite already passed in Gilua: 4 parts, a split into lesson "(ב)", 1.5 minutes.
+
+## 2. The iron rule tonight
+Nothing that changes what the tutor receives goes live until the bench shows it works with the real tutor in BOTH apps. That covers `prompt.ts`, `tutor.ts`, `consultPrompt.ts`, the curriculum block and the Lanchester wording.
+- Use plan-only steps (seconds to minutes) for every change.
+- Use one full lesson per app before switching the lesson rules.
+- A refusal or an empty answer means it is not done: fix it and test again.
+- Keep `docs/NIGHT_LOG.md` current and pushed after every step, and finish with `HANDOFF_DONE`.
+
+## 3. The work, in order (all of it; nothing from yesterday's plan is dropped)
+1. **Lesson rules.** Read the bench results:
+   - the Gilua full "lite" lesson;
+   - the Lanchester plans after the fix (v89 runs its automatic sequence when the tab reloads: current plan, lite plan, then a full lesson).
+
+   Have an independent subagent judge each lesson against the standards:
+   - full depth for each central result, all seven level-2.5 sections woven into the argument;
+   - the definition before the example (rules 5א–5ד / 6א–6ד);
+   - topics, not pages;
+   - the researcher's path and the case study as core;
+   - no restating;
+   - about six think questions;
+   - the keep block;
+   - a correct split that loses no material.
+
+   Fix the rules until both pass. Then make "lite" the default in both apps: set `LESSON_RULES` and put the rules into `prompt.ts` properly. Update `docs/*_TEACHING_RULES.md` and `CLAUDE.md`.
+2. **Bring back what the rollback removed.** Do it one item at a time, each bench-verified in both apps:
+   - `curriculumBlock` (topic items, including the missing-chapter items GAP:F2.40, GAP:F2.42, GAP:HH1 and GAP:SMAD18; test-out; reading list), with the Lanchester wording from `tools/curriculum/wording_mil.json`;
+   - the level-3 blocks (predict, errorhunt, verify, lab), in compact wording;
+   - the lead-and-decide track (`decide` block; rules 58–59 / 40–41 in the docs);
+   - stronger sources for the weak domains (P2-H);
+   - Gilua refusal protection (code only).
+
+   The renderers for these blocks already exist in the code. Only the tutor's instructions were rolled back.
+3. **The book (option A).** It must make him say "wow".
+   - Use the design session's work in `docs/research/round6/book/` (session "עיצוב: השיעור כספר (אפשרות א) עם עומק"). If he made choices on its board, read them from its db. Otherwise use its recommendations.
+   - Implement the lesson as a real book in both apps. Everything adapts to the page:
+     - two pages and a spine;
+     - 3D page turns (arrows, keys, drag);
+     - typography and colors;
+     - figures;
+     - scene3d;
+     - think questions with confidence;
+     - the consult card and discussion mode;
+     - margin notes;
+     - the contents ribbon;
+     - streaming lessons;
+     - sound;
+     - phone layout: one page;
+     - reduced-motion.
+   - Test it with the local harness (`core/tools/test-check/check.mjs`): 1300 and 400 px, light and dark, every block type, and look at the screenshots.
+   - Make it the default only if it is flawless. Keep a toggle in the Aa settings.
+4. **Morning handoff.**
+   - Update the status board https://claude.ai/artifact/Cbp7n6ognmbFzrnn7LUeQ8 and keep its db.
+   - Write a short honest Hebrew morning report artifact with screenshots. It must cover:
+     - what was verified with the real tutor (with the numbers: words, minutes, passes);
+     - what is live;
+     - what is not done and why.
+   - Update the docs, push both branches (`claude/confident-heisenberg-4r8fha`, and fast-forward `claude/compassionate-meitner-dx0zxf`), and write `HANDOFF_DONE`.
+
+## 4. Rules for publishing
+- Build, typecheck, run the unit tests (`node --test` per file in `tools/test/`) and the harness. Then publish both apps, to the same URLs and with the same capabilities (CLAUDE.md).
+- Before any publish, check that the target app's bench `_cmd` is done.
+- The learner's data is never deleted or rewritten. Additive changes only.
