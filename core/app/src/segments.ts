@@ -17,7 +17,10 @@ export type Item =
     };
 
 export function toItems(messages: StoredMessage[]): Item[] {
-  return messages.map((m, i) =>
+  // an empty draft left in the middle of a conversation (a later answer followed it) shows as nothing, not as an
+  // empty interrupted turn; only what is shown changes, the stored message stays
+  const shown = messages.flatMap((m, i) => (m.role === "assistant" && m.draft && !m.text?.trim() && i < messages.length - 1 ? [] : [{ m, i }]));
+  return shown.map(({ m, i }) =>
     m.role === "user"
       ? { kind: "user", key: `u${i}`, text: m.text, mode: m.mode, images: m.images ?? 0, ts: m.ts }
       : {

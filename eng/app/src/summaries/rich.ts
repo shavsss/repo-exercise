@@ -2,6 +2,7 @@
 // splitting a block at the caret. Same file in both labs.
 import DOMPurify from "dompurify";
 import katex from "katex";
+import { fixTex } from "../texfix";
 
 /**
  * The only markup a block keeps: bold, italic, the four marks, line breaks, sub/superscript,
@@ -172,7 +173,7 @@ export function hydrateMath(root: HTMLElement) {
     const tex = s.getAttribute("data-tex") ?? "";
     if (s.dataset.done === tex && s.childNodes.length) return;
     try {
-      katex.render(tidyTex(tex) || "\\square", s, { throwOnError: false, strict: "ignore" });
+      katex.render(fixTex(tidyTex(tex)) || "\\square", s, { throwOnError: false, strict: "ignore" });
     } catch {
       s.textContent = tex;
     }

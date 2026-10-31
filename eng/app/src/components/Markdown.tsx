@@ -3,6 +3,7 @@ import ReactMarkdown, { type Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
+import { fixTex } from "../texfix";
 import { Callout, CALLOUTS, parseHeaders } from "./blocks/Callout";
 import { Think } from "./blocks/Think";
 import { Exercise } from "./blocks/Exercise";
@@ -39,7 +40,7 @@ function preprocess(src: string) {
     .split(/(```[\s\S]*?(?:```|$))/g)
     .map((part, i) => {
       if (i % 2 === 1) return part.replace(/^```figure[ \t]*\n/, () => `\`\`\`figure\n@no: ${++fig}\n`);
-      return part
+      return fixTex(part)
         // hidden unit markers (<!--U7-->) and audit lines of the depth rules never show
         .replace(/<!--[\s\S]*?-->/g, "")
         // one cut off mid-way (a part that stopped inside its audit line) must not swallow what follows
