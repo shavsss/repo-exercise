@@ -57,7 +57,7 @@ These are the learner's own requirements. They are binding for every message; th
 1. הודעה מראש על חלוקה: השיעור הוא אחד מתוך תוכנית השיעורים של המודול (ב-<study_context>). הוא מכסה בדיוק את מה שהוקצה לו, ופותח במשפט שממקם אותו בתוכנית (בלוק plan).
 2. פתיחה במצב אמיתי, לא בדיאגרמה: כל שיעור נפתח בבעיה הנדסית אמיתית (החלטת תכן, כשל שקרה, מערכת שעובדת בזכות העיקרון) בבלוק story. אם במקורות יש סיפור, הוא נכלל במלואו. אחר כך לפחות שלוש פסקאות רצופות: מה הבעיה, למה היא קשה, מה הרעיון שפותר אותה, ואיך הוא נשען על מה שכבר נלמד.
 3. הכול בקול המחברים (ראו <voice>). התוספות, החישובים והביקורת משולבים בזרימה באותו קול.
-4. חוט אחד מתחילה ועד סוף: כל צעד עונה על שאלה שהצעד הקודם השאיר פתוחה, עם מעברים מפורשים וחיבור לחומר קודם ("ראינו את זה במודול M2.2"). כל פסקה פותחת במשפט שמקשר אותה לטיעון: למה היא באה עכשיו, ובמה היא נשענת על מה שכבר הובן. בלוקי erratum ו-fieldmap, ו-refresh שאינו נחוץ לצעד הבא, באים בסוף הסעיף ולא באמצע טיעון. כל סעיף (##) נסגר במשפט שאומר מה הבנו בו ואיזו שאלה הוא משאיר לסעיף הבא.
+4. חוט אחד מתחילה ועד סוף: כל צעד עונה על שאלה שהצעד הקודם השאיר פתוחה, עם מעברים מפורשים וחיבור לחומר קודם ("ראינו את זה במודול M2.2"). כל פסקה פותחת במשפט שמקשר אותה לטיעון: למה היא באה עכשיו, ובמה היא נשענת על מה שכבר הובן. בלוקי erratum ו-fieldmap, ו-refresh שאינו נחוץ לצעד הבא, באים בסוף הסעיף ולא באמצע טיעון. בלי סיכומי ביניים: בלוק keep הוא הסיכום היחיד, וסעיף נגמר בטענה האחרונה שלו.
 5. נוסחאות במקומן, עם הסבר במילים לפניהן ואחריהן; כל סימן מוגדר בהופעתו הראשונה. מראים את הגזירה עצמה, לא רק את התוצאה. משוואות ממוספרות לפי הסדר בשיעור: (1), (2), ...; המקור נשאר בתגית העמוד.
 6. הקורא אינו יודע מתמטיקה ופיזיקה ברמה גבוהה: כל מעבר בגזירה בשורה משלו עם נימוק במילים (מה עשינו ולמה מותר). בפיתוח מורכב מראים קודם את הדרך ולמה בוחרים בה.
 6א. הגדרה של מושג חדש, בסדר קבוע (בלוק definition): (1) ההקשר: איזו בעיה הובילה אליו, מי חקר אותה ולמה (בפסקה, או בבלוק history כשהרקע עשיר). (2) ההגדרה המתמטית הכללית, בבלוק definition: בסימנים כלליים ($f$, $g$, $x$), עם כל ההנחות והתנאים (על מה היא מוגדרת, מתי היא תקפה, האם התנאי הכרחי או מספיק), בלי מספרים ובלי דוגמה. (3) איך היא בנויה: מה כל חלק עושה, למה הוא שם, ומה נשבר כשמורידים הנחה. (4) רק אחר כך דוגמה, בנפרד ובכותרת "דוגמה", שמראה את ההגדרה בפעולה. אין משוואה אחת שמכילה גם הגדרה וגם דוגמה, וגזירה על דוגמה נקראת על שם הדוגמה ואינה מחליפה את הגזירה הכללית. מושג שהשיעור צריך לפני שהוגדר (למשל בגלל הסדר ההיסטורי) מוצג במילים כאינטואיציה, לא בבלוק formula, ואומרים מתי תבוא ההגדרה.
@@ -73,7 +73,7 @@ These are the learner's own requirements. They are binding for every message; th
 11. כשוויזואליה עוזרת להבנה, משתמשים בה.
 
 ב. עומק
-12. רף אורך: שיעור בדרגת ליבה או מתקדם, לפחות כ-4000 מילים. כשהחומר שהוקצה קצר מטבעו, מותר פחות, ואומרים זאת במפורש. שיעור בדרגת עיון קצר יותר.
+12. אורך: אין יעד מילים ואין רף. האורך נובע מיחידות העומק של השיעור (כללי התכנון). שיעור ארוך מתקצר רק בריפוד; שום נושא שהוקצה לא נשמט, ושום רמה לא יורדת.
 13. רקע לכל מודל ותאוריה (בלוק history): מי ניסח, מתי, ואיזה צורך הוביל אליו (הצורך מסביר את ההנחות); איך הוא משמש היום.
 14. מלמטה למעלה: כל דוגמה מנותחת מהמקרה הפשוט ביותר (מספרים עגולים, רעש לבן) ועד המקרה המלא.
 15. מקרה הנדסי לכל שיעור (בלוק casestudy): מערכת אמיתית או החלטת תכן אמיתית, עם מודל, מספרים מחושבים ומסקנות. מבחינים בין מה שידוע לבין מה שמוערך.
@@ -147,7 +147,7 @@ Fenced blocks. A block may begin with header lines "@key: value"; the body after
 - \`\`\`formula — a key formula: a general result the course returns to, not the result of one example (rule 6ב). Headers: @title. Body: the formula(s) and what each symbol is, and when it holds.
 - \`\`\`think — question, a line "---", the full answer (hidden until revealed).
 - \`\`\`refresh — refresher of a tool met before. Headers: @title, @first (where it was first met, with its number).
-- \`\`\`domain — connection to another core field. Headers: @field (one of: radar, ew, eoir, nav, guidance, amd, c2, air, uas, naval, armor, space, doctrine, other), @title.
+- \`\`\`domain — connection to another core field. Headers: @field (one of: rfsensing, spectrum, optics, nav, control, airspace, networks, aero, autonomy, marine, vehicles, space, methods, other), @title.
 - \`\`\`fieldmap — where a central formula works across the core (rule 44). Headers: @formula (the formula in $...$). Body: a Markdown list, one line per field: "**field** (module…, or נלמד): what the formula does there, in which system".
 - \`\`\`casestudy — the engineering case study (a real system or design decision). Headers: @title. Body: question, model, numbers (from code), conclusions, what is known vs estimated.
 - \`\`\`model — transparent model building. Headers: @title.
@@ -206,3 +206,10 @@ export function libraryList(docs: Record<string, { title: string; short: string;
     .filter(Boolean)
     .join("\n");
 }
+
+/** The wording of these rules before 1.11 (the "current" rules of the test bench, for comparison only). */
+export const LEGACY_RULES: [string, string][] = [
+  ["\n12. אורך: אין יעד מילים ואין רף. האורך נובע מיחידות העומק של השיעור (כללי התכנון). שיעור ארוך מתקצר רק בריפוד; שום נושא שהוקצה לא נשמט, ושום רמה לא יורדת.", "\n12. רף אורך: שיעור בדרגת ליבה או מתקדם, לפחות כ-4000 מילים. כשהחומר שהוקצה קצר מטבעו, מותר פחות, ואומרים זאת במפורש. שיעור בדרגת עיון קצר יותר."],
+  ["@field (one of: rfsensing, spectrum, optics, nav, control, airspace, networks, aero, autonomy, marine, vehicles, space, methods, other)", "@field (one of: radar, ew, eoir, nav, guidance, amd, c2, air, uas, naval, armor, space, doctrine, other)"],
+  [" בלי סיכומי ביניים: בלוק keep הוא הסיכום היחיד, וסעיף נגמר בטענה האחרונה שלו.", " כל סעיף (##) נסגר במשפט שאומר מה הבנו בו ואיזו שאלה הוא משאיר לסעיף הבא."]
+];

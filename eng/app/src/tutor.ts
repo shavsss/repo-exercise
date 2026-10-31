@@ -8,7 +8,7 @@ import { create, all } from "mathjs";
 import { docMeta, getIndex, readPages, searchLibrary, type Module } from "./library";
 import { curriculumBlock } from "./curriculum";
 import { decideLine, decideSlot } from "./lessonGate";
-import { SYSTEM_PROMPT, libraryList } from "./prompt";
+import { LEGACY_RULES, SYSTEM_PROMPT, libraryList } from "./prompt";
 import type { Runtime, SampleTool } from "./runtime";
 import { NOTE_KIND_LABEL, type Activity, type Effort, type LessonNote, type LessonSpec, type Mode, type NoteKind, type StoredMessage } from "./types";
 
@@ -66,12 +66,10 @@ export function systemPrompt() {
   return liteSystem(promptCache);
 }
 
-/** Under the new lesson rules the system prompt drops the word floor and the closing-sentence-per-section rule. */
+/** The system prompt holds the rules of 1.11; the bench's "current" rules put back the older wording (LEGACY_RULES). */
 function liteSystem(p: string) {
-  if (LESSON_RULES !== "lite") return p;
-  return p
-    .replace(/\n22\. רף אורך:[^\n]*/, "\n22. אורך: אין יעד מילים ואין רף. האורך נובע מיחידות העומק של השיעור (כללי התכנון). שיעור ארוך מתקצר רק בריפוד; שום נושא שהוקצה לא נשמט, ושום רמה לא יורדת.")
-    .replace(" כל סעיף (##) נסגר במשפט שאומר מה הבנו בו ואיזו שאלה הוא משאיר לסעיף הבא.", " בלי סיכומי ביניים: בלוק keep הוא הסיכום היחיד, וסעיף נגמר בטענה האחרונה שלו.");
+  if (LESSON_RULES === "lite") return p;
+  return LEGACY_RULES.reduce((q, [now, old]) => q.replace(now, old), p);
 }
 
 
