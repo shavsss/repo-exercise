@@ -574,7 +574,21 @@ const LEVEL3_PART = `LEVEL-3 BLOCKS (only those planned for this part):
 - \`\`\`lab, headers @title, @tools (open-source tools, e.g. NumPy and SciPy, python-control, scikit-rf, ngspice, OpenModelica, OpenFOAM, CalculiX, FEniCS, PyTorch), @time (e.g. "60–90 דקות"), @product (optional). Body: the engineering question; the spec the reader writes (question, inputs and their source, assumptions, success measure, acceptance tests, prediction; in the gateway stage a draft spec the reader completes); what the AI does; the 5 to 15 heart lines the reader writes himself; the verification (at least two independent checks); the explanation after (3 to 6 sentences in his words); one extension for a project.
 Code or output inside these blocks goes in a ~~~ fence (e.g. ~~~python), never in a backtick fence.`;
 const DECIDE_PART = `- \`\`\`decide, headers @kind (trade / architecture / review / agents), @title. Body: the brief and what the reader submits in writing, a line "---", then the reference analysis with its numbers, what was decisive, and the common mistakes.`;
-const STYLE_PART = `__STYLE__`;
+const STYLE_PART = `STYLE (it changes how a unit is written, never whether it is there; the definition rules of section א win):
+1. Open each section with the concrete problem it solves, then follow the definition order.
+2. Before each derivation, formula or computation, one sentence states the real question it answers.
+3. A paragraph's first sentence states its claim or question, never a topic or lesson logistics.
+4. Where a result appears, say what it lets the reader compute, predict or decide here.
+5. Describe an idea in familiar words before naming it. At most one new term per sentence and three per paragraph; a list of terms gets a sentence that unites them.
+6. Link sentences with explicit logic (כי, לכן, אבל, כלומר). Never state a claim whose reason comes sections later.
+7. Plain Hebrew: one idea per sentence, 12 to 25 words, the verb early; verbs, not nominalizations (לחשב, not לבצע חישוב); chains of at most two nouns in smichut; no calques; active voice.
+8. Show any step a reader cannot check in about 30 seconds; never "simple algebra gives". A deferred step is named, with where it comes.
+9. Reasoning goes in prose; lists only for parallel items.
+10. A paragraph of numbers first says what is computed and how the pieces combine; one quantity per sentence, with its unit; it ends with the answer.
+11. After the general result, apply it back to the opening problem.
+12. Certainty labels at the end of a sentence, never mid-clause (page tags and 2.5 tags stay where the rules put them). Bold only for a defined term, or one warning per section.
+13. The prose never uses course machinery words (צומת, גשר, פריפריה, "רמה 2.5"); at most one forward reference per section.
+14. One Hebrew name per concept, one meaning per symbol.`;
 function featurePlan(lessons: number, idx: number, modulesDone: number) {
   if (LESSON_RULES !== "lite") return "";
   return `${FEATURES.has("level3") ? LEVEL3_PLAN : ""}${FEATURES.has("decide") ? decideLine(decideSlot(lessons, idx, modulesDone)) : ""}`;
@@ -585,7 +599,7 @@ function featurePart(p: { blocks?: string[] }) {
   const out: string[] = [];
   if (FEATURES.has("level3") && /predict|verify|errorhunt|lab/.test(b)) out.push(LEVEL3_PART);
   if (FEATURES.has("decide") && /decide/.test(b)) out.push(`LEAD-AND-DECIDE BLOCK:\n${DECIDE_PART}`);
-  if (FEATURES.has("style") && STYLE_PART !== "__STYLE__") out.push(STYLE_PART);
+  if (FEATURES.has("style")) out.push(STYLE_PART);
   return out.length ? `\n${out.join("\n")}` : "";
 }
 
