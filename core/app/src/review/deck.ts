@@ -217,16 +217,21 @@ export async function gradeCard(st: Store, d: Deck, id: string, g: Rating, sec: 
   const now = Date.now();
   const count = today(d.state, now);
   const wasNew = c.reps === 0;
-  const next: Card = { ...c, ...schedule(c, g, now, c.id), sec: measured(c, sec) };
+  // the old relearn flag must not survive the spread when the new state has none
+  const next: Card = { ...c, relearn: undefined, ...schedule(c, g, now, c.id), sec: measured(c, sec) };
   if (!next.relearn) delete next.relearn;
   d.cards.set(id, next);
   count.sec += Math.min(240, Math.max(4, sec));
   count.done += 1;
   if (wasNew) count.fresh += 1;
   emit();
-  await Promise.all([saveModules(st, d, [c.moduleId]), saveState(st, d)]).catch(() => {});
+  // saved in the background, one write after the other, so the next card shows at once and writes keep their order
+  later(() => Promise.all([saveModules(st, d, [c.moduleId]), saveState(st, d)]));
   return next;
 }
+
+let writes: Promise<unknown> = Promise.resolve();
+const later = (fn: () => Promise<unknown>) => (writes = writes.then(fn).catch(() => {}));
 
 /** Changes a card without scheduling it (taken out of the review, or a question the quick model wrote). */
 export async function patchCard(st: Store, d: Deck, id: string, patch: Partial<Card>) {
@@ -234,7 +239,7 @@ export async function patchCard(st: Store, d: Deck, id: string, patch: Partial<C
   if (!c) return;
   d.cards.set(id, { ...c, ...patch });
   emit();
-  await saveModules(st, d, [c.moduleId]).catch(() => {});
+  later(() => saveModules(st, d, [c.moduleId]));
 }
 
 /** "עוד כמה בכל זאת": a few more minutes today, past the budget (N8: the app never locks). */
@@ -242,5 +247,5 @@ export async function addMinutes(st: Store, d: Deck, min: number) {
   const count = today(d.state);
   count.extra = (count.extra ?? 0) + min * 60;
   emit();
-  await saveState(st, d).catch(() => {});
+  later(() => saveState(st, d));
 }

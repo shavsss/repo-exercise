@@ -42,6 +42,7 @@ export function ReviewTab({ lab, rt, onOpenModule }: LabTabProps) {
   const [err, setErr] = useState("");
   const shownAt = useRef(Date.now());
   const total = useRef(0);
+  const gradedId = useRef("");
 
   const start = useCallback((d: Deck) => {
     const q = queueOf(d);
@@ -75,7 +76,9 @@ export function ReviewTab({ lab, rt, onOpenModule }: LabTabProps) {
   const reveal = useCallback(() => setPhase((p) => (p === "card" ? "back" : p)), []);
   const grade = useCallback(
     async (g: Rating) => {
-      if (!store || !deck || !card || phase !== "back") return;
+      // a second tap before the next card shows grades nothing
+      if (!store || !deck || !card || phase !== "back" || gradedId.current === card.id + card.reps) return;
+      gradedId.current = card.id + card.reps;
       const sec = (Date.now() - shownAt.current) / 1000;
       play(g >= 3 ? "right" : "click");
       const next = await gradeCard(store, deck, card.id, g, sec);
