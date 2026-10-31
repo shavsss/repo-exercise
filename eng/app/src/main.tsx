@@ -13,6 +13,7 @@ import "./look5.css";
 import "./polish2.css";
 import { App } from "./App";
 import { SummaryApp } from "./summaries/SummaryApp";
+import { Bench } from "./components/Bench";
 import { copyWithMath } from "./summaries/rich";
 
 installSounds();
@@ -30,6 +31,7 @@ function Root() {
     window.addEventListener("hashchange", on);
     return () => window.removeEventListener("hashchange", on);
   }, []);
+  if (hash === "#bench") return <Bench lab="gilua" />;
   return hash === "#summary" ? <SummaryApp lab="gilua" name="גילואה" /> : <App />;
 }
 

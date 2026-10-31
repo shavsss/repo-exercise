@@ -513,8 +513,24 @@ Length: about ${p.words ?? 1100} Hebrew words of real teaching (more is fine, le
 ${k === 0 ? "Start the lesson (no preamble about the plan or the parts)." : "Continue seamlessly from the last sentence above: no greeting, no recap, no repeated heading; open with the explicit transition from where the text stopped. Continue the equation numbering from the last \\tag above."}
 Do not write material that belongs to later parts. Teach step by step: every step of a derivation on its own line with its reason in words. Put [[DOC:PAGE]] at the paragraph where the source page changes. Show each original figure assigned to this part with a figure block, then explain it. State computed values exactly as in "facts" (run compute for anything new).
 Tag every level-2.5 section this part covers ([[2.5: …]]) at the start of its paragraph.
-${last ? "This is the last part: write the coverage block, the exercises, the fieldsystems block if a real connection exists, and the sentence about the next lesson." : "Do not end the lesson and do not write exercises yet."}`;
+${last ? "This is the last part: write the coverage block, the exercises, the fieldsystems block if a real connection exists, and the sentence about the next lesson." : "Do not end the lesson and do not write exercises yet."}${LESSON_RULES === "lite" ? `\n${LITE_PART}` : ""}`;
 }
+
+/**
+ * The lesson rules in use. "lite" is a candidate run only from the test bench (#bench) until it is
+ * approved: 1–2 central results, a fixed length band and no restating, on top of the current rules.
+ */
+let LESSON_RULES: "current" | "lite" = "current";
+export function setLessonRules(r: "current" | "lite") {
+  LESSON_RULES = r;
+}
+const LITE_PLAN = `
+CANDIDATE RULES FOR THIS LESSON (they override the length rule and the 4200-word floor above):
+- Build the lesson around one or two central results of the assigned material: what each one says, why it is true (derivation or skeleton), where it stops working, its number, and how it connects. Everything else in the pages is either needed for those results (teach it) or background (one sentence, or leave it out).
+- Length: 3500 to 5000 Hebrew words in total, 2 to 4 parts, each part 900 to 1600 words. This is a ceiling as well as a floor: depth comes from the derivations, the numbers and the critique, never from restating.
+- No restating the source page by page, no recap paragraphs, no "as we saw", no announcing what comes next. Every paragraph adds something new.
+- Keep the JSON short: "covers" one or two lines per part.`;
+const LITE_PART = `Candidate rules: stay within the planned words for this part (at most 15% more). Every paragraph adds something new: no recap, no restating the source, no announcing. Depth through the derivation, the numbers and the critique.`;
 
 export async function composeLesson(opts: Base & { text: string; resume?: { plan: PartPlan; partsDone: number; text: string } }) {
   const { rt, history, text, effort, module: m, lessons, lessonIdx, memory, notes, allNotes, signal, cb, resume } = opts;
@@ -527,7 +543,7 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
   let plan = resume?.plan;
   if (!plan) {
     cb.onStatus?.("מתכנן את השיעור: קורא את המקורות ומחשב את המספרים");
-    const planTurn = `${ctx}\n\n${text}\n\n${PART_PLAN_INSTRUCTIONS}`;
+    const planTurn = `${ctx}\n\n${text}\n\n${PART_PLAN_INSTRUCTIONS}${LESSON_RULES === "lite" ? LITE_PLAN : ""}`;
     plan = await retryRefused(
       (h) =>
         rt.sample!.json<PartPlan>([...fitHistory(h, bytes(planTurn), false, { refs: hasRefs(m) }), { role: "user", content: planTurn }], {

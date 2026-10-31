@@ -293,6 +293,16 @@ export class Store {
     return s.exists ? (s.data() as Record<string, unknown>) : null;
   }
 
+  /** A test-bench run (#bench): a lesson written with candidate rules, kept for review. */
+  async saveBench(id: string, data: Record<string, unknown>) {
+    await this.profile.collection("bench").doc(id).set(data);
+  }
+
+  async loadModule(id: string): Promise<ModuleProgress | null> {
+    const snap = await this.profile.collection("modules").doc(id).get();
+    return snap.exists ? (snap.data() as ModuleProgress) : null;
+  }
+
   async saveDiag(data: Record<string, unknown>) {
     await this.profile.collection("diag").doc(String(Date.now())).set(clean(data));
   }
