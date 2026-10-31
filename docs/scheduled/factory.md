@@ -2,7 +2,7 @@
 
 - Suggested name: `מפעל השיעורים והמעריך הלילי`
 - Cron: `CRON_TZ=Asia/Jerusalem 7 0 * * *` (daily 00:07, after the three backups)
-- Push: **yes**, to branch `factory` only (`add_repo` with `access: "push"`): the first run records the probes in `docs/FACTORY_PROBES.md`, and every run commits a short report under `factory/reports/`. It never pushes to any other branch.
+- Push: **no**. Scheduled sessions cannot push to this repo (first run, 31.10: git proxy 403, `add_repo` unavailable). Probes and the nightly report go into the databases (`shelf/_status`, field `report`), and the nightly backup copies them into git.
 - Merged: the evaluator (d) is step 2 of this session. It is cheap and reads the same learner data, so it runs first and still happens on a night when the factory's lesson budget or a probe stops the writing.
 
 ```text
@@ -13,7 +13,7 @@ THE TWO APPS (claude.ai Artifacts; each has its own private database)
 - Gilua, the engineering lab ("eng"): https://claude.ai/artifact/LtW5eytwQFZ4wAXhDSAw3k — code eng/app/, rules eng/app/src/prompt.ts, docs/ENG_TEACHING_RULES.md.
 
 SETUP
-1. Attach the repository with push access: add_repo with owner "shavsss", repo "repo-exercise", access "push". Clone it as the tool result says and check out "claude/compassionate-meitner-dx0zxf" (default branch if missing) for reading the code and rules. For anything you commit, use a separate worktree or checkout of branch "factory" (create it from the branch above if it does not exist on the remote). Push ONLY to "factory", never force-push, pull --rebase before pushing. Commit messages short, in Hebrew, without any model name.
+1. Get the repository read-only: if add_repo is available, call it with owner "shavsss", repo "repo-exercise", access "read"; otherwise clone https://github.com/shavsss/repo-exercise directly. Check out "claude/compassionate-meitner-dx0zxf" (default branch if missing) for reading the code and rules. Never commit or push anything.
 2. Read in full: CLAUDE.md (Hebrew: the Lanchester section incl. "סירוב של Claude", "רמה 2.5 והדרגתיות", "הגדרות ונוסחאות"; the Gilua section), docs/SHELF_SCHEMA.md (the exact contract for shelf and levels documents: follow it to the letter), docs/research/round2/A3_factory.md (§1.3–1.7, §2.1, §2.3, §2.6, §4 — the design; this prompt overrides it where they differ: the delivery is the shelf schema in SHELF_SCHEMA.md, not A3's "ready" schema), docs/research/round5/expert/LV2_benchmark.json and E2_domain_targets.json (domain ids, name_he, targets), docs/REVIEW_SCHEMA.md (the 0–5 scale).
 3. Read the rules the lesson must follow, as the app sends them, for each app: src/prompt.ts (the whole system prompt and every rule), and in src/tutor.ts: systemPrompt, moduleBlock, planBlock, readerStage, studyContext, PART_PLAN_INSTRUCTIONS, partInstructions, gatePlan/planGaps, completeUnits, composeLesson; plus src/lessonGate.ts and src/level3.ts if present (when a `decide` block is due and of which kind). Your lesson must be what composeLesson would produce in the page for that lesson, at the same depth and with the same blocks, not a summary. If you can, run those functions with node/tsx to get the exact instruction strings; otherwise reproduce them faithfully by reading.
 4. Load tools: ToolSearch "select:ArtifactData". The Artifact tool (action "read", url, paths) reads the published library: "lib/index.json" and "lib/text/<DOC>.json" ({page: {l: printed label, t: text}}). Page images for formula checks: render the PDF in the repo (library/...) with pdftoppm when needed.
@@ -27,12 +27,12 @@ HARD RULES
 - Budget: at most 2 new shelf lessons per app per night (FACTORY_MAX = 4 in total), at most 2 modules ahead per app. Stop starting new lessons after 05:30 Asia/Jerusalem. Every doc ≤ 230 KB; text ≤ 60,000 characters with the rest in more/<n> docs of ≤ 70,000 characters each (write the more docs first, the main shelf doc last).
 
 STEP 1 — PROBES (first run only)
-If the file docs/FACTORY_PROBES.md does not exist on branch "factory":
+If docs/FACTORY_PROBES.md in the checkout does not record a passed P1 (the first run passed it on 31.10; later runs normally skip the probes):
 - P1 unattended write: ArtifactData set "data/users/me/profile/shelf" doc "_probe" = {probe: "write", at: <now ms>} in BOTH apps, then get it back. Pass = both writes and both reads succeed without any approval prompt.
 - P2 session length: record the wall-clock start time now; at the end of this run, record the total minutes and the last step reached.
 - P3 usage: record what you can observe about usage (the count of lessons written, approximate tokens or the number of large model passes, any rate-limit or usage message seen).
-- Write docs/FACTORY_PROBES.md (Hebrew, short: date, P1 pass/fail with the exact error if any, P2 minutes, P3 notes, and what the next nights will do), commit and push to "factory" at the end of the run (update P2/P3 then).
-- If P1 FAILED: do not write anything else to either database tonight (no levels, no shelf). Record the failure in docs/FACTORY_PROBES.md and factory/reports/<YYYY-MM-DD>.md, push, and stop. On later runs, if docs/FACTORY_PROBES.md records P1 as failed, retry P1 once; if it still fails, stop the same way.
+- Record the probe results (Hebrew, short: date, P1 pass/fail with the exact error if any, P2 minutes, P3 notes) in the `probes` field of `shelf/_status` in each app.
+- If P1 FAILED: do not write anything else to either database tonight (no levels, no shelf). Report the failure in your final message and stop.
 
 STEP 2 — EVALUATOR (every night, both apps; bounded)
 For each app, read with ArtifactData: get "data/users/me" doc "profile"; list "data/users/me/profile/modules"; list "data/users/me/profile/calib"; list "data/users/me/profile/level3"; list "data/users/me/profile/events" (keep the last 14 days); list "data/users/me/profile/convs" and the msgs of conversations updated in the last 7 days (his clarify questions, quiz answers and the tutor's grades); get "data/users/me/profile/levels" doc "current" (yesterday's levels) and list "data/users/me/profile/reviews" (the latest weekly report).
@@ -50,5 +50,5 @@ e. Verify, independently (a fresh subagent that never saw the plan or your reaso
 f. Ship: per docs/SHELF_SCHEMA.md — more/<n> docs first, then "data/users/me/profile/shelf" doc "<moduleId>__<lessonIdx>" with v 1, app, moduleId, lesson, spec, title, text, parts, plan, words, createdAt, pipeline "factory@<short sha>", verify {verdict, depth, facts, sources, refusalSafe, notes (Hebrew, one line per change the check made)}, status "ready". Get it back and check the text joins to the full lesson.
 
 STEP 5 — STATUS AND REPORT
-Write "data/users/me/profile/shelf" doc "_status" in each app (night, lastRun, ok, built, skipped, probes if run, usage {lessons, minutes}). Commit factory/reports/<YYYY-MM-DD>.md (Hebrew, short: levels updated, lessons built with their verify verdicts, skipped and why, minutes; a waiting-for-plan skip says plainly: "המודול הבא <id> עוד לא חולק לשיעורים; הוא יחולק כשייפתח בדף, והמדף ימולא בלילה שאחרי") to branch "factory" and push. End with a short plain-text summary in your final message.
+Write "data/users/me/profile/shelf" doc "_status" in each app (night, lastRun, ok, built, skipped, probes if run, usage {lessons, minutes}). Put the nightly report in the `report` field of that `_status` doc (Hebrew, short: levels updated, lessons built with their verify verdicts, skipped and why, minutes; a waiting-for-plan skip says plainly: "המודול הבא <id> עוד לא חולק לשיעורים; הוא יחולק כשייפתח בדף, והמדף ימולא בלילה שאחרי"). End with a short plain-text summary in your final message.
 ```
