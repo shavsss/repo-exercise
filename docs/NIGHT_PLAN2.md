@@ -41,6 +41,12 @@ Nothing that changes what the tutor receives goes live until the bench shows it 
 - A refusal or an empty answer means it is not done: fix it and test again.
 - Keep `docs/NIGHT_LOG.md` current and pushed after every step, and finish with `HANDOFF_DONE`.
 
+
+## 2א. The learner's last words before sleep (above everything)
+"Above all: do not drop even one section of the material learned, and do not lower the level. Everything serves our track." Remember yesterday's conversation, and re-read our plans if needed.
+- The bench Gilua "lite" lesson came out 10,482 words (target 3,500–5,000), 16 min, with a correct split. Fix the length by moving material into the continuation lesson (split, never delete). Never by shortening a section, dropping a section, or lowering the level.
+- The independent judge must also check that the lesson plus its continuation cover every topic item of the original lesson.
+
 ## 3. The work, in order (all of it; nothing from yesterday's plan is dropped)
 1. **Lesson rules.** Read the bench results:
    - the Gilua full "lite" lesson;
