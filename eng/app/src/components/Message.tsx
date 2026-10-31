@@ -117,7 +117,7 @@ export function AssistantTurn({
       {!live && item.mode === "lesson" && notes?.length && onNoteSave && onNoteDelete ? <MarginNotes root={ref} notes={notes} version={item.segments} onSave={onNoteSave} onDelete={onNoteDelete} /> : null}
       <div className="msg-meta">
         <span>{MODE_LABEL[item.mode]}</span>
-        {words > 0 && <span dir="ltr">{words.toLocaleString("he-IL")} מילים</span>}
+        {words > 0 && <span>{words.toLocaleString("he-IL")} מילים</span>}
       </div>
 
       {showMap && (

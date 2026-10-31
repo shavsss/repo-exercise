@@ -145,6 +145,11 @@
   overflow-y: hidden;
   padding: 2px 0;
 }
+/* a card stands alone: the lesson's equation number means nothing here */
+.rv-card .katex-display .tag,
+.flow-morning .katex-display .tag {
+  display: none;
+}
 
 /* the dock: stays at the bottom of the page while the card scrolls */
 .rv-dock {

@@ -321,6 +321,10 @@ bdi {
   align-items: center;
   min-width: 0;
 }
+/* the short first crumb (the module map) never shrinks to one letter */
+.crumbs li:first-child:not(:last-child) {
+  flex-shrink: 0;
+}
 .crumbs li::before {
   content: "/";
   margin: 0 8px;
@@ -1219,6 +1223,8 @@ button.crumb:hover {
 }
 .katex {
   direction: ltr;
+  /* an inline formula is one LTR island in the Hebrew line (direction alone does not reorder an inline box) */
+  unicode-bidi: isolate;
   font-size: 1.08em;
 }
 .katex-display {
