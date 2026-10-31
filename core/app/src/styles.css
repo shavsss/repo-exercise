@@ -2270,3 +2270,7 @@ button.crumb:hover {
 :root[data-cursor="lab"] :is(button, a, summary, label, select, [role="button"], [role="tab"], .seg button, .mn-face, .lesson-card, .opt) { cursor: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2228%22 height=%2228%22 viewBox=%220 0 28 28%22%3E%3Ccircle cx=%2214%22 cy=%2214%22 r=%228.5%22 fill=%22rgba%28179,38,30,0.12%29%22 stroke=%22%23b3261e%22 stroke-width=%221.8%22/%3E%3Cpath d=%22M14 1.5v6M14 20.5v6M1.5 14h6M20.5 14h6%22 stroke=%22%232a2e22%22 stroke-width=%221.8%22 stroke-linecap=%22round%22/%3E%3Ccircle cx=%2214%22 cy=%2214%22 r=%221.8%22 fill=%22%23b3261e%22/%3E%3C/svg%3E") 14 14, pointer; }
 :root[data-cursor="lab"] :is(textarea, input:not([type="range"]):not([type="checkbox"]):not([type="radio"]), [contenteditable="true"], math-field) { cursor: text; }
 :root[data-cursor="lab"] button:disabled { cursor: not-allowed; }
+
+/* the test-bench link in the top bar (#bench) */
+.topbar-bench { font-size: 0.82rem; color: var(--ink-soft, inherit); text-decoration: none; border: 1px solid var(--line, currentColor); border-radius: 999px; padding: 2px 10px; }
+.topbar-bench:hover { color: var(--ink, inherit); }

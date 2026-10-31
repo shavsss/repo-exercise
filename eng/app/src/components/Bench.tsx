@@ -98,6 +98,7 @@ export function Bench({ lab }: { lab: "gilua" | "lanchester" }) {
 
   return (
     <div dir="rtl" style={{ maxWidth: 820, margin: "24px auto", padding: "0 16px", display: "grid", gap: 12 }}>
+      <a href="#" style={{ justifySelf: "start" }}>חזרה לאפליקציה</a>
       <h1 style={{ margin: 0 }}>בדיקת שיעורים</h1>
       <p style={{ margin: 0 }}>{state}</p>
       <ol style={{ margin: 0, fontFamily: "monospace", fontSize: 13, display: "grid", gap: 4 }}>{log.map((l, i) => <li key={i}>{l}</li>)}</ol>

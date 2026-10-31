@@ -2138,3 +2138,7 @@ button.crumb:hover {
   border-radius: 4px;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
 }
+
+/* the test-bench link in the top bar (#bench) */
+.topbar-bench { font-size: 0.82rem; color: var(--ink-soft, inherit); text-decoration: none; border: 1px solid var(--line, currentColor); border-radius: 999px; padding: 2px 10px; }
+.topbar-bench:hover { color: var(--ink, inherit); }

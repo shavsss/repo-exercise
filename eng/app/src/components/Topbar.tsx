@@ -79,6 +79,7 @@ export function Topbar({
       <button className={`icon-btn ${memoryBusy ? "is-busy" : ""}`} onClick={onMemory} aria-label="זיכרון הקורס" title={memoryBusy ? "זיכרון הקורס מתעדכן" : "זיכרון הקורס"}>
         <Icon name="memory" />
       </button>
+      <a className="topbar-bench" href="#bench" title="בדיקת שיעורים: כותבת שיעור בדיקה עם המורה ושומרת את התוצאה">בדיקה</a>
       <a className="icon-btn" href="#summary" aria-label="הסיכומים" title="הסיכומים (כדי לפתוח בחלון נפרד: הקישור של הדף עם #summary בסוף)">
         <Icon name="book" />
       </a>
