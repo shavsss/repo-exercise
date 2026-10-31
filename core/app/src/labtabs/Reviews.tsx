@@ -111,7 +111,7 @@ export function ReviewsTab({ lab, rt, onOpenModule }: LabTabProps) {
           <section>
             <h2 className="lt-h2">תחומים מול היעד</h2>
             <div className="rev-legend muted">
-              <span className="rev-key now" /> עכשיו <span className="rev-key target" /> יעד · סולם אחד: 1 = A1 / ג'וניור, 2 = A2 / ביניים, 3 = A3 / סניור, 4 = A4 / מומחה, 5 = A5 / principal
+              <span className="rev-key now" /> עכשיו <span className="rev-key target" /> יעד · סולם אחד: 1 ג'וניור, 2 ביניים, 3 סניור, 4 מומחה, 5 מוביל תחום
             </div>
             <ul className="rev-domains">
               {r.domains.map((d) => (

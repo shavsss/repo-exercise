@@ -161,6 +161,10 @@
   padding: 10px 14px 12px;
   display: grid;
   gap: 10px;
+  /* the rows below the fold (noise, breaks) stay reachable on a short window */
+  max-height: calc(100dvh - 68px - env(safe-area-inset-top, 0px));
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 .reading-head { display: flex; justify-content: space-between; align-items: center; font-weight: 600; }
 .reading-row { display: grid; gap: 4px; }

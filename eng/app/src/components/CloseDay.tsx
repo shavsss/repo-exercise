@@ -27,16 +27,16 @@ function Stamp({ lab, animate, date }: { lab: "core" | "eng"; animate: boolean; 
           <rect x="1" y="1" width="118" height="30" fill="none" />
           <line x1="1" y1="16" x2="119" y2="16" />
           <line x1="60" y1="1" x2="60" y2="31" />
-          <text x="30" y="12">
-            DATE
-          </text>
           <text x="90" y="12">
-            CHECKED
+            תאריך
           </text>
-          <text className="ini" x="30" y="27">
-            {date}
+          <text x="30" y="12">
+            נבדק
           </text>
           <text className="ini" x="90" y="27">
+            {date}
+          </text>
+          <text className="ini" x="30" y="27">
             ✓
           </text>
         </svg>
@@ -139,7 +139,7 @@ export function CloseDay({
                 )}
                 {stop && (
                   <p className="flow-close-stop">
-                    <span className="flow-tag">עצרת ב</span>
+                    <span className="flow-tag">עצרת ב-</span>
                     <span>{stop.label}</span>
                   </p>
                 )}
@@ -162,7 +162,7 @@ export function CloseDay({
                       value={next}
                       onChange={(e) => setNext(e.target.value)}
                       onKeyDown={(e) => e.key === "Enter" && phase === "form" && submit()}
-                      placeholder="משפט אחד: מה בדיוק, ואיפה. אפשר גם להשאיר ריק."
+                      placeholder="משפט אחד: מה ואיפה (אפשר להשאיר ריק)"
                       autoFocus
                       maxLength={300}
                     />
