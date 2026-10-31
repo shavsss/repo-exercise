@@ -8,10 +8,7 @@ import { create, all } from "mathjs";
 import { docMeta, getIndex, readPages, searchLibrary, type Module } from "./library";
 import { SYSTEM_PROMPT, libraryList } from "./prompt";
 import type { Runtime, SampleTool } from "./runtime";
-import { joinContinuation, looksCut } from "./truncation";
 import { NOTE_KIND_LABEL, type Activity, type Effort, type LessonNote, type LessonSpec, type Mode, type NoteKind, type StoredMessage } from "./types";
-import { curriculumBlock } from "./curriculum";
-import { applyPlanRepair, decideLine, decideSlot, missingUnits, planGaps, planRepairTurn, unitCompletion, unitLines, unitsOfPart, type PlanUnit } from "./lessonGate";
 
 const math = create(all, {});
 const MODEL = "claude-opus-5-5";
@@ -167,7 +164,7 @@ function moduleBlock(m: Module) {
   return `Module ${m.id} «${m.title}» (${m.en}), tier: ${m.tier} (${TIER_TEXT[m.tier]})${m.prereq?.length ? `, after: ${m.prereq.join(", ")}` : ""}
 Sources:
 ${srcs}
-${secs ? `Section headings in these pages (DOC:PAGE title):\n${secs}` : "No section headings were detected; use the pages themselves."}${keys ? `\nAnswer keys of the books' end-of-chapter problems (check your solutions of book exercises against them): ${keys}` : ""}${curriculumBlock(m)}`;
+${secs ? `Section headings in these pages (DOC:PAGE title):\n${secs}` : "No section headings were detected; use the pages themselves."}${keys ? `\nAnswer keys of the books' end-of-chapter problems (check your solutions of book exercises against them): ${keys}` : ""}`;
 }
 
 function planBlock(lessons: LessonSpec[] | undefined, idx: number) {
@@ -403,7 +400,7 @@ ${peek.join("\n\n")}
 MODULE PLANNING STEP. Split this module into lessons. Do not teach yet.
 1. Every section heading listed above must be covered by exactly one lesson, fully, and every page of every main source and supplement must fall inside the "sources" pages of some lesson (the app checks both). If no headings were detected for a source, read its pages and split it by the topics you find there. Supplements and articles are folded into the lesson whose topic they extend (articles: only what they add beyond the books). Analysis references are not lesson material: leave them out of the lessons' "sources".
 2. Where two sources treat the same topic, put them in the same lesson and say in "focus" how they are combined, so nothing is taught twice and nothing is left out.
-3. Each lesson is built around one or two central results (rule 46) and sized in depth units, not words: about 8–12 source units per dense book page (fewer on historical pages), plus about 15 authority units per central result and 2 per anchor claim. A lesson estimated above about 180 units, or with more than two central results, is split here, between central results; name each lesson's central results in its "focus". Keep the order of the main source unless the logic of prerequisites says otherwise.
+3. Each lesson must hold enough for the depth bar (about 4000 Hebrew words for a core or advanced module) without being cramped: as a rule of thumb 10–20 dense book pages per lesson. Keep the order of the main source unless the logic of prerequisites says otherwise.
 4. Write every "title" and "focus" in plain engineering language: the physics, the signals, the receivers and links, and published system parameters. Name each topic by its engineering content (interference, signal-to-interference ratio, detection range) rather than by what it is used against.
 5. Reply with ONLY a JSON array: [{"title": "Hebrew lesson title", "covers": ["exact section headings as listed"], "sources": [{"doc": "B02", "pages": [96, 110]}], "focus": "what the lesson teaches, which examples and figures, how sources are combined"}]${feedback}`;
   let lessons: LessonSpec[] = [];
@@ -479,52 +476,30 @@ If the learner has answered: grade every answer (correct / partly / wrong), expl
 
 export interface PartPlan {
   title: string;
-  /** the depth rules (46–52): central results, anchor claims, the authority layer and the depth units; older plans have none */
-  results?: { id: string; text?: string; thread?: string }[];
-  anchors?: { id: string; text?: string }[];
-  authority?: { for?: string; slot?: string; text?: string; verdict?: string; unit?: string; why?: string }[];
-  units?: PlanUnit[];
-  /** `estimate` is 30 × units, for information; `words` is from older plans */
-  parts: { title: string; covers: string; units?: string[]; blocks?: string[]; l25?: string[]; estimate?: number; words?: number }[];
+  parts: { title: string; covers: string; blocks?: string[]; l25?: string[]; words?: number }[];
   figures?: string[];
   facts?: string[];
-  checks?: string[];
-  layers?: string[];
-  split?: unknown;
   next?: string;
 }
 
-/** The seven level-2.5 sections of this app, for the plan check. */
-const L25_SECTIONS = ["מבנה", "מקור", "גבולות", "סדר גודל", "פשרה", "משמעות מבצעית", "ביקורת"];
-
 const PART_PLAN_INSTRUCTIONS = `
-LESSON PLANNING STEP. Do not write the text yet. The app will write the lesson in parts, one call per part, from your plan. There is no word target: the lesson is measured by its depth units (rules 46–52), and nothing that passes the authority filter is cut for length.
-1. Source inventory: read the source pages in <study_context> for THIS LESSON (use read_source_pages for anything cut off). Go through every idea in them (claim, definition, derivation, worked example, figure, table, story, the author's judgment) and send each to a depth unit, to "layers" (background only, with the reason) or to "omit" (wrong, or taught in another lesson: say which). Note where the sources overlap.
-2. Central results (rule 46): the lesson's one or two central results, each with its thread question (the need it answers, in one sentence), and its anchor claims. More than two central results: plan the first one or two now and put the rest in "split" ({"now": ["R1"], "later": {"results": ["…"], "pages": "…", "title": "…"}, "label_now": "2א", "label_later": "2ב"}); split, never delete.
-3. Authority layer (rule 48): for every central result brainstorm the six slots S1–S6, at least two candidates each, and two slots for every anchor claim, before thinking about space. Keep a candidate as a unit only if it passes all five tests (examinable, transfers, connected, owned by this lesson, correct); otherwise fieldmap, layer or drop, with the failing test in "why".
-4. Depth units (rule 47), planned by the argument, not by the pages. Every central result has at least one unit of each of the seven level-2.5 sections and at least one ASM, QNT, PRX (the decisive case, with computed numbers) and CRT; its researcher path (who, which problem, how they got there, why) is a HIS unit when the origin teaches an assumption or an error (rule 51).
-5. Run compute (batched, one or two calls) for every number the lesson will state, including the authority units' numbers and the case study, and check the claims: both ends of a range, "only/always/never", attributions, an approximation at a far point, a published number against the model. Note any error you find.
-6. Reply with ONLY one JSON object:
+LESSON PLANNING STEP. Do not write the text yet. The app will write the lesson in parts, one call per part, from your plan.
+1. Read the source pages in <study_context> for THIS LESSON (use read_source_pages for anything cut off). Find every section it must cover, every derivation, worked example, figure, table and story in them, and where the sources overlap.
+2. Run compute (batched, one or two calls) for every number the lesson will state: worked examples, verifications of the sources' results, the case study's numbers. Note any error you find.
+3. Reply with ONLY one JSON object:
 {"title": "Hebrew lesson title",
- "results": [{"id": "R1", "text": "the result in one line", "thread": "the need it answers"}],
- "anchors": [{"id": "A1", "text": "…"}],
- "units": [{"id": "U1", "r": "R1", "type": "DEF", "tier": "key", "src": "B02:115", "part": 1, "text": "up to 8 words", "q": "its exam question, up to 12 words"}],
- "parts": [{"title": "…", "covers": "which sections/pages, which derivations, which figures and examples, which simulator", "units": ["U1", "U2"], "blocks": ["story", "think:U7", "predict", "history", "figure", "sim"], "l25": ["מבנה", "מקור"], "estimate": 900}],
+ "parts": [{"title": "…", "covers": "which sections/pages, which derivations, which figures and examples, which simulator", "blocks": ["story", "think", "history", "figure", "sim"], "l25": ["מבנה", "מקור"], "words": 1200}],
  "figures": ["B02:115:0", "…every figure of these pages, each assigned to a part"],
  "facts": ["SNR = 13.2 dB at R = 50 km for σ = 1 m² (computed)", "…"],
- "checks": ["…"], "layers": ["…"], "split": null,
  "next": "what the next lesson covers"}
-Keep the JSON compact (the answer must fit; a long plan comes back empty): do the authority brainstorm of step 3 in your head and output only the units that passed; at most about 40 units; "facts" at most 12 lines, "checks" and "layers" at most 5 short lines each; no prose outside the JSON.
-Unit types: DEF, RES, STR, STEP, ASM, LIM, QNT, OOM, TRD, MAP (connection to another core field), OPS (system meaning), CRT, PRX, HIS; tiers: key, sup, bg; "src" is a page tag, or "auth" for the authority layer.
-Write the whole plan (titles, "covers", "results", the units and their exam questions, the authority candidates, "facts", "next") in plain engineering language: physics, signals, receivers, links, and published system parameters; the app sends parts of it back to you while writing. Name every topic by its engineering content (interference and the signal-to-interference ratio, detection range, link margin), the case study as an engineering design question, and the exercises as engineering calculations; do not frame anything as attacking, defeating or targeting.
-Rules for the plan: 2 to 4 parts; "estimate" is 30 × the part's units, information only and never a target: there is no word floor or ceiling; every unit and every figure in exactly one part; each central result, with its case study, in one or two consecutive parts; part 1 opens with the plan block and the story, then the problem/why-hard/idea paragraphs; every derivation is planned step by step, with every assumption, including unstated ones, at the step where it enters; the parts are organized by topic, not by page order: the book is the basis, not something to retell page by page (rule 9ב); every assigned section is assigned to exactly one part; every new concept is planned within one part in the order of rule 6א (the context, its general definition in a definition block, how it is built, and only then a separate example); formula blocks only for general results the course returns to (rule 6ב); all seven level-2.5 sections ("l25") are assigned to parts for the lesson's central results; the case study, history block(s), the connections by <reader_stage> (a fieldmap block for every new central formula, at least four full domain blocks in every lesson, in the gateway stage P0, for a field not yet learned, at the level of what the system does, with the mechanism left to its module; from P1 on, full, including the mechanism; technical explanations only from familiar ground, rules 41–45), think questions (about six in the lesson, at real decision points, each marked with the unit it checks, at least one per central result on an authority unit), predict blocks (two to four, before the central numbers; a predict may replace a think and then counts within the six), a verify block for every computed or simulated result the lesson or its lab leans on, an errorhunt block in about every second lesson (it may replace the find-the-error exercise), refresh blocks, simulators and figures are assigned to parts; the last part holds the coverage block (with the unit count: planned and written), the keep block (rule 6ד), the exercises, the lab block (rule 55, in every core or advanced lesson), the fieldsystems block (if a real connection exists) and the sentence about the next lesson.`.trim();
+Write the plan (titles, "covers", "facts", "next") in plain engineering language: physics, signals, receivers, links, and published system parameters. Name every topic by its engineering content (interference and the signal-to-interference ratio, detection range, link margin), the case study as an engineering design question, and the exercises as engineering calculations; do not frame anything as attacking, defeating or targeting.
+Rules for the plan: 3 to 5 parts; for a core or advanced module the words add up to at least 4200 Hebrew words unless the assigned material is genuinely short (then say so in the first part); part 1 opens with the plan block and the story, then the problem/why-hard/idea paragraphs; every derivation is planned step by step; the parts are organized by topic, not by page order: the book is the basis, not something to retell page by page (rule 9ב); every assigned section and every figure is assigned to exactly one part; every new concept is planned within one part in the order of rule 6א (the context, its general definition in a definition block, how it is built, and only then a separate example); formula blocks only for general results the course returns to (rule 6ב); all seven level-2.5 sections ("l25") are assigned to parts for the lesson's central results; the case study, history block(s), the connections by <reader_stage> (a fieldmap block for every new central formula, at least four full domain blocks in every lesson, in the gateway stage P0, for a field not yet learned, at the level of what the system does, with the mechanism left to its module; from P1 on, full, including the mechanism; technical explanations only from familiar ground, rules 41–45), think questions (about six in the lesson, at real decision points), refresh blocks, simulators and figures are assigned to parts; the last part holds the coverage block, the keep block (rule 6ד), the exercises, the fieldsystems block (if a real connection exists) and the sentence about the next lesson.`.trim();
 
 function partInstructions(plan: PartPlan, k: number, writtenSoFar: string) {
   const p = plan.parts[k];
   const n = plan.parts.length;
   const last = k === n - 1;
   const prior = writtenSoFar.length > 60000 ? `[…start omitted…]\n${writtenSoFar.slice(-60000)}` : writtenSoFar;
-  const units = unitsOfPart(plan, k);
   return `WRITING STEP: part ${k + 1} of ${n} of this lesson. Write as the authors (see <voice>).
 Lesson plan (yours, from the planning step): «${plan.title}», ${n} parts:
 ${plan.parts.map((x, i) => `${i + 1}. ${x.title}${i === k ? "  ← THIS PART" : ""}`).join("\n")}
@@ -534,64 +509,12 @@ ${last && plan.next ? `Next lesson: ${plan.next}` : ""}
 
 ${prior ? `The lesson text written so far (parts 1–${k}), which the learner is reading right now:\n<<<\n${prior}\n>>>\n` : ""}
 Now write ONLY part ${k + 1}: «${p.title}». It covers: ${p.covers}.${p.blocks?.length ? ` Blocks for this part: ${p.blocks.join(", ")}.` : ""}${p.l25?.length ? ` Level-2.5 sections for this part: ${p.l25.join(", ")}.` : ""}
-${
-    units.length
-      ? `Depth units of this part (rule 47): write every one in full, at least the minimum of its type (rule 50), where the argument needs it; mark each with <!--U7--> right after the sentence where it first enters, once, never inside math or JSON (inside a think answer is fine):\n${unitLines(units, true)}\nThere is no word target. Density (rule 50): no word without a unit and no unit written thin; cut only what is on the closed padding list. 20–45 words per unit is a warning band, never a reason to delete or shorten a unit. End the part with one hidden audit line, e.g. <!--audit: units U12–U31 20/20 (auth 6/6) | w/u 31 | think 2 | padding 0-->.`
-      : "There is no word target: teach everything this part covers in full depth (rule 49), and nothing that is padding (rule 50)."
-  }
+Length: about ${p.words ?? 1100} Hebrew words of real teaching (more is fine, less is not).
 ${k === 0 ? "Start the lesson (no preamble about the plan or the parts)." : "Continue seamlessly from the last sentence above: no greeting, no recap, no repeated heading; open with the explicit transition from where the text stopped. Continue the equation numbering from the last \\tag above."}
 Do not write material that belongs to later parts. Teach step by step: every step of a derivation on its own line with its reason in words. Put [[DOC:PAGE]] at the paragraph where the source page changes. Show each original figure assigned to this part with a figure block, then explain it. State computed values exactly as in "facts" (run compute for anything new).
 Tag every level-2.5 section this part covers ([[2.5: …]]) at the start of its paragraph.
-${last ? "This is the last part: write its units first, then the keep block, the exercises, the lab block (rule 55), the fieldsystems block if a real connection exists, the coverage block (with the unit count: planned and written) and the sentence about the next lesson." : "Do not end the lesson and do not write exercises yet."}`;
+${last ? "This is the last part: write the coverage block, the exercises, the fieldsystems block if a real connection exists, and the sentence about the next lesson." : "Do not end the lesson and do not write exercises yet."}`;
 }
-
-/**
- * The depth gate on the plan (rule 52): a plan that misses the depth rules goes back once with
- * the list of what is missing, to be fixed by adding. The better of the two plans is kept.
- */
-async function gatePlan(plan: PartPlan, planTurn: string, o: Base, tools: SampleTool[] | null): Promise<PartPlan> {
-  const check = (x: PartPlan) => planGaps(x, { full: o.module.tier !== "ref", sections: L25_SECTIONS });
-  const gaps = check(plan);
-  if (!gaps.length || !o.rt.sample) return plan;
-  o.cb.onStatus?.("בודק את התוכנית מול כללי העומק ומשלים");
-  const turn = `${planTurn}\n\n${planRepairTurn(plan, gaps)}`;
-  const patch = await o.rt.sample
-    .json<unknown>([...fitHistory(o.history, bytes(turn), false, { refs: hasRefs(o.module) }), { role: "user", content: turn }], {
-      model: MODEL,
-      modelTier: "complex",
-      effort: o.effort,
-      signal: o.signal,
-      ...(tools ? { tools } : { cache: false }),
-    })
-    .catch(() => null);
-  const fixed = patch ? applyPlanRepair(plan, patch) : null;
-  return fixed && Array.isArray(fixed.parts) && fixed.parts.length && check(fixed).length < gaps.length ? fixed : plan;
-}
-
-/**
- * The depth gate while writing: planned units a part left without a marker are written once more,
- * inside the same part, before the next part starts (not for the last part, which ends with its end blocks).
- */
-async function completeUnits(plan: PartPlan, k: number, ctx: string, text: string, before: string, partText: string, o: Base, tools: SampleTool[] | null) {
-  const miss = k < plan.parts.length - 1 ? missingUnits(plan, k, partText) : [];
-  if (!miss.length || !o.rt.sample) return "";
-  o.cb.onStatus?.(`משלים בחלק ${k + 1} ${miss.length} יחידות עומק שתוכננו`);
-  const sep = /\s$/.test(partText) ? "" : "\n\n";
-  const turn = `${ctx}\n\n${text}\n\n${partInstructions(plan, k, (before + partText).trim())}${unitCompletion(miss)}`;
-  const res = await o.rt
-    .sample([...fitHistory(o.history, bytes(turn), false, { refs: hasRefs(o.module) }), { role: "user", content: turn }], {
-      model: MODEL,
-      modelTier: "complex",
-      effort: o.effort,
-      signal: o.signal,
-      ...(tools ? { tools } : { cache: false }),
-      onText: ({ text: t }) => o.cb.onText(before + partText + sep + t),
-    })
-    .catch(() => null);
-  return res?.text ? sep + res.text : "";
-}
-
-const PART_CONTINUE = "The previous attempt of this part was cut off before its end (at the length limit, mid-sentence or inside an unclosed block). Continue it exactly from where the text above stops: do not repeat any of it, close any open block, and finish the part.";
 
 export async function composeLesson(opts: Base & { text: string; resume?: { plan: PartPlan; partsDone: number; text: string } }) {
   const { rt, history, text, effort, module: m, lessons, lessonIdx, memory, notes, allNotes, signal, cb, resume } = opts;
@@ -604,21 +527,20 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
   let plan = resume?.plan;
   if (!plan) {
     cb.onStatus?.("מתכנן את השיעור: קורא את המקורות ומחשב את המספרים");
-    const planTurn = `${ctx}\n\n${text}\n\n${PART_PLAN_INSTRUCTIONS}${decideLine(decideSlot(lessons?.length ?? 0, lessonIdx, opts.done?.length ?? 0))}`;
+    const planTurn = `${ctx}\n\n${text}\n\n${PART_PLAN_INSTRUCTIONS}`;
     plan = await retryRefused(
-      (h, retry) =>
+      (h) =>
         rt.sample!.json<PartPlan>([...fitHistory(h, bytes(planTurn), false, { refs: hasRefs(m) }), { role: "user", content: planTurn }], {
           model: MODEL,
           modelTier: "complex",
           effort,
           signal,
-          ...(tools && !retry ? { tools } : { cache: false }),
+          ...(tools ? { tools } : { cache: false }),
         }),
       history,
       cb,
-    ).catch((e) => onRefusal(e, rt, m, history, planTurn, cb, signal));
+    ).catch((e) => onRefusal(e, rt, m, history, planTurn, cb));
     if (!plan || !Array.isArray(plan.parts) || !plan.parts.length) throw { code: "invalid_json", message: "no plan" };
-    plan = await gatePlan(plan, planTurn, opts, tools);
     cb.onCheckpoint?.(plan, 0, "");
   }
 
@@ -628,9 +550,9 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
     cb.onStatus?.(`כותב חלק ${k + 1} מתוך ${plan.parts.length}: ${plan.parts[k].title}`);
     const before = written ? written + "\n\n" : "";
     let partText = "";
-    for (let attempt = 0; attempt < 3; attempt++) {
-      // a part cut off at the length limit, or ending mid-sentence or inside a block (truncation.ts), gets up to two continuations
-      const turn = `${ctx}\n\n${text}\n\n${partInstructions(plan, k, (before + partText).trim())}${attempt ? `\n\n${PART_CONTINUE}` : ""}`;
+    for (let attempt = 0; attempt < 2; attempt++) {
+      // a part cut off at the length limit gets one continuation
+      const turn = `${ctx}\n\n${text}\n\n${partInstructions(plan, k, (before + partText).trim())}${attempt ? "\n\nThe previous attempt of this part was cut off at the length limit; continue it exactly from where the text above stops." : ""}`;
       const res = await retryRefused(
         (h) =>
           rt.sample!([...fitHistory(h, bytes(turn), false, { refs: hasRefs(m) }), { role: "user", content: turn }], {
@@ -639,17 +561,15 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
             effort,
             signal,
             ...(tools ? { tools } : { cache: false }),
-            onText: ({ text: t }) => cb.onText(before + joinContinuation(partText, t)),
+            onText: ({ text: t }) => cb.onText(before + partText + t),
           }),
         history,
         cb,
-      ).catch((e) => onRefusal(e, rt, m, history, turn, cb, signal));
-      partText = joinContinuation(partText, res.text);
+      ).catch((e) => onRefusal(e, rt, m, history, turn, cb));
+      partText += res.text;
       model = res.modelApplied ?? `רמת מודל: ${res.modelTierApplied}`;
-      if (!res.truncated && !looksCut(partText).cut) break;
-      if (attempt < 2) cb.onStatus?.(`חלק ${k + 1} נעצר באמצע; ממשיך אותו מהמקום שבו נעצר`);
+      if (!res.truncated) break;
     }
-    partText += await completeUnits(plan, k, ctx, text, before, partText, opts, tools);
     written = (before + partText).trim();
     cb.onText(written);
     cb.onCheckpoint?.(plan, k + 1, written);
@@ -767,7 +687,7 @@ ${o.summary.slice(0, 100000)}
 >>>
 
 Write ${o.count ?? 6} review questions in Hebrew built only from what this summary says, so that answering them checks whether the learner remembers and understands his own summary: a mix of a definition, an equation and what each term means, a number to estimate, a "why", and a common mistake. Order them from easy to hard. Equations in $…$. Reply with ONLY a JSON array: [{"q": "the question", "a": "the expected answer, short, from the summary"}]`;
-  const res = await o.rt.sample.json<SummaryQuestion[]>(prompt, { modelTier: "default", effort: "low", signal: o.signal, cache: false });
+  const res = await o.rt.sample.json<SummaryQuestion[]>(prompt, { model: MODEL, modelTier: "default", effort: "low", signal: o.signal, cache: false });
   return (Array.isArray(res) ? res : []).filter((x) => x && typeof x.q === "string").map((x) => ({ q: x.q, a: String(x.a ?? "") }));
 }
 
@@ -779,7 +699,7 @@ Expected answer, from the learner's summary: ${o.question.a}
 The learner answered: ${o.answer}
 
 In Hebrew, two to four sentences: is it right, partly right or wrong; what is missing or mistaken; and the one thing to remember. Start with ✓, ◐ or ✗. Equations in $…$.`;
-  const res = await o.rt.sample(prompt, { modelTier: "quick", effort: "low", signal: o.signal, cache: false });
+  const res = await o.rt.sample(prompt, { model: MODEL, modelTier: "quick", effort: "low", signal: o.signal, cache: false });
   return res.text.trim();
 }
 
@@ -789,22 +709,13 @@ In Hebrew, two to four sentences: is it right, partly right or wrong; what is mi
  * A refused lesson call is tried once more without the earlier turns of the conversation (the
  * history is the only part of the input that a retry can drop without changing the lesson).
  */
-/** One retry on a refusal (without the earlier turns) and one on an empty answer (`retry` is true: callers drop tools). */
-async function retryRefused<T>(call: (history: StoredMessage[], retry: boolean) => Promise<T>, history: StoredMessage[], cb: TurnCallbacks): Promise<T> {
-  let refused = false;
-  let empty = false;
-  for (;;) {
+async function retryRefused<T>(call: (history: StoredMessage[]) => Promise<T>, history: StoredMessage[], cb: TurnCallbacks): Promise<T> {
+  for (let i = 0; ; i++) {
     try {
-      return await call(refused ? [] : history, empty);
+      return await call(i ? [] : history);
     } catch (e) {
-      const code = (e as { code?: string })?.code;
-      if (code === "refused" && !refused) {
-        refused = true;
-        cb.onStatus?.("Claude סירב; מנסה שוב בלי התורות הקודמות");
-      } else if (code === "empty_completion" && !empty) {
-        empty = true;
-        cb.onStatus?.("לא התקבלה תשובה; מנסה שוב");
-      } else throw e;
+      if ((e as { code?: string })?.code !== "refused" || i >= 1) throw e;
+      cb.onStatus?.("Claude סירב; מנסה שוב בלי התורות הקודמות");
     }
   }
 }
@@ -814,21 +725,9 @@ async function retryRefused<T>(call: (history: StoredMessage[], retry: boolean) 
  * again with one part removed at a time, asking only for "OK" (cheap, no tools). The result is saved
  * (profile/diag) so the cause can be fixed in the instructions, and the refusal is rethrown.
  */
-/** Diagnostics run at most once per module per day (they cost several calls); kept in the browser. */
-function diagAllowed(moduleId: string) {
-  const key = `diag:${moduleId}:${new Date().toISOString().slice(0, 10)}`;
-  try {
-    if (localStorage.getItem(key)) return false;
-    localStorage.setItem(key, "1");
-  } catch {
-    // no browser storage: diagnose anyway
-  }
-  return true;
-}
-
-async function onRefusal(e: unknown, rt: Runtime, m: Module, history: StoredMessage[], turn: string, cb: TurnCallbacks, signal?: AbortSignal): Promise<never> {
-  if ((e as { code?: string })?.code !== "refused" || !cb.onDiag || !diagAllowed(m.id)) throw e;
-  cb.onStatus?.("Claude סירב. בודק איזה חלק מהשיעור גורם לזה (כדקה)");
+async function onRefusal(e: unknown, rt: Runtime, m: Module, history: StoredMessage[], turn: string, cb: TurnCallbacks): Promise<never> {
+  if ((e as { code?: string })?.code !== "refused" || !cb.onDiag) throw e;
+  cb.onStatus?.("Claude סירב. בודק איזה חלק מהשיעור גורם לזה (כשתי דקות)");
   const refs = hasRefs(m);
   // Opus refuses even without the rules while Sonnet and Haiku accept the same input (diags of
   // 28.10), so look inside the lesson's own input: the plan text, the memory, each source page
@@ -840,35 +739,26 @@ async function onRefusal(e: unknown, rt: Runtime, m: Module, history: StoredMess
   const noPlan = turn.replace(/Lesson plan of this module:[\s\S]*?(?=\n<course_memory>|\n<lesson_notebook>|\n<notebook>|\n\nSource pages|\n<\/study_context>)/, "");
   const noMemory = turn.replace(/\n*<course_memory>[\s\S]*?<\/course_memory>/, "");
   const minimal = `<study_context>\n${moduleBlock(m)}\n`;
-  // at most four variants, and the source pages one by one only when the pages are the cause
-  // (each probe is an Opus call; docs/research/R3_critic_tech.md asks for a cap)
   const variants: { name: string; turn: string; p: PromptOpts }[] = [
     { name: "lean-full", turn, p: { refs, lean: true } },
-    { name: "full-no-plan", turn: noPlan, p: { refs } },
     { name: "lean-no-pages", turn: head + tail, p: { refs, lean: true } },
+    { name: "lean-no-plan", turn: noPlan, p: { refs, lean: true } },
     { name: "lean-no-memory", turn: noMemory, p: { refs, lean: true } },
+    { name: "full-no-plan", turn: noPlan, p: { refs } },
+    { name: "lean-pages-only", turn: `${minimal}${pagesText}`, p: { refs, lean: true } },
+    ...pageChunks.slice(0, 16).map((c) => ({ name: `page ${(/\[\[([A-Z]\d+[a-z]?:\d+)\]\]/.exec(c)?.[1] ?? "?")}`, turn: `${minimal}\nSource page:\n${c}\n</study_context>`, p: { refs, lean: true } })),
   ];
-  const pageProbes = pageChunks.slice(0, 4).map((c) => ({ name: `page ${(/\[\[([A-Z]\d+[a-z]?:\d+)\]\]/.exec(c)?.[1] ?? "?")}`, turn: `${minimal}\nSource page:\n${c}\n</study_context>`, p: { refs, lean: true } }));
   const results: Record<string, string> = {};
-  // the page probes are added once, after the four variants; never more than eight calls in all
-  let pagesAdded = false;
-  const MAX_PROBES = 8;
-  for (let i = 0; i < variants.length && i < MAX_PROBES; i++) {
-    if (signal?.aborted) break;
-    const v = variants[i];
-    if (!pagesAdded && i === 3 && results["lean-full"] === "refused" && results["lean-no-pages"]?.startsWith("ok")) {
-      pagesAdded = true;
-      variants.push(...pageProbes);
-    }
+  for (const v of variants) {
     const ask = `${v.turn}\n\nDIAGNOSTIC CHECK: do not write the lesson. Reply with the single word OK.`;
     try {
-      const res = await rt.sample!([...fitHistory([], bytes(ask), false, v.p), { role: "user", content: ask }], { model: MODEL, modelTier: "complex", effort: "low", cache: false, signal });
+      const res = await rt.sample!([...fitHistory([], bytes(ask), false, v.p), { role: "user", content: ask }], { model: MODEL, modelTier: "complex", effort: "low", cache: false });
       results[v.name] = `ok (${res.modelApplied ?? res.modelTierApplied ?? "?"})`;
     } catch (err) {
       results[v.name] = (err as { code?: string })?.code ?? "error";
-      if (results[v.name] === "rate_limited" || signal?.aborted) break;
+      if (results[v.name] === "rate_limited") break;
     }
   }
-  await Promise.resolve(cb.onDiag({ module: m.id, at: Date.now(), results, turnBytes: bytes(turn), systemBytes: bytes(systemPrompt({ refs })) })).catch(() => {});
+  await cb.onDiag({ module: m.id, at: Date.now(), results, turnBytes: bytes(turn), systemBytes: bytes(systemPrompt({ refs })) });
   throw e;
 }
