@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/escape-bundle.mjs && node scripts/stamp-index.mjs",
+    "build": "vite build && node scripts/escape-bundle.mjs",
     "typecheck": "tsc -p ."
   },
   "type": "module",
