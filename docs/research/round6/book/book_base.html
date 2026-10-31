@@ -1,0 +1,336 @@
+<title>שיעור כספר</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700&family=Assistant:wght@400;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: one stage in the middle (the book), the three variants as tabs above it, and the choice row under it. */
+:root {
+  --desk: #e9e2d4;        /* the table the book lies on */
+  --paper: #fbf7ee;       /* page */
+  --paper-2: #f3ecdd;     /* page in shadow */
+  --ink: #2a2620;
+  --ink-soft: #6c6457;
+  --rule: #d8cdb8;
+  --accent: #8a3b24;      /* ribbon, chosen state */
+  --def: #3b3a9e;         /* definition block, as in the apps */
+  --edge: #d9cfbb;        /* page edges of the block */
+  --cover: #4b3d2e;
+  --f-body: "Frank Ruhl Libre", "David", "Times New Roman", serif;
+  --f-ui: "Assistant", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --desk: #1f2124; --paper: #2b2c2f; --paper-2: #242528; --ink: #e6e1d6; --ink-soft: #a9a296;
+    --rule: #43423f; --accent: #d08a6a; --def: #b9b6f2; --edge: #3a3a3a; --cover: #15120f; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --desk: #1f2124; --paper: #2b2c2f; --paper-2: #242528; --ink: #e6e1d6; --ink-soft: #a9a296;
+  --rule: #43423f; --accent: #d08a6a; --def: #b9b6f2; --edge: #3a3a3a; --cover: #15120f; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  background: radial-gradient(120% 90% at 50% 40%, color-mix(in srgb, var(--desk) 80%, var(--paper)) 0%, var(--desk) 70%);
+  background-color: var(--desk);
+  color: var(--ink);
+  font-family: var(--f-ui);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 18px 28px;
+}
+.wrap { max-width: 1180px; margin: 0 auto; display: grid; gap: 16px; }
+header { display: grid; gap: 4px; }
+h1 { margin: 0; font-family: var(--f-body); font-weight: 700; font-size: clamp(1.4rem, 3vw, 2rem); text-wrap: balance; }
+.lede { margin: 0; color: var(--ink-soft); max-width: 70ch; line-height: 1.55; }
+.tabs { display: flex; flex-wrap: wrap; gap: 8px; }
+.tab {
+  font: 600 0.95rem var(--f-ui); color: var(--ink); background: transparent; border: 1px solid var(--rule);
+  padding: 8px 14px; border-radius: 999px; cursor: pointer;
+}
+.tab[aria-selected="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.tab:focus-visible, .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.desc { margin: 0; color: var(--ink-soft); font-size: 0.95rem; min-height: 2.6em; line-height: 1.4; }
+
+/* ---- stage ---- */
+.stage { overflow: hidden; padding-inline: 12px; position: relative; display: grid; place-items: center; padding-block: 8px; perspective: 2200px; user-select: none; touch-action: pan-y; }
+.book { position: relative; width: min(100%, 1040px); aspect-ratio: 2 / 1.32; transform-style: preserve-3d; transition: transform 0.9s cubic-bezier(.2,.7,.2,1); }
+.page {
+  position: absolute; top: 0; width: 50%; height: 100%; background: var(--paper); overflow: hidden;
+  padding: clamp(14px, 3.4%, 40px) clamp(14px, 3.6%, 44px); direction: rtl;
+}
+.page.right { right: 0; border-radius: 3px 8px 8px 3px; box-shadow: inset 18px 0 30px -18px rgba(0,0,0,.28); }
+.page.left { left: 0; border-radius: 8px 3px 3px 8px; box-shadow: inset -18px 0 30px -18px rgba(0,0,0,.28); }
+/* page edges under the open book: a stack of leaves */
+.book::before, .book::after {
+  content: ""; position: absolute; top: 1.2%; height: 98%; width: 50%; z-index: -1; background: var(--edge);
+  box-shadow: 0 1px 0 var(--rule), 0 3px 0 var(--edge), 0 5px 0 var(--rule), 0 7px 0 var(--edge), 0 9px 14px rgba(0,0,0,.25);
+}
+.book::before { right: -6px; border-radius: 3px 10px 10px 3px; }
+.book::after { left: -6px; border-radius: 10px 3px 3px 10px; }
+
+/* the turning leaf: sits over the left page and turns around the spine (the book's centre) to the right */
+.leaf { position: absolute; top: 0; left: 0; width: 50%; height: 100%; transform-origin: right center; transform-style: preserve-3d; z-index: 5; pointer-events: none; }
+.leaf .face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.leaf .face .page { position: absolute; inset: 0; width: 100%; left: 0; right: auto; }
+.leaf .back { transform: rotateY(180deg); }
+.leaf .shade { position: absolute; inset: 0; pointer-events: none; }
+.curl { position: absolute; inset: 0; pointer-events: none; mix-blend-mode: multiply; }
+
+/* ---- page typography: the lesson as a printed book ---- */
+.runhead { display: flex; justify-content: space-between; font: 500 0.72rem var(--f-mono); letter-spacing: .06em; color: var(--ink-soft); border-bottom: 1px solid var(--rule); padding-bottom: 6px; margin-bottom: 4%; }
+.pg h2 { font-family: var(--f-body); font-weight: 700; font-size: clamp(1rem, 1.9vw, 1.45rem); margin: 0 0 3%; text-wrap: balance; line-height: 1.25; }
+.pg p { font-family: var(--f-body); font-size: clamp(0.72rem, 1.2vw, 0.98rem); line-height: 1.7; margin: 0 0 2.6%; text-align: justify; hyphens: auto; }
+.pg .dropcap::first-letter { float: right; font-size: 3.1em; line-height: .9; margin-left: 6px; font-weight: 700; color: var(--accent); }
+.blk { border-inline-start: 3px solid var(--def); padding: 6px 10px; margin: 0 0 3%; background: color-mix(in srgb, var(--def) 6%, transparent); }
+.blk b { display: block; font: 700 0.72rem var(--f-ui); letter-spacing: .05em; color: var(--def); margin-bottom: 2px; }
+.blk p { margin: 0; }
+.math { font-family: var(--f-body); font-size: clamp(0.85rem, 1.5vw, 1.15rem); text-align: center; margin: 2% 0 3%; direction: ltr; }
+.math i { font-style: italic; }
+.think { border: 1px dashed var(--rule); padding: 6px 10px; border-radius: 4px; }
+.think b { font: 700 0.72rem var(--f-ui); color: var(--accent); }
+.folio { position: absolute; bottom: 3%; font: 500 0.75rem var(--f-mono); color: var(--ink-soft); }
+.page.right .folio { left: 7%; }
+.page.left .folio { right: 7%; }
+.ribbon { position: absolute; top: -6px; right: 4%; width: 16px; height: 18%; background: var(--accent); clip-path: polygon(0 0,100% 0,100% 100%,50% 82%,0 100%); z-index: 6; box-shadow: 0 2px 4px rgba(0,0,0,.25); }
+
+/* ---- variant B: one page at a time, the page is lifted from its corner ---- */
+.v-single .book { width: min(100%, 560px); aspect-ratio: 1 / 1.36; }
+.v-single .page.right { width: 100%; border-radius: 4px 10px 10px 4px; }
+.v-single .page.left, .v-single .book::after { display: none; }
+.v-single .book::before { width: 100%; }
+.v-single .leaf { width: 100%; left: 0; transform-origin: right center; }
+
+/* ---- variant C: the book on the desk, seen at an angle, with its cover and thickness ---- */
+.v-desk .book { width: min(100%, 820px); transform: rotateX(28deg) rotateZ(-2deg) translateY(-2%); }
+.v-desk .stage { perspective: 1500px; }
+.v-desk .book .cover { display: block; }
+.cover { display: none; position: absolute; inset: -2.2% -1.6%; background: var(--cover); border-radius: 10px; transform: translateZ(-14px); box-shadow: 0 40px 60px -20px rgba(0,0,0,.55), 0 0 0 1px rgba(0,0,0,.2); z-index: -2; }
+.v-desk .book::before, .v-desk .book::after { box-shadow: 0 1px 0 var(--rule), 0 3px 0 var(--edge), 0 5px 0 var(--rule), 0 7px 0 var(--edge), 0 9px 0 var(--rule), 0 11px 0 var(--edge), 0 13px 0 var(--rule); }
+.lamp { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(60% 50% at 55% 30%, rgba(255,240,200,.18), transparent 70%); display: none; }
+.v-desk .lamp { display: block; }
+
+/* ---- controls ---- */
+.bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px; }
+.btn { font: 600 0.95rem var(--f-ui); border: 1px solid var(--rule); background: var(--paper); color: var(--ink); padding: 8px 16px; border-radius: 6px; cursor: pointer; }
+.btn.primary { background: var(--accent); color: var(--paper); border-color: var(--accent); }
+.pos { font: 500 0.85rem var(--f-mono); color: var(--ink-soft); font-variant-numeric: tabular-nums; min-width: 9ch; text-align: center; }
+.hint { text-align: center; color: var(--ink-soft); font-size: 0.85rem; margin: 0; }
+.pick { display: grid; gap: 8px; justify-items: center; border-top: 1px solid var(--rule); padding-top: 14px; }
+.pick p { margin: 0; color: var(--ink-soft); }
+.chosen { font-weight: 700; color: var(--accent); }
+
+@media (max-width: 640px) {
+  /* a phone shows one page even in the spread variants */
+  .book { aspect-ratio: 1 / 1.36; width: 100%; }
+  .page.right { width: 100%; }
+  .page.left, .book::after { display: none; }
+  .book::before { width: 100%; }
+  .leaf { width: 100%; }
+  .v-desk .book { transform: rotateX(16deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .book { transition: none; }
+}
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>השיעור כספר: שלוש אפשרויות</h1>
+    <p class="lede">אותו שיעור אמיתי בשלושה ספרים. דפדף בחיצים, במקלדת (← →), או גרור את הדף באצבע או בעכבר מהקצה. בטלפון כל אפשרות מציגה דף אחד.</p>
+  </header>
+
+  <div class="tabs" role="tablist" aria-label="אפשרויות">
+    <button class="tab" role="tab" id="t-spread" aria-selected="true" data-v="spread">א · ספר פתוח, שני עמודים</button>
+    <button class="tab" role="tab" id="t-single" aria-selected="false" data-v="single">ב · דף אחד, הופכים מהפינה</button>
+    <button class="tab" role="tab" id="t-desk" aria-selected="false" data-v="desk">ג · ספר על השולחן, בתלת-ממד</button>
+  </div>
+  <p class="desc" id="desc"></p>
+
+  <div class="stage" id="stage">
+    <div class="book" id="book">
+      <div class="cover"></div>
+      <div class="ribbon" aria-hidden="true"></div>
+      <div class="page right pg" id="pR"></div>
+      <div class="page left pg" id="pL"></div>
+      <div class="leaf" id="leaf" hidden>
+        <div class="face front"><div class="page pg" id="lF"></div><div class="shade" id="shF"></div></div>
+        <div class="face back"><div class="page pg" id="lB"></div><div class="shade" id="shB"></div></div>
+      </div>
+    </div>
+    <div class="lamp"></div>
+  </div>
+
+  <div class="bar">
+    <button class="btn" id="prev" aria-label="הדף הקודם">→ הקודם</button>
+    <span class="pos" id="pos"></span>
+    <button class="btn" id="next" aria-label="הדף הבא">הבא ←</button>
+  </div>
+  <p class="hint">גרירה: תפוס את הדף ליד הקצה החיצוני ומשוך אותו לעבר השדרה. שחרור באמצע מחזיר אותו.</p>
+
+  <div class="pick">
+    <p>איזו אפשרות להכניס לגילואה וללנצ'סטר?</p>
+    <div class="bar">
+      <button class="btn primary" id="choose">בחר את האפשרות הזאת</button>
+    </div>
+    <p id="chosenMsg" aria-live="polite"></p>
+  </div>
+</div>
+
+<script>
+// The lesson's pages: real text in the style of the apps (M0.1, lesson 4).
+const PAGES = [
+  `<div class="runhead"><span>M0.1 · שיעור 4</span><span>גילואה</span></div>
+   <h2>המתמטיקה המודרנית: מרחב, מבנה ופונקציה כמשתנה</h2>
+   <p class="dropcap">במאה התשע-עשרה הבינו המתמטיקאים שאפשר לחקור את היחסים בין עצמים בלי לשאול מה העצמים עצמם. מי שהוביל את המעבר היה קנטור, שניסה להבין על אילו קבוצות של נקודות טור פורייה עדיין מתכנס. הבעיה הזאת הכריחה אותו להשוות גדלים של קבוצות אינסופיות.</p>
+   <p>מכאן הרעיון שמלווה את כל השיעור: מבנה הוא קבוצה, ועליה יחסים ופעולות שמקיימים חוקים. אותו מבנה יכול להופיע בגאומטריה, באותות ובבקרה.</p>`,
+  `<div class="blk"><b>הגדרה · מרחב וקטורי</b><p>קבוצה <i>V</i> מעל שדה <i>F</i>, עם חיבור וכפל בסקלר, כך שהחיבור קיבוצי וחילופי, יש איבר אפס ונגדי, והכפל מתפלג על החיבור.</p></div>
+   <p>ההגדרה לא אומרת מהם הווקטורים. הם יכולים להיות חצים במישור, פולינומים, או אותות בזמן. כל מה שמקיים את החוקים הוא מרחב וקטורי, וכל משפט שהוכח מהחוקים נכון לכולם.</p>
+   <div class="math"><i>a</i>(<i>u</i> + <i>v</i>) = <i>a u</i> + <i>a v</i></div>
+   <p>זה החוק שבזכותו "סופרפוזיציה" עובדת: התגובה של מערכת לינארית לסכום אותות היא סכום התגובות.</p>`,
+  `<h2>הפונקציה כמשתנה</h2>
+   <p>הצעד הבא היה להפוך את הפונקציה עצמה לנקודה במרחב. מרחב של פונקציות עם מרחק ביניהן מאפשר לשאול שאלות על "הכי קרוב" ועל התכנסות, בדיוק כמו במישור.</p>
+   <div class="math">‖<i>f</i> − <i>g</i>‖ = ( ∫ |<i>f</i>(<i>t</i>) − <i>g</i>(<i>t</i>)|² <i>dt</i> )<sup>½</sup></div>
+   <p>במרחק הזה מודדים כמה מסנן קרוב לאידיאלי, וכמה אות משוחזר קרוב למקורי.</p>
+   <div class="think"><b>שאלה לחשוב</b><p>אם שני אותות שונים רק בנקודה אחת, מה המרחק ביניהם לפי ההגדרה הזאת? ומה זה אומר על "שווים"?</p></div>`,
+  `<h2>יציבות וחישוב</h2>
+   <p>המחשב הוסיף שאלה חדשה: לא רק אם יש פתרון, אלא האם שגיאה קטנה בקלט נשארת קטנה בפלט. זו שאלת היציבות, והיא מכריעה אם אלגוריתם שימושי בכלל.</p>
+   <div class="blk"><b>לסיכום · מה צריך לזכור</b><p>מבנה: קבוצה עם חוקים. מרחב וקטורי: חיבור וכפל בסקלר עם שמונה חוקים. נורמה: מרחק בין פונקציות. יציבות: שגיאה קטנה נשארת קטנה.</p></div>
+   <p>בשיעור הבא: האלגברה הלינארית כשפה המשותפת לכל אלה.</p>`,
+  `<h2>תרגילים</h2>
+   <p>1. הראה שאוסף הפולינומים ממעלה עד 3 הוא מרחב וקטורי. מה הממד שלו?</p>
+   <p>2. אמוד בראש: מסנן ממוצע נע של 5 דגימות. האם הוא יציב? נמק במשפט אחד.</p>
+   <p>3. מצא את הטעות: "כל קבוצה של פונקציות רציפות היא מרחב וקטורי".</p>
+   <div class="think"><b>משימת מעבדה</b><p>שחזר אות מ-10 מקדמי פורייה, ומדוד את המרחק לאות המקורי לפי הנורמה שלמעלה.</p></div>`,
+  `<h2>מבט קדימה</h2>
+   <p>שלושת הרעיונות של השיעור, מבנה, מרחב של פונקציות ויציבות, חוזרים בכל תחום שנלמד: באותות כמרחב של אותות, בבקרה כיציבות של חוג סגור, ובשערוך כמרחק בין מודל למדידה.</p>
+   <p>הספר נסגר כאן, והמחברת נפתחת לידו.</p>`,
+];
+const DESC = {
+  spread: "שני עמודים זה מול זה, עם שדרה וערימת דפים. הדף השמאלי מתהפך סביב השדרה ימינה, כמו בספר עברי. הכי קרוב לקריאה בספר מודפס.",
+  single: "עמוד אחד גדול באמצע המסך. בסוף העמוד מרימים אותו מהפינה, והוא מתקפל ונחשף העמוד הבא. הכי שקט, ומתאים גם לטלפון.",
+  desk: "הספר מונח על שולחן בזווית, עם כריכה, עובי ותאורה רכה. הדף מתהפך בתלת-ממד. הכי מרשים, ופחות נוח לקריאה ארוכה.",
+};
+const $ = (id) => document.getElementById(id);
+const stage = $("stage"), book = $("book"), leaf = $("leaf");
+let variant = "spread";
+let at = 0; // index of the right page (spread) or of the page (single)
+let busy = false;
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const narrow = () => matchMedia("(max-width: 640px)").matches;
+const perView = () => (variant === "single" || narrow() ? 1 : 2);
+
+function folio(i) { return `<span class="folio">${i + 1}</span>`; }
+function fill(el, i) { el.innerHTML = i >= 0 && i < PAGES.length ? PAGES[i] + folio(i) : ""; el.style.visibility = i >= 0 && i < PAGES.length ? "visible" : "hidden"; }
+function render() {
+  fill($("pR"), at);
+  fill($("pL"), perView() === 2 ? at + 1 : -1);
+  const last = perView() === 2 ? at + 1 : at;
+  $("pos").textContent = perView() === 2 ? `${at + 1}–${Math.min(last + 1, PAGES.length)} / ${PAGES.length}` : `${at + 1} / ${PAGES.length}`;
+  $("prev").disabled = at === 0;
+  $("next").disabled = at + perView() >= PAGES.length;
+}
+
+// One turn of the leaf. dir +1 = forward (the leaf goes from the left side over the spine to the right).
+// In the single-page view the leaf is the page itself, turning around its right edge.
+function setAngle(a) {
+  // a: 0 (flat, not turned) .. 180 (turned over)
+  leaf.style.transform = `rotateY(${a}deg)`;
+  const t = Math.sin((a * Math.PI) / 180);
+  $("shF").style.background = `linear-gradient(to left, rgba(0,0,0,${0.32 * t}), rgba(0,0,0,0) 45%, rgba(255,255,255,${0.12 * t}) 70%, rgba(0,0,0,${0.08 * t}))`;
+  $("shB").style.background = `linear-gradient(to right, rgba(0,0,0,${0.32 * t}), rgba(0,0,0,0) 40%, rgba(255,255,255,${0.1 * t}))`;
+}
+function prepare(dir) {
+  const two = perView() === 2;
+  if (dir > 0) {
+    // forward: the leaf carries the current left page (front) and the next right page (back); the page under it is revealed
+    if (two) { fill($("lF"), at + 1); fill($("lB"), at + 2); fill($("pL"), at + 3); }
+    else { fill($("lF"), at); fill($("lB"), -1); fill($("pR"), at + 1); }
+  } else {
+    // backward: the leaf starts turned over and comes back, carrying the previous pages
+    if (two) { fill($("lF"), at - 1); fill($("lB"), at); fill($("pR"), at - 2); }
+    else { fill($("lF"), at - 1); fill($("lB"), -1); }
+  }
+  leaf.hidden = false;
+}
+function finish(dir) {
+  at = Math.max(0, Math.min(PAGES.length - 1, at + dir * perView()));
+  leaf.hidden = true; busy = false; render();
+}
+function animate(from, to, ms, done) {
+  if (reduce) { setAngle(to); return done(); }
+  const t0 = performance.now();
+  const ease = (x) => 1 - Math.pow(1 - x, 3);
+  function step(now) {
+    const x = Math.min(1, (now - t0) / ms);
+    setAngle(from + (to - from) * ease(x));
+    x < 1 ? requestAnimationFrame(step) : done();
+  }
+  requestAnimationFrame(step);
+}
+function turn(dir) {
+  if (busy) return;
+  if (dir > 0 && at + perView() >= PAGES.length) return;
+  if (dir < 0 && at === 0) return;
+  busy = true; prepare(dir);
+  if (dir > 0) { setAngle(0); animate(0, 180, 900, () => finish(1)); }
+  else { setAngle(180); animate(180, 0, 900, () => finish(-1)); }
+}
+$("next").onclick = () => turn(1);
+$("prev").onclick = () => turn(-1);
+addEventListener("keydown", (e) => { if (e.key === "ArrowLeft") turn(1); if (e.key === "ArrowRight") turn(-1); });
+
+// Dragging: grab near the outer edge of the left page (or of the single page) and pull toward the spine.
+let drag = null;
+stage.addEventListener("pointerdown", (e) => {
+  if (busy) return;
+  const r = book.getBoundingClientRect();
+  const x = e.clientX - r.left;
+  const pv = perView();
+  const fwdZone = pv === 2 ? x < r.width * 0.22 : x < r.width * 0.25;
+  const backZone = pv === 2 ? x > r.width * 0.78 : x > r.width * 0.75;
+  if (fwdZone && at + pv < PAGES.length) { drag = { dir: 1, x0: e.clientX, w: pv === 2 ? r.width : r.width * 1.4 }; }
+  else if (backZone && at > 0) { drag = { dir: -1, x0: e.clientX, w: pv === 2 ? r.width : r.width * 1.4 }; }
+  else return;
+  busy = true; prepare(drag.dir); setAngle(drag.dir > 0 ? 0 : 180);
+  stage.setPointerCapture(e.pointerId);
+});
+stage.addEventListener("pointermove", (e) => {
+  if (!drag) return;
+  const d = (e.clientX - drag.x0) / drag.w; // forward drag moves right
+  const a = drag.dir > 0 ? Math.max(0, Math.min(180, d * 220)) : Math.max(0, Math.min(180, 180 + d * 220));
+  drag.a = a; setAngle(a);
+});
+stage.addEventListener("pointerup", () => {
+  if (!drag) return;
+  const { dir, a = dir > 0 ? 0 : 180 } = drag; drag = null;
+  if (dir > 0) a > 70 ? animate(a, 180, 420, () => finish(1)) : animate(a, 0, 320, () => { leaf.hidden = true; busy = false; render(); });
+  else a < 110 ? animate(a, 0, 420, () => finish(-1)) : animate(a, 180, 320, () => { leaf.hidden = true; busy = false; render(); });
+});
+
+// Variants
+function setVariant(v) {
+  variant = v;
+  document.body.classList.remove("v-spread", "v-single", "v-desk");
+  document.body.classList.add(`v-${v}`);
+  for (const t of document.querySelectorAll(".tab")) t.setAttribute("aria-selected", String(t.dataset.v === v));
+  $("desc").textContent = DESC[v];
+  if (perView() === 2 && at % 2) at -= 1;
+  render(); showChosen();
+}
+for (const t of document.querySelectorAll(".tab")) t.onclick = () => setVariant(t.dataset.v);
+addEventListener("resize", () => { if (perView() === 2 && at % 2) at -= 1; render(); });
+
+// The choice: kept in this browser, and the learner tells Claude which one.
+const NAMES = { spread: "א · ספר פתוח", single: "ב · דף אחד", desk: "ג · ספר על השולחן" };
+let chosen = null;
+try { chosen = localStorage.getItem("book-choice"); } catch {}
+function showChosen() {
+  $("chosenMsg").innerHTML = chosen ? `בחרת: <span class="chosen">${NAMES[chosen]}</span>. כתוב לי את זה בשיחה, ואכניס אותה לשתי האפליקציות.` : "";
+  $("choose").textContent = chosen === variant ? "זו הבחירה שלך" : "בחר את האפשרות הזאת";
+}
+$("choose").onclick = () => { chosen = variant; try { localStorage.setItem("book-choice", chosen); } catch {} showChosen(); };
+setVariant("spread");
+</script>
