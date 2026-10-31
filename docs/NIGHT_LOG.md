@@ -28,3 +28,5 @@
 - CLAUDE.md, BUILD_GUIDE ו-*_LAB_PLAN עודכנו (docs-night). סקריפט הבדיקה נשמר במאגר: `core/tools/test-check/check.mjs`.
 - המפעל הלילי הופעל ידנית פעם ראשונה (00:25 UTC, סשן cse_01K7p3gweHNPCM5CADMnqKwC): בדיקות P1–P3 ושיעור למדף.
 - נשאר: מסירת הבוקר (לוח המצב, דוח בוקר).
+- לוח המצב פורסם (גרסה 5, https://claude.ai/artifact/Cbp7n6ognmbFzrnn7LUeQ8): "פועל עכשיו", "מה צריך ממך", שתי החלטות חדשות (noiseDefault, consultLength); 13 ההחלטות השמורות שלמות.
+- בעבודה: מעבר בוקר מלא עם ליטוש (polish), ואחריו דוח הבוקר.
