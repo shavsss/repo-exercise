@@ -134,7 +134,7 @@ export function Composer({
           {modes.length > 1 && (
             <div className="seg" role="radiogroup" aria-label="סוג ההודעה">
               {modes.map((m) => (
-                <button key={m} role="radio" aria-checked={mode === m} className={mode === m ? "is-on" : ""} onClick={() => setMode(m)}>
+                <button key={m} role="radio" aria-checked={mode === m} className={mode === m ? "is-on" : ""} onMouseDown={keepFocus} onClick={() => setMode(m)}>
                   {MODE_LABEL[m]}
                 </button>
               ))}
@@ -143,7 +143,7 @@ export function Composer({
           <span className="composer-spacer" />
           {canAttach && (
             <>
-              <button className="icon-btn" onClick={() => fileRef.current?.click()} title="צרף תמונה" aria-label="צרף תמונה">
+              <button className="icon-btn" onMouseDown={keepFocus} onClick={() => fileRef.current?.click()} title="צרף תמונה" aria-label="צרף תמונה">
                 <Icon name="image" />
               </button>
               <input ref={fileRef} type="file" accept="image/png,image/jpeg,image/webp,image/gif" multiple hidden onChange={(e) => e.target.files && addFiles(e.target.files)} />
