@@ -147,6 +147,7 @@ loss_db = 20 * log10(2) ** 2   # power falls as R^-4
 
 \`\`\`keep
 - הטווח גדל כשורש רביעי של ההספק.
+- **משוואת המכ"ם**: $R_{max} \\propto P_t^{1/4}$, כשהמטרה רחוקה והאנטנה מכוונת.
 - $P_r \\propto R^{-4}$
 \`\`\`
 
@@ -176,9 +177,23 @@ const seedDocs = { "news/2026-W44": sample("news.json"), "reviews/2026-W44": sam
 const shelf = sample("shelf.json");
 seedDocs[`shelf/${mod.id}__1`] = { ...shelf.doc, app: "core", moduleId: mod.id, spec: { title: lessons[1].title }, title: lessons[1].title };
 for (const [n, part] of Object.entries(shelf.more)) seedDocs[`shelf/${mod.id}__1/more/${n}`] = part;
+// ?review in the address: a lesson he read two days ago, a think question he missed and a margin note, so the
+// review queue (src/review/) and the morning card have due cards. "__AGO<n>__" is n days before now (stub.js).
+const fnv = (s) => {
+  let h = 0x811c9dc5;
+  for (let i = 0; i < s.length; i++) h = Math.imul(h ^ s.charCodeAt(i), 0x01000193);
+  return (h >>> 0).toString(36);
+};
+const reviewDocs = {
+  [`modules/${mod.id}`]: { lessons, convs: { 0: "rvseed" }, done: [0] },
+  "convs/rvseed": { title: lessons[0].title, moduleId: mod.id, lesson: 0, createdAt: "__AGO2__", updatedAt: "__AGO2__", count: 1 },
+  "convs/rvseed/msgs/a1": { role: "assistant", text: answer, mode: "lesson", ts: "__AGO2__" },
+  [`calib/${mod.id}__0__${fnv("שאלה לבדיקה?")}`]: { id: `${mod.id}__0__${fnv("שאלה לבדיקה?")}`, moduleId: mod.id, lesson: 0, q: "שאלה לבדיקה?", conf: 2, grade: "wrong", ts: "__AGO2__", gradedAt: "__AGO2__" },
+  "notes/rvnote": { who: "learner", kind: "note", text: "לבדוק למה השורש הרביעי ולא הריבועי.", moduleId: mod.id, lesson: 0, margin: true, anchor: "פסקה נוספת אחרי הנוסחה", ts: "__AGO2__" },
+};
 fs.writeFileSync(
   path.join(out, "test.html"),
   `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body>` +
-    `<script src="stub.js"></script><script>window.__answer=${JSON.stringify(answer)};window.__lessons=${JSON.stringify(lessons)};window.__doc=${JSON.stringify(doc)};window.__module=${JSON.stringify(mod.id)};window.__seed=${JSON.stringify(seedDocs)}</script>${page}</body></html>`,
+    `<script src="stub.js"></script><script>window.__answer=${JSON.stringify(answer)};window.__lessons=${JSON.stringify(lessons)};window.__doc=${JSON.stringify(doc)};window.__module=${JSON.stringify(mod.id)};window.__seed=${JSON.stringify(seedDocs)};window.__seedReview=${JSON.stringify(reviewDocs)}</script>${page}</body></html>`,
 );
 console.log(`harness written to ${out}/test.html (module ${mod.id}, figure ${doc}:${figPage}:0)`);

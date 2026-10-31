@@ -1,0 +1,259 @@
+/* The review tab (src/review/): one card per screen, the answer and the grades docked at the bottom, within the
+   thumb's reach on a phone. Only the shared tokens of styles.css; quiet, no looping animation. Same file in both apps. */
+
+.rv-wrap {
+  max-width: 44rem;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+.rv-head h1 {
+  font: 700 clamp(1.5rem, 3.4vw, 2rem) / 1.2 "Frank Ruhl Libre", var(--font);
+  margin: 4px 0 14px;
+}
+.rv-calm {
+  color: var(--ink-soft);
+  line-height: 1.7;
+  max-width: 34rem;
+}
+.rv-big {
+  font: 600 1.25rem / 1.4 "Frank Ruhl Libre", var(--font);
+  margin: 0 0 6px;
+}
+.rv-end {
+  margin: 32px 0;
+  padding: 22px 20px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--sheet);
+}
+.rv-end p {
+  margin: 0 0 10px;
+}
+.rv-end-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+.rv-end-actions .btn {
+  min-height: 44px;
+  padding: 0 18px;
+}
+
+/* ---------------- a session ---------------- */
+.rv-session {
+  padding-bottom: 0;
+}
+.rv-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+}
+.rv-left {
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+.rv-bar {
+  height: 3px;
+  margin: 8px 0 16px;
+  background: var(--line);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.rv-bar i {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  transition: width 0.3s ease;
+}
+.rv-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 18px 20px 22px;
+  border: 1px solid var(--line);
+  border-inline-start: 4px solid var(--k-keep);
+  border-radius: 8px;
+  background: var(--sheet);
+  box-shadow: var(--shadow);
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.rv-card.k-def {
+  border-inline-start-color: var(--k-definition);
+}
+.rv-card.k-formula {
+  border-inline-start-color: var(--k-formula);
+}
+.rv-card.k-think {
+  border-inline-start-color: var(--k-think);
+}
+.rv-card.k-note {
+  border-inline-start-color: var(--blue);
+}
+.rv-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+.rv-kind {
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+.rv-src {
+  font-size: 0.8125rem;
+  color: var(--muted);
+  text-decoration-color: var(--line-strong);
+}
+.rv-front {
+  font-size: 1.125rem;
+  line-height: 1.65;
+}
+.rv-front p,
+.rv-back p {
+  margin: 0 0 0.6em;
+}
+.rv-orig {
+  margin-top: 6px;
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+.rv-ask {
+  align-self: flex-start;
+  font-size: 0.875rem;
+}
+.rv-back {
+  border-top: 1px dashed var(--line-strong);
+  padding-top: 14px;
+  line-height: 1.7;
+  max-width: 100%;
+  overflow-x: auto;
+}
+/* inline math inside Hebrew keeps its own left-to-right order ("C_{D,i}", not "D,iC") */
+.rv-card .katex,
+.flow-morning .katex {
+  unicode-bidi: isolate;
+}
+.rv-card .katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 2px 0;
+}
+
+/* the dock: stays at the bottom of the page while the card scrolls */
+.rv-dock {
+  position: sticky;
+  bottom: 0;
+  margin: 14px -16px 0;
+  padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px));
+  background: linear-gradient(to top, var(--paper) 78%, transparent);
+}
+.rv-reveal {
+  width: 100%;
+  min-height: 52px;
+  justify-content: center;
+  font-size: 1.0625rem;
+  font-weight: 600;
+}
+.rv-grades {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+.rv-grade {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-height: 60px;
+  padding: 6px 4px;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  background: var(--sheet);
+  color: var(--ink);
+  font: inherit;
+  cursor: pointer;
+}
+.rv-grade b {
+  font-size: 1rem;
+  font-weight: 600;
+}
+.rv-grade small {
+  font-size: 0.75rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.rv-grade:hover {
+  background: var(--hover);
+}
+.rv-grade:focus-visible,
+.rv-reveal:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.rv-grade.g1 {
+  border-color: color-mix(in srgb, var(--warn) 55%, var(--line-strong));
+}
+.rv-grade.g3 {
+  border-color: color-mix(in srgb, var(--ok) 60%, var(--line-strong));
+}
+.rv-grade.g3 b {
+  color: var(--ok);
+}
+.rv-foot {
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
+}
+.rv-foot .link {
+  font-size: 0.8125rem;
+  color: var(--muted);
+  text-decoration-color: var(--line);
+  padding: 6px 4px;
+}
+
+/* a wide screen: the card as tall as its text, the grades right under it */
+@media (min-width: 700px) {
+  .rv-card {
+    flex: none;
+    min-height: 300px;
+  }
+}
+@media (max-width: 600px) {
+  .rv-card {
+    padding: 14px 14px 18px;
+  }
+  .rv-front {
+    font-size: 1.0625rem;
+  }
+  .rv-grades {
+    gap: 6px;
+  }
+}
+
+/* the morning card: the grades after a question from the review */
+.flow-q .rv-mini {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.flow-q .rv-mini button {
+  min-height: 36px;
+  min-width: 56px;
+}
+.flow-review {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  border-top: 1px solid var(--line);
+  padding-top: 10px;
+}

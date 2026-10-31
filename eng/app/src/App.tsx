@@ -694,7 +694,7 @@ export function App() {
               {rt && rt.sample && !rt.store && <div className="banner banner-warn">השיחות וההתקדמות לא יישמרו בתצוגה הזו (צריך להיות מחובר ל-claude.ai עם הרשאת כתיבה).</div>}
               {indexError && <div className="banner banner-error">{indexError}</div>}
 
-              {!module && index && <MorningCard rt={rt} modules={index.modules} mods={mods} onGo={setSelection} />}
+              {!module && index && <MorningCard rt={rt} modules={index.modules} mods={mods} onGo={setSelection} onReview={() => setTab("review")} />}
               {!module && index && <Overview index={index} done={done} mods={mods} onSelect={setSelection} />}
               {!module && closeDay("home")}
 
