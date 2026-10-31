@@ -298,6 +298,14 @@ export class Store {
     await this.profile.collection("bench").doc(id).set(data);
   }
 
+  /** The bench's command document (profile/bench/_cmd): a test the bench page runs while it is open. */
+  watchBenchCmd(fn: (cmd: Record<string, unknown> | null) => void) {
+    return this.profile.collection("bench").doc("_cmd").onSnapshot((s) => fn(s.exists ? (s.data() as Record<string, unknown>) : null));
+  }
+  async markBenchCmd(patch: Record<string, unknown>) {
+    await this.profile.collection("bench").doc("_cmd").set(patch);
+  }
+
   async loadModule(id: string): Promise<ModuleProgress | null> {
     const snap = await this.profile.collection("modules").doc(id).get();
     return snap.exists ? (snap.data() as ModuleProgress) : null;

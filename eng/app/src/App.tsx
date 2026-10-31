@@ -3,7 +3,7 @@ import { connect, type ConvMeta, type Runtime, type SampleError } from "./runtim
 import { docMeta, loadIndex, moduleState, type LibraryIndex, type Module } from "./library";
 import { INITIAL_MEMORY, askTutor, composeLesson, planModule, updateMemory, type PartPlan } from "./tutor";
 import { toItems } from "./segments";
-import type { Activity, Effort, LessonNote, ModuleProgress, Mode, NoteKind, StoredMessage } from "./types";
+import type { Activity, Effort, LessonNote, LessonSpec, ModuleProgress, Mode, NoteKind, StoredMessage } from "./types";
 import { ModuleMap, STATE_LABEL, TIER_LABEL, type Selection } from "./components/ModuleMap";
 import { Topbar, type Crumb } from "./components/Topbar";
 import { AssistantTurn, DimensionHead, UserBubble } from "./components/Message";
@@ -339,6 +339,28 @@ export function App() {
   );
 
   /**
+   * A lesson whose plan split its material (the "split" of the candidate rules: depth is never cut,
+   * what does not fit becomes the next lesson) gets that next lesson inserted right after it, with
+   * the same source pages. The lesson indices after it (conversations, done) move by one.
+   */
+  const insertSplit = useCallback(
+    async (m: Module, idx: number, split: { title?: string; covers?: string }) => {
+      const p = modsRef.current[m.id];
+      const lessons = p?.lessons;
+      const cur = lessons?.[idx];
+      if (!lessons || !cur || !split.title) return;
+      if (lessons[idx + 1]?.title === split.title) return;
+      const spec: LessonSpec = { title: split.title, covers: cur.covers, sources: cur.sources, focus: `המשך של «${cur.title}»: ${split.covers ?? ""}` };
+      const shift = (k: number) => (k > idx ? k + 1 : k);
+      const convs = Object.fromEntries(Object.entries(p.convs ?? {}).map(([k, v]) => [String(shift(Number(k))), v]));
+      const done = (p.done ?? []).map(shift);
+      await saveModule(m.id, { lessons: [...lessons.slice(0, idx + 1), spec, ...lessons.slice(idx + 1)], convs, done });
+      notify({ level: "info", text: `החומר שלא נכנס לשיעור בעומק מלא עבר לשיעור הבא: «${split.title}».` });
+    },
+    [saveModule],
+  );
+
+  /**
    * Writes one answer. The answer is saved as a draft while it is written (after the
    * plan, after every part, and every few seconds of text), so a closed browser loses
    * at most a few seconds; `resume` continues such a draft in place.
@@ -405,6 +427,8 @@ export function App() {
         if (sendMode === "lesson" && !images.length && (!resume || plan || !resume.text)) {
           const res = await composeLesson({ ...base, text: userMsg.text, resume: plan ? { plan, partsDone: answer.partsDone ?? 0, text: answer.partsChars !== undefined ? answer.text.slice(0, answer.partsChars) : answer.text } : undefined });
           answer = { ...answer, text: res.text, model: res.model };
+          const split = (res.plan as (PartPlan & { split?: { title?: string; covers?: string } | null }) | undefined)?.split;
+          if (split?.title && idx >= 0) await insertSplit(m, idx, split);
         } else {
           let full = answer.text;
           let res: Awaited<ReturnType<typeof askTutor>> | null = null;
@@ -469,7 +493,7 @@ export function App() {
         }
       }
     },
-    [effort, memory, doneList, finishLesson, saveModule, addNote],
+    [effort, memory, doneList, finishLesson, saveModule, addNote, insertSplit],
   );
 
   const send = useCallback(

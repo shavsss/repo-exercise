@@ -32,15 +32,42 @@ export function Bench({ lab }: { lab: "gilua" | "lanchester" }) {
     });
   }, []);
 
+  // First open: the fixed sequence. After that the page waits for commands in profile/bench/_cmd
+  // ({ id, steps: [{ rules, planOnly, module, lesson }] }), so tests go on while it stays open,
+  // and a reload does not run the sequence again.
   useEffect(() => {
     if (!rt?.sample || !rt.store || started.current) return;
     started.current = true;
-    void runAll(rt);
+    let last = "";
+    let busy = false;
+    const unsub = rt.store.watchBenchCmd((cmd) => {
+      if (busy) return;
+      if (!cmd) {
+        busy = true;
+        void runAll(rt).then(() => rt.store!.markBenchCmd({ id: "auto", done: true, at: Date.now() })).finally(() => (busy = false));
+        return;
+      }
+      const id = String(cmd.id ?? "");
+      if (cmd.done || id === last) {
+        setState("מחובר. מחכה לבדיקה הבאה (אפשר להשאיר את החלון פתוח).");
+        return;
+      }
+      last = id;
+      busy = true;
+      const steps = (cmd.steps as { rules: Rules; planOnly: boolean; module: string; lesson: number }[]) ?? [];
+      setState(`מריץ בדיקה ${id}…`);
+      void (async () => {
+        for (const st of steps) await one(rt, st.rules, st.planOnly, { module: st.module, lesson: st.lesson });
+        await rt.store!.markBenchCmd({ ...cmd, done: true, finishedAt: Date.now() });
+        say(`בדיקה ${id} הסתיימה.`);
+      })().finally(() => (busy = false));
+    });
+    return unsub;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rt]);
 
-  async function one(rt: Runtime, rules: Rules, planOnly: boolean) {
-    const c = CASES[lab];
+  async function one(rt: Runtime, rules: Rules, planOnly: boolean, at?: { module: string; lesson: number }) {
+    const c = at ?? CASES[lab];
     const index = await loadIndex();
     const memory = (await rt.store!.getMemory()) ?? "";
     const m = index.modules.find((x) => x.id === c.module);
