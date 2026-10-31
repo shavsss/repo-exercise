@@ -104,7 +104,7 @@ async function cached<T>(name: string, version: string): Promise<T> {
       return hit;
     }
   }
-  const res = await fetch(index?.assets?.[name] ?? `lib/${name}`);
+  const res = await fetch(index?.assets?.[name] ?? `${LIB_BASE}${name}`);
   if (!res.ok) throw new Error(`לא הצלחתי לטעון את ${name} (${res.status})`);
   const data = (await res.json()) as T;
   memory.set(key, data);
@@ -120,10 +120,15 @@ async function cached<T>(name: string, version: string): Promise<T> {
 
 /** The packer's content hash: cached files from another version are not used. */
 let LIB_VERSION = "0";
+/** Where the library is served from: "lib/" in this app; Gilua's test bench loads a copy from "corelib/". */
+let LIB_BASE = "lib/";
+export function setLibBase(base: string) {
+  LIB_BASE = base;
+}
 
 export async function loadIndex() {
   if (!index) {
-    const res = await fetch("lib/index.json", { cache: "no-cache" });
+    const res = await fetch(`${LIB_BASE}index.json`, { cache: "no-cache" });
     if (!res.ok) throw new Error(`לא הצלחתי לטעון את הספרייה (${res.status})`);
     index = (await res.json()) as LibraryIndex;
     LIB_VERSION = index.version ?? "0";

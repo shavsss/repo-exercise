@@ -17,6 +17,21 @@ const CASES: Record<string, { module: string; lesson: number }> = {
 const words = (s: string) => (s.match(/[^\s]+/g) ?? []).length;
 type Rules = "current" | "lite";
 
+/**
+ * The tutor whose requests a step sends. Gilua's bench can also run Lanchester's own tutor code
+ * (core/app/src), with its library copied to corelib/ in this artifact and its memory and lesson plans
+ * passed in the command: the request is the same one Lanchester sends, so a refusal or a weak lesson
+ * shows here too, when Lanchester's own bench tab is not running the newest version.
+ */
+type Kit = { loadIndex: typeof loadIndex; composeLesson: typeof composeLesson; planModule: typeof planModule; setLessonRules: typeof setLessonRules; setLessonFeatures: typeof setLessonFeatures };
+async function tutorKit(lanchester: boolean): Promise<Kit> {
+  if (!lanchester) return { loadIndex, composeLesson, planModule, setLessonRules, setLessonFeatures };
+  const [t, l] = await Promise.all([import("../../../../core/app/src/tutor"), import("../../../../core/app/src/library")]);
+  l.setLibBase("corelib/");
+  return { loadIndex: l.loadIndex, composeLesson: t.composeLesson, planModule: t.planModule, setLessonRules: t.setLessonRules, setLessonFeatures: t.setLessonFeatures } as unknown as Kit;
+}
+type Other = { memory?: string; lessons?: Record<string, unknown[]>; done?: string[] };
+
 /** Which code runs in the open bench tab (written to profile/bench/_alive and to every result). */
 declare const __BUILD__: string;
 const BENCH_BUILD = __BUILD__;
@@ -64,10 +79,11 @@ export function Bench({ lab }: { lab: "gilua" | "lanchester" }) {
       }
       last = id;
       busy = true;
-      const steps = (cmd.steps as { rules: Rules; planOnly: boolean; module: string; lesson: number; features?: LessonFeature[] }[]) ?? [];
+      const steps = (cmd.steps as { rules: Rules; planOnly: boolean; module: string; lesson: number; features?: LessonFeature[]; lab?: string }[]) ?? [];
+      const other = (cmd.lanchester as Other | undefined) ?? {};
       setState(`מריץ בדיקה ${id}…`);
       void (async () => {
-        for (const st of steps) await one(rt, st.rules, st.planOnly, { module: st.module, lesson: st.lesson }, st.features ?? []);
+        for (const st of steps) await one(rt, st.rules, st.planOnly, { module: st.module, lesson: st.lesson }, st.features ?? [], st.lab === "lanchester" ? other : undefined);
         await rt.store!.markBenchCmd({ ...cmd, done: true, finishedAt: Date.now() });
         say(`בדיקה ${id} הסתיימה.`);
       })().finally(() => (busy = false));
@@ -76,12 +92,14 @@ export function Bench({ lab }: { lab: "gilua" | "lanchester" }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rt]);
 
-  async function one(rt: Runtime, rules: Rules, planOnly: boolean, at?: { module: string; lesson: number }, features: LessonFeature[] = []) {
+  async function one(rt: Runtime, rules: Rules, planOnly: boolean, at?: { module: string; lesson: number }, features: LessonFeature[] = [], other?: Other) {
     const c = at ?? CASES[lab];
+    const { loadIndex, composeLesson, planModule, setLessonRules, setLessonFeatures } = await tutorKit(!!other);
+    const lab_ = other ? "lanchester-via-gilua" : lab;
     const index = await loadIndex();
-    const memory = (await rt.store!.getMemory()) ?? "";
+    const memory = other ? (other.memory ?? "") : ((await rt.store!.getMemory()) ?? "");
     const m = index.modules.find((x) => x.id === c.module);
-    let prog = await rt.store!.loadModule(c.module);
+    let prog = other ? (other.lessons?.[c.module] ? ({ lessons: other.lessons[c.module] } as Awaited<ReturnType<NonNullable<Runtime["store"]>["loadModule"]>>) : null) : await rt.store!.loadModule(c.module);
     // a module the learner has not opened: plan it here (kept in the bench only, never saved to his modules)
     if (m && !prog?.lessons?.length) {
       setLessonRules(rules);
@@ -90,10 +108,10 @@ export function Bench({ lab }: { lab: "gilua" | "lanchester" }) {
       try {
         const mp = await planModule({ rt, module: m, memory, effort: "high", signal: new AbortController().signal, cb: { onText: () => {}, onActivity: () => {}, onStatus: () => {} } });
         prog = { ...(prog ?? {}), lessons: mp.lessons } as typeof prog;
-        await rt.store!.saveBench(`${Date.now()}-${c.module}-moduleplan-${rules}`, { lab, rules, features, step: "moduleplan", module: c.module, lessons: mp.lessons, uncovered: mp.uncovered, minutes: Math.round((Date.now() - t1) / 600) / 100, at: Date.now() });
+        await rt.store!.saveBench(`${Date.now()}-${c.module}-moduleplan-${rules}`, { lab: lab_, rules, features, step: "moduleplan", module: c.module, lessons: mp.lessons, uncovered: mp.uncovered, minutes: Math.round((Date.now() - t1) / 600) / 100, at: Date.now() });
       } catch (e) {
         const err = e as { code?: string; message?: string };
-        await rt.store!.saveBench(`${Date.now()}-${c.module}-moduleplan-${rules}`, { lab, rules, features, step: "moduleplan", module: c.module, error: `${err.code ?? "error"}: ${err.message ?? ""}`, minutes: Math.round((Date.now() - t1) / 600) / 100, at: Date.now() });
+        await rt.store!.saveBench(`${Date.now()}-${c.module}-moduleplan-${rules}`, { lab: lab_, rules, features, step: "moduleplan", module: c.module, error: `${err.code ?? "error"}: ${err.message ?? ""}`, minutes: Math.round((Date.now() - t1) / 600) / 100, at: Date.now() });
       }
     }
     const spec = prog?.lessons?.[c.lesson];
@@ -117,10 +135,10 @@ export function Bench({ lab }: { lab: "gilua" | "lanchester" }) {
     const rtx: Runtime = { ...rt, sample };
     try {
       const res = await composeLesson({
-        rt: rtx, history: [], effort: "high", module: m, lessons: prog!.lessons, lessonIdx: c.lesson, memory, planOnly,
+        rt: rtx, history: [], effort: "high", module: m, lessons: prog!.lessons, lessonIdx: c.lesson, memory, planOnly, ...(other?.done ? { done: other.done } : {}),
         signal: new AbortController().signal,
         text: `כתוב את שיעור ${c.lesson + 1} במודול ${c.module}: ${spec.title}.`,
-        cb: { onText: (t) => { text = t; setCount(words(t)); }, onActivity: () => {}, onStatus: () => {} },
+        cb: { onText: (t) => { text = t; setCount(words(t)); }, onActivity: () => {}, onStatus: (st) => void rt.store!.saveBench("_progress", { module: c.module, lesson: c.lesson, rules, status: st, words: words(text), build: BENCH_BUILD, at: Date.now() }).catch(() => {}) },
       });
       text = res.text;
       plan = res.plan ?? null;
@@ -131,10 +149,10 @@ export function Bench({ lab }: { lab: "gilua" | "lanchester" }) {
     setLessonRules("current");
     setLessonFeatures([]);
     const p = plan as { parts?: unknown[]; split?: unknown } | null;
-    const result = { lab, build: BENCH_BUILD, rules, features, step: planOnly ? "plan" : "lesson", module: c.module, lesson: c.lesson, words: words(text), minutes: Math.round((Date.now() - t0) / 600) / 100, error, parts: p?.parts?.length ?? 0, split: p?.split ?? null, plan: JSON.stringify(plan).slice(0, 60000), text, at: Date.now() };
+    const result = { lab: lab_, build: BENCH_BUILD, rules, features, step: planOnly ? "plan" : "lesson", module: c.module, lesson: c.lesson, words: words(text), minutes: Math.round((Date.now() - t0) / 600) / 100, error, parts: p?.parts?.length ?? 0, split: p?.split ?? null, plan: JSON.stringify(plan).slice(0, 60000), text, at: Date.now() };
     const first = sent[0] ?? [];
     const asText = (c: unknown) => (typeof c === "string" ? c : JSON.stringify(c));
-    if (planOnly) await rt.store!.saveBench(`${Date.now()}-${c.module}-request-${rules}`, { lab, rules, messages: first.length, system: asText(first[0]?.content ?? "").slice(0, 110000), turn: asText(first[first.length - 1]?.content ?? "").slice(0, 110000), at: Date.now() }).catch(() => say("שמירת הבקשה נכשלה"));
+    if (planOnly) await rt.store!.saveBench(`${Date.now()}-${c.module}-request-${rules}`, { lab: lab_, rules, messages: first.length, system: asText(first[0]?.content ?? "").slice(0, 110000), turn: asText(first[first.length - 1]?.content ?? "").slice(0, 110000), at: Date.now() }).catch(() => say("שמירת הבקשה נכשלה"));
     await rt.store!.saveBench(`${Date.now()}-${c.module}-${result.step}-${rules}`, result).catch(() => say("שמירת התוצאה נכשלה"));
     say(`${step}: ${error ? `שגיאה (${error.slice(0, 80)})` : "עבר"}${planOnly ? ` · ${result.parts} חלקים${result.split ? " · עם פיצול" : ""}` : ` · ${result.words} מילים`} · ${result.minutes} דקות`);
     return { ok: !error };

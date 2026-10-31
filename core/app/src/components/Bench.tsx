@@ -120,7 +120,7 @@ export function Bench({ lab }: { lab: "gilua" | "lanchester" }) {
         rt: rtx, history: [], effort: "high", module: m, lessons: prog!.lessons, lessonIdx: c.lesson, memory, planOnly,
         signal: new AbortController().signal,
         text: `כתוב את שיעור ${c.lesson + 1} במודול ${c.module}: ${spec.title}.`,
-        cb: { onText: (t) => { text = t; setCount(words(t)); }, onActivity: () => {}, onStatus: () => {} },
+        cb: { onText: (t) => { text = t; setCount(words(t)); }, onActivity: () => {}, onStatus: (st) => void rt.store!.saveBench("_progress", { module: c.module, lesson: c.lesson, rules, status: st, words: words(text), build: BENCH_BUILD, at: Date.now() }).catch(() => {}) },
       });
       text = res.text;
       plan = res.plan ?? null;
