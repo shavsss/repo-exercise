@@ -59,7 +59,18 @@ export function Topbar({
           </li>
         ))}
       </ol>
-      {counter && <span className="counter">{counter}</span>}
+      {counter && (
+        <span className="counter">
+          {/^\S+ \d/.test(counter) ? (
+            <>
+              <span className="counter-word">{counter.split(" ")[0]} </span>
+              {counter.slice(counter.indexOf(" ") + 1)}
+            </>
+          ) : (
+            counter
+          )}
+        </span>
+      )}
       <span className="topbar-spacer" />
       <span className={`conn conn-${status}`} title={status === "live" ? "מחובר ל-Claude" : status === "off" ? "אין חיבור ל-Claude" : "מתחבר"}>
         <span className="conn-dot" />
