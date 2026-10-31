@@ -57,6 +57,10 @@ const consultCards = [];
 const level3 = [];
 const products = [];
 const reviews = [];
+const deck = [];
+let deckState = null;
+const days = [];
+let levels = null;
 for (const f of walk(dump).filter((f) => f.endsWith(".json"))) {
   const rel = path.relative(dump, f).split(path.sep).join("/");
   let m;
@@ -78,6 +82,18 @@ for (const f of walk(dump).filter((f) => f.endsWith(".json"))) {
     else consultCards.push({ ...d, id: m[2], lessonKey: m[1] });
   } else if (/profile\/(consults|events|usage|diag|news|newsfb|dict)\/[^/]+\.json$/.test(rel)) {
     // kept only in the raw snapshot below
+  } else if (/profile\/shelf\/.+\.json$/.test(rel)) {
+    // lessons written ahead at night, with their continuations (shelf/<id>/more/<n>): kept only in the raw snapshot
+  } else if ((m = /profile\/review\/([^/]+)\.json$/.exec(rel))) {
+    // the review deck: review/<module>[~<n>] { moduleId, cards }, and review/_state
+    const d = read(f);
+    if (m[1] === "_state") deckState = d;
+    else for (const c of Array.isArray(d.cards) ? d.cards : []) if (c?.id) deck.push({ ...c, moduleId: c.moduleId ?? d.moduleId ?? m[1].replace(/~\d+$/, "") });
+  } else if ((m = /profile\/days\/([^/]+)\.json$/.exec(rel))) {
+    days.push({ ...read(f), date: m[1] });
+  } else if ((m = /profile\/levels\/([^/]+)\.json$/.exec(rel))) {
+    // levels/current is the live one; the weekly snapshots (levels/<YYYY-Www>) stay in the raw snapshot
+    if (m[1] === "current") levels = read(f);
   } else if (/profile\/memlog\/[^/]+\.json$/.test(rel)) {
     // a month of older versions (memlog/m-<YYYY-MM>, { versions: [...] }) or one version
     const d = read(f);
@@ -174,7 +190,7 @@ fs.writeFileSync(
 
 fs.writeFileSync(
   path.join(notes, "README.md"),
-  `# מחברת ההנדסה\n\nגיבוי אוטומטי של מעבדת ההנדסה: נוצר מתוך מסד הנתונים של ה-Artifact.\n\n- [זיכרון הקורס](MEMORY.md)\n- [התקדמות במודולים](PROGRESS.md)\n- [מחברת השיעורים](NOTEBOOK.md)\n- [הסיכומים](SUMMARIES.md)\n- [מחברת השרטוטים והפתרונות](SCRATCH.md)\n- [כרטיסי ההתייעצות](CONSULTS.md)\n- [כיול: שאלות think](CALIBRATION.md)\n- [תשובות רמה 3](LEVEL3.md)\n- [מוצר החודש](PRODUCTS.md)\n- [הסקירות השבועיות](REVIEWS.md)\n- [גרסאות של זיכרון הקורס](MEMORY_LOG.md)\n\n## שיחות\n\n${index.length ? index.join("\n") : "עדיין אין שיחות."}\n`,
+  `# מחברת ההנדסה\n\nגיבוי אוטומטי של מעבדת ההנדסה: נוצר מתוך מסד הנתונים של ה-Artifact.\n\n- [זיכרון הקורס](MEMORY.md)\n- [התקדמות במודולים](PROGRESS.md)\n- [מחברת השיעורים](NOTEBOOK.md)\n- [הסיכומים](SUMMARIES.md)\n- [מחברת השרטוטים והפתרונות](SCRATCH.md)\n- [כרטיסי ההתייעצות](CONSULTS.md)\n- [כיול: שאלות think](CALIBRATION.md)\n- [תשובות רמה 3](LEVEL3.md)\n- [מוצר החודש](PRODUCTS.md)\n- [הסקירות השבועיות](REVIEWS.md)\n- [כרטיסי החזרה](REVIEW.md)\n- [ימי הלימוד](DAYS.md)\n- [הרמה בכל תחום](LEVELS.md)\n- [גרסאות של זיכרון הקורס](MEMORY_LOG.md)\n\n## שיחות\n\n${index.length ? index.join("\n") : "עדיין אין שיחות."}\n`,
 );
 
 // the summaries notebook (#summary): one Markdown file with every module's summary
@@ -468,6 +484,42 @@ fs.writeFileSync(
   `# הסקירות השבועיות\n\nהסקירה החיצונית של כל שבוע (מהחדשה לישנה).\n\n${[...reviews].sort((a, b) => byKey(b.id, a.id)).map(reviewMd).join("\n\n---\n\n") || "עדיין אין סקירות."}\n`,
 );
 
+// the review deck (profile/review): per module, each card's next due date and state
+const CARD = { def: "הגדרה", keep: "לסיכום", keepAll: "לסיכום (כל הבלוק)", formula: "נוסחה", think: "שאלת think", note: "מהמחברת" };
+const cardState = (c) => (c.off ? "הוצא" : !c.reps ? "חדש" : c.relearn ? "בלמידה מחדש" : `${c.reps} חזרות${c.lapses ? `, ${c.lapses} נשכחו` : ""}, יציבות ${Math.round((c.s ?? 0) * 10) / 10} ימים`);
+const deckBy = new Map();
+for (const c of deck) deckBy.set(c.moduleId, [...(deckBy.get(c.moduleId) ?? []), c]);
+const deckRows = [...deckBy]
+  .sort(([a], [b]) => byKey(a, b))
+  .map(([mid, list]) => {
+    const due = list.filter((c) => !c.off && c.due).map((c) => c.due).sort((a, b) => a - b)[0];
+    return `## ${mid} (${list.length} כרטיסים${due ? `, הבא ב-${date(due)}` : ""})\n\n| כרטיס | סוג | שיעור | חזרה הבאה | מצב |\n|---|---|---|---|---|\n${list
+      .sort((a, b) => (a.lesson ?? 0) - (b.lesson ?? 0) || (a.due ?? 0) - (b.due ?? 0))
+      .map((c) => `| ${cell(String(c.ask || c.front || "").slice(0, 120))} | ${CARD[c.kind] ?? c.kind ?? ""} | ${(c.lesson ?? 0) + 1} | ${c.off ? "" : date(c.due)} | ${cardState(c)} |`)
+      .join("\n")}`;
+  });
+const st = deckState?.count;
+fs.writeFileSync(
+  path.join(notes, "REVIEW.md"),
+  `# כרטיסי החזרה\n\nהחזרה המרווחת: כל כרטיס, מתי הוא חוזר ובאיזה מצב.${st?.day ? ` ביום ${st.day}: ${st.done ?? 0} חזרות, ${st.fresh ?? 0} חדשים, ${Math.round((st.sec ?? 0) / 60)} דקות.` : ""}\n\n${deckRows.join("\n\n") || "עדיין אין כרטיסים."}\n`,
+);
+
+// the study days (profile/days/<YYYY-MM-DD>), newest first: minutes and the next step he wrote when closing the day
+const dayRows = [...days]
+  .sort((a, b) => byKey(b.date, a.date))
+  .map((d) => `| ${d.date} | ${Math.round((d.activeSec ?? 0) / 60)} | ${(d.seen ?? []).length || ""} | ${cell(d.next ?? "")} | ${cell(d.stop?.label ?? "")} |`);
+fs.writeFileSync(
+  path.join(notes, "DAYS.md"),
+  `# ימי הלימוד\n\nכמה דקות קריאה בכל יום, והצעד הבא שנכתב בסגירת היום.\n\n${dayRows.length ? `| תאריך | דקות | שיעורים שנפתחו | הצעד הבא | איפה עצר |\n|---|---|---|---|---|\n${dayRows.join("\n")}` : "עדיין אין ימים."}\n`,
+);
+
+// the live level per domain (profile/levels/current)
+const lv = (Array.isArray(levels?.domains) ? levels.domains : []).filter(Boolean);
+fs.writeFileSync(
+  path.join(notes, "LEVELS.md"),
+  `# הרמה בכל תחום\n\n${levels ? `עודכן ${date(levels.updatedAt)}${levels.week ? ` (${levels.week})` : ""}.${levels.note ? ` ${levels.note}` : ""}\n\n` : ""}${lv.length ? `| תחום | רמה | יעד | ביטחון | מגמה | על סמך |\n|---|---|---|---|---|---|\n${lv.map((d) => `| ${cell(d.name ?? d.id)} | ${d.score ?? ""} | ${d.targetScore ?? ""} | ${d.confidence ?? ""} | ${{ up: "↑", flat: "→", down: "↓" }[d.trend] ?? ""} | ${cell(d.evidence)} |`).join("\n")}` : "עדיין אין הערכת רמה."}\n`,
+);
+
 // raw snapshot for a full restore
 const snap = path.join(root, "eng", "backup", "db");
 fs.rmSync(snap, { recursive: true, force: true });
@@ -477,4 +529,4 @@ for (const f of walk(dump).filter((f) => f.endsWith(".json"))) {
   fs.copyFileSync(f, path.join(snap, rel));
 }
 
-console.log(`profile: ${profile ? "yes" : "no"}, modules: ${Object.keys(modules).length}, conversations: ${index.length}, notebook items: ${notebook.length}, summaries: ${sums.length}, scratch: ${scratchMd.length}, memory versions: ${memlog.length}, calibration: ${calib.length}, consultation cards: ${consultCards.length}, level-3 lessons: ${level3.length}, products: ${products.length}, reviews: ${reviews.length}`);
+console.log(`profile: ${profile ? "yes" : "no"}, modules: ${Object.keys(modules).length}, conversations: ${index.length}, notebook items: ${notebook.length}, summaries: ${sums.length}, scratch: ${scratchMd.length}, memory versions: ${memlog.length}, calibration: ${calib.length}, consultation cards: ${consultCards.length}, level-3 lessons: ${level3.length}, products: ${products.length}, reviews: ${reviews.length}, review cards: ${deck.length}, days: ${days.length}, levels: ${levels ? lv.length : "no"}`);
