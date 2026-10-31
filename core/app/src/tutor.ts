@@ -606,13 +606,13 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
     cb.onStatus?.("מתכנן את השיעור: קורא את המקורות ומחשב את המספרים");
     const planTurn = `${ctx}\n\n${text}\n\n${PART_PLAN_INSTRUCTIONS}${decideLine(decideSlot(lessons?.length ?? 0, lessonIdx, opts.done?.length ?? 0))}`;
     plan = await retryRefused(
-      (h) =>
+      (h, retry) =>
         rt.sample!.json<PartPlan>([...fitHistory(h, bytes(planTurn), false, { refs: hasRefs(m) }), { role: "user", content: planTurn }], {
           model: MODEL,
           modelTier: "complex",
           effort,
           signal,
-          ...(tools ? { tools } : { cache: false }),
+          ...(tools && !retry ? { tools } : { cache: false }),
         }),
       history,
       cb,
@@ -789,13 +789,22 @@ In Hebrew, two to four sentences: is it right, partly right or wrong; what is mi
  * A refused lesson call is tried once more without the earlier turns of the conversation (the
  * history is the only part of the input that a retry can drop without changing the lesson).
  */
-async function retryRefused<T>(call: (history: StoredMessage[]) => Promise<T>, history: StoredMessage[], cb: TurnCallbacks): Promise<T> {
-  for (let i = 0; ; i++) {
+/** One retry on a refusal (without the earlier turns) and one on an empty answer (`retry` is true: callers drop tools). */
+async function retryRefused<T>(call: (history: StoredMessage[], retry: boolean) => Promise<T>, history: StoredMessage[], cb: TurnCallbacks): Promise<T> {
+  let refused = false;
+  let empty = false;
+  for (;;) {
     try {
-      return await call(i ? [] : history);
+      return await call(refused ? [] : history, empty);
     } catch (e) {
-      if ((e as { code?: string })?.code !== "refused" || i >= 1) throw e;
-      cb.onStatus?.("Claude סירב; מנסה שוב בלי התורות הקודמות");
+      const code = (e as { code?: string })?.code;
+      if (code === "refused" && !refused) {
+        refused = true;
+        cb.onStatus?.("Claude סירב; מנסה שוב בלי התורות הקודמות");
+      } else if (code === "empty_completion" && !empty) {
+        empty = true;
+        cb.onStatus?.("לא התקבלה תשובה; מנסה שוב");
+      } else throw e;
     }
   }
 }

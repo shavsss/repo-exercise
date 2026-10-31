@@ -12,7 +12,7 @@ import "../flow.css";
 // written: a calm line with the part and one question from the part before it. Nothing moves and nothing loops.
 // Identical in both labs.
 
-const PRE_MODEL = "claude-haiku-5-5";
+const PRE_MODEL = "claude-opus-5-5";
 const asked = new Map<string, string>();
 
 function fallbackQuestion(spec: LessonSpec | undefined) {

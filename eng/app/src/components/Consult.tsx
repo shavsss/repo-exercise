@@ -21,7 +21,7 @@ import { allCalib, calibNote, loadConsults, logEvent, saveConsult, type ConsultC
 import { consultPrompt, firstLine, LEVEL_HINT, LEVEL_LABEL, LEVEL_WORDS, splitMore } from "../consultPrompt";
 import "../consult.css";
 
-const QUICK_MODEL = "claude-haiku-5-5";
+const QUICK_MODEL = "claude-opus-5-5";
 const MAIN_MODEL = "claude-opus-5-5";
 const EFFORT: Record<ConsultLevel, "low" | "medium" | "high"> = { 0: "low", 1: "low", 2: "medium", 3: "high" };
 /** turns of the card's thread sent with a new question */
