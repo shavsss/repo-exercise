@@ -3,81 +3,96 @@ import { connect, type Runtime } from "../runtime";
 import { loadIndex } from "../library";
 import { composeLesson, setLessonRules } from "../tutor";
 
-// The test bench (#bench): writes test lessons with the real tutor and keeps the result in
-// profile/bench/<id> (words, minutes, refusal or empty answer, the text), so that rule changes are
-// checked on real lessons before they reach the app. It does not touch the learner's lessons.
-// Identical in both labs; the lessons to test are in CASES.
+// The test bench (#bench): opened once, it runs a fixed sequence of tests with the real tutor by
+// itself and keeps every result in profile/bench/<id> (rules, step, words, minutes, refusal or empty
+// answer, split, the text), so that rule changes are checked on real lessons before they reach the
+// app. It never touches the learner's lessons. Identical in both labs; the lessons are in CASES.
+// Sequence: plan only with the current and the candidate rules (fast: shows a refusal or an empty
+// plan), then one full lesson with the candidate rules if their plan passed, else with the current.
 
-const CASES: Record<string, { module: string; lesson: number }[]> = {
-  gilua: [{ module: "M0.1", lesson: 3 }],
-  lanchester: [{ module: "M0.2", lesson: 0 }],
+const CASES: Record<string, { module: string; lesson: number }> = {
+  gilua: { module: "M0.1", lesson: 3 },
+  lanchester: { module: "M0.2", lesson: 0 },
 };
 const words = (s: string) => (s.match(/[^\s]+/g) ?? []).length;
+type Rules = "current" | "lite";
 
 export function Bench({ lab }: { lab: "gilua" | "lanchester" }) {
   const [rt, setRt] = useState<Runtime | null>(null);
+  const [state, setState] = useState("מתחבר ל-claude.ai…");
   const [log, setLog] = useState<string[]>([]);
-  const [running, setRunning] = useState(false);
-  const [live, setLive] = useState("");
-  const ctl = useRef<AbortController | null>(null);
-  useEffect(() => {
-    void connect().then(setRt);
-  }, []);
+  const [count, setCount] = useState(0);
+  const started = useRef(false);
   const say = (s: string) => setLog((l) => [...l, `${new Date().toLocaleTimeString("he-IL")} · ${s}`]);
 
-  async function run(rules: "current" | "lite") {
-    if (!rt?.sample || !rt.store || running) return;
-    setRunning(true);
-    setLessonRules(rules);
+  useEffect(() => {
+    void connect().then((r) => {
+      setRt(r);
+      setState(r.sample && r.store ? "מחובר. הבדיקות רצות לבד; השאר את החלון פתוח." : "אין חיבור למורה או למסד: פתח את הדף מתוך claude.ai.");
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!rt?.sample || !rt.store || started.current) return;
+    started.current = true;
+    void runAll(rt);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rt]);
+
+  async function one(rt: Runtime, rules: Rules, planOnly: boolean) {
+    const c = CASES[lab];
     const index = await loadIndex();
-    const memory = (await rt.store.getMemory()) ?? "";
-    for (const c of CASES[lab]) {
-      const m = index.modules.find((x) => x.id === c.module);
-      const prog = await rt.store.loadModule(c.module);
-      const spec = prog?.lessons?.[c.lesson];
-      if (!m || !spec) {
-        say(`${c.module}: אין תוכנית שיעורים שמורה למודול, מדלג`);
-        continue;
-      }
-      say(`${c.module} שיעור ${c.lesson + 1} (${rules === "lite" ? "כללים חדשים" : "כללים נוכחיים"}): מתחיל`);
-      const t0 = Date.now();
-      ctl.current = new AbortController();
-      let text = "";
-      let error = "";
-      let res0: unknown = null;
-      try {
-        const res = await composeLesson({
-          rt, history: [], effort: "high", module: m, lessons: prog!.lessons, lessonIdx: c.lesson, memory,
-          signal: ctl.current.signal,
-          text: `כתוב את שיעור ${c.lesson + 1} במודול ${c.module}: ${spec.title}.`,
-          cb: { onText: (t) => { text = t; setLive(t); }, onActivity: () => {}, onStatus: (s) => say(s) },
-        });
-        text = res.text;
-        res0 = res;
-      } catch (e) {
-        const err = e as { code?: string; message?: string };
-        error = `${err.code ?? "error"}: ${err.message ?? ""}`;
-      }
-      const split = (res0 as { plan?: { split?: unknown } } | null)?.plan?.split ?? null;
-      const result = { lab, rules, split, module: c.module, lesson: c.lesson, title: spec.title, words: words(text), minutes: Math.round((Date.now() - t0) / 600) / 100, error, text, at: Date.now() };
-      await rt.store.saveBench(`${Date.now()}-${c.module}-${rules}`, result).catch(() => say("שמירת התוצאה נכשלה"));
-      say(`${c.module}: ${error ? `שגיאה (${error})` : "הסתיים"} · ${result.words} מילים · ${result.minutes} דקות`);
+    const memory = (await rt.store!.getMemory()) ?? "";
+    const m = index.modules.find((x) => x.id === c.module);
+    const prog = await rt.store!.loadModule(c.module);
+    const spec = prog?.lessons?.[c.lesson];
+    if (!m || !spec) {
+      say(`${c.module}: אין תוכנית שיעורים שמורה למודול`);
+      return { ok: false };
+    }
+    const step = `${planOnly ? "תוכנית בלבד" : "שיעור מלא"} · ${rules === "lite" ? "כללים חדשים" : "כללים נוכחיים"}`;
+    say(`${c.module} שיעור ${c.lesson + 1} · ${step}: מתחיל`);
+    setLessonRules(rules);
+    const t0 = Date.now();
+    let text = "";
+    let error = "";
+    let plan: unknown = null;
+    try {
+      const res = await composeLesson({
+        rt, history: [], effort: "high", module: m, lessons: prog!.lessons, lessonIdx: c.lesson, memory, planOnly,
+        signal: new AbortController().signal,
+        text: `כתוב את שיעור ${c.lesson + 1} במודול ${c.module}: ${spec.title}.`,
+        cb: { onText: (t) => { text = t; setCount(words(t)); }, onActivity: () => {}, onStatus: () => {} },
+      });
+      text = res.text;
+      plan = res.plan ?? null;
+    } catch (e) {
+      const err = e as { code?: string; message?: string };
+      error = `${err.code ?? "error"}: ${err.message ?? ""}`;
     }
     setLessonRules("current");
-    setRunning(false);
+    const p = plan as { parts?: unknown[]; split?: unknown } | null;
+    const result = { lab, rules, step: planOnly ? "plan" : "lesson", module: c.module, lesson: c.lesson, words: words(text), minutes: Math.round((Date.now() - t0) / 600) / 100, error, parts: p?.parts?.length ?? 0, split: p?.split ?? null, plan: planOnly ? JSON.stringify(plan).slice(0, 60000) : "", text, at: Date.now() };
+    await rt.store!.saveBench(`${Date.now()}-${c.module}-${result.step}-${rules}`, result).catch(() => say("שמירת התוצאה נכשלה"));
+    say(`${step}: ${error ? `שגיאה (${error.slice(0, 80)})` : "עבר"}${planOnly ? ` · ${result.parts} חלקים${result.split ? " · עם פיצול" : ""}` : ` · ${result.words} מילים`} · ${result.minutes} דקות`);
+    return { ok: !error };
+  }
+
+  async function runAll(rt: Runtime) {
+    const cur = await one(rt, "current", true);
+    const lite = await one(rt, "lite", true);
+    if (lite.ok) await one(rt, "lite", false);
+    else if (cur.ok) await one(rt, "current", false);
+    say("הסתיים. אפשר לסגור את החלון.");
+    setState("הסתיים.");
   }
 
   return (
-    <div className="bench" dir="rtl" style={{ maxWidth: 820, margin: "24px auto", padding: "0 16px", display: "grid", gap: 12 }}>
+    <div dir="rtl" style={{ maxWidth: 820, margin: "24px auto", padding: "0 16px", display: "grid", gap: 12 }}>
       <h1 style={{ margin: 0 }}>בדיקת שיעורים</h1>
-      <p style={{ margin: 0 }}>כותב שיעור בדיקה עם המורה האמיתי ושומר את התוצאה לבדיקה. לא נוגע בשיעורים שלך. אפשר לסגור את החלון כשמופיע "הסתיים".</p>
-      <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-        <button className="btn primary" disabled={!rt?.sample || running} onClick={() => void run("lite")}>הרץ: כללים חדשים</button>
-        <button className="btn" disabled={!rt?.sample || running} onClick={() => void run("current")}>הרץ: כללים נוכחיים</button>
-        {running && <button className="btn" onClick={() => ctl.current?.abort()}>עצור</button>}
-      </div>
-      <ol style={{ margin: 0, fontFamily: "monospace", fontSize: 13 }}>{log.map((l, i) => <li key={i}>{l}</li>)}</ol>
-      {running && <div style={{ color: "var(--ink-soft, #666)" }}>{words(live)} מילים נכתבו עד עכשיו</div>}
+      <p style={{ margin: 0 }}>{state}</p>
+      <ol style={{ margin: 0, fontFamily: "monospace", fontSize: 13, display: "grid", gap: 4 }}>{log.map((l, i) => <li key={i}>{l}</li>)}</ol>
+      {count > 0 && <div>{count} מילים נכתבו עד עכשיו בשיעור המלא</div>}
     </div>
   );
 }

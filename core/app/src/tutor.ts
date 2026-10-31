@@ -532,7 +532,7 @@ CANDIDATE RULES FOR THIS LESSON (they replace the length rule and the 4200-word 
 - Keep the JSON short: "covers" one or two lines per part.`;
 const LITE_PART = `Candidate rules: write this part at full depth within its planned words (at most 15% more); if something does not fit, it belongs to the split lesson, never to a thinner treatment here. Every paragraph adds something new: no recap, no restating the source, no announcing. Depth through the derivation, the numbers and the critique.`;
 
-export async function composeLesson(opts: Base & { text: string; resume?: { plan: PartPlan; partsDone: number; text: string } }) {
+export async function composeLesson(opts: Base & { text: string; resume?: { plan: PartPlan; partsDone: number; text: string }; planOnly?: boolean }) {
   const { rt, history, text, effort, module: m, lessons, lessonIdx, memory, notes, allNotes, signal, cb, resume } = opts;
   if (!rt.sample) throw { code: "not_granted", message: "sample unavailable" };
   cb.onStatus?.("טוען את עמודי המקור של השיעור");
@@ -558,6 +558,7 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
     ).catch((e) => onRefusal(e, rt, m, history, planTurn, cb));
     if (!plan || !Array.isArray(plan.parts) || !plan.parts.length) throw { code: "invalid_json", message: "no plan" };
     cb.onCheckpoint?.(plan, 0, "");
+    if (opts.planOnly) return { text: "", plan, model: undefined };
   }
 
   let written = resume?.text.trim() ?? "";
