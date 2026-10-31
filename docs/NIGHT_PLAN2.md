@@ -43,9 +43,14 @@ Nothing that changes what the tutor receives goes live until the bench shows it 
 
 
 ## 2א. The learner's last words before sleep (above everything)
-"Above all: do not drop even one section of the material learned, and do not lower the level. Everything serves our track." Remember yesterday's conversation, and re-read our plans if needed.
-- The bench Gilua "lite" lesson came out 10,482 words (target 3,500–5,000), 16 min, with a correct split. Fix the length by moving material into the continuation lesson (split, never delete). Never by shortening a section, dropping a section, or lowering the level.
-- The independent judge must also check that the lesson plus its continuation cover every topic item of the original lesson.
+"Above all: do not drop even one section of the material learned, and do not lower the level. Everything serves our track." And: "Moving material into a continuation lesson also lengthens the track, and the track has a deadline. Go to the plan we made yesterday, and let it be your compass: that is what we changed and planned everything for."
+
+**The compass is yesterday's plan (`docs/NIGHT_PLAN.md` P1-B, `docs/research/round2/RULES_v3.md` §5 and rule 12), not the night-2 "lite" word range.**
+- There is no word target and no floor. The length follows from the depth units: about 30 counted words per unit; one central result is about 80–120 units, two are about 130–180.
+- **Too long means padding, and the fix is to remove padding only:** the density band is 20–45 counted words per unit. Above 45, scan the part against the padding list (rule 28: restating, recaps, empty transitions, repeated motivation) and delete only what is on it. Never delete a unit, shorten a unit below rule 29, or drop a section.
+- **Split only by rule 5.4/12:** more than two central results, or more than 180 units after the authority layer. A split is NOT the tool for a lesson that is merely long. Every extra lesson lengthens the track (about 30 months, `S2_product_track.md`, `S3_no_tradeoff.md` §3).
+- The bench Gilua "lite" lesson: 10,482 words, 16 min, it split into "(ב)". Judge it with this compass. How much of the 10,482 is padding or restating, and how much is real units? Was the split justified by rule 5.4, or only by the word range? Rewrite the candidate rules in compact form from RULES_v3 §5 (units, density band, padding list, split threshold), keeping the plan JSON small (the lesson of night 1). Then bench it again in both apps.
+- The independent judge checks: every topic item and section of the original lesson is covered, at full level. Nothing is dropped. No padding. No unnecessary split.
 
 ## 3. The work, in order (all of it; nothing from yesterday's plan is dropped)
 1. **Lesson rules.** Read the bench results:
