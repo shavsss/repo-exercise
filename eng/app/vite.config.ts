@@ -5,6 +5,8 @@ import react from "@vitejs/plugin-react";
 // referenced with relative paths from artifact/index.html.
 export default defineConfig({
   plugins: [react()],
+  // the build time, shown by the test bench so it is clear which version an open tab runs
+  define: { __BUILD__: JSON.stringify(new Date().toISOString().slice(0, 16)) },
   base: "./",
   build: {
     outDir: "dist",

@@ -17,6 +17,10 @@ const CASES: Record<string, { module: string; lesson: number }> = {
 const words = (s: string) => (s.match(/[^\s]+/g) ?? []).length;
 type Rules = "current" | "lite";
 
+/** Which code runs in the open bench tab (written to profile/bench/_alive and to every result). */
+declare const __BUILD__: string;
+const BENCH_BUILD = __BUILD__;
+
 export function Bench({ lab }: { lab: "gilua" | "lanchester" }) {
   const [rt, setRt] = useState<Runtime | null>(null);
   const [state, setState] = useState("מתחבר ל-claude.ai…");
@@ -40,8 +44,14 @@ export function Bench({ lab }: { lab: "gilua" | "lanchester" }) {
     started.current = true;
     let last = "";
     let busy = false;
+    void rt.store.saveBench("_alive", { build: BENCH_BUILD, at: Date.now() }).catch(() => {});
     const unsub = rt.store.watchBenchCmd((cmd) => {
       if (busy) return;
+      // { reload: true }: load the newest published version of the page (a publish does not always reload an open tab)
+      if (cmd && cmd.reload && !cmd.done && cmd.build !== BENCH_BUILD) {
+        void rt.store!.markBenchCmd({ ...cmd, done: true, reloadedFrom: BENCH_BUILD, at: Date.now() }).then(() => location.reload());
+        return;
+      }
       if (!cmd) {
         busy = true;
         void runAll(rt).then(() => rt.store!.markBenchCmd({ id: "auto", done: true, at: Date.now() })).finally(() => (busy = false));
@@ -121,7 +131,7 @@ export function Bench({ lab }: { lab: "gilua" | "lanchester" }) {
     setLessonRules("current");
     setLessonFeatures([]);
     const p = plan as { parts?: unknown[]; split?: unknown } | null;
-    const result = { lab, rules, features, step: planOnly ? "plan" : "lesson", module: c.module, lesson: c.lesson, words: words(text), minutes: Math.round((Date.now() - t0) / 600) / 100, error, parts: p?.parts?.length ?? 0, split: p?.split ?? null, plan: JSON.stringify(plan).slice(0, 60000), text, at: Date.now() };
+    const result = { lab, build: BENCH_BUILD, rules, features, step: planOnly ? "plan" : "lesson", module: c.module, lesson: c.lesson, words: words(text), minutes: Math.round((Date.now() - t0) / 600) / 100, error, parts: p?.parts?.length ?? 0, split: p?.split ?? null, plan: JSON.stringify(plan).slice(0, 60000), text, at: Date.now() };
     const first = sent[0] ?? [];
     const asText = (c: unknown) => (typeof c === "string" ? c : JSON.stringify(c));
     if (planOnly) await rt.store!.saveBench(`${Date.now()}-${c.module}-request-${rules}`, { lab, rules, messages: first.length, system: asText(first[0]?.content ?? "").slice(0, 110000), turn: asText(first[first.length - 1]?.content ?? "").slice(0, 110000), at: Date.now() }).catch(() => say("שמירת הבקשה נכשלה"));
