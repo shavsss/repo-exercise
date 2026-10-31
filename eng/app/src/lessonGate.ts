@@ -142,9 +142,12 @@ export function missingUnits(plan: GatePlan, k: number, text: string) {
   return own.filter((u) => !marked.has(u.id));
 }
 
-/** The units of a part, as lines for its writing turn. */
-export function unitLines(units: PlanUnit[]) {
-  return units.map((u) => `- ${u.id} [${[u.type, u.tier, u.src === "auth" ? "authority" : u.src].filter(Boolean).join(", ")}] ${u.text ?? ""}${u.q ? ` — exam question: ${u.q}` : ""}`).join("\n");
+/**
+ * The units of a part, as lines for its writing turn. `bare` leaves out the unit's text and exam question:
+ * the model's own free text sent back into the input is what Claude refused in Lanchester (CLAUDE.md).
+ */
+export function unitLines(units: PlanUnit[], bare = false) {
+  return units.map((u) => `- ${u.id} [${[u.type, u.tier, u.src === "auth" ? "authority" : u.src].filter(Boolean).join(", ")}]${bare ? "" : ` ${u.text ?? ""}${u.q ? ` — exam question: ${u.q}` : ""}`}`).join("\n");
 }
 
 /** One completion turn for planned units a part left out: written now, inside the same part. */
