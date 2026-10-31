@@ -39,8 +39,8 @@ export function Bench({ lab }: { lab: "gilua" | "lanchester" }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rt]);
 
-  async function one(rt: Runtime, rules: Rules, planOnly: boolean) {
-    const c = CASES[lab];
+  async function one(rt: Runtime, rules: Rules, planOnly: boolean, at?: { module: string; lesson: number }) {
+    const c = at ?? CASES[lab];
     const index = await loadIndex();
     const memory = (await rt.store!.getMemory()) ?? "";
     const m = index.modules.find((x) => x.id === c.module);
@@ -97,12 +97,15 @@ export function Bench({ lab }: { lab: "gilua" | "lanchester" }) {
       t.replace(new RegExp(`=== \\[\\[${doc}:[\\s\\S]*?(?==== \\[\\[|</study_context>)`, "g"), "").split("\n").filter((l) => !l.includes(`${doc} (`) && !l.startsWith(`- ${doc}:`)).join("\n");
     const noMemory = (t: string) => t.replace(/<course_memory>[\s\S]*?<\/course_memory>/, "<course_memory>(omitted)</course_memory>");
     const noPages = (t: string) => t.replace(/=== \[\[[\s\S]*?(?=<\/study_context>)/, "");
+    const bare = (t: string) => noMemory(noPages(t)).replace(/Lesson plan of this module:[\s\S]*?(?=<course_memory>)/, "");
+    const neutralSys = "You are the author of a university textbook on electromagnetic waves, signals and engineering physics, written in Hebrew for one adult self-learner. Write clear, rigorous lessons from the given source pages.";
+    const noList = sys.replace(/\(radar, electronic warfare[^)]*\)/, "(physics, signals and engineering)");
     const variants: [string, string, string][] = [
-      ["הבקשה המלאה", sys, turn],
-      ["בלי עמודי B10 (Naval Weapons)", sys, dropDoc(turn, "B10")],
-      ["בלי זיכרון הקורס", sys, noMemory(turn)],
-      ["בלי עמודי מקור בכלל", sys, noPages(turn)],
-      ["בלי B10 ובלי זיכרון", sys, noMemory(dropDoc(turn, "B10"))],
+      ["שלד: בלי עמודים, זיכרון ותוכנית המודול", sys, bare(turn)],
+      ["שלד + הנחיות ניטרליות", neutralSys, bare(turn)],
+      ["הבקשה המלאה + הנחיות ניטרליות", neutralSys, turn],
+      ["הבקשה המלאה בלי רשימת התחומים בהנחיות", noList, turn],
+      ["הנחיות מלאות + 'כתוב שורה אחת על גלים'", sys, "כתוב שורה אחת בעברית על מהו גל אלקטרומגנטי."],
     ];
     const out: Record<string, string> = {};
     for (const [name, s, t] of variants) {
@@ -125,7 +128,11 @@ export function Bench({ lab }: { lab: "gilua" | "lanchester" }) {
 
   async function runAll(rt: Runtime) {
     const cur = await one(rt, "current", true);
-    if (!cur.ok && lab === "lanchester") await diagnose(rt, cur.sent);
+    if (!cur.ok && lab === "lanchester") {
+      await diagnose(rt, cur.sent);
+      say("בדיקת בקרה: תוכנית לשיעור 3 של M0.1, שנכתב ב-30.10");
+      await one(rt, "current", true, { module: "M0.1", lesson: 2 });
+    }
     const lite = await one(rt, "lite", true);
     if (lite.ok) await one(rt, "lite", false);
     else if (cur.ok) await one(rt, "current", false);
