@@ -48,7 +48,7 @@ export function Bench({ lab }: { lab: "gilua" | "lanchester" }) {
     const spec = prog?.lessons?.[c.lesson];
     if (!m || !spec) {
       say(`${c.module}: אין תוכנית שיעורים שמורה למודול`);
-      return { ok: false };
+      return { ok: false, sent: [] as { role: string; content: unknown }[] };
     }
     const step = `${planOnly ? "תוכנית בלבד" : "שיעור מלא"} · ${rules === "lite" ? "כללים חדשים" : "כללים נוכחיים"}`;
     say(`${c.module} שיעור ${c.lesson + 1} · ${step}: מתחיל`);
@@ -84,11 +84,48 @@ export function Bench({ lab }: { lab: "gilua" | "lanchester" }) {
     if (planOnly) await rt.store!.saveBench(`${Date.now()}-${c.module}-request-${rules}`, { lab, rules, messages: first.length, system: asText(first[0]?.content ?? "").slice(0, 110000), turn: asText(first[first.length - 1]?.content ?? "").slice(0, 110000), at: Date.now() }).catch(() => say("שמירת הבקשה נכשלה"));
     await rt.store!.saveBench(`${Date.now()}-${c.module}-${result.step}-${rules}`, result).catch(() => say("שמירת התוצאה נכשלה"));
     say(`${step}: ${error ? `שגיאה (${error.slice(0, 80)})` : "עבר"}${planOnly ? ` · ${result.parts} חלקים${result.split ? " · עם פיצול" : ""}` : ` · ${result.words} מילים`} · ${result.minutes} דקות`);
-    return { ok: !error };
+    return { ok: !error, sent: sent[0] ?? [] };
+  }
+
+  /** The same planning request with one part taken out at a time: a refusal that goes away names its cause. */
+  async function diagnose(rt: Runtime, sent: { role: string; content: unknown }[]) {
+    if (sent.length < 2) return;
+    const text = (c: unknown) => (typeof c === "string" ? c : JSON.stringify(c));
+    const sys = text(sent[0].content);
+    const turn = text(sent[sent.length - 1].content);
+    const dropDoc = (t: string, doc: string) =>
+      t.replace(new RegExp(`=== \\[\\[${doc}:[\\s\\S]*?(?==== \\[\\[|</study_context>)`, "g"), "").split("\n").filter((l) => !l.includes(`${doc} (`) && !l.startsWith(`- ${doc}:`)).join("\n");
+    const noMemory = (t: string) => t.replace(/<course_memory>[\s\S]*?<\/course_memory>/, "<course_memory>(omitted)</course_memory>");
+    const noPages = (t: string) => t.replace(/=== \[\[[\s\S]*?(?=<\/study_context>)/, "");
+    const variants: [string, string, string][] = [
+      ["הבקשה המלאה", sys, turn],
+      ["בלי עמודי B10 (Naval Weapons)", sys, dropDoc(turn, "B10")],
+      ["בלי זיכרון הקורס", sys, noMemory(turn)],
+      ["בלי עמודי מקור בכלל", sys, noPages(turn)],
+      ["בלי B10 ובלי זיכרון", sys, noMemory(dropDoc(turn, "B10"))],
+    ];
+    const out: Record<string, string> = {};
+    for (const [name, s, t] of variants) {
+      const ctl = new AbortController();
+      const timer = setTimeout(() => ctl.abort(), 25000);
+      let r = "";
+      try {
+        await rt.sample!([{ role: sent[0].role, content: s }, { role: sent[sent.length - 1].role, content: t }] as never, { model: "claude-opus-5-5", modelTier: "complex", effort: "low", cache: false, signal: ctl.signal } as never);
+        r = "עבר";
+      } catch (e) {
+        const code = (e as { code?: string })?.code ?? "";
+        r = ctl.signal.aborted ? "עבר (התחיל לענות)" : code === "refused" ? "סירוב" : `שגיאה ${code}`;
+      }
+      clearTimeout(timer);
+      out[name] = r;
+      say(`אבחון · ${name}: ${r}`);
+    }
+    await rt.store!.saveBench(`${Date.now()}-diag`, { lab, kind: "diag", results: out, at: Date.now() }).catch(() => {});
   }
 
   async function runAll(rt: Runtime) {
     const cur = await one(rt, "current", true);
+    if (!cur.ok && lab === "lanchester") await diagnose(rt, cur.sent);
     const lite = await one(rt, "lite", true);
     if (lite.ok) await one(rt, "lite", false);
     else if (cur.ok) await one(rt, "current", false);
