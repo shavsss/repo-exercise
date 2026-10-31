@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Runtime } from "../runtime";
 import type { ModuleProgress } from "../types";
 import { dayKey, dayTitle, gatherRecall, lastDay, morningSkipped, rememberedSelection, skipMorning, stopOf, useDay, type DayDoc, type DayStop, type RecallQuestion } from "../day";
@@ -48,6 +48,8 @@ export function MorningCard({
   const [deck, setDeck] = useState<Deck | null>(null);
   const [graded, setGraded] = useState<Record<number, number>>({});
   const [openedAt, setOpenedAt] = useState<Record<number, number>>({});
+  /** cards graded from this card, by id and reps (as Review.tsx gradedId), so a double tap grades once */
+  const gradedKeys = useRef(new Set<string>());
   const hasMods = Object.keys(mods).length > 0;
 
   useEffect(() => {
@@ -129,6 +131,9 @@ export function MorningCard({
                         key={g}
                         className="btn small"
                         onClick={async () => {
+                          const key = q.cardId! + ":" + (deck.cards.get(q.cardId!)?.reps ?? 0);
+                          if (gradedKeys.current.has(key)) return;
+                          gradedKeys.current.add(key);
                           play(g >= 3 ? "right" : "click");
                           // the thinking before the answer is not measured here: about 15 seconds are added
                           const sec = (Date.now() - (openedAt[i] ?? Date.now())) / 1000 + 15;

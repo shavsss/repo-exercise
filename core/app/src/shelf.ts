@@ -54,7 +54,7 @@ const sameSources = (a: LessonSpec["sources"] = [], b: LessonSpec["sources"] = [
 /** A shelf document that can be offered for this lesson: ready, and written for the lesson as it is planned now. */
 export function fitsLesson(d: ShelfDoc | null | undefined, spec: LessonSpec | undefined): d is ShelfDoc {
   if (!d || !spec || !d.text || (d.status && d.status !== "ready")) return false;
-  return (d.spec?.title ?? d.title).trim() === spec.title.trim() && (!d.spec?.sources || sameSources(d.spec.sources, spec.sources));
+  return String(d.spec?.title ?? d.title ?? "").trim() === String(spec.title ?? "").trim() && (!d.spec?.sources || sameSources(d.spec.sources, spec.sources));
 }
 
 export async function loadShelf(store: Store, moduleId: string, idx: number): Promise<ShelfDoc | null> {
@@ -75,35 +75,48 @@ async function fullText(store: Store, id: string, d: ShelfDoc) {
   return d.text + parts.map((p) => String(p.data()?.text ?? "")).join("");
 }
 
+/** What an adoption already created, kept by the caller so a retry after a failure reuses the same conversation and
+ *  message ids (saving them again overwrites, never duplicates) instead of leaving an empty conversation behind. */
+export interface AdoptProgress {
+  cid?: string;
+  userId?: string;
+  answerId?: string;
+  ts?: number;
+}
+
 /**
  * Turns the shelf lesson into the lesson's conversation: the same two messages a lesson written ahead has.
  * Returns the conversation id and its messages (with ids), for the page to show at once.
  */
-export async function adoptShelf(store: Store, m: Module, idx: number, d: ShelfDoc): Promise<{ cid: string; msgs: StoredMessage[] }> {
+export async function adoptShelf(store: Store, m: Module, idx: number, d: ShelfDoc, got: AdoptProgress = {}): Promise<{ cid: string; msgs: StoredMessage[] }> {
   const id = shelfId(m.id, idx);
   const text = await fullText(store, id, d);
-  const title = d.spec?.title ?? d.title;
-  const conv = await store.createConversation(`${m.id} · שיעור ${idx + 1}: ${title}`.slice(0, 90), m.id, idx);
-  const now = Date.now();
-  const user: StoredMessage = { role: "user", text: lessonRequest(m, idx, title), mode: "lesson", ts: now, id: store.newMessageId(conv.id) };
+  const title = String(d.spec?.title ?? d.title ?? "");
+  if (!got.cid) got.cid = (await store.createConversation(`${m.id} · שיעור ${idx + 1}: ${title}`.slice(0, 90), m.id, idx)).id;
+  const cid = got.cid;
+  got.userId ??= store.newMessageId(cid);
+  got.answerId ??= store.newMessageId(cid);
+  got.ts ??= Date.now();
+  const now = got.ts;
+  const user: StoredMessage = { role: "user", text: lessonRequest(m, idx, title), mode: "lesson", ts: now, id: got.userId };
   const answer: ShelfMessage = {
     role: "assistant",
     text,
     mode: "lesson",
     ts: now + 1,
-    id: store.newMessageId(conv.id),
+    id: got.answerId,
     model: `shelf · ${d.pipeline ?? "factory"}`,
     prefetched: true,
     shelf: { id, createdAt: d.createdAt, verdict: d.verify?.verdict },
   };
-  await store.saveMessage(conv.id, user.id!, user);
-  await store.saveMessage(conv.id, answer.id!, answer);
-  await store.touch(conv.id, 2);
+  await store.saveMessage(cid, user.id!, user);
+  await store.saveMessage(cid, answer.id!, answer);
+  await store.touch(cid, 2);
   // the shelf keeps the lesson, marked as taken (the nightly session never writes over an adopted one)
   await store
     .sub("shelf")
     .doc(id)
-    .update({ status: "adopted", adoptedAt: Date.now(), convId: conv.id })
+    .update({ status: "adopted", adoptedAt: Date.now(), convId: cid })
     .catch(() => {});
-  return { cid: conv.id, msgs: [user, answer] };
+  return { cid, msgs: [user, answer] };
 }

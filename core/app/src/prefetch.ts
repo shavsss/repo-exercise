@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
-import type { Runtime } from "./runtime";
+import type { Runtime, Store } from "./runtime";
 import type { LibraryIndex, Module } from "./library";
 import { composeLesson, updateMemory, type PartPlan } from "./tutor";
 import type { Activity, Effort, LessonNote, ModuleProgress, NoteKind, StoredMessage } from "./types";
-import { fitsLesson, loadShelf } from "./shelf";
+import { fitsLesson, loadShelf, type ShelfDoc } from "./shelf";
 
 // The next lesson is written while the learner is away: at a break and at "close the day"
 // (docs/research/round5/ux, r5-prefetch). It is the same lesson the "כתוב את שיעור" button writes, in the same
@@ -50,8 +50,11 @@ export function usePrefetch() {
 const SAVE_EVERY = 8000;
 export const lessonRequest = (m: Module, idx: number, title: string) => `כתוב את שיעור ${idx + 1} במודול ${m.id}: ${title}.`;
 
-/** The lesson to write ahead: the one after the open lesson (or the open one, if it is not started), never one already started. */
-export function nextToPrefetch(prog: ModuleProgress | undefined, idx: number | undefined): number | null {
+/**
+ * The lesson to write ahead: the one after the open lesson (or the open one, if it is not started), never one already
+ * started. `skip` passes over lessons that are ready on the shelf (they are offered as they are, not written again).
+ */
+export function nextToPrefetch(prog: ModuleProgress | undefined, idx: number | undefined, skip?: (i: number) => boolean): number | null {
   const lessons = prog?.lessons;
   if (!lessons?.length) return null;
   const done = new Set(prog?.done ?? []);
@@ -59,9 +62,33 @@ export function nextToPrefetch(prog: ModuleProgress | undefined, idx: number | u
   let i: number;
   if (idx === undefined || idx < 0) {
     i = 0;
-    while (i < lessons.length && started(i)) i++;
-  } else i = started(idx) ? idx + 1 : idx;
+    while (i < lessons.length && (started(i) || skip?.(i))) i++;
+  } else {
+    i = started(idx) ? idx + 1 : idx;
+    while (i < lessons.length && !started(i) && skip?.(i)) i++;
+  }
   return i < lessons.length && !started(i) ? i : null;
+}
+
+/** shelf documents looked at lately, by module and lesson, so the line about the lesson written ahead (target) skips
+ *  one that is on the shelf without waiting for the db */
+const shelfSeen = new Map<string, { doc: ShelfDoc | null; at: number }>();
+const SHELF_TTL = 10 * 60_000;
+const onShelf = (mid: string, prog: ModuleProgress | undefined) => (i: number) => fitsLesson(shelfSeen.get(`${mid}:${i}`)?.doc, prog?.lessons?.[i]);
+
+/** nextToPrefetch, after looking at the shelf for the lessons it would pick (a few reads at most). */
+async function nextOffShelf(store: Store, mid: string, prog: ModuleProgress | undefined, idx: number | undefined): Promise<number | null> {
+  for (let n = 0; n < 6; n++) {
+    const i = nextToPrefetch(prog, idx, onShelf(mid, prog));
+    if (i === null) return null;
+    const k = `${mid}:${i}`;
+    const seen = shelfSeen.get(k);
+    // a fresh entry here is one that does not fit (onShelf passed over the ones that do)
+    if (seen && Date.now() - seen.at < SHELF_TTL) return i;
+    shelfSeen.set(k, { doc: await loadShelf(store, mid, i), at: Date.now() });
+    if (!onShelf(mid, prog)(i)) return i;
+  }
+  return null;
 }
 
 interface Job {
@@ -201,27 +228,43 @@ export function usePrefetchDriver(o: {
     if (!want || c.busy || c.memoryBusy || !c.rt?.store || !c.index) return;
     setWant(null);
     const m = c.index.modules.find((x) => x.id === want.moduleId);
-    const idx = m ? nextToPrefetch(c.mods.current[m.id], want.lesson) : null;
-    if (!m || idx === null) return;
-    void run({
-      rt: c.rt,
-      m,
-      idx,
-      memory: c.memory,
-      effort: c.effort,
-      done: c.done,
-      notes: c.notes.current,
-      getProg: () => live.current.mods.current[m.id],
-      saveModule: c.saveModule,
-      onNote: c.onNote(m, idx),
-    });
+    const store = c.rt.store;
+    if (!m) return;
+    void (async () => {
+      const idx = await nextOffShelf(store, m.id, c.mods.current[m.id], want.lesson).catch(() => null);
+      const n = live.current;
+      if (idx === null || n.busy || n.memoryBusy || !n.rt?.store) return;
+      void run({
+        rt: n.rt,
+        m,
+        idx,
+        memory: n.memory,
+        effort: n.effort,
+        done: n.done,
+        notes: n.notes.current,
+        getProg: () => live.current.mods.current[m.id],
+        saveModule: n.saveModule,
+        onNote: n.onNote(m, idx),
+      });
+    })();
   }, [want, o.busy, o.memoryBusy, o.rt, o.index]);
+  // looks at the shelf for the lesson that would be written, so target() can tell the truth when the day closes
+  const selKey = (() => {
+    const sel = o.selection ?? o.fallback();
+    return sel ? `${sel.moduleId}:${sel.lesson ?? ""}` : "";
+  })();
+  useEffect(() => {
+    const c = live.current;
+    const sel = c.selection ?? c.fallback();
+    if (!sel || !c.rt?.store) return;
+    void nextOffShelf(c.rt.store, sel.moduleId, c.mods.current[sel.moduleId], sel.lesson).catch(() => null);
+  }, [selKey, o.rt]);
   /** what will be written, for the line that says so (null when nothing would be) */
   const target = useCallback(() => {
     const c = live.current;
     const sel = c.selection ?? c.fallback();
     const m = sel && c.index?.modules.find((x) => x.id === sel.moduleId);
-    const idx = m ? nextToPrefetch(c.mods.current[m.id], sel?.lesson) : null;
+    const idx = m ? nextToPrefetch(c.mods.current[m.id], sel?.lesson, onShelf(m.id, c.mods.current[m.id])) : null;
     return m && idx !== null && c.rt?.sample && c.rt.store ? { m, idx, title: c.mods.current[m.id]?.lessons?.[idx]?.title ?? "" } : null;
   }, []);
   const request = useCallback(() => {

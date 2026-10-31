@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Store } from "../runtime";
 import type { Module } from "../library";
 import type { LessonSpec, StoredMessage } from "../types";
-import { adoptShelf, fitsLesson, loadShelf, type ShelfDoc } from "../shelf";
+import { adoptShelf, fitsLesson, loadShelf, type AdoptProgress, type ShelfDoc } from "../shelf";
 import "../shelf.css";
 
 // "שיעור מוכן מהמדף": shown on a lesson that has no conversation yet when the nightly session left it on the
@@ -28,10 +28,13 @@ export function ShelfOffer({
   const [doc, setDoc] = useState<ShelfDoc | null>(null);
   const [state, setState] = useState<"idle" | "opening" | "failed">("idle");
   const specKey = JSON.stringify([spec.title, spec.sources]);
+  // what a failed opening already created (its conversation), so the next click finishes it instead of starting over
+  const got = useRef<AdoptProgress>({});
   useEffect(() => {
     let live = true;
     setDoc(null);
     setState("idle");
+    got.current = {};
     loadShelf(store, m.id, idx).then((d) => live && setDoc(fitsLesson(d, spec) ? d : null));
     return () => {
       live = false;
@@ -43,7 +46,7 @@ export function ShelfOffer({
   const open = async () => {
     setState("opening");
     try {
-      const { cid, msgs } = await adoptShelf(store, m, idx, doc);
+      const { cid, msgs } = await adoptShelf(store, m, idx, doc, got.current);
       await onAdopt(cid, msgs);
     } catch {
       setState("failed");

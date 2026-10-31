@@ -1,7 +1,7 @@
 // The review deck in the db, and keeping it in step with what he read. Bounded and additive (the db holds at most
 // 25,000 documents per artifact):
 //   profile/review/<module id>       { moduleId, cards: Card[] }: the module's cards with their scheduling state
-//   profile/review/<module id>~<n>   the same module's further cards, only when one document would pass ~180 KB
+//   profile/review/<module id>~<n>   the same module's further cards, only when one document would pass ~180 KB (UTF-8)
 //   profile/review/_state            { count: the day's counters, scanned: conv id → updatedAt, calib: id → stamp }
 // Reads the lessons (convs), the notebook (notes) and the calibration records (events.ts) and never writes them.
 // The deck is shared by the review tab and the morning card in this view. Same file in both labs.
@@ -21,7 +21,9 @@ export interface Deck {
   state: State;
 }
 
-const SHARD_CHARS = 180_000;
+/** UTF-8 bytes per document at most (Hebrew text takes two bytes a letter) */
+const SHARD_BYTES = 180_000;
+const utf8 = new TextEncoder();
 /** lessons read per sync at most (the first sync of a long course goes on in the next ones) */
 const CONVS_PER_SYNC = 60;
 const docId = (moduleId: string) => moduleId.replace(/\//g, "_");
@@ -69,8 +71,8 @@ async function saveModules(st: Store, d: Deck, moduleIds: Iterable<string>) {
     const parts: Card[][] = [[]];
     let size = 0;
     for (const c of list) {
-      const n = JSON.stringify(c).length;
-      if (size + n > SHARD_CHARS && parts.at(-1)!.length) {
+      const n = utf8.encode(JSON.stringify(c)).length;
+      if (size + n > SHARD_BYTES && parts.at(-1)!.length) {
         parts.push([]);
         size = 0;
       }
@@ -102,10 +104,12 @@ function label(moduleId: string, lesson: number, mods: Record<string, ModuleProg
   return `${moduleId} · שיעור ${lesson + 1}${t ? `: ${t}` : ""}`;
 }
 
-/** The lesson's text he can be asked about, and when he read it; null for a lesson written ahead and not opened yet. */
-async function lessonText(st: Store, convId: string): Promise<{ text: string; at: number } | null> {
+type LessonText = { text: string; at: number } | "unread" | null;
+/** The lesson's text he can be asked about, and when he read it; "unread" for a lesson written ahead and not opened
+ *  yet (looked at again next sync), null for a conversation with no lesson text (nothing to seed, marked scanned). */
+async function lessonText(st: Store, convId: string): Promise<LessonText> {
   const msgs = (await st.loadMessages(convId)) as (StoredMessage & { prefetched?: boolean; prefetchSeen?: number })[];
-  if (msgs.some((m) => m.prefetched && !m.prefetchSeen)) return null;
+  if (msgs.some((m) => m.prefetched && !m.prefetchSeen)) return "unread";
   const own = msgs.filter((m) => m.role === "assistant" && m.text);
   if (!own.length) return null;
   return { text: own.map((m) => m.text).join("\n\n"), at: Math.max(...own.map((m) => m.ts || 0)) || Date.now() };
@@ -122,9 +126,10 @@ async function sync(st: Store, d: Deck, modsIn?: Record<string, ModuleProgress>)
   const convs: ConvRow[] = (await st.sub("convs").orderBy("updatedAt", "desc").limit(500).get()).docs
     .map((x) => ({ id: x.id, ...(x.data() as Omit<ConvRow, "id">) }))
     .filter((c) => typeof c.lesson === "number" && c.lesson >= 0 && c.moduleId);
-  const texts = new Map<string, { text: string; at: number } | null>();
+  const texts = new Map<string, LessonText>();
   const textOf = async (id: string) => {
-    if (!texts.has(id)) texts.set(id, await lessonText(st, id).catch(() => null));
+    // a failed read counts as not read yet, so it is tried again rather than marked scanned
+    if (!texts.has(id)) texts.set(id, await lessonText(st, id).catch((): LessonText => "unread"));
     return texts.get(id)!;
   };
   const put = (seed: Seed, o: { moduleId: string; lesson: number; conv?: string; learnedAt: number }) => {
@@ -137,7 +142,13 @@ async function sync(st: Store, d: Deck, modsIn?: Record<string, ModuleProgress>)
   const changed = convs.filter((c) => d.state.scanned[c.id] !== c.updatedAt).reverse().slice(0, CONVS_PER_SYNC);
   for (const c of changed) {
     const t = await textOf(c.id);
-    if (!t) continue; // not read yet: looked at again next time
+    if (t === "unread") continue; // not read yet: looked at again next time
+    if (!t) {
+      // no lesson text in it: nothing to seed, and it must not hold a place in the oldest-first window
+      d.state.scanned[c.id] = c.updatedAt;
+      stateDirty = true;
+      continue;
+    }
     const seeds = seedsFromLesson(t.text, { moduleId: c.moduleId, lesson: c.lesson, title: mods[c.moduleId]?.lessons?.[c.lesson]?.title });
     const ids = new Set(seeds.map((s) => s.id));
     // a card of this lesson that was never reviewed and is no longer in its text (the lesson was rewritten) goes
@@ -161,7 +172,7 @@ async function sync(st: Store, d: Deck, modsIn?: Record<string, ModuleProgress>)
     stateDirty = true;
     for (const c of convs.filter((x) => x.moduleId === r.moduleId && x.lesson === r.lesson)) {
       const t = await textOf(c.id);
-      const hit = t && thinksFromLesson(t.text).find((q) => thinkId({ moduleId: c.moduleId, lesson: c.lesson, title: "" }, q.q) === r.id);
+      const hit = t && t !== "unread" && thinksFromLesson(t.text).find((q) => thinkId({ moduleId: c.moduleId, lesson: c.lesson, title: "" }, q.q) === r.id);
       if (hit) {
         put(thinkSeed(hit.q, hit.a, r.id), { moduleId: c.moduleId, lesson: c.lesson, conv: c.id, learnedAt: r.gradedAt ?? r.ts ?? Date.now() });
         break;
