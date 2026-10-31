@@ -52,6 +52,18 @@ Nothing that changes what the tutor receives goes live until the bench shows it 
 - The bench Gilua "lite" lesson: 10,482 words, 16 min, it split into "(ב)". Judge it with this compass. How much of the 10,482 is padding or restating, and how much is real units? Was the split justified by rule 5.4, or only by the word range? Rewrite the candidate rules in compact form from RULES_v3 §5 (units, density band, padding list, split threshold), keeping the plan JSON small (the lesson of night 1). Then bench it again in both apps.
 - The independent judge checks: every topic item and section of the original lesson is covered, at full level. Nothing is dropped. No padding. No unnecessary split.
 
+## 2ב. Before every action: read the plan and check every section
+The learner's words: "Before every action, read the plan and show that you meet every section of it before a change."
+- Before each change, re-read this file, §2א and yesterday's plan (`docs/NIGHT_PLAN.md`, `RULES_v3.md`). In `docs/NIGHT_LOG.md`, write a short checklist for that step: each relevant section of the plan, with "met" and how. No change goes in without that checklist.
+
+## 2ג. Writing style: research the best technical writers
+The learner's words: "I struggle with the explanations and Claude's usual style. Research this too, and find the writing style of the best writer or writers on technical topics. There are quite a few good ones."
+- **Research (a subagent, with the web):** who writes technical explanations best, and what exactly they do. Candidates include Feynman (Lectures), Richard Hamming, Gilbert Strang, Tristan Needham (Visual Complex Analysis), Kleppner & Kolenkow, Horowitz & Hill, Sanjoy Mahajan (Street-Fighting Mathematics), Charles Petzold, Steven Strogatz, Grant Sanderson (3Blue1Brown), Bret Victor, Paul Graham's and Steven Pinker's rules on clear prose (The Sense of Style), Hebrew science writing at its best. Also the research on explanations: worked examples, concreteness fading, "curse of knowledge", signposting.
+- **Diagnose Claude's usual style against them:** what makes it hard to follow. For example: abstraction before a concrete hook, long hedged sentences, lists instead of an argument, many new terms per paragraph, missing "why we care", skipped steps, generic phrasing. Use the learner's own complaints in `docs/research/round5/decisions/user_messages.md` and the M0.1 feedback.
+- **Output:** `docs/research/round6/style/STYLE.md`. It holds the writers studied, with short quoted examples and what each does. It also holds 10–15 concrete, testable style rules, written as tutor instructions in compact wording. Add a before/after rewrite of one paragraph from a real bench lesson.
+- **Apply them as one more bench-verified item** (iron rule, §2), inside the compact lesson rules (§2א). They must never cut depth or units: style changes how a unit is written, not whether it is there. The independent judge also grades style against `STYLE.md`. Put the morning report's before/after example in front of the learner.
+- Update `docs/*_TEACHING_RULES.md` and `CLAUDE.md` when they go live.
+
 ## 3. The work, in order (all of it; nothing from yesterday's plan is dropped)
 1. **Lesson rules.** Read the bench results:
    - the Gilua full "lite" lesson;
