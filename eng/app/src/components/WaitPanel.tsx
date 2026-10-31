@@ -64,6 +64,15 @@ export function WaitPanel({ rt, live, spec, lessonKey, moduleTitle }: { rt: Runt
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [partsDone, partStart.current.at]);
   const [shown, setShown] = useState("");
+  // a visible sign that the work goes on: what the tutor is doing now, and how long it has run
+  const [t0] = useState(() => Date.now());
+  const [now, setNow] = useState(t0);
+  useEffect(() => {
+    const id = setInterval(() => setNow(Date.now()), 1000);
+    return () => clearInterval(id);
+  }, []);
+  const sec = Math.floor((now - t0) / 1000);
+  const elapsed = `${Math.floor(sec / 60)}:${String(sec % 60).padStart(2, "0")}`;
 
   const writing = plan ? plan.parts[partsDone] : undefined;
   const partWords = writing ? Math.max(0, words(text) - words(text.slice(0, partStart.current.at))) : 0;
@@ -72,6 +81,10 @@ export function WaitPanel({ rt, live, spec, lessonKey, moduleTitle }: { rt: Runt
 
   return (
     <aside className="flow-wait" aria-live="polite">
+      <div className="flow-status">
+        <span>{live.status || (plan ? "כותב את השיעור" : "מתכנן את השיעור")}</span>
+        <span className="flow-elapsed" dir="ltr">{elapsed}</span>
+      </div>
       {!plan ? (
         <>
           <div className="flow-kicker">השיעור נכתב · קודם תכנון וחישובים, אחר כך חלק אחרי חלק</div>

@@ -523,3 +523,17 @@
     font-size: 1.3rem;
   }
 }
+
+/* what the tutor is doing now and for how long: changes every second, never loops */
+.flow-status {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.9rem;
+  color: var(--ink);
+  font-weight: 500;
+}
+.flow-elapsed {
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-soft);
+}
