@@ -104,12 +104,21 @@ export function MarginNotes({
   version,
   onSave,
   onDelete,
+  clipped,
+  room: roomGiven,
+  numberOf,
 }: {
   root: RefObject<HTMLElement | null>;
   notes: LessonNote[];
   version: unknown;
   onSave: (id: string, patch: Partial<LessonNote>) => void;
   onDelete: (id: string) => void;
+  /** a page of the book: only text inside the root's box counts (a paragraph cut between two pages is drawn on both) */
+  clipped?: boolean;
+  /** the margin beside the root, when it is not a scrolling column (the book's desk) */
+  room?: number;
+  /** a note's number in the whole lesson (the book draws each page's notes apart) */
+  numberOf?: (id: string) => number;
 }) {
   const [placed, setPlaced] = useState<Placed[]>([]);
   const [wide, setWide] = useState(true);
@@ -127,20 +136,25 @@ export function MarginNotes({
     const scroller = el.closest(".scroll")?.getBoundingClientRect();
     // the column stays centred while the margin holds the notes; when it does not, but the page
     // does, the column moves aside to make room (the "mn-shift" class on .col), else small tabs
-    const room = scroller ? scroller.width - box.width - 32 : 0;
+    const room = roomGiven !== undefined ? roomGiven * 2 : scroller ? scroller.width - box.width - 32 : 0;
     const centred = room / 2 >= NEED;
     const found = notes
       .filter((n) => n.id && n.anchor)
       .map((note) => ({ note, at: locate(el, note.anchor!) }))
       .filter((x) => x.at)
-      .map((x) => ({ key: x.note.id!, note: x.note, range: x.at!.range, y: x.at!.el.getBoundingClientRect().top - box.top }))
+      .filter((x) => {
+        if (!clipped) return true;
+        const r = (x.at!.range ?? x.at!.el).getBoundingClientRect();
+        return r.bottom > box.top + 2 && r.top < box.bottom - 2;
+      })
+      .map((x) => ({ key: x.note.id!, note: x.note, range: x.at!.range, y: Math.max(0, (x.at!.range ?? x.at!.el).getBoundingClientRect().top - box.top) }))
       .sort((a, b) => a.y - b.y || a.note.ts - b.note.ts);
-    const shift = !centred && room >= NEED + 16 && found.length > 0;
+    const shift = roomGiven === undefined && !centred && room >= NEED + 16 && found.length > 0;
     setWide(centred || shift);
     // just enough for the card on the side of the column, never more than the old fixed step
     shiftColumn(me.current, shift ? el.closest<HTMLElement>(".col") : null, Math.min(256, Math.max(24, 2 * (NEED + 8) - room)));
-    setPlaced(found.map((x, k) => ({ key: x.key, note: x.note, range: x.range, top: x.y, num: k + 1 })));
-  }, [root, notes]);
+    setPlaced(found.map((x, k) => ({ key: x.key, note: x.note, range: x.range, top: x.y, num: numberOf?.(x.key) ?? k + 1 })));
+  }, [root, notes, clipped, roomGiven, numberOf]);
 
   useLayoutEffect(layout, [layout, version]);
   useEffect(() => () => shiftColumn(me.current, null), []);

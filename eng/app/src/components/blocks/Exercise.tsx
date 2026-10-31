@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useBookMeasure } from "../../book/context";
 import { Markdown } from "../Markdown";
 import { Frame, parseHeaders } from "./Callout";
 import { isSolved, setSolved } from "../../solved";
@@ -20,7 +21,10 @@ export function Exercise({ source }: { source: string }) {
     else solutionPart = parts[i + 1] ?? "";
   }
   const id = hash((headers.title ?? "") + problemText);
-  const [show, setShow] = useState<"none" | "hint" | "solution">("none");
+  const [shown, setShow] = useState<"none" | "hint" | "solution">("none");
+  // the book keeps room for the longer of the hint and the solution
+  const measure = useBookMeasure();
+  const show = measure ? (hintPart.trim().length > solutionPart.trim().length ? "hint" : solutionPart.trim() ? "solution" : "none") : shown;
   const [solved, setSolvedState] = useState(() => isSolved(id));
   useEffect(() => setSolvedState(isSolved(id)), [id]);
   const level = Math.max(1, Math.min(3, Number(headers.level) || 1));

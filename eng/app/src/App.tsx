@@ -36,6 +36,9 @@ import { WaitPanel } from "./components/WaitPanel";
 import { BreakLine } from "./components/BreakLine";
 import { MorningCard } from "./components/MorningCard";
 import { CloseDay } from "./components/CloseDay";
+import { BookView } from "./book/Book";
+import { BookBridge } from "./book/context";
+import { useReading } from "./reading";
 
 interface Notice {
   level: "info" | "warn" | "error";
@@ -576,6 +579,11 @@ export function App() {
   }, [selection?.moduleId, selection?.lesson]);
 
   const inLesson = !!module && lessonIdx !== undefined;
+  // the lesson as a book (src/book/, switched in the Aa settings): the lesson's answers laid out on pages
+  const reading = useReading();
+  const bookOn = reading.book === "on" && inLesson && items.some((it) => it.kind === "assistant");
+  const bookRoot = useRef<HTMLDivElement>(null);
+  const bridge = useMemo(() => new BookBridge(), []);
   useDayClock(rt, module && lesson && lessonIdx !== undefined ? { moduleId: module.id, lesson: lessonIdx, title: lesson.title } : null);
   const prefetch = usePrefetchDriver({
     rt,
@@ -615,7 +623,7 @@ export function App() {
   const tocOpen = leftDock === "toc";
   // the contents panel shares the left side with the source viewer, and gives way to it
   const showToc = inLesson && !(viewer && !viewerMin);
-  const resume = useResumePosition(scrollRef, inLesson ? `${module!.id}:${lessonIdx}` : null, items.length > 0 && !busy, busy);
+  const resume = useResumePosition(scrollRef, inLesson && !bookOn ? `${module!.id}:${lessonIdx}` : null, items.length > 0 && !busy, busy);
 
   const lessonPlace = useMemo(() => (module && lessonIdx !== undefined ? { moduleId: module.id, lesson: lessonIdx, title: lesson?.title ?? module.title } : null), [module, lessonIdx, lesson]);
   const openSource = useCallback((doc: string, page: number) => {
@@ -651,12 +659,12 @@ export function App() {
   if (isQuiz && !busy && !messages.length) quick.push({ label: "התחל את המבחן", text: `התחל את המבחן המסכם של מודול ${module?.id}.`, mode: "quiz", primary: true });
 
   const status = !rt ? "connecting" : rt.sample ? "live" : "off";
-  const sideVisible = narrow() ? sideOpen : sidePref === "open";
+  const sideVisible = narrow() || bookOn ? sideOpen : sidePref === "open";
   const nextLesson = lessonIdx !== undefined && lessonIdx >= 0 && lessonIdx + 1 < nLessons ? lessonIdx + 1 : lessonIdx !== undefined && lessonIdx >= 0 && lessonIdx + 1 === nLessons ? -1 : null;
   const mdCtx = useMemo(() => ({ live: false, idPrefix: "page", openSource }), [openSource]);
 
   return (
-    <div className={`app ${sidePref === "closed" ? "side-collapsed" : ""} ${viewer ? (viewerMin ? "viewer-min" : "viewer-open") : ""} ${showToc && tocOpen ? "has-toc" : ""}`}>
+    <div className={`app ${(bookOn ? !sideOpen : sidePref === "closed") ? "side-collapsed" : ""} ${bookOn ? "is-book" : ""} ${viewer ? (viewerMin ? "viewer-min" : "viewer-open") : ""} ${showToc && tocOpen ? "has-toc" : ""}`}>
       <Topbar
         tabs={<LabTabsNav tab={tab} onTab={setTab} unread={newsUnread} />}
         crumbs={tab === "study" ? crumbs : []}
@@ -665,7 +673,7 @@ export function App() {
         sideOpen={sideVisible}
         viewerOpen={!!viewer}
         memoryBusy={memoryBusy}
-        onToggleSide={() => (narrow() ? setSideOpen(!sideOpen) : setSidePref(sidePref === "open" ? "closed" : "open"))}
+        onToggleSide={() => (narrow() || bookOn ? setSideOpen(!sideOpen) : setSidePref(sidePref === "open" ? "closed" : "open"))}
         onToggleViewer={
           viewer || module
             ? () => {
@@ -695,9 +703,99 @@ export function App() {
         )}
         {sideOpen && <div className="scrim" onClick={() => setSideOpen(false)} />}
 
-        {inLesson && <ConsultLayer rt={rt} scrollRef={scrollRef} lessonKey={`${module!.id}__${lessonIdx}`} place={lessonPlace!} lessonTitle={`${module!.id} · ${lesson?.title ?? module!.title}`} memory={memory} version={items} onOpenSource={openSource} />}
+        {inLesson && (
+          <ConsultLayer
+            key={bookOn ? "book" : "scroll"}
+            rt={rt}
+            scrollRef={bookOn ? bookRoot : scrollRef}
+            lessonKey={`${module!.id}__${lessonIdx}`}
+            place={lessonPlace!}
+            lessonTitle={`${module!.id} · ${lesson?.title ?? module!.title}`}
+            memory={memory}
+            version={items}
+            onOpenSource={openSource}
+            book={bookOn ? bridge : null}
+          />
+        )}
         <main className="main">
           <LessonPlaceCtx.Provider value={lessonPlace}>
+          {bookOn && module && lessonIdx !== undefined ? (
+            <BookView
+              key={`${module.id}:${lessonIdx}`}
+              items={items}
+              liveKey={((busy && !!live) || !!pfLive) && items[items.length - 1]?.kind === "assistant" ? items[items.length - 1].key : null}
+              header={lesson ? { code: `${module.id} · ${(lessonIdx ?? 0) + 1}/${nLessons}`, title: lesson.title, sub: module.title } : undefined}
+              posKey={`${module.id}:${lessonIdx}`}
+              onOpenSource={openSource}
+              onContinue={!busy && !following ? resumeLast : undefined}
+              notes={lesson ? notes.filter((n) => n.margin && n.moduleId === module.id && n.lesson === lessonIdx) : undefined}
+              onNoteSave={updateNote}
+              onNoteDelete={deleteNote}
+              onAddNote={
+                lessonIdx >= 0
+                  ? (anchor) => {
+                      if (!anchor) return notify({ level: "warn", text: "סמן מילים בעמוד, או דפדף לעמוד עם פסקה, ואז שלוף פתק." });
+                      addNote("note", "", "learner", module, lessonIdx, anchor);
+                    }
+                  : undefined
+              }
+              bridge={bridge}
+              rootRef={bookRoot}
+              wait={(live ?? pfLive)?.mode === "lesson" ? <WaitPanel rt={rt} live={(live ?? pfLive)!} spec={lesson} lessonKey={`${module.id}:${lessonIdx}`} moduleTitle={module.title} /> : undefined}
+              end={
+                hasLesson && !busy ? (
+                  <>
+                    {nextLesson !== null && (
+                      <div className="next-row">
+                        <button className="btn primary" onClick={() => setSelection({ moduleId: module.id, lesson: nextLesson })}>
+                          {nextLesson === -1 ? "למבחן המסכם של המודול" : `לשיעור ${nextLesson + 1}: ${prog?.lessons?.[nextLesson]?.title}`}
+                          <Icon name="next" size={16} />
+                        </button>
+                      </div>
+                    )}
+                    {closeDay("lesson")}
+                  </>
+                ) : undefined
+              }
+              notebook={
+                lessonIdx >= 0
+                  ? (close) => <Scratchpad rt={rt} scrollRef={bookRoot} lessonKey={`${module.id}__${lessonIdx}`} lessonTitle={`${module.id} · ${lesson?.title ?? module.title}`} onClose={close} />
+                  : undefined
+              }
+              writing={busy || following}
+              onStop={busy || following ? () => (following ? stopPrefetch() : ctl.current?.abort()) : undefined}
+              notices={
+                notices.length ? (
+                  <>
+                    {notices.map((n, i) => (
+                      <div key={i} className={`banner banner-${n.level}`}>
+                        {n.text}
+                      </div>
+                    ))}
+                  </>
+                ) : undefined
+              }
+              composer={
+                <Composer
+                  busy={busy || following}
+                  onSend={(t, im) => {
+                    const q = quick.find((x) => x.text === t);
+                    send(t, im, q ? q.mode : mode);
+                  }}
+                  onStop={() => (following ? stopPrefetch() : ctl.current?.abort())}
+                  quick={quick}
+                  modes={isQuiz ? ["quiz", "clarify"] : ["clarify", "free"]}
+                  mode={mode}
+                  setMode={setMode}
+                  effort={effort}
+                  setEffort={setEffort}
+                  canAttach={!!rt?.canSendImages}
+                  disabled={!rt?.sample}
+                />
+              }
+            />
+          ) : (
+          <>
           <ReadingProgress scrollRef={scrollRef} />
           {inLesson && items.length > 0 && <SectionDots scrollRef={scrollRef} version={items} />}
           {resume.resumed && (
@@ -847,10 +945,13 @@ export function App() {
               disabled={!rt?.sample}
             />
           )}
+          </>
+          )}
           </LessonPlaceCtx.Provider>
         </main>
 
         {showToc &&
+          !bookOn &&
           (leftDock === "toc" ? (
             <LessonToc scrollRef={scrollRef} version={items} open setOpen={(o) => !o && setLeftDock("")} />
           ) : leftDock === "pad" ? (

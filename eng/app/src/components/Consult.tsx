@@ -9,8 +9,9 @@
 // (read only), where he was sure and wrong in this module, and the card's own thread; never the
 // lesson rules or the lesson itself. Cards are kept per lesson (events.ts) and come back, folded to
 // their first line, under the same paragraphs when the lesson is opened again. Replaces the old
-// "הסבר פשוט" side panel. Same file in both labs.
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type RefObject } from "react";
+// "הסבר פשוט" side panel. In the lesson as a book (src/book/), the open card is drawn on the facing page and
+// every other card is a closed tab at the edge of the page; the book passes a bridge for that. Same file in both labs.
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, useSyncExternalStore, type RefObject } from "react";
 import { createPortal } from "react-dom";
 import type { Runtime, SampleTool } from "../runtime";
 import { runCompute } from "../tutor";
@@ -19,6 +20,7 @@ import { Icon } from "./Icon";
 import { sectionAt, textOf } from "./lessonText";
 import { allCalib, calibNote, loadConsults, logEvent, saveConsult, type ConsultCard, type ConsultKind, type ConsultLevel, type ConsultRequest, type ConsultTurn, type LessonPlace } from "../events";
 import { consultPrompt, firstLine, LEVEL_HINT, LEVEL_LABEL, LEVEL_WORDS, splitMore } from "../consultPrompt";
+import type { BookBridge } from "../book/context";
 import "../consult.css";
 
 const QUICK_MODEL = "claude-opus-5-5";
@@ -37,7 +39,8 @@ const KIND_Q: Record<ConsultKind, string> = {
   check: "",
   ask: "",
 };
-const LESSON_PROSE = ".msg-assistant > .prose";
+/** the lesson's column; in the book, a block's window on a page and its copy in the hidden galley */
+const LESSON_PROSE = ".msg-assistant > .prose, .bk-frag > .prose, .bk-gc > .prose";
 
 const words = (s: string) => (s.match(/\S+/g) ?? []).length;
 const norm = (s: string) => s.replace(/\s+/g, " ").trim();
@@ -99,6 +102,8 @@ interface Ui {
   focus?: boolean;
 }
 const UI0: Ui = { open: true, level: 1, discuss: false, draft: "", err: "" };
+const noSub = () => () => {};
+const zero = () => 0;
 
 export function ConsultLayer({
   rt,
@@ -109,6 +114,7 @@ export function ConsultLayer({
   memory = "",
   version,
   onOpenSource,
+  book,
 }: {
   rt: Runtime | null;
   scrollRef: RefObject<HTMLDivElement | null>;
@@ -120,8 +126,16 @@ export function ConsultLayer({
   /** changes whenever the lesson's text changes, so the cards find their paragraphs again */
   version: unknown;
   onOpenSource?: (doc: string, page: number) => void;
+  /** the lesson as a book: cards go to its facing page, and the whole text is read from its galley */
+  book?: BookBridge | null;
 }) {
   const [cards, setCards] = useState<ConsultCard[]>([]);
+  // the book's facing page and the card it shows
+  useSyncExternalStore(book?.subscribe ?? noSub, book?.version ?? zero);
+  /** where the lesson's text is, whole and in order */
+  const textRoot = useCallback(() => (book ? book.galley() : scrollRef.current), [book, scrollRef]);
+  /** a block on a page of the book stands for its copy in the galley */
+  const own = useCallback((el: HTMLElement | null) => (el && book ? book.twin(el) : el), [book]);
   const [ui, setUi] = useState<Record<string, Ui>>({});
   const [busy, setBusy] = useState<string | null>(null);
   const [hosts, setHosts] = useState<Record<string, HTMLElement>>({});
@@ -169,7 +183,7 @@ export function ConsultLayer({
   // each card in its own small host right after its paragraph (and after the cards already there)
   useLayoutEffect(() => {
     const root = scrollRef.current;
-    if (!root) return;
+    if (!root || book) return;
     const map = hostEls.current;
     for (const [id, h] of map)
       if (!cards.some((c) => c.id === id)) {
@@ -207,7 +221,7 @@ export function ConsultLayer({
       const t = setTimeout(() => setTick((n) => n + 1), 500);
       return () => clearTimeout(t);
     }
-  }, [cards, version, scrollRef, tick]);
+  }, [cards, version, scrollRef, tick, book]);
   // leaving the lesson: the hosts go with it
   useEffect(() => {
     const map = hostEls.current;
@@ -227,8 +241,10 @@ export function ConsultLayer({
       const sel = window.getSelection();
       if (!sel || sel.isCollapsed || !sel.rangeCount) return setBar(null);
       const r = sel.getRangeAt(0);
-      const block = blockOf(r.startContainer);
-      if (!block || !scroll.contains(block)) return setBar(null);
+      const onPage = blockOf(r.startContainer);
+      if (!onPage || !scroll.contains(onPage)) return setBar(null);
+      const block = own(onPage);
+      if (!block) return setBar(null);
       const text = textOf(r);
       if (!text.trim()) return setBar(null);
       const rect = r.getBoundingClientRect();
@@ -247,7 +263,7 @@ export function ConsultLayer({
       scroll.removeEventListener("touchend", up);
       scroll.removeEventListener("scroll", hide);
     };
-  }, [scrollRef]);
+  }, [scrollRef, own]);
 
   const store = useCallback(
     (card: ConsultCard) => {
@@ -264,7 +280,7 @@ export function ConsultLayer({
   /** Asks the tutor on a card: a new turn, or (continuing) the rest of the last answer. */
   const ask = useCallback(
     async (id: string, question: string, level: ConsultLevel, discuss: boolean, continuing = false) => {
-      const scroll = scrollRef.current;
+      const scroll = textRoot();
       const card = cardsRef.current.find((c) => c.id === id);
       if (!rt?.sample || !scroll || !card || busy) return;
       if (!continuing && !question.trim()) return;
@@ -372,7 +388,7 @@ export function ConsultLayer({
         }
       }
     },
-    [rt, scrollRef, busy, lessonTitle, memory, calib, setCard, patchUi, store, place],
+    [rt, textRoot, busy, lessonTitle, memory, calib, setCard, patchUi, store, place],
   );
 
   /** A new card under a block; asks at once when there is a question, else opens the box for one. */
@@ -386,9 +402,10 @@ export function ConsultLayer({
       setUi((all) => ({ ...all, [card.id]: { ...UI0, level, discuss: !q, draft: q || (kind === "check" ? "אז אם הבנתי: " : ""), focus: !q } }));
       window.getSelection()?.removeAllRanges();
       setBar(null);
+      book?.openCard(card.id, block);
       if (q) void ask(card.id, q, level, false);
     },
-    [ask],
+    [ask, book],
   );
 
   // a card asked for from elsewhere in the lesson (a think question)
@@ -397,14 +414,26 @@ export function ConsultLayer({
   useEffect(() => {
     const on = (e: Event) => {
       const r = (e as CustomEvent<ConsultRequest>).detail;
-      const scroll = scrollRef.current;
+      const scroll = textRoot();
       if (!scroll || !r) return;
-      const block = (r.el && blockOf(r.el)) || findBlock(scroll, norm(r.anchor)) || blockAtTop(scroll);
+      const block = own(r.el ? blockOf(r.el) : null) || findBlock(scroll, norm(r.anchor)) || (book ? book.blockAtTop() : blockAtTop(scroll));
       if (block) openRef.current(block, r.kind, r.quote, r.q, r.level ?? 1);
     };
     window.addEventListener("consult:open", on);
     return () => window.removeEventListener("consult:open", on);
-  }, [scrollRef]);
+  }, [textRoot, own, book]);
+
+  // the book: a question about the paragraph being read, from its own bar; and the closed tabs of the cards
+  useEffect(() => {
+    if (!book) return;
+    book.askTop = () => {
+      const block = book.blockAtTop();
+      if (block) openRef.current(block, "ask", undefined, "");
+    };
+  }, [book]);
+  useEffect(() => {
+    book?.setCards(cards.map((c) => ({ id: c.id, anchor: c.anchor, label: KIND_LABEL[c.kind], title: c.turns.length ? firstLine(c.turns[c.turns.length - 1].a) : c.quote ? norm(c.quote).slice(0, 60) : "שאלה על הפסקה" })));
+  }, [book, cards]);
 
   const hide = (id: string) => {
     const card = cardsRef.current.find((c) => c.id === id);
@@ -412,6 +441,7 @@ export function ConsultLayer({
     if (busy === id) ctl.current?.abort();
     setCards((all) => all.filter((c) => c.id !== id));
     if (card.turns.length) store({ ...card, hidden: true, updatedAt: Date.now() });
+    if (book?.active === id) book.openCard(null);
   };
 
   const toolbar = bar && (
@@ -425,6 +455,43 @@ export function ConsultLayer({
       <button onClick={() => openCard(bar.block, "ask", bar.text, "")}>שאל…</button>
     </div>
   );
+
+  const view = (c: ConsultCard, ui0: Ui, onUi: (p: Partial<Ui>) => void) => (
+    <CardView
+      card={c}
+      ui={ui0}
+      live={busy === c.id}
+      locked={!!busy && busy !== c.id}
+      canAsk={!!rt?.sample}
+      onUi={onUi}
+      onAsk={(q, level, discuss) => void ask(c.id, q, level, discuss)}
+      onMore={() => void ask(c.id, "", 1, false, true)}
+      onStop={() => ctl.current?.abort()}
+      onHide={() => hide(c.id)}
+      onOpenSource={onOpenSource}
+    />
+  );
+
+  if (book) {
+    // one card at a time, on the facing page; folding it closes the page and leaves its tab
+    const c = cards.find((x) => x.id === book.active);
+    return (
+      <>
+        {toolbar}
+        {c && book.host
+          ? createPortal(
+              view(c, { ...(ui[c.id] ?? UI0), open: true }, (p) => {
+                if (p.open === false) book.openCard(null);
+                const { open: _o, ...rest } = p;
+                if (Object.keys(rest).length) patchUi(c.id, rest);
+              }),
+              book.host,
+              c.id,
+            )
+          : null}
+      </>
+    );
+  }
 
   return (
     <>
