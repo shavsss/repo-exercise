@@ -24,13 +24,13 @@ type Rules = "current" | "lite";
  * shows here too, when Lanchester's own bench tab is not running the newest version.
  */
 type Kit = { loadIndex: typeof loadIndex; composeLesson: typeof composeLesson; planModule: typeof planModule; setLessonRules: typeof setLessonRules; setLessonFeatures: typeof setLessonFeatures };
-async function tutorKit(lanchester: boolean): Promise<Kit> {
+async function tutorKit(lanchester: boolean, indexUrl = ""): Promise<Kit> {
   if (!lanchester) return { loadIndex, composeLesson, planModule, setLessonRules, setLessonFeatures };
   const [t, l] = await Promise.all([import("../../../../core/app/src/tutor"), import("../../../../core/app/src/library")]);
-  l.setLibBase("corelib/");
+  l.setLibBase("corelib/", indexUrl);
   return { loadIndex: l.loadIndex, composeLesson: t.composeLesson, planModule: t.planModule, setLessonRules: t.setLessonRules, setLessonFeatures: t.setLessonFeatures } as unknown as Kit;
 }
-type Other = { memory?: string; lessons?: Record<string, unknown[]>; done?: string[] };
+type Other = { memory?: string; lessons?: Record<string, unknown[]>; done?: string[]; index?: string };
 
 /** Which code runs in the open bench tab (written to profile/bench/_alive and to every result). */
 declare const __BUILD__: string;
@@ -94,7 +94,7 @@ export function Bench({ lab }: { lab: "gilua" | "lanchester" }) {
 
   async function one(rt: Runtime, rules: Rules, planOnly: boolean, at?: { module: string; lesson: number }, features: LessonFeature[] = [], other?: Other) {
     const c = at ?? CASES[lab];
-    const { loadIndex, composeLesson, planModule, setLessonRules, setLessonFeatures } = await tutorKit(!!other);
+    const { loadIndex, composeLesson, planModule, setLessonRules, setLessonFeatures } = await tutorKit(!!other, other?.index);
     const lab_ = other ? "lanchester-via-gilua" : lab;
     const index = await loadIndex();
     const memory = other ? (other.memory ?? "") : ((await rt.store!.getMemory()) ?? "");

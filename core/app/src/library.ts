@@ -122,13 +122,15 @@ async function cached<T>(name: string, version: string): Promise<T> {
 let LIB_VERSION = "0";
 /** Where the library is served from: "lib/" in this app; Gilua's test bench loads a copy from "corelib/". */
 let LIB_BASE = "lib/";
-export function setLibBase(base: string) {
+let LIB_INDEX = "";
+export function setLibBase(base: string, indexUrl = "") {
   LIB_BASE = base;
+  LIB_INDEX = indexUrl;
 }
 
 export async function loadIndex() {
   if (!index) {
-    const res = await fetch(`${LIB_BASE}index.json`, { cache: "no-cache" });
+    const res = await fetch(LIB_INDEX || `${LIB_BASE}index.json`, { cache: "no-cache" });
     if (!res.ok) throw new Error(`לא הצלחתי לטעון את הספרייה (${res.status})`);
     index = (await res.json()) as LibraryIndex;
     LIB_VERSION = index.version ?? "0";
