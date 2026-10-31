@@ -37,7 +37,7 @@
   2. `node core/app/tools/backup/export.mjs <dump> .` כותב:
      - `core/notes/MEMORY.md`, `core/notes/PROGRESS.md` (טבלה לכל חלק: מצב, שיעורים, ציון) ו-`core/notes/README.md`
      - `core/notes/lessons/*.md`, קובץ לכל שיחה, לפי מודול ושיעור (הודעה ארוכה מחוברת מההמשכים שלה)
-     - `NOTEBOOK.md`, `SUMMARIES.md`, `SCRATCH.md` (והשרטוטים ב-`scratch/`), `CONSULTS.md`, `CALIBRATION.md`, `LEVEL3.md`, `PRODUCTS.md`, `REVIEWS.md` ו-`MEMORY_LOG.md`
+     - `NOTEBOOK.md`, `SUMMARIES.md`, `SCRATCH.md` (והשרטוטים ב-`scratch/`), `CONSULTS.md`, `CALIBRATION.md`, `LEVEL3.md`, `PRODUCTS.md`, `REVIEWS.md`, `REVIEW.md` (כרטיסי החזרה), `DAYS.md` (ימי הלימוד), `LEVELS.md` (הרמה בכל תחום) ו-`MEMORY_LOG.md`
      - `core/backup/db/`, עותק JSON גולמי של כל מה שנקרא, כולל האוספים שאין להם קובץ MD
   3. commit ו-push, רק אם משהו השתנה.
 - **שחזור:** כמו במעבדת הלמידה, עם ArtifactData `batch` מתוך `core/backup/db` אל ה-Artifact של מעבדת הליבה.
@@ -56,6 +56,7 @@
 - **גרסאות של זיכרון הקורס:** לפני כל החלפה של הזיכרון, הנוסח הקודם נשמר ב-`profile/memlog/<ts>` (`memory`, `reason`, `at`). אחרי 30 יום גרסאות מקופלות למסמך חודש `profile/memlog/m-<YYYY-MM>` (`versions`: הגרסה האחרונה של כל יום, כמה שנכנסות במסמך), כדי שהאוסף יגדל בחודשים ולא בשיעורים; ההיסטוריה המלאה נשמרת ב-git דרך הגיבוי הלילי. בלוח הזיכרון אפשר לראות גרסה ולשחזר אותה. בגיבוי: `MEMORY_LOG.md`.
 - **מונה שימוש:** `profile/usage/<יום>`, מסמך ליום עם `sessions` (רשומה לכל פתיחה של הדף; הפורמט הראשון, `<יום>__<סשן>`, עדיין נקרא): קריאות לפי מודל, זמן, שיעורים ומילים. **אבחון סירובים:** `profile/diag/<ts>`.
 - **אוספים חדשים נוספים:** יומן אירועים (`profile/events`), כיול שאלות think (`profile/calib`), כרטיסי התייעצות (`profile/consults/<מודול>__<שיעור>/cards`), תשובות רמה 3 (`profile/level3`), העיתון והמשוב עליו (`profile/news`, `profile/news/_index`, `profile/newsfb`), מוצר החודש (`profile/products`) והסקירות השבועיות (`profile/reviews`). כולם בטבלה שלמטה.
+- **ועוד ארבעה (31.10, בלילה):** כרטיסי החזרה (`profile/review`), ימי הלימוד (`profile/days`), הרמה בכל תחום (`profile/levels`) והמדף (`profile/shelf`, עם `more` לשיעור ארוך). בגיבוי: `REVIEW.md`, `DAYS.md`, `LEVELS.md`; המדף גולמי בלבד.
 
 ## האוספים שמגבים (לנצ'סטר וגילואה)
 
@@ -84,5 +85,10 @@
 | `<P>/events` | יומן אירועים, מסמך ליום (`entries`, 500 האחרונים) | גולמי |
 | `<P>/usage` | מונה שימוש, מסמך ליום (`sessions`) | גולמי |
 | `<P>/diag` | אבחון סירובים | גולמי |
+| `<P>/review` | כרטיסי החזרה המרווחת: מסמך לכל מודול (`<מודול>`, ובמודול גדול גם `<מודול>~<n>`; `cards` עם מצב התזמון), ו-`_state` (מוני היום) | `REVIEW.md` (כרטיסים לפי מודול, חזרה הבאה ומצב) |
+| `<P>/days` | ימי הלימוד, מסמך ליום (`<YYYY-MM-DD>`): דקות קריאה, שיעורים שנפתחו, הצעד הבא מסגירת היום | `DAYS.md` |
+| `<P>/levels` | הרמה החיה בכל תחום (`current`) ותמונת שבוע (`<YYYY-Www>`), `docs/SHELF_SCHEMA.md` | `LEVELS.md` (מ-`current`) |
+| `<P>/shelf` | שיעורים שנכתבו בלילה (`<מודול>__<שיעור>`), ו-`_status`, `_probe` (`docs/SHELF_SCHEMA.md`) | גולמי |
+| `<P>/shelf/<id>/more` | המשך הטקסט של שיעור מדף, רק למסמך שיש לו `parts` (1 ומעלה) | גולמי |
 
-הסדר: קודם האוספים העליונים, ואז השלבים המקוננים: לכל `<cid>` מ-`convs` קוראים את `msgs`, לכל הודעה עם `textParts` את `more` שלה, ולכל `<key>` מ-`consults` את `cards`. ב-`out_dir` כל מסמך נשמר כ-`<dump>/<collection>/<doc_id>.json`, וזה המבנה שהסקריפט קורא; הוא מעתיק את כל ה-dump ל-`backup/db/` כמו שהוא, כך שגם אוסף שאין לו קובץ MD נשמר לשחזור.
+הסדר: קודם האוספים העליונים, ואז השלבים המקוננים: לכל `<cid>` מ-`convs` קוראים את `msgs`, לכל הודעה עם `textParts` את `more` שלה, לכל `<key>` מ-`consults` את `cards`, ולכל מסמך מדף עם `parts` גדול מ-0 את `P/shelf/<id>/more`. ב-`out_dir` כל מסמך נשמר כ-`<dump>/<collection>/<doc_id>.json`, וזה המבנה שהסקריפט קורא; הוא מעתיק את כל ה-dump ל-`backup/db/` כמו שהוא, כך שגם אוסף שאין לו קובץ MD נשמר לשחזור.
