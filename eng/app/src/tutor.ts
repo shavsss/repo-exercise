@@ -559,7 +559,7 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
   let plan = resume?.plan;
   if (!plan) {
     cb.onStatus?.("מתכנן את השיעור: קורא את המקורות ומחשב את המספרים");
-    const planTurn = `${ctx}\n\n${text}\n\n${PART_PLAN_INSTRUCTIONS}${LESSON_RULES === "lite" ? LITE_PLAN : ""}${featurePlan(lessons?.length ?? 0, lessonIdx, opts.done?.length ?? 0)}`;
+    const planTurn = `${ctx}\n\n${text}\n\n${LESSON_RULES === "lite" ? PART_PLAN_INSTRUCTIONS.replace("for a core or advanced module the words add up to at least 4200 Hebrew words unless the assigned material is genuinely short (then say so in the first part); ", "").replace(', "words": 1200}', ', "units": 40}') + LITE_PLAN : PART_PLAN_INSTRUCTIONS}${featurePlan(lessons?.length ?? 0, lessonIdx, opts.done?.length ?? 0)}`;
     plan = await rt.sample.json<PartPlan>([...fitHistory(history, bytes(planTurn)), { role: "user", content: planTurn }], {
       model: MODEL,
       modelTier: "complex",
