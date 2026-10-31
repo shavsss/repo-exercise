@@ -525,12 +525,12 @@ export function setLessonRules(r: "current" | "lite") {
   LESSON_RULES = r;
 }
 const LITE_PLAN = `
-CANDIDATE RULES FOR THIS LESSON (they override the length rule and the 4200-word floor above):
-- Build the lesson around one or two central results of the assigned material: what each one says, why it is true (derivation or skeleton), where it stops working, its number, and how it connects. Everything else in the pages is either needed for those results (teach it) or background (one sentence, or leave it out).
-- Length: 3500 to 5000 Hebrew words in total, 2 to 4 parts, each part 900 to 1600 words. This is a ceiling as well as a floor: depth comes from the derivations, the numbers and the critique, never from restating.
-- No restating the source page by page, no recap paragraphs, no "as we saw", no announcing what comes next. Every paragraph adds something new.
+CANDIDATE RULES FOR THIS LESSON (they replace the length rule and the 4200-word floor above). Depth is never cut: what does not fit moves to the next lesson.
+- Build the lesson around one or two central results of the assigned material, each at full depth: what it says, why it is true (derivation or skeleton with every assumption where it enters), where it stops working, its computed number, the decisive case, the critique, and its connections to other fields.
+- Size: a lesson that teaches its one or two central results at full depth usually takes 3500 to 5000 Hebrew words, in 2 to 4 parts of 900 to 1600 words. If the assigned material holds more central results than fit at full depth, do not compress anything: plan the first one or two now and add to the JSON "split": {"title": "Hebrew title of the next lesson", "covers": "the central results and pages that move to it"}. Split, never delete.
+- The words go to depth (derivations, numbers, limits, critique, connections), not to restating: no retelling the source page by page, no recap paragraphs, no "as we saw", no announcing what comes next. Every paragraph adds something new.
 - Keep the JSON short: "covers" one or two lines per part.`;
-const LITE_PART = `Candidate rules: stay within the planned words for this part (at most 15% more). Every paragraph adds something new: no recap, no restating the source, no announcing. Depth through the derivation, the numbers and the critique.`;
+const LITE_PART = `Candidate rules: write this part at full depth within its planned words (at most 15% more); if something does not fit, it belongs to the split lesson, never to a thinner treatment here. Every paragraph adds something new: no recap, no restating the source, no announcing. Depth through the derivation, the numbers and the critique.`;
 
 export async function composeLesson(opts: Base & { text: string; resume?: { plan: PartPlan; partsDone: number; text: string } }) {
   const { rt, history, text, effort, module: m, lessons, lessonIdx, memory, notes, allNotes, signal, cb, resume } = opts;

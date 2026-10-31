@@ -44,6 +44,7 @@ export function Bench({ lab }: { lab: "gilua" | "lanchester" }) {
       ctl.current = new AbortController();
       let text = "";
       let error = "";
+      let res0: unknown = null;
       try {
         const res = await composeLesson({
           rt, history: [], effort: "high", module: m, lessons: prog!.lessons, lessonIdx: c.lesson, memory,
@@ -52,11 +53,13 @@ export function Bench({ lab }: { lab: "gilua" | "lanchester" }) {
           cb: { onText: (t) => { text = t; setLive(t); }, onActivity: () => {}, onStatus: (s) => say(s) },
         });
         text = res.text;
+        res0 = res;
       } catch (e) {
         const err = e as { code?: string; message?: string };
         error = `${err.code ?? "error"}: ${err.message ?? ""}`;
       }
-      const result = { lab, rules, module: c.module, lesson: c.lesson, title: spec.title, words: words(text), minutes: Math.round((Date.now() - t0) / 600) / 100, error, text, at: Date.now() };
+      const split = (res0 as { plan?: { split?: unknown } } | null)?.plan?.split ?? null;
+      const result = { lab, rules, split, module: c.module, lesson: c.lesson, title: spec.title, words: words(text), minutes: Math.round((Date.now() - t0) / 600) / 100, error, text, at: Date.now() };
       await rt.store.saveBench(`${Date.now()}-${c.module}-${rules}`, result).catch(() => say("שמירת התוצאה נכשלה"));
       say(`${c.module}: ${error ? `שגיאה (${error})` : "הסתיים"} · ${result.words} מילים · ${result.minutes} דקות`);
     }
