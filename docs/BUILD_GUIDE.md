@@ -202,6 +202,8 @@ cd /tmp/harness && python3 -m http.server 5190     # http://localhost:5190/test.
 
 ה-stub לא מחליף בדיקה אמיתית ב-claude.ai, כי אישורי ההרשאה, מגבלות הזמן והתוכן האמיתי של Claude קיימים רק שם.
 
+**לנצ'סטר וגילואה:** `core/tools/test-check/check.mjs <core|eng> <outdir> [--app <תיקיית app>]` מריץ את דף הבדיקה של האפליקציה ב-Playwright, בהיר וכהה, ב-1300px וב-400px, כותב צילומי מסך ומדפיס JSON עם שגיאות הדף והקונסול (הוראות ב-`core/tools/test-check/README.md`). עד 31.10 הסקריפט היה רק בתיקיית העבודה הזמנית של הסשן, ועכשיו הוא במאגר. הוא צריך `artifact/lib/index.json` על הדיסק, או עותק חלקי מהגרסה שפורסמה (`HARNESS_LIB`). בדיקות היחידה: `node tools/test/<שם>.test.mjs` בכל אפליקציה (`truncation`, `errata`, `fsrs`, `dbshape`).
+
 ---
 
 ## 7. פרסום
@@ -281,6 +283,12 @@ cd /tmp/harness && python3 -m http.server 5190     # http://localhost:5190/test.
 - הסקריפט שומר כל 40 עמודים וממשיך מאיפה שנעצר. כדאי להריץ כמה תהליכים במקביל, כל אחד על מסמכים אחרים (תור עם `xargs -P 4`), ולשים את המסמכים הגדולים ראשונים. שני תהליכים על אותו מסמך דורסים זה את זה.
 - `core/tools/pack.py` אורז ל-`core/app/artifact/lib/`: אינדקס, טקסט לכל מסמך, ואיורים ותמונות עמודים בחבילות של כ-6MB. זה עוזר כי לפרסום יש מגבלה של 255 קבצים בכל פעימה ו-16MB לקובץ טקסט. הסעיפים של כל מודול נלקחים מתוכן העניינים של ה-PDF כשהוא מגיע לרמת סעיפים (בערך כותרת לכל 8 עמודים). אחרת הם נלקחים מכותרות ממוספרות בטקסט (גם מספר בשורה נפרדת מהכותרת), ואם גם אין כאלה, לפי גודל הגופן. עמודים שב-SKIP (תוכן עניינים) וכותרות רצות לא נספרים.
 - **מסמך אחד על אינדקס שפורסם:** `PACK_OUT=<dir>/lib python core/tools/pack.py --only DOC --base <lib/index.json שפורסם> --keep-modules` כותב את קובצי המסמך (חבילות של `ASSET_DOCS` ל-`<dir>/assets`) ואינדקס שבו רק המסמכים השתנו. `core/tools/merge_index.py --base <אינדקס> --src <האינדקס הזה> --docs DOC [--asset-urls core/tools/asset_urls.json] --out <קובץ>` מעתיק את אותן רשומות לכל אינדקס אחר (גם של גילואה), כך ששינוי מודולים ושינוי מסמכים נכנסים בכל סדר.
+- **אינדקס חדש בלי הספרייה על הדיסק (31.10):** כשהסילבוס או תוכנית הלימודים משתנים, בונים `lib/index.json` חדש מזה שפורסם (קוראים אותו עם Artifact `action: "read"`, `path: "lib/index.json"`), ומפרסמים רק אותו (וקובץ טקסט של מסמך שנוסף). הסדר, כפי שנבנה האינדקס של לנצ'סטר עם B13:
+  1. `python3 tools/curriculum/build_curriculum.py` כותב את `library/*/syllabus/curriculum.json` (רק כשמקורות המחקר או `wording_mil.json` השתנו).
+  2. למסמך שנוסף: `python3 core/tools/doc_sections.py --text <lib>/text/DOC.json --out headings.json`, ואז `python3 core/tools/merge_index.py --base <פורסם> --src <אינדקס של pack.py --only> --docs DOC --asset-urls core/tools/asset_urls.json --out merged.json`.
+  3. `python3 tools/curriculum/patch_index.py --app core|eng --base merged.json [--headings headings.json] --out <חדש>/index.json`: מודולים חדשים נוספים, מודול קיים שומר את הכותרות והמקורות שלו, וכל מודול מקבל את שדות תוכנית הלימודים. המסמכים, מפת הנכסים וה-`version` נשארים, כך שהעותקים בדפדפן נשארים תקפים.
+  4. `python3 tools/curriculum/validate.py --app core|eng --old <פורסם> --new <חדש>/index.json --dump <dump של נתוני הלומד>` בודק שכל מודול של האינדקס הישן נשאר באותו חלק, עם הכותרות והמקורות שלו, ושכל מודול שמופיע בנתוני הלומד נמצא באינדקס החדש.
+  התוצרים בתיקייה זמנית, לא ב-git.
 - הדף טוען את `lib/index.json` בלי cache, ואת שאר הקבצים לפי הצורך. הם נשמרים ב-IndexedDB לפי ה-`version` שבאינדקס, כך שאחרי אריזה חדשה הם נטענים מחדש.
 
 ### 11.2 מודול, שיעור ומבחן
@@ -305,6 +313,7 @@ cd /tmp/harness && python3 -m http.server 5190     # http://localhost:5190/test.
 1. פעימה ראשונה: `file_path: core/app/artifact/index.html`, עם `app.js`, `app.css` ו-`lib/index.json`, וגם `capabilities: {sample: {images: true}, db: {}, user: {}}`, `icon` ו-`description`.
 2. הפעימות הבאות מתפרסמות לאותה כתובת (`url`), כל אחת עם חלק מקבצי `lib/` (עד 64MB ו-255 קבצים). קבצים שלא נשלחים נשארים מהגרסה הקודמת.
 3. עדכון קוד בלבד: `app.js` ו-`app.css`. אחרי אריזה חדשה צריך לפרסם מחדש את כל הקבצים שהשתנו ואת `lib/index.json`.
+4. שינוי סילבוס או תוכנית לימודים: `app.js`, `app.css` ו-`lib/index.json` שנבנה לפי סעיף 11.1 ("אינדקס חדש בלי הספרייה על הדיסק"), ועוד `lib/text/DOC.json` של מסמך שנוסף (כך פורסמה לנצ'סטר גרסה 71 עם B13). חבילות האיורים והעמודים של מסמך כזה עולות קודם למאגר הקבצים (סעיף 11.5).
 
 ### 11.5 מאגר הקבצים (assets): מעבר ל-256MB
 
