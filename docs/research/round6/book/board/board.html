@@ -1,0 +1,298 @@
+<title>הספר: לוח הבחירות</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700&family=IBM+Plex+Sans+Hebrew:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: one reading column of decisions, grouped like the parts of a book; each decision shows its variants as
+   picture cards (from the live prototype), a recommended tag, a link into the prototype and a free note.
+   Choices are saved to the artifact's database (collection book6_choices), with this browser as the fallback. */
+:root {
+  --desk: #e6ddcc;
+  --paper: #f7f1e6;
+  --ink: #22261d;
+  --ink-soft: #4f4a3f;
+  --muted: #676257;
+  --rule: #d9cdb6;
+  --accent: #1f4f8a;
+  --accent-soft: #e3ebf4;
+  --rec: #2f6b5f;
+  --rec-soft: #dfece7;
+  --warn: #8a6100;
+  --f-body: "Frank Ruhl Libre", "Times New Roman", serif;
+  --f-ui: "IBM Plex Sans Hebrew", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --desk: #1b1b1a; --paper: #262624; --ink: #dedad1; --ink-soft: #c9c5bb; --muted: #aaa498; --rule: #46443f; --accent: #8fb6e3; --accent-soft: #263445; --rec: #8fd0c0; --rec-soft: #1f322d; --warn: #e6b85c; color-scheme: dark; }
+}
+:root[data-theme="dark"] { --desk: #1b1b1a; --paper: #262624; --ink: #dedad1; --ink-soft: #c9c5bb; --muted: #aaa498; --rule: #46443f; --accent: #8fb6e3; --accent-soft: #263445; --rec: #8fd0c0; --rec-soft: #1f322d; --warn: #e6b85c; color-scheme: dark; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--desk); color: var(--ink); font: 15px/1.6 var(--f-ui); direction: rtl; }
+.wrap { max-width: 1060px; margin: 0 auto; padding-block: 28px 80px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+a { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+header.top { background: var(--paper); border: 1px solid var(--rule); padding: 26px clamp(18px, 4vw, 40px) 22px; position: relative; }
+header.top .eyebrow { font: 600 12px var(--f-ui); letter-spacing: .14em; color: var(--muted); }
+header.top h1 { font: 700 clamp(26px, 4vw, 38px)/1.15 var(--f-body); margin: 6px 0 10px; text-wrap: balance; }
+header.top p { margin: 0 0 10px; max-width: 64ch; color: var(--ink-soft); }
+.links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.links a { text-decoration: none; border: 1px solid var(--rule); padding: 6px 12px; border-radius: 4px; font-size: 14px; background: var(--desk); color: var(--ink); }
+.links a.main { background: var(--accent); color: var(--paper); border-color: var(--accent); }
+.rec3 { margin-top: 18px; border-top: 1px solid var(--rule); padding-top: 14px; display: grid; gap: 6px; }
+.rec3 h2 { font: 600 13px var(--f-ui); color: var(--rec); margin: 0; letter-spacing: .04em; }
+.rec3 ol { margin: 0; padding-inline-start: 1.2em; color: var(--ink-soft); }
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; background: color-mix(in srgb, var(--desk) 92%, transparent); backdrop-filter: blur(6px); padding: 10px 0; margin: 10px 0 6px; font-size: 13px; color: var(--muted); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--desk); }
+.prog { flex: 1; min-width: 140px; height: 4px; background: var(--rule); border-radius: 2px; overflow: hidden; }
+.prog i { display: block; height: 100%; background: var(--rec); width: 0; transition: width .3s; }
+.sync { display: inline-flex; gap: 6px; align-items: center; }
+.sync::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--muted); }
+.sync[data-s="db"]::before { background: var(--rec); }
+.sync[data-s="err"]::before { background: var(--warn); }
+.toc { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0 18px; }
+.toc a { font-size: 12.5px; text-decoration: none; color: var(--ink-soft); border: 1px solid var(--rule); border-radius: 999px; padding: 3px 10px; background: var(--paper); }
+.toc a.done { border-color: var(--rec); color: var(--rec); }
+h3.group { font: 700 22px var(--f-body); margin: 34px 0 10px; display: flex; align-items: baseline; gap: 10px; }
+h3.group small { font: 500 12.5px var(--f-ui); color: var(--muted); }
+section.q { background: var(--paper); border: 1px solid var(--rule); padding: 20px clamp(16px, 3vw, 28px) 18px; margin-bottom: 14px; scroll-margin-top: 60px; }
+section.q h4 { font: 600 18px var(--f-ui); margin: 0 0 6px; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+section.q h4 .n { font: 500 12px var(--f-mono); color: var(--muted); }
+section.q h4 .id { font: 500 11px var(--f-mono); color: var(--muted); margin-inline-start: auto; }
+.why { margin: 0 0 12px; color: var(--ink-soft); max-width: 72ch; }
+.why b { color: var(--ink); font-weight: 600; }
+.src { font: 12px var(--f-ui); color: var(--muted); }
+.ill { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; margin: 0 0 12px; }
+.ill figure { margin: 0; }
+.ill figcaption { font-size: 12.5px; color: var(--muted); }
+.opts { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr)); gap: 10px; }
+.opt { position: relative; display: grid; grid-template-rows: auto 1fr; border: 1px solid var(--rule); background: var(--desk); cursor: pointer; min-width: 0; }
+.opt input { position: absolute; opacity: 0; pointer-events: none; }
+.opt .img { display: block; aspect-ratio: 16 / 10; overflow: hidden; background: var(--rule); border: 0; padding: 0; cursor: zoom-in; width: 100%; }
+.opt .img img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+.opt .txt { padding: 9px 11px 11px; display: grid; gap: 3px; align-content: start; }
+.opt .t { font-weight: 600; font-size: 14.5px; display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.opt .d { font-size: 13px; color: var(--ink-soft); line-height: 1.5; }
+.opt .tag { font: 600 11px var(--f-ui); color: var(--rec); background: var(--rec-soft); padding: 1px 7px; border-radius: 999px; }
+.opt .try { font-size: 12.5px; margin-top: 4px; }
+.opt:has(input:checked) { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent); background: var(--accent-soft); }
+.opt:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
+.opt.noimg { grid-template-rows: 1fr; }
+.note { margin-top: 12px; display: grid; gap: 4px; }
+.note label { font-size: 12.5px; color: var(--muted); }
+.note textarea { font: 14px/1.5 var(--f-ui); color: var(--ink); background: var(--desk); border: 1px solid var(--rule); padding: 7px 9px; resize: vertical; min-height: 38px; width: 100%; }
+.saved { font-size: 12px; color: var(--rec); min-height: 1em; margin-top: 4px; }
+.general { background: var(--paper); border: 1px solid var(--rule); padding: 20px clamp(16px, 3vw, 28px); margin-top: 30px; }
+.general h3 { margin: 0 0 6px; font: 700 20px var(--f-body); }
+dialog { border: 0; padding: 0; background: transparent; max-width: min(96vw, 1440px); }
+dialog::backdrop { background: rgb(0 0 0 / 70%); }
+dialog img { max-width: 100%; max-height: 88vh; display: block; }
+dialog p { color: #eee; font-size: 13px; margin: 6px 0 0; text-align: center; }
+footer { margin-top: 30px; color: var(--muted); font-size: 13px; }
+@media (prefers-reduced-motion: reduce) { .prog i { transition: none; } }
+</style>
+<div class="wrap">
+  <header class="top">
+    <div class="eyebrow">סבב 6 · השיעור כספר</div>
+    <h1>לוח הבחירות</h1>
+    <p>בחרת בספר פתוח, עם שדרה, ערימת דפים ודף שמאלי שמתהפך ימינה. כאן כל מה שעוד פתוח: איך נראה העמוד, איך הדף מתהפך, ואיך שאלות, התייעצות, תלת-ממד, פתקים ומחברת חיים בתוך ספר.</p>
+    <p>לכל החלטה יש צילום של כל וריאציה מתוך אב-הטיפוס החי. לחיצה על הצילום מגדילה אותו, ו"נסה באב-הטיפוס" פותח את הספר באותה וריאציה. הבחירות וההערות נשמרות לבד.</p>
+    <div class="links">
+      <a class="main" href="https://claude.ai/artifact/PQpAAUu4RSQH42xunJJio7" target="_blank" rel="noopener">אב-הטיפוס החי ↗</a>
+      <a href="https://claude.ai/artifact/GHzjGjRbT3WgLizDZHUbmh" target="_blank" rel="noopener">הסקיצה שבחרת (א) ↗</a>
+    </div>
+    <div class="rec3">
+      <h2>מה אני ממליץ, בשלוש שורות</h2>
+      <ol id="rec3">
+        <li><b>הגובה הוא המגבלה, לא הרוחב.</b> "מצב ספר" שמקפל את הסרגלים, טקסט ב-18.5px ובערך 66 תווים בשורה, בלי להקטין את הגופן כדי שייכנס. במחשב נייד יש אז 13 שורות בעמוד, ובמסך גדול 22.</li>
+        <li><b>ההיפוך מהיר ויפה, לא ארוך.</b> 380ms, הדף מתכופף בתלת-ממד כשגוררים אותו ונשאר עלה קשיח כשלוחצים על מקש, וצליל נייר שלא חוזר על עצמו. רגע מרשים אחד בכל שיעור: הספר נפתח, ואפשר לקטוע את זה.</li>
+        <li><b>דבר שהלומד עושה לא מזיז את הטקסט.</b> תשובה בקפל ששומר את מקומו. ההתייעצות, המחברת והתלת-ממד נפתחים בעמוד שמול, ומה שכבר נקרא נשאר כמו שהוא.</li>
+      </ol>
+    </div>
+  </header>
+  <div class="bar"><span id="count">0 מתוך 0</span><div class="prog"><i id="progI"></i></div><span class="sync" id="sync" data-s="local">שמירה מקומית</span></div>
+  <nav class="toc" id="toc" aria-label="ההחלטות"></nav>
+  <div id="qs"></div>
+  <div class="general">
+    <h3>הערה כללית</h3>
+    <p class="why">כל דבר שלא נכנס לאף החלטה: מה חסר, מה מפריע, מה הכי חשוב לך בספר.</p>
+    <div class="note"><label for="general-note">הערה</label><textarea id="general-note" rows="3"></textarea></div>
+    <div class="saved" id="general-saved"></div>
+  </div>
+  <footer>המחקר המלא, אבות-הטיפוס והצילומים שמורים במאגר, בתיקייה <code>docs/research/round6/book/</code>. הבחירות נשמרות באוסף <code>book6_choices</code>. ההטמעה באפליקציות תבוא אחרי שתבחר.</footer>
+</div>
+<dialog id="lb"><img alt=""><p></p></dialog>
+<script>
+"use strict";
+const PROTO = "https://claude.ai/artifact/PQpAAUu4RSQH42xunJJio7";
+// Each decision: why (from the research, B1–B3 and the red team), variants with a picture from the prototype.
+const QS = [
+  { g: "המסגרת", s: "איפה הספר יושב במסך" },
+  { id: "frame", t: "מסגרת וגובה", ill: [["frame-laptop", "מחשב נייד 1366, מצב ספר"], ["frame-big", "מסך 1920"]],
+    why: "<b>בכל מסך מ-1366 פיקסלים שני עמודים נכנסים ברוחב. הגובה הוא מה שחסר.</b> במחשב נייד 1366×768, כשהכותרת ושורת הכלים של האפליקציה גלויות, נשארות 9 שורות בעמוד: דפדוף כל 30–40 שניות. ב\"מצב ספר\" הכותרת מתכווצת לפס של 32 פיקסלים, ושורת הכלים יורדת אל השולחן שמתחת לספר. בלי לגעת בגופן מקבלים 13 שורות בנייד ו-22 במסך גדול. <span class=\"src\">B1 §2.3, §8.1</span>",
+    o: [["inapp", "הספר בתוך האפליקציה", "כמו היום: הכותרת והכלים נשארים. 9 שורות בנייד, 19 במסך גדול."], ["book", "מצב ספר", "הסרגלים מתקפלים, הכלים על השולחן ונחשפים בריחוף או ב-Tab. 13 שורות בנייד, 22 במסך גדול.", 1], ["dense", "מצב ספר ושורה צפופה", "כמו מצב ספר, ועוד מרווח שורות 1.68. 14 שורות בנייד, 23 במסך גדול. סוטה מהמרווח שנקבע בסבב 5."], ["full", "מצב ספר ומסך מלא", "כפתור למסך מלא, בערך 16 ו-25 שורות. תלוי בזה שהמסגרת של claude.ai מרשה מסך מלא, וצריך לבדוק."]] },
+  { g: "קריאה בעמוד", s: "סידור עברי על המסך" },
+  { id: "face", t: "גופן הגוף", proto: true,
+    why: "Frank Ruhl Libre כבר בשתי המעבדות, והוא היחיד שנותן 66 תווים ב-18.5px בעמודה של 495 פיקסלים. דוד ליברה רחב יותר, ולא נכנסת איתו פריסה כפולה במחשב נייד. נוטו סריף נכנס רק ב-17px, וצריך לבדוק אותו במצב כהה. <span class=\"src\">B1 §5</span>",
+    o: [["frank", "פרנק רוהל ליברה", "הגופן של היום, 18.5px. מתמטיקה ב-1.08em.", 1], ["david", "דוד ליברה", "קלסי ורחב. במחשב נייד יורד לעמוד אחד."], ["noto", "נוטו סריף עברי", "אחיד ונקי. ב-17px, כדי שייכנס."]] },
+  { id: "align", t: "יישור ופסקאות", proto: true,
+    why: "בעברית אין מקף שבירה, ולכן ביישור לשני הצדדים הרווחים נמתחים. בהדמיה על שיעור אמיתי, בכ-21% מהשורות הרווח מתמתח פי 2 ומעלה, ובעיקר בגלל נוסחאות שלא נשברות. מה שמגן: <code>text-wrap: pretty</code>, תוספת קטנה לרווח בין מילים, ונוסחאות קצרות שמותר לשבור. רווח בין פסקאות עולה 15–20% מהשורות בעמוד. <span class=\"src\">B1 §4.2, §8.3</span>",
+    o: [["justify", "מיושר, עם הזחה", "כמו בספר מודפס. דורש שנוסחה בתוך שורה תוכל להישבר.", 1], ["start", "לימין בלבד, עם הזחה", "בלי חורים, אבל הצד השמאלי לא ישר. זה מה שעוברים אליו אם החורים מפריעים."], ["space", "מיושר, רווח בין פסקאות", "כמו באתר. 15–20% פחות טקסט בעמוד, יותר היפוכים."]] },
+  { id: "head", t: "כותרת רצה ומספור עמודים", proto: true,
+    why: "בספר עברי העמוד הימני זוגי והשמאלי אי-זוגי, ומספר העמוד בפינה החיצונית. כותרת רחבה (המודול) בימין, וצרה (הסעיף) בשמאל. בסקיצה המספר ישב בצד השדרה, והכותרת הרצה הייתה בגופן בלי אותיות עבריות. <span class=\"src\">B1 §3</span>",
+    o: [["classic", "כותרת עם קו, מספר בפינה", "מודול מימין, סעיף משמאל, קו דק מתחת.", 1], ["center", "שקט: מספר במרכז", "בלי קו, רק שם הסעיף והמספר באמצע."], ["hebrew", "מספור באותיות", "כמו בספרי קודש: ב, ג, ד… יפה, אבל קשה יותר למצוא עמוד."]] },
+  { g: "מראה", s: "נייר, דיו ואור" },
+  { id: "paper", t: "הנייר במצב בהיר", proto: true,
+    why: "דיו <code>#22261d</code> על נייר <code>#f7f1e6</code> נותן ניגודיות 13.7:1. הנייר בהיר מעט מהשולחן כדי שהדף ייראה מעליו. B1 ממליץ בלי מרקם על הדף: מרקם הוא עוד דפוס שהעין סורקת שעות, וגם צריך לצבוע אותו מחדש בכל היפוך. <span class=\"src\">B1 §6.1, §6.3</span>",
+    o: [["smooth", "שמנת חלקה", "נייר אחיד בצבע של היום, רק מעט בהיר יותר.", 1], ["fiber", "נייר עם סיב", "מרקם עדין וקבוע. מרגיש יותר כמו ספר, ועולה בעייפות."], ["lab", "נייר המעבדה", "חאקי-אבן בלנצ'סטר, לבן-שרטוט בגילואה."]] },
+  { id: "dark", t: "הספר במצב כהה", proto: true,
+    why: "בסבב 5 נקבע דיו רך, <code>#dedad1</code>, ב-10.9:1. על נייר גרפיט זה מגיע ל-Lc ‎−81 ועומד ביעד. \"דיו על שחור\" באותה ניגודיות מגיע רק ל-Lc ‎−72.6, ולכן B1 פוסל אותו. מנורת לילה חמה מתאימה לשעות הקטנות, כערכה שבוחרים ביד. <span class=\"src\">B1 §6.2, §8.5</span>",
+    o: [["graphite", "נייר גרפיט", "מה שנקבע בסבב 5, עכשיו כדף על שולחן כהה יותר.", 1], ["lamp", "מנורת לילה", "נייר חום-חם ודיו שמנת. רך יותר בלילה."], ["ink", "דיו על שחור", "הכי כהה. לא עומד ביעד הניגודיות."]] },
+  { id: "light", t: "תאורה על הדף", proto: true,
+    why: "שום תאורה לא זזה (סבב 5: אפס תנועה חוזרת). מה שנשאר הוא צל קבוע בשדרה, שמראה שהספר פתוח, או אור מנורה קבוע מהצד, שמוסיף עומק ועולה בבהירות לא אחידה על הדף. <span class=\"src\">B1 §6.4</span>",
+    o: [["flat", "שטוח", "בלי צל, רק הדף."], ["gutter", "צל בשדרה", "הדף מתעקל אל השדרה. קבוע.", 1], ["lamp", "מנורה מהצד", "צל בשדרה ואור רך על השולחן מלמעלה. קבוע."]] },
+  { g: "הפיכת הדף", s: "תנועה, יד וצליל" },
+  { id: "turn", t: "איך הדף מתהפך", proto: true,
+    why: "<b>הדפדוף עצמו לא משפר הבנה.</b> מה שעוזר הוא הגבולות והמקום: עמוד קבוע, מספר עמוד, ערימה שגדלה בצד אחד (Mangen 2019). לכן הרושם צריך לבוא מאיכות ההיפוך, לא מאורכו: דף שעוקב אחרי היד, צל, צליל. כיפוף בתלת-ממד מרשים בגרירה, אבל בהיפוך ה-200 של היום עלה קשיח רגוע יותר, והכיפוף כבד פי 16 בצמתים. הסוקר העוין ממליץ על עלה קשיח בלבד; ההמלצה כאן היא פשרה: קשיח בכל לחיצה, וכיפוף רק כשאתה גורר את הדף ביד. <span class=\"src\">B2 §1.1, §2.2; R4</span>",
+    o: [["hybrid", "מתכופף בגרירה, קשיח במקש", "גוררים: הדף מתכופף בתלת-ממד אחרי היד. מקש או חץ: עלה קשיח שמתרומם מעט.", 1], ["curl", "תמיד מתכופף", "גם בלחיצה. הכי מרשים, והכי בולט."], ["rigid", "עלה קשיח", "קרטון שמסתובב סביב השדרה, עם צל. הכי שקט מבין התלת-ממדיים."], ["slide", "החלקה קצרה", "בלי תלת-ממד: הדף החדש מחליק פנימה ב-170ms."], ["none", "מיידי", "בלי תנועה. גם ברירת המחדל כשתנועה מופחתת מופעלת במערכת."]] },
+  { id: "speed", t: "משך ההיפוך", noimg: true, proto: true,
+    why: "ביום של 5–6 שעות קריאה יש 100–220 היפוכים. אחרי היפוך קוראים מראש העמוד הימני, וזה הגב של העלה שעדיין בתנועה. עם עקומה שמאטה בסוף, הדף קריא כבר באמצע הזמן. 900ms זה פי 2.4 מהנדרש, ו-1.5–3.3 דקות המתנה ביום. <span class=\"src\">B2 §1.2, §2.1</span>",
+    o: [["s280", "280ms", "זריז מאוד. ההיפוך כמעט לא נראה."], ["s380", "380ms", "קריא אחרי כ-200ms. מהיר בלי להרגיש חטוף.", 1], ["s520", "520ms", "רגוע, כמו לדפדף ביד."], ["s900", "900ms", "הבסיס של הסקיצה, להשוואה."]] },
+  { id: "open", t: "רגע הפתיחה", proto: true,
+    why: "הצעה לרגע חתום אחד בכל שיעור, כמו החותמת בסוף: הכריכה נפתחת מעל השדרה לימין כשנכנסים לשיעור (650ms), ונקטעת בכל מקש או לחיצה. זה לא חוזר בכל היפוך, ולכן לא שוחק. <span class=\"src\">B2 §2.3; F4 רגעים חתומים</span>",
+    o: [["book", "הספר נפתח, פעם בשיעור", "הכריכה בצבע המעבדה מסתובבת ומגלה את העמוד הראשון.", 1], ["none", "בלי", "השיעור נפתח ישר על העמוד."]] },
+  { id: "drag", t: "גרירה, גלגלת ומשטח מגע", noimg: true,
+    why: "גרירה מכל 22% החיצוניים של העמוד, כמו בסקיצה, תגנוב את סימון הטקסט שכרטיס ההתייעצות נשען עליו. החלקה אופקית במשטח המגע עלולה לנווט אחורה מה-Artifact. אב-הטיפוס כבר משתמש באפשרות הראשונה. <span class=\"src\">B2 §2.5, §2.6</span>",
+    o: [["edge", "מקצה הדף ומהפינה", "אוחזים ברצועה של 44px בקצה הערימה, או בפינה התחתונה. הניפה מהירה מהפכת גם בגרירה קצרה. גלגלת לא מדפדפת.", 1], ["wide", "מכל החלק החיצוני", "כמו בסקיצה: 22% מהעמוד. נוח, אבל מתנגש בסימון טקסט."], ["wheel", "מהקצה, ועם גלגלת", "כמו הראשונה, ועוד: גלגלת של 120 בתוך 300ms מהפכת דף, ואז נעילה של 450ms."]] },
+  { id: "jump", t: "קפיצה לסעיף והיפוכים רצופים", noimg: true,
+    why: "כשקופצים לסעיף רחוק או מחזיקים חץ, לא כדאי לנגן 380ms לכל עלה. דפדוף מהיר נותן תחושה של מרחק בלי להמתין. <span class=\"src\">B2 §2.4, ה5</span>",
+    o: [["riffle", "דפדוף מהיר", "עד 3 פריסות: עלים קצרים של 230ms. רחוק יותר: צליל דפדוף וחיתוך רך.", 1], ["queue", "תור שמאיץ", "כל היפוך מהיר פי 0.6 מהקודם, עד 160ms."], ["cut", "חיתוך", "מעבר שקט של 120ms, בלי עלים."]] },
+  { id: "tsound", t: "הצליל של ההיפוך", noimg: true,
+    why: "בשפת צליל v2: מסונתז, רק על פעולה, אף פעם לא אותו דבר פעמיים. הרמה של הנייר, החלקה של נייר על נייר ונחיתה רכה. הנחיתה בעץ בלנצ'סטר ובזכוכית בגילואה, כמו שאר הצלילים. בשקט בזמן גרירה, ונמוך ב-4dB בהיפוכים רצופים. <span class=\"src\">B2 §5; F3</span>",
+    o: [["full", "הרמה, החלקה ונחיתה", "כ-6dB מתחת לצליל \"נפתח\". אפשר לשמוע באב-הטיפוס (כפתור \"צלילים\").", 1], ["drag", "טקסטורה בזמן הגרירה", "הנייר נשמע כל עוד היד זזה."], ["land", "רק נחיתה", "פוף קטן אחד בסוף."], ["off", "בלי צליל להיפוך", "מתג נפרד, שאר הצלילים נשארים."]] },
+  { g: "התוכן בעמודים", s: "שאלות, התייעצות, תלת-ממד ומחברת" },
+  { id: "think", t: "התשובה לשאלת חשיבה", proto: true,
+    why: "<b>כלל ראשון: פעולה של הלומד לא משנה את גובה הטקסט.</b> אם תשובה נפתחת בתוך הזרימה, כל העמודים שאחריה זזים. הקפל שומר את המקום מראש. בגב הדף זה כמו בספרי לימוד ישנים: התשובה מחכה בעמוד הבא, ורואים אותה רק אחרי שמהפכים. <span class=\"src\">B3 §5</span>",
+    o: [["flap", "קפל שנפתח", "השטח שמור מראש ומקופל. הבחירה בביטחון פותחת אותו.", 1], ["back", "בגב הדף", "התשובות מודפסות בראש העמוד הבא. אי אפשר להציץ בטעות."], ["margin", "בשוליים", "לשונית \"תשובה\" בשוליים החיצוניים. בנייד אין לזה מקום."]] },
+  { id: "consult", t: "כרטיס התייעצות ודיון", proto: true,
+    why: "תשובת התייעצות יכולה להגיע ל-700 מילים ולהפוך לשיחה, ולכן אסור לה להיכנס לזרימה. בעמוד שמול יש מקום לשיחה, והפסקה עצמה לא זזה. אם השאלה על איור, הכרטיס נפתח בעמוד השני כדי לא לכסות אותו. בעמוד שמול הכרטיס נשאר פתוח גם כשמהפכים דף, כדי לא לאבד דיון באמצע. פתק בין הדפים יפה, אבל צר, ומכסה את מה שמתחת. <span class=\"src\">B3 §6; R4</span>",
+    o: [["facing", "העמוד שמול", "הספר \"מכניס דף\" מעל העמוד שמול, עם הדיון בתחתיתו. כל כרטיס סגור נשאר כלשונית בקצה.", 1], ["slip", "פתק שנתחב בין הדפים", "פתק נייר שבולט מקצה הדף, מתחת לפסקה."], ["margin", "כרטיס על השולחן", "ליד הספר, בגובה הפסקה, עם קו אליה. רק במסך רחב."]] },
+  { id: "scene", t: "תלת-ממד בעמוד", proto: true,
+    why: "על הדף מודפסת תמונה של הסצנה. בלחיצה היא מתרוממת מהדף לחלון צף, וזזה רק כשגוררים אותה. רק סצנה אחת חיה בכל רגע: כמה הקשרי WebGL פתוחים בבת אחת זה מעבד, סוללה ודפדוף שמגמגם. <span class=\"src\">B3 §4</span>",
+    o: [["plate", "לוח שמתרומם מהדף", "התמונה עולה מהמקום שלה בדף לחלון מעל הכפולה.", 1], ["spread", "נפתח על הכפולה", "הסצנה תופסת את שני העמודים. הכי גדול, ומסתיר את הטקסט."], ["live", "חי בתוך העמוד", "מסובבים אותה ישר על הדף. נוח, וכבד כשיש כמה סצנות."]] },
+  { id: "figure", t: "איורים", proto: true,
+    why: "בספר איור צריך להיות באותה פריסה כמו הטקסט שמדבר עליו. עמוד מלא או כפולה מתאימים לאיור גדול באמת, והם דוחים את ההמשך לעמוד אחר. איור על כפולה נחתך בשדרה, וזה מתאים לגרף ולא לאיור עם טקסט. <span class=\"src\">B3 §3</span>",
+    o: [["inline", "בתוך הטקסט", "ברוחב העמודה, במקום שבו מדברים עליו.", 1], ["page", "עמוד מלא", "האיור מקבל עמוד משלו, והטקסט ממשיך מסביב."], ["spread", "על פני הכפולה", "גרף רחב על שני העמודים, עם הכיתוב למטה."]] },
+  { id: "eqref", t: "הפניה למשוואה שכבר לא בכפולה", proto: true,
+    why: "כשהטקסט אומר \"(1.1)\" והמשוואה נמצאת שלושה עמודים אחורה, בספר מודפס מדפדפים אחורה. כאן אפשר להדפיס אותה שוב בשוליים, בדיוק ליד השורה. <span class=\"src\">B3 §2</span>",
+    o: [["margin", "מודפסת שוב בשוליים", "כרטיס מקווקו בשוליים עם המשוואה עצמה.", 1], ["none", "רק המספר", "כמו בספר רגיל."]] },
+  { id: "deriv", t: "גזירה שלא נכנסת בעמוד", noimg: true,
+    why: "גזירה של שש שורות שנחתכת באמצע היא אחד הדברים הכי מעצבנים בספר. מצד שני, אם תמיד דוחפים אותה לעמוד הבא, נשארים חורים לבנים. אב-הטיפוס מחלק בין צעדים, עם לפחות שני צעדים בכל צד וסימן \"ממשיך בעמוד הבא\". <span class=\"src\">B3 §2</span>",
+    o: [["auto", "דוחפים אם נשאר פחות מ-35% עמוד, אחרת מחלקים בין צעדים", "בלי חורים גדולים, ובלי חיתוך בתוך צעד.", 1], ["split", "תמיד מחלקים בין צעדים", "מה שאב-הטיפוס עושה היום."], ["push", "תמיד דוחפים לעמוד הבא", "הגזירה שלמה, ולפעמים חצי עמוד לבן."]] },
+  { id: "notes", t: "פתקים בשוליים", noimg: true,
+    why: "שני עמודי טקסט ועוד שוליים של 160px לכרטיסים מלאים לא נכנסים במחשב נייד. מתחת לרוחב מסוים הפתק הופך למספר קטן בקצה הפסקה, ולחיצה פותחת אותו (סגנון B של סבב 5). <span class=\"src\">B3 §7</span>",
+    o: [["auto", "כרטיסים במסך רחב, מספרים בצר", "כרטיס מלא כשיש שוליים מספיק רחבים, ולשונית ממוספרת כשאין.", 1], ["foot", "בתחתית העמוד", "כמו הערות שוליים בספר: תמיד יש מקום, אבל רחוק מהשורה."]] },
+  { id: "scratch", t: "מחברת שרטוטים", proto: true,
+    why: "היום המחברת יושבת משמאל, וזה בדיוק המקום של העמוד השמאלי. שלושה דברים רוצים את העמוד שמול: התייעצות, מחברת ותלת-ממד. לכן B3 מציע מושג אחד, \"העמוד שמול\": בכל רגע הוא מציג טקסט, התייעצות, מחברת או סצנה, ועם לשוניות כשיותר מאחד פתוח. <span class=\"src\">B3 §8</span>",
+    o: [["facing", "העמוד שמול", "המחברת מחליפה את העמוד השמאלי, והטקסט ממשיך בימני.", 1], ["side", "על השולחן ליד הספר", "רק במסך רחב (1800px ומעלה)."], ["bottom", "מגירה מלמטה", "עולה מתחתית המסך ומכסה את חצי הספר התחתון."]] },
+  { id: "stream", t: "בזמן שהשיעור נכתב", proto: true,
+    why: "<b>כלל שני: עמוד שכבר ראית לא משתנה.</b> רק העמוד האחרון מתמלא, עם שורה דקה \"המורה עוד כותב\" במקום מספר העמוד. בלי אנימציה חוזרת (סבב 5). עמוד שמופיע רק כשהוא מלא שקט יותר, אבל עד שהוא נכתב יש עמוד ריק עם מספר מילים. <span class=\"src\">B3 §9</span>",
+    o: [["fill", "העמוד מתמלא לעיניך", "רואים את הטקסט נכתב בעמוד האחרון.", 1], ["whole", "עמוד מופיע רק כשהוא מלא", "עד אז: \"העמוד הבא נכתב עכשיו\", עם מספר המילים."]] },
+  { g: "ניווט", s: "תוכן השיעור ומקום הקריאה" },
+  { id: "nav", t: "תוכן השיעור", proto: true,
+    why: "בספר הערימה עצמה היא פס ההתקדמות. לשוניות בחוד הדף עוברות מהערימה השמאלית לימנית ככל שמתקדמים, כך שרואים בבת אחת איפה אתה ומה נשאר. סרט סימנייה הוא הכי ספרי, ופותח את הרשימה מעליו. <span class=\"src\">B3 §8</span>",
+    o: [["tabs", "לשוניות בחוד הדף", "לשונית לכל סעיף בקצה הספר. מה שנקרא בימין, מה שנשאר בשמאל.", 1], ["ribbon", "סרט סימנייה", "סרט בשדרה. לחיצה פותחת את תוכן השיעור והזמן שנשאר."], ["drawer", "מגירה, כמו היום", "\"תוכן השיעור\" נפתח מהצד."]] },
+  { g: "טלפון", s: "400px, עמוד אחד" },
+  { id: "phone", t: "בטלפון", ill: [["phone-light", "בהיר"], ["phone-dark", "כהה"]],
+    why: "בטלפון אין כפולה: עמוד אחד, 17px, בערך 40 תווים בשורה, ויישור לימין, כי יישור לשני הצדדים בעמודה צרה פותח חורים. מחליקים באצבע על כל הדף. התייעצות ומחברת עולות כגיליון מלמטה, והעמוד נשאר מאחוריו. <span class=\"src\">B2 §4; B3 §6</span>",
+    o: [["peel", "עמוד אחד שמתקלף", "החלקה מהקצה השמאלי, הדף מתקלף ימינה ב-260ms.", 1], ["slide", "החלקה", "בלי תלת-ממד בטלפון, הדף מחליק."], ["scroll", "גלילה רגילה בטלפון", "בטלפון בלי ספר בכלל, רק במחשב."]] },
+];
+
+/* ---------- render ---------- */
+const qsEl = document.getElementById("qs"), tocEl = document.getElementById("toc");
+let n = 0;
+const ids = [];
+QS.forEach((q) => {
+  if (q.g) { const h = document.createElement("h3"); h.className = "group"; h.innerHTML = `${q.g}<small>${q.s}</small>`; qsEl.appendChild(h); return; }
+  n++; ids.push(q.id);
+  const s = document.createElement("section"); s.className = "q"; s.id = q.id;
+  const ill = q.ill ? `<div class="ill">${q.ill.map(([f, c]) => `<figure><button class="img opt-img" data-full="shots/${f}.jpg" data-cap="${c}" style="border:1px solid var(--rule);background:none;padding:0;cursor:zoom-in;width:100%"><img src="shots/${f}.jpg" alt="${c}" loading="lazy" style="width:100%;display:block"></button><figcaption>${c}</figcaption></figure>`).join("")}</div>` : "";
+  s.innerHTML = `<h4><span class="n">${String(n).padStart(2, "0")}</span>${q.t}<span class="id">b-${q.id}</span></h4><p class="why">${q.why}</p>${ill}
+    <div class="opts" role="radiogroup" aria-label="${q.t}">${q.o.map(([v, t, d, rec]) => {
+      const img = !q.noimg && !q.ill ? `<button type="button" class="img" data-full="shots/${q.id}-${v}.jpg" data-cap="${t}" aria-label="הגדל: ${t}"><img src="shots/${q.id}-${v}.jpg" alt="" loading="lazy"></button>` : "";
+      const tryL = q.proto ? `<a class="try" href="${PROTO}#${q.id}-${v}" target="_blank" rel="noopener">נסה באב-הטיפוס ↗</a>` : "";
+      return `<label class="opt${img ? "" : " noimg"}"><input type="radio" name="${q.id}" id="${q.id}-${v}" value="${v}">${img}<span class="txt"><span class="t">${t}${rec ? '<span class="tag">מומלץ</span>' : ""}</span><span class="d">${d}</span>${tryL}</span></label>`;
+    }).join("")}</div>
+    <div class="note"><label for="${q.id}-note">הערה (לא חובה)</label><textarea id="${q.id}-note" rows="1"></textarea></div><div class="saved" id="${q.id}-saved"></div>`;
+  qsEl.appendChild(s);
+  const a = document.createElement("a"); a.href = "#" + q.id; a.textContent = q.t; a.id = "toc-" + q.id; tocEl.appendChild(a);
+  s.querySelectorAll("input[type=radio]").forEach((r) => r.addEventListener("change", () => {
+    const o = q.o.find((x) => x[0] === r.value);
+    state[q.id] = { ...(state[q.id] || {}), choice: o[0], label: o[1], at: new Date().toISOString() };
+    mark(q.id); persist(q.id);
+  }));
+  const ta = document.getElementById(q.id + "-note"); let tt = 0;
+  ta.addEventListener("input", () => { clearTimeout(tt); tt = setTimeout(() => { state[q.id] = { ...(state[q.id] || {}), note: ta.value, at: new Date().toISOString() }; mark(q.id); persist(q.id); }, 700); });
+});
+{ const ta = document.getElementById("general-note"); let tt = 0; ta.addEventListener("input", () => { clearTimeout(tt); tt = setTimeout(() => { state.general = { ...(state.general || {}), note: ta.value, at: new Date().toISOString() }; mark("general"); persist("general"); }, 700); }); }
+
+/* lightbox: the picture at full size */
+const lb = document.getElementById("lb");
+document.addEventListener("click", (e) => {
+  const b = e.target.closest("[data-full]");
+  if (b) { e.preventDefault(); lb.querySelector("img").src = b.dataset.full; lb.querySelector("p").textContent = b.dataset.cap + " · לחיצה סוגרת"; lb.showModal(); return; }
+  if (e.target.closest("dialog")) lb.close();
+});
+
+/* ---------- state: database first, this browser as the fallback ---------- */
+const LS = "book6-board-v1";
+let state = {}; try { state = JSON.parse(localStorage.getItem(LS) || "{}") || {}; } catch (e) { state = {}; }
+const saveLocal = () => { try { localStorage.setItem(LS, JSON.stringify(state)); } catch (e) {} };
+let col = null; const chains = {};
+function setSync(s, t) { const el = document.getElementById("sync"); el.dataset.s = s; el.textContent = t; }
+async function persist(id) {
+  saveLocal(); progress();
+  if (!col) return;
+  const r = state[id] || {};
+  const body = { choice: r.choice ?? null, label: r.label ?? null, note: r.note || "", at: r.at || new Date().toISOString() };
+  chains[id] = (chains[id] || Promise.resolve()).then(() => col.doc(id).set(body));
+  try { await chains[id]; setSync("db", "נשמר במסד"); } catch (e) { chains[id] = Promise.resolve(); setSync("err", "שגיאת שמירה, נשמר בדפדפן"); }
+}
+function mark(id) {
+  const r = state[id], el = document.getElementById(id + "-saved"); if (!el) return;
+  const t = r && r.at ? new Date(r.at).toLocaleTimeString("he-IL", { hour: "2-digit", minute: "2-digit" }) : "";
+  el.textContent = r && r.choice ? `נבחר: ${r.label}${t ? " · " + t : ""}` : r && r.note ? `ההערה נשמרה${t ? " · " + t : ""}` : "";
+}
+function progress() {
+  const done = ids.filter((i) => state[i] && state[i].choice).length;
+  document.getElementById("count").textContent = `נבחרו ${done} מתוך ${ids.length}`;
+  document.getElementById("progI").style.width = (100 * done) / ids.length + "%";
+  ids.forEach((i) => document.getElementById("toc-" + i).classList.toggle("done", !!(state[i] && state[i].choice)));
+}
+function applyAll() {
+  ids.forEach((id) => {
+    const r = state[id]; if (!r) return;
+    if (r.choice) { const i = document.getElementById(`${id}-${r.choice}`); if (i) i.checked = true; }
+    const ta = document.getElementById(id + "-note"); if (ta && document.activeElement !== ta) ta.value = r.note || "";
+    mark(id);
+  });
+  const g = document.getElementById("general-note"); if (state.general && document.activeElement !== g) g.value = state.general.note || ""; mark("general");
+  progress();
+}
+applyAll();
+(async () => {
+  if (!window.claude || typeof window.claude.use !== "function") { setSync("local", "שמירה בדפדפן הזה"); return; }
+  let db = null; try { db = await window.claude.use("db"); } catch (e) {}
+  if (!db) { setSync("local", "שמירה בדפדפן הזה"); return; }
+  try {
+    col = db.collection("book6_choices");
+    const slow = setTimeout(() => setSync("local", "המסד לא עונה, נשמר בדפדפן"), 10000);
+    col.onSnapshot((snap) => {
+      clearTimeout(slow);
+      snap.docs.forEach((d) => { if (d.exists) { const v = d.data(); state[d.id] = { choice: v.choice, label: v.label, note: v.note || "", at: v.at }; } });
+      saveLocal(); applyAll(); setSync("db", "נשמר במסד");
+    }, () => { clearTimeout(slow); setSync("err", "המסד לא זמין, נשמר בדפדפן"); });
+  } catch (e) { setSync("local", "שמירה בדפדפן הזה"); }
+})();
+</script>

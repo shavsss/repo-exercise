@@ -1,0 +1,1266 @@
+<title>ספר השיעור</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700&family=David+Libre:wght@400;500;700&family=Noto+Serif+Hebrew:wght@400;500;700&family=IBM+Plex+Sans+Hebrew:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: the desk fills the screen; the open book sits in its middle, sized from the measure (about 68 characters
+   a line), with a thin bar above (lab, theme, sound, variants) and the turning controls below.
+   Every open decision of round 6 is a data-attribute on <html> (data-face, data-paper, data-turn, ...). */
+:root {
+  --desk: #e6ddcc;
+  --desk-2: #d9d0be;
+  --paper: #f7f1e6;
+  --paper-edge: #e9e0cd;
+  --paper-back: #f3ecdd;
+  --ink: #22261d;
+  --ink-soft: #4f4a3f;
+  --muted: #6f675a;
+  --rule: #d9cdb6;
+  --accent: #1f4f8a;          /* lab accent: Gilua blueprint blue (Lanchester sets red below) */
+  --accent-soft: #e3ebf4;
+  --k-def: #3b3a9e;
+  --k-formula: #1f5f9e;
+  --k-keep: #44493a;
+  --k-think: #a16207;
+  --k-history: #6d3fa0;
+  --k-erratum: #b91c1c;
+  --k-l3: #2f6b5f;
+  --amber: #8a6100;
+  --amber-soft: #f6ead0;
+  --slip: #fffbe8;
+  --shadow-rgb: 40 30 15;
+  --bar: rgb(255 255 255 / 55%);
+  --f-body: "Frank Ruhl Libre", "David Libre", "Times New Roman", serif;
+  --f-ui: "IBM Plex Sans Hebrew", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --fs: 18.5px;
+  color-scheme: light;
+}
+:root[data-lab="core"] { --accent: #b3261e; --accent-soft: #f3e0d9; }
+:root[data-paper="lab"][data-lab="core"] { --paper: #f6efe3; --paper-back: #ece3d3; --desk: #e2d8c4; --desk-2: #d3c7ae; --ink: #22261d; --ink-soft: #44493a; }
+:root[data-paper="lab"][data-lab="eng"] { --paper: #f7f8f5; --paper-back: #eceee8; --desk: #dfe3e0; --desk-2: #ced4d1; --ink: #1f2427; --ink-soft: #46505a; }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --desk: #1b1b1a; --desk-2: #121213; --paper: #262624; --paper-edge: #3a3936; --paper-back: #242422;
+    --ink: #dedad1; --ink-soft: #bdb7ab; --muted: #a9a397; --rule: #46443f;
+    --accent: #8fb6e3; --accent-soft: #263445;
+    --k-def: #b4b2f0; --k-formula: #8fbfe8; --k-keep: #c9c5bb; --k-think: #e2b55a; --k-history: #c9b0ef;
+    --k-erratum: #ff8f84; --k-l3: #8fd0c0; --amber: #e6b85c; --amber-soft: #3a3020; --slip: #34332c;
+    --shadow-rgb: 0 0 0; --bar: rgb(30 30 30 / 60%); color-scheme: dark;
+  }
+  :root:not([data-theme="light"])[data-lab="core"] { --accent: #ff9a8a; --accent-soft: #3d2622; }
+  :root:not([data-theme="light"])[data-dark="lamp"] { --desk: #121110; --desk-2: #0b0a09; --paper: #2a251e; --paper-back: #241f19; --paper-edge: #3d362c; --ink: #e4dac6; --rule: #514b41; }
+  :root:not([data-theme="light"])[data-dark="ink"] { --desk: #0f1012; --desk-2: #08090a; --paper: #1d1e20; --paper-back: #18191b; --paper-edge: #2e2f32; --ink: #d4d0c6; --rule: #38393c; }
+}
+:root[data-theme="dark"] {
+  --desk: #1b1b1a; --desk-2: #121213; --paper: #262624; --paper-edge: #3a3936; --paper-back: #242422;
+  --ink: #dedad1; --ink-soft: #bdb7ab; --muted: #a9a397; --rule: #46443f;
+  --accent: #8fb6e3; --accent-soft: #263445;
+  --k-def: #b4b2f0; --k-formula: #8fbfe8; --k-keep: #c9c5bb; --k-think: #e2b55a; --k-history: #c9b0ef;
+  --k-erratum: #ff8f84; --k-l3: #8fd0c0; --amber: #e6b85c; --amber-soft: #3a3020; --slip: #34332c;
+  --shadow-rgb: 0 0 0; --bar: rgb(30 30 30 / 60%); color-scheme: dark;
+}
+:root[data-theme="dark"][data-lab="core"] { --accent: #ff9a8a; --accent-soft: #3d2622; }
+:root[data-theme="dark"][data-dark="lamp"] { --desk: #121110; --desk-2: #0b0a09; --paper: #2a251e; --paper-back: #241f19; --paper-edge: #3d362c; --ink: #e4dac6; --rule: #514b41; }
+:root[data-theme="dark"][data-dark="ink"] { --desk: #0f1012; --desk-2: #08090a; --paper: #1d1e20; --paper-back: #18191b; --paper-edge: #2e2f32; --ink: #d4d0c6; --rule: #38393c; }
+
+:root[data-face="david"] { --f-body: "David Libre", "Frank Ruhl Libre", serif; }
+:root[data-face="noto"] { --f-body: "Noto Serif Hebrew", "Frank Ruhl Libre", serif; }
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0; background: var(--desk); color: var(--ink); font-family: var(--f-ui); direction: rtl;
+  display: flex; flex-direction: column; overflow: clip;
+  padding-left: max(0px, env(safe-area-inset-left, 0px)); padding-right: max(0px, env(safe-area-inset-right, 0px));
+}
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* ---------- top bar ---------- */
+.top {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  padding: 8px max(16px, env(safe-area-inset-right, 0px)) 8px max(16px, env(safe-area-inset-left, 0px));
+  font-size: 13px; color: var(--ink-soft); position: relative; z-index: 30;
+}
+.top h1 { font: 600 14px var(--f-ui); margin: 0; color: var(--ink); }
+.top .sp { flex: 1; }
+.chip { border: 1px solid var(--rule); background: var(--bar); padding: 5px 11px; border-radius: 999px; cursor: pointer; font-size: 13px; }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.seg { display: inline-flex; border: 1px solid var(--rule); border-radius: 999px; overflow: hidden; background: var(--bar); }
+.seg button { border: 0; background: none; padding: 5px 11px; cursor: pointer; font-size: 13px; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.status { font: 500 11.5px var(--f-mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+
+/* ---------- desk and book ---------- */
+#desk { flex: 1; position: relative; overflow: clip; display: grid; place-items: center; min-height: 0; perspective: 2600px; }
+:root[data-light="lamp"] #desk { background: radial-gradient(70% 60% at 62% 28%, color-mix(in srgb, var(--paper) 22%, transparent), transparent 70%); }
+:root[data-phone="1"] #desk { width: 400px; margin: 0 auto; border-inline: 1px dashed var(--rule); }
+.book { position: relative; width: calc(var(--pw) * var(--pages)); height: var(--ph); transform-style: preserve-3d; }
+/* the leaves under the open book: the read ones under the right page, the rest under the left */
+.stack { position: absolute; top: 0; height: 100%; background: var(--paper-edge); border-radius: 3px; }
+.stack.r { right: 0; width: var(--pw); box-shadow: var(--sr); }
+.stack.l { left: 0; width: var(--pw); box-shadow: var(--sl); }
+.page {
+  position: absolute; top: 0; width: var(--pw); height: var(--ph); background: var(--paper); overflow: hidden;
+  direction: rtl; color: var(--ink);
+}
+.page.R { right: 0; border-radius: 2px 6px 6px 2px; }
+.page.L { left: 0; border-radius: 6px 2px 2px 6px; }
+:root[data-pages="1"] .page.L, :root[data-pages="1"] .stack.r { display: none; }
+:root[data-paper="fiber"] .page, :root[data-paper="fiber"] .face {
+  background-image: var(--fiber); background-size: 220px 220px;
+}
+/* gutter light: a fixed shadow at the spine and a faint curve of the paper; nothing moves */
+.page::after { content: ""; position: absolute; inset: 0; pointer-events: none; }
+:root[data-light="gutter"] .page.R::after, :root[data-light="lamp"] .page.R::after { background: linear-gradient(to left, transparent 82%, rgb(var(--shadow-rgb) / 7%) 96%, rgb(var(--shadow-rgb) / 16%)); }
+:root[data-light="gutter"] .page.L::after, :root[data-light="lamp"] .page.L::after { background: linear-gradient(to right, transparent 82%, rgb(var(--shadow-rgb) / 7%) 96%, rgb(var(--shadow-rgb) / 16%)); }
+:root[data-pages="1"][data-light] .page.R::after { background: linear-gradient(to left, transparent 90%, rgb(var(--shadow-rgb) / 9%)); }
+.book-shadow { position: absolute; inset: 1% -1% -2.5%; border-radius: 10px; box-shadow: 0 24px 50px -18px rgb(var(--shadow-rgb) / 45%); pointer-events: none; }
+
+/* ---------- the page's typography ---------- */
+.content { position: absolute; top: var(--mt); height: var(--ch); width: var(--W); font-family: var(--f-body); font-size: var(--fs); line-height: 1.72; }
+.page.R .content, .measure .content { right: var(--mo); }
+.page.L .content { left: var(--mo); }
+.runhead { position: absolute; top: calc(var(--mt) * 0.38); width: var(--W); display: flex; justify-content: space-between; gap: 12px; font: 500 11.5px var(--f-ui); letter-spacing: .02em; color: var(--muted); }
+.page.R .runhead { right: var(--mo); } .page.L .runhead { left: var(--mo); }
+:root[data-head="classic"] .runhead { border-bottom: 1px solid var(--rule); padding-bottom: 5px; }
+.folio { position: absolute; bottom: calc(var(--mb) * 0.36); font: 500 12px var(--f-mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+.page.R .folio { right: var(--mo); } .page.L .folio { left: var(--mo); }
+:root[data-head="center"] .folio { right: auto !important; left: 50% !important; transform: translateX(-50%); }
+:root[data-head="center"] .runhead { justify-content: center; }
+:root[data-head="center"] .runhead .rh-b { display: none; }
+.content p { margin: 0; text-align: justify; text-indent: 1.2em; hyphens: manual; text-wrap: pretty; word-spacing: .03em; }
+:root[data-align="start"] .content p, :root[data-narrow="1"] .content p { text-align: start; }
+:root[data-align="space"] .content p { text-indent: 0; margin-top: calc(var(--fs) * 1.72 * .5); }
+:root[data-align="space"] .content p.cont { margin-top: 0; }
+.content p.cont, .content .noind, .content h2 + p, .content h3 + p, .content .first { text-indent: 0; }
+.content .opening .ow { font-weight: 700; font-size: 1.32em; letter-spacing: .01em; }
+.content h1 { font-size: 1.62em; line-height: 1.22; margin: 0 0 .25em; text-wrap: balance; font-weight: 700; }
+.content .sub { font: 500 .66em var(--f-ui); color: var(--muted); margin: 0 0 1.4em; letter-spacing: .02em; }
+.content h2 { font-size: 1.16em; margin: .9em 0 .35em; line-height: 1.3; font-weight: 700; text-wrap: balance; }
+.content h2 .sn { color: var(--accent); font-family: var(--f-mono); font-size: .78em; margin-inline-end: .45em; }
+.content > :first-child { margin-top: 0 !important; }
+.m { font-style: italic; direction: ltr; unicode-bidi: isolate; white-space: nowrap; }
+.content .eq { direction: ltr; display: flex; align-items: center; justify-content: center; gap: 1em; margin: .55em 0; font-size: 1.04em; position: relative; }
+.content .eq .no { position: absolute; left: 0; font: 500 .7em var(--f-mono); color: var(--muted); }
+.content .eq i { font-style: italic; }
+.blk { margin: .7em 0; padding: .45em .8em .55em; position: relative; }
+.blk .bt { display: block; font: 600 .62em var(--f-ui); letter-spacing: .05em; margin-bottom: .1em; }
+.blk p { text-indent: 0 !important; }
+/* three ranks (round 5): what to keep has a frame, what to do a strong side rule, context a quiet rule */
+.b-def { border-inline-start: 3px solid var(--k-def); background: color-mix(in srgb, var(--k-def) 5%, transparent); } .b-def .bt { color: var(--k-def); }
+.b-formula { border: 1px solid color-mix(in srgb, var(--k-formula) 45%, transparent); text-align: center; } .b-formula .bt { color: var(--k-formula); text-align: start; }
+.b-keep { border: 1.5px solid var(--k-keep); } .b-keep .bt { color: var(--k-keep); } .b-keep ul { margin: .2em 0 0; padding-inline-start: 1.1em; } .b-keep li { margin: .1em 0; }
+.b-history { border-inline-start: 1px solid color-mix(in srgb, var(--k-history) 55%, transparent); color: var(--ink-soft); font-size: .93em; } .b-history .bt { color: var(--k-history); }
+.b-erratum { border-inline-start: 3px solid var(--k-erratum); font-size: .93em; } .b-erratum .bt { color: var(--k-erratum); }
+.b-erratum q { font-style: italic; }
+/* derivation: numbered steps, never split inside a step */
+.deriv { margin: .6em 0; padding: 0; list-style: none; counter-reset: st; }
+.deriv li { counter-increment: st; display: grid; grid-template-columns: 1.6em 1fr; gap: .35em; align-items: baseline; padding: .12em 0; }
+.deriv li::before { content: counter(st); font: 500 .7em var(--f-mono); color: var(--accent); }
+.deriv .ex { direction: ltr; text-align: center; font-size: 1.02em; }
+.deriv .why { display: block; font: .7em var(--f-ui); color: var(--muted); text-align: right; direction: rtl; }
+.deriv-h { font: 600 .62em var(--f-ui); color: var(--k-formula); letter-spacing: .05em; margin-top: .6em; }
+.contmark { font: 500 .62em var(--f-ui); color: var(--muted); text-align: left; margin-top: .2em; }
+/* think: on paper, ink check boxes */
+.b-think { border: 1px solid color-mix(in srgb, var(--k-think) 55%, transparent); border-radius: 2px; }
+.b-think .bt { color: var(--k-think); }
+.conf { display: flex; flex-wrap: wrap; gap: .3em 1em; margin-top: .35em; font: .7em var(--f-ui); align-items: center; }
+.conf .lbl { color: var(--muted); }
+.ink { background: none; border: 0; padding: 0; cursor: pointer; display: inline-flex; gap: .35em; align-items: center; color: var(--ink); }
+.ink { min-height: 28px; }
+.ink .bx { width: 1.15em; height: 1.15em; border: 1.3px solid var(--ink-soft); border-radius: 2px; display: inline-grid; place-items: center; }
+.ink[aria-pressed="true"] .bx::after { content: ""; width: .7em; height: .38em; border: solid var(--accent); border-width: 0 0 2px 2px; transform: rotate(-48deg) translate(1px, -1px); }
+.ink.skip { color: var(--muted); text-decoration: underline; text-underline-offset: 2px; }
+.ans { margin-top: .45em; font-size: .95em; }
+.ans .at { font: 600 .66em var(--f-ui); color: var(--k-think); display: block; }
+/* answer variant 1: a folded flap that keeps its place on the page */
+.flap { position: relative; margin-top: .45em; }
+.flap .ans { margin: 0; visibility: hidden; }
+.flap .fold { position: absolute; inset: 0; background: repeating-linear-gradient(135deg, var(--paper-back) 0 6px, color-mix(in srgb, var(--paper-back) 70%, var(--rule)) 6px 7px); border: 1px dashed var(--rule); display: grid; place-items: center; font: .66em var(--f-ui); color: var(--muted); transform-origin: top; }
+.flap.open .ans { visibility: visible; }
+.flap.open .fold { transform: rotateX(-180deg); opacity: 0; transition: transform .45s cubic-bezier(.3,.6,.3,1), opacity .2s .25s; }
+:root[data-motion="reduce"] .flap.open .fold { transition: opacity .12s; transform: none; }
+/* answer variant 3: in the outer margin */
+.mans { position: absolute; width: calc(var(--mo) - 18px); font: 12px/1.5 var(--f-ui); color: var(--ink-soft); }
+.page.R .mans { right: 9px; } .page.L .mans { left: 9px; }
+.mans .tabbtn { border: 1px solid color-mix(in srgb, var(--k-think) 50%, transparent); background: var(--paper); color: var(--k-think); border-radius: 2px; padding: 3px 6px; font-size: 11.5px; cursor: default; }
+.mans .mtext { display: none; border-top: 2px solid var(--k-think); padding-top: 4px; }
+.mans.open .tabbtn { display: none; } .mans.open .mtext { display: block; }
+/* answers on the back of the leaf */
+.b-answers { border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); font-size: .9em; padding: .4em 0; margin: 0 0 .8em; }
+.b-answers .bt { color: var(--k-think); }
+.selfg { display: flex; flex-wrap: wrap; gap: .3em .9em; font: .68em var(--f-ui); margin-top: .35em; align-items: center; }
+.selfg .lbl { color: var(--muted); }
+.hotcard { margin-top: .4em; background: var(--amber-soft); border-inline-start: 2px solid var(--amber); padding: .3em .6em; font: .68em/1.5 var(--f-ui); color: var(--ink); }
+/* level 3 and decide */
+.b-l3 { border-inline-start: 3px solid var(--k-l3); background: color-mix(in srgb, var(--k-l3) 5%, transparent); } .b-l3 .bt { color: var(--k-l3); }
+.l3row { display: flex; gap: .5em; align-items: center; margin-top: .35em; font: .72em var(--f-ui); flex-wrap: wrap; }
+.l3row input { width: 7em; font: inherit; border: 0; border-bottom: 1.3px solid var(--ink-soft); background: transparent; color: var(--ink); padding: 2px 4px; }
+.l3row button, .dec button { font: inherit; border: 1px solid var(--rule); background: var(--paper); border-radius: 3px; padding: 2px 9px; cursor: pointer; }
+.dec { display: grid; gap: .25em; margin-top: .35em; font: .74em/1.45 var(--f-ui); }
+.dec button { text-align: start; padding: .35em .6em; }
+.dec button[aria-pressed="true"] { border-color: var(--k-l3); box-shadow: inset 3px 0 0 var(--k-l3); }
+.l3out { font: .72em/1.5 var(--f-ui); color: var(--ink-soft); margin-top: .3em; }
+/* figure and scene plate */
+.fig { margin: .7em 0; text-align: center; }
+.fig svg { width: 100%; height: auto; display: block; }
+.fig figcaption, .scene figcaption { font: .64em/1.45 var(--f-ui); color: var(--muted); margin-top: .3em; text-align: start; }
+.fig figcaption b, .scene figcaption b { color: var(--ink-soft); }
+.fullpage .fig { margin-top: 2em; }
+.figspread { position: absolute; top: var(--mt); height: calc(var(--ch) * .8); width: calc(var(--pw) * 2 - var(--mo) * 2); overflow: visible; }
+.page.R .figspread { right: var(--mo); } .page.L .figspread { left: var(--mo); }
+.figspread svg { width: 100%; height: 100%; }
+.scene { margin: .7em 0; position: relative; }
+.scene .plate { position: relative; border: 1px solid var(--rule); background: color-mix(in srgb, var(--paper-back) 60%, var(--paper)); aspect-ratio: 16 / 9; overflow: hidden; }
+.scene .plate img, .scene .plate canvas { width: 100%; height: 100%; display: block; }
+.scene .lift { position: absolute; bottom: 8px; left: 8px; font: 600 12px var(--f-ui); border: 1px solid var(--rule); background: var(--paper); color: var(--ink); border-radius: 3px; padding: 4px 10px; cursor: pointer; }
+.scene .hint3d { position: absolute; top: 6px; right: 8px; font: 11px var(--f-ui); color: var(--muted); }
+/* margin notes, style B (tab card) */
+.mnote { position: absolute; width: calc(var(--mo) - 20px); font: 12px/1.45 var(--f-ui); color: var(--ink-soft); background: var(--paper); border: 1px solid var(--rule); border-radius: 2px; padding: 5px 7px 6px; cursor: pointer; }
+.page.R .mnote { right: 10px; } .page.L .mnote { left: 10px; }
+.mnote.eqnote { cursor: default; border-style: dashed; }
+.mnote .tab { position: absolute; top: 6px; width: 16px; height: 18px; background: var(--accent); color: var(--paper); font: 600 10.5px/18px var(--f-mono); text-align: center; border-radius: 2px; }
+.page.R .mnote .tab { left: -17px; border-radius: 2px 0 0 2px; } .page.L .mnote .tab { right: -17px; border-radius: 0 2px 2px 0; }
+.mnote .k { display: block; font-weight: 600; color: var(--accent); font-size: 11px; }
+.mnote .tx { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.mnote.open .tx { -webkit-line-clamp: unset; display: block; }
+.mnote [contenteditable] { outline: none; border-bottom: 1px dashed var(--rule); min-height: 1.4em; }
+.mnum { position: absolute; font: 600 10.5px/16px var(--f-mono); width: 16px; height: 16px; text-align: center; background: var(--accent); color: var(--paper); border-radius: 2px; }
+.page.R .mnum { right: calc(var(--mo) - 22px); } .page.L .mnum { left: calc(var(--mo) - 22px); }
+:root[data-notes="compact"] .mnote { display: none; }
+:root:not([data-notes="compact"]) .mnum { display: none; }
+.anchored { background: color-mix(in srgb, var(--accent) 9%, transparent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 9%, transparent); }
+/* end of lesson: the stamp */
+.endpage { text-align: center; padding-top: 1.2em; }
+.content > .endpage:first-child { padding-top: 18%; }
+.endpage .eh { font: 600 .7em var(--f-ui); letter-spacing: .12em; color: var(--muted); }
+.endpage .facts { font: .72em/1.7 var(--f-ui); color: var(--ink-soft); margin: 1.2em auto; max-width: 22em; }
+.stamp { display: inline-grid; place-items: center; width: 8.2em; height: 8.2em; border: 3px double var(--accent); border-radius: 50%; color: var(--accent); font: 700 1.02em var(--f-ui); transform: rotate(-11deg); opacity: .85; margin-top: 1em; }
+.stamp small { display: block; font: 500 .52em var(--f-mono); letter-spacing: .08em; }
+.stamp.press { animation: press .5s cubic-bezier(.2,.9,.3,1.2) both; }
+@keyframes press { 0% { transform: rotate(-11deg) scale(1.6); opacity: 0; } 60% { transform: rotate(-11deg) scale(.96); opacity: .95; } 100% { transform: rotate(-11deg) scale(1); opacity: .85; } }
+:root[data-lab="eng"] .stamp { border: 0; border-radius: 0; width: 14em; height: auto; transform: none; font-weight: 600; }
+:root[data-lab="eng"] .stamp .line { display: block; width: 100%; height: 0; border-top: 2px dashed var(--accent); margin: .5em 0; }
+:root[data-lab="eng"] .stamp.press { animation: none; }
+:root[data-lab="eng"] .stamp.press .line { border-top-style: solid; transition: border-color .3s; }
+:root[data-lab="eng"] .stamp .lab-core, :root[data-lab="core"] .stamp .lab-eng { display: none; }
+.pen { position: absolute; bottom: calc(var(--mb) * 0.36); font: 500 11.5px var(--f-ui); color: var(--accent); }
+.page.R .pen { left: var(--mo); } .page.L .pen { right: var(--mo); }
+.waitpage { padding-top: 22%; text-align: center; font: .78em/1.7 var(--f-ui); color: var(--muted); }
+.waitpage b { color: var(--ink-soft); }
+
+/* ---------- the turning leaf (CSS 3D, strips for the bend) ---------- */
+.leaf { position: absolute; top: 0; left: 0; width: var(--pw); height: var(--ph); transform-style: preserve-3d; z-index: 8; pointer-events: none; }
+:root[data-pages="1"] .leaf { left: auto; right: 0; }
+.strip { position: absolute; top: 0; height: 100%; transform-origin: right center; transform-style: preserve-3d; }
+.face { position: absolute; inset: 0; overflow: hidden; backface-visibility: hidden; -webkit-backface-visibility: hidden; background: var(--paper); }
+.face.b { transform: rotateY(180deg); }
+.face .page { position: absolute; top: 0; right: auto; border-radius: 0; }
+.face .shade { position: absolute; inset: 0; pointer-events: none; }
+.slidein { animation: slidein var(--sd, 170ms) ease-out both; }
+@keyframes slidein { from { opacity: 0; transform: translateX(var(--sx, -14px)); } to { opacity: 1; transform: none; } }
+.fadein { animation: fadein 120ms linear both; }
+@keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
+
+/* ---------- the cover, for the opening of the book once a lesson ---------- */
+.cover { position: absolute; inset: 0; background: color-mix(in srgb, var(--accent) 62%, #1d1a16); color: #f3ead8; display: grid; place-content: center; text-align: center; gap: 10px; font-family: var(--f-body); box-shadow: inset 0 0 0 10px color-mix(in srgb, #000 12%, transparent), inset 0 0 0 11px color-mix(in srgb, #fff 18%, transparent); }
+.cover .lab { font: 600 12px var(--f-ui); letter-spacing: .3em; opacity: .8; }
+.cover .t { font-size: 30px; font-weight: 700; line-height: 1.2; max-width: 12em; text-wrap: balance; }
+.cover .m { font: 500 13px var(--f-mono); opacity: .8; font-style: normal; }
+/* ---------- scratchpad: the facing page, a card on the desk, or a bottom drawer ---------- */
+.scratch { position: absolute; z-index: 21; background: var(--paper); display: flex; flex-direction: column; font: 13px var(--f-ui); }
+.scratch .sh { display: flex; gap: 8px; align-items: center; padding: 10px 14px; border-bottom: 1px solid var(--rule); color: var(--ink-soft); font-weight: 600; }
+.scratch .sh .sp { flex: 1; }
+.scratch .sh button { border: 1px solid var(--rule); background: transparent; border-radius: 3px; padding: 3px 9px; cursor: pointer; font: 12.5px var(--f-ui); }
+.scratch .sh button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.scratch canvas { flex: 1; min-height: 0; width: 100%; touch-action: none; cursor: crosshair; background-image: linear-gradient(var(--rule) 1px, transparent 1px), linear-gradient(90deg, var(--rule) 1px, transparent 1px); background-size: 24px 24px; background-position: -1px -1px; opacity: .999; }
+.scratch.s-facing { top: 0; box-shadow: inset 0 0 0 1px var(--rule); }
+.scratch.s-side { border: 1px solid var(--rule); box-shadow: 0 16px 34px -14px rgb(var(--shadow-rgb) / 45%); }
+.scratch.s-bottom { position: fixed; left: 0; right: 0; bottom: 0; height: 42%; border-top: 1px solid var(--rule); box-shadow: 0 -12px 30px -12px rgb(var(--shadow-rgb) / 45%); z-index: 45; padding-bottom: env(safe-area-inset-bottom, 0px); }
+
+/* ---------- navigation: ribbon, fore-edge tabs, drawer ---------- */
+.ribbon { position: absolute; top: -8px; width: 18px; height: 64px; background: var(--accent); clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 84%, 0 100%); z-index: 12; cursor: pointer; border: 0; padding: 0; filter: drop-shadow(0 2px 2px rgb(var(--shadow-rgb) / 30%)); }
+.ribbon:hover, .ribbon[aria-expanded="true"] { height: 76px; }
+.toc { position: absolute; z-index: 20; background: var(--paper); border: 1px solid var(--rule); box-shadow: 0 14px 34px -10px rgb(var(--shadow-rgb) / 45%); width: 300px; max-width: calc(100vw - 32px); padding: 12px 14px; font: 13px/1.5 var(--f-ui); }
+.toc h3 { margin: 0 0 6px; font: 600 12px var(--f-ui); color: var(--muted); letter-spacing: .04em; }
+.toc ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.toc button { width: 100%; text-align: start; background: none; border: 0; padding: 6px 8px; border-radius: 3px; cursor: pointer; display: flex; justify-content: space-between; gap: 10px; }
+.toc button:hover { background: var(--accent-soft); }
+.toc button.cur { box-shadow: inset 2px 0 0 var(--accent); font-weight: 600; }
+.toc .pg { font: 500 11px var(--f-mono); color: var(--muted); }
+.toc .left { font: 12px var(--f-ui); color: var(--muted); margin-top: 8px; border-top: 1px solid var(--rule); padding-top: 6px; }
+.ftab { position: absolute; width: 22px; z-index: 6; border: 0; padding: 0; cursor: pointer; font: 600 10px/1 var(--f-mono); color: var(--paper); display: grid; place-items: center; background: var(--tabc); transition: right .35s, left .35s; }
+.ftab.side-r { right: -21px; border-radius: 0 3px 3px 0; }
+.ftab.side-l { left: -21px; border-radius: 3px 0 0 3px; }
+.ftab.cur { width: 26px; }
+.ftab.cur.side-r { right: -25px; } .ftab.cur.side-l { left: -25px; }
+.drawer { position: absolute; inset: 0 auto 0 0; width: min(320px, 86vw); background: var(--paper); border-inline-start: 1px solid var(--rule); z-index: 25; box-shadow: 10px 0 30px -12px rgb(var(--shadow-rgb) / 40%); padding: 16px; font: 13px/1.5 var(--f-ui); transform: translateX(-102%); transition: transform .25s ease; }
+.drawer.open { transform: none; }
+:root[data-motion="reduce"] .drawer, :root[data-motion="reduce"] .ftab { transition: none; }
+
+/* ---------- consult: slip, desk card, facing page ---------- */
+.seltool { position: absolute; z-index: 28; display: flex; gap: 2px; background: var(--ink); color: var(--paper); border-radius: 6px; padding: 3px; box-shadow: 0 6px 16px rgb(var(--shadow-rgb) / 35%); font: 12.5px var(--f-ui); }
+.seltool button { background: none; border: 0; color: inherit; padding: 5px 9px; border-radius: 4px; cursor: pointer; }
+.seltool button:hover { background: rgb(255 255 255 / 14%); }
+.consult { position: absolute; z-index: 22; font: 14px/1.6 var(--f-ui); color: var(--ink); display: flex; flex-direction: column; }
+.consult .ch { display: flex; align-items: center; gap: 8px; font: 600 11.5px var(--f-ui); color: var(--accent); letter-spacing: .03em; }
+.consult .ch .x { margin-inline-start: auto; border: 0; background: none; cursor: pointer; color: var(--muted); font-size: 16px; line-height: 1; padding: 2px 4px; }
+.consult .q { font: italic 13px/1.5 var(--f-body); color: var(--muted); border-inline-start: 2px solid var(--rule); padding-inline-start: 8px; margin: 6px 0; }
+.consult .body { overflow: auto; min-height: 0; font-family: var(--f-body); font-size: 15.5px; line-height: 1.65; }
+.consult .body p { margin: 0 0 .5em; }
+.consult .more { font: 12.5px var(--f-ui); color: var(--accent); margin: .2em 0; }
+.consult .acts { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; font: 12.5px var(--f-ui); }
+.consult .acts button { border: 1px solid var(--rule); background: transparent; border-radius: 3px; padding: 3px 9px; cursor: pointer; }
+.consult .lv { display: inline-flex; gap: 0; border: 1px solid var(--rule); border-radius: 3px; overflow: hidden; }
+.consult .lv button { border: 0; border-radius: 0; padding: 3px 7px; }
+.consult .lv button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.consult .talk { display: flex; gap: 6px; margin-top: 8px; }
+.consult .talk input { flex: 1; min-width: 0; font: 14px var(--f-ui); border: 0; border-bottom: 1.3px solid var(--ink-soft); background: transparent; color: var(--ink); padding: 4px; }
+.consult .me { font: 13.5px/1.5 var(--f-ui); color: var(--ink-soft); background: var(--accent-soft); padding: 4px 8px; border-radius: 3px; margin: 0 0 .5em; }
+.c-slip { background: var(--slip); padding: 12px 14px 12px; box-shadow: 0 10px 24px -8px rgb(var(--shadow-rgb) / 40%), 0 1px 0 var(--rule); transform: rotate(-.5deg); border-top: 1px solid color-mix(in srgb, var(--ink) 8%, transparent); }
+.c-slip::before { content: ""; position: absolute; top: -9px; inset-inline: 18px; height: 10px; background: var(--slip); clip-path: polygon(0 100%, 3% 30%, 8% 80%, 14% 20%, 21% 70%, 30% 35%, 38% 85%, 47% 25%, 55% 75%, 64% 30%, 72% 80%, 81% 20%, 89% 70%, 96% 35%, 100% 100%); }
+.c-card { background: var(--paper); border: 1px solid var(--rule); padding: 12px 14px; box-shadow: 0 12px 30px -12px rgb(var(--shadow-rgb) / 45%); }
+.c-card .lead { position: absolute; top: 20px; height: 1px; background: var(--accent); opacity: .5; }
+.c-facing { background: var(--paper); padding: 22px calc(var(--mo) * .6); box-shadow: inset 0 0 0 1px var(--rule), 0 0 0 0 transparent; }
+.c-facing .ch { font-size: 12px; }
+.c-sheet { position: fixed; inset: auto 0 0 0; max-height: 62%; background: var(--paper); border-top: 1px solid var(--rule); padding: 12px max(16px, env(safe-area-inset-right, 0px)) calc(12px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); box-shadow: 0 -12px 30px -12px rgb(var(--shadow-rgb) / 45%); z-index: 40; }
+
+/* ---------- 3D lifted off the page ---------- */
+.lift3d { position: absolute; z-index: 26; background: var(--paper); border: 1px solid var(--rule); box-shadow: 0 40px 70px -20px rgb(var(--shadow-rgb) / 55%); display: flex; flex-direction: column; transform-origin: center; }
+.lift3d .lh { display: flex; align-items: center; gap: 8px; padding: 8px 12px; font: 600 12.5px var(--f-ui); color: var(--ink-soft); border-bottom: 1px solid var(--rule); }
+.lift3d .lh .x { margin-inline-start: auto; border: 1px solid var(--rule); background: none; border-radius: 3px; padding: 3px 10px; cursor: pointer; font: 12.5px var(--f-ui); }
+.lift3d canvas { flex: 1; min-height: 0; width: 100%; cursor: grab; touch-action: none; }
+.lift3d .lf { padding: 6px 12px 10px; font: 12px/1.5 var(--f-ui); color: var(--muted); }
+.lift3d.rise { animation: rise .42s cubic-bezier(.2,.8,.25,1) both; }
+@keyframes rise { from { transform: var(--from); box-shadow: 0 2px 4px rgb(var(--shadow-rgb) / 10%); } to { transform: none; } }
+:root[data-motion="reduce"] .lift3d.rise { animation: fadein .12s linear both; }
+.scrim { position: absolute; inset: 0; z-index: 24; background: rgb(var(--shadow-rgb) / 18%); }
+
+/* ---------- bottom bar ---------- */
+.bottom { display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; padding: 8px max(16px, env(safe-area-inset-right, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); font-size: 13px; z-index: 30; }
+.btn { border: 1px solid var(--rule); background: var(--bar); padding: 6px 13px; border-radius: 6px; cursor: pointer; font-size: 13px; color: var(--ink); }
+.btn:disabled { opacity: .4; cursor: default; }
+.pos { font: 500 12px var(--f-mono); color: var(--muted); min-width: 12ch; text-align: center; font-variant-numeric: tabular-nums; }
+.bottom .gap { width: 14px; }
+
+/* ---------- variants panel ---------- */
+.panel { position: absolute; top: 0; bottom: 0; right: 0; width: min(380px, 100%); background: var(--paper); border-inline-start: 1px solid var(--rule); z-index: 50; overflow: auto; padding: 14px 16px 30px; box-shadow: -14px 0 34px -14px rgb(var(--shadow-rgb) / 45%); font: 13px/1.5 var(--f-ui); }
+.panel h2 { font: 600 15px var(--f-ui); margin: 0 0 4px; display: flex; align-items: center; }
+.panel h2 button { margin-inline-start: auto; }
+.panel .intro { color: var(--muted); margin: 0 0 10px; font-size: 12.5px; }
+.panel fieldset { border: 0; border-top: 1px solid var(--rule); margin: 0; padding: 10px 0 8px; }
+.panel legend { font-weight: 600; padding: 0; float: right; width: 100%; margin-bottom: 6px; }
+.panel legend .id { font: 500 10.5px var(--f-mono); color: var(--muted); margin-inline-start: 6px; }
+.panel .opts { display: flex; flex-wrap: wrap; gap: 5px; clear: both; }
+.panel .opts button { border: 1px solid var(--rule); background: transparent; border-radius: 999px; padding: 4px 10px; cursor: pointer; font-size: 12.5px; }
+.panel .opts button[aria-pressed="true"] { background: var(--accent); color: var(--paper); border-color: var(--accent); }
+.panel .opts button .r { font-size: 10px; margin-inline-start: 4px; opacity: .8; }
+.panel .row { display: flex; gap: 8px; align-items: center; clear: both; }
+.panel input[type=range] { flex: 1; accent-color: var(--accent); }
+.panel .preset { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
+.measure { position: fixed; top: 0; left: 0; width: 0; height: 0; overflow: hidden; visibility: hidden; pointer-events: none; }
+@media (max-width: 640px) {
+  .top h1 { display: none; }
+  .status { display: none; }
+  .bottom .opt { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .drawer, .ftab { transition: none; }
+}
+</style>
+
+<div class="top">
+  <h1>ספר השיעור · סבב 6</h1>
+  <div class="seg" role="group" aria-label="מעבדה">
+    <button id="lab-eng" aria-pressed="true">גילואה</button><button id="lab-core" aria-pressed="false">לנצ'סטר</button>
+  </div>
+  <button class="chip" id="themeBtn" aria-label="ערכת צבעים">מערכת</button>
+  <button class="chip" id="soundBtn" aria-pressed="false">צלילים</button>
+  <button class="chip" id="phoneBtn" aria-pressed="false">תצוגת טלפון</button>
+  <span class="sp"></span>
+  <span class="status" id="status"></span>
+  <button class="chip" id="panelBtn" aria-pressed="false" aria-controls="panel">וריאציות</button>
+</div>
+
+<div id="desk">
+  <div class="book" id="book">
+    <div class="book-shadow"></div>
+    <div class="stack r"></div><div class="stack l"></div>
+    <div class="page R" id="pR"></div>
+    <div class="page L" id="pL"></div>
+    <div class="leaf" id="leaf" hidden></div>
+    <div id="navLayer"></div>
+  </div>
+  <div class="drawer" id="drawer" aria-hidden="true"></div>
+  <aside class="panel" id="panel" hidden></aside>
+</div>
+
+<div class="bottom">
+  <button class="btn" id="prev" aria-label="הדף הקודם">→ הקודם</button>
+  <span class="pos" id="pos"></span>
+  <button class="btn" id="next" aria-label="הדף הבא">הבא ←</button>
+  <span class="gap"></span>
+  <button class="btn opt" id="noteBtn">פתק</button>
+  <button class="btn opt" id="askBtn">שאל על הפסקה</button>
+  <button class="btn opt" id="scratchBtn">מחברת</button>
+  <button class="btn opt" id="streamBtn">הדגם: שיעור שנכתב עכשיו</button>
+</div>
+<div class="measure" id="measure"><div class="page R"><div class="content" id="mc"></div></div></div>
+
+<script>
+"use strict";
+/* ============ the lesson: real M0.1 text, every block type ============ */
+const LESSON = [
+  { t: "h1", id: "h1", html: "המתמטיקה המודרנית: מבנה, מרחב ופונקציה כמשתנה", sub: "M0.1 · שיעור 4 מתוך 6 · כ-35 דקות קריאה" },
+  { t: "p", id: "p1", cls: "opening first", html: "<span class=\"ow\">במאה התשע-עשרה</span> הבינו המתמטיקאים שאפשר לחקור את היחסים בין עצמים בלי לשאול מה העצמים עצמם. זה נשמע כמו ויתור, אבל זה היה רווח עצום: משפט שהוכח על היחסים בלבד נכון בבת אחת לכל העצמים שמקיימים אותם, בגאומטריה, באותות, במכניקה ובבקרה. בשיעור הזה נבנה את שלושת הרעיונות שהמעבר הזה הוליד, ונראה איך כל אחד מהם חוזר אחר כך בהנדסה." },
+  { t: "p", id: "p2", html: "המעבר לא קרה מתוך רצון להכליל לשם ההכללה. הוא נולד מבעיות קונקרטיות שהכלים הישנים לא הצליחו לפתור: טורים שמתכנסים במקום אחד ומתבדרים במקום אחר, משוואות שאין להן פתרון בנוסחה, ומערכות שבהן שינוי קטן בנתון מעיף את התשובה. כל אחת מהבעיות האלה הכריחה את המתמטיקאים להפסיק לחשב ולהתחיל לשאול על המבנה." },
+  { t: "history", id: "hist1", title: "רקע היסטורי · קנטור, 1872", html: "גאורג קנטור ניסה להבין על אילו קבוצות של נקודות טור פורייה עדיין מתכנס לפונקציה. כדי לענות הוא נאלץ להשוות גדלים של קבוצות אינסופיות, ומשם נולדה תורת הקבוצות. השאלה ההנדסית של פורייה, איך לפרק חום לגלים, היא שהולידה את השפה של המתמטיקה המודרנית." },
+  { t: "h2", id: "s1", sn: "1", html: "מבנה: קבוצה עם חוקים" },
+  { t: "p", id: "p3", html: "מבנה מתמטי הוא קבוצה של עצמים, ועליה פעולות ויחסים שמקיימים חוקים מוגדרים. החידוש הוא שהחוקים, ולא העצמים, הם מה שמגדיר את המבנה. שני אוספים שונים לגמרי של עצמים יכולים להיות אותו מבנה, ואז כל מה שידוע על אחד מהם נכון גם לשני." },
+  { t: "p", id: "p4", html: "הדוגמה החשובה ביותר להנדסה היא המרחב הווקטורי. מהנדס האותות, מהנדס המבנים ומהנדס הבקרה עובדים כל אחד עם עצמים אחרים: דגימות של אות, כוחות בקורה, מצב של מערכת. אבל שלושתם מחברים עצמים ומכפילים אותם במספרים, ולכן שלושתם עובדים באותו מבנה ומשתמשים באותם משפטים." },
+  { t: "def", id: "d1", title: "הגדרה · מרחב וקטורי", html: "קבוצה <span class=\"m\">V</span> מעל שדה <span class=\"m\">F</span>, עם פעולת חיבור <span class=\"m\">V × V → V</span> וכפל בסקלר <span class=\"m\">F × V → V</span>, כך שהחיבור קיבוצי וחילופי, יש איבר אפס ולכל איבר יש נגדי, הכפל בסקלר תואם לכפל בשדה ו-<span class=\"m\">1·v = v</span>, והכפל מתפלג על החיבור משני הצדדים." },
+  { t: "p", id: "p5", cls: "first", html: "שים לב למה שההגדרה לא אומרת: היא לא אומרת מהם הווקטורים. הם יכולים להיות חצים במישור, פולינומים, מטריצות או אותות בזמן. ההגדרה בנויה משני חלקים: רשימת פעולות (מה מותר לעשות) ורשימת חוקים (מה חייב לצאת). כל מי שמקיים את שתי הרשימות הוא מרחב וקטורי." },
+  { t: "formula", id: "f1", no: "(1.1)", title: "נוסחה מרכזית · פילוג", html: "<i>a</i>(<i>u</i> + <i>v</i>) = <i>a u</i> + <i>a v</i>,&nbsp;&nbsp; (<i>a</i> + <i>b</i>)<i>v</i> = <i>a v</i> + <i>b v</i>" },
+  { t: "p", id: "p6", cls: "first", html: "משוואה (1.1) היא הסיבה ש\"סופרפוזיציה\" עובדת. אם מערכת לינארית <span class=\"m\">L</span> מכבדת את החיבור ואת הכפל בסקלר, התגובה שלה לסכום של שני אותות היא סכום התגובות. זה מה שמאפשר לפרק אות מסובך לסינוסים, לחשב את התגובה לכל סינוס בנפרד, ולחבר בחזרה. בלי (1.1) אין התמרת פורייה שימושית, אין פונקציית תמסורת ואין ניתוח מעגלים בתחום התדר." },
+  { t: "think", id: "q1", q: "האם אוסף הפולינומים ממעלה 3 בדיוק (לא \"עד 3\") הוא מרחב וקטורי? בדוק חוק אחד שעלול להיכשל.", a: "לא. סכום של <span class=\"m\">x³ + x</span> ו-<span class=\"m\">−x³ + 1</span> הוא <span class=\"m\">x + 1</span>, ממעלה 1, כלומר יצאנו מהקבוצה. גם האפס, הפולינום 0, אינו ממעלה 3. \"עד 3\" כן מרחב וקטורי, ממד 4." },
+  { t: "h2", id: "s2", sn: "2", html: "הפונקציה כנקודה במרחב" },
+  { t: "p", id: "p7", html: "הצעד הבא היה נועז יותר: להתייחס לפונקציה שלמה כאל נקודה אחת. אם אפשר לחבר פונקציות ולהכפיל אותן במספרים, הן וקטורים לכל דבר. ואם נוסיף מרחק בין שתי פונקציות, נוכל לשאול עליהן את אותן שאלות ששואלים על נקודות במישור: מי הכי קרובה, האם סדרה מתכנסת, ומה ההטלה של פונקציה על תת-מרחב." },
+  { t: "p", id: "p8", html: "השאלה היא איך מודדים מרחק בין שתי עקומות. אפשר למדוד את ההפרש הגדול ביותר ביניהן, אפשר את שטח ההפרש, ואפשר את שורש שטח ריבוע ההפרש. כל בחירה היא מבנה אחר, וכל אחת מתאימה לבעיה אחרת. הבחירה האחרונה, הנורמה הריבועית, היא זו שמודדת אנרגיה, ולכן היא השולטת בעיבוד אותות." },
+  { t: "figure", id: "fig1", cap: "<b>איור 1.</b> שתי פונקציות על <span class=\"m\">[0, 2π]</span>: <span class=\"m\">f(t) = sin t</span> ו-<span class=\"m\">g(t)</span>, קירוב שלה משני סינוסים. השטח המוצלל הוא <span class=\"m\">|f − g|</span>; הנורמה הריבועית סוכמת את ריבועו." },
+  { t: "def", id: "d2", title: "הגדרה · נורמה", html: "פונקציה <span class=\"m\">‖·‖ : V → [0, ∞)</span> שמקיימת: <span class=\"m\">‖v‖ = 0</span> רק אם <span class=\"m\">v = 0</span>; <span class=\"m\">‖a v‖ = |a| ‖v‖</span>; ואי-שוויון המשולש <span class=\"m\">‖u + v‖ ≤ ‖u‖ + ‖v‖</span>. המרחק בין שני וקטורים הוא <span class=\"m\">‖u − v‖</span>." },
+  { t: "deriv", id: "dv1", title: "פיתוח · הנורמה של sin t על [0, 2π]", steps: [
+    ["‖f‖² = ∫<sub>0</sub><sup>2π</sup> |f(t)|² dt", "ההגדרה של הנורמה הריבועית"],
+    ["‖sin‖² = ∫<sub>0</sub><sup>2π</sup> sin² t dt", "מציבים f = sin"],
+    ["sin² t = (1 − cos 2t) / 2", "זהות הזווית הכפולה"],
+    ["= ½ ∫<sub>0</sub><sup>2π</sup> dt − ½ ∫<sub>0</sub><sup>2π</sup> cos 2t dt", "מפרקים לשני אינטגרלים"],
+    ["= ½ · 2π − ½ · 0", "על מחזור שלם האינטגרל של cos 2t מתאפס"],
+    ["‖sin‖ = √π ≈ 1.77", "מוציאים שורש"],
+  ] },
+  { t: "p", id: "p9", cls: "first", html: "התוצאה √π היא \"הגודל\" של הסינוס במרחב הפונקציות. אם מחלקים בה, מקבלים סינוס באורך 1, וזה בדיוק מה שעושים כשבונים בסיס אורתונורמלי לטור פורייה. המקדמים של הטור הם אז ההטלות של האות על וקטורי הבסיס, כמו רכיבים של חץ על הצירים." },
+  { t: "scene", id: "sc1", cap: "<b>סצנה תלת-ממדית.</b> <span class=\"m\">u</span>, <span class=\"m\">v</span> ו-<span class=\"m\">u + v</span> ב-<span class=\"m\">ℝ³</span>, והמקבילית שהם פורשים. גרור כדי לסובב: הסכום תמיד באלכסון, מכל זווית." },
+  { t: "erratum", id: "er1", title: "תיקון לשיעור 2", html: "בשיעור 2 נכתב <q>כל קבוצה של פונקציות רציפות היא מרחב וקטורי</q>. זה לא נכון: צריך קבוצה סגורה לחיבור ולכפל בסקלר. כל הפונקציות הרציפות על קטע הן מרחב וקטורי; הפונקציות הרציפות שערכן ב-0 הוא 1 אינן." },
+  { t: "think", id: "q2", q: "שני אותות שונים רק בנקודה אחת, t = 1. מה המרחק ביניהם לפי הנורמה הריבועית? ומה זה אומר על המילה \"שווים\"?", a: "המרחק הוא 0: האינטגרל לא \"רואה\" נקודה בודדת. לכן במרחב הזה שני אותות נחשבים שווים אם הם שווים כמעט בכל מקום. מבחינה הנדסית זה בדיוק נכון, כי אף מכשיר לא מודד ערך בנקודה אחת." },
+  { t: "h2", id: "s3", sn: "3", html: "יציבות: שגיאה קטנה נשארת קטנה" },
+  { t: "p", id: "p10", html: "המחשב הוסיף שאלה שהמתמטיקה הקלסית כמעט לא שאלה. לא רק אם יש פתרון, אלא האם שגיאה קטנה בקלט נשארת קטנה בפלט. כל מספר במחשב מעוגל, כל מדידה רועשת, ולכן כל אלגוריתם מקבל קלט קצת שגוי. אם השגיאה מתנפחת בדרך, הפתרון המדויק על הנייר חסר ערך." },
+  { t: "p", id: "p11", html: "לפתרון מערכת לינארית <span class=\"m\">Ax = b</span> יש מספר אחד שמסכם את השאלה הזאת: מספר המצב. הוא אומר פי כמה, לכל היותר, השגיאה היחסית בפתרון גדולה מהשגיאה היחסית בנתונים. בזכות הלינאריות של (1.1) אפשר לנתח את השגיאה בנפרד מהפתרון. שים לב שהוא תכונה של הבעיה, לא של האלגוריתם: שום אלגוריתם לא יציל בעיה עם מספר מצב עצום." },
+  { t: "formula", id: "f2", no: "(3.1)", title: "נוסחה מרכזית · מספר המצב", html: "‖<i>δx</i>‖ / ‖<i>x</i>‖ ≤ κ(<i>A</i>) · ‖<i>δb</i>‖ / ‖<i>b</i>‖,&nbsp;&nbsp; κ(<i>A</i>) = ‖<i>A</i>‖ ‖<i>A</i>⁻¹‖" },
+  { t: "predict", id: "l3a", title: "נחש לפני שתחשב", q: "מערכת עם κ(A) = 10⁶, והנתונים ידועים בדיוק יחסי של 10⁻⁸. כמה ספרות משמעותיות נכונות אפשר להבטיח בפתרון?", a: "בערך 2. השגיאה היחסית בפתרון עד 10⁶ · 10⁻⁸ = 10⁻², כלומר שתי ספרות. כלל אצבע: מספר המצב \"אוכל\" log₁₀ κ ספרות." },
+  { t: "p", id: "p12", html: "זו הסיבה שמהנדס מנוסה שואל קודם כול על מספר המצב, ורק אחר כך על השיטה. במסנן קלמן, למשל, מטריצת השונות יכולה להיות כמעט סינגולרית, ואז עדכון בנוסחה הישירה מאבד ספרות. הפתרון הוא לא מחשב מהיר יותר אלא ניסוח אחר של אותה מתמטיקה, כמו עדכון בשורש הריבועי של המטריצה." },
+  { t: "keep", id: "k1", title: "לסיכום · מה לזכור", items: [
+    "מבנה: קבוצה עם פעולות וחוקים; החוקים, לא העצמים, מגדירים אותו.",
+    "מרחב וקטורי: חיבור וכפל בסקלר עם חוקי הקיבוץ, החילוף, האפס, הנגדי והפילוג (1.1).",
+    "נורמה: אורך של וקטור; המרחק ‖u − v‖. בפונקציות: שורש האינטגרל של הריבוע. ‖sin‖ על [0, 2π] הוא √π.",
+    "מספר מצב: κ(A) = ‖A‖‖A⁻¹‖, וההגבלה (3.1). מאבדים כ-log₁₀ κ ספרות.",
+  ] },
+  { t: "decide", id: "dc1", title: "מוביל ומחליט", q: "אתה מתכנן משערך מצב למערכת שבה מספר המצב של מטריצת השונות מגיע ל-10⁹. איזה צעד ראשון?", opts: ["עדכון בנוסחה הישירה, ובדיוק כפול (64 ביט)", "עדכון בשורש הריבועי של המטריצה (square-root filter)", "להקטין את מספר המשתנים במצב עד ש-κ יורד"], fb: "נרשם. אין כאן תשובה אחת: (2) שומר על הספרות בלי לשנות את המודל, (3) משנה את הבעיה. המורה יחזור לזה בפתיחת השיעור הבא." },
+  { t: "end", id: "end" },
+];
+const NOTES0 = [
+  { anchor: "p6", kind: "שאלה למומחה", text: "האם סופרפוזיציה נשברת במגבר שנכנס לרוויה? מה נשאר מ-(1.1) אז?" },
+  { anchor: "p11", kind: "להעמקה", text: "לבדוק מספר מצב של מטריצת הילברט 8×8 בפייתון." },
+];
+
+/* ============ state ============ */
+const DEF = { open: "book", align: "justify", eqref: "margin", scratch: "facing", face: "frank", paper: "smooth", dark: "graphite", light: "gutter", head: "classic", turn: "hybrid", speed: "s380", think: "flap", consult: "facing", scene: "plate", figure: "inline", nav: "tabs", stream: "fill", fs: 18.5, lab: "eng" };
+const S = Object.assign({}, DEF);
+const st = { conf: {}, shown: {}, grade: {}, pred: {}, dec: {}, mans: {}, stampSeen: false };
+let NOTES = NOTES0.map((n) => Object.assign({}, n));
+const root = document.documentElement;
+const $ = (id) => document.getElementById(id);
+const book = $("book"), leaf = $("leaf"), desk = $("desk");
+let pages = [], at = 0, busy = false, perView = 2, geo = {}, turnsDone = 0;
+let streamState = null;
+const reduceMQ = matchMedia("(prefers-reduced-motion: reduce)");
+const reduced = () => reduceMQ.matches;
+try { const q = new URLSearchParams(location.search); for (const [k, v] of q) if (k in S) S[k] = k === "fs" ? +v : v; } catch (e) {}
+
+/* ============ geometry from the measure ============ */
+let charW = 0.456;
+function measureChar() {
+  const s = document.createElement("span");
+  s.style.cssText = `font-family:${getComputedStyle(root).getPropertyValue("--f-body")};font-size:100px;position:absolute;visibility:hidden;white-space:nowrap`;
+  s.textContent = "המעבר לא קרה מתוך רצון להכליל לשם ההכללה, הוא נולד מבעיות קונקרטיות שהכלים הישנים לא פתרו";
+  document.body.appendChild(s); charW = s.getBoundingClientRect().width / s.textContent.length / 100; s.remove();
+}
+function layoutGeo() {
+  const phone = root.dataset.phone === "1";
+  const vw = phone ? 400 : desk.clientWidth, vh = desk.clientHeight;
+  let fs = phone ? Math.min(S.fs, 17.5) : S.fs;
+  let W = 68 * charW * fs;
+  const marg = (w) => ({ mi: Math.max(30, Math.round(w * 0.085)), mo: Math.max(64, Math.round(w * 0.22)) });
+  let m = marg(W);
+  let pw = W + m.mi + m.mo;
+  let two = !phone && 2 * (52 * charW * fs * 1.31) + 70 <= vw;
+  if (two && 2 * pw + 70 > vw) { pw = (vw - 70) / 2; W = pw / 1.305; m = marg(W); W = pw - m.mi - m.mo; }
+  if (!two) {
+    pw = Math.min(vw - (phone ? 24 : 48), W + m.mi + m.mo);
+    if (pw < W + m.mi + m.mo) { m = { mi: phone ? 18 : 30, mo: phone ? 18 : 40 }; W = pw - m.mi - m.mo; }
+  }
+  const ph = Math.max(360, Math.min(vh - 26, two ? pw * 1.42 : pw * 1.6));
+  const mt = Math.round(fs * 3.1), mb = Math.round(fs * 3.0);
+  const lh = fs * 1.72;
+  const ch = Math.floor((ph - mt - mb) / lh) * lh; // whole lines: the last line never gets cut
+  geo = { W, pw, ph, mi: m.mi, mo: m.mo, mt, mb, ch, fs, two, chars: Math.round(W / (charW * fs)) };
+  perView = two ? 2 : 1;
+  const set = (k, v) => root.style.setProperty(k, v);
+  set("--W", W + "px"); set("--pw", pw + "px"); set("--ph", ph + "px"); set("--mo", m.mo + "px"); set("--mi", m.mi + "px");
+  set("--mt", mt + "px"); set("--mb", mb + "px"); set("--ch", ch + "px"); set("--fs", fs + "px"); set("--pages", perView);
+  root.dataset.pages = perView;
+  root.dataset.notes = m.mo < 96 ? "compact" : "full";
+  root.dataset.narrow = W < 430 ? "1" : "0";
+  // page padding: the spine side is the inner margin (left of the right page, right of the left page)
+}
+
+/* ============ block html ============ */
+const esc = (s) => s;
+function figSVG(w, h, half) {
+  const N = 120, pts = [], f = (t) => Math.sin(t), g = (t) => 0.82 * Math.sin(t) + 0.24 * Math.sin(3 * t);
+  const X = (t) => 30 + (t / (2 * Math.PI)) * (w - 50), Y = (v) => h / 2 - v * (h * 0.36);
+  let pf = "", pg = "", area = "";
+  for (let i = 0; i <= N; i++) { const t = (i / N) * 2 * Math.PI; pf += (i ? "L" : "M") + X(t).toFixed(1) + "," + Y(f(t)).toFixed(1); pg += (i ? "L" : "M") + X(t).toFixed(1) + "," + Y(g(t)).toFixed(1); }
+  area = pf;
+  for (let i = N; i >= 0; i--) { const t = (i / N) * 2 * Math.PI; area += "L" + X(t).toFixed(1) + "," + Y(g(t)).toFixed(1); }
+  const ticks = ["0", "π/2", "π", "3π/2", "2π"].map((l, i) => `<text x="${X((i * Math.PI) / 2)}" y="${h - 6}" text-anchor="middle" style="fill:var(--muted);font:11px var(--f-mono)">${l}</text>`).join("");
+  return `<svg viewBox="0 0 ${w} ${h}" ${half ? `preserveAspectRatio="none"` : ""} role="img" aria-label="שתי פונקציות וההפרש ביניהן" style="direction:ltr">
+    <line x1="30" y1="${h / 2}" x2="${w - 16}" y2="${h / 2}" style="stroke:var(--rule)"/>
+    <line x1="30" y1="12" x2="30" y2="${h - 20}" style="stroke:var(--rule)"/>
+    <path d="${area}Z" style="fill:var(--accent);opacity:.16"/>
+    <path d="${pf}" style="fill:none;stroke:var(--ink);stroke-width:1.6"/>
+    <path d="${pg}" style="fill:none;stroke:var(--accent);stroke-width:1.6;stroke-dasharray:5 3"/>
+    <text x="${X(1.35)}" y="${Y(1.08)}" style="fill:var(--ink);font:italic 13px var(--f-body)">f</text>
+    <text x="${X(2.2)}" y="${Y(0.45)}" style="fill:var(--accent);font:italic 13px var(--f-body)">g</text>${ticks}</svg>`;
+}
+function thinkHTML(b, mode) {
+  const c = st.conf[b.id];
+  const btn = (v, l) => `<button class="ink" data-act="conf" data-id="${b.id}" data-v="${v}" aria-pressed="${c === v}"><span class="bx"></span>${l}</button>`;
+  let ans = "";
+  if (mode === "flap") ans = `<div class="flap" data-flap="${b.id}"><div class="ans"><span class="at">תשובה</span>${b.a}</div><div class="fold">הבחירה פותחת את הקפל</div></div>`;
+  if (mode === "back") ans = `<div class="ans" style="font:.66em var(--f-ui);color:var(--muted)">התשובה בגב הדף: הפוך אחרי שבחרת.</div>`;
+  return `<div class="blk b-think" data-think="${b.id}"><span class="bt">שאלה לחשוב</span><p>${b.q}</p>
+    <div class="conf"><span class="lbl">לפני שאתה מסתכל:</span>${btn("guess", "מנחש")}${btn("fair", "די בטוח")}${btn("sure", "בטוח")}<button class="ink skip" data-act="conf" data-id="${b.id}" data-v="skip">הצג בלי לבחור</button></div>
+    ${ans}<div class="selfwrap" data-self="${b.id}"></div></div>`;
+}
+function blockHTML(b, opt = {}) {
+  const P = (cls) => `data-b="${b.id}"${cls ? ` class="${cls}"` : ""}`;
+  switch (b.t) {
+    case "h1": return `<h1 ${P()}>${b.html}</h1><div class="sub" data-b="${b.id}s">${b.sub}</div>`;
+    case "h2": return `<h2 ${P()}><span class="sn">${b.sn}</span>${b.html}</h2>`;
+    case "p": return `<p ${P((b.cls || "") + (opt.cont ? " cont" : ""))}>${opt.html ?? b.html}</p>`;
+    case "def": return `<div ${P("blk b-def")}><span class="bt">${b.title}</span><p>${b.html}</p></div>`;
+    case "history": return `<div ${P("blk b-history")}><span class="bt">${b.title}</span><p>${b.html}</p></div>`;
+    case "erratum": return `<div ${P("blk b-erratum")}><span class="bt">${b.title}</span><p>${b.html}</p></div>`;
+    case "formula": return `<div ${P("blk b-formula")}><span class="bt">${b.title}</span><div class="eq"><span>${b.html}</span><span class="no">${b.no}</span></div></div>`;
+    case "keep": return `<div ${P("blk b-keep")}><span class="bt">${b.title}</span><ul>${b.items.map((x) => `<li>${x}</li>`).join("")}</ul></div>`;
+    case "deriv": {
+      const steps = opt.steps || b.steps.map((s, i) => [s, i]);
+      const head = opt.part === 2 ? `<div class="deriv-h">${b.title} · המשך</div>` : `<div class="deriv-h">${b.title}</div>`;
+      return `<div ${P()}>${head}<ol class="deriv" start="${steps[0][1] + 1}" style="counter-reset:st ${steps[0][1]}">${steps.map(([s]) => `<li><span class="ex">${s[0]}<span class="why">${s[1]}</span></span></li>`).join("")}</ol>${opt.part === 1 ? `<div class="contmark">הפיתוח ממשיך בעמוד הבא ←</div>` : ""}</div>`;
+    }
+    case "think": return thinkHTML(b, S.think);
+    case "figure": return `<figure ${P("fig")}>${figSVG(520, 210)}<figcaption>${b.cap}</figcaption></figure>`;
+    case "scene": return `<figure ${P("scene")}><div class="plate" data-scene="${b.id}"><img alt="" data-poster="${b.id}"><span class="hint3d">${S.scene === "live" ? "גרור לסיבוב" : "תלת-ממד"}</span>${S.scene !== "live" ? `<button class="lift" data-act="lift" data-id="${b.id}">${S.scene === "spread" ? "פתח על הכפולה" : "הרם מהדף"}</button>` : ""}</div><figcaption>${b.cap}</figcaption></figure>`;
+    case "predict": return `<div ${P("blk b-l3")}><span class="bt">רמה 3 · ${b.title}</span><p>${b.q}</p><div class="l3row"><label for="in-${b.id}">הניחוש שלי:</label><input id="in-${b.id}" data-pred="${b.id}" placeholder="מספר ספרות"><button data-act="pred" data-id="${b.id}">חשוף</button></div><div class="l3out" data-predout="${b.id}"></div></div>`;
+    case "decide": return `<div ${P("blk b-l3")}><span class="bt">${b.title}</span><p>${b.q}</p><div class="dec">${b.opts.map((o, i) => `<button data-act="dec" data-id="${b.id}" data-v="${i}" aria-pressed="${st.dec[b.id] === i}">${i + 1}. ${o}</button>`).join("")}</div><div class="l3out" data-decout="${b.id}"></div></div>`;
+    case "answers": return `<div class="b-answers" data-b="${b.id}"><span class="bt" style="font:600 .62em var(--f-ui);letter-spacing:.05em">תשובות לשאלות מהעמוד הקודם</span>${b.items.map((x) => `<div class="ans" data-backans="${x.id}"><b style="font:600 .7em var(--f-ui)">${x.n}.</b> ${x.a}</div>`).join("")}</div>`;
+    case "end": return `<div class="endpage" data-b="end"><div class="eh">סוף השיעור</div><div class="facts">4 הגדרות ונוסחאות נכנסו לתור החזרה · 2 שאלות · החלטה אחת נרשמה</div><div class="stamp" id="stamp"><span class="lab-core">אושר<small>M0.1 · 4</small></span><span class="lab-eng">נבדק<span class="line"></span><small>M0.1 · שיעור 4</small></span></div></div>`;
+  }
+  return "";
+}
+
+/* ============ pagination: greedy fill by measured height ============ */
+const mc = $("mc");
+const over = () => mc.scrollHeight > mc.clientHeight + 1;
+function tokens(html) { return html.match(/<(\w+)[^>]*>[\s\S]*?<\/\1>|[^\s<]+(?:<(\w+)[^>]*>[\s\S]*?<\/\2>[^\s<]*)*/g) || []; }
+function paginate(blocks) {
+  const out = [];
+  let cur = null, section = "", deferred = [], deferredAns = [], qn = 0;
+  const pageStart = () => {
+    if (cur && (cur.html || cur.kind !== "text")) out.push(cur);
+    cur = { html: "", section, notes: [], kind: "text", idx: out.length };
+    mc.innerHTML = "";
+    const spreadStart = perView === 1 || out.length % 2 === 0;
+    // answers on the back of the leaf: the first page after the turn
+    if (deferredAns.length && (perView === 1 || spreadStart)) {
+      const b = { t: "answers", id: "ans" + out.length, items: deferredAns.splice(0) };
+      put(blockHTML(b));
+    }
+    // floats waiting for a page of their own
+    while (deferred.length) {
+      const f = deferred[0];
+      if (f.mode === "page" || perView === 1) { deferred.shift(); cur.kind = "full"; put(`<div class="fullpage">${blockHTML(f.b)}</div>`); out.push(cur); cur = { html: "", section, notes: [], kind: "text", idx: out.length }; mc.innerHTML = ""; continue; }
+      if (f.mode === "spread" && spreadStart) {
+        deferred.shift();
+        out.push({ html: "", kind: "figR", section, notes: [], idx: out.length, cap: f.b.cap });
+        out.push({ html: "", kind: "figL", section, notes: [], idx: out.length, cap: f.b.cap });
+        cur = { html: "", section, notes: [], kind: "text", idx: out.length }; mc.innerHTML = "";
+        continue;
+      }
+      break;
+    }
+  };
+  const put = (h) => { mc.insertAdjacentHTML("beforeend", h); cur.html = mc.innerHTML; };
+  const pop = () => { mc.lastElementChild.remove(); cur.html = mc.innerHTML; };
+  pageStart();
+  const lineH = geo.fs * 1.72;
+  for (const b of blocks) {
+    if (b.t === "h2") section = b.html;
+    if (b.t === "think" && S.think === "back") { qn++; deferredAns.push({ id: b.id, n: qn, a: b.a }); }
+    if (b.t === "figure" && S.figure !== "inline") { deferred.push({ b, mode: S.figure }); continue; }
+    if (b.t === "end") { put(blockHTML(b)); if (over()) { pop(); pageStart(); put(blockHTML(b)); } continue; }
+    if (b.t === "p") {
+      let toks = tokens(b.html), first = true;
+      while (toks.length) {
+        put(blockHTML(b, { html: toks.join(" "), cont: !first }));
+        if (!over()) break;
+        pop();
+        // binary search the longest prefix that fits
+        let lo = 0, hi = toks.length;
+        while (lo < hi) { const mid = (lo + hi + 1) >> 1; put(blockHTML(b, { html: toks.slice(0, mid).join(" "), cont: !first })); const ok = !over(); pop(); if (ok) lo = mid; else hi = mid - 1; }
+        // no widow line at the top of the next page, no single line at the bottom of this one
+        if (toks.length - lo < 9) lo = Math.max(0, toks.length - 9);
+        put(blockHTML(b, { html: toks.slice(0, lo).join(" "), cont: !first }));
+        const h = mc.lastElementChild.getBoundingClientRect().height;
+        if (lo === 0 || h < lineH * 1.9) { pop(); lo = 0; }
+        toks = toks.slice(lo);
+        if (lo > 0) first = false;
+        breakPage();
+      }
+      continue;
+    }
+    if (b.t === "deriv") {
+      put(blockHTML(b));
+      if (!over()) continue;
+      pop();
+      // split only between steps, at least two steps on each side
+      let k = b.steps.length - 2;
+      for (; k >= 2; k--) { put(blockHTML(b, { steps: b.steps.slice(0, k).map((s, i) => [s, i]), part: 1 })); const ok = !over(); pop(); if (ok) break; }
+      if (k >= 2) { put(blockHTML(b, { steps: b.steps.slice(0, k).map((s, i) => [s, i]), part: 1 })); pageStart(); put(blockHTML(b, { steps: b.steps.slice(k).map((s, i) => [s, i + k]), part: 2 })); }
+      else { breakPage(); put(blockHTML(b)); }
+      continue;
+    }
+    put(blockHTML(b));
+    if (over()) { pop(); breakPage(); put(blockHTML(b)); if (over()) mc.lastElementChild.style.zoom = 0.85, cur.html = mc.innerHTML; }
+  }
+  if (cur && cur.html) out.push(cur);
+  // margin notes and margin answers: their place is measured on the page
+  out.forEach((pg, pi) => {
+    pg.idx = pi;
+    if (!pg.html) return;
+    mc.innerHTML = pg.html;
+    NOTES.forEach((n, i) => { const el = mc.querySelector(`[data-b="${n.anchor}"]`); if (el) pg.notes.push({ i, top: el.offsetTop }); });
+    if (S.eqref === "margin") mc.querySelectorAll("p[data-b]").forEach((el) => { const m = el.innerHTML.match(/\((\d\.\d)\)/); if (!m) return; const fb = LESSON.find((b) => b.t === "formula" && b.no === `(${m[1]})`); if (!fb) return; const fp = out.findIndex((q) => q.html.includes(`data-b="${fb.id}"`)); const sp = (i) => (perView === 2 ? i >> 1 : i); if (fp >= 0 && sp(fp) !== sp(pg.idx)) pg.notes.push({ eq: fb, top: el.offsetTop }); });
+    if (S.think === "margin") mc.querySelectorAll("[data-think]").forEach((el) => pg.notes.push({ mans: el.dataset.think, top: el.offsetTop }));
+  });
+  mc.innerHTML = "";
+  return out;
+  function breakPage() {
+    // a heading never ends a page: carry it (and the lesson subtitle) to the next one
+    const carry = []; let el = mc.lastElementChild;
+    while (el && (el.tagName === "H2" || el.tagName === "H1" || el.classList.contains("sub"))) { carry.unshift(el.outerHTML); const p = el.previousElementSibling; el.remove(); el = p; }
+    cur.html = mc.innerHTML; pageStart(); carry.forEach(put);
+  }
+}
+
+/* ============ rendering a page ============ */
+function headFor(i, side) {
+  const pg = pages[i]; if (!pg) return "";
+  if (i === 0 && pg.html.includes("<h1")) return "";
+  const lab = S.lab === "core" ? "לנצ'סטר" : "גילואה";
+  const a = side === "R" && perView === 2 ? `M0.1 · המתמטיקה המודרנית` : (pg.section || "פתיחה");
+  const bTxt = side === "R" && perView === 2 ? lab : "שיעור 4";
+  return `<div class="runhead"><span class="rh-a">${a}</span><span class="rh-b">${bTxt}</span></div>`;
+}
+function fno(i) { return i + 2; }
+function hebNum(n) { const o = ["", "א", "ב", "ג", "ד", "ה", "ו", "ז", "ח", "ט"], t = ["", "י", "כ", "ל", "מ", "נ"]; if (n === 15) return "ט״ו"; if (n === 16) return "ט״ז"; const s = t[Math.floor(n / 10)] + o[n % 10]; return s.length > 1 ? s.slice(0, -1) + "״" + s.slice(-1) : s + "׳"; }
+function pageHTML(i, side) {
+  const pg = pages[i];
+  if (!pg) return "";
+  const folio = `<span class="folio">${S.head === "hebrew" ? hebNum(fno(i)) : fno(i)}</span>`;
+  if (pg.kind === "figR" || pg.kind === "figL") {
+    const w = 1000, h = 400;
+    const svg = figSVG(w, h);
+    const style = pg.kind === "figR" ? `right:calc(var(--mo) * -0)` : "";
+    return `${headFor(i, side)}<div class="figspread" style="${pg.kind === "figR" ? "right:var(--mo);left:auto;clip-path:inset(0 0 0 50%);transform:translateX(0)" : "left:var(--mo);right:auto"}">${svg}</div>${pg.kind === "figL" ? `<div class="content" style="top:calc(var(--mt) + var(--ch) * .84);height:auto"><figure class="fig" style="margin:0"><figcaption>${pg.cap}</figcaption></figure></div>` : ""}${folio}`;
+  }
+  let notes = "", low = -1e9;
+  const compact = root.dataset.notes === "compact";
+  pg.notes.slice().sort((a, b) => a.top - b.top).forEach((n) => {
+    // notes never overlap: each one starts below the one before it
+    const t = compact ? n.top : Math.max(n.top, low + 8);
+    low = t + (n.mans ? 34 : n.eq ? 58 : 84);
+    const top = `calc(var(--mt) + ${t}px)`;
+    if (n.eq) { notes += `<div class="mnote eqnote" style="top:${top}"><span class="k">משוואה ${n.eq.no}</span><span class="tx" style="direction:ltr;font-family:var(--f-body);font-size:13px">${n.eq.html.split(",&nbsp;")[0]}</span></div>`; return; }
+    if (n.mans) { const b = LESSON.find((x) => x.id === n.mans); notes += `<div class="mans${st.mans[n.mans] ? " open" : ""}" data-mans="${n.mans}" style="top:${top}"><span class="tabbtn">תשובה ↧</span><div class="mtext"><b>תשובה.</b> ${b.a}</div></div>`; return; }
+    const N = NOTES[n.i];
+    notes += `<div class="mnote" data-act="note" data-n="${n.i}" style="top:${top}"><span class="tab">${n.i + 1}</span><span class="k">${N.kind}</span><span class="tx"${N.edit ? ` contenteditable="true" data-noteedit="${n.i}"` : ""}>${N.text}</span></div><span class="mnum" style="top:${top}">${n.i + 1}</span>`;
+  });
+  const last = streamState && i === pages.length - 1 && !streamState.done;
+  const pen = last ? `<span class="pen">✎ המורה עוד כותב את העמוד הזה</span>` : "";
+  return `${headFor(i, side)}<div class="content">${pg.html}</div>${notes}${last ? pen : folio}`;
+}
+function fill(el, i, side, force) {
+  if (i < 0 || i >= pages.length) { el.innerHTML = ""; el.style.visibility = i < 0 || !geo.two ? "hidden" : "visible"; if (streamState && !streamState.done && i === pages.length && S.stream === "whole") { el.style.visibility = "visible"; el.innerHTML = `<div class="content"><div class="waitpage"><b>העמוד הבא נכתב עכשיו.</b><br>${streamState.words} מילים עד כה. הוא יופיע כשיתמלא.</div></div>`; } return; }
+  el.style.visibility = "visible";
+  const h = pageHTML(i, side) + JSON.stringify([st, i]);
+  if (!force && el._h === h) return;
+  el._h = h;
+  el.innerHTML = pageHTML(i, side);
+  applyState(el);
+}
+function applyState(el) {
+  el.querySelectorAll("img[data-poster]").forEach((img) => { img.src = poster(); });
+  el.querySelectorAll("[data-think]").forEach((t) => {
+    const id = t.dataset.think, c = st.conf[id];
+    if (!c) return;
+    const f = t.querySelector(".flap"); if (f) f.classList.add("open");
+    const sw = t.querySelector(".selfwrap");
+    if (sw && S.think !== "back") sw.innerHTML = selfHTML(id);
+  });
+  if (S.scene === "live") el.querySelectorAll("[data-scene]").forEach((p) => { const cv = document.createElement("canvas"); const img = p.querySelector("img"); img.replaceWith(cv); liveCanvas(cv); });
+  el.querySelectorAll("[data-predout]").forEach((o) => { const id = o.dataset.predout; if (st.pred[id] != null) { o.innerHTML = predOut(id); const inp = el.querySelector(`[data-pred="${id}"]`); if (inp) inp.value = st.pred[id]; } });
+  el.querySelectorAll("[data-decout]").forEach((o) => { const id = o.dataset.decout; if (st.dec[id] != null) o.textContent = LESSON.find((b) => b.id === id).fb; });
+  const sp = el.querySelector("#stamp");
+  if (sp && el.closest(".page") && !el.closest(".face")) {
+    if (!st.stampSeen) { st.stampSeen = true; requestAnimationFrame(() => { sp.classList.add("press"); snd.stamp(); }); } else sp.classList.add("press");
+  }
+}
+function selfHTML(id) {
+  const g = st.grade[id];
+  const b = (v, l) => `<button class="ink" data-act="grade" data-id="${id}" data-v="${v}" aria-pressed="${g === v}"><span class="bx"></span>${l}</button>`;
+  const hot = g === "wrong" && st.conf[id] === "sure" ? `<div class="hotcard">היית בטוח וטעית. זה המקום הכי שווה לחזור אליו: המורה יקבל את השאלה הזאת בשיעור הבא.</div>` : "";
+  return `<div class="selfg"><span class="lbl">ואחרי שקראת:</span>${b("right", "צדקתי")}${b("part", "בחלקו")}${b("wrong", "טעיתי")}</div>${hot}`;
+}
+function predOut(id) { const b = LESSON.find((x) => x.id === id); const g = parseFloat(st.pred[id]); const ok = Math.abs(g - 2) < 0.6; return `<b>${isNaN(g) ? "" : ok ? "קרוב. " : "רחוק. "}</b>${b.a}`; }
+
+function render(force) {
+  if (perView === 2) { fill($("pR"), at, "R", force); fill($("pL"), at + 1, "L", force); }
+  else { fill($("pR"), at, "R", force); }
+  const total = pages.length;
+  const last = Math.min(at + perView, total);
+  $("pos").textContent = perView === 2 ? `עמ' ${fno(at)}–${fno(last - 1)} · ${Math.ceil((at + 1) / 2)}/${Math.ceil(total / 2)}` : `עמ' ${fno(at)} · ${at + 1}/${total}`;
+  $("prev").disabled = at === 0;
+  $("next").disabled = at + perView >= total + (streamState && !streamState.done && S.stream === "whole" ? 1 : 0);
+  // the stacks of leaves: read ones under the right page, the rest under the left
+  const read = Math.ceil(at / 2), left = Math.max(0, Math.ceil((total - at - perView) / 2));
+  root.style.setProperty("--sr", stackShadow(Math.min(read, 9), 1));
+  root.style.setProperty("--sl", stackShadow(Math.min(left, 9), -1));
+  $("status").textContent = `≈${geo.chars} תווים בשורה · ${geo.fs}px · ${perView === 2 ? "כפולה" : "עמוד אחד"}`;
+  drawNav();
+}
+function stackShadow(n, dir) {
+  const a = [];
+  for (let k = 1; k <= Math.max(1, n); k++) a.push(`${dir * k * 1.1}px ${k * 0.9}px 0 ${k % 2 ? "var(--rule)" : "var(--paper-edge)"}`);
+  a.push(`${dir * (n + 2)}px ${n + 6}px 14px rgb(var(--shadow-rgb) / 25%)`);
+  return a.join(",");
+}
+
+/* ============ the turn ============ */
+const DUR = { s280: 280, s380: 380, s520: 520, s900: 900 };
+function turnMs() { return DUR[S.speed] || 380; }
+let dragging = false;
+function stripsN() { return S.turn === "curl" || (S.turn === "hybrid" && dragging) ? 10 : 1; }
+let strips = [];
+function buildLeaf(frontIdx, backIdx, fOver, bOver) {
+  const N = stripsN(), w = geo.pw, sw = w / N;
+  leaf.innerHTML = ""; strips = [];
+  const frontSide = perView === 2 ? "L" : "R", backSide = "R";
+  const fHTML = fOver ?? (frontIdx >= 0 && frontIdx < pages.length ? pageHTML(frontIdx, frontSide) : "");
+  const bHTML = bOver ?? (backIdx >= 0 && backIdx < pages.length ? pageHTML(backIdx, backSide) : "");
+  let parent = leaf;
+  for (let k = 0; k < N; k++) {
+    const s = document.createElement("div");
+    s.className = "strip"; s.style.width = sw + 0.6 + "px";
+    s.style.right = k === 0 ? "0" : "100%";
+    const f = document.createElement("div"); f.className = "face f";
+    f.innerHTML = `<div class="page ${frontSide}" style="left:${-(w - (k + 1) * sw)}px">${fHTML}</div><div class="shade"></div>`;
+    const bk = document.createElement("div"); bk.className = "face b";
+    bk.innerHTML = `<div class="page ${backSide}" style="left:${-(k * sw)}px">${bHTML}</div><div class="shade"></div>`;
+    s.append(f, bk); parent.appendChild(s); parent = s;
+    strips.push({ s, fs: f.lastElementChild, bs: bk.lastElementChild });
+    applyState(f); applyState(bk);
+  }
+  leaf.hidden = false;
+}
+function setAngle(p) {
+  // p: 0 (flat, unturned) .. 1 (turned over); the free edge leads in the middle of the turn
+  const N = strips.length, th = 180 * p, B = N > 1 ? 58 * Math.sin(Math.PI * p) : 0;
+  let prev = 0;
+  for (let k = 0; k < N; k++) {
+    const A = Math.max(0, Math.min(180, th + B * (N > 1 ? k / (N - 1) - p : 0)));
+    const r = A - prev; prev = A;
+    strips[k].s.style.transform = k === 0 && N === 1 ? `translateZ(${(18 * Math.sin(Math.PI * p)).toFixed(1)}px) rotateY(${r.toFixed(2)}deg)` : `rotateY(${r.toFixed(2)}deg)`;
+    const sn = Math.sin((A * Math.PI) / 180);
+    strips[k].fs.style.background = `rgb(var(--shadow-rgb) / ${(0.3 * sn * (A / 180 + 0.3)).toFixed(3)})`;
+    strips[k].bs.style.background = `rgb(var(--shadow-rgb) / ${(0.26 * sn * (1.2 - A / 180)).toFixed(3)})`;
+  }
+  // a soft shadow the leaf throws on the page it is about to cover
+}
+let raf = 0;
+function animate(from, to, ms, done) {
+  cancelAnimationFrame(raf);
+  const t0 = performance.now();
+  const ease = (x) => 1 - Math.pow(1 - x, 3.2);
+  const step = (now) => { const x = Math.min(1, (now - t0) / ms); setAngle(from + (to - from) * ease(x)); if (x < 1) raf = requestAnimationFrame(step); else done(); };
+  raf = requestAnimationFrame(step);
+}
+function turnMode() { if (reduced() || root.dataset.motion === "reduce") return "fade"; return S.turn === "hybrid" ? "rigid" : S.turn; }
+function prepare(dir) {
+  if (perView === 2) {
+    if (dir > 0) { buildLeaf(at + 1, at + 2); fill($("pL"), at + 3, "L"); }
+    else { buildLeaf(at - 1, at); fill($("pR"), at - 2, "R"); }
+  } else {
+    if (dir > 0) { buildLeaf(at, -1); fill($("pR"), at + 1, "R"); }
+    else { buildLeaf(at - 1, -1); }
+  }
+}
+function finish(dir) {
+  at = Math.max(0, Math.min(pages.length - 1, at + dir * perView));
+  leaf.hidden = true; leaf.innerHTML = ""; busy = false; turnsDone++; render(); savePos();
+  if (pending) { const d = pending; pending = 0; turn(d, { ms: 240 }); }
+}
+function canTurn(dir) { if (dir > 0) return at + perView < pages.length; return at > 0; }
+let pending = 0;
+function turn(dir, opts = {}) {
+  if (busy) { if (!opts.silent && !leaf.querySelector(".cover")) pending = dir; return; }
+  if (!canTurn(dir)) return;
+  closeOverlays(S.consult === "facing");
+  const mode = opts.mode || turnMode();
+  if (mode === "fade" || mode === "slide" || mode === "none") {
+    at = Math.max(0, Math.min(pages.length - 1, at + dir * perView)); render(); savePos(); turnsDone++;
+    if (mode !== "none") for (const el of [$("pR"), $("pL")]) { el.classList.remove("slidein", "fadein"); void el.offsetWidth; el.style.setProperty("--sx", dir > 0 ? "14px" : "-14px"); el.classList.add(mode === "fade" ? "fadein" : "slidein"); }
+    if (!opts.silent) snd.turn(0.6);
+    return;
+  }
+  busy = true; prepare(dir);
+  const ms = opts.ms || turnMs();
+  if (!opts.silent) snd.turn(ms / 600);
+  if (dir > 0) { setAngle(0); animate(0, 1, ms, () => finish(1)); }
+  else { setAngle(1); animate(1, 0, ms, () => finish(-1)); }
+}
+$("next").onclick = () => turn(1);
+$("prev").onclick = () => turn(-1);
+addEventListener("keydown", (e) => {
+  if (e.target.closest("input, textarea, [contenteditable]")) return;
+  if (e.key === "ArrowLeft" || e.key === "PageDown" || (e.key === " " && !e.shiftKey)) { e.preventDefault(); turn(1); }
+  if (e.key === "ArrowRight" || e.key === "PageUp" || (e.key === " " && e.shiftKey)) { e.preventDefault(); turn(-1); }
+  if (e.key === "Escape") closeOverlays();
+});
+/* dragging: take the page near its outer edge and pull it over the spine; on a phone, a swipe anywhere */
+let drag = null;
+book.addEventListener("pointerdown", (e) => {
+  if (busy || e.button > 0 || e.target.closest("button, input, a, [contenteditable], canvas, .mnote, .consult, .toc, .lift3d")) return;
+  const r = book.getBoundingClientRect(), x = e.clientX - r.left;
+  const y = e.clientY - r.top, corner = y > r.height - 110;
+  const edge = perView === 2 ? 44 : 0.3 * r.width, cw = perView === 2 ? 120 : 0.3 * r.width;
+  let dir = 0;
+  if ((x < edge || (corner && x < cw)) && canTurn(1)) dir = 1;
+  else if ((x > r.width - edge || (corner && x > r.width - cw)) && canTurn(-1)) dir = -1;
+  if (!dir) return;
+  const mode = turnMode();
+  drag = { dir, x0: e.clientX, t0: performance.now(), w: perView === 2 ? r.width * 0.9 : r.width * 1.2, p: dir > 0 ? 0 : 1, flat: mode !== "curl" && mode !== "rigid" };
+  if (!drag.flat) { busy = true; dragging = true; prepare(dir); dragging = false; setAngle(drag.p); }
+  book.setPointerCapture(e.pointerId);
+});
+book.addEventListener("pointermove", (e) => {
+  if (!drag || drag.flat) return;
+  const d = (e.clientX - drag.x0) / drag.w;
+  drag.p = Math.max(0, Math.min(1, drag.dir > 0 ? d : 1 + d));
+  setAngle(drag.p);
+});
+book.addEventListener("pointerup", (e) => {
+  if (!drag) return;
+  const { dir, p, flat, x0, t0 } = drag; drag = null;
+  const dx = e.clientX - x0, v = dx / Math.max(1, performance.now() - t0); // px per ms; a flick turns even a short drag
+  if (flat) { if (Math.abs(dx) > 30) turn(dx > 0 ? 1 : -1); return; }
+  const flick = dir > 0 ? v > 0.5 : v < -0.5;
+  const goes = dir > 0 ? p > 0.38 || flick : p < 0.62 || flick;
+  if (goes) { snd.turn(0.6); animate(p, dir > 0 ? 1 : 0, 300, () => finish(dir)); }
+  else animate(p, dir > 0 ? 0 : 1, 220, () => { leaf.hidden = true; busy = false; render(); });
+});
+
+/* ============ navigation: ribbon, fore-edge tabs, drawer ============ */
+function sections() { const s = []; pages.forEach((pg, i) => { const m = pg.html.match(/<h2[^>]*><span class="sn">(\d+)<\/span>([^<]+)<\/h2>/); if (m) s.push({ n: m[1], t: m[2], page: i }); }); s.unshift({ n: "·", t: "פתיחה", page: 0 }); const e = pages.findIndex((p) => p.html.includes("endpage")); if (e > 0) s.push({ n: "✓", t: "סוף השיעור", page: e }); return s; }
+function curSection() { const s = sections(); let c = s[0]; for (const x of s) if (x.page <= at + perView - 1) c = x; return c; }
+function tocHTML() {
+  const s = sections(), c = curSection();
+  const wordsLeft = Math.max(0, (pages.length - at - perView) * 290);
+  return `<h3>תוכן השיעור</h3><ol>${s.map((x) => `<li><button data-act="jump" data-page="${x.page}" class="${x === c ? "cur" : ""}"><span>${x.n} · ${x.t}</span><span class="pg">${x.page + 1}</span></button></li>`).join("")}</ol><div class="left">נשארו כ-${Math.round(wordsLeft / 180)} דקות קריאה</div>`;
+}
+function drawNav() {
+  const L = $("navLayer"); L.innerHTML = "";
+  const mode = S.nav;
+  if (mode === "ribbon") {
+    // the ribbon hangs at the spine side of the right page, over the place you stopped
+    const r = document.createElement("button"); r.className = "ribbon"; r.dataset.act = "toc"; r.setAttribute("aria-label", "תוכן השיעור"); r.setAttribute("aria-expanded", "false");
+    r.style.right = perView === 2 ? `calc(var(--pw) - 42px)` : "18px";
+    L.appendChild(r);
+  } else if (mode === "tabs") {
+    const s = sections(), c = curSection(), H = geo.ph;
+    const n = s.length, th = Math.min(54, (H * 0.7) / n);
+    s.forEach((x, i) => {
+      const b = document.createElement("button"); b.className = "ftab"; b.dataset.act = "jump"; b.dataset.page = x.page;
+      b.title = x.t; b.textContent = x.n;
+      const past = x.page <= at + (perView - 1);
+      b.classList.add(past ? "side-r" : "side-l"); if (x === c) b.classList.add("cur");
+      b.style.top = 26 + i * (th + 4) + "px"; b.style.height = th + "px";
+      b.style.setProperty("--tabc", `color-mix(in srgb, var(--accent) ${92 - i * 11}%, var(--ink-soft))`);
+      if (perView === 1 && !past) b.style.left = "-21px";
+      L.appendChild(b);
+    });
+  } else {
+    const b = document.createElement("button"); b.className = "btn"; b.dataset.act = "drawer"; b.textContent = "תוכן השיעור";
+    b.style.cssText = "position:absolute;top:-40px;left:0;z-index:6";
+    L.appendChild(b);
+  }
+}
+function jump(p) {
+  closeOverlays();
+  const target = perView === 2 ? p - (p % 2) : p;
+  const dist = Math.abs(target - at) / perView;
+  if (!dist) return;
+  const dir = target > at ? 1 : -1;
+  if (dist <= 3 && turnMode() !== "fade" && turnMode() !== "none") {
+    // a short riffle: quick turns, one per spread
+    let n = dist;
+    const one = () => { if (!n--) return; turn(dir, { ms: 230, silent: true }); snd.turn(0.35); const wait = () => (busy ? requestAnimationFrame(wait) : one()); requestAnimationFrame(wait); };
+    one();
+  } else { snd.riffle(); at = target; render(); savePos(); for (const el of [$("pR"), $("pL")]) { el.classList.remove("fadein"); void el.offsetWidth; el.classList.add("fadein"); } }
+}
+
+/* ============ overlays: consult, 3D, toc, notes ============ */
+let overlay = [];
+function closeOverlays(keepFacing) { overlay = overlay.filter((o) => { if (keepFacing && (o.classList.contains("c-facing") || o.classList.contains("s-facing"))) return true; o.remove(); return false; }); document.querySelectorAll(".anchored").forEach((e) => e.classList.remove("anchored")); const d = $("drawer"); d.classList.remove("open"); d.setAttribute("aria-hidden", "true"); const sel = getSelection(); if (sel && sel.rangeCount && !sel.isCollapsed && book.contains(sel.anchorNode)) {} }
+function addOverlay(el, parent = book) { parent.appendChild(el); overlay.push(el); return el; }
+book.addEventListener("click", (e) => {
+  const a = e.target.closest("[data-act]"); if (!a) return;
+  const act = a.dataset.act, id = a.dataset.id;
+  if (act === "conf") {
+    st.conf[id] = a.dataset.v; snd.click();
+    if (S.think === "margin") st.mans[id] = true;
+    rerenderVisible();
+    if (S.think === "flap") snd.open();
+  } else if (act === "grade") {
+    st.grade[id] = a.dataset.v; rerenderVisible();
+    if (a.dataset.v === "wrong" && st.conf[id] === "sure") snd.hot(); else if (a.dataset.v === "right") snd.right();
+  } else if (act === "pred") {
+    const inp = book.querySelector(`[data-pred="${id}"]`); st.pred[id] = inp ? inp.value : ""; rerenderVisible(); snd.open();
+  } else if (act === "dec") { st.dec[id] = +a.dataset.v; rerenderVisible(); snd.click(); }
+  else if (act === "lift") openScene(a);
+  else if (act === "toc") { const was = overlay.some((o) => o.classList.contains("toc")); closeOverlays(); if (!was) openToc(a); }
+  else if (act === "jump") jump(+a.dataset.page);
+  else if (act === "drawer") { const d = $("drawer"); d.innerHTML = tocHTML(); d.classList.add("open"); d.setAttribute("aria-hidden", "false"); }
+  else if (act === "note") { if (!e.target.closest("[contenteditable]")) a.classList.toggle("open"); }
+});
+$("drawer").addEventListener("click", (e) => { const a = e.target.closest("[data-act=jump]"); if (a) jump(+a.dataset.page); });
+function rerenderVisible() { render(); }
+function openToc(btn) {
+  const t = document.createElement("div"); t.className = "toc"; t.innerHTML = tocHTML();
+  const br = book.getBoundingClientRect(), r = btn.getBoundingClientRect();
+  t.style.top = "70px"; t.style.right = Math.max(8, br.right - r.right - 140) + "px";
+  addOverlay(t); btn.setAttribute("aria-expanded", "true"); snd.open();
+}
+book.addEventListener("input", (e) => { const n = e.target.closest("[data-noteedit]"); if (n) NOTES[+n.dataset.noteedit].text = n.textContent; });
+
+/* consult card: select text, or ask about the paragraph at the top of the page */
+let selTool = null;
+document.addEventListener("selectionchange", () => {
+  const sel = getSelection();
+  if (selTool) { selTool.remove(); selTool = null; }
+  if (!sel || sel.isCollapsed || !sel.rangeCount) return;
+  const node = sel.anchorNode && (sel.anchorNode.nodeType === 1 ? sel.anchorNode : sel.anchorNode.parentElement);
+  if (!node || !node.closest(".page .content") || node.closest(".face")) return;
+  const txt = sel.toString().trim(); if (txt.length < 3) return;
+  const rr = sel.getRangeAt(0).getBoundingClientRect(), br = book.getBoundingClientRect();
+  selTool = document.createElement("div"); selTool.className = "seltool";
+  selTool.innerHTML = ["הסבר פשוט", "למה?", "דוגמה", "בדוק אותי", "שאל…"].map((l, i) => `<button data-k="${i}">${l}</button>`).join("");
+  selTool.style.top = rr.top - br.top - 40 + "px"; selTool.style.left = Math.max(0, rr.left - br.left) + "px";
+  book.appendChild(selTool);
+  selTool.addEventListener("mousedown", (ev) => ev.preventDefault());
+  selTool.addEventListener("click", (ev) => { const b = ev.target.closest("button"); if (!b) return; const p = node.closest("[data-b]"); openConsult(p, txt, +b.dataset.k); sel.removeAllRanges(); });
+});
+const ANSWERS = [
+  "<p>נורמה היא פשוט \"אורך\". בחץ במישור זה האורך שמודדים בסרגל. בפונקציה אין סרגל, אז מגדירים אורך דרך האינטגרל: כמה \"אנרגיה\" יש בה לאורך כל הקטע.</p><p>המרחק בין שתי פונקציות הוא האורך של ההפרש ביניהן. אם הוא קטן, הן קרובות בכל מקום שחשוב, גם אם בנקודה בודדת הן שונות.</p><div class=\"more\">&lt;&lt;עוד: למה דווקא ריבוע ולא ערך מוחלט&gt;&gt;</div>",
+  "<p>כי ריבוע מתנהג יפה עם אלגברה: הוא נובע ממכפלה פנימית, ולכן יש זוויות, ניצבות והטלות. עם ערך מוחלט יש מרחק, אבל אין \"ניצב\", ובלי ניצב אין טור פורייה עם מקדמים שמחושבים אחד-אחד.</p><div class=\"more\">&lt;&lt;עוד: משפט פרסבל&gt;&gt;</div>",
+  "<p>דוגמה: מסנן מעביר-נמוכים אידיאלי והקירוב שלו מ-8 מקדמים. השגיאה הריבועית ביניהם היא בדיוק סכום ריבועי המקדמים שזרקת. לכן \"כמה רחוק הקירוב\" נמדד בלי לחשב אינטגרל בכלל.</p>",
+  "<p><b>שאלה:</b> f(t) = 1 ו-g(t) = 0 על [0, 4]. מה ‖f − g‖?</p><p style=\"color:var(--muted)\">כתוב מספר, ואז פתח: התשובה 2, שורש של 4.</p>",
+  "<p>שאל כל דבר על הקטע המסומן. התשובה תיכתב כאן, והשיעור לא זז.</p>",
+];
+function openConsult(pEl, quote, kind) {
+  closeOverlays();
+  if (!pEl) return;
+  const pageEl = pEl.closest(".page"); const side = pageEl.classList.contains("L") ? "L" : "R";
+  pEl.classList.add("anchored");
+  const narrow = perView === 1;
+  const mode = narrow ? "sheet" : S.consult;
+  const c = document.createElement("div");
+  c.className = `consult c-${mode === "margin" ? "card" : mode}`;
+  const levels = ["L0", "L1", "L2", "L3"].map((l, i) => `<button aria-pressed="${i === 1}">${l}</button>`).join("");
+  c.innerHTML = `<div class="ch">${["הסבר פשוט", "למה?", "דוגמה", "בדוק אותי", "שאלה"][kind]}<span class="lv">${levels}</span><button class="x" aria-label="סגור">×</button></div>
+    <div class="q">«${quote.length > 120 ? quote.slice(0, 118) + "…" : quote}»</div>
+    <div class="body">${ANSWERS[kind]}</div>
+    <div class="acts"><button data-c="talk">דיון</button><button data-c="keep">לפתק בשוליים</button></div>`;
+  const br = book.getBoundingClientRect(), pr = pEl.getBoundingClientRect(), pgR = pageEl.getBoundingClientRect();
+  if (mode === "slip") {
+    const w = geo.W * 0.96;
+    c.style.width = w + "px"; c.style.maxHeight = Math.min(geo.ph * 0.55, 360) + "px";
+    const top = Math.min(pr.bottom - br.top + 8, geo.ph - Math.min(geo.ph * 0.55, 360) - 10);
+    c.style.top = top + "px";
+    // the slip is tucked into the book: it sticks out past the fore-edge
+    if (side === "R") c.style.right = geo.mo - 34 + "px"; else c.style.left = geo.mo - 34 + "px";
+  } else if (mode === "margin") {
+    const deskR = desk.getBoundingClientRect(), room = side === "R" ? deskR.right - br.right : br.left - deskR.left;
+    const w = Math.max(260, Math.min(320, room - 24));
+    c.style.width = w + "px"; c.style.maxHeight = geo.ph * 0.8 + "px";
+    c.style.top = Math.max(0, Math.min(pr.top - br.top - 10, geo.ph * 0.2)) + "px";
+    if (room > 280) { if (side === "R") c.style.left = br.width + 14 + "px"; else c.style.right = br.width + 14 + "px"; }
+    else { if (side === "R") c.style.right = "6px"; else c.style.left = "6px"; }
+  } else if (mode === "facing") {
+    // the facing page turns into the consult: a sheet laid over it
+    c.style.top = "0"; c.style.height = geo.ph + "px"; c.style.width = geo.pw + "px";
+    if (side === "R") c.style.left = "0"; else c.style.right = "0";
+    c.classList.add("slidein"); c.style.setProperty("--sx", side === "R" ? "-10px" : "10px");
+  }
+  if (mode === "sheet") addOverlay(c, document.body); else addOverlay(c);
+  snd.open();
+  c.querySelector(".x").onclick = closeOverlays;
+  c.querySelectorAll(".lv button").forEach((b) => (b.onclick = () => { c.querySelectorAll(".lv button").forEach((x) => x.setAttribute("aria-pressed", x === b)); }));
+  c.querySelector("[data-c=talk]").onclick = () => {
+    if (c.querySelector(".talk")) return;
+    const t = document.createElement("form"); t.className = "talk"; t.innerHTML = `<input id="talkIn" placeholder="המשך את הדיון על הנקודה הזאת" autocomplete="off"><button class="btn" type="submit">שלח</button>`;
+    c.appendChild(t); t.querySelector("input").focus();
+    t.onsubmit = (ev) => { ev.preventDefault(); const v = t.querySelector("input").value.trim(); if (!v) return; const body = c.querySelector(".body"); body.insertAdjacentHTML("beforeend", `<div class="me">${v.replace(/</g, "&lt;")}</div><p>זו בדיוק הנקודה. באב-הטיפוס התשובה כתובה מראש; במעבדה המורה עונה כאן, על הקטע הזה בלבד, והשיעור נשאר במקומו.</p>`); body.scrollTop = body.scrollHeight; t.querySelector("input").value = ""; snd.open(); };
+  };
+  c.querySelector("[data-c=keep]").onclick = () => { NOTES.push({ anchor: pEl.dataset.b, kind: "הערה", text: "מההתייעצות: " + quote.slice(0, 60) }); closeOverlays(); rebuild(); };
+}
+$("askBtn").onclick = () => { const p = $("pR").querySelector(".content p[data-b]"); if (p) openConsult(p, p.textContent.slice(0, 90), 0); };
+$("noteBtn").onclick = () => {
+  const p = $("pR").querySelector(".content p[data-b]") || $("pR").querySelector("[data-b]"); if (!p) return;
+  NOTES.push({ anchor: p.dataset.b, kind: "הערה", text: "", edit: true }); rebuild();
+  setTimeout(() => { const ed = book.querySelector(`[data-noteedit="${NOTES.length - 1}"]`); if (ed) { ed.closest(".mnote").classList.add("open"); ed.focus(); } }, 30);
+};
+
+/* ============ 3D: a small scene drawn on canvas, turned by dragging (never moves by itself) ============ */
+function cssv(n) { return getComputedStyle(root).getPropertyValue(n).trim(); }
+function draw3D(cv, yaw, pitch) {
+  const dpr = devicePixelRatio || 1, W = cv.clientWidth || 480, H = cv.clientHeight || 270;
+  cv.width = W * dpr; cv.height = H * dpr;
+  const g = cv.getContext("2d"); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, W, H);
+  const s = Math.min(W, H) * 0.2, cx = W / 2, cy = H * 0.62;
+  const P = ([x, y, z]) => { const cy1 = Math.cos(yaw), sy = Math.sin(yaw), cp = Math.cos(pitch), sp = Math.sin(pitch); const X = x * cy1 - y * sy, Y0 = x * sy + y * cy1; const Y = Y0 * sp + z * cp; return [cx + X * s, cy - Y * s]; };
+  const ink = cssv("--ink"), mut = cssv("--muted"), acc = cssv("--accent"), rule = cssv("--rule");
+  const line = (a, b, c, w = 1.2, dash) => { const [x1, y1] = P(a), [x2, y2] = P(b); g.strokeStyle = c; g.lineWidth = w; g.setLineDash(dash || []); g.beginPath(); g.moveTo(x1, y1); g.lineTo(x2, y2); g.stroke(); g.setLineDash([]); };
+  const arrow = (b, c, lbl) => { line([0, 0, 0], b, c, 2); const [x, y] = P(b); g.fillStyle = c; g.beginPath(); g.arc(x, y, 3.2, 0, 7); g.fill(); g.font = "italic 15px " + cssv("--f-body"); g.fillText(lbl, x + 6, y - 6); };
+  for (let i = -2; i <= 3; i++) { line([i, -2, 0], [i, 3, 0], rule, 0.6); line([-2, i, 0], [3, i, 0], rule, 0.6); }
+  [[3, 0, 0, "x"], [0, 3, 0, "y"], [0, 0, 2.6, "z"]].forEach(([x, y, z, l]) => { line([0, 0, 0], [x, y, z], mut, 1); const [a, b] = P([x, y, z]); g.fillStyle = mut; g.font = "12px " + cssv("--f-mono"); g.fillText(l, a + 4, b); });
+  const u = [2, 0.4, 0.5], v = [0.3, 1.7, 1.1], w = [u[0] + v[0], u[1] + v[1], u[2] + v[2]];
+  const poly = [[0, 0, 0], u, w, v].map(P);
+  g.fillStyle = acc; g.globalAlpha = 0.13; g.beginPath(); poly.forEach(([x, y], i) => (i ? g.lineTo(x, y) : g.moveTo(x, y))); g.fill(); g.globalAlpha = 1;
+  line(u, w, acc, 1, [4, 3]); line(v, w, acc, 1, [4, 3]);
+  arrow(u, ink, "u"); arrow(v, ink, "v"); arrow(w, acc, "u+v");
+}
+let posterURL = "", posterKey = "";
+function poster() {
+  const key = cssv("--ink") + cssv("--accent");
+  if (posterURL && key === posterKey) return posterURL;
+  const cv = document.createElement("canvas"); cv.style.cssText = "width:480px;height:270px;position:absolute;left:-9999px"; document.body.appendChild(cv);
+  draw3D(cv, -0.7, 1.05); posterURL = cv.toDataURL(); posterKey = key; cv.remove(); return posterURL;
+}
+function liveCanvas(cv) {
+  let yaw = -0.7, pitch = 1.05; requestAnimationFrame(() => draw3D(cv, yaw, pitch));
+  let d = null;
+  cv.addEventListener("pointerdown", (e) => { d = { x: e.clientX, y: e.clientY, yaw, pitch }; cv.setPointerCapture(e.pointerId); cv.style.cursor = "grabbing"; snd.drag(); });
+  cv.addEventListener("pointermove", (e) => { if (!d) return; yaw = d.yaw - (e.clientX - d.x) * 0.01; pitch = Math.max(0.2, Math.min(1.5, d.pitch - (e.clientY - d.y) * 0.008)); draw3D(cv, yaw, pitch); });
+  cv.addEventListener("pointerup", () => { d = null; cv.style.cursor = "grab"; });
+}
+function openScene(btn) {
+  closeOverlays();
+  const plate = btn.closest(".plate"), br = book.getBoundingClientRect(), pr = plate.getBoundingClientRect();
+  const scrim = document.createElement("div"); scrim.className = "scrim"; scrim.onclick = closeOverlays; addOverlay(scrim);
+  const box = document.createElement("div"); box.className = "lift3d";
+  const spread = S.scene === "spread";
+  const w = spread ? br.width - 30 : Math.min(br.width - 30, geo.pw * 1.15), h = spread ? geo.ph - 30 : Math.min(geo.ph - 40, w * 0.72);
+  const left = (br.width - w) / 2, top = (geo.ph - h) / 2;
+  Object.assign(box.style, { width: w + "px", height: h + "px", left: left + "px", top: top + "px" });
+  // it rises from where the plate lies on the page
+  const sx = pr.width / w, sy = pr.height / h, tx = pr.left - br.left - left, ty = pr.top - br.top - top;
+  box.style.setProperty("--from", `translate(${tx}px, ${ty}px) scale(${sx}, ${sy})`);
+  box.style.transformOrigin = "0 0";
+  box.innerHTML = `<div class="lh">סצנה תלת-ממדית · u, v ו-u+v<button class="x">החזר לדף</button></div><canvas></canvas><div class="lf">גרור לסיבוב. הסצנה זזה רק כשאתה מזיז אותה.</div>`;
+  addOverlay(box); box.classList.add("rise"); snd.open();
+  box.querySelector(".x").onclick = closeOverlays;
+  liveCanvas(box.querySelector("canvas"));
+}
+
+/* ============ sound: v2 language, synthesized, only on actions ============ */
+let AC = null, master = null, soundOn = false;
+function audio() { if (!soundOn) return null; if (!AC) { try { AC = new AudioContext(); master = AC.createGain(); master.gain.value = 0.94; master.connect(AC.destination); } catch (e) { return null; } } if (AC.state === "suspended") AC.resume(); return AC; }
+const rnd = (a, b) => a + Math.random() * (b - a);
+function noise(c, dur) { const n = Math.ceil(c.sampleRate * dur), b = c.createBuffer(1, n, c.sampleRate), d = b.getChannelData(0); let last = 0; for (let i = 0; i < n; i++) { const w = Math.random() * 2 - 1; last = (last + 0.04 * w) / 1.04; d[i] = w * 0.6 + last * 2.4; } return b; }
+const snd = {
+  /** the page: a lift (thin, high), a slide of paper across paper (band of noise falling), and a soft landing.
+      Every turn is different: band, length, level and the landing are drawn at random. */
+  turn(k = 1) {
+    const c = audio(); if (!c) return;
+    const t = c.currentTime, dur = Math.min(0.75, Math.max(0.22, 0.42 * k)) * rnd(0.88, 1.12);
+    const s = c.createBufferSource(); s.buffer = noise(c, dur + 0.1);
+    const bp = c.createBiquadFilter(); bp.type = "bandpass"; bp.Q.value = rnd(0.7, 1.1);
+    const f0 = rnd(2600, 3600); bp.frequency.setValueAtTime(f0, t); bp.frequency.exponentialRampToValueAtTime(f0 * rnd(0.32, 0.45), t + dur);
+    const hp = c.createBiquadFilter(); hp.type = "highpass"; hp.frequency.value = 380;
+    const g = c.createGain(); const L = 0.095 * rnd(0.8, 1.05);
+    g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(L * 0.35, t + 0.03); g.gain.linearRampToValueAtTime(L, t + dur * 0.55); g.gain.exponentialRampToValueAtTime(0.0008, t + dur);
+    s.connect(bp); bp.connect(hp); hp.connect(g); g.connect(master); s.start(t); s.stop(t + dur + 0.1);
+    // the landing: a dull, short low puff
+    const s2 = c.createBufferSource(); s2.buffer = noise(c, 0.08);
+    const lp = c.createBiquadFilter(); lp.type = S.lab === "core" ? "lowpass" : "bandpass"; lp.frequency.value = S.lab === "core" ? rnd(240, 300) : rnd(2600, 3000);
+    const g2 = c.createGain(); const tl = t + dur * 0.92;
+    g2.gain.setValueAtTime(0, tl); g2.gain.linearRampToValueAtTime(S.lab === "core" ? 0.13 * rnd(0.7, 1) : 0.06 * rnd(0.7, 1), tl + 0.008); g2.gain.exponentialRampToValueAtTime(0.0008, tl + 0.07);
+    s2.connect(lp); lp.connect(g2); g2.connect(master); s2.start(tl); s2.stop(tl + 0.1);
+  },
+  riffle() { const c = audio(); if (!c) return; const n = 6 + Math.floor(Math.random() * 4); for (let i = 0; i < n; i++) setTimeout(() => this.turn(0.3 * rnd(0.7, 1)), i * rnd(28, 42)); },
+  click() { const c = audio(); if (!c) return; const t = c.currentTime, o = c.createOscillator(), g = c.createGain(); o.frequency.setValueAtTime(520 * rnd(0.97, 1.03), t); o.frequency.exponentialRampToValueAtTime(360, t + 0.07); g.gain.setValueAtTime(0.1, t); g.gain.exponentialRampToValueAtTime(0.0008, t + 0.07); o.connect(g); g.connect(master); o.start(t); o.stop(t + 0.08); },
+  open() { const c = audio(); if (!c) return; const t = c.currentTime, dur = 0.09 * rnd(0.9, 1.1), s = c.createBufferSource(); s.buffer = noise(c, dur + 0.02); const bp = c.createBiquadFilter(); bp.type = "bandpass"; bp.frequency.value = rnd(900, 1400); bp.Q.value = 1.6; const g = c.createGain(); g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(0.2, t + 0.015); g.gain.linearRampToValueAtTime(0, t + dur); s.connect(bp); bp.connect(g); g.connect(master); s.start(t); s.stop(t + dur + 0.03); },
+  note(f, t0, len, gain) { const c = AC, o = c.createOscillator(), g = c.createGain(); const glass = S.lab === "eng"; o.type = glass ? "sine" : "triangle"; o.frequency.value = f; g.gain.setValueAtTime(0, t0); g.gain.linearRampToValueAtTime(gain, t0 + 0.006); g.gain.exponentialRampToValueAtTime(0.0008, t0 + (glass ? len * 1.6 : len)); o.connect(g); g.connect(master); o.start(t0); o.stop(t0 + len * 1.7); },
+  right() { const c = audio(); if (!c) return; const t = c.currentTime; this.note(440, t, 0.13, 0.12); this.note(660, t + 0.06, 0.2, 0.1); },
+  hot() { const c = audio(); if (!c) return; const t = c.currentTime; this.note(330, t, 0.24, 0.12); this.note(247, t + 0.12, 0.34, 0.11); },
+  drag() { const c = audio(); if (!c) return; this.open(); },
+  stamp() { const c = audio(); if (!c) return; const t = c.currentTime, s = c.createBufferSource(); s.buffer = noise(c, 0.07); const lp = c.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = 200; const g = c.createGain(); g.gain.setValueAtTime(0.6, t); g.gain.exponentialRampToValueAtTime(0.001, t + 0.07); s.connect(lp); lp.connect(g); g.connect(master); s.start(t); [523.25, 659.25, 783.99].forEach((f, i) => this.note(f, t + 0.25 + i * 0.07, 0.55, 0.08)); },
+};
+$("soundBtn").onclick = (e) => { soundOn = !soundOn; e.currentTarget.setAttribute("aria-pressed", soundOn); if (soundOn) snd.click(); };
+
+/* ============ streaming: the lesson while the tutor writes it ============ */
+$("streamBtn").onclick = () => {
+  if (streamState && !streamState.done) { streamState.done = true; clearInterval(streamState.iv); $("streamBtn").textContent = "הדגם: שיעור שנכתב עכשיו"; rebuild(); return; }
+  const full = LESSON.filter((b) => b.t !== "end");
+  const startAt = Math.floor(full.length * 0.55);
+  streamState = { bi: startAt, wi: 0, words: 0, done: false };
+  $("streamBtn").textContent = "עצור את ההדגמה";
+  const tick = () => {
+    const b = full[streamState.bi];
+    if (!b) { streamState.done = true; clearInterval(streamState.iv); $("streamBtn").textContent = "הדגם: שיעור שנכתב עכשיו"; rebuild(); return; }
+    if (b.t === "p") { const n = b.html.split(/\s+/).length; streamState.wi += 7; streamState.words += 7; if (streamState.wi >= n) { streamState.bi++; streamState.wi = 0; } }
+    else { streamState.bi++; streamState.wi = 0; streamState.words += 30; }
+    rebuild(true);
+  };
+  streamState.iv = setInterval(tick, 450); rebuild(true);
+};
+function streamBlocks() {
+  const full = LESSON.filter((b) => b.t !== "end");
+  const out = full.slice(0, streamState.bi);
+  const b = full[streamState.bi];
+  if (b && b.t === "p" && streamState.wi > 0) out.push(Object.assign({}, b, { html: b.html.split(/\s+/).slice(0, streamState.wi).join(" ") }));
+  return out;
+}
+
+/* ============ build, re-pagination with the reading spot anchored to a paragraph ============ */
+let anchorB = null;
+function savePos() { const el = $("pR").querySelector("[data-b]"); anchorB = el ? el.dataset.b : null; try { localStorage.setItem("book6-pos", anchorB || ""); } catch (e) {} }
+function rebuild(keepAt) {
+  measureChar(); layoutGeo();
+  const blocks = streamState && !streamState.done ? streamBlocks() : LESSON;
+  pages = paginate(blocks);
+  if (streamState && !streamState.done && S.stream === "whole" && pages.length > 1) pages = pages.slice(0, -1);
+  if (!keepAt && anchorB) { const i = pages.findIndex((p) => p.html.includes(`data-b="${anchorB}"`)); if (i >= 0) at = i; }
+  at = Math.min(at, Math.max(0, pages.length - 1));
+  if (perView === 2) at -= at % 2;
+  render(!keepAt);
+}
+/* ============ variants panel ============ */
+const DECISIONS = [
+  { g: "קריאה בעמוד" },
+  { id: "face", t: "גופן הגוף", o: [["frank", "פרנק רוהל (היום)"], ["david", "דוד ליברה"], ["noto", "נוטו סריף"]] },
+  { id: "align", t: "יישור ופסקאות", o: [["justify", "מיושר, הזחה"], ["start", "לימין בלבד, הזחה"], ["space", "מיושר, רווח בין פסקאות"]] },
+  { id: "head", t: "כותרת רצה ומספור עמודים", o: [["classic", "כותרת עם קו, מספר בפינה החיצונית"], ["center", "שקט: מספר במרכז"], ["hebrew", "מספור באותיות"]] },
+  { g: "מראה" },
+  { id: "paper", t: "הנייר (בהיר)", o: [["smooth", "שמנת חלקה"], ["fiber", "נייר עם סיב"], ["lab", "נייר המעבדה"]] },
+  { id: "dark", t: "הספר בלילה (כהה)", o: [["graphite", "נייר גרפיט"], ["lamp", "מנורת לילה"], ["ink", "דיו על שחור"]] },
+  { id: "light", t: "תאורה", o: [["flat", "שטוח"], ["gutter", "צל בשדרה"], ["lamp", "מנורה מהצד"]] },
+  { g: "הפיכת הדף" },
+  { id: "turn", t: "איך הדף מתהפך", o: [["hybrid", "מתכופף בגרירה, קשיח במקש"], ["curl", "תמיד מתכופף"], ["rigid", "עלה קשיח"], ["slide", "החלקה קצרה"], ["none", "מיידי"]] },
+  { id: "speed", t: "משך ההפיכה", o: [["s280", "280ms"], ["s380", "380ms"], ["s520", "520ms"], ["s900", "900ms (הבסיס)"]] },
+  { id: "open", t: "רגע הפתיחה", o: [["book", "הספר נפתח, פעם בשיעור"], ["none", "בלי"]] },
+  { g: "התוכן בעמודים" },
+  { id: "think", t: "התשובה לשאלת חשיבה", o: [["flap", "קפל שנפתח"], ["back", "בגב הדף"], ["margin", "בשוליים"]] },
+  { id: "consult", t: "כרטיס התייעצות", o: [["slip", "פתק שנתחב בין הדפים"], ["margin", "כרטיס על השולחן"], ["facing", "העמוד שמול"]] },
+  { id: "scene", t: "תלת-ממד בעמוד", o: [["plate", "לוח שמתרומם מהדף"], ["spread", "נפתח על הכפולה"], ["live", "חי בתוך העמוד"]] },
+  { id: "figure", t: "איורים", o: [["inline", "בתוך הטקסט"], ["page", "עמוד מלא"], ["spread", "על פני הכפולה"]] },
+  { id: "nav", t: "תוכן השיעור", o: [["ribbon", "סרט סימנייה"], ["tabs", "לשוניות בחוד הדף"], ["drawer", "מגירה (היום)"]] },
+  { id: "eqref", t: "הפניה למשוואה שלא בכפולה", o: [["margin", "המשוואה מודפסת שוב בשוליים"], ["none", "רק המספר"]] },
+  { id: "scratch", t: "מחברת שרטוטים", o: [["facing", "העמוד שמול"], ["side", "על השולחן ליד הספר"], ["bottom", "מגירה מלמטה"]] },
+  { id: "stream", t: "בזמן שהשיעור נכתב", o: [["fill", "העמוד מתמלא לעיניך"], ["whole", "עמוד מופיע רק כשהוא מלא"]] },
+];
+const REC = { open: "book", align: "justify", eqref: "margin", scratch: "facing", face: "frank", head: "classic", paper: "smooth", dark: "graphite", light: "gutter", turn: "hybrid", speed: "s380", think: "flap", consult: "facing", scene: "plate", figure: "inline", nav: "tabs", stream: "fill" };
+function drawPanel() {
+  const p = $("panel");
+  p.innerHTML = `<h2>וריאציות<button class="chip" id="panelClose">סגור</button></h2><p class="intro">כל החלטה פתוחה בסבב, עם האפשרויות שלה. מה שתבחר כאן הוא רק לנסות; הבחירה עצמה נשמרת בלוח הבחירות.</p>
+  <div class="preset"><button class="chip" id="presetRec">ההמלצה</button><button class="chip" id="presetBase">הבסיס (סקיצה א)</button></div>
+  <fieldset><legend>גודל הטקסט <span class="id">${S.fs}px</span></legend><div class="row"><input type="range" id="fsR" min="16" max="22" step="0.5" value="${S.fs}"></div></fieldset>
+  ${DECISIONS.map((d) => d.g ? `<div style="font:600 11px var(--f-ui);color:var(--muted);letter-spacing:.06em;margin:14px 0 2px">${d.g}</div>` : `<fieldset><legend>${d.t}<span class="id">b-${d.id}</span></legend><div class="opts">${d.o.map(([v, l]) => `<button data-d="${d.id}" data-v="${v}" aria-pressed="${S[d.id] === v}">${l}${REC[d.id] === v ? '<span class="r">★</span>' : ""}</button>`).join("")}</div></fieldset>`).join("")}`;
+  $("panelClose").onclick = togglePanel;
+  $("presetRec").onclick = () => { Object.assign(S, REC); applyAttrs(); drawPanel(); rebuild(); };
+  $("presetBase").onclick = () => { Object.assign(S, { face: "frank", paper: "smooth", light: "flat", head: "classic", turn: "rigid", speed: "slow", think: "flap", consult: "slip", scene: "plate", figure: "inline", nav: "ribbon" }); applyAttrs(); drawPanel(); rebuild(); };
+  $("fsR").oninput = (e) => { S.fs = +e.target.value; p.querySelector("legend .id").textContent = S.fs + "px"; rebuild(); };
+  p.querySelectorAll("[data-d]").forEach((b) => (b.onclick = () => { S[b.dataset.d] = b.dataset.v; applyAttrs(); drawPanel(); if (["face", "think", "figure", "scene", "head", "align", "eqref"].includes(b.dataset.d)) { posterURL = ""; rebuild(); } else render(); if (b.dataset.d === "turn" || b.dataset.d === "speed") { turnsDone = 0; } }));
+}
+function togglePanel() { const p = $("panel"); p.hidden = !p.hidden; $("panelBtn").setAttribute("aria-pressed", !p.hidden); if (!p.hidden) drawPanel(); }
+$("panelBtn").onclick = togglePanel;
+function applyAttrs() { for (const k of ["face", "paper", "dark", "light", "head", "turn", "lab", "align"]) root.dataset[k] = S[k]; $("lab-eng").setAttribute("aria-pressed", S.lab === "eng"); $("lab-core").setAttribute("aria-pressed", S.lab === "core"); }
+$("lab-eng").onclick = () => { S.lab = "eng"; applyAttrs(); posterURL = ""; render(true); };
+$("lab-core").onclick = () => { S.lab = "core"; applyAttrs(); posterURL = ""; render(true); };
+const THEMES = ["", "light", "dark"], TL = { "": "מערכת", light: "בהיר", dark: "כהה" };
+$("themeBtn").onclick = (e) => { const i = (THEMES.indexOf(root.dataset.theme || "") + 1) % 3; if (THEMES[i]) root.dataset.theme = THEMES[i]; else delete root.dataset.theme; e.currentTarget.textContent = TL[THEMES[i]]; posterURL = ""; render(true); };
+$("phoneBtn").onclick = (e) => { const on = root.dataset.phone !== "1"; root.dataset.phone = on ? "1" : "0"; e.currentTarget.setAttribute("aria-pressed", on); rebuild(); };
+if (reduced()) root.dataset.motion = "reduce";
+reduceMQ.addEventListener?.("change", () => { root.dataset.motion = reduced() ? "reduce" : ""; });
+// paper fibre: a static texture made once (no motion)
+(function () { const c = document.createElement("canvas"); c.width = c.height = 220; const g = c.getContext("2d"); const im = g.createImageData(220, 220); for (let i = 0; i < im.data.length; i += 4) { const v = Math.random() < 0.5 ? 0 : 255; im.data[i] = im.data[i + 1] = im.data[i + 2] = v; im.data[i + 3] = Math.random() * 9; } g.putImageData(im, 0, 0); g.globalAlpha = 0.05; g.strokeStyle = "#8a7a5a"; for (let k = 0; k < 70; k++) { g.beginPath(); const x = Math.random() * 220, y = Math.random() * 220, a = Math.random() * 6.3, l = 6 + Math.random() * 18; g.moveTo(x, y); g.quadraticCurveTo(x + Math.cos(a) * l * 0.5 + 3, y + Math.sin(a) * l * 0.5, x + Math.cos(a) * l, y + Math.sin(a) * l); g.stroke(); } root.style.setProperty("--fiber", `url(${c.toDataURL()})`); })();
+let rT = 0; addEventListener("resize", () => { clearTimeout(rT); rT = setTimeout(() => { savePos(); rebuild(); }, 120); });
+function coverHTML() { return `<div class="cover"><span class="lab">${S.lab === "core" ? "לנצ'סטר" : "גילואה"}</span><span class="t">המתמטיקה המודרנית</span><span class="m">M0.1 · שיעור 4</span></div>`; }
+let opened = false;
+function openBook() {
+  if (opened || S.open !== "book" || turnMode() === "fade" || turnMode() === "none" || !pages.length) { opened = true; return; }
+  opened = true; busy = true;
+  // the closed book lies on the left half; its cover swings over the spine to the right, as a Hebrew book opens
+  if (perView === 2) { buildLeaf(-1, 0, coverHTML()); $("pR").style.visibility = "hidden"; }
+  else buildLeaf(-1, -1, coverHTML(), "");
+  setAngle(0);
+  setTimeout(() => { snd.turn(1.1); animate(0, 1, 650, () => { leaf.hidden = true; leaf.innerHTML = ""; busy = false; render(); }); }, 120);
+}
+const stopOpen = () => { if (busy && leaf.querySelector(".cover")) { cancelAnimationFrame(raf); leaf.hidden = true; leaf.innerHTML = ""; busy = false; render(); } };
+addEventListener("keydown", stopOpen, true); addEventListener("pointerdown", stopOpen, true);
+$("scratchBtn").onclick = () => {
+  if (overlay.some((o) => o.classList.contains("scratch"))) { closeOverlays(); return; }
+  closeOverlays();
+  const mode = perView === 1 && S.scratch === "side" ? "bottom" : S.scratch;
+  const p = document.createElement("div"); p.className = `scratch s-${mode}`;
+  p.innerHTML = `<div class="sh">מחברת · M0.1 · שיעור 4<span class="sp"></span><button aria-pressed="true" data-tool="pen">עט</button><button data-tool="erase">מחק</button><button data-c="check">בדוק את הפתרון</button><button data-c="x">סגור</button></div><canvas></canvas>`;
+  const br = book.getBoundingClientRect(), dr = desk.getBoundingClientRect();
+  if (mode === "facing") { Object.assign(p.style, { width: geo.pw + "px", height: geo.ph + "px" }); if (perView === 2) p.style.left = "0"; else p.style.right = "0"; addOverlay(p); }
+  else if (mode === "side") { const room = br.left - dr.left; const w = Math.max(300, Math.min(440, room - 20)); Object.assign(p.style, { width: w + "px", height: geo.ph * 0.86 + "px", top: geo.ph * 0.07 + "px", right: (room > 320 ? br.width + 12 : br.width - w) + "px" }); addOverlay(p); }
+  else addOverlay(p, document.body);
+  snd.open();
+  const cv = p.querySelector("canvas"); let tool = "pen", d = null, g;
+  requestAnimationFrame(() => { const dpr = devicePixelRatio || 1; cv.width = cv.clientWidth * dpr; cv.height = cv.clientHeight * dpr; g = cv.getContext("2d"); g.scale(dpr, dpr); g.lineCap = g.lineJoin = "round";
+    g.strokeStyle = cssv("--ink"); g.lineWidth = 1.8; g.font = "italic 18px " + cssv("--f-body"); g.fillStyle = cssv("--ink"); g.fillText("‖sin‖² = π", 30, 44); g.beginPath(); g.moveTo(30, 52); g.quadraticCurveTo(80, 50, 130, 54); g.stroke(); });
+  cv.onpointerdown = (e) => { d = [e.offsetX, e.offsetY]; cv.setPointerCapture(e.pointerId); };
+  cv.onpointermove = (e) => { if (!d || !g) return; g.globalCompositeOperation = tool === "erase" ? "destination-out" : "source-over"; g.lineWidth = tool === "erase" ? 16 : 1.8; g.strokeStyle = cssv("--ink"); g.beginPath(); g.moveTo(d[0], d[1]); g.lineTo(e.offsetX, e.offsetY); g.stroke(); d = [e.offsetX, e.offsetY]; };
+  cv.onpointerup = () => (d = null);
+  p.querySelectorAll("[data-tool]").forEach((b) => (b.onclick = () => { tool = b.dataset.tool; p.querySelectorAll("[data-tool]").forEach((x) => x.setAttribute("aria-pressed", x === b)); }));
+  p.querySelector("[data-c=x]").onclick = closeOverlays;
+  p.querySelector("[data-c=check]").onclick = (e) => { e.target.textContent = "נשלח למורה, בקריאה נפרדת"; };
+};
+window.__set = (o) => { Object.assign(S, o); applyAttrs(); posterURL = ""; rebuild(); };
+window.__go = (i) => { at = i - (perView === 2 ? i % 2 : 0); render(); };
+window.__st = st;
+window.__openConsult = (k) => $("askBtn").click();
+// a plain #decision-variant opens the book on that variant (the choice board links here)
+function fromHash() { const h = decodeURIComponent(location.hash.slice(1)); const i = h.indexOf("-"); if (i < 0) return false; const k = h.slice(0, i), v = h.slice(i + 1); if (!(k in S) || k === "fs") return false; S[k] = v; applyAttrs(); return true; }
+fromHash();
+addEventListener("hashchange", () => { if (fromHash()) { posterURL = ""; rebuild(); if (!$("panel").hidden) drawPanel(); } });
+applyAttrs();
+document.fonts.ready.then(() => { rebuild(); openBook(); });
+rebuild();
+</script>
