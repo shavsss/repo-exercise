@@ -1,12 +1,12 @@
 // Measuring the hidden copy of the lesson: each block's height, and the places between its lines where it may be
 // cut. A line is found from the boxes of its text (Range.getClientRects) and of everything that must never be cut
-// (an equation, a picture, a button row); boxes that overlap vertically are one line. A cut sits in the middle of
-// the gap between two lines, so the next page starts with the half-leading above its first line, as a fresh page
-// would. Identical in both labs.
+// (an equation, a picture, a button row); boxes that overlap vertically are one line. A cut sits just under the
+// upper of two lines (in the middle of the gap when the gap is small), so nothing of the lower line's ink shows at
+// the foot of the page, and the next page starts with the space above its first line. Identical in both labs.
 
 /** Things a cut must never pass through. */
 const ATOMS =
-  ".katex-display, .katex .base, .katex, img, svg, canvas, video, iframe, tr, pre, button, input, textarea, select, hr, .mermaid, .figure, .commit, .b3-form, .block-head, .s3d, .bk-plate, .table-wrap, .chart, mjx-container";
+  ".katex-display, .katex .base, .katex .vlist-t, .katex, img, svg, canvas, video, iframe, tr, pre, button, input, textarea, select, hr, .mermaid, .figure, .commit, .b3-form, .block-head, .s3d, .bk-plate, .table-wrap, .chart, mjx-container";
 
 /** The y offsets (from the top of `el`) between its lines. */
 export function lineCuts(el: HTMLElement): number[] {
@@ -36,7 +36,9 @@ export function lineCuts(el: HTMLElement): number[] {
   }
   const cuts: number[] = [];
   for (let k = 1; k < lines.length; k++) {
-    const c = Math.round((lines[k - 1][1] + lines[k][0]) / 2);
+    // in the middle of the gap, but never more than 2px below the line above: a tall equation's ink (a big
+    // bracket, a superscript) may reach a little above its own box, and must not peek into the page before
+    const c = Math.round(Math.min((lines[k - 1][1] + lines[k][0]) / 2, lines[k - 1][1] + 2));
     if (c > 0 && c < box.height) cuts.push(c);
   }
   return cuts;

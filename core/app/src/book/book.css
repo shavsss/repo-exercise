@@ -269,6 +269,19 @@
 }
 .bk-cont.is-next { left: 0; }
 .bk-cont.is-prev { right: 0; }
+/* a definition or formula cut between its lines: the last few px of its window (the gap under its last line)
+   are paper, so the top of a tall symbol on the next line never peeks in */
+.bk-frag.is-head:is(.f-definition, .f-formula, .f-refresh, .f-erratum, .f-plan)::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 4px;
+  background: var(--bk-paper);
+  pointer-events: none;
+}
+/* a picture that floated to the next page: a pointer at the foot of the page it left */
+.bk-cont.is-float { inset-inline: 0; text-align: center; }
 /* the pen still writing: a thin line after the last line on the last page */
 .bk-pen {
   position: absolute;

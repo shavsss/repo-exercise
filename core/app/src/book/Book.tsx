@@ -32,7 +32,7 @@ import type { LessonNote } from "../types";
 import { BookCtx, type BookBridge, type BookCard, type BookCtxValue } from "./context";
 import { FIGURES, INTERACTIVE, PLATES, WHOLE, chunkText, uniqueIds, type Chunk } from "./chunks";
 import { charWidth, heightOf, lineCuts } from "./measure";
-import { pageOf, paginate, type Box, type Frag, type Page } from "./paginate";
+import { pageEnd, pageFill, pageOf, paginate, type Box, type Frag, type Page } from "./paginate";
 import { EASE, FADE_MS, FAST_MS, OPEN_MS, PEEL_MS, TURN_MS, makeOpen, makeTurn, reducedMotion, type TurnStyle } from "./turn";
 import "./book.css";
 
@@ -236,6 +236,15 @@ function chunkClass(c: Chunk, prev?: Chunk) {
   return k.join(" ");
 }
 
+/** what a picture that floated to the next page is called in the pointer at the foot of the page it left */
+function floatName(c: Chunk | undefined) {
+  const l = c?.kind === "table" ? "table" : c?.lang ?? "";
+  if (l === "table") return "טבלה";
+  if (l === "chart") return "תרשים";
+  if (PLATES.has(l)) return "לוח";
+  return "איור";
+}
+
 /* ------------------------------------------------------------------ the boxes ------------------------------------------------------------------ */
 
 interface Measured {
@@ -261,9 +270,11 @@ function boxOf(c: Chunk, m: Measured | undefined, prev: Chunk | undefined, g: Ge
   const box: Box = { h, cuts: m?.cuts ?? [], gap, split: false, minHead: 2 };
   if (text) Object.assign(box, { split: true, filler: true });
   else if (c.kind === "fence" && !atomic) Object.assign(box, { split: true, minHead: 3 });
+  else if (WHOLE.has(fence) && box.cuts.length) Object.assign(box, { split: true, late: true, minHead: 2 });
   if (c.kind === "h2") Object.assign(box, { keepNext: true, sticky: h + 4 * lu });
   if (c.kind === "h3" || c.kind === "h4") box.keepNext = true;
-  if (FIGURES.has(fence) || PLATES.has(fence)) box.float = true;
+  if (FIGURES.has(fence) || PLATES.has(fence) || c.kind === "table") box.float = true;
+  if (INTERACTIVE.has(fence)) box.anchor = true;
   if (c.first || c.kind === "question") box.newPage = true;
   if (c.kind === "end") Object.assign(box, { fixed: true, h: Math.max(h, g.cap), newPage: true });
   return box;
@@ -365,6 +376,11 @@ const PageView = memo(function PageView(pp: PageProps) {
           <FragView key={`${f.i}:${f.from}`} f={f} c={chunks[f.i]} prev={chunks[f.i - 1]} header={pp.header} ctx={chunks[f.i]?.open && pp.live ? liveCtx : mdCtx} onContinue={pp.onContinue} end={pp.end} />
         ))}
         {pp.tail && pp.live && last && <div className="bk-pen" style={{ top: last.top + last.h + 4 }} aria-hidden />}
+        {page && page.next.held.length > 0 && (
+          <div className="bk-cont is-float" style={{ top: g.cap + 2 }}>
+            ↓ {floatName(chunks[page.next.held[0]])} בעמוד הבא
+          </div>
+        )}
         {role.show && pp.notes && pp.notes.length > 0 && pp.onNoteSave && pp.onNoteDelete && (
           <MarginNotes root={body} notes={pp.notes} version={page} onSave={pp.onNoteSave} onDelete={pp.onNoteDelete} clipped room={g.phone ? 0 : g.side - 24} numberOf={pp.numberOf} />
         )}
@@ -500,7 +516,7 @@ export function BookView(props: BookProps) {
       const sig = `${c.text.length}:${c.text.slice(-24)}:${W}:${fs}:${h}`;
       const old = measures.current.get(c.key);
       if (old?.sig === sig) return;
-      const splittable = c.kind === "p" || c.kind === "list" || c.kind === "quote" || (c.kind === "fence" && ![INTERACTIVE, PLATES, FIGURES, WHOLE].some((set) => set.has(c.lang ?? "")));
+      const splittable = c.kind === "p" || c.kind === "list" || c.kind === "quote" || (c.kind === "fence" && ![INTERACTIVE, PLATES, FIGURES].some((set) => set.has(c.lang ?? "")));
       measures.current.set(c.key, { sig, h, cuts: splittable ? lineCuts(inner) : [] });
       changed = true;
     });
@@ -534,6 +550,20 @@ export function BookView(props: BookProps) {
   const ready = !!g && chunks.every((c) => c.kind === "end" || measures.current.has(c.key));
   const pages = useMemo(() => (g && ready ? paginate(boxes, g.cap, g.lu, frozen.current.pages, true) : []), [boxes, g, ready, sig]); // eslint-disable-line react-hooks/exhaustive-deps
   const n = pages.length;
+  // the fill of every page, for the test page only (core/tools/test-check/book.mjs sets window.__bookFill to null
+  // and reports what is left there); nothing reads it in the app
+  useEffect(() => {
+    const w = window as unknown as { __bookFill?: unknown };
+    if (!g || !pages.length || !("__bookFill" in w)) return;
+    const detail = (f: Frag) => ({ i: f.i, from: f.from, to: f.to, top: f.top, h: f.h, bh: boxes[f.i]?.h, cuts: boxes[f.i]?.cuts.length, gap: boxes[f.i]?.gap });
+    const kind = (f: Frag) => `${chunks[f.i]?.kind}${chunks[f.i]?.lang ? ":" + chunks[f.i]?.lang : ""}`;
+    w.__bookFill = {
+      cap: g.cap,
+      lu: g.lu,
+      boxes,
+      pages: pages.map((pg, k) => ({ fill: Math.round((pageFill(pg) / g.cap) * 1000) / 1000, why: pageEnd(pages, k, boxes), frags: pg.frags.map(kind), detail: pg.frags.map(detail) })),
+    };
+  }, [pages, g, chunks, boxes]);
 
   /* ---- where we are ---- */
   const [cur, setCurState] = useState(0);

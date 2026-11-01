@@ -11,7 +11,7 @@ async function load(rel) {
   return import("data:text/javascript;base64," + Buffer.from(out.outputFiles[0].text).toString("base64"));
 }
 const { chunkText, uniqueIds } = await load("../../src/book/chunks.ts");
-const { paginate, pageOf, pickCut } = await load("../../src/book/paginate.ts");
+const { paginate, pageOf, pickCut, pageFill, pageEnd, FULL } = await load("../../src/book/paginate.ts");
 
 let n = 0;
 const t = (name, fn) => {
@@ -166,12 +166,114 @@ t("paginate: a picture waits for the facing page while text fills the hole", () 
   assert.deepEqual(pages[0].frags.map((f) => f.i), [0, 2]);
   assert.equal(pages[1].frags[0].i, 1);
 });
-t("paginate: a picture on a left page does not leave its spread", () => {
+t("paginate: a picture on a left page floats one page on, and the text after it fills the hole", () => {
   const boxes = [para(10), para(6), block(6, LU, { float: true }), para(6)];
   const pages = paginate(boxes, CAP, LU);
   shown(pages, boxes);
-  // page 1 is a left page: the picture goes whole to page 2, the text after it follows it
-  assert.deepEqual(pages[2].frags.map((f) => f.i).slice(0, 1), [2]);
+  assert.deepEqual(pages[1].frags.map((f) => f.i), [1, 3], "the text fills page 1");
+  assert.deepEqual(pages[1].next.held, [2], "page 1 says the picture is on the next page");
+  assert.equal(pages[2].frags[0].i, 2);
+  assert.equal(pages[2].frags[0].top, 0, "the picture heads page 2");
+});
+t("paginate: a picture sent on by a page already seen heads the first new page", () => {
+  const boxes = [para(6), block(6, LU, { float: true }), para(6), para(8)];
+  const p1 = paginate(boxes, CAP, LU);
+  assert.deepEqual(p1[0].next.held, [1]);
+  const p2 = paginate(boxes, CAP, LU, p1.slice(0, 1));
+  shown(p2, boxes);
+  assert.deepEqual(p2[0].frags, p1[0].frags);
+  assert.equal(p2[1].frags[0].i, 1);
+  assert.equal(p2[1].frags[0].top, 0);
+});
+t("paginate: pictures in a row wait in order, at most two pages, while text fills the hole", () => {
+  const boxes = [block(6, LU, { anchor: true }), block(4, LU, { float: true }), block(4, LU, { float: true }), block(4, LU, { float: true }), para(3), para(8)];
+  const pages = paginate(boxes, CAP, LU);
+  shown(pages, boxes);
+  assert.deepEqual(pages[0].frags.map((f) => f.i), [0, 4], "the text after the pictures fills the hole");
+  assert.deepEqual(pages[1].frags.map((f) => f.i), [1, 2]);
+  assert.equal(pages[2].frags[0].i, 3, "the third picture heads the page after");
+});
+t("paginate: a picture that closes a section and starts the next page counts as the section's end", () => {
+  const boxes = [para(8), block(3, LU, { float: true }), { ...block(1), keepNext: true, sticky: 5 * LU }, para(4)];
+  const pages = paginate(boxes, CAP, LU);
+  shown(pages, boxes);
+  assert.equal(pages[1].frags[0].i, 1, "it never floats into the next section");
+  assert.equal(pageEnd(pages, 0, boxes), "section");
+});
+t("paginate: a nearly full page lets a picture move whole instead of floating", () => {
+  const boxes = [para(9), block(4, LU, { float: true }), para(6)];
+  const pages = paginate(boxes, CAP, LU);
+  shown(pages, boxes);
+  assert.deepEqual(pages[0].frags.map((f) => f.i), [0]);
+  assert.deepEqual(pages[1].frags.map((f) => f.i).slice(0, 2), [1, 2], "order kept");
+});
+const frame = (lines, extra = {}) => ({ ...para(lines, LU), filler: false, minHead: 3, late: true, ...extra });
+t("paginate: a definition moves whole while the page it leaves stays full", () => {
+  const boxes = [para(8), frame(5), para(4)];
+  const pages = paginate(boxes, CAP, LU);
+  shown(pages, boxes);
+  assert.deepEqual(pages[0].frags.map((f) => f.i), [0]);
+  assert.equal(pages[1].frags[0].from, 0);
+});
+t("paginate: a definition taller than the hole is cut between its lines when the page would be under 80%", () => {
+  const boxes = [para(5), frame(8), para(4)];
+  const pages = paginate(boxes, CAP, LU);
+  shown(pages, boxes);
+  const f = pages[0].frags[1];
+  assert.equal(f.i, 1);
+  assert.ok(!f.end && f.to === 4 * LU, "four lines of it on page 0 (5 + space + 4)");
+  assert.ok(pageFill(pages[0]) / CAP >= FULL);
+  assert.equal(pages[1].frags[0].from, f.to, "the rest heads page 1");
+});
+t("paginate: a definition with no line to cut at (one formula) moves whole", () => {
+  const boxes = [para(5), { ...frame(6), cuts: [] }, para(4)];
+  const pages = paginate(boxes, CAP, LU);
+  shown(pages, boxes);
+  assert.equal(pages[1].frags[0].i, 1);
+});
+t("paginate: a think question keeps its place right after the text it tests", () => {
+  const boxes = [para(6), block(6, LU, { anchor: true }), para(6)];
+  const pages = paginate(boxes, CAP, LU);
+  shown(pages, boxes);
+  assert.deepEqual(pages[0].frags.map((f) => f.i), [0], "the text after it never passes it");
+  assert.equal(pageEnd(pages, 0, boxes), "think");
+  assert.deepEqual(pages[1].frags.map((f) => f.i), [1, 2]);
+});
+t("paginate: fill ratio, every page at least 80% full except a section's end and before a think question", () => {
+  // a long mixed lesson: paragraphs, definitions, pictures, think questions and sections, in a fixed pseudo-random order
+  let seed = 7;
+  const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+  const boxes = [];
+  for (let k = 0; k < 600; k++) {
+    const r = rnd();
+    if (r < 0.55) boxes.push(para(2 + Math.floor(rnd() * 9), boxes.length && rnd() < 0.5 ? LU : 0));
+    else if (r < 0.68) boxes.push(frame(3 + Math.floor(rnd() * 6)));
+    else if (r < 0.78) boxes.push(block(3 + Math.floor(rnd() * 5), LU, { float: true }));
+    else if (r < 0.86) boxes.push(block(3 + Math.floor(rnd() * 4), LU, { anchor: true }));
+    else if (r < 0.9) boxes.push({ ...block(1), keepNext: true, sticky: 5 * LU });
+    else boxes.push(para(3));
+  }
+  // the real page: 20 lines (660 px at 33)
+  const cap = 2 * CAP;
+  const pages = paginate(boxes, cap, LU);
+  const cover = boxes.map(() => 0);
+  for (const p of pages)
+    for (const f of p.frags) {
+      assert.ok(f.top + f.h <= cap + 0.5, "fits the page");
+      cover[f.i] += f.to - f.from;
+    }
+  boxes.forEach((b, i) => assert.equal(cover[i], b.h, `box ${i} shown whole`));
+  const fills = pages.map((p, k) => ({ f: pageFill(p) / cap, why: pageEnd(pages, k, boxes), k }));
+  const flow = fills.filter((x) => x.why === "flow");
+  const bad = flow.filter((x) => x.f < FULL - 1e-9);
+  const desc = (i) => { const b = boxes[i]; return `${i}${b.float ? "F" : b.anchor ? "T" : b.late ? "D" : b.keepNext ? "H" : "p"}${b.h / LU}`; };
+  assert.equal(bad.length, 0, `pages under 80%: ${bad.map((x) => `${x.k}:${x.f.toFixed(2)} [${pages[x.k].frags.map((f) => desc(f.i)).join(" ")}] held ${pages[x.k].next.held} → [${pages[x.k + 1].frags.map((f) => desc(f.i) + (f.from ? "@" + f.from / LU : "")).join(" ")}]`).join("\n")}`);
+  const mean = flow.reduce((s, x) => s + x.f, 0) / flow.length;
+  assert.ok(mean > 0.93, `mean fill of the running pages ${mean.toFixed(3)}`);
+  // order: no block is shown before one that comes earlier, except a picture that floated past text
+  const seen = [];
+  for (const p of pages) for (const f of p.frags) if (f.from === 0) seen.push(f.i);
+  for (let k = 1; k < seen.length; k++) if (seen[k] < seen[k - 1]) assert.ok(boxes[seen[k]].float, `only a picture comes late (${seen[k]})`);
 });
 t("paginate: a new answer starts on a new page", () => {
   const boxes = [para(2), { ...para(2), newPage: true }];
