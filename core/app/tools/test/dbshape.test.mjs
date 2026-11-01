@@ -138,7 +138,11 @@ await t("memlog: versions older than 30 days folded into month documents", async
   const s = new rt.Store({ doc: docRef }, "u3");
   const day = 86_400_000;
   const now = Date.now();
-  for (let i = 0; i < 30; i++) store.set(`data/users/u3/profile/memlog/v${i}`, { memory: "ז".repeat(20_000), reason: "r", at: now - (90 - i) * day - (i % 3) * 1000 });
+  // all 30 versions inside one calendar month, three months back (the test must not depend on today's date)
+  const base = new Date(now);
+  base.setUTCMonth(base.getUTCMonth() - 3, 1);
+  base.setUTCHours(12, 0, 0, 0);
+  for (let i = 0; i < 30; i++) store.set(`data/users/u3/profile/memlog/v${i}`, { memory: "ז".repeat(20_000), reason: "r", at: base.getTime() + i * 0.9 * day - (i % 3) * 1000 });
   await s.logMemory({ memory: "חדש", reason: "now" });
   const left = docsUnder("data/users/u3/profile/memlog");
   assert.ok(left.length < 10, left.join());
