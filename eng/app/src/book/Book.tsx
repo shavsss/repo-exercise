@@ -1154,6 +1154,47 @@ export function BookView(props: BookProps) {
   }, [openFacing]);
   const pageCtx = useMemo<BookCtxValue>(() => ({ mode: "page", lift }), [lift]);
 
+  // A live block (scene, simulator, animation) opens by itself when its page is read, on the facing page or
+  // large (Aa: plateAuto), and closes by itself when the page is turned away. Never on a phone (the facing page
+  // would cover the text), never over a consultation or the notebook, and not again once the reader closed it.
+  const autoPlate = useRef<string | null>(null);
+  const dismissedPlates = useRef(new Set<string>());
+  useEffect(() => {
+    if (r.plateAuto === "off" || !g || phone || !spread) return;
+    // the spread being read: both its pages count as "in view", also while the facing page shows only one of them
+    const s0 = cur - (cur % 2);
+    const inSpread = [s0, s0 + 1].filter((p) => p < n);
+    const onView = inSpread.flatMap((p) => (pages[p]?.frags ?? []).map((f) => ({ p, c: chunks[f.i] }))).filter((x) => x.c && x.c.kind === "fence" && PLATES.has(x.c.lang ?? ""));
+    const mine = autoPlate.current;
+    if (mine && !onView.some((x) => x.c.key === mine)) {
+      autoPlate.current = null;
+      if (facingRef.current?.kind === "scene") {
+        setFacing(null);
+        setScene(null);
+      }
+      return;
+    }
+    if (facingRef.current) return;
+    if (mine) {
+      // opened by us, then closed by the reader while its spread is still read: not again
+      dismissedPlates.current.add(mine);
+      autoPlate.current = null;
+      return;
+    }
+    const next = onView.find((x) => !dismissedPlates.current.has(x.c.key));
+    if (!next || next.c.open) return;
+    // only once the reader stays on the spread (not while riffling through pages)
+    const t = setTimeout(() => {
+      if (facingRef.current) return;
+      const code = next.c.text.replace(/^\s*```[^\n]*\n/, "").replace(/\n?```\s*$/, "");
+      autoPlate.current = next.c.key;
+      setScene({ lang: next.c.lang!, code, big: r.plateAuto === "big" });
+      // the text keeps the spread's first page, so nothing before the scene is skipped; the next turn shows its second page
+      openFacing({ kind: "scene", lang: next.c.lang!, code }, s0);
+    }, 700);
+    return () => clearTimeout(t);
+  }, [cur, pages, chunks, facing, r.plateAuto, g, phone, spread, n, openFacing]); // eslint-disable-line react-hooks/exhaustive-deps
+
   /* ---- what each page shows around its text ---- */
   const heads = useMemo(() => {
     const out: { level: 2 | 3; text: string; page: number; i: number }[] = [];

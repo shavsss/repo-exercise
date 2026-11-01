@@ -405,10 +405,15 @@ for (const scheme of SCHEMES) {
       });
       await step(`${tag}: plate and notebook`, async () => {
         if (!(await turnUntil(page, ".bk-plate-art"))) throw new Error("no plate found");
-        await page.waitForTimeout(300);
         await shot(page, tag, "20-plate");
-        await page.locator(".bk-page.is-shown .bk-plate-art").first().click();
+        // the scene opens by itself on the facing page once the spread stays (Aa: plateAuto, "facing" by default)
         await page.waitForTimeout(1500);
+        const auto = await page.locator(".bk-facing .bk-scene").count();
+        checks.push({ frame: `${tag}-plate-auto`, ok: vp.name !== "wide" || auto > 0, problems: vp.name !== "wide" || auto > 0 ? [] : ["the live block did not open by itself on the facing page"] });
+        if (!auto) {
+          await page.locator(".bk-page.is-shown .bk-plate-art").first().click();
+          await page.waitForTimeout(1500);
+        }
         await shot(page, tag, "21-scene-facing");
         await page.locator(".bk-facing-x").click();
         await page.waitForTimeout(300);

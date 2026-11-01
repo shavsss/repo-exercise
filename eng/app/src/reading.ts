@@ -29,6 +29,8 @@ export interface Reading {
   breakAfter: "45" | "60" | "75" | "90" | "120";
   /** the lesson as a book: two pages, a spine and page turns (src/book/), or the scrolling column */
   book: "off" | "on";
+  /** in the book: a 3D scene, simulator or animation opens by itself when its page is read — on the facing page, large, or only on a click */
+  plateAuto: "facing" | "big" | "off";
   /** how a page turns: by the screen and the system's motion setting, a 3D leaf, a slide, a fade, or at once */
   turn: "auto" | "3d" | "slide" | "fade" | "none";
   /** the paper sound of a page turn, apart from the other sounds */
@@ -37,7 +39,7 @@ export interface Reading {
   rv?: number;
 }
 // `book`: the lesson as a book is the default (1.11, the learner's choice); "off" is the scrolling column.
-export const DEFAULT_READING: Reading = { font: "plex", size: "l", space: "airy", width: "medium", surface: "theme", focus: "off", sound: "soft", volume: 94, noise: "library", noiseKind: "library", noiseVolume: 35, cursor: "lab", focusNoise: "off", breaks: "on", breakAfter: "75", book: "on", turn: "auto", pageSound: "on", rv: 3 };
+export const DEFAULT_READING: Reading = { font: "plex", size: "l", space: "airy", width: "medium", surface: "theme", focus: "off", sound: "soft", volume: 94, noise: "library", noiseKind: "library", noiseVolume: 35, cursor: "lab", focusNoise: "off", breaks: "on", breakAfter: "75", book: "on", plateAuto: "facing", turn: "auto", pageSound: "on", rv: 3 };
 
 const KEY = "eng-lab:reading";
 // which lab this is, for the code both labs share (the chimes' material in sound.ts, the day's keys in day.ts)

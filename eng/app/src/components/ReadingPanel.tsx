@@ -5,6 +5,7 @@ import { Icon } from "./Icon";
 type Choice = Exclude<keyof Reading, "volume" | "noiseVolume" | "noiseKind" | "rv">;
 const OPTIONS: { key: Choice; label: string; values: [string, string][]; when?: (r: Reading) => boolean }[] = [
   { key: "book", label: "תצוגת ספר (שני עמודים ודפדוף)", values: [["off", "כבויה"], ["on", "פועלת"]] },
+  { key: "plateAuto", label: "תלת-ממד, סימולטורים ואנימציות", values: [["facing", "נפתחים לבד בעמוד שמול"], ["big", "נפתחים לבד בגדול"], ["off", "רק בלחיצה"]], when: (r) => r.book === "on" },
   { key: "turn", label: "דפדוף", values: [["auto", "לפי המסך"], ["3d", "תלת-ממד"], ["slide", "החלקה"], ["fade", "דהייה"], ["none", "מיידי"]], when: (r) => r.book === "on" },
   { key: "pageSound", label: "צליל דפדוף", values: [["on", "פועל"], ["off", "כבוי"]], when: (r) => r.book === "on" && r.sound !== "off" },
   { key: "font", label: "גופן", values: [["plex", "IBM Plex"], ["frank", "פרנק-רוהל"], ["assistant", "Assistant"]] },
