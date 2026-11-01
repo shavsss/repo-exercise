@@ -18,6 +18,9 @@ import { AnimBlock } from "./blocks/Anim";
 import { SourceTag } from "./blocks/SourceTag";
 import { Scene3DBlock } from "./blocks/Scene3D";
 import { Decide, ErrorHunt, Lab, Predict, Verify } from "./blocks/Level3";
+import { useBook } from "../book/context";
+import { BookPlate } from "../book/Plate";
+import { PLATES } from "../book/chunks";
 
 export interface MdContextValue {
   live: boolean;
@@ -33,8 +36,8 @@ const SOURCE_TAG = /^([A-Za-z]\d+[a-z]?(?:\.\d+)?):(\d+)$/;
  * the code renderer can draw a pill or a source tag; figure blocks get their number in
  * the order they appear in the message.
  */
-function preprocess(src: string) {
-  let fig = 0;
+function preprocess(src: string, figBase = 0) {
+  let fig = figBase;
   return src
     .split(/(```[\s\S]*?(?:```|$))/g)
     .map((part, i) => {
@@ -69,6 +72,9 @@ function textOf(node: ReactNode): string {
 
 function FencedBlock({ lang, code }: { lang: string; code: string }) {
   const ctx = useContext(MdContext);
+  // in the book, a live block sits on the page as a plate and comes alive on the facing page
+  const book = useBook();
+  if (book && PLATES.has(lang)) return <BookPlate lang={lang} code={code} />;
   if (lang === "think") return <Think body={code} />;
   if (lang === "predict") return <Predict source={code} />;
   if (lang === "errorhunt") return <ErrorHunt source={code} />;
@@ -144,14 +150,15 @@ const components: Components = {
 
 const inlineComponents: Components = { ...components, p: ({ children }) => <>{children}</> };
 
-export const Markdown = memo(function Markdown({ text, inline = false }: { text: string; inline?: boolean }) {
+/** `figBase`: figures numbered before this text (the book draws a lesson block by block). */
+export const Markdown = memo(function Markdown({ text, inline = false, figBase = 0 }: { text: string; inline?: boolean; figBase?: number }) {
   return (
     <ReactMarkdown
       remarkPlugins={[remarkGfm, [remarkMath, { singleDollarTextMath: true }]]}
       rehypePlugins={[[rehypeKatex, { throwOnError: false, strict: "ignore", trust: false }]]}
       components={inline ? inlineComponents : components}
     >
-      {preprocess(text)}
+      {preprocess(text, figBase)}
     </ReactMarkdown>
   );
 });

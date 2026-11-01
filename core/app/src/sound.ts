@@ -275,6 +275,108 @@ export function play(cue: Cue) {
   safely(CUES[cue]);
 }
 
+/* ---- the book's page turn (docs/research/round6/book/research/B2_page_turn.md §5): paper, never a note ----
+ * A near, dry swish whose band follows the leaf's speed, two to four crisp paper grains at random places, and a
+ * landing when the leaf comes to rest: a map on a wooden table in Lanchester, stiff drafting vellum in Gilua.
+ * About 6 dB under "open" (peak 0.10, landing 0.05), since turns are the most frequent action of the day; a turn
+ * within 1.2 s of the last one is 4 dB softer and shorter. It moves across the stereo field the way the leaf
+ * does. Only when a leaf really moves at the reader's hand: never for a book that lays itself out again, a
+ * lesson still being written, or within 1.5 s of opening the page. "soft" (a cross-fade, an instant turn, a
+ * cancelled drag) is the landing alone, 6 dB down. Turned off with the other sounds, or alone (data-page-sound). */
+const loadedAt = typeof performance !== "undefined" ? performance.now() : 0;
+const turnPace = { last: -9 };
+const pageSoundOn = () => enabled() && root().dataset.pageSound !== "off" && performance.now() - loadedAt > 1500 && document.hasFocus();
+export function turnSound(dir: 1 | -1, ms = 380, o: { soft?: boolean } = {}) {
+  if (!pageSoundOn()) return;
+  try {
+    const c = audio();
+    if (!c || !master) return;
+    const t = c.currentTime;
+    const quick = t - turnPace.last < 1.2;
+    turnPace.last = t;
+    const lvl = db(rnd(-1.5, 1.5) - (quick ? 4 : 0) - (o.soft ? 6 : 0));
+    const len = (Math.min(0.6 * ms, 240) / 1000) * (quick ? 0.8 : 1) * rnd(0.9, 1.1);
+    const pan = c.createStereoPanner();
+    pan.connect(master);
+    // forward the leaf crosses from left to right; back, the other way
+    pan.pan.setValueAtTime(-0.25 * dir, t);
+    pan.pan.linearRampToValueAtTime(0.25 * dir, t + len);
+    if (!o.soft) {
+      const s = c.createBufferSource();
+      s.buffer = noiseBuf(c, len + 0.03);
+      const hp = biq(c, "highpass", 500);
+      const bp = biq(c, "bandpass", rnd(700, 900), rnd(0.7, 1.0));
+      const top = rnd(2200, 2800);
+      bp.frequency.setValueAtTime(bp.frequency.value, t);
+      bp.frequency.exponentialRampToValueAtTime(top, t + len * 0.4);
+      bp.frequency.exponentialRampToValueAtTime(top * 0.55, t + len);
+      const g = gainN(c, 0);
+      g.gain.setValueAtTime(0, t);
+      g.gain.linearRampToValueAtTime(0.1 * lvl, t + 0.025);
+      g.gain.setTargetAtTime(0, t + len * 0.4, len * 0.25);
+      s.connect(hp);
+      hp.connect(bp);
+      bp.connect(g);
+      g.connect(pan);
+      s.start(t);
+      s.stop(t + len + 0.05);
+      const n = 2 + Math.floor(Math.random() * 3);
+      for (let i = 0; i < n; i++) grainAt(c, pan, t + rnd(0.1, 0.85) * len, 0.1 * lvl * db(-14 + rnd(-2, 2)));
+    }
+    landing(c, pan, t + (o.soft ? 0 : len * 0.92), lvl);
+  } catch {
+    // no sound in this view
+  }
+}
+
+/** A jump of several pages: one texture of paper grains for the riffle (25–40 a second), one landing at its end. */
+export function riffleSound(dir: 1 | -1, ms = 420) {
+  if (!pageSoundOn()) return;
+  try {
+    const c = audio();
+    if (!c || !master) return;
+    const t = c.currentTime;
+    turnPace.last = t;
+    const dur = ms / 1000;
+    const pan = c.createStereoPanner();
+    pan.connect(master);
+    pan.pan.setValueAtTime(-0.2 * dir, t);
+    pan.pan.linearRampToValueAtTime(0.2 * dir, t + dur);
+    const rate = rnd(25, 40);
+    for (let at = t + 0.01; at < t + dur * 0.9; at += (1 / rate) * rnd(0.6, 1.4)) {
+      const k = (at - t) / dur;
+      grainAt(c, pan, at, 0.1 * db(-12 + rnd(-3, 2)) * Math.sin(Math.PI * Math.min(1, k * 1.1)));
+    }
+    landing(c, pan, t + dur, db(-2));
+  } catch {
+    // no sound in this view
+  }
+}
+
+function grainAt(c: AudioContext, dest: AudioNode, at: number, level: number) {
+  const gr = c.createBufferSource();
+  gr.buffer = noiseBuf(c, rnd(0.004, 0.007), 3);
+  const hp = biq(c, "highpass", rnd(2800, 3600));
+  const g = gainN(c, level);
+  gr.connect(hp);
+  hp.connect(g);
+  g.connect(dest);
+  gr.start(at);
+}
+
+/** The leaf at rest: wood (a map on a table) or glass (vellum). */
+function landing(c: AudioContext, dest: AudioNode, at: number, lvl: number) {
+  const l = c.createBufferSource();
+  l.buffer = noiseBuf(c, rnd(0.025, 0.035), 2);
+  const f = glass() ? biq(c, "bandpass", rnd(2600, 3000), 1.4) : biq(c, "lowpass", rnd(230, 290), 0.7);
+  // the low-pass of wood cuts most of the energy; ×2.2 brings it back to the same loudness
+  const g = gainN(c, glass() ? 0.035 * lvl : 0.05 * lvl * 2.2);
+  l.connect(f);
+  f.connect(g);
+  g.connect(dest);
+  l.start(at);
+}
+
 /* ---- dragging a 3D scene: one continuous texture whose level follows the speed, gone 150 ms after the pointer stops ---- */
 let drag: { g: GainNode; src: AudioBufferSourceNode; stop: number } | null = null;
 let dragSpeed = 0;

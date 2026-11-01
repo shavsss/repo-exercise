@@ -1,0 +1,794 @@
+/* The lesson as a book (round 6): docs/research/round6/book/research/B1_page_and_look.md for the page and its
+   look, B2 for the turn, B3 for what sits on the pages, R4 for the corrected defaults. Identical in both labs:
+   the paper and the ink are the same; each lab shows itself in three small places only (the ribbon, the cover's
+   edge behind the stacks, the accents of the blocks). Nothing here moves on its own; every motion answers an
+   action (turn.ts). */
+
+/* ---------- tokens: cream paper on a desk 1.2:1 darker (B1 §6.1), graphite at night (B1 §6.2) ---------- */
+:root {
+  --bk-paper: #f7f1e6;
+  --bk-desk: #e6ddcc;
+  --bk-ink: #22261d;
+  --bk-ink-soft: #44493a;
+  --bk-muted: #5c5f4e;
+  --bk-rule: #d9cdb6;
+  --bk-edge-a: #ddd2bf;
+  --bk-edge-b: #ebe3d3;
+  --bk-white: #fbf8f1;
+  --bk-shadow: 60 45 20;
+  --bk-mark: #b3261e;
+  --bk-cover: #5b6248;
+  --bk-tab: #8a8470;
+  --bk-flap: #efe7d8;
+}
+:root[data-lab="eng"] { --bk-mark: #355f7d; --bk-cover: #2b4a63; --bk-tab: #6f7d86; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bk-paper: #262624;
+    --bk-desk: #1b1b1a;
+    --bk-ink: #dedad1;
+    --bk-ink-soft: #c9c5bb;
+    --bk-muted: #bab5ab;
+    --bk-rule: #46443f;
+    --bk-edge-a: #33322f;
+    --bk-edge-b: #2c2b29;
+    --bk-white: #3a3936;
+    --bk-shadow: 0 0 0;
+    --bk-mark: #f39a8f;
+    --bk-cover: #4a5038;
+    --bk-tab: #7d7969;
+    --bk-flap: #2e2d2a;
+  }
+  :root:not([data-theme="light"])[data-lab="eng"] { --bk-mark: #9fc6e0; --bk-cover: #23394c; --bk-tab: #66737b; }
+}
+:root[data-theme="dark"] {
+  --bk-paper: #262624;
+  --bk-desk: #1b1b1a;
+  --bk-ink: #dedad1;
+  --bk-ink-soft: #c9c5bb;
+  --bk-muted: #bab5ab;
+  --bk-rule: #46443f;
+  --bk-edge-a: #33322f;
+  --bk-edge-b: #2c2b29;
+  --bk-white: #3a3936;
+  --bk-shadow: 0 0 0;
+  --bk-mark: #f39a8f;
+  --bk-cover: #4a5038;
+  --bk-tab: #7d7969;
+  --bk-flap: #2e2d2a;
+}
+:root[data-theme="dark"][data-lab="eng"] { --bk-mark: #9fc6e0; --bk-cover: #23394c; --bk-tab: #66737b; }
+
+/* ---------- book mode: the bars fold away (B1 §8.1 variant B, R4: a decision, not a variant) ---------- */
+ @media (min-width: 701px) {
+  .app.is-book .topbar { height: 38px; gap: 8px; }
+  .app.is-book .topbar .crumbs { font-size: 0.8rem; }
+  .app.is-book .topbar .icon-btn { width: 30px; height: 30px; }
+}
+.app.is-book { overflow: clip; }
+.app.is-book .main { background: var(--bk-desk); min-width: 0; overflow: clip; }
+.app.is-book .consult-rail,
+.app.is-book .left-rail,
+.app.is-book .toc-rail { display: none; }
+
+/* ---------- the desk ---------- */
+.bk-root {
+  --bk-fs: var(--read-size, 18.5px);
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--bk-desk);
+  color: var(--bk-ink);
+  overflow: hidden;
+  overscroll-behavior: contain;
+  /* the blocks' own tokens take the page's paper and ink */
+  --paper: var(--bk-paper);
+  --sheet: color-mix(in srgb, var(--bk-paper) 70%, #fff);
+  --ink: var(--bk-ink);
+  --ink-soft: var(--bk-ink-soft);
+  --muted: var(--bk-muted);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .bk-root { --sheet: color-mix(in srgb, var(--bk-paper) 85%, #fff); }
+}
+:root[data-theme="dark"] .bk-root { --sheet: color-mix(in srgb, var(--bk-paper) 85%, #fff); }
+.bk-desk {
+  flex: 1;
+  min-height: 0;
+  position: relative;
+  display: grid;
+  place-items: start center;
+  padding-top: 12px;
+  overscroll-behavior-x: contain;
+  touch-action: pan-y;
+}
+.bk-stage { position: relative; }
+/* the book's own shadow on the desk; fixed, never animated */
+.bk-stage::after {
+  content: "";
+  position: absolute;
+  inset: 1.5% 0 -1.5%;
+  border-radius: 8px;
+  box-shadow: 0 22px 44px -20px rgb(var(--bk-shadow) / 0.42), 0 2px 6px rgb(var(--bk-shadow) / 0.08);
+  pointer-events: none;
+  z-index: -2;
+}
+.bk-cover-edge {
+  position: absolute;
+  inset: -5px -9px -6px;
+  border-radius: 6px;
+  background: var(--bk-cover);
+  z-index: -1;
+}
+.is-single:not(.has-facing) .bk-cover-edge { inset: -5px 0 -6px -9px; border-radius: 6px 2px 2px 6px; }
+/* the leaves under the open book: read ones under the right page, what is left under the left one */
+.bk-stack {
+  position: absolute;
+  top: 1px;
+  bottom: 1px;
+  width: var(--bk-pw);
+  background: var(--bk-edge-b);
+  border-radius: 3px;
+  z-index: 0;
+}
+.bk-stack.is-l { left: 0; }
+.bk-stack.is-r { right: 0; }
+.bk-spread { position: relative; transform-style: preserve-3d; z-index: 1; }
+.bk-spine {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  background: rgb(var(--bk-shadow) / 0.14);
+  pointer-events: none;
+  z-index: 3;
+}
+.is-single:not(.has-facing) .bk-spine { display: none; }
+
+/* ---------- a page ---------- */
+.bk-page {
+  position: absolute;
+  top: 0;
+  width: var(--bk-pw);
+  height: var(--bk-ph);
+  background-color: var(--bk-paper);
+  color: var(--bk-ink);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  direction: rtl;
+}
+.bk-page.side-r {
+  right: 0;
+  border-radius: 2px 4px 4px 2px;
+  /* the spine's shadow: 24 px, narrower than the inner margin, so no letter sits in it (B1 §6.4) */
+  background-image: linear-gradient(to right, rgb(var(--bk-shadow) / 0.1), rgb(var(--bk-shadow) / 0) 24px);
+}
+.bk-page.side-l,
+.bk-page.side-s {
+  left: 0;
+  border-radius: 4px 2px 2px 4px;
+  background-image: linear-gradient(to left, rgb(var(--bk-shadow) / 0.1), rgb(var(--bk-shadow) / 0) 24px);
+}
+.has-facing.facing-l .bk-page.side-s { left: auto; right: 0; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .bk-page.side-r { background-image: linear-gradient(to right, rgb(0 0 0 / 0.3), rgb(0 0 0 / 0) 24px); }
+  :root:not([data-theme="light"]) .bk-page.side-l,
+  :root:not([data-theme="light"]) .bk-page.side-s { background-image: linear-gradient(to left, rgb(0 0 0 / 0.3), rgb(0 0 0 / 0) 24px); }
+}
+:root[data-theme="dark"] .bk-page.side-r { background-image: linear-gradient(to right, rgb(0 0 0 / 0.3), rgb(0 0 0 / 0) 24px); }
+:root[data-theme="dark"] .bk-page.side-l,
+:root[data-theme="dark"] .bk-page.side-s { background-image: linear-gradient(to left, rgb(0 0 0 / 0.3), rgb(0 0 0 / 0) 24px); }
+.bk-page.is-hidden { visibility: hidden; pointer-events: none; }
+.bk-page.origin-r { transform-origin: right center; }
+.bk-page.origin-l { transform-origin: left center; }
+.bk-page.is-turn-a,
+.bk-page.is-turn-b { pointer-events: none; }
+.bk-page.is-turn-b { transform: rotateY(-180deg); }
+.bk-page.is-turn-b.origin-r { transform: rotateY(180deg); }
+.bk-shade {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 5;
+}
+.bk-page.side-r > .bk-shade { background: linear-gradient(to right, rgb(var(--bk-shadow) / 0.85), rgb(var(--bk-shadow) / 0.25) 30%, transparent 75%); }
+.bk-page.side-l > .bk-shade,
+.bk-page.side-s > .bk-shade { background: linear-gradient(to left, rgb(var(--bk-shadow) / 0.85), rgb(var(--bk-shadow) / 0.25) 30%, transparent 75%); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .bk-shade { filter: brightness(0.6); }
+}
+
+/* running heads and folios: the wide head (the module) on the right page, the section on the left;
+   the number in the outer corner, in the body face with tabular figures (B1 §3) */
+.bk-runhead {
+  position: absolute;
+  top: calc(var(--bk-head) * 0.4);
+  width: var(--bk-W);
+  font: 500 12.5px/1.2 "IBM Plex Sans Hebrew", var(--font);
+  color: var(--bk-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  user-select: none;
+}
+.bk-page.side-r .bk-runhead { right: var(--bk-out); text-align: right; }
+.bk-page.side-l .bk-runhead,
+.bk-page.side-s .bk-runhead { left: var(--bk-out); text-align: left; }
+.bk-folio {
+  position: absolute;
+  bottom: calc(var(--bk-head) * 0.36);
+  font: 400 13px/1 "Frank Ruhl Libre", serif;
+  font-variant-numeric: tabular-nums;
+  color: var(--bk-muted);
+  user-select: none;
+}
+.bk-page.side-r .bk-folio { right: var(--bk-out); }
+.bk-page.side-l .bk-folio,
+.bk-page.side-s .bk-folio { left: var(--bk-out); }
+.bk-body { position: absolute; width: var(--bk-W); }
+.bk-page.side-r .bk-body { right: var(--bk-out); }
+.bk-page.side-l .bk-body,
+.bk-page.side-s .bk-body { left: var(--bk-out); }
+
+/* a block's window on a page */
+.bk-frag { position: absolute; inset-inline: 0; overflow: hidden; }
+.bk-frag.is-over {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--bk-rule) transparent;
+  border-bottom: 1px dashed var(--bk-rule);
+}
+.bk-more {
+  position: absolute;
+  inset-inline: 0;
+  height: 26px;
+  display: grid;
+  place-items: end center;
+  padding-bottom: 3px;
+  background: linear-gradient(to bottom, color-mix(in srgb, var(--bk-paper) 0%, transparent), var(--bk-paper) 70%);
+  font: 500 11.5px/1 "IBM Plex Sans Hebrew", var(--font);
+  color: var(--bk-muted);
+  pointer-events: none;
+  z-index: 2;
+}
+.bk-more span::after { content: " ↓"; }
+.bk-cont {
+  position: absolute;
+  font: 500 11px/16px "IBM Plex Sans Hebrew", var(--font);
+  color: var(--bk-muted);
+  user-select: none;
+  pointer-events: none;
+}
+.bk-cont.is-next { left: 0; }
+.bk-cont.is-prev { right: 0; }
+/* the pen still writing: a thin line after the last line on the last page */
+.bk-pen {
+  position: absolute;
+  right: 0;
+  width: 2.4em;
+  height: 2px;
+  background: var(--bk-mark);
+  opacity: 0.55;
+  border-radius: 1px;
+}
+
+/* ---------- the page's typography: Frank Ruhl Libre on a 33 px grid at 18.5 px, justified with care (B1 §4) ---------- */
+.bk-text,
+.prose.bk-text {
+  font-family: "Frank Ruhl Libre", "IBM Plex Sans Hebrew", serif;
+  font-size: var(--bk-fs);
+  line-height: var(--bk-lu);
+  color: var(--bk-ink);
+  font-kerning: normal;
+  font-variant-numeric: lining-nums;
+}
+.bk-text > * { margin-block: 0 !important; }
+.bk-text p { margin: 0; text-align: justify; text-wrap: pretty; word-spacing: 0.03em; hyphens: manual; }
+.is-single .bk-text p,
+.is-phone .bk-text p { text-align: start; }
+.is-indent .bk-text > p:first-child,
+.bk-frag.is-indent > .bk-text > p:first-child,
+.bk-gc.is-indent > .bk-text > p:first-child { text-indent: 1.2em; }
+.bk-text .katex { font-size: 1.08em; }
+.bk-text .katex-display { margin: 0; padding-block: calc(var(--bk-lu) * 0.25); overflow-x: auto; overflow-y: hidden; }
+.bk-text h2 {
+  font: 700 1.3em/var(--bk-lu) "Frank Ruhl Libre", serif;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  text-wrap: balance;
+  color: var(--bk-ink);
+}
+.bk-text h3 { font: 700 1.08em/var(--bk-lu) "Frank Ruhl Libre", serif; margin: 0; color: var(--bk-ink); }
+.bk-text h4 { font: 600 1em/var(--bk-lu) "Frank Ruhl Libre", serif; margin: 0; }
+.bk-text ul,
+.bk-text ol { margin: 0; padding-inline-start: 1.3em; }
+.bk-text li { margin: 0; }
+.bk-text li > p { text-align: start; }
+.bk-text blockquote { margin: 0; padding-inline-start: 1em; border-inline-start: 2px solid var(--bk-rule); color: var(--bk-ink-soft); }
+.bk-text hr { border: 0; height: var(--bk-lu); margin: 0; text-align: center; }
+.bk-text hr::after { content: "⁂"; color: var(--bk-muted); line-height: var(--bk-lu); }
+.bk-text strong { font-weight: 700; }
+.bk-text .inline-code { font-size: 0.82em; }
+/* blocks keep the tiers of round 5, on the grid: padding in half lines, frames as inset shadows (no border height) */
+.bk-text .block { padding: calc(var(--bk-lu) * 0.5) 16px calc(var(--bk-lu) * 0.4); margin: 0; }
+.bk-text .block-body { line-height: var(--bk-lu); }
+.bk-text .block-body p { text-align: start; }
+.bk-text .block-body > :last-child { margin-bottom: 0; }
+.bk-text .block-head { margin-bottom: 4px; }
+.bk-text .block .block-title { font-family: "Frank Ruhl Libre", serif; font-size: 1.04em; line-height: 1.35; }
+.bk-text .b3 { margin: 0; }
+.bk-text .table-wrap { margin: 0; }
+.bk-text .figure { margin: 0; }
+.bk-text .figure img { max-height: calc(var(--bk-cap) * 0.62); width: auto; max-width: 100%; margin-inline: auto; display: block; }
+.bk-text .code-plain { margin: 0; font-size: 0.8em; }
+
+/* think: the answer's room is kept, under a folded flap, until a confidence is chosen (B3 §5, R4: "flap") */
+.bk-frag.f-think > .bk-text,
+.bk-frag.f-think > .bk-text > .block { height: 100%; }
+.bk-frag.f-think > .bk-text > .block { display: flex; flex-direction: column; }
+.bk-frag.f-think .block-body { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+.bk-frag.f-think .commit { flex: 1; display: flex; flex-direction: column; }
+.bk-frag.f-think .commit[data-stage="ask"]::after,
+/* the measured copy keeps the flap's least room too, or a think with a short answer outgrows its page */
+.bk-gc-alt.f-think .commit[data-stage="ask"]::after {
+  content: "התשובה מקופלת כאן · בחרו כמה אתם בטוחים, והיא תיפתח";
+  flex: 1;
+  min-height: 36px;
+  margin-top: 10px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 6px 10px;
+  font: 500 12px/1.4 "IBM Plex Sans Hebrew", var(--font);
+  color: var(--bk-muted);
+  border: 1px dashed var(--bk-rule);
+  border-radius: 2px;
+  background: repeating-linear-gradient(135deg, var(--bk-flap) 0 7px, color-mix(in srgb, var(--bk-flap) 72%, var(--bk-rule)) 7px 8px);
+}
+.bk-frag.is-over.f-think > .bk-text,
+.bk-frag.is-over.f-think > .bk-text > .block { height: auto; }
+/* the confidence and the grade: whole rows of 36 px, easy to hit at hour seven (R4 #8) */
+.bk-text .commit-conf button,
+.bk-text .commit-grade button { min-height: 36px; }
+.bk-text .commit-hint { line-height: 1.5; }
+
+/* plates: a live block as an engraving with "open on the facing page" (B3 §4) */
+.bk-plate { margin: 0; display: grid; gap: 6px; }
+.bk-plate-art {
+  all: unset;
+  box-sizing: border-box;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 8;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  color: color-mix(in srgb, var(--bk-ink) 55%, transparent);
+  border: 1px solid var(--bk-rule);
+  background:
+    linear-gradient(color-mix(in srgb, var(--bk-rule) 35%, transparent) 1px, transparent 1px) 0 0 / 100% 12px,
+    color-mix(in srgb, var(--bk-paper) 92%, var(--bk-ink));
+}
+.bk-plate-art:hover { border-color: var(--bk-muted); }
+.bk-plate-art:focus-visible { outline: 2px solid var(--bk-mark); outline-offset: 2px; }
+.bk-plate-svg { width: 46%; height: auto; }
+.bk-plate-open {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  font: 600 12.5px/1 "IBM Plex Sans Hebrew", var(--font);
+  color: var(--bk-ink);
+  background: var(--bk-paper);
+  border: 1px solid var(--bk-rule);
+  border-radius: 3px;
+  padding: 6px 10px;
+}
+.bk-plate-cap { font: 400 12.5px/1.5 "IBM Plex Sans Hebrew", var(--font); color: var(--bk-muted); }
+.bk-plate-cap b { color: var(--bk-ink-soft); font-weight: 600; }
+.bk-plate-sub { display: block; }
+
+/* the lesson's opening: four grid lines down, the module line in the interface face (B1 §4.6) */
+.bk-title { padding-top: calc(var(--bk-lu) * 3); }
+.bk-title-code { font: 500 12.5px/var(--bk-lu) "IBM Plex Mono", monospace; color: var(--bk-mark); letter-spacing: 0.04em; text-align: right; }
+.bk-title-h { font: 700 1.75em/1.25 "Frank Ruhl Libre", serif; margin: 0; text-wrap: balance; color: var(--bk-ink); }
+.bk-title-sub { font: 500 13.5px/var(--bk-lu) "IBM Plex Sans Hebrew", var(--font); color: var(--bk-muted); margin-top: 4px; }
+.bk-title-rule { width: 3.2em; height: 2px; background: var(--bk-mark); margin-top: calc(var(--bk-lu) * 0.5); opacity: 0.8; }
+.bk-question { border-inline-start: 2px solid var(--bk-mark); padding: 4px 14px 6px; }
+.bk-question-label { display: block; font: 600 11.5px/1.6 "IBM Plex Sans Hebrew", var(--font); color: var(--bk-muted); letter-spacing: 0.04em; }
+.bk-question p { margin: 0; font-style: italic; color: var(--bk-ink-soft); text-align: start; }
+.bk-cut { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; font: 500 13px/1.5 "IBM Plex Sans Hebrew", var(--font); color: var(--warn); }
+.bk-end { font-family: "IBM Plex Sans Hebrew", var(--font); font-size: 15px; line-height: 1.55; display: flex; flex-direction: column; align-items: center; gap: 14px; padding-top: calc(var(--bk-lu) * 5); text-align: center; }
+/* the colophon: the lesson ends on its own page, quietly, before the way on */
+.bk-end::before { content: "סוף השיעור"; font: 600 0.8rem/1 "IBM Plex Sans Hebrew", var(--font); letter-spacing: 0.08em; color: var(--bk-muted); padding-bottom: 16px; margin-bottom: 6px; border-bottom: 1px solid color-mix(in srgb, var(--bk-mark) 70%, transparent); min-width: 72px; }
+.bk-end > * { margin-inline: auto !important; max-width: none !important; justify-content: center; }
+
+/* ---------- the stack's edges, the thumb tabs and the ribbon ---------- */
+.bk-edge {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 34px;
+  z-index: 7;
+  cursor: grab;
+  touch-action: none;
+}
+.bk-edge:active { cursor: grabbing; }
+.bk-edge.is-l { left: -34px; }
+.bk-edge.is-r { right: -34px; }
+.bk-edge::after { content: ""; position: absolute; inset: 8px 12px; border-radius: 3px; opacity: 0; background: rgb(var(--bk-shadow) / 0.08); transition: opacity 120ms; }
+.bk-edge:hover::after { opacity: 1; }
+.bk-tab {
+  all: unset;
+  box-sizing: border-box;
+  position: absolute;
+  width: 20px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  font: 600 11px/1 "IBM Plex Sans Hebrew", var(--font);
+  color: var(--bk-paper);
+  background: var(--bk-tab);
+  cursor: pointer;
+  z-index: 6;
+  user-select: none;
+}
+.bk-tab.on-l { left: -29px; border-radius: 3px 0 0 3px; }
+.bk-tab.on-r { right: -29px; border-radius: 0 3px 3px 0; }
+.bk-tab.is-here { background: var(--bk-mark); width: 24px; }
+.bk-tab.is-here.on-l { left: -33px; }
+.bk-tab.is-here.on-r { right: -33px; }
+.bk-tab:hover { filter: brightness(1.08); }
+.bk-tab:focus-visible { outline: 2px solid var(--bk-ink); outline-offset: 1px; }
+.is-focus .bk-tabs { display: none; }
+.bk-ribbon {
+  all: unset;
+  position: absolute;
+  top: -7px;
+  width: 15px;
+  height: 56px;
+  background: var(--bk-mark);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 85%, 0 100%);
+  cursor: pointer;
+  z-index: 8;
+  filter: drop-shadow(0 1px 1px rgb(var(--bk-shadow) / 0.3));
+}
+.bk-ribbon.is-here { left: calc(50% + 22px); }
+.is-single .bk-ribbon.is-here { left: auto; right: 22px; }
+.bk-ribbon.is-ahead { left: -18px; height: 70px; }
+.bk-ribbon.is-behind { right: -18px; height: 70px; }
+.bk-ribbon:hover { height: 64px; }
+.bk-ribbon.is-ahead:hover,
+.bk-ribbon.is-behind:hover { height: 78px; }
+
+/* the cover, for the opening of the book once a lesson; its back is the first page */
+.bk-cover { background: var(--bk-cover); }
+.bk-cover-face {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  gap: 12px;
+  text-align: center;
+  color: #f3ead8;
+  font-family: "Frank Ruhl Libre", serif;
+  box-shadow: inset 0 0 0 12px rgb(0 0 0 / 0.1), inset 0 0 0 13px rgb(255 255 255 / 0.16);
+  padding: 40px;
+}
+.bk-cover-lab { font: 600 12px/1 "IBM Plex Sans Hebrew", var(--font); letter-spacing: 0.3em; opacity: 0.8; }
+.bk-cover-title { font-size: 30px; font-weight: 700; line-height: 1.25; text-wrap: balance; }
+.bk-cover-code { font: 500 13px/1 "IBM Plex Mono", monospace; opacity: 0.75; }
+.is-opening .bk-page.side-r:not(.is-turn-b) { visibility: hidden; }
+
+/* riffle: blank leaves for a jump */
+.bk-ghost {
+  position: absolute;
+  top: 0;
+  width: var(--bk-pw);
+  height: var(--bk-ph);
+  background: var(--bk-paper);
+  box-shadow: inset 0 0 0 1px rgb(var(--bk-shadow) / 0.06);
+  z-index: 6;
+  pointer-events: none;
+}
+.bk-ghost.side-l { left: 0; transform-origin: right center; }
+.bk-ghost.side-r { right: 0; transform-origin: left center; }
+
+/* ---------- the facing page: one thing at a time (rule 3) ---------- */
+.bk-facing {
+  position: absolute;
+  top: 0;
+  width: var(--bk-pw);
+  height: var(--bk-ph);
+  background: var(--bk-paper);
+  display: flex;
+  flex-direction: column;
+  z-index: 6;
+  color: var(--bk-ink);
+}
+.bk-facing.side-l { left: 0; border-radius: 4px 2px 2px 4px; box-shadow: inset -24px 0 24px -24px rgb(var(--bk-shadow) / 0.25); }
+.bk-facing.side-r { right: 0; border-radius: 2px 4px 4px 2px; box-shadow: inset 24px 0 24px -24px rgb(var(--bk-shadow) / 0.25); }
+.bk-facing.side-sheet {
+  inset: auto 0 0 0;
+  width: auto;
+  height: 74%;
+  border-top: 1px solid var(--bk-rule);
+  box-shadow: 0 -14px 30px -14px rgb(var(--bk-shadow) / 0.45);
+  border-radius: 10px 10px 0 0;
+  z-index: 9;
+}
+.bk-facing-head {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px 8px;
+  border-bottom: 1px solid var(--bk-rule);
+  font: 600 12px/1 "IBM Plex Sans Hebrew", var(--font);
+  color: var(--bk-mark);
+  letter-spacing: 0.03em;
+}
+.bk-facing-kind { flex: 1; }
+.bk-facing-btn {
+  all: unset;
+  display: inline-flex;
+  gap: 5px;
+  align-items: center;
+  padding: 5px 9px;
+  border-radius: 3px;
+  font: 500 12px/1 "IBM Plex Sans Hebrew", var(--font);
+  color: var(--bk-muted);
+  cursor: pointer;
+}
+.bk-facing-btn:hover { background: color-mix(in srgb, var(--bk-ink) 6%, transparent); color: var(--bk-ink); }
+.bk-facing-btn:focus-visible { outline: 2px solid var(--bk-mark); }
+.bk-facing-body { flex: 1; min-height: 0; overflow: auto; overscroll-behavior: contain; padding: 14px calc(var(--bk-out) * 0.55) 18px; }
+.bk-consult-host .consult-card { border: 0; box-shadow: none; background: transparent; margin: 0; padding: 0; }
+.bk-consult-host .consult-head { padding-inline: 0; }
+.bk-consult-host .consult-body { padding-inline: 0; }
+.bk-consult-host .consult-answer {
+  font-family: "Frank Ruhl Libre", serif;
+  font-size: var(--bk-fs);
+  line-height: 1.62;
+}
+.bk-consult-host .consult-answer p { text-align: start; }
+.bk-facing .pad-panel {
+  position: relative !important;
+  inset: auto !important;
+  width: 100% !important;
+  height: 100%;
+  border: 0;
+  box-shadow: none;
+  background: transparent;
+}
+.bk-facing-body:has(.pad-panel) { padding: 0; }
+.bk-scene { font-size: 15px; }
+.bk-scene-big {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  background: var(--bk-paper);
+  padding: 18px 24px;
+  overflow: auto;
+  border-radius: 4px;
+}
+.bk-scene-back { position: absolute; top: 10px; left: 12px; z-index: 2; }
+.bk-wait {
+  position: absolute;
+  top: var(--bk-head);
+  width: var(--bk-W);
+  max-height: var(--bk-cap);
+  overflow: auto;
+  z-index: 3;
+  font-family: "IBM Plex Sans Hebrew", var(--font);
+}
+.bk-wait.side-l { left: var(--bk-out); }
+.bk-wait.side-s { left: var(--bk-out); }
+.bk-wait > * { margin: 0 !important; max-width: none !important; }
+
+/* closed consultation cards: a tab in the outer margin, at their paragraph */
+.bk-card-tab {
+  all: unset;
+  box-sizing: border-box;
+  position: absolute;
+  display: inline-flex;
+  gap: 3px;
+  align-items: center;
+  max-width: calc(var(--bk-out) - 10px);
+  padding: 3px 5px;
+  font: 600 10.5px/1.2 "IBM Plex Sans Hebrew", var(--font);
+  color: var(--bk-mark);
+  background: color-mix(in srgb, var(--bk-mark) 9%, var(--bk-paper));
+  border: 1px solid color-mix(in srgb, var(--bk-mark) 35%, transparent);
+  cursor: pointer;
+  z-index: 4;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.bk-page.side-r .bk-card-tab { right: calc(-1 * var(--bk-out) + 4px); border-radius: 0 3px 3px 0; }
+.bk-page.side-l .bk-card-tab,
+.bk-page.side-s .bk-card-tab { left: calc(-1 * var(--bk-out) + 4px); border-radius: 3px 0 0 3px; }
+.is-phone .bk-card-tab span { display: none; }
+
+/* margin notes on the page: tabs in the outer margin; full cards on the desk where it is wide (B3 §7) */
+.bk-page .mn-layer.is-narrow { inset-inline-end: calc(-1 * var(--bk-out) + 14px); }
+.bk-page.side-r .mn-layer.is-narrow { inset-inline-end: auto; inset-inline-start: calc(-1 * var(--bk-out) + 14px); }
+.bk-page.side-r .mn-layer.is-wide { inset-inline-end: auto; inset-inline-start: -232px; }
+.bk-page .mn-layer.is-wide { inset-inline-end: -232px; }
+.bk-page .mn-layer { z-index: 6; }
+/* an open note in the narrow margin opens over its own page, toward the text, never off the window */
+.bk-page .mn-layer.is-narrow .mn-note.is-open { width: min(250px, calc(var(--bk-W) - 20px)); }
+.bk-page.side-r .mn-layer.is-narrow .mn-note.is-open { inset-inline-start: auto; inset-inline-end: 0; right: 0; left: auto; }
+.bk-page.side-l .mn-layer.is-narrow .mn-note.is-open,
+.bk-page.side-s .mn-layer.is-narrow .mn-note.is-open { inset-inline-end: auto; inset-inline-start: auto; left: 0; right: auto; }
+
+/* ---------- chips on the desk ---------- */
+.bk-chip {
+  position: absolute;
+  top: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+  padding: 5px 8px 5px 12px;
+  border-radius: 999px;
+  background: var(--bk-paper);
+  border: 1px solid var(--bk-rule);
+  box-shadow: 0 4px 14px rgb(var(--bk-shadow) / 0.14);
+  font: 500 12.5px/1.2 "IBM Plex Sans Hebrew", var(--font);
+  color: var(--bk-ink-soft);
+  z-index: 20;
+}
+button.bk-chip { cursor: pointer; padding: 6px 14px; }
+.bk-notices { position: absolute; top: 6px; inset-inline: 16px; z-index: 25; display: grid; gap: 6px; justify-items: center; pointer-events: none; }
+.bk-notices > * { pointer-events: auto; max-width: 640px; margin: 0; }
+
+/* ---------- the bar on the desk ---------- */
+.bk-bar {
+  flex: none;
+  height: 48px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+  padding: 0 14px;
+  font: 500 13px/1 "IBM Plex Sans Hebrew", var(--font);
+  color: var(--bk-muted);
+  position: relative;
+  z-index: 12;
+}
+.bk-bar-start { display: flex; gap: 6px; align-items: center; min-width: 0; justify-self: start; overflow: hidden; max-width: 100%; }
+.bk-bar-mid { display: flex; gap: 4px; align-items: center; }
+.bk-bar-end { display: flex; gap: 4px; align-items: center; justify-self: end; min-width: 0; overflow: hidden; max-width: 100%; }
+.bk-btn {
+  all: unset;
+  box-sizing: border-box;
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  height: 32px;
+  padding: 0 10px;
+  border-radius: 6px;
+  color: var(--bk-ink-soft);
+  cursor: pointer;
+  white-space: nowrap;
+  min-width: 0;
+}
+.bk-btn:hover:not(:disabled) { background: color-mix(in srgb, var(--bk-ink) 7%, transparent); color: var(--bk-ink); }
+.bk-btn:focus-visible { outline: 2px solid var(--bk-mark); outline-offset: 1px; }
+.bk-btn:disabled { opacity: 0.35; cursor: default; }
+.bk-btn.is-on { background: color-mix(in srgb, var(--bk-ink) 10%, transparent); color: var(--bk-ink); }
+.bk-nav { width: 34px; padding: 0; justify-content: center; }
+.bk-folio-btn { font: 500 13px/1 "Frank Ruhl Libre", serif; font-variant-numeric: tabular-nums; color: var(--bk-ink-soft); padding: 0 8px; }
+.bk-of { color: var(--bk-muted); }
+.bk-toc-btn { max-width: 100%; }
+.bk-toc-now { overflow: hidden; text-overflow: ellipsis; max-width: 26ch; }
+.bk-toc-left { color: var(--bk-muted); }
+.bk-ask-btn { color: var(--bk-ink); border: 1px solid var(--bk-rule); }
+.bk-writing { display: inline-flex; gap: 6px; align-items: center; font-size: 12.5px; color: var(--bk-muted); margin-inline-end: 6px; }
+.bk-writing-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--bk-mark); }
+.bk-bar .dock-pad-stack { width: 14px; height: 12px; }
+
+/* contents, with the page of every heading, and a page to go to */
+.bk-toc {
+  position: absolute;
+  bottom: 54px;
+  right: 14px;
+  width: min(360px, calc(100% - 28px));
+  max-height: min(70%, 560px);
+  overflow: auto;
+  background: var(--bk-paper);
+  border: 1px solid var(--bk-rule);
+  border-radius: 6px;
+  box-shadow: 0 18px 40px -12px rgb(var(--bk-shadow) / 0.42);
+  padding: 10px 12px 12px;
+  font: 400 13.5px/1.45 "IBM Plex Sans Hebrew", var(--font);
+  color: var(--bk-ink);
+  z-index: 30;
+}
+.bk-toc-head { display: flex; justify-content: space-between; align-items: center; font-weight: 600; font-size: 12px; color: var(--bk-muted); letter-spacing: 0.04em; margin-bottom: 4px; }
+.bk-toc-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px; }
+.bk-toc-list button {
+  all: unset;
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.bk-toc-list .lvl-3 button { padding-inline-start: 22px; font-size: 12.5px; color: var(--bk-ink-soft); }
+.bk-toc-list button:hover { background: color-mix(in srgb, var(--bk-ink) 6%, transparent); }
+.bk-toc-list button.is-here { box-shadow: inset -2px 0 0 var(--bk-mark); font-weight: 600; }
+.bk-toc-p { font: 400 12.5px/1.45 "Frank Ruhl Libre", serif; font-variant-numeric: tabular-nums; color: var(--bk-muted); }
+.bk-toc-empty { color: var(--bk-muted); margin: 6px 0; }
+.bk-toc-go { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; border-top: 1px solid var(--bk-rule); margin-top: 8px; padding-top: 8px; font-size: 12.5px; color: var(--bk-muted); }
+.bk-toc-go label { display: inline-flex; gap: 8px; align-items: center; }
+.bk-toc-go input { width: 4.5em; font: inherit; padding: 4px 6px; border: 1px solid var(--bk-rule); border-radius: 4px; background: transparent; color: var(--bk-ink); }
+.bk-toc-min { margin-inline-start: auto; }
+
+/* the composer, folded under the book until asked for */
+.bk-ask {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(780px, calc(100% - 24px));
+  z-index: 28;
+  background: var(--bg);
+  border: 1px solid var(--bk-rule);
+  border-radius: 10px;
+  box-shadow: 0 18px 44px -14px rgb(var(--bk-shadow) / 0.45);
+  padding: 4px 0 6px;
+}
+.bk-ask .composer-wrap { padding-bottom: 0; }
+
+/* the hidden galley, measured and never seen */
+.bk-galley {
+  position: absolute;
+  top: 0;
+  left: -100000px;
+  visibility: hidden;
+  pointer-events: none;
+  contain: layout style;
+}
+.bk-gc,
+.bk-gc-alt { position: relative; display: flow-root; }
+
+/* ---------- phone: one page, swipe, a sheet for the facing page ---------- */
+.bk-root.is-phone .bk-desk { padding-top: 0; place-items: start stretch; }
+.bk-root.is-phone .bk-stage { margin: 0 auto; }
+.bk-root.is-phone .bk-stage::after,
+.bk-root.is-phone .bk-cover-edge,
+.bk-root.is-phone .bk-stack { display: none; }
+.bk-root.is-phone .bk-page { border-radius: 0; background-image: none; }
+.bk-root.is-phone .bk-bar { height: 56px; padding: 0 4px; gap: 2px; border-top: 1px solid var(--bk-rule); background: var(--bk-paper); grid-template-columns: minmax(0, 1fr) auto auto; }
+.bk-root.is-phone .bk-bar-end { gap: 0; }
+.bk-root.is-phone .bk-writing { display: none; }
+.bk-root.is-phone .bk-btn { padding: 0 7px; height: 40px; }
+.bk-root.is-phone .bk-nav { width: 32px; }
+.bk-root.is-phone .bk-toc-now { max-width: 9ch; }
+.bk-root.is-phone .bk-ribbon { display: none; }
+.bk-root.is-phone .bk-runhead { font-size: 11.5px; }
+.bk-root.is-phone .bk-bar-mid .bk-of { display: none; }
+.bk-facing .pad-resize { display: none; }
+.bk-consult-host .consult-card::before { display: none; }
+.bk-consult-host .consult-card { border-inline-start: 0; font-size: 0.95rem; }
+.bk-consult-host .consult-caret { display: none; }
+/* while the cover opens, only the closed book (the left half) lies on the desk */
+.bk-root.is-opening .bk-cover-edge { inset: -5px 50% -6px -9px; border-radius: 6px 2px 2px 6px; }
+.bk-root.is-opening .bk-stage::after { display: none; }

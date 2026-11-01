@@ -3,7 +3,10 @@ import { play } from "../sound";
 import { Icon } from "./Icon";
 
 type Choice = Exclude<keyof Reading, "volume" | "noiseVolume" | "noiseKind" | "rv">;
-const OPTIONS: { key: Choice; label: string; values: [string, string][] }[] = [
+const OPTIONS: { key: Choice; label: string; values: [string, string][]; when?: (r: Reading) => boolean }[] = [
+  { key: "book", label: "תצוגת ספר (שני עמודים ודפדוף)", values: [["off", "כבויה"], ["on", "פועלת"]] },
+  { key: "turn", label: "דפדוף", values: [["auto", "לפי המסך"], ["3d", "תלת-ממד"], ["slide", "החלקה"], ["fade", "דהייה"], ["none", "מיידי"]], when: (r) => r.book === "on" },
+  { key: "pageSound", label: "צליל דפדוף", values: [["on", "פועל"], ["off", "כבוי"]], when: (r) => r.book === "on" && r.sound !== "off" },
   { key: "font", label: "גופן", values: [["plex", "IBM Plex"], ["frank", "פרנק-רוהל"], ["assistant", "Assistant"]] },
   { key: "size", label: "גודל", values: [["s", "קטן"], ["m", "בינוני"], ["l", "גדול"], ["xl", "גדול מאוד"]] },
   { key: "space", label: "ריווח שורות", values: [["normal", "רגיל"], ["airy", "מרווח"]] },
@@ -53,7 +56,7 @@ export function ReadingPanel({ onClose }: { onClose: () => void }) {
           <Icon name="close" size={16} />
         </button>
       </header>
-      {OPTIONS.map((o) => (
+      {OPTIONS.filter((o) => !o.when || o.when(r)).map((o) => (
         <div key={o.key} className="reading-row">
           <span className="reading-label">{o.label}</span>
           <div className="seg" role="group" aria-label={o.label}>

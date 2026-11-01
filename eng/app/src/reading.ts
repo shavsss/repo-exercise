@@ -27,10 +27,17 @@ export interface Reading {
   /** a quiet line at a part boundary after `breakAfter` minutes of reading (BreakLine.tsx) */
   breaks: "on" | "off";
   breakAfter: "45" | "60" | "75" | "90" | "120";
+  /** the lesson as a book: two pages, a spine and page turns (src/book/), or the scrolling column */
+  book: "off" | "on";
+  /** how a page turns: by the screen and the system's motion setting, a 3D leaf, a slide, a fade, or at once */
+  turn: "auto" | "3d" | "slide" | "fade" | "none";
+  /** the paper sound of a page turn, apart from the other sounds */
+  pageSound: "on" | "off";
   /** settings version, for one-time migrations of old defaults */
   rv?: number;
 }
-export const DEFAULT_READING: Reading = { font: "plex", size: "l", space: "airy", width: "medium", surface: "theme", focus: "off", sound: "soft", volume: 94, noise: "library", noiseKind: "library", noiseVolume: 35, cursor: "lab", focusNoise: "off", breaks: "on", breakAfter: "75", rv: 2 };
+// `book` switches the lesson as a book on for everyone who has not chosen: "off" keeps the scrolling column for now.
+export const DEFAULT_READING: Reading = { font: "plex", size: "l", space: "airy", width: "medium", surface: "theme", focus: "off", sound: "soft", volume: 94, noise: "library", noiseKind: "library", noiseVolume: 35, cursor: "lab", focusNoise: "off", breaks: "on", breakAfter: "75", book: "off", turn: "auto", pageSound: "on", rv: 2 };
 
 const KEY = "eng-lab:reading";
 // which lab this is, for the code both labs share (the chimes' material in sound.ts, the day's keys in day.ts)
@@ -84,6 +91,9 @@ function apply() {
   r.dataset.noiseVolume = String(current.noiseVolume);
   r.dataset.cursor = current.cursor;
   r.dataset.focusNoise = current.focusNoise;
+  r.dataset.book = current.book;
+  r.dataset.turn = current.turn;
+  r.dataset.pageSound = current.pageSound;
 }
 apply();
 

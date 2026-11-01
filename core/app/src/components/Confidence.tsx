@@ -8,6 +8,7 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { Markdown, MdContext } from "./Markdown";
 import { CONF_LABEL, GRADE_LABEL, LessonPlaceCtx, loadCalib, logEvent, requestConsult, saveCalib, thinkId, type CalibRecord, type Conf, type Grade } from "../events";
+import { useBookMeasure } from "../book/context";
 import "../consult.css";
 
 type Stage = "ask" | "shown" | "graded";
@@ -34,6 +35,8 @@ export function ThinkCommit({ question, answer }: { question: string; answer: st
   const rec = useRef<CalibRecord | null>(null);
   const root = useRef<HTMLDivElement>(null);
   const shownAt = useRef(0);
+  // the book measures the largest state, so the page keeps room for the answer and nothing moves when it opens
+  const measure = useBookMeasure();
 
   // the question's state from an earlier reading
   useEffect(() => {
@@ -91,10 +94,12 @@ export function ThinkCommit({ question, answer }: { question: string; answer: st
     });
 
   const hot = conf === 3 && grade === "wrong";
+  const view: Stage = measure ? "shown" : stage;
+  const viewConf: Conf | null = measure ? 2 : conf;
 
   return (
-    <div className="commit" ref={root}>
-      {stage === "ask" && (
+    <div className="commit" ref={root} data-stage={view}>
+      {view === "ask" && (
         <>
           {writing || mine ? (
             <textarea className="commit-mine" rows={2} value={mine} autoFocus={writing && !mine} placeholder="התשובה שלי, בקצרה" onChange={(e) => setMine(e.target.value)} aria-label="התשובה שלי" />
@@ -119,19 +124,19 @@ export function ThinkCommit({ question, answer }: { question: string; answer: st
           </div>
         </>
       )}
-      {stage !== "ask" && (
+      {view !== "ask" && (
         <>
-          {mine.trim() && (
+          {!measure && mine.trim() && (
             <div className="commit-yours">
               <span>התשובה שלך{conf ? ` · ${CONF_LABEL[conf]}` : ""}</span>
               {mine.trim()}
             </div>
           )}
-          {!mine.trim() && conf && <div className="commit-yours is-short">ענית בראש · {CONF_LABEL[conf]}</div>}
+          {(measure || !mine.trim()) && viewConf && <div className="commit-yours is-short">ענית בראש · {CONF_LABEL[viewConf]}</div>}
           <div className="reveal">
             <Markdown text={answer} />
           </div>
-          {stage === "shown" && conf && (
+          {view === "shown" && viewConf && (
             <div className="commit-grade" role="group" aria-label="איך הלך?">
               <span>איך הלך?</span>
               {(["right", "partial", "wrong"] as Grade[]).map((g) => (

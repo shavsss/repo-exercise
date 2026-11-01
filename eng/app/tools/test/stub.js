@@ -88,7 +88,9 @@
     else if (/MODULE QUIZ/.test(last)) text = "1. שאלה ראשונה\n2. שאלה שנייה";
     else text = "תשובה רגילה.";
     let shown = "";
-    for (const part of text.match(/[\s\S]{1,400}/g)) { shown += part; opts.onText && opts.onText({ text: shown, delta: part }); await new Promise((r) => setTimeout(r, 20)); }
+    // window.__streamPiece / __streamDelay: a slower stream, for reading a lesson while it is written (book.mjs)
+    const piece = new RegExp("[\\s\\S]{1," + (window.__streamPiece || 400) + "}", "g");
+    for (const part of text.match(piece)) { shown += part; opts.onText && opts.onText({ text: shown, delta: part }); await new Promise((r) => setTimeout(r, window.__streamDelay || 20)); }
     return { text, truncated: false, modelTierApplied: "complex", modelApplied: "claude-opus-5-5" };
   }
   sample.json = async (input, opts) => {
