@@ -36,20 +36,25 @@ export interface Reading {
   /** settings version, for one-time migrations of old defaults */
   rv?: number;
 }
-// `book` switches the lesson as a book on for everyone who has not chosen: "off" keeps the scrolling column for now.
-export const DEFAULT_READING: Reading = { font: "plex", size: "l", space: "airy", width: "medium", surface: "theme", focus: "off", sound: "soft", volume: 94, noise: "library", noiseKind: "library", noiseVolume: 35, cursor: "lab", focusNoise: "off", breaks: "on", breakAfter: "75", book: "off", turn: "auto", pageSound: "on", rv: 2 };
+// `book`: the lesson as a book is the default (1.11, the learner's choice); "off" is the scrolling column.
+export const DEFAULT_READING: Reading = { font: "plex", size: "l", space: "airy", width: "medium", surface: "theme", focus: "off", sound: "soft", volume: 94, noise: "library", noiseKind: "library", noiseVolume: 35, cursor: "lab", focusNoise: "off", breaks: "on", breakAfter: "75", book: "on", turn: "auto", pageSound: "on", rv: 3 };
 
 const KEY = "core-lab:reading";
 // which lab this is, for the code both labs share (the chimes' material in sound.ts, the day's keys in day.ts)
 document.documentElement.dataset.lab = KEY.startsWith("eng") ? "eng" : "core";
 const listeners = new Set<() => void>();
-/** Round 5 (sound v2): what was still an old default becomes the learner's choice (volume 94, the library room). */
+/** Round 5 (sound v2, rv 2): what was still an old default becomes the learner's choice (volume 94, the library room).
+ *  1.11 (rv 3): the book becomes the default, unless the reader set the book switch themselves. */
 function migrate(saved: Partial<Reading>): Partial<Reading> {
-  if ((saved.rv ?? 1) >= 2 || !Object.keys(saved).length) return saved;
-  const next = { ...saved, rv: 2 };
-  if (saved.volume === 60) next.volume = 94;
-  if (saved.noiseKind === undefined || saved.noiseKind === "brown") next.noiseKind = "library";
-  if (saved.noise === undefined || saved.noise === "off" || saved.noise === "brown") next.noise = "library";
+  const rv = saved.rv ?? 1;
+  if (rv >= 3 || !Object.keys(saved).length) return saved;
+  const next = { ...saved, rv: 3 };
+  if (rv < 2) {
+    if (saved.volume === 60) next.volume = 94;
+    if (saved.noiseKind === undefined || saved.noiseKind === "brown") next.noiseKind = "library";
+    if (saved.noise === undefined || saved.noise === "off" || saved.noise === "brown") next.noise = "library";
+  }
+  if (!touched.includes("book")) next.book = "on";
   try {
     localStorage.setItem(KEY, JSON.stringify({ ...DEFAULT_READING, ...next, v: 2, touched }));
   } catch {
