@@ -19,6 +19,10 @@ export interface L3Answer {
   noError?: boolean;
   /** the reference answer was revealed */
   revealed?: boolean;
+  /** a predict block: how sure the learner was when locking the prediction (1 guessing, 2 fairly sure, 3 sure) */
+  conf?: 1 | 2 | 3;
+  /** a predict block: how it went (auto from the 90% range when the block gives a value) */
+  grade?: "right" | "partial" | "wrong";
   at: number;
 }
 

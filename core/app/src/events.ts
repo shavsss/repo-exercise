@@ -96,7 +96,7 @@ export interface LessonPlace {
 export const LessonPlaceCtx = createContext<LessonPlace | null>(null);
 
 /* ---------------- the events log ---------------- */
-export type EventType = "think.commit" | "think.grade" | "think.skip" | "think.reset" | "consult.ask" | "consult.more";
+export type EventType = "think.commit" | "think.grade" | "think.skip" | "think.reset" | "predict.commit" | "predict.grade" | "consult.ask" | "consult.more";
 
 const EVENTS_PER_DAY = 500;
 const dayOf = (ts: number) => {

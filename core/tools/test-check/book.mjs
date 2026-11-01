@@ -309,6 +309,30 @@ for (const scheme of SCHEMES) {
           await shot(page, tag, "07-think-graded");
         }
       });
+      await step(`${tag}: predict`, async () => {
+        if (!(await turnUntil(page, ".b3-predict"))) throw new Error("no predict block found");
+        const blk = page.locator(".bk-page.is-shown .b3-predict").first();
+        await blk.scrollIntoViewIfNeeded();
+        const before = await page.evaluate(() => [...document.querySelectorAll(".bk-page.is-shown .bk-frag")].map((f) => f.dataset.chunk + ":" + f.style.top + ":" + f.style.height).join("|"));
+        await blk.locator("textarea").fill("בערך פי ארבעה, כי התלות ריבועית");
+        await blk.locator(".commit-conf button").nth(1).click();
+        await page.waitForTimeout(400);
+        const after = await page.evaluate(() => [...document.querySelectorAll(".bk-page.is-shown .bk-frag")].map((f) => f.dataset.chunk + ":" + f.style.top + ":" + f.style.height).join("|"));
+        const opened = await page.locator(".bk-page.is-shown .b3-predict .b3-reveal").count();
+        const problems = [];
+        if (!opened) problems.push("the confidence press did not open the calculation");
+        if (before !== after) problems.push("the page's blocks moved when the prediction opened");
+        checks.push({ frame: `${tag}-predict-confidence`, ok: !problems.length, problems });
+        await shot(page, tag, "07b-predict-open");
+        const g = page.locator(".bk-page.is-shown .b3-predict .commit-grade button.is-wrong").first();
+        if (await g.count()) {
+          await g.click();
+          await page.waitForTimeout(300);
+          await shot(page, tag, "07c-predict-graded");
+        }
+        await page.keyboard.press("Home");
+        await page.waitForTimeout(700);
+      });
       await step(`${tag}: margin note`, async () => {
         await page.keyboard.press("Home");
         await page.waitForTimeout(700);

@@ -2,10 +2,13 @@
 // Each is a quiet panel with a side bar. Where the learner commits first (predict, errorhunt,
 // decide), the reference answer after the "---" line opens only after they wrote something;
 // their answers are kept per lesson (level3.ts). Identical in both apps.
-import { useEffect, useState, type ReactNode } from "react";
+import { useContext, useEffect, useState, type ReactNode } from "react";
 import { Markdown } from "../Markdown";
 import { parseHeaders } from "./Callout";
 import { blockKey, useL3, type L3Answer } from "../../level3";
+import { CONF_LABEL, GRADE_LABEL, LessonPlaceCtx, logEvent, saveCalib, thinkId, type CalibRecord, type Conf, type Grade } from "../../events";
+import "../../consult.css";
+import { useBookMeasure } from "../../book/context";
 
 const DECIDE_LABEL: Record<string, string> = {
   trade: "מוביל ומחליט: ניתוח פשרות בין תחומים",
@@ -52,9 +55,13 @@ const num = (s?: string) => {
   return s && Number.isFinite(x) ? x : NaN;
 };
 
+// Predict: the learner locks an estimate (and a 90% range) and says how sure he is; that press opens
+// the calculation, as in the think questions. With a value in the block the range grades it by itself;
+// otherwise he marks how it went. The record joins the calibration picture (events.ts) like a think question.
 export function Predict({ source }: { source: string }) {
   const { headers, body } = parseHeaders(source);
   const { shown, hidden } = split(body);
+  const place = useContext(LessonPlaceCtx);
   const { answer, set } = useL3("predict", blockKey("predict", source));
   const [text, setText] = useDraft(answer, "text");
   const [low, setLow] = useDraft(answer, "low");
@@ -62,14 +69,48 @@ export function Predict({ source }: { source: string }) {
   const open = !!answer?.revealed;
   const ready = text.trim().length > 0 || (low.trim() && high.trim());
   const value = num(headers.value);
-  const lo = Math.min(num(answer?.low), num(answer?.high));
-  const hi = Math.max(num(answer?.low), num(answer?.high));
-  const inRange = open && Number.isFinite(value) && Number.isFinite(lo) && Number.isFinite(hi) ? value >= lo && value <= hi : null;
+  const rangeOf = (l?: string, h?: string) => [Math.min(num(l), num(h)), Math.max(num(l), num(h))] as const;
+  const judge = (l?: string, h?: string) => {
+    const [a, b] = rangeOf(l, h);
+    return Number.isFinite(value) && Number.isFinite(a) && Number.isFinite(b) ? value >= a && value <= b : null;
+  };
+  const inRange = open ? judge(answer?.low, answer?.high) : null;
   const unit = headers.unit ? ` ${headers.unit}` : "";
+  const qid = thinkId(place, `predict: ${(headers.title || shown).replace(/\s+/g, " ").trim().slice(0, 300)}`);
+  const record = (conf: Conf, grade?: Grade): CalibRecord => ({
+    id: qid,
+    moduleId: place?.moduleId ?? "",
+    lesson: place?.lesson ?? -1,
+    lessonTitle: place?.title,
+    q: `חזו לפני החישוב: ${(headers.title || shown).replace(/\s+/g, " ").trim().slice(0, 380)}`,
+    answer: [text.trim(), low.trim() && high.trim() ? `טווח 90%: ${low.trim()}–${high.trim()}${unit}` : ""].filter(Boolean).join(" · ").slice(0, 1500) || undefined,
+    conf,
+    grade,
+    ts: Date.now(),
+    gradedAt: grade ? Date.now() : undefined,
+  });
+  const commit = (c: Conf) => {
+    const auto = judge(low, high);
+    const grade: Grade | undefined = auto === null ? undefined : auto ? "right" : "wrong";
+    set({ text, low, high, revealed: true, conf: c, grade });
+    if (place) saveCalib(record(c, grade)).catch(() => {});
+    logEvent("predict.commit", place, { q: qid, conf: c, range: !!(low.trim() && high.trim()), auto: grade ?? null });
+  };
+  const mark = (g: Grade) => {
+    set({ grade: g });
+    if (place && answer?.conf) saveCalib(record(answer.conf, g)).catch(() => {});
+    logEvent("predict.grade", place, { q: qid, conf: answer?.conf ?? null, grade: g });
+  };
+  // in the copy the book measures: the open state with the grade row, so the page keeps room and nothing moves
+  const measure = useBookMeasure();
+  const shownOpen = measure || open;
+  const conf = measure ? 2 : answer?.conf;
+  const grade = measure ? undefined : answer?.grade;
+  const hot = conf === 3 && grade === "wrong";
   return (
     <Panel kind="predict" label="חזו לפני החישוב" title={headers.title}>
       <Markdown text={shown} />
-      {!open ? (
+      {!shownOpen ? (
         <div className="b3-form">
           <label className="b3-field">
             <span>האומדן שלי, והנימוק בשורה</span>
@@ -83,19 +124,32 @@ export function Predict({ source }: { source: string }) {
             {unit && <span>{unit}</span>}
           </div>
           {hidden && (
-            <button className="b3-btn" disabled={!ready} onClick={() => set({ text, low, high, revealed: true })}>
-              {ready ? "נעלתי תחזית. הראו את החישוב" : "כתבו תחזית, והחישוב ייפתח"}
-            </button>
+            <>
+              <div className="commit-conf" role="group" aria-label="כמה אתה בטוח בתחזית? הבחירה נועלת אותה ופותחת את החישוב">
+                {([1, 2, 3] as Conf[]).map((c) => (
+                  <button key={c} disabled={!ready} onClick={() => commit(c)}>
+                    <span className={`conf-bars l${c}`} aria-hidden>
+                      <i />
+                      <i />
+                      <i />
+                    </span>
+                    {CONF_LABEL[c]}
+                  </button>
+                ))}
+              </div>
+              <div className="commit-hint">{ready ? "כמה אתה בטוח? הבחירה נועלת את התחזית ופותחת את החישוב." : "כתבו תחזית או טווח, ואז בחרו כמה אתם בטוחים."}</div>
+            </>
           )}
         </div>
       ) : (
         <>
           <div className="b3-mine">
-            <span className="b3-mine-label">התחזית שלכם</span>
-            {answer?.text && <Markdown text={answer.text} />}
-            {answer?.low && answer?.high && (
+            <span className="b3-mine-label">התחזית שלכם{conf ? ` · ${CONF_LABEL[conf]}` : ""}</span>
+            {/* measured with a line of prediction and a range, the usual size of what the learner writes */}
+            {measure ? <Markdown text="תחזית של שורה אחת, עם הנימוק שלה בקצרה" /> : answer?.text && <Markdown text={answer.text} />}
+            {(measure || (answer?.low && answer?.high)) && (
               <span className="b3-mine-range" dir="ltr">
-                [{answer.low} – {answer.high}]{unit}
+                [{measure ? "0" : answer?.low} – {measure ? "0" : answer?.high}]{unit}
               </span>
             )}
             {inRange !== null && <span className={`b3-verdict ${inRange ? "in" : "out"}`}>{inRange ? "הערך המחושב בתוך הטווח" : "הערך המחושב מחוץ לטווח"}</span>}
@@ -103,6 +157,30 @@ export function Predict({ source }: { source: string }) {
           <div className="b3-reveal">
             <Markdown text={hidden} />
           </div>
+          {conf && !grade && (
+            <div className="commit-grade" role="group" aria-label="איך הלך?">
+              <span>איך הלך?</span>
+              {(["right", "partial", "wrong"] as Grade[]).map((g) => (
+                <button key={g} className={`is-${g}`} onClick={() => mark(g)} disabled={measure}>
+                  {g === "right" ? "✓" : g === "partial" ? "◐" : "✗"} {GRADE_LABEL[g]}
+                </button>
+              ))}
+            </div>
+          )}
+          {grade && !hot && (
+            <div className={`commit-verdict is-${grade}`}>
+              {grade === "right" ? "✓ צדקת" : grade === "partial" ? "◐ בחלקו" : "✗ לא הפעם"}
+              {conf ? ` · ${CONF_LABEL[conf]}` : ""}
+            </div>
+          )}
+          {hot && (
+            <div className="commit-hot" role="note">
+              <div className="commit-hot-h">◆ הייתי בטוח וטעיתי · זה הרגע הכי טוב ללמוד</div>
+              <div>
+                <b>מה לבדוק שוב:</b> איזו הנחה בתחזית שלך לא החזיקה? מצא את הגורם בחישוב שהשפיע יותר ממה שחשבת, ונסה להסביר במשפט אחד למה.
+              </div>
+            </div>
+          )}
         </>
       )}
     </Panel>
