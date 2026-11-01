@@ -3,12 +3,19 @@
 //
 // The rules (docs/research/round6/book/research/B1, B3, R4):
 // - a paragraph, a list or a quiet frame may be cut between lines, never inside one; at least two lines on each
-//   side (three at the head of a frame, so its label never sits alone);
+//   side (three at the head of a quiet frame, so its label never sits alone; two for a definition or formula,
+//   whose label is a line of its own);
 // - an equation, a picture, a plate and a block the learner works in are never cut; one taller than a page gets
 //   a page of its own whose inside scrolls, with a mark, so nothing is ever cut without a sign;
+// - a frame that holds one thing to remember (a definition, a formula) moves whole while the page it leaves stays
+//   at least FULL full; only when moving it would leave a bigger hole is it cut, between its lines (never inside
+//   an equation), with a mark on both sides;
 // - a heading keeps the start of what follows, and a section (h2) does not start in the last lines of a page;
-// - a picture that does not fit may wait for the next page of the same spread while the text after it fills the
-//   hole (Mayer's contiguity: it never leaves the spread of the words that point to it);
+// - a picture, a plate, a chart or a table that does not fit floats: it waits for the top of the next page while
+//   the text after it fills the hole, and the page says so at its foot (as print has always done); within a
+//   spread it never leaves the words that point to it, and from a left page it goes only one page on;
+// - a block the learner works in keeps its place right after the text it tests: when it does not fit, the page
+//   ends before it, and that (with a section's end) is the only break that may leave a page less than FULL full;
 // - what the reader has seen does not move: pages already shown are passed in as `frozen` and kept as they are.
 //   The last of them may only grow at its end (a lesson still being written fills the page under the reader's
 //   eyes, below what is there); nothing already on it moves or disappears.
@@ -37,6 +44,10 @@ export interface Box {
   filler?: boolean;
   /** takes a whole page of its own (the back matter); its inside scrolls */
   fixed?: boolean;
+  /** a block the learner works in (think, predict…): never cut, never moved past the text after it */
+  anchor?: boolean;
+  /** may be cut between lines, but only to keep the page it would leave at least FULL full */
+  late?: boolean;
 }
 
 export interface Frag {
@@ -68,6 +79,10 @@ export interface Page {
 }
 
 const TOL = 0.5;
+/** the fill a page keeps, except at a section's end and before a block the learner works in */
+export const FULL = 0.8;
+/** a page this full lets a picture that does not fit move whole instead of floating */
+const FLOAT_AT = 0.9;
 
 /** The best place to cut box `b` between `off` and `limit`. Strict: keep the lines-together rules. */
 export function pickCut(b: Box, off: number, limit: number, strict: boolean, minCut = -Infinity, lu = 0): number | null {
@@ -125,16 +140,31 @@ export function paginate(boxes: Box[], cap: number, lu: number, frozen: Page[] =
     pages.push({ frags, next: { ...cur, held: [...cur.held] } });
     frags = [];
     y = 0;
-    // pictures that waited go to the top of the new page
-    const held = cur.held;
-    cur.held = [];
-    for (const k of held) {
+    placeHeld();
+  };
+  // pictures that waited go to the top of the new page, in order, as many as fit; the rest wait for the next
+  const placeHeld = () => {
+    const rest: number[] = [];
+    for (const k of cur.held) {
       const b = boxes[k];
       const h = Math.min(b.h, cap);
-      frags.push({ i: k, from: 0, to: b.h, top: y, h, end: true, over: b.h > cap + TOL || undefined });
-      y += h;
+      const top = y ? y + b.gap : 0;
+      if (rest.length || (y > 0 && top + h > cap + TOL)) {
+        rest.push(k);
+        continue;
+      }
+      frags.push({ i: k, from: 0, to: b.h, top, h, end: true, over: b.h > cap + TOL || undefined });
+      y = top + h;
     }
+    cur.held = rest;
   };
+  // after the pages already seen, the first new page starts with the pictures the last of them sent on
+  if (pages.length && !reopen && cur.held.length) placeHeld();
+  /** the room the pictures waiting for the next page take there */
+  const heldH = (held: number[]) => held.reduce((s, k, n) => s + boxes[k].h + (n ? boxes[k].gap : 0), 0);
+  /** what may pass a waiting picture: text, and a frame of text that fits whole (never a block the learner works
+   * in, which keeps its place after the text and the picture it tests, nor a heading) */
+  const passes = (b: Box | undefined) => !!b && (b.filler || (b.split && !b.anchor && !b.keepNext));
 
   let guard = 0;
   while (cur.i < boxes.length) {
@@ -147,10 +177,19 @@ export function paginate(boxes: Box[], cap: number, lu: number, frozen: Page[] =
       continue;
     }
     const empty = frags.length === 0 && y === 0;
-    // while a picture waits for the next page, only text passes it
-    if (cur.held.length && !b.filler && cur.off === 0) {
-      startPage();
-      continue;
+    // while a picture waits for the next page, only text passes it (and a frame of text, whole); a later
+    // picture waits with it, in order, while they fill at most two pages (they never drift further from their text)
+    if (cur.held.length && cur.off === 0 && !b.filler) {
+      const fitsWhole = passes(b) && y + b.gap + b.h <= cap + TOL;
+      if (b.float && b.h <= cap && heldH(cur.held) + b.gap + b.h <= 2 * cap + TOL) {
+        cur = { i: i + 1, off: 0, held: [...cur.held, i] };
+        continue;
+      }
+      // a frame too tall for the hole is cut there only to keep the page FULL; its rest follows the picture
+      if (!fitsWhole && !(passes(b) && y < FULL * cap - TOL)) {
+        startPage();
+        continue;
+      }
     }
     if (b.newPage && cur.off === 0 && !empty && !isReopen) {
       startPage();
@@ -191,7 +230,10 @@ export function paginate(boxes: Box[], cap: number, lu: number, frozen: Page[] =
       continue;
     }
     const avail = cap - y - gap;
-    if (b.split) {
+    // a frame to remember is cut only when moving it whole would leave the page under FULL
+    const tightFits = b.late && cur.off === 0 && !isReopen && !empty && gap > 0 && y + Math.round(gap * 0.3) + rest <= cap + TOL;
+    const lateOk = !b.late || cur.off > 0 || isReopen || (y < FULL * cap - TOL && !tightFits);
+    if (b.split && lateOk) {
       const c = isReopen ? pickCut(b, cur.off, cur.off + avail, false, reopen!.minCut, lu) : pickCut(b, cur.off, cur.off + avail, true);
       if (c !== null) {
         frags.push({ i, from: cur.off, to: c, top: y + gap, h: c - cur.off, end: false });
@@ -215,14 +257,14 @@ export function paginate(boxes: Box[], cap: number, lu: number, frozen: Page[] =
       // tighter space instead of leaving a hole of its own height (nothing follows it on this page, so the
       // line grid below it does not matter)
       const tight = Math.round(gap * 0.3);
-      if (!b.split && cur.off === 0 && gap > tight && y + tight + rest <= cap + TOL) {
+      if ((!b.split || b.late) && cur.off === 0 && !isReopen && gap > tight && y + tight + rest <= cap + TOL) {
         frags.push({ i, from: 0, to: b.h, top: y + tight, h: rest, end: true });
         y += tight + rest;
         cur = { i: i + 1, off: 0, held: cur.held };
         continue;
       }
       const nx = boxes[i + 1];
-      if (b.float && cur.off === 0 && !cur.held.length && pages.length % 2 === 0 && nx?.filler && b.h <= cap) {
+      if (b.float && cur.off === 0 && !cur.held.length && y < FLOAT_AT * cap && (passes(nx) || nx?.float) && b.h <= cap) {
         cur = { i: i + 1, off: 0, held: [i] };
         continue;
       }
@@ -263,4 +305,34 @@ export function pageOf(pages: Page[], i: number, off = 0): number {
   // the block is not on any page (empty): the page of the nearest block before it
   for (let p = pages.length - 1; p >= 0; p--) if (pages[p].frags.some((f) => f.i < i)) return p;
   return 0;
+}
+
+/** How much of a page its blocks take, in px (the bottom of the lowest window). */
+export function pageFill(p: Page): number {
+  let y = 0;
+  for (const f of p.frags) y = Math.max(y, f.top + f.h);
+  return y;
+}
+
+/**
+ * Why page `k` ends where it does, for the fill report: "last" (the book ends), "section" (the next page starts a
+ * section or an answer), "think" (the next page starts with a block the learner works in, which keeps its place),
+ * or "flow" (any other break, which should leave the page full).
+ */
+export function pageEnd(pages: Page[], k: number, boxes: Box[]): "last" | "section" | "think" | "flow" {
+  const nx = pages[k + 1];
+  if (!nx || !nx.frags.length) return "last";
+  const held = new Set(pages[k].next.held);
+  const f = nx.frags.find((x) => !held.has(x.i)) ?? nx.frags[0];
+  const b = boxes[f.i];
+  if (!b) return "flow";
+  if (f.from === 0 && (b.newPage || b.fixed || b.sticky)) return "section";
+  // the pictures that close a section, too tall for the hole, start the next page and the section after them
+  const lead = nx.frags.findIndex((x) => !boxes[x.i]?.float);
+  if (f.from === 0 && b.float && lead > 0 && nx.frags[lead].from === 0 && boxes[nx.frags[lead].i]?.sticky) return "section";
+  // a heading, or a picture the question is about, goes with the question that follows it
+  let j = f.i;
+  if (f.from === 0) while (boxes[j] && (boxes[j].keepNext || boxes[j].float || !(boxes[j].h > 0)) && j < f.i + 4) j++;
+  if (f.from === 0 && boxes[j]?.anchor) return "think";
+  return "flow";
 }

@@ -33,6 +33,8 @@ const flag = (name, takes = true) => {
 const appArg = flag("--app");
 const only = flag("--only");
 const quick = flag("--quick", false);
+/** --pages <n>: also a picture of every spread (or page) up to page n, to look at the fill */
+const pagesTo = Number(flag("--pages", "0")) || 0;
 const [target, outArg] = args;
 if (!["core", "eng"].includes(target) || !outArg) {
   console.error("usage: node book.mjs <core|eng> <outdir> [--app <app dir>] [--only <scheme-viewport>] [--quick]");
@@ -102,6 +104,7 @@ const consoleErrors = [];
 const flowErrors = [];
 const checks = [];
 const screenshots = [];
+const fills = [];
 
 async function shot(page, tag, name) {
   const file = path.join(outDir, `${target}-${tag}-${name}.png`);
@@ -188,6 +191,7 @@ async function fresh(vp, scheme, reduced = false, extra = {}) {
         localStorage.setItem("stubdb", JSON.stringify(db));
         localStorage.setItem(key, JSON.stringify({ book: "on", v: 2, rv: 2, touched: ["book"] }));
       }
+      window.__bookFill = null; // Book.tsx leaves the fill of every page here
       Object.assign(window, extra);
     },
     { db: seedDb, key: READ_KEY, extra },
@@ -231,6 +235,32 @@ for (const scheme of SCHEMES) {
       }
       await page.waitForTimeout(900);
       await shot(page, tag, "01-open");
+      // the fill of every page (Book.tsx leaves it on window.__bookFill): below 80% only at a section end or
+      // before a block the learner works in (think), and there at most 20% white
+      const bf = await page.evaluate(() => window.__bookFill);
+      if (bf) {
+        fs.writeFileSync(path.join(outDir, `${target}-${tag}-fill.json`), JSON.stringify(bf, null, 1));
+        const pg = bf.pages;
+        const body = pg.filter((x) => x.why === "flow");
+        const mean = (a) => (a.length ? Math.round((a.reduce((s, x) => s + x.fill, 0) / a.length) * 1000) / 1000 : 1);
+        const low = pg.map((x, k) => ({ ...x, k })).filter((x) => (x.why === "flow" && x.fill < 0.8) || (x.why === "think" && x.fill < 0.8));
+        fills.push({ tag, pages: pg.length, meanAll: mean(pg.filter((x) => x.why !== "last")), meanFlow: mean(body), minFlow: body.length ? Math.min(...body.map((x) => x.fill)) : 1, low: low.map((x) => `p${x.k} ${x.why} ${x.fill}`) });
+        const bad = pg.map((x, k) => ({ ...x, k })).filter((x) => x.why === "flow" && x.fill < 0.8);
+        checks.push({ frame: `${tag}-fill`, ok: bad.length === 0, problems: bad.map((x) => `page ${x.k} only ${Math.round(x.fill * 100)}% full: ${x.frags.slice(-2).join(", ")}`) });
+      }
+      if (pagesTo) {
+        await page.mouse.click(5, vp.height / 2);
+        const step = vp.name === "wide" ? 2 : 1;
+        for (let p = 0; p <= pagesTo; p += step) {
+          const file = path.join(outDir, `${target}-${tag}-page-${String(p).padStart(2, "0")}.png`);
+          await page.screenshot({ path: file });
+          screenshots.push(file);
+          await page.keyboard.press("ArrowLeft");
+          await page.waitForTimeout(560);
+        }
+        await page.keyboard.press("Home");
+        await page.waitForTimeout(700);
+      }
     });
     if (!ok) {
       await ctx.close();
@@ -428,5 +458,5 @@ server.close();
 
 const failed = checks.filter((c) => !c.ok);
 const pass = pageErrors.length === 0 && flowErrors.length === 0 && failed.length === 0;
-console.log(JSON.stringify({ app: target, harness: made, pass, pageErrors, flowErrors, failedChecks: failed, consoleErrors: consoleErrors.slice(0, 20), checks: checks.length, screenshots: screenshots.length }, null, 2));
+console.log(JSON.stringify({ app: target, harness: made, pass, pageErrors, flowErrors, fills, failedChecks: failed, consoleErrors: consoleErrors.slice(0, 20), checks: checks.length, screenshots: screenshots.length }, null, 2));
 process.exit(pass ? 0 : 1);
