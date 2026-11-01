@@ -211,6 +211,16 @@ export function paginate(boxes: Box[], cap: number, lu: number, frozen: Page[] =
       continue;
     }
     if (!empty) {
+      // a whole block that misses the page by little more than its space above: it closes the page with a
+      // tighter space instead of leaving a hole of its own height (nothing follows it on this page, so the
+      // line grid below it does not matter)
+      const tight = Math.round(gap * 0.3);
+      if (!b.split && cur.off === 0 && gap > tight && y + tight + rest <= cap + TOL) {
+        frags.push({ i, from: 0, to: b.h, top: y + tight, h: rest, end: true });
+        y += tight + rest;
+        cur = { i: i + 1, off: 0, held: cur.held };
+        continue;
+      }
       const nx = boxes[i + 1];
       if (b.float && cur.off === 0 && !cur.held.length && pages.length % 2 === 0 && nx?.filler && b.h <= cap) {
         cur = { i: i + 1, off: 0, held: [i] };

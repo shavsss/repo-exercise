@@ -131,6 +131,13 @@ t("paginate: a block is never cut, it moves to the next page", () => {
   assert.equal(pages[1].frags[0].i, 1);
   assert.equal(pages[1].frags[0].top, 0, "no gap at the top of a page");
 });
+t("paginate: a block that misses the page only by its space above closes the page with a tighter space", () => {
+  const boxes = [para(6), { ...block(4), h: 4 * LU - 12 }];
+  const pages = paginate(boxes, CAP, LU);
+  shown(pages, boxes);
+  assert.equal(pages.length, 1, "no hole of four lines");
+  assert.ok(pages[0].frags[1].top < 6 * LU + LU, "the space above it shrinks");
+});
 t("paginate: a block taller than a page gets its own page and scrolls inside", () => {
   const boxes = [para(3), block(14), para(3)];
   const pages = paginate(boxes, CAP, LU);

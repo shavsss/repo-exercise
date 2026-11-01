@@ -337,7 +337,9 @@
 .bk-frag.f-think > .bk-text > .block { display: flex; flex-direction: column; }
 .bk-frag.f-think .block-body { flex: 1; display: flex; flex-direction: column; min-height: 0; }
 .bk-frag.f-think .commit { flex: 1; display: flex; flex-direction: column; }
-.bk-frag.f-think .commit[data-stage="ask"]::after {
+.bk-frag.f-think .commit[data-stage="ask"]::after,
+/* the measured copy keeps the flap's least room too, or a think with a short answer outgrows its page */
+.bk-gc-alt.f-think .commit[data-stage="ask"]::after {
   content: "התשובה מקופלת כאן · בחרו כמה אתם בטוחים, והיא תיפתח";
   flex: 1;
   min-height: 36px;
@@ -407,8 +409,10 @@
 .bk-question-label { display: block; font: 600 11.5px/1.6 "IBM Plex Sans Hebrew", var(--font); color: var(--bk-muted); letter-spacing: 0.04em; }
 .bk-question p { margin: 0; font-style: italic; color: var(--bk-ink-soft); text-align: start; }
 .bk-cut { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; font: 500 13px/1.5 "IBM Plex Sans Hebrew", var(--font); color: var(--warn); }
-.bk-end { font-family: "IBM Plex Sans Hebrew", var(--font); font-size: 15px; line-height: 1.55; }
-.bk-end > * { margin-inline: 0 !important; max-width: none !important; }
+.bk-end { font-family: "IBM Plex Sans Hebrew", var(--font); font-size: 15px; line-height: 1.55; display: flex; flex-direction: column; align-items: center; gap: 14px; padding-top: calc(var(--bk-lu) * 5); text-align: center; }
+/* the colophon: the lesson ends on its own page, quietly, before the way on */
+.bk-end::before { content: "סוף השיעור"; font: 600 0.8rem/1 "IBM Plex Sans Hebrew", var(--font); letter-spacing: 0.08em; color: var(--bk-muted); padding-bottom: 16px; margin-bottom: 6px; border-bottom: 1px solid color-mix(in srgb, var(--bk-mark) 70%, transparent); min-width: 72px; }
+.bk-end > * { margin-inline: auto !important; max-width: none !important; justify-content: center; }
 
 /* ---------- the stack's edges, the thumb tabs and the ribbon ---------- */
 .bk-edge {

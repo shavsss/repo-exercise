@@ -143,6 +143,12 @@ async function audit(page, tag, name) {
       const need = inner.scrollHeight - mt;
       if (need > f.clientHeight + 3) out.push(`cut without a mark: ${f.dataset.chunk} (${Math.round(need)} > ${f.clientHeight})`);
     }
+    // a block that scrolls although it is shorter than a page: its measure in the galley was wrong
+    for (const f of document.querySelectorAll(".bk-page.is-shown .bk-frag.is-over")) {
+      const cap = f.closest(".bk-body")?.clientHeight ?? 0;
+      const h = parseFloat(f.style.height);
+      if (cap && h < cap - 2 && !f.querySelector("img")) out.push(`scrolls though shorter than a page (measure wrong): ${f.dataset.chunk} (${Math.round(h)} < ${cap})`);
+    }
     // nothing of the text below the bottom of its page
     for (const p of document.querySelectorAll(".bk-page.is-shown")) {
       const pb = p.getBoundingClientRect();
