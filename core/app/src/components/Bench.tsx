@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { connect, type Runtime } from "../runtime";
 import { loadIndex } from "../library";
-import { composeLesson, planModule, setLessonFeatures, setLessonRules, type LessonFeature } from "../tutor";
+import { DEFAULT_FEATURES, DEFAULT_RULES, composeLesson, planModule, setLessonFeatures, setLessonRules, type LessonFeature } from "../tutor";
 
 // The test bench (#bench): opened once, it runs a fixed sequence of tests with the real tutor by
 // itself and keeps every result in profile/bench/<id> (rules, step, words, minutes, refusal or empty
@@ -128,8 +128,8 @@ export function Bench({ lab }: { lab: "gilua" | "lanchester" }) {
       const err = e as { code?: string; message?: string };
       error = `${err.code ?? "error"}: ${err.message ?? ""}`;
     }
-    setLessonRules("current");
-    setLessonFeatures([]);
+    setLessonRules(DEFAULT_RULES);
+    setLessonFeatures(DEFAULT_FEATURES);
     const p = plan as { parts?: unknown[]; split?: unknown } | null;
     const result = { lab, build: BENCH_BUILD, rules, features, step: planOnly ? "plan" : "lesson", module: c.module, lesson: c.lesson, words: words(text), minutes: Math.round((Date.now() - t0) / 600) / 100, error, parts: p?.parts?.length ?? 0, split: p?.split ?? null, plan: JSON.stringify(plan).slice(0, 60000), text, at: Date.now() };
     const first = sent[0] ?? [];

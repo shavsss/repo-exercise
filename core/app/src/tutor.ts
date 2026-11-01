@@ -530,7 +530,9 @@ ${last ? "This is the last part: write the coverage block, the exercises, the fi
  * The lesson rules in use. "lite" is a candidate run only from the test bench (#bench) until it is
  * approved: 1–2 central results, a fixed length band and no restating, on top of the current rules.
  */
-let LESSON_RULES: "current" | "lite" = "current";
+/** The rules the app writes lessons with (the bench switches them per step and puts these back). */
+export const DEFAULT_RULES: "current" | "lite" = "current";
+let LESSON_RULES: "current" | "lite" = DEFAULT_RULES;
 export function setLessonRules(r: "current" | "lite") {
   LESSON_RULES = r;
 }
@@ -556,7 +558,8 @@ Density: about 20 to 45 counted words per unit. Delete padding and only padding:
  * each one comes back only once the real tutor has written lessons with it in both apps).
  */
 export type LessonFeature = "curriculum" | "level3" | "decide" | "style";
-let FEATURES = new Set<LessonFeature>();
+export const DEFAULT_FEATURES: LessonFeature[] = [];
+let FEATURES = new Set<LessonFeature>(DEFAULT_FEATURES);
 export function setLessonFeatures(f: LessonFeature[]) {
   FEATURES = new Set(f);
 }

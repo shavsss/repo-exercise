@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { connect, type Runtime } from "../runtime";
 import { loadIndex } from "../library";
-import { composeLesson, planModule, setLessonFeatures, setLessonRules, type LessonFeature } from "../tutor";
+import { DEFAULT_FEATURES, DEFAULT_RULES, composeLesson, planModule, setLessonFeatures, setLessonRules, type LessonFeature } from "../tutor";
 
 // The test bench (#bench): opened once, it runs a fixed sequence of tests with the real tutor by
 // itself and keeps every result in profile/bench/<id> (rules, step, words, minutes, refusal or empty
@@ -23,12 +23,12 @@ type Rules = "current" | "lite";
  * passed in the command: the request is the same one Lanchester sends, so a refusal or a weak lesson
  * shows here too, when Lanchester's own bench tab is not running the newest version.
  */
-type Kit = { loadIndex: typeof loadIndex; composeLesson: typeof composeLesson; planModule: typeof planModule; setLessonRules: typeof setLessonRules; setLessonFeatures: typeof setLessonFeatures };
+type Kit = { defaults: { rules: Rules; features: LessonFeature[] }; loadIndex: typeof loadIndex; composeLesson: typeof composeLesson; planModule: typeof planModule; setLessonRules: typeof setLessonRules; setLessonFeatures: typeof setLessonFeatures };
 async function tutorKit(lanchester: boolean, indexUrl = ""): Promise<Kit> {
-  if (!lanchester) return { loadIndex, composeLesson, planModule, setLessonRules, setLessonFeatures };
+  if (!lanchester) return { defaults: { rules: DEFAULT_RULES, features: DEFAULT_FEATURES }, loadIndex, composeLesson, planModule, setLessonRules, setLessonFeatures };
   const [t, l] = await Promise.all([import("../../../../core/app/src/tutor"), import("../../../../core/app/src/library")]);
   l.setLibBase("corelib/", indexUrl);
-  return { loadIndex: l.loadIndex, composeLesson: t.composeLesson, planModule: t.planModule, setLessonRules: t.setLessonRules, setLessonFeatures: t.setLessonFeatures } as unknown as Kit;
+  return { defaults: { rules: t.DEFAULT_RULES, features: t.DEFAULT_FEATURES }, loadIndex: l.loadIndex, composeLesson: t.composeLesson, planModule: t.planModule, setLessonRules: t.setLessonRules, setLessonFeatures: t.setLessonFeatures } as unknown as Kit;
 }
 type Other = { memory?: string; lessons?: Record<string, unknown[]>; done?: string[]; index?: string };
 
@@ -94,7 +94,7 @@ export function Bench({ lab }: { lab: "gilua" | "lanchester" }) {
 
   async function one(rt: Runtime, rules: Rules, planOnly: boolean, at?: { module: string; lesson: number }, features: LessonFeature[] = [], other?: Other) {
     const c = at ?? CASES[lab];
-    const { loadIndex, composeLesson, planModule, setLessonRules, setLessonFeatures } = await tutorKit(!!other, other?.index);
+    const { loadIndex, composeLesson, planModule, setLessonRules, setLessonFeatures, defaults } = await tutorKit(!!other, other?.index);
     const lab_ = other ? "lanchester-via-gilua" : lab;
     const index = await loadIndex();
     const memory = other ? (other.memory ?? "") : ((await rt.store!.getMemory()) ?? "");
@@ -146,8 +146,8 @@ export function Bench({ lab }: { lab: "gilua" | "lanchester" }) {
       const err = e as { code?: string; message?: string };
       error = `${err.code ?? "error"}: ${err.message ?? ""}`;
     }
-    setLessonRules("current");
-    setLessonFeatures([]);
+    setLessonRules(defaults.rules);
+    setLessonFeatures(defaults.features);
     const p = plan as { parts?: unknown[]; split?: unknown } | null;
     const result = { lab: lab_, build: BENCH_BUILD, rules, features, step: planOnly ? "plan" : "lesson", module: c.module, lesson: c.lesson, words: words(text), minutes: Math.round((Date.now() - t0) / 600) / 100, error, parts: p?.parts?.length ?? 0, split: p?.split ?? null, plan: JSON.stringify(plan).slice(0, 60000), text, at: Date.now() };
     const first = sent[0] ?? [];
