@@ -474,11 +474,12 @@ ${last ? "This is the last part: write the coverage block, the exercises, the to
 }
 
 /**
- * The lesson rules in use. "lite" is a candidate run only from the test bench (#bench) until it is
- * approved: 1–2 central results, a fixed length band and no restating, on top of the current rules.
+ * The lesson rules in use. "lite" is the compact rules of 1.11 (RULES_v3 §5: depth units, density band,
+ * padding list, split only by rule 5.4), checked with the real tutor on the test bench; "current" is the
+ * 30.10 wording, kept only so the bench can compare.
  */
 /** The rules the app writes lessons with (the bench switches them per step and puts these back). */
-export const DEFAULT_RULES: "current" | "lite" = "current";
+export const DEFAULT_RULES: "current" | "lite" = "lite";
 let LESSON_RULES: "current" | "lite" = DEFAULT_RULES;
 export function setLessonRules(r: "current" | "lite") {
   LESSON_RULES = r;
@@ -506,7 +507,7 @@ Only the central results named in the plan get [[2.5: …]] tags, formula blocks
  * each one comes back only once the real tutor has written lessons with it in both apps).
  */
 export type LessonFeature = "curriculum" | "level3" | "decide" | "style";
-export const DEFAULT_FEATURES: LessonFeature[] = [];
+export const DEFAULT_FEATURES: LessonFeature[] = ["curriculum", "level3", "decide", "style"];
 let FEATURES = new Set<LessonFeature>(DEFAULT_FEATURES);
 export function setLessonFeatures(f: LessonFeature[]) {
   FEATURES = new Set(f);
