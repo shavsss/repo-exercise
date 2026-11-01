@@ -479,6 +479,8 @@ let LESSON_RULES: "current" | "lite" = "current";
 export function setLessonRules(r: "current" | "lite") {
   LESSON_RULES = r;
 }
+const JSON_AGAIN = "The previous reply to this request held no JSON. Reply now with ONLY the JSON object of the plan, small as specified, with no text before or after it.";
+const isEmptyPlan = (e: unknown) => ["invalid_json", "empty_completion"].includes(String((e as { code?: string })?.code ?? ""));
 const LITE_PLAN = `
 LESSON RULES (they replace the length rule and the 4200-word floor above). There is no word target and no floor: the length follows from the depth units. Nothing of the assigned material is dropped and nothing is taught below its level.
 - Central results: one or two per lesson. A central result is a formula, theorem, method or model the course returns to as a working tool, or that carries an engineering decision. Each one gets all seven level-2.5 sections, woven into the argument where it raises them, plus its authority layer: a hidden assumption with a real break (in the step where it enters), a quantitative reading (a bound or error growth, with a computed number), the decisive real case with computed numbers against published ones, a professional error and the check that catches it, a second structure ("what it really rests on"), and a strong mapping to another field.
@@ -558,13 +560,16 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
   if (!plan) {
     cb.onStatus?.("מתכנן את השיעור: קורא את המקורות ומחשב את המספרים");
     const planTurn = `${ctx}\n\n${text}\n\n${LESSON_RULES === "lite" ? PART_PLAN_INSTRUCTIONS.replace("for a core or advanced module the words add up to at least 4200 Hebrew words unless the assigned material is genuinely short (then say so in the first part); ", "").replace(', "words": 1200}', ', "units": 40}') + LITE_PLAN : PART_PLAN_INSTRUCTIONS}${featurePlan(lessons?.length ?? 0, lessonIdx, opts.done?.length ?? 0)}`;
-    plan = await rt.sample.json<PartPlan>([...fitHistory(history, bytes(planTurn)), { role: "user", content: planTurn }], {
-      model: MODEL,
-      modelTier: "complex",
-      effort,
-      signal,
-      ...(tools ? { tools } : { cache: false }),
-    });
+    const once = (again: boolean) =>
+      rt.sample!.json<PartPlan>([...fitHistory(history, bytes(planTurn)), { role: "user", content: again ? `${planTurn}\n\n${JSON_AGAIN}` : planTurn }], {
+        model: MODEL,
+        modelTier: "complex",
+        effort,
+        signal,
+        ...(tools && !again ? { tools } : { cache: false }),
+      });
+    // an empty or non-JSON plan is asked once more, without tools (the new rules only)
+    plan = await (LESSON_RULES === "lite" ? once(false).catch((e) => (isEmptyPlan(e) ? once(true) : Promise.reject(e))) : once(false));
     if (!plan || !Array.isArray(plan.parts) || !plan.parts.length) throw { code: "invalid_json", message: "no plan" };
     cb.onCheckpoint?.(plan, 0, "");
     if (opts.planOnly) return { text: "", plan, model: undefined };
