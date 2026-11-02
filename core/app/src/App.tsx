@@ -20,6 +20,7 @@ import { SourceViewer } from "./components/SourceViewer";
 import { MemoryPanel } from "./components/MemoryPanel";
 import { MdContext } from "./components/Markdown";
 import { GuideCtx, useLessonGuide, type GuideCtxValue } from "./components/LessonGuide";
+import { asGuide } from "./guide";
 import { setLevel3Scope } from "./level3";
 import { SourceTag } from "./components/blocks/SourceTag";
 import { Icon } from "./components/Icon";
@@ -444,7 +445,21 @@ export function App() {
           let full = answer.text;
           let res: Awaited<ReturnType<typeof askTutor>> | null = null;
           if (!full) {
-            res = await askTutor({ ...base, mode: sendMode, text: userMsg.text, images });
+            // the module quiz asks only what was taught in full: the lesson maps say what was core and what only a first look
+            let maps: string | undefined;
+            if (sendMode === "quiz" && rt?.store) {
+              const n = prog?.lessons?.length ?? 0;
+              const lines: string[] = [];
+              for (let i = 0; i < n; i++) {
+                const g = asGuide(await rt.store.loadGuide(`${m.id}__${i}`).catch(() => null));
+                if (!g) continue;
+                const items = [...(g.blocks ?? []), ...g.sections];
+                const of = (k: string) => items.filter((x) => x.kind === k).map((x) => `${x.head}${x.module ? ` (${x.module})` : ""}`).join("; ");
+                lines.push(`Lesson ${i + 1}: core: ${of("core") || "-"} | preview: ${of("preview") || "-"} | example: ${of("example") || "-"}${g.copy.length ? ` | to remember: ${g.copy.join("; ")}` : ""}`);
+              }
+              maps = lines.join("\n") || undefined;
+            }
+            res = await askTutor({ ...base, mode: sendMode, text: userMsg.text, images, maps });
             full = res.text;
           }
           let cuts = 0;
