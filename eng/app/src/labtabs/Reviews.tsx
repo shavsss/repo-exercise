@@ -113,11 +113,14 @@ export function ReviewsTab({ lab, rt, onOpenModule }: LabTabProps) {
             <div className="rev-legend muted">
               <span className="rev-key now" /> עכשיו <span className="rev-key target" /> יעד · סולם אחד: 1 ג'וניור, 2 ביניים, 3 סניור, 4 מומחה, 5 מוביל תחום
             </div>
-            <ul className="rev-domains">
-              {r.domains.map((d) => (
-                <DomainRow key={d.id} d={d} />
-              ))}
-            </ul>
+            <div className="rev-dom-grid">
+              <Radar domains={r.domains} />
+              <ul className="rev-domains">
+                {r.domains.map((d, i) => (
+                  <DomainRow key={d.id} d={d} hue={domHue(i)} />
+                ))}
+              </ul>
+            </div>
           </section>
 
           <div className="rev-cards">
@@ -249,7 +252,55 @@ function Score({ v }: { v: number }) {
   );
 }
 
-function DomainRow({ d }: { d: ReviewDomain }) {
+/** a hue per domain, the same in the radar and in its row (vivid.css) */
+const domHue = (i: number) => [205, 150, 32, 280, 345, 180, 60][i % 7];
+
+/** The domains as a web: the filled shape is where he is now, the dashed one the target; the gap between them is the
+ * week's work. Same 1–5 scale as the rows. */
+/** a label short enough for the web: the part before a colon, then at most 18 characters */
+const short = (n: string) => {
+  const h = n.split(/[:：]/)[0].trim();
+  return h.length > 18 ? h.slice(0, 17) + "…" : h;
+};
+
+function Radar({ domains }: { domains: ReviewDomain[] }) {
+  const n = domains.length;
+  if (n < 3) return null;
+  const R = 92, C = 120;
+  const pt = (i: number, v: number) => {
+    const a = -Math.PI / 2 + (i * 2 * Math.PI) / n;
+    const r = (Math.max(0, Math.min(5, v)) / 5) * R;
+    return [C + r * Math.cos(a), C + r * Math.sin(a)] as const;
+  };
+  const poly = (f: (d: ReviewDomain) => number) => domains.map((d, i) => pt(i, f(d)).join(",")).join(" ");
+  return (
+    <svg className="rev-radar" viewBox="-100 -6 440 252" role="img" aria-label="התחומים: עכשיו מול היעד">
+      {[1, 2, 3, 4, 5].map((k) => (
+        <polygon key={k} className="rr-ring" points={domains.map((_, i) => pt(i, k).join(",")).join(" ")} />
+      ))}
+      {domains.map((_, i) => {
+        const [x, y] = pt(i, 5);
+        return <line key={i} className="rr-axis" x1={C} y1={C} x2={x} y2={y} />;
+      })}
+      <polygon className="rr-target" points={poly((d) => d.targetScore)} />
+      <polygon className="rr-now" points={poly((d) => d.score)} />
+      {domains.map((d, i) => {
+        const [x, y] = pt(i, d.score);
+        return <circle key={d.id} cx={x} cy={y} r="4.5" style={{ fill: `hsl(${domHue(i)} 65% 50%)` }} />;
+      })}
+      {domains.map((d, i) => {
+        const [x, y] = pt(i, 5.6);
+        return (
+          <text key={d.id} x={x} y={y} className="rr-label" textAnchor={x < C - 8 ? "start" : x > C + 8 ? "end" : "middle"} dominantBaseline="middle" style={{ fill: `hsl(${domHue(i)} 55% var(--rr-l, 38%))` }}>
+            {short(d.name)}
+          </text>
+        );
+      })}
+    </svg>
+  );
+}
+
+function DomainRow({ d, hue }: { d: ReviewDomain; hue: number }) {
   const [open, setOpen] = useState(false);
   const pct = (x: number) => `${(Math.max(0, Math.min(5, x)) / 5) * 100}%`;
   const label = (o: ReviewDomain["now"] = {}) =>
@@ -264,7 +315,7 @@ function DomainRow({ d }: { d: ReviewDomain }) {
       .map(([k, v]) => `${k}: ${v}`)
       .join(" · ");
   return (
-    <li className="rev-domain">
+    <li className="rev-domain" style={{ ["--h" as string]: String(hue) }}>
       <button className="rev-domain-row" onClick={() => setOpen(!open)} aria-expanded={open}>
         <span className="rev-domain-name">{d.name}</span>
         <span className="rev-bar" aria-label={`עכשיו ${d.score} מתוך 5, היעד ${d.targetScore}`}>

@@ -140,6 +140,7 @@ export function ProductsTab({ lab, rt }: LabTabProps) {
               </select>
             </label>
           )}
+          {p && prog && <Gauge v={STAGES.reduce((a, s) => a + Math.min(1, prog[s.id] ?? 0), 0) / STAGES.length} next={STAGES.find((s) => (prog[s.id] ?? 0) < 1)?.label} />}
           {p && <span className={`lt-saved ${saved}`}>{!store ? "לא נשמר בתצוגה הזו" : saved === "saving" ? "שומר…" : saved === "error" ? "השמירה לא הצליחה; מנסה שוב בשינוי הבא" : saved === "saved" ? "נשמר" : ""}</span>}
         </div>
       </header>
@@ -163,7 +164,7 @@ export function ProductsTab({ lab, rt }: LabTabProps) {
               const locked = i > 1 && !legal!.done;
               const v = prog![s.id];
               return (
-                <li key={s.id}>
+                <li key={s.id} style={{ ["--h" as string]: String(STEP_HUE[i % STEP_HUE.length]) }}>
                   <button className={`prod-step ${stage === s.id ? "is-on" : ""} ${v >= 1 ? "is-done" : v > 0 ? "is-part" : ""} ${locked ? "is-wait" : ""}`} onClick={() => setStage(s.id)} aria-current={stage === s.id ? "step" : undefined}>
                     <span className="prod-step-n">{v >= 1 ? "✓" : i + 1}</span>
                     <span className="prod-step-l">{s.label}</span>
@@ -175,6 +176,7 @@ export function ProductsTab({ lab, rt }: LabTabProps) {
 
           <StagePanel
             key={stage}
+            hue={STEP_HUE[Math.max(0, STAGES.findIndex((s) => s.id === stage)) % STEP_HUE.length]}
             stage={stage}
             p={p}
             update={update}
@@ -189,7 +191,25 @@ export function ProductsTab({ lab, rt }: LabTabProps) {
   );
 }
 
-function StagePanel({ stage, p, update, lab, rt, locked, onToLegal }: { stage: StageId; p: Product; update: (fn: (d: Product) => Product) => void; lab: LabTabProps["lab"]; rt: LabTabProps["rt"]; locked: boolean; onToLegal: () => void }) {
+/** a hue per stage, from idea (warm) to summary (cool): the rail reads as a road (vivid.css) */
+const STEP_HUE = [32, 12, 345, 280, 235, 200, 160];
+
+/** How far the product has come, as a dial in the head, and the next stage that is not done. */
+function Gauge({ v, next }: { v: number; next?: string }) {
+  const r = 26, c = 2 * Math.PI * r;
+  return (
+    <div className="prod-gauge" title="כמה מהשלבים הושלמו">
+      <svg viewBox="0 0 64 64" aria-hidden>
+        <circle cx="32" cy="32" r={r} className="pg-bg" />
+        <circle cx="32" cy="32" r={r} className="pg-fg" strokeDasharray={`${c * v} ${c}`} transform="rotate(-90 32 32)" />
+      </svg>
+      <span className="pg-n" dir="ltr">{Math.round(v * 100)}%</span>
+      <span className="pg-next">{next ? <>הבא: <b>{next}</b></> : "המוצר שלם"}</span>
+    </div>
+  );
+}
+
+function StagePanel({ stage, p, update, lab, rt, locked, onToLegal, hue }: { hue: number; stage: StageId; p: Product; update: (fn: (d: Product) => Product) => void; lab: LabTabProps["lab"]; rt: LabTabProps["rt"]; locked: boolean; onToLegal: () => void }) {
   const cfg = LAB[lab];
   const st = STAGES.find((s) => s.id === stage)!;
   const [busy, setBusy] = useState(false);
@@ -220,7 +240,7 @@ function StagePanel({ stage, p, update, lab, rt, locked, onToLegal }: { stage: S
 
   const saved = p.critiques[stage];
   return (
-    <section className="prod-panel">
+    <section className="prod-panel" style={{ ["--h" as string]: String(hue) }}>
       <header className="prod-panel-head">
         <div>
           <h2>{st.label}</h2>

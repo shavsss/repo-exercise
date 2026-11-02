@@ -9,10 +9,52 @@ import type { LabTabProps } from "../labtabs/LabTabs";
 import { play } from "../sound";
 import { addMinutes, getDeck, gradeCard, onDeck, patchCard, queueOf, type Deck } from "./deck";
 import { minutesLabel, estSec, type Card, type CardKind } from "./cards";
-import { preview, whenLabel, type Rating } from "./fsrs";
+import { DAY, preview, retrievability, whenLabel, type Rating } from "./fsrs";
 import "./review.css";
 
 const KIND: Record<CardKind, string> = { keep: "לסיכום", keepAll: "לסיכום", def: "הגדרה", formula: "נוסחה", think: "שאלה מהשיעור", note: "הפתק שלך" };
+/** one hue per kind of card: the deck reads as colors before words (vivid.css) */
+const HUE: Record<CardKind, number> = { keep: 150, keepAll: 150, def: 235, formula: 32, think: 280, note: 340 };
+
+/** How well each card is held right now, one dot per card, a row per module: green holds, amber fades, rose slips,
+ * hollow is not reviewed yet. Dots, not a count of what is left (N1); hovering a dot shows its question. */
+function MemoryMap({ deck, now, onOpenModule }: { deck: Deck; now: number; onOpenModule: (id: string) => void }) {
+  const rows = useMemo(() => {
+    const by = new Map<string, Card[]>();
+    for (const c of deck.cards.values()) {
+      if (c.off) continue;
+      by.set(c.moduleId, [...(by.get(c.moduleId) ?? []), c]);
+    }
+    return [...by.entries()].sort((a, b) => a[0].localeCompare(b[0], "en", { numeric: true }));
+  }, [deck, deck.cards.size]);
+  if (!rows.length) return null;
+  const state = (c: Card) => {
+    if (!c.reps) return "new";
+    const r = retrievability((now - (c.last ?? now)) / DAY, c.s);
+    return r >= 0.9 ? "hold" : r >= 0.75 ? "fade" : "slip";
+  };
+  return (
+    <section className="rv-map" aria-label="מפת הזיכרון">
+      <h2>מפת הזיכרון</h2>
+      <p className="rv-calm">כל נקודה היא כרטיס. ירוק נשמר, ענבר מתחיל לדהות, ורוד כבר מחליק, וחלול עוד לא נבחן. ריחוף על נקודה מראה את השאלה.</p>
+      <ul>
+        {rows.map(([m, cs]) => (
+          <li key={m}>
+            <button className="rv-map-m" onClick={() => onOpenModule(m)} dir="ltr" title="למודול">
+              {m}
+            </button>
+            <span className="rv-dots">
+              {cs.map((c) => (
+                <i key={c.id} className={`rv-dot d-${state(c)}`} style={{ ["--h" as string]: String(HUE[c.kind]) }} title={(c.ask || c.front).replace(/\$|\*\*/g, "").slice(0, 140)} />
+              ))}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
 export const GRADES: { g: Rating; label: string }[] = [
   { g: 1, label: "שכחתי" },
   { g: 2, label: "קשה" },
@@ -185,6 +227,7 @@ export function ReviewTab({ lab, rt, onOpenModule }: LabTabProps) {
             )}
           </div>
         </section>
+        {deck && <MemoryMap deck={deck} now={now} onOpenModule={onOpenModule} />}
       </div>
     );
   }
@@ -201,7 +244,8 @@ export function ReviewTab({ lab, rt, onOpenModule }: LabTabProps) {
       <div className="rv-bar" aria-hidden="true">
         <i style={{ width: `${total.current ? Math.min(100, (pos / Math.max(total.current, pos + queue.length)) * 100) : 0}%` }} />
       </div>
-      <article className={`rv-card k-${card.kind}`} key={card.id + card.reps}>
+      <div className="rv-deck" style={{ ["--h" as string]: String(HUE[card.kind]) }}>
+      <article className={`rv-card k-${card.kind} ${phase === "back" ? "is-back" : ""}`} key={card.id + card.reps}>
         <div className="rv-meta">
           <span className="rv-kind">{KIND[card.kind]}</span>
           <button className="link rv-src" onClick={() => onOpenModule(card.moduleId)} title="לשיעור">
@@ -236,6 +280,7 @@ export function ReviewTab({ lab, rt, onOpenModule }: LabTabProps) {
           </div>
         )}
       </article>
+      </div>
       <div className="rv-dock">
         {phase === "card" ? (
           <button className="btn primary rv-reveal" onClick={reveal}>

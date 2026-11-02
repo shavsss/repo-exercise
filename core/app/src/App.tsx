@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { connect, type ConvMeta, type Runtime, type SampleError } from "./runtime";
 import { docMeta, loadIndex, moduleState, type LibraryIndex, type Module } from "./library";
 import { INITIAL_MEMORY, askTutor, composeLesson, planModule, updateMemory, type PartPlan } from "./tutor";
@@ -7,6 +7,7 @@ import type { Activity, Effort, LessonNote, LessonSpec, ModuleProgress, Mode, No
 import { ModuleMap, STATE_LABEL, TIER_LABEL, type Selection } from "./components/ModuleMap";
 import { Topbar, type Crumb } from "./components/Topbar";
 import { AssistantTurn, DimensionHead, UserBubble } from "./components/Message";
+import { HomeHero } from "./components/HomeHero";
 import { Composer, type QuickAction } from "./components/Composer";
 import { lessonChannel } from "./summaries/SummaryApp";
 import { LessonToc, ReadingDock, ReadingProgress, useResumePosition } from "./components/ReadingAids";
@@ -888,8 +889,7 @@ export function App() {
               {rt && rt.sample && !rt.store && <div className="banner banner-warn">השיחות וההתקדמות לא יישמרו בתצוגה הזו (צריך להיות מחובר ל-claude.ai עם הרשאת כתיבה).</div>}
               {indexError && <div className="banner banner-error">{indexError}</div>}
 
-              {!module && index && <MorningCard rt={rt} modules={index.modules} mods={mods} onGo={setSelection} onReview={() => setTab("review")} />}
-              {!module && index && <Overview index={index} done={done} mods={mods} onSelect={setSelection} />}
+              {!module && index && <Overview index={index} done={done} mods={mods} onSelect={setSelection} morning={<MorningCard rt={rt} modules={index.modules} mods={mods} onGo={setSelection} onReview={() => setTab("review")} />} />}
               {!module && closeDay("home")}
 
               {module && lessonIdx === undefined && (
@@ -1091,23 +1091,15 @@ export function App() {
 
 /* ---------------- pages ---------------- */
 
-function Overview({ index, done, mods, onSelect }: { index: LibraryIndex; done: Set<string>; mods: Record<string, ModuleProgress>; onSelect: (s: Selection) => void }) {
+function Overview({ index, done, mods, onSelect, morning }: { index: LibraryIndex; done: Set<string>; mods: Record<string, ModuleProgress>; onSelect: (s: Selection) => void; morning?: ReactNode }) {
   const open = index.modules.filter((m) => moduleState(m, done) === "open");
   const started = open.filter((m) => mods[m.id]?.lessons?.length);
   const fresh = open.filter((m) => !mods[m.id]?.lessons?.length && m.tier === "core");
-  const counts = { done: done.size, open: open.length, locked: index.modules.length - done.size - open.length };
   const pick = [...started, ...fresh].slice(0, 8);
   return (
-    <div className="overview">
-      <DimensionHead code="LANCHESTER · CORE LAB" title="לנצ'סטר" sub="הליבה הטכנית: מכ״ם, ל״א, EO/IR, ניווט, הנחיה, הגנה אווירית, פלטפורמות. מודול אחר מודול, מתוך הספרייה." />
-      <dl className="stats">
-        {(["done", "open", "locked"] as const).map((k) => (
-          <div key={k} className={`stat st-${k}`}>
-            <dt>{STATE_LABEL[k]}</dt>
-            <dd dir="ltr">{counts[k]}</dd>
-          </div>
-        ))}
-      </dl>
+    <div className="overview vivid-home">
+      <HomeHero code="LANCHESTER · CORE LAB" title="לנצ'סטר" sub="הליבה הטכנית: מכ״ם, ל״א, EO/IR, ניווט, הנחיה, הגנה אווירית, פלטפורמות. מודול אחר מודול, מתוך הספרייה." index={index} done={done} mods={mods} onSelect={onSelect} />
+      {morning}
       <h2 className="section-title">{started.length ? "להמשיך מכאן" : "מודולים זמינים להתחלה"}</h2>
       <ul className="cards">
         {pick.map((m) => {

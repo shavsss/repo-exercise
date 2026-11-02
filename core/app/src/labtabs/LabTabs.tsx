@@ -11,6 +11,7 @@ import { ProductsTab } from "./Products";
 import { ReviewsTab } from "./Reviews";
 import { ReadTab } from "./ReadTab";
 import { ReviewTab } from "../review/Review";
+import "./vivid.css";
 
 export type LabTab = "study" | "review" | "news" | "products" | "reviews" | "read";
 
@@ -103,7 +104,7 @@ export interface LabTabProps {
 /** The page of a tab other than the lessons, in place of the lessons' body (which stays mounted underneath). */
 export function LabTabView({ tab, ...p }: LabTabProps & { tab: LabTab }) {
   return (
-    <div className="labtab-page" key={tab}>
+    <div className={`labtab-page vivid v-${tab}`} key={tab}>
       {tab === "review" && <ReviewTab {...p} />}
       {tab === "news" && <NewsTab {...p} />}
       {tab === "products" && <ProductsTab {...p} />}

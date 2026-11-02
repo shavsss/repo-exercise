@@ -20,6 +20,8 @@ const CERT: Record<NewsItem["certainty"], string> = {
 const REL: Record<Rel, string> = { learned: "נלמד", current: "עכשיו", next: "בקרוב", later: "בהמשך הקורס", outside: "מחוץ לתוכנית" };
 const SANITY = { pass: "עובר", fail: "לא עובר", na: "לא נבדק" };
 const TB = { superseded: "התיישן", refined: "דויק", confirmed: "אושר" };
+/** a hue per section of the issue, spread around the wheel (vivid.css) */
+const secHue = (i: number) => [205, 18, 150, 280, 42, 330, 180][i % 7];
 const IDEA = { project: "פרויקט", product: "מוצר", article: "מאמר", interview: "ראיון" };
 
 export function NewsTab({ lab, rt, index, done, current, onOpenModule }: LabTabProps) {
@@ -152,8 +154,8 @@ export function NewsTab({ lab, rt, index, done, current, onOpenModule }: LabTabP
             <button className="lt-chip" aria-pressed={!section} onClick={() => setSection("")}>
               הכל
             </button>
-            {sections.map((s) => (
-              <button key={s.id} className="lt-chip" aria-pressed={section === s.id} onClick={() => setSection(section === s.id ? "" : s.id)}>
+            {sections.map((s, si) => (
+              <button key={s.id} className="lt-chip sec-chip" style={{ ["--h" as string]: String(secHue(si)) }} aria-pressed={section === s.id} onClick={() => setSection(section === s.id ? "" : s.id)}>
                 {s.title}
                 <span className="lt-n">{s.items.filter((x) => byId.has(x)).length}</span>
               </button>
@@ -166,12 +168,13 @@ export function NewsTab({ lab, rt, index, done, current, onOpenModule }: LabTabP
           <div className="news-layout">
             <div className="news-flow">
               {sections
-                .filter((s) => !section || s.id === section)
-                .map((s) => {
+                .map((s, si) => [s, si] as const)
+                .filter(([s]) => !section || s.id === section)
+                .map(([s, si]) => {
                   const items = s.items.map((x) => byId.get(x)!).filter((it) => it && visible(it));
                   if (!items.length) return null;
                   return (
-                    <section key={s.id} className="news-section">
+                    <section key={s.id} className="news-section" style={{ ["--h" as string]: String(secHue(si)) }}>
                       <h3>
                         {s.title}
                         <span className="lt-n">{items.length}</span>
@@ -260,7 +263,7 @@ function ItemBody({
   return (
     <>
       <div className="news-tags">
-        <span className="lt-tag">{KIND[it.kind] ?? it.kind}</span>
+        <span className={`lt-tag nk nk-${it.kind}`}>{KIND[it.kind] ?? it.kind}</span>
         <span className={`lt-tag c-${it.certainty}`}>{CERT[it.certainty] ?? it.certainty}</span>
         {src && <span className="lt-tag">רמת מקור {src.tier}</span>}
         {it.sanity && <span className={`lt-tag s-${it.sanity.result}`} title={`${it.sanity.check}: ${it.sanity.note}`}>סדר גודל: {SANITY[it.sanity.result]}</span>}
