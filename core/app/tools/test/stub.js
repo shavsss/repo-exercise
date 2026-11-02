@@ -58,6 +58,24 @@
       window.__log.push("ask:" + opts.modelTier);
       return { text: "מה קובע את הטווח המרבי, ולמה הוא גדל רק כשורש רביעי של ההספק?", truncated: false, modelTierApplied: "quick" };
     }
+    if (typeof input === "string" && input.includes("<lesson_headings>")) {
+      // the lesson map (src/guide.ts): one entry per heading, by position: core, preview, core, example, core…
+      window.__log.push("guide:" + opts.model);
+      window.__guideInput = input;
+      const heads = [...input.split("<lesson_headings>")[1].split("</lesson_headings>")[0].matchAll(/^\d+\. \[h[23]\] (.+)$/gm)].map((m) => m[1]);
+      const cur = /<lesson module="([^"]+)"/.exec(input)?.[1];
+      const ids = [...input.split("<course_modules>")[1].matchAll(/^(\S+) /gm)].map((m) => m[1]);
+      const later = ids.slice(ids.indexOf(cur) + 1);
+      const pre = ids.includes("M5.3") && "M5.3" !== cur ? "M5.3" : later[Math.min(8, later.length - 1)];
+      const ex = later[Math.min(14, later.length - 1)];
+      const kinds = ["core", "preview", "core", "example"];
+      const sections = heads.map((head, i) => {
+        const kind = kinds[i % 4] ?? "core";
+        return { head, kind, ...(kind === "preview" ? { module: pre, note: "רק הרעיון; ההגדרה המלאה במודול שלו" } : kind === "example" ? { module: ex, note: "המחשה מהשטח, בלי להעתיק נוסחאות" } : { note: "הנושא של השיעור" }) };
+      });
+      await new Promise((r) => setTimeout(r, 200));
+      return { text: JSON.stringify({ sections, copy: ["ההגדרה של הגודל המרכזי, במילים ובנוסחה", "הנוסחה המרכזית ותנאי התוקף שלה", "סדר הגודל שכדאי לזכור"] }), truncated: false, modelTierApplied: opts.modelTier, modelApplied: opts.model };
+    }
     if (typeof input === "string") { window.__log.push("memory"); return { text: "# זיכרון הקורס\n\n## מה נלמד\n- שיעור בדיקה (מעודכן)", truncated: false, modelTierApplied: "default" }; }
     const last = input[input.length - 1].content;
     const m = /WRITING STEP: part (\d+) of (\d+)/.exec(last);

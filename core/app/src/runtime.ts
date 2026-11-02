@@ -329,6 +329,16 @@ export class Store {
     await this.profile.collection("level3").doc(key).set(clean(data));
   }
 
+  /* ---- the lesson map (guide.ts): profile/guides/<module>__<lesson>, one document per lesson ---- */
+  async loadGuide(key: string): Promise<Record<string, unknown> | null> {
+    const s = await this.profile.collection("guides").doc(key).get();
+    return s.exists ? (s.data() as Record<string, unknown>) : null;
+  }
+
+  async saveGuide(key: string, data: Record<string, unknown>) {
+    await this.profile.collection("guides").doc(key).set(clean(data));
+  }
+
   /* ---- the learner's own dictionary for the summaries' spelling: profile/dict/mine ---- */
   async loadWords(): Promise<string[]> {
     const s = await this.profile.collection("dict").doc("mine").get();

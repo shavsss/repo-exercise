@@ -1,0 +1,120 @@
+/* The lesson map (components/LessonGuide.tsx): a quiet tag beside each heading, dots in the contents, and the
+   "מפת השיעור" card under the lesson's title. Colors from look5.css: the lesson's own subject in the accent, a
+   first look at a later module in the muted blue of the "what to do" tier, an illustration in the quiet grey.
+   Identical in both labs. */
+.k-core { --gt: var(--accent); }
+.k-preview { --gt: var(--tier-act); }
+.k-example { --gt: var(--tier-quiet); }
+
+/* ---- the tag beside a heading: its words come from data-l, so they never enter the heading's text ---- */
+.gtag {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.35em;
+  margin-inline-start: 0.55em;
+  padding: 1px 7px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--gt) 30%, transparent);
+  background: color-mix(in srgb, var(--gt) 7%, transparent);
+  color: var(--gt);
+  font: 500 11.5px/1.5 var(--font);
+  letter-spacing: 0;
+  white-space: nowrap;
+  vertical-align: 0.2em;
+  user-select: none;
+  -webkit-user-select: none;
+  max-width: 100%;
+}
+.gtag::before { content: attr(data-l); }
+.gtag-mod {
+  all: unset;
+  font: inherit;
+  color: inherit;
+  white-space: nowrap;
+}
+.gtag-mod::before { content: "· " attr(data-l); }
+button.gtag-mod { cursor: pointer; text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--gt) 40%, transparent); text-underline-offset: 2px; }
+button.gtag-mod:hover { text-decoration-color: currentColor; }
+button.gtag-mod:focus-visible { outline: 2px solid var(--gt); outline-offset: 1px; border-radius: 3px; }
+/* the book's headings sit on the grid: the tag must not make their line taller */
+.bk-page .gtag, .bk-gc .gtag, .bk-gc-alt .gtag { line-height: 1.25; padding-block: 0; vertical-align: 0.15em; }
+
+/* ---- a dot in the contents ---- */
+.gdot {
+  display: inline-block;
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--gt);
+  opacity: 0.85;
+  margin-inline-end: 6px;
+  vertical-align: 0.1em;
+}
+.gdot.k-example { background: transparent; box-shadow: inset 0 0 0 1.5px var(--gt); }
+.gdot.k-preview { background: radial-gradient(circle, var(--gt) 1.6px, transparent 1.9px); box-shadow: inset 0 0 0 1.5px var(--gt); }
+
+/* ---- the card ---- */
+.lguide-wrap { margin: 4px 0 18px; }
+.lguide {
+  border: 1px solid var(--line);
+  border-inline-start: 3px solid var(--accent);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--accent) 3%, transparent);
+  font-family: var(--font);
+  color: var(--ink);
+}
+.lguide-head {
+  all: unset;
+  box-sizing: border-box;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  width: 100%;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+.lguide-head:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; border-radius: 8px; }
+.lguide-head [data-l]::before { content: attr(data-l); }
+.lguide-title { font-weight: 600; font-size: 14px; }
+.lguide-sum { color: var(--muted); font-size: 12.5px; }
+.lguide-caret { margin-inline-start: auto; color: var(--muted); font-size: 11px; }
+.lguide-body { padding: 0 12px 10px; font-size: 13.5px; line-height: 1.55; }
+.lguide-part + .lguide-part { margin-top: 8px; }
+.lguide-label { font-size: 11.5px; font-weight: 600; color: var(--muted); letter-spacing: 0.02em; margin: 2px 0 3px; }
+.lguide-part.k-core .lguide-label { color: var(--accent); }
+.lguide ul { margin: 0; padding-inline-start: 18px; }
+.lguide li { margin: 2px 0; }
+.lguide ul.lguide-others { list-style: none; padding: 0; }
+.lguide-others li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; }
+.lguide-others .gdot { margin: 0; align-self: center; }
+.lguide-kind { color: var(--gt); font-size: 12px; font-weight: 600; }
+.lguide-h { font-weight: 500; }
+.lguide-mod { all: unset; color: var(--gt); font-size: 12px; white-space: nowrap; }
+button.lguide-mod { cursor: pointer; text-decoration: underline; text-underline-offset: 2px; text-decoration-color: color-mix(in srgb, var(--gt) 40%, transparent); }
+button.lguide-mod:focus-visible { outline: 2px solid var(--gt); outline-offset: 1px; border-radius: 3px; }
+.lguide-mod.is-quiet { color: var(--muted); }
+.lguide-note { flex-basis: 100%; color: var(--muted); font-size: 12.5px; padding-inline-start: 15px; }
+.lguide-key { display: flex; flex-wrap: wrap; gap: 2px 12px; margin: 8px 0 0; font-size: 11.5px; color: var(--muted); }
+.lguide-key .gdot { margin-inline-end: 3px; }
+
+/* in the book: a one-line row under the title (its place kept even before the map exists); the open card is drawn
+   over the page, outside the page's windows (a portal), so the page's lay-out never moves */
+.lguide-slot { height: 34px; margin-top: 10px; }
+.lguide-wrap.is-floating { height: 34px; margin: 10px 0 0; }
+.lguide-wrap.is-floating .lguide-head { padding-block: 6px; }
+.lguide-wrap.is-floating .lguide-sum { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; flex: 1; }
+.lguide-wrap.is-floating .lguide-head { flex-wrap: nowrap; }
+.lguide-pop {
+  position: fixed;
+  z-index: 60;
+  box-sizing: border-box;
+  max-height: min(70vh, 520px);
+  overflow: auto;
+  background: var(--sheet);
+  background-image: linear-gradient(color-mix(in srgb, var(--accent) 3%, transparent), color-mix(in srgb, var(--accent) 3%, transparent));
+  box-shadow: 0 10px 28px rgb(0 0 0 / 0.16);
+  text-align: right;
+}
+.lguide-pop .lguide-head { padding-block: 6px; flex-wrap: nowrap; }

@@ -21,8 +21,9 @@
 // 3. the facing page is one place that shows one thing at a time: text, a consultation, the notebook or a scene.
 //
 // Identical in both labs.
-import { memo, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode, type RefObject } from "react";
+import { memo, useCallback, useContext, useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode, type RefObject } from "react";
 import { Markdown, MdContext, type MdContextValue } from "../components/Markdown";
+import { GuideCard, GuideCtx, GuideDot, sectionOfSource } from "../components/LessonGuide";
 import { Icon } from "../components/Icon";
 import { MarginNotes } from "../components/MarginNotes";
 import { setReading, useReading } from "../reading";
@@ -191,6 +192,8 @@ function BookTitle({ header }: { header: BookHeader }) {
       <h1 className="bk-title-h">{header.title}</h1>
       {header.sub && <div className="bk-title-sub">{header.sub}</div>}
       <div className="bk-title-rule" aria-hidden />
+      {/* the lesson map: one row under the title; open, it lies over the page (LessonGuide.tsx) */}
+      <GuideCard floating />
     </header>
   );
 }
@@ -491,6 +494,8 @@ export function BookView(props: BookProps) {
   const reduce = reducedMotion();
   const chunks = useChunks(items, liveKey, !!header, !!props.end);
   const live = !!liveKey;
+  // the lesson map: a change of it (a tag beside a heading) is measured again like any other change
+  const { guide } = useContext(GuideCtx);
 
   /* ---- the galley and its measures ---- */
   const galley = useRef<HTMLDivElement>(null);
@@ -1197,12 +1202,15 @@ export function BookView(props: BookProps) {
 
   /* ---- what each page shows around its text ---- */
   const heads = useMemo(() => {
-    const out: { level: 2 | 3; text: string; page: number; i: number }[] = [];
+    const out: { level: 2 | 3; text: string; page: number; i: number; kind?: string; module?: string }[] = [];
     chunks.forEach((c, i) => {
-      if ((c.kind === "h2" || c.kind === "h3") && c.head) out.push({ level: c.kind === "h2" ? 2 : 3, text: c.head, page: pageOf(pages, i), i });
+      if ((c.kind === "h2" || c.kind === "h3") && c.head) {
+        const g = sectionOfSource(guide, c.text);
+        out.push({ level: c.kind === "h2" ? 2 : 3, text: c.head, page: pageOf(pages, i), i, kind: g?.kind, module: g?.module });
+      }
     });
     return out;
-  }, [chunks, pages]);
+  }, [chunks, pages, guide]);
   const sectionAt = (p: number) => {
     let t = "";
     for (const h of heads) if (h.level === 2 && h.page <= p) t = h.text;
@@ -1609,7 +1617,7 @@ export function BookView(props: BookProps) {
 
 /* ------------------------------------------------------------------ contents ------------------------------------------------------------------ */
 
-function Toc({ heads, cur, visible, n, minutes, onGo, onClose }: { heads: { level: 2 | 3; text: string; page: number }[]; cur: number; visible: number[]; n: number; minutes: number; onGo: (p: number) => void; onClose: () => void }) {
+function Toc({ heads, cur, visible, n, minutes, onGo, onClose }: { heads: { level: 2 | 3; text: string; page: number; kind?: string; module?: string }[]; cur: number; visible: number[]; n: number; minutes: number; onGo: (p: number) => void; onClose: () => void }) {
   const [page, setPage] = useState("");
   useEffect(() => {
     const away = (e: PointerEvent) => {
@@ -1636,7 +1644,10 @@ function Toc({ heads, cur, visible, n, minutes, onGo, onClose }: { heads: { leve
           {heads.map((h, k) => (
             <li key={k} className={`lvl-${h.level}`}>
               <button className={k === here ? "is-here" : ""} aria-current={k === here ? "location" : undefined} onClick={() => onGo(h.page)}>
-                <span className="bk-toc-t">{h.text}</span>
+                <span className="bk-toc-t">
+                  <GuideDot kind={h.kind} module={h.module} />
+                  {h.text}
+                </span>
                 <span className="bk-toc-p">{h.page + 2}</span>
               </button>
             </li>

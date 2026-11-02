@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type RefObject } from "react";
 import { Icon } from "./Icon";
 import { setReading, useReading } from "../reading";
+import { GuideDot } from "./LessonGuide";
 
 // Aids for reading a long lesson: a progress line, the place where reading stopped
 // (kept per conversation in this browser), and a floating table of contents with the
@@ -115,7 +116,8 @@ function minutesLeft(el: HTMLElement) {
   return Math.round((words * left) / 150);
 }
 
-type Head = { id: string; text: string; level: number };
+/** kind and module: the lesson map's mark of the heading (data-guide, LessonGuide.tsx), when there is one */
+type Head = { id: string; text: string; level: number; kind?: string; module?: string };
 const clean = (t: string) => t.replace(/[*_`$]/g, "");
 /** a glide, unless the viewer asked the system for less motion */
 export const glide = (): ScrollBehavior => (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth");
@@ -130,7 +132,7 @@ export function useHeadings(scrollRef: RefObject<HTMLDivElement | null>, version
     const el = scrollRef.current;
     if (!el) return;
     setHeads(
-      [...el.querySelectorAll<HTMLElement>(".prose h2[id], .prose h3[id]")].map((h) => ({ id: h.id, text: clean(h.textContent ?? ""), level: h.tagName === "H2" ? 2 : 3 })),
+      [...el.querySelectorAll<HTMLElement>(".prose h2[id], .prose h3[id]")].map((h) => ({ id: h.id, text: clean(h.textContent ?? ""), level: h.tagName === "H2" ? 2 : 3, kind: h.dataset.guide, module: h.dataset.guideMod })),
     );
   }, [scrollRef, version]);
   useEffect(() => {
@@ -223,6 +225,7 @@ export function LessonToc({ scrollRef, version, open, setOpen }: { scrollRef: Re
         <nav className="lesson-toc-list">
           {heads.map((h) => (
             <button key={h.id} className={`lvl-${h.level} ${h.id === current ? "is-current" : ""}`} aria-current={h.id === current ? "location" : undefined} onClick={() => goTo(h.id)}>
+              <GuideDot kind={h.kind} module={h.module} />
               {h.text}
             </button>
           ))}
@@ -265,6 +268,7 @@ export function ReadingDock({ scrollRef, version, onPad, onNotebook }: { scrollR
                   setOpen(false);
                 }}
               >
+                <GuideDot kind={h.kind} module={h.module} />
                 {clean(h.text)}
               </button>
             ))}

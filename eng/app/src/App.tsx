@@ -19,6 +19,7 @@ import { LessonPlaceCtx } from "./events";
 import { SourceViewer } from "./components/SourceViewer";
 import { MemoryPanel } from "./components/MemoryPanel";
 import { MdContext } from "./components/Markdown";
+import { GuideCtx, useLessonGuide, type GuideCtxValue } from "./components/LessonGuide";
 import { setLevel3Scope } from "./level3";
 import { SourceTag } from "./components/blocks/SourceTag";
 import { Icon } from "./components/Icon";
@@ -648,6 +649,27 @@ export function App() {
   if (lesson) crumbs.push({ label: lesson.title });
   if (isQuiz) crumbs.push({ label: "מבחן מסכם" });
   const nLessons = prog?.lessons?.length ?? 0;
+  // the lesson map (LessonGuide.tsx): made once per lesson, right after it is written, or the first time a lesson
+  // written before it is opened; tags beside the headings, dots in the contents, a card under the title
+  const guideKey = module && lessonIdx !== undefined && lessonIdx >= 0 ? `${module.id}__${lessonIdx}` : "";
+  const guide = useLessonGuide({
+    rt,
+    lessonKey: guideKey,
+    // the messages are this lesson's only once its conversation is the one loaded (a moment after switching lessons
+    // they are still the previous lesson's)
+    ready: hasLesson && !busy && !following && !!convId && convId === wantedConv,
+    messages,
+    input:
+      module && lesson && index && lessonIdx !== undefined
+        ? { moduleId: module.id, moduleTitle: module.title, lessonTitle: lesson.title, lessonNo: lessonIdx + 1, lessonCount: nLessons, modules: index.modules.map((x) => ({ id: x.id, title: x.title })) }
+        : null,
+  });
+  const guideCtx = useMemo<GuideCtxValue>(
+    () => ({ guide, lessonKey: guideKey, onOpenModule: (id) => setSelection({ moduleId: id }), titleOf: (id) => index?.modules.find((x) => x.id === id)?.title }),
+    [guide, guideKey, setSelection, index],
+  );
+  const firstLessonItem = items.find((it) => it.kind === "assistant" && it.mode === "lesson")?.key;
+  const tocVersion = useMemo(() => [items, guide], [items, guide]);
   const counter = lesson ? `שיעור ${(lessonIdx ?? 0) + 1}/${nLessons}` : isQuiz ? "מבחן" : module && nLessons ? `${prog?.done?.length ?? 0}/${nLessons} שיעורים` : undefined;
   const fullBar = module?.tier !== "ref";
 
@@ -726,6 +748,7 @@ export function App() {
             book={bookOn ? bridge : null}
           />
         )}
+        <GuideCtx.Provider value={guideCtx}>
         <main className="main">
           <LessonPlaceCtx.Provider value={lessonPlace}>
           {bookOn && module && lessonIdx !== undefined ? (
@@ -887,6 +910,7 @@ export function App() {
                         notes={lesson ? notes.filter((n) => n.margin && n.moduleId === module.id && n.lesson === lessonIdx) : undefined}
                         onNoteSave={updateNote}
                         onNoteDelete={deleteNote}
+                        guideCard={it.key === firstLessonItem}
                       />
                     ),
                   )}
@@ -922,7 +946,7 @@ export function App() {
             {inLesson && items.length > 0 && (
               <ReadingDock
                 scrollRef={scrollRef}
-                version={items}
+                version={tocVersion}
                 onPad={
                   module && lessonIdx !== undefined && lessonIdx >= 0
                     ? () => {
@@ -958,11 +982,12 @@ export function App() {
           )}
           </LessonPlaceCtx.Provider>
         </main>
+        </GuideCtx.Provider>
 
         {showToc &&
           !bookOn &&
           (leftDock === "toc" ? (
-            <LessonToc scrollRef={scrollRef} version={items} open setOpen={(o) => !o && setLeftDock("")} />
+            <LessonToc scrollRef={scrollRef} version={tocVersion} open setOpen={(o) => !o && setLeftDock("")} />
           ) : leftDock === "pad" ? (
             <Scratchpad rt={rt} scrollRef={scrollRef} lessonKey={`${module!.id}__${lessonIdx}`} lessonTitle={`${module!.id} · ${lesson?.title ?? module!.title}`} onClose={() => setLeftDock("")} />
           ) : (

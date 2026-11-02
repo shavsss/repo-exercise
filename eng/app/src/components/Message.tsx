@@ -6,6 +6,7 @@ import { ActivitySeg } from "./Segments";
 import { CALLOUTS } from "./blocks/Callout";
 import { Icon } from "./Icon";
 import { MarginNotes } from "./MarginNotes";
+import { GuideCard } from "./LessonGuide";
 import type { LessonNote } from "../types";
 
 export function UserBubble({ item }: { item: Extract<Item, { kind: "user" }> }) {
@@ -84,6 +85,7 @@ export function AssistantTurn({
   notes,
   onNoteSave,
   onNoteDelete,
+  guideCard,
 }: {
   item: Extract<Item, { kind: "assistant" }>;
   live: boolean;
@@ -98,6 +100,8 @@ export function AssistantTurn({
   notes?: LessonNote[];
   onNoteSave?: (id: string, patch: Partial<LessonNote>) => void;
   onNoteDelete?: (id: string) => void;
+  /** the first lesson answer: the lesson map's card under the title (LessonGuide.tsx) */
+  guideCard?: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const words = useMemo(() => countWords(item.segments), [item.segments]);
@@ -114,6 +118,7 @@ export function AssistantTurn({
   return (
     <article className={`msg-assistant ${live ? "is-live" : ""}`} ref={ref} data-key={item.key}>
       {header && item.mode === "lesson" && <DimensionHead {...header} />}
+      {guideCard && item.mode === "lesson" && !live && <GuideCard />}
       {!live && item.mode === "lesson" && notes?.length && onNoteSave && onNoteDelete ? <MarginNotes root={ref} notes={notes} version={item.segments} onSave={onNoteSave} onDelete={onNoteDelete} /> : null}
       <div className="msg-meta">
         <span>{MODE_LABEL[item.mode]}</span>

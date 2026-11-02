@@ -21,6 +21,7 @@ import { Decide, ErrorHunt, Lab, Predict, Verify } from "./blocks/Level3";
 import { useBook } from "../book/context";
 import { BookPlate } from "../book/Plate";
 import { PLATES } from "../book/chunks";
+import { GuideTag, useHeadGuide } from "./LessonGuide";
 
 export interface MdContextValue {
   live: boolean;
@@ -124,13 +125,26 @@ const components: Components = {
     if (!className && raw.startsWith("§b:")) return <Badge text={raw.slice(3)} />;
     return <code className="inline-code">{children}</code>;
   },
-  h2({ children }) {
+  h2({ children, node }) {
     const ctx = useContext(MdContext);
-    return <h2 id={`${ctx.idPrefix}-${slug(textOf(children))}`}>{children}</h2>;
+    // the lesson map (LessonGuide.tsx): a quiet tag, and data-guide for the contents
+    const g = useHeadGuide(node);
+    return (
+      <h2 id={`${ctx.idPrefix}-${slug(textOf(children))}`} data-guide={g?.kind} data-guide-mod={g?.module}>
+        {children}
+        {g && <GuideTag sec={g} />}
+      </h2>
+    );
   },
-  h3({ children }) {
+  h3({ children, node }) {
     const ctx = useContext(MdContext);
-    return <h3 id={`${ctx.idPrefix}-${slug(textOf(children))}`}>{children}</h3>;
+    const g = useHeadGuide(node);
+    return (
+      <h3 id={`${ctx.idPrefix}-${slug(textOf(children))}`} data-guide={g?.kind} data-guide-mod={g?.module}>
+        {children}
+        {g && <GuideTag sec={g} />}
+      </h3>
+    );
   },
   a({ href, children }) {
     return (
