@@ -8,6 +8,7 @@ import { Icon } from "./Icon";
 import { MarginNotes } from "./MarginNotes";
 import { GuideCard } from "./LessonGuide";
 import type { LessonNote } from "../types";
+import type { QuizCtx } from "./QuizForm";
 
 export function UserBubble({ item }: { item: Extract<Item, { kind: "user" }> }) {
   return (
@@ -15,7 +16,14 @@ export function UserBubble({ item }: { item: Extract<Item, { kind: "user" }> }) 
       <div className="user-bubble">
         <span className="user-mode">{MODE_LABEL[item.mode]}</span>
         {item.images > 0 && <span className="user-mode">{item.images} תמונות</span>}
-        <div className="user-text">{item.text}</div>
+        {item.mode === "quiz" && item.text.startsWith("התשובות שלי למבחן:") ? (
+          // the quiz form's answers (QuizForm.tsx): a numbered list with its math drawn
+          <div className="user-text prose is-quiz-answers">
+            <Markdown text={item.text} />
+          </div>
+        ) : (
+          <div className="user-text">{item.text}</div>
+        )}
       </div>
     </div>
   );
@@ -84,6 +92,7 @@ export function AssistantTurn({
   onNoteSave,
   onNoteDelete,
   guideCard,
+  quiz,
 }: {
   item: Extract<Item, { kind: "assistant" }>;
   live: boolean;
@@ -100,13 +109,15 @@ export function AssistantTurn({
   onNoteDelete?: (id: string) => void;
   /** the first lesson answer: the lesson map's card under the title (LessonGuide.tsx) */
   guideCard?: boolean;
+  /** the module quiz conversation: what a ```quiz block's form needs (QuizForm.tsx) */
+  quiz?: QuizCtx;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const words = useMemo(() => countWords(item.segments), [item.segments]);
   const heads = useMemo(() => headingsOf(item.segments), [item.segments]);
   const blocks = useMemo(() => blocksOf(item.segments), [item.segments]);
   const bar = item.mode === "lesson" && !live && words > 0 ? depthBar(item.segments, fullBar) : null;
-  const ctx = useMemo(() => ({ live, idPrefix: item.key, openSource: onOpenSource }), [live, item.key, onOpenSource]);
+  const ctx = useMemo(() => ({ live, idPrefix: item.key, openSource: onOpenSource, quiz }), [live, item.key, onOpenSource, quiz]);
   const activity = item.segments.filter((s): s is Extract<Segment, { t: "activity" }> => s.t === "activity");
   const text = item.segments.find((s): s is Extract<Segment, { t: "text" }> => s.t === "text")?.text ?? "";
 

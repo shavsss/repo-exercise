@@ -22,11 +22,14 @@ import { useBook } from "../book/context";
 import { BookPlate } from "../book/Plate";
 import { PLATES } from "../book/chunks";
 import { GuideTag, useBlockGuide, useHeadGuide } from "./LessonGuide";
+import { QuizForm, type QuizCtx } from "./QuizForm";
 
 export interface MdContextValue {
   live: boolean;
   idPrefix: string;
   openSource: (doc: string, page: number) => void;
+  /** the module quiz's form (QuizForm.tsx): set on the quiz conversation's answers */
+  quiz?: QuizCtx;
 }
 export const MdContext = createContext<MdContextValue>({ live: false, idPrefix: "m", openSource: () => {} });
 
@@ -76,6 +79,7 @@ function FencedBlock({ lang, code }: { lang: string; code: string }) {
   // in the book, a live block sits on the page as a plate and comes alive on the facing page
   const book = useBook();
   if (book && PLATES.has(lang)) return <BookPlate lang={lang} code={code} />;
+  if (lang === "quiz") return <QuizForm source={code} />;
   if (lang === "think") return <Think body={code} />;
   if (lang === "predict") return <Predict source={code} />;
   if (lang === "errorhunt") return <ErrorHunt source={code} />;

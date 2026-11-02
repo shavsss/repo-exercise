@@ -41,6 +41,7 @@ import { CloseDay } from "./components/CloseDay";
 import { BookView } from "./book/Book";
 import { BookBridge } from "./book/context";
 import { useReading } from "./reading";
+import type { QuizCtx } from "./components/QuizForm";
 
 interface Notice {
   level: "info" | "warn" | "error";
@@ -611,7 +612,8 @@ export function App() {
   const inLesson = !!module && lessonIdx !== undefined;
   // the lesson as a book (src/book/, switched in the Aa settings): the lesson's answers laid out on pages
   const reading = useReading();
-  const bookOn = reading.book === "on" && inLesson && items.some((it) => it.kind === "assistant");
+  // the module quiz is a form (QuizForm.tsx), easier in the scrolling column: the book is for lessons
+  const bookOn = reading.book === "on" && inLesson && !isQuiz && items.some((it) => it.kind === "assistant");
   const bookRoot = useRef<HTMLDivElement>(null);
   const bridge = useMemo(() => new BookBridge(), []);
   useDayClock(rt, module && lesson && lessonIdx !== undefined ? { moduleId: module.id, lesson: lessonIdx, title: lesson.title } : null);
@@ -689,6 +691,32 @@ export function App() {
     [guide, guideKey, setSelection, index],
   );
   const firstLessonItem = items.find((it) => it.kind === "assistant" && it.mode === "lesson")?.key;
+  // the module quiz's form: each answer with a ```quiz block gets its draft key, its lock (a later quiz-mode
+  // message from the learner, whose text shows the chosen answers) and the composer's send path
+  const sendRef = useRef(send);
+  sendRef.current = send;
+  const quizCtx = useMemo(() => {
+    const out = new Map<string, QuizCtx>();
+    if (!isQuiz) return out;
+    items.forEach((it, i) => {
+      if (it.kind !== "assistant" || !it.segments.some((s) => s.t === "text" && s.text.includes("```quiz"))) return;
+      const answer = items.slice(i + 1).find((x): x is Extract<typeof x, { kind: "user" }> => x.kind === "user" && x.mode === "quiz");
+      out.set(it.key, {
+        storeKey: `eng-lab:quiz:${convId ?? "new"}:${it.key}`,
+        locked: !!answer,
+        submitted: answer?.text,
+        onSubmit: (text, images) => sendRef.current(text, images, "quiz"),
+        busy: busy || following,
+        canAttach: !!rt?.canSendImages,
+      });
+    });
+    return out;
+  }, [isQuiz, items, convId, busy, following, rt]);
+  // once the quiz is a form, the composer is for questions about it: the answers go through the form
+  const hasQuizForm = quizCtx.size > 0;
+  useEffect(() => {
+    if (hasQuizForm) setMode((m) => (m === "quiz" ? "clarify" : m));
+  }, [hasQuizForm, isQuiz, lessonIdx, module?.id]);
   const tocVersion = useMemo(() => [items, guide], [items, guide]);
   const counter = lesson ? `שיעור ${(lessonIdx ?? 0) + 1}/${nLessons}` : isQuiz ? "מבחן" : module && nLessons ? `${prog?.done?.length ?? 0}/${nLessons} שיעורים` : undefined;
   const fullBar = module?.tier !== "ref";
@@ -931,6 +959,7 @@ export function App() {
                         onNoteSave={updateNote}
                         onNoteDelete={deleteNote}
                         guideCard={it.key === firstLessonItem}
+                        quiz={quizCtx.get(it.key)}
                       />
                     ),
                   )}

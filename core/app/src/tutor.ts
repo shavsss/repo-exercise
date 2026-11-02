@@ -478,7 +478,21 @@ export async function askTutor(opts: Base & { mode: Mode; text: string; images: 
   });
 }
 
-const QUIZ_INSTRUCTIONS = `MODULE QUIZ. If the learner has not answered yet: write a quiz of 6–8 questions on the whole module (all its lessons, per the plan and <course_memory>): about half are engineering calculations with real numbers (verify your own solutions with compute first), the rest are reasoning and analyst questions about real systems. Ask only about what the module taught in full: calculations, derivations and formula questions only on the core material (the "core" items of <lesson_maps> when given). A topic a lesson only introduced (a first look at a later module, or an illustration from a field) is asked about, if at all, only at the level of its idea in words (what it says, why it matters), never by computing or solving with its formula. Formats: mix them, about a third each. (1) Multiple choice: four options labeled א, ב, ג, ד, exactly one correct, the wrong ones built from real mistakes; (2) short answers: true or false with a one-line reason, a number with its units, or an explanation in two sentences; (3) one or two worked problems, only on core material. Before you write, check every question against <lesson_maps>: if it needs a formula, a derivation or a number from an item listed under preview or example, or in <idea_only>, rewrite it as an idea question or drop it. Number the questions; do not reveal answers. End by asking the learner to answer in one message.
+const QUIZ_INSTRUCTIONS = `MODULE QUIZ. If the learner has not answered yet: write a quiz of 6–8 questions on the whole module (all its lessons, per the plan and <course_memory>): about half are engineering calculations with real numbers (verify your own solutions with compute first), the rest are reasoning and analyst questions about real systems. Ask only about what the module taught in full: calculations, derivations and formula questions only on the core material (the "core" items of <lesson_maps> when given). A topic a lesson only introduced (a first look at a later module, or an illustration from a field) is asked about, if at all, only at the level of its idea in words (what it says, why it matters), never by computing or solving with its formula. Formats: mix them, about a third each. (1) Multiple choice: four options labeled א, ב, ג, ד, exactly one correct, the wrong ones built from real mistakes; (2) short answers: true or false with a one-line reason, a number with its units, or an explanation in two sentences; (3) one or two worked problems, only on core material. Before you write, check every question against <lesson_maps>: if it needs a formula, a derivation or a number from an item listed under preview or example, or in <idea_only>, rewrite it as an idea question or drop it. Do not reveal answers.
+Layout (the page turns it into a form with an answer box under each question): first two or three sentences in Hebrew (what the quiz covers and how long it should take), then ALL the questions inside ONE fenced block whose language is quiz, and nothing after the block. Inside the block, each question opens with its own header line "## <number> | <type>", type mc for (1), short for (2), problem for (3); under it the question text (Markdown and $math$ allowed, several lines if needed). An mc question then lists exactly four options, one per line, as "- א) …", "- ב) …", "- ג) …", "- ד) …". No answer lines, hints or solutions inside the block. Example:
+\`\`\`quiz
+## 1 | mc
+<question>
+- א) <option>
+- ב) <option>
+- ג) <option>
+- ד) <option>
+## 2 | short
+<question>
+## 3 | problem
+<question>
+\`\`\`
+The learner answers in the form and sends all the answers in one message.
 If the learner has answered: grade every answer (correct / partly / wrong), explain each mistake step by step with the worked solution, give a score out of 100 as "[[ציון: N/100]]", and say which lessons to revisit.`;
 
 /* ---------------- a lesson, written in planned parts ---------------- */

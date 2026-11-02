@@ -1,0 +1,207 @@
+/* ---------- the module quiz as a form (components/QuizForm.tsx) ---------- */
+.qz-form {
+  margin: 18px 0 8px;
+}
+.qz-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 14px;
+}
+.prose .qz-list > li { margin: 0; }
+.qz-q {
+  border: 1px solid var(--line);
+  border-inline-start: 3px solid var(--line-strong);
+  border-radius: 4px;
+  background: var(--sheet);
+  padding: 12px 16px 14px;
+  min-width: 0;
+}
+.qz-q.is-answered { border-inline-start-color: var(--ok); }
+.qz-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+.qz-num {
+  display: inline-grid;
+  place-items: center;
+  min-width: 26px;
+  height: 26px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--paper);
+  font: 600 0.85rem/1 var(--font);
+}
+.qz-kind {
+  color: var(--muted);
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+}
+.qz-body { min-width: 0; overflow-wrap: anywhere; }
+.qz-body > :first-child { margin-top: 0; }
+.qz-body > :last-child { margin-bottom: 0; }
+
+/* multiple choice: four rows, the whole row is the target */
+.qz-options {
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+}
+.qz-opt {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 46px;
+  padding: 8px 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  background: var(--paper);
+  cursor: pointer;
+  transition: background-color 0.12s, border-color 0.12s;
+  min-width: 0;
+}
+.qz-opt:hover:not(.is-locked) { background: var(--hover); }
+.qz-opt input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+.qz-opt:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
+.qz-letter {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border: 1.5px solid var(--line-strong);
+  border-radius: 999px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  background: var(--sheet);
+}
+.qz-opt-text { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.qz-opt-text .katex-display { margin: 0.3em 0; overflow-x: auto; }
+.qz-opt.is-on {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+.qz-opt.is-on .qz-letter {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--on-accent);
+}
+.qz-opt > svg { flex: none; color: var(--accent); }
+.qz-opt.is-locked { cursor: default; }
+.qz-form.is-locked .qz-opt:not(.is-on) { opacity: 0.6; }
+.qz-options.is-preview .qz-opt { opacity: 0.8; }
+
+/* short answer and worked problem */
+.qz-text { margin-top: 10px; }
+.qz-input {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  resize: none;
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  font-size: 1rem;
+  line-height: 1.55;
+  padding: 9px 12px;
+  overflow-y: auto;
+}
+.qz-input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+.qz-input.is-problem { min-height: 8.5em; }
+.qz-input::placeholder { color: var(--muted); }
+.qz-hint {
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+.qz-given {
+  margin-top: 10px;
+  padding: 9px 12px;
+  border-radius: 4px;
+  background: var(--paper);
+  border: 1px dashed var(--line-strong);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.qz-given.is-empty { color: var(--muted); font-style: italic; }
+
+/* the bar: sticks to the bottom of the scrolling text, above the reading bar */
+.qz-bar {
+  position: sticky;
+  bottom: calc(var(--qz-dock, 0px) + 8px);
+  z-index: 7;
+  margin-top: 14px;
+  padding: 10px 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--sheet) 96%, transparent);
+  backdrop-filter: blur(6px);
+  box-shadow: var(--shadow);
+}
+/* once sent, the bar is a quiet line in place */
+.qz-form.is-locked .qz-bar { position: static; box-shadow: none; backdrop-filter: none; }
+.qz-bar-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+}
+.qz-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+  color: var(--ink-soft);
+}
+.qz-status.is-warn { color: var(--warn); }
+.qz-status > svg { color: var(--ok); }
+.qz-count { color: var(--muted); font-weight: 400; font-variant-numeric: tabular-nums; }
+.qz-meter {
+  display: inline-block;
+  width: 80px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--line);
+  overflow: hidden;
+}
+.qz-meter i { display: block; height: 100%; background: var(--ok); transition: width 0.2s; }
+.qz-bar-actions { display: inline-flex; gap: 8px; flex-wrap: wrap; margin-inline-start: auto; }
+.qz-bar-actions .btn { display: inline-flex; align-items: center; gap: 6px; }
+
+@media (max-width: 700px) {
+  .qz-q { padding: 10px 12px 12px; }
+  .qz-opt { gap: 10px; padding: 8px 10px; }
+  .qz-bar { padding: 8px 10px; }
+  .qz-bar-row { flex-wrap: nowrap; }
+  .qz-status { font-size: 0.92rem; }
+  .qz-meter, .qz-attach-label { display: none; }
+  .qz-bar-actions { flex-wrap: nowrap; flex: none; }
+  .qz-bar-row:has(.is-warn) { flex-wrap: wrap; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .qz-opt, .qz-meter i { transition: none; }
+}
+
+/* the sent answers in the learner's bubble (Message.tsx) */
+.user-text.is-quiz-answers { white-space: normal; }
+.user-text.is-quiz-answers > :first-child { margin-top: 0; }
+.user-text.is-quiz-answers > :last-child { margin-bottom: 0; }
+.user-text.is-quiz-answers ol { margin: 4px 0 0; padding-inline-start: 1.4em; }
+.user-text.is-quiz-answers li { margin: 2px 0; }
