@@ -85,6 +85,32 @@ export function SummaryApp({ lab, name }: { lab: string; name: string }) {
   const [pickAfter, setPickAfter] = useState<string | null | undefined>(undefined);
   const [all, setAll] = useState<Summary[] | null>(null);
   const [q, setQ] = useState("");
+  /** "תצוגה וייצוא": the menu under the top bar */
+  const [viewMenu, setViewMenu] = useState(false);
+  /** focus: only the page, without the rail and the top bar (Esc, or the button in the corner, brings them back) */
+  const [focusMode, setFocusMode] = useState(false);
+  useEffect(() => {
+    if (!viewMenu) return;
+    const down = (e: PointerEvent) => !(e.target as HTMLElement).closest?.(".sm-viewmenu, .sm-viewmenu-btn") && setViewMenu(false);
+    const esc = (e: KeyboardEvent) => e.key === "Escape" && setViewMenu(false);
+    document.addEventListener("pointerdown", down, true);
+    document.addEventListener("keydown", esc);
+    return () => {
+      document.removeEventListener("pointerdown", down, true);
+      document.removeEventListener("keydown", esc);
+    };
+  }, [viewMenu]);
+  useEffect(() => {
+    if (!focusMode) return;
+    // Esc leaves focus, unless it closed something in the editor first
+    const esc = (e: KeyboardEvent) => {
+      if (e.key !== "Escape" || e.defaultPrevented) return;
+      if (document.querySelector(".sm-fly, .sm-bmenu, .sm-symbols-pop, .sm-inline-pop, .sm-slash")) return;
+      setFocusMode(false);
+    };
+    window.addEventListener("keydown", esc);
+    return () => window.removeEventListener("keydown", esc);
+  }, [focusMode]);
   const { dark } = useTheme();
   const undo = useRef<Block[][]>([]);
   const redo = useRef<Block[][]>([]);
@@ -426,10 +452,64 @@ export function SummaryApp({ lab, name }: { lab: string; name: string }) {
     </nav>
   );
 
+  const zoomCtl = (
+    <span className="sm-zoom" role="group" aria-label="זום">
+      <button onClick={() => setPrefs({ zoom: Math.max(0.7, Math.round((prefs.zoom - 0.1) * 10) / 10) })} aria-label="הקטן" title="הקטן">
+        −
+      </button>
+      <span>{Math.round(prefs.zoom * 100)}%</span>
+      <button onClick={() => setPrefs({ zoom: Math.min(1.8, Math.round((prefs.zoom + 0.1) * 10) / 10) })} aria-label="הגדל" title="הגדל">
+        +
+      </button>
+    </span>
+  );
+  const widthCtl = (
+    <span className="sm-zoom sm-width" role="group" aria-label="רוחב הדף" title="רוחב הדף">
+      {WIDTHS.map(([w, label]) => (
+        <button key={w} aria-pressed={prefs.width === w} onClick={() => setPrefs({ width: w })}>
+          {label}
+        </button>
+      ))}
+    </span>
+  );
+  const followCtl = (
+    <label className="sm-follow" title="כשעוברים שיעור בחלון השיעורים, הסיכום עובר לאותו מודול ולסעיף של השיעור. הגלילה כאן נשארת חופשית.">
+      <input type="checkbox" checked={prefs.follow} onChange={(e) => setPrefs({ follow: e.target.checked })} /> עוקב אחרי השיעור
+    </label>
+  );
+  /** "תצוגה וייצוא": what the ribbon's third row held, and (in a narrow window) zoom, width and following */
   const viewTab = (
-    <>
-      <div className="sm-group">
-        <label className="sm-lbl">
+    <div className="sm-viewmenu" role="dialog" aria-label="תצוגה וייצוא">
+      {module && (
+        <div className="sm-vm-sec sm-phone-only">
+          <div className="sm-vm-line">
+            <button className="sm-tbtn" aria-pressed={aux === "tutor"} onClick={() => (setAux(aux === "tutor" ? null : "tutor"), setViewMenu(false))}>
+              המורה
+            </button>
+            <button className="sm-tbtn" aria-pressed={aux === "notes"} onClick={() => (setAux(aux === "notes" ? null : "notes"), setViewMenu(false))}>
+              מחברת המודול
+            </button>
+            <button className="sm-tbtn" onClick={() => (setFocusMode(true), setViewMenu(false))}>
+              ריכוז
+            </button>
+          </div>
+        </div>
+      )}
+      <div className="sm-vm-sec sm-narrow-only">
+        <span className="sm-vm-h">תצוגה</span>
+        <div className="sm-vm-line">
+          <span className="sm-lbl">זום</span>
+          {zoomCtl}
+        </div>
+        <div className="sm-vm-line">
+          <span className="sm-lbl">רוחב</span>
+          {widthCtl}
+        </div>
+        <div className="sm-vm-line">{followCtl}</div>
+      </div>
+      <div className="sm-vm-sec">
+        <span className="sm-vm-h">הסיכום</span>
+        <label className="sm-vm-line sm-lbl">
           מצב הסיכום
           <select className="sm-select" value={doc?.status ?? "none"} onChange={(e) => setStatus(e.target.value as SummaryStatus)}>
             {(Object.keys(STATUS_LABEL) as SummaryStatus[]).map((s) => (
@@ -439,12 +519,19 @@ export function SummaryApp({ lab, name }: { lab: string; name: string }) {
             ))}
           </select>
         </label>
-      </div>
-      <div className="sm-group">
-        <button className="sm-tbtn" aria-pressed={view === "review"} onClick={() => setView(view === "review" ? "edit" : "review")}>
+        <label className="sm-vm-line sm-lbl">
+          רקע הדף
+          <select className="sm-select" value={prefs.bg} onChange={(e) => setPrefs({ bg: e.target.value as Bg })}>
+            <option value="dots">נקודות</option>
+            <option value="lines">שורות, כמו מחברת</option>
+            <option value="grid">משבצות</option>
+            <option value="plain">חלק</option>
+          </select>
+        </label>
+        <button className="sm-tbtn" aria-pressed={view === "review"} onClick={() => (setView(view === "review" ? "edit" : "review"), setViewMenu(false))}>
           מצב חזרה (מקופל)
         </button>
-        <select className="sm-select" value="" onChange={(e) => e.target.value && void showFilter(e.target.value as FilterKind)} aria-label="הצג רק">
+        <select className="sm-select" value="" onChange={(e) => e.target.value && (void showFilter(e.target.value as FilterKind), setViewMenu(false))} aria-label="הצג רק">
           <option value="">הצג מכל הסיכומים רק…</option>
           <option value="math">כל המשוואות</option>
           {(Object.keys(BOX_LABEL) as BoxKind[]).map((k) => (
@@ -454,38 +541,29 @@ export function SummaryApp({ lab, name }: { lab: string; name: string }) {
           ))}
         </select>
       </div>
-      <div className="sm-group">
-        <button className="sm-tbtn" onClick={() => void exportAs("docx")}>
-          ייצוא ל-Word
-        </button>
-        <button className="sm-tbtn" onClick={() => void exportAs("html")}>
-          ייצוא ל-HTML
-        </button>
+      <div className="sm-vm-sec">
+        <span className="sm-vm-h">ייצוא</span>
+        <div className="sm-vm-line">
+          <button className="sm-tbtn" onClick={() => (void exportAs("docx"), setViewMenu(false))}>
+            ייצוא ל-Word
+          </button>
+          <button className="sm-tbtn" onClick={() => (void exportAs("html"), setViewMenu(false))}>
+            ייצוא ל-HTML
+          </button>
+        </div>
       </div>
-      <div className="sm-group">
-        <label className="sm-lbl">
-          רקע הדף
-          <select className="sm-select" value={prefs.bg} onChange={(e) => setPrefs({ bg: e.target.value as Bg })}>
-            <option value="dots">נקודות</option>
-            <option value="lines">שורות, כמו מחברת</option>
-            <option value="grid">משבצות</option>
-            <option value="plain">חלק</option>
-          </select>
-        </label>
-      </div>
-    </>
+    </div>
   );
 
   const saveLabel = { idle: "", saving: "שומר…", saved: "נשמר", local: "נשמר בדפדפן בלבד", error: "לא נשמר, אנסה שוב" }[saveState];
 
   return (
-    <div className={`sm-app bg-${prefs.bg} w-${prefs.width}`}>
+    <div className={`sm-app bg-${prefs.bg} w-${prefs.width} ${focusMode ? "is-focus" : ""}`}>
       <header className="sm-top">
         <button className="icon-btn" onClick={() => setPrefs({ tree: !prefs.tree })} aria-pressed={prefs.tree} title="רשימת המודולים" aria-label="רשימת המודולים">
           <Icon name="menu" />
         </button>
         <span className="brand">{name}</span>
-        <span className="sm-top-sub">סיכומים</span>
         <div className="sm-tabs" role="tablist">
           <button role="tab" aria-selected={tab === "sum"} onClick={() => setTab("sum")}>
             הסיכומים
@@ -494,49 +572,63 @@ export function SummaryApp({ lab, name }: { lab: string; name: string }) {
             המחברת ({notes.length})
           </button>
         </div>
+        {tab === "sum" && module && (
+          <span className="sm-top-title" title={`${module.id} · ${module.title}`}>
+            <span className="sm-mod-id">{module.id}</span> {module.title}
+          </span>
+        )}
         <span className="topbar-spacer" />
         <span className={`sm-save st-${saveState}`}>{saveLabel}</span>
-        {tab === "sum" && (
-          <span className="sm-zoom" role="group" aria-label="זום">
-            <button onClick={() => setPrefs({ zoom: Math.max(0.7, Math.round((prefs.zoom - 0.1) * 10) / 10) })} aria-label="הקטן" title="הקטן">
-              −
+        {tab === "sum" && view === "edit" && (
+          <span className="sm-top-pair" role="group" aria-label="ביטול">
+            <button className="icon-btn" disabled={!undo.current.length} onClick={doUndo} title="בטל (מבנה)" aria-label="בטל">
+              <Icon name="undo" size={17} />
             </button>
-            <span>{Math.round(prefs.zoom * 100)}%</span>
-            <button onClick={() => setPrefs({ zoom: Math.min(1.8, Math.round((prefs.zoom + 0.1) * 10) / 10) })} aria-label="הגדל" title="הגדל">
-              +
+            <button className="icon-btn" disabled={!redo.current.length} onClick={doRedo} title="בצע שוב" aria-label="בצע שוב">
+              <Icon name="redo" size={17} />
             </button>
           </span>
         )}
+        {tab === "sum" && <span className="sm-wide-only">{zoomCtl}</span>}
+        {tab === "sum" && <span className="sm-wide-only">{widthCtl}</span>}
+        <span className="sm-wide-only">{followCtl}</span>
         {tab === "sum" && (
-          <span className="sm-zoom sm-width" role="group" aria-label="רוחב הדף" title="רוחב הדף">
-            <span>רוחב</span>
-            {WIDTHS.map(([w, label]) => (
-              <button key={w} aria-pressed={prefs.width === w} onClick={() => setPrefs({ width: w })}>
-                {label}
-              </button>
-            ))}
+          <span className="sm-viewmenu-wrap">
+            <button className="sm-viewmenu-btn" aria-expanded={viewMenu} onClick={() => setViewMenu(!viewMenu)} title="תצוגה וייצוא">
+              <Icon name="download" size={16} />
+              <span className="sm-vm-lbl">תצוגה וייצוא</span>
+            </button>
+            {viewMenu && viewTab}
           </span>
         )}
-        <label className="sm-follow" title="כשעוברים שיעור בחלון השיעורים, הסיכום עובר לאותו מודול ולסעיף של השיעור. הגלילה כאן נשארת חופשית.">
-          <input type="checkbox" checked={prefs.follow} onChange={(e) => setPrefs({ follow: e.target.checked })} /> עוקב אחרי השיעור
-        </label>
         {tab === "sum" && module && (
           <>
-            <button className="icon-btn" aria-pressed={aux === "tutor"} onClick={() => setAux(aux === "tutor" ? null : "tutor")} title="המורה: בדיקה ושאלות חזרה" aria-label="המורה">
+            <button className="icon-btn sm-phone-hide" aria-pressed={aux === "tutor"} onClick={() => setAux(aux === "tutor" ? null : "tutor")} title="המורה: בדיקה ושאלות חזרה" aria-label="המורה">
               <Icon name="think" />
             </button>
-            <button className="icon-btn" aria-pressed={aux === "notes"} onClick={() => setAux(aux === "notes" ? null : "notes")} title="מחברת השיעור של המודול" aria-label="מחברת המודול">
+            <button className="icon-btn sm-phone-hide" aria-pressed={aux === "notes"} onClick={() => setAux(aux === "notes" ? null : "notes")} title="מחברת השיעור של המודול" aria-label="מחברת המודול">
               <Icon name="exercise" />
             </button>
           </>
         )}
+        {tab === "sum" && (
+          <button className="icon-btn sm-phone-hide" onClick={() => (setFocusMode(true), setViewMenu(false))} title="ריכוז: רק הדף (Esc חוזר)" aria-label="ריכוז">
+            <Icon name="focus" />
+          </button>
+        )}
         <button className="icon-btn" onClick={toggleTheme} aria-label={dark ? "מעבר למצב בהיר" : "מעבר למצב כהה"} title={dark ? "מצב בהיר" : "מצב כהה"}>
           <Icon name={dark ? "sun" : "moon"} />
         </button>
-        <a className="sm-back" href="#" onClick={() => (dirty.current && doc ? void persist(doc) : undefined)}>
+        <a className="sm-back" href="#" onClick={() => (dirty.current && doc ? void persist(doc) : undefined)} title="חזרה לשיעורים">
           לשיעורים
         </a>
       </header>
+      {focusMode && (
+        <button className="sm-focus-exit" onClick={() => setFocusMode(false)} title="יציאה מריכוז (Esc)">
+          <Icon name="close" size={14} />
+          <span>יציאה מריכוז</span>
+        </button>
+      )}
 
       {err && <div className="banner banner-error">{err}</div>}
       {rt && !rt.store && <div className="banner banner-warn">אין כאן שמירה בשרת: הסיכומים נשמרים בדפדפן הזה בלבד. פתח את הדף ב-claude.ai כשאתה מחובר.</div>}
@@ -585,12 +677,7 @@ export function SummaryApp({ lab, name }: { lab: string; name: string }) {
                     update={update}
                     current={current}
                     setCurrent={setCurrent}
-                    onUndo={doUndo}
-                    onRedo={doRedo}
-                    canUndo={undo.current.length > 0}
-                    canRedo={redo.current.length > 0}
                     onPickFigure={(after) => setPickAfter(after)}
-                    viewTab={viewTab}
                     zoom={prefs.zoom}
                   />
                 )}

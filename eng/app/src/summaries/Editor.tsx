@@ -1,10 +1,11 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import type { Block, BoxAlign, BoxKind, ListItem, MarkColor } from "./model";
-import { BOX_EMOJI, BOX_LABEL, HEAD_EMOJI, MARK_LABEL, emptyBlock, flatLists, itemNumbers, numbering, textOf, uid } from "./model";
+import { BOX_LABEL, HEAD_EMOJI, MARK_LABEL, emptyBlock, flatLists, itemNumbers, numbering, textOf, uid } from "./model";
 import { activeEditable, applyMark, applyStyle, atLiStart, caret, caretLi, caretMark, caretOnEdgeLine, dedupeMath, dropEmptyMarks, lineToList, normalizeInline, splitLi, tidyAround, tidyLists, tidyTex, retagList, cleanHtml, convertDollars, hydrateMath, indentLi, insertMathAt, leaveMark, linePrefix, listEndsBlock, liText, outdentLi, pastedHtml, placeCaret, splitAtCaret, swapListKind } from "./rich";
 import { MathEditor, MathView } from "./MathEdit";
 import { Picture } from "./Picture";
 import { storeImage } from "./media";
+import { Icon } from "../components/Icon";
 
 export type Change = "text" | "struct";
 type Upd = (fn: (bs: Block[]) => Block[], kind: Change) => void;
@@ -106,6 +107,65 @@ const PROOF_STEPS: [string, string][] = [
   ["dev", "פיתוח"],
   ["con", "מסקנה"],
 ];
+/** the icon of each kind of box (the rail, the flyout and the box's own head) */
+export const BOX_ICON: Record<BoxKind, string> = { con: "boxcon", def: "boxdef", ex: "boxex", eq: "sigma", q: "think", err: "erratum" };
+/** the rail: the three boxes in use most (by the learner's own summary), the rest in a flyout */
+const RAIL_BOXES: [BoxKind, string][] = [
+  ["con", "מסקנה"],
+  ["def", "הגדרה"],
+  ["ex", "דוגמה"],
+];
+const MORE_BOXES: BoxKind[] = ["eq", "q", "err"];
+/** the markers in the bubble, in the order of use */
+const BUBBLE_MARKS: MarkColor[] = ["y", "b", "g", "p", "o", "r"];
+type Fly = "boxes" | "insert" | "proof" | "list";
+
+/**
+ * The first sentence of a block's text, as a range: up to the first ".", ":", "?" or "!" that
+ * ends a word, or to the end of the first line. Equations inside the line count as words.
+ */
+function firstSentence(el: HTMLElement): Range | null {
+  const w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT | NodeFilter.SHOW_ELEMENT, {
+    acceptNode: (n) => (n.nodeType === 1 && (n as Element).matches("span.im") ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT),
+  });
+  let start: Text | null = null;
+  let startOff = 0;
+  let last: Text | null = null;
+  let lastEnd = 0;
+  const range = (end: Text, off: number) => {
+    const r = document.createRange();
+    r.setStart(start!, startOff);
+    r.setEnd(end, off);
+    return r;
+  };
+  let n: Node | null;
+  while ((n = w.nextNode())) {
+    if (n.nodeType === 1) {
+      const t = (n as Element).tagName;
+      // the end of the first line (Shift+Enter, or a list under it)
+      if (t === "BR" || t === "OL" || t === "UL") {
+        if (start && last) return range(last, lastEnd);
+        if (t !== "BR") return null;
+      }
+      continue;
+    }
+    const s = (n as Text).data;
+    for (let i = 0; i < s.length; i++) {
+      const ch = s[i];
+      if (!start) {
+        if (/[\s\u200b]/.test(ch)) continue;
+        start = n as Text;
+        startOff = i;
+      }
+      if (!/[\s\u200b]/.test(ch)) {
+        last = n as Text;
+        lastEnd = i + 1;
+      }
+      if (/[.:?!]/.test(ch) && (i + 1 === s.length || /\s/.test(s[i + 1]))) return range(n as Text, i + 1);
+    }
+  }
+  return null;
+}
 /**
  * The list at the caret becomes this kind, or (with no list there) a list of this kind starts on
  * the caret's line; in a heading, on a new line under its text. Proof steps: the step's kind.
@@ -215,6 +275,11 @@ function readFmt(): Fmt {
   };
 }
 
+/** an empty paragraph (a leftover of Enter): drawn a few pixels high unless the caret is in it */
+function isEmptyPara(b: Block) {
+  return b.t === "p" && !/<(img|span|ol|ul|hr)\b/i.test(b.html) && !textOf(b.html).replace(/[\s\u200b]/g, "");
+}
+
 /* ---------------- one editable ---------------- */
 function Rich({ fkey, html, onChange, onKeyDown, placeholder, className, onMath }: { fkey: string; html: string; onChange: (h: string) => void; onKeyDown?: (e: React.KeyboardEvent<HTMLDivElement>) => void; placeholder?: string; className?: string; onMath?: (span: HTMLElement) => void }) {
   const el = useRef<HTMLDivElement>(null);
@@ -280,43 +345,98 @@ export function Editor({
   update,
   current,
   setCurrent,
-  onUndo,
-  onRedo,
-  canUndo,
-  canRedo,
   onPickFigure,
-  viewTab,
   zoom = 1,
 }: {
   blocks: Block[];
   update: Upd;
   current: string | null;
   setCurrent: (id: string | null) => void;
-  onUndo: () => void;
-  onRedo: () => void;
-  canUndo: boolean;
-  canRedo: boolean;
   /** opens the figure picker; the chosen figure is inserted after the given block */
   onPickFigure: (after: string | null) => void;
-  /** the contents of the ribbon's third row (view, export, status) */
-  viewTab: ReactNode;
   zoom?: number;
 }) {
   const focusReq = useRef<{ key: string; where: Where; at: number } | null>(null);
   const [editingMath, setEditingMath] = useState<string | null>(null);
   const [menu, setMenu] = useState<{ id: string; filter: string; sel: number } | null>(null);
-  const [showView, setShowView] = useState(false);
-  const [showSymbols, setShowSymbols] = useState(false);
+  /** the symbols panel, where it was opened from */
+  const [symbols, setSymbols] = useState<{ x: number; y: number } | null>(null);
   const [emojiFor, setEmojiFor] = useState<string | null>(null);
-  /** what is on at the caret, so the ribbon shows it while writing */
+  /** what is on at the caret, so the rail and the bubble show it while writing */
   const [fmt, setFmt] = useState<Fmt>(NO_FMT);
-  const [pop, setPop] = useState<"list" | "proof" | null>(null);
+  /** a flyout of the rail (more boxes, insert, proof steps, list kinds), at the button that opened it */
+  const [fly, setFly] = useState<{ id: Fly; x: number; y: number; up: boolean } | null>(null);
+  /** the bubble over a selection of text: where it points */
+  const [bubble, setBubble] = useState<{ x: number; y: number; below: boolean } | null>(null);
+  const bubbleRef = useRef<HTMLDivElement>(null);
+  const pageRef = useRef<HTMLDivElement>(null);
+  const pressing = useRef(false);
+  /** the block whose menu (beside its handle) is open, and the caret in it when the handle was pressed */
+  const [blockMenu, setBlockMenu] = useState<string | null>(null);
+  const menuRange = useRef<Range | null>(null);
   const refreshFmt = () => {
     // a mark turned on and left empty goes when the caret moves away from it
     const ed = activeEditable();
     if (ed) dropEmptyMarks(ed, caretMark());
     setFmtNow();
+    placeBubble();
   };
+  /** the bubble shows over a selection inside the page's text, once the pointer is up */
+  const placeBubble = () => {
+    const sel = window.getSelection();
+    const el = activeEditable();
+    if (pressing.current || !sel || sel.isCollapsed || !sel.rangeCount || !el || !pageRef.current?.contains(el) || !el.contains(sel.focusNode)) return setBubble(null);
+    const r = sel.getRangeAt(0).getBoundingClientRect();
+    if (!r.width && !r.height) return setBubble(null);
+    // on a phone the system's own menu is above the selection: the bubble goes below it
+    const below = window.innerWidth <= 640 || r.top < 120;
+    const nb = { x: Math.round(r.left + r.width / 2), y: Math.round(below ? r.bottom + 8 : r.top - 8), below };
+    setBubble((old) => (old && old.x === nb.x && old.y === nb.y && old.below === nb.below ? old : nb));
+  };
+  useEffect(() => {
+    const down = (e: PointerEvent) => {
+      const t = e.target as HTMLElement;
+      if (t.closest?.(".sm-bubble, .sm-symbols-pop, .sm-inline-pop")) return;
+      if (pageRef.current?.contains(t)) {
+        pressing.current = true;
+        setBubble(null);
+      }
+      if (!t.closest?.(".sm-fly, [data-fly]")) setFly(null);
+      if (!t.closest?.(".sm-bmenu, .sm-handle")) setBlockMenu(null);
+    };
+    const up = () => {
+      if (!pressing.current) return;
+      pressing.current = false;
+      requestAnimationFrame(placeBubble);
+    };
+    const moved = () => requestAnimationFrame(placeBubble);
+    const esc = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      setFly(null);
+      setBlockMenu(null);
+      setSymbols(null);
+    };
+    document.addEventListener("pointerdown", down, true);
+    document.addEventListener("pointerup", up, true);
+    document.addEventListener("scroll", moved, true);
+    window.addEventListener("resize", moved);
+    document.addEventListener("keydown", esc);
+    return () => {
+      document.removeEventListener("pointerdown", down, true);
+      document.removeEventListener("pointerup", up, true);
+      document.removeEventListener("scroll", moved, true);
+      window.removeEventListener("resize", moved);
+      document.removeEventListener("keydown", esc);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  // the bubble stays inside the window
+  useLayoutEffect(() => {
+    const b = bubbleRef.current;
+    if (!b || !bubble) return;
+    const w = b.offsetWidth;
+    b.style.left = `${Math.max(8, Math.min(bubble.x - w / 2, window.innerWidth - w - 8))}px`;
+  }, [bubble]);
   const setFmtNow = () =>
     setFmt((old) => {
       const n = readFmt();
@@ -326,7 +446,7 @@ export function Editor({
     document.addEventListener("selectionchange", refreshFmt);
     return () => document.removeEventListener("selectionchange", refreshFmt);
   }, []);
-  /** a ribbon action, then the ribbon shows the new state */
+  /** a rail or bubble action, then they show the new state */
   const act = (fn: () => unknown) => () => {
     fn();
     refreshFmt();
@@ -882,6 +1002,143 @@ export function Editor({
     }
   };
 
+  /* ---- the key line: the first sentence of a numbered point, bold (again: plain) ---- */
+  const isText = !!cur && (cur.t === "h" || cur.t === "p" || cur.t === "box");
+  const keyOn = !!cur && (cur.t === "h" || cur.t === "p" || cur.t === "box") && /^(\s|&nbsp;|\u200b)*<(b|strong)>/.test(cur.html);
+  const keyLine = () => {
+    if (!cur || !isText) return;
+    let el = activeEditable();
+    if (!el || el.dataset.edit !== cur.id) el = document.querySelector<HTMLElement>(`[data-edit="${CSS.escape(cur.id)}"]`);
+    if (!el) return;
+    const r = firstSentence(el);
+    if (!r) return alertBox("אין כאן משפט ראשון: שורת המפתח נגמרת בנקודה, בנקודתיים, בסימן שאלה או בסוף השורה.");
+    el.focus();
+    const sel = window.getSelection();
+    if (!sel) return;
+    sel.removeAllRanges();
+    sel.addRange(r);
+    document.execCommand("bold");
+    sel.collapseToEnd();
+    refreshFmt();
+  };
+
+  /* ---- the rail's flyouts, beside the button (above it, in the bar at the bottom of a phone) ---- */
+  const openFly = (id: Fly) => (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (fly?.id === id) return setFly(null);
+    const r = e.currentTarget.getBoundingClientRect();
+    const up = window.innerWidth <= 640;
+    setFly({ id, up, x: up ? Math.max(8, Math.min(r.left, window.innerWidth - 268)) : Math.min(r.right + 6, window.innerWidth - 268), y: up ? window.innerHeight - r.top + 6 : Math.min(r.top, window.innerHeight - 330) });
+  };
+  const openSymbols = (e: React.MouseEvent<HTMLElement>) => {
+    if (symbols) return setSymbols(null);
+    const r = e.currentTarget.getBoundingClientRect();
+    setSymbols({ x: Math.max(8, Math.min(r.left, window.innerWidth - 528)), y: Math.min(r.bottom + 6, window.innerHeight - 260) });
+  };
+  const insertBox = (k: BoxKind) => {
+    const it = INSERT.find((x) => x.id === `box-${k}`);
+    if (it) doInsert(it, current);
+  };
+  const insertItem = (id: string) => {
+    const it = INSERT.find((x) => x.id === id);
+    if (it) doInsert(it, current);
+  };
+  /** a button of the rail: icon and a short label (the label hides when the window is narrow) */
+  const railBtn = (key: string, icon: string, label: string, title: string, onClick: (e: React.MouseEvent<HTMLButtonElement>) => void, extra: { pressed?: boolean; tick?: BoxKind; fly?: Fly; disabled?: boolean; cls?: string } = {}) => (
+    <button
+      key={key}
+      className={`sm-rail-btn ${extra.tick ? `tick tick-${extra.tick}` : ""} ${extra.cls ?? ""}`}
+      title={title}
+      aria-label={label}
+      aria-pressed={extra.pressed}
+      aria-expanded={extra.fly ? fly?.id === extra.fly : undefined}
+      data-fly={extra.fly}
+      disabled={extra.disabled}
+      onClick={onClick}
+    >
+      <Icon name={icon} size={18} />
+      <span className="sm-rail-lbl">{label}</span>
+      {extra.fly && <span className="sm-rail-more" aria-hidden />}
+    </button>
+  );
+
+  /* ---- the menu beside the handle of the current block ---- */
+  const blockActions = (b: Block) => {
+    const close = () => setBlockMenu(null);
+    const numbered = b.t === "h" || b.t === "math";
+    const listy = b.t === "list" || b.t === "p" || b.t === "box";
+    return (
+      <div className="sm-bmenu" role="menu" aria-label="פעולות על הבלוק" contentEditable={false}>
+        <div className="sm-bmenu-row">
+          <button role="menuitem" title="הזז למעלה" aria-label="הזז למעלה" onClick={() => move(b.id, -1)}>
+            <Icon name="up" size={16} />
+          </button>
+          <button role="menuitem" title="הזז למטה" aria-label="הזז למטה" onClick={() => move(b.id, 1)}>
+            <Icon name="down" size={16} />
+          </button>
+          <button role="menuitem" title="שכפל" aria-label="שכפל" onClick={() => (insertAfter(b.id, { ...JSON.parse(JSON.stringify(b)), id: uid() }), close())}>
+            <Icon name="copy" size={16} />
+          </button>
+          <button role="menuitem" className="danger" title="מחק בלוק" aria-label="מחק בלוק" onClick={() => (remove(b.id), close())}>
+            <Icon name="trash" size={16} />
+          </button>
+        </div>
+        {["p", "h", "list", "box"].includes(b.t) && (
+          <label className="sm-bmenu-line">
+            <span>המר ל</span>
+            <select className="sm-select" value="" aria-label="המר את הבלוק" onChange={(e) => (convert(e.target.value), close())}>
+              <option value="">בחר…</option>
+              <option value="p">פסקה</option>
+              <option value="h1">כותרת פרק</option>
+              <option value="h2">כותרת סעיף</option>
+              <option value="h3">תת-סעיף</option>
+              <option value="ul">רשימת תבליטים</option>
+              <option value="ol">רשימה ממוספרת</option>
+              {(Object.keys(BOX_LABEL) as BoxKind[]).map((k) => (
+                <option key={k} value={`box-${k}`}>
+                  תיבה: {BOX_LABEL[k]}
+                </option>
+              ))}
+            </select>
+          </label>
+        )}
+        {b.t === "box" && (
+          <div className="sm-bmenu-row" role="group" aria-label="יישור הטקסט בתיבה">
+            {ALIGNS.map(([a, name, icon]) => (
+              <button key={a} role="menuitemradio" aria-checked={(b.align ?? "start") === a} aria-pressed={(b.align ?? "start") === a} title={name} aria-label={name} onClick={() => patch(b.id, { align: a === "start" ? undefined : a } as Partial<Block>, "struct")}>
+                {icon}
+              </button>
+            ))}
+          </div>
+        )}
+        {numbered && (
+          <button role="menuitemcheckbox" className="sm-bmenu-line" aria-checked={!!b.plain} aria-pressed={!!b.plain} onClick={() => patch(b.id, { plain: !b.plain } as Partial<Block>, "struct")}>
+            בלי מספר
+          </button>
+        )}
+        {listy && (
+          <button
+            role="menuitem"
+            className="sm-bmenu-line"
+            title="הרשימה שבה הסמן: מספרים או תבליטים"
+            onClick={() => {
+              if (b.t === "list") return patch(b.id, { ordered: !b.ordered } as Partial<Block>, "struct");
+              const el = document.querySelector<HTMLElement>(`[data-edit="${CSS.escape(b.id)}"]`);
+              const r = menuRange.current;
+              if (!el || !r || !el.contains(r.startContainer)) return alertBox("שים את הסמן ברשימה, ואז 1. ⇄ •");
+              el.focus();
+              window.getSelection()?.removeAllRanges();
+              window.getSelection()?.addRange(r);
+              swapListKind(el);
+              close();
+            }}
+          >
+            1. ⇄ • מספרים או תבליטים
+          </button>
+        )}
+      </div>
+    );
+  };
+
   /* ---- drag to reorder, and files dropped from outside ---- */
   const dragOver = (e: React.DragEvent, id: string) => {
     if (!drag && !e.dataTransfer.types.includes("Files")) return;
@@ -978,9 +1235,7 @@ export function Editor({
         return (
           <div className={`sm-box box-${b.kind}`}>
             <div className="sm-box-head" contentEditable={false}>
-              <span className="sm-box-emoji" aria-hidden>
-                {BOX_EMOJI[b.kind]}
-              </span>
+              <Icon name={BOX_ICON[b.kind]} size={15} className="sm-box-ic" />
               <select value={b.kind} aria-label="סוג התיבה" onChange={(e) => patch(b.id, { kind: e.target.value as BoxKind, ...(e.target.value === "eq" && b.latex === undefined ? { latex: "" } : {}) } as Partial<Block>, "struct")}>
                 {(Object.keys(BOX_LABEL) as BoxKind[]).map((k) => (
                   <option key={k} value={k}>
@@ -1064,196 +1319,13 @@ export function Editor({
         void addFiles(files, current);
       }}
     >
-      <div className="sm-ribbon" onMouseDown={(e) => (e.target as HTMLElement).tagName !== "SELECT" && e.preventDefault()}>
-        <div className="sm-row sm-row-insert">
-          <span className="sm-row-label">הוספה</span>
-          <div className="sm-group">
-            {INSERT.slice(0, 6).map((it) => (
-              <button key={it.id} className="sm-tbtn" aria-pressed={it.id === "ul" || it.id === "ol" ? fmt.list === it.id : undefined} onClick={act(() => doInsert(it, current))} title={`${it.label}${it.hint ? ` · ${it.hint}` : ""}`}>
-                {it.short ?? it.label}
-              </button>
-            ))}
-            <span className="sm-bullets-wrap">
-              <button className="sm-tbtn" aria-expanded={pop === "list"} aria-pressed={!!fmt.kind && fmt.kind !== "ol:proof"} title="עוד סוגי רשימה: תבליטים ומספור" onClick={() => setPop(pop === "list" ? null : "list")}>
-                {LIST_KINDS.find((x) => `${x[0]}:${x[1]}` === fmt.kind)?.[2] ?? "◦"} רשימה ▾
-              </button>
-              {pop === "list" && (
-                <span className="sm-bullets-pop" role="listbox">
-                  {LIST_KINDS.map(([tag, cls, sign, name]) => (
-                    <button key={tag + cls} aria-pressed={fmt.kind === `${tag}:${cls}`} title={name} onClick={act(() => (applyListKind(tag, cls), setPop(null)))}>
-                      {sign}
-                    </button>
-                  ))}
-                </span>
-              )}
-            </span>
-            <span className="sm-bullets-wrap">
-              <button className="sm-tbtn" aria-expanded={pop === "proof"} aria-pressed={fmt.kind === "ol:proof"} title="רשימת הוכחה: הגדרה 1, הנחה 1, נתון 1, פיתוח 1, מסקנה 1. כל סוג ממוספר לבד; Enter ממשיך באותו סוג" onClick={() => setPop(pop === "proof" ? null : "proof")}>
-                ∴ הוכחה ▾
-              </button>
-              {pop === "proof" && (
-                <span className="sm-bullets-pop sm-proof-pop" role="listbox">
-                  {PROOF_STEPS.map(([k, name]) => (
-                    <button key={k} className={`k-${k}`} aria-pressed={fmt.step === k} onClick={act(() => (applyListKind("ol", "proof", k), setPop(null)))}>
-                      {name}
-                    </button>
-                  ))}
-                </span>
-              )}
-            </span>
-          </div>
-          <div className="sm-group">
-            {INSERT.filter((x) => x.id.startsWith("box-")).map((it) => (
-              <button key={it.id} className={`sm-tbtn box-chip ${it.id}`} onClick={() => doInsert(it, current)}>
-                {BOX_EMOJI[it.id.slice(4) as BoxKind]} {it.label}
-              </button>
-            ))}
-          </div>
-          <div className="sm-group">
-            {INSERT.filter((x) => ["math", "img", "fig", "hr"].includes(x.id)).map((it) => (
-              <button key={it.id} className="sm-tbtn" onClick={() => doInsert(it, current)} title={`${it.label}${it.hint ? ` · ${it.hint}` : ""}`}>
-                {it.short ?? it.label}
-              </button>
-            ))}
-          </div>
-          <span className="sm-ribbon-sp" />
-          <button className="sm-tbtn" aria-pressed={showView} onClick={() => setShowView(!showView)}>
-            תצוגה וייצוא {showView ? "▴" : "▾"}
-          </button>
-        </div>
-        <div className="sm-row sm-row-edit">
-          <span className="sm-row-label">עריכה</span>
-          <div className="sm-group">
-            <button className="sm-tbtn" aria-pressed={fmt.b} onClick={act(() => applyStyle("bold"))} title="מודגש (Ctrl+B). לחיצה נוספת מכבה">
-              <b>B</b>
-            </button>
-            <button className="sm-tbtn" aria-pressed={fmt.i} onClick={act(() => applyStyle("italic"))} title="נטוי (Ctrl+I). לחיצה נוספת מכבה">
-              <i>I</i>
-            </button>
-            <button className="sm-tbtn" aria-pressed={fmt.sup} onClick={act(() => activeEditable() && document.execCommand("superscript"))} title="כתב עילי">
-              x²
-            </button>
-            <button className="sm-tbtn" aria-pressed={fmt.sub} onClick={act(() => activeEditable() && document.execCommand("subscript"))} title="כתב תחתי">
-              x₂
-            </button>
-          </div>
-          <div className="sm-group">
-            {MARKS.map((m, i) => (
-              <button key={m} className={`sm-tbtn mark-btn hl-${m}`} aria-pressed={fmt.mark === `hl-${m}`} onClick={act(() => applyMark(`hl-${m}`))} title={`${MARK_LABEL[m]} (Alt+${i + 1}). בלי בחירה: מדליק או מכבה לטקסט הבא`}>
-                {MARK_LABEL[m].split(" ")[0]}
-              </button>
-            ))}
-            <button className="sm-tbtn" onClick={act(() => applyMark(null))} title="Alt+0">
-              נקה
-            </button>
-          </div>
-          <div className="sm-group">
-            <button className="sm-tbtn" onClick={() => openInline()} title="משוואה קטנה בתוך המשפט (Ctrl+M, או $…$ בטקסט)">
-              ∑ בשורה
-            </button>
-            <button className="sm-tbtn" aria-pressed={showSymbols} onClick={() => setShowSymbols(!showSymbols)} title="אותיות יווניות וסימנים">
-              Ω סימנים
-            </button>
-          </div>
-          <div className="sm-group">
-            <select className="sm-select" value="" aria-label="המר את הבלוק" disabled={!cur || !["p", "h", "list", "box"].includes(cur.t)} onChange={(e) => convert(e.target.value)}>
-              <option value="">המר ל…</option>
-              <option value="p">פסקה</option>
-              <option value="h1">כותרת פרק</option>
-              <option value="h2">כותרת סעיף</option>
-              <option value="h3">תת-סעיף</option>
-              <option value="ul">רשימת תבליטים</option>
-              <option value="ol">רשימה ממוספרת</option>
-              {(Object.keys(BOX_LABEL) as BoxKind[]).map((k) => (
-                <option key={k} value={`box-${k}`}>
-                  תיבה: {BOX_LABEL[k]}
-                </option>
-              ))}
-            </select>
-            {/* boxes only: how the text is aligned */}
-            <span className="sm-align" role="group" aria-label="יישור הטקסט בתיבה">
-              {ALIGNS.map(([a, name, icon]) => (
-                <button
-                  key={a}
-                  className="sm-tbtn"
-                  disabled={cur?.t !== "box"}
-                  aria-pressed={cur?.t === "box" && (cur.align ?? "start") === a}
-                  title={`${name} (בתיבות)`}
-                  onClick={() => cur?.t === "box" && patch(cur.id, { align: a === "start" ? undefined : a } as Partial<Block>, "struct")}
-                >
-                  {icon}
-                </button>
-              ))}
-            </span>
-            {/* always there, so the ribbon keeps its height when the selected block changes */}
-            <button className="sm-tbtn" disabled={!(cur?.t === "h" || cur?.t === "math")} aria-pressed={cur?.t === "h" || cur?.t === "math" ? !!cur.plain : false} onClick={() => (cur?.t === "h" || cur?.t === "math") && patch(cur.id, { plain: !cur.plain } as Partial<Block>, "struct")}>
-              בלי מספר
-            </button>
-            <button
-              className="sm-tbtn"
-              disabled={!(cur?.t === "list" || cur?.t === "p" || cur?.t === "box")}
-              title="הרשימה שבה הסמן: מספרים או תבליטים"
-              onClick={() => {
-                if (cur?.t === "list") return patch(cur.id, { ordered: !cur.ordered } as Partial<Block>, "struct");
-                const el = activeEditable();
-                if (el) swapListKind(el);
-              }}
-            >
-              1. ⇄ •
-            </button>
-          </div>
-          <div className="sm-group">
-            <button className="sm-tbtn" disabled={!cur} onClick={() => cur && move(cur.id, -1)} title="הזז למעלה">
-              ↑
-            </button>
-            <button className="sm-tbtn" disabled={!cur} onClick={() => cur && move(cur.id, 1)} title="הזז למטה">
-              ↓
-            </button>
-            <button className="sm-tbtn" disabled={!cur} onClick={() => cur && insertAfter(cur.id, { ...JSON.parse(JSON.stringify(cur)), id: uid() })}>
-              שכפל
-            </button>
-            <button className="sm-tbtn danger" disabled={!cur} onClick={() => cur && remove(cur.id)}>
-              מחק בלוק
-            </button>
-          </div>
-          <span className="sm-ribbon-sp" />
-          <button className="sm-tbtn" disabled={!canUndo} onClick={onUndo} title="בטל (מבנה)">
-            ↶
-          </button>
-          <button className="sm-tbtn" disabled={!canRedo} onClick={onRedo} title="בצע שוב">
-            ↷
-          </button>
-        </div>
-        {showSymbols && (
-          <div className="sm-row sm-symbols" aria-label="סימנים">
-            {SYMBOLS.map((g) => (
-              <div key={g.title} className="sm-group">
-                <span className="sm-sym-title">{g.title}</span>
-                {g.items.map(([ch, tex]) => (
-                  <button key={ch} className="sm-sym" onClick={() => insertSymbol(ch, tex)} title={tex}>
-                    {ch}
-                  </button>
-                ))}
-              </div>
-            ))}
-          </div>
-        )}
-        {showView && <div className="sm-row sm-row-view">{viewTab}</div>}
-      </div>
-
-      {inline && (
-        <div className="sm-inline-pop" style={{ top: inline.top, left: inline.left }} onMouseDown={(e) => e.stopPropagation()}>
-          <MathEditor latex={inline.tex} onChange={(v) => (inlineTex.current = v)} onDone={closeInline} />
-          <small>Enter לסיום · Esc לביטול · ריק מוחק</small>
-        </div>
-      )}
-
-      <div className="sm-page" style={{ zoom }} spellCheck={false}>
+      <div className="sm-desk">
+      <div className="sm-page" ref={pageRef} style={{ zoom }} spellCheck={false}>
         {blocks.map((b) => (
           <div
             key={b.id}
             data-bid={b.id}
-            className={`sm-block t-${b.t} ${current === b.id ? "is-current" : ""} ${drag?.over === b.id ? (drag.after ? "drop-after" : "drop-before") : ""}`}
+            className={`sm-block t-${b.t} ${current === b.id ? "is-current" : ""} ${isEmptyPara(b) ? "is-empty" : ""} ${blockMenu === b.id ? "has-menu" : ""} ${drag?.over === b.id ? (drag.after ? "drop-after" : "drop-before") : ""}`}
             onDragOver={(e) => dragOver(e, b.id)}
             onDrop={(e) => drop(e, b.id)}
             onPointerDownCapture={() => {
@@ -1269,16 +1341,28 @@ export function Editor({
               className="sm-handle"
               draggable
               contentEditable={false}
-              title="גרור כדי להזיז"
+              role="button"
+              aria-label="פעולות על הבלוק"
+              aria-expanded={blockMenu === b.id}
+              title="לחיצה: פעולות על הבלוק · גרירה: הזזה"
+              onPointerDown={() => {
+                // the caret in the block, for the actions that work on the list at the caret
+                const sel = window.getSelection();
+                const el = activeEditable();
+                menuRange.current = sel?.rangeCount && el && el.closest("[data-bid]") === document.querySelector(`[data-bid="${CSS.escape(b.id)}"]`) ? sel.getRangeAt(0).cloneRange() : null;
+              }}
+              onClick={() => setBlockMenu(blockMenu === b.id ? null : b.id)}
               onDragStart={(e) => {
                 e.dataTransfer.effectAllowed = "move";
                 e.dataTransfer.setData("text/plain", b.id);
+                setBlockMenu(null);
                 setDrag({ id: b.id, over: null, after: false });
               }}
               onDragEnd={() => setDrag(null)}
             >
-              ⋮⋮
+              <Icon name="grip" size={16} />
             </span>
+            {blockMenu === b.id && blockActions(b)}
             <div className="sm-block-body">{renderBlock(b)}</div>
           </div>
         ))}
@@ -1295,6 +1379,158 @@ export function Editor({
           + פסקה חדשה בסוף
         </button>
       </div>
+
+      {/* the tools, at the outer side of the page; on a phone, a bar at the bottom */}
+      <nav className="sm-rail" aria-label="כלי כתיבה" onMouseDown={(e) => e.preventDefault()}>
+        <div className="sm-rail-g" role="group" aria-label="מבנה">
+          {railBtn("h1", "head1", "פרק", "כותרת פרק · 1, 2, 3 (# ורווח)", act(() => insertItem("h1")))}
+          {railBtn("h2", "head2", "סעיף", "כותרת סעיף · 1.1, 1.2 (## ורווח)", act(() => insertItem("h2")))}
+          {railBtn("h3", "head3", "תת-סעיף", "תת-סעיף · 1.1.1 (### ורווח)", act(() => insertItem("h3")))}
+          {railBtn("key", "keyline", "שורת מפתח", "שורת מפתח: המשפט הראשון של הסעיף שבו הסמן במודגש. לחיצה נוספת מחזירה לרגיל", act(keyLine), { pressed: keyOn, disabled: !isText, cls: "sub" })}
+          {railBtn("p", "para", "פסקה", "פסקה · טקסט רגיל", act(() => insertItem("p")))}
+        </div>
+        <div className="sm-rail-g" role="group" aria-label="תיבות">
+          {RAIL_BOXES.map(([k, short]) => railBtn(`box-${k}`, BOX_ICON[k], short, `תיבה: ${BOX_LABEL[k]}`, () => insertBox(k), { tick: k }))}
+          {railBtn("boxes", "boxes", "עוד תיבות", "נוסחה מרכזית, שאלה פתוחה, טעות נפוצה", openFly("boxes"), { fly: "boxes" })}
+        </div>
+        <div className="sm-rail-g" role="group" aria-label="רשימות">
+          {railBtn("proof", "proof", "הוכחה", "רשימת הוכחה: הגדרה 1, הנחה 1, נתון 1, פיתוח 1, מסקנה 1. כל סוג ממוספר לבד; Enter ממשיך באותו סוג", openFly("proof"), { fly: "proof", pressed: fmt.kind === "ol:proof" })}
+          {railBtn("ol", "olist", "ממוספרת", "רשימה ממוספרת · 1. ורווח", act(() => insertItem("ol")), { pressed: fmt.list === "ol" && fmt.kind !== "ol:proof" })}
+          {railBtn("ul", "ulist", "תבליטים", "רשימת תבליטים · - ורווח", act(() => insertItem("ul")), { pressed: fmt.list === "ul" })}
+          {railBtn("list", "liststyle", "סגנון", "סוג הרשימה שבה הסמן: תבליטים ומספור באותיות", openFly("list"), { fly: "list" })}
+        </div>
+        <div className="sm-rail-g" role="group" aria-label="הוספה">
+          {railBtn("insert", "plus", "הוספה", "משוואה, סימנים, תמונה, איור מהספר, קו", openFly("insert"), { fly: "insert" })}
+        </div>
+      </nav>
+      </div>
+
+      {fly && (
+        <div className={`sm-fly ${fly.up ? "up" : ""}`} style={fly.up ? { left: fly.x, bottom: fly.y } : { left: fly.x, top: fly.y }} role="menu" onMouseDown={(e) => e.preventDefault()}>
+          {fly.id === "boxes" &&
+            MORE_BOXES.map((k) => (
+              <button key={k} role="menuitem" className={`sm-fly-item tick tick-${k}`} onClick={() => (setFly(null), insertBox(k))}>
+                <Icon name={BOX_ICON[k]} size={17} />
+                <span>{BOX_LABEL[k]}</span>
+              </button>
+            ))}
+          {fly.id === "insert" && (
+            <>
+              <button role="menuitem" className="sm-fly-item" onClick={() => (setFly(null), insertItem("math"))}>
+                <Icon name="sigma" size={17} />
+                <span>משוואה</span>
+                <small>ממוספרת, $$</small>
+              </button>
+              <button role="menuitem" className="sm-fly-item" onClick={() => (setFly(null), openInline())}>
+                <span className="sm-fly-glyph">∑</span>
+                <span>משוואה בשורה</span>
+                <small dir="ltr">Ctrl+M, $…$</small>
+              </button>
+              <button role="menuitem" className="sm-fly-item" onClick={(e) => (openSymbols(e), setFly(null))}>
+                <span className="sm-fly-glyph">Ω</span>
+                <span>סימנים</span>
+                <small>יווניות, חצים</small>
+              </button>
+              <button role="menuitem" className="sm-fly-item" onClick={() => (setFly(null), insertItem("img"))}>
+                <Icon name="image" size={17} />
+                <span>תמונה</span>
+                <small>או Ctrl+V</small>
+              </button>
+              <button role="menuitem" className="sm-fly-item" onClick={() => (setFly(null), insertItem("fig"))}>
+                <Icon name="figure" size={17} />
+                <span>איור מהספר</span>
+              </button>
+              <button role="menuitem" className="sm-fly-item" onClick={() => (setFly(null), insertItem("hr"))}>
+                <Icon name="hr" size={17} />
+                <span>קו מפריד</span>
+              </button>
+            </>
+          )}
+          {fly.id === "proof" && (
+            <div className="sm-fly-steps">
+              {PROOF_STEPS.map(([k, name]) => (
+                <button key={k} role="menuitem" className={`k-${k}`} aria-pressed={fmt.step === k} onClick={act(() => (applyListKind("ol", "proof", k), setFly(null)))}>
+                  {name}
+                </button>
+              ))}
+            </div>
+          )}
+          {fly.id === "list" && (
+            <div className="sm-fly-kinds">
+              {LIST_KINDS.map(([tag, cls, sign, name]) => (
+                <button key={tag + cls} role="menuitem" aria-pressed={fmt.kind === `${tag}:${cls}`} title={name} aria-label={name} onClick={act(() => (applyListKind(tag, cls), setFly(null)))}>
+                  {sign}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      {bubble && !inline && (
+        <div ref={bubbleRef} className={`sm-bubble ${bubble.below ? "below" : ""}`} style={{ top: bubble.y }} role="toolbar" aria-label="עיצוב הטקסט המסומן" onMouseDown={(e) => e.preventDefault()}>
+          <div className="sm-bubble-row">
+            <button className="sm-bb" aria-pressed={fmt.b} onClick={act(() => applyStyle("bold"))} title="מודגש (Ctrl+B). לחיצה נוספת מכבה">
+              <b>B</b>
+            </button>
+            <button className="sm-bb" aria-pressed={fmt.i} onClick={act(() => applyStyle("italic"))} title="נטוי (Ctrl+I)">
+              <i>I</i>
+            </button>
+            <button className="sm-bb" aria-pressed={fmt.sup} onClick={act(() => activeEditable() && document.execCommand("superscript"))} title="כתב עילי">
+              x²
+            </button>
+            <button className="sm-bb" aria-pressed={fmt.sub} onClick={act(() => activeEditable() && document.execCommand("subscript"))} title="כתב תחתי">
+              x₂
+            </button>
+            <span className="sm-bubble-sep" />
+            <button className="sm-bb wide" onClick={() => openInline()} title="משוואה קטנה בתוך המשפט (Ctrl+M, או $…$ בטקסט)">
+              ∑ בשורה
+            </button>
+            <button className="sm-bb wide" aria-pressed={!!symbols} onClick={openSymbols} title="אותיות יווניות וסימנים">
+              Ω סימנים
+            </button>
+          </div>
+          <div className="sm-bubble-row">
+            {BUBBLE_MARKS.map((m) => (
+              <button key={m} className={`sm-bb mark hl-${m}`} aria-pressed={fmt.mark === `hl-${m}`} onClick={act(() => applyMark(`hl-${m}`))} title={`${MARK_LABEL[m]} (Alt+${MARKS.indexOf(m) + 1})`}>
+                <span className="sw" aria-hidden />
+                {MARK_LABEL[m].split(" ")[0]}
+              </button>
+            ))}
+            <button className="sm-bb" onClick={act(() => applyMark(null))} title="בלי מרקר (Alt+0)">
+              נקה
+            </button>
+          </div>
+        </div>
+      )}
+
+      {symbols && (
+        <div className="sm-symbols-pop" style={{ left: symbols.x, top: symbols.y }} aria-label="סימנים" onMouseDown={(e) => e.preventDefault()}>
+          <header>
+            <b>סימנים</b>
+            <button className="icon-btn" onClick={() => setSymbols(null)} aria-label="סגור">
+              <Icon name="close" size={14} />
+            </button>
+          </header>
+          {SYMBOLS.map((g) => (
+            <div key={g.title} className="sm-sym-group">
+              <span className="sm-sym-title">{g.title}</span>
+              {g.items.map(([ch, tex]) => (
+                <button key={ch} className="sm-sym" onClick={() => insertSymbol(ch, tex)} title={tex}>
+                  {ch}
+                </button>
+              ))}
+            </div>
+          ))}
+        </div>
+      )}
+
+      {inline && (
+        <div className="sm-inline-pop" style={{ top: inline.top, left: inline.left }} onMouseDown={(e) => e.stopPropagation()}>
+          <MathEditor latex={inline.tex} onChange={(v) => (inlineTex.current = v)} onDone={closeInline} />
+          <small>Enter לסיום · Esc לביטול · ריק מוחק</small>
+        </div>
+      )}
 
       <input
         ref={fileRef}

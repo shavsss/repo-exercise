@@ -1,10 +1,12 @@
 import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import type { Block, BoxKind, Summary } from "./model";
-import { BOX_EMOJI, BOX_LABEL, itemNumbers, numbering, textOf } from "./model";
+import { BOX_LABEL, itemNumbers, numbering, textOf } from "./model";
 import { dedupeMath, dropEmptyMarks, hydrateMath, tidyLists } from "./rich";
 import { MathView } from "./MathEdit";
 import { useFigureSrc } from "./Picture";
 import { SHAPE_HEX } from "./media";
+import { Icon } from "../components/Icon";
+import { BOX_ICON } from "./Editor";
 
 /** Block HTML, read-only, with its equations inside lines drawn. */
 function Ro({ html, className }: { html: string; className?: string }) {
@@ -63,7 +65,7 @@ export function BlockView({ b, n, eq }: { b: Block; n?: string; eq?: number }) {
       return (
         <div className={`sm-box box-${b.kind}`}>
           <div className="sm-box-head">
-            <span className="sm-box-emoji">{BOX_EMOJI[b.kind]}</span>
+            <Icon name={BOX_ICON[b.kind]} size={15} className="sm-box-ic" />
             <span className="sm-box-label">{BOX_LABEL[b.kind]}</span>
             {b.title?.trim() && <span className="sm-box-title-ro">{b.title}</span>}
           </div>
