@@ -6,7 +6,7 @@ import { createContext, useContext, useEffect, useLayoutEffect, useRef, useState
 import { createPortal } from "react-dom";
 import type { Runtime } from "../runtime";
 import type { StoredMessage } from "../types";
-import { asGuide, findSection, guidePrompt, hastKey, headKey, lessonHeadings, parseGuide, tagLabel, tagText, type GuideInput, type GuideSection, type LessonGuide } from "../guide";
+import { asGuide, findBlock, findSection, lessonBlocks, guidePrompt, hastKey, headKey, lessonHeadings, parseGuide, tagLabel, tagText, type GuideInput, type GuideSection, type LessonGuide } from "../guide";
 import { Markdown } from "./Markdown";
 import { useBookMeasure } from "../book/context";
 import "../guide.css";
@@ -30,6 +30,12 @@ export function useHeadGuide(node: unknown): GuideSection | null {
   return findSection(guide, hastKey(node as Parameters<typeof hastKey>[0]));
 }
 
+/** The map's entry for a definition or formula block (its source code). */
+export function useBlockGuide(code: string): GuideSection | null {
+  const { guide } = useContext(GuideCtx);
+  return findBlock(guide, code);
+}
+
 /** The map's entry for a heading written in Markdown (the book's contents). */
 export const sectionOfSource = (guide: LessonGuide | null, src: string) => findSection(guide, headKey(src));
 
@@ -43,8 +49,9 @@ const tried = new Set<string>();
 async function makeGuide(rt: Runtime, key: string, text: string, input: Omit<GuideInput, "heads">, partial: boolean): Promise<LessonGuide | null> {
   const heads = lessonHeadings(text);
   if (!heads.length || !rt.sample || !rt.store) return null;
-  const res = await rt.sample(guidePrompt({ ...input, heads }), { model: GUIDE_MODEL, modelTier: "default", effort: "low", cache: false });
-  const parsed = parseGuide(res.text, heads, input.modules.map((m) => m.id), input.moduleId);
+  const blocks = lessonBlocks(text);
+  const res = await rt.sample(guidePrompt({ ...input, heads, blocks }), { model: GUIDE_MODEL, modelTier: "default", effort: "low", cache: false });
+  const parsed = parseGuide(res.text, heads, input.modules.map((m) => m.id), input.moduleId, Date.now(), blocks);
   if (!parsed) return null;
   const g: LessonGuide = { ...parsed, partial, heads: heads.length };
   await rt.store.saveGuide(key, g as unknown as Record<string, unknown>);
@@ -85,7 +92,8 @@ export function useLessonGuide(o: { rt: Runtime | null; lessonKey: string; ready
       const partial = lessonMsgs.some((m) => m.draft || m.interrupted);
       if (!input || !text) return;
       const nHeads = lessonHeadings(text).length;
-      if (stored && !(stored.partial && nHeads > (stored.heads ?? 0))) return;
+      const needBlocks = !!stored && stored.blocks === undefined && lessonBlocks(text).length > 0;
+      if (stored && !needBlocks && !(stored.partial && nHeads > (stored.heads ?? 0))) return;
       if (doc && !stored) return;
       const tryKey = `${lessonKey}:${nHeads}`;
       let job = pending.get(lessonKey);

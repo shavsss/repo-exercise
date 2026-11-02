@@ -130,3 +130,25 @@ assert.ok(p.includes("M5.3 " + "x".repeat(70) + "\n"), "titles trimmed");
 assert.ok(!/radar|warfare|weapon|missile/i.test(p), "engineering register");
 
 console.log("guide: all tests passed");
+
+/* ---- definitions and formulas (2.11): each block is marked on its own ---- */
+{
+  const { lessonBlocks, blockKeyOf, findBlock } = G;
+  const md = [
+    "## יסודות", "טקסט.",
+    "```definition", "@title: יציבות", "מערכת יציבה אם...", "```",
+    "```scene3d", "```definition", "{}", "```",
+    "## ליאפונוב", "```formula", "$$\\lambda^2+a\\lambda+b=0$$", "```",
+  ].join("\n");
+  const bl = lessonBlocks(md);
+  assert.equal(bl.length, 2, "two blocks, the fence inside another block ignored");
+  assert.deepEqual(bl.map((b) => [b.id, b.type, b.section]), [["B1", "definition", "יסודות"], ["B2", "formula", "ליאפונוב"]]);
+  assert.equal(blockKeyOf("@title: יציבות\nמערכת").text, "יציבות");
+  const g2 = parseGuide(JSON.stringify({ sections: [], blocks: [{ id: "B1", kind: "core" }, { id: "B2", kind: "preview", module: "M5.3" }, { id: "B9", kind: "core" }] }), [], ["M5.3"], "M0.1", 1, bl);
+  assert.equal(g2.blocks.length, 2, "unknown block ids dropped");
+  assert.equal(findBlock(g2, "@title: יציבות\nמערכת יציבה אם...")?.kind, "core");
+  assert.equal(findBlock(g2, "$$\\lambda^2+a\\lambda+b=0$$")?.module, "M5.3");
+  assert.equal(asGuide(JSON.parse(JSON.stringify(g2))).blocks.length, 2, "blocks survive the db");
+  assert.ok(guidePrompt({ moduleId: "M0.1", moduleTitle: "t", lessonTitle: "l", lessonNo: 1, heads: [], blocks: bl, modules: [] }).includes("B2. [formula]"));
+}
+console.log("guide blocks ok");

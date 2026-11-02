@@ -65,7 +65,7 @@ export function parseHeaders(src: string) {
 }
 
 /** A dashed frame with a label tab; the color depends on the kind. */
-export function Frame({ kind, label, icon, title, meta, children }: { kind: string; label: string; icon: string; title?: string; meta?: ReactNode; children: ReactNode }) {
+export function Frame({ kind, label, icon, title, meta, tag, children }: { kind: string; label: string; icon: string; title?: string; meta?: ReactNode; tag?: ReactNode; children: ReactNode }) {
   return (
     <section className={`block block-${kind}`} data-block={kind}>
       <header className="block-head">
@@ -78,6 +78,7 @@ export function Frame({ kind, label, icon, title, meta, children }: { kind: stri
             <Markdown text={title} inline />
           </h4>
         )}
+        {tag}
       </header>
       {meta && <div className="block-meta">{meta}</div>}
       <div className="block-body">{children}</div>
@@ -85,7 +86,7 @@ export function Frame({ kind, label, icon, title, meta, children }: { kind: stri
   );
 }
 
-export function Callout({ kind, headers, children }: { kind: string; headers: Record<string, string>; children: ReactNode }) {
+export function Callout({ kind, headers, tag, children }: { kind: string; headers: Record<string, string>; tag?: ReactNode; children: ReactNode }) {
   const def = CALLOUTS[kind];
   let label = def.label;
   if (kind === "domain") label = `חיבור: ${FIELDS[FIELD_ALIAS[headers.field?.toLowerCase() ?? ""] ?? headers.field?.toLowerCase() ?? ""] ?? headers.field ?? FIELDS.other}`;
@@ -96,6 +97,7 @@ export function Callout({ kind, headers, children }: { kind: string; headers: Re
       label={label}
       icon={def.icon}
       title={headers.title ?? (kind === "fieldmap" ? headers.formula : undefined)}
+      tag={tag}
       meta={
         meta || headers.first || headers.page ? (
           <>

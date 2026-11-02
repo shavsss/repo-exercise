@@ -21,7 +21,7 @@ import { Decide, ErrorHunt, Lab, Predict, Verify } from "./blocks/Level3";
 import { useBook } from "../book/context";
 import { BookPlate } from "../book/Plate";
 import { PLATES } from "../book/chunks";
-import { GuideTag, useHeadGuide } from "./LessonGuide";
+import { GuideTag, useBlockGuide, useHeadGuide } from "./LessonGuide";
 import { NotebookBlock } from "./blocks/Notebook";
 
 export interface MdContextValue {
@@ -97,7 +97,7 @@ function FencedBlock({ lang, code }: { lang: string; code: string }) {
   if (lang in CALLOUTS) {
     const { headers, body } = parseHeaders(code);
     return (
-      <Callout kind={lang} headers={headers}>
+      <Callout kind={lang} headers={headers} tag={lang === "definition" || lang === "formula" ? <BlockTag code={code} /> : undefined}>
         <Markdown text={body} />
       </Callout>
     );
@@ -134,7 +134,6 @@ const components: Components = {
     return (
       <h2 id={`${ctx.idPrefix}-${slug(textOf(children))}`} data-guide={g?.kind} data-guide-mod={g?.module}>
         {children}
-        {g && <GuideTag sec={g} />}
       </h2>
     );
   },
@@ -144,7 +143,6 @@ const components: Components = {
     return (
       <h3 id={`${ctx.idPrefix}-${slug(textOf(children))}`} data-guide={g?.kind} data-guide-mod={g?.module}>
         {children}
-        {g && <GuideTag sec={g} />}
       </h3>
     );
   },
@@ -178,3 +176,9 @@ export const Markdown = memo(function Markdown({ text, inline = false, figBase =
     </ReactMarkdown>
   );
 });
+
+/** The lesson map's tag on a definition or formula: copy now, a preview, or an illustration (LessonGuide.tsx). */
+function BlockTag({ code }: { code: string }) {
+  const g = useBlockGuide(code);
+  return g ? <GuideTag sec={g} /> : null;
+}
