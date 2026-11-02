@@ -459,7 +459,12 @@ export function App() {
                 const of = (k: string) => items.filter((x) => x.kind === k).map((x) => `${x.head}${x.module ? ` (${x.module})` : ""}`).join("; ");
                 lines.push(`Lesson ${i + 1}: core: ${of("core") || "-"} | preview: ${of("preview") || "-"} | example: ${of("example") || "-"}${g.copy.length ? ` | to remember: ${g.copy.join("; ")}` : ""}`);
               }
-              maps = lines.join("\n") || undefined;
+              // the topics only introduced, named once more as a list the quiz may ask about only in words
+              const ideaOnly = [...new Set(lines.length ? (await Promise.all([...Array(n).keys()].map((i) => rt.store!.loadGuide(`${m.id}__${i}`).catch(() => null)))).flatMap((d) => {
+                const g = asGuide(d);
+                return g ? [...(g.blocks ?? []), ...g.sections].filter((x) => x.kind !== "core").map((x) => x.head) : [];
+              }) : [])];
+              maps = lines.length ? `${lines.join("\n")}${ideaOnly.length ? `\n<idea_only>\n${ideaOnly.join("\n")}\n</idea_only>` : ""}` : undefined;
             }
             res = await askTutor({ ...base, mode: sendMode, text: userMsg.text, images, maps });
             full = res.text;

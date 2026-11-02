@@ -769,6 +769,10 @@ button.bk-chip { cursor: pointer; padding: 6px 14px; }
   padding: 4px 0 6px;
 }
 .bk-ask .composer-wrap { padding-bottom: 0; }
+/* on a spread: the box on the facing page, the questions in full view beside it */
+.bk-ask-facing { display: flex; flex-direction: column; height: 100%; }
+.bk-ask-facing .composer-wrap { padding: 0; margin-top: auto; }
+.bk-ask-facing textarea { min-height: 12em; }
 
 /* the hidden galley, measured and never seen */
 .bk-galley {

@@ -331,7 +331,7 @@ interface Anim {
   opening?: boolean;
 }
 
-type Facing = { kind: "consult" } | { kind: "pad" } | { kind: "scene"; lang: string; code: string };
+type Facing = { kind: "consult" } | { kind: "pad" } | { kind: "ask" } | { kind: "scene"; lang: string; code: string };
 
 /* ------------------------------------------------------------------ the page ------------------------------------------------------------------ */
 
@@ -1371,7 +1371,7 @@ export function BookView(props: BookProps) {
             {slot && (
               <section className={`bk-facing side-${phone ? "sheet" : spread ? slotSide : "s"}`} ref={facingHost} aria-label="העמוד שמול">
                 <header className="bk-facing-head">
-                  <span className="bk-facing-kind">{facing?.kind === "consult" ? "התייעצות" : facing?.kind === "pad" ? "מחברת" : "בעמוד שמול"}</span>
+                  <span className="bk-facing-kind">{facing?.kind === "consult" ? "התייעצות" : facing?.kind === "pad" ? "מחברת" : facing?.kind === "ask" ? "שאל את המורה" : "בעמוד שמול"}</span>
                   {spread && (
                     <button className="bk-facing-btn" onClick={() => setSlotSide(slotSide === "l" ? "r" : "l")} title="החלף צד: הטקסט יעבור לעמוד השני" data-silent>
                       <Icon name="side" size={14} />
@@ -1391,6 +1391,7 @@ export function BookView(props: BookProps) {
                 <div className="bk-facing-body">
                   {facing?.kind === "consult" && <div className="bk-consult-host" ref={consultHost} />}
                   {facing?.kind === "pad" && props.notebook?.(closeFacing)}
+                  {facing?.kind === "ask" && props.composer && <div className="bk-ask-facing">{props.composer}</div>}
                   {facing?.kind === "scene" && (
                     <MdContext.Provider value={mdCtx}>
                       <div className="prose bk-scene">
@@ -1537,7 +1538,16 @@ export function BookView(props: BookProps) {
             <Icon name={focus ? "close" : "expand"} size={15} />
           </button>
           {props.composer && (
-            <button className={`bk-btn bk-ask-btn ${askOpen ? "is-on" : ""}`} onClick={() => setAskOpen((o) => !o)} aria-expanded={askOpen}>
+            <button
+              className={`bk-btn bk-ask-btn ${askOpen || facing?.kind === "ask" ? "is-on" : ""}`}
+              onClick={() => {
+                // on a spread the box opens on the facing page, beside the text it answers (a quiz's questions stay in view);
+                // on a phone or a narrow window it rises from the bottom
+                if (spread && !phone) return facing?.kind === "ask" ? closeFacing() : openFacing({ kind: "ask" });
+                setAskOpen((o) => !o);
+              }}
+              aria-expanded={askOpen || facing?.kind === "ask"}
+            >
               <Icon name="send" size={14} />
               {!phone && <span>שאל את המורה</span>}
             </button>
