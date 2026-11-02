@@ -328,3 +328,42 @@ export interface ConsultRequest {
 export function requestConsult(r: ConsultRequest) {
   window.dispatchEvent(new CustomEvent<ConsultRequest>("consult:open", { detail: r }));
 }
+
+/* ---------------- the reading log: what the learner has read from the reading lists ---------------- */
+export interface ReadEntry {
+  id: string;
+  t: string;
+  a?: string;
+  y?: number | string;
+  u?: string;
+  moduleId: string;
+  at: number;
+  /** what he took from it, in a line or two (optional) */
+  note?: string;
+}
+/** One document, profile/reading/log: { items: { <reading id>: ReadEntry } }. Additive; nothing else writes it. */
+export async function loadReadLog(): Promise<Record<string, ReadEntry>> {
+  try {
+    const d = await get(["reading", "log"]);
+    return ((d?.items as Record<string, ReadEntry> | undefined) ?? {}) as Record<string, ReadEntry>;
+  } catch {
+    return {};
+  }
+}
+export async function setRead(entry: ReadEntry, read: boolean) {
+  await modify(["reading", "log"], (old) => {
+    const items = { ...((old?.items as Record<string, ReadEntry> | undefined) ?? {}) };
+    if (read) items[entry.id] = { ...(items[entry.id] ?? {}), ...entry };
+    else delete items[entry.id];
+    return { items, updatedAt: Date.now() };
+  });
+  window.dispatchEvent(new Event("readlog:changed"));
+}
+export async function setReadNote(id: string, note: string) {
+  await modify(["reading", "log"], (old) => {
+    const items = { ...((old?.items as Record<string, ReadEntry> | undefined) ?? {}) };
+    if (items[id]) items[id] = { ...items[id], note: note.trim().slice(0, 600) || undefined };
+    return { items, updatedAt: Date.now() };
+  });
+  window.dispatchEvent(new Event("readlog:changed"));
+}

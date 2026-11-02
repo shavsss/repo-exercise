@@ -3,6 +3,8 @@
 // Data: the optional fields of each module in lib/index.json (src/curriculum.ts). Same file in both apps.
 import { sourceless, type ReadingItem, type SectionRef, type TopicItem } from "../curriculum";
 import type { Module } from "../library";
+import { setRead, type ReadEntry } from "../events";
+import { useReadLog } from "../readlog";
 import "./curriculum.css";
 
 const IMP: Record<string, string> = { K: "חובה", S: "חשוב", C: "להכיר" };
@@ -12,9 +14,11 @@ const ORDER: Record<string, number> = { K: 0, S: 1, C: 2 };
 const pages = (s: SectionRef) => (s.d && s.p ? `${s.d} ${s.p[0]}${s.p[1] > s.p[0] ? `–${s.p[1]}` : ""}` : "");
 const hours = (h: number) => (h < 1 ? `${Math.round(h * 60)} דק'` : `${Number(h.toFixed(1))} ש'`);
 
-function Reading({ r }: { r: ReadingItem }) {
+const dateHe = (t: number) => new Date(t).toLocaleDateString("he-IL", { day: "numeric", month: "numeric", year: "numeric" });
+
+function Reading({ r, m, read }: { r: ReadingItem; m: Module; read?: ReadEntry }) {
   return (
-    <li className={`rl-item ${r.core ? "is-core" : ""}`}>
+    <li className={`rl-item ${r.core ? "is-core" : ""} ${read ? "is-read" : ""}`}>
       <div className="rl-head">
         <a className="rl-title" href={r.u} target="_blank" rel="noopener noreferrer" dir="auto">
           {r.t}
@@ -43,6 +47,17 @@ function Reading({ r }: { r: ReadingItem }) {
       <p className="rl-focus" dir="auto">
         {r.focus}
       </p>
+      <div className="rl-read">
+        <button
+          type="button"
+          className={`rl-read-btn ${read ? "is-on" : ""}`}
+          aria-pressed={!!read}
+          onClick={() => setRead({ id: r.id, t: r.t, a: r.a, y: r.y, u: r.alt || r.u, moduleId: m.id, at: read?.at ?? Date.now() }, !read).catch(() => {})}
+        >
+          {read ? "✓ קראתי" : "סמן כנקרא"}
+        </button>
+        {read && <span className="rl-read-at">{dateHe(read.at)} · ברשימה "מה קראתי"</span>}
+      </div>
       {(r.pay || r.alt || r.st === "blocked" || r.st === "timeout") && (
         <p className="rl-note">
           {r.pay ? "בהוצאה לאור (גישה דרך ספרייה). " : ""}
@@ -63,6 +78,7 @@ function Reading({ r }: { r: ReadingItem }) {
 
 /** The module's fixed reading list: core items first. */
 export function ReadingList({ m }: { m: Module }) {
+  const log = useReadLog();
   const items = [...(m.reading ?? [])].sort((a, b) => Number(b.core) - Number(a.core));
   if (!items.length) return null;
   const core = items.filter((r) => r.core);
@@ -77,7 +93,7 @@ export function ReadingList({ m }: { m: Module }) {
       <p className="muted rl-intro">קבועה מראש: פריטי "עם המודול" נקראים כשהמודול נלמד, והמורה מציע כל פריט ברגע שהוא עונה על שאלה מהשיעור. קוראים רק את החלק שבשורה "מה לקרוא".</p>
       <ul className="rl-list">
         {items.map((r) => (
-          <Reading key={r.id} r={r} />
+          <Reading key={r.id} r={r} m={m} read={log?.[r.id]} />
         ))}
       </ul>
     </section>

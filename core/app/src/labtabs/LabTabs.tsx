@@ -9,9 +9,10 @@ import { listIssues, loadFb } from "./data";
 import { NewsTab } from "./News";
 import { ProductsTab } from "./Products";
 import { ReviewsTab } from "./Reviews";
+import { ReadTab } from "./ReadTab";
 import { ReviewTab } from "../review/Review";
 
-export type LabTab = "study" | "review" | "news" | "products" | "reviews";
+export type LabTab = "study" | "review" | "news" | "products" | "reviews" | "read";
 
 const TABS: { id: LabTab; label: string }[] = [
   { id: "study", label: "לימוד" },
@@ -19,6 +20,7 @@ const TABS: { id: LabTab; label: string }[] = [
   { id: "news", label: "עיתון" },
   { id: "products", label: "מוצר החודש" },
   { id: "reviews", label: "ביקורת שבועית" },
+  { id: "read", label: "מה קראתי" },
 ];
 
 /** True when the newest issue has not been opened yet (profile/newsfb/<id>.openedAt). Checked again on every tab change. */
@@ -58,7 +60,7 @@ export function LabTabsNav({ tab, onTab, unread }: { tab: LabTab; onTab: (t: Lab
   const cur = TABS.find((t) => t.id === tab)!;
   return (
     <nav ref={ref} className={`labtabs ${open ? "is-open" : ""}`} aria-label="לשוניות">
-      <button className="labtabs-toggle" onClick={() => setOpen(!open)} aria-expanded={open} aria-haspopup="true" aria-label={`לשוניות: ${cur.label}`} title="לימוד, חזרה, עיתון, מוצר החודש, ביקורת שבועית">
+      <button className="labtabs-toggle" onClick={() => setOpen(!open)} aria-expanded={open} aria-haspopup="true" aria-label={`לשוניות: ${cur.label}`} title="לימוד, חזרה, עיתון, מוצר החודש, ביקורת שבועית, מה קראתי">
         <svg className="labtabs-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden>
           <path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z" />
         </svg>
@@ -106,6 +108,7 @@ export function LabTabView({ tab, ...p }: LabTabProps & { tab: LabTab }) {
       {tab === "news" && <NewsTab {...p} />}
       {tab === "products" && <ProductsTab {...p} />}
       {tab === "reviews" && <ReviewsTab {...p} />}
+      {tab === "read" && <ReadTab {...p} />}
     </div>
   );
 }
