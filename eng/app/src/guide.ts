@@ -20,6 +20,10 @@ export interface LessonGuide {
   sections: GuideSection[];
   /** short items worth copying to the summary */
   copy: string[];
+  /** made from a lesson that was not finished yet (a draft): made again once it has more headings */
+  partial?: boolean;
+  /** how many headings the lesson had when the map was made */
+  heads?: number;
 }
 
 const KINDS: GuideKind[] = ["core", "preview", "example"];
@@ -242,7 +246,7 @@ export function asGuide(doc: unknown): LessonGuide | null {
   if (!d || typeof d !== "object" || !Array.isArray(d.sections)) return null;
   const sections = d.sections.filter((s): s is GuideSection => !!s && typeof s.head === "string" && KINDS.includes(s.kind as GuideKind));
   if (!sections.length) return null;
-  return { v: 1, at: Number(d.at) || 0, sections, copy: Array.isArray(d.copy) ? d.copy.filter((x): x is string => typeof x === "string") : [] };
+  return { v: 1, at: Number(d.at) || 0, sections, copy: Array.isArray(d.copy) ? d.copy.filter((x): x is string => typeof x === "string") : [], partial: d.partial === true, heads: Number(d.heads) || sections.length };
 }
 
 /** The words of a heading's tag. */

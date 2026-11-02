@@ -40,12 +40,13 @@ const pending = new Map<string, Promise<LessonGuide | null>>();
 /** lessons whose call was made in this visit (failed or not): never called twice */
 const tried = new Set<string>();
 
-async function makeGuide(rt: Runtime, key: string, text: string, input: Omit<GuideInput, "heads">): Promise<LessonGuide | null> {
+async function makeGuide(rt: Runtime, key: string, text: string, input: Omit<GuideInput, "heads">, partial: boolean): Promise<LessonGuide | null> {
   const heads = lessonHeadings(text);
   if (!heads.length || !rt.sample || !rt.store) return null;
   const res = await rt.sample(guidePrompt({ ...input, heads }), { model: GUIDE_MODEL, modelTier: "default", effort: "low", cache: false });
-  const g = parseGuide(res.text, heads, input.modules.map((m) => m.id), input.moduleId);
-  if (!g) return null;
+  const parsed = parseGuide(res.text, heads, input.modules.map((m) => m.id), input.moduleId);
+  if (!parsed) return null;
+  const g: LessonGuide = { ...parsed, partial, heads: heads.length };
   await rt.store.saveGuide(key, g as unknown as Record<string, unknown>);
   return g;
 }
@@ -74,19 +75,24 @@ export function useLessonGuide(o: { rt: Runtime | null; lessonKey: string; ready
       }
       if (!alive) return;
       const stored = asGuide(doc);
-      if (stored) return setState({ key: lessonKey, g: stored });
-      if (doc || !ready || !rt?.sample) return;
+      if (stored) setState({ key: lessonKey, g: stored });
+      if (!ready || !rt?.sample) return;
+      // the lesson as it stands; a lesson that was cut and not continued yet (a draft) gets a map too,
+      // marked partial and made again once it has more headings (at most once per visit for each size)
+      const { messages, input } = latest.current;
+      const lessonMsgs = messages.filter((m) => m.role === "assistant" && m.mode === "lesson" && m.text);
+      const text = lessonMsgs.map((m) => m.text).join("\n\n");
+      const partial = lessonMsgs.some((m) => m.draft || m.interrupted);
+      if (!input || !text) return;
+      const nHeads = lessonHeadings(text).length;
+      if (stored && !(stored.partial && nHeads > (stored.heads ?? 0))) return;
+      if (doc && !stored) return;
+      const tryKey = `${lessonKey}:${nHeads}`;
       let job = pending.get(lessonKey);
       if (!job) {
-        if (tried.has(lessonKey)) return;
-        const { messages, input } = latest.current;
-        const text = messages
-          .filter((m) => m.role === "assistant" && m.mode === "lesson" && !m.draft && !m.interrupted && m.text)
-          .map((m) => m.text)
-          .join("\n\n");
-        if (!input || !text) return;
-        tried.add(lessonKey);
-        job = makeGuide(rt, lessonKey, text, input).catch(() => null);
+        if (tried.has(tryKey)) return;
+        tried.add(tryKey);
+        job = makeGuide(rt, lessonKey, text, input, partial).catch(() => null);
         pending.set(lessonKey, job);
         job.finally(() => pending.delete(lessonKey));
       }
