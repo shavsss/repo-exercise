@@ -54,15 +54,16 @@ export function dataUrlBlob(url: string): Blob {
 }
 
 /** Stores a picture; returns its address and size. */
-export async function storeImage(file: Blob): Promise<{ src: string; w: number; h: number }> {
+export async function storeImage(file: Blob, note?: (step: string, err: unknown) => void): Promise<{ src: string; w: number; h: number }> {
   const assets = window.__assets;
   if (assets) {
     const { blob, w, h } = await reduce(file);
     try {
       const r = await assets.upload(blob);
       return { src: r.url, w, h };
-    } catch {
+    } catch (e) {
       // the store refused it: a smaller copy inside the summary, so the picture is not lost
+      note?.("upload", e);
     }
   }
   // no asset store here: a smaller copy inside the summary

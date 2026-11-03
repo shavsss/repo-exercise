@@ -367,3 +367,8 @@ export async function setReadNote(id: string, note: string) {
   });
   window.dispatchEvent(new Event("readlog:changed"));
 }
+
+/** A failure worth reading later, at profile/diag/<kind>-<time> (the same collection as the refusal checks). */
+export function logDiag(kind: string, data: Record<string, unknown>) {
+  return put(["diag", `${kind}-${Date.now()}`], { kind, at: Date.now(), ua: navigator.userAgent.slice(0, 160), ...data }).catch(() => {});
+}

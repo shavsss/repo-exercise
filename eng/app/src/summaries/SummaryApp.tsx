@@ -11,6 +11,7 @@ import { Editor, alertBox, type Change } from "./Editor";
 import { FigurePicker } from "./FigurePicker";
 import { LessonPicker } from "./LessonPicker";
 import { dataUrlBlob, storeImage } from "./media";
+import { logDiag } from "../events";
 import { FilterView, ReviewView, type FilterKind } from "./View";
 import { ModuleNotes, NotebookView, TutorPanel } from "./Panels";
 import { saveFile, toDocx, toHtml } from "./exporters";
@@ -782,9 +783,30 @@ export function SummaryApp({ lab, name }: { lab: string; name: string }) {
           lab={lab}
           onClose={() => setLessonAfter(undefined)}
           onPick={async (v) => {
+            // each step is named, so a failure in the published page says where it stopped (profile/diag/lessonpick-…)
+            let step = "decode";
+            const info: Record<string, unknown> = { title: v.title, w: v.w, h: v.h, urlLen: v.url.length, urlHead: v.url.slice(0, 40), assets: !!window.__assets };
             try {
               const blob = dataUrlBlob(v.url);
-              const r = await storeImage(blob);
+              info.bytes = blob.size;
+              // already a PNG of a known size: straight to the asset store, no decoding on this side
+              let r: { src: string; w: number; h: number } | null = null;
+              if (window.__assets) {
+                step = "upload";
+                try {
+                  const up = await window.__assets.upload(blob);
+                  r = { src: up.url, w: v.w, h: v.h };
+                } catch (e) {
+                  info.upload = String((e as Error)?.message ?? e).slice(0, 300);
+                }
+              }
+              if (!r && v.url.length < 1_200_000) r = { src: v.url, w: v.w, h: v.h };
+              if (!r) {
+                step = "store";
+                r = await storeImage(blob, (s, e) => (info[s] = String((e as Error)?.message ?? e).slice(0, 300)));
+              }
+              info.src = r.src.slice(0, 40);
+              step = "insert";
               const caption = [v.title, v.caption].filter(Boolean).join(" · ").slice(0, 200);
               const nb = { ...(emptyBlock("img") as Extract<Block, { t: "img" }>), ...r, caption };
               update((bs) => {
@@ -793,8 +815,11 @@ export function SummaryApp({ lab, name }: { lab: string; name: string }) {
               }, "struct");
               setCurrent(nb.id);
               setLessonAfter(undefined);
-            } catch {
-              alertBox("התמונה לא נשמרה. נסה שוב.");
+              if (info.upload || info.load) void logDiag("lessonpick-ok", info);
+            } catch (e) {
+              const msg = String((e as Error)?.message ?? e).slice(0, 300);
+              void logDiag("lessonpick", { ...info, step, error: msg });
+              alertBox(`התמונה לא נשמרה (${step}: ${msg}). נסה שוב.`);
             }
           }}
         />
