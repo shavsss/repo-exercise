@@ -89,6 +89,7 @@ function computeChart(spec: any): { series: { name: string; points: [number | st
   }
 }
 
+// no drawing-in animation: the lesson does not loop motion, and a picture taken for the summaries mid-animation came out empty
 export function ChartBlock({ source, live }: { source: string; live: boolean }) {
   const { spec, error } = parseSpec(source);
   if (!spec) return <Frame kind="chart"><Pending live={live} msg={error ?? ""} /></Frame>;
@@ -133,7 +134,7 @@ export function ChartBlock({ source, live }: { source: string; live: boolean }) 
       <ScatterChart margin={{ top: 10, right: 16, bottom: 18, left: 4 }}>
         {common}
         {series.map((s, i) => (
-          <Scatter key={s.name} name={s.name} data={s.points.map(([x, y]) => ({ x, y }))} fill={SERIES_COLORS[i % SERIES_COLORS.length]} />
+          <Scatter key={s.name} isAnimationActive={false} name={s.name} data={s.points.map(([x, y]) => ({ x, y }))} fill={SERIES_COLORS[i % SERIES_COLORS.length]} />
         ))}
       </ScatterChart>
     );
@@ -153,7 +154,7 @@ export function ChartBlock({ source, live }: { source: string; live: boolean }) 
         <BarChart data={rows} margin={margin}>
           {common}
           {series.map((s, i) => (
-            <Bar key={s.name} dataKey={s.name} fill={SERIES_COLORS[i % SERIES_COLORS.length]} stroke="var(--ink)" strokeWidth={1} radius={[2, 2, 0, 0]} />
+            <Bar key={s.name} isAnimationActive={false} dataKey={s.name} fill={SERIES_COLORS[i % SERIES_COLORS.length]} stroke="var(--ink)" strokeWidth={1} radius={[2, 2, 0, 0]} />
           ))}
         </BarChart>
       );
@@ -162,7 +163,7 @@ export function ChartBlock({ source, live }: { source: string; live: boolean }) 
         <AreaChart data={rows} margin={margin}>
           {common}
           {series.map((s, i) => (
-            <Area key={s.name} dataKey={s.name} type="monotone" stroke={SERIES_COLORS[i % SERIES_COLORS.length]} fill={SERIES_COLORS[i % SERIES_COLORS.length]} fillOpacity={0.25} strokeWidth={2.5} />
+            <Area key={s.name} isAnimationActive={false} dataKey={s.name} type="monotone" stroke={SERIES_COLORS[i % SERIES_COLORS.length]} fill={SERIES_COLORS[i % SERIES_COLORS.length]} fillOpacity={0.25} strokeWidth={2.5} />
           ))}
         </AreaChart>
       );
@@ -171,7 +172,7 @@ export function ChartBlock({ source, live }: { source: string; live: boolean }) 
         <LineChart data={rows} margin={margin}>
           {common}
           {series.map((s, i) => (
-            <Line key={s.name} dataKey={s.name} type="monotone" stroke={SERIES_COLORS[i % SERIES_COLORS.length]} strokeWidth={2.75} dot={false} connectNulls />
+            <Line key={s.name} isAnimationActive={false} dataKey={s.name} type="monotone" stroke={SERIES_COLORS[i % SERIES_COLORS.length]} strokeWidth={2.75} dot={false} connectNulls />
           ))}
         </LineChart>
       );
