@@ -8,6 +8,7 @@
 import type { Store } from "../runtime";
 import type { LessonNote, ModuleProgress, StoredMessage } from "../types";
 import { allCalib, thinkId, type CalibRecord } from "../events";
+import { asGuide, headKey, keepKeyOf } from "../guide";
 import { review as schedule, type Rating } from "./fsrs";
 import { buildQueue, makeCard, measured, noteSeed, seedsFromLesson, thinkSeed, thinksFromLesson, todayKey, type Card, type DayCount, type Queue, type Seed } from "./cards";
 
@@ -115,7 +116,7 @@ async function lessonText(st: Store, convId: string): Promise<LessonText> {
   return { text: own.map((m) => m.text).join("\n\n"), at: Math.max(...own.map((m) => m.ts || 0)) || Date.now() };
 }
 
-const flagged = (r: CalibRecord) => r.grade === "wrong" || r.grade === "partial" || r.conf === 1;
+const flagged = (r: CalibRecord) => !r.off && (r.grade === "wrong" || r.grade === "partial" || r.conf === 1);
 
 /** Adds the cards of lessons read since the last sync, of think questions he missed, and of his margin notes. */
 async function sync(st: Store, d: Deck, modsIn?: Record<string, ModuleProgress>) {
@@ -186,6 +187,28 @@ async function sync(st: Store, d: Deck, modsIn?: Record<string, ModuleProgress>)
     if (n.who !== "learner" || (n.kind !== "note" && n.kind !== "deepen") || n.lesson < 0) continue;
     const s = noteSeed({ id: n.id!, text: n.text ?? "", anchor: n.anchor });
     if (s) put(s, { moduleId: n.moduleId, lesson: n.lesson, learnedAt: n.ts || Date.now() });
+  }
+
+  // 4. what the lesson map marks as a first look (a later module teaches it) or an illustration is not to be
+  //    remembered now: its keep line, definition or formula leaves the review (off), unless he already reviewed it
+  const byLesson = new Map<string, Card[]>();
+  for (const c of d.cards.values())
+    if (!c.off && c.reps === 0 && (c.kind === "keep" || c.kind === "def" || c.kind === "formula")) {
+      const k = `${c.moduleId}__${c.lesson}`;
+      byLesson.set(k, [...(byLesson.get(k) ?? []), c]);
+    }
+  for (const [k, cards] of byLesson) {
+    const g = asGuide(await st.loadGuide(k).catch(() => null));
+    if (!g) continue;
+    for (const c of cards) {
+      const name = /«([^»]+)»/.exec(c.front)?.[1] ?? "";
+      if (!name) continue;
+      const mark = c.kind === "keep" ? g.keep?.find((x) => x.key === keepKeyOf(name)) : g.blocks?.find((x) => x.key === headKey(name) || headKey(x.head) === headKey(name));
+      if (mark && mark.kind !== "core") {
+        c.off = true;
+        dirty.add(c.moduleId);
+      }
+    }
   }
 
   if (dirty.size) await saveModules(st, d, dirty);

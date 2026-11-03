@@ -3,6 +3,7 @@ import { useBookMeasure } from "../../book/context";
 import { Markdown } from "../Markdown";
 import { Frame, parseHeaders } from "./Callout";
 import { isSolved, setSolved } from "../../solved";
+import { QuestionFlag, useQuestionGuide } from "../LessonGuide";
 
 function hash(s: string) {
   let h = 5381;
@@ -12,6 +13,7 @@ function hash(s: string) {
 
 export function Exercise({ source }: { source: string }) {
   const { headers, body } = parseHeaders(source);
+  const fit = useQuestionGuide(source);
   const parts = body.split(/^\s*---(hint|solution)---\s*$/m);
   const problemText = parts[0];
   let hintPart = "";
@@ -39,6 +41,7 @@ export function Exercise({ source }: { source: string }) {
       title={headers.title}
       meta={
         <>
+      {fit && fit.fit !== "taught" && <QuestionFlag q={fit} />}
           {src && (isTag ? <Markdown text={`מהמקור: [[${src.replace(/^\[\[|\]\]$/g, "")}]]`} inline /> : <span>{src === "חדש" ? "תרגיל חדש" : src}</span>)}
           <span className="ex-level" title={`רמת קושי ${level} מתוך 3`}>
             רמה {level}/3

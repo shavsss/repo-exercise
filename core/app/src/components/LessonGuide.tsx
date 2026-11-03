@@ -2,11 +2,12 @@
 // call and kept in profile/guides/<module>__<lesson>; a quiet tag beside each heading it names, a dot in the
 // contents, and the "מפת השיעור" card under the lesson's title. Nothing here blocks the lesson: when the call
 // fails, is refused or answers something unusable, nothing is stored and nothing is shown. Identical in both labs.
+import type React from "react";
 import { createContext, useContext, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import type { Runtime } from "../runtime";
 import type { StoredMessage } from "../types";
-import { asGuide, findBlock, findSection, lessonBlocks, guidePrompt, hastKey, headKey, lessonHeadings, parseGuide, tagLabel, tagText, type GuideInput, type GuideSection, type LessonGuide } from "../guide";
+import { asGuide, findBlock, findKeep, findQuestion, findSection, lessonBlocks, lessonKeep, lessonQuestions, guidePrompt, hastKey, headKey, lessonHeadings, parseGuide, tagLabel, tagText, type GuideInput, type GuideQuestion, type GuideSection, type LessonGuide } from "../guide";
 import { Markdown } from "./Markdown";
 import { useBookMeasure } from "../book/context";
 import "../guide.css";
@@ -36,6 +37,18 @@ export function useBlockGuide(code: string): GuideSection | null {
   return findBlock(guide, code);
 }
 
+/** The map's check of a question block (think, predict…): does it ask about what the lesson taught? */
+export function useQuestionGuide(code: string): GuideQuestion | null {
+  const { guide } = useContext(GuideCtx);
+  return findQuestion(guide, code);
+}
+
+/** The map's marks for the lines of a keep block (by the line's name). */
+export function useKeepGuide(): (line: string) => GuideSection | null {
+  const { guide } = useContext(GuideCtx);
+  return (line) => findKeep(guide, line);
+}
+
 /** The map's entry for a heading written in Markdown (the book's contents). */
 export const sectionOfSource = (guide: LessonGuide | null, src: string) => findSection(guide, headKey(src));
 
@@ -50,8 +63,10 @@ async function makeGuide(rt: Runtime, key: string, text: string, input: Omit<Gui
   const heads = lessonHeadings(text);
   if (!heads.length || !rt.sample || !rt.store) return null;
   const blocks = lessonBlocks(text);
-  const res = await rt.sample(guidePrompt({ ...input, heads, blocks }), { model: GUIDE_MODEL, modelTier: "default", effort: "low", cache: false });
-  const parsed = parseGuide(res.text, heads, input.modules.map((m) => m.id), input.moduleId, Date.now(), blocks);
+  const questions = lessonQuestions(text);
+  const keep = lessonKeep(text);
+  const res = await rt.sample(guidePrompt({ ...input, heads, blocks, questions, keep }), { model: GUIDE_MODEL, modelTier: "default", effort: "low", cache: false });
+  const parsed = parseGuide(res.text, heads, input.modules.map((m) => m.id), input.moduleId, Date.now(), blocks, questions, keep);
   if (!parsed) return null;
   const g: LessonGuide = { ...parsed, partial, heads: heads.length };
   await rt.store.saveGuide(key, g as unknown as Record<string, unknown>);
@@ -93,7 +108,9 @@ export function useLessonGuide(o: { rt: Runtime | null; lessonKey: string; ready
       if (!input || !text) return;
       const nHeads = lessonHeadings(text).length;
       const needBlocks = !!stored && stored.blocks === undefined && lessonBlocks(text).length > 0;
-      if (stored && !needBlocks && !(stored.partial && nHeads > (stored.heads ?? 0))) return;
+      // a map made before the questions were checked (3.11) is made once more, so old lessons get the check too
+      const needQs = !!stored && stored.questions === undefined && (lessonQuestions(text).length > 0 || lessonKeep(text).length > 0);
+      if (stored && !needBlocks && !needQs && !(stored.partial && nHeads > (stored.heads ?? 0))) return;
       if (doc && !stored) return;
       const tryKey = `${lessonKey}:${nHeads}`;
       let job = pending.get(lessonKey);
@@ -115,6 +132,49 @@ export function useLessonGuide(o: { rt: Runtime | null; lessonKey: string; ready
 }
 
 /* ------------------------------------------------------------------ showing it ------------------------------------------------------------------ */
+
+/** Above a question that asks beyond what the lesson taught: says so, and that it is not counted (skip it freely). */
+export function QuestionFlag({ q }: { q: GuideQuestion }) {
+  const { onOpenModule } = useContext(GuideCtx);
+  const what = q.fit === "preview" ? "שאלה על נושא שהשיעור רק הציג" : "השאלה דורשת ידע שלא נלמד בשיעור";
+  return (
+    <div className={`qflag f-${q.fit}`} role="note">
+      <b>{what}</b>
+      {q.module && (
+        <>
+          {" · נלמד ב-"}
+          {onOpenModule ? (
+            <button type="button" className="link" onClick={() => onOpenModule(q.module!)}>
+              {q.module}
+            </button>
+          ) : (
+            q.module
+          )}
+        </>
+      )}
+      <span> · לא נמדדת ולא נכנסת לחזרה, אפשר לדלג</span>
+      {q.note && <small>{q.note}</small>}
+    </div>
+  );
+}
+
+/** The keep block's lines, each marked by the map: a line on a previewed topic is dimmed and tagged, not to learn now. */
+export function KeepMarks({ children }: { children: React.ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const mark = useKeepGuide();
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    for (const li of el.querySelectorAll<HTMLElement>("li")) {
+      const g = mark(li.textContent ?? "");
+      const off = !!g && g.kind !== "core";
+      li.classList.toggle("keep-off", off);
+      if (off) li.dataset.tag = g!.kind === "preview" ? `הכרות${g!.module ? ` · נלמד ב-${g!.module}` : ""} · לא לזכור עכשיו` : "המחשה · לא לזכור";
+      else delete li.dataset.tag;
+    }
+  });
+  return <div ref={ref}>{children}</div>;
+}
 
 /** The quiet tag beside a heading. Its words are drawn by CSS (attr), so they never enter the heading's text. */
 export function GuideTag({ sec }: { sec: GuideSection }) {

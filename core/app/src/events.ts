@@ -148,6 +148,9 @@ export interface CalibRecord {
   grade?: Grade;
   ts: number;
   gradedAt?: number;
+  /** the lesson map found the question asks about what the lesson did not teach (a preview topic, a step never
+   *  given): shown with a flag, and left out of the calibration picture and the review (LessonGuide.tsx) */
+  off?: boolean;
 }
 
 export function thinkId(place: LessonPlace | null, question: string) {

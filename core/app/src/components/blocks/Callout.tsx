@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { Markdown } from "../Markdown";
 import { Icon } from "../Icon";
+import { KeepMarks } from "../LessonGuide";
 
 /** Block kinds: label, line icon, and the frame color (a CSS token per kind). */
 export const CALLOUTS: Record<string, { label: string; icon: string }> = {
@@ -112,7 +113,7 @@ export function Callout({ kind, headers, tag, children }: { kind: string; header
         ) : undefined
       }
     >
-      {children}
+      {kind === "keep" ? <KeepMarks>{children}</KeepMarks> : children}
     </Frame>
   );
 }

@@ -152,3 +152,58 @@ console.log("guide: all tests passed");
   assert.ok(guidePrompt({ moduleId: "M0.1", moduleTitle: "t", lessonTitle: "l", lessonNo: 1, heads: [], blocks: bl, modules: [] }).includes("B2. [formula]"));
 }
 console.log("guide blocks ok");
+
+/* ---- questions and keep lines checked against the lesson (3.11) ---- */
+{
+  const { lessonQuestions, lessonKeep, findQuestion, findKeep, questionKeyOf } = G;
+  const md = [
+    "## טמפרטורה",
+    "```predict",
+    "@title: מהירות מולקולת אוויר",
+    "@value: 508",
+    "מה המהירות הטיפוסית $v_{rms}$ של מולקולה?",
+    "---",
+    "מ-(2): 508 מ'/ש'.",
+    "~~~python",
+    "print(1)",
+    "~~~",
+    "```",
+    "```think",
+    "קרח נמס: המרחק בין המולקולות גדל או קטן?",
+    "---",
+    "קטן.",
+    "```",
+    "```keep",
+    "- טמפרטורה קינטית: $\\langle\\tfrac12mv^2\\rangle=\\tfrac32k_BT$",
+    "- מהירות rms: $v=\\sqrt{3kT/m}$",
+    "```",
+  ].join("\n");
+  const qs = lessonQuestions(md);
+  assert.equal(qs.length, 2);
+  assert.equal(qs[0].type, "predict");
+  assert.ok(qs[0].text.startsWith("מהירות מולקולת אוויר."), qs[0].text);
+  assert.equal(qs[1].section, "טמפרטורה");
+  const keep = lessonKeep(md);
+  assert.equal(keep.length, 2);
+  const raw = JSON.stringify({
+    sections: [{ head: "טמפרטורה", kind: "core" }],
+    questions: [{ id: "Q1", fit: "preview", module: "M13.1" }, { id: "Q2", fit: "taught" }, { id: "Q9", fit: "beyond" }],
+    keep: [{ id: "K1", kind: "core" }, { id: "K2", kind: "preview", module: "M13.1" }],
+  });
+  const g = parseGuide(raw, lessonHeadings(md), ["M0.2", "M13.1"], "M0.2", 1, [], qs, keep);
+  assert.equal(g.questions.length, 2);
+  // the page matches a block by its own source, headers and answer included
+  const predictSrc = md.split("```predict\n")[1].split("\n```")[0];
+  assert.equal(findQuestion(g, predictSrc)?.fit, "preview");
+  assert.equal(findQuestion(g, predictSrc)?.module, "M13.1");
+  assert.equal(findQuestion(g, "קרח נמס: המרחק בין המולקולות גדל או קטן?\n---\nקטן.")?.fit, "taught");
+  assert.equal(findKeep(g, "מהירות rms: v = √(3kT/m)")?.kind, "preview");
+  assert.equal(findKeep(g, "טמפרטורה קינטית: …")?.kind, "core");
+  // a stored map keeps them, and an old one without them reads as "not checked yet"
+  const back = asGuide(JSON.parse(JSON.stringify(g)));
+  assert.equal(back.questions.length, 2);
+  assert.equal(back.keep.length, 2);
+  assert.equal(asGuide({ sections: [{ head: "x", kind: "core" }] }).questions, undefined);
+  assert.ok(questionKeyOf("@title: x\nשאלה\n---\nתשובה") === questionKeyOf("שאלה"));
+  console.log("questions and keep: ok");
+}

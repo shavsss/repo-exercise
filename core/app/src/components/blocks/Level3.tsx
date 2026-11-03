@@ -9,6 +9,7 @@ import { blockKey, useL3, type L3Answer } from "../../level3";
 import { CONF_LABEL, GRADE_LABEL, LessonPlaceCtx, logEvent, saveCalib, thinkId, type CalibRecord, type Conf, type Grade } from "../../events";
 import "../../consult.css";
 import { useBookMeasure } from "../../book/context";
+import { QuestionFlag, useQuestionGuide } from "../LessonGuide";
 
 const DECIDE_LABEL: Record<string, string> = {
   trade: "מוביל ומחליט: ניתוח פשרות בין תחומים",
@@ -77,6 +78,8 @@ export function Predict({ source }: { source: string }) {
   const inRange = open ? judge(answer?.low, answer?.high) : null;
   const unit = headers.unit ? ` ${headers.unit}` : "";
   const qid = thinkId(place, `predict: ${(headers.title || shown).replace(/\s+/g, " ").trim().slice(0, 300)}`);
+  const fit = useQuestionGuide(source);
+  const off = !!fit && fit.fit !== "taught";
   const record = (conf: Conf, grade?: Grade): CalibRecord => ({
     id: qid,
     moduleId: place?.moduleId ?? "",
@@ -88,7 +91,13 @@ export function Predict({ source }: { source: string }) {
     grade,
     ts: Date.now(),
     gradedAt: grade ? Date.now() : undefined,
+    ...(off ? { off: true } : {}),
   });
+  // a prediction the map found off the lesson, answered before the map knew: its record stops counting
+  useEffect(() => {
+    if (off && place && answer?.conf) saveCalib(record(answer.conf, answer.grade)).catch(() => {});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [off, !!answer?.conf]);
   const commit = (c: Conf) => {
     const auto = judge(low, high);
     const grade: Grade | undefined = auto === null ? undefined : auto ? "right" : "wrong";
@@ -109,6 +118,7 @@ export function Predict({ source }: { source: string }) {
   const hot = conf === 3 && grade === "wrong";
   return (
     <Panel kind="predict" label="חזו לפני החישוב" title={headers.title}>
+      {off && <QuestionFlag q={fit!} />}
       <Markdown text={shown} />
       {!shownOpen ? (
         <div className="b3-form">

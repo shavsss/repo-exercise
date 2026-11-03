@@ -28,6 +28,31 @@ export interface LessonBlock {
   lead: string;
 }
 
+/** Does a question of the lesson ask about what it taught? "taught": yes; "preview": it computes or applies a topic
+ *  the lesson only previews (a later module teaches it); "beyond": it needs knowledge or a step the lesson never gave. */
+export type QuestionFit = "taught" | "preview" | "beyond";
+export interface GuideQuestion {
+  /** questionKeyOf of the block's source */
+  key: string;
+  fit: QuestionFit;
+  module?: string;
+  note?: string;
+}
+/** a question block of the lesson (think, predict, verify, errorhunt, exercise), as sent to the map call */
+export interface LessonQuestion {
+  id: string;
+  type: string;
+  key: string;
+  text: string;
+  section: string;
+}
+/** a line of the lesson's keep block ("name: …") */
+export interface LessonKeepLine {
+  id: string;
+  key: string;
+  line: string;
+}
+
 export interface LessonGuide {
   v: 1;
   at: number;
@@ -36,6 +61,10 @@ export interface LessonGuide {
   copy: string[];
   /** the definition and formula blocks, each marked (head = the block's title or first line) */
   blocks?: GuideSection[];
+  /** the lesson's questions, each checked against what the lesson taught (absent in maps made before 3.11) */
+  questions?: GuideQuestion[];
+  /** the lines of the keep block, each marked like a block (head = the line's name, key = keepKeyOf) */
+  keep?: GuideSection[];
   /** made from a lesson that was not finished yet (a draft): made again once it has more headings */
   partial?: boolean;
   /** how many headings the lesson had when the map was made */
@@ -227,6 +256,78 @@ export function lessonBlocks(md: string, words = 30): LessonBlock[] {
   return out;
 }
 
+const Q_LANGS = new Set(["think", "predict", "verify", "errorhunt", "exercise"]);
+
+/** Every fenced block of the lesson's Markdown with the section it sits in (a fence closes on a bare fence of its own kind). */
+function fencedBlocks(md: string): { lang: string; code: string; section: string }[] {
+  const out: { lang: string; code: string; section: string }[] = [];
+  let section = "";
+  let open: { lang: string; fence: string; lines: string[] } | null = null;
+  for (const line of md.split("\n")) {
+    if (open) {
+      const f = /^\s*(`{3,}|~{3,})\s*$/.exec(line);
+      if (f && f[1][0] === open.fence[0] && f[1].length >= open.fence.length) {
+        out.push({ lang: open.lang, code: open.lines.join("\n"), section });
+        open = null;
+      } else open.lines.push(line);
+      continue;
+    }
+    const f = /^\s*(`{3,}|~{3,})\s*([\w-]*)/.exec(line);
+    if (f) {
+      open = { lang: f[2], fence: f[1], lines: [] };
+      continue;
+    }
+    const h = /^(#{2,3})\s+(.+?)\s*$/.exec(line);
+    if (h) section = cleanHead(h[2]);
+  }
+  return out;
+}
+
+/** A question block's match key: its question (before the "---" line, without @headers), letters only, cut short. */
+export function questionKeyOf(code: string): string {
+  const q = code.split(/^\s*---\s*$/m)[0].replace(/^\s*@\w+:.*$/gm, "");
+  return normHead(q.replace(/\$[^$]*\$/g, " ")).slice(0, 70);
+}
+
+/** The question blocks of a lesson, in order. */
+export function lessonQuestions(md: string): LessonQuestion[] {
+  return fencedBlocks(md)
+    .filter((b) => Q_LANGS.has(b.lang))
+    .map((b, i) => {
+      const q = b.code.split(/^\s*---\s*$/m)[0].replace(/^\s*@(\w+):\s*(.*)$/gm, (_, k, v) => (k === "title" ? `${v}. ` : ""));
+      return { id: `Q${i + 1}`, type: b.lang, key: questionKeyOf(b.code), text: q.replace(/\s+/g, " ").trim().slice(0, 420), section: b.section };
+    })
+    .filter((q) => q.key);
+}
+
+/** A keep line's match key: its name, the words before the first colon. */
+export function keepKeyOf(line: string): string {
+  const name = line.replace(/^\s*[-*•]\s*/, "").split(/[:：]/)[0];
+  return normHead(cleanHead(name)).slice(0, 60);
+}
+
+/** The lines of the lesson's keep blocks. */
+export function lessonKeep(md: string): LessonKeepLine[] {
+  const out: LessonKeepLine[] = [];
+  for (const b of fencedBlocks(md))
+    if (b.lang === "keep")
+      for (const l of b.code.split("\n"))
+        if (/^\s*[-*•]\s+\S/.test(l) && keepKeyOf(l)) out.push({ id: `K${out.length + 1}`, key: keepKeyOf(l), line: l.replace(/^\s*[-*•]\s*/, "").trim().slice(0, 300) });
+  return out;
+}
+
+export function findQuestion(guide: LessonGuide | null | undefined, code: string): GuideQuestion | null {
+  const key = questionKeyOf(code);
+  if (!guide?.questions || !key) return null;
+  return guide.questions.find((q) => q.key === key) ?? guide.questions.find((q) => q.key.slice(0, 40) === key.slice(0, 40)) ?? null;
+}
+
+export function findKeep(guide: LessonGuide | null | undefined, line: string): GuideSection | null {
+  const key = keepKeyOf(line);
+  if (!guide?.keep || !key) return null;
+  return guide.keep.find((k) => k.key === key) ?? null;
+}
+
 export interface GuideInput {
   moduleId: string;
   moduleTitle: string;
@@ -235,6 +336,8 @@ export interface GuideInput {
   lessonCount?: number;
   heads: LessonHead[];
   blocks?: LessonBlock[];
+  questions?: LessonQuestion[];
+  keep?: LessonKeepLine[];
   modules: { id: string; title: string }[];
 }
 
@@ -243,6 +346,8 @@ export function guidePrompt(o: GuideInput): string {
   const mods = o.modules.map((m) => `${m.id} ${m.title.replace(/\s+/g, " ").trim().slice(0, 70)}`).join("\n");
   const heads = o.heads.map((h, i) => `${i + 1}. [h${h.level}] ${h.text}\n   first words: ${h.lead || "(none)"}`).join("\n");
   const blocks = (o.blocks ?? []).map((b) => `${b.id}. [${b.type}] ${b.text}\n   in section: ${b.section || "(top)"}\n   first words: ${b.lead || "(none)"}`).join("\n");
+  const questions = (o.questions ?? []).map((q) => `${q.id}. [${q.type}] in section: ${q.section || "(top)"}\n   ${q.text}`).join("\n");
+  const keep = (o.keep ?? []).map((k) => `${k.id}. ${k.line}`).join("\n");
   return `A learner studies an engineering, physics and mathematics course on his own, one lesson at a time, and keeps a summary notebook. Below are the headings of one lesson he has received (each with its first words), and the list of the course's modules. Mark each heading so he knows what to learn and copy now and what only to understand.
 
 Kinds:
@@ -264,13 +369,22 @@ ${heads}
 ${blocks || "(none)"}
 </lesson_blocks>
 
+<lesson_questions>
+${questions || "(none)"}
+</lesson_questions>
+
+<keep_lines>
+${keep || "(none)"}
+</keep_lines>
+
 <course_modules>
 ${mods}
 </course_modules>
 
 Answer with one JSON object and nothing else (no prose, no code fence):
-{"sections":[{"head":"<the heading text exactly as given>","kind":"core|preview|example","module":"<a module id from the list, or omit>","note":"<why, in Hebrew, at most 12 words>"}],"blocks":[{"id":"<B1, B2… as given>","kind":"core|preview|example","module":"<a module id from the list, or omit>","note":"<in Hebrew, at most 12 words>"}],"copy":["<what is worth copying to the summary, in Hebrew: 2 to 6 short items, the definitions, results and formulas of the core sections>"]}
-One entry per heading, in the same order, and one entry per block of <lesson_blocks>. Mark each definition and formula on its own: "core" when the learner should copy it to his summary now (it is part of what this lesson teaches), "preview" when it belongs to a topic a later module teaches in full (he only needs the idea now), "example" when it is a field's formula used as an illustration. A block in a preview or example section can still be core, and the reverse.`;
+{"sections":[{"head":"<the heading text exactly as given>","kind":"core|preview|example","module":"<a module id from the list, or omit>","note":"<why, in Hebrew, at most 12 words>"}],"blocks":[{"id":"<B1, B2… as given>","kind":"core|preview|example","module":"<a module id from the list, or omit>","note":"<in Hebrew, at most 12 words>"}],"questions":[{"id":"<Q1, Q2… as given>","fit":"taught|preview|beyond","module":"<for preview: the module that teaches it>","note":"<in Hebrew, at most 12 words>"}],"keep":[{"id":"<K1, K2… as given>","kind":"core|preview|example","module":"<a module id, or omit>"}],"copy":["<what is worth copying to the summary, in Hebrew: 2 to 6 short items, the definitions, results and formulas of the core sections>"]}
+One entry per heading, in the same order, and one entry per block of <lesson_blocks>. Mark each definition and formula on its own: "core" when the learner should copy it to his summary now (it is part of what this lesson teaches), "preview" when it belongs to a topic a later module teaches in full (he only needs the idea now), "example" when it is a field's formula used as an illustration. A block in a preview or example section can still be core, and the reverse.
+Then check every question of <lesson_questions> against what the lesson teaches, consistently with your marks above: "taught" when the learner can answer it with what this lesson teaches in full (its core definitions and results, and the numbers the question or the lesson gives); "preview" when it asks to compute with or apply a topic you marked preview (put that topic's module); "beyond" when it needs a fact, formula or step the lesson never gave. A question that asks only about the idea of a preview topic, in words, is "taught". And mark every line of <keep_lines> like a block: "core" only when this lesson teaches it in full now; "preview" when it is a topic you marked preview or a later module teaches it; "example" for a field's illustration. One entry per question and one per keep line.`;
 }
 
 const words = (s: string, n: number) => s.replace(/\s+/g, " ").trim().split(" ").slice(0, n).join(" ");
@@ -292,7 +406,7 @@ function jsonOf(raw: string): unknown {
  * The map from a model's answer, or null when it is not usable. Every entry is tied to a heading of the lesson
  * (its text is replaced by the lesson's own), module ids not in the course are dropped, notes are cut to 12 words.
  */
-export function parseGuide(raw: unknown, heads: LessonHead[], moduleIds: Iterable<string>, current?: string, at = Date.now(), lblocks: LessonBlock[] = []): LessonGuide | null {
+export function parseGuide(raw: unknown, heads: LessonHead[], moduleIds: Iterable<string>, current?: string, at = Date.now(), lblocks: LessonBlock[] = [], lquestions: LessonQuestion[] = [], lkeep: LessonKeepLine[] = []): LessonGuide | null {
   const obj = (typeof raw === "string" ? jsonOf(raw) : raw) as { sections?: unknown; copy?: unknown; blocks?: unknown } | null;
   if (!obj || typeof obj !== "object" || !Array.isArray(obj.sections)) return null;
   const ids = new Set(moduleIds);
@@ -328,6 +442,32 @@ export function parseGuide(raw: unknown, heads: LessonHead[], moduleIds: Iterabl
       if (note) sec.note = note;
       blocks.push(sec);
     }
+  const questions: GuideQuestion[] = [];
+  if (Array.isArray((obj as { questions?: unknown }).questions))
+    for (const q of (obj as { questions: Record<string, unknown>[] }).questions) {
+      if (!q || typeof q !== "object") continue;
+      const lq = lquestions.find((x) => x.id === String(q.id ?? "").trim());
+      const fit = String(q.fit ?? "").trim().toLowerCase() as QuestionFit;
+      if (!lq || !["taught", "preview", "beyond"].includes(fit) || questions.some((x) => x.key === lq.key)) continue;
+      const gq: GuideQuestion = { key: lq.key, fit };
+      const mod = typeof q.module === "string" ? q.module.trim() : "";
+      if (mod && fit === "preview" && ids.has(mod) && mod !== current) gq.module = mod;
+      const note = typeof q.note === "string" ? words(q.note, 12) : "";
+      if (note) gq.note = note;
+      questions.push(gq);
+    }
+  const keep: GuideSection[] = [];
+  if (Array.isArray((obj as { keep?: unknown }).keep))
+    for (const k of (obj as { keep: Record<string, unknown>[] }).keep) {
+      if (!k || typeof k !== "object") continue;
+      const lk = lkeep.find((x) => x.id === String(k.id ?? "").trim());
+      const kind = String(k.kind ?? "").trim().toLowerCase() as GuideKind;
+      if (!lk || !KINDS.includes(kind) || keep.some((x) => x.key === lk.key)) continue;
+      const sec: GuideSection = { head: lk.line.split(/[:：]/)[0].trim(), kind, key: lk.key };
+      const mod = typeof k.module === "string" ? k.module.trim() : "";
+      if (mod && kind !== "core" && ids.has(mod) && mod !== current) sec.module = mod;
+      keep.push(sec);
+    }
   if (!sections.length && !blocks.length) return null;
   const copy = Array.isArray(obj.copy)
     ? (obj.copy as unknown[])
@@ -335,7 +475,7 @@ export function parseGuide(raw: unknown, heads: LessonHead[], moduleIds: Iterabl
         .map((x) => x.replace(/\s+/g, " ").trim().slice(0, 160))
         .slice(0, 8)
     : [];
-  return { v: 1, at, sections, copy, blocks };
+  return { v: 1, at, sections, copy, blocks, questions, keep };
 }
 
 /** A stored map, checked the same way (a document written by an older or other client is never trusted blindly). */
@@ -345,7 +485,9 @@ export function asGuide(doc: unknown): LessonGuide | null {
   const sections = d.sections.filter((s): s is GuideSection => !!s && typeof s.head === "string" && KINDS.includes(s.kind as GuideKind));
   const blocks = Array.isArray(d.blocks) ? d.blocks.filter((s): s is GuideSection => !!s && typeof s.head === "string" && KINDS.includes(s.kind as GuideKind)) : undefined;
   if (!sections.length && !blocks?.length) return null;
-  return { v: 1, at: Number(d.at) || 0, sections, copy: Array.isArray(d.copy) ? d.copy.filter((x): x is string => typeof x === "string") : [], partial: d.partial === true, heads: Number(d.heads) || sections.length, blocks };
+  const questions = Array.isArray(d.questions) ? d.questions.filter((q): q is GuideQuestion => !!q && typeof q.key === "string" && ["taught", "preview", "beyond"].includes(q.fit)) : undefined;
+  const keep = Array.isArray(d.keep) ? d.keep.filter((s): s is GuideSection => !!s && typeof s.key === "string" && KINDS.includes(s.kind as GuideKind)) : undefined;
+  return { v: 1, at: Number(d.at) || 0, sections, copy: Array.isArray(d.copy) ? d.copy.filter((x): x is string => typeof x === "string") : [], partial: d.partial === true, heads: Number(d.heads) || sections.length, blocks, questions, keep };
 }
 
 /** The words of a heading's tag. */

@@ -23,7 +23,7 @@ function Bars({ n }: { n: Conf }) {
   );
 }
 
-export function ThinkCommit({ question, answer }: { question: string; answer: string }) {
+export function ThinkCommit({ question, answer, off }: { question: string; answer: string; off?: boolean }) {
   const place = useContext(LessonPlaceCtx);
   const { live } = useContext(MdContext);
   const id = thinkId(place, question);
@@ -42,8 +42,14 @@ export function ThinkCommit({ question, answer }: { question: string; answer: st
   useEffect(() => {
     if (live || !place) return;
     let alive = true;
-    loadCalib(id).then((r) => {
+    loadCalib(id).then((got) => {
+      let r = got;
       if (!alive || !r) return;
+      // a question the map found off the lesson: its earlier answer stops counting too
+      if (off && !r.off) {
+        r = { ...r, off: true };
+        saveCalib(r).catch(() => {});
+      }
       rec.current = r;
       setMine(r.answer ?? "");
       setConf(r.conf);
@@ -53,13 +59,13 @@ export function ThinkCommit({ question, answer }: { question: string; answer: st
     return () => {
       alive = false;
     };
-  }, [id, live, place]);
+  }, [id, live, place, off]);
 
   const commit = (c: Conf) => {
     setConf(c);
     setStage("shown");
     shownAt.current = Date.now();
-    const r: CalibRecord = { id, moduleId: place?.moduleId ?? "", lesson: place?.lesson ?? -1, lessonTitle: place?.title, q: question.replace(/\s+/g, " ").trim().slice(0, 400), answer: mine.trim().slice(0, 1500) || undefined, conf: c, ts: Date.now() };
+    const r: CalibRecord = { id, moduleId: place?.moduleId ?? "", lesson: place?.lesson ?? -1, lessonTitle: place?.title, q: question.replace(/\s+/g, " ").trim().slice(0, 400), answer: mine.trim().slice(0, 1500) || undefined, conf: c, ts: Date.now(), ...(off ? { off: true } : {}) };
     rec.current = r;
     if (place) saveCalib(r).catch(() => {});
     logEvent("think.commit", place, { q: id, conf: c, wrote: !!mine.trim(), chars: mine.trim().length });

@@ -118,3 +118,30 @@ button.lguide-mod:focus-visible { outline: 2px solid var(--gt); outline-offset: 
   text-align: right;
 }
 .lguide-pop .lguide-head { padding-block: 6px; flex-wrap: nowrap; }
+
+/* ---------- questions and keep lines the map found off the lesson (3.11) ---------- */
+.qflag {
+  margin: 0 0 10px;
+  padding: 7px 10px;
+  border-radius: 6px;
+  border: 1px dashed color-mix(in srgb, var(--warn) 55%, transparent);
+  background: color-mix(in srgb, var(--warn) 9%, transparent);
+  color: var(--ink-soft);
+  font-size: 0.86em;
+  line-height: 1.5;
+}
+.qflag b { color: var(--warn); }
+.qflag small { display: block; color: var(--muted); }
+.qflag .link { font: inherit; }
+li.keep-off { opacity: 0.55; }
+li.keep-off::after {
+  content: attr(data-tag);
+  display: inline-block;
+  margin-inline-start: 8px;
+  padding: 0 7px;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  font-size: 0.74em;
+  color: var(--muted);
+  vertical-align: 1px;
+}

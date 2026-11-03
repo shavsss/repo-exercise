@@ -11,7 +11,7 @@ export function CalibView({ onOpen }: { onOpen?: (moduleId: string, lesson: numb
   useEffect(() => {
     let alive = true;
     allCalib()
-      .then((l) => alive && setList(l))
+      .then((l) => alive && setList(l.filter((r) => !r.off)))
       .catch(() => alive && setList([]));
     return () => {
       alive = false;
