@@ -11,6 +11,7 @@ import { HomeHero } from "./components/HomeHero";
 import { Composer, type QuickAction } from "./components/Composer";
 import { lessonChannel } from "./summaries/SummaryApp";
 import { collectVisuals } from "./lessonVisuals";
+import { replyToNote } from "./noteReply";
 import { LessonToc, ReadingDock, ReadingProgress, useResumePosition } from "./components/ReadingAids";
 import { noteAnchorHere } from "./components/MarginNotes";
 import { SectionDots } from "./components/SectionDots";
@@ -245,12 +246,26 @@ export function App() {
     },
     [rt],
   );
+  const memoryRef = useRef(memory);
+  memoryRef.current = memory;
   const updateNote = useCallback(
     (id: string, patch: Partial<LessonNote>) => {
       if (id.startsWith("local-") || !rt?.store) setNotes((all) => all.map((n) => (n.id === id ? { ...n, ...patch } : n)));
       else rt.store.updateNote(id, patch).catch(() => notify({ level: "error", text: "העדכון לא נשמר." }));
+      // a note he wrote (or changed) in the margin gets the tutor's answer; the tutor's own saves never do
+      const n = notesRef.current.find((x) => x.id === id);
+      if (patch.text?.trim() && n && n.who === "learner" && n.margin) {
+        const next = { ...n, ...patch };
+        const title = index?.modules.find((m) => m.id === n.moduleId)?.title ?? "";
+        void replyToNote(rt, next, { lab: "Lanchester, the technical core lab", moduleTitle: title, memory: memoryRef.current }).then((reply) => {
+          if (!reply) return;
+          const r = { reply, replyFor: next.text.trim(), replyAt: Date.now() };
+          if (id.startsWith("local-") || !rt?.store) setNotes((all) => all.map((x) => (x.id === id ? { ...x, ...r } : x)));
+          else rt.store.updateNote(id, r).catch(() => {});
+        });
+      }
     },
-    [rt],
+    [rt, index],
   );
   const deleteNote = useCallback(
     (id: string) => {

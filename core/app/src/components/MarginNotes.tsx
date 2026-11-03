@@ -6,12 +6,14 @@
 // both labs.
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type RefObject } from "react";
 import { NOTE_KIND_LABEL, type LessonNote, type NoteKind } from "../types";
+import { useReplyPending } from "../noteReply";
+import { Markdown } from "./Markdown";
 
 const NOTE_W = 200;
 const GAP = 28;
 const KINDS: NoteKind[] = ["note", "deepen", "interview", "article"];
 /** a small mark per kind; the two that lead outward (an expert, an article) take the lab's accent */
-const SYM: Record<NoteKind, string> = { note: "·", deepen: "↓", interview: "?", article: "¶" };
+const SYM: Record<NoteKind, string> = { note: "✎", deepen: "↓", interview: "?", article: "¶" };
 const OUT: NoteKind[] = ["interview", "article"];
 /** the margin a note needs beside the text: the card, the gap with its tab, and a little air */
 const NEED = NOTE_W + GAP + 10;
@@ -206,6 +208,16 @@ export function MarginNotes({
     };
   }, [placed, hot, open]);
 
+  // an open note near the bottom (with its answer under it) lifts above the reading bar instead of going under it
+  useLayoutEffect(() => {
+    const face = open ? layer.current?.querySelector<HTMLElement>(".mn-note.is-open .mn-face") : null;
+    if (!face) return;
+    face.style.translate = "";
+    const r = face.getBoundingClientRect();
+    const limit = window.innerHeight - 70;
+    if (r.bottom > limit) face.style.translate = `0 ${-Math.min(r.bottom - limit, Math.max(0, r.top - 60))}px`;
+  }, [open, notes]);
+
   const close = useCallback(() => {
     setOpen((id) => {
       if (!id) return null;
@@ -254,6 +266,7 @@ export function MarginNotes({
                   ))}
                 </div>
                 <textarea className="mn-edit" value={draft} onChange={(e) => setDraft(e.target.value)} placeholder="מה לזכור כאן?" autoFocus rows={5} dir="auto" />
+                <Reply note={p.note} onAsk={() => draft.trim() && onSave(p.key, { text: draft.trim() })} />
                 <div className="mn-actions">
                   <button
                     className="mn-del"
@@ -285,11 +298,36 @@ export function MarginNotes({
                   <span className="mn-label">{NOTE_KIND_LABEL[p.note.kind]}</span> <b>{p.num}</b>
                 </span>
                 {wide && <span className="mn-text">{p.note.text}</span>}
+                {wide && p.note.who === "learner" && p.note.reply && <span className="mn-replied">המורה ענה ←</span>}
               </button>
             )}
           </div>
         );
       })}
     </div>
+  );
+}
+
+/** The tutor's answer under a note he wrote (src/noteReply.ts): written when he closes a note he wrote or changed;
+ *  "שאל את המורה" for a note that has none yet (or was changed since). The tutor's own saves are not answered. */
+function Reply({ note, onAsk }: { note: LessonNote; onAsk: () => void }) {
+  const busy = useReplyPending(note.id);
+  if (note.who === "tutor") return <div className="mn-by">נשמר על ידי המורה, לבקשתך</div>;
+  if (busy) return <div className="mn-reply is-busy">המורה קורא את הפתק…</div>;
+  const stale = note.reply && note.replyFor && note.replyFor !== note.text.trim();
+  return (
+    <>
+      {note.reply && (
+        <div className="mn-reply">
+          <b className="mn-reply-who">המורה{stale ? " (על הנוסח הקודם)" : ""}</b>
+          <Markdown text={note.reply} />
+        </div>
+      )}
+      {(!note.reply || stale) && (
+        <button className="mn-ask" onClick={onAsk}>
+          {note.reply ? "שאל שוב על הנוסח החדש" : "שאל את המורה על הפתק"}
+        </button>
+      )}
+    </>
   );
 }
