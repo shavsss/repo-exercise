@@ -580,3 +580,18 @@ label.sm-bmenu-line:hover { background: none; }
   .sm-handle { inset-inline-start: -28px; }
   .sm-bmenu { inset-inline-start: -28px; }
 }
+
+/* ---------- a chart or picture from the lesson (LessonPicker.tsx) ---------- */
+.sm-lespick { max-width: 920px; }
+.sm-lespick header .muted { font-size: 0.8rem; margin-inline-start: 8px; }
+.sm-lespick-msg { padding: 18px; color: var(--ink-soft); }
+.sm-lespick-msg .btn { margin-top: 8px; }
+.sm-lespick-grid { list-style: none; margin: 0; padding: 12px; overflow-y: auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; align-content: start; }
+.sm-lespick-grid button { all: unset; box-sizing: border-box; width: 100%; cursor: pointer; border: 1px solid var(--line); border-radius: 6px; padding: 6px; display: grid; gap: 4px; font-size: 0.78rem; color: var(--ink-soft); background: var(--paper); }
+.sm-lespick-grid button:hover, .sm-lespick-grid button:focus-visible { border-color: var(--accent); }
+.sm-lespick-grid button[disabled] { opacity: 0.6; cursor: progress; }
+.sm-lespick-grid img { width: 100%; height: 150px; object-fit: contain; border-radius: 3px; }
+.sm-lespick header { display: flex; gap: 10px; align-items: center; padding: 10px 14px; border-bottom: 1px solid var(--line); }
+.sm-lespick header b { flex: none; }
+.sm-lespick header .muted { flex: 1; }
+.sm-lespick-hint { margin: 0; padding: 10px 14px 0; font-size: 0.8rem; color: var(--muted); }

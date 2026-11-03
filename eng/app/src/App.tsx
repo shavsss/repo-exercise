@@ -10,6 +10,7 @@ import { AssistantTurn, DimensionHead, UserBubble } from "./components/Message";
 import { HomeHero } from "./components/HomeHero";
 import { Composer, type QuickAction } from "./components/Composer";
 import { lessonChannel } from "./summaries/SummaryApp";
+import { collectVisuals } from "./lessonVisuals";
 import { LessonToc, ReadingDock, ReadingProgress, useResumePosition } from "./components/ReadingAids";
 import { noteAnchorHere } from "./components/MarginNotes";
 import { SectionDots } from "./components/SectionDots";
@@ -183,6 +184,20 @@ export function App() {
     ch.close();
   }, [selection?.moduleId, selection?.lesson]);
   const lesson = lessonIdx !== undefined && lessonIdx >= 0 ? prog?.lessons?.[lessonIdx] : undefined;
+  // the summaries window asks for the pictures of the lesson open here (a chart, a drawn figure, a simulation)
+  const selRef = useRef(selection);
+  selRef.current = selection;
+  useEffect(() => {
+    if (typeof BroadcastChannel === "undefined") return;
+    const ch = new BroadcastChannel(lessonChannel("gilua"));
+    ch.onmessage = async (e) => {
+      const d = e.data as { type?: string; req?: string };
+      if (d?.type !== "visuals?" || !selRef.current?.moduleId) return;
+      const items = await collectVisuals().catch(() => []);
+      ch.postMessage({ type: "visuals", req: d.req, moduleId: selRef.current?.moduleId, lesson: selRef.current?.lesson, items });
+    };
+    return () => ch.close();
+  }, []);
   const isQuiz = lessonIdx === -1;
   // the learner's answers to predict/errorhunt/verify/lab/decide blocks belong to the open lesson
   useEffect(() => setLevel3Scope(rt?.store ?? null, module && lessonIdx !== undefined ? `${module.id}__${lessonIdx}` : ""), [rt, module, lessonIdx]);

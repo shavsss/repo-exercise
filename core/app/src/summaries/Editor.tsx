@@ -33,6 +33,7 @@ const INSERT: InsertItem[] = [
   { id: "math", label: "משוואה", short: "∑ משוואה", hint: "ממוספרת", keys: "math משוואה נוסחה $$", make: () => emptyBlock("math") },
   { id: "img", label: "תמונה מהמחשב", short: "🖼 תמונה", hint: "או הדבק Ctrl+V", keys: "img תמונה צילום" },
   { id: "fig", label: "איור מהספר", short: "📖 איור מהספר", hint: "מספרי הספרייה", keys: "fig איור ספר" },
+  { id: "lesson", label: "גרף או איור מהשיעור", short: "📈 מהשיעור", hint: "מהשיעור הפתוח בחלון השני", keys: "lesson שיעור גרף איור תמונה" },
   { id: "hr", label: "קו מפריד", short: "― קו", hint: "", keys: "hr קו מפריד", make: () => emptyBlock("hr") },
 ];
 const MARKS: MarkColor[] = ["y", "r", "b", "g", "p", "o"];
@@ -346,6 +347,7 @@ export function Editor({
   current,
   setCurrent,
   onPickFigure,
+  onPickLesson,
   zoom = 1,
 }: {
   blocks: Block[];
@@ -354,6 +356,8 @@ export function Editor({
   setCurrent: (id: string | null) => void;
   /** opens the figure picker; the chosen figure is inserted after the given block */
   onPickFigure: (after: string | null) => void;
+  /** a chart or a picture from the lesson open in the other window */
+  onPickLesson: (after: string | null) => void;
   zoom?: number;
 }) {
   const focusReq = useRef<{ key: string; where: Where; at: number } | null>(null);
@@ -565,6 +569,10 @@ export function Editor({
     }
     if (item.id === "fig") {
       onPickFigure(anchor ?? (replace ? null : at));
+      return;
+    }
+    if (item.id === "lesson") {
+      onPickLesson(anchor ?? (replace ? null : at));
       return;
     }
     const nb = item.make!();
@@ -1439,6 +1447,11 @@ export function Editor({
               <button role="menuitem" className="sm-fly-item" onClick={() => (setFly(null), insertItem("fig"))}>
                 <Icon name="figure" size={17} />
                 <span>איור מהספר</span>
+              </button>
+              <button role="menuitem" className="sm-fly-item" onClick={() => (setFly(null), insertItem("lesson"))}>
+                <Icon name="image" size={17} />
+                <span>גרף או איור מהשיעור</span>
+                <small>מהחלון של השיעור</small>
               </button>
               <button role="menuitem" className="sm-fly-item" onClick={() => (setFly(null), insertItem("hr"))}>
                 <Icon name="hr" size={17} />

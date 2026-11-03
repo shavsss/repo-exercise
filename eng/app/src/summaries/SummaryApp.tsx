@@ -9,6 +9,8 @@ import type { Block, BoxKind, Summary, SummaryMeta, SummaryStatus } from "./mode
 import { BOX_LABEL, STATUS_LABEL, emptyBlock, esc, seedBlocks, toMarkdown, wordCount } from "./model";
 import { Editor, alertBox, type Change } from "./Editor";
 import { FigurePicker } from "./FigurePicker";
+import { LessonPicker } from "./LessonPicker";
+import { storeImage } from "./media";
 import { FilterView, ReviewView, type FilterKind } from "./View";
 import { ModuleNotes, NotebookView, TutorPanel } from "./Panels";
 import { saveFile, toDocx, toHtml } from "./exporters";
@@ -83,6 +85,8 @@ export function SummaryApp({ lab, name }: { lab: string; name: string }) {
   const [saveState, setSaveState] = useState<"idle" | "saving" | "saved" | "local" | "error">("idle");
   const [current, setCurrent] = useState<string | null>(null);
   const [pickAfter, setPickAfter] = useState<string | null | undefined>(undefined);
+  /** where a chart or picture from the lesson goes (undefined: the picker is closed) */
+  const [lessonAfter, setLessonAfter] = useState<string | null | undefined>(undefined);
   const [all, setAll] = useState<Summary[] | null>(null);
   const [q, setQ] = useState("");
   /** "תצוגה וייצוא": the menu under the top bar */
@@ -133,6 +137,53 @@ export function SummaryApp({ lab, name }: { lab: string; name: string }) {
   const restoring = useRef(false);
   const [resumed, setResumed] = useState(false);
   const saveTimer = useRef(0);
+  /* ---- the page follows the writing: the line being written never goes under the bottom edge (or a bar) ---- */
+  useEffect(() => {
+    const keep = () => {
+      const main = mainRef.current;
+      const ae = document.activeElement as HTMLElement | null;
+      if (!main || !ae || !main.contains(ae)) return;
+      let rect: DOMRect | null = null;
+      const sel = window.getSelection();
+      if (ae.isContentEditable && sel?.rangeCount) {
+        const r = sel.getRangeAt(0).cloneRange();
+        r.collapse(false);
+        rect = Array.from(r.getClientRects()).pop() ?? null;
+        if (!rect || !rect.height) {
+          // an empty line has no box of its own: the element the caret is in
+          const n = sel.focusNode;
+          const el = (n && n.nodeType === 1 ? n : n?.parentElement) as HTMLElement | null;
+          const b = el?.getBoundingClientRect();
+          if (b) rect = new DOMRect(b.left, b.top, b.width, Math.min(b.height, 40));
+        }
+      } else {
+        const b = ae.getBoundingClientRect();
+        rect = new DOMRect(b.left, Math.max(b.top, b.bottom - 60), b.width, Math.min(b.height, 60));
+      }
+      if (!rect) return;
+      const box = main.getBoundingClientRect();
+      const room = window.innerWidth < 720 ? 150 : 110;
+      const bottom = Math.min(box.bottom, window.innerHeight) - room;
+      const top = box.top + 56;
+      if (rect.bottom > bottom) main.scrollTop += rect.bottom - bottom;
+      else if (rect.top < top) main.scrollTop -= top - rect.top;
+    };
+    const soon = () => {
+      requestAnimationFrame(keep);
+      // a new block (Enter) gets the caret after React draws it
+      window.setTimeout(keep, 60);
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Enter" || e.key === "ArrowDown" || e.key === "ArrowUp" || e.key === "Backspace" || e.key === "Tab") soon();
+    };
+    document.addEventListener("input", soon, true);
+    document.addEventListener("keydown", onKey, true);
+    return () => {
+      document.removeEventListener("input", soon, true);
+      document.removeEventListener("keydown", onKey, true);
+    };
+  }, []);
+
   const onMainScroll = () => {
     const el = mainRef.current;
     const id = doc?.moduleId;
@@ -305,8 +356,9 @@ export function SummaryApp({ lab, name }: { lab: string; name: string }) {
     if (typeof BroadcastChannel === "undefined") return;
     const ch = new BroadcastChannel(lessonChannel(lab));
     ch.onmessage = (e) => {
-      const d = e.data as { moduleId?: string; lesson?: number };
-      if (!prefs.follow || !d?.moduleId) return;
+      const d = e.data as { type?: string; moduleId?: string; lesson?: number };
+      // "visuals" answers (LessonPicker) are not a lesson change
+      if (d?.type || !prefs.follow || !d?.moduleId) return;
       if (d.moduleId !== prefs.module) void open(d.moduleId, d.lesson);
       else if (typeof d.lesson === "number") {
         pendingScroll.current = d.lesson;
@@ -678,6 +730,7 @@ export function SummaryApp({ lab, name }: { lab: string; name: string }) {
                     current={current}
                     setCurrent={setCurrent}
                     onPickFigure={(after) => setPickAfter(after)}
+                    onPickLesson={(after) => setLessonAfter(after)}
                     zoom={prefs.zoom}
                   />
                 )}
@@ -724,6 +777,28 @@ export function SummaryApp({ lab, name }: { lab: string; name: string }) {
         </div>
       )}
 
+      {lessonAfter !== undefined && (
+        <LessonPicker
+          lab={lab}
+          onClose={() => setLessonAfter(undefined)}
+          onPick={async (v) => {
+            try {
+              const blob = await (await fetch(v.url)).blob();
+              const r = await storeImage(blob);
+              const caption = [v.title, v.caption].filter(Boolean).join(" · ").slice(0, 200);
+              const nb = { ...(emptyBlock("img") as Extract<Block, { t: "img" }>), ...r, caption };
+              update((bs) => {
+                const i = lessonAfter ? bs.findIndex((b) => b.id === lessonAfter) : bs.length - 1;
+                return [...bs.slice(0, i + 1), nb, ...bs.slice(i + 1)];
+              }, "struct");
+              setCurrent(nb.id);
+              setLessonAfter(undefined);
+            } catch {
+              alertBox("התמונה לא נשמרה. נסה שוב.");
+            }
+          }}
+        />
+      )}
       {pickAfter !== undefined && module && (
         <FigurePicker
           docs={module.sources.map((s) => s.doc)}
