@@ -750,6 +750,24 @@ export function BookView(props: BookProps) {
     },
     [start, first], // eslint-disable-line react-hooks/exhaustive-deps
   );
+  // "לדון עם המורה" on a margin note: once its question is in the book, turn to it (the back pill returns to the page)
+  const followNote = useRef<number | null>(null);
+  useEffect(() => {
+    const on = () => (followNote.current = chunks.filter((c) => c.kind === "question").length);
+    window.addEventListener("note:discuss", on);
+    return () => window.removeEventListener("note:discuss", on);
+  }, [chunks]);
+  useEffect(() => {
+    const had = followNote.current;
+    if (had === null) return;
+    const qs = chunks.map((c, i) => [c, i] as const).filter(([c]) => c.kind === "question");
+    if (qs.length <= had) return;
+    const qi = qs[qs.length - 1][1];
+    const p = pages.findIndex((pg) => pg.frags.some((f) => f.i === qi));
+    if (p < 0) return;
+    followNote.current = null;
+    jump(p);
+  }, [pages, chunks, jump]);
   const goBack = useCallback(() => {
     const to = back.current.pop();
     if (to === undefined) return;

@@ -173,9 +173,9 @@ ${gate ? "שלב השער (P0–P3): כמעט שום תחום הנדסי עוד 
 function studyContext(o: { mode: Mode; module: Module; lessons?: LessonSpec[]; lessonIdx: number; memory: string; pages?: string; notes?: LessonNote[]; allNotes?: LessonNote[]; done?: string[] }) {
   const mem = o.memory.trim() ? `\n<course_memory>\n${o.memory.trim()}\n</course_memory>` : "";
   const nb = o.notes?.length
-    ? `\n<lesson_notebook>\nThe shared notebook of this lesson. "written by the learner" is his own thought, often with your answer to it already (do not answer it again, build on it); "saved by you" was saved by the tutor and is not his:\n${o.notes
+    ? `\n<lesson_notebook>\nThe shared notebook of this lesson. "written by the learner" is his own thought (he brings one to the chat when he wants to discuss it); "saved by you" was saved by the tutor at his request and is not his own writing:\n${o.notes
         .slice(0, 60)
-        .map((n) => `- (id ${n.id ?? "?"}) [${NOTE_KIND_LABEL[n.kind]}, ${n.who === "tutor" ? "saved by you" : "written by the learner"}] ${n.text.replace(/\s+/g, " ").slice(0, 600)}${n.who !== "tutor" && n.reply ? ` (your answer: ${n.reply.replace(/\s+/g, " ").slice(0, 300)})` : ""}`)
+        .map((n) => `- (id ${n.id ?? "?"}) [${NOTE_KIND_LABEL[n.kind]}, ${n.who === "tutor" ? "saved by you" : "written by the learner"}] ${n.text.replace(/\s+/g, " ").slice(0, 600)}`)
         .join("\n")}\n</lesson_notebook>`
     : "";
   const rest = o.allNotes?.length
@@ -262,7 +262,7 @@ function buildTools(cb: TurnCallbacks, docs: string[]): SampleTool[] {
           {
             name: "save_lesson_note",
             description:
-              "Save a point to the shared notebook of this lesson, which the learner and you both keep: an idea for an article the learner may write, a question worth asking an expert in an interview, a point to study more deeply later, or a short note. Write it in Hebrew, self-contained (it is read later, outside the lesson). Save ONLY when the learner asks in this conversation (for example «שמור את זה», «תוסיף למחברת», «תוסיף לרעיון של המאמר»), never on your own initiative: points he did not write and did not ask for clutter his notebook and read later as if they were his. When something in your answer seems worth keeping, you may offer it in one line at the end («אם תרצה, אשמור את זה במחברת כרעיון למאמר»), and save it only after he says so. Never the same point twice (see <lesson_notebook> and <notebook>). To add a point to an item that already exists (a new point for an article idea, for example), pass its id as add_to: the text is appended to it as a new point. When the learner asks you to add something, add exactly that.",
+              "Save a point to the shared notebook of this lesson, which the learner and you both keep: an idea for an article the learner may write, a question worth asking an expert in an interview, a point to study more deeply later, or a short note. Write it in Hebrew, self-contained (it is read later, outside the lesson). Save only with his agreement, never silently: points he did not write and did not agree to clutter his notebook and read later as if they were his. Save when he asks (for example «שמור את זה», «תוסיף למחברת», «תוסיף לרעיון של המאמר»), and when a discussion with him turns up something worth keeping (an article idea, an interview question, a point to deepen), offer it in one line at the end («אם תרצה, אשמור את זה במחברת כרעיון למאמר») and save it after he says yes. While writing a lesson, do not save. Never the same point twice (see <lesson_notebook> and <notebook>). To add a point to an item that already exists (a new point for an article idea, for example), pass its id as add_to: the text is appended to it as a new point. When the learner asks you to add something, add exactly that.",
             inputSchema: {
               type: "object" as const,
               properties: { kind: { type: "string", enum: ["article", "interview", "deepen", "note"] }, text: { type: "string" }, add_to: { type: "string", description: "id of an existing notebook item to append this point to" } },

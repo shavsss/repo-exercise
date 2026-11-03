@@ -73,10 +73,6 @@ export interface LessonNote {
   /** a sticky note the learner pulled from the pad: shown in the lesson margin beside `anchor`, a quote from its paragraph */
   margin?: boolean;
   anchor?: string;
-  /** the tutor's answer to a note the learner wrote (src/noteReply.ts), and the text of the note it answers */
-  reply?: string;
-  replyFor?: string;
-  replyAt?: number;
   ts: number;
 }
 export const NOTE_KIND_LABEL: Record<NoteKind, string> = { article: "רעיון למאמר", interview: "שאלה לראיון", deepen: "להעמקה", note: "הערה" };

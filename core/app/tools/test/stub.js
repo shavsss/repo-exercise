@@ -53,13 +53,6 @@
       opts.onText && opts.onText({ text: t, delta: t });
       return { text: t, truncated: false, modelTierApplied: "quick", modelApplied: opts.model };
     }
-    if (typeof input === "string" && input.includes("<note kind=")) {
-      // the tutor's answer to a margin note (src/noteReply.ts)
-      window.__log.push("notereply:" + opts.model);
-      window.__noteInput = input;
-      await new Promise((r) => setTimeout(r, 400));
-      return { text: "כן, ובדיוק בגלל זה כדאי לשמור את ההמרה בראש: סוכן יכול לתרגם 27 dB לפי 500, אבל רק מי שמרגיש את סדר הגודל ישים לב כשהמספר שגוי. הכלי מחליף את החישוב, לא את השיפוט.", truncated: false, modelApplied: opts.model };
-    }
     if (typeof input === "string" && input.includes("<answer>")) {
       // "נסח לי שאלה" on a review card (src/review/Review.tsx)
       window.__log.push("ask:" + opts.modelTier);

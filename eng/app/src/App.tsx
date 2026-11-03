@@ -3,6 +3,7 @@ import { connect, type ConvMeta, type Runtime, type SampleError } from "./runtim
 import { docMeta, loadIndex, moduleState, type LibraryIndex, type Module } from "./library";
 import { INITIAL_MEMORY, askTutor, composeLesson, planModule, updateMemory, type PartPlan } from "./tutor";
 import { toItems } from "./segments";
+import { NOTE_KIND_LABEL } from "./types";
 import type { Activity, Effort, LessonNote, LessonSpec, ModuleProgress, Mode, NoteKind, StoredMessage } from "./types";
 import { ModuleMap, STATE_LABEL, TIER_LABEL, type Selection } from "./components/ModuleMap";
 import { Topbar, type Crumb } from "./components/Topbar";
@@ -11,7 +12,6 @@ import { HomeHero } from "./components/HomeHero";
 import { Composer, type QuickAction } from "./components/Composer";
 import { lessonChannel } from "./summaries/SummaryApp";
 import { collectVisuals } from "./lessonVisuals";
-import { replyToNote } from "./noteReply";
 import { LessonToc, ReadingDock, ReadingProgress, useResumePosition } from "./components/ReadingAids";
 import { noteAnchorHere } from "./components/MarginNotes";
 import { SectionDots } from "./components/SectionDots";
@@ -248,26 +248,12 @@ export function App() {
     },
     [rt],
   );
-  const memoryRef = useRef(memory);
-  memoryRef.current = memory;
   const updateNote = useCallback(
     (id: string, patch: Partial<LessonNote>) => {
       if (id.startsWith("local-") || !rt?.store) setNotes((all) => all.map((n) => (n.id === id ? { ...n, ...patch } : n)));
       else rt.store.updateNote(id, patch).catch(() => notify({ level: "error", text: "העדכון לא נשמר." }));
-      // a note he wrote (or changed) in the margin gets the tutor's answer; the tutor's own saves never do
-      const n = notesRef.current.find((x) => x.id === id);
-      if (patch.text?.trim() && n && n.who === "learner" && n.margin) {
-        const next = { ...n, ...patch };
-        const title = index?.modules.find((m) => m.id === n.moduleId)?.title ?? "";
-        void replyToNote(rt, next, { lab: "Gilua, the engineering lab", moduleTitle: title, memory: memoryRef.current }).then((reply) => {
-          if (!reply) return;
-          const r = { reply, replyFor: next.text.trim(), replyAt: Date.now() };
-          if (id.startsWith("local-") || !rt?.store) setNotes((all) => all.map((x) => (x.id === id ? { ...x, ...r } : x)));
-          else rt.store.updateNote(id, r).catch(() => {});
-        });
-      }
     },
-    [rt, index],
+    [rt],
   );
   const deleteNote = useCallback(
     (id: string) => {
@@ -598,6 +584,19 @@ export function App() {
     },
     [busy, rt, module, lessonIdx, lesson, isQuiz, convId, messages, mode, generate, saveModule],
   );
+  // "לדון עם המורה" on a margin note (MarginNotes.tsx): the note goes to the lesson chat as his question, for a real discussion
+  const discussRef = useRef(send);
+  discussRef.current = send;
+  useEffect(() => {
+    const on = (e: Event) => {
+      const n = (e as CustomEvent<LessonNote>).detail;
+      if (!n?.text?.trim()) return;
+      const where = n.anchor ? ` ליד הפסקה «${n.anchor.slice(0, 160)}${n.anchor.length > 160 ? "…" : ""}»` : "";
+      void discussRef.current(`על הפתק שכתבתי${where} (${NOTE_KIND_LABEL[n.kind]}):\n\n${n.text.trim()}\n\nבוא נדון בזה לעומק.`, [], "clarify");
+    };
+    window.addEventListener("note:discuss", on);
+    return () => window.removeEventListener("note:discuss", on);
+  }, []);
 
   /** Continues the last answer of this conversation from its saved draft. */
   const resumeLast = useCallback(async () => {

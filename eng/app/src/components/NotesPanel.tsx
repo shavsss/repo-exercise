@@ -169,11 +169,6 @@ export function NotesPanel({
                   ) : (
                     <div className="note-text">
                       <Markdown text={n.text} />
-                      {n.who !== "tutor" && n.reply && (
-                        <div className="note-reply">
-                          <b>המורה:</b> <Markdown text={n.reply} />
-                        </div>
-                      )}
                     </div>
                   )}
                 </li>

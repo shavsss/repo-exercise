@@ -6,8 +6,6 @@
 // both labs.
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type RefObject } from "react";
 import { NOTE_KIND_LABEL, type LessonNote, type NoteKind } from "../types";
-import { useReplyPending } from "../noteReply";
-import { Markdown } from "./Markdown";
 
 const NOTE_W = 200;
 const GAP = 28;
@@ -76,7 +74,7 @@ const BLOCKS = ".prose p, .prose li, .prose h2, .prose h3, .prose h4, .prose td"
 
 function locate(root: HTMLElement, anchor: string): { el: HTMLElement; range: Range | null } | null {
   for (const p of root.querySelectorAll<HTMLElement>(BLOCKS)) {
-    if (p.closest(".consult-host")) continue; // a consultation card's answer is not the lesson
+    if (p.closest(".consult-host, .bk-question, .user-bubble")) continue; // a consultation card's answer, or his own question that quotes the paragraph, is not the lesson
     const r = rangeOf(p, anchor);
     if (r) return { el: p, range: r };
   }
@@ -126,6 +124,8 @@ export function MarginNotes({
   const [wide, setWide] = useState(true);
   const [open, setOpen] = useState<string | null>(null);
   const [hot, setHot] = useState<string | null>(null);
+  /** a note being thrown away: it crumples first, then goes */
+  const [leaving, setLeaving] = useState<string | null>(null);
   const [draft, setDraft] = useState("");
   const layer = useRef<HTMLDivElement>(null);
   const seen = useRef(new Set<string>());
@@ -250,7 +250,7 @@ export function MarginNotes({
         return (
           <div
             key={p.key}
-            className={`mn-note k-${p.note.kind} ${OUT.includes(p.note.kind) ? "is-out" : ""} ${isOpen ? "is-open" : ""}`}
+            className={`mn-note k-${p.note.kind} ${OUT.includes(p.note.kind) ? "is-out" : ""} ${isOpen ? "is-open" : ""} ${leaving === p.key ? "is-leaving" : ""} ${Date.now() - (p.note.ts ?? 0) < 6000 ? "is-new" : ""}`}
             data-top={p.top}
             data-n={p.num}
             onPointerEnter={() => setHot(p.key)}
@@ -266,13 +266,29 @@ export function MarginNotes({
                   ))}
                 </div>
                 <textarea className="mn-edit" value={draft} onChange={(e) => setDraft(e.target.value)} placeholder="מה לזכור כאן?" autoFocus rows={5} dir="auto" />
-                <Reply note={p.note} onAsk={() => draft.trim() && onSave(p.key, { text: draft.trim() })} />
+                {p.note.who !== "tutor" && draft.trim() && (
+                  <button
+                    className="mn-discuss"
+                    onClick={() => {
+                      const text = draft.trim();
+                      if (text !== p.note.text.trim()) onSave(p.key, { text });
+                      // App.tsx sends it to the lesson chat, where the discussion happens
+                      window.dispatchEvent(new CustomEvent("note:discuss", { detail: { ...p.note, text } }));
+                      setOpen(null);
+                    }}
+                    title="שולח את הפתק לשיחה עם המורה, לדיון לעומק"
+                  >
+                    <span aria-hidden="true">💬</span> לדון עם המורה
+                  </button>
+                )}
                 <div className="mn-actions">
                   <button
                     className="mn-del"
                     onClick={() => {
-                      onDelete(p.key);
+                      const id = p.key;
+                      setLeaving(id);
                       setOpen(null);
+                      window.setTimeout(() => (onDelete(id), setLeaving(null)), matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 420);
                     }}
                   >
                     מחק
@@ -298,7 +314,6 @@ export function MarginNotes({
                   <span className="mn-label">{NOTE_KIND_LABEL[p.note.kind]}</span> <b>{p.num}</b>
                 </span>
                 {wide && <span className="mn-text">{p.note.text}</span>}
-                {wide && p.note.who === "learner" && p.note.reply && <span className="mn-replied">המורה ענה ←</span>}
               </button>
             )}
           </div>
@@ -308,26 +323,3 @@ export function MarginNotes({
   );
 }
 
-/** The tutor's answer under a note he wrote (src/noteReply.ts): written when he closes a note he wrote or changed;
- *  "שאל את המורה" for a note that has none yet (or was changed since). The tutor's own saves are not answered. */
-function Reply({ note, onAsk }: { note: LessonNote; onAsk: () => void }) {
-  const busy = useReplyPending(note.id);
-  if (note.who === "tutor") return <div className="mn-by">נשמר על ידי המורה, לבקשתך</div>;
-  if (busy) return <div className="mn-reply is-busy">המורה קורא את הפתק…</div>;
-  const stale = note.reply && note.replyFor && note.replyFor !== note.text.trim();
-  return (
-    <>
-      {note.reply && (
-        <div className="mn-reply">
-          <b className="mn-reply-who">המורה{stale ? " (על הנוסח הקודם)" : ""}</b>
-          <Markdown text={note.reply} />
-        </div>
-      )}
-      {(!note.reply || stale) && (
-        <button className="mn-ask" onClick={onAsk}>
-          {note.reply ? "שאל שוב על הנוסח החדש" : "שאל את המורה על הפתק"}
-        </button>
-      )}
-    </>
-  );
-}
