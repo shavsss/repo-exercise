@@ -66,6 +66,7 @@ const ERROR_COPY: Record<string, string> = {
   image_rejected: "התמונה לא התקבלה (סוג או גודל). נסה קובץ אחר.",
   invalid_json: "התכנון שהתקבל לא היה תקין. אפשר לנסות שוב.",
   upstream_error: "החיבור ל-Claude נקטע. אפשר לנסות שוב.",
+  invalid_request: "Claude דחה את מבנה הבקשה (invalid_request). זו תקלה בדף, לא בשאלה: ההודעה נשמרה, וכדאי לספר על זה.",
 };
 
 function readLocal(key: string) {
