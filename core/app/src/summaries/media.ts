@@ -18,7 +18,8 @@ function loadImage(src: string): Promise<HTMLImageElement> {
 async function reduce(file: Blob, max = 1600): Promise<{ blob: Blob; w: number; h: number }> {
   const url = URL.createObjectURL(file);
   try {
-    const im = await loadImage(url);
+    // where blob: pictures are not allowed, the same bytes as a data URL
+    const im = await loadImage(url).catch(async () => loadImage(await toDataUrl(file)));
     const s = Math.min(1, max / Math.max(im.naturalWidth, im.naturalHeight));
     const w = Math.round(im.naturalWidth * s);
     const h = Math.round(im.naturalHeight * s);
@@ -42,13 +43,27 @@ const toDataUrl = (b: Blob) =>
     r.readAsDataURL(b);
   });
 
+/** A data URL as bytes, without fetch (the page's policy may not let fetch read data: URLs). */
+export function dataUrlBlob(url: string): Blob {
+  const [head, body] = url.split(",", 2);
+  const type = /data:([^;,]+)/.exec(head)?.[1] ?? "image/png";
+  const bin = /;base64/.test(head) ? atob(body) : decodeURIComponent(body);
+  const bytes = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  return new Blob([bytes], { type });
+}
+
 /** Stores a picture; returns its address and size. */
 export async function storeImage(file: Blob): Promise<{ src: string; w: number; h: number }> {
   const assets = window.__assets;
   if (assets) {
     const { blob, w, h } = await reduce(file);
-    const r = await assets.upload(blob);
-    return { src: r.url, w, h };
+    try {
+      const r = await assets.upload(blob);
+      return { src: r.url, w, h };
+    } catch {
+      // the store refused it: a smaller copy inside the summary, so the picture is not lost
+    }
   }
   // no asset store here: a smaller copy inside the summary
   const { blob, w, h } = await reduce(file, 1100);

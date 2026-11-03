@@ -90,6 +90,85 @@ function blank(c: HTMLCanvasElement) {
   }
 }
 
+/** a cell's text, with each formula as its TeX source (KaTeX keeps it in an annotation) */
+function cellText(c: HTMLTableCellElement) {
+  const k = c.cloneNode(true) as HTMLElement;
+  k.querySelectorAll(".katex").forEach((m) => {
+    const tex = m.querySelector("annotation")?.textContent ?? "";
+    m.replaceWith(document.createTextNode(tex ? ` ${tex} ` : ""));
+  });
+  return clean(k.textContent);
+}
+
+/** A table drawn on a canvas cell by cell, in the colors and direction it has in the lesson. */
+function tableImage(t: HTMLTableElement, bg: string) {
+  const cs = getComputedStyle(t);
+  const rtl = cs.direction === "rtl";
+  const ink = cs.color || "#222";
+  const firstCell = t.querySelector("td, th");
+  const line = (firstCell && getComputedStyle(firstCell).borderBottomColor) || "#bbb";
+  const family = cs.fontFamily || "sans-serif";
+  const rows = Array.from(t.rows).map((r) => Array.from(r.cells).map((c) => ({ text: cellText(c), head: c.tagName === "TH" || r.parentElement?.tagName === "THEAD" })));
+  if (!rows.length) return null;
+  const cols = Math.max(...rows.map((r) => r.length));
+  const S = 2, FS = 14, PAD = 9, LH = 20, MAXW = 300;
+  const g0 = document.createElement("canvas").getContext("2d")!;
+  const fontOf = (head: boolean) => `${head ? 700 : 400} ${FS}px ${family}`;
+  const wrap = (text: string, head: boolean) => {
+    g0.font = fontOf(head);
+    const out: string[] = [];
+    let cur = "";
+    for (const w of text.split(" ")) {
+      const next = cur ? `${cur} ${w}` : w;
+      if (cur && g0.measureText(next).width > MAXW) {
+        out.push(cur);
+        cur = w;
+      } else cur = next;
+    }
+    out.push(cur);
+    return out;
+  };
+  const cells = rows.map((r) => r.map((c) => ({ ...c, lines: wrap(c.text, c.head) })));
+  const widths = Array.from({ length: cols }, (_, j) =>
+    Math.min(MAXW, Math.max(36, ...cells.map((r) => (r[j] ? Math.max(...r[j].lines.map((l) => (g0.font = fontOf(r[j].head), g0.measureText(l).width))) : 0)))) + 2 * PAD,
+  );
+  const heights = cells.map((r) => Math.max(...r.map((c) => c.lines.length)) * LH + 2 * PAD - 6);
+  const W = widths.reduce((a, b) => a + b, 0) + 1;
+  const H = heights.reduce((a, b) => a + b, 0) + 1;
+  const c = document.createElement("canvas");
+  c.width = Math.round(W * S);
+  c.height = Math.round(H * S);
+  const g = c.getContext("2d")!;
+  g.scale(S, S);
+  g.fillStyle = bg;
+  g.fillRect(0, 0, W, H);
+  g.textBaseline = "top";
+  let y = 0.5;
+  cells.forEach((r, i) => {
+    let x = rtl ? W - 0.5 : 0.5;
+    r.forEach((cell, j) => {
+      const w = widths[j];
+      const left = rtl ? x - w : x;
+      if (cell.head) {
+        g.fillStyle = "rgba(127,127,127,0.13)";
+        g.fillRect(left, y, w, heights[i]);
+      }
+      g.strokeStyle = line;
+      g.lineWidth = 1;
+      g.strokeRect(left, y, w, heights[i]);
+      g.fillStyle = ink;
+      g.font = fontOf(cell.head);
+      const strong = /[\u0590-\u05FF]/.test(cell.text);
+      g.direction = strong || rtl ? "rtl" : "ltr";
+      g.textAlign = g.direction === "rtl" ? "right" : "left";
+      cell.lines.forEach((l, k) => g.fillText(l, g.direction === "rtl" ? left + w - PAD : left + PAD, y + PAD - 2 + k * LH));
+      x = rtl ? x - w : x + w;
+    });
+    y += heights[i];
+  });
+  return { url: c.toDataURL("image/png"), w: c.width, h: c.height };
+}
+
 async function rasterize(el: Element): Promise<{ url: string; w: number; h: number } | null> {
   const bg = backdrop(el);
   if (el instanceof HTMLImageElement) {
@@ -102,6 +181,7 @@ async function rasterize(el: Element): Promise<{ url: string; w: number; h: numb
     if (!el.width || !el.height || blank(el)) return null;
     return paint(el, el.width, el.height, bg);
   }
+  if (el instanceof HTMLTableElement) return tableImage(el, bg);
   if (el instanceof SVGSVGElement) {
     const { text, w, h } = inlineSvg(el);
     const url = URL.createObjectURL(new Blob([text], { type: "image/svg+xml" }));
@@ -128,9 +208,10 @@ const clean = (s?: string | null) => (s ?? "").replace(/\s+/g, " ").trim();
 /** Every picture of the lesson in this window, in reading order, without repeats. */
 export async function collectVisuals(): Promise<LessonVisual[]> {
   const root = document.querySelector("main.main") ?? document.body;
-  const els = Array.from(root.querySelectorAll("img, canvas, svg")).filter((el) => {
+  const els = Array.from(root.querySelectorAll("img, canvas, svg, table")).filter((el) => {
     if (el instanceof SVGSVGElement && el.parentElement?.closest("svg")) return false;
     if (el.closest(".icon, .btn, .icon-btn, .block-tab, .bk-ribbon, .composer, nav, header.block-head, .bk-plate-svg")) return false;
+    if (el instanceof HTMLTableElement) return el.rows.length >= 2 && !el.closest(".katex");
     const { w, h } = size(el);
     return w >= MIN_W && h >= MIN_H;
   });
@@ -139,6 +220,7 @@ export async function collectVisuals(): Promise<LessonVisual[]> {
   for (const el of els) {
     const box = el.closest(".viz, .sim, .block, figure") ?? el.parentElement;
     const title = clean(box?.querySelector(".viz-title, .block-title, .tb-title, .sim-caption, h4")?.textContent) || clean(el.getAttribute("aria-label")) || clean((el as HTMLImageElement).alt);
+    const tableTitle = el instanceof HTMLTableElement && !box?.querySelector(".viz-title, .block-title") ? `טבלה: ${Array.from(el.rows[0]?.cells ?? []).map((c) => clean(c.textContent)).filter(Boolean).slice(0, 4).join(" · ")}` : "";
     // a book figure's title block: its cells (kind, number, source, page) after the title
     const cells = Array.from(box?.querySelectorAll(".tb-cell") ?? []).map((c) => clean(c.textContent)).filter(Boolean);
     const caption = cells.length ? cells.join(" · ") : clean(box?.querySelector("figcaption")?.textContent);
@@ -148,7 +230,7 @@ export async function collectVisuals(): Promise<LessonVisual[]> {
       const key = `${title}|${caption}|${el.tagName}|${Math.round(r.w / 40)}|${Math.round(r.h / 40)}`;
       if (seen.has(key)) continue;
       seen.add(key);
-      out.push({ ...r, title: title.slice(0, 160), caption: caption.slice(0, 240) });
+      out.push({ ...r, title: (tableTitle || title).slice(0, 160), caption: caption.slice(0, 240) });
     } catch {
       // a picture that cannot be read back (another origin) is left out
     }

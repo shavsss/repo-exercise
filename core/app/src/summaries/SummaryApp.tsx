@@ -10,7 +10,7 @@ import { BOX_LABEL, STATUS_LABEL, emptyBlock, esc, seedBlocks, toMarkdown, wordC
 import { Editor, alertBox, type Change } from "./Editor";
 import { FigurePicker } from "./FigurePicker";
 import { LessonPicker } from "./LessonPicker";
-import { storeImage } from "./media";
+import { dataUrlBlob, storeImage } from "./media";
 import { FilterView, ReviewView, type FilterKind } from "./View";
 import { ModuleNotes, NotebookView, TutorPanel } from "./Panels";
 import { saveFile, toDocx, toHtml } from "./exporters";
@@ -783,7 +783,7 @@ export function SummaryApp({ lab, name }: { lab: string; name: string }) {
           onClose={() => setLessonAfter(undefined)}
           onPick={async (v) => {
             try {
-              const blob = await (await fetch(v.url)).blob();
+              const blob = dataUrlBlob(v.url);
               const r = await storeImage(blob);
               const caption = [v.title, v.caption].filter(Boolean).join(" · ").slice(0, 200);
               const nb = { ...(emptyBlock("img") as Extract<Block, { t: "img" }>), ...r, caption };
