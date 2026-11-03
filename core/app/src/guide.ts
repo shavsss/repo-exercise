@@ -339,6 +339,11 @@ export interface GuideInput {
   questions?: LessonQuestion[];
   keep?: LessonKeepLine[];
   modules: { id: string; title: string }[];
+  /** the source sections assigned to this lesson (their material is this lesson's own subject) */
+  covers?: string[];
+  /** from the lesson's check against its sources (lessonAudit.ts): what must be learned now, and corrected module references */
+  mustCore?: string[];
+  refs?: { topic: string; module: string }[];
 }
 
 /** The one call that makes the map. The marker <lesson_headings> also tells the test stub which call this is. */
@@ -352,7 +357,7 @@ export function guidePrompt(o: GuideInput): string {
 
 Kinds:
 - "core": the lesson's own subject, the material of module ${o.moduleId} that this lesson teaches. Learn it now and copy it to the summary. Opening, recap and "what to remember" sections are core.
-- "preview": a topic introduced here only as a first look, which a LATER module of the list teaches in full. Put that module's id in "module". Use it only when a module of the list clearly teaches this topic.
+- "preview": a topic introduced here only as a first look, which a LATER module of the list teaches in full. Put that module's id in "module". Use it only when a module of the list clearly teaches this very topic (by its title); a topic no module teaches, or one in the assigned sections, is "core".
 - "example": an illustration from an application field (navigation, sensing, communications, a device or a system), used to show the idea and not to be learned for itself. Put in "module" the module of the list that teaches that field, only if there is one.
 When unsure, choose "core".
 
@@ -369,7 +374,7 @@ ${heads}
 ${blocks || "(none)"}
 </lesson_blocks>
 
-<lesson_questions>
+${o.covers?.length ? `<assigned_sections>\nThe source sections this lesson was assigned. Their material is this lesson's own subject: it is "core" unless a later module of the list clearly teaches that very topic in full.\n${o.covers.map((c) => `- ${c}`).join("\n")}\n</assigned_sections>\n\n` : ""}${o.mustCore?.length || o.refs?.length ? `<checked_by_review>\nAn independent review checked this lesson against its sources and the course modules.${o.mustCore?.length ? `\nThese topics must be learned now, from this lesson (mark what teaches them "core", never preview or example):\n${o.mustCore.map((t) => `- ${t}`).join("\n")}` : ""}${o.refs?.length ? `\nCorrected module references (use these modules, not the ones the text names):\n${o.refs.map((r) => `- ${r.topic} → ${r.module}`).join("\n")}` : ""}\n</checked_by_review>\n\n` : ""}<lesson_questions>
 ${questions || "(none)"}
 </lesson_questions>
 

@@ -145,3 +145,23 @@ li.keep-off::after {
   color: var(--muted);
   vertical-align: 1px;
 }
+
+/* ---------- the lesson's check against its sources (AuditBar.tsx) ---------- */
+.audit-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  margin: 10px 0 14px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  font-size: 0.86em;
+  color: var(--ink-soft);
+}
+.audit-bar b { color: var(--ink); }
+.audit-bar.is-todo { border-color: color-mix(in srgb, var(--warn) 50%, transparent); background: color-mix(in srgb, var(--warn) 8%, transparent); }
+.audit-bar.is-todo span { flex-basis: 100%; }
+.audit-bar.is-running { border-style: dashed; }
+.audit-bar.is-done { background: color-mix(in srgb, var(--ok) 7%, transparent); border-color: color-mix(in srgb, var(--ok) 35%, transparent); }
+.audit-bar.is-done.v-partly { background: color-mix(in srgb, var(--warn) 8%, transparent); border-color: color-mix(in srgb, var(--warn) 45%, transparent); }

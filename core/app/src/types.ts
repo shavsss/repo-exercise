@@ -30,6 +30,8 @@ export interface StoredMessage {
   partsDone?: number;
   /** draft of a lesson: the length of the text of the finished parts (the rest is the part being written) */
   partsChars?: number;
+  /** a lesson: its check against the sources before it was read (lessonAudit.ts) */
+  audit?: import("./lessonAudit").AuditMark;
 }
 
 /** One lesson of a module, as the tutor planned it on entering the module. */

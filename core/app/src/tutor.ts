@@ -7,6 +7,7 @@
 import { create, all } from "mathjs";
 import { docMeta, getIndex, readPages, searchLibrary, type Module } from "./library";
 import { curriculumBlock } from "./curriculum";
+import { auditAndRepair, namedModules, type AuditMark } from "./lessonAudit";
 import { decideLine, decideSlot } from "./lessonGate";
 import { LEGACY_RULES, SYSTEM_PROMPT, libraryList } from "./prompt";
 import type { Runtime, SampleTool } from "./runtime";
@@ -556,10 +557,11 @@ const isEmptyPlan = (e: unknown) => ["invalid_json", "empty_completion"].include
 const LITE_PLAN = `
 LESSON RULES (they replace the length rule and the 4200-word floor above). There is no word target and no floor: the length follows from the depth units. Nothing of the assigned material is dropped and nothing is taught below its level.
 - Central results: one or two per lesson. A central result is a formula, theorem, method or model the course returns to as a working tool, or that carries an engineering decision. Each one gets all seven level-2.5 sections, woven into the argument where it raises them, plus its authority layer: a hidden assumption with a real break (in the step where it enters), a quantitative reading (a bound or error growth, with a computed number), the decisive real case with computed numbers against published ones, a professional error and the check that catches it, a second structure ("what it really rests on"), and a strong mapping to another field.
-- Anchor claims: an idea of the pages that fixes a law, a count, a computation or an impossibility but is not central (in an overview chapter, most results of later topics are anchors). It gets the claim, one assumption or structure, and one number or case, in one or two paragraphs. The theory of a later topic enters only in its one-step form; the rest is a fieldmap line.
+- Anchor claims: an idea of the pages that fixes a law, a count, a computation or an impossibility but is not central, AND that a named later module of the course teaches in full (say which in the text). It gets the claim, one assumption or structure, and one number or case, in one or two paragraphs. The theory of a later topic enters only in its one-step form; the rest is a fieldmap line. An idea of the assigned pages that no later module teaches is not an anchor: it is taught in full here, however short the pages make it. When unsure whether a later module teaches it, teach it here.
+- Completeness comes before everything else: every idea, result, definition, mechanism and worked number of the assigned pages, and every K or S topic item, is taught at full depth. When something has to give, drop a second example, an exercise or a story, or make the lesson longer; never thin or skip material. The lesson is checked against its pages before the learner reads it, and anything missing is sent back.
 - A depth unit is one idea with its own level-2.5 exam question. Plan the number of units per part, counted honestly: two ideas answered by the same answer are one unit, and splitting a sentence makes no unit. About 30 counted words per unit, for orientation only: one central result usually takes 80 to 120 units, two take 130 to 180.
 - Split only when the plan holds more than two central results, or more than 180 units: cut at a boundary between central results, each result moving with its units, anchors and case study, and add "split": {"title": "Hebrew title of the continuation lesson", "covers": "the results and pages that move to it"}. Never split because a lesson is long, and never thin or drop anything to avoid a split: every extra lesson lengthens the course.
-- Every idea of the assigned pages goes to a unit, to a background half-sentence, or to the split lesson. Before replying, check the list of section headings above: each one is in some part's "covers" or in "split".
+- Every idea of the assigned pages goes to a unit (a background half-sentence only for what the learner already knows from an earlier lesson), or to the split lesson. Before replying, check the list of section headings above: each one is in some part's "covers" or in "split".
 - Name the central results R1 (and R2) in "results". Only they get the seven [[2.5: …]] tags (each tag once per result), a ## section of their own, formula blocks and domain blocks. An anchor claim takes at most about six lines, with no formula block, no 2.5 tag and no domain block.
 - Connections: per central result one fieldmap block and one or two domain blocks, each saying exactly what maps and where the analogy breaks. A connection is made once, in one place, never repeated in prose or in another block.
 - The casestudy is a real system or event with computed numbers set against a published figure; any calculation the story promises is carried out in the lesson.
@@ -686,7 +688,64 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
     cb.onText(written);
     cb.onCheckpoint?.(plan, k + 1, written);
   }
-  return { text: written, plan, model };
+  // every lesson is checked against its pages before it is read, and repaired where it falls short (lessonAudit.ts)
+  let audit: AuditMark | undefined;
+  if (!opts.planOnly && written) {
+    const a = await auditLesson({ rt, module: m, lessons, lessonIdx, text: written, mode: "inplace", pages, signal, cb }).catch(() => null);
+    if (a) {
+      written = a.text;
+      audit = a.mark;
+      cb.onText(written);
+    }
+  }
+  return { text: written, plan, model, audit };
+}
+
+/**
+ * The check of one lesson (lessonAudit.ts): "inplace" for a lesson not read yet, "supplement" for one already
+ * read (the additions come after it). Returns null when the check could not run.
+ */
+export async function auditLesson(o: { rt: Runtime; module: Module; lessons?: LessonSpec[]; lessonIdx: number; text: string; mode: "inplace" | "supplement"; pages?: string; signal?: AbortSignal; cb: TurnCallbacks }) {
+  const { rt, module: m, lessons, lessonIdx } = o;
+  if (!rt.sample) return null;
+  const spec = lessons?.[lessonIdx];
+  const pages = o.pages ?? (await lessonPages(spec, m));
+  const index = getIndex();
+  const modules = namedModules(o.text)
+    .filter((id) => id !== m.id)
+    .map((id) => index?.modules.find((x) => x.id === id))
+    .filter((x): x is Module => !!x)
+    .map((x) => ({ id: x.id, title: x.title, sections: x.sections.map((s) => s.title) }));
+  const tools = rt.canUseTools ? buildTools(o.cb, moduleDocs(m)) : null;
+  return auditAndRepair(
+    {
+      lessonTitle: spec?.title ?? m.title,
+      moduleId: m.id,
+      moduleTitle: m.title,
+      covers: spec?.covers ?? m.sections.map((s) => s.title),
+      focus: (spec as { focus?: string } | undefined)?.focus,
+      otherLessons: (lessons ?? []).filter((_, i) => i !== lessonIdx).map((l) => ({ title: l.title, covers: l.covers ?? [] })),
+      curriculum: curriculumBlock(m),
+      modules,
+      pages,
+      text: o.text,
+    },
+    o.mode,
+    {
+      onStatus: o.cb.onStatus,
+      call: async (prompt, kind) => {
+        const res = await rt.sample!([{ role: "user", content: prompt }], {
+          model: MODEL,
+          modelTier: "complex",
+          effort: kind === "audit" ? "high" : "high",
+          signal: o.signal,
+          ...(kind === "repair" && tools ? { tools } : { cache: false }),
+          ...(kind === "repair" ? { onText: ({ text }: { text: string }) => o.cb.onStatus?.(`משלים את השיעור (${Math.round(text.length / 1000)} אלף תווים)`) } : {}),
+        });
+        return res.text;
+      },
+    },
+  );
 }
 
 /* ---------------- course memory ---------------- */

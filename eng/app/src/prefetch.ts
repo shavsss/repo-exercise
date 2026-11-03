@@ -176,7 +176,7 @@ async function run(j: Job) {
         onNote: j.onNote,
       },
     });
-    answer = { ...answer, text: res.text, model: res.model, draft: undefined, plan: undefined, partsDone: undefined, partsChars: undefined, status: undefined, activity };
+    answer = { ...answer, text: res.text, model: res.model, ...(res.audit ? { audit: res.audit } : {}), draft: undefined, plan: undefined, partsDone: undefined, partsChars: undefined, status: undefined, activity };
   } catch (err) {
     const e = err as { code?: string };
     // keep plan and partsDone, and only the text of the finished parts, so "המשך" goes on from the last part

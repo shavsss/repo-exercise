@@ -35,6 +35,22 @@
   const user = { id: async () => "u_test" };
   async function sample(input, opts) {
     opts = opts || {};
+    // the lesson's check against its sources (src/lessonAudit.ts): one finding the first round, a pass the second
+    const flat = typeof input === "string" ? input : Array.isArray(input) ? input.map((m) => (typeof m.content === "string" ? m.content : "")).join("\n") : "";
+    if (flat.includes("<lesson_audit")) {
+      window.__log = window.__log || [];
+      window.__log.push("audit:" + (/round="(\d)"/.exec(flat)?.[1] ?? "1"));
+      await new Promise((r) => setTimeout(r, 300));
+      const first = /round="1"/.test(flat);
+      return { text: JSON.stringify(first ? { missing: [{ topic: "חום בעיבוי", source: "F1:17", why: "חצי מהמאזן", after: "" }], keep: { exists: false, missing: ["חום בעיבוי"] }, must_core: ["חום בעיבוי"], verdict: "fix" } : { missing: [], keep: { exists: true, missing: [] }, must_core: ["חום בעיבוי"], verdict: "pass" }), truncated: false, modelApplied: opts.model };
+    }
+    if (flat.includes("<lesson_repair")) {
+      window.__log = window.__log || [];
+      window.__log.push("repair:" + (/mode="(\w+)"/.exec(flat)?.[1] ?? ""));
+      await new Promise((r) => setTimeout(r, 300));
+      const sup = /mode="supplement"/.test(flat);
+      return { text: (sup ? "<<<SUPPLEMENT>>>\n## השלמה לשיעור\n### חום בעיבוי\nמשלים את «אידוי»: מולקולה שחוזרת לנוזל משחררת את האנרגיה שלקחה, ולכן עיבוי מחמם.\n<<<END>>>\n" : "") + "<<<KEEP>>>\n- חום בעיבוי: עיבוי מחמם, אידוי מקרר\n<<<END>>>", truncated: false, modelApplied: opts.model };
+    }
     window.__log = window.__log || [];
     if (typeof input === "string" && input.includes("<level>")) {
       // a consultation card: a short answer by level, with the "more" chips

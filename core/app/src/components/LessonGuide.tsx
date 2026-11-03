@@ -7,6 +7,7 @@ import { createContext, useContext, useEffect, useLayoutEffect, useRef, useState
 import { createPortal } from "react-dom";
 import type { Runtime } from "../runtime";
 import type { StoredMessage } from "../types";
+import type { AuditMark } from "../lessonAudit";
 import { asGuide, findBlock, findKeep, findQuestion, findSection, lessonBlocks, lessonKeep, lessonQuestions, guidePrompt, hastKey, headKey, lessonHeadings, parseGuide, tagLabel, tagText, type GuideInput, type GuideQuestion, type GuideSection, type LessonGuide } from "../guide";
 import { Markdown } from "./Markdown";
 import { useBookMeasure } from "../book/context";
@@ -59,13 +60,13 @@ const pending = new Map<string, Promise<LessonGuide | null>>();
 /** lessons whose call was made in this visit (failed or not): never called twice */
 const tried = new Set<string>();
 
-async function makeGuide(rt: Runtime, key: string, text: string, input: Omit<GuideInput, "heads">, partial: boolean): Promise<LessonGuide | null> {
+async function makeGuide(rt: Runtime, key: string, text: string, input: Omit<GuideInput, "heads">, partial: boolean, audit?: AuditMark): Promise<LessonGuide | null> {
   const heads = lessonHeadings(text);
   if (!heads.length || !rt.sample || !rt.store) return null;
   const blocks = lessonBlocks(text);
   const questions = lessonQuestions(text);
   const keep = lessonKeep(text);
-  const res = await rt.sample(guidePrompt({ ...input, heads, blocks, questions, keep }), { model: GUIDE_MODEL, modelTier: "default", effort: "low", cache: false });
+  const res = await rt.sample(guidePrompt({ ...input, heads, blocks, questions, keep, mustCore: audit?.must_core, refs: audit?.refs }), { model: GUIDE_MODEL, modelTier: "default", effort: "low", cache: false });
   const parsed = parseGuide(res.text, heads, input.modules.map((m) => m.id), input.moduleId, Date.now(), blocks, questions, keep);
   if (!parsed) return null;
   const g: LessonGuide = { ...parsed, partial, heads: heads.length };
@@ -84,6 +85,8 @@ export function useLessonGuide(o: { rt: Runtime | null; lessonKey: string; ready
   const latest = useRef(o);
   latest.current = o;
   const { rt, lessonKey, ready } = o;
+  // a lesson checked (or supplemented) after its map was made gets its map made again
+  const auditAt = [...o.messages].reverse().find((m) => m.audit)?.audit?.at ?? 0;
   useEffect(() => {
     const store = rt?.store;
     if (!lessonKey || !store) return;
@@ -110,14 +113,16 @@ export function useLessonGuide(o: { rt: Runtime | null; lessonKey: string; ready
       const needBlocks = !!stored && stored.blocks === undefined && lessonBlocks(text).length > 0;
       // a map made before the questions were checked (3.11) is made once more, so old lessons get the check too
       const needQs = !!stored && stored.questions === undefined && (lessonQuestions(text).length > 0 || lessonKeep(text).length > 0);
-      if (stored && !needBlocks && !needQs && !(stored.partial && nHeads > (stored.heads ?? 0))) return;
+      const audited = [...lessonMsgs].reverse().find((m) => m.audit)?.audit;
+      const needAudit = !!stored && !!audited && (stored.at ?? 0) < audited.at;
+      if (stored && !needBlocks && !needQs && !needAudit && !(stored.partial && nHeads > (stored.heads ?? 0))) return;
       if (doc && !stored) return;
-      const tryKey = `${lessonKey}:${nHeads}`;
+      const tryKey = `${lessonKey}:${nHeads}:${audited?.at ?? 0}`;
       let job = pending.get(lessonKey);
       if (!job) {
         if (tried.has(tryKey)) return;
         tried.add(tryKey);
-        job = makeGuide(rt, lessonKey, text, input, partial).catch(() => null);
+        job = makeGuide(rt, lessonKey, text, input, partial, [...lessonMsgs].reverse().find((m) => m.audit)?.audit).catch(() => null);
         pending.set(lessonKey, job);
         job.finally(() => pending.delete(lessonKey));
       }
@@ -127,7 +132,7 @@ export function useLessonGuide(o: { rt: Runtime | null; lessonKey: string; ready
     return () => {
       alive = false;
     };
-  }, [rt, lessonKey, ready]);
+  }, [rt, lessonKey, ready, auditAt]);
   return state && state.key === lessonKey ? state.g : null;
 }
 

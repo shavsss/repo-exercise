@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { connect, type ConvMeta, type Runtime, type SampleError } from "./runtime";
 import { docMeta, loadIndex, moduleState, type LibraryIndex, type Module } from "./library";
-import { INITIAL_MEMORY, askTutor, composeLesson, planModule, updateMemory, type PartPlan } from "./tutor";
+import { auditLesson, INITIAL_MEMORY, askTutor, composeLesson, planModule, updateMemory, type PartPlan } from "./tutor";
 import { toItems } from "./segments";
 import { NOTE_KIND_LABEL } from "./types";
 import type { Activity, Effort, LessonNote, LessonSpec, ModuleProgress, Mode, NoteKind, StoredMessage } from "./types";
@@ -12,6 +12,7 @@ import { HomeHero } from "./components/HomeHero";
 import { Composer, type QuickAction } from "./components/Composer";
 import { lessonChannel } from "./summaries/SummaryApp";
 import { collectVisuals } from "./lessonVisuals";
+import { AuditBar } from "./components/AuditBar";
 import { LessonToc, ReadingDock, ReadingProgress, useResumePosition } from "./components/ReadingAids";
 import { noteAnchorHere } from "./components/MarginNotes";
 import { SectionDots } from "./components/SectionDots";
@@ -459,7 +460,7 @@ export function App() {
         const plan = answer.plan as PartPlan | undefined;
         if (sendMode === "lesson" && !images.length && (!resume || plan || !resume.text)) {
           const res = await composeLesson({ ...base, text: userMsg.text, resume: plan ? { plan, partsDone: answer.partsDone ?? 0, text: answer.partsChars !== undefined ? answer.text.slice(0, answer.partsChars) : answer.text } : undefined });
-          answer = { ...answer, text: res.text, model: res.model };
+          answer = { ...answer, text: res.text, model: res.model, ...(res.audit ? { audit: res.audit } : {}) };
           const split = (res.plan as (PartPlan & { split?: { title?: string; covers?: string } | null }) | undefined)?.split;
           if (split?.title && idx >= 0) await insertSplit(m, idx, split);
         } else {
@@ -631,6 +632,41 @@ export function App() {
   const all = useMemo(() => (live ? [...messages, live] : pfLive ? [...messages.filter((m) => m.role === "user" || m.id !== pfLive.id), pfLive] : messages), [messages, live, pfLive]);
   const items = useMemo(() => toItems(all), [all]);
   const hasLesson = messages.some((m) => m.role === "assistant" && m.mode === "lesson" && !m.interrupted && !m.draft);
+  // the lesson's check against its sources (lessonAudit.ts): a lesson written before the check gets it on request,
+  // and what it finds is added as a supplement at the lesson's end (he has read the lesson already)
+  const [auditRun, setAuditRun] = useState<{ key: string; status?: string } | null>(null);
+  const lessonMsg = [...messages].reverse().find((m) => m.role === "assistant" && m.mode === "lesson" && m.text && !m.draft && !m.interrupted);
+  const runAudit = useCallback(async () => {
+    if (!rt?.sample || !rt.store || !module || lessonIdx === undefined || lessonIdx < 0 || !convId || busy || auditRun) return;
+    const msg = [...messages].reverse().find((m) => m.role === "assistant" && m.mode === "lesson" && m.text && !m.draft && !m.interrupted);
+    if (!msg?.id) return;
+    const key = `${module.id}__${lessonIdx}`;
+    setAuditRun({ key });
+    try {
+      const res = await auditLesson({
+        rt,
+        module,
+        lessons: modsRef.current[module.id]?.lessons,
+        lessonIdx,
+        text: msg.text,
+        mode: "supplement",
+        cb: { onText: () => {}, onActivity: () => {}, onStatus: (status) => setAuditRun({ key, status }) },
+      });
+      if (!res) throw new Error("no check");
+      const next = { ...msg, text: res.text, audit: res.mark };
+      await rt.store.saveMessage(convId, msg.id, next);
+      setMessages((all) => all.map((m) => (m.id === msg.id ? next : m)));
+      notify({ level: "info", text: res.mark.verdict === "pass" ? "השיעור נבדק מול המקור ולא נמצא בו חוסר." : "השיעור נבדק מול המקור, וההשלמה נוספה בסופו." });
+    } catch (e) {
+      if ((e as { code?: string })?.code !== "cancelled") notify({ level: "error", text: `בדיקת השיעור לא הושלמה. ${ERROR_COPY[(e as { code?: string })?.code ?? ""] ?? "אפשר לנסות שוב."}` });
+    } finally {
+      setAuditRun(null);
+    }
+  }, [rt, module, lessonIdx, convId, busy, auditRun, messages]);
+  const auditBar =
+    lessonMsg && module && lessonIdx !== undefined && lessonIdx >= 0 ? (
+      <AuditBar mark={lessonMsg.audit} running={auditRun?.key === `${module.id}__${lessonIdx}`} status={auditRun?.status} onRun={rt?.sample && !busy ? runAudit : undefined} />
+    ) : null;
 
   useEffect(() => {
     const el = scrollRef.current;
@@ -714,7 +750,7 @@ export function App() {
     messages,
     input:
       module && lesson && index && lessonIdx !== undefined
-        ? { moduleId: module.id, moduleTitle: module.title, lessonTitle: lesson.title, lessonNo: lessonIdx + 1, lessonCount: nLessons, modules: index.modules.map((x) => ({ id: x.id, title: x.title })) }
+        ? { moduleId: module.id, moduleTitle: module.title, lessonTitle: lesson.title, lessonNo: lessonIdx + 1, lessonCount: nLessons, covers: lesson.covers, modules: index.modules.map((x) => ({ id: x.id, title: x.title })) }
         : null,
   });
   const guideCtx = useMemo<GuideCtxValue>(
@@ -876,8 +912,9 @@ export function App() {
               writing={busy || following}
               onStop={busy || following ? () => (following ? stopPrefetch() : ctl.current?.abort()) : undefined}
               notices={
-                notices.length ? (
+                notices.length || auditBar ? (
                   <>
+                    {auditBar}
                     {notices.map((n, i) => (
                       <div key={i} className={`banner banner-${n.level}`}>
                         {n.text}
@@ -994,6 +1031,7 @@ export function App() {
                       {!lesson && !isQuiz && <div className="block-pending">השיעור הזה עוד לא תוכנן.</div>}
                     </MdContext.Provider>
                   )}
+                  {items.length > 0 && auditBar}
                   {items.map((it, i) =>
                     it.kind === "user" ? (
                       <UserBubble key={it.key} item={it} />

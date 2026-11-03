@@ -139,6 +139,15 @@ async function sync(st: Store, d: Deck, modsIn?: Record<string, ModuleProgress>)
     dirty.add(o.moduleId);
   };
 
+  // 0. a lesson deleted before it was read (3.11: rewritten after a check): its cards that were never reviewed go
+  const live = new Set(convs.map((c) => c.id));
+  if (convs.length)
+    for (const [id, card] of d.cards)
+      if (card.conv && !live.has(card.conv) && card.reps === 0) {
+        d.cards.delete(id);
+        dirty.add(card.moduleId);
+      }
+
   // 1. lessons: oldest changes first, so the first sync of a long course seeds in reading order
   const changed = convs.filter((c) => d.state.scanned[c.id] !== c.updatedAt).reverse().slice(0, CONVS_PER_SYNC);
   for (const c of changed) {
