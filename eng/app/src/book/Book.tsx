@@ -460,6 +460,8 @@ export interface BookProps {
   items: Item[];
   /** the assistant item still being written, if any */
   liveKey: string | null;
+  /** the chat after the lesson, shown on the facing page of "שאל את המורה" above the composer */
+  thread?: ReactNode;
   header?: BookHeader;
   /** `<module>:<lesson>`: where the reading place is kept */
   posKey: string;
@@ -1409,7 +1411,12 @@ export function BookView(props: BookProps) {
                 <div className="bk-facing-body">
                   {facing?.kind === "consult" && <div className="bk-consult-host" ref={consultHost} />}
                   {facing?.kind === "pad" && props.notebook?.(closeFacing)}
-                  {facing?.kind === "ask" && props.composer && <div className="bk-ask-facing">{props.composer}</div>}
+                  {facing?.kind === "ask" && props.composer && (
+                    <div className="bk-ask-facing">
+                      {props.thread && <AskThread live={props.writing}>{props.thread}</AskThread>}
+                      {props.composer}
+                    </div>
+                  )}
                   {facing?.kind === "scene" && (
                     <MdContext.Provider value={mdCtx}>
                       <div className="prose bk-scene">
@@ -1700,5 +1707,37 @@ function Toc({ heads, cur, visible, n, minutes, onGo, onClose }: { heads: { leve
         {minutes > 1 && <span className="bk-toc-min">עוד כ-{minutes} דקות קריאה</span>}
       </form>
     </aside>
+  );
+}
+
+/** The chat on the facing page: opens at the last question, so its answer reads from the top; a new question
+ *  scrolls into view, and the answer being written is followed only while the reader stays at the bottom. */
+function AskThread({ children, live }: { children: ReactNode; live?: boolean }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const stick = useRef(false);
+  const asked = useRef(0);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const qs = el.querySelectorAll<HTMLElement>(".msg-user");
+    if (qs.length !== asked.current) {
+      asked.current = qs.length;
+      const q = qs[qs.length - 1];
+      if (q) el.scrollTop = q.getBoundingClientRect().top - el.getBoundingClientRect().top + el.scrollTop - 8;
+      return;
+    }
+    if (stick.current) el.scrollTop = el.scrollHeight;
+  });
+  return (
+    <div
+      className={`bk-ask-thread ${live ? "is-live" : ""}`}
+      ref={ref}
+      onScroll={() => {
+        const el = ref.current!;
+        stick.current = el.scrollHeight - el.scrollTop - el.clientHeight < 80;
+      }}
+    >
+      {children}
+    </div>
   );
 }

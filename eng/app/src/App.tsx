@@ -886,6 +886,30 @@ export function App() {
                   </>
                 ) : undefined
               }
+              thread={(() => {
+                // the chat after the lesson (questions and answers), shown on the facing page above the composer
+                const at = items.findIndex((x) => x.kind === "user" && x.mode !== "lesson" && items.slice(0, items.indexOf(x)).some((y) => y.kind === "assistant"));
+                if (at < 0) return undefined;
+                return (
+                  <MdContext.Provider value={mdCtx}>
+                    {items.slice(at).map((it, k) =>
+                      it.kind === "user" ? (
+                        <UserBubble key={it.key} item={it} />
+                      ) : (
+                        <AssistantTurn
+                          key={it.key}
+                          item={it}
+                          live={busy && !!live && at + k === items.length - 1}
+                          fullBar={fullBar}
+                          onOpenSource={openSource}
+                          onFillGaps={() => {}}
+                          onContinue={at + k === items.length - 1 && !busy && !following ? resumeLast : undefined}
+                        />
+                      ),
+                    )}
+                  </MdContext.Provider>
+                );
+              })()}
               composer={
                 <Composer
                   busy={busy || following}

@@ -771,8 +771,12 @@ button.bk-chip { cursor: pointer; padding: 6px 14px; }
 .bk-ask .composer-wrap { padding-bottom: 0; }
 /* on a spread: the box on the facing page, the questions in full view beside it */
 .bk-ask-facing { display: flex; flex-direction: column; height: 100%; }
-.bk-ask-facing .composer-wrap { padding: 0; margin-top: auto; }
+.bk-ask-facing .composer-wrap { padding: 0; margin-top: auto; flex: none; }
 .bk-ask-facing textarea { min-height: 12em; }
+.bk-ask-facing:has(.bk-ask-thread) textarea { min-height: 4.5em; }
+.bk-ask-thread { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 4px 4px 12px; margin-bottom: 8px; border-bottom: 1px solid var(--line); overscroll-behavior: contain; }
+.bk-ask-thread .msg-user { margin: 10px 0; }
+.bk-ask-thread .prose { font-size: 0.96em; }
 
 /* the hidden galley, measured and never seen */
 .bk-galley {
