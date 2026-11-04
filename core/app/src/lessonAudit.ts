@@ -3,7 +3,8 @@
 // had no keep block). An independent reviewer call reads the lesson against its source pages, the curriculum and
 // the modules it defers to, and answers what is missing, thin, wrongly deferred, unanswerable or wrong; the author
 // then repairs the lesson, in place before it is read, or as a supplement at its end when it was already read.
-// At most two rounds. The pure parts (prompts, parsing, applying the edits) are tested in tools/test/audit.test.mjs.
+// It runs until a review passes, up to four reviews (three repairs): a lesson he gets is finished, and what
+// is still open after that is stored on the lesson and shown. The pure parts (prompts, parsing, applying the edits) are tested in tools/test/audit.test.mjs.
 // Same file in both apps.
 
 export interface AuditFinding {
@@ -39,6 +40,10 @@ export interface AuditMark {
   must_core: string[];
   /** wrong module references the reviewer corrected: the topic and the module that really teaches it */
   refs?: { topic: string; module: string }[];
+  /** what the last review still found, in short (a "partly" check) */
+  open?: string[];
+  /** 2: the check that runs until a review passes (4.11); a "partly" mark without it is checked again by itself */
+  v?: number;
 }
 
 export interface AuditInput {
@@ -62,11 +67,16 @@ export function namedModules(text: string): string[] {
   return [...new Set([...text.matchAll(/\bM\d{1,2}\.\d{1,2}\b/g)].map((m) => m[0]))].slice(0, 40);
 }
 
+export const SUPPLEMENT_HEAD = "## השלמה לשיעור";
+
 export function auditPrompt(o: AuditInput, round = 1): string {
+  const supplement = o.text.includes(SUPPLEMENT_HEAD)
+    ? `\nThe learner had already read this lesson when it was checked, so its end holds a supplement ("${SUPPLEMENT_HEAD}") instead of edits. Read the lesson and the supplement together: an item taught, completed or corrected in the supplement is fixed, and a question replaced there is fixed. Report a problem of the read part only when the supplement does not fix it, and check the supplement itself as strictly as the lesson.\n`
+    : "";
   const mods = o.modules.map((m) => `${m.id} ${m.title}: ${m.sections.slice(0, 30).join("; ")}`).join("\n");
   return `<lesson_audit round="${round}">
 You are the independent reviewer of one lesson of a self-study course (engineering, physics and mathematics, in Hebrew), written by another model from assigned source pages. The learner studies only from this lesson: anything important it drops, teaches too thinly to use, defers to a module that does not teach it, or asks without having taught is lost, or breaks his calibration. Check the lesson against the sources strictly and concretely. Do not invent problems, do not ask for padding, length or extra examples, and ignore scan typos and anecdotes.
-
+${supplement}
 Lesson: ${o.moduleId} ${o.moduleTitle} · ${o.lessonTitle}
 <assigned_sections>
 ${listOf(o.covers)}
@@ -140,10 +150,26 @@ export function problems(r: AuditReport): number {
   return r.missing.length + r.thin.length + r.deferrals.filter((d) => d.verdict === "teach_now" || d.verdict === "fix_ref").length + r.questions.length + r.errors.length + (r.keep.exists ? 0 : 1) + r.keep.missing.length + r.keep.remove.length;
 }
 
-export function repairPrompt(o: AuditInput, report: AuditReport, mode: "inplace" | "supplement"): string {
+export function repairPrompt(o: AuditInput, report: AuditReport, mode: "inplace" | "supplement" | "supplement-edit"): string {
   const todo = { ...report, deferrals: report.deferrals.filter((d) => d.verdict !== "ok") };
   const how =
-    mode === "inplace"
+    mode === "supplement-edit"
+      ? `The learner has already read this lesson, and its end holds a supplement ("${SUPPLEMENT_HEAD}") written after the first review. Do not edit the lesson before the supplement: fix everything in the review inside the supplement. Output only edit blocks, in this exact format (as many as needed):
+<<<REPLACE>>>
+an exact, unique passage of the supplement
+<<<WITH>>>
+its corrected text
+<<<END>>>
+<<<INSERT_AFTER_SECTION: the exact heading text of a section of the supplement>>>
+the Markdown to add at the end of that section
+<<<END>>>
+<<<APPEND>>>
+a new ### section, a corrected question or a one-line correction of the read part, added at the end of the supplement
+<<<END>>>
+<<<KEEP>>>
+the whole content of the lesson's keep block, one "- name: …" line each
+<<<END>>>`
+      : mode === "inplace"
       ? `Output only edit blocks, in this exact format (as many as needed, in any order):
 <<<INSERT_AFTER_SECTION: the exact heading text of the lesson>>>
 the Markdown to add at the end of that section (new paragraphs, a ### subsection, definition/formula blocks, a corrected question)
@@ -199,7 +225,33 @@ function setKeep(text: string, body: string): string {
 }
 
 /** Applies the repair's edit blocks to the lesson. Edits that do not apply (a passage not found) are counted, never forced. */
-export function applyRepair(text: string, raw: string, mode: "inplace" | "supplement"): { text: string; applied: number; failed: number } {
+export function applyRepair(text: string, raw: string, mode: "inplace" | "supplement" | "supplement-edit"): { text: string; applied: number; failed: number } {
+  if (mode === "supplement-edit") {
+    // the edits stay inside the supplement: the read part is never touched (the keep block is the exception)
+    const at = text.lastIndexOf(SUPPLEMENT_HEAD);
+    if (at < 0) return applyRepair(text, raw, "supplement");
+    const head = text.slice(0, at);
+    let sup = text.slice(at);
+    const keep = /<<<KEEP>>>\s*\n[\s\S]*?\n<<<END>>>/.exec(raw)?.[0] ?? "";
+    const inner = applyRepair(sup, raw.replace(keep, "").replace(/<<<APPEND>>>[\s\S]*?<<<END>>>/g, ""), "inplace");
+    sup = inner.text;
+    let applied = inner.applied;
+    let failed = inner.failed;
+    for (const m of raw.matchAll(/<<<APPEND>>>\s*\n([\s\S]*?)\n<<<END>>>/g)) {
+      if (!m[1].trim()) continue;
+      // before the supplement's own keep block, if the keep block ended up in it
+      const k = /^```keep/m.exec(sup);
+      sup = k ? `${sup.slice(0, k.index).trimEnd()}\n\n${m[1].trim()}\n\n${sup.slice(k.index)}` : `${sup.trimEnd()}\n\n${m[1].trim()}\n`;
+      applied++;
+    }
+    let out = head + sup;
+    const kb = /<<<KEEP>>>\s*\n([\s\S]*?)\n<<<END>>>/.exec(keep)?.[1];
+    if (kb?.trim()) {
+      out = setKeep(out, kb);
+      applied++;
+    }
+    return { text: out, applied, failed };
+  }
   let out = text;
   let applied = 0;
   let failed = 0;
@@ -268,17 +320,37 @@ export interface AuditDeps {
   onStatus?: (s: string) => void;
 }
 
-/** The whole check: review, repair, review again, repair once more if needed. */
+export const MAX_REVIEWS = 4;
+
+/** short lines for what a review still finds open */
+export function openItems(r: AuditReport): string[] {
+  const out: string[] = [];
+  const cut = (x?: string) => (x ?? "").replace(/\s+/g, " ").trim().slice(0, 220);
+  for (const f of r.errors) out.push(`טעות: ${cut(f.quote)} → ${cut(f.fix)}`);
+  for (const f of r.missing) out.push(`חסר: ${cut(f.topic)}${f.source ? ` (${f.source})` : ""}`);
+  for (const f of r.thin) out.push(`דל: ${cut(f.topic)}${f.add ? ` · ${cut(f.add)}` : ""}`);
+  for (const f of r.deferrals.filter((d) => d.verdict === "teach_now" || d.verdict === "fix_ref")) out.push(`הפניה: ${cut(f.topic)}${f.correct_module ? ` → ${f.correct_module}` : ""}`);
+  for (const f of r.questions) out.push(`שאלה: ${cut(f.quote)} · ${cut(f.problem)}`);
+  if (!r.keep.exists) out.push("אין בלוק לסיכום");
+  for (const k of r.keep.missing) out.push(`חסר בלסיכום: ${cut(k)}`);
+  for (const k of r.keep.remove) out.push(`לא שייך ללסיכום: ${cut(k)}`);
+  return out.slice(0, 24);
+}
+
+/** The whole check: review and repair until a review passes, at most MAX_REVIEWS reviews, always ending on a review. */
 export async function auditAndRepair(o: AuditInput, mode: "inplace" | "supplement", deps: AuditDeps): Promise<{ text: string; mark: AuditMark; report: AuditReport | null }> {
   let text = o.text;
   let report: AuditReport | null = null;
   let rounds = 0;
   const first: Record<string, number> = {};
-  let supplemented = false;
-  for (let round = 1; round <= 2; round++) {
-    deps.onStatus?.(round === 1 ? "בודק את השיעור מול עמודי המקור ותוכנית הלימודים" : "בודק שוב אחרי התיקון");
-    report = parseAudit(await deps.call(auditPrompt({ ...o, text }, round), "audit"));
-    if (!report) break;
+  // a lesson checked before holds its supplement already: later repairs edit it
+  let supplemented = mode === "supplement" && text.includes(SUPPLEMENT_HEAD);
+  let idle = 0;
+  for (let round = 1; round <= MAX_REVIEWS; round++) {
+    deps.onStatus?.(round === 1 ? "בודק את השיעור מול עמודי המקור ותוכנית הלימודים" : `בודק שוב אחרי התיקון (סבב ${round})`);
+    const next = parseAudit(await deps.call(auditPrompt({ ...o, text }, round), "audit"));
+    if (!next) break;
+    report = next;
     rounds = round;
     if (round === 1)
       Object.assign(first, {
@@ -289,15 +361,15 @@ export async function auditAndRepair(o: AuditInput, mode: "inplace" | "supplemen
         keep: (report.keep.exists ? 0 : 1) + report.keep.missing.length + report.keep.remove.length,
         errors: report.errors.length,
       });
-    if (report.verdict === "pass") break;
-    // a supplement is written once: the second round only checks it
-    if (mode === "supplement" && supplemented) break;
-    deps.onStatus?.(round === 1 ? "משלים את מה שחסר בשיעור" : "משלים את מה שנשאר");
-    const fixed = applyRepair(text, await deps.call(repairPrompt({ ...o, text }, report, mode), "repair"), mode);
-    if (fixed.applied) {
+    if (report.verdict === "pass" || round === MAX_REVIEWS) break;
+    deps.onStatus?.(round === 1 ? "משלים את מה שחסר בשיעור" : `מתקן את מה שנשאר (סבב ${round})`);
+    const how = mode === "supplement" ? (supplemented ? "supplement-edit" : "supplement") : "inplace";
+    const fixed = applyRepair(text, await deps.call(repairPrompt({ ...o, text }, report, how), "repair"), how);
+    if (fixed.applied && fixed.text !== text) {
       text = fixed.text;
-      supplemented = mode === "supplement";
-    }
+      idle = 0;
+      if (mode === "supplement") supplemented = true;
+    } else if (++idle >= 2) break; // two repairs in a row that changed nothing: stop, and say what is open
   }
   const refs = (report?.deferrals ?? []).filter((d) => d.verdict === "fix_ref" && d.topic && d.correct_module).map((d) => ({ topic: d.topic!, module: d.correct_module! }));
   const mark: AuditMark = {
@@ -308,6 +380,8 @@ export async function auditAndRepair(o: AuditInput, mode: "inplace" | "supplemen
     counts: first,
     must_core: report?.must_core ?? [],
     ...(refs.length ? { refs } : {}),
+    ...(report && report.verdict !== "pass" ? { open: openItems(report) } : {}),
+    v: 2,
   };
   return { text, mark, report };
 }

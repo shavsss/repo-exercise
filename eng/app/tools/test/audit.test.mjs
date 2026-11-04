@@ -94,3 +94,49 @@ test("the whole loop: review, repair, review again", async () => {
 test("named modules", () => {
   assert.deepEqual(A.namedModules("נלמד ב-M13.1 וגם ב-M9.9, ושוב M13.1"), ["M13.1", "M9.9"]);
 });
+
+const FIX = '{"missing":[],"thin":[],"deferrals":[],"questions":[],"keep":{"exists":true,"missing":[],"remove":[]},"errors":[{"quote":"אידוי מקרר","fix":"אידוי מקרר את הנוזל"}],"verdict":"fix"}';
+const PASS = '{"missing":[],"thin":[],"deferrals":[],"questions":[],"keep":{"exists":true,"missing":[],"remove":[]},"errors":[],"verdict":"pass"}';
+const input = { lessonTitle: "t", moduleId: "M0.2", moduleTitle: "m", covers: [], otherLessons: [], curriculum: "", modules: [], pages: "", text: lesson };
+
+test("the loop goes on until a review passes, and always ends on a review", async () => {
+  const reviews = [FIX, FIX, PASS];
+  const calls = [];
+  const res = await A.auditAndRepair(input, "inplace", {
+    call: async (p, kind) => {
+      calls.push(kind);
+      if (kind === "audit") return reviews.shift();
+      return calls.filter((k) => k === "repair").length === 1
+        ? "<<<REPLACE>>>\nאידוי מקרר.\n<<<WITH>>>\nאידוי מקרר את הנוזל.\n<<<END>>>"
+        : "<<<INSERT_AFTER_SECTION: 2. אידוי>>>\nעוד משפט.\n<<<END>>>";
+    },
+  });
+  assert.deepEqual(calls, ["audit", "repair", "audit", "repair", "audit"]);
+  assert.equal(res.mark.verdict, "fixed");
+  assert.equal(res.mark.rounds, 3);
+  assert.equal(res.mark.v, 2);
+  assert.equal(res.mark.open, undefined);
+});
+
+test("a check that never passes stops after four reviews and stores what is open", async () => {
+  let n = 0;
+  const res = await A.auditAndRepair(input, "inplace", {
+    call: async (p, kind) => (kind === "audit" ? FIX : `<<<INSERT_AFTER_SECTION: 2. אידוי>>>\nמשפט ${++n}.\n<<<END>>>`),
+  });
+  assert.equal(res.mark.rounds, 4);
+  assert.equal(res.mark.verdict, "partly");
+  assert.ok(res.mark.open[0].startsWith("טעות:"));
+});
+
+test("a supplement that exists is edited inside, the read part never changes", async () => {
+  const read = lesson;
+  const text = `${read}\n\n## השלמה לשיעור\n\nפתיחה.\n\n### חום בעיבוי\nמשפט עם טעות.\n`;
+  const raw = "<<<REPLACE>>>\nאידוי מקרר.\n<<<WITH>>>\nשונה!\n<<<END>>>\n<<<REPLACE>>>\nמשפט עם טעות.\n<<<WITH>>>\nמשפט נכון.\n<<<END>>>\n<<<APPEND>>>\nתיקון: אידוי מקרר את הנוזל.\n<<<END>>>";
+  const r = A.applyRepair(text, raw, "supplement-edit");
+  assert.ok(r.text.startsWith(read));
+  assert.ok(r.text.includes("משפט נכון."));
+  assert.ok(r.text.trimEnd().endsWith("תיקון: אידוי מקרר את הנוזל."));
+  assert.equal(r.failed, 1);
+  // the reviewer is told that the supplement fixes the read part
+  assert.ok(A.auditPrompt({ ...input, text }).includes("an item taught, completed or corrected in the supplement is fixed"));
+});

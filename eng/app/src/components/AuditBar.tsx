@@ -38,7 +38,7 @@ export function AuditBar({ mark, running, status, onRun, fade }: { mark?: AuditM
     .filter(([, n]) => n > 0)
     .map(([k, n]) => `${COUNT[k] ?? k}: ${n}`)
     .join(" · ");
-  const how = mark.verdict === "pass" ? "לא נמצא חוסר" : mark.verdict === "fixed" ? (mark.mode === "supplement" ? "ההשלמה בסוף השיעור" : "תוקן לפני הקריאה") : "תוקן בחלקו: חלק מהממצאים נשארו";
+  const how = mark.verdict === "pass" ? "לא נמצא חוסר" : mark.verdict === "fixed" ? (mark.mode === "supplement" ? "ההשלמה בסוף השיעור" : "תוקן לפני הקריאה") : `תוקן בחלקו: אחרי ${mark.rounds} סבבים חלק מהממצאים נשארו`;
   return (
     <div className={`audit-bar is-done v-${mark.verdict}`} role="note" title={found || undefined}>
       <b>נבדק מול המקור</b>
@@ -50,6 +50,16 @@ export function AuditBar({ mark, running, status, onRun, fade }: { mark?: AuditM
         <button className="link" onClick={onRun}>
           בדוק שוב
         </button>
+      )}
+      {mark.verdict === "partly" && !!mark.open?.length && !fade && (
+        <details className="audit-open">
+          <summary>מה עוד פתוח ({mark.open.length})</summary>
+          <ul>
+            {mark.open.map((x, i) => (
+              <li key={i}>{x}</li>
+            ))}
+          </ul>
+        </details>
       )}
     </div>
   );

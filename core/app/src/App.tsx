@@ -670,6 +670,17 @@ export function App() {
       setAuditRun(null);
     }
   }, [rt, module, lessonIdx, convId, busy, auditRun, messages]);
+  // he gets a finished lesson: a lesson that was never checked, or was left "partly" by the first version of the
+  // check (two rounds), is checked when it is opened, once per window; a failure leaves the button
+  const autoAudited = useRef(new Set<string>());
+  useEffect(() => {
+    if (!lessonMsg?.id || !rt?.sample || !rt.store || busy || auditRun || following) return;
+    const m = lessonMsg.audit;
+    if (m && !(m.verdict === "partly" && (m.v ?? 1) < 2)) return;
+    if (autoAudited.current.has(lessonMsg.id)) return;
+    autoAudited.current.add(lessonMsg.id);
+    void runAudit();
+  }, [lessonMsg?.id, lessonMsg?.audit, rt, busy, auditRun, following, runAudit]);
   const auditBar =
     lessonMsg && module && lessonIdx !== undefined && lessonIdx >= 0 ? (
       <AuditBar mark={lessonMsg.audit} running={auditRun?.key === `${module.id}__${lessonIdx}`} status={auditRun?.status} onRun={rt?.sample && !busy ? runAudit : undefined} />
