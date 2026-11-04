@@ -165,3 +165,8 @@ li.keep-off::after {
 .audit-bar.is-running { border-style: dashed; }
 .audit-bar.is-done { background: color-mix(in srgb, var(--ok) 7%, transparent); border-color: color-mix(in srgb, var(--ok) 35%, transparent); }
 .audit-bar.is-done.v-partly { background: color-mix(in srgb, var(--warn) 8%, transparent); border-color: color-mix(in srgb, var(--warn) 45%, transparent); }
+
+/* a notice can be closed (App.tsx, dismiss) */
+.banner.has-x { position: relative; padding-inline-end: 34px; }
+.banner-x { position: absolute; inset-inline-end: 6px; top: 50%; transform: translateY(-50%); width: 24px; height: 24px; border: 0; border-radius: 50%; background: transparent; color: inherit; opacity: 0.6; font-size: 17px; line-height: 1; cursor: pointer; }
+.banner-x:hover { opacity: 1; background: color-mix(in srgb, currentColor 10%, transparent); }

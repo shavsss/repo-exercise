@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { cloneElement, useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { connect, type ConvMeta, type Runtime, type SampleError } from "./runtime";
 import { docMeta, loadIndex, moduleState, type LibraryIndex, type Module } from "./library";
 import { auditLesson, INITIAL_MEMORY, askTutor, composeLesson, planModule, updateMemory, type PartPlan } from "./tutor";
@@ -139,7 +139,12 @@ export function App() {
   const done = useMemo(() => new Set(doneList), [doneList]);
   const [tab, setTab] = useState<LabTab>("study");
   const newsUnread = useNewsUnread(rt, tab);
-  const notify = (n: Notice) => setNotices((all) => [...all, n]);
+  // an info notice is a passing word: it goes by itself after a few seconds; any notice can be closed
+  const notify = (n: Notice) => {
+    setNotices((all) => [...all, n]);
+    if (n.level === "info") setTimeout(() => setNotices((all) => all.filter((x) => x !== n)), 7000);
+  };
+  const dismiss = (n: Notice) => setNotices((all) => all.filter((x) => x !== n));
 
   /* ---- runtime, library index and the learner's stored data ---- */
   useEffect(() => {
@@ -635,9 +640,12 @@ export function App() {
   // the lesson's check against its sources (lessonAudit.ts): a lesson written before the check gets it on request,
   // and what it finds is added as a supplement at the lesson's end (he has read the lesson already)
   const [auditRun, setAuditRun] = useState<{ key: string; status?: string } | null>(null);
+  const auditLock = useRef(false);
   const lessonMsg = [...messages].reverse().find((m) => m.role === "assistant" && m.mode === "lesson" && m.text && !m.draft && !m.interrupted);
   const runAudit = useCallback(async () => {
-    if (!rt?.sample || !rt.store || !module || lessonIdx === undefined || lessonIdx < 0 || !convId || busy || auditRun) return;
+    // a second click before the first one's state lands would start a second check and a second supplement
+    if (!rt?.sample || !rt.store || !module || lessonIdx === undefined || lessonIdx < 0 || !convId || busy || auditRun || auditLock.current) return;
+    auditLock.current = true;
     const msg = [...messages].reverse().find((m) => m.role === "assistant" && m.mode === "lesson" && m.text && !m.draft && !m.interrupted);
     if (!msg?.id) return;
     const key = `${module.id}__${lessonIdx}`;
@@ -660,6 +668,7 @@ export function App() {
     } catch (e) {
       if ((e as { code?: string })?.code !== "cancelled") notify({ level: "error", text: `בדיקת השיעור לא הושלמה. ${ERROR_COPY[(e as { code?: string })?.code ?? ""] ?? "אפשר לנסות שוב."}` });
     } finally {
+      auditLock.current = false;
       setAuditRun(null);
     }
   }, [rt, module, lessonIdx, convId, busy, auditRun, messages]);
@@ -914,10 +923,11 @@ export function App() {
               notices={
                 notices.length || auditBar ? (
                   <>
-                    {auditBar}
+                    {auditBar && cloneElement(auditBar, { fade: true })}
                     {notices.map((n, i) => (
-                      <div key={i} className={`banner banner-${n.level}`}>
+                      <div key={i} className={`banner banner-${n.level} has-x`}>
                         {n.text}
+                        <button className="banner-x" aria-label="סגור" onClick={() => dismiss(n)}>×</button>
                       </div>
                     ))}
                   </>
@@ -1070,8 +1080,9 @@ export function App() {
               )}
               {hasLesson && !busy && closeDay("lesson")}
               {notices.map((n, i) => (
-                <div key={i} className={`banner banner-${n.level}`}>
+                <div key={i} className={`banner banner-${n.level} has-x`}>
                   {n.text}
+                  <button className="banner-x" aria-label="סגור" onClick={() => dismiss(n)}>×</button>
                 </div>
               ))}
             </div>

@@ -1,11 +1,20 @@
 // The line that says whether the open lesson was checked against its sources (lessonAudit.ts), and for a lesson
 // written before the check existed, the button that checks it and adds what is missing as a supplement at its end.
+// In the book the line floats over the pages, so once the check is done it says so for a few seconds and goes.
 // Same file in both apps.
+import { useEffect, useState } from "react";
 import type { AuditMark } from "../lessonAudit";
 
 const COUNT: Record<string, string> = { missing: "חסרים", thin: "דלים", deferrals: "הפניות", questions: "שאלות", keep: "לסיכום", errors: "טעויות" };
 
-export function AuditBar({ mark, running, status, onRun }: { mark?: AuditMark; running: boolean; status?: string; onRun?: () => void }) {
+export function AuditBar({ mark, running, status, onRun, fade }: { mark?: AuditMark; running: boolean; status?: string; onRun?: () => void; fade?: boolean }) {
+  const [gone, setGone] = useState<number | string | null>(null);
+  const at = mark?.at ?? 0;
+  useEffect(() => {
+    if (!fade || !at || running) return;
+    const t = setTimeout(() => setGone(at), 8000);
+    return () => clearTimeout(t);
+  }, [fade, at, running]);
   if (running)
     return (
       <div className="audit-bar is-running" role="status">
@@ -23,6 +32,8 @@ export function AuditBar({ mark, running, status, onRun }: { mark?: AuditMark; r
         </button>
       </div>
     ) : null;
+  // over the pages it is a passing word; the full line (and "בדוק שוב") stays in the scrolling view
+  if (fade && gone === at) return null;
   const found = Object.entries(mark.counts ?? {})
     .filter(([, n]) => n > 0)
     .map(([k, n]) => `${COUNT[k] ?? k}: ${n}`)
