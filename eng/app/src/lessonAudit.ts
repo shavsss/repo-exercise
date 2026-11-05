@@ -386,7 +386,7 @@ To move a passage, REPLACE it with nothing at its old place and add it with INSE
 </lesson_repair>`;
 }
 
-const READER_REVIEWS = 3;
+const READER_REVIEWS = 4;
 
 /** The reader's check: review and repair in place until it passes, at most READER_REVIEWS reviews, ending on a review. */
 export async function readerCheck(o: AuditInput, deps: AuditDeps): Promise<{ text: string; mark: NonNullable<AuditMark["reader"]>; report: ReaderReport | null }> {
