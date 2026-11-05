@@ -355,7 +355,7 @@ Report every place where:
 - "factors": a formula or equation whose factors are not each explained (what it stands for and its units, why it is there, what happens when it grows, where the formula holds).
 - "question": a practice question (mcq, numeric, explain) or a think, predict, verify or exercise that the text above it does not prepare (a step, number or idea it needs is missing), or that asks about something only introduced, an anchor, a first look at a later module or an illustration; an mcq whose wrong options are not real misconceptions or lack their explanation; a numeric whose answer, unit or tolerance is missing or wrong (compute it).
 - "form": a chapter without a comparison, without a closing case study, or a central idea without its development (why it is interesting, how it was approached, the steps, what came out, where it breaks) or without a critical look.
-- "block": a block that breaks the flow, or carries a step of the argument that the prose does not.
+- "block": a block that breaks the flow, or carries a step of the argument that the prose does not; a fenced block nested inside another block, or a fence line that does not stand alone on its line (it breaks the page).
 - "structure": a section not in the book form (no subsection numbers, no run-in paragraph headings, a bare list where reasoning belongs).
 - "visual": a relation between quantities, a geometry, a system's layout or a chain that is explained only in words where a chart, a drawing or a diagram would make it clear; or a visual that is not explained (what to look at, what it shows).
 Quotes must be copied exactly from the lesson (a short unique phrase). Be strict and concrete; do not ask for length, padding or extra examples.
