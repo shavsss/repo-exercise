@@ -198,7 +198,7 @@ a short opening line (what this supplement completes), then a ### section for ea
 the whole content of the lesson's keep block, one "- name: …" line each (it replaces the existing keep block, or is added at the end)
 <<<END>>>`;
   return `<lesson_repair mode="${mode}">
-You are the author of this lesson, repairing it after an independent review (in <review>). Write in the lesson's own Hebrew, style and block syntax (the definition, formula, think, predict and keep blocks exactly as the lesson writes them; mathematics in $…$), at the course's full depth: teach every missing or thin item in full (its context, the definition or result, how it is built or derived, what it means, its limits, and a computed number where the point is a number); teach now every deferred topic the review says no later module teaches; give a question the givens it lacks or rewrite it so the lesson's material answers it; make the keep block complete (only what this lesson teaches in full). Never shorten or remove correct material, never add padding. Check every number with compute.
+You are the author of this lesson, repairing it after an independent review (in <review>). Write in the lesson's own Hebrew, style and block syntax (the definition, formula, think, predict and keep blocks exactly as the lesson writes them; mathematics in $…$), at the course's full depth: teach every missing or thin item in full (its context, the definition or result, how it is built or derived, what it means, its limits, and a computed number where the point is a number); teach now every deferred topic the review says no later module teaches; give a question the givens it lacks or rewrite it so the lesson's material answers it; make the keep block complete (only what this lesson teaches in full). Never shorten or remove correct material, never add padding. The lesson has a length budget: make room for what you add by shortening a repetition or a second example near it, so it grows only by what is really new. Check every number with compute.
 
 Lesson: ${o.moduleId} ${o.moduleTitle} · ${o.lessonTitle}
 <review>
@@ -322,7 +322,7 @@ export function applyRepair(text: string, raw: string, mode: "inplace" | "supple
 
 /* ---------------- the reader's check (5.11, docs/LESSON_BOOK_SPEC.md) ---------------- */
 
-export type ReaderKind = "undefined" | "jump" | "order" | "factors" | "question" | "form" | "block" | "structure";
+export type ReaderKind = "undefined" | "jump" | "order" | "factors" | "question" | "form" | "block" | "structure" | "visual";
 export interface ReaderIssue {
   kind: ReaderKind | string;
   quote?: string;
@@ -355,8 +355,9 @@ Report every place where:
 - "form": a chapter without a comparison, without a closing case study, or a central idea without its development (why it is interesting, how it was approached, the steps, what came out, where it breaks) or without a critical look.
 - "block": a block that breaks the flow, or carries a step of the argument that the prose does not.
 - "structure": a section not in the book form (no subsection numbers, no run-in paragraph headings, a bare list where reasoning belongs).
+- "visual": a relation between quantities, a geometry, a system's layout or a chain that is explained only in words where a chart, a drawing or a diagram would make it clear; or a visual that is not explained (what to look at, what it shows).
 Quotes must be copied exactly from the lesson (a short unique phrase). Be strict and concrete; do not ask for length, padding or extra examples.
-Reply with ONLY one JSON object: {"issues": [{"kind": "undefined|jump|order|factors|question|form|block|structure", "quote": "…", "where": "the subsection, e.g. 3.2", "problem": "…", "fix": "what to add or change, concretely"}], "verdict": "pass|fix"}. "pass" only when the list is empty.
+Reply with ONLY one JSON object: {"issues": [{"kind": "undefined|jump|order|factors|question|form|block|structure|visual", "quote": "…", "where": "the subsection, e.g. 3.2", "problem": "…", "fix": "what to add or change, concretely"}], "verdict": "pass|fix"}. "pass" only when the list is empty.
 </reader_audit>`;
 }
 
@@ -369,7 +370,7 @@ export function parseReader(raw: string): ReaderReport | null {
 
 export function readerRepairPrompt(o: AuditInput, report: ReaderReport): string {
   return `<lesson_repair mode="reader">
-You are the author of this lesson. A reader who knows only what is in <known> (no physics, only the mathematics he has studied) read it in order and could not follow it in the places listed in <review>. Repair each one in the lesson's own Hebrew, style and block syntax, at full depth: define a term at its first use (or move its definition before it), add the sentence that says how a part follows from the one before and why it comes now, move a passage to where it belongs, explain each factor of a formula after it, prepare what a question needs before it, write the missing comparison, case or critical look in prose, and turn a block that breaks the flow into prose. Keep the book form: ## פרק N, ### N.k, bold run-in paragraph headings. Never remove correct material, never add padding.
+You are the author of this lesson. A reader who knows only what is in <known> (no physics, only the mathematics he has studied) read it in order and could not follow it in the places listed in <review>. Repair each one in the lesson's own Hebrew, style and block syntax, at full depth: define a term at its first use (or move its definition before it), add the sentence that says how a part follows from the one before and why it comes now, move a passage to where it belongs, explain each factor of a formula after it, prepare what a question needs before it, write the missing comparison, case or critical look in prose, and turn a block that breaks the flow into prose. Keep the book form: ## פרק N, ### N.k, bold run-in paragraph headings. Never remove correct material, never add padding. The lesson has a length budget: make room for what you add by shortening a repetition near it, and fix a "visual" item with the drawing itself (\`\`\`svg, \`\`\`chart, \`\`\`mermaid, \`\`\`table), replacing the words that tried to describe it.
 Lesson: ${o.moduleId} ${o.moduleTitle} · ${o.lessonTitle}
 <known>
 ${(o.known ?? []).map((k) => `- ${k}`).join("\n") || "(only the mathematics he has studied, no physics)"}
@@ -412,7 +413,7 @@ export async function readerCheck(o: AuditInput, deps: AuditDeps): Promise<{ tex
 }
 
 export function readerOpen(r: ReaderReport): string[] {
-  const label: Record<string, string> = { undefined: "לא מוגדר", jump: "קפיצה", order: "סדר", factors: "גורמים בנוסחה", question: "שאלה לא מוכנה", form: "מבנה הפרק", block: "בלוק", structure: "צורה" };
+  const label: Record<string, string> = { undefined: "לא מוגדר", jump: "קפיצה", order: "סדר", factors: "גורמים בנוסחה", question: "שאלה לא מוכנה", form: "מבנה הפרק", block: "בלוק", structure: "צורה", visual: "חסר איור" };
   const cut = (x?: string) => (x ?? "").replace(/\s+/g, " ").trim().slice(0, 200);
   return r.issues.slice(0, 16).map((i) => `קורא · ${label[i.kind] ?? i.kind}${i.where ? ` (${i.where})` : ""}: ${cut(i.problem || i.quote)}`);
 }

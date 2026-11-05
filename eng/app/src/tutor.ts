@@ -7,11 +7,11 @@
 import { create, all } from "mathjs";
 import { docMeta, getIndex, readPages, searchLibrary, type Module } from "./library";
 import { curriculumBlock } from "./curriculum";
-import { auditAndRepair, namedModules, type AuditMark } from "./lessonAudit";
+import { auditAndRepair, namedModules, type AuditMark, applyRepair } from "./lessonAudit";
 import { decideLine, decideSlot } from "./lessonGate";
 import { LEGACY_RULES, SYSTEM_PROMPT, libraryList } from "./prompt";
 import type { Runtime, SampleTool } from "./runtime";
-import { BOOK_PART, BOOK_PLAN, OUTLINE_FIX, normalizeOutline, orderProblems, outlineCheckPrompt, parseOutlineReview, partSections, validOutline, type BookOutline } from "./bookRules";
+import { BOOK_PART, BOOK_PLAN, LESSON_WORDS, OUTLINE_FIX, lessonWords, normalizeOutline, orderProblems, outlineCheckPrompt, parseOutlineReview, partSections, tightenPrompt, validOutline, wordCount, type BookOutline } from "./bookRules";
 import { NOTE_KIND_LABEL, type Activity, type Effort, type LessonNote, type LessonSpec, type Mode, type NoteKind, type StoredMessage } from "./types";
 
 const math = create(all, {});
@@ -691,6 +691,22 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
     written = (before + partText).trim();
     cb.onText(written);
     cb.onCheckpoint?.(plan, k + 1, written);
+  }
+  // a book lesson over its budget is tightened once, padding only, before the checks (bookRules.ts)
+  if (book && plan.outline && !opts.planOnly && written) {
+    const budget = Math.min(LESSON_WORDS, lessonWords(plan.outline) || LESSON_WORDS);
+    const words = wordCount(written);
+    if (words > budget * 1.1) {
+      cb.onStatus?.(`מהדק את השיעור: ${words.toLocaleString()} מילים, התקציב ${budget.toLocaleString()}`);
+      const raw = await rt.sample!([{ role: "user", content: tightenPrompt(written, words, budget) }], { model: MODEL, modelTier: "complex", effort, signal, cache: false })
+        .then((r) => r.text)
+        .catch(() => "");
+      const t = raw ? applyRepair(written, raw, "inplace") : null;
+      if (t?.applied && wordCount(t.text) < words) {
+        written = t.text;
+        cb.onText(written);
+      }
+    }
   }
   // every lesson is checked against its pages before it is read, and repaired where it falls short (lessonAudit.ts)
   let audit: AuditMark | undefined;

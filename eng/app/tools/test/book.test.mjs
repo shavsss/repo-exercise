@@ -85,3 +85,19 @@ test("the writer's @mark wins in the lesson map", async () => {
   assert.equal(byText["צפיפות הספק"], "core");
   assert.equal(byText["עזר"], "example");
 });
+
+test("the word budget: planned words, a word count, and the tighten step", () => {
+  const o = B.normalizeOutline({ known: [], chapters: [{ n: 2, title: "t", question: "q", sections: [
+    { n: "2.1", title: "a", question: "q", from_prev: "", needs: [], defines: [], words: 1200, visual: "chart: Ls against d" },
+    { n: "2.2", title: "b", question: "q", from_prev: "", needs: [], defines: [], words: 800 },
+  ] }] });
+  assert.equal(B.lessonWords(o), 2000);
+  assert.equal(B.partWords(o, ["2.2"]), 800);
+  assert.equal(B.wordCount("אחת שתיים  שלוש\nארבע"), 4);
+  assert.match(B.outlineText(o, ["2.1"]), /visual: chart: Ls against d/);
+  assert.match(B.BOOK_PART(o, ["2.1"], true, false), /this part about 1200 words/);
+  assert.match(B.BOOK_PLAN(2), /at most 15000 words/);
+  const t = B.tightenPrompt("x", 20000, 15000);
+  assert.match(t, /It has 20000 words; its budget is 15000/);
+  assert.match(t, /never remove or thin a definition/);
+});
