@@ -694,7 +694,8 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
   }
   // a book lesson over its budget is tightened once, padding only, before the checks (bookRules.ts)
   if (book && plan.outline && !opts.planOnly && written) {
-    const budget = Math.min(LESSON_WORDS, lessonWords(plan.outline) || LESSON_WORDS);
+    // the cap counts every word he reads (the practice questions too); the plan's budgets count the prose
+    const budget = Math.min(LESSON_WORDS, (lessonWords(plan.outline) || LESSON_WORDS) + 2500);
     const words = wordCount(written);
     if (words > budget * 1.1) {
       cb.onStatus?.(`מהדק את השיעור: ${words.toLocaleString()} מילים, התקציב ${budget.toLocaleString()}`);

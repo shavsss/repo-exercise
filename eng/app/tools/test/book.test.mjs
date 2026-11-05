@@ -94,6 +94,7 @@ test("the word budget: planned words, a word count, and the tighten step", () =>
   assert.equal(B.lessonWords(o), 2000);
   assert.equal(B.partWords(o, ["2.2"]), 800);
   assert.equal(B.wordCount("אחת שתיים  שלוש\nארבע"), 4);
+  assert.equal(B.wordCount("מילה\n```svg\n<svg viewBox=\"0 0 1 1\"><text>א ב ג</text></svg>\n```\nעוד"), 2);
   assert.match(B.outlineText(o, ["2.1"]), /visual: chart: Ls against d/);
   assert.match(B.BOOK_PART(o, ["2.1"], true, false), /this part about 1200 words/);
   assert.match(B.BOOK_PLAN(2), /at most 15000 words/);

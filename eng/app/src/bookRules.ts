@@ -73,7 +73,9 @@ export function lessonWords(o: BookOutline): number {
   return partWords(o, o.chapters.flatMap((c) => c.sections.map((s) => s.n)));
 }
 
-export const wordCount = (t: string) => (t.match(/\S+/g) ?? []).length;
+/** The words the learner reads: the code of visual blocks (chart and table JSON, svg, mermaid, scenes) does not count. */
+export const wordCount = (t: string) =>
+  (t.replace(/^```(?:chart|table|svg|mermaid|anim|sim|scene3d|interactive|figure)[^\n]*\n[\s\S]*?^```[ \t]*$/gm, "").match(/\S+/g) ?? []).length;
 
 /** The last step when a written lesson is over its budget: cut only padding, by edit blocks, then the checks run. */
 export function tightenPrompt(text: string, words: number, budget: number): string {
