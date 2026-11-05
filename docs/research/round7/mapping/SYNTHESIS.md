@@ -54,3 +54,9 @@
 5. לחלקים 11–16: Glover, Erickson, Plett, Schroeder, Tennekes & Lumley, Anderson (Fundamentals), Hill & Peterson, Nelson, Shigley, T.L. Anderson, Megson, Jones.
 6. לנצ'סטר: Kay, Balanis, Groves, Riley, Zarchan, Liggins, Driels, Kress (Operational Logistics), Hughes, Kurose & Ross, SMAD פרק 18 (חסר בסריקה).
 7. פתוחים ברשת: Murphy, Szeliski, STPA Handbook, NASA PRA, Langtangen & Mardal.
+
+## החלטת הלומד (5.11 בערב)
+
+- Ufimtsev (M2.4) ו-Ward (M2.16) נשארים במלואם. 350 עמודים חוזרים, כלומר 175 משוקללים בתרחיש A ו-0 בתרחיש B. המאזן המשותף: כ-+100 בתרחיש A וכ-+685 בתרחיש B. עם בחירות 1–8 בגילואה: כ-‎−680 בתרחיש A וכ-‎−95 בתרחיש B. בשני המקרים המאזן נשאר בתוך 30 החודשים.
+- שאר הקיצורים בדוחות של לנצ'סטר מאושרים.
+- לא משלבים שום דבר עד שכל הספרים יגיעו. אז יתבצעו מדידה חוזרת, מאזן ושילוב אחד בבת אחת.
