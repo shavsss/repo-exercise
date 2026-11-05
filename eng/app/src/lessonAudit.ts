@@ -268,8 +268,10 @@ export function applyRepair(text: string, raw: string, mode: "inplace" | "supple
       applied++;
     } else failed++;
   } else {
-    for (const m of raw.matchAll(/<<<REPLACE>>>\s*\n([\s\S]*?)\n<<<WITH>>>\s*\n([\s\S]*?)\n<<<END>>>/g)) {
-      const [, from, to] = m;
+    // an empty WITH (a deletion) is "<<<WITH>>>\n<<<END>>>": the replacement may be empty
+    for (const m of raw.matchAll(/<<<REPLACE>>>[ \t]*\n([\s\S]*?)\n<<<WITH>>>[ \t]*\n([\s\S]*?)<<<END>>>/g)) {
+      const from = m[1];
+      const to = m[2].replace(/\n$/, "");
       const at = out.indexOf(from);
       if (at >= 0 && out.indexOf(from, at + 1) < 0) {
         out = out.slice(0, at) + to + out.slice(at + from.length);

@@ -169,3 +169,12 @@ test("a supplement gets no reader's check (the lesson was read)", async () => {
   await A.auditAndRepair(input, "supplement", { call: async (p, kind) => (calls.push(p.slice(0, 14)), PASS) });
   assert.ok(calls.every((c) => !c.startsWith("<reader_audit")));
 });
+
+test("a REPLACE with an empty WITH deletes the passage, and does not swallow the next edit", () => {
+  const raw = "<<<REPLACE>>>\nטקסט על אטומים.\n<<<WITH>>>\n<<<END>>>\n<<<REPLACE>>>\nאידוי מקרר.\n<<<WITH>>>\nאידוי מקרר מאוד.\n<<<END>>>";
+  const r = A.applyRepair(lesson, raw, "inplace");
+  assert.equal(r.applied, 2);
+  assert.equal(r.failed, 0);
+  assert.ok(!r.text.includes("טקסט על אטומים."));
+  assert.ok(r.text.includes("אידוי מקרר מאוד."));
+});
