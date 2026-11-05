@@ -61,7 +61,8 @@ const res = await tutor.composeLesson({
   rt: { sample, canSendImages: false, canUseTools: false, store: null },
   history: [], effort: "high", module: m, lessons, lessonIdx: idx, memory, done,
   signal: new AbortController().signal,
-  text: `כתוב את שיעור ${idx + 1} במודול ${moduleId}: ${lessons[idx].title}.`,
+  // SIM_NOTE: an extra line for the request (e.g. a lesson rewritten from scratch)
+  text: `כתוב את שיעור ${idx + 1} במודול ${moduleId}: ${lessons[idx].title}.${process.env.SIM_NOTE ? `\n${process.env.SIM_NOTE}` : ""}`,
   cb: { onText: () => {}, onActivity: () => {}, onStatus: (s: string) => writeFileSync(join(out, "status"), s), onCheckpoint: () => {} },
 });
 writeFileSync(join(out, "lesson.md"), res.text);
