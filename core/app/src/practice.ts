@@ -151,6 +151,16 @@ export function practiceBlocks(md: string): { kind: (typeof PRACTICE_KINDS)[numb
  * skipped (`done` holds the question texts that are), and whether it was cut there.
  */
 export function gateText(md: string, done: (question: string) => boolean): { text: string; gated: boolean } {
-  for (const b of practiceBlocks(md)) if (!done(practiceQuestion(b.kind, b.source))) return { text: md.slice(0, b.end), gated: b.end < md.trimEnd().length };
+  for (const b of practiceBlocks(md)) {
+    if (done(practiceQuestion(b.kind, b.source))) continue;
+    const gated = b.end < md.trimEnd().length;
+    if (!gated) return { text: md, gated: false };
+    // the rest is there, only closed: say so, and how much of it is left
+    const rest = md.slice(b.end);
+    const left = (rest.match(/^###\s/gm) ?? []).length;
+    const words = (rest.match(/\S+/g) ?? []).length;
+    const note = `\n\n*השיעור ממשיך אחרי השאלה: ענה עליה, או דלג, כדי לפתוח את ההמשך${left ? ` (עוד ${left === 1 ? "תת-סעיף אחד" : `${left} תתי-סעיפים`}, כ-${Math.max(1, Math.round(words / 200))} דקות קריאה)` : ""}.*`;
+    return { text: md.slice(0, b.end) + note, gated: true };
+  }
   return { text: md, gated: false };
 }

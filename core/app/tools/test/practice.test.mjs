@@ -45,13 +45,13 @@ test("explanation: question, key ideas, model answer", () => {
 });
 
 test("the gate cuts the lesson after the first open question, and opens as questions are answered", () => {
-  const md = "### 2.1 א\nטקסט.\n\n```mcq\nשאלה 1?\n- [x] כן :: כי\n```\n\nהמשך.\n\n```numeric\n@answer: 2\nשאלה 2?\n```\n\nסוף.";
+  const md = "### 2.1 א\nטקסט.\n\n```mcq\nשאלה 1?\n- [x] כן :: כי\n```\n\nקטעשני.\n\n```numeric\n@answer: 2\nשאלה 2?\n```\n\nקטעאחרון.";
   const none = P.gateText(md, () => false);
   assert.ok(none.gated);
-  assert.ok(none.text.endsWith("```"));
-  assert.ok(!none.text.includes("המשך."));
+  assert.match(none.text, /```\n\n\*השיעור ממשיך אחרי השאלה/);
+  assert.ok(!none.text.includes("קטעשני."));
   const one = P.gateText(md, (q) => q === "שאלה 1?");
-  assert.ok(one.text.includes("המשך.") && !one.text.includes("סוף."));
+  assert.ok(one.text.includes("קטעשני.") && !one.text.includes("קטעאחרון."));
   const all = P.gateText(md, () => true);
   assert.equal(all.text, md);
   assert.ok(!all.gated);
