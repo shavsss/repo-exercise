@@ -22,6 +22,8 @@ test("numbers: forms, tolerance, known wrong values, units off by a power of ten
   assert.equal(P.parseNumber("4.17×10^42"), 4.17e42);
   assert.equal(P.parseNumber("1.2·10³"), 1200);
   assert.equal(P.parseNumber("−3"), -3);
+  assert.equal(P.parseNumber("3.09e+35"), 3.09e35);
+  assert.equal(P.parseNumber("3.09E35"), 3.09e35);
   assert.equal(P.parseNumber("abc"), null);
   const n = P.parseNumeric("@answer: 189.7\n@unit: ק\"מ\n@tol: 1%\nמה הטווח?\n---\nמציבים ב-(27).\n- wrong: 95 :: הכפלת את המרווח ב-6 dB פעמיים");
   assert.equal(n.answer, 189.7);
