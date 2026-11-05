@@ -44,6 +44,8 @@ export interface AuditMark {
   open?: string[];
   /** 2: the check that runs until a review passes (4.11); a "partly" mark without it is checked again by itself */
   v?: number;
+  /** the reader's check (5.11): can a learner without the background follow it, in order? */
+  reader?: { verdict: "pass" | "fixed" | "partly"; rounds: number; counts: Record<string, number> };
 }
 
 export interface AuditInput {
@@ -58,6 +60,8 @@ export interface AuditInput {
   modules: { id: string; title: string; sections: string[] }[];
   pages: string;
   text: string;
+  /** what the learner already knows (the outline's "known", bookRules.ts), for the reader's check */
+  known?: string[];
 }
 
 const listOf = (xs: string[]) => xs.map((x) => `- ${x}`).join("\n");
@@ -150,6 +154,20 @@ export function problems(r: AuditReport): number {
   return r.missing.length + r.thin.length + r.deferrals.filter((d) => d.verdict === "teach_now" || d.verdict === "fix_ref").length + r.questions.length + r.errors.length + (r.keep.exists ? 0 : 1) + r.keep.missing.length + r.keep.remove.length;
 }
 
+const INPLACE_HOW = `Output only edit blocks, in this exact format (as many as needed, in any order):
+<<<INSERT_AFTER_SECTION: the exact heading text of the lesson>>>
+the Markdown to add at the end of that section (new paragraphs, a ### subsection, definition/formula blocks, a corrected question)
+<<<END>>>
+<<<REPLACE>>>
+an exact, unique passage of the lesson
+<<<WITH>>>
+its corrected text
+<<<END>>>
+<<<KEEP>>>
+the whole content of the keep block, one "- name: …" line each (it replaces the existing keep block, or is added at the end)
+<<<END>>>
+Fix a wrong question with a REPLACE of the whole question block; fix a wrong module reference or an error with a REPLACE of the sentence.`;
+
 export function repairPrompt(o: AuditInput, report: AuditReport, mode: "inplace" | "supplement" | "supplement-edit"): string {
   const todo = { ...report, deferrals: report.deferrals.filter((d) => d.verdict !== "ok") };
   const how =
@@ -170,19 +188,7 @@ a new ### section, a corrected question or a one-line correction of the read par
 the whole content of the lesson's keep block, one "- name: …" line each
 <<<END>>>`
       : mode === "inplace"
-      ? `Output only edit blocks, in this exact format (as many as needed, in any order):
-<<<INSERT_AFTER_SECTION: the exact heading text of the lesson>>>
-the Markdown to add at the end of that section (new paragraphs, a ### subsection, definition/formula blocks, a corrected question)
-<<<END>>>
-<<<REPLACE>>>
-an exact, unique passage of the lesson
-<<<WITH>>>
-its corrected text
-<<<END>>>
-<<<KEEP>>>
-the whole content of the keep block, one "- name: …" line each (it replaces the existing keep block, or is added at the end)
-<<<END>>>
-Fix a wrong question with a REPLACE of the whole question block; fix a wrong module reference or an error with a REPLACE of the sentence.`
+      ? INPLACE_HOW
       : `The learner has already read this lesson, so do not edit it: write one supplement that comes after it. Output exactly:
 <<<SUPPLEMENT>>>
 ## השלמה לשיעור
@@ -314,10 +320,109 @@ export function applyRepair(text: string, raw: string, mode: "inplace" | "supple
   return { text: out, applied, failed };
 }
 
+/* ---------------- the reader's check (5.11, docs/LESSON_BOOK_SPEC.md) ---------------- */
+
+export type ReaderKind = "undefined" | "jump" | "order" | "factors" | "question" | "form" | "block" | "structure";
+export interface ReaderIssue {
+  kind: ReaderKind | string;
+  quote?: string;
+  where?: string;
+  problem?: string;
+  fix?: string;
+}
+export interface ReaderReport {
+  issues: ReaderIssue[];
+  verdict: "pass" | "fix";
+}
+
+export function readerAuditPrompt(o: AuditInput, round = 1): string {
+  return `<reader_audit round="${round}">
+You read one lesson of a self-study book (Hebrew) as its learner reads it: from the first line, in order, knowing only what is listed in <known> and what the lesson has said so far. He knows no physics and only the mathematics he has studied. You do not check the facts against sources (another reviewer does); you check whether he can follow, and whether it reads like a well-built book: chapters (## פרק N), numbered subsections (### N.k) that build on each other, paragraphs with bold run-in headings, continuous prose.
+Lesson: ${o.moduleId} ${o.moduleTitle} · ${o.lessonTitle}
+<known>
+${(o.known ?? []).map((k) => `- ${k}`).join("\n") || "(only the mathematics he has studied, no physics)"}
+</known>
+<lesson>
+${o.text}
+</lesson>
+
+Report every place where:
+- "undefined": a term, symbol or parameter is used before it is defined (or is never defined), and it is not in <known>.
+- "jump": a subsection or paragraph starts something new without saying how it follows from what came before, or the reason to study it now is missing.
+- "order": something is explained after it was already used, or a result comes before what it rests on.
+- "factors": a formula or equation whose factors are not each explained (what it stands for and its units, why it is there, what happens when it grows, where the formula holds).
+- "question": a think, predict, verify or exercise that the text above it does not prepare (a step, number or idea it needs is missing).
+- "form": a chapter without a comparison, without a closing case study, or a central idea without its development (why it is interesting, how it was approached, the steps, what came out, where it breaks) or without a critical look.
+- "block": a block that breaks the flow, or carries a step of the argument that the prose does not.
+- "structure": a section not in the book form (no subsection numbers, no run-in paragraph headings, a bare list where reasoning belongs).
+Quotes must be copied exactly from the lesson (a short unique phrase). Be strict and concrete; do not ask for length, padding or extra examples.
+Reply with ONLY one JSON object: {"issues": [{"kind": "undefined|jump|order|factors|question|form|block|structure", "quote": "…", "where": "the subsection, e.g. 3.2", "problem": "…", "fix": "what to add or change, concretely"}], "verdict": "pass|fix"}. "pass" only when the list is empty.
+</reader_audit>`;
+}
+
+export function parseReader(raw: string): ReaderReport | null {
+  const o = jsonOf(raw) as Record<string, unknown> | null;
+  if (!o || typeof o !== "object") return null;
+  const issues = arr(o.issues) as unknown as ReaderIssue[];
+  return { issues, verdict: issues.length ? "fix" : "pass" };
+}
+
+export function readerRepairPrompt(o: AuditInput, report: ReaderReport): string {
+  return `<lesson_repair mode="reader">
+You are the author of this lesson. A reader who knows only what is in <known> (no physics, only the mathematics he has studied) read it in order and could not follow it in the places listed in <review>. Repair each one in the lesson's own Hebrew, style and block syntax, at full depth: define a term at its first use (or move its definition before it), add the sentence that says how a part follows from the one before and why it comes now, move a passage to where it belongs, explain each factor of a formula after it, prepare what a question needs before it, write the missing comparison, case or critical look in prose, and turn a block that breaks the flow into prose. Keep the book form: ## פרק N, ### N.k, bold run-in paragraph headings. Never remove correct material, never add padding.
+Lesson: ${o.moduleId} ${o.moduleTitle} · ${o.lessonTitle}
+<known>
+${(o.known ?? []).map((k) => `- ${k}`).join("\n") || "(only the mathematics he has studied, no physics)"}
+</known>
+<review>
+${JSON.stringify(report.issues, null, 1)}
+</review>
+<lesson>
+${o.text}
+</lesson>
+
+${INPLACE_HOW}
+To move a passage, REPLACE it with nothing at its old place and add it with INSERT_AFTER_SECTION or a REPLACE at its new place.
+</lesson_repair>`;
+}
+
+const READER_REVIEWS = 3;
+
+/** The reader's check: review and repair in place until it passes, at most READER_REVIEWS reviews, ending on a review. */
+export async function readerCheck(o: AuditInput, deps: AuditDeps): Promise<{ text: string; mark: NonNullable<AuditMark["reader"]>; report: ReaderReport | null }> {
+  let text = o.text;
+  let report: ReaderReport | null = null;
+  let rounds = 0;
+  const counts: Record<string, number> = {};
+  for (let round = 1; round <= READER_REVIEWS; round++) {
+    deps.onStatus?.(round === 1 ? "קורא את השיעור כמו לומד: הגדרות, סדר וקשרים" : `קורא שוב אחרי התיקון (סבב ${round})`);
+    const next = parseReader(await deps.call(readerAuditPrompt({ ...o, text }, round), "audit"));
+    if (!next) break;
+    report = next;
+    rounds = round;
+    if (round === 1) for (const i of next.issues) counts[i.kind] = (counts[i.kind] ?? 0) + 1;
+    if (next.verdict === "pass" || round === READER_REVIEWS) break;
+    deps.onStatus?.(`מסדר את השיעור לקורא (${next.issues.length} מקומות)`);
+    const fixed = applyRepair(text, await deps.call(readerRepairPrompt({ ...o, text }, next), "repair"), "inplace");
+    if (!fixed.applied || fixed.text === text) break;
+    text = fixed.text;
+  }
+  const verdict = !report ? "partly" : report.verdict === "pass" ? (text === o.text ? "pass" : "fixed") : "partly";
+  return { text, mark: { verdict, rounds, counts }, report };
+}
+
+export function readerOpen(r: ReaderReport): string[] {
+  const label: Record<string, string> = { undefined: "לא מוגדר", jump: "קפיצה", order: "סדר", factors: "גורמים בנוסחה", question: "שאלה לא מוכנה", form: "מבנה הפרק", block: "בלוק", structure: "צורה" };
+  const cut = (x?: string) => (x ?? "").replace(/\s+/g, " ").trim().slice(0, 200);
+  return r.issues.slice(0, 16).map((i) => `קורא · ${label[i.kind] ?? i.kind}${i.where ? ` (${i.where})` : ""}: ${cut(i.problem || i.quote)}`);
+}
+
 export interface AuditDeps {
   /** one model call; returns its text */
   call: (prompt: string, kind: "audit" | "repair") => Promise<string>;
   onStatus?: (s: string) => void;
+  /** false: no reader's check (the tests of the source check) */
+  reader?: boolean;
 }
 
 export const MAX_REVIEWS = 4;
@@ -371,6 +476,12 @@ export async function auditAndRepair(o: AuditInput, mode: "inplace" | "supplemen
       if (mode === "supplement") supplemented = true;
     } else if (++idle >= 2) break; // two repairs in a row that changed nothing: stop, and say what is open
   }
+  // a lesson not read yet is also read as its learner reads it, and put in order (5.11)
+  let reader: Awaited<ReturnType<typeof readerCheck>> | null = null;
+  if (mode === "inplace" && deps.reader !== false) {
+    reader = await readerCheck({ ...o, text }, deps).catch(() => null);
+    if (reader) text = reader.text;
+  }
   const refs = (report?.deferrals ?? []).filter((d) => d.verdict === "fix_ref" && d.topic && d.correct_module).map((d) => ({ topic: d.topic!, module: d.correct_module! }));
   const mark: AuditMark = {
     at: Date.now(),
@@ -383,5 +494,12 @@ export async function auditAndRepair(o: AuditInput, mode: "inplace" | "supplemen
     ...(report && report.verdict !== "pass" ? { open: openItems(report) } : {}),
     v: 2,
   };
+  if (reader) {
+    mark.reader = reader.mark;
+    if (reader.mark.verdict === "partly") {
+      if (mark.verdict !== "partly") mark.verdict = "partly";
+      if (reader.report) mark.open = [...(mark.open ?? []), ...readerOpen(reader.report)];
+    } else if (mark.verdict === "pass" && reader.mark.verdict === "fixed") mark.verdict = "fixed";
+  }
   return { text, mark, report };
 }

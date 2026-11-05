@@ -75,6 +75,7 @@ test("the whole loop: review, repair, review again", async () => {
     { lessonTitle: "t", moduleId: "M0.2", moduleTitle: "m", covers: ["1-1"], otherLessons: [], curriculum: "", modules: [], pages: "p", text: lesson },
     "inplace",
     {
+      reader: false,
       call: async (prompt, kind) => {
         calls.push(kind);
         if (kind === "repair") return "<<<INSERT_AFTER_SECTION: 2. אידוי>>>\nחום בעיבוי.\n<<<END>>>";
@@ -103,6 +104,7 @@ test("the loop goes on until a review passes, and always ends on a review", asyn
   const reviews = [FIX, FIX, PASS];
   const calls = [];
   const res = await A.auditAndRepair(input, "inplace", {
+    reader: false,
     call: async (p, kind) => {
       calls.push(kind);
       if (kind === "audit") return reviews.shift();
@@ -121,6 +123,7 @@ test("the loop goes on until a review passes, and always ends on a review", asyn
 test("a check that never passes stops after four reviews and stores what is open", async () => {
   let n = 0;
   const res = await A.auditAndRepair(input, "inplace", {
+    reader: false,
     call: async (p, kind) => (kind === "audit" ? FIX : `<<<INSERT_AFTER_SECTION: 2. אידוי>>>\nמשפט ${++n}.\n<<<END>>>`),
   });
   assert.equal(res.mark.rounds, 4);
@@ -139,4 +142,30 @@ test("a supplement that exists is edited inside, the read part never changes", a
   assert.equal(r.failed, 1);
   // the reviewer is told that the supplement fixes the read part
   assert.ok(A.auditPrompt({ ...input, text }).includes("an item taught, completed or corrected in the supplement is fixed"));
+});
+
+test("the reader's check runs after the source check, repairs in place, and counts in the mark", async () => {
+  const calls = [];
+  const readerFix = '{"issues":[{"kind":"undefined","quote":"אידוי מקרר.","where":"2","problem":"אידוי לא הוגדר","fix":"להגדיר"}],"verdict":"fix"}';
+  const readerPass = '{"issues":[],"verdict":"pass"}';
+  const res = await A.auditAndRepair(input, "inplace", {
+    call: async (p, kind) => {
+      const reader = p.startsWith("<reader_audit") || p.startsWith("<lesson_repair mode=\"reader\"");
+      calls.push(reader ? `reader-${kind}` : kind);
+      if (!reader) return PASS;
+      if (kind === "repair") return "<<<REPLACE>>>\nאידוי מקרר.\n<<<WITH>>>\n**אידוי** הוא מעבר של מולקולות מנוזל לגז, והוא מקרר.\n<<<END>>>";
+      return calls.filter((c) => c === "reader-audit").length === 1 ? readerFix : readerPass;
+    },
+  });
+  assert.deepEqual(calls, ["audit", "reader-audit", "reader-repair", "reader-audit"]);
+  assert.ok(res.text.includes("**אידוי** הוא מעבר"));
+  assert.equal(res.mark.verdict, "fixed");
+  assert.equal(res.mark.reader.verdict, "fixed");
+  assert.equal(res.mark.reader.counts.undefined, 1);
+});
+
+test("a supplement gets no reader's check (the lesson was read)", async () => {
+  const calls = [];
+  await A.auditAndRepair(input, "supplement", { call: async (p, kind) => (calls.push(p.slice(0, 14)), PASS) });
+  assert.ok(calls.every((c) => !c.startsWith("<reader_audit")));
 });

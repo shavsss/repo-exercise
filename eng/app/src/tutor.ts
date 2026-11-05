@@ -11,6 +11,7 @@ import { auditAndRepair, namedModules, type AuditMark } from "./lessonAudit";
 import { decideLine, decideSlot } from "./lessonGate";
 import { LEGACY_RULES, SYSTEM_PROMPT, libraryList } from "./prompt";
 import type { Runtime, SampleTool } from "./runtime";
+import { BOOK_PART, BOOK_PLAN, OUTLINE_FIX, normalizeOutline, orderProblems, outlineCheckPrompt, parseOutlineReview, partSections, validOutline, type BookOutline } from "./bookRules";
 import { NOTE_KIND_LABEL, type Activity, type Effort, type LessonNote, type LessonSpec, type Mode, type NoteKind, type StoredMessage } from "./types";
 
 const math = create(all, {});
@@ -447,7 +448,9 @@ If the learner has answered: grade every answer (correct / partly / wrong), expl
 
 export interface PartPlan {
   title: string;
-  parts: { title: string; covers: string; blocks?: string[]; l25?: string[]; words?: number; units?: number }[];
+  parts: { title: string; covers: string; blocks?: string[]; l25?: string[]; words?: number; units?: number; sections?: string[] }[];
+  /** the lesson as chapters of a book (bookRules.ts): the outline the parts are written from */
+  outline?: BookOutline;
   results?: string[];
   figures?: string[];
   facts?: string[];
@@ -467,6 +470,7 @@ LESSON PLANNING STEP. Do not write the text yet. The app will write the lesson i
 Rules for the plan: 3 to 5 parts; for a core or advanced module the words add up to at least 4200 Hebrew words unless the assigned material is genuinely short (then say so in the first part); part 1 opens with the plan block and the story, then the problem/why-hard/idea paragraphs; every derivation is planned (full, or a skeleton with the assumptions, per <reader>); the parts are organized by topic, not by page order: the book is the basis, not something to retell page by page (rule 8א); every assigned section and every figure is assigned to exactly one part; every new concept is planned within one part in the order of rule 5א (the context, its general definition in a definition block, how it is built, and only then a separate example); formula blocks only for general results the course returns to (rule 5ב); all seven level-2.5 sections ("l25") are assigned to parts for the lesson's central results; the case study, the connections by <reader_stage> (a fieldmap block for every new central formula, at least two full domain blocks in every lesson (in the gateway stage P0–P3 to familiar fields, plus a fieldmap line for foreign ones; from P4 on to any field, at the full level); examples from familiar ground, rules 23–27), think questions (about six in the lesson, at real decision points), refresh blocks, scenes (scene3d) where the third dimension helps, and figures are assigned to parts; in a hub module (P4–P10) the last lesson of the module, or a lesson where an experiment teaches best, has a notebook block; the last part holds the coverage block, the keep block (rule 5ד), the exercises (estimates, trade-offs, finding errors), the today block and the sentence about the next lesson.`.trim();
 
 function partInstructions(plan: PartPlan, k: number, writtenSoFar: string) {
+  if (plan.outline && LESSON_RULES === "lite") return bookPartInstructions(plan, k, writtenSoFar);
   const p = plan.parts[k];
   const n = plan.parts.length;
   const last = k === n - 1;
@@ -486,6 +490,63 @@ ${k === 0 ? "Start the lesson (no preamble about the plan or the parts)." : "Con
 Do not write material that belongs to later parts. Teach step by step: every step of a full derivation on its own line with its reason in words; a skeleton derivation names the starting point, the key step and where each assumption enters. Put [[DOC:PAGE]] at the paragraph where the source page changes. Show each original figure assigned to this part with a figure block, then explain it. State computed values exactly as in "facts" (run compute for anything new).
 ${LESSON_RULES === "lite" ? "Tag the level-2.5 sections of the central results that this part covers ([[2.5: …]], each tag once per central result in the whole lesson) at the start of their paragraph; anchor claims get no tag." : "Tag every level-2.5 section this part covers ([[2.5: …]]) at the start of its paragraph."}
 ${last ? "This is the last part: write the coverage block, the exercises, the today block, and the sentence about the next lesson." : "Do not end the lesson and do not write exercises yet."}${LESSON_RULES === "lite" ? `\n${LITE_PART}${last ? "\nThe keep block: at most six lines, only the definitions and formulas of the central results, each \"name: …\" and standing on its own. Each verify block holds at least three independent checks; each predict asks for a value with a range or the direction of a dependence." : ""}${featurePart(p)}` : ""}`;
+}
+
+/** A part of a lesson written as chapters of a book (bookRules.ts, docs/LESSON_BOOK_SPEC.md). */
+function bookPartInstructions(plan: PartPlan, k: number, writtenSoFar: string) {
+  const o = plan.outline!;
+  const p = plan.parts[k];
+  const n = plan.parts.length;
+  const last = k === n - 1;
+  const mine = partSections(o, plan.parts, k);
+  const prior = writtenSoFar.length > 60000 ? `[…start omitted…]\n${writtenSoFar.slice(-60000)}` : writtenSoFar;
+  return `WRITING STEP: part ${k + 1} of ${n} of this lesson. Write as the authors (see <voice>).
+Lesson «${plan.title}».${plan.results?.length ? ` Central results: ${plan.results.join("; ")}.` : ""}
+Figures of the lesson: ${(plan.figures ?? []).join(", ") || "none"}.
+Computed facts: ${(plan.facts ?? []).map((f) => `\n- ${f}`).join("")}
+${last && plan.next ? `Next lesson: ${plan.next}` : ""}
+${prior ? `The lesson text written so far, which the learner is reading right now:\n<<<\n${prior}\n>>>\n` : ""}
+Now write ONLY part ${k + 1}: subsections ${mine.join(", ") || p.title}. It covers: ${p.covers}.${p.blocks?.length ? ` Blocks for this part: ${p.blocks.join(", ")}.` : ""}${p.l25?.length ? ` Level-2.5 sections for this part: ${p.l25.join(", ")}.` : ""}
+Do not write material that belongs to later parts. Teach step by step: every step of a full derivation on its own line with its reason in words. Put [[DOC:PAGE]] at the paragraph where the source page changes. Show each original figure assigned to this part with a figure block, then explain it. State computed values exactly as in "facts" (run compute for anything new).
+Tag the level-2.5 sections of the central results that this part covers ([[2.5: …]], each tag once per central result in the whole lesson) at the start of their paragraph; anchor claims get no tag.
+${k === 0 ? "Start the lesson with the first chapter heading (no preamble about the plan or the parts)." : "Continue the equation numbering from the last \\tag above."}
+${LITE_PART}${featurePart(p)}
+${BOOK_PART(o, mine, k === 0, last)}`;
+}
+
+/** Checks the outline's order before any text is written, and has the planner fix it (at most two rounds). */
+async function checkOutline(o: { rt: Runtime; plan: PartPlan; planTurn: string; title: string; effort: Effort; signal: AbortSignal; cb: TurnCallbacks }): Promise<PartPlan> {
+  let plan = o.plan;
+  const ask = (content: string) =>
+    o.rt.sample!.json<PartPlan>(
+      [
+        { role: "user", content: o.planTurn },
+        { role: "assistant", content: JSON.stringify(plan) },
+        { role: "user", content },
+      ],
+      { model: MODEL, modelTier: "complex", effort: o.effort, signal: o.signal, cache: false },
+    ).catch(() => null);
+  if (!validOutline(plan.outline)) {
+    o.cb.onStatus?.("מבקש את תוכן העניינים של השיעור");
+    const again = await ask('The plan has no valid "outline" (chapters, each with its numbered subsections, as specified). Reply with ONLY the whole plan JSON again, with the outline and each part\'s "sections".');
+    if (!again || !Array.isArray(again.parts) || !again.parts.length || !validOutline(again.outline)) {
+      delete plan.outline;
+      return plan;
+    }
+    plan = again;
+  }
+  plan.outline = normalizeOutline(plan.outline!);
+  for (let round = 0; round < 2; round++) {
+    o.cb.onStatus?.(round ? "בודק שוב את סדר תוכן העניינים" : "בודק את סדר תוכן העניינים: כל מושג מוגדר לפני שמשתמשים בו");
+    const review = parseOutlineReview(await o.rt.sample!.json<unknown>(outlineCheckPrompt(plan.outline!, o.title), { model: MODEL, modelTier: "complex", effort: "medium", signal: o.signal, cache: false }).catch(() => null));
+    const problems = [...orderProblems(plan.outline!), ...(review?.problems ?? [])];
+    if (!problems.length) break;
+    o.cb.onStatus?.(`מתקן את תוכן העניינים (${problems.length} בעיות סדר)`);
+    const fixed = await ask(OUTLINE_FIX({ problems, verdict: "fix" }));
+    if (!fixed || !Array.isArray(fixed.parts) || !fixed.parts.length || !validOutline(fixed.outline)) break;
+    plan = { ...fixed, outline: normalizeOutline(fixed.outline) };
+  }
+  return plan;
 }
 
 /**
@@ -523,8 +584,8 @@ Only the central results named in the plan get [[2.5: …]] tags, formula blocks
  * Parts of the lesson rules that the bench can switch on one at a time (after the 31.10 rollback
  * each one comes back only once the real tutor has written lessons with it in both apps).
  */
-export type LessonFeature = "curriculum" | "level3" | "decide" | "style";
-export const DEFAULT_FEATURES: LessonFeature[] = ["curriculum", "level3", "decide", "style"];
+export type LessonFeature = "curriculum" | "level3" | "decide" | "style" | "book";
+export const DEFAULT_FEATURES: LessonFeature[] = ["curriculum", "level3", "decide", "style", "book"];
 let FEATURES = new Set<LessonFeature>(DEFAULT_FEATURES);
 export function setLessonFeatures(f: LessonFeature[]) {
   FEATURES = new Set(f);
@@ -573,6 +634,9 @@ function featurePart(p: { blocks?: string[] }) {
 
 
 export async function composeLesson(opts: Base & { text: string; resume?: { plan: PartPlan; partsDone: number; text: string }; planOnly?: boolean }) {
+  // the lesson as chapters of a book (bookRules.ts): chapters are numbered across the module
+  const book = LESSON_RULES === "lite" && FEATURES.has("book");
+  const chapterStart = 1 + (opts.lessons ?? []).slice(0, Math.max(0, opts.lessonIdx)).reduce((s, l) => s + Math.max(1, (l as { chapters?: number }).chapters ?? 1), 0);
   const { rt, history, text, effort, module: m, lessons, lessonIdx, memory, notes, allNotes, signal, cb, resume } = opts;
   if (!rt.sample) throw { code: "not_granted", message: "sample unavailable" };
   cb.onStatus?.("טוען את עמודי המקור של השיעור");
@@ -583,7 +647,7 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
   let plan = resume?.plan;
   if (!plan) {
     cb.onStatus?.("מתכנן את השיעור: קורא את המקורות ומחשב את המספרים");
-    const planTurn = `${ctx}\n\n${text}\n\n${LESSON_RULES === "lite" ? PART_PLAN_INSTRUCTIONS.replace("for a core or advanced module the words add up to at least 4200 Hebrew words unless the assigned material is genuinely short (then say so in the first part); ", "").replace(', "words": 1200}', ', "units": 40}') + LITE_PLAN : PART_PLAN_INSTRUCTIONS}${featurePlan(lessons?.length ?? 0, lessonIdx, opts.done?.length ?? 0)}`;
+    const planTurn = `${ctx}\n\n${text}\n\n${LESSON_RULES === "lite" ? PART_PLAN_INSTRUCTIONS.replace("for a core or advanced module the words add up to at least 4200 Hebrew words unless the assigned material is genuinely short (then say so in the first part); ", "").replace(', "words": 1200}', ', "units": 40}') + LITE_PLAN : PART_PLAN_INSTRUCTIONS}${featurePlan(lessons?.length ?? 0, lessonIdx, opts.done?.length ?? 0)}${book ? BOOK_PLAN(chapterStart) : ""}`;
     const once = (again: boolean, h = history) =>
       rt.sample!.json<PartPlan>([...fitHistory(h, bytes(planTurn)), { role: "user", content: again ? `${planTurn}\n\n${JSON_AGAIN}` : planTurn }], {
         model: MODEL,
@@ -595,6 +659,7 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
     // an empty or non-JSON plan is asked once more, without tools (the new rules only)
     plan = await (LESSON_RULES === "lite" ? retryRefused((h) => once(false, h).catch((e) => (isEmptyPlan(e) ? once(true, h) : Promise.reject(e))), history, cb).catch((e) => onRefusal(e, rt, m, planTurn, cb, signal)) : once(false));
     if (!plan || !Array.isArray(plan.parts) || !plan.parts.length) throw { code: "invalid_json", message: "no plan" };
+    if (book) plan = await checkOutline({ rt, plan, planTurn, title: lessons?.[lessonIdx]?.title ?? m.title, effort, signal, cb });
     cb.onCheckpoint?.(plan, 0, "");
     if (opts.planOnly) return { text: "", plan, model: undefined };
   }
@@ -630,7 +695,7 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
   // every lesson is checked against its pages before it is read, and repaired where it falls short (lessonAudit.ts)
   let audit: AuditMark | undefined;
   if (!opts.planOnly && written) {
-    const a = await auditLesson({ rt, module: m, lessons, lessonIdx, text: written, mode: "inplace", pages, signal, cb }).catch(() => null);
+    const a = await auditLesson({ rt, module: m, lessons, lessonIdx, text: written, mode: "inplace", pages, known: plan.outline?.known, signal, cb }).catch(() => null);
     if (a) {
       written = a.text;
       audit = a.mark;
@@ -644,7 +709,7 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
  * The check of one lesson (lessonAudit.ts): "inplace" for a lesson not read yet, "supplement" for one already
  * read (the additions come after it). Returns null when the check could not run.
  */
-export async function auditLesson(o: { rt: Runtime; module: Module; lessons?: LessonSpec[]; lessonIdx: number; text: string; mode: "inplace" | "supplement"; pages?: string; signal?: AbortSignal; cb: TurnCallbacks }) {
+export async function auditLesson(o: { rt: Runtime; module: Module; lessons?: LessonSpec[]; lessonIdx: number; text: string; mode: "inplace" | "supplement"; pages?: string; known?: string[]; signal?: AbortSignal; cb: TurnCallbacks }) {
   const { rt, module: m, lessons, lessonIdx } = o;
   if (!rt.sample) return null;
   const spec = lessons?.[lessonIdx];
@@ -668,6 +733,7 @@ export async function auditLesson(o: { rt: Runtime; module: Module; lessons?: Le
       modules,
       pages,
       text: o.text,
+      ...(o.known?.length ? { known: o.known } : {}),
     },
     o.mode,
     {

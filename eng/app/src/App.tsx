@@ -468,6 +468,10 @@ export function App() {
           answer = { ...answer, text: res.text, model: res.model, ...(res.audit ? { audit: res.audit } : {}) };
           const split = (res.plan as (PartPlan & { split?: { title?: string; covers?: string } | null }) | undefined)?.split;
           if (split?.title && idx >= 0) await insertSplit(m, idx, split);
+          // a lesson written as chapters of a book: the next lesson numbers its chapters after these
+          const nch = (res.plan as PartPlan | undefined)?.outline?.chapters?.length;
+          const ls = modsRef.current[m.id]?.lessons;
+          if (nch && idx >= 0 && ls?.[idx] && ls[idx].chapters !== nch) await saveModule(m.id, { lessons: ls.map((l, i) => (i === idx ? { ...l, chapters: nch } : l)) }).catch(() => {});
         } else {
           let full = answer.text;
           let res: Awaited<ReturnType<typeof askTutor>> | null = null;

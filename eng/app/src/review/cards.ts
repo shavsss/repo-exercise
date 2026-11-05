@@ -107,7 +107,8 @@ export function seedsFromLesson(text: string, place: { moduleId: string; lesson:
     }
     const { h, body } = headers(raw);
     const title = (h.title ?? "").trim();
-    if (!title || !body) continue;
+    // a block the writer marked as an aid to the development is not for the review deck
+    if (!title || !body || h.mark === "aid") continue;
     if (lang === "definition") add("def", `הגדרה: «${title}». מה ההגדרה, ובאילו תנאים?`, body);
     else add("formula", `«${title}»: כתוב את הנוסחה, מה כל סימן, ומתי היא תקפה.`, body);
   }

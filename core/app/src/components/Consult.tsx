@@ -19,7 +19,7 @@ import { Markdown, MdContext } from "./Markdown";
 import { Icon } from "./Icon";
 import { sectionAt, textOf } from "./lessonText";
 import { allCalib, calibNote, loadConsults, logEvent, saveConsult, type ConsultCard, type ConsultKind, type ConsultLevel, type ConsultRequest, type ConsultTurn, type LessonPlace } from "../events";
-import { consultPrompt, firstLine, LEVEL_HINT, LEVEL_LABEL, LEVEL_WORDS, splitMore } from "../consultPrompt";
+import { consultPrompt, firstLine, LEVEL_HINT, LEVEL_LABEL, LEVEL_WORDS, needsRestart, splitMore } from "../consultPrompt";
 import type { BookBridge } from "../book/context";
 import "../consult.css";
 
@@ -312,7 +312,8 @@ export function ConsultLayer({
       write(turn);
       patchUi(id, { err: "", open: true, draft: "" });
       setBusy(id);
-      const cap = Math.round(LEVEL_WORDS[lvl] * SLACK) + 20;
+      // starting over from the ground may take more than the level allows
+      const cap = Math.round(LEVEL_WORDS[lvl] * SLACK * (!prev && needsRestart(thread, question.trim()) ? 2.5 : 1)) + 20;
       let stopped = false;
       let shown = "";
       const tools: SampleTool[] | undefined =

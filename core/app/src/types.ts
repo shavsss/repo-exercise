@@ -43,6 +43,8 @@ export interface LessonSpec {
   sources: { doc: string; pages: [number, number] }[];
   /** what the lesson teaches, and how it combines overlapping sources */
   focus: string;
+  /** chapters the lesson was written in (bookRules.ts), for the numbering of the next lessons */
+  chapters?: number;
 }
 
 /** The learner's state in one module. */

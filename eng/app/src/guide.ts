@@ -26,6 +26,8 @@ export interface LessonBlock {
   /** the heading of the section it sits in */
   section: string;
   lead: string;
+  /** the writer's own mark (@mark, bookRules.ts): for the summary, or an aid to the development only */
+  mark?: "summary" | "aid";
 }
 
 /** Does a question of the lesson ask about what it taught? "taught": yes; "preview": it computes or applies a topic
@@ -232,7 +234,8 @@ export function lessonBlocks(md: string, words = 30): LessonBlock[] {
         const { text, key } = blockKeyOf(code);
         if (key) {
           const body = code.replace(/^\s*@\w+:.*$/gm, "").replace(/[$*_#>`]/g, "").replace(/\s+/g, " ").trim();
-          out.push({ id: `B${out.length + 1}`, type: open.type, text, key, section, lead: body.split(" ").slice(0, words).join(" ") });
+          const mk = /^\s*@mark:\s*(summary|aid)\b/m.exec(code)?.[1] as LessonBlock["mark"] | undefined;
+          out.push({ id: `B${out.length + 1}`, type: open.type, text, key, section, lead: body.split(" ").slice(0, words).join(" "), ...(mk ? { mark: mk } : {}) });
         }
         open = null;
       } else open.lines.push(line);
@@ -447,6 +450,15 @@ export function parseGuide(raw: unknown, heads: LessonHead[], moduleIds: Iterabl
       if (note) sec.note = note;
       blocks.push(sec);
     }
+  // the writer's own mark wins: it decided, before writing, what is for the summary and what is an aid
+  for (const lb of lblocks) {
+    if (!lb.mark) continue;
+    const kind: GuideKind = lb.mark === "summary" ? "core" : "example";
+    const at = blocks.findIndex((x) => x.key === lb.key);
+    const sec: GuideSection = { head: lb.text, kind, key: lb.key, ...(lb.mark === "aid" ? { note: "עזר לפיתוח, לא לזכור" } : {}) };
+    if (at >= 0) blocks[at] = { ...blocks[at], kind, ...(kind === "core" ? { module: undefined } : {}), ...(lb.mark === "aid" ? { note: sec.note } : {}) };
+    else blocks.push(sec);
+  }
   const questions: GuideQuestion[] = [];
   if (Array.isArray((obj as { questions?: unknown }).questions))
     for (const q of (obj as { questions: Record<string, unknown>[] }).questions) {

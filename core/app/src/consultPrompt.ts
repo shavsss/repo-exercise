@@ -23,7 +23,9 @@ export const CONSULT_CORE = `אתה המורה שכתב את השיעור. הל�
 
 כתיבה
 9. עברית, פסקאות קצרות, בלי כותרות. נוסחאות ב-$…$. ברמות 0–1 בלי בלוקים בכלל, חוץ מבלוק think אחד בסוף כשיש צעד אחד שהוא יכול לעשות לבד (שאלה, שורת ---, תשובה קצרה), ולא יותר מאחד לכל שתי תשובות בשרשור. ברמה 2 מותרים definition, derivation, formula, table. ברמה 3 כל הבלוקים של השיעור.
-10. לעולם אל תענה על שאלה ישירה בשאלה.`;
+10. לעולם אל תענה על שאלה ישירה בשאלה.
+11. בפיזיקה הוא לא מניח שום ידע מוקדם: כל מונח או סמל שלא הוגדר בשיעור לפני <anchor> (מטען, אנרגיה, תנע, סטיית תקן, חסם, וכל סמל במשוואה) מוגדר בתשובה במקום שבו הוא מופיע.
+12. נוסחה של יותר מסימן אחד או שניים בשורה נפרדת ($$…$$), לא באמצע משפט עברי, ואחריה מה כל גורם בה.`;
 
 /** the most words a level may take; the card stops the stream a little after this */
 export const LEVEL_WORDS: Record<ConsultLevel, number> = { 0: 40, 1: 700, 2: 700, 3: 2000 };
@@ -52,6 +54,14 @@ const SHAPE: Record<ConsultKind, string> = {
 };
 
 const DISCUSS_RULE = `מצב דיון: זו שיחה קצרה על הנקודה הזאת. כל תור קצר (בערך 40–150 מילים ברמה 1), מגיב בדיוק למה שאמר בתור האחרון ולא חוזר על מה שכבר נאמר בשרשור. אם הוא חולק, בדוק את הטענה שלו לגופה. מותר לסיים בשאלה אחת חזרה רק כשהיא מקדמת את ההבנה שלו, אף פעם במקום תשובה.`;
+
+/** He said, again, that he did not understand: start over from the ground, define everything, in the order of the development. */
+const RESTART_RULE = `הוא כתב שוב שלא הבין. אל תמשיך מהתשובה הקודמת ואל תנסח אותה מחדש: התחל מהיסוד, כאילו הוא לא יודע כלום על הנקודה. סדר קבוע: מה השאלה ולמה היא מעניינת; כל מושג שצריך, מוגדר לפני שמשתמשים בו; הפיתוח צעד אחר צעד, ולמה כל צעד; מה יצא ואיך זה עונה על השאלה. כל נוסחה בשורה נפרדת, ואחריה כל גורם בה. בלי אנלוגיה במקום הפיתוח. האורך לפי מה שהבנה מלאה צריכה, גם מעל גבול הרמה.`;
+const CONFUSED = /לא הבנתי|לא מובן|לא ברור|מהתחלה|כלום|לא יושב לי|תסביר שוב|לא הבנת/;
+/** the second time in a card that he says he did not understand */
+export function needsRestart(thread: { q: string }[], question: string) {
+  return CONFUSED.test(question) && thread.some((t) => CONFUSED.test(t.q) || t.q.trim().length > 0);
+}
 
 export interface ConsultInput {
   kind: ConsultKind;
@@ -84,6 +94,7 @@ export function consultPrompt(o: ConsultInput) {
     `<level>${LEVEL_RULE[o.level]}</level>`,
     o.level <= 1 ? `<shape type="${o.kind}">${SHAPE[o.kind]}</shape>` : "",
     o.discuss ? DISCUSS_RULE : "",
+    !o.continuing && needsRestart(o.thread, o.question) ? RESTART_RULE : "",
     `<lesson>${o.lessonTitle}</lesson>`,
     `<section title="${attr(o.section.title)}">\n${o.section.text}\n</section>`,
     `<anchor>${o.anchor}</anchor>`,
