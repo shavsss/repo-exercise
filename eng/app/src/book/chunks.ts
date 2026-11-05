@@ -51,7 +51,7 @@ export interface Chunk {
 }
 
 /** Fenced blocks the learner works in: their space is kept for their largest state, and they are never cut. */
-export const INTERACTIVE = new Set(["think", "exercise", "predict", "errorhunt", "verify", "lab", "decide"]);
+export const INTERACTIVE = new Set(["think", "exercise", "predict", "errorhunt", "verify", "lab", "decide", "mcq", "numeric", "explain"]);
 /** Live blocks that sit on the page as a plate and come alive on the facing page. */
 export const PLATES = new Set(["scene3d", "sim", "anim", "interactive", "notebook"]);
 /** Frames that hold one thing to remember whole: never cut (B3 §2, §12). */

@@ -19,7 +19,8 @@ import { SectionDots } from "./components/SectionDots";
 import { play } from "./sound";
 import { Scratchpad } from "./components/Scratchpad";
 import { ConsultLayer } from "./components/Consult";
-import { LessonPlaceCtx } from "./events";
+import { LessonPlaceCtx, lessonCalib, thinkId } from "./events";
+import { gateText } from "./practice";
 import { SourceViewer } from "./components/SourceViewer";
 import { MemoryPanel } from "./components/MemoryPanel";
 import { MdContext } from "./components/Markdown";
@@ -637,7 +638,26 @@ export function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pf.seq]);
   const all = useMemo(() => (live ? [...messages, live] : pfLive ? [...messages.filter((m) => m.role === "user" || m.id !== pfLive.id), pfLive] : messages), [messages, live, pfLive]);
-  const items = useMemo(() => toItems(all), [all]);
+  // the practice gate (practice.ts): the lesson below an unanswered question stays closed until he answers or skips it
+  const gateKey = module && lessonIdx !== undefined && lessonIdx >= 0 ? `${module.id}__${lessonIdx}` : "";
+  const [gateDone, setGateDone] = useState<Set<string>>(new Set());
+  useEffect(() => {
+    if (!gateKey) return;
+    let alive = true;
+    const load = () => lessonCalib(gateKey).then((list) => alive && setGateDone(new Set(list.filter((r) => r.grade || r.skipped).map((r) => r.id))));
+    load();
+    window.addEventListener("calib:changed", load);
+    return () => {
+      alive = false;
+      window.removeEventListener("calib:changed", load);
+    };
+  }, [gateKey]);
+  const gatedAll = useMemo(() => {
+    if (!gateKey || !module || lessonIdx === undefined) return all;
+    const place = { moduleId: module.id, lesson: lessonIdx, title: "" };
+    return all.map((m) => (m.role === "assistant" && m.mode === "lesson" && m.text ? { ...m, text: gateText(m.text, (q) => gateDone.has(thinkId(place, q))).text } : m));
+  }, [all, gateDone, gateKey, module, lessonIdx]);
+  const items = useMemo(() => toItems(gatedAll), [gatedAll]);
   const hasLesson = messages.some((m) => m.role === "assistant" && m.mode === "lesson" && !m.interrupted && !m.draft);
   // the lesson's check against its sources (lessonAudit.ts): a lesson written before the check gets it on request,
   // and what it finds is added as a supplement at the lesson's end (he has read the lesson already)

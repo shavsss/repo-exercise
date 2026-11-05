@@ -1,3 +1,4 @@
+import { ExplainBlock, McqBlock, NumericBlock } from "./blocks/Practice";
 import { createContext, memo, useContext, type ReactNode } from "react";
 import ReactMarkdown, { type Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -82,6 +83,9 @@ function FencedBlock({ lang, code }: { lang: string; code: string }) {
   if (book && PLATES.has(lang)) return <BookPlate lang={lang} code={code} />;
   if (lang === "quiz") return <QuizForm source={code} />;
   if (lang === "think") return <Think body={code} />;
+  if (lang === "mcq") return <McqBlock source={code} />;
+  if (lang === "numeric") return <NumericBlock source={code} />;
+  if (lang === "explain") return <ExplainBlock source={code} />;
   if (lang === "predict") return <Predict source={code} />;
   if (lang === "errorhunt") return <ErrorHunt source={code} />;
   if (lang === "verify") return <Verify source={code} />;

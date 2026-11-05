@@ -96,7 +96,7 @@ export interface LessonPlace {
 export const LessonPlaceCtx = createContext<LessonPlace | null>(null);
 
 /* ---------------- the events log ---------------- */
-export type EventType = "think.commit" | "think.grade" | "think.skip" | "think.reset" | "predict.commit" | "predict.grade" | "consult.ask" | "consult.more";
+export type EventType = "think.commit" | "think.grade" | "think.skip" | "think.reset" | "predict.commit" | "predict.grade" | "consult.ask" | "consult.more" | "practice.answer" | "practice.skip";
 
 const EVENTS_PER_DAY = 500;
 const dayOf = (ts: number) => {
@@ -144,8 +144,13 @@ export interface CalibRecord {
   q: string;
   /** what the learner wrote before the answer, if anything */
   answer?: string;
-  conf: Conf;
+  /** how sure he was; optional before a question the system grades (practice blocks) */
+  conf?: Conf;
   grade?: Grade;
+  /** a practice block (Practice.tsx): its kind, the feedback he got, or that he chose to skip it */
+  kind?: "mcq" | "numeric" | "explain";
+  feedback?: string;
+  skipped?: boolean;
   ts: number;
   gradedAt?: number;
   /** the lesson map found the question asks about what the lesson did not teach (a preview topic, a step never
@@ -187,6 +192,16 @@ export function flattenCalib(docs: Record<string, unknown>[]): CalibRecord[] {
   return [...out.values()];
 }
 
+/** The records of one lesson's calib document (`<module>__<lesson>`). */
+export async function lessonCalib(lessonKey: string): Promise<CalibRecord[]> {
+  try {
+    const doc = await get(["calib", lessonKey]);
+    return doc ? flattenCalib([doc]) : [];
+  } catch {
+    return [];
+  }
+}
+
 export async function allCalib(): Promise<CalibRecord[]> {
   const p = await profile();
   if (!p) return flattenCalib([...local.entries()].filter(([k]) => k.startsWith("calib/")).map(([, v]) => v));
@@ -197,7 +212,7 @@ export async function allCalib(): Promise<CalibRecord[]> {
 export type CalibTable = Record<Conf, Record<Grade | "open", number>>;
 export function calibTable(list: CalibRecord[]): CalibTable {
   const t = { 1: { right: 0, partial: 0, wrong: 0, open: 0 }, 2: { right: 0, partial: 0, wrong: 0, open: 0 }, 3: { right: 0, partial: 0, wrong: 0, open: 0 } } as CalibTable;
-  for (const r of list) if (t[r.conf]) t[r.conf][r.grade ?? "open"]++;
+  for (const r of list) if (r.conf && !r.skipped && t[r.conf]) t[r.conf][r.grade ?? "open"]++;
   return t;
 }
 

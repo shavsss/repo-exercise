@@ -52,7 +52,7 @@ export function ThinkCommit({ question, answer, off }: { question: string; answe
       }
       rec.current = r;
       setMine(r.answer ?? "");
-      setConf(r.conf);
+      setConf(r.conf ?? null);
       setGrade(r.grade ?? null);
       setStage(r.grade ? "graded" : "shown");
     });

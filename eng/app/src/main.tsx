@@ -12,6 +12,7 @@ import "./labtabs/labtabs.css";
 import "./look5.css";
 import "./polish2.css";
 import "./notes-fun.css";
+import "./practice.css";
 import { App } from "./App";
 import { SummaryApp } from "./summaries/SummaryApp";
 import { Bench } from "./components/Bench";

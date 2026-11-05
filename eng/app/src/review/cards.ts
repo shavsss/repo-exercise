@@ -5,6 +5,7 @@
 //   - his own margin notes of the kinds "הערה" and "להעמקה", asked from the quote they sit beside.
 // And the day's queue: due cards first (lowest predicted recall first), new cards only while the daily time
 // budget lasts. Pure, so it is unit tested with the scheduler (tools/test/fsrs.test.mjs). Same file in both labs.
+import { parseExplain, parseMcq, parseNumeric, practiceBlocks, practiceQuestion } from "../practice";
 import { addDays, dayStart, newMem, recallNow, type Mem } from "./fsrs";
 
 export type CardKind = "keep" | "keepAll" | "def" | "formula" | "think" | "note";
@@ -116,12 +117,29 @@ export function seedsFromLesson(text: string, place: { moduleId: string; lesson:
 }
 
 /** The think blocks of a lesson's text: question and answer, as the lesson shows them (Think.tsx). */
-export function thinksFromLesson(text: string): { q: string; a: string }[] {
-  const out: { q: string; a: string }[] = [];
+export function thinksFromLesson(text: string): { q: string; a: string; key?: string }[] {
+  const out: { q: string; a: string; key?: string }[] = [];
   for (const m of text.matchAll(/```think[^\n]*\n([\s\S]*?)```/g)) {
     const [question, ...rest] = m[1].split(/^\s*---\s*$/m);
     const a = rest.join("\n").trim();
     const q = question.trim();
+    if (q && a) out.push({ q, a });
+  }
+  // the practice questions (practice.ts): the card's back is the right answer with its reason
+  for (const b of practiceBlocks(text)) {
+    const q = practiceQuestion(b.kind, b.source);
+    let a = "";
+    if (b.kind === "mcq") {
+      const m = parseMcq(b.source);
+      const r = m.options.find((o) => o.correct);
+      a = r ? `${r.text}${r.why ? `\n\n${r.why}` : ""}` : "";
+      if (q && a) out.push({ key: q, q: `${q}\n\n${m.options.map((o, i) => `${"אבגדהו"[i]}) ${o.text}`).join("\n")}`, a });
+      continue;
+    }
+    if (b.kind === "numeric") {
+      const n = parseNumeric(b.source);
+      a = `${n.answerText} ${n.unit}`.trim() + (n.solution ? `\n\n${n.solution}` : "");
+    } else a = parseExplain(b.source).model;
     if (q && a) out.push({ q, a });
   }
   return out;

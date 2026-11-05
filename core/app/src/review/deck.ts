@@ -116,7 +116,7 @@ async function lessonText(st: Store, convId: string): Promise<LessonText> {
   return { text: own.map((m) => m.text).join("\n\n"), at: Math.max(...own.map((m) => m.ts || 0)) || Date.now() };
 }
 
-const flagged = (r: CalibRecord) => !r.off && (r.grade === "wrong" || r.grade === "partial" || r.conf === 1);
+const flagged = (r: CalibRecord) => !r.off && (r.skipped || r.grade === "wrong" || r.grade === "partial" || r.conf === 1);
 
 /** Adds the cards of lessons read since the last sync, of think questions he missed, and of his margin notes. */
 async function sync(st: Store, d: Deck, modsIn?: Record<string, ModuleProgress>) {
@@ -182,7 +182,7 @@ async function sync(st: Store, d: Deck, modsIn?: Record<string, ModuleProgress>)
     stateDirty = true;
     for (const c of convs.filter((x) => x.moduleId === r.moduleId && x.lesson === r.lesson)) {
       const t = await textOf(c.id);
-      const hit = t && t !== "unread" && thinksFromLesson(t.text).find((q) => thinkId({ moduleId: c.moduleId, lesson: c.lesson, title: "" }, q.q) === r.id);
+      const hit = t && t !== "unread" && thinksFromLesson(t.text).find((q) => thinkId({ moduleId: c.moduleId, lesson: c.lesson, title: "" }, q.key ?? q.q) === r.id);
       if (hit) {
         put(thinkSeed(hit.q, hit.a, r.id), { moduleId: c.moduleId, lesson: c.lesson, conv: c.id, learnedAt: r.gradedAt ?? r.ts ?? Date.now() });
         break;

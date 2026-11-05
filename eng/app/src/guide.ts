@@ -259,7 +259,7 @@ export function lessonBlocks(md: string, words = 30): LessonBlock[] {
   return out;
 }
 
-const Q_LANGS = new Set(["think", "predict", "verify", "errorhunt", "exercise"]);
+const Q_LANGS = new Set(["think", "predict", "verify", "errorhunt", "exercise", "mcq", "numeric", "explain"]);
 
 /** Every fenced block of the lesson's Markdown with the section it sits in (a fence closes on a bare fence of its own kind). */
 function fencedBlocks(md: string): { lang: string; code: string; section: string }[] {

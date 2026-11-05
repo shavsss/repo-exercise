@@ -1,0 +1,33 @@
+/* the practice questions (components/blocks/Practice.tsx): multiple choice, a number, a short explanation */
+.block-mcq, .block-numeric, .block-explain { --k: var(--k-think); }
+.pr-options { list-style: none; margin: 10px 0 6px; padding: 0; display: grid; gap: 6px; }
+.pr-option { width: 100%; display: flex; gap: 10px; align-items: baseline; text-align: start; padding: 9px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--paper); color: var(--ink); font: inherit; cursor: pointer; transition: border-color 0.15s, background 0.15s; }
+.pr-option:hover:not(:disabled) { border-color: var(--accent); background: var(--hover); }
+.pr-option:disabled { cursor: default; opacity: 1; color: var(--ink); }
+.pr-letter { flex: none; width: 24px; height: 24px; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--line-strong); font-weight: 700; font-size: 0.85em; }
+.pr-options li.is-picked .pr-option { border-color: var(--accent); background: var(--accent-soft); }
+.pr-options li.is-right .pr-option { border-color: var(--ok); background: color-mix(in srgb, var(--ok) 10%, var(--paper)); }
+.pr-options li.is-right .pr-letter { background: var(--ok); color: var(--paper); border-color: var(--ok); }
+.pr-options li.is-wrong .pr-option { border-color: var(--err); background: color-mix(in srgb, var(--err) 9%, var(--paper)); }
+.pr-options li.is-wrong .pr-letter { background: var(--err); color: var(--paper); border-color: var(--err); }
+.pr-why { margin: 6px 4px 2px; padding: 8px 12px; border-inline-start: 3px solid var(--line-strong); color: var(--ink-soft); font-size: 0.95em; }
+.pr-actions { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; margin-top: 10px; }
+.pr-actions.is-col { flex-direction: column; align-items: stretch; }
+.pr-conf { display: flex; gap: 6px; align-items: center; font-size: 0.88em; color: var(--muted); }
+.pr-chip { padding: 3px 10px; border-radius: 999px; border: 1px solid var(--line); background: transparent; color: var(--ink-soft); font: inherit; cursor: pointer; }
+.pr-chip.on { border-color: var(--accent); background: var(--accent-soft); color: var(--ink); }
+.pr-skip { font-size: 0.85em; color: var(--muted); margin-inline-start: auto; }
+.pr-input { display: inline-flex; align-items: center; gap: 6px; }
+.pr-input input { width: 150px; padding: 7px 10px; border: 1px solid var(--line-strong); border-radius: 8px; background: var(--paper); color: var(--ink); font: inherit; }
+.pr-text { width: 100%; padding: 9px 12px; border: 1px solid var(--line-strong); border-radius: 10px; background: var(--paper); color: var(--ink); font: inherit; resize: vertical; }
+.pr-verdict { margin-top: 10px; padding: 8px 12px; border-radius: 8px; font-size: 0.95em; }
+.pr-verdict.v-right { background: color-mix(in srgb, var(--ok) 12%, transparent); }
+.pr-verdict.v-partial { background: color-mix(in srgb, var(--warn) 14%, transparent); }
+.pr-verdict.v-wrong { background: color-mix(in srgb, var(--err) 11%, transparent); }
+.pr-verdict.v-skip { background: color-mix(in srgb, var(--muted) 12%, transparent); color: var(--ink-soft); }
+.pr-mine { margin: 10px 0 0; color: var(--ink-soft); }
+blockquote.pr-mine { border-inline-start: 3px solid var(--line); padding-inline-start: 10px; white-space: pre-wrap; }
+.pr-solution { margin-top: 8px; }
+.pr-solution summary { cursor: pointer; color: var(--accent); font-size: 0.92em; }
+.pr-err { color: var(--err); font-size: 0.9em; }
+@media (prefers-reduced-motion: reduce) { .pr-option { transition: none; } }
