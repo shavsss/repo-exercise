@@ -132,3 +132,37 @@
 | Hughes | — |
 
 כל אחד מהם נבדק במדידה: האם החלופה מגיעה ליעד, ואם לא, מה נשאר פתוח.
+
+## איפה הם אחרי השילוב בגילואה (6.11)
+
+הקבצים עברו ל-`library/engineering/books/`. ספרים שהגיעו בחלקים בלי שם אוחדו לקובץ אחד (`pdfunite`, הרצף נבדק בכל תפר). מפת הפרקים של כל ספר ב-`library/engineering/syllabus/toc/<id>.md`.
+
+| id | ספר | מאיפה | קובץ |
+|---|---|---|---|
+| E27 | Meriam & Kraige, Statics, מהדורה 9 | `001-250` + `251-460` | `E27_Engineering-Mechanics-Statics_Meriam-Kraige_9ed.pdf` |
+| E28 | Meriam & Kraige, Dynamics, **מהדורה 7** (2012) | `001-300` + `301-600` + `601-750` | `E28_Engineering-Mechanics-Dynamics_Meriam-Kraige_7ed.pdf` |
+| E29 | Rao, מהדורה 6 (SI) | math-physics | `E29_Mechanical-Vibrations_Rao_6ed-SI.pdf` |
+| E30 | Oppenheim, Schafer & Buck, מהדורה 2 (סריקה) | `oppenheim.pdf` | `E30_Discrete-Time-Signal-Processing_Oppenheim-Schafer-Buck_2ed_scan.pdf` |
+| E31 | Stoica & Moses | `SAS-new.pdf` | `E31_Spectral-Analysis-of-Signals_Stoica-Moses_2005.pdf` |
+| E32 | Griffiths, מהדורה 3 | math-physics | `E32_Introduction-to-Electrodynamics_Griffiths_3ed_1999.pdf` |
+| E33 | Schroeder | `001-200` + `201-400` | `E33_Thermal-Physics_Schroeder_2000.pdf` |
+| E34 | Kurose & Ross, מהדורה 8 | math-physics | `E34_Computer-Networking_Kurose-Ross_8ed.pdf` |
+| E35 | Glover, Overbye & Sarma, מהדורה 6 | `001-250 (1)` + `251-500` + `501-750` + `751-962` | `E35_Power-System-Analysis-Design_Glover-Overbye-Sarma_6ed.pdf` |
+| E36 | Plett, כרך I | שורש | `E36_Battery-Management-Systems-Vol1-Modeling_Plett_2015.pdf` |
+| E37 | Tennekes & Lumley | שורש | `E37_First-Course-in-Turbulence_Tennekes-Lumley_1972.pdf` |
+| E38 | Anderson, Fundamentals of Aerodynamics, מהדורה 5 | `0001-0550` + `0551-1100` | `E38_Fundamentals-of-Aerodynamics_Anderson_5ed.pdf` |
+| E39 | Hill & Peterson, מהדורה 2 | `MECHANICS AND THERMODYNAMICS1.pdf` | `E39_Mechanics-Thermodynamics-of-Propulsion_Hill-Peterson_2ed.pdf` |
+| E40 | Nelson, מהדורה 2 | math-physics | `E40_Flight-Stability-Automatic-Control_Nelson_2ed.pdf` |
+| E41 | Shigley, מהדורה 10 | `file_1731443577xeDvd.pdf` | `E41_Shigleys-Mechanical-Engineering-Design_Budynas-Nisbett_10ed.pdf` |
+| E42 | Janssen, Zuidema & Wanhill | `FractureMechanics.pdf` | `E42_Fracture-Mechanics_Janssen-Zuidema-Wanhill_2ed.pdf` |
+| E43 | Megson, מהדורה 6 | math-physics | `E43_Aircraft-Structures_Megson_6ed.pdf` |
+| E44 | Jones, מהדורה 2 | math-physics | `E44_Mechanics-of-Composite-Materials_Jones_2ed_1999.pdf` |
+| E45 | White, מהדורה 2 | math-physics | `E45_Making-Embedded-Systems_White_2ed.pdf` |
+| E46 | Alexander & Sadiku, מהדורה 4 | math-physics | `E46_Fundamentals-of-Electric-Circuits_Alexander-Sadiku_4ed.pdf` |
+| E47 | Langtangen & Mardal (הגרסה הפתוחה, 2016) | incoming | `E47_Numerical-Methods-Variational-Problems_Langtangen-Mardal_2019.pdf` |
+| E48 | Särkkä | incoming | `E48_Bayesian-Filtering-and-Smoothing_Sarkka_2013.pdf` |
+| E49a, E49b | Murphy (שני קבצים, כל אחד מתחת ל-95MB) | incoming | `E49a_…_p0001-0685.pdf`, `E49b_…_p0686-1370.pdf` |
+| E50 | Levine et al. | incoming | `E50_Offline-RL-Tutorial_Levine-Kumar-Tucker-Fu_2020.pdf` |
+| E51 | STPA Handbook | incoming | `E51_STPA-Handbook_Leveson-Thomas_2018.pdf` |
+| E52 | NASA PRA | incoming | `E52_NASA-PRA-Procedures-Guide_2ed_2011.pdf` |
+| E53 | Pozar (נשאר בספרייה של לנצ'סטר) | — | `library/military/books/18_Microwave-Engineering_Pozar_4ed_2012.pdf` |

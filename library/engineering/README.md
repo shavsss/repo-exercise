@@ -34,12 +34,39 @@
 | E24 | פריפריה: פיזיקת התקנים | Hu, *Modern Semiconductor Devices for Integrated Circuits* | 2010 | Claude | `E24_Semiconductor-Devices_Hu_2010.pdf` |
 | E25 | פריפריה: תכנון שבבים | Weste & Harris, *CMOS VLSI Design: A Circuits and Systems Perspective* | 4th, 2011 | הלומד | `E25_CMOS-VLSI-Design_Weste-Harris_4ed.pdf` |
 | E26 | גשר: הנדסת מערכות | NASA, *Systems Engineering Handbook* (NASA/SP-2016-6105, מסמך ציבורי) | Rev 2, 2016 | Claude | `E26_NASA-Systems-Engineering-Handbook_Rev2_2016.pdf` |
+| E27 | מכניקה הנדסית: סטטיקה | Meriam & Kraige, *Engineering Mechanics: Statics* (SI) | 9th, 2018 | הלומד | `E27_Engineering-Mechanics-Statics_Meriam-Kraige_9ed.pdf` |
+| E28 | מכניקה הנדסית: דינמיקה | Meriam & Kraige, *Engineering Mechanics: Dynamics* (הגיעה מהדורה 7 ולא 9) | 7th, 2012 | הלומד | `E28_Engineering-Mechanics-Dynamics_Meriam-Kraige_7ed.pdf` |
+| E29 | מכניקה הנדסית: תנודות | Rao, *Mechanical Vibrations* (SI, Global Edition) | 6th | הלומד | `E29_Mechanical-Vibrations_Rao_6ed-SI.pdf` |
+| E30 | צומת: עיבוד אותות ספרתי | Oppenheim, Schafer & Buck, *Discrete-Time Signal Processing* (סריקה בלי שכבת טקסט) | 2nd, 1999 | הלומד | `E30_Discrete-Time-Signal-Processing_Oppenheim-Schafer-Buck_2ed_scan.pdf` |
+| E31 | צומת: אומדן ספקטרלי | Stoica & Moses, *Spectral Analysis of Signals* | 2005 | הלומד | `E31_Spectral-Analysis-of-Signals_Stoica-Moses_2005.pdf` |
+| E32 | צומת: אלקטרומגנטיות | Griffiths, *Introduction to Electrodynamics* | 3rd, 1999 | הלומד | `E32_Introduction-to-Electrodynamics_Griffiths_3ed_1999.pdf` |
+| E33 | גשר: פיזיקה סטטיסטית | Schroeder, *An Introduction to Thermal Physics* (נגמר בעמ' מודפס 388) | 2000 | הלומד | `E33_Thermal-Physics_Schroeder_2000.pdf` |
+| E34 | פריפריה: רשתות | Kurose & Ross, *Computer Networking: A Top-Down Approach* | 8th, 2021 | הלומד | `E34_Computer-Networking_Kurose-Ross_8ed.pdf` |
+| E35 | גשר: מערכות הספק | Glover, Overbye & Sarma, *Power System Analysis and Design* | 6th, 2017 | הלומד | `E35_Power-System-Analysis-Design_Glover-Overbye-Sarma_6ed.pdf` |
+| E36 | גשר: סוללות | Plett, *Battery Management Systems, Vol. I: Battery Modeling* | 2015 | הלומד | `E36_Battery-Management-Systems-Vol1-Modeling_Plett_2015.pdf` |
+| E37 | גשר: טורבולנציה | Tennekes & Lumley, *A First Course in Turbulence* | 1972 | הלומד | `E37_First-Course-in-Turbulence_Tennekes-Lumley_1972.pdf` |
+| E38 | גשר: אווירודינמיקה | Anderson, *Fundamentals of Aerodynamics* | 5th, 2011 | הלומד | `E38_Fundamentals-of-Aerodynamics_Anderson_5ed.pdf` |
+| E39 | גשר: הנעה | Hill & Peterson, *Mechanics and Thermodynamics of Propulsion* | 2nd, 1992 | הלומד | `E39_Mechanics-Thermodynamics-of-Propulsion_Hill-Peterson_2ed.pdf` |
+| E40 | גשר: דינמיקת טיסה | Nelson, *Flight Stability and Automatic Control* | 2nd, 1998 | הלומד | `E40_Flight-Stability-Automatic-Control_Nelson_2ed.pdf` |
+| E41 | גשר: אלמנטי מכונות | Budynas & Nisbett, *Shigley's Mechanical Engineering Design* | 10th, 2015 | הלומד | `E41_Shigleys-Mechanical-Engineering-Design_Budynas-Nisbett_10ed.pdf` |
+| E42 | גשר: מכניקת שבר | Janssen, Zuidema & Wanhill, *Fracture Mechanics* (במקום T.L. Anderson) | 2nd, 2002 | הלומד | `E42_Fracture-Mechanics_Janssen-Zuidema-Wanhill_2ed.pdf` |
+| E43 | גשר: מבנים תעופתיים | Megson, *Aircraft Structures for Engineering Students* | 6th, 2017 | הלומד | `E43_Aircraft-Structures_Megson_6ed.pdf` |
+| E44 | גשר: חומרים מרוכבים | Jones, *Mechanics of Composite Materials* (שני עמודים מודפסים בכל עמוד PDF) | 2nd, 1999 | הלומד | `E44_Mechanics-of-Composite-Materials_Jones_2ed_1999.pdf` |
+| E45 | פריפריה: מערכות משובצות | White, *Making Embedded Systems* | 2nd, 2024 | הלומד | `E45_Making-Embedded-Systems_White_2ed.pdf` |
+| E46 | גשר: מעגלים | Alexander & Sadiku, *Fundamentals of Electric Circuits* | 4th, 2009 | הלומד | `E46_Fundamentals-of-Electric-Circuits_Alexander-Sadiku_4ed.pdf` |
+| E47 | צומת: אלמנטים סופיים | Langtangen & Mardal, *Introduction to Numerical Methods for Variational Problems* (הגרסה הפתוחה) | 2016 | Claude | `E47_Numerical-Methods-Variational-Problems_Langtangen-Mardal_2019.pdf` |
+| E48 | צומת: שערוך לא לינארי | Särkkä, *Bayesian Filtering and Smoothing* (עותק המחבר) | 2013 | Claude | `E48_Bayesian-Filtering-and-Smoothing_Sarkka_2013.pdf` |
+| E49a, E49b | גשר: למידת מכונה | Murphy, *Probabilistic Machine Learning: Advanced Topics* (בשני קבצים) | 2023 | Claude | `E49a_Probabilistic-ML-Advanced-Topics_Murphy_2023_p0001-0685.pdf`, `E49b_…_p0686-1370.pdf` |
+| E50 | גשר: למידה מחיזוקים | Levine, Kumar, Tucker & Fu, *Offline Reinforcement Learning: Tutorial, Review, and Perspectives* | 2020 | Claude | `E50_Offline-RL-Tutorial_Levine-Kumar-Tucker-Fu_2020.pdf` |
+| E51 | גשר: הנדסת מערכות | Leveson & Thomas, *STPA Handbook* | 2018 | Claude | `E51_STPA-Handbook_Leveson-Thomas_2018.pdf` |
+| E52 | גשר: הנדסת מערכות | NASA, *Probabilistic Risk Assessment Procedures Guide* (NASA/SP-2011-3421) | 2nd, 2011 | Claude | `E52_NASA-PRA-Procedures-Guide_2ed_2011.pdf` |
+| E53 | גשר: RF ומיקרוגל | Pozar, *Microwave Engineering* (נלמד בלנצ'סטר, M1.5–M1.7; בגילואה פרק 1 ושיעור הפרש) | 4th, 2012 | הלומד | `library/military/books/18_Microwave-Engineering_Pozar_4ed_2012.pdf` |
 
-**עוד חסרים:** סוף הספר של Horowitz & Hill (מעמ' 1062), עמוד 283 ב-Ashby, ו-PDF של פיינמן כרכים I ו-II (כרגע ב-`library/math-physics/` כ-`.txt`, בלי איורים).
+**עוד חסרים:** סוף הספר של Horowitz & Hill (מעמ' 1062), עמוד 283 ב-Ashby, ו-PDF של פיינמן כרכים I ו-II (כרגע ב-`library/math-physics/` כ-`.txt`, בלי איורים). מסבב 7 לא יגיעו Khalil, Bar-Shalom / Simon, Erickson, Thrun, Mahajan, Szeliski ו-EE263 (מה שמכסה במקומם: GAPS ב-`syllabus/syllabus.py`).
 
 ## מה הוצא במודע
 
-- סוללות ואלקטרוכימיה לעומק: MacKay (E14) ו-Çengel (E15) נותנים רמה 2.
-- רשתות, מערכות הפעלה ואבטחת מידע.
+- סוללות ואלקטרוכימיה לעומק מעבר למודל מעגל שקול: Plett (E36) פרקים 1–2 נלמדים, השאר בעיון.
+- מערכות הפעלה ואבטחת מידע. רשתות נכנסו בסבב 7 (Kurose & Ross, E34), לפי היעד ב-E2.
 - מחשוב קוונטי: פיינמן III נותן את הבסיס.
 - ייצור, ביו-רפואה, הנדסה אזרחית.

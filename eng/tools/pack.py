@@ -47,6 +47,11 @@ SHORT = {
     "E12": "Ashby", "E13": "Gere", "E13a": "Gere SM", "E14": "MacKay SE", "E15": "Çengel", "E16": "Lienhard",
     "E17": "Prince", "E18": "Sutton", "E19": "Lynch", "E20": "MCS", "E21": "Skiena", "E22": "Patterson",
     "E23": "Tse", "E24": "Hu", "E25": "Weste", "E26": "NASA SE",
+    "E27": "Meriam Statics", "E28": "Meriam Dynamics", "E29": "Rao", "E30": "Oppenheim DSP", "E31": "Stoica", "E32": "Griffiths",
+    "E33": "Schroeder", "E34": "Kurose", "E35": "Glover", "E36": "Plett", "E37": "Tennekes", "E38": "Anderson FoA",
+    "E39": "Hill & Peterson", "E40": "Nelson", "E41": "Shigley", "E42": "Janssen", "E43": "Megson", "E44": "Jones",
+    "E45": "White", "E46": "Alexander", "E47": "Langtangen-Mardal", "E48": "Särkkä", "E49a": "Murphy", "E49b": "Murphy",
+    "E50": "Levine", "E51": "STPA", "E52": "NASA PRA", "E53": "Pozar",
 }
 
 
