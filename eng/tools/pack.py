@@ -10,6 +10,7 @@ Section headings come from the syllabus maps (library/engineering/syllabus/toc/)
 were checked by hand, rather than from the PDF outline.
 """
 import base64
+import os
 import hashlib
 import json
 import subprocess
@@ -22,7 +23,7 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parents[2]
 SYL = ROOT / "library" / "engineering" / "syllabus"
 BUILD = ROOT / "eng" / "build" / "lib"
-OUT = ROOT / "eng" / "app" / "artifact" / "lib"
+OUT = Path(os.environ.get("PACK_OUT", ROOT / "eng" / "app" / "artifact" / "lib"))
 # Documents whose figure and page-image bundles live in the artifact's asset store
 # instead of lib/, because the published files of one version are limited to 256 MB.
 # Chosen in main(): the heaviest documents move there until lib/ fits LIB_BUDGET.
@@ -157,6 +158,100 @@ def choose_asset_docs():
     return chosen
 
 
+def pack_doc(doc, rel, title, docs, sections):
+    src = BUILD / doc
+    if not (src / "pages.json").exists():
+        print("not extracted yet:", doc)
+        return
+    pages = json.loads((src / "pages.json").read_text())
+    figs = json.loads((src / "figures.json").read_text()) if (src / "figures.json").exists() else {}
+    text = {k: {"l": v.get("label"), "t": v["text"], **({"o": 1} if v.get("ocr") else {})} for k, v in pages.items()}
+    (OUT / "text" / f"{doc}.json").write_text(dumps(text))
+
+    fig_items = []
+    fig_pages = {}
+    for k in sorted(figs, key=int):
+        for j, e in enumerate(figs[k]):
+            f = src / "fig" / e["file"]
+            if f.exists():
+                fig_items.append((f"{k}-{j}", {"c": e["caption"], "w": e["w"], "h": e["h"], "d": webp_data(f)}))
+                fig_pages.setdefault(k, []).append(e["caption"][:140])
+    fig_files, fig_index = bundle(doc, fig_items, "fig")
+
+    pdf = source_pdf(rel)
+    ocr_pages = [k for k in sorted(pages, key=int) if pages[k].get("ocr")] if pdf else []
+    cache = src / "pg"
+    cache.mkdir(exist_ok=True)
+    pg_items = []
+    for k in ocr_pages:
+        f = cache / f"p{int(k):04d}.json"
+        if not f.exists():
+            # a book photographed page by page is all page images: a little smaller each
+            f.write_text(json.dumps(page_image(pdf, int(k))))
+        pg_items.append((k, json.loads(f.read_text())))
+    pg_files, pg_index = bundle(doc, pg_items, "pg")
+
+    secs = toc_sections(doc)
+    sections[doc] = secs
+    docs[doc] = {
+        "title": title, "short": short(doc), "kind": kind(doc), "pages": len(pages),
+        "figs": fig_pages, "figFiles": fig_files, "figIndex": fig_index,
+        "pgFiles": pg_files, "pgIndex": pg_index,
+    }
+    print(f"{doc}: {len(pages)} pages, {len(fig_items)} figures in {len(fig_files)} files, {len(pg_items)} page images, {len(secs)} sections")
+
+
+
+def module_list(docs, sections, base=None):
+    base = {m["id"]: m for m in (base or [])}
+    modules = []
+    for m in MODULES:
+        m = json.loads(json.dumps(m))
+        heads = []
+        for s in m["sources"]:
+            if s["doc"] not in docs:
+                continue
+            a, b = s["pages"] or (1, docs[s["doc"]]["pages"])
+            s["pages"] = [a, b]
+            for h in sections.get(s["doc"], []):
+                if a <= h["page"] <= b and s["role"] not in ("article", "ex") and h["depth"] > 0:
+                    heads.append({"doc": s["doc"], "page": h["page"], "title": h["title"], "depth": h["depth"]})
+        m["sections"] = base[m["id"]]["sections"] if m["id"] in base and base[m["id"]].get("sections") else heads
+        m["sources"] = [s for s in m["sources"] if s["doc"] in docs]
+        modules.append(m)
+    return modules
+
+
+def write_index(docs, modules):
+    index = {"docs": docs, "parts": [{"id": i, "title": t} for i, t in PARTS], "modules": attach(modules, "eng")}
+    index["assets"] = asset_urls(docs)
+    digest = hashlib.sha1()
+    for f in sorted([*OUT.rglob("*.json"), *ASSETS.rglob("*.json")]):
+        if f.name != "index.json":
+            digest.update(f.name.encode())
+            digest.update(str(f.stat().st_size).encode())
+    digest.update(json.dumps(index, sort_keys=True).encode())
+    index["version"] = digest.hexdigest()[:12]
+    (OUT / "index.json").write_text(dumps(index))
+
+
+def main_only(only, base_path):
+    """Adds documents to a published index without the rest of the library: their files go to
+    OUT (PACK_OUT), and index.json is the published one with these documents and the current
+    syllabus (existing modules keep their section headings)."""
+    global ASSET_DOCS
+    ASSET_DOCS = set()
+    for d in ("text", "fig", "pg"):
+        (OUT / d).mkdir(parents=True, exist_ok=True)
+    base = json.loads(Path(base_path).read_text())
+    docs, sections = base["docs"], {}
+    for doc in only:
+        rel, title = DOCS[doc]
+        pack_doc(doc, rel, title, docs, sections)
+    write_index(docs, module_list(docs, sections, base["modules"]))
+    print("wrote", ", ".join(f"text/{d}.json" for d in only), "and index.json")
+
+
 def main():
     global ASSET_DOCS
     ASSET_DOCS = choose_asset_docs()
@@ -169,46 +264,7 @@ def main():
     docs = {}
     sections = {}
     for doc, (rel, title) in DOCS.items():
-        src = BUILD / doc
-        if not (src / "pages.json").exists():
-            print("not extracted yet:", doc)
-            continue
-        pages = json.loads((src / "pages.json").read_text())
-        figs = json.loads((src / "figures.json").read_text()) if (src / "figures.json").exists() else {}
-        text = {k: {"l": v.get("label"), "t": v["text"], **({"o": 1} if v.get("ocr") else {})} for k, v in pages.items()}
-        (OUT / "text" / f"{doc}.json").write_text(dumps(text))
-
-        fig_items = []
-        fig_pages = {}
-        for k in sorted(figs, key=int):
-            for j, e in enumerate(figs[k]):
-                f = src / "fig" / e["file"]
-                if f.exists():
-                    fig_items.append((f"{k}-{j}", {"c": e["caption"], "w": e["w"], "h": e["h"], "d": webp_data(f)}))
-                    fig_pages.setdefault(k, []).append(e["caption"][:140])
-        fig_files, fig_index = bundle(doc, fig_items, "fig")
-
-        pdf = source_pdf(rel)
-        ocr_pages = [k for k in sorted(pages, key=int) if pages[k].get("ocr")] if pdf else []
-        cache = src / "pg"
-        cache.mkdir(exist_ok=True)
-        pg_items = []
-        for k in ocr_pages:
-            f = cache / f"p{int(k):04d}.json"
-            if not f.exists():
-                # a book photographed page by page is all page images: a little smaller each
-                f.write_text(json.dumps(page_image(pdf, int(k))))
-            pg_items.append((k, json.loads(f.read_text())))
-        pg_files, pg_index = bundle(doc, pg_items, "pg")
-
-        secs = toc_sections(doc)
-        sections[doc] = secs
-        docs[doc] = {
-            "title": title, "short": short(doc), "kind": kind(doc), "pages": len(pages),
-            "figs": fig_pages, "figFiles": fig_files, "figIndex": fig_index,
-            "pgFiles": pg_files, "pgIndex": pg_index,
-        }
-        print(f"{doc}: {len(pages)} pages, {len(fig_items)} figures in {len(fig_files)} files, {len(pg_items)} page images, {len(secs)} sections")
+        pack_doc(doc, rel, title, docs, sections)
 
     modules = []
     for m in MODULES:
@@ -239,4 +295,9 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--only", nargs="*", help="pack only these documents, onto --base")
+    ap.add_argument("--base", help="the published lib/index.json, for --only")
+    a = ap.parse_args()
+    main_only(a.only, a.base) if a.only else main()
