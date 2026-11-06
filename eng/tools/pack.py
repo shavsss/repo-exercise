@@ -222,9 +222,10 @@ def module_list(docs, sections, base=None):
     return modules
 
 
-def write_index(docs, modules):
+def write_index(docs, modules, base_assets=None):
     index = {"docs": docs, "parts": [{"id": i, "title": t} for i, t in PARTS], "modules": attach(modules, "eng")}
-    index["assets"] = asset_urls(docs)
+    # the published asset map stays; this run adds its own bundles
+    index["assets"] = {**(base_assets or {}), **asset_urls(docs)}
     digest = hashlib.sha1()
     for f in sorted([*OUT.rglob("*.json"), *ASSETS.rglob("*.json")]):
         if f.name != "index.json":
@@ -235,12 +236,12 @@ def write_index(docs, modules):
     (OUT / "index.json").write_text(dumps(index))
 
 
-def main_only(only, base_path):
+def main_only(only, base_path, to_assets=()):
     """Adds documents to a published index without the rest of the library: their files go to
     OUT (PACK_OUT), and index.json is the published one with these documents and the current
     syllabus (existing modules keep their section headings)."""
     global ASSET_DOCS
-    ASSET_DOCS = set()
+    ASSET_DOCS = set(to_assets)
     for d in ("text", "fig", "pg"):
         (OUT / d).mkdir(parents=True, exist_ok=True)
     base = json.loads(Path(base_path).read_text())
@@ -248,7 +249,7 @@ def main_only(only, base_path):
     for doc in only:
         rel, title = DOCS[doc]
         pack_doc(doc, rel, title, docs, sections)
-    write_index(docs, module_list(docs, sections, base["modules"]))
+    write_index(docs, module_list(docs, sections, base["modules"]), base.get("assets", {}))
     print("wrote", ", ".join(f"text/{d}.json" for d in only), "and index.json")
 
 
@@ -299,5 +300,6 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--only", nargs="*", help="pack only these documents, onto --base")
     ap.add_argument("--base", help="the published lib/index.json, for --only")
+    ap.add_argument("--assets", nargs="*", default=[], help="with --only: these documents' figure and page-image bundles go to the asset store")
     a = ap.parse_args()
-    main_only(a.only, a.base) if a.only else main()
+    main_only(a.only, a.base, a.assets) if a.only else main()
