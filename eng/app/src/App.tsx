@@ -143,7 +143,8 @@ export function App() {
   // an info notice is a passing word: it goes by itself after a few seconds; any notice can be closed
   const notify = (n: Notice) => {
     setNotices((all) => [...all, n]);
-    if (n.level === "info") setTimeout(() => setNotices((all) => all.filter((x) => x !== n)), 7000);
+    // every notice goes by itself (an error stays a little longer); the × closes it sooner
+    setTimeout(() => setNotices((all) => all.filter((x) => x !== n)), n.level === "info" ? 7000 : 15000);
   };
   const dismiss = (n: Notice) => setNotices((all) => all.filter((x) => x !== n));
 

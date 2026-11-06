@@ -46,6 +46,8 @@ export interface AuditMark {
   v?: number;
   /** the reader's check (5.11): can a learner without the background follow it, in order? */
   reader?: { verdict: "pass" | "fixed" | "partly"; rounds: number; counts: Record<string, number> };
+  /** a long lesson checked in parts (auditLong): how many */
+  parts?: number;
 }
 
 export interface AuditInput {
@@ -62,6 +64,8 @@ export interface AuditInput {
   text: string;
   /** what the learner already knows (the outline's "known", bookRules.ts), for the reader's check */
   known?: string[];
+  /** a long lesson is checked one part at a time (auditLong): which part this is, and the headings of the rest */
+  part?: { index: number; total: number; others: string[] };
 }
 
 const listOf = (xs: string[]) => xs.map((x) => `- ${x}`).join("\n");
@@ -73,12 +77,31 @@ export function namedModules(text: string): string[] {
 
 export const SUPPLEMENT_HEAD = "## השלמה לשיעור";
 
+/** The code of drawn visuals (svg, chart, mermaid, scenes…) is replaced by a one-line stand-in in the reviewers'
+ * prompts: they judge whether a visual is there and explained, not its markup, and the markup is a large share of a
+ * long lesson. Quotes for repairs come from the prose, which stays as is. */
+const VISUAL_LANGS = "svg|chart|mermaid|scene3d|sim|anim|interactive|figure";
+export function compactVisuals(text: string): string {
+  return text.replace(new RegExp(`^\`\`\`(${VISUAL_LANGS})([^\\n]*)\\n([\\s\\S]*?)^\`\`\`[ \\t]*$`, "gm"), (_m, lang: string, rest: string, body: string) => {
+    const title = /@title:\s*(.+)/.exec(body)?.[1] ?? /"title"\s*:\s*"([^"]+)"/.exec(body)?.[1] ?? /<title>([^<]+)<\/title>/.exec(body)?.[1] ?? "";
+    return `\`\`\`${lang}${rest}\n[${lang} visual${title ? `: ${title.trim()}` : ""}; ${body.length} characters of drawing code]\n\`\`\``;
+  });
+}
+
+function partNote(o: AuditInput): string {
+  if (!o.part) return "";
+  return `
+This lesson is long, so it is checked one part at a time. This is part ${o.part.index} of ${o.part.total}. The headings of the other parts (they are checked separately; a topic, definition or keep line found there is not missing here, and only the last part holds the keep block):
+${o.part.others.map((h) => `- ${h}`).join("\n") || "(none)"}
+`;
+}
+
 export function auditPrompt(o: AuditInput, round = 1): string {
   const supplement = o.text.includes(SUPPLEMENT_HEAD)
     ? `\nThe learner had already read this lesson when it was checked, so its end holds a supplement ("${SUPPLEMENT_HEAD}") instead of edits. Read the lesson and the supplement together: an item taught, completed or corrected in the supplement is fixed, and a question replaced there is fixed. Report a problem of the read part only when the supplement does not fix it, and check the supplement itself as strictly as the lesson.\n`
     : "";
   const mods = o.modules.map((m) => `${m.id} ${m.title}: ${m.sections.slice(0, 30).join("; ")}`).join("\n");
-  return `<lesson_audit round="${round}">
+  return `<lesson_audit round="${round}">${partNote(o)}
 You are the independent reviewer of one lesson of a self-study course (engineering, physics and mathematics, in Hebrew), written by another model from assigned source pages. The learner studies only from this lesson: anything important it drops, teaches too thinly to use, defers to a module that does not teach it, or asks without having taught is lost, or breaks his calibration. Check the lesson against the sources strictly and concretely. Do not invent problems, do not ask for padding, length or extra examples, and ignore scan typos and anecdotes.
 ${supplement}
 Lesson: ${o.moduleId} ${o.moduleTitle} · ${o.lessonTitle}
@@ -98,7 +121,7 @@ ${mods || "(none)"}
 ${o.pages}
 </source_pages>
 <lesson>
-${o.text}
+${compactVisuals(o.text)}
 </lesson>
 
 Check:
@@ -338,14 +361,14 @@ export interface ReaderReport {
 }
 
 export function readerAuditPrompt(o: AuditInput, round = 1): string {
-  return `<reader_audit round="${round}">
+  return `<reader_audit round="${round}">${partNote(o)}
 You read one lesson of a self-study book (Hebrew) as its learner reads it: from the first line, in order, knowing only what is listed in <known> and what the lesson has said so far. He knows no physics and only the mathematics he has studied. You do not check the facts against sources (another reviewer does); you check whether he can follow, and whether it reads like a well-built book: chapters (## פרק N), numbered subsections (### N.k) that build on each other, paragraphs with bold run-in headings, continuous prose.
 Lesson: ${o.moduleId} ${o.moduleTitle} · ${o.lessonTitle}
 <known>
 ${(o.known ?? []).map((k) => `- ${k}`).join("\n") || "(only the mathematics he has studied, no physics)"}
 </known>
 <lesson>
-${o.text}
+${compactVisuals(o.text)}
 </lesson>
 
 Report every place where:
@@ -505,4 +528,126 @@ export async function auditAndRepair(o: AuditInput, mode: "inplace" | "supplemen
     } else if (mark.verdict === "pass" && reader.mark.verdict === "fixed") mark.verdict = "fixed";
   }
   return { text, mark, report };
+}
+
+/* ---------------- long lessons: the check one part at a time ---------------- */
+
+/** About this many characters of prose (visual code not counted) go to the reviewer in one request. */
+export const PART_CHARS = 45_000;
+
+const proseLength = (t: string) => compactVisuals(t).length;
+
+/**
+ * The lesson cut at its chapter headings (## …), and a part still longer than `max` at its subsection headings (### …).
+ * The text before the first heading stays with the first part, and a closing supplement with the last; joining the
+ * parts gives the lesson back exactly.
+ */
+export function splitLesson(text: string, max = PART_CHARS): string[] {
+  const cut = (t: string, level: "## " | "### "): string[] => {
+    const lines = t.split("\n");
+    const out: string[][] = [[]];
+    let fence = false;
+    for (const line of lines) {
+      if (/^```/.test(line)) fence = !fence;
+      if (!fence && line.startsWith(level) && out[out.length - 1].some((l) => l.trim())) out.push([]);
+      out[out.length - 1].push(line);
+    }
+    return out.map((ls) => ls.join("\n"));
+  };
+  const group = (parts: string[]): string[] => {
+    // neighbours are joined back while they fit, so a short chapter is not checked alone
+    const out: string[] = [];
+    for (const p of parts) {
+      const last = out[out.length - 1];
+      if (last !== undefined && proseLength(last) + proseLength(p) <= max) out[out.length - 1] = `${last}\n${p}`;
+      else out.push(p);
+    }
+    return out;
+  };
+  if (proseLength(text) <= max) return [text];
+  const chapters = cut(text, "## ").flatMap((c) => (proseLength(c) > max ? group(cut(c, "### ")) : [c]));
+  return group(chapters);
+}
+
+const headingsOf = (t: string) => t.split("\n").filter((l) => /^#{2,3} /.test(l)).map((l) => l.replace(/^#+\s*/, ""));
+
+const WORSE = { pass: 0, fixed: 1, partly: 2 } as const;
+const normWs = (t: string) => t.replace(/\s+/g, " ").trim();
+
+/**
+ * The check of a lesson of any length: a lesson that fits in one request is checked as before (auditAndRepair); a longer
+ * one part by part, each part with the headings of the others, and the marks merged. In "supplement" mode each part's
+ * supplement is gathered into one supplement at the lesson's end. A part the model still finds too large is cut again.
+ */
+export async function auditLong(o: AuditInput, mode: "inplace" | "supplement", deps: AuditDeps): Promise<{ text: string; mark: AuditMark; report: AuditReport | null }> {
+  const run = async (text: string, part: AuditInput["part"], depth: number): Promise<{ text: string; mark: AuditMark; report: AuditReport | null }[]> => {
+    try {
+      return [await auditAndRepair({ ...o, text, ...(part ? { part } : {}) }, mode, deps)];
+    } catch (e) {
+      const code = (e as { code?: string })?.code;
+      const pieces = code === "prompt_too_large" && depth < 3 ? splitLesson(text, Math.floor(proseLength(text) / 2)) : [text];
+      if (pieces.length < 2) throw e;
+      const out = [];
+      for (const p of pieces) out.push(...(await run(p, { index: part?.index ?? 1, total: part?.total ?? 1, others: [...(part?.others ?? []), ...headingsOf(text.replace(p, ""))] }, depth + 1)));
+      return out;
+    }
+  };
+  // a supplement from an earlier check stays at the end and is checked with the last part
+  const supAt = o.text.indexOf(`\n${SUPPLEMENT_HEAD}`);
+  const body = supAt >= 0 ? o.text.slice(0, supAt) : o.text;
+  const oldSup = supAt >= 0 ? o.text.slice(supAt) : "";
+  const parts = splitLesson(body);
+  if (parts.length === 1) {
+    try {
+      return await auditAndRepair(o, mode, deps);
+    } catch (e) {
+      if ((e as { code?: string })?.code !== "prompt_too_large") throw e;
+      parts.splice(0, 1, ...splitLesson(body, Math.floor(proseLength(body) / 2)));
+      if (parts.length < 2) throw e;
+    }
+  }
+  const results: { text: string; mark: AuditMark; report: AuditReport | null }[] = [];
+  for (let i = 0; i < parts.length; i++) {
+    deps.onStatus?.(`בודק את חלק ${i + 1} מתוך ${parts.length} של השיעור`);
+    const others = parts.filter((_, j) => j !== i).flatMap(headingsOf);
+    const text = i === parts.length - 1 ? parts[i] + oldSup : parts[i];
+    results.push(...(await run(text, { index: i + 1, total: parts.length, others }, 0)));
+  }
+  // gather: bodies in order, then one supplement made of every part's supplement
+  const bodies: string[] = [];
+  const sups: string[] = [];
+  for (const r of results) {
+    const at = r.text.indexOf(SUPPLEMENT_HEAD);
+    if (mode === "supplement" && at >= 0) {
+      bodies.push(r.text.slice(0, at).replace(/\n+$/, ""));
+      sups.push(r.text.slice(at + SUPPLEMENT_HEAD.length).trim());
+    } else bodies.push(r.text.replace(/\n+$/, ""));
+  }
+  const text = bodies.join("\n\n") + (sups.length ? `\n\n${SUPPLEMENT_HEAD}\n\n${sups.join("\n\n")}` : "") + "\n";
+  const marks = results.map((r) => r.mark);
+  const sum = (k: string) => marks.reduce((s, m) => s + ((m.counts as Record<string, number>)[k] ?? 0), 0);
+  const verdict = marks.reduce<AuditMark["verdict"]>((v, m) => (WORSE[m.verdict] > WORSE[v] ? m.verdict : v), "pass");
+  const mark: AuditMark = {
+    at: Date.now(),
+    rounds: Math.max(...marks.map((m) => m.rounds)),
+    verdict: verdict === "pass" && normWs(text) !== normWs(o.text) ? "fixed" : verdict,
+    mode,
+    counts: Object.fromEntries(Object.keys(marks[0].counts).map((k) => [k, sum(k)])),
+    must_core: [...new Set(marks.flatMap((m) => m.must_core))],
+    ...(marks.some((m) => m.refs?.length) ? { refs: marks.flatMap((m) => m.refs ?? []) } : {}),
+    ...(marks.some((m) => m.open?.length) ? { open: marks.flatMap((m) => m.open ?? []).slice(0, 32) } : {}),
+    v: 2,
+    parts: marks.length,
+  };
+  const readers = marks.map((m) => m.reader).filter((r): r is NonNullable<AuditMark["reader"]> => !!r);
+  if (readers.length)
+    mark.reader = {
+      verdict: readers.reduce<NonNullable<AuditMark["reader"]>["verdict"]>((v, r) => (WORSE[r.verdict] > WORSE[v] ? r.verdict : v), "pass"),
+      rounds: Math.max(...readers.map((r) => r.rounds)),
+      counts: readers.reduce<Record<string, number>>((c, r) => {
+        for (const [k, n] of Object.entries(r.counts)) c[k] = (c[k] ?? 0) + n;
+        return c;
+      }, {}),
+    };
+  return { text, mark, report: results[results.length - 1].report };
 }

@@ -178,3 +178,37 @@ test("a REPLACE with an empty WITH deletes the passage, and does not swallow the
   assert.ok(!r.text.includes("טקסט על אטומים."));
   assert.ok(r.text.includes("אידוי מקרר מאוד."));
 });
+
+test("long lessons: split at chapters, rejoin exactly, visual code compacted", () => {
+  const svg = "```svg\n@title: מסלול\n" + "<path d='M0 0'/>\n".repeat(400) + "```";
+  const ch = (n, words) => `## פרק ${n}: נושא ${n}\n\n### ${n}.1 פתיחה\n\n${"מילה ".repeat(words)}\n\n${svg}\n`;
+  const text = [ch(1, 6000), ch(2, 6000), ch(3, 300)].join("\n");
+  const parts = A.splitLesson(text, 40000);
+  assert.ok(parts.length >= 2);
+  assert.equal(parts.join("\n"), text);
+  const c = A.compactVisuals(svg);
+  assert.match(c, /svg visual: מסלול/);
+  assert.ok(c.length < 200);
+  assert.equal(A.splitLesson("## א\nקצר", 40000).length, 1);
+});
+
+test("auditLong: parts checked separately, a too large request is cut again, marks merged", async () => {
+  const pass = '{"missing":[],"thin":[],"deferrals":[],"questions":[],"keep":{"exists":true,"missing":[],"remove":[]},"errors":[],"verdict":"pass"}';
+  const ch = (n) => `## פרק ${n}: נושא\n\n### ${n}.1 א\n\n${"מילה ".repeat(5000)}\n\n### ${n}.2 ב\n\n${"מילה ".repeat(5000)}\n`;
+  const text = [ch(1), ch(2), ch(3)].join("\n");
+  const seen = [];
+  const deps = {
+    reader: false,
+    call: async (prompt) => {
+      if (prompt.length > 60000) throw Object.assign(new Error("too large"), { code: "prompt_too_large" });
+      seen.push(/part (\d+) of (\d+)/.exec(prompt)?.[0]);
+      return pass;
+    },
+  };
+  const input = { lessonTitle: "t", moduleId: "M0.2", moduleTitle: "m", covers: [], otherLessons: [], curriculum: "", modules: [], pages: "", text };
+  const r = await A.auditLong(input, "inplace", deps);
+  assert.equal(r.mark.verdict, "pass");
+  assert.ok(r.mark.parts >= 3);
+  assert.ok(seen.every(Boolean));
+  assert.equal(r.text.replace(/\s+/g, " ").trim(), text.replace(/\s+/g, " ").trim());
+});

@@ -7,7 +7,7 @@
 import { create, all } from "mathjs";
 import { docMeta, getIndex, readPages, searchLibrary, type Module } from "./library";
 import { curriculumBlock } from "./curriculum";
-import { auditAndRepair, namedModules, type AuditMark, applyRepair } from "./lessonAudit";
+import { auditLong, namedModules, type AuditMark, applyRepair } from "./lessonAudit";
 import { decideLine, decideSlot } from "./lessonGate";
 import { LEGACY_RULES, SYSTEM_PROMPT, libraryList } from "./prompt";
 import type { Runtime, SampleTool } from "./runtime";
@@ -738,7 +738,7 @@ export async function auditLesson(o: { rt: Runtime; module: Module; lessons?: Le
     .filter((x): x is Module => !!x)
     .map((x) => ({ id: x.id, title: x.title, sections: x.sections.map((s) => s.title) }));
   const tools = rt.canUseTools ? buildTools(o.cb, moduleDocs(m)) : null;
-  return auditAndRepair(
+  return auditLong(
     {
       lessonTitle: spec?.title ?? m.title,
       moduleId: m.id,
