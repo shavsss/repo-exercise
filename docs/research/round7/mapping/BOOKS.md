@@ -68,3 +68,67 @@
 2. מעבר משותף על בחירות 1–8.
 3. בדיקה שכל פריט ב"מה מחזיקים בראש" וב"מה חייבים לבדוק" (E2) נלמד בשיעור כלשהו.
 4. שילוב הכל בבת אחת.
+
+## מצב אחרי ההעלאה של הלומד (6.11)
+
+### הגיעו
+
+- Meriam & Kraige, מהדורה 9: Statics (`001-250`, `251-460` בשורש) ו-Dynamics (`001-300` בשורש; `301-600` ו-`601-750` ב-math-physics)
+- Rao, מהדורה 6 (SI)
+- Oppenheim, Schafer & Buck, *Discrete-Time Signal Processing*, מהדורה 2. סריקה בלי שכבת טקסט, צריך OCR.
+- Stoica & Moses
+- Griffiths, מהדורה 3 (1999)
+- Schroeder (`001-200` ב-math-physics, `201-400` בשורש)
+- Kurose & Ross, מהדורה 8
+- Glover, Overbye & Sarma, מהדורה 6 (`001-250 (1)` ו-`501-750` בשורש; `251-500` ו-`751-962` ב-math-physics)
+- Plett, כרך I
+- Tennekes & Lumley
+- Anderson, *Fundamentals of Aerodynamics*, מהדורה 5 (`0001-0550`, `0551-1100`)
+- Hill & Peterson, מהדורה 2
+- Nelson, מהדורה 2
+- Shigley, מהדורה 10
+- Janssen, Zuidema & Wanhill, *Fracture Mechanics*, במקום T.L. Anderson
+- Megson, מהדורה 6
+- Jones, מהדורה 2
+- White, *Making Embedded Systems*, מהדורה 2
+- Zarchan, מהדורה 6 (`0001-0500 (1)`, `0501-1000 (1)`)
+- Kress, *Operational Logistics*
+
+### פתוחים, הורדתי בעצמי (`library/incoming/`)
+
+| ספר | במקום |
+|---|---|
+| Langtangen & Mardal, הגרסה הפתוחה | — |
+| Särkkä, *Bayesian Filtering and Smoothing* (עותק המחבר) | חלק מ-Bar-Shalom ומ-Thrun |
+| Hero, EECS564 (רשימות) | חלק מ-Kay |
+| ESA GNSS Data Processing, כרכים I–II | חלק מ-Groves, בצד ה-GNSS |
+| Woodman, Cambridge TR-696 | חלק מ-Groves, בצד ה-INS |
+| JP 3-60 | — |
+| STPA | — |
+| NASA PRA | — |
+| Riley | — |
+| Levine | — |
+| Murphy | — |
+
+### חסרים, והלומד לא יביא אותם
+
+| ספר | מה מכסה במקומו |
+|---|---|
+| Khalil | — |
+| Bar-Shalom / Simon | Särkkä, בחלקו |
+| Erickson | — |
+| Thrun | Särkkä, בחלקו |
+| Mahajan | — |
+| Kay | Hero |
+| Balanis | — |
+| Groves | ESA GNSS ו-Woodman |
+| Liggins | — |
+| Driels | — |
+| Murthy & Manoj | — |
+| SMAD, עותק מלא | — |
+| פיינמן II, עותק מלא | — |
+| Szeliski | — |
+| EE263 | — |
+| Hughes | — |
+
+כל אחד מהם נבדק במדידה: האם החלופה מגיעה ליעד, ואם לא, מה נשאר פתוח.
