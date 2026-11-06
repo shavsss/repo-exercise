@@ -216,10 +216,25 @@ def module_list(docs, sections, base=None):
             for h in sections.get(s["doc"], []):
                 if a <= h["page"] <= b and s["role"] not in ("article", "ex") and h["depth"] > 0:
                     heads.append({"doc": s["doc"], "page": h["page"], "title": h["title"], "depth": h["depth"]})
-        m["sections"] = base[m["id"]]["sections"] if m["id"] in base and base[m["id"]].get("sections") else heads
+        m["sections"] = merged_sections(m, base.get(m["id"]), heads, sections)
         m["sources"] = [s for s in m["sources"] if s["doc"] in docs]
         modules.append(m)
     return modules
+
+
+def merged_sections(m, base_m, heads, fresh):
+    """A module's headings on a published index: kept from there, except that the documents
+    packed in this run (fresh) bring their own, in the order of the module's sources."""
+    kept = (base_m or {}).get("sections") or []
+    if not base_m or not kept:
+        return heads
+    if not any(s["doc"] in fresh for s in m["sources"]):
+        return kept
+    order = {}
+    for s in m["sources"]:
+        order.setdefault(s["doc"], len(order))
+    out = [h for h in kept if h["doc"] not in fresh] + heads
+    return sorted(out, key=lambda h: (order.get(h["doc"], 99), h["page"]))
 
 
 def write_index(docs, modules, base_assets=None):

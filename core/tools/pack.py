@@ -40,6 +40,8 @@ sys.path.insert(0, str(ROOT / "tools" / "curriculum"))
 from enrich import attach  # noqa: E402  (topic items, test-out, reading lists)
 
 BUNDLE = 6_000_000
+# asset-store bundles are larger (one upload call each), as in eng/tools/pack.py
+ASSET_BUNDLE = 18_000_000
 
 SHORT = {
     "B01": "EW 101", "B02": "POMR I", "B02a": "POMR II", "B02b": "POMR III", "B03": "Driggers", "B04": "EW 102",
@@ -188,7 +190,7 @@ def bundle(prefix, items, folder):
     files, index, cur, size = [], {}, {}, 0
     for key, value in items:
         n = len(json.dumps(value))
-        if cur and size + n > BUNDLE:
+        if cur and size + n > (ASSET_BUNDLE if prefix in ASSET_DOCS else BUNDLE):
             files.append(cur)
             cur, size = {}, 0
         cur[key] = value
@@ -287,7 +289,17 @@ def module_list(docs, sections, base_modules=None):
             for h in sections.get(s["doc"], []):
                 if a <= h["page"] <= b and s["role"] not in ("article", "ref"):
                     heads.append({"doc": s["doc"], "page": h["page"], "title": h["title"], "depth": h["depth"]})
-        m["sections"] = base[m["id"]]["sections"] if m["id"] in base else heads
+        kept = base[m["id"]]["sections"] if m["id"] in base else None
+        if kept is None or not kept:
+            m["sections"] = heads
+        elif any(s["doc"] in sections for s in m["sources"]):
+            # documents packed in this run bring their own headings, in the order of the sources
+            order = {}
+            for s in m["sources"]:
+                order.setdefault(s["doc"], len(order))
+            m["sections"] = sorted([h for h in kept if h["doc"] not in sections] + heads, key=lambda h: (order.get(h["doc"], 99), h["page"]))
+        else:
+            m["sections"] = kept
         m["sources"] = [s for s in m["sources"] if s["doc"] in docs]
         out.append(m)
     return out
@@ -313,7 +325,10 @@ def main():
     ap.add_argument("--base", help="the published lib/index.json, for --only")
     ap.add_argument("--keep-modules", action="store_true",
                     help="with --only: keep the base index's modules as they are (only documents change)")
+    ap.add_argument("--assets", nargs="*", default=[],
+                    help="with --only: these documents' figure and page-image bundles go to the asset store")
     args = ap.parse_args()
+    ASSET_DOCS.update(args.assets)
     for d in ("text", "fig", "pg"):
         (OUT / d).mkdir(parents=True, exist_ok=True)
     if args.only:
@@ -322,12 +337,13 @@ def main():
         # documents and the current syllabus. Analysis references (REF_DOCS) are packed as text only.
         base = json.loads(Path(args.base).read_text())
         docs = base["docs"]
+        fresh = {}
         for doc in args.only:
             rel, title = DOCS[doc]
             r = pack_doc(doc, rel, title, with_images=doc not in REF_DOCS)
             if r:
-                docs[doc] = r[0]
-        write_index(docs, base["modules"] if args.keep_modules else module_list(docs, {}, base["modules"]))
+                docs[doc], fresh[doc] = r
+        write_index(docs, base["modules"] if args.keep_modules else module_list(docs, fresh, base["modules"]))
         print("wrote", ", ".join(f"text/{d}.json" for d in args.only), "and index.json")
         return
     docs = {}

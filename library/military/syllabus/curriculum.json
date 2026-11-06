@@ -4031,13 +4031,6 @@
 "imp": "S",
 "k": "new",
 "teach": "Zarchan's linearized engagement model as a check: reproduce his normalized miss-distance results for heading error and target acceleration versus flight time over guidance time constant (Zarchan 2-3, 8)."
-},
-{
-"id": "SCOPE:B20",
-"n": "Scope from Zarchan, Tactical and Strategic Missile Guidance, 6th ed. (2012)",
-"imp": "K",
-"k": "new",
-"teach": "The page text of Zarchan, Tactical and Strategic Missile Guidance, 6th ed. (2012) is not in the library. Teach these sections fully, at this module's level and under the usual lesson rules, from standard knowledge of the topic: Zarchan 2: יסודות ההנחיה הטקטית: סימולציית PN, לינאריזציה, פתרונות סגורים ו-ZEM; Zarchan 3: שיטת ה-adjoint ולולאת הביות: קבוע זמן של מערכת ההנחיה, מרחק החטאה בצורה סגורה, נרמול."
 }
 ],
 "reading": [
@@ -4057,17 +4050,7 @@
 }
 ]
 },
-"M6.5": {
-"items": [
-{
-"id": "SCOPE:B20",
-"n": "Scope from Zarchan, Tactical and Strategic Missile Guidance, 6th ed. (2012)",
-"imp": "K",
-"k": "new",
-"teach": "The page text of Zarchan, Tactical and Strategic Missile Guidance, 6th ed. (2012) is not in the library. Teach these sections fully, at this module's level and under the usual lesson rules, from standard knowledge of the topic: Zarchan 4: ניתוח רעש: adjoint סטוכסטי ומרחק החטאה מתמרון אקראי; Zarchan 8: חוקי הנחיה מתקדמים: APN והנחיה אופטימלית."
-}
-]
-},
+"M6.5": {},
 "M6.6": {
 "items": [
 {
@@ -11248,13 +11231,6 @@
 "imp": "K",
 "k": "delta",
 "primary": "mil:M10.5"
-},
-{
-"id": "SCOPE:B21",
-"n": "Scope from Kress, Operational Logistics: The Art and Science of Sustaining Military Operations (2002)",
-"imp": "K",
-"k": "new",
-"teach": "The page text of Kress, Operational Logistics: The Art and Science of Sustaining Military Operations (2002) is not in the library. Teach these sections fully, at this module's level and under the usual lesson rules, from standard knowledge of the topic: Kress 4: תהליך התכנון הלוגיסטי: מקדמי תכנון, צריכה ותגובתיות; Kress 6: חיזוי דרישות לוגיסטיות: שחיקה, צריכה ואי-ודאות; Kress 9: הצטברות כוח, טיפול ופינוי רפואי: זמן, קיבולת ואופטימיזציה; Kress 2.4–2.5: מונחי יסוד, מודלים וכלים אנליטיים."
 }
 ],
 "reading": [
@@ -11672,72 +11648,6 @@
 "h": 0.3,
 "kind": "standard",
 "st": "ok"
-}
-]
-},
-"M1.5": {
-"items": [
-{
-"id": "SCOPE:B18",
-"n": "Scope from Pozar, Microwave Engineering, 4th ed. (2012)",
-"imp": "K",
-"k": "new",
-"teach": "The page text of Pozar, Microwave Engineering, 4th ed. (2012) is not in the library. Teach these sections fully, at this module's level and under the usual lesson rules, from standard knowledge of the topic: 2.1–2.7: מודל הקו, ניתוח שדות, קו מסתיים, דיאגרמת Smith, שנאי רבע גל, אי-תיאום מחולל ועומס, קווים עם הפסדים; 3.5: קו קואקסיאלי; 3.8: קו מיקרוסטריפ; 3.11: סיכום קווי תמסורת ומוליכי גל; 4.1–4.5: עכבה ומתחים שקולים, מטריצות Z ו-Y, מטריצת הפיזור (S), מטריצת ABCD, גרפי זרימת אות; 5.1–5.2: תיאום ברשת L ובענף יחיד; 5.4–5.5: שנאי רבע גל ותורת ההחזרות הקטנות; 5.9: קריטריון Bode–Fano."
-}
-]
-},
-"M1.6": {
-"items": [
-{
-"id": "SCOPE:B18",
-"n": "Scope from Pozar, Microwave Engineering, 4th ed. (2012)",
-"imp": "K",
-"k": "new",
-"teach": "The page text of Pozar, Microwave Engineering, 4th ed. (2012) is not in the library. Teach these sections fully, at this module's level and under the usual lesson rules, from standard knowledge of the topic: 10.1–10.4: רעש במעגלי מיקרוגל, נקודת רעש ושרשור שלבים, עיוות לא-לינארי ו-IP3, טווח דינמי; 12.1–12.2: הגברי הספק של שני-מבואות ויציבות; 13.5: מערבלים (עד עמ' 651 המודפס); 14.1: היבטים מערכתיים של אנטנות: טמפרטורת רעש ו-G/T."
-}
-]
-},
-"M1.7": {
-"items": [
-{
-"id": "SCOPE:B18",
-"n": "Scope from Pozar, Microwave Engineering, 4th ed. (2012)",
-"imp": "K",
-"k": "new",
-"teach": "The page text of Pozar, Microwave Engineering, 4th ed. (2012) is not in the library. Teach these sections fully, at this module's level and under the usual lesson rules, from standard knowledge of the topic: 7.1: תכונות יסוד של מחלקים ומצמדים; 7.3: מחלק Wilkinson; 7.5: היברידי 90°; 7.8: היברידי 180° (ניתוח זוגי-אי-זוגי); 8.3–8.4: תכן מסננים בשיטת הפסד ההחדרה והתמרות מסננים; 9.6: מחזרים פריטיים; 12.5: מגברי הספק; 13.3: רעש פאזה של מתנד."
-}
-]
-},
-"M1.8": {
-"items": [
-{
-"id": "SCOPE:B18",
-"n": "Scope from Pozar, Microwave Engineering, 4th ed. (2012)",
-"imp": "K",
-"k": "new",
-"teach": "The page text of Pozar, Microwave Engineering, 4th ed. (2012) is not in the library. Teach these sections fully, at this module's level and under the usual lesson rules, from standard knowledge of the topic: Pozar 1: תורת השדות (נלמד בגילואה, M9.9); Pozar 2.8, 3.1–3.4: מעברים בקווים, גלי TEM/TE/TM ומוליכי גל (נלמדים בגילואה, M9.11); Pozar 3.6–3.7: גלי שטח ו-stripline; Pozar 3.9–3.10: תהודה רוחבית ונפיצה; Pozar: תרגילי פרק 3; Pozar 4.6–4.8: אי-רציפויות ועירור מוליכי גל; Pozar 5.3: תיאום בשני ענפים; Pozar 5.6–5.8: שנאים רב-שלביים וקווים מחודדים; Pozar 6: מהודים (נלמד בגילואה, M9.11); Pozar 7.2: מחלק T; Pozar 7.4: מצמדים במוליך גל; Pozar 7.6–7.7: מצמדי קווים צמודים ו-Lange; Pozar 7.8 (המשך), 7.9, 8.1–8.2: מצמדים נוספים, מבנים מחזוריים, שיטת פרמטרי התמונה; Pozar 8.5–8.8, 9.1–9.5: מימוש מסננים, חומרים פריטיים, מבודדים ומזיזי מופע; Pozar 11: התקנים פעילים (PoMR 10–11, גילואה); Pozar 12.3–12.4: תכן מגבר טרנזיסטור; Pozar 13.1–13.2: מתנדים; Pozar 13.4: מכפילי תדר; Pozar 13.5 (המשך): מערבלים מאוזנים, ותרגילי פרק 13; Pozar 14.2–14.6 ונספחים: תקשורת אלחוטית, מכ\"ם, רדיומטריה והתפשטות (חופף ל-PoMR 1–4 ול-M1.4)."
-}
-]
-},
-"M6.14": {
-"items": [
-{
-"id": "SCOPE:B20",
-"n": "Scope from Zarchan, Tactical and Strategic Missile Guidance, 6th ed. (2012)",
-"imp": "K",
-"k": "new",
-"teach": "The page text of Zarchan, Tactical and Strategic Missile Guidance, 6th ed. (2012) is not in the library. Teach these sections fully, at this module's level and under the usual lesson rules, from standard knowledge of the topic: פרק 1: שיטות נומריות; פרקים 5–7: ניתוח קווריאנס, PN ומרחק החטאה, מסנני fading memory; פרקים 9–14: קלמן בלולאת הביות, אזורים טקטיים, שיקולים אסטרטגיים, מאיצים, הנחיית Lambert, יירוטים אסטרטגיים; פרקים 15–21: מטרה בליסטית, EKF ושערוך מקדם בליסטי, מטרות מרובות ומתנודדות, גוף הטיל כפונקציית תמסורת; פרקים 22–29: תכן בקרת טיסה, טייס אוטומטי תלת-לולאתי, עיצוב מסלול, סינון מטרות מתנודדות, adjoint מתקדם; פרקים 30–34: משחק דיפרנציאלי מול הנחיה אופטימלית, קינמטיקה של יירוט מטרה בליסטית, סינון ותכן KV בשלב ההאצה; נספח: דוגמאות נוספות."
-}
-]
-},
-"M14.6": {
-"items": [
-{
-"id": "SCOPE:B21",
-"n": "Scope from Kress, Operational Logistics: The Art and Science of Sustaining Military Operations (2002)",
-"imp": "K",
-"k": "new",
-"teach": "The page text of Kress, Operational Logistics: The Art and Science of Sustaining Military Operations (2002) is not in the library. Teach these sections fully, at this module's level and under the usual lesson rules, from standard knowledge of the topic: פרק 1 ו-2.1–2.3: מהי לוגיסטיקה, שלוש רמות הלוגיסטיקה; 2.6 ופרק 3: יסודות הלוגיסטיקה המבצעית ועקרונותיה; פרק 5: מידע לוגיסטי; פרקים 7–8: מודל הרשת החזותי וגמישות לוגיסטית (מדדים כמותיים); פרק 10: אופטימיזציה של רשת הלוגיסטיקה (תכנון לינארי)."
 }
 ]
 }

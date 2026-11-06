@@ -52,7 +52,7 @@ def ocr_engine():
 
 
 def run(*cmd):
-    return subprocess.run(cmd, capture_output=True, text=True, check=False).stdout
+    return subprocess.run(cmd, capture_output=True, text=True, errors="replace", check=False).stdout
 
 
 def page_count(pdf):

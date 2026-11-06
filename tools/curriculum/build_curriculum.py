@@ -172,13 +172,11 @@ CARRY = {
 }
 
 
-# Books whose page text is not published in the library (commercial books the learner uploaded:
-# the syllabus keeps their chapter structure, and the tutor teaches the topics from these scope
-# items, like the GAP items above). Their modules get one SCOPE item per such book.
-WITHHELD = {
-    "mil": {"B18", "B20", "B21"},
-    "eng": {f"E{n}" for n in range(27, 47)} | {"E53"},
-}
+# Books whose page text is not published in the library: the syllabus keeps their chapter
+# structure, and the tutor teaches the topics from these scope items, like the GAP items above.
+# Their modules get one SCOPE item per such book. Empty since 6.11: the commercial books of the
+# 6.11 integration (eng E27-E46, E53; mil B18, B20, B21) are packed like every other book.
+WITHHELD = {}
 
 
 def scope_items(mods, app):
