@@ -2,7 +2,8 @@
 
 Checks: every page of every book and doctrine document belongs to a module or
 to SKIP (and not to both), every article is used, every prerequisite exists and comes earlier,
-and every page range is inside its document.
+and every page range is inside its document. Role ref is for the analysis references (REF_DOCS)
+and for the untaught rest of a report that is taught only in part (an article).
 """
 import json
 import re
@@ -10,7 +11,11 @@ import subprocess
 import sys
 from pathlib import Path
 
+import syllabus
 from syllabus import DOCS, MODULES, PARTS, REF_DOCS, SKIP
+
+PAGE_WEIGHT = getattr(syllabus, "PAGE_WEIGHT", {})
+MISSING = getattr(syllabus, "MISSING", [])
 
 ROOT = Path(__file__).resolve().parent.parent
 HERE = Path(__file__).resolve().parent
@@ -49,8 +54,8 @@ def main():
             a, b = src["pages"] or (1, pages[d])
             if not (1 <= a <= b <= pages[d]):
                 errors.append(f"{m['id']}: {d} pages {a}-{b} outside 1-{pages[d]}")
-            if src["role"] == "ref" and d not in REF_DOCS:
-                errors.append(f"{m['id']}: role ref is only for the analysis references ({', '.join(sorted(REF_DOCS))}); {d} is a taught source")
+            if src["role"] == "ref" and d not in REF_DOCS and not d.startswith("A"):
+                errors.append(f"{m['id']}: role ref is only for the analysis references ({', '.join(sorted(REF_DOCS))}) and for articles; {d} is a taught source")
             if src["role"] != "ref":
                 covered[d].update(range(a, b + 1))
     for d, a, b, reason in SKIP:
@@ -81,6 +86,7 @@ def main():
         "parts": [{"id": i, "title": t} for i, t in PARTS],
         "modules": MODULES,
         "skip": [{"doc": d, "pages": [a, b], "reason": r} for d, a, b, r in SKIP],
+        "missing": [{"source": s, "instead": i, "status": st} for s, i, st in MISSING],
     }
     (HERE / "syllabus.json").write_text(json.dumps(data, ensure_ascii=False, indent=1))
     (HERE / "SYLLABUS.md").write_text(render(data, pages, gaps))
@@ -93,12 +99,13 @@ def main():
 
 
 def size(m, pages, kinds=("main", "supp")):
-    """Pages of the given source roles in a module. Lessons are estimated from book pages only."""
+    """Pages of the given source roles in a module, in book pages (PAGE_WEIGHT). Lessons are
+    estimated from book pages only."""
     total = 0
     for src in m["sources"]:
         if src["role"] in kinds:
             a, b = src["pages"] or (1, pages[src["doc"]])
-            total += b - a + 1
+            total += (b - a + 1) * PAGE_WEIGHT.get(src["doc"], 1)
     return total
 
 
@@ -124,7 +131,11 @@ def render(data, pages, gaps):
     out.append("")
     out.append("**דרגות:** ליבה = נלמד במלואו. מתקדם = אחרי הליבה של אותו חלק. עיון = לא נלמד כשיעור, זמין לפי צורך.")
     out.append("")
-    out.append("**תפקיד המקור:** ★ מקור ראשי. ◇ השלמה מספר אחר. 📄 מאמר או מסמך. ⚙ מקור עזר לניתוח: לא נלמד כחומר שיעור; המורה משתמש בו כדי לקחת את התוצאה הטכנית של המודול לתוצאה מבצעית, והלומד מתכנן את הניתוח (חקר ביצועים, שרידות, לוגיסטיקה).")
+    out.append("**תפקיד המקור:** ★ מקור ראשי. ◇ השלמה מספר אחר. 📄 מאמר או מסמך. ⚙ מקור עזר לניתוח: לא נלמד כחומר שיעור; המורה משתמש בו כדי לקחת את התוצאה הטכנית של המודול לתוצאה מבצעית, והלומד מתכנן את הניתוח (חקר ביצועים, שרידות, לוגיסטיקה). "
+               "▫ עיון: שאר העמודים של דוח שנלמד רק בחלקו; לא חומר שיעור, זמין לקריאה.")
+    if PAGE_WEIGHT:
+        out.append("")
+        out.append("**ספירת עמודים:** " + ", ".join(f"{docs[d]['title']} נספר פי {w} (עמודי ספר בכל עמוד PDF)" for d, w in PAGE_WEIGHT.items() if d in docs) + ".")
     out.append("")
     counts = {t: sum(1 for m in data["modules"] if m["tier"] == t) for t in TIER}
     out.append(f"**סה\"כ:** {len(data['modules'])} מודולים: {counts['core']} ליבה, {counts['adv']} מתקדם, {counts['ref']} עיון.")
@@ -147,6 +158,7 @@ def render(data, pages, gaps):
     out.append("האומדן: שיעור לכל כ-15 עמודי ספר, כולל השלמות. מאמר לא מוסיף שיעורים משלו: המורה משלב ממנו את מה שחדש בתוך שיעורי המודול. מודול שכולו מאמרים נספר לפי עמודי המאמר.")
     out.append("")
     mark = {"main": "★", "supp": "◇", "article": "📄", "ref": "⚙"}
+    marks = lambda src: "▫" if src["role"] == "ref" and src["doc"].startswith("A") else mark[src["role"]]
     for pid, ptitle in [(p["id"], p["title"]) for p in data["parts"]]:
         mods = [m for m in data["modules"] if m["part"] == pid]
         out.append(f"## {pid.replace('P', 'חלק ')}: {ptitle}")
@@ -160,7 +172,7 @@ def render(data, pages, gaps):
             out.append(f"*{m['en']}* · **{TIER[m['tier']]}** · {amount} · כ-{lessons(n or na)} שיעורים{pre}")
             out.append("")
             for src in m["sources"]:
-                out.append(f"- {mark[src['role']]} {cite(src, docs)}")
+                out.append(f"- {marks(src)} {cite(src, docs)}")
             out.append("")
     out.append("## עמודים שלא נלמדים")
     out.append("")
@@ -170,6 +182,16 @@ def render(data, pages, gaps):
         a, b = sk["pages"]
         out.append(f"| {docs[sk['doc']]['title']} | {a}–{b} | {sk['reason']} |")
     out.append("")
+    if data.get("missing"):
+        out.append("## מקורות חסרים")
+        out.append("")
+        out.append("מקורות שהתוכנית ביקשה (`docs/research/round7/mapping/`), שאינם בספרייה ולא יגיעו.")
+        out.append("")
+        out.append("| מקור | מה מכסה במקומו | מה נשאר פתוח |")
+        out.append("|---|---|---|")
+        for x in data["missing"]:
+            out.append(f"| {x['source']} | {x['instead']} | {x['status']} |")
+        out.append("")
     out.append("## בדיקת כיסוי")
     out.append("")
     if gaps:
