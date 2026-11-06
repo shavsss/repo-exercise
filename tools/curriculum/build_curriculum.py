@@ -172,6 +172,38 @@ CARRY = {
 }
 
 
+# Books whose page text is not published in the library (commercial books the learner uploaded:
+# the syllabus keeps their chapter structure, and the tutor teaches the topics from these scope
+# items, like the GAP items above). Their modules get one SCOPE item per such book.
+WITHHELD = {
+    "mil": {"B18", "B20", "B21"},
+    "eng": {f"E{n}" for n in range(27, 47)} | {"E53"},
+}
+
+
+def scope_items(mods, app):
+    syl = json.loads((ROOT / ("library/military/syllabus/syllabus.json" if app == "mil" else "library/engineering/syllabus/syllabus.json")).read_text())
+    titles = {d: (v["title"] if isinstance(v, dict) else v[1]) for d, v in syl["docs"].items()}
+    n = 0
+    for m in syl["modules"]:
+        by_doc = {}
+        for src in m["sources"]:
+            if src["doc"] in WITHHELD.get(app, set()) and src["role"] in ("main", "supp"):
+                by_doc.setdefault(src["doc"], []).append(src["note"])
+        for doc, notes in by_doc.items():
+            mods.setdefault(m["id"], {"items": [], "testout": [], "brief": [], "reading": []})
+            items = mods[m["id"]]["items"]
+            iid = f"SCOPE:{doc}"
+            if any(y["id"] == iid for y in items):
+                continue
+            items.append({"id": iid, "n": f"Scope from {titles.get(doc, doc)}", "imp": "K", "k": "new",
+                          "teach": f"The page text of {titles.get(doc, doc)} is not in the library. Teach these sections fully, "
+                                   f"at this module's level and under the usual lesson rules, from standard knowledge of the topic: "
+                                   + "; ".join(notes) + "."})
+            n += 1
+    return n
+
+
 def carry(mods, app):
     """Moves the items of replaced modules to their new hosts, in place."""
     for src, rule in CARRY.get(app, {}).items():
@@ -248,6 +280,8 @@ def main():
         merge_e2(mods, app, {"items": GAP_ITEMS})
         n_e2 = merge_e2(mods, app, e2)
         carry(mods, app)
+        n_scope = scope_items(mods, app)
+        print(f"{app}: {n_scope} scope item(s) for books without published text")
         mods = {k: {f: v for f, v in e.items() if v} for k, e in mods.items()}
         reworded = reword(mods, WORDING[app]) if app in WORDING else 0
         out = {
