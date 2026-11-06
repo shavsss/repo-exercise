@@ -120,7 +120,7 @@
 | Thrun | Särkkä, בחלקו |
 | Mahajan | — |
 | Kay | Hero |
-| Balanis | — |
+| Balanis | Orfanidis, *Electromagnetic Waves and Antennas* (הגיע, הספר המלא) |
 | Groves | ESA GNSS ו-Woodman |
 | Liggins | — |
 | Driels | — |
