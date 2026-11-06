@@ -441,6 +441,22 @@
      "domain": "ENG · Periphery: discrete math, algorithms, computer systems, chips",
      "src": "must_verify"
     }
+   ],
+   "M5.14": [
+    {
+     "id": "E2:ENG.CTRL.H8",
+     "n": "IMM idea",
+     "imp": "S",
+     "k": "new",
+     "teach": "Interacting multiple model estimation: a bank of filters with different motion models, Markov mode switching, mixing and mode probabilities; why a single filter lags a maneuver. Sources: Särkkä (E48) for the filtering; the radar tracking side in Lanchester M2.15 and M2.29."
+    },
+    {
+     "id": "E2:ENG.CTRL.H9",
+     "n": "Data association",
+     "imp": "S",
+     "k": "new",
+     "teach": "Measurement-to-track data association: gating, nearest neighbor, PDA/JPDA, the idea of multiple-hypothesis tracking; cost of a wrong association. Sources: Särkkä (E48) for the filtering; the radar tracking side in Lanchester M2.15 and M2.29."
+    }
    ]
   },
   "mil": {
@@ -814,34 +830,7 @@
    ]
   }
  },
- "pending": [
-  {
-   "app": "eng",
-   "id": "E2:ENG.CTRL.H8",
-   "n": "IMM idea",
-   "imp": "S",
-   "k": "new",
-   "teach": "Interacting multiple model estimation: a bank of filters with different motion models, Markov mode switching, mixing and mode probabilities; why a single filter lags a maneuver.",
-   "he": "רעיון IMM",
-   "domain": "ENG · Control and estimation",
-   "src": "hold_in_head",
-   "follows": "M5.6",
-   "pending_host_he": "מודול השערוך החדש (Bar-Shalom, Li & Kirubarajan; Simon)"
-  },
-  {
-   "app": "eng",
-   "id": "E2:ENG.CTRL.H9",
-   "n": "Data association",
-   "imp": "S",
-   "k": "new",
-   "teach": "Measurement-to-track data association: gating, nearest neighbor, PDA/JPDA, the idea of multiple-hypothesis tracking; cost of a wrong association.",
-   "he": "שיוך נתונים",
-   "domain": "ENG · Control and estimation",
-   "src": "hold_in_head",
-   "follows": "M5.6",
-   "pending_host_he": "מודול השערוך החדש (Bar-Shalom, Li & Kirubarajan; Simon)"
-  }
- ],
+ "pending": [],
  "covered": [
   {
    "app": "eng",

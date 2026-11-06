@@ -159,12 +159,51 @@ GAP_ITEMS = {
 }
 
 
+# Topic items of modules that the 6.11 integration demoted to ref or replaced: they move to the
+# module that now teaches the topic (item id -> new host; "*" is the default for the module).
+CARRY = {
+    "eng": {
+        "M11.11": {"*": "M11.20", "E:Electronics |0.5": "M11.19", "P2_:Power integrity and decoupling (PDN impe": "M11.8"},
+        "M15.7": {"*": "M15.26"},
+        "M15.10": {"E:Fluids, aero|0.7": "M15.19", "E:Fluids, aero|0.8": "M15.20"},
+        "M15.15": {"*": "M15.16"},
+        "M22.10": {"*": "M22.11", "E:Robotics|3.0": "M19.8"},
+    },
+}
+
+
+def carry(mods, app):
+    """Moves the items of replaced modules to their new hosts, in place."""
+    for src, rule in CARRY.get(app, {}).items():
+        if src not in mods:
+            continue
+        keep = []
+        for it in mods[src]["items"]:
+            dst = rule.get(it["id"], rule.get("*"))
+            if not dst:
+                keep.append(it)
+                continue
+            if dst not in mods:
+                mods[dst] = {"items": [], "testout": [], "brief": [], "reading": []}
+            if not any(y["id"] == it["id"] for y in mods[dst]["items"]):
+                mods[dst]["items"].append(it)
+        mods[src]["items"] = keep
+
+
+def syllabus_ids(app):
+    """Module ids of the app's current syllabus (a new module may have no research items yet)."""
+    p = ROOT / ("library/military/syllabus/syllabus.json" if app == "mil" else "library/engineering/syllabus/syllabus.json")
+    return {m["id"] for m in json.loads(p.read_text())["modules"]}
+
+
 def merge_e2(mods, app, e2):
     """Adds the E2 topic items of `app` to their modules' items, in place; returns how many were added.
     Skips an item whose id or name the module already has, and warns about a module id that does not exist.
     Pending items (host module not created yet) are never merged."""
     added = 0
     for mid, xs in e2["items"].get(app, {}).items():
+        if mid not in mods and mid in syllabus_ids(app):
+            mods[mid] = {"items": [], "testout": [], "brief": [], "reading": []}
         if mid not in mods:
             print(f"warning: e2_items.json: {app} module {mid} does not exist; skipped {len(xs)} item(s): {[x['id'] for x in xs]}")
             continue
@@ -208,6 +247,7 @@ def main():
                 mods[x["module"]]["reading"].append(reading_h(x))
         merge_e2(mods, app, {"items": GAP_ITEMS})
         n_e2 = merge_e2(mods, app, e2)
+        carry(mods, app)
         mods = {k: {f: v for f, v in e.items() if v} for k, e in mods.items()}
         reworded = reword(mods, WORDING[app]) if app in WORDING else 0
         out = {

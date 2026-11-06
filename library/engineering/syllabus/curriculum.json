@@ -2984,6 +2984,15 @@
 ]
 },
 "M11.8": {
+"items": [
+{
+"id": "P2_:Power integrity and decoupling (PDN impe",
+"n": "Power integrity and decoupling (PDN impedance, ground bounce)",
+"imp": "C",
+"k": "mention",
+"teach": "Target impedance, decoupling hierarchy."
+}
+],
 "brief": [
 {
 "t": "Assertion-level logic notation",
@@ -3268,43 +3277,6 @@
 ]
 },
 "M11.11": {
-"items": [
-{
-"id": "E:Electronics |0.5",
-"n": "Two-port networks and S-parameters",
-"imp": "S",
-"k": "new",
-"teach": "Two-port parameters (Z/Y/h), S-parameters as wave ratios, |S21| gain, return loss/VSWR."
-},
-{
-"id": "E:Electronics |0.6",
-"n": "Maximum power transfer and impedance matching",
-"imp": "S",
-"k": "deepen",
-"teach": "Maximum power transfer theorem (conjugate match) vs. efficiency, matching networks, VSWR loss."
-},
-{
-"id": "E:Electronics |2.10",
-"n": "RF electronics: mixers, LNAs, nonlinearity (IP3), dynamic range",
-"imp": "S",
-"k": "deepen",
-"teach": "IP3/intermodulation, 1-dB compression, spurious-free dynamic range, LNA noise/linearity trade."
-},
-{
-"id": "P2_:RF power amplifiers: classes A/B/C/D/E/F",
-"n": "RF power amplifiers: classes A/B/C/D/E/F, efficiency vs linearity, GaN PA, Doherty",
-"imp": "S",
-"k": "deepen",
-"teach": "Efficiency per class, linearity trade, PA in AESA T/R modules."
-},
-{
-"id": "P2_:Power integrity and decoupling (PDN impe",
-"n": "Power integrity and decoupling (PDN impedance, ground bounce)",
-"imp": "C",
-"k": "mention",
-"teach": "Target impedance, decoupling hierarchy."
-}
-],
 "brief": [
 {
 "t": "Exotic RF amplifiers and devices",
@@ -5739,29 +5711,6 @@
 ]
 },
 "M15.7": {
-"items": [
-{
-"id": "E:Fluids, aero|1.4",
-"n": "Turbulence models and their limits (RANS, LES, DNS)",
-"imp": "S",
-"k": "new",
-"teach": "RANS vs LES vs DNS: cost scaling (DNS ~ Re^3), what each predicts badly (separation, transition), how to read a CFD claim"
-},
-{
-"id": "E:Fluids, aero|2.8",
-"n": "CFD in practice",
-"imp": "S",
-"k": "new",
-"teach": "What CFD solves, meshes and y+, verification vs validation, typical errors in drag (±5-10%) and separation, why tunnel+CFD are combined; critique of CFD images in claims"
-},
-{
-"id": "A-F2",
-"n": "Underwater vehicle hydrodynamics: drag at high Re, added mass, propulsor cavitation, supercavitation",
-"imp": "S",
-"k": "new",
-"teach": "Drag power ~ V^3 and torpedo/UUV range-speed trade, added mass, cavitation inception depth/speed, supercavitating weapons"
-}
-],
 "testout": [
 {
 "t": "Historical Note: Bernoulli and Euler",
@@ -5878,22 +5827,6 @@
 ]
 },
 "M15.10": {
-"items": [
-{
-"id": "E:Fluids, aero|0.7",
-"n": "Vorticity and circulation",
-"imp": "S",
-"k": "deepen",
-"teach": "Kelvin/Helmholtz theorems, Kutta-Joukowski L'=rho V Gamma as a result, starting vortex / wingtip vortices link to induced drag"
-},
-{
-"id": "E:Fluids, aero|0.8",
-"n": "Potential flow",
-"imp": "S",
-"k": "deepen",
-"teach": "Elementary flows + superposition, d'Alembert paradox, thin-airfoil result a0=2pi as the outcome of potential theory"
-}
-],
 "testout": [
 {
 "t": "Historical Note: Airfoils and Wings",
@@ -6072,15 +6005,6 @@
 ]
 },
 "M15.15": {
-"items": [
-{
-"id": "E:Fluids, aero|6.0",
-"n": "Orbital elements, Hohmann transfers, delta-v budgets",
-"imp": "K",
-"k": "deepen",
-"teach": "Orbital elements, Hohmann transfer and plane-change Delta-V, a full mission Delta-V budget (LEO~9.4 km/s incl. losses); none of this is in readable ENG text (word \"Hohmann\" absent)"
-}
-],
 "testout": [
 {
 "t": "Historical Note: Kepler",
@@ -6177,6 +6101,13 @@
 "imp": "S",
 "k": "deepen",
 "teach": "Structural fraction, optimal staging, payload fraction ~2-4% to LEO, gravity/drag losses"
+},
+{
+"id": "E:Fluids, aero|6.0",
+"n": "Orbital elements, Hohmann transfers, delta-v budgets",
+"imp": "K",
+"k": "deepen",
+"teach": "Orbital elements, Hohmann transfer and plane-change Delta-V, a full mission Delta-V budget (LEO~9.4 km/s incl. losses); none of this is in readable ENG text (word \"Hohmann\" absent)"
 }
 ],
 "testout": [
@@ -9245,6 +9176,15 @@
 ]
 },
 "M19.8": {
+"items": [
+{
+"id": "E:Robotics|3.0",
+"n": "Robot software architecture, ROS, real-time constraints",
+"imp": "S",
+"k": "new",
+"teach": "Robot software stack: ROS 2 publish/subscribe, real-time loops vs best-effort, timing jitter, software as dominant failure source."
+}
+],
 "brief": [
 {
 "t": "Robot Control (opener)",
@@ -10988,29 +10928,6 @@
 ]
 },
 "M22.10": {
-"items": [
-{
-"id": "E:Electronics |3.5",
-"n": "Microcontrollers and embedded interfacing (GPIO, SPI, I2C, UART, interrupts)",
-"imp": "S",
-"k": "deepen",
-"teach": "Modern serial buses (SPI, I2C, UART, CAN), microcontroller peripherals, RTOS/interrupt latency. Book material is 1980s (8086/68008, ISA)."
-},
-{
-"id": "E:Robotics|3.0",
-"n": "Robot software architecture, ROS, real-time constraints",
-"imp": "S",
-"k": "new",
-"teach": "Robot software stack: ROS 2 publish/subscribe, real-time loops vs best-effort, timing jitter, software as dominant failure source."
-},
-{
-"id": "ADD:PE.6",
-"n": "Cybersecurity fundamentals for weapon systems: attack surface, crypto primitives (symmetric, public-key, hashes) and why they hold, side channels, hardware supply-chain trojans, cyber-EW overlap",
-"imp": "K",
-"k": "deepen",
-"teach": "Everything beyond RSA/hash basics."
-}
-],
 "brief": [
 {
 "t": "Microcomputers (opener)",
@@ -13872,6 +13789,125 @@
 270
 ],
 "why": "SE in Phase E (operations), 6 pp: covered by 3.8 (C)"
+}
+]
+},
+"M5.14": {
+"items": [
+{
+"id": "E2:ENG.CTRL.H8",
+"n": "IMM idea",
+"imp": "S",
+"k": "new",
+"teach": "Interacting multiple model estimation: a bank of filters with different motion models, Markov mode switching, mixing and mode probabilities; why a single filter lags a maneuver. Sources: Särkkä (E48) for the filtering; the radar tracking side in Lanchester M2.15 and M2.29."
+},
+{
+"id": "E2:ENG.CTRL.H9",
+"n": "Data association",
+"imp": "S",
+"k": "new",
+"teach": "Measurement-to-track data association: gating, nearest neighbor, PDA/JPDA, the idea of multiple-hypothesis tracking; cost of a wrong association. Sources: Särkkä (E48) for the filtering; the radar tracking side in Lanchester M2.15 and M2.29."
+}
+]
+},
+"M11.19": {
+"items": [
+{
+"id": "E:Electronics |0.5",
+"n": "Two-port networks and S-parameters",
+"imp": "S",
+"k": "new",
+"teach": "Two-port parameters (Z/Y/h), S-parameters as wave ratios, |S21| gain, return loss/VSWR."
+}
+]
+},
+"M11.20": {
+"items": [
+{
+"id": "E:Electronics |0.6",
+"n": "Maximum power transfer and impedance matching",
+"imp": "S",
+"k": "deepen",
+"teach": "Maximum power transfer theorem (conjugate match) vs. efficiency, matching networks, VSWR loss."
+},
+{
+"id": "E:Electronics |2.10",
+"n": "RF electronics: mixers, LNAs, nonlinearity (IP3), dynamic range",
+"imp": "S",
+"k": "deepen",
+"teach": "IP3/intermodulation, 1-dB compression, spurious-free dynamic range, LNA noise/linearity trade."
+},
+{
+"id": "P2_:RF power amplifiers: classes A/B/C/D/E/F",
+"n": "RF power amplifiers: classes A/B/C/D/E/F, efficiency vs linearity, GaN PA, Doherty",
+"imp": "S",
+"k": "deepen",
+"teach": "Efficiency per class, linearity trade, PA in AESA T/R modules."
+}
+]
+},
+"M15.26": {
+"items": [
+{
+"id": "E:Fluids, aero|1.4",
+"n": "Turbulence models and their limits (RANS, LES, DNS)",
+"imp": "S",
+"k": "new",
+"teach": "RANS vs LES vs DNS: cost scaling (DNS ~ Re^3), what each predicts badly (separation, transition), how to read a CFD claim"
+},
+{
+"id": "E:Fluids, aero|2.8",
+"n": "CFD in practice",
+"imp": "S",
+"k": "new",
+"teach": "What CFD solves, meshes and y+, verification vs validation, typical errors in drag (±5-10%) and separation, why tunnel+CFD are combined; critique of CFD images in claims"
+},
+{
+"id": "A-F2",
+"n": "Underwater vehicle hydrodynamics: drag at high Re, added mass, propulsor cavitation, supercavitation",
+"imp": "S",
+"k": "new",
+"teach": "Drag power ~ V^3 and torpedo/UUV range-speed trade, added mass, cavitation inception depth/speed, supercavitating weapons"
+}
+]
+},
+"M15.19": {
+"items": [
+{
+"id": "E:Fluids, aero|0.7",
+"n": "Vorticity and circulation",
+"imp": "S",
+"k": "deepen",
+"teach": "Kelvin/Helmholtz theorems, Kutta-Joukowski L'=rho V Gamma as a result, starting vortex / wingtip vortices link to induced drag"
+}
+]
+},
+"M15.20": {
+"items": [
+{
+"id": "E:Fluids, aero|0.8",
+"n": "Potential flow",
+"imp": "S",
+"k": "deepen",
+"teach": "Elementary flows + superposition, d'Alembert paradox, thin-airfoil result a0=2pi as the outcome of potential theory"
+}
+]
+},
+"M22.11": {
+"items": [
+{
+"id": "E:Electronics |3.5",
+"n": "Microcontrollers and embedded interfacing (GPIO, SPI, I2C, UART, interrupts)",
+"imp": "S",
+"k": "deepen",
+"teach": "Modern serial buses (SPI, I2C, UART, CAN), microcontroller peripherals, RTOS/interrupt latency. Book material is 1980s (8086/68008, ISA)."
+},
+{
+"id": "ADD:PE.6",
+"n": "Cybersecurity fundamentals for weapon systems: attack surface, crypto primitives (symmetric, public-key, hashes) and why they hold, side channels, hardware supply-chain trojans, cyber-EW overlap",
+"imp": "K",
+"k": "deepen",
+"teach": "Everything beyond RSA/hash basics."
 }
 ]
 }
