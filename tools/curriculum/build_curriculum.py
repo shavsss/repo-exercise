@@ -4,6 +4,7 @@ Reads
   docs/research/round3/final/F_curriculum.json   added lesson items, test-out sections, brief sections
   docs/research/round4/reading/R_eng.json, R_mil.json   the fixed reading lists
   tools/curriculum/sources_p2h.json               stronger sources for tutor-written domains (P2-H)
+  tools/curriculum/e2_items.json                  topic items for the E2 hold-in-head / must-verify entries
 and writes library/military/syllabus/curriculum.json and library/engineering/syllabus/curriculum.json:
   {"meta": ..., "modules": {"M7.9": {"items": [...], "testout": [...], "brief": [...], "reading": [...]}}}
 
@@ -19,6 +20,10 @@ ROOT = Path(__file__).resolve().parents[2]
 F = ROOT / "docs/research/round3/final/F_curriculum.json"
 R = {"mil": ROOT / "docs/research/round4/reading/R_mil.json", "eng": ROOT / "docs/research/round4/reading/R_eng.json"}
 H = ROOT / "tools/curriculum/sources_p2h.json"
+# Topic items that make every E2 'hold in head' / 'must verify' entry taught somewhere
+# (docs/research/round7/mapping/E2_COVERAGE.md); its 'pending' list waits for planned modules.
+E2 = ROOT / "tools/curriculum/e2_items.json"
+E2_FIELDS = ("id", "n", "imp", "k", "teach", "primary", "to")
 # Lanchester's tutor-facing wording (engineering register; see the file's "about")
 WORDING = {"mil": ROOT / "tools/curriculum/wording_mil.json"}
 OUT = {"mil": ROOT / "library/military/syllabus/curriculum.json", "eng": ROOT / "library/engineering/syllabus/curriculum.json"}
@@ -132,9 +137,53 @@ def reword(mods, path):
     return changed
 
 
+# Topics of chapters missing from the source files (commit 9c7f349, 31.10): the tutor teaches them
+# from other sources. Kept here so a rebuild does not drop them.
+GAP_ITEMS = {
+    "eng": {
+        "M11.1": [
+            {"id": "GAP:HH1", "n": "Foundations of circuits: Horowitz & Hill ch.1", "imp": "K", "k": "new", "teach": "Chapter 1 of The Art of Electronics is not in the source files (the exercises E09a cover it in part): teach its topics fully. Voltage, current, resistance, power; dividers; Thevenin and Norton; small-signal resistance; capacitors and RC (time domain and frequency domain); inductors and transformers; impedance and reactance, phasors; diodes and rectifiers, power supply filtering; the 'other passive components'. Sources: MIT OCW 6.002 Circuits and Electronics (free); Agarwal & Lang, Foundations of Analog and Digital Electronic Circuits."},
+        ],
+        "M15.1": [
+            {"id": "GAP:F2.40", "n": "Ideal (inviscid) flow: Feynman II ch.40, 'The Flow of Dry Water'", "imp": "K", "k": "new", "teach": "The chapter itself is not in the source files: teach its topics fully from other sources. Hydrostatics; Euler's equation; Bernoulli along a streamline; vorticity and circulation; Kelvin's and Helmholtz's theorems; potential flow; why ideal flow fails (d'Alembert's paradox), which motivates the viscosity of ch.41. Sources: Feynman Lectures II ch.40 (free online, feynmanlectures.caltech.edu); Anderson, Fundamentals of Aerodynamics ch.2-3."},
+        ],
+        "M24.1": [
+            {"id": "GAP:F2.42", "n": "Curved space and general relativity: Feynman II ch.42", "imp": "S", "k": "new", "teach": "The chapter itself is not in the source files: teach its topics fully from other sources. Intrinsic curvature (the bug on a hot plate); curvature from the excess radius; the equivalence principle; gravitational time dilation and redshift; Einstein's law of curvature at Feynman's level; GPS clock corrections as the engineering case (about 38 microseconds a day). Sources: Feynman Lectures II ch.42 (free online); Ashby, 'Relativity in the Global Positioning System', Living Reviews in Relativity (2003)."},
+        ],
+    },
+    "mil": {
+        "M13.12": [
+            {"id": "GAP:SMAD18", "n": "Space propulsion systems: SMAD ch.18", "imp": "K", "k": "new", "teach": "Chapter 18 of SMAD is not in the source files: teach its topics fully from other sources. Propulsion requirements from the delta-V budget; specific impulse and thrust; monopropellant, bipropellant and cold-gas systems; solid motors; electric propulsion (resistojet, arcjet, Hall, gridded ion) and the power-thrust trade; tank and pressurant sizing; propellant mass from the rocket equation; selection criteria and typical numbers. Sources: NASA, State-of-the-Art of Small Spacecraft Technology, ch. In-Space Propulsion (free, nasa.gov); Sutton & Biblarz, Rocket Propulsion Elements; Goebel & Katz, Fundamentals of Electric Propulsion (free, JPL)."},
+        ],
+    },
+}
+
+
+def merge_e2(mods, app, e2):
+    """Adds the E2 topic items of `app` to their modules' items, in place; returns how many were added.
+    Skips an item whose id or name the module already has, and warns about a module id that does not exist.
+    Pending items (host module not created yet) are never merged."""
+    added = 0
+    for mid, xs in e2["items"].get(app, {}).items():
+        if mid not in mods:
+            print(f"warning: e2_items.json: {app} module {mid} does not exist; skipped {len(xs)} item(s): {[x['id'] for x in xs]}")
+            continue
+        items = mods[mid]["items"]
+        for x in xs:
+            if any(y["id"] == x["id"] or y["n"].strip().lower() == x["n"].strip().lower() for y in items):
+                continue
+            items.append({k: x[k] for k in E2_FIELDS if k in x})
+            added += 1
+    pend = [x["id"] for x in e2.get("pending", []) if x["app"] == app]
+    if pend:
+        print(f"{app}: {len(pend)} E2 item(s) pending a new module, not merged: {pend}")
+    return added
+
+
 def main():
     f = json.loads(F.read_text())
     h = json.loads(H.read_text())
+    e2 = json.loads(E2.read_text()) if E2.exists() else {"items": {}, "pending": []}
     items_by_id = {x["id"]: x for x in f["items"]}
     for app in ("mil", "eng"):
         mods = {}
@@ -157,14 +206,16 @@ def main():
         for x in h["items"]:
             if x["app"] == app:
                 mods[x["module"]]["reading"].append(reading_h(x))
+        merge_e2(mods, app, {"items": GAP_ITEMS})
+        n_e2 = merge_e2(mods, app, e2)
         mods = {k: {f: v for f, v in e.items() if v} for k, e in mods.items()}
         reworded = reword(mods, WORDING[app]) if app in WORDING else 0
         out = {
             "meta": {
                 "built_by": "tools/curriculum/build_curriculum.py",
-                "from": [str(F.relative_to(ROOT)), str(R[app].relative_to(ROOT)), str(H.relative_to(ROOT))] + ([str(WORDING[app].relative_to(ROOT))] if app in WORDING else []),
+                "from": [str(F.relative_to(ROOT)), str(R[app].relative_to(ROOT)), str(H.relative_to(ROOT))] + ([str(E2.relative_to(ROOT))] if E2.exists() else []) + ([str(WORDING[app].relative_to(ROOT))] if app in WORDING else []),
                 "fields": {
-                    "items": "lesson items added by the topic-based curriculum: n name, imp K/S/C, k new|deepen|delta|mention, teach what to add, primary (for delta) the module that teaches it in full, to 1 = test-out candidate",
+                    "items": "lesson items added by the topic-based curriculum: n name, imp K/S/C, k new|deepen|delta|mention, teach what to add, primary (for delta) the module that teaches it in full, to 1 = test-out candidate; ids E2:* make the E2 domain targets' hold-in-head and must-verify entries explicit",
                     "testout": "sections (t, d doc, p PDF pages) or subtopics (sub 1) taught after a short diagnostic: pass = condensed lesson with the full text one click away and a later recheck; otherwise the full lesson",
                     "brief": "sections taught as a short overview, with the full text one click away (never dropped)",
                     "reading": "fixed reading list: core = read with the module; st ok|doi|blocked|timeout|rough is the link check; p2h 1 = stronger source for a tutor-written domain, with its topic",
@@ -174,7 +225,7 @@ def main():
         }
         OUT[app].write_text(json.dumps(out, ensure_ascii=False, indent=0) + "\n")
         n = {k: sum(len(e.get(k, [])) for e in mods.values()) for k in ("items", "testout", "brief", "reading")}
-        print(app, OUT[app].relative_to(ROOT), n, f"reworded {reworded} fields" if reworded else "")
+        print(app, OUT[app].relative_to(ROOT), n, f"E2 items {n_e2}", f"reworded {reworded} fields" if reworded else "")
 
 
 if __name__ == "__main__":
