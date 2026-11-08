@@ -406,6 +406,8 @@ function FragView({ f, c, prev, header, ctx, onContinue, end }: { f: Frag; c: Ch
   const inner = useRef<HTMLDivElement>(null);
   const [over, setOver] = useState(!!f.over);
   const [atEnd, setAtEnd] = useState(false);
+  // room the block may take when it grew: down to the next block or the end of the page
+  const [room, setRoom] = useState<number | null>(null);
   // a block that grew after its page was laid out (a picture that loaded late, a think question's amber card)
   // is never cut silently: its window scrolls, with a mark
   useLayoutEffect(() => {
@@ -413,7 +415,21 @@ function FragView({ f, c, prev, header, ctx, onContinue, end }: { f: Frag; c: Ch
     if (!el || !f.end) return;
     const check = () => {
       const need = el.scrollHeight - f.from;
-      setOver(!!f.over || need > f.h + 2);
+      let h = f.h;
+      const b = box.current;
+      if (b && !f.over && need > f.h + 2) {
+        // a think question opened, or a picture loaded: take the free space before scrolling inside a sliver
+        let limit = (b.parentElement?.clientHeight ?? f.top + f.h) - f.top;
+        for (let n = b.nextElementSibling as HTMLElement | null; n; n = n.nextElementSibling as HTMLElement | null) {
+          if (n.classList.contains("bk-frag")) {
+            limit = n.offsetTop - f.top - 6;
+            break;
+          }
+        }
+        h = Math.max(f.h, Math.min(need, limit));
+      }
+      setRoom(h > f.h ? h : null);
+      setOver(!!f.over || need > h + 2);
     };
     check();
     const ro = new ResizeObserver(check);
@@ -434,7 +450,7 @@ function FragView({ f, c, prev, header, ctx, onContinue, end }: { f: Frag; c: Ch
         className={cls.join(" ")}
         ref={box}
         data-chunk={c.key}
-        style={{ top: f.top, height: f.h }}
+        style={{ top: f.top, height: room ?? f.h }}
         onScroll={over ? (e) => setAtEnd(e.currentTarget.scrollTop + e.currentTarget.clientHeight >= e.currentTarget.scrollHeight - 4) : undefined}
       >
         <MdContext.Provider value={ctx}>
@@ -444,7 +460,7 @@ function FragView({ f, c, prev, header, ctx, onContinue, end }: { f: Frag; c: Ch
         </MdContext.Provider>
       </div>
       {over && !atEnd && (
-        <div className="bk-more" style={{ top: f.top + f.h - 26 }} aria-hidden>
+        <div className="bk-more" style={{ top: f.top + (room ?? f.h) - 26 }} aria-hidden>
           <span>הבלוק ממשיך · גללו בתוכו</span>
         </div>
       )}

@@ -116,6 +116,21 @@ export function setReading(patch: Partial<Reading>) {
   listeners.forEach((l) => l());
 }
 
+// Another window of the same lab (the summaries window, a second tab) changed the settings: follow it, so the
+// background noise turned off there stops here too, instead of this window playing on with the settings it loaded.
+window.addEventListener("storage", (e) => {
+  if (e.key !== KEY || e.newValue === null) return;
+  try {
+    const { v: _v, touched: t, ...picked } = JSON.parse(e.newValue) as Saved;
+    touched = Array.isArray(t) ? t : touched;
+    current = { ...DEFAULT_READING, ...picked };
+    apply();
+    listeners.forEach((l) => l());
+  } catch {
+    // keep the settings this window has
+  }
+});
+
 export function useReading() {
   return useSyncExternalStore(
     (l) => (listeners.add(l), () => void listeners.delete(l)),

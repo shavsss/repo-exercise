@@ -17,3 +17,4 @@ eng/app/artifact/assets/
 # The Hebrew dictionary of the summaries (tools/dict/build_dict.py)
 eng/app/artifact/dict/
 core/app/artifact/dict/
+tmp/
