@@ -1,0 +1,17 @@
+# Ignore heavy files to save Claude context
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+*.log
+*.csv
+*.sql
+*.sqlite
+*.db
+*.svg
+dist/
+build/
+out/
+.next/
+.nuxt/
+coverage/
+.turbo/
