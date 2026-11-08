@@ -23,8 +23,9 @@ import { consultPrompt, firstLine, LEVEL_HINT, LEVEL_LABEL, LEVEL_WORDS, needsRe
 import type { BookBridge } from "../book/context";
 import "../consult.css";
 
-const QUICK_MODEL = "claude-opus-5-5";
-const MAIN_MODEL = "claude-opus-5-5";
+// explanations are written by Sonnet; Opus answers only when Sonnet fails or comes back empty
+const MAIN_MODEL = "claude-sonnet-5-5";
+const FALLBACK_MODEL = "claude-opus-5-5";
 const EFFORT: Record<ConsultLevel, "low" | "medium" | "high"> = { 0: "low", 1: "low", 2: "medium", 3: "high" };
 /** turns of the card's thread sent with a new question */
 const KEEP_TURNS = 6;
@@ -334,7 +335,7 @@ export function ConsultLayer({
           effort: EFFORT[lvl],
           signal: c.signal,
           cache: false,
-          tools: model === QUICK_MODEL ? undefined : tools,
+          tools: lvl === 0 ? undefined : tools,
           onText: ({ text }) => {
             shown = text;
             write({ ...turn, a: base + text });
@@ -360,15 +361,14 @@ export function ConsultLayer({
       };
       try {
         let res;
-        const first = lvl === 0 ? QUICK_MODEL : MAIN_MODEL;
         try {
-          res = await run(first);
+          res = await run(MAIN_MODEL);
         } catch (e) {
           if (c.signal.aborted) throw e;
-          // the quick model may not be served here; and an empty or refused answer gets one more try
-          res = await run(MAIN_MODEL);
+          // Sonnet may not be served here, or refused: Opus answers; and an empty answer gets one more try with Opus
+          res = await run(FALLBACK_MODEL);
         }
-        if (!res.text.trim()) res = await run(MAIN_MODEL);
+        if (!res.text.trim()) res = await run(FALLBACK_MODEL);
         if (!res.text.trim()) throw { message: "empty" };
         finish(res.text, res.truncated, res.modelApplied);
       } catch (e) {

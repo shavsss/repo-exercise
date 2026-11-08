@@ -15,6 +15,8 @@ export interface UsageDoc {
   /** generation time in ms, and characters written, by the same keys */
   ms: Record<string, number>;
   chars: Record<string, number>;
+  /** characters sent to the model (instructions, context and history), by the same keys; tool rounds re-send it and are not counted */
+  inChars?: Record<string, number>;
   /** failed calls by error code (refused, rate_limited, …) */
   errors: Record<string, number>;
   lessons: number;
@@ -28,7 +30,7 @@ const today = () => {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 };
 const session = Math.random().toString(36).slice(2, 8);
-const blank = (day: string): UsageDoc => ({ day, session, calls: {}, ms: {}, chars: {}, errors: {}, lessons: 0, lessonWords: 0, lessonMs: 0, updatedAt: 0 });
+const blank = (day: string): UsageDoc => ({ day, session, calls: {}, ms: {}, chars: {}, inChars: {}, errors: {}, lessons: 0, lessonWords: 0, lessonMs: 0, updatedAt: 0 });
 
 let store: Store | null = null;
 let doc = blank(today());
@@ -45,7 +47,7 @@ export function mergeUsageDay(old: Record<string, unknown> | null, mine: UsageDo
     const older = sessions._older ?? blank(mine.day);
     older.session = "_older";
     for (const x of named.slice(SESSIONS_PER_DAY)) {
-      for (const k of ["calls", "ms", "chars", "errors"] as const) for (const [key, v] of Object.entries(x[k] ?? {})) add(older[k], key, v);
+      for (const k of ["calls", "ms", "chars", "inChars", "errors"] as const) for (const [key, v] of Object.entries(x[k] ?? {})) add((older[k] ??= {}), key, v);
       older.lessons += x.lessons ?? 0;
       older.lessonWords += x.lessonWords ?? 0;
       older.lessonMs += x.lessonMs ?? 0;
@@ -76,11 +78,18 @@ function touch() {
 }
 const add = (r: Record<string, number>, k: string, v = 1) => (r[k] = (r[k] ?? 0) + v);
 
-function count(key: string, ms: number, chars: number) {
+function count(key: string, ms: number, chars: number, inChars: number) {
   touch();
   add(doc.calls, key);
   add(doc.ms, key, Math.round(ms));
   add(doc.chars, key, chars);
+  add((doc.inChars ??= {}), key, inChars);
+}
+
+/** The characters of what a call sends: a prompt, or the text of its turns. */
+export function inputChars(input: Parameters<SampleFn>[0]): number {
+  if (typeof input === "string") return input.length;
+  return (Array.isArray(input) ? input : []).reduce((n, t) => n + (typeof t?.content === "string" ? t.content.length : 0), 0);
 }
 function fail(e: unknown) {
   touch();
@@ -104,7 +113,7 @@ export function withUsage(rt: Runtime): Runtime {
     const t0 = performance.now();
     try {
       const res = await s(input, options);
-      count(res.modelApplied ?? `tier:${res.modelTierApplied}`, performance.now() - t0, res.text?.length ?? 0);
+      count(res.modelApplied ?? `tier:${res.modelTierApplied}`, performance.now() - t0, res.text?.length ?? 0, inputChars(input));
       return res;
     } catch (e) {
       if ((e as { code?: string })?.code !== "cancelled") fail(e);
@@ -116,7 +125,7 @@ export function withUsage(rt: Runtime): Runtime {
     const t0 = performance.now();
     try {
       const res = await s.json(input, options);
-      count(`json:${options?.model ?? `tier:${options?.modelTier ?? "default"}`}`, performance.now() - t0, JSON.stringify(res ?? "").length);
+      count(`json:${options?.model ?? `tier:${options?.modelTier ?? "default"}`}`, performance.now() - t0, JSON.stringify(res ?? "").length, inputChars(input));
       return res;
     } catch (e) {
       if ((e as { code?: string })?.code !== "cancelled") fail(e);
@@ -135,6 +144,9 @@ export interface UsageSummary {
   wordsPerLesson: number;
   lessonMinutes: number;
   errors: Record<string, number>;
+  /** thousands of characters sent, by model, and the calls that recorded it (older days did not) */
+  inK: Record<string, number>;
+  inCalls: Record<string, number>;
 }
 
 /** Sums the usage documents of the last `days` days (1 = today). */
@@ -142,7 +154,7 @@ export function summarize(docs: Partial<UsageDoc>[], days: number): UsageSummary
   const from = new Date();
   from.setDate(from.getDate() - (days - 1));
   const min = `${from.getFullYear()}-${String(from.getMonth() + 1).padStart(2, "0")}-${String(from.getDate()).padStart(2, "0")}`;
-  const out: UsageSummary = { days, calls: {}, minutes: 0, lessons: 0, wordsPerLesson: 0, lessonMinutes: 0, errors: {} };
+  const out: UsageSummary = { days, calls: {}, minutes: 0, lessons: 0, wordsPerLesson: 0, lessonMinutes: 0, errors: {}, inK: {}, inCalls: {} };
   let words = 0;
   let lessonMs = 0;
   for (const d of docs) {
@@ -150,6 +162,11 @@ export function summarize(docs: Partial<UsageDoc>[], days: number): UsageSummary
     for (const [k, v] of Object.entries(d.calls ?? {})) add(out.calls, k.replace(/^json:/, ""), v);
     for (const v of Object.values(d.ms ?? {})) out.minutes += v / 60000;
     for (const [k, v] of Object.entries(d.errors ?? {})) add(out.errors, k, v);
+    for (const [k, v] of Object.entries(d.inChars ?? {})) {
+      const key = k.replace(/^json:/, "");
+      add(out.inK, key, v / 1000);
+      add(out.inCalls, key, d.calls?.[k] ?? 0);
+    }
     out.lessons += d.lessons ?? 0;
     words += d.lessonWords ?? 0;
     lessonMs += d.lessonMs ?? 0;
@@ -157,6 +174,7 @@ export function summarize(docs: Partial<UsageDoc>[], days: number): UsageSummary
   out.wordsPerLesson = out.lessons ? Math.round(words / out.lessons) : 0;
   out.lessonMinutes = out.lessons ? Math.round(lessonMs / out.lessons / 60000) : 0;
   out.minutes = Math.round(out.minutes);
+  for (const k of Object.keys(out.inK)) out.inK[k] = Math.round(out.inK[k]);
   return out;
 }
 
