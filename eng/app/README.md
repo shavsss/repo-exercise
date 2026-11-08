@@ -2,7 +2,7 @@
 
 **האפליקציה:** https://claude.ai/artifact/LtW5eytwQFZ4wAXhDSAw3k
 
-מורה פרטי שמלמד הנדסה ברמת עילית טכנולוגית מתוך הספרייה שב-`library/engineering/` (ועמוד השדרה ב-`library/math-physics/`), מודול אחר מודול, לפי תוכנית הלימודים (`library/engineering/syllabus/`). האפליקציה בנויה על הקוד של מעבדת הליבה (`core/app/`) ורצה כ-Artifact ב-claude.ai: אין שרת ואין מפתח API, והיא פונה ל-Claude דרך `claude.use("sample")` ומבקשת את Claude Opus 5.5. כללי הלימוד נמצאים ב-[`src/prompt.ts`](src/prompt.ts) ובעברית ב-[`docs/ENG_TEACHING_RULES.md`](../../docs/ENG_TEACHING_RULES.md). החלטות התכנון: [`docs/ENG_LAB_PLAN.md`](../../docs/ENG_LAB_PLAN.md).
+מורה פרטי שמלמד הנדסה ברמת עילית טכנולוגית מתוך הספרייה שב-`library/engineering/` (ועמוד השדרה ב-`library/math-physics/`), מודול אחר מודול, לפי תוכנית הלימודים (`library/engineering/syllabus/`). האפליקציה בנויה על הקוד של מעבדת הליבה (`core/app/`) ורצה כ-Artifact ב-claude.ai: אין שרת ואין מפתח API, והיא פונה ל-Claude דרך `claude.use("sample")` ומבקשת את Claude Opus 5.5 לשיעורים, לבדיקות ולמבחן, ואת Claude Sonnet 5.5 להסברים בתוך השיעור (שאלות בשיחה וכרטיסי התייעצות). כללי הלימוד נמצאים ב-[`src/prompt.ts`](src/prompt.ts) ובעברית ב-[`docs/ENG_TEACHING_RULES.md`](../../docs/ENG_TEACHING_RULES.md). החלטות התכנון: [`docs/ENG_LAB_PLAN.md`](../../docs/ENG_LAB_PLAN.md).
 
 ## מה שונה ממעבדת הליבה
 

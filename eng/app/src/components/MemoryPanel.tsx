@@ -21,6 +21,17 @@ function UsageTable({ s, title }: { s: UsageSummary; title: string }) {
       <dl>
         <dt>קריאות</dt>
         <dd>{calls.length ? calls.map(([k, v]) => `${modelName(k)}: ${v}`).join(" · ") : "0"}</dd>
+        {Object.keys(s.inK).length > 0 && (
+          <>
+            <dt>קלט שנשלח</dt>
+            <dd>
+              {Object.entries(s.inK)
+                .sort((x, y) => y[1] - x[1])
+                .map(([k, v]) => `${modelName(k)}: כ-${v.toLocaleString("he-IL")} אלף תווים, כ-${Math.round(v / Math.max(1, s.inCalls[k] ?? 1)).toLocaleString("he-IL")} אלף לקריאה`)
+                .join(" · ")}
+            </dd>
+          </>
+        )}
         <dt>זמן כתיבה</dt>
         <dd>{s.minutes} דק׳</dd>
         <dt>שיעורים</dt>

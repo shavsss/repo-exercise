@@ -7,6 +7,7 @@
 import { create, all } from "mathjs";
 import { docMeta, getIndex, readPages, searchLibrary, type Module } from "./library";
 import { curriculumBlock } from "./curriculum";
+import { CHAT_HISTORY_BYTES, focusHistory, questionOf, type Chapter } from "./chatContext";
 import { auditLong, namedModules, type AuditMark, applyRepair } from "./lessonAudit";
 import { decideLine, decideSlot } from "./lessonGate";
 import { LEGACY_RULES, SYSTEM_PROMPT, libraryList } from "./prompt";
@@ -16,6 +17,8 @@ import { NOTE_KIND_LABEL, type Activity, type Effort, type LessonNote, type Less
 
 const math = create(all, {});
 const MODEL = "claude-opus-5-5";
+/** Explanations in a lesson (questions in its conversation) are answered by Sonnet; lessons, checks and the quiz stay on Opus. */
+const EXPLAIN_MODEL = "claude-sonnet-5-5";
 const enc = new TextEncoder();
 const bytes = (s: string) => enc.encode(s).length;
 /** Leave room under the 256 KiB input cap for the tool rounds of this answer. */
@@ -197,15 +200,18 @@ ${plan}${mem}${nb}${rest}${o.pages ? `\n\nSource pages for this lesson:\n${o.pag
 }
 
 /** Newest history first, until the budget is used. `keepLast` always sends the last turn. */
-function fitHistory(history: StoredMessage[], fixed: number, keepLast = false) {
-  let used = fixed + bytes(systemPrompt());
+function fitHistory(history: StoredMessage[], fixed: number, keepLast = false, historyBudget?: number) {
+  const base = fixed + bytes(systemPrompt());
+  // a question in a conversation counts only its history against historyBudget (chatContext.ts)
+  const limit = historyBudget === undefined ? INPUT_BUDGET : Math.min(INPUT_BUDGET, base + historyBudget);
+  let used = base;
   const kept: Turn[] = [];
   let dropped = 0;
   for (let i = history.length - 1; i >= 0; i--) {
     const m = history[i];
     if (!m.text.trim()) continue;
     const b = bytes(m.text);
-    if (!(keepLast && i === history.length - 1) && used + b > INPUT_BUDGET) {
+    if (!(keepLast && i === history.length - 1) && used + b > limit) {
       dropped = i + 1;
       break;
     }
@@ -415,17 +421,47 @@ export async function askTutor(opts: Base & { mode: Mode; text: string; images: 
   if (!rt.sample) throw { code: "not_granted", message: "sample unavailable" };
   const extra = mode === "quiz" && !continuing ? `\n\n${maps ? `<lesson_maps>\nWhat each lesson of the module taught in full (core) and what it only introduced (preview of a later module, or an illustration from a field):\n${maps}\n</lesson_maps>\n\n` : ""}${QUIZ_INSTRUCTIONS}` : "";
   const last = `${studyContext({ mode, module: m, lessons, lessonIdx, memory, notes, allNotes, done })}\n\n${text || "(ראו את התמונה המצורפת)"}${images.length ? `\n\n[${images.length} תמונות מצורפות מהלומד]` : ""}${extra}`;
-  const turns = fitHistory(history, bytes(last), continuing);
-  return rt.sample([...turns, { role: "user", content: last }], {
-    model: MODEL,
-    modelTier: "complex",
-    effort,
-    signal,
-    ...(rt.canUseTools ? { tools: buildTools(cb, moduleDocs(m)) } : { cache: false }),
-    ...(images.length && rt.canSendImages ? { images } : {}),
-    onText: ({ text }) => cb.onText(text),
-  });
+  // a long lesson in the history goes out as its chapters list and the chapters closest to the question
+  const focused = focusHistory(history, questionOf(history, text, continuing));
+  const turns = fitHistory(focused.history, bytes(last), continuing, CHAT_HISTORY_BYTES);
+  const explain = mode === "clarify" || mode === "free";
+  const tools = rt.canUseTools ? [...buildTools(cb, moduleDocs(m)), ...(focused.chapters.length > 1 ? [chapterTool(focused.chapters, cb)] : [])] : undefined;
+  const run = (model: string) =>
+    rt.sample!([...turns, { role: "user", content: last }], {
+      model,
+      modelTier: "complex",
+      effort,
+      signal,
+      ...(tools ? { tools } : { cache: false }),
+      ...(images.length && rt.canSendImages ? { images } : {}),
+      onText: ({ text }) => cb.onText(text),
+    });
+  if (!explain) return run(MODEL);
+  // Sonnet answers; if it fails (not served, refused, empty), Opus answers instead
+  try {
+    const res = await run(EXPLAIN_MODEL);
+    if (res.text.trim()) return res;
+  } catch (e) {
+    if (signal?.aborted || (e as { code?: string })?.code === "cancelled") throw e;
+  }
+  cb.onText("");
+  return run(MODEL);
 }
+
+/** Reads one chapter of the lesson whose question this is (the history sends only the chapters closest to it). */
+function chapterTool(chapters: Chapter[], cb: TurnCallbacks): SampleTool {
+  return {
+    name: "read_lesson_chapter",
+    description: `Read one whole section of this lesson, by its number (1–${chapters.length}) in the sections list.`,
+    inputSchema: { type: "object", properties: { n: { type: "number" } }, required: ["n"] },
+    execute(input) {
+      const c = chapters[Number(input.n) - 1];
+      cb.onStatus?.("קורא פרק מהשיעור");
+      return c ? c.text : `No section ${input.n}; the lesson has ${chapters.length}.`;
+    },
+  };
+}
+
 
 const QUIZ_INSTRUCTIONS = `MODULE QUIZ. If the learner has not answered yet: write a quiz of 6–8 questions on the whole module (all its lessons, per the plan and <course_memory>), at level 2.5: estimates to be done in the head first (then checked), trade-off decisions with a justification, finding the error in a wrong claim or derivation, recognizing a shared structure in another field, and one or two engineering calculations with real numbers (verify your own solutions with compute first). No proof reproduction. Ask only about what the module taught in full: calculations, derivations and formula questions only on the core material (the "core" items of <lesson_maps> when given). A topic a lesson only introduced (a first look at a later module, or an illustration from a field) is asked about, if at all, only at the level of its idea in words (what it says, why it matters), never by computing or solving with its formula. Formats: mix them, about a third each. (1) Multiple choice: four options labeled א, ב, ג, ד, exactly one correct, the wrong ones built from real mistakes; (2) short answers: true or false with a one-line reason, a number with its units, or an explanation in two sentences; (3) one or two worked problems, only on core material. Before you write, check every question against <lesson_maps>: if it needs a formula, a derivation or a number from an item listed under preview or example, or in <idea_only>, rewrite it as an idea question or drop it. Do not reveal answers.
 Layout (the page turns it into a form with an answer box under each question): first two or three sentences in Hebrew (what the quiz covers and how long it should take), then ALL the questions inside ONE fenced block whose language is quiz, and nothing after the block. Inside the block, each question opens with its own header line "## <number> | <type>", type mc for (1), short for (2), problem for (3); under it the question text (Markdown and $math$ allowed, several lines if needed). An mc question then lists exactly four options, one per line, as "- א) …", "- ב) …", "- ג) …", "- ד) …". No answer lines, hints or solutions inside the block. Example:
