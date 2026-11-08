@@ -1,0 +1,1476 @@
+{
+  "adoptedAt": 1793476626261,
+  "app": "core",
+  "convId": "bxvjag10b7wdbsc9c6lb",
+  "createdAt": 1793410000000,
+  "lesson": 2,
+  "moduleId": "M0.1",
+  "pipeline": "factory@f963b99",
+  "plan": {
+    "anchors": [
+      {
+        "id": "A1",
+        "text": "dBm in the air is a convention: flux density times the area of an imaginary unity-gain antenna"
+      },
+      {
+        "id": "A2",
+        "text": "The reflection factor -39 + 10logσ + 20logF is 10log(4πσ/λ²): the object acts as an isotropic source of equivalent power P2"
+      },
+      {
+        "id": "A3",
+        "text": "In the interference equation frequency, constants and receiving gain cancel; only the ERP gap and the distance ratio remain (supporting result S)"
+      }
+    ],
+    "authority": [
+      {
+        "for": "R1",
+        "slot": "S1",
+        "text": "Plane-wave free-space assumption in E/H = Z0",
+        "unit": "U9",
+        "verdict": "keep"
+      },
+      {
+        "for": "R1",
+        "slot": "S1",
+        "text": "Matched load, polarization, lossless antenna",
+        "unit": "U26",
+        "verdict": "keep"
+      },
+      {
+        "for": "R1",
+        "slot": "S2",
+        "text": "Rounded -77 against -77.21: 0.21 dB",
+        "unit": "U30",
+        "verdict": "keep"
+      },
+      {
+        "for": "R1",
+        "slot": "S2",
+        "text": "Field-to-range: d = sqrt(30 ERP)/E",
+        "unit": "U36",
+        "verdict": "keep"
+      },
+      {
+        "for": "R1",
+        "slot": "S3",
+        "text": "Field form and link form are the same equation",
+        "unit": "U28",
+        "verdict": "keep"
+      },
+      {
+        "for": "R1",
+        "slot": "S3",
+        "text": "Antenna factor cross-check",
+        "unit": "U39",
+        "verdict": "keep"
+      },
+      {
+        "for": "R1",
+        "slot": "S4",
+        "text": "DF array sensitivity in µV/m turns into a dBm threshold falling 20 dB per decade",
+        "unit": "U34",
+        "verdict": "keep"
+      },
+      {
+        "for": "R1",
+        "slot": "S4",
+        "text": "Space flux-density limits as field limits",
+        "verdict": "fieldmap",
+        "why": "owned by a later module (space, M13); the mechanism is not this lesson's"
+      },
+      {
+        "for": "R1",
+        "slot": "S5",
+        "text": "1 kW at 10 km computed two ways",
+        "unit": "U29",
+        "verdict": "keep"
+      },
+      {
+        "for": "R1",
+        "slot": "S5",
+        "text": "GPS L1 level as a field",
+        "unit": "U33",
+        "verdict": "keep"
+      },
+      {
+        "for": "R1",
+        "slot": "S6",
+        "text": "10logE instead of 20logE",
+        "unit": "U37",
+        "verdict": "keep"
+      },
+      {
+        "for": "R1",
+        "slot": "S6",
+        "text": "Treating the flaw as an error of link equations",
+        "unit": "U38",
+        "verdict": "keep"
+      },
+      {
+        "for": "R2",
+        "slot": "S1",
+        "text": "Single σ for incoming and outgoing direction",
+        "unit": "U50",
+        "verdict": "keep"
+      },
+      {
+        "for": "R2",
+        "slot": "S1",
+        "text": "Isotropic equivalent at the object, far field",
+        "unit": "U48",
+        "verdict": "keep"
+      },
+      {
+        "for": "R2",
+        "slot": "S2",
+        "text": "Rounding 103 against 103.43: 0.43 dB",
+        "unit": "U57",
+        "verdict": "keep"
+      },
+      {
+        "for": "R2",
+        "slot": "S2",
+        "text": "Fourth-root range law",
+        "unit": "U68",
+        "verdict": "keep"
+      },
+      {
+        "for": "R2",
+        "slot": "S3",
+        "text": "Textbook form with (4π)³ gives the same constant",
+        "unit": "U55",
+        "verdict": "keep"
+      },
+      {
+        "for": "R2",
+        "slot": "S3",
+        "text": "Fixed aperture against fixed gain in frequency",
+        "unit": "U58",
+        "verdict": "keep"
+      },
+      {
+        "for": "R2",
+        "slot": "S4",
+        "text": "Radar against one-way end-to-end loss, 240.93 against 136.0 dB",
+        "unit": "U64",
+        "verdict": "keep"
+      },
+      {
+        "for": "R2",
+        "slot": "S4",
+        "text": "Sonar two-way structure",
+        "verdict": "fieldmap",
+        "why": "owned by a later module (naval, M10)"
+      },
+      {
+        "for": "R2",
+        "slot": "S5",
+        "text": "Daventry 1935 as a chain",
+        "unit": "U70",
+        "verdict": "keep"
+      },
+      {
+        "for": "R2",
+        "slot": "S5",
+        "text": "Decisive numeric chain at S-band",
+        "unit": "U62",
+        "verdict": "keep"
+      },
+      {
+        "for": "R2",
+        "slot": "S6",
+        "text": "6 dB per doubling claimed for a radar",
+        "unit": "U71",
+        "verdict": "keep"
+      },
+      {
+        "for": "R2",
+        "slot": "S6",
+        "text": "20logσ and F in GHz",
+        "unit": "U72",
+        "verdict": "keep"
+      },
+      {
+        "for": "A1",
+        "slot": "S1",
+        "text": "Intent: dBm in the air requires an antenna area",
+        "unit": "U1",
+        "verdict": "keep"
+      },
+      {
+        "for": "A1",
+        "slot": "S2",
+        "text": "How many dB for a missing polarization match",
+        "verdict": "drop",
+        "why": "not examinable here: no number is derived in this lesson"
+      },
+      {
+        "for": "A2",
+        "slot": "S1",
+        "text": "σ fixed number",
+        "unit": "U50",
+        "verdict": "keep"
+      },
+      {
+        "for": "A2",
+        "slot": "S2",
+        "text": "Reflection factor 30.99 dB for 1 m² at 3 GHz",
+        "unit": "U62",
+        "verdict": "keep"
+      },
+      {
+        "for": "A3",
+        "slot": "S1",
+        "text": "Same gain to both signals",
+        "unit": "U77",
+        "verdict": "keep"
+      },
+      {
+        "for": "A3",
+        "slot": "S2",
+        "text": "6.02 dB per doubling of distance",
+        "unit": "U81",
+        "verdict": "keep"
+      }
+    ],
+    "checks": [
+      "every number above is in facts.py/facts_output.txt",
+      "the book's coefficients -77, -39, -103, 32 are rounded: -77.21, -38.55, -103.43, 32.44",
+      "the book's PR = PA + G read on page 40; the figure 2.6 text was checked on the page image"
+    ],
+    "facts": [
+      "Z0 = mu0*c = 376.99 ohm (c=3e8) = 120*pi; exact c gives 376.73 ohm; 377 is 0.002% above 120*pi and 0.07% above exact (computed)",
+      "S for E = 1 uV/m: 2.65e-15 W/m2 = -145.76 dBW/m2; S[dBW/m2] = E[dBuV/m] - 145.76 (computed)",
+      "A_iso = c^2/(4 pi F^2): 0.716 m2 at 100 MHz, 71.6 cm2 at 1 GHz, 0.716 cm2 at 10 GHz (computed)",
+      "The six factors of the coefficient: -120.000 + 169.542 - 10.992 - 25.763 - 120.000 + 30.000 = -77.213 dBm (c = 3e8, Z0 = 120 pi); exact c and Z0 give -77.216 (computed)",
+      "P(dBm) = -77 + 20logE(uV/m) - 20logF(MHz); constant for E in mV/m = -17.21, for E in V/m = +42.79, in dBuV/m: P = E - 77.21 - 20logF (computed)",
+      "E = 1 uV/m at 100 MHz = -117.0 dBm (S*A gives -117.21); 1 mV/m at 100 MHz = -57.0 dBm; 1 mV/m at 1 GHz = -77.0 dBm (computed)",
+      "-65 dBm at 100 MHz = 398.1 uV/m (mental: 52 dB = 40 + 12 -> x400, 0.48% off); at 1 GHz 3981 uV/m; -107 dBm at 100 MHz = 3.16 uV/m (computed)",
+      "40 uV/m at 400 MHz: -77 + 32.04 - 52.04 = -97.0 dBm (computed)",
+      "GPS L1 -128.5 dBm at 1575.42 MHz = 4.19 uV/m = 12.45 dBuV/m; S = -133.1 dBW/m2; A_iso = 28.86 cm2 = -25.4 dBsm (computed)",
+      "10log instead of 20log for E: 100 uV/m at 100 MHz gives -97.0 instead of -77.0 dBm; F in Hz instead of MHz shifts by -120 dB (computed)",
+      "ERP 1 kW (60 dBm), 100 MHz, 10 km: Ls = 92.44 dB, P = -32.44 dBm = S*A_iso; E = sqrt(30*ERP)/d = 17.321 mV/m exact, 16.904 mV/m through -77 (2.46%, 0.21 dB); 84.77 dBuV/m (computed)",
+      "Antenna factor of an isotropic antenna into 50 ohm: 20logF - 29.77 dB/m (exact constants), -29.99 with 120 pi; V(dBuV) = P(dBm) + 106.99 (computed)",
+      "DF array [hypothetical] 5 uV/m: -109.04 dBm at 200 MHz, -129.04 dBm at 2000 MHz; free-space range sqrt(30*1 W)/5 uV/m = 1095 km for 1 W ERP (1069 km via lesson-2 eq (29) with -77 and 32.44), independent of F (computed)",
+      "Reflection factor: 10log(4 pi) = 10.992, -20log(300) = -49.542, sum -38.55 (exact c: -38.544); 4 pi sigma/lambda^2 for 1 m2 at 3 GHz = 1256.6 = +30.99 dB (computed)",
+      "Spreading constant 32.44 (32.442 with c=3e8); 2*32.44 + 38.55 = 103.43; direct from PT G^2 lambda^2 sigma/((4 pi)^3 R^4): -103.44 (exact c); (4 pi)^3 = 32.976 dB; the book's 2*32 + 39 = 103 is 0.43 dB off = 10.5% in power, 2.5% in range (computed)",
+      "Radar example [hypothetical]: PT 70 dBm (10 kW), G 35 dB, D 50 km, F 3000 MHz, sigma 1 m2: ERP 105.00, P1 -30.96 (0.80 uW), P2 +0.03, PA -135.93, PR -100.93 dBm = 8.07e-14 W; with the book's -103: -100.50; floor -110 dBm of lesson 2 gives 9.07 dB (computed)",
+      "End-to-end loss without antenna gains: one-way Ls at 50 km and 3 GHz = 135.96 dB; radar 2*Ls - 30.99 = 240.93 dB; P1 - PA = 104.97 dB; P1 - PR = 69.97 dB (computed)",
+      "Doubling D: one-way 6.02 dB, radar 12.04 dB (power x4 against x16); +10 dB: range x3.162 one-way, x1.778 radar; 4x power: x2 and x1.414; sigma 1 m2 -> 1e-5 m2 (-50 dB): range x0.0562 (computed)",
+      "Frequency x10: fixed G -20 dB; fixed aperture (G ~ F^2) +20 dB; +3 dB of G adds 6 dB, +3 dB of PT adds 3 dB; +10 dB via G needs +5 dB (area x3.16) (computed)",
+      "Range doubling 50 -> 100 km needs PT x16 = 160 kW (82.04 dBm) for the same PR -100.93 dBm; far-field distance 2D^2/lambda = 180 m for D = 3 m at 3 GHz (computed)",
+      "Interference equation [hypothetical]: ERPs 40 dBm at Ds 20 km, ERPi 30 dBm at Di 5 km: Ps - Pi = -2.04 dB (linear 0.625); at equal 20 km distances 10.00 dB (computed)",
+      "Separation for SIR with ERP gap 10 dB, Ds 20 km: 10 dB -> Di 20.0 km; 15 dB -> 35.57 km; 20 dB -> 63.25 km; equal ERP: distance ratio 3.162 for 10 dB, 10 for 20 dB; +6.02 dB per doubling of Di (computed)",
+      "Radar echo against a co-channel emitter [hypothetical]: ERPi 40 dBm at 100 km, 3000 MHz, same gain 35 dB: Pi = -66.98 dBm; echo -100.93 dBm: SIR -33.95 dB at 50 km, -21.91 at 25 km, -5.99 at 10 km; 0 dB at D = 7.08 km, 10 dB at D = 3.98 km (computed)",
+      "Noise -110 dBm plus interference -66.98 dBm = -66.98 dBm (interference dominates by 43.02 dB); two equal -110 dBm powers add to -106.99 dBm; echo SNR 9.07 dB, SINR -33.95 dB (computed)",
+      "Trade study: one-way baseline (ERPs = ERPi = 40 dBm, Ds 20 km, Di 5 km) SIR -12.04 dB, gap to 10 dB 22.04 dB; radar baseline gap 43.95 dB; by power x160 against x24831; by emitter distance x12.65 (5 -> 63 km) against x157.6 (100 -> 15,758 km); by shorter desired path 20 -> 1.58 km against 50 -> 3.98 km; a receive pattern 20 dB lower toward the emitter leaves 2.04 dB against 23.95 dB (computed)",
+      "Sources: B01:37-41 (EW 101, printed pages 15-19) and B02:932 (POMR I, A.2, printed 895)"
+    ],
+    "figures": [
+      "B01:38:0",
+      "B01:38:1",
+      "B01:40:0",
+      "B01:41:0"
+    ],
+    "layers": [
+      "B01:37 end: the 191 km range example belongs to lesson 2 (already taught)",
+      "B01:38 top: the figure legends 'dam' are dBm (OCR), background only",
+      "2.3.5 (low frequencies close to the Earth) is on B01:42, outside this lesson's pages: left to the two-ray treatment in M4"
+    ],
+    "next": "M0.2 (waves and electromagnetic physics) builds from Maxwell's equations the plane wave, the Poynting vector and Z0 that this lesson used on trust; the course then moves to M1 (antennas: A_e = G*lambda^2/4pi) and M2 (the radar equation with detection)",
+    "parts": [
+      {
+        "blocks": [
+          "plan",
+          "story",
+          "history",
+          "figure B01:38:0",
+          "figure B01:38:1",
+          "definition (power flux density)",
+          "definition (impedance of free space)",
+          "formula (S=E²/Z0)",
+          "think:E/H assumption (auth unit)",
+          "erratum (one-line OCR slips)"
+        ],
+        "covers": "B01:37–38 (2.3, 2.3.1, 2.3.2 start, figures 2.4 and 2.5) and B02:932 (A.2: Poynting vector, |E|/|B|=c, Z0=377 ohm); the logical flaw of dBm in the air; the unity-gain imaginary antenna; the derivation of |S|=E²/Z0 step by step; definitions of power flux density and Z0 (rule 6א order); history of Poynting; start with plan block and story (a receiver specified in µV/m and a link budget in dBm)",
+        "estimate": 510,
+        "l25": [
+          "מקור",
+          "גבולות"
+        ],
+        "title": "מה זה הספק באתר: צפיפות הספק, עכבת המרחב החופשי והאנטנה הדמיונית",
+        "units": [
+          "U1",
+          "U2",
+          "U3",
+          "U4",
+          "U5",
+          "U6",
+          "U7",
+          "U8",
+          "U9",
+          "U10",
+          "U11",
+          "U12",
+          "U13",
+          "U14",
+          "U15",
+          "U16",
+          "U17"
+        ]
+      },
+      {
+        "blocks": [
+          "refresh (A_iso)",
+          "formula (conversion)",
+          "predict (398 µV/m)",
+          "think:second structure (auth unit)",
+          "verify",
+          "errorhunt",
+          "casestudy (DF array)",
+          "erratum (-77 vs -77.21)",
+          "domain ew",
+          "domain space",
+          "fieldmap"
+        ],
+        "covers": "B01:39 (2.3.2): P=E²A/Z0, A=Gc²/(4πF²), the six unit factors of -77.21, the formula and its inverse, structure, assumptions, limits, orders of magnitude, DF sensitivity case, trade-off, range meaning, critique; verify block; errorhunt; the 1 kW at 10 km two-route check; domain ew, domain space; fieldmap for the conversion",
+        "estimate": 780,
+        "l25": [
+          "מבנה",
+          "מקור",
+          "גבולות",
+          "סדר גודל",
+          "פשרה",
+          "משמעות מבצעית",
+          "ביקורת"
+        ],
+        "title": "גזירת −77: מ-µV/m ל-dBm, הבדיקות שלה ושימושיה",
+        "units": [
+          "U18",
+          "U19",
+          "U20",
+          "U21",
+          "U22",
+          "U23",
+          "U24",
+          "U25",
+          "U26",
+          "U27",
+          "U28",
+          "U29",
+          "U30",
+          "U31",
+          "U32",
+          "U33",
+          "U34",
+          "U35",
+          "U36",
+          "U37",
+          "U38",
+          "U39",
+          "U40",
+          "U41",
+          "U42",
+          "U43"
+        ]
+      },
+      {
+        "blocks": [
+          "refresh (Ls)",
+          "figure B01:40:0",
+          "definition (reflection factor)",
+          "formula (radar chain)",
+          "predict (PR)",
+          "think:range scaling (auth unit)",
+          "verify",
+          "history",
+          "casestudy (S-band radar vs one-way)",
+          "erratum (rounding 32.44→32, 38.55→39)",
+          "domain radar",
+          "fieldmap"
+        ],
+        "covers": "B01:40 (2.3.3, figure 2.6): the chain PT, ERP, P1, P2, PA, PR; reflection factor derivation (-39); the 103; comparison with the textbook (4π)³ form; weights; frequency dependence; the S-band numerical case with end-to-end loss; limits; fourth-root law; critique; verify block; history Daventry 1935; domain radar; fieldmap",
+        "estimate": 930,
+        "l25": [
+          "מבנה",
+          "מקור",
+          "גבולות",
+          "סדר גודל",
+          "פשרה",
+          "משמעות מבצעית",
+          "ביקורת"
+        ],
+        "title": "המכ\"ם כשרשרת קשרים: גזירת −39 ו-−103 ומחיר ה-R⁻⁴",
+        "units": [
+          "U44",
+          "U45",
+          "U46",
+          "U47",
+          "U48",
+          "U49",
+          "U50",
+          "U51",
+          "U52",
+          "U53",
+          "U54",
+          "U55",
+          "U56",
+          "U57",
+          "U58",
+          "U59",
+          "U60",
+          "U61",
+          "U62",
+          "U63",
+          "U64",
+          "U65",
+          "U66",
+          "U67",
+          "U68",
+          "U69",
+          "U70",
+          "U71",
+          "U72",
+          "U73",
+          "U74"
+        ]
+      },
+      {
+        "blocks": [
+          "figure B01:41:0",
+          "definition (SIR)",
+          "formula (SIR)",
+          "predict (crossover range)",
+          "table",
+          "domain c2",
+          "fieldmap",
+          "decide (trade)",
+          "keep",
+          "exercise x4",
+          "lab",
+          "fieldsystems",
+          "coverage"
+        ],
+        "covers": "B01:41 (2.3.4, figure 2.7): the interference equation derived from two one-way links; assumptions; what cancels; noise and interference; the echo against a fixed co-channel source (R⁻⁴ against R⁻²) and the crossover range as the preparation for later discussion; critique; domain c2; the decide block of kind trade; then the last part's end blocks: keep, exercises, lab, fieldsystems, coverage and the sentence on the next lesson",
+        "estimate": 540,
+        "l25": [
+          "מבנה",
+          "מקור",
+          "גבולות",
+          "סדר גודל",
+          "פשרה",
+          "משמעות מבצעית",
+          "ביקורת"
+        ],
+        "title": "יחס אות להפרעה, מרחק חצייה והחלטת תכן",
+        "units": [
+          "U75",
+          "U76",
+          "U77",
+          "U78",
+          "U79",
+          "U80",
+          "U81",
+          "U82",
+          "U83",
+          "U84",
+          "U85",
+          "U86",
+          "U87",
+          "U88",
+          "U89",
+          "U90",
+          "U91",
+          "U92"
+        ]
+      }
+    ],
+    "results": [
+      {
+        "id": "R1",
+        "text": "P(dBm) = -77 + 20log E(µV/m) - 20log F(MHz): power assigned to a wave through an imaginary unity-gain antenna, from S = E²/Z0 and A = c²/(4πF²)",
+        "thread": "How can a wave in space, where power per se is undefined, get a power in dBm so that a field sensitivity in µV/m can enter a link budget?"
+      },
+      {
+        "id": "R2",
+        "text": "The radar as a chain of two one-way links: PR = PT + 2G - 103 - 40logD - 20logF + 10logσ",
+        "thread": "How does a radar echo become two one-way links so that the link-budget tools of lesson 2 handle it, and what does the R⁻⁴ cost compared with a one-way link?"
+      }
+    ],
+    "split": null,
+    "title": "קשרים מעשיים: שדה חשמלי ב-µV/m, המכ\"ם כשרשרת קשרים, ויחס אות להפרעה",
+    "units": [
+      {
+        "id": "U1",
+        "part": 1,
+        "q": "Why is dBm between two antennas not power in the strict sense, and what is there instead?",
+        "r": "R1",
+        "src": "B01:37",
+        "text": "Power is defined only inside a wire or circuit; between antennas only the field exists",
+        "tier": "key",
+        "type": "ASM"
+      },
+      {
+        "id": "U2",
+        "part": 1,
+        "q": "What does each of the two descriptions in figures 2.4 and 2.5 measure, and what connects them?",
+        "r": "R1",
+        "src": "B01:38",
+        "text": "Figures 2.4 and 2.5: field in µV/m in the air, power in dBm at the antenna terminals; the antenna joins the two",
+        "tier": "key",
+        "type": "STR"
+      },
+      {
+        "id": "U3",
+        "part": 1,
+        "q": "What is the hidden assumption behind a power in dBm in the air, and where is the imaginary antenna placed?",
+        "r": "R1",
+        "src": "B01:38",
+        "text": "The artifice: an imaginary unity-gain antenna, nearly touching the real one, whose output is the assigned dBm; near field ignored",
+        "tier": "key",
+        "type": "ASM"
+      },
+      {
+        "id": "U4",
+        "part": 1,
+        "q": "Define power flux density and give its direction and unit.",
+        "r": "R1",
+        "src": "B02:932",
+        "text": "Power flux density S: power per unit area, the magnitude of the Poynting vector S = E×B/µ0",
+        "tier": "key",
+        "type": "DEF"
+      },
+      {
+        "id": "U5",
+        "part": 1,
+        "q": "Which 1884 idea turns power in the air into a question about area?",
+        "r": "R1",
+        "src": "auth",
+        "text": "Poynting 1884 (and Heaviside) showed that energy travels in space as a flux per area: power in the air needs an area",
+        "tier": "sup",
+        "type": "HIS"
+      },
+      {
+        "id": "U6",
+        "part": 1,
+        "q": "What is |E|/|B| in a plane wave, and what does it let us eliminate?",
+        "r": "R1",
+        "src": "B02:932",
+        "text": "In free space E, B and the direction of travel are mutually orthogonal and |E|/|B| = c",
+        "tier": "key",
+        "type": "RES"
+      },
+      {
+        "id": "U7",
+        "part": 1,
+        "q": "Define Z0 and compute it from µ0 and c.",
+        "r": "R1",
+        "src": "B02:932",
+        "text": "Impedance of free space Z0 = |E|/|H| = µ0 c ≈ 377 ohm ≈ 120π, with H = B/µ0",
+        "tier": "key",
+        "type": "DEF"
+      },
+      {
+        "id": "U8",
+        "part": 1,
+        "q": "Derive |S| = E²/Z0 and state at which step the plane-wave assumption enters.",
+        "r": "R1",
+        "src": "B02:932",
+        "text": "Step by step: |S| = |E||B|/µ0, B = E/c, so |S| = E²/(µ0 c) = E²/Z0; the assumption is a plane wave in free space",
+        "tier": "key",
+        "type": "STEP"
+      },
+      {
+        "id": "U9",
+        "part": 1,
+        "q": "Where does E²/Z0 fail, and what replaces it?",
+        "r": "R1",
+        "src": "auth",
+        "text": "E/H = Z0 holds only for a plane wave in free space (far field); near field and other media break it",
+        "tier": "key",
+        "type": "ASM"
+      },
+      {
+        "id": "U10",
+        "part": 1,
+        "q": "Why 20log for a field amplitude and 10log for power?",
+        "r": "R1",
+        "src": "auth",
+        "text": "E enters squared, so field in dB is 20log while power in dB is 10log: amplitude versus power",
+        "tier": "key",
+        "type": "STR"
+      },
+      {
+        "id": "U11",
+        "part": 1,
+        "q": "What flux density does 1 µV/m carry?",
+        "r": "R1",
+        "src": "auth",
+        "text": "1 µV/m gives S = 2.65e-15 W/m² = -145.76 dBW/m²",
+        "tier": "key",
+        "type": "QNT"
+      },
+      {
+        "id": "U12",
+        "part": 1,
+        "q": "How large is the error of using 377 for Z0?",
+        "r": "R1",
+        "src": "B02:932",
+        "text": "377 against 120π differs by 0.002%, against the exact 376.73 by 0.07%",
+        "tier": "sup",
+        "type": "OOM"
+      },
+      {
+        "id": "U13",
+        "part": 1,
+        "q": "Why does the same field give different dBm to different antennas?",
+        "r": "R1",
+        "src": "auth",
+        "text": "Power in the air depends on the receiving antenna: flux times area; the same field gives different powers to different antennas",
+        "tier": "key",
+        "type": "LIM"
+      },
+      {
+        "id": "U14",
+        "part": 1,
+        "q": "What happens to a link budget when one item is in µV/m and the rest in dBm?",
+        "r": "R1",
+        "src": "B01:38",
+        "text": "A field-unit sensitivity (a direction-finding array) cannot enter a dBm link budget without conversion; mixing units makes errors of tens of dB",
+        "tier": "key",
+        "type": "OPS"
+      },
+      {
+        "id": "U15",
+        "part": 1,
+        "q": "Define electric intensity and its customary unit in receiver specifications.",
+        "r": "R1",
+        "src": "B01:37",
+        "text": "Electric intensity E (field strength) in V/m, usually in µV/m: an amplitude of the wave, not a power",
+        "tier": "key",
+        "type": "DEF"
+      },
+      {
+        "id": "U16",
+        "part": 1,
+        "q": "Show that sqrt(µ0/ε0) and µ0 c give the same Z0.",
+        "r": "R1",
+        "src": "B02:932",
+        "text": "Z0 = sqrt(µ0/ε0) = µ0 c, the two forms agree: 376.73 ohm with exact c",
+        "tier": "sup",
+        "type": "RES"
+      },
+      {
+        "id": "U17",
+        "part": 1,
+        "q": "How wide is the range of field strengths in practice, in dB?",
+        "r": "R1",
+        "src": "auth",
+        "text": "Field strengths in practice run from µV/m at a receiver threshold to mV/m near a broadcast transmitter, 60 dB apart",
+        "tier": "sup",
+        "type": "OOM"
+      },
+      {
+        "id": "U18",
+        "part": 2,
+        "q": "What is the area of the imaginary antenna at 100 MHz, and which assumptions does the formula carry?",
+        "r": "R1",
+        "src": "B01:39",
+        "text": "Effective area A = G c²/(4πF²); for G = 1 the imaginary antenna has A = λ²/4π (0.716 m² at 100 MHz); assumes matched, polarization-aligned, lossless",
+        "tier": "key",
+        "type": "STEP"
+      },
+      {
+        "id": "U19",
+        "part": 2,
+        "q": "Derive P = E²A/Z0 and name the assumptions of that step.",
+        "r": "R1",
+        "src": "B01:39",
+        "text": "Power equals flux times area: P = E²A/Z0, assuming a uniform field over the aperture and a matched load",
+        "tier": "key",
+        "type": "STEP"
+      },
+      {
+        "id": "U20",
+        "part": 2,
+        "q": "Write P in terms of E, F and G in SI units.",
+        "r": "R1",
+        "src": "B01:39",
+        "text": "Substituting the area gives P = E² c² G/(4π Z0 F²) in SI units, with F in hertz and E in V/m",
+        "tier": "key",
+        "type": "STEP"
+      },
+      {
+        "id": "U21",
+        "part": 2,
+        "q": "List the six factors that make up -77 and what unit change each repays.",
+        "r": "R1",
+        "src": "auth",
+        "text": "Six unit factors in dB sum to the coefficient: -120, +169.54, -10.99, -25.76, -120, +30 = -77.21",
+        "tier": "key",
+        "type": "STEP"
+      },
+      {
+        "id": "U22",
+        "part": 2,
+        "q": "State the conversion from field to power, with units and validity.",
+        "r": "R1",
+        "src": "B01:39",
+        "text": "P(dBm) = -77 + 20log E(µV/m) - 20log F(MHz), with its symbols and validity",
+        "tier": "key",
+        "type": "RES"
+      },
+      {
+        "id": "U23",
+        "part": 2,
+        "q": "State the inverse conversion from dBm to µV/m.",
+        "r": "R1",
+        "src": "B01:39",
+        "text": "The inverse: E = 10^((P+77+20log F)/20) in µV/m",
+        "tier": "key",
+        "type": "RES"
+      },
+      {
+        "id": "U24",
+        "part": 2,
+        "q": "Which term carries the field and which the antenna, and why does F enter with a minus?",
+        "r": "R1",
+        "src": "auth",
+        "text": "Three terms: the field term (+20 dB per decade), the frequency term (-20 dB per decade, entering only through the antenna area), a constant",
+        "tier": "key",
+        "type": "STR"
+      },
+      {
+        "id": "U25",
+        "part": 2,
+        "q": "How does the coefficient change if E is given in mV/m?",
+        "r": "R1",
+        "src": "auth",
+        "text": "The constant depends on units: E in mV/m gives -17.21, in V/m +42.79, in dBµV/m P = E - 77.21 - 20logF",
+        "tier": "sup",
+        "type": "STR"
+      },
+      {
+        "id": "U26",
+        "part": 2,
+        "q": "Name three hidden assumptions of the conversion and what each costs when broken.",
+        "r": "R1",
+        "src": "auth",
+        "text": "Three hidden assumptions: polarization match, lossless antenna, matched load; each missing one costs dB",
+        "tier": "key",
+        "type": "ASM"
+      },
+      {
+        "id": "U27",
+        "part": 2,
+        "q": "When does the conversion fail, and what replaces it?",
+        "r": "R1",
+        "src": "auth",
+        "text": "Fails in the near field, in non-free-space (ground reflection, two-ray, M4) and for real antennas: add G in dB to the isotropic result",
+        "tier": "key",
+        "type": "LIM"
+      },
+      {
+        "id": "U28",
+        "part": 2,
+        "q": "Show that the field form and the link form of the same transmission are one equation.",
+        "r": "R1",
+        "src": "auth",
+        "text": "The second structure: S = ERP/(4πd²) and E = sqrt(30 ERP)/d give the same power as ERP - Ls; the -77 and 32.44 come from the same c and 4π",
+        "tier": "key",
+        "type": "STR"
+      },
+      {
+        "id": "U29",
+        "part": 2,
+        "q": "Compute E and P at 10 km from 1 kW ERP at 100 MHz, by both routes.",
+        "r": "R1",
+        "src": "auth",
+        "text": "1 kW ERP at 100 MHz, 10 km: -32.44 dBm and E = 17.32 mV/m exactly, 16.90 mV/m through -77 (2.5%)",
+        "tier": "key",
+        "type": "QNT"
+      },
+      {
+        "id": "U30",
+        "part": 2,
+        "q": "How much error does the rounded coefficient introduce?",
+        "r": "R1",
+        "src": "auth",
+        "text": "Rounding -77 for -77.21 costs 0.21 dB: 5% in power, 2.5% in field",
+        "tier": "key",
+        "type": "QNT"
+      },
+      {
+        "id": "U31",
+        "part": 2,
+        "q": "Estimate in your head the power of 40 µV/m at 400 MHz.",
+        "r": "R1",
+        "src": "auth",
+        "text": "Anchors: 1 µV/m at 100 MHz is -117.0 dBm, 1 mV/m at 1 GHz is -77 dBm; x10 in E adds 20 dB, x10 in F subtracts 20 dB",
+        "tier": "key",
+        "type": "OOM"
+      },
+      {
+        "id": "U32",
+        "part": 2,
+        "q": "What field gives -65 dBm at 100 MHz, and how do we estimate it in the head?",
+        "r": "R1",
+        "src": "B01:39",
+        "text": "The -65 dBm sensitivity of lesson 2 at 100 MHz is 398 µV/m; the estimate 40+12 dB gives 400, 0.5% off",
+        "tier": "key",
+        "type": "OOM"
+      },
+      {
+        "id": "U33",
+        "part": 2,
+        "q": "What field strength is the GPS signal level of lesson 2?",
+        "r": "R1",
+        "src": "auth",
+        "text": "GPS L1 level of lesson 2, -128.5 dBm, is 4.19 µV/m = 12.45 dBµV/m = -133.1 dBW/m²",
+        "tier": "sup",
+        "type": "OOM"
+      },
+      {
+        "id": "U34",
+        "part": 2,
+        "q": "What dBm threshold does a constant 5 µV/m sensitivity impose at 200 MHz and at 2 GHz?",
+        "r": "R1",
+        "src": "B01:39",
+        "text": "Direction-finding array with a 5 µV/m sensitivity: -109.04 dBm at 200 MHz, -129.04 dBm at 2 GHz",
+        "tier": "key",
+        "type": "PRX"
+      },
+      {
+        "id": "U35",
+        "part": 2,
+        "q": "What does stating sensitivity in µV/m gain and what does it cost?",
+        "r": "R1",
+        "src": "B01:39",
+        "text": "Field sensitivity gains a spec independent of the antenna but costs 20 dB per decade of receiver threshold at fixed isotropic reading",
+        "tier": "key",
+        "type": "TRD"
+      },
+      {
+        "id": "U36",
+        "part": 2,
+        "q": "What does a field sensitivity say about range, and how does it depend on frequency?",
+        "r": "R1",
+        "src": "auth",
+        "text": "Range from field sensitivity: d = sqrt(30 ERP)/E_sens, independent of frequency; 1 W and 5 µV/m give 1095 km in free space",
+        "tier": "key",
+        "type": "OPS"
+      },
+      {
+        "id": "U37",
+        "part": 2,
+        "q": "What is wrong in P = -77 + 10logE - 20logF and which check catches it?",
+        "r": "R1",
+        "src": "auth",
+        "text": "P = -77 + 10logE - 20logF: wrong factor; 100 µV/m at 100 MHz gives -97 instead of -77; the known-point check catches it",
+        "tier": "key",
+        "type": "CRT"
+      },
+      {
+        "id": "U38",
+        "part": 2,
+        "q": "Is the dBm-in-the-air flaw a mistake in link equations?",
+        "r": "R1",
+        "src": "auth",
+        "text": "Claim that the 'flaw' makes link equations wrong: it does not, because the imaginary antenna has area A; error appears only when antennas are mixed without G",
+        "tier": "sup",
+        "type": "CRT"
+      },
+      {
+        "id": "U39",
+        "part": 2,
+        "q": "Check the -77 against the antenna factor of an isotropic antenna.",
+        "r": "R1",
+        "src": "auth",
+        "text": "Cross-check against antenna factor: 20logF - 29.77 dB/m for an isotropic antenna into 50 ohm, within 0.2 dB of the EMC rule",
+        "tier": "sup",
+        "type": "QNT"
+      },
+      {
+        "id": "U40",
+        "part": 2,
+        "q": "What isotropic power is a field of 1 mV/m at 100 MHz?",
+        "r": "R1",
+        "src": "auth",
+        "text": "A field of 1 mV/m (60 dBµV/m) at 100 MHz is -57 dBm in the isotropic reading",
+        "tier": "sup",
+        "type": "OOM"
+      },
+      {
+        "id": "U41",
+        "part": 2,
+        "q": "What is wrong in E = 10^((P+77)/20), and which check catches it?",
+        "r": "R1",
+        "src": "auth",
+        "text": "An inverse written without +20logF gives 3.98 µV/m instead of 398 µV/m at 100 MHz: a factor 100",
+        "tier": "sup",
+        "type": "CRT"
+      },
+      {
+        "id": "U42",
+        "part": 2,
+        "q": "Where does the field-to-power conversion appear in EW receivers?",
+        "r": "R1",
+        "src": "auth",
+        "text": "Direction finding in EW: field-unit sensitivity of an antenna array, stated as dBm for the receiver (mechanism in M4)",
+        "tier": "key",
+        "type": "MAP"
+      },
+      {
+        "id": "U43",
+        "part": 2,
+        "q": "How is a field limit in dBµV/m written as a flux density limit?",
+        "r": "R1",
+        "src": "auth",
+        "text": "Space: regulations limit the power flux density, S in dBW/m² = E in dBµV/m - 145.76",
+        "tier": "sup",
+        "type": "MAP"
+      },
+      {
+        "id": "U44",
+        "part": 3,
+        "q": "Draw the six quantities of the chain and name the operation between each pair.",
+        "r": "R2",
+        "src": "B01:40",
+        "text": "Radar echo as a chain: PT, ERP, P1 at the object, P2 re-radiated, PA at the antenna, PR into the receiver; figure 2.6",
+        "tier": "key",
+        "type": "STR"
+      },
+      {
+        "id": "U45",
+        "part": 3,
+        "q": "Define the reflection factor of an object in a link model.",
+        "r": "R2",
+        "src": "B01:40",
+        "text": "Reflection factor: P2/P1, the isotropic-equivalent re-radiated power over the power an isotropic antenna at the object collects; equals σ/A_iso",
+        "tier": "key",
+        "type": "DEF"
+      },
+      {
+        "id": "U46",
+        "part": 3,
+        "q": "State the first link of the chain and what is subtracted before the gain.",
+        "r": "R2",
+        "src": "B01:40",
+        "text": "ERP = PT + G, with cable loss subtracted first, as in lesson 2",
+        "tier": "key",
+        "type": "STEP"
+      },
+      {
+        "id": "U47",
+        "part": 3,
+        "q": "Write the first spreading link and its destination.",
+        "r": "R2",
+        "src": "B01:40",
+        "text": "P1 = ERP - 32.44 - 20logD - 20logF: a one-way link to an imaginary isotropic antenna at the object",
+        "tier": "key",
+        "type": "STEP"
+      },
+      {
+        "id": "U48",
+        "part": 3,
+        "q": "Which assumptions enter at the first link of the radar chain?",
+        "r": "R2",
+        "src": "auth",
+        "text": "At the object: far field, free space, and an equivalent isotropic receiver; the atmosphere is counted once more on the way back",
+        "tier": "key",
+        "type": "ASM"
+      },
+      {
+        "id": "U49",
+        "part": 3,
+        "q": "Derive the -39 of the reflection factor in dB.",
+        "r": "R2",
+        "src": "B01:40",
+        "text": "Deriving -39: ρ = 4πσ/λ² gives 10log4π = 10.99 and, with λ = 300/F, -49.54: total -38.55",
+        "tier": "key",
+        "type": "STEP"
+      },
+      {
+        "id": "U50",
+        "part": 3,
+        "q": "Which hidden assumptions does a single σ in the reflection factor carry?",
+        "r": "R2",
+        "src": "auth",
+        "text": "σ as one number: the same in the incoming and outgoing direction (monostatic), not fluctuating, polarization fixed; the object re-radiates as an isotropic source",
+        "tier": "key",
+        "type": "ASM"
+      },
+      {
+        "id": "U51",
+        "part": 3,
+        "q": "Why is the return link identical to the outgoing one?",
+        "r": "R2",
+        "src": "B01:40",
+        "text": "PA = P2 - 32.44 - 20logD - 20logF: the same path, the same D and F, in the reverse direction",
+        "tier": "key",
+        "type": "STEP"
+      },
+      {
+        "id": "U52",
+        "part": 3,
+        "q": "Why does G appear twice and what is ignored in PR = PA + G?",
+        "r": "R2",
+        "src": "B01:40",
+        "text": "PR = PA + G: the same antenna receives, so the gain counts a second time; receiver-chain losses ignored",
+        "tier": "key",
+        "type": "STEP"
+      },
+      {
+        "id": "U53",
+        "part": 3,
+        "q": "State the radar link equation with units and validity.",
+        "r": "R2",
+        "src": "B01:40",
+        "text": "PR = PT + 2G - 103 - 40logD - 20logF + 10logσ (PT in dBm, G in dB, D in km, F in MHz, σ in m²)",
+        "tier": "key",
+        "type": "RES"
+      },
+      {
+        "id": "U54",
+        "part": 3,
+        "q": "Where does the 103 come from, and how large is its rounding?",
+        "r": "R2",
+        "src": "B01:40",
+        "text": "The 103: two spreading links of 32.44 plus 38.55 gives 103.43; the book rounds to 2x32 + 39 = 103",
+        "tier": "key",
+        "type": "STEP"
+      },
+      {
+        "id": "U55",
+        "part": 3,
+        "q": "Show that the chain form and the textbook form have the same constant.",
+        "r": "R2",
+        "src": "auth",
+        "text": "Second structure: the textbook form PT G² λ² σ/((4π)³R⁴) gives the constant -103.44; (4π)³ is 4π of reflection times (4π)² of two spreads",
+        "tier": "key",
+        "type": "STR"
+      },
+      {
+        "id": "U56",
+        "part": 3,
+        "q": "Which parameters count twice, and how much does each count?",
+        "r": "R2",
+        "src": "auth",
+        "text": "Weights: D counts 40log, G twice, PT and σ once (σ with 10log, not 20), F once as -20log at fixed G",
+        "tier": "key",
+        "type": "STR"
+      },
+      {
+        "id": "U57",
+        "part": 3,
+        "q": "What does the rounding of the constant cost in power and range?",
+        "r": "R2",
+        "src": "auth",
+        "text": "Rounding 103 for 103.43 costs 0.43 dB: 10.5% in power, 2.5% in range",
+        "tier": "key",
+        "type": "QNT"
+      },
+      {
+        "id": "U58",
+        "part": 3,
+        "q": "What happens to PR when F is multiplied by 10, for fixed G and for fixed aperture?",
+        "r": "R2",
+        "src": "auth",
+        "text": "Frequency: -20logF at fixed gain, but +20logF for a fixed aperture where G grows as F²",
+        "tier": "key",
+        "type": "QNT"
+      },
+      {
+        "id": "U59",
+        "part": 3,
+        "q": "What is the reflection factor of 1 m² at 3 GHz, linear and in dB?",
+        "r": "R2",
+        "src": "auth",
+        "text": "Reflection factor of 1 m² at 3 GHz: 4πσ/λ² = 1257, that is +30.99 dB",
+        "tier": "sup",
+        "type": "QNT"
+      },
+      {
+        "id": "U60",
+        "part": 3,
+        "q": "Which values do the five links of the example take?",
+        "r": "R2",
+        "src": "auth",
+        "text": "Intermediate powers: P1 -30.96 dBm (0.80 µW), P2 +0.03 dBm, PA -135.93 dBm, PR -100.93 dBm (8.1e-14 W)",
+        "tier": "key",
+        "type": "OOM"
+      },
+      {
+        "id": "U61",
+        "part": 3,
+        "q": "Is the far-field assumption safe at 50 km for a 3 m antenna at 3 GHz?",
+        "r": "R2",
+        "src": "auth",
+        "text": "The object and the receiver must be in the far field: 2D²/λ is 180 m for a 3 m antenna at 3 GHz, far below 50 km",
+        "tier": "sup",
+        "type": "LIM"
+      },
+      {
+        "id": "U62",
+        "part": 3,
+        "q": "Estimate PR for the example in your head, then compute it.",
+        "r": "R2",
+        "src": "auth",
+        "text": "Example: PT 70 dBm, G 35 dB, D 50 km, F 3000 MHz, σ 1 m²: PR = -100.93 dBm; rounded constants give -100.5",
+        "tier": "key",
+        "type": "OOM"
+      },
+      {
+        "id": "U63",
+        "part": 3,
+        "q": "How does range scale with power in a radar link and in a one-way link?",
+        "r": "R2",
+        "src": "auth",
+        "text": "Doubling D costs 12.04 dB, one-way only 6.02: power x16 instead of x4; +10 dB buys range x1.78 against x3.16",
+        "tier": "key",
+        "type": "QNT"
+      },
+      {
+        "id": "U64",
+        "part": 3,
+        "q": "Compare the end-to-end loss of the radar link and of a one-way link over the same distance.",
+        "r": "R2",
+        "src": "auth",
+        "text": "The decisive case: end-to-end loss 240.93 dB for the radar against 136.0 dB one-way over the same 50 km at 3 GHz",
+        "tier": "key",
+        "type": "PRX"
+      },
+      {
+        "id": "U65",
+        "part": 3,
+        "q": "What does a decibel of gain buy compared with a decibel of power in a radar link, and what does it cost?",
+        "r": "R2",
+        "src": "auth",
+        "text": "+3 dB of gain adds 6 dB, +3 dB of power adds 3 dB; a fixed aperture gains frequency; the price is beam width and pointing",
+        "tier": "key",
+        "type": "TRD"
+      },
+      {
+        "id": "U66",
+        "part": 3,
+        "q": "When does the radar link equation fail, and what replaces it?",
+        "r": "R2",
+        "src": "auth",
+        "text": "Limits: two-way atmospheric loss 2αD, two-ray ground effects (M4), σ fluctuation and bistatic geometry, near field, receiver chain losses",
+        "tier": "key",
+        "type": "LIM"
+      },
+      {
+        "id": "U67",
+        "part": 3,
+        "q": "Does the received power equation say whether the object is detected?",
+        "r": "R2",
+        "src": "auth",
+        "text": "The equation gives received power, not detection: detection needs noise and a threshold (M2); the floor -110 dBm only frames the example",
+        "tier": "sup",
+        "type": "LIM"
+      },
+      {
+        "id": "U68",
+        "part": 3,
+        "q": "What does the fourth-root law mean for the range of a radar?",
+        "r": "R2",
+        "src": "auth",
+        "text": "Range goes as the fourth root of power: x16 power doubles the range; σ from 1 m² to 1e-5 m² (-50 dB) cuts range to 0.056",
+        "tier": "key",
+        "type": "OPS"
+      },
+      {
+        "id": "U69",
+        "part": 3,
+        "q": "How much stronger is the radar signal at the object than the echo at the radar?",
+        "r": "R2",
+        "src": "auth",
+        "text": "At the object the signal is 70 dB stronger than the radar's own received echo (-30.96 against -100.93 dBm)",
+        "tier": "sup",
+        "type": "OPS"
+      },
+      {
+        "id": "U70",
+        "part": 3,
+        "q": "Which chain did the first radar calculation of 1935 follow, and which assumption did it rest on?",
+        "r": "R2",
+        "src": "auth",
+        "text": "Daventry, February 1935: the first radar calculation was a chain: transmitter field at an aircraft, re-radiation by wings as a half-wave dipole, field back",
+        "tier": "sup",
+        "type": "HIS"
+      },
+      {
+        "id": "U71",
+        "part": 3,
+        "q": "What is wrong in 'radar loses 6 dB when the distance doubles'?",
+        "r": "R2",
+        "src": "auth",
+        "text": "Claim 'a radar link loses 6 dB per doubling of distance': 12.04 dB; the single-link check on the book formula catches it",
+        "tier": "key",
+        "type": "CRT"
+      },
+      {
+        "id": "U72",
+        "part": 3,
+        "q": "What do 20logσ and F in GHz cost, and what check catches each?",
+        "r": "R2",
+        "src": "auth",
+        "text": "Using 20logσ instead of 10logσ, or -103 with F in GHz: shifts of 10 dB and 60 dB that a known point exposes",
+        "tier": "sup",
+        "type": "CRT"
+      },
+      {
+        "id": "U73",
+        "part": 3,
+        "q": "How does the chain become the radar equation of M2?",
+        "r": "R2",
+        "src": "auth",
+        "text": "Radar (M1, M2): the same chain written as PT G² λ² σ/((4π)³R⁴); detection and noise added in M2",
+        "tier": "key",
+        "type": "MAP"
+      },
+      {
+        "id": "U74",
+        "part": 3,
+        "q": "Where else does a two-way structure appear in the core?",
+        "r": "R2",
+        "src": "auth",
+        "text": "Naval: the active sonar counts transmission loss twice, 2TL, the same two-way structure (M10)",
+        "tier": "sup",
+        "type": "MAP"
+      },
+      {
+        "id": "U75",
+        "part": 4,
+        "q": "Define the signal-to-interference ratio in dB.",
+        "r": "S",
+        "src": "B01:41",
+        "text": "Signal-to-interference ratio: the desired power over the interfering power at the receiver input, in dB",
+        "tier": "key",
+        "type": "DEF"
+      },
+      {
+        "id": "U76",
+        "part": 4,
+        "q": "Derive Ps - Pi from the two one-way links and say what cancels.",
+        "r": "S",
+        "src": "B01:41",
+        "text": "Each link is Ps = ERPs - Ls(Ds) + G; subtracting the two links cancels 32.44, 20logF and G",
+        "tier": "key",
+        "type": "STEP"
+      },
+      {
+        "id": "U77",
+        "part": 4,
+        "q": "Which assumptions make Ps - Pi = ERPs - ERPi - 20logDs + 20logDi valid?",
+        "r": "S",
+        "src": "B01:41",
+        "text": "Assumes the same receiving gain for both, the same frequency, free space for both and full spectral overlap",
+        "tier": "key",
+        "type": "ASM"
+      },
+      {
+        "id": "U78",
+        "part": 4,
+        "q": "State the interference equation with its symbols and validity.",
+        "r": "S",
+        "src": "B01:41",
+        "text": "Ps - Pi = ERPs - ERPi - 20logDs + 20logDi, valid for two same-frequency signals and one receiving antenna with the same gain",
+        "tier": "key",
+        "type": "RES"
+      },
+      {
+        "id": "U79",
+        "part": 4,
+        "q": "What determines the signal-to-interference ratio and what drops out?",
+        "r": "S",
+        "src": "auth",
+        "text": "Only two things remain: the gap between the two ERP and the ratio of the two distances; frequency, constants and gain drop out",
+        "tier": "key",
+        "type": "STR"
+      },
+      {
+        "id": "U80",
+        "part": 4,
+        "q": "Does the equation distinguish unintended from intended interference sources?",
+        "r": "S",
+        "src": "auth",
+        "text": "The same equation holds for an unintended and an intended source of interference: the physics of the link does not encode intent",
+        "tier": "key",
+        "type": "ASM"
+      },
+      {
+        "id": "U81",
+        "part": 4,
+        "q": "What does doubling the interferer's distance do, and what is the example's ratio?",
+        "r": "S",
+        "src": "auth",
+        "text": "6.02 dB per doubling of the interferer's distance; example 40 dBm at 20 km against 30 dBm at 5 km gives -2.04 dB",
+        "tier": "key",
+        "type": "QNT"
+      },
+      {
+        "id": "U82",
+        "part": 4,
+        "q": "How far must two equal-power transmitters be for 10 dB and for 20 dB?",
+        "r": "S",
+        "src": "auth",
+        "text": "A 10 dB ERP gap at equal distances is 10 dB; for 10 dB at equal ERP the distance ratio is 3.16, for 20 dB it is 10",
+        "tier": "key",
+        "type": "OOM"
+      },
+      {
+        "id": "U83",
+        "part": 4,
+        "q": "How do noise and interference combine at the receiver?",
+        "r": "S",
+        "src": "auth",
+        "text": "With noise as well the powers add in linear units (lesson 1, (14)): noise -110 dBm with interference -66.98 dBm is -66.98 dBm",
+        "tier": "sup",
+        "type": "STEP"
+      },
+      {
+        "id": "U84",
+        "part": 4,
+        "q": "When does Ps - Pi = ... fail?",
+        "r": "S",
+        "src": "auth",
+        "text": "Limits: different antenna gains per direction (chapter 3), frequency offset and bandwidth, exponents other than 2, error rate depends on modulation (M0.5)",
+        "tier": "key",
+        "type": "LIM"
+      },
+      {
+        "id": "U85",
+        "part": 4,
+        "q": "What does a decibel of SIR cost by power and by distance?",
+        "r": "S",
+        "src": "auth",
+        "text": "Raising the desired ERP by 10 dB costs x10 power; separating the sources by x3.16 costs distance; the choice is cost against geometry",
+        "tier": "key",
+        "type": "TRD"
+      },
+      {
+        "id": "U86",
+        "part": 4,
+        "q": "How does the signal-to-interference ratio of an echo change with range, and where does it cross 0 and 10 dB?",
+        "r": "S",
+        "src": "auth",
+        "text": "For a radar echo (R⁻⁴) against a fixed co-channel emitter the ratio falls 12.04 dB per doubling of D: -33.95 dB at 50 km, 0 dB at 7.08 km",
+        "tier": "key",
+        "type": "OPS"
+      },
+      {
+        "id": "U87",
+        "part": 4,
+        "q": "Compute the ratio for the three ranges.",
+        "r": "S",
+        "src": "auth",
+        "text": "Table for D = 50, 25, 10 km: SIR -33.95, -21.91, -5.99 dB; the one-way slope is 20 dB per decade, the echo's 40",
+        "tier": "key",
+        "type": "PRX"
+      },
+      {
+        "id": "U88",
+        "part": 4,
+        "q": "What is wrong in 'two equal transmitters give 0 dB' and in 'higher frequency improves the ratio'?",
+        "r": "S",
+        "src": "auth",
+        "text": "Claims 'equal ERP means 0 dB' (only at equal distance) and 'a higher frequency improves the ratio' (F cancels)",
+        "tier": "key",
+        "type": "CRT"
+      },
+      {
+        "id": "U89",
+        "part": 4,
+        "q": "Which parts of the equation change when the desired signal is a radar echo?",
+        "r": "S",
+        "src": "auth",
+        "text": "Any chain can stand for Ps or Pi: a one-way link has 20log, a radar echo 40log; the equation is two links subtracted",
+        "tier": "sup",
+        "type": "STR"
+      },
+      {
+        "id": "U90",
+        "part": 4,
+        "q": "What separation does the example need for 10 dB and 20 dB?",
+        "r": "S",
+        "src": "auth",
+        "text": "Required separation: ERP gap 10 dB and 10 dB wanted at Ds = 20 km gives Di = 20 km, and 63.25 km for 20 dB",
+        "tier": "key",
+        "type": "QNT"
+      },
+      {
+        "id": "U91",
+        "part": 4,
+        "q": "Where does the distance ratio for a required SIR decide a design?",
+        "r": "S",
+        "src": "auth",
+        "text": "Data links and frequency reuse: the separation distance for a required SIR (mechanism in M0.5)",
+        "tier": "key",
+        "type": "MAP"
+      },
+      {
+        "id": "U92",
+        "part": 4,
+        "q": "Which measure fits a one-way receiver and which a radar receiver, and what parameter flips the choice?",
+        "r": "S",
+        "src": "auth",
+        "text": "Trade study: the gap to 10 dB is 22.04 dB for the one-way link and 43.95 dB for the radar echo; the choice of measure flips with the exponent",
+        "tier": "key",
+        "type": "OPS"
+      }
+    ]
+  },
+  "spec": {
+    "sources": [
+      {
+        "doc": "B01",
+        "pages": [
+          37,
+          41
+        ]
+      },
+      {
+        "doc": "B02",
+        "pages": [
+          932,
+          932
+        ]
+      }
+    ],
+    "title": "קשרים מעשיים: שדה חשמלי ב-µV/m, המכ\"ם כשרשרת קשרים, ויחס אות להפרעה"
+  },
+  "status": "adopted",
+  "text": "```plan\n1. הדציבל: לוגריתמים, יחסים ורמות מוחלטות (dBm, dBW, dBsm, dBi)\n2. משוואת הקשר החד-כיווני: אובדן התפשטות, הנחתה אטמוספרית, רגישות וטווח אפקטיבי\n3. קשרים מעשיים: שדה חשמלי ב-µV/m, המכ\"ם כשרשרת קשרים, ויחס אות להפרעה (כאן)\n\nבשיעור הראשון בנינו את הדציבל ובשני את הקשר החד-כיווני. השיעור השלישי סוגר את המודול: הוא מחבר את תקציב הקשר לשדה שבאמת נע בחלל, פותח את הקשר ההלוך-ושוב של המכ\"ם לשני קשרים חד-כיווניים, ומודד בו שני אותות שנפגשים באנטנה אחת.\n```\n\n```story\n@title: שני דפי נתונים, ויחידה אחת שחסרה\n\nבישיבת תכן של מקלט לקביעת כיוון ([[מונח: קביעת כיוון (DF) | מדידת הכיוון שממנו מגיע אות, לפי ההפרשים בין האותות שכמה אנטנות קולטות]]) מונחים על השולחן שני דפי נתונים [[היפותטי]]. בדף של מערך האנטנות כתוב \"רגישות: 5 µV/m\". בדף של המקלט שיחובר אליו כתוב \"רגישות: -107 dBm\". תקציב הקשר שבנינו בשיעור הקודם מכיל רק dBm ו-dB, ואין בו אף µV/m. המהנדס הצעיר שואל איך מניחים את שני המספרים באותו תקציב. הבכיר עונה שיש לזה נוסחה קצרה, ושהיא נשענת על קיצור דרך שאינו מדויק לגמרי, ושכולם משתמשים בו בכל זאת. אנחנו נפתח את הקיצור הזה ונראה מה בו מדויק, מה בו מוסכמה, ולמה המקדם שבו תלוי בתדר.\n```\n\nהבעיה ההנדסית פשוטה לניסוח: מפרט אחד מדבר בשפת **שדה** (כמה חזק הגל בנקודה במרחב), ומפרט שני מדבר בשפת **הספק** (כמה הספק מגיע לכניסת המקלט). תקציב קשר הוא שרשרת של חיבורים וחיסורים בדציבלים, ושרשרת כזו מתקלקלת ברגע שאיבר אחד בה נמדד ביחידה אחרת: הטעות אינה של עשירית דציבל אלא של עשרות דציבלים. עד כה ההספק שהיה לנו ב\"אתר\", בין שתי האנטנות, נחשב כאילו הוא מספר שאפשר להצמיד לנקודה בחלל, ו-$P_R=P_T+G_T-L_s-L_a+G_R$ (20) עבד היטב. נקודת המוצא של השיעור היא לשאול מה היה מותר בהצמדה הזאת. <!--U14-->\n\nהקושי הוא ששני המספרים אינם מאותו סוג. עוצמת שדה היא משרעת של גל, והספק הוא קצב זרימה של אנרגיה; כדי לעבור מזה לזה צריך לדעת דרך איזה שטח הזרימה עוברת, ושטח כזה הוא תכונה של האנטנה ולא של הגל. לכן ההמרה תלויה בתדר, כפי שראינו בשיעור הקודם: השטח של אנטנה איזוטרופית הוא $A_{iso}=\\lambda^2/4\\pi$ (23), כלומר 0.716 מ\"ר ב-100 MHz ו-71.6 סמ\"ר ב-1 GHz. הרעיון שפותר את הבעיה הוא לבנות את ההמרה משני חלקים שאפשר לגזור: מה שהגל עצמו נושא בכל מטר רבוע (צפיפות הספק), ומה שהאנטנה אוספת מזה (שטח). מחיבור שני החלקים מתקבלים הנוסחה $P=-77+20\\log E-20\\log F$ וההיפוך שלה.\n\n## ההספק שבאתר: פגם לוגי שכדאי להבין\n\n[[B01:37]] תקציב הקשר מציג את אות הקשר \"באתר\", בין אנטנת השידור לאנטנת הקליטה, ב-dBm. אבל dBm הוא רק הייצוג הלוגריתמי של מיליוואטים, והספק חשמלי מוגדר באמת רק בתוך חוט או מעגל: יש מתח, יש זרם, ויש מכפלתם. <!--U1--> בין שתי אנטנות אין חוט. מה שנע שם הוא גל, ואת הגל מתארים נכון בעוצמת שדה חשמלי (electric intensity, בלשון המקצוע גם field strength), שנמדדת בוולט למטר וברוב המקרים ב-µV/m. <!--U15--> מהנדסי ל\"א שעובדים כך כל יום יודעים שזה פגם לוגי, ומגנים על השיטה בכל זאת, כי היא מפשטת את החיים יותר מכפי שהיא מסבכת אותם. אנחנו נשאל מה בדיוק הפגם הזה עולה.\n\n[[B01:38]] איורים 2.4 ו-2.5 מציגים את אותו אות בשתי שפות. בצד אחד שדה ב-µV/m, שהוא התיאור המדויק של הגל בחלל; בצד השני הספק ב-dBm בקצה האנטנה, שהוא התיאור המדויק של האות במעגל. האנטנה היא הדבר היחיד שמחבר ביניהם. <!--U2-->\n\n```figure\nB01:38:0\n```\n\n```figure\nB01:38:1\n```\n\nכדי לקבל בכל זאת dBm \"באוויר\" שנותן תוצאות נכונות בניתוח קשרים, משתמשים בתחבולה: מציבים בנקודה שבה רוצים להצמיד לאות עוצמה אנטנה דמיונית בהגבר 1 (איזוטרופית), והספק שהיה יוצא מהמחבר שלה הוא ה-dBm של האות. בייצוג של ה-ERP, האנטנה הדמיונית יושבת על הקו בין שתי האנטנות, כמעט נוגעת באנטנת השידור (מתעלמים כמובן מהשדה הקרוב); בייצוג של ההספק שמגיע לאנטנת הקליטה היא יושבת על אותו קו, כמעט נוגעת באנטנת הקליטה. <!--U3--> ההנחה הנסתרת היא שהגל \"נתקל\" באנטנה ששטחה $A_{iso}$ תמיד, ושההספק באתר הוא מה שהאנטנה הזאת הייתה אוספת. נשאר לברר מה הגל נושא בכל מטר רבוע, כי רק אז נוכל לכפול בשטח.\n\n## מה נע בחלל: צפיפות הספק ועכבת המרחב החופשי\n\n[[B02:932]] הספר מציג את וקטור פוינטינג בשורה אחת, כאילו היה מובן מאליו; מקורו בשאלה היסטורית על הכיוון שבו נעה אנרגיה חשמלית.\n\n```history\n@title: פוינטינג והזרימה של אנרגיה בחלל\n@who: ג'ון הנרי פוינטינג (J. H. Poynting), ובאופן בלתי תלוי אוליבר היוויסייד (O. Heaviside)\n@when: 1884–1885\n\nתורת מקסוול של שנות ה-60 של המאה ה-19 קבעה שהשדות עצמם נושאים אנרגיה, אבל לא אמרה באיזה קצב היא עוברת מנקודה לנקודה. פוינטינג ניסח ב-1884 משפט שעונה על זה: קצב הזרימה של האנרגיה ליחידת שטח שווה למכפלה הווקטורית של שדה חשמלי ושדה מגנטי, וכיוון הזרימה הוא כיוון המכפלה [[ודאות: גבוהה]]. היוויסייד הגיע לאותה תוצאה בעצמו ב-1885 [[ודאות: גבוהה]]. המסקנה המפתיעה שלהם הייתה שהאנרגיה של זרם בחוט אינה נעה בתוך החוט אלא נכנסת אליו מהחלל שסביבו. הצורך שהוביל לתוצאה הוא הצורך להגדיר \"הספק\" בלי חוט, ומכאן ההנחה שלה: הספק הוא תמיד זרימה דרך שטח. ולכן \"הספק באתר\" בלי שטח חסר משמעות עד שמצמידים לו אנטנה; זה בדיוק הפגם שתיארנו. <!--U5--> היום הווקטור של פוינטינג הוא הבסיס להגדרת הגבר אנטנה ולמגבלות חשיפה והפרעה.\n```\n\nכעת נבנה את הכלים. הגדרת צפיפות ההספק משתמשת במכפלה וקטורית, ולכן נסביר אותה קודם במילים. שני וקטורים $\\mathbf a$ ו-$\\mathbf b$ בזווית $\\theta$ ביניהם נותנים וקטור שאורכו $|\\mathbf a||\\mathbf b|\\sin\\theta$ וכיוונו ניצב לשניהם. כששני הווקטורים ניצבים זה לזה, $\\sin 90^\\circ=1$, והאורך הוא פשוט מכפלת האורכים. זה כל מה שנצטרך כאן; את התכונות של השדות עצמם ושל הווקטורים נבנה מהיסוד במודול M0.2, ולכן את שתי התוצאות הבאות (ניצבות השדות, ויחס גודלם) אנחנו מקבלים כאן כמות שהן.\n\n```definition\n@title: צפיפות הספק (Power Flux Density) ווקטור פוינטינג\n\nבנקודה במרחב שבה מתקדם גל אלקטרומגנטי, יהיו $\\mathbf E$ השדה החשמלי (ב-V/m, כערך אפקטיבי) ו-$\\mathbf B$ השדה המגנטי (בטסלה, באותו ערך אפקטיבי), ויהי $\\mu_0$ קבוע החדירות המגנטית של הריק. וקטור פוינטינג ([[מונח: וקטור פוינטינג | וקטור שכיוונו כיוון זרימת האנרגיה של הגל וגודלו ההספק ליחידת שטח]]) הוא\n$$\\mathbf S=\\frac{\\mathbf E\\times\\mathbf B}{\\mu_0}.$$\nגודלו $S=|\\mathbf S|$ הוא צפיפות ההספק: ההספק שעובר דרך יחידת שטח ניצבת לכיוון ההתקדמות, ביחידות W/m². ההגדרה מוגדרת בכל נקודה שבה השדות מוגדרים; השטח שדרכו סופרים חייב להיות ניצב לכיוון $\\mathbf S$; ואם $\\mathbf E$ ו-$\\mathbf B$ נתונים כערכי שיא ולא כערכים אפקטיביים, מקבלים את ההספק הממוצע בחלוקה ב-2.\n```\n\n<!--U4--> ככה בנויה ההגדרה: המכפלה $\\mathbf E\\times\\mathbf B$ נותנת כיוון ניצב לשני השדות, וזה כיוון ההתקדמות; החלוקה ב-$\\mu_0$ מתרגמת את היחידות (וולט כפול טסלה, חלקי $\\mu_0$, הם וואט למטר רבוע); ואם הורדנו את ההנחה שהשדות ניצבים זה לזה, גודל המכפלה היה קטן, וזרימה ממשית פחותה. עכשיו נשארו שתי עובדות על גל בחלל חופשי שאנחנו משתמשים בהן, ושאת הוכחתן נשאיר ל-M0.2.\n\n[[B02:932]] העובדה הראשונה: בחלל חופשי השדה החשמלי והשדה המגנטי של הגל ניצבים זה לזה, וכיוון ההתקדמות ניצב לשניהם (גל \"רוחבי\"). העובדה השנייה: היחס בין גודלי השדות הוא קבוע, $|\\mathbf E|/|\\mathbf B|=c$, מהירות האור. <!--U6--> המשמעות המעשית שלהן היא ששדה אחד קובע את השני, ולכן מספיק לתאר את הגל בשדה החשמלי בלבד, והספק הוא פונקציה של $E$ בלבד. כך עושים בפועל. אם נגדיר גם את השדה העזר $\\mathbf H=\\mathbf B/\\mu_0$, היחס בין שני השדות מקבל שם משלו:\n\n```definition\n@title: עכבת המרחב החופשי (Impedance of Free Space)\n\nבגל מישורי המתקדם בחלל חופשי, יהיו $E=|\\mathbf E|$ ו-$H=|\\mathbf H|$ גודלי השדה החשמלי (ב-V/m) והשדה המגנטי $\\mathbf H=\\mathbf B/\\mu_0$ (ב-A/m) באותה נקודה. עכבת המרחב החופשי ([[מונח: עכבה | היחס בין מתח לזרם במעגל; כאן, היחס בין השדה החשמלי לשדה המגנטי בגל]]) היא\n$$Z_0\\equiv\\frac{E}{H}=\\mu_0c=\\sqrt{\\frac{\\mu_0}{\\varepsilon_0}}\\ \\ [\\Omega],$$\nכאשר $\\varepsilon_0$ הפרמיטיביות החשמלית של הריק. היא מוגדרת לגל מישורי בחלל חופשי בלבד, ואינה תכונה של כל נקודה בכל שדה.\n```\n\n<!--U7--> ההגדרה בנויה כך: הגל מציב יחס קבוע בין שני השדות, בדיוק כשם שנגד מציב יחס קבוע בין מתח לזרם, ולכן היחס נמדד באוהם. הוא תלוי רק בתכונות הריק ($\\mu_0,\\varepsilon_0$) ואינו תלוי בתדר ובעוצמה. ואם הגל לא היה מישורי או לא היה בריק, היחס היה אחר.\n\n### דוגמה: הערך של $Z_0$\n\nנחשב. $\\mu_0=4\\pi\\cdot10^{-7}$ H/m ו-$c=3\\cdot10^{8}$ מ'/שנ' נותנים $\\mu_0c=376.99\\ \\Omega=120\\pi\\ \\Omega$; עם $c=299{,}792{,}458$ מ'/שנ' הערך המדויק הוא 376.73 $\\Omega$, וזה גם ערכה של הצורה $\\sqrt{\\mu_0/\\varepsilon_0}$ (שתי הצורות שוות כי $c=1/\\sqrt{\\mu_0\\varepsilon_0}$). <!--U16--> הערך העגול 377 גבוה מ-$120\\pi$ ב-0.002% ומהערך המדויק ב-0.07%, כלומר הבחירה בין 377 ל-$120\\pi$ לא משנה אפילו מאית דציבל. <!--U12-->\n\n## מ-$E$ אל $S$: גזירה צעד אחר צעד\n\n[[2.5: מקור]] נגזור את צפיפות ההספק בעזרת שתי העובדות, וכל צעד בשורה משלו.\n\n1. נתחיל מההגדרה. הווקטורים $\\mathbf E$ ו-$\\mathbf B$ ניצבים זה לזה, ולכן $\\sin90^\\circ=1$ והגודל הוא $S=\\dfrac{|\\mathbf E|\\,|\\mathbf B|}{\\mu_0}$. כאן נכנסת ההנחה שהגל מישורי: רק בו השדות ניצבים ובפאזה אחת.\n2. מהעובדה השנייה, $|\\mathbf B|=|\\mathbf E|/c$. מותר להציב כך אך ורק בגל מישורי בחלל חופשי, שבו היחס קבוע.\n3. נציב ונקבל $S=\\dfrac{E^2}{\\mu_0c}$.\n4. נזהה את המכנה: $\\mu_0c=Z_0$. לכן $S=E^2/Z_0$. <!--U8-->\n\n```formula\n@title: צפיפות ההספק של גל מישורי בריק\n\n$$S=\\frac{E^{2}}{Z_0}\\tag{31}$$\n\n$S$ בוואט למ\"ר; $E$ הערך האפקטיבי של השדה החשמלי בוולט למטר; $Z_0=\\mu_0c\\approx120\\pi\\ \\Omega\\approx377\\ \\Omega$. תקפה לגל מישורי בחלל חופשי (שדה רחוק); בערך שיא של $E$ ההספק הממוצע הוא $E_{peak}^2/(2Z_0)$.\n```\n\nשימו לב שהשדה מופיע בריבוע. הגודל $E$ הוא משרעת, והספק הוא ריבוע של משרעת; כשנעביר את (31) לדציבלים, המשרעת תקבל $20\\log$ ולא $10\\log$, בדיוק כמו ב-SPL שפגשנו, $20\\log(p/1\\,\\mu\\text{Pa})$, שבו הלחץ הוא משרעת וההספק הוא ריבועו. <!--U10--> זו הסיבה לכך שבהמרה שנגיע אליה יופיע $20\\log E$.\n\n### דוגמה: שדה של 1 µV/m\n\nכמה צפיפות הספק נושא שדה של 1 µV/m? $S=(10^{-6})^2/(120\\pi)=2.65\\cdot10^{-15}$ W/m², כלומר $-145.76$ dBW/m² (המספר מחושב; זה המקרה הפרטי של (31), לא נוסחה חדשה). <!--U11--> ובכללי, בעולם האמיתי עוצמות השדה נעות מ-µV/m ברף הקליטה של מקלט ועד mV/m ליד משדר שידור, כלומר 60 dB זו מזו. <!--U17-->\n\n## גבולות: איפה $E^2/Z_0$ נכשלת\n\n[[2.5: גבולות]] (31) שימושית כל עוד $E/H=Z_0$, וזה נכון לגל מישורי בחלל חופשי, כלומר בשדה הרחוק. <!--U9--> קרוב לאנטנה, במרחק קטן מאורך הגל, שני השדות אינם ניצבים בפאזה אחת והיחס ביניהם אינו 377; באמצעי עם $\\varepsilon$ ו-$\\mu$ אחרים (קרקע, מים, חומר) העכבה אחרת. ומכאן שגם כשהכול תקין, צפיפות ההספק היא תכונה של הגל והספק הוא תכונה של אנטנה: אותו שדה נותן הספק אחר לכל אנטנה, לפי שטחה האפקטיבי. <!--U13--> זו הסיבה שה-dBm ב\"אתר\" נשען על אנטנה ייחוס אחת בלבד.\n\n```think\nמודדים שדה חשמלי במרחק 1 מ' מאנטנה קטנה של משדר ב-10 MHz (אורך הגל 30 מ'). האם אפשר לחשב ממנו צפיפות הספק בעזרת $S=E^2/377$?\n\n(א) כן, תמיד: 377 אוהם הוא קבוע של הטבע.\n(ב) לא: 1 מ' הוא חלק קטן מאורך הגל, ולכן זה שדה קרוב ויחס השדות אינו 377.\n(ג) כן, אבל רק כשהתדר גבוה מ-1 GHz.\n\n---\n\n(ב). 377 אוהם הוא היחס בגל מישורי בחלל חופשי, ו-1 מ' מתוך 30 מ' הוא קרוב מאוד לאנטנה, שם השדה אינו גל מישורי. ב-(א) שכחנו את הנחת הגל המישורי; ב-(ג) התדר אינו הגורם, אלא המרחק יחסית לאורך הגל.\n```\n\n```erratum\n@title: שגיאות סריקה בסעיף 2.3.1–2.3.2\n@page: B01:38\n\nשגיאות סריקה בלבד, בלי השפעה על התוכן: \"Power (dam)\" באיורים 2.4–2.5 הוא \"Power (dBm)\"; \"IlV/m\" ו-\"~V/m\" הם µV/m; \"2.3.2 Sensitivity in pV/m\" בכותרת הוא µV/m (המיקרו נקרא כ-p).\n```\n\nהבנו אם כך שההספק באתר הוא מוסכמה מבוססת, ושהמוסכמה נשענת על שני דברים שאפשר לגזור: צפיפות ההספק $E^2/Z_0$ שנושא הגל, ושטח האנטנה הדמיונית שאוספת אותה. בסעיף הבא נחבר אותם, נעביר את התוצאה לדציבלים ונבדוק מה בדיוק מסתתר במקדם $-77$.\n\n<!--audit: units U1–U17 17/17 (auth 6/6) | w/u 103 | think 1 (+predict 0) | padding 0-->\n\n\n## השטח שהאנטנה הדמיונית אוספת\n\nיש לנו צפיפות הספק, $S=E^2/Z_0$ (31), ומה שנותר הוא לכפול אותה בשטח. את השטח של האנטנה האיזוטרופית כבר פגשנו.\n\n```refresh\n@title: השטח האפקטיבי של אנטנה איזוטרופית\n@first: שיעור 2, (23): 0.716 מ\"ר ב-100 MHz\n\nאנטנה איזוטרופית (הגבר 1) אוספת הספק משטח $A_{iso}=\\lambda^2/4\\pi$, כאשר $\\lambda=c/F$ אורך הגל. ב-100 MHz זה 0.716 מ\"ר, ב-1 GHz 71.6 סמ\"ר, וב-10 GHz 0.716 סמ\"ר: השטח יורד פי 100 על כל פי 10 בתדר.\n```\n\n[[B01:39]] לאנטנה בהגבר $G$ יש שטח אפקטיבי גדול פי $G$, ובכתיבה עם התדר $F$ בהרץ:\n\n$$A=\\frac{G\\,c^{2}}{4\\pi F^{2}}\\tag{32}$$\n\nעבור $G=1$ זה בדיוק $\\lambda^2/4\\pi$. את הנוסחה הכללית נגזור במודול M1; כאן אנחנו נשענים עליה, ובשלוש הנחות נסתרות שהן חלק ממנה: האנטנה מותאמת לקו שלה (אין החזרה), היא אינה מפסידה הספק בחומר, וקיטוב האנטנה מתיישר עם קיטוב השדה. <!--U18--> אם אחת מהן נשברת, השטח האפקטיבי קטן.\n\n## מ-$E$ אל $P$: שלושה צעדים\n\n[[2.5: מקור]] נחבר עכשיו את שני החלקים. כל צעד בשורה משלו.\n\n1. ההספק שהאנטנה אוספת הוא צפיפות ההספק כפול השטח: $P=S\\cdot A$. **הנחה:** השדה אחיד על פני פתח האנטנה, והעומס מותאם, כלומר כל ההספק שנאסף מגיע לעומס. כשזה לא כך, מקבלים פחות. הצעד נותן $P=\\dfrac{E^2A}{Z_0}$ (33). <!--U19-->\n2. נציב את (32) ב-(33) עם $G=1$: $P=\\dfrac{E^2c^2}{4\\pi Z_0F^2}$. זו הנוסחה בקואורדינטות SI בלבד, עם $E$ בוולט למטר, $F$ בהרץ ו-$P$ בוואט. <!--U20-->\n3. נתרגם ליחידות שבהן מדברים בפועל: $E$ במיקרו-וולט למטר, $F$ במגה-הרץ, $P$ במיליוואט, ונעבור לדציבלים.\n\n$$P=\\frac{E^{2}A}{Z_0}\\tag{33}$$\n\nהצעד השלישי הוא המקור של המקדם $-77$, וכדאי לראות אותו גורם אחר גורם, כי כך תופסים את המקדם ולא רק זוכרים אותו. כל המרת יחידות מוסיפה גורם בעשרות, וכל גורם הופך לאיבר בדציבלים. $E=10^{-6}E_{\\mu}$ נותן בריבוע $10^{-12}$, כלומר $-120$ dB. $c^2$ הוא $9\\cdot10^{16}$, כלומר $+169.54$ dB. החילוק ב-$4\\pi$ נותן $-10.99$ dB, והחילוק ב-$Z_0=120\\pi$ נותן $-25.76$ dB. $F=10^{6}F_{MHz}$ נותן ב-$F^2$ במכנה עוד $-120$ dB. ולבסוף המעבר מוואט למיליוואט הוא $\\times10^{3}$, כלומר $+30$ dB. <!--U21-->\n\n```table\n{\"title\":\"ששת הגורמים שמרכיבים את המקדם -77\",\"scope\":{\"c\":300000000},\"columns\":[\"הגורם\",\"הסיבה\",\"ערך (dB)\"],\"rows\":[[\"\\\"E ב-µV/m ולא ב-V/m, בריבוע\\\"\",\"\\\"10log((10^-6)^2)\\\"\",\"10*log10(1e-12)\"],[\"\\\"מהירות האור בריבוע\\\"\",\"\\\"10log(c^2)\\\"\",\"10*log10(c^2)\"],[\"\\\"חילוק ב-4π\\\"\",\"\\\"שטח A = c^2/(4π F^2)\\\"\",\"-10*log10(4*pi)\"],[\"\\\"חילוק ב-Z0\\\"\",\"\\\"Z0 = 120π\\\"\",\"-10*log10(120*pi)\"],[\"\\\"F ב-MHz ולא ב-Hz, בריבוע\\\"\",\"\\\"1/(10^6)^2\\\"\",\"-10*log10(1e12)\"],[\"\\\"וואט למיליוואט\\\"\",\"\\\"10log(10^3)\\\"\",\"10*log10(1e3)\"],[\"\\\"סך הכול\\\"\",\"\\\"המקדם\\\"\",\"10*log10(1e-12)+10*log10(c^2)-10*log10(4*pi)-10*log10(120*pi)-10*log10(1e12)+10*log10(1e3)\"]]}\n```\n\nשישה הגורמים נותנים $-77.21$ dB, ובפרקטיקה מעגלים ל-$-77$. מה שנשאר הוא $E^2/F^2$ בדציבלים, כלומר $20\\log E-20\\log F$:\n\n```formula\n@title: המרה בין עוצמת שדה להספק (האנטנה הדמיונית)\n\n$$P(\\text{dBm})=-77+20\\log E-20\\log F\\tag{34}$$\n\n$$E=10^{\\,(P+77+20\\log F)/20}\\tag{35}$$\n\n$P$ ההספק ב-dBm שמקבלת אנטנה איזוטרופית; $E$ עוצמת השדה (ערך אפקטיבי) ב-µV/m; $F$ התדר ב-MHz; $\\log$ בבסיס 10. תקפה לגל מישורי בחלל חופשי, בשדה הרחוק, לאנטנה מותאמת ובקיטוב תואם. המקדם $-77$ תלוי ביחידות הנבחרות.\n```\n\n<!--U22--> <!--U23--> הנוסחה השנייה היא ההיפוך של הראשונה: מעבירים את $-77$ ואת $-20\\log F$ לצד השני ומחלקים ב-20. איזה שדה נותן $-65$ dBm, הרגישות מהשיעור הקודם, ב-100 MHz? נעצור ונחזה לפני שנחשב.\n\n```predict\n@title: איזה שדה נותן -65 dBm ב-100 MHz?\n@unit: µV/m\n@value: 398.1\n\nהשתמשו ב-(35) או ב-(34) ואמדו בראש: איזו עוצמת שדה, ב-µV/m, נותנת הספק של $-65$ dBm באנטנה איזוטרופית ב-100 MHz? כתבו ערך וטווח של 90%, וגם: מה קורה לשדה הנדרש כשהתדר גדל פי 10 והרגישות בדציבלים נשארת.\n\n---\n\n$20\\log E=-65+77+20\\log100=-65+77+40=52$ dB. אומדן בראש: 52 dB הם 40 dB (פי 100) ועוד 12 dB (בערך פי 4), ולכן כ-400 µV/m. החישוב המדויק: $10^{52/20}=398.1$ µV/m, כלומר האומדן שגה ב-0.5% בלבד. כשהתדר גדל פי 10, $20\\log F$ גדל ב-20 dB והשדה הנדרש גדל פי 10 (ב-1 GHz: 3981 µV/m), כי אותו הספק נדרש מאנטנה קטנה פי 100 בשטח.\n```\n\n<!--U32--> נשים לב לאופן שבו האומדן עבד: הפכנו את הדציבלים לחזקות של 10 ושל 2 ($12\\approx6+6$, כלומר פי 2 פעמיים, פי 4), ללא מחשבון, ושגיאה של חצי אחוז היא הרבה פחות מהרף של 10–20%.\n\n## מבנה: מה שולט בתוצאה\n\n[[2.5: מבנה]] (34) בנויה משלושה איברים, ולכל אחד תפקיד אחר. איבר השדה, $20\\log E$, מוסיף 20 dB על כל כפל ב-10 בשדה: זה איבר של משרעת. איבר התדר, $-20\\log F$, מוריד 20 dB על כל פי 10 בתדר, ומקורו אינו בשדה (שדה בעוצמה נתונה אינו \"יודע\" את התדר שלו) אלא בשטח של האנטנה האוספת, שקטן כמו $1/F^2$. <!--U24--> והמקדם הוא קבוע שנקבע מהיחידות: אילו $E$ היה במיליוולט למטר, המקדם היה $-17.21$; בוולט למטר $+42.79$; ואם מציינים את $E$ בדציבלים ביחס ל-1 µV/m (dBµV/m), ההמרה היא $P=E_{dB\\mu V/m}-77.21-20\\log F$. <!--U25--> זה אותו סוג של תלות ביחידות שראינו אצל $32.44$ בשיעור הקודם, שנעשה $92.44$ בק\"מ וב-GHz.\n\n**על מה זה באמת נשען.** יש כאן מבנה שני, שמראה שהמקדם $-77$ והמקדם $32.44$ מהשיעור הקודם הם אותה נוסחה בשני לבושים. משדר בעל הספק מוקרן אפקטיבי ERP יוצר במרחק $d$ צפיפות הספק $S=\\dfrac{ERP}{4\\pi d^2}$ (22), ולכן מ-(31) $E=\\sqrt{S\\,Z_0}=\\sqrt{\\dfrac{120\\pi\\cdot ERP}{4\\pi d^2}}=\\dfrac{\\sqrt{30\\,ERP}}{d}$. מצד שני, האנטנה האיזוטרופית אוספת $P=S\\cdot A_{iso}=\\dfrac{ERP}{4\\pi d^2}\\cdot\\dfrac{\\lambda^2}{4\\pi}=ERP\\Big/\\Big(\\dfrac{4\\pi d}{\\lambda}\\Big)^2=ERP/L_s$, וזו משוואת הקשר (24). שתי הצורות, זו של השדה וזו של ההספק, הן אותה פיזיקה עם אותם $c$ ו-$4\\pi$. <!--U28-->\n\n```think\nמשדר מקרין $ERP$. אנטנה איזוטרופית במרחק $d$ אוספת $P=S\\cdot A_{iso}$ עם $S=ERP/4\\pi d^2$ ו-$A_{iso}=\\lambda^2/4\\pi$. בדציבלים, עם $d$ בק\"מ ו-$F$ ב-MHz, איזו צורה מתקבלת?\n\n(א) $P=ERP-32.44-20\\log d-20\\log F$\n(ב) $P=ERP-32.44-10\\log d-10\\log F$\n(ג) $P=ERP+32.44+20\\log d+20\\log F$\n\n---\n\n(א). $P=ERP/L_s$ ובדציבלים $P=ERP-L_s$, כש-$L_s=32.44+20\\log d_{km}+20\\log F_{MHz}$ (26). ב-(ב) הוחלף $20\\log$ ב-$10\\log$ (שטח וריבוע מרחק נותנים 20); ב-(ג) הסימן הפוך, וזה היה מציג רווח במקום אובדן.\n```\n\nעכשיו מספר: משדר של 1 קוט\"ש ERP, כלומר 60 dBm, ב-100 MHz, במרחק 10 ק\"מ. $L_s=32.44+20+40=92.44$ dB, ולכן $P=60-92.44=-32.44$ dBm. השדה הוא $\\sqrt{30\\cdot1000}/10^4=17.32$ mV/m. דרך (35) עם $-77$ מקבלים 16.90 mV/m, כלומר סטייה של 2.4%. <!--U29--> זה בדיוק מה שהעיגול מהמקדם נותן: 0.21 dB הוא 5% בהספק ו-2.4% בשדה. <!--U30--> אפשר גם לבדוק ש-$S\\cdot A_{iso}$ נותן $-32.44$ dBm בדיוק: המקדם $-77.21$ מדויק, ו-$-77$ הוא העיגול.\n\n## גבולות: מתי ההמרה נכשלת\n\n[[2.5: גבולות]] ההמרה נשענת על שלוש הנחות שכבר נגענו בהן, ועל הנחה רביעית שהסתתרה בהגדרות: $E$ הוא ערך אפקטיבי. אם מציבים ערך שיא כאילו היה אפקטיבי, ההספק יוצא פי 2 גדול מדי (3.01 dB), כי ההספק הממוצע הוא $E_{peak}^2/2Z_0$. וכל הנחה עולה כשהיא נשברת: אי-התאמה בעומס מוריד הספק בגובה הפסד אי-ההתאמה; אנטנה שמפסידה מורידה את ההספק בגובה הפסדיה בדציבלים; וקיטוב לא תואם עולה עד עשרות דציבלים בקצה (קיטוב אנכי מול אופקי). <!--U26-->\n\nמעבר לזה, ההמרה כולה אינה תקפה בשדה הקרוב (שם $E/H\\neq Z_0$, כפי שראינו), ואינה תקפה במקום שאינו חלל חופשי: קרקע ומים מחזירים את הגל וה-$E$ שמגיע הוא סכום של שני גלים, וזה מטופל ב-M4 (two-ray). ואם האנטנה אינה איזוטרופית, מוסיפים את $G$ בדציבלים לתוצאה האיזוטרופית. <!--U27-->\n\n## סדר גודל\n\n[[2.5: סדר גודל]] בראש נזכור שני עוגנים וחוק אחד. העוגנים: שדה של 1 µV/m ב-100 MHz נותן $-117.0$ dBm ($-77+0-40$), ושדה של 1 mV/m ב-1 GHz נותן $-77$ dBm ($-77+60-60$). החוק: פי 10 בשדה מוסיף 20 dB, ופי 10 בתדר מוריד 20 dB. <!--U31--> לדוגמה, 40 µV/m ב-400 MHz: $20\\log40\\approx32$, $20\\log400\\approx52$, ולכן $-77+32-52=-97$ dBm, וזו גם התשובה המחושבת. ובאותו אופן, שדה של 1 mV/m (60 dBµV/m) ב-100 MHz הוא $-57$ dBm בקריאה איזוטרופית. <!--U40-->\n\nמספר ממערכת שכבר פגשנו: רמת האות של GPS L1 בשיעור הקודם, $-128.5$ dBm ב-1575.42 MHz, היא שדה של 4.29 µV/m, כלומר 12.66 dBµV/m, או צפיפות הספק של $-133.1$ dBW/m² (הרמה המינימלית שמפרסמים ל-L1 C/A היא $-158.5$ dBW [[ודאות: גבוהה]]). <!--U33--> אות שמגיע מלוויין במרחק 20,200 ק\"מ הוא אפוא שדה של מיקרו-וולטים בודדים למטר, מה שמסביר למה מקלט GPS צריך כל כך הרבה הגבר.\n\n## פשרה ומשמעות מבצעית\n\n[[2.5: פשרה]] מה מרוויחים ומה משלמים כשמציינים רגישות ב-µV/m ולא ב-dBm? מרוויחים מפרט שאינו תלוי באנטנה: אותו שדה נקרא אותו דבר לכל אנטנה, וזה חשוב במערכות שבהן האנטנה והמקלט הם חלק אחד, כמו מערך קביעת כיוון. משלמים בכך שהתרגום להספק תלוי בתדר: כדי לשמור על רגישות שדה קבועה, סף ההספק של המקלט צריך לרדת 20 dB על כל פי 10 בתדר, כי האנטנה האיזוטרופית קטנה בהתאם. <!--U35-->\n\n[[2.5: משמעות מבצעית]] רגישות שדה אומרת ישירות משהו על הטווח: לפי $E=\\sqrt{30\\,ERP}/d$, הטווח החופשי הוא $d=\\sqrt{30\\,ERP}/E_{sens}$, ובו התדר אינו מופיע. עבור 1 W ERP ורגישות 5 µV/m מקבלים 1095 ק\"מ (1069 ק\"מ דרך משוואה (29) עם $-77$ ו-$32.44$, הפרש של 2.4%), בחלל חופשי וללא אופק רדיו. <!--U36--> ובמונחי הספק איזוטרופי, אותה רגישות שדה דורשת ב-2 GHz סף נמוך ב-20 dB ממה שב-200 MHz, וזה בדיוק מה שמחזיר את הטווח לאותו ערך.\n\n## ביקורת: שלוש טענות שגויות ואיך תופסים אותן\n\n[[2.5: ביקורת]] הטעות הנפוצה ביותר היא $P=-77+10\\log E-20\\log F$, שנכתבת בלי לחשוב שהשדה הוא משרעת. הטענה נראית סבירה ונותנת ב-100 µV/m ב-100 MHz את $-97$ dBm במקום $-77$: טעות של 20 dB. <!--U37--> הבדיקה שתופסת אותה היא בדיקת נקודה ידועה: 1 mV/m ב-1 GHz חייב לתת $-77$ dBm, ובנוסחה השגויה מתקבל $-107$. טעות אחרת היא לכתוב את ההיפוך בלי $+20\\log F$, $E=10^{(P+77)/20}$: ב-100 MHz זה נותן 3.98 µV/m במקום 398 µV/m, פי 100 בטעות, וההיפוך הלוך-וחזור מגלה אותה מיד. <!--U41--> והטענה השלישית פועלת בכיוון ההפוך, נגד המוסכמה: \"הפגם הלוגי של dBm באתר מבטל את משוואות הקשר\". זה אינו נכון: האנטנה הדמיונית היא בעלת שטח $A_{iso}$ מוגדר, ולכן ה-dBm באוויר הוא פשוט צפיפות הספק כפול שטח ייחוס. הטעות מתחילה רק כשמערבבים אנטנות שונות בלי להוסיף את $G$. <!--U38-->\n\n```errorhunt\n@title: המרה של AI משדה להספק\nהקוד הבא נכתב על ידי עוזר AI כדי לבדוק אם מערך אנטנות עונה על רגישות המקלט ($-107$ dBm):\n\n~~~python\nimport math\n\ndef p_dbm(E_uV_per_m, F_MHz):\n    # E in microvolt per meter, F in MHz, isotropic reading\n    return -77 + 10 * math.log10(E_uV_per_m) - 20 * math.log10(F_MHz)\n\nprint(round(p_dbm(250, 500), 2))   # prints -107.0\n~~~\n\nמסקנת העוזר: \"ב-250 µV/m וב-500 MHz האות הוא בדיוק ברף $-107$ dBm: מרווח אפס.\" האם יש טעות?\n\n---\n\nיש טעות אחת: בשורת ה-`return` נכתב $10\\log E$ והיה צריך $20\\log E$ (השדה הוא משרעת). הערך הנכון הוא $-77+47.96-53.98=-83.02$ dBm, כלומר מרווח של 23.98 dB ולא אפס. בדיקה שהייתה תופסת: נקודה ידועה, 1000 µV/m ב-1000 MHz חייב לתת $-77$ dBm, ובקוד יוצא $-107$. בדיקה נוספת: הכפלת $E$ פי 10 חייבת להוסיף 20 dB, והקוד מוסיף 10.\n```\n\n```verify\n@title: בדיקות עצמאיות להמרה (34)\n@result: P(dBm) = -77 + 20 log E - 20 log F\n\n- ממדים ויחידות: $(\\text{V/m})^2\\cdot\\text{m}^2/\\Omega=\\text{V}^2/\\Omega=\\text{W}$, כלומר וואט; אם $F$ היה בהרץ במקום במגה-הרץ, התוצאה הייתה זזה ב-120 dB. מצפים: הסחה של 120 dB, ולכן ההמרה חייבת לציין את היחידות.\n- נקודה ידועה: 1 mV/m ב-1 GHz הוא $-77$ dBm. מצפים: $-77+60-60=-77$.\n- הלוך וחזור: $E\\to P\\to E$ מחזיר את ערך המוצא; למשל 37 µV/m ב-250 MHz נותן $-77+31.36-47.96\\approx-93.6$ dBm ובחזרה 37 µV/m. מצפים: שוויון מדויק.\n- שתי דרכים לאותה תוצאה: 1 קוט\"ש ב-10 ק\"מ, $S\\cdot A_{iso}$ מול $ERP-L_s$: שניהם $-32.44$ dBm. מצפים: אפס הפרש.\n- פותר שני בלתי תלוי: גורם האנטנה (antenna factor) של אנטנה איזוטרופית על 50 אוהם הוא $20\\log F-29.8$ dB/m בקירוב, ובספרות EMC מקובל $20\\log F-G-29.8$ [[ודאות: בינונית]]; מ-(34) מתקבל $20\\log F-29.78$ עם $120\\pi$, $20\\log F-29.77$ עם הקבועים המדויקים, ו-$20\\log F-29.99$ עם המקדם המעוגל $-77$. מצפים: הסכמה בטווח 0.02 dB עם הקבועים המדויקים, ובטווח 0.2 dB עם העיגול. <!--U39-->\n```\n\n```casestudy\n@title: מערך קביעת כיוון: איזה סף הספק רגישות של 5 µV/m מכתיבה\nהמקרה חוזר לשני דפי הנתונים שבפתיחה (כל המספרים [[היפותטי]]).\n\n**השאלה.** המערך מציין רגישות 5 µV/m בכל תחום התדרים, והמקלט מציין $-107$ dBm. האם הם מתאימים?\n\n**המודל.** (34) בקריאה איזוטרופית: $P=-77+20\\log5-20\\log F=-63.02-20\\log F$.\n\n**המספרים.** ב-200 MHz: $-63.02-46.02=-109.04$ dBm. ב-2 GHz: $-63.02-66.02=-129.04$ dBm. <!--U34-->\n\n**המסקנות.** המקלט של $-107$ dBm חסר 2.04 dB ב-200 MHz, וחסר 22.04 dB ב-2 GHz. כדי להחזיק 5 µV/m בכל התחום, הסף ב-dBm צריך לרדת 20 dB על כל עשור של תדר, ולכן מקלט עם סף קבוע של $-107$ dBm אינו יכול לעמוד במפרט המערך בכל התחום.\n\n**ידוע ומוערך.** ידוע: הנוסחה ופירושה. מוערך: שה-5 µV/m הוא ערך לשדה בקריאה איזוטרופית, כלומר לפני ההגבר של רכיבי המערך עצמם.\n```\n\nהתיקון היחיד בסעיף הזה הוא של המקדם עצמו.\n\n```erratum\n@title: המקדם -77 מעוגל\n@page: B01:39\n\nכתוב: $P=-77+20\\log E-20\\log F$. נכון: $-77.21$ (עם $c=3\\cdot10^8$ ו-$Z_0=120\\pi$; $-77.216$ עם הקבועים המדויקים). ההבדל של 0.21 dB הוא 5% בהספק ו-2.4% בשדה, ובמעשה הוא זניח; ההמרה בין $E$ בוולט למטר ובמיקרו-וולט למטר, שהמקור עושה בלי להכריז (\"E ב-V/m\" בנוסחאות היסוד ו-\"E ב-µV/m\" בתוצאה), אינה שגיאה אלא מעבר ביחידות, ומפורטת למעלה כגורם הראשון. נבדק ב-compute.\n```\n\n```domain\n@field: ew\n@title: קביעת כיוון: רגישות בשדה והשפעתה על המקלט\n\n<!--U42-->במערך קביעת כיוון (בשלב השער נסתפק במה שהמערכת עושה: כמה אנטנות במרחקים ידועים קולטות אות אחד, והפרשי השלב בין הקליטות נותנים כיוון) המפרט נכתב ב-µV/m, כי רכיבי המערך והמקלט תוכננו יחד והאנטנות אינן עצמאיות מהם. במקלט עצמו, לעומת זאת, הרגישות היא dBm, והמחבר בין השניים הוא (34). מה שמקביל כאן למה שפגשנו בתקציב קשר הוא ש-$P_R$ של השיעור הקודם הוא ההספק בכניסה, ו-(34) מתרגם אליו מפרט שדה. ההבדל הוא שבקשר רגיל אנטנת הקליטה ידועה ובמערך הכיוון היא חלק מהמדידה. מנגנון הקביעה עצמו ילמד ב-M4; מה שחשוב כאן הוא שכל מפרט שדה חייב לעבור המרה לפני שנכנס לתקציב, והמרה תלויה בתדר.\n```\n\n```domain\n@field: space\n@title: צפיפות הספק ושדה במגבלות על לוויינים\n\nגם בתחום החלל יש שני תיאורים של אותו גל: תקנות התדרים מגבילות את **צפיפות ההספק** (power flux density) על פני כדור הארץ ב-dB(W/m²) בפס ייחוס, בעוד שמהנדס המקלט מדבר ב-dBm. בקשר $E$ ל-$S$ של (31), $S[\\text{dBW/m}^2]=E[\\text{dB}\\mu\\text{V/m}]-145.76$: שדה של 12.66 dBµV/m הוא $-133.1$ dBW/m². <!--U43--> מה שמקביל בין התחומים הוא ההפרדה בין תכונת הגל (שדה או צפיפות) לבין תכונת הקולט (שטח). ההבדל הוא שבחלל המרחקים ענקיים, ולכן הנחת השדה הרחוק מחזיקה תמיד, ואילו הרשות המסדירה בוחרת בצפיפות כי היא אינה תלויה באנטנה. מנגנוני הקישור עצמם ילמדו ב-M13.\n```\n\n```domain\n@field: nav\n@title: מקלט ניווט לוויני: רמת האות כשדה\n\nרמת האות של GPS L1 שפגשנו בשיעור הקודם, $-128.5$ dBm, היא שדה של 4.29 µV/m, שמגיע מלוויין במרחק של עשרות אלפי ק\"מ. מה שמקביל לקביעת כיוון הוא ההפרדה בין השדה שהגל נושא לבין ההספק שהאנטנה אוספת; ההבדל הוא שאנטנת הניווט היא כמעט איזוטרופית, כך שההמרה של (34) נכונה בה כמעט ללא תיקון הגבר. מדוע זה חשוב: ההפרעה לקליטה בתחום הזה נמדדת בשדה, ולכן כל ניתוח הפרעה (בהמשך השיעור, ובמודול הניווט M5) מתחיל בהמרה כזו.\n```\n\n```domain\n@field: uas\n@title: קישור שליטה לכטב\"ם: אותו שדה, אנטנה קטנה יותר\n\nכטב\"ם נושא אנטנה קטנה, ושטחה האפקטיבי קטן עוד יותר בתדר גבוה. מה שמקביל לשיקולי התדר שבהם נתקלנו בשיעור הקודם (2.4 מול 5.8 GHz) הוא ש-$-20\\log F$ ב-(34) הוא בדיוק מחיר השטח: אותו שדה בקרקע נותן ב-5.8 GHz הספק נמוך ב-7.66 dB ממה שב-2.4 GHz. ההבדל מהאנטנה הנייחת הוא שבכטב\"ם אי אפשר להגדיל את האנטנה כדי לפצות. את מנגנוני הקישור נלמד ב-M9.\n```\n\n```fieldmap\n@formula: $P(\\text{dBm})=-77+20\\log E-20\\log F$\n\n- **ew** (M4): ממיר מפרט רגישות שדה של מערך קביעת כיוון לסף הספק של המקלט, ומשמש בכל תקציב שמערבב שדה והספק.\n- **nav** (M5): רמות האות והפרעה במקלטי ניווט לוויני, בשדה ובהספק.\n- **space** (M13): מגבלות צפיפות הספק על לוויינים ביחס למקלט בקרקע.\n- **uas** (M9): מחיר התדר באנטנה קטנה בכטב\"ם: $-20\\log F$ הוא שטח האנטנה.\n- **radar** (M1, M2): השדה בעצם שמקבל את קרן המכ\"ם, שממנו מתחילה שרשרת הקשרים שאחרי.\n```\n\nאם כן, הפגם הלוגי נסגר: הספק באתר הוא צפיפות הספק כפול שטח אנטנה דמיונית, ו-(34) מתרגמת בין שני התיאורים בלי הפסד, כל עוד אנו בחלל חופשי, בגל רחוק ובאנטנה תואמת. נשאר לבדוק איך השרשרת הזאת מתנהגת כשהגל פוגע בעצם ומוחזר, כלומר איך המכ\"ם נראה כשרשרת של שני קשרים.\n\n<!--audit: units U18–U43 26/26 (auth 18/18) | w/u 91 | think 1 (+predict 1) | padding 0-->\n\n\n## המכ\"ם כשרשרת: שישה גדלים בין המשדר למקלט\n\nבשיעור הקודם קבענו שמכ\"ם הוא שני קשרים חד-כיווניים, ושה\"משדר\" בקשר השני הוא המטרה, ש-RCS ממלא אצלה את התפקיד של הספק והגבר. [[B01:40]] עכשיו נכתוב את זה במפורש, ונשתמש בדיוק באותם כלים של שרשרת דציבלים שבנינו עד כאן. שרשרת הקשרים של מכ\"ם מוצגת באיור 2.6.\n\n```figure\nB01:40:0\n```\n\nהאיור מראה שישה גדלים בנתיב אחד: $P_T$, ההספק שהמשדר מזין לאנטנה (dBm); $ERP$ (אחרי הגבר האנטנה); $P_1$, ההספק שמגיע לעצם; $P_2$, ההספק שהעצם מחזיר; $P_A$, ההספק שמגיע חזרה לאנטנה; ו-$P_R$, ההספק שנכנס למקלט. בין כל זוג סמוך יש פעולה אחת: הוספת הגבר, אובדן התפשטות, גורם החזרה, שוב אובדן התפשטות, שוב הגבר. <!--U44--> היתרון של הצגה כזו הוא שכל ערך בביניים הוא מספר שאפשר להשוות לקשרים אחרים באותו תקציב: ההספק שמגיע לעצם, למשל, הוא בדיוק מה שהיה מגיע אליו מקשר חד-כיווני רגיל.\n\n```history\n@title: דבנטרי 1935: החישוב הראשון היה שרשרת\n@who: ארנולד וילקינס (A. Wilkins) ורוברט ווטסון-וואט (R. Watson-Watt)\n@when: פברואר 1935\n\nב-1935 פנה משרד האוויר הבריטי אל ווטסון-וואט בשאלה על ההשפעה של קרינת רדיו עוצמתית על מטוס. וילקינס, שנתבקש לחשב את ההספק הנדרש, הראה שהרעיון אינו מעשי, והציע במקום זה שאלה אחרת: האם אפשר לזהות מטוס לפי מה שהוא מחזיר מגל רדיו [[ודאות: גבוהה]]. חישובו היה שרשרת: השדה של משדר בגל קצר (אורך גל של כ-50 מ', כלומר כ-6 MHz) במקום שבו נמצא המטוס; המטוס כאנטנה, כשמוטת כנפיים של כ-25 מ' היא חצי אורך הגל ולכן המטוס מהדהד כדיפול; והשדה שהוא משדר חזרה אל המקלט. ב-26 בפברואר 1935 ניסוי ליד דבנטרי, עם משדר של ה-BBC, הראה הד ממטוס על צג [[ודאות: גבוהה]]. מה שהחישוב הזה מלמד בשביל השיעור שלנו הוא הנחה, לא סיפור: ההחזרה נשענה על כך שהמטוס מהדהד, כלומר ש\"שטח ההחזרה\" שלו הוא פונקציה חזקה של אורך הגל. כשהמימד של העצם דומה לאורך הגל, הוא אינו מספר קבוע; זה בדיוק מה שמסתתר מאחורי ה-$\\sigma$ היחיד של הנוסחה שלנו. <!--U70-->\n```\n\n## גורם ההחזרה: העצם כמשדר\n\nכשפיתחנו את הקשר החד-כיווני היה לנו משדר ואנטנת קליטה. כאן העצם אינו משדר, אלא מחזיר הספק שקיבל, והשאלה היא כמה. הרעיון הוא להמיר את הפעולה לגורם יחיד: כמה הספק \"משדר\" העצם, באנטנה איזוטרופית שווה-ערך, ביחס להספק שאנטנה איזוטרופית היתה אוספת באותה נקודה.\n\n```definition\n@title: גורם החזרה (Reflection Factor) של עצם בשרשרת קשרים\n\nנתון עצם בשדה של גל בעל צפיפות הספק $S$ (בוואט למ\"ר). יהי $P_1=S\\cdot A_{iso}$ ההספק שאנטנה איזוטרופית בעלת שטח $A_{iso}=\\lambda^2/4\\pi$ הייתה אוספת בנקודת העצם, ויהי $P_2$ ההספק של משדר איזוטרופי היפותטי היוצר באותו כיוון חזרה את אותה צפיפות הספק שהעצם מחזיר. גורם ההחזרה הוא היחס\n$$\\rho\\equiv\\frac{P_2}{P_1}=\\frac{\\sigma}{A_{iso}}=\\frac{4\\pi\\sigma}{\\lambda^{2}}\\tag{36}$$\nכש-$\\sigma$ שטח ההחזרה של העצם ב-m² (RCS): השטח שאילו קלט את $S$ והחזיר את כולו איזוטרופית היה יוצר את אותו הד. ההגדרה מניחה גל מישורי בעצם, חלל חופשי, והד שנמדד בכיוון שממנו הגיע הגל.\n```\n\n<!--U45--> ככה בנוי הגורם: הוא היחס בין שני שטחים, השטח שהעצם \"מציג\" ($\\sigma$) לשטח הייחוס ($A_{iso}$); ואם אין הנחת הכיוון, כלומר הד לכיוון אחר, אין יותר מספר יחיד אלא פונקציה של זוויות.\n\n### דוגמה: עצם של 1 מ\"ר ב-3 GHz\n\nאורך הגל ב-3 GHz הוא 0.1 מ', ולכן $\\rho=4\\pi\\cdot1/0.1^2=1257$, כלומר $+30.99$ dB. זה מקרה פרטי של (36), להמחשה בלבד: עצם של מטר רבוע \"משדר\" חזרה פי 1257 מההספק שאנטנה איזוטרופית אוספת בנקודתו. <!--U59-->\n\n## שרשרת הקשרים צעד אחר צעד\n\n```refresh\n@title: אובדן ההתפשטות בקשר חד-כיווני\n@first: שיעור 2, (26): 92.44 dB ל-1 ק\"מ ב-1 GHz\n\n$L_s=32.44+20\\log d_{km}+20\\log f_{MHz}$, כש-$32.44=20\\log(4\\pi\\cdot10^{9}/c)$ ביחידות ק\"מ ו-MHz. ב-1 ק\"מ וב-1 GHz האובדן הוא 92.44 dB, והכפלת מרחק או תדר מוסיפה 6.02 dB.\n```\n\n[[2.5: מקור]] נכתוב כל חוליה בדציבלים, וכל הנחה במקום שבו היא נכנסת.\n\n1. $ERP=P_T+G$, כמו (19), כשהפסד הכבל מחוסר קודם. <!--U46-->\n2. $P_1=ERP-32.44-20\\log D-20\\log F$ (26): זה קשר חד-כיווני רגיל, אל אנטנה איזוטרופית דמיונית בנקודת העצם. **הנחה:** העצם בשדה הרחוק, בחלל חופשי, ושווה ערך לקולט איזוטרופי. ההנחה נשברת כשהעצם קרוב מדי לאנטנה, וההנחתה האטמוספרית (27) תיספר פעם נוספת בדרך חזרה. <!--U47--> <!--U48-->\n3. הכפלה ב-$\\rho$ נותנת $P_2=P_1\\cdot4\\pi\\sigma/\\lambda^2$. כדי לעבור לדציבלים עם $F$ ב-MHz, נשתמש ב-$\\lambda=c/F=300/F$ מ': $10\\log4\\pi=10.99$, $-20\\log\\lambda=+20\\log F-20\\log300=20\\log F-49.54$, ולכן $\\rho=-38.55+10\\log\\sigma+20\\log F$ בדציבלים. <!--U49-->\n\n$$P_2=P_1-38.55+10\\log\\sigma+20\\log F\\tag{37}$$\n\nבפרקטיקה מעגלים את $-38.55$ ל-$-39$. **הנחה:** $\\sigma$ הוא מספר אחד, שזהה לכיוון ההגעה ולכיוון ההחזרה (מכ\"ם מונוסטטי), אינו משתנה בזמן, ואינו תלוי בקיטוב; ושהעצם מחזיר כמשדר איזוטרופי. כל ההנחות האלה נבלעות בשתי האותיות \"10 log σ\". <!--U50-->\n\n4. $P_A=P_2-32.44-20\\log D-20\\log F$: אותו מרחק ואותו תדר, ולכן אותו אובדן כמו בהליכה, כי הנתיב אינו תלוי בכיוון. <!--U51-->\n5. $P_R=P_A+G$: אותה אנטנה קולטת, ולכן היא מוסיפה את אותו הגבר פעם שנייה. הפסדי שרשרת הקליטה אינם נכללים. <!--U52-->\n\nנציב את הכול ונקבל את השרשרת השלמה:\n\n```formula\n@title: משוואת הקשר של המכ\"ם כשרשרת\n\n$$P_R=P_T+2G-103-40\\log D-20\\log F+10\\log\\sigma\\tag{38}$$\n\n$P_R$ ההספק בכניסה למקלט (dBm); $P_T$ הספק המשדר לאנטנה (dBm); $G$ הגבר האנטנה (dB), משמש פעמיים; $D$ המרחק לעצם (ק\"מ); $F$ התדר (MHz); $\\sigma$ שטח ההחזרה (m²), עם $10\\log$. תקפה לחלל חופשי, מכ\"ם מונוסטטי עם אנטנה אחת, עצם בשדה הרחוק, $\\sigma$ קבוע, וללא הנחתה אטמוספרית.\n```\n\n<!--U53--> הקבוע 103 הוא שני אובדני התפשטות ($2\\times32.44=64.88$) ועוד גורם ההחזרה ($38.55$): $64.88+38.55=103.43$. בפרקטיקה מעגלים ל-$2\\times32+39=103$. <!--U54--> עיגול זה עולה 0.43 dB, כלומר 10.4% בהספק; בטווח, ששייך להספק בחזקת רבע, זה 2.5%. <!--U57-->\n\n**על מה זה באמת נשען.** יש דרך שנייה לגזור את אותו קבוע, מהצורה שמופיעה בכל ספר מכ\"ם: $P_R=\\dfrac{P_TG^2\\lambda^2\\sigma}{(4\\pi)^3R^4}$. בדציבלים, עם $\\lambda=299.79/F$ מ' ו-$R=1000\\,D$ מ': $20\\log299.79-20\\log F-33.0-120-40\\log D$, כאשר $10\\log(4\\pi)^3=32.98$. הקבוע הוא $49.54-32.98-120=-103.44$. השוואה: $-103.43$ מהשרשרת ו-$-103.44$ מהצורה הזאת מתלכדים. הסיבה היא ש-$(4\\pi)^3$ הוא $4\\pi$ אחד מגורם ההחזרה ועוד $(4\\pi)^2$ משני האובדנים. <!--U55--> זו אותה משוואה כתובה בדרך אחרת, והשרשרת שימושית יותר כי כל חוליה בה היא מספר שאפשר לקרוא.\n\n## מבנה: מי שולט\n\n[[2.5: מבנה]] הנה מה שקורה ל-$P_R$ כשמכפילים כל אחד מהפרמטרים פי 2, בשאר הערכים קבועים:\n\n```table\n{\"title\":\"השפעת הכפלה פי 2 של כל פרמטר על ההספק הנקלט\",\"scope\":{},\"columns\":[\"פרמטר\",\"השינוי ב-P_R (dB)\",\"הסיבה\"],\"rows\":[[\"\\\"P_T\\\"\",\"10*log10(2)\",\"\\\"נכנס פעם אחת\\\"\"],[\"\\\"G\\\"\",\"2*10*log10(2)\",\"\\\"נכנס פעמיים\\\"\"],[\"\\\"σ\\\"\",\"10*log10(2)\",\"\\\"נכנס פעם אחת, עם 10log\\\"\"],[\"\\\"D\\\"\",\"-40*log10(2)\",\"\\\"שני קשרים\\\"\"],[\"\\\"F (בהגבר קבוע)\\\"\",\"-20*log10(2)\",\"\\\"האובדן פעמיים, ההחזרה פעם\\\"\"]]}\n```\n\nהמשקל הכפול של $G$ הוא תכונה של שרשרת עם אנטנה אחת; הטווח $D$ נכנס ב-$40\\log$, כלומר משקלו כפול מזה שבקשר חד-כיווני. $\\sigma$ ו-$P_T$ נכנסים פעם אחת, ושניהם עם $10\\log$ ולא $20\\log$, כי הם כמויות של הספק ושל שטח. <!--U56--> התדר מורכב: האובדן מוסיף $-40\\log F$ (פעמיים $-20\\log F$), גורם ההחזרה מוסיף $+20\\log F$, ובסך הכול $-20\\log F$ כשהגבר קבוע. אבל אם האנטנה היא בגודל קבוע, $G$ גדל כמו $F^2$ ו-$2G$ מוסיף $+40\\log F$, והתוצאה היא $+20\\log F$: בתדר גבוה פי 10, ההספק הנקלט נמוך ב-20 dB בהגבר קבוע, וגבוה ב-20 dB בפתח קבוע. <!--U58-->\n\n## סדר גודל: מספרים ושרשרת אחת\n\n[[2.5: סדר גודל]] נעבור לדוגמה (ערכים [[היפותטי]], של מכ\"ם בתחום S): $P_T=70$ dBm (10 קוט\"ש), $G=35$ dB, $D=50$ ק\"מ, $F=3000$ MHz, $\\sigma=1$ מ\"ר. נעצור ונחזה לפני החישוב.\n\n```predict\n@title: ההספק הנקלט במכ\"ם התחום S\n@unit: dBm\n@value: -100.93\n\nעבור $P_T=70$ dBm, $G=35$ dB, $D=50$ ק\"מ, $F=3000$ MHz ו-$\\sigma=1$ מ\"ר: אמדו את $P_R$ ב-dBm בעזרת (38), עם טווח של 90%, ואמרו: כמה dB הוא מעל רצפת הרעש של $-110$ dBm משיעור 2.\n\n---\n\nאומדן בראש עם הקבועים המעוגלים: $70+70=140$; $-103$; $-40\\log50=-68$ (כי $\\log50=1.70$); $-20\\log3000=-69.5$; $+10\\log1=0$. סך הכול $140-103-68-69.5=-100.5$ dBm. החישוב המדויק, עם 103.43: $-100.93$ dBm, כלומר $8.1\\cdot10^{-14}$ W, והפער מהאומדן 0.43 dB. הערך הזה הוא 9.07 dB מעל $-110$ dBm.\n```\n\nהערכים הביניים בשרשרת: <!--U60--> $ERP=105.00$ dBm; $P_1=-30.96$ dBm (0.80 µW); $P_2=+0.03$ dBm (בקירוב 1 mW); $P_A=-135.93$ dBm; $P_R=-100.93$ dBm. <!--U62--> ההפרש $P_2-P_1=30.99$ dB הוא בדיוק גורם ההחזרה שחישבנו לעצם של מטר רבוע ב-3 GHz.\n\nמה קורה כשמכפילים טווח? $-40\\log2=-12.04$ dB, ולא $-6.02$ כמו בקשר חד-כיווני.\n\n```think\nמכ\"ם מקבל $P_R=-100.93$ dBm מעצם ב-50 ק\"מ. כדי לקבל אותו הספק מאותו עצם ב-100 ק\"מ, אם משנים רק את $P_T$, פי כמה צריך להגדיל אותו?\n\n(א) פי 2\n(ב) פי 4\n(ג) פי 16\n\n---\n\n(ג). הכפלת הטווח עולה $40\\log2=12.04$ dB, והחזרה של 12.04 dB היא פי 16 בהספק. בקשר חד-כיווני זה היה פי 4 (6.02 dB), וזו הבחירה (ב). ב-(א) שוכחים את החזקה, ו-(ב) שוכחת שהמכ\"ם הוא שני קשרים. <!--U63-->\n```\n\nכשמוסיפים 10 dB (פי 10 בהספק), הטווח גדל פי 1.78 במכ\"ם (שורש רביעי של 10), ופי 3.16 בקשר חד-כיווני.\n\n## פשרה: דציבל של הגבר מול דציבל של הספק\n\n[[2.5: פשרה]] הגבר משולם פעמיים: הוספת 3 dB להגבר מוסיפה 6 dB ל-$P_R$, ואילו הוספת 3 dB להספק המשדר מוסיפה 3 dB. כדי להוסיף 10 dB דרך ההגבר מספיקה אנטנה גדולה פי 3.16 בשטח (5 dB), לעומת משדר חזק פי 10 (100 קוט\"ש). המחיר של הגבר הוא אלומה צרה יותר ויכולת כיוון, והמחיר של הספק הוא משדר, קירור וחשמל; בתדר גבוה, כשהפתח קבוע, ההגבר גדל כמו $F^2$ בלי עלות נוספת. <!--U65--> כך מערכות אמיתיות בוחרות: עוד אנטנה לפני עוד הספק, עד שהאלומה הצרה נעשית בעיה בפני עצמה.\n\n## גבולות: מתי השרשרת נכשלת\n\n[[2.5: גבולות]] השרשרת (38) מניחה חלל חופשי, ולכן ארבעה דברים שוברים אותה. ההנחתה האטמוספרית נספרת פעמיים, $2\\alpha D$ במקום $\\alpha D$ (בשיעור הקודם 0.4 dB/ק\"מ ב-50 GHz נתנו 8 dB ב-20 ק\"מ; במכ\"ם הם 16 dB). החזרות מהקרקע והים משנות את האובדן (M4, two-ray). $\\sigma$ משתנה עם הזווית, הקיטוב ולפעמים עם הזמן, וכשהעצם והמקלט אינם באותו מקום (מכ\"ם דו-סטטי) אין עוד \"אותו נתיב\". <!--U66--> ובנוסף, המרחק חייב להיות בשדה הרחוק של האנטנה: מרחק $2D_a^2/\\lambda$ הוא 180 מ' לאנטנה של 3 מ' ב-3 GHz, זניח מול 50 ק\"מ. <!--U61--> ולבסוף, ההספק הנקלט אינו גילוי: כדי לומר שהעצם מתגלה צריך רעש וסף, ואלה ייבנו ב-M2; רצפת הרעש $-110$ dBm רק ממסגרת את הדוגמה. <!--U67-->\n\n## משמעות מבצעית וביקורת\n\n[[2.5: משמעות מבצעית]] הטווח עולה כמו שורש רביעי של ההספק: כדי להכפיל אותו צריך פי 16 הספק. מעצם של 1 מ\"ר לעצם של $10^{-5}$ מ\"ר ($-50$ dB), הטווח יורד פי 17.8, כלומר ל-0.056 מהערך הקודם, כפי שראינו בשיעור הקודם בהשוואת חרק מול נושאת מטוסים. <!--U68--> ובתוך אותה דוגמה: ההספק שמגיע לעצם גבוה ב-70 dB מהד שחוזר למכ\"ם ($-30.96$ מול $-100.93$ dBm), והפער הזה מסביר את \"יתרון המאזין\" של השיעור הקודם. <!--U69-->\n\n[[2.5: ביקורת]] הטענה השגויה הראשונה היא \"מכ\"ם מפסיד 6 dB כשהמרחק מוכפל\". זה נכון לקשר חד-כיווני; המכ\"ם מפסיד 12.04 dB. בדיקה: נציב $D=100$ ו-$D=50$ ב-(38) ונחסיר, ונקבל $-40\\log2$. <!--U71--> שתי טעויות נוספות הן $20\\log\\sigma$ במקום $10\\log\\sigma$ (טעות של 10 dB בעצם של 10 מ\"ר) ו-$F$ ב-GHz במקום ב-MHz (טעות של 60 dB); נקודה ידועה מתפסת את שתיהן. <!--U72-->\n\n```verify\n@title: בדיקות עצמאיות לשרשרת (38)\n@result: P_R = P_T + 2G - 103 - 40 log D - 20 log F + 10 log σ\n\n- ממדים ויחידות: $D$ בק\"מ ו-$F$ ב-MHz, כמו (26); אם $F$ בהרץ התוצאה זזה ב-120 dB (פעמיים 60). מצפים: הסחה של 120 dB.\n- שרשרת מול נוסחה אחת: חמש החוליות נותנות $-100.93$ dBm, והנוסחה האחת עם 103.43 נותנת אותו דבר. מצפים: אפס הפרש.\n- הצורה הקלאסית: $P_TG^2\\lambda^2\\sigma/((4\\pi)^3R^4)$ נותנת קבוע $-103.44$. מצפים: הסכמה בטווח 0.01 dB.\n- גבול ידוע: הכפלת $D$ מורידה 12.04 dB, והכפלת $\\sigma$ מוסיפה 3.01 dB. מצפים: בדיוק אלה.\n- השוואה לתחזית: האומדן $-100.5$ מול המחושב $-100.93$. מצפים: פער של 0.43 dB, בגלל העיגול.\n```\n\n```casestudy\n@title: מכ\"ם בתחום S: מה שרשרת אחת ארוכה אומרת על עצם אחד\nכל המספרים [[היפותטי]], וחושבו בקוד.\n\n**השאלה.** כמה הספק מגיע למקלט, וכמה אובדן יש בין המשדר למקלט?\n\n**המודל.** שרשרת (38) עם $P_T=70$ dBm, $G=35$ dB, $D=50$ ק\"מ, $F=3000$ MHz, $\\sigma=1$ מ\"ר.\n\n**המספרים.** אובדן התפשטות חד-כיווני $L_s=135.96$ dB; $P_R=-100.93$ dBm; אובדן קצה-לקצה של המכ\"ם, בלי הגברי האנטנה, הוא $2\\times135.96-30.99=240.93$ dB, כלומר 104.97 dB יותר מקשר חד-כיווני באותו מרחק ובאותו תדר. <!--U64--> ההספק שמגיע לעצם גבוה ב-104.97 dB מההספק שחוזר אל האנטנה (לפני ההגבר).\n\n**המסקנות.** הד של מטר רבוע ב-50 ק\"מ הוא 9.07 dB מעל $-110$ dBm, כלומר קרוב לגבול. הוספת 10 dB לתקציב (פי 10 בהספק, כלומר 100 קוט\"ש, או 5 dB בהגבר של כל כיוון) מגדילה את הטווח פי 1.78 בלבד, מ-50 ל-88.9 ק\"מ.\n\n**ידוע ומוערך.** ידוע: הנוסחה והחישוב. מוערך: כל הערכים הפיזיקליים, כולל $\\sigma=1$ מ\"ר.\n```\n\n```erratum\n@title: עיגולים בשרשרת המכ\"ם\n@page: B01:40\n\nכתוב: $32.4\\to32$ ו-$-39$, ולכן $-103$. נכון: $32.44$ ו-$-38.55$, ולכן $-103.43$; העיגול עולה 0.43 dB (10.4% בהספק, 2.5% בטווח). שגיאות הסריקה בעמוד הן \"II\" ל-$P_1$, \"1),\" ל-$P_2$, \"~\" ל-$P_A$ ו-\"O'\" ל-$\\sigma$. נבדק ב-compute.\n```\n\n```domain\n@field: radar\n@title: מכ\"ם: מאותה שרשרת למשוואת הגילוי\n\nבמכ\"ם (בשלב השער נסתפק במה שהוא עושה: משדר פולס, מקבל את מה שהעצם מחזיר ומחליט אם יש שם עצם) שרשרת (38) היא הגרעין של משוואת המכ\"ם של M2, $P_R=\\dfrac{P_TG^2\\lambda^2\\sigma}{(4\\pi)^3R^4}$; ב-M1 תיגזר האנטנה ($A_e=G\\lambda^2/4\\pi$), וב-M2 יתווספו הרעש וסף הגילוי. מה שמקביל לקשר התקשורת הוא הצורה: אותה חוליה, אבל פעמיים, עם עצם באמצע. ההבדל הוא שבקשר תקשורת הקולט הוא יעד הקשר, ובמכ\"ם העצם איננו משתף פעולה, ולכן $\\sigma$ אינו בשליטת המתכנן והוא הפרמטר שמגדיר את הבעיה. <!--U73-->\n```\n\n```fieldmap\n@formula: $P_R=P_T+2G-103-40\\log D-20\\log F+10\\log\\sigma$\n\n- **radar** (M1, M2): הנוסחה עצמה, עם רעש וסף גילוי.\n- **ew** (M4): אותה שרשרת קוראת את ההספק בנקודת הביניים, $P_1$ כקשר חד-כיווני.\n- **naval** (M10): בסונאר פעיל אובדן ההתפשטות נספר פעמיים, $2\\,TL$, באותו מבנה של שני קשרים. <!--U74-->\n- **space** (M13): מכ\"ם קרקעי על לוויין במסלול, עם $D$ של מאות ק\"מ ויותר.\n```\n\nהבנו שהמכ\"ם הוא שרשרת של חמש חוליות שבה האנטנה נספרת פעמיים והמרחק ב-40 log, ושהיא מתלכדת עם הצורה הקלאסית; ונשארה השאלה מה קורה כשבמקלט אחד נפגשים שני אותות ולא אחד, והאם אפשר לדבר עליהם באותה שפה.\n\n<!--audit: units U44–U74 31/31 (auth 22/22) | w/u 67 | think 1 (+predict 1) | padding 0-->\n\n\n## שני אותות באנטנה אחת\n\n[[B01:41]] כל מה שבנינו עד כאן תיאר אות אחד שמגיע למקלט. אבל במקלט אמיתי מגיע לעתים אות נוסף באותו תדר, ואז צריך לשאול לא כמה חזק האות אלא כמה חזק הוא ביחס לאות האחר. נקרא לאחד \"האות הרצוי\" ולשני \"אות מפריע\", בלי להניח כלום על מקורו: משדר שכן, מכ\"ם סמוך, או כל מקור אחר בתדר ובפס של המקלט. איור 2.7 מציג את המצב כשני קשרים, אחד מכל משדר אל אותה אנטנה.\n\n```figure\nB01:41:0\n```\n\nהצורך הנדסי ידוע: תכנון תדרים, שימוש חוזר בתדר, דו-קיום של שירותים. ההגדרה שהוא מוביל אליה פשוטה.\n\n```definition\n@title: יחס אות להפרעה (Signal-to-Interference Ratio, SIR)\n\nבכניסה למקלט אחד מגיעים שני אותות בעלי אותו תדר ואותו פס: אות רצוי בהספק $P_s$ ואות מפריע בהספק $P_i$ (שניהם ב-dBm, באותה נקודה בשרשרת). יחס אות להפרעה הוא\n$$\\mathrm{SIR}\\equiv P_s-P_i\\ \\ [\\text{dB}]\\qquad\\Big(=10\\log\\frac{P_s}{P_i}\\Big).$$\nהוא מוגדר כשההספקים נמדדים באותה נקודה, באותו פס, ועל אותה אנטנה ואותו קיטוב; כשהאותות שונים בתדר או בפס, אין יחס יחיד אלא התאמה בין הספקטרום שלהם (ראו בהמשך הקורס).\n```\n\n<!--U75--> ככה בנויה ההגדרה: חיסור של שני ערכי dBm הוא dB, כמו תבנית (16) של השיעור הראשון, $A(\\text{dBm})-B(\\text{dBm})=C(\\text{dB})$; ואם הורדנו את ההנחה שהאותות על אותה אנטנה ובאותו פס, ההפרש כבר אינו מבטא את מה שהמקלט \"רואה\".\n\n## גזירה: משני קשרים להפרש אחד\n\n[[2.5: מקור]] כל אות הוא קשר חד-כיווני מהסוג של (20) ו-(26), ולכן:\n\n1. $P_s=ERP_s-32.44-20\\log D_s-20\\log F+G$ ו-$P_i=ERP_i-32.44-20\\log D_i-20\\log F+G$, כש-$D_s,D_i$ המרחקים מהמשדר הרצוי ומהמפריע. <!--U76-->\n2. נחסיר. $32.44$ מתבטל, כי שני הקשרים באותו תדר וביחידות זהות; $20\\log F$ מתבטל מאותה סיבה; $G$ מתבטל, **בהנחה** שהאנטנה מציגה אותו הגבר לשני הכיוונים, ושהאותות באותו קיטוב ובאותו פס, כלומר חפיפה ספקטרלית מלאה. אם אחת מההנחות נשברת, מה שנשאר אינו מתבטל. <!--U77-->\n\n```formula\n@title: משוואת ההפרעה הפשוטה ביותר\n\n$$P_s-P_i=ERP_s-ERP_i-20\\log D_s+20\\log D_i\\tag{39}$$\n\n$P_s$ ו-$P_i$ ההספקים הנקלטים (dBm) של האות הרצוי והמפריע; $ERP_s$ ו-$ERP_i$ ההספקים המוקרנים האפקטיביים (dBm); $D_s$ ו-$D_i$ המרחקים מהמשדרים (באותה יחידה). תקפה לשני אותות באותו תדר ובאותו פס, על אנטנה אחת עם אותו הגבר לשניהם, בחלל חופשי.\n```\n\n<!--U78--> (39) תקפה לכל מקור שנקלט באותו פס, כי הפיזיקה של הקשר אינה תלויה בסיבה לקיומו של האות הנוסף, והיא מתארת רק את ההספקים. <!--U80-->\n\n[[2.5: מבנה]] שני דברים נשארים בלבד: הפער בין שני ה-ERP, והיחס בין שני המרחקים. התדר, הקבועים וההגבר של המקלט נעלמו. <!--U79--> וזה גם מה שמאפשר להחליף את הקשר בכל שרשרת אחרת: קשר חד-כיווני נותן $20\\log D$, וכשהאות הרצוי הוא הד של מכ\"ם, הוא נותן $40\\log D$ והגבר פעמיים; ההפרש הוא שני קשרים שמחסרים זה מזה. <!--U89-->\n\n### דוגמה: שני משדרים וקליטה אחת\n\n[[2.5: סדר גודל]] נשים מספרים (ערכים [[היפותטי]]). אות רצוי עם $ERP_s=40$ dBm במרחק $D_s=20$ ק\"מ, ואות מפריע עם $ERP_i=30$ dBm במרחק $D_i=5$ ק\"מ: $P_s-P_i=40-30-26.02+13.98=-2.04$ dB. אות המפריע חזק מהרצוי, למרות ש-ERP שלו נמוך ב-10 dB, כי הוא קרוב פי 4 יותר. כל הכפלה של $D_i$ מוסיפה 6.02 dB. <!--U81--> קל לאמוד את הכלל: פער של 10 dB ב-ERP במרחקים שווים הוא 10 dB; ואם ה-ERP שווים, כדי לקבל 10 dB צריך יחס מרחקים 3.16, וכדי לקבל 20 dB פי 10. <!--U82--> אותו עניין מזווית שנייה: באותו מקרה, בפער ERP של 10 dB ו-$D_s=20$ ק\"מ, כדי להגיע ל-10 dB נדרש $D_i=20$ ק\"מ, ול-20 dB נדרש $D_i=63.25$ ק\"מ. <!--U90-->\n\nאם יש גם רעש, ההספקים מצטברים בערכים ליניאריים ולא בדציבלים (שיעור 1, (14)). ברצפת רעש של $-110$ dBm ואות מפריע של $-66.98$ dBm, הסכום הוא $-66.98$ dBm: המפריע שולט ב-43 dB, ואפשר להתעלם מהרעש. <!--U83--> ושני אותות שווים של $-110$ dBm נותנים $-106.99$ dBm, כלומר תוספת של 3.01 dB.\n\n[[2.5: גבולות]] (39) נשברת כשההנחות נשברות. כשההגבר של המקלט שונה בכיוון של שני המשדרים (אנטנה כיוונית, שנלמד ב-M1) החיסור מוסיף את הפרש ההגברים. כשהאותות אינם בדיוק באותו תדר, רק חלק מההספק נכנס לפס, והיחס תלוי במסנן ובספקטרום (M0.3). כשהמרחק אינו חלל חופשי, המעריך של $D$ אינו 20. ולבסוף, SIR הוא יחס הספקים: ההשפעה שלו על שיעור שגיאות או על גילוי תלויה באפנון ובמקלט (M0.5, M2). <!--U84-->\n\n[[2.5: פשרה]] מה אפשר לעשות כדי להשיג עוד dB של SIR? להגדיל את ה-ERP הרצוי בעשר דציבלים עולה פי 10 בהספק; להפריד את המקורות ביחס של 3.16 עולה בגיאומטריה. בחירה בין השניים היא בחירה בין עלות הספק (משדר, חשמל, קירור) לבין עלות מרחק (אתר, סידור התדרים). <!--U85-->\n\n## הד מכ\"ם מול מקור באותו תדר\n\n[[2.5: משמעות מבצעית]] נחבר את שתי התוצאות של השיעור. האות הרצוי במקלט המכ\"ם הוא הד, $P_R=-100.93$ dBm מהדוגמה (עצם של 1 מ\"ר ב-50 ק\"מ). נוסיף משדר סמוך באותו תחום תדרים [[היפותטי]]: $ERP_i=40$ dBm, במרחק $D_i=100$ ק\"מ, כשהמקלט מציג לו אותו הגבר של 35 dB (ההנחה של (39)): $P_i=40-32.44-40-69.54+35=-66.98$ dBm. היחס $P_R-P_i=-33.95$ dB. כשהעצם מתקרב, ההד גדל כמו $D^{-4}$ והמפריע נשאר קבוע, ולכן ה-SIR משתפר ב-12.04 dB על כל חצי של $D$, ולא ב-6.02 dB כפי שהיה קורה לאות הרצוי חד-כיווני. <!--U86-->\n\n```predict\n@title: באיזה טווח היחס חוצה את 0 dB?\n@unit: km\n@value: 7.08\n\nבאותו מקרה (מכ\"ם עם $P_R=-100.93$ dBm ב-50 ק\"מ, מפריע קבוע ב-$-66.98$ dBm): אמדו באיזה טווח $D$ יחס אות להפרעה הד/מפריע שווה ל-0 dB, וכתבו טווח של 90%. רמז: ההד גדל כ-$D^{-4}$, והמפריע לא תלוי ב-$D$.\n\n---\n\nהיחס ב-50 ק\"מ הוא $-33.95$ dB, וצריך להוסיף 33.95 dB. כל הקטנה של $D$ פי 10 מוסיפה 40 dB, ולכן $D=50\\cdot10^{-33.95/40}=7.08$ ק\"מ. הערכה בראש: 33.95 dB הם כמעט 34 dB, כלומר $10^{34/40}=7.1$, וחלוקה: 50 חלקי 7 היא כ-7 ק\"מ. לסף של 10 dB מקבלים $D=3.98$ ק\"מ.\n```\n\n```table\n{\"title\":\"יחס הד/מפריע לפי טווח (מכ\\\"ם התחום S, מפריע קבוע)\",\"scope\":{\"PT\":70,\"G\":35,\"F\":3000,\"ERPi\":40,\"Di\":100},\"columns\":[\"D (ק\\\"מ)\",\"P_R (dBm)\",\"P_i (dBm)\",\"SIR (dB)\"],\"rows\":[[\"50\",\"PT+2*G-103.43-40*log10(50)-20*log10(F)\",\"ERPi-32.44-20*log10(Di)-20*log10(F)+G\",\"PT+2*G-103.43-40*log10(50)-20*log10(F)-(ERPi-32.44-20*log10(Di)-20*log10(F)+G)\"],[\"25\",\"PT+2*G-103.43-40*log10(25)-20*log10(F)\",\"ERPi-32.44-20*log10(Di)-20*log10(F)+G\",\"PT+2*G-103.43-40*log10(25)-20*log10(F)-(ERPi-32.44-20*log10(Di)-20*log10(F)+G)\"],[\"10\",\"PT+2*G-103.43-40*log10(10)-20*log10(F)\",\"ERPi-32.44-20*log10(Di)-20*log10(F)+G\",\"PT+2*G-103.43-40*log10(10)-20*log10(F)-(ERPi-32.44-20*log10(Di)-20*log10(F)+G)\"]]}\n```\n\nהטבלה נותנת $-33.95$, $-21.91$ ו-$-5.99$ dB. השיפור בין 50 ל-25 ק\"מ הוא 12.04 dB, והשיפור בין 25 ל-10 ק\"מ הוא 15.92 dB ($40\\log2.5$). <!--U87--> המסקנה המבצעית: הטווח שבו היחס חוצה סף נתון, \"מרחק חצייה\" ([[מונח: מרחק חצייה (crossover range) | הטווח שבו יחס אות להפרעה חוצה סף נתון]]), נמצא בצד הקרוב מאוד של המכ\"ם. את המושג הזה נבנה בהמשך הקורס, ב-M4; כאן חשוב רק שהשיפוע של SIR לפי טווח הוא 40 dB לעשור בהד ו-20 dB לעשור בקשר חד-כיווני, וזה כל ההבדל.\n\n[[2.5: ביקורת]] שתי טענות שגויות נפוצות על (39). הראשונה: \"שני משדרים בהספק שווה נותנים 0 dB\". זה נכון רק במרחקים שווים; ב-$D_s=20$ ו-$D_i=5$ בהספקים שווים היחס $-12.04$ dB. השנייה: \"בתדר גבוה יותר היחס משתפר\". לא: התדר מתבטל מ-(39), והוא משפיע רק דרך הגבר או הספק שונים. בדיקה שתופסת את שתיהן: נציב ערכי קצה ידועים, $D_s=D_i$ ו-$ERP_s=ERP_i$ נותנים בדיוק 0 dB, והחלפת התדר לא משנה את התוצאה. <!--U88-->\n\n```verify\n@title: בדיקות עצמאיות ליחס אות להפרעה\n@result: P_s - P_i = ERP_s - ERP_i - 20 log D_s + 20 log D_i\n\n- גבול ידוע: $D_s=D_i$ ו-$ERP_s=ERP_i$ נותנים 0 dB. מצפים: אפס מדויק.\n- סימטריה: החלפת התפקידים של הרצוי והמפריע הופכת את הסימן. מצפים: $-(-2.04)=+2.04$ dB.\n- מעבר לליניארי: $-2.04$ dB הוא יחס הספקים 0.625, ו-$P_s/P_i$ המחושב ישירות מהשרשרת זהה. מצפים: אפס פער.\n- שינוי תדר: הכפלת $F$ לא אמורה לשנות את התוצאה. מצפים: אותו ערך.\n- שיפוע: הכפלת $D_i$ מוסיפה 6.02 dB, והכפלת $D$ של הד מוסיפה 12.04 dB. מצפים: אלה.\n```\n\n```domain\n@field: c2\n@title: קישורי נתונים: מרחק הפרדה לשימוש חוזר בתדר\n\nברשת של קישורי נתונים, כמה משדרים חולקים אותו תדר במקומות שונים, ולכל מקלט המשדר השכן הוא אות מפריע לא מכוון (בשלב השער נסתפק בכך שכל קישור הוא משדר ומקלט במרחק ידוע). (39) קובעת את מרחק ההפרדה: ב-$D_s=20$ ק\"מ ובפער ERP של 10 dB, יחס של 10 dB דורש הפרדה של 20 ק\"מ, ויחס של 20 dB דורש 63.25 ק\"מ. מה שמקביל לקשר הבודד הוא שאובדן ההתפשטות מוגדר באותו אופן; ההבדל הוא שהקבוצה כולה מגבילה את עצמה, ולכן ערך SIR נדרש גבוה פירושו רשת דלילה יותר. מנגנוני הרשת (גישה למדיום, אפנון ושגיאות) ילמדו ב-M0.5 וב-M4. <!--U91-->\n```\n\n```fieldmap\n@formula: $P_s-P_i=ERP_s-ERP_i-20\\log D_s+20\\log D_i$\n\n- **ew** (M4): אותו SIR בין אות רצוי לאות מפריע במקלט, כולל הקשר בין שני מקורות; נלמד.\n- **nav** (M5): מרווח ההגנה של מקלט ניווט מפני מקורות באותו תחום.\n- **radar** (M2): ההד כאות רצוי ($40\\log D$) מול מקור קבוע ($20\\log D$), ושם מרחק החצייה.\n- **c2** (M0.5, M4): מרחק הפרדה בין קישורי נתונים באותו תדר.\n- **uas** (M9): קישור שליטה של כטב\"ם מול מקורות סמוכים בפס, בתדרי 2.4 ו-5.8 GHz.\n```\n\n```erratum\n@title: שגיאות סריקה בסעיף 2.3.4\n@page: B01:41\n\nשגיאות סריקה בלבד: \"ERI\\\" ו-\"ERP s\" הם $ERP_s$; \"!}\" הוא $P_I$; \"inrerfering\" ו-\"mually\" הם \"interfering\" ו-\"usually\"; \"Ps - !} = ERP s - ERP 1 - 20 10g(Ds ) + 20 log(DJ )\" הוא (39). נבדק מול הגזירה.\n```\n\n```keep\n- צפיפות הספק של גל מישורי: $S=E^2/Z_0$ (W/m²), עם $E$ ערך אפקטיבי ב-V/m ו-$Z_0=\\mu_0c\\approx120\\pi\\approx377\\ \\Omega$; תקפה לגל מישורי בחלל חופשי (שדה רחוק).\n- וקטור פוינטינג: $\\mathbf S=\\mathbf E\\times\\mathbf B/\\mu_0$, גודלו הוא ההספק ליחידת שטח ניצבת, וכיוונו כיוון התקדמות האנרגיה.\n- שטח אפקטיבי של אנטנה: $A=Gc^2/(4\\pi F^2)$, ו-$A_{iso}=\\lambda^2/4\\pi$ לאנטנה איזוטרופית; תקף לאנטנה מותאמת, מקוטבת נכון וללא הפסדים.\n- המרה בין שדה להספק: $P(\\text{dBm})=-77+20\\log E(\\mu\\text{V/m})-20\\log F(\\text{MHz})$ וההיפוך $E=10^{(P+77+20\\log F)/20}$; קריאה איזוטרופית, בגל רחוק, והמקדם תלוי ביחידות (המדויק $-77.21$).\n- גורם החזרה של עצם: $\\rho=4\\pi\\sigma/\\lambda^2$, בדציבלים $-38.55+10\\log\\sigma+20\\log F$ (בפרקטיקה מעגלים ל-$-39$); תקף למכ\"ם מונוסטטי ו-$\\sigma$ קבוע.\n- משוואת הקשר של המכ\"ם כשרשרת: $P_R=P_T+2G-103-40\\log D-20\\log F+10\\log\\sigma$ ($D$ בק\"מ, $F$ ב-MHz, המדויק $-103.43$); חלל חופשי, אנטנה אחת, בלי הנחתה ובלי רעש.\n- יחס אות להפרעה: $P_s-P_i=ERP_s-ERP_i-20\\log D_s+20\\log D_i$; שני אותות באותו תדר ופס, אותו הגבר, חלל חופשי.\n- יחס אות להפרעה של הד: מוריד 12.04 dB לכל הכפלת טווח (40 log), לעומת 6.02 dB בקשר חד-כיווני (20 log).\n```\n\n```exercise\n@title: אומדן בראש: שדה להספק\n@source: חדש\n@level: 1\n\nשדה של 40 µV/m מגיע בתדר 800 MHz. אמדו בראש את ההספק האיזוטרופי בדציבלים, ואחר כך חשבו. מה יהיה ההספק אם אותו שדה מגיע ב-1600 MHz?\n\n---hint---\n\nהשתמשו ב-$-77+20\\log E-20\\log F$; 40 הוא בערך 32 dB, ו-800 הוא בערך 58 dB.\n\n---solution---\n\n$20\\log40=32.04$, $20\\log800=58.06$. לכן $P=-77+32.04-58.06=-103.02$ dBm (אומדן: $-77+32-58=-103$). ב-1600 MHz מוסיפים $-20\\log2=-6.02$ dB: $-109.04$ dBm. התשובה היא שהספק האנטנה האיזוטרופית יורד כשהתדר גדל, כי השטח קטן.\n```\n\n```exercise\n@title: טווח מכ\"ם לפי הספק נקלט\n@source: חדש\n@level: 2\n\nמכ\"ם ב-1000 MHz: $P_T=60$ dBm, $G=30$ dB, $\\sigma=10$ מ\"ר. (א) חשבו את $P_R$ ב-$D=80$ ק\"מ. (ב) באיזה טווח ההספק הנקלט הוא $-110$ dBm? (ג) אם מעלים את ההספק פי 4, פי כמה גדל הטווח?\n\n---hint---\n\n(38) לצורך (א), ואז $D=80\\cdot10^{(P_R+110)/40}$ לצורך (ב).\n\n---solution---\n\n(א) $60+60-103.43-40\\log80-20\\log1000+10=-109.55$ dBm ($40\\log80=76.12$). (ב) הפער ל-$-110$ הוא $-0.45$ dB, לכן $D=80\\cdot10^{0.45/40}=82.08$ ק\"מ. (ג) פי 4 בהספק הוא 6.02 dB, והטווח גדל בשורש רביעי: פי $4^{1/4}=1.414$, ולא פי 2 כבקשר חד-כיווני.\n```\n\n```exercise\n@title: מרחק הפרדה\n@source: חדש\n@level: 2\n\nמשדר רצוי עם $ERP_s=37$ dBm במרחק 8 ק\"מ ממקלט, ומשדר מפריע באותו תדר עם $ERP_i=43$ dBm. (א) מה היחס אות להפרעה אם הם שניהם ב-8 ק\"מ? (ב) מה המרחק המינימלי של המפריע שנותן SIR של 12 dB לפחות? (ג) ואם ההגבר של המקלט בכיוון המפריע נמוך ב-12 dB?\n\n---hint---\n\n(39); בסעיף (ג) ההפרש בהגבר נכנס כתוספת ל-SIR.\n\n---solution---\n\n(א) $37-43=-6$ dB. (ב) $\\mathrm{SIR}=-6-20\\log8+20\\log D_i\\ge12$, לכן $20\\log(D_i/8)\\ge18$ ו-$D_i\\ge8\\cdot7.943=63.55$ ק\"מ. (ג) הנחתה של 12 dB בכיוון המפריע מוסיפה 12 dB ל-SIR, ולכן הדרישה היא $20\\log(D_i/8)\\ge6$, כלומר $D_i\\ge15.96$ ק\"מ.\n```\n\n```exercise\n@title: מצאו את הטעות\n@source: חדש\n@level: 3\n\nבדיקה של עוזר AI: \"כדי להכפיל את הטווח של מכ\"ם מ-50 ל-100 ק\"מ מוסיפים 6.02 dB, כלומר מכפילים ב-4 את הספק המשדר. ביקשנו גם לשנות את עצם הייחוס מ-1 מ\"ר ל-0.1 מ\"ר, ואז מוסיפים 20 dB.\" מצאו את שתי הטעויות, ותקנו.\n\n---hint---\n\nכל הכפלה של $D$ עולה $40\\log2$ במכ\"ם, ו-$\\sigma$ נכנס עם $10\\log$.\n\n---solution---\n\nהכפלת הטווח עולה $40\\log2=12.04$ dB, כלומר פי 16 בהספק, ולא 6.02 dB. הקטנת $\\sigma$ פי 10 מורידה 10 dB ($10\\log0.1=-10$), לא 20; כדי לפצות עליה צריך 10 dB, כלומר פי 10 בהספק. הבדיקה: נקודה ידועה, $D\\to2D$ ב-(38) חייב להוריד 12.04.\n```\n\n```lab\n@title: מחשבון שרשרת קשרים ובדיקתו\n@tools: NumPy, SciPy, Matplotlib\n@time: 60–90 דקות\n\n**השאלה ההנדסית.** בניית כלי קטן שמחשב את שלושת הדברים של השיעור, כך שאפשר לבדוק מספרים בלי טעויות יחידות: המרה בין שדה להספק, שרשרת המכ\"ם, ויחס אות להפרעה, וגרף של היחס כפונקציה של הטווח.\n\n**מה הלומד מחליט (המפרט).** בשלב השער המורה כתב טיוטה, והלומד משלים: הקלטים ויחידותיהם ($E$ ב-µV/m, $F$ ב-MHz, $D$ בק\"מ, $\\sigma$ ב-m²); ההנחות (חלל חופשי, אותו הגבר, ללא הנחתה); מדד ההצלחה (הכלי משחזר את כל המספרים של השיעור, עד 0.05 dB); בדיקות הקבלה; ותחזית של הלומד לפני ההרצה: היחס בטווח 25 ק\"מ, ובאיזה טווח הוא חוצה 0 dB.\n\n**מה ה-AI עושה.** כותב את הפונקציות המשלימות, את האריזה והגרף, ומריץ את כל מקרי הבדיקה.\n\n**שורות הלב (הלומד כותב 5–15 שורות בעצמו).** הפונקציות `p_from_field(E_uVm, F_MHz)`, `e_from_power(P_dbm, F_MHz)`, `radar_chain(PT, G, D_km, F_MHz, sigma)` ו-`sir(ERPs, ERPi, Ds, Di)`. הלומד כותב את הנוסחאות עצמן ולמה: כי כאן נמצאת הבנת היחידות והמשקל הכפול של $G$ ו-$D$.\n\n**האימות (לפחות שתי בדיקות בלתי תלויות).** (1) נקודה ידועה: 1000 µV/m ב-1000 MHz הוא $-77$ dBm, והכפלת $D$ במכ\"ם מורידה 12.04 dB. (2) הלוך וחזור $E\\to P\\to E$ ושוויון בין שרשרת של חמש חוליות לנוסחה אחת. (3) השוואה לתחזית ולטבלת השיעור.\n\n**ההסבר אחרי (3–6 משפטים במילים שלו).** מה הקוד עושה, למה התוצאות סבירות, ומה הסטייה מהתחזית (אם הייתה) מלמדת על יחידות ועיגול.\n\n**הרחבה אחת.** להוסיף פרמטר של הנחתה אטמוספרית $2\\alpha D$ לשרשרת, ולבדוק כמה dB היא מורידה ב-50 GHz ב-20 ק\"מ (השוואה לשיעור הקודם). ניסוי רדיו בקליטה בלבד, ללא שידור.\n```\n\n```decide\n@kind: trade\n@title: שני מקלטים, מקור אחד באותו תדר\n\nהמצב [[היפותטי]]: באתר יש שני מקלטים, ושניהם נדרשים ל-$\\mathrm{SIR}\\ge10$ dB מול מקור לא מכוון אחד באותו תדר ($ERP_i=40$ dBm).\n(א) מקלט של קשר חד-כיווני: $ERP_s=40$ dBm, $D_s=20$ ק\"מ; המקור במרחק $D_i=5$ ק\"מ. היחס הנוכחי: $-12.04$ dB.\n(ב) מקלט מכ\"ם מהדוגמה (עצם של 1 מ\"ר ב-50 ק\"מ; $P_T=70$ dBm, $G=35$ dB, 3000 MHz); המקור במרחק 100 ק\"מ באותו הגבר. היחס הנוכחי: $-33.95$ dB.\nארבע חלופות: (1) הגדלת ההספק המוקרן הרצוי; (2) הרחקת המקור, כלומר הגדלת $D_i$; (3) הקטנת ההגבר של המקלט בכיוון המקור ב-20 dB (תבנית אנטנה או מיקום); (4) קיצור הנתיב הרצוי, כלומר הקטנת $D_s$ או $D$.\nהגישו: לכל מקלט, איזו חלופה או שילוב אתם בוחרים; המספרים של כל חלופה (הספק, מרחק, dB); איזה פרמטר הופך את ההחלטה ובאיזה ערך; ובאיזה תנאי התשובה משתנה. הגישו בכתב לפני שפותחים את הניתוח.\n\n---\n\n**ניתוח הרפרנס.** הפער ליעד: 22.04 dB ב-(א), 43.95 dB ב-(ב).\n\n| חלופה | (א) קשר חד-כיווני | (ב) מכ\"ם |\n|---|---|---|\n| (1) הספק רצוי | פי 160 (מ-40 ל-62.04 dBm, כלומר 10 W ל-1.6 kW) | פי 24,831 (10 kW ל-248 MW) |\n| (2) הרחקת המקור | $D_i$ פי 12.65, מ-5 ל-63 ק\"מ | $D_i$ פי 157.6, מ-100 ל-15,758 ק\"מ |\n| (3) תבנית של 20 dB | נשאר פער 2.04 dB | נשאר פער 23.95 dB |\n| (4) קיצור נתיב | $D_s$ מ-20 ל-1.58 ק\"מ | $D$ מ-50 ל-3.98 ק\"מ |\n\nמה שמכריע: במכ\"ם אף חלופה בודדת אינה ריאלית, וחבילת (3) בצירוף (1) משאירה 23.95 dB שדורשים עוד פי 248 בהספק או $D=12.6$ ק\"מ. בקשר החד-כיווני, (3) בצירוף תוספת הספק של פי 1.6 סוגרים את הפער. הפרמטר שהופך את ההחלטה הוא המעריך של $D$ ביחס, 20 ב-(א) ו-40 ב-(ב), ואחריו גודל הפער: מפער של פחות מכ-10 dB, הספק הוא הזול ביותר; מפער גדול, גיאומטריה או תבנית. הנחות שכדאי להזכיר: אותו הגבר לשני האותות, חלל חופשי וחפיפה ספקטרלית מלאה; כל אחת מהן, אם נשברת (בידוד ספקטרלי של כמה עשרות dB, למשל), משנה את ההחלטה כולה. טעויות נפוצות: להשוות רק את הספק ההפרעה ל-$ERP_s$ בלי מרחקים, ולהניח שהספק פי 10 נותן טווח פי 10 במכ\"ם. <!--U92-->\n```\n\n```fieldsystems\n@title: מצב הטכנולוגיה היום: שדה, שרשרת קשרים והפרעה\n@asof: ידע עד 2025; ייתכן שאינו עדכני, ומקור שהלומד מדביק גובר\n\n- **מדידת עוצמת שדה ו-EMC.** מעבדות מודדות שדה ב-dBµV/m באמצעות אנטנות מכוילות עם \"גורם אנטנה\" (dB/m), והקשר בין הקריאה במקלט לשדה הוא בדיוק (34) עם תיקוני אנטנה [[ודאות: גבוהה]]. הפרמטר שקובע את הגבול: דיוק הכיול של גורם האנטנה, בדרך כלל כמה עשיריות dB עד כ-1 dB [[ודאות: בינונית]].\n- **ניטור ספקטרום וקביעת כיוון.** רשתות ניטור קבועות וניידות מציינות רגישות בשדה, ומתרגמות אותה להספק בקצה המקלט [[ודאות: בינונית]]. הפרמטר: $-20\\log F$, כלומר שטח האנטנה.\n- **דו-קיום בין שירותי רדיו.** ניתוחי הפרעה בין שירותים באותו או בסמוך תחום (למשל סלולר בתחום C מול מדי גובה רדיו בכלי טיס) נעשים בעזרת אותה משוואת הפרעה והפרדה, יחד עם תבנית אנטנה ומסנן [[ודאות: בינונית]]. הפרמטר: ה-SIR הנדרש והבידוד הספקטרלי.\n- **מכ\"ם.** מערכי AESA וקרני דיגיטליות מעלים את $G$, ובמשוואה זה נכנס בריבוע; הגבול הוא ההספק והרעש, שנלמד ב-M2 [[ודאות: גבוהה]].\n```\n\n```coverage\n- 2.3 Link Issues in Practical EW Applications → חלק 1 (הפתיחה והפגם הלוגי), חלק 2 (השימוש המעשי)\n- 2.3.1 Power Out in the Ether Waves (B01:37) → חלק 1: הפגם, האנטנה הדמיונית, איורים 2.4–2.5\n- 2.3.2 Sensitivity in µV/m (B01:38–39) → חלק 2: ההמרה, הגזירה של −77, מקרה מערך קביעת הכיוון\n- 2.3.3 \"Links\" in Radar Operation (B01:40, איור 2.6) → חלק 3: שרשרת הקשרים, −39 ו-−103 (מופיע בכותרת השיעור ובמוקד שלו, ואינו ברשימת ה-covers)\n- 2.3.4 Interfering Signals (B01:41, איור 2.7) → חלק 4: משוואת ההפרעה, הד מול מפריע, החלטת התכן\n- A.2 The Ubiquitous dB (B02:932) → חלק 1: צפיפות הספק, $|E|/|B|=c$, $Z_0=377\\ \\Omega$\n- לא נלמד: 2.3.5 (תדרים נמוכים קרוב לקרקע, B01:42) כי הוא מחוץ לעמודי השיעור, ויטופל עם two-ray ב-M4; הפיזיקה המלאה של הגל המישורי נדחתה ל-M0.2.\n- יחידות: 92 מתוכננות (מקור 32, סמכות 60), 92 נכתבו.\n```\n\nהשיעור הבא, המודול M0.2 (גלים ופיזיקה אלקטרומגנטית), יבנה מהיסוד את מה שהשתמשנו בו כאן על סמך: משוואות מקסוול, הגל המישורי, וקטור פוינטינג ועכבת המרחב החופשי. אחריו נעבור לאנטנות (M1, ושם נגזר $A_e=G\\lambda^2/4\\pi$) ולמשוואת המכ\"ם עם גילוי (M2).\n\n<!--audit: units U75–U92 18/18 (auth 14/14) | w/u 155 | think 0 (+predict 1) | padding 0-->\n",
+  "title": "קשרים מעשיים: שדה חשמלי ב-µV/m, המכ\"ם כשרשרת קשרים, ויחס אות להפרעה",
+  "v": 1,
+  "verify": {
+    "depth": {
+      "l25Missing": [],
+      "results": 3,
+      "units": 92,
+      "words": 8967
+    },
+    "facts": {
+      "checked": 140,
+      "fixed": 8
+    },
+    "notes": [
+      "רמת שדה GPS L1 תוקנה מ-4.19 µV/m ו-12.45 dBµV/m ל-4.29 µV/m ו-12.66 dBµV/m (עקבי עם -133.1 dBW/m² ועם המקדם -77.21), בשלושה מקומות",
+      "סטייה של העיגול -77 בשדה תוקנה מ-2.5% ל-2.4% (17.32 מול 16.90 mV/m; 1095 מול 1069 ק\"מ; ארבעה מקומות כולל ה-erratum)",
+      "עיגול 103 מול 103.43: 10.5% בהספק תוקן ל-10.4% (שני מקומות)",
+      "בדיקת גורם האנטנה: 29.99 עם 120π תוקן ל-29.78 (29.77 עם קבועים מדויקים; 29.99 מתאים למקדם המעוגל -77)",
+      "משפט הפתיחה של [[B02:932]] היה ריפוד ללא תוכן שהעמוד תומך בו, והוחלף במשפט שנשען על העמוד",
+      "בלוק decide הוזז אחרי lab ולפני fieldsystems, בהתאם לסדר הסיום בכלל 10; כותרת ה-## שלו הוסרה",
+      "ניסוח 'בין אם מקור ההפרעה מכוון ובין אם לאו' הוחלף בניסוח אנליטי נייטרלי"
+    ],
+    "refusalSafe": true,
+    "sources": {
+      "checked": 9,
+      "unsupported": 1
+    },
+    "verdict": "pass-with-notes"
+  },
+  "words": 9140
+}

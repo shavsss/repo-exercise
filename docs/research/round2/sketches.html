@@ -1,0 +1,1761 @@
+<title>סקיצות המעבדות</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Hebrew:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #ece4d6;
+  --paper: #f4ede2;
+  --sheet: #faf6ee;
+  --ink: #22261d;
+  --ink-soft: #44493a;
+  --muted: #676a58;
+  --line: #ddd2bf;
+  --line-strong: #ae9f84;
+  --grid-line: #e6ddcd;
+  --grid-major: #d9cdb8;
+  --accent: #b3261e;
+  --accent-soft: #f3e0d9;
+  --on-accent: #ffffff;
+  --ok: #3f7a34;
+  --ok-soft: #e1ecd8;
+  --warn: #8a6100;
+  --warn-soft: #f3e6c4;
+  --blue: #355f7d;
+  --blue-soft: #dde7ee;
+  --err: #a3161a;
+  --err-soft: #f4dcd8;
+  --hover: #efe7da;
+  --sel: #e8dfcf;
+  --shadow: 0 1px 2px rgb(34 38 29 / 6%), 0 6px 18px rgb(34 38 29 / 6%);
+  --k-plan: #5b6248;
+  --k-history: #6d3fa0;
+  --k-formula: #1f5f9e;
+  --k-definition: #3b3a9e;
+  --k-keep: #44493a;
+  --k-think: #a16207;
+  --k-domain: #0f766e;
+  --k-model: #3f7a1a;
+  --k-erratum: #b91c1c;
+  --k-exercise: #c2410c;
+  --app-e: #1f5f9e;
+  --app-c: #5b6248;
+  --forge: #c2410c;
+  --font: "IBM Plex Sans Hebrew", "IBM Plex Sans", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --math: "Cambria Math", "STIX Two Math", "Latin Modern Math", "Times New Roman", serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1f1e1d;
+    --paper: #262624;
+    --sheet: #2d2c2a;
+    --ink: #ece9e1;
+    --ink-soft: #c9c5bb;
+    --muted: #9d998f;
+    --line: #3a3936;
+    --line-strong: #5c5a55;
+    --grid-line: #252423;
+    --grid-major: #2e2d2b;
+    --accent: #f08a7e;
+    --accent-soft: #3a2522;
+    --on-accent: #1f1e1d;
+    --ok: #93cf86;
+    --ok-soft: #26321f;
+    --warn: #e0c46c;
+    --warn-soft: #3a3220;
+    --blue: #94bfdc;
+    --blue-soft: #22303a;
+    --err: #ff8f84;
+    --err-soft: #3d2321;
+    --hover: #2f2e2c;
+    --sel: #383733;
+    --shadow: none;
+    --k-plan: #b5b8a0;
+    --k-history: #c9b0ef;
+    --k-formula: #94bfdc;
+    --k-definition: #b9b6f2;
+    --k-keep: #c9ccb4;
+    --k-think: #e0c46c;
+    --k-domain: #8fd0c0;
+    --k-model: #b9d77f;
+    --k-erratum: #ff8f84;
+    --k-exercise: #f0a777;
+    --app-e: #94bfdc;
+    --app-c: #c9ccb4;
+    --forge: #f0a777;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1f1e1d;
+  --paper: #262624;
+  --sheet: #2d2c2a;
+  --ink: #ece9e1;
+  --ink-soft: #c9c5bb;
+  --muted: #9d998f;
+  --line: #3a3936;
+  --line-strong: #5c5a55;
+  --grid-line: #252423;
+  --grid-major: #2e2d2b;
+  --accent: #f08a7e;
+  --accent-soft: #3a2522;
+  --on-accent: #1f1e1d;
+  --ok: #93cf86;
+  --ok-soft: #26321f;
+  --warn: #e0c46c;
+  --warn-soft: #3a3220;
+  --blue: #94bfdc;
+  --blue-soft: #22303a;
+  --err: #ff8f84;
+  --err-soft: #3d2321;
+  --hover: #2f2e2c;
+  --sel: #383733;
+  --shadow: none;
+  --k-plan: #b5b8a0;
+  --k-history: #c9b0ef;
+  --k-formula: #94bfdc;
+  --k-definition: #b9b6f2;
+  --k-keep: #c9ccb4;
+  --k-think: #e0c46c;
+  --k-domain: #8fd0c0;
+  --k-model: #b9d77f;
+  --k-erratum: #ff8f84;
+  --k-exercise: #f0a777;
+  --app-e: #94bfdc;
+  --app-c: #c9ccb4;
+  --forge: #f0a777;
+  color-scheme: dark;
+}
+:root { --covered: var(--blue); --forged: var(--forge); --proven: var(--ok); }
+
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background-color: var(--bg);
+  background-image:
+    linear-gradient(var(--grid-major) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-major) 1px, transparent 1px),
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+.wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding-top: 20px;
+  padding-bottom: 72px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+button, input, select { font-family: inherit; font-size: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+h1, h2, h3, h4 { margin: 0; line-height: 1.25; text-wrap: balance; }
+p { margin: 0 0 .8em; }
+.num, .mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.muted { color: var(--muted); }
+.small { font-size: .86rem; }
+.ltr { direction: ltr; unicode-bidi: isolate; display: inline-block; }
+
+/* ---------- header ---------- */
+.top { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 14px; }
+.brand { display: flex; align-items: center; gap: 12px; }
+.mark { width: 42px; height: 42px; flex: none; }
+.brand h1 { font-size: 1.45rem; font-weight: 700; letter-spacing: -.01em; }
+.brand .sub { color: var(--muted); font-size: .9rem; }
+.top-tools { display: flex; gap: 8px; align-items: center; }
+.pill-btn { border: 1px solid var(--line-strong); background: var(--sheet); border-radius: 999px; padding: 4px 12px; font-size: .85rem; }
+.pill-btn:hover { background: var(--hover); }
+.example-flag { font-size: .78rem; font-weight: 600; color: var(--warn); background: var(--warn-soft); border: 1px dashed var(--warn); padding: 2px 9px; border-radius: 6px; white-space: nowrap; }
+
+.tabs { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; margin: 4px 0 18px; }
+.tab {
+  border: 1px solid var(--line-strong); background: var(--paper); border-radius: 8px;
+  padding: 7px 8px 6px; text-align: start; display: flex; flex-direction: column; gap: 0; min-width: 0;
+  transition: background .15s, border-color .15s;
+}
+.tab b { font-size: .98rem; font-weight: 600; }
+.tab span { font-size: .74rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tab:hover { background: var(--hover); }
+.tab[aria-selected="true"] { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+.tab[aria-selected="true"] span { color: var(--line); }
+@media (max-width: 720px) { .tabs { grid-template-columns: repeat(3, 1fr); } }
+
+.screen { display: none; animation: fadein .25s ease; }
+.screen.on { display: block; }
+@keyframes fadein { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+.sheet { background: var(--sheet); border: 1px solid var(--line); border-radius: 10px; box-shadow: var(--shadow); padding: 18px 20px; }
+.sheet + .sheet { margin-top: 14px; }
+.sec-h { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
+.sec-h h2 { font-size: 1.15rem; }
+.sec-h h3 { font-size: 1.02rem; }
+.kicker { font-family: var(--mono); font-size: .74rem; letter-spacing: .06em; color: var(--muted); text-transform: uppercase; }
+.lead { color: var(--ink-soft); max-width: 46rem; margin-bottom: 14px; }
+.grid2 { display: grid; grid-template-columns: 1.35fr 1fr; gap: 14px; align-items: start; }
+.grid2 > .sheet + .sheet { margin-top: 0; }
+@media (max-width: 860px) { .grid2 { grid-template-columns: 1fr; } .grid2 > .sheet + .sheet { margin-top: 0; } }
+.stack > * + * { margin-top: 14px; }
+
+.chip { display: inline-flex; align-items: center; gap: 5px; border: 1px solid var(--line-strong); border-radius: 999px; padding: 1px 9px; font-size: .78rem; background: var(--paper); white-space: nowrap; }
+.chip.e { border-color: var(--app-e); color: var(--app-e); }
+.chip.c { border-color: var(--app-c); color: var(--app-c); }
+.chip .dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+button.chip:hover { background: var(--hover); }
+
+.btn { border: 1px solid var(--ink); background: var(--ink); color: var(--bg); border-radius: 8px; padding: 7px 14px; font-weight: 600; font-size: .92rem; }
+.btn:hover { filter: brightness(1.15); }
+.btn.ghost { background: transparent; color: var(--ink); border-color: var(--line-strong); font-weight: 500; }
+.btn.ghost:hover { background: var(--hover); }
+.btn.red { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.btn:disabled { opacity: .38; cursor: not-allowed; filter: none; }
+.seg { display: inline-flex; border: 1px solid var(--line-strong); border-radius: 9px; overflow: hidden; background: var(--paper); }
+.seg button { border: 0; background: transparent; padding: 6px 12px; font-size: .88rem; border-inline-start: 1px solid var(--line); }
+.seg button:first-child { border-inline-start: 0; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--bg); font-weight: 600; }
+
+input[type="text"], input[type="number"], input[type="search"] {
+  border: 1px solid var(--line-strong); background: var(--paper); border-radius: 7px; padding: 5px 9px; min-width: 0;
+}
+input[type="number"] { font-family: var(--mono); direction: ltr; text-align: center; width: 6.5em; }
+input[type="range"] { width: 100%; accent-color: var(--accent); direction: ltr; }
+
+/* ---------- state dots (covered / forged / proven) ---------- */
+.states { display: inline-flex; gap: 3px; align-items: center; direction: rtl; }
+.st { width: 11px; height: 11px; border-radius: 3px; border: 1.5px solid var(--line-strong); background: transparent; }
+.st.s1.on { background: var(--covered); border-color: var(--covered); }
+.st.s2.on { background: var(--forged); border-color: var(--forged); }
+.st.s3.on { background: var(--proven); border-color: var(--proven); }
+.legend { display: flex; gap: 14px; flex-wrap: wrap; font-size: .82rem; color: var(--muted); }
+.legend span { display: inline-flex; gap: 6px; align-items: center; }
+
+/* =============== TODAY =============== */
+.day-head { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; align-items: center; margin-bottom: 14px; }
+.day-head .date { font-size: 1.35rem; font-weight: 700; }
+.strip { display: flex; height: 26px; border-radius: 7px; overflow: hidden; border: 1px solid var(--line-strong); background: var(--paper); }
+.strip .seg-b { position: relative; border-inline-start: 1px solid var(--sheet); background: var(--sel); transition: background .25s; }
+.strip .seg-b:first-child { border-inline-start: 0; }
+.strip .seg-b.done { background: var(--c); }
+.strip .seg-b.brk { background: repeating-linear-gradient(135deg, transparent 0 4px, var(--line) 4px 6px); }
+.strip-meta { display: flex; justify-content: space-between; font-size: .84rem; color: var(--muted); margin-top: 6px; gap: 8px; flex-wrap: wrap; }
+.plan { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 8px; }
+.blk-row {
+  display: grid; grid-template-columns: 30px 64px 1fr auto; gap: 10px; align-items: start;
+  border: 1px solid var(--line); background: var(--paper); border-radius: 9px; padding: 10px 12px;
+  border-inline-start: 5px solid var(--c);
+}
+.blk-row.done { opacity: .62; }
+.blk-row.done .bt { text-decoration: line-through; text-decoration-color: var(--line-strong); }
+.blk-row.brk { background: transparent; border-style: dashed; }
+.chk { width: 24px; height: 24px; border-radius: 6px; border: 1.5px solid var(--line-strong); background: var(--sheet); display: grid; place-items: center; padding: 0; }
+.chk svg { opacity: 0; }
+.done .chk { background: var(--c); border-color: var(--c); }
+.done .chk svg { opacity: 1; }
+.blk-row .tm { font-family: var(--mono); font-size: .82rem; color: var(--muted); line-height: 1.25; padding-top: 2px; }
+.blk-row .tm b { display: block; color: var(--ink); font-size: .95rem; }
+.blk-row .bk { font-size: .74rem; font-weight: 600; color: var(--c); letter-spacing: .02em; }
+.blk-row .bt { font-weight: 600; }
+.blk-row .bd { font-size: .86rem; color: var(--ink-soft); }
+.blk-row .chips { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 5px; }
+.shelf-tag { font-size: .74rem; color: var(--ok); border: 1px solid var(--ok); border-radius: 5px; padding: 0 6px; white-space: nowrap; }
+.shelf-tag.live { color: var(--warn); border-color: var(--warn); }
+@media (max-width: 560px) {
+  .blk-row { grid-template-columns: 28px 1fr; }
+  .blk-row .tm { grid-column: 2; grid-row: 1; display: flex; gap: 8px; align-items: baseline; }
+  .blk-row .tm b { display: inline; }
+  .blk-row .main { grid-column: 1 / -1; }
+  .blk-row .act { grid-column: 1 / -1; }
+}
+.judge { margin-top: 8px; display: grid; gap: 6px; }
+.judge button { text-align: start; border: 1px solid var(--line); background: var(--sheet); border-radius: 7px; padding: 6px 10px; font-size: .88rem; }
+.judge button:hover { background: var(--hover); }
+.judge button.right { border-color: var(--ok); background: var(--ok-soft); }
+.judge button.wrong { border-color: var(--err); background: var(--err-soft); }
+.judge .fb { font-size: .86rem; color: var(--ink-soft); }
+.week { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+.wd { border: 1px solid var(--line); border-radius: 8px; padding: 7px 6px 8px; background: var(--paper); text-align: center; min-width: 0; }
+.wd.today { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+.wd .n { font-weight: 700; }
+.wd .t { font-size: .7rem; color: var(--muted); line-height: 1.2; min-height: 2.4em; }
+.wd .bar { height: 34px; display: flex; align-items: flex-end; justify-content: center; gap: 3px; margin-top: 4px; }
+.wd .bar i { width: 7px; border-radius: 2px 2px 0 0; background: var(--line-strong); display: block; }
+.wd .bar i.a { background: var(--ink-soft); }
+.wd.prod { background: var(--warn-soft); }
+.wd.rest { background: transparent; border-style: dashed; }
+.shelf-list { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.shelf-list li { display: flex; justify-content: space-between; gap: 8px; font-size: .86rem; border-bottom: 1px dotted var(--line); padding-bottom: 5px; }
+.shelf-gauge { display: flex; gap: 3px; margin: 8px 0 10px; }
+.shelf-gauge i { flex: 1; height: 10px; border-radius: 2px; background: var(--ok); }
+.shelf-gauge i.e { background: var(--line); }
+.shelf-gauge i.l { background: var(--warn); }
+
+/* =============== LESSON =============== */
+.lesson-wrap { display: grid; grid-template-columns: minmax(0, 1fr) 270px; gap: 18px; align-items: start; }
+@media (max-width: 920px) { .lesson-wrap { grid-template-columns: 1fr; } .lesson-side { position: static !important; order: -1; } }
+.lesson { background: var(--sheet); border: 1px solid var(--line); border-radius: 10px; box-shadow: var(--shadow); padding: 26px clamp(16px, 4vw, 38px) 30px; }
+.lesson-meta { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 8px; }
+.lesson h2.title { font-size: 1.6rem; font-weight: 700; margin-bottom: 4px; }
+.lesson .body { max-width: 42rem; font-size: 1.04rem; }
+.lesson .body > * { margin-bottom: 1rem; }
+.lesson .body p { margin-bottom: 1rem; }
+.m { font-family: var(--math); direction: ltr; unicode-bidi: isolate; white-space: nowrap; font-size: 1.07em; }
+.m i, .eq i { font-style: italic; }
+.m sub, .m sup, .eq sub, .eq sup { font-size: .72em; }
+.rm { font-style: normal !important; }
+.eq { font-family: var(--math); direction: ltr; text-align: center; font-size: 1.22rem; margin: .6rem 0; position: relative; padding: 4px 3.2em; overflow-x: auto; }
+.eq .tag { position: absolute; left: 0; top: 50%; transform: translateY(-50%); font-family: var(--mono); font-size: .8rem; color: var(--muted); }
+.frac { display: inline-flex; flex-direction: column; vertical-align: middle; text-align: center; margin: 0 2px; }
+.frac > span:first-child { border-bottom: 1px solid currentColor; padding: 0 3px; }
+.frac > span { line-height: 1.15; }
+.blk { border: 1px solid var(--line); border-inline-start: 4px solid var(--c); background: var(--paper); border-radius: 8px; padding: 12px 16px 12px; position: relative; }
+.blk > .lab { display: flex; align-items: center; gap: 8px; font-size: .78rem; font-weight: 700; color: var(--c); letter-spacing: .02em; margin-bottom: 6px; }
+.blk > .lab .t { color: var(--ink); font-size: .95rem; font-weight: 600; letter-spacing: 0; }
+.blk p:last-child { margin-bottom: 0; }
+.k-def { --c: var(--k-definition); }
+.k-think { --c: var(--k-think); }
+.k-der { --c: var(--k-model); }
+.k-formula { --c: var(--k-formula); }
+.k-keep { --c: var(--k-keep); }
+.k-domain { --c: var(--k-domain); }
+.k-depth { --c: var(--k-history); }
+.k-retr { --c: var(--k-exercise); }
+.k-formula.key { border: 2px solid var(--c); border-inline-start-width: 6px; background: var(--sheet); box-shadow: 0 0 0 4px color-mix(in srgb, var(--c) 10%, transparent); }
+.k-formula.key .eq { font-size: 1.36rem; }
+.validity { font-size: .88rem; color: var(--ink-soft); border-top: 1px dashed var(--line-strong); padding-top: 8px; margin-top: 6px; }
+.illus { border: 1px dashed var(--line-strong); border-radius: 8px; padding: 10px 14px; background: transparent; font-size: .95rem; color: var(--ink-soft); }
+.illus .lab { font-size: .74rem; font-weight: 700; color: var(--muted); margin-bottom: 4px; display: flex; gap: 8px; align-items: center; }
+.illus svg { direction: ltr; width: 100%; height: auto; display: block; max-width: 460px; margin: 4px auto 0; }
+.step-list { list-style: none; padding: 0; margin: 0; counter-reset: st; display: grid; gap: 8px; }
+.step-list > li { counter-increment: st; position: relative; padding-inline-start: 34px; }
+.step-list > li::before { content: counter(st); position: absolute; inset-inline-start: 0; top: 1px; width: 24px; height: 24px; border-radius: 50%; border: 1.5px solid var(--c); color: var(--c); font-family: var(--mono); font-size: .8rem; display: grid; place-items: center; }
+.step-list > li.start { counter-increment: none; }
+.step-list > li.start::before { content: "0"; }
+.assume { background: var(--warn-soft); border-radius: 4px; padding: 0 4px; font-weight: 700; }
+.yourstep { border: 1.5px dashed var(--accent); border-radius: 8px; padding: 10px 12px; background: var(--accent-soft); margin-top: 6px; }
+.yourstep .lab2 { font-size: .76rem; font-weight: 700; color: var(--accent); margin-bottom: 4px; }
+.yourstep .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.fb-ok { color: var(--ok); font-weight: 600; }
+.fb-bad { color: var(--err); font-weight: 600; }
+.hidden { display: none !important; }
+
+.think-q { font-weight: 500; margin-bottom: 10px; }
+.opts { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.opt { border: 1px solid var(--line-strong); background: var(--sheet); border-radius: 7px; padding: 5px 12px; font-family: var(--mono); font-size: .92rem; }
+.opt[aria-pressed="true"] { background: var(--k-think); border-color: var(--k-think); color: var(--sheet); font-weight: 600; }
+.opt.right { outline: 2px solid var(--ok); outline-offset: 1px; }
+.conf { display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: center; font-size: .86rem; margin-bottom: 10px; }
+.conf output { font-family: var(--mono); min-width: 3.2em; text-align: center; border: 1px solid var(--line); border-radius: 5px; background: var(--sheet); }
+.conf.untouched output { color: var(--muted); }
+.commit-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.req { font-size: .8rem; color: var(--muted); }
+.reveal { margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--line-strong); }
+.verdict { display: inline-flex; gap: 6px; align-items: center; font-size: .82rem; font-weight: 700; border-radius: 5px; padding: 1px 8px; margin-bottom: 6px; }
+.verdict.ok { background: var(--ok-soft); color: var(--ok); }
+.verdict.bad { background: var(--err-soft); color: var(--err); }
+.gate { position: relative; }
+.gate.locked > .gated { filter: blur(5px); opacity: .45; pointer-events: none; user-select: none; max-height: 220px; overflow: hidden; }
+.gate .gate-msg { display: none; }
+.gate.locked .gate-msg { display: flex; position: absolute; inset: 0; align-items: center; justify-content: center; z-index: 2; }
+.gate-msg span { background: var(--sheet); border: 1px solid var(--k-think); color: var(--ink); border-radius: 8px; padding: 8px 14px; font-size: .9rem; box-shadow: var(--shadow); text-align: center; max-width: 90%; }
+.retr-q { display: grid; grid-template-columns: 1fr auto; gap: 8px 12px; align-items: center; padding: 8px 0; border-bottom: 1px dotted var(--line); }
+.retr-q:last-child { border-bottom: 0; }
+.retr-q .ans { grid-column: 1 / -1; font-size: .9rem; color: var(--ink-soft); }
+.retr-q .self { display: flex; gap: 5px; flex-wrap: wrap; }
+.retr-q .self button { font-size: .78rem; border: 1px solid var(--line-strong); background: var(--sheet); border-radius: 6px; padding: 2px 8px; }
+.retr-q .self button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+table.t { border-collapse: collapse; width: 100%; font-size: .92rem; }
+table.t th, table.t td { text-align: start; padding: 7px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+table.t th { font-size: .78rem; color: var(--muted); font-weight: 600; }
+.tw { overflow-x: auto; }
+.depth-ph { display: flex; gap: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+.depth-ph .what { font-size: .9rem; color: var(--ink-soft); }
+.writing { height: 4px; background: var(--line); border-radius: 2px; overflow: hidden; margin-top: 10px; }
+.writing i { display: block; height: 100%; width: 0; background: var(--k-history); transition: width 1.6s ease; }
+.keep-card { background: var(--sheet); border: 2px solid var(--k-keep); border-radius: 10px; padding: 14px 16px; }
+.keep-card h4 { font-size: .8rem; color: var(--k-keep); margin-bottom: 8px; letter-spacing: .03em; }
+.keep-card ul { margin: 0; padding-inline-start: 18px; }
+.keep-card li { margin-bottom: 6px; }
+.anchors { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 8px; margin-top: 12px; }
+.anchor { border: 1px solid var(--line); border-radius: 7px; padding: 6px 9px; background: var(--paper); }
+.anchor b { font-family: var(--mono); font-size: 1.05rem; display: block; direction: ltr; text-align: right; }
+.anchor span { font-size: .76rem; color: var(--muted); }
+.lesson-side { position: sticky; top: 12px; display: grid; gap: 12px; }
+.side-card { background: var(--sheet); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; box-shadow: var(--shadow); }
+.side-card h4 { font-size: .82rem; color: var(--muted); font-weight: 600; margin-bottom: 8px; }
+.cr { display: grid; grid-template-columns: 1fr; gap: 4px; padding: 8px 0; border-bottom: 1px dotted var(--line); }
+.cr:last-child { border-bottom: 0; }
+.cr .cn { font-size: .86rem; font-weight: 600; }
+.cr .path { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; }
+.cr .path span { font-size: .68rem; text-align: center; border-radius: 4px; padding: 1px 0; background: var(--paper); border: 1px solid var(--line); color: var(--muted); }
+.cr .path span.on1 { background: var(--covered); border-color: var(--covered); color: var(--sheet); }
+.cr .path span.on2 { background: var(--forged); border-color: var(--forged); color: var(--sheet); }
+.cr .path span.on3 { background: var(--proven); border-color: var(--proven); color: var(--sheet); }
+.cr .nx { font-size: .74rem; color: var(--muted); }
+.calib-mini { font-size: .84rem; }
+.calib-mini .row { display: flex; justify-content: space-between; border-bottom: 1px dotted var(--line); padding: 3px 0; }
+
+/* =============== LEDGER =============== */
+.kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+@media (max-width: 620px) { .kpis { grid-template-columns: repeat(2, 1fr); } }
+.kpi { border: 1px solid var(--line); border-radius: 9px; padding: 10px 12px; background: var(--paper); }
+.kpi .v { font-family: var(--mono); font-size: 1.55rem; font-weight: 600; line-height: 1.1; }
+.kpi .l { font-size: .8rem; color: var(--muted); }
+.kpi.c1 .v { color: var(--covered); } .kpi.c2 .v { color: var(--forged); } .kpi.c3 .v { color: var(--proven); }
+.appbar { margin-top: 12px; display: grid; gap: 8px; }
+.appbar .row { display: grid; grid-template-columns: 76px 1fr 82px; gap: 10px; align-items: center; font-size: .85rem; }
+.stack-bar { display: flex; height: 14px; border-radius: 4px; overflow: hidden; background: var(--paper); border: 1px solid var(--line); }
+.stack-bar i { display: block; height: 100%; }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 12px; }
+.filters input[type="search"] { flex: 1 1 160px; }
+.cr-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 8px; }
+.cr-item { border: 1px solid var(--line); border-radius: 9px; padding: 9px 11px; background: var(--paper); display: grid; gap: 4px; transition: box-shadow .2s, border-color .2s; border-inline-start: 4px solid var(--appc); }
+.cr-item.E { --appc: var(--app-e); } .cr-item.C { --appc: var(--app-c); }
+.cr-item.flash { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.cr-item .top2 { display: flex; justify-content: space-between; gap: 6px; align-items: center; }
+.cr-item .id { font-family: var(--mono); font-size: .76rem; color: var(--appc); font-weight: 600; }
+.cr-item .ti { font-size: .92rem; font-weight: 600; line-height: 1.35; }
+.cr-item .lk { display: flex; flex-wrap: wrap; gap: 4px; }
+.spike { font-size: .68rem; color: var(--accent); border: 1px solid var(--accent); border-radius: 4px; padding: 0 4px; }
+.cov-row { display: grid; grid-template-columns: 150px 1fr 90px; gap: 10px; align-items: center; padding: 7px 0; border-bottom: 1px dotted var(--line); font-size: .86rem; }
+.cov-row:last-child { border-bottom: 0; }
+.cov-row .nm b { font-family: var(--mono); font-size: .8rem; }
+.cov-row .ok { color: var(--ok); font-weight: 600; } .cov-row .bad { color: var(--err); font-weight: 600; }
+@media (max-width: 560px) { .cov-row { grid-template-columns: 1fr 70px; } .cov-row .stack-bar { grid-column: 1 / -1; grid-row: 2; } }
+.svgbox svg { width: 100%; height: auto; display: block; direction: ltr; }
+.svgbox text { font-family: var(--font); }
+
+/* =============== FORGE =============== */
+.forge-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.fs { display: grid; grid-template-columns: 26px 1fr auto; gap: 10px; align-items: center; border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; background: var(--paper); transition: transform .18s, background .2s, border-color .2s; }
+.fs .ix { font-family: var(--mono); font-size: .82rem; color: var(--muted); text-align: center; }
+.fs .tx { font-size: .92rem; }
+.fs .mv { display: flex; gap: 4px; }
+.fs .mv button { width: 30px; height: 30px; border: 1px solid var(--line-strong); background: var(--sheet); border-radius: 6px; padding: 0; line-height: 1; }
+.fs .mv button:hover { background: var(--hover); }
+.fs.good { border-color: var(--ok); background: var(--ok-soft); }
+.fs.bad { border-color: var(--err); background: var(--err-soft); }
+.fs .as { display: none; font-size: .78rem; color: var(--warn); margin-top: 2px; }
+.show-as .fs .as { display: block; }
+.est-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 10px 0; }
+.est-grid label { display: grid; gap: 4px; font-size: .82rem; color: var(--muted); }
+.est-grid input { width: 100%; }
+@media (max-width: 480px) { .est-grid { grid-template-columns: 1fr 1fr; } .est-grid label:first-child { grid-column: 1 / -1; } }
+.score { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 8px; margin-top: 10px; }
+.score .kpi .v { font-size: 1.25rem; }
+.interval-viz svg { width: 100%; height: auto; display: block; direction: ltr; }
+.part-h { display: flex; gap: 10px; align-items: center; margin-bottom: 8px; }
+.part-n { width: 28px; height: 28px; border-radius: 50%; background: var(--forge); color: var(--sheet); display: grid; place-items: center; font-family: var(--mono); font-weight: 600; font-size: .9rem; flex: none; }
+
+/* =============== PROJECT =============== */
+.proj-grid { display: grid; grid-template-columns: 330px minmax(0, 1fr); gap: 14px; align-items: start; }
+@media (max-width: 900px) { .proj-grid { grid-template-columns: 1fr; } }
+.sl { display: grid; gap: 2px; padding: 7px 0; border-bottom: 1px dotted var(--line); }
+.sl:last-child { border-bottom: 0; }
+.sl .h { display: flex; justify-content: space-between; gap: 8px; font-size: .86rem; align-items: baseline; }
+.sl .h b { font-weight: 600; }
+.sl .h .val { font-family: var(--mono); font-size: .84rem; direction: ltr; unicode-bidi: isolate; }
+.sl .h .db { color: var(--muted); }
+.sl.locked { opacity: .5; }
+.big-snr { display: flex; gap: 14px; flex-wrap: wrap; align-items: stretch; }
+.big-snr .kpi { flex: 1 1 140px; }
+.big-snr .kpi .v { font-size: 1.9rem; }
+.wf { display: grid; gap: 3px; margin-top: 10px; }
+.wf-row { display: grid; grid-template-columns: 116px 66px 1fr; gap: 8px; align-items: center; font-size: .8rem; }
+.wf-row .lb { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.wf-row .vv { font-family: var(--mono); direction: ltr; text-align: right; }
+.wf-track { position: relative; height: 16px; direction: ltr; background: linear-gradient(90deg, transparent calc(var(--z) - .5px), var(--line-strong) calc(var(--z) - .5px), var(--line-strong) calc(var(--z) + .5px), transparent calc(var(--z) + .5px)); }
+.wf-bar { position: absolute; top: 2px; bottom: 2px; border-radius: 2px; transition: left .2s, width .2s; }
+.wf-bar.up { background: var(--ok); } .wf-bar.dn { background: var(--accent); }
+.wf-row.tot { font-weight: 700; border-top: 1px solid var(--line-strong); padding-top: 3px; margin-top: 2px; }
+.wf-row.tot .wf-bar { background: var(--ink); }
+.wf-row.tot.snr .wf-bar { background: var(--k-formula); }
+.wf-row .tick { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--ink-soft); opacity: .5; }
+.wf-axis { display: grid; grid-template-columns: 116px 66px 1fr; gap: 8px; font-size: .7rem; color: var(--muted); }
+.wf-axis .ax { position: relative; height: 14px; direction: ltr; font-family: var(--mono); }
+.wf-axis .ax span { position: absolute; transform: translateX(-50%); }
+@media (max-width: 480px) { .wf-row, .wf-axis { grid-template-columns: 92px 58px 1fr; font-size: .74rem; } }
+.predict { border: 2px dashed var(--accent); border-radius: 10px; padding: 12px 14px; background: var(--accent-soft); }
+.predict.done { border-style: solid; border-color: var(--line-strong); background: var(--paper); }
+.predict h4 { font-size: .95rem; margin-bottom: 6px; }
+.predict .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin: 6px 0; font-size: .88rem; }
+.log-list { list-style: none; margin: 0; padding: 0; font-size: .84rem; }
+.log-list li { border-bottom: 1px dotted var(--line); padding: 5px 0; }
+.mapchips { display: flex; flex-wrap: wrap; gap: 6px; }
+
+/* =============== PILOT =============== */
+.days { display: grid; grid-template-columns: repeat(14, 1fr); gap: 3px; margin: 8px 0 4px; }
+.days i { height: 22px; border-radius: 3px; background: var(--paper); border: 1px solid var(--line); font-style: normal; font-family: var(--mono); font-size: .66rem; display: grid; place-items: center; color: var(--muted); }
+.days i.past { background: var(--sel); color: var(--ink); }
+.days i.now { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.phases { display: grid; grid-template-columns: 2fr 7fr 3fr 2fr; gap: 3px; font-size: .72rem; color: var(--muted); text-align: center; }
+.phases span { border-top: 2px solid var(--line-strong); padding-top: 2px; }
+.u-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 12px; }
+@media (max-width: 400px) { .u-grid { grid-template-columns: 1fr; } }
+.u-card { background: var(--sheet); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; box-shadow: var(--shadow); display: grid; gap: 10px; align-content: start; }
+.u-card .uh { display: flex; gap: 10px; align-items: baseline; }
+.u-card .uid { font-family: var(--mono); font-weight: 600; color: var(--accent); }
+.u-card .un { font-weight: 600; }
+.u-card .how { font-size: .82rem; color: var(--muted); }
+.gauge { display: grid; gap: 3px; }
+.gauge .gh { display: flex; justify-content: space-between; font-size: .84rem; gap: 8px; }
+.gauge .gh b { font-family: var(--mono); }
+.gtrack { position: relative; height: 18px; margin-top: 8px; display: flex; border-radius: 4px; overflow: visible; direction: ltr; }
+.gtrack .z { height: 100%; opacity: .85; }
+.gtrack .z:first-child { border-radius: 4px 0 0 4px; } .gtrack .z:last-child { border-radius: 0 4px 4px 0; }
+.z.g { background: var(--ok-soft); border: 1px solid var(--ok); }
+.z.y { background: var(--warn-soft); border: 1px solid var(--warn); }
+.z.r { background: var(--err-soft); border: 1px solid var(--err); }
+.gtrack .mk { position: absolute; top: -4px; bottom: -4px; width: 3px; margin-left: -1.5px; background: var(--ink); border-radius: 2px; }
+.gtrack .mk::after { content: ""; position: absolute; top: -5px; left: -4px; border: 5.5px solid transparent; border-top-color: var(--ink); }
+.gtrack.pending .mk { display: none; }
+.gscale { position: relative; height: 13px; direction: ltr; font-family: var(--mono); font-size: .66rem; color: var(--muted); }
+.gscale span { position: absolute; transform: translateX(-50%); }
+.u-dec { font-size: .86rem; border-radius: 7px; padding: 7px 10px; background: var(--paper); border: 1px solid var(--line); }
+.u-dec b { color: var(--accent); }
+.tag-p { font-size: .72rem; border: 1px solid var(--line-strong); border-radius: 4px; padding: 0 5px; color: var(--muted); white-space: nowrap; }
+.cal3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+@media (max-width: 680px) { .cal3 { grid-template-columns: 1fr; } }
+.calopt { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--paper); }
+.calopt.lean { border: 2px solid var(--accent); background: var(--sheet); }
+.calopt .big { font-family: var(--mono); font-size: 1.4rem; font-weight: 600; }
+.foot { margin-top: 26px; font-size: .8rem; color: var(--muted); text-align: center; }
+</style>
+
+<div class="wrap" dir="rtl" lang="he">
+
+<header class="top">
+  <div class="brand">
+    <svg class="mark" viewBox="0 0 42 42" aria-hidden="true">
+      <rect x="1" y="1" width="40" height="40" rx="9" fill="var(--ink)"/>
+      <circle cx="21" cy="21" r="12" fill="none" stroke="var(--bg)" stroke-width="1.6"/>
+      <circle cx="21" cy="21" r="6" fill="none" stroke="var(--bg)" stroke-width="1.2" opacity=".6"/>
+      <path d="M21 5v8M21 29v8M5 21h8M29 21h8" stroke="var(--bg)" stroke-width="1.6"/>
+      <circle cx="21" cy="21" r="2.2" fill="var(--accent)"/>
+    </svg>
+    <div>
+      <h1>סקיצות המעבדות</h1>
+      <div class="sub">פנקס, שיעור, כור: גילואה ולנצ'סטר אחרי העיצוב מחדש · אב-טיפוס</div>
+    </div>
+  </div>
+  <div class="top-tools">
+    <span class="example-flag">כל הנתונים כאן לדוגמה</span>
+    <button class="pill-btn" id="themeBtn" type="button" aria-label="החלפת ערכת צבעים">ערכה: אוטומטית</button>
+  </div>
+</header>
+
+<nav class="tabs" role="tablist" aria-label="מסכים">
+  <button class="tab" role="tab" data-go="today"><b>היום</b><span>תוכנית היום והשבוע</span></button>
+  <button class="tab" role="tab" data-go="lesson"><b>שיעור</b><span>לגרנז' · שיעור v3</span></button>
+  <button class="tab" role="tab" data-go="ledger"><b>פנקס</b><span>התוצאות המרכזיות</span></button>
+  <button class="tab" role="tab" data-go="forge"><b>כור</b><span>שחזור, אומדן, כיול</span></button>
+  <button class="tab" role="tab" data-go="project"><b>פרויקט</b><span>מעבדת התקציב</span></button>
+  <button class="tab" role="tab" data-go="pilot"><b>מדידה</b><span>פיילוט שבועיים</span></button>
+</nav>
+
+<!-- ======================= TODAY ======================= -->
+<section class="screen" id="s-today" aria-label="היום">
+  <div class="grid2">
+    <div class="sheet">
+      <div class="day-head">
+        <div>
+          <div class="kicker">שבוע 7 · יום 38 בקורס · דוגמה</div>
+          <div class="date">יום ראשון, 8 בנובמבר</div>
+        </div>
+        <div class="seg" role="group" aria-label="סוג היום">
+          <button type="button" data-mode="full" aria-pressed="true">יום מלא</button>
+          <button type="button" data-mode="short" aria-pressed="false">יום קצר</button>
+          <button type="button" data-mode="rest" aria-pressed="false">יום מנוחה</button>
+        </div>
+      </div>
+      <div class="strip" id="strip"></div>
+      <div class="strip-meta"><span id="stripDone"></span><span id="stripCR"></span></div>
+      <ol class="plan" id="plan"></ol>
+      <div id="restNote" class="hidden" style="margin-top:14px">
+        <div class="blk k-keep" style="--c:var(--line-strong)">
+          <div class="lab"><span class="t">יום מנוחה</span></div>
+          <p>אין היום חזרה, כור או שיעור. התור לא נערם: מחר יחכו 31 פריטי חזרה, 6 מהם יעברו לבדיקה בסוף המודול, והחימום יגיד לך כמה. המדף נשאר מלא, והמפעל לא כותב בלילה שאחרי יום מנוחה.</p>
+          <p class="muted small">רשות בלבד: לקרוא את מה שכתבת במחברת הסיכומים, בלי מטלה.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="sheet">
+        <div class="sec-h"><h3>המדף המוכן</h3><span class="muted small">נכתב בלילה · 00:07–04:52</span></div>
+        <div class="shelf-gauge" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i class="l"></i><i class="e"></i></div>
+        <p class="small" style="margin-bottom:8px">7 שיעורים מוכנים, יום ו-0.8 של קריאה. בכולם עברו V1–V5 וסוקר בכיר. אחד סומן "כתוב חי" אחרי סירוב, והוא יחכה למחר.</p>
+        <ul class="shelf-list" id="shelf"></ul>
+      </div>
+      <div class="sheet">
+        <div class="sec-h"><h3>השבוע</h3><span class="muted small">5 ימי שיעור · יום הפקה · יום מנוחה</span></div>
+        <div class="week" id="week"></div>
+        <p class="small muted" style="margin:10px 0 0">עמודה בהירה: השעות המתוכננות. עמודה כהה: מה שנעשה בפועל. בכל שבוע שביעי שבוע קל (שבוע 14 הבא).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= LESSON ======================= -->
+<section class="screen" id="s-lesson" aria-label="שיעור">
+  <div class="lesson-wrap">
+    <article class="lesson">
+      <div class="lesson-meta">
+        <span class="chip e"><span class="dot"></span>גילואה · K1 · בעיות קיצון</span>
+        <span class="shelf-tag">מהמדף · נבדק V1–V5</span>
+        <span class="chip">2 תוצאות מרכזיות + 1 תומכת · כ-1,200 מילים · 38 דק'</span>
+      </div>
+      <h2 class="title">בעיות קיצון עם אילוץ: המכל שצורך הכי מעט פח</h2>
+      <p class="muted small" style="margin-bottom:18px">מבוסס על השכתוב הצפוף של השיעור (A2), בכללי הצפיפות צ1–צ12.</p>
+
+      <div class="body">
+        <div class="blk k-retr">
+          <div class="lab">חימום · שליפה מהשיעורים הקודמים <span class="t"></span></div>
+          <p class="small muted" style="margin-bottom:4px">קודם עונים מהזיכרון, ורק אז פותחים את התשובה.</p>
+          <div class="retr-q" data-r="0">
+            <div>בנקודת קיצון פנימית של פונקציה חלקה <span class="m"><i>f</i>(<i>x</i>)</span>, כמה שווה <span class="m"><i>f</i>′(<i>x</i>)</span>?</div>
+            <button class="btn ghost" type="button" data-open>פתח</button>
+            <div class="ans hidden">אפס: המשיק אופקי. מכאן מתחילים, וכאן גם נשבור את זה, כי יש אילוץ.<div class="self" style="margin-top:6px"><button type="button">ידעתי</button><button type="button">חלקית</button><button type="button">לא ידעתי</button></div></div>
+          </div>
+          <div class="retr-q" data-r="1">
+            <div>תותח: יורים ב-30° במקום 45°. כמה מהטווח הולך לאיבוד?</div>
+            <button class="btn ghost" type="button" data-open>פתח</button>
+            <div class="ans hidden">כ-13%, כי <span class="m">sin 60° = 0.866</span>. המינימום, וגם המקסימום, שטוחים. נחזור לזה בסוף.<div class="self" style="margin-top:6px"><button type="button">ידעתי</button><button type="button">חלקית</button><button type="button">לא ידעתי</button></div></div>
+          </div>
+          <div class="retr-q" data-r="2">
+            <div>מה נשאר קבוע לאורך קו גובה של <span class="m"><i>S</i>(<i>r</i>,<i>h</i>)</span>?</div>
+            <button class="btn ghost" type="button" data-open>פתח</button>
+            <div class="ans hidden">הערך של <span class="m"><i>S</i></span> עצמו. לכן כל שינוי של <span class="m"><i>S</i></span> מגיע מתזוזה שחוצה את הקווים.<div class="self" style="margin-top:6px"><button type="button">ידעתי</button><button type="button">חלקית</button><button type="button">לא ידעתי</button></div></div>
+          </div>
+        </div>
+
+        <p><strong>השאלה.</strong> מכל גלילי סגור בנפח נתון: איזו צורה צורכת הכי מעט פח? מכל נמוך ורחב משלם על התחתית והמכסה, מכל גבוה וצר משלם על הדופן, ולכן יש ביניהם מינימום. התשובה המוכרת: הגובה שווה לקוטר. החידוש לעומת "בשיא המשיק אופקי": יש שני משתנים, <span class="m"><i>r</i></span> ו-<span class="m"><i>h</i></span>, והם אינם חופשיים, כי הנפח קבוע.</p>
+
+        <p><strong>דרך ההצבה, ולמה היא לא מספיקה.</strong> מחלצים <span class="m"><i>h</i> = <i>V</i>/(π<i>r</i>²)</span> ומציבים: <span class="m"><i>S</i>(<i>r</i>) = 2π<i>r</i>² + 2<i>V</i>/<i>r</i></span>. איפוס הנגזרת, <span class="m">4π<i>r</i> − 2<i>V</i>/<i>r</i>² = 0</span>, נותן <span class="m"><i>V</i> = 2π<i>r</i>³</span>, ומכיוון ש-<span class="m"><i>V</i> = π<i>r</i>²<i>h</i></span>, ‏<span class="m"><i>h</i> = 2<i>r</i> = <i>d</i></span>. זה עובד רק כשאפשר לחלץ משתנה מהאילוץ. במסלולים, ברובוטים ובתכנון מערכות לרוב אי אפשר, ולכן צריך שיטה כללית.</p>
+
+        <div class="blk k-def">
+          <div class="lab">הגדרה <span class="t">נגזרת חלקית וגרדיאנט</span></div>
+          <p>לפונקציה של שני משתנים <span class="m"><i>S</i>(<i>r</i>,<i>h</i>)</span>, הנגזרת החלקית <span class="m">∂<i>S</i>/∂<i>r</i></span> היא הנגזרת לפי <span class="m"><i>r</i></span> כש-<span class="m"><i>h</i></span> מוחזק קבוע, ו-<span class="m">∂<i>S</i>/∂<i>h</i></span> להפך. הגרדיאנט <span class="m">∇<i>S</i> = (∂<i>S</i>/∂<i>r</i>, ∂<i>S</i>/∂<i>h</i>)</span> הוא חץ שמצביע לכיוון שבו <span class="m"><i>S</i></span> עולה הכי מהר, והוא ניצב לקווי הגובה של <span class="m"><i>S</i></span>, כי לאורכם <span class="m"><i>S</i></span> אינו משתנה.</p>
+        </div>
+
+        <div class="blk k-think" id="think1">
+          <div class="lab">חשבו קודם <span class="t">התחייבות לפני פיתוח</span></div>
+          <div class="think-q">בנקודת המינימום על עקומת האילוץ <span class="m"><i>V</i> = <i>V</i><sub>0</sub></span>: מה הזווית בין <span class="m">∇<i>S</i></span> לבין העקומה?</div>
+          <div class="opts" data-answer="90">
+            <button class="opt" type="button" data-v="0">0°</button>
+            <button class="opt" type="button" data-v="45">45°</button>
+            <button class="opt" type="button" data-v="90">90°</button>
+            <button class="opt" type="button" data-v="dep">תלוי ב-<span class="m"><i>V</i></span></button>
+          </div>
+          <div class="conf untouched"><span>ביטחון</span><input type="range" min="0" max="100" step="5" value="50" aria-label="ביטחון"><output>—</output></div>
+          <div class="commit-row"><button class="btn" type="button" data-commit disabled>התחייבתי, הראה</button><span class="req">צריך לבחור תשובה ולהזיז את סרגל הביטחון</span></div>
+          <div class="reveal hidden">
+            <div class="verdict"></div>
+            <p><strong>90°.</strong> אילו היה ל-<span class="m">∇<i>S</i></span> רכיב לאורך העקומה, תזוזה קטנה בכיוון ההפוך הייתה מקטינה את <span class="m"><i>S</i></span> בלי לשבור את האילוץ.</p>
+          </div>
+        </div>
+
+        <div class="gate locked" id="gate1">
+          <div class="gate-msg"><span>הגזירה נפתחת אחרי ההתחייבות בשאלה שלמעלה</span></div>
+          <div class="gated">
+            <div class="blk k-der">
+              <div class="lab">גזירה <span class="t">כופלי לגרנז' על המכל</span></div>
+              <ol class="step-list">
+                <li class="start">נקודת מוצא: ממזערים <span class="m"><i>S</i> = 2π<i>r</i>² + 2π<i>rh</i></span> (תחתית, מכסה ודופן) בתנאי <span class="m"><i>V</i> = π<i>r</i>²<i>h</i> = <i>V</i><sub>0</sub></span>.</li>
+                <li><span class="m">∂<i>S</i>/∂<i>r</i> = 4π<i>r</i> + 2π<i>h</i></span> ו-<span class="m">∂<i>S</i>/∂<i>h</i> = 2π<i>r</i></span>.</li>
+                <li><span class="assume">הנחה</span> (<span class="m"><i>S</i></span> ו-<span class="m"><i>V</i></span> חלקות, ובודקים בסדר ראשון): במינימום, תזוזה קטנה לאורך האילוץ אינה משנה את <span class="m"><i>S</i></span>, ולכן <span class="m">∇<i>S</i></span> ניצב לעקומת האילוץ. גם <span class="m">∇<i>V</i></span> ניצב לה, כי היא קו גובה של <span class="m"><i>V</i></span>. שני חצים במישור שניצבים לאותו כיוון הם מקבילים:
+                  <div class="eq">∇<i>S</i> = λ ∇<i>V</i><span class="tag">(28)</span></div></li>
+                <li>הניסוח המכני: <span class="m">ℒ(<i>r</i>,<i>h</i>,λ) = <i>S</i> − λ(<i>V</i> − <i>V</i><sub>0</sub>)</span>. איפוס הנגזרות לפי <span class="m"><i>r</i></span> ו-<span class="m"><i>h</i></span> נותן את (28), ואיפוס לפי <span class="m">λ</span> נותן את האילוץ.</li>
+                <li>לפי <span class="m"><i>h</i></span>: <span class="m">2π<i>r</i> − λπ<i>r</i>² = 0</span>, ולכן <span class="m">λ = 2/<i>r</i></span>. לפי <span class="m"><i>r</i></span>: <span class="m">4π<i>r</i> + 2π<i>h</i> − λ·2π<i>rh</i> = 0</span>.
+                  <div class="yourstep" id="yourstep">
+                    <div class="lab2">הצעד שלך</div>
+                    <div class="row">הציבו <span class="m">λ = 2/<i>r</i></span> ופשטו: <span class="m"><i>h</i> =</span> <input type="number" step="any" id="ysIn" aria-label="מקדם"> <span class="m">· <i>r</i></span> <button class="btn ghost" type="button" id="ysBtn">בדוק</button></div>
+                    <div class="small" id="ysFb" style="margin-top:6px"></div>
+                  </div>
+                  <div id="ysRest" class="hidden" style="margin-top:6px"><span class="m">λ·2π<i>rh</i> = 4π<i>h</i></span>, כלומר <span class="m">4π<i>r</i> = 2π<i>h</i></span> ו-<span class="m"><i>h</i> = 2<i>r</i> = <i>d</i></span>. האילוץ קובע את הגודל: <span class="m"><i>V</i><sub>0</sub> = 2π<i>r</i>³</span>.</div>
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <div class="blk k-formula key">
+          <div class="lab">נוסחה מרכזית · לזכור <span class="t">המכל הגלילי האופטימלי</span></div>
+          <div class="eq"><i>h</i> = <i>d</i>,&nbsp;&nbsp; <i>r</i> = (<span class="frac"><span><i>V</i></span><span>2π</span></span>)<sup>1/3</sup>,&nbsp;&nbsp; <i>S</i><sub class="rm">min</sub> = 6π<i>r</i>²,&nbsp;&nbsp; λ = <span class="frac"><span><i>dS</i><sub class="rm">min</sub></span><span><i>dV</i></span></span> = <span class="frac"><span>2</span><span><i>r</i></span></span><span class="tag">(29)</span></div>
+          <div class="validity"><strong>תחום תקפות:</strong> גליל סגור, כשלכל מ"ר של תחתית, מכסה ודופן אותו מחיר ואותו עובי, וכשרק השטח נספר.</div>
+        </div>
+
+        <p><strong>מה λ אומר.</strong> <span class="m">λ</span> הוא <strong>מחיר הצל</strong> של האילוץ: כמה מ"ר פח עולה עוד מ"ק של נפח. מ-(29), <span class="m"><i>S</i><sub class="rm">min</sub> ∝ <i>V</i><sup>2/3</sup></span>, ולכן הכפלת הנפח מגדילה את השטח רק פי <span class="m">2<sup>2/3</sup> = 1.59</span>. ב-1 מ"ק זה 3.69 מ"ר לכל מ"ק נוסף. הצורה עצמה נקבעת באיזון בין מחיר הקצוות, שגדל כמו <span class="m"><i>r</i>²</span>, לבין מחיר הדופן, שגדל כמו <span class="m"><i>rh</i></span>.</p>
+
+        <figure class="illus" style="margin:0">
+          <div class="lab">איור · להבנה, לא לזכור <span class="muted" style="font-weight:400">· מבט מלמעלה על המישור (r, h), נפח 1 מ"ק</span></div>
+          <svg viewBox="0 0 460 260" id="lagFig" role="img" aria-label="קווי גובה של השטח נוגעים בעקומת הנפח בנקודה אחת"></svg>
+          <figcaption class="small">קו הגובה <span class="m"><i>S</i> = <i>S</i><sub class="rm">min</sub></span> <strong>נוגע</strong> בעקומת הנפח ואינו חוצה אותה. אילו חצה אותה, היה קטע של העקומה שבו המכל זול יותר. החצים: <span class="m">∇<i>S</i> = (13.62, 3.405)</span> ו-<span class="m">∇<i>V</i> = (3.69, 0.923)</span>, ביחס 3.69 בשני הרכיבים.</figcaption>
+        </figure>
+
+        <p><strong>עוגנים לזכור.</strong> מכל של 1 מ"ק: <span class="m"><i>r</i> = 0.542</span> מ', <span class="m"><i>d</i> = <i>h</i> = 1.084</span> מ', <span class="m"><i>S</i> = 5.54</span> מ"ר. בראש: גליל עם <span class="m"><i>h</i> = <i>d</i> = 1</span> מ' מכיל <span class="m">π/4 ≈ 0.79</span> מ"ק, ולכן מגדילים אותו פי <span class="m">(1/0.79)<sup>1/3</sup> ≈ 1.08</span>, והשטח הוא <span class="m">1.5π<i>d</i>² ≈ 4.7 × 1.17 ≈ 5.5</span> מ"ר. לקוביה של 1 מ"ק יש 6 מ"ר (יותר ב-8%), ולכדור 4.84 מ"ר: הגליל הטוב ביותר גרוע מהכדור בכ-14%. ובכל זאת בונים גליל, כי אפשר לגלגל אותו מפח ולהעמיד אותו על הרצפה.</p>
+
+        <div class="blk k-think" id="think2">
+          <div class="lab">חשבו קודם <span class="t">אומדן לפני חישוב</span></div>
+          <div class="think-q">מכל עם <span class="m"><i>h</i>/<i>d</i> = 1.5</span> במקום 1, באותו נפח. בכמה יגדל השטח?</div>
+          <div class="opts" data-answer="1">
+            <button class="opt" type="button" data-v="1">כ-1%</button>
+            <button class="opt" type="button" data-v="10">כ-10%</button>
+            <button class="opt" type="button" data-v="30">כ-30%</button>
+          </div>
+          <div class="conf untouched"><span>ביטחון</span><input type="range" min="0" max="100" step="5" value="50" aria-label="ביטחון"><output>—</output></div>
+          <div class="commit-row"><button class="btn" type="button" data-commit disabled>התחייבתי, הראה</button><span class="req">צריך לבחור תשובה ולהזיז את סרגל הביטחון</span></div>
+          <div class="reveal hidden">
+            <div class="verdict"></div>
+            <p>ב-1.75% בלבד. הסיבה בפסקה הבאה.</p>
+          </div>
+        </div>
+
+        <div class="gate locked" id="gate2">
+          <div class="gate-msg"><span>הפסקה נפתחת אחרי האומדן</span></div>
+          <div class="gated">
+            <p><strong>המינימום השטוח.</strong> נסמן <span class="m">κ = <i>h</i>/<i>d</i></span>. בנפח קבוע</p>
+            <div class="eq"><span class="frac"><span><i>S</i></span><span><i>S</i><sub class="rm">min</sub></span></span> = <span class="frac"><span>κ<sup>−2/3</sup>(1 + 2κ)</span><span>3</span></span> ≈ 1 + <span class="frac"><span>(κ − 1)²</span><span>9</span></span><span class="tag">(30)</span></div>
+            <p>ב-<span class="m">κ = 1.1</span> התוספת היא 0.10%, ב-1.5 היא 1.75%, ב-2 היא 5.0% וב-0.5 היא 5.8%. זה נכון לכל מינימום חלק: הנגזרת הראשונה מתאפסת, ולכן הסטייה הראשונה שנשארת ריבועית. <strong>ליד אופטימום אי אפשר להפסיד הרבה, ואי אפשר להרוויח הרבה מדיוק נוסף.</strong> כך גם בתותח: 30° במקום 45° עלו רק 13% מהטווח. לכן הגבול האמיתי של (29) הוא ההנחות שלו: הנחה שנשברת מזיזה את האופטימום עצמו, לא רק את המחיר סביבו.</p>
+
+            <div class="blk k-depth" id="depth">
+              <div class="lab">שכבת עומק <span class="t">מאיפה בא 1/9 ב-(30)</span></div>
+              <div class="depth-ph" id="depthPh">
+                <span class="what">הגזירה המלאה של הקירוב הריבועי, דרך הנגזרת השנייה של הלוגריתם. כ-250 מילים, כ-6 דק'. לא נכתבה עדיין: שכבות נכתבות רק כשמבקשים אותן.</span>
+                <button class="btn ghost" type="button" id="depthBtn">כתוב את השכבה הזאת</button>
+              </div>
+              <div class="writing hidden" id="depthBar"><i></i></div>
+              <div id="depthBody" class="hidden" style="margin-top:8px">
+                <p>נגדיר <span class="m"><i>f</i>(κ) = κ<sup>−2/3</sup>(1 + 2κ)/3</span>. נוח לעבוד עם הלוגריתם, כי הוא הופך מכפלה לסכום:</p>
+                <div class="eq"><span class="rm">ln</span> <i>f</i> = −<span class="frac"><span>2</span><span>3</span></span> <span class="rm">ln</span> κ + <span class="rm">ln</span>(1 + 2κ) − <span class="rm">ln</span> 3</div>
+                <p>נגזרת ראשונה: <span class="m">−2/(3κ) + 2/(1 + 2κ)</span>. ב-<span class="m">κ = 1</span> היא <span class="m">−2/3 + 2/3 = 0</span>: זה בדיוק תנאי המינימום, עכשיו בצורת לוגריתם. נגזרת שנייה: <span class="m">2/(3κ²) − 4/(1 + 2κ)²</span>, וב-<span class="m">κ = 1</span> היא <span class="m">2/3 − 4/9 = 2/9</span>.</p>
+                <p>טור טיילור סביב המינימום: <span class="m"><span class="rm">ln</span> <i>f</i> ≈ ½ · (2/9)(κ − 1)²</span>, ובערכים קטנים <span class="m"><i>e</i><sup><i>x</i></sup> ≈ 1 + <i>x</i></span>, ולכן <span class="m"><i>f</i> ≈ 1 + (κ − 1)²/9</span>.</p>
+                <p><strong>בדיקה מספרית:</strong> ב-<span class="m">κ = 1.5</span> הנוסחה המדויקת נותנת <span class="m">1.5<sup>−2/3</sup> · 4/3 = 0.7631 · 1.333 = 1.0175</span>, והקירוב <span class="m">1 + 0.25/9 = 1.0278</span>. הקירוב מגזים ב-1%: הוא טוב ליד 1, ומחמיר רחוק ממנו, כי הקערה אינה סימטרית (0.5 עולה 5.8% ו-2 עולה רק 5.0%).</p>
+                <p class="small muted">נכתב עכשיו בדף, מהפסקה הזאת ומעמוד המקור, ונשמר עם השיעור.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="blk k-domain">
+          <div class="lab">אותו מבנה במקומות אחרים</div>
+          <div class="tw"><table class="t">
+            <thead><tr><th>תחום</th><th>המקבילה</th></tr></thead>
+            <tbody>
+              <tr><td>בקרה, למידה ומיקום</td><td>ליד כל מינימום חלק המחיר הוא קערה ריבועית: בכיול של בקר, באימון בריבוע השגיאה ובנקודה הקרובה ביותר לשלושה מעגלי מדידה</td></tr>
+              <tr><td>כלכלה ותכנון</td><td>מחיר מינימלי תחת תקציב הוא נקודת המגע של קו שווה-מחיר בקו התקציב, ו-<span class="m">λ</span> הוא השווי של יחידת תקציב נוספת</td></tr>
+              <tr><td>לנצ'סטר · <span class="num small">M7.3</span></td><td>הקצאת מיירטים תחת מגזין סופי: <span class="m">λ</span> הוא כמה "שווה" עוד מיירט אחד במלאי. קישור בפנקס</td></tr>
+              <tr><td>תרמודינמיקה</td><td>הטמפרטורה מתבררת ככופל לגרנז' כזה, בגשר התרמודינמיקה</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+
+        <div class="blk k-think" id="think3">
+          <div class="lab">חשבו קודם <span class="t">גזירה משלכם</span></div>
+          <div class="think-q">כל מ"ר של תחתית ומכסה עולה פי <span class="m"><i>k</i> = 2</span> ממ"ר של דופן. מה יהיה <span class="m"><i>h</i>/<i>d</i></span> האופטימלי? (גזרו לפי צעד 4)</div>
+          <div class="opts" data-numeric="2" data-tol="0.05">
+            <input type="number" step="any" aria-label="h חלקי d" placeholder="h/d">
+          </div>
+          <div class="conf untouched"><span>ביטחון</span><input type="range" min="0" max="100" step="5" value="50" aria-label="ביטחון"><output>—</output></div>
+          <div class="commit-row"><button class="btn" type="button" data-commit disabled>התחייבתי, הראה</button><span class="req">צריך לכתוב מספר ולהזיז את סרגל הביטחון</span></div>
+          <div class="reveal hidden">
+            <div class="verdict"></div>
+            <p><span class="m">λ = 2/<i>r</i></span> לא משתנה. לפי <span class="m"><i>r</i></span>: <span class="m">4π<i>kr</i> + 2π<i>h</i> − 4π<i>h</i> = 0</span>, ולכן <span class="m"><i>h</i> = 2<i>kr</i></span>:</p>
+            <div class="eq"><span class="frac"><span><i>h</i></span><span><i>d</i></span></span> = <i>k</i><span class="tag">(31)</span></div>
+            <p>הצורה חושפת את יחס המחירים: קצוות יקרים נותנים מכל גבוה וצר, ורצפה בחינם נותנת מכל שטוח. אם הקצוות יקרים פי 2 ובכל זאת בונים <span class="m"><i>h</i> = <i>d</i></span>, משלמים 5.8% יותר.</p>
+          </div>
+        </div>
+
+        <p><strong>פחית משקה: פשרה, לא טעות.</strong> לפחית של 355 מ"ל יש קוטר של כ-66 מ"מ וגובה של כ-122 מ"מ, כלומר <span class="m"><i>h</i>/<i>d</i> ≈ 1.85</span>. לפי (29) היא "צריכה" להיות 76.7 מ"מ על 76.7. אבל המכסה והתחתית עבים פי כמה מהדופן ועשויים מסגסוגת קשה יותר, כי הם נושאים את לחץ הגז ואת הפותחן. זה <span class="m"><i>k</i> ≈ 2</span>, ולפי (31) <span class="m"><i>h</i>/<i>d</i> ≈ 2</span>, קרוב למדוד.</p>
+
+        <div class="blk k-formula">
+          <div class="lab">נוסחה <span class="t">מכל אגירה גדול: עובי לפי עומק</span></div>
+          <p class="small" style="margin-bottom:2px"><span class="assume">הנחה חדשה</span> הדופן נושאת את לחץ המים, ולכן העובי בעומק <span class="m"><i>z</i></span> הוא <span class="m">ρ<i>gzr</i>/σ</span>.</p>
+          <div class="eq"><i>h</i><sub class="rm">opt</sub> = √(2<i>t</i><sub class="rm">min</sub>σ / ρ<i>g</i>)<span class="tag">(32)</span></div>
+          <div class="validity"><strong>הגובה האופטימלי אינו תלוי בנפח.</strong> עם <span class="m"><i>t</i><sub class="rm">min</sub> = 6</span> מ"מ ו-<span class="m">σ = 160</span> MPa: 14.0 מ' למים, 15.2 מ' לנפט. מתעלם מרוח, מרעידות אדמה, מהיסודות וממחיר הקרקע.</div>
+        </div>
+
+        <p><strong>ביקורת: "גובה שווה לקוטר הוא הצורה האופטימלית".</strong> שלוש בדיקות. <em>מה ממוזער?</em> (29) ממזערת שטח ולא עלות; כשמחירי הקצוות שונים, התשובה היא (31). <em>מקרי גבול:</em> רצפה בחינם נותנת <span class="m"><i>h</i>/<i>d</i> = ½</span>, ועובי שגדל עם העומק נותן את (32). <em>שיפוע המחיר:</em> סטייה של 50% מ-<span class="m"><i>h</i> = <i>d</i></span> עולה פחות משני אחוזים, ולכן מה שמכריע הוא האילוצים שמחוץ למודל. הניסוח הנכון: <strong>"בגליל סגור שכל מ"ר שלו עולה אותו דבר, השטח מינימלי ב-<span class="m"><i>h</i> = <i>d</i></span>, והמינימום שטוח מאוד".</strong></p>
+
+        <div class="keep-card">
+          <h4>לסיכום · נכנס לחזרה מרווחת</h4>
+          <ul>
+            <li><span class="m">∇<i>S</i> = λ∇<i>V</i></span>: קו שווה-מחיר נוגע באילוץ; <span class="m">λ = <i>dS</i><sub class="rm">min</sub>/<i>dV</i></span> הוא מחיר הצל.</li>
+            <li>גליל סגור במחיר אחיד: <span class="m"><i>h</i> = <i>d</i></span>, <span class="m"><i>S</i><sub class="rm">min</sub> ∝ <i>V</i><sup>2/3</sup></span>; קצוות יקרים פי <span class="m"><i>k</i></span>: <span class="m"><i>h</i>/<i>d</i> = <i>k</i></span>; עובי לפי לחץ: <span class="m"><i>h</i><sub class="rm">opt</sub></span> בלי תלות בנפח.</li>
+            <li>מינימום חלק שטוח, ולכן ההנחות מכריעות, לא דיוק החישוב.</li>
+          </ul>
+          <div class="anchors">
+            <div class="anchor"><b>5.54 m²</b><span>מכל אופטימלי, 1 מ"ק</span></div>
+            <div class="anchor"><b>1.084 m</b><span>גובה = קוטר, 1 מ"ק</span></div>
+            <div class="anchor"><b>+1.75%</b><span>h/d = 1.5</span></div>
+            <div class="anchor"><b>6 / 4.84</b><span>קוביה / כדור, מ"ר</span></div>
+            <div class="anchor"><b>~14 m</b><span>גובה מכל מים גדול</span></div>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-top:18px">
+          <button class="btn red" type="button" id="lessonDone">סיימתי את השיעור</button>
+          <span class="small muted" id="lessonDoneNote">"סיים" הוא מעשה שלך: התוצאות עוברות ל"נלמד" רק כשכל ההתחייבויות נעשו.</span>
+        </div>
+      </div>
+    </article>
+
+    <aside class="lesson-side">
+      <div class="side-card">
+        <h4>התוצאות המרכזיות בשיעור</h4>
+        <div id="lessonCRs"></div>
+        <div class="legend" style="margin-top:8px"><span><i class="st s1 on"></i>נלמד</span><span><i class="st s2 on"></i>חושל</span><span><i class="st s3 on"></i>הוכח</span></div>
+      </div>
+      <div class="side-card">
+        <h4>הכיול שלך בשיעור הזה</h4>
+        <div class="calib-mini" id="lessonCalib"><span class="muted">עוד אין התחייבויות.</span></div>
+      </div>
+      <div class="side-card small">
+        <h4>מבנה השיעור</h4>
+        <div class="muted">חוט שאלה ← הגדרה ← גזירה עם הנחה מסומנת ← התחייבות לפני כל צעד שנבדק ← נוסחה עם תחום תקפות ← עוגנים ← ביקורת ← טבלת תחומים ← לסיכום.</div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ======================= LEDGER ======================= -->
+<section class="screen" id="s-ledger" aria-label="פנקס">
+  <p class="lead">הפנקס הוא יחידת ההתקדמות: תוצאה מרכזית, לא שיעור ולא עמוד. כל תוצאה עוברת שלושה מצבים: <b style="color:var(--covered)">נלמד</b> (השיעור נפתח, כל היחידות נמצאו, ההתחייבויות נעשו), <b style="color:var(--forged)">חושל</b> (נעשתה עליה עבודת הפקה בכור או בפרויקט), <b style="color:var(--proven)">הוכח</b> (עברה בדיקה מושהית ולא מוכרזת). המודולים הם רק התצוגה.</p>
+  <div class="sheet">
+    <div class="kpis" id="kpis"></div>
+    <div class="appbar" id="appbar"></div>
+  </div>
+
+  <div class="sheet">
+    <div class="sec-h"><h2>התוצאות</h2><span class="muted small">דגימה מתוך הפנקס · לחיצה על קישור מסמנת את התוצאה המקבילה</span></div>
+    <div class="filters">
+      <div class="seg" role="group" aria-label="מצב" id="fState">
+        <button type="button" data-v="all" aria-pressed="true">הכל</button>
+        <button type="button" data-v="0" aria-pressed="false">עוד לא</button>
+        <button type="button" data-v="1" aria-pressed="false">נלמד</button>
+        <button type="button" data-v="2" aria-pressed="false">חושל</button>
+        <button type="button" data-v="3" aria-pressed="false">הוכח</button>
+      </div>
+      <div class="seg" role="group" aria-label="מעבדה" id="fApp">
+        <button type="button" data-v="all" aria-pressed="true">שתיהן</button>
+        <button type="button" data-v="E" aria-pressed="false">גילואה</button>
+        <button type="button" data-v="C" aria-pressed="false">לנצ'סטר</button>
+      </div>
+      <input type="search" id="fq" placeholder="חיפוש: קלמן, Pfa, מחיר צל…" aria-label="חיפוש">
+    </div>
+    <div class="cr-list" id="crList"></div>
+  </div>
+
+  <div class="grid2" style="margin-top:14px">
+    <div class="sheet">
+      <div class="sec-h"><h3>הוכחת כיסוי לכל מודול</h3><span class="muted small">מפת עמודים: כל משוואה, איור ודוגמה</span></div>
+      <div class="legend" style="margin-bottom:8px">
+        <span><i class="st" style="background:var(--k-formula);border-color:var(--k-formula)"></i>תוצאה מרכזית</span>
+        <span><i class="st" style="background:var(--k-domain);border-color:var(--k-domain)"></i>יחידה תומכת</span>
+        <span><i class="st" style="background:var(--line-strong)"></i>מקופל לשכבה</span>
+        <span><i class="st" style="background:repeating-linear-gradient(135deg,var(--warn) 0 2px,transparent 2px 4px);border-color:var(--warn)"></i>דילוג עם נימוק</span>
+      </div>
+      <div id="covRows"></div>
+      <p class="small muted" style="margin:10px 0 0">ביקורת עיוורת של Opus על 10% מהמפות: 2 שגיאות ב-61 פריטים (3.3%), מתפרסם כאן כל חודש.</p>
+    </div>
+    <div class="stack">
+      <div class="sheet">
+        <div class="sec-h"><h3>אותו מבנה בשתי המעבדות</h3></div>
+        <div class="svgbox" id="bip"></div>
+      </div>
+      <div class="sheet">
+        <div class="sec-h"><h3>מבחן מעמודים שלא נלמדו</h3><span class="muted small">חודשי, לכל תחום עומק</span></div>
+        <div class="svgbox" id="exam"></div>
+        <p class="small muted" style="margin:6px 0 0">שאלות מעמודים שהוחרגו ומפריטים מחושבים, בלי הודעה מראש. נקודת הבסיס נמדדה ביום 1.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= FORGE ======================= -->
+<section class="screen" id="s-forge" aria-label="כור">
+  <div class="sheet">
+    <div class="sec-h">
+      <div><div class="kicker">משימת כור · 50 דק' · דבר ראשון ביום</div><h2>משוואת המכ"ם מהיסוד, ואומדן אופק</h2></div>
+      <div class="mapchips">
+        <span class="chip c"><span class="dot"></span>C:M2.2 משוואת המכ"ם</span>
+        <span class="chip c"><span class="dot"></span>C:M1.3 אופק מכ"ם</span>
+        <span class="chip e"><span class="dot"></span>E:M7.2 רעש תרמי kT</span>
+      </div>
+    </div>
+    <p class="small muted" style="margin:0">נבחרה כי: מספר תוצאות שתלויות בה (14) × תחום העומק "מכ"ם ול"א" × עוד לא הוכחה. התשובות נכתבו בלילה ומוסתרות עד שמתחייבים.</p>
+  </div>
+
+  <div class="grid2" style="margin-top:14px">
+    <div class="sheet">
+      <div class="part-h"><span class="part-n">1</span><h3>סדרו את שלד הגזירה</h3></div>
+      <p class="small" style="margin-bottom:10px">שבעה צעדים, מעורבבים. סדרו מהמשדר עד לטווח הגילוי. אחרי הבדיקה יופיע איפה נכנסת כל הנחה.</p>
+      <ol class="forge-steps" id="fsList"></ol>
+      <div class="commit-row" style="margin-top:10px">
+        <button class="btn" type="button" id="fsCheck">בדוק סדר</button>
+        <button class="btn ghost" type="button" id="fsShow">הראה את הסדר הנכון</button>
+        <span class="small" id="fsFb"></span>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="sheet">
+        <div class="part-h"><span class="part-n">2</span><h3>אומדן עם רווח 90%</h3></div>
+        <p style="margin-bottom:6px">מכ"ם על תורן בגובה <b class="num">16</b> מ'. טיל שט מעל הים בגובה <b class="num">9</b> מ'. מאיזה טווח, בק"מ, הוא יכול להיות גלוי מעל האופק הרדיו (כדור ארץ אפקטיבי 4/3)?</p>
+        <div class="est-grid">
+          <label>אומדן מרכזי (ק"מ)<input type="number" id="estMid" step="any" inputmode="decimal"></label>
+          <label>גבול תחתון 90%<input type="number" id="estLo" step="any" inputmode="decimal"></label>
+          <label>גבול עליון 90%<input type="number" id="estHi" step="any" inputmode="decimal"></label>
+        </div>
+        <div class="conf untouched" id="estConfRow"><span>ביטחון שהאמת ברווח</span><input type="range" id="estConf" min="50" max="99" step="1" value="90" aria-label="ביטחון"><output>—</output></div>
+        <div class="commit-row"><button class="btn" type="button" id="estGo" disabled>התחייב וחשוף</button><span class="req" id="estReq">צריך שלושה מספרים, תחתון ≤ מרכזי ≤ עליון, והזזה של הביטחון</span></div>
+        <div id="estOut" class="hidden">
+          <div class="reveal">
+            <div class="interval-viz" id="estViz"></div>
+            <p class="small" style="margin:6px 0 0">האמת: <span class="m"><i>d</i> ≈ 4.12(√<i>h</i><sub>1</sub> + √<i>h</i><sub>2</sub>) = 4.12 × (4 + 3)</span> = <b class="num">28.8</b> ק"מ. ההנחה: שבירה סטנדרטית; בתעלת אידוי מעל הים הטווח יכול להיות כפול.</p>
+            <div class="score" id="estScore"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sheet">
+        <div class="part-h"><span class="part-n">3</span><h3>הכיול שלך</h3></div>
+        <div class="svgbox" id="calib"></div>
+        <p class="small" id="calibNote" style="margin:6px 0 0"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= PROJECT ======================= -->
+<section class="screen" id="s-project" aria-label="פרויקט">
+  <div class="sheet">
+    <div class="sec-h">
+      <div><div class="kicker">פרויקט דגל א · שבועות 6–8 · 20 שעות לומד</div><h2>מעבדת התקציב: מכ"ם ול"א</h2></div>
+      <span class="chip">אבן דרך M1: המשוואות + 5 מקרי אימות עד 0.5 dB</span>
+    </div>
+    <p class="small" style="margin:0">אתה כותב את הפיזיקה, הניבויים, האימות מול דוגמאות הספר והמאמר. Claude Code כותב את הצנרת. כל הפרמטרים כלליים מספרי לימוד, לא של מערכת אמיתית.</p>
+  </div>
+
+  <div class="proj-grid" style="margin-top:14px">
+    <div class="stack">
+      <div class="sheet">
+        <div class="sec-h"><h3>פרמטרים</h3><button class="btn ghost small" type="button" id="radReset" style="padding:3px 10px">איפוס</button></div>
+        <div id="sliders"></div>
+      </div>
+      <div class="predict" id="predict">
+        <h4>נבא קודם: σ פי 10</h4>
+        <p class="small" style="margin-bottom:6px">סרגל ה-RCS נעול עד שתתחייב לניבוי. אם שטח החזרה של המטרה גדל פי 10:</p>
+        <div class="row">ה-SNR יעלה ב-<input type="number" id="pdDb" step="any" aria-label="תוספת SNR ב-dB"> dB</div>
+        <div class="row">טווח הגילוי יגדל פי <input type="number" id="pdR" step="any" aria-label="יחס טווח"></div>
+        <div class="conf untouched" id="pdConfRow"><span>ביטחון</span><input type="range" id="pdConf" min="0" max="100" step="5" value="50" aria-label="ביטחון"><output>—</output></div>
+        <div class="commit-row"><button class="btn red" type="button" id="pdGo" disabled>נעל ניבוי</button><button class="btn" type="button" id="pdApply" disabled>הפעל σ × 10</button></div>
+        <div id="pdOut" class="small" style="margin-top:8px"></div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="sheet">
+        <div class="big-snr">
+          <div class="kpi"><div class="l">SNR בטווח הנבחר</div><div class="v" id="oSnr">—</div></div>
+          <div class="kpi"><div class="l">טווח גילוי (SNR = 13.1 dB)</div><div class="v" id="oRdet">—</div></div>
+          <div class="kpi"><div class="l">הספק נקלט S</div><div class="v" id="oS" style="font-size:1.35rem">—</div></div>
+        </div>
+        <p class="small muted" style="margin:8px 0 0">סף 13.1 dB: הסתברות גילוי 0.9 ואזעקת שווא 10⁻⁶, מטרה לא מתנודדת (Swerling 0), לפי נוסחת אלברסהיים, אחרי אינטגרציה.</p>
+        <div class="sec-h" style="margin:16px 0 0"><h3>מפל התקציב, ב-dB</h3><span class="muted small">כל איבר מזיז את הסכום המצטבר</span></div>
+        <div class="wf" id="wf"></div>
+        <div class="eq small" style="font-size:.95rem; margin-top:12px">SNR = <i>P</i><sub>t</sub> + 2<i>G</i> + 20 log λ + σ − 30 log 4π − 40 log <i>R</i> − <i>L</i> − (<i>kT</i><sub>0</sub> + <i>B</i> + <i>F</i>) + 10 log <i>n</i></div>
+      </div>
+      <div class="sheet">
+        <div class="sec-h"><h3>SNR לאורך הטווח</h3><span class="muted small">שיפוע: −12 dB לכל הכפלת טווח</span></div>
+        <div class="svgbox" id="snrPlot"></div>
+      </div>
+      <div class="sheet">
+        <div class="sec-h"><h3>איך זה ממפה למודולים</h3></div>
+        <div class="tw"><table class="t">
+          <thead><tr><th>חלק במעבדה</th><th>מודולים</th><th>מה אתה כותב</th></tr></thead>
+          <tbody>
+            <tr><td>מפל התקציב</td><td><span class="chip c">C:M0.1</span> <span class="chip c">C:M1.4</span> <span class="chip c">C:M2.2</span></td><td>משוואת הטווח מהיסוד: התפשטות, אפרטורה, פיזור חוזר</td></tr>
+            <tr><td>רצפת הרעש</td><td><span class="chip e">E:M7.2</span> <span class="chip c">C:M1.1</span></td><td>מאיפה kTB ומה NF מוסיף</td></tr>
+            <tr><td>סף הגילוי</td><td><span class="chip c">C:M2.3</span> <span class="chip c">C:M2.9–2.11</span> <span class="chip e">E:M6.6</span> <span class="chip e">E:M7.4</span></td><td>סף ניימן-פירסון מ-Pfa, עונש תנודות</td></tr>
+            <tr><td>אינטגרציה</td><td><span class="chip c">C:M2.5</span></td><td>מתי 10 log n, ומתי פחות</td></tr>
+            <tr><td>חמקנות: שורש רביעי</td><td><span class="chip c">C:M2.6</span></td><td>הרגישות <span class="m">∂ ln <i>R</i> / ∂ ln σ = ¼</span></td></tr>
+          </tbody>
+        </table></div>
+        <p class="small muted" style="margin:10px 0 0">אותו מבנה: משוואת הסונאר (C:M10.1), תקציב קישור (C:M1.4), רדיומטריה אופטית (C:M3.4). כל ניבוי נרשם כפריט כיול, וכל אימות מול ספר הוא "חושל" לתוצאות שבו.</p>
+      </div>
+      <div class="sheet">
+        <div class="sec-h"><h3>יומן הניבויים</h3></div>
+        <ul class="log-list" id="pdLog"><li class="muted">עוד לא נרשמו ניבויים בפרויקט הזה.</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= PILOT ======================= -->
+<section class="screen" id="s-pilot" aria-label="מדידה">
+  <div class="sheet">
+    <div class="sec-h">
+      <div><div class="kicker">פיילוט שבועיים · לפני שמתחייבים ללוח זמנים</div><h2>חמשת הנעלמים שמכריעים את התוכנית</h2></div>
+      <span class="chip">יום 9 מתוך 14 · קריאות ביניים</span>
+    </div>
+    <div class="days" id="days"></div>
+    <div class="phases"><span>1–2 תיוג ובסיס</span><span>3–9 שיעורי A/B, כור, חזרה</span><span>10–12 ימים של 6–7 ש'</span><span>13–14 בדיקות</span></div>
+  </div>
+  <div class="u-grid" style="margin-top:14px" id="uGrid"></div>
+  <div class="sheet" style="margin-top:14px">
+    <div class="sec-h"><h3>תזכיר ההחלטה ביום 14 (טיוטה מהקריאות של היום)</h3><span class="muted small">אתה בוחר, עם המספרים מולך</span></div>
+    <div class="cal3">
+      <div class="calopt"><div class="kicker">אפשרות א</div><div class="big">~8 חודשים</div><div>שתי המעבדות, 7 שעות ביום</div><p class="small muted" style="margin:6px 0 0">דורש U1 ≤ 1,500 ו-U4 ירוק. כרגע U1 באמצע.</p></div>
+      <div class="calopt lean"><div class="kicker" style="color:var(--accent)">הנטייה כרגע</div><div class="big">~7.4 חודשים</div><div>הליבה של שתיהן, 6 שעות ביום; מתקדמים אחר כך</div><p class="small muted" style="margin:6px 0 0">U1 1,500–1,900, U2 באמצע, U4 ירוק. אותו עומק ואותם 8 פרויקטים.</p></div>
+      <div class="calopt"><div class="kicker">אפשרות ג</div><div class="big">~12 חודשים</div><div>הכל, 5 שעות ביום</div><p class="small muted" style="margin:6px 0 0">אם U2 יעלה מעל 45 דק' לתוצאה או U4 ייכשל.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="foot">אב-טיפוס של הסבב השני במחקר. נתונים לדוגמה בלבד; תוכן השיעור מהשכתוב הצפוף של שיעור לגרנז'.</div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const log10 = Math.log10;
+  const fmt = (x, d = 1) => (Math.round(x * 10 ** d) / 10 ** d).toFixed(d);
+  const sgn = (x, d = 1) => (x >= 0 ? "+" : "−") + fmt(Math.abs(x), d);
+  const CHECK = '<svg width="14" height="14" viewBox="0 0 14 14"><path d="M3 7.5l2.6 2.5L11 4" fill="none" stroke="var(--sheet)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  try { document.documentElement.lang = "he"; document.documentElement.dir = "rtl"; } catch (e) {}
+
+  /* ---------- theme ---------- */
+  const themes = ["auto", "light", "dark"];
+  const themeName = { auto: "אוטומטית", light: "בהירה", dark: "כהה" };
+  let theme = "auto";
+  try { theme = localStorage.getItem("sk-theme") || "auto"; } catch (e) {}
+  function applyTheme() {
+    if (theme === "auto") document.documentElement.removeAttribute("data-theme");
+    else document.documentElement.setAttribute("data-theme", theme);
+    $("#themeBtn").textContent = "ערכה: " + themeName[theme];
+  }
+  $("#themeBtn").addEventListener("click", () => {
+    theme = themes[(themes.indexOf(theme) + 1) % 3];
+    try { localStorage.setItem("sk-theme", theme); } catch (e) {}
+    applyTheme();
+  });
+  applyTheme();
+
+  /* ---------- routing ---------- */
+  const screens = ["today", "lesson", "ledger", "forge", "project", "pilot"];
+  function go(name, push) {
+    if (!screens.includes(name)) name = "today";
+    $$(".screen").forEach(s => s.classList.toggle("on", s.id === "s-" + name));
+    $$(".tab").forEach(t => t.setAttribute("aria-selected", t.dataset.go === name ? "true" : "false"));
+    if (push) { try { history.replaceState(null, "", "#" + name); } catch (e) { location.hash = name; } }
+    if (name === "ledger") renderLedger();
+    try { window.scrollTo(0, 0); } catch (e) {}
+  }
+  $$(".tab").forEach(t => t.addEventListener("click", () => go(t.dataset.go, true)));
+  document.addEventListener("click", e => {
+    const a = e.target.closest("[data-goto]");
+    if (a) { e.preventDefault(); go(a.dataset.goto, true); }
+  });
+  window.addEventListener("hashchange", () => go(location.hash.slice(1), false));
+
+  /* ---------- italicize latin letters in math ---------- */
+  function italicize(root) {
+    $$(".m, .eq", root).forEach(el => {
+      const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+      const nodes = [];
+      while (walker.nextNode()) nodes.push(walker.currentNode);
+      nodes.forEach(n => {
+        if (n.parentElement.closest("i, .rm, .tag, sub, sup")) return;
+        if (!/[A-Za-z]/.test(n.nodeValue)) return;
+        const html = n.nodeValue.replace(/&/g, "&amp;").replace(/</g, "&lt;")
+          .replace(/\b(log|ln|sin|cos|dB|SNR|min|opt)\b|([A-Za-z])/g, (m, w, l) => w ? '<span class="rm">' + w + "</span>" : "<i>" + l + "</i>");
+        const span = document.createElement("span");
+        span.innerHTML = html;
+        n.replaceWith(...span.childNodes);
+      });
+    });
+  }
+
+  /* ======================= SHARED STATE ======================= */
+  const S = {
+    crs: {
+      e1: 0, e2: 0, e3: 0 // lesson CRs
+    },
+    calib: [], // {conf, ok}
+    todayDone: {}
+  };
+
+  /* ======================= TODAY ======================= */
+  const PLAN = {
+    full: [
+      { id: "forge", k: "כור", c: "var(--forge)", min: 50, at: "08:00", t: "משוואת המכ\"ם מהיסוד, ואומדן אופק", d: "שחזור שלד, אומדן עם רווח 90%, כיול. נוגע ב-3 תוצאות שעוד לא הוכחו.", go: "forge", chips: ["C:M2.2", "C:M1.3", "E:M7.2"] },
+      { id: "review", k: "חזרה", c: "var(--k-exercise)", min: 25, at: "08:50", t: "26 פריטים · תקרה 25 דק'", d: "19 מהסימונים \"לזכור\" במחברת הסיכומים שלך, 7 מהכור ומהפרויקט. 4 פריטים עברו לבדיקה בסוף המודול; 3 קיבלו זיכוי מהכור של אתמול." },
+      { id: "b1", brk: true, min: 15, at: "09:15", t: "הפסקה" },
+      { id: "l1", k: "שיעור 1", c: "var(--k-formula)", min: 40, at: "09:30", t: "בעיות קיצון עם אילוץ: המכל", d: "גילואה · K1 · 2 תוצאות מרכזיות", shelf: true, go: "lesson", chips: ["E:K1"] },
+      { id: "l2", k: "שיעור 2", c: "var(--k-formula)", min: 55, at: "10:10", t: "סף הגילוי מתוך Pfa", d: "לנצ'סטר · M2.9 · 2 תוצאות מרכזיות · דלתא אחרי E:M6.6", shelf: true, chips: ["C:M2.9"] },
+      { id: "b2", brk: true, min: 20, at: "11:05", t: "הפסקה" },
+      { id: "l3", k: "שיעור 3", c: "var(--k-formula)", min: 55, at: "11:25", t: "תנודות המטרה: מודלי Swerling", d: "לנצ'סטר · M2.11 · 2 תוצאות מרכזיות", shelf: true, chips: ["C:M2.11"] },
+      { id: "judge", k: "שיפוט", c: "var(--accent)", min: 10, at: "12:20", t: "טענה מכתבה, לבדוק במספרים", d: "", judge: true },
+      { id: "notes", k: "מחברת מזיכרון", c: "var(--k-keep)", min: 15, at: "12:30", t: "לכתוב את שלושת השיעורים בלי להציץ", d: "במחברת הסיכומים (#summary). מה שתסמן \"לזכור\" הופך לפריט חזרה מחר." },
+      { id: "proj", k: "פרויקט", c: "var(--k-model)", min: 45, at: "ערב", t: "מעבדת התקציב · M1", d: "רשות בערב: מקרה אימות 4 מתוך 5 (דוגמה מהספר, עד 0.5 dB).", go: "project", opt: true }
+    ],
+    short: [
+      { id: "review", k: "חזרה", c: "var(--k-exercise)", min: 15, at: "—", t: "15 הפריטים הדחופים", d: "השאר מחכים למחר; שום דבר לא נמחק." },
+      { id: "forge", k: "כור", c: "var(--forge)", min: 30, at: "—", t: "רק חלקים 1–2 של המשימה", d: "שחזור השלד והאומדן. הכיול יחכה.", go: "forge" },
+      { id: "l1", k: "שיעור", c: "var(--k-formula)", min: 40, at: "—", t: "בעיות קיצון עם אילוץ: המכל", d: "שיעור אחד מהמדף. השניים האחרים נשארים בו.", shelf: true, go: "lesson" },
+      { id: "notes", k: "מחברת", c: "var(--k-keep)", min: 10, at: "—", t: "שלוש שורות מזיכרון", d: "" }
+    ],
+    rest: []
+  };
+  let mode = "full";
+  const SHELF = [
+    ["בעיות קיצון עם אילוץ: המכל", "גילואה K1", "ok"],
+    ["סף הגילוי מתוך Pfa", "לנצ'סטר M2.9", "ok"],
+    ["מודלי Swerling", "לנצ'סטר M2.11", "ok"],
+    ["אינטגרציה של פולסים", "לנצ'סטר M2.5", "ok"],
+    ["ספקטרום ההספק של רעש", "גילואה M7.2", "ok"],
+    ["תכונות הקונבולוציה", "גילואה M4.3", "ok"],
+    ["ראייה לאחור: עקומות ROC", "גילואה M6.7", "ok"],
+    ["דוגמה מבצעית: הקצאת מגזין", "לנצ'סטר M7.3", "live"]
+  ];
+  function renderShelf() {
+    $("#shelf").innerHTML = SHELF.map(s => `<li><span>${s[0]} <span class="muted">· ${s[1]}</span></span>${s[2] === "ok" ? '<span class="shelf-tag">מוכן</span>' : '<span class="shelf-tag live">כתוב חי</span>'}</li>`).join("");
+  }
+  function renderPlan() {
+    const list = PLAN[mode];
+    $("#restNote").classList.toggle("hidden", mode !== "rest");
+    const tot = list.filter(b => !b.opt).reduce((a, b) => a + b.min, 0);
+    const done = list.filter(b => !b.opt && S.todayDone[b.id]).reduce((a, b) => a + b.min, 0);
+    $("#strip").innerHTML = list.filter(b => !b.opt).map(b =>
+      `<div class="seg-b ${b.brk ? "brk" : ""} ${S.todayDone[b.id] ? "done" : ""}" style="flex:${b.min};--c:${b.c || "var(--line)"}" title="${b.k || b.t} · ${b.min} דק'"></div>`).join("") || '<div class="seg-b brk" style="flex:1"></div>';
+    const h = m => Math.floor(m / 60) + ":" + String(m % 60).padStart(2, "0");
+    $("#stripDone").textContent = mode === "rest" ? "יום מנוחה · 0:00" : `${h(done)} מתוך ${h(tot)} שעות`;
+    const crs = mode === "full" ? 6 : mode === "short" ? 2 : 0;
+    $("#stripCR").textContent = mode === "rest" ? "" : `כ-${crs} תוצאות מרכזיות חדשות היום`;
+    $("#plan").innerHTML = list.map(b => {
+      if (b.brk) return `<li class="blk-row brk ${S.todayDone[b.id] ? "done" : ""}" style="--c:var(--line)" data-id="${b.id}"><button class="chk" type="button" aria-label="סמן">${CHECK}</button><div class="tm"><b>${b.min}′</b>${b.at}</div><div class="main muted">הפסקה · לקום מהשולחן</div><div class="act"></div></li>`;
+      const chips = (b.chips || []).map(c => `<span class="chip ${c[0] === "E" ? "e" : "c"}"><span class="dot"></span>${c}</span>`).join("");
+      return `<li class="blk-row ${S.todayDone[b.id] ? "done" : ""}" style="--c:${b.c}" data-id="${b.id}">
+        <button class="chk" type="button" aria-label="סמן כבוצע">${CHECK}</button>
+        <div class="tm"><b>${b.min}′</b>${b.at}</div>
+        <div class="main"><div class="bk">${b.k}${b.opt ? " · רשות" : ""}</div><div class="bt">${b.t}</div>${b.d ? `<div class="bd">${b.d}</div>` : ""}
+          ${chips || b.shelf ? `<div class="chips">${b.shelf ? '<span class="shelf-tag">מהמדף · אין המתנה</span>' : ""}${chips}</div>` : ""}
+          ${b.judge ? judgeHTML() : ""}</div>
+        <div class="act">${b.go ? `<button class="btn ghost" type="button" data-goto="${b.go}">פתח</button>` : ""}</div>
+      </li>`;
+    }).join("");
+    $$("#plan .chk").forEach(c => c.addEventListener("click", () => {
+      const id = c.closest("li").dataset.id;
+      S.todayDone[id] = !S.todayDone[id];
+      renderPlan();
+    }));
+    bindJudge();
+  }
+  function judgeHTML() {
+    return `<div class="judge" id="judge">
+      <div class="bd">"המכ"ם החדש מזהה מטוס חמקן של 0.01 מ"ר מ-400 ק"מ." אם זה נכון, מאיזה טווח אותו מכ"ם רואה מטוס קרב רגיל של 5 מ"ר?</div>
+      <button type="button" data-j="0">כ-800 ק"מ: σ גדל פי 500, אז הטווח בערך כפול</button>
+      <button type="button" data-j="1">כ-1,900 ק"מ: פי ‎500<sup>¼</sup> ≈ 4.7, הרבה מעבר לאופק. הטענה חשודה כפי שנוסחה</button>
+      <button type="button" data-j="2">כ-200,000 ק"מ: הטווח עולה ביחס ישר ל-σ</button>
+      <div class="fb hidden"></div></div>`;
+  }
+  function bindJudge() {
+    const j = $("#judge"); if (!j) return;
+    $$("button[data-j]", j).forEach(b => b.addEventListener("click", () => {
+      $$("button[data-j]", j).forEach(x => x.classList.remove("right", "wrong"));
+      const ok = b.dataset.j === "1";
+      b.classList.add(ok ? "right" : "wrong");
+      if (!ok) $('button[data-j="1"]', j).classList.add("right");
+      const fb = $(".fb", j);
+      fb.classList.remove("hidden");
+      fb.innerHTML = (ok ? "<b class='fb-ok'>נכון.</b> " : "<b class='fb-bad'>לא.</b> ") + "הטווח הולך כמו שורש רביעי של σ. מכ\"ם שרואה 0.01 מ\"ר ב-400 ק\"מ היה רואה 5 מ\"ר בכ-1,900 ק\"מ, מעבר לאופק של כל מכ\"ם קרקעי. כנראה הכוונה לטווח אחר, ל-RCS אחר, או למכ\"ם מעבר לאופק. נרשם בבודק הטענות.";
+    }));
+  }
+  function renderWeek() {
+    const days = [
+      ["א", "שיעורים", 5, 1.3, "today"], ["ב", "שיעורים", 5, 0], ["ג", "שיעורים", 5, 0], ["ד", "שיעורים", 5, 0], ["ה", "שיעורים", 5, 0],
+      ["ו", "יום הפקה: גשר, מאמר, פרויקט", 4, 0, "prod"], ["ש", "מנוחה", 0, 0, "rest"]
+    ];
+    $("#week").innerHTML = days.map(d => `<div class="wd ${d[4] || ""}"><div class="n">${d[0]}</div><div class="t">${d[1]}</div><div class="bar"><i style="height:${d[2] * 6}px"></i><i class="a" style="height:${d[3] * 6}px"></i></div></div>`).join("");
+  }
+  $$("[data-mode]").forEach(b => b.addEventListener("click", () => {
+    mode = b.dataset.mode;
+    $$("[data-mode]").forEach(x => x.setAttribute("aria-pressed", x === b ? "true" : "false"));
+    renderPlan();
+  }));
+
+  /* ======================= LESSON ======================= */
+  // retrieval
+  $$(".retr-q").forEach(q => {
+    $("[data-open]", q).addEventListener("click", e => { $(".ans", q).classList.remove("hidden"); e.target.remove(); });
+    $$(".self button", q).forEach(b => b.addEventListener("click", () => {
+      $$(".self button", q).forEach(x => x.setAttribute("aria-pressed", x === b ? "true" : "false"));
+    }));
+  });
+  // think blocks
+  function setupThink(id, gateId) {
+    const box = $("#" + id);
+    const opts = $(".opts", box);
+    const range = $(".conf input", box);
+    const out = $(".conf output", box);
+    const btn = $("[data-commit]", box);
+    let choice = null, touched = false;
+    const numeric = opts.dataset.numeric != null;
+    function ready() { btn.disabled = !(choice !== null && choice !== "" && touched); }
+    if (numeric) {
+      const inp = $("input", opts);
+      inp.addEventListener("input", () => { choice = inp.value.trim() === "" ? null : inp.value; ready(); });
+    } else {
+      $$(".opt", opts).forEach(o => o.addEventListener("click", () => {
+        if (box.dataset.done) return;
+        choice = o.dataset.v;
+        $$(".opt", opts).forEach(x => x.setAttribute("aria-pressed", x === o ? "true" : "false"));
+        ready();
+      }));
+    }
+    range.addEventListener("input", () => { touched = true; out.textContent = range.value + "%"; $(".conf", box).classList.remove("untouched"); ready(); });
+    btn.addEventListener("click", () => {
+      if (btn.disabled) return;
+      let ok;
+      if (numeric) ok = Math.abs(parseFloat(choice) - parseFloat(opts.dataset.numeric)) <= parseFloat(opts.dataset.tol);
+      else ok = choice === opts.dataset.answer;
+      box.dataset.done = "1";
+      btn.disabled = true; range.disabled = true;
+      $$("input, .opt", opts).forEach(x => { x.disabled = true; });
+      if (!numeric) $$(".opt", opts).forEach(x => { if (x.dataset.v === opts.dataset.answer) x.classList.add("right"); });
+      const v = $(".verdict", box);
+      v.className = "verdict " + (ok ? "ok" : "bad");
+      v.textContent = (ok ? "צדקת" : "לא הפעם") + " · ביטחון " + range.value + "%";
+      $(".reveal", box).classList.remove("hidden");
+      $(".req", box).textContent = "נרשם בכיול";
+      S.calib.push({ conf: +range.value, ok, where: id });
+      renderLessonCalib();
+      if (gateId) $("#" + gateId).classList.remove("locked");
+      checkLessonReady();
+    });
+  }
+  setupThink("think1", "gate1");
+  setupThink("think2", "gate2");
+  setupThink("think3", null);
+
+  // your step
+  let ysTries = 0, ysDone = false;
+  $("#ysBtn").addEventListener("click", () => {
+    const v = parseFloat($("#ysIn").value);
+    const fb = $("#ysFb");
+    if (isNaN(v)) { fb.innerHTML = '<span class="fb-bad">כתוב מספר.</span>'; return; }
+    ysTries++;
+    if (Math.abs(v - 2) < 1e-6) {
+      fb.innerHTML = '<span class="fb-ok">נכון: h = 2r.</span> הקוטר הוא 2r, ולכן הגובה שווה לקוטר.';
+      ysDone = true;
+    } else if (ysTries < 2) {
+      fb.innerHTML = '<span class="fb-bad">עוד לא.</span> רמז: λ·2πrh עם λ = 2/r הוא 4πh. מה נשאר אחרי שמעבירים אגף?';
+      return;
+    } else {
+      fb.innerHTML = '<span class="fb-bad">התשובה: 2.</span> נרשם כ"צעד שלא הצליח", וחוזר בחזרה בעוד יום.';
+      ysDone = true;
+    }
+    $("#ysIn").disabled = true; $("#ysBtn").disabled = true;
+    $("#ysRest").classList.remove("hidden");
+    checkLessonReady();
+  });
+
+  // depth layer
+  $("#depthBtn").addEventListener("click", () => {
+    $("#depthBtn").disabled = true;
+    $("#depthBtn").textContent = "המורה כותב…";
+    const bar = $("#depthBar"); bar.classList.remove("hidden");
+    requestAnimationFrame(() => requestAnimationFrame(() => { $("i", bar).style.width = "100%"; }));
+    setTimeout(() => {
+      bar.classList.add("hidden");
+      $("#depthPh").classList.add("hidden");
+      $("#depthBody").classList.remove("hidden");
+    }, 1750);
+  });
+
+  // lesson CR panel
+  const LESSON_CRS = [
+    { id: "e1", n: "כופלי לגרנז': ∇S = λ∇V", nx: "כור מתוכנן: יום ג' · בדיקה מושהית בעוד ~10 ימים" },
+    { id: "e2", n: "המכל האופטימלי ומחיר הצל (29), (31)", nx: "כור: פרויקט הקצאת מגזין (שבוע 13)" },
+    { id: "e3", n: "המינימום השטוח (30)", nx: "תומכת · מזוכה דרך תותח ובקר" }
+  ];
+  function renderLessonCRs() {
+    $("#lessonCRs").innerHTML = LESSON_CRS.map(c => {
+      const s = S.crs[c.id];
+      return `<div class="cr"><div class="cn">${c.n}</div><div class="path"><span class="${s >= 1 ? "on1" : ""}">נלמד</span><span class="${s >= 2 ? "on2" : ""}">חושל</span><span class="${s >= 3 ? "on3" : ""}">הוכח</span></div><div class="nx">${c.nx}</div></div>`;
+    }).join("");
+  }
+  function renderLessonCalib() {
+    const L = S.calib;
+    if (!L.length) return;
+    const ok = L.filter(x => x.ok).length;
+    const avg = Math.round(L.reduce((a, b) => a + b.conf, 0) / L.length);
+    const names = { think1: "זווית הגרדיאנט", think2: "אומדן 1.75%", think3: "h/d = k" };
+    $("#lessonCalib").innerHTML = L.map(x => `<div class="row"><span>${names[x.where]}</span><span class="num">${x.conf}% · ${x.ok ? "✓" : "✗"}</span></div>`).join("") +
+      `<div class="row" style="border:0;font-weight:600"><span>פגיעה ${ok}/${L.length}</span><span class="num">ביטחון ממוצע ${avg}%</span></div>`;
+  }
+  function checkLessonReady() {
+    const n = ["think1", "think2", "think3"].filter(id => $("#" + id).dataset.done).length + (ysDone ? 1 : 0);
+    $("#lessonDoneNote").textContent = n < 4 ? `${n} מתוך 4 התחייבויות נעשו. "סיים" הוא מעשה שלך: התוצאות עוברות ל"נלמד" רק כשכל ההתחייבויות נעשו.` : "כל ההתחייבויות נעשו. אפשר לסיים.";
+  }
+  $("#lessonDone").addEventListener("click", () => {
+    const n = ["think1", "think2", "think3"].filter(id => $("#" + id).dataset.done).length + (ysDone ? 1 : 0);
+    if (n < 4) {
+      $("#lessonDoneNote").innerHTML = `<span class="fb-bad">חסרות ${4 - n} התחייבויות.</span> השיעור נשאר פתוח; אפשר לחזור אליו מהמקום שבו עצרת.`;
+      return;
+    }
+    S.crs.e1 = Math.max(S.crs.e1, 1); S.crs.e2 = Math.max(S.crs.e2, 1); S.crs.e3 = Math.max(S.crs.e3, 1);
+    S.todayDone.l1 = true;
+    renderLessonCRs(); renderPlan();
+    $("#lessonDone").disabled = true;
+    $("#lessonDoneNote").innerHTML = '<span class="fb-ok">נרשם.</span> 3 תוצאות עברו ל"נלמד" בפנקס, 5 פריטים נכנסו לחזרה (1–3–7–21–60 ימים), והבלוק בתוכנית היום סומן.';
+  });
+
+  // Lagrange figure: level curves of S and the volume constraint, V = 1
+  function drawLagFig() {
+    const W = 460, H = 260, pad = { l: 40, r: 14, t: 12, b: 32 };
+    const rx = [0.25, 1.05], hy = [0, 2.6];
+    const X = r => pad.l + (r - rx[0]) / (rx[1] - rx[0]) * (W - pad.l - pad.r);
+    const Y = h => H - pad.b - (h - hy[0]) / (hy[1] - hy[0]) * (H - pad.t - pad.b);
+    const V = 1, r0 = Math.cbrt(V / (2 * Math.PI)), Smin = 6 * Math.PI * r0 * r0;
+    const path = (f) => {
+      let d = "", pen = false;
+      for (let i = 0; i <= 200; i++) {
+        const r = rx[0] + (rx[1] - rx[0]) * i / 200, h = f(r);
+        if (h < hy[0] - .05 || h > hy[1] + .05 || !isFinite(h)) { pen = false; continue; }
+        d += (pen ? "L" : "M") + X(r).toFixed(1) + " " + Y(h).toFixed(1) + " "; pen = true;
+      }
+      return d;
+    };
+    const lvl = s => r => (s - 2 * Math.PI * r * r) / (2 * Math.PI * r);
+    let g = "";
+    for (let r = 0.3; r <= 1.0001; r += 0.1) g += `<line x1="${X(r)}" x2="${X(r)}" y1="${pad.t}" y2="${H - pad.b}" stroke="var(--grid-major)"/><text x="${X(r)}" y="${H - pad.b + 14}" text-anchor="middle" font-size="10" fill="var(--muted)" font-family="IBM Plex Mono">${r.toFixed(1)}</text>`;
+    for (let h = 0; h <= 2.5001; h += 0.5) g += `<line x1="${pad.l}" x2="${W - pad.r}" y1="${Y(h)}" y2="${Y(h)}" stroke="var(--grid-major)"/><text x="${pad.l - 6}" y="${Y(h) + 3}" text-anchor="end" font-size="10" fill="var(--muted)" font-family="IBM Plex Mono">${h.toFixed(1)}</text>`;
+    const levels = [0.92, 1, 1.1, 1.25].map(k => k * Smin);
+    let lv = levels.map((s, i) => `<path d="${path(lvl(s))}" fill="none" stroke="var(--k-formula)" stroke-width="${i === 1 ? 2.2 : 1}" stroke-dasharray="${i === 1 ? "" : "4 3"}" opacity="${i === 1 ? 1 : .7}"/>`).join("");
+    const cons = `<path d="${path(r => V / (Math.PI * r * r))}" fill="none" stroke="var(--accent)" stroke-width="2.2"/>`;
+    const px = X(r0), py = Y(2 * r0);
+    // gradient direction ∝ (4,1) in (r,h) units; convert to pixels
+    const sx = (W - pad.l - pad.r) / (rx[1] - rx[0]), sy = (H - pad.t - pad.b) / (hy[1] - hy[0]);
+    let gx = 4 / sx, gy = -1 / sy; const gl = Math.hypot(gx, gy); gx = gx / gl * 46; gy = gy / gl * 46;
+    const arrow = `<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--ink)"/></marker></defs>
+      <line x1="${px}" y1="${py}" x2="${px + gx}" y2="${py + gy}" stroke="var(--ink)" stroke-width="1.8" marker-end="url(#ah)"/>
+      <text x="${px + gx + 4}" y="${py + gy - 4}" font-size="12" fill="var(--ink)" font-family="Cambria Math, serif" font-style="italic">∇S ∥ ∇V</text>`;
+    const pt = `<circle cx="${px}" cy="${py}" r="5" fill="var(--sheet)" stroke="var(--ink)" stroke-width="2"/>
+      <text x="${px - 10}" y="${py + 22}" text-anchor="end" font-size="11" fill="var(--ink)" font-family="IBM Plex Mono">(0.542, 1.084)</text>`;
+    const lab = `<text x="${X(0.9)}" y="${Y(0.62)}" font-size="11" fill="var(--accent)" font-weight="600">V = 1 m³</text>
+      <text x="${X(0.86)}" y="${Y(2.3)}" font-size="11" fill="var(--k-formula)" font-weight="600">S = Smin</text>
+      <text x="${W - pad.r}" y="${H - 4}" text-anchor="end" font-size="11" fill="var(--muted)">r (מ')</text>
+      <text x="${pad.l - 30}" y="${pad.t + 4}" font-size="11" fill="var(--muted)">h</text>`;
+    $("#lagFig").innerHTML = g + lv + cons + arrow + pt + lab;
+  }
+
+  /* ======================= LEDGER ======================= */
+  const CR = [
+    { id: "e1", app: "E", mod: "K1·קיצון", t: "כופלי לגרנז': ∇S = λ∇V, λ כמחיר צל", links: ["c9"], dyn: true },
+    { id: "e2", app: "E", mod: "K1·קיצון", t: "המכל האופטימלי: h/d = k", links: [], dyn: true },
+    { id: "e3", app: "E", mod: "K1·קיצון", t: "מינימום חלק שטוח: סטייה ריבועית", links: ["e8"], dyn: true },
+    { id: "e4", app: "E", mod: "M4.3", t: "קונבולוציה בזמן = כפל בתדר", s: 3, links: ["c8"] },
+    { id: "e5", app: "E", mod: "M4.5", t: "משפט הדגימה וקיפול (aliasing)", s: 2, links: [] },
+    { id: "e6", app: "E", mod: "M6.6", t: "ניימן-פירסון: מבחן יחס הנראות", s: 3, spike: true, links: ["c3"] },
+    { id: "e7", app: "E", mod: "M7.2", t: "רעש לבן: צפיפות הספק kT", s: 2, links: ["c1"] },
+    { id: "e8", app: "E", mod: "M5.6", t: "קלמן: העדכון כממוצע משוקלל לפי שונות", s: 1, spike: true, links: ["c6", "e3"] },
+    { id: "e9", app: "E", mod: "M3.1", t: "מערכת ODE לינארית: פתרון מעריכי", s: 3, links: ["c5"] },
+    { id: "c1", app: "C", mod: "M2.2", t: "משוואת המכ\"ם: SNR ∝ 1/R⁴", s: 3, spike: true, links: ["e7", "c8"] },
+    { id: "c2", app: "C", mod: "M1.3", t: "אופק מכ\"ם: כדור ארץ אפקטיבי 4/3", s: 2, links: [] },
+    { id: "c3", app: "C", mod: "M2.9", t: "סף הגילוי מתוך Pfa", s: 1, spike: true, links: ["e6"] },
+    { id: "c4", app: "C", mod: "M2.11", t: "Swerling: עונש התנודות", s: 0, links: [] },
+    { id: "c5", app: "C", mod: "M0.4", t: "חוק הריבוע של לנצ'סטר", s: 3, links: ["e9"] },
+    { id: "c6", app: "C", mod: "M2.15", t: "עוקב α-β כקלמן במצב יציב", s: 1, links: ["e8"] },
+    { id: "c7", app: "C", mod: "M4.7", t: "J/S ומרחק פריצה", s: 0, spike: true, links: ["c1"] },
+    { id: "c8", app: "C", mod: "M1.4", t: "דציבלים ותקציב קישור", s: 3, links: ["c1", "e4"] },
+    { id: "c9", app: "C", mod: "M7.3", t: "הקצאת מיירטים תחת מגזין: מחיר הצל של המלאי", s: 0, links: ["e1"] }
+  ];
+  const stOf = c => c.dyn ? S.crs[c.id] : c.s;
+  let fS = "all", fA = "all", fQ = "";
+  function stDots(s) { return `<span class="states" aria-label="מצב ${s}"><i class="st s1 ${s >= 1 ? "on" : ""}"></i><i class="st s2 ${s >= 2 ? "on" : ""}"></i><i class="st s3 ${s >= 3 ? "on" : ""}"></i></span>`; }
+  const stName = ["עוד לא", "נלמד", "חושל", "הוכח"];
+  function renderLedger() {
+    // KPIs (example totals for the whole ledger, adjusted by the lesson)
+    const add = ["e1", "e2", "e3"].filter(k => S.crs[k] >= 1).length;
+    const tot = 1684, cov = 212 + add, frg = 97, prv = 61;
+    $("#kpis").innerHTML = `
+      <div class="kpi"><div class="v">${tot.toLocaleString("he-IL")}</div><div class="l">תוצאות מרכזיות בפנקס (צפי אחרי איחוד)</div></div>
+      <div class="kpi c1"><div class="v">${cov}</div><div class="l">נלמדו</div></div>
+      <div class="kpi c2"><div class="v">${frg}</div><div class="l">חושלו</div></div>
+      <div class="kpi c3"><div class="v">${prv}</div><div class="l">הוכחו</div></div>`;
+    const apps = [["גילואה", 1180, 139 + add, 61, 38], ["לנצ'סטר", 504, 73, 36, 23]];
+    $("#appbar").innerHTML = apps.map(a => {
+      const [n, T, c, f, p] = a;
+      const w = x => (x / T * 100).toFixed(2) + "%";
+      return `<div class="row"><span>${n}</span><div class="stack-bar"><i style="width:${w(p)};background:var(--proven)"></i><i style="width:${w(f - p)};background:var(--forged)"></i><i style="width:${w(c - f)};background:var(--covered)"></i></div><span class="num small">${c}/${T}</span></div>`;
+    }).join("") + `<div class="legend" style="margin-top:2px"><span><i class="st s3 on"></i>הוכח</span><span><i class="st s2 on"></i>חושל (ולא הוכח)</span><span><i class="st s1 on"></i>נלמד בלבד</span><span>הנתונים לדוגמה, שבוע 7</span></div>`;
+    const q = fQ.trim().toLowerCase();
+    const items = CR.filter(c => (fS === "all" || String(stOf(c)) === fS) && (fA === "all" || c.app === fA) && (!q || (c.t + c.mod).toLowerCase().includes(q)));
+    $("#crList").innerHTML = items.length ? items.map(c => {
+      const s = stOf(c);
+      const lk = c.links.map(l => { const o = CR.find(x => x.id === l); return o ? `<button type="button" class="chip ${o.app === "E" ? "e" : "c"}" data-flash="${l}" title="${o.t}">↔ ${o.app === "E" ? "גילואה" : "לנצ'סטר"} ${o.mod}</button>` : ""; }).join("");
+      return `<div class="cr-item ${c.app}" id="cr-${c.id}"><div class="top2"><span class="id">${c.app === "E" ? "גילואה" : "לנצ'סטר"} · ${c.mod}</span><span style="display:flex;gap:6px;align-items:center">${c.spike ? '<span class="spike">עומק</span>' : ""}${stDots(s)}</span></div>
+        <div class="ti">${c.t}</div><div class="small muted">${stName[s]}${c.dyn && s === 0 ? " · בשיעור של היום" : ""}</div>${lk ? `<div class="lk">${lk}</div>` : ""}</div>`;
+    }).join("") : '<p class="muted">אין תוצאות שמתאימות לסינון.</p>';
+    $$("[data-flash]").forEach(b => b.addEventListener("click", () => {
+      let el = $("#cr-" + b.dataset.flash);
+      if (!el) { fS = "all"; fA = "all"; fQ = ""; $("#fq").value = ""; syncSeg(); renderLedger(); el = $("#cr-" + b.dataset.flash); }
+      if (!el) return;
+      el.scrollIntoView({ behavior: "smooth", block: "center" });
+      el.classList.add("flash"); setTimeout(() => el.classList.remove("flash"), 1600);
+    }));
+    renderCov(); renderBip(); renderExam();
+  }
+  function syncSeg() {
+    $$("#fState button").forEach(b => b.setAttribute("aria-pressed", b.dataset.v === fS ? "true" : "false"));
+    $$("#fApp button").forEach(b => b.setAttribute("aria-pressed", b.dataset.v === fA ? "true" : "false"));
+  }
+  $$("#fState button").forEach(b => b.addEventListener("click", () => { fS = b.dataset.v; syncSeg(); renderLedger(); }));
+  $$("#fApp button").forEach(b => b.addEventListener("click", () => { fA = b.dataset.v; syncSeg(); renderLedger(); }));
+  $("#fq").addEventListener("input", e => { fQ = e.target.value; renderLedger(); });
+
+  function renderCov() {
+    const rows = [
+      ["גילואה", "K1·קיצון", 3, 9, 4, 1, 43, 43],
+      ["גילואה", "M4.3", 4, 12, 6, 2, 51, 51],
+      ["גילואה", "M6.6", 5, 10, 3, 0, 48, 48],
+      ["לנצ'סטר", "M2.2", 6, 14, 5, 2, 42, 41],
+      ["לנצ'סטר", "M2.9", 4, 8, 2, 1, 33, 33]
+    ];
+    $("#covRows").innerHTML = rows.map(r => {
+      const [app, m, cr, sup, fold, skip, plan, pres] = r;
+      const T = cr + sup + fold + skip, w = x => (x / T * 100) + "%";
+      const ok = plan === pres;
+      return `<div class="cov-row"><div class="nm">${app} <b>${m}</b><div class="small muted">${T} פריטי עמוד</div></div>
+        <div class="stack-bar" style="height:16px"><i style="width:${w(cr)};background:var(--k-formula)"></i><i style="width:${w(sup)};background:var(--k-domain)"></i><i style="width:${w(fold)};background:var(--line-strong)"></i><i style="width:${w(skip)};background:repeating-linear-gradient(135deg,var(--warn) 0 3px,transparent 3px 6px)"></i></div>
+        <div class="small">${ok ? `<span class="ok">${pres}/${plan} ✓</span>` : `<span class="bad">${pres}/${plan}</span><div class="muted" style="font-size:.72rem;line-height:1.3">חסרה דוגמה 2.3 · תוקן בלילה</div>`}<div class="muted" style="font-size:.72rem">יחידות בשיעור</div></div></div>`;
+    }).join("");
+  }
+  function renderBip() {
+    const E = CR.filter(c => c.app === "E"), C = CR.filter(c => c.app === "C");
+    const W = 470, rowH = 24, H = Math.max(E.length, C.length) * rowH + 30;
+    const yE = i => 26 + i * rowH, yC = i => 26 + i * rowH;
+    const xE = W - 180, xC = 180;
+    let s = `<text x="${W - 8}" y="12" text-anchor="end" font-size="11" font-weight="700" fill="var(--app-e)">גילואה</text><text x="8" y="12" font-size="11" font-weight="700" fill="var(--app-c)">לנצ'סטר</text>`;
+    const seen = new Set();
+    CR.forEach(a => a.links.forEach(l => {
+      const b = CR.find(x => x.id === l); if (!b || a.app === b.app) return;
+      const key = [a.id, b.id].sort().join(); if (seen.has(key)) return; seen.add(key);
+      const e = a.app === "E" ? a : b, c = a.app === "E" ? b : a;
+      const y1 = yE(E.indexOf(e)), y2 = yC(C.indexOf(c));
+      const both = Math.min(stOf(e), stOf(c));
+      s += `<path d="M${xE - 6} ${y1} C ${W / 2} ${y1}, ${W / 2} ${y2}, ${xC + 6} ${y2}" fill="none" stroke="${both >= 3 ? "var(--proven)" : both >= 1 ? "var(--covered)" : "var(--line-strong)"}" stroke-width="${both >= 3 ? 2.2 : 1.4}" ${both === 0 ? 'stroke-dasharray="4 3"' : ""}/>`;
+    }));
+    E.forEach((c, i) => { s += `<circle cx="${xE}" cy="${yE(i)}" r="4.5" fill="${["var(--sheet)", "var(--covered)", "var(--forged)", "var(--proven)"][stOf(c)]}" stroke="var(--app-e)" stroke-width="1.5"/><text x="${xE + 10}" y="${yE(i) + 4}" font-size="10.5" fill="var(--ink)" direction="rtl" text-anchor="end">${short(c.t)}</text>`; });
+    C.forEach((c, i) => { s += `<circle cx="${xC}" cy="${yC(i)}" r="4.5" fill="${["var(--sheet)", "var(--covered)", "var(--forged)", "var(--proven)"][stOf(c)]}" stroke="var(--app-c)" stroke-width="1.5"/><text x="${xC - 10}" y="${yC(i) + 4}" font-size="10.5" fill="var(--ink)" direction="rtl" text-anchor="start">${short(c.t)}</text>`; });
+    $("#bip").innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="קשרי אותו מבנה בין התוצאות של שתי המעבדות">${s}</svg>
+      <p class="small muted" style="margin:6px 0 0">קו מלא ירוק: שני הצדדים הוכחו. מקווקו: עוד לא נלמד. איחוד רק כשהמשוואות זהות; אחרת קשר "אותו מבנה" עם פסקה על המקום שבו האנלוגיה נשברת.</p>`;
+  }
+  function short(t) { const s = t.split(":")[0]; return s.length > 22 ? s.slice(0, 21) + "…" : s; }
+  function renderExam() {
+    const d = [["מכ\"ם ול\"א", 34, 78], ["אומדן ובקרה", 41, 66], ["מחקר ביצועים", 29, null]];
+    const W = 420, H = 150, x0 = 112, x1 = W - 40, X = v => x0 + v / 100 * (x1 - x0);
+    let s = "";
+    [0, 25, 50, 75, 100].forEach(v => { s += `<line x1="${X(v)}" x2="${X(v)}" y1="8" y2="${H - 22}" stroke="var(--grid-major)"/><text x="${X(v)}" y="${H - 8}" text-anchor="middle" font-size="10" fill="var(--muted)" font-family="IBM Plex Mono">${v}%</text>`; });
+    d.forEach((r, i) => {
+      const y = 18 + i * 40;
+      s += `<text x="${x0 - 8}" y="${y + 12}" text-anchor="end" font-size="11" fill="var(--ink)">${r[0]}</text>`;
+      s += `<rect x="${x0}" y="${y}" width="${X(r[1]) - x0}" height="9" rx="2" fill="var(--line-strong)"/><text x="${X(r[1]) + 4}" y="${y + 8}" font-size="10" fill="var(--muted)" font-family="IBM Plex Mono">${r[1]}% בסיס</text>`;
+      if (r[2] != null) s += `<rect x="${x0}" y="${y + 12}" width="${X(r[2]) - x0}" height="9" rx="2" fill="var(--proven)"/><text x="${X(r[2]) + 4}" y="${y + 20}" font-size="10" fill="var(--proven)" font-weight="600" font-family="IBM Plex Mono">${r[2]}% חודש 1</text>`;
+      else s += `<text x="${x0 + 2}" y="${y + 20}" font-size="10" fill="var(--muted)">מבחן חוזר בשבוע 9</text>`;
+    });
+    $("#exam").innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="מבחן בסיס מול מבחן חוזר">${s}</svg>`;
+  }
+
+  /* ======================= FORGE ======================= */
+  const STEPS = [
+    ["צפיפות ההספק במטרה:", "P<sub>t</sub>G / 4πR²", "הנחה: מרחב פתוח, בלי הנחתה אטמוספרית"],
+    ["ההספק שהמטרה מפזרת חזרה: כפול", "σ", "הגדרת RCS: מפזר איזוטרופי שקול"],
+    ["צפיפות החזרה אצל המכ\"ם: חלקי עוד", "4πR²", "אותה התפשטות כדורית, בדרך חזרה"],
+    ["ההספק הנקלט: כפול השטח האפקטיבי", "A<sub>e</sub> = Gλ²/4π", "הנחה: אותה אנטנה לשידור ולקליטה"],
+    ["רצפת הרעש:", "N = kT<sub>0</sub>BF", "הנחה: רעש תרמי לבן, מסנן מתואם לרוחב הפולס"],
+    ["יחס האות לרעש:", "SNR = P<sub>t</sub>G²λ²σ / ((4π)³R⁴kT<sub>0</sub>BFL)", "ההפסדים L נאספים לאיבר אחד"],
+    ["טווח הגילוי, ב-SNR = SNR<sub>min</sub>:", "R<sub>max</sub> ∝ σ<sup>¼</sup>", "הסף בא מ-Pfa ו-Pd (ניימן-פירסון)"]
+  ];
+  let order = [3, 0, 5, 1, 6, 4, 2];
+  let fsChecked = false;
+  function renderSteps() {
+    $("#fsList").innerHTML = order.map((k, i) => `<li class="fs" data-k="${k}"><span class="ix">${i + 1}</span><div class="tx">${STEPS[k][0]} <span class="m">${STEPS[k][1]}</span><div class="as">${STEPS[k][2]}</div></div>
+      <div class="mv"><button type="button" data-up="${i}" aria-label="העלה" ${i === 0 ? "disabled" : ""}>▲</button><button type="button" data-dn="${i}" aria-label="הורד" ${i === order.length - 1 ? "disabled" : ""}>▼</button></div></li>`).join("");
+    italicize($("#fsList"));
+    $$("#fsList [data-up]").forEach(b => b.addEventListener("click", () => { const i = +b.dataset.up; [order[i - 1], order[i]] = [order[i], order[i - 1]]; clearFs(); renderSteps(); }));
+    $$("#fsList [data-dn]").forEach(b => b.addEventListener("click", () => { const i = +b.dataset.dn; [order[i + 1], order[i]] = [order[i], order[i + 1]]; clearFs(); renderSteps(); }));
+  }
+  function clearFs() { if (fsChecked) { $("#fsFb").textContent = ""; } }
+  function markFs() {
+    let good = 0;
+    $$("#fsList .fs").forEach((li, i) => { const ok = +li.dataset.k === i; if (ok) good++; li.classList.toggle("good", ok); li.classList.toggle("bad", !ok); });
+    $("#fsList").classList.add("show-as");
+    return good;
+  }
+  $("#fsCheck").addEventListener("click", () => {
+    fsChecked = true;
+    const g = markFs();
+    $("#fsFb").innerHTML = g === 7 ? '<span class="fb-ok">7/7. השלד שלם, וההנחות מסומנות במקום שבו הן נכנסות.</span>' : `<span class="fb-bad">${g}/7 במקום.</span> הזיזו ובדקו שוב.`;
+  });
+  $("#fsShow").addEventListener("click", () => { order = [0, 1, 2, 3, 4, 5, 6]; renderSteps(); markFs(); $("#fsFb").innerHTML = '<span class="muted">הסדר הנכון. נרשם כשחזור חלקי; יחזור בכור בעוד 3 ימים.</span>'; });
+
+  // estimate
+  const TRUE_D = 4.12 * (Math.sqrt(16) + Math.sqrt(9));
+  let estTouched = false;
+  function estReady() {
+    const m = parseFloat($("#estMid").value), lo = parseFloat($("#estLo").value), hi = parseFloat($("#estHi").value);
+    const ok = m > 0 && lo > 0 && hi > 0 && lo <= m && m <= hi && estTouched;
+    $("#estGo").disabled = !ok;
+  }
+  ["#estMid", "#estLo", "#estHi"].forEach(s => $(s).addEventListener("input", estReady));
+  $("#estConf").addEventListener("input", e => { estTouched = true; $("#estConfRow output").textContent = e.target.value + "%"; $("#estConfRow").classList.remove("untouched"); estReady(); });
+  const CAL = { 50: [6, 4], 60: [5, 3], 70: [9, 6], 80: [8, 5], 90: [13, 9] };
+  let lastEst = null;
+  $("#estGo").addEventListener("click", () => {
+    const m = parseFloat($("#estMid").value), lo = parseFloat($("#estLo").value), hi = parseFloat($("#estHi").value), conf = +$("#estConf").value;
+    const le = Math.abs(log10(m / TRUE_D));
+    const hit = TRUE_D >= lo && TRUE_D <= hi;
+    lastEst = { conf, hit };
+    const bin = [50, 60, 70, 80, 90].reduce((a, b) => Math.abs(b - conf) < Math.abs(a - conf) ? b : a);
+    CAL[bin][0]++; if (hit) CAL[bin][1]++;
+    ["#estMid", "#estLo", "#estHi", "#estConf"].forEach(s => { $(s).disabled = true; });
+    $("#estGo").disabled = true; $("#estReq").textContent = "נרשם";
+    $("#estOut").classList.remove("hidden");
+    // interval viz on log axis
+    const W = 420, H = 64, a = Math.min(lo, TRUE_D) / 1.6, b = Math.max(hi, TRUE_D) * 1.6;
+    const X = v => 16 + (log10(v) - log10(a)) / (log10(b) - log10(a)) * (W - 32);
+    const tickVals = [1, 2, 5, 10, 20, 50, 100, 200, 500, 1000].filter(v => v >= a && v <= b);
+    let s = `<line x1="16" x2="${W - 16}" y1="34" y2="34" stroke="var(--line-strong)"/>`;
+    tickVals.forEach(v => { s += `<line x1="${X(v)}" x2="${X(v)}" y1="30" y2="38" stroke="var(--line-strong)"/><text x="${X(v)}" y="52" font-size="10" text-anchor="middle" fill="var(--muted)" font-family="IBM Plex Mono">${v}</text>`; });
+    s += `<rect x="${X(lo)}" y="27" width="${Math.max(2, X(hi) - X(lo))}" height="14" rx="3" fill="${hit ? "var(--ok-soft)" : "var(--err-soft)"}" stroke="${hit ? "var(--ok)" : "var(--err)"}"/>`;
+    s += `<line x1="${X(m)}" x2="${X(m)}" y1="24" y2="44" stroke="var(--ink)" stroke-width="2"/><text x="${X(m)}" y="18" font-size="10" text-anchor="middle" fill="var(--ink)">שלך ${fmt(m, 1)}</text>`;
+    s += `<path d="M${X(TRUE_D)} 46 l-5 9 h10z" fill="var(--accent)"/><text x="${X(TRUE_D)}" y="64" font-size="10" text-anchor="middle" fill="var(--accent)" font-weight="600">אמת 28.8</text>`;
+    $("#estViz").innerHTML = `<svg viewBox="0 0 ${W} ${H + 4}" role="img" aria-label="הרווח שלך מול האמת, בציר לוגריתמי">${s}</svg>`;
+    const pct = (10 ** le - 1) * 100;
+    const inBand = le <= log10(1.2);
+    $("#estScore").innerHTML = `
+      <div class="kpi"><div class="l">שגיאת log</div><div class="v num">${le.toFixed(3)}</div><div class="l">|log₁₀(אומדן/אמת)|</div></div>
+      <div class="kpi"><div class="l">פי כמה סטית</div><div class="v num">${fmt(pct, 0)}%</div><div class="l">${inBand ? "בתוך יעד 2.5 (עד 20%)" : "מחוץ ליעד 2.5 (עד 20%)"}</div></div>
+      <div class="kpi"><div class="l">הרווח</div><div class="v" style="color:${hit ? "var(--ok)" : "var(--err)"}">${hit ? "פגע" : "החטיא"}</div><div class="l">רוחב פי ${fmt(hi / lo, 1)}</div></div>`;
+    drawCalib(bin);
+  });
+  function drawCalib(hl) {
+    const W = 360, H = 250, p = { l: 42, r: 14, t: 14, b: 38 };
+    const X = c => p.l + (c - 45) / (100 - 45) * (W - p.l - p.r);
+    const Y = r => H - p.b - r * (H - p.t - p.b);
+    let s = "";
+    [50, 60, 70, 80, 90, 100].forEach(c => { s += `<line x1="${X(c)}" x2="${X(c)}" y1="${p.t}" y2="${H - p.b}" stroke="var(--grid-major)"/><text x="${X(c)}" y="${H - p.b + 14}" text-anchor="middle" font-size="10" fill="var(--muted)" font-family="IBM Plex Mono">${c}%</text>`; });
+    [0, .25, .5, .75, 1].forEach(r => { s += `<line x1="${p.l}" x2="${W - p.r}" y1="${Y(r)}" y2="${Y(r)}" stroke="var(--grid-major)"/><text x="${p.l - 6}" y="${Y(r) + 3}" text-anchor="end" font-size="10" fill="var(--muted)" font-family="IBM Plex Mono">${Math.round(r * 100)}%</text>`; });
+    s += `<line x1="${X(45)}" y1="${Y(.45)}" x2="${X(100)}" y2="${Y(1)}" stroke="var(--ink-soft)" stroke-dasharray="5 4"/><text x="${X(97)}" y="${Y(.97) - 6}" text-anchor="end" font-size="10" fill="var(--ink-soft)">כיול מושלם</text>`;
+    let pts = [];
+    Object.keys(CAL).forEach(k => { const [n, h] = CAL[k]; pts.push([+k, h / n, n]); });
+    s += `<path d="${pts.map((q, i) => (i ? "L" : "M") + X(q[0]) + " " + Y(q[1])).join(" ")}" fill="none" stroke="var(--forge)" stroke-width="1.6"/>`;
+    pts.forEach(q => {
+      const r = 3 + Math.sqrt(q[2]) * 1.6;
+      s += `<circle cx="${X(q[0])}" cy="${Y(q[1])}" r="${r}" fill="var(--forge)" fill-opacity="${q[0] === hl ? .95 : .55}" stroke="${q[0] === hl ? "var(--ink)" : "var(--sheet)"}" stroke-width="${q[0] === hl ? 2 : 1}"/>`;
+      s += `<text x="${X(q[0])}" y="${Y(q[1]) - r - 4}" text-anchor="middle" font-size="9.5" fill="var(--ink-soft)" font-family="IBM Plex Mono">${CAL[q[0]][1]}/${CAL[q[0]][0]}</text>`;
+    });
+    s += `<text x="${(p.l + W - p.r) / 2}" y="${H - 6}" text-anchor="middle" font-size="10.5" fill="var(--muted)">הביטחון שהצהרת</text>`;
+    s += `<text x="12" y="${(p.t + H - p.b) / 2}" text-anchor="middle" font-size="10.5" fill="var(--muted)" transform="rotate(-90 12 ${(p.t + H - p.b) / 2})">שיעור הפגיעה</text>`;
+    $("#calib").innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="תרשים כיול: ביטחון מוצהר מול שיעור פגיעה">${s}</svg>`;
+    const n90 = CAL[90][0], h90 = CAL[90][1];
+    const tot = Object.values(CAL).reduce((a, b) => a + b[0], 0);
+    $("#calibNote").innerHTML = `${tot} פריטים מהכור ומהפרויקטים (דוגמה). ברווחי 90% פגעת ב-<b class="num">${h90}/${n90}</b> = <b class="num">${Math.round(h90 / n90 * 100)}%</b>: ${h90 / n90 < .85 ? "ביטחון יתר. הרחב את הרווחים בערך פי 1.4, בעיקר בצד העליון." : "קרוב לכיול. שמור על רוחב הרווחים."}${lastEst ? ` הפריט של היום ${lastEst.hit ? "פגע" : "החטיא"} ונוסף לנקודה המודגשת.` : ""}`;
+  }
+
+  /* ======================= PROJECT: radar budget ======================= */
+  const K_T0_DB = 10 * log10(1.380649e-23 * 290); // −203.975 dBW/Hz
+  const FOUR_PI3 = 30 * log10(4 * Math.PI);        // 32.976 dB
+  const REQ = 13.1;                                 // Albersheim, Pd 0.9, Pfa 1e-6
+  const DEF = { pt: 50, g: 35, f: 3, sig: 0, R: 100, L: 6, nf: 3, b: 60, n: 4 };
+  const P = Object.assign({}, DEF);
+  let rcsUnlocked = false;
+  const SL = [
+    { k: "pt", n: "הספק שידור Pt", min: 30, max: 63, step: 0.5, show: v => { const w = 10 ** (v / 10); return w >= 1e6 ? fmt(w / 1e6, 2) + " MW" : fmt(w / 1e3, w < 1e4 ? 1 : 0) + " kW"; }, db: v => fmt(v, 1) + " dBW" },
+    { k: "g", n: "הגבר אנטנה G", min: 20, max: 45, step: 0.5, show: v => fmt(v, 1) + " dBi", db: v => "×2 בתקציב" },
+    { k: "f", n: "תדר f (ומכאן λ)", min: 0.5, max: 18, step: 0.1, show: v => fmt(v, 1) + " GHz", db: v => "λ = " + fmt(29.9792458 / v, 1) + " cm" },
+    { k: "sig", n: "שטח החזרה σ (RCS)", min: -30, max: 20, step: 1, show: v => { const m = 10 ** (v / 10); return (m >= 1 ? fmt(m, m >= 10 ? 0 : 1) : m >= 0.01 ? fmt(m, 2) : m.toExponential(0)) + " m²"; }, db: v => fmt(v, 0) + " dBsm", lock: true },
+    { k: "R", n: "טווח R", min: 5, max: 400, step: 1, show: v => fmt(v, 0) + " km", db: v => "−40 log R" },
+    { k: "L", n: "הפסדים L", min: 0, max: 15, step: 0.5, show: v => fmt(v, 1) + " dB", db: () => "" },
+    { k: "nf", n: "מקדם רעש NF", min: 1, max: 10, step: 0.5, show: v => fmt(v, 1) + " dB", db: () => "" },
+    { k: "b", n: "רוחב סרט B", min: 50, max: 73, step: 0.5, show: v => { const hz = 10 ** (v / 10); return hz >= 1e6 ? fmt(hz / 1e6, hz < 1e7 ? 2 : 1) + " MHz" : fmt(hz / 1e3, 0) + " kHz"; }, db: v => fmt(v, 1) + " dBHz" },
+    { k: "n", n: "פולסים באינטגרציה קוהרנטית", min: 0, max: 7, step: 1, show: v => String(2 ** v), db: v => "+" + fmt(10 * log10(2 ** v), 1) + " dB" }
+  ];
+  function budget(p, Rkm) {
+    const R = (Rkm != null ? Rkm : p.R) * 1000;
+    const lam = 0.299792458 / p.f;
+    const t = [
+      ["הספק שידור Pt", p.pt],
+      ["הגבר בשידור G", p.g],
+      ["הגבר בקליטה G", p.g],
+      ["λ² (אפרטורה)", 20 * log10(lam)],
+      ["σ (RCS)", p.sig],
+      ['<span class="ltr">(4π)³</span> התפשטות', -FOUR_PI3],
+      ["R⁴ (שני כיוונים)", -40 * log10(R)],
+      ["הפסדים L", -p.L]
+    ];
+    const Sdbw = t.reduce((a, b) => a + b[1], 0);
+    const t2 = [
+      ['<span class="ltr">−kT₀</span> רצפת רעש', -K_T0_DB],
+      ["רוחב סרט B", -p.b],
+      ["מקדם רעש NF", -p.nf],
+      ["אינטגרציה 10 log n", 10 * log10(2 ** p.n)]
+    ];
+    const snr = Sdbw + t2.reduce((a, b) => a + b[1], 0);
+    return { t, t2, Sdbw, snr, lam };
+  }
+  function renderSliders() {
+    $("#sliders").innerHTML = SL.map(s => `<div class="sl ${s.lock && !rcsUnlocked ? "locked" : ""}" data-k="${s.k}">
+      <div class="h"><b>${s.n}${s.lock && !rcsUnlocked ? " · נעול עד ניבוי" : ""}</b><span class="val">${s.show(P[s.k])} <span class="db">${s.db(P[s.k])}</span></span></div>
+      <input type="range" min="${s.min}" max="${s.max}" step="${s.step}" value="${P[s.k]}" aria-label="${s.n}" ${s.lock && !rcsUnlocked ? "disabled" : ""}></div>`).join("");
+    $$("#sliders .sl").forEach(row => {
+      const s = SL.find(x => x.k === row.dataset.k);
+      $("input", row).addEventListener("input", e => {
+        P[s.k] = parseFloat(e.target.value);
+        $(".val", row).innerHTML = `${s.show(P[s.k])} <span class="db">${s.db(P[s.k])}</span>`;
+        renderRadar();
+      });
+    });
+  }
+  function rdet(p) { const b = budget(p); return p.R * 10 ** ((b.snr - REQ) / 40); }
+  function renderRadar() {
+    const b = budget(P);
+    $("#oSnr").innerHTML = `<span class="ltr">${sgn(b.snr, 1)} dB</span>`;
+    $("#oSnr").style.color = b.snr >= REQ ? "var(--ok)" : "var(--err)";
+    const rd = rdet(P);
+    $("#oRdet").innerHTML = `<span class="ltr">${fmt(rd, rd < 100 ? 1 : 0)} km</span>`;
+    $("#oS").innerHTML = `<span class="ltr">${fmt(b.Sdbw, 1)} dBW</span>`;
+    // waterfall
+    const rows = []; let run = 0;
+    b.t.forEach(([n, v]) => { rows.push({ n, v, a: run, z: run + v }); run += v; });
+    rows.push({ n: "הספק נקלט S", tot: true, a: 0, z: run, v: run });
+    b.t2.forEach(([n, v]) => { rows.push({ n, v, a: run, z: run + v }); run += v; });
+    rows.push({ n: "SNR", tot: true, snr: true, a: 0, z: run, v: run });
+    const all = rows.flatMap(r => [r.a, r.z]);
+    let lo = Math.min(...all, 0), hi = Math.max(...all, 0);
+    lo = Math.floor((lo - 10) / 50) * 50; hi = Math.ceil((hi + 10) / 50) * 50;
+    const X = v => ((v - lo) / (hi - lo) * 100);
+    const z = X(0) + "%";
+    let h = rows.map(r => {
+      const l = Math.min(r.a, r.z), w = Math.abs(r.z - r.a);
+      const req = r.snr ? `<span class="tick" style="left:${X(REQ)}%" title="סף 13.1 dB"></span>` : "";
+      return `<div class="wf-row ${r.tot ? "tot" : ""} ${r.snr ? "snr" : ""}"><span class="lb">${r.n}</span><span class="vv">${r.tot ? fmt(r.v, 1) : sgn(r.v, 1)}</span>
+        <div class="wf-track" style="--z:${z}"><span class="wf-bar ${r.tot ? "" : r.v >= 0 ? "up" : "dn"}" style="left:${X(l)}%;width:${Math.max(.4, X(l + w) - X(l))}%"></span>${req}</div></div>`;
+    }).join("");
+    const ticks = []; for (let v = lo; v <= hi; v += 50) ticks.push(v);
+    h += `<div class="wf-axis"><span></span><span>dB</span><div class="ax">${ticks.map(v => `<span style="left:${X(v)}%">${v}</span>`).join("")}</div></div>`;
+    $("#wf").innerHTML = h;
+    drawSnr(b.snr);
+  }
+  function drawSnr(snrNow) {
+    const W = 520, H = 220, p = { l: 40, r: 14, t: 12, b: 32 };
+    const rMin = 5, rMax = 500, yLo = -20, yHi = Math.min(120, Math.max(60, Math.ceil((snrNow + 40 * log10(P.R / rMin)) / 20) * 20));
+    const X = r => p.l + (log10(r) - log10(rMin)) / (log10(rMax) - log10(rMin)) * (W - p.l - p.r);
+    const Y = v => H - p.b - (Math.max(yLo, Math.min(yHi, v)) - yLo) / (yHi - yLo) * (H - p.t - p.b);
+    const f = r => snrNow + 40 * log10(P.R / r);
+    let s = "";
+    [5, 10, 20, 50, 100, 200, 500].forEach(r => { s += `<line x1="${X(r)}" x2="${X(r)}" y1="${p.t}" y2="${H - p.b}" stroke="var(--grid-major)"/><text x="${X(r)}" y="${H - p.b + 14}" text-anchor="middle" font-size="10" fill="var(--muted)" font-family="IBM Plex Mono">${r}</text>`; });
+    for (let v = yLo; v <= yHi; v += 20) s += `<line x1="${p.l}" x2="${W - p.r}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--grid-major)"/><text x="${p.l - 6}" y="${Y(v) + 3}" text-anchor="end" font-size="10" fill="var(--muted)" font-family="IBM Plex Mono">${v}</text>`;
+    s += `<line x1="${p.l}" x2="${W - p.r}" y1="${Y(REQ)}" y2="${Y(REQ)}" stroke="var(--accent)" stroke-dasharray="5 4"/><text x="${W - p.r - 2}" y="${Y(REQ) - 4}" text-anchor="end" font-size="10" fill="var(--accent)">סף 13.1 dB</text>`;
+    let d = "";
+    for (let i = 0; i <= 120; i++) { const r = rMin * (rMax / rMin) ** (i / 120); d += (i ? "L" : "M") + X(r).toFixed(1) + " " + Y(f(r)).toFixed(1); }
+    s += `<path d="${d}" fill="none" stroke="var(--k-formula)" stroke-width="2.2"/>`;
+    const rd = rdet(P);
+    if (rd >= rMin && rd <= rMax) s += `<line x1="${X(rd)}" x2="${X(rd)}" y1="${Y(REQ)}" y2="${H - p.b}" stroke="var(--accent)" stroke-width="1"/><circle cx="${X(rd)}" cy="${Y(REQ)}" r="4" fill="var(--accent)"/><text x="${X(rd) + 5}" y="${H - p.b - 6}" font-size="10" fill="var(--accent)" font-family="IBM Plex Mono">${fmt(rd, 0)} km</text>`;
+    s += `<circle cx="${X(P.R)}" cy="${Y(snrNow)}" r="5" fill="var(--sheet)" stroke="var(--ink)" stroke-width="2"/>`;
+    s += `<text x="${(p.l + W - p.r) / 2}" y="${H - 4}" text-anchor="middle" font-size="10.5" fill="var(--muted)">טווח (ק"מ, ציר לוגריתמי)</text><text x="6" y="${p.t + 4}" font-size="10" fill="var(--muted)">dB</text>`;
+    $("#snrPlot").innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="SNR כפונקציה של הטווח">${s}</svg>`;
+  }
+  // predict-first
+  let pdTouched = false, pdLocked = null;
+  const pdLog = [];
+  function pdReady() { $("#pdGo").disabled = !(pdTouched && $("#pdDb").value !== "" && $("#pdR").value !== "" && !pdLocked); }
+  ["#pdDb", "#pdR"].forEach(s => $(s).addEventListener("input", pdReady));
+  $("#pdConf").addEventListener("input", e => { pdTouched = true; $("#pdConfRow output").textContent = e.target.value + "%"; $("#pdConfRow").classList.remove("untouched"); pdReady(); });
+  $("#pdGo").addEventListener("click", () => {
+    pdLocked = { db: parseFloat($("#pdDb").value), r: parseFloat($("#pdR").value), conf: +$("#pdConf").value };
+    ["#pdDb", "#pdR", "#pdConf"].forEach(s => { $(s).disabled = true; });
+    $("#pdGo").disabled = true; $("#pdApply").disabled = false;
+    rcsUnlocked = true; renderSliders();
+    $("#pdOut").innerHTML = "הניבוי ננעל. סרגל σ פתוח; לחץ \"הפעל σ × 10\" כדי לבדוק.";
+  });
+  $("#pdApply").addEventListener("click", () => {
+    if (P.sig > 10) { P.sig = 10; renderRadar(); }
+    const before = budget(P).snr, r0 = rdet(P);
+    P.sig = Math.min(20, P.sig + 10);
+    renderSliders(); renderRadar();
+    const after = budget(P).snr, r1 = rdet(P);
+    const dSnr = after - before, ratio = r1 / r0;
+    const e1 = Math.abs(pdLocked.db - dSnr), e2 = Math.abs(log10(Math.max(1e-6, pdLocked.r) / ratio));
+    $("#pdApply").disabled = true;
+    $("#predict").classList.add("done");
+    $("#pdOut").innerHTML = `<b>בפועל:</b> ה-SNR עלה ב-<span class="num">${fmt(dSnr, 1)}</span> dB (σ נכנס ישר לתקציב), והטווח גדל פי <span class="num">${fmt(ratio, 2)}</span> = ‎10<sup>10/40</sup>: השורש הרביעי. <br>
+      <b>אתה:</b> <span class="num">${fmt(pdLocked.db, 1)}</span> dB ${e1 < 0.6 ? "✓" : "✗"} · פי <span class="num">${fmt(pdLocked.r, 2)}</span> ${e2 < log10(1.1) ? "✓" : "✗"} (שגיאת log ${e2.toFixed(3)}).
+      ${e2 >= log10(1.1) && pdLocked.r >= 3 ? "<br>הטעות הנפוצה: לחשוב שהטווח גדל כמו σ או כמו √σ. ב-R⁴ כל 10 dB שווים פי 1.78 בטווח, ולהפך: חמקנות של 40 dB מקצרת את הטווח רק פי 10." : ""}`;
+    pdLog.unshift(`σ × 10 · ניבוי ${fmt(pdLocked.db, 1)} dB ופי ${fmt(pdLocked.r, 2)} בביטחון ${pdLocked.conf}% · בפועל ${fmt(dSnr, 1)} dB ופי ${fmt(ratio, 2)} · ${e2 < log10(1.1) ? "פגע" : "החטיא"}`);
+    $("#pdLog").innerHTML = pdLog.map(x => `<li>${x}</li>`).join("") + '<li class="muted">כל ניבוי נכנס לתרשים הכיול בכור.</li>';
+  });
+  $("#radReset").addEventListener("click", () => { Object.assign(P, DEF); renderSliders(); renderRadar(); });
+
+  /* ======================= PILOT ======================= */
+  function gauge(o) {
+    // o: {label, min, max, zones:[[to, cls]], value, unit, fmtv, ticks:[], pending}
+    const X = v => (Math.max(o.min, Math.min(o.max, v)) - o.min) / (o.max - o.min) * 100;
+    let prev = o.min;
+    const zs = o.zones.map(([to, c]) => { const w = X(to) - X(prev); prev = to; return `<span class="z ${c}" style="width:${w}%"></span>`; }).join("");
+    return `<div class="gauge"><div class="gh"><span>${o.label}</span><b class="ltr">${o.pending ? "ממתין" : o.fmtv}</b></div>
+      <div class="gtrack ${o.pending ? "pending" : ""}">${zs}<span class="mk" style="left:${X(o.value)}%"></span></div>
+      <div class="gscale">${o.ticks.map(t => `<span style="left:${X(t)}%">${t.toLocaleString("en-US")}</span>`).join("")}</div></div>`;
+  }
+  const U = [
+    { id: "U1", n: "צפיפות התוצאות המרכזיות ואיחוד אמיתי", how: "המפעל תייג 50 סעיפים, אתה בדקת 15. פנקס ל-P4 ול-M2.x.",
+      g: [{ label: "תוצאות אחרי איחוד, צפי לשתי המעבדות", min: 1000, max: 2400, zones: [[1500, "g"], [1900, "y"], [2400, "r"]], value: 1640, fmtv: "1,640", ticks: [1000, 1500, 1900, 2400] },
+          { label: "איחוד שעבר את כלל המשוואה הזהה", min: 0, max: 25, zones: [[10, "r"], [25, "g"]], value: 12, fmtv: "12%", ticks: [0, 10, 25] }],
+      dec: "1,500–1,900 ← <b>הליבה קודם</b>. האיחוד מעל 10%, ולכן מנגנון הדלתות נשאר.", tag: "סופי" },
+    { id: "U2", n: "דקות לומד לתוצאה, מקצה לקצה", how: "חותמות זמן: פתיחה ← התחייבויות ← סיום, 23 תוצאות בשלושה סוגי ספרים.",
+      g: [{ label: "ממוצע דקות לתוצאה (כולל יחידות תומכות)", min: 15, max: 60, zones: [[30, "g"], [45, "y"], [60, "r"]], value: 36, fmtv: "36", ticks: [15, 30, 45, 60] }],
+      dec: "30–45 ← <b>האמצע</b>, כמו בחישוב. קולמוגורוב 44, מכ\"ם 31.", tag: "ביניים" },
+    { id: "U3", n: "האם הפורמט הצפוף שומר עומק בראש שלך", how: "A/B: 8 תוצאות ארוך, 8 צפוף, לסירוגין. שחזור סגור ביום 10–14 ובודק עיוור שני.",
+      g: [{ label: "צפוף כאחוז מארוך, בשחזור מושהה", min: 70, max: 105, zones: [[85, "r"], [95, "y"], [105, "g"]], value: 93, fmtv: "93% · n = 6/16", ticks: [70, 85, 95, 105] },
+          { label: "דירוגי \"ארוך מדי\" או \"שטחי\" ברצף", min: 0, max: 5, zones: [[2, "g"], [3, "y"], [5, "r"]], value: 1, fmtv: "1", ticks: [0, 3, 5] }],
+      dec: "אם יישאר 85–95 ← <b>35–40 מילים ליחידה</b> ושכבות חובה בגזירות. מדגם קטן, להמתין ליום 14.", tag: "ביניים" },
+    { id: "U4", n: "שעות בנות-קיימא והתמדה", how: "מתוכנן מול בפועל כל יום, השלמת כור, תפוקה בשעות 1–2 מול 5–6, עייפות 1–5.",
+      g: [{ label: "תפוקה בשעות מאוחרות / מוקדמות", min: 50, max: 110, zones: [[80, "r"], [110, "g"]], value: 84, fmtv: "84%", ticks: [50, 80, 110] },
+          { label: "התמדה (שעות בפועל / מתוכנן)", min: 50, max: 105, zones: [[85, "r"], [105, "g"]], value: 88, fmtv: "88%", ticks: [50, 85, 105] },
+          { label: "ימים שבהם הכור דולג", min: 0, max: 60, zones: [[30, "g"], [60, "r"]], value: 11, fmtv: "1/9", ticks: [0, 30, 60] }],
+      dec: "ירוק ← <b>תוכניות 6–7 שעות</b> פתוחות. ימים 10–12 עוד לפנינו, וזה המבחן האמיתי.", tag: "ביניים" },
+    { id: "U5", n: "האם מפעל השיעורים עומד בזה", how: "לילות שמילאו מדף, יחידות שימוש לשיעור, סירובים בלנצ'סטר, שגיאות שתולות שנתפסו.",
+      g: [{ label: "לילות שסיפקו מדף מלא", min: 60, max: 100, zones: [[90, "r"], [100, "g"]], value: 100 * 8 / 9, fmtv: "8/9 = 89%", ticks: [60, 90, 100] },
+          { label: "חלק מהשימוש השבועי", min: 0, max: 100, zones: [[60, "g"], [100, "r"]], value: 54, fmtv: "54%", ticks: [0, 60, 100] },
+          { label: "סירובים בשיעורי לנצ'סטר", min: 0, max: 15, zones: [[5, "g"], [15, "r"]], value: 100 / 31, fmtv: "1/31 = 3.2%", ticks: [0, 5, 15] },
+          { label: "שגיאות שתולות שנתפסו", min: 50, max: 100, zones: [[80, "r"], [100, "g"]], value: 0, fmtv: "", ticks: [50, 80, 100], pending: true }],
+      dec: "לילה אחד חסר (כתיבה חיה בבוקר). אם 13/14 ← <b>המפעל קודם</b>. ההרצה עם השגיאות השתולות בימים 13–14.", tag: "ביניים" }
+  ];
+  function renderPilot() {
+    $("#days").innerHTML = Array.from({ length: 14 }, (_, i) => `<i class="${i + 1 < 9 ? "past" : i + 1 === 9 ? "now" : ""}">${i + 1}</i>`).join("");
+    $("#uGrid").innerHTML = U.map(u => `<div class="u-card"><div class="uh"><span class="uid">${u.id}</span><span class="un">${u.n}</span><span class="tag-p" style="margin-inline-start:auto">${u.tag}</span></div>
+      <div class="how">${u.how}</div>${u.g.map(gauge).join("")}<div class="u-dec">${u.dec}</div></div>`).join("");
+  }
+
+  /* ---------- init ---------- */
+  renderShelf(); renderPlan(); renderWeek();
+  renderLessonCRs(); drawLagFig(); italicize(document);
+  renderSteps(); drawCalib(null);
+  renderSliders(); renderRadar();
+  renderPilot();
+  go((location.hash || "#today").slice(1), false);
+})();
+</script>

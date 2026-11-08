@@ -1,0 +1,51 @@
+{
+ "classical": {
+  "state": "approve",
+  "note": "כן ולא אני מופתע שהם היו תמך, וכמובן אל תשכח את הבינה המלאוכתית, תשמע מבחינתי כל מה שבמסלולים קריטי וחשוב אני לא אתן להורדת רמה בתחום מסוים."
+ },
+ "frontier": {
+  "state": "approve"
+ },
+ "gap": {
+  "state": "change",
+  "note": "(explained in chat: target = expertise above average junior/senior/MSc and PhD in parts; not a single-function engineer; breadth+depth mix for superiority in any industry)"
+ },
+ "guards": {
+  "state": "approve"
+ },
+ "hours": {
+  "state": "approve"
+ },
+ "hw": {
+  "state": "approve"
+ },
+ "legal": {
+  "state": "approve",
+  "note": "כמובן, תהיה בדיקה על חוקיות וכו לפני כל התחלה של רעיון או פרויקט."
+ },
+ "level3": {
+  "state": "approve"
+ },
+ "osstools": {
+  "state": "approve"
+ },
+ "realtools": {
+  "state": "approve"
+ },
+ "reviewers": {
+  "state": "change",
+  "note": "(explained in chat: external review is a FIXED WEEKLY requirement, objective, aiming for the top)"
+ },
+ "talentgit": {
+  "state": "approve",
+  "note": "מה זה איפה ה-AI טעה התכנון הוא משותף בסוף הכל הוא משותף, מה שנכנס לכל מוצר בגיט מבחינתי הוא בסטדנרט של הפרוייקט הטובים בגיט נצטרך לדוק שאנחנו עומדים בסטנדרטים"
+ },
+ "timeline": {
+  "state": "approve",
+  "note": "כל עוד מגיעים לרמת מומחיות בתחומים הפחות נישתיים כל שמוקדם זה נשמע טוב"
+ },
+ "_not_marked": [
+  "product",
+  "quarterly"
+ ]
+}

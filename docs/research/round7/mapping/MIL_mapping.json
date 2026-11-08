@@ -1,0 +1,2575 @@
+[
+ {
+  "id": "MIL · Foundations: the quantitative toolkit",
+  "role": "deep",
+  "target": "A4",
+  "target_meaning_he": "ליבת תואר שני בכלים הכמותיים של חישה: גוזר ומאמת לבד dB, משוואות מכ\"ם ו-J/S, Pd/Pfa, CRB, DOP, CEP ומערכות קואורדינטות, ומוצא שגיאה בפלט של סוכן.",
+  "modules": [
+   {
+    "id": "M0.1",
+    "tier": "core",
+    "book": 16,
+    "paper": 0,
+    "title": "dB and the basic link equation"
+   },
+   {
+    "id": "M0.2",
+    "tier": "core",
+    "book": 38,
+    "paper": 0,
+    "title": "Waves and EM physics"
+   },
+   {
+    "id": "M0.3",
+    "tier": "core",
+    "book": 56,
+    "paper": 0,
+    "title": "Signals, Fourier, convolution, sampling"
+   },
+   {
+    "id": "M0.4",
+    "tier": "core",
+    "book": 24,
+    "paper": 0,
+    "title": "Probability, noise and random signals"
+   },
+   {
+    "id": "M0.5",
+    "tier": "core",
+    "book": 42,
+    "paper": 0,
+    "title": "Modulation and digital communication"
+   },
+   {
+    "id": "M0.6",
+    "tier": "core",
+    "book": 15,
+    "paper": 0,
+    "title": "Estimation and least squares"
+   },
+   {
+    "id": "M0.7",
+    "tier": "core",
+    "book": 8,
+    "paper": 0,
+    "title": "Feedback control basics"
+   },
+   {
+    "id": "M0.8",
+    "tier": "core",
+    "book": 11,
+    "paper": 0,
+    "title": "Spherical trigonometry for EW"
+   }
+  ],
+  "main_sources_he": "EW 101 ‏2; PoMR 1, 14, 18 ונספח A; Driggers 2; Hall 3–7, 18; Kaplan נספח A. חופף ל-Gilua P4–P8 ונלמד כדלתא.",
+  "pages_measured": {
+   "core_book": 210,
+   "adv_book": 0,
+   "core_paper": 0,
+   "adv_paper": 0,
+   "reference_book_not_in_plan": 0
+  },
+  "lv_level": "A3 (ידע) · A2 (שטף)",
+  "missing_he": "גזירת CRB לפרמטרים של אות (השהיה, תדר, זווית) ברמת תואר שני; הקשר בין CRB ל-DOP ול-CEP; ספריית חישובים בדוקה (פער כלים, לא עמודים).",
+  "closing": [
+   {
+    "source": "Kay, Fundamentals of Statistical Signal Processing, Vol. I: Estimation Theory (1993)",
+    "chapters": "פרק 3 (Cramér-Rao Lower Bound), 3.1–3.7 ו-3.11 (דוגמאות של עיבוד אותות)",
+    "gross": 40,
+    "new": 25,
+    "replaced": 0,
+    "replaced_eff": 0,
+    "slot": "M0.6, אחרי Wasserman 9 (Fisher) ב-Gilua",
+    "tier": "ליבה",
+    "basis": "estimate"
+   }
+  ],
+  "savings": [],
+  "note_he": "P0 כבר נספר כדלתא מול Gilua במודל F (cross-app dup), ולכן לא נספר כאן חיסכון נוסף ממנו.",
+  "delta": {
+   "added_new": 25,
+   "replaced_raw": 0,
+   "replaced_eff": 0,
+   "saved_book_raw": 0,
+   "saved_book_testout": 0,
+   "saved_paper_raw": 0,
+   "net_raw": 25,
+   "net_eff_A": 25,
+   "net_eff_B": 25,
+   "net_hours_A": 4.2,
+   "net_hours_B": 4.2
+  }
+ },
+ {
+  "id": "MIL · Antennas and propagation",
+  "role": "deep",
+  "target": "A4",
+  "target_meaning_he": "ליבת תואר שני באנטנות, מערכים, התפשטות ושרשרת ה-RF: גוזר דיפול ו-patch, פקטור מערך וצימוד הדדי, Friis, פרנל, כדור 4/3 ו-multipath, ומתכנן תקציב קישור מהאנטנה עד המקלט.",
+  "modules": [
+   {
+    "id": "M1.1",
+    "tier": "core",
+    "book": 33,
+    "paper": 0,
+    "title": "Antennas"
+   },
+   {
+    "id": "M1.2",
+    "tier": "core",
+    "book": 54,
+    "paper": 0,
+    "title": "Phased arrays"
+   },
+   {
+    "id": "M1.3",
+    "tier": "core",
+    "book": 79,
+    "paper": 72,
+    "title": "Propagation"
+   }
+  ],
+  "main_sources_he": "PoMR 4, 9; EW 101 ‏3; EW 102 ‏5; Moir 2.6–2.7, 4.4, 7.2; Hall; NRL Low-Altitude Vol. 1 (מאמר).",
+  "pages_measured": {
+   "core_book": 166,
+   "adv_book": 0,
+   "core_paper": 72,
+   "adv_paper": 0,
+   "reference_book_not_in_plan": 0
+  },
+  "lv_level": "A3 (ידע) · A2 (שטף)",
+  "missing_he": "תאוריית אנטנות ברמת גזירה (אינטגרלי קרינה, דיפול, patch), סינתזת מערך, צימוד הדדי; כל שרשרת ה-RF בין האנטנה למקלט: קווי תמסורת, Smith, התאמה, S-parameters, רעש ו-cascade, רכיבי מיקרוגל.",
+  "closing": [
+   {
+    "source": "Pozar, Microwave Engineering, 4th ed. (2012) — בספרייה",
+    "chapters": "M1.5 (ליבה): 2.1–2.7, 3.5, 3.8, 3.11, 4.1–4.5, 5.1–5.2, 5.4–5.5, 5.9 (עמ' מודפס 48–84, 130–134, 147–152, 157–158, 166–202, 229–240, 246–251, 266–271; PDF = מודפס + 20)",
+    "gross": 111,
+    "new": 111,
+    "replaced": 0,
+    "replaced_eff": 0,
+    "slot": "P1, חדש M1.5, אחרי M1.3 ולפני M1.4",
+    "tier": "ליבה",
+    "basis": "measured"
+   },
+   {
+    "source": "Pozar (המשך)",
+    "chapters": "M1.6 (ליבה): 10.1–10.4, 12.1–12.2, 13.5 (עד עמ' 651), 14.1 (עמ' מודפס 496–523, 558–570, 637–651, 658–670)",
+    "gross": 69,
+    "new": 61,
+    "replaced": 5,
+    "replaced_eff": 5,
+    "slot": "P1, חדש M1.6; דרישה של M1.4, M2.8 ו-M4.2",
+    "tier": "ליבה",
+    "basis": "measured (overlap estimate)"
+   },
+   {
+    "source": "Pozar (המשך)",
+    "chapters": "M1.7 (מתקדם): 7.1, 7.3, 7.5, 7.8, 8.3–8.4, 9.6, 12.5, 13.3 (עמ' מודפס 317–323, 328–332, 343–346, 362–366, 399–414, 487–495, 596–603, 622–626)",
+    "gross": 59,
+    "new": 56,
+    "replaced": 0,
+    "replaced_eff": 0,
+    "slot": "P1, חדש M1.7; לפני M2.14 (השוואה במונופולס), M2.23 ו-M2.30",
+    "tier": "מתקדם",
+    "basis": "measured (overlap estimate)"
+   },
+   {
+    "source": "Balanis, Antenna Theory: Analysis and Design, 4th ed. (2016)",
+    "chapters": "4.1–4.6 (דיפול אינפיניטסימלי עד חצי גל), 6.1–6.4 ו-6.10 (מערכים לינאריים ומישוריים, binomial/Dolph), 8.6 (עכבה עצמית והדדית), 14.1–14.2 (patch מלבני: מודל קו ומודל חלל)",
+    "gross": 150,
+    "new": 117,
+    "replaced": 18,
+    "replaced_eff": 10,
+    "slot": "M1.1 ו-M1.2 (◇ שמחליף את Hall 27–32, Hall 121–124 ו-Moir 4.4)",
+    "tier": "ליבה",
+    "basis": "estimate"
+   }
+  ],
+  "savings": [],
+  "note_he": "Pozar פרקים 1, 3.3 ו-6 לא נלקחים: Gilua M9.9, M9.11 (פיינמן) מלמדים אותם. פרק 11 (התקנים), 13.1–13.2, 13.4 ו-14.2–14.6 חופפים ל-PoMR 10–11 ו-4 ול-Gilua M11. העמודים של Pozar משרתים גם מכ\"ם, EW ותקשורת, ונספרים כאן פעם אחת.",
+  "delta": {
+   "added_new": 345,
+   "replaced_raw": 23,
+   "replaced_eff": 15,
+   "saved_book_raw": 0,
+   "saved_book_testout": 0,
+   "saved_paper_raw": 0,
+   "net_raw": 322,
+   "net_eff_A": 330,
+   "net_eff_B": 330,
+   "net_hours_A": 55.0,
+   "net_hours_B": 55.0
+  }
+ },
+ {
+  "id": "MIL · Radar",
+  "role": "deep",
+  "target": "A4–A5",
+  "target_meaning_he": "רמת qualifying exam במכ\"ם: משוואת המכ\"ם בכל צורותיה, פונקציית עמימות, clutter ו-MTI, רעיון STAP, CFAR, תורת גילוי, מיקרו-דופלר ו-ECCM, עם תקציב SNR מראש וכיול מול מדידה.",
+  "modules": [
+   {
+    "id": "M2.1",
+    "tier": "core",
+    "book": 109,
+    "paper": 0,
+    "title": "Radar overview"
+   },
+   {
+    "id": "M2.2",
+    "tier": "core",
+    "book": 42,
+    "paper": 0,
+    "title": "The radar range equation"
+   },
+   {
+    "id": "M2.3",
+    "tier": "core",
+    "book": 28,
+    "paper": 0,
+    "title": "Search and detection overview"
+   },
+   {
+    "id": "M2.4",
+    "tier": "core",
+    "book": 62,
+    "paper": 241,
+    "title": "RCS, scattering and stealth"
+   },
+   {
+    "id": "M2.5",
+    "tier": "core",
+    "book": 26,
+    "paper": 0,
+    "title": "Target fluctuation models"
+   },
+   {
+    "id": "M2.6",
+    "tier": "core",
+    "book": 52,
+    "paper": 0,
+    "title": "Clutter"
+   },
+   {
+    "id": "M2.7",
+    "tier": "core",
+    "book": 37,
+    "paper": 0,
+    "title": "Doppler phenomenology"
+   },
+   {
+    "id": "M2.8",
+    "tier": "core",
+    "book": 95,
+    "paper": 0,
+    "title": "Radar hardware"
+   },
+   {
+    "id": "M2.9",
+    "tier": "core",
+    "book": 11,
+    "paper": 0,
+    "title": "Integration and matched filtering"
+   },
+   {
+    "id": "M2.10",
+    "tier": "core",
+    "book": 42,
+    "paper": 0,
+    "title": "Threshold detection"
+   },
+   {
+    "id": "M2.11",
+    "tier": "core",
+    "book": 36,
+    "paper": 0,
+    "title": "Constant false alarm rate"
+   },
+   {
+    "id": "M2.12",
+    "tier": "core",
+    "book": 75,
+    "paper": 0,
+    "title": "Pulse compression and ambiguity"
+   },
+   {
+    "id": "M2.13",
+    "tier": "core",
+    "book": 89,
+    "paper": 0,
+    "title": "Doppler processing"
+   },
+   {
+    "id": "M2.14",
+    "tier": "core",
+    "book": 25,
+    "paper": 0,
+    "title": "Radar measurements and monopulse"
+   },
+   {
+    "id": "M2.15",
+    "tier": "core",
+    "book": 79,
+    "paper": 15,
+    "title": "Tracking"
+   },
+   {
+    "id": "M2.16",
+    "tier": "core",
+    "book": 180,
+    "paper": 179,
+    "title": "Airborne radar: pulse-Doppler, GMTI, STAP"
+   },
+   {
+    "id": "M2.17",
+    "tier": "core",
+    "book": 72,
+    "paper": 0,
+    "title": "Radar imaging"
+   },
+   {
+    "id": "M2.18",
+    "tier": "core",
+    "book": 10,
+    "paper": 0,
+    "title": "LPI radar"
+   },
+   {
+    "id": "M2.19",
+    "tier": "adv",
+    "book": 63,
+    "paper": 0,
+    "title": "Radar signal processor"
+   },
+   {
+    "id": "M2.20",
+    "tier": "core",
+    "book": 70,
+    "paper": 0,
+    "title": "CW and FMCW radar"
+   },
+   {
+    "id": "M2.21",
+    "tier": "core",
+    "book": 30,
+    "paper": 0,
+    "title": "MMW radar"
+   },
+   {
+    "id": "M2.22",
+    "tier": "core",
+    "book": 58,
+    "paper": 0,
+    "title": "Fire-control radar"
+   },
+   {
+    "id": "M2.23",
+    "tier": "core",
+    "book": 34,
+    "paper": 0,
+    "title": "Multifunction phased array radar"
+   },
+   {
+    "id": "M2.24",
+    "tier": "core",
+    "book": 44,
+    "paper": 0,
+    "title": "Passive bistatic radar"
+   },
+   {
+    "id": "M2.25",
+    "tier": "adv",
+    "book": 68,
+    "paper": 0,
+    "title": "Space-based SAR"
+   },
+   {
+    "id": "M2.26",
+    "tier": "adv",
+    "book": 56,
+    "paper": 0,
+    "title": "Foliage-penetrating radar"
+   },
+   {
+    "id": "M2.27",
+    "tier": "adv",
+    "book": 48,
+    "paper": 0,
+    "title": "Air traffic control radar and SSR"
+   },
+   {
+    "id": "M2.28",
+    "tier": "ref",
+    "book": 132,
+    "paper": 0,
+    "title": "Weather, ground-penetrating and police radar"
+   },
+   {
+    "id": "M2.29",
+    "tier": "core",
+    "book": 34,
+    "paper": 13,
+    "title": "Multitarget, multisensor tracking"
+   },
+   {
+    "id": "M2.30",
+    "tier": "core",
+    "book": 52,
+    "paper": 0,
+    "title": "Adaptive digital beamforming"
+   },
+   {
+    "id": "M2.31",
+    "tier": "adv",
+    "book": 68,
+    "paper": 0,
+    "title": "Advanced pulse compression waveforms"
+   },
+   {
+    "id": "M2.32",
+    "tier": "adv",
+    "book": 60,
+    "paper": 0,
+    "title": "MIMO radar"
+   },
+   {
+    "id": "M2.33",
+    "tier": "adv",
+    "book": 62,
+    "paper": 0,
+    "title": "Sparse reconstruction and compressed sensing"
+   },
+   {
+    "id": "M2.34",
+    "tier": "adv",
+    "book": 188,
+    "paper": 0,
+    "title": "Advanced SAR"
+   },
+   {
+    "id": "M2.35",
+    "tier": "adv",
+    "book": 30,
+    "paper": 0,
+    "title": "Space-time coding"
+   },
+   {
+    "id": "M2.36",
+    "tier": "adv",
+    "book": 42,
+    "paper": 0,
+    "title": "Radar polarimetry"
+   },
+   {
+    "id": "M2.37",
+    "tier": "adv",
+    "book": 38,
+    "paper": 0,
+    "title": "Radar ATR"
+   },
+   {
+    "id": "M2.38",
+    "tier": "adv",
+    "book": 34,
+    "paper": 0,
+    "title": "Dismount detection and micro-Doppler"
+   },
+   {
+    "id": "M2.39",
+    "tier": "adv",
+    "book": 84,
+    "paper": 0,
+    "title": "Advanced passive bistatic radar processing"
+   }
+  ],
+  "main_sources_he": "PoMR I (כמעט כולו), PoMR II ו-III; ◇ Hall, Moir, EW 102; מאמרים: Ward STAP, Ufimtsev PTD, Arulampalam, Vo.",
+  "pages_measured": {
+   "core_book": 1392,
+   "adv_book": 841,
+   "core_paper": 448,
+   "adv_paper": 0,
+   "reference_book_not_in_plan": 132
+  },
+  "lv_level": "A4 מושגים · A2–A3 שטף",
+  "missing_he": "שרשרת ה-RF של המשדר והמקלט ברמת תכן (התאמה, S-parameters, cascade, טווח דינמי, מערבלים): נסגר ב-Pozar (בשורה של אנטנות). השאר הוא שטף בגזירה ובתכן צורת גל, כלומר תרגול ולא עמודים חדשים.",
+  "closing": [],
+  "savings": [
+   {
+    "module": "M2.1",
+    "what": "◇ Hall פרקים 8–9 (PDF 89–110)",
+    "raw_book": 22,
+    "raw_paper": 0,
+    "to": 0,
+    "kind": "כפילות",
+    "why": "אותה תוצאה כמו PoMR 1–2 ו-M2.20"
+   },
+   {
+    "module": "M2.1",
+    "what": "◇ Moir 3.1–3.4 (PDF 122–134)",
+    "raw_book": 13,
+    "raw_paper": 0,
+    "to": 10,
+    "kind": "כפילות",
+    "why": "סקירת אופני מכ\"ם שנלמדים במלואם ב-M2.13, M2.16"
+   },
+   {
+    "module": "M2.1",
+    "what": "◇ PoMR II פרק 1 ו-PoMR III פרק 1 (סקירות)",
+    "raw_book": 32,
+    "raw_paper": 0,
+    "to": 17,
+    "kind": "כפילות",
+    "why": "מפת דרכים לפרקים שנלמדים במלואם"
+   },
+   {
+    "module": "M2.13",
+    "what": "★ Moir 4.2–4.3 (PDF 163–178) ו-◇ Hall 111–116",
+    "raw_book": 22,
+    "raw_paper": 0,
+    "to": 16,
+    "kind": "כפילות",
+    "why": "פולס-דופלר מוטס: PoMR 17 ו-PoMR III 5 (M2.16)"
+   },
+   {
+    "module": "M2.15",
+    "what": "◇ Hall פרק 11 ו-Moir 3.8",
+    "raw_book": 19,
+    "raw_paper": 0,
+    "to": 7,
+    "kind": "כפילות",
+    "why": "PoMR 19 מלמד עקיבה במלואה"
+   },
+   {
+    "module": "M2.12",
+    "what": "◇ Moir 4.1 ו-Hall 117–118",
+    "raw_book": 7,
+    "raw_paper": 0,
+    "to": 0,
+    "kind": "כפילות",
+    "why": "PoMR 20"
+   },
+   {
+    "module": "M2.17",
+    "what": "◇ Moir 4.5 ו-Hall 118–121",
+    "raw_book": 10,
+    "raw_paper": 0,
+    "to": 0,
+    "kind": "כפילות",
+    "why": "PoMR 21"
+   },
+   {
+    "module": "M2.16",
+    "what": "📄 Ward, LL TR-1015: להשאיר פרקים 1–2 (כ-40 עמ')",
+    "raw_book": 0,
+    "raw_paper": 139,
+    "to": 0,
+    "kind": "כפילות",
+    "why": "PoMR II פרק 10 ו-PoMR III פרקים 5, 9 נותנים את STAP; היעד דורש \"רעיון STAP\""
+   },
+   {
+    "module": "M2.4",
+    "what": "📄 Ufimtsev, PTD: להשאיר מבוא ופרק 1 (כ-30 עמ')",
+    "raw_book": 0,
+    "raw_paper": 211,
+    "to": 0,
+    "kind": "מעבר ליעד",
+    "why": "מונוגרפיה של מומחה RCS; PoMR 6 נותן את שלושת משטרי הפיזור ברמת היעד"
+   }
+  ],
+  "note_he": "תרגול לרמת A5: בעיות מ-Richards, Fundamentals of Radar Signal Processing, 2nd ed., פרקים 4–7, כמשימות lab, בלי עמודי קריאה חדשים.",
+  "delta": {
+   "added_new": 0,
+   "replaced_raw": 0,
+   "replaced_eff": 0,
+   "saved_book_raw": 125,
+   "saved_book_testout": 50,
+   "saved_paper_raw": 350,
+   "net_raw": -475,
+   "net_eff_A": -275.0,
+   "net_eff_B": -100.0,
+   "net_hours_A": -45.8,
+   "net_hours_B": -16.7
+  }
+ },
+ {
+  "id": "MIL · Electro-optical and infrared sensing",
+  "role": "core",
+  "target": "A3–A4",
+  "target_meaning_he": "קורס מבוא לתואר שני ומעט מעבר: שרשרת רדיומטרית, MTF, NETD/MRT, Johnson ו-TTP, תמסורת וניגוד, ומודל טווח שמאומת מול תוצאה שפורסמה.",
+  "modules": [
+   {
+    "id": "M3.1",
+    "tier": "core",
+    "book": 32,
+    "paper": 0,
+    "title": "EO/IR introduction"
+   },
+   {
+    "id": "M3.2",
+    "tier": "core",
+    "book": 28,
+    "paper": 0,
+    "title": "LSI systems, PSF, MTF"
+   },
+   {
+    "id": "M3.3",
+    "tier": "core",
+    "book": 111,
+    "paper": 0,
+    "title": "Diffraction and optics"
+   },
+   {
+    "id": "M3.4",
+    "tier": "core",
+    "book": 58,
+    "paper": 0,
+    "title": "Radiometry, targets and backgrounds"
+   },
+   {
+    "id": "M3.5",
+    "tier": "core",
+    "book": 26,
+    "paper": 0,
+    "title": "Atmospherics"
+   },
+   {
+    "id": "M3.6",
+    "tier": "core",
+    "book": 44,
+    "paper": 0,
+    "title": "Detectors"
+   },
+   {
+    "id": "M3.7",
+    "tier": "adv",
+    "book": 24,
+    "paper": 0,
+    "title": "Electronics"
+   },
+   {
+    "id": "M3.8",
+    "tier": "adv",
+    "book": 41,
+    "paper": 0,
+    "title": "Image processing, perception, ATR"
+   },
+   {
+    "id": "M3.9",
+    "tier": "core",
+    "book": 66,
+    "paper": 0,
+    "title": "Performance models, Johnson to TTP"
+   },
+   {
+    "id": "M3.10",
+    "tier": "core",
+    "book": 113,
+    "paper": 0,
+    "title": "System performance and target acquisition"
+   },
+   {
+    "id": "M3.11",
+    "tier": "core",
+    "book": 58,
+    "paper": 0,
+    "title": "Search theory"
+   },
+   {
+    "id": "M3.12",
+    "tier": "adv",
+    "book": 0,
+    "paper": 38,
+    "title": "Hyperspectral detection"
+   },
+   {
+    "id": "M3.13",
+    "tier": "core",
+    "book": 39,
+    "paper": 0,
+    "title": "Lasers, night vision, designation"
+   },
+   {
+    "id": "M3.14",
+    "tier": "ref",
+    "book": 12,
+    "paper": 0,
+    "title": "Lab measurements"
+   }
+  ],
+  "main_sources_he": "Driggers (כמעט כולו), Hall 12–14, Moir 5, EW 102 ‏4, Fahlstrom 10; מאמר Manolakis (מתקדם).",
+  "pages_measured": {
+   "core_book": 575,
+   "adv_book": 65,
+   "core_paper": 0,
+   "adv_paper": 38,
+   "reference_book_not_in_plan": 12
+  },
+  "lv_level": "A3 · A2",
+  "missing_he": "שטף בחישובי NETD/MRT ובמודל TTP מלא (NV-IPM/TRM4): פער כלים ותרגול. אין נושא שחסר בספרים.",
+  "closing": [],
+  "savings": [
+   {
+    "module": "M3.1",
+    "what": "◇ Hall פרק 12, EW 102 ‏4.1, Moir 5.1",
+    "raw_book": 18,
+    "raw_paper": 0,
+    "to": 8,
+    "kind": "כפילות",
+    "why": "Driggers 1 ו-5 מכסים מקורות וספקטרום"
+   },
+   {
+    "module": "M3.4",
+    "what": "◇ Hall פרק 13 (PDF 147–158)",
+    "raw_book": 12,
+    "raw_paper": 0,
+    "to": 0,
+    "kind": "כפילות",
+    "why": "Driggers 5 (רדיומטריה)"
+   },
+   {
+    "module": "M3.10",
+    "what": "◇ Fahlstrom 10.1–10.3, 10.5",
+    "raw_book": 26,
+    "raw_paper": 0,
+    "to": 12,
+    "kind": "כפילות",
+    "why": "Driggers 14 (N50/V50) באותה תוצאה"
+   }
+  ],
+  "note_he": "",
+  "delta": {
+   "added_new": 0,
+   "replaced_raw": 0,
+   "replaced_eff": 0,
+   "saved_book_raw": 56,
+   "saved_book_testout": 20,
+   "saved_paper_raw": 0,
+   "net_raw": -56,
+   "net_eff_A": -46.0,
+   "net_eff_B": -46.0,
+   "net_hours_A": -7.7,
+   "net_hours_B": -7.7
+  }
+ },
+ {
+  "id": "MIL · Electronic warfare and electromagnetic spectrum operations",
+  "role": "deep",
+  "target": "A4",
+  "target_meaning_he": "תעודת NPS 292/294 כולל מעבדות: J/S ו-burn-through, משוואת טווח ES, רווח עיבוד LPI, deinterleaving, דיוק DOA ומחזור CM/CCM, עם ספסל אותות מוכרים.",
+  "modules": [
+   {
+    "id": "M4.1",
+    "tier": "core",
+    "book": 45,
+    "paper": 0,
+    "title": "EW overview and threats"
+   },
+   {
+    "id": "M4.2",
+    "tier": "core",
+    "book": 13,
+    "paper": 0,
+    "title": "EW receivers"
+   },
+   {
+    "id": "M4.3",
+    "tier": "core",
+    "book": 13,
+    "paper": 73,
+    "title": "EW processing"
+   },
+   {
+    "id": "M4.4",
+    "tier": "core",
+    "book": 20,
+    "paper": 0,
+    "title": "Search strategies"
+   },
+   {
+    "id": "M4.5",
+    "tier": "core",
+    "book": 8,
+    "paper": 0,
+    "title": "SIGINT and ESM"
+   },
+   {
+    "id": "M4.6",
+    "tier": "core",
+    "book": 70,
+    "paper": 0,
+    "title": "Emitter location"
+   },
+   {
+    "id": "M4.7",
+    "tier": "core",
+    "book": 25,
+    "paper": 0,
+    "title": "Jamming fundamentals"
+   },
+   {
+    "id": "M4.8",
+    "tier": "core",
+    "book": 27,
+    "paper": 227,
+    "title": "Deceptive jamming"
+   },
+   {
+    "id": "M4.9",
+    "tier": "core",
+    "book": 18,
+    "paper": 0,
+    "title": "Decoys"
+   },
+   {
+    "id": "M4.10",
+    "tier": "core",
+    "book": 29,
+    "paper": 81,
+    "title": "IR countermeasures and defensive aids"
+   },
+   {
+    "id": "M4.11",
+    "tier": "core",
+    "book": 42,
+    "paper": 0,
+    "title": "LPI signals and communications EW"
+   },
+   {
+    "id": "M4.12",
+    "tier": "core",
+    "book": 28,
+    "paper": 0,
+    "title": "Satellite links and their jamming"
+   },
+   {
+    "id": "M4.13",
+    "tier": "ref",
+    "book": 17,
+    "paper": 0,
+    "title": "EW operator interface"
+   },
+   {
+    "id": "M4.14",
+    "tier": "adv",
+    "book": 36,
+    "paper": 0,
+    "title": "EW simulation"
+   },
+   {
+    "id": "M4.15",
+    "tier": "core",
+    "book": 40,
+    "paper": 0,
+    "title": "EW problem bank"
+   },
+   {
+    "id": "M4.16",
+    "tier": "core",
+    "book": 58,
+    "paper": 0,
+    "title": "Electronic protection"
+   }
+  ],
+  "main_sources_he": "EW 101, EW 102, PoMR II 12, Moir 6; מאמרים: Qu, O'Shea, Hiles, du Plessis, Nityananda, Chang.",
+  "pages_measured": {
+   "core_book": 436,
+   "adv_book": 36,
+   "core_paper": 381,
+   "adv_paper": 0,
+   "reference_book_not_in_plan": 17
+  },
+  "lv_level": "A3–A4 · A2–A3",
+  "missing_he": "טווח דינמי, IP3, מערבלים וסלקטיביות של מקלט ES ברמת תכן (נסגר ב-Pozar 10, 13.5 בשורה של אנטנות); מחזור CM/CCM וקצביו (כתיבת המורה); מעבדה (מוצר, לא עמודים).",
+  "closing": [],
+  "savings": [
+   {
+    "module": "M4.7",
+    "what": "◇ Moir 6.4 (ECM ו-ECCM)",
+    "raw_book": 6,
+    "raw_paper": 0,
+    "to": 6,
+    "kind": "כפילות",
+    "why": "EW 101 ‏9.1–9.4"
+   },
+   {
+    "module": "M4.8",
+    "what": "📄 du Plessis ו-Nityananda: להשאיר כ-40 עמ' מכל אחד (רקע, מודל, תוצאות)",
+    "raw_book": 0,
+    "raw_paper": 147,
+    "to": 0,
+    "kind": "מעבר ליעד",
+    "why": "עבודות גמר ארוכות; הפרקים הניסויים מעבר ל-A4"
+   },
+   {
+    "module": "M4.10",
+    "what": "📄 Chang, IR missile CM: להשאיר כ-30 עמ'",
+    "raw_book": 0,
+    "raw_paper": 51,
+    "to": 0,
+    "kind": "מעבר ליעד",
+    "why": "EW 102 ‏4.2–4.7 ו-Moir 6.5 נותנים את התוצאה"
+   }
+  ],
+  "note_he": "",
+  "delta": {
+   "added_new": 0,
+   "replaced_raw": 0,
+   "replaced_eff": 0,
+   "saved_book_raw": 6,
+   "saved_book_testout": 6,
+   "saved_paper_raw": 198,
+   "net_raw": -204,
+   "net_eff_A": -102.0,
+   "net_eff_B": -3.0,
+   "net_hours_A": -17.0,
+   "net_hours_B": -0.5
+  }
+ },
+ {
+  "id": "MIL · Communications, datalinks and networks",
+  "role": "core",
+  "target": "A3–A4",
+  "target_meaning_he": "תקציב לינק, TDMA ו-Link 16 ברמת ארכיטקטורה, LPI, ניתוב ב-MANET והשהיה, עם בדיקה מול תאוריה ומדידת SDR.",
+  "modules": [
+   {
+    "id": "M1.4",
+    "tier": "core",
+    "book": 18,
+    "paper": 0,
+    "title": "One-way link and receiver sensitivity"
+   },
+   {
+    "id": "M7.9",
+    "tier": "core",
+    "book": 10,
+    "paper": 322,
+    "title": "Link 16, C2 and networked warfare"
+   },
+   {
+    "id": "M9.5",
+    "tier": "core",
+    "book": 70,
+    "paper": 0,
+    "title": "UAS data links"
+   },
+   {
+    "id": "M13.10",
+    "tier": "core",
+    "book": 38,
+    "paper": 0,
+    "title": "Communications payloads and SATCOM"
+   },
+   {
+    "id": "M13.15",
+    "tier": "core",
+    "book": 36,
+    "paper": 0,
+    "title": "TT&C and power"
+   }
+  ],
+  "main_sources_he": "EW 101 ‏4.11–4.13, PoMR 2.14; Moir 7.4–7.5; Fahlstrom 13–16; SMAD 16, 21; מאמרים: SISO Link 16, AFIT, RAND MG-268. פיזיקת הקשר מ-Gilua (Tse, MacKay).",
+  "pages_measured": {
+   "core_book": 172,
+   "adv_book": 0,
+   "core_paper": 322,
+   "adv_paper": 0,
+   "reference_book_not_in_plan": 0
+  },
+  "lv_level": "A3 קישורים / A2 רשתות · A2",
+  "missing_he": "רשתות טקטיות ו-MANET: אלגוריתמי ניתוב, MAC, השהיה ותפוקה מול מספר קפיצות.",
+  "closing": [
+   {
+    "source": "Kurose & Ross, Computer Networking, 8th ed. (2021); Murthy & Manoj, Ad Hoc Wireless Networks (2004)",
+    "chapters": "K&R 5.2 (ניתוב LS ו-DV) ו-7.3 (802.11, CSMA/CA); M&M 7.1–7.5 (סיווג פרוטוקולי ניתוב, DSDV, AODV, OLSR)",
+    "gross": 80,
+    "new": 65,
+    "replaced": 0,
+    "replaced_eff": 0,
+    "slot": "M7.9, לפני Link 16",
+    "tier": "ליבה",
+    "basis": "estimate"
+   }
+  ],
+  "savings": [
+   {
+    "module": "M7.9",
+    "what": "📄 SISO-STD-002 (להשאיר כ-30 עמ': TDMA ושכבה פיזית), AFIT (כ-25), RAND MG-268 (כ-60)",
+    "raw_book": 0,
+    "raw_paper": 207,
+    "to": 0,
+    "kind": "מעבר ליעד",
+    "why": "Link 16 נדרש ברמת ארכיטקטורה, לא ברמת התקן"
+   }
+  ],
+  "note_he": "",
+  "delta": {
+   "added_new": 65,
+   "replaced_raw": 0,
+   "replaced_eff": 0,
+   "saved_book_raw": 0,
+   "saved_book_testout": 0,
+   "saved_paper_raw": 207,
+   "net_raw": -142,
+   "net_eff_A": -38.5,
+   "net_eff_B": 65.0,
+   "net_hours_A": -6.4,
+   "net_hours_B": 10.8
+  }
+ },
+ {
+  "id": "MIL · Positioning, navigation and timing",
+  "role": "deep",
+  "target": "A4",
+  "target_meaning_he": "GNSS ברמת תואר שני כולל INS ותזמון: משוואת הפסאודו-טווח, DOP, C/N0, J/N, ספי לולאות, צמיחת שגיאת INS, Allan deviation ומסגרות, עם נתוני IGS ו-IQ מוקלט.",
+  "modules": [
+   {
+    "id": "M5.1",
+    "tier": "core",
+    "book": 70,
+    "paper": 0,
+    "title": "Satnav fundamentals"
+   },
+   {
+    "id": "M5.2",
+    "tier": "adv",
+    "book": 46,
+    "paper": 0,
+    "title": "System segments"
+   },
+   {
+    "id": "M5.3",
+    "tier": "core",
+    "book": 40,
+    "paper": 0,
+    "title": "Satellite signals"
+   },
+   {
+    "id": "M5.4",
+    "tier": "core",
+    "book": 90,
+    "paper": 0,
+    "title": "Acquisition and tracking loops"
+   },
+   {
+    "id": "M5.5",
+    "tier": "core",
+    "book": 58,
+    "paper": 22,
+    "title": "Interference, spoofing, multipath"
+   },
+   {
+    "id": "M5.6",
+    "tier": "core",
+    "book": 82,
+    "paper": 0,
+    "title": "Stand-alone performance"
+   },
+   {
+    "id": "M5.7",
+    "tier": "adv",
+    "book": 80,
+    "paper": 0,
+    "title": "Differential GPS"
+   },
+   {
+    "id": "M5.8",
+    "tier": "core",
+    "book": 84,
+    "paper": 0,
+    "title": "INS and integration"
+   },
+   {
+    "id": "M5.9",
+    "tier": "adv",
+    "book": 76,
+    "paper": 0,
+    "title": "Other GNSS"
+   },
+   {
+    "id": "M5.10",
+    "tier": "adv",
+    "book": 68,
+    "paper": 0,
+    "title": "Land-vehicle sensor integration and network assistance"
+   },
+   {
+    "id": "M5.11",
+    "tier": "core",
+    "book": 25,
+    "paper": 4,
+    "title": "Alt-PNT"
+   }
+  ],
+  "main_sources_he": "Kaplan & Hegarty (כמעט כולו), Moir 8, Siouris 7.3–7.5, Hall 20; מאמרים: Humphreys, Liu, Kassas.",
+  "pages_measured": {
+   "core_book": 449,
+   "adv_book": 270,
+   "core_paper": 26,
+   "adv_paper": 0,
+   "reference_book_not_in_plan": 0
+  },
+  "lv_level": "A3 · A2",
+  "missing_he": "משוואות ניווט אינרציאלי והתפשטות שגיאה, שילוב GNSS/INS ברמת תכן, מסגרות; Allan deviation וזיהוי סוגי רעש בשעון.",
+  "closing": [
+   {
+    "source": "Groves, Principles of GNSS, Inertial, and Multisensor Integrated Navigation Systems, 2nd ed. (2013)",
+    "chapters": "2.2–2.3 (מסגרות וטרנספורמציות), 4.4 (מאפייני שגיאה של חיישנים), 5.1–5.5 ו-5.7 (משוואות ניווט והתפשטות שגיאה), 14.1–14.2 (שילוב בצימוד רופף)",
+    "gross": 130,
+    "new": 95,
+    "replaced": 36,
+    "replaced_eff": 23,
+    "slot": "M5.8, ★ במקום Moir 8.1–8.5, 8.8–8.9 ו-◇ Hall 20",
+    "tier": "ליבה",
+    "basis": "estimate"
+   },
+   {
+    "source": "Riley, Handbook of Frequency Stability Analysis, NIST SP 1065 (2008)",
+    "chapters": "הסעיפים על מדדי יציבות, Allan ו-modified Allan, וזיהוי סוגי רעש",
+    "gross": 30,
+    "new": 30,
+    "replaced": 0,
+    "replaced_eff": 0,
+    "slot": "M5.6, אחרי נספח B של Kaplan",
+    "tier": "ליבה",
+    "basis": "estimate"
+   }
+  ],
+  "savings": [
+   {
+    "module": "M5.9",
+    "what": "★ Kaplan 10–11 (GNSS אחרים, 2006): להשאיר כ-26 עמ' (מבנה, תדרים, תאימות)",
+    "raw_book": 50,
+    "raw_paper": 0,
+    "to": 29,
+    "kind": "תיאורי ומיושן",
+    "why": "תיאור האותות מ-2006 בלי BeiDou של היום; המצב העדכני ממסמכי ICD ברשימת הקריאה"
+   }
+  ],
+  "note_he": "",
+  "delta": {
+   "added_new": 125,
+   "replaced_raw": 36,
+   "replaced_eff": 23,
+   "saved_book_raw": 50,
+   "saved_book_testout": 29,
+   "saved_paper_raw": 0,
+   "net_raw": 39,
+   "net_eff_A": 66.5,
+   "net_eff_B": 66.5,
+   "net_hours_A": 11.1,
+   "net_hours_B": 11.1
+  }
+ },
+ {
+  "id": "MIL · Missiles: propulsion, guidance, control and design",
+  "role": "core",
+  "target": "A4",
+  "target_meaning_he": "ליבת תואר שני: PN ו-APN, קבוע זמן של מערכת ההנחיה, מרחק החטאה ב-adjoint, Δv, אווירודינמיקה בסדר גודל ועמידות מבנית, עם השוואה ל-Zarchan.",
+  "modules": [
+   {
+    "id": "M6.1",
+    "tier": "core",
+    "book": 52,
+    "paper": 0,
+    "title": "Equations of motion"
+   },
+   {
+    "id": "M6.2",
+    "tier": "core",
+    "book": 114,
+    "paper": 0,
+    "title": "Aerodynamics, missile model, autopilots"
+   },
+   {
+    "id": "M6.3",
+    "tier": "core",
+    "book": 30,
+    "paper": 0,
+    "title": "Guidance phases and intercept techniques"
+   },
+   {
+    "id": "M6.4",
+    "tier": "core",
+    "book": 61,
+    "paper": 0,
+    "title": "Proportional navigation"
+   },
+   {
+    "id": "M6.5",
+    "tier": "core",
+    "book": 34,
+    "paper": 15,
+    "title": "Optimal guidance and end game"
+   },
+   {
+    "id": "M6.6",
+    "tier": "core",
+    "book": 37,
+    "paper": 0,
+    "title": "Seekers and guidance system model"
+   },
+   {
+    "id": "M6.7",
+    "tier": "core",
+    "book": 140,
+    "paper": 0,
+    "title": "Weapon delivery"
+   },
+   {
+    "id": "M6.8",
+    "tier": "core",
+    "book": 147,
+    "paper": 0,
+    "title": "Ballistic missiles"
+   },
+   {
+    "id": "M6.9",
+    "tier": "core",
+    "book": 0,
+    "paper": 29,
+    "title": "Hypersonic boost-glide"
+   },
+   {
+    "id": "M6.10",
+    "tier": "core",
+    "book": 35,
+    "paper": 0,
+    "title": "Cruise missiles"
+   },
+   {
+    "id": "M6.11",
+    "tier": "ref",
+    "book": 66,
+    "paper": 0,
+    "title": "Siouris appendices"
+   },
+   {
+    "id": "M6.12",
+    "tier": "core",
+    "book": 218,
+    "paper": 0,
+    "title": "Tactical missile conceptual design (Fleeman B13): drivers, sizing, propulsion trades, heating and domes, cost"
+   },
+   {
+    "id": "M6.13",
+    "tier": "adv",
+    "book": 50,
+    "paper": 0,
+    "title": "Tactical missile design, advanced chapters (Fleeman ch.8-9)"
+   }
+  ],
+  "main_sources_he": "Siouris (כמעט כולו), Fleeman 1–9, Hall 19, B&H 9.3; מאמרים: Zhu, Acton. בסיס: Gilua M15.3–M15.16 (Anderson), M19.2 (גוף קשיח), P5 (בקרה).",
+  "pages_measured": {
+   "core_book": 868,
+   "adv_book": 50,
+   "core_paper": 44,
+   "adv_paper": 0,
+   "reference_book_not_in_plan": 66
+  },
+  "lv_level": "A3–A4 מושגים · A2",
+  "missing_he": "שיטת ה-adjoint ומרחק החטאה בצורה סגורה (Zarchan); פרט היפרסוני.",
+  "closing": [
+   {
+    "source": "Zarchan, Tactical and Strategic Missile Guidance, 6th ed. (2012)",
+    "chapters": "2 (יסודות ההנחיה הטקטית), 3 (adjoint ולולאת הביות), 4 (ניתוח רעש), 8 (חוקי הנחיה מתקדמים: APN, OGL)",
+    "gross": 110,
+    "new": 55,
+    "replaced": 0,
+    "replaced_eff": 0,
+    "slot": "M6.4–M6.5, ◇ אחרי Siouris 4.3–4.9",
+    "tier": "ליבה",
+    "basis": "estimate"
+   }
+  ],
+  "savings": [
+   {
+    "module": "M6.2",
+    "what": "◇ Fahlstrom 3 (אווירודינמיקה) ו-5 (יציבות)",
+    "raw_book": 42,
+    "raw_paper": 0,
+    "to": 14,
+    "kind": "כפילות עם Gilua",
+    "why": "Anderson 4–5, 7 ב-Gilua M15.5–M15.10, M15.14"
+   },
+   {
+    "module": "M6.7",
+    "what": "★ Moir 9 (נשיאת חימוש): להשאיר כ-10 עמ'",
+    "raw_book": 34,
+    "raw_paper": 0,
+    "to": 34,
+    "kind": "תיאורי",
+    "why": "Siouris 5 נותן את הבליסטיקה והמסירה"
+   },
+   {
+    "module": "M6.8",
+    "what": "◇ Siouris נספח G (חתכי חרוט)",
+    "raw_book": 8,
+    "raw_paper": 0,
+    "to": 0,
+    "kind": "כפילות עם Gilua",
+    "why": "Anderson 8 ב-Gilua M15.15"
+   }
+  ],
+  "note_he": "בסיס אווירו ותעופה: Gilua M15.3–M15.10 (אווירודינמיקה), M15.6 (זרימה דחיסה, מנוע רקטי), M15.14 (יציבות), M15.16 (הנעה), M15.17 (היפרסוני, מתקדם, נדרש ל-M6.9), M19.2 (גוף קשיח, 6-DOF). אין חוסר בבסיס.",
+  "delta": {
+   "added_new": 55,
+   "replaced_raw": 0,
+   "replaced_eff": 0,
+   "saved_book_raw": 84,
+   "saved_book_testout": 48,
+   "saved_paper_raw": 0,
+   "net_raw": -29,
+   "net_eff_A": -5.0,
+   "net_eff_B": -5.0,
+   "net_hours_A": -0.8,
+   "net_hours_B": -0.8
+  }
+ },
+ {
+  "id": "MIL · Air and missile defense",
+  "role": "core",
+  "target": "A4",
+  "target_meaning_he": "ליבת תואר שני: דליפה שכבתית, עומק מחסנית, Pk, עלות-החלפה ומכנים של טענות יירוט, עם רגישות מול נתונים ציבוריים.",
+  "modules": [
+   {
+    "id": "M7.1",
+    "tier": "core",
+    "book": 64,
+    "paper": 0,
+    "title": "The AMD problem and MOEs"
+   },
+   {
+    "id": "M7.2",
+    "tier": "core",
+    "book": 44,
+    "paper": 0,
+    "title": "AMD system requirements"
+   },
+   {
+    "id": "M7.3",
+    "tier": "core",
+    "book": 132,
+    "paper": 0,
+    "title": "Preliminary design"
+   },
+   {
+    "id": "M7.4",
+    "tier": "core",
+    "book": 36,
+    "paper": 0,
+    "title": "Trades and allocation + raids, magazines and cost-exchange"
+   },
+   {
+    "id": "M7.5",
+    "tier": "core",
+    "book": 18,
+    "paper": 0,
+    "title": "Interceptor flight analysis"
+   },
+   {
+    "id": "M7.6",
+    "tier": "core",
+    "book": 17,
+    "paper": 663,
+    "title": "BMD intercept and countermeasures"
+   },
+   {
+    "id": "M7.7",
+    "tier": "core",
+    "book": 38,
+    "paper": 0,
+    "title": "Ballistic missile defense radar"
+   },
+   {
+    "id": "M7.8",
+    "tier": "core",
+    "book": 60,
+    "paper": 0,
+    "title": "Ground-based early warning radar"
+   }
+  ],
+  "main_sources_he": "Boord & Hoffman, PoMR III 7–8, Siouris 6.9; ◇ Przemieniecki 5–7 ו-W&K 3–4; מאמרים: Sessler, APS BPI. בסיס: Siouris 6, Gilua M15.15 (מסלולים, כניסה חוזרת), M15.4 (אטמוספרה).",
+  "pages_measured": {
+   "core_book": 409,
+   "adv_book": 0,
+   "core_paper": 663,
+   "adv_paper": 0,
+   "reference_book_not_in_plan": 0
+  },
+  "lv_level": "A3 · A2",
+  "missing_he": "אין נושא שחסר בספרים אחרי M7.4; הפער ל-A4 הוא מודל ציבורי מכויל (מוצר).",
+  "closing": [],
+  "savings": [
+   {
+    "module": "M7.6",
+    "what": "📄 APS BPI (להשאיר כ-150 עמ': תקציר, קינמטיקה, מיירט, חיישנים) ו-Sessler (להשאיר כ-100)",
+    "raw_book": 0,
+    "raw_paper": 413,
+    "to": 0,
+    "kind": "מעבר ליעד",
+    "why": "663 עמ' דוחות מלאים עם נספחים; היעד צריך את הפיזיקה והמסקנות"
+   }
+  ],
+  "note_he": "",
+  "delta": {
+   "added_new": 0,
+   "replaced_raw": 0,
+   "replaced_eff": 0,
+   "saved_book_raw": 0,
+   "saved_book_testout": 0,
+   "saved_paper_raw": 413,
+   "net_raw": -413,
+   "net_eff_A": -206.5,
+   "net_eff_B": 0.0,
+   "net_hours_A": -34.4,
+   "net_hours_B": 0.0
+  }
+ },
+ {
+  "id": "MIL · C4ISR, kill chains and targeting",
+  "role": "core",
+  "target": "A3–A4",
+  "target_meaning_he": "F2T2EA והשהיות, VoI, ארכיטקטורות C2 ומודל latency של שרשרת חיישן-החלטה-יורה, מכויל בראיונות.",
+  "modules": [
+   {
+    "id": "M11.2",
+    "tier": "core",
+    "book": 120,
+    "paper": 0,
+    "title": "Weapon-locating radar and counterfire"
+   },
+   {
+    "id": "M8.4",
+    "tier": "core",
+    "book": 9,
+    "paper": 0,
+    "title": "Transponders and IFF"
+   }
+  ],
+  "main_sources_he": "Link 16 ו-C2 (M7.9, משותף לתקשורת), ATP 3-09.12 (M11.2), Moir 7.1–7.3 (M8.4); רשימת קריאה (Mosaic, GAO, RAND).",
+  "pages_measured": {
+   "core_book": 129,
+   "adv_book": 0,
+   "core_paper": 0,
+   "adv_paper": 0,
+   "reference_book_not_in_plan": 0
+  },
+  "lv_level": "A2 · A1–A2",
+  "missing_he": "מחזור המטרות המשותף כמודל תהליך, מודל JDL להתכה, ארכיטקטורות C2 כמשתנה כמותי; 11 מתוך 25 תת-נושאים חסרים בכל הספרים.",
+  "closing": [
+   {
+    "source": "JP 3-60 Joint Targeting (2013); Liggins, Hall & Llinas, Handbook of Multisensor Data Fusion, 2nd ed. (2009)",
+    "chapters": "JP 3-60 פרק II (מחזור המטרות); Handbook פרק 2 (מודל JDL המעודכן)",
+    "gross": 45,
+    "new": 45,
+    "replaced": 0,
+    "replaced_eff": 0,
+    "slot": "M7.9 וחדש תחתיו, לפני M11.2",
+    "tier": "ליבה",
+    "basis": "estimate"
+   }
+  ],
+  "savings": [
+   {
+    "module": "M11.2",
+    "what": "◇ ATP 3-09.12: מבוא, פרקים 1 ו-4, נספחים A ו-F",
+    "raw_book": 35,
+    "raw_paper": 0,
+    "to": 35,
+    "kind": "דוקטרינה תיאורית",
+    "why": "נהלי ארגון והפעלה; הליבה הטכנית בפרקים 2–3 ו-5–7 נשארת"
+   }
+  ],
+  "note_he": "",
+  "delta": {
+   "added_new": 45,
+   "replaced_raw": 0,
+   "replaced_eff": 0,
+   "saved_book_raw": 35,
+   "saved_book_testout": 35,
+   "saved_paper_raw": 0,
+   "net_raw": 10,
+   "net_eff_A": 27.5,
+   "net_eff_B": 27.5,
+   "net_hours_A": 4.6,
+   "net_hours_B": 4.6
+  }
+ },
+ {
+  "id": "MIL · Space systems and space warfare",
+  "role": "core",
+  "target": "A3–A4",
+  "target_meaning_he": "קפלר, Δv, J2, כיסוי וזמן חזרה, תקציב לינק לווייני, ולוחמת חלל (counterspace, SDA, חוסן), עם TLE מול תצפית.",
+  "modules": [
+   {
+    "id": "M13.1",
+    "tier": "core",
+    "book": 44,
+    "paper": 0,
+    "title": "Space missions and communities"
+   },
+   {
+    "id": "M13.2",
+    "tier": "ref",
+    "book": 82,
+    "paper": 0,
+    "title": "Space mission engineering process"
+   },
+   {
+    "id": "M13.3",
+    "tier": "core",
+    "book": 22,
+    "paper": 0,
+    "title": "The space environment"
+   },
+   {
+    "id": "M13.4",
+    "tier": "core",
+    "book": 38,
+    "paper": 0,
+    "title": "Orbits and astrodynamics"
+   },
+   {
+    "id": "M13.5",
+    "tier": "core",
+    "book": 48,
+    "paper": 0,
+    "title": "Space mission geometry"
+   },
+   {
+    "id": "M13.6",
+    "tier": "core",
+    "book": 54,
+    "paper": 0,
+    "title": "Orbit and constellation design"
+   },
+   {
+    "id": "M13.7",
+    "tier": "ref",
+    "book": 108,
+    "paper": 0,
+    "title": "Cost, financing, law"
+   },
+   {
+    "id": "M13.8",
+    "tier": "adv",
+    "book": 42,
+    "paper": 0,
+    "title": "Spacecraft design"
+   },
+   {
+    "id": "M13.9",
+    "tier": "core",
+    "book": 16,
+    "paper": 0,
+    "title": "Space payloads"
+   },
+   {
+    "id": "M13.11",
+    "tier": "core",
+    "book": 34,
+    "paper": 0,
+    "title": "Observation payloads"
+   },
+   {
+    "id": "M13.12",
+    "tier": "core",
+    "book": 32,
+    "paper": 0,
+    "title": "Rocket propulsion and launch vehicles"
+   },
+   {
+    "id": "M13.13",
+    "tier": "adv",
+    "book": 36,
+    "paper": 0,
+    "title": "Attitude and orbit control"
+   },
+   {
+    "id": "M13.14",
+    "tier": "adv",
+    "book": 26,
+    "paper": 0,
+    "title": "Spacecraft computer systems"
+   },
+   {
+    "id": "M13.16",
+    "tier": "adv",
+    "book": 38,
+    "paper": 0,
+    "title": "Structures and thermal control"
+   },
+   {
+    "id": "M13.17",
+    "tier": "ref",
+    "book": 80,
+    "paper": 0,
+    "title": "Manufacturing, risk and reliability"
+   },
+   {
+    "id": "M13.18",
+    "tier": "adv",
+    "book": 48,
+    "paper": 0,
+    "title": "SmallSats and CubeSats"
+   },
+   {
+    "id": "M13.19",
+    "tier": "ref",
+    "book": 18,
+    "paper": 0,
+    "title": "Launch operations"
+   },
+   {
+    "id": "M13.20",
+    "tier": "adv",
+    "book": 24,
+    "paper": 0,
+    "title": "Ground system design"
+   },
+   {
+    "id": "M13.21",
+    "tier": "ref",
+    "book": 46,
+    "paper": 0,
+    "title": "Mission operations and end of mission"
+   },
+   {
+    "id": "M13.22",
+    "tier": "ref",
+    "book": 48,
+    "paper": 0,
+    "title": "SMAD appendices"
+   },
+   {
+    "id": "M13.23",
+    "tier": "core",
+    "book": 0,
+    "paper": 0,
+    "title": "Space control: counterspace taxonomy, SDA, RPO, resilience and proliferation, commercial dependence"
+   }
+  ],
+  "main_sources_he": "SMAD (סריקה בתמונות), M13.23 בכתיבת המורה. בסיס: Gilua M2.2 (כבידה), M15.15 (Anderson 8), M15.16 (הנעה).",
+  "pages_measured": {
+   "core_book": 288,
+   "adv_book": 214,
+   "core_paper": 0,
+   "adv_paper": 0,
+   "reference_book_not_in_plan": 382
+  },
+  "lv_level": "A3 · A2",
+  "missing_he": "פרק 18 של SMAD (הנעה בחלל) חסר בסריקה; קביעת מסלול והפרעות מעבר ל-J2 מתחת לתואר שני (לא נדרש ביעד).",
+  "closing": [
+   {
+    "source": "SMAD (2011), פרק 18 Space Propulsion Systems — עותק מלא מהלומד",
+    "chapters": "פרק 18 (מערכות הנעה בחלל)",
+    "gross": 35,
+    "new": 25,
+    "replaced": 0,
+    "replaced_eff": 0,
+    "slot": "M13.12, לפני פרק 26",
+    "tier": "ליבה",
+    "basis": "estimate"
+   }
+  ],
+  "savings": [
+   {
+    "module": "M13.14",
+    "what": "SMAD 20 (מחשבי חללית), מתקדם",
+    "raw_book": 26,
+    "raw_paper": 0,
+    "to": 26,
+    "kind": "מעבר ליעד",
+    "why": "תת-מערכת של הפלטפורמה; לא ברשימה של מה שצריך בראש"
+   },
+   {
+    "module": "M13.16",
+    "what": "SMAD 22 (מבנה ובקרה תרמית), מתקדם",
+    "raw_book": 38,
+    "raw_paper": 0,
+    "to": 23,
+    "kind": "מעבר ליעד",
+    "why": "תכן חללית; מבנים ומעבר חום נלמדים ב-Gilua P14, P16"
+   },
+   {
+    "module": "M13.20",
+    "what": "SMAD 28 (תכנון מערכת קרקע), מתקדם",
+    "raw_book": 24,
+    "raw_paper": 0,
+    "to": 16,
+    "kind": "מעבר ליעד",
+    "why": "תפעול; לא בתוצאות היעד"
+   },
+   {
+    "module": "M13.4",
+    "what": "SMAD 9: חלק הקפלר כדלתא מול Anderson 8",
+    "raw_book": 10,
+    "raw_paper": 0,
+    "to": 5,
+    "kind": "כפילות עם Gilua",
+    "why": "Gilua M15.15"
+   }
+  ],
+  "note_he": "בסיס מסלולים: Gilua M15.15 ו-SMAD 8–10 מספיקים ליעד.",
+  "delta": {
+   "added_new": 25,
+   "replaced_raw": 0,
+   "replaced_eff": 0,
+   "saved_book_raw": 98,
+   "saved_book_testout": 70,
+   "saved_paper_raw": 0,
+   "net_raw": -73,
+   "net_eff_A": -38.0,
+   "net_eff_B": -38.0,
+   "net_hours_A": -6.3,
+   "net_hours_B": -6.3
+  }
+ },
+ {
+  "id": "MIL · Unmanned systems and counter-UAS",
+  "role": "core",
+  "target": "A3–A4",
+  "target_meaning_he": "RCS של רחפנים, טווחי גילוי, קישורי C2 ועלות-החלפה, עם בדיקה מול טיסות, מדידות ודיווחי שטח.",
+  "modules": [
+   {
+    "id": "M9.1",
+    "tier": "adv",
+    "book": 44,
+    "paper": 0,
+    "title": "UAS history and classes"
+   },
+   {
+    "id": "M9.2",
+    "tier": "core",
+    "book": 68,
+    "paper": 0,
+    "title": "Air vehicle performance and propulsion"
+   },
+   {
+    "id": "M9.3",
+    "tier": "core",
+    "book": 52,
+    "paper": 0,
+    "title": "Control station and autonomy"
+   },
+   {
+    "id": "M9.4",
+    "tier": "core",
+    "book": 32,
+    "paper": 0,
+    "title": "Payloads"
+   },
+   {
+    "id": "M9.6",
+    "tier": "core",
+    "book": 16,
+    "paper": 0,
+    "title": "Rotary-wing and quadcopters"
+   },
+   {
+    "id": "M9.7",
+    "tier": "core",
+    "book": 39,
+    "paper": 41,
+    "title": "Drone detection and C-UAS"
+   },
+   {
+    "id": "M9.8",
+    "tier": "adv",
+    "book": 40,
+    "paper": 0,
+    "title": "Launch and recovery"
+   },
+   {
+    "id": "M9.9",
+    "tier": "core",
+    "book": 0,
+    "paper": 0,
+    "title": "One-way drones, FPV and drone-war economics (Shahed-class, FPV, fiber-optic, mass production, C-UAS cost-exchange)"
+   }
+  ],
+  "main_sources_he": "Fahlstrom, ATP 3-01.81, M9.9 בכתיבת המורה; מאמרים: Taha, UCL, JMOe. בסיס: Gilua M15.11–M15.13 (ביצועים וכטב\"מים), M15.16.",
+  "pages_measured": {
+   "core_book": 207,
+   "adv_book": 84,
+   "core_paper": 41,
+   "adv_paper": 0,
+   "reference_book_not_in_plan": 0
+  },
+  "lv_level": "A2–A3 · A2",
+  "missing_he": "מלחמת הרחפנים העכשווית (בכתיבת המורה ורשימת קריאה); מדידות RCS ומיקרו-דופלר (מוצר).",
+  "closing": [],
+  "savings": [
+   {
+    "module": "M9.1",
+    "what": "Fahlstrom 1–2: היסטוריה ודוגמאות (להשאיר מחלקות וקבוצות)",
+    "raw_book": 37,
+    "raw_paper": 0,
+    "to": 37,
+    "kind": "תיאורי",
+    "why": "היסטוריה ודוגמאות של מערכות"
+   },
+   {
+    "module": "M9.2",
+    "what": "◇ Fahlstrom 7 (מבנה)",
+    "raw_book": 24,
+    "raw_paper": 0,
+    "to": 24,
+    "kind": "כפילות עם Gilua",
+    "why": "Gilua P16 מבנים"
+   },
+   {
+    "module": "M9.2",
+    "what": "★ Fahlstrom 4 ו-6 כדלתא מול Anderson 6, 9",
+    "raw_book": 25,
+    "raw_paper": 0,
+    "to": 8,
+    "kind": "כפילות עם Gilua",
+    "why": "Gilua M15.11–M15.13, M15.16"
+   }
+  ],
+  "note_he": "",
+  "delta": {
+   "added_new": 0,
+   "replaced_raw": 0,
+   "replaced_eff": 0,
+   "saved_book_raw": 86,
+   "saved_book_testout": 69,
+   "saved_paper_raw": 0,
+   "net_raw": -86,
+   "net_eff_A": -51.5,
+   "net_eff_B": -51.5,
+   "net_hours_A": -8.6,
+   "net_hours_B": -8.6
+  }
+ },
+ {
+  "id": "MIL · Weapons effects, lethality and protection",
+  "role": "supporting",
+  "target": "A3",
+  "target_meaning_he": "Gurney, CEP→Pk ושטח קטלני ברמת קורס בחירה: מחשב Pk של נשק בודד מול מטרה נקודתית ומשטחית.",
+  "modules": [
+   {
+    "id": "M11.1",
+    "tier": "core",
+    "book": 12,
+    "paper": 0,
+    "title": "Interior and exterior ballistics"
+   },
+   {
+    "id": "M11.3",
+    "tier": "core",
+    "book": 18,
+    "paper": 0,
+    "title": "Explosives and warheads"
+   },
+   {
+    "id": "M11.4",
+    "tier": "core",
+    "book": 12,
+    "paper": 0,
+    "title": "Damage criteria, Pk, CEP"
+   },
+   {
+    "id": "M11.5",
+    "tier": "core",
+    "book": 27,
+    "paper": 0,
+    "title": "Special warheads and tank ammunition"
+   },
+   {
+    "id": "M11.6",
+    "tier": "core",
+    "book": 19,
+    "paper": 0,
+    "title": "Tank protection"
+   },
+   {
+    "id": "M11.7",
+    "tier": "core",
+    "book": 32,
+    "paper": 0,
+    "title": "Tank mobility"
+   },
+   {
+    "id": "M11.8",
+    "tier": "adv",
+    "book": 117,
+    "paper": 0,
+    "title": "Tank evolution since 1945"
+   },
+   {
+    "id": "M11.9",
+    "tier": "ref",
+    "book": 163,
+    "paper": 0,
+    "title": "Tank evolution to 1945"
+   },
+   {
+    "id": "M11.10",
+    "tier": "adv",
+    "book": 43,
+    "paper": 0,
+    "title": "Nuclear weapons and effects"
+   }
+  ],
+  "main_sources_he": "Hall 21–30, Ogorkiewicz נספחים ופרקים, ⚙ Przemieniecki 2–3, Ball 3.5, 5.3.",
+  "pages_measured": {
+   "core_book": 120,
+   "adv_book": 160,
+   "core_paper": 0,
+   "adv_paper": 0,
+   "reference_book_not_in_plan": 163
+  },
+  "lv_level": "A2 · A1–A2",
+  "missing_he": "CEP→Pk ושטח קטלני כחישוב (נמצא רק ב-⚙ Przemieniecki 3, שלא נלמד); מתודולוגיית JMEM. Gurney כבר נלמד (Hall 279–280, Ball 330–334).",
+  "closing": [
+   {
+    "source": "Przemieniecki, Mathematical Methods in Defense Analyses (בספרייה), קידום מ-⚙ ל-★",
+    "chapters": "3.11–3.16 (PDF 70–91): LEP/CEP/SEP, נזק חלקי, פונקציות נזק, רסיסים, רדיוס אפקטיבי",
+    "gross": 22,
+    "new": 22,
+    "replaced": 0,
+    "replaced_eff": 0,
+    "slot": "M11.4",
+    "tier": "ליבה",
+    "basis": "measured"
+   },
+   {
+    "source": "Driels, Weaponeering, 3rd ed. (2019) — כבר ברשימת הקריאה של M11.4",
+    "chapters": "הפרקים על דיוק המסירה, פגיעות מטרה, ראש קרב מרסס ושטח קטלני (מספרי הפרקים לאימות מול המהדורה)",
+    "gross": 40,
+    "new": 40,
+    "replaced": 0,
+    "replaced_eff": 0,
+    "slot": "M11.4",
+    "tier": "ליבה",
+    "basis": "estimate"
+   }
+  ],
+  "savings": [
+   {
+    "module": "M11.8",
+    "what": "Ogorkiewicz 9–12 (התפתחות הטנק מאז 1945), מתקדם",
+    "raw_book": 117,
+    "raw_paper": 0,
+    "to": 117,
+    "kind": "נרטיב, מעבר ליעד",
+    "why": "היסטוריה; היעד הוא Gurney, CEP→Pk ושטח קטלני"
+   }
+  ],
+  "note_he": "",
+  "delta": {
+   "added_new": 62,
+   "replaced_raw": 0,
+   "replaced_eff": 0,
+   "saved_book_raw": 117,
+   "saved_book_testout": 117,
+   "saved_paper_raw": 0,
+   "net_raw": -55,
+   "net_eff_A": 3.5,
+   "net_eff_B": 3.5,
+   "net_hours_A": 0.6,
+   "net_hours_B": 0.6
+  }
+ },
+ {
+  "id": "MIL · Platforms and survivability",
+  "role": "supporting",
+  "target": "A3",
+  "target_meaning_he": "susceptibility מול vulnerability, עצי הריגה ושיעורי שחיקה במשימה ובמערכה, לפי Ball.",
+  "modules": [
+   {
+    "id": "M8.1",
+    "tier": "core",
+    "book": 58,
+    "paper": 0,
+    "title": "Military air roles"
+   },
+   {
+    "id": "M8.2",
+    "tier": "adv",
+    "book": 36,
+    "paper": 0,
+    "title": "Avionics architectures"
+   },
+   {
+    "id": "M8.3",
+    "tier": "core",
+    "book": 7,
+    "paper": 155,
+    "title": "Air combat maneuvering"
+   },
+   {
+    "id": "M8.5",
+    "tier": "ref",
+    "book": 71,
+    "paper": 0,
+    "title": "Displays"
+   },
+   {
+    "id": "M8.6",
+    "tier": "ref",
+    "book": 19,
+    "paper": 0,
+    "title": "FMS and air traffic management"
+   },
+   {
+    "id": "M8.7",
+    "tier": "ref",
+    "book": 32,
+    "paper": 0,
+    "title": "Vehicle management systems"
+   },
+   {
+    "id": "M8.8",
+    "tier": "core",
+    "book": 319,
+    "paper": 0,
+    "title": "Combat survivability (Ball): susceptibility, vulnerability, kill trees, mission and campaign attrition, historical loss rates"
+   },
+   {
+    "id": "M8.9",
+    "tier": "core",
+    "book": 0,
+    "paper": 0,
+    "title": "Air campaign capacity: sortie generation, basing and air-base resilience, tankers"
+   }
+  ],
+  "main_sources_he": "Ball (M8.8), Moir 1–2, 7, 10–11, Boyd (M8.3). בסיס: Gilua M15.3, M15.11–M15.12 (ביצועים, פנייה ושיטת האנרגיה).",
+  "pages_measured": {
+   "core_book": 384,
+   "adv_book": 36,
+   "core_paper": 155,
+   "adv_paper": 0,
+   "reference_book_not_in_plan": 122
+  },
+  "lv_level": "A3 · A2",
+  "missing_he": "אין; היעד כבר מושג עם Ball.",
+  "closing": [],
+  "savings": [
+   {
+    "module": "M8.8",
+    "what": "◇ Ball פרק 2 (מבנה כלי הטיס)",
+    "raw_book": 30,
+    "raw_paper": 0,
+    "to": 30,
+    "kind": "כפילות עם Gilua",
+    "why": "Anderson 2 ב-Gilua M15.3"
+   },
+   {
+    "module": "M8.1",
+    "what": "◇ Moir 1.4–1.5, 1.10–1.11, 1.13–1.15",
+    "raw_book": 22,
+    "raw_paper": 0,
+    "to": 22,
+    "kind": "תיאורי",
+    "why": "תיאור תפקידים; הלומד מכיר מניסיון"
+   },
+   {
+    "module": "M8.2",
+    "what": "◇ Moir 2.2–2.5 (אפיקים, JIAWG, COTS, מערכות הפעלה), מתקדם",
+    "raw_book": 23,
+    "raw_paper": 0,
+    "to": 23,
+    "kind": "מעבר ליעד",
+    "why": "ארכיטקטורת אוויוניקה ברמת A2 מספיקה"
+   },
+   {
+    "module": "M8.3",
+    "what": "📄 Boyd, Aerial Attack Study: להשאיר כ-40 עמ'",
+    "raw_book": 0,
+    "raw_paper": 115,
+    "to": 0,
+    "kind": "מעבר ליעד",
+    "why": "מדריך טקטיקה; שיטת האנרגיה מ-Gilua M15.12 ו-Przemieniecki 5"
+   }
+  ],
+  "note_he": "",
+  "delta": {
+   "added_new": 0,
+   "replaced_raw": 0,
+   "replaced_eff": 0,
+   "saved_book_raw": 75,
+   "saved_book_testout": 75,
+   "saved_paper_raw": 115,
+   "net_raw": -190,
+   "net_eff_A": -95.0,
+   "net_eff_B": -37.5,
+   "net_hours_A": -15.8,
+   "net_hours_B": -6.2
+  }
+ },
+ {
+  "id": "MIL · Naval and undersea warfare",
+  "role": "supporting",
+  "target": "A3",
+  "target_meaning_he": "Hughes salvo ומשוואת הסונאר ברמת קורס בחירה, עם נתונים פתוחים (ים סוף).",
+  "modules": [
+   {
+    "id": "M10.1",
+    "tier": "core",
+    "book": 16,
+    "paper": 0,
+    "title": "Underwater acoustics"
+   },
+   {
+    "id": "M10.2",
+    "tier": "core",
+    "book": 18,
+    "paper": 0,
+    "title": "The sonar equation"
+   },
+   {
+    "id": "M10.3",
+    "tier": "core",
+    "book": 32,
+    "paper": 35,
+    "title": "Sonar systems and non-acoustic detection"
+   },
+   {
+    "id": "M10.4",
+    "tier": "core",
+    "book": 10,
+    "paper": 0,
+    "title": "Torpedoes and mines"
+   },
+   {
+    "id": "M10.5",
+    "tier": "core",
+    "book": 0,
+    "paper": 317,
+    "title": "Ship self-defense"
+   }
+  ],
+  "main_sources_he": "Hall 15–17, 26; מאמרים: NRL Low-Altitude, Kumar, Reed, Coraluppi, NURC, JMSE; ⚙ W&K 3, 8.",
+  "pages_measured": {
+   "core_book": 76,
+   "adv_book": 0,
+   "core_paper": 352,
+   "adv_paper": 0,
+   "reference_book_not_in_plan": 0
+  },
+  "lv_level": "A2 · A1–A2",
+  "missing_he": "משוואת הסונאר ואובדן התפשטות ברמה מעל USNA; מודל ה-salvo של Hughes ממקור ראשוני.",
+  "closing": [
+   {
+    "source": "Hughes, A Salvo Model of Warships in Missile Combat (Naval Research Logistics, 1995); Urick, Principles of Underwater Sound, 3rd ed.",
+    "chapters": "Hughes: המאמר כולו; Urick: פרק 2 (משוואות הסונאר) ופרק 5 נבחר (אובדן התפשטות)",
+    "gross": 60,
+    "new": 45,
+    "replaced": 0,
+    "replaced_eff": 0,
+    "slot": "M10.2 ו-M14.1",
+    "tier": "ליבה",
+    "basis": "estimate"
+   }
+  ],
+  "savings": [
+   {
+    "module": "M10.5",
+    "what": "📄 NRL Low-Altitude Vol. 1 (נלמד כבר ב-M1.3)",
+    "raw_book": 0,
+    "raw_paper": 72,
+    "to": 0,
+    "kind": "כפילות",
+    "why": "אותו מסמך פעמיים"
+   },
+   {
+    "module": "M10.5",
+    "what": "📄 Kumar (להשאיר כ-45) ו-Reed (להשאיר כ-40)",
+    "raw_book": 0,
+    "raw_paper": 160,
+    "to": 0,
+    "kind": "מעבר ליעד",
+    "why": "עבודות גמר מ-1985–1990; הניתוח והמסקנות מספיקים ל-A3"
+   }
+  ],
+  "note_he": "",
+  "delta": {
+   "added_new": 45,
+   "replaced_raw": 0,
+   "replaced_eff": 0,
+   "saved_book_raw": 0,
+   "saved_book_testout": 0,
+   "saved_paper_raw": 232,
+   "net_raw": -187,
+   "net_eff_A": -71.0,
+   "net_eff_B": 45.0,
+   "net_hours_A": -11.8,
+   "net_hours_B": 7.5
+  }
+ },
+ {
+  "id": "MIL · Operations research and combat modeling",
+  "role": "core",
+  "target": "A4",
+  "target_meaning_he": "ליבת תואר שני (NPS OA4655, OA3602): לנצ'סטר, salvo, ירי עם ובלי משוב, תורת חיפוש, תורת משחקים, תכנון ניסויים ואימות מודל.",
+  "modules": [
+   {
+    "id": "M14.1",
+    "tier": "core",
+    "book": 139,
+    "paper": 0,
+    "title": "Combat modeling: model types and MOEs, Lanchester and salvo attrition, exchange ratios, models and wargames as evidence"
+   }
+  ],
+  "main_sources_he": "Washburn & Kress 1, 5; Przemieniecki 1, 4–5, 12 (M14.1). שאר W&K ו-Przemieniecki הם ⚙ במודולים אחרים.",
+  "pages_measured": {
+   "core_book": 139,
+   "adv_book": 0,
+   "core_paper": 0,
+   "adv_paper": 0,
+   "reference_book_not_in_plan": 0
+  },
+  "lv_level": "A3–A4 מושגים · A2",
+  "missing_he": "34 פריטי K חסרים, רובם כי ספרי העזר לא נלמדים (כלל 37): ירי בלי משוב, תורת חיפוש ותורת משחקים.",
+  "closing": [
+   {
+    "source": "Washburn & Kress, Combat Modeling (בספרייה), קידום מ-⚙ ל-★",
+    "chapters": "פרק 2 (PDF 21–51), פרק 6 (115–136), פרק 7 (137–164)",
+    "gross": 81,
+    "new": 81,
+    "replaced": 0,
+    "replaced_eff": 0,
+    "slot": "M14.1 (או מודול חדש M14.1b אחריו)",
+    "tier": "ליבה",
+    "basis": "measured"
+   }
+  ],
+  "savings": [],
+  "note_he": "",
+  "delta": {
+   "added_new": 81,
+   "replaced_raw": 0,
+   "replaced_eff": 0,
+   "saved_book_raw": 0,
+   "saved_book_testout": 0,
+   "saved_paper_raw": 0,
+   "net_raw": 81,
+   "net_eff_A": 81,
+   "net_eff_B": 81,
+   "net_hours_A": 13.5,
+   "net_hours_B": 13.5
+  }
+ },
+ {
+  "id": "MIL · Logistics, sustainment and force generation",
+  "role": "supporting",
+  "target": "A3",
+  "target_meaning_he": "מקדמי תכנון, צריכה מול ייצור ומלאי, קיבולת קווי אספקה, ברמת קורס בחירה.",
+  "modules": [
+   {
+    "id": "M14.3",
+    "tier": "core",
+    "book": 271,
+    "paper": 0,
+    "title": "Logistics and sustainment: consumption, LOC capacity, munitions vs stockpiles, readiness, contested and drone-war logistics (van Creveld promoted)"
+   }
+  ],
+  "main_sources_he": "van Creveld 1–8 (M14.3), רשימת קריאה (Kress, JP 4-0, RUSI).",
+  "pages_measured": {
+   "core_book": 271,
+   "adv_book": 0,
+   "core_paper": 0,
+   "adv_paper": 0,
+   "reference_book_not_in_plan": 0
+  },
+  "lv_level": "A2 · A1",
+  "missing_he": "לוגיסטיקה כמותית מודרנית (מקדמי תכנון, צריכה, ייצור).",
+  "closing": [
+   {
+    "source": "Kress, Operational Logistics, 2nd ed. (2016) — כבר ברשימת הקריאה של M14.3",
+    "chapters": "הפרקים הכמותיים על תכנון לוגיסטי, קיבולת ומודלים (מספרי הפרקים לאימות)",
+    "gross": 80,
+    "new": 80,
+    "replaced": 95,
+    "replaced_eff": 95,
+    "slot": "M14.3, ★ במקום ◇ van Creveld 1–2",
+    "tier": "ליבה",
+    "basis": "estimate"
+   }
+  ],
+  "savings": [
+   {
+    "module": "M14.3",
+    "what": "★ van Creveld 4 (שליפן) לסקירה מקוצרת (brief)",
+    "raw_book": 33,
+    "raw_paper": 0,
+    "to": 0,
+    "kind": "נרטיב",
+    "why": "המסקנה (\"לוגיסטיקה כגבול התוכנית\") חוזרת בפרקים 5–8"
+   }
+  ],
+  "note_he": "",
+  "delta": {
+   "added_new": 80,
+   "replaced_raw": 95,
+   "replaced_eff": 95,
+   "saved_book_raw": 33,
+   "saved_book_testout": 0,
+   "saved_paper_raw": 0,
+   "net_raw": -48,
+   "net_eff_A": -48.0,
+   "net_eff_B": -48.0,
+   "net_hours_A": -8.0,
+   "net_hours_B": -8.0
+  }
+ },
+ {
+  "id": "MIL · Acquisition, cost, test & evaluation, industrial base, policy",
+  "role": "supporting",
+  "target": "A3",
+  "target_meaning_he": "LCC, עקומות למידה וסטטיסטיקת ניסוי (מעט ניסויים) ברמת קורס בחירה.",
+  "modules": [
+   {
+    "id": "M14.2",
+    "tier": "core",
+    "book": 125,
+    "paper": 0,
+    "title": "Acquisition, cost and industrial base: cost definitions, LCC, learning curves, budgets as data, TRL/MRL, surge and critical materials"
+   },
+   {
+    "id": "M7.10",
+    "tier": "core",
+    "book": 20,
+    "paper": 0,
+    "title": "Systems engineering lifecycle + T&E and test evidence"
+   }
+  ],
+  "main_sources_he": "M14.2 (◇ Ball 1.3, ◇ SMAD 11–13), M7.10 (B&H 2); רשימת קריאה (GAO Cost Guide, MG-696).",
+  "pages_measured": {
+   "core_book": 145,
+   "adv_book": 0,
+   "core_paper": 0,
+   "adv_paper": 0,
+   "reference_book_not_in_plan": 0
+  },
+  "lv_level": "A2–A3 · A2",
+  "missing_he": "אין נושא שחסר במקורות; הפער הוא אומדן אמיתי מ-SAR (מוצר).",
+  "closing": [],
+  "savings": [
+   {
+    "module": "M14.2",
+    "what": "◇ SMAD 12–13 (מימון ומשפט חלל)",
+    "raw_book": 60,
+    "raw_paper": 0,
+    "to": 0,
+    "kind": "מעבר ליעד",
+    "why": "פרק 11 (אומדן עלויות) נשאר; השאר ספציפי לחלל ולא ביעד"
+   }
+  ],
+  "note_he": "",
+  "delta": {
+   "added_new": 0,
+   "replaced_raw": 0,
+   "replaced_eff": 0,
+   "saved_book_raw": 60,
+   "saved_book_testout": 0,
+   "saved_paper_raw": 0,
+   "net_raw": -60,
+   "net_eff_A": -60.0,
+   "net_eff_B": -60.0,
+   "net_hours_A": -10.0,
+   "net_hours_B": -10.0
+  }
+ },
+ {
+  "id": "MIL · Adversary systems, doctrine and capability assessment",
+  "role": "supporting",
+  "target": "A3",
+  "target_meaning_he": "מבנה כוח, תורות ושיטות הערכה (OOB, net assessment, הטיות) ברמת סמינר.",
+  "modules": [
+   {
+    "id": "M12.1",
+    "tier": "core",
+    "book": 66,
+    "paper": 0,
+    "title": "Russian air defense and EW"
+   },
+   {
+    "id": "M12.2",
+    "tier": "adv",
+    "book": 215,
+    "paper": 0,
+    "title": "Russian tactics"
+   },
+   {
+    "id": "M12.3",
+    "tier": "core",
+    "book": 46,
+    "paper": 0,
+    "title": "Chinese joint capabilities"
+   },
+   {
+    "id": "M12.4",
+    "tier": "adv",
+    "book": 204,
+    "paper": 0,
+    "title": "Chinese tactics"
+   }
+  ],
+  "main_sources_he": "ATP 7-100.1, ATP 7-100.3 (M12.1–M12.4), שיטות ב-M14.4.",
+  "pages_measured": {
+   "core_book": 112,
+   "adv_book": 419,
+   "core_paper": 0,
+   "adv_paper": 0,
+   "reference_book_not_in_plan": 0
+  },
+  "lv_level": "A2 · n/a",
+  "missing_he": "מקורות ראשוניים ושפה; לא נסגר בעמודים טכניים.",
+  "closing": [],
+  "savings": [],
+  "note_he": "אפשרות לחיסכון נוסף בטבלת האפשרויות (O1).",
+  "delta": {
+   "added_new": 0,
+   "replaced_raw": 0,
+   "replaced_eff": 0,
+   "saved_book_raw": 0,
+   "saved_book_testout": 0,
+   "saved_paper_raw": 0,
+   "net_raw": 0,
+   "net_eff_A": 0,
+   "net_eff_B": 0,
+   "net_hours_A": 0.0,
+   "net_hours_B": 0.0
+  }
+ },
+ {
+  "id": "MIL · Defense analysis craft: OSINT, claims checking and communication",
+  "role": "core",
+  "target": "מעבר לסמינר תואר שני",
+  "target_meaning_he": "שיטות אימות, הטיות וסדרי גודל; כל מקור נפתח ונקרא; גיאולוקציה כפולה; רקורד פומבי.",
+  "modules": [
+   {
+    "id": "M14.4",
+    "tier": "core",
+    "book": 0,
+    "paper": 0,
+    "title": "OSINT and capability assessment: imagery, geolocation, verification, ADS-B/AIS, OOB estimation, net assessment, analytic bias"
+   },
+   {
+    "id": "M14.5",
+    "tier": "core",
+    "book": 0,
+    "paper": 0,
+    "title": "Writing and interviewing as an analyst (capstone): article structure, expert interviews, uncertainty, honest charts, think-tank critique, AI-checking"
+   }
+  ],
+  "main_sources_he": "M14.4, M14.5 בכתיבת המורה, רשימת קריאה (Heuer, Tradecraft Primer, Berkeley Protocol, Bellingcat).",
+  "pages_measured": {
+   "core_book": 0,
+   "adv_book": 0,
+   "core_paper": 0,
+   "adv_paper": 0,
+   "reference_book_not_in_plan": 0
+  },
+  "lv_level": "סמינר · n/a",
+  "missing_he": "רקורד פומבי (מוצר, לא עמודים).",
+  "closing": [],
+  "savings": [],
+  "note_he": "",
+  "delta": {
+   "added_new": 0,
+   "replaced_raw": 0,
+   "replaced_eff": 0,
+   "saved_book_raw": 0,
+   "saved_book_testout": 0,
+   "saved_paper_raw": 0,
+   "net_raw": 0,
+   "net_eff_A": 0,
+   "net_eff_B": 0,
+   "net_hours_A": 0.0,
+   "net_hours_B": 0.0
+  }
+ },
+ {
+  "id": "TOTALS",
+  "added": 953,
+  "replaced": 154,
+  "replaced_eff": 133,
+  "saved_book": 825,
+  "saved_book_to": 519,
+  "saved_paper": 1515,
+  "saved_eff_A": 1323.0,
+  "saved_eff_B": 565.5,
+  "net_raw": -1541,
+  "net_eff_A": -503.0,
+  "net_eff_B": 254.5,
+  "net_hours_A": -83.8,
+  "net_hours_B": 42.4,
+  "net_hours_raw": -256.8,
+  "options_needed_for_B": [
+   "O1",
+   "O2",
+   "O3",
+   "O4"
+  ],
+  "options_eff": 286.0,
+  "net_eff_B_after_options": -31.5,
+  "net_hours_B_after_options": -5.2,
+  "options": [
+   {
+    "id": "O1",
+    "module": "M12.2, M12.4",
+    "what": "טקטיקה רוסית וסינית (מתקדם): להשאיר מבוא, ארגון ותורה (פרקים 1–2 בכל אחד), לוותר על פרקי התמרון הקרקעי",
+    "raw_book": 250,
+    "to": 250,
+    "harm": "נמוך: היעד (A3) נשען על M12.1, M12.3 ושיטות ב-M14.4; הפער האמיתי הוא שפה",
+    "eff": 125.0,
+    "hours": 20.8
+   },
+   {
+    "id": "O2",
+    "module": "M2.27",
+    "what": "מכ\"ם בקרת תעבורה אווירית ו-SSR (מתקדם)",
+    "raw_book": 48,
+    "to": 0,
+    "harm": "נמוך: אזרחי; IFF נלמד ב-M8.4",
+    "eff": 48.0,
+    "hours": 8.0
+   },
+   {
+    "id": "O3",
+    "module": "M5.10",
+    "what": "שילוב חיישנים ברכב וסיוע רשת (מתקדם): להשאיר A-GPS (כ-15 עמ')",
+    "raw_book": 53,
+    "to": 0,
+    "harm": "נמוך-בינוני: התאמה למפה ו-dead reckoning של רכב רחוקים מהנישה",
+    "eff": 53.0,
+    "hours": 8.8
+   },
+   {
+    "id": "O4",
+    "module": "M14.3",
+    "what": "van Creveld 5–8 לסקירה מקוצרת (נשארים פרקי המסקנות)",
+    "raw_book": 60,
+    "to": 0,
+    "harm": "בינוני: פחות שיפוט היסטורי, שהוא היתרון היחיד של הלומד בתחום",
+    "eff": 60.0,
+    "hours": 10.0
+   },
+   {
+    "id": "O5",
+    "module": "M2.26",
+    "what": "מכ\"ם חודר עלווה (מתקדם)",
+    "raw_book": 56,
+    "to": 0,
+    "harm": "בינוני: נישה בתוך תחום עמוק",
+    "eff": 56.0,
+    "hours": 9.3
+   },
+   {
+    "id": "O6",
+    "module": "M13.18",
+    "what": "SmallSats ו-CubeSats (מתקדם)",
+    "raw_book": 48,
+    "to": 16,
+    "harm": "בינוני: רלוונטי לקונסטלציות מרובות ולחוסן",
+    "eff": 40.0,
+    "hours": 6.7
+   }
+  ],
+  "assumptions_he": "10 דקות לעמוד גולמי; עמוד שכבר מסומן מבחן דילוג (test-out) נספר בחצי; עמוד מאמר נספר בחצי בתרחיש A ובאפס בתרחיש B; 154 שעות אפקטיביות בחודש"
+ }
+]

@@ -1,0 +1,1812 @@
+[
+ {
+  "type": "domain",
+  "row": 1,
+  "domain_id": "ENG · Mathematics foundations",
+  "role_e2": "deep",
+  "role_after_s2": "deep",
+  "target_knowledge": "A4",
+  "target_meaning_he": "ליבת MSc באלגברה לינארית נומרית, הסתברות וסטטיסטיקה ואופטימיזציה קמורה, ובנוסף שיטות נומריות למד\"ח כולל FEM: מנסח מודל, בוחר שיטה ומאמת פלט של סוכן בשתי דרכים.",
+  "current_modules": [
+   "M0.1",
+   "M1.1",
+   "M1.2",
+   "M1.3",
+   "M1.4",
+   "M1.5",
+   "M1.6",
+   "M6.1",
+   "M6.2",
+   "M6.3",
+   "M6.4",
+   "M6.5",
+   "M6.6",
+   "M6.7",
+   "M6.8",
+   "M6.9",
+   "M6.10",
+   "M6.11",
+   "M8.1",
+   "M8.2",
+   "M8.3",
+   "M8.4",
+   "M8.5",
+   "M8.6",
+   "M8.7",
+   "M8.8",
+   "M8.9",
+   "M8.10",
+   "M8.11",
+   "M8.12",
+   "M8.13",
+   "M8.14",
+   "M8.15",
+   "M8.16",
+   "M8.17",
+   "M8.18",
+   "M8.19",
+   "M8.20",
+   "M8.21",
+   "M8.22",
+   "M8.23",
+   "M10.1",
+   "M10.4",
+   "M10.5",
+   "M10.6",
+   "M10.7",
+   "M10.8",
+   "M10.9",
+   "M10.10",
+   "M26.1",
+   "M26.2",
+   "M26.3",
+   "M26.4",
+   "M26.5",
+   "M3.1"
+  ],
+  "main_sources": [
+   "Trefethen & Bau",
+   "Kolmogorov et al.",
+   "Wasserman",
+   "Boyd & Vandenberghe",
+   "Langtangen & Linge",
+   "The Feynman Lectures on Physics"
+  ],
+  "pages_core": 1926,
+  "pages_adv": 755,
+  "pages_ref_not_in_budget": 37,
+  "pages_basis": "measured",
+  "lv_reached": "A2–A3 (שטף A1)",
+  "lv_ref": "docs/research/round4/LV_benchmark.md §ENG · Mathematics foundations",
+  "missing_topics_he": [
+   "FEM ו-FV כשיטה (M10.10 בלי עמודי מקור, 0 עמ'): צורה חלשה, אלמנטים, הרכבה, התכנסות h/p, אימות",
+   "אינטגרטורים קשיחים ואזורי יציבות (פריט מורה ב-M10.4)",
+   "זנבות כבדים (פריט מורה)"
+  ],
+  "closing_sources": [
+   {
+    "source": "Langtangen & Mardal, Introduction to Numerical Methods for Variational Problems (Springer, 2019, גישה פתוחה)",
+    "chapters": "פרקים 2–5 (קירוב בפונקציות בסיס, FEM לפונקציות, וריאציות למד\"ר, FEM למד\"ח), בבחירה",
+    "in_repo": false,
+    "new_pages": 100,
+    "new_pages_basis": "estimate",
+    "slot_he": "בתוך M10.10 (היום 0 עמ'), אחרי M10.6; אותו מחבר ואותו סגנון כמו E08",
+    "replaces_modules": [],
+    "replaces_pages": 0,
+    "replaces_basis": null,
+    "replaces_what_he": ""
+   }
+  ],
+  "savings": [
+   {
+    "modules": [
+     "M26.1",
+     "M26.3",
+     "M26.4"
+    ],
+    "pages": 192,
+    "basis": "measured",
+    "kind": "beyond_target",
+    "why_he": "העשרה (P26): עקומות ומשטחים, גאומטריה לא-אוקלידית ורימנית, טופולוגיה. מעבר ליעד A4 של המתמטיקה ההנדסית ומעבר לכל יעד אחר"
+   },
+   {
+    "modules": [
+     "M6.2",
+     "M6.3",
+     "M7.1"
+    ],
+    "pages": 100,
+    "basis": "estimate",
+    "kind": "duplicate",
+    "why_he": "השלמות ◇ מ-Lehman (פרקים 17–21, 135 עמ' [measured]) מלמדות את אותן תוצאות שכבר נלמדות מ-Wasserman 1–5 ו-23; נשארים כ-35 עמ' (פרדוקסים בהסתברות מותנית, הילוך מקרי)"
+   }
+  ],
+  "added_pages": 100,
+  "replaced_pages": 0,
+  "saved_pages": 292,
+  "net_page_delta": -192,
+  "net_learner_hours": -32.0
+ },
+ {
+  "type": "domain",
+  "row": 2,
+  "domain_id": "ENG · Physics",
+  "role_e2": "core",
+  "role_after_s2": "core",
+  "target_knowledge": "A3",
+  "target_meaning_he": "E&M ופיזיקה סטטיסטית של שנה ג': בעיות שפה (לפלס, דמויות, הפרדת משתנים, מולטיפולים), גלים בחומר ובממשקים, קרינה, אנסמבל קנוני וסטטיסטיקות קוונטיות. מכניקת הקוונטים נשארת ברמת מבוא (A2).",
+  "current_modules": [
+   "M0.2",
+   "M10.2",
+   "M10.3",
+   "M13.1",
+   "M13.2",
+   "M13.3",
+   "M9.1",
+   "M9.2",
+   "M9.3",
+   "M9.4",
+   "M9.5",
+   "M9.6",
+   "M9.7",
+   "M9.8",
+   "M9.9",
+   "M9.10",
+   "M9.11",
+   "M9.12",
+   "M9.13",
+   "M9.14",
+   "M9.15",
+   "M9.16",
+   "M24.1",
+   "M24.2",
+   "M24.3",
+   "M24.4",
+   "M24.5",
+   "M24.6",
+   "M24.7",
+   "M24.8",
+   "M24.9",
+   "M24.10",
+   "M24.11",
+   "M24.12",
+   "M24.13"
+  ],
+  "main_sources": [
+   "The Feynman Lectures on Physics"
+  ],
+  "pages_core": 774,
+  "pages_adv": 520,
+  "pages_ref_not_in_budget": 0,
+  "pages_basis": "measured",
+  "lv_reached": "A2 (שטף A1)",
+  "lv_ref": "docs/research/round4/LV_benchmark.md §ENG · Physics",
+  "missing_topics_he": [
+   "פתרון בעיות שפה ב-E&M: משוואת לפלס, שיטת הדמויות, הפרדת משתנים, פיתוח מולטיפולי",
+   "גלים מישוריים בתווך, תנאי שפה, החזרה בזווית, משפטי הדדיות ודמויות (בניסוח הנדסי)",
+   "קרינה כמותית: דיפול, עוצמה קרינתית, התנגדות קרינה",
+   "פיזיקה סטטיסטית: פונקציית חלוקה, אנסמבל קנוני, פרמי-דיראק ובוז-איינשטיין, קרינת גוף שחור, קיבול חום של מוצקים"
+  ],
+  "closing_sources": [
+   {
+    "source": "Pozar, Microwave Engineering 4th (במאגר: library/math-physics/)",
+    "chapters": "פרק 1 Electromagnetic Theory, PDF 21–67 (47 עמ' כולל תרגילים [measured]); חדש אחרי חפיפה עם M9.9",
+    "in_repo": true,
+    "new_pages": 25,
+    "new_pages_basis": "estimate",
+    "slot_he": "אחרי M9.9, לפני M9.11; פותח גם את רצף ה-RF של האלקטרוניקה",
+    "replaces_modules": [],
+    "replaces_pages": 0,
+    "replaces_basis": null,
+    "replaces_what_he": ""
+   },
+   {
+    "source": "Griffiths, Introduction to Electrodynamics 4th",
+    "chapters": "§3.1–3.4 (לפלס, דמויות, הפרדת משתנים, מולטיפולים); §11.1–11.2 (קרינת דיפול ונקודה)",
+    "in_repo": false,
+    "new_pages": 65,
+    "new_pages_basis": "estimate",
+    "slot_he": "§3 אחרי M9.4; §11 אחרי M9.9",
+    "replaces_modules": [],
+    "replaces_pages": 0,
+    "replaces_basis": null,
+    "replaces_what_he": ""
+   },
+   {
+    "source": "Schroeder, An Introduction to Thermal Physics",
+    "chapters": "פרק 6 (Boltzmann statistics) ופרק 7 (Quantum statistics), בבחירה",
+    "in_repo": false,
+    "new_pages": 70,
+    "new_pages_basis": "estimate",
+    "slot_he": "אחרי M13.3 ולפני M13.4 (תרמו הנדסית)",
+    "replaces_modules": [],
+    "replaces_pages": 0,
+    "replaces_basis": null,
+    "replaces_what_he": ""
+   }
+  ],
+  "savings": [
+   {
+    "modules": [
+     "M24.10"
+    ],
+    "pages": 82,
+    "basis": "measured",
+    "kind": "beyond_target",
+    "why_he": "סימטריה, חוקי שימור ותנע זוויתי (פיינמן III 17–18 ו-20): מכניקת קוונטים של שנה ג', מעבר ליעד (קוונטים ב-A2)"
+   },
+   {
+    "modules": [
+     "M24.12"
+    ],
+    "pages": 62,
+    "basis": "measured",
+    "kind": "beyond_target",
+    "why_he": "אופרטורים, משוואת שרדינגר ומוליכות-על: פורמליזם קוונטי מעבר ליעד; התקני מוליכים (P25) נשענים על M24.8 שנשאר"
+   },
+   {
+    "modules": [
+     "M9.15"
+    ],
+    "pages": 22,
+    "basis": "measured",
+    "kind": "beyond_target",
+    "why_he": "ראיית צבעים ומנגנוני ראייה: ביולוגיה של העין, לא E&M"
+   },
+   {
+    "modules": [
+     "M9.5"
+    ],
+    "pages": 11,
+    "basis": "measured",
+    "kind": "beyond_target",
+    "why_he": "חשמל באטמוספרה: תיאורי, מעבר ליעד"
+   }
+  ],
+  "added_pages": 160,
+  "replaced_pages": 0,
+  "saved_pages": 177,
+  "net_page_delta": -17,
+  "net_learner_hours": -2.8
+ },
+ {
+  "type": "domain",
+  "row": 3,
+  "domain_id": "ENG · Signals and systems",
+  "role_e2": "deep",
+  "role_after_s2": "deep",
+  "target_knowledge": "A4",
+  "target_meaning_he": "DSP ברמת 6.341: ריבוי קצבים ובנקי מסננים פוליפאזיים, תכן מסננים FIR/IIR, DFT/FFT ואנליזה ספקטרלית של אותות אמיתיים, אומדן ספקטרלי לא-פרמטרי ופרמטרי.",
+  "current_modules": [
+   "M4.1",
+   "M4.2",
+   "M4.3",
+   "M4.4",
+   "M4.5",
+   "M4.6",
+   "M4.7",
+   "M4.8",
+   "M4.9",
+   "M4.10",
+   "M4.11",
+   "M7.1",
+   "M7.2",
+   "M7.3",
+   "M7.4"
+  ],
+  "main_sources": [
+   "Oppenheim & Willsky",
+   "Oppenheim & Verghese",
+   "Kolmogorov et al.",
+   "Wasserman"
+  ],
+  "pages_core": 797,
+  "pages_adv": 25,
+  "pages_ref_not_in_budget": 0,
+  "pages_basis": "measured",
+  "lv_reached": "A3 (שטף A2-)",
+  "lv_ref": "docs/research/round4/LV_benchmark.md §ENG · Signals and systems",
+  "missing_topics_he": [
+   "DSP רב-קצבי: דצימציה, אינטרפולציה, מבנה פוליפאזי, בנקי מסננים",
+   "תכן מסננים: חלון, Parks-McClellan, טרנספורמציה בילינארית",
+   "FFT כאלגוריתם, קונבולוציה מעגלית, overlap-add",
+   "אנליזה ספקטרלית עם DFT: חלונות, דליפה, רזולוציה, STFT",
+   "אומדן ספקטרלי: פריודוגרם, Welch, AR, MUSIC/ESPRIT"
+  ],
+  "closing_sources": [
+   {
+    "source": "Oppenheim & Schafer, Discrete-Time Signal Processing 3rd",
+    "chapters": "§4.6–4.7 (multirate, polyphase); פרק 7 בבחירה (תכן מסננים); §9.1–9.3 (FFT); פרק 10 (Fourier analysis using the DFT)",
+    "in_repo": false,
+    "new_pages": 160,
+    "new_pages_basis": "estimate",
+    "slot_he": "§4.6–4.7 אחרי M4.8; 7, 9, 10 אחרי M4.10 (מודול חדש M4.12)",
+    "replaces_modules": [],
+    "replaces_pages": 0,
+    "replaces_basis": null,
+    "replaces_what_he": ""
+   },
+   {
+    "source": "Stoica & Moses, Spectral Analysis of Signals",
+    "chapters": "§3.1–3.6 (AR/ARMA) ו-§4.1–4.7 (line spectra: MUSIC, ESPRIT)",
+    "in_repo": false,
+    "new_pages": 60,
+    "new_pages_basis": "estimate",
+    "slot_he": "אחרי M7.2 (ספקטרום הספק)",
+    "replaces_modules": [],
+    "replaces_pages": 0,
+    "replaces_basis": null,
+    "replaces_what_he": ""
+   }
+  ],
+  "savings": [
+   {
+    "modules": [
+     "M4.1",
+     "M4.5"
+    ],
+    "pages": 25,
+    "basis": "estimate",
+    "kind": "duplicate",
+    "why_he": "השלמות O&V פרקים 2–3 (44 עמ' [measured]) חוזרות על O&W פרקים 1 ו-4; נשאר רק הניסוח הבדיד וההסקתי"
+   }
+  ],
+  "added_pages": 220,
+  "replaced_pages": 0,
+  "saved_pages": 25,
+  "net_page_delta": 195,
+  "net_learner_hours": 32.5
+ },
+ {
+  "type": "domain",
+  "row": 4,
+  "domain_id": "ENG · Control and estimation",
+  "role_e2": "deep",
+  "role_after_s2": "deep",
+  "target_knowledge": "A4",
+  "target_meaning_he": "EE263/6.241 ומסננים לא לינאריים: מערכות לינאריות בניסוח SVD ו-Gramians, יציבות ליאפונוב ובקרה לא לינארית, EKF/UKF/מסנן חלקיקים עם בדיקות עקביות (NEES/NIS).",
+  "current_modules": [
+   "M5.1",
+   "M5.2",
+   "M5.3",
+   "M5.4",
+   "M5.5",
+   "M5.6",
+   "M5.7",
+   "M5.8",
+   "M5.9",
+   "M5.10",
+   "M5.11",
+   "M5.12",
+   "M5.13"
+  ],
+  "main_sources": [
+   "Åström & Murray"
+  ],
+  "pages_core": 553,
+  "pages_adv": 27,
+  "pages_ref_not_in_budget": 0,
+  "pages_basis": "measured",
+  "lv_reached": "A3 (שטף A2-)",
+  "lv_ref": "docs/research/round4/LV_benchmark.md §ENG · Control and estimation",
+  "missing_topics_he": [
+   "תורת מערכות לינאריות ברמת EE263: Gramians, least-norm, פירוק SVD של מערכות",
+   "בקרה לא לינארית: מישור פאזה, מחזורי גבול, ליאפונוב, describing function/circle, feedback linearization",
+   "EKF, UKF, מסנן חלקיקים; עקביות NEES/NIS ואבחון התבדרות; FDIR"
+  ],
+  "closing_sources": [
+   {
+    "source": "Khalil, Nonlinear Systems 3rd",
+    "chapters": "§2.1–2.6, §4.1–4.3, §7.1–7.2, §13.1–13.2",
+    "in_repo": false,
+    "new_pages": 100,
+    "new_pages_basis": "estimate",
+    "slot_he": "מודול חדש אחרי M5.12",
+    "replaces_modules": [],
+    "replaces_pages": 0,
+    "replaces_basis": null,
+    "replaces_what_he": ""
+   },
+   {
+    "source": "Simon, Optimal State Estimation; Bar-Shalom, Li & Kirubarajan, Estimation with Applications to Tracking and Navigation",
+    "chapters": "Simon פרקים 13–15 (EKF, UKF, particle); Bar-Shalom §5.4 (consistency)",
+    "in_repo": false,
+    "new_pages": 80,
+    "new_pages_basis": "estimate",
+    "slot_he": "אחרי M5.6; מעקב רב-מטרות כבר בלנצ'סטר (M2.15) ולא מוכפל",
+    "replaces_modules": [],
+    "replaces_pages": 0,
+    "replaces_basis": null,
+    "replaces_what_he": ""
+   },
+   {
+    "source": "Boyd, EE263 Introduction to Linear Dynamical Systems (רשימות קורס, Stanford)",
+    "chapters": "הרצאות על least-norm, controllability/observability, SVD של מערכות",
+    "in_repo": false,
+    "new_pages": 40,
+    "new_pages_basis": "estimate",
+    "slot_he": "אחרי M5.4",
+    "replaces_modules": [],
+    "replaces_pages": 0,
+    "replaces_basis": null,
+    "replaces_what_he": ""
+   }
+  ],
+  "savings": [
+   {
+    "modules": [
+     "M5.4",
+     "M5.6"
+    ],
+    "pages": 25,
+    "basis": "estimate",
+    "kind": "duplicate",
+    "why_he": "השלמות O&V פרקים 4–6 (56 עמ' [measured]) חוזרות על Åström 6 ו-8; נשאר הניסוח הבדיד"
+   },
+   {
+    "modules": [
+     "M5.8"
+    ],
+    "pages": 30,
+    "basis": "estimate",
+    "kind": "duplicate",
+    "why_he": "השלמה O&W פרק 11 (51 עמ' [measured]) חוזרת על נייקוויסט ושוליים של Åström; נשארים מקום השורשים והגרסה הבדידה"
+   }
+  ],
+  "added_pages": 220,
+  "replaced_pages": 0,
+  "saved_pages": 55,
+  "net_page_delta": 165,
+  "net_learner_hours": 27.5
+ },
+ {
+  "type": "domain",
+  "row": 5,
+  "domain_id": "ENG · Information theory and communications",
+  "role_e2": "core",
+  "role_after_s2": "core",
+  "target_knowledge": "A4 במושגים, A3 ברשתות",
+  "target_meaning_he": "תורת האינפורמציה ותקשורת אלחוטית ברמת MSc (קיבולת, קידוד, MIMO, OFDM) ורשתות ברמת תואר ראשון מלא: שכבות, TCP ובקרת עומס, ניתוב, שכבת קישור, אלחוט וניידות.",
+  "current_modules": [
+   "M7.5",
+   "M7.6",
+   "M7.7",
+   "M7.8",
+   "M7.9",
+   "M7.10",
+   "M7.11",
+   "M7.12",
+   "M7.13",
+   "M7.14",
+   "M7.15",
+   "M7.16",
+   "M23.1",
+   "M23.2",
+   "M23.3",
+   "M23.4",
+   "M23.5",
+   "M23.6",
+   "M23.7",
+   "M23.8",
+   "M23.9",
+   "M23.10"
+  ],
+  "main_sources": [
+   "MacKay",
+   "Tse & Viswanath",
+   "Oppenheim & Willsky",
+   "Oppenheim & Verghese"
+  ],
+  "pages_core": 632,
+  "pages_adv": 351,
+  "pages_ref_not_in_budget": 16,
+  "pages_basis": "measured",
+  "lv_reached": "A3–A4 במושגים, רשתות A2 (שטף A2)",
+  "lv_ref": "docs/research/round4/LV_benchmark.md §ENG · Information theory and communications",
+  "missing_topics_he": [
+   "רשתות: ארכיטקטורת שכבות, TCP ובקרת עומס, ניתוב (link-state, distance-vector, BGP), MAC ו-LAN, רשתות אלחוטיות וניידות, תורים בסיסיים",
+   "(הספרייה הוציאה רשתות במודע, ב-library/engineering/README.md; היעד ב-E2 דורש A3)"
+  ],
+  "closing_sources": [
+   {
+    "source": "Kurose & Ross, Computer Networking: A Top-Down Approach 8th",
+    "chapters": "§1.1–1.5, §3.1–3.7, פרקים 4–5 בבחירה, §6.1–6.4, פרק 7 (דלתא מול Tse)",
+    "in_repo": false,
+    "new_pages": 180,
+    "new_pages_basis": "estimate",
+    "slot_he": "מודול חדש אחרי M23.7",
+    "replaces_modules": [],
+    "replaces_pages": 0,
+    "replaces_basis": null,
+    "replaces_what_he": ""
+   }
+  ],
+  "savings": [
+   {
+    "modules": [
+     "M7.8"
+    ],
+    "pages": 20,
+    "basis": "measured",
+    "kind": "beyond_target",
+    "why_he": "MacKay 18–19 (תשבצים ופענוח צפנים, אינפורמציה באבולוציה): העשרה; פרק 17 (ערוצים מוגבלים) נשאר"
+   }
+  ],
+  "added_pages": 180,
+  "replaced_pages": 0,
+  "saved_pages": 20,
+  "net_page_delta": 160,
+  "net_learner_hours": 26.7
+ },
+ {
+  "type": "domain",
+  "row": 6,
+  "domain_id": "ENG · Electronics and circuits",
+  "role_e2": "core",
+  "role_after_s2": "core",
+  "target_knowledge": "A3",
+  "target_meaning_he": "תואר ראשון ב-EE באלקטרוניקה ומעגלים ועוד בחירה ב-RF: ניתוח מעגלים שיטתי (צמתים, תבנין/נורטון, מעברים, פאזורים, הספק AC, שני-שערים), תכן אנלוגי מעשי, וחזית RF: קווי תמסורת, סמית, פרמטרי S, תיאום, רעש ו-IP3, יציבות מגבר, מתנדים ומערבלים.",
+  "current_modules": [
+   "M11.1",
+   "M11.2",
+   "M11.3",
+   "M11.4",
+   "M11.5",
+   "M11.6",
+   "M11.7",
+   "M11.8",
+   "M11.9",
+   "M11.10",
+   "M11.11",
+   "M11.12",
+   "M11.13",
+   "M11.14"
+  ],
+  "main_sources": [
+   "Horowitz & Hill",
+   "Hayes & Horowitz",
+   "The Feynman Lectures on Physics"
+  ],
+  "pages_core": 1073,
+  "pages_adv": 120,
+  "pages_ref_not_in_budget": 76,
+  "pages_basis": "measured",
+  "lv_reached": "A2- (שטף A1)",
+  "lv_ref": "docs/research/round4/LV_benchmark.md §ENG · Electronics and circuits",
+  "missing_topics_he": [
+   "ניתוח מעגלים שיטתי (H&H פרק 1 חסר בעותק; היום מ-Hayes 1 ומכתיבת המורה): KCL/KVL, צמתים ולולאות, תבנין/נורטון, מעברים מסדר 1–2, פאזורים, הספק מרוכב, שנאים, שני-שערים",
+   "קווי תמסורת וסמית, מוליכי גל מישוריים (microstrip)",
+   "ניתוח רשתות מיקרוגל: מטריצות Z/Y/S/ABCD, גרפי זרימה",
+   "תיאום עכבות (L, stub, רבע-גל, Bode-Fano)",
+   "רעש ומקדם רעש, אי-לינאריות, IP3, טווח דינמי",
+   "תכן מגבר RF: הגבר, יציבות, LNA ומגבר הספק; מתנדים, רעש פאזה, מערבלים"
+  ],
+  "closing_sources": [
+   {
+    "source": "Alexander & Sadiku, Fundamentals of Electric Circuits (במאגר: library/math-physics/; עמוד PDF = מודפס + 32)",
+    "chapters": "§2.4–2.7, פרקים 3–4, 7–8 בבחירה, 9–11, 13, 19 (טקסט בלי תרגילים: 2=37, 3=32, 4=34, 7=47, 8=44, 9=34, 10=24, 11=33, 13=43, 19=41 עמ' [measured])",
+    "in_repo": true,
+    "new_pages": 209,
+    "new_pages_basis": "estimate",
+    "slot_he": "במקום Hayes 1 בתוך M11.1 (פרקים 2–4, 7–11); פרק 13 לפני M12.3; פרק 19 לפני M11.11",
+    "replaces_modules": [
+     "M11.1"
+    ],
+    "replaces_pages": 66,
+    "replaces_basis": "estimate",
+    "replaces_what_he": "Hayes & Horowitz Student Manual פרק 1 (PDF 9–89, 81 עמ' [measured]); נשארים כ-15 עמ' על דיודות"
+   },
+   {
+    "source": "Pozar, Microwave Engineering 4th (במאגר)",
+    "chapters": "פרקים 2 (PDF 68–114), 3 בבחירה (115–184), 4 (185–247), 5 בבחירה (248–291), §6.1–6.2, §7.1–7.3, §8.3–8.5, 10 (516–543), 12 (578–623), §13.1, 13.3, 13.5",
+    "in_repo": true,
+    "new_pages": 250,
+    "new_pages_basis": "estimate",
+    "slot_he": "מודול חדש M11.15 \"הנדסת RF ומיקרוגל\" אחרי M11.5 ו-M9.11, במקום M11.11",
+    "replaces_modules": [
+     "M11.11"
+    ],
+    "replaces_pages": 50,
+    "replaces_basis": "measured",
+    "replaces_what_he": "H&H פרק 13 (טכניקות תדר גבוה, 1989), 50 עמ' [measured]: Pozar מלמד את אותו נושא מלא ועדכני"
+   }
+  ],
+  "savings": [],
+  "added_pages": 459,
+  "replaced_pages": 116,
+  "saved_pages": 0,
+  "net_page_delta": 343,
+  "net_learner_hours": 57.2
+ },
+ {
+  "type": "domain",
+  "row": 7,
+  "domain_id": "ENG · Electric machines and power",
+  "role_e2": "supporting",
+  "role_after_s2": "core (S2 §1.6)",
+  "target_knowledge": "A3",
+  "target_meaning_he": "מכונות והנעה של תואר ראשון ומערכות הספק ברמת קורס בחירה: יחידות יחסיות ותלת-פאזי, מודלי שנאי וקו, זרימת הספק (ניוטון-רפסון), תקלות ורכיבים סימטריים, הגנה, יציבות מעברית ובקרת תדר; אלקטרוניקת הספק במודל ממוצע; סוללות במודל מעגל שקול.",
+  "current_modules": [
+   "M12.1",
+   "M12.2",
+   "M12.3",
+   "M12.4",
+   "M12.5",
+   "M12.6",
+   "M12.7",
+   "M12.8",
+   "M12.9",
+   "M12.10",
+   "M13.15",
+   "M13.16",
+   "M13.17",
+   "M13.18",
+   "M13.19"
+  ],
+  "main_sources": [
+   "MacKay",
+   "Hughes & Drury",
+   "The Feynman Lectures on Physics"
+  ],
+  "pages_core": 646,
+  "pages_adv": 152,
+  "pages_ref_not_in_budget": 0,
+  "pages_basis": "measured",
+  "lv_reached": "A2, רשתות פחות מ-A2 (שטף A1–A2)",
+  "lv_ref": "docs/research/round4/LV_benchmark.md §ENG · Electric machines and power",
+  "missing_topics_he": [
+   "M13.19 (רשת) בלי עמודי מקור (0 עמ'): per-unit, מודלי קו, זרימת הספק, תקלות סימטריות ולא סימטריות, הגנה, יציבות מעברית, בקרת תדר ואינרציה",
+   "מעגלים תלת-פאזיים והספק מרוכב כחשבון (היום רק פריטי מורה ב-M12.6)",
+   "אלקטרוניקת הספק: עקרונות מצב מתמיד, מודל ממוצע AC, בקרת ממיר; SiC/GaN",
+   "סוללות: אלקטרוכימיה בסיסית, מודל מעגל שקול, SOC, תרמי (הוצאו במודע ב-README, היעד החדש דורש)"
+  ],
+  "closing_sources": [
+   {
+    "source": "Alexander & Sadiku (במאגר)",
+    "chapters": "פרק 12 Three-Phase Circuits, PDF 535–574 (40 עמ' [measured])",
+    "in_repo": true,
+    "new_pages": 30,
+    "new_pages_basis": "estimate",
+    "slot_he": "לפני M12.6 ו-M13.19",
+    "replaces_modules": [],
+    "replaces_pages": 0,
+    "replaces_basis": null,
+    "replaces_what_he": ""
+   },
+   {
+    "source": "Glover, Overbye & Sarma, Power System Analysis and Design 6th",
+    "chapters": "פרקים 3, 5, 6, 7, 8–9, 10, 11 בבחירה",
+    "in_repo": false,
+    "new_pages": 200,
+    "new_pages_basis": "estimate",
+    "slot_he": "בתוך M13.19 (היום 0 עמ'), אחרי M13.17",
+    "replaces_modules": [],
+    "replaces_pages": 0,
+    "replaces_basis": null,
+    "replaces_what_he": ""
+   },
+   {
+    "source": "Erickson & Maksimović, Fundamentals of Power Electronics 3rd",
+    "chapters": "פרקים 2–3 ו-7 בבחירה",
+    "in_repo": false,
+    "new_pages": 60,
+    "new_pages_basis": "estimate",
+    "slot_he": "אחרי M12.4",
+    "replaces_modules": [],
+    "replaces_pages": 0,
+    "replaces_basis": null,
+    "replaces_what_he": ""
+   },
+   {
+    "source": "Plett, Battery Management Systems Vol. I",
+    "chapters": "פרקים 1–2 בבחירה",
+    "in_repo": false,
+    "new_pages": 50,
+    "new_pages_basis": "estimate",
+    "slot_he": "אחרי M13.17",
+    "replaces_modules": [],
+    "replaces_pages": 0,
+    "replaces_basis": null,
+    "replaces_what_he": ""
+   }
+  ],
+  "savings": [
+   {
+    "modules": [
+     "M13.18"
+    ],
+    "pages": 67,
+    "basis": "measured",
+    "kind": "beyond_target",
+    "why_he": "MacKay: תוכניות אנרגיה לבריטניה, עלויות ונתוני ייחוס; מדיניות ונתונים, מעבר ליעד"
+   },
+   {
+    "modules": [
+     "M12.2"
+    ],
+    "pages": 12,
+    "basis": "measured",
+    "kind": "beyond_target",
+    "why_he": "פרמגנטיות ותהודה מגנטית (פיינמן II 35): לא נדרש למכונות"
+   }
+  ],
+  "added_pages": 340,
+  "replaced_pages": 0,
+  "saved_pages": 79,
+  "net_page_delta": 261,
+  "net_learner_hours": 43.5
+ },
+ {
+  "type": "domain",
+  "row": 8,
+  "domain_id": "ENG · Thermodynamics and heat transfer",
+  "role_e2": "supporting",
+  "role_after_s2": "core (S2 §1.6)",
+  "target_knowledge": "A3 (היה A2–A3)",
+  "target_meaning_he": "תרמו ומעבר חום של הנדסת מכונות מלאים ועוד בחירה: מחזורים, בעירה ושיווי משקל, הולכה רב-ממדית ונומרית, הסעה ושכבות גבול, קרינה בין משטחים, מחליפים (ε-NTU), דו-פאזי לקירור, טורבולנציה ותכן תרמי עם מרווחים.",
+  "current_modules": [
+   "M13.4",
+   "M13.5",
+   "M13.6",
+   "M13.7",
+   "M13.8",
+   "M13.9",
+   "M13.10",
+   "M13.11",
+   "M13.12",
+   "M13.13",
+   "M13.14",
+   "M14.1",
+   "M14.2",
+   "M14.3",
+   "M14.4",
+   "M14.5",
+   "M14.6",
+   "M14.7",
+   "M14.8",
+   "M14.9",
+   "M14.10",
+   "M14.11",
+   "M14.12"
+  ],
+  "main_sources": [
+   "Çengel & Boles",
+   "Lienhard"
+  ],
+  "pages_core": 957,
+  "pages_adv": 371,
+  "pages_ref_not_in_budget": 138,
+  "pages_basis": "measured",
+  "lv_reached": "A2 (שטף A1–A2)",
+  "lv_ref": "docs/research/round4/LV_benchmark.md §ENG · Thermodynamics and heat transfer",
+  "missing_topics_he": [
+   "טורבולנציה: מפל אנרגיה, סקאלות קולמוגורוב, ממוצע ריינולדס ובעיית הסגירה (היום פריט מורה ב-M14.6)",
+   "הולכה נומרית (FV/FEM): נסגר במתמטיקה (M10.10)",
+   "תכן תרמי של אלקטרוניקה וסוללות: נסגר בהספק (Plett) ובפריטי M14.10"
+  ],
+  "closing_sources": [
+   {
+    "source": "Tennekes & Lumley, A First Course in Turbulence",
+    "chapters": "פרק 1, §3.1–3.2, §8.1–8.3",
+    "in_repo": false,
+    "new_pages": 45,
+    "new_pages_basis": "estimate",
+    "slot_he": "אחרי M14.6",
+    "replaces_modules": [],
+    "replaces_pages": 0,
+    "replaces_basis": null,
+    "replaces_what_he": ""
+   }
+  ],
+  "savings": [
+   {
+    "modules": [
+     "M13.12"
+    ],
+    "pages": 25,
+    "basis": "measured",
+    "kind": "beyond_target",
+    "why_he": "Çengel 14: תערובות גז-אדים ומיזוג אוויר; פרקים 12–13 (יחסי תכונות, תערובות) נשארים לבעירה"
+   },
+   {
+    "modules": [
+     "M14.11"
+    ],
+    "pages": 60,
+    "basis": "estimate",
+    "kind": "beyond_target",
+    "why_he": "Lienhard 11 (110 עמ'): נשארים יסודות הדיפוזיה (§11.1–11.4); שאר העברת המסה מעבר ליעד"
+   },
+   {
+    "modules": [
+     "M13.4",
+     "M13.5",
+     "M13.6",
+     "M13.7",
+     "M13.8",
+     "M13.9",
+     "M13.11"
+    ],
+    "pages": 35,
+    "basis": "measured",
+    "kind": "history_descriptive",
+    "why_he": "Çengel \"Topic of Special Interest\" תיאוריים: מקררים ביתיים, עלות אוויר דחוס, חיסכון בדלק בנהיגה, היבטים ביולוגיים, לחץ אדים, חוק שני בחיי היום-יום"
+   }
+  ],
+  "added_pages": 45,
+  "replaced_pages": 0,
+  "saved_pages": 120,
+  "net_page_delta": -75,
+  "net_learner_hours": -12.5
+ },
+ {
+  "type": "domain",
+  "row": 9,
+  "domain_id": "ENG · Fluids, aerodynamics and propulsion",
+  "role_e2": "supporting",
+  "role_after_s2": "core (S2 §1.6)",
+  "target_knowledge": "A3",
+  "target_meaning_he": "אווירודינמיקה ברמת MIT 16.100 והנעה ברמת 16.50: זרימה פוטנציאלית, תורת כנף דקה וקו נושא, שיטות פנלים; זרימה דחיסה (הלם ישר ואלכסוני, פרנדטל-מאייר, נחיר קוואזי-חד-ממדי, פאנו/ריילי, תיקוני דחיסות, על-קולי מקורב); נאוויה-סטוקס ו-CFD; ניתוח מחזור של טורבו-סילון ומניפה, נחיר רקטי ותרמוכימיה; דינמיקת טיסה.",
+  "current_modules": [
+   "M15.1",
+   "M15.2",
+   "M15.3",
+   "M15.4",
+   "M15.5",
+   "M15.6",
+   "M15.7",
+   "M15.8",
+   "M15.9",
+   "M15.10",
+   "M15.11",
+   "M15.12",
+   "M15.13",
+   "M15.14",
+   "M15.15",
+   "M15.16",
+   "M15.17",
+   "M15.18"
+  ],
+  "main_sources": [
+   "Anderson",
+   "The Feynman Lectures on Physics"
+  ],
+  "pages_core": 834,
+  "pages_adv": 82,
+  "pages_ref_not_in_budget": 1,
+  "pages_basis": "measured",
+  "lv_reached": "A2 (שטף A1–A2; דחיס והנעה ברמת סקירה)",
+  "lv_ref": "docs/research/round4/LV_benchmark.md §ENG · Fluids, aerodynamics and propulsion",
+  "missing_topics_he": [
+   "זרימה דחיסה: הלם ישר ואלכסוני, התפשטות פרנדטל-מאייר, נחיר וזרימה קוואזי-חד-ממדית, פאנו וריילי",
+   "זרימה פוטנציאלית ומשוואות בצורה דיפרנציאלית: מערבולת, סירקולציה, פונקציית זרם, קוטה-ז'וקובסקי",
+   "תורת כנף דקה, קו נושא של פרנדטל, שיטות פנלים",
+   "זרימה דחיסה מעל כנף: פרנדטל-גלאוארט, מאך קריטי, התבדרות גרר, תיאוריה על-קולית מקורבת",
+   "נאוויה-סטוקס, זרימת קואט, CFD: דיסקרטיזציה, אימות ותיקוף",
+   "הנעה: ניתוח מחזור אידאלי ואמיתי של טורבו-סילון, מניפה ורמג'ט; משולשי מהירות במדחסים; תורת נחיר רקטי וביצועי דלק",
+   "דינמיקת טיסה: משוואות 6 דרגות חופש, נגזרות יציבות, מצבים אורכיים ורוחביים"
+  ],
+  "closing_sources": [
+   {
+    "source": "Anderson, Fundamentals of Aerodynamics 6th",
+    "chapters": "פרקים 2–5, 7–11 בבחירה, 15–16, 20 (שכבות הגבול 17–19 לא: Lienhard M14.6 מלמד אותן)",
+    "in_repo": false,
+    "new_pages": 380,
+    "new_pages_basis": "estimate",
+    "slot_he": "מחליף את ליבת האווירודינמיקה של Introduction to Flight: M15.5, M15.6, M15.8–M15.10; M14.6 עובר לפני P15",
+    "replaces_modules": [
+     "M15.5",
+     "M15.6",
+     "M15.7",
+     "M15.8",
+     "M15.9",
+     "M15.10"
+    ],
+    "replaces_pages": 260,
+    "replaces_basis": "estimate",
+    "replaces_what_he": "Intro to Flight §4.1–4.9 (60), §4.12–4.14 ו-Çengel 17 בלי פאנו/ריילי (51), §4.15–4.27 צמיגות (52, נלמד ב-Lienhard M14.6), §5.2–5.11 (60), §5.13–5.15 (22), §5.18–5.19 (15) [estimate בתוך מודולים measured]"
+   },
+   {
+    "source": "Hill & Peterson, Mechanics and Thermodynamics of Propulsion 2nd; Sutton & Biblarz, Rocket Propulsion Elements 9th",
+    "chapters": "H&P פרק 5 (ניתוח מחזור), פרק 7 בבחירה (מדחסים צירים); S&B פרקים 3 ו-5 בבחירה",
+    "in_repo": false,
+    "new_pages": 105,
+    "new_pages_basis": "estimate",
+    "slot_he": "בתוך M15.16, אחרי M13.9 ו-M13.13",
+    "replaces_modules": [
+     "M15.16"
+    ],
+    "replaces_pages": 38,
+    "replaces_basis": "measured",
+    "replaces_what_he": "Intro to Flight §9.4–9.11 (סילון, מניפה, רמג'ט, רקטה, משוואת הרקטה, שלבים), 38 עמ' [measured]"
+   },
+   {
+    "source": "Nelson, Flight Stability and Automatic Control 2nd",
+    "chapters": "§3.1–3.6, פרק 4 ופרק 5 בבחירה",
+    "in_repo": false,
+    "new_pages": 50,
+    "new_pages_basis": "estimate",
+    "slot_he": "אחרי M15.14; משתמש במשוואות הגוף הקשיח של שורת המכניקה",
+    "replaces_modules": [],
+    "replaces_pages": 0,
+    "replaces_basis": null,
+    "replaces_what_he": ""
+   }
+  ],
+  "savings": [
+   {
+    "modules": [
+     "M15.2"
+    ],
+    "pages": 52,
+    "basis": "measured",
+    "kind": "history_descriptive",
+    "why_he": "Intro to Flight פרק 1: היסטוריה של מהנדסי התעופה הראשונים"
+   },
+   {
+    "modules": [
+     "M15.15"
+    ],
+    "pages": 70,
+    "basis": "measured",
+    "kind": "duplicate",
+    "why_he": "Intro to Flight פרק 8 (מסלולים, כניסה חוזרת) נלמד בלנצ'סטר: M13.4 (SMAD 9) ו-M6.8 (Siouris 6, כניסה חוזרת); הכפילות הזו נחסכת בגילואה"
+   },
+   {
+    "modules": [
+     "M15.3",
+     "M15.4",
+     "M15.13",
+     "M15.14",
+     "M15.16"
+    ],
+    "pages": 35,
+    "basis": "measured",
+    "kind": "history_descriptive",
+    "why_he": "Historical Notes בתוך מודולי הליבה: §2.8, 3.6, 6.24–6.27, 7.20–7.22, 9.14–9.17"
+   },
+   {
+    "modules": [
+     "M15.10"
+    ],
+    "pages": 17,
+    "basis": "measured",
+    "kind": "history_descriptive",
+    "why_he": "§5.20–5.23 Historical Notes"
+   },
+   {
+    "modules": [
+     "M15.8",
+     "M15.4"
+    ],
+    "pages": 47,
+    "basis": "measured",
+    "kind": "reference_data",
+    "why_he": "נספחים שהם טבלאות ונתונים, לא טקסט ללימוד: נתוני כנפיים (App. D, 29) ואטמוספרה סטנדרטית (App. A–B, 18). עוברים לעיון"
+   }
+  ],
+  "added_pages": 535,
+  "replaced_pages": 298,
+  "saved_pages": 221,
+  "net_page_delta": 16,
+  "net_learner_hours": 2.7
+ },
+ {
+  "type": "domain",
+  "row": 10,
+  "domain_id": "ENG · Structures and materials",
+  "role_e2": "supporting",
+  "role_after_s2": "core (S2 §1.6)",
+  "target_knowledge": "A3",
+  "target_meaning_he": "חוזק חומרים מלא ובחירת חומרים, ועוד בחירה של מתכנן: עייפות כמותית ומכניקת שבר (LEFM, חוק פריס), אלמנטי מכונות (צירים, ברגים ומחברים, מסבים, גלגלי שיניים), קורות דקות-דופן של מבנה תעופתי (זרימת גזירה), למינטים מרוכבים, FEM מבני ואימות.",
+  "current_modules": [
+   "M16.1",
+   "M16.2",
+   "M16.3",
+   "M16.4",
+   "M16.5",
+   "M16.6",
+   "M16.7",
+   "M16.8",
+   "M16.9",
+   "M16.10",
+   "M16.11",
+   "M16.12",
+   "M16.13",
+   "M16.14",
+   "M16.15",
+   "M16.16",
+   "M16.17",
+   "M16.18"
+  ],
+  "main_sources": [
+   "Ashby",
+   "Gere",
+   "The Feynman Lectures on Physics"
+  ],
+  "pages_core": 1015,
+  "pages_adv": 196,
+  "pages_ref_not_in_budget": 134,
+  "pages_basis": "measured",
+  "lv_reached": "A2 (שטף A1–A2)",
+  "lv_ref": "docs/research/round4/LV_benchmark.md §ENG · Structures and materials",
+  "missing_topics_he": [
+   "עייפות לתכן: S-N, גודמן, מיינר, מקדמי סדק, לחיצה מקדימה בברגים (היום פריטי מורה ב-M16.2)",
+   "מכניקת שבר: מקדם עוצמת מאמץ, K_IC, גידול סדק",
+   "אלמנטי מכונות: צירים, ברגים ומחברים, מסבים, גלגלי שיניים (פריט מורה ב-M16.3)",
+   "מבנים דקי-דופן: כפיפה לא סימטרית, זרימת גזירה, מרכז גזירה, תאים סגורים",
+   "למינטים מרוכבים: CLT, קריטריוני כשל",
+   "FEM מבני בפועל: נסגר ב-M10.10 ובפריטי M16.6"
+  ],
+  "closing_sources": [
+   {
+    "source": "Budynas & Nisbett, Shigley's Mechanical Engineering Design 11th",
+    "chapters": "פרקים 6, 7, 8, 11, 13–14 בבחירה",
+    "in_repo": false,
+    "new_pages": 120,
+    "new_pages_basis": "estimate",
+    "slot_he": "מודול חדש אחרי M16.7",
+    "replaces_modules": [],
+    "replaces_pages": 0,
+    "replaces_basis": null,
+    "replaces_what_he": ""
+   },
+   {
+    "source": "T.L. Anderson, Fracture Mechanics 4th",
+    "chapters": "פרק 2 בבחירה (LEFM)",
+    "in_repo": false,
+    "new_pages": 30,
+    "new_pages_basis": "estimate",
+    "slot_he": "אחרי M16.11",
+    "replaces_modules": [],
+    "replaces_pages": 0,
+    "replaces_basis": null,
+    "replaces_what_he": ""
+   },
+   {
+    "source": "Megson, Aircraft Structures for Engineering Students 7th",
+    "chapters": "פרקים 16–18 בבחירה (thin-walled beams)",
+    "in_repo": false,
+    "new_pages": 50,
+    "new_pages_basis": "estimate",
+    "slot_he": "אחרי M16.6",
+    "replaces_modules": [],
+    "replaces_pages": 0,
+    "replaces_basis": null,
+    "replaces_what_he": ""
+   },
+   {
+    "source": "Jones, Mechanics of Composite Materials 2nd",
+    "chapters": "פרקים 2–4 בבחירה",
+    "in_repo": false,
+    "new_pages": 40,
+    "new_pages_basis": "estimate",
+    "slot_he": "אחרי M16.15",
+    "replaces_modules": [],
+    "replaces_pages": 0,
+    "replaces_basis": null,
+    "replaces_what_he": ""
+   }
+  ],
+  "savings": [
+   {
+    "modules": [
+     "M16.17"
+    ],
+    "pages": 34,
+    "basis": "measured",
+    "kind": "beyond_target",
+    "why_he": "Ashby 16–17: עיצוב תעשייתי וכוחות שינוי, תיאורי; פרק 15 (סביבה) נשאר"
+   },
+   {
+    "modules": [
+     "M16.14"
+    ],
+    "pages": 25,
+    "basis": "estimate",
+    "kind": "duplicate",
+    "why_he": "Ashby נספח B (34 עמ' [measured]): נוסחאות קורות, עמודים ותנודות שכבר נלמדו ב-Gere; נשארים לוחות ופיתול"
+   }
+  ],
+  "added_pages": 240,
+  "replaced_pages": 0,
+  "saved_pages": 59,
+  "net_page_delta": 181,
+  "net_learner_hours": 30.2
+ },
+ {
+  "type": "domain",
+  "row": 11,
+  "domain_id": "ENG · Machine learning and deep learning",
+  "role_e2": "core",
+  "role_after_s2": "core",
+  "target_knowledge": "A4",
+  "target_meaning_he": "למידה עמוקה והסתברותית ברמת MSc: ארכיטקטורות, אופטימיזציה, הכללה, מודלים יוצרים, ובעיקר הערכה: כיול, הסטת התפלגות, דליפה, חוסן.",
+  "current_modules": [
+   "M17.1",
+   "M17.2",
+   "M17.3",
+   "M17.4",
+   "M17.5",
+   "M17.6",
+   "M17.7",
+   "M17.8",
+   "M17.9",
+   "M17.10",
+   "M17.11",
+   "M17.12",
+   "M17.13",
+   "M17.14",
+   "M17.15"
+  ],
+  "main_sources": [
+   "Prince",
+   "MacKay",
+   "Wasserman"
+  ],
+  "pages_core": 415,
+  "pages_adv": 108,
+  "pages_ref_not_in_budget": 26,
+  "pages_basis": "measured",
+  "lv_reached": "A3 (שטף A1–A2)",
+  "lv_ref": "docs/research/round4/LV_benchmark.md §ENG · Machine learning and deep learning",
+  "missing_topics_he": [
+   "הסטת התפלגות ו-OOD כנושא שיטתי (היום מאמרים בודדים ב-M17.5)",
+   "הבטחת ML: אימות ובדיקה של מודלים (פריט מורה)",
+   "חוקי סקיילינג, כיול ו-LLM כבר ברשימות הקריאה של M17.5, M17.7 ו-M17.12 ולא נוספים"
+  ],
+  "closing_sources": [
+   {
+    "source": "Murphy, Probabilistic Machine Learning: Advanced Topics (2023, פתוח ברשת)",
+    "chapters": "פרק 19 (Learning with distribution shift) ו-§14 בבחירה (calibration)",
+    "in_repo": false,
+    "new_pages": 40,
+    "new_pages_basis": "estimate",
+    "slot_he": "אחרי M17.5",
+    "replaces_modules": [],
+    "replaces_pages": 0,
+    "replaces_basis": null,
+    "replaces_what_he": ""
+   }
+  ],
+  "savings": [
+   {
+    "modules": [
+     "M17.14"
+    ],
+    "pages": 21,
+    "basis": "measured",
+    "kind": "beyond_target",
+    "why_he": "MacKay 42–43: רשתות הופפילד ומכונות בולצמן, היסטוריים; תהליכים גאוסיים (45) נשארים"
+   },
+   {
+    "modules": [
+     "M17.2",
+     "M17.3",
+     "M17.4"
+    ],
+    "pages": 25,
+    "basis": "estimate",
+    "kind": "duplicate",
+    "why_he": "השלמות MacKay 38–41, 44 (40 עמ' [measured]) חוזרות על Prince 3–7; נשארים קיבולת נוירון ולמידה כהסקה"
+   }
+  ],
+  "added_pages": 40,
+  "replaced_pages": 0,
+  "saved_pages": 46,
+  "net_page_delta": -6,
+  "net_learner_hours": -1.0
+ },
+ {
+  "type": "domain",
+  "row": 12,
+  "domain_id": "ENG · Reinforcement learning",
+  "role_e2": "supporting",
+  "role_after_s2": "supporting (S3: אותו עומק)",
+  "target_knowledge": "A3–A4",
+  "target_meaning_he": "יסודות S&B ו-RL עמוק עד CS285: PPO/SAC, offline RL, model-based, sim-to-real.",
+  "current_modules": [
+   "M18.1",
+   "M18.2",
+   "M18.3",
+   "M18.4",
+   "M18.5",
+   "M18.6",
+   "M18.7",
+   "M18.8",
+   "M18.9"
+  ],
+  "main_sources": [
+   "Sutton & Barto"
+  ],
+  "pages_core": 360,
+  "pages_adv": 146,
+  "pages_ref_not_in_budget": 0,
+  "pages_basis": "measured",
+  "lv_reached": "A3 ביסודות, פחות מ-A3 ב-RL עמוק (שטף A1–A2)",
+  "lv_ref": "docs/research/round4/LV_benchmark.md §ENG · Reinforcement learning",
+  "missing_topics_he": [
+   "actor-critic מודרני (SAC) ו-offline RL",
+   "sim-to-real ו-domain randomization",
+   "PPO כבר ברשימת הקריאה של M18.7 ו-Prince 19 כבר בתוכנית"
+  ],
+  "closing_sources": [
+   {
+    "source": "Levine, Kumar, Tucker & Fu, Offline RL: Tutorial, Review and Perspectives (2020); Haarnoja et al., SAC (2018); Zhao et al., Sim-to-Real Transfer in Deep RL for Robotics: a Survey (2020)",
+    "chapters": "כל המאמרים, בבחירה",
+    "in_repo": false,
+    "new_pages": 40,
+    "new_pages_basis": "estimate",
+    "slot_he": "אחרי M18.7",
+    "replaces_modules": [],
+    "replaces_pages": 0,
+    "replaces_basis": null,
+    "replaces_what_he": ""
+   }
+  ],
+  "savings": [
+   {
+    "modules": [
+     "M18.8"
+    ],
+    "pages": 82,
+    "basis": "measured",
+    "kind": "beyond_target",
+    "why_he": "S&B 14–15: פסיכולוגיה ומדעי המוח; מעבר ליעד ההנדסי"
+   }
+  ],
+  "added_pages": 40,
+  "replaced_pages": 0,
+  "saved_pages": 82,
+  "net_page_delta": -42,
+  "net_learner_hours": -7.0
+ },
+ {
+  "type": "domain",
+  "row": 13,
+  "domain_id": "ENG · Robotics",
+  "role_e2": "supporting",
+  "role_after_s2": "core (S2 §1.6)",
+  "target_knowledge": "A3",
+  "target_meaning_he": "Modern Robotics מלא (קינמטיקה, דינמיקה, תכנון, בקרה) ועוד תפיסה ושערוך ברמת קורס בחירה: מודלי תנועה ומדידה, לוקליזציה, SLAM, מודל מצלמה וגאומטריה רב-מבטית, דינמיקת רב-רוטור.",
+  "current_modules": [
+   "M19.1",
+   "M19.2",
+   "M19.3",
+   "M19.4",
+   "M19.5",
+   "M19.6",
+   "M19.7",
+   "M19.8",
+   "M19.9",
+   "M19.10",
+   "M19.11"
+  ],
+  "main_sources": [
+   "Lynch & Park"
+  ],
+  "pages_core": 415,
+  "pages_adv": 43,
+  "pages_ref_not_in_budget": 12,
+  "pages_basis": "measured",
+  "lv_reached": "A2–A3, תפיסה A1 (שטף A1–A2)",
+  "lv_ref": "docs/research/round4/LV_benchmark.md §ENG · Robotics",
+  "missing_topics_he": [
+   "מודלי תנועה ומדידה הסתברותיים; לוקליזציה (Markov, MCL)",
+   "SLAM (EKF, גרפי), אודומטריה חזותית-אינרציאלית",
+   "מודל מצלמה, כיול, אפיפולרית, structure-from-motion",
+   "דינמיקה ובקרה של רב-רוטור"
+  ],
+  "closing_sources": [
+   {
+    "source": "Thrun, Burgard & Fox, Probabilistic Robotics",
+    "chapters": "פרקים 5–8 ו-10 בבחירה",
+    "in_repo": false,
+    "new_pages": 110,
+    "new_pages_basis": "estimate",
+    "slot_he": "מודול חדש אחרי M19.10",
+    "replaces_modules": [],
+    "replaces_pages": 0,
+    "replaces_basis": null,
+    "replaces_what_he": ""
+   },
+   {
+    "source": "Szeliski, Computer Vision: Algorithms and Applications 2nd (פתוח ברשת)",
+    "chapters": "§2.1 ופרק 11 בבחירה",
+    "in_repo": false,
+    "new_pages": 40,
+    "new_pages_basis": "estimate",
+    "slot_he": "באותו מודול, לפני SLAM",
+    "replaces_modules": [],
+    "replaces_pages": 0,
+    "replaces_basis": null,
+    "replaces_what_he": ""
+   }
+  ],
+  "savings": [],
+  "added_pages": 150,
+  "replaced_pages": 0,
+  "saved_pages": 0,
+  "net_page_delta": 150,
+  "net_learner_hours": 25.0
+ },
+ {
+  "type": "domain",
+  "row": 14,
+  "domain_id": "ENG · Systems engineering",
+  "role_e2": "core",
+  "role_after_s2": "core",
+  "target_knowledge": "A4",
+  "target_meaning_he": "הנדסת מערכות ברמת קורס MSc: מחזור חיים, דרישות, ארכיטקטורה, V&V, ועוד PRA, STPA ו-MBSE (SysML) כמיומנויות עבודה.",
+  "current_modules": [
+   "M27.1",
+   "M27.2",
+   "M27.3",
+   "M27.4",
+   "M27.5",
+   "M27.6"
+  ],
+  "main_sources": [
+   "NASA Systems Engineering Handbook"
+  ],
+  "pages_core": 220,
+  "pages_adv": 0,
+  "pages_ref_not_in_budget": 37,
+  "pages_basis": "measured",
+  "lv_reached": "A3–A4 במושגים",
+  "lv_ref": "docs/research/round4/LV_benchmark.md §ENG · Systems engineering",
+  "missing_topics_he": [
+   "STPA כשיטה (STAMP כבר ברשימת הקריאה של M27.3)",
+   "PRA כמותי (עצי תקלות כבר ב-M27.4)",
+   "MBSE ו-SysML",
+   "EVM בפירוט (פריט מורה)"
+  ],
+  "closing_sources": [
+   {
+    "source": "Leveson & Thomas, STPA Handbook (2018); NASA, Probabilistic Risk Assessment Procedures Guide 2nd (2011); Friedenthal, Moore & Steiner, A Practical Guide to SysML 3rd",
+    "chapters": "STPA פרק 2; PRA פרקים 3–4 בבחירה; SysML פרק 3",
+    "in_repo": false,
+    "new_pages": 95,
+    "new_pages_basis": "estimate",
+    "slot_he": "STPA ו-PRA אחרי M27.3–M27.4; SysML אחרי M27.2",
+    "replaces_modules": [],
+    "replaces_pages": 0,
+    "replaces_basis": null,
+    "replaces_what_he": ""
+   }
+  ],
+  "savings": [],
+  "added_pages": 95,
+  "replaced_pages": 0,
+  "saved_pages": 0,
+  "net_page_delta": 95,
+  "net_learner_hours": 15.8
+ },
+ {
+  "type": "domain",
+  "row": 15,
+  "domain_id": "ENG · Engineering judgment (cross-cutting)",
+  "role_e2": "core",
+  "role_after_s2": "core",
+  "target_knowledge": "מעבר ל-MSc (נמדד באומדן בעל פה, 10–20% שגיאה)",
+  "target_meaning_he": "אומדני סדר גודל, ניתוח ממדים, מקרי קצה והעברת מבנה בין תחומים כשיטה; נמדד ברשומת כיול ולא ברמה אקדמית.",
+  "current_modules": [],
+  "main_sources": [
+   "MacKay, Sustainable Energy (M13.15–M13.16)",
+   "פריטי מורה במודולים רבים"
+  ],
+  "pages_core": 0,
+  "pages_adv": 0,
+  "pages_ref_not_in_budget": 0,
+  "pages_basis": "measured",
+  "lv_reached": "בכיר, אולי ראשי, בלי מדידה",
+  "lv_ref": "docs/research/round4/LV_benchmark.md §ENG · Engineering judgment (cross-cutting)",
+  "missing_topics_he": [
+   "שיטת קירוב מפורשת (חלוקה, סימטריה, אנלוגיה, בדיקת ממדים) כטקסט רציף; היום רק דוגמאות מפוזרות (MacKay, פריטי מורה ב-M13.15 ו-M10.8)"
+  ],
+  "closing_sources": [
+   {
+    "source": "Mahajan, The Art of Insight in Science and Engineering (MIT Press 2014, CC BY-NC-SA)",
+    "chapters": "פרקים 1–6 בבחירה",
+    "in_repo": false,
+    "new_pages": 80,
+    "new_pages_basis": "estimate",
+    "slot_he": "מפוזר: חלק 1 אחרי M0.1, השאר לצד M13.15 ו-M14.4",
+    "replaces_modules": [],
+    "replaces_pages": 0,
+    "replaces_basis": null,
+    "replaces_what_he": ""
+   }
+  ],
+  "savings": [],
+  "added_pages": 80,
+  "replaced_pages": 0,
+  "saved_pages": 0,
+  "net_page_delta": 80,
+  "net_learner_hours": 13.3
+ },
+ {
+  "type": "domain",
+  "row": 16,
+  "domain_id": "ENG · Periphery: discrete math, algorithms, computer systems, chips",
+  "role_e2": "supporting",
+  "role_after_s2": "supporting (S3: אותו עומק)",
+  "target_knowledge": "A2–A3",
+  "target_meaning_he": "סקירה ברמת תואר ראשון ב-CS ובשבבים: מתמטיקה דיסקרטית, אלגוריתמים, ארגון מחשב (61C/6.004), התקנים ו-VLSI בהיקף של מבוא; ועבודה מעשית עם סוכני קוד ומערכת משובצת אחת.",
+  "current_modules": [
+   "M20.1",
+   "M20.2",
+   "M20.3",
+   "M20.4",
+   "M20.5",
+   "M20.6",
+   "M20.7",
+   "M20.8",
+   "M20.9",
+   "M20.10",
+   "M21.1",
+   "M21.2",
+   "M21.3",
+   "M21.4",
+   "M21.5",
+   "M21.6",
+   "M21.7",
+   "M21.8",
+   "M21.9",
+   "M21.10",
+   "M22.1",
+   "M22.2",
+   "M22.3",
+   "M22.4",
+   "M22.5",
+   "M22.6",
+   "M22.7",
+   "M22.8",
+   "M22.9",
+   "M22.10",
+   "M25.1",
+   "M25.2",
+   "M25.3",
+   "M25.4",
+   "M25.5",
+   "M25.6",
+   "M25.7",
+   "M25.8",
+   "M25.9",
+   "M25.10",
+   "M25.11",
+   "M25.12",
+   "M25.13"
+  ],
+  "main_sources": [
+   "Lehman",
+   "Skiena",
+   "Weste & Harris",
+   "Patterson & Hennessy",
+   "Hu",
+   "Kolmogorov et al."
+  ],
+  "pages_core": 2334,
+  "pages_adv": 1169,
+  "pages_ref_not_in_budget": 306,
+  "pages_basis": "measured",
+  "lv_reached": "A2 סקירה (שטף A1)",
+  "lv_ref": "docs/research/round4/LV_benchmark.md §ENG · Periphery: discrete math, algorithms, computer systems, chips",
+  "missing_topics_he": [
+   "מערכות משובצות וזמן אמת בטכנולוגיה של היום (M22.10 מלמד מיקרו-מחשבים של 1989)",
+   "שטף עבודה עם סוכני קוד: עבודה מעשית, לא עמודים"
+  ],
+  "closing_sources": [
+   {
+    "source": "White, Making Embedded Systems 2nd (2024)",
+    "chapters": "פרקים 1, 4–5, 9 בבחירה",
+    "in_repo": false,
+    "new_pages": 60,
+    "new_pages_basis": "estimate",
+    "slot_he": "במקום M22.10",
+    "replaces_modules": [
+     "M22.10"
+    ],
+    "replaces_pages": 309,
+    "replaces_basis": "measured",
+    "replaces_what_he": "H&H 10–11 ו-Hayes 10–11 (1989): מיקרו-מחשבים ומיקרו-מעבדים במעגלים, 309 עמ' [measured], מיושן"
+   }
+  ],
+  "savings": [
+   {
+    "modules": [
+     "M22.3"
+    ],
+    "pages": 110,
+    "basis": "estimate",
+    "kind": "duplicate",
+    "why_he": "P&H נספח A (תכנון לוגי) חוזר על M11.8 (H&H 8–9 ו-Hayes 8); נספח C (מיפוי בקרה לחומרה, 39 [measured]) מעבר ליעד; נשארים כ-50 עמ' (ALU, HDL)"
+   },
+   {
+    "modules": [
+     "M22.2",
+     "M22.6",
+     "M22.7",
+     "M22.8"
+    ],
+    "pages": 92,
+    "basis": "measured",
+    "kind": "history_descriptive",
+    "why_he": "P&H Historical Perspective בפרקים 1, 4, 5, 6 ו-B (80) ו-Real Stuff על GeForce 8800 משנת 2007 (12)"
+   },
+   {
+    "modules": [
+     "M25.11"
+    ],
+    "pages": 179,
+    "basis": "measured",
+    "kind": "beyond_target",
+    "why_he": "Weste & Harris 11–13: נתיבי נתונים, מערכים ותת-מערכות מיוחדות; תכן VLSI מתקדם, מעבר ל-A2–A3"
+   },
+   {
+    "modules": [
+     "M25.6"
+    ],
+    "pages": 28,
+    "basis": "measured",
+    "kind": "duplicate",
+    "why_he": "הטרנזיסטור הביפולרי (Hu 8) כבר נלמד ב-M11.2 (H&H 2)"
+   },
+   {
+    "modules": [
+     "M20.4"
+    ],
+    "pages": 21,
+    "basis": "measured",
+    "kind": "beyond_target",
+    "why_he": "קבוצות אינסופיות (Lehman 8)"
+   },
+   {
+    "modules": [
+     "M21.2",
+     "M21.5",
+     "M21.7"
+    ],
+    "pages": 70,
+    "basis": "estimate",
+    "kind": "duplicate",
+    "why_he": "השלמות מהקטלוג של Skiena (פרקים 15, 18, 19; 104 עמ' [measured]) הן ערכי עיון שחוזרים על הפרקים שנלמדים; הקטלוג כבר בעיון (M21.9–M21.10)"
+   },
+   {
+    "modules": [
+     "M21.1",
+     "M21.2",
+     "M21.3",
+     "M21.4",
+     "M21.5",
+     "M21.6",
+     "M21.7"
+    ],
+    "pages": 55,
+    "basis": "measured",
+    "kind": "history_descriptive",
+    "why_he": "21 War Stories של Skiena: אנקדוטות; נשארות זמינות בקריאה חופשית"
+   }
+  ],
+  "added_pages": 60,
+  "replaced_pages": 309,
+  "saved_pages": 555,
+  "net_page_delta": -804,
+  "net_learner_hours": -134.0
+ },
+ {
+  "type": "domain",
+  "row": 17,
+  "domain_id": "ENG · Engineering mechanics (שורה 17, בלי תחום ב-E2)",
+  "role_e2": "—",
+  "role_after_s2": "core (נגזר מהתחומים שנשענים עליו)",
+  "target_knowledge": "A3 בדינמיקה ותנודות, A2 בסטטיקה",
+  "target_meaning_he": "סטטיקה של מתכנן (דיאגרמת גוף חופשי, מסבכים ומסגרות, חיכוך); דינמיקת גוף קשיח בתלת-ממד (משוואות אוילר, גירוסקופיה, מערכות מסתובבות) לדינמיקת טיסה, טילים ורובוטיקה; תנודות: עירור הרמוני ובידוד, מצבים של רב-דרגות, מערכות רציפות, תנודה אקראית ו-SRS למבנים ואוויוניקה.",
+  "current_modules": [
+   "M2.1",
+   "M2.2",
+   "M2.3",
+   "M2.4",
+   "M2.5",
+   "M3.2"
+  ],
+  "main_sources": [
+   "The Feynman Lectures on Physics"
+  ],
+  "pages_core": 143,
+  "pages_adv": 0,
+  "pages_ref_not_in_budget": 0,
+  "pages_basis": "measured",
+  "lv_reached": "אין שורה ב-LV; לפי המודולים: פיינמן I ומכניקת Lynch & Park נותנים בערך A2",
+  "lv_ref": "אין (נגזר מ-M2.1–M2.5, M3.2, M10.4, M19.2–M19.6)",
+  "missing_topics_he": [
+   "סטטיקה הנדסית: מסבכים, מסגרות ומכונות, חיכוך (Gere מניח אותה)",
+   "דינמיקה תלת-ממדית של גוף קשיח: משוואות אוילר, טנזור אינרציה, גירוסקופ, מערכות צירים מסתובבות (פריטי מורה ב-M2.5)",
+   "תנודות: עירור הרמוני ובסיס, העברה ובידוד, אי-איזון מסתובב; רב-דרגות ואנליזה מודלית; קורות ומיתרים; תנודה אקראית (פריטי מורה ב-M3.2, M10.4, M16.6)"
+  ],
+  "closing_sources": [
+   {
+    "source": "Meriam & Kraige, Engineering Mechanics: Statics 9th ו-Dynamics 9th",
+    "chapters": "Statics פרקים 4 ו-6 בבחירה; Dynamics פרק 7",
+    "in_repo": false,
+    "new_pages": 90,
+    "new_pages_basis": "estimate",
+    "slot_he": "Statics לפני M16.2; Dynamics אחרי M2.5 ולפני M19.6 ו-M15.14",
+    "replaces_modules": [],
+    "replaces_pages": 0,
+    "replaces_basis": null,
+    "replaces_what_he": ""
+   },
+   {
+    "source": "Rao, Mechanical Vibrations 6th",
+    "chapters": "פרקים 3, 6, 8 ו-14 בבחירה",
+    "in_repo": false,
+    "new_pages": 120,
+    "new_pages_basis": "estimate",
+    "slot_he": "אחרי M3.2 ו-M8.8; פרק 14 לפני M16.6",
+    "replaces_modules": [],
+    "replaces_pages": 0,
+    "replaces_basis": null,
+    "replaces_what_he": ""
+   }
+  ],
+  "savings": [],
+  "added_pages": 210,
+  "replaced_pages": 0,
+  "saved_pages": 0,
+  "net_page_delta": 210,
+  "net_learner_hours": 35.0
+ },
+ {
+  "type": "totals",
+  "added_pages": 3174,
+  "replaced_pages": 723,
+  "saved_pages": 1731,
+  "net_pages": 720,
+  "net_learner_hours": 120.0,
+  "net_months_at_154h": 0.78,
+  "assumptions_he": "10 דקות לומד לעמוד גולמי, 154 שעות אפקטיביות בחודש. עמודי עיון ותרגילים לא בתקציב. השלמות ◇ נספרות כעמוד מלא, אף שבפועל נלמדת רק הדלתא."
+ },
+ {
+  "type": "further_savings",
+  "note_he": "בחירות של הלומד, לפי נזק עולה. אפשרויות 1–8 מביאות את הנטו ל-0 או פחות.",
+  "choices": [
+   {
+    "rank": 1,
+    "modules": [
+     "M26.2",
+     "M26.5"
+    ],
+    "pages": 124,
+    "basis": "measured",
+    "harm_he": "נמוך",
+    "why_he": "שאר P26: לבג ומידה (34), חבורות ומערכות אלגבריות (90). מעבר לכל יעד; חבורות SE(3) נלמדות ישירות ב-M19.2",
+    "net_after": 596,
+    "net_hours_after": 99.3
+   },
+   {
+    "rank": 2,
+    "modules": [
+     "M13.15",
+     "M13.17"
+    ],
+    "pages": 54,
+    "basis": "measured",
+    "harm_he": "נמוך",
+    "why_he": "פרקי MacKay של צריכה ומדיניות בבריטניה (מזון, גאדג'טים, \"Stuff\", שירותים, תאורה; 18–19, 22–23, 25). השיטה נשארת; האגירה (26), הגרעין (24) והתחבורה (20) נשארים",
+    "net_after": 542,
+    "net_hours_after": 90.3
+   },
+   {
+    "rank": 3,
+    "modules": [
+     "M16.12",
+     "M16.14",
+     "M16.15"
+    ],
+    "pages": 65,
+    "basis": "estimate",
+    "harm_he": "נמוך",
+    "why_he": "מקרי הבוחן של Ashby (פרקים 6, 10, 12; 119 עמ' [measured]) מדגימים שוב ושוב את אותה שיטה; נשאר כשליש מכל פרק",
+    "net_after": 477,
+    "net_hours_after": 79.5
+   },
+   {
+    "rank": 4,
+    "modules": [
+     "M25.9",
+     "M25.12"
+    ],
+    "pages": 160,
+    "basis": "measured",
+    "harm_he": "נמוך-בינוני",
+    "why_he": "Weste & Harris 7–8 ו-14–15: עמידות, סימולציה, מתודולוגיה ובדיקה של VLSI. מעבר ל-A2–A3 בשבבים",
+    "net_after": 317,
+    "net_hours_after": 52.8
+   },
+   {
+    "rank": 5,
+    "modules": [
+     "M22.4",
+     "M22.5"
+    ],
+    "pages": 185,
+    "basis": "estimate",
+    "harm_he": "בינוני",
+    "why_he": "P&H 2–3 (195+97 [measured]): נשארים כ-60 עמ' של RISC-V וכ-47 של נקודה צפה וכפל; שפת סף מלאה וחומרת חילוק מעבר ל-A2–A3",
+    "net_after": 132,
+    "net_hours_after": 22.0
+   },
+   {
+    "rank": 6,
+    "modules": [
+     "M24.7"
+    ],
+    "pages": 71,
+    "basis": "measured",
+    "harm_he": "בינוני",
+    "why_he": "פיינמן III 10–11 (מערכות שני מצבים נוספות); פרק 12 (פיצול על-דק, שעונים אטומיים ל-PNT) נשאר",
+    "net_after": 61,
+    "net_hours_after": 10.2
+   },
+   {
+    "rank": 7,
+    "modules": [
+     "M20.3"
+    ],
+    "pages": 40,
+    "basis": "estimate",
+    "harm_he": "בינוני",
+    "why_he": "מכונות מצבים וטיפוסים רקורסיביים (Lehman 6–7, 61 [measured]); FSM נלמדות גם ב-M11.8 ו-M22.3",
+    "net_after": 21,
+    "net_hours_after": 3.5
+   },
+   {
+    "rank": 8,
+    "modules": [
+     "M10.4",
+     "M10.5",
+     "M10.6"
+    ],
+    "pages": 80,
+    "basis": "estimate",
+    "harm_he": "בינוני",
+    "why_he": "קטעי קוד ומימוש ב-Langtangen (353 עמ' ליבה [measured]); הסוכן כותב את הקוד, הלומד שומר את הסכמה, היציבות והאימות",
+    "net_after": -59,
+    "net_hours_after": -9.8
+   },
+   {
+    "rank": 9,
+    "modules": [
+     "M11.2",
+     "M11.3",
+     "M11.4",
+     "M11.5",
+     "M11.6",
+     "M11.8",
+     "M11.9"
+    ],
+    "pages": 150,
+    "basis": "estimate",
+    "harm_he": "בינוני-גבוה",
+    "why_he": "השלמות Hayes & Horowitz (349 עמ' [measured]) חוזרות על H&H; אבל זה הטקסט היחיד שמכוון לספסל, ולכן אחרון",
+    "net_after": -209,
+    "net_hours_after": -34.8
+   },
+   {
+    "rank": 10,
+    "modules": [
+     "M23.10"
+    ],
+    "pages": 50,
+    "basis": "estimate",
+    "harm_he": "גבוה",
+    "why_he": "Tse 8–10 בתמצות; נוגע ביעד A4 של תקשורת, ולכן רק אם שאר האפשרויות לא מספיקות",
+    "net_after": -259,
+    "net_hours_after": -43.2
+   }
+  ],
+  "choices_needed_for_net_le_0": 8,
+  "net_after_needed": -59
+ }
+]

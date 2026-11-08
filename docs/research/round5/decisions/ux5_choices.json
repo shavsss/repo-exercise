@@ -1,0 +1,19 @@
+{
+ "r5-measure": "68 chars, 18.5px",
+ "r5-darkink": "softer dark ink (10.9:1), small grey stronger",
+ "r5-stream": "calm stream + one question from previous part while waiting",
+ "r5-prefetch": "prefetch next lesson at break and at day close",
+ "r5-plan-wait": "show lesson plan + a pre-question while planning",
+ "r5-motion": "zero looping animations",
+ "r5-margin": "margin notes style B (כרטיסייה / tab card)",
+ "r5-library": "library room noise v2, generative, no loop",
+ "r5-focusnoise": "focus noise: off",
+ "r5-typing": "soft typing with variation (v2)",
+ "r5-chimes": "fix both chime issues",
+ "r5-breaks": "break line at part boundary after threshold, 75 min",
+ "r5-daysound": "day sound: on",
+ "r5-morning": "morning card: where you stopped, 2 questions, the step you wrote",
+ "r5-close": "'close the day' button, no suggestion",
+ "r5-clock": "time counted quietly, not shown",
+ "r5-stamp": "the stamp (signature moment)"
+}

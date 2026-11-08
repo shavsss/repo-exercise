@@ -1,0 +1,21 @@
+{
+"P01":["Link-budget lab",["C:M0.1","C:M1.4","C:M1.3"]],
+"P02":["Detection: NP->radar Pd/ROC",["C:M2.10","C:M2.11","C:M2.5","E:M7.4"]],
+"P03":["Jamming burn-through planner",["C:M4.7","C:M4.8"]],
+"P04":["Lanchester/OR campaign sim",["C:M0.4","C:M0.6","E:M3.1","E:M6.11"]],
+"P05":["Layered AD salvo & magazine",["C:M7.3","C:M11.4","E:M6.2"]],
+"P06":["PN guidance + adjoint",["C:M6.5","C:M6.2","E:M5.7"]],
+"P07":["Kalman tracker",["C:M2.15","C:M2.29","E:M5.6"]],
+"P08":["Sat pass/revisit planner",["C:M13.6","C:M13.11","E:M2.2"]],
+"P09":["SDR receive-only (ADS-B,wx sat)",["C:M1.4","C:M0.5","C:M4.2","E:M4.8"]],
+"P10":["GNSS interference map (ADS-B)",["C:M5.5","C:M8.4","E:M6.4"]],
+"P11":["Quad attitude control",["C:M9.6","E:M5.9","E:M19.2"]],
+"P12":["Claims checker v1",["C:M0.1","C:M2.2"]],
+"P13":["HEL engagement calc",["C:M3.5","C:M3.13","C:M3.3","E:M14.2","E:M9.13"]],
+"P14":["C-UAS kill chain",["C:M9.7","C:M7.1","E:M6.7"]],
+"P15":["BM trajectory & warning time",["C:M6.8","C:M7.8","E:M2.2"]],
+"P16":["Sonar equation explorer",["C:M10.2","E:M9.1"]],
+"P18":["Logistics constraint model",["C:M11.7","E:M13.15"]],
+"P19":["FMCW coffee-can radar",["C:M2.20","E:M11.5","E:M4.8"]],
+"P20":["RF modulation classifier",["C:M4.3","C:M0.5","E:M17.6"]]
+}

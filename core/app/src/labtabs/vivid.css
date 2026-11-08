@@ -1,0 +1,703 @@
+/* The lab's screens outside the lessons and the notebook (home, review, paper, product, weekly review): each with
+   its own colors and one thing that makes you want to look closer. The lessons and the summaries stay quiet.
+   Hues come in as --h on the element; --vl is the lightness of colored text (darker on paper, lighter at night).
+   Nothing loops (look5): only one-time entrances, and none under reduced motion. Same file in both apps. */
+:root {
+  --vl: 36%;
+  --vs: 62%;
+  --va: 0.13;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --vl: 74%;
+    --vs: 55%;
+    --va: 0.2;
+  }
+}
+:root[data-theme="dark"] {
+  --vl: 74%;
+  --vs: 55%;
+  --va: 0.2;
+}
+
+/* ---------- the hero band every tab gets in place of its plain head ---------- */
+.vivid .lt-head,
+.vivid .rv-head,
+.vivid .news-mast {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 24px 24px 20px;
+  margin-bottom: 20px;
+  background:
+    radial-gradient(110% 150% at 100% 0%, hsl(var(--h1) 85% 60% / 0.3), transparent 55%),
+    radial-gradient(110% 150% at 0% 100%, hsl(var(--h2) 80% 55% / 0.26), transparent 55%),
+    radial-gradient(80% 110% at 50% 40%, hsl(var(--h3) 70% 60% / 0.14), transparent 60%),
+    var(--sheet);
+}
+.vivid .lt-head .lt-kicker,
+.vivid .rv-head .lt-kicker {
+  color: hsl(var(--h1) 60% var(--vl));
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.vivid .lt-head h1,
+.vivid .rv-head h1 {
+  font-size: clamp(1.7rem, 4vw, 2.4rem);
+}
+.v-review { --h1: 265; --h2: 215; --h3: 330; }
+.v-news { --h1: 8; --h2: 40; --h3: 205; }
+.v-products { --h1: 205; --h2: 185; --h3: 235; }
+.v-reviews { --h1: 170; --h2: 140; --h3: 205; }
+
+/* ---------- review: a deck of colored cards, and the memory map ---------- */
+.v-review .rv-top {
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: linear-gradient(90deg, hsl(var(--h1) 70% 60% / 0.16), hsl(var(--h3) 70% 60% / 0.1));
+}
+.v-review .rv-top .lt-kicker {
+  color: hsl(var(--h1) 55% var(--vl));
+  font-weight: 700;
+}
+.v-review .rv-bar i {
+  background: linear-gradient(90deg, hsl(265 70% 60%), hsl(330 70% 60%));
+}
+.rv-deck {
+  flex: 1;
+  display: flex;
+  position: relative;
+  margin-bottom: 18px;
+}
+/* two cards peeking out behind the one on top */
+.rv-deck::before,
+.rv-deck::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: hsl(var(--h) 60% 60% / 0.1);
+  z-index: 0;
+}
+.rv-deck::before {
+  transform: translate(-6px, 6px) rotate(-0.8deg);
+  background: hsl(calc(var(--h) + 40) 60% 60% / 0.12);
+}
+.rv-deck::after {
+  transform: translate(5px, 11px) rotate(0.9deg);
+  background: hsl(calc(var(--h) - 40) 60% 60% / 0.1);
+}
+.vivid .rv-deck .rv-card {
+  flex: 1;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1;
+  border-radius: 14px;
+  border-inline-start: 5px solid hsl(var(--h) var(--vs) 52%);
+  background: linear-gradient(160deg, hsl(var(--h) 75% 60% / var(--va)), transparent 45%), var(--sheet);
+  box-shadow: 0 10px 30px -14px hsl(var(--h) 60% 30% / 0.45);
+  animation: vv-in 0.32s ease-out;
+}
+.vivid .rv-deck .rv-card.is-back {
+  background: linear-gradient(160deg, hsl(var(--h) 75% 60% / calc(var(--va) * 1.6)), transparent 55%), var(--sheet);
+}
+.vivid .rv-kind {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: hsl(var(--h) 70% 60% / 0.18);
+  color: hsl(var(--h) 55% var(--vl));
+  font-weight: 700;
+}
+.vivid .rv-back {
+  animation: vv-unfold 0.35s ease-out;
+}
+.v-review .rv-grade.g1 { --g: 350; }
+.v-review .rv-grade.g2 { --g: 32; }
+.v-review .rv-grade.g3 { --g: 150; }
+.v-review .rv-grade.g4 { --g: 200; }
+.v-review .rv-grade {
+  border-color: hsl(var(--g) 55% 50% / 0.55);
+  background: hsl(var(--g) 70% 60% / 0.12);
+}
+.v-review .rv-grade b {
+  color: hsl(var(--g) 55% var(--vl));
+}
+.v-review .rv-grade:hover {
+  background: hsl(var(--g) 70% 60% / 0.24);
+}
+.v-review .rv-end {
+  border-radius: 18px;
+  padding: 22px;
+  border: 1px solid var(--line);
+  background:
+    radial-gradient(110% 150% at 100% 0%, hsl(265 80% 62% / 0.22), transparent 55%),
+    radial-gradient(110% 150% at 0% 100%, hsl(150 70% 50% / 0.18), transparent 55%),
+    var(--sheet);
+}
+.rv-map {
+  margin-top: 22px;
+}
+.rv-map h2 {
+  font: 700 1.25rem/1.3 "Frank Ruhl Libre", var(--font);
+  margin: 0 0 4px;
+}
+.rv-map ul {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+.rv-map li {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  align-items: center;
+  gap: 10px;
+}
+.rv-map-m {
+  font: 600 12px var(--mono);
+  color: var(--muted);
+  background: none;
+  border: 0;
+  text-align: start;
+  cursor: pointer;
+  padding: 0;
+}
+.rv-map-m:hover {
+  color: var(--ink);
+  text-decoration: underline;
+}
+.rv-dots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.rv-dot {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  display: block;
+}
+.rv-dot.d-hold { background: hsl(150 55% 45%); box-shadow: 0 0 0 2px hsl(150 60% 55% / 0.25); }
+.rv-dot.d-fade { background: hsl(38 85% 52%); }
+.rv-dot.d-slip { background: hsl(345 70% 56%); }
+.rv-dot.d-new { border: 2px solid hsl(var(--h) 45% 55%); }
+
+/* ---------- the paper: colored sections, a front page with a drop cap ---------- */
+.v-news .news-mast {
+  text-align: center;
+  padding-bottom: 16px;
+}
+.v-news .news-mast::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 5px;
+  background: linear-gradient(90deg, hsl(205 70% 50%), hsl(150 55% 45%), hsl(42 85% 52%), hsl(18 75% 52%), hsl(330 60% 52%), hsl(280 50% 55%));
+}
+.v-news .news-kicker {
+  color: hsl(8 60% var(--vl));
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+.v-news .news-lead {
+  border-radius: 16px;
+  padding: 20px 22px;
+  border: 1px solid var(--line);
+  background:
+    radial-gradient(90% 120% at 100% 0%, hsl(42 85% 60% / 0.2), transparent 60%),
+    var(--sheet);
+}
+.v-news .news-lead h2 {
+  font-size: clamp(1.6rem, 3.8vw, 2.3rem);
+}
+.v-news .news-lead .news-body > p:first-child::first-letter,
+.v-news .news-lead .news-body .md > p:first-child::first-letter {
+  float: right;
+  font: 700 3.3em/0.85 "Frank Ruhl Libre", var(--font);
+  margin: 0.06em 0 0 0.12em;
+  color: hsl(8 65% var(--vl));
+}
+.v-news .nk { border-color: hsl(var(--kh, 210) 50% 50% / 0.5); background: hsl(var(--kh, 210) 70% 60% / 0.15); color: hsl(var(--kh, 210) 55% var(--vl)); font-weight: 600; }
+.v-news .nk-paper { --kh: 235; }
+.v-news .nk-report { --kh: 200; }
+.v-news .nk-system { --kh: 18; }
+.v-news .nk-standard { --kh: 280; }
+.v-news .nk-data { --kh: 150; }
+.v-news .nk-event { --kh: 340; }
+.v-news .sec-chip {
+  border-color: hsl(var(--h) 50% 50% / 0.5);
+}
+.v-news .sec-chip[aria-pressed="true"] {
+  background: hsl(var(--h) 65% 50%);
+  border-color: hsl(var(--h) 65% 45%);
+  color: #fff;
+}
+.v-news .news-section h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: hsl(var(--h) 55% var(--vl));
+  border-bottom: 3px solid hsl(var(--h) 60% 52% / 0.7);
+  padding-bottom: 4px;
+}
+.v-news .news-section h3::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  background: hsl(var(--h) 65% 52%);
+}
+.v-news .news-item {
+  border-inline-start: 3px solid hsl(var(--h) 60% 55% / 0.55);
+  padding-inline-start: 14px;
+}
+.v-news .news-why {
+  border-inline-start-color: hsl(8 70% 50%);
+  background: linear-gradient(90deg, hsl(8 80% 60% / 0.1), transparent 70%);
+}
+.v-news .news-side .lt-card {
+  border-top: 4px solid hsl(var(--sh, 205) 60% 52%);
+}
+.v-news .news-side .lt-card:nth-child(2) { --sh: 150; }
+.v-news .news-side .lt-card:nth-child(3) { --sh: 42; }
+.v-news .lt-box.idea {
+  background: linear-gradient(135deg, hsl(170 70% 50% / 0.12), transparent 60%), var(--sheet);
+}
+
+/* ---------- the product: a blueprint head and a road of stages ---------- */
+.v-products .lt-head {
+  background:
+    linear-gradient(hsl(205 70% 55% / 0.12) 1px, transparent 1px) 0 0 / 22px 22px,
+    linear-gradient(90deg, hsl(205 70% 55% / 0.12) 1px, transparent 1px) 0 0 / 22px 22px,
+    radial-gradient(110% 150% at 100% 0%, hsl(205 85% 58% / 0.28), transparent 55%),
+    radial-gradient(110% 150% at 0% 100%, hsl(185 80% 50% / 0.22), transparent 55%),
+    var(--sheet);
+}
+.prod-gauge {
+  display: grid;
+  grid-template-columns: 64px auto;
+  grid-template-rows: auto auto;
+  align-items: center;
+  column-gap: 10px;
+}
+.prod-gauge svg {
+  grid-row: 1 / 3;
+  width: 64px;
+  height: 64px;
+}
+.pg-bg {
+  fill: none;
+  stroke: hsl(205 40% 50% / 0.2);
+  stroke-width: 7;
+}
+.pg-fg {
+  fill: none;
+  stroke: hsl(205 70% 50%);
+  stroke-width: 7;
+  stroke-linecap: round;
+}
+.pg-n {
+  font: 700 1.3rem var(--mono);
+  color: hsl(205 60% var(--vl));
+}
+.pg-next {
+  font-size: 13px;
+  color: var(--muted);
+}
+.v-products .prod-rail {
+  position: relative;
+}
+.v-products .prod-step {
+  border-color: hsl(var(--h) 45% 50% / 0.35);
+  background: linear-gradient(180deg, hsl(var(--h) 70% 60% / 0.1), transparent), var(--sheet);
+}
+.v-products .prod-step .prod-step-n {
+  border-color: hsl(var(--h) 55% 50%);
+  color: hsl(var(--h) 55% var(--vl));
+}
+.v-products .prod-step.is-done .prod-step-n {
+  background: hsl(var(--h) 60% 45%);
+  border-color: hsl(var(--h) 60% 45%);
+  color: #fff;
+}
+.v-products .prod-step.is-on {
+  border-color: hsl(var(--h) 60% 50%);
+  box-shadow: 0 0 0 3px hsl(var(--h) 70% 55% / 0.22);
+  background: linear-gradient(180deg, hsl(var(--h) 75% 60% / 0.22), transparent), var(--sheet);
+}
+.v-products .prod-panel {
+  border-top: 5px solid hsl(var(--h) 60% 52%);
+  background: linear-gradient(180deg, hsl(var(--h) 70% 60% / 0.07), transparent 140px), var(--sheet);
+}
+.v-products .prod-panel-head h2 {
+  color: hsl(var(--h) 50% var(--vl));
+}
+
+/* ---------- the weekly review: a radar of the domains and colored rows ---------- */
+.v-reviews .rev-summary {
+  border-radius: 16px;
+  padding: 16px 20px;
+  border: 1px solid var(--line);
+  background: linear-gradient(135deg, hsl(170 70% 50% / 0.1), transparent 60%), var(--sheet);
+}
+.rev-dom-grid {
+  display: grid;
+  grid-template-columns: minmax(280px, 400px) 1fr;
+  gap: 8px 24px;
+  align-items: center;
+}
+.rev-radar {
+  width: 100%;
+  height: auto;
+  --rr-l: var(--vl);
+}
+.rr-ring {
+  fill: none;
+  stroke: var(--line);
+  stroke-width: 1;
+}
+.rr-axis {
+  stroke: var(--line);
+  stroke-width: 1;
+}
+.rr-target {
+  fill: none;
+  stroke: hsl(350 65% 52%);
+  stroke-width: 1.6;
+  stroke-dasharray: 5 4;
+}
+.rr-now {
+  fill: hsl(175 60% 45% / 0.28);
+  stroke: hsl(175 60% 40%);
+  stroke-width: 2;
+  animation: vv-grow 0.6s ease-out;
+  transform-origin: 120px 120px;
+}
+.rr-label {
+  font: 600 13px var(--font);
+}
+.v-reviews .rev-domain .rev-domain-name::before {
+  content: "";
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  margin-inline-end: 7px;
+  background: hsl(var(--h) 65% 50%);
+}
+.v-reviews .rev-bar-now {
+  background: linear-gradient(270deg, hsl(var(--h) 65% 48%), hsl(var(--h) 70% 62%));
+}
+.v-reviews .rev-cards .lt-card {
+  border-top: 4px solid hsl(var(--ch, 175) 55% 48%);
+}
+.v-reviews .rev-cards .lt-card:nth-child(2) { --ch: 205; }
+.v-reviews .rev-cards .lt-card:nth-child(3) { --ch: 32; }
+.v-reviews .rev-cards .lt-card:nth-child(4) { --ch: 280; }
+.v-reviews .rev-score-bar span {
+  background: linear-gradient(270deg, hsl(150 55% 42%), hsl(175 60% 52%));
+}
+.v-reviews .rev-reviewer {
+  border-inline-start: 4px solid hsl(var(--ch, 205) 55% 52%);
+}
+.v-reviews .rev-reviewer:nth-child(3n + 2) { --ch: 32; }
+.v-reviews .rev-reviewer:nth-child(3n) { --ch: 280; }
+
+/* ---------- home: the day's front page ---------- */
+.hh {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 22px 24px 18px;
+  margin: 4px 0 26px;
+  background:
+    radial-gradient(110% 150% at 100% 0%, hsl(32 90% 60% / 0.32), transparent 55%),
+    radial-gradient(110% 150% at 0% 100%, hsl(200 80% 55% / 0.26), transparent 55%),
+    radial-gradient(80% 110% at 55% 30%, hsl(340 75% 62% / 0.15), transparent 60%),
+    var(--sheet);
+}
+.hh-kicker {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font: 600 12px var(--mono);
+  letter-spacing: 0.06em;
+  color: hsl(20 60% var(--vl));
+}
+.hh-kicker span:last-child {
+  font-family: var(--font);
+  letter-spacing: 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+.hh-title {
+  font: 700 clamp(1.9rem, 4.6vw, 2.7rem) / 1.1 "Frank Ruhl Libre", var(--font);
+  margin: 6px 0 4px;
+}
+.hh-sub {
+  margin: 0 0 16px;
+  color: var(--muted);
+  font-size: 14px;
+  max-width: 46rem;
+}
+.hh-grid {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: 12px;
+}
+.hh-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.hh-next {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  text-align: start;
+  font: inherit;
+  color: var(--ink);
+  cursor: pointer;
+  padding: 18px 18px 14px;
+  border-radius: 16px;
+  border: 1px solid hsl(32 60% 50% / 0.35);
+  background: linear-gradient(150deg, hsl(32 90% 60% / 0.22), hsl(345 80% 62% / 0.1) 70%), var(--sheet);
+  box-shadow: 0 12px 30px -18px hsl(20 70% 35% / 0.55);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.hh-next:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 34px -18px hsl(20 70% 35% / 0.7);
+}
+.hh-next .hh-label {
+  color: hsl(20 65% var(--vl));
+}
+.hh-next-t {
+  font: 700 1.35rem/1.25 "Frank Ruhl Libre", var(--font);
+}
+.hh-next-m {
+  font-size: 13.5px;
+  color: var(--muted);
+}
+.hh-next-m b {
+  font-family: var(--mono);
+  color: hsl(20 65% var(--vl));
+  margin-inline-end: 4px;
+}
+.hh-learn {
+  margin-top: 10px;
+  width: 100%;
+}
+.hh-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.hh-pill {
+  font-size: 12.5px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1px solid hsl(var(--h) 50% 50% / 0.45);
+  background: hsl(var(--h) 70% 60% / 0.16);
+  color: var(--ink);
+}
+.hh-go {
+  align-self: flex-end;
+  margin-top: 10px;
+  font-weight: 700;
+  color: hsl(20 70% var(--vl));
+}
+.hh-side {
+  display: grid;
+  gap: 10px;
+  align-content: start;
+}
+.hh-card {
+  display: block;
+  text-align: start;
+  font: inherit;
+  color: var(--ink);
+  border-radius: 14px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--sheet) 82%, transparent);
+  margin: 0;
+}
+.hh-unlocks ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 3px;
+}
+.hh-unlocks .link {
+  text-align: start;
+  font-size: 13.5px;
+}
+.hh-unlocks b {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: hsl(150 50% var(--vl));
+  margin-inline-end: 4px;
+}
+.hh-far {
+  cursor: pointer;
+  border-style: dashed;
+  border-color: hsl(265 45% 55% / 0.5);
+  background: linear-gradient(135deg, hsl(265 70% 62% / 0.14), transparent 70%), color-mix(in srgb, var(--sheet) 82%, transparent);
+}
+.hh-far:hover {
+  border-style: solid;
+}
+.hh-far .hh-label {
+  color: hsl(265 45% var(--vl));
+}
+.hh-far-t {
+  display: block;
+  font-weight: 700;
+  font-size: 15px;
+}
+.hh-far-en {
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+  text-align: end;
+}
+.hh-quote {
+  border-inline-start: 4px solid hsl(var(--h) 60% 52%);
+  background: linear-gradient(90deg, hsl(var(--h) 70% 60% / 0.12), transparent 70%), color-mix(in srgb, var(--sheet) 82%, transparent);
+}
+.hh-quote blockquote {
+  margin: 0;
+  font: 500 1rem/1.5 "Frank Ruhl Libre", var(--font);
+}
+.hh-quote figcaption {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.hh-progress {
+  margin-top: 16px;
+}
+.hh-bar {
+  display: flex;
+  height: 8px;
+  border-radius: 99px;
+  overflow: hidden;
+  background: hsl(30 15% 50% / 0.18);
+}
+.hh-bar i,
+.hh-legend i {
+  display: block;
+}
+.b-done {
+  background: hsl(150 55% 42%);
+}
+.b-open {
+  background: hsl(32 85% 55%);
+}
+.b-locked {
+  background: hsl(30 15% 50% / 0.35);
+}
+.b-read {
+  background: hsl(205 70% 55%);
+}
+.hh-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.hh-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.hh-legend i {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+}
+.hh-legend b {
+  color: var(--ink);
+  font-family: var(--mono);
+}
+
+/* the module cards under it: a band in the color of the tier */
+.vivid-home .card {
+  --th: 32;
+  border-top: 4px solid hsl(var(--th) 65% 52%);
+  background: linear-gradient(180deg, hsl(var(--th) 75% 60% / 0.1), transparent 70px), var(--sheet);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.vivid-home .card:has(.tier-adv) {
+  --th: 265;
+}
+.vivid-home .card:has(.tier-ref) {
+  --th: 200;
+}
+.vivid-home .card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px -16px hsl(var(--th) 50% 30% / 0.6);
+}
+.vivid-home .card .card-id {
+  color: hsl(var(--th) 60% var(--vl));
+}
+
+@keyframes vv-in {
+  from { opacity: 0; transform: translateY(8px) scale(0.985); }
+}
+@keyframes vv-unfold {
+  from { opacity: 0; transform: translateY(-4px); }
+}
+@keyframes vv-grow {
+  from { transform: scale(0.2); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vivid .rv-deck .rv-card,
+  .vivid .rv-back,
+  .rr-now {
+    animation: none;
+  }
+  .hh-next,
+  .vivid-home .card {
+    transition: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .hh-grid,
+  .rev-dom-grid {
+    grid-template-columns: 1fr;
+  }
+  .rev-radar {
+    max-width: 340px;
+    margin: 0 auto;
+  }
+}
+@media (max-width: 520px) {
+  .hh,
+  .vivid .lt-head,
+  .vivid .rv-head,
+  .vivid .news-mast {
+    padding: 18px 16px 14px;
+    border-radius: 14px;
+  }
+  .rv-deck::before,
+  .rv-deck::after {
+    display: none;
+  }
+}

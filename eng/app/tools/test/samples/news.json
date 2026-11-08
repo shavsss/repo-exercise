@@ -1,0 +1,298 @@
+{
+ "id": "2026-W44",
+ "app": "eng",
+ "number": 1,
+ "window": {
+  "from": "2026-10-23",
+  "to": "2026-10-29"
+ },
+ "publishedAt": 1793319780000,
+ "generator": {
+  "sha": "example",
+  "runId": "example"
+ },
+ "snapshot": {
+  "current": "M4.1",
+  "done": 3,
+  "upcoming": [
+   "M4.2",
+   "M5.1",
+   "M5.2"
+  ]
+ },
+ "lead": "n1",
+ "sections": [
+  {
+   "id": "signals",
+   "title": "אותות ובקרה",
+   "items": [
+    "n1",
+    "n2"
+   ]
+  },
+  {
+   "id": "power",
+   "title": "הספק ואנרגיה",
+   "items": [
+    "n3"
+   ]
+  },
+  {
+   "id": "thermo",
+   "title": "תרמו, זרימה ואווירו",
+   "items": [
+    "n4"
+   ]
+  },
+  {
+   "id": "ml",
+   "title": "ML/AI ורובוטיקה",
+   "items": [
+    "n5"
+   ]
+  },
+  {
+   "id": "systems",
+   "title": "הנדסת מערכות ותקנים",
+   "items": [
+    "n6"
+   ]
+  }
+ ],
+ "picks10": [
+  "n2",
+  "n6"
+ ],
+ "items": [
+  {
+   "id": "n1",
+   "kind": "paper",
+   "domain": "signals",
+   "headline": "מסנן קלמן שלומד את הרעש בעצמו, ונשאר מכויל",
+   "dek": "מאמר מציע לשערך את מטריצות הרעש תוך כדי ריצה, ובודק את הכיול עם NEES על שלושה מאגרים פתוחים.",
+   "body": "הבעיה מוכרת: מסנן קלמן טוב בדיוק כמו ההנחות על הרעש שלו. כשמטריצת רעש התהליך $Q$ קטנה מדי, המסנן בטוח בעצמו ומתעלם ממדידות; כשהיא גדולה מדי, הוא רועד.\n\nהמחברים משערכים את $Q$ ו-$R$ מתוך רצף החידושים (innovations), ובודקים אם ה-NEES נשאר בתוך רצועת הביטחון של $\\chi^2$. על שלושה מאגרים פתוחים, המסנן הלומד נשאר מכויל ב-90% מהזמן, מול 60% למסנן עם $Q$ קבוע.",
+   "why": "זה ההמשך הישיר של מה שאתה לומד עכשיו על מערכות לינאריות: אותה קונבולוציה, עם רעש. ומבחן ה-NEES הוא בדיוק סוג הבדיקה שתצטרך בתוכנית האימות של מוצר החודש.",
+   "certainty": "preprint",
+   "sanity": {
+    "check": "ממדים",
+    "result": "pass",
+    "note": "יחידות NEES חסרות ממד, הרצועה מתאימה ל-3 דרגות חופש"
+   },
+   "sources": [
+    {
+     "url": "https://example.org/paper/adaptive-kalman",
+     "title": "Adaptive noise estimation with calibrated uncertainty",
+     "publisher": "מקור לדוגמה: מאגר מאמרים",
+     "tier": "B",
+     "publishedAt": "2026-10-27",
+     "fetchedAt": 1793319000000,
+     "httpStatus": 200,
+     "sha256": "example",
+     "quote": "the adaptive filter remains consistent in 90% of the runs",
+     "openAccess": true
+    }
+   ],
+   "connects": [
+    {
+     "moduleId": "M4.1",
+     "rel": "current",
+     "concept": "מערכת לינארית",
+     "why": "המסנן הוא מערכת לינארית שמשתנה בזמן; התכונות שלמדת קובעות מתי הוא יציב."
+    },
+    {
+     "moduleId": "M5.1",
+     "rel": "next",
+     "concept": "משוב",
+     "why": "החידוש הוא אות השגיאה של לולאת משוב."
+    }
+   ],
+   "idea": {
+    "title": "מבחן כיול למסנן",
+    "kind": "project",
+    "pitch": "מחברת קטנה שמריצה מסנן על נתוני GNSS גולמיים מהטלפון ומציירת NEES לאורך הזמן. מתאימה כבדיקה אחת מתוך שתיים בתוכנית האימות.",
+    "hours": 6,
+    "uses": [
+     "M4.1",
+     "M5.1"
+    ]
+   }
+  },
+  {
+   "id": "n2",
+   "kind": "standard",
+   "domain": "signals",
+   "headline": "תיקון בתקן דגימה: הגדרה חדשה לרוחב פס אפקטיבי",
+   "dek": "גוף התקינה עדכן את ההגדרה כך שתכלול את המסנן נגד קיפול, ולא רק את קצב הדגימה.",
+   "body": "ההגדרה הקודמת חישבה רוחב פס מקצב הדגימה בלבד, $f_s/2$. ההגדרה החדשה מחייבת לציין גם את ההנחתה של המסנן נגד קיפול בקצה הפס, כי מעשית אף מסנן לא חותך בבת אחת.",
+   "why": "משפט הדגימה שתלמד בקרוב הוא הגבול התאורטי; התקן מראה איך מהנדסים כותבים אותו בדרישה שאפשר לבדוק.",
+   "certainty": "official",
+   "sources": [
+    {
+     "url": "https://example.org/standard/sampling-amendment",
+     "title": "Amendment: effective bandwidth",
+     "publisher": "מקור לדוגמה: גוף תקינה",
+     "tier": "A",
+     "publishedAt": "2026-10-24",
+     "openAccess": true,
+     "quote": "the effective bandwidth shall be stated together with the attenuation at the band edge"
+    }
+   ],
+   "connects": [
+    {
+     "moduleId": "M4.2",
+     "rel": "next",
+     "concept": "דגימה",
+     "why": "תגיע לזה בשיעור על דגימה וקיפול."
+    }
+   ],
+   "read10": {
+    "minutes": 8
+   }
+  },
+  {
+   "id": "n3",
+   "kind": "data",
+   "domain": "power",
+   "headline": "נתוני רשת: כמה אגירה צריך כדי לעבור לילה בלי רוח",
+   "dek": "דוח נתונים שנתי מפרסם עקומות ביקוש וייצור לפי שעה, ומאפשר לחשב בעצמך.",
+   "body": "הדוח מפרסם את הנתונים הגולמיים, לא רק את המסקנות. אפשר לחשב את גודל האגירה הנדרש כאינטגרל של הפער בין ביקוש לייצור לאורך הלילה, ולבדוק את הרגישות לשעות בלי רוח.",
+   "why": "תרגיל טוב בשימור אנרגיה ובאינטגרציה על נתונים אמיתיים, לפני שמגיעים לפרק על אנרגיה.",
+   "certainty": "official",
+   "sanity": {
+    "check": "סדר גודל",
+    "result": "pass",
+    "note": "הספק כפול זמן נותן MWh בטווח המדווח"
+   },
+   "sources": [
+    {
+     "url": "https://example.org/data/grid-hourly",
+     "title": "Hourly demand and generation",
+     "publisher": "מקור לדוגמה: מפעיל רשת",
+     "tier": "A",
+     "publishedAt": "2026-10-25",
+     "openAccess": true
+    }
+   ],
+   "connects": [
+    {
+     "moduleId": "M2.1",
+     "rel": "learned",
+     "concept": "שימור אנרגיה",
+     "why": "האגירה היא חשבון של אנרגיה נכנסת ויוצאת."
+    }
+   ]
+  },
+  {
+   "id": "n4",
+   "kind": "paper",
+   "domain": "thermo",
+   "headline": "צינור חום שטוח: מדידה מול מודל, והפער בזוויות גבוהות",
+   "dek": "מאמר שפוט משווה מודל אנליטי פשוט למדידות, ומראה איפה הוא נשבר.",
+   "body": "המודל מחזיק כשהצינור אופקי. בזווית של יותר מ-60° ההתנגדות התרמית המדודה גבוהה פי 1.5 מהמודל, כי הנוזל לא חוזר לאזור החימום מספיק מהר.",
+   "why": "דוגמה נקייה לשאלה 'מתי המודל נשבר' של רמה 2.5, מתחום שתגיע אליו בגשר של מעבר החום.",
+   "certainty": "peer",
+   "sources": [
+    {
+     "url": "https://example.org/journal/flat-heat-pipe",
+     "title": "Flat heat pipe at inclination",
+     "publisher": "מקור לדוגמה: כתב עת",
+     "tier": "B",
+     "publishedAt": "2026-10-22",
+     "openAccess": true
+    }
+   ],
+   "connects": [
+    {
+     "moduleId": "M14.1",
+     "rel": "later",
+     "concept": "התנגדות תרמית",
+     "why": "הגשר של מעבר החום פותח בזה."
+    }
+   ],
+   "oldButNew": true
+  },
+  {
+   "id": "n5",
+   "kind": "system",
+   "domain": "ml",
+   "headline": "בקר רובוטי שלמד בסימולציה, והפער כשעבר לחומרה",
+   "dek": "הודעת יצרן על בקר שאומן בסימולציה, עם מספר הצלחה שלא נבדק בנפרד.",
+   "body": "היצרן מדווח על 95% הצלחה במשימת אחיזה אחרי מעבר מסימולציה לחומרה. אין מאמר מצורף ואין פירוט של תנאי הבדיקה.",
+   "why": "תרגול של קריאת טענת יצרן: מה היית צריך לראות כדי להאמין למספר.",
+   "certainty": "vendor",
+   "sanity": {
+    "check": "בדיקה עצמאית",
+    "result": "na",
+    "note": "אין נתונים לבדיקה"
+   },
+   "sources": [
+    {
+     "url": "https://example.org/vendor/robot-controller",
+     "title": "Sim-to-real controller",
+     "publisher": "מקור לדוגמה: יצרן",
+     "tier": "D",
+     "publishedAt": "2026-10-28",
+     "openAccess": true
+    }
+   ],
+   "connects": [
+    {
+     "moduleId": "M17.1",
+     "rel": "later",
+     "concept": "הכללה",
+     "why": "הפער בין אימון לבדיקה הוא הנושא של הלמידה המונחית."
+    }
+   ]
+  },
+  {
+   "id": "n6",
+   "kind": "report",
+   "domain": "systems",
+   "headline": "דוח: למה פרויקטים מאחרים, לפי 200 סקירות תכן",
+   "dek": "ניתוח של סקירות תכן מראה שרוב העיכובים מתחילים בדרישות שלא נבדקו, לא בבנייה.",
+   "body": "ב-62% מהפרויקטים שאיחרו, הבעיה הראשונה שנרשמה הייתה דרישה שלא היה לה מבחן קבלה. הדוח ממליץ לכתוב את מבחן הקבלה יחד עם הדרישה.",
+   "why": "זה בדיוק שלב 'מפרט ושוק' במוצר החודש: דרישה שאפשר לבדוק.",
+   "certainty": "single",
+   "sources": [
+    {
+     "url": "https://example.org/report/design-reviews",
+     "title": "Why projects slip",
+     "publisher": "מקור לדוגמה: מכון מחקר",
+     "tier": "B",
+     "publishedAt": "2026-10-26",
+     "openAccess": true
+    }
+   ],
+   "connects": [
+    {
+     "moduleId": "M27.1",
+     "rel": "outside",
+     "concept": "דרישות",
+     "why": "הגשר של הנדסת מערכות פותח במחזור החיים של פרויקט."
+    }
+   ],
+   "read10": {
+    "minutes": 10
+   },
+   "textbookUpdate": {
+    "book": "NASA SE Handbook",
+    "page": 47,
+    "edition": 2016,
+    "old": "דרישה טובה היא ברורה ותמציתית.",
+    "now": "הדוח מוסיף: דרישה טובה באה עם מבחן קבלה כתוב.",
+    "status": "refined"
+   }
+  }
+ ],
+ "stats": {
+  "candidates": 214,
+  "fetched": 31,
+  "verified": 6,
+  "dropped": {
+   "quote": 3,
+   "date": 4,
+   "check": 2
+  }
+ },
+ "example": true
+}

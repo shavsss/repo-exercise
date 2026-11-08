@@ -1,0 +1,44 @@
+import { StrictMode, useEffect, useState } from "react";
+import { createRoot } from "react-dom/client";
+import "katex/dist/katex.min.css";
+import "./styles.css";
+import "./eng.css";
+import "./reading.css";
+import "./blocks3.css";
+import "./reading";
+import { installSounds } from "./sound";
+import "./summaries/summaries.css";
+import "./labtabs/labtabs.css";
+import "./look5.css";
+import "./polish2.css";
+import "./notes-fun.css";
+import "./practice.css";
+import { App } from "./App";
+import { SummaryApp } from "./summaries/SummaryApp";
+import { Bench } from "./components/Bench";
+import { copyWithMath } from "./summaries/rich";
+
+installSounds();
+
+document.documentElement.lang = "he";
+document.documentElement.dir = "rtl";
+// equations copied from a lesson reach the summaries as equations, not as their drawn letters
+document.addEventListener("copy", copyWithMath);
+
+/** The lessons, or with #summary after the address the summaries notebook (in its own window). */
+function Root() {
+  const [hash, setHash] = useState(location.hash);
+  useEffect(() => {
+    const on = () => setHash(location.hash);
+    window.addEventListener("hashchange", on);
+    return () => window.removeEventListener("hashchange", on);
+  }, []);
+  if (hash === "#bench") return <Bench lab="gilua" />;
+  return hash === "#summary" ? <SummaryApp lab="gilua" name="גילואה" /> : <App />;
+}
+
+createRoot(document.getElementById("root")!).render(
+  <StrictMode>
+    <Root />
+  </StrictMode>,
+);

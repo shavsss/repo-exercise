@@ -10,7 +10,7 @@
 | 2. Principles of Modern Radar | 02.1–02.5 |
 | 3. Introduction to IR and EO Systems | 03.1, 03.3 |
 | 4. EW 102 | 04.1, 04.2 |
-| 5. Understanding GPS/GNSS | 05.1, 05.3, 05.4 |
+| 5. Understanding GPS/GNSS | 05.1, 05.3, 05.4, 05.5 (Riley, NIST SP 1065: Allan ורעשי שעון, M5.6), 05.6 (Woodman, Cambridge TR-696: ניווט אינרציאלי, במקום Groves, M5.8) |
 | 6. Missile Guidance and Control (Siouris) | 06.1, 06.2 |
 | 7. Air and Missile Defense Systems Engineering | 07.1, 07.2 |
 | 8. Military Avionics Systems | 08.1, 08.2, 08.4, 08.7, 08.9 |
@@ -26,3 +26,4 @@
 - מאמרים שנבדקו ונמצאו בינוניים או חלשים הוצאו: 01.2, 04.5, 04.6, 08.5, 08.6, 08.8, 09.2, ובספר הימי 10.1, 10.7, 10.10.
 - הוצאו לבקשת הלומד: 01.5a ו-01.5b (פטנטים), 08.3 (Yeh), 10.11 (פטנט).
 - ב-`08.1` (Boyd) חלק מהעמודים סרוקים בלי שכבת טקסט.
+- דוחות ארוכים שנלמדים רק בחלקם (קיצור שאושר ב-6.11): APS ו-Sessler (M7.6), שלושת מסמכי Link 16 (M7.9), du Plessis ו-Nityananda (M4.8), Chang (M4.10), Boyd (M8.3), Kumar ו-Reed (M10.5). העמודים שנלמדים מסומנים 📄 ב-`SYLLABUS.md`, ושאר הדוח נשאר במודול בעיון (▫). 10.2 נלמד ב-M1.3, וב-M10.5 הוא בעיון. Ward (02.1) ו-Ufimtsev (08.2) נשארים במלואם.

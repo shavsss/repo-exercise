@@ -1,0 +1,19 @@
+
+# Core Lab build outputs
+core/build/
+core/app/node_modules/
+core/app/dist/
+__pycache__/
+core/app/artifact/lib/
+core/app/artifact/assets/
+
+# Engineering Lab build outputs
+eng/build/
+eng/app/node_modules/
+eng/app/dist/
+eng/app/artifact/lib/
+eng/app/artifact/assets/
+
+# The Hebrew dictionary of the summaries (tools/dict/build_dict.py)
+eng/app/artifact/dict/
+core/app/artifact/dict/

@@ -1,0 +1,164 @@
+{
+ "id": "2026-W44",
+ "app": "core",
+ "week": {
+  "from": "2026-10-26",
+  "to": "2026-11-01"
+ },
+ "createdAt": 1793509200000,
+ "generator": {
+  "sha": "example",
+  "runId": "example"
+ },
+ "summary": "שבוע ראשון של מדידה. **הכלים הכמותיים חזקים:** חישובי dB ומשוואת הקשר נכונים ומהירים, והתחזיות לפני החישוב היו בסדר הגודל הנכון ב-8 מתוך 10. **הפער המרכזי הוא ביקורת מקורות:** טענה אחת מדוח פתוח התקבלה בלי מקור שני.",
+ "trend": "up",
+ "scope": {
+  "lessons": [
+   {
+    "moduleId": "M0.1",
+    "lesson": 0,
+    "title": "דציבלים ומשוואת הקשר"
+   },
+   {
+    "moduleId": "M0.1",
+    "lesson": 1,
+    "title": "רגישות מקלט"
+   }
+  ],
+  "answers": 12
+ },
+ "domains": [
+  {
+   "id": "MIL · Foundations: the quantitative toolkit",
+   "name": "ארגז כלים כמותי",
+   "target": {
+    "knowledge": "A4",
+    "fluency": "A4",
+    "industry": "senior analyst"
+   },
+   "now": {
+    "knowledge": "A2",
+    "fluency": "A2",
+    "industry": "mid analyst"
+   },
+   "score": 2.1,
+   "targetScore": 4,
+   "delta": 0.3,
+   "evidence": "תקציב קישור מלא נכון, כולל רעש מקלט; הערכה בראש בתוך 1 dB.",
+   "next": "תקציב קישור עם אי-ודאות בכל איבר.",
+   "confidence": "medium",
+   "reviewer": "r2"
+  },
+  {
+   "id": "MIL · Radar",
+   "name": "מכ\"ם",
+   "target": {
+    "knowledge": "A4–A5",
+    "fluency": "A4",
+    "industry": "senior analyst"
+   },
+   "now": {
+    "knowledge": "A1",
+    "fluency": "A1"
+   },
+   "score": 0.9,
+   "targetScore": 4.5,
+   "evidence": "עוד לא נלמד; תשובה אחת על $R^4$ נכונה.",
+   "confidence": "low",
+   "reviewer": "r2"
+  },
+  {
+   "id": "MIL · Antennas and propagation",
+   "name": "אנטנות והתפשטות",
+   "target": {
+    "knowledge": "A4",
+    "fluency": "A4",
+    "industry": "senior analyst"
+   },
+   "now": {
+    "knowledge": "A1",
+    "fluency": "A1"
+   },
+   "score": 0.7,
+   "targetScore": 4,
+   "evidence": "הגבר אנטנה ב-dBi חושב נכון בתרגיל אחד.",
+   "confidence": "low",
+   "reviewer": "r2"
+  },
+  {
+   "id": "MIL · Defense analysis craft: OSINT, claims checking and communication",
+   "name": "מלאכת הניתוח: OSINT ובדיקת טענות",
+   "target": {
+    "knowledge": "מעבר לסמינר",
+    "industry": "senior (writing)"
+   },
+   "now": {
+    "industry": "mid"
+   },
+   "score": 1.8,
+   "targetScore": 4.5,
+   "delta": -0.1,
+   "evidence": "סיכום טוב של דוח פתוח; טענה אחת התקבלה בלי מקור שני.",
+   "gap": "בדיקת טענה מול מקור שני כהרגל.",
+   "next": "בכל טענה מדוח: מקור שני או תגית 'דיווח יחיד'.",
+   "confidence": "medium",
+   "reviewer": "r1"
+  }
+ ],
+ "reviewers": [
+  {
+   "id": "r1",
+   "persona": "senior_engineer",
+   "title": "מהנדס מערכות בכיר",
+   "focus": "מוצר החודש וכתיבה",
+   "notes": "1. הרעיון ברמת ניתוח, ממקורות פתוחים, וזה נכון למוצר כאן.\n2. בדיקת החוקיות: התשובה על יצוא סומנה \"בסדר\"; כדאי לרשום על סמך מה (גרסה אזרחית, מקורות פתוחים בלבד).\n3. חסר baseline מספרי למודל.",
+   "verdict": "טוב לשבוע ראשון. השבוע הבא: baseline ובדיקה שנייה."
+  },
+  {
+   "id": "r2",
+   "persona": "domain_expert",
+   "title": "מומחה מכ\"ם ותקשורת",
+   "focus": "השיעורים והתשובות",
+   "notes": "- חישובי ה-dB נקיים ומהירים.\n- בתרגיל הרגישות שכחת את רוחב הפס של המקלט בתחזית הראשונה, ותפסת את זה לבד בבדיקה.\n- מומלץ: לכתוב את ההנחות לפני המספר.",
+   "verdict": "בסיס כמותי חזק לשלב."
+  }
+ ],
+ "calibration": {
+  "predictions": 10,
+  "brier": 0.15,
+  "confidentWrong": 0,
+  "overconfident": 1,
+  "underconfident": 2,
+  "note": "שמונה מתוך עשר בסדר הגודל הנכון. אין טעות \"בטוח\" השבוע."
+ },
+ "product": {
+  "month": "2026-11",
+  "title": "מודל עלות-תועלת של חיישן",
+  "stage": "רעיון",
+  "score": 4,
+  "checklist": {
+   "passed": 1,
+   "total": 9
+  },
+  "notes": "הרעיון ברור. בדיקת החוקיות כמעט הושלמה; שאלה אחת מסומנת \"לברר קודם\"."
+ },
+ "leadDecide": {
+  "score": 2,
+  "items": [],
+  "note": "עוד לא היה תרגיל במסלול השבוע. השבוע הבא: ביקורת תכן אחת."
+ },
+ "actions": [
+  {
+   "text": "לכתוב את ההנחות לפני כל מספר",
+   "domain": "ארגז כלים כמותי"
+  },
+  {
+   "text": "מקור שני לכל טענה מדוח פתוח",
+   "domain": "מלאכת הניתוח"
+  },
+  {
+   "text": "baseline מספרי למודל של מוצר החודש"
+  }
+ ],
+ "example": true
+}

@@ -1,0 +1,940 @@
+{
+  "app": "core",
+  "createdAt": 1793486172047,
+  "lesson": 1,
+  "moduleId": "M0.2",
+  "parts": 1,
+  "pipeline": "factory@b61a11f",
+  "plan": {
+    "facts": [
+      "[Q Pt=1kW R=1000m] 7.9577e-05 W/m^2",
+      "[Q Pt=1kW R=2000m] 1.9894e-05 W/m^2",
+      "[Q ratio R x2] 4.0  # = 6.02 dB",
+      "[E rms at 1 km, 1kW iso] 0.1731 V/m  # check sqrt(30*ERP)/d = 0.1732",
+      "[1 uV/m power density] 2.654e-15 W/m^2  # M0.1 memory 2.65e-15",
+      "[sphere area R=1km] 1.2566e+07 m^2",
+      "[2D^2/lam radar X 2m (D=2.0 m, lam=0.03 m)] 266.667 m  # = 0.2667 km; D/lam=66.67",
+      "[  exact sagitta at Rff] 0.00187501 m  # lam/16=0.001875; ratio 1.00000",
+      "[2D^2/lam radar S 10m (D=10.0 m, lam=0.1 m)] 2000 m  # = 2 km; D/lam=100",
+      "[  exact sagitta at Rff] 0.00625001 m  # lam/16=0.00625; ratio 1.00000",
+      "[2D^2/lam telescope 0.2m (D=0.2 m, lam=5.5e-07 m)] 145455 m  # = 145.5 km; D/lam=3.636e+05",
+      "[  exact sagitta at Rff] 3.43716e-08 m  # lam/16=3.4375e-08; ratio 0.99990",
+      "[2D^2/lam telescope 1m (D=1.0 m, lam=5.5e-07 m)] 3.63636e+06 m  # = 3636 km; D/lam=1.818e+06",
+      "[  exact sagitta at Rff] 3.44589e-08 m  # lam/16=3.4375e-08; ratio 1.00244",
+      "[phase error at lam/16] 22.5 deg  # = pi/8 rad",
+      "[edge phase error D=2m lam=3cm R=40.0] sag=12.500 mm = lam/2.40; phase 150.0 deg",
+      "[edge phase error D=2m lam=3cm R=100.0] sag=5.000 mm = lam/6.00; phase 60.0 deg",
+      "[edge phase error D=2m lam=3cm R=266.6667] sag=1.875 mm = lam/16.00; phase 22.5 deg",
+      "[edge phase error D=2m lam=3cm R=533.3333] sag=0.938 mm = lam/32.00; phase 11.3 deg",
+      "[relative 1/R amplitude drop edge vs center at Rff (D=2m)] 7.031e-06  # ~ D^2/(8R^2)",
+      "[phase error at R=Rff/2 (2x closer)] 45.0 deg",
+      "[R_ff scaling: f x2 -> R_ff x2; D x2 -> x4]",
+      "[linear delta=0 Ax=1 Ay=1: angle] 45.0 deg  # amplitude 1.414",
+      "[linear delta=0 Ax=3 Ay=4: angle] 53.13010235415598 deg  # amplitude 5",
+      "[intensity circular Ax=Ay=A: |E|^2 const] 1  # Ex^2+Ey^2=A^2",
+      "[axial ratio Ax=1,Ay=0.5, delta=90] 2.00 = 6.02 dB",
+      "[cos^2(psi) psi=0] 1.0000  # = 0.00 dB",
+      "[cos^2(psi) psi=30] 0.7500  # = -1.25 dB",
+      "[cos^2(psi) psi=45] 0.5000  # = -3.01 dB",
+      "[cos^2(psi) psi=60] 0.2500  # = -6.02 dB",
+      "[cos^2(psi) psi=90] 0.0000  # = -120.00 dB",
+      "[circular wave into linear antenna] 0.5  # = -3.01 dB",
+      "[random pol into linear antenna] 0.5  # = -3.01 dB",
+      "[two equal waves in phase: I/I0] 4  # = 6.02 dB above single; incoherent 2 = 3.01 dB",
+      "[M0.1: 30 dBm (+) 30 dBm incoherent] 33.01 dBm",
+      "[30 dBm + 30 dBm coherent in phase] 36.02 dBm",
+      "[rho=0.5 (amplitude ratio): Imax/I1] 2.25  # = 3.52 dB",
+      "[Imin/I1] 0.25  # = -6.02 dB",
+      "[swing Imax/Imin] 9.0  # = 9.54 dB; mean level 1+rho^2=1.25 = 0.97 dB",
+      "[V rho=0.5] 0.8  # 2rho/(1+rho^2) = 0.8",
+      "[V rho=0.1] 0.19801980198019803  # swing 1.74 dB",
+      "[V rho=0.9] 0.9944751381215471  # swing 25.58 dB",
+      "[V rho=1.0] 1.0  # swing inf dB",
+      "[pi phase at 10 GHz: path diff] 0.015 m  # = 1.5 cm",
+      "[phase from path 2pi*Delta/lam: Delta=0.75 cm] 90.0 deg",
+      "[mean of 4 I0 cos^2(dphi/2) over uniform phase (midpoint rule)] 1.9999999999999811 I0  # =2 I0",
+      "[N=10 random-phase equal scatterers: mean |sum|^2 (Monte Carlo, seed 7, 100000 trials)] 10.004 I1  # theory N=10; coherent N^2=100; max seen 82.9",
+      "[coherent N=10 vs incoherent] 20 dB vs 10 dB",
+      "[N=50 random phases: std/mean of power] 0.986  # -> 1 (exponential law)",
+      "[check] |A1+A2 e^{jd}|^2 = 2.1250345699958078 vs 2.125034569995808",
+      "[white: lam=0.55 um, lt=1e-06 m -> implied dlam] 3.025e-07 m  # = 302.5 nm; df=c/lt = 2.998e+14 Hz; f=5.451e+14 Hz; df/f=0.55; tau0=3.336e-15 s; lt/lam=1.818",
+      "[Hg: lam=0.546 um, lt=0.012 m -> implied dlam] 2.484e-11 m  # = 0.02484 nm; df=c/lt = 2.498e+10 Hz; f=5.491e+14 Hz; df/f=4.55e-05; tau0=4.003e-11 s; lt/lam=2.198e+04",
+      "[Kr: lam=0.606 um, lt=0.78 m -> implied dlam] 4.708e-13 m  # = 0.0004708 nm; df=c/lt = 3.843e+08 Hz; f=4.947e+14 Hz; df/f=7.77e-07; tau0=2.602e-09 s; lt/lam=1.287e+06",
+      "[CO2: lam=10.6 um, lt=11000.0 m -> implied dlam] 1.021e-14 m  # = 1.021e-05 nm; df=c/lt = 2.725e+04 Hz; f=2.828e+13 Hz; df/f=9.64e-10; tau0=3.669e-05 s; lt/lam=1.038e+09",
+      "[Example 4.1 lt] 1.0083 um  # lt/lam_center=1.833",
+      "[Lorentzian |gamma(tau)|=exp(-pi*df*tau) at tau=tau0=1/df] 0.04321391826377226",
+      "[  exp(-pi x) x=0.1] 0.7304026910486456",
+      "[  exp(-pi x) x=0.2] 0.5334880910911033",
+      "[  exp(-pi x) x=0.5] 0.20787957635076193",
+      "[  exp(-pi x) x=1.0] 0.04321391826377226"
+    ],
+    "figures": [
+      "B10:23:0",
+      "B10:24:0",
+      "B10:24:1",
+      "B02:47:0",
+      "B03:92:0",
+      "B02:48:0",
+      "B02:46:0",
+      "B03:93:0",
+      "B03:94:0",
+      "B03:96:0",
+      "B03:96:1"
+    ],
+    "next": "גל פוגש חומר: עקיפה וקרן האנטנה, הנחתה אטמוספרית, שבירה והחזרה (B02 1.4, B10 ch.2 continuation)",
+    "parts": [
+      {
+        "blocks": [
+          "plan",
+          "story",
+          "figure",
+          "figure",
+          "figure",
+          "figure",
+          "figure",
+          "definition",
+          "formula",
+          "refresh",
+          "think",
+          "predict"
+        ],
+        "covers": "Intensity Q=Pt/4piR^2 from energy conservation (B02 1.3.2, Fig 1-7, eq 1.7); spherical and plane waves (B10 ch.2 Basic Phenomena, Figs 2-1..2-3); the lambda/16 condition and Rff=2D^2/lambda derived step by step; tilted plane wave phase (B03 Fig 4.3); magnitudes for radar antenna and telescope. Refresh of dB doubling and of Q=E^2/Z0.",
+        "l25": [
+          "מבנה",
+          "מקור",
+          "סדר גודל"
+        ],
+        "title": "מגל כדורי לגל מישורי: עוצמה וקריטריון השדה הרחוק",
+        "units": [
+          "U1",
+          "U2",
+          "U3",
+          "U4",
+          "U5",
+          "U6",
+          "U7",
+          "U8",
+          "U10",
+          "U16",
+          "U18"
+        ],
+        "words": 1300
+      },
+      {
+        "blocks": [
+          "figure",
+          "definition",
+          "think",
+          "history",
+          "casestudy",
+          "erratum",
+          "domain",
+          "domain",
+          "fieldmap"
+        ],
+        "covers": "Limits, magnitude, trade-off, system meaning and critique of R1; test-range case (2 m X-band dish at 40, 100 and 267 m); erratum for B02:47 (Ex=Ey); polarization B02 1.3.3 (Fig 1-8) with random polarization from B03 p89; mismatch factor; domain blocks radar and eoir; fieldmap for Q and Rff.",
+        "l25": [
+          "גבולות",
+          "סדר גודל",
+          "פשרה",
+          "משמעות מבצעית",
+          "ביקורת"
+        ],
+        "title": "גבולות השדה הרחוק, קיטוב ומה שהם אומרים על המערכת",
+        "units": [
+          "U9",
+          "U11",
+          "U12",
+          "U13",
+          "U14",
+          "U15",
+          "U17",
+          "U20",
+          "U21",
+          "U22",
+          "U23",
+          "U24",
+          "U25",
+          "U26"
+        ],
+        "words": 1400
+      },
+      {
+        "blocks": [
+          "figure",
+          "figure",
+          "definition",
+          "formula",
+          "think",
+          "predict",
+          "history",
+          "scene3d",
+          "domain",
+          "domain",
+          "fieldmap",
+          "erratum"
+        ],
+        "covers": "Superposition (B02 1.3.1.4, Fig 1-6); derivation of I=I1+I2+2sqrt(I1I2)cos dphi; equal-wave case; path difference to phase; correlation function and visibility (B03 4.12-4.17, Fig 4.4); linear in field vs in intensity; two-path fading and N scatterers; scene wave_interference; domain blocks ew and nav; fieldmap for the interference law.",
+        "l25": [
+          "מבנה",
+          "מקור",
+          "סדר גודל",
+          "גבולות",
+          "ביקורת",
+          "משמעות מבצעית"
+        ],
+        "title": "התאבכות: סופרפוזיציה, מתאם ונראות",
+        "units": [
+          "U27",
+          "U30",
+          "U31",
+          "U32",
+          "U33",
+          "U34",
+          "U35",
+          "U36",
+          "U37",
+          "U38",
+          "U39",
+          "U40",
+          "U41",
+          "U42",
+          "U43",
+          "U44",
+          "U45",
+          "U46",
+          "U47"
+        ],
+        "words": 1400
+      },
+      {
+        "blocks": [
+          "figure",
+          "figure",
+          "figure",
+          "definition",
+          "formula",
+          "predict",
+          "casestudy",
+          "domain",
+          "fieldmap",
+          "erratum",
+          "errorhunt",
+          "exercise",
+          "exercise",
+          "exercise",
+          "lab",
+          "verify",
+          "fieldsystems",
+          "coverage",
+          "keep"
+        ],
+        "covers": "Temporal coherence: wavetrains (Fig 4.5), df=1/tau0, lt=c tau0=lambda^2/dlambda, Example 4.1, Table 4.1 recomputed; spatial coherence ls<lambda/theta (Figs 4.6, 4.7); line-shape caveat; coherent radar and lidar ranges; casestudy; domain block space; fieldmap; errorhunt; verify; exercises; lab; fieldsystems; coverage; next-lesson sentence; keep.",
+        "l25": [
+          "מבנה",
+          "מקור",
+          "סדר גודל",
+          "פשרה",
+          "משמעות מבצעית",
+          "גבולות",
+          "ביקורת"
+        ],
+        "title": "קוהרנטיות בזמן ובמרחב, ותרגול",
+        "units": [
+          "U50",
+          "U51",
+          "U52",
+          "U53",
+          "U54",
+          "U55",
+          "U56",
+          "U57",
+          "U58",
+          "U59",
+          "U60",
+          "U61",
+          "U62",
+          "U63",
+          "U64",
+          "U65"
+        ],
+        "words": 1500
+      }
+    ],
+    "results": [
+      {
+        "id": "R1",
+        "text": "Power density of a spherical wave Q = Pt/(4 pi R^2) and the plane-wave (far-field) criterion R >= 2D^2/lambda",
+        "thread": "From what distance may a spherical wave be treated as a plane wave, and what is the power density there?"
+      },
+      {
+        "id": "R2",
+        "text": "Two-wave interference law E = E1 + E2 + 2 sqrt(E1 E2) Re{gamma12}, visibility V = |gamma12|, and the coherence lengths lt = lambda^2/dlambda and ls < lambda/theta",
+        "thread": "What does the power become when two waves meet, and what must hold for the interference to be visible?"
+      }
+    ],
+    "title": "עוצמה, קיטוב, התאבכות וקוהרנטיות: גל כדורי וגל מישורי",
+    "units": [
+      {
+        "id": "U1",
+        "part": 1,
+        "q": "Define intensity and give its units.",
+        "r": "R1",
+        "src": "src",
+        "text": "Intensity (power density) Q: power per unit area of a wave, W/m^2",
+        "tier": "key",
+        "type": "DEF"
+      },
+      {
+        "id": "U2",
+        "part": 1,
+        "q": "Derive Q = Pt/4piR^2 from conservation of energy.",
+        "r": "R1",
+        "src": "src",
+        "text": "Energy conservation on a sphere of radius R: Q = Pt/(4 pi R^2); every step with its reason",
+        "tier": "key",
+        "type": "STEP"
+      },
+      {
+        "id": "U3",
+        "part": 1,
+        "q": "In which step does the isotropy assumption enter, and what replaces the formula for a directive antenna?",
+        "r": "R1",
+        "src": "auth",
+        "text": "Hidden assumptions: isotropic source and lossless medium; with a directive antenna Q = Pt*G/(4 pi R^2) (ERP of M0.1); what breaks with loss (alpha of M0.1)",
+        "tier": "key",
+        "type": "ASM"
+      },
+      {
+        "id": "U4",
+        "part": 1,
+        "q": "What happens to Q when R doubles, in linear and in dB?",
+        "r": "R1",
+        "src": "src",
+        "text": "1/R^2 law: doubling R divides Q by 4 = 6.02 dB (1 kW: 7.96e-5 W/m^2 at 1 km, 1.99e-5 at 2 km)",
+        "tier": "key",
+        "type": "RES"
+      },
+      {
+        "id": "U5",
+        "part": 1,
+        "q": "What field strength corresponds to 1 kW isotropic at 1 km?",
+        "r": "R1",
+        "src": "auth",
+        "text": "Bridge to the field: Q = E^2/Z0 (M0.1 eq. 31): 1 kW isotropic at 1 km gives 0.173 V/m, equal to sqrt(30 ERP)/d",
+        "tier": "supp",
+        "type": "MAP"
+      },
+      {
+        "id": "U6",
+        "part": 1,
+        "q": "Define a spherical and a plane wave and say when each model is used.",
+        "r": "R1",
+        "src": "src",
+        "text": "Wavefront; spherical wave versus plane wave (B10 Figs 2-2, 2-3; B02 Fig 1-7); what each idealization assumes",
+        "tier": "key",
+        "type": "DEF"
+      },
+      {
+        "id": "U7",
+        "part": 1,
+        "q": "Derive the far-field distance 2D^2/lambda from the lambda/16 condition.",
+        "r": "R1",
+        "src": "src",
+        "text": "Far-field criterion: sagitta of the spherical front over aperture D is D^2/(8R); requiring <= lambda/16 gives R >= 2D^2/lambda",
+        "tier": "key",
+        "type": "STEP"
+      },
+      {
+        "id": "U8",
+        "part": 1,
+        "q": "Why is the limit set on phase and not on amplitude, and is lambda/16 a law?",
+        "r": "R1",
+        "src": "auth",
+        "text": "The lambda/16 threshold is a convention (phase error pi/8 = 22.5 deg), the controlling error is phase not amplitude (amplitude drop across aperture 7e-6 at Rff for D=2 m)",
+        "tier": "key",
+        "type": "ASM"
+      },
+      {
+        "id": "U9",
+        "part": 2,
+        "q": "How does the edge phase error change when the distance is halved, and what is it at 100 m?",
+        "r": "R1",
+        "src": "auth",
+        "text": "Phase error at the aperture edge scales as D^2/(lambda R): 22.5 deg at Rff, 45 deg at Rff/2, 60 deg at 100 m, 150 deg at 40 m (D=2 m, 3 cm)",
+        "tier": "key",
+        "type": "QNT"
+      },
+      {
+        "id": "U10",
+        "part": 1,
+        "q": "Estimate in your head the far-field distance of a 2 m dish at 10 GHz.",
+        "r": "R1",
+        "src": "src",
+        "text": "Magnitudes: 2 m at 10 GHz 267 m; 10 m at 3 GHz 2 km; 0.2 m telescope at 0.55 um 145 km; mental estimate and its error",
+        "tier": "key",
+        "type": "OOM"
+      },
+      {
+        "id": "U11",
+        "part": 2,
+        "q": "What replaces the plane-wave model inside the far-field distance?",
+        "r": "R1",
+        "src": "auth",
+        "text": "Inside Rff the field is not a plane wave and Q is not Pt/4piR^2 as a simple function of range; what replaces it (near field / Fresnel region, treated with the aperture in M1)",
+        "tier": "supp",
+        "type": "LIM"
+      },
+      {
+        "id": "U12",
+        "part": 2,
+        "q": "What does a larger aperture cost in test-range length?",
+        "r": "R1",
+        "src": "auth",
+        "text": "Trade-off: aperture D buys gain and narrow beam but pushes the far field out as D^2/lambda; test range length, compact range, or measuring in the near field and transforming",
+        "tier": "supp",
+        "type": "TRD"
+      },
+      {
+        "id": "U13",
+        "part": 2,
+        "q": "What does the far-field criterion mean for a system's range equation and for its calibration?",
+        "r": "R1",
+        "src": "auth",
+        "text": "System meaning: the radar and link equations of M0.1 assume the far field; targets and receivers must be beyond Rff, and the test range must satisfy it",
+        "tier": "key",
+        "type": "OPS"
+      },
+      {
+        "id": "U14",
+        "part": 2,
+        "q": "Name two false statements about the far field and the check that catches each.",
+        "r": "R1",
+        "src": "auth",
+        "text": "Critique: 'Q = Pt/4piR^2 holds for any antenna at any distance' and a dimensionally wrong 2D/lambda^2; the dimension check and the Rff scaling catch them",
+        "tier": "key",
+        "type": "CRT"
+      },
+      {
+        "id": "U15",
+        "part": 2,
+        "q": "What phase error would a 40 m range introduce for a 2 m dish at 10 GHz?",
+        "r": "R1",
+        "src": "auth",
+        "text": "Case: pattern measurement of a 2 m X-band dish on ranges of 40 m and 100 m against Rff = 267 m; known vs estimated",
+        "tier": "key",
+        "type": "PRX"
+      },
+      {
+        "id": "U16",
+        "part": 1,
+        "q": "Which two quantities dominate the far-field distance and how?",
+        "r": "R1",
+        "src": "src",
+        "text": "Structure: Rff = D*(2D/lambda); aperture size measured in wavelengths sets how many aperture-lengths away the far field starts",
+        "tier": "supp",
+        "type": "STR"
+      },
+      {
+        "id": "U17",
+        "part": 2,
+        "q": "Where does the lambda/16 criterion come from?",
+        "r": "R1",
+        "src": "src",
+        "text": "Where the lambda/16 convention comes from (quarter-wave Rayleigh tolerance divided by 4)",
+        "tier": "bg",
+        "type": "HIS"
+      },
+      {
+        "id": "U18",
+        "part": 1,
+        "q": "What phase pattern does a tilted plane wave impose across an aperture?",
+        "r": "R1",
+        "src": "src",
+        "text": "B03 Fig 4.3: a plane wave arriving at an angle has linear phase k*gamma_x*x across the aperture; basis of steering and of angle measurement (M1)",
+        "tier": "supp",
+        "type": "MAP"
+      },
+      {
+        "id": "U20",
+        "part": 2,
+        "q": "Define polarization.",
+        "r": "S",
+        "src": "src",
+        "text": "Polarization: the motion and orientation of E in the plane perpendicular to propagation (B02 1.3.3)",
+        "tier": "key",
+        "type": "DEF"
+      },
+      {
+        "id": "U21",
+        "part": 2,
+        "q": "Which relation between Ex and Ey gives linear, circular, elliptical?",
+        "r": "S",
+        "src": "src",
+        "text": "Ex = Ax cos(kz - wt + phi_x), Ey = Ay cos(kz - wt + phi_y); linear when delta = m*pi (angle atan(Ay/Ax)), circular when Ax=Ay and delta = pi/2 odd multiples, otherwise elliptical",
+        "tier": "key",
+        "type": "RES"
+      },
+      {
+        "id": "U22",
+        "part": 2,
+        "q": "Show that equal amplitudes with 90 deg phase trace a circle.",
+        "r": "S",
+        "src": "auth",
+        "text": "Circle from Ex = A cos(theta), Ey = A sin(theta): Ex^2 + Ey^2 = A^2; total intensity independent of delta",
+        "tier": "supp",
+        "type": "STEP"
+      },
+      {
+        "id": "U23",
+        "part": 2,
+        "q": "What is a randomly polarized wave and what does it assume away?",
+        "r": "S",
+        "src": "src",
+        "text": "Fixed amplitudes and phase assumed; random polarization (B03 p89) has equal field amplitude in all transverse directions with no fixed relation: addition from the second source",
+        "tier": "supp",
+        "type": "ASM"
+      },
+      {
+        "id": "U24",
+        "part": 2,
+        "q": "What is the power factor for a linear antenna rotated 45 deg, and for circular into linear?",
+        "r": "S",
+        "src": "auth",
+        "text": "Mismatch factor cos^2(psi): 45 deg -> -3.01 dB, 60 deg -> -6.02 dB, 90 deg -> null; circular or random into a linear antenna -> -3.01 dB",
+        "tier": "supp",
+        "type": "QNT"
+      },
+      {
+        "id": "U25",
+        "part": 2,
+        "q": "How does polarization enter the link budget of M0.1?",
+        "r": "S",
+        "src": "auth",
+        "text": "Polarization loss as a line of the M0.1 link budget; circular chosen when the orientation is unknown (fixed 3 dB instead of 0 to infinite)",
+        "tier": "supp",
+        "type": "OPS"
+      },
+      {
+        "id": "U26",
+        "part": 2,
+        "q": "What is wrong in 'circular polarization avoids mismatch loss'?",
+        "r": "S",
+        "src": "auth",
+        "text": "Critique: 'circular polarization has no mismatch loss' and 'orthogonal polarizations give a perfect null' (finite cross-polar isolation)",
+        "tier": "supp",
+        "type": "CRT"
+      },
+      {
+        "id": "U27",
+        "part": 3,
+        "q": "Name two fields where the polarization sense is a design parameter.",
+        "r": "S",
+        "src": "auth",
+        "text": "Connections of polarization to other fields (navigation signal sense, satellite links, radar polarimetry), mechanisms left to their modules",
+        "tier": "supp",
+        "type": "MAP"
+      },
+      {
+        "id": "U30",
+        "part": 3,
+        "q": "Define interference and state what the sum depends on.",
+        "r": "R2",
+        "src": "src",
+        "text": "Superposition and interference: sum of fields of equal frequency at one point depends on amplitudes and relative phase (B02 1.3.1.4, Fig 1-6)",
+        "tier": "key",
+        "type": "DEF"
+      },
+      {
+        "id": "U31",
+        "part": 3,
+        "q": "Derive the amplitude of the sum of two waves.",
+        "r": "R2",
+        "src": "src",
+        "text": "Phasor sum |A1 + A2 e^{j dphi}|^2 = A1^2 + A2^2 + 2 A1 A2 cos dphi, step by step",
+        "tier": "key",
+        "type": "STEP"
+      },
+      {
+        "id": "U32",
+        "part": 3,
+        "q": "What power do two equal in-phase waves give compared with one wave?",
+        "r": "R2",
+        "src": "src",
+        "text": "I = I1 + I2 + 2 sqrt(I1 I2) cos dphi; equal case 4 I0 cos^2(dphi/2): constructive 4 I0 (not 2 I0), destructive 0, pi null",
+        "tier": "key",
+        "type": "RES"
+      },
+      {
+        "id": "U33",
+        "part": 3,
+        "q": "Why does interference not violate conservation of energy?",
+        "r": "R2",
+        "src": "auth",
+        "text": "Energy is redistributed not created: the mean over uniform phase of 4 I0 cos^2 is 2 I0; only the cross term depends on phase",
+        "tier": "key",
+        "type": "STR"
+      },
+      {
+        "id": "U34",
+        "part": 3,
+        "q": "How much path difference gives a null at 10 GHz?",
+        "r": "R2",
+        "src": "src",
+        "text": "Phase from path: dphi = 2 pi Delta/lambda; nulls at Delta = (m+1/2) lambda (1.5 cm at 10 GHz)",
+        "tier": "key",
+        "type": "STEP"
+      },
+      {
+        "id": "U35",
+        "part": 3,
+        "q": "Define the correlation function and its normalized form.",
+        "r": "R2",
+        "src": "src",
+        "text": "Mutual coherence G12(tau) = <u1 u2*(t+tau)> and normalized gamma12, |gamma12| in [0,1] (B03 4.13, 4.14)",
+        "tier": "key",
+        "type": "DEF"
+      },
+      {
+        "id": "U36",
+        "part": 3,
+        "q": "State the general two-wave law with partial coherence.",
+        "r": "R2",
+        "src": "src",
+        "text": "E = E1 + E2 + 2 sqrt(E1 E2) Re{gamma12} (B03 4.15) and the two limits gamma=1, gamma=0",
+        "tier": "key",
+        "type": "RES"
+      },
+      {
+        "id": "U37",
+        "part": 3,
+        "q": "Define fringe visibility.",
+        "r": "R2",
+        "src": "src",
+        "text": "Visibility V = (Emax - Emin)/(Emax + Emin) (B03 4.16)",
+        "tier": "key",
+        "type": "DEF"
+      },
+      {
+        "id": "U38",
+        "part": 3,
+        "q": "How is visibility related to gamma12 for unequal waves?",
+        "r": "R2",
+        "src": "src",
+        "text": "V = |gamma12| for E1=E2 (4.17); general V = 2 sqrt(E1 E2)|gamma|/(E1+E2), derived from (4.15)",
+        "tier": "key",
+        "type": "RES"
+      },
+      {
+        "id": "U39",
+        "part": 3,
+        "q": "What does it mean that a coherent system is linear in field?",
+        "r": "R2",
+        "src": "src",
+        "text": "Linear in field (coherent) versus linear in irradiance (incoherent): B03 4.10, 4.11; what each system preserves",
+        "tier": "supp",
+        "type": "STR"
+      },
+      {
+        "id": "U40",
+        "part": 3,
+        "q": "Which assumption sits inside the 30+30=33 dBm rule of M0.1, and what is the coherent answer?",
+        "r": "R2",
+        "src": "auth",
+        "text": "The dB addition rule of M0.1 (30+30 dBm = 33.01) hides the assumption gamma=0; coherent in phase gives 36.02 dBm",
+        "tier": "key",
+        "type": "ASM"
+      },
+      {
+        "id": "U41",
+        "part": 3,
+        "q": "What fading depth does an amplitude ratio of 0.5 produce?",
+        "r": "R2",
+        "src": "auth",
+        "text": "Two paths of amplitude ratio 0.5: maximum +3.52 dB, minimum -6.02 dB, swing 9.54 dB, V=0.8; ratio 0.9 gives 25.6 dB swing",
+        "tier": "key",
+        "type": "QNT"
+      },
+      {
+        "id": "U42",
+        "part": 3,
+        "q": "What does coherence mean for the total return of N equal scatterers?",
+        "r": "R2",
+        "src": "auth",
+        "text": "System meaning: N scatterers add as N^2 if coherent (20 dB for N=10) or N if random-phase (10 dB; Monte Carlo 10.0); power fluctuates with std/mean about 1; multipath fading",
+        "tier": "key",
+        "type": "OPS"
+      },
+      {
+        "id": "U43",
+        "part": 3,
+        "q": "Where are the nulls of two sources 1.6 wavelengths apart?",
+        "r": "R2",
+        "src": "auth",
+        "text": "Case: two in-phase sources 1.6 lambda apart (scene wave_interference): null directions 18.2 and 69.6 degrees, maxima 0 and 38.7 degrees",
+        "tier": "key",
+        "type": "PRX"
+      },
+      {
+        "id": "U44",
+        "part": 3,
+        "q": "What is wrong with 'two equal coherent sources give 3 dB more'?",
+        "r": "R2",
+        "src": "auth",
+        "text": "Critique: 'interference destroys energy' and 'two equal sources always give +3 dB'; check by averaging over phase and by 6.02 dB for coherent doubling",
+        "tier": "key",
+        "type": "CRT"
+      },
+      {
+        "id": "U45",
+        "part": 3,
+        "q": "How does interference explain the beam of an antenna?",
+        "r": "R2",
+        "src": "src",
+        "text": "Diffraction and the antenna beam as interference of many elements (B02 1.4.1 introduction): the same cos^2 law, many terms",
+        "tier": "supp",
+        "type": "MAP"
+      },
+      {
+        "id": "U46",
+        "part": 3,
+        "q": "Who showed interference of light and with what?",
+        "r": "R2",
+        "src": "src",
+        "text": "Young 1801 double slit: light as wave",
+        "tier": "bg",
+        "type": "HIS"
+      },
+      {
+        "id": "U47",
+        "part": 3,
+        "q": "When does the formula with cos(dphi) stop being valid?",
+        "r": "R2",
+        "src": "auth",
+        "text": "The equal-frequency, fixed-phase assumption fails when the phase fluctuates: gamma drops continuously from 1 to 0 (partial coherence)",
+        "tier": "key",
+        "type": "LIM"
+      },
+      {
+        "id": "U50",
+        "part": 4,
+        "q": "Define the coherence time and length.",
+        "r": "R2",
+        "src": "src",
+        "text": "Temporal coherence: wavetrain lifetime tau0, frequency uncertainty df = 1/tau0 (4.18), coherence length lt = c tau0 = c/df (4.19) (Fig 4.5)",
+        "tier": "key",
+        "type": "DEF"
+      },
+      {
+        "id": "U51",
+        "part": 4,
+        "q": "Derive lt = lambda^2/dlambda.",
+        "r": "R2",
+        "src": "src",
+        "text": "From f = c/lambda: |df| = c dlambda/lambda^2, hence lt = lambda^2/dlambda (4.20)",
+        "tier": "key",
+        "type": "STEP"
+      },
+      {
+        "id": "U52",
+        "part": 4,
+        "q": "Estimate the coherence length of white light and of a CO2 laser line of 27 kHz.",
+        "r": "R2",
+        "src": "src",
+        "text": "Example 4.1: white light 0.4-0.7 um gives about 1 um (1.83 lambda); Table 4.1 recomputed: Hg 12 mm -> dlambda 0.025 nm, Kr 78 cm, CO2 11 km -> 27 kHz",
+        "tier": "key",
+        "type": "OOM"
+      },
+      {
+        "id": "U53",
+        "part": 4,
+        "q": "How strict is 'lt = lambda^2/dlambda' as a limit on path difference?",
+        "r": "R2",
+        "src": "auth",
+        "text": "lt = c/df is an order of magnitude tied to the line shape: Lorentzian line gives |gamma| = exp(-pi df tau), so only 4.3 percent at tau0 and 0.9 at 0.034 tau0",
+        "tier": "key",
+        "type": "ASM"
+      },
+      {
+        "id": "U54",
+        "part": 4,
+        "q": "Define the spatial coherence length.",
+        "r": "R2",
+        "src": "src",
+        "text": "Spatial coherence length ls < lambda/theta, theta the angle subtended by the source at the observation point (4.21, Figs 4.6, 4.7)",
+        "tier": "key",
+        "type": "DEF"
+      },
+      {
+        "id": "U55",
+        "part": 4,
+        "q": "Derive ls < lambda/theta.",
+        "r": "R2",
+        "src": "src",
+        "text": "Derivation: two slits l apart see source B off-axis by theta: path difference l*theta; fringes of A and B offset by half a fringe when l*theta = lambda/2; continuum gives lambda/theta",
+        "tier": "key",
+        "type": "STEP"
+      },
+      {
+        "id": "U56",
+        "part": 4,
+        "q": "What is the visibility at l = lambda/(2 theta)?",
+        "r": "R2",
+        "src": "auth",
+        "text": "Visibility of a uniform source of angular width theta: V = |sinc(l theta/lambda)|; 0.64 at lambda/(2 theta), zero at lambda/theta, 0.9 at 0.25 lambda/theta",
+        "tier": "key",
+        "type": "QNT"
+      },
+      {
+        "id": "U57",
+        "part": 4,
+        "q": "Estimate the spatial coherence length of sunlight.",
+        "r": "R2",
+        "src": "auth",
+        "text": "Sun at 0.55 um: 59.5 um (14.9 um for V>=0.9); a star of 47 mas: 2.4 m; target 10 m at 100 km with 3 cm: 300 m",
+        "tier": "supp",
+        "type": "OOM"
+      },
+      {
+        "id": "U58",
+        "part": 4,
+        "q": "Which two conditions must hold for high-visibility fringes?",
+        "r": "R2",
+        "src": "src",
+        "text": "Two independent axes: temporal (along the ray, set by bandwidth) and spatial (across the wavefront, set by source angle); both needed for fringes (Fig 4.6)",
+        "tier": "key",
+        "type": "STR"
+      },
+      {
+        "id": "U59",
+        "part": 4,
+        "q": "What does a long coherence length cost?",
+        "r": "R2",
+        "src": "auth",
+        "text": "Narrow line costs frequency stabilisation but buys coherence length; broad source is cheap and incoherent",
+        "tier": "supp",
+        "type": "TRD"
+      },
+      {
+        "id": "U60",
+        "part": 4,
+        "q": "What linewidth does a coherent radar need at 100 km?",
+        "r": "R2",
+        "src": "auth",
+        "text": "A coherent system keeps the phase over the round trip: lt >= 2R; radar at 100 km needs df <= 1.5 kHz; CO2 laser (11 km) 5.5 km; 10 kHz fibre laser 15 km",
+        "tier": "key",
+        "type": "OPS"
+      },
+      {
+        "id": "U61",
+        "part": 4,
+        "q": "What coherent range does the CO2 laser of Table 4.1 allow?",
+        "r": "R2",
+        "src": "auth",
+        "text": "Case: Table 4.1 checked as a design table: implied linewidths and the maximum coherent range for the CO2 line",
+        "tier": "key",
+        "type": "PRX"
+      },
+      {
+        "id": "U62",
+        "part": 4,
+        "q": "What is wrong in the printed 1 mm and how do you catch it?",
+        "r": "R2",
+        "src": "auth",
+        "text": "Critique: the OCR renders micrometre as mm in Example 4.1 and Table 4.1; unit check against lt = 2 lambda; and 'lt = R is enough' (round trip)",
+        "tier": "key",
+        "type": "CRT"
+      },
+      {
+        "id": "U63",
+        "part": 4,
+        "q": "Which of these systems add fields and which add power?",
+        "r": "R2",
+        "src": "auth",
+        "text": "Coherence across fields: coherent radar, RCS as a sum of scatterers, multipath, laser; incoherent imaging (EO/IR) adds irradiance",
+        "tier": "supp",
+        "type": "MAP"
+      },
+      {
+        "id": "U64",
+        "part": 4,
+        "q": "Who used fringe visibility to measure a star's size?",
+        "r": "R2",
+        "src": "auth",
+        "text": "Michelson visibility and the stellar interferometer (1920)",
+        "tier": "bg",
+        "type": "HIS"
+      },
+      {
+        "id": "U65",
+        "part": 4,
+        "q": "Why can most imaging systems be treated as incoherent?",
+        "r": "R2",
+        "src": "src",
+        "text": "Imaging scenes with large angle and large bandwidth are incoherent (B03 p97); exceptions: very small sources, laser illumination",
+        "tier": "supp",
+        "type": "LIM"
+      }
+    ]
+  },
+  "spec": {
+    "sources": [
+      {
+        "doc": "B02",
+        "pages": [
+          46,
+          48
+        ]
+      },
+      {
+        "doc": "B10",
+        "pages": [
+          23,
+          24
+        ]
+      },
+      {
+        "doc": "B03",
+        "pages": [
+          92,
+          96
+        ]
+      }
+    ],
+    "title": "עוצמה, קיטוב, התאבכות וקוהרנטיות: גל כדורי וגל מישורי"
+  },
+  "status": "ready",
+  "text": "```plan\n1. הגל האלקטרומגנטי: משוואות מקסוול, אורך גל, תדר, פאזה ופאזור\n2. עוצמה, קיטוב, התאבכות וקוהרנטיות: גל כדורי וגל מישורי (כאן)\n3. גל פוגש חומר: עקיפה וקרן האנטנה, הנחתה אטמוספרית, שבירה והחזרה\n```\n\n```story\n@title: מסדרון של ארבעים מטר\nנדמיין צוות תכן שבנה צלחת מכ\"ם באורך שני מטרים לתדר 10 GHz, ועכשיו צריך למדוד את תבנית הקרינה שלה לפני שהיא עולה על התורן. בחצר אין מקום, ובמסדרון ההנדסי יש ארבעים מטר פנויים. מציבים משדר עזר בקצה אחד, מסובבים את הצלחת בקצה השני וקוראים את ההספק הקלוט כפונקציה של הזווית. התבנית שיוצאת רחבה מהתכן, האונות הצדדיות גבוהות יותר מהצפוי, ובמקום שבו אמורה להיות הנמכה עמוקה יש רק שקע רדוד. מישהו חושד בייצור, מישהו בכיול, ומישהו מציע לשפר את התכן בלי להבין מה נמדד. האמת פשוטה יותר: במרחק ארבעים מטר הגל שמגיע לצלחת עדיין אינו גל מישורי. הקצה של הצלחת ומרכזה רואים את המשדר ממרחקים שונים בכמה מילימטרים, וכשאורך הגל הוא שלושה סנטימטרים, כמה מילימטרים הם כבר חלק ניכר ממחזור שלם של הגל.\n```\n\nהשאלה שהתרחיש הזה מעלה היא שאלה הנדסית לפני שהיא שאלה פיזיקלית: מאיזה מרחק מותר לתאר את הגל כמישורי, כך שאפשר לדבר על \"האות שמגיע לאנטנה\" כעל גל אחד בעל פאזה אחת? זה קשה כי כל מה שבנינו ב-M0.1 נשען על הנחה שלא אמרנו עליה הרבה: משוואת הקשר $P_R=P_T+G_T-L_s-L_a+G_R$ מניחה שבין המשדר למקלט הגל כבר \"התיישר\", ושהספק שאנטנה קולטת הוא צפיפות ההספק כפול שטח. ב-M0.1 ציינו בחצי משפט שזה נכון בשדה רחוק, ושהשדה הרחוק מתחיל בערך ב-$2D^2/\\lambda$. עכשיו נגזור את המספר הזה, נראה מאיפה הוא בא, ובעיקר נשאל מה קורה כשהוא אינו מתקיים.\n\nהרעיון שפותר את הבעיה בא מצד אחד משימור אנרגיה ומצד שני מגיאומטריה של כדור. שימור האנרגיה נותן לנו את חוק הירידה של העוצמה עם המרחק, וגיאומטריה פשוטה, השוואה בין כדור למישור על פני צלחת, נותנת את הקריטריון. את אותו שני צעדים נחזור ונשתמש בהם בכל פעם שנכתוב \"גל מישורי\", ולכן שווה להבין אותם עד הסוף. השיעור הזה בנוי משלושה חלקים של טיעון אחד. קודם נבנה עוצמה וגל מישורי, ובהם התוצאה המרכזית הראשונה. אחר כך נוסיף לגל תכונה שלא מצאנו עדיין, כיוון התנודה של השדה (קיטוב). ולבסוף נשאל מה קורה כששני גלים נפגשים, ומה צריך להתקיים כדי שהפגישה תשאיר סימן, וזו התוצאה המרכזית השנייה.\n\n## עוצמה: כמה הספק עובר דרך מטר רבוע\n\n[[B02:47]] נפתח במושג שכבר השתמשנו בו בלי להגדיר אותו בקפדנות. בשיעור 2 של M0.1 כתבנו $S=ERP/4\\pi R^2$, ובשיעור 3 קישרנו אותו לשדה חשמלי דרך $S=E^2/Z_0$. עכשיו נקבע מה זה וממה זה נובע.\n\n```definition\n@title: עוצמה (צפיפות הספק)\nתהי $P$ ההספק (קצב העברת האנרגיה, ב-W) שעובר דרך משטח בעל שטח $A$ שניצב לכיוון ההתפשטות של גל. העוצמה (intensity) של הגל על המשטח היא היחס\n$$Q=\\frac{P}{A}$$\nבתנאי שההספק מתפלג אחיד על פני המשטח, או שמדובר בממוצע על פניו. היחידה היא וואט למטר רבוע, $\\mathrm{W/m^2}$. עוצמה שווה לצפיפות ההספק של M0.1, ומוגדרת לגל בכל נקודה ובכל כיוון.\n```\n\n<!--U1-->ההגדרה אומרת בשורה אחת שעוצמה היא קצב אנרגיה ליחידת שטח. ההגדרה אינה תלויה בצורת הגל, והיא מתאימה לגל כדורי כמו למישורי; הצורה נכנסת רק כשרוצים לחשב את $Q$ עצמו.\n\n### גל כדורי ושימור אנרגיה\n\nנניח מקור נקודתי שמקרין הספק כולל $P_t$ שווה לכל הכיוונים, כלומר מקור איזוטרופי (isotropic). אם המרחב סביבו אחיד, הגל מתפשט החוצה שווה לכל הכיוונים, ופני הגל, הקבוצה של כל הנקודות שבהן השדה נמצא בשיא באותו רגע, הם כדורים. זה גל כדורי (spherical wave), והמרחק בין שני כדורים סמוכים של שיא הוא אורך גל.\n\n```figure\nB10:23:0\nהגל נוצר בהפרעה מקומית ויוצא ממנה לכל הכיוונים; לוויין תקשורת כדוגמה למקור שהגל שלו כדורי כשמסתכלים מקרוב מספיק.\n```\n\n```figure\nB10:24:0\nגל כדורי: שני כדורי שיא סמוכים מרוחקים זה מזה אורך גל אחד.\n```\n\nעכשיו מחשבים. נבחר כדור דמיוני שמרכזו במקור ורדיוסו $R$. כל ההספק שהמקור הקרין חייב לעבור דרך הכדור הזה, כי בחלל חופשי אין מה שיבלע אותו בדרך. כל נקודה על הכדור שווה לכל האחרות, כי המקור איזוטרופי, ולכן ההספק מתחלק אחיד. שטח הכדור הוא $4\\pi R^2$, ומכאן:\n\n<!--U2-->$$Q=\\frac{P_t}{4\\pi R^2}\\tag{1}$$\n\n[[2.5: מקור]] מה עשינו כאן, צעד אחר צעד. ראשית, בחרנו משטח סגור שמקיף את המקור; מותר, כי שימור האנרגיה נכון לכל משטח כזה. שנית, השתמשנו בכך שבמדיום ללא אובדן ההספק הכולל דרך כל כדור הוא אותו $P_t$; אילו הכדור הגדול היה מקבל פחות מהקטן, האנרגיה הייתה נעלמת בדרך. שלישית, השתמשנו בסימטריה כדי להסיק שהעוצמה אחידה על הכדור, וכך אפשר להחליף אינטגרל בכפל. רביעית, חילקנו. זה כל הגזירה, וכל שורה בה היא הנחה או טענת שימור.\n\n```formula\n@title: עוצמת גל כדורי\n$$Q=\\frac{P_t}{4\\pi R^2}\\qquad \\left[\\mathrm{W/m^2}\\right]$$\n$P_t$ ההספק הכולל של מקור איזוטרופי (W), $R$ המרחק מהמקור (m), $Q$ העוצמה במרחק $R$. תקף במדיום אחיד וחסר אובדן, במרחק גדול מגודל המקור. לאנטנה כוונתית בעלת הגבר $G$ בכיוון הנבדק מחליפים את $P_t$ ב-$P_tG$ (ה-ERP של M0.1).\n```\n\n<!--U3-->שתי ההנחות המוסתרות בה ראויות לשם. הנחת האיזוטרופיות נכנסת בצעד הסימטריה: כשהמקור כוונתי ההספק אינו אחיד על הכדור, והעוצמה בכיוון ההגבר המרבי גדולה פי $G$ מהאיזוטרופית, כלומר\n\n$$Q=\\frac{P_tG}{4\\pi R^2}\\tag{2}$$\n\nזו בדיוק המשוואה $S=ERP/4\\pi R^2$ מ-M0.1, ועכשיו אנחנו יודעים מאיפה ה-$4\\pi$ שלה בא. הנחת היעדר האובדן נכנסת בצעד השימור; כשיש הנחתה, ההספק דרך כדור גדול קטן מזה שדרך כדור קטן, ומתווסף אובדן הנחתה $L_a=\\alpha d$ (ב-dB, כמו ב-M0.1). שתי ההנחות נשברות לעתים קרובות, אבל הצורה $1/R^2$ נשארת הבסיס שעליו מוסיפים תיקונים.\n\n<!--U4-->מה שחשוב כאן הוא התלות ב-$R$. הכפלת המרחק מגדילה את שטח הכדור פי 4 ולכן מקטינה את העוצמה פי 4, כלומר ב-$10\\log 4=6.02$ dB, בדיוק \"הכפלת מרחק: ‏+6.02 dB חד-כיווני\" מ-M0.1. מקור של 1 kW איזוטרופי נותן במרחק 1 km, על כדור ששטחו $1.26\\cdot10^7\\ \\mathrm{m^2}$, עוצמה של $7.96\\cdot10^{-5}\\ \\mathrm{W/m^2}$, ובמרחק 2 km $1.99\\cdot10^{-5}\\ \\mathrm{W/m^2}$. אלה מספרים להמחשה, מקרים פרטיים של נוסחה (1).\n\n<!--U5-->הקשר לשדה כבר מוכר מ-M0.1. עוצמה ושדה חשמלי אפקטיבי קשורים ב-$Q=E^2/Z_0$, ולכן $E=\\sqrt{Z_0Q}$. עבור 1 kW איזוטרופי במרחק 1 km: $E=\\sqrt{376.73\\cdot7.96\\cdot10^{-5}}=0.173\\ \\mathrm{V/m}$. אותו מספר יוצא מהנוסחה המקוצרת $E=\\sqrt{30\\,ERP}/d=\\sqrt{30\\,000}/1000=0.1732\\ \\mathrm{V/m}$, ובכך נסגר מעגל: השדה יורד כ-$1/R$ והעוצמה כ-$1/R^2$, כי העוצמה היא ריבוע השדה.\n\n```refresh\n@title: הדציבל והכפלת מרחק\n@first: M0.1 שיעור 1, משוואה (18)\n$10\\log$ של פי 4 הוא 6.02 dB. בעזרת הכלל \"1 dB ≈ 1¼, 3 dB ≈ 2\" ב-M0.1 אפשר לומר שפי 4 הוא שני צעדים של 3 dB. לכן כל הכפלת מרחק על קשר חד-כיווני מוסיפה 6.02 dB אובדן, ובמכ\"ם, שבו הגל עושה את הדרך פעמיים, 12.04 dB.\n```\n\n## גל מישורי: מתי מותר להפוך כדור למישור\n\n### מה זה גל מישורי ולמה צריך אותו\n\n[[B10:24]] גל כדורי הוא תיאור נכון אבל לא נוח. הוא תלוי ב-$R$ ובכיוון, והחישובים בו מסובכים. הצופה שנמצא רחוק מהמקור וצופה בחלק קטן ממנו רואה משהו פשוט יותר: הכדור הענק נראה לו כמעט שטוח.\n\n```figure\nB10:24:1\nגל מישורי: רחוק מהמקור, בסביבת הצופה, שדה בעל אותה משרעת בכל המישור הניצב לכיוון ההתפשטות.\n```\n\nגל מישורי (plane wave) הוא אידיאליזציה: גל שבכל המישור הניצב לכיוון התפשטותו יש לו אותה משרעת ואותה פאזה, כך שאפשר לחשוב עליו כעל גל אחד שנע בכיוון אחד במקום להתפשט. גל כזה אינו קיים בטבע, כי הוא נושא אנרגיה אינסופית, אבל הוא קירוב מצוין לחלק קטן של גל כדורי רחוק.<!--U6--> מה שחסר הוא כמות: מה זה \"רחוק מספיק\" ו\"קטן מספיק\"? [[B02:47]] הנהוג, כמוסכמה שמקובלת בכל מקום, הוא שהגל נחשב מישורי אם עקמומיות פני הגל על פני פתח (aperture) בגודל $D$ קטנה מ-$\\lambda/16$. [[ודאות: גבוהה]]\n\n```figure\nB02:47:0\nעוצמה של גל כדורי: משמאל מקור איזוטרופי שהספקו מתפזר על כדור ברדיוס R, ומימין, רחוק מהמקור, פני הגל נראים מישוריים על פני פתח D.\n```\n\n### גזירת הקריטריון\n\nנגזור את התנאי מגיאומטריה. נציב מקור במרחק $R$ מאמצע פתח ברוחב $D$ (צלחת, עדשה או חלון). אם הגל היה מישורי, כל נקודות הפתח היו בשיא באותו רגע. בפועל פני הגל כדוריים, ולכן קצה הפתח \"מאחר\" או \"מקדים\" ביחס למרכזו כפי שהכדור סוטה מהמישור.\n\n[[2.5: מקור]] <!--U7-->צעד ראשון: המרחק מהמקור לקצה הפתח, שנמצא במרחק צדדי $D/2$ מהציר, הוא $\\sqrt{R^2+(D/2)^2}$ (פיתגורס). צעד שני: כש-$D\\ll R$ מפתחים בטור, $\\sqrt{R^2+x^2}\\approx R+x^2/(2R)$ עם $x=D/2$, ומקבלים הפרש דרכים בין הקצה למרכז\n\n$$s\\approx\\frac{D^2}{8R}\\tag{3}$$\n\nצעד שלישי: דורשים שההפרש הזה לא יעלה על $\\lambda/16$ (המוסכמה), כלומר $D^2/(8R)\\le\\lambda/16$. צעד רביעי: מבודדים את $R$ ומקבלים\n\n$$R\\ge\\frac{2D^2}{\\lambda}\\tag{4}$$\n\n```formula\n@title: מרחק השדה הרחוק\n$$R_{ff}=\\frac{2D^2}{\\lambda}$$\n$D$ הממד הגדול של הפתח (m), $\\lambda$ אורך הגל (m), $R_{ff}$ המרחק המזערי מהמקור שבו הגל נחשב מישורי על פני הפתח, לפי מוסכמת $\\lambda/16$. תקף כשמניחים $D\\ll R$ ופתח שטוח.\n```\n\nכל צעד ניתן לבדיקה במספרים. עבור הצלחת שלנו, $D=2$ m ו-$\\lambda=3$ cm (ב-10 GHz), מרחק השדה הרחוק הוא $2\\cdot 4/0.03=266.7$ m. הפרש הדרכים הדרוש הוא $\\lambda/16=1.875$ mm, והחישוב המדויק, בלי קירוב הטור, נותן 1.87499 mm, כלומר הקירוב מדויק ברמה של $10^{-5}$ בגודל היחסי. [[2.5: מבנה]] <!--U16-->מבנית, $R_{ff}=D\\cdot(2D/\\lambda)$: מספר אורכי הגל שנכנסים בפתח, $D/\\lambda=66.7$, קובע כמה פעמים אורך הפתח צריך להתרחק. פתח של 67 אורכי גל מתרחק 133 אורכי פתח, ופתח שקטן מאורך גל מגיע לשדה הרחוק כבר במרחק של פחות מ-$2\\lambda$.\n\n<!--U8-->שני דברים בקריטריון שווה להבהיר. ראשית, הסף $\\lambda/16$ הוא מוסכמה ולא חוק טבע: הוא מתאים לשגיאת פאזה של $2\\pi/16=\\pi/8=22.5^\\circ$ בקצה הפתח, ומי שיקבל שגיאה גדולה פי שניים או קטנה פי שניים יקבל מרחק אחר פי שניים (בכיוון ההפוך). שנית, הגבול נקבע על פאזה ולא על משרעת. במרחק $R_{ff}$ ההבדל היחסי של משרעת השדה בין הקצה למרכז הוא כ-$D^2/(8R^2)=7\\cdot10^{-6}$ עבור הצלחת, זניח לגמרי, בעוד שהפרש הפאזה הוא $22.5^\\circ$. הסיבה: משרעת משתנה ביחס ל-$R$, שהוא מאות מטרים, ופאזה נמדדת ביחס ל-$\\lambda$, שהוא סנטימטרים. הפאזה \"רגישה\" פי כ-56 אלף (השגיאה הצפויה בפאזה, 0.39 רדיאן, מול $7\\cdot10^{-6}$). זו תובנה שנחזור אליה בכל פעם שנבדוק אילו תכונות של גל חשוב לשמור.\n\n```figure\nB03:92:0\nגל מישורי בכיוון כללי k וקוסינוסי הכיוון: גל שמגיע בזווית נותן פאזה שמשתנה ליניארית לאורך הפתח.\n```\n\n<!--U18-->גם גל מישורי אמיתי אינו בהכרח ניצב לפתח. כשהכיוון של הגל הוא $\\mathbf k$ עם קוסינוסי כיוון $\\gamma_x,\\gamma_y$, הפאזה בנקודה $(x,y)$ על הפתח היא $k(\\gamma_xx+\\gamma_yy)$ ועוד קבוע: פאזה שמשתנה ליניארית לאורך הפתח. ההפרש בין שני צדדי הפתח הוא $kD\\gamma_x$. זו אותה פאזה בדיוק שאנטנה \"מכוונת\" אליה: כיוון הגל קובע שיפוע של פאזה, ושיפוע של פאזה הוא מה שאנטנת מערך יודעת ליצור ולמדוד, וזה ייחקר ב-M1. הקצה הכדורי שמצאנו קודם מוסיף לפאזה הליניארית הזו גם מרכיב ריבועי, והקריטריון הוא בדיוק הגבלה על גודלו.\n\n[[2.5: סדר גודל]] <!--U10-->כדי להרגיש את הסדרי הגודל נאמוד בראש. צלחת של 2 m ב-10 GHz: $D^2=4$, כפול 2 הוא 8, חלקי $0.03$, כ-270 m; החישוב המדויק נותן 266.7 m, שגיאה של 1.3%. מכ\"ם של 10 m ב-3 GHz ($\\lambda=10$ cm): $2\\cdot100/0.1=2000$ m, כלומר 2 km. טלסקופ של 0.2 m באור נראה ($\\lambda=0.55\\ \\mu$m): $2\\cdot0.04/0.55\\cdot10^{-6}=145$ km. האחרון מפתיע: כוכב רחוק מאוד הוא בבירור בשדה הרחוק של טלסקופ, אבל כדי לבדוק טלסקופ במעבדה בעזרת מקור במרחק סופי צריך מראה או עדשה שמדמות מרחק אינסופי. אותו קריטריון בדיוק, מספרים שונים בשלושה סדרי גודל.\n\n```predict\n@title: מרחק השדה הרחוק של הצלחת\n@value: 266.7\n@unit: m\nצלחת בקוטר $D=2$ m פועלת ב-10 GHz. מה מרחק השדה הרחוק לפי קריטריון $\\lambda/16$? תנו אומדן בראש וטווח של 90%. ומה יקרה למרחק אם מכפילים את התדר ל-20 GHz?\n---\n$\\lambda=c/f=3$ cm, ולכן $R_{ff}=2D^2/\\lambda=2\\cdot4/0.03=266.7$ m. אומדן מהיר: $8/0.03\\approx 270$ m. הכפלת התדר מקטינה את $\\lambda$ בחצי, לכן המרחק גדל פי 2, ל-533 m: תדר גבוה מרחיק את השדה הרחוק, כי אותו פתח מכיל יותר אורכי גל.\n```\n\n```think\nתדירות הפעולה של מכ\"ם נשארת 10 GHz, אבל מחליפים את הצלחת בצלחת בקוטר כפול, 4 m. מה קורה למרחק השדה הרחוק? (א) גדל פי 2 (ב) גדל פי 4 (ג) לא משתנה (ד) קטן פי 2. ומה זה אומר על מדידה במסדרון של 40 m?\n---\nתשובה (ב). $R_{ff}\\propto D^2$, ולכן אפילו הכפלת הקוטר מכפילה פי 4 את המרחק: $2\\cdot16/0.03=1067$ m, בהשוואה ל-267 m. המסדרון של 40 m אינו מתקרב לשדה הרחוק של שתי הצלחות. מה שמרוויחים בגדלת הפתח (הגבר $G$ ורוחב קרן צר) משלמים בהרחקת השדה הרחוק בריבוע.\n```\n\nסיכמנו עד כאן: שימור אנרגיה נותן עוצמה $Q=P_t/4\\pi R^2$, וגיאומטריה של כדור מעל פתח נותנת את הקריטריון $R\\ge2D^2/\\lambda$ שבו הגל נחשב מישורי. נשארת שאלה שהשארנו פתוחה בתרחיש של המסדרון: מה בדיוק קורה כשהקריטריון אינו מתקיים, כמה זה עולה בפאזה, ומה זה אומר על מערכת שלמה. את זה נבחן בחלק הבא, ביחד עם קיטוב, התכונה הבאה של הגל.\n\n<!--audit: units U1–U8, U10, U16, U18 11/11 | w/u 167 | think 1 predict 1 | padding 0-->\n\n## מה קורה בתוך מרחק השדה הרחוק\n\nהתרחיש של המסדרון שואל שאלה אחת: מה נשבר כש-$R<R_{ff}$. נענה עליה בשלושה צעדים: כמה גדולה השגיאה, איזו נוסחה של M0.1 מפסיקה לעבוד, ואיך מערכת אמיתית מתמודדת.\n\n[[2.5: גבולות]] <!--U9-->שגיאת הפאזה בקצה הפתח היא $\\varphi_{edge}=k\\,s=\\dfrac{2\\pi}{\\lambda}\\dfrac{D^2}{8R}$, ולכן היא עולה בדיוק ב-$1/R$ כשמתקרבים. הכפלת הקרבה מכפילה את השגיאה: $22.5^\\circ$ ב-$R_{ff}$ הופכת ל-$45^\\circ$ בחצי המרחק. לצלחת שלנו ($D=2$ m, $\\lambda=3$ cm) הטבלה הבאה נוצרת מהנוסחה עצמה, בלי עיגולי ביניים:\n\n```table\n{\"title\":\"שגיאת פאזה בקצה צלחת של 2 m ב-10 GHz\",\"scope\":{\"D\":2,\"lam\":0.03},\"columns\":[\"מרחק R (m)\",\"הפרש דרכים D²/8R (mm)\",\"שגיאת פאזה (°)\"],\"rows\":[[\"40\",\"D^2/(8*40)*1000\",\"360*D^2/(8*40)/lam\"],[\"100\",\"D^2/(8*100)*1000\",\"360*D^2/(8*100)/lam\"],[\"266.67\",\"D^2/(8*266.67)*1000\",\"360*D^2/(8*266.67)/lam\"],[\"533.33\",\"D^2/(8*533.33)*1000\",\"360*D^2/(8*533.33)/lam\"]]}\n```\n\nבמסדרון של 40 m השגיאה היא $150^\\circ$, כמעט חצי מחזור, ו-$60^\\circ$ בטווח של 100 m. מול הסף של $22.5^\\circ$ אלה לא \"סטיות קטנות\": חלקים שונים של הצלחת מסכמים לגל שמגיע אליהם בפאזות שונות מאוד, והתוצאה המוערכת, שאי אפשר לחשב בלי אינטגרל על הפתח שנבנה ב-M1, היא תבנית קרינה שאינה התבנית של הצלחת בשדה רחוק: הנמכות עמוקות נמלאות והאונות הצדדיות עולות [[ודאות: בינונית]]. זה בדיוק מה שראו בתרחיש, והאבחנה הנכונה היא שהמדידה נעשתה במקום הלא נכון, לא שהצלחת פגומה.\n\n<!--U11-->איזו נוסחה מפסיקה לעבוד? גם נוסחה (2), $Q=P_tG/4\\pi R^2$. בשדה הרחוק היא נכונה; בקרבה היא מתפרקת, ואפשר לראות זאת בלי תורה חדשה. נציב צלחת של 2 m שמקבלת 1 kW. אם ההגבר שלה הוא זה של פתח אידיאלי, $G=\\pi^2(D/\\lambda)^2=43\\,865$ (46.4 dBi, נגזור ב-M1), ה-ERP הוא $4.39\\cdot10^7$ W. במרחק 1 m הנוסחה נותנת $3.5\\cdot10^6\\ \\mathrm{W/m^2}$. אבל כל ההספק, 1 kW, יוצא דרך פתח ששטחו $3.14\\ \\mathrm{m^2}$, ולכן העוצמה ליד הפתח אינה יכולה לעלות על כ-$318\\ \\mathrm{W/m^2}$. הנוסחה מפריזה פי כ-11,000. היא שווה לגבול הפיזיקלי ב-$R=A/\\lambda=105$ m, ומתחת לזה היא עולה עליו ואינה יכולה לייצג עוצמה. המספר הזה (105 m) והמספר של השדה הרחוק (267 m) הם שני ביטויים של אותה עובדה: מתחת לכמה מאות מטרים הפתח הוא \"קרן\", לא \"נקודה\". מה שבא במקום $1/R^2$ הוא אזור הקרוי [[מונח: שדה קרוב / אזור פרנל (Fresnel) | האזור קרוב לפתח שבו פני הגל אינם כדוריים ואינם מישוריים, והעוצמה אינה פונקציה פשוטה של R]], וב-M1 נחשב אותו עם אינטגרל הפתח.\n\n[[2.5: פשרה]] <!--U12-->מה מרוויחים ומה משלמים? פתח גדול מקנה הגבר גבוה וקרן צרה, שני דברים שרוצים. המחיר הוא שמרחק השדה הרחוק גדל כריבוע הקוטר. אפשר לראות קשר עמוק יותר אם מחברים את $G\\approx\\pi^2D^2/\\lambda^2$ עם (4): $R_{ff}=2D^2/\\lambda=(2/\\pi^2)G\\lambda\\approx0.2\\,G\\lambda$. כלומר מרחק השדה הרחוק, ביחידות של אורך גל, הוא בערך חמישית מההגבר. צלחת של 46.4 dBi (G=43,865) צריכה כ-8,900 אורכי גל לפני שהגל שלה מישורי. אלה שלוש דרכים שמערכות אמיתיות בוחרות: (1) מגדלים טווח מדידה ארוך, שעולה ביוקר ונתון לשיקוף מהקרקע; (2) משתמשים ב-[[מונח: טווח קומפקטי (compact range) | מראה גדולה שהופכת גל כדורי קרוב לגל מישורי במרחק קצר, כך שהמדידה נעשית בתוך מבנה]]; (3) מודדים קרוב לפתח, סורקים את השדה ומחשבים ממנו את תבנית השדה הרחוק. כל אחת מהן קונה את מה שהקריטריון דורש ומשלמת במשהו אחר: אורך, מראה בדיוק של שבריר אורך גל, או חישוב.\n\n```history\n@title: רייליי ורבע אורך גל\n@who: לורד רייליי (John William Strutt)\n@when: 1879 בקירוב\n<!--U17-->בבעיות של איכות תמונה באופטיקה, רייליי הציע כלל אצבע: סטייה של פני הגל מהצורה האידיאלית עד רבע אורך גל (שגיאת פאזה עד $90^\\circ$) פוגעת בתמונה מעט בלבד [[ודאות: בינונית]]. המוסכמה $\\lambda/16$ של הנדסת אנטנות מחמירה פי 4 על כלל האצבע הזה (שגיאת פאזה $22.5^\\circ$), ואותו עיקרון עומד מאחוריה: גבול שבו שגיאת הפאזה עדיין קטנה מכדי לשנות את התוצאה שמודדים. הצורך הוא שמסביר את ההנחה: מי שמודד רק הגבר יכול להסתפק בגבול חלש יותר, ומי שמודד הנמכות עמוקות צריך גבול חזק יותר.\n```\n\n[[2.5: משמעות מבצעית]] <!--U13-->מה משמעות הקריטריון לביצועי מערכת שלמה? משוואות הקשר של M0.1, ובהמשך משוואת המכ\"ם ב-M2, כולן מניחות שהמטרה והמקלט נמצאים בשדה הרחוק של האנטנה. לצלחת של 2 m ($R_{ff}=267$ m) זו הנחה בטוחה, כי מטרות מעניינות נמצאות בעשרות ק\"מ. אבל מערך גדול של 30 m ב-3 GHz ($\\lambda=10$ cm) מרחיק את השדה הרחוק ל-$2\\cdot900/0.1=18$ km (חישוב; המערך להמחשה [[היפותטי]]), ומטרות במרחק קצר מזה נמצאות בשדה הקרוב: משוואת המכ\"ם שלנו אינה מתארת אותן, ומי שמפעיל אותה שם מקבל גודל אות שאינו הגודל הפיזיקלי. לכן מערכת שלמה כוללת שני מספרים, מרחק מזערי שבו המשוואה תקפה, והטווח של מדידת הכיול שלה, וגם הוא כפוף לקריטריון הזה.\n\n[[2.5: ביקורת]] <!--U14-->שלוש טענות שגויות שצריך לתפוס. הראשונה: \"$Q=P_tG/4\\pi R^2$ נכון לכל אנטנה בכל מרחק\". ראינו שהוא מפריז פי 11,000 במטר אחד. הבדיקה: להשוות את התוצאה לצפיפות ההספק המקסימלית האפשרית $P_t/A$. השנייה: טקסט שכותב $R_{ff}=2D/\\lambda^2$. הבדיקה היא יחידות: $D/\\lambda^2$ הוא 1/m, לא מטרים. השלישית, טעות AI שכיחה, היא להציב ברדיוס במקום בקוטר: התוצאה יוצאת קטנה פי 4 (67 m במקום 267 m). הבדיקה היא לחזור לגזירה: ב-$D/2$ נגזר $D^2/8R$, והקוטר $D$ הוא שבסופה.\n\n```casestudy\n@title: מדידת תבנית של צלחת 2 m ב-10 GHz: איפה לשים את המשדר\n<!--U15-->**השאלה.** צלחת בקוטר 2 m מודדת ב-10 GHz. איזה מרחק מדידה בוחרים אם עומדים לרשותנו 40 m, 100 m או 300 m?\n\n**המודל.** אותו מודל גיאומטרי כמו (3)–(4): שגיאת הפאזה בקצה היא $\\varphi=360^\\circ\\cdot D^2/(8R\\lambda)$, והסף הוא $22.5^\\circ$ (מוסכמת $\\lambda/16$). הקלטים: $D=2$ m, $\\lambda=3$ cm (נתונים), והמרחק (בחירה). ההנחה: פתח שטוח ומשדר נקודתי.\n\n**המספרים (מחושבים).** $R_{ff}=266.7$ m. ב-300 m: $20^\\circ$, בתוך הסף. ב-100 m: $60^\\circ$, פי 2.7 מעל הסף. ב-40 m: $150^\\circ$, פי 6.7. הסף עצמו, $\\lambda/16=1.875$ mm, הוא הפרש דרכים של פחות משני מילימטרים בין קצה הצלחת למרכזה.\n\n**מה ידוע ומה מוערך.** ידוע (חישוב): הפרש הדרכים ושגיאת הפאזה בכל טווח. מוערך: ההשפעה על תבנית הקרינה, כי היא תלויה בהארה של הפתח ונדרש אינטגרל על הפתח (M1). איכותית, מילוי הנמכות והעלאת אונות צדדיות [[ודאות: בינונית]].\n\n**מסקנות.** (1) מסדרון של 40 m אינו מתאים. (2) 100 m מתאים לכל היותר לאומדן גס של רוחב הקרן. (3) 300 m עומד בקריטריון, ואז מגבלות אחרות (החזרות מהקרקע, יישור) הן שקובעות את הדיוק. (4) הטווח נבחר לפי המדד שמודדים, לא לפי המקום הפנוי.\n```\n\n## קיטוב: לאן מצביע השדה\n\nעד עכשיו התייחסנו לגל כאל משהו שיש לו עוצמה ופאזה. בגל אלקטרומגנטי יש גם כיוון: השדה החשמלי אינו מספר אלא וקטור, ובגל מישורי הוא שוכב במישור הניצב לכיוון ההתפשטות. מה שהוא עושה במישור הזה קובע האם אנטנה נתונה תקלוט את הגל, וכמה.\n\n```definition\n@title: קיטוב\nגל אלקטרומגנטי מישורי מתקדם בכיוון $+z$. הקיטוב (polarization) של הגל הוא התיאור של התנועה והכיוון של וקטור השדה החשמלי $\\mathbf E$, הנמצא במישור $x$-$y$, כפונקציה של הזמן בנקודה קבועה. לשם כך מפרקים $\\mathbf E$ לשני רכיבים ניצבים $E_x,E_y$, כל אחד סינוסי בתדר $\\omega$, בעלי משרעות $A_x,A_y\\ge0$ ופאזות $\\varphi_x,\\varphi_y$.\n```\n\n<!--U20-->[[B02:48]] ההגדרה משאירה את הקיטוב כתכונה של שלושה מספרים, שני יחסי משרעת ופאזה, ולא של סיווג בן שלוש מילים. נכתוב את הרכיבים במפורש, ונסמן $\\delta=\\varphi_y-\\varphi_x$:\n\n$$E_x=A_x\\cos(kz-\\omega t+\\varphi_x),\\qquad E_y=A_y\\cos(kz-\\omega t+\\varphi_y)\\tag{5}$$\n\n```figure\nB02:48:0\nהרכיבים $E_x,E_y$ של השדה החשמלי בגל שמתקדם בכיוון $+z$: הקיטוב נקבע לפי היחס בין משרעותיהם והפאזה ביניהם.\n```\n\n<!--U21-->שלושה מקרים מכסים הכול. אם $\\delta$ הוא כפולה שלמה של $\\pi$, הרכיבים נעים יחד (או בהפרש של חצי מחזור), והקצה של $\\mathbf E$ עובר על קו ישר: קיטוב ליניארי (linear). הזווית של הקו מציר $x$ היא $\\arctan(A_y/A_x)$ (או מינוס אותו, כש-$\\delta=\\pi$), ומשרעתו $\\sqrt{A_x^2+A_y^2}$. למשל $A_x=1,A_y=1$ נותן $45^\\circ$, ו-$A_x=3,A_y=4$ נותן $53.13^\\circ$ ומשרעת 5. אם $A_x=A_y$ ו-$\\delta$ כפולה אי-זוגית של $\\pi/2$, הקצה מצייר עיגול: קיטוב מעגלי (circular), ימני או שמאלי לפי סימן $\\delta$. בכל מקרה אחר הקצה מצייר אליפסה: קיטוב אליפטי. [[B02:48]]\n\n<!--U22-->את המקרה המעגלי כדאי לראות בשורות. נקבע $z=0$, $\\varphi_x=0$, $A_x=A_y=A$, $\\delta=\\pi/2$. אז $E_x=A\\cos\\theta$, ו-$E_y=A\\cos(\\theta+\\pi/2)=-A\\sin\\theta$, כשכתבנו $\\theta=-\\omega t$. מכאן $E_x^2+E_y^2=A^2(\\cos^2\\theta+\\sin^2\\theta)=A^2$, משוואת עיגול. שימו לב שעוצמת הגל, שפרופורציונית ל-$E_x^2+E_y^2$ בממוצע, אינה תלויה ב-$\\delta$ בכלל: הקיטוב משנה את הכיוון, לא את ההספק הנישא.\n\n<!--U23-->יש מקרה נוסף, שאינו מתואר על ידי $(A_x,A_y,\\delta)$ קבועים. [[B03:89]] גל בקיטוב אקראי (randomly polarized) הוא גל שיש לו אותה משרעת שדה בכל הכיוונים הניצבים לכיוון ההתפשטות, בלי יחס קבוע ביניהם. זו התוספת היחידה שלוקחים כאן: כל מה שכתבנו בנוסחה (5) מניח שהפאזה בין הרכיבים קבועה בזמן, וגל אקראי אינו עומד בהנחה הזאת. כשנגיע לקוהרנטיות נראה שהסיבה זהה: יחס פאזה שמשתנה מהר אינו משאיר סימן.\n\n[[2.5: סדר גודל]] <!--U24-->כמה זה עולה? אנטנה ליניארית קולטת רק את הרכיב של $\\mathbf E$ שבכיוון הציר שלה. אם הגל ליניארי ומוטה בזווית $\\psi$ מציר האנטנה, המשרעת הנקלטת היא $E\\cos\\psi$ וההספק פרופורציונלי לריבועה: גורם $\\cos^2\\psi$. בזווית $10^\\circ$ האובדן הוא $0.13$ dB; ב-$30^\\circ$ הוא $1.25$ dB; ב-$45^\\circ$ הוא $3.01$ dB; ב-$60^\\circ$ הוא $6.02$ dB; ב-$80^\\circ$ הוא $15.2$ dB; וב-$90^\\circ$ הקליטה מתאפסת. גל מעגלי שנקלט באנטנה ליניארית נותן $E_x^2$ בלבד מבין $E_x^2+E_y^2$, כלומר חצי: $-3.01$ dB לכל כיוון של האנטנה. אותו חצי נקלט מגל בקיטוב אקראי. אלה שלושה מקרים של אותו מספר, 3.01 dB, וכל אחד מהם מגיע ממקור אחר.\n\n```think\nאנטנה ליניארית אנכית מקבלת גל ליניארי המוטה ב-$60^\\circ$ מהאנכי. מה אובדן הקיטוב? (א) 0 dB (ב) 3.01 dB (ג) 6.02 dB (ד) אינסופי. ומה האובדן אם הגל מעגלי?\n---\n(ג). $\\cos^2 60^\\circ=0.25$, כלומר $-6.02$ dB. אם הגל מעגלי, האובדן הוא 3.01 dB בלי תלות בזווית האנטנה, ולכן בזווית שגדולה מ-$45^\\circ$ הגל המעגלי נקלט טוב יותר מליניארי מוטה.\n```\n\n<!--U25-->בקשר החד-כיווני של M0.1, $P_R=P_T+G_T-L_s-L_a+G_R$, כל מה שהאנטנות אינן תואמות בקיטוב נכנס כאיבר אובדן נוסף $L_{pol}$. קשרים שבהם כיוון האנטנה אינו קבוע (לוויין שמסתובב, כטב\"ם שמתהפך, מקלט נייד) בוחרים קיטוב מעגלי כדי להחליף אי-ודאות של בין 0 לאינסוף dB באובדן קבוע וידוע של 3 dB.\n\n[[2.5: ביקורת]] <!--U26-->שתי טענות שגויות בתחום הזה. \"קיטוב מעגלי אינו מפסיד כלום בקליטה\": הוא מפסיד 3.01 dB מול ליניארי תואם, והוא קולט רק מעגלי באותו כיוון. \"שני קיטובים ניצבים מבודדים לחלוטין\": בחישוב אידיאלי כן, אבל במערכת אמיתית יש בידוד קיטובי סופי, לרוב עשרות dB [[ודאות: בינונית]], והוא קובע את הפער בין האות לדליפה. הבדיקה: דליפה בין קיטובים ניצבים בשגיאת כיוון $\\psi$ היא $\\sin^2\\psi$, ובשגיאה של מעלה אחת היא $-35.2$ dB; בידוד טוב מזה דורש דיוק כיוון טוב מ-$1^\\circ$.\n\n```erratum\n@title: סימנים שאבדו בחילוץ הטקסט בסעיף 1.3\n@page: B02:48\nשתי שגיאות בשכבת הטקסט שחולצה מהדף (בדף המודפס עצמו הכול תקין: $\\pm\\pi/2$ ו-$\\neq$). בעמוד 46: \"$\\varphi=\\pm\\pi\\ 2$\" צ\"ל $\\pm\\pi/2$ (נעלם סימן החילוק). בעמוד 48: \"אליפטי כש-$E_x=E_y$\" צ\"ל $E_x\\neq E_y$ (נעלם הקו האלכסוני בסימן אי-השוויון). נבדק בנוסחה (5): ב-$A_x=A_y$ ו-$\\delta=\\pi/2$ יוצא עיגול ולא אליפסה. ליתר דיוק, בכל צירוף אחר של $A_x,A_y,\\delta$ שאינו ליניארי או מעגלי יוצא אליפסה.\n```\n\n```domain\n@field: radar\n@title: מכ\"ם: צלחת, מטרה קרובה ושדה רחוק\nבמכ\"ם הקרן שיוצאת מהצלחת היא גל כדורי מקומי שהופך למישורי רחוק מהפתח. משוואת המכ\"ם ש-M2 יבנה מניחה שהמטרה נמצאת בשדה הרחוק, ולכן לכל אנטנה יש \"טווח מת\" שבו הנוסחה אינה תקפה, גם אם הציוד עצמו עובד. ההקבלה לשיעור: כמו במסדרון, גם כאן הפתח שמשדר הוא פתח שקולט, ושני הצדדים מחייבים אותו תנאי פאזה. ההבדל הוא שבמכ\"ם הגל חוזר, ולכן הפתח משמש פעמיים, והמנגנון המלא של הרוחב של הקרן והאונות יילמד ב-M1.\n```\n\n```domain\n@field: eoir\n@title: טלסקופ ושדה רחוק: 145 ק\"מ\nלטלסקופ בקוטר 0.2 m שפועל באור נראה, השדה הרחוק מתחיל ב-145 km. פירוש הדבר שכל מקור אור קרוב יותר אינו נראה לטלסקופ כגל מישורי, והמיקוד (focus) משתנה: כדי ליצור תמונה חדה של עצם בטווח סופי מזיזים את הגלאי ביחס לעדשה. מה שמקביל לצלחת: אותו קריטריון, ואותה פאזה, אבל המנגנון, איך העדשה והמראה ממירות גל כדורי לנקודה בגלאי, יילמד ב-M3. ההבדל הוא שבאור מבצעים מדידה במעבדה בעזרת קולימטור, ובתדרי רדיו בעזרת טווח ארוך או טווח קומפקטי.\n```\n\n```fieldmap\n@formula: $Q=\\dfrac{P_t}{4\\pi R^2},\\quad R_{ff}=\\dfrac{2D^2}{\\lambda}$\n- **radar** (M1, M2): $Q$ בלב משוואת המכ\"ם; $R_{ff}$ מגדיר מתי המטרה מרוחקת מספיק ואיך מודדים תבנית.\n- **ew** (M4): העוצמה בנקודת המקלט וצפיפות ההספק של משדר זר, באותו חוק $1/R^2$.\n- **eoir** (M3): $R_{ff}$ של טלסקופ וקולימטור במעבדה; $Q$ כקרינה מנקודה.\n- **nav** (M5): העוצמה של אות לווייני על הקרקע, גל כמעט מישורי כי המרחק מאות אלפי ק\"מ.\n- **space** (M13): פיזור כדורי של משדר לוויין; אנטנת חלל גדולה ומדידתה בטווח קומפקטי.\n- **naval** (M10): פיזור כדורי של גל אקוסטי, אותו חוק $1/R^2$ בלי הגל האלקטרומגנטי.\n```\n\nבחלק הזה ראינו מתי $R_{ff}=2D^2/\\lambda$ תקף, מה נשבר מתחתיו, איך מערכות אמיתיות משלמות עליו, ואיך לגל יש עוד תכונה, כיוון, שמשפיעה על מה שנקלט. מה שנשאר פתוח הוא החצי השני של הסיפור על הגל: מה קורה כשני גלים ולא אחד מגיעים לאותה נקודה, ואילו תכונות של הגל קובעות אם יישאר מזה סימן. את זה נבנה בחלק הבא.\n\n<!--audit: units U9, U11–U15(U15 via casestudy), U17, U20–U27 15/15 | w/u 130 | think 1 predict 0 | padding 0-->\n\n## התאבכות: כששני גלים נפגשים בנקודה\n\nעד כאן דיברנו על גל אחד: על עוצמתו, על צורת פני הגל שלו ועל כיוון השדה. אבל מערכת אמיתית כמעט אף פעם אינה רואה גל אחד. המקלט מקבל את הגל הישיר ואת ההחזרה מהקרקע, המכ\"ם מקבל החזרה מעשרות נקודות על המטרה, והאנטנה עצמה מקרינה מאלפי נקודות בפתח. בכל המקרים האלה חוזרת שאלה אחת: כששני אותות נפגשים בנקודה, מה ההספק הכולל?\n\nב-M0.1 ענינו עליה בכלל פשוט. שני משדרים של 30 dBm כל אחד נותנים ביחד $10\\log(10^{3}+10^{3})=33.01$ dBm: מחברים הספקים בסקאלה ליניארית וחוזרים ל-dB. הכלל נכון, אבל לא תמיד. בחלק הזה נראה מה בדיוק הוא מניח, מתי ההנחה נשברת, ומה בא במקומו. זו התוצאה המרכזית השנייה של השיעור, ושאלת החוט שלה היא: מה קורה להספק כששני גלים נפגשים, ומה צריך להתקיים כדי שההתאבכות תהיה נראית?\n\n### סופרפוזיציה ופאזור\n\n[[B02:46]] נתחיל בעיקרון שהוגדר בשיעור הקודם: כששני גלים בעלי אותו תדר נמצאים באותה נקודה באותו זמן, הגל שמתקבל הוא הסכום המרוכב שלהם, והסכום הזה תלוי במשרעות ובפאזות. שני גלים בפאזה אחת נותנים משרעת שהיא סכום המשרעות, ושני גלים בהפרש חצי מחזור נותנים משרעת קטנה מהסכום.\n\n```figure\nB02:46:0\nשני גלים סינוסיים באותו תדר שמוזזים בפאזה $\\Delta\\varphi$: בנקודה קבועה אחד מקדים את השני בזמן $\\Delta\\varphi/\\omega$.\n```\n\n```definition\n@title: התאבכות\nיהיו בנקודה $P$ שני שדות בעלי אותו תדר $\\omega$: $E_1=A_1\\cos(\\omega t+\\varphi_1)$ ו-$E_2=A_2\\cos(\\omega t+\\varphi_2)$, עם $A_1,A_2>0$ ופאזות $\\varphi_1,\\varphi_2$ שאינן תלויות בזמן. התאבכות (interference) היא התלות של העוצמה של השדה הכולל $E_1+E_2$ בהפרש הפאזות $\\Delta\\varphi=\\varphi_2-\\varphi_1$. התאבכות בונה היא $\\Delta\\varphi=2\\pi m$ ($m$ שלם), והורסת היא $\\Delta\\varphi=(2m+1)\\pi$.\n```\n\n<!--U30-->ההגדרה אומרת שהתאבכות אינה תופעה נפרדת, אלא ההשפעה של פאזה יחסית קבועה על העוצמה של סכום. כדי לחשב אותה עוברים לפאזורים, כי הסכום של שני סינוסים באותו תדר הוא סינוס באותו תדר, ואת משרעתו ופאזתו קוראים מסכום של שני מספרים מרוכבים. נסמן $\\tilde u_1=A_1e^{j\\varphi_1}$ ו-$\\tilde u_2=A_2e^{j\\varphi_2}$.\n\n<!--U31-->הצעדים הם אלה. (א) הסכום הוא הפאזור $\\tilde u=\\tilde u_1+\\tilde u_2$. (ב) העוצמה פרופורציונלית לריבוע המודול, $|\\tilde u|^2=\\tilde u\\,\\tilde u^*$. (ג) פותחים: $|\\tilde u|^2=|\\tilde u_1|^2+|\\tilde u_2|^2+\\tilde u_1\\tilde u_2^*+\\tilde u_1^*\\tilde u_2$. (ד) שני האיברים הראשונים הם $A_1^2$ ו-$A_2^2$. (ה) שני האחרונים צמודים מרוכבים זה לזה, ולכן סכומם הוא $2\\,\\mathrm{Re}\\{\\tilde u_1\\tilde u_2^*\\}=2A_1A_2\\cos(\\varphi_1-\\varphi_2)$. מכאן $A^2=A_1^2+A_2^2+2A_1A_2\\cos\\Delta\\varphi$, ובכתיבה של עוצמות, כש-$I_k\\propto A_k^2$:\n\n<!--U32-->\n\n$$I=I_1+I_2+2\\sqrt{I_1I_2}\\,\\cos\\Delta\\varphi\\tag{6}$$\n\nלשני גלים שווים, $I_1=I_2=I_0$, זה הופך ל-$I=2I_0(1+\\cos\\Delta\\varphi)=4I_0\\cos^2(\\Delta\\varphi/2)$. בפאזה אחת $I=4I_0$ ולא $2I_0$ כפי שהאינטואיציה מציעה: שני גלים שווים בפאזה מוסיפים 6.02 dB מעל גל אחד, לא 3.01. בהפרש של חצי מחזור $I=0$. <!--U33-->האם נוצרה או נעלמה אנרגיה? לא. הממוצע של $4I_0\\cos^2(\\Delta\\varphi/2)$ על פני כל הפאזות הוא בדיוק $2I_0$, סכום שני ההספקים (חישוב נומרי: 2.0000). התאבכות מחלקת מחדש את ההספק במרחב: מקבצת אותו במקומות ומרוקנת מקומות אחרים. רק האיבר השלישי ב-(6) תלוי בפאזה, והוא ממוצע לאפס.\n\n[[2.5: מקור]] שלד הגזירה הוא שלושה צעדים: מעבר לפאזורים, ריבוע המודול, והוצאת האיבר המשותף. ההנחה המכריעה נכנסת בצעד הראשון, ומשם היא עוברת לכל השאר: הפאזות $\\varphi_1,\\varphi_2$ קבועות בזמן. על זה נחזור בעוד רגע.\n\n<!--U34-->מאיפה בא הפרש הפאזות? מהדרך. גל שעבר מרחק $r$ צבר פאזה $kr=2\\pi r/\\lambda$, ולכן שני גלים שיצאו בפאזה אחת והגיעו בדרכים שונות בהפרש $\\Delta$ מגיעים עם\n\n$$\\Delta\\varphi=\\frac{2\\pi}{\\lambda}\\Delta\\tag{7}$$\n\nשפל מתקבל כש-$\\Delta=(m+\\tfrac12)\\lambda$. ב-10 GHz ($\\lambda=3$ cm) הפרש דרכים של 1.5 cm הופך מקסימום לאפס, והפרש של 0.75 cm נותן הפרש פאזה של $90^\\circ$. לכן מערכות מיקרוגל רגישות להתאבכות: הזזה של סנטימטרים משנה את הפאזה היחסית ב-$\\pi$.\n\n```think\nשני משדרים זהים יוצרים אצל המקלט, כל אחד לבד, הספק של 30 dBm. מה ההספק הכולל כאשר (א) הפאזות אקראיות ואינן קשורות, (ב) הגלים באותה פאזה, (ג) הגלים בהפרש $180^\\circ$?\n---\n(א) 33.01 dBm, הכלל מ-M0.1: מחברים הספקים, כי הממוצע של איבר הפאזה הוא אפס. (ב) $4I_0$, כלומר $30+10\\log4=36.02$ dBm. (ג) אפס, כלומר $-\\infty$ dBm בתיאוריה. הכלל של M0.1 הוא הממוצע של (ב) ו-(ג) על כל הפאזות, ולכן הוא נכון רק כשהפאזה היחסית אקראית.\n```\n\n[[2.5: ביקורת]] <!--U40-->התשובה ל-(א) היא ההנחה הנסתרת בכלל \"מחברים הספקים\": הוא מניח ש-$\\cos\\Delta\\varphi$ ממוצע לאפס, כלומר שהפאזה היחסית אקראית. יש הבדל של 3.01 dB בין 36.02 ל-33.01, ומי שמחשב שני אותות קשורים בפאזה לפי הכלל הישן טועה בכיוון שתלוי בפאזה. הבדיקה היא לשאול תמיד: האם יש יחס פאזה קבוע בין שני האותות?\n\n```refresh\n@title: חיבור הספקים ב-dB\n@first: M0.1 שיעור 1, משוואה (14)\n$P_{tot}=10\\log(10^{P_1/10}+10^{P_2/10})$: שני אותות של 30 dBm נותנים 33.01 dBm. תקף כשהאותות בלתי תלויים בפאזה (אקראית או לא קשורה). כשיש קשר פאזה קבוע, הנוסחה הנכונה היא (6).\n```\n\n## קוהרנטיות חלקית: מתאם ונראות\n\nהנחת הפאזה הקבועה אידיאלית. במציאות הפאזה היחסית בין שני גלים משתנה בזמן, לפעמים לאט (משדר יציב) ולפעמים מהר (אור של נורה). כדי לתאר מצבים שבין \"קבוע לגמרי\" ל\"אקראי לגמרי\" צריך מספר שמודד כמה אחד השדות מנבא את השני. זה המתאם.\n\n```figure\nB03:93:0\nקרינה מהמקור S מגיעה לנקודה P בשני מסלולים, 1 ו-2, שבהם רכיבים אופטיים משנים את הכיוון. האיבר האחרון ב-(6) הוא ההתאבכות בין שני המסלולים.\n```\n\n```definition\n@title: פונקציית המתאם והמתאם המנורמל\nיהיו $u_1(t),u_2(t)$ שני שדות מרוכבים (פאזורים) בנקודה $P$, ו-$\\langle\\cdot\\rangle$ ממוצע בזמן. פונקציית המתאם היא $G_{12}(\\tau)=\\langle u_1(t)\\,u_2^*(t+\\tau)\\rangle$, כש-$\\tau$ הפרש זמנים בין השדות. המתאם המנורמל הוא\n$$\\gamma_{12}(\\tau)=\\frac{G_{12}(\\tau)}{\\sqrt{E_1E_2}},\\qquad E_k=\\langle|u_k|^2\\rangle$$\n$G_{12}$ ו-$\\gamma_{12}$ הם מספרים מרוכבים, ו-$0\\le|\\gamma_{12}|\\le1$.\n```\n\n<!--U35-->[[B03:93]] ההגדרה בנויה כך: במונה ממוצע של מכפלת שדה אחד בצמוד של השני, זה בדיוק האיבר $\\tilde u_1\\tilde u_2^*$ מהגזירה של (6), רק עם ממוצע בזמן; במכנה העוצמות, כדי שהמספר יהיה חסר ממדים. אם הפאזה היחסית קבועה, $\\gamma_{12}=e^{j\\Delta\\varphi}$ ו-$|\\gamma_{12}|=1$. אם היא אקראית ומתפלגת שווה על פני המעגל, הממוצע של $e^{j\\Delta\\varphi}$ הוא אפס, וכך גם $\\gamma_{12}$. כל מה שביניהם הוא קוהרנטיות חלקית (partial coherence). אם מחליפים את $\\cos\\Delta\\varphi$ ב-(6) ב-$\\mathrm{Re}\\{\\gamma_{12}\\}$, מקבלים את הנוסחה הכללית:\n\n<!--U36-->\n\n```formula\n@title: חוק ההתאבכות הכללי\n$$E=E_1+E_2+2\\sqrt{E_1E_2}\\,\\mathrm{Re}\\{\\gamma_{12}\\}\\tag{8}$$\n$E_1,E_2$ העוצמות של שני השדות בנקודה, $E$ העוצמה הכוללת, $\\gamma_{12}$ המתאם המנורמל בהפרש הזמנים הרלוונטי. תקף לשני שדות בעלי אותו תדר מרכזי (מונוכרומטי בקירוב), ולמערכת שמגיבה לעוצמה הממוצעת בזמן. $|\\gamma_{12}|=1$ נותן את (6); $\\gamma_{12}=0$ נותן $E=E_1+E_2$.\n```\n\n[[2.5: מבנה]] שני המקרים הקיצוניים מבהירים את המבנה. כש-$|\\gamma_{12}|=1$ חוזרים אל (6), והמערכת מוסיפה **שדות**. כש-$\\gamma_{12}=0$ נשאר $E_1+E_2$, והמערכת מוסיפה **עוצמות**, כלל M0.1. <!--U39-->זו ההבחנה בין מערכת ליניארית בשדה (קוהרנטית) למערכת ליניארית בעוצמה (בלתי קוהרנטית): הראשונה מקיימת $L\\{au_1+bu_2\\}=aL\\{u_1\\}+bL\\{u_2\\}$ על השדות, והשנייה מקיימת את אותה תכונה על העוצמות $E_1,E_2$. מקלט שמשמר את הפאזה, [[מונח: קליטה קוהרנטית | קליטה ששומרת גם את פאזת האות ולא רק את עוצמתו]], שייך לסוג הראשון; גלאי שמדווח רק על העוצמה, כמו העין או גלאי אינפרא-אדום, שייך לשני.\n\n### נראות: מה רואים מבחוץ\n\nאיך מודדים את $|\\gamma_{12}|$? משנים את הפאזה היחסית (מזיזים את נקודת המדידה) וקוראים את עומק ההתאבכות.\n\n```definition\n@title: נראות (visibility)\nיהיו $E_{max}$ ו-$E_{min}$ העוצמה המרבית והמזערית של דפוס התאבכות בסביבת הנקודה $P$. הנראות היא\n$$V=\\frac{E_{max}-E_{min}}{E_{max}+E_{min}}$$\nמספר ממשי בין 0 ל-1.\n```\n\n<!--U37-->כשמשנים את הפאזה, $\\mathrm{Re}\\{\\gamma_{12}\\}$ נע בין $-|\\gamma_{12}|$ ל-$+|\\gamma_{12}|$. לפי (8): $E_{max}=E_1+E_2+2\\sqrt{E_1E_2}\\,|\\gamma_{12}|$ ו-$E_{min}=E_1+E_2-2\\sqrt{E_1E_2}\\,|\\gamma_{12}|$. מכאן, בלי שום הנחה על היחס בין $E_1$ ל-$E_2$,\n\n<!--U38-->\n\n$$V=\\frac{2\\sqrt{E_1E_2}}{E_1+E_2}\\,|\\gamma_{12}|\\tag{9}$$\n\nלשני גלים שווים $V=|\\gamma_{12}|$, וזו התוצאה שמקבלים מ-$E_{max}=2E_0(1+|\\gamma_{12}|)$ ו-$E_{min}=2E_0(1-|\\gamma_{12}|)$. לגלים לא שווים הגורם $2\\sqrt{E_1E_2}/(E_1+E_2)$ קטן מ-1: נראות מושלמת דורשת גם קוהרנטיות מלאה וגם עוצמות שוות. נקרא את התוצאה כך: $V=1$ פירושו שהמתאם מלא, $V=0$ פירושו שאין דפוס, וכל מה שבאמצע הוא חלקי.\n\n```erratum\n@title: סימן שורש שאבד בחילוץ הטקסט\n@page: B03:93\nבנוסחה (4.15) במקור כתוב \"$2E_1(x,y)E_2(x,y)\\,\\mathrm{Re}\\{\\gamma_{12}\\}$\" בלי שורש (בדף המודפס השורש קיים והוא אבד בחילוץ הטקסט). השורש חייב להופיע: עוצמה היא ריבוע שדה, והאיבר השלישי הוא מכפלת שדות, $\\sqrt{E_1E_2}$. נבדק בגזירה של (6): רק עם השורש (8) מתיישבת עם $I=I_1+I_2+2\\sqrt{I_1I_2}\\cos\\Delta\\varphi$ גם כשהגלים אינם שווים.\n```\n\n### כמה עמוק הפער\n\n[[2.5: סדר גודל]] <!--U41-->נעבור לדוגמה מספרית, להמחשה. גל ישיר וגל מוחזר חלש יותר, ביחס משרעות $\\rho=A_2/A_1=0.5$: העוצמה של המוחזר רבע מזו של הישיר. לפי (6), $I_{max}=I_1(1+\\rho)^2=2.25\\,I_1$ ($+3.52$ dB), $I_{min}=I_1(1-\\rho)^2=0.25\\,I_1$ ($-6.02$ dB). הפער בין השיא לשפל הוא פי 9, כלומר 9.54 dB, והנראות היא $2\\rho/(1+\\rho^2)=0.8$. ההספק הממוצע על פני הפאזות הוא $1+\\rho^2=1.25$ (+0.97 dB). גל חלש, שנושא רבע מההספק, אחראי לתנודה של כמעט 10 dB. כש-$\\rho=0.9$ הפער הוא 25.6 dB. זו הדהייה (fading) בקשר מיקרוגל.\n\n```predict\n@title: עומק הדהייה\n@value: 9.54\n@unit: dB\nבקשר יש גל ישיר וגל מוחזר, והמשרעת של המוחזר חצי מזו של הישיר ($\\rho=0.5$). כשהדרך של המוחזר משתנה, ההספק הנקלט נע בין מקסימום למינימום. מה הפער בין המקסימום למינימום, ב-dB? תנו אומדן וטווח של 90%. ומה הפער אם $\\rho=0.9$?\n---\nמ-(6): $I_{max}/I_{min}=\\left(\\dfrac{1+\\rho}{1-\\rho}\\right)^2$. עבור $\\rho=0.5$ זה $3^2=9$, כלומר $9.54$ dB. עבור $\\rho=0.9$ זה $19^2=361$, כלומר $25.6$ dB. אומדן בראש: היחס $(1+\\rho)/(1-\\rho)$ גדל מהר כש-$\\rho\\to1$, ולכן מוחזר חזק מקרב את השפל לאפס.\n```\n\n[[2.5: משמעות מבצעית]] <!--U42-->התאבכות של שני גלים היא המקרה הפשוט; מערכות אמיתיות מקבלות הרבה גלים. נניח $N$ מפזרים זהים, שכל אחד מהם מחזיר משרעת אחת. אם הפאזות שלהם קשורות והכול מתכנס, המשרעת הכוללת היא $N$ והעוצמה $N^2$: עבור $N=10$ זה 20 dB מעל מפזר אחד. אם הפאזות אקראיות, הממוצע הוא $N$: 10 dB. סימולציה של 100,000 מקרים עם $N=10$ נותנת ממוצע של 10.004, כפי שהחוק מנבא. מה שחשוב הוא הפיזור סביב הממוצע: ב-$N=50$ היחס בין סטיית התקן לממוצע הוא $0.99$ ($\\sqrt{1-1/N}$ בחישוב אנליטי), קרוב ל-1. לכן החזרה ממטרה מורכבת, חתך מכ\"ם שהוא סכום של מפזרים רבים, אינה מספר קבוע אלא משתנה אקראי. הסיבה לכך פשוטה: כשהמטרה מסתובבת בזווית $\\delta\\theta$, הפרש הדרכים (הלוך וחזור) בין שני מפזרים במרחק $L$ זה מזה משתנה ב-$2L\\,\\delta\\theta$, והחזרה משנה את האופי שלה כשהשינוי מגיע לחצי אורך גל. ל-$L=10$ m ול-$\\lambda=3$ cm זה $\\delta\\theta\\approx\\lambda/4L=0.75$ mrad, כ-$0.043^\\circ$ [[ודאות: בינונית]] (אומדן). הנדסת המכ\"ם תצטרך להתמודד עם זה ב-M2.\n\n```scene3d\n{\"id\":\"wave_interference\",\"title\":\"שני מקורות במרחק 1.6 אורכי גל\",\"caption\":\"הסתכלו על הרצועות השקטות: אלה קווי התאבכות הורסת. הזיזו את 'הפרש מופע' ל-180° והסתכלו איך המקסימום במרכז מתחלף בשפל.\",\"params\":{\"sep\":1.6,\"phase\":0}}\n```\n\n<!--U43-->הסצנה מציגה שני מקורות נקודתיים בפאזה אחת, במרחק $d=1.6\\lambda$. בשדה הרחוק העוצמה בזווית $\\theta$ מציר הסימטריה היא $4I_0\\cos^2(\\pi d\\sin\\theta/\\lambda)$, ולכן המקסימומים נמצאים ב-$\\sin\\theta=m/1.6$, כלומר ב-$0^\\circ$ וב-$38.7^\\circ$, והשפלים ב-$\\sin\\theta=(m+\\tfrac12)/1.6$, כלומר ב-$18.2^\\circ$ וב-$69.6^\\circ$ מכל צד. אלה קווים שאפשר לקרוא מהציור. כשמזיזים את הפרש המופע ל-$180^\\circ$ השפלים והמקסימומים מתחלפים. <!--U45-->זה גם הרמז למה האנטנה יוצרת קרן: כשהרבה מקורות מצטרפים באותו כלל, ההתאבכות נבנית לכיוון אחד ונהרסת בכל השאר. זה הנושא של M1.\n\n[[2.5: גבולות]] <!--U47-->הגבול של כל מה שכתבנו בחלק הזה הוא הנחת הפאזה הקבועה. (6) תקפה כשהפאזה היחסית אינה משתנה בזמן המדידה. כשהיא משתנה, $|\\gamma_{12}|$ יורד ברציפות מ-1 ל-0, ו-(8) היא שמחליפה את (6). השאלה הנשארת היא מה קובע את ירידת המתאם: זה נושא החלק הבא.\n\n[[2.5: ביקורת]] <!--U44-->שתי טענות שגויות שכיחות. הראשונה: \"התאבכות הורסת הורסת אנרגיה\". היא לא: האנרגיה מתחלקת מחדש, והממוצע על הפאזות נשמר. השנייה: \"שני מקורות שווים נותנים תמיד 3 dB יותר\". זה נכון רק לפאזות אקראיות. בפאזה אחת הם נותנים 6.02 dB, ובהפרש חצי מחזור אפס. הבדיקה היא ממוצע על הפאזות, שחייב לתת 3.01 dB.\n\n```history\n@title: יאנג והאור שמתחבר לחושך\n@who: תומס יאנג (Thomas Young)\n@when: 1801–1803\n<!--U46-->יאנג העביר אור משמש דרך חריץ יחיד, ואחר כך דרך שני חריצים צרים סמוכים, וראה על מסך פסים בהירים וכהים. הצורך שהוביל אותו: להכריע בין תיאור האור כחלקיקים ותיאורו כגל. פס כהה במקום שאליו מגיעים שני אלומות הוא תוצאה שחלקיקים לא נותנים, וגלים נותנים בדיוק לפי (6) ו-(7) [[ודאות: גבוהה]]. ההנחה שמאחורי ההצלחה: שני החריצים מוארים מאותו מקור, ולכן הפאזה היחסית ביניהם קבועה. היום אותו חוק משמש בכל שיקול שבו שני אותות נפגשים, באנטנה, במכ\"ם ובקשר.\n```\n\n```domain\n@field: ew\n@title: שני נתיבים לאותו מקלט\nבמערכות לוחמה אלקטרונית וקשר חד-כיווני, מקלט לרוב מקבל את הגל הישיר ואת ההחזרה מהקרקע או מהים, והתוצאה היא דהייה שתלויה בגיאומטריה ובתדר. מה שמקביל לשיעור: אותו חוק (6), אותה שאלה של פאזה יחסית בין שני נתיבים, ובקרקע שטוחה $\\Delta\\approx2h_1h_2/d$ (נגזר ב-M4). מה שונה: בקשר אמיתי פאזת ההחזרה כוללת גם את הפאזה שהקרקע מוסיפה, לא רק את הדרך, וזה יילמד בשיעור על החזרה ובמודול של two-ray. בשלב השער זה בא ברמת המערכת: דהייה בעומק של עשרות dB אפשרית כשהמוחזר חזק.\n```\n\n```domain\n@field: nav\n@title: ניווט: קיטוב ריבוי נתיבים\n<!--U27-->אותות ניווט לוויינים מועברים בקיטוב מעגלי ימני [[ודאות: גבוהה]], וההחזרה מהקרקע או מבניין הופכת בדרך כלל את כיוון הסיבוב [[ודאות: בינונית]], כך שאנטנה שמותאמת לקיטוב המעגלי הישיר דוחה חלק מההחזרות. מה שמקביל לשיעור: קיטוב (גל מעגלי) והתאבכות (גל ישיר ומוחזר) באותה מערכת, שתי תכונות של הגל שפועלות יחד. ההבדל: במקום דהייה של עשרות dB, שגיאת ריבוי נתיבים מזיזה מעט את מדידת הזמן. המנגנון המלא יילמד ב-M5.\n```\n\n```fieldmap\n@formula: $E=E_1+E_2+2\\sqrt{E_1E_2}\\,\\mathrm{Re}\\{\\gamma_{12}\\}$\n- **radar** (M1, M2): מערך אנטנות וקרן (M1); חתך מכ\"ם כסכום של מפזרים והתנודה שלו (M2).\n- **ew** (M4): מודל שני הנתיבים (two-ray) והדהייה שלו; גל ישיר ומוחזר באותו מקלט.\n- **nav** (M5): ריבוי נתיבים בקליטה לוויינית, השפעה על המדידה.\n- **c2** (M0.5, M4): דהייה של קשרי נתונים, חיבור של שני נתיבים בקשר.\n- **eoir** (M3): תמונה בלתי קוהרנטית מוסיפה עוצמות; אור לייזר קוהרנטי מוסיף שדות.\n- **space** (M13): קשר לווייני עם החזרה מהים, ובקליטה מהקרקע.\n```\n\nראינו שני עולמות: מערכת שמוסיפה שדות, כשהפאזה היחסית קבועה, ומערכת שמוסיפה עוצמות, כשהיא אקראית. (8) היא הגשר ביניהם, ו-$\\gamma_{12}$ הוא המספר שקובע כמה מהעולם הראשון נשאר. נשאלת עכשיו שאלה אחרונה: מה גורם ל-$\\gamma_{12}$ לרדת, ואיזה מרחק או הפרש דרכים הוא \"קטן מספיק\" כדי שנוכל להשתמש ב-(6)?\n\n<!--audit: units U30–U47 (U46 via history, U45 in the beam paragraph) 18/18 | w/u 100 | think 1 predict 1 | padding 0-->\n\n## קוהרנטיות בזמן: כמה זמן הגל זוכר את הפאזה שלו\n\nהתאבכות נראית כשהפאזה היחסית בין שני גלים קבועה, ו-$\\gamma_{12}$ מספר כמה מהקביעות הזאת נשארה. נשאלת השאלה הפיזיקלית: מה גורם לפאזה להשתנות? יש שני מקורות שאינם תלויים זה בזה. הראשון הוא הזמן: גל שיצא מהמקור לפני רגע וגל שיצא לפני רגע וחצי כבר אינם באותה פאזה אם המקור \"שוכח\" את הפאזה שלו. השני הוא המרחב: מקור שאינו נקודה פולט מנקודות שונות פאזות שונות. נתחיל בראשון.\n\n### גלי אור כרכבות גל\n\nכל מקור אמיתי פולט גל סינוסי רק לזמן מוגבל, ואחר כך הפאזה קופצת. אפשר לתאר את הפליטה כרכבות גל (wavetrains) סינוסיות, כל אחת באורך אחר, ממוצע שלהן $\\tau_0$.\n\n```figure\nB03:94:0\nארבע רכבות גל בעלות משכים שונים; ממוצע המשך הוא $\\tau_0$.\n```\n\n```definition\n@title: זמן קוהרנטיות ואורך קוהרנטיות\nמקור פולט רכבות גל סינוסיות שמשכן הממוצע הוא $\\tau_0$ (זמן הקוהרנטיות). אי-הוודאות בתדר של גל שקיים למשך $\\tau_0$ היא $\\Delta f$, כשהקשר ביניהם הוא סדר גודל של $\\Delta f\\,\\tau_0\\sim1$. אורך הקוהרנטיות בזמן (temporal coherence length) הוא האורך של רכבת גל במרחב: $l_t=c\\,\\tau_0$.\n```\n\n<!--U50-->[[B03:95]] ההגדרה כוללת הנחה שיש לומר בקול רם: היחס $\\Delta f\\,\\tau_0=1$ הוא סדר גודל ולא זהות, והמקדם המדויק תלוי בצורת הקו הספקטרלי; נחזור לזה. עם ההנחה הזאת,\n\n$$\\Delta f=\\frac{1}{\\tau_0}\\tag{10}$$\n\n$$l_t=c\\,\\tau_0=\\frac{c}{\\Delta f}\\tag{11}$$\n\n<!--U51-->אורך הקוהרנטיות נתון בדרך כלל באורכי גל ולא בתדרים, ולכן מעבירים אליהם. מ-$f=c/\\lambda$ גוזרים: $|df|=\\dfrac{c}{\\lambda^2}\\,d\\lambda$ (לוקחים ערך מוחלט, כי רק גודל הרוחב מעניין). מחליפים דיפרנציאלים בהפרשים סופיים: $\\Delta f=\\dfrac{c}{\\lambda^2}\\Delta\\lambda$. מציבים ב-(11): $l_t=c/\\Delta f=\\lambda^2/\\Delta\\lambda$.\n\n```formula\n@title: אורך קוהרנטיות לפי רוחב הקו\n$$l_t=\\frac{\\lambda^2}{\\Delta\\lambda}=\\frac{c}{\\Delta f}\\tag{12}$$\n$\\lambda$ אורך הגל המרכזי (m), $\\Delta\\lambda$ רוחב הקו הספקטרלי (m), $\\Delta f$ הרוחב בתדר (Hz), $l_t$ אורך הקוהרנטיות (m). סדר גודל, תקף לקו צר ($\\Delta\\lambda\\ll\\lambda$); המקדם המדויק תלוי בצורת הקו (ראו להלן).\n```\n\n[[2.5: מבנה]] שימו לב לשני דברים במבנה של (12). הראשון: אורך הקוהרנטיות תלוי רק ברוחב הקו המוחלט $\\Delta f$ ולא בתדר עצמו: קו של 1.5 kHz נותן 200 km, במיקרוגל כמו באור. השני: באורכי גל, $l_t=\\lambda\\cdot(\\lambda/\\Delta\\lambda)$, כלומר אורך הגל כפול \"איכות הקו\" $\\lambda/\\Delta\\lambda$; כך אור לבן, שאיכות הקו שלו כ-2, נותן שני אורכי גל, ולייזר CO$_2$, שאיכותו כ-$10^9$, נותן מיליארד.\n\n[[2.5: סדר גודל]] <!--U52-->נחשב. אור לבן משתרע בקירוב מ-0.4 עד 0.7 $\\mu$m, עם אורך גל מרכזי 0.55 $\\mu$m, ולכן $\\Delta\\lambda=0.3\\ \\mu$m ו-$l_t=0.55^2/0.3=1.008\\ \\mu$m: כ-1 $\\mu$m, בערך פעמיים אורך הגל המרכזי (פי 1.83). אין כאן קוהרנטיות אמיתית: ההתאבכות נעלמת אחרי הפרש דרכים של מחזור או שניים. בקצה השני, קווים צרים. נחשב מחדש את הטבלה של מקורות טיפוסיים, ונשאל מה רוחב הקו שמתחבא מאחורי כל אורך קוהרנטיות מפורסם:\n\n```table\n{\"title\":\"אורכי קוהרנטיות טיפוסיים, ורוחב הקו הנגזר מהם\",\"scope\":{\"c\":299792458},\"columns\":[\"מקור\",\"λ (µm)\",\"אורך קוהרנטיות (m)\",\"Δλ נגזר (nm)\",\"Δf נגזר (Hz)\",\"Δf/f (ppb)\"],\"rows\":[[\"\\\"אור לבן\\\"\",\"0.55\",\"1e-6\",\"(0.55e-6)^2/1e-6*1e9\",\"c/1e-6\",\"0.55e-6/1e-6*1e9\"],[\"\\\"כספית\\\"\",\"0.546\",\"0.012\",\"(0.546e-6)^2/0.012*1e9\",\"c/0.012\",\"0.546e-6/0.012*1e9\"],[\"\\\"קריפטון\\\"\",\"0.606\",\"0.78\",\"(0.606e-6)^2/0.78*1e9\",\"c/0.78\",\"0.606e-6/0.78*1e9\"],[\"\\\"לייזר CO2\\\"\",\"10.6\",\"11000\",\"(10.6e-6)^2/11000*1e9\",\"c/11000\",\"10.6e-6/11000*1e9\"]]}\n```\n\nהטבלה אומרת שלייזר ה-CO$_2$ מגיע ל-11 km כי רוחב הקו שלו הוא כ-27 kHz, חלק של $10^{-9}$ מהתדר. גם זו תוצאה של (12): אורך הקוהרנטיות גדל כשרוחב הקו קטן. מנורת כספית (12 mm) מתאימה ל-25 GHz; קריפטון (78 cm) ל-384 MHz.\n\n```erratum\n@title: מיקרומטר שהפך למילימטר\n@page: B03:95\nבדוגמה 4.1 ובטבלה 4.1 שכבת הטקסט כותבת \"mm\" במקום $\\mu$m (בדף המודפס כתוב $\\mu$m): \"0.4 עד 0.7 mm\", \"$l_t\\approx1$ mm\" ועמודת אורך הגל של הטבלה. הערך הנכון הוא $l_t\\approx1\\ \\mu$m. נבדק בשלוש דרכים: (א) יחידות: $\\lambda^2/\\Delta\\lambda$ עם $\\lambda,\\Delta\\lambda$ במיקרומטר נותן מיקרומטר; (ב) המשפט במקור עצמו, \"כשתי פעמים אורך הגל המרכזי\", נכון ל-1 $\\mu$m ולא ל-1 mm; (ג) אורך קוהרנטיות של מילימטר לאור לבן משמעותו $\\Delta\\lambda=0.3$ nm, כלומר קו צר, בניגוד להגדרת \"אור לבן\". שאר העמודה (1.2 cm, 78 cm, 11 km) נכונה.\n```\n\n[[2.5: גבולות]] <!--U53-->(11) ו-(12) הן סדרי גודל, ולא רף חד. התאבכות לא נעלמת בבת אחת בהפרש דרכים $l_t$. לקו בעל צורת לורנץ ברוחב מלא $\\Delta f$, המתאם יורד כ-$|\\gamma_{12}(\\tau)|=e^{-\\pi\\Delta f\\,\\tau}$ (נגזר מהתמרת פורייה של הקו; ודאות: בינונית ביחס לקו שבפועל). ב-$\\tau=1/\\Delta f=\\tau_0$ המתאם כבר רק $e^{-\\pi}=0.043$, כלומר נראות של 4.3%, וכדי לשמור נראות של 0.9 צריך $\\tau\\le0.034\\,\\tau_0$. כלומר \"הפרש דרכים קטן מ-$l_t$\" פירושו בפועל, למי שרוצה נראות גבוהה, הפרש דרכים קטן פי כ-30 מ-$l_t$. לכן צריך לדעת איזו נראות נדרשת, והמסקנה היא ש\"קוהרנטי\" הוא החלטת תכן ולא תכונה בינארית.\n\n## קוהרנטיות במרחב: מה מקור נקודתי נותן ומקור רחב לא\n\nציר הזמן הוא רק חצי מהסיפור. אפילו מקור חד-גוני לחלוטין לא נותן התאבכות אם הוא גדול מדי.\n\n```figure\nB03:96:0\nמקור נקודתי S מאיר שני חריצים A ו-B; בנקודה P רואים פסים. שני התנאים: הפרש הדרכים קטן מאורך הקוהרנטיות בזמן, והחריצים בתוך אורך הקוהרנטיות במרחב.\n```\n\n```definition\n@title: אורך קוהרנטיות במרחב\nיהיה מקור בעל מרחב סופי, שמהנקודה $P$ נראה בזווית $\\theta$ (ברדיאנים, קטנה). אורך הקוהרנטיות במרחב (spatial coherence length) $l_s$ הוא ההפרדה המרבית $l$ בין שתי נקודות על פני גל, בניצב לכיוון ההתפשטות, שעבורה הפסים שהן יוצרות עדיין בעלי נראות $V$ שאינה זניחה.\n```\n\n<!--U54-->[[B03:96]] ההגדרה אומרת משהו שונה מהזמן: קוהרנטיות במרחב היא תכונה של זוג נקודות על אותו פני גל, והיא משתנה עם המרחק ביניהן. נגזור את הקשר בין $l_s$ לגודל הזוויתי של המקור.\n\n```figure\nB03:96:1\nשני מקורות בלתי תלויים $S_1,S_2$ במרחק $s$ זה מזה ו-$r$ מהנקודה $P$; הזווית שהם מקיפים היא $\\theta=s/r$.\n```\n\n<!--U55-->נציב שני חריצים $P_1,P_2$ במרחק $l$ זה מזה, שמאירים מסך ויוצרים פסים. המקור אינו נקודה אלא שני מקורות בלתי תלויים $S_1,S_2$ במרחק $s$ זה מזה, כש-$r\\gg s$ ו-$\\theta=s/r$. הצעד הראשון: $S_1$ על הציר, והוא מאיר את שני החריצים באותה פאזה. הצעד השני: $S_2$ בזווית $\\theta$ מהציר, ולכן מגיע לשני החריצים בהפרש דרכים $\\Delta=l\\sin\\theta\\approx l\\theta$. הצעד השלישי: המקורות אינם קשורים בפאזה, ולכן העוצמות מצטברות, ושתי מערכות פסים נערמות על המסך. הצעד הרביעי: הפסים של $S_2$ מוזזים ביחס לפסים של $S_1$ בשבר $l\\theta/\\lambda$ של פס. הצעד החמישי: כשההזזה היא חצי פס, $\\Delta=\\lambda/2$, שיא של אחת נופל על שפל של השנייה והדפוס נמחק. זה קורה ב-$l\\theta=\\lambda/2$, כלומר $l=\\lambda/(2\\theta)$. כשבין שתי הנקודות יש רצף של מקורות ולא שניים, גורם 2 נעלם והתנאי הוא $l<\\lambda/\\theta$:\n\n$$l_s<\\frac{\\lambda}{\\theta}\\tag{13}$$\n\n[[2.5: מקור]] <!--U56-->מה עומד מאחורי (13)? הנחה אחת: מקורות בלתי תלויים, כך שהעוצמות מצטברות, והזווית קטנה ($\\sin\\theta\\approx\\theta$). לשני מקורות נקודתיים שווים, הנראות היא $V=|\\cos(\\pi l\\theta/\\lambda)|$ והיא מתאפסת ב-$l=\\lambda/(2\\theta)$, כפי שגזרנו. לרצף אחיד של מקורות ברוחב זוויתי $\\theta$ הנראות היא $V(l)=\\left|\\dfrac{\\sin(\\pi l\\theta/\\lambda)}{\\pi l\\theta/\\lambda}\\right|$ (סכימה על המקורות; ודאות: בינונית). לפי זה $V=0.64$ ב-$l=\\lambda/(2\\theta)$, $V=0$ ב-$l=\\lambda/\\theta$ שהוא (13), ו-$V=0.9$ כבר ב-$l=0.25\\,\\lambda/\\theta$. הקריטריון (13) הוא גבול עליון, לא תחום שבו התאבכות מושלמת.\n\n[[2.5: סדר גודל]] <!--U57-->כמה זה? השמש רואים בזווית $0.53^\\circ=9.25$ mrad. באורך גל 0.55 $\\mu$m, $l_s=0.55/9.25\\cdot10^{-3}=59.5\\ \\mu$m, ולנראות 0.9, $15\\ \\mu$m בלבד. כלומר כדי לראות פסי יאנג מאור השמש, החריצים צריכים להיות במרחק של כמה עשרות מיקרומטרים. כוכב רחוק בזווית 47 mas (מילי-שניות קשת) נותן $l_s=0.55\\cdot10^{-6}/2.28\\cdot10^{-7}=2.4$ m [[ודאות: בינונית]]. ובמכ\"ם: מטרה באורך $L=10$ m במרחק 100 km רואים בזווית $10^{-4}$ rad; באורך גל 3 cm, $l_s=0.03/10^{-4}=300$ m. הצלחת בקוטר 3 m קטנה בהרבה מ-300 m, ולכן המטרה נראית לצלחת כמקור קוהרנטי בכל הפתח. זו הסיבה שאפשר לדבר על \"ההחזרה\" כעל גל שיש לו פאזה אחת.\n\n[[2.5: מבנה]] <!--U58-->שני התנאים בלתי תלויים: האחד לאורך הקרן (הזמן, קובע $l_t$ ברוחב הקו), והשני לרוחב הקרן (המרחב, קובע $l_s$ בגודל הזוויתי של המקור). פסים בנראות גבוהה דורשים את שניהם יחד: הפרש הדרכים $\\ll l_t$ וגם החריצים בתוך $l_s$. מקור יכול להיות קוהרנטי בזמן ולא במרחב (קו ספקטרלי צר במקור רחב, כמו מנורת פריקה גדולה), או קוהרנטי במרחב ולא בזמן (נקודה אחת של אור לבן).\n\n```predict\n@title: טווח קוהרנטי של לייזר\n@value: 15\n@unit: km\nלייזר סיבים בעל רוחב קו 10 kHz משמש בלידאר קוהרנטי (מדידה שבה האות המוחזר מתאבך עם עותק של אותו לייזר). מהו הטווח המרבי של המטרה, אם דורשים שאורך הקוהרנטיות יעלה על הדרך הלוך וחזור? תנו אומדן וטווח של 90%.\n---\n$l_t=c/\\Delta f=3\\cdot10^8/10^4=30$ km. הדרך הלוך וחזור היא $2R$, לכן $R\\le l_t/2=15$ km. זו הערכה לפי התנאי הרופף $l_t\\ge2R$; לנראות 0.9 לפי צורת לורנץ הטווח קטן פי כ-30, בערך 0.5 km. הבחירה בין השניים היא החלטת תכן.\n```\n\n[[2.5: פשרה]] <!--U59-->מה מרוויחים ומה משלמים? קו צר קונה אורך קוהרנטיות (וכך טווח של מדידה קוהרנטית), אבל מחירו הוא יציבות: מתנד שדורש $\\Delta f$ של קילו-הרץ לעשרות ק\"מ דורש בידוד מרעידות ומשינויי טמפרטורה. מקור רחב (נורה) זול ולא קוהרנטי, ולכן מתאים למערכות שמוסיפות עוצמות, כמו עין או מצלמה, ואינו מתאים למערכות שנדרשת בהן פאזה.\n\n[[2.5: משמעות מבצעית]] <!--U60-->מערכת קוהרנטית צריכה לשמור את הפאזה לאורך הדרך הלוך וחזור: הגל המוחזר חוזר אחרי $2R/c$, ואז משווים אותו למתנד ששלח אותו. התנאי הרופף הוא $l_t\\ge2R$, כלומר $\\Delta f\\le c/(2R)$. למכ\"ם ב-100 km: $2R/c=667\\ \\mu$s ו-$\\Delta f\\le1.5$ kHz. ללידאר CO$_2$ ($l_t=11$ km): $R\\le5.5$ km. ללייזר סיבים בעל 10 kHz: 15 km. נשים לב שלמכ\"ם ב-10 GHz הרוחב היחסי המותר $\\Delta f/f=1.5\\cdot10^{-7}$ רופף פי 155 מזה של לייזר ה-CO$_2$ ($9.6\\cdot10^{-10}$), אבל בתדר מוחלט שני המתנדים צריכים אותו $\\Delta f$ בערך, כפי ש-(12) אומרת. בפועל מפרטים כאן לא רוחב קו אלא רעש פאזה של המתנד, כי הספקטרום האמיתי של מתנד אינו לורנץ. שני החסמים שחישבנו, הרופף והנראות 0.9, נותנים תחום בין 1.5 kHz ל-50 Hz למכ\"ם ב-100 km.\n\n```casestudy\n@title: טבלה 4.1 כטבלת תכן: איזה מקור מאפשר מדידה קוהרנטית בטווח נתון\n<!--U61-->**השאלה.** יש לנו ארבעה מקורות מהטבלה: אור לבן, כספית, קריפטון ולייזר CO$_2$. איזה מהם מאפשר מדידה קוהרנטית (שבה האות המוחזר מתאבך עם עותק של המקור) בטווח של 1 km, ובאיזה טווח מרבי?\n\n**המודל.** מדידה קוהרנטית דורשת $l_t\\ge2R$ (הדרך הלוך וחזור). זו ההנחה: העותק המקומי של המקור נשאר זמין ללא עיכוב, וצורת הקו אינה ידועה (לכן מתעלמים מהמקדם של לורנץ).\n\n**המספרים (מחושבים).** לטווח $R=1$ km צריך $l_t\\ge2$ km. אור לבן (1 $\\mu$m), כספית (12 mm), קריפטון (78 cm) נכשלים. לייזר CO$_2$ (11 km) עובר, ומגיע לטווח מרבי של $R=l_t/2=5.5$ km. רוחבי הקו שנגזרו: 25 GHz, 384 MHz ו-27 kHz.\n\n**מה ידוע ומה מוערך.** ידועים אורכי הקוהרנטיות (פורסמו בטבלה); נגזרים רוחבי הקו; מוערך הטווח, כי הוא תלוי בצורת הקו, וב-0.9 נראות הוא קטן פי כ-30, כ-0.18 km.\n\n**מסקנות.** (1) רק הלייזר צר מספיק למאות מטרים עד ק\"מ בודדים. (2) הטווח אינו מספר יחיד: אותה טבלה נותנת 5.5 km או 0.18 km, לפי הנראות הנדרשת. (3) לשאלת \"כמה רחוק\", לא מספיק לדעת את אורך הקוהרנטיות; צריך לדעת איזו נראות דרושה.\n```\n\n[[2.5: ביקורת]] <!--U62-->שתי טעויות שכיחות. הראשונה היא טעות החילוץ שבדקנו: \"$l_t=1$ mm לאור לבן\", שנתפסת בבדיקת יחידות ובהשוואה ל-\"פעמיים אורך הגל\". השנייה היא ההנחה ש-\"$l_t=R$ מספיק\": הדרך היא $2R$, ושכחה של הגורם 2 מכפילה את הרוחב המותר. הבדיקה היא לשרטט את הדרך ולמנות כמה פעמים הגל חוצה אותה.\n\n```errorhunt\n@title: רוחב קו למכ\"ם קוהרנטי\nפלט של עוזר AI לשאלה \"איזה רוחב קו מקסימלי נדרש ממתנד של מכ\"ם קוהרנטי שמודד מטרה במרחק $R=100$ km?\":\n\n\"אורך הקוהרנטיות חייב לעלות על הדרך שהגל עובר, $l_t\\ge R=100$ km. לפי $l_t=c/\\Delta f$ נקבל $\\Delta f\\le c/R=3\\cdot10^8/10^5=3$ kHz. הזמן שהגל עובר הוא $\\tau=R/c=333\\ \\mu$s, ואכן $1/\\tau=3$ kHz. לכן מתנד בעל רוחב קו של 2 kHz עומד בדרישה בנוחות, והמכ\"ם יכול למדוד מטרות עד 100 km בלי ירידה בנראות.\"\n---\nיש טעות. הגל חוצה את הדרך פעמיים: הלוך (מהמכ\"ם למטרה) וחזור, ולכן $l_t\\ge2R=200$ km, והרוחב המרבי הוא $c/(2R)=1.5$ kHz, לא 3 kHz. מתנד של 2 kHz אינו עומד בדרישה הרופפת. מה היה תופס את הטעות: שרטוט הדרך הלוך וחזור; השוואה לתוצאה של חלק זה; ובדיקה שהדרך שנכנסה לנוסחה היא הדרך המלאה של הגל, לא מחציתה. ואם דורשים נראות 0.9, התוצאה אפילו נמוכה יותר, כ-50 Hz.\n```\n\n```domain\n@field: space\n@title: אותות חלשים ואינטגרציה ארוכה\nבקשרי חלל עמוק האות הנקלט חלש מאוד (ב-M0.1: Voyager 1, $-153.4$ dBm), ולכן המקלט מצבר את האות לאורך זמן ארוך ככל שאפשר כדי להבדיל אותו מהרעש. הצבירה הקוהרנטית פועלת רק כל עוד המתנד שומר פאזה: זמן אינטגרציה $T$ דורש $\\Delta f\\lesssim1/T$. מה שמקביל לשיעור הוא אותו (10), אך במקום הפרש דרכים מדובר בזמן הצבירה. ההבדל: בחלל המטרה היא האות עצמו, לא ההחזרה, והדרך הלוך וחזור אינה נכנסת. המנגנון של הצבירה והרעש יילמד ב-M13.\n```\n\n```domain\n@field: c2\n@title: קישורי נתונים: רוחב פס מול הפרש דרכים\nאות בעל רוחב פס $B$ הוא רצף של רכבות גל קצרות, ולכן אורך הקוהרנטיות שלו הוא בערך $c/B$: ב-20 MHz, 15 m; ב-1 MHz, 300 m. מה שמקביל לשיעור: ריבוי נתיבים בקשר הוא התאבכות של אות עם העותק המאוחר שלו. כשהפרש הדרכים קטן מ-$c/B$, העותקים מתאבכים וגורמים לדהייה, כפי שחישבנו ב-(6). כשהוא גדול ממנו, האות כבר אינו קשור בפאזה לעותקו, וההשפעה עוברת מדהייה לערבוב של סמלים סמוכים. ההבדל: קשר צר-פס סובל מדהייה, וקשר רחב-פס סובל מהפרעה בין סמלים. המנגנון המלא יילמד ב-M0.5 וב-M4.\n```\n\n```domain\n@field: eoir\n@title: למה מצלמה מוסיפה עוצמות\nסצנה טיפוסית בתמונה חשופה לאור מנורות ולשמש, ומקורות האור הם רחבים (זווית גדולה) ורחבי פס, ולכן לפי (12) ו-(13) אורכי הקוהרנטיות שלהם קטנים (מיקרומטרים בזמן, עשרות מיקרומטרים במרחב) [[B03:97]]. מצלמה כזו היא מערכת ליניארית בעוצמה: מוסיפה עוצמות, ולא שדות. חריגים: לייזר מאיר ומקור קטן מאוד. מה שמקביל: אותו (8), רק עם $\\gamma_{12}\\approx0$. ההבדל מהמכ\"ם: שם החזרה נשמרת בפאזה. הגלאי והתמונה יילמדו ב-M3.\n```\n\n```fieldmap\n@formula: $l_t=\\dfrac{\\lambda^2}{\\Delta\\lambda}=\\dfrac{c}{\\Delta f},\\quad l_s<\\dfrac{\\lambda}{\\theta}$\n- **radar** (M1, M2): מתנד יציב וקוהרנטיות לאורך הדרך הלוך וחזור; $l_s$ של מטרה מול הצלחת.\n- **eoir** (M3): $l_t,l_s$ של מקורות טבעיים קטנים, ולכן עוצמות מצטברות; לייזר מאיר קוהרנטי.\n- **ew** (M4): רוחב הפס של אות קובע מתי שני עותקים שלו עדיין מתאבכים.\n- **nav** (M5): שימור פאזת נושא והיציבות של מתנד המקלט.\n- **space** (M13): $T\\lesssim1/\\Delta f$ לצבירה קוהרנטית של אות חלש.\n- **c2** (M0.5): ריבוי נתיבים כשהשהיית נתיב קטנה מזמן הקוהרנטיות של האות.\n```\n\n```history\n@title: מישלסון ומדידת קוטר כוכב\n@who: אלברט מישלסון (Albert Michelson) ופרנסיס פיז\n@when: 1920–1921 בקירוב\n<!--U64-->מישלסון הגדיר את הנראות $V$ כמדד לדפוס התאבכות, ובשנות העשרים של המאה ה-20 חבר עם פיז כדי להשתמש בה לבעיה הנדסית של אסטרונומיה: איך מודדים את הקוטר של כוכב שנראה בטלסקופ כנקודה? הרעיון: מרחיקים שתי מראות לפני הטלסקופ ומחפשים את הרוחק שבו הפסים נעלמים, כי לפי (13) זה קורה ב-$l\\approx\\lambda/\\theta$ [[ודאות: בינונית]]. במודל שלנו, זה שימוש הפוך של אותו חוק: במקום לבקש \"עד איפה קוהרנטי\", שואלים \"מה הגודל הזוויתי, אם זה המרחק שבו נעלמה הקוהרנטיות\".\n```\n\n[[2.5: גבולות]] <!--U65-->גם ל-(12) ול-(13) יש גבול מעשי שבו הם מצדיקים הנחה. סצנות רגילות נראות בזווית גדולה ורחבות פס, ולכן מערכות הדמיה אופייניות נחשבות בלתי קוהרנטיות [[B03:97]]. היוצאים מן הכלל הם מקורות קטנים מאוד והארה בלייזר; שם צריך לחשב את השדות ולא את העוצמות.\n\n<!--U63-->הסיכום של שני החלקים האחרונים הוא אחד: (8) מגדירה את הכלל, ו-$\\gamma_{12}$ הוא מה שמתקבל מהמקור. אורך הקוהרנטיות בזמן (12) ובמרחב (13) הם שני המספרים שקובעים מה $\\gamma_{12}$ יהיה. מכ\"ם קוהרנטי, חתך מכ\"ם כסכום של מפזרים, ריבוי נתיבים ולייזר שייכים לצד של השדות; מצלמה ועין לצד של העוצמות.\n\n## תרגילים, משימה מובלת ואימות\n\n```exercise\n@title: מרחק מדידה לצלחת S\n@source: חדש\n@level: 1\nצלחת בקוטר $D=6$ m פועלת ב-3 GHz. (א) אמדו בראש את מרחק השדה הרחוק, ואחר כך חשבו. (ב) מה שגיאת הפאזה בקצה הפתח אם מודדים בטווח של 300 m? (ג) מה קורה לתשובה (א) אם עוברים ל-20 GHz?\n---hint---\n$\\lambda=c/f$. השתמשו ב-$R_{ff}=2D^2/\\lambda$ וב-$\\varphi=360^\\circ\\cdot D^2/(8R\\lambda)$.\n---solution---\n(א) $\\lambda=0.1$ m. אומדן: $2\\cdot36/0.1\\approx720$ m. מדויק: $720$ m. (ב) $D^2/(8R)=36/2400=15$ mm $=0.15\\lambda$, כלומר $54^\\circ$, פי 2.4 מעל $22.5^\\circ$. (ג) ב-20 GHz, $\\lambda=1.5$ cm, ולכן $R_{ff}=2\\cdot36/0.015=4800$ m: פי 6.7 (יחס התדרים), כי $R_{ff}\\propto1/\\lambda$.\n```\n\n```exercise\n@title: קשר עם כיוון משתנה: ליניארי או מעגלי?\n@source: חדש\n@level: 2\nכטב\"ם משדר לתחנת קרקע עם אנטנה ליניארית אנכית, והמטוס מתהפך כך שהקיטוב הליניארי של השדר מוטה בזוויות עד $60^\\circ$ ביחס לאנכי. (א) מה האובדן הגרוע ביותר בקיטוב ליניארי? (ב) מה האובדן בקיטוב מעגלי? (ג) באיזו זווית שני הפתרונות שווים? (ד) מה קורה בזווית $90^\\circ$ בקיטוב ליניארי, ואיזה קיטוב אתם בוחרים, ולמה?\n---hint---\nגורם $\\cos^2\\psi$ לליניארי; קבוע $1/2$ לגל מעגלי שנקלט באנטנה ליניארית.\n---solution---\n(א) $\\cos^2 60^\\circ=0.25$, כלומר $-6.02$ dB. (ב) $-3.01$ dB לכל זווית. (ג) $\\cos^2\\psi=0.5$, כלומר $\\psi=45^\\circ$. (ד) ב-$90^\\circ$ הליניארי נותן אפס. ההחלטה: אם הזווית נשארת מתחת ל-$45^\\circ$, ליניארי עדיף; אם היא עלולה לעבור $45^\\circ$ או שהכיוון אינו ידוע, מעגלי מחליף אי-ודאות בלתי מוגבלת באובדן קבוע וידוע של 3 dB. הקריטריון הוא האובדן הגרוע ביותר, ולכן מעגלי נבחר.\n```\n\n```exercise\n@title: מרווח דהייה ומרווח קוהרנטיות\n@source: חדש\n@level: 3\nבקשר מיקרוגל יש גל ישיר וגל מוחזר, ויחס המשרעות $\\rho$ אינו ידוע. (א) באיזה $\\rho$ הפער בין השיא לשפל מגיע ל-20 dB? (ב) לפי תוצאה (א), באיזה אחוז מהעוצמה הישירה מדובר במוחזר? (ג) מקור אור ברוחב קו 5 nm ב-0.55 $\\mu$m: מהו אורך הקוהרנטיות, ומה הנראות של פסים אם ההפרש הוא כפול ממנו, לפי המודל של לורנץ ($|\\gamma|=e^{-\\pi\\Delta f\\tau}$)? (ד) מה הלקח המשותף לשני החלקים?\n---hint---\n$\\left(\\dfrac{1+\\rho}{1-\\rho}\\right)^2=100$. בחלק (ג) $\\tau=\\Delta/c$ ו-$\\Delta f\\,\\tau=\\Delta/l_t$.\n---solution---\n(א) $(1+\\rho)/(1-\\rho)=10$, ולכן $\\rho=9/11=0.818$. (ב) העוצמה היחסית $\\rho^2=0.67$: מוחזר שנושא שני שלישים מההספק הישיר. הדהייה ביחס לישיר לבדו היא $20\\log(1-\\rho)=-14.8$ dB, והפער 20 dB הוא בין השיא לשפל. (ג) $l_t=(0.55\\ \\mu\\mathrm{m})^2/0.005\\ \\mu\\mathrm{m}=60.5\\ \\mu$m. הפרש כפול, $\\Delta=2l_t$, נותן $e^{-2\\pi}=0.0019$: פסים שאינם נראים. (ד) בשני המקרים אי-אפשר להסיק מהעוצמה בלבד: צריך לדעת את הפאזה היחסית (ב-(א)) ואת מידת הקוהרנטיות (ב-(ג)).\n```\n\n```lab\n@title: נראות כפונקציה של הפרש זמנים, מול החוק של לורנץ\n@tools: NumPy, SciPy, Matplotlib\n@time: כ-60 דקות\n**השאלה ההנדסית.** האם החוק $|\\gamma_{12}(\\tau)|=e^{-\\pi\\Delta f\\,\\tau}$ נכון עבור מתנד עם רעש פאזה מסוג הילוך אקראי, ואיזה הפרש זמנים נותן נראות 0.9?\n\n**מה אתם מחליטים (מפרט).** (1) השאלה וקלטים: $\\Delta f=10$ kHz, שלבי זמן $dt$, מספר הדגימות. (2) הנחות: הפאזה היא הילוך אקראי עם שונות $2\\pi\\Delta f\\,t$. (3) מדד הצלחה: סטייה של פחות מ-5% בין הסימולציה לנוסחה לכל $\\tau$ בתחום. (4) תחזית: רשמו מראש מה לדעתכם $|\\gamma|$ ב-$\\tau=\\tau_0=1/\\Delta f$. זו משימה של שלב השער, לכן המורה כותב טיוטת מפרט שאתם משלימים: חסרים בה הבחירה ב-$dt$ ותנאי הקבלה.\n\n**מה ה-AI עושה.** כותב את הקוד שמייצר מסלולי פאזה, מחשב את הממוצע על פני אנסמבל, משרטט את $|\\gamma(\\tau)|$ מול $e^{-\\pi\\Delta f\\tau}$ ומחשב את הנראות של פסים עם עוצמות שוות.\n\n**שורות הלב (5–15 שורות שאתם כותבים).** הפונקציה שמחשבת את אומד המתאם $\\hat\\gamma(\\tau)=\\langle e^{j(\\varphi(t+\\tau)-\\varphi(t))}\\rangle$ על אנסמבל; והשורה שמגדירה את צעד ההילוך האקראי, $\\sigma=\\sqrt{2\\pi\\Delta f\\,dt}$, ולמה כך.\n\n**האימות.** לפחות שתי בדיקות בלתי תלויות: (א) $\\tau\\to0$ נותן $|\\gamma|\\to1$; (ב) ההשוואה לנוסחה האנליטית; (ג) שינוי $dt$ בפקטור 2 אינו משנה את התוצאה; (ד) עבור $\\tau\\gg\\tau_0$ המתאם שואף לאפס, וחיבור הספקים מחזיר את הכלל של M0.1.\n\n**ההסבר אחרי (3–6 משפטים במילים שלכם).** מה עושה הקוד, למה התוצאה סבירה, ומה הסטייה מהתחזית מלמדת.\n\n**הרחבה לפרויקט.** החליפו את הילוך אקראי ברעש בעל ספקטרום מדורג ($1/f$) וראו אם הנוסחה עדיין מחזיקה.\n```\n\n```verify\n@title: אימות החישוב של טבלה 4.1\n@result: $\\Delta f=c/l_t$ ו-$\\Delta\\lambda=\\lambda^2/l_t$ לארבעת המקורות\n- ממדים ויחידות: $\\lambda^2/l_t$ ב-m נותן m; $c/l_t$ ב-Hz. לצפות: $\\Delta\\lambda=0.025$ nm לכספית ו-$10^{-5}$ nm ללייזר CO$_2$.\n- מקרה גבול: אור לבן, $\\Delta\\lambda=0.3\\ \\mu$m, נותן $l_t=1.008\\ \\mu$m, כלומר 1.83 אורכי גל. לצפות לכמעט פי 2.\n- עקביות בין שני הייצוגים: $\\Delta f$ מ-(10) ו-$c\\,\\Delta\\lambda/\\lambda^2$ נותנים אותו מספר ל-CO$_2$ (27.25 kHz). לצפות לאפס הפרש.\n- השוואה לטבלה ולדוגמה [[B03:95]]: 1 $\\mu$m, 1.2 cm, 78 cm, 11 km. לצפות להתאמה לכל ארבעת השורות אחרי תיקון היחידות.\n- השוואה לתחזית: אומדן בראש של $\\Delta\\lambda$ ללייזר CO$_2$ ($\\lambda^2/l_t\\approx10^{-10}/10^{4}$) נותן סדר גודל $10^{-14}$ m. לצפות להסכמה בפקטור 2 עם החישוב המדויק ($1.02\\cdot10^{-14}$ m).\n```\n\n```fieldsystems\n@title: קוהרנטיות בטכנולוגיה של היום\n@asof: ידע עד תחילת 2025; עשוי להיות לא עדכני\n- **לידאר קוהרנטי בסיבים:** מתנדים בסיבי 1.5 $\\mu$m משמשים למדידת רוחות ומהירות. רוחב קו של קילו-הרץ עד מאות קילו-הרץ הוא אופייני. לפי (12), 10 kHz נותנים 30 km. [[ודאות: בינונית]]\n- **מכ\"מי מזג אוויר דו-קיטוביים:** מכ\"מים שמשדרים ומקבלים בשני קיטובים ניצבים כדי להבדיל סוגי משקעים. [[ודאות: בינונית]]\n- **ניווט לוויני:** האות מוצא בקיטוב מעגלי ימני, בשביל להפחית ריבוי נתיבים ולהימנע מתלות בכיוון המקלט. [[ודאות: גבוהה]]\n- **לאן זה הולך:** מקורות צרי קו יותר, כולל לייזרים על שבב, שיגדילו את אורך הקוהרנטיות בלי להגדיל את הנפח. [[ודאות: נמוכה]]\n- **הפרמטר שקובע את הגבול:** רוחב הקו $\\Delta f$ של המתנד (שמגדיר את $l_t=c/\\Delta f$) והזווית $\\theta$ של המקור (שמגדירה את $l_s<\\lambda/\\theta$).\n```\n\n```coverage\n- 1.3.2 Intensity ← חלק 1, \"עוצמה: כמה הספק עובר דרך מטר רבוע\" (נוסחה (1), איור 1-7)\n- 1.3.3 Polarization ← חלק 2, \"קיטוב: לאן מצביע השדה\" (איור 1-8, הקיטוב האקראי מ-B03:89)\n- Propagation of Waves / Basic Phenomena (B10 פרק 2) ← חלק 1, \"גל מישורי: מתי מותר להפוך כדור למישור\" (איורים 2-1, 2-2, 2-3) ועם הקריטריון $2D^2/\\lambda$\n- 4.2 Coherence (B03) ← חלקים 3 ו-4: התאבכות, מתאם, נראות (איורים 4.4), קוהרנטיות בזמן ובמרחב (איורים 4.5, 4.6, 4.7); דוגמה 4.1 וטבלה 4.1 מחושבות מחדש\n- לא נלמד כאן, ומשויך לשיעור אחר: 4.3 (עקיפת פרנל ופראונהופר מפתח) וההמשך שלו; קוסינוסי הכיוון (4.7–4.9) נלמדו רק במידה הדרושה לפאזה לאורך הפתח\n- יחידות: 60 מתוכננות (מקור 30, סמכות 30), 60 נכתבו\n```",
+  "title": "עוצמה, קיטוב, התאבכות וקוהרנטיות: גל כדורי וגל מישורי",
+  "v": 1,
+  "verify": {
+    "depth": {
+      "l25Missing": [
+        "R1: סדר גודל (לא מתויג; התוכן ב-U10 קיים, תוקן בעריכה)"
+      ],
+      "results": 2,
+      "units": 60,
+      "words": 4252
+    },
+    "facts": {
+      "checked": 160,
+      "fixed": 7
+    },
+    "notes": [
+      "שלושת בלוקי ה-erratum מציגים כשגיאת סריקה דבר שהוא אובדן תווים בחילוץ הטקסט; הדפים המודפסים תקינים (בדקתי מול התמונות). עודכן הניסוח; אפשר גם להסיר את הבלוקים.",
+      "בלוק erratum של B02 ציין עמוד 47 למשפט הקיטוב האליפטי; הוא בעמוד 48. תוקן, וכן תגית המקור בסוף U21.",
+      "לתוצאה הראשונה (עוצמה ושדה רחוק) חסר תג [[2.5: סדר גודל]]; הפסקה U10 מכסה אותו וקיבלה את התג.",
+      "1.87501 mm צ\"ל 1.87499 mm; 50 אלף צ\"ל כ-56 אלף; 46 dBi צריך להיות 46.4 dBi כדי לקבל 8,900; 0.986 צ\"ל 0.99.",
+      "עמודת Δf/f בטבלת הקוהרנטיות תוצג כ-0 בגלל 6 ספרות אחרי הנקודה; הומרה ל-ppb.",
+      "בלוק fieldmap של ew ציין 'מפריע'; הוחלף בניסוח אנליטי לפי רגישות הסירוב.",
+      "בנוי כהלכה: 3 think (עד 6), 3 predict, errorhunt, verify, lab, 7 בלוקי domain, 3 fieldmap, coverage ו-keep אחרון; 60 סמני U ללא כפילות; כל 7 התגיות מופיעות; כל חישוב אחר חזר נכון בפייתון."
+    ],
+    "refusalSafe": true,
+    "sources": {
+      "checked": 24,
+      "unsupported": 1
+    },
+    "verdict": "pass-with-notes"
+  },
+  "words": 9391
+}

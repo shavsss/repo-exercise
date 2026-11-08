@@ -1,0 +1,219 @@
+// Test double for the claude.ai runtime: in-memory db, fixed user, scripted sample.
+(function () {
+  const docs = new Map(JSON.parse(localStorage.getItem("stubdb") || "[]")); // path -> data, survives reloads
+  const subs = new Set();
+  const notify = () => { localStorage.setItem("stubdb", JSON.stringify([...docs])); subs.forEach((f) => f()); };
+  let n = 0;
+  const snap = (path) => ({ id: path.split("/").pop(), exists: docs.has(path), data: () => docs.get(path) });
+  function coll(path, order) {
+    const q = {
+      orderBy: (f, dir) => coll(path, { f, dir }),
+      limit: () => q,
+      async get() { return query(); },
+      onSnapshot(next) { const f = () => next(query()); subs.add(f); setTimeout(f, 0); return () => subs.delete(f); },
+      doc: (id) => docRef(path + "/" + (id || "d" + (++n) + Math.random().toString(36).slice(2, 6))),
+    };
+    function query() {
+      let list = [...docs.keys()].filter((k) => k.startsWith(path + "/") && k.slice(path.length + 1).split("/").length === 1).map(snap);
+      if (order) list.sort((a, b) => (a.data()[order.f] > b.data()[order.f] ? 1 : -1) * (order.dir === "desc" ? -1 : 1));
+      return { docs: list };
+    }
+    return q;
+  }
+  function docRef(path) {
+    return {
+      id: path.split("/").pop(),
+      async get() { return snap(path); },
+      async set(d) { docs.set(path, JSON.parse(JSON.stringify(d))); notify(); },
+      async update(d) { if (!docs.has(path)) throw { code: "invalid_argument" }; docs.set(path, { ...docs.get(path), ...JSON.parse(JSON.stringify(d)) }); notify(); },
+      async delete() { docs.delete(path); notify(); },
+      onSnapshot(next) { const f = () => next(snap(path)); subs.add(f); setTimeout(f, 0); return () => subs.delete(f); },
+      collection: (p) => coll(path + "/" + p),
+    };
+  }
+  const db = { doc: docRef, collection: (p) => coll(p) };
+  const user = { id: async () => "u_test" };
+  async function sample(input, opts) {
+    opts = opts || {};
+    // the lesson's check against its sources (src/lessonAudit.ts): one finding the first round, a pass the second
+    const flat = typeof input === "string" ? input : Array.isArray(input) ? input.map((m) => (typeof m.content === "string" ? m.content : "")).join("\n") : "";
+    if (flat.includes("<lesson_audit")) {
+      window.__log = window.__log || [];
+      window.__log.push("audit:" + (/round="(\d)"/.exec(flat)?.[1] ?? "1"));
+      await new Promise((r) => setTimeout(r, 300));
+      const first = /round="1"/.test(flat);
+      return { text: JSON.stringify(first ? { missing: [{ topic: "חום בעיבוי", source: "F1:17", why: "חצי מהמאזן", after: "" }], keep: { exists: false, missing: ["חום בעיבוי"] }, must_core: ["חום בעיבוי"], verdict: "fix" } : { missing: [], keep: { exists: true, missing: [] }, must_core: ["חום בעיבוי"], verdict: "pass" }), truncated: false, modelApplied: opts.model };
+    }
+    if (flat.includes("<lesson_repair")) {
+      window.__log = window.__log || [];
+      window.__log.push("repair:" + (/mode="(\w+)"/.exec(flat)?.[1] ?? ""));
+      await new Promise((r) => setTimeout(r, 300));
+      const sup = /mode="supplement"/.test(flat);
+      return { text: (sup ? "<<<SUPPLEMENT>>>\n## השלמה לשיעור\n### חום בעיבוי\nמשלים את «אידוי»: מולקולה שחוזרת לנוזל משחררת את האנרגיה שלקחה, ולכן עיבוי מחמם.\n<<<END>>>\n" : "") + "<<<KEEP>>>\n- חום בעיבוי: עיבוי מחמם, אידוי מקרר\n<<<END>>>", truncated: false, modelApplied: opts.model };
+    }
+    window.__log = window.__log || [];
+    if (typeof input === "string" && input.includes("<level>")) {
+      // a consultation card: a short answer by level, with the "more" chips
+      window.__log.push("consult:" + opts.model);
+      window.__consultInput = input;
+      const lvl = /<level>רמה (\d)/.exec(input)?.[1] ?? "1";
+      const t = lvl === "0" ? "כי כל ספרה מ-$\\{-2,\\dots,2\\}$ נושאת שני ביטים." : "כי כל ספרה מ-$\\{-2,\\dots,2\\}$ נושאת שני ביטים, ולכן המספר כולו מוכפל.\n\nהצעד הראשון: כותבים את הספרה כסכום של שתי ספרות בינאריות. הצעד השני: סוכמים.\n\n<<עוד: למה דווקא שני ביטים | מה קורה בבסיס 3>>";
+      let shown = "";
+      for (const part of t.match(/[\s\S]{1,30}/g)) { shown += part; opts.onText && opts.onText({ text: shown, delta: part }); await new Promise((r) => setTimeout(r, 15)); }
+      return { text: t, truncated: false, modelTierApplied: opts.modelTier, modelApplied: opts.model };
+    }
+    if (typeof input === "string" && input.includes("<question>")) {
+      window.__log.push("explain:" + opts.model);
+      window.__explainInput = input;
+      const t = "**מושגים:** ביט: ספרה בינארית, 0 או 1.\n\n**הרעיון בפשטות:** כל ספרה מ-$\\{-2,\\dots,2\\}$ שווה שני ביטים.\n\n**דוגמה קטנה:** $7/2 = 3.5$.";
+      opts.onText && opts.onText({ text: t, delta: t });
+      return { text: t, truncated: false, modelTierApplied: "quick", modelApplied: opts.model };
+    }
+    if (typeof input === "string" && input.includes("<answer>")) {
+      // "נסח לי שאלה" on a review card (src/review/Review.tsx)
+      window.__log.push("ask:" + opts.modelTier);
+      return { text: "מה קובע את הטווח המרבי, ולמה הוא גדל רק כשורש רביעי של ההספק?", truncated: false, modelTierApplied: "quick" };
+    }
+    if (typeof input === "string" && input.includes("<lesson_headings>")) {
+      // the lesson map (src/guide.ts): one entry per heading, by position: core, preview, core, example, core…
+      window.__log.push("guide:" + opts.model);
+      window.__guideInput = input;
+      const heads = [...input.split("<lesson_headings>")[1].split("</lesson_headings>")[0].matchAll(/^\d+\. \[h[23]\] (.+)$/gm)].map((m) => m[1]);
+      const cur = /<lesson module="([^"]+)"/.exec(input)?.[1];
+      const ids = [...input.split("<course_modules>")[1].matchAll(/^(\S+) /gm)].map((m) => m[1]);
+      const later = ids.slice(ids.indexOf(cur) + 1);
+      const pre = ids.includes("M5.3") && "M5.3" !== cur ? "M5.3" : later[Math.min(8, later.length - 1)];
+      const ex = later[Math.min(14, later.length - 1)];
+      const kinds = ["core", "preview", "core", "example"];
+      const sections = heads.map((head, i) => {
+        const kind = kinds[i % 4] ?? "core";
+        return { head, kind, ...(kind === "preview" ? { module: pre, note: "רק הרעיון; ההגדרה המלאה במודול שלו" } : kind === "example" ? { module: ex, note: "המחשה מהשטח, בלי להעתיק נוסחאות" } : { note: "הנושא של השיעור" }) };
+      });
+      await new Promise((r) => setTimeout(r, 200));
+      return { text: JSON.stringify({ sections, copy: ["ההגדרה של הגודל המרכזי, במילים ובנוסחה", "הנוסחה המרכזית ותנאי התוקף שלה", "סדר הגודל שכדאי לזכור"] }), truncated: false, modelTierApplied: opts.modelTier, modelApplied: opts.model };
+    }
+    if (typeof input === "string") { window.__log.push("memory"); return { text: "# זיכרון הקורס\n\n## מה נלמד\n- שיעור בדיקה (מעודכן)", truncated: false, modelTierApplied: "default" }; }
+    const last = input[input.length - 1].content;
+    const m = /WRITING STEP: part (\d+) of (\d+)/.exec(last);
+    window.__log.push(m ? "part" + m[1] : /MODULE QUIZ/.test(last) ? "quiz" : "other");
+    window.__lastInput = input;
+    const tools = opts.tools || [];
+    const call = (name, args) => tools.find((x) => x.name === name).execute(args, { signal: new AbortController().signal });
+    let text;
+    if (m) {
+      const k = +m[1], n = +m[2];
+      if (k === 2 && !last.includes("cut off")) {
+        const t = "## חלק 2\n\nתחילת חלק שני שנקטע";
+        opts.onText && opts.onText({ text: t, delta: t });
+        return { text: t, truncated: true, modelTierApplied: "complex", modelApplied: "claude-opus-5-5" };
+      }
+      // the last part first stops mid-sentence without `truncated` (truncation.ts finds it), then is continued
+      if (k === n && !last.includes("cut off")) {
+        const t = "## חלק " + k + "\n\nסוף השיעור מתחיל כאן ונעצר באמצע";
+        opts.onText && opts.onText({ text: t, delta: t });
+        if (!window.__fast) await new Promise((r) => setTimeout(r, 4000));
+        return { text: t, truncated: false, modelTierApplied: "complex", modelApplied: "claude-opus-5-5" };
+      }
+      text = k === 2 ? " והמשך חלק שני." : k === 1 ? window.__answer : "המשפט.\n\nסוף השיעור.\n\n```coverage\n- כל הסעיפים נלמדו\n```";
+      if (k === 1) await call("read_source_pages", { doc: window.__doc, from: 1, to: 2 });
+      if (k === 1 && tools.some((x) => x.name === "save_lesson_note")) await call("save_lesson_note", { kind: "article", text: "רעיון למאמר לבדיקה: איך המורה שומר נקודה." });
+    } else if (/התשובות שלי/.test(last)) text = "בדיקה מלאה. [[ציון: 85/100]]";
+    // the module quiz: a ```quiz block, the form of QuizForm.tsx (window.__quizText for another one)
+    else if (/MODULE QUIZ/.test(last)) text = window.__quizText || [
+      "המבחן המסכם של המודול: שמונה שאלות על כל השיעורים, בערך 40 דקות. ענו בטופס, ושאלה שאתם לא בטוחים בה סמנו בכל זאת.",
+      "",
+      "```quiz",
+      "## 1 | mc",
+      "מערכת מכפילה את הספק השידור $P_t$ ושאר הגדלים לא משתנים. פי כמה גדל הטווח המרבי לפי משוואת המכ\"ם?",
+      "- א) פי 2",
+      "- ב) פי $\\sqrt{2} \\approx 1.41$",
+      "- ג) פי $2^{1/4} \\approx 1.19$",
+      "- ד) הטווח לא משתנה, כי הרעש גדל באותו יחס",
+      "## 2 | short",
+      "נכון או לא נכון, עם נימוק בשורה אחת: הנחתה של גל בגשם כמעט לא תלויה בתדר.",
+      "## 3 | mc",
+      "קבוע הזמן של מעגל $RC$ עם $R = 10\\,\\text{k}\\Omega$ ו-$C = 100\\,\\text{nF}$ הוא:",
+      "- א) $1\\,\\text{ms}$",
+      "- ב) $10\\,\\text{ms}$",
+      "- ג) $0.1\\,\\text{ms}$",
+      "- ד) $100\\,\\text{ms}$",
+      "## 4 | short",
+      "מהו אורך הגל של אות בתדר $f = 10\\,\\text{GHz}$ באוויר? מספר עם יחידות.",
+      "## 5 | mc",
+      "איזו מהטענות על רוחב סרט הרעש $B$ במקלט נכונה?",
+      "- א) הקטנת $B$ מגדילה את הרעש התרמי $kTB$",
+      "- ב) הקטנת $B$ מקטינה את הרעש, אבל מגבילה את הרזולוציה בטווח",
+      "- ג) $B$ לא משפיע על יחס אות לרעש",
+      "- ד) רוחב הסרט קובע את תדר הנושא",
+      "## 6 | short",
+      "הסבירו בשני משפטים למה ההספק המוחזר דועך כמו $1/R^4$ ולא כמו $1/R^2$.",
+      "## 7 | problem",
+      "מכ\"ם עם $P_t = 1\\,\\text{kW}$, $G = 30\\,\\text{dB}$, $\\lambda = 3\\,\\text{cm}$ ורגישות מקלט $S_{min} = 10^{-13}\\,\\text{W}$.",
+      "",
+      "$$R_{max} = \\left(\\frac{P_t G^2 \\lambda^2 \\sigma}{(4\\pi)^3 S_{min}}\\right)^{1/4}$$",
+      "",
+      "חשבו את הטווח המרבי למטרה עם $\\sigma = 1\\,\\text{m}^2$, והראו את סדר הגודל לפני החישוב המדויק.",
+      "## 8 | problem",
+      "מסנן מעביר נמוכים מסדר ראשון עם תדר חיתוך $f_c = 1\\,\\text{kHz}$. מה ההנחתה ב-dB בתדר $10\\,\\text{kHz}$, ומה הפאזה שם? הסבירו כל צעד.",
+      "```",
+    ].join("\n");
+    else text = "תשובה רגילה.";
+    let shown = "";
+    // window.__streamPiece / __streamDelay: a slower stream, for reading a lesson while it is written (book.mjs)
+    const piece = new RegExp("[\\s\\S]{1," + (window.__streamPiece || 400) + "}", "g");
+    for (const part of text.match(piece)) { shown += part; opts.onText && opts.onText({ text: shown, delta: part }); await new Promise((r) => setTimeout(r, window.__streamDelay || 20)); }
+    return { text, truncated: false, modelTierApplied: "complex", modelApplied: "claude-opus-5-5" };
+  }
+  sample.json = async (input, opts) => {
+    window.__log = window.__log || [];
+    const last = input[input.length - 1].content;
+    const tools = opts.tools || [];
+    if (/MODULE PLANNING STEP/.test(last)) {
+      window.__log.push("module-plan");
+      await new Promise((r) => setTimeout(r, 300));
+      return window.__lessons;
+    }
+    window.__log.push("plan");
+    await tools.find((x) => x.name === "compute").execute({ script: "R = 50\n10*log10(R)" }, {});
+    // a plan in the depth-rules schema that passes the app's plan check (no repair call)
+    const units = ["ASM", "QNT", "PRX", "CRT"].map((type, i) => ({ id: "U" + (i + 1), r: "R1", type, tier: "key", src: "auth", part: 1, text: "יחידה " + (i + 1), q: "שאלת בחינה " + (i + 1) }));
+    const l25 = ["מבנה", "מקור", "גבולות", "סדר גודל", "פשרה", "מבנה משותף", "משמעות מבצעית", "ביקורת"];
+    return { title: "שיעור", results: [{ id: "R1", text: "תוצאה", thread: "שאלת החוט" }], units, parts: [{ title: "א", covers: "x", units: units.map((u) => u.id), blocks: ["think:U2", "predict", "verify", "errorhunt"], l25, estimate: 120 }, { title: "ב", covers: "y", estimate: 0 }, { title: "ג", covers: "z", blocks: ["lab", "decide"], estimate: 0 }], facts: ["2"] };
+  };
+  sample.limits = async () => ({ maxPromptBytes: 262144, images: { maxCount: 5 }, tools: { maxCount: 16 } });
+  window.__db = docs;
+  // Asset-store bundles: their URLs (index.json "assets") and lib/ paths are served from the harness's assets/.
+  const realFetch = window.fetch.bind(window);
+  let assetNames = null;
+  window.fetch = async (url, opts) => {
+    if (typeof url === "string" && url.startsWith("/_blob/")) {
+      assetNames ??= realFetch("lib/index.json").then((r) => r.json()).then((ix) => Object.fromEntries(Object.entries(ix.assets ?? {}).map(([k, v]) => [v, k])));
+      const name = (await assetNames)[url];
+      if (name) return realFetch(`assets/${name}`, opts);
+    }
+    const res = await realFetch(url, opts);
+    if (!res.ok && typeof url === "string" && url.startsWith("lib/")) return realFetch(`assets/${url.slice(4)}`, opts);
+    return res;
+  };
+  const downloads = { save: async ({ filename, data }) => { window.__saved = { filename, size: data.length ?? data.byteLength }; (window.__savedAll ??= []).push({ filename, data }); return { status: "saved" }; } };
+  // ?seed in the address: sample documents for the tabs beside the lessons (tools/test/samples/), added once
+  function seed() {
+    if (seed.done) return;
+    seed.done = true;
+    // ?review: a lesson read two days ago, a missed think question and a margin note (make-harness.mjs reviewDocs)
+    if (/[?&]review\b/.test(location.search))
+      for (const [rel, doc] of Object.entries(window.__seedReview || {})) {
+        const p = "data/users/u_test/profile/" + rel;
+        if (!docs.has(p)) docs.set(p, JSON.parse(JSON.stringify(doc).replace(/"__AGO(\d+)__"/g, (_, d) => String(Date.now() - d * 86400000))));
+      }
+    if (!/[?&]seed\b/.test(location.search)) return localStorage.setItem("stubdb", JSON.stringify([...docs]));
+    const now = new Date();
+    const month = now.getFullYear() + "-" + String(now.getMonth() + 1).padStart(2, "0");
+    for (const [rel, doc] of Object.entries(window.__seed || {})) {
+      const p = "data/users/u_test/profile/" + rel.replace("__MONTH__", month);
+      if (!docs.has(p)) docs.set(p, JSON.parse(JSON.stringify(doc).replace(/__MONTH__/g, month)));
+    }
+    localStorage.setItem("stubdb", JSON.stringify([...docs]));
+  }
+  window.claude = { use: async (name) => (seed(), { sample, db, user, downloads }[name] ?? null) };
+})();

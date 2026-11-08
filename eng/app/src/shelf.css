@@ -1,0 +1,82 @@
+/* "שיעור מוכן מהמדף" (components/ShelfOffer.tsx). Identical in both labs. */
+.shelf-offer {
+  max-width: var(--measure);
+  margin: 4px 0 22px;
+  padding: 16px 18px;
+  border: 1px solid var(--line-strong);
+  border-inline-start: 4px solid var(--ok);
+  border-radius: 10px;
+  background: var(--sheet);
+  box-shadow: var(--shadow);
+}
+.shelf-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+.shelf-head h2 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+.shelf-tag {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 999px;
+  color: var(--on-accent);
+  background: var(--ok);
+}
+.shelf-offer p {
+  margin: 6px 0;
+  line-height: 1.6;
+}
+.shelf-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin: 8px 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}
+.shelf-facts li::before {
+  content: "· ";
+  color: var(--ok);
+}
+.shelf-notes {
+  margin: 6px 0 10px;
+  font-size: 0.9rem;
+}
+.shelf-notes summary {
+  cursor: pointer;
+  color: var(--ink-soft);
+}
+.shelf-notes ul {
+  margin: 6px 0 0;
+  padding-inline-start: 20px;
+}
+.shelf-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+  margin-top: 10px;
+}
+.shelf-actions .muted {
+  font-size: 0.85rem;
+}
+.shelf-retry {
+  color: var(--warn);
+  font-size: 0.9rem;
+}
+@media (max-width: 600px) {
+  .shelf-offer {
+    padding: 14px;
+  }
+  .shelf-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

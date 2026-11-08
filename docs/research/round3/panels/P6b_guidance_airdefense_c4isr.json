@@ -1,0 +1,3523 @@
+{
+ "panel": "P6b_guidance_airdefense_c4isr",
+ "domains": [
+  "MIL · Missiles: propulsion, guidance, control and design",
+  "MIL · Air and missile defense",
+  "MIL · C4ISR, kill chains and targeting"
+ ],
+ "subtopics": [
+  {
+   "id": "M:MSL.1.1",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "topic": "Missile systems overview",
+   "name": "Missile classes (SAM, AAM, ASM, ASCM, LACM, BM, HGV) and mission requirements",
+   "importance": "S",
+   "importance_mg": "S",
+   "status": "full",
+   "status_mg": "partial",
+   "where": [
+    {
+     "module": "M6.1",
+     "doc": "B06",
+     "section": "Ch.1 Introduction (history, tactical/strategic classes)",
+     "pages": "16-27",
+     "role": "main"
+    },
+    {
+     "module": "M6.11",
+     "doc": "B06",
+     "section": "App. E Missile classification; App. F past/present systems incl. PGM",
+     "pages": "626-658",
+     "role": "ref-tier"
+    },
+    {
+     "module": "NEW M6.12 (proposed)",
+     "doc": "B13",
+     "section": "1.1 Tactical missile characteristics, 1.3 SOTA examples",
+     "pages": "19-24",
+     "role": "proposed-main"
+    }
+   ],
+   "missing_items": "",
+   "host_for_gap": "M6.1",
+   "reason": "Taxonomy is fan-out vocabulary; Siouris covers it. Test-out candidate.",
+   "test_out": true,
+   "test_out_mg": true
+  },
+  {
+   "id": "M:MSL.1.2",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "topic": "Missile systems overview",
+   "name": "Design drivers and measures of merit (range, speed, Pk, cost, weight, signature)",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "missing (in library, not in syllabus)",
+   "status_mg": "missing",
+   "where": [
+    {
+     "module": "M7.3",
+     "doc": "B07",
+     "section": "6.5 Missile subsystem preliminary design (interceptor flow-down only)",
+     "pages": "128-160",
+     "role": "main"
+    },
+    {
+     "module": "NEW M6.12 (proposed)",
+     "doc": "B13",
+     "section": "Ch.1 Key drivers; 6.1 Robustness; 6.4-6.8 observables, survivability, reliability, cost, launch platform; 9.4 high-payoff MoMs",
+     "pages": "19-34,147-160,182-202,252",
+     "role": "proposed-main"
+    }
+   ],
+   "missing_items": "Measures of merit and how range/speed/Pk/cost/weight/signature trade; MG wrongly saw no source: Boord-Hoffman 6.5 gives the interceptor-only version.",
+   "host_for_gap": "NEW M6.12 (Fleeman), prereq M6.2, M6.4",
+   "reason": "The core of judging any missile claim; best source sits unused.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:MSL.1.3",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "topic": "Missile systems overview",
+   "name": "Missile sizing rules of thumb",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "missing (in library, not in syllabus)",
+   "status_mg": "missing",
+   "where": [
+    {
+     "module": "M7.3",
+     "doc": "B07",
+     "section": "6.5.3-6.5.7 airframe, configuration, mass, aeroprediction, propulsion design",
+     "pages": "145-158",
+     "role": "main"
+    },
+    {
+     "module": "NEW M6.12 (proposed)",
+     "doc": "B13",
+     "section": "Ch.2 diameter/fineness/wing/tail sizing; Ch.4 weight prediction; Ch.7 sizing examples",
+     "pages": "35-76,107-114,203-236",
+     "role": "proposed-main"
+    }
+   ],
+   "missing_items": "Fleeman sizing rules: diameter vs range/drag, L/D, weight fractions, propellant fraction vs range, wing sizing for maneuverability, Breguet for ramjets; spreadsheet-level sizing.",
+   "host_for_gap": "NEW M6.12",
+   "reason": "Orders-of-magnitude for missiles; enables article-grade sanity checks.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:MSL.1.4",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "topic": "Missile systems overview",
+   "name": "Cost of missiles: unit cost drivers, production rate effects",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "partial",
+   "status_mg": "missing",
+   "where": [
+    {
+     "module": "NEW M6.12 (proposed)",
+     "doc": "B13",
+     "section": "6.7 Cost (unit cost vs weight, learning curve, production rate)",
+     "pages": "186-193",
+     "role": "proposed-main"
+    },
+    {
+     "module": "M7.1",
+     "doc": "B07",
+     "section": "4.3 cost-effective definition (mischaracterized cost ratio)",
+     "pages": "54-55",
+     "role": "main"
+    }
+   ],
+   "missing_items": "Unit cost drivers, learning-curve and production-rate effects; cost vs weight regression; current unit prices (PAC-3, SM-6, Tamir, Shahed) from open budget docs (P-1/P-40 exhibits).",
+   "host_for_gap": "NEW M6.12 + acquisition/cost domain",
+   "reason": "Cost-exchange arguments depend on it.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:MSL.2.1",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "topic": "Propulsion",
+   "name": "Rocket equation, specific impulse, mass fraction",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "full",
+   "status_mg": "full",
+   "where": [
+    {
+     "module": "M7.3",
+     "doc": "B07",
+     "section": "6.5.7 Propulsion design: Isp, mass ratio",
+     "pages": "154-158",
+     "role": "main"
+    },
+    {
+     "module": "M13.12",
+     "doc": "B12",
+     "section": "Ch.26 launch mechanics (SMAD ch.18 missing)",
+     "pages": "842-873",
+     "role": "main"
+    },
+    {
+     "module": "NEW M6.12 (proposed)",
+     "doc": "B13",
+     "section": "3.11 Rocket motor performance",
+     "pages": "95-96",
+     "role": "proposed-main"
+    }
+   ],
+   "missing_items": "",
+   "host_for_gap": "M7.3 / Gilua E11 9.10",
+   "reason": "Central; Gilua E11 teaches derivation, Lanchester the operational delta.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:MSL.2.2",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "topic": "Propulsion",
+   "name": "Solid vs liquid motors; boost-sustain; pulse motors",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "partial",
+   "status_mg": "partial",
+   "where": [
+    {
+     "module": "M7.3",
+     "doc": "B07",
+     "section": "6.5.7 SRM vs air-breathing for interceptors",
+     "pages": "154-158",
+     "role": "main"
+    },
+    {
+     "module": "M7.6",
+     "doc": "A07.2",
+     "section": "APS BPI: solid vs liquid ICBM burn times",
+     "pages": "whole article",
+     "role": "article"
+    },
+    {
+     "module": "NEW M6.12 (proposed)",
+     "doc": "B13",
+     "section": "3.1 propulsion alternatives; 3.11-3.16 motor performance, grain, thrust control, propellant, case, nozzle",
+     "pages": "77-82,95-106",
+     "role": "proposed-main"
+    }
+   ],
+   "missing_items": "Boost-sustain and pulse motors, grain geometry -> thrust profile, burn time vs boost-phase vulnerability. Fleeman ch.3 covers all.",
+   "host_for_gap": "NEW M6.12",
+   "reason": "Fan-out to BPI, launcher survivability, production.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:MSL.2.3",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "topic": "Propulsion",
+   "name": "Air-breathing: turbojet/turbofan, ramjet, scramjet",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "partial",
+   "status_mg": "partial",
+   "where": [
+    {
+     "module": "M6.2",
+     "doc": "B06",
+     "section": "3.3 ramjet/scramjet mention in system design",
+     "pages": "100-104,165-166",
+     "role": "main"
+    },
+    {
+     "module": "Gilua",
+     "doc": "E11",
+     "section": "9.7 Ramjet Engine",
+     "pages": "—",
+     "role": "eng"
+    },
+    {
+     "module": "NEW M6.12 (proposed)",
+     "doc": "B13",
+     "section": "3.2-3.10 ramjet Mach/temperature limit, Isp, thrust, booster integration, inlets, fuels",
+     "pages": "82-95",
+     "role": "proposed-main"
+    }
+   ],
+   "missing_items": "Ramjet Isp vs Mach curve, temperature limit, inlet options; scramjet limits; compare with turbojet for cruise missiles.",
+   "host_for_gap": "NEW M6.12 (operational delta), Gilua for physics",
+   "reason": "Meteor/BrahMos/Zircon arguments.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:MSL.2.4",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "topic": "Propulsion",
+   "name": "Energy management and no-escape zone dependence on altitude",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "partial",
+   "status_mg": "missing",
+   "where": [
+    {
+     "module": "M7.3",
+     "doc": "B07",
+     "section": "6.5.3 exo end game energy management (1 line)",
+     "pages": "145",
+     "role": "main"
+    },
+    {
+     "module": "M6.7",
+     "doc": "B06",
+     "section": "5.16 Missile launch envelope",
+     "pages": "368-374",
+     "role": "main"
+    },
+    {
+     "module": "NEW M6.12 (proposed)",
+     "doc": "B13",
+     "section": "5.1 flight performance envelope, 5.6 trajectory shaping, 5.9-5.10 coast/boost flight",
+     "pages": "133-146",
+     "role": "proposed-main"
+    }
+   ],
+   "missing_items": "NEZ/Rmax/Rne vs launch altitude and speed; coast velocity decay; loft trajectory; why AAM range claims depend on geometry.",
+   "host_for_gap": "M6.7 + NEW M6.12",
+   "reason": "Judging BVR range claims.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:MSL.2.5",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "topic": "Propulsion",
+   "name": "Solid rocket motor industrial base (energetics bottleneck)",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "missing",
+   "status_mg": "missing",
+   "where": [],
+   "missing_items": "SRM industrial base: energetics suppliers, ammonium perchlorate, single-source bottleneck, surge timelines (open GAO/CSIS reports).",
+   "host_for_gap": "acquisition/industrial-base domain (out of books); cross-link from M6.12",
+   "reason": "Determines wartime magazine depth; not in any book.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:MSL.3.1",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "topic": "Aerodynamics and flight mechanics",
+   "name": "Lift, drag, Mach regimes; max g vs altitude",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "full",
+   "status_mg": "full",
+   "where": [
+    {
+     "module": "M6.2",
+     "doc": "B06",
+     "section": "3.1-3.3 aerodynamic forces, moments, airframe criteria",
+     "pages": "68-113",
+     "role": "main"
+    },
+    {
+     "module": "M6.2",
+     "doc": "B09",
+     "section": "Ch.3 basic aerodynamics",
+     "pages": "81-102",
+     "role": "supp"
+    },
+    {
+     "module": "NEW M6.12 (proposed)",
+     "doc": "B13",
+     "section": "2.6-2.11 normal force, drag, maneuver alternatives",
+     "pages": "48-66",
+     "role": "proposed-main"
+    }
+   ],
+   "missing_items": "max-g vs altitude emphasized only in Fleeman 5.7-5.8 (turn radius/rate)",
+   "host_for_gap": "M6.2",
+   "reason": "Core.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:MSL.3.2",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "topic": "Aerodynamics and flight mechanics",
+   "name": "Rigid-body equations of motion, frames",
+   "importance": "S",
+   "importance_mg": "S",
+   "status": "full",
+   "status_mg": "full",
+   "where": [
+    {
+     "module": "M6.1",
+     "doc": "B06",
+     "section": "Ch.2 rigid-body EOM, frames, Lagrange",
+     "pages": "30-67",
+     "role": "main"
+    }
+   ],
+   "missing_items": "",
+   "host_for_gap": "M6.1",
+   "reason": "Taught in Gilua too; Lanchester delta only.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:MSL.3.3",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "topic": "Aerodynamics and flight mechanics",
+   "name": "Stability and control surfaces, thrust vector control",
+   "importance": "S",
+   "importance_mg": "S",
+   "status": "full",
+   "status_mg": "full",
+   "where": [
+    {
+     "module": "M6.2",
+     "doc": "B06",
+     "section": "3.2.1 airframe characteristics; 3.5.1 control surfaces/actuators",
+     "pages": "92-99,159-167",
+     "role": "main"
+    },
+    {
+     "module": "M7.3",
+     "doc": "B07",
+     "section": "6.5.9 attitude response, TVC",
+     "pages": "159-191",
+     "role": "main"
+    },
+    {
+     "module": "M6.2",
+     "doc": "B09",
+     "section": "Ch.5 stability and control",
+     "pages": "121-140",
+     "role": "supp"
+    }
+   ],
+   "missing_items": "",
+   "host_for_gap": "M6.2",
+   "reason": "",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:MSL.3.4",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "topic": "Aerodynamics and flight mechanics",
+   "name": "Aerothermal heating at high Mach",
+   "importance": "K",
+   "importance_mg": "S",
+   "status": "partial",
+   "status_mg": "missing",
+   "where": [
+    {
+     "module": "M6.8",
+     "doc": "B06",
+     "section": "6.7 Atmospheric reentry heating",
+     "pages": "497-504",
+     "role": "main"
+    },
+    {
+     "module": "M6.9",
+     "doc": "A06.2",
+     "section": "Acton HGV heating",
+     "pages": "21-24",
+     "role": "article"
+    },
+    {
+     "module": "NEW M6.12 (proposed)",
+     "doc": "B13",
+     "section": "4.9-4.15 aero heating prediction, insulation, seeker dome, thermal stress, local heating",
+     "pages": "119-131",
+     "role": "proposed-main"
+    }
+   ],
+   "missing_items": "Stagnation temperature ~ T(1+0.2M^2); dome/radome heating limits for interceptors and hypersonic cruise; heat load vs flight time.",
+   "host_for_gap": "NEW M6.12",
+   "reason": "Raised S->K: central to hypersonic debates.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:MSL.4.1",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "topic": "Guidance laws",
+   "name": "Guidance phases: launch, midcourse, terminal; handover",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "full",
+   "status_mg": "full",
+   "where": [
+    {
+     "module": "M6.3",
+     "doc": "B06",
+     "section": "4.1-4.2",
+     "pages": "170-188",
+     "role": "main"
+    },
+    {
+     "module": "M6.3",
+     "doc": "B10",
+     "section": "Ch.19",
+     "pages": "235-242",
+     "role": "main"
+    },
+    {
+     "module": "M7.2",
+     "doc": "B07",
+     "section": "5.4.1.1-5.4.1.4 midcourse, handover, pointing error",
+     "pages": "82-95",
+     "role": "main"
+    }
+   ],
+   "missing_items": "",
+   "host_for_gap": "M6.3",
+   "reason": "",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:MSL.4.2",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "topic": "Guidance laws",
+   "name": "Proportional navigation, navigation constant, zero-effort miss",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "full",
+   "status_mg": "full",
+   "where": [
+    {
+     "module": "M6.4",
+     "doc": "B06",
+     "section": "4.3-4.7 PN, APN, 3D PN",
+     "pages": "189-249",
+     "role": "main"
+    }
+   ],
+   "missing_items": "",
+   "host_for_gap": "M6.4",
+   "reason": "Strong match, verified.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:MSL.4.3",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "topic": "Guidance laws",
+   "name": "Acceleration requirement vs target maneuver (3:1 rule)",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "full",
+   "status_mg": "missing",
+   "where": [
+    {
+     "module": "M7.3",
+     "doc": "B07",
+     "section": "6.5.3 airframe requirements: 3:1 maneuver advantage rule",
+     "pages": "145",
+     "role": "main"
+    },
+    {
+     "module": "M6.4",
+     "doc": "B06",
+     "section": "PN with target maneuver",
+     "pages": "209-247",
+     "role": "main"
+    }
+   ],
+   "missing_items": "MG missed it (rule stated explicitly in B07).",
+   "host_for_gap": "M7.3",
+   "reason": "Classic critique tool.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:MSL.4.4",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "topic": "Guidance laws",
+   "name": "Augmented PN and optimal guidance",
+   "importance": "S",
+   "importance_mg": "S",
+   "status": "full",
+   "status_mg": "full",
+   "where": [
+    {
+     "module": "M6.4",
+     "doc": "B06",
+     "section": "4.6 APN",
+     "pages": "240-242",
+     "role": "main"
+    },
+    {
+     "module": "M6.5",
+     "doc": "B06",
+     "section": "4.8 optimal guidance",
+     "pages": "250-270",
+     "role": "main"
+    }
+   ],
+   "missing_items": "",
+   "host_for_gap": "M6.5",
+   "reason": "",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:MSL.4.5",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "topic": "Guidance laws",
+   "name": "Command guidance, beam riding, SACLOS",
+   "importance": "S",
+   "importance_mg": "S",
+   "status": "full",
+   "status_mg": "partial",
+   "where": [
+    {
+     "module": "M6.3",
+     "doc": "B06",
+     "section": "4.2.2 Command and other guidance (CLOS, beam rider, TVM)",
+     "pages": "177-188",
+     "role": "main"
+    },
+    {
+     "module": "M6.3",
+     "doc": "B04",
+     "section": "2.3 threat guidance approaches",
+     "pages": "32-34",
+     "role": "supp"
+    }
+   ],
+   "missing_items": "",
+   "host_for_gap": "M6.3",
+   "reason": "MG under-rated; text read.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:MSL.5.1",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "topic": "Miss distance analysis",
+   "name": "Guidance time constant and miss distance",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "partial",
+   "status_mg": "partial",
+   "where": [
+    {
+     "module": "M7.3",
+     "doc": "B07",
+     "section": "Fig 6.20 miss vs time constant; 6.5.9 guidance law design",
+     "pages": "151,174-191",
+     "role": "main"
+    },
+    {
+     "module": "M6.6",
+     "doc": "B06",
+     "section": "3.4 guidance system model",
+     "pages": "114-133",
+     "role": "main"
+    },
+    {
+     "module": "NEW M6.12 (proposed)",
+     "doc": "B13",
+     "section": "6.3 Miss distance; 7.3 weight/miss harmonization",
+     "pages": "171-182,217-219",
+     "role": "proposed-main"
+    }
+   ],
+   "missing_items": "Quantitative: miss vs guidance time constant and flight time (tgo >~10 tau), normalized miss curves (Zarchan) are absent from Siouris/Boord.",
+   "host_for_gap": "M6.6 (+ Fleeman 6.3)",
+   "reason": "Core end-game reasoning.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:MSL.5.2",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "topic": "Miss distance analysis",
+   "name": "Adjoint method and miss-distance budgets (noise, maneuver, heading error)",
+   "importance": "S",
+   "importance_mg": "S",
+   "status": "partial",
+   "status_mg": "missing",
+   "where": [
+    {
+     "module": "M7.3",
+     "doc": "B07",
+     "section": "adjoint mentioned (1 sentence), Monte Carlo",
+     "pages": "175",
+     "role": "main"
+    }
+   ],
+   "missing_items": "Adjoint method and miss-distance budget by error source (heading error, target step maneuver, glint, range-independent/dependent noise, radome). Needs Zarchan-style content: write as tutor-generated derivation with a small simulation project.",
+   "host_for_gap": "M6.6",
+   "reason": "Gap: no book in library teaches adjoint; good project.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:MSL.5.3",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "topic": "Miss distance analysis",
+   "name": "Weaving and evasive maneuvers vs interceptors",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "partial",
+   "status_mg": "missing",
+   "where": [
+    {
+     "module": "M7.3",
+     "doc": "B07",
+     "section": "evasive maneuver design: weave magnitude, period",
+     "pages": "180-182",
+     "role": "main"
+    },
+    {
+     "module": "M8.3",
+     "doc": "A08.1",
+     "section": "Boyd aerial attack study (aircraft evasion)",
+     "pages": "whole",
+     "role": "article"
+    }
+   ],
+   "missing_items": "Weave-induced miss resonance vs guidance time constant; why TBM corkscrew/MaRV maneuvers hurt PN interceptors.",
+   "host_for_gap": "M6.6 or M7.3",
+   "reason": "Operational meaning for MaRV/HGV defense.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:MSL.5.4",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "topic": "Miss distance analysis",
+   "name": "Radome error and parasitic loops",
+   "importance": "S",
+   "importance_mg": "S",
+   "status": "full",
+   "status_mg": "missing",
+   "where": [
+    {
+     "module": "M6.6",
+     "doc": "B06",
+     "section": "3.4.1 radome aberration error",
+     "pages": "119-128",
+     "role": "main"
+    },
+    {
+     "module": "M6.2",
+     "doc": "B06",
+     "section": "3.5 parasitic loops via radome",
+     "pages": "157-158",
+     "role": "main"
+    },
+    {
+     "module": "M6.6",
+     "doc": "B07",
+     "section": "9.3.1.2 radome boresight error",
+     "pages": "260-261",
+     "role": "main"
+    }
+   ],
+   "missing_items": "MG marked missing; verified present.",
+   "host_for_gap": "M6.6",
+   "reason": "",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:MSL.5.5",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "topic": "Miss distance analysis",
+   "name": "Hit-to-kill vs blast-frag miss requirements",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "full",
+   "status_mg": "missing",
+   "where": [
+    {
+     "module": "M6.5",
+     "doc": "B06",
+     "section": "4.9 End game: fuzing, warhead, glitter points, Pk",
+     "pages": "271-280",
+     "role": "main"
+    },
+    {
+     "module": "M7.6",
+     "doc": "A07.2",
+     "section": "HTK kill vehicles",
+     "pages": "various",
+     "role": "article"
+    },
+    {
+     "module": "M6.3",
+     "doc": "B16",
+     "section": "3.5 damage processes (ref)",
+     "pages": "339-358",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "Explicit side-by-side HTK vs blast-frag miss requirement table could be added by tutor.",
+   "host_for_gap": "M6.5",
+   "reason": "Lethality itself is out of panel scope.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:MSL.6.1",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "topic": "Seekers",
+   "name": "Seeker types: active RF, semi-active, passive RF, IR imaging, multi-mode",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "full",
+   "status_mg": "partial",
+   "where": [
+    {
+     "module": "M6.6",
+     "doc": "B06",
+     "section": "3.4.1-3.4.4 seeker subsystem, radar/IR tracking",
+     "pages": "114-143",
+     "role": "main"
+    },
+    {
+     "module": "M7.3",
+     "doc": "B07",
+     "section": "6.5.1 seeker preliminary design, AR seeker",
+     "pages": "128-141",
+     "role": "main"
+    },
+    {
+     "module": "M2.21",
+     "doc": "B02b",
+     "section": "MMW seeker",
+     "pages": "123-133",
+     "role": "other"
+    }
+   ],
+   "missing_items": "Multi-mode seekers only touched.",
+   "host_for_gap": "M6.6",
+   "reason": "",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:MSL.6.2",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "topic": "Seekers",
+   "name": "Lock-on before/after launch; acquisition range",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "partial",
+   "status_mg": "missing",
+   "where": [
+    {
+     "module": "M6.6",
+     "doc": "B06",
+     "section": "IR lock-on mentions",
+     "pages": "141-143",
+     "role": "main"
+    },
+    {
+     "module": "M7.1",
+     "doc": "B07",
+     "section": "reaction time / acquisition",
+     "pages": "58-59",
+     "role": "main"
+    },
+    {
+     "module": "M6.7",
+     "doc": "B06",
+     "section": "launch envelope",
+     "pages": "374",
+     "role": "main"
+    }
+   ],
+   "missing_items": "LOBL vs LOAL, acquisition range vs seeker sensitivity, datalink-supported midcourse and its jamming exposure.",
+   "host_for_gap": "M6.6",
+   "reason": "Operationally central for AAM/SAM.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:MSL.6.3",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "topic": "Seekers",
+   "name": "Seeker gimbal limits, look angle, tracking rate",
+   "importance": "S",
+   "importance_mg": "S",
+   "status": "full",
+   "status_mg": "partial",
+   "where": [
+    {
+     "module": "M6.6",
+     "doc": "B06",
+     "section": "look angle, gimbal, tracking loop",
+     "pages": "117-128",
+     "role": "main"
+    }
+   ],
+   "missing_items": "",
+   "host_for_gap": "M6.6",
+   "reason": "",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:MSL.6.4",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "topic": "Seekers",
+   "name": "Seeker counter-countermeasures",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "full",
+   "status_mg": "full",
+   "where": [
+    {
+     "module": "M4.7",
+     "doc": "B08",
+     "section": "ECCM",
+     "pages": "263-268",
+     "role": "main"
+    },
+    {
+     "module": "M4.10",
+     "doc": "B04",
+     "section": "IR countermeasures",
+     "pages": "118-123",
+     "role": "main"
+    },
+    {
+     "module": "M4.16",
+     "doc": "—",
+     "section": "radar EP",
+     "pages": "—",
+     "role": "other"
+    }
+   ],
+   "missing_items": "",
+   "host_for_gap": "M4.x",
+   "reason": "Covered by EW panel modules.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:MSL.7.1",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "topic": "Autopilot and control",
+   "name": "Airframe transfer functions, three-loop autopilot",
+   "importance": "C",
+   "importance_mg": "C",
+   "status": "full",
+   "status_mg": "partial",
+   "where": [
+    {
+     "module": "M6.2",
+     "doc": "B06",
+     "section": "3.5 Autopilots",
+     "pages": "144-165",
+     "role": "main"
+    }
+   ],
+   "missing_items": "",
+   "host_for_gap": "M6.2",
+   "reason": "C: three-loop detail is skippable at 2.5 beyond bandwidth/time-constant idea.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:MSL.7.2",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "topic": "Autopilot and control",
+   "name": "Flight control design and actuator limits",
+   "importance": "C",
+   "importance_mg": "N",
+   "status": "partial",
+   "status_mg": "partial",
+   "where": [
+    {
+     "module": "M6.7",
+     "doc": "B06",
+     "section": "5.12 integrated flight control",
+     "pages": "347-353",
+     "role": "main"
+    },
+    {
+     "module": "M6.2",
+     "doc": "B06",
+     "section": "3.5.1 actuators",
+     "pages": "159-167",
+     "role": "main"
+    }
+   ],
+   "missing_items": "Actuator rate limits as miss contributor.",
+   "host_for_gap": "M6.2",
+   "reason": "Raised N->C: actuator saturation shows up in miss budgets.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:MSL.8.1",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "topic": "Ballistic missiles",
+   "name": "Ballistic trajectory, minimum energy, lofted/depressed",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "full",
+   "status_mg": "partial",
+   "where": [
+    {
+     "module": "M6.8",
+     "doc": "B06",
+     "section": "6.2-6.4 two-body, hit equation, min-energy",
+     "pages": "381-432",
+     "role": "main"
+    },
+    {
+     "module": "M7.6",
+     "doc": "A07.1",
+     "section": "lofted/depressed in countermeasures",
+     "pages": "111-113",
+     "role": "article"
+    }
+   ],
+   "missing_items": "",
+   "host_for_gap": "M6.8",
+   "reason": "MG partial; verified full.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:MSL.8.2",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "topic": "Ballistic missiles",
+   "name": "Range vs burnout velocity relation",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "full",
+   "status_mg": "full",
+   "where": [
+    {
+     "module": "M6.8",
+     "doc": "B06",
+     "section": "6.4-6.5 burnout velocity, VTBG",
+     "pages": "404-471",
+     "role": "main"
+    }
+   ],
+   "missing_items": "",
+   "host_for_gap": "M6.8",
+   "reason": "",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:MSL.8.3",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "topic": "Ballistic missiles",
+   "name": "Reentry: heating, deceleration, RV design, MaRVs",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "full",
+   "status_mg": "full",
+   "where": [
+    {
+     "module": "M6.8",
+     "doc": "B06",
+     "section": "6.7 Atmospheric reentry",
+     "pages": "497-504",
+     "role": "main"
+    }
+   ],
+   "missing_items": "MaRVs only touched (A07.1).",
+   "host_for_gap": "M6.8",
+   "reason": "",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:MSL.8.4",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "topic": "Ballistic missiles",
+   "name": "Accuracy sources: boost errors, reentry dispersion, CEP",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "full",
+   "status_mg": "partial",
+   "where": [
+    {
+     "module": "M6.8",
+     "doc": "B06",
+     "section": "6.4.3 ballistic error coefficients; 6.4.4 Earth rotation",
+     "pages": "433-457",
+     "role": "main"
+    },
+    {
+     "module": "M6.7",
+     "doc": "B15",
+     "section": "3.7 CEP (ref)",
+     "pages": "55-62",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "MG pointed to EW emitter location (wrong); real source verified.",
+   "host_for_gap": "M6.8",
+   "reason": "",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:MSL.8.5",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "topic": "Ballistic missiles",
+   "name": "Lambert guidance and strategic intercepts",
+   "importance": "S",
+   "importance_mg": "S",
+   "status": "full",
+   "status_mg": "partial",
+   "where": [
+    {
+     "module": "M6.8",
+     "doc": "B06",
+     "section": "6.3 Lambert",
+     "pages": "397-403",
+     "role": "main"
+    }
+   ],
+   "missing_items": "",
+   "host_for_gap": "M6.8",
+   "reason": "",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:MSL.8.6",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "topic": "Ballistic missiles",
+   "name": "Countermeasures: decoys, chaff, MIRV, penaids",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "full",
+   "status_mg": "full",
+   "where": [
+    {
+     "module": "M7.6",
+     "doc": "A07.1",
+     "section": "Sessler Countermeasures",
+     "pages": "whole",
+     "role": "article"
+    },
+    {
+     "module": "M7.6",
+     "doc": "B06",
+     "section": "6.9 BMI",
+     "pages": "519-535",
+     "role": "main"
+    }
+   ],
+   "missing_items": "",
+   "host_for_gap": "M7.6",
+   "reason": "",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:MSL.9.1",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "topic": "Cruise and hypersonic missiles",
+   "name": "Cruise missile profiles: altitude, routing, terrain following",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "full",
+   "status_mg": "partial",
+   "where": [
+    {
+     "module": "M6.10",
+     "doc": "B06",
+     "section": "7.1-7.2 cruise missile system",
+     "pages": "536-557",
+     "role": "main"
+    },
+    {
+     "module": "M5.11",
+     "doc": "B06",
+     "section": "7.4 TERCOM",
+     "pages": "566-590",
+     "role": "other"
+    },
+    {
+     "module": "M6.10",
+     "doc": "B15",
+     "section": "6.4-6.5 optimal penetration routes (ref)",
+     "pages": "186-197",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "",
+   "host_for_gap": "M6.10",
+   "reason": "",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:MSL.9.2",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "topic": "Cruise and hypersonic missiles",
+   "name": "Anti-ship missiles: sea-skimming, supersonic vs subsonic trade",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "partial",
+   "status_mg": "missing",
+   "where": [
+    {
+     "module": "M10.5",
+     "doc": "A10.3",
+     "section": "Kumar ship defense vs ASCM",
+     "pages": "whole",
+     "role": "article"
+    },
+    {
+     "module": "M10.5",
+     "doc": "A10.2",
+     "section": "low-altitude maritime radar detection (sea-skimmers)",
+     "pages": "whole",
+     "role": "article"
+    }
+   ],
+   "missing_items": "Supersonic vs subsonic ASCM trade (detection horizon time vs signature/cost/range), terminal maneuvers.",
+   "host_for_gap": "M6.10 (with link to M10.5)",
+   "reason": "Central to naval and Red Sea analysis.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:MSL.9.3",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "topic": "Cruise and hypersonic missiles",
+   "name": "Hypersonic glide vehicles: physics, range, heating, maneuver",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "full",
+   "status_mg": "partial",
+   "where": [
+    {
+     "module": "M6.9",
+     "doc": "A06.2",
+     "section": "Acton Hypersonic boost-glide (physics, range, heating, maneuver)",
+     "pages": "1-29",
+     "role": "article"
+    }
+   ],
+   "missing_items": "Update with post-2015 systems (Avangard, DF-17, Kinzhal is not HGV).",
+   "host_for_gap": "M6.9",
+   "reason": "Article read: covers all four items.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:MSL.9.4",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "topic": "Cruise and hypersonic missiles",
+   "name": "Hypersonic cruise (scramjet) state of the art",
+   "importance": "S",
+   "importance_mg": "S",
+   "status": "partial",
+   "status_mg": "partial",
+   "where": [
+    {
+     "module": "M6.2",
+     "doc": "B06",
+     "section": "scramjet mentions",
+     "pages": "103-104,165-166",
+     "role": "main"
+    },
+    {
+     "module": "NEW M6.12 (proposed)",
+     "doc": "B13",
+     "section": "3.2 ramjet Mach limit",
+     "pages": "82",
+     "role": "proposed-main"
+    }
+   ],
+   "missing_items": "Scramjet state of the art (X-51, HAWC, Zircon claims).",
+   "host_for_gap": "M6.9",
+   "reason": "Short add-on.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:MSL.9.5",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "topic": "Cruise and hypersonic missiles",
+   "name": "Quasi-ballistic missiles (Iskander-class)",
+   "importance": "K",
+   "importance_mg": "S",
+   "status": "missing",
+   "status_mg": "full",
+   "where": [
+    {
+     "module": "M7.6",
+     "doc": "A07.1",
+     "section": "MaRV mentions",
+     "pages": "165-189",
+     "role": "article"
+    }
+   ],
+   "missing_items": "Quasi-ballistic (depressed, aerodynamically maneuvering in atmosphere: Iskander, Fateh, KN-23, Kinzhal) – trajectory, why lower-tier defenses struggle, IPP uncertainty. MG \"full\" was a false match on Siouris intro.",
+   "host_for_gap": "M6.8 or M6.9",
+   "reason": "Raised S->K: dominant threat in Ukraine/Israel wars.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:MSL.10.1",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "topic": "Weapon delivery and accuracy",
+   "name": "Bombing problem, unguided vs guided delivery errors",
+   "importance": "S",
+   "importance_mg": "S",
+   "status": "full",
+   "status_mg": "full",
+   "where": [
+    {
+     "module": "M6.7",
+     "doc": "B06",
+     "section": "5.5-5.11 delivery accuracy, bombing problem",
+     "pages": "308-343",
+     "role": "main"
+    }
+   ],
+   "missing_items": "",
+   "host_for_gap": "M6.7",
+   "reason": "Test-out candidate (weapon-delivery detail).",
+   "test_out": true,
+   "test_out_mg": true
+  },
+  {
+   "id": "M:MSL.10.2",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "topic": "Weapon delivery and accuracy",
+   "name": "Launch acceptability regions and envelopes",
+   "importance": "K",
+   "importance_mg": "S",
+   "status": "full",
+   "status_mg": "missing",
+   "where": [
+    {
+     "module": "M6.7",
+     "doc": "B06",
+     "section": "5.16 Missile launch envelope",
+     "pages": "368-374",
+     "role": "main"
+    }
+   ],
+   "missing_items": "MG missed; verified.",
+   "host_for_gap": "M6.7",
+   "reason": "Raised S->K: LAR = operational meaning of kinematics.",
+   "test_out": false,
+   "test_out_mg": true
+  },
+  {
+   "id": "M:MSL.10.3",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "topic": "Weapon delivery and accuracy",
+   "name": "Precision-guided munitions families and kit concepts (JDAM, SDB, glide kits)",
+   "importance": "S",
+   "importance_mg": "S",
+   "status": "full",
+   "status_mg": "partial",
+   "where": [
+    {
+     "module": "M6.7",
+     "doc": "B06",
+     "section": "5.14 bomb steering",
+     "pages": "359-365",
+     "role": "main"
+    },
+    {
+     "module": "M6.7",
+     "doc": "B08",
+     "section": "Ch.9 weapons carriage and guidance",
+     "pages": "356-399",
+     "role": "main"
+    },
+    {
+     "module": "M6.11",
+     "doc": "B06",
+     "section": "F.2 unpowered PGM",
+     "pages": "659-665",
+     "role": "ref-tier"
+    }
+   ],
+   "missing_items": "",
+   "host_for_gap": "M6.7",
+   "reason": "Test-out candidate.",
+   "test_out": true,
+   "test_out_mg": true
+  },
+  {
+   "id": "M:MSL.11.1",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "topic": "Missile engineering detail (skip-list)",
+   "name": "Numerical integration methods for simulations",
+   "importance": "N",
+   "importance_mg": "N",
+   "status": "full",
+   "status_mg": "full",
+   "where": [
+    {
+     "module": "M5.8",
+     "doc": "B05",
+     "section": "integration methods",
+     "pages": "486-503",
+     "role": "other"
+    }
+   ],
+   "missing_items": "",
+   "host_for_gap": "—",
+   "reason": "Skip-list.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:MSL.11.2",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "topic": "Missile engineering detail (skip-list)",
+   "name": "Strapdown mechanization equations",
+   "importance": "N",
+   "importance_mg": "N",
+   "status": "missing",
+   "status_mg": "missing",
+   "where": [],
+   "missing_items": "",
+   "host_for_gap": "—",
+   "reason": "Skip-list; GNSS/INS panel.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:MSL.11.3",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "topic": "Missile engineering detail (skip-list)",
+   "name": "Gimbal and seeker stabilization loops detail",
+   "importance": "C",
+   "importance_mg": "C",
+   "status": "partial",
+   "status_mg": "partial",
+   "where": [
+    {
+     "module": "M6.6",
+     "doc": "B06",
+     "section": "seeker stabilization",
+     "pages": "117-127",
+     "role": "main"
+    }
+   ],
+   "missing_items": "",
+   "host_for_gap": "M6.6",
+   "reason": "",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:MSL.11.4",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "topic": "Missile engineering detail (skip-list)",
+   "name": "Missile databases/appendices memorization",
+   "importance": "N",
+   "importance_mg": "N",
+   "status": "partial",
+   "status_mg": "partial",
+   "where": [
+    {
+     "module": "M6.11",
+     "doc": "B06",
+     "section": "App. F tables",
+     "pages": "640-658",
+     "role": "ref-tier"
+    }
+   ],
+   "missing_items": "",
+   "host_for_gap": "—",
+   "reason": "Memorization not needed.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:MSL.12.1",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "topic": "Missile force employment",
+   "name": "Salvo sizing against defended targets",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "partial",
+   "status_mg": "missing",
+   "where": [
+    {
+     "module": "M6.4",
+     "doc": "B14",
+     "section": "2.3 multiple-shot kill probability (ref)",
+     "pages": "28-45",
+     "role": "ref"
+    },
+    {
+     "module": "M7.1",
+     "doc": "B14",
+     "section": "4.2 defense of one target vs several attackers; attacker cost c(m) (ref)",
+     "pages": "71-77",
+     "role": "ref"
+    },
+    {
+     "module": "M6.8",
+     "doc": "B15",
+     "section": "6.2 layered defense vs MIRV (ref)",
+     "pages": "170-185",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "Attacker-side salvo sizing vs defended target (salvo equation, leakers needed = n_attack - capacity), Hughes salvo model link to naval panel.",
+   "host_for_gap": "M6.10 or M7.1 (attacker view)",
+   "reason": "Mirror of PRA; fan-out K.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:MSL.12.2",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "topic": "Missile force employment",
+   "name": "Mixed raids (drones + cruise + ballistic) timing and composition",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "missing",
+   "status_mg": "missing",
+   "where": [],
+   "missing_items": "Mixed raids: timing so drones/cruise/ballistic arrive together, sensor/weapon channel saturation, decoy-drone use (Iran April 2024 / Oct 2024, Russian raids on Ukraine).",
+   "host_for_gap": "NEW lesson in M7.1 or M12.1",
+   "reason": "Most-discussed AMD issue 2022-26.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:MSL.12.3",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "topic": "Missile force employment",
+   "name": "Launcher survivability and the Scud-hunt problem",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "partial",
+   "status_mg": "missing",
+   "where": [
+    {
+     "module": "M7.6",
+     "doc": "A07.1",
+     "section": "Scud mentions",
+     "pages": "37-82",
+     "role": "article"
+    },
+    {
+     "module": "M7.4",
+     "doc": "B15",
+     "section": "Scud example in optimization (ref)",
+     "pages": "313-315",
+     "role": "ref"
+    },
+    {
+     "module": "M3.11",
+     "doc": "B14",
+     "section": "Ch.7 search for moving targets (ref)",
+     "pages": "139-164",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "Scud-hunt: TEL dwell/hide times, sensor revisit, sensor-to-shooter latency → P(kill before relocation); 1991 Gulf War evidence.",
+   "host_for_gap": "M6.8 or M7.1 (with C4.1.2)",
+   "reason": "Classic C4ISR-meets-missile result.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:MSL.12.4",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "topic": "Missile force employment",
+   "name": "Missile stockpiles and production estimates of adversaries",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "missing",
+   "status_mg": "missing",
+   "where": [],
+   "missing_items": "Estimating adversary missile stockpiles and production (OSINT: launch counts, factory imagery, budget docs).",
+   "host_for_gap": "Defense analysis craft domain",
+   "reason": "Needed for magazine-depth arguments.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:AMD.1.1",
+   "domain": "MIL · Air and missile defense",
+   "topic": "AMD problem and effectiveness",
+   "name": "Defended area/footprint, keep-out altitude, battlespace",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "full",
+   "status_mg": "missing",
+   "where": [
+    {
+     "module": "M7.2",
+     "doc": "B07",
+     "section": "5.4 keep-out volume (range, altitude)",
+     "pages": "79-81",
+     "role": "main"
+    },
+    {
+     "module": "M7.3",
+     "doc": "B07",
+     "section": "6.3 battlespace assessment",
+     "pages": "118-123",
+     "role": "main"
+    },
+    {
+     "module": "M7.4",
+     "doc": "B07",
+     "section": "Ch.7 battlespace depth-of-fire charts",
+     "pages": "192-219",
+     "role": "main"
+    }
+   ],
+   "missing_items": "MG missed (term is keep-out volume).",
+   "host_for_gap": "M7.2",
+   "reason": "Core.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:AMD.1.2",
+   "domain": "MIL · Air and missile defense",
+   "topic": "AMD problem and effectiveness",
+   "name": "Engagement timeline: detection to intercept",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "full",
+   "status_mg": "full",
+   "where": [
+    {
+     "module": "M7.1",
+     "doc": "B07",
+     "section": "4.4.1 reaction time, engagement timeline definitions",
+     "pages": "56-60",
+     "role": "main"
+    },
+    {
+     "module": "M7.3",
+     "doc": "B07",
+     "section": "6.4 engagement analysis",
+     "pages": "123-127",
+     "role": "main"
+    }
+   ],
+   "missing_items": "",
+   "host_for_gap": "M7.1",
+   "reason": "",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:AMD.1.3",
+   "domain": "MIL · Air and missile defense",
+   "topic": "AMD problem and effectiveness",
+   "name": "Probability of raid annihilation (PRA) and leakage",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "partial",
+   "status_mg": "missing",
+   "where": [
+    {
+     "module": "M7.1",
+     "doc": "B15",
+     "section": "Ch.7 TMD: probability of penetration, zero penetration (ref)",
+     "pages": "206-219",
+     "role": "ref"
+    },
+    {
+     "module": "M7.1",
+     "doc": "B14",
+     "section": "4.2 one target vs several attackers (ref)",
+     "pages": "71-77",
+     "role": "ref"
+    },
+    {
+     "module": "M7.1",
+     "doc": "B07",
+     "section": "4.4.3.4 leakers",
+     "pages": "65",
+     "role": "main"
+    }
+   ],
+   "missing_items": "The PRA term and the closed form PRA = (1-(1-Pssk)^n·...)^N with reliability and detection factors; naval self-defense PRA requirement framing.",
+   "host_for_gap": "M7.1 (promote B15 ch.7 from ⚙ to ◇)",
+   "reason": "Only ref books carry it.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:AMD.1.4",
+   "domain": "MIL · Air and missile defense",
+   "topic": "AMD problem and effectiveness",
+   "name": "Shoot-look-shoot vs salvo doctrine and interceptor consumption",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "full",
+   "status_mg": "missing",
+   "where": [
+    {
+     "module": "M7.1",
+     "doc": "B07",
+     "section": "salvo time, SS/SSS doctrines, magazine depletion",
+     "pages": "60",
+     "role": "main"
+    },
+    {
+     "module": "M7.4",
+     "doc": "B07",
+     "section": "depth-of-fire charts: SLS vs SS vs SSS",
+     "pages": "195-219",
+     "role": "main"
+    },
+    {
+     "module": "M7.3",
+     "doc": "B14",
+     "section": "Ch.3 shooting with feedback, SLS (ref)",
+     "pages": "53-70",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "",
+   "host_for_gap": "M7.3",
+   "reason": "MG missed.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:AMD.1.5",
+   "domain": "MIL · Air and missile defense",
+   "topic": "AMD problem and effectiveness",
+   "name": "Layered defense and multi-tier Pk combination",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "full",
+   "status_mg": "missing",
+   "where": [
+    {
+     "module": "M6.8/M7.3",
+     "doc": "B15",
+     "section": "6.1-6.2 layered defense, optimal layer allocation (ref)",
+     "pages": "164-185",
+     "role": "ref"
+    },
+    {
+     "module": "M7.1",
+     "doc": "B15",
+     "section": "7.2 two-layer TMD (ref)",
+     "pages": "206-215",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "Taught only from ⚙ ref; Boord-Hoffman shows only qualitative layers.",
+   "host_for_gap": "M7.3 (promote B15 6.1-6.2 to ◇)",
+   "reason": "Key quantitative structure.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:AMD.1.6",
+   "domain": "MIL · Air and missile defense",
+   "topic": "AMD problem and effectiveness",
+   "name": "Correlated failures and common-mode in layered defense",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "missing",
+   "status_mg": "missing",
+   "where": [],
+   "missing_items": "Correlated failures: shared sensor/C2 between layers, common decoy discrimination failure → layered Pk far below independence product; Garwin/Wilkening-style critique.",
+   "host_for_gap": "M7.3 (tutor-written section + small Monte Carlo project)",
+   "reason": "Most common analytic error in public claims.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:AMD.2.1",
+   "domain": "MIL · Air and missile defense",
+   "topic": "Architecture and requirements",
+   "name": "CONOPS, threat definition and design reference missions",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "full",
+   "status_mg": "full",
+   "where": [
+    {
+     "module": "M7.2",
+     "doc": "B07",
+     "section": "5.1-5.3 CONOPS, architecture, allocation",
+     "pages": "70-78",
+     "role": "main"
+    },
+    {
+     "module": "M7.10",
+     "doc": "B07",
+     "section": "2.5 CONOPS development",
+     "pages": "33",
+     "role": "ref-tier"
+    }
+   ],
+   "missing_items": "",
+   "host_for_gap": "M7.2",
+   "reason": "",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:AMD.2.2",
+   "domain": "MIL · Air and missile defense",
+   "topic": "Architecture and requirements",
+   "name": "Sensor-weapon pairing and coverage design",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "full",
+   "status_mg": "missing",
+   "where": [
+    {
+     "module": "M7.4",
+     "doc": "B07",
+     "section": "Ch.7 radar/missile balance by RCS, altitude, propagation factor (Tables 7.2-7.3)",
+     "pages": "192-219",
+     "role": "adv"
+    },
+    {
+     "module": "M7.2",
+     "doc": "B07",
+     "section": "5.5 sensor suite requirements",
+     "pages": "96-104",
+     "role": "main"
+    }
+   ],
+   "missing_items": "Lives in M7.4 (advanced tier): recommend promoting Ch.7 to core.",
+   "host_for_gap": "M7.4 -> core",
+   "reason": "Sensor-weapon balance is the central AMD design result.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:AMD.2.3",
+   "domain": "MIL · Air and missile defense",
+   "topic": "Architecture and requirements",
+   "name": "Interceptor fly-out and kinematic reach",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "full",
+   "status_mg": "missing",
+   "where": [
+    {
+     "module": "M7.3",
+     "doc": "B07",
+     "section": "6.4 engagement analysis, fly-out",
+     "pages": "123-127",
+     "role": "main"
+    },
+    {
+     "module": "M7.4",
+     "doc": "B07",
+     "section": "Table 7.2 interceptor avg velocities, min ranges",
+     "pages": "195-197",
+     "role": "adv"
+    },
+    {
+     "module": "M7.5",
+     "doc": "B07",
+     "section": "9.1 interceptor flight analysis",
+     "pages": "228-245",
+     "role": "main"
+    }
+   ],
+   "missing_items": "",
+   "host_for_gap": "M7.3",
+   "reason": "MG missed.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:AMD.2.4",
+   "domain": "MIL · Air and missile defense",
+   "topic": "Architecture and requirements",
+   "name": "Requirements allocation and trade studies",
+   "importance": "S",
+   "importance_mg": "S",
+   "status": "full",
+   "status_mg": "partial",
+   "where": [
+    {
+     "module": "M7.4",
+     "doc": "B07",
+     "section": "Ch.8 allocation",
+     "pages": "220-227",
+     "role": "adv"
+    },
+    {
+     "module": "M7.2",
+     "doc": "B07",
+     "section": "5.3",
+     "pages": "73-78",
+     "role": "main"
+    }
+   ],
+   "missing_items": "",
+   "host_for_gap": "M7.4",
+   "reason": "",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:AMD.3.1",
+   "domain": "MIL · Air and missile defense",
+   "topic": "BMD specifics",
+   "name": "Boost, midcourse, terminal phases: pros and cons",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "full",
+   "status_mg": "missing",
+   "where": [
+    {
+     "module": "M7.6",
+     "doc": "A07.2",
+     "section": "APS BPI study",
+     "pages": "whole",
+     "role": "article"
+    },
+    {
+     "module": "M7.6",
+     "doc": "A07.1",
+     "section": "Sessler midcourse",
+     "pages": "whole",
+     "role": "article"
+    },
+    {
+     "module": "M7.1",
+     "doc": "B14",
+     "section": "4.3 ICBM phases (ref)",
+     "pages": "79",
+     "role": "ref"
+    },
+    {
+     "module": "M7.6",
+     "doc": "B06",
+     "section": "6.9 BMI",
+     "pages": "519-535",
+     "role": "main"
+    }
+   ],
+   "missing_items": "",
+   "host_for_gap": "M7.6",
+   "reason": "MG missed (articles out of registry).",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:AMD.3.2",
+   "domain": "MIL · Air and missile defense",
+   "topic": "BMD specifics",
+   "name": "Discrimination problem in midcourse",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "full",
+   "status_mg": "partial",
+   "where": [
+    {
+     "module": "M7.6",
+     "doc": "A07.1",
+     "section": "Sessler countermeasures & discrimination",
+     "pages": "whole",
+     "role": "article"
+    },
+    {
+     "module": "M7.7",
+     "doc": "B02b",
+     "section": "Ch.7 BMD radar discrimination",
+     "pages": "310-347",
+     "role": "main"
+    }
+   ],
+   "missing_items": "",
+   "host_for_gap": "M7.6",
+   "reason": "",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:AMD.3.3",
+   "domain": "MIL · Air and missile defense",
+   "topic": "BMD specifics",
+   "name": "BMD radars (X-band, UEWR, sea-based)",
+   "importance": "S",
+   "importance_mg": "S",
+   "status": "full",
+   "status_mg": "full",
+   "where": [
+    {
+     "module": "M7.7",
+     "doc": "B02b",
+     "section": "Ch.7",
+     "pages": "310-347",
+     "role": "main"
+    },
+    {
+     "module": "M7.8",
+     "doc": "B02b",
+     "section": "Ch.8",
+     "pages": "348-407",
+     "role": "main"
+    }
+   ],
+   "missing_items": "",
+   "host_for_gap": "M7.7",
+   "reason": "",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:AMD.3.4",
+   "domain": "MIL · Air and missile defense",
+   "topic": "BMD specifics",
+   "name": "Space-based sensors (IR early warning, tracking layers)",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "partial",
+   "status_mg": "full",
+   "where": [
+    {
+     "module": "M7.6",
+     "doc": "A07.2",
+     "section": "APS BPI: space IR detection timelines",
+     "pages": "various",
+     "role": "article"
+    },
+    {
+     "module": "M8.1",
+     "doc": "B08",
+     "section": "AEW",
+     "pages": "50-52",
+     "role": "other"
+    }
+   ],
+   "missing_items": "Space tracking layers (SBIRS/OPIR, HBTSS, PWSA) and their role vs HGVs.",
+   "host_for_gap": "M7.8 or M13.11",
+   "reason": "Hypersonic defense hinges on it.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:AMD.3.5",
+   "domain": "MIL · Air and missile defense",
+   "topic": "BMD specifics",
+   "name": "Exo vs endo interceptors, KKV lethality",
+   "importance": "K",
+   "importance_mg": "S",
+   "status": "full",
+   "status_mg": "missing",
+   "where": [
+    {
+     "module": "M7.6",
+     "doc": "A07.2",
+     "section": "kill vehicles, divert",
+     "pages": "various",
+     "role": "article"
+    },
+    {
+     "module": "M7.6",
+     "doc": "A07.1",
+     "section": "exo HTK",
+     "pages": "49-129",
+     "role": "article"
+    },
+    {
+     "module": "M7.3",
+     "doc": "B07",
+     "section": "endo/exo interceptor design notes",
+     "pages": "145-171",
+     "role": "main"
+    }
+   ],
+   "missing_items": "",
+   "host_for_gap": "M7.6",
+   "reason": "Raised S->K (Arrow-2/3, THAAD, SM-3 choices).",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:AMD.3.6",
+   "domain": "MIL · Air and missile defense",
+   "topic": "BMD specifics",
+   "name": "Space-based interceptors debates (physics and numbers)",
+   "importance": "S",
+   "importance_mg": "S",
+   "status": "partial",
+   "status_mg": "missing",
+   "where": [
+    {
+     "module": "M7.6",
+     "doc": "A07.2",
+     "section": "APS: space-based interceptors",
+     "pages": "142,167",
+     "role": "article"
+    },
+    {
+     "module": "M6.8",
+     "doc": "B15",
+     "section": "Brilliant Pebbles in SDI layers (ref)",
+     "pages": "165",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "Absentee ratio, constellation size vs response time (Golden Dome debate 2025).",
+   "host_for_gap": "M7.6",
+   "reason": "Current policy topic.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:AMD.4.1",
+   "domain": "MIL · Air and missile defense",
+   "topic": "Point and short-range defense",
+   "name": "C-RAM/rocket defense: impact point prediction, selective engagement",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "missing",
+   "status_mg": "missing",
+   "where": [],
+   "missing_items": "C-RAM: impact-point prediction from radar track, selective engagement (only threats to defended area), Iron Dome economics logic, gun/laser vs missile interceptors.",
+   "host_for_gap": "NEW lesson in M7.3 or M9.7",
+   "reason": "Test-out not appropriate: Israel-centric K topic missing from all books.",
+   "test_out": false,
+   "test_out_mg": true
+  },
+  {
+   "id": "M:AMD.4.2",
+   "domain": "MIL · Air and missile defense",
+   "topic": "Point and short-range defense",
+   "name": "CIWS and gun-based defense; programmable ammunition",
+   "importance": "S",
+   "importance_mg": "S",
+   "status": "partial",
+   "status_mg": "missing",
+   "where": [
+    {
+     "module": "M2.22",
+     "doc": "B02b",
+     "section": "fire-control radar incl. CIWS",
+     "pages": "143-149,187-188",
+     "role": "main"
+    },
+    {
+     "module": "M10.5",
+     "doc": "A10.3",
+     "section": "ship defense, CIWS",
+     "pages": "20-35",
+     "role": "article"
+    }
+   ],
+   "missing_items": "Gun engagement math: dispersion, rounds per kill, programmable airburst (AHEAD) vs drones.",
+   "host_for_gap": "M10.5 / M9.7",
+   "reason": "Gun-based C-UAS returning.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:AMD.4.3",
+   "domain": "MIL · Air and missile defense",
+   "topic": "Point and short-range defense",
+   "name": "SHORAD and MANPADS",
+   "importance": "K",
+   "importance_mg": "S",
+   "status": "partial",
+   "status_mg": "missing",
+   "where": [
+    {
+     "module": "M12.1",
+     "doc": "D5",
+     "section": "Russian SHORAD (Pantsir/Tor/MANPADS)",
+     "pages": "99-104,231-232",
+     "role": "main"
+    },
+    {
+     "module": "M12.3",
+     "doc": "D6",
+     "section": "Chinese AD",
+     "pages": "217-221",
+     "role": "main"
+    },
+    {
+     "module": "M6.3",
+     "doc": "B06",
+     "section": "MANPADS IR guidance mentions",
+     "pages": "171",
+     "role": "main"
+    }
+   ],
+   "missing_items": "Western/own SHORAD and MANPADS engagement envelopes, IR seeker vs flares link (M4.10), lessons from Ukraine.",
+   "host_for_gap": "M7.3 or M12.1",
+   "reason": "Raised S->K.",
+   "test_out": false,
+   "test_out_mg": true
+  },
+  {
+   "id": "M:AMD.4.4",
+   "domain": "MIL · Air and missile defense",
+   "topic": "Point and short-range defense",
+   "name": "Counter-UAS layered approaches",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "partial",
+   "status_mg": "partial",
+   "where": [
+    {
+     "module": "M9.7",
+     "doc": "D9",
+     "section": "ATP 3-01.81 Counter-UAS planning",
+     "pages": "15-41",
+     "role": "doctrine"
+    }
+   ],
+   "missing_items": "Owned by C-UAS panel.",
+   "host_for_gap": "M9.7",
+   "reason": "",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:AMD.5.1",
+   "domain": "MIL · Air and missile defense",
+   "topic": "Economics and capacity",
+   "name": "Cost-exchange ratio: definitions and pitfalls",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "partial",
+   "status_mg": "missing",
+   "where": [
+    {
+     "module": "M7.1",
+     "doc": "B07",
+     "section": "4.3 cost-effective mischaracterized as cost ratio",
+     "pages": "54-55",
+     "role": "main"
+    },
+    {
+     "module": "M7.1",
+     "doc": "B14",
+     "section": "4.2 cost of a successful attack (ref)",
+     "pages": "76-77",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "Formal cost-exchange ratio definitions, the asset-value vs cost-per-shot argument, marginal cost at margin (Glaser-Kaysen), worked numbers.",
+   "host_for_gap": "M7.1",
+   "reason": "Most-abused number in public debate.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:AMD.5.2",
+   "domain": "MIL · Air and missile defense",
+   "topic": "Economics and capacity",
+   "name": "Value-of-defended-asset framing vs cost-per-shot",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "partial",
+   "status_mg": "missing",
+   "where": [
+    {
+     "module": "M7.1",
+     "doc": "B07",
+     "section": "4.3",
+     "pages": "54-55",
+     "role": "main"
+    }
+   ],
+   "missing_items": "Value of defended asset, denial value, deterrence framing.",
+   "host_for_gap": "M7.1",
+   "reason": "",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:AMD.5.3",
+   "domain": "MIL · Air and missile defense",
+   "topic": "Economics and capacity",
+   "name": "Magazine depth, reload time and launcher count",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "partial",
+   "status_mg": "missing",
+   "where": [
+    {
+     "module": "M7.1",
+     "doc": "B07",
+     "section": "salvo doctrine depletes magazine",
+     "pages": "60",
+     "role": "main"
+    }
+   ],
+   "missing_items": "Magazine depth, reload time (VLS at sea), launcher count vs raid size; time-to-exhaustion model.",
+   "host_for_gap": "M7.1 (+ logistics panel)",
+   "reason": "Red Sea and Israel 2024 lessons.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:AMD.5.4",
+   "domain": "MIL · Air and missile defense",
+   "topic": "Economics and capacity",
+   "name": "Interceptor production rates and inventory depletion",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "missing",
+   "status_mg": "missing",
+   "where": [],
+   "missing_items": "Interceptor production rates (PAC-3, SM-3/6, THAAD, Arrow, Tamir) vs consumption; depletion curves.",
+   "host_for_gap": "M7.1 (with industrial-base domain)",
+   "reason": "",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:AMD.5.5",
+   "domain": "MIL · Air and missile defense",
+   "topic": "Economics and capacity",
+   "name": "Saturation raids and attacker salvo optimization",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "partial",
+   "status_mg": "missing",
+   "where": [
+    {
+     "module": "M7.1",
+     "doc": "B14",
+     "section": "4.2 attackers arriving sequentially (ref)",
+     "pages": "71-77",
+     "role": "ref"
+    },
+    {
+     "module": "M7.4",
+     "doc": "B07",
+     "section": "saturation in battlespace",
+     "pages": "171-182",
+     "role": "main"
+    }
+   ],
+   "missing_items": "Attacker salvo optimization vs fire channels, simultaneous-engagement limits.",
+   "host_for_gap": "M7.1",
+   "reason": "",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:AMD.5.6",
+   "domain": "MIL · Air and missile defense",
+   "topic": "Economics and capacity",
+   "name": "Defense vs offense dominance over time",
+   "importance": "S",
+   "importance_mg": "S",
+   "status": "partial",
+   "status_mg": "partial",
+   "where": [
+    {
+     "module": "M7.6",
+     "doc": "A07.1",
+     "section": "offense-defense in midcourse",
+     "pages": "whole",
+     "role": "article"
+    }
+   ],
+   "missing_items": "Historical offense-defense balance arguments.",
+   "host_for_gap": "M7.6",
+   "reason": "",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:AMD.6.1",
+   "domain": "MIL · Air and missile defense",
+   "topic": "Integrated air and missile defense C2",
+   "name": "IAMD battle management: track management, threat evaluation and weapon assignment (TEWA)",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "partial",
+   "status_mg": "missing",
+   "where": [
+    {
+     "module": "M7.2",
+     "doc": "B07",
+     "section": "5.2-5.3 CDS functions, battle management",
+     "pages": "73-78",
+     "role": "main"
+    },
+    {
+     "module": "M7.3",
+     "doc": "B07",
+     "section": "6.3 BMP/ECC algorithms",
+     "pages": "118-123",
+     "role": "main"
+    },
+    {
+     "module": "M2.29",
+     "doc": "B02a",
+     "section": "multi-target tracking",
+     "pages": "690-723",
+     "role": "other"
+    }
+   ],
+   "missing_items": "TEWA as explicit decision problem (threat ranking, weapon-target assignment, sequential assignment), track management in IAMD.",
+   "host_for_gap": "M7.3 (+ B14 ch.2.4 one-salvo many-targets)",
+   "reason": "MG missed partial text.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:AMD.6.2",
+   "domain": "MIL · Air and missile defense",
+   "topic": "Integrated air and missile defense C2",
+   "name": "Engage-on-remote / launch-on-remote",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "missing",
+   "status_mg": "missing",
+   "where": [
+    {
+     "module": "M7.9",
+     "doc": "B08",
+     "section": "7.4-7.5 NCW datalinks",
+     "pages": "295-302",
+     "role": "main"
+    },
+    {
+     "module": "M2.29",
+     "doc": "B02a",
+     "section": "composite tracking mentions",
+     "pages": "695,717",
+     "role": "main"
+    }
+   ],
+   "missing_items": "Engage/launch-on-remote, CEC composite tracking, sensor-shooter decoupling, latency and track quality requirements.",
+   "host_for_gap": "M7.9",
+   "reason": "Core of modern IAMD.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:AMD.6.3",
+   "domain": "MIL · Air and missile defense",
+   "topic": "Integrated air and missile defense C2",
+   "name": "Fratricide and IFF in AMD (Patriot 2003 lessons)",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "partial",
+   "status_mg": "partial",
+   "where": [
+    {
+     "module": "M7.1",
+     "doc": "B07",
+     "section": "missile fratricide in salvos",
+     "pages": "60",
+     "role": "main"
+    },
+    {
+     "module": "M8.4",
+     "doc": "B08",
+     "section": "IFF",
+     "pages": "—",
+     "role": "other"
+    }
+   ],
+   "missing_items": "Patriot 2003 fratricides, IFF/ROE, automated engagement modes.",
+   "host_for_gap": "M7.9 or M7.1",
+   "reason": "Lessons-learned item.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:AMD.6.4",
+   "domain": "MIL · Air and missile defense",
+   "topic": "Integrated air and missile defense C2",
+   "name": "Human-on-the-loop automation and decision timelines",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "missing",
+   "status_mg": "missing",
+   "where": [],
+   "missing_items": "Human-on-the-loop for AMD: decision time vs threat timeline, auto-engage modes (Aegis, Patriot), automation bias (cross-ref C4.4.3).",
+   "host_for_gap": "M7.1 / M7.9",
+   "reason": "",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:C4.1.1",
+   "domain": "MIL · C4ISR, kill chains and targeting",
+   "topic": "Kill chain/web concepts",
+   "name": "F2T2EA kill chain and find/fix/finish",
+   "importance": "S",
+   "importance_mg": "S",
+   "status": "missing",
+   "status_mg": "missing",
+   "where": [
+    {
+     "module": "M7.1",
+     "doc": "B07",
+     "section": "\"kill chain\" phases in DPT resistance",
+     "pages": "62-65",
+     "role": "main"
+    }
+   ],
+   "missing_items": "F2T2EA definitions; find/fix/finish; kill chain as series reliability product (cross-ref B15 ch.9).",
+   "host_for_gap": "M7.9",
+   "reason": "Test-out candidate (vocabulary).",
+   "test_out": true,
+   "test_out_mg": true
+  },
+  {
+   "id": "M:C4.1.2",
+   "domain": "MIL · C4ISR, kill chains and targeting",
+   "topic": "Kill chain/web concepts",
+   "name": "Kill-chain timing: time-critical targets, dwell vs latency",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "missing",
+   "status_mg": "missing",
+   "where": [],
+   "missing_items": "Time-critical targets: dwell vs latency model, P(target still there).",
+   "host_for_gap": "M7.9 (with MSL.12.3)",
+   "reason": "",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:C4.1.3",
+   "domain": "MIL · C4ISR, kill chains and targeting",
+   "topic": "Kill chain/web concepts",
+   "name": "Sensor-to-shooter latency budgets end-to-end",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "missing",
+   "status_mg": "missing",
+   "where": [
+    {
+     "module": "M7.1",
+     "doc": "B07",
+     "section": "reaction time components (AMD-only)",
+     "pages": "56-60",
+     "role": "main"
+    }
+   ],
+   "missing_items": "End-to-end sensor-to-shooter latency budget (detection, processing, decision, communication, flight).",
+   "host_for_gap": "M7.9",
+   "reason": "",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:C4.1.4",
+   "domain": "MIL · C4ISR, kill chains and targeting",
+   "topic": "Kill chain/web concepts",
+   "name": "Kill webs and mosaic warfare concepts",
+   "importance": "S",
+   "importance_mg": "S",
+   "status": "partial",
+   "status_mg": "missing",
+   "where": [
+    {
+     "module": "M7.9",
+     "doc": "B08",
+     "section": "7.5 network-enabled operations",
+     "pages": "299-302",
+     "role": "main"
+    },
+    {
+     "module": "M7.9",
+     "doc": "A08.9",
+     "section": "RAND Link 16 air combat",
+     "pages": "whole",
+     "role": "article"
+    },
+    {
+     "module": "M7.7",
+     "doc": "B02b",
+     "section": "netcentric MPARS",
+     "pages": "306-315",
+     "role": "main"
+    }
+   ],
+   "missing_items": "Kill webs/mosaic concepts and critique.",
+   "host_for_gap": "M7.9",
+   "reason": "",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:C4.1.5",
+   "domain": "MIL · C4ISR, kill chains and targeting",
+   "topic": "Kill chain/web concepts",
+   "name": "Kill-chain disruption as strategy (system destruction warfare)",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "partial",
+   "status_mg": "missing",
+   "where": [
+    {
+     "module": "M12.4",
+     "doc": "D6",
+     "section": "systems confrontation / system destruction warfare",
+     "pages": "31-102",
+     "role": "doctrine"
+    },
+    {
+     "module": "M12.2",
+     "doc": "D5",
+     "section": "reconnaissance-strike/fire complexes",
+     "pages": "117-176",
+     "role": "doctrine"
+    }
+   ],
+   "missing_items": "Both sources are in advanced-tier modules; operational modelling of kill-chain disruption missing.",
+   "host_for_gap": "M12.3/M12.1 (core) + M7.9",
+   "reason": "Chinese doctrine core to analysis.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:C4.2.1",
+   "domain": "MIL · C4ISR, kill chains and targeting",
+   "topic": "ISR architecture",
+   "name": "ISR collection disciplines (IMINT, SIGINT, MASINT, HUMINT, OSINT)",
+   "importance": "S",
+   "importance_mg": "S",
+   "status": "partial",
+   "status_mg": "missing",
+   "where": [
+    {
+     "module": "M4.5",
+     "doc": "B08",
+     "section": "SIGINT/ESM",
+     "pages": "254-259",
+     "role": "main"
+    },
+    {
+     "module": "M12.4",
+     "doc": "D6",
+     "section": "Chinese ISR",
+     "pages": "87-99",
+     "role": "doctrine"
+    }
+   ],
+   "missing_items": "Collection-discipline taxonomy.",
+   "host_for_gap": "M7.9 or M13.11",
+   "reason": "Test-out candidate.",
+   "test_out": true,
+   "test_out_mg": true
+  },
+  {
+   "id": "M:C4.2.2",
+   "domain": "MIL · C4ISR, kill chains and targeting",
+   "topic": "ISR architecture",
+   "name": "Persistence, revisit, coverage trade across platforms",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "partial",
+   "status_mg": "missing",
+   "where": [
+    {
+     "module": "M13.5",
+     "doc": "B12",
+     "section": "coverage and revisit (SMAD ch.8, OCR)",
+     "pages": "166-213",
+     "role": "other"
+    },
+    {
+     "module": "M3.11",
+     "doc": "B14",
+     "section": "search theory (ref)",
+     "pages": "139-164",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "Persistence/revisit/coverage trade across satellites, HALE/MALE, aerostats.",
+   "host_for_gap": "M13.11",
+   "reason": "Space panel overlaps.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:C4.2.3",
+   "domain": "MIL · C4ISR, kill chains and targeting",
+   "topic": "ISR architecture",
+   "name": "Processing, exploitation, dissemination (PED) bottlenecks",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "missing",
+   "status_mg": "partial",
+   "where": [],
+   "missing_items": "PED bottleneck: analyst-hours per sensor-hour, data volume vs bandwidth, AI triage.",
+   "host_for_gap": "M7.9 or M3.8",
+   "reason": "",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:C4.2.4",
+   "domain": "MIL · C4ISR, kill chains and targeting",
+   "topic": "ISR architecture",
+   "name": "Wide-area search vs point surveillance",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "full",
+   "status_mg": "partial",
+   "where": [
+    {
+     "module": "M3.11",
+     "doc": "B09",
+     "section": "search process",
+     "pages": "263-268",
+     "role": "main"
+    },
+    {
+     "module": "M3.11",
+     "doc": "B14",
+     "section": "Ch.7 search (ref)",
+     "pages": "139-164",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "",
+   "host_for_gap": "M3.11",
+   "reason": "",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:C4.3.1",
+   "domain": "MIL · C4ISR, kill chains and targeting",
+   "topic": "Targeting process",
+   "name": "Joint targeting cycle and target development",
+   "importance": "S",
+   "importance_mg": "S",
+   "status": "partial",
+   "status_mg": "partial",
+   "where": [
+    {
+     "module": "M11.2",
+     "doc": "D8",
+     "section": "D3A targeting, HPT, target development",
+     "pages": "16-18,44-47",
+     "role": "doctrine"
+    }
+   ],
+   "missing_items": "Joint targeting cycle phases.",
+   "host_for_gap": "M11.2",
+   "reason": "Test-out candidate.",
+   "test_out": true,
+   "test_out_mg": true
+  },
+  {
+   "id": "M:C4.3.2",
+   "domain": "MIL · C4ISR, kill chains and targeting",
+   "topic": "Targeting process",
+   "name": "Target location error (TLE) categories and their weapon implications",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "full",
+   "status_mg": "full",
+   "where": [
+    {
+     "module": "M11.2",
+     "doc": "D8",
+     "section": "TLE categories and implications",
+     "pages": "32,51,65,80,94,138",
+     "role": "doctrine"
+    },
+    {
+     "module": "M4.6",
+     "doc": "B04",
+     "section": "emitter location error budget",
+     "pages": "191-195",
+     "role": "other"
+    }
+   ],
+   "missing_items": "",
+   "host_for_gap": "M11.2",
+   "reason": "",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:C4.3.3",
+   "domain": "MIL · C4ISR, kill chains and targeting",
+   "topic": "Targeting process",
+   "name": "Collateral damage estimation methodology",
+   "importance": "S",
+   "importance_mg": "S",
+   "status": "missing",
+   "status_mg": "missing",
+   "where": [],
+   "missing_items": "CDE methodology levels.",
+   "host_for_gap": "M11.2",
+   "reason": "Test-out candidate.",
+   "test_out": true,
+   "test_out_mg": true
+  },
+  {
+   "id": "M:C4.3.4",
+   "domain": "MIL · C4ISR, kill chains and targeting",
+   "topic": "Targeting process",
+   "name": "Battle damage assessment and its biases",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "missing",
+   "status_mg": "missing",
+   "where": [
+    {
+     "module": "M11.2",
+     "doc": "D8",
+     "section": "BDA mention",
+     "pages": "89,103",
+     "role": "doctrine"
+    }
+   ],
+   "missing_items": "BDA methods, overclaiming biases (1991 Scud, Kosovo decoys), statistical treatment.",
+   "host_for_gap": "M11.2 or M7.9",
+   "reason": "Claims-checking core.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:C4.3.5",
+   "domain": "MIL · C4ISR, kill chains and targeting",
+   "topic": "Targeting process",
+   "name": "Dynamic targeting and time-sensitive targeting",
+   "importance": "K",
+   "importance_mg": "S",
+   "status": "missing",
+   "status_mg": "missing",
+   "where": [
+    {
+     "module": "M12.2",
+     "doc": "D5",
+     "section": "TST mentions",
+     "pages": "81-123",
+     "role": "doctrine"
+    }
+   ],
+   "missing_items": "Dynamic/time-sensitive targeting process and timelines.",
+   "host_for_gap": "M7.9",
+   "reason": "Raised S->K.",
+   "test_out": false,
+   "test_out_mg": true
+  },
+  {
+   "id": "M:C4.4.1",
+   "domain": "MIL · C4ISR, kill chains and targeting",
+   "topic": "Data fusion and AI",
+   "name": "JDL fusion levels",
+   "importance": "S",
+   "importance_mg": "S",
+   "status": "partial",
+   "status_mg": "partial",
+   "where": [
+    {
+     "module": "M2.29",
+     "doc": "B02a",
+     "section": "multi-target tracking and sensor fusion",
+     "pages": "690-723",
+     "role": "other"
+    },
+    {
+     "module": "M3.8",
+     "doc": "B03",
+     "section": "image fusion",
+     "pages": "361-364",
+     "role": "other"
+    }
+   ],
+   "missing_items": "JDL levels as a framework; track-to-track fusion.",
+   "host_for_gap": "M2.29",
+   "reason": "",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:C4.4.2",
+   "domain": "MIL · C4ISR, kill chains and targeting",
+   "topic": "Data fusion and AI",
+   "name": "AI/ML for detection/targeting (e.g., Maven-class) and limits",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "partial",
+   "status_mg": "missing",
+   "where": [
+    {
+     "module": "M2.37",
+     "doc": "B02a",
+     "section": "radar ATR incl. ML",
+     "pages": "656-693",
+     "role": "other"
+    },
+    {
+     "module": "M9.7",
+     "doc": "A09.1",
+     "section": "drone detection ML",
+     "pages": "whole",
+     "role": "article"
+    }
+   ],
+   "missing_items": "AI for targeting (Maven, Lavender-class debates), error rates, base-rate effects.",
+   "host_for_gap": "M3.8 or M2.37",
+   "reason": "",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:C4.4.3",
+   "domain": "MIL · C4ISR, kill chains and targeting",
+   "topic": "Data fusion and AI",
+   "name": "Automation bias and human-machine teaming",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "missing",
+   "status_mg": "missing",
+   "where": [],
+   "missing_items": "Automation bias, human-machine teaming, workload; Patriot 2003 as case.",
+   "host_for_gap": "M7.9 (with AMD.6.4)",
+   "reason": "",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:C4.4.4",
+   "domain": "MIL · C4ISR, kill chains and targeting",
+   "topic": "Data fusion and AI",
+   "name": "Data quality, labeling and adversarial ML",
+   "importance": "S",
+   "importance_mg": "S",
+   "status": "missing",
+   "status_mg": "missing",
+   "where": [],
+   "missing_items": "Data labeling, distribution shift, adversarial ML (Gilua ML has theory).",
+   "host_for_gap": "M3.8 delta from Gilua",
+   "reason": "",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:C4.5.1",
+   "domain": "MIL · C4ISR, kill chains and targeting",
+   "topic": "Command and control",
+   "name": "C2 philosophies: centralized vs mission command, in a degraded spectrum",
+   "importance": "K",
+   "importance_mg": "S",
+   "status": "missing",
+   "status_mg": "missing",
+   "where": [],
+   "missing_items": "Centralized vs mission command under EW/comm denial; quantitative link to latency.",
+   "host_for_gap": "M7.9",
+   "reason": "Raised S->K.",
+   "test_out": false,
+   "test_out_mg": true
+  },
+  {
+   "id": "M:C4.5.2",
+   "domain": "MIL · C4ISR, kill chains and targeting",
+   "topic": "Command and control",
+   "name": "Decision cycles (OODA) and tempo quantification",
+   "importance": "S",
+   "importance_mg": "S",
+   "status": "missing",
+   "status_mg": "missing",
+   "where": [
+    {
+     "module": "M8.3",
+     "doc": "A08.1",
+     "section": "Boyd aerial attack study (origin of OODA thinking)",
+     "pages": "whole",
+     "role": "article"
+    }
+   ],
+   "missing_items": "OODA and its critique; tempo metrics.",
+   "host_for_gap": "M7.9",
+   "reason": "Test-out candidate.",
+   "test_out": true,
+   "test_out_mg": true
+  },
+  {
+   "id": "M:C4.5.3",
+   "domain": "MIL · C4ISR, kill chains and targeting",
+   "topic": "Command and control",
+   "name": "Battle management aircraft (AEW&C, JSTARS) vs space alternatives",
+   "importance": "K",
+   "importance_mg": "S",
+   "status": "partial",
+   "status_mg": "missing",
+   "where": [
+    {
+     "module": "M7.9",
+     "doc": "A08.9",
+     "section": "RAND: AWACS role",
+     "pages": "22-60",
+     "role": "article"
+    },
+    {
+     "module": "M8.1",
+     "doc": "B08",
+     "section": "AEW, maritime patrol",
+     "pages": "40-56",
+     "role": "other"
+    },
+    {
+     "module": "M7.6",
+     "doc": "A07.2",
+     "section": "airborne/space sensors",
+     "pages": "215-223",
+     "role": "article"
+    }
+   ],
+   "missing_items": "Battle management aircraft vs space alternatives (E-7 debate), survivability vs long-range SAMs.",
+   "host_for_gap": "M8.1 / M7.9",
+   "reason": "Raised S->K.",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:C4.6.1",
+   "domain": "MIL · C4ISR, kill chains and targeting",
+   "topic": "ISR platforms and capabilities",
+   "name": "Airborne ISR (MALE UAS, manned SIGINT, AEW) capabilities and vulnerabilities",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "partial",
+   "status_mg": "missing",
+   "where": [
+    {
+     "module": "M9.1",
+     "doc": "B09",
+     "section": "UAS classes/MALE",
+     "pages": "39-73",
+     "role": "other"
+    },
+    {
+     "module": "M8.1",
+     "doc": "B08",
+     "section": "ISR roles",
+     "pages": "50-66",
+     "role": "other"
+    }
+   ],
+   "missing_items": "Vulnerability of MALE/manned ISR to modern AD (Ukraine, Yemen MQ-9 losses).",
+   "host_for_gap": "M8.1 / M9.1",
+   "reason": "",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:C4.6.2",
+   "domain": "MIL · C4ISR, kill chains and targeting",
+   "topic": "ISR platforms and capabilities",
+   "name": "Space-based ISR for tactical targeting (latency, tasking)",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "partial",
+   "status_mg": "missing",
+   "where": [
+    {
+     "module": "M13.11",
+     "doc": "B12",
+     "section": "observation payloads (SMAD, OCR)",
+     "pages": "—",
+     "role": "other"
+    },
+    {
+     "module": "M2.25",
+     "doc": "B02b",
+     "section": "space SAR",
+     "pages": "456-481",
+     "role": "other"
+    }
+   ],
+   "missing_items": "Tasking-to-delivery latency, commercial constellations, revisit for mobile targets.",
+   "host_for_gap": "M13.11",
+   "reason": "",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:C4.6.3",
+   "domain": "MIL · C4ISR, kill chains and targeting",
+   "topic": "ISR platforms and capabilities",
+   "name": "Ground and maritime sensor networks",
+   "importance": "S",
+   "importance_mg": "S",
+   "status": "full",
+   "status_mg": "full",
+   "where": [
+    {
+     "module": "M13.20",
+     "doc": "B12",
+     "section": "ground segment",
+     "pages": "892-915",
+     "role": "other"
+    },
+    {
+     "module": "M8.1",
+     "doc": "B08",
+     "section": "maritime patrol",
+     "pages": "40-47",
+     "role": "other"
+    }
+   ],
+   "missing_items": "",
+   "host_for_gap": "—",
+   "reason": "",
+   "test_out": false,
+   "test_out_mg": false
+  },
+  {
+   "id": "M:C4.6.4",
+   "domain": "MIL · C4ISR, kill chains and targeting",
+   "topic": "ISR platforms and capabilities",
+   "name": "Counter-ISR: camouflage, decoys, deception, emission control",
+   "importance": "K",
+   "importance_mg": "K",
+   "status": "partial",
+   "status_mg": "missing",
+   "where": [
+    {
+     "module": "M12.4",
+     "doc": "D6",
+     "section": "Chinese camouflage/deception",
+     "pages": "20-176",
+     "role": "doctrine"
+    },
+    {
+     "module": "M12.2",
+     "doc": "D5",
+     "section": "Russian maskirovka",
+     "pages": "24-212",
+     "role": "doctrine"
+    },
+    {
+     "module": "M11.2",
+     "doc": "D8",
+     "section": "counter-TA, camouflage",
+     "pages": "25-78",
+     "role": "doctrine"
+    },
+    {
+     "module": "M4.9",
+     "doc": "B01",
+     "section": "decoys",
+     "pages": "245-262",
+     "role": "other"
+    }
+   ],
+   "missing_items": "Integrated counter-ISR model (decoy ratio vs sensor discrimination).",
+   "host_for_gap": "M12.x / M4.9",
+   "reason": "Not test-out: K.",
+   "test_out": false,
+   "test_out_mg": true
+  }
+ ],
+ "added": [
+  {
+   "id": "P6b:ADD.1",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "name": "Tactical missile conceptual design as a module (Fleeman B13): add the book to the syllabus via OCR",
+   "importance": "K",
+   "status": "in library, unused",
+   "host": "NEW M6.12 core, prereq M6.2, M6.4; ~150 core pp (PDF 19-236) + ch.8-9 adv (PDF 237-262)",
+   "reason": "Only open textbook in the library for design drivers, sizing, propulsion trades, aero heating, cost; syllabus.py comment at line 614 claims Fleeman is used in M13.12 but B13 is not in docs."
+  },
+  {
+   "id": "P6b:ADD.2",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "name": "Air-to-air missile kinematics: Rmax/Rne/NEZ, loft, A-pole/F-pole, launch altitude effects",
+   "importance": "K",
+   "status": "partial (B06 5.16, B07 6.5)",
+   "host": "M6.7",
+   "reason": "BVR claims (Meteor, PL-15, AIM-120D) need it."
+  },
+  {
+   "id": "P6b:ADD.3",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "name": "Low-cost long-range strike weapons (Shahed/Geran-class, cheap cruise missiles): cost-driven design and kinematics",
+   "importance": "K",
+   "status": "missing",
+   "host": "M6.10 (+ UAS panel)",
+   "reason": "Defines current AMD cost problem."
+  },
+  {
+   "id": "P6b:ADD.4",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "name": "Guidance against maneuvering hypersonic/MaRV targets: predicted-intercept uncertainty, glide-phase intercept",
+   "importance": "K",
+   "status": "missing",
+   "host": "M6.9",
+   "reason": "Central hypersonic-defense claim."
+  },
+  {
+   "id": "P6b:ADD.5",
+   "domain": "MIL · Air and missile defense",
+   "name": "Divert and attitude control (DACS) and IIR seekers for HTK kill vehicles",
+   "importance": "S",
+   "status": "partial (A07.2)",
+   "host": "M7.6",
+   "reason": "Explains exo-interceptor limits."
+  },
+  {
+   "id": "P6b:ADD.6",
+   "domain": "MIL · Air and missile defense",
+   "name": "Fire-control channels and simultaneous-engagement capacity (illuminators, uplinks, launch rate)",
+   "importance": "K",
+   "status": "partial (B07 6.2 illuminator schedule)",
+   "host": "M7.3",
+   "reason": "Saturation arithmetic needs channel counts."
+  },
+  {
+   "id": "P6b:ADD.7",
+   "domain": "MIL · Air and missile defense",
+   "name": "Checking interceptor-performance claims (Patriot 1991 Postol/Lewis debate, 2024 Iran raids, Ukraine)",
+   "importance": "K",
+   "status": "missing",
+   "host": "M7.1 + analysis-craft domain",
+   "reason": "Authority writing; claims checking."
+  },
+  {
+   "id": "P6b:ADD.8",
+   "domain": "MIL · Air and missile defense",
+   "name": "Ballistic-missile warning and civil-defense timelines (warning time vs shelter time)",
+   "importance": "S",
+   "status": "missing",
+   "host": "M7.8",
+   "reason": "Home-front operational meaning."
+  },
+  {
+   "id": "P6b:ADD.9",
+   "domain": "MIL · C4ISR, kill chains and targeting",
+   "name": "Commercial space ISR and OSINT imagery in wars (EO/SAR constellations, revisit, latency)",
+   "importance": "K",
+   "status": "missing",
+   "host": "M13.11",
+   "reason": "Changes kill chains and analysis practice."
+  },
+  {
+   "id": "P6b:ADD.10",
+   "domain": "MIL · C4ISR, kill chains and targeting",
+   "name": "Kill chain as series reliability and time-race model (P_success = product of stage P x P(time < dwell))",
+   "importance": "K",
+   "status": "missing (B15 ch.9 reliability series as ref)",
+   "host": "M7.9",
+   "reason": "Unifying quantitative structure for C4ISR; links to OR panel."
+  },
+  {
+   "id": "P6b:ADD.11",
+   "domain": "MIL · C4ISR, kill chains and targeting",
+   "name": "JADC2/CJADC2 and similar multi-domain C2 programs: claims vs measurable latency",
+   "importance": "S",
+   "status": "missing",
+   "host": "M7.9",
+   "reason": "Policy-article staple."
+  }
+ ],
+ "sections_not_needed": [
+  {
+   "module": "M6.1,M6.2,M6.7,M6.8,M6.10,M7.6",
+   "doc": "B06",
+   "section": "Reference lists",
+   "pages": "28-29,66-67,168-169,379,534-535,602-603,672-673",
+   "reason": "Bibliography only (13 pp)."
+  },
+  {
+   "module": "M6.11",
+   "doc": "B06",
+   "section": "App. A constants, B glossary, C acronyms, H radar bands, I conversion factors",
+   "pages": "604-625,674-677",
+   "reason": "Look-up material (26 pp); keep App. D atmosphere (620-623 approx) as on-demand reference."
+  },
+  {
+   "module": "M6.7",
+   "doc": "B06",
+   "section": "5.2 Definitions and acronyms used in weapon delivery",
+   "pages": "285-298",
+   "reason": "Glossary (14 pp); tutor can define terms in context."
+  },
+  {
+   "module": "M6.2",
+   "doc": "B09",
+   "section": "Flapping wings",
+   "pages": "96-97",
+   "reason": "Not relevant to missiles (2 pp)."
+  }
+ ],
+ "sections_kept_unmatched": [
+  {
+   "module": "M7.4",
+   "doc": "B07",
+   "section": "Ch.7 Battlespace performance summary (typed \"summary\")",
+   "pages": "195-219",
+   "serves": "M:AMD.2.2, M:AMD.2.3, M:AMD.1.4, M:AMD.1.1",
+   "note": "Quantitative heart of AMD; recommend core tier."
+  },
+  {
+   "module": "M6.8",
+   "doc": "B06",
+   "section": "6.2 Two-body problem (typed \"problems\")",
+   "pages": "381-396",
+   "serves": "M:MSL.8.1, M:MSL.8.2"
+  },
+  {
+   "module": "M7.3",
+   "doc": "B07",
+   "section": "6.5.x missile subsystem preliminary design, attitude response, guidance law design",
+   "pages": "128-191",
+   "serves": "M:MSL.1.2, 1.3, 2.2, 4.3, 5.1, 5.3, 6.1"
+  },
+  {
+   "module": "M6.5",
+   "doc": "B06",
+   "section": "4.9 End game",
+   "pages": "271-280",
+   "serves": "M:MSL.5.5"
+  },
+  {
+   "module": "M6.7",
+   "doc": "B06",
+   "section": "5.9 covariance, 5.13 A/G attack, 5.15 earth curvature, 5.16 launch envelope",
+   "pages": "335-337,354-358,366-374",
+   "serves": "M:MSL.10.1, M:MSL.10.2, M:MSL.2.4"
+  },
+  {
+   "module": "M6.6",
+   "doc": "B06",
+   "section": "3.4.2 Missile noise inputs",
+   "pages": "128-133",
+   "serves": "M:MSL.5.1, 5.2, 5.4"
+  },
+  {
+   "module": "M6.8",
+   "doc": "B06",
+   "section": "6.4.4 Earth rotation, 6.5.4 atmospheric control, 6.8 flight model",
+   "pages": "455-457,477-480,505-518",
+   "serves": "M:MSL.8.4, 8.1"
+  },
+  {
+   "module": "M6.10",
+   "doc": "B06",
+   "section": "7.5 GPS in cruise missile",
+   "pages": "591-601",
+   "serves": "M:MSL.9.1 (PNT)"
+  },
+  {
+   "module": "M6.11",
+   "doc": "B06",
+   "section": "App. E classification, App. F systems & PGM",
+   "pages": "626-665",
+   "serves": "M:MSL.1.1, M:MSL.10.3",
+   "note": "ref tier; on demand."
+  },
+  {
+   "module": "M6.1",
+   "doc": "B06",
+   "section": "Ch.1 introduction; 2.1 coordinate systems; 2.4 Lagrange",
+   "pages": "16-27,30-36,61-65",
+   "serves": "M:MSL.1.1, M:MSL.3.2",
+   "note": "Ch.1 test-out candidate."
+  },
+  {
+   "module": "M6.2",
+   "doc": "B06",
+   "section": "3.1-3.3 aero forces, moments, system design",
+   "pages": "68-113",
+   "serves": "M:MSL.3.1, 3.3"
+  },
+  {
+   "module": "M6.2",
+   "doc": "B09",
+   "section": "aero forces, airfoil, pressure, drag, efficiency, trim, control",
+   "pages": "81-95,98-102,121-140",
+   "serves": "M:MSL.3.1, 3.3",
+   "note": "test-out candidate where Gilua E11 already taught it."
+  },
+  {
+   "module": "M6.7",
+   "doc": "B08",
+   "section": "Ch.9 platform weapon-system descriptions (F-16, Apache, Typhoon, F-22, Nimrod) and AAM/AG ordnance",
+   "pages": "357-399",
+   "serves": "M:MSL.10.3",
+   "note": "31 pp of descriptive platform text: test-out candidate, not removal."
+  },
+  {
+   "module": "M7.1",
+   "doc": "B07",
+   "section": "intro, environment, program plan, top-level requirements",
+   "pages": "22-23,44-54,67-69",
+   "serves": "M:AMD.2.1, M:AMD.5.1 (p.54-55 cost-effectiveness)"
+  },
+  {
+   "module": "M7.2",
+   "doc": "B07",
+   "section": "5.4 performance and interface reqs; 5.5 sensor suite; SRD",
+   "pages": "79-113",
+   "serves": "M:AMD.1.1, M:MSL.4.1, M:AMD.2.2"
+  },
+  {
+   "module": "M7.3",
+   "doc": "B07",
+   "section": "SRD, battlespace assessment",
+   "pages": "114-122",
+   "serves": "M:AMD.1.1, M:AMD.6.1"
+  },
+  {
+   "module": "M7.4",
+   "doc": "B07",
+   "section": "ch.7 intro",
+   "pages": "192-194",
+   "serves": "M:AMD.2.2"
+  },
+  {
+   "module": "M7.5",
+   "doc": "B07",
+   "section": "9.1 interceptor flight analysis (WGS-84)",
+   "pages": "228-245",
+   "serves": "M:AMD.2.3",
+   "note": "test-out candidate for frames detail."
+  },
+  {
+   "module": "M7.10",
+   "doc": "B07",
+   "section": "Ch.2 SE fundamentals",
+   "pages": "24-37",
+   "serves": "SE (Gilua NASA SE overlaps)",
+   "note": "ref tier; test-out candidate."
+  },
+  {
+   "module": "M7.7",
+   "doc": "B02b",
+   "section": "Netcentric MPARS; frequency considerations",
+   "pages": "310-347",
+   "serves": "M:AMD.3.2, M:AMD.3.3, M:C4.1.4"
+  },
+  {
+   "module": "M7.8",
+   "doc": "B02b",
+   "section": "evolution of filtering logics",
+   "pages": "380-381",
+   "serves": "M:AMD.3.3"
+  },
+  {
+   "module": "M7.9",
+   "doc": "B10",
+   "section": "tracking nets",
+   "pages": "135-136",
+   "serves": "M:AMD.6.2"
+  }
+ ],
+ "proposals": [
+  "Add B13 Fleeman to syllabus as NEW M6.12 (core) after OCR with core/tools/extract/extract.py (tesseract/RapidOCR; neither installed in this container).",
+  "Promote B07 ch.7 (PDF 192-219, currently M7.4 adv) to core, or move it into M7.3.",
+  "Promote B15 6.1-6.2 and 7.1-7.3 (PDF 164-185, 206-219) and B14 ch.3-4 (PDF 53-84) from ⚙ ref to ◇ supp in M7.1/M7.3: they are the only sources for layered Pk, PRA/penetration and SLS.",
+  "Write tutor-generated sections (no book source) for: adjoint miss-distance budgets, correlated failures in layered defense, C-RAM/IPP, mixed raids, cost-exchange, magazine/production depletion, kill-chain latency/TST, automation bias.",
+  "Fix stale comment in library/military/syllabus/syllabus.py line 614 (claims Fleeman is used in M13.12)."
+ ],
+ "totals": {
+  "subtopics": 106,
+  "KS": 100,
+  "KS_status": {
+   "full": 41,
+   "missing": 22,
+   "partial": 37
+  },
+  "by_domain": {
+   "MIL · Missiles: propulsion, guidance, control and design": {
+    "full": 26,
+    "missing": 6,
+    "partial": 13
+   },
+   "MIL · Air and missile defense": {
+    "full": 12,
+    "partial": 13,
+    "missing": 5
+   },
+   "MIL · C4ISR, kill chains and targeting": {
+    "missing": 11,
+    "partial": 11,
+    "full": 3
+   }
+  },
+  "importance_changes": [
+   [
+    "M:MSL.3.4",
+    "S",
+    "K"
+   ],
+   [
+    "M:MSL.7.2",
+    "N",
+    "C"
+   ],
+   [
+    "M:MSL.9.5",
+    "S",
+    "K"
+   ],
+   [
+    "M:MSL.10.2",
+    "S",
+    "K"
+   ],
+   [
+    "M:AMD.3.5",
+    "S",
+    "K"
+   ],
+   [
+    "M:AMD.4.3",
+    "S",
+    "K"
+   ],
+   [
+    "M:C4.3.5",
+    "S",
+    "K"
+   ],
+   [
+    "M:C4.5.1",
+    "S",
+    "K"
+   ],
+   [
+    "M:C4.5.3",
+    "S",
+    "K"
+   ]
+  ],
+  "status_changed_vs_MG": 55,
+  "added": 11,
+  "pages_not_needed": 55,
+  "pages_kept_unmatched": 22,
+  "test_out_candidates": [
+   "M:MSL.1.1",
+   "M:MSL.10.1",
+   "M:MSL.10.3",
+   "M:C4.1.1",
+   "M:C4.2.1",
+   "M:C4.3.1",
+   "M:C4.3.3",
+   "M:C4.5.2"
+  ]
+ }
+}

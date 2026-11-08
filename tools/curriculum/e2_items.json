@@ -1,0 +1,2965 @@
+{
+ "about": "Topic items that make sure every 'hold in head' and 'must verify' entry of docs/research/round5/expert/E2_domain_targets.json is taught. 'items' are merged by build_curriculum.py into curriculum.json (app -> module -> items; extra fields 'he', 'domain' and 'src' stay here). 'pending' items wait for a planned new module (docs/research/round7/mapping/); the build skips them. 'covered' records where each other entry is already taught. Coverage table: docs/research/round7/mapping/E2_COVERAGE.md.",
+ "items": {
+  "eng": {
+   "M0.1": [
+    {
+     "id": "E2:ENG.MATH.H9",
+     "n": "About 30 anchor results reproduced on paper in minutes",
+     "imp": "S",
+     "k": "new",
+     "teach": "Anchor-results list: about 30 results across linear algebra, probability, optimization and numerics (SVD, projection, condition number, LLN/CLT, KKT, stability regions, ...) that the learner re-derives on paper in minutes; each later math module adds its anchors to the list, and timed paper-only recall drills (no tools) recur through the course.",
+     "he": "כ-30 תוצאות עוגן שהוא משחזר על נייר בדקות",
+     "domain": "ENG · Mathematics foundations",
+     "src": "hold_in_head"
+    }
+   ],
+   "M6.11": [
+    {
+     "id": "E2:ENG.MATH.V1",
+     "n": "Every result two ways (analytic vs numeric, or two independent agents)",
+     "imp": "S",
+     "k": "new",
+     "teach": "Two-route verification as a standing protocol: derive analytically, then check with an independent numeric route (Monte Carlo, finite differences, a second solver) or a second independently prompted agent; agree to a stated tolerance before trusting the result, and record which route was wrong when they disagree.",
+     "he": "כל תוצאה בשתי דרכים: אנליטית מול נומרית, או שני סוכנים בלתי תלויים",
+     "domain": "ENG · Mathematics foundations",
+     "src": "must_verify"
+    }
+   ],
+   "M9.9": [
+    {
+     "id": "E2:ENG.PHYS.H3",
+     "n": "Impedance (wave and medium)",
+     "imp": "S",
+     "k": "deepen",
+     "teach": "Wave impedance: eta = sqrt(mu/epsilon), 377 ohm in free space, impedance of a dielectric or lossy medium; E/H ratio of a plane wave; reflection at an impedance step and the analogy to a transmission line (bridge to circuit impedance in M11.1 and to the RF module).",
+     "he": "עכבה",
+     "domain": "ENG · Physics",
+     "src": "hold_in_head"
+    }
+   ],
+   "M3.2": [
+    {
+     "id": "E2:ENG.PHYS.V1",
+     "n": "Limiting cases",
+     "imp": "S",
+     "k": "new",
+     "teach": "Limiting-case checks as a habit: test every derived formula at its limits before use (driven damped oscillator at omega->0, omega->infinity, gamma->0; Q->infinity), and recognize which limit a wrong sign or factor would violate.",
+     "he": "מקרי גבול",
+     "domain": "ENG · Physics",
+     "src": "must_verify"
+    }
+   ],
+   "M11.13": [
+    {
+     "id": "E2:ENG.PHYS.V4",
+     "n": "Measurement against model",
+     "imp": "S",
+     "k": "new",
+     "teach": "Model-versus-measurement comparison: write the prediction with its uncertainty before measuring, compare residuals with the combined (GUM) uncertainty, and read a disagreement as information about the model, the instrument or the setup.",
+     "he": "מדידה מול מודל",
+     "domain": "ENG · Physics",
+     "src": "must_verify"
+    },
+    {
+     "id": "E2:ENG.ELEC.V1",
+     "n": "Measurement (scope, NanoVNA, spectrum analyzer) vs SPICE",
+     "imp": "S",
+     "k": "new",
+     "teach": "Bench-versus-SPICE loop: simulate first, then measure with oscilloscope, NanoVNA and spectrum analyzer; explain each discrepancy (probe loading and ground lead, parasitics, component tolerance, instrument bandwidth and RBW).",
+     "he": "מדידה (סקופ, NanoVNA, מנתח ספקטרום) מול SPICE",
+     "domain": "ENG · Electronics and circuits",
+     "src": "must_verify"
+    }
+   ],
+   "M7.4": [
+    {
+     "id": "E2:ENG.SIG.H3",
+     "n": "Processing gain 10log(N)",
+     "imp": "S",
+     "k": "new",
+     "teach": "Integration (processing) gain: coherent summation of N samples raises SNR by 10log10(N) dB when the signal is coherent and the noise white; non-coherent integration gains less; how the gain appears in an FFT bin and in a matched filter, and when correlated noise or phase drift breaks it.",
+     "he": "רווח עיבוד 10log(N)",
+     "domain": "ENG · Signals and systems",
+     "src": "hold_in_head"
+    },
+    {
+     "id": "E2:ENG.SIG.H7",
+     "n": "CFAR",
+     "imp": "S",
+     "k": "new",
+     "teach": "Constant false alarm rate detection: why a fixed threshold fails when the noise level is unknown, cell-averaging CFAR (reference and guard cells, threshold multiplier for a design Pfa), CFAR loss, and behavior at clutter edges and with multiple targets.",
+     "he": "CFAR",
+     "domain": "ENG · Signals and systems",
+     "src": "hold_in_head"
+    }
+   ],
+   "M4.6": [
+    {
+     "id": "E2:ENG.SIG.V1",
+     "n": "Golden test vectors (known tone + noise: SNR out = SNR in + gain)",
+     "imp": "S",
+     "k": "new",
+     "teach": "Golden test vectors: synthesize a known tone in white noise at a known SNR, run it through the processing chain (window, FFT, filter) and check the output SNR equals input SNR plus the predicted gain minus window loss; keep the vectors as a regression suite.",
+     "he": "חבילת וקטורי בדיקה זהובים (טון ידוע + רעש: SNR יוצא = SNR נכנס + רווח)",
+     "domain": "ENG · Signals and systems",
+     "src": "must_verify"
+    }
+   ],
+   "M4.10": [
+    {
+     "id": "E2:ENG.SIG.V3",
+     "n": "Comparison with GNU Radio or MATLAB",
+     "imp": "S",
+     "k": "new",
+     "teach": "Cross-tool verification: reproduce a filter or spectrum result in a second independent tool (NumPy/SciPy vs MATLAB or GNU Radio) and compare to a tolerance; typical sources of disagreement are scaling and normalization conventions, window definitions and one- vs two-sided spectra.",
+     "he": "השוואה ל-GNU Radio או MATLAB",
+     "domain": "ENG · Signals and systems",
+     "src": "must_verify"
+    }
+   ],
+   "M4.8": [
+    {
+     "id": "E2:ENG.SIG.V4",
+     "n": "Real recordings",
+     "imp": "S",
+     "k": "new",
+     "teach": "Working with real recorded IQ data: file formats and metadata, sample-rate and frequency offsets, DC offset and IQ imbalance, gain calibration; a processing chain is accepted only after it works on recordings, not only on synthetic data.",
+     "he": "הקלטות אמת",
+     "domain": "ENG · Signals and systems",
+     "src": "must_verify"
+    }
+   ],
+   "M5.6": [
+    {
+     "id": "E2:ENG.CTRL.V2",
+     "n": "Monte Carlo against truth",
+     "imp": "S",
+     "k": "new",
+     "teach": "Monte Carlo evaluation of an estimator against known truth: N runs with simulated truth, RMSE versus the filter-reported sigma and versus the Cramer-Rao bound, number of runs needed for a stated confidence.",
+     "he": "מונטה קרלו מול אמת",
+     "domain": "ENG · Control and estimation",
+     "src": "must_verify"
+    },
+    {
+     "id": "E2:ENG.CTRL.V3",
+     "n": "Symbolic Jacobian vs finite difference",
+     "imp": "S",
+     "k": "new",
+     "teach": "Jacobian check for EKF and linearization: compare the analytic or symbolic Jacobian with central finite differences, choose the step size, and flag entries whose relative error exceeds a tolerance.",
+     "he": "יעקוביאן סימבולי מול הפרש סופי",
+     "domain": "ENG · Control and estimation",
+     "src": "must_verify"
+    }
+   ],
+   "M23.4": [
+    {
+     "id": "E2:ENG.COMM.H3",
+     "n": "Coding gain",
+     "imp": "S",
+     "k": "deepen",
+     "teach": "Coding gain read off a BER/BLER curve: dB saved at a target error rate versus uncoded modulation, the waterfall region, the gap to capacity at the code rate, and what decoding latency and complexity buy it.",
+     "he": "רווח קידוד",
+     "domain": "ENG · Information theory and communications",
+     "src": "hold_in_head"
+    }
+   ],
+   "M23.2": [
+    {
+     "id": "E2:ENG.COMM.H6",
+     "n": "Synchronization",
+     "imp": "S",
+     "k": "new",
+     "teach": "Synchronization in a digital receiver: carrier frequency and phase recovery, symbol timing recovery, frame synchronization with preambles; the effect of residual frequency offset and timing error on the constellation and the BER.",
+     "he": "סנכרון",
+     "domain": "ENG · Information theory and communications",
+     "src": "hold_in_head"
+    },
+    {
+     "id": "E2:ENG.COMM.V2",
+     "n": "Cable loopback with SDR",
+     "imp": "S",
+     "k": "new",
+     "teach": "SDR cable loopback: transmitter to receiver through attenuators (never over the air), set a known SNR, measure BER and EVM and compare with theory; account for phase noise and IQ imbalance.",
+     "he": "לולאת כבל ב-SDR",
+     "domain": "ENG · Information theory and communications",
+     "src": "must_verify"
+    }
+   ],
+   "M23.6": [
+    {
+     "id": "E2:ENG.COMM.V1",
+     "n": "BER vs theory in AWGN and Rayleigh",
+     "imp": "S",
+     "k": "new",
+     "teach": "Monte Carlo BER simulation checked against closed forms: BPSK in AWGN Q(sqrt(2Eb/N0)) and in Rayleigh fading about 1/(4 SNR) at high SNR; how many bit errors are needed for a confident estimate.",
+     "he": "BER מול תאוריה ב-AWGN וריילי",
+     "domain": "ENG · Information theory and communications",
+     "src": "must_verify"
+    }
+   ],
+   "M11.7": [
+    {
+     "id": "E2:ENG.ELEC.H6",
+     "n": "Friis noise cascade",
+     "imp": "S",
+     "k": "new",
+     "teach": "Friis cascade of noise factors F = F1 + (F2-1)/G1 + (F3-1)/(G1G2) + ...: why the LNA goes first, the cost of cable loss before it, equivalent noise temperature, and sensitivity in dBm from kTB, NF and required SNR.",
+     "he": "Friis",
+     "domain": "ENG · Electronics and circuits",
+     "src": "hold_in_head"
+    }
+   ],
+   "M11.10": [
+    {
+     "id": "E2:ENG.ELEC.V2",
+     "n": "First-article checklist",
+     "imp": "S",
+     "k": "new",
+     "teach": "First-article inspection checklist for a new board: visual and continuity checks, current-limited first power-up, rail voltages and ripple, thermal scan, functional and parametric tests against the specification, and a written record.",
+     "he": "רשימת בדיקת first-article",
+     "domain": "ENG · Electronics and circuits",
+     "src": "must_verify"
+    }
+   ],
+   "M12.10": [
+    {
+     "id": "E2:ENG.PWR.H3",
+     "n": "Efficiency chain",
+     "imp": "S",
+     "k": "new",
+     "teach": "Efficiency chain from source to output: battery or generator, converter, motor, gearbox, propeller or load; multiply stage efficiencies, find where losses become heat, and size the source for the delivered power.",
+     "he": "שרשרת נצילות",
+     "domain": "ENG · Electric machines and power",
+     "src": "hold_in_head"
+    }
+   ],
+   "M13.19": [
+    {
+     "id": "E2:ENG.PWR.H7",
+     "n": "N-1 criterion",
+     "imp": "S",
+     "k": "new",
+     "teach": "N-1 security criterion: the grid must stay within limits after the loss of any single element; contingency analysis with power flow, and why N-1 does not cover common-mode or cascading failures.",
+     "he": "N-1",
+     "domain": "ENG · Electric machines and power",
+     "src": "hold_in_head"
+    },
+    {
+     "id": "E2:ENG.PWR.V2",
+     "n": "IEEE 14-bus cases",
+     "imp": "S",
+     "k": "new",
+     "teach": "Verification on standard test systems: solve the IEEE 14-bus power flow and compare voltages and flows with the published solution before trusting a power-flow code.",
+     "he": "מקרי IEEE 14-bus",
+     "domain": "ENG · Electric machines and power",
+     "src": "must_verify"
+    }
+   ],
+   "M12.8": [
+    {
+     "id": "E2:ENG.PWR.V3",
+     "n": "Thrust and current measurement of a drone motor",
+     "imp": "S",
+     "k": "new",
+     "teach": "Thrust-stand measurement of a brushless drone motor with propeller: thrust, voltage, current and RPM; compare with the Kt/Kv motor model and the actuator-disk hover-power estimate.",
+     "he": "מדידת דחף וזרם של מנוע רחפן",
+     "domain": "ENG · Electric machines and power",
+     "src": "must_verify"
+    }
+   ],
+   "M14.2": [
+    {
+     "id": "E2:ENG.THERM.V2",
+     "n": "Thermal measurement",
+     "imp": "S",
+     "k": "new",
+     "teach": "Thermal measurement against a thermal-resistance model: thermocouples, thermistors and IR cameras (emissivity and reflections), sensor placement and contact errors, and comparing measured temperature rise with the predicted R_th times power.",
+     "he": "מדידה תרמית",
+     "domain": "ENG · Thermodynamics and heat transfer",
+     "src": "must_verify"
+    }
+   ],
+   "M15.12": [
+    {
+     "id": "E2:ENG.FLU.V1",
+     "n": "Comparison with flight logs",
+     "imp": "S",
+     "k": "new",
+     "teach": "Checking performance predictions against flight logs (ArduPilot/PX4 logs or published flight-test data): fit a drag polar from logged power and speed, and compare range and endurance with the Breguet estimates.",
+     "he": "השוואה ללוגי טיסה",
+     "domain": "ENG · Fluids, aerodynamics and propulsion",
+     "src": "must_verify"
+    }
+   ],
+   "M17.5": [
+    {
+     "id": "E2:ENG.ML.V1",
+     "n": "Held-out by time and sensor",
+     "imp": "S",
+     "k": "deepen",
+     "teach": "Splits that respect the data's structure: hold out by time, by sensor or platform and by site; grouped cross-validation; why random splits leak correlated samples and overstate accuracy.",
+     "he": "held-out לפי זמן וחיישן",
+     "domain": "ENG · Machine learning and deep learning",
+     "src": "must_verify"
+    },
+    {
+     "id": "E2:ENG.ML.V2",
+     "n": "Simple baselines",
+     "imp": "S",
+     "k": "new",
+     "teach": "Simple baselines first: majority class, linear or logistic model, nearest neighbor, and the classical non-learned detector; report the deep model's margin over the best baseline, with its uncertainty.",
+     "he": "baselines פשוטים",
+     "domain": "ENG · Machine learning and deep learning",
+     "src": "must_verify"
+    },
+    {
+     "id": "E2:ENG.ML.V3",
+     "n": "Ablations",
+     "imp": "S",
+     "k": "new",
+     "teach": "Ablation studies: remove or replace one component at a time, several seeds per variant, report mean and spread; what an ablation can and cannot show about why a model works.",
+     "he": "ablations",
+     "domain": "ENG · Machine learning and deep learning",
+     "src": "must_verify"
+    }
+   ],
+   "M17.12": [
+    {
+     "id": "E2:ENG.ML.V4",
+     "n": "Label audit",
+     "imp": "S",
+     "k": "deepen",
+     "teach": "Label audit: sample-and-review, inter-annotator agreement, model-assisted search for likely label errors; how label noise caps and biases the measured accuracy.",
+     "he": "ביקורת תוויות",
+     "domain": "ENG · Machine learning and deep learning",
+     "src": "must_verify"
+    }
+   ],
+   "M18.7": [
+    {
+     "id": "E2:ENG.RL.V1",
+     "n": "Multiple seeds",
+     "imp": "S",
+     "k": "new",
+     "teach": "Seeds and variance in RL results: 5-10 or more seeds, confidence intervals across runs, why single-seed learning curves mislead, and reporting practice.",
+     "he": "זרעים מרובים",
+     "domain": "ENG · Reinforcement learning",
+     "src": "must_verify"
+    }
+   ],
+   "M19.10": [
+    {
+     "id": "E2:ENG.ROB.V1",
+     "n": "Ground truth",
+     "imp": "S",
+     "k": "new",
+     "teach": "Ground truth for evaluating localization: motion capture, RTK-GNSS or surveyed markers; absolute and relative trajectory error (ATE/RPE) and alignment before comparison.",
+     "he": "אמת קרקעית",
+     "domain": "ENG · Robotics",
+     "src": "must_verify"
+    },
+    {
+     "id": "E2:ENG.ROB.V2",
+     "n": "Camera-IMU calibration",
+     "imp": "S",
+     "k": "new",
+     "teach": "Camera-IMU calibration: intrinsics, extrinsic rotation and translation and time offset (Kalibr-type procedure); verifying it by reprojection error and by VIO drift on a known loop.",
+     "he": "כיול מצלמה-IMU",
+     "domain": "ENG · Robotics",
+     "src": "must_verify"
+    }
+   ],
+   "M27.1": [
+    {
+     "id": "E2:ENG.SE.V3",
+     "n": "Assessment against the SECF",
+     "imp": "S",
+     "k": "new",
+     "teach": "INCOSE Systems Engineering Competency Framework (SECF): competency areas and proficiency levels; a self-assessment backed by evidence from the learner's own work, repeated as the course advances.",
+     "he": "הערכה לפי SECF",
+     "domain": "ENG · Systems engineering",
+     "src": "must_verify"
+    }
+   ],
+   "M13.15": [
+    {
+     "id": "E2:ENG.JUDG.H3",
+     "n": "Rules of thumb and their origin",
+     "imp": "S",
+     "k": "new",
+     "teach": "Rules of thumb with provenance: for each rule the derivation or data behind it, the regime where it holds and its typical error; a rule without a source is treated as a hypothesis.",
+     "he": "כללי אצבע ומקורם",
+     "domain": "ENG · Engineering judgment (cross-cutting)",
+     "src": "hold_in_head"
+    }
+   ],
+   "M27.5": [
+    {
+     "id": "E2:ENG.JUDG.V1",
+     "n": "Dated forecast log scored against outcomes (Brier, error ratio)",
+     "imp": "S",
+     "k": "new",
+     "teach": "Personal forecast log: dated numerical predictions with probabilities or ranges, scored later by Brier score and by the log error ratio of estimates; a calibration plot reviewed periodically.",
+     "he": "רשומת תחזיות מתוארכת מול אמת (Brier, יחס שגיאה)",
+     "domain": "ENG · Engineering judgment (cross-cutting)",
+     "src": "must_verify"
+    }
+   ],
+   "M22.8": [
+    {
+     "id": "E2:ENG.PERI.H4",
+     "n": "Roofline model",
+     "imp": "S",
+     "k": "new",
+     "teach": "Roofline model: arithmetic intensity (FLOP per byte), memory-bound versus compute-bound kernels, reading a roofline plot for a CPU or GPU, and what it predicts for FFT, matrix multiply and convolution.",
+     "he": "roofline",
+     "domain": "ENG · Periphery: discrete math, algorithms, computer systems, chips",
+     "src": "hold_in_head"
+    }
+   ],
+   "M10.9": [
+    {
+     "id": "E2:ENG.PERI.V2",
+     "n": "Reading a diff",
+     "imp": "S",
+     "k": "new",
+     "teach": "Reviewing code changes: reading a diff, what to check (tests, edge cases, numerical changes, silent behavior changes), and reviewing agent-written patches before accepting them.",
+     "he": "קריאת diff",
+     "domain": "ENG · Periphery: discrete math, algorithms, computer systems, chips",
+     "src": "must_verify"
+    }
+   ],
+   "M22.7": [
+    {
+     "id": "E2:ENG.PERI.V3",
+     "n": "Profiling",
+     "imp": "S",
+     "k": "new",
+     "teach": "Profiling before optimizing: where time and memory go (cProfile or line profiler, perf), cache-miss counters, and checking a speed-up claim with a reproducible benchmark.",
+     "he": "profiling",
+     "domain": "ENG · Periphery: discrete math, algorithms, computer systems, chips",
+     "src": "must_verify"
+    }
+   ],
+   "M5.14": [
+    {
+     "id": "E2:ENG.CTRL.H8",
+     "n": "IMM idea",
+     "imp": "S",
+     "k": "new",
+     "teach": "Interacting multiple model estimation: a bank of filters with different motion models, Markov mode switching, mixing and mode probabilities; why a single filter lags a maneuver. Sources: Särkkä (E48) for the filtering; the radar tracking side in Lanchester M2.15 and M2.29."
+    },
+    {
+     "id": "E2:ENG.CTRL.H9",
+     "n": "Data association",
+     "imp": "S",
+     "k": "new",
+     "teach": "Measurement-to-track data association: gating, nearest neighbor, PDA/JPDA, the idea of multiple-hypothesis tracking; cost of a wrong association. Sources: Särkkä (E48) for the filtering; the radar tracking side in Lanchester M2.15 and M2.29."
+    }
+   ]
+  },
+  "mil": {
+   "M0.6": [
+    {
+     "id": "E2:MIL.FND.H4",
+     "n": "Cramer-Rao bound",
+     "imp": "S",
+     "k": "deepen",
+     "teach": "Cramer-Rao bound for signal parameters (time delay, frequency, angle of arrival): Fisher information, the bound sigma about resolution/sqrt(2 SNR), efficiency of the maximum-likelihood estimator, and how the bound feeds DOP-weighted position error and CEP (Kay vol. I ch. 3).",
+     "he": "CRB",
+     "domain": "MIL · Foundations: the quantitative toolkit",
+     "src": "hold_in_head"
+    }
+   ],
+   "M0.1": [
+    {
+     "id": "E2:MIL.FND.V1",
+     "n": "Every function checked against a numerical example from the books (PoMR, EW101, Kaplan)",
+     "imp": "S",
+     "k": "new",
+     "teach": "Checked calculation library: every formula used in the course is implemented once and validated against worked numerical examples in the source books (PoMR, EW 101, Kaplan) before it is used in an analysis.",
+     "he": "כל פונקציה מול דוגמה מספרית מהספר (PoMR, EW101, Kaplan)",
+     "domain": "MIL · Foundations: the quantitative toolkit",
+     "src": "must_verify"
+    },
+    {
+     "id": "E2:MIL.FND.V2",
+     "n": "Continuous integration",
+     "imp": "S",
+     "k": "new",
+     "teach": "Continuous integration for the calculation library: the book-example tests run automatically on every change, so a broken formula is caught before it reaches an analysis.",
+     "he": "CI",
+     "domain": "MIL · Foundations: the quantitative toolkit",
+     "src": "must_verify"
+    }
+   ],
+   "M1.2": [
+    {
+     "id": "E2:MIL.ANT.H6",
+     "n": "Mutual coupling",
+     "imp": "S",
+     "k": "new",
+     "teach": "Mutual coupling in arrays: self and mutual impedance, active element pattern and active reflection coefficient, scan blindness, and why array calibration must include coupling (Balanis 8.6).",
+     "he": "צימוד הדדי",
+     "domain": "MIL · Antennas and propagation",
+     "src": "hold_in_head"
+    },
+    {
+     "id": "E2:MIL.ANT.V2",
+     "n": "Analytic patch",
+     "imp": "S",
+     "k": "new",
+     "teach": "Rectangular microstrip patch: transmission-line and cavity models, resonant length, input impedance and bandwidth versus substrate (Balanis 14.1-14.2), as a closed-form check on simulated patches.",
+     "he": "patch אנליטי",
+     "domain": "MIL · Antennas and propagation",
+     "src": "must_verify"
+    },
+    {
+     "id": "E2:MIL.ANT.V3",
+     "n": "Mesh convergence",
+     "imp": "S",
+     "k": "new",
+     "teach": "Electromagnetic simulation hygiene: refine the mesh until gain, pattern and S11 change less than a stated tolerance, and check the solver against the analytic dipole and patch before trusting it.",
+     "he": "התכנסות רשת",
+     "domain": "MIL · Antennas and propagation",
+     "src": "must_verify"
+    }
+   ],
+   "M1.1": [
+    {
+     "id": "E2:MIL.ANT.V1",
+     "n": "Analytic dipole",
+     "imp": "S",
+     "k": "deepen",
+     "teach": "Dipole radiation derived: from the infinitesimal dipole to the half-wave dipole, far fields, radiation resistance and directivity (Balanis 4.1-4.6), used as the reference case for checking any antenna computation.",
+     "he": "דיפול אנליטי",
+     "domain": "MIL · Antennas and propagation",
+     "src": "must_verify"
+    },
+    {
+     "id": "E2:MIL.ANT.V4",
+     "n": "Measured pattern",
+     "imp": "S",
+     "k": "new",
+     "teach": "Antenna pattern measurement: far-field distance 2D^2/lambda, anechoic chamber versus outdoor range, reference-antenna gain transfer, and comparison of measured and computed patterns.",
+     "he": "דפוס מדוד",
+     "domain": "MIL · Antennas and propagation",
+     "src": "must_verify"
+    }
+   ],
+   "M2.4": [
+    {
+     "id": "E2:MIL.RAD.V1",
+     "n": "Corner-reflector calibration",
+     "imp": "S",
+     "k": "new",
+     "teach": "Calibration with a trihedral corner reflector: sigma = 4 pi a^4 / (3 lambda^2), placement and multipath, and using it to close the radar equation end to end (measured versus predicted SNR).",
+     "he": "כיול במחזיר פינתי",
+     "domain": "MIL · Radar",
+     "src": "must_verify"
+    }
+   ],
+   "M2.2": [
+    {
+     "id": "E2:MIL.RAD.V2",
+     "n": "Known targets",
+     "imp": "S",
+     "k": "new",
+     "teach": "Validation against known objects: calibration spheres, and cooperative aircraft whose position is known from ADS-B; compare measured SNR and position with the prediction.",
+     "he": "מטרות ידועות",
+     "domain": "MIL · Radar",
+     "src": "must_verify"
+    },
+    {
+     "id": "E2:MIL.RAD.V4",
+     "n": "Comparison between tools",
+     "imp": "S",
+     "k": "new",
+     "teach": "Cross-tool check of a radar budget: the course's own calculation versus a second independent implementation (e.g., a MATLAB Radar Toolbox example or a published calculator), with differences traced to losses and conventions.",
+     "he": "השוואה בין כלים",
+     "domain": "MIL · Radar",
+     "src": "must_verify"
+    }
+   ],
+   "M2.10": [
+    {
+     "id": "E2:MIL.RAD.V3",
+     "n": "Simulation vs measurement",
+     "imp": "S",
+     "k": "new",
+     "teach": "Simulation versus measurement of detection performance: measured false-alarm rate on recorded noise and clutter versus the design Pfa, and measured Pd versus SNR against the Swerling curves.",
+     "he": "סימולציה מול מדידה",
+     "domain": "MIL · Radar",
+     "src": "must_verify"
+    }
+   ],
+   "M3.10": [
+    {
+     "id": "E2:MIL.EOIR.V1",
+     "n": "Field measurement",
+     "imp": "S",
+     "k": "new",
+     "teach": "Field measurement of detection and identification range: target-to-background temperature difference with a radiometric camera, logged atmosphere (humidity, visibility), and comparison with the range-performance model.",
+     "he": "מדידה בשטח",
+     "domain": "MIL · Electro-optical and infrared sensing",
+     "src": "must_verify"
+    }
+   ],
+   "M4.2": [
+    {
+     "id": "E2:MIL.EW.V1",
+     "n": "Cable bench with known signals",
+     "imp": "S",
+     "k": "new",
+     "teach": "Cable bench with known signals: signal generator through attenuators into the receiver; verify sensitivity, dynamic range and parameter measurement (frequency, PRI, pulse width) against the known emitter settings.",
+     "he": "ספסל כבל עם אותות ידועים",
+     "domain": "MIL · Electronic warfare and electromagnetic spectrum operations",
+     "src": "must_verify"
+    }
+   ],
+   "M4.3": [
+    {
+     "id": "E2:MIL.EW.V3",
+     "n": "Open experimental data",
+     "imp": "S",
+     "k": "new",
+     "teach": "Open datasets for spectrum processing (e.g., RadioML, public pulse and ADS-B recordings): test deinterleaving and classification code on data the learner did not generate.",
+     "he": "נתוני ניסוי פתוחים",
+     "domain": "MIL · Electronic warfare and electromagnetic spectrum operations",
+     "src": "must_verify"
+    }
+   ],
+   "M7.9": [
+    {
+     "id": "E2:MIL.COM.H4",
+     "n": "MANET routing",
+     "imp": "S",
+     "k": "new",
+     "teach": "Mobile ad hoc network routing: link-state versus distance-vector, proactive (OLSR, DSDV) versus reactive (AODV) protocols, CSMA/CA medium access; control overhead, route-repair latency and throughput versus hop count and mobility (Kurose & Ross 5.2, 7.3; Murthy & Manoj 7).",
+     "he": "ניתוב ב-MANET",
+     "domain": "MIL · Communications, datalinks and networks",
+     "src": "hold_in_head"
+    }
+   ],
+   "M1.4": [
+    {
+     "id": "E2:MIL.COM.V1",
+     "n": "Against theory",
+     "imp": "S",
+     "k": "new",
+     "teach": "Measured link against the predicted budget: received power and SNR versus the Friis and two-ray predictions, with every loss and margin accounted for.",
+     "he": "מול תאוריה",
+     "domain": "MIL · Communications, datalinks and networks",
+     "src": "must_verify"
+    }
+   ],
+   "M9.5": [
+    {
+     "id": "E2:MIL.COM.V2",
+     "n": "Against SDR measurement",
+     "imp": "S",
+     "k": "new",
+     "teach": "SDR measurement of a datalink: received power, SNR or EVM and packet error rate versus range or attenuation, compared with the link budget.",
+     "he": "מול מדידת SDR",
+     "domain": "MIL · Communications, datalinks and networks",
+     "src": "must_verify"
+    }
+   ],
+   "M5.6": [
+    {
+     "id": "E2:MIL.PNT.V1",
+     "n": "IGS station data",
+     "imp": "S",
+     "k": "new",
+     "teach": "Using IGS station data: RINEX observation and navigation files, precise orbits and clocks, and computing one's own position solution for a station with known coordinates to measure the error.",
+     "he": "נתוני תחנות IGS",
+     "domain": "MIL · Positioning, navigation and timing",
+     "src": "must_verify"
+    },
+    {
+     "id": "E2:MIL.PNT.V2",
+     "n": "Receiver comparison",
+     "imp": "S",
+     "k": "new",
+     "teach": "Side-by-side receiver comparison on one antenna through a splitter: C/N0, fix availability, position scatter and time to first fix.",
+     "he": "השוואת מקלטים",
+     "domain": "MIL · Positioning, navigation and timing",
+     "src": "must_verify"
+    }
+   ],
+   "M5.4": [
+    {
+     "id": "E2:MIL.PNT.V3",
+     "n": "Recorded IQ",
+     "imp": "S",
+     "k": "new",
+     "teach": "Software-receiver processing of recorded GNSS IQ samples (GNSS-SDR-type): acquisition and tracking on a file, checking C/N0 estimates and loop lock indicators against the theory.",
+     "he": "IQ מוקלט",
+     "domain": "MIL · Positioning, navigation and timing",
+     "src": "must_verify"
+    }
+   ],
+   "M6.4": [
+    {
+     "id": "E2:MIL.MSL.V1",
+     "n": "Zarchan",
+     "imp": "S",
+     "k": "new",
+     "teach": "Zarchan's linearized engagement model as a check: reproduce his normalized miss-distance results for heading error and target acceleration versus flight time over guidance time constant (Zarchan 2-3, 8).",
+     "he": "Zarchan",
+     "domain": "MIL · Missiles: propulsion, guidance, control and design",
+     "src": "must_verify"
+    }
+   ],
+   "M6.6": [
+    {
+     "id": "E2:MIL.MSL.V3",
+     "n": "Adjoint vs Monte Carlo",
+     "imp": "S",
+     "k": "deepen",
+     "teach": "Adjoint miss-distance results checked against a Monte Carlo of the nonlinear engagement: where linearization holds and where saturation or large heading errors break it.",
+     "he": "adjoint מול מונטה קרלו",
+     "domain": "MIL · Missiles: propulsion, guidance, control and design",
+     "src": "must_verify"
+    }
+   ],
+   "M13.4": [
+    {
+     "id": "E2:MIL.SPC.V1",
+     "n": "TLE vs observation",
+     "imp": "S",
+     "k": "new",
+     "teach": "TLEs and SGP4: propagate a public TLE, compare the predicted pass or position with an observation (visual pass, radio beacon Doppler or published ephemeris), and measure how the error grows with TLE age.",
+     "he": "TLE מול תצפית",
+     "domain": "MIL · Space systems and space warfare",
+     "src": "must_verify"
+    }
+   ],
+   "M9.6": [
+    {
+     "id": "E2:MIL.UAS.V1",
+     "n": "Flights",
+     "imp": "S",
+     "k": "new",
+     "teach": "Flight test of a small multirotor: log endurance, electrical power and link quality, and compare them with the hover-power model and the link budget.",
+     "he": "טיסות",
+     "domain": "MIL · Unmanned systems and counter-UAS",
+     "src": "must_verify"
+    }
+   ],
+   "M9.7": [
+    {
+     "id": "E2:MIL.UAS.V2",
+     "n": "Measurements",
+     "imp": "S",
+     "k": "new",
+     "teach": "Measurement data on small drones: published RCS and micro-Doppler campaigns and RF-emission captures; reading the measurement conditions (band, aspect, polarization) before using a number.",
+     "he": "מדידות",
+     "domain": "MIL · Unmanned systems and counter-UAS",
+     "src": "must_verify"
+    }
+   ],
+   "M11.4": [
+    {
+     "id": "E2:MIL.WPN.H2",
+     "n": "CEP to Pk",
+     "imp": "S",
+     "k": "new",
+     "teach": "From delivery accuracy to probability of effect: circular normal miss distribution, R_CEP = 1.1774 sigma, P(miss distance < R) = 1 - exp(-R^2 / (2 sigma^2)); cookie-cutter versus smooth damage functions; partial damage (Przemieniecki 3.11-3.16).",
+     "he": "CEP→Pk",
+     "domain": "MIL · Weapons effects, lethality and protection",
+     "src": "hold_in_head"
+    },
+    {
+     "id": "E2:MIL.WPN.H3",
+     "n": "Effective (lethal) area",
+     "imp": "S",
+     "k": "new",
+     "teach": "Effective area of a fragmenting warhead as a computation: fragment spray density, probability of effect given a fragment hit, integration to an effective area, and its use with delivery error (Driels, Weaponeering; JMEM method).",
+     "he": "שטח קטלני",
+     "domain": "MIL · Weapons effects, lethality and protection",
+     "src": "hold_in_head"
+    }
+   ],
+   "M10.5": [
+    {
+     "id": "E2:MIL.NAV.V1",
+     "n": "Open data",
+     "imp": "S",
+     "k": "deepen",
+     "teach": "Checking the salvo model against open data: the public 2023-24 Red Sea engagement record (salvo sizes, intercepts, interceptor types) versus Hughes-model predictions, with the data's gaps stated.",
+     "he": "נתונים פתוחים",
+     "domain": "MIL · Naval and undersea warfare",
+     "src": "must_verify"
+    }
+   ],
+   "M12.1": [
+    {
+     "id": "E2:MIL.ADV.V1",
+     "n": "Terms checked against a military dictionary",
+     "imp": "S",
+     "k": "new",
+     "teach": "Terminology discipline: check every term against the official glossaries (ATP 7-100 series glossary, DoD Dictionary) and the original-language term, and note where translations differ in meaning.",
+     "he": "מונחים מול מילון צבאי",
+     "domain": "MIL · Adversary systems, doctrine and capability assessment",
+     "src": "must_verify"
+    }
+   ],
+   "M14.4": [
+    {
+     "id": "E2:MIL.CRAFT.V1",
+     "n": "Every source opened and read",
+     "imp": "S",
+     "k": "deepen",
+     "teach": "Source discipline: open and read every cited source, record the exact page or timestamp, confirm the claim is actually in it, and catch citation laundering and AI-invented references.",
+     "he": "כל מקור נפתח ונקרא",
+     "domain": "MIL · Defense analysis craft: OSINT, claims checking and communication",
+     "src": "must_verify"
+    },
+    {
+     "id": "E2:MIL.CRAFT.V2",
+     "n": "Double geolocation",
+     "imp": "S",
+     "k": "deepen",
+     "teach": "Independent double geolocation: two analysts or two methods geolocate the same item separately, then compare; disagreement is resolved with new evidence, and the confidence is recorded.",
+     "he": "גיאולוקציה כפולה",
+     "domain": "MIL · Defense analysis craft: OSINT, claims checking and communication",
+     "src": "must_verify"
+    }
+   ]
+  }
+ },
+ "pending": [],
+ "covered": [
+  {
+   "app": "eng",
+   "id": "E2:ENG.MATH.H1",
+   "domain": "ENG · Mathematics foundations",
+   "kind": "H",
+   "n": "Eigendecomposition and SVD",
+   "he": "פירוק עצמי ו-SVD",
+   "where": "M8.4 (Trefethen & Bau 4–5), M8.8–M8.9"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.MATH.H2",
+   "domain": "ENG · Mathematics foundations",
+   "kind": "H",
+   "n": "Conditioning",
+   "he": "התניה",
+   "where": "M8.6 (Trefethen & Bau 12, 18)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.MATH.H3",
+   "domain": "ENG · Mathematics foundations",
+   "kind": "H",
+   "n": "Least squares as projection",
+   "he": "ריבועים פחותים כהטלה",
+   "where": "M8.5 (Trefethen & Bau 6, 11)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.MATH.H4",
+   "domain": "ENG · Mathematics foundations",
+   "kind": "H",
+   "n": "Duality and convexity",
+   "he": "דואליות וקמירות",
+   "where": "M8.16–M8.18 (Boyd & Vandenberghe 2–5)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.MATH.H5",
+   "domain": "ENG · Mathematics foundations",
+   "kind": "H",
+   "n": "Law of large numbers",
+   "he": "חוק המספרים הגדולים",
+   "where": "M6.1 (Kolmogorov XI), M6.3 (Wasserman 5)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.MATH.H6",
+   "domain": "ENG · Mathematics foundations",
+   "kind": "H",
+   "n": "Central limit theorem",
+   "he": "CLT",
+   "where": "M6.3 (Wasserman 5)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.MATH.H7",
+   "domain": "ENG · Mathematics foundations",
+   "kind": "H",
+   "n": "Heavy tails",
+   "he": "זנבות כבדים",
+   "where": "M6.3 · E:Mathematics |6.10"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.MATH.H8",
+   "domain": "ENG · Mathematics foundations",
+   "kind": "H",
+   "n": "Stability of numerical methods",
+   "he": "יציבות שיטות נומריות",
+   "where": "M8.6 (Trefethen & Bau 14–17), M10.4 · E:Mathematics |9.5"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.MATH.V2",
+   "domain": "ENG · Mathematics foundations",
+   "kind": "V",
+   "n": "Dimension and edge-case checks",
+   "he": "בדיקת ממדים ומקרי קצה",
+   "where": "M10.1 · E:Mathematics |4.8, M27.5 · E:Engineering |0.5"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.MATH.V3",
+   "domain": "ENG · Mathematics foundations",
+   "kind": "V",
+   "n": "Comparison with a known closed-form case",
+   "he": "השוואה למקרה סגור ידוע",
+   "where": "M10.9 (Langtangen & Linge C: verification against exact solutions)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.MATH.V4",
+   "domain": "ENG · Mathematics foundations",
+   "kind": "V",
+   "n": "A short argument in his own words why it is true",
+   "he": "נימוק קצר במילים שלו למה זה נכון",
+   "where": "M20.1 (Lehman 1: what a proof is)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.PHYS.H1",
+   "domain": "ENG · Physics",
+   "kind": "H",
+   "n": "Maxwell's equations in both forms",
+   "he": "משוואות מקסוול בשתי הצורות",
+   "where": "M9.2–M9.3, M9.9 (Feynman II 1–3, 18)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.PHYS.H2",
+   "domain": "ENG · Physics",
+   "kind": "H",
+   "n": "Wave equation",
+   "he": "משוואת הגלים",
+   "where": "M9.1 (Feynman I 47), M9.9 (Feynman II 20)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.PHYS.H4",
+   "domain": "ENG · Physics",
+   "kind": "H",
+   "n": "Diffraction limit lambda/D",
+   "he": "גבול עקיפה λ/D",
+   "where": "M9.13 (Feynman I 30)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.PHYS.H5",
+   "domain": "ENG · Physics",
+   "kind": "H",
+   "n": "Fresnel equations and reflection",
+   "he": "פרנל והחזרה",
+   "where": "M9.9 ◇ / M9.14 (Feynman II 33)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.PHYS.H6",
+   "domain": "ENG · Physics",
+   "kind": "H",
+   "n": "Blackbody radiation",
+   "he": "קרינת גוף שחור",
+   "where": "M13.2 (Feynman I 41), M14.10 (Lienhard 10)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.PHYS.H7",
+   "domain": "ENG · Physics",
+   "kind": "H",
+   "n": "kT and thermal noise",
+   "he": "kT ורעש תרמי",
+   "where": "M13.2 (Feynman I 41: Johnson-Nyquist noise), M11.7 (Horowitz & Hill 7)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.PHYS.H8",
+   "domain": "ENG · Physics",
+   "kind": "H",
+   "n": "Shot noise",
+   "he": "רעש שוט",
+   "where": "M11.7 (Horowitz & Hill 7)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.PHYS.H9",
+   "domain": "ENG · Physics",
+   "kind": "H",
+   "n": "Dimensional analysis",
+   "he": "ניתוח ממדים",
+   "where": "M14.4 (Lienhard 4), M10.1 · E:Mathematics |4.8"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.PHYS.H10",
+   "domain": "ENG · Physics",
+   "kind": "H",
+   "n": "Conservation laws",
+   "he": "חוקי שימור",
+   "where": "M2.1, M2.3 (Feynman I 4, 10), M24.10"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.PHYS.V2",
+   "domain": "ENG · Physics",
+   "kind": "V",
+   "n": "Energy conservation in simulation",
+   "he": "שימור אנרגיה בסימולציה",
+   "where": "M10.4 (Langtangen & Linge 1: energy considerations of vibration schemes)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.PHYS.V3",
+   "domain": "ENG · Physics",
+   "kind": "V",
+   "n": "Mesh-convergence test",
+   "he": "מבחן התכנסות רשת",
+   "where": "M10.4, M10.8 (Langtangen & Linge: convergence rates, truncation error), M10.10"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.SIG.H1",
+   "domain": "ENG · Signals and systems",
+   "kind": "H",
+   "n": "Sampling theorem and aliasing",
+   "he": "משפט הדגימה ו-aliasing",
+   "where": "M4.8 (Oppenheim & Willsky 7)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.SIG.H2",
+   "domain": "ENG · Signals and systems",
+   "kind": "H",
+   "n": "DFT resolution vs window",
+   "he": "רזולוציית DFT מול חלון",
+   "where": "M4.6 · E:Signals and |1.5"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.SIG.H4",
+   "domain": "ENG · Signals and systems",
+   "kind": "H",
+   "n": "Matched filter",
+   "he": "מסנן מותאם",
+   "where": "M7.4 (Oppenheim & Verghese 14)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.SIG.H5",
+   "domain": "ENG · Signals and systems",
+   "kind": "H",
+   "n": "Wiener filter and whitening",
+   "he": "Wiener והלבנה",
+   "where": "M7.3 (Oppenheim & Verghese 11)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.SIG.H6",
+   "domain": "ENG · Signals and systems",
+   "kind": "H",
+   "n": "ROC curves",
+   "he": "ROC",
+   "where": "M7.4 (Oppenheim & Verghese 13–14)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.SIG.H8",
+   "domain": "ENG · Signals and systems",
+   "kind": "H",
+   "n": "Stability in the z-plane",
+   "he": "יציבות במישור z",
+   "where": "M4.10 (Oppenheim & Willsky 10)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.SIG.H9",
+   "domain": "ENG · Signals and systems",
+   "kind": "H",
+   "n": "Quantization noise 6.02N+1.76 dB",
+   "he": "רעש קוונטיזציה 6.02N+1.76 dB",
+   "where": "M4.8 · E:Signals and |3.1"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.SIG.V2",
+   "domain": "ENG · Signals and systems",
+   "kind": "V",
+   "n": "Parseval",
+   "he": "Parseval",
+   "where": "M4.5–M4.6 (Oppenheim & Willsky 4–5)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.CTRL.H1",
+   "domain": "ENG · Control and estimation",
+   "kind": "H",
+   "n": "State space",
+   "he": "מרחב מצב",
+   "where": "M5.4 (Åström & Murray 6)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.CTRL.H2",
+   "domain": "ENG · Control and estimation",
+   "kind": "H",
+   "n": "Observability and controllability",
+   "he": "צפיות ובקרות",
+   "where": "M5.5–M5.6 (Åström & Murray 7–8)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.CTRL.H3",
+   "domain": "ENG · Control and estimation",
+   "kind": "H",
+   "n": "Kalman equations and their meaning",
+   "he": "משוואות קלמן ומשמעותן",
+   "where": "M5.6 (Åström & Murray 8), M5.6 · E:Control and |4.2"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.CTRL.H4",
+   "domain": "ENG · Control and estimation",
+   "kind": "H",
+   "n": "Riccati equation",
+   "he": "Riccati",
+   "where": "M5.5 (Åström & Murray 7: LQR), M5.6"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.CTRL.H5",
+   "domain": "ENG · Control and estimation",
+   "kind": "H",
+   "n": "Gain and phase margins",
+   "he": "מרווחי הגבר ופאזה",
+   "where": "M5.8 (Åström & Murray 10)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.CTRL.H6",
+   "domain": "ENG · Control and estimation",
+   "kind": "H",
+   "n": "Delay limit",
+   "he": "גבול השהיה",
+   "where": "M5.12 · P2_:Time delay in loops"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.CTRL.H7",
+   "domain": "ENG · Control and estimation",
+   "kind": "H",
+   "n": "Bode integral",
+   "he": "אינטגרל Bode",
+   "where": "M5.12 (Åström & Murray 14)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.CTRL.V1",
+   "domain": "ENG · Control and estimation",
+   "kind": "V",
+   "n": "NEES/NIS against chi-square",
+   "he": "NEES/NIS מול χ²",
+   "where": "M5.6 · E:Control and |4.4"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.CTRL.V4",
+   "domain": "ENG · Control and estimation",
+   "kind": "V",
+   "n": "Step and frequency response on hardware",
+   "he": "תגובת מדרגה ותדר בחומרה",
+   "where": "M5.2 · E:Control and |0.3"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.COMM.H1",
+   "domain": "ENG · Information theory and communications",
+   "kind": "H",
+   "n": "Shannon capacity",
+   "he": "שאנון",
+   "where": "M7.7 (MacKay 9–10), M23.3 ◇ Tse 5.1–5.2"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.COMM.H2",
+   "domain": "ENG · Information theory and communications",
+   "kind": "H",
+   "n": "Eb/N0",
+   "he": "Eb/N0",
+   "where": "M23.8 (Tse & Viswanath 5: power-limited regime)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.COMM.H4",
+   "domain": "ENG · Information theory and communications",
+   "kind": "H",
+   "n": "Diversity order",
+   "he": "סדר פיזור",
+   "where": "M23.6 (Tse & Viswanath 3)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.COMM.H5",
+   "domain": "ENG · Information theory and communications",
+   "kind": "H",
+   "n": "OFDM (cyclic prefix, subcarriers)",
+   "he": "OFDM (CP, תת-נושאים)",
+   "where": "M23.6 (Tse & Viswanath 3.4.4)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.COMM.H7",
+   "domain": "ENG · Information theory and communications",
+   "kind": "H",
+   "n": "Fading statistics",
+   "he": "סטטיסטיקת דעיכה",
+   "where": "M23.5 (Tse & Viswanath 2)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.COMM.H8",
+   "domain": "ENG · Information theory and communications",
+   "kind": "H",
+   "n": "Near-far problem",
+   "he": "near-far",
+   "where": "M23.7 (Tse & Viswanath 4: CDMA power control)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.COMM.H9",
+   "domain": "ENG · Information theory and communications",
+   "kind": "H",
+   "n": "Processing gain in spread spectrum",
+   "he": "רווח עיבוד בפיזור ספקטרום",
+   "where": "M23.7 (Tse & Viswanath 4.3)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.COMM.V3",
+   "domain": "ENG · Information theory and communications",
+   "kind": "V",
+   "n": "Comparison between tools",
+   "he": "השוואה בין כלים",
+   "where": "E2:ENG.SIG.V3 (M4.10, the same cross-tool method)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.ELEC.H1",
+   "domain": "ENG · Electronics and circuits",
+   "kind": "H",
+   "n": "Ohm's law",
+   "he": "אוהם",
+   "where": "M11.1"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.ELEC.H2",
+   "domain": "ENG · Electronics and circuits",
+   "kind": "H",
+   "n": "KCL/KVL",
+   "he": "KCL/KVL",
+   "where": "M11.1 · E:Electronics |0.0"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.ELEC.H3",
+   "domain": "ENG · Electronics and circuits",
+   "kind": "H",
+   "n": "Impedance and matching",
+   "he": "עכבה והתאמה",
+   "where": "M11.11 · E:Electronics |0.6"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.ELEC.H4",
+   "domain": "ENG · Electronics and circuits",
+   "kind": "H",
+   "n": "Amplifier stability and GBW",
+   "he": "יציבות מגבר ו-GBW",
+   "where": "M11.4 (Horowitz & Hill 4)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.ELEC.H5",
+   "domain": "ENG · Electronics and circuits",
+   "kind": "H",
+   "n": "Noise figure",
+   "he": "noise figure",
+   "where": "M11.7 (Horowitz & Hill 7)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.ELEC.H7",
+   "domain": "ENG · Electronics and circuits",
+   "kind": "H",
+   "n": "Ground loops",
+   "he": "לולאות הארקה",
+   "where": "M11.7 (Horowitz & Hill 7: grounding and shielding)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.ELEC.H8",
+   "domain": "ENG · Electronics and circuits",
+   "kind": "H",
+   "n": "Decoupling",
+   "he": "ניתוק",
+   "where": "M11.11 · P2_:Power integrity and decoupling, M11.10 (Horowitz & Hill 12)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.ELEC.H9",
+   "domain": "ENG · Electronics and circuits",
+   "kind": "H",
+   "n": "Thermal derating",
+   "he": "הפחתה תרמית",
+   "where": "M11.6 · P2_:Electronics reliability (derating)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.ELEC.H10",
+   "domain": "ENG · Electronics and circuits",
+   "kind": "H",
+   "n": "S-parameter basics",
+   "he": "יסודות S-parameters",
+   "where": "M11.11 · E:Electronics |0.5"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.ELEC.V3",
+   "domain": "ENG · Electronics and circuits",
+   "kind": "V",
+   "n": "Two routes for every critical number",
+   "he": "שתי דרכים לכל מספר קריטי",
+   "where": "M11.7 · E:Electronics |4.3, E2:ENG.ELEC.V1"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.PWR.H1",
+   "domain": "ENG · Electric machines and power",
+   "kind": "H",
+   "n": "P = VI",
+   "he": "P=VI",
+   "where": "M11.1"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.PWR.H2",
+   "domain": "ENG · Electric machines and power",
+   "kind": "H",
+   "n": "Losses",
+   "he": "הפסדים",
+   "where": "M12.3 · E:Electric mac|0.2, M12.6 (Hughes & Drury 5–6)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.PWR.H4",
+   "domain": "ENG · Electric machines and power",
+   "kind": "H",
+   "n": "Energy density",
+   "he": "צפיפות אנרגיה",
+   "where": "M27.5 · A-J1, M13.17 (MacKay 26)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.PWR.H5",
+   "domain": "ENG · Electric machines and power",
+   "kind": "H",
+   "n": "Torque-speed curve",
+   "he": "עקומת מומנט-מהירות",
+   "where": "M12.5–M12.6 (Hughes & Drury 3–6)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.PWR.H6",
+   "domain": "ENG · Electric machines and power",
+   "kind": "H",
+   "n": "Per-unit system",
+   "he": "per-unit",
+   "where": "M12.6 · E:Electric mac|3.0"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.PWR.V1",
+   "domain": "ENG · Electric machines and power",
+   "kind": "V",
+   "n": "Energy balance",
+   "he": "מאזן אנרגיה",
+   "where": "M13.6 (Çengel & Boles 4–5)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.THERM.H1",
+   "domain": "ENG · Thermodynamics and heat transfer",
+   "kind": "H",
+   "n": "Three heat-transfer mechanisms",
+   "he": "שלושת המנגנונים",
+   "where": "M14.1 (Lienhard 1)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.THERM.H2",
+   "domain": "ENG · Thermodynamics and heat transfer",
+   "kind": "H",
+   "n": "Thermal resistance",
+   "he": "התנגדות תרמית",
+   "where": "M14.2 (Lienhard 2)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.THERM.H3",
+   "domain": "ENG · Thermodynamics and heat transfer",
+   "kind": "H",
+   "n": "Biot and Nusselt numbers to order of magnitude",
+   "he": "מספרי Biot ו-Nusselt בסדר גודל",
+   "where": "M14.5 (Lienhard 5: Biot), M14.7 (Lienhard 7: Nusselt)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.THERM.H4",
+   "domain": "ENG · Thermodynamics and heat transfer",
+   "kind": "H",
+   "n": "Stefan-Boltzmann law",
+   "he": "סטפן-בולצמן",
+   "where": "M14.10 (Lienhard 10)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.THERM.H5",
+   "domain": "ENG · Thermodynamics and heat transfer",
+   "kind": "H",
+   "n": "Carnot efficiency",
+   "he": "נצילות קרנו",
+   "where": "M13.3 (Feynman I 44), M13.7 (Çengel & Boles 6)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.THERM.V1",
+   "domain": "ENG · Thermodynamics and heat transfer",
+   "kind": "V",
+   "n": "Energy balance",
+   "he": "מאזן אנרגיה",
+   "where": "M13.6 (Çengel & Boles 4–5)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.FLU.H1",
+   "domain": "ENG · Fluids, aerodynamics and propulsion",
+   "kind": "H",
+   "n": "Lift and drag",
+   "he": "עילוי וגרר",
+   "where": "M15.3, M15.8 (Anderson, Introduction to Flight 2, 5)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.FLU.H2",
+   "domain": "ENG · Fluids, aerodynamics and propulsion",
+   "kind": "H",
+   "n": "L/D",
+   "he": "L/D",
+   "where": "M15.11 (Anderson 6)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.FLU.H3",
+   "domain": "ENG · Fluids, aerodynamics and propulsion",
+   "kind": "H",
+   "n": "Reynolds and Mach numbers",
+   "he": "ריינולדס ומאך",
+   "where": "M15.5, M15.7 (Anderson 4)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.FLU.H4",
+   "domain": "ENG · Fluids, aerodynamics and propulsion",
+   "kind": "H",
+   "n": "Breguet range equation",
+   "he": "Breguet",
+   "where": "M15.12 (Anderson 6: range and endurance)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.FLU.H5",
+   "domain": "ENG · Fluids, aerodynamics and propulsion",
+   "kind": "H",
+   "n": "Rocket equation",
+   "he": "משוואת הרקטה",
+   "where": "M15.15–M15.16 (Anderson 8–9)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.FLU.H6",
+   "domain": "ENG · Fluids, aerodynamics and propulsion",
+   "kind": "H",
+   "n": "Aerodynamic heating to order of magnitude",
+   "he": "חימום אווירודינמי בסדר גודל",
+   "where": "M15.17 · A-T2"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.FLU.V2",
+   "domain": "ENG · Fluids, aerodynamics and propulsion",
+   "kind": "V",
+   "n": "Textbook cases",
+   "he": "מקרים מהספר",
+   "where": "M15.11–M15.12 (Anderson worked examples)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.STR.H1",
+   "domain": "ENG · Structures and materials",
+   "kind": "H",
+   "n": "Stress and strain",
+   "he": "מאמץ ועיבור",
+   "where": "M16.2, M16.5 (Gere 1, 7)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.STR.H2",
+   "domain": "ENG · Structures and materials",
+   "kind": "H",
+   "n": "Beams and torsion",
+   "he": "קורה ופיתול",
+   "where": "M16.3–M16.4 (Gere 3–6)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.STR.H3",
+   "domain": "ENG · Structures and materials",
+   "kind": "H",
+   "n": "Buckling",
+   "he": "קריסה",
+   "where": "M16.7 (Gere 11), M16.7 · E:Structures a|0.5"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.STR.H4",
+   "domain": "ENG · Structures and materials",
+   "kind": "H",
+   "n": "Fatigue (S-N)",
+   "he": "עייפות (S-N)",
+   "where": "M16.2 · E:Structures a|1.2"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.STR.H5",
+   "domain": "ENG · Structures and materials",
+   "kind": "H",
+   "n": "Ashby material indices",
+   "he": "מדדי חומר של Ashby",
+   "where": "M16.12 (Ashby)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.STR.V1",
+   "domain": "ENG · Structures and materials",
+   "kind": "V",
+   "n": "Analytical beam solution",
+   "he": "פתרון קורה אנליטי",
+   "where": "M16.6 (Gere 9–10)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.STR.V2",
+   "domain": "ENG · Structures and materials",
+   "kind": "V",
+   "n": "Destructive test",
+   "he": "מבחן הרס",
+   "where": "M27.3 · E:Structures a|4.8"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.ML.H1",
+   "domain": "ENG · Machine learning and deep learning",
+   "kind": "H",
+   "n": "Bias-variance",
+   "he": "הטיה-שונות",
+   "where": "M17.5 (Prince 8)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.ML.H2",
+   "domain": "ENG · Machine learning and deep learning",
+   "kind": "H",
+   "n": "Generalization",
+   "he": "הכללה",
+   "where": "M17.5 · E:Machine lear|0.2"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.ML.H3",
+   "domain": "ENG · Machine learning and deep learning",
+   "kind": "H",
+   "n": "Calibration",
+   "he": "כיול",
+   "where": "M17.5 · E:Machine lear|4.0, |4.1"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.ML.H4",
+   "domain": "ENG · Machine learning and deep learning",
+   "kind": "H",
+   "n": "Leakage modes",
+   "he": "אופני דליפה",
+   "where": "M17.5 · E:Machine lear|0.2"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.ML.H5",
+   "domain": "ENG · Machine learning and deep learning",
+   "kind": "H",
+   "n": "Scaling and compute arithmetic",
+   "he": "חשבון קנה מידה ו-compute",
+   "where": "M17.12 · E:Machine lear|3.9, M22.8 · E:Machine lear|4.4"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.ML.H6",
+   "domain": "ENG · Machine learning and deep learning",
+   "kind": "H",
+   "n": "Inductive bias of convolution and attention",
+   "he": "הטיה אינדוקטיבית של קונבולוציה ו-attention",
+   "where": "M17.6–M17.7 (Prince 10, 12), M17.5 · E:Machine lear|0.6"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.ML.H7",
+   "domain": "ENG · Machine learning and deep learning",
+   "kind": "H",
+   "n": "Metrics",
+   "he": "מדדים",
+   "where": "M17.5 · E:Machine lear|4.0"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.RL.H1",
+   "domain": "ENG · Reinforcement learning",
+   "kind": "H",
+   "n": "MDP",
+   "he": "MDP",
+   "where": "M18.2 (Sutton & Barto 3)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.RL.H2",
+   "domain": "ENG · Reinforcement learning",
+   "kind": "H",
+   "n": "Bellman equations",
+   "he": "Bellman",
+   "where": "M18.2 (Sutton & Barto 3–4)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.RL.H3",
+   "domain": "ENG · Reinforcement learning",
+   "kind": "H",
+   "n": "Policy gradient",
+   "he": "policy gradient",
+   "where": "M18.7 (Sutton & Barto 13)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.RL.H4",
+   "domain": "ENG · Reinforcement learning",
+   "kind": "H",
+   "n": "Exploration",
+   "he": "exploration",
+   "where": "M18.1 (Sutton & Barto 2)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.RL.H5",
+   "domain": "ENG · Reinforcement learning",
+   "kind": "H",
+   "n": "Sim-to-real",
+   "he": "sim-to-real",
+   "where": "M18.9 · E:Reinforcemen|1.6"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.RL.V2",
+   "domain": "ENG · Reinforcement learning",
+   "kind": "V",
+   "n": "Classical-control baseline",
+   "he": "baseline של בקרה קלאסית",
+   "where": "M18.7 · E:Reinforcemen|1.9"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.ROB.H1",
+   "domain": "ENG · Robotics",
+   "kind": "H",
+   "n": "Kinematics",
+   "he": "קינמטיקה",
+   "where": "M19.3–M19.5 (Lynch & Park 4–6)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.ROB.H2",
+   "domain": "ENG · Robotics",
+   "kind": "H",
+   "n": "Pinhole camera model",
+   "he": "מצלמת חריר",
+   "where": "M19.10 · E:Robotics|1.1"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.ROB.H3",
+   "domain": "ENG · Robotics",
+   "kind": "H",
+   "n": "Epipolar geometry",
+   "he": "epipolar",
+   "where": "M19.10 · E:Robotics|1.1"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.ROB.H4",
+   "domain": "ENG · Robotics",
+   "kind": "H",
+   "n": "Visual-inertial odometry",
+   "he": "VIO",
+   "where": "M19.10 · E:Robotics|1.4"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.ROB.H5",
+   "domain": "ENG · Robotics",
+   "kind": "H",
+   "n": "Path planning",
+   "he": "תכנון מסלול",
+   "where": "M19.7 (Lynch & Park 10)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.SE.H1",
+   "domain": "ENG · Systems engineering",
+   "kind": "H",
+   "n": "Life cycle",
+   "he": "מחזור החיים",
+   "where": "M27.1 (NASA SE Handbook 3)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.SE.H2",
+   "domain": "ENG · Systems engineering",
+   "kind": "H",
+   "n": "Properties of a good requirement",
+   "he": "תכונות דרישה טובה",
+   "where": "M27.2 (NASA appendix C)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.SE.H3",
+   "domain": "ENG · Systems engineering",
+   "kind": "H",
+   "n": "Functional decomposition",
+   "he": "פירוק פונקציונלי",
+   "where": "M27.2 (NASA 4, appendix F)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.SE.H4",
+   "domain": "ENG · Systems engineering",
+   "kind": "H",
+   "n": "Interface management",
+   "he": "ניהול ממשקים",
+   "where": "M27.4 (NASA 6.3, appendix L)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.SE.H5",
+   "domain": "ENG · Systems engineering",
+   "kind": "H",
+   "n": "Verification matrix",
+   "he": "מטריצת אימות",
+   "where": "M27.3 (NASA appendix D)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.SE.H6",
+   "domain": "ENG · Systems engineering",
+   "kind": "H",
+   "n": "STPA",
+   "he": "STPA",
+   "where": "M27.4 · E:Systems engi|4.7"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.SE.H7",
+   "domain": "ENG · Systems engineering",
+   "kind": "H",
+   "n": "Risk management and margins",
+   "he": "ניהול סיכונים ו-margins",
+   "where": "M27.4 (NASA 6.4), M27.4 · E:Systems engi|1.6"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.SE.V1",
+   "domain": "ENG · Systems engineering",
+   "kind": "V",
+   "n": "Every requirement traced to a test",
+   "he": "כל דרישה נעקבת לבדיקה",
+   "where": "M27.3 (NASA appendix D), M27.4 (NASA 6.2)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.SE.V2",
+   "domain": "ENG · Systems engineering",
+   "kind": "V",
+   "n": "External peer review",
+   "he": "ביקורת עמיתים חיצונית",
+   "where": "M27.5 (NASA appendix N)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.JUDG.H1",
+   "domain": "ENG · Engineering judgment (cross-cutting)",
+   "kind": "H",
+   "n": "Order-of-magnitude library per domain",
+   "he": "ספריית סדרי גודל לכל תחום",
+   "where": "M13.15 · E:Engineering |0.2, |0.1, M22.7 · E:Periphery: d|2.1"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.JUDG.H2",
+   "domain": "ENG · Engineering judgment (cross-cutting)",
+   "kind": "H",
+   "n": "Typical failure lists",
+   "he": "רשימות כשל טיפוסיות",
+   "where": "M27.1 · E:Systems engi|5.12, M27.4 · E:Systems engi|4.3"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.PERI.H1",
+   "domain": "ENG · Periphery: discrete math, algorithms, computer systems, chips",
+   "kind": "H",
+   "n": "Complexity",
+   "he": "סיבוכיות",
+   "where": "M21.1 (Skiena 2)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.PERI.H2",
+   "domain": "ENG · Periphery: discrete math, algorithms, computer systems, chips",
+   "kind": "H",
+   "n": "Data structures",
+   "he": "מבני נתונים",
+   "where": "M21.2 (Skiena 3)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.PERI.H3",
+   "domain": "ENG · Periphery: discrete math, algorithms, computer systems, chips",
+   "kind": "H",
+   "n": "Memory and cache",
+   "he": "זיכרון ומטמון",
+   "where": "M22.7 (Patterson & Hennessy 5)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.PERI.H5",
+   "domain": "ENG · Periphery: discrete math, algorithms, computer systems, chips",
+   "kind": "H",
+   "n": "Amdahl's law",
+   "he": "Amdahl",
+   "where": "M22.8 (Patterson & Hennessy 6)"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.PERI.H6",
+   "domain": "ENG · Periphery: discrete math, algorithms, computer systems, chips",
+   "kind": "H",
+   "n": "Real time and interrupts",
+   "he": "זמן אמת ופסיקות",
+   "where": "M22.10 · E:Electronics |3.5, M22.10 · E:Robotics|3.0"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.PERI.H7",
+   "domain": "ENG · Periphery: discrete math, algorithms, computer systems, chips",
+   "kind": "H",
+   "n": "git",
+   "he": "git",
+   "where": "M27.3 · E:Periphery: d|2.7"
+  },
+  {
+   "app": "eng",
+   "id": "E2:ENG.PERI.V1",
+   "domain": "ENG · Periphery: discrete math, algorithms, computer systems, chips",
+   "kind": "V",
+   "n": "Automated tests",
+   "he": "בדיקות אוטומטיות",
+   "where": "M27.3 · E:Periphery: d|2.7, M10.9 (Langtangen & Linge C)"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.FND.H1",
+   "domain": "MIL · Foundations: the quantitative toolkit",
+   "kind": "H",
+   "n": "dB arithmetic",
+   "he": "אריתמטיקת dB",
+   "where": "M0.1 (EW 101 2.1–2.3), M0.1 · M:F.1.4"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.FND.H2",
+   "domain": "MIL · Foundations: the quantitative toolkit",
+   "kind": "H",
+   "n": "Radar equation and J/S in at least one form",
+   "he": "משוואות מכ\"ם ו-J/S בצורה אחת לפחות",
+   "where": "M2.2 (PoMR 2), M4.7 (EW 101 9)"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.FND.H3",
+   "domain": "MIL · Foundations: the quantitative toolkit",
+   "kind": "H",
+   "n": "Pd/Pfa",
+   "he": "Pd/Pfa",
+   "where": "M2.10 (PoMR 15)"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.FND.H5",
+   "domain": "MIL · Foundations: the quantitative toolkit",
+   "kind": "H",
+   "n": "DOP",
+   "he": "DOP",
+   "where": "M5.6 (Kaplan 7)"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.FND.H6",
+   "domain": "MIL · Foundations: the quantitative toolkit",
+   "kind": "H",
+   "n": "CEP",
+   "he": "CEP",
+   "where": "M11.4, M6.7"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.FND.H7",
+   "domain": "MIL · Foundations: the quantitative toolkit",
+   "kind": "H",
+   "n": "Coordinate systems",
+   "he": "מערכות קואורדינטות",
+   "where": "M6.1 (Siouris), M5.1 (Kaplan 2), M0.8"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.FND.H8",
+   "domain": "MIL · Foundations: the quantitative toolkit",
+   "kind": "H",
+   "n": "MOE/MOP",
+   "he": "MOE/MOP",
+   "where": "M7.2 · M:F.8.1, M14.1 · M:OR.1.2"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.ANT.H1",
+   "domain": "MIL · Antennas and propagation",
+   "kind": "H",
+   "n": "Gain",
+   "he": "רווח",
+   "where": "M1.1 (EW 101 3, PoMR 9)"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.ANT.H2",
+   "domain": "MIL · Antennas and propagation",
+   "kind": "H",
+   "n": "Aperture",
+   "he": "צמצם",
+   "where": "M1.1 (PoMR 9)"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.ANT.H3",
+   "domain": "MIL · Antennas and propagation",
+   "kind": "H",
+   "n": "Beamwidth",
+   "he": "רוחב אלומה",
+   "where": "M1.1 (EW 101 3)"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.ANT.H4",
+   "domain": "MIL · Antennas and propagation",
+   "kind": "H",
+   "n": "Array factor",
+   "he": "פקטור מערך",
+   "where": "M1.2 (PoMR 9.7)"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.ANT.H5",
+   "domain": "MIL · Antennas and propagation",
+   "kind": "H",
+   "n": "Grating lobes",
+   "he": "אונות סבכה",
+   "where": "M1.2 (PoMR 9.7, EW 101 3.4)"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.ANT.H7",
+   "domain": "MIL · Antennas and propagation",
+   "kind": "H",
+   "n": "Friis transmission equation",
+   "he": "Friis",
+   "where": "M1.4 (PoMR 2.14, Kaplan appendix C)"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.ANT.H8",
+   "domain": "MIL · Antennas and propagation",
+   "kind": "H",
+   "n": "Fresnel zones",
+   "he": "אזורי פרנל",
+   "where": "M1.3 (PoMR 4)"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.ANT.H9",
+   "domain": "MIL · Antennas and propagation",
+   "kind": "H",
+   "n": "4/3 earth model",
+   "he": "כדור 4/3",
+   "where": "M1.3 (PoMR 4)"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.ANT.H10",
+   "domain": "MIL · Antennas and propagation",
+   "kind": "H",
+   "n": "Multipath",
+   "he": "multipath",
+   "where": "M1.3 (PoMR 4, NRL Low-Altitude vol. 1)"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.ANT.H11",
+   "domain": "MIL · Antennas and propagation",
+   "kind": "H",
+   "n": "Rain and gas attenuation to order of magnitude",
+   "he": "סדרי גודל של ניחות גשם וגזים",
+   "where": "M1.3 (PoMR 4)"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.ANT.V5",
+   "domain": "MIL · Antennas and propagation",
+   "kind": "V",
+   "n": "Published measurements",
+   "he": "מדידות שפורסמו",
+   "where": "M1.3 (NRL Low-Altitude vol. 1: measured propagation over sea)"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.RAD.H1",
+   "domain": "MIL · Radar",
+   "kind": "H",
+   "n": "Radar equation in all its forms",
+   "he": "משוואת המכ\"ם בכל צורותיה",
+   "where": "M2.2 (PoMR 2), M2.3"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.RAD.H2",
+   "domain": "MIL · Radar",
+   "kind": "H",
+   "n": "Ambiguity function",
+   "he": "פונקציית עמימות",
+   "where": "M2.12 (PoMR 20)"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.RAD.H3",
+   "domain": "MIL · Radar",
+   "kind": "H",
+   "n": "Resolution",
+   "he": "רזולוציה",
+   "where": "M2.1, M2.12, M2.14"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.RAD.H4",
+   "domain": "MIL · Radar",
+   "kind": "H",
+   "n": "Clutter and MTI",
+   "he": "clutter ו-MTI",
+   "where": "M2.6, M2.13"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.RAD.H5",
+   "domain": "MIL · Radar",
+   "kind": "H",
+   "n": "STAP idea",
+   "he": "רעיון STAP",
+   "where": "M2.16"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.RAD.H6",
+   "domain": "MIL · Radar",
+   "kind": "H",
+   "n": "CFAR",
+   "he": "CFAR",
+   "where": "M2.11 (PoMR 16)"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.RAD.H7",
+   "domain": "MIL · Radar",
+   "kind": "H",
+   "n": "Detection theory",
+   "he": "תורת גילוי",
+   "where": "M2.10 (PoMR 15)"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.RAD.H8",
+   "domain": "MIL · Radar",
+   "kind": "H",
+   "n": "Micro-Doppler",
+   "he": "מיקרו-דופלר",
+   "where": "M2.38, M2.37 · M:R.8.1"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.RAD.H9",
+   "domain": "MIL · Radar",
+   "kind": "H",
+   "n": "ECCM",
+   "he": "ECCM",
+   "where": "M4.16"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.RAD.V5",
+   "domain": "MIL · Radar",
+   "kind": "V",
+   "n": "SNR budget in advance",
+   "he": "תקציב SNR מראש",
+   "where": "M2.2 (PoMR 2: loss budget)"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.EOIR.H1",
+   "domain": "MIL · Electro-optical and infrared sensing",
+   "kind": "H",
+   "n": "Planck's law",
+   "he": "פלאנק",
+   "where": "M3.4 (Driggers)"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.EOIR.H2",
+   "domain": "MIL · Electro-optical and infrared sensing",
+   "kind": "H",
+   "n": "MTF",
+   "he": "MTF",
+   "where": "M3.2 (Driggers)"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.EOIR.H3",
+   "domain": "MIL · Electro-optical and infrared sensing",
+   "kind": "H",
+   "n": "NETD",
+   "he": "NETD",
+   "where": "M3.10 (Driggers 14), M3.6"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.EOIR.H4",
+   "domain": "MIL · Electro-optical and infrared sensing",
+   "kind": "H",
+   "n": "Johnson criteria and TTP",
+   "he": "Johnson/TTP",
+   "where": "M3.9 (Driggers 12–13)"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.EOIR.H5",
+   "domain": "MIL · Electro-optical and infrared sensing",
+   "kind": "H",
+   "n": "Atmospheric transmission",
+   "he": "תמסורת",
+   "where": "M3.5 (Driggers)"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.EOIR.H6",
+   "domain": "MIL · Electro-optical and infrared sensing",
+   "kind": "H",
+   "n": "Contrast",
+   "he": "ניגוד",
+   "where": "M3.4, M3.10 (Driggers)"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.EOIR.V2",
+   "domain": "MIL · Electro-optical and infrared sensing",
+   "kind": "V",
+   "n": "Comparison with published results",
+   "he": "השוואה לתוצאות שפורסמו",
+   "where": "M3.9–M3.10 (Driggers worked examples)"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.EW.H1",
+   "domain": "MIL · Electronic warfare and electromagnetic spectrum operations",
+   "kind": "H",
+   "n": "J/S",
+   "he": "J/S",
+   "where": "M4.7 (EW 101 9)"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.EW.H2",
+   "domain": "MIL · Electronic warfare and electromagnetic spectrum operations",
+   "kind": "H",
+   "n": "Burn-through",
+   "he": "burn-through",
+   "where": "M4.7 (EW 101 9)"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.EW.H3",
+   "domain": "MIL · Electronic warfare and electromagnetic spectrum operations",
+   "kind": "H",
+   "n": "ES range equation",
+   "he": "משוואת טווח ES",
+   "where": "M0.1 (EW 101 2.2), M4.5"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.EW.H4",
+   "domain": "MIL · Electronic warfare and electromagnetic spectrum operations",
+   "kind": "H",
+   "n": "LPI processing gain",
+   "he": "רווח עיבוד LPI",
+   "where": "M4.11, M2.18"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.EW.H5",
+   "domain": "MIL · Electronic warfare and electromagnetic spectrum operations",
+   "kind": "H",
+   "n": "Deinterleaving",
+   "he": "deinterleaving",
+   "where": "M4.3"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.EW.H6",
+   "domain": "MIL · Electronic warfare and electromagnetic spectrum operations",
+   "kind": "H",
+   "n": "DOA accuracy",
+   "he": "דיוק DOA",
+   "where": "M4.6"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.EW.H7",
+   "domain": "MIL · Electronic warfare and electromagnetic spectrum operations",
+   "kind": "H",
+   "n": "CM/CCM cycle and its timescales",
+   "he": "מחזור CM/CCM וקצביו",
+   "where": "M4.1 · M:R.7.4"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.EW.V2",
+   "domain": "MIL · Electronic warfare and electromagnetic spectrum operations",
+   "kind": "V",
+   "n": "Simulation vs measurement",
+   "he": "סימולציה מול מדידה",
+   "where": "M4.14 · M:EW.9.1"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.COM.H1",
+   "domain": "MIL · Communications, datalinks and networks",
+   "kind": "H",
+   "n": "Link budget",
+   "he": "תקציב לינק",
+   "where": "M1.4 (EW 101 4.11–4.13), M13.10 (SMAD 16)"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.COM.H2",
+   "domain": "MIL · Communications, datalinks and networks",
+   "kind": "H",
+   "n": "TDMA and Link 16 at architecture level",
+   "he": "TDMA ו-Link 16 ברמת ארכיטקטורה",
+   "where": "M7.9 (SISO Link 16)"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.COM.H3",
+   "domain": "MIL · Communications, datalinks and networks",
+   "kind": "H",
+   "n": "LPI",
+   "he": "LPI",
+   "where": "M4.11, M7.9 · M:COM.2.5"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.COM.H5",
+   "domain": "MIL · Communications, datalinks and networks",
+   "kind": "H",
+   "n": "Latency",
+   "he": "השהיה",
+   "where": "M7.9 · M:COM.2.6"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.PNT.H1",
+   "domain": "MIL · Positioning, navigation and timing",
+   "kind": "H",
+   "n": "Pseudorange equation",
+   "he": "משוואת הפסאודו-טווח",
+   "where": "M5.1 (Kaplan 2)"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.PNT.H2",
+   "domain": "MIL · Positioning, navigation and timing",
+   "kind": "H",
+   "n": "DOP",
+   "he": "DOP",
+   "where": "M5.6 (Kaplan 7)"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.PNT.H3",
+   "domain": "MIL · Positioning, navigation and timing",
+   "kind": "H",
+   "n": "C/N0",
+   "he": "C/N0",
+   "where": "M5.3–M5.4 (Kaplan 4–5)"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.PNT.H4",
+   "domain": "MIL · Positioning, navigation and timing",
+   "kind": "H",
+   "n": "J/N",
+   "he": "J/N",
+   "where": "M5.5 (Kaplan 6)"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.PNT.H5",
+   "domain": "MIL · Positioning, navigation and timing",
+   "kind": "H",
+   "n": "Tracking-loop thresholds",
+   "he": "ספי לולאות עקיבה",
+   "where": "M5.4 (Kaplan 5)"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.PNT.H6",
+   "domain": "MIL · Positioning, navigation and timing",
+   "kind": "H",
+   "n": "INS error growth",
+   "he": "צמיחת שגיאת INS",
+   "where": "M5.8"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.PNT.H7",
+   "domain": "MIL · Positioning, navigation and timing",
+   "kind": "H",
+   "n": "Allan deviation",
+   "he": "Allan deviation",
+   "where": "M5.6 · P5.A1, M5.6 (Kaplan appendix B)"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.PNT.H8",
+   "domain": "MIL · Positioning, navigation and timing",
+   "kind": "H",
+   "n": "Reference frames",
+   "he": "מסגרות",
+   "where": "M5.1 (Kaplan 2), M6.1"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.PNT.V4",
+   "domain": "MIL · Positioning, navigation and timing",
+   "kind": "V",
+   "n": "Reception maps vs NIC",
+   "he": "מפות קליטה מול NIC",
+   "where": "M5.5 · P5.A5"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.MSL.H1",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "kind": "H",
+   "n": "PN and APN",
+   "he": "PN ו-APN",
+   "where": "M6.4 (Siouris 4.3–4.7)"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.MSL.H2",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "kind": "H",
+   "n": "Guidance system time constant",
+   "he": "קבוע זמן מערכת",
+   "where": "M6.6 · M:MSL.5.1"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.MSL.H3",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "kind": "H",
+   "n": "Miss distance",
+   "he": "מרחק החטאה",
+   "where": "M6.6 · M:MSL.5.1, M:MSL.5.2"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.MSL.H4",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "kind": "H",
+   "n": "Delta-v",
+   "he": "Δv",
+   "where": "M6.8 (Siouris 6), M13.12"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.MSL.H5",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "kind": "H",
+   "n": "Aerodynamics to order of magnitude",
+   "he": "אווירודינמיקה בסדר גודל",
+   "where": "M6.2 · A-F3, M6.12 (Fleeman)"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.MSL.H6",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "kind": "H",
+   "n": "Structural robustness",
+   "he": "עמידות מבנית",
+   "where": "M6.12 (Fleeman 1–7: airframe and motor-case structure)"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.MSL.V2",
+   "domain": "MIL · Missiles: propulsion, guidance, control and design",
+   "kind": "V",
+   "n": "Closed-form solution",
+   "he": "פתרון סגור",
+   "where": "M6.4 (Siouris 4.3–4.7: closed-form PN)"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.AMD.H1",
+   "domain": "MIL · Air and missile defense",
+   "kind": "H",
+   "n": "Layered leakage",
+   "he": "דליפה שכבתית",
+   "where": "M7.1 · M:AMD.1.3, M0.4 · ADD:MF.2"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.AMD.H2",
+   "domain": "MIL · Air and missile defense",
+   "kind": "H",
+   "n": "Magazine depth",
+   "he": "עומק מחסנית",
+   "where": "M7.1 · M:AMD.5.4, M7.4"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.AMD.H3",
+   "domain": "MIL · Air and missile defense",
+   "kind": "H",
+   "n": "Pk",
+   "he": "Pk",
+   "where": "M7.1, M11.4"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.AMD.H4",
+   "domain": "MIL · Air and missile defense",
+   "kind": "H",
+   "n": "Cost-exchange",
+   "he": "עלות-החלפה",
+   "where": "M7.1 · M:AMD.5.1"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.AMD.H5",
+   "domain": "MIL · Air and missile defense",
+   "kind": "H",
+   "n": "Denominators",
+   "he": "מכנים",
+   "where": "M7.4 · M:CRAFT.2.2"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.AMD.V1",
+   "domain": "MIL · Air and missile defense",
+   "kind": "V",
+   "n": "Cross-checked public data",
+   "he": "נתונים ציבוריים מוצלבים",
+   "where": "M7.1 · P6b:ADD.7"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.AMD.V2",
+   "domain": "MIL · Air and missile defense",
+   "kind": "V",
+   "n": "Sensitivity",
+   "he": "רגישות",
+   "where": "M14.1 · P7+.3"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.C4.H1",
+   "domain": "MIL · C4ISR, kill chains and targeting",
+   "kind": "H",
+   "n": "F2T2EA",
+   "he": "F2T2EA",
+   "where": "M7.9 · M:C4.1.1"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.C4.H2",
+   "domain": "MIL · C4ISR, kill chains and targeting",
+   "kind": "H",
+   "n": "Latencies",
+   "he": "השהיות",
+   "where": "M7.9 · M:C4.1.2, M:C4.1.3"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.C4.H3",
+   "domain": "MIL · C4ISR, kill chains and targeting",
+   "kind": "H",
+   "n": "Value of information",
+   "he": "VoI",
+   "where": "M14.1 · M:OR.8.2, M:OR.13.1"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.C4.H4",
+   "domain": "MIL · C4ISR, kill chains and targeting",
+   "kind": "H",
+   "n": "C2 architectures",
+   "he": "ארכיטקטורות C2",
+   "where": "M7.9 · M:C4.5.1"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.C4.V1",
+   "domain": "MIL · C4ISR, kill chains and targeting",
+   "kind": "V",
+   "n": "Interviews and documented cases",
+   "he": "ראיונות ומקרים מתועדים",
+   "where": "M14.5 · M:CRAFT.3.2, M12.1 · M:CRAFT.4.5"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.SPC.H1",
+   "domain": "MIL · Space systems and space warfare",
+   "kind": "H",
+   "n": "Kepler orbits",
+   "he": "קפלר",
+   "where": "M13.4 (SMAD 9)"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.SPC.H2",
+   "domain": "MIL · Space systems and space warfare",
+   "kind": "H",
+   "n": "Delta-v",
+   "he": "Δv",
+   "where": "M13.4 (SMAD 9), M13.12"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.SPC.H3",
+   "domain": "MIL · Space systems and space warfare",
+   "kind": "H",
+   "n": "J2",
+   "he": "J2",
+   "where": "M13.4 · E:Fluids, aero|6.1"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.SPC.H4",
+   "domain": "MIL · Space systems and space warfare",
+   "kind": "H",
+   "n": "Coverage",
+   "he": "כיסוי",
+   "where": "M13.5–M13.6 (SMAD 8, 10)"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.SPC.H5",
+   "domain": "MIL · Space systems and space warfare",
+   "kind": "H",
+   "n": "Satellite link budget",
+   "he": "תקציב לינק לווייני",
+   "where": "M13.10 (SMAD 16)"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.SPC.V2",
+   "domain": "MIL · Space systems and space warfare",
+   "kind": "V",
+   "n": "Textbook cases",
+   "he": "מקרי ספר",
+   "where": "M13.5–M13.6 (SMAD worked examples)"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.UAS.H1",
+   "domain": "MIL · Unmanned systems and counter-UAS",
+   "kind": "H",
+   "n": "RCS of drones",
+   "he": "RCS של רחפנים",
+   "where": "M9.7 · P5.A12"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.UAS.H2",
+   "domain": "MIL · Unmanned systems and counter-UAS",
+   "kind": "H",
+   "n": "Detection ranges",
+   "he": "טווחי גילוי",
+   "where": "M9.7 · M:UAS.4.1"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.UAS.H3",
+   "domain": "MIL · Unmanned systems and counter-UAS",
+   "kind": "H",
+   "n": "C2 links",
+   "he": "קשרי C2",
+   "where": "M9.5 (Fahlstrom 13–16)"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.UAS.H4",
+   "domain": "MIL · Unmanned systems and counter-UAS",
+   "kind": "H",
+   "n": "Cost-exchange",
+   "he": "עלות-החלפה",
+   "where": "M9.7 · M:UAS.4.3"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.UAS.V3",
+   "domain": "MIL · Unmanned systems and counter-UAS",
+   "kind": "V",
+   "n": "Field reports",
+   "he": "דיווחי שטח",
+   "where": "M9.9 · M:CRAFT.4.1, M:UAS.3.3"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.WPN.H1",
+   "domain": "MIL · Weapons effects, lethality and protection",
+   "kind": "H",
+   "n": "Gurney equations",
+   "he": "Gurney",
+   "where": "M11.3 (Hall 22–23; Ball 3.5)"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.WPN.V1",
+   "domain": "MIL · Weapons effects, lethality and protection",
+   "kind": "V",
+   "n": "Textbook cases",
+   "he": "מקרים מהספר",
+   "where": "M11.4 (Hall 24, Przemieniecki 3 examples)"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.PLAT.H1",
+   "domain": "MIL · Platforms and survivability",
+   "kind": "H",
+   "n": "Susceptibility vs vulnerability",
+   "he": "susceptibility מול vulnerability",
+   "where": "M8.8 · M:SUR.1.1"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.PLAT.H2",
+   "domain": "MIL · Platforms and survivability",
+   "kind": "H",
+   "n": "Attrition rates",
+   "he": "שיעורי שחיקה",
+   "where": "M8.8 · M:SUR.1.3, M14.1 · M:OR.11.3"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.PLAT.V1",
+   "domain": "MIL · Platforms and survivability",
+   "kind": "V",
+   "n": "History",
+   "he": "היסטוריה",
+   "where": "M8.8 (Ball: historical loss rates), M14.1 · M:OR.11.3"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.NAV.H1",
+   "domain": "MIL · Naval and undersea warfare",
+   "kind": "H",
+   "n": "Hughes salvo model",
+   "he": "Hughes salvo",
+   "where": "M10.5 · M:NAV.4.2"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.NAV.H2",
+   "domain": "MIL · Naval and undersea warfare",
+   "kind": "H",
+   "n": "Sonar equation",
+   "he": "משוואת הסונאר",
+   "where": "M10.2 (Hall 16)"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.OR.H1",
+   "domain": "MIL · Operations research and combat modeling",
+   "kind": "H",
+   "n": "Lanchester equations",
+   "he": "לנצ'סטר",
+   "where": "M14.1 (Washburn & Kress 5)"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.OR.H2",
+   "domain": "MIL · Operations research and combat modeling",
+   "kind": "H",
+   "n": "Salvo model",
+   "he": "salvo",
+   "where": "M14.1, M10.5 · M:NAV.4.2"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.OR.H3",
+   "domain": "MIL · Operations research and combat modeling",
+   "kind": "H",
+   "n": "Search theory",
+   "he": "תורת חיפוש",
+   "where": "M3.11"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.OR.H4",
+   "domain": "MIL · Operations research and combat modeling",
+   "kind": "H",
+   "n": "Design of experiments",
+   "he": "תכנון ניסויים",
+   "where": "M14.1 · M:OR.7.3"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.OR.H5",
+   "domain": "MIL · Operations research and combat modeling",
+   "kind": "H",
+   "n": "Model verification",
+   "he": "אימות",
+   "where": "M14.1 · M:OR.1.3"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.OR.V1",
+   "domain": "MIL · Operations research and combat modeling",
+   "kind": "V",
+   "n": "History",
+   "he": "היסטוריה",
+   "where": "M14.1 · M:OR.11.1, M:OR.11.3"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.OR.V2",
+   "domain": "MIL · Operations research and combat modeling",
+   "kind": "V",
+   "n": "Sensitivity",
+   "he": "רגישות",
+   "where": "M14.1 · P7+.3"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.OR.V3",
+   "domain": "MIL · Operations research and combat modeling",
+   "kind": "V",
+   "n": "Comparison",
+   "he": "השוואה",
+   "where": "M14.1 · M:OR.1.3 (VV&A)"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.LOG.H1",
+   "domain": "MIL · Logistics, sustainment and force generation",
+   "kind": "H",
+   "n": "Planning factors",
+   "he": "מקדמי תכנון",
+   "where": "M14.3 · M:LOG.1.1"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.LOG.H2",
+   "domain": "MIL · Logistics, sustainment and force generation",
+   "kind": "H",
+   "n": "Consumption",
+   "he": "צריכה",
+   "where": "M14.3 · M:LOG.1.1, M:LOG.1.4"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.LOG.H3",
+   "domain": "MIL · Logistics, sustainment and force generation",
+   "kind": "H",
+   "n": "Production",
+   "he": "ייצור",
+   "where": "M14.3 · P7+.5"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.LOG.V1",
+   "domain": "MIL · Logistics, sustainment and force generation",
+   "kind": "V",
+   "n": "Cross-checked data",
+   "he": "נתונים מוצלבים",
+   "where": "M14.4 · M:CRAFT.2.5"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.ACQ.H1",
+   "domain": "MIL · Acquisition, cost, test & evaluation, industrial base, policy",
+   "kind": "H",
+   "n": "Life-cycle cost",
+   "he": "LCC",
+   "where": "M14.2 · M:ACQ.2.1"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.ACQ.H2",
+   "domain": "MIL · Acquisition, cost, test & evaluation, industrial base, policy",
+   "kind": "H",
+   "n": "Learning curves",
+   "he": "עקומות למידה",
+   "where": "M14.2 · M:ACQ.2.3"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.ACQ.H3",
+   "domain": "MIL · Acquisition, cost, test & evaluation, industrial base, policy",
+   "kind": "H",
+   "n": "Test statistics",
+   "he": "סטטיסטיקת ניסוי",
+   "where": "M7.10 · M:OR.9.1, M0.4 · ADD:MF.1"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.ACQ.V1",
+   "domain": "MIL · Acquisition, cost, test & evaluation, industrial base, policy",
+   "kind": "V",
+   "n": "Data",
+   "he": "נתונים",
+   "where": "M14.2 · M:ACQ.1.2"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.ADV.H1",
+   "domain": "MIL · Adversary systems, doctrine and capability assessment",
+   "kind": "H",
+   "n": "Force structure",
+   "he": "מבנה כוח",
+   "where": "M12.1–M12.4 (ATP 7-100.1, 7-100.3)"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.ADV.H2",
+   "domain": "MIL · Adversary systems, doctrine and capability assessment",
+   "kind": "H",
+   "n": "Doctrines",
+   "he": "תורות",
+   "where": "M12.1–M12.4"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.ADV.H3",
+   "domain": "MIL · Adversary systems, doctrine and capability assessment",
+   "kind": "H",
+   "n": "Assessment methods",
+   "he": "שיטות הערכה",
+   "where": "M14.4 · M:ADV.4.1, M:ADV.4.2, M:ADV.4.3"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.ADV.V2",
+   "domain": "MIL · Adversary systems, doctrine and capability assessment",
+   "kind": "V",
+   "n": "Expert",
+   "he": "מומחה",
+   "where": "M14.5 · M:CRAFT.3.2"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.CRAFT.H1",
+   "domain": "MIL · Defense analysis craft: OSINT, claims checking and communication",
+   "kind": "H",
+   "n": "Verification methods",
+   "he": "שיטות אימות",
+   "where": "M14.4 · M:CRAFT.1.1–1.3"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.CRAFT.H2",
+   "domain": "MIL · Defense analysis craft: OSINT, claims checking and communication",
+   "kind": "H",
+   "n": "Biases",
+   "he": "הטיות",
+   "where": "M14.4 · M:ADV.4.3"
+  },
+  {
+   "app": "mil",
+   "id": "E2:MIL.CRAFT.H3",
+   "domain": "MIL · Defense analysis craft: OSINT, claims checking and communication",
+   "kind": "H",
+   "n": "Orders of magnitude",
+   "he": "סדרי גודל",
+   "where": "M14.1 · P7+.4, M0.1 · M:F.1.4"
+  }
+ ],
+ "counts": {
+  "eng": {
+   "total": 159,
+   "covered": 119,
+   "add": 38,
+   "pending": 2
+  },
+  "mil": {
+   "total": 148,
+   "covered": 116,
+   "add": 32,
+   "pending": 0
+  }
+ }
+}

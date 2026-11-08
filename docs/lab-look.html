@@ -1,0 +1,356 @@
+<title>צבע, כתב ותבנית</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&family=Frank+Ruhl+Libre:wght@400;500;700&family=Heebo:wght@400;500;700&family=Noto+Serif+Hebrew:wght@400;600&family=Noto+Sans+Hebrew:wght@400;600;700&family=David+Libre:wght@400;500;700&family=Rubik:wght@400;500;600&family=Assistant:wght@400;600;700&family=Secular+One&family=Miriam+Libre:wght@400;700&family=Suez+One&display=swap">
+<style>
+/* Layout: one long sheet of decisions. Each question shows its options as live samples of a
+   real lesson paragraph; the samples further down are drawn in the palette and type already
+   picked above, so the last section shows the whole result for each lab. */
+:root {
+  --bg: #eceef0; --surface: #ffffff; --ink: #18212b; --muted: #5a6573; --line: #cdd3da;
+  --pick: #1f6f5c; --pick-soft: #dcefe8; --focus: #2f6fae; --err: #b42318;
+  --f-ui: "IBM Plex Sans Hebrew", "Noto Sans Hebrew", Arial, sans-serif; --f-mono: "IBM Plex Mono", ui-monospace, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #14181d; --surface: #1c2128; --ink: #e3e8ee; --muted: #9aa5b1; --line: #343c46; --pick: #63c7a4; --pick-soft: #18352c; --focus: #8cc4ff; --err: #ff8f84; color-scheme: dark; } }
+:root[data-theme="dark"] { --bg: #14181d; --surface: #1c2128; --ink: #e3e8ee; --muted: #9aa5b1; --line: #343c46; --pick: #63c7a4; --pick-soft: #18352c; --focus: #8cc4ff; --err: #ff8f84; color-scheme: dark; }
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-ui); font-size: 15px; line-height: 1.6; direction: rtl; }
+.wrap { max-width: 1240px; margin: 0 auto; padding-block: 28px 80px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 22px; }
+.eyebrow { font-family: var(--f-mono); font-size: 12px; letter-spacing: .08em; color: var(--muted); }
+h1 { font-size: clamp(26px, 3.4vw, 34px); margin: 2px 0 6px; text-wrap: balance; }
+.lead { margin: 0; max-width: 76ch; color: var(--muted); }
+.status { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; margin-top: 10px; font-size: 13px; }
+.status b { font-family: var(--f-mono); font-weight: 500; }
+#save { color: var(--muted); } #save.err { color: var(--err); }
+.toc { display: flex; gap: 8px; flex-wrap: wrap; }
+.toc a { font-size: 13px; color: var(--ink); text-decoration: none; border: 1px solid var(--line); background: var(--surface); padding: 3px 12px; border-radius: 999px; }
+.toc a:hover, .toc a:focus-visible { border-color: var(--focus); outline: none; }
+.research { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 16px 18px; display: grid; gap: 8px; }
+.research h2 { margin: 0; font-size: 17px; }
+.research ul { margin: 0; padding-inline-start: 20px; display: grid; gap: 6px; max-width: 96ch; }
+.research li { color: var(--ink); }
+.research li span { color: var(--muted); }
+section.q { display: grid; gap: 12px; padding-top: 18px; border-top: 2px solid var(--ink); scroll-margin-top: 12px; }
+.q-head { display: flex; gap: 12px; align-items: baseline; flex-wrap: wrap; }
+.q-head h2 { margin: 0; font-size: 21px; text-wrap: balance; }
+.q-state { margin-inline-start: auto; font-size: 13px; font-weight: 600; color: var(--muted); }
+.q-state.done { color: var(--pick); }
+.why { margin: 0; color: var(--muted); max-width: 84ch; }
+.grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 360px), 1fr)); }
+.grid.narrow { grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); }
+.grid.wide { grid-template-columns: repeat(auto-fill, minmax(min(100%, 560px), 1fr)); }
+.opt { background: var(--surface); border: 1.5px solid var(--line); border-radius: 6px; padding: 12px; display: grid; gap: 10px; align-content: start; min-width: 0; }
+.opt.is-on { border-color: var(--pick); box-shadow: 0 0 0 3px var(--pick-soft); }
+.opt-head { display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+.opt-head h3 { margin: 0; font-size: 16px; }
+.tagline { font-size: 12px; color: var(--muted); }
+.opt p.note { margin: 0; font-size: 13.5px; color: var(--muted); }
+.picks { display: flex; gap: 6px; flex-wrap: wrap; }
+.picks button, .opt > button.pick { font: 600 13px/1 var(--f-ui); padding: 8px 12px; border-radius: 4px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); cursor: pointer; }
+.picks button[aria-pressed="true"], .opt > button.pick[aria-pressed="true"] { background: var(--pick); border-color: var(--pick); color: var(--surface); }
+.picks button:focus-visible, .opt > button.pick:focus-visible, .toc a:focus-visible, textarea:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.pair { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+@media (max-width: 760px) { .pair { grid-template-columns: 1fr; } }
+.cr { font-family: var(--f-mono); font-size: 11.5px; color: var(--muted); display: flex; gap: 10px; flex-wrap: wrap; }
+.swatches { display: flex; gap: 4px; }
+.swatches i { width: 18px; height: 18px; border-radius: 3px; border: 1px solid #0002; }
+textarea { width: 100%; min-height: 90px; font: 15px/1.6 var(--f-ui); color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 10px 12px; resize: vertical; }
+
+/* ---------- the lesson sample: every color and face comes from --p-* set on .pv ---------- */
+.pv { background: var(--p-paper); color: var(--p-ink); border: 1px solid var(--p-line); border-radius: 4px; padding: 16px 18px 14px; font-family: var(--p-body); font-size: 15.5px; line-height: 1.85; min-width: 0; overflow: hidden; }
+.pv .mode { font: 500 10.5px/1 var(--f-mono); letter-spacing: .06em; color: var(--p-muted); margin-bottom: 8px; display: block; }
+.pv h4 { font-family: var(--p-head); font-weight: var(--p-hw, 700); font-size: 1.32em; line-height: 1.3; margin: 0 0 .45em; color: var(--p-ink); text-wrap: balance; }
+.pv p { margin: 0 0 .8em; }
+.pv .tagp { font: 500 .72em/1 var(--f-ui); color: var(--p-accent); border: 1px solid var(--p-line); background: var(--p-sheet); padding: 2px 6px; border-radius: 3px; vertical-align: .1em; white-space: nowrap; }
+.pv .l25 { border-bottom: 1.5px solid var(--p-k2); font-family: var(--f-ui); font-size: .72em; color: var(--p-k2); padding: 0 1px; white-space: nowrap; }
+.pv .eq { display: flex; justify-content: center; align-items: center; gap: .4em; margin: .6em 0 .9em; font-family: "Noto Serif Hebrew", "Times New Roman", serif; font-style: italic; font-size: 1.08em; direction: ltr; color: var(--p-ink); }
+.pv .eq .fr { display: inline-grid; text-align: center; line-height: 1.2; }
+.pv .eq .fr span:first-child { border-bottom: 1px solid currentColor; padding: 0 .3em; }
+.pv .eq .n { font-style: normal; color: var(--p-muted); font-family: var(--f-mono); font-size: .7em; margin-inline-start: 1.2em; }
+.pv strong { font-weight: 700; color: var(--p-ink); }
+.pv .acc { color: var(--p-accent); font-weight: 600; }
+.pv .blk { margin: .5em 0 .2em; font-size: .94em; line-height: 1.75; }
+.pv .blk .lbl { font: 600 .74em/1 var(--f-ui); color: var(--p-k1); letter-spacing: .02em; }
+.pv .blk p { margin: .35em 0 0; }
+.pv .blk .ans { color: var(--p-muted); font-family: var(--f-ui); font-size: .82em; }
+/* four ways to set a block apart */
+.pv[data-blk="frame"] .blk { border: 1px solid var(--p-k1); border-radius: 3px; padding: 14px 12px 8px; position: relative; margin-top: 1em; }
+.pv[data-blk="frame"] .blk .lbl { position: absolute; top: -.6em; inset-inline-start: 10px; background: var(--p-paper); padding: 0 6px; }
+.pv[data-blk="tint"] .blk { background: var(--p-k1soft); border-radius: 4px; padding: 10px 12px 8px; }
+.pv[data-blk="margin"] .blk { display: grid; grid-template-columns: 4.6em 1fr; gap: 10px; align-items: start; }
+.pv[data-blk="margin"] .blk .lbl { padding-top: .45em; text-align: start; line-height: 1.3; }
+.pv[data-blk="margin"] .blk p { margin: 0; }
+.pv[data-blk="rule"] .blk { border-top: 1px solid var(--p-k1); border-bottom: 1px solid var(--p-line); padding: 8px 0 6px; }
+
+/* ---------- layout mockups ---------- */
+.lay { font-size: 8.5px; aspect-ratio: 16 / 9.6; max-width: 100%; background: var(--p-bg); border: 1px solid var(--p-line); border-radius: 4px; display: grid; grid-template-rows: 20px 1fr; overflow: hidden; font-family: var(--p-body); color: var(--p-ink); }
+.lay .tb { background: var(--p-sheet); border-bottom: 1px solid var(--p-line); display: flex; align-items: center; gap: 6px; padding: 0 8px; font: 600 9px/1 var(--f-ui); }
+.lay .tb i { width: 6px; height: 6px; background: var(--p-accent); display: inline-block; }
+.lay .tb span { color: var(--p-muted); font-weight: 400; }
+.lay .bd { display: grid; min-height: 0; }
+.lay .side { background: var(--p-bg); border-inline-end: 1px solid var(--p-line); padding: 8px 6px; display: grid; gap: 4px; align-content: start; font: 8px/1.3 var(--f-ui); color: var(--p-muted); overflow: hidden; }
+.lay .side b { color: var(--p-accent); font-weight: 600; }
+.lay .src { background: var(--p-sheet); border-inline-start: 1px solid var(--p-line); padding: 8px; font: 7.5px/1.5 "Noto Serif Hebrew", serif; color: var(--p-muted); overflow: hidden; }
+.lay .src .pg { border: 1px solid var(--p-line); background: var(--p-paper); padding: 6px; height: 100%; overflow: hidden; }
+.lay .main { background: var(--p-paper); padding: 10px 14px; overflow: hidden; min-width: 0; }
+.lay .col { max-width: 34em; margin: 0 auto; line-height: 1.75; }
+.lay .col h5 { font-family: var(--p-head); font-weight: var(--p-hw, 700); font-size: 1.5em; margin: 0 0 .3em; line-height: 1.2; }
+.lay .col p { margin: 0 0 .5em; }
+.lay .mn { font: 7px/1.35 var(--f-ui); color: var(--p-muted); border-inline-start: 1.5px solid var(--p-k2); padding-inline-start: 5px; margin-bottom: 8px; }
+.lay .mn b { color: var(--p-k2); font-weight: 600; display: block; }
+.lay .steps { display: flex; gap: 3px; margin-bottom: 8px; }
+.lay .steps span { flex: 1; height: 14px; border: 1px solid var(--p-line); font: 7px/12px var(--f-ui); text-align: center; color: var(--p-muted); background: var(--p-sheet); }
+.lay .steps span.on { border-color: var(--p-accent); color: var(--p-accent); font-weight: 600; }
+.lay .toc2 { font: 7.5px/1.6 var(--f-ui); color: var(--p-muted); padding: 10px 8px; border-inline-start: 1px solid var(--p-line); background: var(--p-paper); }
+.lay .toc2 b { color: var(--p-ink); font-weight: 600; display: block; border-inline-start: 2px solid var(--p-accent); padding-inline-start: 4px; margin-inline-start: -6px; }
+.lay .comp { margin-top: 6px; border: 1px solid var(--p-line); height: 14px; border-radius: 2px; background: var(--p-sheet); }
+.final { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 480px), 1fr)); }
+.final .opt { gap: 8px; }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">גילואה · לנצ'סטר · מראה הקריאה</div>
+    <h1>צבע, כתב ותבנית</h1>
+    <p class="lead">ארבע החלטות על המראה של שתי המעבדות, בלי תלת-ממד ובלי תוכן. כל אפשרות מוצגת על אותה פסקה אמיתית משיעור, וכל דוגמה בהמשך הדף מצוירת כבר בצבעים ובכתב שבחרת למעלה. ההחלטות נשמרות כאן, ואני קורא אותן כשתגיד שסיימת.</p>
+    <div class="status"><b id="count">0 / 5</b><span id="save">מתחבר…</span></div>
+  </header>
+  <nav class="toc" aria-label="ניווט בדף">
+    <a href="#research">מה בדקתי</a><a href="#palette">צבעים</a><a href="#type">כתב</a><a href="#blocks">בלוקים</a><a href="#layout">תבנית</a><a href="#result">התוצאה</a>
+  </nav>
+
+  <div class="research" id="research">
+    <h2>מה בדקתי לפני שהכנתי את האפשרויות</h2>
+    <ul>
+      <li>אורך שורה: ההמלצה המקובלת לקריאה ממושכת היא 45–75 תווים לשורה. <span>הטור היום (38rem ב-17 פיקסלים) נמצא בתוך הטווח, וכך גם כל הדוגמאות כאן.</span></li>
+      <li>ניגודיות: מינימום 4.5:1 לטקסט רץ (WCAG AA), ועדיף 7:1 ומעלה. <span>אבל שחור מוחלט על לבן מוחלט, ועוד יותר לבן על שחור, מעייפים בקריאה של שעות: האותיות "זוהרות" (halation). לכן הדיו כאן כהה-רך והרקע לא לבן לגמרי, ובמצב כהה הרקע אפור-כהה ולא שחור. יחס הניגודיות מחושב ומוצג מתחת לכל ערכה.</span></li>
+      <li>סריף מול בלי-סריף: במסכים חדים המחקרים לא מראים מנצח ברור במהירות או בהבנה; מה שקובע הוא היכרות ונוחות. <span>בעברית פרנק-רוהל הוא הגופן הקלאסי של הספר המודפס; גופנים בלי סריף (Heebo, Assistant, Plex) נקיים יותר בגדלים קטנים ובמסכים פחות חדים. לכן כדאי לבחור לפי מה שנעים לעין שלך אחרי עמוד שלם, לא לפי שורה אחת.</span></li>
+      <li>צבע הדגשה אחד: <span>צבע חזק אחד לפעולות ולתגיות עמוד, וצבעי הבלוקים (שאלת עצירה, נוסחה, מקרה הנדסי) שקטים יותר, כדי שהעין לא תקפוץ בכל פסקה.</span></li>
+      <li>פחות דברים קבועים על המסך: <span>מה שלא קשור לפסקה הנוכחית (מפת המודולים, כפתורים) מתקפל. מצב ריכוז כבר קיים; כאן בוחרים את התבנית הבסיסית.</span></li>
+    </ul>
+  </div>
+
+  <section class="q" id="palette" data-q="palette">
+    <div class="q-head"><h2>1. ערכת צבעים</h2><span class="q-state" id="st-palette"></span></div>
+    <p class="why">כל ערכה מוצגת בבהיר ובכהה. אפשר לבחור ערכה אחת לשתי המעבדות, או ערכה אחרת לכל אחת, כדי שיהיה ברור במבט באיזו מעבדה אתה נמצא.</p>
+    <div class="grid wide" id="opts-palette"></div>
+  </section>
+
+  <section class="q" id="type" data-q="type">
+    <div class="q-head"><h2>2. כתב</h2><span class="q-state" id="st-type"></span></div>
+    <p class="why">גופן לטקסט הרץ וגופן לכותרות. הדוגמאות מצוירות בערכת הצבעים שבחרת לגילואה. גודל, ריווח ורוחב טור נשארים בכפתור Aa, ושם אפשר גם להחליף גופן בכל רגע.</p>
+    <div class="grid narrow" id="opts-type"></div>
+  </section>
+
+  <section class="q" id="blocks" data-q="blocks">
+    <div class="q-head"><h2>3. בלוקים בתוך השיעור</h2><span class="q-state" id="st-blocks"></span></div>
+    <p class="why">איך נראים שאלת עצירה, נוסחה, מקרה הנדסי והעולם של היום. בשיעור יש עשרות כאלה, ולכן הם קובעים כמה "רועש" הדף.</p>
+    <div class="grid narrow" id="opts-blocks"></div>
+  </section>
+
+  <section class="q" id="layout" data-q="layout">
+    <div class="q-head"><h2>4. תבנית מסך השיעור</h2><span class="q-state" id="st-layout"></span></div>
+    <p class="why">מה יש על המסך מסביב לטקסט. המפה, המקורות וכפתורי העזר נשארים בכל התבניות; ההבדל הוא מה פתוח קבוע ומה נפתח בלחיצה.</p>
+    <div class="grid wide" id="opts-layout"></div>
+  </section>
+
+  <section class="q" id="result" data-q="notes">
+    <div class="q-head"><h2>5. התוצאה, והערות</h2><span class="q-state" id="st-notes"></span></div>
+    <p class="why">שתי המעבדות כפי שייראו לפי הבחירות שלך. אם משהו עדיין לא יושב, כתוב כאן מה (למשל "הכתום חזק מדי", "הכותרות גדולות מדי").</p>
+    <div class="final" id="final"></div>
+    <textarea id="notes" placeholder="הערות חופשיות (לא חובה)"></textarea>
+  </section>
+</div>
+
+<script>
+/* ---------- the options ---------- */
+const PALETTES = [
+  { id: "draft", name: "שרטוט הנדסי", tag: "המראה של היום", note: "לבן נקי עם דיו כחול-כהה וכתום; בכהה, שרטוט כחול קלאסי. חד וטכני, אבל הכחול הרווי של מצב כהה מעייף אחרי שעה.",
+    light: { bg: "#f3f5f7", paper: "#ffffff", sheet: "#ffffff", ink: "#14283c", muted: "#627a90", line: "#ccd7e1", accent: "#d9481c", k1: "#8a3ea0", k2: "#2f6fae", k1soft: "#f4ecf6" },
+    dark: { bg: "#0a223d", paper: "#0e2c4f", sheet: "#0e2c4f", ink: "#e8f1fb", muted: "#8fb0d0", line: "#2f5884", accent: "#ff7a45", k1: "#e0a3f0", k2: "#8cc4ff", k1soft: "#1d3456" } },
+  { id: "print", name: "ספר מודפס", tag: "נייר ודיו", note: "נייר חם-בהיר ודיו חום-שחור, הדגשה בבורדו. הכי קרוב לקריאה בספר; בכהה, פחם חם עם אותיות שמנת.",
+    light: { bg: "#ece7de", paper: "#f8f5ef", sheet: "#fdfbf7", ink: "#24201b", muted: "#6f665a", line: "#dcd3c4", accent: "#8c2f39", k1: "#7a4a12", k2: "#2f5f7a", k1soft: "#f1e8da" },
+    dark: { bg: "#171513", paper: "#1f1c19", sheet: "#25221e", ink: "#e9e2d6", muted: "#a59a8a", line: "#3a352f", accent: "#e0868f", k1: "#e2b36e", k2: "#93c0dc", k1soft: "#2b2621" } },
+  { id: "graphite", name: "גרפיט", tag: "כמו קורא ספרים אלקטרוני", note: "אפור-נייר ודיו גרפיט, בלי חום ובלי כחול; הדגשה בכחול-ירקרק עמוק. הכי שקט מכולם, טוב למי שמפריע לו צבע.",
+    light: { bg: "#e4e5e3", paper: "#f2f2f0", sheet: "#f8f8f6", ink: "#232527", muted: "#686c70", line: "#d2d4d2", accent: "#0f6e6e", k1: "#55606a", k2: "#0f6e6e", k1soft: "#e6e8e7" },
+    dark: { bg: "#18191b", paper: "#202224", sheet: "#26282b", ink: "#dcdedf", muted: "#999ea3", line: "#383b3f", accent: "#62c2bd", k1: "#b3bcc4", k2: "#62c2bd", k1soft: "#2a2d30" } },
+  { id: "notebook", name: "מחברת מעבדה", tag: "ירוק-אפור", note: "נייר ירקרק מאוד חלש, דיו כחול-ירוק כהה, הדגשה בכתום שרוף. רגוע לעין, ועדיין 'הנדסי'.",
+    light: { bg: "#e5ebe6", paper: "#f4f7f3", sheet: "#fafcf9", ink: "#1b2a24", muted: "#5d6f66", line: "#cfdbd2", accent: "#b5531a", k1: "#6a4cb0", k2: "#1f7a73", k1soft: "#e9eef0" },
+    dark: { bg: "#121815", paper: "#18201c", sheet: "#1d2621", ink: "#dfe8e2", muted: "#93a69b", line: "#2f3b34", accent: "#f0955c", k1: "#c3a6ff", k2: "#6fd0c4", k1soft: "#222a2c" } },
+  { id: "ops", name: "מפת מבצעים", tag: "חאקי ואות אדום", note: "רקע חאקי-אבן, דיו זית כהה, הדגשה באדום של סימון מפה. מתאים במיוחד ללנצ'סטר.",
+    light: { bg: "#e6e3d7", paper: "#f5f3ea", sheet: "#fbfaf4", ink: "#22261d", muted: "#676a58", line: "#d8d4c3", accent: "#b3261e", k1: "#6b5a1e", k2: "#355f7d", k1soft: "#ece6d2" },
+    dark: { bg: "#141611", paper: "#1b1e17", sheet: "#21251c", ink: "#e3e2d4", muted: "#a2a18d", line: "#353a2d", accent: "#f08a7e", k1: "#e0c46c", k2: "#94bfdc", k1soft: "#2a2b20" } },
+  { id: "nightsea", name: "ים בלילה", tag: "כהה רך, כחול-אפור", note: "בנויה קודם כל לכהה: כחול-אפור רך במקום השרטוט הרווי, אותיות בגוון קר-בהיר, הדגשה בענבר. בבהיר, אפור-תכלת חלש.",
+    light: { bg: "#e6eaef", paper: "#f5f7fa", sheet: "#fbfcfd", ink: "#1a2532", muted: "#5f6c7b", line: "#d3dae3", accent: "#b86a00", k1: "#5b4fa8", k2: "#2b6c9e", k1soft: "#eceaf6" },
+    dark: { bg: "#11161d", paper: "#171e27", sheet: "#1c242f", ink: "#d8e0ea", muted: "#8f9cad", line: "#2c3644", accent: "#f2b25c", k1: "#b9adff", k2: "#88bfe8", k1soft: "#212538" } },
+];
+const TYPES = [
+  { id: "plex", name: "IBM Plex", tag: "המראה של היום", body: '"IBM Plex Sans Hebrew", sans-serif', head: '"IBM Plex Sans Hebrew", sans-serif', hw: 700, note: "גופן אחד לכל הדף, טכני ונקי. בטקסט ארוך הוא קצת 'משרדי'." },
+  { id: "frank-heebo", name: "פרנק-רוהל + Heebo", tag: "ספר קלאסי", body: '"Frank Ruhl Libre", serif', head: '"Heebo", sans-serif', hw: 700, note: "הטקסט בגופן של הספר העברי המודפס, הכותרות בגופן נקי וחזק. נעים מאוד מ-17 פיקסלים ומעלה." },
+  { id: "noto", name: "Noto Serif + Noto Sans", tag: "סריף רגוע", body: '"Noto Serif Hebrew", serif', head: '"Noto Sans Hebrew", sans-serif', hw: 700, note: "סריף עם ניגוד קווים נמוך מפרנק-רוהל, ולכן יציב יותר במסכים פחות חדים. משפחה אחת עם אותה לוגיקה בכותרות." },
+  { id: "david-rubik", name: "דוד + Rubik", tag: "ספרותי ורך", body: '"David Libre", serif', head: '"Rubik", sans-serif', hw: 600, note: "דוד קליל ומעט צר; הכותרות מעוגלות. מרגיש פחות 'טכני' ויותר ספר עיון." },
+  { id: "heebo", name: "Heebo + פרנק-רוהל", tag: "בלי סריף בטקסט", body: '"Heebo", sans-serif', head: '"Frank Ruhl Libre", serif', hw: 700, note: "הפוך: טקסט נקי בלי סריף, וכותרות בסריף קלאסי. קריא בכל גודל, עם כותרות שיש להן אופי." },
+  { id: "assistant", name: "Assistant + Secular One", tag: "מודרני ועגול", body: '"Assistant", sans-serif', head: '"Secular One", sans-serif', hw: 400, note: "Assistant פתוח וקליל; הכותרות בגופן תצוגה עבה. צעיר יותר, פחות אקדמי." },
+  { id: "miriam", name: "מרים + Suez One", tag: "כתב יד דפוס", body: '"Miriam Libre", sans-serif', head: '"Suez One", serif', hw: 400, note: "מרים מבוסס על אותיות כתב-דפוס פשוטות; הכותרות בסריף עבה. בולט ושונה, אבל פחות שקט לשעות." },
+];
+const BLOCKS = [
+  { id: "frame", name: "מסגרת עם תווית", tag: "כמו היום", note: "כל בלוק ממוסגר, והתווית יושבת על הקו. ברור מאוד מה בלוק, אבל עשרות מסגרות בשיעור יוצרות רעש." },
+  { id: "tint", name: "רקע עדין", tag: "בלי קווים", note: "בלוק מסומן ברקע בגוון חלש של הצבע שלו. רגוע יותר מהמסגרת, והבלוק עדיין בולט." },
+  { id: "margin", name: "תווית בשוליים", tag: "כמו ספר לימוד", note: "התווית עומדת בשוליים מימין והטקסט ממשיך בטור. הכי שקט: הבלוק נקרא כחלק מהטקסט." },
+  { id: "rule", name: "קו מעל ומתחת", tag: "מינימלי", note: "רק קו צבעוני מעל וקו דק מתחת. מתאים אם רוצים שהבלוקים כמעט ייעלמו." },
+];
+const LAYOUTS = [
+  { id: "now", name: "שלושה טורים", tag: "כמו היום", note: "המפה בצד, הטקסט באמצע, המקור בצד השני כשהוא פתוח. הכל בהישג יד, אבל הטקסט מקבל פחות מחצי מהמסך." },
+  { id: "book", name: "ספר עם הערות שוליים", tag: "Tufte", note: "טור קריאה אחד במרכז, ותגיות 2.5, תגיות עמוד והערות קצרות עוברות לשוליים לצדו. המפה נפתחת בלחיצה. הכי נוח לקריאה רציפה." },
+  { id: "parallel", name: "טקסט ומקור זה לצד זה", tag: "קריאה מקבילה", note: "השיעור והעמוד המקורי פתוחים יחד בשני חצאים קבועים, והמקור עוקב אחרי תגית העמוד של הפסקה הנוכחית. טוב כשרוצים לבדוק את המקור כל הזמן." },
+  { id: "paged", name: "חלק אחד בכל פעם", tag: "פרקים", note: "שורת חלקים למעלה, ורק החלק הנוכחי על המסך. נותן תחושת התקדמות ונקודות עצירה טבעיות, אבל קשה יותר לדפדף אחורה." },
+  { id: "doc", name: "תוכן קבוע בצד", tag: "כמו אתר תיעוד", note: "תוכן השיעור קבוע בצד, עם הסעיף הנוכחי מסומן; בלי מפת מודולים קבועה. התמצאות טובה בשיעור ארוך." },
+];
+const QS = ["palette", "type", "blocks", "layout", "notes"];
+
+/* ---------- state ---------- */
+const KEY = "lab-look:v1";
+let state = { picks: {}, notes: "" };
+try { state = Object.assign(state, JSON.parse(localStorage.getItem(KEY) || "{}")); } catch (e) {}
+const P = (id) => PALETTES.find((x) => x.id === id);
+const pick = (k, def) => state.picks[k] || def;
+const palFor = (lab) => P(pick("palette-" + lab, "draft"));
+const typeNow = () => TYPES.find((t) => t.id === pick("type", "plex"));
+
+/* ---------- contrast (WCAG relative luminance) ---------- */
+const lum = (hex) => { const c = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255).map((v) => (v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4)); return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]; };
+const ratio = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((m, n) => n - m); return (x + 0.05) / (y + 0.05); };
+
+/* ---------- the sample lesson ---------- */
+const vars = (c, t) => `--p-bg:${c.bg};--p-paper:${c.paper};--p-sheet:${c.sheet};--p-ink:${c.ink};--p-muted:${c.muted};--p-line:${c.line};--p-accent:${c.accent};--p-k1:${c.k1};--p-k2:${c.k2};--p-k1soft:${c.k1soft};--p-body:${t.body};--p-head:${t.head};--p-hw:${t.hw}`;
+function sample(c, t, blk, mode, short) {
+  return `<div class="pv" data-blk="${blk}" style='${vars(c, t)}'>
+    ${mode ? `<span class="mode">${mode}</span>` : ""}
+    <h4>מערבולות קצה והגרר המושרה</h4>
+    <p><span class="tagp">E11 · עמ' 20</span> <span class="l25">2.5: מבנה</span> כנף סופית מייצרת עילוי רק אם יש הפרש לחצים בין הצד העליון לתחתון, ובקצה הכנף האוויר <strong>בורח מסביב</strong>. מכאן נולדות שתי מערבולות שמסיטות את הזרימה כלפי מטה, והעילוי נוטה מעט אחורה: זה <span class="acc">הגרר המושרה</span>.</p>
+    <div class="eq"><span>C<sub>D,i</sub> =</span><span class="fr"><span>C<sub>L</sub><sup>2</sup></span><span>π e AR</span></span><span class="n">(1)</span></div>
+    ${short ? "" : `<p>כשמכפילים את המוטה ומשאירים את העילוי קבוע, הגרר המושרה יורד פי ארבעה, כי הוא הפוך לריבוע המוטה.</p>`}
+    <div class="blk"><span class="lbl">שאלת עצירה</span><p>למה דאון בעל מוטה של 25 מטר ולא של 12? <span class="ans">התשובה מוסתרת</span></p></div>
+  </div>`;
+}
+
+/* ---------- layout mockups ---------- */
+const para = `כנף סופית מייצרת עילוי רק אם יש הפרש לחצים, ובקצה הכנף האוויר בורח מסביב. מכאן נולדות שתי מערבולות שמסיטות את הזרימה כלפי מטה, והעילוי נוטה מעט אחורה.`;
+const sideMap = `<div class="side"><b>מפת המודולים</b><span>P0 שער</span><span>P1 עמוד השדרה</span><span>P2 מכניקה</span><b>P15 זורמים</b><span>M15.1 · M15.2</span><span>P16 חוזק</span></div>`;
+const colTxt = (n = 3) => `<h5>מערבולות קצה והגרר המושרה</h5>${Array.from({ length: n }, () => `<p>${para}</p>`).join("")}`;
+function layout(id, c, t) {
+  const tb = `<div class="tb"><i></i>גילואה <span>/ P15 / M15.2 · שיעור 1/2</span></div>`;
+  let bd = "";
+  if (id === "now") bd = `<div class="bd" style="grid-template-columns:22% 1fr 26%">${sideMap}<div class="main"><div class="col">${colTxt(3)}<div class="comp"></div></div></div><div class="src"><div class="pg">E11 · עמ' 20<br>${para}</div></div></div>`;
+  if (id === "book") bd = `<div class="bd" style="grid-template-columns:1fr"><div class="main" style="display:grid;grid-template-columns:1fr 34em 9em 1fr;gap:10px"><span></span><div class="col" style="margin:0">${colTxt(4)}<div class="comp"></div></div><div style="padding-top:22px"><div class="mn"><b>E11 · עמ' 20</b>המקור של הפסקה</div><div class="mn"><b>2.5: מבנה</b>איזה גודל שולט</div><div class="mn"><b>מחברת</b>רעיון למאמר: המוטה של דאונים</div></div><span></span></div></div>`;
+  if (id === "parallel") bd = `<div class="bd" style="grid-template-columns:1fr 1fr"><div class="main"><div class="col">${colTxt(4)}<div class="comp"></div></div></div><div class="src" style="padding:10px"><div class="pg">E11 · עמ' 20 ← הפסקה הנוכחית<br>${para} ${para}</div></div></div>`;
+  if (id === "paged") bd = `<div class="bd" style="grid-template-columns:1fr"><div class="main"><div class="col"><div class="steps"><span>1 פתיחה</span><span class="on">2 מערבולות</span><span>3 המוטה</span><span>4 היום</span></div>${colTxt(3)}<div class="comp"></div></div></div></div>`;
+  if (id === "doc") bd = `<div class="bd" style="grid-template-columns:1fr 20%"><div class="main"><div class="col">${colTxt(4)}<div class="comp"></div></div></div><div class="toc2">פתיחה: הדאון<b>מערבולות קצה</b>הגרר המושרה<br>המוטה ויחס הממדים<br>העולם של היום<br>תרגילים</div></div>`;
+  return `<div class="lay" style='${vars(c, t)}' aria-hidden="true">${tb}${bd}</div>`;
+}
+
+/* ---------- render ---------- */
+const $ = (s) => document.querySelector(s);
+function render() {
+  const t = typeNow();
+  const g = palFor("gilua");
+  const blk = pick("blocks", "frame");
+  $("#opts-palette").innerHTML = PALETTES.map((p) => {
+    const on = state.picks["palette-gilua"] === p.id || state.picks["palette-lanchester"] === p.id;
+    const sw = (c) => [c.paper, c.ink, c.accent, c.k1, c.k2].map((x) => `<i style="background:${x}"></i>`).join("");
+    return `<article class="opt ${on ? "is-on" : ""}">
+      <div class="opt-head"><h3>${p.name}</h3><span class="tagline">${p.tag}</span></div>
+      <div class="pair">${sample(p.light, t, blk, "בהיר", true)}${sample(p.dark, t, blk, "כהה", true)}</div>
+      <div class="cr"><span class="swatches">${sw(p.light)}</span><span>ניגודיות טקסט: בהיר ${ratio(p.light.ink, p.light.paper).toFixed(1)}:1 · כהה ${ratio(p.dark.ink, p.dark.paper).toFixed(1)}:1</span></div>
+      <p class="note">${p.note}</p>
+      <div class="picks">
+        <button data-k="palette-gilua" data-v="${p.id}" aria-pressed="${state.picks["palette-gilua"] === p.id}">לגילואה</button>
+        <button data-k="palette-lanchester" data-v="${p.id}" aria-pressed="${state.picks["palette-lanchester"] === p.id}">ללנצ'סטר</button>
+      </div>
+    </article>`;
+  }).join("");
+  $("#opts-type").innerHTML = TYPES.map((x) => `<article class="opt ${pick("type") === x.id ? "is-on" : ""}">
+      <div class="opt-head"><h3>${x.name}</h3><span class="tagline">${x.tag}</span></div>
+      ${sample(g.light, x, blk, "", false)}
+      <p class="note">${x.note}</p>
+      <button class="pick" data-k="type" data-v="${x.id}" aria-pressed="${pick("type") === x.id}">${pick("type") === x.id ? "נבחר" : "בחר"}</button>
+    </article>`).join("");
+  $("#opts-blocks").innerHTML = BLOCKS.map((x) => `<article class="opt ${pick("blocks") === x.id ? "is-on" : ""}">
+      <div class="opt-head"><h3>${x.name}</h3><span class="tagline">${x.tag}</span></div>
+      ${sample(g.light, t, x.id, "", true)}
+      <p class="note">${x.note}</p>
+      <button class="pick" data-k="blocks" data-v="${x.id}" aria-pressed="${pick("blocks") === x.id}">${pick("blocks") === x.id ? "נבחר" : "בחר"}</button>
+    </article>`).join("");
+  $("#opts-layout").innerHTML = LAYOUTS.map((x) => `<article class="opt ${pick("layout") === x.id ? "is-on" : ""}">
+      <div class="opt-head"><h3>${x.name}</h3><span class="tagline">${x.tag}</span></div>
+      ${layout(x.id, g.light, t)}
+      <p class="note">${x.note}</p>
+      <button class="pick" data-k="layout" data-v="${x.id}" aria-pressed="${pick("layout") === x.id}">${pick("layout") === x.id ? "נבחר" : "בחר"}</button>
+    </article>`).join("");
+  const lab = (name, key) => { const c = palFor(key); return `<article class="opt"><div class="opt-head"><h3>${name}</h3><span class="tagline">${c.name} · ${t.name}</span></div>
+      <div class="pair">${sample(c.light, t, blk, "בהיר", true)}${sample(c.dark, t, blk, "כהה", true)}</div>
+      ${layout(pick("layout", "now"), c.light, t)}</article>`; };
+  $("#final").innerHTML = lab("גילואה", "gilua") + lab("לנצ'סטר", "lanchester");
+  const done = {
+    palette: !!(state.picks["palette-gilua"] && state.picks["palette-lanchester"]),
+    type: !!state.picks.type, blocks: !!state.picks.blocks, layout: !!state.picks.layout, notes: !!state.notes.trim(),
+  };
+  for (const q of QS) {
+    const el = $("#st-" + q);
+    el.classList.toggle("done", done[q]);
+    el.textContent = q === "notes" ? (done.notes ? "יש הערות" : "לא חובה") : q === "palette" ? (done.palette ? "נבחר לשתיהן" : state.picks["palette-gilua"] || state.picks["palette-lanchester"] ? "נבחר לאחת מהן" : "לא נבחר") : done[q] ? "נבחר" : "לא נבחר";
+  }
+  $("#count").textContent = `${["palette", "type", "blocks", "layout"].filter((q) => done[q]).length} / 4 החלטות`;
+}
+
+/* ---------- saving: one document per decision in "choices" ---------- */
+let db = null;
+const msg = (txt, err) => { const s = $("#save"); s.textContent = txt; s.classList.toggle("err", !!err); };
+const queue = {}, busy = {};
+async function persist(key, value) {
+  try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
+  if (!db) return;
+  queue[key] = value;
+  if (busy[key]) return;
+  busy[key] = true;
+  while (key in queue) {
+    const v = queue[key]; delete queue[key];
+    try { await db.doc("choices/" + key).set({ value: v, at: new Date().toISOString() }); msg("נשמר"); }
+    catch (e) { msg("השמירה נכשלה. הבחירות נשמרות בינתיים בדפדפן בלבד.", true); break; }
+  }
+  busy[key] = false;
+}
+document.addEventListener("click", (e) => {
+  const b = e.target.closest("button[data-k]"); if (!b) return;
+  const k = b.dataset.k;
+  state.picks[k] = state.picks[k] === b.dataset.v ? "" : b.dataset.v;
+  const y = b.getBoundingClientRect().top;
+  render();
+  // keep the clicked option where it was, since samples above may change height
+  const nb = document.querySelector(`button[data-k="${k}"][data-v="${b.dataset.v}"]`);
+  if (nb) window.scrollBy(0, nb.getBoundingClientRect().top - y);
+  persist(k, state.picks[k]);
+});
+let nt = 0;
+$("#notes").value = state.notes || "";
+$("#notes").addEventListener("input", (e) => {
+  state.notes = e.target.value; render();
+  clearTimeout(nt); nt = setTimeout(() => persist("notes", state.notes), 900);
+});
+render();
+(async () => {
+  try { db = window.claude && (await window.claude.use("db")); } catch (e) { db = null; }
+  if (!db) { msg("השמירה בשרת לא זמינה כאן. הבחירות נשמרות בדפדפן בלבד.", true); return; }
+  try {
+    const snap = await db.collection("choices").get();
+    for (const d of snap.docs) {
+      const v = d.data() && d.data().value; if (typeof v !== "string") continue;
+      if (d.id === "notes") state.notes = v; else state.picks[d.id] = v;
+    }
+    $("#notes").value = state.notes || "";
+    render(); msg(snap.empty ? "מחובר. הבחירות יישמרו כאן." : "מחובר. הבחירות הקודמות נטענו.");
+  } catch (e) { msg("לא הצלחתי לטעון בחירות קודמות.", true); }
+})();
+</script>

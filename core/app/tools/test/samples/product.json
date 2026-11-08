@@ -1,0 +1,61 @@
+{
+ "month": "__MONTH__",
+ "title": "מודל עלות-תועלת לחיישן",
+ "createdAt": 1793124000000,
+ "updatedAt": 1793124000000,
+ "idea": {
+  "question": "כמה עולה שיפור של 1 dB ברגישות מקלט, וכמה טווח הוא קונה?",
+  "forWhom": "אנליסטים ומהנדסי מערכות שמשווים תכנים ממקורות פתוחים",
+  "better": "מחברת פתוחה שמחברת את משוואת הקשר לנתוני עלות פתוחים, עם רגישות לכל איבר",
+  "fromLessons": "דציבלים ומשוואת הקשר (M0.1)"
+ },
+ "legal": {
+  "answers": {
+   "transmit": "na",
+   "typeApproval": "na",
+   "content": "na",
+   "gnss": "na",
+   "drones": "na",
+   "export": "ask",
+   "openSources": "ok",
+   "software": "ok",
+   "data": "ok",
+   "analysisLevel": "ok",
+   "interviews": "na"
+  },
+  "notes": {
+   "export": "לבדוק אם מודל עלות כללי נחשב ידע ביטחוני",
+   "openSources": "רק דוחות פתוחים",
+   "analysisLevel": "מודל ומחברת בלבד"
+  },
+  "adjustments": "",
+  "doneAt": null
+ },
+ "spec": {
+  "spec": "",
+  "competitors": [],
+  "benchmark": "",
+  "price": ""
+ },
+ "design": {
+  "decisions": "",
+  "tradeoffs": "",
+  "predictions": []
+ },
+ "verify": {
+  "checks": [],
+  "baseline": ""
+ },
+ "package": {
+  "checklist": {},
+  "comparables": [],
+  "repo": ""
+ },
+ "retro": {
+  "worked": "",
+  "failed": "",
+  "learned": "",
+  "next": ""
+ },
+ "critiques": {}
+}

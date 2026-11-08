@@ -1,0 +1,216 @@
+<title>רקע ופתקים בשיעור</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@400;500;600;700&family=Amatic+SC:wght@700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: the lesson column as in the app, with the empty space beside it holding margin notes; two switchers change the background and the note design. */
+:root {
+  --bg: #e6e3d7; --paper: #f5f3ea; --ink: #22261d; --ink-soft: #44493a; --muted: #676a58;
+  --line: #d8d4c3; --line-strong: #a7a28a; --accent: #b3261e;
+  --k-story: #a14a0c; --k-formula: #1f5f9e; --k-think: #a16207; --k-domain: #0f766e;
+  --n-deepen: #1f5f9e; --n-interview: #6d3fa0; --n-article: #b3261e; --n-mine: #0f766e;
+  --note-paper: #fbf3cf; --note-ink: #2c2a20; --tape: rgb(214 205 170 / 70%);
+  --font: "IBM Plex Sans Hebrew", "Assistant", Arial, sans-serif;
+  --hand: "Amatic SC", "IBM Plex Sans Hebrew", cursive;
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #141611; --paper: #1b1e17; --ink: #e3e2d4; --ink-soft: #c4c3b2; --muted: #a2a18d;
+    --line: #353a2d; --line-strong: #5f6552; --accent: #f08a7e;
+    --k-story: #e6a75c; --k-formula: #94bfdc; --k-think: #d9c77a; --k-domain: #8fd0c0;
+    --n-deepen: #94bfdc; --n-interview: #c9b0ef; --n-article: #f08a7e; --n-mine: #8fd0c0;
+    --note-paper: #3a3622; --note-ink: #efe9cf; --tape: rgb(120 112 80 / 60%);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #141611; --paper: #1b1e17; --ink: #e3e2d4; --ink-soft: #c4c3b2; --muted: #a2a18d;
+  --line: #353a2d; --line-strong: #5f6552; --accent: #f08a7e;
+  --k-story: #e6a75c; --k-formula: #94bfdc; --k-think: #d9c77a; --k-domain: #8fd0c0;
+  --n-deepen: #94bfdc; --n-interview: #c9b0ef; --n-article: #f08a7e; --n-mine: #8fd0c0;
+  --note-paper: #3a3622; --note-ink: #efe9cf; --tape: rgb(120 112 80 / 60%);
+  color-scheme: dark;
+}
+/* background options (light only; they describe the app's light theme) */
+[data-bg="cream"] { --bg: #ece4d6; --paper: #f4ede2; --ink: #22261d; --line: #ddd2bf; }
+[data-bg="sheet"] { --bg: #ebe3d4; --paper: #ffffff; --ink: #22261d; --line: #e2dccf; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font); direction: rtl; }
+#app { background: var(--bg); color: var(--ink); min-height: 100vh; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 0 60px; }
+
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); padding-block: 12px; border-bottom: 1px solid var(--line); margin-bottom: 20px; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.bar-in { max-width: 62rem; margin: 0 auto; display: grid; gap: 8px; }
+.bar h1 { margin: 0; font-size: 1rem; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.row span { font-size: 0.85rem; color: var(--muted); min-width: 4.5rem; }
+.row button { font: inherit; font-size: 0.88rem; padding: 5px 11px; border: 1px solid var(--line-strong); background: var(--paper); color: var(--ink); border-radius: 4px; cursor: pointer; }
+.row button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.row button:focus-visible, .anchor:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.hint { max-width: 62rem; margin: 0 auto 14px; font-size: 0.88rem; color: var(--ink-soft); line-height: 1.6; }
+
+/* the page: lesson column + margin */
+.page { max-width: 62rem; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 38rem) minmax(0, 1fr); gap: 0 36px; }
+.lesson { grid-column: 1; background: var(--paper); border: 1px solid var(--line); padding: 30px 30px 36px; font-size: 17px; line-height: 1.9; min-width: 0; }
+.lesson h2 { font-size: 1.4rem; line-height: 1.35; margin: 0 0 0.8em; text-wrap: balance; }
+.lesson p { margin: 0 0 1em; }
+.margin { grid-column: 2; position: relative; min-width: 0; }
+.pg { font-size: 0.72em; border: 1px solid var(--line-strong); border-radius: 2px; padding: 0 5px; color: var(--k-formula); vertical-align: 0.12em; white-space: nowrap; }
+.term { border-bottom: 1px dotted var(--muted); }
+.blk { --k: var(--k-story); position: relative; border: 2px dashed var(--k); border-radius: 3px; padding: 20px 18px 6px; margin: 26px 0 22px; background: color-mix(in srgb, var(--k) 5%, transparent); }
+.blk .tab { position: absolute; top: -0.85em; inset-inline-start: 12px; background: var(--paper); padding: 0 6px; font-size: 0.875rem; font-weight: 700; color: var(--k); }
+.blk h4 { margin: 0 0 6px; }
+.k-domain { --k: var(--k-domain); }
+
+/* the anchor in the text: a quiet highlight that lights up with its note */
+.anchor { background: linear-gradient(transparent 62%, color-mix(in srgb, var(--nk) 22%, transparent) 62%); cursor: pointer; border-radius: 2px; }
+.anchor.on, .anchor:hover { background: color-mix(in srgb, var(--nk) 22%, transparent); }
+.anchor sup { font-family: var(--mono); font-size: 0.65em; color: var(--nk); margin-inline-start: 2px; }
+
+/* notes: shared */
+.note { --nk: var(--n-deepen); position: absolute; inset-inline: 0 auto; width: min(100%, 15rem); font-size: 0.9rem; line-height: 1.55; transition: transform 0.15s, box-shadow 0.15s; }
+.note .kind { display: flex; align-items: center; gap: 6px; font-size: 0.78rem; font-weight: 700; color: var(--nk); margin-bottom: 4px; }
+.note .kind b { font-family: var(--mono); font-weight: 500; }
+.note p { margin: 0; }
+.note .by { margin-top: 6px; font-size: 0.75rem; color: var(--muted); }
+.k-deepen { --nk: var(--n-deepen); } .k-interview { --nk: var(--n-interview); } .k-article { --nk: var(--n-article); } .k-mine { --nk: var(--n-mine); }
+
+/* 1: paper sticky note */
+[data-n="paper"] .note { background: var(--note-paper); color: var(--note-ink); padding: 18px 14px 12px; box-shadow: 0 1px 1px rgb(0 0 0 / 8%), 0 8px 16px -6px rgb(0 0 0 / 22%); border-top: 3px solid var(--nk); transform: rotate(-1.2deg); }
+[data-n="paper"] .note:nth-of-type(even) { transform: rotate(1deg); }
+[data-n="paper"] .note::before { content: ""; position: absolute; top: -9px; inset-inline-start: 38%; width: 64px; height: 18px; background: var(--tape); transform: rotate(-3deg); }
+[data-n="paper"] .note.on { transform: rotate(0) scale(1.03); box-shadow: 0 2px 3px rgb(0 0 0 / 10%), 0 14px 24px -8px rgb(0 0 0 / 30%); z-index: 2; }
+[data-n="paper"] .note .by { color: color-mix(in srgb, var(--note-ink) 60%, transparent); }
+
+/* 2: margin card */
+[data-n="card"] .note { background: var(--paper); border: 1px solid var(--line); border-inline-start: 3px solid var(--nk); border-radius: 4px; padding: 10px 12px; }
+[data-n="card"] .note::before { content: ""; position: absolute; top: 18px; inset-inline-start: -37px; width: 34px; border-top: 1px dashed var(--nk); opacity: 0.7; }
+[data-n="card"] .note.on { box-shadow: 0 6px 16px -6px rgb(0 0 0 / 25%); }
+
+/* 3: handwritten margin */
+[data-n="hand"] .note { padding: 2px 4px; }
+[data-n="hand"] .note p { font-family: var(--hand); font-size: 1.45rem; line-height: 1.15; color: var(--nk); }
+[data-n="hand"] .note .kind { font-size: 0.72rem; }
+[data-n="hand"] .note::before { content: "↩"; position: absolute; top: 0; inset-inline-start: -26px; font-size: 1.4rem; color: var(--nk); transform: scaleX(-1); }
+[data-n="hand"] .note.on p { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+
+/* narrow screens: no margin; the note opens under its paragraph */
+@media (max-width: 860px) {
+  .page { grid-template-columns: minmax(0, 1fr); }
+  .margin { display: none; }
+  .inline-note { display: block; margin: -0.4em 0 1em; }
+  .lesson { padding: 22px 16px 28px; }
+}
+.inline-note { display: none; }
+.inline-note .note { position: static; width: 100%; transform: none; }
+</style>
+
+<div id="app" data-bg="today" data-n="paper">
+  <div class="bar"><div class="bar-in">
+    <h1>רקע ופתקים בשיעור</h1>
+    <div class="row" role="group" aria-label="רקע">
+      <span>רקע הדף</span>
+      <button id="bg-today" data-bg="today" aria-pressed="true">כמו היום</button>
+      <button id="bg-cream" data-bg="cream" aria-pressed="false">שמנת</button>
+      <button id="bg-sheet" data-bg="sheet" aria-pressed="false">דף לבן על שמנת</button>
+    </div>
+    <div class="row" role="group" aria-label="פתקים">
+      <span>פתקים</span>
+      <button id="n-paper" data-n="paper" aria-pressed="true">פתק נייר</button>
+      <button id="n-card" data-n="card" aria-pressed="false">כרטיס שוליים</button>
+      <button id="n-hand" data-n="hand" aria-pressed="false">כתב יד בשוליים</button>
+    </div>
+  </div></div>
+
+  <p class="hint">הפתקים יושבים בשוליים, בגובה הפסקה שבה הנקודה עלתה. ריחוף או לחיצה על פתק מדליקים את המקום בטקסט, ולהפך. במסך צר אין שוליים, והפתק נפתח מתחת לפסקה. הצבע לפי סוג: <b style="color:var(--n-deepen)">להעמקה</b>, <b style="color:var(--n-interview)">שאלה למומחה</b>, <b style="color:var(--n-article)">רעיון למאמר</b>, <b style="color:var(--n-mine)">פתק שלי</b>.</p>
+
+  <div class="page">
+    <article class="lesson" id="lesson">
+      <h2>פרק ראשון: למה בכלל לוגריתמים? כפל שהופך לחיבור</h2>
+
+      <section class="blk">
+        <div class="tab">פתיחה</div>
+        <h4>מייל של כבל טלפון</h4>
+        <p>בשנות העשרים של המאה העשרים היו מהנדסי מערכת הטלפון האמריקנית (Bell System) צריכים לענות על שאלה פשוטה לכאורה: האם שיחה מניו יורק תישמע בשיקגו? הדיבור עבר בכבלים שהחלישו אותו בכל קילומטר, ובתחנות ממסר שבהן מגברים הגבירו אותו מחדש. לכן בשרשרת של עשרות מקטעים ומגברים היחסים האלה מוכפלים זה בזה.</p>
+        <p id="p1">הפתרון שנבחר לראשונה היה מעשי: למדוד כל אובדן ב<span class="anchor k-article" data-n="1" tabindex="0">"מיילים של כבל תקני" (mile of standard cable)<sup>1</sup></span>. כך אפשר היה לחבר: שני מקטעים, אחד של 5 מיילים תקניים ואחד של 3, נותנים 8.</p>
+        <div class="inline-note" data-for="1"></div>
+      </section>
+
+      <p id="p2">הבעיה של מהנדסי הטלפון לא נעלמה. היא רק גדלה, וכל תחום שנלמד בקורס הזה חי בתוכה. בכל שרשרת אות, ממשדר דרך אנטנה, מרחב, מטרה ושוב מרחב ועד מקלט, הגדלים מתפרשים על פני סדרי גודל רבים. <span class="pg">POMR · עמ' 895</span> ניקח דוגמה מהמכ"ם: <span class="term">RCS (חתך מכ"ם)</span> נע בין 10<sup>−5</sup> m² של חרק ובין יותר מ-10<sup>6</sup> m² של נושאת מטוסים. <span class="anchor k-deepen" data-n="2" tabindex="0">אלה 11 סדרי גודל: היחס בין הקצוות הוא מאה מיליארד לאחד<sup>2</sup></span>.</p>
+      <div class="inline-note" data-for="2"></div>
+
+      <p id="p3">ההספקים מתפרשים על טווח רחב עוד יותר. משדר מכ"ם חזק מוציא כמגה-ואט, 10<sup>6</sup> W, ואילו <span class="anchor k-interview" data-n="3" tabindex="0">רצפת רעש של מקלט טיפוסי<sup>3</sup></span> היא בסביבות 10<sup>−14</sup> W. בין שני הקצוות יש 20 סדרי גודל, ובהמשך השיעור נלמד לקרוא לזה 200 dB.</p>
+      <div class="inline-note" data-for="3"></div>
+
+      <section class="blk k-domain">
+        <div class="tab">חיבור: מכ"ם</div>
+        <h4>חתך מכ"ם ב-dBsm: מחרק ועד ספינה על סרגל אחד</h4>
+        <p id="p4">σ ממלא במכ"ם את התפקיד שממלא הגבר האנטנה בקשר: גורם שמכפיל את ההספק החוזר, ולכן ב-dB הוא פשוט עוד איבר שמחברים לשרשרת. <span class="anchor k-mine" data-n="4" tabindex="0">טווח הגילוי תלוי בשורש הרביעי של σ<sup>4</sup></span>, ולכן ב-dB מחלקים ב-4. את המנגנון עצמו, משוואת המכ"ם, נלמד במודול M2.</p>
+        <div class="inline-note" data-for="4"></div>
+      </section>
+    </article>
+    <aside class="margin" id="margin" aria-label="פתקים"></aside>
+  </div>
+</div>
+
+<script>
+const NOTES = [
+  { n: 1, kind: "article", label: "רעיון למאמר", text: "יחידות מידה שנולדו מכבל אחד: איך 'מייל של כבל תקני' הפך ל-dB, ולמה כל תחום הנדסי ממציא מחדש סרגל לוגריתמי משלו.", by: "המורה · שיעור 1" },
+  { n: 2, kind: "deepen", label: "להעמקה", text: "למה RCS של אותה מטרה משתנה בעשרות dB בין זוויות? לחזור לזה במודול M2 עם דיאגרמת פיזור.", by: "המורה · שיעור 1" },
+  { n: 3, kind: "interview", label: "שאלה למומחה", text: "בתכן מקלט אמיתי, כמה מהטווח הדינמי הולך על הממיר הספרתי וכמה על הסינון לפניו?", by: "המורה · שיעור 1" },
+  { n: 4, kind: "mine", label: "פתק שלי", text: "לבדוק: הקטנת σ פי 10 מקטינה את הטווח רק פי 1.78.", by: "אני · 28.10" }
+];
+const app = document.getElementById("app");
+const margin = document.getElementById("margin");
+const lesson = document.getElementById("lesson");
+function noteEl(d) {
+  const el = document.createElement("div");
+  el.className = `note k-${d.kind}`;
+  el.dataset.n = d.n;
+  el.tabIndex = 0;
+  el.innerHTML = `<div class="kind">${d.label} <b>${d.n}</b></div><p></p><div class="by"></div>`;
+  el.querySelector("p").textContent = d.text;
+  el.querySelector(".by").textContent = d.by;
+  return el;
+}
+function layout() {
+  margin.innerHTML = "";
+  const top0 = margin.getBoundingClientRect().top;
+  let floor = 0;
+  for (const d of NOTES) {
+    const a = lesson.querySelector(`.anchor[data-n="${d.n}"]`);
+    const el = noteEl(d);
+    margin.appendChild(el);
+    const want = a.getBoundingClientRect().top - top0 - 10;
+    const y = Math.max(want, floor);
+    el.style.top = y + "px";
+    floor = y + el.offsetHeight + 16;
+    const slot = lesson.querySelector(`.inline-note[data-for="${d.n}"]`);
+    slot.innerHTML = "";
+    slot.appendChild(noteEl(d));
+  }
+  margin.style.minHeight = floor + "px";
+}
+function light(n, on) {
+  document.querySelectorAll(`[data-n="${n}"].anchor, .note[data-n="${n}"]`).forEach((x) => x.classList.toggle("on", on));
+}
+document.addEventListener("mouseover", (e) => { const t = e.target.closest(".anchor, .note"); if (t) light(t.dataset.n, true); });
+document.addEventListener("mouseout", (e) => { const t = e.target.closest(".anchor, .note"); if (t) light(t.dataset.n, false); });
+document.addEventListener("focusin", (e) => { const t = e.target.closest(".anchor, .note"); if (t) light(t.dataset.n, true); });
+document.addEventListener("focusout", (e) => { const t = e.target.closest(".anchor, .note"); if (t) light(t.dataset.n, false); });
+function pick(attr, v) {
+  app.dataset[attr] = v;
+  document.querySelectorAll(`.row button[data-${attr}]`).forEach((b) => b.setAttribute("aria-pressed", String(b.dataset[attr] === v)));
+  try { localStorage.setItem("lesson-notes:" + attr, v); } catch (e) {}
+  requestAnimationFrame(layout);
+}
+document.querySelectorAll(".row button[data-bg]").forEach((b) => b.addEventListener("click", () => pick("bg", b.dataset.bg)));
+document.querySelectorAll(".row button[data-n]").forEach((b) => b.addEventListener("click", () => pick("n", b.dataset.n)));
+try {
+  const bg = localStorage.getItem("lesson-notes:bg"); if (bg) pick("bg", bg);
+  const n = localStorage.getItem("lesson-notes:n"); if (n) pick("n", n);
+} catch (e) {}
+window.addEventListener("resize", () => requestAnimationFrame(layout));
+document.fonts && document.fonts.ready.then(layout);
+layout();
+</script>

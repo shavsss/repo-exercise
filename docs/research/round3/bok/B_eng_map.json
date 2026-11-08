@@ -1,0 +1,7127 @@
+{
+ "Mathematics foundations": [
+  {
+   "topic": "Single-variable analysis",
+   "subtopics": [
+    {
+     "name": "Limits, continuity, epsilon-delta",
+     "importance": "S",
+     "why": "language for every convergence/approximation claim",
+     "sources": [
+      "MIT-18.01",
+      "MIT-18.100",
+      "FE-ECE",
+      "FE-ME"
+     ]
+    },
+    {
+     "name": "Derivative as local linear approximation",
+     "importance": "K",
+     "why": "root of linearization, sensitivity, small-signal models everywhere",
+     "sources": [
+      "MIT-18.01",
+      "FE-ECE",
+      "FE-ME"
+     ]
+    },
+    {
+     "name": "Mean value theorem and error bounds",
+     "importance": "S",
+     "why": "turns derivatives into guaranteed bounds",
+     "sources": [
+      "MIT-18.01",
+      "MIT-18.100"
+     ]
+    },
+    {
+     "name": "Riemann integral and fundamental theorem",
+     "importance": "S",
+     "why": "accumulation; links rates and totals in every field",
+     "sources": [
+      "MIT-18.01",
+      "FE-ECE",
+      "FE-ME"
+     ]
+    },
+    {
+     "name": "Taylor series with remainder",
+     "importance": "K",
+     "why": "basis of linearization, perturbation, numerical error, small-angle physics",
+     "sources": [
+      "MIT-18.01",
+      "FE-ME",
+      "MAHAJAN"
+     ]
+    },
+    {
+     "name": "Sequences/series convergence tests, power series radius",
+     "importance": "S",
+     "why": "when expansions are legitimate",
+     "sources": [
+      "MIT-18.01",
+      "MIT-18.100"
+     ]
+    },
+    {
+     "name": "Uniform vs pointwise convergence; interchange of limit/integral",
+     "importance": "S",
+     "why": "catches illegal term-by-term manipulations (Fourier, ML)",
+     "sources": [
+      "MIT-18.100",
+      "QUAL-EE"
+     ]
+    },
+    {
+     "name": "Improper integrals, Gaussian integral, Gamma function",
+     "importance": "S",
+     "why": "probability, physics, transforms",
+     "sources": [
+      "MIT-18.01",
+      "MIT-18.02"
+     ]
+    },
+    {
+     "name": "Asymptotic notation and asymptotic expansions (big-O, Stirling, Laplace method)",
+     "importance": "K",
+     "why": "orders of magnitude and limiting regimes across fields",
+     "sources": [
+      "MIT-18.01",
+      "MAHAJAN",
+      "QUAL-EE"
+     ]
+    },
+    {
+     "name": "Real-number construction, completeness, Dedekind cuts",
+     "importance": "C",
+     "why": "foundations; little engineering leverage",
+     "sources": [
+      "MIT-18.100"
+     ]
+    },
+    {
+     "name": "Measure-theoretic integration (Lebesgue)",
+     "importance": "N",
+     "why": "not needed at 2.5; know only that it fixes limit interchanges",
+     "sources": [
+      "MIT-18.100"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Multivariable and vector calculus",
+   "subtopics": [
+    {
+     "name": "Partial derivatives, gradient, Jacobian, chain rule",
+     "importance": "K",
+     "why": "backprop, kinematics, sensitivity, error propagation",
+     "sources": [
+      "MIT-18.02",
+      "FE-ECE",
+      "FE-ME"
+     ]
+    },
+    {
+     "name": "Hessian, second-order conditions, quadratic forms",
+     "importance": "S",
+     "why": "optimization, stability, curvature of losses",
+     "sources": [
+      "MIT-18.02",
+      "STAN-EE364a"
+     ]
+    },
+    {
+     "name": "Multiple integrals, change of variables (Jacobian determinant)",
+     "importance": "S",
+     "why": "mass properties, probability densities, flux",
+     "sources": [
+      "MIT-18.02",
+      "FE-ME"
+     ]
+    },
+    {
+     "name": "Line and surface integrals, flux, circulation",
+     "importance": "S",
+     "why": "work, EM, fluids share the same machinery",
+     "sources": [
+      "MIT-18.02",
+      "MIT-8.02",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Divergence, curl, Laplacian: meaning as local balances",
+     "importance": "K",
+     "why": "conservation laws in EM, fluids, heat",
+     "sources": [
+      "MIT-18.02",
+      "MIT-8.02",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Gauss, Stokes, Green theorems",
+     "importance": "S",
+     "why": "integral/differential forms of every conservation law",
+     "sources": [
+      "MIT-18.02",
+      "MIT-6.013"
+     ]
+    },
+    {
+     "name": "Conservative fields, potentials, Helmholtz decomposition",
+     "importance": "S",
+     "why": "potentials in EM, flow, mechanics",
+     "sources": [
+      "MIT-18.02",
+      "MIT-6.013"
+     ]
+    },
+    {
+     "name": "Lagrange multipliers",
+     "importance": "K",
+     "why": "constrained optimization, stat-mech, mechanics, economics",
+     "sources": [
+      "MIT-18.02",
+      "STAN-EE364a"
+     ]
+    },
+    {
+     "name": "Curvilinear coordinates (cylindrical, spherical) operators",
+     "importance": "S",
+     "why": "most real geometries",
+     "sources": [
+      "MIT-18.02",
+      "MIT-6.013"
+     ]
+    },
+    {
+     "name": "Implicit and inverse function theorems",
+     "importance": "S",
+     "why": "when a constraint defines a manifold; robotics singularities",
+     "sources": [
+      "MIT-18.100",
+      "LYNCH-PARK"
+     ]
+    },
+    {
+     "name": "Differential forms and exterior calculus",
+     "importance": "N",
+     "why": "elegant but not needed for authority-level engineering",
+     "sources": [
+      "MIT-18.952"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Linear algebra",
+   "subtopics": [
+    {
+     "name": "Vector spaces, subspaces, span, basis, dimension",
+     "importance": "S",
+     "why": "language of signals, states, function spaces",
+     "sources": [
+      "MIT-18.06",
+      "FE-ECE",
+      "FE-ME"
+     ]
+    },
+    {
+     "name": "Four fundamental subspaces, rank, rank-nullity",
+     "importance": "S",
+     "why": "solvability, observability, identifiability",
+     "sources": [
+      "MIT-18.06",
+      "STAN-EE263"
+     ]
+    },
+    {
+     "name": "Gaussian elimination, LU, conditioning of linear solves",
+     "importance": "S",
+     "why": "how every simulator solves equations; when it fails",
+     "sources": [
+      "MIT-18.06",
+      "MIT-18.085"
+     ]
+    },
+    {
+     "name": "Determinants: volume, invertibility, sign",
+     "importance": "S",
+     "why": "geometry and invertibility tests",
+     "sources": [
+      "MIT-18.06"
+     ]
+    },
+    {
+     "name": "Inner products, orthogonality, projections",
+     "importance": "K",
+     "why": "least squares, Fourier, estimation are all projections",
+     "sources": [
+      "MIT-18.06",
+      "STAN-EE263"
+     ]
+    },
+    {
+     "name": "Least squares and normal equations; QR",
+     "importance": "K",
+     "why": "regression, calibration, estimation",
+     "sources": [
+      "MIT-18.06",
+      "STAN-EE263",
+      "FE-ME"
+     ]
+    },
+    {
+     "name": "Gram-Schmidt and orthonormal bases",
+     "importance": "S",
+     "why": "basis for QR, modal decompositions",
+     "sources": [
+      "MIT-18.06"
+     ]
+    },
+    {
+     "name": "Eigenvalues/eigenvectors, diagonalization",
+     "importance": "K",
+     "why": "modes of vibration, stability, Markov chains, PCA",
+     "sources": [
+      "MIT-18.06",
+      "MIT-18.03",
+      "STAN-EE263"
+     ]
+    },
+    {
+     "name": "Symmetric matrices, spectral theorem, positive definiteness",
+     "importance": "K",
+     "why": "energy, covariance, convexity, stiffness",
+     "sources": [
+      "MIT-18.06",
+      "STAN-EE263"
+     ]
+    },
+    {
+     "name": "Singular value decomposition and low-rank approximation",
+     "importance": "K",
+     "why": "PCA, model reduction, conditioning, compression, MIMO",
+     "sources": [
+      "MIT-18.06",
+      "STAN-EE263",
+      "MIT-18.065"
+     ]
+    },
+    {
+     "name": "Matrix norms, condition number, sensitivity",
+     "importance": "K",
+     "why": "predicts numerical and physical ill-posedness",
+     "sources": [
+      "MIT-18.06",
+      "STAN-EE263",
+      "HIGHAM"
+     ]
+    },
+    {
+     "name": "Jordan form and defective matrices",
+     "importance": "C",
+     "why": "mostly theoretical; know when repeated poles give t*e^{at}",
+     "sources": [
+      "MIT-18.06"
+     ]
+    },
+    {
+     "name": "Matrix exponential",
+     "importance": "S",
+     "why": "solution of linear ODE systems; discretization",
+     "sources": [
+      "MIT-18.03",
+      "STAN-EE263"
+     ]
+    },
+    {
+     "name": "Pseudoinverse, regularization (Tikhonov)",
+     "importance": "S",
+     "why": "ill-posed inverse problems, robotics redundancy",
+     "sources": [
+      "STAN-EE263",
+      "MIT-18.065"
+     ]
+    },
+    {
+     "name": "Linear maps between function spaces, operators (intro)",
+     "importance": "S",
+     "why": "links linear algebra to Fourier and PDE",
+     "sources": [
+      "MIT-18.06",
+      "MIT-18.303"
+     ]
+    },
+    {
+     "name": "Sparse and structured matrices (banded, Toeplitz, circulant)",
+     "importance": "S",
+     "why": "FFT diagonalizes circulant; FEM sparsity",
+     "sources": [
+      "MIT-18.085",
+      "MIT-18.065"
+     ]
+    },
+    {
+     "name": "Tensors and index notation",
+     "importance": "S",
+     "why": "stress, inertia, EM tensors",
+     "sources": [
+      "MIT-2.001",
+      "MIT-8.033"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Ordinary differential equations",
+   "subtopics": [
+    {
+     "name": "First-order linear ODE, integrating factor, time constant",
+     "importance": "K",
+     "why": "RC, thermal, first-order lag everywhere",
+     "sources": [
+      "MIT-18.03",
+      "FE-ME",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Second-order linear constant-coefficient ODE, damping ratio, natural frequency",
+     "importance": "K",
+     "why": "universal oscillator across mechanics/circuits/control",
+     "sources": [
+      "MIT-18.03",
+      "FE-ME",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Forced response, resonance, frequency response",
+     "importance": "K",
+     "why": "vibration, filters, control",
+     "sources": [
+      "MIT-18.03",
+      "FE-ECE",
+      "FE-ME"
+     ]
+    },
+    {
+     "name": "Laplace transform method for ODEs",
+     "importance": "S",
+     "why": "algebraizes linear dynamics",
+     "sources": [
+      "MIT-18.03",
+      "FE-ECE",
+      "FE-ME"
+     ]
+    },
+    {
+     "name": "Linear systems x'=Ax, modes, phase portraits",
+     "importance": "K",
+     "why": "state-space everything",
+     "sources": [
+      "MIT-18.03",
+      "STAN-EE263"
+     ]
+    },
+    {
+     "name": "Existence and uniqueness (Lipschitz), sensitivity to initial conditions",
+     "importance": "S",
+     "why": "when models are well-posed",
+     "sources": [
+      "MIT-18.03",
+      "QUAL-EE"
+     ]
+    },
+    {
+     "name": "Nonlinear ODE: equilibria, linearization, Hartman-Grobman idea",
+     "importance": "K",
+     "why": "stability analysis in all fields",
+     "sources": [
+      "MIT-18.03",
+      "MIT-18.353"
+     ]
+    },
+    {
+     "name": "Limit cycles, bifurcations, chaos basics",
+     "importance": "S",
+     "why": "oscillators, flutter, surge, power-system instability",
+     "sources": [
+      "MIT-18.353",
+      "STROGATZ"
+     ]
+    },
+    {
+     "name": "Convolution, impulse response, Green's function for ODEs",
+     "importance": "K",
+     "why": "bridge to signals and PDEs",
+     "sources": [
+      "MIT-18.03",
+      "MIT-6.003"
+     ]
+    },
+    {
+     "name": "Series solutions, Bessel and Legendre functions",
+     "importance": "C",
+     "why": "appear in cylindrical/spherical problems; recognize, don't derive",
+     "sources": [
+      "MIT-18.03",
+      "MIT-18.303"
+     ]
+    },
+    {
+     "name": "Stiff ODEs (concept)",
+     "importance": "S",
+     "why": "why some simulations explode or crawl",
+     "sources": [
+      "MIT-18.085",
+      "MIT-18.330"
+     ]
+    },
+    {
+     "name": "Sturm-Liouville theory and eigenfunction expansions",
+     "importance": "S",
+     "why": "why Fourier/Bessel modes are orthogonal",
+     "sources": [
+      "MIT-18.303"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Partial differential equations",
+   "subtopics": [
+    {
+     "name": "Classification: elliptic, parabolic, hyperbolic and what each means physically",
+     "importance": "S",
+     "why": "tells which phenomena propagate, diffuse or equilibrate",
+     "sources": [
+      "MIT-18.303",
+      "MIT-18.085"
+     ]
+    },
+    {
+     "name": "Heat/diffusion equation, similarity solution, sqrt(Dt) scaling",
+     "importance": "K",
+     "why": "heat, mass, charge, probability diffusion",
+     "sources": [
+      "MIT-18.303",
+      "MIT-18.085",
+      "MAHAJAN"
+     ]
+    },
+    {
+     "name": "Wave equation, d'Alembert, characteristics",
+     "importance": "K",
+     "why": "acoustics, EM, strings, transmission lines",
+     "sources": [
+      "MIT-18.303",
+      "MIT-8.03"
+     ]
+    },
+    {
+     "name": "Laplace/Poisson equation, harmonic functions, maximum principle",
+     "importance": "S",
+     "why": "electrostatics, potential flow, steady heat",
+     "sources": [
+      "MIT-18.303",
+      "MIT-6.013"
+     ]
+    },
+    {
+     "name": "Separation of variables and eigenfunction expansions",
+     "importance": "S",
+     "why": "canonical analytic solutions",
+     "sources": [
+      "MIT-18.303"
+     ]
+    },
+    {
+     "name": "Boundary and initial conditions, well-posedness (Hadamard)",
+     "importance": "K",
+     "why": "most modeling errors are BC errors",
+     "sources": [
+      "MIT-18.303",
+      "QUAL-ME"
+     ]
+    },
+    {
+     "name": "Conservation-law form, fluxes, shocks (intro)",
+     "importance": "S",
+     "why": "gas dynamics, traffic, finite volume",
+     "sources": [
+      "MIT-18.303",
+      "MIT-16.100"
+     ]
+    },
+    {
+     "name": "Green's functions and fundamental solutions",
+     "importance": "S",
+     "why": "superposition for linear fields",
+     "sources": [
+      "MIT-18.303",
+      "MIT-6.013"
+     ]
+    },
+    {
+     "name": "Nondimensionalization of PDEs",
+     "importance": "K",
+     "why": "exposes governing groups (Re, Pe, Bi)",
+     "sources": [
+      "MIT-18.303",
+      "MAHAJAN"
+     ]
+    },
+    {
+     "name": "Weak/variational formulation (basis of FEM)",
+     "importance": "S",
+     "why": "what FEM actually solves",
+     "sources": [
+      "MIT-18.085",
+      "MIT-2.092"
+     ]
+    },
+    {
+     "name": "Distribution theory (delta function rigor)",
+     "importance": "C",
+     "why": "use delta correctly; rigor optional",
+     "sources": [
+      "MIT-18.303"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Complex analysis",
+   "subtopics": [
+    {
+     "name": "Complex numbers, polar form, Euler formula",
+     "importance": "K",
+     "why": "phasors, oscillation, Fourier",
+     "sources": [
+      "MIT-18.04",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Analytic functions, Cauchy-Riemann, harmonicity",
+     "importance": "S",
+     "why": "potential flow and 2-D fields",
+     "sources": [
+      "MIT-18.04"
+     ]
+    },
+    {
+     "name": "Contour integrals, Cauchy theorem and integral formula",
+     "importance": "S",
+     "why": "basis of inverse transforms",
+     "sources": [
+      "MIT-18.04"
+     ]
+    },
+    {
+     "name": "Laurent series, residues, residue theorem",
+     "importance": "S",
+     "why": "inverse Laplace/z, evaluating integrals",
+     "sources": [
+      "MIT-18.04",
+      "QUAL-EE"
+     ]
+    },
+    {
+     "name": "Poles and zeros as structure of rational functions",
+     "importance": "K",
+     "why": "transfer functions, filters, stability",
+     "sources": [
+      "MIT-18.04",
+      "MIT-6.003"
+     ]
+    },
+    {
+     "name": "Argument principle (basis of Nyquist criterion)",
+     "importance": "S",
+     "why": "ties complex analysis to feedback stability",
+     "sources": [
+      "MIT-18.04",
+      "MIT-6.302"
+     ]
+    },
+    {
+     "name": "Conformal mapping (Joukowski, airfoils)",
+     "importance": "C",
+     "why": "historical aero/EM tool; recognize",
+     "sources": [
+      "MIT-18.04",
+      "MIT-16.100"
+     ]
+    },
+    {
+     "name": "Branch cuts, multivalued functions",
+     "importance": "C",
+     "why": "needed for log/sqrt pitfalls",
+     "sources": [
+      "MIT-18.04"
+     ]
+    },
+    {
+     "name": "Analytic continuation, Kramers-Kronig/causality relations",
+     "importance": "S",
+     "why": "causality constrains magnitude-phase (Bode gain-phase)",
+     "sources": [
+      "MIT-18.04",
+      "MIT-6.013"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Probability",
+   "subtopics": [
+    {
+     "name": "Axioms, conditional probability, independence",
+     "importance": "S",
+     "why": "foundation of reasoning under uncertainty",
+     "sources": [
+      "MIT-6.041",
+      "FE-ECE",
+      "FE-ME"
+     ]
+    },
+    {
+     "name": "Bayes' theorem and base-rate reasoning",
+     "importance": "K",
+     "why": "detection, diagnosis, intelligence assessment",
+     "sources": [
+      "MIT-6.041",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Discrete distributions (Bernoulli, binomial, Poisson, geometric)",
+     "importance": "S",
+     "why": "counting failures, arrivals, errors",
+     "sources": [
+      "MIT-6.041",
+      "FE-ECE",
+      "FE-ME"
+     ]
+    },
+    {
+     "name": "Continuous distributions (uniform, exponential, Gaussian, gamma, beta)",
+     "importance": "S",
+     "why": "noise, lifetimes, priors",
+     "sources": [
+      "MIT-6.041",
+      "FE-ME"
+     ]
+    },
+    {
+     "name": "Expectation, variance, moments, linearity",
+     "importance": "K",
+     "why": "every estimate and budget",
+     "sources": [
+      "MIT-6.041",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Joint distributions, covariance, correlation",
+     "importance": "S",
+     "why": "multisensor, multi-asset, MIMO",
+     "sources": [
+      "MIT-6.041",
+      "STAN-EE263"
+     ]
+    },
+    {
+     "name": "Multivariate Gaussian and its conditioning",
+     "importance": "K",
+     "why": "Kalman filter, GPs, linear estimation",
+     "sources": [
+      "MIT-6.011",
+      "MIT-6.041"
+     ]
+    },
+    {
+     "name": "Functions of random variables, transformations",
+     "importance": "S",
+     "why": "propagating uncertainty through models",
+     "sources": [
+      "MIT-6.041"
+     ]
+    },
+    {
+     "name": "Law of large numbers, central limit theorem",
+     "importance": "K",
+     "why": "why averaging works; when it fails",
+     "sources": [
+      "MIT-6.041",
+      "MIT-18.05"
+     ]
+    },
+    {
+     "name": "Tail bounds (Markov, Chebyshev, Chernoff/Hoeffding)",
+     "importance": "S",
+     "why": "guarantees for learning, reliability",
+     "sources": [
+      "MIT-6.041",
+      "STAN-CS229"
+     ]
+    },
+    {
+     "name": "Heavy tails, power laws and failure of Gaussian intuition",
+     "importance": "K",
+     "why": "rare-event risk, extremes, network traffic",
+     "sources": [
+      "TALEB",
+      "MIT-6.041"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Markov chains: transition matrices, stationary distribution",
+     "importance": "S",
+     "why": "reliability, queues, RL, MCMC",
+     "sources": [
+      "MIT-6.041",
+      "MIT-6.262"
+     ]
+    },
+    {
+     "name": "Poisson process and queueing basics (Little's law)",
+     "importance": "S",
+     "why": "traffic, arrivals, capacity planning",
+     "sources": [
+      "MIT-6.262",
+      "MIT-6.041"
+     ]
+    },
+    {
+     "name": "Random processes: stationarity, autocorrelation, PSD",
+     "importance": "K",
+     "why": "noise, signals, communications",
+     "sources": [
+      "MIT-6.011",
+      "MIT-6.041"
+     ]
+    },
+    {
+     "name": "Extreme value statistics",
+     "importance": "S",
+     "why": "design loads, max wind, peak stresses",
+     "sources": [
+      "ESL",
+      "RELIAB"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Monte Carlo simulation and its error 1/sqrt(N)",
+     "importance": "K",
+     "why": "universal uncertainty tool",
+     "sources": [
+      "MIT-6.041",
+      "MIT-18.330"
+     ]
+    },
+    {
+     "name": "Measure-theoretic probability, sigma-algebras",
+     "importance": "N",
+     "why": "rigor not needed for 2.5",
+     "sources": [
+      "QUAL-EE"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Statistics and inference",
+   "subtopics": [
+    {
+     "name": "Descriptive statistics, robust measures (median, MAD)",
+     "importance": "S",
+     "why": "data sanity checks",
+     "sources": [
+      "MIT-18.05",
+      "FE-ME"
+     ]
+    },
+    {
+     "name": "Point estimation, bias, variance, MSE, consistency",
+     "importance": "S",
+     "why": "judges every estimator",
+     "sources": [
+      "MIT-18.05",
+      "MIT-6.011"
+     ]
+    },
+    {
+     "name": "Maximum likelihood estimation",
+     "importance": "K",
+     "why": "unifies fitting, ML, estimation",
+     "sources": [
+      "MIT-18.05",
+      "MIT-6.011",
+      "STAN-CS229"
+     ]
+    },
+    {
+     "name": "Fisher information and Cramer-Rao bound",
+     "importance": "K",
+     "why": "limit of achievable accuracy in sensing/estimation",
+     "sources": [
+      "MIT-6.011",
+      "QUAL-EE"
+     ]
+    },
+    {
+     "name": "Confidence intervals",
+     "importance": "S",
+     "why": "communicating uncertainty",
+     "sources": [
+      "MIT-18.05",
+      "FE-ME"
+     ]
+    },
+    {
+     "name": "Hypothesis testing, p-values and their misuse",
+     "importance": "K",
+     "why": "critique of claims, detection",
+     "sources": [
+      "MIT-18.05",
+      "MIT-6.011"
+     ]
+    },
+    {
+     "name": "Neyman-Pearson, likelihood ratio, ROC",
+     "importance": "K",
+     "why": "detection theory, radar, classifiers",
+     "sources": [
+      "MIT-6.011",
+      "MIT-6.432"
+     ]
+    },
+    {
+     "name": "Linear regression, goodness of fit, residual analysis",
+     "importance": "S",
+     "why": "calibration, empirical models",
+     "sources": [
+      "MIT-18.05",
+      "FE-ME"
+     ]
+    },
+    {
+     "name": "Bayesian inference, priors, posterior, conjugacy",
+     "importance": "K",
+     "why": "principled updating; links to ML",
+     "sources": [
+      "MIT-18.05",
+      "MIT-6.011"
+     ]
+    },
+    {
+     "name": "Bootstrap and resampling",
+     "importance": "S",
+     "why": "uncertainty without formulas",
+     "sources": [
+      "MIT-18.05",
+      "ESL"
+     ]
+    },
+    {
+     "name": "Design of experiments (factorial, blocking, randomization)",
+     "importance": "S",
+     "why": "efficient testing; often absent in engineering curricula",
+     "sources": [
+      "ASQ",
+      "MONTGOMERY"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Multiple comparisons, p-hacking, selection bias",
+     "importance": "K",
+     "why": "critiquing published/AI claims",
+     "sources": [
+      "GELMAN",
+      "MIT-18.05"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Causal inference basics (confounding, DAGs)",
+     "importance": "S",
+     "why": "correlation vs cause in field data",
+     "sources": [
+      "PEARL",
+      "GELMAN"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Statistical process control, capability Cp/Cpk",
+     "importance": "S",
+     "why": "production quality and tolerances",
+     "sources": [
+      "ASQ",
+      "FE-OD"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Nonparametric tests (rank tests)",
+     "importance": "C",
+     "why": "niche",
+     "sources": [
+      "MIT-18.05"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Optimization",
+   "subtopics": [
+    {
+     "name": "Convex sets and functions",
+     "importance": "K",
+     "why": "separates tractable from hard problems",
+     "sources": [
+      "STAN-EE364a",
+      "MIT-6.255"
+     ]
+    },
+    {
+     "name": "Unconstrained optimality, gradient descent, Newton",
+     "importance": "K",
+     "why": "ML training, design optimization",
+     "sources": [
+      "STAN-EE364a",
+      "MIT-18.065"
+     ]
+    },
+    {
+     "name": "KKT conditions and duality",
+     "importance": "K",
+     "why": "shadow prices, SVM, resource allocation",
+     "sources": [
+      "STAN-EE364a",
+      "MIT-6.255"
+     ]
+    },
+    {
+     "name": "Linear programming, simplex idea",
+     "importance": "S",
+     "why": "allocation, logistics, scheduling",
+     "sources": [
+      "MIT-6.251",
+      "FE-OD"
+     ]
+    },
+    {
+     "name": "Quadratic programming and least-squares variants",
+     "importance": "S",
+     "why": "MPC, portfolio, fitting",
+     "sources": [
+      "STAN-EE364a"
+     ]
+    },
+    {
+     "name": "Stochastic gradient methods",
+     "importance": "S",
+     "why": "how all modern ML trains",
+     "sources": [
+      "STAN-CS229",
+      "MIT-18.065"
+     ]
+    },
+    {
+     "name": "Nonconvex optimization, local minima, saddle points",
+     "importance": "S",
+     "why": "realistic design and ML landscapes",
+     "sources": [
+      "MIT-18.065",
+      "DLBOOK"
+     ]
+    },
+    {
+     "name": "Integer/combinatorial optimization, NP-hardness in practice",
+     "importance": "S",
+     "why": "scheduling, routing, configuration",
+     "sources": [
+      "MIT-6.251",
+      "CLRS"
+     ]
+    },
+    {
+     "name": "Dynamic programming (Bellman)",
+     "importance": "K",
+     "why": "control, RL, algorithms share it",
+     "sources": [
+      "MIT-6.231",
+      "CLRS"
+     ]
+    },
+    {
+     "name": "Multi-objective optimization, Pareto fronts",
+     "importance": "K",
+     "why": "trade studies are Pareto problems",
+     "sources": [
+      "NASA-SEH",
+      "MIT-16.888"
+     ]
+    },
+    {
+     "name": "Derivative-free and global methods (GA, simulated annealing, Bayesian opt)",
+     "importance": "S",
+     "why": "black-box design optimization",
+     "sources": [
+      "MIT-16.888"
+     ]
+    },
+    {
+     "name": "Calculus of variations, Euler-Lagrange",
+     "importance": "S",
+     "why": "mechanics, optimal control, shapes",
+     "sources": [
+      "MIT-18.086",
+      "MIT-16.323"
+     ]
+    },
+    {
+     "name": "Interior-point methods",
+     "importance": "C",
+     "why": "know they exist and scale",
+     "sources": [
+      "STAN-EE364a"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Numerical methods",
+   "subtopics": [
+    {
+     "name": "Floating point, IEEE 754, rounding, cancellation",
+     "importance": "K",
+     "why": "silent errors in every computation",
+     "sources": [
+      "IEEE754",
+      "HIGHAM",
+      "FE-ME"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Conditioning vs stability of algorithms",
+     "importance": "K",
+     "why": "separates bad problems from bad methods",
+     "sources": [
+      "HIGHAM",
+      "MIT-18.330"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Root finding: bisection, Newton, convergence order",
+     "importance": "S",
+     "why": "solving nonlinear equations",
+     "sources": [
+      "MIT-18.330",
+      "FE-ME"
+     ]
+    },
+    {
+     "name": "Interpolation and polynomial approximation, Runge phenomenon",
+     "importance": "S",
+     "why": "fitting, table lookup pitfalls",
+     "sources": [
+      "MIT-18.330"
+     ]
+    },
+    {
+     "name": "Numerical differentiation and integration (quadrature)",
+     "importance": "S",
+     "why": "accuracy vs step size trade-off",
+     "sources": [
+      "MIT-18.330",
+      "FE-ME"
+     ]
+    },
+    {
+     "name": "ODE integrators: Euler, RK, implicit, stability regions",
+     "importance": "K",
+     "why": "why simulations diverge; step-size choice",
+     "sources": [
+      "MIT-18.330",
+      "MIT-18.085"
+     ]
+    },
+    {
+     "name": "Finite differences for PDEs, CFL condition",
+     "importance": "S",
+     "why": "stability limit of explicit simulation",
+     "sources": [
+      "MIT-18.085",
+      "MIT-18.086"
+     ]
+    },
+    {
+     "name": "Finite element method concepts",
+     "importance": "S",
+     "why": "dominant structural/thermal/EM tool; know its failure modes",
+     "sources": [
+      "MIT-2.092",
+      "MIT-18.085"
+     ]
+    },
+    {
+     "name": "Finite volume method and conservation",
+     "importance": "S",
+     "why": "CFD foundation",
+     "sources": [
+      "MIT-16.920",
+      "MIT-18.086"
+     ]
+    },
+    {
+     "name": "Iterative linear solvers (CG, GMRES), preconditioning",
+     "importance": "S",
+     "why": "large simulations",
+     "sources": [
+      "MIT-18.086",
+      "MIT-18.335"
+     ]
+    },
+    {
+     "name": "FFT algorithm and its cost",
+     "importance": "S",
+     "why": "O(N log N) made DSP and spectral methods practical",
+     "sources": [
+      "MIT-6.003",
+      "MIT-18.086"
+     ]
+    },
+    {
+     "name": "Verification and validation of simulations, mesh convergence, code verification",
+     "importance": "K",
+     "why": "trusting simulation results",
+     "sources": [
+      "ASME-VV10",
+      "NASA-STD-7009",
+      "AIAA-G077"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Uncertainty quantification and sensitivity analysis",
+     "importance": "K",
+     "why": "quantifying model trust",
+     "sources": [
+      "NASA-STD-7009",
+      "SMITH-UQ"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Automatic differentiation",
+     "importance": "S",
+     "why": "engine of modern ML and design optimization",
+     "sources": [
+      "MIT-18.337",
+      "DLBOOK"
+     ]
+    },
+    {
+     "name": "Spectral methods",
+     "importance": "C",
+     "why": "niche high-accuracy PDE",
+     "sources": [
+      "MIT-18.086"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Commonly taught, not needed for this goal",
+   "subtopics": [
+    {
+     "name": "Catalog of integration techniques (trig substitution drills, partial-fraction drills)",
+     "importance": "N",
+     "why": "software does it; keep only the structure (residues, partial fractions as pole expansion)",
+     "sources": [
+      "MIT-18.01",
+      "FE-ME"
+     ]
+    },
+    {
+     "name": "Formal epsilon-delta proof writing",
+     "importance": "N",
+     "why": "read proofs, not write them; 2.5 needs where assumptions enter, not rigor drills",
+     "sources": [
+      "MIT-18.100"
+     ]
+    },
+    {
+     "name": "Hand computation of determinants and inverses beyond 3x3",
+     "importance": "N",
+     "why": "numerically wrong method anyway",
+     "sources": [
+      "MIT-18.06"
+     ]
+    },
+    {
+     "name": "Exact-solution ODE zoo (Bernoulli, Clairaut, exact equations)",
+     "importance": "N",
+     "why": "rare in engineering; numerical + qualitative methods dominate",
+     "sources": [
+      "MIT-18.03"
+     ]
+    },
+    {
+     "name": "Special-function identities (Bessel/Legendre recurrences)",
+     "importance": "N",
+     "why": "recognize, look up",
+     "sources": [
+      "MIT-18.303"
+     ]
+    },
+    {
+     "name": "Contour-integration tricks for real integrals",
+     "importance": "N",
+     "why": "elegant, low leverage",
+     "sources": [
+      "MIT-18.04"
+     ]
+    },
+    {
+     "name": "Statistical tables and manual test procedures",
+     "importance": "N",
+     "why": "software; keep the logic of tests",
+     "sources": [
+      "MIT-18.05",
+      "FE-ME"
+     ]
+    }
+   ]
+  }
+ ],
+ "Physics": [
+  {
+   "topic": "Classical mechanics",
+   "subtopics": [
+    {
+     "name": "Newton's laws, inertial frames, free-body diagrams",
+     "importance": "K",
+     "why": "starting point of all mechanical modeling",
+     "sources": [
+      "MIT-8.01",
+      "FE-ME"
+     ]
+    },
+    {
+     "name": "Conservation of momentum and impulse",
+     "importance": "K",
+     "why": "collisions, rockets, jets, recoil",
+     "sources": [
+      "MIT-8.01",
+      "FE-ME"
+     ]
+    },
+    {
+     "name": "Work, energy, power, conservative forces",
+     "importance": "K",
+     "why": "energy budgets everywhere",
+     "sources": [
+      "MIT-8.01",
+      "FE-ME"
+     ]
+    },
+    {
+     "name": "Angular momentum, torque, central forces",
+     "importance": "S",
+     "why": "orbits, spin stabilization, gyros",
+     "sources": [
+      "MIT-8.01",
+      "MIT-16.07"
+     ]
+    },
+    {
+     "name": "Rigid-body kinematics and dynamics, inertia tensor",
+     "importance": "S",
+     "why": "vehicles, robots, spacecraft attitude",
+     "sources": [
+      "MIT-2.003",
+      "MIT-16.07",
+      "FE-ME"
+     ]
+    },
+    {
+     "name": "Rotating frames, Coriolis and centrifugal",
+     "importance": "S",
+     "why": "navigation, weather, ballistics, gyros",
+     "sources": [
+      "MIT-16.07",
+      "MIT-8.01"
+     ]
+    },
+    {
+     "name": "Lagrangian mechanics",
+     "importance": "S",
+     "why": "systematic equations for complex mechanisms",
+     "sources": [
+      "MIT-2.003",
+      "MIT-8.09"
+     ]
+    },
+    {
+     "name": "Hamiltonian mechanics, phase space",
+     "importance": "S",
+     "why": "links to stat-mech, quantum, symplectic integrators",
+     "sources": [
+      "MIT-8.09"
+     ]
+    },
+    {
+     "name": "Small oscillations and normal modes",
+     "importance": "K",
+     "why": "vibration analysis, coupled systems",
+     "sources": [
+      "MIT-8.03",
+      "MIT-2.003"
+     ]
+    },
+    {
+     "name": "Kepler problem and two-body orbits",
+     "importance": "S",
+     "why": "space systems, ballistics",
+     "sources": [
+      "MIT-8.01",
+      "MIT-16.346"
+     ]
+    },
+    {
+     "name": "Friction models and their limits",
+     "importance": "S",
+     "why": "contact, brakes, stick-slip",
+     "sources": [
+      "FE-ME",
+      "MIT-2.003"
+     ]
+    },
+    {
+     "name": "Variable-mass systems, rocket equation",
+     "importance": "S",
+     "why": "propulsion and launch trade-offs",
+     "sources": [
+      "MIT-16.50",
+      "MIT-8.01"
+     ]
+    },
+    {
+     "name": "Noether's theorem (symmetry to conservation)",
+     "importance": "S",
+     "why": "why conservation laws exist",
+     "sources": [
+      "MIT-8.09"
+     ]
+    },
+    {
+     "name": "Rigid-body rotation stability (intermediate axis, energy dissipation)",
+     "importance": "S",
+     "why": "Explorer 1 lesson; spacecraft design",
+     "sources": [
+      "MIT-16.07",
+      "NASA-LL"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Electromagnetism",
+   "subtopics": [
+    {
+     "name": "Coulomb, Gauss law, electric field and potential",
+     "importance": "S",
+     "why": "electrostatics, capacitance, insulation",
+     "sources": [
+      "MIT-8.02",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Conductors, dielectrics, capacitance, polarization",
+     "importance": "S",
+     "why": "components, insulation, energy storage",
+     "sources": [
+      "MIT-8.02",
+      "MIT-6.013",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Current, Ohm's law microscopically, resistivity",
+     "importance": "S",
+     "why": "conduction, losses",
+     "sources": [
+      "MIT-8.02",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Biot-Savart, Ampere law, magnetic field",
+     "importance": "S",
+     "why": "inductors, motors, sensors",
+     "sources": [
+      "MIT-8.02",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Faraday induction and Lenz law",
+     "importance": "K",
+     "why": "generators, transformers, EMI coupling",
+     "sources": [
+      "MIT-8.02",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Magnetic materials, hysteresis, saturation",
+     "importance": "S",
+     "why": "machines and transformers limits",
+     "sources": [
+      "MIT-6.013",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Inductance, mutual inductance, magnetic energy",
+     "importance": "S",
+     "why": "coupling, transformers",
+     "sources": [
+      "MIT-8.02",
+      "MIT-6.013"
+     ]
+    },
+    {
+     "name": "Maxwell's equations and displacement current",
+     "importance": "K",
+     "why": "unify all EM engineering",
+     "sources": [
+      "MIT-8.02",
+      "MIT-6.013",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Electromagnetic waves, Poynting vector, impedance of free space",
+     "importance": "K",
+     "why": "radiation, power flow",
+     "sources": [
+      "MIT-8.02",
+      "MIT-6.013"
+     ]
+    },
+    {
+     "name": "Boundary conditions at interfaces, reflection/transmission",
+     "importance": "S",
+     "why": "radomes, coatings, cables",
+     "sources": [
+      "MIT-6.013",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Skin depth and eddy currents",
+     "importance": "S",
+     "why": "losses at high frequency, shielding, induction heating",
+     "sources": [
+      "MIT-6.013",
+      "OTT"
+     ]
+    },
+    {
+     "name": "Lorentz force, charged-particle motion",
+     "importance": "S",
+     "why": "motors, CRTs, plasmas, mass spectrometry",
+     "sources": [
+      "MIT-8.02"
+     ]
+    },
+    {
+     "name": "Quasi-statics: when circuits are valid (lumped vs distributed)",
+     "importance": "K",
+     "why": "electrical size criterion governs modeling choice",
+     "sources": [
+      "MIT-6.013",
+      "MIT-6.002"
+     ]
+    },
+    {
+     "name": "Radiation from dipoles, antenna basics",
+     "importance": "S",
+     "why": "communications and radar",
+     "sources": [
+      "MIT-6.013",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Special-relativistic consistency of EM",
+     "importance": "C",
+     "why": "conceptual",
+     "sources": [
+      "MIT-8.033"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Waves and optics",
+   "subtopics": [
+    {
+     "name": "Wave equation solutions, phase/group velocity, dispersion",
+     "importance": "K",
+     "why": "pulses in fiber, sonar, water, radar",
+     "sources": [
+      "MIT-8.03"
+     ]
+    },
+    {
+     "name": "Superposition, interference, coherence",
+     "importance": "K",
+     "why": "interferometers, arrays, multipath",
+     "sources": [
+      "MIT-8.03"
+     ]
+    },
+    {
+     "name": "Diffraction, Fraunhofer, resolution limit lambda/D",
+     "importance": "K",
+     "why": "resolution of telescopes, radars, antennas",
+     "sources": [
+      "MIT-8.03",
+      "MIT-2.71"
+     ]
+    },
+    {
+     "name": "Standing waves and resonators",
+     "importance": "S",
+     "why": "cavities, strings, acoustics",
+     "sources": [
+      "MIT-8.03"
+     ]
+    },
+    {
+     "name": "Geometric optics, lenses, imaging, f-number",
+     "importance": "S",
+     "why": "sensors, cameras, seekers",
+     "sources": [
+      "MIT-2.71",
+      "MIT-8.03"
+     ]
+    },
+    {
+     "name": "Fourier optics (lens as Fourier transformer, MTF)",
+     "importance": "S",
+     "why": "imaging system performance",
+     "sources": [
+      "MIT-2.71"
+     ]
+    },
+    {
+     "name": "Polarization",
+     "importance": "S",
+     "why": "antennas, optics, displays",
+     "sources": [
+      "MIT-8.03",
+      "MIT-6.013"
+     ]
+    },
+    {
+     "name": "Acoustics: sound speed, intensity, decibels",
+     "importance": "S",
+     "why": "sonar, noise",
+     "sources": [
+      "MIT-8.03",
+      "MIT-2.06"
+     ]
+    },
+    {
+     "name": "Waveguides and optical fibers",
+     "importance": "S",
+     "why": "microwave and photonic links",
+     "sources": [
+      "MIT-6.013",
+      "MIT-6.630"
+     ]
+    },
+    {
+     "name": "Lasers: stimulated emission, coherence, beam divergence",
+     "importance": "S",
+     "why": "LIDAR, communications, directed energy",
+     "sources": [
+      "MIT-8.04",
+      "MIT-6.630"
+     ]
+    },
+    {
+     "name": "Doppler effect",
+     "importance": "K",
+     "why": "radar, sonar, navigation",
+     "sources": [
+      "MIT-8.03"
+     ]
+    },
+    {
+     "name": "Nonlinear optics",
+     "importance": "N",
+     "why": "specialist",
+     "sources": [
+      "MIT-6.631"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Thermal and statistical physics",
+   "subtopics": [
+    {
+     "name": "Temperature, heat, first law (physics view)",
+     "importance": "S",
+     "why": "basis of energy accounting",
+     "sources": [
+      "MIT-8.044",
+      "FE-ME"
+     ]
+    },
+    {
+     "name": "Entropy, second law, irreversibility",
+     "importance": "K",
+     "why": "limits of every engine, computer, refrigerator",
+     "sources": [
+      "MIT-8.044",
+      "FE-ME"
+     ]
+    },
+    {
+     "name": "Kinetic theory of gases, Maxwell-Boltzmann",
+     "importance": "S",
+     "why": "pressure, viscosity, diffusion from molecules",
+     "sources": [
+      "MIT-8.044"
+     ]
+    },
+    {
+     "name": "Boltzmann factor and partition function",
+     "importance": "K",
+     "why": "semiconductors, reaction rates, thermal noise",
+     "sources": [
+      "MIT-8.044"
+     ]
+    },
+    {
+     "name": "Equipartition and heat capacities",
+     "importance": "S",
+     "why": "thermal noise kT, specific heat estimates",
+     "sources": [
+      "MIT-8.044"
+     ]
+    },
+    {
+     "name": "Free energies and equilibrium",
+     "importance": "S",
+     "why": "phase transitions, chemistry, batteries",
+     "sources": [
+      "MIT-8.044"
+     ]
+    },
+    {
+     "name": "Fermi-Dirac and Bose-Einstein statistics",
+     "importance": "S",
+     "why": "semiconductors, blackbody, lasers",
+     "sources": [
+      "MIT-8.044"
+     ]
+    },
+    {
+     "name": "Blackbody radiation, Planck, Stefan-Boltzmann, Wien",
+     "importance": "K",
+     "why": "IR signatures, thermal radiation, space thermal",
+     "sources": [
+      "MIT-8.044",
+      "FE-ME"
+     ]
+    },
+    {
+     "name": "Thermal noise (Johnson-Nyquist)",
+     "importance": "K",
+     "why": "sensitivity floor of electronics and receivers",
+     "sources": [
+      "MIT-8.044",
+      "MIT-6.012"
+     ]
+    },
+    {
+     "name": "Information entropy vs thermodynamic entropy, Landauer",
+     "importance": "S",
+     "why": "cross-domain unity; limit of computation",
+     "sources": [
+      "MIT-8.044",
+      "MIT-6.441"
+     ]
+    },
+    {
+     "name": "Phase transitions and critical phenomena",
+     "importance": "C",
+     "why": "context",
+     "sources": [
+      "MIT-8.333"
+     ]
+    },
+    {
+     "name": "Fluctuation-dissipation theorem",
+     "importance": "S",
+     "why": "noise and damping are linked",
+     "sources": [
+      "MIT-8.044"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Modern physics",
+   "subtopics": [
+    {
+     "name": "Special relativity: time dilation, E=mc^2",
+     "importance": "S",
+     "why": "GPS corrections, particle energies",
+     "sources": [
+      "MIT-8.033"
+     ]
+    },
+    {
+     "name": "General relativity effects on clocks",
+     "importance": "C",
+     "why": "GPS clock corrections only",
+     "sources": [
+      "MIT-8.033"
+     ]
+    },
+    {
+     "name": "Photoelectric effect, photons, wave-particle duality",
+     "importance": "S",
+     "why": "detectors, solar cells, quantum limits",
+     "sources": [
+      "MIT-8.04"
+     ]
+    },
+    {
+     "name": "Schrodinger equation, wavefunctions, quantization",
+     "importance": "S",
+     "why": "basis of semiconductors and lasers",
+     "sources": [
+      "MIT-8.04"
+     ]
+    },
+    {
+     "name": "Particle in a box, tunneling, harmonic oscillator",
+     "importance": "S",
+     "why": "quantum wells, tunneling devices",
+     "sources": [
+      "MIT-8.04"
+     ]
+    },
+    {
+     "name": "Uncertainty principle",
+     "importance": "S",
+     "why": "measurement limits",
+     "sources": [
+      "MIT-8.04"
+     ]
+    },
+    {
+     "name": "Atomic structure, spectra",
+     "importance": "C",
+     "why": "sensors, clocks",
+     "sources": [
+      "MIT-8.04"
+     ]
+    },
+    {
+     "name": "Band theory of solids",
+     "importance": "S",
+     "why": "why semiconductors work",
+     "sources": [
+      "MIT-8.231",
+      "MIT-6.012"
+     ]
+    },
+    {
+     "name": "Nuclear physics: binding energy, fission, fusion, decay",
+     "importance": "S",
+     "why": "energy, radiation hazards",
+     "sources": [
+      "MIT-22.01"
+     ]
+    },
+    {
+     "name": "Radiation interaction with matter, dose",
+     "importance": "S",
+     "why": "space electronics, nuclear safety",
+     "sources": [
+      "MIT-22.01",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Quantum computing and quantum sensing basics",
+     "importance": "C",
+     "why": "emerging; judge hype",
+     "sources": [
+      "MIT-8.370"
+     ]
+    },
+    {
+     "name": "Quantum field theory",
+     "importance": "N",
+     "why": "no engineering leverage at this level",
+     "sources": [
+      "MIT-8.323"
+     ]
+    }
+   ]
+  }
+ ],
+ "Signals and systems": [
+  {
+   "topic": "Signals and LTI systems",
+   "subtopics": [
+    {
+     "name": "Signal classes, energy/power signals, elementary signals",
+     "importance": "S",
+     "why": "vocabulary",
+     "sources": [
+      "MIT-6.003",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Linearity, time invariance, causality, stability (BIBO)",
+     "importance": "K",
+     "why": "which tools apply",
+     "sources": [
+      "MIT-6.003",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Convolution and impulse response",
+     "importance": "K",
+     "why": "output of any LTI system",
+     "sources": [
+      "MIT-6.003",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Difference equations and discrete-time systems",
+     "importance": "S",
+     "why": "digital filters, controllers, economics",
+     "sources": [
+      "MIT-6.003",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Block diagrams and system interconnection",
+     "importance": "S",
+     "why": "composition of subsystems",
+     "sources": [
+      "MIT-6.003",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Eigenfunction property of complex exponentials",
+     "importance": "K",
+     "why": "why Fourier diagonalizes LTI systems",
+     "sources": [
+      "MIT-6.003"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Fourier analysis",
+   "subtopics": [
+    {
+     "name": "Fourier series, harmonics, Gibbs phenomenon",
+     "importance": "S",
+     "why": "periodic signals, power quality",
+     "sources": [
+      "MIT-6.003",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Continuous-time Fourier transform and properties",
+     "importance": "K",
+     "why": "spectrum thinking",
+     "sources": [
+      "MIT-6.003",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Parseval and energy spectra",
+     "importance": "S",
+     "why": "energy accounting in frequency",
+     "sources": [
+      "MIT-6.003"
+     ]
+    },
+    {
+     "name": "Time-bandwidth uncertainty",
+     "importance": "K",
+     "why": "range resolution, pulse design, limits",
+     "sources": [
+      "MIT-6.003",
+      "MIT-6.011"
+     ]
+    },
+    {
+     "name": "DTFT, DFT and their relationship",
+     "importance": "S",
+     "why": "what a computed spectrum means",
+     "sources": [
+      "MIT-6.003",
+      "MIT-6.341"
+     ]
+    },
+    {
+     "name": "Windowing, leakage, resolution in spectral analysis",
+     "importance": "K",
+     "why": "practical spectrum pitfalls",
+     "sources": [
+      "MIT-6.341",
+      "FE-ECE"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "FFT use in practice (zero-padding, bins, scaling)",
+     "importance": "S",
+     "why": "correct use of tools",
+     "sources": [
+      "MIT-6.341"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Short-time Fourier transform, spectrograms",
+     "importance": "S",
+     "why": "nonstationary signals",
+     "sources": [
+      "MIT-6.341"
+     ]
+    },
+    {
+     "name": "Wavelets and multiresolution",
+     "importance": "C",
+     "why": "compression, transients",
+     "sources": [
+      "MIT-6.341"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Laplace and z transforms",
+   "subtopics": [
+    {
+     "name": "Laplace transform, region of convergence",
+     "importance": "S",
+     "why": "transient + stability analysis",
+     "sources": [
+      "MIT-6.003",
+      "FE-ECE",
+      "FE-ME"
+     ]
+    },
+    {
+     "name": "Transfer functions, poles, zeros",
+     "importance": "K",
+     "why": "language of dynamics in every field",
+     "sources": [
+      "MIT-6.003",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "z-transform, mapping s to z",
+     "importance": "S",
+     "why": "discrete-time design",
+     "sources": [
+      "MIT-6.003",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Frequency response, Bode plots, decibels",
+     "importance": "K",
+     "why": "design and diagnosis",
+     "sources": [
+      "MIT-6.003",
+      "FE-ECE",
+      "MIT-6.302"
+     ]
+    },
+    {
+     "name": "Minimum-phase, all-pass, nonminimum-phase systems",
+     "importance": "S",
+     "why": "fundamental performance limits",
+     "sources": [
+      "MIT-6.302",
+      "SKOGESTAD"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Sampling and DSP",
+   "subtopics": [
+    {
+     "name": "Sampling theorem, aliasing, anti-alias filtering",
+     "importance": "K",
+     "why": "every digital measurement",
+     "sources": [
+      "MIT-6.003",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Quantization noise, ADC resolution, SNR=6.02N+1.76",
+     "importance": "K",
+     "why": "data-converter budgets",
+     "sources": [
+      "MIT-6.003",
+      "AOE"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Reconstruction, zero-order hold",
+     "importance": "S",
+     "why": "D/A and digital control",
+     "sources": [
+      "MIT-6.003",
+      "MIT-6.302"
+     ]
+    },
+    {
+     "name": "Multirate: decimation, interpolation",
+     "importance": "S",
+     "why": "modern radios and sensors",
+     "sources": [
+      "MIT-6.341"
+     ]
+    },
+    {
+     "name": "FIR vs IIR filter design, linear phase",
+     "importance": "S",
+     "why": "filter trade-offs",
+     "sources": [
+      "MIT-6.341",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Analog filter prototypes (Butterworth, Chebyshev, elliptic)",
+     "importance": "S",
+     "why": "anti-aliasing, RF",
+     "sources": [
+      "FE-ECE",
+      "AOE"
+     ]
+    },
+    {
+     "name": "Finite word-length effects, limit cycles",
+     "importance": "S",
+     "why": "embedded DSP pitfalls",
+     "sources": [
+      "MIT-6.341"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Matched filter",
+     "importance": "K",
+     "why": "detection, radar, comms share it",
+     "sources": [
+      "MIT-6.011",
+      "MIT-6.450"
+     ]
+    },
+    {
+     "name": "Correlation and spectral estimation (periodogram, Welch)",
+     "importance": "S",
+     "why": "measuring noise and vibration",
+     "sources": [
+      "MIT-6.341",
+      "MIT-6.011"
+     ]
+    },
+    {
+     "name": "Adaptive filters (LMS, RLS)",
+     "importance": "S",
+     "why": "equalizers, noise cancellation",
+     "sources": [
+      "MIT-6.341",
+      "HAYKIN"
+     ]
+    },
+    {
+     "name": "Array signal processing, beamforming",
+     "importance": "S",
+     "why": "radar, sonar, 5G",
+     "sources": [
+      "MIT-6.341",
+      "VANTREES"
+     ]
+    },
+    {
+     "name": "Compressed sensing and sparsity",
+     "importance": "C",
+     "why": "niche, imaging",
+     "sources": [
+      "MIT-6.341"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Random signals",
+   "subtopics": [
+    {
+     "name": "Stochastic processes through LTI systems (PSD in, PSD out)",
+     "importance": "K",
+     "why": "noise analysis everywhere",
+     "sources": [
+      "MIT-6.011",
+      "MIT-6.041"
+     ]
+    },
+    {
+     "name": "White noise, colored noise, 1/f noise",
+     "importance": "S",
+     "why": "sensor and electronics budgets",
+     "sources": [
+      "MIT-6.011",
+      "AOE"
+     ]
+    },
+    {
+     "name": "Wiener filter",
+     "importance": "S",
+     "why": "optimal linear estimation in frequency domain",
+     "sources": [
+      "MIT-6.011"
+     ]
+    },
+    {
+     "name": "Ergodicity and estimating statistics from one record",
+     "importance": "S",
+     "why": "test data interpretation",
+     "sources": [
+      "MIT-6.011"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Commonly taught, not needed for this goal",
+   "subtopics": [
+    {
+     "name": "Transform table memorization and long partial-fraction inversions",
+     "importance": "N",
+     "why": "keep pole-to-time-response intuition only",
+     "sources": [
+      "MIT-6.003",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Analog filter design by hand (component synthesis tables)",
+     "importance": "N",
+     "why": "tools design; keep the prototype trade-offs",
+     "sources": [
+      "FE-ECE"
+     ]
+    }
+   ]
+  }
+ ],
+ "Control and estimation": [
+  {
+   "topic": "Modeling for control",
+   "subtopics": [
+    {
+     "name": "State-space models from physics",
+     "importance": "K",
+     "why": "unified representation",
+     "sources": [
+      "MIT-6.302",
+      "STAN-EE263",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Linearization about operating points",
+     "importance": "K",
+     "why": "how nonlinear plants are designed for",
+     "sources": [
+      "MIT-6.302",
+      "MIT-2.14"
+     ]
+    },
+    {
+     "name": "Analogies across domains (bond graphs, effort/flow)",
+     "importance": "S",
+     "why": "cross-domain structure of dynamics",
+     "sources": [
+      "MIT-2.14",
+      "KARNOPP"
+     ]
+    },
+    {
+     "name": "System identification (step tests, frequency response, ARX)",
+     "importance": "S",
+     "why": "models from data",
+     "sources": [
+      "MIT-6.435",
+      "LJUNG"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Model uncertainty and unmodeled dynamics",
+     "importance": "K",
+     "why": "why controllers fail in the field",
+     "sources": [
+      "SKOGESTAD",
+      "MIT-6.245"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Feedback fundamentals",
+   "subtopics": [
+    {
+     "name": "Why feedback: sensitivity reduction, disturbance rejection",
+     "importance": "K",
+     "why": "core argument for control",
+     "sources": [
+      "MIT-6.302",
+      "ASTROM-MURRAY"
+     ]
+    },
+    {
+     "name": "Steady-state error, system type, integral action",
+     "importance": "S",
+     "why": "tracking performance",
+     "sources": [
+      "MIT-6.302",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Transient specs: rise time, overshoot, settling",
+     "importance": "S",
+     "why": "requirements language",
+     "sources": [
+      "MIT-6.302",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Routh-Hurwitz",
+     "importance": "C",
+     "why": "algebraic stability test, mostly replaced by software",
+     "sources": [
+      "MIT-6.302",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Root locus",
+     "importance": "S",
+     "why": "intuition of pole movement with gain",
+     "sources": [
+      "MIT-6.302",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Nyquist criterion",
+     "importance": "S",
+     "why": "stability with delays and real data",
+     "sources": [
+      "MIT-6.302",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Gain and phase margins, delay margin",
+     "importance": "K",
+     "why": "robustness rules everyone uses",
+     "sources": [
+      "MIT-6.302",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Loop shaping, crossover frequency, bandwidth",
+     "importance": "S",
+     "why": "design core",
+     "sources": [
+      "MIT-6.302",
+      "ASTROM-MURRAY"
+     ]
+    },
+    {
+     "name": "Sensitivity and complementary sensitivity, S+T=1",
+     "importance": "K",
+     "why": "fundamental trade-off",
+     "sources": [
+      "ASTROM-MURRAY",
+      "SKOGESTAD"
+     ]
+    },
+    {
+     "name": "Bode sensitivity integral (waterbed effect)",
+     "importance": "K",
+     "why": "hard limits of feedback",
+     "sources": [
+      "ASTROM-MURRAY",
+      "SKOGESTAD"
+     ]
+    },
+    {
+     "name": "Limits from RHP zeros, delays, unstable poles",
+     "importance": "K",
+     "why": "what no controller can do",
+     "sources": [
+      "SKOGESTAD",
+      "ASTROM-MURRAY"
+     ]
+    },
+    {
+     "name": "PID control and tuning, anti-windup",
+     "importance": "K",
+     "why": "90 percent of industrial loops",
+     "sources": [
+      "ASTROM-MURRAY",
+      "FE-ME"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Lead-lag compensation",
+     "importance": "S",
+     "why": "classical design",
+     "sources": [
+      "MIT-6.302"
+     ]
+    },
+    {
+     "name": "Feedforward and two-degree-of-freedom control",
+     "importance": "S",
+     "why": "tracking without robustness loss",
+     "sources": [
+      "ASTROM-MURRAY",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Cascade control",
+     "importance": "S",
+     "why": "practical multi-loop structure",
+     "sources": [
+      "ASTROM-MURRAY"
+     ]
+    },
+    {
+     "name": "Digital control: sampling effects, discretization, latency",
+     "importance": "K",
+     "why": "all real controllers are digital",
+     "sources": [
+      "MIT-6.302",
+      "FRANKLIN-DIG"
+     ]
+    },
+    {
+     "name": "Actuator saturation, rate limits, practical nonlinearities",
+     "importance": "K",
+     "why": "common source of field failure",
+     "sources": [
+      "ASTROM-MURRAY"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Sensor noise and filter placement in loops",
+     "importance": "S",
+     "why": "noise vs bandwidth trade",
+     "sources": [
+      "ASTROM-MURRAY"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "State-space control",
+   "subtopics": [
+    {
+     "name": "Controllability and observability",
+     "importance": "K",
+     "why": "what can be steered and seen",
+     "sources": [
+      "STAN-EE263",
+      "MIT-6.241"
+     ]
+    },
+    {
+     "name": "Pole placement by state feedback",
+     "importance": "S",
+     "why": "basic modern design",
+     "sources": [
+      "MIT-6.302",
+      "MIT-6.241"
+     ]
+    },
+    {
+     "name": "Observers (Luenberger) and separation principle",
+     "importance": "S",
+     "why": "estimation inside control",
+     "sources": [
+      "MIT-6.241"
+     ]
+    },
+    {
+     "name": "LQR and Riccati equation",
+     "importance": "S",
+     "why": "optimal regulation trade-off",
+     "sources": [
+      "MIT-6.241",
+      "MIT-16.323"
+     ]
+    },
+    {
+     "name": "LQG and its lack of guaranteed margins",
+     "importance": "S",
+     "why": "Doyle lesson; robustness critique",
+     "sources": [
+      "MIT-6.245",
+      "DOYLE"
+     ]
+    },
+    {
+     "name": "Robust control: H-infinity, mu concept",
+     "importance": "S",
+     "why": "design under uncertainty",
+     "sources": [
+      "MIT-6.245",
+      "SKOGESTAD"
+     ]
+    },
+    {
+     "name": "MIMO control and interaction (RGA)",
+     "importance": "S",
+     "why": "coupled loops",
+     "sources": [
+      "SKOGESTAD"
+     ]
+    },
+    {
+     "name": "Model predictive control",
+     "importance": "S",
+     "why": "constraints, process and autonomy",
+     "sources": [
+      "MIT-16.323",
+      "BORRELLI"
+     ]
+    },
+    {
+     "name": "Optimal control, Pontryagin principle",
+     "importance": "S",
+     "why": "trajectory optimization, guidance",
+     "sources": [
+      "MIT-16.323"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Nonlinear and specialized control",
+   "subtopics": [
+    {
+     "name": "Lyapunov stability",
+     "importance": "S",
+     "why": "general stability proofs",
+     "sources": [
+      "MIT-6.243",
+      "KHALIL"
+     ]
+    },
+    {
+     "name": "Describing functions, limit cycles in loops",
+     "importance": "S",
+     "why": "relay, backlash oscillations",
+     "sources": [
+      "MIT-6.243"
+     ]
+    },
+    {
+     "name": "Feedback linearization",
+     "importance": "S",
+     "why": "robots, aircraft",
+     "sources": [
+      "MIT-6.243",
+      "SLOTINE"
+     ]
+    },
+    {
+     "name": "Sliding mode and adaptive control",
+     "importance": "C",
+     "why": "specialized; know risks",
+     "sources": [
+      "SLOTINE"
+     ]
+    },
+    {
+     "name": "Gain scheduling",
+     "importance": "S",
+     "why": "aircraft and engines across envelope",
+     "sources": [
+      "MIT-16.30"
+     ]
+    },
+    {
+     "name": "Guidance laws: proportional navigation",
+     "importance": "S",
+     "why": "missiles, rendezvous",
+     "sources": [
+      "MIT-16.30",
+      "ZARCHAN"
+     ]
+    },
+    {
+     "name": "Hybrid/switched systems",
+     "importance": "C",
+     "why": "context",
+     "sources": [
+      "MIT-6.243"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Estimation",
+   "subtopics": [
+    {
+     "name": "Least-squares and weighted least-squares estimation",
+     "importance": "S",
+     "why": "calibration, tracking",
+     "sources": [
+      "STAN-EE263",
+      "MIT-6.011"
+     ]
+    },
+    {
+     "name": "Kalman filter derivation and assumptions",
+     "importance": "K",
+     "why": "navigation, tracking, fusion",
+     "sources": [
+      "MIT-6.011",
+      "MIT-16.322",
+      "BARSHALOM"
+     ]
+    },
+    {
+     "name": "Extended and unscented Kalman filters",
+     "importance": "S",
+     "why": "nonlinear tracking practice",
+     "sources": [
+      "MIT-16.322",
+      "BARSHALOM"
+     ]
+    },
+    {
+     "name": "Particle filters",
+     "importance": "S",
+     "why": "non-Gaussian, multimodal",
+     "sources": [
+      "THRUN",
+      "MIT-16.322"
+     ]
+    },
+    {
+     "name": "Filter tuning, consistency checks (NEES/NIS), divergence",
+     "importance": "S",
+     "why": "where real filters fail",
+     "sources": [
+      "BARSHALOM"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Smoothing (RTS)",
+     "importance": "C",
+     "why": "post-processing",
+     "sources": [
+      "MIT-16.322"
+     ]
+    },
+    {
+     "name": "Sensor fusion and inertial navigation (INS/GNSS)",
+     "importance": "S",
+     "why": "central in navigation and robotics",
+     "sources": [
+      "MIT-16.322",
+      "GROVES"
+     ]
+    },
+    {
+     "name": "Data association and multi-target tracking",
+     "importance": "S",
+     "why": "radar and surveillance",
+     "sources": [
+      "BARSHALOM"
+     ]
+    },
+    {
+     "name": "Observability-based failure detection and FDIR",
+     "importance": "S",
+     "why": "fault detection in operations",
+     "sources": [
+      "NASA-SEH",
+      "MIT-16.322"
+     ],
+     "commonly_missing": true
+    }
+   ]
+  },
+  {
+   "topic": "Commonly taught, not needed for this goal",
+   "subtopics": [
+    {
+     "name": "Root-locus construction rules drilled by hand (breakaway angles etc.)",
+     "importance": "N",
+     "why": "keep qualitative shape; software plots it",
+     "sources": [
+      "MIT-6.302",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Routh array computation drills",
+     "importance": "N",
+     "why": "keep meaning; computers find roots",
+     "sources": [
+      "FE-ECE"
+     ]
+    }
+   ]
+  }
+ ],
+ "Information theory and communications": [
+  {
+   "topic": "Information theory",
+   "subtopics": [
+    {
+     "name": "Entropy, joint and conditional entropy",
+     "importance": "K",
+     "why": "measure of information everywhere",
+     "sources": [
+      "MIT-6.441",
+      "COVER-THOMAS"
+     ]
+    },
+    {
+     "name": "Mutual information and KL divergence",
+     "importance": "K",
+     "why": "ML losses, channel capacity, inference",
+     "sources": [
+      "MIT-6.441",
+      "STAN-CS229"
+     ]
+    },
+    {
+     "name": "Source coding theorem, Huffman, arithmetic coding",
+     "importance": "S",
+     "why": "compression limits",
+     "sources": [
+      "MIT-6.441",
+      "MIT-6.02"
+     ]
+    },
+    {
+     "name": "Rate-distortion theory",
+     "importance": "S",
+     "why": "lossy compression limits",
+     "sources": [
+      "MIT-6.441"
+     ]
+    },
+    {
+     "name": "Channel capacity, noisy channel coding theorem",
+     "importance": "K",
+     "why": "ultimate limit on links",
+     "sources": [
+      "MIT-6.441",
+      "MIT-6.450"
+     ]
+    },
+    {
+     "name": "Shannon-Hartley C=B log2(1+SNR), Eb/N0 limit -1.6 dB",
+     "importance": "K",
+     "why": "first-cut link judgment",
+     "sources": [
+      "MIT-6.450",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Data processing inequality",
+     "importance": "S",
+     "why": "can't create information",
+     "sources": [
+      "MIT-6.441"
+     ]
+    },
+    {
+     "name": "Error-correcting codes: Hamming, convolutional, Viterbi",
+     "importance": "S",
+     "why": "link reliability",
+     "sources": [
+      "MIT-6.02",
+      "MIT-6.451"
+     ]
+    },
+    {
+     "name": "Modern codes: turbo, LDPC, polar",
+     "importance": "C",
+     "why": "know they approach capacity",
+     "sources": [
+      "MIT-6.451"
+     ]
+    },
+    {
+     "name": "Cryptography basics: symmetric, public-key, hashing",
+     "importance": "S",
+     "why": "security judgment",
+     "sources": [
+      "CS2023",
+      "FE-ECE"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Analog and digital communication",
+   "subtopics": [
+    {
+     "name": "AM, FM, PM modulation and bandwidth (Carson)",
+     "importance": "S",
+     "why": "legacy and analog links",
+     "sources": [
+      "FE-ECE",
+      "MIT-6.450"
+     ]
+    },
+    {
+     "name": "Baseband pulse shaping, ISI, Nyquist criterion, raised cosine",
+     "importance": "S",
+     "why": "spectral efficiency vs ISI",
+     "sources": [
+      "MIT-6.450",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Digital modulation: PSK, QAM, FSK, constellations",
+     "importance": "S",
+     "why": "modern links",
+     "sources": [
+      "MIT-6.450",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Optimal detection, BER vs Eb/N0 curves",
+     "importance": "S",
+     "why": "performance prediction",
+     "sources": [
+      "MIT-6.450",
+      "PROAKIS"
+     ]
+    },
+    {
+     "name": "Synchronization: carrier, timing, phase-locked loops",
+     "importance": "S",
+     "why": "practical receivers; PLL ties to control",
+     "sources": [
+      "MIT-6.450",
+      "PROAKIS"
+     ]
+    },
+    {
+     "name": "Multiplexing and multiple access: TDMA, FDMA, CDMA, OFDMA",
+     "importance": "S",
+     "why": "sharing spectrum",
+     "sources": [
+      "FE-ECE",
+      "MIT-6.450"
+     ]
+    },
+    {
+     "name": "OFDM",
+     "importance": "S",
+     "why": "Wi-Fi, LTE, 5G basis",
+     "sources": [
+      "MIT-6.450",
+      "GOLDSMITH"
+     ]
+    },
+    {
+     "name": "Spread spectrum, processing gain, anti-jam",
+     "importance": "S",
+     "why": "military links, GPS",
+     "sources": [
+      "PROAKIS",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Equalization",
+     "importance": "S",
+     "why": "multipath and dispersion",
+     "sources": [
+      "PROAKIS"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Wireless and RF links",
+   "subtopics": [
+    {
+     "name": "Link budget: Friis equation, EIRP, G/T, margins",
+     "importance": "K",
+     "why": "the core engineering calculation of any link",
+     "sources": [
+      "MIT-6.450",
+      "FE-ECE",
+      "SMAD"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Noise figure, noise temperature, cascade (Friis noise)",
+     "importance": "K",
+     "why": "receiver sensitivity",
+     "sources": [
+      "AOE",
+      "POZAR"
+     ]
+    },
+    {
+     "name": "Path loss models, fading (Rayleigh, Rician), diversity",
+     "importance": "S",
+     "why": "wireless reliability",
+     "sources": [
+      "GOLDSMITH",
+      "MIT-6.450"
+     ]
+    },
+    {
+     "name": "MIMO and spatial multiplexing",
+     "importance": "S",
+     "why": "capacity scaling",
+     "sources": [
+      "GOLDSMITH"
+     ]
+    },
+    {
+     "name": "Antennas: gain, aperture, beamwidth, arrays",
+     "importance": "K",
+     "why": "radar/comms/EW share it",
+     "sources": [
+      "MIT-6.013",
+      "BALANIS"
+     ]
+    },
+    {
+     "name": "Propagation: ionosphere, troposphere, rain fade, horizon",
+     "importance": "S",
+     "why": "band selection",
+     "sources": [
+      "ITU-R",
+      "SMAD"
+     ]
+    },
+    {
+     "name": "Spectrum regulation and allocation",
+     "importance": "C",
+     "why": "constraints on design",
+     "sources": [
+      "ITU-R"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Satellite communications and orbits for comms",
+     "importance": "S",
+     "why": "space links",
+     "sources": [
+      "SMAD"
+     ]
+    },
+    {
+     "name": "Cellular network architecture (frequency reuse, capacity)",
+     "importance": "S",
+     "why": "system-level wireless",
+     "sources": [
+      "GOLDSMITH"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Networks",
+   "subtopics": [
+    {
+     "name": "Layered models (OSI, TCP/IP)",
+     "importance": "S",
+     "why": "where function lives",
+     "sources": [
+      "FE-ECE",
+      "CS2023"
+     ]
+    },
+    {
+     "name": "Routing and switching, packet vs circuit",
+     "importance": "S",
+     "why": "network behavior",
+     "sources": [
+      "FE-ECE",
+      "CS2023"
+     ]
+    },
+    {
+     "name": "TCP congestion control as feedback",
+     "importance": "S",
+     "why": "cross-domain control example",
+     "sources": [
+      "CS2023",
+      "MIT-6.829"
+     ]
+    },
+    {
+     "name": "Latency, throughput, bandwidth-delay product",
+     "importance": "K",
+     "why": "system sizing",
+     "sources": [
+      "CS2023",
+      "MIT-6.829"
+     ]
+    },
+    {
+     "name": "Network security: threats, firewalls, defense in depth",
+     "importance": "S",
+     "why": "systems security judgment",
+     "sources": [
+      "FE-ECE",
+      "CS2023"
+     ]
+    },
+    {
+     "name": "Queueing in networks",
+     "importance": "S",
+     "why": "delay prediction",
+     "sources": [
+      "MIT-6.262"
+     ]
+    }
+   ]
+  }
+ ],
+ "Electronics and circuits": [
+  {
+   "topic": "Circuit analysis",
+   "subtopics": [
+    {
+     "name": "KCL, KVL, node and mesh analysis",
+     "importance": "K",
+     "why": "foundation",
+     "sources": [
+      "MIT-6.002",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Thevenin/Norton, superposition",
+     "importance": "S",
+     "why": "simplification tools",
+     "sources": [
+      "MIT-6.002",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Phasors and AC steady state, impedance",
+     "importance": "K",
+     "why": "sinusoidal analysis",
+     "sources": [
+      "MIT-6.002",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Power in AC: real, reactive, apparent, power factor",
+     "importance": "S",
+     "why": "power and RF",
+     "sources": [
+      "FE-ECE",
+      "PE-PWR"
+     ]
+    },
+    {
+     "name": "RLC transients and resonance, Q factor",
+     "importance": "S",
+     "why": "universal oscillator, filters",
+     "sources": [
+      "MIT-6.002",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Two-port networks and S-parameters",
+     "importance": "S",
+     "why": "RF and amplifier design",
+     "sources": [
+      "POZAR",
+      "PE-ECC"
+     ]
+    },
+    {
+     "name": "Maximum power transfer and impedance matching",
+     "importance": "S",
+     "why": "RF, audio, power",
+     "sources": [
+      "MIT-6.002",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Network theorems for nonlinear circuits, load lines",
+     "importance": "S",
+     "why": "device analysis",
+     "sources": [
+      "MIT-6.002"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Semiconductor devices (circuit view)",
+   "subtopics": [
+    {
+     "name": "Diode models, rectification, Zener",
+     "importance": "S",
+     "why": "power supplies, protection",
+     "sources": [
+      "MIT-6.002",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "BJT operation, small-signal model",
+     "importance": "S",
+     "why": "analog building block",
+     "sources": [
+      "MIT-6.012",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "MOSFET operation, regions, small-signal model",
+     "importance": "S",
+     "why": "dominant device in all electronics",
+     "sources": [
+      "MIT-6.012",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Device limits: breakdown, SOA, thermal derating",
+     "importance": "S",
+     "why": "why parts die",
+     "sources": [
+      "AOE",
+      "FE-ECE"
+     ],
+     "commonly_missing": true
+    }
+   ]
+  },
+  {
+   "topic": "Analog electronics",
+   "subtopics": [
+    {
+     "name": "Amplifier configurations, gain, input/output impedance",
+     "importance": "S",
+     "why": "analog design",
+     "sources": [
+      "MIT-6.012",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Differential amplifiers and CMRR",
+     "importance": "S",
+     "why": "precision measurement",
+     "sources": [
+      "MIT-6.012",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Op-amps ideal and nonideal (offset, GBW, slew, CMRR)",
+     "importance": "S",
+     "why": "instrumentation everywhere",
+     "sources": [
+      "FE-ECE",
+      "AOE"
+     ]
+    },
+    {
+     "name": "Feedback amplifiers and stability (phase margin in circuits)",
+     "importance": "S",
+     "why": "same as control loops",
+     "sources": [
+      "MIT-6.012",
+      "AOE"
+     ]
+    },
+    {
+     "name": "Active filters",
+     "importance": "S",
+     "why": "signal conditioning",
+     "sources": [
+      "AOE",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Oscillators and PLLs",
+     "importance": "S",
+     "why": "timing and RF",
+     "sources": [
+      "AOE",
+      "RAZAVI"
+     ]
+    },
+    {
+     "name": "Noise in electronics: shot, thermal, flicker; noise budgeting",
+     "importance": "K",
+     "why": "sensitivity limits",
+     "sources": [
+      "AOE",
+      "MIT-6.012"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Data converters: ADC/DAC architectures and specs",
+     "importance": "S",
+     "why": "analog-digital boundary",
+     "sources": [
+      "AOE",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Sensors and instrumentation front ends, bridges",
+     "importance": "S",
+     "why": "measurement chain",
+     "sources": [
+      "FE-ECE",
+      "FE-ME"
+     ]
+    },
+    {
+     "name": "Voltage references and regulation (linear regulators)",
+     "importance": "S",
+     "why": "supply quality",
+     "sources": [
+      "AOE"
+     ]
+    },
+    {
+     "name": "RF electronics: mixers, LNAs, nonlinearity (IP3), dynamic range",
+     "importance": "S",
+     "why": "receivers and EW",
+     "sources": [
+      "RAZAVI",
+      "POZAR"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Digital electronics",
+   "subtopics": [
+    {
+     "name": "Boolean logic, gates, combinational design",
+     "importance": "S",
+     "why": "basis of computing",
+     "sources": [
+      "FE-ECE",
+      "MIT-6.004"
+     ]
+    },
+    {
+     "name": "Sequential logic, flip-flops, state machines",
+     "importance": "S",
+     "why": "controllers, protocols",
+     "sources": [
+      "FE-ECE",
+      "MIT-6.004"
+     ]
+    },
+    {
+     "name": "Timing: setup/hold, metastability, clock domains",
+     "importance": "S",
+     "why": "intermittent field failures",
+     "sources": [
+      "FE-ECE",
+      "MIT-6.004"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "CMOS logic, power dissipation CV^2f",
+     "importance": "S",
+     "why": "power wall of computing",
+     "sources": [
+      "MIT-6.004",
+      "MIT-6.012"
+     ]
+    },
+    {
+     "name": "Programmable logic and FPGAs",
+     "importance": "S",
+     "why": "prototyping, signal processing",
+     "sources": [
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Microcontrollers and embedded interfacing (GPIO, SPI, I2C, UART, interrupts)",
+     "importance": "S",
+     "why": "real systems",
+     "sources": [
+      "FE-ECE",
+      "CE2016"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Practical electronics engineering",
+   "subtopics": [
+    {
+     "name": "Grounding, shielding, EMC/EMI",
+     "importance": "K",
+     "why": "top cause of system integration failure",
+     "sources": [
+      "OTT",
+      "MIL-STD-461",
+      "FE-ECE"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Signal integrity, transmission-line effects on PCBs",
+     "importance": "S",
+     "why": "high-speed failure modes",
+     "sources": [
+      "JOHNSON-SI",
+      "FE-ECE"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Thermal design of electronics, junction temperature, derating",
+     "importance": "S",
+     "why": "reliability driver",
+     "sources": [
+      "AOE",
+      "MIL-HDBK-338"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Component tolerances, worst-case and Monte Carlo circuit analysis",
+     "importance": "K",
+     "why": "production yield",
+     "sources": [
+      "AOE",
+      "NASA-WCA"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "ESD, latch-up, protection circuits",
+     "importance": "S",
+     "why": "robustness",
+     "sources": [
+      "AOE"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "PCB design and manufacturing basics",
+     "importance": "C",
+     "why": "context",
+     "sources": [
+      "IPC"
+     ]
+    },
+    {
+     "name": "Radiation effects on electronics (SEU, TID)",
+     "importance": "S",
+     "why": "space/nuclear systems",
+     "sources": [
+      "NASA-EEE",
+      "SMAD"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Measurement practice: oscilloscopes, probes, loading",
+     "importance": "S",
+     "why": "getting true data",
+     "sources": [
+      "AOE"
+     ],
+     "commonly_missing": true
+    }
+   ]
+  },
+  {
+   "topic": "Commonly taught, not needed for this goal",
+   "subtopics": [
+    {
+     "name": "Karnaugh-map and Quine-McCluskey logic minimization",
+     "importance": "N",
+     "why": "synthesis tools do it",
+     "sources": [
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Number-base conversion drills",
+     "importance": "N",
+     "why": "trivial; know two's complement and floating point instead",
+     "sources": [
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Detailed BJT biasing cookbook designs",
+     "importance": "N",
+     "why": "MOSFET/IC era; keep small-signal idea",
+     "sources": [
+      "FE-ECE",
+      "MIT-6.012"
+     ]
+    },
+    {
+     "name": "Manual Smith-chart matching",
+     "importance": "N",
+     "why": "keep the concept of reflection and matching",
+     "sources": [
+      "POZAR"
+     ]
+    }
+   ]
+  }
+ ],
+ "Electric machines and power": [
+  {
+   "topic": "Magnetic circuits and transformers",
+   "subtopics": [
+    {
+     "name": "Magnetic circuits, reluctance, flux",
+     "importance": "S",
+     "why": "design of all EM devices",
+     "sources": [
+      "MIT-6.685",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Transformer equivalent circuit, losses, efficiency",
+     "importance": "S",
+     "why": "power conversion",
+     "sources": [
+      "FE-ECE",
+      "PE-PWR"
+     ]
+    },
+    {
+     "name": "Core losses: hysteresis and eddy; lamination",
+     "importance": "S",
+     "why": "efficiency limits",
+     "sources": [
+      "MIT-6.685"
+     ]
+    },
+    {
+     "name": "Three-phase transformer connections",
+     "importance": "S",
+     "why": "grid practice",
+     "sources": [
+      "FE-ECE",
+      "PE-PWR"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Electromechanical energy conversion",
+   "subtopics": [
+    {
+     "name": "Energy/co-energy method for force and torque",
+     "importance": "K",
+     "why": "unifying principle of actuators",
+     "sources": [
+      "MIT-6.685"
+     ]
+    },
+    {
+     "name": "DC machines: torque/EMF constants, speed control",
+     "importance": "S",
+     "why": "simple drives, servos",
+     "sources": [
+      "FE-ECE",
+      "MIT-6.685"
+     ]
+    },
+    {
+     "name": "Induction machines: slip, equivalent circuit, torque-speed curve",
+     "importance": "S",
+     "why": "most industrial motors",
+     "sources": [
+      "FE-ECE",
+      "PE-PWR",
+      "MIT-6.685"
+     ]
+    },
+    {
+     "name": "Synchronous machines, generators, power angle",
+     "importance": "S",
+     "why": "grid generation, PM motors",
+     "sources": [
+      "FE-ECE",
+      "PE-PWR"
+     ]
+    },
+    {
+     "name": "Permanent-magnet and brushless DC motors",
+     "importance": "S",
+     "why": "EVs, drones, robots",
+     "sources": [
+      "MIT-6.685"
+     ]
+    },
+    {
+     "name": "Stepper and reluctance machines",
+     "importance": "C",
+     "why": "niche",
+     "sources": [
+      "MIT-6.685"
+     ]
+    },
+    {
+     "name": "Field-oriented control and drives",
+     "importance": "S",
+     "why": "modern motor control",
+     "sources": [
+      "MIT-6.685"
+     ]
+    },
+    {
+     "name": "Scaling laws for machines (torque per volume, shear stress)",
+     "importance": "K",
+     "why": "sizing from first principles",
+     "sources": [
+      "MIT-6.685",
+      "MAHAJAN"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Thermal limits and insulation classes",
+     "importance": "S",
+     "why": "rating is thermal",
+     "sources": [
+      "IEC60034"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Linear actuators, solenoids, electromagnetic launch",
+     "importance": "C",
+     "why": "context",
+     "sources": [
+      "MIT-6.685"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Power electronics",
+   "subtopics": [
+    {
+     "name": "Switching converter principles (buck, boost, buck-boost)",
+     "importance": "S",
+     "why": "every power supply",
+     "sources": [
+      "MIT-6.334",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Rectifiers and inverters, PWM",
+     "importance": "S",
+     "why": "drives, grid-tie, UPS",
+     "sources": [
+      "MIT-6.334",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Switching devices: MOSFET, IGBT, SiC, GaN trade-offs",
+     "importance": "S",
+     "why": "technology choice",
+     "sources": [
+      "MIT-6.334"
+     ]
+    },
+    {
+     "name": "Converter control loops",
+     "importance": "S",
+     "why": "stability of supplies",
+     "sources": [
+      "MIT-6.334"
+     ]
+    },
+    {
+     "name": "Magnetics design for converters",
+     "importance": "S",
+     "why": "size and loss driver",
+     "sources": [
+      "MIT-6.334"
+     ]
+    },
+    {
+     "name": "Losses, efficiency, thermal management",
+     "importance": "S",
+     "why": "system size and reliability",
+     "sources": [
+      "MIT-6.334"
+     ]
+    },
+    {
+     "name": "Harmonics and power quality",
+     "importance": "S",
+     "why": "grid interaction",
+     "sources": [
+      "IEEE519",
+      "PE-PWR"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Power systems",
+   "subtopics": [
+    {
+     "name": "Single- and three-phase power, per-unit system",
+     "importance": "S",
+     "why": "grid analysis language",
+     "sources": [
+      "FE-ECE",
+      "PE-PWR"
+     ]
+    },
+    {
+     "name": "Transmission lines: models, losses, voltage drop",
+     "importance": "S",
+     "why": "grid limits",
+     "sources": [
+      "FE-ECE",
+      "PE-PWR"
+     ]
+    },
+    {
+     "name": "Power flow (load flow)",
+     "importance": "S",
+     "why": "grid operation",
+     "sources": [
+      "PE-PWR",
+      "GRAINGER"
+     ]
+    },
+    {
+     "name": "Faults and short-circuit analysis, symmetrical components",
+     "importance": "S",
+     "why": "protection sizing",
+     "sources": [
+      "PE-PWR",
+      "GRAINGER"
+     ]
+    },
+    {
+     "name": "Protection: relays, breakers, coordination",
+     "importance": "S",
+     "why": "safety and reliability",
+     "sources": [
+      "PE-PWR"
+     ]
+    },
+    {
+     "name": "Power system stability (transient, voltage, frequency)",
+     "importance": "S",
+     "why": "blackouts",
+     "sources": [
+      "PE-PWR",
+      "KUNDUR"
+     ]
+    },
+    {
+     "name": "Frequency control, inertia, renewables integration",
+     "importance": "S",
+     "why": "modern grid trade-offs",
+     "sources": [
+      "KUNDUR",
+      "PE-PWR"
+     ]
+    },
+    {
+     "name": "Energy storage: batteries, chemistry, energy density, degradation",
+     "importance": "K",
+     "why": "electrification, mobility",
+     "sources": [
+      "MIT-10.626",
+      "MACKAY"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Energy system orders of magnitude (W per capita, power densities)",
+     "importance": "K",
+     "why": "energy judgment",
+     "sources": [
+      "MACKAY",
+      "MAHAJAN"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Electrical safety, grounding, arc flash",
+     "importance": "S",
+     "why": "lethal hazards",
+     "sources": [
+      "FE-ECE",
+      "NFPA70E"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Microgrids and isolated power (ships, aircraft, vehicles)",
+     "importance": "S",
+     "why": "platform power",
+     "sources": [
+      "PE-PWR"
+     ]
+    },
+    {
+     "name": "Power markets and economics",
+     "importance": "C",
+     "why": "context",
+     "sources": [
+      "PE-PWR"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Commonly taught, not needed for this goal",
+   "subtopics": [
+    {
+     "name": "Detailed DC machine winding design and commutation",
+     "importance": "N",
+     "why": "legacy detail",
+     "sources": [
+      "MIT-6.685"
+     ]
+    },
+    {
+     "name": "Utility tariff and protection-relay setting procedures",
+     "importance": "N",
+     "why": "PE practice detail, not authority-level",
+     "sources": [
+      "PE-PWR"
+     ]
+    }
+   ]
+  }
+ ],
+ "Thermodynamics and heat transfer": [
+  {
+   "topic": "Thermodynamic foundations",
+   "subtopics": [
+    {
+     "name": "Properties, state postulate, equations of state, ideal gas",
+     "importance": "S",
+     "why": "base of thermal modeling",
+     "sources": [
+      "FE-ME",
+      "MIT-2.005"
+     ]
+    },
+    {
+     "name": "Property tables, two-phase mixtures, quality",
+     "importance": "S",
+     "why": "steam and refrigerants",
+     "sources": [
+      "FE-ME",
+      "MIT-2.005"
+     ]
+    },
+    {
+     "name": "First law for closed and open systems (control volumes)",
+     "importance": "K",
+     "why": "energy balance of every device",
+     "sources": [
+      "FE-ME",
+      "MIT-2.005"
+     ]
+    },
+    {
+     "name": "Second law, entropy generation, Carnot limit",
+     "importance": "K",
+     "why": "limits of conversion",
+     "sources": [
+      "FE-ME",
+      "MIT-2.005"
+     ]
+    },
+    {
+     "name": "Exergy (availability) analysis",
+     "importance": "K",
+     "why": "where losses really are",
+     "sources": [
+      "MIT-2.005",
+      "BEJAN"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Isentropic efficiencies of components",
+     "importance": "S",
+     "why": "turbines, compressors, nozzles",
+     "sources": [
+      "FE-ME",
+      "PE-TFS"
+     ]
+    },
+    {
+     "name": "Maxwell relations and property derivation",
+     "importance": "C",
+     "why": "theory",
+     "sources": [
+      "MIT-2.005"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Cycles and energy systems",
+   "subtopics": [
+    {
+     "name": "Rankine cycle and variants",
+     "importance": "S",
+     "why": "power plants",
+     "sources": [
+      "FE-ME",
+      "PE-TFS"
+     ]
+    },
+    {
+     "name": "Brayton cycle, gas turbines",
+     "importance": "S",
+     "why": "jet engines, power",
+     "sources": [
+      "FE-ME",
+      "MIT-16.50"
+     ]
+    },
+    {
+     "name": "Otto and Diesel cycles",
+     "importance": "S",
+     "why": "engines",
+     "sources": [
+      "FE-ME"
+     ]
+    },
+    {
+     "name": "Refrigeration and heat pumps, COP",
+     "importance": "S",
+     "why": "cooling, HVAC",
+     "sources": [
+      "FE-ME"
+     ]
+    },
+    {
+     "name": "Combined cycles and cogeneration",
+     "importance": "C",
+     "why": "efficiency context",
+     "sources": [
+      "PE-TFS"
+     ]
+    },
+    {
+     "name": "Combustion, stoichiometry, heating values, adiabatic flame temperature",
+     "importance": "S",
+     "why": "propulsion, energy",
+     "sources": [
+      "FE-ME",
+      "MIT-16.50"
+     ]
+    },
+    {
+     "name": "Psychrometrics and HVAC",
+     "importance": "C",
+     "why": "buildings",
+     "sources": [
+      "FE-ME",
+      "PE-HVAC"
+     ]
+    },
+    {
+     "name": "Gas mixtures",
+     "importance": "C",
+     "why": "specialist",
+     "sources": [
+      "FE-ME"
+     ]
+    },
+    {
+     "name": "Chemical equilibrium",
+     "importance": "C",
+     "why": "combustion products",
+     "sources": [
+      "MIT-2.005"
+     ]
+    },
+    {
+     "name": "Fuel cells and electrochemical conversion",
+     "importance": "S",
+     "why": "energy alternatives",
+     "sources": [
+      "MIT-10.626"
+     ]
+    },
+    {
+     "name": "Energy conversion efficiencies and orders of magnitude",
+     "importance": "K",
+     "why": "energy judgment",
+     "sources": [
+      "MACKAY"
+     ],
+     "commonly_missing": true
+    }
+   ]
+  },
+  {
+   "topic": "Conduction",
+   "subtopics": [
+    {
+     "name": "Fourier's law, thermal conductivity",
+     "importance": "S",
+     "why": "base of conduction",
+     "sources": [
+      "FE-ME",
+      "INCROPERA"
+     ]
+    },
+    {
+     "name": "Thermal resistance networks",
+     "importance": "K",
+     "why": "same algebra as circuits",
+     "sources": [
+      "FE-ME",
+      "MIT-2.51"
+     ]
+    },
+    {
+     "name": "Fins and extended surfaces",
+     "importance": "S",
+     "why": "heat sinks",
+     "sources": [
+      "FE-ME"
+     ]
+    },
+    {
+     "name": "Transient conduction, lumped capacitance, Biot number",
+     "importance": "K",
+     "why": "quick time-constant judgment",
+     "sources": [
+      "FE-ME",
+      "MIT-2.51"
+     ]
+    },
+    {
+     "name": "Semi-infinite solid, sqrt(alpha t) penetration",
+     "importance": "S",
+     "why": "diffusion scaling",
+     "sources": [
+      "INCROPERA"
+     ]
+    },
+    {
+     "name": "Multi-dimensional and numerical conduction",
+     "importance": "S",
+     "why": "real geometries",
+     "sources": [
+      "INCROPERA"
+     ]
+    },
+    {
+     "name": "Contact resistance and interface materials",
+     "importance": "S",
+     "why": "electronics cooling pitfalls",
+     "sources": [
+      "INCROPERA"
+     ],
+     "commonly_missing": true
+    }
+   ]
+  },
+  {
+   "topic": "Convection",
+   "subtopics": [
+    {
+     "name": "Boundary layers: thermal vs velocity, Prandtl number",
+     "importance": "S",
+     "why": "basis of convection",
+     "sources": [
+      "FE-ME",
+      "INCROPERA"
+     ]
+    },
+    {
+     "name": "Nusselt correlations for forced convection",
+     "importance": "S",
+     "why": "engineering heat transfer coefficients",
+     "sources": [
+      "FE-ME",
+      "INCROPERA"
+     ]
+    },
+    {
+     "name": "Natural convection, Grashof/Rayleigh",
+     "importance": "S",
+     "why": "passive cooling",
+     "sources": [
+      "FE-ME"
+     ]
+    },
+    {
+     "name": "Internal flow heat transfer",
+     "importance": "S",
+     "why": "pipes, channels",
+     "sources": [
+      "FE-ME"
+     ]
+    },
+    {
+     "name": "Boiling and condensation",
+     "importance": "S",
+     "why": "high-flux cooling, power plants",
+     "sources": [
+      "INCROPERA"
+     ]
+    },
+    {
+     "name": "Correlation uncertainty (often 20-30 percent)",
+     "importance": "S",
+     "why": "judging thermal predictions",
+     "sources": [
+      "INCROPERA"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Reynolds analogy (momentum, heat, mass)",
+     "importance": "K",
+     "why": "cross-domain transport unity",
+     "sources": [
+      "INCROPERA",
+      "MIT-2.51"
+     ]
+    },
+    {
+     "name": "Mass transfer, Fick's law",
+     "importance": "S",
+     "why": "diffusion in materials, evaporation",
+     "sources": [
+      "INCROPERA"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Radiation",
+   "subtopics": [
+    {
+     "name": "Blackbody and gray surfaces, emissivity",
+     "importance": "S",
+     "why": "thermal signatures, space thermal",
+     "sources": [
+      "FE-ME",
+      "INCROPERA"
+     ]
+    },
+    {
+     "name": "View factors and radiation exchange",
+     "importance": "S",
+     "why": "enclosures, spacecraft",
+     "sources": [
+      "INCROPERA"
+     ]
+    },
+    {
+     "name": "Atmospheric absorption and IR windows",
+     "importance": "S",
+     "why": "sensors and signatures",
+     "sources": [
+      "INCROPERA",
+      "SMAD"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Heat exchangers and thermal systems",
+   "subtopics": [
+    {
+     "name": "LMTD and effectiveness-NTU",
+     "importance": "S",
+     "why": "exchanger sizing",
+     "sources": [
+      "FE-ME"
+     ]
+    },
+    {
+     "name": "Electronics and spacecraft thermal control",
+     "importance": "S",
+     "why": "system thermal budgets",
+     "sources": [
+      "SMAD",
+      "MIT-16.851"
+     ]
+    },
+    {
+     "name": "Thermal management design margins",
+     "importance": "S",
+     "why": "prevent hot spots",
+     "sources": [
+      "SMAD"
+     ],
+     "commonly_missing": true
+    }
+   ]
+  },
+  {
+   "topic": "Commonly taught, not needed for this goal",
+   "subtopics": [
+    {
+     "name": "Steam-table interpolation drills",
+     "importance": "N",
+     "why": "software; keep T-s diagram reasoning",
+     "sources": [
+      "FE-ME"
+     ]
+    },
+    {
+     "name": "HVAC load calculations and psychrometric chart procedures",
+     "importance": "N",
+     "why": "building-services specialty",
+     "sources": [
+      "FE-ME",
+      "PE-HVAC"
+     ]
+    }
+   ]
+  }
+ ],
+ "Fluids, aerodynamics and propulsion": [
+  {
+   "topic": "Fluid fundamentals",
+   "subtopics": [
+    {
+     "name": "Fluid properties: viscosity, compressibility, surface tension",
+     "importance": "S",
+     "why": "basis",
+     "sources": [
+      "FE-ME",
+      "MIT-2.06"
+     ]
+    },
+    {
+     "name": "Hydrostatics, buoyancy, manometers",
+     "importance": "S",
+     "why": "ships, tanks, balloons",
+     "sources": [
+      "FE-ME"
+     ]
+    },
+    {
+     "name": "Control-volume mass, momentum, energy balances",
+     "importance": "K",
+     "why": "thrust, forces, flows",
+     "sources": [
+      "FE-ME",
+      "MIT-2.06",
+      "MIT-16.100"
+     ]
+    },
+    {
+     "name": "Bernoulli equation and its assumptions",
+     "importance": "K",
+     "why": "most-misused equation in engineering",
+     "sources": [
+      "FE-ME",
+      "MIT-2.06"
+     ]
+    },
+    {
+     "name": "Navier-Stokes equations: structure, terms, assumptions",
+     "importance": "K",
+     "why": "governing fluid model",
+     "sources": [
+      "MIT-2.06",
+      "MIT-16.100"
+     ]
+    },
+    {
+     "name": "Dimensional analysis, Buckingham Pi, similitude",
+     "importance": "K",
+     "why": "scaling and testing",
+     "sources": [
+      "FE-ME",
+      "MIT-2.06",
+      "MAHAJAN"
+     ]
+    },
+    {
+     "name": "Reynolds number and flow regimes",
+     "importance": "K",
+     "why": "single most important flow parameter",
+     "sources": [
+      "FE-ME",
+      "MIT-2.06"
+     ]
+    },
+    {
+     "name": "Vorticity and circulation",
+     "importance": "S",
+     "why": "lift, wakes",
+     "sources": [
+      "MIT-16.100"
+     ]
+    },
+    {
+     "name": "Potential flow",
+     "importance": "S",
+     "why": "inviscid lift theory",
+     "sources": [
+      "MIT-16.100"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Viscous and internal flow",
+   "subtopics": [
+    {
+     "name": "Pipe flow: Hagen-Poiseuille, friction factor, Moody",
+     "importance": "S",
+     "why": "pressure drop estimates",
+     "sources": [
+      "FE-ME",
+      "MIT-2.06"
+     ]
+    },
+    {
+     "name": "Minor losses and system curves",
+     "importance": "S",
+     "why": "piping design",
+     "sources": [
+      "FE-ME",
+      "PE-TFS"
+     ]
+    },
+    {
+     "name": "Boundary layer theory, separation",
+     "importance": "S",
+     "why": "drag, stall, heat transfer",
+     "sources": [
+      "MIT-2.06",
+      "MIT-16.100"
+     ]
+    },
+    {
+     "name": "Turbulence: nature, Reynolds averaging, closure problem",
+     "importance": "K",
+     "why": "why CFD needs models",
+     "sources": [
+      "MIT-2.06",
+      "MIT-16.100"
+     ]
+    },
+    {
+     "name": "Turbulence models and their limits (RANS, LES, DNS)",
+     "importance": "S",
+     "why": "trusting CFD",
+     "sources": [
+      "MIT-16.920"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Pumps, fans, compressors: performance curves, affinity laws",
+     "importance": "S",
+     "why": "fluid machinery",
+     "sources": [
+      "FE-ME",
+      "PE-TFS"
+     ]
+    },
+    {
+     "name": "Cavitation and water hammer",
+     "importance": "S",
+     "why": "failure modes in hydraulics",
+     "sources": [
+      "FE-ME"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Hydraulic and pneumatic systems",
+     "importance": "C",
+     "why": "actuation",
+     "sources": [
+      "FE-ME"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Aerodynamics",
+   "subtopics": [
+    {
+     "name": "Airfoil theory: lift coefficient, thin airfoil, Kutta condition",
+     "importance": "S",
+     "why": "wings",
+     "sources": [
+      "MIT-16.100",
+      "ABET-AE"
+     ]
+    },
+    {
+     "name": "Finite wings, induced drag, aspect ratio",
+     "importance": "S",
+     "why": "aircraft performance trade-off",
+     "sources": [
+      "MIT-16.100",
+      "ABET-AE"
+     ]
+    },
+    {
+     "name": "Drag breakdown: skin friction, form, wave, induced",
+     "importance": "S",
+     "why": "performance budgeting",
+     "sources": [
+      "MIT-16.100"
+     ]
+    },
+    {
+     "name": "High-lift devices, stall",
+     "importance": "S",
+     "why": "takeoff/landing",
+     "sources": [
+      "MIT-16.100"
+     ]
+    },
+    {
+     "name": "Transonic flow, critical Mach, supercritical airfoils",
+     "importance": "S",
+     "why": "airliners",
+     "sources": [
+      "MIT-16.100"
+     ]
+    },
+    {
+     "name": "Supersonic aerodynamics, shock and expansion waves",
+     "importance": "S",
+     "why": "missiles, fighters",
+     "sources": [
+      "MIT-16.100",
+      "FE-ME"
+     ]
+    },
+    {
+     "name": "Hypersonics, aerodynamic heating",
+     "importance": "S",
+     "why": "reentry and hypersonic weapons",
+     "sources": [
+      "MIT-16.885",
+      "ANDERSON"
+     ]
+    },
+    {
+     "name": "Wind tunnel testing and scaling limitations",
+     "importance": "S",
+     "why": "validation",
+     "sources": [
+      "MIT-16.100"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "CFD in practice",
+     "importance": "S",
+     "why": "dominant tool; critique outputs",
+     "sources": [
+      "MIT-16.920"
+     ]
+    },
+    {
+     "name": "Aeroelasticity: divergence, flutter",
+     "importance": "S",
+     "why": "failure mode at fluid-structure interface",
+     "sources": [
+      "MIT-16.20",
+      "ABET-AE"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Compressible flow",
+   "subtopics": [
+    {
+     "name": "Speed of sound, Mach number",
+     "importance": "S",
+     "why": "basis",
+     "sources": [
+      "FE-ME",
+      "MIT-16.100"
+     ]
+    },
+    {
+     "name": "Isentropic flow relations, choked flow",
+     "importance": "S",
+     "why": "nozzles, valves, inlets",
+     "sources": [
+      "FE-ME",
+      "MIT-16.50"
+     ]
+    },
+    {
+     "name": "Normal and oblique shocks",
+     "importance": "S",
+     "why": "inlets, supersonic vehicles",
+     "sources": [
+      "FE-ME",
+      "MIT-16.100"
+     ]
+    },
+    {
+     "name": "Converging-diverging nozzles",
+     "importance": "S",
+     "why": "rockets, jets",
+     "sources": [
+      "MIT-16.50"
+     ]
+    },
+    {
+     "name": "Fanno and Rayleigh flow",
+     "importance": "C",
+     "why": "duct flows",
+     "sources": [
+      "MIT-16.50"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Flight mechanics",
+   "subtopics": [
+    {
+     "name": "Aircraft performance: range (Breguet), endurance, climb",
+     "importance": "K",
+     "why": "aircraft trade-offs in one equation",
+     "sources": [
+      "MIT-16.100",
+      "ABET-AE"
+     ]
+    },
+    {
+     "name": "Static stability and control, neutral point, static margin",
+     "importance": "S",
+     "why": "stability of airframes",
+     "sources": [
+      "ABET-AE",
+      "MIT-16.30"
+     ]
+    },
+    {
+     "name": "Dynamic stability modes (phugoid, short period, Dutch roll)",
+     "importance": "S",
+     "why": "flight dynamics",
+     "sources": [
+      "ABET-AE",
+      "MIT-16.30"
+     ]
+    },
+    {
+     "name": "Flight control systems, fly-by-wire",
+     "importance": "S",
+     "why": "control in practice",
+     "sources": [
+      "MIT-16.30"
+     ]
+    },
+    {
+     "name": "Atmosphere models, standard atmosphere",
+     "importance": "S",
+     "why": "performance basis",
+     "sources": [
+      "ABET-AE"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Propulsion",
+   "subtopics": [
+    {
+     "name": "Thrust equation, specific impulse, propulsive efficiency",
+     "importance": "K",
+     "why": "compare all engines",
+     "sources": [
+      "MIT-16.50",
+      "ABET-AE"
+     ]
+    },
+    {
+     "name": "Turbojet, turbofan, bypass ratio trade-offs",
+     "importance": "S",
+     "why": "aircraft engines",
+     "sources": [
+      "MIT-16.50"
+     ]
+    },
+    {
+     "name": "Ramjets and scramjets",
+     "importance": "S",
+     "why": "high-speed propulsion",
+     "sources": [
+      "MIT-16.50"
+     ]
+    },
+    {
+     "name": "Rocket propulsion: chemical, staging, Tsiolkovsky",
+     "importance": "K",
+     "why": "launch, missiles",
+     "sources": [
+      "MIT-16.50",
+      "ABET-AE"
+     ]
+    },
+    {
+     "name": "Electric propulsion",
+     "importance": "S",
+     "why": "spacecraft",
+     "sources": [
+      "MIT-16.522"
+     ]
+    },
+    {
+     "name": "Propellers and rotors, momentum theory",
+     "importance": "S",
+     "why": "drones, helicopters",
+     "sources": [
+      "MIT-16.50"
+     ]
+    },
+    {
+     "name": "Turbomachinery basics (velocity triangles)",
+     "importance": "S",
+     "why": "engine components",
+     "sources": [
+      "MIT-16.50"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Astronautics",
+   "subtopics": [
+    {
+     "name": "Orbital elements, Hohmann transfers, delta-v budgets",
+     "importance": "K",
+     "why": "space mission design",
+     "sources": [
+      "MIT-16.346",
+      "ABET-AE",
+      "SMAD"
+     ]
+    },
+    {
+     "name": "Perturbations: J2, drag, sun-synchronous orbits",
+     "importance": "S",
+     "why": "real orbits",
+     "sources": [
+      "MIT-16.346",
+      "SMAD"
+     ]
+    },
+    {
+     "name": "Space environment: vacuum, radiation, thermal, debris",
+     "importance": "S",
+     "why": "spacecraft design driver",
+     "sources": [
+      "ABET-AE",
+      "SMAD"
+     ]
+    },
+    {
+     "name": "Attitude determination and control",
+     "importance": "S",
+     "why": "pointing",
+     "sources": [
+      "ABET-AE",
+      "SMAD"
+     ]
+    },
+    {
+     "name": "Reentry and ballistic trajectories",
+     "importance": "S",
+     "why": "missiles, capsules",
+     "sources": [
+      "MIT-16.885"
+     ]
+    },
+    {
+     "name": "Launch vehicle sizing",
+     "importance": "S",
+     "why": "access to space",
+     "sources": [
+      "SMAD"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Commonly taught, not needed for this goal",
+   "subtopics": [
+    {
+     "name": "Manometer and hydrostatic gate problem drills",
+     "importance": "N",
+     "why": "exam-style, low leverage",
+     "sources": [
+      "FE-ME"
+     ]
+    },
+    {
+     "name": "Pipe-network (Hardy Cross) hand iteration",
+     "importance": "N",
+     "why": "software; keep system-curve logic",
+     "sources": [
+      "FE-ME"
+     ]
+    }
+   ]
+  }
+ ],
+ "Structures and materials": [
+  {
+   "topic": "Statics and mechanics of materials",
+   "subtopics": [
+    {
+     "name": "Equilibrium, free-body diagrams, trusses, frames",
+     "importance": "S",
+     "why": "load paths",
+     "sources": [
+      "FE-ME",
+      "MIT-2.001"
+     ]
+    },
+    {
+     "name": "Stress and strain, Hooke's law, elastic constants",
+     "importance": "K",
+     "why": "base of structures",
+     "sources": [
+      "FE-ME",
+      "MIT-2.001"
+     ]
+    },
+    {
+     "name": "Stress transformation, principal stresses, Mohr's circle",
+     "importance": "S",
+     "why": "combined loading",
+     "sources": [
+      "FE-ME",
+      "MIT-2.001"
+     ]
+    },
+    {
+     "name": "Axial, torsion, bending, shear stresses",
+     "importance": "S",
+     "why": "four canonical load cases",
+     "sources": [
+      "FE-ME",
+      "MIT-2.001"
+     ]
+    },
+    {
+     "name": "Beam deflection and stiffness",
+     "importance": "S",
+     "why": "stiffness-driven design",
+     "sources": [
+      "FE-ME",
+      "MIT-2.001"
+     ]
+    },
+    {
+     "name": "Buckling (Euler, local buckling)",
+     "importance": "K",
+     "why": "sudden failure of slender structures",
+     "sources": [
+      "FE-ME",
+      "MIT-2.001"
+     ]
+    },
+    {
+     "name": "Statically indeterminate structures",
+     "importance": "S",
+     "why": "redundancy",
+     "sources": [
+      "FE-ME"
+     ]
+    },
+    {
+     "name": "Thermal stresses",
+     "importance": "S",
+     "why": "joints, mismatched materials",
+     "sources": [
+      "FE-ME"
+     ]
+    },
+    {
+     "name": "Energy methods, Castigliano, virtual work",
+     "importance": "S",
+     "why": "complex structures",
+     "sources": [
+      "MIT-2.001",
+      "QUAL-ME"
+     ]
+    },
+    {
+     "name": "Thin-walled structures, shear flow",
+     "importance": "S",
+     "why": "aircraft structures",
+     "sources": [
+      "MIT-16.20",
+      "ABET-AE"
+     ]
+    },
+    {
+     "name": "Plates and shells",
+     "importance": "C",
+     "why": "specialist",
+     "sources": [
+      "MIT-16.20"
+     ]
+    },
+    {
+     "name": "Pressure vessels",
+     "importance": "S",
+     "why": "tanks, rockets",
+     "sources": [
+      "FE-ME"
+     ]
+    },
+    {
+     "name": "Stress concentrations",
+     "importance": "S",
+     "why": "where failure starts",
+     "sources": [
+      "FE-ME",
+      "SHIGLEY"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Failure and life",
+   "subtopics": [
+    {
+     "name": "Yield criteria (Tresca, von Mises)",
+     "importance": "S",
+     "why": "static design",
+     "sources": [
+      "FE-ME",
+      "SHIGLEY"
+     ]
+    },
+    {
+     "name": "Fracture mechanics, stress intensity, toughness",
+     "importance": "K",
+     "why": "crack-tolerant design",
+     "sources": [
+      "FE-ME",
+      "MIT-2.002"
+     ]
+    },
+    {
+     "name": "Fatigue: S-N curves, endurance, Goodman, Miner rule",
+     "importance": "K",
+     "why": "most mechanical failures",
+     "sources": [
+      "FE-ME",
+      "SHIGLEY"
+     ]
+    },
+    {
+     "name": "Damage tolerance and inspection intervals",
+     "importance": "S",
+     "why": "aircraft safety philosophy",
+     "sources": [
+      "FAA-AC25.571"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Creep and high-temperature behavior",
+     "importance": "S",
+     "why": "turbines, reactors",
+     "sources": [
+      "FE-ME"
+     ]
+    },
+    {
+     "name": "Corrosion and environmental degradation",
+     "importance": "S",
+     "why": "long-life systems",
+     "sources": [
+      "FE-ME"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Wear and tribology",
+     "importance": "C",
+     "why": "bearings, contacts",
+     "sources": [
+      "SHIGLEY"
+     ]
+    },
+    {
+     "name": "Factors of safety vs margins of safety vs probabilistic design",
+     "importance": "K",
+     "why": "how design allowables really work",
+     "sources": [
+      "NASA-STD-5001",
+      "MMPDS"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Failure analysis and fractography",
+     "importance": "S",
+     "why": "learning from failures",
+     "sources": [
+      "ASM"
+     ],
+     "commonly_missing": true
+    }
+   ]
+  },
+  {
+   "topic": "Vibrations and dynamics of structures",
+   "subtopics": [
+    {
+     "name": "SDOF and MDOF vibration, modes",
+     "importance": "S",
+     "why": "resonance problems",
+     "sources": [
+      "FE-ME",
+      "MIT-2.003"
+     ]
+    },
+    {
+     "name": "Damping models",
+     "importance": "S",
+     "why": "realistic response",
+     "sources": [
+      "MIT-2.003"
+     ]
+    },
+    {
+     "name": "Random vibration and PSD loading",
+     "importance": "S",
+     "why": "launch, vehicle environments",
+     "sources": [
+      "NASA-STD-7001",
+      "MIL-STD-810"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Shock response spectrum",
+     "importance": "S",
+     "why": "qualification testing",
+     "sources": [
+      "NASA-STD-7003"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Modal testing",
+     "importance": "C",
+     "why": "validation",
+     "sources": [
+      "MIT-2.003"
+     ]
+    },
+    {
+     "name": "Vibration isolation",
+     "importance": "S",
+     "why": "sensitive payloads",
+     "sources": [
+      "MIT-2.003"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Materials",
+   "subtopics": [
+    {
+     "name": "Atomic bonding to properties (stiffness, strength)",
+     "importance": "S",
+     "why": "why materials differ",
+     "sources": [
+      "MIT-3.091",
+      "FE-ME"
+     ]
+    },
+    {
+     "name": "Crystal structure, defects, dislocations",
+     "importance": "S",
+     "why": "strength mechanisms",
+     "sources": [
+      "MIT-3.091"
+     ]
+    },
+    {
+     "name": "Phase diagrams, heat treatment",
+     "importance": "S",
+     "why": "steels and alloys",
+     "sources": [
+      "FE-ME"
+     ]
+    },
+    {
+     "name": "Metals: steels, aluminum, titanium, superalloys",
+     "importance": "S",
+     "why": "material families",
+     "sources": [
+      "FE-ME"
+     ]
+    },
+    {
+     "name": "Polymers and elastomers",
+     "importance": "S",
+     "why": "seals, structures",
+     "sources": [
+      "FE-ME"
+     ]
+    },
+    {
+     "name": "Ceramics and glasses, brittleness and Weibull",
+     "importance": "S",
+     "why": "armor, windows, electronics",
+     "sources": [
+      "FE-ME",
+      "MIT-3.091"
+     ]
+    },
+    {
+     "name": "Composites: lamina, layup, failure modes",
+     "importance": "S",
+     "why": "aerospace structures",
+     "sources": [
+      "FE-ME",
+      "MIT-16.20"
+     ]
+    },
+    {
+     "name": "Material selection (Ashby charts, performance indices)",
+     "importance": "K",
+     "why": "design trade-offs",
+     "sources": [
+      "FE-ME",
+      "ASHBY"
+     ]
+    },
+    {
+     "name": "Material property variability and allowables (A/B basis)",
+     "importance": "S",
+     "why": "statistical strength",
+     "sources": [
+      "MMPDS",
+      "CMH-17"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Electrical, magnetic, thermal properties of materials",
+     "importance": "S",
+     "why": "cross-domain selection",
+     "sources": [
+      "FE-ECE",
+      "FE-ME"
+     ]
+    },
+    {
+     "name": "Additive manufacturing materials",
+     "importance": "C",
+     "why": "emerging",
+     "sources": [
+      "MIT-2.008"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Design, manufacturing and tolerancing",
+   "subtopics": [
+    {
+     "name": "Machine elements: shafts, bearings, gears, fasteners, springs",
+     "importance": "S",
+     "why": "mechanical design",
+     "sources": [
+      "FE-ME",
+      "SHIGLEY"
+     ]
+    },
+    {
+     "name": "Joints: bolted, welded, bonded; preload",
+     "importance": "S",
+     "why": "most structural failures are at joints",
+     "sources": [
+      "FE-ME",
+      "SHIGLEY"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Manufacturing processes and their cost drivers",
+     "importance": "S",
+     "why": "design for manufacture",
+     "sources": [
+      "FE-ME",
+      "MIT-2.008"
+     ]
+    },
+    {
+     "name": "Tolerancing, fits, GD&T",
+     "importance": "K",
+     "why": "parts that fit and work",
+     "sources": [
+      "FE-ME",
+      "ASME-Y14.5"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Tolerance stack-up: worst case vs statistical (RSS)",
+     "importance": "S",
+     "why": "assembly yield",
+     "sources": [
+      "ASME-Y14.5",
+      "FE-ME"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Design for manufacture and assembly",
+     "importance": "S",
+     "why": "cost",
+     "sources": [
+      "MIT-2.008"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Precision engineering principles (exact constraint, kinematic coupling)",
+     "importance": "S",
+     "why": "instruments and robots",
+     "sources": [
+      "MIT-2.75",
+      "SLOCUM"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Finite element analysis in practice and pitfalls",
+     "importance": "K",
+     "why": "trusting stress results",
+     "sources": [
+      "MIT-2.092",
+      "NAFEMS"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Structural testing and qualification",
+     "importance": "S",
+     "why": "verification of structures",
+     "sources": [
+      "NASA-STD-5001"
+     ],
+     "commonly_missing": true
+    }
+   ]
+  },
+  {
+   "topic": "Commonly taught, not needed for this goal",
+   "subtopics": [
+    {
+     "name": "Truss hand-solution drills by joints/sections at scale",
+     "importance": "N",
+     "why": "keep load-path reasoning",
+     "sources": [
+      "FE-ME"
+     ]
+    },
+    {
+     "name": "Detailed machine-element catalog selection (keys, couplings, chain sizing)",
+     "importance": "N",
+     "why": "designer detail",
+     "sources": [
+      "FE-ME",
+      "SHIGLEY"
+     ]
+    },
+    {
+     "name": "Ferrous metallurgy detail (TTT diagrams of many steels)",
+     "importance": "N",
+     "why": "keep strength-mechanism concept",
+     "sources": [
+      "FE-ME"
+     ]
+    }
+   ]
+  }
+ ],
+ "Machine learning and deep learning": [
+  {
+   "topic": "Learning theory foundations",
+   "subtopics": [
+    {
+     "name": "Supervised learning setup: loss, risk, empirical risk",
+     "importance": "S",
+     "why": "frames every ML claim",
+     "sources": [
+      "STAN-CS229",
+      "MIT-6.390"
+     ]
+    },
+    {
+     "name": "Bias-variance trade-off, overfitting, regularization",
+     "importance": "K",
+     "why": "core judgment",
+     "sources": [
+      "STAN-CS229",
+      "ESL"
+     ]
+    },
+    {
+     "name": "Generalization, train/validation/test splits, data leakage",
+     "importance": "K",
+     "why": "most common ML failure",
+     "sources": [
+      "STAN-CS229",
+      "SCULLEY"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Cross-validation and model selection",
+     "importance": "S",
+     "why": "honest estimates",
+     "sources": [
+      "ESL",
+      "STAN-CS229"
+     ]
+    },
+    {
+     "name": "VC dimension and PAC learning",
+     "importance": "C",
+     "why": "theoretical; low practical leverage",
+     "sources": [
+      "MIT-6.867"
+     ]
+    },
+    {
+     "name": "Double descent and overparameterized generalization",
+     "importance": "S",
+     "why": "modern regime",
+     "sources": [
+      "DLBOOK",
+      "MIT-6.7960"
+     ]
+    },
+    {
+     "name": "No free lunch, inductive bias",
+     "importance": "S",
+     "why": "why architectures matter",
+     "sources": [
+      "ESL"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Classical models",
+   "subtopics": [
+    {
+     "name": "Linear and logistic regression",
+     "importance": "S",
+     "why": "baselines and interpretability",
+     "sources": [
+      "STAN-CS229",
+      "MIT-6.390"
+     ]
+    },
+    {
+     "name": "Generalized linear models",
+     "importance": "S",
+     "why": "count data, classification",
+     "sources": [
+      "STAN-CS229"
+     ]
+    },
+    {
+     "name": "Support vector machines and kernels",
+     "importance": "S",
+     "why": "kernel thinking",
+     "sources": [
+      "STAN-CS229",
+      "ESL"
+     ]
+    },
+    {
+     "name": "Decision trees, random forests, gradient boosting",
+     "importance": "S",
+     "why": "best on tabular data",
+     "sources": [
+      "ESL",
+      "STAN-CS229"
+     ]
+    },
+    {
+     "name": "Nearest neighbors and curse of dimensionality",
+     "importance": "S",
+     "why": "high-dimensional intuition",
+     "sources": [
+      "ESL"
+     ]
+    },
+    {
+     "name": "Gaussian processes",
+     "importance": "S",
+     "why": "uncertainty-aware regression, Bayesian opt",
+     "sources": [
+      "RASMUSSEN"
+     ]
+    },
+    {
+     "name": "Naive Bayes and generative vs discriminative",
+     "importance": "S",
+     "why": "modeling choice",
+     "sources": [
+      "STAN-CS229"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Unsupervised learning",
+   "subtopics": [
+    {
+     "name": "PCA and its link to SVD",
+     "importance": "S",
+     "why": "dimensionality, sensors",
+     "sources": [
+      "STAN-CS229",
+      "MIT-18.065"
+     ]
+    },
+    {
+     "name": "Clustering: k-means, GMM, EM algorithm",
+     "importance": "S",
+     "why": "structure discovery",
+     "sources": [
+      "STAN-CS229"
+     ]
+    },
+    {
+     "name": "Density estimation and anomaly detection",
+     "importance": "S",
+     "why": "fault and threat detection",
+     "sources": [
+      "ESL"
+     ]
+    },
+    {
+     "name": "Manifold learning (t-SNE, UMAP) and misreading plots",
+     "importance": "C",
+     "why": "visualization pitfalls",
+     "sources": [
+      "ESL"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Deep learning",
+   "subtopics": [
+    {
+     "name": "Neural networks as function approximators, universal approximation",
+     "importance": "S",
+     "why": "why they work",
+     "sources": [
+      "DLBOOK",
+      "STAN-CS231n"
+     ]
+    },
+    {
+     "name": "Backpropagation as reverse-mode autodiff",
+     "importance": "S",
+     "why": "engine of DL",
+     "sources": [
+      "DLBOOK",
+      "STAN-CS231n"
+     ]
+    },
+    {
+     "name": "Optimization for deep nets: SGD, momentum, Adam, learning-rate schedules",
+     "importance": "S",
+     "why": "training practice",
+     "sources": [
+      "DLBOOK",
+      "STAN-CS231n"
+     ]
+    },
+    {
+     "name": "Initialization, normalization, residual connections",
+     "importance": "S",
+     "why": "trainability",
+     "sources": [
+      "DLBOOK",
+      "STAN-CS231n"
+     ]
+    },
+    {
+     "name": "Regularization: dropout, weight decay, augmentation",
+     "importance": "S",
+     "why": "generalization",
+     "sources": [
+      "DLBOOK"
+     ]
+    },
+    {
+     "name": "Convolutional networks",
+     "importance": "S",
+     "why": "vision, signals; link to convolution",
+     "sources": [
+      "STAN-CS231n",
+      "DLBOOK"
+     ]
+    },
+    {
+     "name": "Recurrent networks and sequence modeling",
+     "importance": "S",
+     "why": "time series history",
+     "sources": [
+      "DLBOOK"
+     ]
+    },
+    {
+     "name": "Attention and transformers",
+     "importance": "K",
+     "why": "dominant architecture",
+     "sources": [
+      "STAN-CS224N",
+      "MIT-6.7960"
+     ]
+    },
+    {
+     "name": "Large language models: pretraining, fine-tuning, RLHF, in-context learning",
+     "importance": "K",
+     "why": "current frontier; judgment on claims",
+     "sources": [
+      "STAN-CS224N",
+      "MIT-6.7960"
+     ]
+    },
+    {
+     "name": "Scaling laws (compute, data, parameters)",
+     "importance": "K",
+     "why": "orders of magnitude for AI",
+     "sources": [
+      "KAPLAN2020",
+      "HOFFMANN2022"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Generative models: VAEs, GANs, diffusion",
+     "importance": "S",
+     "why": "generation and simulation",
+     "sources": [
+      "MIT-6.7960",
+      "DLBOOK"
+     ]
+    },
+    {
+     "name": "Representation learning and embeddings",
+     "importance": "S",
+     "why": "transfer and retrieval",
+     "sources": [
+      "DLBOOK"
+     ]
+    },
+    {
+     "name": "Graph neural networks",
+     "importance": "C",
+     "why": "niche structures",
+     "sources": [
+      "MIT-6.7960"
+     ]
+    },
+    {
+     "name": "Physics-informed ML and surrogate models",
+     "importance": "S",
+     "why": "cross-domain engineering use",
+     "sources": [
+      "MIT-18.337"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "ML engineering and critique",
+   "subtopics": [
+    {
+     "name": "Evaluation metrics: precision/recall, ROC/AUC, calibration",
+     "importance": "S",
+     "why": "judging classifiers",
+     "sources": [
+      "ESL",
+      "STAN-CS229"
+     ]
+    },
+    {
+     "name": "Uncertainty in ML, calibration, out-of-distribution detection",
+     "importance": "S",
+     "why": "safety-critical use",
+     "sources": [
+      "MIT-6.7960"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Distribution shift and dataset bias",
+     "importance": "K",
+     "why": "field failure of ML",
+     "sources": [
+      "SCULLEY",
+      "GOOGLE-ML-RULES"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Adversarial examples and robustness",
+     "importance": "S",
+     "why": "security of ML systems",
+     "sources": [
+      "MIT-6.7960"
+     ]
+    },
+    {
+     "name": "Compute and hardware for ML (FLOPs, memory, GPUs)",
+     "importance": "S",
+     "why": "feasibility estimates",
+     "sources": [
+      "MIT-6.5940",
+      "KAPLAN2020"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Data pipelines, labeling, technical debt in ML systems",
+     "importance": "S",
+     "why": "real systems",
+     "sources": [
+      "SCULLEY"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Interpretability and explainability",
+     "importance": "S",
+     "why": "trust and audit",
+     "sources": [
+      "MIT-6.7960"
+     ]
+    },
+    {
+     "name": "Verification and assurance of ML in safety-critical systems",
+     "importance": "S",
+     "why": "certification gap",
+     "sources": [
+      "EASA-ML",
+      "UL4600"
+     ],
+     "commonly_missing": true
+    }
+   ]
+  },
+  {
+   "topic": "Commonly taught, not needed for this goal",
+   "subtopics": [
+    {
+     "name": "Framework-specific APIs and coding recipes",
+     "importance": "N",
+     "why": "change yearly; keep architecture and failure modes",
+     "sources": [
+      "STAN-CS231n"
+     ]
+    },
+    {
+     "name": "Historical architectures detail (LeNet-to-VGG zoo)",
+     "importance": "N",
+     "why": "keep the ideas that survived",
+     "sources": [
+      "STAN-CS231n"
+     ]
+    }
+   ]
+  }
+ ],
+ "Reinforcement learning": [
+  {
+   "topic": "Foundations",
+   "subtopics": [
+    {
+     "name": "Markov decision processes",
+     "importance": "K",
+     "why": "formal frame of sequential decisions",
+     "sources": [
+      "SUTTON-BARTO",
+      "STAN-CS234"
+     ]
+    },
+    {
+     "name": "Bellman equations, value functions",
+     "importance": "K",
+     "why": "links to DP and control",
+     "sources": [
+      "SUTTON-BARTO",
+      "MIT-6.231"
+     ]
+    },
+    {
+     "name": "Dynamic programming: value and policy iteration",
+     "importance": "S",
+     "why": "planning baseline",
+     "sources": [
+      "SUTTON-BARTO",
+      "MIT-6.231"
+     ]
+    },
+    {
+     "name": "Exploration vs exploitation, multi-armed bandits",
+     "importance": "K",
+     "why": "decisions under uncertainty",
+     "sources": [
+      "SUTTON-BARTO",
+      "STAN-CS234"
+     ]
+    },
+    {
+     "name": "Monte Carlo and temporal-difference learning",
+     "importance": "S",
+     "why": "learning from experience",
+     "sources": [
+      "SUTTON-BARTO"
+     ]
+    },
+    {
+     "name": "Q-learning and SARSA",
+     "importance": "S",
+     "why": "model-free control",
+     "sources": [
+      "SUTTON-BARTO"
+     ]
+    },
+    {
+     "name": "Function approximation and the deadly triad",
+     "importance": "S",
+     "why": "instability sources",
+     "sources": [
+      "SUTTON-BARTO"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Deep and modern RL",
+   "subtopics": [
+    {
+     "name": "Deep Q-networks",
+     "importance": "S",
+     "why": "landmark method",
+     "sources": [
+      "STAN-CS234"
+     ]
+    },
+    {
+     "name": "Policy gradient theorem, REINFORCE",
+     "importance": "S",
+     "why": "basis of modern RL including RLHF",
+     "sources": [
+      "SUTTON-BARTO",
+      "STAN-CS234"
+     ]
+    },
+    {
+     "name": "Actor-critic, PPO, SAC",
+     "importance": "S",
+     "why": "workhorse algorithms",
+     "sources": [
+      "STAN-CS234",
+      "CS285"
+     ]
+    },
+    {
+     "name": "Model-based RL and planning (MCTS, AlphaZero)",
+     "importance": "S",
+     "why": "sample efficiency",
+     "sources": [
+      "CS285",
+      "STAN-CS234"
+     ]
+    },
+    {
+     "name": "Offline RL and imitation learning",
+     "importance": "S",
+     "why": "learning from logs and demos",
+     "sources": [
+      "CS285"
+     ]
+    },
+    {
+     "name": "Reward design, reward hacking, specification gaming",
+     "importance": "K",
+     "why": "safety and judgment",
+     "sources": [
+      "CS285",
+      "KRAKOVNA"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Sim-to-real transfer and domain randomization",
+     "importance": "S",
+     "why": "robotics practice",
+     "sources": [
+      "CS285"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Sample efficiency and compute cost of RL",
+     "importance": "S",
+     "why": "feasibility judgment",
+     "sources": [
+      "CS285"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Multi-agent RL and game theory basics",
+     "importance": "S",
+     "why": "competitive and cooperative settings",
+     "sources": [
+      "CS285"
+     ]
+    },
+    {
+     "name": "RL vs optimal control: relationship and when each wins",
+     "importance": "K",
+     "why": "cross-domain judgment",
+     "sources": [
+      "BERTSEKAS",
+      "RECHT2019"
+     ]
+    },
+    {
+     "name": "POMDPs and belief states",
+     "importance": "S",
+     "why": "partial observability",
+     "sources": [
+      "MIT-6.231",
+      "THRUN"
+     ]
+    },
+    {
+     "name": "Inverse RL",
+     "importance": "C",
+     "why": "niche",
+     "sources": [
+      "CS285"
+     ]
+    }
+   ]
+  }
+ ],
+ "Robotics": [
+  {
+   "topic": "Kinematics and dynamics",
+   "subtopics": [
+    {
+     "name": "Rigid-body transforms, rotation representations (matrices, quaternions, Euler pitfalls)",
+     "importance": "K",
+     "why": "used across robotics, aerospace, vision",
+     "sources": [
+      "LYNCH-PARK",
+      "STAN-CS223A"
+     ]
+    },
+    {
+     "name": "Forward kinematics, screw theory/DH",
+     "importance": "S",
+     "why": "arm modeling",
+     "sources": [
+      "LYNCH-PARK",
+      "STAN-CS223A"
+     ]
+    },
+    {
+     "name": "Inverse kinematics, redundancy",
+     "importance": "S",
+     "why": "arm control",
+     "sources": [
+      "LYNCH-PARK"
+     ]
+    },
+    {
+     "name": "Jacobians, singularities, manipulability",
+     "importance": "S",
+     "why": "velocity/force mapping limits",
+     "sources": [
+      "LYNCH-PARK",
+      "STAN-CS223A"
+     ]
+    },
+    {
+     "name": "Robot dynamics (Newton-Euler, Lagrange)",
+     "importance": "S",
+     "why": "control design",
+     "sources": [
+      "LYNCH-PARK"
+     ]
+    },
+    {
+     "name": "Mobile robot kinematics, nonholonomic constraints",
+     "importance": "S",
+     "why": "vehicles",
+     "sources": [
+      "LYNCH-PARK",
+      "THRUN"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Perception and state estimation",
+   "subtopics": [
+    {
+     "name": "Sensors: cameras, LIDAR, IMU, encoders, radar",
+     "importance": "S",
+     "why": "what robots can know",
+     "sources": [
+      "THRUN",
+      "SIEGWART"
+     ]
+    },
+    {
+     "name": "Camera models, calibration, stereo, epipolar geometry",
+     "importance": "S",
+     "why": "3-D vision",
+     "sources": [
+      "HARTLEY-ZISSERMAN"
+     ]
+    },
+    {
+     "name": "Localization (Markov, Monte Carlo localization)",
+     "importance": "S",
+     "why": "where am I",
+     "sources": [
+      "THRUN"
+     ]
+    },
+    {
+     "name": "SLAM",
+     "importance": "S",
+     "why": "autonomy core",
+     "sources": [
+      "THRUN"
+     ]
+    },
+    {
+     "name": "Visual odometry and visual-inertial navigation",
+     "importance": "S",
+     "why": "GPS-denied navigation",
+     "sources": [
+      "THRUN",
+      "GROVES"
+     ]
+    },
+    {
+     "name": "Learned perception (detection, segmentation)",
+     "importance": "S",
+     "why": "modern perception",
+     "sources": [
+      "STAN-CS231n"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Planning and control",
+   "subtopics": [
+    {
+     "name": "Configuration space",
+     "importance": "S",
+     "why": "planning abstraction",
+     "sources": [
+      "LYNCH-PARK",
+      "LAVALLE"
+     ]
+    },
+    {
+     "name": "Graph search (A*, Dijkstra)",
+     "importance": "S",
+     "why": "planning and routing",
+     "sources": [
+      "LAVALLE",
+      "CLRS"
+     ]
+    },
+    {
+     "name": "Sampling-based planning (PRM, RRT)",
+     "importance": "S",
+     "why": "high-dimensional planning",
+     "sources": [
+      "LAVALLE"
+     ]
+    },
+    {
+     "name": "Trajectory optimization",
+     "importance": "S",
+     "why": "smooth feasible motions",
+     "sources": [
+      "MIT-6.832"
+     ]
+    },
+    {
+     "name": "Force/impedance control, contact",
+     "importance": "S",
+     "why": "manipulation",
+     "sources": [
+      "LYNCH-PARK"
+     ]
+    },
+    {
+     "name": "Grasping and manipulation",
+     "importance": "S",
+     "why": "hard open problem",
+     "sources": [
+      "MIT-6.4210"
+     ]
+    },
+    {
+     "name": "Legged locomotion and underactuated robotics",
+     "importance": "C",
+     "why": "specialist",
+     "sources": [
+      "MIT-6.832"
+     ]
+    },
+    {
+     "name": "Multi-robot systems and swarms",
+     "importance": "C",
+     "why": "context",
+     "sources": [
+      "SIEGWART"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Robot systems",
+   "subtopics": [
+    {
+     "name": "Robot software architecture, ROS, real-time constraints",
+     "importance": "S",
+     "why": "building robots",
+     "sources": [
+      "ROS"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Autonomy levels, human-robot interaction",
+     "importance": "S",
+     "why": "operational judgment",
+     "sources": [
+      "SAE-J3016"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Safety of autonomous systems (standards, ODD)",
+     "importance": "K",
+     "why": "deployment gate",
+     "sources": [
+      "UL4600",
+      "ISO26262",
+      "ISO10218"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Actuators and drive trains for robots, power density",
+     "importance": "S",
+     "why": "hardware limits",
+     "sources": [
+      "LYNCH-PARK"
+     ]
+    }
+   ]
+  }
+ ],
+ "Systems engineering": [
+  {
+   "topic": "Foundations and life cycle",
+   "subtopics": [
+    {
+     "name": "Systems thinking, emergence, boundaries",
+     "importance": "K",
+     "why": "how to see the whole",
+     "sources": [
+      "SEBoK"
+     ]
+    },
+    {
+     "name": "Life-cycle models: V-model, incremental, agile, spiral",
+     "importance": "S",
+     "why": "process choice",
+     "sources": [
+      "SEBoK",
+      "NASA-SEH",
+      "ISO15288"
+     ]
+    },
+    {
+     "name": "Technical reviews and decision gates (SRR, PDR, CDR)",
+     "importance": "S",
+     "why": "program control",
+     "sources": [
+      "NASA-SEH",
+      "SEBoK"
+     ]
+    },
+    {
+     "name": "Concept of operations and mission analysis",
+     "importance": "K",
+     "why": "ties need to design",
+     "sources": [
+      "NASA-SEH",
+      "SEBoK"
+     ]
+    },
+    {
+     "name": "Stakeholder needs and expectations",
+     "importance": "S",
+     "why": "value definition",
+     "sources": [
+      "NASA-SEH",
+      "SEBoK"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Requirements and architecture",
+   "subtopics": [
+    {
+     "name": "Requirements definition: good requirement properties",
+     "importance": "K",
+     "why": "most failures trace to requirements",
+     "sources": [
+      "NASA-SEH",
+      "SEBoK",
+      "INCOSE-HB"
+     ]
+    },
+    {
+     "name": "Requirements traceability and flowdown",
+     "importance": "S",
+     "why": "completeness",
+     "sources": [
+      "NASA-SEH"
+     ]
+    },
+    {
+     "name": "Functional, logical, physical architecture",
+     "importance": "S",
+     "why": "decomposition core",
+     "sources": [
+      "SEBoK",
+      "NASA-SEH"
+     ]
+    },
+    {
+     "name": "Interface definition and management",
+     "importance": "K",
+     "why": "integration failures concentrate here",
+     "sources": [
+      "NASA-SEH",
+      "SEBoK"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Modularity, coupling, design structure matrices",
+     "importance": "S",
+     "why": "architecture quality",
+     "sources": [
+      "MIT-16.842",
+      "MIT-ESD"
+     ]
+    },
+    {
+     "name": "Model-based systems engineering (SysML)",
+     "importance": "S",
+     "why": "modern practice",
+     "sources": [
+      "SEBoK",
+      "INCOSE-HB"
+     ]
+    },
+    {
+     "name": "Technical budgets: mass, power, link, pointing, timing, margins and contingency policy",
+     "importance": "K",
+     "why": "quantitative heart of SE",
+     "sources": [
+      "NASA-SEH",
+      "SMAD"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Technical performance measures, MOEs, MOPs, KPPs",
+     "importance": "S",
+     "why": "measuring system goodness",
+     "sources": [
+      "NASA-SEH",
+      "SEBoK"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Analysis and decision",
+   "subtopics": [
+    {
+     "name": "Trade studies and decision analysis",
+     "importance": "K",
+     "why": "the core SE act",
+     "sources": [
+      "NASA-SEH",
+      "SEBoK"
+     ]
+    },
+    {
+     "name": "Multi-attribute utility, value models, pitfalls of weighted scoring",
+     "importance": "K",
+     "why": "honest trade studies",
+     "sources": [
+      "SEBoK",
+      "KEENEY"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Sensitivity analysis of system models",
+     "importance": "S",
+     "why": "robustness of decisions",
+     "sources": [
+      "NASA-SEH"
+     ]
+    },
+    {
+     "name": "Modeling and simulation in SE, model credibility",
+     "importance": "S",
+     "why": "analysis quality",
+     "sources": [
+      "NASA-STD-7009",
+      "SEBoK"
+     ]
+    },
+    {
+     "name": "Operations research basics: queues, inventory, scheduling",
+     "importance": "S",
+     "why": "operational systems",
+     "sources": [
+      "FE-OD"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Verification, validation, integration",
+   "subtopics": [
+    {
+     "name": "Verification methods: test, analysis, inspection, demonstration",
+     "importance": "S",
+     "why": "how proof is done",
+     "sources": [
+      "NASA-SEH",
+      "SEBoK"
+     ]
+    },
+    {
+     "name": "Validation vs verification",
+     "importance": "K",
+     "why": "right system vs system right",
+     "sources": [
+      "NASA-SEH",
+      "SEBoK"
+     ]
+    },
+    {
+     "name": "Integration strategy and test planning",
+     "importance": "S",
+     "why": "building up the system",
+     "sources": [
+      "NASA-SEH"
+     ]
+    },
+    {
+     "name": "Qualification vs acceptance testing, test-like-you-fly",
+     "importance": "S",
+     "why": "key assurance philosophy",
+     "sources": [
+      "NASA-SEH",
+      "SMC-S-016"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Environmental testing (vibe, thermal-vac, EMC)",
+     "importance": "S",
+     "why": "proving survivability",
+     "sources": [
+      "MIL-STD-810",
+      "MIL-STD-461"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Anomaly investigation and root cause analysis",
+     "importance": "K",
+     "why": "learning from failures",
+     "sources": [
+      "NASA-SEH",
+      "NASA-LL"
+     ],
+     "commonly_missing": true
+    }
+   ]
+  },
+  {
+   "topic": "Reliability, safety, maintainability",
+   "subtopics": [
+    {
+     "name": "Reliability basics: failure rate, MTBF, bathtub curve, exponential/Weibull",
+     "importance": "K",
+     "why": "quantitative dependability",
+     "sources": [
+      "MIL-HDBK-338",
+      "FE-ME"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Reliability block diagrams, redundancy, k-of-n",
+     "importance": "S",
+     "why": "architecture vs reliability",
+     "sources": [
+      "MIL-HDBK-338"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Common-cause failures and limits of redundancy",
+     "importance": "K",
+     "why": "why redundancy disappoints",
+     "sources": [
+      "NUREG",
+      "LEVESON"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "FMEA/FMECA",
+     "importance": "K",
+     "why": "systematic failure thinking",
+     "sources": [
+      "MIL-STD-1629",
+      "SEBoK"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Fault tree analysis and event trees",
+     "importance": "S",
+     "why": "top-down safety",
+     "sources": [
+      "NASA-FTA",
+      "NUREG"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Probabilistic risk assessment",
+     "importance": "S",
+     "why": "quantified risk",
+     "sources": [
+      "NASA-PRA"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "System safety process, hazard analysis",
+     "importance": "S",
+     "why": "safety by design",
+     "sources": [
+      "MIL-STD-882",
+      "SEBoK"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "STAMP/STPA systems-theoretic safety",
+     "importance": "S",
+     "why": "modern safety for software-intensive systems",
+     "sources": [
+      "LEVESON"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Human factors and human-systems integration",
+     "importance": "K",
+     "why": "accidents involve humans",
+     "sources": [
+      "SEBoK",
+      "NASA-SEH"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Availability, maintainability, logistics, sustainment",
+     "importance": "S",
+     "why": "life-cycle cost driver",
+     "sources": [
+      "SEBoK",
+      "MIL-HDBK-470"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Software safety and assurance (DO-178C, IEC 61508 SIL)",
+     "importance": "S",
+     "why": "certification",
+     "sources": [
+      "DO-178C",
+      "IEC61508"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Resilience and graceful degradation",
+     "importance": "S",
+     "why": "mission survivability",
+     "sources": [
+      "SEBoK"
+     ]
+    },
+    {
+     "name": "Security engineering and cyber-resilience",
+     "importance": "S",
+     "why": "modern systems threat",
+     "sources": [
+      "SEBoK",
+      "NIST-800-160"
+     ],
+     "commonly_missing": true
+    }
+   ]
+  },
+  {
+   "topic": "Management, cost, risk",
+   "subtopics": [
+    {
+     "name": "Risk management: likelihood/consequence, mitigation, burn-down",
+     "importance": "K",
+     "why": "program success",
+     "sources": [
+      "NASA-SEH",
+      "SEBoK"
+     ]
+    },
+    {
+     "name": "Configuration management and change control",
+     "importance": "S",
+     "why": "integrity of design",
+     "sources": [
+      "NASA-SEH",
+      "SEBoK"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Work breakdown structure and scheduling (critical path)",
+     "importance": "S",
+     "why": "program control",
+     "sources": [
+      "NASA-SEH",
+      "PMBOK"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Cost estimation: parametric, analogy, bottom-up, learning curves",
+     "importance": "K",
+     "why": "feasibility judgment",
+     "sources": [
+      "GAO-CEAG",
+      "NASA-CEH"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Cost and schedule growth patterns, technology readiness (TRL)",
+     "importance": "K",
+     "why": "judging program claims",
+     "sources": [
+      "GAO",
+      "NASA-SEH"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Earned value management",
+     "importance": "S",
+     "why": "program health",
+     "sources": [
+      "PMBOK",
+      "GAO"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Engineering economics: time value, life-cycle cost",
+     "importance": "S",
+     "why": "decisions",
+     "sources": [
+      "FE-ECE",
+      "FE-ME"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Technology readiness, maturation, and insertion",
+     "importance": "S",
+     "why": "realistic schedules",
+     "sources": [
+      "NASA-SEH",
+      "GAO"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Acquisition and contracting basics",
+     "importance": "C",
+     "why": "context",
+     "sources": [
+      "SEBoK"
+     ]
+    },
+    {
+     "name": "Systems of systems and mission engineering",
+     "importance": "S",
+     "why": "complex enterprises",
+     "sources": [
+      "SEBoK"
+     ]
+    },
+    {
+     "name": "Standards landscape (ISO 15288, MIL-STDs, IEEE, IEC)",
+     "importance": "S",
+     "why": "knowing which rules apply",
+     "sources": [
+      "SEBoK"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Engineering ethics and professional responsibility",
+     "importance": "S",
+     "why": "judgment and accountability",
+     "sources": [
+      "FE-ECE",
+      "FE-ME",
+      "ABET-GEN"
+     ]
+    },
+    {
+     "name": "Case studies of failures (Challenger, Columbia, Tacoma, Therac-25, Mars Climate Orbiter, 737 MAX)",
+     "importance": "K",
+     "why": "pattern library of judgment",
+     "sources": [
+      "NASA-LL",
+      "PETROSKI",
+      "LEVESON"
+     ],
+     "commonly_missing": true
+    }
+   ]
+  }
+ ],
+ "Engineering judgment (cross-cutting)": [
+  {
+   "topic": "Estimation and modeling craft",
+   "subtopics": [
+    {
+     "name": "Units, SI, dimensional consistency",
+     "importance": "K",
+     "why": "catches most errors cheaply",
+     "sources": [
+      "NIST-SI",
+      "FE-ME"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Order-of-magnitude estimation (Fermi problems)",
+     "importance": "K",
+     "why": "the level-2.5 mental estimate",
+     "sources": [
+      "MAHAJAN",
+      "MIT-6.055"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Key physical constants and benchmark numbers by heart",
+     "importance": "K",
+     "why": "anchors for estimation",
+     "sources": [
+      "MAHAJAN"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Scaling laws and similarity (square-cube etc.)",
+     "importance": "K",
+     "why": "sizing across fields",
+     "sources": [
+      "MAHAJAN",
+      "MIT-2.06"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Approximation hierarchy: when to linearize, lump, neglect",
+     "importance": "K",
+     "why": "modeling judgment",
+     "sources": [
+      "MAHAJAN",
+      "MIT-2.14"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Sanity checks of computer outputs and AI answers",
+     "importance": "K",
+     "why": "critique skill",
+     "sources": [
+      "HAMMING",
+      "NASA-STD-7009"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Model fidelity selection (fit-for-purpose models)",
+     "importance": "S",
+     "why": "effort vs accuracy",
+     "sources": [
+      "NASA-STD-7009"
+     ],
+     "commonly_missing": true
+    }
+   ]
+  },
+  {
+   "topic": "Measurement and uncertainty",
+   "subtopics": [
+    {
+     "name": "Measurement uncertainty (GUM), Type A/B, propagation",
+     "importance": "K",
+     "why": "quantifying data trust",
+     "sources": [
+      "GUM",
+      "FE-ME"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Calibration and traceability",
+     "importance": "S",
+     "why": "data credibility",
+     "sources": [
+      "GUM"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Accuracy, precision, resolution, drift",
+     "importance": "S",
+     "why": "sensor specs",
+     "sources": [
+      "FE-ME"
+     ]
+    },
+    {
+     "name": "Experimental design for engineering tests",
+     "importance": "S",
+     "why": "test efficiency",
+     "sources": [
+      "MONTGOMERY"
+     ],
+     "commonly_missing": true
+    }
+   ]
+  },
+  {
+   "topic": "Recurring cross-domain structures",
+   "subtopics": [
+    {
+     "name": "Conservation laws and balance equations as universal template",
+     "importance": "K",
+     "why": "unifies mechanics, EM, fluids, heat",
+     "sources": [
+      "MIT-18.303",
+      "MAHAJAN"
+     ]
+    },
+    {
+     "name": "Analogies: RC thermal/electrical/fluid/mechanical",
+     "importance": "K",
+     "why": "transfer of intuition",
+     "sources": [
+      "MIT-2.14",
+      "KARNOPP"
+     ]
+    },
+    {
+     "name": "Resonance and Q across domains",
+     "importance": "K",
+     "why": "same math in circuits, structures, optics",
+     "sources": [
+      "MIT-8.03"
+     ]
+    },
+    {
+     "name": "Diffusion vs wave vs advection regimes",
+     "importance": "S",
+     "why": "same PDE structure",
+     "sources": [
+      "MIT-18.303"
+     ]
+    },
+    {
+     "name": "Feedback, stability and delay across domains",
+     "importance": "K",
+     "why": "economics, biology, grids, networks",
+     "sources": [
+      "ASTROM-MURRAY"
+     ]
+    },
+    {
+     "name": "Noise, SNR and detection across domains",
+     "importance": "K",
+     "why": "radar, comms, sensing, inference",
+     "sources": [
+      "MIT-6.011"
+     ]
+    },
+    {
+     "name": "Optimization and trade-off curves across domains",
+     "importance": "S",
+     "why": "Pareto everywhere",
+     "sources": [
+      "STAN-EE364a",
+      "NASA-SEH"
+     ]
+    },
+    {
+     "name": "Information and entropy across thermo, comms, ML",
+     "importance": "S",
+     "why": "deep unity",
+     "sources": [
+      "MIT-6.441",
+      "MIT-8.044"
+     ]
+    },
+    {
+     "name": "Duality (time/frequency, primal/dual, controllability/observability)",
+     "importance": "S",
+     "why": "recurrent mathematical pattern",
+     "sources": [
+      "STAN-EE263",
+      "STAN-EE364a"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Professional practice",
+   "subtopics": [
+    {
+     "name": "Reading datasheets and specifications critically",
+     "importance": "S",
+     "why": "daily engineering",
+     "sources": [
+      "AOE"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Design reviews and peer review practice",
+     "importance": "S",
+     "why": "catching errors",
+     "sources": [
+      "NASA-SEH"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Documentation, technical writing, presenting trade-offs",
+     "importance": "S",
+     "why": "influence and authority",
+     "sources": [
+      "ABET-GEN"
+     ]
+    },
+    {
+     "name": "Intellectual property and patents",
+     "importance": "C",
+     "why": "context",
+     "sources": [
+      "FE-ECE",
+      "FE-ME"
+     ]
+    },
+    {
+     "name": "Sustainability and life-cycle assessment",
+     "importance": "C",
+     "why": "context",
+     "sources": [
+      "FE-ME",
+      "ABET-GEN"
+     ]
+    }
+   ]
+  }
+ ],
+ "Periphery: discrete math, algorithms, computer systems, chips": [
+  {
+   "topic": "Discrete mathematics",
+   "subtopics": [
+    {
+     "name": "Logic, proofs, induction",
+     "importance": "S",
+     "why": "rigorous reasoning",
+     "sources": [
+      "MIT-6.042",
+      "CS2023"
+     ]
+    },
+    {
+     "name": "Sets, relations, functions",
+     "importance": "S",
+     "why": "language",
+     "sources": [
+      "MIT-6.042"
+     ]
+    },
+    {
+     "name": "Combinatorics and counting",
+     "importance": "S",
+     "why": "probability and algorithms",
+     "sources": [
+      "MIT-6.042",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Graph theory: paths, connectivity, trees, flows",
+     "importance": "S",
+     "why": "networks, planning, logistics",
+     "sources": [
+      "MIT-6.042",
+      "CS2023"
+     ]
+    },
+    {
+     "name": "Number theory and modular arithmetic",
+     "importance": "S",
+     "why": "cryptography, coding",
+     "sources": [
+      "MIT-6.042"
+     ]
+    },
+    {
+     "name": "Recurrences and generating functions",
+     "importance": "C",
+     "why": "algorithm analysis",
+     "sources": [
+      "MIT-6.042"
+     ]
+    },
+    {
+     "name": "Finite automata and formal languages",
+     "importance": "C",
+     "why": "protocols, parsers",
+     "sources": [
+      "CS2023"
+     ]
+    },
+    {
+     "name": "Computability and undecidability",
+     "importance": "C",
+     "why": "limits of verification",
+     "sources": [
+      "CS2023"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Algorithms and data structures",
+   "subtopics": [
+    {
+     "name": "Asymptotic complexity, big-O",
+     "importance": "K",
+     "why": "feasibility of computation",
+     "sources": [
+      "CLRS",
+      "FE-ECE",
+      "CS2023"
+     ]
+    },
+    {
+     "name": "Sorting and searching",
+     "importance": "S",
+     "why": "basics",
+     "sources": [
+      "CLRS",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Core data structures (arrays, lists, trees, hash tables, heaps)",
+     "importance": "S",
+     "why": "software sense",
+     "sources": [
+      "CLRS",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Graph algorithms: BFS/DFS, shortest paths, MST, max-flow",
+     "importance": "S",
+     "why": "routing, planning, logistics",
+     "sources": [
+      "CLRS",
+      "MIT-6.006"
+     ]
+    },
+    {
+     "name": "Divide and conquer, greedy, dynamic programming paradigms",
+     "importance": "S",
+     "why": "algorithm design",
+     "sources": [
+      "CLRS",
+      "MIT-6.046"
+     ]
+    },
+    {
+     "name": "NP-completeness and approximation algorithms",
+     "importance": "S",
+     "why": "what is hopeless at scale",
+     "sources": [
+      "CLRS",
+      "MIT-6.046"
+     ]
+    },
+    {
+     "name": "Randomized algorithms",
+     "importance": "C",
+     "why": "hashing, sketches",
+     "sources": [
+      "MIT-6.046"
+     ]
+    },
+    {
+     "name": "Parallel and distributed algorithms",
+     "importance": "S",
+     "why": "modern compute",
+     "sources": [
+      "CS2023"
+     ]
+    },
+    {
+     "name": "Computational geometry",
+     "importance": "C",
+     "why": "robotics, graphics",
+     "sources": [
+      "MIT-6.850"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Computer systems",
+   "subtopics": [
+    {
+     "name": "Computer architecture: ISA, pipelining, caches, memory hierarchy",
+     "importance": "S",
+     "why": "performance intuition",
+     "sources": [
+      "MIT-6.004",
+      "CS2023",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Numbers every engineer should know (latencies, bandwidths)",
+     "importance": "K",
+     "why": "systems estimation",
+     "sources": [
+      "DEAN-NUMBERS",
+      "CS2023"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Operating systems: processes, scheduling, memory, I/O",
+     "importance": "S",
+     "why": "runtime behavior",
+     "sources": [
+      "CS2023"
+     ]
+    },
+    {
+     "name": "Real-time and embedded systems, determinism, WCET",
+     "importance": "S",
+     "why": "control and avionics software",
+     "sources": [
+      "CE2016",
+      "DO-178C"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Concurrency, race conditions, deadlock",
+     "importance": "S",
+     "why": "subtle bugs",
+     "sources": [
+      "CS2023"
+     ]
+    },
+    {
+     "name": "Parallel computing: GPUs, SIMD, Amdahl's law",
+     "importance": "S",
+     "why": "ML and simulation scale",
+     "sources": [
+      "CS2023",
+      "MIT-6.172"
+     ]
+    },
+    {
+     "name": "Distributed systems: consistency, fault tolerance, CAP",
+     "importance": "S",
+     "why": "networked systems",
+     "sources": [
+      "CS2023",
+      "MIT-6.824"
+     ]
+    },
+    {
+     "name": "Software engineering: testing, version control, verification",
+     "importance": "S",
+     "why": "software is in every system",
+     "sources": [
+      "SWEBOK",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "Software failure modes and fault tolerance",
+     "importance": "S",
+     "why": "many accidents are software",
+     "sources": [
+      "LEVESON",
+      "SWEBOK"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Formal methods basics",
+     "importance": "C",
+     "why": "high-assurance niche",
+     "sources": [
+      "SWEBOK"
+     ]
+    },
+    {
+     "name": "Databases",
+     "importance": "N",
+     "why": "not core to engineering authority",
+     "sources": [
+      "CS2023"
+     ]
+    },
+    {
+     "name": "Compilers",
+     "importance": "N",
+     "why": "not needed for this goal",
+     "sources": [
+      "CS2023"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Semiconductors and chip design",
+   "subtopics": [
+    {
+     "name": "Semiconductor physics: carriers, doping, drift-diffusion",
+     "importance": "S",
+     "why": "basis of electronics",
+     "sources": [
+      "MIT-6.012",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "p-n junction",
+     "importance": "S",
+     "why": "diodes, solar cells, transistors",
+     "sources": [
+      "MIT-6.012",
+      "FE-ECE"
+     ]
+    },
+    {
+     "name": "MOSFET physics and scaling (Dennard, Moore)",
+     "importance": "K",
+     "why": "trajectory of computing",
+     "sources": [
+      "MIT-6.012",
+      "MIT-6.374"
+     ]
+    },
+    {
+     "name": "Optoelectronic devices: LEDs, photodiodes, lasers, solar cells",
+     "importance": "S",
+     "why": "sensing and energy",
+     "sources": [
+      "MIT-6.012"
+     ]
+    },
+    {
+     "name": "Power semiconductors (SiC, GaN)",
+     "importance": "S",
+     "why": "electrification",
+     "sources": [
+      "MIT-6.334"
+     ]
+    },
+    {
+     "name": "Fabrication process flow, lithography",
+     "importance": "S",
+     "why": "manufacturing limits",
+     "sources": [
+      "MIT-6.152"
+     ]
+    },
+    {
+     "name": "VLSI design flow, RTL, synthesis, place and route",
+     "importance": "S",
+     "why": "chip creation",
+     "sources": [
+      "MIT-6.374",
+      "MIT-6.004"
+     ]
+    },
+    {
+     "name": "Interconnect, power and thermal limits of chips",
+     "importance": "S",
+     "why": "modern bottleneck",
+     "sources": [
+      "MIT-6.374"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Memory technologies (SRAM, DRAM, flash)",
+     "importance": "S",
+     "why": "systems trade-offs",
+     "sources": [
+      "MIT-6.374"
+     ]
+    },
+    {
+     "name": "Analog/mixed-signal IC design",
+     "importance": "C",
+     "why": "specialist",
+     "sources": [
+      "RAZAVI"
+     ]
+    },
+    {
+     "name": "Yield, cost per transistor, foundry economics",
+     "importance": "S",
+     "why": "industry judgment",
+     "sources": [
+      "MIT-6.374"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Chip reliability: electromigration, hot carriers, radiation",
+     "importance": "S",
+     "why": "lifetime",
+     "sources": [
+      "MIT-6.374"
+     ],
+     "commonly_missing": true
+    },
+    {
+     "name": "Quantum and exotic devices",
+     "importance": "N",
+     "why": "no current leverage",
+     "sources": [
+      "MIT-6.701"
+     ]
+    }
+   ]
+  },
+  {
+   "topic": "Commonly taught, not needed for this goal",
+   "subtopics": [
+    {
+     "name": "Competitive-programming data-structure tricks",
+     "importance": "N",
+     "why": "no engineering-authority leverage",
+     "sources": [
+      "CLRS"
+     ]
+    },
+    {
+     "name": "Assembly-language programming",
+     "importance": "N",
+     "why": "keep ISA concepts only",
+     "sources": [
+      "MIT-6.004"
+     ]
+    },
+    {
+     "name": "Network-administration and penetration-testing procedures",
+     "importance": "N",
+     "why": "operator skill, not engineering judgment",
+     "sources": [
+      "FE-ECE"
+     ]
+    }
+   ]
+  }
+ ]
+}

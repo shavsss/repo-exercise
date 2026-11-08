@@ -1,0 +1,166 @@
+<title>לוח בחירות סבב 5</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@400;500;600&family=IBM+Plex+Mono:wght@500&family=Frank+Ruhl+Libre:wght@500;700&display=swap">
+<style>
+/* Layout: one reading column of question cards, a sticky summary strip on top; prototypes open as sibling pages. Tokens: the labs' own cream/graphite ("מפת מבצעים"). */
+:root{
+  --bg:#ece4d6; --paper:#f4ede2; --sheet:#faf6ee; --ink:#22261d; --ink-soft:#44493a; --muted:#5c5f4e;
+  --line:#ddd2bf; --line-strong:#ae9f84; --accent:#9b2c22; --accent-soft:#f3e0d9; --ok:#3f7a34; --amber:#8a6100;
+  --font:"IBM Plex Sans Hebrew",system-ui,sans-serif; --serif:"Frank Ruhl Libre","IBM Plex Sans Hebrew",serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#1f1e1d; --paper:#262624; --sheet:#2d2c2a; --ink:#dedad1; --ink-soft:#c9c5bb; --muted:#bab5ab;
+  --line:#3a3936; --line-strong:#5c5a55; --accent:#e79a8f; --accent-soft:#3a2522; --ok:#93cf86; --amber:#e0c46c; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#1f1e1d; --paper:#262624; --sheet:#2d2c2a; --ink:#dedad1; --ink-soft:#c9c5bb; --muted:#bab5ab;
+  --line:#3a3936; --line-strong:#5c5a55; --accent:#e79a8f; --accent-soft:#3a2522; --ok:#93cf86; --amber:#e0c46c; color-scheme:dark}
+html{direction:rtl}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);margin:0;line-height:1.65;font-size:16px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:22px 80px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:52rem;margin:0 auto;display:grid;gap:22px}
+h1{font-family:var(--serif);font-size:1.85rem;margin:0;line-height:1.25;text-wrap:balance}
+.lede{margin:0;color:var(--ink-soft)}
+.kept{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:.9rem 1.1rem;display:grid;gap:.4rem;font-size:.92rem;color:var(--ink-soft)}
+.kept b{color:var(--ink);font-weight:600}
+.status{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-block:1px solid var(--line);padding:.55rem 0;display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;font-size:.82rem;color:var(--muted)}
+.status .chips{display:flex;gap:4px;flex-wrap:wrap;flex:1}
+.status a{width:22px;height:22px;border-radius:50%;border:1px solid var(--line-strong);display:grid;place-items:center;color:var(--muted);text-decoration:none;font-family:var(--mono);font-size:.7rem}
+.status a.done{background:var(--ink);color:var(--sheet);border-color:var(--ink)}
+.sync{display:flex;align-items:center;gap:.35rem}
+.sync i{width:7px;height:7px;border-radius:50%;background:var(--line-strong)}
+.sync[data-s="db"] i{background:var(--ok)} .sync[data-s="err"] i{background:var(--accent)}
+.group{font-family:var(--serif);font-size:1.25rem;margin:.8rem 0 -.4rem;color:var(--ink-soft)}
+.q{background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:1.2rem 1.2rem 1.1rem;display:grid;gap:.75rem;scroll-margin-top:60px}
+.q h2{font-family:var(--serif);font-size:1.25rem;margin:0;display:flex;gap:.6rem;align-items:baseline;line-height:1.35}
+.q h2 .n{font-family:var(--mono);font-size:.8rem;color:var(--muted);font-weight:500}
+.q .why{margin:0;font-size:.93rem;color:var(--ink-soft)}
+.ev{display:inline-block;font-family:var(--mono);font-size:.72rem;border:1px solid var(--line-strong);border-radius:4px;padding:0 .35rem;color:var(--muted);margin-inline-start:.2rem;vertical-align:1px}
+.proto{font-size:.88rem;color:var(--accent);text-decoration:underline;text-underline-offset:3px;justify-self:start}
+.opts{display:grid;gap:.5rem}
+.opt{display:grid;grid-template-columns:auto 1fr;gap:.2rem .7rem;align-items:start;border:1px solid var(--line);border-radius:8px;padding:.7rem .85rem;cursor:pointer;background:var(--paper)}
+.opt:hover{border-color:var(--line-strong)}
+.opt input{margin-top:.35rem;accent-color:var(--ink)}
+.opt .t{font-weight:600}
+.opt .d{grid-column:2;font-size:.9rem;color:var(--ink-soft)}
+.opt .tag{font-family:var(--font);font-size:.72rem;font-weight:500;color:var(--accent);border:1px solid currentColor;border-radius:999px;padding:0 .45rem;margin-inline-start:.4rem;vertical-align:1px}
+.opt:has(input:checked){border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink);background:var(--sheet)}
+.opt input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.slider{display:flex;gap:.7rem;align-items:center;font-size:.9rem;color:var(--ink-soft);flex-wrap:wrap}
+.slider input{accent-color:var(--ink);flex:1;min-width:8rem}
+.slider output{font-family:var(--mono);min-width:3ch}
+.note{display:grid;gap:.3rem}
+.note label{font-size:.82rem;color:var(--muted)}
+textarea{font:inherit;font-size:.93rem;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:.45rem .6rem;resize:vertical;min-height:2.4rem}
+textarea:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.saved{font-size:.8rem;color:var(--muted);min-height:1.2em}
+.top-row{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;align-items:center}
+.theme{display:flex;gap:2px;border:1px solid var(--line);border-radius:7px;padding:2px;background:var(--paper)}
+.theme button{font:inherit;font-size:.8rem;border:0;background:transparent;color:var(--ink-soft);padding:.2rem .6rem;border-radius:5px;cursor:pointer}
+.theme button[aria-pressed="true"]{background:var(--ink);color:var(--sheet)}
+.foot{font-size:.82rem;color:var(--muted)}
+</style>
+
+<div class="wrap">
+  <div class="top-row">
+    <h1>לוח בחירות סבב 5: מקום שנעים להיות בו שעות</h1>
+    <div class="theme" role="group" aria-label="ערכה"><button data-th="auto" aria-pressed="true">אוטומטי</button><button data-th="light" aria-pressed="false">בהיר</button><button data-th="dark" aria-pressed="false">כהה</button></div>
+  </div>
+  <p class="lede">אחרי מחקר על עייפות ראייה, עייפות קוגניטיבית, צליל והנאה, ואחרי צוות אדום וסימולציה של 90 יום, אלה ההחלטות החדשות שנשארו לך. בכל שאלה ההמלצה מסומנת, וליד כל טענה דרגת הראיות: A מטא-אנליזה, B מחקר מבוקר אחד, C מומחים או מנגנון סביר. אבות-הטיפוס נפתחים בדף נפרד.</p>
+
+  <div class="kept"><b>מה שבחרת בסבב 4 נשאר כמו שהוא.</b><span>עמודה במרכז עם מגירה, שלוש דרגות בלוקים, שלושה כפתורי ביטחון, כרטיס ענבר, כרטיס מתחת לפסקה, הקלדה רכה (94), זוג צלילים, חדר ספרייה (35), שמנת וגרפיט, צפיפות נוחה, מצביע לפי מעבדה, נקודות סעיפים. רוב אלה עוד לא נבנו בקוד, ולכן הם בראש רשימת העבודה בדוח. השאלות כאן מוסיפות עליהם או מתקנות בתוכם.</span></div>
+
+  <div class="status"><span>התקדמות</span><span class="chips" id="chips"></span><span class="sync" id="sync" data-s="local"><i></i><span>מתחבר…</span></span></div>
+
+  <div id="qs" style="display:grid;gap:18px"></div>
+  <p class="foot" id="foot">הבחירות נשמרות במסד הנתונים של הדף, באוסף <span style="font-family:var(--mono)">ux5_choices</span>, ועותק גם בדפדפן הזה.</p>
+</div>
+
+<script>
+const QS=[
+ {g:'קריאה ועיניים'},
+ {id:'r5-measure',t:'אורך השורה',proto:'proto/reading.html',why:'היום כ-85 תווים בשורה (עם רווחים). המחקר על אורך שורה מכוון ל-60–72 <span class="ev">B, בכתב לטיני</span>; בעברית אין מחקר, אז זו הסקה <span class="ev">C</span>. השינוי הוא גופן גדול מעט ועמודה צרה מעט.',
+  opts:[{v:'68',t:'כ-68 תווים, 18.5px',d:'העמודה נגזרת מגודל הגופן, ולכן כל גודל ב-Aa נותן 60–72 תווים.',rec:1},{v:'keep',t:'להשאיר כמו היום',d:'17px ועמודה של 42rem.'},{v:'test',t:'לבדוק שבוע ואז להחליט',d:'שבוע 68, שבוע כמו היום, ומשווים איך הרגיש.'}]},
+ {id:'r5-darkink',t:'טקסט במצב כהה',proto:'proto/reading.html',why:'במצב הכהה הניגודיות 12.5:1, קרוב לגבול העליון המומלץ; טקסט בהיר מאוד על כהה "זוהר" למי שיש לו אסטיגמציה <span class="ev">C</span>. ההצעה מרככת את הטקסט ומחזקת את הטקסט האפור הקטן, שהיום חלש מדי.',
+  opts:[{v:'soft',t:'רך יותר (10.9:1) ואפור קטן חזק יותר',d:'#dedad1 במקום #ece9e1.',rec:1},{v:'keep',t:'להשאיר'}]},
+ {id:'r5-stream',t:'בזמן שהמורה כותב',proto:'proto/reading.html',why:'כתיבת חלק לוקחת 2–5 דקות, ויש כמה עשרות כאלה ביום. היום הדף קופץ לתחתית, ריבוע אדום רץ וגלגל מסתובב. תנועה בשולי העין מושכת קשב <span class="ev">B</span>. זה כנראה מקור העייפות הגדול ביותר שאף אחד לא תכנן.',
+  opts:[{v:'calm-q',t:'שקט, ושאלה אחת מהחלק הקודם',d:'פסקה מופיעה שלמה, הדף לא זז אם קראת למעלה, פס דק עם זמן משוער במקום גלגל. מתחת: שאלת שליפה אחת שאפשר לענות עליה בראש.',rec:1},{v:'calm',t:'רק שקט',d:'אותו דבר בלי השאלה.'},{v:'calm-rest',t:'שקט, והצעה לקום',d:'במקום שאלה: "2 דקות. אפשר להסתכל רחוק."'}]},
+ {id:'r5-prefetch',t:'השיעור הבא נכתב בזמן שאתה לא שם',why:'בסימולציה, ההמתנה בתחילת כל שיעור היא החלק המשעמם ביותר ביום: כ-14 דקות של המתנה. כשלוחצים "הפסקה" בסוף שיעור, או "סגור את היום", האפליקציה כבר יודעת מה בא, ויכולה לכתוב אותו בזמן שאתה רחוק מהמסך. התשתית קיימת: טיוטה עם <span style="font-family:var(--mono)">draft: true</span>. מגבלה: זה רץ רק כל עוד הלשונית פתוחה.',
+  opts:[{v:'both',t:'בהפסקה ובסגירת היום',d:'בסגירה: "להכין את השיעור של מחר? השאר את הלשונית פתוחה."',rec:1},{v:'break',t:'רק בהפסקה'},{v:'no',t:'לא'}]},
+ {id:'r5-plan-wait',t:'כשבכל זאת מחכים לתחילת שיעור',why:'התכנון של השיעור (3–5 חלקים) מגיע לפני החלק הראשון. אפשר להראות אותו במקום גלגל: כותרות החלקים מופיעות אחת אחרי השנייה, ומתחתן שאלה מקדימה. שאלה לפני הלמידה משפרת זכירה של מה שנשאל <span class="ev">B</span>.',
+  opts:[{v:'plan-q',t:'תוכנית השיעור ושאלה מקדימה',d:'"מה אתה כבר יודע על {חלק 1}?" עם שדה שלא חובה למלא.',rec:1},{v:'plan',t:'רק תוכנית השיעור'},{v:'spinner',t:'להשאיר'}]},
+ {id:'r5-motion',t:'תנועה בזמן קריאה',why:'היום יש אנימציות שלא נגמרות: פסי רעש הרקע זזים שעות, גלגל, אייקון שפועם, סצנות שמסתובבות לבד. תקציב תנועה: שום דבר לא זז בלולאה בזמן קריאה <span class="ev">C</span>.',
+  opts:[{v:'zero',t:'אפס לולאות',d:'כל תנועה נגמרת תוך פחות משנייה. סצנות תלת-ממד זזות רק כשנוגעים.',rec:1},{v:'keep',t:'להשאיר'}]},
+ {g:'פתקים בשוליים'},
+ {id:'r5-margin',t:'סגנון הפתקים',proto:'proto/margin.html',why:'כתבת שאתה מקווה שהפתקים לא ייראו כמו בתמונות. הפתק הצהוב באותה בהירות כמו הדף, מוטה, עם סלוטייפ וצל עמוק, ולכן הוא הדבר הכי רועש בעמוד. בכל הכיוונים החדשים: צבע אחד לכל מעבדה, הסוגים מובחנים בסמל ובקו, ובמחשב נייד הפתקים עדיין נראים.',
+  opts:[{v:'h',t:'עיפרון עם מספר',d:'בלי תיבה ובלי שום סימן בתוך הטקסט (כך שהנוסחאות לא מתבלבלות). קו דק בצד, ומספר קטן בשולי העמודה בגובה השורה. בסימולציה של 90 יום זה החזיק הכי טוב.',rec:1},{v:'a',t:'א · עיפרון בשוליים',d:'כמו למעלה, אבל עם קו תחתון דק על המשפט תמיד.'},{v:'b',t:'ב · כרטיסייה',d:'כרטיס תיוק בגוון אחד מעל הדף, עם לשונית ממוספרת שפונה לטקסט. הכי "חומרי".'},{v:'c',t:'ג · הערות צד',d:'כמו בספר: מספר עילי בטקסט ואותו מספר בשוליים. ליד מספרים הוא נקרא כמו חזקה.'}]},
+ {g:'צליל'},
+ {id:'r5-library',t:'חדר הספרייה',proto:'proto/sound.html',why:'היום זו לולאה של 12 שניות עם דף שמתהפך תמיד באותה שנייה: כ-2,400 פעמים ביום. אנשים לומדים רצף רעש שחוזר בלי לשים לב, וזוכרים אותו שבועות <span class="ev">B</span>. גרסה 2 לא חוזרת על עצמה, ואין בה צעדים, שיעול או דיבור, כי אלה המסיחים החזקים בקריאה <span class="ev">A</span>.',
+  opts:[{v:'v2',t:'v2, בלי לולאה',d:'אוויר שמשתנה לאט, וכ-85 אירועים בשעה: דף, תזוזה בכיסא, ספר על שולחן, דלת רחוקה.',rec:1},{v:'v2-air',t:'v2, רק האוויר',d:'בלי שום אירוע.'},{v:'v1',t:'להשאיר את הלולאה'}]},
+ {id:'r5-focusnoise',t:'רעש שנחלש לבד',proto:'proto/sound.html',why:'אחרי 25 דקות של קריאה רצופה הרעש יורד ב-3dB במשך 5 דקות, וחצי מהאירועים נעלמים. אין לזה ראיה ישירה <span class="ev">C</span>; ההיגיון הוא "העוצמה הנמוכה ביותר שעדיין מסתירה".',
+  opts:[{v:'try',t:'לנסות שבוע עם ושבוע בלי',rec:1},{v:'on',t:'דלוק'},{v:'off',t:'כבוי'}]},
+ {id:'r5-typing',t:'הקלדה',proto:'proto/sound.html',why:'ההקלדה הרכה שבחרת עוד לא בנויה; היום כל מקש משמיע שני "קליקים" עם רעש גבוה, גם בחלון הסיכומים, כלומר אלפי צלילים בשעה של כתיבה. גרסה 2 שומרת על הקול שבחרת ומוסיפה וריאציה עדינה: הקלדה מהירה רכה יותר, והמקש הראשון אחרי הפסקה מעט מוצק יותר.',
+  opts:[{v:'v2',t:'רך, עם וריאציה (v2)',rec:1},{v:'soft',t:'רך, בלי וריאציה'},{v:'off-long',t:'רך, וכבוי בחלון הסיכומים'}]},
+ {id:'r5-chimes',t:'צלילי משוב',proto:'proto/sound.html',why:'הצליל "נפתחה תשובה" כמעט זהה ל"נכון", אז פתיחת רמז נשמעת כמו הצלחה. וגם: ההקלדה חזקה בכ-10dB מצליל ה"נכון", אף שצליל נדיר ובעל משמעות צריך להיות מעל צליל תכוף.',
+  opts:[{v:'fix',t:'לתקן את שני הדברים',d:'"נפתח" הופך לצליל נייר קצר; הצלילים עולים ב-2–3dB; וריאציה קטנה בלי לשנות את המרווחים.',rec:1},{v:'open-only',t:'רק לתקן את "נפתח"'},{v:'keep',t:'להשאיר'}]},
+ {g:'מבנה היום'},
+ {id:'r5-breaks',t:'הצעת הפסקה',proto:'proto/day.html#bound',why:'הפרעה בגבול משימה עולה פחות מבאמצע <span class="ev">B</span>. לכן אין טיימר: שורה דקה רק בסוף חלק, ורק אם עבר הסף. הפסקות קצרות משפרות בעיקר את התחושה, לא את הביצוע בלמידה <span class="ev">A</span>, וזה מספיק כסיבה ביום של 9 שעות.',
+  opts:[{v:'boundary',t:'שורה בגבול חלק, אחרי הסף בדקות',d:'"עוד חלק אחד" משתיק עד הגבול הבא. שלוש דחיות ביום ואין עוד הצעות.',rec:1},{v:'two-parts',t:'שורה בסוף כל חלק שני',d:'בלי דקות בכלל. החלקים ארוכים, ו-75 דקות נופל לפעמים באמצע חלק.'},{v:'screen',t:'כמו למעלה, ועם מסך הפסקה',d:'מסך שקט עם שעון שסופר למעלה ו"היית ב:" בחזרה.'},{v:'none',t:'בלי הצעות'}],slider:{label:'הסף בדקות',min:45,max:120,step:5,val:75}},
+ {id:'r5-daysound',t:'הצליל מסמן את מבנה היום',why:'במקום טקסט "הגיע הזמן": בהפסקה רעש הספרייה דועך לשקט ב-2 שניות, וב"חזרתי" חוזר בעלייה של 3 שניות. בפתיחה הראשונה בבוקר הוא עולה מאפס, כמו כניסה לחדר. בסגירת היום אקורד יורד. אין צליל חדש <span class="ev">C</span>.',
+  opts:[{v:'on',t:'כן',rec:1},{v:'off',t:'לא'}]},
+ {id:'r5-morning',t:'פתיחת הבוקר',proto:'proto/day.html#warm',why:'שליפה של חומר מאתמול לפני חומר חדש היא מההשפעות החזקות בחקר הלמידה <span class="ev">A</span>. השאלות נכתבות בערב, אז הבוקר לא מחכה למודל.',
+  opts:[{v:'card2',t:'כרטיס אחד: איפה עצרת, 2 שאלות, הצעד שכתבת',d:'בלי "בוקר טוב": הכותרת היא מה שמחכה היום.',rec:1},{v:'card5',t:'חימום של 3–5 שאלות'},{v:'where',t:'רק "איפה עצרת"'},{v:'none',t:'כלום'}]},
+ {id:'r5-close',t:'סגירת היום',proto:'proto/day.html#close',why:'כתיבת צעד קונקרטי למשימה פתוחה מורידה מחשבות טורדניות <span class="ev">B, לא שוחזר</span>. הצוות האדום המליץ שזה יהיה כפתור בלבד, לא משהו שהאפליקציה מציעה.',
+  opts:[{v:'button',t:'כפתור "סגור את היום", בלי הצעה',rec:1},{v:'offer',t:'הצעה אחת אחרי 18:00'},{v:'none',t:'בלי'}]},
+ {id:'r5-clock',t:'שעון הסשן',why:'ספירה של זמן פעיל צריכה להתקיים כדי שהצעת ההפסקה תעבוד. השאלה היא אם לראות אותה.',
+  opts:[{v:'hidden',t:'נספר בשקט, לא מוצג',d:'מופיע רק במסך הסגירה.',rec:1},{v:'shown',t:'מספר אפור בשורה התחתונה'}]},
+ {g:'רגעים'},
+ {id:'r5-stamp',t:'סגירת מודול',proto:'proto/reading.html',why:'רגע אחד בשבוע או שבועיים. משוב "עסיסי" עוזר עד גבול, ואחריו מזיק <span class="ev">B</span>, ולכן: עובדות, בלי שבחים, בלי קונפטי, ורק פעם אחת ביום במלואו.',
+  opts:[{v:'stamp',t:'החותמת',d:'בלנצ\'סטר חותמת "אושר" על המפה, בגילואה הקו בשרטוט נעשה רציף. צליל חותמת ואקורד איטי.',rec:1},{v:'quiet',t:'רק החלון עם העובדות'},{v:'none',t:'בלי'}]},
+];
+
+const LS='ux5-board-v1';let state={};try{state=JSON.parse(localStorage.getItem(LS)||'{}')||{}}catch(e){state={}}
+const saveLocal=()=>{try{localStorage.setItem(LS,JSON.stringify(state))}catch(e){}};
+let col=null;const chains={};
+function setSync(s,t){const el=document.getElementById('sync');el.dataset.s=s;el.lastElementChild.textContent=t;
+ if(s!=='db')document.getElementById('foot').textContent='המסד לא זמין בתצוגה הזאת, ולכן הבחירות נשמרות רק בדפדפן הזה.'}
+async function persist(id){saveLocal();renderChips();if(!col)return;
+ const r=state[id];const body={choice:r.choice??null,label:r.label??null,note:r.note||'',at:r.at};if(r.value!=null)body.value=r.value;
+ chains[id]=(chains[id]||Promise.resolve()).then(()=>col.doc(id).set(body));
+ try{await chains[id];setSync('db','נשמר במסד')}catch(e){chains[id]=Promise.resolve();setSync('err','שגיאת שמירה, נשמר מקומית')}}
+(async()=>{if(!window.claude||typeof window.claude.use!=='function'){setSync('local','שמירה מקומית');return}
+ let db=null;try{db=await window.claude.use('db')}catch(e){}
+ if(!db){setSync('local','שמירה מקומית');return}
+ try{col=db.collection('ux5_choices');const slow=setTimeout(()=>setSync('local','המסד לא עונה, נשמר מקומית'),10000);
+  col.onSnapshot(snap=>{clearTimeout(slow);snap.docs.forEach(d=>{if(d.exists){const v=d.data();state[d.id]={choice:v.choice,label:v.label,note:v.note||'',at:v.at,value:v.value}}});saveLocal();applyAll();setSync('db','נשמר במסד')},
+   ()=>{clearTimeout(slow);setSync('err','המסד לא זמין, נשמר מקומית')})}catch(e){setSync('local','שמירה מקומית')}})();
+
+const qsEl=document.getElementById('qs');let n=0;
+QS.forEach(q=>{
+ if(q.g){const h=document.createElement('h3');h.className='group';h.textContent=q.g;qsEl.appendChild(h);return}
+ n++;q.n=n;
+ const s=document.createElement('section');s.className='q';s.id=q.id;
+ s.innerHTML=`<h2><span class="n">${String(n).padStart(2,'0')}</span>${q.t}</h2><p class="why">${q.why}</p>${q.proto?`<a class="proto" href="${q.proto}" target="_blank" rel="noopener">פתח את אב-הטיפוס ↗</a>`:''}
+ <div class="opts" role="radiogroup" aria-label="${q.t}">${q.opts.map((o,i)=>`<label class="opt"><input type="radio" name="${q.id}" id="${q.id}-${o.v}" value="${o.v}"><span class="t">${o.t}${o.rec?'<span class="tag">מומלץ</span>':''}</span>${o.d?`<span class="d">${o.d}</span>`:''}</label>`).join('')}</div>
+ ${q.slider?`<div class="slider"><label for="${q.id}-sl">${q.slider.label}</label><input type="range" id="${q.id}-sl" min="${q.slider.min}" max="${q.slider.max}" step="${q.slider.step}" value="${q.slider.val}"><output id="${q.id}-out">${q.slider.val}</output></div>`:''}
+ <div class="note"><label for="${q.id}-note">הערה (לא חובה)</label><textarea id="${q.id}-note" rows="1"></textarea></div><div class="saved" id="${q.id}-saved"></div>`;
+ qsEl.appendChild(s);
+ s.querySelectorAll('input[type=radio]').forEach(r=>r.addEventListener('change',()=>{const o=q.opts.find(x=>x.v===r.value);
+  state[q.id]={...(state[q.id]||{}),choice:o.v,label:o.t,at:new Date().toISOString()};if(q.slider)state[q.id].value=+document.getElementById(q.id+'-sl').value;mark(q.id);persist(q.id)}));
+ if(q.slider){const sl=document.getElementById(q.id+'-sl');sl.addEventListener('input',()=>document.getElementById(q.id+'-out').textContent=sl.value);
+  sl.addEventListener('change',()=>{state[q.id]={...(state[q.id]||{}),value:+sl.value,at:new Date().toISOString()};mark(q.id);persist(q.id)})}
+ const ta=document.getElementById(q.id+'-note');let tt=0;ta.addEventListener('input',()=>{clearTimeout(tt);tt=setTimeout(()=>{state[q.id]={...(state[q.id]||{}),note:ta.value,at:new Date().toISOString()};mark(q.id);persist(q.id)},700)});
+});
+function mark(id){const r=state[id];const el=document.getElementById(id+'-saved');if(!el)return;
+ el.textContent=r&&r.choice?`נבחר: ${r.label}`+(r.at?` · ${new Date(r.at).toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'})}`:''):''}
+function applyAll(){QS.filter(q=>q.id).forEach(q=>{const r=state[q.id];if(!r)return;
+ if(r.choice){const i=document.getElementById(`${q.id}-${r.choice}`);if(i)i.checked=true}
+ if(q.slider&&r.value!=null){document.getElementById(q.id+'-sl').value=r.value;document.getElementById(q.id+'-out').textContent=r.value}
+ const ta=document.getElementById(q.id+'-note');if(ta&&document.activeElement!==ta)ta.value=r.note||'';mark(q.id)});renderChips()}
+function renderChips(){const c=document.getElementById('chips');c.innerHTML=QS.filter(q=>q.id).map(q=>`<a href="#${q.id}" class="${state[q.id]?.choice?'done':''}" title="${q.t}">${q.n}</a>`).join('')}
+applyAll();
+document.querySelectorAll('[data-th]').forEach(b=>b.onclick=()=>{const v=b.dataset.th;document.querySelectorAll('[data-th]').forEach(x=>x.setAttribute('aria-pressed',x===b));
+ if(v==='auto')delete document.documentElement.dataset.theme;else document.documentElement.dataset.theme=v;try{localStorage.setItem('ux5-theme',v)}catch(e){}});
+try{const th=localStorage.getItem('ux5-theme');if(th&&th!=='auto')document.querySelector(`[data-th="${th}"]`).click()}catch(e){}
+</script>

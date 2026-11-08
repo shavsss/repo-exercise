@@ -1,0 +1,363 @@
+
+=== A_r90_full: N items 13609, course 800 d ===
+total explicit 2319 h, implicit hooks 474 h (during course 1725+390 h)
+min/item to 12 mo post-course: 12.3
+peak month explicit+hook min/day: 217
+last 90 course days: explicit 170 + hooks 39 min/day
+post m1-3: explicit 147 + hooks 17 min/day; lapses/day 9.4
+post m10-12: explicit 63 + hooks 12 min/day; lapses/day 4.2
+recall 180 d after learning: mean 0.959, 5th pct 0.905
+recall 365 d after learning: mean 0.957, 5th pct 0.910
+  tier K: 24.2 min/item to 12 mo post-course
+  tier S: 10.0 min/item to 12 mo post-course
+  tier C: 3.7 min/item to 12 mo post-course
+mean R over all learned items at course end: 0.957
+month | explicit min/d | hook min/d | explicit items/d | mean R
+   1 |     31 |     4 |    17 | 0.962
+   2 |     59 |    10 |    33 | 0.960
+   3 |     73 |    14 |    40 | 0.959
+   4 |     91 |    19 |    48 | 0.960
+   5 |    101 |    20 |    51 | 0.960
+   6 |    106 |    23 |    56 | 0.960
+   7 |    109 |    26 |    57 | 0.959
+  10 |    120 |    29 |    64 | 0.959
+  13 |    134 |    33 |    71 | 0.959
+  16 |    141 |    34 |    73 | 0.958
+  19 |    156 |    39 |    82 | 0.958
+  22 |    167 |    36 |    86 | 0.958
+  25 |    169 |    39 |    89 | 0.957
+  28 |    160 |    19 |    78 | 0.957
+  31 |    109 |    13 |    54 | 0.957
+  34 |     85 |    12 |    43 | 0.957
+  37 |     64 |    12 |    35 | 0.958
+
+=== A_r90_noencompass: N items 13609, course 800 d ===
+total explicit 2926 h, implicit hooks 0 h (during course 2261+0 h)
+min/item to 12 mo post-course: 12.9
+peak month explicit+hook min/day: 226
+last 90 course days: explicit 221 + hooks 0 min/day
+post m1-3: explicit 149 + hooks 0 min/day; lapses/day 7.9
+post m10-12: explicit 88 + hooks 0 min/day; lapses/day 4.3
+recall 180 d after learning: mean 0.949, 5th pct 0.905
+recall 365 d after learning: mean 0.943, 5th pct 0.913
+  tier K: 25.5 min/item to 12 mo post-course
+  tier S: 10.7 min/item to 12 mo post-course
+  tier C: 3.5 min/item to 12 mo post-course
+mean R over all learned items at course end: 0.954
+month | explicit min/d | hook min/d | explicit items/d | mean R
+   1 |     35 |     0 |    20 | 0.960
+   2 |     75 |     0 |    41 | 0.959
+   3 |     97 |     0 |    52 | 0.953
+   4 |    125 |     0 |    64 | 0.958
+   5 |    123 |     0 |    65 | 0.958
+   6 |    127 |     0 |    67 | 0.954
+   7 |    147 |     0 |    76 | 0.953
+  10 |    168 |     0 |    88 | 0.956
+  13 |    171 |     0 |    89 | 0.955
+  16 |    193 |     0 |   100 | 0.953
+  19 |    214 |     0 |   105 | 0.954
+  22 |    207 |     0 |   107 | 0.954
+  25 |    218 |     0 |   114 | 0.954
+  28 |    157 |     0 |    83 | 0.954
+  31 |    114 |     0 |    57 | 0.952
+  34 |     91 |     0 |    47 | 0.953
+  37 |     88 |     0 |    40 | 0.953
+
+=== A_r85_full: N items 13609, course 800 d ===
+total explicit 1783 h, implicit hooks 621 h (during course 1281+509 h)
+min/item to 12 mo post-course: 10.6
+peak month explicit+hook min/day: 190
+last 90 course days: explicit 137 + hooks 48 min/day
+post m1-3: explicit 118 + hooks 25 min/day; lapses/day 11.6
+post m10-12: explicit 57 + hooks 16 min/day; lapses/day 5.7
+recall 180 d after learning: mean 0.943, 5th pct 0.863
+recall 365 d after learning: mean 0.940, 5th pct 0.865
+  tier K: 20.4 min/item to 12 mo post-course
+  tier S: 9.0 min/item to 12 mo post-course
+  tier C: 3.2 min/item to 12 mo post-course
+mean R over all learned items at course end: 0.939
+month | explicit min/d | hook min/d | explicit items/d | mean R
+   1 |     21 |     6 |    11 | 0.949
+   2 |     39 |    15 |    22 | 0.944
+   3 |     55 |    17 |    28 | 0.945
+   4 |     65 |    23 |    32 | 0.945
+   5 |     68 |    25 |    35 | 0.945
+   6 |     75 |    32 |    39 | 0.945
+   7 |     84 |    35 |    41 | 0.945
+  10 |     86 |    42 |    44 | 0.944
+  13 |     97 |    45 |    50 | 0.944
+  16 |    105 |    42 |    54 | 0.943
+  19 |    115 |    44 |    56 | 0.942
+  22 |    125 |    47 |    62 | 0.942
+  25 |    133 |    47 |    65 | 0.940
+  28 |    124 |    27 |    58 | 0.938
+  31 |     90 |    20 |    43 | 0.938
+  34 |     72 |    14 |    36 | 0.941
+  37 |     62 |    15 |    28 | 0.942
+
+=== A_r95_full: N items 13609, course 800 d ===
+total explicit 4309 h, implicit hooks 54 h (during course 3339+52 h)
+min/item to 12 mo post-course: 19.2
+peak month explicit+hook min/day: 330
+last 90 course days: explicit 323 + hooks 4 min/day
+post m1-3: explicit 234 + hooks 0 min/day; lapses/day 6.9
+post m10-12: explicit 117 + hooks 0 min/day; lapses/day 3.2
+recall 180 d after learning: mean 0.970, 5th pct 0.953
+recall 365 d after learning: mean 0.978, 5th pct 0.957
+  tier K: 38.1 min/item to 12 mo post-course
+  tier S: 15.8 min/item to 12 mo post-course
+  tier C: 5.3 min/item to 12 mo post-course
+mean R over all learned items at course end: 0.977
+month | explicit min/d | hook min/d | explicit items/d | mean R
+   1 |     58 |     2 |    34 | 0.979
+   2 |    112 |     2 |    65 | 0.978
+   3 |    145 |     3 |    83 | 0.977
+   4 |    167 |     3 |    95 | 0.977
+   5 |    189 |     4 |   108 | 0.977
+   6 |    202 |     3 |   112 | 0.977
+   7 |    204 |     5 |   118 | 0.977
+  10 |    244 |     4 |   136 | 0.977
+  13 |    255 |     4 |   145 | 0.976
+  16 |    295 |     4 |   160 | 0.977
+  19 |    301 |     4 |   166 | 0.976
+  22 |    316 |     4 |   177 | 0.976
+  25 |    325 |     4 |   184 | 0.977
+  28 |    260 |     0 |   143 | 0.976
+  31 |    164 |     0 |    91 | 0.976
+  34 |    134 |     0 |    73 | 0.976
+  37 |    122 |     0 |    68 | 0.976
+
+=== B_r90_full: N items 13657, course 162 d ===
+total explicit 2059 h, implicit hooks 306 h (during course 929+193 h)
+min/item to 12 mo post-course: 10.4
+peak month explicit+hook min/day: 549
+last 90 course days: explicit 428 + hooks 96 min/day
+post m1-3: explicit 353 + hooks 22 min/day; lapses/day 22.0
+post m10-12: explicit 98 + hooks 16 min/day; lapses/day 6.7
+recall 180 d after learning: mean 0.954, 5th pct 0.905
+recall 365 d after learning: mean 0.957, 5th pct 0.910
+  tier K: 20.4 min/item to 12 mo post-course
+  tier S: 8.6 min/item to 12 mo post-course
+  tier C: 3.2 min/item to 12 mo post-course
+mean R over all learned items at course end: 0.959
+month | explicit min/d | hook min/d | explicit items/d | mean R
+   1 |    147 |    22 |    86 | 0.962
+   2 |    290 |    49 |   164 | 0.961
+   3 |    374 |    73 |   205 | 0.959
+   4 |    429 |    89 |   231 | 0.961
+   5 |    442 |   107 |   245 | 0.960
+   6 |    463 |    61 |   246 | 0.958
+   7 |    380 |    23 |   184 | 0.956
+  10 |    162 |    19 |    80 | 0.956
+  13 |    127 |    17 |    74 | 0.957
+  16 |    104 |    16 |    49 | 0.958
+
+=== A_r90_schema: N items 13609, course 800 d ===
+total explicit 1666 h, implicit hooks 414 h (during course 1201+340 h)
+min/item to 12 mo post-course: 9.2
+peak month explicit+hook min/day: 166
+last 90 course days: explicit 124 + hooks 32 min/day
+post m1-3: explicit 116 + hooks 16 min/day; lapses/day 7.6
+post m10-12: explicit 49 + hooks 11 min/day; lapses/day 3.5
+recall 180 d after learning: mean 0.961, 5th pct 0.905
+recall 365 d after learning: mean 0.957, 5th pct 0.913
+  tier K: 17.6 min/item to 12 mo post-course
+  tier S: 7.8 min/item to 12 mo post-course
+  tier C: 2.8 min/item to 12 mo post-course
+mean R over all learned items at course end: 0.958
+month | explicit min/d | hook min/d | explicit items/d | mean R
+   1 |     16 |     3 |    10 | 0.966
+   2 |     34 |    10 |    20 | 0.960
+   3 |     50 |    11 |    29 | 0.962
+   4 |     53 |    14 |    32 | 0.962
+   5 |     59 |    18 |    33 | 0.961
+   6 |     72 |    19 |    40 | 0.960
+   7 |     77 |    23 |    42 | 0.961
+  10 |     85 |    26 |    47 | 0.961
+  13 |     94 |    29 |    51 | 0.960
+  16 |    107 |    30 |    57 | 0.960
+  19 |     99 |    30 |    56 | 0.959
+  22 |    118 |    32 |    63 | 0.959
+  25 |    121 |    31 |    66 | 0.959
+  28 |    119 |    16 |    61 | 0.957
+  31 |     87 |    10 |    43 | 0.958
+  34 |     62 |    11 |    32 | 0.959
+  37 |     51 |    10 |    26 | 0.959
+
+=== A_r80_schema: N items 13609, course 800 d ===
+total explicit 1059 h, implicit hooks 599 h (during course 706+491 h)
+min/item to 12 mo post-course: 7.3
+peak month explicit+hook min/day: 129
+last 90 course days: explicit 80 + hooks 46 min/day
+post m1-3: explicit 72 + hooks 27 min/day; lapses/day 9.8
+post m10-12: explicit 46 + hooks 14 min/day; lapses/day 6.0
+recall 180 d after learning: mean 0.934, 5th pct 0.815
+recall 365 d after learning: mean 0.929, 5th pct 0.824
+  tier K: 13.7 min/item to 12 mo post-course
+  tier S: 6.4 min/item to 12 mo post-course
+  tier C: 2.3 min/item to 12 mo post-course
+mean R over all learned items at course end: 0.927
+month | explicit min/d | hook min/d | explicit items/d | mean R
+   1 |      2 |     5 |     2 | 0.944
+   2 |     22 |    13 |    12 | 0.934
+   3 |     26 |    19 |    14 | 0.937
+   4 |     30 |    22 |    16 | 0.938
+   5 |     38 |    28 |    17 | 0.936
+   6 |     36 |    31 |    19 | 0.934
+   7 |     40 |    30 |    21 | 0.934
+  10 |     47 |    40 |    24 | 0.936
+  13 |     58 |    39 |    29 | 0.935
+  16 |     59 |    46 |    30 | 0.933
+  19 |     60 |    45 |    31 | 0.932
+  22 |     70 |    47 |    35 | 0.929
+  25 |     83 |    43 |    39 | 0.928
+  28 |     80 |    32 |    37 | 0.926
+  31 |     66 |    18 |    29 | 0.921
+  34 |     54 |    15 |    27 | 0.924
+  37 |     50 |    14 |    24 | 0.925
+
+=== A_best: N items 13609, course 800 d ===
+total explicit 905 h, implicit hooks 508 h (during course 565+448 h)
+min/item to 12 mo post-course: 6.2
+peak month explicit+hook min/day: 106
+last 90 course days: explicit 62 + hooks 43 min/day
+post m1-3: explicit 76 + hooks 12 min/day; lapses/day 8.7
+post m10-12: explicit 38 + hooks 9 min/day; lapses/day 4.5
+recall 180 d after learning: mean 0.956, 5th pct 0.896
+recall 365 d after learning: mean 0.952, 5th pct 0.885
+  tier K: 12.0 min/item to 12 mo post-course
+  tier S: 5.3 min/item to 12 mo post-course
+  tier C: 1.8 min/item to 12 mo post-course
+mean R over all learned items at course end: 0.952
+month | explicit min/d | hook min/d | explicit items/d | mean R
+   1 |      6 |     5 |     4 | 0.962
+   2 |     14 |    10 |    11 | 0.956
+   3 |     24 |    19 |    16 | 0.957
+   4 |     27 |    21 |    19 | 0.957
+   5 |     29 |    24 |    20 | 0.958
+   6 |     33 |    28 |    22 | 0.958
+   7 |     34 |    26 |    23 | 0.958
+  10 |     39 |    37 |    27 | 0.957
+  13 |     43 |    37 |    30 | 0.957
+  16 |     46 |    40 |    33 | 0.956
+  19 |     51 |    44 |    36 | 0.954
+  22 |     57 |    42 |    40 | 0.954
+  25 |     62 |    44 |    44 | 0.953
+  28 |     76 |    11 |    49 | 0.948
+  31 |     62 |     9 |    43 | 0.946
+  34 |     51 |     9 |    35 | 0.949
+  37 |     41 |    10 |    28 | 0.951
+
+=== A_best_r90all: N items 13609, course 800 d ===
+total explicit 949 h, implicit hooks 481 h (during course 617+428 h)
+min/item to 12 mo post-course: 6.3
+peak month explicit+hook min/day: 106
+last 90 course days: explicit 67 + hooks 38 min/day
+post m1-3: explicit 76 + hooks 10 min/day; lapses/day 7.6
+post m10-12: explicit 37 + hooks 8 min/day; lapses/day 3.7
+recall 180 d after learning: mean 0.963, 5th pct 0.910
+recall 365 d after learning: mean 0.959, 5th pct 0.912
+  tier K: 11.7 min/item to 12 mo post-course
+  tier S: 5.6 min/item to 12 mo post-course
+  tier C: 2.0 min/item to 12 mo post-course
+mean R over all learned items at course end: 0.960
+month | explicit min/d | hook min/d | explicit items/d | mean R
+   1 |      8 |     4 |     7 | 0.968
+   2 |     18 |     9 |    17 | 0.962
+   3 |     25 |    18 |    23 | 0.964
+   4 |     27 |    21 |    25 | 0.964
+   5 |     31 |    25 |    26 | 0.964
+   6 |     34 |    27 |    29 | 0.963
+   7 |     38 |    26 |    33 | 0.963
+  10 |     39 |    33 |    35 | 0.963
+  13 |     47 |    34 |    42 | 0.963
+  16 |     51 |    37 |    44 | 0.962
+  19 |     60 |    42 |    49 | 0.961
+  22 |     61 |    39 |    54 | 0.961
+  25 |     64 |    38 |    55 | 0.961
+  28 |     76 |    11 |    62 | 0.957
+  31 |     64 |     7 |    50 | 0.958
+  34 |     50 |     9 |    36 | 0.959
+  37 |     39 |     8 |    28 | 0.959
+
+=== A_best_fsrsdefault: N items 13609, course 800 d ===
+total explicit 1257 h, implicit hooks 615 h (during course 849+548 h)
+min/item to 12 mo post-course: 8.3
+peak month explicit+hook min/day: 145
+last 90 course days: explicit 91 + hooks 51 min/day
+post m1-3: explicit 97 + hooks 14 min/day; lapses/day 10.8
+post m10-12: explicit 42 + hooks 9 min/day; lapses/day 5.1
+recall 180 d after learning: mean 0.953, 5th pct 0.883
+recall 365 d after learning: mean 0.949, 5th pct 0.874
+  tier K: 16.1 min/item to 12 mo post-course
+  tier S: 6.9 min/item to 12 mo post-course
+  tier C: 2.4 min/item to 12 mo post-course
+mean R over all learned items at course end: 0.950
+month | explicit min/d | hook min/d | explicit items/d | mean R
+   1 |     13 |     6 |    10 | 0.957
+   2 |     31 |    14 |    22 | 0.955
+   3 |     36 |    22 |    26 | 0.956
+   4 |     42 |    27 |    29 | 0.956
+   5 |     46 |    30 |    33 | 0.956
+   6 |     48 |    36 |    34 | 0.956
+   7 |     54 |    37 |    38 | 0.956
+  10 |     57 |    45 |    40 | 0.955
+  13 |     59 |    44 |    43 | 0.955
+  16 |     68 |    50 |    50 | 0.954
+  19 |     78 |    46 |    55 | 0.953
+  22 |     79 |    48 |    56 | 0.952
+  25 |     88 |    49 |    62 | 0.951
+  28 |    104 |    14 |    65 | 0.946
+  31 |     80 |    11 |    52 | 0.946
+  34 |     61 |    12 |    42 | 0.948
+  37 |     47 |     9 |    31 | 0.950
+
+=== B_best: N items 13657, course 162 d ===
+total explicit 869 h, implicit hooks 302 h (during course 264+225 h)
+min/item to 12 mo post-course: 5.1
+peak month explicit+hook min/day: 258
+last 90 course days: explicit 127 + hooks 110 min/day
+post m1-3: explicit 189 + hooks 16 min/day; lapses/day 20.5
+post m10-12: explicit 52 + hooks 10 min/day; lapses/day 5.6
+recall 180 d after learning: mean 0.950, 5th pct 0.876
+recall 365 d after learning: mean 0.947, 5th pct 0.885
+  tier K: 10.0 min/item to 12 mo post-course
+  tier S: 4.4 min/item to 12 mo post-course
+  tier C: 1.5 min/item to 12 mo post-course
+mean R over all learned items at course end: 0.958
+month | explicit min/d | hook min/d | explicit items/d | mean R
+   1 |     32 |    21 |    20 | 0.961
+   2 |     79 |    65 |    56 | 0.957
+   3 |    103 |    87 |    73 | 0.957
+   4 |    128 |   105 |    91 | 0.958
+   5 |    132 |   119 |    98 | 0.958
+   6 |    193 |    65 |   125 | 0.953
+   7 |    197 |    17 |   123 | 0.944
+  10 |     96 |    13 |    72 | 0.951
+  13 |     61 |    10 |    41 | 0.951
+  16 |     52 |     9 |    30 | 0.947
+
+=== B_r90_noencompass: N items 13657, course 162 d ===
+total explicit 2494 h, implicit hooks 0 h (during course 1233+0 h)
+min/item to 12 mo post-course: 11.0
+peak month explicit+hook min/day: 597
+last 90 course days: explicit 578 + hooks 0 min/day
+post m1-3: explicit 381 + hooks 0 min/day; lapses/day 19.8
+post m10-12: explicit 149 + hooks 0 min/day; lapses/day 6.5
+recall 180 d after learning: mean 0.949, 5th pct 0.905
+recall 365 d after learning: mean 0.943, 5th pct 0.910
+  tier K: 21.8 min/item to 12 mo post-course
+  tier S: 9.1 min/item to 12 mo post-course
+  tier C: 3.1 min/item to 12 mo post-course
+mean R over all learned items at course end: 0.955
+month | explicit min/d | hook min/d | explicit items/d | mean R
+   1 |    178 |     0 |    99 | 0.960
+   2 |    390 |     0 |   206 | 0.959
+   3 |    484 |     0 |   258 | 0.953
+   4 |    574 |     0 |   309 | 0.958
+   5 |    597 |     0 |   319 | 0.958
+   6 |    554 |     0 |   290 | 0.954
+   7 |    395 |     0 |   194 | 0.952
+  10 |    223 |     0 |   116 | 0.954
+  13 |     91 |     0 |    63 | 0.957
+  16 |    152 |     0 |    68 | 0.947

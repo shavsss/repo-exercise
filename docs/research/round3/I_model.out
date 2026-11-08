@@ -1,0 +1,89 @@
+=== I. Integrated model, N = 6000 ===
+
+[mode, all] months (8 h, no phone) 25.1; core reached at 18.0
+   lesson      1671 h
+   light        345 h
+   proj         220 h
+   ret_exp      678 h
+   ret_imp      445 h
+   exams         42 h
+   gross total 3402 h (hooks inside lessons not subtracted here: 223 h of the hook line is already in 'lesson')
+   gross min per raw page 8.38; EFH capacity used 3133 h; weeks D1-cap binding 2
+   seg Gc: lesson 5.00 min/new page, light 1.04 (consult 0.40), CR/page 0.129
+   seg Lc: lesson 4.27 min/new page, light 0.89 (consult 0.34), CR/page 0.110
+   seg Ga: lesson 5.19 min/new page, light 1.10 (consult 0.43), CR/page 0.137
+   seg La: lesson 4.01 min/new page, light 0.80 (consult 0.30), CR/page 0.098
+
+[mode, core] months (8 h, no phone) 18.4
+   lesson      1250 h
+   light        258 h
+   proj         211 h
+   ret_exp      443 h
+   ret_imp      306 h
+   exams         31 h
+   gross total 2499 h (hooks inside lessons not subtracted here: 153 h of the hook line is already in 'lesson')
+   gross min per raw page 8.23; EFH capacity used 2295 h; weeks D1-cap binding 2
+   seg Gc: lesson 5.00 min/new page, light 1.04 (consult 0.40), CR/page 0.129
+   seg Lc: lesson 4.27 min/new page, light 0.89 (consult 0.34), CR/page 0.110
+
+=== Monte Carlo: months to finish (8 h/day on R9 curve; "+1" = extra phone hour) ===
+EVERYTHING   8 h          : P10 21.8 / P50 28.1 / P90 36.3 months; P(<=6) 0.00  P(<=8) 0.00  P(<=10) 0.00  P(<=12) 0.00  P(<=15) 0.00
+EVERYTHING   8 h + 1 phone: P10 19.3 / P50 24.8 / P90 32.2 months; P(<=6) 0.00  P(<=8) 0.00  P(<=10) 0.00  P(<=12) 0.00  P(<=15) 0.00
+CORE of both 8 h          : P10 16.1 / P50 20.7 / P90 26.9 months; P(<=6) 0.00  P(<=8) 0.00  P(<=10) 0.00  P(<=12) 0.00  P(<=15) 0.05
+CORE of both 8 h + 1 phone: P10 14.5 / P50 18.4 / P90 24.1 months; P(<=6) 0.00  P(<=8) 0.00  P(<=10) 0.00  P(<=12) 0.01  P(<=15) 0.15
+
+Everything plan (core first), 8 h: share of ALL pages done by month 6: P50 24% (P10-P90 19-31); month 8: 32% (25-41); month 12: 46%
+   share of CORE done by month 6: 32% (25-41); month 8: 43% (33-54); month 10: 52%
+   core reached inside the everything plan: P50 20.3 months
+
+Everything plan (core first), 8 + 1: share of ALL pages done by month 6: P50 26% (P10-P90 20-34); month 8: 35% (27-45); month 12: 51%
+   share of CORE done by month 6: 35% (27-45); month 8: 47% (36-60); month 10: 57%
+   core reached inside the everything plan: P50 18.1 months
+
+=== What the fastest draws look like (everything, 8 + 1) ===
+fastest 5% (months 12.2-18.2): ffast_math=0.38, ffast_mil=0.61, wpm=153.58, repr=0.99, bias=0.85, pf=1.15, mem=0.40, cons_old=6.35, forge=2.63, notebook=2.24, lost=0.10, d1cap=4.42
+fastest 1% (months 12.2-16.1): ffast_math=0.37, ffast_mil=0.61, wpm=155.05, repr=0.96, bias=0.84, pf=1.21, mem=0.39, cons_old=6.41, forge=2.64, notebook=2.26, lost=0.10, d1cap=4.44
+median band (months 24.4-25.3): ffast_math=0.36, ffast_mil=0.60, wpm=149.10, repr=1.04, bias=0.87, pf=1.00, mem=0.45, cons_old=6.70, forge=2.72, notebook=2.42, lost=0.11, d1cap=4.42
+
+=== Tornado: everything, 8 + 1 phone, others at mode ===
+base at modes: 21.8 months
+  pf              P10 -> P90      25.5 ->  18.9   swing 6.7
+  repr           0.85 -> 1.3      19.8 ->  26.2   swing 6.4
+  bias           0.75 -> 1.0      19.5 ->  24.4   swing 4.8
+  wpm             110 -> 190      24.4 ->  20.0   swing 4.4
+  rubric          P10 -> P90      20.0 ->  24.1   swing 4.1
+  lost           0.05 -> 0.18     20.7 ->  24.1   swing 3.4
+  dedup          0.06 -> 0.2      23.5 ->  20.5   swing 3.0
+  topup           1.0 -> 1.2      21.2 ->  23.9   swing 2.8
+  forge             0 -> 6        20.9 ->  23.2   swing 2.3
+  slow_min         72 -> 89       20.9 ->  23.0   swing 2.1
+  mem               0 -> 1.0      21.2 ->  23.2   swing 2.1
+  items           0.8 -> 1.15     20.9 ->  22.8   swing 1.8
+  cons_old          2 -> 12       21.2 ->  23.0   swing 1.8
+  notebook        0.5 -> 5        21.4 ->  23.0   swing 1.6
+  hook_in         0.3 -> 0.7      22.5 ->  21.2   swing 1.4
+  ffast_math     0.15 -> 0.6      22.3 ->  21.2   swing 1.1
+
+=== Corners: everything / core at 8 + 1 ===
+  optimistic-plausible (fast path 60%/80%, 170 wpm, repr .9, mem .2, consult 4, forge 1.5, notebook 1, lost 6%, pf 1.1): everything 14.9, core 11.0 months
+  everything-at-best (all favourable ends at once): everything 6.7, core 4.8 months
+  lessons only (no consultation, forge, notebook, review, projects): everything 18.2, core 13.6
+  lessons only, everything favourable: everything 7.4, core 5.7
+
+=== Required: factor on ALL learner minutes per page (lesson, light, retention) at modes, 8 + 1 ===
+  all  <=  6 mo: all minutes x0.32 (all-in ~2.5 min/raw page, lessons ~1.3); without the D1 cap x0.32; lessons alone x0.05 (others at mode)
+  all  <=  8 mo: all minutes x0.40 (all-in ~3.2 min/raw page, lessons ~1.7); without the D1 cap x0.41; lessons alone x0.05 (others at mode)
+  all  <= 10 mo: all minutes x0.50 (all-in ~3.9 min/raw page, lessons ~2.0); without the D1 cap x0.50; lessons alone x0.15 (others at mode)
+  all  <= 12 mo: all minutes x0.59 (all-in ~4.6 min/raw page, lessons ~2.4); without the D1 cap x0.59; lessons alone x0.30 (others at mode)
+  [all] mode all-in net 7.83 min/raw page, lessons 4.12; maintenance at finish 139 min/day
+  core <=  6 mo: all minutes x0.41 (all-in ~3.2 min/raw page, lessons ~1.7); without the D1 cap x0.42; lessons alone x0.05 (others at mode)
+  core <=  8 mo: all minutes x0.52 (all-in ~4.1 min/raw page, lessons ~2.2); without the D1 cap x0.53; lessons alone x0.21 (others at mode)
+  core <= 10 mo: all minutes x0.65 (all-in ~5.0 min/raw page, lessons ~2.7); without the D1 cap x0.65; lessons alone x0.40 (others at mode)
+  core <= 12 mo: all minutes x0.77 (all-in ~5.9 min/raw page, lessons ~3.1); without the D1 cap x0.77; lessons alone x0.60 (others at mode)
+  [core] mode all-in net 7.72 min/raw page, lessons 4.12; maintenance at finish 127 min/day
+  MC all 8+1: review load at finish P50 123 min/day (P10-P90 96-149)
+  MC core 8+1: review load at finish P50 115 min/day (P10-P90 94-139)
+  no D1 cap, all 8+1: P10 19.3 / P50 24.8 / P90 32.2 months; P(<=6) 0.00  P(<=8) 0.00  P(<=10) 0.00  P(<=12) 0.00  P(<=15) 0.00
+  no D1 cap, core 8+1: P10 14.5 / P50 18.4 / P90 24.1 months; P(<=6) 0.00  P(<=8) 0.00  P(<=10) 0.00  P(<=12) 0.01  P(<=15) 0.15
+  strong individual (EFH 7.3), all 8+1: P10 16.8 / P50 20.5 / P90 25.5 months; P(<=6) 0.00  P(<=8) 0.00  P(<=10) 0.00  P(<=12) 0.00  P(<=15) 0.02
+  strong individual (EFH 7.3), core 8+1: P10 12.4 / P50 15.2 / P90 19.1 months; P(<=6) 0.00  P(<=8) 0.00  P(<=10) 0.00  P(<=12) 0.07  P(<=15) 0.48

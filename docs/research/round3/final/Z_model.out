@@ -1,0 +1,22 @@
+scenario | everything 8+1 P10/P50/P90 | core 8+1 P10/P50/P90 | mode, 8 h: lesson, explicit+hook hours
+F as published (I curves, R10 tier mix) | 23.5 / 28.5 / 35.4 | 18.9 / 23.0 / 28.7 | L 1692  ret 1135+ 723 h
+P0 clean age-based curves, R10 mix (method check) | 22.8 / 27.8 / 34.5 | 18.2 / 22.5 / 28.1 | L 1691  ret 1045+ 670 h
+P0 F tier mix, all tiers r=.90 | 20.5 / 25.1 / 31.5 | 16.6 / 20.5 / 25.8 | L 1691  ret  780+ 399 h
+P1 F tier mix, C floor .75 | 20.0 / 24.6 / 31.0 | 16.3 / 20.0 / 25.5 | L 1691  ret  668+ 458 h
+P2 F tier mix, C use-only | 19.8 / 24.6 / 30.8 | 16.1 / 20.0 / 25.3 | L 1691  ret  588+ 529 h
+P3 F tier mix, C use-only + S via keystone .85 | 19.5 / 24.1 / 30.6 | 15.9 / 19.8 / 25.1 | L 1691  ret  511+ 547 h
+P4 F tier mix, C use-only + S .80 | 19.3 / 24.1 / 30.4 | 15.9 / 19.8 / 25.1 | L 1691  ret  465+ 564 h
+P5 F tier mix, S via keystone .85 + C floor .75 | 19.5 / 24.4 / 30.6 | 15.9 / 19.8 / 25.1 | L 1691  ret  592+ 478 h
+
+-- lesson levers, each alone, on P5 --
+B1 reading speed practice (wpm 145->160 mode, 115-200) | 19.1 / 23.7 / 29.9 | 15.6 / 19.3 / 24.6 | L 1605  ret  587+ 477 h
+B2 worked-example fading on CR part (x0.95, 0.90-1.0) | 18.9 / 23.5 / 29.7 | 15.4 / 19.1 / 24.4 | L 1607  ret  586+ 477 h
+B3 tables/diagrams for structure units (x0.97) | 19.3 / 23.9 / 30.1 | 15.6 / 19.3 / 24.6 | L 1641  ret  587+ 477 h
+B4 pretest fast path grows (math .35->.42, mil .60->.65) | 19.3 / 24.1 / 30.4 | 15.9 / 19.5 / 24.8 | L 1665  ret  590+ 478 h
+B5 phone pre-read of narrative + C glossary (preq 1.5->6 min/lesson) | 19.3 / 23.9 / 29.9 | 15.6 / 19.3 / 24.4 | L 1691  ret  592+ 478 h
+B6 nap / two dense blocks (D1 cap +0.5 h) | 19.5 / 24.3 / 30.6 | 15.9 / 19.8 / 25.1 | L 1691  ret  592+ 479 h
+
+-- combined best defensible plan: P5 + B1 + B2 + B3 + B4 + B5 (not B6) --
+BEST (P5 + B1..B5) | 17.9 / 21.8 / 27.6 | 14.5 / 17.9 / 22.5 | L 1455  ret  571+ 470 h
+BEST, levers at low end | 18.9 / 23.5 / 29.4 | 15.4 / 19.1 / 24.1 | L 1603  ret  587+ 477 h
+BEST + pilot confirms schema memory (mem mode .4->.2) | 17.5 / 21.6 / 27.1 | 14.3 / 17.5 / 22.1 | L 1455  ret  510+ 446 h

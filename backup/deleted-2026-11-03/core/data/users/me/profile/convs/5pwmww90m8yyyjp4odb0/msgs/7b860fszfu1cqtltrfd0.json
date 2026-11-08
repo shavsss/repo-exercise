@@ -1,0 +1,1426 @@
+{
+  "activity": [
+    {
+      "doc": "B10",
+      "from": 22,
+      "ok": true,
+      "t": "read",
+      "to": 22
+    },
+    {
+      "doc": "B03",
+      "from": 92,
+      "ok": true,
+      "t": "read",
+      "to": 92
+    },
+    {
+      "ok": false,
+      "output": "c = 299792458  →  2.99792458e+8\nr3 = 3e8/c  →  1.00069228559\nrelerr_pct = (r3-1)*100  →  0.0692285594456\nerr100km_m = 100000*(r3-1)  →  69.2285594456\nn_air = 1.0003  →  1.0003\nerr100km_air_m = 100000*(n_air*r3-1)  →  99.2493280135\nmu0 = 1.25663706212e-6  →  1.25663706212e-6\neps0 = 8.8541878128e-12  →  8.8541878128e-12\nc_me = 1/sqrt(mu0*eps0)  →  2.99792458e+8\nZ0 = mu0*c  →  376.730313667\nZ0b = sqrt(mu0/eps0)  →  376.730313667\nf3cm = 3e8/0.03  →  1e+10\nlam = [3e6,30e6,300e6,1e9,2e9,4e9,8e9,12e9,18e9,27e9,40e9,75e9,110e9,300e9]  →  [3e+6, 3e+7, 3e+8, 1e+9, 2e+9, 4e+9, 8e+9, 1.2e+10, 1.8e+10, 2.7e+10, 4e+10, 7.5e+10, 1.1e+11, 3e+11]\nlam_cm = 100*3e8 ./ lam  →  [10000, 1000, 100, 30, 15, 7.5, 3.75, 2.5, 1.66666666667, 1.11111111111, 0.75, 0.4, 0.272727272727, 0.1]\new = [30e6,250e6,500e6,1e9,2e9,3e9,4e9,6e9,8e9,10e9,20e9,40e9,60e9,100e9]  →  [3e+7, 2.5e+8, 5e+8, 1e+9, 2e+9, 3e+9, 4e+9, 6e+9, 8e+9, 1e+10, 2e+10, 4e+10, 6e+10, 1e+11]\new_cm = 100*3e8 ./ ew  →  [1000, 120, 60, 30, 15, 10, 7.5, 5, 3.75, 3, 1.5, 0.75, 0.5, 0.3]\ndeg_per_rad = 180/pi  →  57.2957795131\napprox60_err_pct = (60/deg_per_rad-1)*100  →  4.71975511966\ndt50_ps = (50/360)/10e9*1e12  →  13.8888888889\ndz50_mm = (50/360)*0.03*1000  →  4.16666666667\nnf10G_mm = 0.03/(2*pi)*1000  →  4.77464829276\nnf3M_m = 100/(2*pi)  →  15.9154943092\nnf150M_m = 2/(2*pi)  →  0.318309886184\nratio10lam_dB = 20*log10(1/(20*pi))  →  -35.9635973672\nve = 1.602176634e-19*1/(9.1093837e-31*2*pi*1e9)  →  27.9924898769\nv_over_c = ve/c  →  9.33728955815e-8\np8_16 = 2.7/0.3  →  9\np8_32 = 2.7/1.2  →  2.25\na16_dB = 20*log10(1/3)  →  -9.54242509439\na32_dB = 20*log10(2/3)  →  -3.52182518111\npow16_dB = 10*log10(0.3/2.7)  →  -9.54242509439\nN_X = pi*0.35^2/(0.015^2)  →  1710.42266695\nN_X_06 = pi*0.35^2/((0.6*0.03)^2)  →  1187.79351872\nN_S = pi*0.35^2/(0.05^2)  →  153.938040026\nD_for_1676 = 2*sqrt(1676*0.015^2/pi)  →  0.692920365063\nlamL1 = c/1575.42e6  →  0.190293672798\nlamL2 = c/1227.60e6  →  0.244210213425\ndeg1_L1_mm = lamL1/360*1000  →  0.528593535551\nchip_m = c/1.023e6  →  293.052256109\nchip_over_lam = chip_m/lamL1  →  1540\niono_L1_m = 40.3*50e16/1575.42e6^2  →  8.1186223756\niono_L2_m = 40.3*50e16/1227.60e6^2  →  13.370920018\ndphi30 = 180*sin(30*pi/180)  →  90\ndth_broad_deg = (10/180)*deg_per_rad  →  3.18309886184\ndth_30_deg = dth_broad_deg/cos(30*pi/180)  →  3.67552596948\ns = [(30/360-2)/2,(30/360-1)/2,(30/360)/2,(30/360+1)/2]  →  [-0.958333333333, -0.458333333333, 0.0416666666667, 0.541666666667]\namb_deg = asin(s)*180/pi  →  ERROR: Function 'asin' doesn't apply to matrices. To call it elementwise on a matrix 'M', try 'map(M, asin)'.\nlam_coax_m = 0.66*0.3  →  0.198\nphase_coax_deg = 360/lam_coax_m  →  1818.18181818\nphase_air_deg = 360/0.3  →  1200\nsonar_lam = 1500/10e3  →  0.15\nf_opt_THz = 3e8/0.5e-6/1e12  →  600\nf_lwir_THz = 3e8/10e-6/1e12  →  30\ndeg1_opt_nm = 0.5e-6/360*1e9  →  1.38888888889\nweber_err_pct = (3.1074e8/c-1)*100  →  3.65170694187\nlam24 = 3e8/2.4e9*100  →  12.5\nlam58 = 3e8/5.8e9*100  →  5.1724137931\ncell1us = 3e8*1e-6/2  →  150\nT10G_ps = 1/10e9*1e12  →  100",
+      "script": "c = 299792458\nr3 = 3e8/c\nrelerr_pct = (r3-1)*100\nerr100km_m = 100000*(r3-1)\nn_air = 1.0003\nerr100km_air_m = 100000*(n_air*r3-1)\nmu0 = 1.25663706212e-6\neps0 = 8.8541878128e-12\nc_me = 1/sqrt(mu0*eps0)\nZ0 = mu0*c\nZ0b = sqrt(mu0/eps0)\nf3cm = 3e8/0.03\nlam = [3e6,30e6,300e6,1e9,2e9,4e9,8e9,12e9,18e9,27e9,40e9,75e9,110e9,300e9]\nlam_cm = 100*3e8 ./ lam\new = [30e6,250e6,500e6,1e9,2e9,3e9,4e9,6e9,8e9,10e9,20e9,40e9,60e9,100e9]\new_cm = 100*3e8 ./ ew\ndeg_per_rad = 180/pi\napprox60_err_pct = (60/deg_per_rad-1)*100\ndt50_ps = (50/360)/10e9*1e12\ndz50_mm = (50/360)*0.03*1000\nnf10G_mm = 0.03/(2*pi)*1000\nnf3M_m = 100/(2*pi)\nnf150M_m = 2/(2*pi)\nratio10lam_dB = 20*log10(1/(20*pi))\nve = 1.602176634e-19*1/(9.1093837e-31*2*pi*1e9)\nv_over_c = ve/c\np8_16 = 2.7/0.3\np8_32 = 2.7/1.2\na16_dB = 20*log10(1/3)\na32_dB = 20*log10(2/3)\npow16_dB = 10*log10(0.3/2.7)\nN_X = pi*0.35^2/(0.015^2)\nN_X_06 = pi*0.35^2/((0.6*0.03)^2)\nN_S = pi*0.35^2/(0.05^2)\nD_for_1676 = 2*sqrt(1676*0.015^2/pi)\nlamL1 = c/1575.42e6\nlamL2 = c/1227.60e6\ndeg1_L1_mm = lamL1/360*1000\nchip_m = c/1.023e6\nchip_over_lam = chip_m/lamL1\niono_L1_m = 40.3*50e16/1575.42e6^2\niono_L2_m = 40.3*50e16/1227.60e6^2\ndphi30 = 180*sin(30*pi/180)\ndth_broad_deg = (10/180)*deg_per_rad\ndth_30_deg = dth_broad_deg/cos(30*pi/180)\ns = [(30/360-2)/2,(30/360-1)/2,(30/360)/2,(30/360+1)/2]\namb_deg = asin(s)*180/pi\nlam_coax_m = 0.66*0.3\nphase_coax_deg = 360/lam_coax_m\nphase_air_deg = 360/0.3\nsonar_lam = 1500/10e3\nf_opt_THz = 3e8/0.5e-6/1e12\nf_lwir_THz = 3e8/10e-6/1e12\ndeg1_opt_nm = 0.5e-6/360*1e9\nweber_err_pct = (3.1074e8/c-1)*100\nlam24 = 3e8/2.4e9*100\nlam58 = 3e8/5.8e9*100\ncell1us = 3e8*1e-6/2\nT10G_ps = 1/10e9*1e12",
+      "t": "compute"
+    },
+    {
+      "ok": true,
+      "output": "amb = map([-0.958333333333, -0.458333333333, 0.0416666666667, 0.541666666667], asin)*180/pi  →  [-73.4021578641, -27.279612736, 2.38801546327, 32.7971682958]\nB_for_1Vm_nT = 1/299792458*1e9  →  3.33564095198\ndphi_gz = 360*cos(60*pi/180)*1  →  180\ncos2avg = 0.5  →  0.5\neff_dB = 10*log10(2)  →  3.01029995664\nkink_ratio_at_10lam = 1/(2*pi*10)  →  0.0159154943092\nN_X_tri = 1710.42*sqrt(3)/2  →  1481.26717114\nphase_rel_100kmcycles = 100000/0.03  →  3.33333333333e+6\nns_to_cm = 3e8*1e-9*100  →  30\nlam_P18_m = 3e8/170e6  →  1.76470588235",
+      "script": "amb = map([-0.958333333333, -0.458333333333, 0.0416666666667, 0.541666666667], asin)*180/pi\nB_for_1Vm_nT = 1/299792458*1e9\ndphi_gz = 360*cos(60*pi/180)*1\ncos2avg = 0.5\neff_dB = 10*log10(2)\nkink_ratio_at_10lam = 1/(2*pi*10)\nN_X_tri = 1710.42*sqrt(3)/2\nphase_rel_100kmcycles = 100000/0.03\nns_to_cm = 3e8*1e-9*100\nlam_P18_m = 3e8/170e6",
+      "t": "compute"
+    },
+    {
+      "ok": true,
+      "output": "lam24 = 3e8/2.4e9  →  0.125\nk24 = 2*pi/lam24  →  50.2654824574\ndphi_ok_deg = k24*0.1*sin(20*pi/180)*180/pi  →  98.5018012778\ndphi_bad_deg = k24*0.1*sin(20)*180/pi  →  262.92823221\nratioL1L2sq = (1575.42/1227.60)^2  →  1.64694444444\nhalf18_mm = 3e8/18e9/2*1000  →  8.33333333333\nd_over_lam_at2 = 0.008333/(3e8/2e9)  →  0.0555533333333\nph = 1 + 0.5*exp(i*120*pi/180)  →  0.75 + 0.433012701892i\nabs(ph)  →  0.866025403784\narg(ph)*180/pi  →  30\nd_unamb60 = 1/(2*sin(60*pi/180))  →  0.57735026919\nd_unamb60_cm_10G = d_unamb60*3  →  1.73205080757\nhf10G_eV = 6.62607015e-34*10e9/1.602176634e-19  →  4.13566769692e-5\nhf05um_eV = 6.62607015e-34*(3e8/0.5e-6)/1.602176634e-19  →  2.48140061815\nkT_eV = 1.380649e-23*290/1.602176634e-19  →  0.0249902664602\nlam13 = 3e8/1.3e9  →  0.230769230769\nlam35 = 3e8/35e9  →  0.00857142857143\nlam150 = 3e8/150e6  →  2\ncm_1pct_L1_mm = 0.01*0.190293672798*1000  →  1.90293672798\ncode_1pct_m = 0.01*293.052256109  →  2.93052256109\ndphi_X_um = 0.03/360*1e6  →  83.3333333333",
+      "script": "lam24 = 3e8/2.4e9\nk24 = 2*pi/lam24\ndphi_ok_deg = k24*0.1*sin(20*pi/180)*180/pi\ndphi_bad_deg = k24*0.1*sin(20)*180/pi\nratioL1L2sq = (1575.42/1227.60)^2\nhalf18_mm = 3e8/18e9/2*1000\nd_over_lam_at2 = 0.008333/(3e8/2e9)\nph = 1 + 0.5*exp(i*120*pi/180)\nabs(ph)\narg(ph)*180/pi\nd_unamb60 = 1/(2*sin(60*pi/180))\nd_unamb60_cm_10G = d_unamb60*3\nhf10G_eV = 6.62607015e-34*10e9/1.602176634e-19\nhf05um_eV = 6.62607015e-34*(3e8/0.5e-6)/1.602176634e-19\nkT_eV = 1.380649e-23*290/1.602176634e-19\nlam13 = 3e8/1.3e9\nlam35 = 3e8/35e9\nlam150 = 3e8/150e6\ncm_1pct_L1_mm = 0.01*0.190293672798*1000\ncode_1pct_m = 0.01*293.052256109\ndphi_X_um = 0.03/360*1e6",
+      "t": "compute"
+    }
+  ],
+  "interrupted": true,
+  "mode": "lesson",
+  "partsChars": 0,
+  "partsDone": 0,
+  "plan": {
+    "anchors": [
+      {
+        "id": "A1",
+        "text": "Accelerating charges radiate: Faraday + Ampère–Maxwell let the E and B fields regenerate each other, so the radiated field falls as 1/R (not 1/R²), is transverse (E ⊥ B ⊥ propagation), travels at 1/√(μ0ε0) = c, and has E = cB"
+      },
+      {
+        "id": "A2",
+        "text": "Time and frequency domains are equivalent descriptions; a periodic wave is a sum of harmonics; line power ∝ amplitude², so amplitude ratios are square roots of power ratios (B10: 2.7:0.3:1.2 in power → 3:1:2 in amplitude)"
+      }
+    ],
+    "authority": [
+      {
+        "for": "R1",
+        "slot": "S1",
+        "text": "Non-dispersive medium assumed: λf = c holds only if speed is independent of f; in the ionosphere the group delay ∝ 1/f² (8.1 m at L1, 13.4 m at L2 for 50 TECU). The law λf = v stays; the value c fails",
+        "unit": "U32",
+        "verdict": "keep"
+      },
+      {
+        "for": "R1",
+        "slot": "S1",
+        "text": "Infinite monochromatic plane wave: a real source gives a spherical 1/R wave, locally plane only in the far field; a finite pulse has bandwidth",
+        "unit": "U35",
+        "verdict": "keep"
+      },
+      {
+        "for": "R1",
+        "slot": "S1",
+        "text": "Classical field picture: valid while the photon energy hf ≪ kT (10 GHz: 4.1e-5 eV vs kT 0.025 eV); breaks in the optical band (2.48 eV at 0.5 µm), where detectors count photons",
+        "unit": "U36",
+        "verdict": "keep"
+      },
+      {
+        "for": "R1",
+        "slot": "S2",
+        "text": "c = 3e8 vs 299,792,458: +0.069% → 69 m bias at 100 km radar range; in air (n≈1.0003) 99 m; compare with a 150 m range cell for a 1 µs pulse",
+        "unit": "U31",
+        "verdict": "keep"
+      },
+      {
+        "for": "R1",
+        "slot": "S2",
+        "text": "Mental rules λ[m] = 300/f[MHz], λ[cm] = 30/f[GHz]; 1 ns ↔ 30 cm; a 10 GHz period is 100 ps",
+        "unit": "U30",
+        "verdict": "keep"
+      },
+      {
+        "for": "R1",
+        "slot": "S3",
+        "text": "Any shape f(z − vt) is a traveling wave; the constant-phase point gives v = ω/k = λf, and the sign of ωt sets the direction",
+        "unit": "U28",
+        "verdict": "keep"
+      },
+      {
+        "for": "R1",
+        "slot": "S3",
+        "text": "The speed emerges from two electrical constants, 1/√(μ0ε0), measured with capacitors and coils: Maxwell's identification of light",
+        "unit": "U15",
+        "verdict": "keep"
+      },
+      {
+        "for": "R1",
+        "slot": "S4",
+        "text": "λ sets the physical scale of the whole system: element size and spacing (~λ/2), aperture per beam, timing. Choosing a band means choosing λ",
+        "unit": "U40",
+        "verdict": "keep"
+      },
+      {
+        "for": "R1",
+        "slot": "S4",
+        "text": "Borrowed structure (sonar): the same wave form holds for sound with c = 1500 m/s (10 kHz → 15 cm, the same λ as 2 GHz radio); the structure holds and only the medium constants change",
+        "unit": "U45",
+        "verdict": "keep"
+      },
+      {
+        "for": "R1",
+        "slot": "S5",
+        "text": "Fighter-nose AESA: D≈0.7 m [estimate] at X band with λ/2 spacing → 1710 elements; at S band 154; published APG-81 ≈1,676 T/R modules [medium certainty] → back-solved D = 0.693 m",
+        "unit": "U41",
+        "verdict": "keep"
+      },
+      {
+        "for": "R1",
+        "slot": "S5",
+        "text": "VHF surveillance radar at 170 MHz (λ = 1.76 m) needs very large antennas",
+        "verdict": "layer",
+        "why": "its meaning (beamwidth λ/D) is owned by lesson 3 / M1; mentioned in one clause of U40"
+      },
+      {
+        "for": "R1",
+        "slot": "S6",
+        "text": "Using the free-space λ in coax (velocity factor 0.66): a 1 m cable at 1 GHz is 1818° of phase, not 1200°, which breaks phase matching",
+        "unit": "U43",
+        "verdict": "keep"
+      },
+      {
+        "for": "R1",
+        "slot": "S6",
+        "text": "Letter-band ambiguity: EW 'C' = 0.5–1 GHz vs radar 'C' = 4–8 GHz; similar clashes for K and L",
+        "unit": "U39",
+        "verdict": "keep"
+      },
+      {
+        "for": "R1",
+        "slot": "S6",
+        "text": "ω vs f (factor 2π), MHz vs GHz (factor 1000)",
+        "verdict": "layer",
+        "why": "not a separate exam question; it enters the exercises and the errorhunt (degree/radian slip) instead"
+      },
+      {
+        "for": "R2",
+        "slot": "S1",
+        "text": "Phase is known only modulo 2π: with a baseline d > λ/2 there are several directions; d = 2λ and a measured 30° give 4 directions (−73.4°, −27.3°, 2.4°, 32.8°); the same issue is the GPS integer ambiguity",
+        "unit": "U64",
+        "verdict": "keep"
+      },
+      {
+        "for": "R2",
+        "slot": "S1",
+        "text": "Phasors add only at the same frequency; with different f the relative phase rotates at Δω (a beat), the seed of Doppler",
+        "unit": "U68",
+        "verdict": "keep"
+      },
+      {
+        "for": "R2",
+        "slot": "S1",
+        "text": "Superposition needs a linear medium and linear devices; it fails in a saturated front end (intermodulation) and is exploited in a mixer",
+        "unit": "U67",
+        "verdict": "keep"
+      },
+      {
+        "for": "R2",
+        "slot": "S1",
+        "text": "Phasor for a non-steady signal: narrowband (slowly varying envelope) approximation",
+        "unit": "U69",
+        "verdict": "keep"
+      },
+      {
+        "for": "R2",
+        "slot": "S2",
+        "text": "Angle sensitivity δθ = δφ/(k d cosθ): 10° of phase error at d = λ/2 → 3.18° at broadside and 3.68° at 30°, growing toward endfire",
+        "unit": "U63",
+        "verdict": "keep"
+      },
+      {
+        "for": "R2",
+        "slot": "S2",
+        "text": "1° of phase = λ/360: 83 µm at 10 GHz, 0.53 mm at GPS L1, 1.39 nm at 0.5 µm",
+        "unit": "U70",
+        "verdict": "keep"
+      },
+      {
+        "for": "R2",
+        "slot": "S3",
+        "text": "Rotating arrow: a cosine is the projection of a rotating phasor; same-frequency sums are vector sums, the result is again a sinusoid at that frequency, and the time factor drops out",
+        "unit": "U56",
+        "verdict": "keep"
+      },
+      {
+        "for": "R2",
+        "slot": "S3",
+        "text": "Multiplying complex numbers multiplies magnitudes and adds angles, so a delay or path is multiplication by e^{jΔφ}",
+        "unit": "U54",
+        "verdict": "keep"
+      },
+      {
+        "for": "R2",
+        "slot": "S4",
+        "text": "Relative phase across space gives angle (arrays, interferometers), across time gives velocity (Doppler, M2), across frequency gives range; it needs a coherent reference",
+        "unit": "U72",
+        "verdict": "keep"
+      },
+      {
+        "for": "R2",
+        "slot": "S4",
+        "text": "Coherent sum of equal in-phase waves gives +6 dB, incoherent +3 dB",
+        "verdict": "layer",
+        "why": "owned by lesson 2 (B03 4.2 coherence, eq. 4.12)"
+      },
+      {
+        "for": "R2",
+        "slot": "S5",
+        "text": "GPS carrier phase: λL1 = 19.03 cm; C/A chip 293 m = 1540 λ; 1% of a cycle = 1.9 mm vs 1% of a chip = 2.93 m; integer ambiguity; RTK ≈ 1 cm + 1 ppm",
+        "unit": "U71",
+        "verdict": "keep"
+      },
+      {
+        "for": "R2",
+        "slot": "S5",
+        "text": "Wideband EW interferometer 2–18 GHz: a λ/2 baseline at 18 GHz (8.33 mm) is only 0.056 λ at 2 GHz, about 9× poorer phase sensitivity → several baselines",
+        "unit": "U73",
+        "verdict": "keep"
+      },
+      {
+        "for": "R2",
+        "slot": "S6",
+        "text": "Sign-convention clash: B02 cos(kz−ωt+φ) (+φ = later peak at fixed z), B10 (+ = advanced), Driggers cos(2πνt−φ) with e^{jkz}; mixing them mirrors a steering angle",
+        "unit": "U51",
+        "verdict": "keep"
+      },
+      {
+        "for": "R2",
+        "slot": "S6",
+        "text": "Calculator in degree mode vs radians inside sin: 98.5° becomes 262.9°",
+        "unit": "U82",
+        "verdict": "keep"
+      },
+      {
+        "for": "R2",
+        "slot": "S6",
+        "text": "Adding powers when phasors should be added",
+        "verdict": "layer",
+        "why": "owned by lesson 2 (interference/coherence)"
+      },
+      {
+        "for": "A1",
+        "slot": "S3",
+        "text": "Energy conservation: power through a sphere ∝ E²·4πR² is constant only if E ∝ 1/R; this is S = ERP/4πR² from M0.1",
+        "unit": "U11",
+        "verdict": "keep"
+      },
+      {
+        "for": "A1",
+        "slot": "S2",
+        "text": "Near-field terms relative to the radiation term ~1/(kR); crossover at R = λ/2π: 4.77 mm at 10 GHz, 15.9 m at 3 MHz; at 10λ −36 dB",
+        "unit": "U13",
+        "verdict": "keep"
+      },
+      {
+        "for": "A1",
+        "slot": "S2",
+        "text": "Magnetic/electric force on a charge in a wave = v/c; an electron in 1 V/m at 1 GHz: v ≈ 28 m/s, v/c ≈ 9.3e-8 → receivers sense E",
+        "unit": "U6",
+        "verdict": "keep"
+      },
+      {
+        "for": "A2",
+        "slot": "S6",
+        "text": "Reading a power spectrum as amplitude (9:1:4 instead of 3:1:2) or taking 10 log of an amplitude",
+        "unit": "U79",
+        "verdict": "keep"
+      },
+      {
+        "for": "A2",
+        "slot": "S2",
+        "text": "dB consistency: power 0.3/2.7 → −9.54 dB = 20 log(1/3); 32 Hz line −3.52 dB",
+        "unit": "U78",
+        "verdict": "keep"
+      },
+      {
+        "for": "A2",
+        "slot": "S3",
+        "text": "A power spectrum discards phase: the same three tones with different phases give different time waveforms and the same spectrum",
+        "unit": "U81",
+        "verdict": "keep"
+      }
+    ],
+    "checks": [
+      "Erratum B02:931: '(∇) is the gradient of a vector'; ∇² in (A.3) is the Laplacian (sum of second spatial derivatives)",
+      "Erratum B02:46: 'E = 0 when x = t = 0' should read z = t = 0; OCR 'φ = ±π 2' = ±π/2 (cos φ = 0 ⇒ φ = ±π/2, checked)",
+      "B02:42 OCR 'c  3 × 1o°' = c ≈ 3×10⁸ m/s; B02:46 figure label 'Δf/w' = φ/ω",
+      "B10:16–17 OCR: '3600' = 360°, '600' = 60°, '00' = 0°; B10:18 'wavelength of frequency' = 'or frequency'; B10:13 'comes form' = 'from'",
+      "B02 Fig 1-2 text: 'E along y, B along x, propagation along z by the right-hand rule'. Since ŷ×x̂ = −ẑ, at an instant with E = +y, B points along −x; check the drawn axes in the figure image before commenting, and present it as a sign statement, not as an error unless the figure is left-handed",
+      "B10 calls fλ = c 'the dispersion relationship': imprecise (fλ = v always; dispersion = v(f)); taught as CRT U34",
+      "B10 Fig 1-8 y-axis 'Power density (Watts/Hz)' for discrete lines; the ratios still hold (9:1:4 power ↔ 3:1:2 amplitude, checked)",
+      "Sign conventions differ: B02 cos(kz−ωt+φ) (+φ ⇒ later peak at fixed z), B10 (+ = advanced), Driggers cos(2πνt−φ) with e^{jkz} and the u* in (4.3); verified that Re{u* e^{j2πνt}} = a cos(2πνt − φ)",
+      "Driggers uses E for irradiance and 'k is the propagation vector, k = 2π/λ' (vector vs magnitude); z12 means z2 − z1",
+      "Figure B03:92:0 (Fig 4.3, direction cosines) lies on a lesson-2 page; it is shown here because direction cosines are taught here, so lesson 2 should not re-show it",
+      "Published AESA element counts and aperture sizes carry medium/low certainty; state the model as an estimate",
+      "Ionospheric delay uses 40.3·TEC/f² (group delay); TEC of 50 TECU is a typical daytime value [ודאות: בינונית]",
+      "Hertz's specific wavelengths and frequencies are not stated as numbers (certainty low); Poincaré's √2 correction [ודאות: בינונית]"
+    ],
+    "facts": [
+      "c exact 299,792,458 m/s; 3e8 is +0.0692% high (computed)",
+      "Range bias from c = 3e8 at 100 km: 69.2 m in vacuum; 99.2 m if air n = 1.0003 (computed)",
+      "1/√(μ0ε0) with μ0 = 1.25663706212e-6, ε0 = 8.8541878128e-12 → 2.99792458e8 m/s (computed)",
+      "Z0 = μ0c = √(μ0/ε0) = 376.73 Ω (computed)",
+      "E = 1 V/m ↔ B = 3.34 nT (computed)",
+      "λ = 3 cm → f = 10 GHz; a 10 GHz period is 100 ps; 1 ns ↔ 30 cm; 1 µs ↔ 150 m of range (computed)",
+      "Radar band λ edges (cm): HF 10000–1000, VHF 1000–100, UHF 100–30, L 30–15, S 15–7.5, C 7.5–3.75, X 3.75–2.5, Ku 2.5–1.67, K 1.67–1.11, Ka 1.11–0.75, V 0.75–0.4, W 0.4–0.273, mm 0.3–0.1 (computed, c = 3e8)",
+      "EW band edges λ (cm): 30 MHz 1000, 250 MHz 120, 500 MHz 60, 1 GHz 30, 2 GHz 15, 3 GHz 10, 4 GHz 7.5, 6 GHz 5, 8 GHz 3.75, 10 GHz 3, 20 GHz 1.5, 40 GHz 0.75, 60 GHz 0.5, 100 GHz 0.3 (computed)",
+      "1 rad = 57.2958°; the 60° shortcut is 4.72% high (computed)",
+      "Phase 50° at 10 GHz = 13.9 ps time offset = 4.17 mm path (computed)",
+      "Near-field crossover λ/2π: 4.77 mm at 10 GHz, 15.9 m at 3 MHz, 0.318 m at 150 MHz; at 10λ the 1/R² term is 1.59% = −36.0 dB (computed)",
+      "Electron in 1 V/m at 1 GHz: peak v = 28.0 m/s, v/c = 9.34e-8 (computed)",
+      "B10 spectrum: 2.7/0.3 = 9 → 3:1; 2.7/1.2 = 2.25 → 1.5 = 3:2; amplitudes 3:1:2; 16 Hz line −9.54 dB, 32 Hz −3.52 dB (computed)",
+      "AESA, 0.7 m circular aperture: λ/2 spacing at 10 GHz → 1710 elements; 0.6λ spacing → 1188; S band (10 cm) → 154; 1,676 elements ⇒ D = 0.693 m (computed); APG-81 ≈1,676 T/R modules [ודאות: בינונית]; aperture diameter estimated [ודאות: נמוכה]",
+      "GPS: λL1 = 0.19029 m, λL2 = 0.24421 m; 1° at L1 = 0.529 mm; C/A chip = 293.05 m = 1540 λL1; 1% of a cycle = 1.90 mm vs 1% of a chip = 2.93 m (computed)",
+      "Ionospheric group delay at 50 TECU: L1 8.12 m, L2 13.37 m; ratio (f1/f2)² = 1.647 (computed)",
+      "Interferometer d = λ/2, θ = 30° → Δφ = 90°; a 10° phase error → 3.18° at broadside, 3.68° at 30° (computed)",
+      "d = 2λ, measured 30° → candidate directions −73.4°, −27.3°, 2.4°, 32.8° (computed)",
+      "Unambiguous ±60°: d < 0.577λ = 1.73 cm at 10 GHz (computed)",
+      "2–18 GHz: λ/2 at 18 GHz = 8.33 mm = 0.056 λ at 2 GHz (computed)",
+      "1° of phase: 83.3 µm at 10 GHz, 1.39 nm at 0.5 µm (computed)",
+      "Coax VF 0.66 at 1 GHz: λ = 0.198 m; 1 m = 1818° vs 1200° in free space (computed)",
+      "Sonar 10 kHz, 1500 m/s → 0.15 m; 0.5 µm → 600 THz; 10 µm → 30 THz; 170 MHz → 1.76 m; 2.4 GHz 12.5 cm, 5.8 GHz 5.17 cm; 1.3 GHz 23.1 cm; 35 GHz 8.57 mm (computed)",
+      "hf: 10 GHz 4.14e-5 eV; 0.5 µm 2.48 eV; kT at 290 K 0.0250 eV (computed)",
+      "Phasor sum 1∠0° + 0.5∠120° = 0.75 + j0.433 = 0.866∠30° (computed)",
+      "Errorhunt: 2.4 GHz, d = 0.1 m, θ = 20°: correct Δφ = 98.5°; with sin(20 rad) → 262.9° (computed)",
+      "Weber–Kohlrausch-based speed ≈3.107e8 m/s, 3.65% above c [ודאות: בינונית] (computed difference)"
+    ],
+    "figures": [
+      "B02:43:0",
+      "B10:13:0",
+      "B10:14:0",
+      "B10:15:0",
+      "B02:43:1",
+      "B02:44:0",
+      "B02:42:0",
+      "B10:18:0",
+      "B02:45:0",
+      "B02:46:0",
+      "B10:15:1",
+      "B10:17:0",
+      "B03:91:0",
+      "B03:92:0",
+      "B03:89:0",
+      "B10:20:0",
+      "B10:20:1"
+    ],
+    "layers": [
+      "B02:42 four interference types (noise, clutter, EMI, jamming): B02 section 1.2, not assigned; taught in M2 (radar) and M4 (EW)",
+      "B02:42 Fig 1-1 receiver blocks (T/R switch, LNA, mixer, IF): only the transmit→target→receive timing context is used here; the chain is taught in M2",
+      "B02:44 FCC/ITU coordination: half a sentence inside U38",
+      "B03:89 diffraction-limited telescopes and the Hubble paragraph: lesson 3 (diffraction)",
+      "B03:89 polarization types (linear, circular, random): lesson 2 (1.3.3 Polarization)",
+      "B10:13 ocean wave energy from wind and gravity: caption-level only, used inside U22",
+      "Coherent (+6 dB) vs incoherent (+3 dB) sum and eq. 4.10–4.12: lesson 2 (coherence)",
+      "Beamwidth λ/D, grating lobes and the λ/2 spacing rule's derivation: lesson 3 and M1 (one fieldmap line)",
+      "Formal derivative definition: deferred, with the curvature intuition used in U16"
+    ],
+    "next": "Lesson 2: intensity and the Poynting flux for spherical vs plane waves (B02 1.3.2), polarization (linear, circular, the loss from mismatch), interference of two waves as a phasor sum (B10 Propagation of Waves/Basic Phenomena) and coherence (B03 4.2): coherent +6 dB vs incoherent +3 dB, and when a system is linear in field or in irradiance.",
+    "parts": [
+      {
+        "blocks": [
+          "plan",
+          "story",
+          "history",
+          "definition:vector+dot",
+          "definition:cross",
+          "definition:Lorentz",
+          "think:U11",
+          "refresh:S=ERP/4πR² (M0.1 L2) and Z0 (M0.1 L3)",
+          "scene3d:custom EM plane wave E(y),B(x) perpendicular, propagating +z",
+          "figure:B02:43:0",
+          "verify:c and Z0 from μ0, ε0",
+          "domain:ew (U21)",
+          "erratum"
+        ],
+        "covers": "plan block; story: Hertz in Karlsruhe 1886–88 (standing waves, measured λ × computed f ≈ c, wire-grid polarization test; Poincaré's √2 correction to the computed frequency). Problem/why-hard/idea paragraphs (in M0.1 we used ERP/4πR², E⊥B and |E|/|B| = c as given; now we derive them). History block on Maxwell 1861–65. Tool-building: vectors, dot product (flux), cross product (right-hand rule), each in a definition block before use. Lorentz force (A.1) B02:930 with the v/c ratio. Table A-1 in words, Table A-2 integral form explained as flux/circulation (B02:930–931). Displacement current step. Radiation from an accelerating charge: 1/R² vs 1/R (B02:930–931), energy-conservation proof, kink/sinθ, near-field crossover λ/2π vs 2D²/λ. Wave equations (A.3), c = 1/√(μ0ε0) with compute (A.2); substitution step with a curvature intuition for the second derivative (formal derivative deferred, said explicitly). Transversality from Gauss; TEM and Fig 1-2 (B02:42–43) with the sign check E +y → B −x; E = cB from Faraday on a small loop; Z0 = 376.73 Ω closing the M0.1 promise; footnote B vs H (B02:42). Erratum at the end of the section: ∇² is the Laplacian, not a gradient (B02:931); OCR 'c 3×1o°' (B02:42); 'a electromagnetic' (B02:930).",
+        "estimate": 630,
+        "l25": [],
+        "title": "מטען שמאיץ מקרין: משוואות מקסוול, כוח לורנץ והגל הניצב",
+        "units": [
+          "U1",
+          "U2",
+          "U3",
+          "U4",
+          "U5",
+          "U6",
+          "U7",
+          "U8",
+          "U9",
+          "U10",
+          "U11",
+          "U12",
+          "U13",
+          "U14",
+          "U15",
+          "U16",
+          "U17",
+          "U18",
+          "U19",
+          "U20",
+          "U21"
+        ]
+      },
+      {
+        "blocks": [
+          "figure:B10:13:0",
+          "definition:wave",
+          "definition:radian",
+          "figure:B10:14:0",
+          "figure:B10:15:0",
+          "formula:R1 traveling wave",
+          "figure:B02:43:1",
+          "figure:B02:44:0",
+          "anim:snapshot vs fixed point, crest moving at ω/k",
+          "predict:U31 (69.2 m)",
+          "figure:B02:42:0",
+          "think:U32",
+          "figure:B10:18:0",
+          "table:radar and EW bands with computed λ",
+          "figure:B02:45:0",
+          "predict:U41 (1710)",
+          "casestudy:fighter-nose AESA element count",
+          "verify:AESA count",
+          "domain:radar",
+          "domain:naval",
+          "domain:nav",
+          "fieldmap:R1",
+          "erratum"
+        ],
+        "covers": "Wave as a moving disturbance (B10:13, Fig 1-1); radians (B10:17); amplitude/wavelength (B10:14–15, Figs 1-2, 1-3). R1 formula block E = E0 cos(kz − ωt + φ) (B02:43, A.4 at B02:931 taught once). Derivation: t fixed → λ, k (Fig 1-3 B02:43); z fixed → T0, f, ω (Fig 1-4 B02:44); constant-phase point → v = ω/k, direction (B10:18); λf = c and 3 cm → 10 GHz (B02:44). Anim: a snapshot in z vs a fixed-point trace in t. Mental rules. Predict + QNT: c = 3e8 vs exact, radar ranging R = cΔT/2 with Fig 1-1 (B02:42). ASM: the non-dispersive assumption, think question, ionosphere; dispersion and the prism (B10:18, Fig 1-6), CRT on the 'dispersion relationship' wording; LIM plane/monochromatic; LIM photon vs field. Bands: Table 1-1, Fig 1-5 (B02:45), a computed table of wavelengths per band, ITU slices (B02:44), Table 1-2 EW bands (B02:46), CRT on the letter clash. OPS: λ as system scale; predict + casestudy AESA element count with verify; TRD; CRT coax velocity factor. Domains: radar (ranging), naval (sonar λ), nav (dual-frequency ionosphere). Fieldmap for R1. Erratum at the end: B10:16–17 OCR '3600' = 360°, '600' = 60°, '00' = 0°; B10:18 'wavelength of frequency' = 'or'; B10:13 'form' = 'from'.",
+        "estimate": 750,
+        "l25": [
+          "מבנה",
+          "מקור",
+          "גבולות",
+          "סדר גודל",
+          "פשרה",
+          "משמעות מבצעית",
+          "ביקורת"
+        ],
+        "title": "הגל הנע: אורך גל, תדר, λf = c, פסי תדר וקנה המידה של המערכת",
+        "units": [
+          "U22",
+          "U23",
+          "U24",
+          "U25",
+          "U26",
+          "U27",
+          "U28",
+          "U29",
+          "U30",
+          "U31",
+          "U32",
+          "U33",
+          "U34",
+          "U35",
+          "U36",
+          "U37",
+          "U38",
+          "U39",
+          "U40",
+          "U41",
+          "U42",
+          "U43",
+          "U44",
+          "U45",
+          "U46"
+        ]
+      },
+      {
+        "blocks": [
+          "figure:B02:46:0",
+          "figure:B10:15:1",
+          "definition:phase",
+          "figure:B10:17:0",
+          "history:Euler 1748 / Steinmetz 1893",
+          "definition:complex number",
+          "definition:phasor",
+          "anim:rotating phasors 1∠0 and 0.5∠120°, projections and sum",
+          "refresh:effective vs peak field, 3.01 dB (M0.1 L3)",
+          "domain:eoir",
+          "figure:B03:91:0",
+          "refresh:dot product (part 1)",
+          "figure:B03:92:0",
+          "formula:R2 general plane wave and Δφ = kγΔz",
+          "figure:B03:89:0",
+          "think:U64",
+          "definition:superposition",
+          "predict:U70 (0.53 mm)",
+          "casestudy:GPS L1 carrier phase vs code",
+          "verify:GPS phase numbers",
+          "domain:ew",
+          "fieldmap:R2",
+          "erratum"
+        ],
+        "covers": "Phase: total and initial phase, k as spatial frequency (B02:44, 46); absolute vs relative phase (B10:15–16, Fig 1-4 B10:15); relative-phase mechanisms and Fig 1-6 with φ/ω (B02:46); B10 sign convention, Fig 1-5 (B10:17); CRT on the three conventions (B02/B10/Driggers). History block Euler/Steinmetz; complex numbers and Euler's formula as a definition; multiplication adds angles; phasor definition (Driggers 4.1–4.3, B03:90) with its conjugate convention; anim of rotating phasors and their sum; time average ½|u|² (4.4) with a refresh of E_eff/3.01 dB from M0.1; eoir domain. Wavefronts and plane wave Ae^{jkz} (4.5, Fig 4.2 B03:91), refresh of the dot product from part 1, general direction and direction cosines (4.7, 4.8; Fig 4.3 at B03:92 shown here), R2 formula block Δφ = kγΔz (4.6a/b) → k d sinθ, (4.9a/b) with Fig 4.1 (B03:89). QNT angle sensitivity; ASM mod 2π with think; TRD baseline. Superposition definition (1.3.1.4, B02:46) with linearity/same-frequency ASMs and the narrowband LIM. OOM via predict (GPS 1°), casestudy GPS carrier phase with verify, OPS, ew domain (wideband interferometer). Fieldmap for R2. Erratum at the end: B02:46 'x = t = 0' should be z = t = 0, OCR '±π 2' = ±π/2, figure label 'Δf/w' = φ/ω; Driggers uses E for irradiance (clash with the E field), 'k is the propagation vector, k = 2π/λ' mixes the vector and its magnitude, 'z12' = z2 − z1.",
+        "estimate": 810,
+        "l25": [
+          "מבנה",
+          "מקור",
+          "גבולות",
+          "סדר גודל",
+          "פשרה",
+          "משמעות מבצעית",
+          "ביקורת"
+        ],
+        "title": "פאזה, מספרים מרוכבים ופאזור: הפרש פאזה בין נקודות וסופרפוזיציה",
+        "units": [
+          "U47",
+          "U48",
+          "U49",
+          "U50",
+          "U51",
+          "U52",
+          "U53",
+          "U54",
+          "U55",
+          "U56",
+          "U57",
+          "U58",
+          "U59",
+          "U60",
+          "U61",
+          "U62",
+          "U63",
+          "U64",
+          "U65",
+          "U66",
+          "U67",
+          "U68",
+          "U69",
+          "U70",
+          "U71",
+          "U72",
+          "U73"
+        ]
+      },
+      {
+        "blocks": [
+          "definition:time/frequency domain",
+          "figure:B10:20:0",
+          "figure:B10:20:1",
+          "chart:three-tone waveform",
+          "errorhunt:U82",
+          "erratum",
+          "keep",
+          "exercise×4",
+          "lab",
+          "verify (in lab)",
+          "fieldsystems",
+          "coverage"
+        ],
+        "covers": "Time vs frequency domain (B10:19) in a definition block; the 8 Hz cosine, Fig 1-7 (B10:20); the three-tone wave, Fig 1-8 (B10:20) and its derivation 2.7:0.3 = 9 → 3:1, 2.7:1.2 = 2.25 → 3:2, total 3:1:2 (B10:21); dB consistency; CRT power-as-amplitude; CRT on the density label; power spectrum discards phase (bridge to M0.3 Fourier). Chart of 3cos(2π·8t) + cos(2π·16t) + 2cos(2π·32t). Errorhunt (degrees vs radians in the phase difference). Erratum: B10 Fig 1-8 axis 'power density (W/Hz)' for discrete lines. Then: keep block; exercises: (1) mental λ at 150 MHz / 1.3 GHz / 35 GHz, then compute; (2) phasor sum 1∠0° + 0.5∠120° = 0.866∠30°; (3) design an unambiguous ±60° baseline (0.577λ = 1.73 cm at 10 GHz) and its 10° phase-error angle error; (4) find the error in the band-letter spec. Lab (NumPy/SciPy/Matplotlib, 60–90 min, P0: the teacher drafts the spec and the learner completes it): band λ table; synthesize the B10 three-tone signal, FFT, recover 9:1:4 power and 3:1:2 amplitude, Parseval; phasor vs time-domain sum; ambiguity list for d = 2λ; verify block inside. Fieldsystems: GaN X-band AESAs, multi-frequency GNSS RTK, spectrum pressure (the 2022 C-band 5G vs 4.2–4.4 GHz radio-altimeter case), with the controlling parameters λ and phase precision. Coverage block with the unit count; sentence about lesson 2.",
+        "estimate": 270,
+        "l25": [
+          "ביקורת"
+        ],
+        "title": "תחום הזמן ותחום התדר, וסיכום: הרמוניות, הספק מול משרעת",
+        "units": [
+          "U74",
+          "U75",
+          "U76",
+          "U77",
+          "U78",
+          "U79",
+          "U80",
+          "U81",
+          "U82"
+        ]
+      }
+    ],
+    "results": [
+      {
+        "id": "R1",
+        "text": "The traveling plane wave E = E0 cos(kz − ωt + φ), with k = 2π/λ, ω = 2πf, phase speed v = ω/k, and λf = c in vacuum (λf = c/n in a medium)",
+        "thread": "Given a carrier frequency, what physical length scale (wavelength) and time scale does the wave impose on every antenna, cable, timing and ranging calculation, and how far can the vacuum value c be trusted?"
+      },
+      {
+        "id": "R2",
+        "text": "Phase and the phasor: complex amplitude u = a·e^{jφ}; a plane wave in a general direction u = A·e^{jk(γx x+γy y+γz z)}; path-induced phase difference Δφ = kγΔz (across a baseline d: Δφ = k d sinθ); same-frequency superposition is the complex sum of phasors",
+        "thread": "How do we calculate what two receivers, two paths or two waves of the same frequency produce together, and how precisely can a measured phase difference give angle or distance?"
+      }
+    ],
+    "split": null,
+    "title": "הגל האלקטרומגנטי: ממשוואות מקסוול לגל נע, אורך גל, תדר, פאזה ופאזור",
+    "units": [
+      {
+        "id": "U1",
+        "part": 1,
+        "q": "Hertz measured λ and computed f. What does an error in f do to the inferred speed, and what independent check catches it?",
+        "r": "A1",
+        "src": "auth",
+        "text": "Hertz 1886–88: standing-wave λ × computed LC frequency ≈ c; √2 frequency-calculation error",
+        "tier": "key",
+        "type": "HIS"
+      },
+      {
+        "id": "U2",
+        "part": 1,
+        "q": "Why was a speed computed from capacitor and coil measurements evidence that light is an electromagnetic wave?",
+        "r": "A1",
+        "src": "auth",
+        "text": "Maxwell 1861–65: displacement current; 1/√(μ0ε0) from bench constants ≈ speed of light",
+        "tier": "sup",
+        "type": "HIS"
+      },
+      {
+        "id": "U3",
+        "part": 1,
+        "q": "Define the dot product and explain why only the field component normal to the surface counts in the flux.",
+        "r": "A1",
+        "src": "B02:931",
+        "text": "Vector, components, dot product as projection; flux uses E·dA",
+        "tier": "key",
+        "type": "DEF"
+      },
+      {
+        "id": "U4",
+        "part": 1,
+        "q": "Give the magnitude and direction of a×b; what is ŷ×x̂?",
+        "r": "A1",
+        "src": "B02:930",
+        "text": "Cross product: magnitude |a||b|sinθ, direction by the right-hand rule",
+        "tier": "sup",
+        "type": "DEF"
+      },
+      {
+        "id": "U5",
+        "part": 1,
+        "q": "Write the Lorentz force, define every symbol, and say which term does no work and why.",
+        "r": "A1",
+        "src": "B02:930",
+        "text": "Lorentz force F = q(E + v×B) defines the fields by their force",
+        "tier": "key",
+        "type": "DEF"
+      },
+      {
+        "id": "U6",
+        "part": 1,
+        "q": "Estimate the magnetic-to-electric force ratio on an electron in a 1 V/m, 1 GHz wave. Why do we track only E?",
+        "r": "A1",
+        "src": "auth",
+        "text": "In a wave F_mag/F_el = v/c ≈ 1e-7: receivers sense E",
+        "tier": "sup",
+        "type": "QNT"
+      },
+      {
+        "id": "U7",
+        "part": 1,
+        "q": "State the four laws in words and which pair couples E and B in time.",
+        "r": "A1",
+        "src": "B02:930",
+        "text": "Maxwell's four laws in words (Table A-1)",
+        "tier": "key",
+        "type": "RES"
+      },
+      {
+        "id": "U8",
+        "part": 1,
+        "q": "Define flux and circulation in words and give the law that uses each.",
+        "r": "A1",
+        "src": "B02:931",
+        "text": "Flux through a closed surface; circulation around a loop (Table A-2)",
+        "tier": "sup",
+        "type": "DEF"
+      },
+      {
+        "id": "U9",
+        "part": 1,
+        "q": "At which step is Maxwell's term needed, and what inconsistency appears without it?",
+        "r": "A1",
+        "src": "auth",
+        "text": "Displacement current fixes Ampère's law for a charging capacitor",
+        "tier": "key",
+        "type": "STEP"
+      },
+      {
+        "id": "U10",
+        "part": 1,
+        "q": "Why does the mutual regeneration of E and B change the decay law from 1/R² to 1/R?",
+        "r": "A1",
+        "src": "B02:930",
+        "text": "Gauss+Ampère alone: fields ∝ 1/R²; with induction terms: radiated fields ∝ 1/R",
+        "tier": "key",
+        "type": "RES"
+      },
+      {
+        "id": "U11",
+        "part": 1,
+        "q": "Prove with power flow that a radiated field must fall as 1/R. What would 1/R² imply at 10 km vs 1 km?",
+        "r": "A1",
+        "src": "auth",
+        "text": "Energy flow through a sphere forces E ∝ 1/R; this is ERP/4πR²",
+        "tier": "key",
+        "type": "STR"
+      },
+      {
+        "id": "U12",
+        "part": 1,
+        "q": "Why doesn't a DC current radiate, and in which direction does an oscillating charge not radiate?",
+        "r": "A1",
+        "src": "auth",
+        "text": "Acceleration, not velocity, radiates; transverse kink ∝ a·sinθ/R; no radiation along the axis",
+        "tier": "sup",
+        "type": "STR"
+      },
+      {
+        "id": "U13",
+        "part": 1,
+        "q": "Estimate where the near-field terms equal the radiation term at HF and at X band; how small is the near-field term at 10λ?",
+        "r": "A1",
+        "src": "auth",
+        "text": "Near-field/radiation crossover at R = λ/2π: 4.77 mm at 10 GHz, 15.9 m at 3 MHz",
+        "tier": "key",
+        "type": "QNT"
+      },
+      {
+        "id": "U14",
+        "part": 1,
+        "q": "A 3 m dish at 10 GHz: which far-field distance governs a pattern measurement and why?",
+        "r": "A1",
+        "src": "auth",
+        "text": "λ/2π (source physics) vs 2D²/λ (aperture phase): different far-field criteria",
+        "tier": "sup",
+        "type": "LIM"
+      },
+      {
+        "id": "U15",
+        "part": 1,
+        "q": "What do the vacuum wave equations predict for the speed, and from which constants?",
+        "r": "A1",
+        "src": "B02:931",
+        "text": "Free-space wave equations (A.3); speed 1/√(μ0ε0) = 299,792,458 m/s",
+        "tier": "key",
+        "type": "RES"
+      },
+      {
+        "id": "U16",
+        "part": 1,
+        "q": "Show why a cosine satisfies the wave equation only if ω/k = c.",
+        "r": "A1",
+        "src": "auth",
+        "text": "Substituting cos(kz−ωt): curvature k² vs ω²μ0ε0 → ω/k = c",
+        "tier": "sup",
+        "type": "STEP"
+      },
+      {
+        "id": "U17",
+        "part": 1,
+        "q": "Using the flux through a box, why can't a vacuum plane wave have an E component along its propagation direction?",
+        "r": "A1",
+        "src": "auth",
+        "text": "Gauss's law on a thin box forbids a longitudinal E in a vacuum plane wave",
+        "tier": "sup",
+        "type": "STEP"
+      },
+      {
+        "id": "U18",
+        "part": 1,
+        "q": "With E along +y and propagation along +z, in which direction is B at that instant? Check it with E×B.",
+        "r": "A1",
+        "src": "B02:43",
+        "text": "TEM: E ⊥ B ⊥ v; E×B along v; E +ŷ ⇒ B −x̂ for +z",
+        "tier": "key",
+        "type": "STR"
+      },
+      {
+        "id": "U19",
+        "part": 1,
+        "q": "Derive E0 = cB0. At which step does 'the pattern moves at c without changing shape' enter?",
+        "r": "A1",
+        "src": "auth",
+        "text": "E = cB from Faraday on a small loop plus the traveling-pattern condition",
+        "tier": "key",
+        "type": "STEP"
+      },
+      {
+        "id": "U20",
+        "part": 1,
+        "q": "Derive Z0 from E = cB and H = B/μ0, and give its value.",
+        "r": "A1",
+        "src": "B02:42",
+        "text": "Z0 = E/H = μ0c = √(μ0/ε0) = 376.73 Ω; B vs H; 1 V/m ↔ 3.34 nT",
+        "tier": "sup",
+        "type": "RES"
+      },
+      {
+        "id": "U21",
+        "part": 1,
+        "q": "How does the 1/R field law explain the one-way 20 log R of an EW receiver measuring dBµV/m?",
+        "r": "A1",
+        "src": "auth",
+        "text": "EW listener's 20 log R is exactly the 1/R radiated field",
+        "tier": "sup",
+        "type": "MAP"
+      },
+      {
+        "id": "U22",
+        "part": 2,
+        "q": "Define a wave and propagation; what carries the information?",
+        "r": "R1",
+        "src": "B10:13",
+        "text": "Wave: a disturbance moving while keeping its shape, carrying information in its parameters",
+        "tier": "key",
+        "type": "DEF"
+      },
+      {
+        "id": "U23",
+        "part": 2,
+        "q": "Define the radian and convert 1 rad; what error does the 60° shortcut carry?",
+        "r": "R1",
+        "src": "B10:17",
+        "text": "Radian = arc/radius; 2π rad = 360°; 57.3°/rad; ≈60° is 4.7% high",
+        "tier": "key",
+        "type": "DEF"
+      },
+      {
+        "id": "U24",
+        "part": 2,
+        "q": "For B10's example, read off the amplitude and wavelength and explain why the amplitude is 0.5.",
+        "r": "R1",
+        "src": "B10:14",
+        "text": "Sinusoid parameters: amplitude (half of peak-to-peak), wavelength (Figs 1-2, 1-3)",
+        "tier": "key",
+        "type": "DEF"
+      },
+      {
+        "id": "U25",
+        "part": 2,
+        "q": "Write the traveling-wave expression, define every symbol, and give the conditions under which it holds.",
+        "r": "R1",
+        "src": "B02:43",
+        "text": "E = E0 cos(kz − ωt + φ), k = 2π/λ, ω = 2πf",
+        "tier": "key",
+        "type": "RES"
+      },
+      {
+        "id": "U26",
+        "part": 2,
+        "q": "Derive k = 2π/λ from the snapshot view.",
+        "r": "R1",
+        "src": "B02:43",
+        "text": "t fixed: the cosine repeats when kz advances 2π → k = 2π/λ (Fig 1-3)",
+        "tier": "key",
+        "type": "STEP"
+      },
+      {
+        "id": "U27",
+        "part": 2,
+        "q": "Derive ω = 2πf from the fixed-point view.",
+        "r": "R1",
+        "src": "B02:44",
+        "text": "z fixed: period T0, f = 1/T0, ω = 2π/T0 (Fig 1-4)",
+        "tier": "key",
+        "type": "STEP"
+      },
+      {
+        "id": "U28",
+        "part": 2,
+        "q": "Which way does cos(kz + ωt) travel? Derive its speed.",
+        "r": "R1",
+        "src": "B10:18",
+        "text": "Constant phase kz − ωt = const ⇒ v = ω/k = λf; sign sets direction",
+        "tier": "key",
+        "type": "STR"
+      },
+      {
+        "id": "U29",
+        "part": 2,
+        "q": "Derive λf = c from v = ω/k and compute f for λ = 3 cm.",
+        "r": "R1",
+        "src": "B02:44",
+        "text": "λf = c (vacuum); 3 cm ⇒ 10 GHz",
+        "tier": "key",
+        "type": "RES"
+      },
+      {
+        "id": "U30",
+        "part": 2,
+        "q": "In your head: λ at 150 MHz, 1.3 GHz and 35 GHz (2 m, 23 cm, 8.6 mm).",
+        "r": "R1",
+        "src": "auth",
+        "text": "λ[m] = 300/f[MHz]; λ[cm] = 30/f[GHz]; 1 ns ↔ 30 cm",
+        "tier": "key",
+        "type": "OOM"
+      },
+      {
+        "id": "U31",
+        "part": 2,
+        "q": "Estimate the range bias at 100 km from using 3e8, in vacuum and in air; when does it matter against a 150 m cell?",
+        "r": "R1",
+        "src": "B02:42",
+        "text": "c = 3e8 is 0.069% high: 69 m bias at 100 km; 99 m in air",
+        "tier": "key",
+        "type": "QNT"
+      },
+      {
+        "id": "U32",
+        "part": 2,
+        "q": "Which assumption hides in λf = c, where does it break for GPS, and what survives (λf = v)?",
+        "r": "R1",
+        "src": "auth",
+        "text": "λf = c assumes a non-dispersive vacuum; ionosphere breaks it (L1 8.1 m, L2 13.4 m)",
+        "tier": "key",
+        "type": "ASM"
+      },
+      {
+        "id": "U33",
+        "part": 2,
+        "q": "Define dispersion and explain why a prism separates colors; which color bends more?",
+        "r": "R1",
+        "src": "B10:18",
+        "text": "Dispersion: speed depends on frequency; a prism separates colors (Fig 1-6)",
+        "tier": "sup",
+        "type": "DEF"
+      },
+      {
+        "id": "U34",
+        "part": 2,
+        "q": "What is imprecise in calling fλ = c 'the dispersion relationship', and how should it be phrased?",
+        "r": "R1",
+        "src": "B10:18",
+        "text": "fλ = v always holds; the dispersion relation is ω(k); fλ = c is the non-dispersive case",
+        "tier": "sup",
+        "type": "CRT"
+      },
+      {
+        "id": "U35",
+        "part": 2,
+        "q": "When is the infinite plane cosine a valid model of a radar wave at the target, and what replaces it near the antenna or for a short pulse?",
+        "r": "R1",
+        "src": "auth",
+        "text": "Plane monochromatic idealization: locally plane in the far field; a pulse has bandwidth",
+        "tier": "sup",
+        "type": "LIM"
+      },
+      {
+        "id": "U36",
+        "part": 2,
+        "q": "Why is a radio wave treated as a classical field and visible light at the detector as photons? Give the numbers.",
+        "r": "R1",
+        "src": "auth",
+        "text": "Classical wave valid while hf ≪ kT: 4.1e-5 eV at 10 GHz vs 2.48 eV at 0.5 µm",
+        "tier": "sup",
+        "type": "LIM"
+      },
+      {
+        "id": "U37",
+        "part": 2,
+        "q": "Give the wavelength span of the L, S, X and Ka bands without a calculator.",
+        "r": "R1",
+        "src": "B02:45",
+        "text": "Radar band wavelengths (Table 1-1): HF 100–10 m … X 3.75–2.5 cm … W 4–2.7 mm",
+        "tier": "key",
+        "type": "OOM"
+      },
+      {
+        "id": "U38",
+        "part": 2,
+        "q": "Why does a radar use only an ITU slice of its band, and why are frequencies above 16 GHz picked at absorption nulls?",
+        "r": "R1",
+        "src": "B02:44",
+        "text": "Radars span 3 MHz–300 GHz, mostly 0.3–35 GHz; ITU slices; >16 GHz at absorption nulls",
+        "tier": "sup",
+        "type": "STR"
+      },
+      {
+        "id": "U39",
+        "part": 2,
+        "q": "A spec says 'C band receiver'. What two readings exist, and how do you state it unambiguously?",
+        "r": "R1",
+        "src": "B02:46",
+        "text": "EW letters ≠ radar letters: EW C = 0.5–1 GHz vs radar C = 4–8 GHz",
+        "tier": "key",
+        "type": "CRT"
+      },
+      {
+        "id": "U40",
+        "part": 2,
+        "q": "Moving a radar from S to X band with the same aperture: what changes in element count and hardware scale?",
+        "r": "R1",
+        "src": "auth",
+        "text": "λ sets the physical scale: element spacing ~λ/2, aperture per beam, timing",
+        "tier": "key",
+        "type": "OPS"
+      },
+      {
+        "id": "U41",
+        "part": 2,
+        "q": "Estimate the element count of a 0.7 m X-band aperture, compare it with the published value, and explain the gap.",
+        "r": "R1",
+        "src": "auth",
+        "text": "Fighter AESA: 0.7 m aperture, λ/2 → 1710 elements at X, 154 at S; APG-81 ≈1,676",
+        "tier": "key",
+        "type": "PRX"
+      },
+      {
+        "id": "U42",
+        "part": 2,
+        "q": "What do you gain and pay, and how much, when you double the frequency of a fixed-size array?",
+        "r": "R1",
+        "src": "auth",
+        "text": "Higher f: more elements per aperture (∝f²) vs cost, cooling and rain/atmospheric loss",
+        "tier": "key",
+        "type": "TRD"
+      },
+      {
+        "id": "U43",
+        "part": 2,
+        "q": "An engineer phase-matches cables using λ = c/f. What is wrong, and how big is the error for a 1 m, VF 0.66 cable at 1 GHz?",
+        "r": "R1",
+        "src": "auth",
+        "text": "Free-space λ used in coax: 1 m at 1 GHz is 1818°, not 1200°",
+        "tier": "key",
+        "type": "CRT"
+      },
+      {
+        "id": "U44",
+        "part": 2,
+        "q": "How does c enter a radar's range measurement, and what range corresponds to 1 µs?",
+        "r": "R1",
+        "src": "B02:42",
+        "text": "Radar ranging R = cΔT/2 (Fig 1-1 chain); 1 µs ↔ 150 m",
+        "tier": "sup",
+        "type": "MAP"
+      },
+      {
+        "id": "U45",
+        "part": 2,
+        "q": "What carries over from the EM wave to sonar, and what differs (medium, speed variability)?",
+        "r": "R1",
+        "src": "auth",
+        "text": "Sonar: same wave form, c = 1500 m/s; 10 kHz → 15 cm",
+        "tier": "sup",
+        "type": "MAP"
+      },
+      {
+        "id": "U46",
+        "part": 2,
+        "q": "How does a dual-frequency GPS receiver turn dispersion into a measurement?",
+        "r": "R1",
+        "src": "auth",
+        "text": "GNSS dual frequency: delay ∝1/f², ratio 1.647 → ionosphere-free solution",
+        "tier": "sup",
+        "type": "MAP"
+      },
+      {
+        "id": "U47",
+        "part": 3,
+        "q": "Define the phase and the initial phase; why is k called a spatial frequency?",
+        "r": "R2",
+        "src": "B02:44",
+        "text": "Phase = total argument kz − ωt + φ; initial phase φ; k as spatial frequency",
+        "tier": "key",
+        "type": "DEF"
+      },
+      {
+        "id": "U48",
+        "part": 3,
+        "q": "Why is a single wave's phase meaningless while the phase between two waves is measurable?",
+        "r": "R2",
+        "src": "B10:15",
+        "text": "Absolute phase is arbitrary and unmeasurable; relative phase is physical",
+        "tier": "key",
+        "type": "STR"
+      },
+      {
+        "id": "U49",
+        "part": 3,
+        "q": "List the four ways two waves can get out of phase; convert 50° at 10 GHz into time and path.",
+        "r": "R2",
+        "src": "B02:46",
+        "text": "Relative phase from k, f, φ or path; 50° at 10 GHz = 13.9 ps = 4.17 mm",
+        "tier": "key",
+        "type": "RES"
+      },
+      {
+        "id": "U50",
+        "part": 3,
+        "q": "State B10's sign convention and why −φ and 360° − φ are the same shift.",
+        "r": "R2",
+        "src": "B10:16",
+        "text": "Advanced = positive shift; −φ ≡ 360° − φ (Fig 1-5)",
+        "tier": "sup",
+        "type": "DEF"
+      },
+      {
+        "id": "U51",
+        "part": 3,
+        "q": "In B02's cos(kz − ωt + φ), does +φ make the peak at a fixed z come earlier or later? How do you check a source's convention?",
+        "r": "R2",
+        "src": "auth",
+        "text": "Three sign conventions (B02, B10, Driggers); mixing them mirrors steering",
+        "tier": "key",
+        "type": "CRT"
+      },
+      {
+        "id": "U52",
+        "part": 3,
+        "q": "What engineering problem did Steinmetz's complex method solve, and what assumption (single steady frequency) did it require?",
+        "r": "R2",
+        "src": "auth",
+        "text": "Euler's formula (1748); Steinmetz (1893) turned AC differential equations into algebra",
+        "tier": "key",
+        "type": "HIS"
+      },
+      {
+        "id": "U53",
+        "part": 3,
+        "q": "Define a complex number, its magnitude and angle, and e^{jφ}.",
+        "r": "R2",
+        "src": "auth",
+        "text": "Complex number a+jb, magnitude, angle; e^{jφ} = cosφ + j sinφ",
+        "tier": "key",
+        "type": "DEF"
+      },
+      {
+        "id": "U54",
+        "part": 3,
+        "q": "Why is a path delay represented as multiplication by e^{jΔφ}?",
+        "r": "R2",
+        "src": "auth",
+        "text": "Multiplication multiplies magnitudes and adds angles: a delay is ×e^{jΔφ}",
+        "tier": "key",
+        "type": "STR"
+      },
+      {
+        "id": "U55",
+        "part": 3,
+        "q": "Define the phasor and recover the real wave from it; why does Driggers write u* in (4.3)?",
+        "r": "R2",
+        "src": "B03:90",
+        "text": "Phasor u = a e^{jφ}; real wave = Re{u e^{jωt}} (Driggers' conjugate form)",
+        "tier": "key",
+        "type": "DEF"
+      },
+      {
+        "id": "U56",
+        "part": 3,
+        "q": "Why is the sum of two same-frequency sinusoids again a sinusoid at that frequency? Show it with phasors.",
+        "r": "R2",
+        "src": "auth",
+        "text": "Rotating arrow: the cosine is a projection; same-f sums close to the same f",
+        "tier": "key",
+        "type": "STR"
+      },
+      {
+        "id": "U57",
+        "part": 3,
+        "q": "Derive the time average of the squared wave from the phasor, and connect it to the effective field.",
+        "r": "R2",
+        "src": "B03:90",
+        "text": "Time average ⟨u²⟩ = ½|u|²; links to E_eff = E_peak/√2 (3.01 dB)",
+        "tier": "sup",
+        "type": "RES"
+      },
+      {
+        "id": "U58",
+        "part": 3,
+        "q": "Why does an IR/visible detector measure power only while a radio receiver can keep phase?",
+        "r": "R2",
+        "src": "B03:90",
+        "text": "Optical detectors cannot follow 600 THz: they measure irradiance and lose the phase",
+        "tier": "sup",
+        "type": "MAP"
+      },
+      {
+        "id": "U59",
+        "part": 3,
+        "q": "Define a wavefront and its relation to the propagation direction in an isotropic medium.",
+        "r": "R2",
+        "src": "B03:90",
+        "text": "Wavefront = constant-phase surface; plane wave Ae^{jkz}; fronts λ apart (Fig 4.2)",
+        "tier": "sup",
+        "type": "DEF"
+      },
+      {
+        "id": "U60",
+        "part": 3,
+        "q": "Write the plane wave in a general direction and prove that the direction cosines satisfy Σγ² = 1.",
+        "r": "R2",
+        "src": "B03:91",
+        "text": "u = A e^{jk(γx x+γy y+γz z)}; γ = cosθ; Σγ² = 1",
+        "tier": "key",
+        "type": "RES"
+      },
+      {
+        "id": "U61",
+        "part": 3,
+        "q": "Derive the phase difference between two receivers spaced d for a wave arriving at θ from broadside.",
+        "r": "R2",
+        "src": "B03:91",
+        "text": "Δφ = kγΔz; across a baseline Δφ = k d sinθ; λ/2 at 30° → 90°",
+        "tier": "key",
+        "type": "RES"
+      },
+      {
+        "id": "U62",
+        "part": 3,
+        "q": "Why may the z-phase factor be dropped in the image plane, and what information remains in the transverse phase?",
+        "r": "R2",
+        "src": "B03:91",
+        "text": "(4.9b): the constant z-phase drops out; the transverse phase gradient carries direction",
+        "tier": "sup",
+        "type": "STR"
+      },
+      {
+        "id": "U63",
+        "part": 3,
+        "q": "Estimate the angle error from a 10° phase error with d = λ/2 at broadside and at 30°; how does it scale with d and θ?",
+        "r": "R2",
+        "src": "auth",
+        "text": "δθ = δφ/(k d cosθ): 10° gives 3.18° at broadside, 3.68° at 30°",
+        "tier": "key",
+        "type": "QNT"
+      },
+      {
+        "id": "U64",
+        "part": 3,
+        "q": "Which hidden assumption does Δφ → θ rely on, when does it break, and what survives?",
+        "r": "R2",
+        "src": "auth",
+        "text": "Phase known mod 2π: d = 2λ, 30° measured → 4 directions",
+        "tier": "key",
+        "type": "ASM"
+      },
+      {
+        "id": "U65",
+        "part": 3,
+        "q": "Choose a baseline for unambiguous ±60° (d < 0.577λ, 1.73 cm at 10 GHz) and explain the trade with precision.",
+        "r": "R2",
+        "src": "auth",
+        "text": "Long baseline: precision ∝ 1/d, ambiguities ≈ 2d/λ; coarse+fine baselines",
+        "tier": "key",
+        "type": "TRD"
+      },
+      {
+        "id": "U66",
+        "part": 3,
+        "q": "Define superposition as a phasor sum and give the in-phase and out-of-phase cases.",
+        "r": "R2",
+        "src": "B02:46",
+        "text": "Superposition: same f, same place and time → complex sum; constructive or destructive",
+        "tier": "key",
+        "type": "DEF"
+      },
+      {
+        "id": "U67",
+        "part": 3,
+        "q": "Where does superposition stop holding in a receiver, and what appears instead?",
+        "r": "R2",
+        "src": "auth",
+        "text": "Superposition needs linearity; fails in a saturated front end (intermodulation)",
+        "tier": "sup",
+        "type": "ASM"
+      },
+      {
+        "id": "U68",
+        "part": 3,
+        "q": "Two waves at 10.000 and 10.001 GHz: can they be added as fixed phasors? What does the sum do in time?",
+        "r": "R2",
+        "src": "auth",
+        "text": "Phasor sum only at the same f; otherwise a relative phase rotating at Δω (beat)",
+        "tier": "sup",
+        "type": "ASM"
+      },
+      {
+        "id": "U69",
+        "part": 3,
+        "q": "When can a pulsed signal still be described by a phasor, and what replaces it when it can't?",
+        "r": "R2",
+        "src": "auth",
+        "text": "Phasor for pulses: slowly varying envelope (narrowband) approximation",
+        "tier": "sup",
+        "type": "LIM"
+      },
+      {
+        "id": "U70",
+        "part": 3,
+        "q": "Estimate the path length per degree of phase at GPS L1 and at 10 GHz.",
+        "r": "R2",
+        "src": "auth",
+        "text": "1° = λ/360: 83 µm at X band, 0.53 mm at L1, 1.39 nm optical",
+        "tier": "key",
+        "type": "OOM"
+      },
+      {
+        "id": "U71",
+        "part": 3,
+        "q": "Compare carrier-phase and code ranging precision at 1% of a cycle/chip; what must be solved to use it?",
+        "r": "R2",
+        "src": "auth",
+        "text": "GPS carrier phase: λ 19.03 cm vs chip 293 m (1540×); RTK cm",
+        "tier": "key",
+        "type": "PRX"
+      },
+      {
+        "id": "U72",
+        "part": 3,
+        "q": "What system measurements does relative phase enable, and what hardware requirement follows?",
+        "r": "R2",
+        "src": "auth",
+        "text": "Phase across space → angle, across time → velocity, across frequency → range; needs coherence",
+        "tier": "key",
+        "type": "OPS"
+      },
+      {
+        "id": "U73",
+        "part": 3,
+        "q": "Why does a wideband DF interferometer need several baselines?",
+        "r": "R2",
+        "src": "auth",
+        "text": "2–18 GHz interferometer: 8.33 mm baseline is 0.056λ at 2 GHz",
+        "tier": "sup",
+        "type": "MAP"
+      },
+      {
+        "id": "U74",
+        "part": 4,
+        "q": "Define both domains and spectral decomposition; in what sense are they equivalent?",
+        "r": "A2",
+        "src": "B10:19",
+        "text": "Time-domain vs frequency-domain descriptions; spectral decomposition",
+        "tier": "key",
+        "type": "DEF"
+      },
+      {
+        "id": "U75",
+        "part": 4,
+        "q": "Sketch the spectrum of a pure 8 Hz cosine.",
+        "r": "A2",
+        "src": "B10:20",
+        "text": "8 Hz cosine: 8 cycles per second ↔ one line at 8 Hz (Fig 1-7)",
+        "tier": "sup",
+        "type": "RES"
+      },
+      {
+        "id": "U76",
+        "part": 4,
+        "q": "What is a harmonic, and why does a periodic non-sinusoidal wave contain only multiples of its fundamental?",
+        "r": "A2",
+        "src": "B10:20",
+        "text": "Periodic wave = harmonics; 8, 16, 32 Hz (Fig 1-8)",
+        "tier": "key",
+        "type": "STR"
+      },
+      {
+        "id": "U77",
+        "part": 4,
+        "q": "From line powers 2.7, 0.3 and 1.2, derive the amplitude ratios.",
+        "r": "A2",
+        "src": "B10:21",
+        "text": "Power ∝ amplitude²: 2.7:0.3:1.2 → 3:1:2",
+        "tier": "key",
+        "type": "RES"
+      },
+      {
+        "id": "U78",
+        "part": 4,
+        "q": "Express the 16 and 32 Hz lines in dB relative to 8 Hz using power and using amplitude.",
+        "r": "A2",
+        "src": "auth",
+        "text": "dB consistent: 10 log(0.3/2.7) = 20 log(1/3) = −9.54 dB; −3.52 dB",
+        "tier": "sup",
+        "type": "QNT"
+      },
+      {
+        "id": "U79",
+        "part": 4,
+        "q": "An analyst reads 9:1:4 as amplitudes from Fig 1-8. What is wrong, and which check catches it?",
+        "r": "A2",
+        "src": "auth",
+        "text": "Reading power as amplitude gives 9:1:4; check the axis units and Parseval",
+        "tier": "key",
+        "type": "CRT"
+      },
+      {
+        "id": "U80",
+        "part": 4,
+        "q": "Why is 'power density (W/Hz)' an imprecise label for the lines of a periodic signal?",
+        "r": "A2",
+        "src": "B10:20",
+        "text": "Discrete lines are powers (W), not densities (W/Hz)",
+        "tier": "sup",
+        "type": "CRT"
+      },
+      {
+        "id": "U81",
+        "part": 4,
+        "q": "Two signals have identical power spectra. Must they look the same in time? Why?",
+        "r": "A2",
+        "src": "auth",
+        "text": "A power spectrum discards phase: same tones, different waveforms",
+        "tier": "key",
+        "type": "STR"
+      },
+      {
+        "id": "U82",
+        "part": 4,
+        "q": "Find the planted error in an AI phase-difference computation and name the check that catches it.",
+        "r": "R2",
+        "src": "auth",
+        "text": "Errorhunt: sin(20) in radians: 262.9° instead of 98.5°",
+        "tier": "sup",
+        "type": "CRT"
+      }
+    ]
+  },
+  "role": "assistant",
+  "text": "",
+  "ts": 1793476891886
+}

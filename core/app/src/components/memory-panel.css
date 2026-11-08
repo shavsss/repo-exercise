@@ -1,0 +1,86 @@
+/* The memory panel's versions and usage views (identical in both apps). */
+.mem-tabs {
+  display: inline-flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+.mem-tabs .btn.on {
+  border-color: var(--line-strong);
+  background: var(--sel);
+}
+.mem-version-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.mem-version {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 4px 12px;
+  width: 100%;
+  padding: 8px 6px;
+  border: none;
+  border-bottom: 1px dashed var(--line);
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+.mem-version:hover {
+  background: var(--hover);
+}
+.mem-when {
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-soft);
+}
+.mem-reason {
+  min-width: 0;
+}
+.mem-size {
+  color: var(--muted);
+  font-size: 0.85em;
+}
+.mem-version-bar {
+  position: sticky;
+  top: -12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  padding: 8px 0;
+  margin-bottom: 8px;
+  background: var(--paper);
+  border-bottom: 1px dashed var(--line);
+}
+.mem-version-bar .muted {
+  flex: 1;
+}
+.mem-usage h4 {
+  margin: 0.4em 0;
+}
+.mem-usage dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 4px 14px;
+  margin: 0 0 1em;
+}
+.mem-usage dt {
+  color: var(--muted);
+}
+.mem-usage dd {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+.mem-note {
+  font-size: 0.85em;
+}
+@media (max-width: 520px) {
+  .mem-version {
+    grid-template-columns: 1fr auto;
+  }
+  .mem-reason {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+}

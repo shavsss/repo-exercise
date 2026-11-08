@@ -1,0 +1,95 @@
+<title>דוח בוקר, 1.11</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700&family=Assistant:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column, a summary strip, then sections; tables scroll inside their own box. */
+:root {
+  --bg: #f6f4ef; --paper: #fffdf8; --fg: #23251f; --muted: #5d6157; --rule: #d9d5c9;
+  --accent: #4f6b3a; --ok: #2f6b3a; --warn: #8a5a12; --bad: #9a2f22;
+  --display: "Frank Ruhl Libre", "David", serif; --body: "Assistant", "Arial Hebrew", system-ui, sans-serif; --mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #1c1e1a; --paper: #24271f; --fg: #e4e2da; --muted: #a8ab9f; --rule: #3a3d34;
+  --accent: #a3bf86; --ok: #8cc58f; --warn: #e0b060; --bad: #f08b7c; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #1c1e1a; --paper: #24271f; --fg: #e4e2da; --muted: #a8ab9f; --rule: #3a3d34;
+  --accent: #a3bf86; --ok: #8cc58f; --warn: #e0b060; --bad: #f08b7c; color-scheme: dark }
+body { background: var(--bg); color: var(--fg); font: 17px/1.7 var(--body); }
+main { max-width: 760px; margin: 0 auto; padding-block: 32px 64px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+h1 { font: 700 2.1rem/1.2 var(--display); margin: 0 0 4px; text-wrap: balance; }
+h2 { font: 700 1.35rem/1.3 var(--display); margin: 40px 0 10px; text-wrap: balance; }
+.sub { color: var(--muted); margin: 0 0 24px; }
+.strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin: 20px 0 8px; }
+.strip div { background: var(--paper); border: 1px solid var(--rule); border-radius: 8px; padding: 12px 14px; min-width: 0; }
+.strip b { display: block; font: 700 1.5rem/1.2 var(--display); font-variant-numeric: tabular-nums; }
+.strip span { color: var(--muted); font-size: .9rem; }
+.tbl { overflow-x: auto; border: 1px solid var(--rule); border-radius: 8px; background: var(--paper); }
+table { border-collapse: collapse; width: 100%; font-size: .95rem; font-variant-numeric: tabular-nums; }
+th, td { text-align: start; padding: 8px 12px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { font-weight: 600; color: var(--muted); font-size: .85rem; }
+tr:last-child td { border-bottom: 0; }
+.pill { display: inline-block; font-size: .8rem; font-weight: 600; padding: 1px 8px; border-radius: 99px; border: 1px solid currentColor; white-space: nowrap; }
+.ok { color: var(--ok); } .warn { color: var(--warn); } .bad { color: var(--bad); }
+figure { margin: 16px 0; } figure img { width: 100%; border: 1px solid var(--rule); border-radius: 8px; display: block; }
+figcaption { color: var(--muted); font-size: .9rem; margin-top: 6px; }
+a { color: var(--accent); }
+code { font-family: var(--mono); font-size: .88em; }
+ul { padding-inline-start: 1.2em; } li { margin: 4px 0; }
+</style>
+<main dir="rtl" lang="he">
+<h1>מה מוכן הבוקר</h1>
+<p class="sub">לילה שני, 31.10–1.11. כל מה שמשנה את ההנחיות למורה נבדק קודם מול המורה האמיתי, בדף הבדיקה של שתי המעבדות, ונבדק שוב על ידי שופט עצמאי.</p>
+
+<div class="strip">
+  <div><b>8</b><span>שיעורים מלאים שהמורה האמיתי כתב בדף הבדיקה</span></div>
+  <div><b>14</b><span>תוכניות שיעור ומודול בכללים החדשים</span></div>
+  <div><b>0</b><span>סירובים בכללים החדשים</span></div>
+  <div><b>0</b><span>פיצולים מיותרים לשיעור המשך</span></div>
+</div>
+
+<h2>כללי השיעור: לפי המצפן מאתמול</h2>
+<p>אין יעד מילים ואין רף. שיעור בנוי סביב אחת או שתיים תוצאות מרכזיות, והאורך נובע מיחידות העומק: כ-30 מילים ליחידה, ורצועה של 20–45. מה שמעליה הוא ריפוד, ונמחק רק ריפוד מתוך הרשימה הסגורה. פיצול רק כשיש יותר משתי תוצאות מרכזיות או יותר מ-180 יחידות, כי כל שיעור נוסף מאריך את המסלול. כל נושא שהוקצה נשאר, וטענת עוגן נשארת בצורה קצרה.</p>
+<div class="tbl"><table>
+<tr><th>מה נבדק</th><th>לפני</th><th>הלילה</th></tr>
+<tr><td>גילואה, M0.1 שיעור 4 (המתמטיקה המודרנית)</td><td>10,482 מילים, ועוד שיעור המשך "(ב)" שמאריך את המסלול</td><td>שיעור אחד, 13,629 מילים, בלי פיצול. כל החומר K1:65–74 בפנים, עם בלוקי רמה 3, החלטת תכן ומשימה מובלת. 24.8 דקות</td></tr>
+<tr><td>גילואה, M0.2 שיעור 1 (אטומים בתנועה), מודול חדש</td><td>לא נבדק בעבר</td><td>13,735 מילים, 25.4 דקות. כל הסעיפים מכוסים, ושתי התוצאות מקבלות את כל שבעת הסעיפים. ריפוד כ-7%, keep של 6 שורות</td></tr>
+<tr><td>לנצ'סטר, M0.2 שיעור 2 (עוצמה, קיטוב, קוהרנטיות)</td><td>13,209 מילים; keep של 14 שורות; אף תוצאה לא קיבלה את כל שבעת הסעיפים; 12 בלוקי domain חוזרים</td><td>12,369 מילים, 21.8 דקות. שתי התוצאות מקבלות את כל שבעת הסעיפים, keep של 6 שורות, העוגן נשאר עוגן. בלי סירוב</td></tr>
+<tr><td>אורך ביחס לעומק (מילים ליחידת עומק, הרצועה 20–45)</td><td>כ-55–65</td><td>כ-46–51, וכ-47 אחרי ריפוד</td></tr>
+<tr><td>סגנון (השופט, מתוך 28)</td><td>נמוך (השיעור הישן)</td><td>19, ואחר כך 22 בלנצ'סטר; 20 בגילואה</td></tr>
+</table></div>
+<p>השופט העצמאי קרא כל שיעור מלא מול כללי הלימוד ומול כללי הסגנון. בסבב הראשון שני השיעורים נכשלו: אורך כפול, keep של 14 שורות, ופיצול מיותר בגילואה. אחרי שלושה סבבי תיקון השופט מצא שאף נושא לא נשמט, ששתי התוצאות המרכזיות מקבלות את כל שבעת הסעיפים, שאין פיצול מיותר ושהריפוד ירד לכ-7%. הוא עדיין נתן "נכשל בקושי" על שאריות: כמה שגיאות חישוב קטנות, חזרה בין fieldmap ל-domain, ומקרה בוחן אחד שאינו בלתי תלוי. כל אחת מהן נוספה לכללים ונבדקה בשיעור המלא האחרון. כ-47–51 מילים ליחידה, עדיין מעט מעל הרצועה.</p>
+
+<h2>מה עוד חזר אל המורה</h2>
+<ul>
+<li><strong>תוכנית הלימודים לפי נושאים:</strong> פריטי הנושא, כולל פריטי החוסר (פרק 1 של H&amp;H, פרק 18 של SMAD, פיינמן II פרקים 40 ו-42), מבחני דילוג, ורשימת הקריאה עם המקורות החזקים לתחומים החלשים (P2-H). נבדק על מודולים חדשים: M11.1 בגילואה ולוגיסטיקה (M14.3) בלנצ'סטר, בלי סירוב.</li>
+<li><strong>רמה 3:</strong> predict, verify, errorhunt ו-lab בכל שיעור, והמשימה המובלת משאירה לך את שורות הלב לכתוב.</li>
+<li><strong>מוביל ומחליט:</strong> בלוק decide בשיעור האחרון של המודול.</li>
+<li><strong>ההגנה מסירוב בגילואה:</strong> ניסיון חוזר בלי השיחה הקודמת, ואבחון שנשמר אם בכל זאת יש סירוב.</li>
+</ul>
+
+<h2>סגנון הכתיבה</h2>
+<p>מחקר על הכותבים הטובים בנושאים טכניים: פיינמן, המינג, סטרנג, נידהם, מהג'אן, פטזולד, סטרוגץ, 3Blue1Brown, פינקר, וכתיבת המדע בעברית. ממנו 14 כללים שאפשר לבדוק, למשל: כל סעיף נפתח בבעיה המוחשית, ולפני כל גזירה משפט שאומר על איזו שאלה היא עונה. הכללים משנים איך יחידה נכתבת, לא אם היא שם. הציון של השופט עלה מ-19 ל-22 מתוך 28. המחקר המלא, עם דוגמה של פסקה לפני ואחרי: <code>docs/research/round6/style/STYLE.md</code>.</p>
+
+<h2>השיעור כספר</h2>
+<p>בהגדרות Aa יש עכשיו מתג "תצוגת ספר", בשתי המעבדות. השיעור נפתח כספר: שני עמודים ושדרה, היפוך תלת-ממדי בחצים, במקשים או בגרירה, וצליל היפוך עדין (עץ בלנצ'סטר, זכוכית בגילואה). שאלות החשיבה עם הביטחון עובדות בתוך העמוד. כרטיס ההתייעצות ומצב הדיון נפתחים בעמוד שמול, והפתקים יושבים בשוליים. סרט התוכן קופץ לכל סעיף, ו-Backspace מחזיר לאן שהיית. שיעור שנכתב בזמן שאתה קורא מתעמד בלי שעמוד שכבר ראית ישתנה. בטלפון מוצג עמוד אחד, ובתנועה מופחתת דהייה במקום היפוך. איורים צפים לעמוד הבא כדי שלא יישאר חור, והגדרה ארוכה נחתכת רק בין שורות.</p>
+<figure><img src="night2-shots/book-open.png" alt="פריסת ספר בלנצ'סטר, בהיר"><figcaption>פריסה פתוחה בלנצ'סטר: כותרת השיעור, מקום השיעור בתוכנית, וסרט התוכן בצד.</figcaption></figure>
+<figure><img src="night2-shots/book-think-dark.png" alt="שאלת חשיבה בספר, כהה"><figcaption>שאלת חשיבה עם שלושת כפתורי הביטחון, במצב כהה.</figcaption></figure>
+<figure><img src="night2-shots/book-consult.png" alt="כרטיס התייעצות בעמוד שמול בגילואה"><figcaption>גילואה: כרטיס ההתייעצות ומצב הדיון בעמוד שמול.</figcaption></figure>
+<figure><img src="night2-shots/book-phone.png" alt="הספר בטלפון" style="max-width:300px"><figcaption>בטלפון: עמוד אחד, החלקה לדפדוף.</figcaption></figure>
+<p><strong>למה הוא עוד לא ברירת המחדל:</strong> עמודים של טקסט רץ מלאים עכשיו לפחות ב-80% (בממוצע כ-94%). אבל עמוד שנגמר לפני שאלת חשיבה גבוהה יכול להישאר חצי ריק. השאלה צריכה לבוא מיד אחרי הטקסט שהיא בודקת, ולכן אי אפשר להזיז אותה. מה שיפתור את זה הוא שהתשובה תיפתח מחוץ לזרימת העמוד. ההחלטה בידיים שלך: נסה את הספר ב-Aa, ואם הוא נראה לך, הוא יהפוך לברירת המחדל בשורה אחת.</p>
+
+<h2>מה לא הושלם, ולמה</h2>
+<ul>
+<li><strong>הספר כברירת מחדל:</strong> כמוסבר למעלה. הוא זמין ב-Aa.</li>
+<li><strong>"נכשל בקושי" אצל השופט:</strong> שני השיעורים האחרונים עדיין מעט מעל רצועת הצפיפות (כ-47–51 מילים ליחידה), עם כמה שגיאות חישוב קטנות. התיקונים נכנסו לכללים, ונבדקו בשיעור מלא אחד בלנצ'סטר.</li>
+<li><strong>סף הפיצול:</strong> בשתי תוכניות על הגרסה החיה המתכנן ספר 190 ו-210 יחידות ולא פיצל. זה לפי ההעדפה שלך לפחות שיעורים, אבל מעל הסף שבכלל 5.4. כדאי להחליט אם להשאיר כך.</li>
+<li><strong>הדף של לנצ'סטר בדפדפן שלך</strong> לא נטען מחדש בלילה ונשאר על גרסה ישנה. המורה של לנצ'סטר נבדק דרך דף הבדיקה של גילואה, עם אותו קוד ואותה בקשה. כשתפתח את לנצ'סטר הבוקר, הוא ייטען בגרסה החדשה.</li>
+<li><strong>כשעתיים אבדו בלילה</strong> בגלל עצירה של הסשן (01:10–03:20).</li>
+</ul>
+
+<h2>קישורים</h2>
+<p><a href="https://claude.ai/artifact/LtW5eytwQFZ4wAXhDSAw3k">גילואה</a> · <a href="https://claude.ai/artifact/1tTftT3T7L7p67ofNzvfc9">לנצ'סטר</a> · <a href="https://claude.ai/artifact/Cbp7n6ognmbFzrnn7LUeQ8">לוח המצב</a> · היומן המלא: <code>docs/NIGHT_LOG.md</code></p>
+
+</main>

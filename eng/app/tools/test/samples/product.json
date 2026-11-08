@@ -1,0 +1,87 @@
+{
+ "month": "__MONTH__",
+ "title": "מחשבון שגיאות GNSS",
+ "createdAt": 1793124000000,
+ "updatedAt": 1793124000000,
+ "idea": {
+  "question": "כמה מדויק המיקום מהטלפון באמת, בכל רגע, עם רווח סמך מכויל?",
+  "forWhom": "מפתחי אפליקציות ניווט ורחפנים שמקבלים מהטלפון מיקום בלי אי-ודאות אמינה",
+  "better": "רווח הסמך שמערכת ההפעלה מדווחת לא מכויל; המטרה: NEES בתוך רצועת 95% ב-90% מהזמן",
+  "fromLessons": "מערכות לינאריות (M4.1) ומסנן קלמן; הסתברות (M6.1)"
+ },
+ "legal": {
+  "answers": {
+   "transmit": "na",
+   "typeApproval": "na",
+   "content": "ok",
+   "gnss": "ok",
+   "drones": "na",
+   "export": "adjust",
+   "openSources": "ok",
+   "software": "ok",
+   "data": "ok"
+  },
+  "notes": {
+   "content": "רק מדידות גולמיות מהטלפון שלי",
+   "gnss": "קליטה בלבד, בלי שידור",
+   "export": "גרסה אזרחית בלבד",
+   "software": "רישיון MIT, תלויות Apache ו-BSD",
+   "data": "מאגר פתוח עם רישיון CC-BY"
+  },
+  "adjustments": "גרסה אזרחית בלבד; בלי מידע על מערכות ביטחוניות.",
+  "doneAt": 1793210400000
+ },
+ "spec": {
+  "spec": "1. קלט: קובץ GNSS גולמי מהטלפון.\n2. פלט: מיקום ורווח סמך 95% לכל שנייה.\n3. כיול: NEES בתוך הרצועה ב-90% מהזמן.",
+  "competitors": [
+   {
+    "name": "RTKLIB",
+    "url": "https://github.com/tomojitakasu/RTKLIB",
+    "note": "ותיק ומדויק; לא מכייל אי-ודאות לטלפון"
+   },
+   {
+    "name": "gnss_lib_py",
+    "url": "https://github.com/Stanford-NavLab/gnss_lib_py",
+    "note": "ספרייה טובה למחקר; בלי מוצר"
+   }
+  ],
+  "benchmark": "",
+  "price": ""
+ },
+ "design": {
+  "decisions": "",
+  "tradeoffs": "",
+  "predictions": [
+   {
+    "quantity": "שגיאה אופקית חציונית",
+    "value": "3.5 m",
+    "basis": "ספרות על טלפונים בשטח פתוח",
+    "actual": ""
+   }
+  ]
+ },
+ "verify": {
+  "checks": [],
+  "baseline": ""
+ },
+ "package": {
+  "checklist": {
+   "license": true,
+   "readme": true
+  },
+  "comparables": [],
+  "repo": ""
+ },
+ "retro": {
+  "worked": "",
+  "failed": "",
+  "learned": "",
+  "next": ""
+ },
+ "critiques": {
+  "idea": {
+   "text": "### מה חזק\n1. שאלה אחת, מדידה, עם משתמש ברור.\n\n### מה חלש או חסר\n1. \"מכויל\" צריך הגדרה: באיזה מבחן, ובאיזו רצועה.\n\n### שאלה אחת שצריך לענות עליה\nמה עושים כשאין קו ראייה ללוויינים?\n\n### הצעד הבא\nלבחור מאגר פתוח אחד עם ground truth ולהגדיר עליו את הבנצ'מרק.",
+   "at": 1793296800000
+  }
+ }
+}

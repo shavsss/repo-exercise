@@ -1,0 +1,77 @@
+== sample: 96 units, 465 pages; docs 17 ; types {'appendix': 9, 'doctrine': 11, 'derivation': 7, 'descriptive': 18, 'examples': 10, 'history': 12, 'problems': 5, 'summary': 3, 'theory': 21}
+observed totals CR/K/S/C/dup: [32.0, 32.0, 105.0, 228.0, 26.0]  per page: [0.069, 0.069, 0.226, 0.49, 0.056]
+classifier: hand re-typed 17 of 96 units -> type accuracy 0.82
+CV CR: {'mae_unit_model': 0.27, 'mae_unit_typerate': 0.25, 'fold_total_relerr_rms_model': 0.408, 'fold_total_relerr_rms_typerate': 0.386, 'fold_total_bias_model': 0.109, 'mean_obs_per_unit': 0.33}
+CV K: {'mae_unit_model': 0.26, 'mae_unit_typerate': 0.25, 'fold_total_relerr_rms_model': 0.575, 'fold_total_relerr_rms_typerate': 0.55, 'fold_total_bias_model': 0.143, 'mean_obs_per_unit': 0.33}
+CV S: {'mae_unit_model': 0.54, 'mae_unit_typerate': 0.76, 'fold_total_relerr_rms_model': 0.18, 'fold_total_relerr_rms_typerate': 0.302, 'fold_total_bias_model': 0.011, 'mean_obs_per_unit': 1.09}
+CV C: {'mae_unit_model': 0.81, 'mae_unit_typerate': 1.0, 'fold_total_relerr_rms_model': 0.116, 'fold_total_relerr_rms_typerate': 0.164, 'fold_total_bias_model': 0.009, 'mean_obs_per_unit': 2.38}
+eng-overlap flag on sample: 36 units; measured dup share of K+S: flagged 0.32 unflagged 0.05
+eng modules per topic: {'signals': 19, 'probability': 16, 'em_antennas': 14, 'control': 14, 'estimation': 8, 'optimization': 4, 'mechanics': 10}
+SMAD per-page rates CR/K/S/C used (theory, descriptive): [0.085, 0.085, 0.277, 0.298] [0.0, 0.0, 0.185, 0.704]
+
+== REGISTRY: units 1548 pages 8350 | methods {'text': 328, 'outline': 897, 'block': 203, 'note(SMAD image-only)': 120}
+flags: {'inferred heading block': 203, 'mostly image/figure pages': 27, 'image-only: estimated from note + page count': 120}
+
+-- by type (all tiers, main+supp, raw): units / pages / CR / K / S / C
+theory       465 3279 338 338 963 962
+derivation   63 414 87 87 175 88
+examples     93 362 50 50 170 131
+history      104 542 2 2 34 406
+doctrine     175 931 6 6 78 696
+descriptive  449 2157 47 47 324 1515
+summary      28 70 3 3 11 35
+problems     52 153 7 7 24 63
+appendix     119 442 11 11 43 161
+
+-- by tier [raw]: units / pages / CR / K / S / C
+core  1068 5275 423 423 1325 2513
+adv   358 2161 102 102 366 1075
+ref   122 914 26 26 131 469
+all   1548 8350 551 551 1822 4057
+
+-- by tier [supp0.5]: units / pages / CR / K / S / C
+core  991 4972 405 405 1254 2325
+adv   353 2143 101 101 362 1062
+ref   120 898 26 26 130 459
+all   1464 8012 532 532 1745 3845
+
+-- by tier [dedup]: units / pages / CR / K / S / C
+core  1051 5228 337 337 1073 2476
+adv   358 2161 88 88 324 1075
+ref   122 914 25 25 124 469
+all   1531 8303 450 450 1521 4020
+
+-- by tier [dedup_supp0.5]: units / pages / CR / K / S / C
+core  980 4941 324 324 1020 2300
+adv   353 2143 88 88 320 1062
+ref   120 898 25 25 123 459
+all   1453 7982 436 436 1463 3820
+
+-- page-based estimates for the same scope (main + 0.5 supp, R8/R10 convention)
+core: eff pages 4972 | R8 CR 626 (x0.87: 545) vs registry CR 405 | R10 K/S/C 908/779/952 vs registry 405/1254/2325
+adv: eff pages 2143 | R8 CR 240 (x0.87: 209) vs registry CR 101 | R10 K/S/C 392/336/410 vs registry 101/362/1062
+ref: eff pages 898 | R8 CR 101 (x0.87: 88) vs registry CR 26 | R10 K/S/C 164/141/172 vs registry 26/130/459
+
+-- engineering overlap (delta sections)
+signals      units  139 pages   558 K+S    252 dupKS    81
+probability  units   45 pages   167 K+S     86 dupKS    25
+em_antennas  units  171 pages   810 K+S    289 dupKS    93
+control      units   86 pages   600 K+S    197 dupKS    60
+estimation   units   57 pages   310 K+S    128 dupKS    39
+optimization units   35 pages   183 K+S     65 dupKS    19
+mechanics    units  100 pages   663 K+S    278 dupKS    88
+any-overlap delta units 506 pages 2702 dup K+S 386 of K+S 2373
+test-out candidates (operational/doctrine/descriptive, strong-military-background): 475 units 2278 pages; CR 28 K 28 S 235 C 1731
+internal repeats: pages 47
+
+-- bootstrap (300x) of all-tier raw totals, P10/P50/P90:
+CR [495.0, 567.0, 633.0]
+K [495.0, 567.0, 633.0]
+S [1692.0, 1832.0, 1957.0]
+C [3870.0, 4048.0, 4274.0]
+subsections (X.Y.Z heads inside units): 1727 ; numbered units 1144
+K re-based to R10 granularity (x1.54 of strict, moved from S): K 849 S 1524 C 4058
+same, dedup + supp0.5: K 672 S 1228 C 3820
+density math-bearing (theory/derivation/examples): pages 3365, CR/page 0.124, K+S/page 0.456, C/page 0.290
+density narrative (history/doctrine/descriptive): pages 3402, CR/page 0.016, K+S/page 0.132, C/page 0.722
+density aux (summary/problems/appendix): pages 625, CR/page 0.032, K+S/page 0.149, C/page 0.396

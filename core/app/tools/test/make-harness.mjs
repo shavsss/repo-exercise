@@ -1,0 +1,199 @@
+// Builds a local test page that runs the artifact with a fake claude.ai runtime
+// (tools/test/stub.js: in-memory db kept in localStorage, a fixed user, a scripted
+// `sample`). Run after `npm run build` and tools/pack.py, then serve the folder:
+//
+//   node tools/test/make-harness.mjs /tmp/harness && (cd /tmp/harness && python3 -m http.server 5190)
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const here = path.dirname(fileURLToPath(import.meta.url));
+const app = path.resolve(here, "../..");
+const out = path.resolve(process.argv[2] ?? "/tmp/core-lab-harness");
+fs.mkdirSync(out, { recursive: true });
+
+for (const f of ["app.js", "app.css"]) fs.copyFileSync(path.join(app, "dist", f), path.join(out, f));
+fs.copyFileSync(path.join(here, "stub.js"), path.join(out, "stub.js"));
+const lib = path.join(out, "lib");
+fs.rmSync(lib, { recursive: true, force: true });
+fs.symlinkSync(path.join(app, "artifact", "lib"), lib);
+// bundles kept in the artifact's asset store (pack.py ASSET_DOCS) are served from here; stub.js maps their URLs
+const assets = path.join(out, "assets");
+fs.rmSync(assets, { recursive: true, force: true });
+if (fs.existsSync(path.join(app, "artifact", "assets"))) fs.symlinkSync(path.join(app, "artifact", "assets"), assets);
+
+// The first module, and a figure from its main source, for the scripted lesson.
+const index = JSON.parse(fs.readFileSync(path.join(app, "artifact", "lib", "index.json"), "utf8"));
+const mod = index.modules.find((m) => !m.prereq?.length && index.docs[m.sources[0].doc]);
+const src = mod.sources[0];
+const doc = src.doc;
+const figPage = Object.keys(index.docs[doc].figs).map(Number).find((p) => p >= src.pages[0] && p <= src.pages[1]) ?? Number(Object.keys(index.docs[doc].figs)[0]);
+const lessons = [
+  { title: "שיעור ראשון לבדיקה", covers: mod.sections.slice(0, 2).map((s) => s.title), sources: [{ doc, pages: [src.pages[0], Math.min(src.pages[1], src.pages[0] + 6)] }], focus: "מה השיעור מלמד." },
+  { title: "שיעור שני לבדיקה", covers: mod.sections.slice(2).map((s) => s.title), sources: [{ doc, pages: [Math.min(src.pages[1], src.pages[0] + 7), src.pages[1]] }], focus: "ההמשך." },
+];
+
+// What the scripted tutor "writes" for part 1 of a lesson: one of each block.
+const answer = `\`\`\`plan
+1. שיעור ראשון (כאן)
+2. שיעור שני
+\`\`\`
+
+\`\`\`story
+@title: סיפור לבדיקה
+טקסט הסיפור. [[ודאות: גבוהה]]
+\`\`\`
+
+## חלק 1
+
+[[${doc}:${src.pages[0]}]] פסקה עם תגית עמוד, ומשוואה ממוספרת:
+
+$$P_r = \\frac{P_t G^2 \\lambda^2 \\sigma}{(4\\pi)^3 R^4} \\tag{1}$$
+
+## הגדרות ונוסחה מרכזית
+
+פסקה ארוכה לבדיקת אורך השורה: המילה גאומטריה פירושה מדידת אדמה, והידע הראשון היה כללי חישוב. כלל שנלמד מניסיון נכון רק בצורות שעליהן נוסה, ושום דבר בכלל עצמו לא מזהיר מתי ההנחה שלא נאמרה נשברת. כך גם במשוואת המכ"ם: היא נכונה רק כשהמטרה רחוקה מספיק והאנטנה מכוונת אליה.
+
+\`\`\`definition
+@title: הספק קליטה
+ההספק $P_r$ הוא האנרגיה ליחידת זמן שמגיעה למקלט.
+\`\`\`
+
+\`\`\`formula
+@title: משוואת המכ"ם
+$$R_{max} = \\left(\\frac{P_t G^2 \\lambda^2 \\sigma}{(4\\pi)^3 P_{min}}\\right)^{1/4}$$
+\`\`\`
+
+פסקה נוספת אחרי הנוסחה: הטווח גדל רק כשורש רביעי של ההספק, ולכן הכפלת ההספק פי 16 מכפילה את הטווח בלבד. זו התוצאה שחוזרים אליה בכל תכנון של מערכת.
+
+\`\`\`figure
+${doc}:${figPage}:0
+\`\`\`
+
+\`\`\`think
+שאלה לבדיקה?
+---
+תשובה.
+\`\`\`
+
+[[2.5: סדר גודל]] פסקה עם יחידות עומק מסומנות.<!--U1--> הנחה נסתרת ושבירתה.<!--U2--> מקרה מהשטח עם מספרים.<!--U3--> וטענה שגויה ותיקונה.<!--U4-->
+
+\`\`\`predict
+@title: מכפילים את המרחק
+@unit: dB
+@value: 12
+כשהמרחק גדל פי 2 והאות יורד כ-$R^{-4}$, בכמה dB יורד היחס? תנו אומדן וטווח של 90%.
+---
+**12 dB.** $40\\log_{10}2 = 12.04$: כל הכפלה של המרחק עולה בכ-12 dB.
+\`\`\`
+
+\`\`\`verify
+@title: לפני שמסיקים מהחישוב
+@result: ירידה של 12 dB
+- ממדים: היחס חסר ממדים, וה-dB הוא $10\\log_{10}$ של הספק.
+- מקרה גבול: באותו מרחק הירידה היא 0 dB.
+- השוואה לתחזית: האומדן בראש היה בטווח.
+- פותר שני: אותו חישוב בטבלה נותן 12.04.
+\`\`\`
+
+\`\`\`errorhunt
+@title: תקציב שכתב AI
+~~~python
+loss_db = 20 * log10(2) ** 2   # power falls as R^-4
+~~~
+המסקנה של ה-AI: "כל הכפלה של המרחק עולה 36 dB".
+---
+**יש טעות.** הריבוע נכנס בתוך הלוגריתם ולא מחוצה לו: $10\\log_{10}(2^4) = 40\\log_{10}2 = 12$ dB. בדיקת סדר גודל הייתה תופסת: 36 dB הם פי 4,000 בהספק.
+\`\`\`
+
+\`\`\`lab
+@title: עקומת הירידה מול מרחק
+@tools: NumPy, Matplotlib
+@time: 45–60 דקות
+**השאלה:** באיזה מרחק היחס יורד מתחת לסף?
+**המפרט שלכם:** קלטים, הנחות, מדד הצלחה ובדיקות קבלה.
+**שורות הלב:** הפונקציה שמחשבת את היחס ב-dB.
+\`\`\`
+
+\`\`\`decide
+@kind: trade
+@title: אנטנה גדולה או הספק גבוה
+שתי חלופות להכפלת הטווח. כתבו החלטה, מספרים לכל תחום ורגישות.
+---
+**ניתוח הרפרנס:** הגדלת האנטנה מחזירה 12 dB בשבר מההספק.
+\`\`\`
+<!--audit: units U1–U4 4/4 (auth 4/4) | w/u 30 | think 1 | padding 0-->
+
+\`\`\`sim
+{"id": "radar_range", "title": "טווח גילוי", "params": {"rcs": 0.1}}
+\`\`\`
+
+\`\`\`anim
+{"title": "מטרה מתקרבת", "duration": 6, "view": {"x": [-10, 10], "y": [-6, 6]}, "shapes": [{"type": "circle", "x": "-8 + 2*t", "y": "0", "r": "0.4", "label": "מטרה", "accent": true}, {"type": "text", "x": "0", "y": "5", "text": "R = {round(10 - t, 1)} km"}]}
+\`\`\`
+
+\`\`\`domain
+@field: ew
+@title: אותה משוואה מצד המשבש
+פסקת חיבור.
+\`\`\`
+
+\`\`\`fieldsystems
+@title: מערכות בשטח
+- רוסיה: ... [[ודאות: בינונית]]
+\`\`\`
+
+## מה לזכור
+
+\`\`\`keep
+- הטווח גדל כשורש רביעי של ההספק.
+- **משוואת המכ"ם**: $R_{max} \\propto P_t^{1/4}$, כשהמטרה רחוקה והאנטנה מכוונת.
+- $P_r \\propto R^{-4}$
+\`\`\`
+
+\`\`\`chart
+{"title":"בדיקת גרף","x":{"from":1,"to":100,"step":1,"label":"R (km)"},"series":[{"name":"SNR","expr":"40 - 40*log10(x)"}]}
+\`\`\`
+
+עם גרר הזווית האופטימלית **זזה**. באוויר צפוף היא יורדת מתחת ל-45°, כדי לקצר את הדרך שהפגז עובר באוויר.
+
+\`\`\`exercise
+@title: תרגיל לבדיקה
+@source: ${doc}:${src.pages[0]}
+@level: 2
+מה הטווח?
+---hint---
+רמז.
+---solution---
+פתרון.
+\`\`\`
+`;
+
+const page = fs.readFileSync(path.join(app, "artifact", "index.html"), "utf8");
+// Sample documents for the newspaper, product and review tabs; stub.js adds them when the address has ?seed.
+const sample = (f) => JSON.parse(fs.readFileSync(path.join(here, "samples", f), "utf8"));
+const seedDocs = { "news/2026-W44": sample("news.json"), "reviews/2026-W44": sample("review.json"), "products/__MONTH__": sample("product.json") };
+// a lesson on the ready shelf (docs/SHELF_SCHEMA.md) for lesson 2 of the scripted module, matched by title (the app attaches unassigned pages to the planned sources)
+const shelf = sample("shelf.json");
+seedDocs[`shelf/${mod.id}__1`] = { ...shelf.doc, app: "core", moduleId: mod.id, spec: { title: lessons[1].title }, title: lessons[1].title };
+for (const [n, part] of Object.entries(shelf.more)) seedDocs[`shelf/${mod.id}__1/more/${n}`] = part;
+// ?review in the address: a lesson he read two days ago, a think question he missed and a margin note, so the
+// review queue (src/review/) and the morning card have due cards. "__AGO<n>__" is n days before now (stub.js).
+const fnv = (s) => {
+  let h = 0x811c9dc5;
+  for (let i = 0; i < s.length; i++) h = Math.imul(h ^ s.charCodeAt(i), 0x01000193);
+  return (h >>> 0).toString(36);
+};
+const reviewDocs = {
+  [`modules/${mod.id}`]: { lessons, convs: { 0: "rvseed" }, done: [0] },
+  "convs/rvseed": { title: lessons[0].title, moduleId: mod.id, lesson: 0, createdAt: "__AGO2__", updatedAt: "__AGO2__", count: 1 },
+  "convs/rvseed/msgs/a1": { role: "assistant", text: answer, mode: "lesson", ts: "__AGO2__" },
+  [`calib/${mod.id}__0__${fnv("שאלה לבדיקה?")}`]: { id: `${mod.id}__0__${fnv("שאלה לבדיקה?")}`, moduleId: mod.id, lesson: 0, q: "שאלה לבדיקה?", conf: 2, grade: "wrong", ts: "__AGO2__", gradedAt: "__AGO2__" },
+  "notes/rvnote": { who: "learner", kind: "note", text: "לבדוק למה השורש הרביעי ולא הריבועי.", moduleId: mod.id, lesson: 0, margin: true, anchor: "פסקה נוספת אחרי הנוסחה", ts: "__AGO2__" },
+};
+fs.writeFileSync(
+  path.join(out, "test.html"),
+  `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body>` +
+    `<script src="stub.js"></script><script>window.__answer=${JSON.stringify(answer)};window.__lessons=${JSON.stringify(lessons)};window.__doc=${JSON.stringify(doc)};window.__module=${JSON.stringify(mod.id)};window.__seed=${JSON.stringify(seedDocs)};window.__seedReview=${JSON.stringify(reviewDocs)}</script>${page}</body></html>`,
+);
+console.log(`harness written to ${out}/test.html (module ${mod.id}, figure ${doc}:${figPage}:0)`);

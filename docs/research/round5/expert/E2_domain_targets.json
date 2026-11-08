@@ -1,0 +1,1628 @@
+[
+  {
+    "id": "ENG · Mathematics foundations",
+    "role": "deep",
+    "wave": 1,
+    "expert_definition_he": "מנסח בעיה הנדסית כמודל (אלגברה לינארית, הסתברות, אופטימיזציה, נומריקה), בוחר שיטה, מפעיל סוכן שמממש ופותר, ומוכיח לעצמו בשתי דרכים בלתי תלויות שהתוצאה נכונה. מזהה התניה גרועה, קשיחות, הנחה סטטיסטית שבורה או נגזרת שגויה לפני שהן הופכות לתוצאה. בנישה (אומדן ואופטימיזציה לחישה) הוא ברמת חוקר שמפתח שיטה, לא רק מפעיל אותה.",
+    "ai_covers_he": "גזירה סימבולית, פתרון תרגילים עד רמת אולימפיאדה (זהב ב-IMO 2025 [evidence]), כתיבת קוד נומרי ובדיקות יחידה. במבחני הנדסה רב-שלביים המודלים עדיין טועים, ויותר ממחצית הטעויות הן טעויות היסק [evidence: EEE-Bench, מודלים של 2024]. הטעויות שקטות: תנאי שלא נאמר, סימן, תחום תקפות [inference].",
+    "human_value_he": "ניסוח הבעיה ובחירת ההנחות; ציפייה לסדר הגודל ולכיוון לפני החישוב; בדיקות עקביות (ממדים, מקרי קצה, מונטה קרלו מול נוסחה); ידיעה מתי משפט לא חל [inference, WEF 2025: חשיבה אנליטית בראש רשימת הכישורים העולים].",
+    "hold_in_head_he": "פירוק עצמי ו-SVD, התניה, ריבועים פחותים כהטלה, דואליות וקמירות, חוק המספרים הגדולים, CLT וזנבות כבדים, יציבות שיטות נומריות; כ-30 תוצאות עוגן שהוא משחזר על נייר בדקות.",
+    "delegate_he": "אלגברה ארוכה, גזירות, מימוש סולברים, ניסויי מונטה קרלו, בדיקה סימבולית, הפקת תרגילים ושאלות מבחן.",
+    "must_verify_he": "כל תוצאה בשתי דרכים: אנליטית מול נומרית, או שני סוכנים בלתי תלויים; בדיקת ממדים ומקרי קצה; השוואה למקרה סגור ידוע; נימוק קצר במילים שלו למה זה נכון.",
+    "risks_he": "שחיקת היכולת לגזור לבד; אמון בגזירה רהוטה ושגויה (מחוץ ל'חזית' של המודל, יועצים עם GPT-4 צדקו ב-19 נקודות פחות [evidence]); ככל שהאמון ב-AI גבוה יותר, פחות חשיבה ביקורתית [evidence: CHI 2025].",
+    "protection_he": "'נייר לפני מכונה': ניחוש סדר גודל וכיוון לפני כל הפעלה; מבחן שבועי בלי AI על תוצאות העוגן; תרגילי 'מצא את השגיאה השתולה' בפלט של סוכן; יומן שגיאות AI שמסווג את סוגי הטעויות.",
+    "thesis_test": {
+      "verdict": "supported",
+      "evidence_he": "החישוב עצמו כבר מעבר ליכולת הידנית שלו [evidence: IMO 2025]; מה שנשאר לאדם הוא ניסוח ואימות, וזה בדיוק מה שהתוכנית מאמנת [inference]. METR מראה שכלי AI יכולים גם להאט מומחים [evidence], כך שהיתרון תלוי בשיטת העבודה.",
+      "closes_he": "פרוטוקול אימות קבוע ומבחן חיצוני אנושי (בוחן אקדמי בתשלום) על שני תחומים."
+    },
+    "target": {
+      "academia_knowledge": "A4: ליבת תואר שני באלגברה לינארית נומרית, הסתברות וסטטיסטיקה, אופטימיזציה קמורה",
+      "academia_fluency": "A4 עם כלים: פותר ומאמת במבחן זמן עם AI, ומוצא שגיאות שתולות",
+      "industry_role": "principal applied-math / estimation engineer בנישת החישה (hands-on, AI-augmented)",
+      "defense_role": "אנליסט בכיר שבונה ומאמת בעצמו את המודל האנליטי"
+    },
+    "projected_old": {
+      "academia": "Knowledge A2-A3: the conceptual content of an engineering math sequence (MIT 18.01/18.02/18.03/18.06, 18.05) plus conceptual parts of graduate courses through the books: Boyd EE364a (convex optimization), Trefethen and Bau (MIT 18.335-type numerical linear algebra), Wasserman (CMU 36-705-type statistics), Langtangen (finite differences). Fluency A1 or lower: no proofs or exercises are done, so he would fail an 18.02 or 18.06 final without weeks of drilling. Above BSc: the cross-domain view of structures (eigen-structure, duality, conditioning, CLT limits). Below BSc: any computation done under time pressure. Panel P1: 8 K/S items are truly missing, among them heavy tails, FEM and stiff integrators, which the tutor must add.",
+      "industry": "Mid-level reviewer of numerical work: can ask the right questions about conditioning, stiffness, overfitting, multiple testing and convexity, and catch wrong assumptions in someone else's model. A working quant or computational engineer clearly does better at implementing solvers, debugging numerics, choosing libraries and deriving anything new.",
+      "gap_to_next": "Level-3 fluency in a core subset (linear algebra, probability, optimization): about 150 graded exercises, or one computational project that is verified against known results, for example implementing and validating an estimator plus a convex solver for a real sensor problem. A qualifying-exam-style written test in two of these areas would certify A4.",
+      "summary_he": "ידע מושגי של תואר ראשון ומעט מעבר; שטף בפתרון בעיות מתחת לתואר ראשון. מבקר טוב של מודלים, לא מי שבונה אותם."
+    },
+    "gap_he": "LV צפה ידע A2–A3 ושטף A1 (פתרון ידני). בקנה מידה חדש: השטף הנדרש הוא אימות עם כלים, ובו הפער הוא תרגול שיטתי של אימות ופרויקטים חישוביים שנבדקים מול תוצאות ידועות.",
+    "closing_plan_he": "(1) בכל שיעור 3–5 משימות אימות עם סוכן (כולל שגיאות שתולות). (2) שלושה פרויקטים חישוביים: עיבוד מערך אנטנות עם SVD, סולבר קמור לפריסת חיישנים, אימות CRB במונטה קרלו. (3) שני מבחנים בסגנון qualifying (אלגברה לינארית, הסתברות) עם כלים, בבדיקת מרצה אנושי. (4) מסמך טכני קצר על שיטת אומדן בנישה.",
+    "legal_he": null,
+    "extra_hours_estimate": {
+      "p10": 700,
+      "p50": 1200,
+      "p90": 2000,
+      "basis_he": "החלק המעשי של כ-4 קורסי תואר שני (4×6 ECTS×27 ש' ≈ 650 ש', כמחציתו מעשי ≈ 325) + 3 פרויקטים של 200–300 ש' + הכנה למבחנים חיצוניים. בלי ספירה כפולה עם פרויקטי המכ\"ם והאומדן [estimate]."
+    },
+    "evidence": [
+      "https://simonwillison.net/2025/Jul/21/gemini-imo/",
+      "https://arxiv.org/abs/2411.01492",
+      "https://www.hbs.edu/faculty/Pages/item.aspx?num=64700",
+      "https://advait.org/files/lee_2025_ai_critical_thinking_survey.pdf",
+      "https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/",
+      "https://www.weforum.org/publications/the-future-of-jobs-report-2025/",
+      "https://uni-passau.de/en/international/coming-to-passau/information-for-new-students/ects",
+      "docs/research/round4/LV_benchmark.json"
+    ],
+    "confidence": "medium"
+  },
+  {
+    "id": "ENG · Physics",
+    "role": "core",
+    "wave": 2,
+    "expert_definition_he": "שולט באלקטרומגנטיות, גלים, פיזיקה תרמית וסטטיסטית ויסודות קוונטים ברמה שמאפשרת לו לבנות עם AI מודל חישובי (עקיפה, התפשטות, רעש) ולתכנן מדידה על שולחן העבודה שמאשרת או מפריכה אותו.",
+    "ai_covers_he": "פותר בעיות ברמת Griffiths/Jackson, כותב קוד FDTD ו-ray tracing. טועה בתנאי שפה, ביחידות ובבחירת משטר פיזיקלי [inference].",
+    "human_value_he": "אינטואיציה פיזיקלית, בחירת קירוב ומשטר, תכנון מדידה, ידיעת רצפת הרעש (kTB) ומה אפשר למדוד בכלל.",
+    "hold_in_head_he": "משוואות מקסוול בשתי הצורות, משוואת הגלים, עכבה, גבול עקיפה λ/D, פרנל והחזרה, קרינת גוף שחור, kT ורעש תרמי ורעש שוט, ניתוח ממדים, חוקי שימור.",
+    "delegate_he": "חישובים, סימולציות, ציורים, חיפוש ערכי חומרים.",
+    "must_verify_he": "מקרי גבול, שימור אנרגיה בסימולציה, מבחן התכנסות רשת, מדידה מול מודל.",
+    "risks_he": "סימולציה 'נראית נכון' עם תנאי שפה שגויים; בלבול יחידות; שחיקת השיפוט המספרי שהוא היתרון שלו.",
+    "protection_he": "כל סימולציה עם מבחן התכנסות ומקרה אנליטי ידוע; לפחות שלוש תופעות שנמדדות בפועל.",
+    "thesis_test": {
+      "verdict": "partial",
+      "evidence_he": "החישוב והסימולציה נתמכים: סוכן כותב את הקוד, והוא מאמת [inference]. הניסוי דורש ציוד וידיים, ושם אין עדות שאדם יחיד עם AI מחליף מעבדה [inference].",
+      "closes_he": "ספסל מדידה צנוע (SDR, NanoVNA, מצלמה תרמית) ומדידות שמכוונות לכל מודל."
+    },
+    "target": {
+      "academia_knowledge": "A3: אלקטרומגנטיות ופיזיקה סטטיסטית של שנה ג'",
+      "academia_fluency": "A3 עם כלים",
+      "industry_role": "senior physicist-engineer למידול EM וחישה (AI-augmented)",
+      "defense_role": "אנליסט טכני בכיר (בדיקות שפיות פיזיקליות)"
+    },
+    "projected_old": {
+      "academia": "Knowledge A2: Feynman I-III covers the physics of MIT 8.01/8.02/8.03, the concepts of 8.04 (quantum) and part of 8.044 (statistical), at deep conceptual quality. Fluency A1: there is no Griffiths-, Taylor- or Jackson-level problem solving. Below a physics BSc: upper-division E&M and quantum mechanics with their mathematical machinery, and lab work. Feynman II ch. 40 and 42 are missing from the PDF, so fluids and GR clocks come from other sources.",
+      "industry": "In engineering use (no 'physicist' track), close to a senior systems engineer on physical sanity checks and orders of magnitude, such as diffraction limits, energy budgets and heat rejection. A working physicist or EM engineer does far better at computation, simulation and experiment.",
+      "gap_to_next": "A computational physics project with real equations, for example propagation or diffraction modeling checked against measurement, or a semester of graded Griffiths E&M problems. For A3, his two weakest classical areas (E&M, stat-mech) need to reach exercise fluency.",
+      "summary_he": "פיזיקה של שנה א'–ב' בתואר ראשון, בהבנה עמוקה של פיינמן; בלי כלים מתמטיים של שנה ג'. שיפוט מספרי חזק, לא פיזיקאי."
+    },
+    "gap_he": "LV: A2 ידע, A1 שטף, בלי מעבדה. הפער החדש: מודל חישובי שנבדק מול מדידה בשני התחומים החלשים (EM, סטטיסטית).",
+    "closing_plan_he": "(1) FDTD של עקיפה מקצה ומחריץ, מול מדידה עם מודול מכ\"ם 24 GHz או SDR. (2) מדידת רעש ו-noise figure בשיטת Y-factor. (3) בדיקת גוף שחור עם מצלמה תרמית. (4) סט בעיות Griffiths E&M נבחר, פתור ומאומת עם כלים, נבדק על ידי סטודנט לתואר שני בתשלום.",
+    "legal_he": "מדידות קרינה רק בקליטה או בעוצמה נמוכה בפס ISM מאושר; עדיף בכבלים ומנחתים.",
+    "extra_hours_estimate": {
+      "p10": 600,
+      "p50": 1000,
+      "p90": 1600,
+      "basis_he": "החלק המעשי של 2 קורסים מתקדמים (~300 ש') + 2 פרויקטים חישוביים-ניסויים של 250 ש' + הקמת ספסל [estimate]."
+    },
+    "evidence": [
+      "https://arxiv.org/abs/2411.01492",
+      "https://www.hbs.edu/faculty/Pages/item.aspx?num=64700",
+      "docs/research/round4/LV_benchmark.json"
+    ],
+    "confidence": "medium"
+  },
+  {
+    "id": "ENG · Signals and systems",
+    "role": "deep",
+    "wave": 1,
+    "expert_definition_he": "מתכנן ובונה עם AI שרשראות DSP מלאות: multirate, תכן מסננים, אומדן ספקטרלי, גילוי, נקודה קבועה ואילוצי זמן אמת, על נתוני SDR אמיתיים. בנישה (עיבוד אותות RF לחישה ול-ES) הוא principal: מחליט על הארכיטקטורה ומזהה ארטיפקטים בנתונים גולמיים.",
+    "ai_covers_he": "כותב numpy/scipy, בלוקי GNU Radio וטיוטות HDL, מתכנן מסנן לפי מפרט. טעויות אופייניות: שגיאת off-by-one בתאי FFT, נרמול חלון, בלבול קצב דגימה, alias ב-resampling [inference]. MATLAB Copilot ו-Ansys/Synopsys copilots כבר בכלים [evidence].",
+    "human_value_he": "מה למדוד, תקציב רווח העיבוד, בחירת ארכיטקטורה, זיהוי ארטיפקטים בנתונים (DC spike, חוסר איזון IQ, spurs) [inference]. משרות DSP ו-SDR בכירות דורשות 7–8+ שנות ניסיון ב-waveform/DSP/SDR [evidence].",
+    "hold_in_head_he": "משפט הדגימה ו-aliasing, רזולוציית DFT מול חלון, רווח עיבוד 10log(N), מסנן מותאם, Wiener והלבנה, ROC ו-CFAR, יציבות במישור z, רעש קוונטיזציה 6.02N+1.76 dB.",
+    "delegate_he": "מימוש, גרפים, סריקות פרמטרים, וקטורי בדיקה, שלד HDL.",
+    "must_verify_he": "חבילת וקטורי בדיקה זהובים (טון ידוע + רעש: SNR יוצא = SNR נכנס + רווח), Parseval, השוואה ל-GNU Radio או MATLAB, הקלטות אמת.",
+    "risks_he": "נרמול שגוי שנראה סביר; שחיקת היכולת 'לקרוא ספקטרום'; התאמת יתר לנתונים מסומלצים.",
+    "protection_he": "חבילת בדיקות קבועה ב-CI; תרגיל שבועי של קריאת ספקטרוגרמות גולמיות בלי AI; סוכן שני שבודק את הקוד עם property-based tests.",
+    "thesis_test": {
+      "verdict": "supported",
+      "evidence_he": "DSP בתוכנה הוא בתוך 'החזית' של סוכני קוד [inference, Dell'Acqua]. במימוש FPGA וזמן אמת (timing closure, חומרה) העדות חלקית [inference].",
+      "closes_he": "חשיפה אחת ל-RFSoC/FPGA (לוח PYNQ) עם בדיקות בחומרה."
+    },
+    "target": {
+      "academia_knowledge": "A4: DSP לתואר שני (6.341), כולל multirate ואומדן ספקטרלי",
+      "academia_fluency": "A4 עם כלים",
+      "industry_role": "principal DSP / sensing signal-processing engineer (hands-on, AI-augmented)",
+      "defense_role": "סמכות טכנית לטענות עיבוד אותות"
+    },
+    "projected_old": {
+      "academia": "Knowledge A3: the full conceptual content of MIT 6.003 (Oppenheim and Willsky) and 6.011 (signals, systems and inference), with parts of 6.341 (DSP). Fluency A2-: he could explain convolution, sampling, the z-transform and Wiener filtering, but would likely fail a 6.003 final that asks for long transform computations. Panel P2: there is no K-level gap, but DFT and FFT practice is thin. Below MSc: multirate DSP, filter-design craft, spectral estimation in depth.",
+      "industry": "Mid-level reviewer: catches aliasing, windowing, leakage, SNR and processing-gain errors in claims. A DSP engineer clearly does better on fixed-point implementation, filter design tools, real-time constraints and debugging with real data.",
+      "gap_to_next": "Implement an end-to-end chain in Python on real data, for example SDR captures or radar/audio datasets with filtering, spectral estimation and detection. That closes most of the fluency gap. The same chain can serve the radar and EW projects.",
+      "summary_he": "תוכן מושגי מלא של 6.003 ו-6.011 של MIT, אבל בלי שטף חישובי של מבחן סופי. ברמת בודק בינוני מול מהנדס DSP."
+    },
+    "gap_he": "LV: A3 ידע, A2- שטף, 'בודק בינוני'. הפער: שרשרת אמיתית שהוא בנה, נבדקה ופורסמה; נקודה קבועה וזמן אמת.",
+    "closing_plan_he": "(1) ערכת SDR (RTL-SDR, HackRF בקליטה, Pluto בלולאת כבל). (2) שרשרת מקצה לקצה: סינון, אומדן ספקטרלי, גילוי, על הקלטות ועל RadioML. (3) הסבה לנקודה קבועה ומדידת אובדן. (4) PYNQ RFSoC: מסנן אחד בחומרה. (5) קוד פתוח וביקורת של מהנדס DSP.",
+    "legal_he": "קליטה מותרת; שידור רק ברישיון. בדיקות שידור בלולאת כבל עם מנחתים.",
+    "extra_hours_estimate": {
+      "p10": 800,
+      "p50": 1300,
+      "p90": 2000,
+      "basis_he": "שרשרת מלאה (~400 ש' עם AI), נקודה קבועה ו-FPGA (~300), ספסל ונתונים (~200), ביקורת ופרסום (~150) + אימון קריאה [estimate]. השרשרת משרתת גם מכ\"ם ו-EW ונספרת כאן פעם אחת."
+    },
+    "evidence": [
+      "https://www.wearedevelopers.com/jobs/ext/7067462/senior-comms-dsp-engineer",
+      "https://job-boards.greenhouse.io/andurilindustries/jobs/5035100007",
+      "https://www.mathworks.com/company/newsroom/mathworks-launches-generative-ai-powered-matlab-copilot-to-boost-productivity-and-accelerate-development-for-engineers-scientists-and-researchers.html",
+      "https://news.synopsys.com/2025-09-03-Synopsys-Announces-Expanding-AI-Capabilities-for-its-Leading-EDA-Solutions",
+      "https://www.hbs.edu/faculty/Pages/item.aspx?num=64700",
+      "https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/",
+      "docs/research/round4/LV_benchmark.json"
+    ],
+    "confidence": "medium"
+  },
+  {
+    "id": "ENG · Control and estimation",
+    "role": "deep",
+    "wave": 1,
+    "expert_definition_he": "מתכנן, מכוונן ומאמת מסנני מצב (EKF, UKF, חלקיקים, IMM) ומעקב רב-מטרות על נתונים אמיתיים, עם מבחני עקביות ו-FDIR; מתכנן בקר ומוכיח מרווחים. בנישה (מעקב והתכת ניווט לחישת רחפנים) הוא principal.",
+    "ai_covers_he": "כותב מסננים ב-Python ו-Simulink, גוזר יעקוביאנים, מריץ סריקות כוונון. טעויות: יעקוביאן שגוי, בלבול מערכות צירים, כוונון Q/R שמסתיר התבדרות [inference]. משרות ניווט ואומדן דורשות EKF, צימוד הדוק ורופף, ושלמות [evidence].",
+    "human_value_he": "מידול הרעש, צפיות, בחירת מצבים, קריאת NEES/NIS, מרווחי בטיחות, ההחלטה מתי מסנן 'עובד'.",
+    "hold_in_head_he": "מרחב מצב, צפיות ובקרות, משוואות קלמן ומשמעותן, Riccati, מרווחי הגבר ופאזה, גבול השהיה, אינטגרל Bode, רעיון IMM, שיוך נתונים.",
+    "delegate_he": "קוד, מונטה קרלו, גרפים, גזירת יעקוביאנים (עם בדיקה סימבולית).",
+    "must_verify_he": "NEES/NIS מול χ², מונטה קרלו מול אמת, יעקוביאן סימבולי מול הפרש סופי, תגובת מדרגה ותדר בחומרה.",
+    "risks_he": "מסנן תקין בסימולציה ומתבדר בנתוני אמת; AI מסתיר את הכוונון; ביטחון שווא מגרפים יפים.",
+    "protection_he": "תמיד לוגים אמיתיים; שערי עקביות אוטומטיים; הזרקת תקלות; כל מסנן עם 'כרטיס אימות'.",
+    "thesis_test": {
+      "verdict": "supported",
+      "evidence_he": "אומדן על לוגים הוא עבודת תוכנה ונתונים, בתוך החזית [inference]. בקרת טיסה דורשת חומרה ובטיחות, והעדות חלקית [inference].",
+      "closes_he": "לולאת בקרה של רחפן קטן על מתקן קשור, עם בדיקות תדר."
+    },
+    "target": {
+      "academia_knowledge": "A4: EE263/6.241 ומסננים לא לינאריים",
+      "academia_fluency": "A4 עם כלים",
+      "industry_role": "principal estimation / tracking engineer (GNC), hands-on, AI-augmented",
+      "defense_role": "סמכות טכנית בכירה לטענות מעקב ובקרת אש"
+    },
+    "projected_old": {
+      "academia": "Knowledge A3: Åström and Murray, the Caltech CDS 110 / MIT 6.302 level, plus the Kalman and Wiener material of 6.011; conceptual contact with robustness, MPC, describing functions and gain scheduling. Fluency A2-. Below MSc: the rigorous state-space and linear-systems theory of Stanford EE263 or MIT 6.241, nonlinear control (Khalil) and robust control synthesis. Panel P2: estimation craft is weak, with NEES and consistency tests, particle filters and FDIR missing.",
+      "industry": "Mid-level reviewer: understands margins, delay, saturation, bandwidth limits and observability, and can ask the questions a design review asks. A GNC or control engineer does far better at tuning, Simulink models, filter-divergence debugging, flight-test data and certification.",
+      "gap_to_next": "Tune and validate an EKF or UKF on real IMU+GNSS logs (a drone or a phone), with NEES/NIS consistency tests and a fault scenario. That is level 3 in estimation and doubles as the PNT and robotics project.",
+      "summary_he": "בקרה ברמת קורס מתקדם בתואר ראשון ומושגים של תואר שני; חסר אומנות מסננים (עקביות, כשלים). בודק בינוני, לא מכוונן."
+    },
+    "gap_he": "LV: A3 ידע, A2- שטף, חסרה אומנות מסננים. הפער: מסננים מאומתים על נתוני אמת, מעקב רב-מטרות, FDIR.",
+    "closing_plan_he": "(1) EKF/UKF GNSS/INS על לוגים של טלפון ו-PX4 (משותף עם PNT). (2) מעקב רב-מטרות (Stone Soup, JPDA/MHT) על ADS-B ועל נתוני מכ\"ם. (3) לולאת בקרת גובה של רחפן על מתקן קשור. (4) מאמר או דוח טכני.",
+    "legal_he": null,
+    "extra_hours_estimate": {
+      "p10": 1000,
+      "p50": 1600,
+      "p90": 2500,
+      "basis_he": "שני פרויקטים ברמת תזה (800–1000 ש' כל אחד, AI חוסך כ-30–40% מהמימוש) + חומרה קשורה [estimate]."
+    },
+    "evidence": [
+      "https://www.jobera.com/job/trimble-navigation-engineer-47d4119e/",
+      "https://www.isl.eu/en/jobs/job-offers/842-research-scientist-in-the-field-of-advanced-algorithms-for-navigation-through-ins-gnss-coupling-and-in-flight-validation-m-f",
+      "https://www.tealhq.com/job/principal-engineer-state-estimation_7ea1a6ce99a2747aad637648a80c68e0a297a",
+      "https://www.hbs.edu/faculty/Pages/item.aspx?num=64700",
+      "docs/research/round4/LV_benchmark.json"
+    ],
+    "confidence": "medium"
+  },
+  {
+    "id": "ENG · Information theory and communications",
+    "role": "core",
+    "wave": 2,
+    "expert_definition_he": "מתכנן ומדמה ערוץ קשר (צורת גל, קידוד, סנכרון, ערוץ), בודק מול תאוריה ומול מדידת SDR, וקורא 3GPP ו-MIL-STD ברמת ארכיטקטורה.",
+    "ai_covers_he": "כותב סימולטורים ברמת לינק (Sionna, MATLAB 5G Toolbox), גוזר קיבולת. טעויות: Eb/N0 מול SNR, נרמול, מודל ערוץ לא מתאים [inference].",
+    "human_value_he": "תקציב לינק, בחירת צורת גל לעמידות בשיבוש, פשרות פרוטוקול.",
+    "hold_in_head_he": "שאנון, Eb/N0, רווח קידוד, סדר פיזור, OFDM (CP, תת-נושאים), סנכרון, סטטיסטיקת דעיכה, near-far, רווח עיבוד בפיזור ספקטרום.",
+    "delegate_he": "סימולציה, עקומות BER, פענוח פרוטוקולים.",
+    "must_verify_he": "BER מול תאוריה ב-AWGN וריילי, לולאת כבל ב-SDR, השוואה בין כלים.",
+    "risks_he": "נרמול שגוי בביטחון; עקומות שנראות 'כמו בספר' מסיבה לא נכונה.",
+    "protection_he": "עקומות תאוריה כשערי בדיקה; כל תוצאה עם הסבר למה היא סוטה מהגבול.",
+    "thesis_test": {
+      "verdict": "supported",
+      "evidence_he": "סימולציית PHY היא עבודת קוד [inference]. תפעול רשתות ועמידה בתקנים דורשים ניסיון מצטבר, והעדות שם חלקית [inference].",
+      "closes_he": "מדידות SDR בכבל וקריאה מודרכת של תקן אחד מקצה לקצה."
+    },
+    "target": {
+      "academia_knowledge": "A4 במושגים, A3 ברשתות",
+      "academia_fluency": "A3–A4 עם כלים",
+      "industry_role": "senior comms systems engineer (PHY/link), hands-on, AI-augmented",
+      "defense_role": "אנליסט בכיר לפגיעות קשרי נתונים לשיבוש"
+    },
+    "projected_old": {
+      "academia": "Knowledge A3-A4 (concepts) in information theory and wireless: MacKay and Tse and Viswanath are graduate texts (Stanford EE359, Berkeley EE224/226 type). He understands capacity, coding, diversity, MIMO and OFDM at MSc concept level. Fluency A2: he cannot derive outage or capacity results under exam conditions. Networks are only A2 (6 subtopics, no networks textbook). 13 S-level items are missing.",
+      "industry": "Mid-level reviewer of link budgets, waveform claims and capacity claims, strong at catching inflated throughput or range. A senior comms system engineer does far better on standards (3GPP, MIL-STD waveforms), PHY implementation, RF measurement and network operations.",
+      "gap_to_next": "A link-level simulator (OFDM with coding and a fading channel) checked against theory and against SDR measurements, or a MANET throughput-vs-hops study in ns-3 or EMANE (shared with the MIL comms domain).",
+      "summary_he": "מושגי תקשורת אלחוטית ותורת האינפורמציה ברמת תואר שני (ספרי תואר שני), אבל בלי שטף גזירה; רשתות רק ברמת סקירה."
+    },
+    "gap_he": "LV: מושגים A3–A4, שטף A2, רשתות A2. הפער: סימולטור לינק מאומת, מדידה, ורשתות.",
+    "closing_plan_he": "(1) OFDM+LDPC בערוץ דועך, מול תאוריה ומול לולאת כבל ב-SDR. (2) מחקר מרווח שיבוש. (3) MANET ב-ns-3 (משותף עם MIL comms).",
+    "legal_he": "שידור רק בכבל, בכלוב מסוכך, או בפס ISM בתוך מגבלות ההספק.",
+    "extra_hours_estimate": {
+      "p10": 700,
+      "p50": 1100,
+      "p90": 1700,
+      "basis_he": "פרויקט ברמת תזה (~700 ש' עם AI) + רשתות (~200) + מדידות (~150) [estimate]."
+    },
+    "evidence": [
+      "https://www.wearedevelopers.com/jobs/ext/7067462/senior-comms-dsp-engineer",
+      "https://www.hbs.edu/faculty/Pages/item.aspx?num=64700",
+      "docs/research/round4/LV_benchmark.json"
+    ],
+    "confidence": "medium"
+  },
+  {
+    "id": "ENG · Electronics and circuits",
+    "role": "core",
+    "wave": 1,
+    "expert_definition_he": "מגדיר, מתכנן עם AI (סכמה, SPICE, פריסת PCB בכלים אוטומטיים), בונה ומדבג חזיתות RF ואנלוגיות ואספקת כוח; המדידה באחריותו. זה התחום שמאפשר את כל עבודת הספסל של גל 1.",
+    "ai_covers_he": "סוכנים מתכננים מעגלים אנלוגיים פשוטים ונטליסטים של SPICE (AnalogCoder: 20 מתוך 24 משימות [evidence]); פריסת PCB אוטונומית קיימת (Quilter: 'מחשב שעבד באתחול הראשון', טענת יצרן [evidence]). טעויות: פרזיטיים, הארקה, יציבות, תרמי, קריאה שגויה של דפי נתונים [inference]. במבחן EEE-Bench הממוצע 19–47% [evidence, מודלים של 2024].",
+    "human_value_he": "דיבוג על השולחן, טכניקת מדידה, שיפוט פריסה והארקה, קריאה ביקורתית של דפי נתונים.",
+    "hold_in_head_he": "אוהם, KCL/KVL, עכבה והתאמה, יציבות מגבר ו-GBW, noise figure ו-Friis, לולאות הארקה, ניתוק, הפחתה תרמית, יסודות S-parameters.",
+    "delegate_he": "טיוטות סכמה, הרצות SPICE, BOM, מועמדי פריסה, סקריפטי בדיקה.",
+    "must_verify_he": "מדידה (סקופ, NanoVNA, מנתח ספקטרום) מול SPICE; רשימת בדיקת first-article; שתי דרכים לכל מספר קריטי.",
+    "risks_he": "החומרה לא סולחת: הצעה שלא נבדקה שורפת רכיבים; בטיחות חשמלית; זה התחום שבו המרחק בין ידע ליכולת הכי גדול.",
+    "protection_he": "ספסל מוקדם; בניות קטנות ומדורגות; מנטור אנושי (מועדון חובבי רדיו, האקרספייס); יומן מדידות.",
+    "thesis_test": {
+      "verdict": "partial",
+      "evidence_he": "כלי תכן לבקרים ולוחות פשוטים קיימים; לחומרת RF מורכבת שאדם יחיד בנה עם AI העדות היא בעיקר טענות יצרן [evidence: Quilter; AnalogCoder על משימות פשוטות]. האיטרציה הפיזית היא צוואר הבקבוק [inference].",
+      "closes_he": "חמש בניות מדורגות ומבקר מעשי חיצוני."
+    },
+    "target": {
+      "academia_knowledge": "A3",
+      "academia_fluency": "A3 עם כלים וספסל",
+      "industry_role": "senior hardware integrator לחזיתות RF ואנלוגיות (מתכנן עם AI, בונה ומודד)",
+      "defense_role": "אנליסט טכני בכיר לחומרה"
+    },
+    "projected_old": {
+      "academia": "Knowledge A2-: the content of MIT 6.002/6.012 and Horowitz and Hill at a conceptual level. Chapter 1 of H&H (circuit foundations) is missing from the PDF, so node analysis and AC power rest on the class notes and tutor-written text. Fluency A1: electronics is a lab discipline, and without bench work he is below a third-year EE student in actual capability.",
+      "industry": "Junior-level reviewer at best: he knows on paper the classic failures (noise, grounding, bandwidth, thermal limits). He cannot design, simulate (SPICE), lay out or debug. Any practicing electronics engineer clearly does better.",
+      "gap_to_next": "Not a PhD project but bench time: build and measure 3-4 circuits (low-noise preamp, ADC front end, switching supply, an SDR front-end filter) with an oscilloscope and SPICE. Without this, the domain stays 'reader' level.",
+      "summary_he": "הבנה מושגית של תואר ראשון בלי מעבדה, ולכן יכולת מעשית מתחת לסטודנט שנה ג'. כאן הפער הגדול ביותר בין ידע ליכולת."
+    },
+    "gap_he": "LV: 'בודק זוטר במקרה הטוב', מתחת לסטודנט שנה ג'. הפער הגדול: אין ספסל ואין בניות.",
+    "closing_plan_he": "(1) ספסל: סקופ, NanoVNA, מנתח ספקטרום זול, ספק, SDR. (2) חמש בניות: LNA ומסנן לחזית GNSS 1.5 GHz, חזית ADC, ממיר buck, שילוב מודול מכ\"ם 24 GHz, מדידה תרמית. (3) PCB ב-KiCad עם AI וייצור. (4) סקירה של מהנדס מעשי.",
+    "legal_he": "ציוד רדיו שמשדר דורש אישור סוג; לעבוד עם מודולים מאושרים או בכבל.",
+    "extra_hours_estimate": {
+      "p10": 900,
+      "p50": 1400,
+      "p90": 2200,
+      "basis_he": "חמש בניות של 150–250 ש' (כולל המתנה לייצור ודיבוג) + מעבדת מבוא מקבילה לשני קורסי מעבדה (~300) [estimate]. AI מקצר תכן, לא מדידה."
+    },
+    "evidence": [
+      "https://github.com/laiyao1/AnalogCoder",
+      "https://arxiv.org/abs/2508.02518",
+      "https://arxiv.org/abs/2603.23910",
+      "https://www.businesswire.com/news/home/20251210722060/en/Quilter-Unveils-Worlds-First-Computer-Designed-by-AI",
+      "https://arxiv.org/abs/2411.01492",
+      "docs/research/round4/LV_benchmark.json"
+    ],
+    "confidence": "low"
+  },
+  {
+    "id": "ENG · Electric machines and power",
+    "role": "supporting",
+    "wave": 3,
+    "expert_definition_he": "אינטגרטור בכיר: מתאים שרשראות כוח והנעה למערכות ורחפנים, מריץ עם AI זרימת עומסים ותרחישי N-1, וסוקר אלקטרוניקת הספק.",
+    "ai_covers_he": "סקריפטי pandapower/PyPSA, חישובי מנוע; טעויות per-unit, MW מול MWh [inference].",
+    "human_value_he": "שיפוט טענות אנרגיה, בחירת תרחיש, הבנת מגבלות רשת.",
+    "hold_in_head_he": "P=VI, הפסדים, שרשרת נצילות, צפיפות אנרגיה, עקומת מומנט-מהירות, per-unit, N-1.",
+    "delegate_he": "מודלים, סימולציות, גיליונות.",
+    "must_verify_he": "מאזן אנרגיה, מקרי IEEE 14-bus, מדידת דחף וזרם של מנוע רחפן.",
+    "risks_he": "מספרים רהוטים עם יחידות שגויות.",
+    "protection_he": "בדיקת יחידות וסדר גודל לפני כל טענה.",
+    "thesis_test": {
+      "verdict": "supported",
+      "evidence_he": "ניתוח רשת הוא עבודת תוכנה עם מקרי בוחן ציבוריים [inference]. אלקטרוניקת הספק בחומרה: חלקי.",
+      "closes_he": "מתקן דחף לרחפן."
+    },
+    "target": {
+      "academia_knowledge": "A3",
+      "academia_fluency": "A3 עם כלים",
+      "industry_role": "senior power / energy integrator (AI-augmented)",
+      "defense_role": "אנליסט בכיר לחוסן רשת ואנרגיה"
+    },
+    "projected_old": {
+      "academia": "Motors and drives A2-A3 (Hughes and Drury; the concepts of a BSc elective such as MIT 6.685). Energy systems: strong orders of magnitude from MacKay's 'Sustainable Energy' (which is a numeracy book, not a degree text). Power systems are below A2: P2 found 6 grid subtopics missing and 3 partial, with no book teaching grids, so they rest on tutor-written lessons. Fluency A1-A2. Power electronics is conceptual only, with SiC and GaN missing.",
+      "industry": "Junior to mid on machines and drives. On energy claims, a strong analyst (catches MW-vs-MWh errors and capacity-factor errors). A power-systems engineer does far better on load flow, protection, stability studies and standards.",
+      "gap_to_next": "A load-flow and contingency study on a real grid case with pandapower or PyPSA (for example grid resilience under strikes, which connects to the military interest), plus a motor-drive simulation.",
+      "summary_he": "מנועים ברמת קורס בחירה בתואר ראשון; רשתות חשמל רק מסקירה שהמורה כותב. שיפוט מספרי חזק בטענות אנרגיה."
+    },
+    "gap_he": "LV: זוטר-בינוני, רשתות מתחת ל-A2.",
+    "closing_plan_he": "(1) pandapower על מקרי IEEE ותרחיש פגיעה ברשת. (2) מתקן דחף: מנוע, ESC, סוללה.",
+    "legal_he": null,
+    "extra_hours_estimate": {
+      "p10": 300,
+      "p50": 500,
+      "p90": 850,
+      "basis_he": "שני פרויקטים קטנים (~200 כל אחד) + קריאה מודרכת [estimate]."
+    },
+    "evidence": [
+      "https://www.hbs.edu/faculty/Pages/item.aspx?num=64700",
+      "docs/research/round4/LV_benchmark.json"
+    ],
+    "confidence": "medium"
+  },
+  {
+    "id": "ENG · Thermodynamics and heat transfer",
+    "role": "supporting",
+    "wave": 3,
+    "expert_definition_he": "אינטגרטור בכיר: בונה עם AI מודל תרמי (lumped ו-FEA) למארז אלקטרוניקה, סוללה או חתימת IR, ומאמת במצלמה תרמית.",
+    "ai_covers_he": "מודלים, טבלאות תכונות, FEA בסיסי; טעויות במקדמי הסעה ובתנאי שפה [inference].",
+    "human_value_he": "בחירת מנגנון שולט, מרווחי תכן, ניסוי מאמת.",
+    "hold_in_head_he": "שלושת המנגנונים, התנגדות תרמית, מספרי Biot ו-Nusselt בסדר גודל, סטפן-בולצמן, נצילות קרנו.",
+    "delegate_he": "פתרון נומרי, טבלאות, גרפים.",
+    "must_verify_he": "מאזן אנרגיה, מדידה תרמית.",
+    "risks_he": "מקדם הסעה 'מהאוויר'.",
+    "protection_he": "כל מקדם עם מקור וטווח.",
+    "thesis_test": {
+      "verdict": "supported",
+      "evidence_he": "מודל ואימות במצלמה זולה הם בהישג יד [inference].",
+      "closes_he": "מצלמה תרמית (משותפת עם EO/IR)."
+    },
+    "target": {
+      "academia_knowledge": "A2–A3",
+      "academia_fluency": "A3 עם כלים",
+      "industry_role": "senior thermal integrator (AI-augmented)",
+      "defense_role": "אנליסט בכיר למאזני חום וחתימות"
+    },
+    "projected_old": {
+      "academia": "Knowledge A2: the mechanical-engineering core, Çengel (MIT 2.005-type thermo) and Lienhard (MIT 2.51-type heat transfer, intro-graduate text). Fluency A1-A2: cycle and property-table computations are not practiced. Turbulence (cascade, Kolmogorov scales) and battery electrochemistry at OOM level are gaps the tutor fills.",
+      "industry": "Mid-level reviewer of thermal budgets and energy-conversion claims, for example IR-signature heat rejection, engine efficiency and electronics cooling. A thermal engineer does far better with thermal FEA/CFD, test chambers and design margins learned from failures.",
+      "gap_to_next": "A thermal model of a real system (a drone battery pack, electronics enclosure or IR signature of an exhaust) validated against measurement. That makes the domain level 3 and feeds the EO/IR domain.",
+      "summary_he": "ליבת תרמודינמיקה ומעבר חום של תואר ראשון בהנדסת מכונות, ברמה מושגית. בודק בינוני של מאזני חום."
+    },
+    "gap_he": "LV: בודק בינוני, A1–A2 שטף.",
+    "closing_plan_he": "מודל תרמי של מארז או סוללת רחפן, מאומת במצלמה תרמית; מודל חתימת פליטה.",
+    "legal_he": null,
+    "extra_hours_estimate": {
+      "p10": 280,
+      "p50": 450,
+      "p90": 750,
+      "basis_he": "פרויקט אחד (~250) + תרגול מקרים [estimate]."
+    },
+    "evidence": [
+      "https://www.ansys.com/en-gb/news-center/press-releases/1-9-24-ansys-launches-simai",
+      "docs/research/round4/LV_benchmark.json"
+    ],
+    "confidence": "medium"
+  },
+  {
+    "id": "ENG · Fluids, aerodynamics and propulsion",
+    "role": "supporting",
+    "wave": 3,
+    "expert_definition_he": "אינטגרטור בכיר: מתכנן עם AI כלי טיס קטן (OpenVSP, XFLR5), מנבא ביצועים ומשווה ללוגי טיסה; בודק טענות על-קוליות.",
+    "ai_covers_he": "הרצות פאנלים, משוואת הרקטה, טבלאות; טעויות במשטר זרימה ובמספר ריינולדס [inference]. כלים כמו SimAI מקצרים CFD [evidence, טענת יצרן].",
+    "human_value_he": "בחירת משטר, שיפוט ביצועים, ניסוי טיסה.",
+    "hold_in_head_he": "עילוי וגרר, L/D, ריינולדס ומאך, Breguet, משוואת הרקטה, חימום אווירודינמי בסדר גודל.",
+    "delegate_he": "סימולציה ותכנון גיאומטריה.",
+    "must_verify_he": "השוואה ללוגי טיסה, מקרים מהספר.",
+    "risks_he": "CFD יפה ושגוי.",
+    "protection_he": "תמיד מול נתוני טיסה או מנהרה.",
+    "thesis_test": {
+      "verdict": "partial",
+      "evidence_he": "ניתוח נתמך; תכן אמיתי דורש ניסוי טיסה [inference].",
+      "closes_he": "טיסות עם רחפן או דאון קטן (משותף עם UAS)."
+    },
+    "target": {
+      "academia_knowledge": "A3",
+      "academia_fluency": "A3 עם כלים",
+      "industry_role": "senior aero/performance integrator (AI-augmented)",
+      "defense_role": "אנליסט בכיר לטענות ביצועים"
+    },
+    "projected_old": {
+      "academia": "Knowledge A2: Anderson's 'Introduction to Flight' is a sophomore text (MIT 16.00/16.100 level). With Kolmogorov and Feynman added, Navier-Stokes structure and turbulence reach partial A2-A3. Compressible flow (5 subtopics) and propulsion are survey level, below the upper-BSc courses (MIT 16.100 compressible, 16.50 propulsion). No CFD. Fluency A1-A2.",
+      "industry": "On performance claims (range, endurance, L/D, thrust-to-weight, the rocket equation) he can reach a senior reviewer's sanity-check level, because the numbers are simple. On real aero design he is junior. Aero engineers do far better on CFD, wind tunnels, stability derivatives and flight test.",
+      "gap_to_next": "Design and analyze a small UAV or a missile airframe with OpenVSP/XFLR5, then compare the predictions with flight data. Or a compressible-flow/hypersonic heating project that checks public hypersonic claims (ties to MIL missiles).",
+      "summary_he": "אווירודינמיקה ברמת קורס מבוא בתואר ראשון; זרימה דחיסה והנעה ברמת סקירה. טוב בבדיקת טענות ביצועים, לא בתכן."
+    },
+    "gap_he": "LV: טוב בבדיקת טענות, זוטר בתכן.",
+    "closing_plan_he": "(1) תכן כלי טיס קטן ב-OpenVSP/XFLR5 מול לוגי טיסה. (2) בדיקת טענת חימום על-קולי.",
+    "legal_he": "טיסה לפי כללי רת\"א לרחפנים; לבדוק רישום ואזורי טיסה.",
+    "extra_hours_estimate": {
+      "p10": 350,
+      "p50": 600,
+      "p90": 1000,
+      "basis_he": "שני פרויקטים (~250 כל אחד) + טיסות [estimate]."
+    },
+    "evidence": [
+      "https://www.ansys.com/en-gb/news-center/press-releases/1-9-24-ansys-launches-simai",
+      "docs/research/round4/LV_benchmark.json"
+    ],
+    "confidence": "medium"
+  },
+  {
+    "id": "ENG · Structures and materials",
+    "role": "supporting",
+    "wave": 3,
+    "expert_definition_he": "אינטגרטור בכיר: מנתח עם AI (FEA) חלק, מדפיס, בודק עד כשל, ומשווה; שיפוט חומרים בשיטת Ashby.",
+    "ai_covers_he": "רשת FEA, הרצות, בחירת חומר; טעויות בתנאי שפה ובריכוזי מאמץ [inference].",
+    "human_value_he": "אינטואיציה לנתיב העומס, מרווחים, ניתוח כשל.",
+    "hold_in_head_he": "מאמץ ועיבור, קורה ופיתול, קריסה, עייפות (S-N), מדדי חומר של Ashby.",
+    "delegate_he": "FEA, CAD, חישובים.",
+    "must_verify_he": "פתרון קורה אנליטי, מבחן הרס.",
+    "risks_he": "ריכוזי מאמץ מדומים מרשת גרועה.",
+    "protection_he": "מבחן התכנסות ובדיקה פיזית.",
+    "thesis_test": {
+      "verdict": "supported",
+      "evidence_he": "חלקים מודפסים ובדיקות פשוטות בהישג יד [inference].",
+      "closes_he": "מתקן בדיקה פשוט."
+    },
+    "target": {
+      "academia_knowledge": "A3",
+      "academia_fluency": "A3 עם כלים",
+      "industry_role": "senior structures integrator (AI-augmented)",
+      "defense_role": "אנליסט בכיר לחומרים ושרידות מבנית"
+    },
+    "projected_old": {
+      "academia": "Knowledge A2: Gere (MIT 2.001-type mechanics of materials) and Ashby (materials selection, a Cambridge Part IB / MSc design-course classic). Fatigue, fracture and life are partial. FEM is a tutor-added module. Fluency A1-A2. Below BSc: drawing, GD&T and design projects.",
+      "industry": "Ashby-type trade-off judgment (material indices, cost per performance) can reach mid-to-senior reviewer level, which is unusual. In structural analysis and design he is junior. Practitioners do far better on FEA, manufacturing tacit knowledge, tolerancing and failure investigation.",
+      "gap_to_next": "Design-analyze-build-test a part, for example an FEA-modeled bracket or drone arm that is 3D-printed and tested to failure. A fatigue-life estimate checked against a real failure case would add life prediction.",
+      "summary_he": "חוזק חומרים של תואר ראשון ובחירת חומרים בשיטת אשבי; שיפוט פשרות חומרים טוב, תכן מבני חלש."
+    },
+    "gap_he": "LV: שיפוט פשרות טוב, תכן מבני חלש.",
+    "closing_plan_he": "FEA (CalculiX/FreeCAD) לזרוע רחפן, הדפסה ובדיקה עד כשל; אומדן עייפות מול מקרה כשל אמיתי.",
+    "legal_he": null,
+    "extra_hours_estimate": {
+      "p10": 300,
+      "p50": 500,
+      "p90": 850,
+      "basis_he": "פרויקט תכן-בנייה-בדיקה (~300) + עייפות [estimate]."
+    },
+    "evidence": [
+      "https://www.ansys.com/en-gb/news-center/press-releases/1-9-24-ansys-launches-simai",
+      "docs/research/round4/LV_benchmark.json"
+    ],
+    "confidence": "medium"
+  },
+  {
+    "id": "ENG · Machine learning and deep learning",
+    "role": "core",
+    "wave": 2,
+    "expert_definition_he": "מאמן, מעריך ופורס מודלים על נתוני חיישנים (סיווג RF, מיקרו-דופלר, SAR) בהכוונת סוכני קוד; מתכנן פרוטוקולי הערכה, OOD ובדיקות עוינות; סוקר טענות ML ברמה בכירה.",
+    "ai_covers_he": "סוכנים כותבים את כל צינור האימון. טעויות: דליפה, זיהום train/test, מדד לא נכון, אוגמנטציה שבורה בשקט [inference]. מוצרים כמו OmniSIG כבר מסווגים אותות RF בזמן אמת [evidence, טענת יצרן].",
+    "human_value_he": "הבנת הנתונים, תכנון ההערכה, ניתוח כשלים, ההחלטה מה המודל לא יכול לדעת.",
+    "hold_in_head_he": "הטיה-שונות, הכללה, כיול, אופני דליפה, חשבון קנה מידה ו-compute, הטיה אינדוקטיבית של קונבולוציה ו-attention, מדדים.",
+    "delegate_he": "קוד אימון, ניסויים, ablations, תשתית.",
+    "must_verify_he": "held-out לפי זמן וחיישן, baselines פשוטים, ablations, ביקורת תוויות.",
+    "risks_he": "ביצועים מדומים מדליפה; ביטחון שווא ממספר יחיד.",
+    "protection_he": "תבנית הערכה קבועה ומבחן 'מודל טיפש' לכל טענה.",
+    "thesis_test": {
+      "verdict": "supported",
+      "evidence_he": "סוכני קוד חזקים כאן במיוחד [inference]; METR מראה האטה למומחים במאגרים מוכרים [evidence], אבל למי שבונה ממאפס עם נתונים משלו הרווח צפוי גדול [inference].",
+      "closes_he": "שלושה פרויקטים עם נתונים אמיתיים ופריסה אחת."
+    },
+    "target": {
+      "academia_knowledge": "A4",
+      "academia_fluency": "A4 עם כלים",
+      "industry_role": "senior ML engineer לנתוני RF וחיישנים (AI-augmented)",
+      "defense_role": "אנליסט AI-assurance בכיר"
+    },
+    "projected_old": {
+      "academia": "Knowledge A3: Prince's 'Understanding Deep Learning' plus MacKay cover the concepts of Stanford CS229 and much of CS231n/CS224n, at upper-BSc/MSc level. Gaps the tutor fills: scaling laws, LLM pretraining and alignment, ML data pipelines, ML assurance. Fluency A1-A2: he does no coding and no derivations, so he would fail a CS229 problem set.",
+      "industry": "Judgment on ML claims (leakage, OOD, calibration, benchmark gaming, compute arithmetic) can match a mid-level ML engineer or a technical AI program manager. He has zero hands-on training, which every ML engineer has, and practitioners do vastly better on data work, training, debugging and deployment.",
+      "gap_to_next": "One end-to-end project: train and evaluate a model on a defense-relevant open dataset (for example SAR ATR on MSTAR, or drone detection from RF/acoustic data), including OOD and adversarial tests. That is a legitimate PhD-flavored project and closes the most visible gap.",
+      "summary_he": "מושגי למידה עמוקה ברמת תואר שני מוקדם; אפס ניסיון באימון מודלים. מבקר טוב של טענות AI, לא מהנדס ML."
+    },
+    "gap_he": "LV: 'אפס ניסיון באימון'. בקנה החדש האימון עצמו מואצל; הפער הוא הערכה ונתונים.",
+    "closing_plan_he": "(1) מסווג RF על RadioML ועל הקלטות SDR שלו. (2) רחפן מול ציפור במיקרו-דופלר (נתונים פתוחים ומודול מכ\"ם). (3) SAR ATR על MSTAR עם OOD. (4) פריסה על Jetson.",
+    "legal_he": null,
+    "extra_hours_estimate": {
+      "p10": 700,
+      "p50": 1100,
+      "p90": 1700,
+      "basis_he": "שלושה פרויקטים של 250–350 ש' + פריסה [estimate]."
+    },
+    "evidence": [
+      "https://www.deepsig.ai/omnisig",
+      "https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/",
+      "https://www.hbs.edu/faculty/Pages/item.aspx?num=64700",
+      "docs/research/round4/LV_benchmark.json"
+    ],
+    "confidence": "medium"
+  },
+  {
+    "id": "ENG · Reinforcement learning",
+    "role": "supporting",
+    "wave": 3,
+    "expert_definition_he": "אינטגרטור בכיר: מריץ עם AI PPO ובסיס מבוסס-מודל על סימולציית מרדף-התחמקות, ובודק עמידות להסטת תחום.",
+    "ai_covers_he": "מימוש מלא בספריות (Stable-Baselines3); טעויות בעיצוב תגמול ובזרעים [inference].",
+    "human_value_he": "עיצוב תגמול, השוואה לבקרה אופטימלית, זיהוי reward hacking.",
+    "hold_in_head_he": "MDP, Bellman, policy gradient, exploration, sim-to-real.",
+    "delegate_he": "קוד וסריקות.",
+    "must_verify_he": "זרעים מרובים, baseline של בקרה קלאסית.",
+    "risks_he": "תוצאה מזרע יחיד.",
+    "protection_he": "דיווח עם רווחי סמך.",
+    "thesis_test": {
+      "verdict": "supported",
+      "evidence_he": "כולו בסימולציה [inference].",
+      "closes_he": "-"
+    },
+    "target": {
+      "academia_knowledge": "A3–A4",
+      "academia_fluency": "A3 עם כלים",
+      "industry_role": "senior RL integrator (AI-augmented)",
+      "defense_role": "אנליסט בכיר לטענות אוטונומיה"
+    },
+    "projected_old": {
+      "academia": "Knowledge A3 on foundations: Sutton and Barto are the first half of Stanford CS234 and Berkeley CS285. Deep and modern RL (PPO, SAC, offline RL, sim-to-real) is partial or missing, so it is below CS285. Fluency A1-A2.",
+      "industry": "Junior to mid. He can critique reward hacking, sample-efficiency and sim-to-real claims, and he knows where RL vs optimal control applies. RL practitioners do far better at every implementation task.",
+      "gap_to_next": "Implement PPO and a model-based baseline on a pursuit-evasion or drone-interception simulation, then test robustness to domain shift. This is a natural PhD-style project that links RL, control and missiles.",
+      "summary_he": "יסודות למידה מחיזוקים ברמת קורס בחירה לתואר שני; RL עמוק חלקי. ברמת מבקר זוטר-בינוני."
+    },
+    "gap_he": "LV: זוטר-בינוני.",
+    "closing_plan_he": "PPO ובסיס מבוסס-מודל ביירוט רחפן, מבחן הסטת תחום, השוואה ל-PN.",
+    "legal_he": null,
+    "extra_hours_estimate": {
+      "p10": 280,
+      "p50": 450,
+      "p90": 800,
+      "basis_he": "פרויקט אחד (~300) [estimate]."
+    },
+    "evidence": [
+      "docs/research/round4/LV_benchmark.json"
+    ],
+    "confidence": "medium"
+  },
+  {
+    "id": "ENG · Robotics",
+    "role": "supporting",
+    "wave": 3,
+    "expert_definition_he": "אינטגרטור בכיר: מרכיב עם AI מערכת ROS 2 על רחפן או רובוט קטן (VIO/SLAM ומתכנן), ומעריך מול אמת.",
+    "ai_covers_he": "קונפיגורציה, launch files, קוד; טעויות במסגרות ובכיול [inference].",
+    "human_value_he": "אינטגרציה, דיבוג בשטח.",
+    "hold_in_head_he": "קינמטיקה, מצלמת חריר, epipolar, VIO, תכנון מסלול.",
+    "delegate_he": "קוד, כיול, הרצות.",
+    "must_verify_he": "אמת קרקעית, כיול מצלמה-IMU.",
+    "risks_he": "בעיות זמן ומסגרות.",
+    "protection_he": "בדיקות tf ותזמון.",
+    "thesis_test": {
+      "verdict": "partial",
+      "evidence_he": "התוכנה נתמכת; האינטגרציה בחומרה איטית [inference].",
+      "closes_he": "פלטפורמה אחת אמיתית."
+    },
+    "target": {
+      "academia_knowledge": "A3",
+      "academia_fluency": "A3 עם כלים",
+      "industry_role": "senior robotics integrator (AI-augmented)",
+      "defense_role": "אנליסט בכיר לטענות אוטונומיה"
+    },
+    "projected_old": {
+      "academia": "Kinematics, dynamics and planning A2-A3 (Lynch and Park, the Northwestern ME 449 / Coursera 'Modern Robotics' level). Perception and SLAM are A1: Modern Robotics has no perception chapter, so camera models, SLAM, VIO and swarms are tutor-written. Fluency A1-A2.",
+      "industry": "Junior. He can follow a robotics design review and question autonomy claims, but has no ROS, hardware or integration experience. A robotics engineer does far better on everything practical.",
+      "gap_to_next": "A ROS 2 project on a real small robot or drone: visual-inertial odometry or SLAM plus a planner, evaluated against ground truth. This combines robotics, estimation and UAS.",
+      "summary_he": "קינמטיקה ודינמיקה של תואר ראשון; תפיסה ו-SLAM רק מכתיבת המורה. רובוטיקאי זוטר על הנייר."
+    },
+    "gap_he": "LV: זוטר.",
+    "closing_plan_he": "ROS 2 עם VIO על רחפן (משותף עם UAS והאומדן), הערכה מול אמת.",
+    "legal_he": "טיסה לפי כללי רת\"א.",
+    "extra_hours_estimate": {
+      "p10": 400,
+      "p50": 650,
+      "p90": 1100,
+      "basis_he": "פרויקט אינטגרציה (~450) [estimate]."
+    },
+    "evidence": [
+      "docs/research/round4/LV_benchmark.json"
+    ],
+    "confidence": "medium"
+  },
+  {
+    "id": "ENG · Systems engineering",
+    "role": "core",
+    "wave": 1,
+    "expert_definition_he": "מוביל מחזור חיים של המוצרים שלו עם MBSE (SysML v2): דרישות, ICD, V&V, סיכונים, STPA, ואחראי לתוצאה המשולבת. ברמת Lead Practitioner של INCOSE בכשירויות נבחרות [evidence: חמש רמות, Awareness עד Expert].",
+    "ai_covers_he": "טיוטות דרישות, מודלי SysML, traceability, FMEA. טעויות: דרישות סבירות שלא ניתנות לבדיקה, ממשקים חסרים, תבניות ריקות [inference].",
+    "human_value_he": "אחריות, הוצאת דרישות מבעלי עניין, שיפוט מה חשוב, אמירת 'לא'.",
+    "hold_in_head_he": "מחזור החיים, תכונות דרישה טובה, פירוק פונקציונלי, ניהול ממשקים, מטריצת אימות, STPA, ניהול סיכונים ו-margins.",
+    "delegate_he": "מסמכים, מודלים, מטריצות, בדיקות עקיבות.",
+    "must_verify_he": "כל דרישה נעקבת לבדיקה; ביקורת עמיתים חיצונית; הערכה לפי SECF.",
+    "risks_he": "מסמכים רבים ויפים בלי מהות; ביטחון שווא מ-traceability אוטומטי.",
+    "protection_he": "ביקורת תכן אמיתית עם מהנדס בכיר חיצוני; כל דרישה עם מבחן קבלה.",
+    "thesis_test": {
+      "verdict": "partial",
+      "evidence_he": "עבודת התיעוד מתכווצת מאוד [inference]. אחריות, הובלת צוות ולחץ לוח זמנים לא נבדקים לבד [inference].",
+      "closes_he": "מוצר אמיתי מקצה לקצה, ומבקר חיצוני."
+    },
+    "target": {
+      "academia_knowledge": "A4",
+      "academia_fluency": "A4 עם כלים (מבחן מקרה)",
+      "industry_role": "senior systems engineer / tech lead של מוצר קטן (AI-augmented)",
+      "defense_role": "סוקר SE בכיר של תוכניות"
+    },
+    "projected_old": {
+      "academia": "Knowledge A3-A4 (concepts): the NASA SE Handbook plus added items cover the concepts of graduate SE introductions (MIT 16.842, NPS SE3100, the DAU SE track). Missing items the tutor adds: PRA, STPA, MBSE, security, EVM detail. In SE, fluency matters less than in technical domains; what academia adds beyond this is case work and a capstone.",
+      "industry": "With his military-program background, plausibly mid-level, and senior as a REVIEWER of requirements, trade studies and V&V plans. Below a senior SE in carrying a program's accountability, running reviews, MBSE tools (Cameo/SysML), interface management and schedule pressure.",
+      "gap_to_next": "Run a full SE life cycle on his own project (requirements, architecture, verification matrix, risk register) and do an STPA analysis of a real system. Publishing it as a case study turns knowledge into demonstrable practice.",
+      "summary_he": "מושגי הנדסת מערכות ברמת קורס מבוא לתואר שני; כבודק דרישות ותכנון אימות קרוב לבכיר, אבל בלי אחריות על תוכנית."
+    },
+    "gap_he": "LV: בינוני, בכיר כבודק. הפער: מחזור חיים מלא שבוצע, MBSE, STPA.",
+    "closing_plan_he": "(1) SE מלא על מוצר גל 1 (צומת חישה נגד רחפנים): דרישות, ארכיטקטורה, ICD, מטריצת אימות. (2) מודל SysML v2. (3) STPA. (4) ביקורת חיצונית. (5) מבחן ASEP של INCOSE [inference: לבדוק דרישות ניסיון ל-CSEP].",
+    "legal_he": null,
+    "extra_hours_estimate": {
+      "p10": 600,
+      "p50": 1000,
+      "p90": 1600,
+      "basis_he": "מקביל לפרויקט גמר בתואר שני ב-SE (~600) + MBSE (~200) + מבחן [estimate]."
+    },
+    "evidence": [
+      "https://www.incose.org/events/news-detail/2025/04/10/systems-engineering-competency-framework---2nd-edition",
+      "https://www.hbs.edu/faculty/Pages/item.aspx?num=64700",
+      "docs/research/round4/LV_benchmark.json"
+    ],
+    "confidence": "medium"
+  },
+  {
+    "id": "ENG · Engineering judgment (cross-cutting)",
+    "role": "core",
+    "wave": 1,
+    "expert_definition_he": "שיפוט מהיר ומכויל של סדרי גודל ומצבי כשל, שמזהה מתי פלט AI שגוי. זה התפקיד האנושי שבלב התזה, ולכן חייב להימדד.",
+    "ai_covers_he": "אומדנים מהירים; לא יודע לכייל את האמון שלו בעצמו. טיעונים שגויים של AI נשפטו משכנעים יותר [evidence: Dell'Acqua].",
+    "human_value_he": "כיול, העברת מבנה בין תחומים, הידיעה 'מה באמת משתבש'.",
+    "hold_in_head_he": "ספריית סדרי גודל לכל תחום, רשימות כשל טיפוסיות, כללי אצבע ומקורם.",
+    "delegate_he": "חיפוש נתונים, חישוב מפורט, ניסוח.",
+    "must_verify_he": "רשומת תחזיות מתוארכת מול אמת (Brier, יחס שגיאה).",
+    "risks_he": "ביטחון יתר; כיול שנמדד רק על שאלות קלות.",
+    "protection_he": "רשומה ציבורית; שאלות מבוחנים חיצוניים.",
+    "thesis_test": {
+      "verdict": "supported",
+      "evidence_he": "זה הכישור שעולה בערכו [evidence: WEF 2025; inference]. אבל ללא מדידה אין טענה [inference].",
+      "closes_he": "רשומת כיול ו-10 ביקורות שנבדקו בידי מומחים."
+    },
+    "target": {
+      "academia_knowledge": "מעבר ל-MSc (אין מקבילה ישירה)",
+      "academia_fluency": "10–20% שגיאה באומדן בעל פה, נמדד",
+      "industry_role": "principal-level reviewer / integrator (AI-augmented)",
+      "defense_role": "אנליסט בכיר-ראשי בבדיקת טענות"
+    },
+    "projected_old": {
+      "academia": "No degree teaches this directly. The nearest benchmarks are MIT 6.055J 'The Art of Approximation in Science and Engineering' (Mahajan), Fermi-problem courses and capstone design reviews. If the 10-20% mental-estimate target is met and measured, he is above a typical MSc graduate here. Panel P3 called this the weakest domain in the books: K items appear only as scattered instances, so the result depends on the added lessons.",
+      "industry": "This is where level 2.5 aims, and the only domain where senior to principal REVIEWER level is realistic: OOM estimates, structure transfer across fields, catching errors. Principal judgment also includes tacit knowledge of what fails in practice (integration, supply, people), which only experience gives. A principal engineer still does better on the 'what actually goes wrong' layer.",
+      "gap_to_next": "A public calibration record: at least 100 dated quantitative predictions or estimates scored against ground truth (Brier or log score, error ratios), plus 10 published critiques reviewed by named domain experts. This is the external measurement that would make the claim credible.",
+      "summary_he": "התחום שבו רמה 2.5 יכולה להגיע לבודק בכיר, אולי ראשי; צריך רשומת כיול פומבית כדי שזה ייחשב."
+    },
+    "gap_he": "LV: בכיר, אולי ראשי, בלי רשומה. הפער: מדידה.",
+    "closing_plan_he": "(1) 300 תחזיות מתוארכות. (2) 10 ביקורות שעברו מומחים. (3) יומן 'ציד שגיאות AI'.",
+    "legal_he": null,
+    "extra_hours_estimate": {
+      "p10": 400,
+      "p50": 700,
+      "p90": 1200,
+      "basis_he": "כ-1 ש' לתחזית כולל מעקב, 10 ביקורות של 30–40 ש' [estimate]."
+    },
+    "evidence": [
+      "https://www.hbs.edu/faculty/Pages/item.aspx?num=64700",
+      "https://www.weforum.org/publications/the-future-of-jobs-report-2025/",
+      "https://advait.org/files/lee_2025_ai_critical_thinking_survey.pdf",
+      "docs/research/round4/LV_benchmark.json"
+    ],
+    "confidence": "medium"
+  },
+  {
+    "id": "ENG · Periphery: discrete math, algorithms, computer systems, chips",
+    "role": "supporting",
+    "wave": 1,
+    "expert_definition_he": "אינטגרטור בכיר של תוכנה ומחשוב: מכוון סוכני קוד לייצר Python/C++ בדוק, קורא קוד, מתכנן ארכיטקטורה; יסודות embedded בזמן אמת; אנליסט שבבים ומחשוב.",
+    "ai_covers_he": "כותב רוב הקוד. METR: מפתחים ותיקים היו איטיים ב-19% עם AI במאגרים מוכרים, ותופעות למידה צפויות אחרי מאות שעות [evidence].",
+    "human_value_he": "פירוק בעיה, ארכיטקטורה, בדיקות, קריאת קוד, אבטחה.",
+    "hold_in_head_he": "סיבוכיות, מבני נתונים, זיכרון ומטמון, roofline, Amdahl, זמן אמת ופסיקות, git.",
+    "delegate_he": "כתיבת קוד, בדיקות, תיעוד.",
+    "must_verify_he": "בדיקות אוטומטיות, קריאת diff, profiling.",
+    "risks_he": "קוד שעובד ולא מובן; שחיקת הבנת התוכנה.",
+    "protection_he": "כל מודול עם בדיקות; הסבר בעל פה של כל קובץ מרכזי.",
+    "thesis_test": {
+      "verdict": "supported",
+      "evidence_he": "קוד הוא החזית החזקה של הסוכנים [inference]; METR מזכיר שהרווח לא אוטומטי [evidence].",
+      "closes_he": "שעות עבודה עם הכלים עצמם, לא רק שיעורים."
+    },
+    "target": {
+      "academia_knowledge": "A2–A3",
+      "academia_fluency": "A3 עם כלים",
+      "industry_role": "senior software / compute integrator (AI-augmented)",
+      "defense_role": "אנליסט בכיר לשבבים ומחשוב"
+    },
+    "projected_old": {
+      "academia": "Survey level A2: MIT 6.042 (discrete math), Skiena (algorithms, a practitioner's book), Patterson and Hennessy (MIT 6.004 / Berkeley CS61C), Hu (devices), Weste and Harris (VLSI, senior/intro-grad). Fluency A1: no programming, no proofs. Below BSc CS in every assessed skill. Computer-systems material (roofline, Amdahl, GPUs) is good for ML-compute judgment.",
+      "industry": "As an engineer, junior. As a semiconductor and compute analyst (foundry economics, yield, export controls, AI compute arithmetic), mid-level, comparable to an industry or think-tank analyst (CSET-type), because those roles need the same conceptual layer. Software engineers and chip designers do far better on everything practical.",
+      "gap_to_next": "Real coding fluency (Python for analysis, which every other project needs too), plus one embedded real-time project. For chips, an analysis piece on AI compute supply checked by an industry expert.",
+      "summary_he": "סקירה של תואר ראשון במדעי המחשב ובשבבים בלי יכולת תכנות; כאנליסט שבבים ומחשוב ברמה בינונית."
+    },
+    "gap_he": "LV: בלי תכנות. בקנה החדש: שטף עבודה עם סוכני קוד הוא תנאי לכל שאר התחומים, ולכן בגל 1.",
+    "closing_plan_he": "(1) Python, git, pytest עם סוכן מהשבוע הראשון. (2) פרויקט embedded אחד (STM32/ESP32 עם חיישן בזמן אמת). (3) roofline למודל על Jetson. (4) מאמר אנליזה על אספקת מחשוב.",
+    "legal_he": null,
+    "extra_hours_estimate": {
+      "p10": 350,
+      "p50": 600,
+      "p90": 1000,
+      "basis_he": "כ-200 ש' שטף כלים + embedded (~200) + אנליזה [estimate]. חלק משעות הקוד נספר בפרויקטים האחרים."
+    },
+    "evidence": [
+      "https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/",
+      "https://arxiv.org/abs/2507.09089",
+      "docs/research/round4/LV_benchmark.json"
+    ],
+    "confidence": "medium"
+  },
+  {
+    "id": "MIL · Foundations: the quantitative toolkit",
+    "role": "deep",
+    "wave": 1,
+    "expert_definition_he": "בעל ספרייה בדוקה משלו (תקציבי מכ\"ם, EW ולינק, CEP, DOP, גילוי) שמפיקה כל חישוב תקני בדקות, עם מקור לכל נוסחה ובדיקה מול דוגמת ספר.",
+    "ai_covers_he": "כותב את הפונקציות והבדיקות; טועה בהמרות dB, ביחידות ובהגדרות (CEP מול R95) [inference].",
+    "human_value_he": "ידיעה איזו נוסחה חלה, מה ההנחות, ומה המקור.",
+    "hold_in_head_he": "אריתמטיקת dB, משוואות מכ\"ם ו-J/S בצורה אחת לפחות, Pd/Pfa, CRB, DOP, CEP, מערכות קואורדינטות, MOE/MOP.",
+    "delegate_he": "קוד, בדיקות, תיעוד.",
+    "must_verify_he": "כל פונקציה מול דוגמה מספרית מהספר (PoMR, EW101, Kaplan); CI.",
+    "risks_he": "ספרייה שגויה מפיצה טעות לכל פרויקט.",
+    "protection_he": "בדיקות מול דוגמאות ספר וביקורת חיצונית.",
+    "thesis_test": {
+      "verdict": "supported",
+      "evidence_he": "עבודת קוד ובדיקות מול מקורות ידועים [inference].",
+      "closes_he": "-"
+    },
+    "target": {
+      "academia_knowledge": "A4",
+      "academia_fluency": "A4 עם כלים: כל חישוב תקני בדקות",
+      "industry_role": "principal-level toolsmith לניתוח חישה ו-EW",
+      "defense_role": "אנליסט בכיר (שטף RAND/CNA)"
+    },
+    "projected_old": {
+      "academia": "This is the entry layer of NPS engineering-science curricula (dB arithmetic, detection theory, CRB, DOP, CEP, coordinates, MOE/MOP). With Gilua behind it, he covers it at A3 knowledge, at the level of the prerequisite review an NPS combat-systems or EW student gets. Fluency A2.",
+      "industry": "Senior-analyst fluency is realistic here: dB budgets, detection probability and error-ellipse conversions are exactly what RAND/CNA analysts use daily. The remaining edge for practitioners is speed with tools (MATLAB/Python) and knowing the standard data sources.",
+      "gap_to_next": "Tool fluency: a personal Python library of these calculations (radar/EW/link budgets, CEP, DOP) that is tested against textbook examples. It becomes the base of every MIL project.",
+      "summary_he": "ארגז הכלים הכמותי ברמת הכניסה לתואר שני ב-NPS; שליטה של אנליסט בכיר אם תיבדק בכלים."
+    },
+    "gap_he": "LV: אנליסט בכיר אם ייבדק בכלים. הפער: הספרייה עצמה.",
+    "closing_plan_he": "ספריית קוד פתוח עם בדיקות מול דוגמאות ספר, CI ותיעוד; היא הבסיס לכל פרויקט MIL.",
+    "legal_he": null,
+    "extra_hours_estimate": {
+      "p10": 300,
+      "p50": 500,
+      "p90": 800,
+      "basis_he": "כ-60 פונקציות × 4–6 ש' כולל בדיקות + תיעוד [estimate]."
+    },
+    "evidence": [
+      "docs/research/round4/LV_benchmark.json"
+    ],
+    "confidence": "high"
+  },
+  {
+    "id": "MIL · Antennas and propagation",
+    "role": "deep",
+    "wave": 1,
+    "expert_definition_he": "מתכנן אנטנות ומערכים בפותרי EM (openEMS, NEC) בהכוונת AI, מודד דפוסים עם VNA בטווח מאולתר, ומחשב התפשטות עם ITU-R/ITM על DEM אמיתי. בנישה (כיסוי חישה בגובה נמוך) הוא principal.",
+    "ai_covers_he": "סקריפטים ל-openEMS/NEC, מימוש מודלי ITU-R. טעויות: רשת, פורטים, נרמול שדה רחוק, קיטוב, datum של DEM [inference]. משרות Principal Antenna/RF דורשות ניסיון ארוך ב-SDR, RFSoC ותכן [evidence].",
+    "human_value_he": "בחירת מודל התפשטות, תכנון מדידה, פרשנות דפוס מדוד.",
+    "hold_in_head_he": "רווח, צמצם, רוחב אלומה, פקטור מערך, אונות סבכה, צימוד הדדי, Friis, אזורי פרנל, כדור 4/3, multipath, סדרי גודל של ניחות גשם וגזים.",
+    "delegate_he": "סימולציה, עיבוד DEM, גרפים.",
+    "must_verify_he": "דיפול ו-patch אנליטיים, התכנסות רשת, דפוס מדוד, מדידות שפורסמו.",
+    "risks_he": "סימולציה EM שנראית נכונה עם פורט שגוי; מודל התפשטות מחוץ לתחומו.",
+    "protection_he": "תמיד מקרה אנליטי ומדידה; טווח קליטת ADS-B כבדיקת אמת חינמית למודל ההתפשטות.",
+    "thesis_test": {
+      "verdict": "partial",
+      "evidence_he": "תכן וסימולציה נתמכים [inference]; מדידת דפוס דורשת טווח וציוד, וזה איטי לאדם אחד [inference].",
+      "closes_he": "טווח מאולתר בקליטה מאות ידוע, ו-NanoVNA."
+    },
+    "target": {
+      "academia_knowledge": "A4",
+      "academia_fluency": "A4 עם כלים",
+      "industry_role": "principal antenna / propagation engineer לחישה (hands-on, AI-augmented)",
+      "defense_role": "סמכות טכנית לכיסוי ופריסת חיישנים"
+    },
+    "projected_old": {
+      "academia": "Knowledge A3: antenna and array fundamentals and propagation at the concept level of NPS EC3600/EC3630 (Radiowave Propagation) and a BSc EE fields elective. Below MSc: computational EM, array synthesis and propagation modeling with ITU-R methods.",
+      "industry": "Senior-analyst level on coverage, horizon, array-gain and sidelobe questions in force terms. Antenna and RF engineers do far better with HFSS/CST, measurement ranges, array calibration and real terrain models.",
+      "gap_to_next": "An array-pattern plus terrain-propagation project (ITM / ITU-R P.526 with real DEM data), applied to radar low-altitude gaps or C-UAS sensor siting, and checked against a published measurement.",
+      "summary_he": "אנטנות והתפשטות ברמת קורסי 3000 ב-NPS, באופן מושגי; אנליסט בכיר בשאלות כיסוי, בלי כלי EM."
+    },
+    "gap_he": "LV: A3, אנליסט בכיר בלי כלי EM. הפער: תכן-בנייה-מדידה ומודל התפשטות מאומת.",
+    "closing_plan_he": "(1) patch ומערך קטן ב-openEMS, ייצור PCB, מדידת S11 ודפוס בקליטה. (2) ITM/P.526 על DEM לפריסת חיישני C-UAS, מאומת מול טווחי קליטת ADS-B של מקלט שלו. (3) מאמר או דוח.",
+    "legal_he": "קליטה בלבד מותרת; כל שידור, ובוודאי שיבוש או הטעיית GNSS, רק בכבל עם מנחתים או בכלוב מסוכך, או ברישיון משרד התקשורת. ידע ביטחוני שמועבר לגורם זר נחשב יצוא ודורש רישיון אפ\"י (DECA), גם בתוך ישראל; לכן מפרסמים רק מה שנגזר ממקורות פתוחים.",
+    "extra_hours_estimate": {
+      "p10": 1100,
+      "p50": 1700,
+      "p90": 2600,
+      "basis_he": "שני פרויקטים ברמת תזה (תכן-מדידה, התפשטות) כ-700 ש' כל אחד עם AI + ספסל [estimate]."
+    },
+    "evidence": [
+      "https://www.builtinnyc.com/job/principal-antenna-rf-engineer-connected-warfare/7164581",
+      "https://www.gov.il/en/service/radio-amateurs-certificates",
+      "https://arrl.org/news/report-radio-amateurs-in-israel-lose-access-to-much-microwave-spectrum",
+      "https://exportctrl.mod.gov.il/English",
+      "docs/research/round4/LV_benchmark.json"
+    ],
+    "confidence": "medium"
+  },
+  {
+    "id": "MIL · Radar",
+    "role": "deep",
+    "wave": 1,
+    "expert_definition_he": "principal radar systems engineer בנישה (גילוי והבחנה של מטרות קטנות: רחפן מול ציפור): מתכנן צורות גל ושרשראות עיבוד, בונה ובודק מכ\"ם בחומרה (FMCW mmWave, מכ\"ם פסיבי ב-SDR), מתכנן ניסויים ומפרסם; סמכות לטענות.",
+    "ai_covers_he": "קוד עיבוד, סימולציה (MATLAB Radar Toolbox, Python), סריקות פשרות. טעויות: עמימות, כיול CFAR, חלונות, סימן דופלר, יחידות RCS [inference]. Elbit מחפשת מהנדסי אלגוריתמים למכ\"ם שמיישמים AI [evidence].",
+    "human_value_he": "תכנון ניסוי, בחירת צורת גל, פרשנות נתונים אמיתיים, שיפוט טענות. משרות: Lincoln Lab דורשת PhD או MS + 3–5 שנים; Lockheed 5+ שנות SE ו-3+ שנות MATLAB; Elbit 3+ שנים רב-תחומי עם RF [evidence].",
+    "hold_in_head_he": "משוואת המכ\"ם בכל צורותיה, פונקציית עמימות, רזולוציה, clutter ו-MTI ורעיון STAP, CFAR, תורת גילוי, מיקרו-דופלר, ECCM.",
+    "delegate_he": "קוד עיבוד וסימולציה, ציורים, ניהול נתונים, טיוטות.",
+    "must_verify_he": "כיול במחזיר פינתי, מטרות ידועות, סימולציה מול מדידה, השוואה בין כלים, תקציב SNR מראש.",
+    "risks_he": "שרשרת שמראה מטרה מארטיפקט; ביטחון שווא מסימולציה בלבד; שחיקת השיפוט שהוא נכס.",
+    "protection_he": "כל תוצאה עם מחזיר פינתי ותקציב צפוי; נתוני אמת; מבקר מכ\"ם אנושי.",
+    "thesis_test": {
+      "verdict": "partial",
+      "evidence_he": "שרשרת עיבוד וסימולציה של אדם אחד עם AI נתמכת [inference]. מכ\"ם מבצעי דורש חומרה, ניסויי שטח ונתוני איום מסווגים; שם התזה עוד לא נבדקה [inference]. מודולים מסחריים מקטינים את פער החומרה.",
+      "closes_he": "ניסויים עם מודולי mmWave ומכ\"ם פסיבי, ומאמר שעובר שיפוט."
+    },
+    "target": {
+      "academia_knowledge": "A4–A5: רמת qualifying exam במכ\"ם",
+      "academia_fluency": "A4 עם כלים",
+      "industry_role": "principal radar systems engineer, גילוי מטרות קטנות (hands-on, AI-augmented)",
+      "defense_role": "סמכות טכנית למכ\"ם וחישת C-UAS (קוד פתוח)"
+    },
+    "projected_old": {
+      "academia": "Knowledge A4 (concepts): the three volumes of 'Principles of Modern Radar' (Richards; Melvin and Scheer) go beyond a single MSc course. They cover NPS EC3615 Radar Fundamentals plus much of EC4615 Advanced Radar, EC4630 RCS and EC4640 Airborne Radar, and the Georgia Tech graduate radar sequence, including STAP, SAR, MTI/MTD and EP. Fluency A2-A3: he cannot do radar signal-processing derivations or design a waveform under exam conditions. Probably the strongest domain overall.",
+      "industry": "Senior radar SYSTEMS ANALYST in the open-source world: range-equation trade-offs, clutter, ambiguity, ECCM, mode selection and claim checking (for example 'stealth detected at X km'). Lincoln Lab, GTRI and industry radar engineers do far better on waveform design, processing code, hardware, test and classified threat data.",
+      "gap_to_next": "An end-to-end radar processing chain (pulse compression, Doppler processing, CFAR, tracking) on simulated data and an SDR or open radar dataset. Then a PhD-level study, for example small-drone detection vs bird discrimination with RCS and micro-Doppler, aimed at a conference paper.",
+      "summary_he": "התחום החזק ביותר: ידע מושגי ברמת תואר שני מלא במכ\"ם; אנליסט מערכות בכיר בקוד פתוח, לא מהנדס עיבוד אותות."
+    },
+    "gap_he": "LV: A4 מושגים, A2–A3 שטף, אנליסט מערכות בכיר. הפער: מתכנן ובונה.",
+    "closing_plan_he": "(1) שרשרת מלאה (דחיסת פולס, דופלר, CFAR, מעקב) על סימולציה ונתונים פתוחים. (2) TI IWR6843/AWR: רחפנים מול ציפורים. (3) מכ\"ם פסיבי ב-SDR על משדרי FM/DVB-T (קליטה בלבד). (4) מאמר ל-IEEE Radar Conference. (5) ביקורת מהנדס מכ\"ם.",
+    "legal_he": "קליטה בלבד מותרת; כל שידור, ובוודאי שיבוש או הטעיית GNSS, רק בכבל עם מנחתים או בכלוב מסוכך, או ברישיון משרד התקשורת. ידע ביטחוני שמועבר לגורם זר נחשב יצוא ודורש רישיון אפ\"י (DECA), גם בתוך ישראל; לכן מפרסמים רק מה שנגזר ממקורות פתוחים. מודולי מכ\"ם רק בפסים ובאישורי סוג המותרים בישראל.",
+    "extra_hours_estimate": {
+      "p10": 1600,
+      "p50": 2400,
+      "p90": 3600,
+      "basis_he": "שלושה פרויקטים מחקריים (~600–800 ש' כל אחד עם AI) + מאמר (~300) + ספסל. כשליש מחקר PhD (5,000–7,000 ש'), כי הידע כבר מכוסה בשיעורים [estimate]."
+    },
+    "evidence": [
+      "https://careers.ll.mit.edu/job/Lexington-Technical-Staff-Radar-Systems-MA-02420/1261096200",
+      "https://careers.ll.mit.edu/job/Lexington-Technical-Staff-RF-Applications-and-Signal-Processing-MA-02420/1365831900",
+      "https://builtin.com/job/senior-radar-system-engineer/7061298",
+      "https://refresh.cv/jobs/lockheed-martin/ad444d8f-c9a4-499f-8dce-dd16ee7989a9",
+      "https://careers.edgegroup.ae/job/Abu-Dhabi-Senior-Radar-System-Engineer/733019922",
+      "https://www.alljobs.co.il/m/p/jobs/8811722",
+      "https://www.mathworks.com/company/newsroom/mathworks-launches-generative-ai-powered-matlab-copilot-to-boost-productivity-and-accelerate-development-for-engineers-scientists-and-researchers.html",
+      "https://www.hbs.edu/faculty/Pages/item.aspx?num=64700",
+      "docs/research/round4/LV_benchmark.json"
+    ],
+    "confidence": "medium"
+  },
+  {
+    "id": "MIL · Electro-optical and infrared sensing",
+    "role": "core",
+    "wave": 2,
+    "expert_definition_he": "בונה מודל ביצועי טווח (TTP) למצלמה תרמית או אופטית, מאמת בשטח ומודד NETD; קובע את סיכויי הגילוי של מערכת.",
+    "ai_covers_he": "רדיומטריה, מודלים, קוד; טעויות בתמסורת אטמוספרית וביחידות רדיומטריות [inference].",
+    "human_value_he": "תכנון ניסוי שטח, פרשנות תמונה, שיפוט טענות טווח.",
+    "hold_in_head_he": "פלאנק, MTF, NETD, Johnson/TTP, תמסורת, ניגוד.",
+    "delegate_he": "מודל, עיבוד תמונה.",
+    "must_verify_he": "מדידה בשטח, השוואה לתוצאות שפורסמו.",
+    "risks_he": "מודל טווח בלי מדידה.",
+    "protection_he": "כל תחזית עם ניסוי.",
+    "thesis_test": {
+      "verdict": "partial",
+      "evidence_he": "מודל ומצלמה זולה בהישג יד; מערכות מבצעיות לא [inference].",
+      "closes_he": "מצלמה תרמית ומסלולי מדידה."
+    },
+    "target": {
+      "academia_knowledge": "A3–A4",
+      "academia_fluency": "A3 עם כלים",
+      "industry_role": "senior EO/IR systems engineer (AI-augmented)",
+      "defense_role": "אנליסט בכיר לטענות טווח וגילוי"
+    },
+    "projected_old": {
+      "academia": "Knowledge A3: Driggers is the standard intro-graduate EO/IR systems text, used in the NPS EO-series and in optics short courses. He covers radiometry, detectors, MTF, atmospheric transmission and target acquisition (Johnson/TTP). Fluency A2: radiometric chains and NETD/MRT computations are not drilled.",
+      "industry": "Mid-to-senior analyst on EO/IR range and acquisition claims, IRST vs stealth, and the effects of weather. EO engineers do far better at running NV-IPM/TRM4 models, sensor testing, and optical design.",
+      "gap_to_next": "A range-performance model (TTP-based) for a drone-mounted thermal camera, validated against published field results, together with the thermal-signature model from the ENG thermo project.",
+      "summary_he": "חישה אלקטרו-אופטית ברמת קורס מבוא לתואר שני; אנליסט בינוני-בכיר בטענות טווח וזיהוי."
+    },
+    "gap_he": "LV: בינוני-בכיר.",
+    "closing_plan_he": "מודל TTP למצלמה תרמית על רחפן, מדידות של רחפנים בטווחים ידועים, מודל חתימה (משותף עם תרמו).",
+    "legal_he": null,
+    "extra_hours_estimate": {
+      "p10": 600,
+      "p50": 1000,
+      "p90": 1600,
+      "basis_he": "פרויקט ברמת תזה (~700) + מדידות [estimate]."
+    },
+    "evidence": [
+      "https://www.alljobs.co.il/Search/UploadSingle.aspx?JobID=8685514",
+      "docs/research/round4/LV_benchmark.json"
+    ],
+    "confidence": "medium"
+  },
+  {
+    "id": "MIL · Electronic warfare and electromagnetic spectrum operations",
+    "role": "deep",
+    "wave": 1,
+    "expert_definition_he": "principal ES/EW systems engineer בתחום הפתוח: מתכנן מקלטי ES ועיבוד (גילוי, PDW, deinterleaving, איכון TDOA/FDOA), ממדל השפעות EA/EP, בונה ES בקליטה בלבד, ומריץ ניסויי שיבוש רק בכבל או בכלוב.",
+    "ai_covers_he": "צינורות ES, אלגוריתמי deinterleaving, אימון מסווגים (OmniSIG ודומיו [evidence]), מודלי היתקלות. טעויות: J/S בלי אונות צד ורווח עיבוד [inference]. NI ו-DeepSig מתארים AI ב-SIGINT מוגדר-תוכנה [evidence].",
+    "human_value_he": "הבנת מחזור CM/CCM, מה האויב יעשה בתגובה, שיפוט סבירות. משרות EW ב-Anduril: אינטגרציה ובדיקות RF, Python, SDR [evidence]; NPS 292/294 עם מעבדות [evidence].",
+    "hold_in_head_he": "J/S, burn-through, משוואת טווח ES, רווח עיבוד LPI, deinterleaving, דיוק DOA, מחזור CM/CCM וקצביו.",
+    "delegate_he": "קוד, סימולציה, סיווג, טיוטות.",
+    "must_verify_he": "ספסל כבל עם אותות ידועים, סימולציה מול מדידה, נתוני ניסוי פתוחים.",
+    "risks_he": "ניתוק בין מודל למציאות מסווגת; ביטחון שווא; עבירה על חוק בשידור.",
+    "protection_he": "כלל ברזל: שום שידור באוויר; ביקורת של איש EW מעשי; תקרת המקור הפתוח נכתבת במפורש בכל מסמך.",
+    "thesis_test": {
+      "verdict": "not_yet",
+      "evidence_he": "אדם אחד עם AI יכול לבנות ES בקליטה ומודלים [inference]. מומחיות EW אמיתית נשענת על נתוני איום מסווגים, תכנות מחדש ותרגול מבצעי; שם התזה לא נתמכת [inference].",
+      "closes_he": "ספסל מסוכך, מחקר CM/CCM היסטורי, ומבקר מהתחום; תקרת הסיווג נשארת ומוצהרת."
+    },
+    "target": {
+      "academia_knowledge": "A4: תעודות NPS 292/294 כולל מעבדות",
+      "academia_fluency": "A4 עם כלים",
+      "industry_role": "principal ES/EW systems engineer, תחום פתוח (hands-on, AI-augmented)",
+      "defense_role": "סמכות EW בכירה במקור פתוח"
+    },
+    "projected_old": {
+      "academia": "Knowledge A3-A4: EW101/102 plus the EA/EP chapters of PoMR cover the content of NPS EC3700 (Joint Network-Enabled EW I) and EC4685 (Principles of EW). Combined with radar and propagation, this is roughly the knowledge of the NPS EW Engineer Academic Certificate (292), without its labs. Gaps the tutor fills: the CM/CCM cycle and its timescales, IADS seams, SEAD/DEAD. Fluency A2-A3.",
+      "industry": "Senior analyst on J/S, burn-through, ES detection range, LPI and decoy plausibility, the core of an EW open-source authority. The open-source ceiling is hard here: real EW knowledge (threat parameters, reprogramming, techniques) is classified, and EW engineers and operators do far better on everything specific.",
+      "gap_to_next": "An EW engagement model (jammer-vs-radar and jammer-vs-datalink/GNSS) checked against open test data, plus a historical CM/CCM timescale study (Vietnam to Ukraine). Publishable and within open-source limits. SDR transmission experiments must stay legal (receive-only or shielded).",
+      "summary_he": "ידע של תעודת מהנדס EW ב-NPS בלי מעבדה; אנליסט בכיר בקוד פתוח, ומעליו תקרת סיווג."
+    },
+    "gap_he": "LV: אנליסט בכיר, מעליו תקרת סיווג. הפער: מקלט ES שבנה, ספסל שיבוש מוגן, מאמר.",
+    "closing_plan_he": "(1) מקלט ES רב-ערוצי (KrakenSDR ל-DOA, קליטה בלבד). (2) deinterleaving על רכבות פולסים סינתטיות ועל פליטות מודול המכ\"ם שלו. (3) ספסל שיבוש בכבל מול ה-FMCW וה-GNSS שלו. (4) מחקר CM/CCM מווייטנאם לאוקראינה. (5) מאמר.",
+    "legal_he": "קליטה בלבד מותרת; כל שידור, ובוודאי שיבוש או הטעיית GNSS, רק בכבל עם מנחתים או בכלוב מסוכך, או ברישיון משרד התקשורת. ידע ביטחוני שמועבר לגורם זר נחשב יצוא ודורש רישיון אפ\"י (DECA), גם בתוך ישראל; לכן מפרסמים רק מה שנגזר ממקורות פתוחים.",
+    "extra_hours_estimate": {
+      "p10": 1500,
+      "p50": 2200,
+      "p90": 3400,
+      "basis_he": "שלושה פרויקטים (~600 ש' כל אחד) + מחקר היסטורי (~300) + ספסל. נשען על שרשרת ה-DSP והמכ\"ם בלי לספור אותה שוב [estimate]."
+    },
+    "evidence": [
+      "https://job-boards.greenhouse.io/andurilindustries/jobs/5035100007",
+      "https://job-boards.greenhouse.io/andurilindustries/jobs/4798862007",
+      "https://nps.smartcatalogiq.com/en/current/academic-catalog/departments/department-of-electrical-and-computer-engineering/electronic-warfare-engineer-academic-certificate-curriculum-292",
+      "https://nps.smartcatalogiq.com/current/academic-catalog/departments/department-of-electrical-and-computer-engineering/senior-ew-engineer-academic-certificate-program-curriculum-294",
+      "https://nps.smartcatalogiq.com/en/current/academic-catalog/departments/department-of-electrical-and-computer-engineering/electronic-systems-engineering-curriculum-590",
+      "https://crows.org/professional-development",
+      "https://www.deepsig.ai/omnisig",
+      "https://www.ni.com/en/solutions/aerospace-defense/electromagnetic-spectrum-operations/artificial-intelligence-in-software-defined-sigint-systems.html",
+      "https://www.alljobs.co.il/m/p/jobs/8777984",
+      "https://www.gov.il/en/service/radio-amateurs-certificates",
+      "https://exportctrl.mod.gov.il/English",
+      "https://www.shibolet.com/en/developments-in-global-trade-controls-october-december-2025/",
+      "docs/research/round4/LV_benchmark.json"
+    ],
+    "confidence": "medium"
+  },
+  {
+    "id": "MIL · Communications, datalinks and networks",
+    "role": "core",
+    "wave": 2,
+    "expert_definition_he": "ממדל ומודד קשרי נתונים טקטיים ורשתות MANET תחת שיבוש: תפוקה מול קפיצות מול השהיה; מעריך פגיעות של קשרי שליטה לרחפנים.",
+    "ai_covers_he": "ns-3 ו-EMANE, ניתוח; טעויות במודל ערוץ ובשכבת MAC [inference].",
+    "human_value_he": "הבנת השימוש המבצעי, בחירת תרחיש.",
+    "hold_in_head_he": "תקציב לינק, TDMA ו-Link 16 ברמת ארכיטקטורה, LPI, ניתוב ב-MANET, השהיה.",
+    "delegate_he": "סימולציה, גרפים.",
+    "must_verify_he": "מול תאוריה, מול מדידת SDR.",
+    "risks_he": "סימולציית רשת עם הנחות לא מציאותיות.",
+    "protection_he": "ראיון עם קצין קשר.",
+    "thesis_test": {
+      "verdict": "partial",
+      "evidence_he": "סימולציה נתמכת; רשת אמיתית בשטח לא [inference].",
+      "closes_he": "רשת mesh קטנה של מכשירים מאושרים."
+    },
+    "target": {
+      "academia_knowledge": "A3–A4",
+      "academia_fluency": "A3 עם כלים",
+      "industry_role": "senior tactical comms engineer (AI-augmented)",
+      "defense_role": "אנליסט בכיר לקשרי נתונים"
+    },
+    "projected_old": {
+      "academia": "Knowledge A3 in link physics (from Gilua's Tse and MacKay). Tactical datalinks (Link 16, UAS C2 links, SATCOM) are at A2 survey level. Gaps: MANET and tactical networks, LPI datalinks for stealth fleets (MADL/IFDL), protected SATCOM, which are mostly tutor-written. Below an MSc in network engineering.",
+      "industry": "Mid-level analyst: link budgets, capacity and jamming vulnerability of datalinks. Network and comms engineers, and C4 officers with operational experience, do far better on networks in practice.",
+      "gap_to_next": "A MANET simulation (ns-3 or EMANE) of a drone-swarm or brigade network under jamming: throughput vs hops vs latency. It is shared with the ENG comms domain.",
+      "summary_he": "פיזיקת הקשר ברמת תואר שני, קשרי נתונים טקטיים ברמת סקירה; אנליסט בינוני."
+    },
+    "gap_he": "LV: בינוני.",
+    "closing_plan_he": "MANET של נחיל רחפנים תחת שיבוש ב-ns-3; ניתוח קשר C2 לרחפן FPV; רשת mesh קטנה במכשירים מאושרים.",
+    "legal_he": "קליטה בלבד מותרת; כל שידור, ובוודאי שיבוש או הטעיית GNSS, רק בכבל עם מנחתים או בכלוב מסוכך, או ברישיון משרד התקשורת. ידע ביטחוני שמועבר לגורם זר נחשב יצוא ודורש רישיון אפ\"י (DECA), גם בתוך ישראל; לכן מפרסמים רק מה שנגזר ממקורות פתוחים.",
+    "extra_hours_estimate": {
+      "p10": 500,
+      "p50": 800,
+      "p90": 1300,
+      "basis_he": "תוספת על פרויקט התקשורת ב-ENG (~500) + רשת [estimate]."
+    },
+    "evidence": [
+      "docs/research/round4/LV_benchmark.json"
+    ],
+    "confidence": "medium"
+  },
+  {
+    "id": "MIL · Positioning, navigation and timing",
+    "role": "deep",
+    "wave": 1,
+    "expert_definition_he": "principal GNSS / alt-nav engineer לסביבה מופרעת: עיבוד מקלט תוכנה (רכישה, עקיבה, פתרון), גילוי ואיכון הפרעות, גילוי הטעיה, התכת GNSS/INS, holdover של תזמון.",
+    "ai_covers_he": "תצורות gnss-sdr, עיבוד RINEX (RTKLIB), אלגוריתמי גילוי. טעויות: מערכות זמן, מסגרות, אפמריס, הטיית שעון [inference]. מפות שיבוש מ-NIC של ADS-B כבר פומביות [evidence].",
+    "human_value_he": "שיפוט שלמות, הבנת המגבלות של NIC כאות שיבוש (NIC נמוך לא תמיד RFI [evidence]).",
+    "hold_in_head_he": "משוואת הפסאודו-טווח, DOP, C/N0, J/N, ספי לולאות עקיבה, צמיחת שגיאת INS, Allan deviation, מסגרות.",
+    "delegate_he": "עיבוד, קוד, מפות.",
+    "must_verify_he": "נתוני תחנות IGS, השוואת מקלטים, IQ מוקלט, מפות קליטה מול NIC.",
+    "risks_he": "בלבול זמן ומסגרות; פרשנות יתר של NIC.",
+    "protection_he": "תחנת ייחוס ידועה; בדיקות מסגרת אוטומטיות.",
+    "thesis_test": {
+      "verdict": "supported",
+      "evidence_he": "רוב העבודה היא עיבוד נתונים ואותות מוקלטים, ונתונים פתוחים קיימים [evidence: מפות ADS-B; inference]. שידור GNSS אסור, ולכן בדיקות הטעיה בכבל בלבד.",
+      "closes_he": "מקלט ADS-B ו-GNSS משלו, ו-GPSDO."
+    },
+    "target": {
+      "academia_knowledge": "A4: GNSS לתואר שני כולל INS ותזמון",
+      "academia_fluency": "A4 עם כלים",
+      "industry_role": "principal GNSS / alt-PNT engineer (hands-on, AI-augmented)",
+      "defense_role": "סמכות טכנית לשיבוש והטעיה"
+    },
+    "projected_old": {
+      "academia": "Knowledge A3: Kaplan and Hegarty cover the content of a graduate GNSS course (Stanford AA272) and the navigation parts of NPS EC4330. Inertial and alternative navigation are partial. Timing (holdover, Allan deviation) is a tutor-added K item. Fluency A2.",
+      "industry": "Senior analyst on GNSS jamming and spoofing, DOP and timing dependence. A GNSS engineer does far better on receiver processing, spoofing detection implementation and INS integration.",
+      "gap_to_next": "Process raw GNSS data (RINEX, or gnss-sdr on recorded IQ) and build a jamming map from ADS-B NIC data. A follow-on, loosely coupled GNSS/INS fusion, is shared with the control project.",
+      "summary_he": "ניווט לוויני ברמת קורס לתואר שני; אנליסט בכיר בשיבוש והטעיה, לא מהנדס מקלטים."
+    },
+    "gap_he": "LV: אנליסט בכיר, לא מהנדס מקלטים. הפער: מקלט תוכנה, גילוי, התכה, תזמון.",
+    "closing_plan_he": "(1) gnss-sdr על IQ מוקלט. (2) מפת שיבוש למזרח התיכון ממקלט ADS-B שלו ו-OpenSky. (3) גילוי הטעיה על TEXBAT. (4) GNSS/INS על לוגי PX4 (משותף עם האומדן). (5) holdover עם GPSDO.",
+    "legal_he": "קליטה בלבד מותרת; כל שידור, ובוודאי שיבוש או הטעיית GNSS, רק בכבל עם מנחתים או בכלוב מסוכך, או ברישיון משרד התקשורת. ידע ביטחוני שמועבר לגורם זר נחשב יצוא ודורש רישיון אפ\"י (DECA), גם בתוך ישראל; לכן מפרסמים רק מה שנגזר ממקורות פתוחים.",
+    "extra_hours_estimate": {
+      "p10": 1200,
+      "p50": 1800,
+      "p90": 2800,
+      "basis_he": "שלושה פרויקטים (~500 כל אחד) + תזמון ומאמר; ההתכה נספרת באומדן [estimate]."
+    },
+    "evidence": [
+      "https://www.flightradar24.com/data/gps-jamming",
+      "https://www.icao.int/MID/Documents/2024/EUR-MID%20Radio%20Navigation%20Symposium/8.1%20ADS-B%20to%20detect%20GNSS%20RFI_Matthias%20Schaefer.pdf",
+      "https://www.jobera.com/job/trimble-navigation-engineer-47d4119e/",
+      "https://www.isl.eu/en/jobs/job-offers/842-research-scientist-in-the-field-of-advanced-algorithms-for-navigation-through-ins-gnss-coupling-and-in-flight-validation-m-f",
+      "https://www.gov.il/en/service/radio-amateurs-certificates",
+      "docs/research/round4/LV_benchmark.json"
+    ],
+    "confidence": "medium"
+  },
+  {
+    "id": "MIL · Missiles: propulsion, guidance, control and design",
+    "role": "core",
+    "wave": 2,
+    "expert_definition_he": "בונה עם AI סימולציית היתקלות 3-DOF ו-6-DOF עם PN, רעש מחפש ותמרון, וניתוח adjoint של מרחק החטאה מול עקומות שפורסמו; מתכנן תצורה ראשונית של טיל.",
+    "ai_covers_he": "קוד סימולציה ואינטגרציה; טעויות בסימנים, במסגרות ובאווירודינמיקה [inference].",
+    "human_value_he": "בחירת מודל, שיפוט ביצועים, הבנת מגבלות.",
+    "hold_in_head_he": "PN ו-APN, קבוע זמן מערכת, מרחק החטאה, Δv, אווירודינמיקה בסדר גודל, עמידות מבנית.",
+    "delegate_he": "סימולציה ומונטה קרלו.",
+    "must_verify_he": "Zarchan, פתרון סגור, adjoint מול מונטה קרלו.",
+    "risks_he": "סימולציה שנראית סבירה עם מסגרת שגויה.",
+    "protection_he": "מקרי מבחן מהספר.",
+    "thesis_test": {
+      "verdict": "partial",
+      "evidence_he": "סימולציה נתמכת; נתוני ביצוע מסווגים [inference].",
+      "closes_he": "אימות מול עקומות שפורסמו."
+    },
+    "target": {
+      "academia_knowledge": "A4",
+      "academia_fluency": "A4 עם כלים",
+      "industry_role": "senior missile GNC / performance engineer (AI-augmented)",
+      "defense_role": "אנליסט בכיר לטענות טילים"
+    },
+    "projected_old": {
+      "academia": "Knowledge A3-A4 (concepts): Siouris plus Fleeman (image-only scan) plus Boord-Hoffman cover the concepts of NPS ME4703 (Missile Flight and Control), ME4704 (Missile Design) and EC4330, including PN, miss-distance analysis and seekers. Missing: quasi-ballistic missiles and some hypersonic detail. Fluency A2: no 6-DOF simulation and no adjoint analysis done by hand.",
+      "industry": "Senior analyst on range, PN, miss distance, maneuverability and hypersonic claims (for example whether an interceptor can match a target's g). Missile GNC and aero engineers do far better on 6-DOF models, aero databases, seeker design and classified performance.",
+      "gap_to_next": "A 3-DOF and then 6-DOF engagement simulation with PN, seeker noise and target maneuver, with adjoint miss-distance analysis compared to published curves (Zarchan-style). This is a strong PhD-level project and links ENG control and fluids.",
+      "summary_he": "טילים והנחיה ברמת קורסי 4000 ב-NPS, באופן מושגי; אנליסט בכיר בטענות טילים, לא מהנדס הנחיה."
+    },
+    "gap_he": "LV: אנליסט בכיר בטענות. הפער: 6-DOF ו-adjoint.",
+    "closing_plan_he": "3-DOF ואז 6-DOF עם PN, מחפש ותמרון; adjoint מול Zarchan; ניתוח טענת על-קולי.",
+    "legal_he": "רק מקורות פתוחים; לא לפרסם תכן ספציפי שעלול להיות ידע ביטחוני מפוקח.",
+    "extra_hours_estimate": {
+      "p10": 900,
+      "p50": 1400,
+      "p90": 2200,
+      "basis_he": "פרויקט ברמת תזה NPS (~800–1000 ש', AI חוסך במימוש) [estimate]."
+    },
+    "evidence": [
+      "https://nps.smartcatalogiq.com/en/current/academic-catalog/",
+      "https://exportctrl.mod.gov.il/English",
+      "docs/research/round4/LV_benchmark.json"
+    ],
+    "confidence": "medium"
+  },
+  {
+    "id": "MIL · Air and missile defense",
+    "role": "core",
+    "wave": 2,
+    "expert_definition_he": "בונה מודל קיבולת ועלות-החלפה פתוח (מטח מול מלאי שכבתי מול קצב ייצור), מכויל לנתוני 2024–26, שעובר ביקורת עמית.",
+    "ai_covers_he": "קוד, איסוף נתונים, רגישות; טעויות במכנה של שיעורי יירוט [inference].",
+    "human_value_he": "ניסוח השאלה, ביקורת נתונים, הבנת מגבלות.",
+    "hold_in_head_he": "דליפה שכבתית, עומק מחסנית, Pk, עלות-החלפה, מכנים.",
+    "delegate_he": "קוד וסריקות.",
+    "must_verify_he": "נתונים ציבוריים מוצלבים, רגישות.",
+    "risks_he": "נתונים חלקיים שמוצגים כאמת.",
+    "protection_he": "רווחי אי-ודאות וביקורת.",
+    "thesis_test": {
+      "verdict": "supported",
+      "evidence_he": "עבודת מודל ונתונים פתוחים [inference].",
+      "closes_he": "ביקורת עמית."
+    },
+    "target": {
+      "academia_knowledge": "A4",
+      "academia_fluency": "A4 עם כלים",
+      "industry_role": "senior AMD systems analyst (AI-augmented)",
+      "defense_role": "אנליסט בכיר ברמת RAND/CSIS"
+    },
+    "projected_old": {
+      "academia": "Knowledge A3: Boord and Hoffman (JHU APL authors) cover AMD systems-engineering concepts at the level of JHU EP / NPS graduate electives. Economics and capacity (interceptor inventory, cost exchange, raid size) were partial or missing and are now tutor lessons in M7.4. Fluency A2.",
+      "industry": "The domain where open-source analyst judgment can come closest to senior RAND/CSIS/CSBA level: layered-defense arithmetic, leakage, magazine depth and intercept-claim denominators, made concrete by recent Israel, Ukraine and Red Sea data. MDA, APL and industry engineers with classified data do far better on actual system performance.",
+      "gap_to_next": "An open-source AMD capacity and cost-exchange model (raid vs layered inventory vs production rate), calibrated against 2024-26 public data and peer-reviewed by a practitioner. This is publishable and PhD-grade if done rigorously.",
+      "summary_he": "הגנה אווירית ברמת קורס בחירה לתואר שני; כאן הוא יכול להתקרב לאנליסט בכיר בקוד פתוח."
+    },
+    "gap_he": "LV: יכול להתקרב לבכיר. הפער: מודל פומבי.",
+    "closing_plan_he": "מודל קיבולת ועלות פתוח, מכויל ומבוקר, ומפורסם.",
+    "legal_he": "מקורות פתוחים בלבד; צנזורה צבאית בפרסום על ישראל.",
+    "extra_hours_estimate": {
+      "p10": 600,
+      "p50": 1000,
+      "p90": 1600,
+      "basis_he": "פרויקט ברמת תזה (~700) [estimate]."
+    },
+    "evidence": [
+      "https://amvetsjobs.org/pittsburgh-pa/air-forcespace-force-military-operations-researcher/5312FAAD165949AA832AEE45F568E3E5/job/",
+      "docs/research/round4/LV_benchmark.json"
+    ],
+    "confidence": "medium"
+  },
+  {
+    "id": "MIL · C4ISR, kill chains and targeting",
+    "role": "core",
+    "wave": 2,
+    "expert_definition_he": "בונה מודל השהיית שרשרת חיישן-החלטה-יורה עם חלונות מטרות רגישות בזמן, מכויל בראיונות עם אנשי מקצוע, ומשתמש בניסיון המבצעי שלו.",
+    "ai_covers_he": "מודל וקוד; לא יודע איך התהליך עובד באמת [inference].",
+    "human_value_he": "ניסיון מבצעי, ראיונות, שיפוט.",
+    "hold_in_head_he": "F2T2EA, השהיות, VoI, ארכיטקטורות C2.",
+    "delegate_he": "מודל וגרפים.",
+    "must_verify_he": "ראיונות ומקרים מתועדים.",
+    "risks_he": "מודל שמתעלם מהחיכוך האנושי.",
+    "protection_he": "ראיונות ככלי אימות.",
+    "thesis_test": {
+      "verdict": "partial",
+      "evidence_he": "המודל נתמך; הידע התהליכי שבע\"פ [inference].",
+      "closes_he": "ראיונות."
+    },
+    "target": {
+      "academia_knowledge": "A3–A4",
+      "academia_fluency": "A3 עם כלים",
+      "industry_role": "senior C4ISR systems analyst (AI-augmented)",
+      "defense_role": "אנליסט בכיר"
+    },
+    "projected_old": {
+      "academia": "Knowledge A2: the weakest-sourced MIL domain. Panel P6b found 11 of its 25 K/S subtopics missing from every book, so it rests on tutor-written lessons. Below the NPS C3/ISR curricula. His operational background may raise his practical understanding, but nothing in the plan measures that yet.",
+      "industry": "Junior to mid analyst on the book layer. With his military background he may be higher, but this must be shown by the held-out exam with practitioner-style scenarios, not assumed. C2 practitioners and targeting officers do far better on process, timelines and systems as they really work.",
+      "gap_to_next": "A kill-chain latency model (sensor to decision to shooter, with time-sensitive-target windows), calibrated with practitioner interviews. The interviews are his comparative advantage as a writer.",
+      "summary_he": "התחום החלש במקורות (11 מתוך 25 חסרים בספרים); אנליסט זוטר-בינוני על הנייר, והניסיון המבצעי שלו לא נמדד."
+    },
+    "gap_he": "LV: זוטר-בינוני על הנייר.",
+    "closing_plan_he": "מודל השהיית שרשרת וראיונות; מבחן תרחישים מעשי.",
+    "legal_he": "ראיונות רק במידע לא מסווג.",
+    "extra_hours_estimate": {
+      "p10": 500,
+      "p50": 900,
+      "p90": 1500,
+      "basis_he": "מודל (~400) + ראיונות (~200) + השלמת מקורות [estimate]."
+    },
+    "evidence": [
+      "docs/research/round4/LV_benchmark.json"
+    ],
+    "confidence": "low"
+  },
+  {
+    "id": "MIL · Space systems and space warfare",
+    "role": "core",
+    "wave": 2,
+    "expert_definition_he": "מבצע עם AI מחקר כיסוי ו-revisit של קבוצת לוויינים וניתוח חוסן ל-ASAT (Orekit/poliastro/GMAT עם TLE ציבוריים), ומפעיל תחנת קליטה ללוויינים.",
+    "ai_covers_he": "מכניקת מסלול וקוד; טעויות במסגרות ובזמן [inference].",
+    "human_value_he": "ניסוח שאלה, שיפוט טענות counterspace.",
+    "hold_in_head_he": "קפלר, Δv, J2, כיסוי, תקציב לינק לווייני.",
+    "delegate_he": "חישובי מסלול.",
+    "must_verify_he": "TLE מול תצפית, מקרי ספר.",
+    "risks_he": "שגיאת מסגרת.",
+    "protection_he": "תצפית קליטה כבדיקה.",
+    "thesis_test": {
+      "verdict": "supported",
+      "evidence_he": "נתונים פתוחים ותוכנה [inference].",
+      "closes_he": "תחנת SatNOGS בקליטה."
+    },
+    "target": {
+      "academia_knowledge": "A3–A4",
+      "academia_fluency": "A3 עם כלים",
+      "industry_role": "senior space systems analyst (AI-augmented)",
+      "defense_role": "אנליסט חלל בכיר"
+    },
+    "projected_old": {
+      "academia": "Knowledge A3 in space systems: SMAD is the standard text of USAFA, AFIT and NPS space courses (SS3011 Space Technology and Applications, SS3400 Orbital Mechanics), but here it is an image-only scan and its propulsion chapter is missing. Counterspace, SDA and resilience were fragmentary and now have a new module (M13.23). Below MSc in astrodynamics problem-solving (orbit determination, perturbations).",
+      "industry": "Mid-level analyst: orbits, coverage, revisit, link budgets and the plausibility of counterspace claims. Space engineers and the Secure World / CSIS space analysts do far better with STK/GMAT and in tracking real space activity.",
+      "gap_to_next": "A constellation coverage and revisit study plus an ASAT/proliferation resilience analysis (poliastro or GMAT, with public TLEs), in the style of a CSIS 'Space Threat Assessment' chapter.",
+      "summary_he": "מערכות חלל ברמת קורסי 3000 ב-NPS; לוחמת חלל ממודול חדש. אנליסט בינוני."
+    },
+    "gap_he": "LV: בינוני.",
+    "closing_plan_he": "מחקר כיסוי וחוסן בסגנון CSIS; תחנת SatNOGS; קליטת לוויני מזג אוויר.",
+    "legal_he": "קליטה בלבד.",
+    "extra_hours_estimate": {
+      "p10": 600,
+      "p50": 1000,
+      "p90": 1600,
+      "basis_he": "פרויקט ברמת תזה (~700) + תחנה [estimate]."
+    },
+    "evidence": [
+      "docs/research/round4/LV_benchmark.json"
+    ],
+    "confidence": "medium"
+  },
+  {
+    "id": "MIL · Unmanned systems and counter-UAS",
+    "role": "core",
+    "wave": 1,
+    "expert_definition_he": "בונה ומכשיר רחפן, ממדל גילוי C-UAS (RCS, ציפורים) ועלות-החלפה מול דיווחי שטח, ומתעדכן כל כמה חודשים. זה המוצר המרכזי של גל 1.",
+    "ai_covers_he": "קוד, תכן, ניתוח; לא יודע את השכבה המשתנה מהשטח [inference].",
+    "human_value_he": "בנייה, שטח, מקורות ראשוניים.",
+    "hold_in_head_he": "RCS של רחפנים, טווחי גילוי, קשרי C2, עלות-החלפה.",
+    "delegate_he": "קוד, מודלים, תכן.",
+    "must_verify_he": "טיסות, מדידות, דיווחי שטח.",
+    "risks_he": "ידע שמתיישן; בטיחות.",
+    "protection_he": "סקירה תקופתית.",
+    "thesis_test": {
+      "verdict": "partial",
+      "evidence_he": "בנייה ומודל בהישג יד; השכבה השבע\"פית בשטח לא [inference].",
+      "closes_he": "רחפן משלו ומקורות ראשוניים."
+    },
+    "target": {
+      "academia_knowledge": "A3–A4",
+      "academia_fluency": "A3 עם כלים",
+      "industry_role": "senior C-UAS systems engineer (hands-on, AI-augmented)",
+      "defense_role": "אנליסט C-UAS בכיר"
+    },
+    "projected_old": {
+      "academia": "UAS fundamentals A2-A3 (Fahlstrom; ATP 3-01.81 for C-UAS). The current drone war (Shahed, FPV, mass production, attack USVs) was missing and is now a tutor-written module (M9.9). There is no strong academic benchmark: academia lags this field.",
+      "industry": "Mid-level analyst, mainly through his synthesis of open sources. Practitioners in Ukraine and in industry do far better on the tacit layer (EW-resistant links, production, tactics changing weekly). The knowledge also dates fast.",
+      "gap_to_next": "Hands-on: build or instrument a small drone, and model C-UAS detection (RCS -20 to -30 dBsm, birds) and cost exchange, checked against field reports. Periodic re-study is needed because the domain changes every few months.",
+      "summary_he": "יסודות כטב\"מים ברמת קורס; מלחמת הרחפנים מכתיבת המורה. אנליסט בינוני בתחום שמתיישן מהר."
+    },
+    "gap_he": "LV: בינוני, מתיישן מהר.",
+    "closing_plan_he": "רחפן PX4 מכשיר (משותף עם אומדן ורובוטיקה); מודל גילוי ועלות; סקירה כל 3 חודשים.",
+    "legal_he": "טיסה לפי כללי רת\"א (רישום, אזורים); בלי שיבוש.",
+    "extra_hours_estimate": {
+      "p10": 800,
+      "p50": 1300,
+      "p90": 2000,
+      "basis_he": "בנייה וטיסות (~400) + מודל (~400) + עדכון שוטף (~200 בשנה) [estimate]."
+    },
+    "evidence": [
+      "docs/research/round4/LV_benchmark.json"
+    ],
+    "confidence": "medium"
+  },
+  {
+    "id": "MIL · Weapons effects, lethality and protection",
+    "role": "supporting",
+    "wave": 3,
+    "expert_definition_he": "אינטגרטור בכיר: בונה מודל Pk ושטח קטלני (Gurney, צפיפות רסיסים, Carleton מול cookie-cutter) למקרה פומבי.",
+    "ai_covers_he": "קוד ומודל [inference].",
+    "human_value_he": "ביקורת הנחות.",
+    "hold_in_head_he": "Gurney, CEP→Pk, שטח קטלני.",
+    "delegate_he": "מודל.",
+    "must_verify_he": "מקרים מהספר.",
+    "risks_he": "נתונים מסווגים חסרים.",
+    "protection_he": "תקרה מוצהרת.",
+    "thesis_test": {
+      "verdict": "partial",
+      "evidence_he": "המודל נתמך; הנתונים מסווגים [inference].",
+      "closes_he": "-"
+    },
+    "target": {
+      "academia_knowledge": "A3",
+      "academia_fluency": "A3 עם כלים",
+      "industry_role": "senior lethality analyst (AI-augmented)",
+      "defense_role": "אנליסט בכיר"
+    },
+    "projected_old": {
+      "academia": "Knowledge A2, with the lowest confidence: no panel verified this domain, and the plan keeps the book material as is. The sources are Przemieniecki's methods, Hall, Ogorkiewicz (tanks), Ball and Fleeman. Below Cranfield/Shrivenham MSc programs (explosives ordnance, weapons effects) and below an NPS weapons-effects course in terminal ballistics and blast modeling.",
+      "industry": "Junior to mid analyst: Pk chains, lethal area, CEP-to-Pk and armor trends. Lethality engineers (JTCG/ME, JMEM, national labs) do far better, and much of the data is classified.",
+      "gap_to_next": "First, a coverage panel for this domain (it was skipped). Then a Pk and lethal-area model (Gurney velocities, fragment density, Carleton vs cookie-cutter) applied to a public case.",
+      "summary_he": "אפקטים וקטלניות ברמת מבוא, בביטחון הנמוך ביותר (לא נבדק על ידי פאנל). אנליסט זוטר-בינוני."
+    },
+    "gap_he": "LV: זוטר-בינוני, ביטחון נמוך.",
+    "closing_plan_he": "פאנל כיסוי ואז מודל Pk למקרה פומבי.",
+    "legal_he": null,
+    "extra_hours_estimate": {
+      "p10": 280,
+      "p50": 450,
+      "p90": 800,
+      "basis_he": "פרויקט (~300) [estimate]."
+    },
+    "evidence": [
+      "docs/research/round4/LV_benchmark.json"
+    ],
+    "confidence": "low"
+  },
+  {
+    "id": "MIL · Platforms and survivability",
+    "role": "supporting",
+    "wave": 3,
+    "expert_definition_he": "אינטגרטור בכיר: מנתח שרידות ושחיקה במערכה אמיתית לפי Ball, עם רגישות.",
+    "ai_covers_he": "מודל ונתונים [inference].",
+    "human_value_he": "ביקורת ומקורות.",
+    "hold_in_head_he": "susceptibility מול vulnerability, שיעורי שחיקה.",
+    "delegate_he": "מודל.",
+    "must_verify_he": "היסטוריה.",
+    "risks_he": "נתונים חלקיים.",
+    "protection_he": "רווחי אי-ודאות.",
+    "thesis_test": {
+      "verdict": "supported",
+      "evidence_he": "ניתוח פתוח [inference].",
+      "closes_he": "-"
+    },
+    "target": {
+      "academia_knowledge": "A3",
+      "academia_fluency": "A3 עם כלים",
+      "industry_role": "senior survivability analyst (AI-augmented)",
+      "defense_role": "אנליסט בכיר"
+    },
+    "projected_old": {
+      "academia": "Knowledge A3 once Ball is taught (new module M8.8). Ball's book is the text of the aircraft combat survivability course Ball taught at NPS, and the field's standard reference. Avionics (Moir and Seabridge) at A2. Sortie generation, basing and tankers were missing and are now added (M8.9). Fluency A2.",
+      "industry": "Mid to senior analyst on susceptibility vs vulnerability, attrition rates and air-campaign capacity. LFT&E and survivability engineers do far better on vulnerability models (COVART/AJEM) and test.",
+      "gap_to_next": "A survivability and campaign-attrition analysis of a real air campaign (for example Ukraine 2022-25 or a historical case) using Ball's framework and B15 math, with sensitivity analysis.",
+      "summary_he": "שרידות פלטפורמות ברמת הקורס של Ball ב-NPS; אנליסט בינוני-בכיר."
+    },
+    "gap_he": "LV: בינוני-בכיר.",
+    "closing_plan_he": "ניתוח שרידות ושחיקה למערכה (אוקראינה או היסטורית).",
+    "legal_he": null,
+    "extra_hours_estimate": {
+      "p10": 280,
+      "p50": 450,
+      "p90": 800,
+      "basis_he": "פרויקט (~300) [estimate]."
+    },
+    "evidence": [
+      "docs/research/round4/LV_benchmark.json"
+    ],
+    "confidence": "medium"
+  },
+  {
+    "id": "MIL · Naval and undersea warfare",
+    "role": "supporting",
+    "wave": 3,
+    "expert_definition_he": "אינטגרטור בכיר: מודל salvo ועומק מחסנית לים האדום 2023–25, עם רגישות.",
+    "ai_covers_he": "מודל [inference].",
+    "human_value_he": "ביקורת.",
+    "hold_in_head_he": "Hughes salvo, משוואת הסונאר.",
+    "delegate_he": "מודל.",
+    "must_verify_he": "נתונים פתוחים.",
+    "risks_he": "אקוסטיקה מסווגת.",
+    "protection_he": "תקרה מוצהרת.",
+    "thesis_test": {
+      "verdict": "partial",
+      "evidence_he": "המודל נתמך; ASW מסווג [inference].",
+      "closes_he": "-"
+    },
+    "target": {
+      "academia_knowledge": "A3",
+      "academia_fluency": "A3 עם כלים",
+      "industry_role": "senior naval systems analyst (AI-augmented)",
+      "defense_role": "אנליסט בכיר"
+    },
+    "projected_old": {
+      "academia": "Knowledge A2: Hall is the US Naval Academy's undergraduate 'Principles of Naval Weapons Systems' text. The sonar equation and acoustics are at intro level. The Hughes salvo model, ship staying power and VLS magazine depth were missing (now in M14.1 and M7.4). NPS OS4655 teaches the salvo equations at the graduate level, so he is around USNA plus parts of NPS.",
+      "industry": "Junior to mid analyst. Naval officers and CNA naval analysts do far better on fleet operations, ASW practice and classified acoustic data.",
+      "gap_to_next": "Hughes salvo plus magazine-depth model applied to Red Sea 2023-25 open data, with sensitivity analysis. It is CNA-style work and publishable.",
+      "summary_he": "לוחמה ימית ברמת ספר הלימוד של האקדמיה הימית האמריקאית, עם תוספות; אנליסט זוטר-בינוני."
+    },
+    "gap_he": "LV: זוטר-בינוני.",
+    "closing_plan_he": "מודל salvo ומחסנית לים האדום.",
+    "legal_he": null,
+    "extra_hours_estimate": {
+      "p10": 280,
+      "p50": 450,
+      "p90": 800,
+      "basis_he": "פרויקט (~300) [estimate]."
+    },
+    "evidence": [
+      "docs/research/round4/LV_benchmark.json"
+    ],
+    "confidence": "low"
+  },
+  {
+    "id": "MIL · Operations research and combat modeling",
+    "role": "core",
+    "wave": 2,
+    "expert_definition_he": "בונה ומריץ עם AI מודל לחימה או מערכה עם רגישות ואימות היסטורי, ברמת תזה של NPS, על שאלה חדשה (שחיקה במלחמת רחפנים).",
+    "ai_covers_he": "סימולציה ונתונים; טעויות בהנחות [inference]. LLM במשחקי מלחמה מסלימים באופן לא צפוי [evidence]; Dstl משתמש ב-LLM לעיבוד פלטי משחקים [evidence].",
+    "human_value_he": "ניסוח שאלה, תוקף, תקשורת למזמין. משרות OR ב-RAND מדגישות שיטות כמותיות ועבודה מול מפקדים [evidence].",
+    "hold_in_head_he": "לנצ'סטר, salvo, תורת חיפוש, תכנון ניסויים, אימות.",
+    "delegate_he": "סימולציה, סטטיסטיקה.",
+    "must_verify_he": "היסטוריה, רגישות, השוואה.",
+    "risks_he": "מודל שאומר מה שרוצים.",
+    "protection_he": "אימות מקדים ומבקר.",
+    "thesis_test": {
+      "verdict": "supported",
+      "evidence_he": "עבודת מודל ונתונים [inference].",
+      "closes_he": "ביקורת עמית."
+    },
+    "target": {
+      "academia_knowledge": "A4",
+      "academia_fluency": "A4 עם כלים",
+      "industry_role": "senior OR analyst (AI-augmented)",
+      "defense_role": "אנליסט בכיר RAND/CNA"
+    },
+    "projected_old": {
+      "academia": "Knowledge A3-A4 (concepts) once the new module M14.1 teaches it: Washburn and Kress is the NPS OR text (OA4655 Joint Combat Modeling, OA3602 Search Theory), and Przemieniecki covers shooting and target defense. This is roughly the knowledge of the NPS Warfare Analysis Certificate (OA4604, OA4655) without its simulation labs and statistics coursework. Panel P7 found 34 K items missing, mostly because the ref books were outside the lessons (rule 37). Fluency A2: no stochastic or simulation problem sets.",
+      "industry": "Associate-level (mid) RAND/CNA analyst in model critique (Lanchester validity, 3:1 rule, salvo, search theory, wargame evidence). Practicing analysts do far better at building and running models, data work, and sponsor communication.",
+      "gap_to_next": "A full combat or campaign model with sensitivity and validation against historical data, essentially an NPS OR thesis. Done on a fresh question (for example drone-war attrition or a counter-salvo economy), it is a natural PhD-level project.",
+      "summary_he": "מידול לחימה ברמת תעודת ניתוח הלוחמה של NPS, בלי מעבדות סימולציה; אנליסט בינוני ב-RAND או CNA."
+    },
+    "gap_he": "LV: בינוני (associate).",
+    "closing_plan_he": "מודל מערכה מלא עם אימות היסטורי ורגישות; פרסום.",
+    "legal_he": null,
+    "extra_hours_estimate": {
+      "p10": 700,
+      "p50": 1100,
+      "p90": 1800,
+      "basis_he": "תזת NPS (~800–1000) עם AI [estimate]."
+    },
+    "evidence": [
+      "https://jobs.recruiter.com/jobs/11051902802-operations-research-scientist",
+      "https://amvetsjobs.org/pittsburgh-pa/air-forcespace-force-military-operations-researcher/5312FAAD165949AA832AEE45F568E3E5/job/",
+      "https://www.gov.uk/government/case-studies/large-language-models-llms-solve-wargaming-challenge",
+      "https://arxiv.org/abs/2401.03408",
+      "docs/research/round4/LV_benchmark.json"
+    ],
+    "confidence": "medium"
+  },
+  {
+    "id": "MIL · Logistics, sustainment and force generation",
+    "role": "supporting",
+    "wave": 3,
+    "expert_definition_he": "אינטגרטור בכיר: מודל צריכה מול ייצור של תחמושת ומיירטים מנתוני תקציב פומביים.",
+    "ai_covers_he": "נתונים ומודל [inference].",
+    "human_value_he": "ביקורת הנחות.",
+    "hold_in_head_he": "מקדמי תכנון, צריכה, ייצור.",
+    "delegate_he": "מודל.",
+    "must_verify_he": "נתונים מוצלבים.",
+    "risks_he": "מקדמים חסרים.",
+    "protection_he": "ראיונות.",
+    "thesis_test": {
+      "verdict": "partial",
+      "evidence_he": "המודל נתמך; הידע השבע\"פי לא [inference].",
+      "closes_he": "ראיונות."
+    },
+    "target": {
+      "academia_knowledge": "A3",
+      "academia_fluency": "A3 עם כלים",
+      "industry_role": "senior logistics analyst (AI-augmented)",
+      "defense_role": "אנליסט בכיר"
+    },
+    "projected_old": {
+      "academia": "Knowledge A2: van Creveld gives strong history. Modern contested logistics, munitions consumption and production are mostly tutor-written. Below an NPS or AFIT logistics MSc.",
+      "industry": "Junior analyst. Military logisticians do far better on the tacit layer (planning factors, systems, real constraints). Historical judgment is above junior.",
+      "gap_to_next": "A munitions consumption vs production model (artillery shells and interceptors) for Ukraine or a Taiwan scenario, using public budget and production data.",
+      "summary_he": "לוגיסטיקה ברמת מבוא עם היסטוריה חזקה; אנליסט זוטר."
+    },
+    "gap_he": "LV: זוטר.",
+    "closing_plan_he": "מודל צריכה-ייצור לאוקראינה.",
+    "legal_he": null,
+    "extra_hours_estimate": {
+      "p10": 250,
+      "p50": 400,
+      "p90": 700,
+      "basis_he": "פרויקט (~250) [estimate]."
+    },
+    "evidence": [
+      "docs/research/round4/LV_benchmark.json"
+    ],
+    "confidence": "low"
+  },
+  {
+    "id": "MIL · Acquisition, cost, test & evaluation, industrial base, policy",
+    "role": "supporting",
+    "wave": 3,
+    "expert_definition_he": "אינטגרטור בכיר: אומדן עלות של תוכנית אמיתית מ-SAR עם עקומות למידה ואי-ודאות, וקריאה ביקורתית של DOT&E.",
+    "ai_covers_he": "נתונים ומודל [inference].",
+    "human_value_he": "ביקורת.",
+    "hold_in_head_he": "LCC, עקומות למידה, סטטיסטיקת ניסוי.",
+    "delegate_he": "חישוב.",
+    "must_verify_he": "נתונים.",
+    "risks_he": "נתונים חלקיים.",
+    "protection_he": "מבקר.",
+    "thesis_test": {
+      "verdict": "supported",
+      "evidence_he": "נתונים פתוחים [inference]. תוכניות לוקחות כ-12 שנים ל-IOC [evidence: Bain/GAO].",
+      "closes_he": "-"
+    },
+    "target": {
+      "academia_knowledge": "A3",
+      "academia_fluency": "A3 עם כלים",
+      "industry_role": "senior cost / T&E analyst (AI-augmented)",
+      "defense_role": "אנליסט בכיר"
+    },
+    "projected_old": {
+      "academia": "Knowledge A2-A3: Ball (DoD 5000, LFT&E), SMAD cost chapters and a new cost module (M14.2) on learning curves and LCC. This is around DAU Practitioner level in concepts, below the NPS MSc in Program Management or Cost Estimating in quantitative practice.",
+      "industry": "Junior to mid analyst on test evidence (few-shot statistics, DT/OT realism) and cost growth. GAO, CAPE and DOT&E practitioners do far better on data sources, process and estimating tools.",
+      "gap_to_next": "A cost estimate of a real program from Selected Acquisition Reports, with learning curves and uncertainty, plus a critical reading of a DOT&E annual-report section, reviewed by a practitioner.",
+      "summary_he": "רכש, עלות וניסוי ברמת מבוא מקצועי (DAU); אנליסט זוטר-בינוני."
+    },
+    "gap_he": "LV: זוטר-בינוני.",
+    "closing_plan_he": "אומדן עלות מ-SAR; קריאת DOT&E; ביקורת.",
+    "legal_he": null,
+    "extra_hours_estimate": {
+      "p10": 280,
+      "p50": 450,
+      "p90": 800,
+      "basis_he": "פרויקט (~300) [estimate]."
+    },
+    "evidence": [
+      "https://www.bain.com/insights/engineering-speed-is-reshaping-defense-competition/",
+      "docs/research/round4/LV_benchmark.json"
+    ],
+    "confidence": "medium"
+  },
+  {
+    "id": "MIL · Adversary systems, doctrine and capability assessment",
+    "role": "supporting",
+    "wave": 3,
+    "expert_definition_he": "אינטגרטור בכיר: קורא מקורות ראשוניים רוסיים וסיניים בתרגום AI, ומבצע הערכת יכולת שנבדקת בידי מומחה.",
+    "ai_covers_he": "תרגום וסיכום; טעויות במונחים צבאיים [inference].",
+    "human_value_he": "שיפוט מקורות, הקשר.",
+    "hold_in_head_he": "מבנה כוח, תורות, שיטות הערכה.",
+    "delegate_he": "תרגום, חיפוש.",
+    "must_verify_he": "מונחים מול מילון צבאי, מומחה.",
+    "risks_he": "תרגום שגוי במונח מפתח.",
+    "protection_he": "מילון מונחים ובדיקה כפולה.",
+    "thesis_test": {
+      "verdict": "partial",
+      "evidence_he": "תרגום AI פותח מקורות [inference]; המומחה האזורי עדיין עדיף [inference].",
+      "closes_he": "ביקורת מומחה."
+    },
+    "target": {
+      "academia_knowledge": "A3",
+      "academia_fluency": "A3 עם כלים",
+      "industry_role": "senior capability-assessment analyst (AI-augmented)",
+      "defense_role": "אנליסט בכיר"
+    },
+    "projected_old": {
+      "academia": "Knowledge A2: ATP 7-100.1 and 7-100.3 (Russian and Chinese tactics), plus assessment methods (OOB, net assessment, bias) moved to M14.4. By the learner's choice, Iran and proxies are only C-level mentions. Below a graduate security-studies seminar and well below regional specialists.",
+      "industry": "Junior to mid analyst. Regional specialists (CNA Russia studies, RAND China) do far better because of language, primary sources and years of tracking. This gap does not close through technical study.",
+      "gap_to_next": "Systematic primary-source reading (translated Russian and Chinese military writing, PLA journals via CASI) and one capability assessment reviewed by a specialist. Language is the real long-term gap.",
+      "summary_he": "תורות ומערכות היריב ברמת מבוא; מתחת למומחה אזורי, בעיקר בגלל שפה ומקורות ראשוניים."
+    },
+    "gap_he": "LV: זוטר-בינוני, שפה.",
+    "closing_plan_he": "קריאת מקורות ראשוניים (CASI) והערכת יכולת עם ביקורת.",
+    "legal_he": null,
+    "extra_hours_estimate": {
+      "p10": 400,
+      "p50": 700,
+      "p90": 1300,
+      "basis_he": "קריאה שיטתית (~400) + הערכה (~200) [estimate]."
+    },
+    "evidence": [
+      "docs/research/round4/LV_benchmark.json"
+    ],
+    "confidence": "low"
+  },
+  {
+    "id": "MIL · Defense analysis craft: OSINT, claims checking and communication",
+    "role": "core",
+    "wave": 1,
+    "expert_definition_he": "בודק טענות עם שפיות פיזיקלית ו-OSINT (גיאולוקציה, תצלומי לוויין), מפרסם עם יומן תיקונים, ומשתמש בסוכנים לאיסוף ובדיקה.",
+    "ai_covers_he": "חיפוש, סיכום, תרגום, ניתוח תמונה ראשוני; הזיות ומקורות מומצאים [inference].",
+    "human_value_he": "אמון, שיפוט מקורות, כתיבה, אחריות.",
+    "hold_in_head_he": "שיטות אימות, הטיות, סדרי גודל.",
+    "delegate_he": "איסוף, תרגום, טיוטות.",
+    "must_verify_he": "כל מקור נפתח ונקרא; גיאולוקציה כפולה.",
+    "risks_he": "מקור מומצא בפרסום.",
+    "protection_he": "כלל: אין ציטוט בלי קריאה.",
+    "thesis_test": {
+      "verdict": "supported",
+      "evidence_he": "עבודת OSINT נשענת על כלים פתוחים [inference].",
+      "closes_he": "רקורד ציבורי."
+    },
+    "target": {
+      "academia_knowledge": "מעבר לסמינר תואר שני",
+      "academia_fluency": "-",
+      "industry_role": "senior OSINT / technical analyst (AI-augmented)",
+      "defense_role": "אנליסט ובודק טענות בכיר"
+    },
+    "projected_old": {
+      "academia": "No degree benchmark. Comparable to graduate methods seminars (for example OSINT and intelligence-analysis modules in War Studies or security-studies programs). Mostly tutor-written, because the books do not teach it.",
+      "industry": "As a working writer and interviewer, he may already be mid to senior in communication. The plan adds claims checking with physics sanity checks, which is rare among defense journalists. Bellingcat-type OSINT investigators do far better on geolocation and imagery-analysis tools.",
+      "gap_to_next": "A published track record: claims checked, a public corrections log, and pieces reviewed by named experts before publication. Practical OSINT tool skills (geolocation, satellite imagery).",
+      "summary_he": "כבר חזק כנראה בכתיבה; בדיקת טענות עם שפיות פיזיקלית נדירה. צריך רקורד פומבי."
+    },
+    "gap_he": "LV: חזק בכתיבה, צריך רקורד.",
+    "closing_plan_he": "רקורד ציבורי, יומן תיקונים, ביקורת מומחים, כלי גיאולוקציה.",
+    "legal_he": "צנזורה צבאית על פרסום בנושאי ישראל.",
+    "extra_hours_estimate": {
+      "p10": 500,
+      "p50": 900,
+      "p90": 1500,
+      "basis_he": "כלי OSINT (~200) + 10–15 פרסומים [estimate]."
+    },
+    "evidence": [
+      "docs/research/round4/LV_benchmark.json"
+    ],
+    "confidence": "medium"
+  }
+]

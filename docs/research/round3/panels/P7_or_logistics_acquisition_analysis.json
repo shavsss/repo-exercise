@@ -1,0 +1,3226 @@
+{
+ "panel": "P7_or_logistics_acquisition_analysis",
+ "domains": [
+  "MIL · Operations research and combat modeling",
+  "MIL · Logistics, sustainment and force generation",
+  "MIL · Acquisition, cost, test & evaluation, industrial base, policy",
+  "MIL · Adversary systems, doctrine and capability assessment",
+  "MIL · Defense analysis craft: OSINT, claims checking and communication"
+ ],
+ "notes": [
+  "B14-B17 were absent from the MG corpus (0 crosswalk units), so every OR/LOG \"missing\" in MG must be re-read against them; done here.",
+  "MG host IDs for these domains are not meaningful military modules (e.g. M:LOG.1.1 -> M13.13 attitude control; M:OR.4.1 -> M2.10 threshold detection); all hosts were reassigned.",
+  "Rule 33 (core/app/src/prompt.ts; docs/CORE_TEACHING_RULES.md): learner has already read B14 and B15 -> those items are test-out candidates (diagnostic quiz), never removal.",
+  "Rule 37: ref sources are not lesson material and are excluded from coverage checks -> B16/B17 content is effectively untaught; LOG/ACQ/CRAFT/ADV.3-4 have no host module at all.",
+  "B15 page offset PDF=book+21; B14 offset drifts 7->1 (blank pages dropped); B16 offset drifts 24->39; B17 is an unpaginated ebook. All pages here are PDF pages. B12 SMAD and B13 Fleeman are image-only scans (not text-verifiable)."
+ ],
+ "new_hosts": {
+  "NEW-A1": "P7 (new core module after M7.1): Raid, magazine and cost-exchange analysis (saturation/queuing, layered allocation, magazine depth, cost-exchange, Hughes salvo link)",
+  "NEW-A2": "New core module \"Attrition, salvo and the evidence of combat\" (diagnostic test-out of B14 ch5/B15 ch4-5, then Hughes salvo, scouting, exchange ratios, force-ratio myths, Dupuy, Biddle). Move B14:84-114 and B15:92-163 here from M12.2 (adv) as ref",
+  "NEW-A3": "New core module \"Models as evidence\": model types, MOE/MOP, VV&A, wargames (design, matrix games, abuses), Monte Carlo output, small-sample statistics, selection bias",
+  "NEW-L1": "New core module \"Logistics and sustainment\": van Creveld promoted from ref to main for the thesis chapters (B17 ch.4,5,7,8) + modern arithmetic (consumption, LOC capacity, munitions vs stockpiles, readiness, replacement, contested logistics)",
+  "NEW-Q1": "New core module \"Acquisition, cost and industrial base\": LCC, unit-cost definitions, learning curves, CER methods, constant dollars, PPBE/budget docs as data, TRL/MRL, requirements, surge capacity, critical materials, industry structure",
+  "NEW-Q2": "New core module \"Test and evaluation and claims\": DT&E/OT&E/LFT&E (B16 1.6), test realism, confidence from few shots, combat claims, intercept-rate denominators",
+  "NEW-Q3": "New module (core-light) \"Export control, arms control, law and publication\": ITAR/EAR/Wassenaar, MTCR, NPT/INF/New START, deterrence/escalation, IHL Art.36, censorship/prepublication, mosaic effect",
+  "NEW-C1": "New core module \"OSINT methods\": imagery interpretation, geolocation/chronolocation, video verification, photogrammetry, ADS-B/AIS, publications/patents, archiving",
+  "NEW-C2": "New core module \"Writing and interviewing as an analyst\": article structure, expert interviews, communicating uncertainty, honest charts (capstone, after P7)",
+  "NEW-C3": "New core module series \"Lessons of recent wars\" (placed at end of P12): Desert Storm/Kosovo/2006, NK2020, Ukraine 2022-, Israel 2023-25, Red Sea",
+  "NEW-V1": "New core module in P12 \"Iran and its proxy network\" + capability-assessment methods (OOB from open sources, net assessment, analytic biases)"
+ },
+ "subtopics": [
+  {
+   "id": "M:OR.1.1",
+   "name": "Model types: analytic, simulation, wargame, exercise; fidelity vs insight",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "missing",
+   "status": "full",
+   "where": [
+    {
+     "module": "M13.2",
+     "doc": "B14",
+     "section": "ch.1 1.2-1.3 classification of combat models, modeling shortcuts",
+     "pages": "8-20",
+     "role": "ref"
+    },
+    {
+     "module": "-",
+     "doc": "B15",
+     "section": "ch.1 scientific methods; ch.12 modeling",
+     "pages": "22-31; 320-329",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "Book side is full (B14 Fig.1 spectrum analytic->exercise). But B14 ch.1 is attached only to M7.2/M13.2 as ref and B15 ch.1/ch.12 are attached nowhere.",
+   "host_for_gap": "NEW-A3 (or M7.1 as ref)",
+   "test_out_candidate": true,
+   "reason": "Choosing analytic vs simulation vs wargame is the first judgment in every article; B14 1.2 is the best compact treatment."
+  },
+  {
+   "id": "M:OR.1.2",
+   "name": "MOE/MOP selection and the 'measure what matters' problem",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "missing",
+   "status": "partial",
+   "where": [
+    {
+     "module": "M7.1",
+     "doc": "B07",
+     "section": "ch.3-4 AMD MOEs",
+     "pages": "44-69",
+     "role": "main"
+    },
+    {
+     "module": "M7.1",
+     "doc": "B14",
+     "section": "ch.4 MOE use in target defense",
+     "pages": "70-83",
+     "role": "ref"
+    },
+    {
+     "module": "-",
+     "doc": "B16",
+     "section": "1.1.2/1.1.10 survivability measures and relation to effectiveness",
+     "pages": "26-30; 68-74",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "Domain MOEs exist (AMD, survivability) but the general \"measure what matters\" problem (MOE vs MOP hierarchy, proxy metrics, Goodhart, MOE chosen to favor a system) is not taught anywhere.",
+   "host_for_gap": "NEW-A3",
+   "test_out_candidate": false,
+   "reason": "Core of article framing and of critiquing any study; fan-out to every domain."
+  },
+  {
+   "id": "M:OR.1.3",
+   "name": "Verification, validation and accreditation (VV&A)",
+   "importance": "S",
+   "mg_importance": "S",
+   "mg_coverage": "full",
+   "status": "partial",
+   "where": [
+    {
+     "module": "-",
+     "doc": "B14",
+     "section": "1.2 verification vs validation",
+     "pages": "9-10",
+     "role": "ref"
+    },
+    {
+     "module": "M7.10",
+     "doc": "B07",
+     "section": "ch.2 V&V in SE lifecycle",
+     "pages": "38-43",
+     "role": "main"
+    },
+    {
+     "module": "-",
+     "doc": "E26 (Gilua)",
+     "section": "NASA SE Handbook verification/validation",
+     "pages": "eng",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "MG \"full\" match on E08 2.2 is a false positive (numerical-code verification). Defense VV&A of combat models (accreditation for a use, face validity vs results validation, why combat models cannot be validated in the usual sense) is missing.",
+   "host_for_gap": "NEW-A3",
+   "test_out_candidate": false,
+   "reason": "Judging trust in model-based claims (CSIS/RAND wargames, vendor sims)."
+  },
+  {
+   "id": "M:OR.1.4",
+   "name": "Deterministic vs stochastic models",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "partial",
+   "status": "full",
+   "where": [
+    {
+     "module": "-",
+     "doc": "B14",
+     "section": "1.2 stochastic vs deterministic; 1.3 shortcuts (expected-value shortcut)",
+     "pages": "9-20",
+     "role": "ref"
+    },
+    {
+     "module": "M12.2",
+     "doc": "B14",
+     "section": "5.3 stochastic Lanchester vs deterministic",
+     "pages": "91-96",
+     "role": "ref"
+    },
+    {
+     "module": "-",
+     "doc": "B15",
+     "section": "ch.5 probabilistic combat models",
+     "pages": "134-163",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "none on the book side (the MG matches on K2/E02 were off-target). B14 1.3 \"expected value shortcut\" is the key critique tool.",
+   "host_for_gap": "NEW-A3",
+   "test_out_candidate": true,
+   "reason": "When expected values mislead (small forces, breakpoints) is a recurring critique tool."
+  },
+  {
+   "id": "M:OR.2.1",
+   "name": "Shooting without feedback: salvo Pk, independent and correlated shots",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "missing",
+   "status": "full",
+   "where": [
+    {
+     "module": "M11.4",
+     "doc": "B14",
+     "section": "ch.2 shooting without feedback: SSKP, multiple shots, correlated shots, salvo over multiple targets",
+     "pages": "21-51",
+     "role": "ref"
+    },
+    {
+     "module": "M11.4",
+     "doc": "B15",
+     "section": "ch.3 passive targets, CEP, multiple shots",
+     "pages": "42-91",
+     "role": "ref"
+    },
+    {
+     "module": "M9.7",
+     "doc": "B14",
+     "section": "2.4 multiple shots multiple targets one salvo",
+     "pages": "40-51",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "none; ref-only material the learner has read (rule 33).",
+   "host_for_gap": "-",
+   "test_out_candidate": true,
+   "reason": "Weapon allocation and magazine economy rest on it."
+  },
+  {
+   "id": "M:OR.2.2",
+   "name": "Shooting with feedback: shoot-look-shoot",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "missing",
+   "status": "full",
+   "where": [
+    {
+     "module": "M7.3/M10.5",
+     "doc": "B14",
+     "section": "ch.3 shooting with feedback, SLS with multiple targets",
+     "pages": "52-69",
+     "role": "ref"
+    },
+    {
+     "module": "M7.4",
+     "doc": "B07",
+     "section": "ch.7-8 firing doctrines SLS vs SS",
+     "pages": "195-215",
+     "role": "main"
+    },
+    {
+     "module": "-",
+     "doc": "B15",
+     "section": "5.5 many-on-many incl. shoot-look-shoot assignment",
+     "pages": "155-163",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "B15 5.5 (155-163) is unmapped; attach to M7.3.",
+   "host_for_gap": "M7.3 (attach B15:142-163 as ref)",
+   "test_out_candidate": true,
+   "reason": "Shoot-look-shoot is the core magazine-economy lever in AMD."
+  },
+  {
+   "id": "M:OR.2.3",
+   "name": "Damage functions and coverage problems",
+   "importance": "S",
+   "mg_importance": "S",
+   "mg_coverage": "partial",
+   "status": "full",
+   "where": [
+    {
+     "module": "M11.4",
+     "doc": "B15",
+     "section": "3.12-3.16 damage functions, shrapnel, weapon effective radius",
+     "pages": "71-91",
+     "role": "ref"
+    },
+    {
+     "module": "M11.4",
+     "doc": "B10",
+     "section": "ch.24 damage criteria",
+     "pages": "283-294",
+     "role": "main"
+    },
+    {
+     "module": "M11.4",
+     "doc": "B14",
+     "section": "2.2 damage functions/cookie cutter",
+     "pages": "23-29",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "none",
+   "host_for_gap": "-",
+   "test_out_candidate": true,
+   "reason": "Area-target coverage and Rw."
+  },
+  {
+   "id": "M:OR.2.4",
+   "name": "Weapon-target assignment",
+   "importance": "S",
+   "mg_importance": "S",
+   "mg_coverage": "missing",
+   "status": "partial",
+   "where": [
+    {
+     "module": "M9.7",
+     "doc": "B14",
+     "section": "2.4 multiple shots multiple targets",
+     "pages": "40-51",
+     "role": "ref"
+    },
+    {
+     "module": "M12.4",
+     "doc": "B15",
+     "section": "ch.8 heterogeneous engagements (fire allocation)",
+     "pages": "220-251",
+     "role": "ref"
+    },
+    {
+     "module": "-",
+     "doc": "B15",
+     "section": "5.5 uniform/random/SLS assignment",
+     "pages": "155-163",
+     "role": "ref"
+    },
+    {
+     "module": "M7.4",
+     "doc": "B14",
+     "section": "App.B optimization",
+     "pages": "258-263",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "Formal weapon-target assignment (static WTA as nonlinear integer program, greedy/marginal-return heuristic, dynamic WTA in AMD battle management) is not stated as such.",
+   "host_for_gap": "NEW-A1",
+   "test_out_candidate": false,
+   "reason": "Battle-management allocation is where AMD algorithms live; one lesson segment suffices."
+  },
+  {
+   "id": "M:OR.3.1",
+   "name": "Prim-Read and defense-allocation games",
+   "importance": "S",
+   "mg_importance": "S",
+   "mg_coverage": "missing",
+   "status": "full",
+   "where": [
+    {
+     "module": "M7.1/M9.7",
+     "doc": "B14",
+     "section": "4.2-4.3 defense of one target, Prim-Read defense of multiple targets",
+     "pages": "70-83",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "none (Prim-Read p.77-81)",
+   "host_for_gap": "-",
+   "test_out_candidate": true,
+   "reason": "Optimal preferential defense logic."
+  },
+  {
+   "id": "M:OR.3.2",
+   "name": "Attacker-defender games over multiple targets",
+   "importance": "S",
+   "mg_importance": "S",
+   "mg_coverage": "missing",
+   "status": "full",
+   "where": [
+    {
+     "module": "M7.1",
+     "doc": "B14",
+     "section": "4.3 ICBM attack on multiple targets",
+     "pages": "77-83",
+     "role": "ref"
+    },
+    {
+     "module": "M7.6/M6.8",
+     "doc": "B15",
+     "section": "6.3 ABM defense as game, payoff matrix",
+     "pages": "174-185",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "none",
+   "host_for_gap": "-",
+   "test_out_candidate": true,
+   "reason": "Attacker-defender allocation logic."
+  },
+  {
+   "id": "M:OR.3.3",
+   "name": "Leakage and penetration models",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "partial",
+   "status": "full",
+   "where": [
+    {
+     "module": "M7.1/M10.5/M9.7",
+     "doc": "B15",
+     "section": "ch.7 TMD: probability of penetration, zero-penetration",
+     "pages": "206-219",
+     "role": "ref"
+    },
+    {
+     "module": "M7.3/M7.6",
+     "doc": "B15",
+     "section": "6.1-6.2 layered defense, MIRV",
+     "pages": "164-173",
+     "role": "ref"
+    },
+    {
+     "module": "M7.1",
+     "doc": "B07",
+     "section": "ch.4 raid penetration",
+     "pages": "56-69",
+     "role": "main"
+    }
+   ],
+   "missing_items": "none on the book side (MG matched semiconductors E24 by accident).",
+   "host_for_gap": "-",
+   "test_out_candidate": true,
+   "reason": "Leakage arithmetic is the backbone of every AMD article."
+  },
+  {
+   "id": "M:OR.4.1",
+   "name": "Lanchester linear and square laws; force-ratio implications",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "missing",
+   "status": "full",
+   "where": [
+    {
+     "module": "M12.2 (adv!)",
+     "doc": "B14",
+     "section": "5.2 deterministic Lanchester, square law",
+     "pages": "84-90",
+     "role": "ref"
+    },
+    {
+     "module": "M12.2 (adv!)",
+     "doc": "B15",
+     "section": "4.3-4.7 square, linear, mixed, logarithmic laws",
+     "pages": "99-117",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "Content full, but attached only to M12.2 (adv tier, Russian tactics) - a K result hosted in an adv module the learner may skip. Re-host to a core module.",
+   "host_for_gap": "NEW-A2 (or M7.1 core) - move the ref",
+   "test_out_candidate": true,
+   "reason": "The single most quoted OR result; must sit in core."
+  },
+  {
+   "id": "M:OR.4.2",
+   "name": "Lanchester extensions (mixed, logarithmic, heterogeneous)",
+   "importance": "S",
+   "mg_importance": "S",
+   "mg_coverage": "missing",
+   "status": "full",
+   "where": [
+    {
+     "module": "M12.2",
+     "doc": "B15",
+     "section": "4.5-4.14 mixed, logarithmic, geometric-mean, reinforcements, mixed models",
+     "pages": "108-127",
+     "role": "ref"
+    },
+    {
+     "module": "M12.4",
+     "doc": "B15",
+     "section": "ch.8 heterogeneous many-on-many",
+     "pages": "220-251",
+     "role": "ref"
+    },
+    {
+     "module": "M12.4",
+     "doc": "B14",
+     "section": "5.5 aggregation and valuation",
+     "pages": "103-104",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "none",
+   "host_for_gap": "NEW-A2 (re-host)",
+   "test_out_candidate": true,
+   "reason": "Realism of attrition models."
+  },
+  {
+   "id": "M:OR.4.3",
+   "name": "Empirical validation of Lanchester (historical battles) and limits",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "missing",
+   "status": "full",
+   "where": [
+    {
+     "module": "M12.2",
+     "doc": "B14",
+     "section": "5.4 data for Lanchester: engineering vs statistical approach, Iwo Jima (Engel), Kursk",
+     "pages": "97-102",
+     "role": "ref"
+    },
+    {
+     "module": "M12.2",
+     "doc": "B15",
+     "section": "4.15 Iwo Jima battle",
+     "pages": "126-128",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "Full in the books but adv-hosted; add Ardennes/Bracken and Lucas-Turkes fits as one line.",
+   "host_for_gap": "NEW-A2 (re-host)",
+   "test_out_candidate": true,
+   "reason": "Knowing when Lanchester fails is the authority marker."
+  },
+  {
+   "id": "M:OR.4.4",
+   "name": "Stochastic attrition (Markov) vs deterministic",
+   "importance": "S",
+   "mg_importance": "S",
+   "mg_coverage": "missing",
+   "status": "full",
+   "where": [
+    {
+     "module": "M12.2",
+     "doc": "B14",
+     "section": "5.3 stochastic Lanchester models",
+     "pages": "91-96",
+     "role": "ref"
+    },
+    {
+     "module": "M8.3",
+     "doc": "B15",
+     "section": "5.1-5.2 duels",
+     "pages": "134-141",
+     "role": "ref"
+    },
+    {
+     "module": "-",
+     "doc": "B15",
+     "section": "5.3-5.4 continuous combat states, directed/area fire Markov",
+     "pages": "142-154",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "B15 142-154 unmapped: attach.",
+   "host_for_gap": "NEW-A2",
+   "test_out_candidate": true,
+   "reason": "Small-force battles (air duels, ship pairs)."
+  },
+  {
+   "id": "M:OR.4.5",
+   "name": "Salvo models (Hughes) and their extensions",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "missing",
+   "status": "partial",
+   "where": [
+    {
+     "module": "M12.2",
+     "doc": "B14",
+     "section": "5.2 one paragraph: Hughes salvo equations as discrete Lanchester with cycle length",
+     "pages": "86",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "Only a mention. Missing: Hughes salvo model (striking power a*A, defensive power, staying power; fractional exchange; \"fire effectively first\"), its instability (small changes flip outcome), Armstrong stochastic salvo, application to ASCM/AMD and drone swarms.",
+   "host_for_gap": "NEW-A2 (link M10.5 ship self-defense)",
+   "test_out_candidate": false,
+   "reason": "The missile-age replacement for Lanchester; central to naval/AMD articles."
+  },
+  {
+   "id": "M:OR.4.6",
+   "name": "Breakpoints and force ratio rules (3:1, etc.) critique",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "missing",
+   "status": "partial",
+   "where": [
+    {
+     "module": "M12.2",
+     "doc": "B15",
+     "section": "5.1 breakpoints in duels",
+     "pages": "137-139",
+     "role": "ref"
+    },
+    {
+     "module": "M12.2",
+     "doc": "B14",
+     "section": "5.4 force ratios in Kursk/Iwo Jima discussion",
+     "pages": "97-102",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "The 3:1 rule, its origin, Mearsheimer-Epstein debate, Dupuy force-ratio-vs-outcome data and breakpoint (casualty threshold) data are missing.",
+   "host_for_gap": "NEW-A2",
+   "test_out_candidate": false,
+   "reason": "Common myth in media; must be debunkable with numbers."
+  },
+  {
+   "id": "M:OR.4.7",
+   "name": "Exchange ratios and loss-exchange analysis",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "missing",
+   "status": "partial",
+   "where": [
+    {
+     "module": "M12.2",
+     "doc": "B15",
+     "section": "4.16 casualty exchange ratio (directed/area fire)",
+     "pages": "129-133",
+     "role": "ref"
+    },
+    {
+     "module": "-",
+     "doc": "B16",
+     "section": "1.2.1 historical loss rates and exchange data (air)",
+     "pages": "106-112",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "Formula present; missing loss-exchange analysis practice: air-to-air exchange ratios by era (Korea, SEA, 1973, 1982 Bekaa), tank exchange ratios, how to read claimed ratios.",
+   "host_for_gap": "NEW-A2",
+   "test_out_candidate": false,
+   "reason": "Campaign assessment metric used constantly in war reporting."
+  },
+  {
+   "id": "M:OR.5.1",
+   "name": "Random search formula (Koopman)",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "partial",
+   "status": "full",
+   "where": [
+    {
+     "module": "M3.11/M2.3",
+     "doc": "B14",
+     "section": "7.3 three laws of detection (definite range, random search, inverse cube)",
+     "pages": "141-148",
+     "role": "ref"
+    },
+    {
+     "module": "M3.11",
+     "doc": "B15",
+     "section": "10.4 random search, Koopman",
+     "pages": "288-293",
+     "role": "ref"
+    },
+    {
+     "module": "M3.11",
+     "doc": "B03",
+     "section": "ch.15 search",
+     "pages": "509-560",
+     "role": "main"
+    }
+   ],
+   "missing_items": "none (MG partial was a matching artifact; B14/B15 not in the merge corpus)",
+   "host_for_gap": "-",
+   "test_out_candidate": true,
+   "reason": "ISR/ASW coverage."
+  },
+  {
+   "id": "M:OR.5.2",
+   "name": "Sweep width and lateral range curves",
+   "importance": "S",
+   "mg_importance": "S",
+   "mg_coverage": "missing",
+   "status": "full",
+   "where": [
+    {
+     "module": "M3.11",
+     "doc": "B14",
+     "section": "7.2 sweep width and lateral range curves",
+     "pages": "137-141",
+     "role": "ref"
+    },
+    {
+     "module": "M10.4",
+     "doc": "B14",
+     "section": "8.4 minefield clearance lateral range",
+     "pages": "169-170",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "none",
+   "host_for_gap": "-",
+   "test_out_candidate": true,
+   "reason": "Sensor planning."
+  },
+  {
+   "id": "M:OR.5.3",
+   "name": "Optimal search allocation, Bayesian search",
+   "importance": "S",
+   "mg_importance": "S",
+   "mg_coverage": "missing",
+   "status": "full",
+   "where": [
+    {
+     "module": "M3.11",
+     "doc": "B14",
+     "section": "7.5 optimal distribution of effort (Bayesian, stationary targets)",
+     "pages": "149-155",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "none",
+   "host_for_gap": "-",
+   "test_out_candidate": true,
+   "reason": "SAR/ASW allocation."
+  },
+  {
+   "id": "M:OR.5.4",
+   "name": "Search against moving targets and datum search",
+   "importance": "C",
+   "mg_importance": "C",
+   "mg_coverage": "partial",
+   "status": "full",
+   "where": [
+    {
+     "module": "M3.11",
+     "doc": "B14",
+     "section": "7.6 moving targets",
+     "pages": "155-162",
+     "role": "ref"
+    },
+    {
+     "module": "M3.11",
+     "doc": "B15",
+     "section": "10.6 constant-velocity target",
+     "pages": "295-299",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "none",
+   "host_for_gap": "-",
+   "test_out_candidate": true,
+   "reason": "Awareness level; already covered."
+  },
+  {
+   "id": "M:OR.6.1",
+   "name": "Two-person zero-sum games, mixed strategies",
+   "importance": "S",
+   "mg_importance": "S",
+   "mg_coverage": "missing",
+   "status": "full",
+   "where": [
+    {
+     "module": "M12.3",
+     "doc": "B14",
+     "section": "6.2 game theory: TPZS, mixed strategies, Blotto, logistics game",
+     "pages": "115-131",
+     "role": "ref"
+    },
+    {
+     "module": "M7.6",
+     "doc": "B15",
+     "section": "6.3 two-person zero-sum, pure and mixed",
+     "pages": "174-185",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "none",
+   "host_for_gap": "-",
+   "test_out_candidate": true,
+   "reason": "Strategy logic."
+  },
+  {
+   "id": "M:OR.6.2",
+   "name": "Wargame design and adjudication; matrix games",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "missing",
+   "status": "partial",
+   "where": [
+    {
+     "module": "M12.3",
+     "doc": "B14",
+     "section": "6.3 wargames (3 pages): purposes, dark side, human players",
+     "pages": "132-134",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "Missing: wargame design (objectives, scenario, adjudication: rigid/free/matrix, cell structure), matrix games, analytic vs educational games, data capture.",
+   "host_for_gap": "NEW-A3",
+   "test_out_candidate": false,
+   "reason": "Authority must judge public wargames; B14 6.3 is only an introduction."
+  },
+  {
+   "id": "M:OR.6.3",
+   "name": "Using wargames as evidence: strengths and abuses",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "missing",
+   "status": "partial",
+   "where": [
+    {
+     "module": "M12.3",
+     "doc": "B14",
+     "section": "6.3 dark side: Stalin 1941, player motivation, risk attitude",
+     "pages": "133-134",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "Missing: Perla/Sabin criteria, \"wargames are not predictive\", reading a published wargame (CSIS Taiwan 2023 as case), cycle of research.",
+   "host_for_gap": "NEW-A3",
+   "test_out_candidate": false,
+   "reason": "Public-wargame critique is a recurring article topic."
+  },
+  {
+   "id": "M:OR.7.1",
+   "name": "Monte Carlo simulation and statistical output analysis",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "full",
+   "status": "full",
+   "where": [
+    {
+     "module": "M0.4",
+     "doc": "B14",
+     "section": "App.C Monte Carlo simulation",
+     "pages": "264-267",
+     "role": "ref"
+    },
+    {
+     "module": "-",
+     "doc": "B16",
+     "section": "App.B.8 expected value vs Monte Carlo vs Markov chain",
+     "pages": "886-895",
+     "role": "ref"
+    },
+    {
+     "module": "-",
+     "doc": "E04/E05 (Gilua)",
+     "section": "MacKay/Wasserman Monte Carlo",
+     "pages": "eng",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "Output analysis (replications, CI on sim output, common random numbers) thin in military books; Gilua E04/E05 cover it.",
+   "host_for_gap": "-",
+   "test_out_candidate": true,
+   "reason": "Reading simulation results."
+  },
+  {
+   "id": "M:OR.7.2",
+   "name": "Campaign analysis (Joint Campaign Analysis method)",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "partial",
+   "status": "partial",
+   "where": [
+    {
+     "module": "M12.4 (adv)",
+     "doc": "B14",
+     "section": "5.6 FATHM fast theater model (ground/air)",
+     "pages": "105-114",
+     "role": "ref"
+    },
+    {
+     "module": "-",
+     "doc": "B16",
+     "section": "1.1.6-1.1.7 campaign-level survivability",
+     "pages": "52-62",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "Joint Campaign Analysis method (NPS OA4602 style: back-of-envelope campaign with sortie rates, attrition, logistics) missing; FATHM is in an adv module. MG match to D6 was off-target.",
+   "host_for_gap": "NEW-A3 (and capstone exercise)",
+   "test_out_candidate": false,
+   "reason": "The bridge from engineering to policy; article backbone."
+  },
+  {
+   "id": "M:OR.7.3",
+   "name": "Design of experiments and exploratory modeling under deep uncertainty",
+   "importance": "S",
+   "mg_importance": "S",
+   "mg_coverage": "full",
+   "status": "partial",
+   "where": [
+    {
+     "module": "-",
+     "doc": "E06 (Gilua)",
+     "section": "convex optimization 7.5 (MG match; off-target for DOE)",
+     "pages": "eng",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "DOE for simulation (factorial, Latin hypercube) and exploratory modeling/RDM under deep uncertainty are missing in both libraries (MG \"full\" is a false positive).",
+   "host_for_gap": "NEW-A3",
+   "test_out_candidate": false,
+   "reason": "Robust conclusions; one segment."
+  },
+  {
+   "id": "M:OR.7.4",
+   "name": "Commercial/government combat sims (JTLS, OneSAF, AFSIM, STORM)",
+   "importance": "C",
+   "mg_importance": "C",
+   "mg_coverage": "missing",
+   "status": "partial",
+   "where": [
+    {
+     "module": "-",
+     "doc": "B16",
+     "section": "1.5 survivability M&S, SURVIAC models (ESAMS, RADGUNS, BRAWLER...)",
+     "pages": "166-197",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "Vocabulary of JTLS, OneSAF, AFSIM, STORM missing; B16 1.5 gives the survivability model zoo.",
+   "host_for_gap": "NEW-A3",
+   "test_out_candidate": false,
+   "reason": "Vocabulary for interviews only."
+  },
+  {
+   "id": "M:OR.8.1",
+   "name": "Linear programming and network flows (logistics, allocation)",
+   "importance": "S",
+   "mg_importance": "S",
+   "mg_coverage": "full",
+   "status": "full",
+   "where": [
+    {
+     "module": "M7.4",
+     "doc": "B15",
+     "section": "11.1-11.3 LP examples",
+     "pages": "304-319",
+     "role": "ref"
+    },
+    {
+     "module": "-",
+     "doc": "E21/E06 (Gilua)",
+     "section": "network flows, LP",
+     "pages": "eng",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "none",
+   "host_for_gap": "-",
+   "test_out_candidate": true,
+   "reason": "Allocation insight."
+  },
+  {
+   "id": "M:OR.8.2",
+   "name": "Decision theory, expected value, value of information",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "full",
+   "status": "partial",
+   "where": [
+    {
+     "module": "-",
+     "doc": "E05/E04 (Gilua)",
+     "section": "decision theory, expected value",
+     "pages": "eng",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "Military side: value of information of ISR (EVPI of a scouting asset), decision trees for targeting are not taught.",
+   "host_for_gap": "NEW-A3",
+   "test_out_candidate": false,
+   "reason": "ISR value is a recurring trade."
+  },
+  {
+   "id": "M:OR.8.3",
+   "name": "Multi-criteria decision analysis and its pitfalls",
+   "importance": "S",
+   "mg_importance": "S",
+   "mg_coverage": "missing",
+   "status": "partial",
+   "where": [
+    {
+     "module": "M7.4",
+     "doc": "B16",
+     "section": "6.3 survivability trade studies, system effectiveness",
+     "pages": "789-796",
+     "role": "ref"
+    },
+    {
+     "module": "M7.4",
+     "doc": "B07",
+     "section": "ch.7 trades",
+     "pages": "192-215",
+     "role": "main"
+    }
+   ],
+   "missing_items": "Weighted-sum scoring pitfalls (rank reversal, double counting, scale effects) missing.",
+   "host_for_gap": "NEW-Q1",
+   "test_out_candidate": false,
+   "reason": "Procurement scoring critique (tender decisions)."
+  },
+  {
+   "id": "M:OR.8.4",
+   "name": "Nonlinear optimization detail",
+   "importance": "N",
+   "mg_importance": "N",
+   "mg_coverage": "full",
+   "status": "full",
+   "where": [
+    {
+     "module": "M7.4",
+     "doc": "B15",
+     "section": "11.1 nonlinear programming",
+     "pages": "304-312",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "none",
+   "host_for_gap": "-",
+   "test_out_candidate": true,
+   "reason": "Tools level; not needed beyond awareness."
+  },
+  {
+   "id": "M:OR.9.1",
+   "name": "Small-sample statistics: test results with few shots",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "missing",
+   "status": "missing",
+   "where": [
+    {
+     "module": "-",
+     "doc": "B16",
+     "section": "App.B binomial/Poisson for encounters",
+     "pages": "860-883",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "Binomial confidence bounds from few shots (Clopper-Pearson, rule of three: 0/n failures gives ~3/n), Bayesian beta update, sequential testing; why \"9 of 10 intercepts\" means Pk in [0.55,0.997].",
+   "host_for_gap": "NEW-Q2 (prereq M0.4)",
+   "test_out_candidate": false,
+   "reason": "Interpreting T&E and combat claims - the most frequent numeric error in defense journalism."
+  },
+  {
+   "id": "M:OR.9.2",
+   "name": "Regression and data analysis basics",
+   "importance": "S",
+   "mg_importance": "S",
+   "mg_coverage": "full",
+   "status": "full",
+   "where": [
+    {
+     "module": "-",
+     "doc": "E05 (Gilua)",
+     "section": "Wasserman regression",
+     "pages": "eng",
+     "role": "ref"
+    },
+    {
+     "module": "M12.2",
+     "doc": "B14",
+     "section": "5.4.2 statistical approach (fitting Lanchester)",
+     "pages": "99-102",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "none",
+   "host_for_gap": "-",
+   "test_out_candidate": true,
+   "reason": "Reading studies."
+  },
+  {
+   "id": "M:OR.9.3",
+   "name": "Survivorship and selection bias in combat data",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "missing",
+   "status": "missing",
+   "where": [
+    {
+     "module": "-",
+     "doc": "B16",
+     "section": "5.2.1 combat data analysis (where hits were, returning aircraft)",
+     "pages": "628-638",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "Survivorship bias (Wald), selection bias in released videos, reporting bias, denominator neglect - only implicit in Ball 5.2.1.",
+   "host_for_gap": "NEW-A3",
+   "test_out_candidate": false,
+   "reason": "Viral-video claims; very high article value."
+  },
+  {
+   "id": "M:OR.10.1",
+   "name": "Mine warfare models",
+   "importance": "S",
+   "mg_importance": "S",
+   "mg_coverage": "full",
+   "status": "full",
+   "where": [
+    {
+     "module": "M10.4",
+     "doc": "B14",
+     "section": "ch.8 mine warfare: simple minefields, UMPM, clearance, mine games",
+     "pages": "165-187",
+     "role": "ref"
+    },
+    {
+     "module": "M10.4",
+     "doc": "B10",
+     "section": "torpedoes and mines",
+     "pages": "299-308",
+     "role": "main"
+    }
+   ],
+   "missing_items": "none",
+   "host_for_gap": "-",
+   "test_out_candidate": true,
+   "reason": "Naval."
+  },
+  {
+   "id": "M:OR.10.2",
+   "name": "Insurgency and terror models (Washburn & Kress ch.10)",
+   "importance": "S",
+   "mg_importance": "S",
+   "mg_coverage": "missing",
+   "status": "full",
+   "where": [
+    {
+     "module": "UNMAPPED",
+     "doc": "B14",
+     "section": "ch.10 terror and insurgency: suicide bombing, smallpox response, counterinsurgency",
+     "pages": "214-238",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "Content present but attached to no module.",
+   "host_for_gap": "NEW-A2 (ref) or M12.x",
+   "test_out_candidate": false,
+   "reason": "Irregular warfare (Gaza, Hezbollah) is home ground; attach as ref."
+  },
+  {
+   "id": "M:OR.10.3",
+   "name": "Reliability and availability models in defense analysis (Przemieniecki)",
+   "importance": "S",
+   "mg_importance": "S",
+   "mg_coverage": "full",
+   "status": "full",
+   "where": [
+    {
+     "module": "M7.10/M13.17/M8.7",
+     "doc": "B15",
+     "section": "ch.9 reliability, maintainability, operational availability",
+     "pages": "252-281",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "none",
+   "host_for_gap": "-",
+   "test_out_candidate": true,
+   "reason": "Readiness."
+  },
+  {
+   "id": "M:OR.10.4",
+   "name": "Cost-effectiveness analysis (Przemieniecki)",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "full",
+   "status": "partial",
+   "where": [
+    {
+     "module": "-",
+     "doc": "B16",
+     "section": "1.1.10 survivability and effectiveness, cost-effectiveness",
+     "pages": "68-74",
+     "role": "ref"
+    },
+    {
+     "module": "M7.4",
+     "doc": "B16",
+     "section": "6.3.1 system effectiveness",
+     "pages": "789-792",
+     "role": "ref"
+    },
+    {
+     "module": "-",
+     "doc": "E26 (Gilua)",
+     "section": "NASA SE cost-effectiveness",
+     "pages": "eng",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "Military cost-effectiveness analysis (cost per target killed, equal-cost comparisons, Hitch-McKean) only partial; MG naming \"Przemieniecki\" is wrong (B15 has none).",
+   "host_for_gap": "NEW-Q1",
+   "test_out_candidate": false,
+   "reason": "The policy question behind every procurement article."
+  },
+  {
+   "id": "M:OR.11.1",
+   "name": "Dupuy QJM/TNDM and empirical combat data critique",
+   "importance": "S",
+   "mg_importance": "S",
+   "mg_coverage": "missing",
+   "status": "missing",
+   "where": [],
+   "missing_items": "Dupuy QJM/TNDM (OLI, combat effectiveness value), its critique.",
+   "host_for_gap": "NEW-A2",
+   "test_out_candidate": false,
+   "reason": "Known alternative to Lanchester; quoted in Israeli/Western debates."
+  },
+  {
+   "id": "M:OR.11.2",
+   "name": "Biddle's force employment theory",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "missing",
+   "status": "missing",
+   "where": [],
+   "missing_items": "Biddle modern-system force employment (cover, concealment, dispersion, combined arms), 1991 Desert Storm test, relevance to Ukraine.",
+   "host_for_gap": "NEW-A2",
+   "test_out_candidate": false,
+   "reason": "Why technology alone does not predict outcomes - a core judgment frame."
+  },
+  {
+   "id": "M:OR.11.3",
+   "name": "Historical loss rates per day/sortie by era",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "missing",
+   "status": "partial",
+   "where": [
+    {
+     "module": "UNMAPPED",
+     "doc": "B16",
+     "section": "1.1.5 loss rates; 1.2.1-1.2.6 historical losses and loss rates WWI-Somalia",
+     "pages": "44-58; 106-138",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "Air loss rates by era present (Ball) but unmapped; ground/naval loss rates per day (Dupuy-style) and modern drone-era loss data missing.",
+   "host_for_gap": "NEW-A2 (ref B16:106-138)",
+   "test_out_candidate": false,
+   "reason": "Order-of-magnitude reference for checking claims."
+  },
+  {
+   "id": "M:OR.11.4",
+   "name": "Air campaign models (halt phase, sortie-based attrition)",
+   "importance": "S",
+   "mg_importance": "S",
+   "mg_coverage": "missing",
+   "status": "partial",
+   "where": [
+    {
+     "module": "M12.4",
+     "doc": "B14",
+     "section": "5.6.2 FATHM air model",
+     "pages": "108-109",
+     "role": "ref"
+    },
+    {
+     "module": "-",
+     "doc": "B16",
+     "section": "1.1.6 campaign survivability",
+     "pages": "52-62",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "RAND halt-phase/sortie-based air campaign models missing.",
+   "host_for_gap": "NEW-A3",
+   "test_out_candidate": false,
+   "reason": "RAND classic; links to sortie generation."
+  },
+  {
+   "id": "M:OR.12.1",
+   "name": "Queuing/saturation models of defenses (servers = fire channels)",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "missing",
+   "status": "missing",
+   "where": [
+    {
+     "module": "M7.1",
+     "doc": "B07",
+     "section": "fire power and raid handling (qualitative)",
+     "pages": "44-69",
+     "role": "main"
+    }
+   ],
+   "missing_items": "Queuing/saturation model of a defense: fire channels as servers, engagement time, Erlang-loss leakage vs raid size and arrival spread.",
+   "host_for_gap": "NEW-A1",
+   "test_out_candidate": false,
+   "reason": "Fire-channel limits vs raid size: Iran salvo April 2024, Oct 2024."
+  },
+  {
+   "id": "M:OR.12.2",
+   "name": "Optimal interceptor allocation across layers and targets",
+   "importance": "K",
+   "mg_importance": "S",
+   "mg_coverage": "missing",
+   "status": "partial",
+   "where": [
+    {
+     "module": "M7.4",
+     "doc": "B07",
+     "section": "ch.7-8 trades and requirement allocation",
+     "pages": "192-227",
+     "role": "main"
+    },
+    {
+     "module": "M7.6",
+     "doc": "B15",
+     "section": "6.1-6.2 layered defense",
+     "pages": "164-173",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "Optimal allocation of interceptors across layers and targets (Bellman/marginal return) only implicit.",
+   "host_for_gap": "NEW-A1",
+   "test_out_candidate": false,
+   "reason": "Raised S->K: layered AMD (Iron Dome/David's Sling/Arrow) allocation is the home-ground design question."
+  },
+  {
+   "id": "M:OR.12.3",
+   "name": "Attacker-defender cost models (who wins the marginal dollar)",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "missing",
+   "status": "missing",
+   "where": [],
+   "missing_items": "Cost-exchange done right: attacker cost per target vs defender cost per protected value, marginal-dollar rule, value-of-asset denominator, Iron Dome/Iron Beam arithmetic.",
+   "host_for_gap": "NEW-A1",
+   "test_out_candidate": false,
+   "reason": "Most-misused number in AMD articles."
+  },
+  {
+   "id": "M:OR.13.1",
+   "name": "Value of information and scouting effectiveness in salvo models",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "missing",
+   "status": "missing",
+   "where": [],
+   "missing_items": "Scouting effectiveness and VoI in the salvo model (Hughes: \"fire effectively first\"), detection-before-fire as decisive variable.",
+   "host_for_gap": "NEW-A2",
+   "test_out_candidate": false,
+   "reason": "Naval/ISR value argument."
+  },
+  {
+   "id": "M:OR.13.2",
+   "name": "Modeling C2 delay and decision latency",
+   "importance": "S",
+   "mg_importance": "S",
+   "mg_coverage": "full",
+   "status": "partial",
+   "where": [
+    {
+     "module": "M7.1",
+     "doc": "B07",
+     "section": "reaction time timeline",
+     "pages": "44-55",
+     "role": "main"
+    },
+    {
+     "module": "-",
+     "doc": "E25 (Gilua)",
+     "section": "MG match off-target",
+     "pages": "eng",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "C2 latency in kill-chain models partially via AMD timeline; no general model.",
+   "host_for_gap": "NEW-A1",
+   "test_out_candidate": false,
+   "reason": "Kill-chain timing."
+  },
+  {
+   "id": "M:OR.13.3",
+   "name": "Deception and false targets in models",
+   "importance": "S",
+   "mg_importance": "S",
+   "mg_coverage": "missing",
+   "status": "full",
+   "where": [
+    {
+     "module": "M7.1",
+     "doc": "B14",
+     "section": "4.2 defense against attackers with decoys",
+     "pages": "64-69 (ch.3 exercises), 79-80",
+     "role": "ref"
+    },
+    {
+     "module": "M7.6",
+     "doc": "B15",
+     "section": "6.1-6.2 decoys in layered defense",
+     "pages": "165-172",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "none",
+   "host_for_gap": "-",
+   "test_out_candidate": true,
+   "reason": "Decoys operational value."
+  },
+  {
+   "id": "M:LOG.1.1",
+   "name": "Supply consumption rates and tonnage planning",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "missing",
+   "status": "partial",
+   "where": [
+    {
+     "module": "M11.7",
+     "doc": "B17",
+     "section": "ch.5 Barbarossa tonnage per division; ch.7 Normandy consumption",
+     "pages": "205-258; 288-325",
+     "role": "ref"
+    },
+    {
+     "module": "M7.10",
+     "doc": "B17",
+     "section": "ch.8 perspective",
+     "pages": "326-333",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "Historical tonnage per division-day present (ref only). Modern consumption planning factors (Class III/V per brigade-day, ~tons per soldier-day) missing. van Creveld (B17) is ref-only (rule 37: not lesson material, not coverage-checked), so even covered history is not taught.",
+   "host_for_gap": "NEW-L1",
+   "test_out_candidate": false,
+   "reason": "What limits operations; essential arithmetic."
+  },
+  {
+   "id": "M:LOG.1.2",
+   "name": "Lines of communication, distances and transport capacity",
+   "importance": "S",
+   "mg_importance": "S",
+   "mg_coverage": "missing",
+   "status": "partial",
+   "where": [
+    {
+     "module": "M12.4",
+     "doc": "B17",
+     "section": "ch.3 railways (misattached to Chinese tactics)",
+     "pages": "111-157",
+     "role": "ref"
+    },
+    {
+     "module": "UNMAPPED",
+     "doc": "B17",
+     "section": "ch.4 Schlieffen railheads and horse/truck radius",
+     "pages": "158-204",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "Modern LOC capacity (truck/rail/port throughput, the 2022 Russian rail dependence) missing.",
+   "host_for_gap": "NEW-L1",
+   "test_out_candidate": false,
+   "reason": "Van Creveld core; Ukraine 2022 Kyiv convoy."
+  },
+  {
+   "id": "M:LOG.1.3",
+   "name": "Logistics as operational constraint: historical cases",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "missing",
+   "status": "partial",
+   "where": [
+    {
+     "module": "M11.7/M11.9/M12.2",
+     "doc": "B17",
+     "section": "ch.5-7 Barbarossa, Rommel, Normandy",
+     "pages": "205-325",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "Present as history but ref-only; Russian Kyiv 2022 failure as modern case missing. van Creveld (B17) is ref-only (rule 37: not lesson material, not coverage-checked), so even covered history is not taught.",
+   "host_for_gap": "NEW-L1",
+   "test_out_candidate": false,
+   "reason": "Historical evidence that logistics decided operations."
+  },
+  {
+   "id": "M:LOG.1.4",
+   "name": "Fuel and ammunition as dominant tonnages",
+   "importance": "S",
+   "mg_importance": "S",
+   "mg_coverage": "partial",
+   "status": "partial",
+   "where": [
+    {
+     "module": "M11.7",
+     "doc": "B17",
+     "section": "ch.7 fuel dominance in 1944",
+     "pages": "288-325",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "Modern shares (fuel ~50-70% of tonnage in mechanized ops; precision munitions lowering tonnage) missing.",
+   "host_for_gap": "NEW-L1",
+   "test_out_candidate": false,
+   "reason": "Field experience."
+  },
+  {
+   "id": "M:LOG.2.1",
+   "name": "Munitions expenditure in high-intensity war vs stockpiles",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "missing",
+   "status": "missing",
+   "where": [],
+   "missing_items": "Expenditure rates (Ukraine 155 mm ~5-20k/day vs US production), interceptor expenditure vs stock (Israel 2024, Red Sea SM-2/SM-6), magazine depth as strategic variable.",
+   "host_for_gap": "NEW-L1 (links NEW-A1)",
+   "test_out_candidate": false,
+   "reason": "Core current issue; articles weekly."
+  },
+  {
+   "id": "M:LOG.2.2",
+   "name": "Readiness rates, maintenance cycles",
+   "importance": "S",
+   "mg_importance": "S",
+   "mg_coverage": "missing",
+   "status": "partial",
+   "where": [
+    {
+     "module": "M7.10/M13.17",
+     "doc": "B15",
+     "section": "9.9-9.10 maintainability, operational availability",
+     "pages": "276-281",
+     "role": "ref"
+    },
+    {
+     "module": "-",
+     "doc": "B16",
+     "section": "1.1.16 battle damage repair",
+     "pages": "98-105",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "Fleet readiness rates (mission-capable rates) and maintenance cycles missing.",
+   "host_for_gap": "NEW-L1",
+   "test_out_candidate": false,
+   "reason": "Known to operator; numbers needed."
+  },
+  {
+   "id": "M:LOG.2.3",
+   "name": "Attrition and replacement of platforms and crews",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "missing",
+   "status": "partial",
+   "where": [
+    {
+     "module": "-",
+     "doc": "B16",
+     "section": "1.1.11 managed and virtual attrition",
+     "pages": "75-80",
+     "role": "ref"
+    },
+    {
+     "module": "-",
+     "doc": "B16",
+     "section": "6.2.9 problem: 100 aircraft 40 pilots",
+     "pages": "801",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "Replacement rates of platforms and crews, training pipeline as bottleneck missing.",
+   "host_for_gap": "NEW-L1",
+   "test_out_candidate": false,
+   "reason": "War sustainability."
+  },
+  {
+   "id": "M:LOG.3.1",
+   "name": "Airlift and sealift capacity arithmetic",
+   "importance": "S",
+   "mg_importance": "S",
+   "mg_coverage": "missing",
+   "status": "missing",
+   "where": [],
+   "missing_items": "Airlift/sealift arithmetic (million-ton-miles/day, C-17 payload x sorties, RoRo).",
+   "host_for_gap": "NEW-L1",
+   "test_out_candidate": false,
+   "reason": "Deployment timelines."
+  },
+  {
+   "id": "M:LOG.3.2",
+   "name": "Prepositioning and forward stocks",
+   "importance": "S",
+   "mg_importance": "S",
+   "mg_coverage": "missing",
+   "status": "missing",
+   "where": [],
+   "missing_items": "Prepositioning, forward stocks (e.g., WRSA-I in Israel).",
+   "host_for_gap": "NEW-L1",
+   "test_out_candidate": false,
+   "reason": "Planning; Israeli relevance."
+  },
+  {
+   "id": "M:LOG.3.3",
+   "name": "Contested logistics under long-range fires",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "missing",
+   "status": "missing",
+   "where": [],
+   "missing_items": "Contested logistics under long-range fires: depots in range of HIMARS/precision strike, dispersion cost, ports/airfields as targets.",
+   "host_for_gap": "NEW-L1",
+   "test_out_candidate": false,
+   "reason": "Current concern; Ukraine and Pacific."
+  },
+  {
+   "id": "M:LOG.3.4",
+   "name": "Fuel demand of modern forces",
+   "importance": "S",
+   "mg_importance": "S",
+   "mg_coverage": "missing",
+   "status": "missing",
+   "where": [],
+   "missing_items": "Fuel demand of modern forces (gallons/soldier-day trend).",
+   "host_for_gap": "NEW-L1",
+   "test_out_candidate": false,
+   "reason": "Constraint."
+  },
+  {
+   "id": "M:LOG.3.5",
+   "name": "Maintenance, spare parts and depot capacity",
+   "importance": "S",
+   "mg_importance": "S",
+   "mg_coverage": "missing",
+   "status": "partial",
+   "where": [
+    {
+     "module": "M7.10",
+     "doc": "B15",
+     "section": "9.9 maintainability",
+     "pages": "276-278",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "Depot capacity and spare-parts pipeline missing.",
+   "host_for_gap": "NEW-L1",
+   "test_out_candidate": false,
+   "reason": "Readiness reality."
+  },
+  {
+   "id": "M:LOG.3.6",
+   "name": "Logistics for drone/EW-heavy warfare (batteries, components)",
+   "importance": "K",
+   "mg_importance": "S",
+   "mg_coverage": "missing",
+   "status": "missing",
+   "where": [],
+   "missing_items": "Drone/EW war logistics: batteries, components, attrition of FPV (tens of thousands/month), commercial supply chains.",
+   "host_for_gap": "NEW-L1 (link M9.7)",
+   "test_out_candidate": false,
+   "reason": "Raised S->K: drone-attrition supply (tens of thousands/month) now shapes front-line outcomes."
+  },
+  {
+   "id": "M:LOG.4.1",
+   "name": "Wallenstein to Napoleon: living off the land",
+   "importance": "C",
+   "mg_importance": "C",
+   "mg_coverage": "missing",
+   "status": "full",
+   "where": [
+    {
+     "module": "UNMAPPED",
+     "doc": "B17",
+     "section": "ch.1 background of two centuries; ch.2 Napoleon",
+     "pages": "16-110",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "Content present; unattached.",
+   "host_for_gap": "NEW-L1 (light, as ref)",
+   "test_out_candidate": false,
+   "reason": "Context for the thesis; read lightly."
+  },
+  {
+   "id": "M:LOG.4.2",
+   "name": "1914 Schlieffen logistics and railheads",
+   "importance": "S",
+   "mg_importance": "S",
+   "mg_coverage": "missing",
+   "status": "full",
+   "where": [
+    {
+     "module": "UNMAPPED",
+     "doc": "B17",
+     "section": "ch.4 The wheel that broke: Schlieffen logistics, railheads, Marne",
+     "pages": "158-204",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "Content present; unattached.",
+   "host_for_gap": "NEW-L1",
+   "test_out_candidate": false,
+   "reason": "Classic case."
+  },
+  {
+   "id": "M:LOG.4.3",
+   "name": "1941 Barbarossa and 1944 Patton: motor transport limits",
+   "importance": "S",
+   "mg_importance": "S",
+   "mg_coverage": "missing",
+   "status": "full",
+   "where": [
+    {
+     "module": "M11.7/M11.9/M12.2",
+     "doc": "B17",
+     "section": "ch.5 Barbarossa; ch.7 Normandy/Patton broad front",
+     "pages": "205-258; 288-325",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "Content present (ref).",
+   "host_for_gap": "NEW-L1",
+   "test_out_candidate": false,
+   "reason": "Classic case."
+  },
+  {
+   "id": "M:LOG.4.4",
+   "name": "Van Creveld's conclusions on logistics shaping strategy",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "missing",
+   "status": "full",
+   "where": [
+    {
+     "module": "M7.10/M13.17",
+     "doc": "B17",
+     "section": "ch.8 Logistics in perspective; Introduction",
+     "pages": "326-333; 12-15",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "Content present but only ref; thesis must be learned explicitly.",
+   "host_for_gap": "NEW-L1",
+   "test_out_candidate": false,
+   "reason": "Central thesis; cited in every logistics article."
+  },
+  {
+   "id": "M:ACQ.1.1",
+   "name": "Acquisition framework (DoD 5000/AAF; Israeli MAFAT/IMOD equivalents)",
+   "importance": "S",
+   "mg_importance": "S",
+   "mg_coverage": "missing",
+   "status": "partial",
+   "where": [
+    {
+     "module": "-",
+     "doc": "B16",
+     "section": "1.3.1-1.3.3 DoD 5000 series, Acquisition Deskbook, service programs",
+     "pages": "139-150",
+     "role": "ref"
+    },
+    {
+     "module": "M7.10",
+     "doc": "B07",
+     "section": "ch.2 SE lifecycle",
+     "pages": "24-43",
+     "role": "main"
+    }
+   ],
+   "missing_items": "2003-era DoD 5000 only; Adaptive Acquisition Framework, MTA, Israeli IMOD/MAFAT/SIBAT process missing.",
+   "host_for_gap": "NEW-Q1",
+   "test_out_candidate": false,
+   "reason": "How systems come to be; Israeli interviews."
+  },
+  {
+   "id": "M:ACQ.1.2",
+   "name": "Budget process (PPBE) and budget documents as data sources",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "partial",
+   "status": "missing",
+   "where": [],
+   "missing_items": "PPBE, budget justification books (P-1/R-1, P-40/R-2 exhibits) as data sources for quantities and unit costs; Israeli budget/FMF.",
+   "host_for_gap": "NEW-Q1",
+   "test_out_candidate": false,
+   "reason": "Best open data on quantities and costs (MG partial was off-target UAV text)."
+  },
+  {
+   "id": "M:ACQ.1.3",
+   "name": "Technology and manufacturing readiness (TRL/MRL)",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "partial",
+   "status": "partial",
+   "where": [
+    {
+     "module": "M13.1",
+     "doc": "B12",
+     "section": "ch.1-2 TRL (SMAD, image-only scan)",
+     "pages": "18-61",
+     "role": "main"
+    },
+    {
+     "module": "-",
+     "doc": "E26 (Gilua)",
+     "section": "NASA SE TRL",
+     "pages": "eng",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "TRL present (space/NASA); MRL, readiness gaming, valley of death missing.",
+   "host_for_gap": "NEW-Q1",
+   "test_out_candidate": false,
+   "reason": "Judging \"ready\" claims."
+  },
+  {
+   "id": "M:ACQ.1.4",
+   "name": "Requirements process (JCIDS) and urgent operational needs",
+   "importance": "S",
+   "mg_importance": "S",
+   "mg_coverage": "partial",
+   "status": "partial",
+   "where": [
+    {
+     "module": "M7.2",
+     "doc": "B07",
+     "section": "ch.5 requirements",
+     "pages": "70-113",
+     "role": "main"
+    }
+   ],
+   "missing_items": "JCIDS/UON/IDF requirements process missing.",
+   "host_for_gap": "NEW-Q1",
+   "test_out_candidate": false,
+   "reason": "Speed vs process."
+  },
+  {
+   "id": "M:ACQ.2.1",
+   "name": "Life-cycle cost: RDT&E, procurement, O&S shares",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "full",
+   "status": "partial",
+   "where": [
+    {
+     "module": "M13.7 (ref tier)",
+     "doc": "B12",
+     "section": "ch.11 cost modeling (SMAD, image-only)",
+     "pages": "306-413",
+     "role": "main"
+    },
+    {
+     "module": "-",
+     "doc": "E26 (Gilua)",
+     "section": "NASA LCC",
+     "pages": "eng",
+     "role": "ref"
+    },
+    {
+     "module": "M7.4",
+     "doc": "B16",
+     "section": "6.3 life-cycle cost in trade studies",
+     "pages": "789-796",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "Defense LCC shares (RDT&E ~10-20, procurement ~25-30, O&S ~55-70%) only via space/NASA; host is ref tier.",
+   "host_for_gap": "NEW-Q1",
+   "test_out_candidate": false,
+   "reason": "Unit-cost confusion in media."
+  },
+  {
+   "id": "M:ACQ.2.2",
+   "name": "Unit cost definitions (flyaway, APUC, PAUC)",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "missing",
+   "status": "missing",
+   "where": [
+    {
+     "module": "M7.4",
+     "doc": "B16",
+     "section": "6.3 flyaway cost (one mention)",
+     "pages": "793",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "Flyaway vs weapon-system vs APUC vs PAUC, then-year vs base-year.",
+   "host_for_gap": "NEW-Q1",
+   "test_out_candidate": false,
+   "reason": "Cost comparisons misuse."
+  },
+  {
+   "id": "M:ACQ.2.3",
+   "name": "Learning curves and production-rate effects",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "missing",
+   "status": "partial",
+   "where": [
+    {
+     "module": "M13.7 (ref tier)",
+     "doc": "B12",
+     "section": "ch.11 learning curve (SMAD, image-only; not text-verifiable)",
+     "pages": "306-413",
+     "role": "main"
+    }
+   ],
+   "missing_items": "Wright learning curve and production-rate effects in a defense context (interceptors, F-35), quantity-unit-cost spiral.",
+   "host_for_gap": "NEW-Q1",
+   "test_out_candidate": false,
+   "reason": "Why cost falls (or not)."
+  },
+  {
+   "id": "M:ACQ.2.4",
+   "name": "Cost estimating methods (analogy, parametric, engineering)",
+   "importance": "S",
+   "mg_importance": "S",
+   "mg_coverage": "missing",
+   "status": "partial",
+   "where": [
+    {
+     "module": "M13.7 (ref tier)",
+     "doc": "B12",
+     "section": "ch.11 CERs (SMAD, image-only)",
+     "pages": "306-413",
+     "role": "main"
+    },
+    {
+     "module": "-",
+     "doc": "E26 (Gilua)",
+     "section": "cost estimating",
+     "pages": "eng",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "Analogy/parametric/engineering methods in defense; cost growth statistics.",
+   "host_for_gap": "NEW-Q1",
+   "test_out_candidate": false,
+   "reason": "Evaluate cost claims."
+  },
+  {
+   "id": "M:ACQ.2.5",
+   "name": "Inflation and currency adjustment",
+   "importance": "S",
+   "mg_importance": "S",
+   "mg_coverage": "missing",
+   "status": "missing",
+   "where": [],
+   "missing_items": "Constant vs then-year dollars, deflators, PPP and exchange-rate pitfalls (Russian/Chinese budgets).",
+   "host_for_gap": "NEW-Q1",
+   "test_out_candidate": false,
+   "reason": "Comparing across years/countries."
+  },
+  {
+   "id": "M:ACQ.3.1",
+   "name": "DT&E vs OT&E vs LFT&E",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "partial",
+   "status": "partial",
+   "where": [
+    {
+     "module": "M7.10",
+     "doc": "B16",
+     "section": "1.6 testing for survivability: susceptibility and vulnerability testing, LFT&E",
+     "pages": "~188-197",
+     "role": "ref"
+    },
+    {
+     "module": "-",
+     "doc": "B16",
+     "section": "foreword/preface by DOT&E LFT&E",
+     "pages": "8-11",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "LFT&E present via Ball; DT&E vs OT&E distinction and DOT&E role missing.",
+   "host_for_gap": "NEW-Q2",
+   "test_out_candidate": false,
+   "reason": "Knowing what a test proves."
+  },
+  {
+   "id": "M:ACQ.3.2",
+   "name": "Test realism: scripted tests, threat representativeness",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "missing",
+   "status": "missing",
+   "where": [],
+   "missing_items": "Scripted vs operationally realistic tests, threat-representative targets, test-target gaming (BMD tests).",
+   "host_for_gap": "NEW-Q2",
+   "test_out_candidate": false,
+   "reason": "Critiquing \"successful test\" claims."
+  },
+  {
+   "id": "M:ACQ.3.3",
+   "name": "Statistical confidence from limited test shots",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "missing",
+   "status": "missing",
+   "where": [],
+   "missing_items": "Same as OR.9.1 applied to T&E: confidence from N shots, combining DT and OT data.",
+   "host_for_gap": "NEW-Q2",
+   "test_out_candidate": false,
+   "reason": "Pk claims from 10 shots."
+  },
+  {
+   "id": "M:ACQ.3.4",
+   "name": "Combat data as evidence: claims vs verified intercepts",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "missing",
+   "status": "partial",
+   "where": [
+    {
+     "module": "-",
+     "doc": "B16",
+     "section": "5.2.1 combat data analysis",
+     "pages": "628-638",
+     "role": "ref"
+    },
+    {
+     "module": "-",
+     "doc": "B16",
+     "section": "1.2.5 Desert Storm loss data",
+     "pages": "126-138",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "Claims vs verified intercepts (Patriot 1991 Postol debate, Iron Dome), definitions of \"intercept\".",
+   "host_for_gap": "NEW-Q2",
+   "test_out_candidate": false,
+   "reason": "War claims."
+  },
+  {
+   "id": "M:ACQ.4.1",
+   "name": "Surge capacity, long-lead items, sole sources",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "missing",
+   "status": "missing",
+   "where": [],
+   "missing_items": "Surge capacity, long-lead items (rocket motors, seekers), sole sources, ramp-up times (GMLRS, PAC-3 MSE, 155 mm).",
+   "host_for_gap": "NEW-Q1",
+   "test_out_candidate": false,
+   "reason": "Production decides long wars."
+  },
+  {
+   "id": "M:ACQ.4.2",
+   "name": "Critical materials and components (rare earths, energetics, microelectronics)",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "missing",
+   "status": "missing",
+   "where": [],
+   "missing_items": "Critical materials/components: rare earths, energetics (TNT, nitrocellulose), microelectronics, gallium/germanium export bans.",
+   "host_for_gap": "NEW-Q1",
+   "test_out_candidate": false,
+   "reason": "Supply-chain vulnerability."
+  },
+  {
+   "id": "M:ACQ.4.3",
+   "name": "Defense industry structure (US, Europe, Israel, Russia, China)",
+   "importance": "S",
+   "mg_importance": "S",
+   "mg_coverage": "missing",
+   "status": "missing",
+   "where": [],
+   "missing_items": "Industry structure (primes, consolidation; Israel IAI/Rafael/Elbit; Russian Rostec; Chinese NORINCO/CASC/CASIC).",
+   "host_for_gap": "NEW-Q1",
+   "test_out_candidate": false,
+   "reason": "Who makes what."
+  },
+  {
+   "id": "M:ACQ.4.4",
+   "name": "Commercial technology spin-in and startups",
+   "importance": "S",
+   "mg_importance": "S",
+   "mg_coverage": "missing",
+   "status": "missing",
+   "where": [],
+   "missing_items": "Spin-in, startups, commercial drones and components, DIU-style processes.",
+   "host_for_gap": "NEW-Q1",
+   "test_out_candidate": false,
+   "reason": "New entrants."
+  },
+  {
+   "id": "M:ACQ.5.1",
+   "name": "ITAR/EAR and Wassenaar basics",
+   "importance": "S",
+   "mg_importance": "S",
+   "mg_coverage": "missing",
+   "status": "missing",
+   "where": [],
+   "missing_items": "ITAR/EAR, Wassenaar basics.",
+   "host_for_gap": "NEW-Q3",
+   "test_out_candidate": false,
+   "reason": "What is controlled."
+  },
+  {
+   "id": "M:ACQ.5.2",
+   "name": "MTCR thresholds (500 kg / 300 km)",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "missing",
+   "status": "missing",
+   "where": [],
+   "missing_items": "MTCR Category I (500 kg/300 km) and range-payload trade (links M6.8 ballistic missiles).",
+   "host_for_gap": "NEW-Q3 (or M6.8 one segment)",
+   "test_out_candidate": false,
+   "reason": "Cited in missile articles."
+  },
+  {
+   "id": "M:ACQ.5.3",
+   "name": "Prepublication review and military censorship; handling classified-adjacent info",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "missing",
+   "status": "missing",
+   "where": [],
+   "missing_items": "Prepublication review, Israeli military censorship rules, handling classified-adjacent info.",
+   "host_for_gap": "NEW-Q3",
+   "test_out_candidate": false,
+   "reason": "Legal/ethical obligation of the author - high stakes."
+  },
+  {
+   "id": "M:ACQ.5.4",
+   "name": "Mosaic effect of aggregating open info",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "missing",
+   "status": "missing",
+   "where": [],
+   "missing_items": "Mosaic effect of aggregation; responsible publication.",
+   "host_for_gap": "NEW-Q3",
+   "test_out_candidate": false,
+   "reason": "Responsible publication."
+  },
+  {
+   "id": "M:ACQ.6.1",
+   "name": "Arms control regimes (NPT, INF history, New START) and verification",
+   "importance": "S",
+   "mg_importance": "S",
+   "mg_coverage": "missing",
+   "status": "missing",
+   "where": [],
+   "missing_items": "NPT, INF history, New START, verification technology.",
+   "host_for_gap": "NEW-Q3",
+   "test_out_candidate": false,
+   "reason": "Context."
+  },
+  {
+   "id": "M:ACQ.6.2",
+   "name": "Deterrence theory and escalation dynamics with long-range strike",
+   "importance": "S",
+   "mg_importance": "S",
+   "mg_coverage": "missing",
+   "status": "missing",
+   "where": [
+    {
+     "module": "M11.10",
+     "doc": "B15",
+     "section": "6.6 sufficiency models: EMT, CMP",
+     "pages": "198-205",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "Deterrence theory, escalation dynamics with long-range conventional strike.",
+   "host_for_gap": "NEW-Q3",
+   "test_out_candidate": false,
+   "reason": "Strategic framing."
+  },
+  {
+   "id": "M:ACQ.6.3",
+   "name": "International humanitarian law and weapons review (Art. 36)",
+   "importance": "S",
+   "mg_importance": "S",
+   "mg_coverage": "missing",
+   "status": "missing",
+   "where": [],
+   "missing_items": "IHL distinction/proportionality, Art. 36 weapons review, autonomy debate.",
+   "host_for_gap": "NEW-Q3",
+   "test_out_candidate": false,
+   "reason": "Autonomy debate."
+  },
+  {
+   "id": "M:ADV.1.1",
+   "name": "Russian IADS (S-300/400, Buk, Tor, Pantsir) architecture",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "full",
+   "status": "full",
+   "where": [
+    {
+     "module": "M12.1",
+     "doc": "D5",
+     "section": "IADS in recon/security; App.D air defense",
+     "pages": "100-110; 223-240",
+     "role": "main"
+    },
+    {
+     "module": "M12.1",
+     "doc": "B16",
+     "section": "3.8 threat AD weapons, SA-10",
+     "pages": "419-429",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "Performance numbers per system thin in doctrine; ok with radar modules.",
+   "host_for_gap": "-",
+   "test_out_candidate": false,
+   "reason": "Threat knowledge."
+  },
+  {
+   "id": "M:ADV.1.2",
+   "name": "Russian EW systems and doctrine (Krasukha, Zhitel, etc.)",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "partial",
+   "status": "full",
+   "where": [
+    {
+     "module": "M12.1",
+     "doc": "D5",
+     "section": "electromagnetic combat; App.F EW (Krasukha, Zhitel, Leer-3)",
+     "pages": "138-150; 223-240",
+     "role": "main"
+    }
+   ],
+   "missing_items": "2022- lessons (Russian EW vs GPS munitions) belong to recent-wars module.",
+   "host_for_gap": "-",
+   "test_out_candidate": false,
+   "reason": "Threat knowledge."
+  },
+  {
+   "id": "M:ADV.1.3",
+   "name": "Reconnaissance-strike/fire complexes",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "missing",
+   "status": "partial",
+   "where": [
+    {
+     "module": "M12.1",
+     "doc": "D5",
+     "section": "reconnaissance-strike/fire complexes (core part)",
+     "pages": "138-150",
+     "role": "main"
+    },
+    {
+     "module": "M12.2 (adv)",
+     "doc": "D5",
+     "section": "recon-strike/fire in offense/defense",
+     "pages": "164-176; 215; 270-272",
+     "role": "main"
+    }
+   ],
+   "missing_items": "Concept spread across D5 and partly in adv M12.2; Ogarkov origin and 2022 Lancet/Orlan practice missing.",
+   "host_for_gap": "M12.1 (pull D5:164-176 into core)",
+   "test_out_candidate": false,
+   "reason": "Doctrine central to Ukraine analysis."
+  },
+  {
+   "id": "M:ADV.1.4",
+   "name": "Russian ground tactics and force structure",
+   "importance": "S",
+   "mg_importance": "S",
+   "mg_coverage": "full",
+   "status": "full",
+   "where": [
+    {
+     "module": "M12.2",
+     "doc": "D5",
+     "section": "ch.1-7 Russian tactics",
+     "pages": "13-275",
+     "role": "main"
+    }
+   ],
+   "missing_items": "none",
+   "host_for_gap": "-",
+   "test_out_candidate": true,
+   "reason": "Operator familiar; adv tier ok."
+  },
+  {
+   "id": "M:ADV.2.1",
+   "name": "PLA systems confrontation / systems destruction warfare",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "missing",
+   "status": "partial",
+   "where": [
+    {
+     "module": "M12.4 (adv)",
+     "doc": "D6",
+     "section": "ch.4 tactical system warfare",
+     "pages": "59-74",
+     "role": "main"
+    }
+   ],
+   "missing_items": "Systems confrontation/systems destruction warfare at campaign level is only in an adv module at tactical level.",
+   "host_for_gap": "M12.3 (pull D6:59-74 into core) + segment",
+   "test_out_candidate": false,
+   "reason": "PLA core doctrine for Pacific articles."
+  },
+  {
+   "id": "M:ADV.2.2",
+   "name": "PLARF missile forces and A2/AD kill chain",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "missing",
+   "status": "partial",
+   "where": [
+    {
+     "module": "M12.3",
+     "doc": "D6",
+     "section": "ch.3 PLARF and joint capabilities",
+     "pages": "51-58",
+     "role": "main"
+    }
+   ],
+   "missing_items": "PLARF inventory (DF-21D/26/17), A2/AD kill chain vs carriers (OTH radar, Yaogan) missing.",
+   "host_for_gap": "M12.3 (+ article/report)",
+   "test_out_candidate": false,
+   "reason": "Pacific debate."
+  },
+  {
+   "id": "M:ADV.2.3",
+   "name": "PLA air, naval and space/counterspace capabilities",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "partial",
+   "status": "partial",
+   "where": [
+    {
+     "module": "M12.3",
+     "doc": "D6",
+     "section": "ch.3, App.C-D air defense and aviation, App.F network",
+     "pages": "51-58; 217-226; 229-230",
+     "role": "main"
+    }
+   ],
+   "missing_items": "Counterspace (ASAT 2007, co-orbital), PLAN numbers missing.",
+   "host_for_gap": "M12.3",
+   "test_out_candidate": false,
+   "reason": "Threat."
+  },
+  {
+   "id": "M:ADV.2.4",
+   "name": "PLA tactics and organization",
+   "importance": "S",
+   "mg_importance": "S",
+   "mg_coverage": "full",
+   "status": "full",
+   "where": [
+    {
+     "module": "M12.4",
+     "doc": "D6",
+     "section": "ch.1-9 PLA tactics",
+     "pages": "13-246",
+     "role": "main"
+    }
+   ],
+   "missing_items": "none",
+   "host_for_gap": "-",
+   "test_out_candidate": true,
+   "reason": "Context."
+  },
+  {
+   "id": "M:ADV.3.1",
+   "name": "Iranian missile and drone arsenal and production",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "missing",
+   "status": "missing",
+   "where": [],
+   "missing_items": "Iranian missile families (Shahab/Emad/Kheibar Shekan/Fattah, Shahed-136), production, April/Oct 2024 salvos.",
+   "host_for_gap": "NEW-V1",
+   "test_out_candidate": false,
+   "reason": "Home-region must-know; absent from all books."
+  },
+  {
+   "id": "M:ADV.3.2",
+   "name": "Proxy capabilities (Hezbollah, Houthis, Iraqi militias): rockets, drones, ASCMs",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "missing",
+   "status": "missing",
+   "where": [],
+   "missing_items": "Hezbollah rockets/ATGM/drones, Houthi ASBM/ASCM/drones, Iraqi militias.",
+   "host_for_gap": "NEW-V1",
+   "test_out_candidate": false,
+   "reason": "Operational relevance."
+  },
+  {
+   "id": "M:ADV.3.3",
+   "name": "Technology transfer channels and reverse engineering",
+   "importance": "K",
+   "mg_importance": "S",
+   "mg_coverage": "missing",
+   "status": "missing",
+   "where": [],
+   "missing_items": "Tech transfer (Iran-Russia Shahed/Geran, DPRK), reverse engineering, sanctions evasion.",
+   "host_for_gap": "NEW-V1",
+   "test_out_candidate": false,
+   "reason": "Raised S->K: Iran-Russia-DPRK transfer (Shahed/Geran) is central to current threat analysis."
+  },
+  {
+   "id": "M:ADV.4.1",
+   "name": "Order-of-battle estimation from open sources",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "missing",
+   "status": "missing",
+   "where": [],
+   "missing_items": "OOB estimation from open sources (Oryx-type counting, imagery, IISS Military Balance limits).",
+   "host_for_gap": "NEW-V1 (with NEW-C1)",
+   "test_out_candidate": false,
+   "reason": "Assessing forces (MG partial off-target)."
+  },
+  {
+   "id": "M:ADV.4.2",
+   "name": "Net assessment approach",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "missing",
+   "status": "missing",
+   "where": [],
+   "missing_items": "Net assessment (Marshall): asymmetries, long competition, diagnosis not prescription.",
+   "host_for_gap": "NEW-V1",
+   "test_out_candidate": false,
+   "reason": "Holistic comparison."
+  },
+  {
+   "id": "M:ADV.4.3",
+   "name": "Mirror-imaging and other analytic biases",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "partial",
+   "status": "missing",
+   "where": [],
+   "missing_items": "Mirror-imaging, anchoring, confirmation, ACH; Oct 7 / 1973 conceptzia as case.",
+   "host_for_gap": "NEW-V1",
+   "test_out_candidate": false,
+   "reason": "Common error; Israeli lived case (MG F1 match off-target)."
+  },
+  {
+   "id": "M:CRAFT.1.1",
+   "name": "Satellite imagery interpretation (vehicles, launchers, damage)",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "missing",
+   "status": "missing",
+   "where": [],
+   "missing_items": "Satellite imagery: resolution (GSD, NIIRS), vehicle/launcher signatures, BDA from imagery (links M13.11 observation payloads).",
+   "host_for_gap": "NEW-C1",
+   "test_out_candidate": false,
+   "reason": "Core OSINT skill for an authority who writes; no book in either library covers it."
+  },
+  {
+   "id": "M:CRAFT.1.2",
+   "name": "Geolocation and chronolocation of photos/video",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "missing",
+   "status": "missing",
+   "where": [],
+   "missing_items": "Geolocation/chronolocation (shadows, sun azimuth, terrain matching).",
+   "host_for_gap": "NEW-C1",
+   "test_out_candidate": false,
+   "reason": "Core OSINT skill for an authority who writes; no book in either library covers it."
+  },
+  {
+   "id": "M:CRAFT.1.3",
+   "name": "Social media and video verification, deepfake awareness",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "missing",
+   "status": "missing",
+   "where": [],
+   "missing_items": "Video verification, metadata, deepfake awareness.",
+   "host_for_gap": "NEW-C1",
+   "test_out_candidate": false,
+   "reason": "Core OSINT skill for an authority who writes; no book in either library covers it."
+  },
+  {
+   "id": "M:CRAFT.1.4",
+   "name": "Measuring from imagery (photogrammetry, shadow lengths) and 3D modeling",
+   "importance": "S",
+   "mg_importance": "S",
+   "mg_coverage": "missing",
+   "status": "missing",
+   "where": [],
+   "missing_items": "Photogrammetry: missile dimension from imagery, shadow-length math (links M3.2 optics).",
+   "host_for_gap": "NEW-C1",
+   "test_out_candidate": false,
+   "reason": "Core OSINT skill for an authority who writes; no book in either library covers it."
+  },
+  {
+   "id": "M:CRAFT.1.5",
+   "name": "Flight/ship tracking (ADS-B, AIS) and its spoofing",
+   "importance": "S",
+   "mg_importance": "S",
+   "mg_coverage": "missing",
+   "status": "missing",
+   "where": [],
+   "missing_items": "ADS-B/AIS tracking and spoofing (links M5.5 GNSS spoofing, M8.4 transponders).",
+   "host_for_gap": "NEW-C1",
+   "test_out_candidate": false,
+   "reason": "Core OSINT skill for an authority who writes; no book in either library covers it."
+  },
+  {
+   "id": "M:CRAFT.1.6",
+   "name": "Scientific publication and patent analysis for capability",
+   "importance": "S",
+   "mg_importance": "S",
+   "mg_coverage": "missing",
+   "status": "missing",
+   "where": [],
+   "missing_items": "Publication/patent analysis for technology intelligence.",
+   "host_for_gap": "NEW-C1",
+   "test_out_candidate": false,
+   "reason": "Core OSINT skill for an authority who writes; no book in either library covers it."
+  },
+  {
+   "id": "M:CRAFT.1.7",
+   "name": "Archiving and chain-of-custody (Berkeley Protocol)",
+   "importance": "C",
+   "mg_importance": "C",
+   "mg_coverage": "missing",
+   "status": "missing",
+   "where": [],
+   "missing_items": "Archiving, chain of custody (Berkeley Protocol).",
+   "host_for_gap": "NEW-C1",
+   "test_out_candidate": false,
+   "reason": "Core OSINT skill for an authority who writes; no book in either library covers it."
+  },
+  {
+   "id": "M:CRAFT.2.1",
+   "name": "Physics sanity checks of performance claims (range, speed, accuracy)",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "missing",
+   "status": "partial",
+   "where": [
+    {
+     "module": "all P1-P13",
+     "doc": "various",
+     "section": "2.5 \"critique\" and \"order of magnitude\" items inside every technical module",
+     "pages": "-",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "Distributed across lessons (rule 38-40); missing a dedicated method (range from rocket equation, speed from video frames, CEP from imagery) as a checklist.",
+   "host_for_gap": "NEW-Q2 (capstone)",
+   "test_out_candidate": false,
+   "reason": "The 2.5-level superpower; consolidate."
+  },
+  {
+   "id": "M:CRAFT.2.2",
+   "name": "Interception rate and kill claim analysis (denominators, definitions)",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "missing",
+   "status": "missing",
+   "where": [],
+   "missing_items": "Interception-rate claims: denominators (engaged vs launched vs threatening), definitions of kill, partial intercepts.",
+   "host_for_gap": "NEW-Q2",
+   "test_out_candidate": false,
+   "reason": "War reporting."
+  },
+  {
+   "id": "M:CRAFT.2.3",
+   "name": "Debris and fragment analysis for weapon identification",
+   "importance": "S",
+   "mg_importance": "S",
+   "mg_coverage": "missing",
+   "status": "missing",
+   "where": [
+    {
+     "module": "M11.3",
+     "doc": "B10",
+     "section": "warheads (fragment physics only)",
+     "pages": "265-282",
+     "role": "main"
+    }
+   ],
+   "missing_items": "Debris/fragment analysis for weapon ID (Bellingcat-style: tail sections, serials).",
+   "host_for_gap": "NEW-C1",
+   "test_out_candidate": false,
+   "reason": "Attribution."
+  },
+  {
+   "id": "M:CRAFT.2.4",
+   "name": "Reading test reports and budget documents critically",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "partial",
+   "status": "missing",
+   "where": [],
+   "missing_items": "Reading DOT&E annual reports, GAO, budget books critically (MG partial on B04 was off-target).",
+   "host_for_gap": "NEW-Q2",
+   "test_out_candidate": false,
+   "reason": "Primary sources."
+  },
+  {
+   "id": "M:CRAFT.2.5",
+   "name": "Source reliability grading and triangulation",
+   "importance": "S",
+   "mg_importance": "S",
+   "mg_coverage": "missing",
+   "status": "missing",
+   "where": [],
+   "missing_items": "NATO Admiralty code, triangulation, source independence.",
+   "host_for_gap": "NEW-C1",
+   "test_out_candidate": false,
+   "reason": "Intelligence practice."
+  },
+  {
+   "id": "M:CRAFT.3.1",
+   "name": "Structuring an analytic article: question, model, assumptions, sensitivity",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "missing",
+   "status": "missing",
+   "where": [],
+   "missing_items": "Analytic article: question, model, assumptions, sensitivity, bottom line (rule 35 analysis-design exercises train it implicitly).",
+   "host_for_gap": "NEW-C2",
+   "test_out_candidate": false,
+   "reason": "Authority output."
+  },
+  {
+   "id": "M:CRAFT.3.2",
+   "name": "Interviewing technical experts: question design, detecting evasion",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "partial",
+   "status": "missing",
+   "where": [],
+   "missing_items": "Interviewing: question ladders, detecting evasion, numbers verification, attribution rules.",
+   "host_for_gap": "NEW-C2",
+   "test_out_candidate": false,
+   "reason": "Stated goal of the learner."
+  },
+  {
+   "id": "M:CRAFT.3.3",
+   "name": "Explaining uncertainty and ranges to lay readers",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "missing",
+   "status": "missing",
+   "where": [],
+   "missing_items": "Communicating uncertainty and ranges (words of estimative probability, Kent).",
+   "host_for_gap": "NEW-C2",
+   "test_out_candidate": false,
+   "reason": "Credibility."
+  },
+  {
+   "id": "M:CRAFT.3.4",
+   "name": "Visualizing technical data honestly",
+   "importance": "S",
+   "mg_importance": "S",
+   "mg_coverage": "partial",
+   "status": "missing",
+   "where": [
+    {
+     "module": "-",
+     "doc": "E26 (Gilua)",
+     "section": "MG match off-target",
+     "pages": "eng",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "Honest charts (log scales, baselines, uncertainty bars).",
+   "host_for_gap": "NEW-C2",
+   "test_out_candidate": false,
+   "reason": "Charts in articles."
+  },
+  {
+   "id": "M:CRAFT.4.1",
+   "name": "Ukraine 2022-: drones, EW, artillery, air defense economics",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "full",
+   "status": "partial",
+   "where": [
+    {
+     "module": "M12.1",
+     "doc": "D5",
+     "section": "2024 doctrine reflects 2022 lessons in places (intro, EW)",
+     "pages": "13-40; 223-240",
+     "role": "main"
+    }
+   ],
+   "missing_items": "D5 mentions Ukraine; a systematic lessons module (drones, EW, artillery, AD economics) missing.",
+   "host_for_gap": "NEW-C3",
+   "test_out_candidate": false,
+   "reason": "Current baseline."
+  },
+  {
+   "id": "M:CRAFT.4.2",
+   "name": "Israel 2023-25: multi-front AMD, Iran salvos, intercept stats",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "missing",
+   "status": "missing",
+   "where": [],
+   "missing_items": "Israel 2023-25: multi-front AMD, Iran salvos April/Oct 2024, June 2025, intercept statistics.",
+   "host_for_gap": "NEW-C3",
+   "test_out_candidate": false,
+   "reason": "Home ground."
+  },
+  {
+   "id": "M:CRAFT.4.3",
+   "name": "Red Sea/Houthi campaign: naval AMD and costs",
+   "importance": "K",
+   "mg_importance": "K",
+   "mg_coverage": "missing",
+   "status": "missing",
+   "where": [],
+   "missing_items": "Red Sea/Houthi campaign: naval AMD, interceptor costs, shipping effect.",
+   "host_for_gap": "NEW-C3",
+   "test_out_candidate": false,
+   "reason": "Naval AMD case."
+  },
+  {
+   "id": "M:CRAFT.4.4",
+   "name": "Nagorno-Karabakh 2020: drones vs legacy air defense",
+   "importance": "S",
+   "mg_importance": "S",
+   "mg_coverage": "partial",
+   "status": "missing",
+   "where": [],
+   "missing_items": "Nagorno-Karabakh 2020 (MG partial off-target).",
+   "host_for_gap": "NEW-C3",
+   "test_out_candidate": false,
+   "reason": "Precursor."
+  },
+  {
+   "id": "M:CRAFT.4.5",
+   "name": "Desert Storm/Kosovo/2006: classic case studies (SEAD, stealth, Scud hunt)",
+   "importance": "S",
+   "mg_importance": "S",
+   "mg_coverage": "missing",
+   "status": "partial",
+   "where": [
+    {
+     "module": "UNMAPPED",
+     "doc": "B16",
+     "section": "1.2.5 conflicts after 1972: Desert Storm, El Dorado Canyon, Somalia (aircraft losses)",
+     "pages": "126-138",
+     "role": "ref"
+    }
+   ],
+   "missing_items": "Air-loss view only; SEAD, Scud hunt, stealth, 2006 Lebanon missing.",
+   "host_for_gap": "NEW-C3",
+   "test_out_candidate": false,
+   "reason": "Baseline history."
+  }
+ ],
+ "added": [
+  {
+   "id": "P7+.1",
+   "domain": "OR",
+   "name": "Sortie generation rate and its drivers (turnaround, basing distance, tanker support)",
+   "importance": "K",
+   "status": "missing",
+   "host": "NEW-A3 / NEW-L1",
+   "reason": "Every air-campaign claim (Israel vs Iran ranges, Taiwan) needs it; Ball mentions sorties only."
+  },
+  {
+   "id": "P7+.2",
+   "domain": "OR",
+   "name": "Kill-chain time-sensitive targeting model (F2T2EA durations, dwell vs exposure time, probability chain)",
+   "importance": "K",
+   "status": "partial (C4ISR modules)",
+   "host": "NEW-A1",
+   "reason": "Links ISR, C2 latency and strike; Scud-hunt and TEL-hunting analysis."
+  },
+  {
+   "id": "P7+.3",
+   "domain": "OR",
+   "name": "Sensitivity analysis and tornado diagrams; finding the dominant parameter",
+   "importance": "K",
+   "status": "missing (rule 35 asks for it but nothing teaches it)",
+   "host": "NEW-A3",
+   "reason": "Rule 35 analysis-design exercise depends on it."
+  },
+  {
+   "id": "P7+.4",
+   "domain": "OR",
+   "name": "Fermi estimation and back-of-envelope checking discipline for defense quantities",
+   "importance": "K",
+   "status": "partial (distributed)",
+   "host": "NEW-A3",
+   "reason": "Order-of-magnitude is a 2.5 pillar; consolidate as a method."
+  },
+  {
+   "id": "P7+.5",
+   "domain": "LOG",
+   "name": "Interceptor and munition production rate vs expenditure rate as a war-duration model (stock-flow)",
+   "importance": "K",
+   "status": "missing",
+   "host": "NEW-L1",
+   "reason": "Unifies LOG.2.1 and ACQ.4.1; the central 2024-26 debate."
+  },
+  {
+   "id": "P7+.6",
+   "domain": "ACQ",
+   "name": "Defense economics basics: defense spending as % GDP, PPP comparisons, burden sharing, US FMF to Israel",
+   "importance": "S",
+   "status": "missing",
+   "host": "NEW-Q1",
+   "reason": "Recurring in policy articles."
+  },
+  {
+   "id": "P7+.7",
+   "domain": "ADV",
+   "name": "Hezbollah/Hamas tunnel and underground warfare and subterranean ISR",
+   "importance": "S",
+   "status": "missing",
+   "host": "NEW-V1",
+   "reason": "Home-ground operational issue absent from all maps."
+  },
+  {
+   "id": "P7+.8",
+   "domain": "ADV",
+   "name": "North Korean missile program and its links to Iran/Russia",
+   "importance": "S",
+   "status": "missing",
+   "host": "NEW-V1",
+   "reason": "Proliferation network context."
+  },
+  {
+   "id": "P7+.9",
+   "domain": "CRAFT",
+   "name": "Using LLM/AI tools in analysis: verification of AI-produced numbers, hallucinated sources",
+   "importance": "S",
+   "status": "missing",
+   "host": "NEW-C2",
+   "reason": "The learner explicitly wants to catch AI errors (2.5 critique)."
+  },
+  {
+   "id": "P7+.10",
+   "domain": "CRAFT",
+   "name": "Reading and critiquing think-tank reports (RAND, CSIS, IISS, INSS): method sections, assumptions, funding",
+   "importance": "K",
+   "status": "missing",
+   "host": "NEW-C2",
+   "reason": "Primary inputs of the learner's articles."
+  },
+  {
+   "id": "P7+.11",
+   "domain": "OR",
+   "name": "Aircraft combat survivability discipline as an OR application: susceptibility x vulnerability, PS = 1 - PH*PK|H chain, mission/campaign survivability (Ball ch.1, ch.6)",
+   "importance": "K",
+   "status": "partial: Ball is ref-only and chapters 1.1, 6.1-6.2 are unmapped",
+   "host": "M8.1 or a new core module in P8; ref B16:25-105, 763-788",
+   "reason": "Ball chapter 1 is the compact authority-level summary; surfaced here because the survivability chain is OR (owner: platforms panel)."
+  }
+ ],
+ "sections_not_needed": [
+  {
+   "module": "-",
+   "doc": "B14",
+   "section": "front matter (title, preface, contents)",
+   "pages": "1-7",
+   "reason": "non-teaching"
+  },
+  {
+   "module": "-",
+   "doc": "B14",
+   "section": "References and index",
+   "pages": "268-281",
+   "reason": "bibliography/index"
+  },
+  {
+   "module": "-",
+   "doc": "B15",
+   "section": "front matter, prefaces, contents",
+   "pages": "1-21",
+   "reason": "non-teaching"
+  },
+  {
+   "module": "-",
+   "doc": "B15",
+   "section": "App.A probability tables (binomial, Poisson, normal, erf, rectangular-target Pk)",
+   "pages": "330-337",
+   "reason": "lookup tables; compute replaces them"
+  },
+  {
+   "module": "-",
+   "doc": "B15",
+   "section": "App.B derivation of characteristic function",
+   "pages": "338-341",
+   "reason": "derivation detail below 2.5 need (N)"
+  },
+  {
+   "module": "-",
+   "doc": "B15",
+   "section": "App.E defense analysis software (BASIC listings and test examples)",
+   "pages": "352-411",
+   "reason": "obsolete code listings; compute replaces them"
+  },
+  {
+   "module": "-",
+   "doc": "B15",
+   "section": "Index",
+   "pages": "412-419",
+   "reason": "index"
+  },
+  {
+   "module": "-",
+   "doc": "B16",
+   "section": "front matter, prefaces, contents, acknowledgments (keep 8-11 skim only: DOT&E sponsorship context)",
+   "pages": "1-24",
+   "reason": "non-teaching"
+  },
+  {
+   "module": "-",
+   "doc": "B16",
+   "section": "Ch.1 endnotes, references, selected bibliography",
+   "pages": "~207-212",
+   "reason": "bibliography (problems 213-226 kept as exercise bank)"
+  },
+  {
+   "module": "-",
+   "doc": "B16",
+   "section": "Ch.2 references/bibliography",
+   "pages": "256",
+   "reason": "bibliography"
+  },
+  {
+   "module": "-",
+   "doc": "B16",
+   "section": "3.6 radar and infrared fundamentals (EM radiation, radar, IR, list of equations)",
+   "pages": "359-397",
+   "reason": "duplicate of M2.1-M2.5 and M3.4-M3.6 main sources; at most a test-out check, not reading"
+  },
+  {
+   "module": "-",
+   "doc": "B16",
+   "section": "Ch.4 endnotes, references, bibliography",
+   "pages": "610-617",
+   "reason": "bibliography (problems 618-626 kept)"
+  },
+  {
+   "module": "-",
+   "doc": "B16",
+   "section": "Acronyms list",
+   "pages": "802-811",
+   "reason": "glossary"
+  },
+  {
+   "module": "-",
+   "doc": "B16",
+   "section": "App.B.1-B.4 sets, Venn diagrams, algebra of sets",
+   "pages": "838-859",
+   "reason": "elementary probability already in M0.4 and Gilua E05 (B.5-B.8 kept)"
+  },
+  {
+   "module": "-",
+   "doc": "B16",
+   "section": "App.B references, index",
+   "pages": "896-928",
+   "reason": "index"
+  },
+  {
+   "module": "-",
+   "doc": "B17",
+   "section": "front matter, maps list, preface",
+   "pages": "1-11",
+   "reason": "non-teaching"
+  },
+  {
+   "module": "-",
+   "doc": "B17",
+   "section": "Note on sources, bibliography, notes",
+   "pages": "334-421",
+   "reason": "apparatus (page 421 is OCR garbage)"
+  }
+ ],
+ "sections_kept_unmatched": [
+  {
+   "module": "NEW-A2 (ref)",
+   "doc": "B14",
+   "section": "ch.10 terror and insurgency",
+   "pages": "214-238",
+   "serves": [
+    "M:OR.10.2"
+   ],
+   "reason": "Irregular-warfare models; home-ground relevance"
+  },
+  {
+   "module": "NEW-A3 (ref)",
+   "doc": "B15",
+   "section": "ch.1 scientific methods in military operations",
+   "pages": "22-31",
+   "serves": [
+    "M:OR.1.1"
+   ],
+   "reason": "Overview of methods; test-out"
+  },
+  {
+   "module": "NEW-A2 / M7.3 (ref)",
+   "doc": "B15",
+   "section": "5.3-5.5 continuous combat states; many-on-many with uniform/random/SLS assignment",
+   "pages": "142-163",
+   "serves": [
+    "M:OR.4.4",
+    "M:OR.2.2",
+    "M:OR.2.4"
+   ],
+   "reason": "Stochastic attrition and assignment"
+  },
+  {
+   "module": "NEW-A3 (ref)",
+   "doc": "B15",
+   "section": "ch.12 modeling of military operations",
+   "pages": "320-329",
+   "serves": [
+    "M:OR.1.1"
+   ],
+   "reason": "Model taxonomy"
+  },
+  {
+   "module": "NEW-A2 (ref, C)",
+   "doc": "B15",
+   "section": "App.C analytical solution of equations of combat; App.D average probability of no detection",
+   "pages": "342-351",
+   "serves": [
+    "M:OR.4.2",
+    "M:OR.5.1"
+   ],
+   "reason": "Reference derivations for heterogeneous Lanchester and search; read only on demand"
+  },
+  {
+   "module": "NEW (P8 survivability core) / NEW-A2",
+   "doc": "B16",
+   "section": "Ch.1.1 fundamentals: measures, threats, one-on-one, many-on-many and campaign survivability, equations, enhancement, survivability vs effectiveness, managed/virtual attrition, BDR",
+   "pages": "25-105",
+   "serves": [
+    "P7+.11",
+    "M:OR.11.3",
+    "M:OR.7.2",
+    "M:LOG.2.3",
+    "M:LOG.2.2"
+   ],
+   "reason": "Compact authority-level survivability discipline"
+  },
+  {
+   "module": "NEW-A2 (ref)",
+   "doc": "B16",
+   "section": "1.2 historical losses and loss rates WWI-1993, lessons learned",
+   "pages": "106-138",
+   "serves": [
+    "M:OR.11.3",
+    "M:OR.4.7",
+    "M:CRAFT.4.5"
+   ],
+   "reason": "Loss-rate reference numbers"
+  },
+  {
+   "module": "NEW-Q1 (ref)",
+   "doc": "B16",
+   "section": "1.3.1-1.3.6 DoD 5000, Acquisition Deskbook, MIL-HDBK-2069A, JTCG/AS, SURVIAC",
+   "pages": "139-155",
+   "serves": [
+    "M:ACQ.1.1"
+   ],
+   "reason": "Acquisition context (dated 2003; read with modern update)"
+  },
+  {
+   "module": "NEW-Q2 (ref)",
+   "doc": "B16",
+   "section": "1.7 conclusions + Ch.1 problems",
+   "pages": "198-206; 213-226",
+   "serves": [
+    "P7+.11",
+    "M:ACQ.3.1"
+   ],
+   "reason": "Summary and exercise bank"
+  },
+  {
+   "module": "M8.1/M11.6 (owner: platforms panel)",
+   "doc": "B16",
+   "section": "Ch.2 aircraft anatomy (fixed and rotary wing systems)",
+   "pages": "227-255",
+   "serves": [
+    "platforms/vulnerability"
+   ],
+   "reason": "Needed for vulnerability reasoning; outside P7 domains"
+  },
+  {
+   "module": "M11.3/M4.1 (owner: weapons-effects panel)",
+   "doc": "B16",
+   "section": "3.3 terminology, 3.4 threat characteristics, 3.5 damage mechanisms start",
+   "pages": "306-338",
+   "serves": [
+    "weapons effects"
+   ],
+   "reason": "Kill taxonomy and damage mechanisms"
+  },
+  {
+   "module": "M2.4/M4.x",
+   "doc": "B16",
+   "section": "4.1-4.2 susceptibility program, essential events and elements",
+   "pages": "469-473",
+   "serves": [
+    "P7+.11"
+   ],
+   "reason": "Small connector"
+  },
+  {
+   "module": "M4.10",
+   "doc": "B16",
+   "section": "4.4.1-4.4.3 terms, threat warning, jammers (gap pages)",
+   "pages": "561-565",
+   "serves": [
+    "EW"
+   ],
+   "reason": "Connector inside mapped block"
+  },
+  {
+   "module": "M4.x",
+   "doc": "B16",
+   "section": "4.4.6 threat suppression, 4.4.7 tactics/training; ch.4 problems",
+   "pages": "608-609; 618-626",
+   "serves": [
+    "EW",
+    "exercises"
+   ],
+   "reason": "SEAD logic and exercise bank"
+  },
+  {
+   "module": "M11.4/M8.7",
+   "doc": "B16",
+   "section": "Ch.5.1-5.2 vulnerability program, combat data analysis, critical component analysis incl. FMEA",
+   "pages": "627-678",
+   "serves": [
+    "M:OR.9.3",
+    "M:ACQ.3.4",
+    "vulnerability"
+   ],
+   "reason": "Combat data as evidence (Wald-type reasoning) and FMEA"
+  },
+  {
+   "module": "P8 survivability / NEW-A2",
+   "doc": "B16",
+   "section": "Ch.6.1-6.2 survivability program and assessment: one-on-one, mission survivability, computer programs",
+   "pages": "763-788",
+   "serves": [
+    "P7+.11",
+    "M:OR.7.2"
+   ],
+   "reason": "Mission-level survivability equations"
+  },
+  {
+   "module": "NEW-A2 (ref)",
+   "doc": "B16",
+   "section": "6.4 conclusions and ch.6 problems",
+   "pages": "797-801",
+   "serves": [
+    "P7+.11"
+   ],
+   "reason": "Exercise bank incl. 100 aircraft/40 pilots sustainment problem"
+  },
+  {
+   "module": "NEW-A2 (ref, C)",
+   "doc": "B16",
+   "section": "Prologue \"A sense of perspective\"",
+   "pages": "812-817",
+   "serves": [
+    "context"
+   ],
+   "reason": "Short framing; skim"
+  },
+  {
+   "module": "NEW-A2 (ref, C)",
+   "doc": "B16",
+   "section": "App.A survivability features of WWII aircraft",
+   "pages": "818-837",
+   "serves": [
+    "M:OR.11.3",
+    "history"
+   ],
+   "reason": "Historical cases; light"
+  },
+  {
+   "module": "M0.4/NEW-A3 (ref)",
+   "doc": "B16",
+   "section": "App.B.5-B.8 tree diagrams, binomial/Poisson encounters, normal/Rayleigh, expected value vs Monte Carlo vs Markov chain",
+   "pages": "860-895",
+   "serves": [
+    "M:OR.7.1",
+    "M:OR.9.1"
+   ],
+   "reason": "Applied probability for engagements; test-out"
+  },
+  {
+   "module": "NEW-L1",
+   "doc": "B17",
+   "section": "ch.1 background of two centuries (plunder, magazine system, linear warfare)",
+   "pages": "16-63",
+   "serves": [
+    "M:LOG.4.1",
+    "M:LOG.4.4"
+   ],
+   "reason": "Context for thesis; light"
+  },
+  {
+   "module": "NEW-L1",
+   "doc": "B17",
+   "section": "ch.2 Napoleon: \"an army marches on its stomach\"",
+   "pages": "64-110",
+   "serves": [
+    "M:LOG.4.1",
+    "M:LOG.4.4"
+   ],
+   "reason": "Debunks living-off-the-land myth; thesis evidence"
+  },
+  {
+   "module": "NEW-L1",
+   "doc": "B17",
+   "section": "ch.4 Schlieffen plan logistics, railheads, Marne",
+   "pages": "158-204",
+   "serves": [
+    "M:LOG.4.2",
+    "M:LOG.1.2"
+   ],
+   "reason": "Classic case"
+  }
+ ],
+ "totals": {
+  "subtopics": 126,
+  "by_importance": {
+   "K": 71,
+   "S": 50,
+   "C": 4,
+   "N": 1
+  },
+  "K": {
+   "full": 12,
+   "partial": 25,
+   "missing": 34
+  },
+  "S": {
+   "full": 18,
+   "partial": 14,
+   "missing": 18
+  },
+  "C_N": {
+   "full": 3,
+   "partial": 1,
+   "missing": 1
+  },
+  "test_out_candidates": 26,
+  "importance_changed": [
+   "M:OR.12.2",
+   "M:LOG.3.6",
+   "M:ADV.3.3"
+  ],
+  "status_changed_from_MG": 64,
+  "added": 11,
+  "sections_not_needed": 17,
+  "pages_not_needed": 364,
+  "sections_kept_unmatched": 23,
+  "pages_kept_unmatched": 601,
+  "new_host_modules_proposed": 11
+ }
+}
