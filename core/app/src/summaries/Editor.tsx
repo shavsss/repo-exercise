@@ -29,7 +29,7 @@ const INSERT: InsertItem[] = [
   // a list lives inside a paragraph or a box: in the block being written, or in a new paragraph
   { id: "ul", label: "רשימת תבליטים", short: "• רשימה", hint: "- ורווח", keys: "ul רשימה תבליטים", make: () => ({ ...(emptyBlock("p") as Extract<Block, { t: "p" }>), html: "<ul><li><br></li></ul>" }) },
   { id: "ol", label: "רשימה ממוספרת", short: "1. רשימה", hint: "1. ורווח", keys: "ol רשימה ממוספרת מספרים", make: () => ({ ...(emptyBlock("p") as Extract<Block, { t: "p" }>), html: "<ol><li><br></li></ol>" }) },
-  ...(Object.keys(BOX_LABEL) as BoxKind[]).map((k) => ({ id: `box-${k}`, label: BOX_LABEL[k], hint: "תיבה", keys: `תיבה box ${BOX_LABEL[k]}`, make: () => ({ ...(emptyBlock("box") as Extract<Block, { t: "box" }>), kind: k, ...(k === "eq" ? { latex: "" } : {}) }) })),
+  ...(Object.keys(BOX_LABEL) as BoxKind[]).map((k) => ({ id: `box-${k}`, label: BOX_LABEL[k], hint: "תיבה", keys: `תיבה box ${BOX_LABEL[k]}`, make: () => ({ ...(emptyBlock("box") as Extract<Block, { t: "box" }>), kind: k }) })),
   { id: "math", label: "משוואה", short: "∑ משוואה", hint: "ממוספרת", keys: "math משוואה נוסחה $$", make: () => emptyBlock("math") },
   { id: "img", label: "תמונה מהמחשב", short: "🖼 תמונה", hint: "או הדבק Ctrl+V", keys: "img תמונה צילום" },
   { id: "fig", label: "איור מהספר", short: "📖 איור מהספר", hint: "מספרי הספרייה", keys: "fig איור ספר" },
@@ -458,6 +458,10 @@ export function Editor({
   /** the small equation editor for an equation inside a line: a new one at a place in the text, or one already there */
   const [inline, setInline] = useState<{ top: number; left: number; tex: string; span?: HTMLElement; range?: Range; host: HTMLElement } | null>(null);
   const inlineTex = useRef("");
+  /** the popup's equation goes on a line of its own, larger (the central formula of a box) */
+  const inlineBig = useRef(false);
+  const [bigNow, setBigNow] = useState(false);
+  const setBig = (v: boolean) => ((inlineBig.current = v), setBigNow(v));
   const openInline = (span?: HTMLElement) => {
     const host = span ? span.closest<HTMLElement>("[data-edit]") : activeEditable();
     if (!host) return;
@@ -466,6 +470,7 @@ export function Editor({
     const r = span ? span.getBoundingClientRect() : (range?.getClientRects()[0] ?? host.getBoundingClientRect());
     const tex = span?.getAttribute("data-tex") ?? (range && !range.collapsed ? range.toString() : "");
     inlineTex.current = tex;
+    setBig(span ? span.classList.contains("big") : !!host.closest(".box-eq"));
     setInline({ top: Math.min(r.bottom + 6, window.innerHeight - 140), left: Math.max(12, Math.min(r.left - 40, window.innerWidth - 580)), tex, span, range, host });
   };
   const closeInline = (how: "enter" | "escape" | "blur") => {
@@ -478,13 +483,14 @@ export function Editor({
         if (!tex) st.span.remove();
         else {
           st.span.setAttribute("data-tex", tidyTex(tex));
+          st.span.classList.toggle("big", inlineBig.current);
           delete st.span.dataset.done;
           hydrateMath(st.host);
         }
         st.host.dispatchEvent(new Event("input", { bubbles: true }));
       }
       placeCaret(st.host, "end");
-    } else if (st.range && tex && how !== "escape") insertMathAt(st.range, tex);
+    } else if (st.range && tex && how !== "escape") insertMathAt(st.range, tex, inlineBig.current);
     else placeCaret(st.host, "end");
   };
   const [drag, setDrag] = useState<{ id: string; over: string | null; after: boolean } | null>(null);
@@ -1243,7 +1249,7 @@ export function Editor({
           <div className={`sm-box box-${b.kind}`}>
             <div className="sm-box-head" contentEditable={false}>
               <Icon name={BOX_ICON[b.kind]} size={15} className="sm-box-ic" />
-              <select value={b.kind} aria-label="סוג התיבה" onChange={(e) => patch(b.id, { kind: e.target.value as BoxKind, ...(e.target.value === "eq" && b.latex === undefined ? { latex: "" } : {}) } as Partial<Block>, "struct")}>
+              <select value={b.kind} aria-label="סוג התיבה" onChange={(e) => patch(b.id, { kind: e.target.value as BoxKind } as Partial<Block>, "struct")}>
                 {(Object.keys(BOX_LABEL) as BoxKind[]).map((k) => (
                   <option key={k} value={k}>
                     {BOX_LABEL[k]}
@@ -1265,8 +1271,8 @@ export function Editor({
                 }}
               />
             </div>
-            <Rich fkey={b.id} className={b.align && b.align !== "start" ? `al-${b.align}` : ""} html={b.html} placeholder={b.kind === "eq" ? "תיאור והמהלך (הוכחה ← פיתוח 1, 2…), מה כל סימן ומתי היא נכונה. הנוסחה בסוף" : "כתוב כאן"} onChange={(h) => patch(b.id, { html: h })} onKeyDown={textKeys(b)} onMath={openInline} />
-            {b.kind === "eq" && (
+            <Rich fkey={b.id} className={b.align && b.align !== "start" ? `al-${b.align}` : ""} html={b.html} placeholder={b.kind === "eq" ? "תיאור והמהלך (הוכחה ← פיתוח 1, 2…). הנוסחה המרכזית: Ctrl+M או $…$ ואז \"נוסחה גדולה\", בכל מקום בתיבה" : "כתוב כאן"} onChange={(h) => patch(b.id, { html: h })} onKeyDown={textKeys(b)} onMath={openInline} />
+            {(b.latex?.trim() || editingMath === b.id) && (
               <div className="sm-box-math">
                 {editingMath === b.id ? (
                   <MathEditor latex={b.latex ?? ""} onChange={(v) => patch(b.id, { latex: v } as Partial<Block>)} onDone={(how) => (setEditingMath(null), how !== "blur" && focus(b.id, "start"))} />
@@ -1540,6 +1546,9 @@ export function Editor({
       {inline && (
         <div className="sm-inline-pop" style={{ top: inline.top, left: inline.left }} onMouseDown={(e) => e.stopPropagation()}>
           <MathEditor latex={inline.tex} onChange={(v) => (inlineTex.current = v)} onDone={closeInline} />
+          <label className="sm-inline-big">
+            <input type="checkbox" checked={bigNow} onChange={(e) => setBig(e.target.checked)} /> נוסחה גדולה בשורה משלה (נוסחה מרכזית)
+          </label>
           <small>Enter לסיום · Esc לביטול · ריק מוחק</small>
         </div>
       )}

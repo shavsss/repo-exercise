@@ -20,7 +20,7 @@ export function cleanHtml(html: string) {
   });
   box.querySelectorAll("span.im").forEach((s) => {
     const n = document.createElement("span");
-    n.className = "im";
+    n.className = s.classList.contains("big") ? "im big" : "im";
     n.setAttribute("data-tex", s.getAttribute("data-tex") ?? "");
     s.replaceWith(n);
   });
@@ -171,21 +171,23 @@ export function hydrateMath(root: HTMLElement) {
   root.querySelectorAll<HTMLElement>("ol[start]").forEach((o) => (o.style.counterReset = `sm-li ${Number(o.getAttribute("start")) - 1 || 0}`));
   root.querySelectorAll<HTMLElement>("span.im").forEach((s) => {
     const tex = s.getAttribute("data-tex") ?? "";
-    if (s.dataset.done === tex && s.childNodes.length) return;
+    const big = s.classList.contains("big");
+    const key = `${big ? "big:" : ""}${tex}`;
+    if (s.dataset.done === key && s.childNodes.length) return;
     try {
-      katex.render(fixTex(tidyTex(tex)) || "\\square", s, { throwOnError: false, strict: "ignore" });
+      katex.render(fixTex(tidyTex(tex)) || "\\square", s, { throwOnError: false, strict: "ignore", displayMode: big });
     } catch {
       s.textContent = tex;
     }
     s.contentEditable = "false";
-    s.dataset.done = tex;
+    s.dataset.done = key;
     s.title = "לחץ לעריכת המשוואה";
   });
 }
 
-function mathSpan(tex: string) {
+function mathSpan(tex: string, big = false) {
   const s = document.createElement("span");
-  s.className = "im";
+  s.className = big ? "im big" : "im";
   s.setAttribute("data-tex", tex);
   return s;
 }
@@ -217,9 +219,9 @@ export function convertDollars(el: HTMLElement) {
   return false;
 }
 
-/** Puts an equation into the text at a saved position. */
-export function insertMathAt(range: Range, tex: string) {
-  const span = mathSpan(tidyTex(tex));
+/** Puts an equation into the text at a saved position; big: on a line of its own, larger. */
+export function insertMathAt(range: Range, tex: string, big = false) {
+  const span = mathSpan(tidyTex(tex), big);
   range.deleteContents();
   range.insertNode(span);
   const space = document.createTextNode("\u00a0");

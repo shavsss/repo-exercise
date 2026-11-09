@@ -140,9 +140,7 @@ mark:not([class]) { background: var(--hl-y); }
 .box-err { background: var(--sm-err-bg); border-color: var(--sm-err); } .box-err .sm-box-head { color: var(--sm-err); }
 .box-q { background: var(--sm-q-bg); border-color: var(--sm-q); } .box-q .sm-box-head { color: var(--sm-q); }
 .sm-box-math { display: flex; justify-content: center; align-items: center; gap: 14px; margin: 4px 0; }
-/* the central formula closes the box, larger than the text above it */
-.box-eq .sm-box-math { margin: 10px 0 4px; font-size: 1.45em; }
-.box-eq .sm-box-math .sm-math-btn { min-height: 48px; }
+.box-eq .sm-box-math { font-size: 1.3em; }
 
 .sm-mathblock { display: flex; justify-content: center; align-items: center; gap: 16px; margin: 6px 0; position: relative; }
 .sm-math-btn { all: unset; cursor: pointer; display: inline-flex; align-items: center; gap: 14px; padding: 4px 10px; border-radius: 4px; min-height: 36px; max-width: 100%; overflow-x: auto; }
@@ -283,6 +281,11 @@ mark:not([class]) { background: var(--hl-y); }
 span.im { display: inline-block; padding: 0 3px; margin: 0 1px; border-radius: 3px; cursor: pointer; direction: ltr; unicode-bidi: isolate; vertical-align: baseline; line-height: 1.2; }
 span.im:hover { background: var(--sm-eq-bg); outline: 1px solid color-mix(in srgb, var(--sm-eq) 40%, transparent); }
 span.im .katex { font-size: 1.04em; }
+/* the central formula: on a line of its own, centred, larger */
+span.im.big { display: block; text-align: center; margin: 0.5em 0; padding: 4px 0; font-size: 1.45em; }
+span.im.big .katex-display { margin: 0; }
+span.im.big .katex { font-size: 1em; }
+.sm-inline-big { display: flex; align-items: center; gap: 6px; font-size: 0.82rem; cursor: pointer; }
 .sm-ro span.im, .sm-review span.im, .sm-filter span.im { cursor: default; }
 .sm-inline-pop { position: fixed; z-index: 70; width: 560px; max-width: calc(100vw - 24px); background: var(--sheet); border: 1px solid var(--line-strong); border-radius: 8px; padding: 8px; box-shadow: 0 14px 34px rgb(0 0 0 / 22%); display: grid; gap: 4px; }
 .sm-inline-pop small { color: var(--muted); font-size: 0.74rem; }

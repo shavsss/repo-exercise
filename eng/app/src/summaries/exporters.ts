@@ -142,7 +142,10 @@ function runs(html: string, base: { bold?: boolean; color?: string } = {}): (Tex
     const el = node as Element;
     const tag = el.tagName.toLowerCase();
     if (tag === "span" && el.classList.contains("im")) {
+      const big = el.classList.contains("big");
+      if (big) out.push(new TextRun({ text: "", break: 1 }));
       out.push(wordMath(el.getAttribute("data-tex") ?? ""));
+      if (big) out.push(new TextRun({ text: "", break: 1 }));
       return;
     }
     if (tag === "br") {
@@ -275,7 +278,7 @@ const mathHtml = (latex: string, display = true) => {
 };
 const unq = (s: string) => s.replace(/&quot;/g, '"').replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&");
 /** equations inside a line, as MathML */
-const inl = (html: string) => html.replace(/<ol start="(\d+)">/g, (_, n) => `<ol start="${n}" style="counter-reset:li ${Number(n) - 1}">`).replace(/<span[^>]*data-tex="([^"]*)"[^>]*>.*?<\/span>/g, (_, t) => mathHtml(unq(t), false));
+const inl = (html: string) => html.replace(/<ol start="(\d+)">/g, (_, n) => `<ol start="${n}" style="counter-reset:li ${Number(n) - 1}">`).replace(/<span([^>]*)data-tex="([^"]*)"[^>]*>.*?<\/span>/g, (_, a, t) => (/\bbig\b/.test(a) ? `<div class="eq">${mathHtml(unq(t))}</div>` : mathHtml(unq(t), false)));
 
 /** The summary as one HTML file that opens in any browser, pictures included. */
 export async function toHtml(title: string, blocks: Block[]) {
