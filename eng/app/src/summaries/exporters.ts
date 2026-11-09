@@ -30,7 +30,7 @@ import { convertLatexToMathMl } from "mathlive";
 import { figure } from "../library";
 import type { Block, BoxAlign, BoxKind, ImgSize, MarkColor } from "./model";
 import { tidyTex } from "./rich";
-import { BOX_EMOJI, BOX_LABEL, BULLET_SIGN, PROOF_LABEL, eqSteps, esc, flatLists, headParts, itemNumbers, numbering, textOf } from "./model";
+import { BOX_EMOJI, BOX_LABEL, BULLET_SIGN, PROOF_LABEL, esc, flatLists, headParts, itemNumbers, numbering, textOf } from "./model";
 import { flatten } from "./media";
 
 type MathComponent = ConstructorParameters<typeof DMath>[0]["children"][number];
@@ -214,9 +214,8 @@ export async function toDocx(title: string, blocks: Block[]) {
           { spacing: { after: 60 } },
         ),
       ];
-      if (b.latex?.trim()) inner.push(new Paragraph({ alignment: AlignmentType.CENTER, children: [wordMath(b.latex), ...(eqs.get(b.id) ? [new TextRun({ text: `   (${eqs.get(b.id)})`, font: FONT })] : [])] }));
-      eqSteps(b).forEach((s, i) => inner.push(new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: `${i + 1}. ${s.note?.trim() ? `${s.note.trim()}:  ` : ""}`, font: FONT, rightToLeft: true }), wordMath(s.latex)] })));
       if (textOf(b.html).trim()) inner.push(...paras(b.html, {}, b.align));
+      if (b.latex?.trim()) inner.push(new Paragraph({ alignment: AlignmentType.CENTER, children: [wordMath(b.latex), ...(eqs.get(b.id) ? [new TextRun({ text: `   (${eqs.get(b.id)})`, font: FONT })] : [])] }));
       const side = { style: BorderStyle.SINGLE, size: 18, color: fg };
       const none = { style: BorderStyle.NONE, size: 0, color: "FFFFFF" };
       children.push(
@@ -255,7 +254,7 @@ p{margin:0 0 .6em}mark{color:inherit;padding:0}.hl-y{background:#fff1a6}.hl-r{ba
 .box-ex{background:#f4ebd6;border-color:#8a6100}.box-ex .lbl{color:#8a6100}.box-err{background:#f6e0dd;border-color:#a3161a}.box-err .lbl{color:#a3161a}
 .box-q{background:#f4e5d6;border-color:#9a4f12}.box-q .lbl{color:#9a4f12}
 .box-con{background:#e2f0e3;border-color:#2e7d32}.box-con .lbl{color:#2e7d32}
-.eq{display:flex;justify-content:center;align-items:center;gap:1.2em;margin:.8em 0;direction:ltr}.eqn{color:var(--muted);font-size:.85em}.eq.step{margin:.3em 0}
+.eq{display:flex;justify-content:center;align-items:center;gap:1.2em;margin:.8em 0;direction:ltr}.eqn{color:var(--muted);font-size:.85em}
 math{font-size:1.1em}figure{margin:1em auto;text-align:center}figure img{max-width:100%}figcaption{font-size:.85em;color:var(--muted)}
 figure.s{max-width:33%}figure.m{max-width:62%}figure.l{max-width:100%}ul.l,ol.l{padding-inline-start:1.4em;margin:.2em 0 .8em}li.lv1{margin-inline-start:1.4em}li.lv2{margin-inline-start:2.8em}
 hr{border:none;border-top:1px solid var(--line);margin:1.4em 0}.p{margin:0 0 .6em}
@@ -297,7 +296,7 @@ export async function toHtml(title: string, blocks: Block[]) {
       const nums = itemNumbers(b.items);
       out.push(`<ul class="l" style="list-style:none">${b.items.map((it, i) => `<li class="lv${it.level}">${b.ordered ? nums[i] : "•"} ${inl(it.html)}</li>`).join("")}</ul>`);
     } else if (b.t === "box") {
-      out.push(`<div class="box box-${b.kind}"><span class="lbl">${BOX_EMOJI[b.kind]} ${BOX_LABEL[b.kind]}${b.title?.trim() ? `<b class="ttl">${esc(b.title.trim())}</b>` : ""}</span>${b.latex?.trim() ? `<div class="eq">${mathHtml(b.latex)}${eqs.get(b.id) ? `<span class="eqn">(${eqs.get(b.id)})</span>` : ""}</div>` : ""}${eqSteps(b).map((s, i) => `<div class="eq step"><span class="eqn">${i + 1}.${s.note?.trim() ? ` ${esc(s.note.trim())}:` : ""}</span>${mathHtml(s.latex)}</div>`).join("")}${textOf(b.html).trim() ? `<div class="p"${b.align && b.align !== "start" ? ` style="text-align:${b.align}"` : ""}>${inl(b.html)}</div>` : ""}</div>`);
+      out.push(`<div class="box box-${b.kind}"><span class="lbl">${BOX_EMOJI[b.kind]} ${BOX_LABEL[b.kind]}${b.title?.trim() ? `<b class="ttl">${esc(b.title.trim())}</b>` : ""}</span>${textOf(b.html).trim() ? `<div class="p"${b.align && b.align !== "start" ? ` style="text-align:${b.align}"` : ""}>${inl(b.html)}</div>` : ""}${b.latex?.trim() ? `<div class="eq">${mathHtml(b.latex)}${eqs.get(b.id) ? `<span class="eqn">(${eqs.get(b.id)})</span>` : ""}</div>` : ""}</div>`);
     } else if (b.t === "math") {
       if (b.latex.trim()) out.push(`<div class="eq">${mathHtml(b.latex)}${eqs.get(b.id) ? `<span class="eqn">(${eqs.get(b.id)})</span>` : ""}</div>`);
     } else if (b.t === "img" || b.t === "fig") {

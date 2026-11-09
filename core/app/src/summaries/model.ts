@@ -16,11 +16,6 @@ export interface Shape {
   color: ShapeColor;
   text?: string;
 }
-/** one step of a derivation under a box's main formula: the formula, and what was done to reach it */
-export interface EqStep {
-  latex: string;
-  note?: string;
-}
 export interface ListItem {
   html: string;
   level: number;
@@ -32,7 +27,7 @@ export type Block =
   | { id: string; t: "p"; html: string }
   | { id: string; t: "list"; ordered: boolean; items: ListItem[] }
   /** title: a short title of the box's own, beside its kind ("מסקנה · למה SRT מהיר") */
-  | { id: string; t: "box"; kind: BoxKind; html: string; latex?: string; steps?: EqStep[]; title?: string; align?: BoxAlign }
+  | { id: string; t: "box"; kind: BoxKind; html: string; latex?: string; title?: string; align?: BoxAlign }
   | { id: string; t: "math"; latex: string; plain?: boolean }
   | { id: string; t: "img"; src: string; w: number; h: number; size: ImgSize; side?: boolean; caption: string; marks: Shape[] }
   | { id: string; t: "fig"; doc: string; key: string; size: ImgSize; side?: boolean; caption: string; marks: Shape[] }
@@ -59,9 +54,6 @@ export const BOX_EMOJI: Record<BoxKind, string> = { def: "📘", eq: "🧮", ex:
 export const HEAD_EMOJI = ["📡", "🎯", "🛰️", "🚀", "✈️", "🛡️", "⚡", "🔋", "📶", "🔭", "🌡️", "🌊", "🧲", "⚙️", "🔧", "🧮", "📐", "📊", "📈", "🗺️", "🧭", "💡", "🧠", "🔍", "⚠️", "✅", "❓", "📌", "🔥", "⭐", "📘", "📝", "🎓", "🏁", "⏱️", "💰"];
 export const MARK_LABEL: Record<MarkColor, string> = { y: "חשוב", r: "טעות או אזהרה", b: "הגדרה", g: "תובנה", p: "משתנה (הגדרת משתנים)", o: "הנחה (הנחת יסוד)" };
 export const STATUS_LABEL: Record<SummaryStatus, string> = { none: "לא התחיל", draft: "טיוטה", done: "מוכן" };
-
-/** The derivation steps of a box that have a formula, in order. */
-export const eqSteps = (b: { steps?: EqStep[] }) => (b.steps ?? []).filter((s) => s.latex.trim());
 
 export const uid = () => Math.random().toString(36).slice(2, 10);
 
@@ -257,8 +249,7 @@ export function toMarkdown(title: string, blocks: Block[]) {
       const nums = itemNumbers(b.items);
       out.push(b.items.map((it, i) => `${"   ".repeat(it.level)}${b.ordered ? nums[i] : "-"} ${inlineMd(it.html)}`).join("\n"));
     } else if (b.t === "box") {
-      const steps = eqSteps(b).map((s, i) => `${i + 1}. ${s.note?.trim() ? `${s.note.trim()}: ` : ""}$$${s.latex}$$`);
-      const body = [b.latex?.trim() ? `$$${b.latex}$$${eqs.get(b.id) ? ` (${eqs.get(b.id)})` : ""}` : "", ...steps, inlineMd(b.html)].filter(Boolean).join("\n> ");
+      const body = [inlineMd(b.html), b.latex?.trim() ? `$$${b.latex}$$${eqs.get(b.id) ? ` (${eqs.get(b.id)})` : ""}` : ""].filter(Boolean).join("\n> ");
       out.push(`> ${BOX_EMOJI[b.kind]} **${BOX_LABEL[b.kind]}${b.title?.trim() ? ` · ${b.title.trim()}` : ""}:** ${body}`);
     } else if (b.t === "math") {
       if (b.latex.trim()) out.push(`$$${b.latex}$$${eqs.get(b.id) ? ` (${eqs.get(b.id)})` : ""}`);
