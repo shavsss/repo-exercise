@@ -30,7 +30,7 @@ import { convertLatexToMathMl } from "mathlive";
 import { figure } from "../library";
 import type { Block, BoxAlign, BoxKind, ImgSize, MarkColor } from "./model";
 import { tidyTex } from "./rich";
-import { BOX_EMOJI, BOX_LABEL, BULLET_SIGN, PROOF_LABEL, esc, flatLists, headParts, itemNumbers, numbering, textOf } from "./model";
+import { BOX_EMOJI, BOX_LABEL, BULLET_SIGN, PROOF_LABEL, esc, flatLists, headParts, itemNumbers, numbering, textOf, withBigNumbers } from "./model";
 import { flatten } from "./media";
 
 type MathComponent = ConstructorParameters<typeof DMath>[0]["children"][number];
@@ -145,6 +145,7 @@ function runs(html: string, base: { bold?: boolean; color?: string } = {}): (Tex
       const big = el.classList.contains("big");
       if (big) out.push(new TextRun({ text: "", break: 1 }));
       out.push(wordMath(el.getAttribute("data-tex") ?? ""));
+      if (big && el.getAttribute("data-n")) out.push(new TextRun({ text: `   (${el.getAttribute("data-n")})`, font: FONT }));
       if (big) out.push(new TextRun({ text: "", break: 1 }));
       return;
     }
@@ -190,7 +191,8 @@ async function picture(b: Extract<Block, { t: "img" } | { t: "fig" }>) {
 
 /** The summary as a Word document. */
 export async function toDocx(title: string, blocks: Block[]) {
-  const { heads, eqs } = numbering(blocks);
+  const { heads, eqs, bigs } = numbering(blocks);
+  blocks = withBigNumbers(blocks, bigs);
   const children: (Paragraph | Table)[] = [];
   for (const b of blocks) {
     if (b.t === "h" && b.cont) {
@@ -278,11 +280,12 @@ const mathHtml = (latex: string, display = true) => {
 };
 const unq = (s: string) => s.replace(/&quot;/g, '"').replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&");
 /** equations inside a line, as MathML */
-const inl = (html: string) => html.replace(/<ol start="(\d+)">/g, (_, n) => `<ol start="${n}" style="counter-reset:li ${Number(n) - 1}">`).replace(/<span([^>]*)data-tex="([^"]*)"[^>]*>.*?<\/span>/g, (_, a, t) => (/\bbig\b/.test(a) ? `<div class="eq">${mathHtml(unq(t))}</div>` : mathHtml(unq(t), false)));
+const inl = (html: string) => html.replace(/<ol start="(\d+)">/g, (_, n) => `<ol start="${n}" style="counter-reset:li ${Number(n) - 1}">`).replace(/<span([^>]*)data-tex="([^"]*)"[^>]*>.*?<\/span>/g, (_, a, t) => (/\bbig\b/.test(a) ? `<div class="eq">${mathHtml(unq(t))}${/data-n="(\d+)"/.exec(a) ? `<span class="eqn">(${/data-n="(\d+)"/.exec(a)![1]})</span>` : ""}</div>` : mathHtml(unq(t), false)));
 
 /** The summary as one HTML file that opens in any browser, pictures included. */
 export async function toHtml(title: string, blocks: Block[]) {
-  const { heads, eqs } = numbering(blocks);
+  const { heads, eqs, bigs } = numbering(blocks);
+  blocks = withBigNumbers(blocks, bigs);
   const out: string[] = [];
   for (const b of blocks) {
     if (b.t === "h" && b.cont) {

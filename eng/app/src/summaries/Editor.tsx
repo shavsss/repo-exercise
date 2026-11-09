@@ -496,7 +496,7 @@ export function Editor({
   const [drag, setDrag] = useState<{ id: string; over: string | null; after: boolean } | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
   const fileAfter = useRef<string | null>(null);
-  const { heads, eqs, conts } = useMemo(() => numbering(blocks), [blocks]);
+  const { heads, eqs, conts, bigs } = useMemo(() => numbering(blocks), [blocks]);
 
   useLayoutEffect(() => {
     const r = focusReq.current;
@@ -1338,6 +1338,7 @@ export function Editor({
           <div
             key={b.id}
             data-bid={b.id}
+            style={bigs.has(b.id) ? { counterReset: `sm-big ${bigs.get(b.id)! - 1}` } : undefined}
             className={`sm-block t-${b.t} ${current === b.id ? "is-current" : ""} ${isEmptyPara(b) ? "is-empty" : ""} ${blockMenu === b.id ? "has-menu" : ""} ${drag?.over === b.id ? (drag.after ? "drop-after" : "drop-before") : ""}`}
             onDragOver={(e) => dragOver(e, b.id)}
             onDrop={(e) => drop(e, b.id)}

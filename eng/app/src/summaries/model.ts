@@ -169,9 +169,16 @@ export function numbering(blocks: Block[]) {
   const conts = new Map<string, string>();
   const last: (string | undefined)[] = [];
   const eqs = new Map<string, number>();
+  /** block id → the number of its first big equation (they go on from the block before) */
+  const bigs = new Map<string, number>();
   const c = [0, 0, 0];
   let eq = 0;
   for (const b of blocks) {
+    const n = bigCount(b);
+    if (n) {
+      bigs.set(b.id, eq + 1);
+      eq += n;
+    }
     if (b.t === "h" && b.cont) {
       const n = last[b.level - 1];
       if (n) conts.set(b.id, n);
@@ -187,7 +194,25 @@ export function numbering(blocks: Block[]) {
       eqs.set(b.id, ++eq);
     }
   }
-  return { heads, eqs, conts };
+  return { heads, eqs, conts, bigs };
+}
+
+/** How many big (numbered) equations the text of a block holds. */
+function bigCount(b: Block) {
+  const html = b.t === "p" || b.t === "box" ? b.html : b.t === "list" ? b.items.map((i) => i.html).join("") : "";
+  return html.match(/class="im big"/g)?.length ?? 0;
+}
+
+/** The blocks with each big equation carrying its number (data-n), for the exports. */
+export function withBigNumbers(blocks: Block[], bigs: Map<string, number>): Block[] {
+  return blocks.map((b) => {
+    let n = bigs.get(b.id);
+    if (!n) return b;
+    const num = (html: string) => html.replace(/<span class="im big"/g, () => `<span class="im big" data-n="${n!++}"`);
+    if (b.t === "p" || b.t === "box") return { ...b, html: num(b.html) };
+    if (b.t === "list") return { ...b, items: b.items.map((i) => ({ ...i, html: num(i.html) })) };
+    return b;
+  });
 }
 
 /** Numbers of the items of a numbered list: 1, 2 at the top level; a, b below; i, ii below that. */

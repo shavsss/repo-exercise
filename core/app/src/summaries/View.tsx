@@ -132,7 +132,7 @@ function PicView({ b }: { b: Extract<Block, { t: "img" } | { t: "fig" }> }) {
  * full; "open all" shows everything.
  */
 export function ReviewView({ blocks }: { blocks: Block[] }) {
-  const { heads, eqs, conts } = useMemo(() => numbering(blocks), [blocks]);
+  const { heads, eqs, conts, bigs } = useMemo(() => numbering(blocks), [blocks]);
   const [open, setOpen] = useState<Set<string>>(new Set());
   const sections = useMemo(() => {
     const out: { head: Block | null; body: Block[] }[] = [{ head: null, body: [] }];
@@ -164,7 +164,7 @@ export function ReviewView({ blocks }: { blocks: Block[] }) {
               </button>
             )}
             {shown.map((b) => (
-              <div key={b.id} className="sm-block">
+              <div key={b.id} className="sm-block" style={bigs.has(b.id) ? { counterReset: `sm-big ${bigs.get(b.id)! - 1}` } : undefined}>
                 <BlockView b={b} n={heads.get(b.id) ?? conts.get(b.id)} eq={eqs.get(b.id)} />
               </div>
             ))}
@@ -181,9 +181,9 @@ export type FilterKind = BoxKind | "math";
 export function FilterView({ kind, summaries, titles, onOpen }: { kind: FilterKind; summaries: Summary[]; titles: Record<string, string>; onOpen: (moduleId: string) => void }) {
   const groups = summaries
     .map((s) => {
-      const { eqs } = numbering(s.blocks);
+      const { eqs, bigs } = numbering(s.blocks);
       const items = s.blocks.filter((b) => (kind === "math" ? (b.t === "math" && b.latex.trim()) || (b.t === "box" && b.kind === "eq") : b.t === "box" && b.kind === kind));
-      return { s, items, eqs };
+      return { s, items, eqs, bigs };
     })
     .filter((g) => g.items.length)
     .sort((a, b) => a.s.moduleId.localeCompare(b.s.moduleId, "en", { numeric: true }));
@@ -197,7 +197,7 @@ export function FilterView({ kind, summaries, titles, onOpen }: { kind: FilterKi
             {g.s.moduleId} · {titles[g.s.moduleId] ?? ""}
           </button>
           {g.items.map((b) => (
-            <div key={b.id} className="sm-block">
+            <div key={b.id} className="sm-block" style={g.bigs.has(b.id) ? { counterReset: `sm-big ${g.bigs.get(b.id)! - 1}` } : undefined}>
               <BlockView b={b} eq={g.eqs.get(b.id)} />
             </div>
           ))}
