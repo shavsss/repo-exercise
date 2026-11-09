@@ -140,6 +140,17 @@ mark:not([class]) { background: var(--hl-y); }
 .box-err { background: var(--sm-err-bg); border-color: var(--sm-err); } .box-err .sm-box-head { color: var(--sm-err); }
 .box-q { background: var(--sm-q-bg); border-color: var(--sm-q); } .box-q .sm-box-head { color: var(--sm-q); }
 .sm-box-math { display: flex; justify-content: center; align-items: center; gap: 14px; margin: 4px 0; }
+.sm-steps { list-style: none; margin: 2px 0 4px; padding: 0; display: flex; flex-direction: column; gap: 2px; counter-reset: step; }
+.sm-step { display: flex; align-items: center; justify-content: center; gap: 12px; counter-increment: step; direction: rtl; }
+.sm-step::before { content: counter(step) "."; color: var(--muted); font-size: 0.85rem; min-width: 1.4em; text-align: center; }
+.sm-step-note, .sm-step-note-in { color: var(--muted); font-size: 0.88rem; min-width: 7em; text-align: start; }
+.sm-step-note-in { border: 0; border-bottom: 1px dashed transparent; background: none; font-family: var(--font); padding: 1px 2px; outline: none; width: 9em; }
+.sm-step-note-in:hover, .sm-step-note-in:focus { border-bottom-color: currentColor; }
+.sm-step-edit { flex-direction: row; }
+.sm-step-edit .sm-mathedit-wrap { flex: 1; min-width: 0; }
+.sm-step-x, .sm-step-add { all: unset; cursor: pointer; color: var(--muted); font-size: 0.85rem; padding: 2px 8px; border-radius: 4px; }
+.sm-step-x:hover, .sm-step-add:hover { background: var(--hover); color: inherit; }
+.sm-step-add { display: block; margin: 2px auto 4px; }
 
 .sm-mathblock { display: flex; justify-content: center; align-items: center; gap: 16px; margin: 6px 0; position: relative; }
 .sm-math-btn { all: unset; cursor: pointer; display: inline-flex; align-items: center; gap: 14px; padding: 4px 10px; border-radius: 4px; min-height: 36px; max-width: 100%; overflow-x: auto; }

@@ -1,6 +1,6 @@
 import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import type { Block, BoxKind, Summary } from "./model";
-import { BOX_LABEL, itemNumbers, numbering, textOf } from "./model";
+import { BOX_LABEL, eqSteps, itemNumbers, numbering, textOf } from "./model";
 import { dedupeMath, dropEmptyMarks, hydrateMath, tidyLists } from "./rich";
 import { MathView } from "./MathEdit";
 import { useFigureSrc } from "./Picture";
@@ -74,6 +74,16 @@ export function BlockView({ b, n, eq }: { b: Block; n?: string; eq?: number }) {
               <MathView latex={b.latex} />
               {eq && <span className="sm-eqn">({eq})</span>}
             </div>
+          )}
+          {eqSteps(b).length > 0 && (
+            <ol className="sm-steps">
+              {eqSteps(b).map((s, i) => (
+                <li key={i} className="sm-step">
+                  {s.note?.trim() && <span className="sm-step-note">{s.note}</span>}
+                  <MathView latex={s.latex} />
+                </li>
+              ))}
+            </ol>
           )}
           {textOf(b.html).trim() && (
             <div className={`sm-ro ${b.align && b.align !== "start" ? `al-${b.align}` : ""}`}>

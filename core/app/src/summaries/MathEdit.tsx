@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import katex from "katex";
 import { MathfieldElement } from "mathlive";
 import { tidyTex } from "./rich";
+import type { EqStep } from "./model";
 
 // MathLive's fonts are KaTeX's, which the app already carries (katex.min.css, inlined);
 // it must not fetch its own, and it plays no sounds.
@@ -137,6 +138,54 @@ export function MathEditor({ latex, onChange, onDone, autoFocus = true }: { late
         }}
       />
       <div ref={box} className="sm-mathedit" />
+    </div>
+  );
+}
+
+/** The derivation under a box's main formula: formulas in order, each with a note of what was done. Enter in the last one opens the next. */
+export function EqStepsEditor({ steps, onChange }: { steps: EqStep[]; onChange: (s: EqStep[]) => void }) {
+  const [editing, setEditing] = useState<number | null>(null);
+  // the latest list, for the Enter that follows the field's final change in the same tick
+  const cur = useRef(steps);
+  cur.current = steps;
+  const apply = (next: EqStep[]) => {
+    cur.current = next;
+    onChange(next);
+  };
+  const set = (i: number, p: Partial<EqStep>) => apply(cur.current.map((s, j) => (j === i ? { ...s, ...p } : s)));
+  const add = () => {
+    apply([...cur.current, { latex: "" }]);
+    setEditing(cur.current.length - 1);
+  };
+  return (
+    <div className="sm-steps-edit">
+      <ol className="sm-steps">
+        {steps.map((s, i) => (
+          <li key={i} className="sm-step sm-step-edit">
+            <input className="sm-step-note-in" value={s.note ?? ""} placeholder="מה עשינו (הצבה, פישוט…)" aria-label={`הסבר שלב ${i + 1}`} onChange={(e) => set(i, { note: e.target.value })} />
+            {editing === i ? (
+              <MathEditor
+                latex={s.latex}
+                onChange={(v) => set(i, { latex: v })}
+                onDone={(how) => {
+                  setEditing(null);
+                  if (how === "enter" && i === cur.current.length - 1 && cur.current[i].latex.trim()) add();
+                }}
+              />
+            ) : (
+              <button className="sm-math-btn" onClick={() => setEditing(i)} title="לחץ לעריכה">
+                {s.latex.trim() ? <MathView latex={s.latex} /> : <span className="sm-ph">לחץ כדי לכתוב את השלב</span>}
+              </button>
+            )}
+            <button className="sm-step-x" aria-label={`מחק שלב ${i + 1}`} title="מחק שלב" onClick={() => (setEditing(null), apply(cur.current.filter((_, j) => j !== i)))}>
+              ✕
+            </button>
+          </li>
+        ))}
+      </ol>
+      <button className="sm-step-add" onClick={add}>
+        + שלב גזירה
+      </button>
     </div>
   );
 }

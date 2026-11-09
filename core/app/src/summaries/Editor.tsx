@@ -2,7 +2,7 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode }
 import type { Block, BoxAlign, BoxKind, ListItem, MarkColor } from "./model";
 import { BOX_LABEL, HEAD_EMOJI, MARK_LABEL, emptyBlock, flatLists, itemNumbers, numbering, textOf, uid } from "./model";
 import { activeEditable, applyMark, applyStyle, atLiStart, caret, caretLi, caretMark, caretOnEdgeLine, dedupeMath, dropEmptyMarks, lineToList, normalizeInline, splitLi, tidyAround, tidyLists, tidyTex, retagList, cleanHtml, convertDollars, hydrateMath, indentLi, insertMathAt, leaveMark, linePrefix, listEndsBlock, liText, outdentLi, pastedHtml, placeCaret, splitAtCaret, swapListKind } from "./rich";
-import { MathEditor, MathView } from "./MathEdit";
+import { EqStepsEditor, MathEditor, MathView } from "./MathEdit";
 import { Picture } from "./Picture";
 import { storeImage } from "./media";
 import { Icon } from "../components/Icon";
@@ -1003,7 +1003,7 @@ export function Editor({
       const list = `<${tag}>${lines.map((l) => `<li>${l || "<br>"}</li>`).join("")}</${tag}>`;
       nb = cur.t === "box" ? { ...cur, html: list } : { id: cur.id, t: "p", html: list };
     }
-    else if (to.startsWith("box-")) nb = { id: cur.id, t: "box", kind: to.slice(4) as BoxKind, html, ...(cur.t === "box" && cur.latex ? { latex: cur.latex } : {}) };
+    else if (to.startsWith("box-")) nb = { id: cur.id, t: "box", kind: to.slice(4) as BoxKind, html, ...(cur.t === "box" && cur.latex ? { latex: cur.latex } : {}), ...(cur.t === "box" && cur.steps?.length ? { steps: cur.steps } : {}) };
     if (nb) {
       update((bs) => bs.map((b) => (b.id === cur.id ? nb! : b)), "struct");
       focus(keyOf(nb, false)!, "end");
@@ -1278,6 +1278,7 @@ export function Editor({
                 )}
               </div>
             )}
+            {b.kind === "eq" && <EqStepsEditor steps={b.steps ?? []} onChange={(steps) => patch(b.id, { steps } as Partial<Block>)} />}
             <Rich fkey={b.id} className={b.align && b.align !== "start" ? `al-${b.align}` : ""} html={b.html} placeholder={b.kind === "eq" ? "מה כל סימן, ומתי היא נכונה" : "כתוב כאן"} onChange={(h) => patch(b.id, { html: h })} onKeyDown={textKeys(b)} onMath={openInline} />
           </div>
         );
