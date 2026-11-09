@@ -1,0 +1,30 @@
+{
+  "pages": [
+    {
+      "blocks": [
+        {
+          "bg": "plain",
+          "h": 420,
+          "id": "26hftvj8",
+          "strokes": [],
+          "t": "draw"
+        },
+        {
+          "id": "5i8t799x",
+          "t": "text",
+          "text": ""
+        },
+        {
+          "bg": "grid",
+          "h": 360,
+          "id": "r27j0lts",
+          "strokes": [],
+          "t": "draw"
+        }
+      ],
+      "id": "svm99fst",
+      "title": "דף 1"
+    }
+  ],
+  "updatedAt": 1793099960917
+}

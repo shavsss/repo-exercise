@@ -1,0 +1,31 @@
+{
+  "items": {
+    "predict-1fzlttu": {
+      "at": 1793611289920,
+      "conf": 1,
+      "high": "",
+      "kind": "predict",
+      "low": "",
+      "revealed": true,
+      "text": "X"
+    },
+    "predict-og9u54": {
+      "at": 1793606731590,
+      "conf": 1,
+      "grade": "wrong",
+      "high": "",
+      "kind": "predict",
+      "low": "",
+      "revealed": true,
+      "text": "11.52 ק\"מ ליום"
+    },
+    "verify-10yyxfu": {
+      "at": 1793606711868,
+      "checked": [
+        5
+      ],
+      "kind": "verify"
+    }
+  },
+  "updatedAt": 1793611290536
+}

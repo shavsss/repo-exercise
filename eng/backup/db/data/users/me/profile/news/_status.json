@@ -1,0 +1,16 @@
+{
+  "counts": {
+    "candidates": 457,
+    "drafted": 12,
+    "fetched": 16,
+    "verified": 5
+  },
+  "dropped": {
+    "verifier_unsupported_claim": 7
+  },
+  "issueId": null,
+  "lastRun": 1793836000000,
+  "ok": false,
+  "refusals": [],
+  "usageEstimate": "no issue published: only 5 of 12 items passed independent verification (minimum 6)"
+}

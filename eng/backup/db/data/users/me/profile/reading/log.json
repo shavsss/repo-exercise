@@ -1,0 +1,23 @@
+{
+  "items": {
+    "RE001": {
+      "a": "R. W. Hamming",
+      "at": 1793625081871,
+      "id": "RE001",
+      "moduleId": "M0.1",
+      "t": "You and Your Research",
+      "u": "https://www.cs.virginia.edu/~robins/YouAndYourResearch.html",
+      "y": 1986
+    },
+    "RE002": {
+      "a": "E. P. Wigner",
+      "at": 1793643778445,
+      "id": "RE002",
+      "moduleId": "M0.1",
+      "t": "The Unreasonable Effectiveness of Mathematics in the Natural Sciences",
+      "u": "https://www.maths.ed.ac.uk/~v1ranick/papers/wigner.pdf",
+      "y": 1960
+    }
+  },
+  "updatedAt": 1793643778678
+}

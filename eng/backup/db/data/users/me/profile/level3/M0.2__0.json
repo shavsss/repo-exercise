@@ -1,0 +1,32 @@
+{
+  "items": {
+    "errorhunt-juusfj": {
+      "at": 1793723292998,
+      "kind": "errorhunt",
+      "noError": false,
+      "revealed": true,
+      "text": "כי הגז שמתחמם 'עוזר' לדחוף את הבוכנה, הוא אינו עוזר כלל הדבר היחיד שמחמם הוא קצב התזוזה של המולקלות. "
+    },
+    "predict-1ooqu0y": {
+      "at": 1793715642900,
+      "conf": 3,
+      "grade": "partial",
+      "high": "",
+      "kind": "predict",
+      "low": "",
+      "revealed": true,
+      "text": "רם אחד מכיל כ-$6\\times10^{23}/18\\approx3\\times10^{22}$ מולקולות, והטיפה כ-$0.26\\times3\\times10^{22}\\approx8\\times10^{21}$."
+    },
+    "predict-1pvq3vl": {
+      "at": 1793720312879,
+      "conf": 2,
+      "grade": "wrong",
+      "high": "",
+      "kind": "predict",
+      "low": "",
+      "revealed": true,
+      "text": "$3P/\\rho\\approx2.5\\times10^5$ m²/s², "
+    }
+  },
+  "updatedAt": 1793723293612
+}

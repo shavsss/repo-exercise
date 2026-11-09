@@ -1,0 +1,44 @@
+{
+  "items": {
+    "predict-13d3toq": {
+      "at": 1793864628964,
+      "conf": 1,
+      "grade": "wrong",
+      "high": "",
+      "kind": "predict",
+      "low": "",
+      "revealed": true,
+      "text": "גודל האטום יגדל, המינימום יגדל ולכן אנרגיית הקשר תרד?\n"
+    },
+    "predict-1nqjm0n": {
+      "at": 1793788646149,
+      "conf": 2,
+      "grade": "right",
+      "high": "",
+      "kind": "predict",
+      "low": "",
+      "revealed": true,
+      "text": "א. המרחק והגודל לא ישנה דבר יחס הכוחות כי הוא מודד רק כמה מטען נושאת כל יחידת מסה. \nב. מציבים $q=e$ ו-$m=2m_u$ (מטען אחד לכל שני נוקלאונים) בצורה לחלקיקים זהים:\n\n$\\dfrac{F_e}{F_g}=\\dfrac{k}{G}\\left(\\dfrac{e}{2m_u}\\right)^2=\\dfrac{k\\,e^2}{4\\,G\\,m_u^2}$\n"
+    },
+    "verify-1rh8ivl": {
+      "at": 1793788670537,
+      "checked": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "kind": "verify"
+    },
+    "verify-1y9fw0m": {
+      "at": 1793864272042,
+      "checked": [
+        1,
+        2,
+        3
+      ],
+      "kind": "verify"
+    }
+  },
+  "updatedAt": 1793864629566
+}

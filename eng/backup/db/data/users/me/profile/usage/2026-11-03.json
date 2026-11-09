@@ -1,0 +1,68 @@
+{
+  "day": "2026-11-03",
+  "sessions": {
+    "1b8k79": {
+      "calls": {
+        "claude-opus-5-5": 24
+      },
+      "chars": {
+        "claude-opus-5-5": 29907
+      },
+      "day": "2026-11-03",
+      "errors": {},
+      "lessonMs": 0,
+      "lessonWords": 0,
+      "lessons": 0,
+      "ms": {
+        "claude-opus-5-5": 368655
+      },
+      "session": "1b8k79",
+      "updatedAt": 1793723361083
+    },
+    "bkhsen": {
+      "calls": {
+        "claude-opus-5-5": 1
+      },
+      "chars": {
+        "claude-opus-5-5": 500
+      },
+      "day": "2026-11-03",
+      "errors": {},
+      "lessonMs": 0,
+      "lessonWords": 0,
+      "lessons": 0,
+      "ms": {
+        "claude-opus-5-5": 6094
+      },
+      "session": "bkhsen",
+      "updatedAt": 1793705785078
+    },
+    "p7e6x3": {
+      "calls": {
+        "claude-opus-5-5": 15,
+        "json:claude-opus-5-5": 1,
+        "tier:default": 1
+      },
+      "chars": {
+        "claude-opus-5-5": 139736,
+        "json:claude-opus-5-5": 6560,
+        "tier:default": 17884
+      },
+      "day": "2026-11-03",
+      "errors": {
+        "invalid_json": 1
+      },
+      "lessonMs": 2024784,
+      "lessonWords": 15239,
+      "lessons": 1,
+      "ms": {
+        "claude-opus-5-5": 2352733,
+        "json:claude-opus-5-5": 128025,
+        "tier:default": 83149
+      },
+      "session": "p7e6x3",
+      "updatedAt": 1793728789550
+    }
+  },
+  "updatedAt": 1793728789795
+}
