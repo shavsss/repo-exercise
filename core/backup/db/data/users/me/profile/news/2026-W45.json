@@ -1,0 +1,456 @@
+{
+  "app": "core",
+  "generator": {
+    "runId": "b269f897dd8b",
+    "sha": "28cfda5"
+  },
+  "id": "2026-W45",
+  "items": [
+    {
+      "body": "Defense News ו-Breaking Defense מדווחים ש-Shield AI תרכוש את Echodyne בעסקה של 5.3 מיליארד דולר. לפי Breaking Defense, ההשלמה צפויה בתחילת 2027, ו-4.8 מיליארד דולר ישולמו בסגירה ועוד 500 מיליון עם עמידה ביעדי ביצוע. Echodyne מייצרת מכ\"מי מצב מוצק בטכנולוגיית MESA (Metamaterials Electronically Scanned Array) לגילוי רחפנים. בספטמבר היא זכתה בחוזה של 250 מיליון דולר ל-36 חודשים מכוח המשימה הבין-סוכנותית JIATF-401, ולפי Defense News מנכ\"ל החברה אומר שהביקוש למכ\"מי גילוי רחפנים \"חם\" ויכול לגדול פי עשרה עד 2030. לפי Defense News הטכנולוגיה יכולה לעקוב אחרי רחפני קוואדקופטר קטנים ואחרי יותר מ-1,000 עצמים בו-זמנית; זו טענה שאינה נתמכת במדידה עצמאית. Echodyne תפעל כיחידה בתוך מערכי המשימה של Shield AI. הדיווח עסקי: אין בו נתוני ביצוע של המכ\"ם.",
+      "certainty": "corroborated",
+      "connects": [
+        {
+          "concept": "מערכי מופע",
+          "moduleId": "M1.2",
+          "rel": "next",
+          "why": "MESA הוא מערך סרוק אלקטרונית; M1.2 מסביר אלומה, הגבר וסריקה."
+        },
+        {
+          "concept": "גילוי רחפנים",
+          "moduleId": "M9.7",
+          "rel": "later",
+          "why": "גילוי מטרות קטנות הוא הנושא של המודול; החוזה שהוזכר הוא דוגמה לביקוש."
+        },
+        {
+          "concept": "רכש ובסיס תעשייתי",
+          "moduleId": "M14.2",
+          "rel": "later",
+          "why": "עסקת רכישה עם תשלום מותנה בביצועים היא נתון על מבנה התעשייה."
+        }
+      ],
+      "dek": "שני כלי תקשורת מדווחים על אותה עסקה: טכנולוגיית MESA, חוזה של 250 מיליון דולר ל-JIATF-401 ותשלום מותנה בביצועים.",
+      "domain": "radar",
+      "headline": "Shield AI רוכשת את Echodyne, יצרנית מכ\"מי מערך מופע לגילוי רחפנים, ב-5.3 מיליארד דולר",
+      "id": "n1",
+      "kind": "report",
+      "sanity": {
+        "check": "חשבון: 4.8 + 0.5 מול 5.3 מיליארד; \"פי 10 עד 2030\"",
+        "note": "4.8 + 0.5 = 5.3 עקבי. \"פי עשרה עד 2030\" מארבע שנים שקול לצמיחה של כ-78% בשנה ($10^{1/4}\\approx1.78$); זו הערכת מנכ\"ל, לא נתון.",
+        "result": "pass"
+      },
+      "sources": [
+        {
+          "fetchedAt": 1793921281879,
+          "httpStatus": 200,
+          "openAccess": true,
+          "publishedAt": "2026-11-05",
+          "publisher": "Defense News",
+          "quote": "Echodyne produces next-generation, solid-state radar systems patented as Metamaterials Electronically Scanned Array (MESA) technology.",
+          "sha256": "78403254c6b6f30cdf1354f300ed7baf54cb5bd66417f409d92706e2b60184a6",
+          "tier": "C",
+          "title": "Shield AI to acquire radar maker Echodyne to bust drones",
+          "url": "https://www.defensenews.com/industry/techwatch/2026/11/05/shield-ai-to-acquire-radar-maker-echodyne-to-bust-drones/"
+        },
+        {
+          "fetchedAt": 1793921282362,
+          "httpStatus": 200,
+          "openAccess": true,
+          "publishedAt": "2026-11-05",
+          "publisher": "Breaking Defense",
+          "quote": "Of the $5.3 billion deal, $4.8 billion will be paid out at closing, with another $500 million paid out upon Echodyne meeting specified performance targets.",
+          "sha256": "00518f1e486b791d2972e2d1388204ab92cfba0fc380d0dfbed6584c90727ce9",
+          "tier": "C",
+          "title": "Shield AI acquires radar firm Echodyne in $5.3B deal",
+          "url": "https://breakingdefense.com/2026/11/shield-ai-acquires-radar-firm-echodyne-in-5-3b-deal/"
+        }
+      ],
+      "why": "MESA הוא מערך מופע שבו מכוונים אלומה בלי חלקים נעים, ו-M1.2 יסביר איך. הכתבה מתמקדת בשוק, אבל השאלה ההנדסית היא איזה ביצועי גילוי מאפשרים \"מעל 1,000 עצמים\", וזה יחזור ב-M2 ו-M9.7."
+    },
+    {
+      "body": "שירות המחקר של הקונגרס (CRS) עדכן ב-4 בנובמבר 2026 את ה-Insight IN12568 על Golden Dome. המסמך מגדיר יציבות אסטרטגית כמצב שבו לאף צד אין תמריץ להשתמש ראשון בנשק גרעיני (יציבות משבר) או להגדיל את הארסנל (יציבות מרוץ חימוש). הרקע ההיסטורי: אמנת ABM ב-1972 אושרה בסנאט ב-88 מול 2, ויוזמת ההגנה האסטרטגית של 1983 שינתה את הגישה. לפי ה-CRS, רוסיה טוענת שההגנות האמריקניות הן מאמץ פתוח שנועד לערער את יכולת התגובה שלה, ובהצהרה של רוסיה וסין ממאי 2025 נאמר ש-Golden Dome נועדה לערער את יכולת התגובה הגרעינית שלהן. המסמך מציע שלוש שאלות לקונגרס: מה ההשלכות על הרתעה בעידן של שני יריבים גרעיניים, איך רוסיה וסין עשויות להגיב ובאיזה לוח זמנים, ומה הקשר לבקרת נשק. זה מסמך מדיניות ולא טכני.",
+      "certainty": "official",
+      "connects": [
+        {
+          "concept": "בעיית ההגנה מפני טילים ומדדי יעילות",
+          "moduleId": "M7.1",
+          "rel": "later",
+          "why": "יציבות אסטרטגית היא המסגרת שבה נבחנת תועלת ההגנה."
+        },
+        {
+          "concept": "מידול לחימה ומדדים",
+          "moduleId": "M14.1",
+          "rel": "later",
+          "why": "מודלים של מרוץ חימוש ושל תמריץ הם סוג של מידול שנלמד שם."
+        }
+      ],
+      "dek": "עדכון מ-4 בנובמבר ל-Insight של שירות המחקר של הקונגרס מגדיר יציבות אסטרטגית ושואל שלוש שאלות לפיקוח.",
+      "domain": "models",
+      "headline": "CRS: מה נבדק כשמעריכים את \"כיפת הזהב\" דרך יציבות אסטרטגית",
+      "id": "n2",
+      "kind": "report",
+      "sanity": {
+        "check": "אין מספרי ביצוע בדיווח",
+        "note": "המסמך מדיניות והיסטוריה; אין מספרים לבדוק מעבר לנתון ההצבעה ההיסטורי.",
+        "result": "na"
+      },
+      "sources": [
+        {
+          "fetchedAt": 1793921282746,
+          "httpStatus": 200,
+          "openAccess": true,
+          "publishedAt": "2026-11-04",
+          "publisher": "Congressional Research Service",
+          "quote": "neither side has an incentive to (1) employ nuclear weapons first",
+          "sha256": "570fee3a9a86b3f5dc15a71693ce6fc2221b704d71808a7a65e767cdb258c9fd",
+          "tier": "A",
+          "title": "Golden Dome: Potential Strategic Stability Considerations for Congress",
+          "url": "https://www.EveryCRSReport.com/reports/IN12568.html"
+        }
+      ],
+      "why": "\"הגנה\" נשמעת כמדד הצלחה בודד, אבל M7.1 יראה שמדדי יעילות תלויים גם בתגובת הצד השני. השאלה כאן: איזה מודל מתאר \"תמריץ\", ואילו משתנים הוא צריך."
+    },
+    {
+      "body": "נאס\"א בחרה ב-4 בנובמבר שלוש חברות לפיתוח קונספטים של ממסר חלל בפס Ka שתואמים משימות קיימות בלי שינוי בחומרה על הלוויין. הזוכות והערך המרבי האפשרי עם כל האופציות: Astranis $264.3 מיליון, Global Enterprise Solutions $340.4 מיליון, Viasat $460.9 מיליון. החוזים הם בתמחור קבוע, וממומנים דרך נספח E של ה-BAA בשם NSTEP-3. תקופת הביצוע הראשונית היא מ-4 בנובמבר עד 3 במאי 2027, ואופציות מתמחרות מאריכות את העבודה עד 2029. לפי נאס\"א, ההחלטה נובעת מהעמדה לפרוש בהדרגה את צי לוויני TDRS ולעבור לשירותים מסחריים. נאס\"א רוצה לרכוש פתרונות קצה-לקצה (חלל, קרקע, שיגור, תפעול ואינטגרציה) כאחת מלקוחות רבים בשוק.",
+      "certainty": "official",
+      "connects": [
+        {
+          "concept": "מאזן קשר ופס Ka",
+          "moduleId": "M0.1",
+          "rel": "current",
+          "why": "חישוב הרווח והאובדן ב-dB בפס 20-30 GHz הוא בדיוק מה שנדרש לתכנון ממסר כזה."
+        },
+        {
+          "concept": "תקשורת לוויינית",
+          "moduleId": "M13.10",
+          "rel": "later",
+          "why": "ארכיטקטורת SATCOM וממסרים היא נושא המודול."
+        },
+        {
+          "concept": "עלות ומימון בחלל",
+          "moduleId": "M13.7",
+          "rel": "later",
+          "why": "חוזי מחיר קבוע עם אופציות הם נתון על מבנה העלות."
+        }
+      ],
+      "dek": "חוזי מחיר קבוע לאסטרניס, Global Enterprise Solutions ו-Viasat, בשווי מרבי מצטבר של כ-1.07 מיליארד דולר.",
+      "domain": "space",
+      "headline": "נאס\"א בחרה שלוש חברות לפיתוח ממסרי Ka מסחריים במקום צי TDRS",
+      "id": "n4",
+      "kind": "report",
+      "sanity": {
+        "check": "סכום הערכים המרביים",
+        "note": "264.3 + 340.4 + 460.9 = 1,065.6 מיליון דולר, כלומר כ-1.07 מיליארד; \"שווי מרבי מצטבר\" כולל כל האופציות ולכן אינו עלות צפויה.",
+        "result": "pass"
+      },
+      "sources": [
+        {
+          "fetchedAt": 1793921283509,
+          "httpStatus": 200,
+          "openAccess": true,
+          "publishedAt": "2026-11-04",
+          "publisher": "NASA",
+          "quote": "NASA selected three companies on Wednesday to perform work to develop Ka-band space relay capability concepts that are compatible with current missions in space",
+          "sha256": "907c385a9e36e37b7546e9cb964e693cdb184586b139402c3d854dbfc7e66188",
+          "tier": "A",
+          "title": "NASA Announces Ka-Band Satellite Relay Awards for Space Communications",
+          "url": "https://www.nasa.gov/news-release/nasa-announces-ka-band-satellite-relay-awards-for-space-communications/"
+        }
+      ],
+      "why": "בש2 של M0.1 חישבת מאזן קשר, כולל השפעת גשם בפס Ka (13.98 dB). אותו חשבון קובע מה ממסר כזה צריך לספק. ויש כאן שאלה של עלות: סכום מרבי לא שווה לעלות בפועל."
+    },
+    {
+      "body": "RAND מפרסמת סדרה של שלושה כרכים על ניהול דו-שימושיות בחלל. הכרך השני מסכם סדנה שהתקיימה באפריל 2026 בטוקיו, מבוססת על משתתפים מהאזור ההודו-פסיפי. לפי המסמך, אין מסגרת עולמית של נורמות או ממשל שמטפלת בסיכוני הסלמה הנובעים מכך שמערכות חלל משרתות גם תפקיד אזרחי וגם צבאי. הסדנה בחנה גישה לסיווג: התנהגויות (תמרונים נצפים בחלל, כמו התקרבות והיפגשות) מול השפעות (שימוש בנתוני מערכת כמו תצפית אדמה בפעילות יבשתית). משתתפי הסדנה דירגו אירועי בסיס ואירועים מסלימים כבטוחים, בעייתיים או מסוכנים, והציעו תגובות לכל רף. הסדנה נוספת לשתי סדנאות בוושינגטון ובז'נבה, וביחד הן יזינו דוח רחב יותר על אפשרויות מדיניות. המסמך בן 56 עמודים וממומן על ידי Founders Pledge.",
+      "certainty": "single",
+      "connects": [
+        {
+          "concept": "טקסונומיה של שליטה בחלל",
+          "moduleId": "M13.23",
+          "rel": "later",
+          "why": "ההבחנה בין התנהגות להשפעה היא ציר סיווג נוסף."
+        },
+        {
+          "concept": "משפט חלל והפחתת פסולת",
+          "moduleId": "M13.7",
+          "rel": "later",
+          "why": "המסמך מצביע על חסר בנורמות ובממשל."
+        }
+      ],
+      "dek": "כרך ב' של \"Managing Duality in Space\" מסכם סדנה בטוקיו שבחנה סיווג לפי התנהגויות מול השפעות.",
+      "domain": "models",
+      "headline": "RAND: איך מסווגים פעילות בחלל כמסלימה, לפי התנהגות ולפי השפעה",
+      "id": "n5",
+      "kind": "report",
+      "sanity": {
+        "check": "אין מספרים לבדיקה",
+        "note": "מסמך מדיניות; אין גדלים.",
+        "result": "na"
+      },
+      "sources": [
+        {
+          "fetchedAt": 1793921284025,
+          "httpStatus": 200,
+          "openAccess": true,
+          "publishedAt": "2026-11-02",
+          "publisher": "RAND Corporation",
+          "quote": "No global framework of norms or governance mechanisms specifically addresses escalation risks in space arising from the dual-use nature of space systems",
+          "sha256": "fa104946cce89502344af7e7bf4ad42620febb1e550dff2dd6754ef939c923df",
+          "tier": "B",
+          "title": "Managing Duality in Space",
+          "url": "https://www.rand.org/pubs/conf_proceedings/CFA4003-5.html"
+        }
+      ],
+      "why": "M13.23 מסווג יכולות שליטה בחלל. כאן ההבחנה בין \"התנהגות\" ל\"השפעה\" היא הצעה לציר סיווג, ואפשר לשאול איזה מהם ניתן למדוד מחוץ לחיישן. זה חומר טוב לרעיון מאמר."
+    },
+    {
+      "body": "Defense News מדווח שקונסורציום בהובלת MBDA מתכנן להטיס מדגים של מערכת מלאה של מיירט היפרסוני אירופי, בשם Hydis, עד סוף 2029. הדבר נמסר בתדריך בתערוכת Euronaval. Hydis מתחרה ב-Hydef, בתיאום ספרדי, על 100 מיליון יורו (112 מיליון דולר) של מימון אירופי לשלב ב', והחלטה צפויה בסוף החודש. לפי הכתבה, סין ורוסיה מפתחות כלי גלישה היפרסוניים לתקיפה ולאירופה חסרה יכולת ליירט אותם. השלב הראשון, שנמשך עד מאי 2027, קיבל 80 מיליון יורו מאירופה ועוד 57 מיליון מארבע מדינות, ומטרתו להביא את רמת בשלות הטכנולוגיה ל-3 או 4 בסולם של תשע דרגות. בשלב ב' הקונסורציום יגדל מ-19 חברות ל-36 שותפים ו-14 קבלני משנה; Safran תספק חיישני הנחיה סופית, ו-Thales, Saab ו-Leonardo יספקו יכולות כמו תקשורת וקישורי נתונים. הדיווח מבוסס על דברי MBDA עצמה.",
+      "certainty": "single",
+      "connects": [
+        {
+          "concept": "הנדסת מערכות: מחזור החיים, ניסויים",
+          "moduleId": "M7.10",
+          "rel": "later",
+          "why": "רמת בשלות, שלבי מימון וניסוי מדגים הם אותו תהליך."
+        },
+        {
+          "concept": "דואה היפרסונית",
+          "moduleId": "M6.9",
+          "rel": "later",
+          "why": "המיירט מוגדר מול מטרות שמתמרנות בטיסה היפרסונית."
+        }
+      ],
+      "dek": "Hydis מתחרה ב-Hydef על 100 מיליון יורו מימון שלב ב', וההחלטה מתוכננת לסוף החודש.",
+      "domain": "cost",
+      "headline": "MBDA מתכננת להטיס מדגים מערכתי של מיירט היפרסוני אירופי עד סוף 2029",
+      "id": "n6",
+      "kind": "report",
+      "sanity": {
+        "check": "סדר גודל: המרה ויורו, וסכום מימון",
+        "note": "100 מיליון יורו = 112 מיליון דולר (שער 1.12). 80 + 57 = 137 מיליון יורו לשלב א', עקבי עם \"80 מיליון מאירופה ועוד 57 מארבע מדינות\".",
+        "result": "pass"
+      },
+      "sources": [
+        {
+          "fetchedAt": 1793921286186,
+          "httpStatus": 200,
+          "openAccess": true,
+          "publishedAt": "2026-11-05",
+          "publisher": "Defense News",
+          "quote": "plans to fly a full-systems demonstrator by the end of 2029, project leader MBDA said in a briefing at the Euronaval maritime-defense exhibition",
+          "sha256": "0e49da4438a64349255635de86de7ffebf12d80fc6f5e4fb63f5643c4e477ada",
+          "tier": "C",
+          "title": "MBDA plans to fly ‘fat’ hypersonic interceptor demonstrator before end-2029",
+          "url": "https://www.defensenews.com/global/europe/2026/11/05/mbda-plans-to-fly-fat-hypersonic-interceptor-demonstrator-before-end-2029/"
+        }
+      ],
+      "why": "שני מספרים בולטים: TRL 3-4 (בשלות נמוכה) ותאריך מדגים עד 2029. M7.10 מלמד שהפער ביניהם הוא תקציב וסיכון. כדאי לשאול איזה ניסוי בודק את ההנחה המרכזית בכל שלב."
+    },
+    {
+      "body": "כיול רעש התהליך הוא בעיה מרכזית בקביעת מסלול רציפה. אם המטריצה קטנה מדי המסנן בטוח מדי בעצמו, ואם גדולה מדי הוא שמרני, ובשני המקרים השגיאה גדלה והשונות המדווחת אינה מתארת אותה. לפי המחברים אין שיטה מקובלת לאבחון כיול במצב מרובה חיישנים. המאמר מציג את מבחן HAC-DANIS: ה-NIS של כל מדידה מחולק בממדה כדי להעמיד חיישנים מכל ממד על סקאלה משותפת, והשגיאה התקנית של הממוצע מחושבת בשיטת Newey-West. המבחן מסתמך על רצף החידושים בלבד. הוא הופעל על מסנן UKF שעיבד תצפיות סימולציה של לייזר, טלסקופ ומכ\"ם על ארבעה לוויינים במסלול נמוך, ודחה שמונה תצורות לא מכוילות עם סימן הטעות, ולא דחה את ארבע המכוילות. זה מאמר מקדים, ובסימולציה בלבד.",
+      "certainty": "preprint",
+      "connects": [
+        {
+          "concept": "שערוך ודיוק מדידה",
+          "moduleId": "M0.6",
+          "rel": "next",
+          "why": "שונות המדידה והשונות המדווחת הן הבסיס של המבחן."
+        },
+        {
+          "concept": "עקיבה ומסנני קלמן",
+          "moduleId": "M2.15",
+          "rel": "later",
+          "why": "בדיקת כיול של רעש התהליך היא חלק מתכנון מסנן עקיבה."
+        }
+      ],
+      "dek": "HAC-DANIS בודק כיול רק מרצף החידושים, בלי אמת קרקע, ומראה את כיוון הטעות.",
+      "domain": "cost",
+      "headline": "מבחן סטטיסטי לבדיקת כיול רעש התהליך של מסנן קלמן במעקב מסלול מרובה חיישנים",
+      "id": "n8",
+      "kind": "paper",
+      "sanity": {
+        "check": "אין מספרים נוספים בתקציר",
+        "note": "התוצאה מספרית פשוטה (8 נדחו, 4 לא); אין חישוב לבדוק.",
+        "result": "na"
+      },
+      "sources": [
+        {
+          "fetchedAt": 1793921305234,
+          "httpStatus": 200,
+          "openAccess": true,
+          "publishedAt": "2026-11-02",
+          "publisher": "arXiv",
+          "quote": "the test rejects the eight miscalibrated process noise configurations with the sign of their miscalibration and does not reject the four calibrated with it.",
+          "sha256": "a296f975a16465e1020771107826029c82a19936870813c98ed66820ba779ba4",
+          "tier": "B",
+          "title": "A heteroskedasticity and autocorrelation consistent test for process noise calibration of Kalman filters in multi-sensor orbit determination",
+          "url": "https://arxiv.org/abs/2611.03477v1"
+        }
+      ],
+      "why": "M0.6 בונה אומדן מהמדידות ושונות המדידה. כאן שואלים אם המסנן עצמו אומר אמת על אי-הוודאות שלו. זו שאלה שאפשר לשאול על כל מערכת עקיבה ב-M2.15."
+    },
+    {
+      "body": "3GPP מרחיבה את NTN של 6G לפסי S, Ku ו-Ka, אבל מודל הערוץ ללוויינים נשאר TR 38.811 מ-2020. המחברים מזהים כמה בעיות: פרמטרים המבוססים על מעט סביבות, היעדר פיזור דופלר שנגרם מתנועת הלוויין והשפעת אנטנות כיווניות, וחוסר שקיפות בהליך יצירת הערוץ. הם גוזרים את הפרמטרים מחדש במעקב קרניים על סביבות עירוניות וכפריות לפי סטטיסטיקות בנייה של ITU-R. לפי התוצאות, TR 38.811 מעריך יתר את גורם K בגבהים נמוכים, ואובדן הקלאטר בפס Ka חורג מהערכות מעקב הקרניים ביותר מ-15 dB בעיר. המודל גם מעריך חסר את פיזור ההשהיה הכפרי בגבהים נמוכים. המחברים מכמתים את פיזור הדופלר שהתעלמו ממנו, ומראים שמחולל הערוץ המקורי מעריך חסר את גורם K עם אלומה כיוונית. מאמר מקדים, והתוצאות הן מהדמיות מעקב קרניים ולא ממדידות בשטח.",
+      "certainty": "preprint",
+      "connects": [
+        {
+          "concept": "dB, מאזן קשר ומרווח",
+          "moduleId": "M0.1",
+          "rel": "current",
+          "why": "הפרש של 15 dB באובדן קלאטר משנה את מרווח הקשר לפי (19), ובטווח לפי כלל 6 dB לכל כפל טווח."
+        },
+        {
+          "concept": "התפשטות ורב-נתיביות",
+          "moduleId": "M1.3",
+          "rel": "next",
+          "why": "גורם K ופיזור השהיה הם תיאורי רב-נתיביות."
+        },
+        {
+          "concept": "תקשורת לוויינית",
+          "moduleId": "M13.10",
+          "rel": "later",
+          "why": "NTN הוא מקרה של SATCOM בשילוב סלולרי."
+        }
+      ],
+      "dek": "מאמר מציע לגזור מחדש את פרמטרי הערוץ ל-6G NTN בעזרת מעקב קרניים, ומשלים את מה שחסר בו: דופלר ואנטנות כיווניות.",
+      "domain": "models",
+      "headline": "מודל הערוץ של 3GPP ללוויינים (TR 38.811) מנופח בפס Ka ביותר מ-15 dB בעיר",
+      "id": "n9",
+      "idea": {
+        "hours": 3,
+        "kind": "article",
+        "pitch": "תרגיל במספרים: לחשב טווח קשר ב-Ka עם אובדן קלאטר של המודל המקורי ועם 15 dB פחות, ולהראות כמה הטווח משתנה. ניתוח בלבד ממקורות פתוחים.",
+        "title": "מאזן קשר מול שני מודלי קלאטר",
+        "uses": [
+          "M0.1",
+          "M1.3"
+        ]
+      },
+      "kind": "paper",
+      "sanity": {
+        "check": "המרת 15 dB לגורם הספק ולטווח",
+        "note": "$10^{15/10}=31.6$ בהספק; בקשר חד-כיווני שבו $L\\propto d^2$, 15 dB שקולים לגורם $10^{15/20}=5.6$ בטווח. חישוב שלי, להמחשת סדר הגודל.",
+        "result": "pass"
+      },
+      "sources": [
+        {
+          "fetchedAt": 1793921304421,
+          "httpStatus": 200,
+          "openAccess": true,
+          "publishedAt": "2026-11-02",
+          "publisher": "arXiv",
+          "quote": "The Ka-band clutter loss (CL) also exceeds the RT estimates by more than 15 dB in urban cases.",
+          "sha256": "cf35e74d33c84a251f39317a8e152c92e29ccc704c751b0f01f1517f1a173d2d",
+          "tier": "B",
+          "title": "Beyond TR 38.811 for 6G NTN Channel Models",
+          "url": "https://arxiv.org/abs/2611.03869v1"
+        }
+      ],
+      "why": "15 dB הם פי 31.6 בהספק, כלומר הפרש גדול מאוד במאזן קשר. M0.1 נותן לך את הכלי להבין שבמודל שמנופח ב-15 dB כל מאזן שמסתמך עליו מטעה, ואת הפער הזה אפשר להמיר לטווח."
+    },
+    {
+      "body": "במערכת ISAC אותו מערך אנטנות משמש גם ליצירת אלומה אל משתמשים וגם לאומדן זווית ההגעה. המאמר בוחן איך שגיאות גיין, פאזה ומיקום ברמת האלמנט משפיעות על שתי המשימות. כל מערך נותן שיא מתאם בזווית האמיתית, עם גובה ורוחב סופיים וסביבו אונות צד. הפרעות מזיזות את השיא, מנמיכות ומרחיבות אותו ומעלות אונות צד. פירוק יחיד מסביר: התאמה בריבועים פחותים משוקללת בגיין של שגיאות הפאזה פוצלה לשיפוע שמזיז את השיא ושארית שמעבירה הספק לאונות צד. אלומה שמכוונת לכיוון החזק נפגעת רק מהנמכת השיא, אבל אומדן הזווית נפגע גם מההזזה ללא רעש. לכן המקרים הגרועים של שתי המשימות כמעט זרים. המקרה הגרוע ללוקליזציה הוא פגם בודד בחיבור בין שני תת-מערכים, ושגיאתו ביחס לרוחב האונה הראשית אינה קטנה עם מספר האנטנות. מאמר מקדים.",
+      "certainty": "preprint",
+      "connects": [
+        {
+          "concept": "מערכי מופע ואנטנות מתקדמות",
+          "moduleId": "M1.2",
+          "rel": "next",
+          "why": "אונות צד, רוחב אלומה ושגיאות אלמנטים הם הנושא המרכזי."
+        },
+        {
+          "concept": "מדידת זווית",
+          "moduleId": "M2.14",
+          "rel": "later",
+          "why": "אומדן הזווית בעקבות הזזת שיא קשור לדיוק זווית."
+        }
+      ],
+      "dek": "שגיאות גיין, פאזה ומיקום באלמנטים פוגעות בכיוון האלומה ובאומדן הזווית בצורות שונות.",
+      "domain": "radar",
+      "headline": "מערך ISAC אחד, שני מקרים גרועים: כיול של מערך דו-תכליתי חייב להיבדק לשתי המשימות",
+      "id": "n10",
+      "kind": "paper",
+      "sanity": {
+        "check": "אין מספרים בתקציר",
+        "note": "תוצאה אנליטית; התקציר אינו מציג גדלים.",
+        "result": "na"
+      },
+      "sources": [
+        {
+          "fetchedAt": 1793921303597,
+          "httpStatus": 200,
+          "openAccess": true,
+          "publishedAt": "2026-11-04",
+          "publisher": "arXiv",
+          "quote": "The worst case for localization is a single defect at the junction between two subarrays, and its error, relative to the main-lobe width, does not decrease with the number of antennas.",
+          "sha256": "bb047443cacd00dfe398d39e1e634de969af228e7aaa2244cdb221cb086d4bf9",
+          "tier": "B",
+          "title": "One ISAC Array, Two Worst Cases: Hardware Impairments in Beamforming and AoA Estimation",
+          "url": "https://arxiv.org/abs/2611.06235v1"
+        }
+      ],
+      "why": "ההבחנה בין שני מקרים גרועים לאותה מערכת היא דוגמה לכך ש\"המקרה הגרוע\" תלוי במה שמודדים, בדיוק כמו ההבחנה בין $L^2$ ל-$L^\\infty$ שנלמדה ב-M0.1 ש4. M1.2 ייתן את הכלים לאלומה, ו-M2.14 לאומדן זווית."
+    }
+  ],
+  "lead": "n4",
+  "number": 1,
+  "picks10": [
+    "n4",
+    "n6"
+  ],
+  "publishedAt": 1793921903816,
+  "sections": [
+    {
+      "id": "radar",
+      "items": [
+        "n1",
+        "n10"
+      ],
+      "title": "מכ\"ם ול\"א"
+    },
+    {
+      "id": "space",
+      "items": [
+        "n4"
+      ],
+      "title": "חלל"
+    },
+    {
+      "id": "cost",
+      "items": [
+        "n6",
+        "n8"
+      ],
+      "title": "עלות ובדיקות"
+    },
+    {
+      "id": "models",
+      "items": [
+        "n2",
+        "n5",
+        "n9"
+      ],
+      "title": "מודלים מבצעיים ותקנים"
+    }
+  ],
+  "snapshot": {
+    "current": "M0.1",
+    "done": 0,
+    "upcoming": [
+      "M0.2",
+      "M0.3",
+      "M0.4"
+    ]
+  },
+  "stats": {
+    "candidates": 177,
+    "dropped": {
+      "verifier_unsupported_claim": 3
+    },
+    "fetched": 20,
+    "verified": 8
+  },
+  "window": {
+    "from": "2026-10-30",
+    "to": "2026-11-05"
+  }
+}

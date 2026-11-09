@@ -1,0 +1,24 @@
+{
+  "day": "2026-11-07",
+  "sessions": {
+    "tk0f4m": {
+      "calls": {
+        "claude-opus-5-5": 58
+      },
+      "chars": {
+        "claude-opus-5-5": 63572
+      },
+      "day": "2026-11-07",
+      "errors": {},
+      "lessonMs": 0,
+      "lessonWords": 0,
+      "lessons": 0,
+      "ms": {
+        "claude-opus-5-5": 794478
+      },
+      "session": "tk0f4m",
+      "updatedAt": 1794062410075
+    }
+  },
+  "updatedAt": 1794062410303
+}

@@ -1,0 +1,28 @@
+{
+  "app": "core",
+  "domains": [
+    {
+      "confidence": "low",
+      "evidence": "נלמדו שלושת שיעורי M0.1 (דציבל, משוואת הקשר, קשרים מעשיים); אין עדיין תשובות, כיול או מבחן, ולכן הציון לא זז.",
+      "id": "MIL · Foundations: the quantitative toolkit",
+      "lastEvidenceAt": 1793476625998,
+      "name": "ארגז כלים כמותי",
+      "score": 1,
+      "targetScore": 4,
+      "trend": "flat"
+    },
+    {
+      "confidence": "low",
+      "evidence": "נלמד אובדן התפשטות והנחתה אטמוספרית במשוואת הקשר (M0.1 ש2); שיעור הגל ב-M0.2 נקטע בלי טקסט, ולכן אין ראיה חדשה.",
+      "id": "MIL · Antennas and propagation",
+      "lastEvidenceAt": 1793182385434,
+      "name": "אנטנות והתפשטות",
+      "score": 0.5,
+      "targetScore": 4,
+      "trend": "flat"
+    }
+  ],
+  "note": "הלילה לא נמצאו תשובות חדשות, כיול או level3: הציונים נשארו, והביטחון נמוך.",
+  "updatedAt": 1793484664171,
+  "week": "2026-W44"
+}

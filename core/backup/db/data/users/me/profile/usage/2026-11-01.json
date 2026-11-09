@@ -1,0 +1,27 @@
+{
+  "day": "2026-11-01",
+  "sessions": {
+    "on6z28": {
+      "calls": {
+        "claude-opus-5-5": 6,
+        "json:claude-opus-5-5": 4
+      },
+      "chars": {
+        "claude-opus-5-5": 120967,
+        "json:claude-opus-5-5": 33943
+      },
+      "day": "2026-11-01",
+      "errors": {},
+      "lessonMs": 0,
+      "lessonWords": 0,
+      "lessons": 0,
+      "ms": {
+        "claude-opus-5-5": 1374715,
+        "json:claude-opus-5-5": 528927
+      },
+      "session": "on6z28",
+      "updatedAt": 1793490207560
+    }
+  },
+  "updatedAt": 1793490207793
+}

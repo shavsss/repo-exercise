@@ -1,0 +1,24 @@
+{
+  "day": "2026-11-05",
+  "sessions": {
+    "66836m": {
+      "calls": {
+        "claude-opus-5-5": 3
+      },
+      "chars": {
+        "claude-opus-5-5": 14954
+      },
+      "day": "2026-11-05",
+      "errors": {},
+      "lessonMs": 0,
+      "lessonWords": 0,
+      "lessons": 0,
+      "ms": {
+        "claude-opus-5-5": 129010
+      },
+      "session": "66836m",
+      "updatedAt": 1793880584550
+    }
+  },
+  "updatedAt": 1793880584809
+}

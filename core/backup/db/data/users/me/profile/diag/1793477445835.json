@@ -1,0 +1,12 @@
+{
+  "at": 1793477445834,
+  "module": "M0.2",
+  "results": {
+    "full-no-plan": "ok (claude-opus-5-5)",
+    "lean-full": "ok (claude-opus-5-5)",
+    "lean-no-memory": "ok (claude-opus-5-5)",
+    "lean-no-pages": "ok (claude-opus-5-5)"
+  },
+  "systemBytes": 70959,
+  "turnBytes": 67635
+}

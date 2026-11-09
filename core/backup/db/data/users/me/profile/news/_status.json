@@ -1,0 +1,16 @@
+{
+  "counts": {
+    "candidates": 177,
+    "drafted": 11,
+    "fetched": 20,
+    "verified": 8
+  },
+  "dropped": {
+    "verifier_unsupported_claim": 3
+  },
+  "issueId": "2026-W45",
+  "lastRun": 1793836000000,
+  "ok": true,
+  "refusals": [],
+  "usageEstimate": "about 0.4M tokens; short issue (8 items); quotas for learned/current links not reachable since nothing is done yet"
+}

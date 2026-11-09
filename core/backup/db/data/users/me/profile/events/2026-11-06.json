@@ -1,0 +1,86 @@
+{
+  "day": "2026-11-06",
+  "entries": [
+    {
+      "card": "cmw5er0z3g4a",
+      "cut": false,
+      "discuss": true,
+      "id": "1793995811631-ffbno",
+      "kind": "ask",
+      "lesson": 1,
+      "level": 1,
+      "model": "claude-opus-5-5",
+      "moduleId": "M0.1",
+      "ts": 1793995811631,
+      "type": "consult.ask",
+      "words": 185
+    },
+    {
+      "card": "cmw5er0z3g4a",
+      "cut": false,
+      "discuss": true,
+      "id": "1793995858276-ly5qo",
+      "kind": "ask",
+      "lesson": 1,
+      "level": 1,
+      "model": "claude-opus-5-5",
+      "moduleId": "M0.1",
+      "ts": 1793995858276,
+      "type": "consult.ask",
+      "words": 124
+    },
+    {
+      "card": "cmw5er0z3g4a",
+      "cut": false,
+      "discuss": true,
+      "id": "1793996011135-8u53d",
+      "kind": "ask",
+      "lesson": 1,
+      "level": 1,
+      "model": "claude-opus-5-5",
+      "moduleId": "M0.1",
+      "ts": 1793996011135,
+      "type": "consult.ask",
+      "words": 143
+    },
+    {
+      "card": "cmw5er0z3g4a",
+      "cut": false,
+      "discuss": true,
+      "id": "1793996227860-7lv8t",
+      "kind": "ask",
+      "lesson": 1,
+      "level": 1,
+      "model": "claude-opus-5-5",
+      "moduleId": "M0.1",
+      "ts": 1793996227860,
+      "type": "consult.ask",
+      "words": 145
+    },
+    {
+      "card": "cmw5er0z3g4a",
+      "cut": false,
+      "discuss": true,
+      "id": "1793996291624-o729t",
+      "kind": "ask",
+      "lesson": 1,
+      "level": 1,
+      "model": "claude-opus-5-5",
+      "moduleId": "M0.1",
+      "ts": 1793996291624,
+      "type": "consult.ask",
+      "words": 123
+    },
+    {
+      "conf": 3,
+      "grade": "right",
+      "id": "M0.1__1__1axc1bw",
+      "kind": "mcq",
+      "lesson": 1,
+      "moduleId": "M0.1",
+      "ts": 1793996862306,
+      "type": "practice.answer"
+    }
+  ],
+  "updatedAt": 1793996865533
+}

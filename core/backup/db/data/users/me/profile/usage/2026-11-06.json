@@ -1,0 +1,48 @@
+{
+  "day": "2026-11-06",
+  "sessions": {
+    "5apjih": {
+      "calls": {
+        "claude-opus-5-5": 20,
+        "json:claude-opus-5-5": 5,
+        "tier:default": 1
+      },
+      "chars": {
+        "claude-opus-5-5": 188572,
+        "json:claude-opus-5-5": 59719,
+        "tier:default": 9044
+      },
+      "day": "2026-11-06",
+      "errors": {},
+      "lessonMs": 4148660,
+      "lessonWords": 21394,
+      "lessons": 1,
+      "ms": {
+        "claude-opus-5-5": 3407189,
+        "json:claude-opus-5-5": 772039,
+        "tier:default": 44444
+      },
+      "session": "5apjih",
+      "updatedAt": 1793971552550
+    },
+    "tk0f4m": {
+      "calls": {
+        "claude-opus-5-5": 5
+      },
+      "chars": {
+        "claude-opus-5-5": 3977
+      },
+      "day": "2026-11-06",
+      "errors": {},
+      "lessonMs": 0,
+      "lessonWords": 0,
+      "lessons": 0,
+      "ms": {
+        "claude-opus-5-5": 56353
+      },
+      "session": "tk0f4m",
+      "updatedAt": 1793996295625
+    }
+  },
+  "updatedAt": 1793996295859
+}
