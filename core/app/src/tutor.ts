@@ -12,13 +12,11 @@ import { auditLong, namedModules, type AuditMark, applyRepair } from "./lessonAu
 import { decideLine, decideSlot } from "./lessonGate";
 import { LEGACY_RULES, SYSTEM_PROMPT, libraryList } from "./prompt";
 import type { Runtime, SampleTool } from "./runtime";
-import { BOOK_PART, BOOK_PLAN, LESSON_WORDS, OUTLINE_FIX, lessonWords, normalizeOutline, orderProblems, outlineCheckPrompt, parseOutlineReview, partSections, tightenPrompt, validOutline, wordCount, type BookOutline } from "./bookRules";
+import { BOOK_PART, BOOK_PLAN, LESSON_WORDS, OUTLINE_FIX, formProblems, lessonWords, normalizeOutline, orderProblems, outlineCheckPrompt, parseOutlineReview, partSections, tightenPrompt, validOutline, wordCount, type BookOutline } from "./bookRules";
 import { NOTE_KIND_LABEL, type Activity, type Effort, type LessonNote, type LessonSpec, type Mode, type NoteKind, type StoredMessage } from "./types";
 
 const math = create(all, {});
 const MODEL = "claude-opus-5-5";
-/** Explanations in a lesson (questions in its conversation) are answered by Sonnet; lessons, checks and the quiz stay on Opus. */
-const EXPLAIN_MODEL = "claude-sonnet-5-5";
 const enc = new TextEncoder();
 const bytes = (s: string) => enc.encode(s).length;
 /** Leave room under the 256 KiB input cap for the tool rounds of this answer. */
@@ -477,28 +475,17 @@ export async function askTutor(opts: Base & { mode: Mode; text: string; images: 
   // a long lesson in the history goes out as its chapters list and the chapters closest to the question
   const focused = focusHistory(history, questionOf(history, text, continuing));
   const turns = fitHistory(focused.history, bytes(last), continuing, { refs: hasRefs(m) }, CHAT_HISTORY_BYTES);
-  const explain = mode === "clarify" || mode === "free";
   const tools = rt.canUseTools ? [...buildTools(cb, moduleDocs(m)), ...(focused.chapters.length > 1 ? [chapterTool(focused.chapters, cb)] : [])] : undefined;
-  const run = (model: string) =>
-    rt.sample!([...turns, { role: "user", content: last }], {
-      model,
-      modelTier: "complex",
-      effort,
-      signal,
-      ...(tools ? { tools } : { cache: false }),
-      ...(images.length && rt.canSendImages ? { images } : {}),
-      onText: ({ text }) => cb.onText(text),
-    });
-  if (!explain) return run(MODEL);
-  // Sonnet answers; if it fails (not served, refused, empty), Opus answers instead
-  try {
-    const res = await run(EXPLAIN_MODEL);
-    if (res.text.trim()) return res;
-  } catch (e) {
-    if (signal?.aborted || (e as { code?: string })?.code === "cancelled") throw e;
-  }
-  cb.onText("");
-  return run(MODEL);
+  // every answer in a lesson's conversation is Opus's (10.11: Sonnet's explanations were too weak for the learner)
+  return rt.sample!([...turns, { role: "user", content: last }], {
+    model: MODEL,
+    modelTier: "complex",
+    effort,
+    signal,
+    ...(tools ? { tools } : { cache: false }),
+    ...(images.length && rt.canSendImages ? { images } : {}),
+    onText: ({ text }) => cb.onText(text),
+  });
 }
 
 /** Reads one chapter of the lesson whose question this is (the history sends only the chapters closest to it). */
@@ -628,9 +615,9 @@ async function checkOutline(o: { rt: Runtime; plan: PartPlan; planTurn: string; 
   for (let round = 0; round < 2; round++) {
     o.cb.onStatus?.(round ? "בודק שוב את סדר תוכן העניינים" : "בודק את סדר תוכן העניינים: כל מושג מוגדר לפני שמשתמשים בו");
     const review = parseOutlineReview(await o.rt.sample!.json<unknown>(outlineCheckPrompt(plan.outline!, o.title), { model: MODEL, modelTier: "complex", effort: "medium", signal: o.signal, cache: false }).catch(() => null));
-    const problems = [...orderProblems(plan.outline!), ...(review?.problems ?? [])];
+    const problems = [...orderProblems(plan.outline!), ...formProblems(plan.outline!), ...(review?.problems ?? [])];
     if (!problems.length) break;
-    o.cb.onStatus?.(`מתקן את תוכן העניינים (${problems.length} בעיות סדר)`);
+    o.cb.onStatus?.(`מתקן את תוכן העניינים (${problems.length} בעיות)`);
     const fixed = await ask(OUTLINE_FIX({ problems, verdict: "fix" }));
     if (!fixed || !Array.isArray(fixed.parts) || !fixed.parts.length || !validOutline(fixed.outline)) break;
     plan = { ...fixed, outline: normalizeOutline(fixed.outline) };

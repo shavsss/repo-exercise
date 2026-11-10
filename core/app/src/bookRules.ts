@@ -22,7 +22,9 @@ export interface OutlineSection {
   case?: string;
   /** the word budget of the subsection (its weight in the lesson) */
   words?: number;
-  /** the visualization that carries its idea: chart, svg diagram, mermaid, table, figure, anim or sim, and what it shows */
+  /** the visualizations that carry its ideas (10.11: one or more per subsection): chart, svg diagram, mermaid, table, figure, anim or sim, each with what it shows */
+  visuals?: string[];
+  /** a single planned visualization (plans written before 10.11) */
   visual?: string;
   /** its practice questions: kind and the aspect each tests (practice.ts) */
   questions?: string[];
@@ -32,6 +34,8 @@ export interface OutlineChapter {
   title: string;
   /** the opening question of the chapter */
   question: string;
+  /** the one story the chapter tells, in a sentence: from which problem to which ability (10.11) */
+  thread?: string;
   sections: OutlineSection[];
   /** the chapter's comparison and its closing case study */
   comparison?: string;
@@ -51,15 +55,18 @@ THE LESSON AS CHAPTERS OF A BOOK (these rules override every earlier rule about 
 - The course is one book, this module a booklet in it, this lesson one or more chapters of it. Number the chapters from ${chapterStart}. A chapter is 3 to 7 numbered subsections (${chapterStart}.1, ${chapterStart}.2, …) that build on each other; each subsection is a few paragraphs, each paragraph opening with a short bold run-in heading (for example **הקדמה.** … **חשיבה.** … **תכנון.** … **מה מחבר ביניהן.** …).
 - Plan the full outline before anything else, in "outline". For each subsection: the one question it answers; "from_prev", what of the previous subsection it continues (the question left open, the limit just found, the tool now available); "needs", every term or symbol it uses without defining it; "defines", every term, symbol, formula and result it defines, each marked "s" (for the summary: a result, formula, method or central definition the learner will use as a working tool in later lessons; about 5 to 12 per chapter) or "a" (an aid: scaffolding for this development, and plain vocabulary the prose defines on the way, such as a device name or an everyday unit); "paragraphs", its run-in headings in order; and where it has one, its comparison, its critique and its short case.
 - Order: every term in "needs" is in "known" or defined by an earlier subsection. Nothing is used before it is defined, and no subsection explains what an earlier one already used. If a subsection cannot say what of the previous one it continues, the order is wrong or it belongs to another chapter. Organize by the logic of the development, not by the order of the pages.
-- The learner knows no physics and only the mathematics he has studied (see the course memory): charge, energy, momentum, standard deviation, a field, a bound and the like are defined the first time they appear. "known" lists only what the course memory or an earlier lesson really taught.
-- Each central idea follows its development: why the problem is interesting and what did not work without it; how it was approached; the development step by step and why each step is needed; what came out, what it means, and where it breaks or stays open. An analogy only where it helps, never in place of the development.
+- The learner knows no physics and only the mathematics he has studied (see the course memory). Background he lacks (charge, energy, momentum, a field, a unit, a device, standard deviation) is explained where the story first needs it, in a sentence or a short paragraph, with its picture when it has one; it goes into "defines" as "a" and never gets a definition block of its own. "known" lists only what the course memory or an earlier lesson really taught.
+- The thread (10.11, the learner's decision): the lesson reads as one continuous story, not a run of definitions. Give each chapter a "thread": one sentence, from which real problem to which ability. Every subsection opens by placing itself on that thread in plain words: where we are, what is still missing for the problem, and why the next idea is needed now (the practical stake: what an engineer could not do without it), never only "to connect formula A with B". Background comes before it is needed: if the problem needs a picture of the world first (what a wave is, what an antenna does), that picture is the start of the chapter, told as background, not a list of terms.
+- Density: a subsection introduces at most one central new concept and the result it leads to (at most two "s" items) and about four new terms in all. Never two definitions in a row: between two definition blocks stands the development that needs the second. When the material needs more, split it into more subsections, or move the background earlier.
+- Each new concept in this order: the need (in plain words); the picture (its visual) and the idea in plain words; only then the precise general definition (a definition block, for an "s" concept); how it is built; and what it lets us do now, with one short computed case. The definition stays general and comes before any example of it.
+- Each central idea follows its development: why the problem is interesting and what did not work without it; how it was approached; the development step by step and why each step is needed; what came out, what it means, and where it breaks or stays open. An analogy is welcome as a way in, followed by the real mechanism, never in place of it.
 - Every chapter has at least one comparison (methods, models or alternatives, in prose or a table), a critical look at each central idea (the assumptions it rests on, who disputes it, where it fails), short cases with numbers inside the subsections, and one case study at its end that ties the chapter together with numbers the reader can check.
 - Length (a budget, not a target): the whole lesson is at most ${LESSON_WORDS} words of prose and blocks together (exercises and the keep block included), and less when the material is light. Give every subsection a "words" budget by its weight: a central result with its derivation gets more (1,200 to 2,000), a supporting idea less (400 to 900), a topic a named later module teaches in full a short anchor. Completeness and depth come first: the budget is kept by cutting repetition, second examples, long cases and connections, never a definition, a derivation step or the explanation of a formula's factors. Each chapter's case study is at most about 900 words.
 - Practice (the system grades every answer, never the learner, and the lesson below an open question stays closed until he answers or skips it): every subsection ends with 1 to 3 practice questions, about 10 to 15 in the lesson, and each chapter closes with a mixed set of 3 to 5 from all its subsections. A question asks ONLY about what this subsection or an earlier one taught in full: never about a topic only introduced, an anchor, a first look at a later module, an illustration from a field, or anything the lesson has not yet explained, and every number it needs is in the lesson or in the question. Rotate the kinds inside each chapter, each question on a different aspect (the concept, a computation, a new case, reading a graph or a drawing, catching an error): mcq (four options; every wrong option is a real misconception: units, a sign, a factor of 2 or 10, mixing two quantities; every option has its explanation), numeric (the answer, its unit, a tolerance, and one to three typical wrong values with what each reveals), explain (a short written answer: two to four key ideas and a model answer). Aim for questions a learner who read carefully answers right 70 to 85% of the time. Plan them in each subsection's "questions" (kind and aspect). These replace think, predict, errorhunt, lab and exercise blocks, which a book lesson does not use.
-- Visualization carries the ideas: plan a "visual" for every subsection that has a central idea, about one per 800 to 1,000 words (12 to 18 in a full lesson), chosen by the kind of idea: a relation between quantities is a chart (computed points); a geometry, a layout or a system's parts is an svg diagram; a chain, a process or a link budget is a mermaid diagram; a comparison of several items is a table; a book figure is a figure block; something that changes in time is an anim or a sim. A visual replaces prose (it is inside the word budget), never repeats it: one sentence before it says what to look at, one after says what it shows and what it teaches; sometimes ask the reader first what shape he expects.
+- Visualization carries the ideas (10.11, the learner's decision: more diagrams, drawings and figures): plan "visuals" for every subsection, at least one each and about one per 500 to 600 words (24 to 30 in a full lesson). Every central concept gets its visual where it is introduced, before or beside its definition, never only after it; anything with a direction, a shape, a layout or a change in time is drawn before it is formalized. Use the book's own figures of the lesson's pages wherever they show the idea (figure blocks), and draw the rest. Choose by the kind of idea: a relation between quantities is a chart (computed points); a geometry, a layout or a system's parts is an svg diagram; a chain, a process or a link budget is a mermaid diagram; a comparison of several items is a table; a book figure is a figure block; something that changes in time is an anim or a sim. A visual replaces prose (it is inside the word budget), never repeats it: one sentence before it says what to look at, one after says what it shows and what it teaches; sometimes ask the reader first what shape he expects.
 - Blocks serve the prose; no step of the argument lives only in a block. In the flow, as many as the ideas need: definition, formula, figure, chart, table, svg, mermaid; the practice questions (mcq, numeric, explain) at the end of each subsection; keep (at the end of the lesson). Per chapter, at the end of a subsection only: at most two of verify, domain, and at most two of anim, sim, scene3d, interactive, plus the chapter's one casestudy at its end, and a decide block where the plan holds one. This limit overrides the level-3 counts (predict, verify, errorhunt, lab) and the connection rules (fieldmap and domain blocks per result): a check, a prediction or a mapping beyond it is written in the prose of its subsection. Not used: think, predict, errorhunt, lab and exercise (the practice questions replace them), erratum (a real error of the source is one sentence in the prose; scan and OCR errors are never mentioned, the lesson just uses the right value), story (the chapter opens in prose), plan, today, coverage, refresh (the opening paragraph "what we already know" replaces it), fieldmap, errorhunt and lab (into the prose or the exercises).
 - A part of the writing is one chapter, or a run of whole subsections of a long chapter: give each part "sections": the subsection numbers it writes. Parts never cut a subsection.
-- Add to the JSON: "outline": {"known": ["…"], "chapters": [{"n": ${chapterStart}, "title": "…", "question": "…", "comparison": "…", "case_study": "…", "sections": [{"n": "${chapterStart}.1", "title": "…", "question": "…", "from_prev": "…", "needs": ["…"], "defines": [{"term": "…", "mark": "s"}], "paragraphs": ["הקדמה", "…", "מה מחבר ביניהן"], "compare": "…", "critique": "…", "case": "…", "words": 1200, "visual": "chart: … against …", "questions": ["mcq: …", "numeric: …"]}]}]}, and per part "sections": ["${chapterStart}.1", "${chapterStart}.2"]. Short phrases, no prose, in Hebrew.`;
+- Add to the JSON: "outline": {"known": ["…"], "chapters": [{"n": ${chapterStart}, "title": "…", "question": "…", "comparison": "…", "case_study": "…", "thread": "…", "sections": [{"n": "${chapterStart}.1", "title": "…", "question": "…", "from_prev": "…", "needs": ["…"], "defines": [{"term": "…", "mark": "s"}], "paragraphs": ["הקדמה", "…", "מה מחבר ביניהן"], "compare": "…", "critique": "…", "case": "…", "words": 1200, "visuals": ["svg: …", "chart: … against …"], "questions": ["mcq: …", "numeric: …"]}]}]}, and per part "sections": ["${chapterStart}.1", "${chapterStart}.2"]. Short phrases, no prose, in Hebrew.`;
 
 /** The planned words of a run of subsections. */
 export function partWords(o: BookOutline, mine: string[]): number {
@@ -111,10 +118,10 @@ const list = (xs: string[]) => xs.filter(Boolean).join("; ") || "—";
 export function outlineText(o: BookOutline, mine: string[]): string {
   return o.chapters
     .map((c) => {
-      const head = `פרק ${c.n}: ${c.title} — ${c.question}${c.comparison ? ` | comparison: ${c.comparison}` : ""}${c.case_study ? ` | case study: ${c.case_study}` : ""}`;
+      const head = `פרק ${c.n}: ${c.title} — ${c.question}${c.thread ? ` | thread: ${c.thread}` : ""}${c.comparison ? ` | comparison: ${c.comparison}` : ""}${c.case_study ? ` | case study: ${c.case_study}` : ""}`;
       const secs = c.sections.map((s) =>
         mine.includes(s.n)
-          ? `  ${s.n} ${s.title}  ← THIS PART\n    question: ${s.question}\n    continues: ${s.from_prev}\n    needs: ${list(s.needs)}\n    defines: ${list(s.defines.map((d) => `${d.term} [${d.mark === "s" ? "ס" : "ע"}]`))}\n    paragraphs: ${list(s.paragraphs ?? [])}${s.words ? `\n    words: about ${s.words}` : ""}${s.visual ? `\n    visual: ${s.visual}` : ""}${s.questions?.length ? `\n    questions: ${list(s.questions)}` : ""}${s.compare ? `\n    comparison: ${s.compare}` : ""}${s.critique ? `\n    critique: ${s.critique}` : ""}${s.case ? `\n    case: ${s.case}` : ""}`
+          ? `  ${s.n} ${s.title}  ← THIS PART\n    question: ${s.question}\n    continues: ${s.from_prev}\n    needs: ${list(s.needs)}\n    defines: ${list(s.defines.map((d) => `${d.term} [${d.mark === "s" ? "ס" : "ע"}]`))}\n    paragraphs: ${list(s.paragraphs ?? [])}${s.words ? `\n    words: about ${s.words}` : ""}${visualsOf(s).length ? `\n    visuals: ${list(visualsOf(s))}` : ""}${s.questions?.length ? `\n    questions: ${list(s.questions)}` : ""}${s.compare ? `\n    comparison: ${s.compare}` : ""}${s.critique ? `\n    critique: ${s.critique}` : ""}${s.case ? `\n    case: ${s.case}` : ""}`
           : `  ${s.n} ${s.title} — ${s.question}`,
       );
       return [head, ...secs].join("\n");
@@ -132,13 +139,14 @@ ${outlineText(o, mine)}
 Terms already defined for the learner before this part (use them freely; anything else is defined where it first appears, or before): ${list(start ? definedBefore(o, start) : o.known)}
 Write subsections ${mine.join(", ")} as planned, in this form:
 - ${chapterOpens.length ? `Chapter ${chapterOpens.join(", ")} opens here: "## פרק N: title", then an opening in prose (the interesting question, what the reader will be able to do at the end, a one-paragraph map of the subsections), then a paragraph **מה אנחנו כבר יודעים.** that recalls in a sentence each earlier idea this chapter needs.` : "No chapter opens in this part: continue the chapter in progress."}
-- Each subsection: "### N.k title", then paragraphs, each opening with its bold run-in heading as planned. The first paragraph says the question and how it follows from the previous subsection; the last closes with what was gained and the sentence that leads into the next subsection.
-- Define before use: a term or symbol not in the list above and not yet defined in this part is defined at its first appearance (its context, then the definition). Never "we will see later" for something already used.
+- Each subsection: "### N.k title", then paragraphs, each opening with its bold run-in heading as planned. The first paragraph places it on the chapter's thread in plain words: where we are, what is still missing, and why this idea is needed now (the practical stake), and how it follows from the previous subsection; the last closes with what was gained and the sentence that leads into the next subsection. It reads as one continuous story, never a run of definitions.
+- A new concept: the need, then its picture and the idea in plain words, then the precise general definition (a definition block only for a concept marked [ס]), how it is built, and what it lets us do now. Never two definition blocks in a row without the development that needs the second between them.
+- Define before use: a term or symbol not in the list above and not yet defined in this part is explained at its first appearance. Background vocabulary (a unit, a device, an everyday physical idea) is explained inside the sentence that needs it, in a clause or two, never in a definition block. Never "we will see later" for something already used.
 - Every formula or equation is followed, in prose, by each factor: what it stands for and its units, why it is there, what happens when it grows, and the range where the formula holds.
 - Each central idea follows its development: why it is an interesting problem, how it was approached, the steps and why each is needed, what came out, where it breaks.
 - The comparison, critique and short case planned for each subsection are written in it, in prose (a table for a comparison of several items).
 - Length: each subsection about its planned words (this part about ${partWords(o, mine) || "as planned"} words), never more than about 10% over; keep it by cutting repetition, never a definition, a step or a factor's explanation. A case study at most about 900 words.
-- Visuals: write the planned visual of each subsection (a \`\`\`chart with computed points, a \`\`\`svg diagram drawn to scale with Hebrew labels, a \`\`\`mermaid diagram, a \`\`\`table, a figure block), with one sentence before it saying what to look at and one after saying what it shows; it replaces prose, never repeats it. Where a relation, a geometry or a chain is explained only in words and a picture would make it clear, draw it.
+- Visuals: write every planned visual of each subsection, at least one in each (a \`\`\`chart with computed points, a \`\`\`svg diagram drawn to scale with Hebrew labels, a \`\`\`mermaid diagram, a \`\`\`table, a figure block with the book's own figure), with one sentence before it saying what to look at and one after saying what it shows; it replaces prose, never repeats it. A central concept's picture comes where the concept is introduced, before or beside its definition. Where a relation, a geometry, a direction, a change in time or a chain is explained only in words, draw it, even if it was not planned.
 - Mark every definition and formula block with a header line "@mark: summary" for [ס] or "@mark: aid" for [ע], as planned.
 - Practice at the end of each subsection, as planned (1 to 3; the chapter's mixed set of 3 to 5 after its case study), in exactly these forms:
 \`\`\`mcq
@@ -182,11 +190,14 @@ You check the outline of one lesson of a self-study book (Hebrew) before it is w
 3. Coverage of the form: each chapter has a comparison, a case study, and critique of its central ideas; each subsection has run-in paragraphs.
 4. Marks: a term marked "s" that is only scaffolding, or a result the course will use later marked "a".
 5. "known" holds only what an earlier lesson taught (not physics the learner never studied).
+6. Density: a subsection that introduces more than one central concept and its result (more than two "s" items) or more than about four new terms, or a run of definitions with no development between them, is a problem: split it or move the background earlier.
+7. Thread: each chapter has a "thread" (from which real problem to which ability), and every subsection's "question" serves it; a subsection whose reason is only formal ("to connect A with B") with no practical stake is a problem.
+8. Visuals: a subsection with no planned visual, or a central concept with a direction, a shape, a layout or a change in time and no picture of it, is a problem.
 Lesson: ${lessonTitle}
 <outline>
 ${JSON.stringify(o, null, 1)}
 </outline>
-Reply with ONLY one JSON object: {"problems": [{"where": "3.2", "kind": "order|continuity|form|mark|known", "problem": "…", "fix": "…"}], "verdict": "pass|fix"}. "pass" only when the list is empty.
+Reply with ONLY one JSON object: {"problems": [{"where": "3.2", "kind": "order|continuity|form|mark|known|density|thread|visual", "problem": "…", "fix": "…"}], "verdict": "pass|fix"}. "pass" only when the list is empty.
 </outline_check>`;
 }
 
@@ -215,7 +226,7 @@ function jsonOf(raw: string): unknown {
 }
 
 export const OUTLINE_FIX = (review: OutlineReview) =>
-  `The outline of your plan was checked for order before writing, and these problems were found:\n${JSON.stringify(review.problems, null, 1)}\nReply with ONLY the whole plan JSON again (same format, every field), with the outline and the parts fixed so that each problem is gone: move or add a definition earlier, reorder subsections, add the missing comparison, case or critique, fix the marks. Keep all the material.`;
+  `The outline of your plan was checked for order before writing, and these problems were found:\n${JSON.stringify(review.problems, null, 1)}\nReply with ONLY the whole plan JSON again (same format, every field), with the outline and the parts fixed so that each problem is gone: move or add a definition earlier, reorder subsections, split a dense subsection, add the chapter's thread or the missing visual, add the missing comparison, case or critique, fix the marks. Keep all the material.`;
 
 /** Is the outline usable (it is what the parts are written from)? */
 export function validOutline(o: unknown): o is BookOutline {
@@ -233,6 +244,8 @@ export function normalizeOutline(o: BookOutline): BookOutline {
         ...s,
         needs: (s.needs ?? []).filter((t) => typeof t === "string"),
         defines: (s.defines ?? []).map((d) => (typeof d === "string" ? { term: d, mark: "a" as const } : { term: String(d.term ?? ""), mark: d.mark === "s" ? ("s" as const) : ("a" as const) })).filter((d) => d.term),
+        visuals: visualsOf(s),
+        visual: undefined,
         from_prev: s.from_prev ?? "",
         question: s.question ?? "",
       })),
@@ -257,6 +270,30 @@ export function orderProblems(o: BookOutline): { where: string; kind: string; pr
       }
       for (const d of s.defines) seen.add(norm(d.term));
     }
+  return out;
+}
+
+/** A subsection's planned visualizations (the old single "visual" counts as one). */
+export function visualsOf(s: OutlineSection): string[] {
+  return [...(Array.isArray(s.visuals) ? s.visuals : []), ...(s.visual ? [s.visual] : [])].filter((v) => typeof v === "string" && v.trim());
+}
+
+/** a subsection's "s" items (one central concept and the result it leads to), and its new terms in all (10.11) */
+const MAX_CENTRAL = 2;
+const MAX_TERMS = 4;
+
+/** The density, thread and visual rules that can be checked without a model (10.11). */
+export function formProblems(o: BookOutline): { where: string; kind: string; problem: string }[] {
+  const out: { where: string; kind: string; problem: string }[] = [];
+  for (const c of o.chapters) {
+    if (!c.thread?.trim()) out.push({ where: String(c.n), kind: "thread", problem: `chapter ${c.n} has no "thread"` });
+    for (const s of c.sections) {
+      const central = s.defines.filter((d) => d.mark === "s").length;
+      if (central > MAX_CENTRAL) out.push({ where: s.n, kind: "density", problem: `${central} items marked "s" in one subsection (at most ${MAX_CENTRAL}: one central concept and its result): split it` });
+      if (s.defines.length > MAX_TERMS) out.push({ where: s.n, kind: "density", problem: `${s.defines.length} new terms in one subsection (about ${MAX_TERMS} at most): split it or move the background earlier` });
+      if (!visualsOf(s).length) out.push({ where: s.n, kind: "visual", problem: "no planned visual" });
+    }
+  }
   return out;
 }
 

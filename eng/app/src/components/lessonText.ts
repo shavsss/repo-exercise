@@ -2,6 +2,8 @@
 // $…$ and the app's own controls left out. Used by the consultation cards and the lesson notebook.
 // Same file in both labs.
 const SECTION_CHARS = 12_000;
+/** the end of the previous section sent with a consultation (what was read just before) */
+const BEFORE_CHARS = 2_500;
 
 /** Text of a range, with each equation as $…$ (KaTeX keeps its LaTeX in an annotation). */
 export function textOf(r: Range) {
@@ -44,5 +46,31 @@ export function sectionAt(scroll: HTMLElement, at: Node | null) {
     r.selectNodeContents(scroll.querySelector(".prose") ?? scroll);
   }
   const t = textOf(r);
-  return { title: head?.textContent?.trim() ?? "", text: t.length > SECTION_CHARS ? t.slice(0, SECTION_CHARS) + "\n…" : t };
+  const title = head?.textContent?.trim() ?? "";
+  return { title, text: t.length > SECTION_CHARS ? t.slice(0, SECTION_CHARS) + "\n…" : t, outline: outlineOf(heads, title), before: head ? before(heads, head) : "" };
+}
+
+/** The lesson's headings in order (each once: the book keeps a hidden copy), the one being read marked. */
+function outlineOf(heads: HTMLElement[], current: string) {
+  const seen = new Set<string>();
+  const out: string[] = [];
+  for (const h of heads) {
+    const t = h.textContent?.trim() ?? "";
+    if (!t || seen.has(t)) continue;
+    seen.add(t);
+    out.push(`${h.tagName === "H3" ? "  " : ""}${t}${t === current ? "  ← נקרא עכשיו" : ""}`);
+  }
+  return out.join("\n");
+}
+
+/** The end of the section before `head` (what the learner read just before it), in the same column. */
+function before(heads: HTMLElement[], head: HTMLElement) {
+  const col = head.closest(".prose");
+  const prev = heads.slice(0, heads.indexOf(head)).reverse().find((h) => h.closest(".prose") === col && h.textContent?.trim() !== head.textContent?.trim());
+  if (!prev) return "";
+  const r = document.createRange();
+  r.setStartBefore(prev);
+  r.setEndBefore(head);
+  const t = textOf(r);
+  return t.length > BEFORE_CHARS ? "…" + t.slice(-BEFORE_CHARS) : t;
 }

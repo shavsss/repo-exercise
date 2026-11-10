@@ -380,9 +380,10 @@ Report every place where:
 - "form": a chapter without a comparison, without a closing case study, or a central idea without its development (why it is interesting, how it was approached, the steps, what came out, where it breaks) or without a critical look.
 - "block": a block that breaks the flow, or carries a step of the argument that the prose does not; a fenced block nested inside another block, or a fence line that does not stand alone on its line (it breaks the page).
 - "structure": a section not in the book form (no subsection numbers, no run-in paragraph headings, a bare list where reasoning belongs).
-- "visual": a relation between quantities, a geometry, a system's layout or a chain that is explained only in words where a chart, a drawing or a diagram would make it clear; or a visual that is not explained (what to look at, what it shows).
+- "visual": a relation between quantities, a geometry, a direction, a change in time, a system's layout or a chain that is explained only in words where a chart, a drawing or a diagram would make it clear; a central concept introduced with no picture of it; a subsection with no visual at all; or a visual that is not explained (what to look at, what it shows).
+- "density": definitions or new concepts that pile up (two definition blocks with no development between them, or a paragraph that brings several new terms at once), so that the reader meets terms before he knows why he needs them; or a subsection whose reason is only formal, with no word on what it lets him do.
 Quotes must be copied exactly from the lesson (a short unique phrase). Be strict and concrete; do not ask for length, padding or extra examples.
-Reply with ONLY one JSON object: {"issues": [{"kind": "undefined|jump|order|factors|question|form|block|structure|visual", "quote": "…", "where": "the subsection, e.g. 3.2", "problem": "…", "fix": "what to add or change, concretely"}], "verdict": "pass|fix"}. "pass" only when the list is empty.
+Reply with ONLY one JSON object: {"issues": [{"kind": "undefined|jump|order|factors|question|form|block|structure|visual|density", "quote": "…", "where": "the subsection, e.g. 3.2", "problem": "…", "fix": "what to add or change, concretely"}], "verdict": "pass|fix"}. "pass" only when the list is empty.
 </reader_audit>`;
 }
 
@@ -395,7 +396,7 @@ export function parseReader(raw: string): ReaderReport | null {
 
 export function readerRepairPrompt(o: AuditInput, report: ReaderReport): string {
   return `<lesson_repair mode="reader">
-You are the author of this lesson. A reader who knows only what is in <known> (no physics, only the mathematics he has studied) read it in order and could not follow it in the places listed in <review>. Repair each one in the lesson's own Hebrew, style and block syntax, at full depth: define a term at its first use (or move its definition before it), add the sentence that says how a part follows from the one before and why it comes now, move a passage to where it belongs, explain each factor of a formula after it, prepare what a question needs before it, write the missing comparison, case or critical look in prose, and turn a block that breaks the flow into prose. Keep the book form: ## פרק N, ### N.k, bold run-in paragraph headings. Never remove correct material, never add padding. The lesson has a length budget: make room for what you add by shortening a repetition near it, and fix a "visual" item with the drawing itself (\`\`\`svg, \`\`\`chart, \`\`\`mermaid, \`\`\`table), replacing the words that tried to describe it.
+You are the author of this lesson. A reader who knows only what is in <known> (no physics, only the mathematics he has studied) read it in order and could not follow it in the places listed in <review>. Repair each one in the lesson's own Hebrew, style and block syntax, at full depth: define a term at its first use (or move its definition before it), add the sentence that says how a part follows from the one before and why it comes now, move a passage to where it belongs, explain each factor of a formula after it, prepare what a question needs before it, write the missing comparison, case or critical look in prose, turn a block that breaks the flow into prose, and fix a "density" item by putting before each new concept the sentence of the story that needs it (and its picture), turning background terms into a clause of the prose instead of a definition block. Keep the book form: ## פרק N, ### N.k, bold run-in paragraph headings. Never remove correct material, never add padding. The lesson has a length budget: make room for what you add by shortening a repetition near it, and fix a "visual" item with the drawing itself (\`\`\`svg, \`\`\`chart, \`\`\`mermaid, \`\`\`table), replacing the words that tried to describe it.
 Lesson: ${o.moduleId} ${o.moduleTitle} · ${o.lessonTitle}
 <known>
 ${(o.known ?? []).map((k) => `- ${k}`).join("\n") || "(only the mathematics he has studied, no physics)"}
@@ -438,7 +439,7 @@ export async function readerCheck(o: AuditInput, deps: AuditDeps): Promise<{ tex
 }
 
 export function readerOpen(r: ReaderReport): string[] {
-  const label: Record<string, string> = { undefined: "לא מוגדר", jump: "קפיצה", order: "סדר", factors: "גורמים בנוסחה", question: "שאלה לא מוכנה", form: "מבנה הפרק", block: "בלוק", structure: "צורה", visual: "חסר איור" };
+  const label: Record<string, string> = { undefined: "לא מוגדר", jump: "קפיצה", order: "סדר", factors: "גורמים בנוסחה", question: "שאלה לא מוכנה", form: "מבנה הפרק", block: "בלוק", structure: "צורה", visual: "חסר איור", density: "הגדרות צפופות" };
   const cut = (x?: string) => (x ?? "").replace(/\s+/g, " ").trim().slice(0, 200);
   return r.issues.slice(0, 16).map((i) => `קורא · ${label[i.kind] ?? i.kind}${i.where ? ` (${i.where})` : ""}: ${cut(i.problem || i.quote)}`);
 }

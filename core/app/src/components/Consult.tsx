@@ -5,9 +5,9 @@
 // of the point), short by default; the length is held both in the instructions and here, by stopping
 // the stream a little past the level's budget (it can be continued). "דיון" turns the same card into
 // a short discussion of the point. The quick model answers L0 only; every other level is the main
-// tutor at an effort that grows with the level. Context: the section being read, the course memory
-// (read only), where he was sure and wrong in this module, and the card's own thread; never the
-// lesson rules or the lesson itself. Cards are kept per lesson (events.ts) and come back, folded to
+// tutor (Opus) at an effort that grows with the level. Context: the section being read, the lesson's
+// headings and the end of the section before it, the course memory (read only), where he was sure and
+// wrong in this module, and the card's own thread; never the lesson rules or the whole lesson. Cards are kept per lesson (events.ts) and come back, folded to
 // their first line, under the same paragraphs when the lesson is opened again. Replaces the old
 // "הסבר פשוט" side panel. In the lesson as a book (src/book/), the open card is drawn on the facing page and
 // every other card is a closed tab at the edge of the page; the book passes a bridge for that. Same file in both labs.
@@ -21,12 +21,16 @@ import { sectionAt, textOf } from "./lessonText";
 import { allCalib, calibNote, loadConsults, logEvent, saveConsult, type ConsultCard, type ConsultKind, type ConsultLevel, type ConsultRequest, type ConsultTurn, type LessonPlace } from "../events";
 import { consultPrompt, firstLine, LEVEL_HINT, LEVEL_LABEL, LEVEL_WORDS, needsRestart, splitMore } from "../consultPrompt";
 import type { BookBridge } from "../book/context";
+import { wordCount } from "../bookRules";
 import "../consult.css";
 
-// explanations are written by Sonnet; Opus answers only when Sonnet fails or comes back empty
-const MAIN_MODEL = "claude-sonnet-5-5";
-const FALLBACK_MODEL = "claude-opus-5-5";
-const EFFORT: Record<ConsultLevel, "low" | "medium" | "high"> = { 0: "low", 1: "low", 2: "medium", 3: "high" };
+// Opus answers every level above a one-liner (10.11: the learner found Sonnet's explanations too weak);
+// Sonnet only writes the one-sentence L0, and answers instead of Opus if Opus fails or comes back empty.
+const OPUS = "claude-opus-5-5";
+const SONNET = "claude-sonnet-5-5";
+const modelOf = (lvl: ConsultLevel) => (lvl === 0 ? SONNET : OPUS);
+const otherModel = (m: string) => (m === OPUS ? SONNET : OPUS);
+const EFFORT: Record<ConsultLevel, "low" | "medium" | "high"> = { 0: "low", 1: "medium", 2: "high", 3: "high" };
 /** turns of the card's thread sent with a new question */
 const KEEP_TURNS = 6;
 /** the stream is stopped this far past the level's budget (in words) */
@@ -339,7 +343,7 @@ export function ConsultLayer({
           onText: ({ text }) => {
             shown = text;
             write({ ...turn, a: base + text });
-            if (!stopped && words(text) > cap) {
+            if (!stopped && wordCount(text) > cap) {
               stopped = true;
               c.abort();
             }
@@ -361,14 +365,15 @@ export function ConsultLayer({
       };
       try {
         let res;
+        const main = modelOf(lvl);
         try {
-          res = await run(MAIN_MODEL);
+          res = await run(main);
         } catch (e) {
           if (c.signal.aborted) throw e;
-          // Sonnet may not be served here, or refused: Opus answers; and an empty answer gets one more try with Opus
-          res = await run(FALLBACK_MODEL);
+          // the model may not be served here, or refused: the other one answers; and an empty answer gets one more try with it
+          res = await run(otherModel(main));
         }
-        if (!res.text.trim()) res = await run(FALLBACK_MODEL);
+        if (!res.text.trim()) res = await run(otherModel(main));
         if (!res.text.trim()) throw { message: "empty" };
         finish(res.text, res.truncated, res.modelApplied);
       } catch (e) {

@@ -95,10 +95,35 @@ test("the word budget: planned words, a word count, and the tighten step", () =>
   assert.equal(B.partWords(o, ["2.2"]), 800);
   assert.equal(B.wordCount("אחת שתיים  שלוש\nארבע"), 4);
   assert.equal(B.wordCount("מילה\n```svg\n<svg viewBox=\"0 0 1 1\"><text>א ב ג</text></svg>\n```\nעוד"), 2);
-  assert.match(B.outlineText(o, ["2.1"]), /visual: chart: Ls against d/);
+  assert.match(B.outlineText(o, ["2.1"]), /visuals: chart: Ls against d/);
   assert.match(B.BOOK_PART(o, ["2.1"], true, false), /this part about 1200 words/);
   assert.match(B.BOOK_PLAN(2), /at most 15000 words/);
   const t = B.tightenPrompt("x", 20000, 15000);
   assert.match(t, /It has 20000 words; its budget is 15000/);
   assert.match(t, /never remove or thin a definition/);
+});
+
+test("form (10.11): a chapter with no thread, a dense subsection and a subsection with no visual are found", () => {
+  const o = B.normalizeOutline({
+    known: [],
+    chapters: [
+      {
+        n: 4,
+        title: "השדה באתר",
+        question: "q",
+        sections: [
+          { n: "4.1", title: "a", question: "q", from_prev: "", needs: [], visuals: ["svg: גל"], defines: [{ term: "שדה מגנטי", mark: "s" }, { term: "פאזה", mark: "s" }, { term: "ערך אפקטיבי", mark: "s" }] },
+          { n: "4.2", title: "b", question: "q", from_prev: "4.1", needs: [], visual: "chart: S מול E", defines: ["a", "b", "c", "d", "e"] },
+          { n: "4.3", title: "c", question: "q", from_prev: "4.2", needs: [], defines: [] },
+        ],
+      },
+    ],
+  });
+  const p = B.formProblems(o);
+  assert.deepEqual(p.map((x) => `${x.where}:${x.kind}`), ["4:thread", "4.1:density", "4.2:density", "4.3:visual"]);
+  // a plan written before 10.11 (a single "visual") still counts as one visual, once
+  assert.deepEqual(o.chapters[0].sections[1].visuals, ["chart: S מול E"]);
+  assert.match(B.outlineText(o, ["4.2"]), /visuals: chart: S מול E/);
+  const good = B.normalizeOutline({ known: [], chapters: [{ n: 1, title: "t", question: "q", thread: "מבעיה ליכולת", sections: [{ n: "1.1", title: "a", question: "q", from_prev: "", needs: [], visuals: ["svg: x"], defines: [{ term: "x", mark: "s" }, { term: "f(x)", mark: "s" }] }] }] });
+  assert.deepEqual(B.formProblems(good), []);
 });
