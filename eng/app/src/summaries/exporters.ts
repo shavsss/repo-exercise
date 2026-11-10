@@ -30,7 +30,7 @@ import { convertLatexToMathMl } from "mathlive";
 import { figure } from "../library";
 import type { Block, BoxAlign, BoxKind, ImgSize, MarkColor } from "./model";
 import { tidyTex } from "./rich";
-import { BOX_EMOJI, BOX_LABEL, BULLET_SIGN, PROOF_LABEL, esc, flatLists, headParts, itemNumbers, numbering, textOf } from "./model";
+import { BOX_EMOJI, BOX_LABEL, BULLET_SIGN, PROOF_LABEL, esc, flatLists, headParts, itemNumbers, numbering, textOf, withBigNumbers } from "./model";
 import { flatten } from "./media";
 
 type MathComponent = ConstructorParameters<typeof DMath>[0]["children"][number];
@@ -142,7 +142,11 @@ function runs(html: string, base: { bold?: boolean; color?: string } = {}): (Tex
     const el = node as Element;
     const tag = el.tagName.toLowerCase();
     if (tag === "span" && el.classList.contains("im")) {
+      const big = el.classList.contains("big");
+      if (big) out.push(new TextRun({ text: "", break: 1 }));
       out.push(wordMath(el.getAttribute("data-tex") ?? ""));
+      if (big && el.getAttribute("data-n")) out.push(new TextRun({ text: `   (${el.getAttribute("data-n")})`, font: FONT }));
+      if (big) out.push(new TextRun({ text: "", break: 1 }));
       return;
     }
     if (tag === "br") {
@@ -187,7 +191,8 @@ async function picture(b: Extract<Block, { t: "img" } | { t: "fig" }>) {
 
 /** The summary as a Word document. */
 export async function toDocx(title: string, blocks: Block[]) {
-  const { heads, eqs } = numbering(blocks);
+  const { heads, eqs, bigs } = numbering(blocks);
+  blocks = withBigNumbers(blocks, bigs);
   const children: (Paragraph | Table)[] = [];
   for (const b of blocks) {
     if (b.t === "h" && b.cont) {
@@ -214,8 +219,8 @@ export async function toDocx(title: string, blocks: Block[]) {
           { spacing: { after: 60 } },
         ),
       ];
-      if (b.latex?.trim()) inner.push(new Paragraph({ alignment: AlignmentType.CENTER, children: [wordMath(b.latex), ...(eqs.get(b.id) ? [new TextRun({ text: `   (${eqs.get(b.id)})`, font: FONT })] : [])] }));
       if (textOf(b.html).trim()) inner.push(...paras(b.html, {}, b.align));
+      if (b.latex?.trim()) inner.push(new Paragraph({ alignment: AlignmentType.CENTER, children: [wordMath(b.latex), ...(eqs.get(b.id) ? [new TextRun({ text: `   (${eqs.get(b.id)})`, font: FONT })] : [])] }));
       const side = { style: BorderStyle.SINGLE, size: 18, color: fg };
       const none = { style: BorderStyle.NONE, size: 0, color: "FFFFFF" };
       children.push(
@@ -275,11 +280,12 @@ const mathHtml = (latex: string, display = true) => {
 };
 const unq = (s: string) => s.replace(/&quot;/g, '"').replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&");
 /** equations inside a line, as MathML */
-const inl = (html: string) => html.replace(/<ol start="(\d+)">/g, (_, n) => `<ol start="${n}" style="counter-reset:li ${Number(n) - 1}">`).replace(/<span[^>]*data-tex="([^"]*)"[^>]*>.*?<\/span>/g, (_, t) => mathHtml(unq(t), false));
+const inl = (html: string) => html.replace(/<ol start="(\d+)">/g, (_, n) => `<ol start="${n}" style="counter-reset:li ${Number(n) - 1}">`).replace(/<span([^>]*)data-tex="([^"]*)"[^>]*>.*?<\/span>/g, (_, a, t) => (/\bbig\b/.test(a) ? `<div class="eq">${mathHtml(unq(t))}${/data-n="(\d+)"/.exec(a) ? `<span class="eqn">(${/data-n="(\d+)"/.exec(a)![1]})</span>` : ""}</div>` : mathHtml(unq(t), false)));
 
 /** The summary as one HTML file that opens in any browser, pictures included. */
 export async function toHtml(title: string, blocks: Block[]) {
-  const { heads, eqs } = numbering(blocks);
+  const { heads, eqs, bigs } = numbering(blocks);
+  blocks = withBigNumbers(blocks, bigs);
   const out: string[] = [];
   for (const b of blocks) {
     if (b.t === "h" && b.cont) {
@@ -296,7 +302,7 @@ export async function toHtml(title: string, blocks: Block[]) {
       const nums = itemNumbers(b.items);
       out.push(`<ul class="l" style="list-style:none">${b.items.map((it, i) => `<li class="lv${it.level}">${b.ordered ? nums[i] : "•"} ${inl(it.html)}</li>`).join("")}</ul>`);
     } else if (b.t === "box") {
-      out.push(`<div class="box box-${b.kind}"><span class="lbl">${BOX_EMOJI[b.kind]} ${BOX_LABEL[b.kind]}${b.title?.trim() ? `<b class="ttl">${esc(b.title.trim())}</b>` : ""}</span>${b.latex?.trim() ? `<div class="eq">${mathHtml(b.latex)}${eqs.get(b.id) ? `<span class="eqn">(${eqs.get(b.id)})</span>` : ""}</div>` : ""}${textOf(b.html).trim() ? `<div class="p"${b.align && b.align !== "start" ? ` style="text-align:${b.align}"` : ""}>${inl(b.html)}</div>` : ""}</div>`);
+      out.push(`<div class="box box-${b.kind}"><span class="lbl">${BOX_EMOJI[b.kind]} ${BOX_LABEL[b.kind]}${b.title?.trim() ? `<b class="ttl">${esc(b.title.trim())}</b>` : ""}</span>${textOf(b.html).trim() ? `<div class="p"${b.align && b.align !== "start" ? ` style="text-align:${b.align}"` : ""}>${inl(b.html)}</div>` : ""}${b.latex?.trim() ? `<div class="eq">${mathHtml(b.latex)}${eqs.get(b.id) ? `<span class="eqn">(${eqs.get(b.id)})</span>` : ""}</div>` : ""}</div>`);
     } else if (b.t === "math") {
       if (b.latex.trim()) out.push(`<div class="eq">${mathHtml(b.latex)}${eqs.get(b.id) ? `<span class="eqn">(${eqs.get(b.id)})</span>` : ""}</div>`);
     } else if (b.t === "img" || b.t === "fig") {
