@@ -828,16 +828,17 @@
       "t": "h"
     },
     {
-      "html": "<ol class=\"proof\"><li class=\"k-hyp\"><span class=\"im\" data-tex=\"\\Delta x\"></span>&nbsp;הוא הפיזור של המקום בכיוון אחד, ו-<span class=\"im\" data-tex=\"\\Delta p\"></span> הפיזור של התנע באותו כיוון, בהרבה מדידות של אותו מצב.&nbsp;</li><li class=\"k-hyp\"><span class=\"im\" data-tex=\"h=6.626\\times10^{-34}\"></span>&nbsp;ק\"ג·מ²/ש' הוא קבוע פלאנק (Planck's constant), ביחידות של תנע כפול אורך.</li><li class=\"k-hyp\">החוק תקף לכל חלקיק ולכל מצב, בכל כיוון בנפרד.<br><span class=\"im big\" data-tex=\"\\Delta x\\,\\Delta p\\ge\\frac{\\hbar}{2},\\qquad \\hbar=\\frac{h}{2\\pi}=1.055\\times10^{-34}\\ \\text{kg·m}^2/\\text{s}\"></span>&nbsp;<br></li></ol>",
+      "html": "<ol class=\"proof\"><li class=\"k-hyp\"><span class=\"im\" data-tex=\"\\Delta x\"></span>&nbsp;הוא הפיזור של המקום בכיוון אחד, ו-<span class=\"im\" data-tex=\"\\Delta p\"></span> הפיזור של התנע באותו כיוון, בהרבה מדידות של אותו מצב.&nbsp;</li><li class=\"k-hyp\"><span class=\"im\" data-tex=\"h=6.626\\times10^{-34}\"></span>&nbsp;ק\"ג·מ²/ש' הוא קבוע פלאנק (Planck's constant), ביחידות של תנע כפול אורך.</li><li class=\"k-hyp\">החוק תקף לכל חלקיק ולכל מצב, בכל כיוון בנפרד.<br><span class=\"im big\" data-tex=\"\\Delta x\\,\\Delta p\\ge\\frac{\\hbar}{2},\\qquad \\hbar=\\frac{h}{2\\pi}=1.055\\times10^{-34}\\ \\text{kg·m}^2/\\text{s}\"></span><br></li></ol>",
       "id": "gvm4ggfl",
       "kind": "eq",
       "t": "box",
       "title": "עקרון אי הוודאות"
     },
     {
-      "html": "",
-      "id": "34l3itsh",
-      "t": "p"
+      "html": "אנרגיה",
+      "id": "q7ufabas",
+      "level": 2,
+      "t": "h"
     },
     {
       "html": "",
@@ -845,9 +846,10 @@
       "t": "p"
     },
     {
-      "html": "",
-      "id": "2btp9zk0",
-      "t": "p"
+      "html": "<b>כדי להשתמש בנוסחאות ולהרחבת הידע, נצטרך להשיג הגדרה של עודה בכח קבוע.</b> במאה ה-19 המושג התפתח בעיקר לצורך הבנה של כמה פחם צריך מנוע קיטור כדי להרים מים ממכרה, והקובע היה כח כפול הדרך.<br><ol class=\"proof\"><li class=\"k-def\"><mark class=\"hl-b\"><b>עבודה&nbsp;<span class=\"im\" data-tex=\"w\"></span>&nbsp;</b></mark>: כוח קבוע <span class=\"im\" data-tex=\"F\"></span> שפועל על גוף לאורך כיוון התנועה שלו, בזמן שהגוף עובר דרך <span class=\"im\" data-tex=\"d\"></span>, עושה עבודה&nbsp;<span class=\"im\" data-tex=\"w=Fd.\"></span>&nbsp;כשהכוח מנוגד לכיוון התנועה, העבודה שלילית. נמדד בג'אול&nbsp;&nbsp;<span class=\"im\" data-tex=\"1\\ \\text{J}=1\\ \\text{N·m}\"></span>&nbsp;</li></ol>",
+      "id": "u5f0odz1",
+      "level": 3,
+      "t": "h"
     },
     {
       "html": "",
@@ -855,9 +857,23 @@
       "t": "p"
     },
     {
-      "html": "",
-      "id": "dizdscrg",
-      "t": "p"
+      "html": "כאשר מדברים על המושג אנרגיה קינטית, השאלה היא בעצם כמה עבודה צריך כדי להביא גוף ממנוחה למהירות&nbsp;<span class=\"im\" data-tex=\"v\"></span>. באופן מפתיע, תאוצה מצטמצמת, ולכן התוצאה לא תלויה באיך הגענו למהירות.<br><ol class=\"proof\"><li class=\"k-def\"><mark class=\"hl-b\"><b>אנרגיה קינטית K</b></mark>: במצב מנוחה מתקיים&nbsp;<span class=\"im\" data-tex=\"w=Fd=\\frac12mv^2\"></span>.אנרגיה קינטית K היא העבודה שאגורה בתנועה.&nbsp;<span class=\"im\" data-tex=\"K=\\frac12mv^2=\\frac{p^2}{2m}\"></span>&nbsp;</li></ol>&nbsp;&nbsp;<span class=\"im\" data-tex=\"p\"></span> בריבוע אומר שתנע כפול נותן אנרגיה פי 4, ו-<span class=\"im\" data-tex=\"m\"></span> במכנה שבאותו תנע גוף קל נושא יותר אנרגיה.<br><br>",
+      "id": "piylzale",
+      "level": 3,
+      "t": "h"
+    },
+    {
+      "html": "במעלי הדרך,&nbsp;גוף שנמשך אל מרכז צובר תנועה כשהוא מתקרב. אפשר לחשב את התנועה שהוא עוד לא צבר. היא האנרגיה הפוטנציאלית.&nbsp;<br><ol class=\"proof\"><li class=\"k-def\"><mark class=\"hl-b\"><b>האנרגיה הפוטנציאלי</b></mark>ת: לכוח <span class=\"im\" data-tex=\"F(r)\"></span> שפועל לאורך הקו למרכז ותלוי רק במרחק <span class=\"im\" data-tex=\"r\"></span> (חיובי החוצה), האנרגיה הפוטנציאלית <span class=\"im\" data-tex=\"U(r)\"></span> היא פונקציה שמקיימת&nbsp;<span class=\"im\" data-tex=\"F=-\\frac{dU}{dr}.\"></span>&nbsp;הסימן מינוס אומר שהכוח דוחף לכיוון שבו <span class=\"im\" data-tex=\"U\"></span> יורדת.&nbsp;</li></ol>",
+      "id": "jdmgihi3",
+      "level": 3,
+      "t": "h"
+    },
+    {
+      "html": "<ol class=\"proof\"><li class=\"k-def\"><strong>מתח</strong> (voltage) בין שתי נקודות הוא העבודה שהשדה החשמלי עושה על מטען שעובר מאחת לשנייה, חלקי המטען.<br>היחידה של המתח היא וולט (V):&nbsp;<span class=\"im\" data-tex=\"1\\ \\text{V}=1\\ \\text{J/C}\"></span>&nbsp;.&nbsp;</li><li class=\"k-def\"><strong>אלקטרון-וולט</strong> (eV) הוא האנרגיה שמטען <span class=\"im\" data-tex=\"e\"></span> צובר כשהוא עובר מתח של 1V <span class=\"im\" data-tex=\"1\\ \\text{eV}=e\\times1\\ \\text{V}=1.602\\times10^{-19}\"></span> J.</li><li class=\"k-def\"><strong>ואט</strong> (W) הוא יחידת הספק, אנרגיה ליחידת זמן: <span class=\"im\" data-tex=\"1\\ \\text{W}=1\\ \\text{J/s}\"></span>.</li></ol>",
+      "id": "ni9ch8mg",
+      "kind": "def",
+      "t": "box",
+      "title": "וולט, אלקטרון-וולט וואט"
     },
     {
       "html": "",
@@ -870,9 +886,10 @@
       "t": "p"
     },
     {
-      "html": "",
-      "id": "g0xvsklq",
-      "t": "p"
+      "html": "גודל האטום",
+      "id": "dmr7klao",
+      "level": 2,
+      "t": "h"
     },
     {
       "html": "",
@@ -885,9 +902,10 @@
       "t": "p"
     },
     {
-      "html": "",
-      "id": "ojo95v89",
-      "t": "p"
+      "html": "נזכור כי הבעיה של הפיזיקה הקלאסית הייתה, כי לא מצליחה להסביר מדוע האלקטרון לא נופל לפרוטון.<br>אי הוודאות והקוונטיות עוזרים בכך.&nbsp;&nbsp;<br>האלקטרון לא נופל לגרעין כי הדחיסה שלו עולה באנרגיה. גודל האטום הוא נקודת האיזון בין המשיכה החשמלית, שמושכת פנימה, ובין \"מחיר הכליאה\" הקוונטי, שדוחף החוצה.<br><br>נניח שהאלקטרון כלוא באזור ברדיוס <span class=\"im\" data-tex=\"r\"></span>&nbsp;. לפי אי-הוודאות כשהמיקום ידוע עד כדי <span class=\"im\" data-tex=\"r\"></span> בערך, התנע חייב להיות מפוזר לפחות עד <span class=\"im\" data-tex=\"\\hbar/r\"></span> בערך. תנע מפוזר פירושו תנועה, ולתנועה יש אנרגיה קינטית. לכן ככל שהאטום קטן יותר, האלקטרון \"רועד\" חזק יותר. <b>משמע</b>:&nbsp;<span class=\"im\" data-tex=\"E(r)\\approx\\frac{\\hbar^2}{2mr^2}-\\frac{ke^2}{r}\"></span>&nbsp;<br><br><ol class=\"proof\"><li class=\"k-con\">האיבר הראשון הוא מחיר הכליאה (&nbsp;האנרגיה הקינטית שהאלקטרון חייב להחזיק רק משום שהוא כלוא),האלקטרון נמצא כמעט תמיד בתוך אזור שגודלו בערך <span class=\"im\" data-tex=\"r\"></span>, כלומר אי-הוודאות במיקום שלו היא <span class=\"im\" data-tex=\"\\Delta x\\approx r\"></span>.<br>האיבר השני הוא משיכת קולון, והוא נעשה שלילי יותר כמו <span class=\"im\" data-tex=\"1/r\"></span>. מתחת לסקאלה מסוימת <span class=\"im\" data-tex=\"1/r^2\"></span> גובר על <span class=\"im\" data-tex=\"1/r\"></span>, ולכן לדחוס עוד לא משתלם.<br><br></li></ol>",
+      "id": "mlfi3jer",
+      "level": 3,
+      "t": "h"
     },
     {
       "html": "",
@@ -895,9 +913,14 @@
       "t": "p"
     },
     {
-      "html": "",
-      "id": "f8tkaejr",
-      "t": "p"
+      "caption": "איור",
+      "h": 712,
+      "id": "a87lbrgv",
+      "marks": [],
+      "size": "m",
+      "src": "/_blob/ed170c5bc9b6a4c9ce986758142e9d7e",
+      "t": "img",
+      "w": 1212
     },
     {
       "html": "",
@@ -920,9 +943,235 @@
       "t": "p"
     },
     {
+      "html": "<b>שני הקווים הדקים נלחמים זה בזה.</b> הסכום נמוך ביותר בנקודה אחת, וזה גודל האטום.",
+      "id": "rwvgpmuh",
+      "level": 3,
+      "t": "h"
+    },
+    {
       "html": "",
-      "id": "6kb2ncfu",
+      "id": "4w721188",
       "t": "p"
+    },
+    {
+      "html": "",
+      "id": "iz9fdgba",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "qh6e76kw",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "ezizhkfx",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "n9k5s21l",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "lrz8jj4t",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "8m2slp74",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "8s9sv42l",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "qoi1x3oo",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "86p67ywp",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "v8kr71ca",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "eimslzms",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "g8l1vr6w",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "d5ey6zrk",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "t05bus62",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "d4ue6ncy",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "lcc9aj9u",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "14vmhqjx",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "i19cy716",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "rpwxmikr",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "oi4hd8uk",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "ojg2jfmj",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "sbfx6gf4",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "4s5el38e",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "xrq8hvbx",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "2dugds2n",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "801vmhux",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "nhhlqc4g",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "c0kdfna1",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "wesusdqe",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "w6yawj1n",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "tqbn3w0h",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "tt4vo1wo",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "q7y2lb3t",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "2oqnky7m",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "cr98a6yq",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "55xe0zpt",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "wvoi0xdf",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "h77tkrw8",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "j72xck6h",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "qyimihdm",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "uelxqbyz",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "08mcvdph",
+      "t": "p"
+    },
+    {
+      "caption": "קלאסי מול קוונטי",
+      "h": 386,
+      "id": "3rhza0pz",
+      "marks": [],
+      "size": "m",
+      "src": "/_blob/2335a8b82cc776b991a574a81a7e47e9",
+      "t": "img",
+      "w": 897
     },
     {
       "html": "",
@@ -935,17 +1184,104 @@
       "t": "p"
     },
     {
-      "html": "",
-      "id": "skvgx8tc",
+      "html": "סך ההבדלים בי הפיזיקה הקוונטים לקלאסית דרך הטבלה, הבסיס להבדלים הוא&nbsp;במכניקה הקלאסית מצב הוא נקודה: מקום ומהירות חדים. במכניקה הקוונטית מצב הוא פיזור.",
+      "id": "kys29kcm",
+      "level": 3,
+      "t": "h"
+    },
+    {
+      "html": "<br><strong>מקום ומהירות:</strong> בפיזיקה הקלאסית לחלקיק יש בכל רגע מקום חד ומהירות חדה. ברצף של רגעים הם יוצרים קו אחד, וזה המסלול. בתמונה הקוונטית אין מצב שבו שניהם חדים יחד. יש שני פיזורים לפי אי הוודאות.&nbsp;<br><br><strong>גודל האטום:&nbsp;</strong>בפיזיקה הקלאסית, , לאלקטרון במסלול מעגלי סביב פרוטון יש אנרגיה <span class=\"im\" data-tex=\"-ke^2/2r\"></span>. כל רדיוס מותר, ואין רדיוס מועדף. האנרגיה יורדת בלי גבול ככל ש-<span class=\"im\" data-tex=\"r\"></span> קטן. על כן, הוא היה צפוי לקרוס.&nbsp;<br>קוונטית, לכלוא את האלקטרון ברדיוס&nbsp;<span class=\"im\" data-tex=\"r\"></span>&nbsp;עולה אנרגיה קינטית. על כן האלקטרון איננו קורס. אנרגיה כוללת של&nbsp;<span class=\"im\" data-tex=\"E(r)\\approx\\frac{\\hbar^2}{2mr^2}-\\frac{ke^2}{r}\"></span>&nbsp;.&nbsp;<br><mark class=\"hl-y\"><b>במינימום, האנרגיה הקינטית שווה בדיוק למחצית מגודל האנרגיה הפוטנציאלית</b></mark>.",
+      "id": "slvapc4w",
+      "t": "p"
+    },
+    {
+      "caption": "ההבדל",
+      "h": 644,
+      "id": "myiqwuk1",
+      "marks": [],
+      "size": "s",
+      "src": "/_blob/ad2f79c286c68312c5c18acba379a38a",
+      "t": "img",
+      "w": 990
+    },
+    {
+      "html": "<strong>האפס המוחלט:&nbsp;</strong>בפיזיקה הקלאסית, הטמפרטורה היא האנרגיה הקינטית הממוצעת,&nbsp;<span class=\"im\" data-tex=\"\\langle\\tfrac12mv^2\\rangle=\\tfrac32kT\"></span>&nbsp;ב-<span class=\"im\" data-tex=\"T=0\"></span> התנועה מתאפסת, והאטומים נחים בתחתית הבור של הכוחות.<br>בקוונטית, אטום שנח בדיוק בתחתית היה בעל מקום חד ותנע אפס חד, ולפי הגדרת מקום ומהירות קוונטית זה בלתי אפשרי.&nbsp;התנועה (והאנרגיה הקינטית) שנשארת במערכת כלואה גם במצב היסוד, כלומר במצב בעל האנרגיה הנמוכה ביותר.<br><br><strong>מה התורה חוזה:&nbsp;</strong>בצד הקלאסי, \"תוצאה יחידה\" היא טענה עקרונית, או גם לפעמים בפיזיקה קלאסית התחזית הינה התפלגות.&nbsp;בקוונטים הפיזור הוא התחזית עצמה. \"הסתברות\" לא אומרת שהתורה מעורפלת. ההסתברויות עצמן נחזות במדויק, ולעתים בדיוק מהגבוהים במדע.<br>",
+      "id": "tmygmupf",
       "t": "p"
     },
     {
       "html": "",
-      "id": "ucys1eqt",
+      "id": "rcrx43h1",
       "t": "p"
+    },
+    {
+      "html": "",
+      "id": "pqnv2gp7",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "giwoma7c",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "d84slwyf",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "151yl0qv",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "kio4jfs7",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "nlgokwqn",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "8wclfnj7",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "4aqjp7ki",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "q18x6ny9",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "g7prd8w3",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "s13o95mu",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "yus6svby",
+      "t": "p"
+    },
+    {
+      "html": "הפוטון ואלקטרודינמיקה קוונטית",
+      "id": "d0khw1px",
+      "level": 2,
+      "t": "h"
     }
   ],
   "moduleId": "M0.2",
   "status": "draft",
-  "updatedAt": 1794249312868
+  "updatedAt": 1794316665168
 }

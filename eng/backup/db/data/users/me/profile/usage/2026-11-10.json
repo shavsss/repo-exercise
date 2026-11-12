@@ -1,0 +1,31 @@
+{
+  "day": "2026-11-10",
+  "sessions": {
+    "3djng1": {
+      "calls": {
+        "claude-opus-5-5": 21,
+        "claude-sonnet-5-5": 1
+      },
+      "chars": {
+        "claude-opus-5-5": 35312,
+        "claude-sonnet-5-5": 167
+      },
+      "day": "2026-11-10",
+      "errors": {},
+      "inChars": {
+        "claude-opus-5-5": 406046,
+        "claude-sonnet-5-5": 14662
+      },
+      "lessonMs": 0,
+      "lessonWords": 0,
+      "lessons": 0,
+      "ms": {
+        "claude-opus-5-5": 519492,
+        "claude-sonnet-5-5": 2445
+      },
+      "session": "3djng1",
+      "updatedAt": 1794316506746
+    }
+  },
+  "updatedAt": 1794316506971
+}
