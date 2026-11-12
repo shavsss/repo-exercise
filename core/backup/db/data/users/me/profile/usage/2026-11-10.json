@@ -1,0 +1,27 @@
+{
+  "day": "2026-11-10",
+  "sessions": {
+    "ensee9": {
+      "calls": {
+        "claude-sonnet-5-5": 34
+      },
+      "chars": {
+        "claude-sonnet-5-5": 39059
+      },
+      "day": "2026-11-10",
+      "errors": {},
+      "inChars": {
+        "claude-sonnet-5-5": 463578
+      },
+      "lessonMs": 0,
+      "lessonWords": 0,
+      "lessons": 0,
+      "ms": {
+        "claude-sonnet-5-5": 347984
+      },
+      "session": "ensee9",
+      "updatedAt": 1794306743613
+    }
+  },
+  "updatedAt": 1794306743847
+}
