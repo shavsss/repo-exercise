@@ -985,5 +985,137 @@
    "apps.dtic.mil"
   ],
   "coverage": "Hughes salvo model from the primary source: full. Radar horizon, ASCM threat, soft kill, OTH-T, distributed lethality, magazines: good via theses (different style from the book). Fleet air defense architecture and historical cases: partly (Falklands/ASCM history, Aegis case). The narrative scouting-offense doctrine of the book itself is not covered."
+ },
+ {
+  "doc": "X41",
+  "replaces": "wong_tgv",
+  "key": "terramechanics_nrmm_bundle",
+  "path": "library/military/free/X41_terramechanics_nrmm_vehicle_mobility_bundle.pdf",
+  "title": "Terramechanics and vehicle mobility bundle: Bekker model reports, NATO Reference Mobility Model (NRMM) guide and next-generation NRMM, AMC Automotive Suspensions handbook, tracked-vehicle steerability, ride dynamics",
+  "author": "US Army (WES, TARDEC, ERDC, AMC), NATO STO, DTIC/archive.org mirror; Laughery; others",
+  "edition": "1971-2018 public government reports",
+  "source_url": "archive.org DTIC_ADA457955, ADA563597, ADA574119, ADA395739, ADB047979, AD1047407, ADA282588, AD0817023, ADA090360, ADA629344, ADA559451, ADA431130; arXiv 1411.3305",
+  "pdf_pages": 1329,
+  "text_ok": true,
+  "method": "bundle of 13 reports (OCR text layer on DTIC scans)",
+  "modules": {
+   "M11.15": [
+    {
+     "pages": [
+      1,
+      75
+     ],
+     "note": "מודל Bekker: pressure-sinkage, Mohr-Coulomb, התנגדות תנועה, כוח משיכה ו-slip, מודל אינטראקציה פיזיקלי, שיטות לנתוני חוזק קרקע (cone index)"
+    },
+    {
+     "pages": [
+      76,
+      714
+     ],
+     "note": "NRMM: מדריך המשתמש ומודל NRMM הדור הבא: מדדי MMP ולחץ, מהירות על שטח, speed-made-good"
+    },
+    {
+     "pages": [
+      715,
+      773
+     ],
+     "note": "אימות NRMM (ISTVS): מגבלות המודל"
+    },
+    {
+     "pages": [
+      774,
+      1232
+     ],
+     "note": "AMC Engineering Design Handbook: Automotive Suspensions: תלייה, ride, חספוס שטח, הגבלות חשיפה לרעידות, תלייה של זחלמים"
+    },
+    {
+     "pages": [
+      1233,
+      1264
+     ],
+     "note": "Skid steering וסטירביליות של רכב זחלי; מודל רובוט skid-steer"
+    },
+    {
+     "pages": [
+      1265,
+      1318
+     ],
+     "note": "Ride dynamics: חשיפה גוף-שלם לרעידות ונוהל TOP"
+    },
+    {
+     "pages": [
+      1319,
+      1329
+     ],
+     "note": "בקרת תלייה semi-active: סקירה ומתודולוגיות מודרניות"
+    }
+   ]
+  },
+  "status": "partial",
+  "tried": [
+   "Wong's Theory of Ground Vehicles is not free; Wong's own papers are paywalled",
+   "Bekker's books (Off-the-Road Locomotion, Introduction to Terrain-Vehicle Systems) only on lending/pirate sites",
+   "apps.dtic.mil blocked, used archive.org DTIC mirror",
+   "MDPI skyhook review returned HTML (blocked)"
+  ],
+  "blocked_hosts": [
+   "apps.dtic.mil",
+   "www.mdpi.com"
+  ],
+  "coverage": "Good: Bekker pressure-sinkage and shear (concise), motion resistance and traction basics, NRMM and speed-made-good (primary source), MMP, ride limits (handbook). Partly: nominal vs mean max pressure derivation, skid steering (two short reports), semi-active suspension (one comparison study, no active-suspension theory). Textbook-style derivation depth of Wong chapters 2-4 and 7-8 is not matched."
+ },
+ {
+  "doc": "X42",
+  "replaces": "wong_tgv",
+  "key": "ugv_traversability_autonomy",
+  "path": "library/military/free/X42_ugv_traversability_autonomy_bundle.pdf",
+  "title": "UGV traversability and autonomy bundle: Sevastopoulos traversability survey, Army TOP 02-2-541 teleoperated UGV mobility, DoD UGV Master Plan, SSC UGV lessons learned, autonomy test report",
+  "author": "Sevastopoulos and Konstantopoulos (arXiv 2204.10883); US Army ATC; DoD; SSC San Diego (via archive.org DTIC mirror)",
+  "edition": "1991-2022",
+  "source_url": "arXiv 2204.10883; archive.org DTIC_ADA525472, ADA277760, ADA495124, ADA633755",
+  "pdf_pages": 252,
+  "text_ok": true,
+  "method": "bundle of 5",
+  "modules": {
+   "M11.16": [
+    {
+     "pages": [
+      1,
+      22
+     ],
+     "note": "סקר הערכת traversability לרובוטים ניידים: חישה תלת-ממדית, שיטות מבוססות גיאומטריה, למידה ו-self-supervised"
+    },
+    {
+     "pages": [
+      23,
+      67
+     ],
+     "note": "TOP 02-2-541: ביצועי ניידות של UGV מרוחק (teleoperation) ובדיקות"
+    },
+    {
+     "pages": [
+      68,
+      243
+     ],
+     "note": "תוכנית אב UGV של DoD ולקחים מתוכניות UGV: teleoperation מול supervised autonomy, שימושים צבאיים"
+    },
+    {
+     "pages": [
+      244,
+      252
+     ],
+     "note": "דוח בדיקות/הערכה לאוטונומיה"
+    }
+   ]
+  },
+  "status": "partial",
+  "tried": [
+   "Borges et al. Field Robotics 2022 survey: DOI redirects to IEEE (paywalled/blocked); fieldrobotics.net and Cranfield 403"
+  ],
+  "blocked_hosts": [
+   "fieldrobotics.net",
+   "dspace.lib.cranfield.ac.uk"
+  ],
+  "coverage": "Traversability estimation: partly good (one 2022 survey). Teleoperation vs supervised autonomy, military UGV operations, testing: partly (older Army/DoD reports, 1991-2010). Weak: off-road planning and control, GNSS-denied ground localization (see library X09 SubT SLAM, W31 Lie theory for related), modern autonomy testing."
  }
 ]

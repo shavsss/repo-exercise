@@ -403,6 +403,14 @@
     "free/X40_salvo_model_fleet_air_defense_nps_bundle.pdf",
     "Hughes' salvo model (primary paper) and NPS theses on salvo models, ASCM defense, radar propagation, soft kill, VLS magazines, distributed lethality, OTH targeting, Aegis"
    ],
+   "X41": [
+    "free/X41_terramechanics_nrmm_vehicle_mobility_bundle.pdf",
+    "Terramechanics and vehicle mobility bundle: Bekker model reports, NATO Reference Mobility Model (NRMM) guide and next-generation NRMM, AMC Automotive Suspensions handbook, tracked-vehicle steerability, ride dynamics"
+   ],
+   "X42": [
+    "free/X42_ugv_traversability_autonomy_bundle.pdf",
+    "UGV traversability and autonomy bundle: Sevastopoulos traversability survey, Army TOP 02-2-541 teleoperated UGV mobility, DoD UGV Master Plan, SSC UGV lessons learned, autonomy test report"
+   ],
    "X03": [
     "free/X03_nielsen_directed_energy_weapons.pdf",
     "Effects of Directed Energy Weapons"
@@ -5550,6 +5558,154 @@
      "role": "main"
     }
    ],
+   "M11.15": [
+    {
+     "doc": "X41",
+     "pages": [
+      1,
+      75
+     ],
+     "note": "מודל Bekker: pressure-sinkage, Mohr-Coulomb, התנגדות תנועה, כוח משיכה ו-slip, מודל אינטראקציה פיזיקלי, שיטות לנתוני חוזק קרקע (cone index)",
+     "role": "main"
+    },
+    {
+     "doc": "X41",
+     "pages": [
+      76,
+      714
+     ],
+     "note": "NRMM: מדריך המשתמש ומודל NRMM הדור הבא: מדדי MMP ולחץ, מהירות על שטח, speed-made-good",
+     "role": "main"
+    },
+    {
+     "doc": "X41",
+     "pages": [
+      715,
+      773
+     ],
+     "note": "אימות NRMM (ISTVS): מגבלות המודל",
+     "role": "main"
+    },
+    {
+     "doc": "X41",
+     "pages": [
+      774,
+      1232
+     ],
+     "note": "AMC Engineering Design Handbook: Automotive Suspensions: תלייה, ride, חספוס שטח, הגבלות חשיפה לרעידות, תלייה של זחלמים",
+     "role": "main"
+    },
+    {
+     "doc": "X41",
+     "pages": [
+      1233,
+      1264
+     ],
+     "note": "Skid steering וסטירביליות של רכב זחלי; מודל רובוט skid-steer",
+     "role": "main"
+    },
+    {
+     "doc": "X41",
+     "pages": [
+      1265,
+      1318
+     ],
+     "note": "Ride dynamics: חשיפה גוף-שלם לרעידות ונוהל TOP",
+     "role": "main"
+    },
+    {
+     "doc": "X41",
+     "pages": [
+      1319,
+      1329
+     ],
+     "note": "בקרת תלייה semi-active: סקירה ומתודולוגיות מודרניות",
+     "role": "main"
+    }
+   ],
+   "M11.16": [
+    {
+     "doc": "X42",
+     "pages": [
+      1,
+      22
+     ],
+     "note": "סקר הערכת traversability לרובוטים ניידים: חישה תלת-ממדית, שיטות מבוססות גיאומטריה, למידה ו-self-supervised",
+     "role": "main"
+    },
+    {
+     "doc": "X42",
+     "pages": [
+      23,
+      67
+     ],
+     "note": "TOP 02-2-541: ביצועי ניידות של UGV מרוחק (teleoperation) ובדיקות",
+     "role": "main"
+    },
+    {
+     "doc": "X42",
+     "pages": [
+      68,
+      243
+     ],
+     "note": "תוכנית אב UGV של DoD ולקחים מתוכניות UGV: teleoperation מול supervised autonomy, שימושים צבאיים",
+     "role": "main"
+    },
+    {
+     "doc": "X42",
+     "pages": [
+      244,
+      252
+     ],
+     "note": "דוח בדיקות/הערכה לאוטונומיה",
+     "role": "main"
+    },
+    {
+     "doc": "X08",
+     "pages": [
+      731,
+      802
+     ],
+     "note": "פרק 13: Differential models: אילוצי מהירות ורכבים לא-הולונומיים, phase space, מכניקה בסיסית",
+     "role": "main"
+    },
+    {
+     "doc": "X08",
+     "pages": [
+      803,
+      876
+     ],
+     "note": "פרק 14: Sampling-based planning under differential constraints: reachability, RRT קינודינמי, תכנון משוב ותכנון מנותק (path + trajectory), אופטימיזציית מסלול",
+     "role": "main"
+    },
+    {
+     "doc": "X08",
+     "pages": [
+      877,
+      940
+     ],
+     "note": "פרק 15: System theory: DP רציף, מסלולים אופטימליים לרכבים גלגליים (Dubins/Reeds-Shepp), תורת מערכות לא-הולונומיות ו-steering",
+     "role": "main"
+    },
+    {
+     "doc": "X08",
+     "pages": [
+      656,
+      700
+     ],
+     "note": "סעיפים 12.2–12.3: לוקליזציה ומיפוי תחת אי-ודאות (רלוונטי לניווט ללא GNSS)",
+     "role": "main"
+    },
+    {
+     "doc": "X09",
+     "pages": [
+      1,
+      21
+     ],
+     "note": "כולו: תפיסה תלת-ממדית ו-SLAM בשטח",
+     "role": "main"
+    }
+   ],
    "M7.18": [
     {
      "doc": "X03",
@@ -5903,53 +6059,6 @@
       21
      ],
      "note": "כולו: SLAM ללא GPS בתת-קרקע",
-     "role": "main"
-    }
-   ],
-   "M11.16": [
-    {
-     "doc": "X08",
-     "pages": [
-      731,
-      802
-     ],
-     "note": "פרק 13: Differential models: אילוצי מהירות ורכבים לא-הולונומיים, phase space, מכניקה בסיסית",
-     "role": "main"
-    },
-    {
-     "doc": "X08",
-     "pages": [
-      803,
-      876
-     ],
-     "note": "פרק 14: Sampling-based planning under differential constraints: reachability, RRT קינודינמי, תכנון משוב ותכנון מנותק (path + trajectory), אופטימיזציית מסלול",
-     "role": "main"
-    },
-    {
-     "doc": "X08",
-     "pages": [
-      877,
-      940
-     ],
-     "note": "פרק 15: System theory: DP רציף, מסלולים אופטימליים לרכבים גלגליים (Dubins/Reeds-Shepp), תורת מערכות לא-הולונומיות ו-steering",
-     "role": "main"
-    },
-    {
-     "doc": "X08",
-     "pages": [
-      656,
-      700
-     ],
-     "note": "סעיפים 12.2–12.3: לוקליזציה ומיפוי תחת אי-ודאות (רלוונטי לניווט ללא GNSS)",
-     "role": "main"
-    },
-    {
-     "doc": "X09",
-     "pages": [
-      1,
-      21
-     ],
-     "note": "כולו: תפיסה תלת-ממדית ו-SLAM בשטח",
      "role": "main"
     }
    ],
