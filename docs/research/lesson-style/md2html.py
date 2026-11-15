@@ -50,7 +50,7 @@ h2{{font-size:1.6em;line-height:1.3}} h3{{margin-top:2em;color:var(--acc)}}
 .cert{{font-size:.7em;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:0 4px;white-space:nowrap}}
 abbr{{text-decoration:underline dotted;cursor:help}}
 figure{{margin:1.5em 0;text-align:center}} figure svg{{max-width:100%;height:auto}} figcaption,.note{{font-size:.85em;color:var(--muted)}}
-.katex-display{{overflow-x:auto;overflow-y:hidden;direction:ltr}} .katex{{direction:ltr}}
+.katex-display{{overflow-x:auto;overflow-y:hidden;direction:ltr}} .katex{{direction:ltr;unicode-bidi:isolate}}
 details{{margin-top:8px}} summary{{cursor:pointer;color:var(--acc)}}
 </style></head><body><main id="m"></main>
 <script>
