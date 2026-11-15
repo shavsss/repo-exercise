@@ -467,5 +467,176 @@
    "Scan with no text layer; checked TOC and chapter headings by OCR of page headers. File ends in Ch.7. Module chapters missing: 11 (statistical optics), 15-19 (lasers, semiconductor optics, LEDs, detectors), 25 (optical fiber comm); also resonators (Ch.10), fiber optics (Ch.9), laser amplifiers (Ch.14), nonlinear/electro-optic (20-21). Only Ch.3 present"
   ],
   "blocked_hosts": []
+ },
+ {
+  "doc": "W66",
+  "key": "blackman_popoli",
+  "path": "library/engineering/books/W66_blackman_popoli_tracking.pdf",
+  "title": "Design and Analysis of Modern Tracking Systems",
+  "author": "Blackman & Popoli",
+  "edition": "Artech House 1999. TRIMMED copy of the 124 MB scan (original 2517 pages; the original also carries unrelated pages after the index, from ~p.1250): kept new pp.1-25 (title, contents, front matter) + original pp.177-762 (book chapters 3-10, new pp.26-611). Mapping new = original - 151 for original >= 177. Book chapters: 3 (new 26), 4 (78), 5 (133 approx), 6 (203), 7 (281), 8 (361), 9 (472), 10 (537)",
+  "source_url": "learner upload",
+  "pdf_pages": 611,
+  "text_ok": false,
+  "scan": true,
+  "method": "upload",
+  "modules": {
+   "M5.17": [
+    {
+     "pages": [
+      7,
+      25
+     ],
+     "note": "תוכן עניינים מפורט של הספר (עמודי TOC; מפה לפרקים)"
+    },
+    {
+     "pages": [
+      26,
+      77
+     ],
+     "note": "פרק 3: Kinematic state estimation: LS, Kalman, EKF, בחירת מערכת צירים (קרטזית/ספרית/angle-only), פישוט מצבים: מודלי מדידה והמרת צירים"
+    },
+    {
+     "pages": [
+      78,
+      132
+     ],
+     "note": "פרק 4: Modeling and tracking dynamic targets: Singer, CV/CA, coordinated turn, IMM בהרחבה (4.4-4.6), מודלי boost"
+    },
+    {
+     "pages": [
+      203,
+      360
+     ],
+     "note": "פרקים 6–7: Basic methods for data association (score, gating, assignment/auction, PDA, JPDA, MHT, group tracking) ו-Advanced methods (MHT מתקדם, מיקסטורה, JPDA רב-סריקה, dynamic programming)"
+    },
+    {
+     "pages": [
+      472,
+      611
+     ],
+     "note": "פרקים 9–10: Multiple sensor tracking: ארכיטקטורות, track-to-track, registration/misalignment (10.5), angle-only deghosting. alpha-beta ו-PHD/PMBM אינם בספר ברמת פרק"
+    },
+    {
+     "pages": [
+      133,
+      202
+     ],
+     "note": "פרק 5: Passive sensor tracking (angle-only), רקע בלבד"
+    }
+   ],
+   "M7.12": [
+    {
+     "pages": [
+      361,
+      471
+     ],
+     "note": "פרק 8: Attribute data fusion: היתוך זהות (Bayes, Dempster-Shafer, evidential reasoning) ל-identity fusion"
+    },
+    {
+     "pages": [
+      472,
+      536
+     ],
+     "note": "פרק 9: Multiple sensor tracking: central/sensor-level, distributed, track-to-track association וקורלציית שגיאות"
+    },
+    {
+     "pages": [
+      537,
+      611
+     ],
+     "note": "פרק 10: System implementation: registration ו-bias estimation (10.5), angle-only ו-heterogeneous sensor fusion"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "No qpdf; trimmed with pypdf. Verified chapter starts by OCR of opener pages. Original printed-to-physical offset drifts (+30 early, +25 near index)"
+  ],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "W68",
+  "key": "tupper_na",
+  "path": "library/engineering/books/W68_tupper_naval_architecture.pdf",
+  "title": "Introduction to Naval Architecture",
+  "author": "Tupper",
+  "edition": "5th ed., Butterworth-Heinemann/Elsevier 2013 (EPUB rendered to PDF, A4, one XHTML per file in spine order; images included; page numbers differ from print)",
+  "source_url": "learner upload",
+  "pdf_pages": 472,
+  "text_ok": true,
+  "scan": false,
+  "method": "epub-render",
+  "modules": {
+   "M30.1": [
+    {
+     "pages": [
+      29,
+      41
+     ],
+     "note": "פרק 2: Definition and regulation (כולל שיקולי subdivision/damage ותקנות)"
+    },
+    {
+     "pages": [
+      42,
+      105
+     ],
+     "note": "פרקים 3–6: Ship form calculations (מקדמי צורה, Simpson), Flotation (displacement, trim), Stability (metacentre, GM, GZ, free surface, damaged stability), Launching/docking/grounding"
+    }
+   ],
+   "M30.2": [
+    {
+     "pages": [
+      106,
+      153
+     ],
+     "note": "פרקים 7–8: Resistance (Froude/Reynolds, חיכוך, גלים, שיטות הערכה, מבחני מודל) ו-Propulsion (מדחף, cavitation, hull-propeller, התאמת מנוע)"
+    }
+   ],
+   "M30.3": [
+    {
+     "pages": [
+      154,
+      188
+     ],
+     "note": "פרקים 9–10: The ship environments (גלי ים, ספקטרום) ו-Seakeeping (תנועות, RAO, roll, stabilizers)"
+    },
+    {
+     "pages": [
+      196,
+      209
+     ],
+     "note": "פרק 12: Manoeuvring (משוואות תמרון, יציבות כיוונית, סוגי הגה/אוטופיילוט)"
+    }
+   ],
+   "M30.4": [
+    {
+     "pages": [
+      189,
+      195
+     ],
+     "note": "פרק 11: Vibration, noise and shock (רטט ציר/מערכת הנעה)"
+    },
+    {
+     "pages": [
+      210,
+      238
+     ],
+     "note": "פרק 13: Structures (חוזק אורכי, hogging/sagging, לוחות מחוזקים, buckling, עייפות)"
+    },
+    {
+     "pages": [
+      239,
+      257
+     ],
+     "note": "פרק 14: Ship design (כולל מכונות ומערכות הנעה ברמת תכן). הספר אינו מכסה לעומק Integrated electric propulsion/gas turbine plants"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "rendered 31 spine files with Playwright chromium, pdfunite; images verified visually"
+  ],
+  "blocked_hosts": []
  }
 ]

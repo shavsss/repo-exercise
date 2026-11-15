@@ -25,6 +25,14 @@
     "library/engineering/books/W64_saleh_teich_photonics.pdf",
     "Fundamentals of Photonics"
    ],
+   "W66": [
+    "library/engineering/books/W66_blackman_popoli_tracking.pdf",
+    "Design and Analysis of Modern Tracking Systems"
+   ],
+   "W68": [
+    "library/engineering/books/W68_tupper_naval_architecture.pdf",
+    "Introduction to Naval Architecture"
+   ],
    "B02a": [
     "library/military/books/02a_Principles-of-Modern-Radar-Vol2-Advanced_Melvin-Scheer_2013.pdf",
     "B02a"
@@ -362,6 +370,10 @@
    "W67": [
     "../engineering/books/W67_paul_emc.pdf",
     "Introduction to Electromagnetic Compatibility"
+   ],
+   "W66": [
+    "../engineering/books/W66_blackman_popoli_tracking.pdf",
+    "Design and Analysis of Modern Tracking Systems"
    ],
    "E03": [
     "../engineering/books/E03_Feedback-Systems_Astrom-Murray_2ed.pdf",
@@ -934,6 +946,214 @@
       123
      ],
      "note": "פרק 3 (Beam Optics): אלומות גאוס, divergence, waist, Rayleigh range, Hermite/Laguerre-Gaussian, התפשטות דרך רכיבים (בסיס ל-M²). TOC בעמודים 17-19 (לא חלק מהמיפוי)",
+     "role": "main"
+    }
+   ],
+   "M5.17": [
+    {
+     "doc": "W66",
+     "pages": [
+      7,
+      25
+     ],
+     "note": "תוכן עניינים מפורט של הספר (עמודי TOC; מפה לפרקים)",
+     "role": "main"
+    },
+    {
+     "doc": "W66",
+     "pages": [
+      26,
+      77
+     ],
+     "note": "פרק 3: Kinematic state estimation: LS, Kalman, EKF, בחירת מערכת צירים (קרטזית/ספרית/angle-only), פישוט מצבים: מודלי מדידה והמרת צירים",
+     "role": "main"
+    },
+    {
+     "doc": "W66",
+     "pages": [
+      78,
+      132
+     ],
+     "note": "פרק 4: Modeling and tracking dynamic targets: Singer, CV/CA, coordinated turn, IMM בהרחבה (4.4-4.6), מודלי boost",
+     "role": "main"
+    },
+    {
+     "doc": "W66",
+     "pages": [
+      203,
+      360
+     ],
+     "note": "פרקים 6–7: Basic methods for data association (score, gating, assignment/auction, PDA, JPDA, MHT, group tracking) ו-Advanced methods (MHT מתקדם, מיקסטורה, JPDA רב-סריקה, dynamic programming)",
+     "role": "main"
+    },
+    {
+     "doc": "W66",
+     "pages": [
+      472,
+      611
+     ],
+     "note": "פרקים 9–10: Multiple sensor tracking: ארכיטקטורות, track-to-track, registration/misalignment (10.5), angle-only deghosting. alpha-beta ו-PHD/PMBM אינם בספר ברמת פרק",
+     "role": "main"
+    },
+    {
+     "doc": "W66",
+     "pages": [
+      133,
+      202
+     ],
+     "note": "פרק 5: Passive sensor tracking (angle-only), רקע בלבד",
+     "role": "main"
+    },
+    {
+     "doc": "B02a",
+     "pages": [
+      694,
+      720
+     ],
+     "note": "פרק 15.1–15.4: עקיבה, gating, שיוך, MHT, IMM, VS-IMM, עקיבה רב-חיישנית",
+     "role": "main"
+    },
+    {
+     "doc": "A02.3",
+     "pages": [
+      1,
+      12
+     ],
+     "note": "כל המאמר: Labeled RFS, מסנן δ-GLMB, עדכון וחיזוי, קיטום, דוגמה נומרית (בלי ביבליוגרפיה)",
+     "role": "main"
+    }
+   ],
+   "M30.1": [
+    {
+     "doc": "W68",
+     "pages": [
+      29,
+      41
+     ],
+     "note": "פרק 2: Definition and regulation (כולל שיקולי subdivision/damage ותקנות)",
+     "role": "main"
+    },
+    {
+     "doc": "W68",
+     "pages": [
+      42,
+      105
+     ],
+     "note": "פרקים 3–6: Ship form calculations (מקדמי צורה, Simpson), Flotation (displacement, trim), Stability (metacentre, GM, GZ, free surface, damaged stability), Launching/docking/grounding",
+     "role": "main"
+    }
+   ],
+   "M30.2": [
+    {
+     "doc": "W68",
+     "pages": [
+      106,
+      153
+     ],
+     "note": "פרקים 7–8: Resistance (Froude/Reynolds, חיכוך, גלים, שיטות הערכה, מבחני מודל) ו-Propulsion (מדחף, cavitation, hull-propeller, התאמת מנוע)",
+     "role": "main"
+    },
+    {
+     "doc": "W63",
+     "pages": [
+      33,
+      78
+     ],
+     "note": "פרק 2: ניסויי מודל, קנה מידה Froude/Reynolds, גרר חיכוך וגרר גוף ספינה, מדחף, אינטראקציה מדחף-גוף",
+     "role": "main"
+    },
+    {
+     "doc": "W63",
+     "pages": [
+      79,
+      130
+     ],
+     "note": "פרק 3: זרימה צמיגה, שכבות גבול למינריות וטורבולנטיות (בסיס לגרר חיכוך)",
+     "role": "main"
+    },
+    {
+     "doc": "W63",
+     "pages": [
+      271,
+      364
+     ],
+     "note": "פרק 6: גלים ותופעות גלים, כולל התנגדות יצירת גלים",
+     "role": "main"
+    },
+    {
+     "doc": "W63",
+     "pages": [
+      191,
+      270
+     ],
+     "note": "השלמה: פרק 5, משטחים נושאים (תאוריית כנף ובסיס לתאוריית מדחף)",
+     "role": "main"
+    }
+   ],
+   "M30.3": [
+    {
+     "doc": "W68",
+     "pages": [
+      154,
+      188
+     ],
+     "note": "פרקים 9–10: The ship environments (גלי ים, ספקטרום) ו-Seakeeping (תנועות, RAO, roll, stabilizers)",
+     "role": "main"
+    },
+    {
+     "doc": "W68",
+     "pages": [
+      196,
+      209
+     ],
+     "note": "פרק 12: Manoeuvring (משוואות תמרון, יציבות כיוונית, סוגי הגה/אוטופיילוט)",
+     "role": "main"
+    },
+    {
+     "doc": "W63",
+     "pages": [
+      271,
+      364
+     ],
+     "note": "פרק 6: גלי ים ליניאריים, ספקטרום, תנועות גוף בגלים, RAO",
+     "role": "main"
+    },
+    {
+     "doc": "W63",
+     "pages": [
+      365,
+      426
+     ],
+     "note": "השלמה: פרק 7, גופים דקים: תאוריית רצועות ונגזרות הידרודינמיות לתמרון",
+     "role": "main"
+    }
+   ],
+   "M30.4": [
+    {
+     "doc": "W68",
+     "pages": [
+      189,
+      195
+     ],
+     "note": "פרק 11: Vibration, noise and shock (רטט ציר/מערכת הנעה)",
+     "role": "main"
+    },
+    {
+     "doc": "W68",
+     "pages": [
+      210,
+      238
+     ],
+     "note": "פרק 13: Structures (חוזק אורכי, hogging/sagging, לוחות מחוזקים, buckling, עייפות)",
+     "role": "main"
+    },
+    {
+     "doc": "W68",
+     "pages": [
+      239,
+      257
+     ],
+     "note": "פרק 14: Ship design (כולל מכונות ומערכות הנעה ברמת תכן). הספר אינו מכסה לעומק Integrated electric propulsion/gas turbine plants",
      "role": "main"
     }
    ],
@@ -1752,26 +1972,6 @@
       900
      ],
      "note": "פרק 10: הנדסת אמינות מערכת: מודלי R&M למערכות ניתנות לתיקון (Markov), availability, הקצאת אמינות",
-     "role": "main"
-    }
-   ],
-   "M5.17": [
-    {
-     "doc": "B02a",
-     "pages": [
-      694,
-      720
-     ],
-     "note": "פרק 15.1–15.4: עקיבה, gating, שיוך, MHT, IMM, VS-IMM, עקיבה רב-חיישנית",
-     "role": "main"
-    },
-    {
-     "doc": "A02.3",
-     "pages": [
-      1,
-      12
-     ],
-     "note": "כל המאמר: Labeled RFS, מסנן δ-GLMB, עדכון וחיזוי, קיטום, דוגמה נומרית (בלי ביבליוגרפיה)",
      "role": "main"
     }
    ],
@@ -3143,64 +3343,6 @@
      "role": "main"
     }
    ],
-   "M30.2": [
-    {
-     "doc": "W63",
-     "pages": [
-      33,
-      78
-     ],
-     "note": "פרק 2: ניסויי מודל, קנה מידה Froude/Reynolds, גרר חיכוך וגרר גוף ספינה, מדחף, אינטראקציה מדחף-גוף",
-     "role": "main"
-    },
-    {
-     "doc": "W63",
-     "pages": [
-      79,
-      130
-     ],
-     "note": "פרק 3: זרימה צמיגה, שכבות גבול למינריות וטורבולנטיות (בסיס לגרר חיכוך)",
-     "role": "main"
-    },
-    {
-     "doc": "W63",
-     "pages": [
-      271,
-      364
-     ],
-     "note": "פרק 6: גלים ותופעות גלים, כולל התנגדות יצירת גלים",
-     "role": "main"
-    },
-    {
-     "doc": "W63",
-     "pages": [
-      191,
-      270
-     ],
-     "note": "השלמה: פרק 5, משטחים נושאים (תאוריית כנף ובסיס לתאוריית מדחף)",
-     "role": "main"
-    }
-   ],
-   "M30.3": [
-    {
-     "doc": "W63",
-     "pages": [
-      271,
-      364
-     ],
-     "note": "פרק 6: גלי ים ליניאריים, ספקטרום, תנועות גוף בגלים, RAO",
-     "role": "main"
-    },
-    {
-     "doc": "W63",
-     "pages": [
-      365,
-      426
-     ],
-     "note": "השלמה: פרק 7, גופים דקים: תאוריית רצועות ונגזרות הידרודינמיות לתמרון",
-     "role": "main"
-    }
-   ],
    "M29.2": [
     {
      "doc": "W50",
@@ -4233,6 +4375,44 @@
      "role": "main"
     }
    ],
+   "M7.12": [
+    {
+     "doc": "W66",
+     "pages": [
+      361,
+      471
+     ],
+     "note": "פרק 8: Attribute data fusion: היתוך זהות (Bayes, Dempster-Shafer, evidential reasoning) ל-identity fusion",
+     "role": "main"
+    },
+    {
+     "doc": "W66",
+     "pages": [
+      472,
+      536
+     ],
+     "note": "פרק 9: Multiple sensor tracking: central/sensor-level, distributed, track-to-track association וקורלציית שגיאות",
+     "role": "main"
+    },
+    {
+     "doc": "W66",
+     "pages": [
+      537,
+      611
+     ],
+     "note": "פרק 10: System implementation: registration ו-bias estimation (10.5), angle-only ו-heterogeneous sensor fusion",
+     "role": "main"
+    },
+    {
+     "doc": "B02a",
+     "pages": [
+      716,
+      720
+     ],
+     "note": "15.3: עקיבה רב-חיישנית: ארכיטקטורות היתוך, היתוך מדידות ומסלולים",
+     "role": "main"
+    }
+   ],
    "M10.6": [
     {
      "doc": "E31",
@@ -4427,17 +4607,6 @@
       116
      ],
      "note": "כולו (סריקה; הרלוונטי במיוחד: burn rate, grain geometry, chamber pressure, internal ballistics)",
-     "role": "main"
-    }
-   ],
-   "M7.12": [
-    {
-     "doc": "B02a",
-     "pages": [
-      716,
-      720
-     ],
-     "note": "15.3: עקיבה רב-חיישנית: ארכיטקטורות היתוך, היתוך מדידות ומסלולים",
      "role": "main"
     }
    ],
