@@ -896,5 +896,94 @@
   "tried": [],
   "blocked_hosts": [],
   "coverage": "Good: history of quieting/detection and strategic role (Cote), non-acoustic signatures, VLF/ELF and radio-room communications, SSBN role. Use also W82 ch.12 (radiated noise), W82 vol 8 ch.26-35 (wakes, pages 757-857 of W82), W80 pages 204-273 and 581-1144 (propulsion choices). Weak: submarine combat system and weapons (no open source found at depth)."
+ },
+ {
+  "doc": "X40",
+  "replaces": "hughes_girrier",
+  "key": "salvo_air_defense_nps_bundle",
+  "path": "library/military/free/X40_salvo_model_fleet_air_defense_nps_bundle.pdf",
+  "title": "Hughes' salvo model (primary paper) and NPS theses on salvo models, ASCM defense, radar propagation, soft kill, VLS magazines, distributed lethality, OTH targeting, Aegis",
+  "author": "Wayne P. Hughes Jr. (NRL 1995 paper hosted by NPS); NPS theses",
+  "edition": "1990-2022",
+  "source_url": "calhoun.nps.edu 10945/60793, 34844, 63664, 65156, 661, 3615, 30278, 27962, 28092, 23199, 5345, 6947, 26584, 23007, 42990, 63762, 64353, 45933, 71479",
+  "pdf_pages": 1591,
+  "text_ok": true,
+  "method": "bundle of 19 NPS items",
+  "modules": {
+   "M10.9": [
+    {
+     "pages": [
+      1,
+      24
+     ],
+     "note": "Hughes 1995: A Salvo Model of Warships in Missile Combat (המקור הראשוני)"
+    },
+    {
+     "pages": [
+      25,
+      400
+     ],
+     "note": "עבודות על Salvo: יסודות salvo warfare, בדיקת משוואות Salvo, מורכבות מודל, Heterogeneous Salvo, Hughes מותאם לצי קטן, ערך תכונות ספינה"
+    },
+    {
+     "pages": [
+      401,
+      608
+     ],
+     "note": "יעילות היסטורית של ASCM (Falklands, Exocet, Styx) ותכונות האיום; הגנת ספינות מפני טילי ים"
+    },
+    {
+     "pages": [
+      609,
+      715
+     ],
+     "note": "אופק מכ\"ם, evaporation duct וזיהוי sea-skimmers: זמן תגובה"
+    },
+    {
+     "pages": [
+      716,
+      833
+     ],
+     "note": "kill-chain: ארכיטקטורת הגנה אווירית ו-CONOPS נגד ASCM"
+    },
+    {
+     "pages": [
+      834,
+      1183
+     ],
+     "note": "Soft kill: לוחמה אלקטרונית משולבת, ESM/ECM, פתיינים"
+    },
+    {
+     "pages": [
+      1184,
+      1278
+     ],
+     "note": "VLS loadout ומשק המחסניות; תורת Distributed Lethality"
+    },
+    {
+     "pages": [
+      1279,
+      1492
+     ],
+     "note": "Over-the-horizon targeting ו-scouting לצי השטח"
+    },
+    {
+     "pages": [
+      1493,
+      1591
+     ],
+     "note": "Aegis: תיק בוחן היסטורי וארכיטקטורת הגנה אווירית של הצי"
+    }
+   ]
+  },
+  "status": "partial",
+  "tried": [
+   "Fleet Tactics and Naval Operations (Hughes and Girrier book) is not free; Hughes' 1995 paper found on Calhoun",
+   "apps.dtic.mil blocked"
+  ],
+  "blocked_hosts": [
+   "apps.dtic.mil"
+  ],
+  "coverage": "Hughes salvo model from the primary source: full. Radar horizon, ASCM threat, soft kill, OTH-T, distributed lethality, magazines: good via theses (different style from the book). Fleet air defense architecture and historical cases: partly (Falklands/ASCM history, Aegis case). The narrative scouting-offense doctrine of the book itself is not covered."
  }
 ]
