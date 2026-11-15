@@ -13,6 +13,7 @@ lib/index.json. Nothing is removed: test-out and brief sections stay in the modu
 the tutor opens them with a short diagnostic or a condensed lesson (teaching rules).
 """
 import json
+import round8
 import re
 from pathlib import Path
 
@@ -278,6 +279,9 @@ def main():
         merge_e2(mods, app, {"items": GAP_ITEMS})
         n_e2 = merge_e2(mods, app, e2)
         carry(mods, app)
+        # round 8: the new modules' items (tools/curriculum/round8_items.json)
+        for mid, its in round8.items(app).items():
+            mods.setdefault(mid, {"items": [], "testout": [], "brief": [], "reading": []})["items"].extend(its)
         n_scope = scope_items(mods, app)
         print(f"{app}: {n_scope} scope item(s) for books without published text")
         mods = {k: {f: v for f, v in e.items() if v} for k, e in mods.items()}
@@ -287,7 +291,7 @@ def main():
                 "built_by": "tools/curriculum/build_curriculum.py",
                 "from": [str(F.relative_to(ROOT)), str(R[app].relative_to(ROOT)), str(H.relative_to(ROOT))] + ([str(E2.relative_to(ROOT))] if E2.exists() else []) + ([str(WORDING[app].relative_to(ROOT))] if app in WORDING else []),
                 "fields": {
-                    "items": "lesson items added by the topic-based curriculum: n name, imp K/S/C, k new|deepen|delta|mention, teach what to add, primary (for delta) the module that teaches it in full, to 1 = test-out candidate; ids E2:* make the E2 domain targets' hold-in-head and must-verify entries explicit",
+                    "items": "lesson items added by the topic-based curriculum: n name, imp K/S/C, k new|deepen|delta|mention, teach what to add, primary (for delta) the module that teaches it in full, on (round 8, deepen) the existing topic it builds on, to 1 = test-out candidate; ids E2:* make the E2 domain targets' hold-in-head and must-verify entries explicit",
                     "testout": "sections (t, d doc, p PDF pages) or subtopics (sub 1) taught after a short diagnostic: pass = condensed lesson with the full text one click away and a later recheck; otherwise the full lesson",
                     "brief": "sections taught as a short overview, with the full text one click away (never dropped)",
                     "reading": "fixed reading list: core = read with the module; st ok|doi|blocked|timeout|rough is the link check; p2h 1 = stronger source for a tutor-written domain, with its topic",

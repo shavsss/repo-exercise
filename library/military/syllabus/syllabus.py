@@ -1070,3 +1070,11 @@ SKIP = [
     ("D5", 241, 254, "בחירה O1: נספחים G–I"), ("D5", 261, 275, "בחירה O1: נספח K"),
     ("D6", 85, 216, "בחירה O1: פרקים 6–9 ונספחים A–B"), ("D6", 227, 228, "בחירה O1: נספח E"), ("D6", 231, 246, "בחירה O1: נספח G"),
 ]
+
+
+# Round 8 (15.11.2026): the layered order, the learner's new modules and the audit's gaps (tools/curriculum/round8.py)
+import sys as _sys
+from pathlib import Path as _Path
+_sys.path.insert(0, str(_Path(__file__).resolve().parents[3] / "tools/curriculum"))
+import round8 as _round8  # noqa: E402
+MODULES, PARTS = _round8.apply("mil", MODULES, PARTS)
