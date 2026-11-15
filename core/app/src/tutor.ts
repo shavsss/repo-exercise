@@ -10,6 +10,7 @@ import { curriculumBlock } from "./curriculum";
 import { CHAT_HISTORY_BYTES, focusHistory, questionOf, type Chapter } from "./chatContext";
 import { auditLong, namedModules, type AuditMark, applyRepair } from "./lessonAudit";
 import { decideLine, decideSlot } from "./lessonGate";
+import { headWithin, tailWithin } from "./truncation";
 import { LEGACY_RULES, SYSTEM_PROMPT, libraryList } from "./prompt";
 import type { Runtime, SampleTool } from "./runtime";
 import { BOOK_PART, BOOK_PLAN, LESSON_WORDS, OUTLINE_FIX, lessonWords, normalizeOutline, orderProblems, outlineCheckPrompt, parseOutlineReview, partSections, tightenPrompt, validOutline, wordCount, type BookOutline } from "./bookRules";
@@ -25,6 +26,32 @@ const bytes = (s: string) => enc.encode(s).length;
 const INPUT_BUDGET = 190_000;
 /** Source text sent with a lesson turn (the tutor reads more with tools). */
 const LESSON_PAGES_CHARS = 95_000;
+/** The lesson text so far sent with each part: at most PRIOR_MAX bytes, never under PRIOR_MIN (the source pages give way first). */
+const PRIOR_MAX = 120_000;
+const PRIOR_MIN = 40_000;
+/** A part that still passes the 256 KiB cap with its tool rounds is sent once more at this size. */
+const SMALL_TURN = 120_000;
+const PAGES_MARK = "\n\nSource pages for this lesson:\n";
+
+/** The study context with its source pages shortened by `cut` bytes (the tutor reads the rest with tools). */
+function cutPages(ctx: string, cut: number) {
+  const at = ctx.indexOf(PAGES_MARK);
+  const end = ctx.lastIndexOf("\n</study_context>");
+  if (at < 0 || end < at || cut <= 0) return ctx;
+  const pages = ctx.slice(at + PAGES_MARK.length, end);
+  return `${ctx.slice(0, at + PAGES_MARK.length)}${headWithin(pages, bytes(pages) - cut)}\n[… the remaining source pages were left out to fit the input limit: read them with read_source_pages]${ctx.slice(end)}`;
+}
+
+/**
+ * One part's turn within `cap` bytes, the system prompt included: the text written so far gives
+ * way first, down to PRIOR_MIN (a quarter of the cap for a small turn), then the source pages.
+ */
+function fitPartTurn(ctx: string, make: (ctx: string, prior: number) => string, sys: number, cap = INPUT_BUDGET) {
+  const room = cap - sys - bytes(make(ctx, 0));
+  const floor = Math.min(PRIOR_MIN, Math.floor(cap / 4));
+  if (room >= floor) return make(ctx, Math.min(PRIOR_MAX, room));
+  return make(cutPages(ctx, floor - room), floor);
+}
 
 function formatValue(v: unknown): string {
   try {
@@ -559,12 +586,12 @@ LESSON PLANNING STEP. Do not write the text yet. The app will write the lesson i
 Write the plan (titles, "covers", "facts", "next") in plain engineering language: physics, signals, receivers, links, and published system parameters. Name every topic by its engineering content (interference and the signal-to-interference ratio, detection range, link margin), the case study as an engineering design question, and the exercises as engineering calculations; do not frame anything as attacking, defeating or targeting.
 Rules for the plan: 3 to 5 parts; for a core or advanced module the words add up to at least 4200 Hebrew words unless the assigned material is genuinely short (then say so in the first part); part 1 opens with the plan block and the story, then the problem/why-hard/idea paragraphs; every derivation is planned step by step; the parts are organized by topic, not by page order: the book is the basis, not something to retell page by page (rule 9ב); every assigned section and every figure is assigned to exactly one part; every new concept is planned within one part in the order of rule 6א (the context, its general definition in a definition block, how it is built, and only then a separate example); formula blocks only for general results the course returns to (rule 6ב); all seven level-2.5 sections ("l25") are assigned to parts for the lesson's central results; the case study, history block(s), the connections by <reader_stage> (a fieldmap block for every new central formula, at least four full domain blocks in every lesson, in the gateway stage P0, for a field not yet learned, at the level of what the system does, with the mechanism left to its module; from P1 on, full, including the mechanism; technical explanations only from familiar ground, rules 41–45), think questions (about six in the lesson, at real decision points), refresh blocks, simulators and figures are assigned to parts; the last part holds the coverage block, the keep block (rule 6ד), the exercises, the fieldsystems block (if a real connection exists) and the sentence about the next lesson.`.trim();
 
-function partInstructions(plan: PartPlan, k: number, writtenSoFar: string) {
-  if (plan.outline && LESSON_RULES === "lite") return bookPartInstructions(plan, k, writtenSoFar);
+function partInstructions(plan: PartPlan, k: number, writtenSoFar: string, priorMax = PRIOR_MAX) {
+  if (plan.outline && LESSON_RULES === "lite") return bookPartInstructions(plan, k, writtenSoFar, priorMax);
   const p = plan.parts[k];
   const n = plan.parts.length;
   const last = k === n - 1;
-  const prior = writtenSoFar.length > 60000 ? `[…start omitted…]\n${writtenSoFar.slice(-60000)}` : writtenSoFar;
+  const prior = tailWithin(writtenSoFar, priorMax);
   return `WRITING STEP: part ${k + 1} of ${n} of this lesson. Write as the authors (see <voice>).
 Lesson plan (yours, from the planning step): «${plan.title}», ${n} parts:
 ${plan.parts.map((x, i) => `${i + 1}. ${x.title}${i === k ? "  ← THIS PART" : ""}`).join("\n")}
@@ -582,13 +609,13 @@ ${last ? "This is the last part: write the coverage block, the exercises, the fi
 }
 
 /** A part of a lesson written as chapters of a book (bookRules.ts, docs/LESSON_BOOK_SPEC.md). */
-function bookPartInstructions(plan: PartPlan, k: number, writtenSoFar: string) {
+function bookPartInstructions(plan: PartPlan, k: number, writtenSoFar: string, priorMax = PRIOR_MAX) {
   const o = plan.outline!;
   const p = plan.parts[k];
   const n = plan.parts.length;
   const last = k === n - 1;
   const mine = partSections(o, plan.parts, k);
-  const prior = writtenSoFar.length > 60000 ? `[…start omitted…]\n${writtenSoFar.slice(-60000)}` : writtenSoFar;
+  const prior = tailWithin(writtenSoFar, priorMax);
   return `WRITING STEP: part ${k + 1} of ${n} of this lesson. Write as the authors (see <voice>).
 Lesson «${plan.title}».${plan.results?.length ? ` Central results: ${plan.results.join("; ")}.` : ""}
 Figures of the lesson: ${(plan.figures ?? []).join(", ") || "none"}.
@@ -767,17 +794,22 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
     let partText = "";
     for (let attempt = 0; attempt < 2; attempt++) {
       // a part cut off at the length limit gets one continuation
-      const turn = `${ctx}\n\n${text}\n\n${partInstructions(plan, k, (before + partText).trim())}${attempt ? "\n\nThe previous attempt of this part was cut off at the length limit; continue it exactly from where the text above stops." : ""}`;
+      const soFar = (before + partText).trim();
+      const again = attempt ? "\n\nThe previous attempt of this part was cut off at the length limit; continue it exactly from where the text above stops." : "";
+      const make = (c: string, prior: number) => `${c}\n\n${text}\n\n${partInstructions(plan!, k, soFar, prior)}${again}`;
+      const sys = bytes(systemPrompt({ refs: hasRefs(m) }));
+      const turn = fitPartTurn(ctx, make, sys);
+      const send = (h: StoredMessage[], t: string) =>
+        rt.sample!([...fitHistory(h, bytes(t), false, { refs: hasRefs(m) }), { role: "user", content: t }], {
+          model: MODEL,
+          modelTier: "complex",
+          effort,
+          signal,
+          ...(tools ? { tools } : { cache: false }),
+          onText: ({ text: x }) => cb.onText(before + partText + x),
+        });
       const res = await retryRefused(
-        (h) =>
-          rt.sample!([...fitHistory(h, bytes(turn), false, { refs: hasRefs(m) }), { role: "user", content: turn }], {
-            model: MODEL,
-            modelTier: "complex",
-            effort,
-            signal,
-            ...(tools ? { tools } : { cache: false }),
-            onText: ({ text: t }) => cb.onText(before + partText + t),
-          }),
+        (h) => send(h, turn).catch((e) => (tooLarge(e) ? send([], fitPartTurn(ctx, make, sys, SMALL_TURN)) : Promise.reject(e))),
         history,
         cb,
       ).catch((e) => onRefusal(e, rt, m, history, turn, cb));
@@ -999,6 +1031,9 @@ In Hebrew, two to four sentences: is it right, partly right or wrong; what is mi
  * A refused lesson call is tried once more without the earlier turns of the conversation (the
  * history is the only part of the input that a retry can drop without changing the lesson).
  */
+/** The call passed the input cap (with its tool rounds); it is sent once more smaller. */
+const tooLarge = (e: unknown) => (e as { code?: string })?.code === "prompt_too_large";
+
 async function retryRefused<T>(call: (history: StoredMessage[]) => Promise<T>, history: StoredMessage[], cb: TurnCallbacks): Promise<T> {
   for (let i = 0; ; i++) {
     try {

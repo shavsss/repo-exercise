@@ -100,3 +100,27 @@ export function joinContinuation(prev: string, next: string) {
   // the text was finished: the continuation is a new paragraph
   return head + "\n\n" + tail;
 }
+
+const utf8 = new TextEncoder();
+const size = (s: string) => utf8.encode(s).length;
+
+/** The end of `text` within `max` UTF-8 bytes, started at a paragraph when one is near ("" when max ≤ 0). */
+export function tailWithin(text: string, max: number) {
+  if (size(text) <= max) return text;
+  if (max <= 0) return "";
+  // Hebrew is about two bytes a character: start there and trim until it fits
+  let t = text.slice(-Math.floor(max / 2));
+  while (t && size(t) > max) t = t.slice(Math.ceil(t.length / 20));
+  const p = t.indexOf("\n\n");
+  return `[…start omitted…]\n${p >= 0 && p < t.length / 4 ? t.slice(p + 2) : t}`;
+}
+
+/** The start of `text` within `max` UTF-8 bytes, ended at a paragraph when one is near. */
+export function headWithin(text: string, max: number) {
+  if (size(text) <= max) return text;
+  if (max <= 0) return "";
+  let t = text.slice(0, max);
+  while (t && size(t) > max) t = t.slice(0, Math.floor(t.length * 0.95));
+  const p = t.lastIndexOf("\n\n");
+  return p >= 0 && p > (t.length * 3) / 4 ? t.slice(0, p) : t;
+}
