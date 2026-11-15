@@ -158,11 +158,23 @@ def _expand(ids, mods):
     return out
 
 
+def _sources():
+    f = HERE / "round8_sources.json"
+    return json.loads(f.read_text()) if f.exists() else {"docs": {}, "modules": {}}
+
+
+def docs(app):
+    """The documents round 8 adds to this app's library: {doc: (path, title)} (free sources, and
+    documents of the other app's library that a new module here is taught from)."""
+    return {d: tuple(v) for d, v in _sources()["docs"].get(app, {}).items()}
+
+
 def apply(app, modules, parts):
     by = {m["id"]: m for m in modules}
+    src = _sources()["modules"].get(app, {})
     for mid, (part, tier, he, en, pre) in NEW[app].items():
         assert mid not in by, f"{mid} exists"
-        by[mid] = dict(id=mid, part=part, tier=tier, title=he, en=en, prereq=list(pre), sources=[])
+        by[mid] = dict(id=mid, part=part, tier=tier, title=he, en=en, prereq=list(pre), sources=[dict(s) for s in src.get(mid, [])])
     for mid, pre in EXTRA[app].items():
         have = by[mid].get("prereq", [])
         by[mid]["prereq"] = have + [p for p in pre if p not in have]

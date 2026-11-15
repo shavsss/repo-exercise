@@ -1077,4 +1077,5 @@ import sys as _sys
 from pathlib import Path as _Path
 _sys.path.insert(0, str(_Path(__file__).resolve().parents[3] / "tools/curriculum"))
 import round8 as _round8  # noqa: E402
+DOCS.update(_round8.docs("mil"))
 MODULES, PARTS = _round8.apply("mil", MODULES, PARTS)
