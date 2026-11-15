@@ -10,6 +10,7 @@ Git: https://github.com/shavsss/repo-exercise
 - המצב העדכני של הלומד: `notes/PROGRESS.md`, `notes/MEMORY.md`.
 
 - מצב הפרויקט: `docs/STATUS.md`.
+- העלאת ספרים מהמחשב של הלומד: `tools/upload/` (ענפי `books-incoming-*`).
 
 ## מוסכמות
 - הלומד כותב בעברית. תשובות, ממשק ומסמכים בעברית; קוד ושמות מזהים באנגלית.

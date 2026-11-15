@@ -30,6 +30,11 @@
 - **W42 (תקן IEEE 1800-2023 של SystemVerilog):**
   - חינמי, אבל דורש כניסה עם חשבון IEEE חינמי.
   - הלומד מוריד אותו בעצמו דרך IEEE GET, ושומר אותו בשם `library/engineering/free/W42_ieee_1800_2023_systemverilog.pdf`.
+- **ספרים מהלומד:** הלומד מעלה ספרים עם `tools/upload/upload_books.sh` (או `.ps1` בווינדוס). כל ריצה דוחפת לענף חדש `books-incoming-<זמן>`, לתיקייה `library/incoming/`.
+  - למצוא את הענפים: `git ls-remote origin 'refs/heads/books-incoming-*'`.
+  - להביא אותם: `git fetch origin <ענף>`, ואז `git checkout origin/<ענף> -- library/incoming`.
+  - קובץ מעל 90MB מגיע בחלקים (`.part-aa`, `.part-ab`...). לאחד עם `cat name.part-* > name`.
+  - לזהות כל קובץ מול 15 הספרים בתשלום ב-`sources.json` ומול W42, לתת לו מזהה ולהעביר אותו ל-`library/*/`. אחר כך לרשום, לחלץ ולשייך למודולים כמו את שאר המקורות.
 - **W21 (Söderström & Stoica)** הוא סריקה בלי שכבת טקסט. tesseract הותקן בסשן הזה, אז החילוץ יבצע OCR. בסשן חדש צריך להתקין שוב:
 
 ```bash
