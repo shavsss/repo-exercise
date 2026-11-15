@@ -1,10 +1,11 @@
-// The weekly paper (docs/research/round4/news/N_design.md §2): one issue per week at
-// profile/news/<YYYY-Www>, written by the scheduled news session. Read here; what the
-// learner read, saved and rated goes to profile/newsfb/<YYYY-Www>.
-import { useEffect, useMemo, useState } from "react";
+// The weekly paper (docs/research/round4/news/N_design.md §2, docs/NEWS_SCHEMA.md): one issue per week at
+// profile/news/<YYYY-Www>, written by the scheduled news session. Read here as a printed edition: a masthead, a
+// front page (the lead, features and the number of the week), sections in three columns, and the corners.
+// What the learner read, saved and rated goes to profile/newsfb/<YYYY-Www>. Same file in both apps.
+import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { Markdown } from "../components/Markdown";
 import { LAB } from "./config";
-import { listIssues, loadFb, loadIssue, saveFb, shortDate, type IssueEntry, type ItemFb, type NewsFb, type NewsIssue, type NewsItem, type Rel } from "./data";
+import { dateRange, listIssues, loadFb, loadIssue, saveFb, shortDate, type IssueEntry, type ItemFb, type NewsChart, type NewsFb, type NewsImage, type NewsIssue, type NewsItem, type NewsRole, type Region, type Rel } from "./data";
 import type { LabTabProps } from "./LabTabs";
 
 const KIND: Record<NewsItem["kind"], string> = { paper: "מאמר", report: "דוח", system: "מערכת", standard: "תקן", data: "נתונים", event: "אירוע" };
@@ -17,12 +18,40 @@ const CERT: Record<NewsItem["certainty"], string> = {
   vendor: "טענת יצרן",
   disputed: "שנוי במחלוקת",
 };
+const REGION: Record<Region, string> = {
+  US: "ארה\"ב",
+  EU: "אירופה",
+  UK: "בריטניה",
+  IL: "ישראל",
+  TR: "טורקיה",
+  CN: "סין",
+  TW: "טייוואן",
+  JP: "יפן",
+  KR: "קוריאה",
+  IN: "הודו",
+  RU: "רוסיה",
+  UA: "אוקראינה",
+  GULF: "המפרץ",
+  IR: "איראן",
+  AF: "אפריקה",
+  INTL: "בין-לאומי",
+};
 const REL: Record<Rel, string> = { learned: "נלמד", current: "עכשיו", next: "בקרוב", later: "בהמשך הקורס", outside: "מחוץ לתוכנית" };
 const SANITY = { pass: "עובר", fail: "לא עובר", na: "לא נבדק" };
 const TB = { superseded: "התיישן", refined: "דויק", confirmed: "אושר" };
-/** a hue per section of the issue, spread around the wheel (vivid.css) */
-const secHue = (i: number) => [205, 18, 150, 280, 42, 330, 180][i % 7];
 const IDEA = { project: "פרויקט", product: "מוצר", article: "מאמר", interview: "ראיון" };
+const NETWORK = { x: "X", bluesky: "Bluesky", mastodon: "Mastodon" };
+/** roles drawn in a corner of the edition, not in the sections */
+const CORNER: NewsRole[] = ["number", "world", "geo", "econ", "post", "lab"];
+
+const heDate = (t: number) => {
+  try {
+    return new Intl.DateTimeFormat("he-IL-u-ca-hebrew", { day: "numeric", month: "long", year: "numeric" }).format(t);
+  } catch {
+    return "";
+  }
+};
+const grDate = (t: number) => new Intl.DateTimeFormat("he-IL", { weekday: "long", day: "numeric", month: "long", year: "numeric" }).format(t);
 
 export function NewsTab({ lab, rt, index, done, current, onOpenModule }: LabTabProps) {
   const store = rt?.store ?? null;
@@ -84,46 +113,73 @@ export function NewsTab({ lab, rt, index, done, current, onOpenModule }: LabTabP
   const relNow = (moduleId: string, rel: Rel): Rel => (done.has(moduleId) ? "learned" : moduleId === current ? "current" : rel);
   const title = (moduleId: string) => index?.modules.find((m) => m.id === moduleId)?.title ?? "";
 
-  const byId = useMemo(() => new Map((issue?.items ?? []).map((it) => [it.id, it])), [issue]);
-  const visible = (it: NewsItem) => (!mineOnly || it.connects.some((c) => ["learned", "current"].includes(relNow(c.moduleId, c.rel)))) && it.id !== issue?.lead;
+  const ed = useMemo(() => edition(issue), [issue]);
 
   if (!store)
     return (
-      <div className="lt-wrap">
+      <div className="lt-wrap news">
         <p className="lt-empty">העיתון נשמר בחשבון שלך ב-claude.ai, ויופיע כאן כשהדף פתוח שם עם הרשאת כתיבה.</p>
       </div>
     );
-  if (issues === null) return <div className="lt-wrap"><p className="lt-empty">טוען…</p></div>;
+  if (issues === null)
+    return (
+      <div className="lt-wrap news">
+        <p className="lt-empty">טוען…</p>
+      </div>
+    );
   if (!issues.length)
     return (
-      <div className="lt-wrap">
+      <div className="lt-wrap news">
         <Masthead name={cfg.name} sub={cfg.newsSub} />
         <p className="lt-empty">הגיליון הראשון יגיע {cfg.newsArrives}.</p>
         {err && <p className="lt-err">{err}</p>}
       </div>
     );
 
-  const lead = issue ? byId.get(issue.lead) : undefined;
-  const sections = issue?.sections.filter((s) => s.items.some((x) => byId.has(x))) ?? [];
+  const mine = (it: NewsItem) => !mineOnly || it.connects.some((c) => ["learned", "current"].includes(relNow(c.moduleId, c.rel)));
   const readCount = issue ? issue.items.filter((it) => fb.items[it.id]?.read).length : 0;
-  const itemProps = { fb, setItemFb, relNow, title, onOpenModule };
+  const story = { fb, setItemFb, relNow, title, onOpenModule, kicker: ed?.kicker ?? (() => "") };
+  const corner = (role: NewsRole) => (ed?.corners.get(role) ?? []).filter(mine);
+  const cornerName = lab === "core" ? "הפינה הגאופוליטית" : "כלכלת הטכנולוגיה";
+  const analysis = corner(lab === "core" ? "geo" : "econ");
+  const worlds = worldPairs(corner("world"));
+  const labs = corner("lab");
+  const posts = corner("post");
+  const numbers = corner("number");
+  const features = (ed?.features ?? []).filter(mine);
 
   return (
     <div className="lt-wrap news">
-      <Masthead name={cfg.name} sub={cfg.newsSub} />
-      <div className="news-meta">
-        {issue ? (
+      <Masthead name={cfg.name} sub={cfg.newsSub} issue={issue} />
+
+      <nav className="np-index" aria-label="בגיליון זה">
+        {issue && ed ? (
           <>
-            <span>גיליון {issue.number}</span>
-            <span>{shortDate(issue.window.from)}–{shortDate(issue.window.to)}</span>
-            <span>נבנה ב-{shortDate(issue.publishedAt)}</span>
-            <span>
-              נקראו {readCount} מתוך {issue.items.length}
-            </span>
+            <span className="np-index-h">בגיליון זה</span>
+            <button className="np-ix" aria-pressed={!section} onClick={() => setSection("")}>
+              הכל
+            </button>
+            {ed.sections.map((s) => (
+              <button key={s.id} className="np-ix" aria-pressed={section === s.id} onClick={() => setSection(section === s.id ? "" : s.id)}>
+                {s.title}
+                <span className="np-n">{s.items.length}</span>
+              </button>
+            ))}
           </>
         ) : (
           loading && <span>טוען את הגיליון…</span>
         )}
+      </nav>
+      <div className="np-controls">
+        {issue && (
+          <span>
+            {dateRange(issue.window.from, issue.window.to)} · נקראו {readCount} מתוך {issue.items.length}
+          </span>
+        )}
+        <label className="lt-check">
+          <input type="checkbox" checked={mineOnly} onChange={(e) => setMineOnly(e.target.checked)} />
+          רק מה שקשור למה שלמדתי
+        </label>
         <span className="lt-spacer" />
         {issues.length > 1 && (
           <label className="lt-picker">
@@ -132,7 +188,7 @@ export function NewsTab({ lab, rt, index, done, current, onOpenModule }: LabTabP
               {issues.map((e) => (
                 <option key={e.id} value={e.id}>
                   {e.number ? `${e.number} · ` : ""}
-                  {e.window ? `${shortDate(e.window.from)}–${shortDate(e.window.to)}` : e.id}
+                  {e.window ? dateRange(e.window.from, e.window.to) : e.id}
                 </option>
               ))}
             </select>
@@ -140,235 +196,609 @@ export function NewsTab({ lab, rt, index, done, current, onOpenModule }: LabTabP
         )}
       </div>
       {err && <p className="lt-err">{err}</p>}
-      {issue?.example && <p className="lt-example">גיליון לדוגמה: מבנה העיתון, לא חדשות אמיתיות.</p>}
+      {issue?.example && <p className="np-example">גיליון לדוגמה: מבנה העיתון, לא חדשות אמיתיות.</p>}
       {!loading && !issue && !err && <p className="lt-empty">הגיליון הזה עוד לא נשמר במלואו. אפשר לבחור גיליון אחר.</p>}
 
-      {issue && (
+      {issue && ed && (
         <>
-          {lead && (
-            <article className="news-lead">
-              <ItemBody it={lead} {...itemProps} lead />
-            </article>
-          )}
-          <div className="news-filters">
-            <button className="lt-chip" aria-pressed={!section} onClick={() => setSection("")}>
-              הכל
-            </button>
-            {sections.map((s, si) => (
-              <button key={s.id} className="lt-chip sec-chip" style={{ ["--h" as string]: String(secHue(si)) }} aria-pressed={section === s.id} onClick={() => setSection(section === s.id ? "" : s.id)}>
-                {s.title}
-                <span className="lt-n">{s.items.filter((x) => byId.has(x)).length}</span>
-              </button>
-            ))}
-            <label className="lt-check">
-              <input type="checkbox" checked={mineOnly} onChange={(e) => setMineOnly(e.target.checked)} />
-              רק מה שקשור למה שלמדתי
-            </label>
-          </div>
-          <div className="news-layout">
-            <div className="news-flow">
-              {sections
-                .map((s, si) => [s, si] as const)
-                .filter(([s]) => !section || s.id === section)
-                .map(([s, si]) => {
-                  const items = s.items.map((x) => byId.get(x)!).filter((it) => it && visible(it));
-                  if (!items.length) return null;
-                  return (
-                    <section key={s.id} className="news-section" style={{ ["--h" as string]: String(secHue(si)) }}>
-                      <h3>
-                        {s.title}
-                        <span className="lt-n">{items.length}</span>
-                      </h3>
-                      {items.map((it) => (
-                        <article key={it.id} className="news-item">
-                          <ItemBody it={it} {...itemProps} />
-                        </article>
-                      ))}
-                    </section>
-                  );
-                })}
+          {!section && (
+            <div className="np-front">
+              {ed.lead && (
+                <article className="np-lead">
+                  <Story it={ed.lead} variant="lead" {...story} />
+                </article>
+              )}
+              {(features.length > 0 || numbers.length > 0) && (
+                <aside className="np-side">
+                  {features.map((it) => (
+                    <article key={it.id} className="np-feature">
+                      <Story it={it} variant="feature" {...story} />
+                    </article>
+                  ))}
+                  {numbers.map((it) => (
+                    <NumberBox key={it.id} it={it} />
+                  ))}
+                </aside>
+              )}
             </div>
-            <aside className="news-side">
-              {!!issue.picks10?.length && (
-                <div className="lt-card">
-                  <h4>לקרוא ב-10 דקות</h4>
-                  <ul>
-                    {issue.picks10.map((x) => byId.get(x)).filter(Boolean).map((it) => (
-                      <li key={it!.id}>
-                        <a href={it!.sources[0]?.url} target="_blank" rel="noreferrer">
-                          {it!.headline}
-                        </a>
-                        {it!.read10?.minutes ? <span className="lt-n">{it!.read10.minutes} דק'</span> : null}
-                      </li>
+          )}
+
+          {groupSections(ed.sections.filter((s) => !section || s.id === section).map((s) => ({ ...s, items: s.items.filter(mine) }))).map((g) =>
+            g.length === 1 && g[0].items.length > 2 ? (
+              <section key={g[0].id} className="np-sec">
+                <SecHead title={g[0].title} n={g[0].items.length} />
+                <div className="np-cols">
+                  {g[0].items.map((it) => (
+                    <article key={it.id} className="np-brief">
+                      <Story it={it} variant="brief" {...story} />
+                    </article>
+                  ))}
+                </div>
+              </section>
+            ) : (
+              <div key={g[0].id} className="np-secrow">
+                {g.map((s) => (
+                  <section key={s.id} className="np-sec">
+                    <SecHead title={s.title} n={s.items.length} />
+                    {s.items.map((it) => (
+                      <article key={it.id} className="np-brief">
+                        <Story it={it} variant="brief" {...story} />
+                      </article>
                     ))}
-                  </ul>
+                  </section>
+                ))}
+              </div>
+            ),
+          )}
+
+          {!section && (
+            <>
+              {(analysis.length > 0 || labs.length > 0 || posts.length > 0) && (
+                <div className="np-pair">
+                  {analysis.length > 0 && (
+                    <section className="np-sec">
+                      <SecHead title={cornerName} note={lab === "core" ? "ניתוח של מקורות פתוחים" : undefined} />
+                      <div className={analysis.length > 1 ? "np-cols np-cols-2" : undefined}>
+                        {analysis.map((it) => (
+                          <article key={it.id} className="np-brief">
+                            <Story it={it} variant="corner" {...story} />
+                          </article>
+                        ))}
+                      </div>
+                    </section>
+                  )}
+                  {(labs.length > 0 || posts.length > 0) && (
+                    <div className="np-stack">
+                      {labs.length > 0 && (
+                        <section className="np-sec">
+                          <SecHead title="מהמעבדות" />
+                          {labs.map((it) => (
+                            <article key={it.id} className="np-brief">
+                              <Story it={it} variant="brief" {...story} />
+                            </article>
+                          ))}
+                        </section>
+                      )}
+                      {posts.length > 0 && (
+                        <section className="np-sec">
+                          <SecHead title="ברשתות" />
+                          {posts.map((it) => (
+                            <Post key={it.id} it={it} />
+                          ))}
+                        </section>
+                      )}
+                    </div>
+                  )}
                 </div>
               )}
-              {issue.items.some((it) => fb.items[it.id]?.saved) && (
-                <div className="lt-card">
-                  <h4>שמרת</h4>
-                  <ul>
-                    {issue.items.filter((it) => fb.items[it.id]?.saved).map((it) => (
-                      <li key={it.id}>{it.headline}</li>
-                    ))}
-                  </ul>
-                </div>
+              {worlds.length > 0 && (
+                <section className="np-sec">
+                  <SecHead title="מבט מהעולם" />
+                  {worlds.map(([a, b]) => (
+                    <div key={a.id} className="np-world">
+                      <div className="np-world-h">{a.world?.topic}</div>
+                      <div className="np-cols np-cols-2">
+                        {[a, b].filter((x): x is NewsItem => !!x).map((it) => (
+                          <article key={it.id} className="np-brief">
+                            <div className="np-place">{it.region ? REGION[it.region] ?? it.region : ""}</div>
+                            <Story it={it} variant="brief" {...story} />
+                          </article>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </section>
               )}
-              {issue.stats && (
-                <div className="lt-card news-stats">
-                  <h4>איך נבחרו</h4>
-                  <p>
-                    {issue.stats.candidates} מועמדים, {issue.stats.fetched} נקראו במלואם, {issue.stats.verified} עברו אימות מול המקור שנקרא השבוע.
-                  </p>
-                </div>
-              )}
-            </aside>
-          </div>
+              <Colophon issue={issue} byId={ed.byId} fb={fb} />
+            </>
+          )}
         </>
       )}
     </div>
   );
 }
 
-function Masthead({ name, sub }: { name: string; sub: string }) {
+/** The issue laid out as an edition: which story goes where. Old issues (no roles) get the first two stories as features. */
+function edition(issue: NewsIssue | null) {
+  if (!issue) return null;
+  const byId = new Map(issue.items.map((it) => [it.id, it]));
+  const lead = byId.get(issue.lead);
+  const hasRoles = issue.items.some((it) => it.role);
+  const corners = new Map<NewsRole, NewsItem[]>();
+  for (const it of issue.items) if (it.role && CORNER.includes(it.role) && it.id !== issue.lead) corners.set(it.role, [...(corners.get(it.role) ?? []), it]);
+  const inSections = issue.sections.flatMap((s) => s.items.map((x) => byId.get(x)).filter((it): it is NewsItem => !!it && it.id !== issue.lead && !(it.role && CORNER.includes(it.role))));
+  const features = hasRoles ? issue.items.filter((it) => it.role === "feature" && it.id !== issue.lead) : inSections.slice(0, 2);
+  const onFront = new Set([issue.lead, ...features.map((f) => f.id)]);
+  const sections = issue.sections
+    .map((s) => ({ id: s.id, title: s.title, items: s.items.map((x) => byId.get(x)).filter((it): it is NewsItem => !!it && !onFront.has(it.id) && !(it.role && CORNER.includes(it.role))) }))
+    .filter((s) => s.items.length);
+  const secOf = new Map(issue.sections.flatMap((s) => s.items.map((x) => [x, s.title] as const)));
+  const kicker = (it: NewsItem) => secOf.get(it.id) ?? issue.sections.find((s) => s.id === it.domain)?.title ?? "";
+  return { byId, lead, features, sections, corners, kicker };
+}
+
+/** Sections of three stories or more run across three columns; shorter ones share a row, up to three side by side. */
+function groupSections<T extends { id: string; items: unknown[] }>(sections: T[]): T[][] {
+  const out: T[][] = [];
+  let row: T[] = [];
+  for (const s of sections) {
+    if (!s.items.length) continue;
+    if (s.items.length > 2) {
+      if (row.length) out.push(row), (row = []);
+      out.push([s]);
+    } else {
+      row.push(s);
+      if (row.length === 3) out.push(row), (row = []);
+    }
+  }
+  if (row.length) out.push(row);
+  return out;
+}
+
+/** "מבט מהעולם": each pair once, in the order of the first item. */
+function worldPairs(items: NewsItem[]): [NewsItem, NewsItem | undefined][] {
+  const seen = new Set<string>();
+  const out: [NewsItem, NewsItem | undefined][] = [];
+  for (const it of items) {
+    if (seen.has(it.id)) continue;
+    const other = items.find((x) => x.id === it.world?.pair && !seen.has(x.id));
+    seen.add(it.id);
+    if (other) seen.add(other.id);
+    out.push([it, other]);
+  }
+  return out;
+}
+
+function Masthead({ name, sub, issue }: { name: string; sub: string; issue?: NewsIssue | null }) {
+  const t = issue?.publishedAt;
   return (
-    <header className="news-mast">
-      <div className="news-kicker">{name}</div>
+    <header className="np-mast">
+      <div className="np-ear">
+        <span>{t ? heDate(t) : name}</span>
+        <span>{issue ? [issue.edition, `גיליון ${issue.number}`].filter(Boolean).join(" · ") : ""}</span>
+        <span>{t ? grDate(t) : ""}</span>
+      </div>
       <h1>השבועון</h1>
-      <div className="news-sub">{sub}</div>
+      <div className="np-tag">
+        {name} · {sub}
+      </div>
     </header>
   );
 }
 
-function ItemBody({
-  it,
-  lead,
-  fb,
-  setItemFb,
-  relNow,
-  title,
-  onOpenModule,
-}: {
+function SecHead({ title, n, note }: { title: string; n?: number; note?: string }) {
+  return (
+    <div className="np-sec-h">
+      <h3>{title}</h3>
+      {note && <span>{note}</span>}
+      {n !== undefined && <span className="np-n">{n}</span>}
+    </div>
+  );
+}
+
+type StoryProps = {
   it: NewsItem;
-  lead?: boolean;
+  variant: "lead" | "feature" | "brief" | "corner";
   fb: NewsFb;
   setItemFb: (id: string, p: ItemFb) => void;
   relNow: (m: string, r: Rel) => Rel;
   title: (m: string) => string;
   onOpenModule: (m: string) => void;
-}) {
-  const [open, setOpen] = useState(!!lead);
+  kicker: (it: NewsItem) => string;
+};
+
+function Story({ it, variant, fb, setItemFb, relNow, title, onOpenModule, kicker }: StoryProps) {
+  const lead = variant === "lead";
+  const [open, setOpen] = useState(lead || variant === "corner");
   const f = fb.items[it.id] ?? {};
   const src = it.sources[0];
+  const img = it.images?.[0];
+  const state = it.sources.some((s) => s.stateMedia);
+  const meta = [
+    KIND[it.kind] ?? it.kind,
+    CERT[it.certainty] ?? it.certainty,
+    it.region ? REGION[it.region] ?? it.region : "",
+    src ? `מקור ${src.tier}` : "",
+    it.oldButNew ? "ישן אך חדש לך" : "",
+  ].filter(Boolean);
+  const H = lead ? "h2" : "h3";
+  const note = <EditorNote it={it} open={open} relNow={relNow} title={title} onOpenModule={onOpenModule} />;
   return (
     <>
-      <div className="news-tags">
-        <span className={`lt-tag nk nk-${it.kind}`}>{KIND[it.kind] ?? it.kind}</span>
-        <span className={`lt-tag c-${it.certainty}`}>{CERT[it.certainty] ?? it.certainty}</span>
-        {src && <span className="lt-tag">רמת מקור {src.tier}</span>}
-        {it.sanity && <span className={`lt-tag s-${it.sanity.result}`} title={`${it.sanity.check}: ${it.sanity.note}`}>סדר גודל: {SANITY[it.sanity.result]}</span>}
-        {it.oldButNew && <span className="lt-tag">ישן אך חדש לך</span>}
-        {src?.publishedAt && <span className="lt-date" dir="ltr">{shortDate(src.publishedAt)}</span>}
-        {f.read ? <span className="lt-date">✓ נקרא</span> : null}
+      <div className="np-kick">{kicker(it)}</div>
+      <H className="np-hl">{it.headline}</H>
+      {it.dek && <p className="np-dek">{it.dek}</p>}
+      {img && (lead || variant === "feature" || open) && <Figure img={img} small={!lead && variant !== "corner"} />}
+      <div className="np-meta">
+        {meta.join(" · ")}
+        {state && <span className="np-flag">תקשורת ממשלתית</span>}
+        {it.sanity && (
+          <span title={`${it.sanity.check}: ${it.sanity.note}`}>
+            {" · "}סדר גודל: {SANITY[it.sanity.result]}
+          </span>
+        )}
+        {src?.publishedAt && (
+          <>
+            {" · "}
+            <span dir="ltr">{shortDate(src.publishedAt)}</span>
+          </>
+        )}
+        {f.read ? <span> · נקרא</span> : null}
       </div>
-      {lead ? <h2>{it.headline}</h2> : <h4>{it.headline}</h4>}
-      <p className="news-dek">{it.dek}</p>
-      {open ? (
-        <div className="news-body prose">
-          <Markdown text={it.body} />
-        </div>
-      ) : (
-        <button
-          className="link"
-          onClick={() => {
-            setOpen(true);
-            if (!f.read) setItemFb(it.id, { read: Date.now() });
-          }}
-        >
-          קרא עוד
-        </button>
-      )}
-      {it.why && (
-        <div className="news-why">
-          <div className="news-why-h">למה זה חשוב לך</div>
-          <Markdown text={it.why} />
-        </div>
-      )}
-      {!!it.connects.length && (
-        <div className="news-conn">
-          <div className="news-conn-h">מתחבר למה שלמדת</div>
-          <div className="news-chips">
-            {it.connects.map((c, i) => {
-              const r = relNow(c.moduleId, c.rel);
-              return (
-                <button key={i} className={`news-chip r-${r}`} onClick={() => onOpenModule(c.moduleId)} title={c.why}>
-                  <b dir="ltr">{c.moduleId}</b> {title(c.moduleId) || c.concept}
-                  <span className="news-rel">{REL[r]}</span>
-                </button>
-              );
-            })}
-          </div>
-          {open && (
-            <ul className="news-conn-why">
-              {it.connects.map((c, i) => (
-                <li key={i}>
-                  <b dir="ltr">{c.moduleId}</b> · {c.concept}: {c.why}
-                </li>
-              ))}
-            </ul>
+      <div className={lead ? "np-lead-grid" : undefined}>
+        <div className="np-copy">
+          {open ? (
+            <div className={`np-body prose ${lead ? "np-drop" : ""}`}>
+              <Markdown text={it.body} />
+            </div>
+          ) : (
+            <button
+              className="np-more"
+              onClick={() => {
+                setOpen(true);
+                if (!f.read) setItemFb(it.id, { read: Date.now() });
+              }}
+            >
+              המשך קריאה
+            </button>
           )}
+          {it.chart && (open || variant === "corner") && <Chart c={it.chart} />}
+          {open && it.textbookUpdate && (
+            <Box head={`עדכון לספר · ${TB[it.textbookUpdate.status]} · ${it.textbookUpdate.book}, עמ' ${it.textbookUpdate.page} (${it.textbookUpdate.edition})`}>
+              <p>
+                <span className="np-mute">בספר:</span> {it.textbookUpdate.old}
+              </p>
+              <p>
+                <span className="np-mute">היום:</span> {it.textbookUpdate.now}
+              </p>
+            </Box>
+          )}
+          {open && it.idea && (
+            <Box head={`רעיון ל${IDEA[it.idea.kind]} · כ-${it.idea.hours} שעות`}>
+              <p>
+                <b>{it.idea.title}.</b> {it.idea.pitch}
+              </p>
+              {!!it.idea.uses?.length && (
+                <p className="np-mute" dir="auto">
+                  משתמש ב: {it.idea.uses.join(", ")}
+                </p>
+              )}
+            </Box>
+          )}
+          {open && src?.quote && (
+            <blockquote className="np-quote" dir="auto">
+              “{src.quote}”
+            </blockquote>
+          )}
+          {!lead && note}
         </div>
-      )}
-      {open && it.textbookUpdate && (
-        <div className="lt-box tb">
-          <div className="lt-box-h">
-            עדכון לספר · {TB[it.textbookUpdate.status]} · {it.textbookUpdate.book}, עמ' {it.textbookUpdate.page} ({it.textbookUpdate.edition})
-          </div>
-          <p>
-            <span className="muted">בספר:</span> {it.textbookUpdate.old}
-          </p>
-          <p>
-            <span className="muted">היום:</span> {it.textbookUpdate.now}
-          </p>
-        </div>
-      )}
-      {open && it.idea && (
-        <div className="lt-box idea">
-          <div className="lt-box-h">
-            רעיון ל{IDEA[it.idea.kind]} · כ-{it.idea.hours} שעות
-          </div>
-          <p>
-            <b>{it.idea.title}.</b> {it.idea.pitch}
-          </p>
-          {!!it.idea.uses?.length && <p className="muted" dir="auto">משתמש ב: {it.idea.uses.join(", ")}</p>}
-        </div>
-      )}
-      {open && src?.quote && (
-        <blockquote className="news-quote" dir="auto">
-          “{src.quote}”
-        </blockquote>
-      )}
-      <div className="news-foot">
-        {it.sources.map((s, i) => (
-          <a key={i} href={s.url} target="_blank" rel="noreferrer" className="news-src" dir="auto">
-            {s.publisher || s.title}
-          </a>
-        ))}
-        {it.crossRef && <span className="lt-date">גם בשבועון של {it.crossRef.app === "core" ? "לנצ'סטר" : "גילואה"}</span>}
+        {lead && note}
+      </div>
+      <div className="np-foot">
+        <span className="np-srcs">
+          {it.sources.map((s, i) => (
+            <a key={i} href={s.url} target="_blank" rel="noreferrer" dir="auto">
+              {s.publisher || s.title}
+              {s.stateMedia ? " (ממשלתי)" : ""}
+            </a>
+          ))}
+        </span>
+        {it.crossRef && <span className="np-mute">גם בשבועון של {it.crossRef.app === "core" ? "לנצ'סטר" : "גילואה"}</span>}
         <span className="lt-spacer" />
-        <button className="lt-act" aria-pressed={!!f.read} onClick={() => setItemFb(it.id, { read: f.read ? 0 : Date.now() })}>
-          {f.read ? "נקרא" : "סמן כנקרא"}
-        </button>
-        <button className="lt-act" aria-pressed={!!f.saved} onClick={() => setItemFb(it.id, { saved: !f.saved })}>
-          {f.saved ? "נשמר" : "שמור"}
-        </button>
-        <button className="lt-act" aria-pressed={f.useful === 1} onClick={() => setItemFb(it.id, { useful: f.useful === 1 ? 0 : 1 })}>
-          מועיל
-        </button>
-        <button className="lt-act" aria-pressed={f.useful === -1} onClick={() => setItemFb(it.id, { useful: f.useful === -1 ? 0 : -1 })}>
-          פחות רלוונטי
-        </button>
+        <span className="np-acts">
+          <button aria-pressed={!!f.read} onClick={() => setItemFb(it.id, { read: f.read ? 0 : Date.now() })}>
+            {f.read ? "נקרא" : "סמן כנקרא"}
+          </button>
+          <button aria-pressed={!!f.saved} onClick={() => setItemFb(it.id, { saved: !f.saved })}>
+            {f.saved ? "נשמר" : "שמור"}
+          </button>
+          <button aria-pressed={f.useful === 1} onClick={() => setItemFb(it.id, { useful: f.useful === 1 ? 0 : 1 })}>
+            מועיל
+          </button>
+          <button aria-pressed={f.useful === -1} onClick={() => setItemFb(it.id, { useful: f.useful === -1 ? 0 : -1 })}>
+            פחות רלוונטי
+          </button>
+        </span>
       </div>
     </>
+  );
+}
+
+/** The connection to the study modules, as an editor's note in the margin (in place of the old "why" box). */
+function EditorNote({ it, open, relNow, title, onOpenModule }: { it: NewsItem; open: boolean; relNow: (m: string, r: Rel) => Rel; title: (m: string) => string; onOpenModule: (m: string) => void }) {
+  if (!it.why && !it.connects.length) return null;
+  return (
+    <aside className="np-note">
+      <div className="np-note-h">לחומר הלימוד</div>
+      {it.why && <Markdown text={it.why} />}
+      {!!it.connects.length && (
+        <ul className="np-mods">
+          {it.connects.map((c, i) => {
+            const r = relNow(c.moduleId, c.rel);
+            return (
+              <li key={i}>
+                <button className={`np-mod r-${r}`} onClick={() => onOpenModule(c.moduleId)} title={c.why}>
+                  <b dir="ltr">{c.moduleId}</b> <Markdown text={title(c.moduleId) || c.concept} inline />
+                </button>
+                <span className="np-rel"> · {REL[r]}</span>
+                {open && c.why && (
+                  <div className="np-mod-why">
+                    <Markdown text={c.why} inline />
+                  </div>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      )}
+    </aside>
+  );
+}
+
+function Box({ head, children }: { head: string; children: ReactNode }) {
+  return (
+    <div className="np-box">
+      <div className="np-box-h">{head}</div>
+      {children}
+    </div>
+  );
+}
+
+function Figure({ img, small }: { img: NewsImage; small?: boolean }) {
+  const [broken, setBroken] = useState(false);
+  if (broken) return null;
+  return (
+    <figure className={`np-fig ${small ? "is-small" : ""}`}>
+      <img src={img.url} alt={img.alt ?? img.caption} loading="lazy" onError={() => setBroken(true)} />
+      <figcaption>
+        {img.caption}{" "}
+        <span className="np-credit">
+          {img.sourcePage ? (
+            <a href={img.sourcePage} target="_blank" rel="noreferrer" dir="auto">
+              {img.credit}
+            </a>
+          ) : (
+            img.credit
+          )}
+          {img.license ? ` · ${img.license}` : ""}
+        </span>
+      </figcaption>
+    </figure>
+  );
+}
+
+function NumberBox({ it }: { it: NewsItem }) {
+  const n = it.number;
+  const src = it.sources[0];
+  return (
+    <div className="np-number">
+      <div className="np-note-h">מספר השבוע</div>
+      <div className="np-num" dir="ltr">
+        {n?.value ?? "—"}
+        {n?.unit && <span className="np-unit"> {n.unit}</span>}
+      </div>
+      <div className="np-num-l">{it.headline}</div>
+      {it.body && (
+        <div className="np-num-b">
+          <Markdown text={it.body} />
+        </div>
+      )}
+      {n?.calc && (
+        <div className="np-calc">
+          <Markdown text={n.calc} />
+        </div>
+      )}
+      {src && (
+        <a className="np-srcline" href={src.url} target="_blank" rel="noreferrer" dir="auto">
+          {src.publisher || src.title}
+        </a>
+      )}
+    </div>
+  );
+}
+
+function Post({ it }: { it: NewsItem }) {
+  const p = it.post;
+  if (!p) return null;
+  return (
+    <figure className="np-post">
+      <blockquote dir="auto">{p.text}</blockquote>
+      <figcaption>
+        <b>{p.author}</b>{" "}
+        <span dir="ltr" className="np-mute">
+          {p.handle}
+        </span>
+        {" · "}
+        <a href={p.url} target="_blank" rel="noreferrer">
+          {NETWORK[p.network] ?? p.network}
+          {p.postedAt ? `, ${shortDate(p.postedAt)}` : ""}
+        </a>
+      </figcaption>
+      {it.dek && <p className="np-mute np-post-ctx">{it.dek}</p>}
+    </figure>
+  );
+}
+
+/** A bar or line chart from numbers in a fetched source: ink on paper, at most three series, a native tooltip per mark. */
+function Chart({ c }: { c: NewsChart }) {
+  const W = 560,
+    H = 240,
+    m = { t: 16, r: 14, b: 34, l: 44 };
+  const series = c.series.slice(0, 3);
+  const vals = series.flatMap((s) => s.values.filter((v): v is number => typeof v === "number" && isFinite(v)));
+  if (!vals.length) return null;
+  const lo = Math.min(0, ...vals),
+    hi = Math.max(...vals);
+  const step = niceStep((hi - lo) / 4 || 1);
+  const top = Math.ceil(hi / step) * step,
+    bot = Math.floor(lo / step) * step;
+  const y = (v: number) => m.t + ((top - v) / (top - bot || 1)) * (H - m.t - m.b);
+  const ticks: number[] = [];
+  for (let v = bot; v <= top + step / 2; v += step) ticks.push(+v.toFixed(6));
+  const pw = W - m.l - m.r;
+  const n = c.x.length;
+  const fmt = (v: number) => (Math.abs(v) >= 1000 ? v.toLocaleString("en-US") : String(+v.toFixed(2)));
+  const shade = ["var(--np-ink)", "var(--np-mute)", "var(--np-rule-strong)"];
+  return (
+    <figure className="np-chart">
+      <figcaption className="np-chart-t">
+        {c.title}
+        {c.unit && <span className="np-mute"> ({c.unit})</span>}
+      </figcaption>
+      {series.length > 1 && (
+        <div className="np-legend">
+          {series.map((s, i) => (
+            <span key={i}>
+              <i style={{ background: shade[i], ...(i === 2 ? { backgroundImage: "repeating-linear-gradient(90deg, var(--np-paper) 0 3px, transparent 3px 6px)" } : {}) }} />
+              {s.name}
+            </span>
+          ))}
+        </div>
+      )}
+      <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={c.title} direction="ltr">
+        {ticks.map((t) => (
+          <g key={t}>
+            <line x1={m.l} x2={W - m.r} y1={y(t)} y2={y(t)} className={t === 0 ? "np-axis" : "np-grid"} />
+            <text x={m.l - 6} y={y(t) + 4} textAnchor="end" className="np-tick">
+              {fmt(t)}
+            </text>
+          </g>
+        ))}
+        {c.kind === "bar"
+          ? (() => {
+              const band = pw / n;
+              const bw = Math.min(56, (band * 0.7) / series.length);
+              return c.x.map((x, i) =>
+                series.map((s, k) => {
+                  const v = s.values[i];
+                  if (typeof v !== "number") return null;
+                  const x0 = m.l + band * i + (band - bw * series.length) / 2 + k * bw;
+                  const y0 = y(Math.max(0, v)),
+                    h = Math.abs(y(v) - y(0));
+                  return (
+                    <g key={`${i}-${k}`}>
+                      <rect x={x0 + 1} y={y0} width={bw - 2} height={Math.max(1, h)} fill={shade[k]} className="np-mark">
+                        <title>{`${x} · ${s.name}: ${fmt(v)} ${c.unit}`}</title>
+                      </rect>
+                      {series.length === 1 && (
+                        <text x={x0 + bw / 2} y={y0 - 5} textAnchor="middle" className="np-val">
+                          {fmt(v)}
+                        </text>
+                      )}
+                    </g>
+                  );
+                }),
+              );
+            })()
+          : series.map((s, k) => {
+              const px = (i: number) => m.l + (n === 1 ? pw / 2 : (pw * i) / (n - 1));
+              const pts = s.values.map((v, i) => (typeof v === "number" ? [px(i), y(v), v] : null));
+              const d = pts.reduce((acc, p, i) => (p ? acc + `${acc && pts[i - 1] ? "L" : "M"}${p[0].toFixed(1)},${p[1].toFixed(1)}` : acc), "");
+              const last = [...pts].reverse().find(Boolean);
+              return (
+                <g key={k}>
+                  <path d={d} fill="none" stroke={shade[k]} strokeWidth={2} strokeDasharray={k === 2 ? "5 4" : undefined} />
+                  {pts.map((p, i) =>
+                    p ? (
+                      <circle key={i} cx={p[0]} cy={p[1]} r={4} fill={shade[k]} stroke="var(--np-paper)" strokeWidth={2} className="np-mark">
+                        <title>{`${c.x[i]} · ${s.name}: ${fmt(p[2])} ${c.unit}`}</title>
+                      </circle>
+                    ) : null,
+                  )}
+                  {last && (
+                    <text x={last[0]} y={last[1] - 9} textAnchor="end" className="np-val">
+                      {fmt(last[2])}
+                    </text>
+                  )}
+                </g>
+              );
+            })}
+        {c.x.map((x, i) => {
+          const cx = c.kind === "bar" ? m.l + (pw / n) * (i + 0.5) : m.l + (n === 1 ? pw / 2 : (pw * i) / (n - 1));
+          return (
+            <text key={i} x={cx} y={H - m.b + 18} textAnchor="middle" className="np-tick">
+              {`\u2068${x}\u2069`}
+            </text>
+          );
+        })}
+      </svg>
+      <div className="np-srcline">
+        מקור:{" "}
+        <a href={c.source.url} target="_blank" rel="noreferrer" dir="auto">
+          {c.source.publisher}
+        </a>
+        {c.source.note ? `, ${c.source.note}` : ""}
+      </div>
+    </figure>
+  );
+}
+
+function niceStep(raw: number) {
+  const p = Math.pow(10, Math.floor(Math.log10(raw)));
+  const f = raw / p;
+  return (f <= 1 ? 1 : f <= 2 ? 2 : f <= 5 ? 5 : 10) * p;
+}
+
+/** The bottom of the last page: reading in ten minutes, what was saved, how the stories were chosen. */
+function Colophon({ issue, byId, fb }: { issue: NewsIssue; byId: Map<string, NewsItem>; fb: NewsFb }) {
+  const picks = (issue.picks10 ?? []).map((x) => byId.get(x)).filter((it): it is NewsItem => !!it);
+  const saved = issue.items.filter((it) => fb.items[it.id]?.saved);
+  if (!picks.length && !saved.length && !issue.stats) return null;
+  return (
+    <footer className="np-colophon">
+      {picks.length > 0 && (
+        <div>
+          <h4>לקרוא ב-10 דקות</h4>
+          <ul className="np-list">
+            {picks.map((it) => (
+              <li key={it.id}>
+                <a href={it.sources[0]?.url} target="_blank" rel="noreferrer">
+                  {it.headline}
+                </a>
+                {it.read10?.minutes ? <span className="np-mute"> · {it.read10.minutes} דק'</span> : null}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+      {saved.length > 0 && (
+        <div>
+          <h4>שמרת</h4>
+          <ul className="np-list">
+            {saved.map((it) => (
+              <li key={it.id}>{it.headline}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+      {issue.stats && (
+        <div>
+          <h4>איך נבחרו</h4>
+          <p className="np-mute">
+            {issue.stats.candidates} מועמדים, {issue.stats.fetched} נקראו במלואם, {issue.stats.verified} עברו אימות מול המקור שנקרא השבוע. נבנה ב-<span dir="ltr">{shortDate(issue.publishedAt)}</span>.
+          </p>
+        </div>
+      )}
+    </footer>
   );
 }
