@@ -43,9 +43,11 @@ p{margin:0}
 .cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 @media (max-width:760px){.cols{grid-template-columns:1fr}.sm{margin-inline-start:0}}
 .col{min-width:0;display:grid;gap:8px;align-content:start}
-.gil h3{color:var(--gil)} .lan h3{color:var(--lan)}
+.gil-c{color:var(--gil)} .lan-c{color:var(--lan)}
+h2.app{font-size:22px;margin-top:12px}
+.tocl{font-size:13px;margin-inline-end:6px;align-self:center}
 .track{border:1px solid var(--line);border-radius:6px;background:var(--surface)}
-.gil .track{border-inline-start:3px solid var(--gil)} .lan .track{border-inline-start:3px solid var(--lan)}
+.stage.gil .track{border-inline-start:3px solid var(--gil)} .stage.lan .track{border-inline-start:3px solid var(--lan)}
 .track>summary{cursor:pointer;padding:8px 12px;display:grid;grid-template-columns:auto 1fr auto;gap:2px 10px;align-items:baseline;list-style:none}
 .track>summary::-webkit-details-marker{display:none}
 .track>summary:focus-visible{outline:2px solid var(--gil);outline-offset:2px}
@@ -81,20 +83,23 @@ p{margin:0}
 <div class="wrap" dir="rtl" lang="he">
  <header style="display:grid;gap:10px">
   <h1>מפת הלימוד בשכבות</h1>
-  <p class="lead">לומדים לפי תתי-נושאים, והספרים הם מפה. כל מודול בשתי המעבדות מופיע אחרי כל דרישות הקדם שלו. סקריפט בדק את זה מודול אחר מודול (0 שגיאות), כולל הדרישות החסרות שנמצאו בבדיקה. בכל שכבה, גילואה מימין ובלוקי לנצ'סטר שמתחילים בה משמאל.</p>
+  <p class="lead">לומדים לפי תתי-נושאים, והספרים הם מפה. כל מודול בשתי המעבדות מופיע אחרי כל דרישות הקדם שלו. סקריפט בדק את זה מודול אחר מודול (0 שגיאות), כולל הדרישות החסרות שנמצאו בבדיקה. שתי האפליקציות נלמדות במקביל, וכל אחת לפי הסדר שלה.</p>
  </header>
  <div class="nums">
   <div class="num"><b>כ-{{CUR}} חודשים</b><span>התוכנית הנוכחית, במודל הזמן של סבב 3 (שיעור, חזרה, התייעצות ופרויקטים)</span></div>
   <div class="num"><b>+{{NIT}} תתי-נושאים</b><span>ב-{{NMOD}} מודולים חדשים: {{NMISS}} חדשים לגמרי, {{NPART}} העמקה של נושא שכבר נלמד</span></div>
   <div class="num hl"><b>+כ-{{NEWH}} שעות</b><span>כ-{{NEWM}} חודשים, לפי ההערכה הקבועה של הפרויקט לתת-נושא שנוסף (K חסר כשעה וחצי, S חסר כ-45 דקות, העמקה פחות)</span></div>
-  <div class="num"><b>כ-{{TOTAL}} חודשים</b><span>הכול יחד: ההצעות שלך ({{NU}} מודולים), הפערים שנמצאו ({{NG}}) והנדסה ימית ({{NN}})</span></div>
+  <div class="num"><b>כ-{{TOTAL}} חודשים</b><span>הכול יחד (גילואה כ-{{TE}}, לנצ'סטר כ-{{TM}}): ההצעות שלך ({{NU}} מודולים), הפערים שנמצאו ({{NG}}) והנדסה ימית ({{NN}})</span></div>
  </div>
  <div class="howto">
-  <p><b>איך קוראים:</b> השכבות באות זו אחרי זו. בתוך שכבה, המסלולים לא תלויים זה בזה, ולכן אפשר לשלב ביניהם באותם ימים, בכל סדר. זה לא זמן נוסף: אורך השכבה הוא סך העמודים של כל המסלולים. בלוק בלנצ'סטר מתחיל בשכבה הראשונה שבה כל מה שהוא צריך מגילואה כבר נלמד. "העמקה" היא דרישה שמוסיפה עומק אבל לא חוסמת: הבלוק מתחיל, ושיעור הפרש מגיע כשהיא נלמדת.</p>
+  <p><b>איך קוראים:</b> בכל אפליקציה השכבות באות זו אחרי זו. בתוך שכבה, המסלולים או הבלוקים לא תלויים זה בזה, ולכן אפשר לשלב ביניהם באותם ימים, בכל סדר. זה לא זמן נוסף: אורך השכבה הוא סך השעות של כל המסלולים. בלנצ'סטר, כל בלוק בא אחרי הבלוקים שהוא צריך בתוך לנצ'סטר. הקשר לגילואה מוצג רק כמידע: מה שלנצ'סטר צריך נלמד בה ברמה הדרושה.</p>
   <div class="legend"><span><i class="lg-user"></i>הצעה שלך</span><span><i class="lg-gap"></i>פער שנמצא בבדיקה</span><span>K: חובה לזכור · S: לדעת ולהשתמש · C: הקשר</span><span><i class="lg-naval"></i>הנדסה ימית (חלק חדש בגילואה)</span><span>לחיצה על מסלול פותחת את המודולים, ולחיצה על מודול חדש את תתי-הנושאים שלו</span></div>
-  <nav class="toc" aria-label="שכבות">{{TOC}}</nav>
+  <nav class="toc" aria-label="גילואה"><b class="tocl gil-c">גילואה</b>{{TOCG}}</nav><nav class="toc" aria-label="לנצ'סטר"><b class="tocl lan-c">לנצ'סטר</b>{{TOCL}}</nav>
  </div>
- {{BODY}}
+ <h2 class="app gil-c">גילואה: שכבה אחר שכבה</h2>
+ {{GBODY}}
+ <h2 class="app lan-c">לנצ'סטר: שלב אחר שלב</h2>
+ {{LBODY}}
  <div class="notes">
   <section><h2>מה השתנה בסדר, ולמה</h2><ul>
    <li>אלגברה לינארית M8.1–M8.8 מיד אחרי P1: אנליזה מודלית, מרחב מצב, גוף קשיח ו-INS צריכים ערכים עצמיים.</li>

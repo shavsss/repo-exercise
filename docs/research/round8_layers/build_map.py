@@ -55,22 +55,22 @@ byname={b[0]:b for b in M["BLOCKS"]}; start={}
 def St(name):
     if name in start: return start[name]
     b=byname[name]
-    e=max([elayer[p]+1 for p in b[3]] or [0])
-    start[name]=max([e]+[St(n) for n in b[2]]); return start[name]
+    # the apps are learned separately: a block waits only for the Lanchester blocks it needs
+    start[name]=max([0]+[St(n)+1 for n in b[2]]); return start[name]
 for b in M["BLOCKS"]: St(b[0])
 nst=len(E["LAYERS"])
+nmil=max(start.values())+1
 stages=[]
 cum=0
-for li in range(nst+1):
+for li in range(max(nst,nmil)):
     tracks=[]
     if li<nst:
         for tn,ids in E["LAYERS"][li][1]:
             ks=expand(ids,emods); tracks.append((ks,hr(emods,ks)))
     blocks=[b for b in M["BLOCKS"] if start[b[0]]==li]
-    p=sum(t[1] for t in tracks)+sum(hr(mmods,expand(b[1],mmods)) for b in blocks)
-    cum+=p/154
-    stages.append((li,tracks,blocks,p,cum))
-total=cum
+    pe=sum(t[1] for t in tracks); pm=sum(hr(mmods,expand(b[1],mmods)) for b in blocks)
+    stages.append((li,tracks,blocks,pe,pm))
+tot_e=sum(st[3] for st in stages); tot_m=sum(st[4] for st in stages); total=(tot_e+tot_m)/154
 # should-gaps (not in plan)
 cur_p=pg(emods,list(emods))+pg(mmods,list(mmods))
 newk=list(E["NEW"])+list(M["NEW"])
@@ -78,33 +78,26 @@ new_h=sum(nh(k) for k in newk)
 allit=[i for k in newk for i in ITEMS.get(k,{}).get("items",[])]
 miss=sum(1 for i in allit if i.get("status")=="missing")
 org=lambda o: sum(1 for v in E["NEW"].values() if v[3]==o)+sum(1 for v in M["NEW"].values() if v[2]==o)
-def stage_html(li,tracks,blocks,p,cum):
-    name=E["LAYERS"][li][0] if li<nst else "אחרי שגילואה מסתיימת"
-    out=[f'<section class="stage" id="s{li}"><header class="sh"><span class="sn">שכבה {li}</span><h2>{esc(name)}</h2><span class="sm">כ-{p:,.0f} שעות · {p/154:.1f} חודשים · מצטבר {cum:.1f}</span></header><div class="cols">']
-    out.append('<div class="col gil"><h3>גילואה</h3>')
-    if tracks:
-        for i,(ks,tp) in enumerate(tracks):
-            lab="מסלול ראשי" if i==0 else "במקביל"
-            out.append(f'<details class="track"><summary><span class="tl">{lab}</span><span class="ts">{esc(summary("eng",emods,ks))}</span><span class="tp">{tp:,.0f} ש\'</span></summary><ol class="chips">{"".join(chip("eng",emods,k) for k in ks)}</ol></details>')
-    else: out.append('<p class="empty">גילואה הסתיימה.</p>')
-    out.append('</div><div class="col lan"><h3>לנצ\'סטר</h3>')
-    if blocks:
-        for b in blocks:
-            ks=expand(b[1],mmods); bp=hr(mmods,ks)
-            why=f'<p class="why">מחכה בגילואה ל: {esc(", ".join(b[3]))}</p>' if b[3] else '<p class="why">בלי תלות בגילואה.</p>'
-            if b[4]:
-                d=max(elayer[x] for x in b[4])
-                why+=f'<p class="why deep">העמקה (שיעור הפרש) אחרי שכבה {d}: {esc(", ".join(b[4]))}</p>'
-            if b[2]: why+=f'<p class="why">אחרי: {esc(" · ".join(b[2]))}</p>'
-            out.append(f'<details class="track"><summary><span class="tl">{esc(b[0])}</span><span class="ts">{esc(summary("mil",mmods,ks))}</span><span class="tp">{bp:,.0f} ש\'</span></summary>{why}<ol class="chips">{"".join(chip("mil",mmods,k) for k in ks)}</ol></details>')
-    else: out.append('<p class="empty">אין בלוק חדש שמתחיל כאן. ממשיכים בבלוקים שהתחילו קודם, או חזרה ופרויקטים.</p>')
-    out.append('</div></div></section>')
-    return "".join(out)
-body="".join(stage_html(*s) for s in stages)
+def track_html(lab,ks,tp):
+    return f'<details class="track"><summary><span class="tl">{lab}</span><span class="ts">{esc(summary("eng",emods,ks))}</span><span class="tp">{tp:,.0f} ש\'</span></summary><ol class="chips">{"".join(chip("eng",emods,k) for k in ks)}</ol></details>'
+def gil_html(li,tracks,pe):
+    out=[f'<section class="stage gil" id="g{li}"><header class="sh"><span class="sn">שכבה {li}</span><h2>{esc(E["LAYERS"][li][0])}</h2><span class="sm">כ-{pe:,.0f} שעות</span></header><div class="col">']
+    for i,(ks,tp) in enumerate(tracks): out.append(track_html("מסלול ראשי" if i==0 else "במקביל",ks,tp))
+    out.append('</div></section>'); return "".join(out)
+def lan_html(li,blocks,pm):
+    out=[f'<section class="stage lan" id="l{li}"><header class="sh"><span class="sn">שלב {li}</span><h2>{"במקביל: " if len(blocks)>1 else ""}{esc(" · ".join(b[0] for b in blocks))}</h2><span class="sm">כ-{pm:,.0f} שעות</span></header><div class="col">']
+    for b in blocks:
+        ks=expand(b[1],mmods); bp=hr(mmods,ks)
+        why=f'<p class="why">אחרי: {esc(" · ".join(b[2]))}</p>' if b[2] else '<p class="why">בלי דרישות קודמות.</p>'
+        rel=b[3]+b[4]
+        if rel: why+=f'<p class="why deep">קשור בגילואה (לא חוסם; מה שצריך נלמד כאן ברמה הדרושה): {esc(", ".join(rel))}</p>'
+        out.append(f'<details class="track"><summary><span class="tl">{esc(b[0])}</span><span class="ts">{esc(summary("mil",mmods,ks))}</span><span class="tp">{bp:,.0f} ש\'</span></summary>{why}<ol class="chips">{"".join(chip("mil",mmods,k) for k in ks)}</ol></details>')
+    out.append('</div></section>'); return "".join(out)
+gbody="".join(gil_html(st[0],st[1],st[3]) for st in stages if st[1])
+lbody="".join(lan_html(st[0],st[2],st[4]) for st in stages if st[2])
 tpl=open("tmp/syllabus/map_template.html").read()
-toc="".join(f"<a href=\"#s{s[0]}\">{s[0]}</a>" for s in stages)
-tpl=tpl.replace("{{TOC}}",toc)
-for k,v in {"BODY":body,"TOTAL":f"{total:.0f}","CUR":f"{mon(cur_p):.0f}","NEWH":f"{new_h:,.0f}","NEWM":f"{new_h/154:.1f}","NMOD":str(len(newk)),"NIT":str(len(allit)),"NMISS":str(miss),"NPART":str(len(allit)-miss),"NU":str(org("user")),"NG":str(org("gap")+org("should")),"NN":str(org("naval"))}.items():
+tpl=tpl.replace("{{TOCG}}","".join(f"<a href=\"#g{st[0]}\">{st[0]}</a>" for st in stages if st[1])).replace("{{TOCL}}","".join(f"<a href=\"#l{st[0]}\">{st[0]}</a>" for st in stages if st[2]))
+for k,v in {"GBODY":gbody,"LBODY":lbody,"TOTAL":f"{total:.0f}","CUR":f"{mon(cur_p):.0f}","TE":f"{tot_e/154:.0f}","TM":f"{tot_m/154:.0f}","NEWH":f"{new_h:,.0f}","NEWM":f"{new_h/154:.1f}","NMOD":str(len(newk)),"NIT":str(len(allit)),"NMISS":str(miss),"NPART":str(len(allit)-miss),"NU":str(org("user")),"NG":str(org("gap")+org("should")),"NN":str(org("naval"))}.items():
     tpl=tpl.replace("{{"+k+"}}",v)
 open(OUT,"w").write(tpl)
 print("total months",round(total,1),"current",round(mon(cur_p),1),"new hours",round(new_h),"items",len(allit),"missing",miss)
