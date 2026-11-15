@@ -13,7 +13,7 @@
 
 - הכתובות: גילואה https://claude.ai/artifact/LtW5eytwQFZ4wAXhDSAw3k, לנצ'סטר https://claude.ai/artifact/1tTftT3T7L7p67ofNzvfc9. כל גיליון נכתב רק למסד של האפליקציה שלו.
 - רק הוספה: גיליון של שבוע שכבר נכתב לא נמחק. ריצה חוזרת באותו שבוע כותבת שוב את אותו `doc_id` (`set` מחליף את כל המסמך). אסור לגעת ב-`newsfb`.
-- גודל: עד 230 KB למסמך (מגבלת המסמך 256 KiB). 10–20 פריטים; שבוע דל נותן גיליון קצר (לפחות 6), לא מילוי.
+- גודל: עד 230 KB למסמך (מגבלת המסמך 256 KiB). מהדורת סוף שבוע: 25–35 פריטים; שבוע דל נותן גיליון קצר (לפחות 8), לא מילוי. תמונות אף פעם לא בתוך המסמך (ראו "תמונות" למטה).
 - כשיש `_index`, הדף קורא ממנו את רשימת הגיליונות ולא טוען את כל האוסף. בלעדיו הדף מונה את האוסף (טוב לשבועות הראשונים). לכן אחרי כל גיליון מעדכנים את `_index` (הישן + החדש בראש).
 - סדר הכתיבה: קודם הגיליון, אחר כך `_index`, ואחרון `_status`.
 
@@ -33,6 +33,7 @@ interface NewsIssue {
   picks10?: string[];            // 2-3 ids ל"לקרוא ב-10 דקות"
   items: NewsItem[];
   stats?: { candidates: number; fetched: number; verified: number; dropped?: Record<string, number> };
+  edition?: string;              // שם המהדורה בראש העמוד, למשל "מהדורת סוף שבוע"
   example?: true;                // רק בדוגמאות של הבדיקות; הריצה האמיתית לא כותבת את זה
 }
 
@@ -42,8 +43,8 @@ interface NewsItem {
   domain: string;                // id של מדור
   headline: string;              // עברית
   dek: string;                   // שורת משנה, עברית
-  body: string;                  // Markdown עברי, עד 220 מילים; משוואות ב-$…$
-  why: string;                   // "למה זה חשוב לך": 1-3 שורות, Markdown
+  body: string;                  // Markdown עברי; משוואות ב-$…$. אורך לפי role: lead 600–900 מילים, feature 350–450, brief/lab/world 80–220, geo/econ 250–450, number עד 120
+  why: string;                   // הערת העורך בשוליים: הקשר לחומר הלימוד, 1-3 שורות, Markdown
   certainty: "official" | "peer" | "preprint" | "single" | "corroborated" | "vendor" | "disputed";
   sanity?: { check: string; result: "pass" | "fail" | "na"; note: string };   // בדיקת סדר גודל
   sources: {                     // ממולא בקוד מתוך מה שנשלף השבוע, לא על ידי המודל
@@ -52,6 +53,7 @@ interface NewsItem {
     fetchedAt?: number; httpStatus?: number; sha256?: string;
     quote?: string;              // ציטוט מילולי (עד 40 מילים) שנמצא בטקסט שנשלף
     openAccess?: boolean;
+    stateMedia?: boolean;        // כלי תקשורת ממשלתי (שינחואה, TRT, RT, IRNA, CGTN…): מוצג עם תגית, והפריט חייב מקור נוסף ובלתי תלוי
   }[];
   connects: { moduleId: string; rel: "learned" | "current" | "next" | "later" | "outside"; concept: string; why: string }[];
   textbookUpdate?: { book: string; page: number; edition: number; old: string; now: string; status: "superseded" | "refined" | "confirmed" };
@@ -59,15 +61,63 @@ interface NewsItem {
   read10?: { minutes: number };
   oldButNew?: true;              // מחוץ לחלון התאריכים, חדש ללומד (עד 2 בגיליון)
   crossRef?: { app: "eng" | "core"; issueId: string; itemId: string };   // אותה ידיעה בעיתון של האפליקציה השנייה
+
+  // המהדורה המודפסת (כל השדות רשות; גיליון בלעדיהם מוצג כמו קודם)
+  role?: "lead" | "feature" | "brief" | "number" | "world" | "geo" | "econ" | "post" | "lab";
+  region?: "US" | "EU" | "UK" | "IL" | "TR" | "CN" | "TW" | "JP" | "KR" | "IN" | "RU" | "UA" | "GULF" | "IR" | "AF" | "INTL";
+  images?: { url: string; caption: string; credit: string; license: string; sourcePage: string; alt?: string }[];
+  chart?: {
+    kind: "bar" | "line";
+    title: string; unit: string;
+    x: (string | number)[];                                  // קטגוריות (bar) או ערכי ציר x (line), לפי הסדר
+    series: { name: string; values: (number | null)[] }[];   // 1–3 סדרות, כל אחת באורך x
+    source: { publisher: string; url: string; note?: string };   // url חייב להיות אחד מ-sources[] של הפריט
+  };
+  post?: { network: "x" | "bluesky" | "mastodon"; handle: string; author: string; text: string; url: string; postedAt?: string };
+  number?: { value: string; unit: string; calc: string };   // מספר השבוע: הערך, היחידה, והחישוב (Markdown, $…$)
+  world?: { topic: string; pair: string };                  // "מבט מהעולם": שני פריטים על אותו נושא משתי מדינות; pair = ה-id של השני
 }
 ```
 
+### המהדורה המודפסת: role ומה מוצג איפה
+
+| role | איפה בדף | כמה בגיליון |
+|---|---|---|
+| `lead` | העמוד הראשון, רחב, עם תמונה, גוף פתוח והערת העורך בשוליים. אותו id כמו `lead` של הגיליון | 1 |
+| `feature` | עמודת הצד של העמוד הראשון: כתבות עומק, נפתחות במקום | 3–4 |
+| `brief` (או בלי role) | המדורים, 3 עמודות עם קו כותרת | רוב הגיליון |
+| `number` | "מספר השבוע" בעמודת הצד: `number.value` גדול, `headline` כתווית, `number.calc` כחישוב | 1 |
+| `world` | "מבט מהעולם": זוג פריטים מ-`region` שונים עם אותו `world.topic` | 1–2 זוגות |
+| `geo` | "הפינה הגאופוליטית" (לנצ'סטר בלבד): ניתוח מקורות פתוחים, בלי מעקב מבצעי | 1–2 |
+| `econ` | "כלכלת הטכנולוגיה" (גילואה בלבד) | 1–2 |
+| `lab` | "מהמעבדות": מחקר מקבוצה או ממעבדה, קצר | 2–4 |
+| `post` | "ברשתות": פוסט מ-X, Bluesky או Mastodon, מצוטט מילה במילה מדף שנטען בריצה (`post.text` מופיע בטקסט שנשלף; `sources[0].url` = `post.url`) | 0–4 |
+
+- פריטים עם role של פינה (`number`, `world`, `geo`, `econ`, `lab`, `post`) לא חייבים להופיע ב-`sections`; הדף מציג אותם בפינות ולא במדורים. `lead` ו-`feature` מופיעים במדור שלהם אבל לא חוזרים שם בתצוגה.
+- גיליון בלי role בכלל (W45, W46): שני הפריטים הראשונים אחרי הכתבה הראשית עולים לעמודת הצד, והשאר במדורים.
+- `region`: ארה"ב (`US`) לכל היותר 40% מהפריטים. `INTL` לגוף בין-לאומי (ITU, IEA, ארגון תקינה).
+
+### תמונות
+
+- תמונה רלוונטית לנושא, לא חייבת להיות מהכתבה עצמה: Wikimedia Commons, NASA, ESA, NOAA, DVIDS (לנצ'סטר בלבד), אתרי ממשל עם נחלת הכלל. רק רישיון חופשי (נחלת הכלל, CC0, CC BY, CC BY-SA) או תמונה רשמית ששימוש בה מותר עם קרדיט. `credit`, `license` ו-`sourcePage` (דף הקובץ שממנו ירדה) חובה; `caption` אומר מה רואים, ו"להמחשה" כשהתמונה לא מהאירוע עצמו.
+- ה-CSP של Artifact חוסם תמונות מאתרים חיצוניים, ולכן הדף מציג רק `url` שמתחיל ב-`/_blob/` (מאגר הקבצים של ה-Artifact), נתיב יחסי לקובץ שפורסם עם הדף, או `data:image/`. כל `url` אחר לא מוצג.
+- הדרך של המשימה: מורידים את הקובץ (עדיף גרסה מוקטנת, רוחב 800–1200 פיקסלים, JPEG עד כ-250KB), ומעלים אותו למאגר הקבצים: `Artifact` publish עם `url` של האפליקציה, `file_path` של התמונה ו-`asset: true` (בשתי האפליקציות יש הרשאת `assets`). התוצאה נותנת `url` מהצורה `/_blob/<id>`, ואותו כותבים ב-`images[].url` כמו שהוא. אותו מנגנון משמש לתמונות בסיכומים ולדיוקנאות ב"מה קראתי" (`src/labtabs/portraits.ts`).
+- לא מכניסים תמונה כ-data URI לתוך הגיליון (מגבלת 230KB). הדוגמאות של הבדיקות משתמשות ב-SVG קטן כ-data URI רק כי בבדיקה המקומית אין מאגר קבצים.
+
+### גרפים
+
+- רק ממספרים שמופיעים בטקסט שנשלף בריצה (טבלה, דוח, מאגר נתונים). `chart.source.url` הוא אחד מ-`sources[]` של הפריט; אסור להשלים, לאמוד או "להחליק" ערכים. ערך חסר הוא `null`.
+- הדף מצייר SVG בשחור-לבן (עד 3 סדרות), עם כותרת, יחידה ושורת מקור.
+
 איך הדף משתמש בשדות:
 
+- `region` ו-`stateMedia` מוצגים בשורת התגיות הקטנה של הפריט (למשל "סין · תקשורת ממשלתית").
+
 - `connects[].moduleId` חייב להיות מודול קיים באינדקס של האפליקציה (`lib/index.json`). שבב החיבור פותח את המודול. הדף מעדכן את `rel` לפי ההתקדמות של היום: מודול שנלמד מאז מוצג "נלמד".
-- `certainty` מוצג כתגית בצבע (רשמי, שפוט, מאמר לא שפוט, דיווח יחיד, מאומת בשני מקורות, טענת יצרן, שנוי במחלוקת). קישור arXiv אף פעם לא "peer".
-- `sources[0]` נותן את רמת המקור, התאריך והציטוט; כל המקורות מוצגים כקישורים.
-- פריט שמופיע ב-`sections` אבל לא ב-`items` מדולג בשקט. `lead` לא חוזר בתוך המדורים בתצוגה.
+- `certainty` מוצג כמילה בשורת התגיות (רשמי, שפוט, מאמר לא שפוט, דיווח יחיד, מאומת בשני מקורות, טענת יצרן, שנוי במחלוקת). קישור arXiv אף פעם לא "peer".
+- `sources[0]` נותן את רמת המקור, התאריך והציטוט; כל המקורות מוצגים כקישורים, ומקור ממשלתי מסומן.
+- פריט שמופיע ב-`sections` אבל לא ב-`items` מדולג בשקט. `lead`, `feature` ופריטי הפינות לא חוזרים בתוך המדורים בתצוגה.
+- `why` ו-`connects` מוצגים כהערת עורך בשוליים ("לחומר הלימוד"); שבבי המודולים פותחים את המודול, ונוסחאות בשם המודול מוצגות כנוסחאות.
 - שמות המדורים באים מהגיליון, לא מהקוד. גילואה: מתמטיקה ופיזיקה, אותות ובקרה, תקשורת, אלקטרוניקה ושבבים, הספק ואנרגיה, תרמו זרימה ואווירו, מבנים וחומרים, ML/AI ורובוטיקה, הנדסת מערכות ותקנים, חלל כהנדסה. לנצ'סטר: מכ"ם ול"א, טילים והגנה אווירית, חלל, כטב"מים ואוטונומיה, עלות ובדיקות, מודלים מבצעיים ותקנים.
 
 ## `news/_index` ו-`news/_status`
@@ -92,7 +142,7 @@ interface NewsItem {
 
 ## דוגמה
 
-גיליון לדוגמה לכל אפליקציה: `core/app/tools/test/samples/news.json`, `eng/app/tools/test/samples/news.json` (עם `example: true`). הבדיקה המקומית מוסיפה אותם למסד המדומה כשהכתובת היא `test.html?seed`.
+גיליון לדוגמה לכל אפליקציה: `core/app/tools/test/samples/news.json`, `eng/app/tools/test/samples/news.json` (עם `example: true`; בכל אחת מופיע כל שדה של המהדורה המודפסת). הבדיקה המקומית מוסיפה אותם למסד המדומה כשהכתובת היא `test.html?seed`.
 
 ## כתיבה מהמשימה (ArtifactData)
 
