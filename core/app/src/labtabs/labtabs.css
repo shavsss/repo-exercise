@@ -899,6 +899,24 @@ textarea.lt-input {
   border-top: 1px solid var(--np-rule);
 }
 
+/* short sections side by side, a column each */
+.np-secrow {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0 24px;
+}
+.np-secrow > .np-sec + .np-sec {
+  border-inline-start: 1px solid var(--np-rule);
+  padding-inline-start: 24px;
+  margin-inline-start: -12px;
+}
+.np-secrow .np-brief:first-of-type {
+  border-top: 0;
+}
+.np-sec .np-kick {
+  display: none;
+}
+
 /* the corners */
 .np-world-h {
   font: italic 500 1rem var(--np-serif);
@@ -920,6 +938,15 @@ textarea.lt-input {
 }
 .np-pair > :only-child {
   grid-column: 1 / -1;
+}
+.np-pair > * + * {
+  border-inline-start: 1px solid var(--np-rule);
+  padding-inline-start: 24px;
+  margin-inline-start: -12px;
+}
+.np-pair .np-sec > .np-brief:first-of-type,
+.np-stack > .np-sec:first-child .np-brief:first-of-type {
+  border-top: 0;
 }
 .np-post {
   margin: 10px 0 14px;
@@ -1001,11 +1028,18 @@ textarea.lt-input {
 }
 @media (max-width: 680px) {
   .np-front,
+  .np-secrow,
   .np-pair,
   .np-cols,
   .np-cols-2,
   .np-colophon {
     grid-template-columns: minmax(0, 1fr);
+  }
+  .np-pair > * + *,
+  .np-secrow > .np-sec + .np-sec {
+    border-inline-start: 0;
+    padding-inline-start: 0;
+    margin-inline-start: 0;
   }
   .np-side {
     border-inline-start: 0;
@@ -1024,6 +1058,10 @@ textarea.lt-input {
   }
   .np-ear {
     justify-content: center;
+  }
+  .np-tick,
+  .np-val {
+    font-size: 17px;
   }
   .np-ear > :last-child {
     display: none;

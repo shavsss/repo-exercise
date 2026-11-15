@@ -223,38 +223,73 @@ export function NewsTab({ lab, rt, index, done, current, onOpenModule }: LabTabP
             </div>
           )}
 
-          {ed.sections
-            .filter((s) => !section || s.id === section)
-            .map((s) => {
-              const items = s.items.filter(mine);
-              if (!items.length) return null;
-              return (
-                <section key={s.id} className="np-sec">
-                  <SecHead title={s.title} n={items.length} />
-                  <div className="np-cols">
-                    {items.map((it) => (
+          {groupSections(ed.sections.filter((s) => !section || s.id === section).map((s) => ({ ...s, items: s.items.filter(mine) }))).map((g) =>
+            g.length === 1 && g[0].items.length > 2 ? (
+              <section key={g[0].id} className="np-sec">
+                <SecHead title={g[0].title} n={g[0].items.length} />
+                <div className="np-cols">
+                  {g[0].items.map((it) => (
+                    <article key={it.id} className="np-brief">
+                      <Story it={it} variant="brief" {...story} />
+                    </article>
+                  ))}
+                </div>
+              </section>
+            ) : (
+              <div key={g[0].id} className="np-secrow">
+                {g.map((s) => (
+                  <section key={s.id} className="np-sec">
+                    <SecHead title={s.title} n={s.items.length} />
+                    {s.items.map((it) => (
                       <article key={it.id} className="np-brief">
                         <Story it={it} variant="brief" {...story} />
                       </article>
                     ))}
-                  </div>
-                </section>
-              );
-            })}
+                  </section>
+                ))}
+              </div>
+            ),
+          )}
 
           {!section && (
             <>
-              {analysis.length > 0 && (
-                <section className="np-sec np-analysis">
-                  <SecHead title={cornerName} note={lab === "core" ? "ניתוח של מקורות פתוחים" : undefined} />
-                  <div className="np-cols np-cols-2">
-                    {analysis.map((it) => (
-                      <article key={it.id} className="np-brief">
-                        <Story it={it} variant="corner" {...story} />
-                      </article>
-                    ))}
-                  </div>
-                </section>
+              {(analysis.length > 0 || labs.length > 0 || posts.length > 0) && (
+                <div className="np-pair">
+                  {analysis.length > 0 && (
+                    <section className="np-sec">
+                      <SecHead title={cornerName} note={lab === "core" ? "ניתוח של מקורות פתוחים" : undefined} />
+                      <div className={analysis.length > 1 ? "np-cols np-cols-2" : undefined}>
+                        {analysis.map((it) => (
+                          <article key={it.id} className="np-brief">
+                            <Story it={it} variant="corner" {...story} />
+                          </article>
+                        ))}
+                      </div>
+                    </section>
+                  )}
+                  {(labs.length > 0 || posts.length > 0) && (
+                    <div className="np-stack">
+                      {labs.length > 0 && (
+                        <section className="np-sec">
+                          <SecHead title="מהמעבדות" />
+                          {labs.map((it) => (
+                            <article key={it.id} className="np-brief">
+                              <Story it={it} variant="brief" {...story} />
+                            </article>
+                          ))}
+                        </section>
+                      )}
+                      {posts.length > 0 && (
+                        <section className="np-sec">
+                          <SecHead title="ברשתות" />
+                          {posts.map((it) => (
+                            <Post key={it.id} it={it} />
+                          ))}
+                        </section>
+                      )}
+                    </div>
+                  )}
+                </div>
               )}
               {worlds.length > 0 && (
                 <section className="np-sec">
@@ -273,28 +308,6 @@ export function NewsTab({ lab, rt, index, done, current, onOpenModule }: LabTabP
                     </div>
                   ))}
                 </section>
-              )}
-              {(labs.length > 0 || posts.length > 0) && (
-                <div className="np-pair">
-                  {labs.length > 0 && (
-                    <section className="np-sec">
-                      <SecHead title="מהמעבדות" />
-                      {labs.map((it) => (
-                        <article key={it.id} className="np-brief">
-                          <Story it={it} variant="brief" {...story} />
-                        </article>
-                      ))}
-                    </section>
-                  )}
-                  {posts.length > 0 && (
-                    <section className="np-sec">
-                      <SecHead title="ברשתות" />
-                      {posts.map((it) => (
-                        <Post key={it.id} it={it} />
-                      ))}
-                    </section>
-                  )}
-                </div>
               )}
               <Colophon issue={issue} byId={ed.byId} fb={fb} />
             </>
@@ -322,6 +335,24 @@ function edition(issue: NewsIssue | null) {
   const secOf = new Map(issue.sections.flatMap((s) => s.items.map((x) => [x, s.title] as const)));
   const kicker = (it: NewsItem) => secOf.get(it.id) ?? issue.sections.find((s) => s.id === it.domain)?.title ?? "";
   return { byId, lead, features, sections, corners, kicker };
+}
+
+/** Sections of three stories or more run across three columns; shorter ones share a row, up to three side by side. */
+function groupSections<T extends { id: string; items: unknown[] }>(sections: T[]): T[][] {
+  const out: T[][] = [];
+  let row: T[] = [];
+  for (const s of sections) {
+    if (!s.items.length) continue;
+    if (s.items.length > 2) {
+      if (row.length) out.push(row), (row = []);
+      out.push([s]);
+    } else {
+      row.push(s);
+      if (row.length === 3) out.push(row), (row = []);
+    }
+  }
+  if (row.length) out.push(row);
+  return out;
 }
 
 /** "מבט מהעולם": each pair once, in the order of the first item. */
@@ -706,7 +737,7 @@ function Chart({ c }: { c: NewsChart }) {
           const cx = c.kind === "bar" ? m.l + (pw / n) * (i + 0.5) : m.l + (n === 1 ? pw / 2 : (pw * i) / (n - 1));
           return (
             <text key={i} x={cx} y={H - m.b + 18} textAnchor="middle" className="np-tick">
-              {String(x)}
+              {`\u2068${x}\u2069`}
             </text>
           );
         })}
