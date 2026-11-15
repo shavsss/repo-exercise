@@ -61,6 +61,10 @@
     "library/military/articles/05.6_Woodman_Inertial-Navigation_TR696.pdf",
     "A05.6"
    ],
+   "W90": [
+    "library/engineering/free/W90_photonics_lasers_detectors_bundle.pdf",
+    "Photonics/lasers/detectors bundle (substitute for Saleh & Teich): MIT 6.974 Fundamentals of Photonics class notes (Kaertner) + van Exter Classical & Quantum Optics ch.4,6 + Cornell ECE533 Rana handouts 3,5,7,9,11,12 + TAMU ECEN689 lecture 3 (photodetectors/EDFA) + Oxford Opto lecture 5 (detector noise)"
+   ],
    "W72": [
     "library/engineering/free/W72_liege_elec0055_erickson_slides_p1_p3.pdf",
     "ELEC0055 Elements of Power Electronics, slides Part I (Ch 1-5, 13, 19) and Part III (Ch 6), based on Erickson & Maksimovic"
@@ -394,6 +398,10 @@
    "X39": [
     "free/X39_submarine_signatures_comms_strategy_bundle.pdf",
     "Submarine signatures, communications and strategy bundle: Cote 'The Third Battle'; NPS non-acoustic ASW; US/Soviet SSBN comparison; ELF/VLF submarine communications satellite design; Common Submarine Radio Room"
+   ],
+   "X40": [
+    "free/X40_salvo_model_fleet_air_defense_nps_bundle.pdf",
+    "Hughes' salvo model (primary paper) and NPS theses on salvo models, ASCM defense, radar propagation, soft kill, VLS magazines, distributed lethality, OTH targeting, Aegis"
    ],
    "X03": [
     "free/X03_nielsen_directed_energy_weapons.pdf",
@@ -946,6 +954,150 @@
       123
      ],
      "note": "פרק 3 (Beam Optics): אלומות גאוס, divergence, waist, Rayleigh range, Hermite/Laguerre-Gaussian, התפשטות דרך רכיבים (בסיס ל-M²). TOC בעמודים 17-19 (לא חלק מהמיפוי)",
+     "role": "main"
+    },
+    {
+     "doc": "W90",
+     "pages": [
+      92,
+      121
+     ],
+     "note": "MIT 6.974 סעיפים 2.4–2.6: משוואת הגל הפאראקסיאלית, אלומות גאוסיות (מותן, Rayleigh, התבדרות), מטריצות ABCD, ויציבות מהודים (פריט 1–2)",
+     "role": "main"
+    },
+    {
+     "doc": "W90",
+     "pages": [
+      190,
+      194
+     ],
+     "note": "MIT 3.3: פליטה ספונטנית ומאולצת ומקדמי Einstein (פריט 3)",
+     "role": "main"
+    },
+    {
+     "doc": "W90",
+     "pages": [
+      271,
+      291
+     ],
+     "note": "MIT פרק 6: מודל שתי רמות, Rabi, רלקסציה, חתך פעולה, רוויה ומשוואות קצב (פריט 3)",
+     "role": "main"
+    },
+    {
+     "doc": "W90",
+     "pages": [
+      292,
+      341
+     ],
+     "note": "MIT פרק 7: עקרון הלייזר, מדיות הגבר, סוגי לייזרים (גזי, מצב מוצק, דיודה, סיב), דינמיקה וסף, תנודות רפיה, נצילות, Q-switching ו-mode-locking (פריטים 4–6)",
+     "role": "main"
+    },
+    {
+     "doc": "W90",
+     "pages": [
+      537,
+      558
+     ],
+     "note": "Cornell ECE533 מס' 12: מהודים ומיקרו-מהודים (FSR, finesse, מודים) (פריט 2)",
+     "role": "main"
+    },
+    {
+     "doc": "W90",
+     "pages": [
+      440,
+      460
+     ],
+     "note": "Cornell מס' 3: מעברים אופטיים והגבר בחומרים מוליכים למחצה (פריט 3,6)",
+     "role": "main"
+    },
+    {
+     "doc": "W90",
+     "pages": [
+      488,
+      506
+     ],
+     "note": "Cornell מס' 7: LED ומקורות אור מוליכים למחצה (פריט 6)",
+     "role": "main"
+    },
+    {
+     "doc": "W90",
+     "pages": [
+      517,
+      536
+     ],
+     "note": "Cornell מס' 11: יסודות לייזר דיודה, משוואות קצב, סף, מהירות אפנון (פריטים 4,6)",
+     "role": "main"
+    },
+    {
+     "doc": "W90",
+     "pages": [
+      507,
+      516
+     ],
+     "note": "Cornell מס' 9: מגברים אופטיים מוליכים למחצה (SOA) (פריט 7)",
+     "role": "main"
+    },
+    {
+     "doc": "W90",
+     "pages": [
+      122,
+      155
+     ],
+     "note": "MIT 2.7: מוליכי גל ואופטיקה משולבת (מודים, V-number מקורב; פריט 7, כיסוי חלקי לסיבים)",
+     "role": "main"
+    },
+    {
+     "doc": "W90",
+     "pages": [
+      585,
+      591
+     ],
+     "note": "TAMU שקפים 27–33: SOA, EDFA, רעש ASE ו-noise figure (פריט 7)",
+     "role": "main"
+    },
+    {
+     "doc": "W90",
+     "pages": [
+      461,
+      487
+     ],
+     "note": "Cornell מס' 5: מצלמי PIN ו-APD, responsivity, יעילות קוונטית (בלי רעש) (פריט 8)",
+     "role": "main"
+    },
+    {
+     "doc": "W90",
+     "pages": [
+      567,
+      592
+     ],
+     "note": "TAMU שקפים 9–34: responsivity, רעש shot, זרם חושך, APD ו-excess noise, SNR (פריט 8)",
+     "role": "main"
+    },
+    {
+     "doc": "W90",
+     "pages": [
+      594,
+      616
+     ],
+     "note": "Oxford הרצאה 5: גלאים ורעש, shot, Johnson, PMT ו-p-n (פריט 8)",
+     "role": "main"
+    },
+    {
+     "doc": "W90",
+     "pages": [
+      368,
+      373
+     ],
+     "note": "van Exter פרק 4: קוהרנטיות בזמן ובמרחב (קוהרנטיות סטטיסטית)",
+     "role": "main"
+    },
+    {
+     "doc": "W90",
+     "pages": [
+      382,
+      389
+     ],
+     "note": "van Exter פרק 6: סטטיסטיקת פוטונים חצי-קלאסית וספירת פוטונים",
      "role": "main"
     }
    ],
@@ -5032,6 +5184,87 @@
       74
      ],
      "note": "פרקים V–IX: מודל הטיל והספינה, ניתוח התוכנית",
+     "role": "main"
+    },
+    {
+     "doc": "X40",
+     "pages": [
+      1,
+      24
+     ],
+     "note": "Hughes 1995: A Salvo Model of Warships in Missile Combat (המקור הראשוני)",
+     "role": "main"
+    },
+    {
+     "doc": "X40",
+     "pages": [
+      25,
+      400
+     ],
+     "note": "עבודות על Salvo: יסודות salvo warfare, בדיקת משוואות Salvo, מורכבות מודל, Heterogeneous Salvo, Hughes מותאם לצי קטן, ערך תכונות ספינה",
+     "role": "main"
+    },
+    {
+     "doc": "X40",
+     "pages": [
+      401,
+      608
+     ],
+     "note": "יעילות היסטורית של ASCM (Falklands, Exocet, Styx) ותכונות האיום; הגנת ספינות מפני טילי ים",
+     "role": "main"
+    },
+    {
+     "doc": "X40",
+     "pages": [
+      609,
+      715
+     ],
+     "note": "אופק מכ\"ם, evaporation duct וזיהוי sea-skimmers: זמן תגובה",
+     "role": "main"
+    },
+    {
+     "doc": "X40",
+     "pages": [
+      716,
+      833
+     ],
+     "note": "kill-chain: ארכיטקטורת הגנה אווירית ו-CONOPS נגד ASCM",
+     "role": "main"
+    },
+    {
+     "doc": "X40",
+     "pages": [
+      834,
+      1183
+     ],
+     "note": "Soft kill: לוחמה אלקטרונית משולבת, ESM/ECM, פתיינים",
+     "role": "main"
+    },
+    {
+     "doc": "X40",
+     "pages": [
+      1184,
+      1278
+     ],
+     "note": "VLS loadout ומשק המחסניות; תורת Distributed Lethality",
+     "role": "main"
+    },
+    {
+     "doc": "X40",
+     "pages": [
+      1279,
+      1492
+     ],
+     "note": "Over-the-horizon targeting ו-scouting לצי השטח",
+     "role": "main"
+    },
+    {
+     "doc": "X40",
+     "pages": [
+      1493,
+      1591
+     ],
+     "note": "Aegis: תיק בוחן היסטורי וארכיטקטורת הגנה אווירית של הצי",
      "role": "main"
     }
    ],

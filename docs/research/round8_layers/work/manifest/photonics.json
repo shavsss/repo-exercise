@@ -1,0 +1,137 @@
+[
+ {
+  "doc": "W90",
+  "key": "photonics",
+  "path": "library/engineering/free/W90_photonics_lasers_detectors_bundle.pdf",
+  "title": "Photonics/lasers/detectors bundle (substitute for Saleh & Teich): MIT 6.974 Fundamentals of Photonics class notes (Kaertner) + van Exter Classical & Quantum Optics ch.4,6 + Cornell ECE533 Rana handouts 3,5,7,9,11,12 + TAMU ECEN689 lecture 3 (photodetectors/EDFA) + Oxford Opto lecture 5 (detector noise)",
+  "author": "F. X. Kaertner (MIT OCW, CC BY-NC-SA); M. van Exter (Leiden); F. Rana (Cornell); S. Palermo (TAMU); R. Taylor (Oxford)",
+  "edition": "MIT 6.974 Spring 2006; van Exter draft 2011; Rana ECE533 handouts",
+  "source_url": "https://ocw.mit.edu/courses/6-974-fundamentals-of-photonics-quantum-electronics-spring-2006/resources/classnotes/ ; https://home.physics.leidenuniv.nl/~exter/CQO/CQO.pdf ; https://courses.cit.cornell.edu/ece533/Lectures/handout{3,5,7,9,11,12}.pdf ; https://people.engr.tamu.edu/spalermo/ecen689_oi/lecture3_ee689_photodetectors.pdf ; https://users.physics.ox.ac.uk/~rtaylor/teaching/Opto_lecture5.pdf",
+  "pdf_pages": 616,
+  "text_ok": true,
+  "method": "bundle (pdfunite): MIT 1-341, vanExter 342-439, Rana h3 440-460, h5 461-487, h7 488-506, h9 507-516, h11 517-536, h12 537-558, TAMU 559-593, Oxford 594-616",
+  "modules": {
+   "M24.15": [
+    {
+     "pages": [
+      92,
+      121
+     ],
+     "note": "MIT 6.974 סעיפים 2.4–2.6: משוואת הגל הפאראקסיאלית, אלומות גאוסיות (מותן, Rayleigh, התבדרות), מטריצות ABCD, ויציבות מהודים (פריט 1–2)"
+    },
+    {
+     "pages": [
+      190,
+      194
+     ],
+     "note": "MIT 3.3: פליטה ספונטנית ומאולצת ומקדמי Einstein (פריט 3)"
+    },
+    {
+     "pages": [
+      271,
+      291
+     ],
+     "note": "MIT פרק 6: מודל שתי רמות, Rabi, רלקסציה, חתך פעולה, רוויה ומשוואות קצב (פריט 3)"
+    },
+    {
+     "pages": [
+      292,
+      341
+     ],
+     "note": "MIT פרק 7: עקרון הלייזר, מדיות הגבר, סוגי לייזרים (גזי, מצב מוצק, דיודה, סיב), דינמיקה וסף, תנודות רפיה, נצילות, Q-switching ו-mode-locking (פריטים 4–6)"
+    },
+    {
+     "pages": [
+      537,
+      558
+     ],
+     "note": "Cornell ECE533 מס' 12: מהודים ומיקרו-מהודים (FSR, finesse, מודים) (פריט 2)"
+    },
+    {
+     "pages": [
+      440,
+      460
+     ],
+     "note": "Cornell מס' 3: מעברים אופטיים והגבר בחומרים מוליכים למחצה (פריט 3,6)"
+    },
+    {
+     "pages": [
+      488,
+      506
+     ],
+     "note": "Cornell מס' 7: LED ומקורות אור מוליכים למחצה (פריט 6)"
+    },
+    {
+     "pages": [
+      517,
+      536
+     ],
+     "note": "Cornell מס' 11: יסודות לייזר דיודה, משוואות קצב, סף, מהירות אפנון (פריטים 4,6)"
+    },
+    {
+     "pages": [
+      507,
+      516
+     ],
+     "note": "Cornell מס' 9: מגברים אופטיים מוליכים למחצה (SOA) (פריט 7)"
+    },
+    {
+     "pages": [
+      122,
+      155
+     ],
+     "note": "MIT 2.7: מוליכי גל ואופטיקה משולבת (מודים, V-number מקורב; פריט 7, כיסוי חלקי לסיבים)"
+    },
+    {
+     "pages": [
+      585,
+      591
+     ],
+     "note": "TAMU שקפים 27–33: SOA, EDFA, רעש ASE ו-noise figure (פריט 7)"
+    },
+    {
+     "pages": [
+      461,
+      487
+     ],
+     "note": "Cornell מס' 5: מצלמי PIN ו-APD, responsivity, יעילות קוונטית (בלי רעש) (פריט 8)"
+    },
+    {
+     "pages": [
+      567,
+      592
+     ],
+     "note": "TAMU שקפים 9–34: responsivity, רעש shot, זרם חושך, APD ו-excess noise, SNR (פריט 8)"
+    },
+    {
+     "pages": [
+      594,
+      616
+     ],
+     "note": "Oxford הרצאה 5: גלאים ורעש, shot, Johnson, PMT ו-p-n (פריט 8)"
+    },
+    {
+     "pages": [
+      368,
+      373
+     ],
+     "note": "van Exter פרק 4: קוהרנטיות בזמן ובמרחב (קוהרנטיות סטטיסטית)"
+    },
+    {
+     "pages": [
+      382,
+      389
+     ],
+     "note": "van Exter פרק 6: סטטיסטיקת פוטונים חצי-קלאסית וספירת פוטונים"
+    }
+   ]
+  },
+  "coverage": "חלקי-טוב. מכוסה היטב: אלומות גאוסיות, מהודים, אינטראקציית אור-חומר והגבר, סף, משוואות קצב, רוויה, Q-switching, mode-locking, סוגי לייזרים (MIT פרק 7). מכוסה בינוני: לייזר דיודה/LED (Cornell, ברמת מוליכים למחצה), מגברי SOA/EDFA (שקפים), גלאים (PIN/APD, shot, excess noise, SNR בשקפי TAMU ו-Oxford; חסרים NEP ו-D* וגם רעש תרמי בהרחבה). קוהרנטיות וסטטיסטיקת פוטונים: רק פרקים תמציתיים של van Exter, לא טיפול Saleh-Teich. חלש/חסר: סיבים אופטיים (V-number, ניחות, נפיצה) רק דרך מוליכי גל כלליים, מאפננים אלקטרו-אופטיים ואופטיקה לא-לינארית (SHG) כמעט לא (פריט 9, C). לייזרי הספק גבוה ואיחוד אלומות (פריט 6) רק במעורפל. SPIE Fundamentals of Photonics (STEP) נבדק: רמה טכנית בסיסית, לא נבחר.",
+  "status": "partial",
+  "tried": [
+   "SPIE STEP modules URL returned HTML (not PDF); SPIE modules are technician-level so not pursued",
+   "h4 of Cornell has no text layer, excluded"
+  ],
+  "blocked_hosts": []
+ }
+]
