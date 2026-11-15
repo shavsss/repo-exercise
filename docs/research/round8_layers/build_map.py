@@ -17,15 +17,23 @@ def expand(ids,mods):
         elif re.match(r"P\d+$",x): out+=[k for k,v in mods.items() if v["part"]==x and v["tier"]!="ref"]
         else: out.append(x)
     return [k for k in out if k in mods and mods[k]["tier"]!="ref"]
-pg=lambda mods,ks: sum(mods[k]["pages"] for k in ks if mods[k]["tier"] in("cor","adv"))
+pg=lambda mods,ks: sum(mods[k]["pages"] for k in ks if mods[k]["tier"] in("cor","adv") and mods[k]["part"]!="NEW")
+hr=lambda mods,ks: pg(mods,ks)*10/60+sum(nh(k) for k in ks if mods[k]["part"]=="NEW")
 mon=lambda p: p*10/60/154
 esc=html.escape
-ORIG={"user":("הצעה שלך","o-user"),"gap":("פער שנמצא","o-gap"),"naval":("הנדסה ימית","o-naval")}
+ORIG={"user":("הצעה שלך","o-user"),"gap":("פער שנמצא","o-gap"),"should":("פער משלים","o-gap"),"naval":("הנדסה ימית","o-naval")}
+sys.path.insert(0,"tmp/syllabus"); from item_cost import hours as ihours
+ITEMS={**json.load(open("tmp/syllabus/eng_items.json")),**json.load(open("tmp/syllabus/mil_items.json"))}
+def nh(k): return ihours(ITEMS[k]["items"]) if k in ITEMS else 0
+def items_html(k):
+    li="".join(f'<li><span class="imp imp-{i["imp"]}">{i["imp"]}</span><span class="st">{"חדש" if i.get("status")=="missing" else "העמקה"}</span><span class="in">{esc(i["n"])}</span></li>' for i in ITEMS.get(k,{}).get("items",[]))
+    return f'<ul class="items">{li}</ul>' 
 def chip(app,mods,k):
     m=mods[k]
     if m["part"]=="NEW":
         lab,cls=ORIG[m["origin"]]
-        return f'<li class="chip new {cls}"><span class="mid">{esc(k)}</span><span class="mt">{esc(m["title"])}</span><span class="tag">{lab} · ~{m["pages"]} עמ\'</span></li>'
+        n=len(ITEMS.get(k,{}).get("items",[]))
+        return f'<li class="chip new {cls}"><span class="mid">{esc(k)}</span><details class="sub"><summary><span class="mt">{esc(m["title"])}</span><span class="tag">{lab} · {n} תתי-נושאים · כ-{nh(k):.1f} שעות</span></summary>{items_html(k)}</details></li>'
     adv=' <span class="adv">מתקדם</span>' if m["tier"]=="adv" else ""
     return f'<li class="chip"><span class="mid">{esc(k)}</span><span class="mt">{esc(he[app].get(k,m["title"]))}{adv}</span></li>'
 def summary(app,mods,ks):
@@ -57,50 +65,46 @@ for li in range(nst+1):
     tracks=[]
     if li<nst:
         for tn,ids in E["LAYERS"][li][1]:
-            ks=expand(ids,emods); tracks.append((ks,pg(emods,ks)))
+            ks=expand(ids,emods); tracks.append((ks,hr(emods,ks)))
     blocks=[b for b in M["BLOCKS"] if start[b[0]]==li]
-    p=sum(t[1] for t in tracks)+sum(pg(mmods,expand(b[1],mmods)) for b in blocks)
-    cum+=mon(p)
+    p=sum(t[1] for t in tracks)+sum(hr(mmods,expand(b[1],mmods)) for b in blocks)
+    cum+=p/154
     stages.append((li,tracks,blocks,p,cum))
 total=cum
 # should-gaps (not in plan)
-SHOULD_E=[("C ותכנות מערכות (K&R, CS:APP)",220),("ODE נומרי, קשיחות וגזירה אוטומטית",170),("משוואות דיפרנציאליות סטוכסטיות",150),("בקרה רב-משתנית ועמידה (Skogestad)",220),("בקרה ספרתית",170),("5G NR",180),("חישה קוונטית",70),("פוטוניקה (Saleh & Teich)",220),("PLL וסינתזת תדר",150),("חיישנים (Fraden)",200),("מערכות מבוזרות",200),("מערכות ML ו-MLOps",250),("מדחפים ורוטורים",130),("CFD",230),("הנדסת אמינות",200),("אומדנים מהירים (Mahajan)",200)]
-SHOULD_M=[("SATCOM מוגן",120),("Weaponeering ונזק נלווה",180),("חתימת IR ורב-ספקטרלית",80),("C-RAM",60),("הערכת הפצת נשק גרעיני",200),("משחקי מלחמה",200),("ארטילריה ואש מדויקת",130),("תכן מטוסי קרב (Raymer)",150),("CBRN",100)]
-sh_p=sum(p for _,p in SHOULD_E+SHOULD_M)
-cur_p=sum(pg(emods,[k for k,v in emods.items() if v["part"]!="NEW"]) for _ in [0])+sum(pg(mmods,[k for k,v in mmods.items() if v["part"]!="NEW"]) for _ in [0])
-new_p=sum(v[1] for v in E["NEW"].values())+sum(v[1] for v in M["NEW"].values())
-nu=sum(1 for v in list(E["NEW"].values()) if v[3]=="user")+sum(1 for v in M["NEW"].values() if v[2]=="user")
-ng=sum(1 for v in list(E["NEW"].values()) if v[3]=="gap")+sum(1 for v in M["NEW"].values() if v[2]=="gap")
-nn=sum(1 for v in E["NEW"].values() if v[3]=="naval")
+cur_p=pg(emods,list(emods))+pg(mmods,list(mmods))
+newk=list(E["NEW"])+list(M["NEW"])
+new_h=sum(nh(k) for k in newk)
+allit=[i for k in newk for i in ITEMS.get(k,{}).get("items",[])]
+miss=sum(1 for i in allit if i.get("status")=="missing")
+org=lambda o: sum(1 for v in E["NEW"].values() if v[3]==o)+sum(1 for v in M["NEW"].values() if v[2]==o)
 def stage_html(li,tracks,blocks,p,cum):
     name=E["LAYERS"][li][0] if li<nst else "אחרי שגילואה מסתיימת"
-    out=[f'<section class="stage" id="s{li}"><header class="sh"><span class="sn">שכבה {li}</span><h2>{esc(name)}</h2><span class="sm">{p:,} עמ\' · כ-{mon(p):.1f} חודשים · מצטבר {cum:.1f}</span></header><div class="cols">']
+    out=[f'<section class="stage" id="s{li}"><header class="sh"><span class="sn">שכבה {li}</span><h2>{esc(name)}</h2><span class="sm">כ-{p:,.0f} שעות · {p/154:.1f} חודשים · מצטבר {cum:.1f}</span></header><div class="cols">']
     out.append('<div class="col gil"><h3>גילואה</h3>')
     if tracks:
         for i,(ks,tp) in enumerate(tracks):
             lab="מסלול ראשי" if i==0 else "במקביל"
-            out.append(f'<details class="track"><summary><span class="tl">{lab}</span><span class="ts">{esc(summary("eng",emods,ks))}</span><span class="tp">{tp:,} עמ\'</span></summary><ol class="chips">{"".join(chip("eng",emods,k) for k in ks)}</ol></details>')
+            out.append(f'<details class="track"><summary><span class="tl">{lab}</span><span class="ts">{esc(summary("eng",emods,ks))}</span><span class="tp">{tp:,.0f} ש\'</span></summary><ol class="chips">{"".join(chip("eng",emods,k) for k in ks)}</ol></details>')
     else: out.append('<p class="empty">גילואה הסתיימה.</p>')
     out.append('</div><div class="col lan"><h3>לנצ\'סטר</h3>')
     if blocks:
         for b in blocks:
-            ks=expand(b[1],mmods); bp=pg(mmods,ks)
+            ks=expand(b[1],mmods); bp=hr(mmods,ks)
             why=f'<p class="why">מחכה בגילואה ל: {esc(", ".join(b[3]))}</p>' if b[3] else '<p class="why">בלי תלות בגילואה.</p>'
             if b[4]:
                 d=max(elayer[x] for x in b[4])
                 why+=f'<p class="why deep">העמקה (שיעור הפרש) אחרי שכבה {d}: {esc(", ".join(b[4]))}</p>'
             if b[2]: why+=f'<p class="why">אחרי: {esc(" · ".join(b[2]))}</p>'
-            out.append(f'<details class="track"><summary><span class="tl">{esc(b[0])}</span><span class="ts">{esc(summary("mil",mmods,ks))}</span><span class="tp">{bp:,} עמ\'</span></summary>{why}<ol class="chips">{"".join(chip("mil",mmods,k) for k in ks)}</ol></details>')
+            out.append(f'<details class="track"><summary><span class="tl">{esc(b[0])}</span><span class="ts">{esc(summary("mil",mmods,ks))}</span><span class="tp">{bp:,.0f} ש\'</span></summary>{why}<ol class="chips">{"".join(chip("mil",mmods,k) for k in ks)}</ol></details>')
     else: out.append('<p class="empty">אין בלוק חדש שמתחיל כאן. ממשיכים בבלוקים שהתחילו קודם, או חזרה ופרויקטים.</p>')
     out.append('</div></div></section>')
     return "".join(out)
 body="".join(stage_html(*s) for s in stages)
-should="".join(f"<li>{esc(n)} <span class='tp'>~{p} עמ'</span></li>" for n,p in SHOULD_E)
-shouldm="".join(f"<li>{esc(n)} <span class='tp'>~{p} עמ'</span></li>" for n,p in SHOULD_M)
 tpl=open("tmp/syllabus/map_template.html").read()
 toc="".join(f"<a href=\"#s{s[0]}\">{s[0]}</a>" for s in stages)
 tpl=tpl.replace("{{TOC}}",toc)
-for k,v in {"BODY":body,"SHOULD_E":should,"SHOULD_M":shouldm,"TOTAL":f"{total:.0f}","CUR":f"{mon(cur_p):.0f}","ADD":f"{mon(new_p):.0f}","NEWP":f"{new_p:,}","SHP":f"{sh_p:,}","SHM":f"{mon(sh_p):.0f}","NU":str(nu),"NG":str(ng),"NN":str(nn)}.items():
+for k,v in {"BODY":body,"TOTAL":f"{total:.0f}","CUR":f"{mon(cur_p):.0f}","NEWH":f"{new_h:,.0f}","NEWM":f"{new_h/154:.1f}","NMOD":str(len(newk)),"NIT":str(len(allit)),"NMISS":str(miss),"NPART":str(len(allit)-miss),"NU":str(org("user")),"NG":str(org("gap")+org("should")),"NN":str(org("naval"))}.items():
     tpl=tpl.replace("{{"+k+"}}",v)
 open(OUT,"w").write(tpl)
-print("total months",round(total,1),"current",round(mon(cur_p),1),"new pages",new_p,"should",sh_p)
+print("total months",round(total,1),"current",round(mon(cur_p),1),"new hours",round(new_h),"items",len(allit),"missing",miss)

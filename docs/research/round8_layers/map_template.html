@@ -46,9 +46,9 @@ p{margin:0}
 .gil h3{color:var(--gil)} .lan h3{color:var(--lan)}
 .track{border:1px solid var(--line);border-radius:6px;background:var(--surface)}
 .gil .track{border-inline-start:3px solid var(--gil)} .lan .track{border-inline-start:3px solid var(--lan)}
-.track summary{cursor:pointer;padding:8px 12px;display:grid;grid-template-columns:auto 1fr auto;gap:2px 10px;align-items:baseline;list-style:none}
-.track summary::-webkit-details-marker{display:none}
-.track summary:focus-visible{outline:2px solid var(--gil);outline-offset:2px}
+.track>summary{cursor:pointer;padding:8px 12px;display:grid;grid-template-columns:auto 1fr auto;gap:2px 10px;align-items:baseline;list-style:none}
+.track>summary::-webkit-details-marker{display:none}
+.track>summary:focus-visible{outline:2px solid var(--gil);outline-offset:2px}
 .tl{font-weight:600;font-size:13px}
 .ts{font-size:13px;color:var(--muted);min-width:0}
 .tp{font-family:var(--mono);font-size:12px;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
@@ -56,12 +56,20 @@ p{margin:0}
 .chip{display:grid;grid-template-columns:5.2em 1fr;gap:2px 8px;font-size:13px;padding:3px 6px;border-radius:4px}
 .chip .mid{font-family:var(--mono);font-size:12px;color:var(--muted);direction:ltr;text-align:start}
 .chip .mt{min-width:0}
-.chip .tag{grid-column:2;font-size:11.5px;font-weight:600}
+.chip .tag{font-size:11.5px;font-weight:600;display:block}
+.sub summary{cursor:pointer;list-style:none;display:grid}
+.sub summary::-webkit-details-marker{display:none}
+.items{list-style:none;margin:6px 0 2px;padding:0;display:grid;gap:2px}
+.items li{display:grid;grid-template-columns:1.6em 3.6em 1fr;gap:6px;font-size:12.5px;direction:rtl}
+.items .in{direction:ltr;text-align:right;unicode-bidi:plaintext}
+.imp{font-family:var(--mono);font-size:11px;font-weight:600;text-align:center;border-radius:3px}
+.imp-K{color:var(--gap)} .imp-S{color:var(--gil)} .imp-C{color:var(--muted)}
+.st{font-size:11px;color:var(--muted)}
 .adv{font-size:11px;color:var(--muted);border:1px solid var(--line);border-radius:3px;padding:0 4px}
 .o-user{background:var(--user-soft)} .o-user .tag{color:var(--user)}
 .o-gap{background:var(--gap-soft)} .o-gap .tag{color:var(--gap)}
 .o-naval{background:var(--naval-soft)} .o-naval .tag{color:var(--naval)}
-.chip.new .mt{direction:ltr;text-align:right;unicode-bidi:plaintext}
+.chip.new .mt{direction:ltr;text-align:right;unicode-bidi:plaintext;display:block}
 .why{font-size:12.5px;color:var(--muted);padding:0 12px 4px}
 .why.deep{color:var(--user)}
 .empty{font-size:13px;color:var(--muted)}
@@ -73,17 +81,17 @@ p{margin:0}
 <div class="wrap" dir="rtl" lang="he">
  <header style="display:grid;gap:10px">
   <h1>מפת הלימוד בשכבות</h1>
-  <p class="lead">כל מודול בשתי המעבדות מופיע אחרי כל דרישות הקדם שלו. סקריפט בדק את זה מודול אחר מודול (0 שגיאות), כולל הדרישות החסרות שנמצאו בבדיקה. בכל שכבה, גילואה מימין ובלוקי לנצ'סטר שמתחילים בה משמאל.</p>
+  <p class="lead">לומדים לפי תתי-נושאים, והספרים הם מפה. כל מודול בשתי המעבדות מופיע אחרי כל דרישות הקדם שלו. סקריפט בדק את זה מודול אחר מודול (0 שגיאות), כולל הדרישות החסרות שנמצאו בבדיקה. בכל שכבה, גילואה מימין ובלוקי לנצ'סטר שמתחילים בה משמאל.</p>
  </header>
  <div class="nums">
-  <div class="num"><b>כ-{{CUR}} חודשים</b><span>התוכנית הנוכחית, באותו מודל זמן (10 דק' לעמוד, 154 שעות בחודש)</span></div>
-  <div class="num hl"><b>כ-{{TOTAL}} חודשים</b><span>המפה הזו: ההצעות שלך ({{NU}} מודולים), הפערים שנמצאו ({{NG}}) והנדסה ימית ({{NN}})</span></div>
-  <div class="num"><b>+{{NEWP}} עמ'</b><span>המודולים החדשים, כ-{{ADD}} חודשים. הערכה לפי פרקים בספרים, תימדד כשהספרים יגיעו</span></div>
-  <div class="num"><b>+{{SHP}} עמ'</b><span>פערים רצויים שלא נכנסו למפה (למטה), עוד כ-{{SHM}} חודשים</span></div>
+  <div class="num"><b>כ-{{CUR}} חודשים</b><span>התוכנית הנוכחית, במודל הזמן של סבב 3 (שיעור, חזרה, התייעצות ופרויקטים)</span></div>
+  <div class="num"><b>+{{NIT}} תתי-נושאים</b><span>ב-{{NMOD}} מודולים חדשים: {{NMISS}} חדשים לגמרי, {{NPART}} העמקה של נושא שכבר נלמד</span></div>
+  <div class="num hl"><b>+כ-{{NEWH}} שעות</b><span>כ-{{NEWM}} חודשים, לפי ההערכה הקבועה של הפרויקט לתת-נושא שנוסף (K חסר כשעה וחצי, S חסר כ-45 דקות, העמקה פחות)</span></div>
+  <div class="num"><b>כ-{{TOTAL}} חודשים</b><span>הכול יחד: ההצעות שלך ({{NU}} מודולים), הפערים שנמצאו ({{NG}}) והנדסה ימית ({{NN}})</span></div>
  </div>
  <div class="howto">
   <p><b>איך קוראים:</b> השכבות באות זו אחרי זו. בתוך שכבה, המסלולים לא תלויים זה בזה, ולכן אפשר לשלב ביניהם באותם ימים, בכל סדר. זה לא זמן נוסף: אורך השכבה הוא סך העמודים של כל המסלולים. בלוק בלנצ'סטר מתחיל בשכבה הראשונה שבה כל מה שהוא צריך מגילואה כבר נלמד. "העמקה" היא דרישה שמוסיפה עומק אבל לא חוסמת: הבלוק מתחיל, ושיעור הפרש מגיע כשהיא נלמדת.</p>
-  <div class="legend"><span><i class="lg-user"></i>הצעה שלך</span><span><i class="lg-gap"></i>פער שנמצא בבדיקה</span><span><i class="lg-naval"></i>הנדסה ימית (חלק חדש בגילואה)</span><span>לחיצה על מסלול פותחת את המודולים שלו</span></div>
+  <div class="legend"><span><i class="lg-user"></i>הצעה שלך</span><span><i class="lg-gap"></i>פער שנמצא בבדיקה</span><span>K: חובה לזכור · S: לדעת ולהשתמש · C: הקשר</span><span><i class="lg-naval"></i>הנדסה ימית (חלק חדש בגילואה)</span><span>לחיצה על מסלול פותחת את המודולים, ולחיצה על מודול חדש את תתי-הנושאים שלו</span></div>
   <nav class="toc" aria-label="שכבות">{{TOC}}</nav>
  </div>
  {{BODY}}
@@ -98,6 +106,10 @@ p{margin:0}
    <li>גשר החומרה התפצל: מיקרו-ארכיטקטורה ו-GPU מוקדם, FPGA ו-STA רק אחרי מודל ההשהיה (M25.8), RTOS אחרי מערכות הפעלה.</li>
    <li>לנצ'סטר: P6 התפצל להנחיה (מוקדם) ולאווירודינמיקה ותכן (אחרי זורמים); מכ"ם התפצל לליבה ולעקיבה ומתקדם.</li>
   </ul></section>
-  <section><h2>פערים רצויים שלא נכנסו</h2><p class="lead">לא חובה ליעד, אבל מומחה בתחום יכיר. החלטה שלך: להוסיף את כולם, חלק, או אף אחד.</p><h3>גילואה</h3><ul>{{SHOULD_E}}</ul><h3>לנצ'סטר</h3><ul>{{SHOULD_M}}</ul></section>
+  <section><h2>מה לא נכנס, ולמה</h2><ul>
+   <li>כל הפערים שנמצאו נכנסו, גם אלה שסומנו "רצוי".</li>
+   <li>אומדנים מהירים (Mahajan) לא נכנסו כמודול. זו מיומנות שחוזרת בכל שיעור ("להעריך לפני שמחשבים"), ושבעה מתוך שמונה תתי-הנושאים שלה כבר קיימים. מתאים כשיעור פתיחה אחד או שניים, ואחר כך כצעד קבוע בכללי השיעור.</li>
+   <li>שלושה תתי-נושאים קיימים רק במודולי עיון, ויעברו לליבה: anti-windup (ל-M5.9), כימוי מקדמים בנקודה קבועה (ל-G7) ואבטחת רשתות (ל-G27).</li>
+  </ul></section>
  </div>
 </div>
