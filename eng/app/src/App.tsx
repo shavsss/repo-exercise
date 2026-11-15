@@ -29,7 +29,7 @@ import { asGuide } from "./guide";
 import { setLevel3Scope } from "./level3";
 import { SourceTag } from "./components/blocks/SourceTag";
 import { Icon } from "./components/Icon";
-import { RingMap } from "./components/RingMap";
+import { Roadmap } from "./components/Roadmap";
 import { NotesPanel } from "./components/NotesPanel";
 import { ModuleTopics, ReadingList } from "./components/ReadingList";
 import { LabTabView, LabTabsNav, useNewsUnread, type LabTab } from "./labtabs/LabTabs";
@@ -1253,7 +1253,7 @@ function Overview({ index, done, mods, onSelect, morning }: { index: LibraryInde
       <HomeHero code="GILUA · ENG LAB" title="גילואה" sub="הנדסה ברמה 2.5: מבנה, מקור, גבולות, סדר גודל, פשרה, מבנה משותף וביקורת. עמוד שדרה, חמישה צמתים, גשרים ופריפריה, מתוך הספרייה." index={index} done={done} mods={mods} onSelect={onSelect} />
       {morning}
       <h2 className="section-title">מפת תוכנית הלימודים</h2>
-      <RingMap index={index} done={done} mods={mods} onSelect={onSelect} />
+      <Roadmap index={index} done={done} mods={mods} onSelect={onSelect} />
       <h2 className="section-title">{started.length ? "להמשיך מכאן" : "מודולים זמינים להתחלה"}</h2>
       <ul className="cards">
         {pick.map((m) => {

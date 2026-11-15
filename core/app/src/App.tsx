@@ -6,6 +6,7 @@ import { toItems } from "./segments";
 import { NOTE_KIND_LABEL } from "./types";
 import type { Activity, Effort, LessonNote, LessonSpec, ModuleProgress, Mode, NoteKind, StoredMessage } from "./types";
 import { ModuleMap, STATE_LABEL, TIER_LABEL, type Selection } from "./components/ModuleMap";
+import { Roadmap } from "./components/Roadmap";
 import { Topbar, type Crumb } from "./components/Topbar";
 import { AssistantTurn, DimensionHead, UserBubble } from "./components/Message";
 import { HomeHero } from "./components/HomeHero";
@@ -1239,6 +1240,8 @@ function Overview({ index, done, mods, onSelect, morning }: { index: LibraryInde
     <div className="overview vivid-home">
       <HomeHero code="LANCHESTER · CORE LAB" title="לנצ'סטר" sub="הליבה הטכנית: מכ״ם, ל״א, EO/IR, ניווט, הנחיה, הגנה אווירית, פלטפורמות. מודול אחר מודול, מתוך הספרייה." index={index} done={done} mods={mods} onSelect={onSelect} />
       {morning}
+      <h2 className="section-title">מפת תוכנית הלימודים</h2>
+      <Roadmap index={index} done={done} mods={mods} onSelect={onSelect} />
       <h2 className="section-title">{started.length ? "להמשיך מכאן" : "מודולים זמינים להתחלה"}</h2>
       <ul className="cards">
         {pick.map((m) => {
