@@ -438,5 +438,34 @@
    "Preview contains only front matter, Ch.1-3 and the start of Ch.4. Missing for M12.12: volt-second balance and DC/DC converters, loss modeling, switches/WBG, DCM, isolated converters, averaged modeling, control, magnetics, EMI/thermal, three-phase inverters"
   ],
   "blocked_hosts": []
+ },
+ {
+  "doc": "W64",
+  "key": "saleh_teich",
+  "path": "library/engineering/books/W64_saleh_teich_photonics.pdf",
+  "title": "Fundamentals of Photonics",
+  "author": "Saleh & Teich",
+  "edition": "2nd ed., Wiley 2007. The uploaded file is a TRUNCATED scan (300 of ~1200 pages): front matter + Ch.1 (Ray Optics, phys. p.23), Ch.2 Wave Optics (p.62), Ch.3 Beam Optics (p.96), Ch.4 Fourier Optics (p.124), Ch.5 EM Optics (p.172), Ch.6 Polarization (p.219), Ch.7 Photonic-crystal optics (p.265, cut at p.300). Offset: PDF page = printed page + 22",
+  "source_url": "learner upload",
+  "pdf_pages": 300,
+  "text_ok": false,
+  "scan": true,
+  "method": "upload",
+  "modules": {
+   "M24.15": [
+    {
+     "pages": [
+      96,
+      123
+     ],
+     "note": "פרק 3 (Beam Optics): אלומות גאוס, divergence, waist, Rayleigh range, Hermite/Laguerre-Gaussian, התפשטות דרך רכיבים (בסיס ל-M²). TOC בעמודים 17-19 (לא חלק מהמיפוי)"
+    }
+   ]
+  },
+  "status": "partial",
+  "tried": [
+   "Scan with no text layer; checked TOC and chapter headings by OCR of page headers. File ends in Ch.7. Module chapters missing: 11 (statistical optics), 15-19 (lasers, semiconductor optics, LEDs, detectors), 25 (optical fiber comm); also resonators (Ch.10), fiber optics (Ch.9), laser amplifiers (Ch.14), nonlinear/electro-optic (20-21). Only Ch.3 present"
+  ],
+  "blocked_hosts": []
  }
 ]

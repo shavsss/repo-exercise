@@ -568,5 +568,333 @@
   ],
   "blocked_hosts": [],
   "coverage": "Roofline: good; HBM/memory wall: partly; parallel patterns: good for reduction, scan, SpMV (stencil, histogram only in W75 CUDA lecture); tensor cores and mixed precision: good; systolic/DNN dataflow: good (TPU) plus W38 Sze already in library; fusion/DSL: good. Streams/overlap: only W37 (library) and Ampere async copy."
+ },
+ {
+  "doc": "W80",
+  "replaces": "burcher_rydill",
+  "key": "submarine_design_bundle",
+  "path": "library/engineering/free/W80_submarine_design_bundle_joubert_nps_nasa_gertler.pdf",
+  "title": "Submarine design bundle: Joubert DSTO 'Some Aspects of Submarine Design' Parts 1-2; NPS comparative naval architecture of submarines; AIP and electric propulsion theses; pressure shell failure; NASA SP-8007; Gertler-Hagen equations of motion; UUV Master Plan; submarine escape",
+  "author": "Joubert (DSTO); NPS theses (Calhoun); NASA; Gertler & Hagen (DTIC/NSRDC); US Navy",
+  "edition": "1967-2010 public government reports",
+  "source_url": "archive.org DTIC_ADA428039, DTIC_ADA470163, DTIC_AD0653861, DTIC_ADA511748, DTIC_AD0764950, NASA_NTRS_Archive_19690013955; calhoun.nps.edu 10945/22954, 10945/11050, 10945/43450, 10945/42961, 10945/25985, 10945/37782",
+  "pdf_pages": 1632,
+  "text_ok": true,
+  "method": "bundle of 12 public-domain/open reports (OCR text layer for DTIC scans)",
+  "modules": {
+   "M30.6": [
+    {
+     "pages": [
+      109,
+      203
+     ],
+     "note": "NPS 1988 Comparative naval architecture of modern foreign submarines: ניתוח נפח (עמ' 172-178 גוף לחץ), תזוזה ומשקל, איזון משקל-נפח ו-ballast"
+    },
+    {
+     "pages": [
+      486,
+      580
+     ],
+     "note": "NPS 2005 Comparative naval architecture analysis of diesel submarines: קשר משקל-נפח, קבוצות משקל, מודל חישוב"
+    },
+    {
+     "pages": [
+      1,
+      108
+     ],
+     "note": "Joubert DSTO Parts 1-2: היסטוריה, גישת תכנון, הידרודינמיקה, צורת גוף, התנגדות, יציבות, שליטה ועומק"
+    },
+    {
+     "pages": [
+      1145,
+      1411
+     ],
+     "note": "קריסת גוף לחץ: NPS על כשל גלילים מחוזקים בטבעות + NASA SP-8007 קריסה של קליפות גליליות"
+    },
+    {
+     "pages": [
+      1412,
+      1453
+     ],
+     "note": "Gertler-Hagen: משוואות תנועה סטנדרטיות לצוללת, בקרת עומק ותמרון"
+    },
+    {
+     "pages": [
+      204,
+      273
+     ],
+     "note": "NPS 1988: ביצועים צבאיים: מהירות, הנעה, חיישנים (השוואת צוללות)"
+    },
+    {
+     "pages": [
+      581,
+      1144
+     ],
+     "note": "הנעה ואנרגיה: AIP (תכן וכלי הערכה), הנעה חשמלית, השפעה על תכנון צוללת"
+    },
+    {
+     "pages": [
+      1454,
+      1580
+     ],
+     "note": "Navy UUV Master Plan: הנדסת UUV, תת-מערכות ומשימות"
+    },
+    {
+     "pages": [
+      1581,
+      1632
+     ],
+     "note": "Submarine Escape and Rescue: בטיחות ומנוסה"
+    }
+   ]
+  },
+  "status": "partial",
+  "tried": [
+   "Burcher and Rydill: lending-only on archive.org (not downloaded); apps.dtic.mil blocked, used archive.org DTIC mirror; Jackson 'Naval Architecture Aspects of Submarine Design' only on pirate upload sites, skipped"
+  ],
+  "blocked_hosts": [
+   "apps.dtic.mil",
+   "www.dtic.mil"
+  ],
+  "coverage": "Good: weight-volume balance, hull form and hydrodynamics (Joubert), pressure hull collapse (shell buckling theory, generic not submarine-specific), propulsion/AIP/electric drive, manoeuvring equations, UUV overview, escape. Partly: submerged hydrostatic stability BG and trim/ballast (only inside Joubert/NPS), depth control. Weak: signatures and quieting (use X39, W82 ch.12). No single book of Burcher and Rydill's integrated scope; this is a multi-source set."
+ },
+ {
+  "doc": "W81",
+  "replaces": "jensen_coa",
+  "key": "mit_13853_ocean_acoustics",
+  "path": "library/engineering/free/W81_mit_13853_computational_ocean_acoustics_and_2682.pdf",
+  "title": "MIT 13.853 Computational Ocean Acoustics lecture notes (H. Schmidt) + MIT 2.682 Acoustical Oceanography notes (J. Lynch)",
+  "author": "Henrik Schmidt, James Lynch, MIT OpenCourseWare (CC BY-NC-SA)",
+  "edition": "13.853 Spring 2003; 2.682 Spring 2012",
+  "source_url": "https://ocw.mit.edu/courses/2-068-computational-ocean-acoustics-13-853-spring-2003/ ; https://ocw.mit.edu/courses/2-682-acoustical-oceanography-spring-2012/",
+  "pdf_pages": 477,
+  "text_ok": true,
+  "method": "bundle of OCW PDFs; 13.853 slides have equations as images and a sparse text layer (titles only)",
+  "modules": {
+   "M30.5": [
+    {
+     "pages": [
+      1,
+      59
+     ],
+     "note": "13.853 הרצאות 2-5: משוואת הגלים, התמרות, Helmholtz, Green, החזרה והעברה, מוליכי גלים אידאליים ו-Pekeris"
+    },
+    {
+     "pages": [
+      60,
+      140
+     ],
+     "note": "13.853 הרצאות 6-10: wavenumber integration, אינטראקציה עם גבולות"
+    },
+    {
+     "pages": [
+      141,
+      267
+     ],
+     "note": "13.853 הרצאות 11-17: מודים נורמליים: גזירה, Munk, מספרית, תלוי-טווח, צימוד, 3D"
+    },
+    {
+     "pages": [
+      268,
+      319
+     ],
+     "note": "13.853 הרצאות 18-20: משוואה פרבולית PE ושדות התחלה"
+    },
+    {
+     "pages": [
+      320,
+      344
+     ],
+     "note": "13.853 הרצאות 21-22: Doppler בצינור גלים; סימולציית סדרות זמן, אות ורעש"
+    },
+    {
+     "pages": [
+      345,
+      477
+     ],
+     "note": "2.682: קרניים, מודים, PE, beamforming, פיזור משטח מחוספס, אוקיאנוגרפיה אקוסטית"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "oalib-acoustics.org and hlsresearch.com (Acoustics Toolbox/Porter manuals) blocked by proxy; github 403"
+  ],
+  "blocked_hosts": [
+   "oalib-acoustics.org",
+   "oalib.hlsresearch.com",
+   "github.com"
+  ],
+  "coverage": "Strong on wave equation, Helmholtz, wavenumber integration, normal modes, PE (the 13.853 course follows the Jensen et al. book). Slide format with images of equations (text layer thin). Not covered here: sonar-engineering topics (see W82, W83)."
+ },
+ {
+  "doc": "W82",
+  "replaces": "jensen_coa",
+  "key": "ndrc_div6_vol7_vol8",
+  "path": "library/engineering/free/W82_ndrc_div6_underwater_sound_vol7_vol8_1946.pdf",
+  "title": "NDRC Division 6 Summary Technical Report: Vol 7 Principles and Applications of Underwater Sound; Vol 8 The Physics of Sound in the Sea",
+  "author": "National Defense Research Committee, Division 6 (US Government, 1946)",
+  "edition": "1946 (public domain)",
+  "source_url": "archive.org DTIC_AD0200786 and DTIC_AD0200624",
+  "pdf_pages": 883,
+  "text_ok": true,
+  "method": "direct from archive.org DTIC mirror (OCR layer, noisy in places)",
+  "modules": {
+   "M30.5": [
+    {
+     "pages": [
+      11,
+      91
+     ],
+     "note": "Vol 7 פרקים 1-4: משוואת גלים, שבירה, העברת קול בים, אוקיאנוגרפיה של קול: SSP, ducts, ספיגה"
+    },
+    {
+     "pages": [
+      92,
+      144
+     ],
+     "note": "Vol 7 פרקים 5-6: הדים, פיזור, reverberation, wakes"
+    },
+    {
+     "pages": [
+      145,
+      232
+     ],
+     "note": "Vol 7 חלק II: פלט אקוסטי של סונר, target strength, משוואות סונר: טווח כשהרעש או ה-reverberation מגביל"
+    },
+    {
+     "pages": [
+      233,
+      288
+     ],
+     "note": "Vol 7 חלק III: רעש מוקרן של ספינות וצוללות, רעש רקע, האזנה, זיהוי, סונאר פסיבי"
+    },
+    {
+     "pages": [
+      324,
+      473
+     ],
+     "note": "Vol 8: אקוסטיקת גלים וקרניים, העברה במים עמוקים ורדודים"
+    },
+    {
+     "pages": [
+      563,
+      650
+     ],
+     "note": "Vol 8 פרקים 11-17: reverberation: תיאוריה, מדידה, עמוק ורדוד"
+    },
+    {
+     "pages": [
+      659,
+      750
+     ],
+     "note": "Vol 8 פרקים 18-25: target strength של צוללות וספינות"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "Urick (Principles of Underwater Sound) is lending-only on archive.org, not downloaded"
+  ],
+  "blocked_hosts": [],
+  "coverage": "Good for sonar equation, transmission loss, ducts, absorption, ambient and ship/submarine noise, target strength, reverberation (the same ground Urick covers, in 1946 form). Dated: no LOFAR/DEMON, no modern array processing, no PE/modes."
+ },
+ {
+  "doc": "W83",
+  "replaces": "jensen_coa",
+  "key": "sonar_eq_passive_processing",
+  "path": "library/engineering/free/W83_sonar_equations_passive_processing_nps_dtic.pdf",
+  "title": "Sonar equations tutorial (NPS 1976), passive sonar data processing (DTIC ADA156812), passive/active sonar prosecution of diesel submarines (NPS 2008)",
+  "author": "NPS theses; DTIC",
+  "edition": "1976, 1985, 2008",
+  "source_url": "calhoun.nps.edu 10945/28967; archive.org DTIC_ADA156812, DTIC_ADA479975",
+  "pdf_pages": 253,
+  "text_ok": true,
+  "method": "bundle",
+  "modules": {
+   "M30.5": [
+    {
+     "pages": [
+      1,
+      129
+     ],
+     "note": "מבוא למשוואות הסונאר ויישומיהן: SL, TL, NL, DI, DT, אקטיבי ופסיבי"
+    },
+    {
+     "pages": [
+      130,
+      181
+     ],
+     "note": "עיבוד פסיבי, מודלי הפצה וקורלציה"
+    },
+    {
+     "pages": [
+      182,
+      253
+     ],
+     "note": "שימוש מבצעי: אקטיבי ופסיבי נגד צוללות דיזל (ROC/detection range)"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [],
+  "blocked_hosts": [],
+  "coverage": "Sonar equation in depth: good. Arrays/array gain and LOFAR/DEMON: only partly (pass156 on data processing; MIT 2.682 lecture 11 beamforming in W81). No open source found at comparable depth for towed arrays and DEMON."
+ },
+ {
+  "doc": "X39",
+  "replaces": "burcher_rydill",
+  "key": "submarine_signatures_comms_strategy",
+  "path": "library/military/free/X39_submarine_signatures_comms_strategy_bundle.pdf",
+  "title": "Submarine signatures, communications and strategy bundle: Cote 'The Third Battle'; NPS non-acoustic ASW; US/Soviet SSBN comparison; ELF/VLF submarine communications satellite design; Common Submarine Radio Room",
+  "author": "Owen Cote (Naval War College Newport Paper 16); NPS theses",
+  "edition": "1988-2014",
+  "source_url": "archive.org DTIC_ADA421957; calhoun.nps.edu 10945/30891, 10945/20087, 10945/23013, 10945/43998",
+  "pdf_pages": 775,
+  "text_ok": true,
+  "method": "bundle of 5 public reports",
+  "modules": {
+   "M10.7": [
+    {
+     "pages": [
+      1,
+      116
+     ],
+     "note": "Cote: The Third Battle: היסטוריה של השתקה וגילוי, תפקיד אסטרטגי של צוללות במלחמה הקרה"
+    },
+    {
+     "pages": [
+      117,
+      175
+     ],
+     "note": "ניתוח מוגבל של מערכות ASW לא-אקוסטיות (MAD, לייזר, wake): חתימות לא-אקוסטיות"
+    },
+    {
+     "pages": [
+      176,
+      438
+     ],
+     "note": "צוללות SSBN של ארה\"ב וברה\"מ: השוואה, התפקיד האסטרטגי"
+    },
+    {
+     "pages": [
+      439,
+      583
+     ],
+     "note": "תכן לוויין ELF/VLF לתקשורת עם צוללות תחת הקרח"
+    },
+    {
+     "pages": [
+      584,
+      775
+     ],
+     "note": "Common Submarine Radio Room: תקשורת צוללות, מערכות"
+    }
+   ]
+  },
+  "status": "partial",
+  "tried": [],
+  "blocked_hosts": [],
+  "coverage": "Good: history of quieting/detection and strategic role (Cote), non-acoustic signatures, VLF/ELF and radio-room communications, SSBN role. Use also W82 ch.12 (radiated noise), W82 vol 8 ch.26-35 (wakes, pages 757-857 of W82), W80 pages 204-273 and 581-1144 (propulsion choices). Weak: submarine combat system and weapons (no open source found at depth)."
  }
 ]

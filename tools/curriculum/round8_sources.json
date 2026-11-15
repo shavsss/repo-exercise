@@ -21,6 +21,10 @@
     "library/engineering/books/W71_kassakian_power_electronics_preview.pdf",
     "Principles of Power Electronics"
    ],
+   "W64": [
+    "library/engineering/books/W64_saleh_teich_photonics.pdf",
+    "Fundamentals of Photonics"
+   ],
    "B02a": [
     "library/military/books/02a_Principles-of-Modern-Radar-Vol2-Advanced_Melvin-Scheer_2013.pdf",
     "B02a"
@@ -80,6 +84,22 @@
    "W79": [
     "library/engineering/free/W79_gpu_architecture_supplement_papers_whitepapers.pdf",
     "GPU architecture supplement: Roofline, memory wall, reduction, scan, SpMV, tensor cores, mixed precision, Volta and Ampere whitepapers, TPU, Triton, TVM, Halide"
+   ],
+   "W80": [
+    "library/engineering/free/W80_submarine_design_bundle_joubert_nps_nasa_gertler.pdf",
+    "Submarine design bundle: Joubert DSTO 'Some Aspects of Submarine Design' Parts 1-2; NPS comparative naval architecture of submarines; AIP and electric propulsion theses; pressure shell failure; NASA SP-8007; Gertler-Hagen equations of motion; UUV Master Plan; submarine escape"
+   ],
+   "W81": [
+    "library/engineering/free/W81_mit_13853_computational_ocean_acoustics_and_2682.pdf",
+    "MIT 13.853 Computational Ocean Acoustics lecture notes (H. Schmidt) + MIT 2.682 Acoustical Oceanography notes (J. Lynch)"
+   ],
+   "W82": [
+    "library/engineering/free/W82_ndrc_div6_underwater_sound_vol7_vol8_1946.pdf",
+    "NDRC Division 6 Summary Technical Report: Vol 7 Principles and Applications of Underwater Sound; Vol 8 The Physics of Sound in the Sea"
+   ],
+   "W83": [
+    "library/engineering/free/W83_sonar_equations_passive_processing_nps_dtic.pdf",
+    "Sonar equations tutorial (NPS 1976), passive sonar data processing (DTIC ADA156812), passive/active sonar prosecution of diesel submarines (NPS 2008)"
    ],
    "W01": [
     "library/engineering/free/W01_py_rse.pdf",
@@ -185,6 +205,18 @@
     "library/engineering/free/W12_nist_sematech_handbook_ch5_7_8.pdf",
     "NIST/SEMATECH e-Handbook of Statistical Methods (chapters 5, 7, 8 only)"
    ],
+   "W40": [
+    "library/engineering/free/W40_amd_ug949_ug903_ug906.pdf",
+    "UltraFast Design Methodology Guide (UG949) + Vivado Using Constraints (UG903) + Design Analysis and Closure Techniques (UG906)"
+   ],
+   "W45": [
+    "library/engineering/free/W45_spinning_up_deep_rl.pdf",
+    "Spinning Up in Deep RL"
+   ],
+   "W60": [
+    "library/engineering/free/W60_rotor_propeller_bundle.pdf",
+    "Rotor and propeller aerodynamics (substitute bundle for Leishman IFV)"
+   ],
    "W03": [
     "library/engineering/free/W03_modern_c.pdf",
     "Modern C"
@@ -273,6 +305,10 @@
     "library/engineering/free/W55_vision_papers_detr_sam_nerf_3dgs.pdf",
     "DETR (arXiv 2005.12872); DINOv2 (2304.07193); SAM (2304.02643); SAM 2 (2408.00714); NeRF (2003.08934); 3D Gaussian Splatting (2308.04079); DreamerV3 (2301.04104)"
    ],
+   "W05": [
+    "library/engineering/free/W05_distributed_systems_bundle.pdf",
+    "Distributed Systems (substitute bundle: Kleppmann lecture notes + Raft + Paxos Made Simple + PBFT)"
+   ],
    "W10": [
     "library/engineering/free/W10_baydin_automatic_differentiation.pdf",
     "Automatic Differentiation in Machine Learning: a Survey"
@@ -292,6 +328,26 @@
    "W36": [
     "library/engineering/free/W36_spectre_attacks.pdf",
     "Spectre Attacks: Exploiting Speculative Execution"
+   ],
+   "W41": [
+    "library/engineering/free/W41_cummings_cdc_snug2008.pdf",
+    "Clock Domain Crossing (CDC) Design & Verification Techniques Using SystemVerilog"
+   ],
+   "W46": [
+    "library/engineering/free/W46_murphy_rl.pdf",
+    "Reinforcement Learning: A Comprehensive Overview"
+   ],
+   "W51": [
+    "library/engineering/free/W51_chinchilla.pdf",
+    "Training Compute-Optimal Large Language Models"
+   ],
+   "W56": [
+    "library/engineering/free/W56_agent_sources.pdf",
+    "Building Effective Agents (Anthropic 2024); ReAct (arXiv 2210.03629); OpenVLA (2406.09246)"
+   ],
+   "W61": [
+    "library/engineering/free/W61_cfd_direct_notes.pdf",
+    "Notes on Computational Fluid Dynamics: General Principles"
    ]
   },
   "mil": {
@@ -322,6 +378,10 @@
    "E39": [
     "../engineering/books/E39_Mechanics-Thermodynamics-of-Propulsion_Hill-Peterson_2ed.pdf",
     "E39"
+   ],
+   "X39": [
+    "free/X39_submarine_signatures_comms_strategy_bundle.pdf",
+    "Submarine signatures, communications and strategy bundle: Cote 'The Third Battle'; NPS non-acoustic ASW; US/Soviet SSBN comparison; ELF/VLF submarine communications satellite design; Common Submarine Radio Room"
    ],
    "X03": [
     "free/X03_nielsen_directed_energy_weapons.pdf",
@@ -388,8 +448,8 @@
     "GAO-19-128, Weapon Systems Cybersecurity: DOD Just Beginning to Grapple with Scale of Vulnerabilities"
    ],
    "X21": [
-    "free/X21_dodd_3000_09_2012.pdf",
-    "DoD Directive 3000.09, Autonomy in Weapon Systems"
+    "free/X21_dodd_3000_09_bundle.pdf",
+    "DoDD 3000.09 Autonomy in Weapon Systems (2012 text + 2023 policy analyses)"
    ],
    "W12": [
     "../engineering/free/W12_nist_sematech_handbook_ch5_7_8.pdf",
@@ -422,6 +482,10 @@
    "X30": [
     "free/X30_iaea_safeguards_glossary_2022.pdf",
     "IAEA Safeguards Glossary, 2022 Edition"
+   ],
+   "X35": [
+    "free/X35_usace_em1110_1_1802_geophysics.pdf",
+    "EM 1110-1-1802, Geophysical Exploration for Engineering and Environmental Investigations"
    ],
    "X08": [
     "free/X08_lavalle_planning_algorithms.pdf",
@@ -458,6 +522,26 @@
    "X09": [
     "free/X09_ebadi_subt_slam.pdf",
     "Present and Future of SLAM in Extreme Environments: The DARPA SubT Challenge"
+   ],
+   "X12": [
+    "free/X12_nrc_naval_mine_warfare.pdf",
+    "Naval Mine Warfare: Operational and Technical Challenges for Naval Forces"
+   ],
+   "X17": [
+    "free/X17_crs_jadc2.pdf",
+    "Joint All-Domain Command and Control: Background and Issues for Congress (R46725)"
+   ],
+   "X22": [
+    "free/X22_israel_defense_export_control_law.pdf",
+    "Defense Export Control Law, 5766-2007 (unofficial English translation)"
+   ],
+   "X27": [
+    "free/X27_fm_3_11_9_cbrn_agents.pdf",
+    "FM 3-11.9 / MCRP 3-37.1B / NTRP 3-11.32 / AFTTP(I) 3-2.55, Potential Military Chemical/Biological Agents and Compounds"
+   ],
+   "X32": [
+    "free/X32_ecss_spacewire.pdf",
+    "ECSS-E-ST-50-12C Rev.1, SpaceWire: Links, Nodes, Routers and Networks"
    ]
   }
  },
@@ -842,6 +926,17 @@
      "role": "main"
     }
    ],
+   "M24.15": [
+    {
+     "doc": "W64",
+     "pages": [
+      96,
+      123
+     ],
+     "note": "פרק 3 (Beam Optics): אלומות גאוס, divergence, waist, Rayleigh range, Hermite/Laguerre-Gaussian, התפשטות דרך רכיבים (בסיס ל-M²). TOC בעמודים 17-19 (לא חלק מהמיפוי)",
+     "role": "main"
+    }
+   ],
    "M7.19": [
     {
      "doc": "E02",
@@ -1149,6 +1244,60 @@
      ],
      "note": "נספח A.1–A.10: SystemVerilog/VHDL: לוגיקה צירופית וסדרתית, FSM, פרמטרים, זיכרון, testbench",
      "role": "main"
+    },
+    {
+     "doc": "W40",
+     "pages": [
+      40,
+      145
+     ],
+     "note": "UG949 פרק 3: Design Creation with RTL (SystemVerilog סינתזבילי, CDC, reset, clocking)",
+     "role": "main"
+    },
+    {
+     "doc": "W40",
+     "pages": [
+      146,
+      315
+     ],
+     "note": "UG949 פרקים 4–6: אילוצים, מימוש, Design Closure (timing closure)",
+     "role": "main"
+    },
+    {
+     "doc": "W40",
+     "pages": [
+      329,
+      466
+     ],
+     "note": "UG903 פרקים 2–7: מתודולוגיית אילוצים, שעונים, I/O delay, timing exceptions, CDC, XDC precedence",
+     "role": "main"
+    },
+    {
+     "doc": "W40",
+     "pages": [
+      585,
+      609
+     ],
+     "note": "UG906 פרק 4: Timing Analysis (setup/hold, slack)",
+     "role": "main"
+    },
+    {
+     "doc": "W40",
+     "pages": [
+      785,
+      849
+     ],
+     "note": "UG906 פרקים 6–7: Synthesis and Implementation closure techniques",
+     "role": "main"
+    },
+    {
+     "doc": "W41",
+     "pages": [
+      1,
+      56
+     ],
+     "note": "כל המאמר: synchronizers, metastability, העברת אותות בין תחומי שעון, async FIFO, gray code, בדיקות CDC ב-SystemVerilog (מכסה רק את נושא CDC של המודול)",
+     "role": "main"
     }
    ],
    "M27.10": [
@@ -1365,6 +1514,69 @@
       208
      ],
      "note": "5.6: מנועי טורבו-פרופ וטורבו-ציר",
+     "role": "main"
+    },
+    {
+     "doc": "W60",
+     "pages": [
+      1,
+      42
+     ],
+     "note": "Bangura et al.: Aerodynamics of Rotor Blades for Quadrotors: momentum theory (hover, climb), BEM, forward flight, multirotor",
+     "role": "main"
+    },
+    {
+     "doc": "W60",
+     "pages": [
+      43,
+      67
+     ],
+     "note": "ניתוח BEMT (arXiv 2004.11100): blade element momentum theory",
+     "role": "main"
+    },
+    {
+     "doc": "W60",
+     "pages": [
+      68,
+      75
+     ],
+     "note": "BEM + מודל מנוע לרוטורים של multirotor, התאמת מנוע-מדחף (hover וטיסה קדימה)",
+     "role": "main"
+    },
+    {
+     "doc": "W60",
+     "pages": [
+      76,
+      103
+     ],
+     "note": "FAA פרק 2: אווירודינמיקה של מסוק: hover, אוטורוטציה, vortex ring state, דינמיקת רוטור",
+     "role": "main"
+    },
+    {
+     "doc": "W60",
+     "pages": [
+      104,
+      129
+     ],
+     "note": "FAA פרקים 3-4: בקרת מסוק, רכיבים ומערכות רוטור",
+     "role": "main"
+    },
+    {
+     "doc": "W60",
+     "pages": [
+      130,
+      205
+     ],
+     "note": "Johnson NASA TP-2005-213477: מצבי זרימה של momentum theory, vortex ring state, autorotation",
+     "role": "main"
+    },
+    {
+     "doc": "W60",
+     "pages": [
+      206,
+      272
+     ],
+     "note": "NASA TP-2825: רעש רוטור ראשי (thickness, loading, BVI) וחתימה אקוסטית",
      "role": "main"
     }
    ],
@@ -2086,6 +2298,235 @@
      "role": "main"
     }
    ],
+   "M30.6": [
+    {
+     "doc": "W80",
+     "pages": [
+      109,
+      203
+     ],
+     "note": "NPS 1988 Comparative naval architecture of modern foreign submarines: ניתוח נפח (עמ' 172-178 גוף לחץ), תזוזה ומשקל, איזון משקל-נפח ו-ballast",
+     "role": "main"
+    },
+    {
+     "doc": "W80",
+     "pages": [
+      486,
+      580
+     ],
+     "note": "NPS 2005 Comparative naval architecture analysis of diesel submarines: קשר משקל-נפח, קבוצות משקל, מודל חישוב",
+     "role": "main"
+    },
+    {
+     "doc": "W80",
+     "pages": [
+      1,
+      108
+     ],
+     "note": "Joubert DSTO Parts 1-2: היסטוריה, גישת תכנון, הידרודינמיקה, צורת גוף, התנגדות, יציבות, שליטה ועומק",
+     "role": "main"
+    },
+    {
+     "doc": "W80",
+     "pages": [
+      1145,
+      1411
+     ],
+     "note": "קריסת גוף לחץ: NPS על כשל גלילים מחוזקים בטבעות + NASA SP-8007 קריסה של קליפות גליליות",
+     "role": "main"
+    },
+    {
+     "doc": "W80",
+     "pages": [
+      1412,
+      1453
+     ],
+     "note": "Gertler-Hagen: משוואות תנועה סטנדרטיות לצוללת, בקרת עומק ותמרון",
+     "role": "main"
+    },
+    {
+     "doc": "W80",
+     "pages": [
+      204,
+      273
+     ],
+     "note": "NPS 1988: ביצועים צבאיים: מהירות, הנעה, חיישנים (השוואת צוללות)",
+     "role": "main"
+    },
+    {
+     "doc": "W80",
+     "pages": [
+      581,
+      1144
+     ],
+     "note": "הנעה ואנרגיה: AIP (תכן וכלי הערכה), הנעה חשמלית, השפעה על תכנון צוללת",
+     "role": "main"
+    },
+    {
+     "doc": "W80",
+     "pages": [
+      1454,
+      1580
+     ],
+     "note": "Navy UUV Master Plan: הנדסת UUV, תת-מערכות ומשימות",
+     "role": "main"
+    },
+    {
+     "doc": "W80",
+     "pages": [
+      1581,
+      1632
+     ],
+     "note": "Submarine Escape and Rescue: בטיחות ומנוסה",
+     "role": "main"
+    }
+   ],
+   "M30.5": [
+    {
+     "doc": "W81",
+     "pages": [
+      1,
+      59
+     ],
+     "note": "13.853 הרצאות 2-5: משוואת הגלים, התמרות, Helmholtz, Green, החזרה והעברה, מוליכי גלים אידאליים ו-Pekeris",
+     "role": "main"
+    },
+    {
+     "doc": "W81",
+     "pages": [
+      60,
+      140
+     ],
+     "note": "13.853 הרצאות 6-10: wavenumber integration, אינטראקציה עם גבולות",
+     "role": "main"
+    },
+    {
+     "doc": "W81",
+     "pages": [
+      141,
+      267
+     ],
+     "note": "13.853 הרצאות 11-17: מודים נורמליים: גזירה, Munk, מספרית, תלוי-טווח, צימוד, 3D",
+     "role": "main"
+    },
+    {
+     "doc": "W81",
+     "pages": [
+      268,
+      319
+     ],
+     "note": "13.853 הרצאות 18-20: משוואה פרבולית PE ושדות התחלה",
+     "role": "main"
+    },
+    {
+     "doc": "W81",
+     "pages": [
+      320,
+      344
+     ],
+     "note": "13.853 הרצאות 21-22: Doppler בצינור גלים; סימולציית סדרות זמן, אות ורעש",
+     "role": "main"
+    },
+    {
+     "doc": "W81",
+     "pages": [
+      345,
+      477
+     ],
+     "note": "2.682: קרניים, מודים, PE, beamforming, פיזור משטח מחוספס, אוקיאנוגרפיה אקוסטית",
+     "role": "main"
+    },
+    {
+     "doc": "W82",
+     "pages": [
+      11,
+      91
+     ],
+     "note": "Vol 7 פרקים 1-4: משוואת גלים, שבירה, העברת קול בים, אוקיאנוגרפיה של קול: SSP, ducts, ספיגה",
+     "role": "main"
+    },
+    {
+     "doc": "W82",
+     "pages": [
+      92,
+      144
+     ],
+     "note": "Vol 7 פרקים 5-6: הדים, פיזור, reverberation, wakes",
+     "role": "main"
+    },
+    {
+     "doc": "W82",
+     "pages": [
+      145,
+      232
+     ],
+     "note": "Vol 7 חלק II: פלט אקוסטי של סונר, target strength, משוואות סונר: טווח כשהרעש או ה-reverberation מגביל",
+     "role": "main"
+    },
+    {
+     "doc": "W82",
+     "pages": [
+      233,
+      288
+     ],
+     "note": "Vol 7 חלק III: רעש מוקרן של ספינות וצוללות, רעש רקע, האזנה, זיהוי, סונאר פסיבי",
+     "role": "main"
+    },
+    {
+     "doc": "W82",
+     "pages": [
+      324,
+      473
+     ],
+     "note": "Vol 8: אקוסטיקת גלים וקרניים, העברה במים עמוקים ורדודים",
+     "role": "main"
+    },
+    {
+     "doc": "W82",
+     "pages": [
+      563,
+      650
+     ],
+     "note": "Vol 8 פרקים 11-17: reverberation: תיאוריה, מדידה, עמוק ורדוד",
+     "role": "main"
+    },
+    {
+     "doc": "W82",
+     "pages": [
+      659,
+      750
+     ],
+     "note": "Vol 8 פרקים 18-25: target strength של צוללות וספינות",
+     "role": "main"
+    },
+    {
+     "doc": "W83",
+     "pages": [
+      1,
+      129
+     ],
+     "note": "מבוא למשוואות הסונאר ויישומיהן: SL, TL, NL, DI, DT, אקטיבי ופסיבי",
+     "role": "main"
+    },
+    {
+     "doc": "W83",
+     "pages": [
+      130,
+      181
+     ],
+     "note": "עיבוד פסיבי, מודלי הפצה וקורלציה",
+     "role": "main"
+    },
+    {
+     "doc": "W83",
+     "pages": [
+      182,
+      253
+     ],
+     "note": "שימוש מבצעי: אקטיבי ופסיבי נגד צוללות דיזל (ROC/detection range)",
+     "role": "main"
+    }
+   ],
    "M0.3": [
     {
      "doc": "W01",
@@ -2541,6 +2982,15 @@
      ],
      "note": "Guideline לתיאור מודל טורבולנציה",
      "role": "main"
+    },
+    {
+     "doc": "W61",
+     "pages": [
+      1,
+      425
+     ],
+     "note": "כל הספר. פרקים: הקדמה 10; דינמיקת זורמים 15; שיטת נפחים סופיים 93; תנאי שפה 168; אלגוריתמים ופותרים (צימוד לחץ-מהירות, multigrid) 225; מבוא לטורבולנציה 297; RANS (k-epsilon) 345; בעיות לדוגמה 393",
+     "role": "main"
     }
    ],
    "M5.21": [
@@ -2796,6 +3246,15 @@
      ],
      "note": "פרק 12 How to Think About GPUs: NCCL, collectives, scale-out",
      "role": "main"
+    },
+    {
+     "doc": "W51",
+     "pages": [
+      1,
+      36
+     ],
+     "note": "כל המאמר: חוקי קנה מידה וחישוב אופטימלי (Chinchilla). המאמר מכסה רק את נושא החוקים; מקביליות/NCCL/זיכרון אינם בו",
+     "role": "main"
     }
    ],
    "M6.13": [
@@ -2824,6 +3283,71 @@
       126
      ],
      "note": "פרקים 3–6: פרדיגמה חדשה לבדיקה והערכה (52–70), שדרוג שיטות סטטיסטיות (71–82), תכנון בדיקות מבצעיות (83–110), ניתוח ודיווח תוצאות (111–126)",
+     "role": "main"
+    }
+   ],
+   "M18.11": [
+    {
+     "doc": "W45",
+     "pages": [
+      29,
+      58
+     ],
+     "note": "Part 1-3: מושגי RL, סוגי אלגוריתמים, מבוא ל-policy optimization (policy gradient, advantage)",
+     "role": "main"
+    },
+    {
+     "doc": "W45",
+     "pages": [
+      59,
+      66
+     ],
+     "note": "Spinning Up as a Deep RL Researcher: מתודולוגיית ניסויים",
+     "role": "main"
+    },
+    {
+     "doc": "W45",
+     "pages": [
+      67,
+      75
+     ],
+     "note": "Key Papers in Deep RL",
+     "role": "main"
+    },
+    {
+     "doc": "W45",
+     "pages": [
+      76,
+      101
+     ],
+     "note": "עמודי האלגוריתמים: VPG 76-78, TRPO 79-82, PPO 83-86, DDPG 87-91, TD3 92-95, SAC 96-101",
+     "role": "main"
+    },
+    {
+     "doc": "W46",
+     "pages": [
+      31,
+      120
+     ],
+     "note": "פרקים 2–4: למידה מבוססת ערך (DQN, Q-learning), מבוססת מדיניות (policy gradient, actor-critic, TRPO/PPO, off-policy: DDPG/TD3/SAC, GAE) ומבוססת מודל (PETS, Dreamer, MuZero)",
+     "role": "main"
+    },
+    {
+     "doc": "W46",
+     "pages": [
+      173,
+      185
+     ],
+     "note": "פרק 7.1–7.3: חקירה (Thompson, UCB), regret, RL התפלגותי",
+     "role": "main"
+    },
+    {
+     "doc": "W46",
+     "pages": [
+      181,
+      183
+     ],
+     "note": "7.4: מוטיבציה פנימית, RND, Go-Explore (חקירה בלמידה עמוקה)",
      "role": "main"
     }
    ],
@@ -3218,6 +3742,127 @@
       209
      ],
      "note": "DreamerV3 (Hafner et al.): world models",
+     "role": "main"
+    }
+   ],
+   "M22.16": [
+    {
+     "doc": "W05",
+     "pages": [
+      10,
+      14
+     ],
+     "note": "כשל חלקי, זמינות ועמידות לתקלות (סעיף 1.3)",
+     "role": "main"
+    },
+    {
+     "doc": "W05",
+     "pages": [
+      15,
+      26
+     ],
+     "note": "מודלי מערכות מבוזרות, Two Generals, Byzantine generals, failure detectors (פרק 2)",
+     "role": "main"
+    },
+    {
+     "doc": "W05",
+     "pages": [
+      27,
+      42
+     ],
+     "note": "שעונים פיזיים, סנכרון, happens-before וזמן לוגי (פרק 3)",
+     "role": "main"
+    },
+    {
+     "doc": "W05",
+     "pages": [
+      43,
+      58
+     ],
+     "note": "Broadcast, שכפול, quorums (פרקים 4–5.2)",
+     "role": "main"
+    },
+    {
+     "doc": "W05",
+     "pages": [
+      57,
+      67
+     ],
+     "note": "שכפול באמצעות broadcast, 2PC (פרק 6.1), linearizability (6.2)",
+     "role": "main"
+    },
+    {
+     "doc": "W05",
+     "pages": [
+      68,
+      78
+     ],
+     "note": "קונצנזוס ו-Raft (פרק 7)",
+     "role": "main"
+    },
+    {
+     "doc": "W05",
+     "pages": [
+      79,
+      92
+     ],
+     "note": "עקביות בסופו של דבר, CRDTs (פרק 8)",
+     "role": "main"
+    },
+    {
+     "doc": "W05",
+     "pages": [
+      93,
+      110
+     ],
+     "note": "Raft paper (Ongaro & Ousterhout)",
+     "role": "main"
+    },
+    {
+     "doc": "W05",
+     "pages": [
+      111,
+      124
+     ],
+     "note": "Paxos Made Simple (Lamport)",
+     "role": "main"
+    },
+    {
+     "doc": "W05",
+     "pages": [
+      125,
+      138
+     ],
+     "note": "PBFT (Castro & Liskov, OSDI'99): Byzantine faults",
+     "role": "main"
+    }
+   ],
+   "M29.6": [
+    {
+     "doc": "W56",
+     "pages": [
+      1,
+      16
+     ],
+     "note": "Building Effective Agents (Anthropic): לולאת סוכן, שימוש בכלים, workflows מול agents, תכנון",
+     "role": "main"
+    },
+    {
+     "doc": "W56",
+     "pages": [
+      17,
+      49
+     ],
+     "note": "ReAct: חשיבה ופעולה משולבות, כלים ואחזור",
+     "role": "main"
+    },
+    {
+     "doc": "W56",
+     "pages": [
+      50,
+      86
+     ],
+     "note": "OpenVLA: מודלי ראייה-שפה-פעולה",
      "role": "main"
     }
    ]
@@ -3928,6 +4573,15 @@
      ],
      "note": "פרק 3 (בעיות טכניות של אוטונומיה, עמ' 31-65) ופרק 4 (בעיות רכש, עמ' 66-77)",
      "role": "main"
+    },
+    {
+     "doc": "X17",
+     "pages": [
+      1,
+      19
+     ],
+     "note": "כל הדו\"ח: JADC2, ארכיטקטורת C2, בינה מלאכותית בהחלטות C2, סוגיות לקונגרס",
+     "role": "main"
     }
    ],
    "M7.16": [
@@ -4033,6 +4687,15 @@
      ],
      "note": "2.1–2.5: התפתחות ארכיטקטורות (federated, IMA), ARINC 429, MIL-STD-1553B, STANAG 3910, JIAWG, אפיקי COTS, RTOS",
      "role": "main"
+    },
+    {
+     "doc": "X32",
+     "pages": [
+      1,
+      124
+     ],
+     "note": "התקן כולו; רלוונטי ישירות לתת-נושא SpaceWire (פרקים 4 סקירה, 5 דרישות: שכבות פיזית/קידוד/ערוץ/רשת, ניתוב). לא מכסה 1553/ARINC 429/AFDX/TSN",
+     "role": "main"
     }
    ],
    "M10.7": [
@@ -4062,6 +4725,51 @@
      ],
      "note": "פרק 2 (חלק): ספקטרום ואופני התפשטות: גל קרקע (ELF/VLF), גל שמיים, קו ראייה",
      "role": "main"
+    },
+    {
+     "doc": "X39",
+     "pages": [
+      1,
+      116
+     ],
+     "note": "Cote: The Third Battle: היסטוריה של השתקה וגילוי, תפקיד אסטרטגי של צוללות במלחמה הקרה",
+     "role": "main"
+    },
+    {
+     "doc": "X39",
+     "pages": [
+      117,
+      175
+     ],
+     "note": "ניתוח מוגבל של מערכות ASW לא-אקוסטיות (MAD, לייזר, wake): חתימות לא-אקוסטיות",
+     "role": "main"
+    },
+    {
+     "doc": "X39",
+     "pages": [
+      176,
+      438
+     ],
+     "note": "צוללות SSBN של ארה\"ב וברה\"מ: השוואה, התפקיד האסטרטגי",
+     "role": "main"
+    },
+    {
+     "doc": "X39",
+     "pages": [
+      439,
+      583
+     ],
+     "note": "תכן לוויין ELF/VLF לתקשורת עם צוללות תחת הקרח",
+     "role": "main"
+    },
+    {
+     "doc": "X39",
+     "pages": [
+      584,
+      775
+     ],
+     "note": "Common Submarine Radio Room: תקשורת צוללות, מערכות",
+     "role": "main"
     }
    ],
    "M10.10": [
@@ -4090,6 +4798,33 @@
       187
      ],
      "note": "פרק 8: לוחמת מוקשים",
+     "role": "main"
+    },
+    {
+     "doc": "X12",
+     "pages": [
+      39,
+      139
+     ],
+     "note": "פרקים 1–4: בעיית מוקשים, נושאים רוחביים, מוקשים אמריקאים, לוחמה נגד מוקשים הרחק מהחוף (MCM)",
+     "role": "main"
+    },
+    {
+     "doc": "X12",
+     "pages": [
+      140,
+      178
+     ],
+     "note": "פרק 5: MCM בחוף. הדו\"ח עוסק במוקשים ובנגד-מוקשים; אין בו ASW/טורפדות/sonobuoys",
+     "role": "main"
+    },
+    {
+     "doc": "X12",
+     "pages": [
+      19,
+      38
+     ],
+     "note": "תקציר מנהלים",
      "role": "main"
     }
    ],
@@ -4362,9 +5097,27 @@
      "doc": "X21",
      "pages": [
       1,
-      6
+      15
      ],
-     "note": "כל הצו, אך זו גרסת 2012 ולא גרסת 2023 העדכנית",
+     "note": "נוסח הנחיה 3000.09 מ-2012 (לא ה-2023): הגדרות, דרישות סקירה בכירה",
+     "role": "main"
+    },
+    {
+     "doc": "X21",
+     "pages": [
+      16,
+      18
+     ],
+     "note": "CRS Defense Primer (מאי 2023): מדיניות ארה\"ב ב-LAWS, תיאור הנוסח המעודכן 2023",
+     "role": "main"
+    },
+    {
+     "doc": "X21",
+     "pages": [
+      19,
+      27
+     ],
+     "note": "סקירת Harvard HRC של מדיניות 2023: הבדלים מול 2012, פערים לגבי meaningful human control",
      "role": "main"
     },
     {
@@ -4383,6 +5136,15 @@
       474
      ],
      "note": "פרק VI Weapons: weapons review, אמנות נשק ספציפיות",
+     "role": "main"
+    },
+    {
+     "doc": "X22",
+     "pages": [
+      1,
+      32
+     ],
+     "note": "החוק כולו (תרגום לא רשמי באנגלית): פרקים A מטרה, B הגדרות, C רישום יצואנים, D רישוי ועוד",
      "role": "main"
     }
    ],
@@ -4545,6 +5307,51 @@
      ],
      "note": "פרק XII (חלק): השפעות ביולוגיות של early fallout ו-delayed fallout",
      "role": "main"
+    },
+    {
+     "doc": "X27",
+     "pages": [
+      17,
+      31
+     ],
+     "note": "פרק I: רקע ואיום",
+     "role": "main"
+    },
+    {
+     "doc": "X27",
+     "pages": [
+      32,
+      109
+     ],
+     "note": "פרק II: חומרי לחימה כימיים (עצבים, דם, שלפוחיות, משתקים, מקדמים) וטוקסיקולוגיה, LD50/Ct",
+     "role": "main"
+    },
+    {
+     "doc": "X27",
+     "pages": [
+      134,
+      163
+     ],
+     "note": "פרק IV: חומרים ביולוגיים (חיידקים, וירוסים, רעלנים)",
+     "role": "main"
+    },
+    {
+     "doc": "X27",
+     "pages": [
+      164,
+      169
+     ],
+     "note": "פרק V: מקורות מידע",
+     "role": "main"
+    },
+    {
+     "doc": "X27",
+     "pages": [
+      214,
+      249
+     ],
+     "note": "נספח H: הערכות רעילות",
+     "role": "main"
     }
    ],
    "M12.5": [
@@ -4614,6 +5421,89 @@
      "role": "main"
     }
    ],
+   "M11.17": [
+    {
+     "doc": "X35",
+     "pages": [
+      13,
+      39
+     ],
+     "note": "פרק 3: שיטות סיסמיות (refraction, reflection, surface waves, subbottom)",
+     "role": "main"
+    },
+    {
+     "doc": "X35",
+     "pages": [
+      40,
+      96
+     ],
+     "note": "פרק 4: שיטות חשמליות ואלקטרומגנטיות, כולל metal detector (4-9) ו-GPR (4-10, ~עמ' 90-96)",
+     "role": "main"
+    },
+    {
+     "doc": "X35",
+     "pages": [
+      97,
+      102
+     ],
+     "note": "פרק 5: gravity ו-microgravity לגילוי חללים",
+     "role": "main"
+    },
+    {
+     "doc": "X35",
+     "pages": [
+      103,
+      106
+     ],
+     "note": "פרק 6: שיטות מגנטיות",
+     "role": "main"
+    },
+    {
+     "doc": "X35",
+     "pages": [
+      107,
+      175
+     ],
+     "note": "פרק 7: שיטות בתוך קידוחים, crosshole ו-surface-to-borehole (זיהוי חללים בין קידוחים)",
+     "role": "main"
+    },
+    {
+     "doc": "X35",
+     "pages": [
+      190,
+      193
+     ],
+     "note": "פרק 10: רעידות הנדסיות ובדיקות לא הורסות",
+     "role": "main"
+    },
+    {
+     "doc": "X36",
+     "pages": [
+      66,
+      94
+     ],
+     "note": "פרק 2, סעיפים 2-7 עד 2-14: תופעות הדף, שקילות TNT, קטגוריות העמסה, פיצוץ לא כלוא ו-2-14 Confined explosions (לחץ הלם פנימי ולחץ גזים, עמ׳ 80–94)",
+     "role": "main"
+    },
+    {
+     "doc": "X36",
+     "pages": [
+      391,
+      406
+     ],
+     "note": "פרק 2, סעיפים 2-20 עד 2-24: הלם קרקע, הלם אוויר ותנועות מבנה (רלוונטי לפיצוץ בתת-קרקע)",
+     "role": "main"
+    },
+    {
+     "doc": "X09",
+     "pages": [
+      1,
+      21
+     ],
+     "note": "כולו: SLAM ללא GPS בתת-קרקע",
+     "role": "main"
+    }
+   ],
    "M11.16": [
     {
      "doc": "X08",
@@ -4669,35 +5559,6 @@
       112
      ],
      "note": "כולו: פרק 1 מבוא ומטרות (13), פרק 2 יסודות (31), פרק 3 סוגים וגרסאות כולל matrix ו-seminar (51), פרק 4 תהליך: תכנון, שיפוט, ניתוח ודיווח (63), נספח A יישומים בבעיות הגנה (77)",
-     "role": "main"
-    }
-   ],
-   "M11.17": [
-    {
-     "doc": "X36",
-     "pages": [
-      66,
-      94
-     ],
-     "note": "פרק 2, סעיפים 2-7 עד 2-14: תופעות הדף, שקילות TNT, קטגוריות העמסה, פיצוץ לא כלוא ו-2-14 Confined explosions (לחץ הלם פנימי ולחץ גזים, עמ׳ 80–94)",
-     "role": "main"
-    },
-    {
-     "doc": "X36",
-     "pages": [
-      391,
-      406
-     ],
-     "note": "פרק 2, סעיפים 2-20 עד 2-24: הלם קרקע, הלם אוויר ותנועות מבנה (רלוונטי לפיצוץ בתת-קרקע)",
-     "role": "main"
-    },
-    {
-     "doc": "X09",
-     "pages": [
-      1,
-      21
-     ],
-     "note": "כולו: SLAM ללא GPS בתת-קרקע",
      "role": "main"
     }
    ]

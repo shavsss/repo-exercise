@@ -29,15 +29,16 @@ def have_docs(app):
 def main():
     have = {a: have_docs(a) for a in ("eng", "mil")}
     out = {"docs": {"eng": {}, "mil": {}}, "modules": {"eng": {}, "mil": {}}}
-    seen = {}
-    for f in sorted(MAN.glob("*.json")):
-        for e in json.loads(f.read_text()):
+    # one entry per document; gaps.json (refetches of failed or partial entries) wins
+    files = sorted(MAN.glob("*.json"), key=lambda f: (f.name == "gaps.json", f.name))
+    entries = {e["doc"]: e for f in files for e in json.loads(f.read_text())}
+    for e in entries.values():
+        if True:
             if e.get("status") == "failed" or not e.get("path"):
                 continue
             if not (ROOT / e["path"]).exists():
                 print(f"missing file, skipped: {e['doc']} {e['path']}")
                 continue
-            seen[e["doc"]] = f.name
             for mid, ranges in e.get("modules", {}).items():
                 app = APP_OF.get(mid)
                 if not app:
