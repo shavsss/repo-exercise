@@ -305,9 +305,10 @@ def module_list(docs, sections, base_modules=None):
     return out
 
 
-def write_index(docs, modules):
+def write_index(docs, modules, base_assets=None):
     index = {"docs": docs, "parts": [{"id": i, "title": t} for i, t in PARTS], "modules": attach(modules, "core")}
-    index["assets"] = asset_urls(docs)
+    # the published asset map stays; this run adds its own bundles
+    index["assets"] = {**(base_assets or {}), **asset_urls(docs)}
     digest = hashlib.sha1()
     for f in sorted([*OUT.rglob("*.json"), *ASSETS.rglob("*.json")]):
         if f.name != "index.json":
@@ -343,7 +344,7 @@ def main():
             r = pack_doc(doc, rel, title, with_images=doc not in REF_DOCS)
             if r:
                 docs[doc], fresh[doc] = r
-        write_index(docs, base["modules"] if args.keep_modules else module_list(docs, fresh, base["modules"]))
+        write_index(docs, base["modules"] if args.keep_modules else module_list(docs, fresh, base["modules"]), base.get("assets", {}))
         print("wrote", ", ".join(f"text/{d}.json" for d in args.only), "and index.json")
         return
     docs = {}

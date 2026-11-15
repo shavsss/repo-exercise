@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parents[4]
 SRC = json.loads((ROOT / "tools/curriculum/round8_sources.json").read_text())
 BUILD = {"eng": ROOT / "eng/build/lib", "mil": ROOT / "core/build/lib"}
 TOOL = {"eng": ["python3", str(ROOT / "eng/tools/extract.py")], "mil": ["python3", str(ROOT / "core/tools/extract/extract.py")]}
-LOG = open(ROOT / "tmp/r8/extract.log", "a")
+LOG = open(ROOT / "tmp/r8/extract.log", "a")  # shared by the shards; each line names its document
 
 
 def ranges(app, doc):
@@ -36,8 +36,14 @@ def done(app, doc, rs):
     return all(str(p) in have for a, b in rs for p in range(a, b + 1))
 
 
-for app in sys.argv[1:] or ["eng", "mil"]:
-    for doc in SRC["docs"][app]:
+# --shard i/n: this process takes every n-th document (several processes in parallel)
+args = [a for a in sys.argv[1:] if not a.startswith("--shard")]
+shard = next((a.split("=")[1] for a in sys.argv[1:] if a.startswith("--shard=")), "0/1")
+si, sn = map(int, shard.split("/"))
+for app in args or ["eng", "mil"]:
+    for k, doc in enumerate(SRC["docs"][app]):
+        if k % sn != si:
+            continue
         rs = ranges(app, doc)
         if not rs or done(app, doc, rs):
             continue
