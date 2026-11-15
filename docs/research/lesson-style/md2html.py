@@ -6,7 +6,7 @@ def inline(t):
     t=re.sub(r'\[\[היפותטי\]\]',r'<span class="cert">היפותטי</span>',t)
     t=re.sub(r'\[\[[^\]]*\]\]\s?','',t)
     return t
-NAMES={'definition':'הגדרה','formula':'נוסחה','history':'רקע היסטורי','casestudy':'מקרה בוחן','domain':'חיבור לתחום אחר','numeric':'שאלה מספרית','mcq':'שאלה','decide':'הכרעה','predict':'נחש קודם','verify':'בדיקה'}
+NAMES={'definition':'הגדרה','formula':'נוסחה','history':'רקע היסטורי','casestudy':'מקרה בוחן','domain':'חיבור לתחום אחר','numeric':'שאלה מספרית','mcq':'שאלה','decide':'הכרעה','predict':'נחש קודם','verify':'בדיקה','derivation':'גזירה','keep':'לסיכום','explain':'שאלה פתוחה'}
 out=[];parts=re.split(r'^```(\w*)\n(.*?)^```\s*$',src,flags=re.S|re.M)
 for i in range(0,len(parts),3):
     out.append(('md',inline(parts[i])))
@@ -16,7 +16,12 @@ for i in range(0,len(parts),3):
         cap=re.search(r'^@caption:\s*(.*)$',body,re.M)
         svg=re.sub(r'^@\w+:.*\n','',body,flags=re.M)
         out.append(('raw',f'<figure>{svg}<figcaption>{inline(cap[1]) if cap else ""}</figcaption></figure>'))
-    elif kind in('chart','table','mermaid'):
+    elif kind=='table':
+        t=json.loads(body)
+        rows=''.join('<tr>'+''.join(f'<td>{inline(html.escape(str(c)))}</td>' for c in r)+'</tr>' for r in t.get('rows',[]))
+        head=''.join(f'<th>{html.escape(c)}</th>' for c in t.get('columns',[]))
+        out.append(('raw',f'<figure><table><thead><tr>{head}</tr></thead><tbody>{rows}</tbody></table><figcaption>{html.escape(t.get("title",""))}</figcaption></figure>'))
+    elif kind in('chart','mermaid'):
         try:t=json.loads(body).get('title','')
         except Exception:t=''
         out.append(('raw',f'<div class="note">[{kind}: {html.escape(t)}]</div>'))
@@ -51,7 +56,7 @@ h2{{font-size:1.6em;line-height:1.3}} h3{{margin-top:2em;color:var(--acc)}}
 abbr{{text-decoration:underline dotted;cursor:help}}
 figure{{margin:1.5em 0;text-align:center}} figure svg{{max-width:100%;height:auto}} figcaption,.note{{font-size:.85em;color:var(--muted)}}
 .katex-display{{overflow-x:auto;overflow-y:hidden;direction:ltr}} .katex{{direction:ltr;unicode-bidi:isolate}}
-details{{margin-top:8px}} summary{{cursor:pointer;color:var(--acc)}}
+table{{border-collapse:collapse;margin:0 auto;font-size:.9em}} td,th{{border:1px solid var(--line);padding:4px 8px}} details{{margin-top:8px}} summary{{cursor:pointer;color:var(--acc)}}
 </style></head><body><main id="m"></main>
 <script>
 const D={data};
