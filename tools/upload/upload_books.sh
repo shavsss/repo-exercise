@@ -17,6 +17,7 @@ while IFS= read -r -d '' f; do
   name="$(basename "$f")"
   case "$name" in .*) continue;; esac
   dest="library/incoming/$name"
+  if [ -e "$dest" ] || [ -e "$dest.part-aa" ]; then echo "skip (already uploaded): $name"; continue; fi
   size=$(wc -c < "$f" | tr -d ' ')
   if [ "$size" -gt "$LIMIT" ]; then
     split -b "$LIMIT" "$f" "$dest.part-"

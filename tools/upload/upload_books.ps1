@@ -13,10 +13,12 @@ New-Item -ItemType Directory -Force library/incoming | Out-Null
 $limit = 90MB; $n = 0
 Get-ChildItem -Path $Src -File -Recurse | Where-Object { -not $_.Name.StartsWith(".") } | ForEach-Object {
   $dest = Join-Path "library/incoming" $_.Name
+  if ((Test-Path $dest) -or (Test-Path "$dest.part-aa")) { Write-Host "skip (already uploaded): $($_.Name)"; return }
   if ($_.Length -gt $limit) {
     $in = [IO.File]::OpenRead($_.FullName); $buf = New-Object byte[] $limit; $k = 0
     while (($r = $in.Read($buf, 0, $limit)) -gt 0) {
-      $suffix = [char](97 + [math]::Floor($k / 26)) + [string][char](97 + ($k % 26))
+      $a = [int][math]::Floor($k / 26); $b = [int]($k % 26)
+      $suffix = [string][char](97 + $a) + [string][char](97 + $b)
       $out = [IO.File]::Create("$dest.part-$suffix"); $out.Write($buf, 0, $r); $out.Close(); $k++
     }
     $in.Close()
