@@ -1,0 +1,442 @@
+[
+ {
+  "doc": "X37",
+  "key": "raymer_ad",
+  "path": "library/military/books/X37_raymer_aircraft_design.pdf",
+  "title": "Aircraft Design: A Conceptual Approach",
+  "author": "Raymer",
+  "edition": "AIAA, 1st ed. 1989/1992 (2 printed pages per PDF page: PDF page n covers about printed pages 2n-16..2n-15)",
+  "source_url": "learner upload",
+  "pdf_pages": 391,
+  "text_ok": true,
+  "scan": false,
+  "method": "upload",
+  "modules": {
+   "M8.10": [
+    {
+     "pages": [
+      13,
+      84
+     ],
+     "note": "פרקים 3–7: Sizing from a conceptual sketch (fuel fraction, takeoff weight), airfoil/geometry, T/W ו-W/S (constraint), initial sizing, configuration layout. הערה: כל עמוד PDF הוא דף כפול"
+    },
+    {
+     "pages": [
+      85,
+      98
+     ],
+     "note": "פרק 8: Special considerations, כולל Radar/IR detectability (חמקנות) ו-vulnerability"
+    },
+    {
+     "pages": [
+      104,
+      122
+     ],
+     "note": "פרק 10: Propulsion and fuel system integration (בחירת מנוע, jet integration)"
+    },
+    {
+     "pages": [
+      174,
+      206
+     ],
+     "note": "פרק 14: Structures and loads"
+    },
+    {
+     "pages": [
+      237,
+      265
+     ],
+     "note": "פרקים 17–18: Performance and flight mechanics (כולל Energy-maneuverability 17.6) ו-Cost analysis (18.4 RDT&E)"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "X38",
+  "key": "carlucci_ballistics",
+  "path": "library/military/books/X38_carlucci_ballistics.pdf",
+  "title": "Ballistics: Theory and Design of Guns and Ammunition",
+  "author": "Carlucci & Jacobson",
+  "edition": "CRC Press 2008 (1st ed.)",
+  "source_url": "learner upload",
+  "pdf_pages": 514,
+  "text_ok": true,
+  "scan": false,
+  "method": "upload",
+  "modules": {
+   "M11.11": [
+    {
+     "pages": [
+      18,
+      183
+     ],
+     "note": "חלק I (פרקים 1–5): בליסטיקה פנימית: גזים ותרמודינמיקה, בעירת הודף, מודלים אנליטיים/חישוביים, תכן תחמושת, תכן נשק (5.1 עייפות ושחיקה, 5.2 תכן קנה)"
+    },
+    {
+     "pages": [
+      184,
+      323
+     ],
+     "note": "חלק II (פרקים 6–13): בליסטיקה חיצונית: דינמיקה, מסלולים (8), אירובליסטיקה ליניארית, אסימטריות מסה, throwoff, swerve, אירובליסטיקה לא-ליניארית"
+    },
+    {
+     "pages": [
+      330,
+      369
+     ],
+     "note": "פרק 15: Penetration theories (חדירת מתכות, קרמיקה, מרוכבים) ל-KE penetrators"
+    }
+   ],
+   "M11.12": [
+    {
+     "pages": [
+      324,
+      329
+     ],
+     "note": "חלק III פרק 14: מבוא לבליסטיקה סופית"
+    },
+    {
+     "pages": [
+      370,
+      483
+     ],
+     "note": "פרקים 16–18: Shock physics (Hugoniot, detonation), Gurney, Taylor angles, Mott (רסיסים), shaped charges. הפרק אינו כולל blast scaling/fuzing/IM"
+    }
+   ],
+   "M11.13": [
+    {
+     "pages": [
+      462,
+      483
+     ],
+     "note": "פרק 18: Shaped charges: היווצרות ג'ט וחדירה (בסיס לטנדם מול ERA)"
+    }
+   ],
+   "M11.14": [
+    {
+     "pages": [
+      170,
+      174
+     ],
+     "note": "5.3 Gun Dynamics: דינמיקת קנה (jump/whip, רטט); 5.4 Muzzle devices ב-175–183"
+    },
+    {
+     "pages": [
+      310,
+      315
+     ],
+     "note": "פרק 12: Aerodynamic jump, epicyclic swerve, drift"
+    }
+   ],
+   "M11.19": [
+    {
+     "pages": [
+      212,
+      273
+     ],
+     "note": "פרק 8: Trajectories (חישוב מסלולים, בסיס ל-firing tables)"
+    },
+    {
+     "pages": [
+      296,
+      315
+     ],
+     "note": "פרקים 10–12: mass asymmetries, lateral throwoff, swerve: מקורות לפיזור. הספר כמעט אינו דן ב-dispersion/תקציב שגיאה במפורש (כמעט אין אזכורים), כיסוי חלקי"
+    }
+   ]
+  },
+  "status": "partial",
+  "tried": [
+   "M11.19 and M11.14 (stabilization, GNSS etc.) only weakly covered; no explicit dispersion chapter in the book"
+  ],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "W65",
+  "key": "buttazzo_rt",
+  "path": "library/engineering/books/W65_buttazzo_hard_realtime.pdf",
+  "title": "Hard Real-Time Computing Systems: Predictable Scheduling Algorithms and Applications",
+  "author": "Buttazzo",
+  "edition": "3rd ed., Springer 2011",
+  "source_url": "learner upload",
+  "pdf_pages": 538,
+  "text_ok": true,
+  "scan": false,
+  "method": "upload",
+  "modules": {
+   "M28.5": [
+    {
+     "pages": [
+      18,
+      267
+     ],
+     "note": "פרקים 1–7: מושגי זמן-אמת (1–2: deadline, jitter, anomalies), aperiodic (3, EDF/Horn), periodic: RM/EDF/RTA (4), fixed-priority servers (5), dynamic servers (6), resource protocols: PIP, PCP, SRP (7)"
+    },
+    {
+     "pages": [
+      366,
+      413
+     ],
+     "note": "פרק 10: Kernel design: interrupts, overhead (latency)"
+    },
+    {
+     "pages": [
+      436,
+      473
+     ],
+     "note": "פרק 12: RTOS וסטנדרטים (POSIX, commercial, Linux RT). הספר אינו מכסה סנכרון שעונים (NTP/PTP) ו-TSN"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "clock sync / TSN subtopics are not in the book"
+  ],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "W69",
+  "key": "haykin_aft",
+  "path": "library/engineering/books/W69_haykin_adaptive_filter.pdf",
+  "title": "Adaptive Filter Theory",
+  "author": "Haykin",
+  "edition": "5th ed., Pearson 2014",
+  "source_url": "learner upload",
+  "pdf_pages": 913,
+  "text_ok": true,
+  "scan": false,
+  "method": "upload",
+  "modules": {
+   "M7.20": [
+    {
+     "pages": [
+      109,
+      150
+     ],
+     "note": "פרק 2: Wiener filters: orthogonality, Wiener-Hopf, error surface, LCMV ו-generalized sidelobe canceller (2.8–2.9)"
+    },
+    {
+     "pages": [
+      218,
+      357
+     ],
+     "note": "פרקים 4–7: steepest descent וייצוב, stochastic gradient, LMS (התכנסות, misadjustment), NLMS ו-affine projection"
+    },
+    {
+     "pages": [
+      450,
+      474
+     ],
+     "note": "פרק 10: RLS, matrix inversion lemma, noise canceller, adaptive equalization (10.9)"
+    },
+    {
+     "pages": [
+      559,
+      594
+     ],
+     "note": "פרק 14: Kalman filters (מבט Kalman על RLS)"
+    },
+    {
+     "pages": [
+      695,
+      770
+     ],
+     "note": "פרק 17: Blind deconvolution (equalization עיוור, Bussgang)"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "W70",
+  "key": "slotine_li",
+  "path": "library/engineering/books/W70_slotine_li_nonlinear.pdf",
+  "title": "Applied Nonlinear Control",
+  "author": "Slotine & Li",
+  "edition": "Prentice Hall 1991",
+  "source_url": "learner upload",
+  "pdf_pages": 476,
+  "text_ok": true,
+  "scan": false,
+  "method": "upload",
+  "modules": {
+   "M5.18": [
+    {
+     "pages": [
+      31,
+      170
+     ],
+     "note": "פרקים 2–4: phase plane ו-limit cycles (2), ליאפונוב ו-LaSalle (3), Advanced stability: Barbalat, nonautonomous, absolute stability circle/Popov (4)"
+    },
+    {
+     "pages": [
+      171,
+      405
+     ],
+     "note": "פרקים 5–8: describing function (5), feedback linearization ו-zero dynamics (6), sliding control (7), adaptive control: MRAC ו-persistent excitation (8). בספר (מהדורת 1991) אין backstepping"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "backstepping is not in the 1991 edition (no occurrences)"
+  ],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "W67",
+  "key": "paul_emc",
+  "path": "library/engineering/books/W67_paul_emc.pdf",
+  "title": "Introduction to Electromagnetic Compatibility",
+  "author": "Paul",
+  "edition": "2nd ed., Wiley 2006 (dokumen.pub copy)",
+  "source_url": "learner upload",
+  "pdf_pages": 1014,
+  "text_ok": true,
+  "scan": false,
+  "method": "upload",
+  "modules": {
+   "M11.24": [
+    {
+     "pages": [
+      38,
+      46
+     ],
+     "note": "1.4: Electrical dimensions and waves: מתי עקבה היא קו תמסורת"
+    },
+    {
+     "pages": [
+      73,
+      112
+     ],
+     "note": "פרק 2: דרישות EMC כולל צבאיות (2.1.3) ובדיקות פליטה/חסינות"
+    },
+    {
+     "pages": [
+      142,
+      165
+     ],
+     "note": "3.2: ספקטרום גלי שעון טרפזיים, rise time ורוחב סרט"
+    },
+    {
+     "pages": [
+      201,
+      322
+     ],
+     "note": "פרק 4: Transmission lines & signal integrity: microstrip/stripline PUL, החזרות, terminations"
+    },
+    {
+     "pages": [
+      323,
+      444
+     ],
+     "note": "פרקים 5–6: רכיבים לא-אידיאליים (ferrites, chokes), conducted emissions, מסנני ספק"
+    },
+    {
+     "pages": [
+      527,
+      776
+     ],
+     "note": "פרקים 8–10: פליטה/חסינות מוקרנת, crosstalk (9), shielding (10)"
+    },
+    {
+     "pages": [
+      777,
+      882
+     ],
+     "note": "פרק 11: System design for EMC: grounding, ground bounce, PCB, decoupling, ESD (11.4.8). PDN ו-eye diagram/ISI אינם בספר"
+    }
+   ],
+   "M15.6": [
+    {
+     "pages": [
+      73,
+      114
+     ],
+     "note": "פרק 2: דרישות EMC, כולל מוצרים צבאיים ובדיקות (MIL-STD-461 ברמת מבוא)"
+    },
+    {
+     "pages": [
+      401,
+      444
+     ],
+     "note": "פרק 6: Conducted emissions ו-susceptibility"
+    },
+    {
+     "pages": [
+      490,
+      509
+     ],
+     "note": "7.5–7.6: Friis, השפעת החזרות (צימוד אנטנות)"
+    },
+    {
+     "pages": [
+      527,
+      582
+     ],
+     "note": "פרק 8: Radiated emission/susceptibility"
+    },
+    {
+     "pages": [
+      737,
+      882
+     ],
+     "note": "פרקים 10–11: shielding ו-system design. הספר אינו כולל MIL-STD-464C, co-site, HERO"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "MIL-STD-464C/co-site/HERO/PDN/eye diagram not in book"
+  ],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "W71",
+  "key": "kassakian_pe",
+  "path": "library/engineering/books/W71_kassakian_power_electronics_preview.pdf",
+  "title": "Principles of Power Electronics",
+  "author": "Kassakian, Perreault, Verghese & Schlecht",
+  "edition": "2nd ed., Cambridge University Press 2024: PUBLISHER PREVIEW ONLY (83 pages: front matter, full TOC pp. 9-15, Ch.1, Ch.2, Ch.3 and start of Ch.4). A full copy is being searched separately",
+  "source_url": "learner upload",
+  "pdf_pages": 83,
+  "text_ok": true,
+  "scan": false,
+  "method": "upload",
+  "modules": {
+   "M12.12": [
+    {
+     "pages": [
+      9,
+      15
+     ],
+     "note": "תוכן עניינים מלא של המהדורה (מפה לפרקים החסרים: DC/DC, DCM, מבודדים, מודל ממוצע, בקרה, מגנטיקה, תלת-פאזי, EMI)"
+    },
+    {
+     "pages": [
+      23,
+      48
+     ],
+     "note": "פרקים 1–2: מבוא ו-Form and Function overview: סקירת ממירי DC/DC, AC/DC, AC/AC והשפעת מימוש המתג (רק מבוא לנושא 1 ו-3)"
+    },
+    {
+     "pages": [
+      49,
+      78
+     ],
+     "note": "פרק 3: Introduction to rectifiers (לא מנושאי המודול ישירות, רקע)"
+    }
+   ]
+  },
+  "status": "partial",
+  "tried": [
+   "Preview contains only front matter, Ch.1-3 and the start of Ch.4. Missing for M12.12: volt-second balance and DC/DC converters, loss modeling, switches/WBG, DCM, isolated converters, averaged modeling, control, magnetics, EMI/thermal, three-phase inverters"
+  ],
+  "blocked_hosts": []
+ }
+]

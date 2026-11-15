@@ -1,0 +1,572 @@
+[
+ {
+  "doc": "W72",
+  "replaces": "kassakian_pe",
+  "key": "liege_elec0055_erickson_slides",
+  "path": "library/engineering/free/W72_liege_elec0055_erickson_slides_p1_p3.pdf",
+  "title": "ELEC0055 Elements of Power Electronics, slides Part I (Ch 1-5, 13, 19) and Part III (Ch 6), based on Erickson & Maksimovic",
+  "author": "Univ. of Liege (Prof. Frebel), slides based on Erickson & Maksimovic, Univ. of Colorado",
+  "edition": "Fall 2026",
+  "source_url": "https://people.montefiore.uliege.be/frebel/ELEC0055/SlidesPartI.pdf ; .../SlidesPartIII.pdf",
+  "pdf_pages": 374,
+  "text_ok": true,
+  "method": "bundle (Part I pp1-252, Part III pp253-374)",
+  "modules": {
+   "M12.12": [
+    {
+     "pages": [
+      24,
+      67
+     ],
+     "note": "Erickson פרק 2: עקרון volt-second ו-charge balance, ממירי buck/boost/buck-boost, ripple"
+    },
+    {
+     "pages": [
+      67,
+      99
+     ],
+     "note": "פרק 3: מודל מעגל שקול במצב מתמיד, הפסדים ויעילות (loss modeling)"
+    },
+    {
+     "pages": [
+      100,
+      138
+     ],
+     "note": "פרק 4: מימוש מתגים (MOSFET, דיודות, switching loss, סיכום התקנים; WBG רק בקצרה)"
+    },
+    {
+     "pages": [
+      139,
+      175
+     ],
+     "note": "פרק 5: מצב הולכה לא רציף DCM"
+    },
+    {
+     "pages": [
+      176,
+      215
+     ],
+     "note": "פרק 13: תורת המגנטיקה הבסיסית, שנאים ומשרנים"
+    },
+    {
+     "pages": [
+      257,
+      374
+     ],
+     "note": "פרק 6 (חלק III): מעגלי ממירים, כולל בידוד בשנאי: forward, flyback, גשר (עמ' 288-323)"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "Colorado ecee.colorado.edu blocked (502)"
+  ],
+  "blocked_hosts": [
+   "ecee.colorado.edu"
+  ],
+  "coverage": "Good: volt-second/charge balance, loss modeling, switch realization, DCM, isolated converters, magnetics basics. Thin: wide-bandgap devices. Not covered here: AC modeling, control, EMI, thermal, three-phase (see W73). Slides, not prose; the slides are Erickson's instructor slides hosted publicly by a university course page (verify licence is acceptable)."
+ },
+ {
+  "doc": "W73",
+  "replaces": "kassakian_pe",
+  "key": "perreault_mit_6334_6622",
+  "path": "library/engineering/free/W73_perreault_mit_power_electronics_6334_6622.pdf",
+  "title": "MIT 6.334 Power Electronics text chapters 1-5 (Perreault) + MIT 6.622 Power Electronics lecture notes L1-38 (Spring 2023)",
+  "author": "David Perreault, MIT OpenCourseWare (CC BY-NC-SA)",
+  "edition": "6.334 Spring 2007/2008 notes; 6.622 Spring 2023",
+  "source_url": "https://ocw.mit.edu/courses/6-334-power-electronics-spring-2007/ ; https://ocw.mit.edu/courses/6-622-power-electronics-spring-2023/",
+  "pdf_pages": 320,
+  "text_ok": true,
+  "method": "bundle of OCW PDFs (6.334 chapters 6-16 are image-only scans without text layer, so left out; the 6.622 lectures cover the same topics with text)",
+  "modules": {
+   "M12.12": [
+    {
+     "pages": [
+      46,
+      72
+     ],
+     "note": "6.334 פרק 5: ממירי DC/DC, volt-second ו-charge balance (buck/boost/DCM בקצרה)"
+    },
+    {
+     "pages": [
+      115,
+      139
+     ],
+     "note": "6.622 הרצאות 5-8: DC/DC, תא מיתוג קנוני, DCM"
+    },
+    {
+     "pages": [
+      140,
+      163
+     ],
+     "note": "6.622 הרצאות 9-12: מגנטיקה (מעגלים מגנטיים, שנאים, השראות זליגה, הפסדי ליבה/סליל)"
+    },
+    {
+     "pages": [
+      164,
+      175
+     ],
+     "note": "6.622 הרצאות 13-14: ממירים מבודדים (forward, flyback)"
+    },
+    {
+     "pages": [
+      176,
+      185
+     ],
+     "note": "6.622 הרצאות 15-16: הפסדי מיתוג, snubbers, מודל תרמי וגוף קירור"
+    },
+    {
+     "pages": [
+      186,
+      228
+     ],
+     "note": "6.622 הרצאות 17-23: מהפכים (inverters), מיישרים, מערכות תלת-פאזיות ומהפכים תלת-פאזיים, PWM"
+    },
+    {
+     "pages": [
+      229,
+      258
+     ],
+     "note": "6.622 הרצאות 24-27: מודל ממוצע (AC equivalent circuit), בקרה ב-voltage mode ו-current mode"
+    },
+    {
+     "pages": [
+      259,
+      275
+     ],
+     "note": "6.622 הרצאות 28-30: מסנני EMI ו-input filters (CM+DM)"
+    },
+    {
+     "pages": [
+      307,
+      320
+     ],
+     "note": "6.622 הרצאות 37-38: מתאמי עכבה, gate drive, פריסה (WBG חלקית)"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "Ecen5797 Colorado blocked",
+   "MIT 6.334 Ch6-16 scans: no text"
+  ],
+  "blocked_hosts": [
+   "ecee.colorado.edu"
+  ],
+  "coverage": "Covers all ten subtopics at graduate-lecture depth (compact lecture notes about 5 pages each, equations and reasoning, less prose than Kassakian). Best: AC modeling, control, magnetics, EMI, thermal, three-phase. Partly: wide-bandgap (scattered mentions in L1, L11, L18, L31-34). Use together with W72 for DCM, loss modeling and switch realization depth."
+ },
+ {
+  "doc": "W74",
+  "replaces": "hp_caqa",
+  "key": "mutlu_eth_cpu_microarch_coherence",
+  "path": "library/engineering/free/W74_mutlu_eth_cpu_microarch_coherence_lectures.pdf",
+  "title": "Onur Mutlu, ETH Zurich lecture slides: precise exceptions, OoO, branch prediction, caches, multiprocessors, memory ordering, cache coherence, speculation",
+  "author": "Onur Mutlu et al., ETH Zurich (Digital Design and Computer Architecture Spring 2025; Computer Architecture Fall 2024)",
+  "edition": "2024-2025 lecture slides",
+  "source_url": "https://safari.ethz.ch/digitaltechnik/spring2025/doku.php?id=schedule ; https://safari.ethz.ch/architecture/fall2024/doku.php?id=schedule",
+  "pdf_pages": 1186,
+  "text_ok": true,
+  "method": "bundle of 13 lecture PDFs",
+  "modules": {
+   "M28.1": [
+    {
+     "pages": [
+      1,
+      72
+     ],
+     "note": "DDCA L13: Precise exceptions, reorder buffer"
+    },
+    {
+     "pages": [
+      73,
+      236
+     ],
+     "note": "DDCA L14-L15a: ביצוע Out-of-Order, Tomasulo, renaming, ROB, dataflow ו-superscalar"
+    },
+    {
+     "pages": [
+      237,
+      591
+     ],
+     "note": "DDCA L15b+L16: ניבוי הסתעפויות, ניבוי מתקדם (TAGE/perceptron), עלות control hazards"
+    },
+    {
+     "pages": [
+      592,
+      604
+     ],
+     "note": "DDCA L15c: טיפול ב-load/store ב-OoO, memory disambiguation"
+    },
+    {
+     "pages": [
+      605,
+      736
+     ],
+     "note": "DDCA L23a-b: מטמונים מתקדמים ובעיות multicore בקאש"
+    },
+    {
+     "pages": [
+      737,
+      813
+     ],
+     "note": "ACA L20b: multiprocessors, סנכרון (locks, spin)"
+    },
+    {
+     "pages": [
+      814,
+      864
+     ],
+     "note": "ACA L21a: memory ordering / consistency (SC, relaxed)"
+    },
+    {
+     "pages": [
+      865,
+      973
+     ],
+     "note": "ACA L21b: cache coherence: snooping, MESI/MOESI, directory"
+    },
+    {
+     "pages": [
+      974,
+      1098
+     ],
+     "note": "ACA L33: Cache design and management (replacement, MSHR, prefetch)"
+    },
+    {
+     "pages": [
+      1099,
+      1186
+     ],
+     "note": "ACA L34: Speculation (branch, value, memory dependence, speculative sync)"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [],
+  "blocked_hosts": [],
+  "coverage": "Good for OoO/Tomasulo/ROB, branch prediction (very deep), advanced caches, snooping and directory coherence, consistency basics, speculation. Partly: false sharing and hardware synchronization (lock lecture only), NUMA. Not covered: CPI stacks and performance counters (no lecture-level source found). Slide format, not a textbook. Use W76 for coherence/consistency rigor."
+ },
+ {
+  "doc": "W75",
+  "replaces": "hp_caqa",
+  "key": "mutlu_eth_gpu_systolic_interconnect",
+  "path": "library/engineering/free/W75_mutlu_eth_gpu_systolic_interconnect_lectures.pdf",
+  "title": "Onur Mutlu, ETH Zurich lecture slides: systolic arrays, SIMD, GPU architecture and programming, interconnects, on-chip networks",
+  "author": "Onur Mutlu et al., ETH Zurich",
+  "edition": "2024-2025 lecture slides",
+  "source_url": "https://safari.ethz.ch/digitaltechnik/spring2025/doku.php?id=schedule ; https://safari.ethz.ch/architecture/fall2024/doku.php?id=schedule",
+  "pdf_pages": 946,
+  "text_ok": true,
+  "method": "bundle of 7 lecture PDFs",
+  "modules": {
+   "M28.2": [
+    {
+     "pages": [
+      1,
+      85
+     ],
+     "note": "DDCA L17b: מערכי systolic"
+    },
+    {
+     "pages": [
+      86,
+      215
+     ],
+     "note": "DDCA L18: SIMD / vector"
+    },
+    {
+     "pages": [
+      216,
+      395
+     ],
+     "note": "DDCA L19-L20a: ארכיטקטורת GPU: SM, warps, הסתרת latency"
+    },
+    {
+     "pages": [
+      396,
+      515
+     ],
+     "note": "ACA L31: תכנות GPU/CUDA, coalescing, shared-memory tiling, histogram, reduction, streams"
+    }
+   ],
+   "M28.4": [
+    {
+     "pages": [
+      516,
+      637
+     ],
+     "note": "ACA L22: Interconnects: טופולוגיות וניתוב"
+    },
+    {
+     "pages": [
+      638,
+      946
+     ],
+     "note": "ACA L23: On-chip networks: טופולוגיות, ניתוב, flow control, deadlock"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [],
+  "blocked_hosts": [],
+  "coverage": "M28.2: good for GPU architecture, CUDA model, coalescing and tiling, systolic arrays; partly for reduction/histogram. Roofline, tensor cores, HBM, scan/SpMV/stencil, fusion are in W79. M28.4: good for topologies, routing, flow control (replaces H&P Appendix F); SerDes/PCIe/CXL/NVLink in W77/W78."
+ },
+ {
+  "doc": "W76",
+  "replaces": "hp_caqa",
+  "key": "sorin_hill_wood_primer",
+  "path": "library/engineering/free/W76_sorin_hill_wood_primer_consistency_coherence.pdf",
+  "title": "A Primer on Memory Consistency and Cache Coherence, Second Edition",
+  "author": "Nagarajan, Sorin, Hill, Wood",
+  "edition": "Morgan & Claypool 2020, open access CC BY 4.0",
+  "source_url": "https://link.springer.com/content/pdf/10.1007/978-3-031-01764-3.pdf",
+  "pdf_pages": 289,
+  "text_ok": true,
+  "method": "direct",
+  "modules": {
+   "M28.1": [
+    {
+     "pages": [
+      29,
+      40
+     ],
+     "note": "פרק 2: יסודות הקוהרנטיות"
+    },
+    {
+     "pages": [
+      41,
+      107
+     ],
+     "note": "פרקים 3-5: מודלי עקביות זיכרון: SC, TSO/x86, relaxed (כולל סנכרון)"
+    },
+    {
+     "pages": [
+      108,
+      206
+     ],
+     "note": "פרקים 6-8: פרוטוקולי קוהרנטיות, snooping (MSI/MESI/MOESI) ו-directory"
+    },
+    {
+     "pages": [
+      207,
+      267
+     ],
+     "note": "פרקים 9-11: נושאים מתקדמים (היררכיות, false sharing, DMA), עקביות וקוהרנטיות ב-GPU והטרוגניות, אימות מודלים"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [],
+  "blocked_hosts": [],
+  "coverage": "Excellent, textbook-grade, for snooping MSI/MESI/MOESI, directory coherence, consistency models and synchronization semantics. Complements W74."
+ },
+ {
+  "doc": "W77",
+  "replaces": "hp_caqa",
+  "key": "palermo_tamu_ecen720_links",
+  "path": "library/engineering/free/W77_palermo_tamu_ecen720_high_speed_links.pdf",
+  "title": "ECEN 720 High-Speed Links Circuits and Systems (lectures 1-16) + Palermo serial links chapter",
+  "author": "Samuel Palermo, Texas A&M University",
+  "edition": "Spring 2025 lecture slides; chapter 2011",
+  "source_url": "https://people.engr.tamu.edu/spalermo/ecen720.html",
+  "pdf_pages": 842,
+  "text_ok": true,
+  "method": "bundle (serial-links chapter pp1-51, lectures 1-16)",
+  "modules": {
+   "M28.4": [
+    {
+     "pages": [
+      1,
+      77
+     ],
+     "note": "פרק Serial Links (Palermo) + הרצאה 1: ארכיטקטורת SerDes, קידוד קו"
+    },
+    {
+     "pages": [
+      78,
+      191
+     ],
+     "note": "הרצאות 2-4: ערוץ, S-parameters, מודל pulse response, ISI"
+    },
+    {
+     "pages": [
+      192,
+      333
+     ],
+     "note": "הרצאות 5-6: TX driver, מקלט, PAM4 RX"
+    },
+    {
+     "pages": [
+      334,
+      419
+     ],
+     "note": "הרצאות 7-8: אקולייזציה: TX FFE, CTLE, DFE, adaptive (NRZ/PAM4)"
+    },
+    {
+     "pages": [
+      420,
+      492
+     ],
+     "note": "הרצאות 9-10: רעש וג'יטר: פירוק ג'יטר (RJ/DJ), BER, bathtub"
+    },
+    {
+     "pages": [
+      493,
+      657
+     ],
+     "note": "הרצאות 11-12: PLL, שעון, CDR"
+    },
+    {
+     "pages": [
+      743,
+      842
+     ],
+     "note": "הרצאות 15-16: חיבורי die-to-die (chiplet) ואופטי (optical I/O)"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [],
+  "blocked_hosts": [],
+  "coverage": "Strong for SerDes, equalization, jitter decomposition/BER, CDR; chiplet and optical I/O at lecture-overview depth. Slides."
+ },
+ {
+  "doc": "W78",
+  "replaces": "hp_caqa",
+  "key": "pcie_cxl_nvlink_bundle",
+  "path": "library/engineering/free/W78_pcie_cxl_nvlink_interconnect_bundle.pdf",
+  "title": "PCIe, CXL and NVLink bundle: Das Sharma CXL intro, CXL survey, Demystifying CXL, GPU interconnect evaluation, PCIe-bench, PCIe 6.0 talks, NVSwitch overview",
+  "author": "Das Sharma (Intel); Sun et al.; Li et al.; Neugebauer et al.; NVIDIA",
+  "edition": "2018-2024 open papers and talks",
+  "source_url": "arXiv 2306.11227, 2412.20249, 2303.15375, 1903.04611; cl.cam.ac.uk pcie-bench; ewh.ieee.org/openfabrics/snia Das Sharma decks; images.nvidia.com nvswitch-technical-overview.pdf",
+  "pdf_pages": 181,
+  "text_ok": true,
+  "method": "bundle of 9 papers/decks",
+  "modules": {
+   "M28.4": [
+    {
+     "pages": [
+      1,
+      35
+     ],
+     "note": "Das Sharma: מבוא ל-CXL: שכבות PCIe/CXL, TLP, flow control, coherent memory"
+    },
+    {
+     "pages": [
+      36,
+      65
+     ],
+     "note": "סקר CXL ו-Demystifying CXL: מדידות latency/bandwidth של זיכרון CXL"
+    },
+    {
+     "pages": [
+      66,
+      80
+     ],
+     "note": "הערכת חיבורי GPU: PCIe, NVLink, NVSwitch, GPUDirect"
+    },
+    {
+     "pages": [
+      81,
+      95
+     ],
+     "note": "PCIe-bench: ביצועי PCIe בפועל (TLP, credits, overheads)"
+    },
+    {
+     "pages": [
+      96,
+      173
+     ],
+     "note": "PCIe 6.0: PAM4, flits, FEC/CRC/retry (שלוש הרצאות)"
+    },
+    {
+     "pages": [
+      174,
+      181
+     ],
+     "note": "NVSwitch technical overview"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "H100 whitepaper URL returned HTML, not PDF"
+  ],
+  "blocked_hosts": [],
+  "coverage": "PCIe layers, TLPs and flow control: good (CXL intro, PCIe-bench). CXL: good. NVLink/NVSwitch scale-up vs scale-out: partly (evaluation paper, NVSwitch overview, plus W79 Volta/Ampere whitepapers). Chiplet UCIe: not directly (W77 L15). No official PCIe spec (paid)."
+ },
+ {
+  "doc": "W79",
+  "replaces": "hp_caqa",
+  "key": "gpu_supplement",
+  "path": "library/engineering/free/W79_gpu_architecture_supplement_papers_whitepapers.pdf",
+  "title": "GPU architecture supplement: Roofline, memory wall, reduction, scan, SpMV, tensor cores, mixed precision, Volta and Ampere whitepapers, TPU, Triton, TVM, Halide",
+  "author": "Williams et al.; Gholami et al.; Harris; Sengupta et al.; Bell & Garland; Markidis et al.; Micikevicius et al.; NVIDIA; Jouppi et al.; Tillet et al.; Chen et al.; Ragan-Kelley et al.",
+  "edition": "open papers and whitepapers",
+  "source_url": "berkeley.edu EECS-2008-134; arXiv 2403.14123, 1803.04014, 1710.03740, 2208.11174, 1704.04760, 1802.04799; developer.download.nvidia.com reduction.pdf; nvidia.com sc09-spmv; images.nvidia.com whitepapers; harvard triton; MIT halide",
+  "pdf_pages": 320,
+  "text_ok": true,
+  "method": "bundle of 14 papers",
+  "modules": {
+   "M28.2": [
+    {
+     "pages": [
+      1,
+      16
+     ],
+     "note": "Roofline (Williams, Waterman, Patterson)"
+    },
+    {
+     "pages": [
+      17,
+      23
+     ],
+     "note": "AI and Memory Wall: קיר הזיכרון ו-HBM"
+    },
+    {
+     "pages": [
+      24,
+      93
+     ],
+     "note": "דפוסים מקביליים ב-CUDA: reduction (Harris), scan, SpMV (Bell and Garland)"
+    },
+    {
+     "pages": [
+      94,
+      265
+     ],
+     "note": "Tensor cores, mixed precision, פורמטים נומריים; Volta ו-Ampere whitepapers (SM, tensor cores, HBM2, NVLink, async copy)"
+    },
+    {
+     "pages": [
+      266,
+      282
+     ],
+     "note": "TPU: מערך systolic ו-dataflow ל-DNN"
+    },
+    {
+     "pages": [
+      283,
+      320
+     ],
+     "note": "Triton, TVM, Halide: קומפיילרים ו-DSL, fusion של kernels"
+    }
+   ],
+   "M28.4": [
+    {
+     "pages": [
+      184,
+      265
+     ],
+     "note": "Ampere whitepaper: NVLink/NVSwitch scale-up ואחסון (חלקי)"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "Hopper/H100 whitepaper URLs returned HTML"
+  ],
+  "blocked_hosts": [],
+  "coverage": "Roofline: good; HBM/memory wall: partly; parallel patterns: good for reduction, scan, SpMV (stencil, histogram only in W75 CUDA lecture); tensor cores and mixed precision: good; systolic/DNN dataflow: good (TPU) plus W38 Sze already in library; fusion/DSL: good. Streams/overlap: only W37 (library) and Ampere async copy."
+ }
+]

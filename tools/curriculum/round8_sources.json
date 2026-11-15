@@ -1,0 +1,4706 @@
+{
+ "docs": {
+  "eng": {
+   "W65": [
+    "library/engineering/books/W65_buttazzo_hard_realtime.pdf",
+    "Hard Real-Time Computing Systems: Predictable Scheduling Algorithms and Applications"
+   ],
+   "W69": [
+    "library/engineering/books/W69_haykin_adaptive_filter.pdf",
+    "Adaptive Filter Theory"
+   ],
+   "W70": [
+    "library/engineering/books/W70_slotine_li_nonlinear.pdf",
+    "Applied Nonlinear Control"
+   ],
+   "W67": [
+    "library/engineering/books/W67_paul_emc.pdf",
+    "Introduction to Electromagnetic Compatibility"
+   ],
+   "W71": [
+    "library/engineering/books/W71_kassakian_power_electronics_preview.pdf",
+    "Principles of Power Electronics"
+   ],
+   "B02a": [
+    "library/military/books/02a_Principles-of-Modern-Radar-Vol2-Advanced_Melvin-Scheer_2013.pdf",
+    "B02a"
+   ],
+   "B03": [
+    "library/military/books/03_Intro-IR-EO-Systems_Driggers_2ed_2012.pdf",
+    "B03"
+   ],
+   "B19": [
+    "library/military/books/19_EM-Waves-and-Antennas_Orfanidis_2004.pdf",
+    "B19"
+   ],
+   "B22": [
+    "library/military/books/22_Statistical-Methods-for-Signal-Processing_Hero_EECS564_2016.pdf",
+    "B22"
+   ],
+   "A02.3": [
+    "library/military/articles/02.3_Vo_Labeled-RFS-GLMB.pdf",
+    "A02.3"
+   ],
+   "A05.5": [
+    "library/military/articles/05.5_Riley_Frequency-Stability-Analysis_NIST-SP1065.pdf",
+    "A05.5"
+   ],
+   "A05.6": [
+    "library/military/articles/05.6_Woodman_Inertial-Navigation_TR696.pdf",
+    "A05.6"
+   ],
+   "W72": [
+    "library/engineering/free/W72_liege_elec0055_erickson_slides_p1_p3.pdf",
+    "ELEC0055 Elements of Power Electronics, slides Part I (Ch 1-5, 13, 19) and Part III (Ch 6), based on Erickson & Maksimovic"
+   ],
+   "W73": [
+    "library/engineering/free/W73_perreault_mit_power_electronics_6334_6622.pdf",
+    "MIT 6.334 Power Electronics text chapters 1-5 (Perreault) + MIT 6.622 Power Electronics lecture notes L1-38 (Spring 2023)"
+   ],
+   "W74": [
+    "library/engineering/free/W74_mutlu_eth_cpu_microarch_coherence_lectures.pdf",
+    "Onur Mutlu, ETH Zurich lecture slides: precise exceptions, OoO, branch prediction, caches, multiprocessors, memory ordering, cache coherence, speculation"
+   ],
+   "W75": [
+    "library/engineering/free/W75_mutlu_eth_gpu_systolic_interconnect_lectures.pdf",
+    "Onur Mutlu, ETH Zurich lecture slides: systolic arrays, SIMD, GPU architecture and programming, interconnects, on-chip networks"
+   ],
+   "W76": [
+    "library/engineering/free/W76_sorin_hill_wood_primer_consistency_coherence.pdf",
+    "A Primer on Memory Consistency and Cache Coherence, Second Edition"
+   ],
+   "W77": [
+    "library/engineering/free/W77_palermo_tamu_ecen720_high_speed_links.pdf",
+    "ECEN 720 High-Speed Links Circuits and Systems (lectures 1-16) + Palermo serial links chapter"
+   ],
+   "W78": [
+    "library/engineering/free/W78_pcie_cxl_nvlink_interconnect_bundle.pdf",
+    "PCIe, CXL and NVLink bundle: Das Sharma CXL intro, CXL survey, Demystifying CXL, GPU interconnect evaluation, PCIe-bench, PCIe 6.0 talks, NVSwitch overview"
+   ],
+   "W79": [
+    "library/engineering/free/W79_gpu_architecture_supplement_papers_whitepapers.pdf",
+    "GPU architecture supplement: Roofline, memory wall, reduction, scan, SpMV, tensor cores, mixed precision, Volta and Ampere whitepapers, TPU, Triton, TVM, Halide"
+   ],
+   "W01": [
+    "library/engineering/free/W01_py_rse.pdf",
+    "Research Software Engineering with Python"
+   ],
+   "W06": [
+    "library/engineering/free/W06_kochenderfer_algorithms_optimization.pdf",
+    "Algorithms for Optimization"
+   ],
+   "W11": [
+    "library/engineering/free/W11_sarkka_solin_applied_sde.pdf",
+    "Applied Stochastic Differential Equations"
+   ],
+   "W16": [
+    "library/engineering/free/W16_boyd_ee263_linear_dynamical_systems.pdf",
+    "EE263 Introduction to Linear Dynamical Systems (lecture slides)"
+   ],
+   "W21": [
+    "library/engineering/free/W21_soderstrom_stoica_system_identification.pdf",
+    "System Identification"
+   ],
+   "W26": [
+    "library/engineering/free/W26_lin_5g_new_radio.pdf",
+    "5G New Radio: Unveiling the Essentials of the Next Generation Wireless Access Technology"
+   ],
+   "W32": [
+    "library/engineering/free/W32_boneh_shoup_applied_cryptography.pdf",
+    "A Graduate Course in Applied Cryptography"
+   ],
+   "W37": [
+    "library/engineering/free/W37_cuda_programming_best_practices.pdf",
+    "CUDA Programming Guide and CUDA C++ Best Practices Guide"
+   ],
+   "W47": [
+    "library/engineering/free/W47_jurafsky_martin_slp3.pdf",
+    "Speech and Language Processing"
+   ],
+   "W52": [
+    "library/engineering/free/W52_lambert_rlhf_book.pdf",
+    "Reinforcement Learning from Human Feedback"
+   ],
+   "W57": [
+    "library/engineering/free/W57_edge_quant_robustness_papers.pdf",
+    "Quantization and Training of NNs for Integer-Arithmetic-Only Inference; Towards Deep Learning Models Resistant to Adversarial Attacks; Benchmarking NN Robustness to Common Corruptions"
+   ],
+   "W62": [
+    "library/engineering/free/W62_nasa_turbulence_modeling_resource.pdf",
+    "Turbulence Modeling Resource"
+   ],
+   "W02": [
+    "library/engineering/free/W02_vanderplas_python_data_science_hb.pdf",
+    "Python Data Science Handbook"
+   ],
+   "W07": [
+    "library/engineering/free/W07_madsen_nonlinear_least_squares.pdf",
+    "Methods for Non-Linear Least Squares Problems"
+   ],
+   "W17": [
+    "library/engineering/free/W17_mit6241_dynamic_systems_control.pdf",
+    "Lectures on Dynamic Systems and Control (6.241J notes)"
+   ],
+   "W22": [
+    "library/engineering/free/W22_ifac_computer_control_overview.pdf",
+    "Computer Control: An Overview (IFAC Professional Brief)"
+   ],
+   "W29": [
+    "library/engineering/free/W29_prince_computer_vision_models.pdf",
+    "Computer Vision: Models, Learning, and Inference"
+   ],
+   "W33": [
+    "library/engineering/free/W33_nist_fips203_ml_kem.pdf",
+    "FIPS 203, Module-Lattice-Based Key-Encapsulation Mechanism Standard"
+   ],
+   "W38": [
+    "library/engineering/free/W38_sze_efficient_dnn_processing.pdf",
+    "Efficient Processing of Deep Neural Networks: A Tutorial and Survey"
+   ],
+   "W43": [
+    "library/engineering/free/W43_barry_mastering_freertos.pdf",
+    "Mastering the FreeRTOS Real Time Kernel"
+   ],
+   "W48": [
+    "library/engineering/free/W48_rope_flashattention_deepseekv3.pdf",
+    "RoFormer (arXiv 2104.09864); FlashAttention (2205.14135); DeepSeek-V3 Technical Report (2412.19437)"
+   ],
+   "W53": [
+    "library/engineering/free/W53_deepseekmath_grpo_deepseek_r1.pdf",
+    "DeepSeekMath / GRPO (arXiv 2402.03300); DeepSeek-R1 (2501.12948)"
+   ],
+   "W58": [
+    "library/engineering/free/W58_huyen_cs329s_ml_systems_design.pdf",
+    "CS 329S: Machine Learning Systems Design (lecture notes)"
+   ],
+   "W63": [
+    "library/engineering/free/W63_newman_marine_hydrodynamics.pdf",
+    "Marine Hydrodynamics"
+   ],
+   "W50": [
+    "library/engineering/free/W50_ultrascale_playbook.pdf",
+    "The Ultra-Scale Playbook: Training LLMs on GPU Clusters"
+   ],
+   "W12": [
+    "library/engineering/free/W12_nist_sematech_handbook_ch5_7_8.pdf",
+    "NIST/SEMATECH e-Handbook of Statistical Methods (chapters 5, 7, 8 only)"
+   ],
+   "W03": [
+    "library/engineering/free/W03_modern_c.pdf",
+    "Modern C"
+   ],
+   "W08": [
+    "library/engineering/free/W08_suli_numerical_odes.pdf",
+    "Numerical Solution of Ordinary Differential Equations (lecture notes)"
+   ],
+   "W13": [
+    "library/engineering/free/W13_nrc_statistics_testing_acquisition.pdf",
+    "Statistics, Testing, and Defense Acquisition: New Approaches and Methodological Improvements"
+   ],
+   "W18": [
+    "library/engineering/free/W18_skogestad_multivariable_feedback.pdf",
+    "Multivariable Feedback Control: Analysis and Design"
+   ],
+   "W23": [
+    "library/engineering/free/W23_banerjee_pll.pdf",
+    "PLL Performance, Simulation, and Design"
+   ],
+   "W27": [
+    "library/engineering/free/W27_schneider_fdtd.pdf",
+    "Understanding the Finite-Difference Time-Domain Method"
+   ],
+   "W30": [
+    "library/engineering/free/W30_barfoot_state_estimation.pdf",
+    "State Estimation for Robotics"
+   ],
+   "W34": [
+    "library/engineering/free/W34_anderson_security_engineering.pdf",
+    "Security Engineering"
+   ],
+   "W39": [
+    "library/engineering/free/W39_cxl_intro.pdf",
+    "An Introduction to the Compute Express Link (CXL) Interconnect"
+   ],
+   "W44": [
+    "library/engineering/free/W44_sysml2_intro_textual_and_spec.pdf",
+    "SysML v2: Intro to the SysML v2 Language (Textual Notation) [pp.1-185] + OMG SysML v2.0 Language specification [pp.186-876]"
+   ],
+   "W49": [
+    "library/engineering/free/W49_scaling_book.pdf",
+    "How to Scale Your Model"
+   ],
+   "W54": [
+    "library/engineering/free/W54_inference_papers_vllm_specdec_gptq_awq_pope.pdf",
+    "vLLM/PagedAttention; Speculative decoding; GPTQ; AWQ; Efficiently Scaling Transformer Inference"
+   ],
+   "W59": [
+    "library/engineering/free/W59_sculley_hidden_tech_debt.pdf",
+    "Hidden Technical Debt in Machine Learning Systems"
+   ],
+   "W04": [
+    "library/engineering/free/W04_ostep_three_easy_pieces.pdf",
+    "Operating Systems: Three Easy Pieces"
+   ],
+   "W09": [
+    "library/engineering/free/W09_sundials_math_considerations.pdf",
+    "SUNDIALS documentation (CVODE, IDA, sensitivity analysis)"
+   ],
+   "W14": [
+    "library/engineering/free/W14_mil_hdbk_338b_reliability.pdf",
+    "MIL-HDBK-338B, Electronic Reliability Design Handbook"
+   ],
+   "W19": [
+    "library/engineering/free/W19_rawlings_mayne_diehl_mpc.pdf",
+    "Model Predictive Control: Theory, Computation, and Design"
+   ],
+   "W24": [
+    "library/engineering/free/W24_madhow_intro_comm_systems.pdf",
+    "Introduction to Communication Systems (author draft)"
+   ],
+   "W28": [
+    "library/engineering/free/W28_degen_quantum_sensing.pdf",
+    "Quantum Sensing"
+   ],
+   "W31": [
+    "library/engineering/free/W31_sola_micro_lie_theory.pdf",
+    "A micro Lie theory for state estimation in robotics"
+   ],
+   "W35": [
+    "library/engineering/free/W35_nist_sp800_193_firmware_resiliency.pdf",
+    "NIST SP 800-193, Platform Firmware Resiliency Guidelines"
+   ],
+   "W55": [
+    "library/engineering/free/W55_vision_papers_detr_sam_nerf_3dgs.pdf",
+    "DETR (arXiv 2005.12872); DINOv2 (2304.07193); SAM (2304.02643); SAM 2 (2408.00714); NeRF (2003.08934); 3D Gaussian Splatting (2308.04079); DreamerV3 (2301.04104)"
+   ],
+   "W10": [
+    "library/engineering/free/W10_baydin_automatic_differentiation.pdf",
+    "Automatic Differentiation in Machine Learning: a Survey"
+   ],
+   "W15": [
+    "library/engineering/free/W15_jos_sasp_filterbanks.pdf",
+    "Spectral Audio Signal Processing (filter-bank sections only)"
+   ],
+   "W20": [
+    "library/engineering/free/W20_liberzon_cvoc.pdf",
+    "Calculus of Variations and Optimal Control Theory"
+   ],
+   "W25": [
+    "library/engineering/free/W25_3gpp_ts38300_nr_overall.pdf",
+    "3GPP TS 38.300, NR and NG-RAN Overall Description"
+   ],
+   "W36": [
+    "library/engineering/free/W36_spectre_attacks.pdf",
+    "Spectre Attacks: Exploiting Speculative Execution"
+   ]
+  },
+  "mil": {
+   "X37": [
+    "books/X37_raymer_aircraft_design.pdf",
+    "Aircraft Design: A Conceptual Approach"
+   ],
+   "X38": [
+    "books/X38_carlucci_ballistics.pdf",
+    "Ballistics: Theory and Design of Guns and Ammunition"
+   ],
+   "W67": [
+    "../engineering/books/W67_paul_emc.pdf",
+    "Introduction to Electromagnetic Compatibility"
+   ],
+   "E03": [
+    "../engineering/books/E03_Feedback-Systems_Astrom-Murray_2ed.pdf",
+    "E03"
+   ],
+   "E31": [
+    "../engineering/books/E31_Spectral-Analysis-of-Signals_Stoica-Moses_2005.pdf",
+    "E31"
+   ],
+   "E34": [
+    "../engineering/books/E34_Computer-Networking_Kurose-Ross_8ed.pdf",
+    "E34"
+   ],
+   "E39": [
+    "../engineering/books/E39_Mechanics-Thermodynamics-of-Propulsion_Hill-Peterson_2ed.pdf",
+    "E39"
+   ],
+   "X03": [
+    "free/X03_nielsen_directed_energy_weapons.pdf",
+    "Effects of Directed Energy Weapons"
+   ],
+   "X05": [
+    "free/X05_forster_preintegration_vio.pdf",
+    "On-Manifold Preintegration for Real-Time Visual-Inertial Odometry"
+   ],
+   "W57": [
+    "../engineering/free/W57_edge_quant_robustness_papers.pdf",
+    "Quantization and Training of NNs for Integer-Arithmetic-Only Inference; Towards Deep Learning Models Resistant to Adversarial Attacks; Benchmarking NN Robustness to Common Corruptions"
+   ],
+   "X13": [
+    "free/X13_reid_ship_underwater_explosions.pdf",
+    "The Response of Surface Ships to Underwater Explosions (DSTO-GD-0109)"
+   ],
+   "X18": [
+    "free/X18_alberts_hayes_understanding_c2.pdf",
+    "Understanding Command and Control"
+   ],
+   "X23": [
+    "free/X23_rubin_air_missile_defense_2014.pdf",
+    "Israel's Air and Missile Defense During the 2014 Gaza War (Mideast Security and Policy Studies 111)"
+   ],
+   "X28": [
+    "free/X28_glasstone_dolan_nuclear_weapons.pdf",
+    "The Effects of Nuclear Weapons"
+   ],
+   "X33": [
+    "free/X33_fm_3_12_cyber_ew_2021.pdf",
+    "FM 3-12, Cyberspace Operations and Electromagnetic Warfare"
+   ],
+   "X01": [
+    "free/X01_ietf_aodv_olsr_dtn_rfcs.pdf",
+    "IETF RFC 3561 (AODV), RFC 3626 (OLSR), RFC 4838 (DTN architecture)"
+   ],
+   "W38": [
+    "../engineering/free/W38_sze_efficient_dnn_processing.pdf",
+    "Efficient Processing of Deep Neural Networks: A Tutorial and Survey"
+   ],
+   "X14": [
+    "free/X14_tracy_wright_hypersonic_boost_glide.pdf",
+    "Modeling the Performance of Hypersonic Boost-Glide Missiles"
+   ],
+   "X24": [
+    "free/X24_holland_michel_counter_drone_systems.pdf",
+    "Counter-Drone Systems"
+   ],
+   "X29": [
+    "free/X29_glaser_gas_centrifuge.pdf",
+    "Characteristics of the Gas Centrifuge for Uranium Enrichment and Their Relevance for Nuclear Weapon Proliferation"
+   ],
+   "X06": [
+    "free/X06_canciani_magnav.pdf",
+    "Absolute Positioning Using the Earth's Magnetic Anomaly Field (PhD dissertation)"
+   ],
+   "X19": [
+    "free/X19_dsb_role_of_autonomy.pdf",
+    "The Role of Autonomy in DoD Systems"
+   ],
+   "X34": [
+    "free/X34_gao_19_128_weapon_systems_cyber.pdf",
+    "GAO-19-128, Weapon Systems Cybersecurity: DOD Just Beginning to Grapple with Scale of Vulnerabilities"
+   ],
+   "X21": [
+    "free/X21_dodd_3000_09_2012.pdf",
+    "DoD Directive 3000.09, Autonomy in Weapon Systems"
+   ],
+   "W12": [
+    "../engineering/free/W12_nist_sematech_handbook_ch5_7_8.pdf",
+    "NIST/SEMATECH e-Handbook of Statistical Methods (chapters 5, 7, 8 only)"
+   ],
+   "W13": [
+    "../engineering/free/W13_nrc_statistics_testing_acquisition.pdf",
+    "Statistics, Testing, and Defense Acquisition: New Approaches and Methodological Improvements"
+   ],
+   "X07": [
+    "free/X07_volpe_complementary_pnt.pdf",
+    "Complementary PNT and GPS Backup Technologies Demonstration Report (Sections 1 through 10)"
+   ],
+   "X10": [
+    "free/X10_nasa_sp8076_solid_grain.pdf",
+    "NASA SP-8076, Solid Propellant Grain Design and Internal Ballistics"
+   ],
+   "X15": [
+    "free/X15_crs_r45811_hypersonic.pdf",
+    "Hypersonic Weapons: Background and Issues for Congress (R45811)"
+   ],
+   "X20": [
+    "free/X20_dod_law_of_war_manual.pdf",
+    "Department of Defense Law of War Manual"
+   ],
+   "X25": [
+    "free/X25_pettyjohn_cnas_drones_ukraine.pdf",
+    "Evolution Not Revolution: Drone Warfare in Russia's 2022 Invasion of Ukraine"
+   ],
+   "X30": [
+    "free/X30_iaea_safeguards_glossary_2022.pdf",
+    "IAEA Safeguards Glossary, 2022 Edition"
+   ],
+   "X08": [
+    "free/X08_lavalle_planning_algorithms.pdf",
+    "Planning Algorithms"
+   ],
+   "X11": [
+    "free/X11_nrc_autonomous_vehicles_naval_ops.pdf",
+    "Autonomous Vehicles in Support of Naval Operations"
+   ],
+   "X16": [
+    "free/X16_crs_r46925_directed_energy.pdf",
+    "Department of Defense Directed Energy Weapons: Background and Issues for Congress (R46925)"
+   ],
+   "X26": [
+    "free/X26_fm_3_09_fire_support_fa_ops.pdf",
+    "FM 3-09, Fire Support and Field Artillery Operations"
+   ],
+   "X31": [
+    "free/X31_uk_wargaming_handbook.pdf",
+    "Wargaming Handbook"
+   ],
+   "X36": [
+    "free/X36_ufc_3_340_02_accidental_explosions.pdf",
+    "UFC 3-340-02, Structures to Resist the Effects of Accidental Explosions"
+   ],
+   "X02": [
+    "free/X02_mil_std_461g_464c.pdf",
+    "MIL-STD-461G (pp 1-280) and MIL-STD-464C (pp 281-445) bundled"
+   ],
+   "X04": [
+    "free/X04_dellaert_kaess_factor_graphs.pdf",
+    "Factor Graphs for Robot Perception"
+   ],
+   "X09": [
+    "free/X09_ebadi_subt_slam.pdf",
+    "Present and Future of SLAM in Extreme Environments: The DARPA SubT Challenge"
+   ]
+  }
+ },
+ "modules": {
+  "eng": {
+   "M28.5": [
+    {
+     "doc": "W65",
+     "pages": [
+      18,
+      267
+     ],
+     "note": "פרקים 1–7: מושגי זמן-אמת (1–2: deadline, jitter, anomalies), aperiodic (3, EDF/Horn), periodic: RM/EDF/RTA (4), fixed-priority servers (5), dynamic servers (6), resource protocols: PIP, PCP, SRP (7)",
+     "role": "main"
+    },
+    {
+     "doc": "W65",
+     "pages": [
+      366,
+      413
+     ],
+     "note": "פרק 10: Kernel design: interrupts, overhead (latency)",
+     "role": "main"
+    },
+    {
+     "doc": "W65",
+     "pages": [
+      436,
+      473
+     ],
+     "note": "פרק 12: RTOS וסטנדרטים (POSIX, commercial, Linux RT). הספר אינו מכסה סנכרון שעונים (NTP/PTP) ו-TSN",
+     "role": "main"
+    },
+    {
+     "doc": "A05.5",
+     "pages": [
+      11,
+      17
+     ],
+     "note": "1–3: יציבות תדר, מודל רעש, רעשי חוק-חזקה ומדדי יציבות",
+     "role": "main"
+    },
+    {
+     "doc": "A05.5",
+     "pages": [
+      19,
+      31
+     ],
+     "note": "5.1–5.2.10: Allan, modified Allan, time variance, חיזוי שגיאת זמן, Hadamard",
+     "role": "main"
+    },
+    {
+     "doc": "A05.5",
+     "pages": [
+      43,
+      46
+     ],
+     "note": "5.2.17–5.2.20: MTIE, TIE rms, jitter פאזה, יציבות דינמית",
+     "role": "main"
+    },
+    {
+     "doc": "W43",
+     "pages": [
+      70,
+      127
+     ],
+     "note": "פרק 3: ניהול משימות, עדיפויות, טיק, אלגוריתמי תזמון (fixed-priority preemptive)",
+     "role": "main"
+    },
+    {
+     "doc": "W43",
+     "pages": [
+      208,
+      291
+     ],
+     "note": "פרקים 6–7: ניהול פסיקות (deferred processing, nesting) וניהול משאבים (mutex, ירושת עדיפות, היפוך עדיפויות, gatekeeper)",
+     "role": "main"
+    },
+    {
+     "doc": "W43",
+     "pages": [
+      128,
+      173
+     ],
+     "note": "השלמה: פרק 4, תורים",
+     "role": "main"
+    }
+   ],
+   "M7.20": [
+    {
+     "doc": "W69",
+     "pages": [
+      109,
+      150
+     ],
+     "note": "פרק 2: Wiener filters: orthogonality, Wiener-Hopf, error surface, LCMV ו-generalized sidelobe canceller (2.8–2.9)",
+     "role": "main"
+    },
+    {
+     "doc": "W69",
+     "pages": [
+      218,
+      357
+     ],
+     "note": "פרקים 4–7: steepest descent וייצוב, stochastic gradient, LMS (התכנסות, misadjustment), NLMS ו-affine projection",
+     "role": "main"
+    },
+    {
+     "doc": "W69",
+     "pages": [
+      450,
+      474
+     ],
+     "note": "פרק 10: RLS, matrix inversion lemma, noise canceller, adaptive equalization (10.9)",
+     "role": "main"
+    },
+    {
+     "doc": "W69",
+     "pages": [
+      559,
+      594
+     ],
+     "note": "פרק 14: Kalman filters (מבט Kalman על RLS)",
+     "role": "main"
+    },
+    {
+     "doc": "W69",
+     "pages": [
+      695,
+      770
+     ],
+     "note": "פרק 17: Blind deconvolution (equalization עיוור, Bussgang)",
+     "role": "main"
+    }
+   ],
+   "M5.18": [
+    {
+     "doc": "W70",
+     "pages": [
+      31,
+      170
+     ],
+     "note": "פרקים 2–4: phase plane ו-limit cycles (2), ליאפונוב ו-LaSalle (3), Advanced stability: Barbalat, nonautonomous, absolute stability circle/Popov (4)",
+     "role": "main"
+    },
+    {
+     "doc": "W70",
+     "pages": [
+      171,
+      405
+     ],
+     "note": "פרקים 5–8: describing function (5), feedback linearization ו-zero dynamics (6), sliding control (7), adaptive control: MRAC ו-persistent excitation (8). בספר (מהדורת 1991) אין backstepping",
+     "role": "main"
+    }
+   ],
+   "M11.24": [
+    {
+     "doc": "W67",
+     "pages": [
+      38,
+      46
+     ],
+     "note": "1.4: Electrical dimensions and waves: מתי עקבה היא קו תמסורת",
+     "role": "main"
+    },
+    {
+     "doc": "W67",
+     "pages": [
+      73,
+      112
+     ],
+     "note": "פרק 2: דרישות EMC כולל צבאיות (2.1.3) ובדיקות פליטה/חסינות",
+     "role": "main"
+    },
+    {
+     "doc": "W67",
+     "pages": [
+      142,
+      165
+     ],
+     "note": "3.2: ספקטרום גלי שעון טרפזיים, rise time ורוחב סרט",
+     "role": "main"
+    },
+    {
+     "doc": "W67",
+     "pages": [
+      201,
+      322
+     ],
+     "note": "פרק 4: Transmission lines & signal integrity: microstrip/stripline PUL, החזרות, terminations",
+     "role": "main"
+    },
+    {
+     "doc": "W67",
+     "pages": [
+      323,
+      444
+     ],
+     "note": "פרקים 5–6: רכיבים לא-אידיאליים (ferrites, chokes), conducted emissions, מסנני ספק",
+     "role": "main"
+    },
+    {
+     "doc": "W67",
+     "pages": [
+      527,
+      776
+     ],
+     "note": "פרקים 8–10: פליטה/חסינות מוקרנת, crosstalk (9), shielding (10)",
+     "role": "main"
+    },
+    {
+     "doc": "W67",
+     "pages": [
+      777,
+      882
+     ],
+     "note": "פרק 11: System design for EMC: grounding, ground bounce, PCB, decoupling, ESD (11.4.8). PDN ו-eye diagram/ISI אינם בספר",
+     "role": "main"
+    }
+   ],
+   "M12.12": [
+    {
+     "doc": "W71",
+     "pages": [
+      9,
+      15
+     ],
+     "note": "תוכן עניינים מלא של המהדורה (מפה לפרקים החסרים: DC/DC, DCM, מבודדים, מודל ממוצע, בקרה, מגנטיקה, תלת-פאזי, EMI)",
+     "role": "main"
+    },
+    {
+     "doc": "W71",
+     "pages": [
+      23,
+      48
+     ],
+     "note": "פרקים 1–2: מבוא ו-Form and Function overview: סקירת ממירי DC/DC, AC/DC, AC/AC והשפעת מימוש המתג (רק מבוא לנושא 1 ו-3)",
+     "role": "main"
+    },
+    {
+     "doc": "W71",
+     "pages": [
+      49,
+      78
+     ],
+     "note": "פרק 3: Introduction to rectifiers (לא מנושאי המודול ישירות, רקע)",
+     "role": "main"
+    },
+    {
+     "doc": "W72",
+     "pages": [
+      24,
+      67
+     ],
+     "note": "Erickson פרק 2: עקרון volt-second ו-charge balance, ממירי buck/boost/buck-boost, ripple",
+     "role": "main"
+    },
+    {
+     "doc": "W72",
+     "pages": [
+      67,
+      99
+     ],
+     "note": "פרק 3: מודל מעגל שקול במצב מתמיד, הפסדים ויעילות (loss modeling)",
+     "role": "main"
+    },
+    {
+     "doc": "W72",
+     "pages": [
+      100,
+      138
+     ],
+     "note": "פרק 4: מימוש מתגים (MOSFET, דיודות, switching loss, סיכום התקנים; WBG רק בקצרה)",
+     "role": "main"
+    },
+    {
+     "doc": "W72",
+     "pages": [
+      139,
+      175
+     ],
+     "note": "פרק 5: מצב הולכה לא רציף DCM",
+     "role": "main"
+    },
+    {
+     "doc": "W72",
+     "pages": [
+      176,
+      215
+     ],
+     "note": "פרק 13: תורת המגנטיקה הבסיסית, שנאים ומשרנים",
+     "role": "main"
+    },
+    {
+     "doc": "W72",
+     "pages": [
+      257,
+      374
+     ],
+     "note": "פרק 6 (חלק III): מעגלי ממירים, כולל בידוד בשנאי: forward, flyback, גשר (עמ' 288-323)",
+     "role": "main"
+    },
+    {
+     "doc": "W73",
+     "pages": [
+      46,
+      72
+     ],
+     "note": "6.334 פרק 5: ממירי DC/DC, volt-second ו-charge balance (buck/boost/DCM בקצרה)",
+     "role": "main"
+    },
+    {
+     "doc": "W73",
+     "pages": [
+      115,
+      139
+     ],
+     "note": "6.622 הרצאות 5-8: DC/DC, תא מיתוג קנוני, DCM",
+     "role": "main"
+    },
+    {
+     "doc": "W73",
+     "pages": [
+      140,
+      163
+     ],
+     "note": "6.622 הרצאות 9-12: מגנטיקה (מעגלים מגנטיים, שנאים, השראות זליגה, הפסדי ליבה/סליל)",
+     "role": "main"
+    },
+    {
+     "doc": "W73",
+     "pages": [
+      164,
+      175
+     ],
+     "note": "6.622 הרצאות 13-14: ממירים מבודדים (forward, flyback)",
+     "role": "main"
+    },
+    {
+     "doc": "W73",
+     "pages": [
+      176,
+      185
+     ],
+     "note": "6.622 הרצאות 15-16: הפסדי מיתוג, snubbers, מודל תרמי וגוף קירור",
+     "role": "main"
+    },
+    {
+     "doc": "W73",
+     "pages": [
+      186,
+      228
+     ],
+     "note": "6.622 הרצאות 17-23: מהפכים (inverters), מיישרים, מערכות תלת-פאזיות ומהפכים תלת-פאזיים, PWM",
+     "role": "main"
+    },
+    {
+     "doc": "W73",
+     "pages": [
+      229,
+      258
+     ],
+     "note": "6.622 הרצאות 24-27: מודל ממוצע (AC equivalent circuit), בקרה ב-voltage mode ו-current mode",
+     "role": "main"
+    },
+    {
+     "doc": "W73",
+     "pages": [
+      259,
+      275
+     ],
+     "note": "6.622 הרצאות 28-30: מסנני EMI ו-input filters (CM+DM)",
+     "role": "main"
+    },
+    {
+     "doc": "W73",
+     "pages": [
+      307,
+      320
+     ],
+     "note": "6.622 הרצאות 37-38: מתאמי עכבה, gate drive, פריסה (WBG חלקית)",
+     "role": "main"
+    }
+   ],
+   "M7.19": [
+    {
+     "doc": "E02",
+     "pages": [
+      128,
+      149
+     ],
+     "note": "פרק 8: שערוך MMSE ו-LMMSE",
+     "role": "main"
+    },
+    {
+     "doc": "E02",
+     "pages": [
+      216,
+      250
+     ],
+     "note": "פרקים 13–14: בדיקת השערות (Bayes, Neyman-Pearson, ROC) וגילוי אות ברעש לבן",
+     "role": "main"
+    },
+    {
+     "doc": "B22",
+     "pages": [
+      49,
+      58
+     ],
+     "note": "4.5–4.6: סטטיסטים מספיקים",
+     "role": "main"
+    },
+    {
+     "doc": "B22",
+     "pages": [
+      62,
+      114
+     ],
+     "note": "פרק 5: שערוך פרמטרי: MMSE/MAP, MVU, Cramér-Rao, ML, פרמטרים מטרידים",
+     "role": "main"
+    },
+    {
+     "doc": "B22",
+     "pages": [
+      127,
+      148
+     ],
+     "note": "פרק 6: שערוך לינארי, LMMSE, ריבועים פחותים משוקללים, BLUE במודל גאוסי",
+     "role": "main"
+    },
+    {
+     "doc": "B22",
+     "pages": [
+      202,
+      239
+     ],
+     "note": "פרק 8: יסודות הגילוי: Bayes, Neyman-Pearson, ROC",
+     "role": "main"
+    },
+    {
+     "doc": "B22",
+     "pages": [
+      245,
+      280
+     ],
+     "note": "פרק 9: השערות מורכבות: UMP, GLRT",
+     "role": "main"
+    },
+    {
+     "doc": "B22",
+     "pages": [
+      327,
+      370
+     ],
+     "note": "פרק 12: גילוי במודל גאוסי רב-ממדי: prewhitening, אותות אקראיים, estimator-correlator",
+     "role": "main"
+    }
+   ],
+   "M5.22": [
+    {
+     "doc": "E03",
+     "pages": [
+      294,
+      295
+     ],
+     "note": "8.5 (חלק): מימוש ממוחשב של בקר מצב, דגימה ו-ZOH",
+     "role": "main"
+    },
+    {
+     "doc": "E03",
+     "pages": [
+      389,
+      397
+     ],
+     "note": "11.4–11.5: integral windup ו-anti-windup, מימוש בקר PID במחשב",
+     "role": "main"
+    },
+    {
+     "doc": "W22",
+     "pages": [
+      1,
+      93
+     ],
+     "note": "כולו",
+     "role": "main"
+    },
+    {
+     "doc": "W22",
+     "pages": [
+      11,
+      33
+     ],
+     "note": "פרקים 2–5: דגימה ושחזור (aliasing, prefilter), מודלים בדידים (ZOH מדויק, קטבים ואפסים של מערכת דגומה), תגובת תדר, מפרטי תכן",
+     "role": "main"
+    },
+    {
+     "doc": "W22",
+     "pages": [
+      34,
+      64
+     ],
+     "note": "פרקים 6–10: קירוב בקרים אנלוגיים, PID דיגיטלי, השמת קטבים/deadbeat, תכן אופטימלי (LQ)",
+     "role": "main"
+    },
+    {
+     "doc": "W22",
+     "pages": [
+      65,
+      88
+     ],
+     "note": "פרקים 11–13: נושאים מעשיים (קוונטיזציה, רוויה ו-anti-windup, bumpless transfer), מימוש בזמן אמת ותזמון הבקר (השהיה חישובית ו-jitter)",
+     "role": "main"
+    }
+   ],
+   "M11.25": [
+    {
+     "doc": "E09",
+     "pages": [
+      930,
+      949
+     ],
+     "note": "15.01–15.05: מתמרי מדידה: טמפרטורה, אור, מעוות ותזוזה, תאוצה/לחץ/כוח, שדה מגנטי",
+     "role": "main"
+    },
+    {
+     "doc": "B03",
+     "pages": [
+      280,
+      299
+     ],
+     "note": "8.1–8.6: סוגי גלאים, גלאי פוטונים ותרמיים, CCD, רספונסיביות ורגישות",
+     "role": "main"
+    },
+    {
+     "doc": "B03",
+     "pages": [
+      311,
+      319
+     ],
+     "note": "8.10–8.14: גלאי IR, רעש, BLIP ומערכים חדשים",
+     "role": "main"
+    },
+    {
+     "doc": "A05.6",
+     "pages": [
+      8,
+      20
+     ],
+     "note": "3–5: ג'ירו ומד-תאוצה MEMS, מאפייני שגיאה, Allan variance",
+     "role": "main"
+    }
+   ],
+   "M29.1": [
+    {
+     "doc": "E17",
+     "pages": [
+      221,
+      246
+     ],
+     "note": "פרק 12: טרנספורמרים: self-attention, קידוד מיקום, שכבת טרנספורמר, BERT, GPT-3, רצפים ארוכים, ViT",
+     "role": "main"
+    },
+    {
+     "doc": "W47",
+     "pages": [
+      135,
+      184
+     ],
+     "note": "Embeddings ו-Neural Networks",
+     "role": "main"
+    },
+    {
+     "doc": "W47",
+     "pages": [
+      185,
+      232
+     ],
+     "note": "Transformers and Pretraining (attention, positional encodings, scaling) ו-Post-training",
+     "role": "main"
+    },
+    {
+     "doc": "W47",
+     "pages": [
+      235,
+      283
+     ],
+     "note": "Masked LMs, Interpretability, Retrieval-based models, Agents",
+     "role": "main"
+    },
+    {
+     "doc": "W48",
+     "pages": [
+      1,
+      14
+     ],
+     "note": "RoFormer: קידוד מיקום סיבובי (RoPE), נגזרת ותכונות",
+     "role": "main"
+    },
+    {
+     "doc": "W48",
+     "pages": [
+      15,
+      48
+     ],
+     "note": "FlashAttention: עלות חישוב וזיכרון של attention, tiling ו-IO complexity (כולל נספחי אלגוריתם)",
+     "role": "main"
+    },
+    {
+     "doc": "W48",
+     "pages": [
+      49,
+      76
+     ],
+     "note": "DeepSeek-V3: ארכיטקטורה (MLA, DeepSeekMoE, איזון עומס בלי aux loss, MTP), תשתית ואימון FP8, יציבות אימון בקנה מידה",
+     "role": "main"
+    }
+   ],
+   "M22.13": [
+    {
+     "doc": "E22",
+     "pages": [
+      184,
+      194
+     ],
+     "note": "2.4: מספרים עם ובלי סימן",
+     "role": "main"
+    },
+    {
+     "doc": "E22",
+     "pages": [
+      218,
+      232
+     ],
+     "note": "2.8: פרוצדורות, מחסנית וערימה",
+     "role": "main"
+    },
+    {
+     "doc": "E22",
+     "pages": [
+      254,
+      283
+     ],
+     "note": "2.12–2.14: תרגום והפעלת תכנית (מהדר, אסמבלר, מקשר, טוען), דוגמת sort ב-C, מערכים מול מצביעים",
+     "role": "main"
+    },
+    {
+     "doc": "W03",
+     "pages": [
+      31,
+      274
+     ],
+     "note": "רמות 1–2: Level 1 Acquaintance (פרקים 3–8: בקרה, ביטויים, ערכים וטיפוסים, טיפוסים נגזרים, פונקציות, ספריית C) ו-Level 2 Cognition (פרקים 9–15: סגנון, מצביעים, מודל הזיכרון, אחסון, עיבוד ו-IO, כשלי תוכנית). Level 0 הוא עמ' 11–30",
+     "role": "main"
+    }
+   ],
+   "M28.3": [
+    {
+     "doc": "E25",
+     "pages": [
+      403,
+      446
+     ],
+     "note": "10.2–10.6: סידור מעגלים סטטיים (setup/hold, הטיית שעון), latch ו-flip-flop, מתודולוגיה, סינכרונייזרים ו-metastability",
+     "role": "main"
+    },
+    {
+     "doc": "E25",
+     "pages": [
+      663,
+      672
+     ],
+     "note": "14.4: זרימות תכן (סינתזה, place & route)",
+     "role": "main"
+    },
+    {
+     "doc": "E25",
+     "pages": [
+      697,
+      699
+     ],
+     "note": "15.3: עקרונות אימות לוגי",
+     "role": "main"
+    },
+    {
+     "doc": "E25",
+     "pages": [
+      726,
+      781
+     ],
+     "note": "נספח A.1–A.10: SystemVerilog/VHDL: לוגיקה צירופית וסדרתית, FSM, פרמטרים, זיכרון, testbench",
+     "role": "main"
+    }
+   ],
+   "M27.10": [
+    {
+     "doc": "E26",
+     "pages": [
+      72,
+      86
+     ],
+     "note": "4.3–4.4: פירוק לוגי (מודלים פונקציונליים וארכיטקטורה) והגדרת פתרון התכן",
+     "role": "main"
+    },
+    {
+     "doc": "E26",
+     "pages": [
+      140,
+      147
+     ],
+     "note": "6.2–6.3: ניהול דרישות ועקיבות, ניהול ממשקים",
+     "role": "main"
+    },
+    {
+     "doc": "E26",
+     "pages": [
+      215,
+      215
+     ],
+     "note": "נספח F: ניתוח פונקציונלי, תזמון ומצבים",
+     "role": "main"
+    },
+    {
+     "doc": "W44",
+     "pages": [
+      1,
+      185
+     ],
+     "note": "מצגת Intro to the SysML v2 Language (Textual Notation), כולה: ארכיטקטורת השפה (שקפים 3-4, עמ' 3-4), definitions/usages וחלקים (9-17), חיבורים, ports ו-interfaces (18-29), actions (30-47), states (48-56), requirements (86-91), analysis ו-trade study (92-95), verification (96-99), allocation (106), views/viewpoints (115-119)",
+     "role": "main"
+    },
+    {
+     "doc": "W44",
+     "pages": [
+      232,
+      379
+     ],
+     "note": "המפרט, פרק 7 Language Description (עמ' מודפס 47-194): סקירה, definition/usage (248-261), parts/ports/connections/interfaces (275-294), actions (302-329), states (330-339), requirements (346-353), analysis (355-357), verification (358-361), views (366-373), metadata (374-378)",
+     "role": "main"
+    },
+    {
+     "doc": "W44",
+     "pages": [
+      852,
+      874
+     ],
+     "note": "נספח A: דוגמת מודל מלאה (הגדרות, חלקים, actions, states, requirements, analysis, verification, view, variability)",
+     "role": "main"
+    }
+   ],
+   "M4.17": [
+    {
+     "doc": "E30",
+     "pages": [
+      192,
+      209
+     ],
+     "note": "4.6–4.7: שינוי קצב דגימה (דצימציה, אינטרפולציה), עיבוד רב-קצבי, פירוק פוליפאזי וזהויות noble",
+     "role": "main"
+    },
+    {
+     "doc": "W15",
+     "pages": [
+      1,
+      53
+     ],
+     "note": "מבט מסנני-בנק על STFT, DFT filter bank, STFT מדוגם-למטה, שחזור",
+     "role": "main"
+    },
+    {
+     "doc": "W15",
+     "pages": [
+      54,
+      85
+     ],
+     "note": "FFT filter banks: ערוצים, שיפור מסנני ערוץ, אוקטבות מהירות, aliasing בדצימציה",
+     "role": "main"
+    },
+    {
+     "doc": "W15",
+     "pages": [
+      86,
+      131
+     ],
+     "note": "Multirate: upsampling/downsampling, פירוק polyphase, זהויות נובל",
+     "role": "main"
+    },
+    {
+     "doc": "W15",
+     "pages": [
+      132,
+      153
+     ],
+     "note": "Critically sampled PR filter banks, perfect reconstruction, polyphase view of STFT, paraunitary",
+     "role": "main"
+    },
+    {
+     "doc": "W15",
+     "pages": [
+      154,
+      190
+     ],
+     "note": "MPEG filter banks (cosine modulated), wavelet/dyadic filter banks",
+     "role": "main"
+    }
+   ],
+   "M4.18": [
+    {
+     "doc": "E30",
+     "pages": [
+      395,
+      443
+     ],
+     "note": "6.6–6.10: השפעות דיוק סופי, קוונטיזציית מקדמים, רעש עיגול, מחזורי גבול",
+     "role": "main"
+    },
+    {
+     "doc": "E30",
+     "pages": [
+      686,
+      693
+     ],
+     "note": "9.7: השפעות אורך רגיסטר סופי ב-FFT",
+     "role": "main"
+    }
+   ],
+   "M22.15": [
+    {
+     "doc": "E34",
+     "pages": [
+      619,
+      669
+     ],
+     "note": "8.1–8.7: אבטחת רשתות: עקרונות קריפטוגרפיה, שלמות הודעה וחתימות, אימות, TLS, IPsec",
+     "role": "main"
+    },
+    {
+     "doc": "W32",
+     "pages": [
+      1,
+      413
+     ],
+     "note": "מבוא וחלק I: הצפנה, stream/block ciphers, CPA, MAC, hash, authenticated encryption",
+     "role": "main"
+    },
+    {
+     "doc": "W32",
+     "pages": [
+      414,
+      697
+     ],
+     "note": "חלק II פרקים 10–15: כלי מפתח ציבורי, הצפנת מפתח ציבורי, CCA, חתימות, hash-based signatures, עקומות אליפטיות",
+     "role": "main"
+    },
+    {
+     "doc": "W32",
+     "pages": [
+      869,
+      937
+     ],
+     "note": "פרק 21: Authenticated Key Exchange",
+     "role": "main"
+    },
+    {
+     "doc": "W33",
+     "pages": [
+      1,
+      56
+     ],
+     "note": "כולו",
+     "role": "main"
+    },
+    {
+     "doc": "W33",
+     "pages": [
+      10,
+      26
+     ],
+     "note": "קריאה ממוקדת: מבוא, סימונים וסקירת ML-KEM (פרקים 1–3)",
+     "role": "main"
+    },
+    {
+     "doc": "W33",
+     "pages": [
+      44,
+      49
+     ],
+     "note": "פרקים 7–8: אלגוריתמי ML-KEM וסטים של פרמטרים",
+     "role": "main"
+    }
+   ],
+   "M15.31": [
+    {
+     "doc": "E39",
+     "pages": [
+      26,
+      28
+     ],
+     "note": "1.4: מדחפים (תורת המומנטום)",
+     "role": "main"
+    },
+    {
+     "doc": "E39",
+     "pages": [
+      202,
+      208
+     ],
+     "note": "5.6: מנועי טורבו-פרופ וטורבו-ציר",
+     "role": "main"
+    }
+   ],
+   "M7.21": [
+    {
+     "doc": "E48",
+     "pages": [
+      59,
+      65
+     ],
+     "note": "3.6: דוגמאות למודלי מרחב מצב, כולל דיסקרטיזציה של מודל רציף עם רעש לבן",
+     "role": "main"
+    },
+    {
+     "doc": "E48",
+     "pages": [
+      226,
+      226
+     ],
+     "note": "13.2: נושאים נוספים: מסננים רציפים ו-SDE (הפניות בלבד)",
+     "role": "main"
+    },
+    {
+     "doc": "W11",
+     "pages": [
+      9,
+      133
+     ],
+     "note": "פרקים 1–7: מבוא, ODE, מבוא פרגמטי ל-SDE (Brownian, white noise, Langevin), חשבון Itô, Fokker-Planck, SDE לינאריות (מומנטים, דיסקרטיזציה מדויקת, OU), משפטים שימושיים",
+     "role": "main"
+    },
+    {
+     "doc": "W11",
+     "pages": [
+      134,
+      172
+     ],
+     "note": "פרק 8: סימולציה נומרית — Euler-Maruyama, Milstein, Runge-Kutta סטוכסטי",
+     "role": "main"
+    },
+    {
+     "doc": "W11",
+     "pages": [
+      205,
+      241
+     ],
+     "note": "פרק 10: סינון והחלקה, Kalman רציף-בדיד",
+     "role": "main"
+    },
+    {
+     "doc": "W11",
+     "pages": [
+      242,
+      258
+     ],
+     "note": "פרק 11: שערוך פרמטרים במודלי SDE",
+     "role": "main"
+    },
+    {
+     "doc": "W11",
+     "pages": [
+      259,
+      284
+     ],
+     "note": "פרק 12: SDE בלמידת מכונה (כולל diffusion models)",
+     "role": "main"
+    }
+   ],
+   "M27.11": [
+    {
+     "doc": "E52",
+     "pages": [
+      73,
+      87
+     ],
+     "note": "4.3: פיתוח מודל סיכון: עצי אירועים ועצי תקלות",
+     "role": "main"
+    },
+    {
+     "doc": "E52",
+     "pages": [
+      175,
+      183
+     ],
+     "note": "9.1–9.3: סיכון תוכנה, לקחים מכשלים וסיווג כשלי תוכנה",
+     "role": "main"
+    },
+    {
+     "doc": "E52",
+     "pages": [
+      333,
+      358
+     ],
+     "note": "נספחים A–B: לוגיקה ופונקציות מבנה, התפלגויות כשל, מעריכית, Weibull, Poisson, אי-זמינות",
+     "role": "main"
+    },
+    {
+     "doc": "E52",
+     "pages": [
+      373,
+      412
+     ],
+     "note": "נספח D: דוגמאות למידול PRA לוגי (עצי תקלות בפועל)",
+     "role": "main"
+    },
+    {
+     "doc": "W12",
+     "pages": [
+      599,
+      808
+     ],
+     "note": "פרק 8 כולו: Assessing Product Reliability (8.1 מבוא והתפלגויות 599-698, 8.2 הנחות 699-741, 8.3 איסוף נתונים 742-757, 8.4 ניתוח נתוני אמינות 758-808)",
+     "role": "main"
+    },
+    {
+     "doc": "W14",
+     "pages": [
+      83,
+      172
+     ],
+     "note": "פרק 5: תורת R/M/A: פונקציית סיכון, התפלגויות (exponential, Weibull, lognormal), מודלי כשל, בייס, maintainability ו-availability, trade-offs",
+     "role": "main"
+    },
+    {
+     "doc": "W14",
+     "pages": [
+      191,
+      246
+     ],
+     "note": "סעיף 6.4–6.5: מודלי אמינות ו-RBD (טורי, מקבילי, k-of-n), חיזוי אמינות כולל physics-of-failure (עמ׳ 216)",
+     "role": "main"
+    },
+    {
+     "doc": "W14",
+     "pages": [
+      248,
+      283
+     ],
+     "note": "סעיפים 7.2–7.3: ניהול רכיבים, מנגנוני כשל ו-derating (בסיס physics of failure)",
+     "role": "main"
+    },
+    {
+     "doc": "W14",
+     "pages": [
+      433,
+      467
+     ],
+     "note": "סעיפים 7.8–7.9: FMEA/FMECA ו-Fault Tree Analysis",
+     "role": "main"
+    },
+    {
+     "doc": "W14",
+     "pages": [
+      542,
+      710
+     ],
+     "note": "פרק 8: ניתוח נתוני אמינות כולל Weibull (8.3), הדגמת אמינות (8.4), reliability growth (8.5), בדיקות מואצות, HALT/HASS (8.7)",
+     "role": "main"
+    },
+    {
+     "doc": "W14",
+     "pages": [
+      711,
+      780
+     ],
+     "note": "פרק 9: Software reliability",
+     "role": "main"
+    },
+    {
+     "doc": "W14",
+     "pages": [
+      781,
+      900
+     ],
+     "note": "פרק 10: הנדסת אמינות מערכת: מודלי R&M למערכות ניתנות לתיקון (Markov), availability, הקצאת אמינות",
+     "role": "main"
+    }
+   ],
+   "M5.17": [
+    {
+     "doc": "B02a",
+     "pages": [
+      694,
+      720
+     ],
+     "note": "פרק 15.1–15.4: עקיבה, gating, שיוך, MHT, IMM, VS-IMM, עקיבה רב-חיישנית",
+     "role": "main"
+    },
+    {
+     "doc": "A02.3",
+     "pages": [
+      1,
+      12
+     ],
+     "note": "כל המאמר: Labeled RFS, מסנן δ-GLMB, עדכון וחיזוי, קיטום, דוגמה נומרית (בלי ביבליוגרפיה)",
+     "role": "main"
+    }
+   ],
+   "M10.12": [
+    {
+     "doc": "B19",
+     "pages": [
+      347,
+      361
+     ],
+     "note": "פרק 20: זרמים באנטנות לינאריות: משוואות Hallén ו-Pocklington, פתרון נומרי (פונקציות פולס, MoM)",
+     "role": "main"
+    },
+    {
+     "doc": "B19",
+     "pages": [
+      374,
+      376
+     ],
+     "note": "21.6: משוואות Hallén לאנטנות צמודות ופתרונן הנומרי",
+     "role": "main"
+    },
+    {
+     "doc": "W27",
+     "pages": [
+      37,
+      152
+     ],
+     "note": "פרקים 3–5: מבוא ל-FDTD, רשת Yee ו-leapfrog (37), שיפור הקוד, מקורות, יציבות והתפזרות מספרית (81), קנה מידה לכל תדר (121)",
+     "role": "main"
+    },
+    {
+     "doc": "W27",
+     "pages": [
+      189,
+      250
+     ],
+     "note": "פרק 8: סימולציות דו-ממדיות",
+     "role": "main"
+    },
+    {
+     "doc": "W27",
+     "pages": [
+      317,
+      332
+     ],
+     "note": "פרק 11: PML",
+     "role": "main"
+    },
+    {
+     "doc": "W27",
+     "pages": [
+      359,
+      384
+     ],
+     "note": "פרק 14: טרנספורמציית near-to-far field",
+     "role": "main"
+    },
+    {
+     "doc": "W27",
+     "pages": [
+      153,
+      168
+     ],
+     "note": "תוספת מעבר להמלצה: פרק 6, ABC דיפרנציאלי (Mur)",
+     "role": "main"
+    },
+    {
+     "doc": "W27",
+     "pages": [
+      299,
+      316
+     ],
+     "note": "תוספת מעבר להמלצה: פרק 10, חומרים מתפזרים. אין בספר MoM/FEM",
+     "role": "main"
+    }
+   ],
+   "M24.14": [
+    {
+     "doc": "A05.5",
+     "pages": [
+      11,
+      17
+     ],
+     "note": "1–3: יציבות תדר, מודל רעש ומדדי יציבות",
+     "role": "main"
+    },
+    {
+     "doc": "A05.5",
+     "pages": [
+      19,
+      26
+     ],
+     "note": "5.1–5.2.4: גרף σ-τ, Allan ו-Allan חופף",
+     "role": "main"
+    },
+    {
+     "doc": "W28",
+     "pages": [
+      1,
+      36
+     ],
+     "note": "כולו (גוף המאמר): הגדרות, סוגי חיישנים קוונטיים (III: אטומים, NV, SQUID, שעונים), פרוטוקול חישה ו-Ramsey (IV), רגישות, SQL ורעש (V), חישת AC וספקטרוסקופיית רעש (VI–VII), חישה בעזרת שזירה ו-Heisenberg (IX–X); עמ׳ 37–104 הם רשימת המקורות",
+     "role": "main"
+    }
+   ],
+   "M28.1": [
+    {
+     "doc": "W74",
+     "pages": [
+      1,
+      72
+     ],
+     "note": "DDCA L13: Precise exceptions, reorder buffer",
+     "role": "main"
+    },
+    {
+     "doc": "W74",
+     "pages": [
+      73,
+      236
+     ],
+     "note": "DDCA L14-L15a: ביצוע Out-of-Order, Tomasulo, renaming, ROB, dataflow ו-superscalar",
+     "role": "main"
+    },
+    {
+     "doc": "W74",
+     "pages": [
+      237,
+      591
+     ],
+     "note": "DDCA L15b+L16: ניבוי הסתעפויות, ניבוי מתקדם (TAGE/perceptron), עלות control hazards",
+     "role": "main"
+    },
+    {
+     "doc": "W74",
+     "pages": [
+      592,
+      604
+     ],
+     "note": "DDCA L15c: טיפול ב-load/store ב-OoO, memory disambiguation",
+     "role": "main"
+    },
+    {
+     "doc": "W74",
+     "pages": [
+      605,
+      736
+     ],
+     "note": "DDCA L23a-b: מטמונים מתקדמים ובעיות multicore בקאש",
+     "role": "main"
+    },
+    {
+     "doc": "W74",
+     "pages": [
+      737,
+      813
+     ],
+     "note": "ACA L20b: multiprocessors, סנכרון (locks, spin)",
+     "role": "main"
+    },
+    {
+     "doc": "W74",
+     "pages": [
+      814,
+      864
+     ],
+     "note": "ACA L21a: memory ordering / consistency (SC, relaxed)",
+     "role": "main"
+    },
+    {
+     "doc": "W74",
+     "pages": [
+      865,
+      973
+     ],
+     "note": "ACA L21b: cache coherence: snooping, MESI/MOESI, directory",
+     "role": "main"
+    },
+    {
+     "doc": "W74",
+     "pages": [
+      974,
+      1098
+     ],
+     "note": "ACA L33: Cache design and management (replacement, MSHR, prefetch)",
+     "role": "main"
+    },
+    {
+     "doc": "W74",
+     "pages": [
+      1099,
+      1186
+     ],
+     "note": "ACA L34: Speculation (branch, value, memory dependence, speculative sync)",
+     "role": "main"
+    },
+    {
+     "doc": "W76",
+     "pages": [
+      29,
+      40
+     ],
+     "note": "פרק 2: יסודות הקוהרנטיות",
+     "role": "main"
+    },
+    {
+     "doc": "W76",
+     "pages": [
+      41,
+      107
+     ],
+     "note": "פרקים 3-5: מודלי עקביות זיכרון: SC, TSO/x86, relaxed (כולל סנכרון)",
+     "role": "main"
+    },
+    {
+     "doc": "W76",
+     "pages": [
+      108,
+      206
+     ],
+     "note": "פרקים 6-8: פרוטוקולי קוהרנטיות, snooping (MSI/MESI/MOESI) ו-directory",
+     "role": "main"
+    },
+    {
+     "doc": "W76",
+     "pages": [
+      207,
+      267
+     ],
+     "note": "פרקים 9-11: נושאים מתקדמים (היררכיות, false sharing, DMA), עקביות וקוהרנטיות ב-GPU והטרוגניות, אימות מודלים",
+     "role": "main"
+    }
+   ],
+   "M28.2": [
+    {
+     "doc": "W75",
+     "pages": [
+      1,
+      85
+     ],
+     "note": "DDCA L17b: מערכי systolic",
+     "role": "main"
+    },
+    {
+     "doc": "W75",
+     "pages": [
+      86,
+      215
+     ],
+     "note": "DDCA L18: SIMD / vector",
+     "role": "main"
+    },
+    {
+     "doc": "W75",
+     "pages": [
+      216,
+      395
+     ],
+     "note": "DDCA L19-L20a: ארכיטקטורת GPU: SM, warps, הסתרת latency",
+     "role": "main"
+    },
+    {
+     "doc": "W75",
+     "pages": [
+      396,
+      515
+     ],
+     "note": "ACA L31: תכנות GPU/CUDA, coalescing, shared-memory tiling, histogram, reduction, streams",
+     "role": "main"
+    },
+    {
+     "doc": "W79",
+     "pages": [
+      1,
+      16
+     ],
+     "note": "Roofline (Williams, Waterman, Patterson)",
+     "role": "main"
+    },
+    {
+     "doc": "W79",
+     "pages": [
+      17,
+      23
+     ],
+     "note": "AI and Memory Wall: קיר הזיכרון ו-HBM",
+     "role": "main"
+    },
+    {
+     "doc": "W79",
+     "pages": [
+      24,
+      93
+     ],
+     "note": "דפוסים מקביליים ב-CUDA: reduction (Harris), scan, SpMV (Bell and Garland)",
+     "role": "main"
+    },
+    {
+     "doc": "W79",
+     "pages": [
+      94,
+      265
+     ],
+     "note": "Tensor cores, mixed precision, פורמטים נומריים; Volta ו-Ampere whitepapers (SM, tensor cores, HBM2, NVLink, async copy)",
+     "role": "main"
+    },
+    {
+     "doc": "W79",
+     "pages": [
+      266,
+      282
+     ],
+     "note": "TPU: מערך systolic ו-dataflow ל-DNN",
+     "role": "main"
+    },
+    {
+     "doc": "W79",
+     "pages": [
+      283,
+      320
+     ],
+     "note": "Triton, TVM, Halide: קומפיילרים ו-DSL, fusion של kernels",
+     "role": "main"
+    },
+    {
+     "doc": "W37",
+     "pages": [
+      21,
+      38
+     ],
+     "note": "Programming Guide: מבוא ו-Programming Model (threads, blocks, היררכיית זיכרון)",
+     "role": "main"
+    },
+    {
+     "doc": "W37",
+     "pages": [
+      39,
+      93
+     ],
+     "note": "Intro to CUDA C++ ו-Writing SIMT Kernels: shared memory, coalescing, סנכרון",
+     "role": "main"
+    },
+    {
+     "doc": "W37",
+     "pages": [
+      124,
+      156
+     ],
+     "note": "Asynchronous execution, Unified/system memory",
+     "role": "main"
+    },
+    {
+     "doc": "W37",
+     "pages": [
+      779,
+      852
+     ],
+     "note": "Best Practices: heterogeneous computing, profiling, performance metrics, memory optimizations, execution configuration, instruction optimization",
+     "role": "main"
+    },
+    {
+     "doc": "W38",
+     "pages": [
+      11,
+      19
+     ],
+     "note": "§V–VI: חומרה לעיבוד DNN (CPU/GPU, Toeplitz/FFT, dataflows של מאיצים: weight/output/row stationary, מערכים סיסטוליים) ועיבוד קרוב לזיכרון",
+     "role": "main"
+    }
+   ],
+   "M28.4": [
+    {
+     "doc": "W75",
+     "pages": [
+      516,
+      637
+     ],
+     "note": "ACA L22: Interconnects: טופולוגיות וניתוב",
+     "role": "main"
+    },
+    {
+     "doc": "W75",
+     "pages": [
+      638,
+      946
+     ],
+     "note": "ACA L23: On-chip networks: טופולוגיות, ניתוב, flow control, deadlock",
+     "role": "main"
+    },
+    {
+     "doc": "W77",
+     "pages": [
+      1,
+      77
+     ],
+     "note": "פרק Serial Links (Palermo) + הרצאה 1: ארכיטקטורת SerDes, קידוד קו",
+     "role": "main"
+    },
+    {
+     "doc": "W77",
+     "pages": [
+      78,
+      191
+     ],
+     "note": "הרצאות 2-4: ערוץ, S-parameters, מודל pulse response, ISI",
+     "role": "main"
+    },
+    {
+     "doc": "W77",
+     "pages": [
+      192,
+      333
+     ],
+     "note": "הרצאות 5-6: TX driver, מקלט, PAM4 RX",
+     "role": "main"
+    },
+    {
+     "doc": "W77",
+     "pages": [
+      334,
+      419
+     ],
+     "note": "הרצאות 7-8: אקולייזציה: TX FFE, CTLE, DFE, adaptive (NRZ/PAM4)",
+     "role": "main"
+    },
+    {
+     "doc": "W77",
+     "pages": [
+      420,
+      492
+     ],
+     "note": "הרצאות 9-10: רעש וג'יטר: פירוק ג'יטר (RJ/DJ), BER, bathtub",
+     "role": "main"
+    },
+    {
+     "doc": "W77",
+     "pages": [
+      493,
+      657
+     ],
+     "note": "הרצאות 11-12: PLL, שעון, CDR",
+     "role": "main"
+    },
+    {
+     "doc": "W77",
+     "pages": [
+      743,
+      842
+     ],
+     "note": "הרצאות 15-16: חיבורי die-to-die (chiplet) ואופטי (optical I/O)",
+     "role": "main"
+    },
+    {
+     "doc": "W78",
+     "pages": [
+      1,
+      35
+     ],
+     "note": "Das Sharma: מבוא ל-CXL: שכבות PCIe/CXL, TLP, flow control, coherent memory",
+     "role": "main"
+    },
+    {
+     "doc": "W78",
+     "pages": [
+      36,
+      65
+     ],
+     "note": "סקר CXL ו-Demystifying CXL: מדידות latency/bandwidth של זיכרון CXL",
+     "role": "main"
+    },
+    {
+     "doc": "W78",
+     "pages": [
+      66,
+      80
+     ],
+     "note": "הערכת חיבורי GPU: PCIe, NVLink, NVSwitch, GPUDirect",
+     "role": "main"
+    },
+    {
+     "doc": "W78",
+     "pages": [
+      81,
+      95
+     ],
+     "note": "PCIe-bench: ביצועי PCIe בפועל (TLP, credits, overheads)",
+     "role": "main"
+    },
+    {
+     "doc": "W78",
+     "pages": [
+      96,
+      173
+     ],
+     "note": "PCIe 6.0: PAM4, flits, FEC/CRC/retry (שלוש הרצאות)",
+     "role": "main"
+    },
+    {
+     "doc": "W78",
+     "pages": [
+      174,
+      181
+     ],
+     "note": "NVSwitch technical overview",
+     "role": "main"
+    },
+    {
+     "doc": "W79",
+     "pages": [
+      184,
+      265
+     ],
+     "note": "Ampere whitepaper: NVLink/NVSwitch scale-up ואחסון (חלקי)",
+     "role": "main"
+    },
+    {
+     "doc": "W39",
+     "pages": [
+      1,
+      35
+     ],
+     "note": "כולו: CXL מעל PCIe, פרוטוקולים, קוהרנטיות. אין בו SerDes/PAM4/NVLink",
+     "role": "main"
+    }
+   ],
+   "M0.3": [
+    {
+     "doc": "W01",
+     "pages": [
+      7,
+      232
+     ],
+     "note": "פרקים 1–8: Getting Started, Unix shell (2–4), כלי שורת פקודה בפייתון (5), git בשורת הפקודה וענפים/merge (6–7), עבודה בצוות (8)",
+     "role": "main"
+    },
+    {
+     "doc": "W01",
+     "pages": [
+      272,
+      322
+     ],
+     "note": "פרקים 11–12: Testing Software (pytest, בדיקת קוד נומרי עם סובלנות) ו-Handling Errors",
+     "role": "main"
+    },
+    {
+     "doc": "W01",
+     "pages": [
+      323,
+      370
+     ],
+     "note": "פרקים 13–14: Tracking Provenance (שחזוריות) ו-Creating Packages (סביבות ותלויות)",
+     "role": "main"
+    },
+    {
+     "doc": "W01",
+     "pages": [
+      483,
+      486
+     ],
+     "note": "נספח I: Anaconda (סביבות conda)",
+     "role": "main"
+    },
+    {
+     "doc": "W02",
+     "pages": [
+      47,
+      121
+     ],
+     "note": "חלק 2 (NumPy): טיפוסי נתונים, יסודות מערכים, ufuncs, אגרגציות, broadcasting, מסכות, fancy indexing, מיון, מערכים מובנים",
+     "role": "main"
+    },
+    {
+     "doc": "W02",
+     "pages": [
+      260,
+      376
+     ],
+     "note": "חלק 4 (Matplotlib): קווים, פיזור, שגיאות, קונטור, היסטוגרמות, מקראות, subplots, הערות, סגנונות, תלת-ממד, Seaborn",
+     "role": "main"
+    },
+    {
+     "doc": "W02",
+     "pages": [
+      32,
+      46
+     ],
+     "note": "השלמה: 1.06–1.07 דיבוג, מדידת זמן ופרופיילינג (ביצועים)",
+     "role": "main"
+    }
+   ],
+   "M8.24": [
+    {
+     "doc": "W06",
+     "pages": [
+      81,
+      96
+     ],
+     "note": "Local Descent: line search, approximate line search ותנאי Wolfe, trust region",
+     "role": "main"
+    },
+    {
+     "doc": "W06",
+     "pages": [
+      115,
+      132
+     ],
+     "note": "Second-Order Methods: Newton, secant, Levenberg-Marquardt (כולל sum of squares / Gauss-Newton), quasi-Newton BFGS ו-L-BFGS",
+     "role": "main"
+    },
+    {
+     "doc": "W06",
+     "pages": [
+      155,
+      182
+     ],
+     "note": "Stochastic Methods: חיפוש גלובלי בבעיות לא קמורות (initialization, restarts)",
+     "role": "main"
+    },
+    {
+     "doc": "W06",
+     "pages": [
+      203,
+      228
+     ],
+     "note": "Constraints: Lagrange, KKT, penalty, method of multipliers (augmented Lagrangian), interior point",
+     "role": "main"
+    },
+    {
+     "doc": "W06",
+     "pages": [
+      293,
+      316
+     ],
+     "note": "Quadratic Programming: תת-הבעיה של SQP, least squares עם אילוצים",
+     "role": "main"
+    },
+    {
+     "doc": "W06",
+     "pages": [
+      483,
+      508
+     ],
+     "note": "Discrete Optimization: integer programs, rounding, cutting planes, branch and bound",
+     "role": "main"
+    },
+    {
+     "doc": "W07",
+     "pages": [
+      1,
+      30
+     ],
+     "note": "כולו: 58 עמודים מודפסים על 30 עמודי PDF (שני עמודים בכל עמוד)",
+     "role": "main"
+    },
+    {
+     "doc": "W07",
+     "pages": [
+      4,
+      9
+     ],
+     "note": "פרק 2: שיטות ירידה, ניוטון, חיפוש קו (2.3) ואזור אמון ושיטות מרוסנות (2.4)",
+     "role": "main"
+    },
+    {
+     "doc": "W07",
+     "pages": [
+      10,
+      26
+     ],
+     "note": "פרק 3: ריבועים פחותים לא ליניאריים: Gauss–Newton, Levenberg–Marquardt, Dog Leg, היברידי LM/quasi-Newton, גרסאות secant",
+     "role": "main"
+    }
+   ],
+   "M5.16": [
+    {
+     "doc": "W16",
+     "pages": [
+      120,
+      202
+     ],
+     "note": "הרצאות 5–8: least squares, יישומים, regularized LS, least-norm",
+     "role": "main"
+    },
+    {
+     "doc": "W16",
+     "pages": [
+      229,
+      255
+     ],
+     "note": "הרצאה 10: matrix exponential ופתרון ODE לינארי",
+     "role": "main"
+    },
+    {
+     "doc": "W16",
+     "pages": [
+      306,
+      344
+     ],
+     "note": "הרצאה 13: מערכות לינאריות עם כניסה ויציאה, פונקציית תמסורת, similarity transforms",
+     "role": "main"
+    },
+    {
+     "doc": "W16",
+     "pages": [
+      392,
+      412
+     ],
+     "note": "הרצאה 16: SVD, gain directions",
+     "role": "main"
+    },
+    {
+     "doc": "W16",
+     "pages": [
+      428,
+      496
+     ],
+     "note": "הרצאות 18–19: reachability, minimum-energy control, Gramians; observability ושערוך מצב least-squares",
+     "role": "main"
+    },
+    {
+     "doc": "W17",
+     "pages": [
+      34,
+      47
+     ],
+     "note": "פרק 4: נורמות מטריצה ו-SVD (ריבועים פחותים ונורמה מינימלית: גם פרקים 2–3, עמ' 13–33)",
+     "role": "main"
+    },
+    {
+     "doc": "W17",
+     "pages": [
+      94,
+      151
+     ],
+     "note": "פרקים 10–14: מודלי מצב בדידים ורציפים, אקספוננט מטריצה, פירוק מודאלי, יציבות ליאפונוב ומשוואת ליאפונוב",
+     "role": "main"
+    },
+    {
+     "doc": "W17",
+     "pages": [
+      337,
+      356
+     ],
+     "note": "במקום פרק 16 (לא פורסם ב-OCW): שקפי הרצאות 12–13, יציבות קלט-פלט ונורמות מערכת",
+     "role": "main"
+    },
+    {
+     "doc": "W17",
+     "pages": [
+      240,
+      285
+     ],
+     "note": "פרקים 22, 24–26: ישיגות, צפיות, מימוש מינימלי ופירוק קלמן, מימוש מאוזן וקיטום מאוזן",
+     "role": "main"
+    },
+    {
+     "doc": "W17",
+     "pages": [
+      357,
+      368
+     ],
+     "note": "במקום פרק 23 (לא פורסם): שקפי הרצאה 20, ישיגות וצפיות, צורות קנוניות",
+     "role": "main"
+    },
+    {
+     "doc": "W17",
+     "pages": [
+      369,
+      409
+     ],
+     "note": "השלמה: שקפי הרצאות 24–25, סינתזת H2 (LQR/קלמן בצורה מטריצית) ו-H∞",
+     "role": "main"
+    }
+   ],
+   "M5.20": [
+    {
+     "doc": "W21",
+     "pages": [
+      60,
+      87
+     ],
+     "note": "פרק 3: שיטות nonparametric — transient, frequency, correlation, spectral analysis",
+     "role": "main"
+    },
+    {
+     "doc": "W21",
+     "pages": [
+      124,
+      173
+     ],
+     "note": "פרק 5: אותות כניסה — persistent excitation, PRBS (כולל נספח C5.3)",
+     "role": "main"
+    },
+    {
+     "doc": "W21",
+     "pages": [
+      174,
+      212
+     ],
+     "note": "פרק 6: מבני מודל (ARX, ARMAX, OE, BJ), identifiability",
+     "role": "main"
+    },
+    {
+     "doc": "W21",
+     "pages": [
+      213,
+      287
+     ],
+     "note": "פרק 7: prediction-error method, ניתוח תיאורטי ושונות אסימפטוטית",
+     "role": "main"
+    },
+    {
+     "doc": "W21",
+     "pages": [
+      409,
+      449
+     ],
+     "note": "פרק 10: זיהוי במעגל סגור (direct, indirect, joint input-output)",
+     "role": "main"
+    },
+    {
+     "doc": "W21",
+     "pages": [
+      450,
+      495
+     ],
+     "note": "פרק 11: model validation ובחירת סדר (parsimony, AIC/FPE)",
+     "role": "main"
+    },
+    {
+     "doc": "W21",
+     "pages": [
+      496,
+      538
+     ],
+     "note": "פרק 12: היבטים מעשיים — תכנון ניסוי, drift, time delays, local minima, robustness",
+     "role": "main"
+    }
+   ],
+   "M23.19": [
+    {
+     "doc": "W26",
+     "pages": [
+      1,
+      8
+     ],
+     "note": "כולו: סקירת NR — numerology, מבנה מסגרת, ערוצים, LDPC/polar, beam management, initial access",
+     "role": "main"
+    },
+    {
+     "doc": "W25",
+     "pages": [
+      1,
+      272
+     ],
+     "note": "כולו",
+     "role": "main"
+    }
+   ],
+   "M29.3": [
+    {
+     "doc": "W52",
+     "pages": [
+      1,
+      249
+     ],
+     "note": "כולו: IFT/SFT, reward modeling, RL (PPO, GRPO), reasoning ו-inference-time scaling, DPO, rejection sampling, distillation, regularization, evaluation",
+     "role": "main"
+    },
+    {
+     "doc": "W53",
+     "pages": [
+      10,
+      22
+     ],
+     "note": "DeepSeekMath פרקים 3–5: SFT, GRPO (נגזרת והשוואה ל-PPO), ודיון בתובנות RL",
+     "role": "main"
+    },
+    {
+     "doc": "W53",
+     "pages": [
+      31,
+      116
+     ],
+     "note": "DeepSeek-R1: R1-Zero (RL עם תגמולים ניתנים לאימות), צנרת R1, השוואת GRPO ו-PPO, reward hacking, test-time compute ואורך CoT, זיקוק, הערכה ובטיחות",
+     "role": "main"
+    }
+   ],
+   "M29.7": [
+    {
+     "doc": "W57",
+     "pages": [
+      1,
+      14
+     ],
+     "note": "Jacob et al.: quantization לאריתמטיקת שלמים",
+     "role": "main"
+    },
+    {
+     "doc": "W57",
+     "pages": [
+      15,
+      42
+     ],
+     "note": "Madry et al.: adversarial robustness, PGD",
+     "role": "main"
+    },
+    {
+     "doc": "W57",
+     "pages": [
+      43,
+      58
+     ],
+     "note": "Hendrycks & Dietterich: ImageNet-C/P, corruptions",
+     "role": "main"
+    },
+    {
+     "doc": "W38",
+     "pages": [
+      1,
+      32
+     ],
+     "note": "כולו",
+     "role": "main"
+    },
+    {
+     "doc": "W38",
+     "pages": [
+      20,
+      27
+     ],
+     "note": "§VII–VIII: הפחתת דיוק (קוונטיזציה), גיזום ודחיסה, ארכיטקטורות יעילות, מדדי benchmarking",
+     "role": "main"
+    }
+   ],
+   "M15.32": [
+    {
+     "doc": "W62",
+     "pages": [
+      1,
+      25
+     ],
+     "note": "דף הבית, הערות שימוש, Implementing Turbulence Models into Compressible RANS, Notes on running the cases, Model Readiness",
+     "role": "main"
+    },
+    {
+     "doc": "W62",
+     "pages": [
+      26,
+      97
+     ],
+     "note": "דפי מודלים: SA, SST, BSL, Wilcox k-ω, k-ε Chien, k-kL, Wray-Agarwal, GEKO, EASM, k-ε-Rt, RSM (SSG/LRR, stress-ω), Langtry-Menter",
+     "role": "main"
+    },
+    {
+     "doc": "W62",
+     "pages": [
+      98,
+      256
+     ],
+     "note": "Verification: flat plate, coflowing jet, bump-in-channel, airfoil near-wake, multielement, 3D bump, עם תוצאות SA/SST והתכנסות רשת",
+     "role": "main"
+    },
+    {
+     "doc": "W62",
+     "pages": [
+      257,
+      283
+     ],
+     "note": "דוגמאות validation: NACA 0012, backward-facing step, NASA hump",
+     "role": "main"
+    },
+    {
+     "doc": "W62",
+     "pages": [
+      284,
+      285
+     ],
+     "note": "Guideline לתיאור מודל טורבולנציה",
+     "role": "main"
+    }
+   ],
+   "M5.21": [
+    {
+     "doc": "W17",
+     "pages": [
+      164,
+      239
+     ],
+     "note": "פרקים 17–21: מערכות מקושרות ומשוב, ביצועים, יציבות חסינה SISO ו-MIMO (small gain), ביצועים חסינים ו-μ",
+     "role": "main"
+    },
+    {
+     "doc": "W17",
+     "pages": [
+      286,
+      296
+     ],
+     "note": "פרק 27: קטבים ואפסים של מערכות MIMO וכיווניהם",
+     "role": "main"
+    },
+    {
+     "doc": "W17",
+     "pages": [
+      397,
+      409
+     ],
+     "note": "השלמה: שקפי הרצאה 25, סינתזת H∞",
+     "role": "main"
+    },
+    {
+     "doc": "W18",
+     "pages": [
+      83,
+      134
+     ],
+     "note": "פרק 3: מבוא לבקרה רב-משתנית (SVD, RGA, ערך סינגולרי, שחרור קשירה)",
+     "role": "main"
+    },
+    {
+     "doc": "W18",
+     "pages": [
+      179,
+      470
+     ],
+     "note": "פרקים 5–10: מגבלות ביצועים SISO (179), מגבלות MIMO (237), אי-ודאות ועמידות SISO (275), יציבות וביצועים עמידים MIMO ו-mu (305), תכנון בקרים H-infinity ו-loop shaping (357), תכנון מבנה בקרה (399). נספח A (נורמות ומטריצות) בעמ' 531",
+     "role": "main"
+    }
+   ],
+   "M19.12": [
+    {
+     "doc": "W29",
+     "pages": [
+      357,
+      458
+     ],
+     "note": "חלק V, פרקים 14–16: מצלמת חריר וכיול, מודלים לטרנספורמציות (הומוגרפיה, RANSAC), מצלמות מרובות (גאומטריה אפיפולרית, מטריצות E/F, טריאנגולציה, SfM ו-bundle adjustment)",
+     "role": "main"
+    },
+    {
+     "doc": "W29",
+     "pages": [
+      539,
+      572
+     ],
+     "note": "השלמה: פרק 19, מודלים טמפורליים (פילטר קלמן ומעקב), רקע ל-SLAM/VIO",
+     "role": "main"
+    },
+    {
+     "doc": "W29",
+     "pages": [
+      603,
+      614
+     ],
+     "note": "השלמה: נספח אופטימיזציה (Gauss-Newton/LM ל-bundle adjustment)",
+     "role": "main"
+    },
+    {
+     "doc": "W30",
+     "pages": [
+      257,
+      492
+     ],
+     "note": "פרקים 7–10: גאומטריה תלת-ממדית (257), חבורות לי מטריציות (299), בעיות הערכת פוזה (397), בעיות הערכת פוזה ונקודות: bundle adjustment, SLAM (455)",
+     "role": "main"
+    },
+    {
+     "doc": "W31",
+     "pages": [
+      1,
+      17
+     ],
+     "note": "כולו: תורת Lie מצומצמת (SO(3), SE(3), Jacobians על יריעות) ודוגמת לוקליזציה ומיפוי עם landmarks (פרק V, עמ׳ 12)",
+     "role": "main"
+    }
+   ],
+   "M29.8": [
+    {
+     "doc": "W58",
+     "pages": [
+      1,
+      58
+     ],
+     "note": "הרצאות 1–2: מסגור בעיית ML ודרישות מערכת, הנדסת נתונים",
+     "role": "main"
+    },
+    {
+     "doc": "W58",
+     "pages": [
+      59,
+      107
+     ],
+     "note": "הרצאות 3–4: נתוני אימון (דגימה ותיוג), הנדסת תכונות ודליפה",
+     "role": "main"
+    },
+    {
+     "doc": "W58",
+     "pages": [
+      108,
+      146
+     ],
+     "note": "הרצאות 5–6: פיתוח מודל, הערכה offline מעבר לדיוק",
+     "role": "main"
+    },
+    {
+     "doc": "W58",
+     "pages": [
+      147,
+      213
+     ],
+     "note": "הרצאות 8, 10: דפוסי פריסה, כשלי מערכות ML, הסטת התפלגות וניטור",
+     "role": "main"
+    },
+    {
+     "doc": "W58",
+     "pages": [
+      214,
+      342
+     ],
+     "note": "שקפים: למידה מתמשכת וניסויים online (הרצאה 11), תשתית ופלטפורמת ML (הרצאה 15)",
+     "role": "main"
+    },
+    {
+     "doc": "W59",
+     "pages": [
+      1,
+      9
+     ],
+     "note": "המאמר כולו",
+     "role": "main"
+    }
+   ],
+   "M30.2": [
+    {
+     "doc": "W63",
+     "pages": [
+      33,
+      78
+     ],
+     "note": "פרק 2: ניסויי מודל, קנה מידה Froude/Reynolds, גרר חיכוך וגרר גוף ספינה, מדחף, אינטראקציה מדחף-גוף",
+     "role": "main"
+    },
+    {
+     "doc": "W63",
+     "pages": [
+      79,
+      130
+     ],
+     "note": "פרק 3: זרימה צמיגה, שכבות גבול למינריות וטורבולנטיות (בסיס לגרר חיכוך)",
+     "role": "main"
+    },
+    {
+     "doc": "W63",
+     "pages": [
+      271,
+      364
+     ],
+     "note": "פרק 6: גלים ותופעות גלים, כולל התנגדות יצירת גלים",
+     "role": "main"
+    },
+    {
+     "doc": "W63",
+     "pages": [
+      191,
+      270
+     ],
+     "note": "השלמה: פרק 5, משטחים נושאים (תאוריית כנף ובסיס לתאוריית מדחף)",
+     "role": "main"
+    }
+   ],
+   "M30.3": [
+    {
+     "doc": "W63",
+     "pages": [
+      271,
+      364
+     ],
+     "note": "פרק 6: גלי ים ליניאריים, ספקטרום, תנועות גוף בגלים, RAO",
+     "role": "main"
+    },
+    {
+     "doc": "W63",
+     "pages": [
+      365,
+      426
+     ],
+     "note": "השלמה: פרק 7, גופים דקים: תאוריית רצועות ונגזרות הידרודינמיות לתמרון",
+     "role": "main"
+    }
+   ],
+   "M29.2": [
+    {
+     "doc": "W50",
+     "pages": [
+      1,
+      130
+     ],
+     "note": "כל הספר: מקביליות נתונים/ZeRO (4-), tensor/context/pipeline/expert (50-73), תצורת אימון (74), GPU kernels (79-100), מסקנות והפניות (101-130)",
+     "role": "main"
+    },
+    {
+     "doc": "W49",
+     "pages": [
+      35,
+      49
+     ],
+     "note": "פרק 3 Sharded Matrices: sharding, collectives (all-gather, reduce-scatter, all-reduce)",
+     "role": "main"
+    },
+    {
+     "doc": "W49",
+     "pages": [
+      50,
+      65
+     ],
+     "note": "פרק 5 How to Parallelize a Transformer for Training: DP, FSDP/ZeRO, TP, PP, MFU",
+     "role": "main"
+    },
+    {
+     "doc": "W49",
+     "pages": [
+      87,
+      91
+     ],
+     "note": "פרק 6 Training LLaMA 3 on TPUs: דוגמה מעשית",
+     "role": "main"
+    },
+    {
+     "doc": "W49",
+     "pages": [
+      116,
+      140
+     ],
+     "note": "פרק 12 How to Think About GPUs: NCCL, collectives, scale-out",
+     "role": "main"
+    }
+   ],
+   "M6.13": [
+    {
+     "doc": "W12",
+     "pages": [
+      1,
+      442
+     ],
+     "note": "פרק 5 כולו: DOE, factorial, fractional, RSM (5.3 עמ' 28-141, 5.5 עמ' 192-375), ניתוח ו-case studies",
+     "role": "main"
+    },
+    {
+     "doc": "W12",
+     "pages": [
+      443,
+      598
+     ],
+     "note": "פרק 7: השוואות (7.2 הספק וגודל מדגם, 7.4 ANOVA והשוואות מרובות, עמ' 463-594)",
+     "role": "main"
+    },
+    {
+     "doc": "W13",
+     "pages": [
+      52,
+      126
+     ],
+     "note": "פרקים 3–6: פרדיגמה חדשה לבדיקה והערכה (52–70), שדרוג שיטות סטטיסטיות (71–82), תכנון בדיקות מבצעיות (83–110), ניתוח ודיווח תוצאות (111–126)",
+     "role": "main"
+    }
+   ],
+   "M10.13": [
+    {
+     "doc": "W08",
+     "pages": [
+      1,
+      82
+     ],
+     "note": "כולו: Picard, שיטות חד-צעדיות ו-Runge-Kutta, שיטות רב-צעדיות (יציבות-אפס, עקיבות, התכנסות), בעיות קשיחות ו-BDF, יציבות לא-לינארית, בעיות שפה. אין בו AD, DAE, אירועים או אינטגרטורים גאומטריים",
+     "role": "main"
+    },
+    {
+     "doc": "W09",
+     "pages": [
+      1,
+      12
+     ],
+     "note": "CVODE: שיטות BDF ו-Adams (multistep), בקרת שגיאה וגודל צעד, איטרציות Newton בתוך הצעד הסתום, Jacobian, מציאת שורשים (events)",
+     "role": "main"
+    },
+    {
+     "doc": "W09",
+     "pages": [
+      13,
+      21
+     ],
+     "note": "IDA: משוואות דיפרנציאליות-אלגבריות (DAE), BDF ל-DAE, תנאי התחלה עקביים",
+     "role": "main"
+    },
+    {
+     "doc": "W09",
+     "pages": [
+      22,
+      42
+     ],
+     "note": "CVODES: רגישות קדמית (forward) ו-adjoint ל-ODE, checkpointing",
+     "role": "main"
+    },
+    {
+     "doc": "W09",
+     "pages": [
+      43,
+      62
+     ],
+     "note": "IDAS: רגישות forward ו-adjoint ל-DAE",
+     "role": "main"
+    },
+    {
+     "doc": "W09",
+     "pages": [
+      63,
+      104
+     ],
+     "note": "ARKODE: שיטות Runge-Kutta מפורשות, סתומות ו-IMEX, בקרת צעד אדפטיבית, יציבות, שיטות symplectic/relaxation (אינטגרטורים גאומטריים)",
+     "role": "main"
+    },
+    {
+     "doc": "W10",
+     "pages": [
+      1,
+      43
+     ],
+     "note": "כל המאמר: AD קדימה ואחורה (נושא AD של המודול)",
+     "role": "main"
+    }
+   ],
+   "M23.18": [
+    {
+     "doc": "W23",
+     "pages": [
+      1,
+      497
+     ],
+     "note": "כולו (נבחר): יסודות PLL (פרקים 1–3), בלוקים, מחלקים שבריים, תורת הלולאה, ספרים (spurs), רעש פאזה, זמן נעילה. מספרי העמודים בספר מוזחים ב-ii לערך ביחס ל-PDF",
+     "role": "main"
+    }
+   ],
+   "M28.6": [
+    {
+     "doc": "W34",
+     "pages": [
+      636,
+      701
+     ],
+     "note": "מהדורה 3: פרק 18 Tamper Resistance (636–674) ופרק 19 Side Channels (675–701); מקביל לפרקים 16–17 במהדורה 2. המשך: פרק 20 הצפנה מתקדמת מ-702",
+     "role": "main"
+    },
+    {
+     "doc": "W35",
+     "pages": [
+      1,
+      45
+     ],
+     "note": "כולו: ארכיטקטורת פלטפורמה (2), עקרונות: roots of trust, הגנה, זיהוי ושחזור (3), הנחיות אבטחת קושחה ועדכון מאובטח (4)",
+     "role": "main"
+    },
+    {
+     "doc": "W36",
+     "pages": [
+      1,
+      16
+     ],
+     "note": "כל המאמר: התקפות ערוצי צד מיקרו-ארכיטקטוניים וספקטר",
+     "role": "main"
+    }
+   ],
+   "M29.4": [
+    {
+     "doc": "W49",
+     "pages": [
+      17,
+      22
+     ],
+     "note": "פרק 1 Rooflines: compute- vs memory-bound",
+     "role": "main"
+    },
+    {
+     "doc": "W49",
+     "pages": [
+      66,
+      86
+     ],
+     "note": "פרק 7 All About Transformer Inference: prefill/decode, KV cache, batching, quantization, sharding for serving",
+     "role": "main"
+    },
+    {
+     "doc": "W49",
+     "pages": [
+      92,
+      97
+     ],
+     "note": "פרק 8 Serving LLaMA 3-70B on TPUs: דוגמה מעשית",
+     "role": "main"
+    },
+    {
+     "doc": "W54",
+     "pages": [
+      1,
+      16
+     ],
+     "note": "PagedAttention / vLLM (2309.06180): KV cache, continuous batching",
+     "role": "main"
+    },
+    {
+     "doc": "W54",
+     "pages": [
+      17,
+      29
+     ],
+     "note": "Speculative decoding (2211.17192)",
+     "role": "main"
+    },
+    {
+     "doc": "W54",
+     "pages": [
+      30,
+      45
+     ],
+     "note": "GPTQ (2210.17323): post-training quantization",
+     "role": "main"
+    },
+    {
+     "doc": "W54",
+     "pages": [
+      46,
+      60
+     ],
+     "note": "AWQ (2306.00978)",
+     "role": "main"
+    },
+    {
+     "doc": "W54",
+     "pages": [
+      61,
+      78
+     ],
+     "note": "Efficiently Scaling Transformer Inference (2211.05102): sharding for serving, cost model",
+     "role": "main"
+    }
+   ],
+   "M22.14": [
+    {
+     "doc": "W04",
+     "pages": [
+      51,
+      146
+     ],
+     "note": "פרקים 4–10: תהליכים, process API, limited direct execution ו-context switch, תזמון: FIFO/SJF/RR, MLFQ, lottery, ריבוי מעבדים",
+     "role": "main"
+    },
+    {
+     "doc": "W04",
+     "pages": [
+      151,
+      310
+     ],
+     "note": "פרקים 13–23: זיכרון וירטואלי: address spaces, תרגום כתובות, segmentation, paging, TLB, טבלאות דפים מתקדמות, swapping ומדיניות החלפה, מערכות VM שלמות",
+     "role": "main"
+    },
+    {
+     "doc": "W04",
+     "pages": [
+      318,
+      450
+     ],
+     "note": "פרקים 26–33: threads, locks ופעולות אטומיות, מבני נתונים נעולים, condition variables, semaphores ו-producer/consumer, באגי מקביליות ו-deadlock, event-based concurrency",
+     "role": "main"
+    },
+    {
+     "doc": "W04",
+     "pages": [
+      457,
+      486
+     ],
+     "note": "פרקים 36–37: התקני I/O: interrupts, polling, DMA; דיסקים קשיחים",
+     "role": "main"
+    },
+    {
+     "doc": "W04",
+     "pages": [
+      534,
+      551
+     ],
+     "note": "פרק 40: מימוש מערכת קבצים (רקע לפרק 42)",
+     "role": "main"
+    },
+    {
+     "doc": "W04",
+     "pages": [
+      566,
+      586
+     ],
+     "note": "פרק 42: FSCK ו-journaling: עקביות לאחר קריסה",
+     "role": "main"
+    }
+   ],
+   "M5.19": [
+    {
+     "doc": "W19",
+     "pages": [
+      51,
+      138
+     ],
+     "note": "פרק 1: Getting started: MPC רגולטורי ליניארי, LQR, הערכת מצב (Kalman/MHE), tracking ו-zero offset",
+     "role": "main"
+    },
+    {
+     "doc": "W19",
+     "pages": [
+      139,
+      242
+     ],
+     "note": "פרק 2: MPC regulation: ניסוח, פתרון בתכנות דינמי (Bellman), יציבות ו-recursive feasibility, terminal set, suboptimal ו-economic MPC",
+     "role": "main"
+    },
+    {
+     "doc": "W19",
+     "pages": [
+      243,
+      318
+     ],
+     "note": "פרק 3: Robust and stochastic MPC: min-max, tube-based MPC ליניארי ולא-ליניארי, stochastic MPC",
+     "role": "main"
+    },
+    {
+     "doc": "W19",
+     "pages": [
+      397,
+      406
+     ],
+     "note": "סעיף 5.5: Offset-free MPC (מודל הפרעה ומשערך)",
+     "role": "main"
+    },
+    {
+     "doc": "W19",
+     "pages": [
+      535,
+      630
+     ],
+     "note": "פרק 8: Numerical optimal control: סימולציה, נגזרות ו-AD, single/multiple shooting ו-collocation (8.5), SQP, real-time iteration (8.9.2). HJB מוזכר רק בקצרה (עמ׳ 543); אין טיפול מעמיק ב-Pontryagin",
+     "role": "main"
+    },
+    {
+     "doc": "W20",
+     "pages": [
+      91,
+      154
+     ],
+     "note": "פרקים 4–5: עקרון המקסימום של פונטריאגין (91–134) ומשוואת HJB ותכנות דינמי (135–154)",
+     "role": "main"
+    }
+   ],
+   "M23.17": [
+    {
+     "doc": "W24",
+     "pages": [
+      153,
+      196
+     ],
+     "note": "פרק 4: Digital modulation: קונסטלציות, רוחב סרט, קריטריון Nyquist ועיצוב פולסים, אפנון אורתוגונלי",
+     "role": "main"
+    },
+    {
+     "doc": "W24",
+     "pages": [
+      289,
+      360
+     ],
+     "note": "פרק 6: Optimal demodulation: בדיקת השערות, מרחב אותות וסטטיסטיקה מספקת, מקלט ML ב-AWGN, הסתברות שגיאה ל-M-ary, link budget",
+     "role": "main"
+    },
+    {
+     "doc": "W24",
+     "pages": [
+      399,
+      469
+     ],
+     "note": "פרק 8: Dispersive channels: מודל single-carrier, השוואה ליניארית ZF/MMSE (8.2), OFDM",
+     "role": "main"
+    },
+    {
+     "doc": "W24",
+     "pages": [
+      123,
+      131
+     ],
+     "note": "סעיף 3.5: Phase locked loop (בסיס לשחזור תדר ופאזת נושא)",
+     "role": "main"
+    }
+   ],
+   "M29.5": [
+    {
+     "doc": "W55",
+     "pages": [
+      1,
+      26
+     ],
+     "note": "DETR (Carion et al. 2020): זיהוי כחיזוי קבוצה, Hungarian matching",
+     "role": "main"
+    },
+    {
+     "doc": "W55",
+     "pages": [
+      27,
+      58
+     ],
+     "note": "DINOv2 (Oquab et al. 2023/24): ייצוגים חזותיים בלמידה עצמית",
+     "role": "main"
+    },
+    {
+     "doc": "W55",
+     "pages": [
+      59,
+      88
+     ],
+     "note": "Segment Anything (SAM, Kirillov et al. 2023)",
+     "role": "main"
+    },
+    {
+     "doc": "W55",
+     "pages": [
+      89,
+      130
+     ],
+     "note": "SAM 2: סגמנטציה בתמונות ובווידאו (Ravi et al. 2024)",
+     "role": "main"
+    },
+    {
+     "doc": "W55",
+     "pages": [
+      131,
+      155
+     ],
+     "note": "NeRF (Mildenhall et al. 2020)",
+     "role": "main"
+    },
+    {
+     "doc": "W55",
+     "pages": [
+      156,
+      169
+     ],
+     "note": "3D Gaussian Splatting (Kerbl et al. 2023)",
+     "role": "main"
+    },
+    {
+     "doc": "W55",
+     "pages": [
+      170,
+      209
+     ],
+     "note": "DreamerV3 (Hafner et al.): world models",
+     "role": "main"
+    }
+   ]
+  },
+  "mil": {
+   "M8.10": [
+    {
+     "doc": "X37",
+     "pages": [
+      13,
+      84
+     ],
+     "note": "פרקים 3–7: Sizing from a conceptual sketch (fuel fraction, takeoff weight), airfoil/geometry, T/W ו-W/S (constraint), initial sizing, configuration layout. הערה: כל עמוד PDF הוא דף כפול",
+     "role": "main"
+    },
+    {
+     "doc": "X37",
+     "pages": [
+      85,
+      98
+     ],
+     "note": "פרק 8: Special considerations, כולל Radar/IR detectability (חמקנות) ו-vulnerability",
+     "role": "main"
+    },
+    {
+     "doc": "X37",
+     "pages": [
+      104,
+      122
+     ],
+     "note": "פרק 10: Propulsion and fuel system integration (בחירת מנוע, jet integration)",
+     "role": "main"
+    },
+    {
+     "doc": "X37",
+     "pages": [
+      174,
+      206
+     ],
+     "note": "פרק 14: Structures and loads",
+     "role": "main"
+    },
+    {
+     "doc": "X37",
+     "pages": [
+      237,
+      265
+     ],
+     "note": "פרקים 17–18: Performance and flight mechanics (כולל Energy-maneuverability 17.6) ו-Cost analysis (18.4 RDT&E)",
+     "role": "main"
+    },
+    {
+     "doc": "B16",
+     "pages": [
+      475,
+      502
+     ],
+     "note": "4.3.2: חתימות כלי הטיס",
+     "role": "main"
+    },
+    {
+     "doc": "B16",
+     "pages": [
+      561,
+      616
+     ],
+     "note": "4.4: תכנון לחשיפה נמוכה: התרעה, שיבוש, הקטנת חתימה, אמצעים מתכלים, דיכוי, טקטיקה",
+     "role": "main"
+    }
+   ],
+   "M11.11": [
+    {
+     "doc": "X38",
+     "pages": [
+      18,
+      183
+     ],
+     "note": "חלק I (פרקים 1–5): בליסטיקה פנימית: גזים ותרמודינמיקה, בעירת הודף, מודלים אנליטיים/חישוביים, תכן תחמושת, תכן נשק (5.1 עייפות ושחיקה, 5.2 תכן קנה)",
+     "role": "main"
+    },
+    {
+     "doc": "X38",
+     "pages": [
+      184,
+      323
+     ],
+     "note": "חלק II (פרקים 6–13): בליסטיקה חיצונית: דינמיקה, מסלולים (8), אירובליסטיקה ליניארית, אסימטריות מסה, throwoff, swerve, אירובליסטיקה לא-ליניארית",
+     "role": "main"
+    },
+    {
+     "doc": "X38",
+     "pages": [
+      330,
+      369
+     ],
+     "note": "פרק 15: Penetration theories (חדירת מתכות, קרמיקה, מרוכבים) ל-KE penetrators",
+     "role": "main"
+    },
+    {
+     "doc": "B10",
+     "pages": [
+      253,
+      264
+     ],
+     "note": "פרק 21: בליסטיקה פנימית וחיצונית, שגיאות כיוון",
+     "role": "main"
+    }
+   ],
+   "M11.12": [
+    {
+     "doc": "X38",
+     "pages": [
+      324,
+      329
+     ],
+     "note": "חלק III פרק 14: מבוא לבליסטיקה סופית",
+     "role": "main"
+    },
+    {
+     "doc": "X38",
+     "pages": [
+      370,
+      483
+     ],
+     "note": "פרקים 16–18: Shock physics (Hugoniot, detonation), Gurney, Taylor angles, Mott (רסיסים), shaped charges. הפרק אינו כולל blast scaling/fuzing/IM",
+     "role": "main"
+    },
+    {
+     "doc": "B15",
+     "pages": [
+      71,
+      89
+     ],
+     "note": "3.12–3.16: נזק חלקי צפוי, פונקציות נזק, פונקציות נזק לרסיסים, רדיוס אפקטיבי של נשק",
+     "role": "main"
+    }
+   ],
+   "M11.13": [
+    {
+     "doc": "X38",
+     "pages": [
+      462,
+      483
+     ],
+     "note": "פרק 18: Shaped charges: היווצרות ג'ט וחדירה (בסיס לטנדם מול ERA)",
+     "role": "main"
+    },
+    {
+     "doc": "B11",
+     "pages": [
+      181,
+      183
+     ],
+     "note": "פרק 9 (חלק): טילי נ\"ט מונחים מול תותח הטנק",
+     "role": "main"
+    },
+    {
+     "doc": "B11",
+     "pages": [
+      188,
+      189
+     ],
+     "note": "פרק 9 (חלק): שריון ריאקטיבי ו-Drozd",
+     "role": "main"
+    },
+    {
+     "doc": "B11",
+     "pages": [
+      312,
+      329
+     ],
+     "note": "נספח II: הגנה מוגברת: שריון מורכב, ERA, מערכות הגנה אקטיביות",
+     "role": "main"
+    },
+    {
+     "doc": "B13",
+     "pages": [
+      148,
+      171
+     ],
+     "note": "6.1–6.2: עמידות (חלופות ראש ביות, מכ\"ם, IIR, מולטי-מוד) וקטלניות ראש קרב (מטען חלול, EFP, KE)",
+     "role": "main"
+    }
+   ],
+   "M11.14": [
+    {
+     "doc": "X38",
+     "pages": [
+      170,
+      174
+     ],
+     "note": "5.3 Gun Dynamics: דינמיקת קנה (jump/whip, רטט); 5.4 Muzzle devices ב-175–183",
+     "role": "main"
+    },
+    {
+     "doc": "X38",
+     "pages": [
+      310,
+      315
+     ],
+     "note": "פרק 12: Aerodynamic jump, epicyclic swerve, drift",
+     "role": "main"
+    },
+    {
+     "doc": "E03",
+     "pages": [
+      375,
+      397
+     ],
+     "note": "פרק 11: בקרת PID, כיוונון, windup ומימוש",
+     "role": "main"
+    },
+    {
+     "doc": "E03",
+     "pages": [
+      401,
+      423
+     ],
+     "note": "12.1–12.4: פונקציות רגישות, מפרטי ביצועים, עיצוב לולאה ו-feedforward (דחיית הפרעות)",
+     "role": "main"
+    }
+   ],
+   "M11.19": [
+    {
+     "doc": "X38",
+     "pages": [
+      212,
+      273
+     ],
+     "note": "פרק 8: Trajectories (חישוב מסלולים, בסיס ל-firing tables)",
+     "role": "main"
+    },
+    {
+     "doc": "X38",
+     "pages": [
+      296,
+      315
+     ],
+     "note": "פרקים 10–12: mass asymmetries, lateral throwoff, swerve: מקורות לפיזור. הספר כמעט אינו דן ב-dispersion/תקציב שגיאה במפורש (כמעט אין אזכורים), כיסוי חלקי",
+     "role": "main"
+    },
+    {
+     "doc": "D8",
+     "pages": [
+      11,
+      40
+     ],
+     "note": "פרקים 1–3: איתור מטרות לארטילריה, אש נגד (counterfire), היבטים טכניים של מכ\"מי איתור נשק",
+     "role": "main"
+    },
+    {
+     "doc": "X26",
+     "pages": [
+      35,
+      56
+     ],
+     "note": "פרק 2: מערכת הסיוע באש: חיישנים, מערכות שיגור (קנה מול רקטות), C2 ואיתור מטרות",
+     "role": "main"
+    },
+    {
+     "doc": "X26",
+     "pages": [
+      99,
+      116
+     ],
+     "note": "פרק 4: מבצעי ארטילריה שדה, כולל חמש הדרישות לאש חזויה מדויקת (110–113), מיקום ותנועה, אש נגד-סוללות",
+     "role": "main"
+    },
+    {
+     "doc": "X26",
+     "pages": [
+      123,
+      164
+     ],
+     "note": "פרק 6: סיוע באש לעומק במלחמה בקנה מידה גדול: אש ארוכת טווח, counterfire, תפקיד הכטב\"מ",
+     "role": "main"
+    },
+    {
+     "doc": "X26",
+     "pages": [
+      207,
+      218
+     ],
+     "note": "נספח C: פעולה בסביבה מוכחשת/מושפלת (כולל GPS/GNSS denial) וחמש הדרישות במצב מושפל",
+     "role": "main"
+    }
+   ],
+   "M15.6": [
+    {
+     "doc": "W67",
+     "pages": [
+      73,
+      114
+     ],
+     "note": "פרק 2: דרישות EMC, כולל מוצרים צבאיים ובדיקות (MIL-STD-461 ברמת מבוא)",
+     "role": "main"
+    },
+    {
+     "doc": "W67",
+     "pages": [
+      401,
+      444
+     ],
+     "note": "פרק 6: Conducted emissions ו-susceptibility",
+     "role": "main"
+    },
+    {
+     "doc": "W67",
+     "pages": [
+      490,
+      509
+     ],
+     "note": "7.5–7.6: Friis, השפעת החזרות (צימוד אנטנות)",
+     "role": "main"
+    },
+    {
+     "doc": "W67",
+     "pages": [
+      527,
+      582
+     ],
+     "note": "פרק 8: Radiated emission/susceptibility",
+     "role": "main"
+    },
+    {
+     "doc": "W67",
+     "pages": [
+      737,
+      882
+     ],
+     "note": "פרקים 10–11: shielding ו-system design. הספר אינו כולל MIL-STD-464C, co-site, HERO",
+     "role": "main"
+    },
+    {
+     "doc": "X02",
+     "pages": [
+      41,
+      173
+     ],
+     "note": "461G פרקים 5.4-5.22: מבחני CE/CS/RE/RS ברמת תת-מערכת",
+     "role": "main"
+    },
+    {
+     "doc": "X02",
+     "pages": [
+      298,
+      321
+     ],
+     "note": "464C סעיפים 5.1-5.14: שוליים, EMC פנים-מערכתי, HERO, EMC בין-מערכתי",
+     "role": "main"
+    },
+    {
+     "doc": "X02",
+     "pages": [
+      339,
+      371
+     ],
+     "note": "464C נספח A.5.2: EMC פנים-מערכתי, הצבת אנטנות וצימוד פלטפורמה",
+     "role": "main"
+    },
+    {
+     "doc": "X02",
+     "pages": [
+      404,
+      411
+     ],
+     "note": "464C נספח A.5.9: HERO",
+     "role": "main"
+    }
+   ],
+   "M10.6": [
+    {
+     "doc": "E31",
+     "pages": [
+      283,
+      305
+     ],
+     "note": "6.1–6.4: מודל המערך, beamforming קונבנציונלי ו-Capon/MVDR, שיטות פרמטריות (MUSIC, ESPRIT)",
+     "role": "main"
+    },
+    {
+     "doc": "B02a",
+     "pages": [
+      429,
+      459
+     ],
+     "note": "9.2–9.3: יסודות beamforming ספרתי, ביטול משבשים אדפטיבי: Wiener, max SINR, LCMV, GSC, SMI",
+     "role": "main"
+    },
+    {
+     "doc": "B10",
+     "pages": [
+      193,
+      226
+     ],
+     "note": "פרקים 16–17: רעש סביבה ועצמי, beamforming, משוואת הסונאר, מערכות סונאר פעיל ופסיבי, מנתח תדר, TASS",
+     "role": "main"
+    },
+    {
+     "doc": "A10.5",
+     "pages": [
+      1,
+      5
+     ],
+     "note": "כל המאמר: עקיבה בסונאר פעיל",
+     "role": "main"
+    }
+   ],
+   "M15.2": [
+    {
+     "doc": "E34",
+     "pages": [
+      472,
+      487
+     ],
+     "note": "6.3: פרוטוקולי גישה מרובה (MAC)",
+     "role": "main"
+    },
+    {
+     "doc": "E34",
+     "pages": [
+      543,
+      573
+     ],
+     "note": "7.1–7.3: קישורים אלחוטיים, רשתות אד-הוק, WLAN 802.11",
+     "role": "main"
+    },
+    {
+     "doc": "E34",
+     "pages": [
+      589,
+      597
+     ],
+     "note": "7.5: עקרונות ניהול ניידות",
+     "role": "main"
+    },
+    {
+     "doc": "X01",
+     "pages": [
+      1,
+      32
+     ],
+     "note": "RFC 3561 AODV: ניתוב ריאקטיבי (ניתוב לפי דרישה)",
+     "role": "main"
+    },
+    {
+     "doc": "X01",
+     "pages": [
+      33,
+      96
+     ],
+     "note": "RFC 3626 OLSR: ניתוב פרואקטיבי, MPR",
+     "role": "main"
+    },
+    {
+     "doc": "X01",
+     "pages": [
+      97,
+      126
+     ],
+     "note": "RFC 4838: ארכיטקטורת רשתות עמידות להשהיה (DTN, bundle)",
+     "role": "main"
+    }
+   ],
+   "M15.5": [
+    {
+     "doc": "E34",
+     "pages": [
+      619,
+      620
+     ],
+     "note": "8.1: מהי אבטחת רשת, מודל התוקף",
+     "role": "main"
+    },
+    {
+     "doc": "E34",
+     "pages": [
+      635,
+      649
+     ],
+     "note": "8.3–8.4: שלמות הודעה, MAC, חתימות ואימות נקודת קצה",
+     "role": "main"
+    },
+    {
+     "doc": "E34",
+     "pages": [
+      670,
+      689
+     ],
+     "note": "8.8–8.9: אבטחת WLAN ו-4G/5G, חומות אש ו-IDS",
+     "role": "main"
+    },
+    {
+     "doc": "X33",
+     "pages": [
+      1,
+      162
+     ],
+     "note": "כולו",
+     "role": "main"
+    },
+    {
+     "doc": "X34",
+     "pages": [
+      1,
+      51
+     ],
+     "note": "כל הדוח",
+     "role": "main"
+    }
+   ],
+   "M6.15": [
+    {
+     "doc": "E39",
+     "pages": [
+      168,
+      176
+     ],
+     "note": "5.3: הרמג'ט",
+     "role": "main"
+    },
+    {
+     "doc": "E39",
+     "pages": [
+      270,
+      277
+     ],
+     "note": "6.5–6.6: תאי בעירה של רמג'ט ובעירה על-קולית (סקרמג'ט)",
+     "role": "main"
+    },
+    {
+     "doc": "E39",
+     "pages": [
+      526,
+      571
+     ],
+     "note": "פרק 11: תאי דחף של רקטות כימיות: ביצועים, נחירים, מעבר חום",
+     "role": "main"
+    },
+    {
+     "doc": "E39",
+     "pages": [
+      582,
+      620
+     ],
+     "note": "פרק 12: בעירה ברקטות כימיות: הנעה נוזלית ומוצקה, תאי בעירה מוצקים, אי-יציבות בעירה",
+     "role": "main"
+    },
+    {
+     "doc": "B13",
+     "pages": [
+      78,
+      107
+     ],
+     "note": "פרק 3: שיקולי הנעה: חלופות, רמג'ט (Isp, דחף, מבוא, booster), מנוע מוצק: גרעין, בקרת דחף, חומרי הנעה, מעטפת, נחיר",
+     "role": "main"
+    },
+    {
+     "doc": "X10",
+     "pages": [
+      1,
+      116
+     ],
+     "note": "כולו (סריקה; הרלוונטי במיוחד: burn rate, grain geometry, chamber pressure, internal ballistics)",
+     "role": "main"
+    }
+   ],
+   "M7.12": [
+    {
+     "doc": "B02a",
+     "pages": [
+      716,
+      720
+     ],
+     "note": "15.3: עקיבה רב-חיישנית: ארכיטקטורות היתוך, היתוך מדידות ומסלולים",
+     "role": "main"
+    }
+   ],
+   "M3.15": [
+    {
+     "doc": "B03",
+     "pages": [
+      133,
+      173
+     ],
+     "note": "פרק 5: מקורות קרינה, מטרות ורקעים ב-IR וב-EO, ניגודיות",
+     "role": "main"
+    },
+    {
+     "doc": "B03",
+     "pages": [
+      178,
+      200
+     ],
+     "note": "פרק 6: אטמוספרה: העברה, בליעה, פיזור, path radiance",
+     "role": "main"
+    },
+    {
+     "doc": "B16",
+     "pages": [
+      494,
+      502
+     ],
+     "note": "4.3.2.2–4.3.2.4: חתימת IR, חזותית ושמיעתית",
+     "role": "main"
+    },
+    {
+     "doc": "B16",
+     "pages": [
+      590,
+      597
+     ],
+     "note": "4.4.4.2–4.4.4.5: הקטנת חתימת IR, חזותית, שמיעתית ואחרות",
+     "role": "main"
+    }
+   ],
+   "M7.17": [
+    {
+     "doc": "B03",
+     "pages": [
+      181,
+      193
+     ],
+     "note": "6.2–6.7: העברה אטמוספרית, בליעה, פיזור, טורבולנציה ו-MTF אטמוספרי",
+     "role": "main"
+    },
+    {
+     "doc": "X03",
+     "pages": [
+      26,
+      53
+     ],
+     "note": "פרק 1: עקרונות בסיס (fluence, קריטריוני נזק)",
+     "role": "main"
+    },
+    {
+     "doc": "X03",
+     "pages": [
+      106,
+      230
+     ],
+     "note": "פרק 3: לייזרים — דיפרקציה, בליעה, טורבולנציה ו-adaptive optics, thermal blooming, air breakdown, אינטראקציית לייזר-חומר",
+     "role": "main"
+    },
+    {
+     "doc": "X16",
+     "pages": [
+      1,
+      27
+     ],
+     "note": "כולו: סקירת נשק אנרגיה מכוונת (HEL ו-HPM), מפת הדרכים של DoD, תוכניות חיל האוויר, היבשה והים (DE M-SHORAD, IFPC-HEL, HELIOS) ושאלות לקונגרס. הערה: דו״ח מדיניות, לא מכסה פיזיקת התפשטות קרן",
+     "role": "main"
+    }
+   ],
+   "M13.24": [
+    {
+     "doc": "B04",
+     "pages": [
+      226,
+      235
+     ],
+     "note": "7.6–7.8: חישובי ביצועי קישור לוויני (גאוסינכרוני ו-LEO), שיבוש קישורי לוויין: downlink ו-uplink",
+     "role": "main"
+    },
+    {
+     "doc": "B12",
+     "pages": [
+      472,
+      509
+     ],
+     "note": "פרק 16: מטעני תקשורת: ארכיטקטורות, ניתוח קישור, תכנון המטען, משימות לדוגמה",
+     "role": "main"
+    }
+   ],
+   "M7.13": [
+    {
+     "doc": "B07",
+     "pages": [
+      71,
+      78
+     ],
+     "note": "5.2–5.3: דרישות פונקציונליות של ארכיטקטורת ההגנה והקצאת פונקציות למערכות (BMC)",
+     "role": "main"
+    },
+    {
+     "doc": "B07",
+     "pages": [
+      118,
+      127
+     ],
+     "note": "6.3–6.4: הערכת מרחב הקרב וניתוח היירוט",
+     "role": "main"
+    },
+    {
+     "doc": "X18",
+     "pages": [
+      1,
+      255
+     ],
+     "note": "כולו",
+     "role": "main"
+    },
+    {
+     "doc": "X19",
+     "pages": [
+      31,
+      77
+     ],
+     "note": "פרק 3 (בעיות טכניות של אוטונומיה, עמ' 31-65) ופרק 4 (בעיות רכש, עמ' 66-77)",
+     "role": "main"
+    }
+   ],
+   "M7.16": [
+    {
+     "doc": "B07",
+     "pages": [
+      55,
+      66
+     ],
+     "note": "4.4: מדדי יעילות: זמן תגובה, ציר זמן יירוט, עוצמת אש, עמידות לחדירה, כיסוי רציף",
+     "role": "main"
+    },
+    {
+     "doc": "B07",
+     "pages": [
+      118,
+      127
+     ],
+     "note": "6.3–6.4: הערכת מרחב הקרב וניתוח היירוט",
+     "role": "main"
+    },
+    {
+     "doc": "X23",
+     "pages": [
+      1,
+      45
+     ],
+     "note": "כולו",
+     "role": "main"
+    }
+   ],
+   "M5.13": [
+    {
+     "doc": "B08",
+     "pages": [
+      303,
+      314
+     ],
+     "note": "8.1–8.5: עקרונות ניווט, ניווט רדיו, יסודות אינרציאלי, ניווט לווייני, ניווט משולב",
+     "role": "main"
+    },
+    {
+     "doc": "B08",
+     "pages": [
+      332,
+      347
+     ],
+     "note": "8.8–8.9: ניווט אינרציאלי ו-GNSS כולל integrity",
+     "role": "main"
+    },
+    {
+     "doc": "A05.6",
+     "pages": [
+      8,
+      27
+     ],
+     "note": "3–6: חיישנים ושגיאותיהם, Allan variance, ניווט strapdown והתפשטות שגיאה",
+     "role": "main"
+    },
+    {
+     "doc": "A05.6",
+     "pages": [
+      33,
+      34
+     ],
+     "note": "8: הקטנת סחיפה: היתוך עם מיקום מוחלט ומגנטומטרים, הנחות תחום (ZUPT)",
+     "role": "main"
+    },
+    {
+     "doc": "X05",
+     "pages": [
+      1,
+      21
+     ],
+     "note": "כולו: preintegration של IMU על manifold, factor graph ל-VIO",
+     "role": "main"
+    },
+    {
+     "doc": "X06",
+     "pages": [
+      21,
+      173
+     ],
+     "note": "פרקים 1–4: מבוא וסקירת ספרות, רקע (שדה מגנטי, מפות, חיישנים, RBPF), תכנון המסנן, תוצאות ניסויי טיסה",
+     "role": "main"
+    },
+    {
+     "doc": "X04",
+     "pages": [
+      1,
+      144
+     ],
+     "note": "כולו: גרפי גורמים והחלקה לניווט רב-חיישנים",
+     "role": "main"
+    }
+   ],
+   "M15.1": [
+    {
+     "doc": "B08",
+     "pages": [
+      71,
+      106
+     ],
+     "note": "2.1–2.5: התפתחות ארכיטקטורות (federated, IMA), ARINC 429, MIL-STD-1553B, STANAG 3910, JIAWG, אפיקי COTS, RTOS",
+     "role": "main"
+    }
+   ],
+   "M10.7": [
+    {
+     "doc": "B10",
+     "pages": [
+      195,
+      200
+     ],
+     "note": "16 (חלק): רעש סביבה ורעש עצמי, משוואת הסונאר",
+     "role": "main"
+    },
+    {
+     "doc": "B10",
+     "pages": [
+      225,
+      226
+     ],
+     "note": "17 (חלק): גילוי לא-אקוסטי של צוללות",
+     "role": "main"
+    },
+    {
+     "doc": "B10",
+     "pages": [
+      32,
+      40
+     ],
+     "note": "פרק 2 (חלק): ספקטרום ואופני התפשטות: גל קרקע (ELF/VLF), גל שמיים, קו ראייה",
+     "role": "main"
+    }
+   ],
+   "M10.10": [
+    {
+     "doc": "B10",
+     "pages": [
+      299,
+      308
+     ],
+     "note": "פרק 26: טורפדות, מוקשים ימיים וניקוי מוקשים",
+     "role": "main"
+    },
+    {
+     "doc": "B14",
+     "pages": [
+      137,
+      164
+     ],
+     "note": "פרק 7: תורת החיפוש: רוחב סריקה, חוקי גילוי, חלוקת מאמץ, מחסום, מטרות נעות",
+     "role": "main"
+    },
+    {
+     "doc": "B14",
+     "pages": [
+      165,
+      187
+     ],
+     "note": "פרק 8: לוחמת מוקשים",
+     "role": "main"
+    }
+   ],
+   "M10.9": [
+    {
+     "doc": "B14",
+     "pages": [
+      84,
+      97
+     ],
+     "note": "5.1–5.3: מודלי לנצ'סטר דטרמיניסטיים וסטוכסטיים (כולל הפניה למשוואות המטח של Hughes)",
+     "role": "main"
+    },
+    {
+     "doc": "B14",
+     "pages": [
+      70,
+      83
+     ],
+     "note": "פרק 4: הגנת מטרה מפני תוקפים, מטחי מיירטים",
+     "role": "main"
+    },
+    {
+     "doc": "A10.3",
+     "pages": [
+      9,
+      54
+     ],
+     "note": "פרקים I–II: האיום, בעיית הגילוי, השמדה קשה ורכה, מוץ (chaff)",
+     "role": "main"
+    },
+    {
+     "doc": "A10.3",
+     "pages": [
+      63,
+      74
+     ],
+     "note": "פרקים V–IX: מודל הטיל והספינה, ניתוח התוכנית",
+     "role": "main"
+    }
+   ],
+   "M11.18": [
+    {
+     "doc": "B15",
+     "pages": [
+      70,
+      89
+     ],
+     "note": "3.11–3.16: LEP/CEP/SEP, נזק חלקי צפוי, פונקציות נזק, רסיסים ורדיוס אפקטיבי",
+     "role": "main"
+    },
+    {
+     "doc": "D10",
+     "pages": [
+      43,
+      49
+     ],
+     "note": "II, שלבים 3–4: ניתוח יכולות, weaponeering, CDE, החלטת מפקד והקצאת כוח",
+     "role": "main"
+    }
+   ],
+   "M9.10": [
+    {
+     "doc": "A02.5",
+     "pages": [
+      1,
+      23
+     ],
+     "note": "כל המאמר: מודל הד של רחפן מרובה-רוטורים ושל ציפור, סימולציה ומדידת מיקרו-דופלר, השוואה",
+     "role": "main"
+    },
+    {
+     "doc": "D9",
+     "pages": [
+      9,
+      38
+     ],
+     "note": "פרקים 1–3: איום הכטב\"מים, תכנון בשכבות, פעולות C-UAS הגנתיות (פסיביות ואקטיביות)",
+     "role": "main"
+    },
+    {
+     "doc": "D9",
+     "pages": [
+      47,
+      50
+     ],
+     "note": "נספח B: דוגמאות לציוד C-UAS",
+     "role": "main"
+    },
+    {
+     "doc": "X24",
+     "pages": [
+      1,
+      45
+     ],
+     "note": "כולו",
+     "role": "main"
+    },
+    {
+     "doc": "X25",
+     "pages": [
+      1,
+      67
+     ],
+     "note": "הדוח כולו",
+     "role": "main"
+    }
+   ],
+   "M5.14": [
+    {
+     "doc": "A05.4",
+     "pages": [
+      1,
+      4
+     ],
+     "note": "כל המאמר: מיקום מפאזת הגל הנושא של Starlink",
+     "role": "main"
+    },
+    {
+     "doc": "A05.5",
+     "pages": [
+      11,
+      31
+     ],
+     "note": "1–5.2.10: יציבות תדר, מודל רעש, Allan ווריאנסים נגזרים, חיזוי שגיאת זמן (holdover)",
+     "role": "main"
+    },
+    {
+     "doc": "A05.5",
+     "pages": [
+      43,
+      46
+     ],
+     "note": "5.2.17–5.2.20: MTIE, TIE rms, jitter",
+     "role": "main"
+    },
+    {
+     "doc": "A05.5",
+     "pages": [
+      66,
+      67
+     ],
+     "note": "5.18–5.19: היסט וסחיפת תדר",
+     "role": "main"
+    },
+    {
+     "doc": "X07",
+     "pages": [
+      1,
+      457
+     ],
+     "note": "סעיפים 1–10 (כל הקובץ): רקע ואיומים על GPS, מבנה ההדגמה, ספקים וטכנולוגיות (LEO, סלולר, eLoran, שעונים, כוכבים), תרחישי מיקום וזמן, תוצאות",
+     "role": "main"
+    }
+   ],
+   "M6.16": [
+    {
+     "doc": "A06.2",
+     "pages": [
+      1,
+      25
+     ],
+     "note": "כל המאמר: מודל דאייה, ניסויי HTV-2, השלכות להגנה ויציבות אסטרטגית (בלי הערות ומקורות)",
+     "role": "main"
+    },
+    {
+     "doc": "X14",
+     "pages": [
+      1,
+      36
+     ],
+     "note": "כולו",
+     "role": "main"
+    },
+    {
+     "doc": "X15",
+     "pages": [
+      1,
+      37
+     ],
+     "note": "הדוח כולו",
+     "role": "main"
+    }
+   ],
+   "M15.3": [
+    {
+     "doc": "A08.4",
+     "pages": [
+      14,
+      19
+     ],
+     "note": "3: הגדרות (NPG, חריצי זמן, JU ועוד)",
+     "role": "main"
+    },
+    {
+     "doc": "A08.4",
+     "pages": [
+      20,
+      43
+     ],
+     "note": "4.1–4.2: מאפייני הפעלה של JTIDS, רמות נאמנות, סנכרון זמן, מימוש ב-DIS",
+     "role": "main"
+    },
+    {
+     "doc": "A08.4",
+     "pages": [
+      69,
+      88
+     ],
+     "note": "נספח B.2: נתוני Link 16, כותרות והודעות JTIDS, RTT, קול, VMF",
+     "role": "main"
+    },
+    {
+     "doc": "A08.9",
+     "pages": [
+      18,
+      35
+     ],
+     "note": "תקציר",
+     "role": "main"
+    },
+    {
+     "doc": "A08.9",
+     "pages": [
+      40,
+      49
+     ],
+     "note": "פרק 1: מבוא ומסגרת NCO",
+     "role": "main"
+    },
+    {
+     "doc": "A08.9",
+     "pages": [
+      58,
+      75
+     ],
+     "note": "פרקים 3–5: מאפייני הכוח, איכות מידע אורגני ומידת הרישות",
+     "role": "main"
+    },
+    {
+     "doc": "A08.9",
+     "pages": [
+      102,
+      121
+     ],
+     "note": "פרקים 10–11: קבלת החלטות, הקשר ליעילות המשימה ומסקנות",
+     "role": "main"
+    }
+   ],
+   "M7.15": [
+    {
+     "doc": "D10",
+     "pages": [
+      87,
+      94
+     ],
+     "note": "נספח A: שיקולים משפטיים במטרות (דיני מלחמה, ROE, מידתיות)",
+     "role": "main"
+    },
+    {
+     "doc": "D10",
+     "pages": [
+      45,
+      46
+     ],
+     "note": "II, שלב 3 (חלק): weaponeering ו-CDE",
+     "role": "main"
+    },
+    {
+     "doc": "X21",
+     "pages": [
+      1,
+      6
+     ],
+     "note": "כל הצו, אך זו גרסת 2012 ולא גרסת 2023 העדכנית",
+     "role": "main"
+    },
+    {
+     "doc": "X20",
+     "pages": [
+      226,
+      377
+     ],
+     "note": "פרק V The Conduct of Hostilities: עקרונות מטרה, proportionality, precautions",
+     "role": "main"
+    },
+    {
+     "doc": "X20",
+     "pages": [
+      378,
+      474
+     ],
+     "note": "פרק VI Weapons: weapons review, אמנות נשק ספציפיות",
+     "role": "main"
+    }
+   ],
+   "M7.18": [
+    {
+     "doc": "X03",
+     "pages": [
+      26,
+      53
+     ],
+     "note": "פרק 1: עקרונות בסיס",
+     "role": "main"
+    },
+    {
+     "doc": "X03",
+     "pages": [
+      231,
+      285
+     ],
+     "note": "פרק 4: מיקרוגל — התפשטות, breakdown, נזק in-band/out-of-band (front/back door, Wunsch-Bell)",
+     "role": "main"
+    },
+    {
+     "doc": "X02",
+     "pages": [
+      309,
+      310
+     ],
+     "note": "464C סעיף 5.6: דרישות EMP",
+     "role": "main"
+    },
+    {
+     "doc": "X02",
+     "pages": [
+      379,
+      385
+     ],
+     "note": "464C נספח A.5.6: הסבר EMP/HEMP",
+     "role": "main"
+    },
+    {
+     "doc": "X02",
+     "pages": [
+      404,
+      411
+     ],
+     "note": "464C נספח A.5.9: קרינה אלקטרומגנטית מסוכנת (HERO/HERF)",
+     "role": "main"
+    },
+    {
+     "doc": "X02",
+     "pages": [
+      152,
+      173
+     ],
+     "note": "461G: RS103 ו-RS105 (שדה חשמלי ושדה חולף), כרקע לצימוד ולחסינות",
+     "role": "main"
+    }
+   ],
+   "M15.4": [
+    {
+     "doc": "W57",
+     "pages": [
+      15,
+      42
+     ],
+     "note": "Madry et al.",
+     "role": "main"
+    },
+    {
+     "doc": "W57",
+     "pages": [
+      43,
+      58
+     ],
+     "note": "Hendrycks & Dietterich",
+     "role": "main"
+    },
+    {
+     "doc": "W38",
+     "pages": [
+      1,
+      32
+     ],
+     "note": "כולו",
+     "role": "main"
+    }
+   ],
+   "M10.8": [
+    {
+     "doc": "X13",
+     "pages": [
+      1,
+      48
+     ],
+     "note": "כולו: shock factor, bubble pulse ו-whipping, Taylor plate, ניסויי הלם ומידול",
+     "role": "main"
+    },
+    {
+     "doc": "X11",
+     "pages": [
+      30,
+      52
+     ],
+     "note": "פרק 2: חזון ימי, משימות ויישומי כלים אוטונומיים",
+     "role": "main"
+    },
+    {
+     "doc": "X11",
+     "pages": [
+      53,
+      84
+     ],
+     "note": "פרק 3: טכנולוגיית אוטונומיה: יכולות ופוטנציאל",
+     "role": "main"
+    },
+    {
+     "doc": "X11",
+     "pages": [
+      85,
+      115
+     ],
+     "note": "פרק 4: כטב\"מים (UAV), כולל נחילים ואיומים",
+     "role": "main"
+    },
+    {
+     "doc": "X11",
+     "pages": [
+      116,
+      133
+     ],
+     "note": "פרק 5: כלי שטח ותת-ימיים (USV/UUV): ניווט, אנרגיה, תקשורת, תוכנית האב של ה-UUV",
+     "role": "main"
+    },
+    {
+     "doc": "X11",
+     "pages": [
+      189,
+      204
+     ],
+     "note": "נספח B: אילוצים פיזיקליים: scaling, אנרגיה, חישה ותקשורת (תת-ימית)",
+     "role": "main"
+    }
+   ],
+   "M11.20": [
+    {
+     "doc": "X28",
+     "pages": [
+      396,
+      469
+     ],
+     "note": "פרק IX: קרינה שיורית ו-fallout — מקורות, פיזור, חיזוי, הנחתה, delayed fallout",
+     "role": "main"
+    },
+    {
+     "doc": "X28",
+     "pages": [
+      603,
+      617
+     ],
+     "note": "פרק XII (חלק): השפעות ביולוגיות של early fallout ו-delayed fallout",
+     "role": "main"
+    }
+   ],
+   "M12.5": [
+    {
+     "doc": "X29",
+     "pages": [
+      1,
+      25
+     ],
+     "note": "כולו",
+     "role": "main"
+    },
+    {
+     "doc": "X30",
+     "pages": [
+      34,
+      63
+     ],
+     "note": "פרקים 2-4 (מטרות הבטחות, מושגי safeguards, חומר גרעיני: SQ, direct-use material, enrichment, reprocessing, מתקנים); עמ' PDF = עמ' מודפס + 16",
+     "role": "main"
+    },
+    {
+     "doc": "X30",
+     "pages": [
+      83,
+      92
+     ],
+     "note": "פרק 6: טכניקות מדידה ומתקנים",
+     "role": "main"
+    },
+    {
+     "doc": "X30",
+     "pages": [
+      100,
+      104
+     ],
+     "note": "פרק 8: דגימות סביבתיות",
+     "role": "main"
+    }
+   ],
+   "M7.14": [
+    {
+     "doc": "W12",
+     "pages": [
+      1,
+      442
+     ],
+     "note": "פרק 5: DOE למבחן מבצעי, עמ' 28-141 ו-192-375 בעיקר",
+     "role": "main"
+    },
+    {
+     "doc": "W12",
+     "pages": [
+      599,
+      808
+     ],
+     "note": "פרק 8: אמינות, הדגמה וצמיחה",
+     "role": "main"
+    },
+    {
+     "doc": "W13",
+     "pages": [
+      52,
+      126
+     ],
+     "note": "פרקים 3–6: פרדיגמה חדשה לבדיקה והערכה (52–70), שדרוג שיטות סטטיסטיות (71–82), תכנון בדיקות מבצעיות (83–110), ניתוח ודיווח תוצאות (111–126)",
+     "role": "main"
+    }
+   ],
+   "M11.16": [
+    {
+     "doc": "X08",
+     "pages": [
+      731,
+      802
+     ],
+     "note": "פרק 13: Differential models: אילוצי מהירות ורכבים לא-הולונומיים, phase space, מכניקה בסיסית",
+     "role": "main"
+    },
+    {
+     "doc": "X08",
+     "pages": [
+      803,
+      876
+     ],
+     "note": "פרק 14: Sampling-based planning under differential constraints: reachability, RRT קינודינמי, תכנון משוב ותכנון מנותק (path + trajectory), אופטימיזציית מסלול",
+     "role": "main"
+    },
+    {
+     "doc": "X08",
+     "pages": [
+      877,
+      940
+     ],
+     "note": "פרק 15: System theory: DP רציף, מסלולים אופטימליים לרכבים גלגליים (Dubins/Reeds-Shepp), תורת מערכות לא-הולונומיות ו-steering",
+     "role": "main"
+    },
+    {
+     "doc": "X08",
+     "pages": [
+      656,
+      700
+     ],
+     "note": "סעיפים 12.2–12.3: לוקליזציה ומיפוי תחת אי-ודאות (רלוונטי לניווט ללא GNSS)",
+     "role": "main"
+    },
+    {
+     "doc": "X09",
+     "pages": [
+      1,
+      21
+     ],
+     "note": "כולו: תפיסה תלת-ממדית ו-SLAM בשטח",
+     "role": "main"
+    }
+   ],
+   "M14.8": [
+    {
+     "doc": "X31",
+     "pages": [
+      1,
+      112
+     ],
+     "note": "כולו: פרק 1 מבוא ומטרות (13), פרק 2 יסודות (31), פרק 3 סוגים וגרסאות כולל matrix ו-seminar (51), פרק 4 תהליך: תכנון, שיפוט, ניתוח ודיווח (63), נספח A יישומים בבעיות הגנה (77)",
+     "role": "main"
+    }
+   ],
+   "M11.17": [
+    {
+     "doc": "X36",
+     "pages": [
+      66,
+      94
+     ],
+     "note": "פרק 2, סעיפים 2-7 עד 2-14: תופעות הדף, שקילות TNT, קטגוריות העמסה, פיצוץ לא כלוא ו-2-14 Confined explosions (לחץ הלם פנימי ולחץ גזים, עמ׳ 80–94)",
+     "role": "main"
+    },
+    {
+     "doc": "X36",
+     "pages": [
+      391,
+      406
+     ],
+     "note": "פרק 2, סעיפים 2-20 עד 2-24: הלם קרקע, הלם אוויר ותנועות מבנה (רלוונטי לפיצוץ בתת-קרקע)",
+     "role": "main"
+    },
+    {
+     "doc": "X09",
+     "pages": [
+      1,
+      21
+     ],
+     "note": "כולו: SLAM ללא GPS בתת-קרקע",
+     "role": "main"
+    }
+   ]
+  }
+ }
+}
