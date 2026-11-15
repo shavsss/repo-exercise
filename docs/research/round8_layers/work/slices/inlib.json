@@ -1,0 +1,1301 @@
+[
+ {
+  "doc": "E02",
+  "library": "eng",
+  "key": "E02",
+  "title": "Signals, Systems and Inference (MIT 6.011 notes)",
+  "modules": {
+   "M7.19": {
+    "app": "eng",
+    "title": "Detection and estimation theory in depth",
+    "use": "פרקי estimation ו-hypothesis testing",
+    "subtopics": [
+     "MVU estimation and sufficiency",
+     "The Cramér-Rao bound in full",
+     "Linear models and BLUE",
+     "Maximum likelihood and the threshold effect",
+     "Bayesian estimators: MMSE, MAP, LMMSE",
+     "Neyman-Pearson detection of a known signal",
+     "Detection in colored noise: prewhitening",
+     "Detection of random signals: estimator-correlator and energy detector",
+     "Composite hypotheses: GLRT and CFAR invariance",
+     "Model order selection"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "E03",
+  "library": "eng",
+  "key": "E03",
+  "title": "Feedback Systems",
+  "modules": {
+   "M5.22": {
+    "app": "eng",
+    "title": "Digital control",
+    "use": "§10.4 (anti-windup), §8.5",
+    "subtopics": [
+     "Exact ZOH discretization",
+     "Poles and zeros of sampled systems",
+     "Discrete-time design: pole placement, deadbeat, LQ",
+     "Approximating continuous designs",
+     "Sampling rate, prefilters and aliasing in the loop",
+     "Computational delay and jitter",
+     "Quantization in controllers",
+     "Actuator saturation and anti-windup",
+     "Implementation: code structure and bumpless transfer"
+    ]
+   },
+   "M11.14": {
+    "app": "mil",
+    "title": "Weapon stabilization on the move: turret and gun control loops",
+    "use": "פרקים 11–12",
+    "subtopics": [
+     "LOS stabilization versus gun stabilization",
+     "Inertially stabilized platform architectures",
+     "Disturbance rejection and stabilization error",
+     "Fire-control solution on the move",
+     "Barrel dynamics: jump, whip, thermal bend",
+     "First-round hit probability budget",
+     "Remote weapon stations"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "E09",
+  "library": "eng",
+  "key": "E09",
+  "title": "The Art of Electronics",
+  "modules": {
+   "M11.25": {
+    "app": "eng",
+    "title": "Sensors and transducers",
+    "use": "פרק 15 (measurements and transducers)",
+    "subtopics": [
+     "Static and dynamic sensor characteristics",
+     "Transduction principles",
+     "Interface circuits",
+     "Strain, force and pressure sensors",
+     "Temperature sensors",
+     "MEMS inertial sensors",
+     "Magnetometers and compass calibration",
+     "Optical and thermal detectors",
+     "Calibration and compensation"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "E17",
+  "library": "eng",
+  "key": "E17",
+  "title": "Understanding Deep Learning",
+  "modules": {
+   "M29.1": {
+    "app": "eng",
+    "title": "Foundation-model architecture: LLM/VLM, FlashAttention, RoPE, MoE",
+    "use": "פרק 12 (transformers)",
+    "subtopics": [
+     "Tokenization",
+     "The decoder-only transformer block",
+     "Compute and memory of attention",
+     "Positional encoding and RoPE",
+     "FlashAttention",
+     "MQA, GQA and MLA",
+     "Mixture of experts",
+     "Vision-language models: ViT, CLIP and connectors",
+     "State-space and long-context alternatives",
+     "Training stability at scale"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "E22",
+  "library": "eng",
+  "key": "E22",
+  "title": "Computer Organization and Design, RISC-V Edition",
+  "modules": {
+   "M22.13": {
+    "app": "eng",
+    "title": "C and systems programming",
+    "use": "פרק 2 (§2.12 translating and starting a program)",
+    "subtopics": [
+     "Types, integer promotion and undefined behavior",
+     "Pointers, arrays and strings",
+     "Memory: stack, heap and memory bugs",
+     "Structs, alignment, endianness and bit manipulation",
+     "volatile, const and memory-mapped I/O",
+     "From C to assembly",
+     "Compilation and linking",
+     "Build systems and cross-compilation",
+     "Calling C from Python"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "E25",
+  "library": "eng",
+  "key": "E25",
+  "title": "CMOS VLSI Design",
+  "modules": {
+   "M28.3": {
+    "app": "eng",
+    "title": "Advanced RTL and FPGA: SystemVerilog, static timing analysis",
+    "use": "פרק 10 (sequential circuits: setup/hold, synchronizers)",
+    "subtopics": [
+     "Synthesizable SystemVerilog",
+     "What synthesis builds",
+     "Setup, hold and maximum frequency",
+     "Static timing analysis and SDC constraints",
+     "Timing closure techniques",
+     "Clock domain crossing and metastability",
+     "Verification: testbenches, SVA and coverage",
+     "Formal verification basics",
+     "FPGA architecture and tool flow",
+     "Streaming interfaces: AXI and valid/ready"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "E26",
+  "library": "eng",
+  "key": "E26",
+  "title": "NASA Systems Engineering Handbook",
+  "modules": {
+   "M27.10": {
+    "app": "eng",
+    "title": "MBSE with SysML v2",
+    "use": "§4.3–4.4, נספח על MBSE",
+    "subtopics": [
+     "Why MBSE: the model as source of truth",
+     "SysML v2 foundations: KerML, definitions and usages",
+     "Structure: parts, ports, interfaces and connections",
+     "Behavior: actions, states and interactions",
+     "Requirements and traceability",
+     "Analysis and trade studies in the model",
+     "Verification cases",
+     "Views, viewpoints and architecture frameworks",
+     "SysML v2 API and model management",
+     "MBSE methods and adoption pitfalls"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "E30",
+  "library": "eng",
+  "key": "E30",
+  "title": "Discrete-Time Signal Processing",
+  "modules": {
+   "M4.17": {
+    "app": "eng",
+    "title": "Filter banks and polyphase channelizers",
+    "use": "פרק 4.6–4.7 (multirate, polyphase, noble identities)",
+    "subtopics": [
+     "Polyphase decomposition and the noble identities",
+     "Multistage decimation and interpolation",
+     "Half-band and CIC filters",
+     "Digital down-conversion",
+     "DFT filter bank as polyphase + FFT",
+     "Channelizer design: decimation ratio, overlap and prototype filter",
+     "Synthesis banks and perfect reconstruction",
+     "Arbitrary-ratio resampling and the Farrow structure",
+     "Wideband receiver implementation on FPGA/RFSoC"
+    ]
+   },
+   "M4.18": {
+    "app": "eng",
+    "title": "Fixed-point and real-time DSP",
+    "use": "§6.6–6.10 (quantization, round-off noise, limit cycles), §9.7 (fixed-point FFT)",
+    "subtopics": [
+     "Fixed-point formats and overflow behavior",
+     "Round-off noise model and its propagation",
+     "Scaling: norms, guard bits and accumulator width",
+     "Coefficient quantization and filter structures",
+     "Limit cycles and overflow oscillations",
+     "Fixed-point FFT",
+     "CORDIC and NCO design",
+     "Real-time budgets: MACs, cycles and latency",
+     "Bit-true verification against a floating-point model"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "E31",
+  "library": "eng",
+  "key": "E31",
+  "title": "Spectral Analysis of Signals",
+  "modules": {
+   "M10.6": {
+    "app": "mil",
+    "title": "Sonar signal processing: MVDR on towed arrays, LOFAR/DEMON, TMA",
+    "use": "פרק 6 (spatial methods: beamforming, Capon/MVDR)",
+    "subtopics": [
+     "Towed-array conventional beamforming",
+     "MVDR and adaptive beamforming on towed arrays",
+     "LOFAR narrowband analysis",
+     "DEMON envelope analysis",
+     "Passive detection performance and ambient noise",
+     "Bearings-only target motion analysis (TMA)",
+     "Active sonar processing",
+     "From contact to fire-control solution"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "E34",
+  "library": "eng",
+  "key": "E34",
+  "title": "Computer Networking: A Top-Down Approach",
+  "modules": {
+   "M22.15": {
+    "app": "eng",
+    "title": "Cryptography and security engineering foundations",
+    "use": "פרק 8",
+    "subtopics": [
+     "Threat models and security goals",
+     "Symmetric encryption and modes",
+     "Hash functions and MACs",
+     "Public-key cryptography: RSA, Diffie-Hellman, ECC",
+     "Digital signatures and PKI",
+     "Authenticated key exchange and TLS 1.3",
+     "Key management and randomness",
+     "Security engineering failures",
+     "Post-quantum cryptography and migration"
+    ]
+   },
+   "M15.2": {
+    "app": "mil",
+    "title": "Tactical networks and MANET",
+    "use": "פרקים 6–7",
+    "subtopics": [
+     "MANET routing: proactive versus reactive",
+     "MAC in tactical radios",
+     "Capacity scaling of wireless networks",
+     "Throughput-range-latency under jamming",
+     "Tactical mesh waveforms and radios",
+     "Delay-tolerant networking",
+     "Network hierarchy and gateways",
+     "Spectrum management and cognitive radio",
+     "Emission signature of mesh networks"
+    ]
+   },
+   "M15.5": {
+    "app": "mil",
+    "title": "Cyber-electromagnetic activity (CEMA): attack surface of RF links and its defense",
+    "use": "פרק 8",
+    "subtopics": [
+     "CEMA concepts and doctrine",
+     "Attack surface of an RF-linked system",
+     "Protocol-aware threats and link design against them",
+     "Message authentication in constrained links",
+     "TRANSEC versus COMSEC",
+     "Anti-spoofing for navigation and datalinks",
+     "Weapon-system cyber assessments",
+     "Secure design of embedded RF systems",
+     "Detection and graceful degradation under link compromise"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "E39",
+  "library": "eng",
+  "key": "E39",
+  "title": "Mechanics and Thermodynamics of Propulsion",
+  "modules": {
+   "M15.31": {
+    "app": "eng",
+    "title": "Propellers and rotors",
+    "use": "פרק על propellers",
+    "subtopics": [
+     "Momentum theory in hover and climb",
+     "Descent: vortex ring state and autorotation",
+     "Blade element theory",
+     "Blade element momentum theory",
+     "Forward flight",
+     "Propeller performance and motor matching",
+     "Multirotor specifics",
+     "Rotor dynamics and helicopter control",
+     "Rotor noise and acoustic signatures"
+    ]
+   },
+   "M6.15": {
+    "app": "mil",
+    "title": "Missile propulsion: solid motors, ramjet, scramjet",
+    "use": "פרקים 11–12 (rocket propulsion) ופרק ramjet",
+    "subtopics": [
+     "Thrust, Isp, c* and nozzle expansion",
+     "Burn-rate law and chamber pressure equilibrium",
+     "Grain geometry and thrust profile",
+     "Propellant families and energetics",
+     "Motor case, nozzle and thrust vector control",
+     "Combustion instability, erosive burning and aging",
+     "Ramjet and ducted rocket",
+     "Scramjet",
+     "Propulsion choice versus mission"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "E48",
+  "library": "eng",
+  "key": "E48",
+  "title": "Bayesian Filtering and Smoothing",
+  "modules": {
+   "M7.21": {
+    "app": "eng",
+    "title": "Stochastic differential equations",
+    "use": "פרק על continuous-discrete filtering",
+    "subtopics": [
+     "Brownian motion, white noise and the Langevin equation",
+     "The Itô integral and Itô's lemma",
+     "Linear SDEs: moments and exact discretization",
+     "Fokker-Planck and the Ornstein-Uhlenbeck process",
+     "Sensor noise models as SDEs",
+     "Numerical solution: Euler-Maruyama and Milstein",
+     "Continuous-discrete Kalman filtering",
+     "Diffusion models as SDEs",
+     "Parameter estimation for SDEs"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "E52",
+  "library": "eng",
+  "key": "E52",
+  "title": "Probabilistic Risk Assessment Procedures Guide",
+  "modules": {
+   "M27.11": {
+    "app": "eng",
+    "title": "Reliability engineering",
+    "use": "פרקי fault trees",
+    "subtopics": [
+     "Life distributions and the hazard function",
+     "Weibull analysis of test and field data",
+     "Reliability block diagrams and repairable systems",
+     "FMECA and fault trees in practice",
+     "Physics of failure",
+     "Accelerated life testing and HALT",
+     "Reliability growth",
+     "Reliability demonstration",
+     "Maintainability and availability",
+     "Software reliability"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "B02a",
+  "library": "mil",
+  "key": "B02a",
+  "title": "Principles of Modern Radar, Vol. II: Advanced Techniques",
+  "modules": {
+   "M5.17": {
+    "app": "eng",
+    "title": "Tracking and data association: IMM, JPDA, MHT",
+    "use": "פרק multitarget tracking",
+    "subtopics": [
+     "Motion models and process noise",
+     "Measurement models and coordinate conversion",
+     "Alpha-beta filters and the tracking index",
+     "Gating",
+     "Probabilistic data association (PDA)",
+     "JPDA and track coalescence",
+     "Multiple-hypothesis tracking and assignment",
+     "IMM in depth",
+     "Track management",
+     "Multisensor fusion and registration",
+     "Random finite sets: PHD and PMBM"
+    ]
+   },
+   "M7.12": {
+    "app": "mil",
+    "title": "Multisensor fusion and the common operating picture",
+    "use": "פרק multitarget, multisensor tracking",
+    "subtopics": [
+     "JDL model and fusion architectures",
+     "Centralized versus distributed track fusion",
+     "Correlated errors in track-to-track fusion",
+     "Sensor registration and bias estimation",
+     "Cross-sensor track association",
+     "Identity fusion and combat ID",
+     "Angle-only and heterogeneous sensor fusion",
+     "COP quality metrics"
+    ]
+   },
+   "M10.6": {
+    "app": "mil",
+    "title": "Sonar signal processing: MVDR on towed arrays, LOFAR/DEMON, TMA",
+    "use": "פרק adaptive digital beamforming",
+    "subtopics": [
+     "Towed-array conventional beamforming",
+     "MVDR and adaptive beamforming on towed arrays",
+     "LOFAR narrowband analysis",
+     "DEMON envelope analysis",
+     "Passive detection performance and ambient noise",
+     "Bearings-only target motion analysis (TMA)",
+     "Active sonar processing",
+     "From contact to fire-control solution"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "B03",
+  "library": "mil",
+  "key": "B03",
+  "title": "Introduction to Infrared and Electro-Optical Systems",
+  "modules": {
+   "M11.25": {
+    "app": "eng",
+    "title": "Sensors and transducers",
+    "use": "פרקי detectors",
+    "subtopics": [
+     "Static and dynamic sensor characteristics",
+     "Transduction principles",
+     "Interface circuits",
+     "Strain, force and pressure sensors",
+     "Temperature sensors",
+     "MEMS inertial sensors",
+     "Magnetometers and compass calibration",
+     "Optical and thermal detectors",
+     "Calibration and compensation"
+    ]
+   },
+   "M3.15": {
+    "app": "mil",
+    "title": "IR and multispectral signatures",
+    "use": "פרקי sources, atmospheric transmission ו-targets",
+    "subtopics": [
+     "Plume radiation",
+     "Hot parts, skin heating and reflections",
+     "Contrast and the atmospheric path",
+     "IR suppression and its cost",
+     "Multispectral and adaptive camouflage",
+     "Acoustic and visual signatures",
+     "Multi-band signature balance",
+     "Signature modeling tools"
+    ]
+   },
+   "M7.17": {
+    "app": "mil",
+    "title": "High-energy lasers: beam propagation in turbulence, thermal blooming, adaptive optics, ATP, laser-material",
+    "use": "פרק atmospheric turbulence",
+    "subtopics": [
+     "Diffraction-limited spot and irradiance on target",
+     "Atmospheric extinction and laser windows",
+     "Optical turbulence: Cn², Fried parameter, scintillation",
+     "Thermal blooming",
+     "Adaptive optics for HEL",
+     "Acquisition, tracking and pointing (ATP) and jitter budget",
+     "Laser-material interaction and kill mechanisms",
+     "HEL sources and power/thermal budget",
+     "Engagement timeline and effective magazine",
+     "Eye safety and hazard zones"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "B04",
+  "library": "mil",
+  "key": "B04",
+  "title": "EW 102: A Second Course in Electronic Warfare",
+  "modules": {
+   "M13.24": {
+    "app": "mil",
+    "title": "Protected SATCOM",
+    "use": "פרקי satellite link jamming",
+    "subtopics": [
+     "Link budget with interference and jamming",
+     "Transparent versus processing payloads",
+     "Anti-jam techniques",
+     "Protected waveforms and AEHF-class data rates",
+     "Narrowband UHF SATCOM and MUOS",
+     "Proliferated LEO resilience",
+     "Terminal geolocation and LPD",
+     "Ground segment and cyber resilience"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "B07",
+  "library": "mil",
+  "key": "B07",
+  "title": "Air and Missile Defense Systems Engineering",
+  "modules": {
+   "M7.13": {
+    "app": "mil",
+    "title": "C2 and battle management, kill-chain automation, human-machine teaming",
+    "use": "פרקי battle management ו-TEWA",
+    "subtopics": [
+     "C2 approach space and agility",
+     "Battle management system architectures",
+     "Threat evaluation and weapon assignment algorithms",
+     "Levels of kill-chain automation",
+     "Human factors of automated engagement",
+     "AI decision support and target nomination",
+     "Collection management and ISR tasking",
+     "C2 under degradation and its testing"
+    ]
+   },
+   "M7.16": {
+    "app": "mil",
+    "title": "C-RAM",
+    "use": "פרקי layered defense",
+    "subtopics": [
+     "RAM threat characteristics",
+     "Impact point prediction",
+     "Selective engagement policy",
+     "Iron Dome-class architecture",
+     "Gun and laser C-RAM",
+     "Warning and civil defense",
+     "Economics and saturation",
+     "Counter-battery tie-in"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "B08",
+  "library": "mil",
+  "key": "B08",
+  "title": "Military Avionics Systems",
+  "modules": {
+   "M5.13": {
+    "app": "mil",
+    "title": "GPS-denied integrated navigation: tight INS, VIO, TERCOM/DSMAC, factor graphs",
+    "use": "פרק navigation (TRN, INS/GPS)",
+    "subtopics": [
+     "Loose, tight and deep GNSS/INS coupling",
+     "Free-inertial error growth and IMU grades",
+     "Terrain-referenced navigation (TERCOM, SITAN)",
+     "Scene matching (DSMAC) and terminal image navigation",
+     "VIO and visual navigation in the military setting",
+     "Factor-graph smoothing for multi-sensor navigation",
+     "Magnetic anomaly navigation (MagNav)",
+     "Integrity and fault detection in fused navigation",
+     "Navigation error budget of a guided weapon",
+     "Land-vehicle aiding: odometry, ZUPT, non-holonomic constraints"
+    ]
+   },
+   "M15.1": {
+    "app": "mil",
+    "title": "Avionics and vetronics buses: MIL-STD-1553, ARINC 429, SpaceWire, TSN",
+    "use": "פרקי data buses ו-IMA",
+    "subtopics": [
+     "Federated versus integrated modular avionics",
+     "MIL-STD-1553B",
+     "ARINC 429",
+     "ARINC 664 part 7 (AFDX) and bounded latency",
+     "SpaceWire and SpaceFibre",
+     "Time-Sensitive Networking in vetronics",
+     "Open architectures: MOSA, FACE, SOSA",
+     "Bus security and avionics attack surface",
+     "End-to-end deterministic latency budgets"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "B10",
+  "library": "mil",
+  "key": "B10",
+  "title": "Principles of Naval Weapons Systems",
+  "modules": {
+   "M10.6": {
+    "app": "mil",
+    "title": "Sonar signal processing: MVDR on towed arrays, LOFAR/DEMON, TMA",
+    "use": "פרקי sonar",
+    "subtopics": [
+     "Towed-array conventional beamforming",
+     "MVDR and adaptive beamforming on towed arrays",
+     "LOFAR narrowband analysis",
+     "DEMON envelope analysis",
+     "Passive detection performance and ambient noise",
+     "Bearings-only target motion analysis (TMA)",
+     "Active sonar processing",
+     "From contact to fire-control solution"
+    ]
+   },
+   "M10.7": {
+    "app": "mil",
+    "title": "Submarine warfare systems: quieting, AIP vs nuclear, VLF/ELF communications",
+    "use": "פרקים על submarines ו-communications",
+    "subtopics": [
+     "Radiated noise sources",
+     "Quieting measures and their history",
+     "Non-acoustic signatures",
+     "Propulsion choices in operations",
+     "VLF/ELF communications",
+     "Other submarine communications",
+     "Submarine combat system and weapons",
+     "Strategic role of submarines"
+    ]
+   },
+   "M10.10": {
+    "app": "mil",
+    "title": "ASW operations analysis, mines and mine countermeasures",
+    "use": "פרקי torpedoes ו-mines",
+    "subtopics": [
+     "ASW search and sweep width",
+     "Barriers and sonobuoy fields",
+     "ASW platforms and MAD",
+     "Datum search and furthest-on circle",
+     "Torpedoes",
+     "Mine types and influence actuation",
+     "Minefield effectiveness models",
+     "Mine countermeasures: hunting, sweeping, SAS, UUVs",
+     "Mine warfare cases"
+    ]
+   },
+   "M11.11": {
+    "app": "mil",
+    "title": "Gun and projectile ballistics",
+    "use": "פרק ballistics",
+    "subtopics": [
+     "Interior ballistics",
+     "Gun limits: wear, erosion, velocity ceiling",
+     "Point-mass exterior ballistics",
+     "Aerodynamic coefficients and gyroscopic stability",
+     "Modified point mass, 6-DOF and firing tables",
+     "Dispersion error budget",
+     "Extended-range projectiles",
+     "Terminal ballistics of KE penetrators",
+     "Launch loads on guided projectiles"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "B11",
+  "library": "mil",
+  "key": "B11",
+  "title": "Tanks: 100 Years of Evolution",
+  "modules": {
+   "M11.13": {
+    "app": "mil",
+    "title": "Anti-tank missiles gen 3-5, top attack, APS and its defeat",
+    "use": "פרקים על ATGM, ERA ו-APS",
+    "subtopics": [
+     "ATGM generations and guidance",
+     "Seeker and link trades",
+     "Top attack modes",
+     "Tandem warheads versus ERA",
+     "Active protection systems: soft and hard kill",
+     "Defeating APS",
+     "Combat record of ATGMs and APS",
+     "Cost-exchange in anti-armor warfare"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "B12",
+  "library": "mil",
+  "key": "B12",
+  "title": "Space Mission Engineering: The New SMAD",
+  "modules": {
+   "M13.24": {
+    "app": "mil",
+    "title": "Protected SATCOM",
+    "use": "פרקי communications payloads ו-link budget",
+    "subtopics": [
+     "Link budget with interference and jamming",
+     "Transparent versus processing payloads",
+     "Anti-jam techniques",
+     "Protected waveforms and AEHF-class data rates",
+     "Narrowband UHF SATCOM and MUOS",
+     "Proliferated LEO resilience",
+     "Terminal geolocation and LPD",
+     "Ground segment and cyber resilience"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "B13",
+  "library": "mil",
+  "key": "B13",
+  "title": "Tactical Missile Design",
+  "modules": {
+   "M6.15": {
+    "app": "mil",
+    "title": "Missile propulsion: solid motors, ramjet, scramjet",
+    "use": "פרקי propulsion",
+    "subtopics": [
+     "Thrust, Isp, c* and nozzle expansion",
+     "Burn-rate law and chamber pressure equilibrium",
+     "Grain geometry and thrust profile",
+     "Propellant families and energetics",
+     "Motor case, nozzle and thrust vector control",
+     "Combustion instability, erosive burning and aging",
+     "Ramjet and ducted rocket",
+     "Scramjet",
+     "Propulsion choice versus mission"
+    ]
+   },
+   "M11.13": {
+    "app": "mil",
+    "title": "Anti-tank missiles gen 3-5, top attack, APS and its defeat",
+    "use": "פרקי seeker ו-datalink trades",
+    "subtopics": [
+     "ATGM generations and guidance",
+     "Seeker and link trades",
+     "Top attack modes",
+     "Tandem warheads versus ERA",
+     "Active protection systems: soft and hard kill",
+     "Defeating APS",
+     "Combat record of ATGMs and APS",
+     "Cost-exchange in anti-armor warfare"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "B14",
+  "library": "mil",
+  "key": "B14",
+  "title": "Combat Modeling",
+  "modules": {
+   "M10.9": {
+    "app": "mil",
+    "title": "Naval surface warfare and fleet air defense",
+    "use": "פרק salvo ו-Lanchester",
+    "subtopics": [
+     "Radar horizon and sea-skimming reaction time",
+     "Hughes salvo model from the primary source",
+     "Fleet air defense architecture",
+     "ASCM threat characteristics",
+     "Over-the-horizon targeting and scouting",
+     "Soft kill at sea",
+     "Distributed lethality and magazine economics",
+     "Historical cases"
+    ]
+   },
+   "M10.10": {
+    "app": "mil",
+    "title": "ASW operations analysis, mines and mine countermeasures",
+    "use": "פרקי search theory",
+    "subtopics": [
+     "ASW search and sweep width",
+     "Barriers and sonobuoy fields",
+     "ASW platforms and MAD",
+     "Datum search and furthest-on circle",
+     "Torpedoes",
+     "Mine types and influence actuation",
+     "Minefield effectiveness models",
+     "Mine countermeasures: hunting, sweeping, SAS, UUVs",
+     "Mine warfare cases"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "B15",
+  "library": "mil",
+  "key": "B15",
+  "title": "Mathematical Methods in Defense Analyses",
+  "modules": {
+   "M11.12": {
+    "app": "mil",
+    "title": "Warhead mechanics and fuzing",
+    "use": "פרקי lethality",
+    "subtopics": [
+     "Detonation properties and TNT equivalence",
+     "Gurney equations",
+     "Fragmentation and fragment lethality",
+     "Blast scaling and damage criteria",
+     "Shaped charge jets and EFP",
+     "Fuzing and safe-and-arm",
+     "Fuze-warhead coordination in missiles",
+     "Directional warheads versus hit-to-kill",
+     "Insensitive munitions"
+    ]
+   },
+   "M11.18": {
+    "app": "mil",
+    "title": "Weaponeering and collateral-damage estimation",
+    "use": "פרקים 3.11–3.16",
+    "subtopics": [
+     "The weaponeering process",
+     "Target vulnerability",
+     "Single-weapon probability of damage for point targets",
+     "Area targets and damage functions",
+     "Delivery accuracy and target location error",
+     "JMEM concepts and reattack decisions",
+     "CDE methodology and mitigation",
+     "Civilian-harm assessment and its error sources"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "B16",
+  "library": "mil",
+  "key": "B16",
+  "title": "The Fundamentals of Aircraft Combat Survivability Analysis and Design",
+  "modules": {
+   "M3.15": {
+    "app": "mil",
+    "title": "IR and multispectral signatures",
+    "use": "פרק susceptibility reduction (signature reduction)",
+    "subtopics": [
+     "Plume radiation",
+     "Hot parts, skin heating and reflections",
+     "Contrast and the atmospheric path",
+     "IR suppression and its cost",
+     "Multispectral and adaptive camouflage",
+     "Acoustic and visual signatures",
+     "Multi-band signature balance",
+     "Signature modeling tools"
+    ]
+   },
+   "M8.10": {
+    "app": "mil",
+    "title": "Combat aircraft design",
+    "use": "פרקי susceptibility",
+    "subtopics": [
+     "Sizing for a combat mission",
+     "Constraint diagram: T/W versus W/S",
+     "Energy maneuverability",
+     "Supercruise and engine selection",
+     "Stealth integration",
+     "Configuration layout",
+     "Cost and weight estimation",
+     "Uncrewed combat aircraft implications"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "B19",
+  "library": "mil",
+  "key": "B19",
+  "title": "Electromagnetic Waves and Antennas",
+  "modules": {
+   "M10.12": {
+    "app": "eng",
+    "title": "Computational electromagnetics: FDTD, MoM",
+    "use": "הפרק על זרמים באנטנות תיל (Hallén/Pocklington ופתרון נומרי)",
+    "subtopics": [
+     "The Yee grid and leapfrog update",
+     "Stability and numerical dispersion",
+     "Sources and TF/SF",
+     "Absorbing boundaries: Mur and PML",
+     "Materials: lossy and dispersive media",
+     "Near-to-far-field transformation",
+     "Validation against closed-form solutions",
+     "Method of moments for wire antennas",
+     "Choosing a method: MoM, FDTD, FEM and fast solvers"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "B22",
+  "library": "mil",
+  "key": "B22",
+  "title": "Statistical Methods for Signal Processing (EECS 564 notes)",
+  "modules": {
+   "M7.19": {
+    "app": "eng",
+    "title": "Detection and estimation theory in depth",
+    "use": "פרקים 4–5, 7–9",
+    "subtopics": [
+     "MVU estimation and sufficiency",
+     "The Cramér-Rao bound in full",
+     "Linear models and BLUE",
+     "Maximum likelihood and the threshold effect",
+     "Bayesian estimators: MMSE, MAP, LMMSE",
+     "Neyman-Pearson detection of a known signal",
+     "Detection in colored noise: prewhitening",
+     "Detection of random signals: estimator-correlator and energy detector",
+     "Composite hypotheses: GLRT and CFAR invariance",
+     "Model order selection"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "A02.3",
+  "library": "mil",
+  "key": "A02.3",
+  "title": "Labeled Random Finite Sets and the Bayes Multi-Target Tracking Filter",
+  "modules": {
+   "M5.17": {
+    "app": "eng",
+    "title": "Tracking and data association: IMM, JPDA, MHT",
+    "use": "כולו",
+    "subtopics": [
+     "Motion models and process noise",
+     "Measurement models and coordinate conversion",
+     "Alpha-beta filters and the tracking index",
+     "Gating",
+     "Probabilistic data association (PDA)",
+     "JPDA and track coalescence",
+     "Multiple-hypothesis tracking and assignment",
+     "IMM in depth",
+     "Track management",
+     "Multisensor fusion and registration",
+     "Random finite sets: PHD and PMBM"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "A02.5",
+  "library": "mil",
+  "key": "A02.5",
+  "title": "Micro-Doppler: Drones vs Birds",
+  "modules": {
+   "M9.10": {
+    "app": "mil",
+    "title": "C-UAS systems engineering and effectors",
+    "use": "כולו",
+    "subtopics": [
+     "Requirements from threat classes and timelines",
+     "Drone-bird discrimination and false-alarm rate",
+     "RF detection and protocol-based defeat (concept level)",
+     "Gun-based C-UAS and airburst ammunition",
+     "Interceptor drones and missiles",
+     "Directed energy within a C-UAS layer",
+     "C2 for C-UAS",
+     "Layered architecture and cost-exchange optimization",
+     "Passive defense against drones"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "A05.4",
+  "library": "mil",
+  "key": "A05.4",
+  "title": "Starlink Carrier Phase Positioning",
+  "modules": {
+   "M5.14": {
+    "app": "mil",
+    "title": "Signals of opportunity (LEO PNT, cellular, celestial) and portable atomic clocks",
+    "use": "כולו",
+    "subtopics": [
+     "SoOP positioning with unknown transmitter clocks",
+     "LEO Doppler and pseudorange PNT (Starlink, Iridium, Orbcomm)",
+     "Cellular (LTE/5G) positioning",
+     "Celestial navigation and daytime star trackers",
+     "eLoran and terrestrial backups",
+     "Clock stability, Allan deviation and holdover",
+     "Chip-scale atomic clocks in fielded systems",
+     "Optical clocks and cold-atom inertial sensors: maturity",
+     "Time transfer without GNSS"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "A05.5",
+  "library": "mil",
+  "key": "A05.5",
+  "title": "Handbook of Frequency Stability Analysis, NIST SP 1065",
+  "modules": {
+   "M28.5": {
+    "app": "eng",
+    "title": "Real-time systems: RTOS, scheduling, PTP clock sync",
+    "use": "פרקים 1–5",
+    "subtopics": [
+     "Real-time concepts: deadlines, jitter and WCET",
+     "Fixed-priority scheduling and response-time analysis",
+     "EDF scheduling",
+     "Resource sharing: inheritance and ceiling protocols",
+     "Aperiodic servers and mixed criticality",
+     "WCET analysis and interrupt latency",
+     "RTOS kernels in practice (FreeRTOS)",
+     "Clock synchronization: NTP and PTP",
+     "Clock stability and holdover",
+     "Time-sensitive networking"
+    ]
+   },
+   "M24.14": {
+    "app": "eng",
+    "title": "Quantum sensing",
+    "use": "פרקים 1–3",
+    "subtopics": [
+     "The quantum sensing protocol and Ramsey interferometry",
+     "Quantum limits: SQL, Heisenberg and squeezing",
+     "Decoherence and sensitivity",
+     "Atomic clocks",
+     "Atom interferometry: gravimeters and gyroscopes",
+     "Magnetometers: NV, SERF and SQUID",
+     "Reality check: TRL, SWaP and platform noise",
+     "Quantum radar and illumination claims"
+    ]
+   },
+   "M5.14": {
+    "app": "mil",
+    "title": "Signals of opportunity (LEO PNT, cellular, celestial) and portable atomic clocks",
+    "use": "כולו",
+    "subtopics": [
+     "SoOP positioning with unknown transmitter clocks",
+     "LEO Doppler and pseudorange PNT (Starlink, Iridium, Orbcomm)",
+     "Cellular (LTE/5G) positioning",
+     "Celestial navigation and daytime star trackers",
+     "eLoran and terrestrial backups",
+     "Clock stability, Allan deviation and holdover",
+     "Chip-scale atomic clocks in fielded systems",
+     "Optical clocks and cold-atom inertial sensors: maturity",
+     "Time transfer without GNSS"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "A05.6",
+  "library": "mil",
+  "key": "A05.6",
+  "title": "An Introduction to Inertial Navigation, Cambridge TR-696",
+  "modules": {
+   "M11.25": {
+    "app": "eng",
+    "title": "Sensors and transducers",
+    "use": "פרקים 2–4",
+    "subtopics": [
+     "Static and dynamic sensor characteristics",
+     "Transduction principles",
+     "Interface circuits",
+     "Strain, force and pressure sensors",
+     "Temperature sensors",
+     "MEMS inertial sensors",
+     "Magnetometers and compass calibration",
+     "Optical and thermal detectors",
+     "Calibration and compensation"
+    ]
+   },
+   "M5.13": {
+    "app": "mil",
+    "title": "GPS-denied integrated navigation: tight INS, VIO, TERCOM/DSMAC, factor graphs",
+    "use": "פרקים 3–6",
+    "subtopics": [
+     "Loose, tight and deep GNSS/INS coupling",
+     "Free-inertial error growth and IMU grades",
+     "Terrain-referenced navigation (TERCOM, SITAN)",
+     "Scene matching (DSMAC) and terminal image navigation",
+     "VIO and visual navigation in the military setting",
+     "Factor-graph smoothing for multi-sensor navigation",
+     "Magnetic anomaly navigation (MagNav)",
+     "Integrity and fault detection in fused navigation",
+     "Navigation error budget of a guided weapon",
+     "Land-vehicle aiding: odometry, ZUPT, non-holonomic constraints"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "A06.2",
+  "library": "mil",
+  "key": "A06.2",
+  "title": "Hypersonic Boost-Glide Weapons",
+  "modules": {
+   "M6.16": {
+    "app": "mil",
+    "title": "Hypersonic threats and their defense",
+    "use": "כולו",
+    "subtopics": [
+     "HGV flight mechanics and the Tracy-Wright result",
+     "Aerothermal heating and materials",
+     "Plasma sheath, RF blackout and IR signature",
+     "Detection and tracking architecture",
+     "Maneuvering-target tracking and prediction uncertainty",
+     "Defense layers: terminal and glide-phase intercept",
+     "Case studies and the 'hypersonic' label",
+     "Strategic consequences"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "A08.4",
+  "library": "mil",
+  "key": "A08.4",
+  "title": "SISO-STD-002-2021, Standard for Link 16 Simulation",
+  "modules": {
+   "M15.3": {
+    "app": "mil",
+    "title": "Tactical datalinks: Link 16 in depth, VMF, MADL (open level), swarm protocols",
+    "use": "כולו",
+    "subtopics": [
+     "Link 16 physical layer",
+     "Link 16 TDMA architecture and network design",
+     "J-series messages, PPLI, track numbers and RelNav",
+     "Link 16 capacity, range, terminals and limits",
+     "Other links: Link 11/22, JREAP, VMF",
+     "LPI/LPD links for stealth platforms: MADL, IFDL (open level)",
+     "Multi-link track management: dual tracks and gateways",
+     "Swarm communication protocols"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "A08.9",
+  "library": "mil",
+  "key": "A08.9",
+  "title": "Air-to-Air Combat With and Without Link 16, RAND MG-268",
+  "modules": {
+   "M15.3": {
+    "app": "mil",
+    "title": "Tactical datalinks: Link 16 in depth, VMF, MADL (open level), swarm protocols",
+    "use": "כולו",
+    "subtopics": [
+     "Link 16 physical layer",
+     "Link 16 TDMA architecture and network design",
+     "J-series messages, PPLI, track numbers and RelNav",
+     "Link 16 capacity, range, terminals and limits",
+     "Other links: Link 11/22, JREAP, VMF",
+     "LPI/LPD links for stealth platforms: MADL, IFDL (open level)",
+     "Multi-link track management: dual tracks and gateways",
+     "Swarm communication protocols"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "A10.3",
+  "library": "mil",
+  "key": "A10.3",
+  "title": "Defense of Surface Ships Against Anti-Ship Missiles",
+  "modules": {
+   "M10.9": {
+    "app": "mil",
+    "title": "Naval surface warfare and fleet air defense",
+    "use": "כולו",
+    "subtopics": [
+     "Radar horizon and sea-skimming reaction time",
+     "Hughes salvo model from the primary source",
+     "Fleet air defense architecture",
+     "ASCM threat characteristics",
+     "Over-the-horizon targeting and scouting",
+     "Soft kill at sea",
+     "Distributed lethality and magazine economics",
+     "Historical cases"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "A10.5",
+  "library": "mil",
+  "key": "A10.5",
+  "title": "Advances in Active Sonar Tracking",
+  "modules": {
+   "M10.6": {
+    "app": "mil",
+    "title": "Sonar signal processing: MVDR on towed arrays, LOFAR/DEMON, TMA",
+    "use": "כולו",
+    "subtopics": [
+     "Towed-array conventional beamforming",
+     "MVDR and adaptive beamforming on towed arrays",
+     "LOFAR narrowband analysis",
+     "DEMON envelope analysis",
+     "Passive detection performance and ambient noise",
+     "Bearings-only target motion analysis (TMA)",
+     "Active sonar processing",
+     "From contact to fire-control solution"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "D8",
+  "library": "mil",
+  "key": "D8",
+  "title": "ATP 3-09.12 Field Artillery Target Acquisition",
+  "modules": {
+   "M11.19": {
+    "app": "mil",
+    "title": "Artillery and precision fires",
+    "use": "נבחר",
+    "subtopics": [
+     "Requirements for accurate predicted fire",
+     "Dispersion, adjustment and rounds for effect",
+     "Precision-guided artillery and GNSS denial",
+     "Rocket versus tube artillery",
+     "Ammunition consumption and industrial base",
+     "Counter-battery and shoot-and-scoot",
+     "Drone-enabled reconnaissance-fire loop",
+     "Long-range fires and tactical ballistic missiles"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "D9",
+  "library": "mil",
+  "key": "D9",
+  "title": "ATP 3-01.81 Counter-Unmanned Aircraft System",
+  "modules": {
+   "M9.10": {
+    "app": "mil",
+    "title": "C-UAS systems engineering and effectors",
+    "use": "נבחר",
+    "subtopics": [
+     "Requirements from threat classes and timelines",
+     "Drone-bird discrimination and false-alarm rate",
+     "RF detection and protocol-based defeat (concept level)",
+     "Gun-based C-UAS and airburst ammunition",
+     "Interceptor drones and missiles",
+     "Directed energy within a C-UAS layer",
+     "C2 for C-UAS",
+     "Layered architecture and cost-exchange optimization",
+     "Passive defense against drones"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "D10",
+  "library": "mil",
+  "key": "D10",
+  "title": "JP 3-60 Joint Targeting",
+  "modules": {
+   "M7.15": {
+    "app": "mil",
+    "title": "Law of armed conflict, weapons review, autonomy policy, export control",
+    "use": "נספח CDE",
+    "subtopics": [
+     "LOAC targeting principles",
+     "Proportionality and CDE in practice",
+     "Weapons review (Article 36) and specific treaties",
+     "DoDD 3000.09 and the LAWS debate",
+     "Meaningful human control: technical implications",
+     "Israeli defense export control",
+     "International control regimes",
+     "Accountability for AI-enabled targeting"
+    ]
+   },
+   "M11.18": {
+    "app": "mil",
+    "title": "Weaponeering and collateral-damage estimation",
+    "use": "פרקי weaponeering ו-CDE",
+    "subtopics": [
+     "The weaponeering process",
+     "Target vulnerability",
+     "Single-weapon probability of damage for point targets",
+     "Area targets and damage functions",
+     "Delivery accuracy and target location error",
+     "JMEM concepts and reattack decisions",
+     "CDE methodology and mitigation",
+     "Civilian-harm assessment and its error sources"
+    ]
+   }
+  }
+ }
+]

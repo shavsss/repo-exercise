@@ -1,0 +1,882 @@
+[
+ {
+  "doc": "W02",
+  "path": "library/engineering/free/W02_vanderplas_python_data_science_hb.pdf",
+  "edition": "online edition at jakevdp.github.io (text of the 1st ed., O'Reilly 2016; CC BY-NC-ND), rendered 2026-11",
+  "source_url": "https://jakevdp.github.io/PythonDataScienceHandbook/",
+  "method": "html-render",
+  "chapter_starts": {
+   "Preface": 1,
+   "1 IPython": 7,
+   "1.06 Errors and Debugging": 32,
+   "1.07 Timing and Profiling": 38,
+   "2 NumPy": 47,
+   "3 Pandas": 122,
+   "3.12 High-Performance Pandas": 250,
+   "4 Matplotlib": 260,
+   "5 Machine Learning": 377
+  },
+  "modules": {
+   "M0.3": [
+    {
+     "pages": [
+      47,
+      121
+     ],
+     "note": "חלק 2 (NumPy): טיפוסי נתונים, יסודות מערכים, ufuncs, אגרגציות, broadcasting, מסכות, fancy indexing, מיון, מערכים מובנים"
+    },
+    {
+     "pages": [
+      260,
+      376
+     ],
+     "note": "חלק 4 (Matplotlib): קווים, פיזור, שגיאות, קונטור, היסטוגרמות, מקראות, subplots, הערות, סגנונות, תלת-ממד, Seaborn"
+    },
+    {
+     "pages": [
+      32,
+      46
+     ],
+     "note": "השלמה: 1.06–1.07 דיבוג, מדידת זמן ופרופיילינג (ביצועים)"
+    }
+   ]
+  },
+  "status": "ok",
+  "pdf_pages": 563,
+  "text_ok": true,
+  "key": "vanderplas_pdsh",
+  "title": "Python Data Science Handbook",
+  "author": "VanderPlas",
+  "tried": [],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "W07",
+  "path": "library/engineering/free/W07_madsen_nonlinear_least_squares.pdf",
+  "source_url": "https://www2.imm.dtu.dk/pubdb/edoc/imm3215.pdf",
+  "method": "direct",
+  "layout_note": "2-up: each PDF page holds two printed pages; printed page n is on PDF page floor((n-1)/2)+2",
+  "modules": {
+   "M8.24": [
+    {
+     "pages": [
+      1,
+      30
+     ],
+     "note": "כולו: 58 עמודים מודפסים על 30 עמודי PDF (שני עמודים בכל עמוד)"
+    },
+    {
+     "pages": [
+      4,
+      9
+     ],
+     "note": "פרק 2: שיטות ירידה, ניוטון, חיפוש קו (2.3) ואזור אמון ושיטות מרוסנות (2.4)"
+    },
+    {
+     "pages": [
+      10,
+      26
+     ],
+     "note": "פרק 3: ריבועים פחותים לא ליניאריים: Gauss–Newton, Levenberg–Marquardt, Dog Leg, היברידי LM/quasi-Newton, גרסאות secant"
+    }
+   ]
+  },
+  "status": "ok",
+  "pdf_pages": 30,
+  "text_ok": true,
+  "key": "madsen_nlls",
+  "title": "Methods for Non-Linear Least Squares Problems",
+  "author": "Madsen, Nielsen & Tingleff",
+  "edition": "DTU IMM, 2nd ed. 2004",
+  "tried": [],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "W17",
+  "path": "library/engineering/free/W17_mit6241_dynamic_systems_control.pdf",
+  "source_url": "https://ocw.mit.edu/courses/6-241j-dynamic-systems-and-control-spring-2011/pages/readings/ (mit6_24js11_coursetextbook.pdf + MIT6_241JS11_chap22..30.pdf + lecture slides MIT6_241JS11_lec12,13,20,24,25)",
+  "method": "bundle",
+  "parts": {
+   "Ch1-21 (from course textbook file; ch9,16 not published)": [
+    1,
+    239
+   ],
+   "Ch22": [
+    240,
+    251
+   ],
+   "Ch24": [
+    252,
+    263
+   ],
+   "Ch25": [
+    264,
+    278
+   ],
+   "Ch26": [
+    279,
+    285
+   ],
+   "Ch27": [
+    286,
+    296
+   ],
+   "Ch28": [
+    297,
+    312
+   ],
+   "Ch29": [
+    313,
+    326
+   ],
+   "Ch30": [
+    327,
+    336
+   ],
+   "Lecture 12-13 slides (I/O stability, readings ch15-16)": [
+    337,
+    356
+   ],
+   "Lecture 20 slides (reachability & observability, readings ch23-24)": [
+    357,
+    368
+   ],
+   "Lecture 24 slides (H2 synthesis)": [
+    369,
+    396
+   ],
+   "Lecture 25 slides (Hinf synthesis)": [
+    397,
+    409
+   ]
+  },
+  "chapter_starts": {
+   "1": 3,
+   "2": 13,
+   "3": 28,
+   "4": 34,
+   "5": 48,
+   "6": 63,
+   "7": 72,
+   "8": 84,
+   "10": 94,
+   "11": 102,
+   "12": 112,
+   "13": 122,
+   "14": 138,
+   "15": 152,
+   "17": 164,
+   "18": 181,
+   "19": 197,
+   "20": 214,
+   "21": 227,
+   "22": 240,
+   "24": 252,
+   "25": 264,
+   "26": 279,
+   "27": 286,
+   "28": 297,
+   "29": 313,
+   "30": 327
+  },
+  "modules": {
+   "M5.16": [
+    {
+     "pages": [
+      34,
+      47
+     ],
+     "note": "פרק 4: נורמות מטריצה ו-SVD (ריבועים פחותים ונורמה מינימלית: גם פרקים 2–3, עמ' 13–33)"
+    },
+    {
+     "pages": [
+      94,
+      151
+     ],
+     "note": "פרקים 10–14: מודלי מצב בדידים ורציפים, אקספוננט מטריצה, פירוק מודאלי, יציבות ליאפונוב ומשוואת ליאפונוב"
+    },
+    {
+     "pages": [
+      337,
+      356
+     ],
+     "note": "במקום פרק 16 (לא פורסם ב-OCW): שקפי הרצאות 12–13, יציבות קלט-פלט ונורמות מערכת"
+    },
+    {
+     "pages": [
+      240,
+      285
+     ],
+     "note": "פרקים 22, 24–26: ישיגות, צפיות, מימוש מינימלי ופירוק קלמן, מימוש מאוזן וקיטום מאוזן"
+    },
+    {
+     "pages": [
+      357,
+      368
+     ],
+     "note": "במקום פרק 23 (לא פורסם): שקפי הרצאה 20, ישיגות וצפיות, צורות קנוניות"
+    },
+    {
+     "pages": [
+      369,
+      409
+     ],
+     "note": "השלמה: שקפי הרצאות 24–25, סינתזת H2 (LQR/קלמן בצורה מטריצית) ו-H∞"
+    }
+   ],
+   "M5.21": [
+    {
+     "pages": [
+      164,
+      239
+     ],
+     "note": "פרקים 17–21: מערכות מקושרות ומשוב, ביצועים, יציבות חסינה SISO ו-MIMO (small gain), ביצועים חסינים ו-μ"
+    },
+    {
+     "pages": [
+      286,
+      296
+     ],
+     "note": "פרק 27: קטבים ואפסים של מערכות MIMO וכיווניהם"
+    },
+    {
+     "pages": [
+      397,
+      409
+     ],
+     "note": "השלמה: שקפי הרצאה 25, סינתזת H∞"
+    }
+   ]
+  },
+  "status": "partial",
+  "tried": [
+   "OCW states chapters 9, 16 and 23 are not available; searched for other official copies (MIT DSpace 2003 page 404, LibreTexts mirrors OCW); substituted the OCW lecture slides that cover ch16 and ch23 topics",
+   "the single course-textbook PDF ends at ch22 (incomplete), so ch22-30 were taken from the individual chapter PDFs"
+  ],
+  "pdf_pages": 409,
+  "text_ok": true,
+  "key": "mit_6241",
+  "title": "Lectures on Dynamic Systems and Control (6.241J notes)",
+  "author": "Dahleh, Dahleh & Verghese",
+  "edition": "MIT OCW 2011",
+  "blocked_hosts": []
+ },
+ {
+  "doc": "W22",
+  "path": "library/engineering/free/W22_ifac_computer_control_overview.pdf",
+  "source_url": "https://www.kth.se/social/upload/4f311a97f2765461cf00000d/IFAC_control.pdf",
+  "method": "direct",
+  "modules": {
+   "M5.22": [
+    {
+     "pages": [
+      1,
+      93
+     ],
+     "note": "כולו"
+    },
+    {
+     "pages": [
+      11,
+      33
+     ],
+     "note": "פרקים 2–5: דגימה ושחזור (aliasing, prefilter), מודלים בדידים (ZOH מדויק, קטבים ואפסים של מערכת דגומה), תגובת תדר, מפרטי תכן"
+    },
+    {
+     "pages": [
+      34,
+      64
+     ],
+     "note": "פרקים 6–10: קירוב בקרים אנלוגיים, PID דיגיטלי, השמת קטבים/deadbeat, תכן אופטימלי (LQ)"
+    },
+    {
+     "pages": [
+      65,
+      88
+     ],
+     "note": "פרקים 11–13: נושאים מעשיים (קוונטיזציה, רוויה ו-anti-windup, bumpless transfer), מימוש בזמן אמת ותזמון הבקר (השהיה חישובית ו-jitter)"
+    }
+   ]
+  },
+  "status": "ok",
+  "pdf_pages": 93,
+  "text_ok": true,
+  "key": "ifac_computer_control",
+  "title": "Computer Control: An Overview (IFAC Professional Brief)",
+  "author": "Wittenmark, Åström & Årzén",
+  "edition": "IFAC 2002",
+  "tried": [],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "X01",
+  "path": "library/military/free/X01_ietf_aodv_olsr_dtn_rfcs.pdf",
+  "edition": "RFC 3561 (2003), RFC 3626 (2003), RFC 4838 (2007); rendered from rfc-editor.org HTML",
+  "source_url": "https://www.rfc-editor.org/rfc/rfc3561.html ; https://www.rfc-editor.org/rfc/rfc3626.html ; https://www.rfc-editor.org/rfc/rfc4838.html",
+  "method": "bundle (html-render)",
+  "parts": {
+   "RFC 3561 AODV": [
+    1,
+    32
+   ],
+   "RFC 3626 OLSR": [
+    33,
+    96
+   ],
+   "RFC 4838 DTN architecture": [
+    97,
+    126
+   ]
+  },
+  "modules": {
+   "M15.2": [
+    {
+     "pages": [
+      1,
+      32
+     ],
+     "note": "RFC 3561 AODV: ניתוב ריאקטיבי (ניתוב לפי דרישה)"
+    },
+    {
+     "pages": [
+      33,
+      96
+     ],
+     "note": "RFC 3626 OLSR: ניתוב פרואקטיבי, MPR"
+    },
+    {
+     "pages": [
+      97,
+      126
+     ],
+     "note": "RFC 4838: ארכיטקטורת רשתות עמידות להשהיה (DTN, bundle)"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "rfc-editor.org PDF paths (/rfc/rfcN.pdf, /pdfrfc/rfcN.txt.pdf) return 404 for these older RFCs",
+   "datatracker.ietf.org/doc/pdf returned 403",
+   "used official rfc-editor.org HTML rendered to PDF"
+  ],
+  "pdf_pages": 126,
+  "text_ok": true,
+  "key": "ietf_manet_rfcs",
+  "title": "IETF RFC 3561 (AODV), RFC 3626 (OLSR), RFC 4838 (DTN architecture)",
+  "author": "IETF",
+  "blocked_hosts": []
+ },
+ {
+  "doc": "W29",
+  "path": "library/engineering/free/W29_prince_computer_vision_models.pdf",
+  "source_url": "https://raw.githubusercontent.com/udlbook/cvbook/main/book.pdf (linked from computervisionmodels.com -> udlbook.github.io/cvbook)",
+  "method": "direct",
+  "modules": {
+   "M19.12": [
+    {
+     "pages": [
+      357,
+      458
+     ],
+     "note": "חלק V, פרקים 14–16: מצלמת חריר וכיול, מודלים לטרנספורמציות (הומוגרפיה, RANSAC), מצלמות מרובות (גאומטריה אפיפולרית, מטריצות E/F, טריאנגולציה, SfM ו-bundle adjustment)"
+    },
+    {
+     "pages": [
+      539,
+      572
+     ],
+     "note": "השלמה: פרק 19, מודלים טמפורליים (פילטר קלמן ומעקב), רקע ל-SLAM/VIO"
+    },
+    {
+     "pages": [
+      603,
+      614
+     ],
+     "note": "השלמה: נספח אופטימיזציה (Gauss-Newton/LM ל-bundle adjustment)"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "web4.cs.ucl.ac.uk/staff/s.prince/book/book.pdf returned 503; github.com raw link 403 (session GitHub policy); raw.githubusercontent.com worked"
+  ],
+  "pdf_pages": 667,
+  "text_ok": true,
+  "key": "prince_cvmli",
+  "title": "Computer Vision: Models, Learning, and Inference",
+  "author": "Prince",
+  "edition": "CUP 2012, free PDF from the author",
+  "blocked_hosts": []
+ },
+ {
+  "doc": "W33",
+  "path": "library/engineering/free/W33_nist_fips203_ml_kem.pdf",
+  "source_url": "https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.203.pdf",
+  "method": "direct",
+  "modules": {
+   "M22.15": [
+    {
+     "pages": [
+      1,
+      56
+     ],
+     "note": "כולו"
+    },
+    {
+     "pages": [
+      10,
+      26
+     ],
+     "note": "קריאה ממוקדת: מבוא, סימונים וסקירת ML-KEM (פרקים 1–3)"
+    },
+    {
+     "pages": [
+      44,
+      49
+     ],
+     "note": "פרקים 7–8: אלגוריתמי ML-KEM וסטים של פרמטרים"
+    }
+   ]
+  },
+  "status": "ok",
+  "pdf_pages": 56,
+  "text_ok": true,
+  "key": "fips_203",
+  "title": "FIPS 203, Module-Lattice-Based Key-Encapsulation Mechanism Standard",
+  "author": "NIST",
+  "edition": "2024",
+  "tried": [],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "W38",
+  "path": "library/engineering/free/W38_sze_efficient_dnn_processing.pdf",
+  "edition": "arXiv 1703.09039 (latest version); Proc. IEEE 2017",
+  "source_url": "https://arxiv.org/pdf/1703.09039",
+  "method": "direct",
+  "modules": {
+   "M28.2": [
+    {
+     "pages": [
+      11,
+      19
+     ],
+     "note": "§V–VI: חומרה לעיבוד DNN (CPU/GPU, Toeplitz/FFT, dataflows של מאיצים: weight/output/row stationary, מערכים סיסטוליים) ועיבוד קרוב לזיכרון"
+    }
+   ],
+   "M29.7": [
+    {
+     "pages": [
+      1,
+      32
+     ],
+     "note": "כולו"
+    },
+    {
+     "pages": [
+      20,
+      27
+     ],
+     "note": "§VII–VIII: הפחתת דיוק (קוונטיזציה), גיזום ודחיסה, ארכיטקטורות יעילות, מדדי benchmarking"
+    }
+   ],
+   "M15.4": [
+    {
+     "pages": [
+      1,
+      32
+     ],
+     "note": "כולו"
+    }
+   ]
+  },
+  "status": "ok",
+  "pdf_pages": 32,
+  "text_ok": true,
+  "key": "sze_dnn",
+  "title": "Efficient Processing of Deep Neural Networks: A Tutorial and Survey",
+  "author": "Sze, Chen, Yang & Emer",
+  "tried": [],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "W43",
+  "path": "library/engineering/free/W43_barry_mastering_freertos.pdf",
+  "source_url": "https://www.freertos.org/media/2018/161204_Mastering_the_FreeRTOS_Real_Time_Kernel-A_Hands-On_Tutorial_Guide.pdf",
+  "method": "direct",
+  "modules": {
+   "M28.5": [
+    {
+     "pages": [
+      70,
+      127
+     ],
+     "note": "פרק 3: ניהול משימות, עדיפויות, טיק, אלגוריתמי תזמון (fixed-priority preemptive)"
+    },
+    {
+     "pages": [
+      208,
+      291
+     ],
+     "note": "פרקים 6–7: ניהול פסיקות (deferred processing, nesting) וניהול משאבים (mutex, ירושת עדיפות, היפוך עדיפויות, gatekeeper)"
+    },
+    {
+     "pages": [
+      128,
+      173
+     ],
+     "note": "השלמה: פרק 4, תורים"
+    }
+   ]
+  },
+  "status": "ok",
+  "pdf_pages": 399,
+  "text_ok": true,
+  "key": "freertos_book",
+  "title": "Mastering the FreeRTOS Real Time Kernel",
+  "author": "Barry",
+  "edition": "2016, free",
+  "tried": [],
+  "blocked_hosts": [],
+  "text_note": "pages 5-8 are sparse front matter; body text layer verified (e.g. PDF page 100)"
+ },
+ {
+  "doc": "W48",
+  "path": "library/engineering/free/W48_rope_flashattention_deepseekv3.pdf",
+  "edition": "arXiv latest versions: 2104.09864, 2205.14135, 2412.19437",
+  "source_url": "https://arxiv.org/pdf/2104.09864 ; https://arxiv.org/pdf/2205.14135 ; https://arxiv.org/pdf/2412.19437",
+  "method": "bundle",
+  "parts": {
+   "RoFormer (RoPE)": [
+    1,
+    14
+   ],
+   "FlashAttention": [
+    15,
+    48
+   ],
+   "DeepSeek-V3 Technical Report": [
+    49,
+    101
+   ]
+  },
+  "modules": {
+   "M29.1": [
+    {
+     "pages": [
+      1,
+      14
+     ],
+     "note": "RoFormer: קידוד מיקום סיבובי (RoPE), נגזרת ותכונות"
+    },
+    {
+     "pages": [
+      15,
+      48
+     ],
+     "note": "FlashAttention: עלות חישוב וזיכרון של attention, tiling ו-IO complexity (כולל נספחי אלגוריתם)"
+    },
+    {
+     "pages": [
+      49,
+      76
+     ],
+     "note": "DeepSeek-V3: ארכיטקטורה (MLA, DeepSeekMoE, איזון עומס בלי aux loss, MTP), תשתית ואימון FP8, יציבות אימון בקנה מידה"
+    }
+   ]
+  },
+  "status": "ok",
+  "pdf_pages": 101,
+  "text_ok": true,
+  "key": "llm_arch_papers",
+  "title": "RoFormer (arXiv 2104.09864); FlashAttention (2205.14135); DeepSeek-V3 Technical Report (2412.19437)",
+  "author": "Su et al.; Dao et al.; DeepSeek-AI",
+  "tried": [],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "W53",
+  "path": "library/engineering/free/W53_deepseekmath_grpo_deepseek_r1.pdf",
+  "edition": "arXiv latest versions: 2402.03300, 2501.12948",
+  "source_url": "https://arxiv.org/pdf/2402.03300 ; https://arxiv.org/pdf/2501.12948",
+  "method": "bundle",
+  "parts": {
+   "DeepSeekMath (GRPO)": [
+    1,
+    30
+   ],
+   "DeepSeek-R1": [
+    31,
+    116
+   ]
+  },
+  "modules": {
+   "M29.3": [
+    {
+     "pages": [
+      10,
+      22
+     ],
+     "note": "DeepSeekMath פרקים 3–5: SFT, GRPO (נגזרת והשוואה ל-PPO), ודיון בתובנות RL"
+    },
+    {
+     "pages": [
+      31,
+      116
+     ],
+     "note": "DeepSeek-R1: R1-Zero (RL עם תגמולים ניתנים לאימות), צנרת R1, השוואת GRPO ו-PPO, reward hacking, test-time compute ואורך CoT, זיקוק, הערכה ובטיחות"
+    }
+   ]
+  },
+  "status": "ok",
+  "pdf_pages": 116,
+  "text_ok": true,
+  "key": "reasoning_papers",
+  "title": "DeepSeekMath / GRPO (arXiv 2402.03300); DeepSeek-R1 (2501.12948)",
+  "author": "Shao et al.; DeepSeek-AI",
+  "tried": [],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "W58",
+  "path": "library/engineering/free/W58_huyen_cs329s_ml_systems_design.pdf",
+  "edition": "Stanford CS 329S, Winter 2022 lecture notes (Google Docs, author-shared) + 2 lecture slide decks",
+  "source_url": "https://stanford-cs329s.github.io/syllabus.html (each 'Lecture note' Google Doc exported via docs.google.com/document/d/<id>/export?format=pdf; slides via /presentation/d/<id>/export/pdf)",
+  "method": "bundle",
+  "parts": {
+   "L1 ML systems in production": [
+    1,
+    30
+   ],
+   "L2 ML and data systems fundamentals": [
+    31,
+    58
+   ],
+   "L3 Training data": [
+    59,
+    86
+   ],
+   "L4 Feature engineering": [
+    87,
+    107
+   ],
+   "L5 Model development": [
+    108,
+    130
+   ],
+   "L6 Offline evaluation": [
+    131,
+    146
+   ],
+   "L8 Deployment": [
+    147,
+    176
+   ],
+   "L10 Distribution shifts and monitoring": [
+    177,
+    213
+   ],
+   "L11 Continual learning (slides)": [
+    214,
+    240
+   ],
+   "L15 ML infrastructure and platform (slides)": [
+    241,
+    342
+   ]
+  },
+  "modules": {
+   "M29.8": [
+    {
+     "pages": [
+      1,
+      58
+     ],
+     "note": "הרצאות 1–2: מסגור בעיית ML ודרישות מערכת, הנדסת נתונים"
+    },
+    {
+     "pages": [
+      59,
+      107
+     ],
+     "note": "הרצאות 3–4: נתוני אימון (דגימה ותיוג), הנדסת תכונות ודליפה"
+    },
+    {
+     "pages": [
+      108,
+      146
+     ],
+     "note": "הרצאות 5–6: פיתוח מודל, הערכה offline מעבר לדיוק"
+    },
+    {
+     "pages": [
+      147,
+      213
+     ],
+     "note": "הרצאות 8, 10: דפוסי פריסה, כשלי מערכות ML, הסטת התפלגות וניטור"
+    },
+    {
+     "pages": [
+      214,
+      342
+     ],
+     "note": "שקפים: למידה מתמשכת וניסויים online (הרצאה 11), תשתית ופלטפורמת ML (הרצאה 15)"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "lecture notes for L7/L9/L12-14 do not exist (those sessions were guest talks/tutorials); continual learning and infra have slides only"
+  ],
+  "pdf_pages": 342,
+  "text_ok": true,
+  "key": "cs329s",
+  "title": "CS 329S: Machine Learning Systems Design (lecture notes)",
+  "author": "Huyen (Stanford)",
+  "blocked_hosts": []
+ },
+ {
+  "doc": "W63",
+  "path": "library/engineering/free/W63_newman_marine_hydrodynamics.pdf",
+  "edition": "40th anniversary edition, MIT Press 2018 (open access, CC BY-NC-ND)",
+  "source_url": "https://mitp-content-server.mit.edu/books/content/sectbyfn/books_pres_0/11452/11452.pdf?dl=1",
+  "method": "direct",
+  "modules": {
+   "M30.2": [
+    {
+     "pages": [
+      33,
+      78
+     ],
+     "note": "פרק 2: ניסויי מודל, קנה מידה Froude/Reynolds, גרר חיכוך וגרר גוף ספינה, מדחף, אינטראקציה מדחף-גוף"
+    },
+    {
+     "pages": [
+      79,
+      130
+     ],
+     "note": "פרק 3: זרימה צמיגה, שכבות גבול למינריות וטורבולנטיות (בסיס לגרר חיכוך)"
+    },
+    {
+     "pages": [
+      271,
+      364
+     ],
+     "note": "פרק 6: גלים ותופעות גלים, כולל התנגדות יצירת גלים"
+    },
+    {
+     "pages": [
+      191,
+      270
+     ],
+     "note": "השלמה: פרק 5, משטחים נושאים (תאוריית כנף ובסיס לתאוריית מדחף)"
+    }
+   ],
+   "M30.3": [
+    {
+     "pages": [
+      271,
+      364
+     ],
+     "note": "פרק 6: גלי ים ליניאריים, ספקטרום, תנועות גוף בגלים, RAO"
+    },
+    {
+     "pages": [
+      365,
+      426
+     ],
+     "note": "השלמה: פרק 7, גופים דקים: תאוריית רצועות ונגזרות הידרודינמיות לתמרון"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "direct.mit.edu (slice URL) returned 403 (bot protection); library.oapen.org returned 429 rate limit; MIT Press content server PDF worked"
+  ],
+  "pdf_pages": 450,
+  "text_ok": true,
+  "key": "newman_mh",
+  "title": "Marine Hydrodynamics",
+  "author": "Newman",
+  "blocked_hosts": [],
+  "text_note": "pages 5-8 are sparse front matter; body text layer verified (e.g. PDF page 100)"
+ },
+ {
+  "doc": "X14",
+  "path": "library/military/free/X14_tracy_wright_hypersonic_boost_glide.pdf",
+  "source_url": "https://scienceandglobalsecurity.org/archive/sgs28tracy.pdf",
+  "method": "direct",
+  "modules": {
+   "M6.16": [
+    {
+     "pages": [
+      1,
+      36
+     ],
+     "note": "כולו"
+    }
+   ]
+  },
+  "status": "ok",
+  "pdf_pages": 36,
+  "text_ok": true,
+  "key": "tracy_wright",
+  "title": "Modeling the Performance of Hypersonic Boost-Glide Missiles",
+  "author": "Tracy & Wright",
+  "edition": "Science & Global Security 28(3), 2020",
+  "tried": [],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "X24",
+  "path": "library/military/free/X24_holland_michel_counter_drone_systems.pdf",
+  "source_url": "https://dronecenter.bard.edu/files/2019/12/CSD-CUAS-2nd-Edition-Web.pdf",
+  "method": "direct",
+  "modules": {
+   "M9.10": [
+    {
+     "pages": [
+      1,
+      45
+     ],
+     "note": "כולו"
+    }
+   ]
+  },
+  "status": "ok",
+  "pdf_pages": 45,
+  "text_ok": true,
+  "key": "holland_michel_cuas",
+  "title": "Counter-Drone Systems",
+  "author": "Holland Michel",
+  "edition": "2nd ed. (Bard Center for the Study of the Drone, 2019)",
+  "tried": [],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "X29",
+  "path": "library/military/free/X29_glaser_gas_centrifuge.pdf",
+  "source_url": "https://scienceandglobalsecurity.org/archive/sgs16glaser.pdf",
+  "method": "direct",
+  "modules": {
+   "M12.5": [
+    {
+     "pages": [
+      1,
+      25
+     ],
+     "note": "כולו"
+    }
+   ]
+  },
+  "status": "ok",
+  "pdf_pages": 25,
+  "text_ok": true,
+  "key": "glaser_centrifuge",
+  "title": "Characteristics of the Gas Centrifuge for Uranium Enrichment and Their Relevance for Nuclear Weapon Proliferation",
+  "author": "Glaser",
+  "edition": "Science & Global Security 16 (2008)",
+  "tried": [],
+  "blocked_hosts": []
+ }
+]
