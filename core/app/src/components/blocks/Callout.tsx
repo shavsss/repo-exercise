@@ -17,6 +17,7 @@ export const CALLOUTS: Record<string, { label: string; icon: string }> = {
   model: { label: "בניית מודל", icon: "model" },
   erratum: { label: "תיקון", icon: "erratum" },
   fieldsystems: { label: "דוגמאות הנדסיות מהעולם", icon: "fieldsystems" },
+  derivation: { label: "גזירה", icon: "formula" },
   coverage: { label: "בדיקת כיסוי", icon: "coverage" },
   keep: { label: "לסיכום: מה צריך לזכור", icon: "coverage" },
 };
