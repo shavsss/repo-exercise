@@ -844,7 +844,10 @@ export function App() {
   if (isQuiz && !busy && !messages.length) quick.push({ label: "התחל את המבחן", text: `התחל את המבחן המסכם של מודול ${module?.id}.`, mode: "quiz", primary: true });
 
   const status = !rt ? "connecting" : rt.sample ? "live" : "off";
-  const sideVisible = narrow() || bookOn ? sideOpen : sidePref === "open";
+  // the panel opens over the text (sideOpen) on a narrow screen, in a book lesson and in focus mode,
+  // where the remembered side preference would leave it hidden
+  const overlaySide = () => narrow() || bookOn || document.documentElement.dataset.focus === "on";
+  const sideVisible = overlaySide() ? sideOpen : sidePref === "open";
   const nextLesson = lessonIdx !== undefined && lessonIdx >= 0 && lessonIdx + 1 < nLessons ? lessonIdx + 1 : lessonIdx !== undefined && lessonIdx >= 0 && lessonIdx + 1 === nLessons ? -1 : null;
   const mdCtx = useMemo(() => ({ live: false, idPrefix: "page", openSource }), [openSource]);
 
@@ -862,9 +865,9 @@ export function App() {
           // from another tab the menu goes back to the lessons with the module list open
           if (tab !== "study") {
             setTab("study");
-            if (narrow() || bookOn) setSideOpen(true);
+            if (overlaySide()) setSideOpen(true);
             else setSidePref("open");
-          } else if (narrow() || bookOn) setSideOpen(!sideOpen);
+          } else if (overlaySide()) setSideOpen(!sideOpen);
           else setSidePref(sidePref === "open" ? "closed" : "open");
         }}
         onHome={() => {
