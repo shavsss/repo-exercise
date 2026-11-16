@@ -9,16 +9,12 @@ syllabus, and writes eng/app/artifact/lib/ in the same format as the Core Lab:
 Section headings come from the syllabus maps (library/engineering/syllabus/toc/), which
 were checked by hand, rather than from the PDF outline.
 """
-import base64
 import os
 import hashlib
 import json
-import subprocess
 import sys
-import tempfile
 from pathlib import Path
 
-from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[2]
 SYL = ROOT / "library" / "engineering" / "syllabus"
@@ -38,6 +34,7 @@ from syllabus import DOCS, MODULES, PARTS, SKIP  # noqa: E402
 from toc import load  # noqa: E402
 sys.path.insert(0, str(ROOT / "core" / "tools"))
 from sections import detect  # noqa: E402
+from images import page_image, webp_data  # noqa: E402
 sys.path.insert(0, str(ROOT / "tools" / "curriculum"))
 from enrich import attach  # noqa: E402  (topic items, test-out, reading lists)
 
@@ -88,19 +85,6 @@ def toc_sections(doc):
 def source_pdf(rel):
     p = ROOT / rel
     return p if p.suffix == ".pdf" else None
-
-
-def webp_data(path):
-    return "data:image/webp;base64," + base64.b64encode(Path(path).read_bytes()).decode()
-
-
-def page_image(pdf, page, dpi=110, quality=50):
-    with tempfile.TemporaryDirectory() as tmp:
-        subprocess.run(["pdftoppm", "-f", str(page), "-l", str(page), "-r", str(dpi), "-gray", "-png", str(pdf), f"{tmp}/p"], check=True, capture_output=True)
-        im = Image.open(next(Path(tmp).glob("p*.png")))
-        out = Path(tmp) / "p.webp"
-        im.save(out, "WEBP", quality=quality, method=6)
-        return webp_data(out)
 
 
 def bundle(prefix, items, folder):
