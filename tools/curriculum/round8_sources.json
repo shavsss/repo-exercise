@@ -18,8 +18,8 @@
     "Introduction to Electromagnetic Compatibility"
    ],
    "W71": [
-    "library/engineering/books/W71_kassakian_power_electronics_preview.pdf",
-    "Principles of Power Electronics"
+    "library/engineering/books/W71_kassakian_power_electronics.pdf",
+    "Principles of Power Electronics (Kassakian, Schlecht, Verghese)"
    ],
    "W64": [
     "library/engineering/books/W64_saleh_teich_photonics.pdf",
@@ -360,6 +360,14 @@
    "W61": [
     "library/engineering/free/W61_cfd_direct_notes.pdf",
     "Notes on Computational Fluid Dynamics: General Principles"
+   ],
+   "W42": [
+    "library/engineering/free/W42_ieee_1800_2023_systemverilog.pdf",
+    "IEEE Std 1800-2023 SystemVerilog"
+   ],
+   "W91": [
+    "library/engineering/free/W91_van_steen_distributed_systems_3e.pdf",
+    "Distributed Systems, 3rd ed. (van Steen & Tanenbaum)"
    ]
   },
   "mil": {
@@ -570,6 +578,10 @@
    "X32": [
     "free/X32_ecss_spacewire.pdf",
     "ECSS-E-ST-50-12C Rev.1, SpaceWire: Links, Nodes, Routers and Networks"
+   ],
+   "X43": [
+    "free/X43_dodd_3000_09_2023.pdf",
+    "DoD Directive 3000.09 Autonomy in Weapon Systems (25.1.2023)"
    ]
   }
  },
@@ -792,33 +804,6 @@
    ],
    "M12.12": [
     {
-     "doc": "W71",
-     "pages": [
-      9,
-      15
-     ],
-     "note": "תוכן עניינים מלא של המהדורה (מפה לפרקים החסרים: DC/DC, DCM, מבודדים, מודל ממוצע, בקרה, מגנטיקה, תלת-פאזי, EMI)",
-     "role": "main"
-    },
-    {
-     "doc": "W71",
-     "pages": [
-      23,
-      48
-     ],
-     "note": "פרקים 1–2: מבוא ו-Form and Function overview: סקירת ממירי DC/DC, AC/DC, AC/AC והשפעת מימוש המתג (רק מבוא לנושא 1 ו-3)",
-     "role": "main"
-    },
-    {
-     "doc": "W71",
-     "pages": [
-      49,
-      78
-     ],
-     "note": "פרק 3: Introduction to rectifiers (לא מנושאי המודול ישירות, רקע)",
-     "role": "main"
-    },
-    {
      "doc": "W72",
      "pages": [
       24,
@@ -951,6 +936,114 @@
       320
      ],
      "note": "6.622 הרצאות 37-38: מתאמי עכבה, gate drive, פריסה (WBG חלקית)",
+     "role": "main"
+    },
+    {
+     "doc": "W71",
+     "pages": [
+      11,
+      22
+     ],
+     "note": "תוכן העניינים המלא",
+     "role": "main"
+    },
+    {
+     "doc": "W71",
+     "pages": [
+      22,
+      61
+     ],
+     "note": "פרקים 1–2: מבוא, Form and Function: סקירת ממירי DC/DC, AC/DC, AC/AC ומימוש המתג",
+     "role": "main"
+    },
+    {
+     "doc": "W71",
+     "pages": [
+      124,
+      159
+     ],
+     "note": "פרק 6: ממירי DC/DC בתדר גבוה: איזון וולט-שנייה, ממיר ישיר ועקיף, בחירת L ו-C, מאמצי רכיבים, DCM (6.7)",
+     "role": "main"
+    },
+    {
+     "doc": "W71",
+     "pages": [
+      160,
+      187
+     ],
+     "note": "פרק 7: ממירים מבודדים: forward עם clamp, גשר וחצי-גשר, flyback, השראות זליגה, יציאות מרובות",
+     "role": "main"
+    },
+    {
+     "doc": "W71",
+     "pages": [
+      188,
+      217
+     ],
+     "note": "פרק 8: ממירי dc/ac בתדר משתנה: מהפך גשר, הפחתת הרמוניות ו-PWM",
+     "role": "main"
+    },
+    {
+     "doc": "W71",
+     "pages": [
+      274,
+      319
+     ],
+     "note": "פרק 11: דינמיקה ובקרה: מיצוע מעגל ומתג, מודל ממוצע מלונרץ, לולאת משוב, יציבות וחסינות",
+     "role": "main"
+    },
+    {
+     "doc": "W71",
+     "pages": [
+      386,
+      423
+     ],
+     "note": "פרק 14: תכן בקרת משוב: Nyquist ו-Bode של הגבר הלולאה, בקרת זרם (current-mode), משוב מצב",
+     "role": "main"
+    },
+    {
+     "doc": "W71",
+     "pages": [
+      426,
+      455
+     ],
+     "note": "פרק 15: רכיבים: מתגים, קבלים ומשרנים מעשיים והפסדיהם",
+     "role": "main"
+    },
+    {
+     "doc": "W71",
+     "pages": [
+      520,
+      561
+     ],
+     "note": "פרק 18: טרנזיסטורי הספק: BJT, MOSFET ו-IGBT, הפסדי מיתוג והולכה",
+     "role": "main"
+    },
+    {
+     "doc": "W71",
+     "pages": [
+      586,
+      627
+     ],
+     "note": "פרק 20: רכיבים מגנטיים: משרן, רוויה והיסטרזיס, הפסדי ליבה ונחושת, שנאים",
+     "role": "main"
+    },
+    {
+     "doc": "W71",
+     "pages": [
+      630,
+      673
+     ],
+     "note": "פרקים 21–22: סוגיות נלוות (מודל תרמי, גוף קירור) ו-gate drives ל-MOSFET",
+     "role": "main"
+    },
+    {
+     "doc": "W71",
+     "pages": [
+      692,
+      735
+     ],
+     "note": "פרקים 24–25: snubbers ו-clamps, מודלים תרמיים סטטיים ומעבר",
      "role": "main"
     }
    ],
@@ -1677,6 +1770,69 @@
       56
      ],
      "note": "כל המאמר: synchronizers, metastability, העברת אותות בין תחומי שעון, async FIFO, gray code, בדיקות CDC ב-SystemVerilog (מכסה רק את נושא CDC של המודול)",
+     "role": "main"
+    },
+    {
+     "doc": "W42",
+     "pages": [
+      63,
+      73
+     ],
+     "note": "התקן, סעיף 4: סמנטיקת התזמון (scheduling regions, מרוצים, השמה חוסמת ולא חוסמת)",
+     "role": "main"
+    },
+    {
+     "doc": "W42",
+     "pages": [
+      180,
+      220
+     ],
+     "note": "סעיף 8: מחלקות (הבסיס של testbench מונחה-עצמים ו-UVM)",
+     "role": "main"
+    },
+    {
+     "doc": "W42",
+     "pages": [
+      221,
+      269
+     ],
+     "note": "סעיפים 9–10: תהליכים (always_comb, always_ff, always_latch) והשמות",
+     "role": "main"
+    },
+    {
+     "doc": "W42",
+     "pages": [
+      355,
+      383
+     ],
+     "note": "סעיפים 14–15: clocking blocks, mailbox ו-semaphore ב-testbench",
+     "role": "main"
+    },
+    {
+     "doc": "W42",
+     "pages": [
+      384,
+      503
+     ],
+     "note": "סעיף 16: Assertions (SVA): immediate ו-concurrent, sequences, properties",
+     "role": "main"
+    },
+    {
+     "doc": "W42",
+     "pages": [
+      523,
+      619
+     ],
+     "note": "סעיפים 18–19: constrained random וכיסוי פונקציונלי (covergroups)",
+     "role": "main"
+    },
+    {
+     "doc": "W42",
+     "pages": [
+      781,
+      807
+     ],
+     "note": "סעיף 25: interfaces ו-modports",
      "role": "main"
     }
    ],
@@ -4137,6 +4293,51 @@
      ],
      "note": "PBFT (Castro & Liskov, OSDI'99): Byzantine faults",
      "role": "main"
+    },
+    {
+     "doc": "W91",
+     "pages": [
+      312,
+      349
+     ],
+     "note": "van Steen פרק 6.1–6.4: סנכרון שעונים, שעוני Lamport ו-vector, מניעה הדדית ובחירת מנהיג",
+     "role": "main"
+    },
+    {
+     "doc": "W91",
+     "pages": [
+      370,
+      396
+     ],
+     "note": "פרק 7.1–7.3: מודלי עקביות ממוקדי-נתונים ולקוח (sequential, causal, eventual)",
+     "role": "main"
+    },
+    {
+     "doc": "W91",
+     "pages": [
+      397,
+      422
+     ],
+     "note": "פרק 7.4–7.5: ניהול רפליקות ופרוטוקולי עקביות (primary-backup, quorum)",
+     "role": "main"
+    },
+    {
+     "doc": "W91",
+     "pages": [
+      438,
+      477
+     ],
+     "note": "פרק 8.1–8.2: מודלי כשל, יתירות, קבוצות תהליכים, קונצנזוס, Paxos, כשלים ביזנטיים, גילוי כשלים",
+     "role": "main"
+    },
+    {
+     "doc": "W91",
+     "pages": [
+      478,
+      504
+     ],
+     "note": "פרק 8.3–8.5: תקשורת אמינה, multicast אטומי ו-commit מבוזר (2PC, 3PC)",
+     "role": "main"
     }
    ],
    "M29.6": [
@@ -5555,6 +5756,15 @@
       32
      ],
      "note": "החוק כולו (תרגום לא רשמי באנגלית): פרקים A מטרה, B הגדרות, C רישום יצואנים, D רישוי ועוד",
+     "role": "main"
+    },
+    {
+     "doc": "X43",
+     "pages": [
+      1,
+      24
+     ],
+     "note": "נוסח 2023 המלא של DoDD 3000.09: מדיניות, 'רמות מתאימות של שיפוט אנושי', סקירה בכירה, הגדרות, נספח הנחיות",
      "role": "main"
     }
    ],

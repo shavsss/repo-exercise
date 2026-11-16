@@ -1,15 +1,15 @@
 /* The learner's path on the home page (Roadmap.tsx): where I am, what to study today, what comes next. */
-.roadmap { display: grid; gap: 14px; margin-bottom: 22px; }
+.roadmap { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; margin-bottom: 22px; }
 
 /* where I am: every module in study order */
 .rmp-where { border: 1px solid var(--line); border-radius: 6px; background: var(--sheet); padding: 12px; }
 .rmp-lead { margin: 0 0 10px; font-size: 0.95rem; color: var(--ink); }
-.rmp-strip { display: flex; gap: 1px; height: 26px; align-items: stretch; direction: rtl; }
-.rmp-cell { all: unset; flex: 1 1 0; min-width: 1px; cursor: pointer; background: var(--line); border-radius: 1px; }
+.rmp-strip { display: flex; gap: 0; overflow: hidden; height: 34px; padding: 4px; box-sizing: border-box; align-items: stretch; direction: rtl; }
+.rmp-cell { all: unset; flex: 1 1 0; min-width: 0; cursor: pointer; background: var(--line); box-shadow: inset -1px 0 0 var(--sheet); }
 .rmp-cell.st-done { background: var(--ok); }
 .rmp-cell.st-now { background: var(--accent); }
 .rmp-cell.st-open { background: var(--blue); opacity: 0.55; }
-.rmp-cell.is-here { flex: 0 0 6px; background: var(--ink); box-shadow: 0 0 0 2px var(--paper), 0 0 0 4px var(--ink); position: relative; z-index: 1; }
+.rmp-cell.is-here { flex: 0 0 6px; background: var(--ink); box-shadow: 0 0 0 2px var(--paper), 0 0 0 4px var(--ink); position: relative; z-index: 1; margin: 0 3px; }
 .rmp-cell:hover { outline: 1px solid var(--ink); }
 .rmp-legend { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 0.8rem; color: var(--muted); }
 .rmp-legend li::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-inline-end: 6px; vertical-align: -1px; background: var(--line); }
