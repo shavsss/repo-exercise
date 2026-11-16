@@ -8,7 +8,7 @@ from PIL import Image
 
 # A page image wider than this is scaled down: scans with oversized pages (about 2,400 px wide at
 # 110 dpi) stay readable at this width and take about a quarter of the space.
-MAX_WIDTH = 1200
+MAX_WIDTH = 1000
 
 
 def webp_data(path):
