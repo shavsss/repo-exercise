@@ -17,6 +17,7 @@ export function Topbar({
   viewerOpen,
   memoryBusy,
   onToggleSide,
+  onHome,
   onToggleViewer,
   onMemory,
   onNotes,
@@ -30,6 +31,8 @@ export function Topbar({
   viewerOpen: boolean;
   memoryBusy: boolean;
   onToggleSide: () => void;
+  /** the lab's name returns to the home page */
+  onHome: () => void;
   onToggleViewer?: () => void;
   onMemory: () => void;
   onNotes: () => void;
@@ -44,7 +47,7 @@ export function Topbar({
       <button className="icon-btn" onClick={onToggleSide} aria-pressed={sideOpen} aria-label="מפת המודולים" title="מפת המודולים">
         <Icon name="menu" />
       </button>
-      <span className="brand">לנצ'סטר</span>
+      <button className="brand" onClick={onHome} title="מסך הבית">לנצ'סטר</button>
       {tabs}
       <ol className="crumbs" aria-label="נתיב">
         {crumbs.map((c, i) => (

@@ -858,7 +858,19 @@ export function App() {
         sideOpen={sideVisible}
         viewerOpen={!!viewer}
         memoryBusy={memoryBusy}
-        onToggleSide={() => (narrow() || bookOn ? setSideOpen(!sideOpen) : setSidePref(sidePref === "open" ? "closed" : "open"))}
+        onToggleSide={() => {
+          // from another tab the menu goes back to the lessons with the module list open
+          if (tab !== "study") {
+            setTab("study");
+            if (narrow() || bookOn) setSideOpen(true);
+            else setSidePref("open");
+          } else if (narrow() || bookOn) setSideOpen(!sideOpen);
+          else setSidePref(sidePref === "open" ? "closed" : "open");
+        }}
+        onHome={() => {
+          setTab("study");
+          setSelection(null);
+        }}
         onToggleViewer={
           viewer || module
             ? () => {

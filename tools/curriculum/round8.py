@@ -136,12 +136,13 @@ EXTRA = {"eng": {
     "M10.5": ["M7.3", "M7.4", "M6.10", "M2.23", "M14.1"], "M6.10": ["M5.11"],
 }}
 
-# The fixes of the order research (docs/research/round8_layers/eng_gaps.md 2.2-2.3) that were not applied
+# The fixes of the order research (docs/research/round8_layers/eng_gaps.md 2.2-2.3, mil_gaps.md 2) that were not applied
 # on 15.11: modules the course builds on become core, and wrong prerequisites are replaced.
-TIER = {"eng": {"M20.10": "core", "M22.4": "core", "M22.5": "core", "M24.9": "core", "M24.7": "core", "M17.10": "core", "M20.3": "core"}, "mil": {}}
+TIER = {"eng": {"M20.10": "core", "M22.4": "core", "M22.5": "core", "M24.9": "core", "M24.7": "core", "M17.10": "core", "M20.3": "core"}, "mil": {"M1.7": "core"}}
 DROP = {"eng": {"M15.8": ["M15.7"], "M16.24": ["M16.15"], "M3.5": ["M10.1"], "M13.19": ["M12.1"]}, "mil": {}}
 EXTRA["eng"].update({"M24.8": ["M24.7"], "M22.11": ["M20.3"], "M22.3": ["M20.3"], "M23.12": ["M20.3"], "M19.10": ["M5.14"],
                      "M15.8": ["M15.26", "M14.6"], "M16.24": ["M16.1", "M16.10"], "M3.5": ["M9.1", "M4.4"]})
+EXTRA["mil"].update({"M8.8": ["M11.3", "M11.4"], "M2.16": ["M2.30"], "M2.8": ["M1.7"], "M6.10": ["M5.8"], "M5.4": ["M0.3"]})
 
 
 def _plan(app):
