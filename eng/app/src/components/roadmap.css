@@ -86,15 +86,15 @@
 .rmp-soon button:hover { background: color-mix(in srgb, var(--st-open) 14%, var(--paper)); }
 .rmp-soon b { color: var(--st-open); }
 .rmp-arrow { color: var(--muted); }
+.rms-scroll { overflow-x: auto; padding-top: 10px; }
 .rms { position: relative; margin: 6px 0 12px; }
 .rms-links { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-.rms-link { fill: none; stroke: var(--st-locked); stroke-width: 1; opacity: 0.12; }
-.rms-link.is-met { stroke: var(--st-done); }
-.rms-link.is-near { opacity: 1; stroke-width: 2.2; stroke-dasharray: 7 5; animation: rms-flow 1.2s linear infinite; }
-.rms-link.is-near:not(.is-met) { stroke: var(--st-now); }
+.rms-link { fill: none; stroke-width: 1.4; opacity: 0.38; stroke-dasharray: 5 4; }
+.rms-link.is-met { stroke-dasharray: none; }
+.rms-link.is-near { opacity: 1; stroke-width: 2.6; stroke-dasharray: 7 5; animation: rms-flow 1.2s linear infinite; }
 @keyframes rms-flow { to { stroke-dashoffset: -24; } }
 .rms-node {
-  all: unset; box-sizing: border-box; position: absolute; height: 74px; cursor: pointer;
+  all: unset; box-sizing: border-box; position: absolute; height: 84px; cursor: pointer;
   display: grid; align-content: center; gap: 4px; padding: 6px 9px;
   border: 1px solid var(--line); border-inline-start: 5px solid var(--st); border-radius: 6px; background: var(--paper);
   transition: box-shadow 0.2s, transform 0.2s;
@@ -107,6 +107,9 @@
 .rms-node.st-locked .rms-title { color: var(--muted); }
 .rms-bar { height: 5px; border-radius: 3px; background: color-mix(in srgb, var(--st) 22%, var(--line)); overflow: hidden; display: flex; }
 .rms-bar span { background: var(--st-done); }
+.rms-num { display: inline-grid; place-items: center; min-width: 20px; height: 20px; padding: 0 4px; margin-inline-end: 6px; border-radius: 10px; color: #fff; font: 700 0.72rem var(--mono); vertical-align: 1px; }
+.rms-num.rms-corner { position: absolute; top: -9px; inset-inline-end: -8px; margin: 0; min-width: 22px; height: 22px; box-shadow: 0 0 0 2px var(--sheet); }
+.rms-card-head .rms-num { min-width: 26px; height: 26px; font-size: 0.85rem; margin: 0; }
 .rms-count { font-size: 0.7rem; color: var(--muted); }
 .rms-card { border: 1px solid var(--line); border-inline-start: 6px solid var(--st); border-radius: 6px; background: var(--paper); padding: 12px 14px; animation: rms-in 0.3s ease; }
 @keyframes rms-in { from { opacity: 0; transform: translateY(6px); } }

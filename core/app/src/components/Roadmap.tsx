@@ -19,7 +19,14 @@ export type RoadMotif = "radar" | "wave";
 const STEP_LABEL: Record<Step, string> = { done: "הושלם", now: "בלמידה", open: "פתוח", locked: "נעול" };
 const PARALLEL = 6;
 const SOON = 4;
-const ROW = 86;
+const ROW = 96;
+const COL_MIN = 150; // px: below this the map scrolls sideways instead of squeezing the names
+// the syllabus's category prefix ("צומת 4:", "גשר:", ...) says nothing on the map
+const shortTitle = (t: string) => t.replace(/^(צומת [^:]+|גשר|פריפריה|עמוד השדרה|שער): /, "");
+// one colour per stage, for its number badge and the links that leave it (distinct in light and dark)
+const PALETTE = ["#e6194b", "#3cb44b", "#4363d8", "#f58231", "#911eb4", "#0fa3b1", "#f032e6", "#9a6324", "#469990", "#b59f00", "#5a5ad6", "#d1495b", "#2a9d8f", "#e76f51", "#6a4c93"];
+const colorOf = (v: Model, id: string) => PALETTE[v.list.findIndex((s) => s.id === id) % PALETTE.length];
+const numOf = (v: Model, id: string) => v.list.findIndex((s) => s.id === id) + 1;
 
 function started(p?: ModuleProgress) {
   return !!(p?.done?.length || Object.keys(p?.convs ?? {}).length);
@@ -160,7 +167,7 @@ export function Roadmap({ index, done, mods, onSelect, motif }: { index: Library
           <div className="rmp-lane">
             {hereAt && <span className="rmp-runner" style={{ ["--to" as string]: `${herePct}%` }} aria-hidden="true" />}
             {road.map(({ s }) => (
-              <button key={s.id} className={`rmp-seg st-${s.step}${s === v.hereStage ? " is-here" : ""}${s === sel ? " is-sel" : ""}`} style={{ flexGrow: s.core.length }} title={`${s.title} · ${STEP_LABEL[s.step]} · ${s.done}/${s.core.length}`} onClick={() => setSelId(s.id)}>
+              <button key={s.id} className={`rmp-seg st-${s.step}${s === v.hereStage ? " is-here" : ""}${s === sel ? " is-sel" : ""}`} style={{ flexGrow: s.core.length }} title={`שלב ${numOf(v, s.id)}: ${s.title} · ${STEP_LABEL[s.step]} · ${s.done}/${s.core.length}`} onClick={() => setSelId(s.id)}>
                 <span className="rmp-fill" style={{ width: `${(s.done / s.core.length) * 100}%` }} />
               </button>
             ))}
@@ -249,7 +256,8 @@ function StageMap({ v, sel, onSel }: { v: Model; sel?: Stage; onSel: (id: string
   const leftOf = (c: number) => (n - 1 - c) * w; // column 0 at the right (RTL)
   const near = (a: string, b: string) => !!sel && (a === sel.id || b === sel.id);
   return (
-    <div className="rms" style={{ height }}>
+    <div className="rms-scroll">
+    <div className="rms" style={{ height, minWidth: n * COL_MIN }}>
       <svg className="rms-links" viewBox={`0 0 100 ${height}`} preserveAspectRatio="none" aria-hidden="true">
         {v.list.flatMap((s) =>
           [...s.from.entries()].map(([p, upTo]) => {
@@ -259,7 +267,7 @@ function StageMap({ v, sel, onSel }: { v: Model; sel?: Stage; onSel: (id: string
             const x2 = leftOf(b.c) + w - gap;
             const mx = (x1 + x2) / 2;
             const met = v.stages.get(p)!.step === "done" || v.stages.get(p)!.core.findIndex((m) => m.id === upTo.id) < v.stages.get(p)!.done;
-            return <path key={`${p}>${s.id}`} className={`rms-link${met ? " is-met" : ""}${near(p, s.id) ? " is-near" : ""}`} d={`M${x1},${a.y + ROW / 2} C${mx},${a.y + ROW / 2} ${mx},${b.y + ROW / 2} ${x2},${b.y + ROW / 2}`} vectorEffect="non-scaling-stroke" />;
+            return <path key={`${p}>${s.id}`} className={`rms-link${met ? " is-met" : ""}${near(p, s.id) ? " is-near" : ""}`} style={{ stroke: colorOf(v, p) }} d={`M${x1},${a.y + ROW / 2} C${mx},${a.y + ROW / 2} ${mx},${b.y + ROW / 2} ${x2},${b.y + ROW / 2}`} vectorEffect="non-scaling-stroke" />;
           }),
         )}
       </svg>
@@ -267,7 +275,10 @@ function StageMap({ v, sel, onSel }: { v: Model; sel?: Stage; onSel: (id: string
         const p = nodes.get(s.id)!;
         return (
           <button key={s.id} className={`rms-node st-${s.step}${s === sel ? " is-sel" : ""}`} style={{ left: `${leftOf(p.c) + gap}%`, width: `${w - 2 * gap}%`, top: p.y + 6 }} onClick={() => onSel(s.id)} title={`${s.title} · ${STEP_LABEL[s.step]}`}>
-            <span className="rms-title">{s.title}</span>
+            <span className="rms-num rms-corner" style={{ background: colorOf(v, s.id) }}>
+              {numOf(v, s.id)}
+            </span>
+            <span className="rms-title">{shortTitle(s.title)}</span>
             <span className="rms-bar">
               <span style={{ width: `${(s.done / s.core.length) * 100}%` }} />
             </span>
@@ -278,6 +289,7 @@ function StageMap({ v, sel, onSel }: { v: Model; sel?: Stage; onSel: (id: string
         );
       })}
     </div>
+    </div>
   );
 }
 
@@ -285,6 +297,9 @@ function StageCard({ s, v, name, onSel, onOpen }: { s: Stage; v: Model; name: (p
   return (
     <div className={`rms-card st-${s.step}`}>
       <div className="rms-card-head">
+        <span className="rms-num" style={{ background: colorOf(v, s.id) }}>
+          {numOf(v, s.id)}
+        </span>
         <h4>{s.title}</h4>
         <span className={`rms-chip st-${s.step}`}>{STEP_LABEL[s.step]}</span>
       </div>
@@ -312,7 +327,7 @@ function StageCard({ s, v, name, onSel, onOpen }: { s: Stage; v: Model; name: (p
               <span key={p}>
                 {i > 0 && " · "}
                 <button className="rms-link-btn" onClick={() => onSel(p)}>
-                  {name(p)}
+                  {numOf(v, p)}. {name(p)}
                 </button>{" "}
                 עד <bdi dir="ltr">{upTo.id}</bdi>
               </span>
@@ -326,7 +341,7 @@ function StageCard({ s, v, name, onSel, onOpen }: { s: Stage; v: Model; name: (p
               <span key={o}>
                 {i > 0 && " · "}
                 <button className="rms-link-btn" onClick={() => onSel(o)}>
-                  {name(o)}
+                  {numOf(v, o)}. {name(o)}
                 </button>
               </span>
             ))
