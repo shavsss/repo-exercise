@@ -1,8 +1,9 @@
 # Upload books from a local folder to the repo (Windows PowerShell).
-# Usage (from the sparse clone root): powershell -ExecutionPolicy Bypass -File tools\upload\upload_books.ps1 "C:\path\to\books"
+# Usage (from the sparse clone root): powershell -ExecutionPolicy Bypass -File tools\upload\upload_books.ps1 "C:\path\to\books" [-Since 2026-11-16]
+# -Since uploads only files added or changed on or after that date (files already uploaded are skipped anyway).
 # Each file goes to library/incoming/ on its own new branch (books-incoming-<time>),
 # one commit and push per file. Files over 90MB are split into .part-aa, .part-ab ...
-param([Parameter(Mandatory=$true)][string]$Src)
+param([Parameter(Mandatory=$true)][string]$Src, [datetime]$Since = [datetime]::MinValue)
 $ErrorActionPreference = "Stop"
 if (-not (Test-Path $Src -PathType Container)) { Write-Host "folder not found: $Src"; exit 1 }
 Set-Location (git rev-parse --show-toplevel)
@@ -11,7 +12,7 @@ git sparse-checkout add library/incoming 2>$null
 git checkout -q -b $branch
 New-Item -ItemType Directory -Force library/incoming | Out-Null
 $limit = 90MB; $n = 0
-Get-ChildItem -Path $Src -File -Recurse | Where-Object { -not $_.Name.StartsWith(".") } | ForEach-Object {
+Get-ChildItem -Path $Src -File -Recurse | Where-Object { -not $_.Name.StartsWith(".") -and ($_.CreationTime -ge $Since -or $_.LastWriteTime -ge $Since) } | ForEach-Object {
   $dest = Join-Path "library/incoming" $_.Name
   if ((Test-Path $dest) -or (Test-Path "$dest.part-aa")) { Write-Host "skip (already uploaded): $($_.Name)"; return }
   if ($_.Length -gt $limit) {
