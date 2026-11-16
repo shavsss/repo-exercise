@@ -1,0 +1,33 @@
+{
+  "day": "2026-11-16",
+  "sessions": {
+    "mmpuaq": {
+      "calls": {
+        "claude-opus-5-5": 60,
+        "tier:default": 1
+      },
+      "chars": {
+        "claude-opus-5-5": 525652,
+        "tier:default": 19845
+      },
+      "day": "2026-11-16",
+      "errors": {
+        "empty_completion": 1
+      },
+      "inChars": {
+        "claude-opus-5-5": 4045018,
+        "tier:default": 113558
+      },
+      "lessonMs": 3483435,
+      "lessonWords": 37010,
+      "lessons": 1,
+      "ms": {
+        "claude-opus-5-5": 3401407,
+        "tier:default": 95342
+      },
+      "session": "mmpuaq",
+      "updatedAt": 1794823883782
+    }
+  },
+  "updatedAt": 1794823884026
+}

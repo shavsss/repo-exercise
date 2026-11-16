@@ -1,16 +1,23 @@
 {
   "counts": {
-    "candidates": 457,
-    "drafted": 12,
-    "fetched": 16,
-    "verified": 5
+    "candidates": 410,
+    "drafted": 16,
+    "fetched": 34,
+    "published": 12,
+    "refetched": 12,
+    "verified": 12
   },
   "dropped": {
-    "verifier_unsupported_claim": 7
+    "date_window": 1,
+    "low_relevance": 14,
+    "paywalled": 2,
+    "quota_next_later": 1,
+    "sponsored": 1,
+    "verifier_unsupported_claim": 3
   },
-  "issueId": null,
-  "lastRun": 1793836000000,
-  "ok": false,
+  "issueId": "2026-W46",
+  "lastRun": 1794526977982,
+  "ok": true,
   "refusals": [],
-  "usageEstimate": "no issue published: only 5 of 12 items passed independent verification (minimum 6)"
+  "usageEstimate": "about 0.5M tokens; 12 items across 9 of 10 domains; 9/12 linked to learned modules, 3/12 later; no textbook update matched this week"
 }

@@ -1,0 +1,660 @@
+{
+  "app": "eng",
+  "generator": {
+    "runId": "31f9d532f250",
+    "sha": "28cfda5"
+  },
+  "id": "2026-W46",
+  "items": [
+    {
+      "body": "ב-2019 פרסם שיתוף הפעולה Event Horizon Telescope את התמונה הראשונה של \"צל\" של חור שחור, במרכז הגלקסיה M87. התמונה נבנית ממדידות של רדיו-טלסקופים הפזורים על פני כמה יבשות, שיחד מדמים צלחת ברוחב כדור הארץ. המדידות דלילות, ולכן שחזור התמונה הוא בעיה שאינה מוגבלת מספיק: התוצאה רגישה לכיול המכשירים, לאלגוריתמי העיבוד ולפרמטרים של ההדמיה. מ-2022 טענה קבוצה מיפן שבהנחות מעט שונות מתקבל כתם ולא טבעת.\n\nבמאמר שפורסם ב-11 בנובמבר ב-Nature, קבוצה אחרת הפעילה על אותם נתונים אלגוריתם הדמיה שפיתחה בעצמה. לפי המאמר, האלגוריתם אינו מניח מראש צורה של המקור ונשען על גדלים נצפים שאינם רגישים לשגיאות כיול. התוצאה: מבנה דמוי טבעת בקוטר זוויתי של $42.2 \\pm 1.5$ מיקרו-שניות קשת, שמתאים למסה של $6.5 \\pm 0.5$ מיליארד מסות שמש (בהנחות קנה מידה נומינליות). כתבת החדשות של Nature מסכמת שהתוצאות מאששות במידה רבה את הממצא המקורי.",
+      "certainty": "peer",
+      "connects": [
+        {
+          "concept": "הנחות וגזירה",
+          "moduleId": "M0.1",
+          "rel": "learned",
+          "why": "המחלוקת על M87* היא מחלוקת על הנחות השחזור, לא על הנתונים: אותה הבחנה בין אקסיומות למסקנה שלמדת בש1."
+        },
+        {
+          "concept": "התמרת פורייה",
+          "moduleId": "M4.5",
+          "rel": "later",
+          "why": "אינטרפרומטר מודד דגימות של התמרת פורייה של התמונה; דלילות הדגימות היא מקור הקושי."
+        }
+      ],
+      "dek": "קבוצה עצמאית שחזרה את התמונה של M87* באלגוריתם אחר, בלי הנחה מוקדמת על צורת טבעת, וקיבלה שוב טבעת",
+      "domain": "mathphys",
+      "headline": "התמונה הראשונה של חור שחור עומדת בבדיקה בלתי תלויה",
+      "id": "n1",
+      "idea": {
+        "hours": 4,
+        "kind": "article",
+        "pitch": "מאמר קצר שמשווה בין הוכחה מתמטית לבין אישוש בלתי תלוי של תוצאה מדעית, עם M87* כמקרה בוחן. מתחבר לפתקים שלך על הוכחה בבעיות מורכבות.",
+        "title": "הוכחה מול עדות: מתי אישור בלתי תלוי מספיק",
+        "uses": [
+          "M0.1"
+        ]
+      },
+      "kind": "paper",
+      "sanity": {
+        "check": "קוטר הצל לפי יחסות כללית: $2\\sqrt{27}\\,GM/c^2$ למסה $6.5\\times10^9 M_\\odot$, במרחק מקובל של כ-16.8 מגה-פרסק (מספר שאינו מהמקור)",
+        "note": "יוצא כ-40 מיקרו-שניות קשת, באותו סדר גודל כמו 42.2 שנמדד.",
+        "result": "pass"
+      },
+      "sources": [
+        {
+          "fetchedAt": 1794526193201,
+          "httpStatus": 200,
+          "openAccess": true,
+          "publishedAt": "2026-11-11",
+          "publisher": "Nature",
+          "quote": "We reconstruct the black hole shadow image and unequivocally reproduce a ring-like morphology",
+          "sha256": "ea1a13f82be696d1ed3d5bc0dbf3ec008d5f74e3a4f6ed45354c43090371bf2e",
+          "tier": "B",
+          "title": "Independent interferometric observable confirms black hole shadow in M87*",
+          "url": "https://www.nature.com/articles/s41586-026-11241-9"
+        },
+        {
+          "fetchedAt": 1794526191218,
+          "httpStatus": 200,
+          "openAccess": true,
+          "publishedAt": "2026-11-11",
+          "publisher": "Nature (חדשות)",
+          "quote": "an independent group has reanalysed the EHT data, and its results, published on 11 November in Nature — including new images of the black hole — largely corroborate the original findings",
+          "sha256": "574d3c0f10abbb4bb18954dbf0e64d4d260146dea97470937d845b9eded6739d",
+          "tier": "C",
+          "title": "Iconic first image of black hole holds up to scrutiny",
+          "url": "https://www.nature.com/articles/d41586-026-03642-7"
+        }
+      ],
+      "why": "ב-M0.1 ראית שהוכחה היא גזירה מהנחות, ושההנחות קובעות את המסקנה. כאן אותה שאלה במדע ניסויי: כשהבעיה לא מוגבלת מספיק, בודקים אם המסקנה שורדת שינוי הנחות. זו הבדיקה שעשתה הקבוצה."
+    },
+    {
+      "body": "כתבה ב-IEEE Spectrum מלווה את מילוסלב דרוקמילר, פרופסור למתמטיקה ועיבוד תמונה באוניברסיטה הטכנולוגית של ברנו, בליקוי החמה המלא של 12 באוגוסט 2026 בספרד. לפי הכתבה, תוכנה שפיתח במשך עשרות שנים משלבת עשרות תמונות בודדות שצולמו בזמן המלאות וכוילו בקפידה, וחושפת פרטים עדינים בעטרה (הקורונה).\n\nהצוות בנה מכשיר עם שמונה מצלמות אסטרונומיות, לכל אחת מסנן ספקטרלי לקווי פליטה מסוימים של העטרה, וכל קו משויך למין יוני מסוים של ברזל. מכיוון שהטמפרטורה הדרושה ליינון הברזל שונה בין המינים, מיקומם ושפעם היחסי מלמדים על פיזור החום בעטרה. לכל זה היו לצוות 107 שניות של מלאות.",
+      "certainty": "single",
+      "connects": [
+        {
+          "concept": "יונים וכוכבים",
+          "moduleId": "M0.2",
+          "rel": "learned",
+          "why": "יון הוא אטום שאיבד או קיבל אלקטרונים; פרק 3 של פיינמן מתאר את הכוכבים דרך אותם אטומים."
+        },
+        {
+          "concept": "עיבוד תמונה ורעש",
+          "moduleId": "M4.15",
+          "rel": "later",
+          "why": "שילוב תמונות רבות מכוילות הוא מיצוע שמשפר יחס אות לרעש."
+        }
+      ],
+      "dek": "מילוסלב דרוקמילר מברנו משלב עשרות תמונות מכוילות כדי לראות את מבנה העטרה של השמש",
+      "domain": "signals",
+      "headline": "מתמטיקאי שרודף אחרי ליקויי חמה עם אלגוריתמים ומצלמות",
+      "id": "n2",
+      "kind": "event",
+      "oldButNew": true,
+      "sanity": {
+        "check": "אין מספר ביצועים לבדוק",
+        "note": "",
+        "result": "na"
+      },
+      "sources": [
+        {
+          "fetchedAt": 1794526189787,
+          "httpStatus": 200,
+          "openAccess": true,
+          "publishedAt": "2026-11-05",
+          "publisher": "IEEE Spectrum",
+          "quote": "Each of those spectra, in turn, is associated with a particular ionic species of iron atoms.",
+          "sha256": "9a088ad14b713a99573d0660c04736a524ab968c17a1ac0c4fddaba11486bf86",
+          "tier": "C",
+          "title": "Why the 2026 Solar Eclipse Will Reshape Corona Studies",
+          "url": "https://spectrum.ieee.org/2026-solar-eclipse"
+        }
+      ],
+      "why": "בש1 של M0.2 נשארה פתוחה הגדרת היון. כאן היא בשימוש: כמה אלקטרונים איבד אטום הברזל אומר באיזו טמפרטורה הוא נמצא, והמתמטיקה של שילוב התמונות היא שמאפשרת לראות את זה."
+    },
+    {
+      "body": "ה-IETF פרסם את RFC 10069, מסמך במסלול התקנים שמגדיר הרחבת ריבוי נתיבים לפרוטוקול QUIC. לפי התקציר, ההרחבה מאפשרת שימוש בו-זמני בכמה נתיבים עבור חיבור יחיד, ומוסיפה מזהי נתיב מפורשים כדי ליצור, למחוק ולנהל נתיבים.\n\nהמסמך מגדיר גם במפורש מה הוא לא עושה: הוא לא מגדיר גילוי או ניהול כתובות, ולא איך יישום שמשתמש ב-QUIC מתזמן תעבורה על פני הנתיבים. כלומר התקן קובע את המנגנון, ומשאיר את המדיניות למממשים.",
+      "certainty": "official",
+      "connects": [
+        {
+          "concept": "שכבות הפרוטוקולים",
+          "moduleId": "M23.11",
+          "rel": "later",
+          "why": "QUIC יושב בשכבת התעבורה; שם תלמד השהיה, אובדן ותפוקה שמניעים ריבוי נתיבים."
+        }
+      ],
+      "dek": "חיבור אחד יכול להשתמש בכמה נתיבים בו בזמן, עם מזהי נתיב מפורשים",
+      "domain": "comms",
+      "headline": "QUIC מקבל תקן לריבוי נתיבים: RFC 10069",
+      "id": "n3",
+      "kind": "standard",
+      "read10": {
+        "minutes": 8
+      },
+      "sanity": {
+        "check": "אין מספר ביצועים לבדוק",
+        "note": "",
+        "result": "na"
+      },
+      "sources": [
+        {
+          "fetchedAt": 1794526222498,
+          "httpStatus": 200,
+          "openAccess": true,
+          "publishedAt": "2026-11-07",
+          "publisher": "RFC Editor (IETF)",
+          "quote": "This document specifies a multipath extension for the QUIC protocol to enable the simultaneous usage of multiple paths for a single connection.",
+          "sha256": "ab8321525947b848d08ec75db1df1d206ae4e018dc3f834e833af633030d094b",
+          "tier": "A",
+          "title": "RFC 10069: Managing Multiple Paths for a QUIC Connection",
+          "url": "https://www.rfc-editor.org/info/rfc10069/"
+        }
+      ],
+      "why": "הפרדה בין מנגנון למדיניות היא החלטת תכן שתפגוש שוב ושוב בהנדסת מערכות: התקן אומר מה מותר על הקו, לא איך להחליט."
+    },
+    {
+      "body": "לפי תקציר המאמר ב-Nature, צמצום הצריכה בסיליקון נתקל במגבלות אלקטרוסטטיות ובזליגה, ולכן פעולה במתח אספקה נמוך דורשת חומרים חדשים. מוליכים למחצה דו-ממדיים בעובי אטומי נותנים שליטה טובה של השער, ופער האנרגיה שלהם מדכא זרם במצב כבוי. המכשול הוא ממשק לא מושלם בין התעלה לדיאלקטרי השער.\n\nהחוקרים מראים דיאלקטרי של טיטניום דו-חמצני חד-גבישי (אנטאז) בקנה מידה של פרוסה, שאפשר להעביר ולחבר בכוחות ואן-דר-ואלס לדיכלקוגנידים של מתכות מעבר. הממשק הנקי נותן שיפוע תת-סף קרוב לגבול התרמי, היסטרזיס נמוך בשיא וטרנזיסטורים מסוג n ו-p תואמים. מהם נבנו מהפכים משלימים עם הגבר מתח גבוה, שולי רעש גדולים וצריכה סטטית מתחת לפיקו-ואט.",
+      "certainty": "peer",
+      "connects": [
+        {
+          "concept": "תנועה תרמית של אטומים",
+          "moduleId": "M0.2",
+          "rel": "learned",
+          "why": "הגבול התרמי נובע מהתפלגות האנרגיה של אלקטרונים בתנועה תרמית."
+        },
+        {
+          "concept": "טרנזיסטור MOS",
+          "moduleId": "M25.4",
+          "rel": "later",
+          "why": "שם תגזור את שיפוע תת-הסף ואת תפקיד הדיאלקטרי."
+        }
+      ],
+      "dek": "דיאלקטרי TiO2 חד-גבישי שמחובר בכוחות ואן-דר-ואלס נותן ממשק נקי למוליך למחצה בעובי אטומי",
+      "domain": "electronics",
+      "headline": "טרנזיסטורים דו-ממדיים משלימים עם צריכה סטטית מתחת לפיקו-ואט",
+      "id": "n4",
+      "kind": "paper",
+      "sanity": {
+        "check": "הגבול התרמי של שיפוע תת-סף: $(kT/q)\\ln 10$ ב-300K",
+        "note": "כ-59.5 mV/dec; זה הגבול שהמאמר מתקרב אליו.",
+        "result": "pass"
+      },
+      "sources": [
+        {
+          "fetchedAt": 1794526208757,
+          "httpStatus": 200,
+          "openAccess": true,
+          "publishedAt": "2026-11-11",
+          "publisher": "Nature",
+          "quote": "The obtained pristine 2D-dielectric interface enables subthreshold swing close to the thermal limit",
+          "sha256": "ed4c8f08038aa473d80328aa20d6e7de1fe1f56ed0dfb92ba5616d3619d63d3e",
+          "tier": "B",
+          "title": "Low-power 2D CFETs using single-crystal high-κ dielectrics",
+          "url": "https://www.nature.com/articles/s41586-026-11272-2"
+        }
+      ],
+      "why": "'הגבול התרמי' הוא תוצאה ישירה של אטומים ואלקטרונים בתנועה תרמית (M0.2): אי אפשר לכבות טרנזיסטור חד יותר מכ-60 מילי-וולט לעשור זרם בטמפרטורת החדר."
+    },
+    {
+      "body": "לפי התקציר, כדי להוציא חיישנים קוונטיים אטומיים מהמעבדה לשטח ולחלל צריך פלטפורמה מבנית אחת שמשלבת תפקוד מכני, תרמי ואופטי. החוקרים משתמשים בייצור קרמי מבוסס ליתוגרפיה כדי להדפיס ספסלים מיקרו-אופטיים מונוליטיים, ומרכיבים עליהם רכיבים ביישור אקטיבי והדבקה.\n\nהמדגים הראשון: ייחוס תדר אופטי שמבוסס על ספקטרוסקופיה ללא הרחבת דופלר של קו D2 של רובידיום, בתוך מודול אלומינה של 6 מ\"ל. לייזר שיוצב לייחוס הגיע לאי-יציבות תדר יחסית של $3\\times10^{-12}$ בשנייה אחת. הפלטפורמה הורחבה גם למגנטומטר בשאיבה אופטית.",
+      "certainty": "preprint",
+      "connects": [
+        {
+          "concept": "אטומים וקווי ספקטרום",
+          "moduleId": "M0.2",
+          "rel": "learned",
+          "why": "יציבות הייחוס נובעת מכך שכל אטומי הרובידיום זהים."
+        },
+        {
+          "concept": "מדידות",
+          "moduleId": "M11.13",
+          "rel": "later",
+          "why": "אי-יציבות תדר יחסית היא מדד מדידה שתפגוש שם."
+        }
+      ],
+      "dek": "ספסל אופטי מקרמיקה מודפסת בתלת-ממד כבסיס לחיישנים אטומיים קומפקטיים",
+      "domain": "electronics",
+      "headline": "ייחוס תדר אופטי על אטומי רובידיום בתוך קופסת קרמיקה של 6 מ\"ל",
+      "id": "n5",
+      "kind": "paper",
+      "sanity": {
+        "check": "סטיית תדר מוחלטת: $3\\times10^{-12}$ כפול תדר קו D2 של רובידיום (780 ננומטר, כ-384 טרה-הרץ)",
+        "note": "כ-1.2 קילו-הרץ בשנייה; סביר לייחוס אטומי קומפקטי.",
+        "result": "pass"
+      },
+      "sources": [
+        {
+          "fetchedAt": 1794526224989,
+          "httpStatus": 200,
+          "openAccess": true,
+          "publishedAt": "2026-11-10",
+          "publisher": "arXiv",
+          "quote": "we present a micro-integrated optical frequency reference based on Doppler-free spectroscopy of the rubidium D2 line, integrated within a 6 mL Al2O3 module",
+          "sha256": "5f6255f55b419b1afbd5af0021696e598d5f7ec1505a0f9c19ff928192cf2fbd",
+          "tier": "B",
+          "title": "Additively manufactured ceramic platforms for miniaturized optical frequency references and robust atomic sensor systems",
+          "url": "https://arxiv.org/abs/2611.13800"
+        }
+      ],
+      "why": "ב-M0.2 למדת שלכל אטום 'טביעת אצבע' של קווי אור. כאן משתמשים בטביעה הזו כסרגל תדר: האטום הוא הייחוס, וההנדסה היא איך לארוז אותו קטן ויציב."
+    },
+    {
+      "body": "לפי תקציר המאמר ב-Nature Energy, החוקרים שילבו ניתוח סיבתי של רשומות מחירים עם תוכניות הולכה ותיקי רגולציה של חלוקת עלויות. בשווקים הסיטונאיים, עליות המחיר המצטברות שמיוחסות למרכזי נתונים עוברות 10% במוקדים החשופים ביותר עד 2025. בתעריפים מפוקחים, לצרכנים הביתיים מוקצים בחציון 47% מהעלויות, אף שתרומתם לגידול בביקוש קטנה בהרבה.\n\nלפי המחברים, חלוקת העלויות גורמת לקהילות כפריות עלייה בנטל גדולה ב-76% מאשר עירוניות, ולמשקי הבית העניים ביותר נטל נוסף של עד 28 נקודות אחוז. התשואה הכלכלית המקומית כמעט לא קשורה להוצאה (גמישות של 0.16).",
+      "certainty": "peer",
+      "connects": [
+        {
+          "concept": "מערכות הספק והרשת",
+          "moduleId": "M13.19",
+          "rel": "later",
+          "why": "הולכה וזרימת הספק הן הפיזיקה שמאחורי עלויות הרשת שהמאמר מחלק."
+        }
+      ],
+      "dek": "ניתוח סיבתי של מחירים ותיקי רגולציה בארה\"ב: כפריים ומשקי בית עניים נושאים יותר",
+      "domain": "power",
+      "headline": "מרכזי נתונים מייקרים חשמל, והמחיר לא מתחלק שווה",
+      "id": "n6",
+      "kind": "paper",
+      "sources": [
+        {
+          "fetchedAt": 1794526215053,
+          "httpStatus": 200,
+          "openAccess": false,
+          "publishedAt": "2026-11-09",
+          "publisher": "Nature Energy",
+          "quote": "In regulated tariffs, residential users are allocated a median of 47% of costs despite contributing far less to demand growth.",
+          "sha256": "2719fc0a2ce35ef748ba5a5744ac8f9dc4ccac275aa930eadb959e5dc3bb7aac",
+          "tier": "B",
+          "title": "Data centres asymmetrically exacerbate energy burdens through wholesale price increases and regressive grid cost shifting",
+          "url": "https://www.nature.com/articles/s41560-026-02163-x"
+        }
+      ],
+      "why": "רשת החשמל היא מערכת אחת עם משתמשים רבים: מי שמוסיף עומס לא בהכרח משלם עליו. בפרק מערכות ההספק תראה איך הולכה ועומס נקבעים פיזיקלית, וכאן רואים איך הם מתורגמים לכסף."
+    },
+    {
+      "body": "לפי תקציר המאמר ב-Nature, אנרגיית הגאות צפויה וגדולה, אבל הים הלא-יציב מעמיס על הטורבינות עומסים הידרודינמיים קשים שמייקרים את ההקמה והתחזוקה. טורבינות גדולות מסתמכות היום על מערכות שיפוע (pitch) אקטיביות מורכבות ויקרות.\n\nהחוקרים מציעים חלופה פסיבית: להבי גומי גמישים עם עיוות בכיוון המיתר בשפה האחורית. בניסויים, הלהבים הגמישים נתנו תפוקת אנרגיה כוללת שקולה לזו של להבים קשיחים עם בקרת שיפוע אקטיבית לאורך מחזורי גאות מדומים, והפחיתו עד שליש את תנודות העומס בתדר גבוה שגורמות לעייפות. לפי המחברים, ויסות העומס הפסיבי נובע מעיוות אווירו-אלסטי שמשטח את קמירות הלהב תחת עומס.",
+      "certainty": "peer",
+      "connects": [
+        {
+          "concept": "עייפות",
+          "moduleId": "M16.19",
+          "rel": "later",
+          "why": "הפחתת תנודות העומס היא מה שמאריך את חיי העייפות לפי עקומות S-N."
+        },
+        {
+          "concept": "תנודות מאולצות",
+          "moduleId": "M3.3",
+          "rel": "later",
+          "why": "עומס גאות לא-יציב הוא עירור שמשתנה בזמן."
+        }
+      ],
+      "dek": "עיוות של שפת הזרימה האחורית משטח את קמירות הלהב תחת עומס ומחליף מנגנון שיפוע אקטיבי",
+      "domain": "fluids",
+      "headline": "להבי גומי גמישים לטורבינות גאות: אותה תפוקה, פחות עייפות",
+      "id": "n7",
+      "kind": "paper",
+      "sources": [
+        {
+          "fetchedAt": 1794526206692,
+          "httpStatus": 200,
+          "openAccess": true,
+          "publishedAt": "2026-11-11",
+          "publisher": "Nature",
+          "quote": "these flexible blades achieve an equivalent total energy yield over simulated tidal cycles compared with rigid blades with active pitch control, while mitigating high-frequency fatigue-inducing load fluctuations by up to one-third",
+          "sha256": "2c4639509d0a1c7f67cbdef067dda7f8caeb80ce18015a7ac74a5ad9ed6d7a9d",
+          "tier": "B",
+          "title": "Flexible rubber blades for tidal turbines",
+          "url": "https://www.nature.com/articles/s41586-026-11278-w"
+        }
+      ],
+      "why": "מקרה של בקרה פסיבית: החומר עצמו עושה את עבודת הבקר. בתנודות מאולצות ובעייפות תלמד למה דווקא התנודות בתדר גבוה הן שמכלות את המבנה."
+    },
+    {
+      "body": "לפי תקציר המאמר ב-Nature, חומרים הם ביסודם רשתות אחידות: קשרים אחידים, עובי קבוע וסקאלות אורך בדידות. גם מטא-חומרים מכניים מוגדרים על ידי תא יחידה חוזר. לעומת זאת, מדע הרשתות הראה שמערכות אמיתיות, מהאינטרנט ועד המוח, שואבות את התפקוד שלהן משונות רחבה בקישוריות ובאורכי הקשרים.\n\nהחוקרים מציגים מטא-חומרים \"עשירי סקאלות\": מסגרת תכן שנשלטת על ידי שני פרמטרים ונותנת שונות של סדרי גודל באורכי המוטות, בעובי ובקישוריות. בסימולציות ובניסויים, לפי המחברים, מתקבלות תכונות שאינן נגישות למערכות בסקאלה אחת: אנאיזוטרופיה אלסטית ניתנת לכוונון, עיוות לא-לינארי מפוזר עם ספיגת אנרגיה גבוהה, ריסון מוגבר בעומס דינמי ושליטה בגלים אלסטיים. כתבת News & Views ב-Nature ממקמת את העבודה בהמשך למדע הרשתות של ברבאשי ואלברט.",
+      "certainty": "peer",
+      "connects": [
+        {
+          "concept": "מוצק כמערך אטומים",
+          "moduleId": "M0.2",
+          "rel": "learned",
+          "why": "פיינמן מתאר מוצק כאטומים במערך קבוע; כאן שבירת האחידות היא המטרה."
+        },
+        {
+          "concept": "תכונות חומרים",
+          "moduleId": "M16.10",
+          "rel": "later",
+          "why": "שם תלמד את המדדים (קשיחות, ספיגת אנרגיה) שבהם המאמר משתמש."
+        }
+      ],
+      "dek": "רשתות עם שונות של סדרי גודל באורך, בעובי ובקישוריות, שנשלטות על ידי שני פרמטרים בלבד",
+      "domain": "materials",
+      "headline": "מטא-חומרים שבנויים כמו רשתות מורכבות",
+      "id": "n8",
+      "kind": "paper",
+      "sanity": {
+        "check": "אין מספר ביצועים בתקציר",
+        "note": "",
+        "result": "na"
+      },
+      "sources": [
+        {
+          "fetchedAt": 1794526202913,
+          "httpStatus": 200,
+          "openAccess": true,
+          "publishedAt": "2026-11-11",
+          "publisher": "Nature",
+          "quote": "Governed by only two parameters, scale-rich networks span orders of magnitude in structural features, overcoming previous constraints in metamaterial design.",
+          "sha256": "7820affb91959e144bbaac83dbf9e7d104a4afc7bffab2d3ea411fc2dc990f85",
+          "tier": "B",
+          "title": "Scale-rich network-based metamaterials",
+          "url": "https://www.nature.com/articles/s41586-026-11191-2"
+        },
+        {
+          "fetchedAt": 1794526200742,
+          "httpStatus": 200,
+          "openAccess": true,
+          "publishedAt": "2026-11-11",
+          "publisher": "Nature (News & Views)",
+          "quote": "ideas from network science can be used to design materials that have remarkable mechanical properties",
+          "sha256": "1d467527098f8fff7ee6dc36b4ff2b413c523dcabb4feb01ff7132a374de59da",
+          "tier": "C",
+          "title": "Extraordinary materials shaped by the principles of complex networks",
+          "url": "https://www.nature.com/articles/d41586-026-03272-z"
+        }
+      ],
+      "why": "ב-M0.2 ראית חומר מוצק כמערך של אטומים קשורים. כאן המהנדסים מעתיקים את הרעיון לסקאלה גדולה, ושואלים מה קורה כשהמערך לא אחיד בכוונה."
+    },
+    {
+      "body": "Nature מפרסם הספד להידקי שירקאווה, שהראה שסרטים דקים של פוליאצטילן, פולימר אורגני, הופכים למוליכים כשמסממים אותם בכמויות קטנות של חומרים אחרים. על כך חלק את פרס נובל לכימיה לשנת 2000 עם אלן מקדיארמיד ואלן היגר.\n\nלפי ההספד, ב-1967 עבד שירקאווה עם חוקר אורח מדרום קוריאה, הְיוּנג צ'יק פְּיוּן, על פילמור אצטילן לאבקה. באחד הניסויים נוצר במקום אבקה סרט מרופט על פני התמיסה; התברר שהחוקר האורח השתמש בטעות בריכוז זרז גבוה פי 1,000 מהמתוכנן. מכאן פיתח שירקאווה סרט דק של פוליאצטילן עם ברק מתכתי.",
+      "certainty": "single",
+      "connects": [
+        {
+          "concept": "פיזיקה וכימיה",
+          "moduleId": "M0.2",
+          "rel": "learned",
+          "why": "המבנה המולקולרי, שלמדת עליו בפרק 3, קובע את התכונה החשמלית."
+        },
+        {
+          "concept": "מוליכים למחצה",
+          "moduleId": "M24.8",
+          "rel": "later",
+          "why": "סימום שמשנה מוליכות הוא הרעיון המרכזי שם."
+        }
+      ],
+      "dek": "טעות של פי 1,000 בריכוז הזרז הובילה לסרט פוליאצטילן עם ברק מתכתי",
+      "domain": "materials",
+      "headline": "הידקי שירקאווה, שהראה שפלסטיק יכול להוליך חשמל, מת בגיל 90",
+      "id": "n9",
+      "kind": "event",
+      "read10": {
+        "minutes": 6
+      },
+      "sources": [
+        {
+          "fetchedAt": 1794526204996,
+          "httpStatus": 200,
+          "openAccess": true,
+          "publishedAt": "2026-11-11",
+          "publisher": "Nature",
+          "quote": "His demonstration that thin films of polyacetylene — an organic polymer — can become conductive when doped with small amounts of other chemicals earned him a share of the 2000 Nobel Prize in Chemistry",
+          "sha256": "2ce92e6ee77000acc1611e97ec52ad86a53861ef3f5d89c42d7f5d00279ab8d1",
+          "tier": "C",
+          "title": "Hideki Shirakawa obituary: chemist who showed that plastics can conduct electricity",
+          "url": "https://www.nature.com/articles/d41586-026-03633-8"
+        }
+      ],
+      "why": "פרק 3 של פיינמן (M0.2) עוסק בגבול בין פיזיקה לכימיה. מוליכות בפולימר היא בדיוק שם: מבנה הקשרים במולקולה קובע אם אלקטרונים יכולים לנוע."
+    },
+    {
+      "body": "מודלים הידרולוגיים, כולל מערכות למידה עמוקה שמשמשות לחיזוי שיטפונות, נבחנים בעיקר לפי כמה ההידרוגרף המדומה דומה לזרימה הנמדדת. לפי התקציר, ציון גבוה אינו מבטיח עקביות פיזיקלית: בניסוי כיול סינתטי, מודל שמאבד 15% מהמים לבור לא מדווח עדיין מגיע ליעילות Nash-Sutcliffe של 0.93.\n\nהמחברים מציגים את HydroTuring: 37 בדיקות שבודקות שימור מסה (24), אנרגיה (7) ותנע (6), כל אחת עם קריטריון עובר/נכשל שאומת מול 18 מודלי ייחוס מדויקים ו-59 שבורים בכוונה. מבין 28 מודלים שנבחנו בחמש בדיקות או יותר, רק שלושת מודלי הייחוס המדויקים עברו הכל. מודלים מבוססי תהליך ומודלי AI עברו שיעור דומה מהבדיקות (76% ו-74%), ו-49% מזוגות מודל-בדיקה לא נוקדו כי חסרים משתני מצב.",
+      "certainty": "preprint",
+      "connects": [
+        {
+          "concept": "$L^2$ מול $L^\\infty$ ומה הדרישה בודקת",
+          "moduleId": "M0.1",
+          "rel": "learned",
+          "why": "NSE הוא מדד $L^2$ ממוצע; בדיקת שימור היא דרישה נקודתית. זה הפער שהמבחן שלך הצביע עליו."
+        },
+        {
+          "concept": "שימור אנרגיה",
+          "moduleId": "M2.1",
+          "rel": "next",
+          "why": "המודול הבא בתור שלך עוסק בחוק השימור שהבדיקות האלה אוכפות."
+        }
+      ],
+      "dek": "HydroTuring: 37 בדיקות שחורות-קופסה לשימור מסה, אנרגיה ותנע במודלים הידרולוגיים, כולל מודלי AI",
+      "domain": "ml",
+      "headline": "מודל שמאבד 15% מהמים עדיין מקבל ציון 0.93: מבחן חדש לחוקי שימור",
+      "id": "n10",
+      "idea": {
+        "hours": 3,
+        "kind": "project",
+        "pitch": "מודל דלי הידרולוגי בפייתון עם דליפה נסתרת של 15%, חישוב NSE ובדיקת מאזן מסה. מראה במספרים למה ציון גבוה לא מספיק.",
+        "title": "בדיקת שימור למודל דלי פשוט",
+        "uses": [
+          "M0.1",
+          "M2.1"
+        ]
+      },
+      "kind": "paper",
+      "read10": {
+        "minutes": 5
+      },
+      "sanity": {
+        "check": "האם 15% אובדן מתיישב עם NSE=0.93? NSE משווה שגיאה ריבועית לשונות התצפיות, כך שהטיה קבועה קטנה יחסית לשונות פוגעת מעט בציון",
+        "note": "אפשרי: הטיה של 15% בנפח פוגעת ב-NSE רק בשיעור קטן כשהשונות של הזרימה גדולה.",
+        "result": "pass"
+      },
+      "sources": [
+        {
+          "fetchedAt": 1794526224625,
+          "httpStatus": 200,
+          "openAccess": true,
+          "publishedAt": "2026-11-09",
+          "publisher": "arXiv",
+          "quote": "a conceptual model that loses 15% of its water input to an unreported sink still reaches a Nash-Sutcliffe efficiency of 0.93",
+          "sha256": "d15d1afb5cc541ed5be915f980235d395cc2575e21f576bdd1ff191340f35cbd",
+          "tier": "B",
+          "title": "HydroTuring: A physics probe benchmark testing mass, energy, and momentum conservation in hydrologic models",
+          "url": "https://arxiv.org/abs/2611.11563"
+        }
+      ],
+      "why": "בדיוק ההמלצה מהמבחן ב-M0.1: מדד ממוצע (כמו NSE, שהוא מדד ריבועי) לא בודק את מה שהדרישה דורשת. מודל יכול להיראות טוב בממוצע ולהפר חוק שימור."
+    },
+    {
+      "body": "כתבה ב-IEEE Spectrum מתארת את אתגרי ההנדסה של משימת MMX של סוכנות החלל היפנית. פובוס, ירח של מאדים באורך של כ-27 ק\"מ, הוא לפי הכתבה \"ערימת הריסות\" של סלע ואבק, עם כבידה של 1/1,800 מזו של כדור הארץ: מבוגר שם ישקול בערך כמו כדור טניס כאן. \"לנחות על פובוס זה כמו לנסות להנחית בלון\", אומר מנהל הפרויקט.\n\nהחללית בנויה משלושה מודולים: הנעה, חקר (עם רובר בשם Idefix מצרפת וגרמניה) והחזרה. מכיוון שפובוס קטן מכדי להקיף אותו במובן הרגיל, החללית תקיף את מאדים לצד הירח במסלול \"קוואזי-לווייני\" בצורת ביצה שמעביר אותה לסירוגין לפני הירח ומאחוריו. אם הכל יעבוד, דגימה של 10 גרם תגיע לכדור הארץ במחצית השנייה של 2031.",
+      "certainty": "single",
+      "connects": [
+        {
+          "concept": "כבידה ככוח בסיסי",
+          "moduleId": "M0.2",
+          "rel": "learned",
+          "why": "פרק 2 של פיינמן מציג את הכבידה; כאן היא חלשה כל כך שהיא הבעיה ההנדסית."
+        },
+        {
+          "concept": "כבידה",
+          "moduleId": "M2.2",
+          "rel": "next",
+          "why": "שם תחשב את תאוצת הכובד על גוף קטן ותבדוק את היחס 1/1,800."
+        }
+      ],
+      "dek": "החללית היפנית שוגרה ב-20 באוקטובר ותנסה להחזיר לכדור הארץ דגימה של 10 גרם ב-2031",
+      "domain": "space",
+      "headline": "איך נוחתים על ירח כמעט בלי כבידה: משימת MMX לפובוס",
+      "id": "n11",
+      "kind": "system",
+      "sanity": {
+        "check": "משקל מבוגר של 70–100 ק\"ג חלקי 1,800 מול כדור טניס (כ-57 גרם)",
+        "note": "39–56 גרם, באותו סדר גודל כמו כדור טניס.",
+        "result": "pass"
+      },
+      "sources": [
+        {
+          "fetchedAt": 1794526189143,
+          "httpStatus": 200,
+          "openAccess": true,
+          "publishedAt": "2026-11-06",
+          "publisher": "IEEE Spectrum",
+          "quote": "On Phobos, a typical adult would weigh about as much as a tennis ball does on Earth.",
+          "sha256": "881a9770f3ba5b61bd0c78abbe17468d50600fcb03995c4f95ad984dc361cb7c",
+          "tier": "C",
+          "title": "MMX Mission to Phobos Faces a Gravity Challenge",
+          "url": "https://spectrum.ieee.org/mmx-mission-to-phobos"
+        }
+      ],
+      "why": "כבידה היא אחד הכוחות הבסיסיים שפיינמן מונה בפרק 2 (M0.2). המודול הבא שלך בתחום הכבידה (M2.2) ייתן לך את הכלים לחשב בעצמך את 1/1,800."
+    },
+    {
+      "body": "לפי הודעת מעבדות סנדיה, רוב החוקרים מידלו אסטרואידים ככדורים, כי זה מקל על החשבון. \"הבעיה היא שאסטרואידים כדוריים לא קיימים\", אומר הפיזיקאי נתן מור. מודל הסטה חדש שפותח בסנדיה ופורסם בכתב העת Icarus כולל צורות אסטרואיד מציאותיות.\n\nהתוצאה: הקרנת צדדים שונים של אותו אסטרואיד מדומה שינתה את התנע שהועבר ואת הסיבוב שנגרם. במקרה אחד מהירות ההסטה הייתה 3.9 מילימטר לשנייה מזווית אחת ורק 0.8 מזווית אחרת, הבדל של כמעט פי חמישה. באסטרואיד אחר, השינוי במהירות הסיבוב השתנה פי 17. \"ציפינו שהכיוון ישנה\", אמר מור. \"מה שהפתיע אותנו הוא כמה.\"",
+      "certainty": "official",
+      "connects": [
+        {
+          "concept": "הפשטה והנחות מודל",
+          "moduleId": "M0.1",
+          "rel": "learned",
+          "why": "ההנחה הכדורית היא דוגמה להפשטה שמקלה את החישוב ומשנה את התשובה."
+        },
+        {
+          "concept": "תנע",
+          "moduleId": "M2.3",
+          "rel": "next",
+          "why": "מהירות ההסטה היא תנע שהועבר חלקי מסה, נושא המודול שבתור."
+        }
+      ],
+      "dek": "סימולציות של סנדיה על אסטרואידים לא-כדוריים: אותה הקרנה מזוויות שונות נותנת הסטה שונה פי חמישה",
+      "domain": "space",
+      "headline": "הגנה מאסטרואידים: לצורה של האסטרואיד יש משקל גדול מהצפוי",
+      "id": "n12",
+      "kind": "paper",
+      "oldButNew": true,
+      "read10": {
+        "minutes": 5
+      },
+      "sanity": {
+        "check": "יחס בין מהירויות ההסטה",
+        "note": "$3.9/0.8\\approx4.9$, 'כמעט פי חמישה' כנאמר.",
+        "result": "pass"
+      },
+      "sources": [
+        {
+          "fetchedAt": 1794526221125,
+          "httpStatus": 200,
+          "openAccess": true,
+          "publishedAt": "2026-11-03",
+          "publisher": "Sandia National Laboratories",
+          "quote": "In one case, the deflection velocity — the change in its linear speed after the simulated X-ray burst — was 3.9 millimeters per second from one angle, but just 0.8 millimeters per second from another",
+          "sha256": "cd6f0233f9f5dd35bbe7b54add70c63359d5179c0fc8b7f3780cb18d542e487b",
+          "tier": "A",
+          "title": "Asteroid defense hits a lump in the road",
+          "url": "https://newsreleases.sandia.gov/asteroid-defense-hits-a-lump-in-the-road/"
+        }
+      ],
+      "why": "בש1 של M0.1 ראית שמתמטיקה מתחילה בהפשטה. כאן רואים את המחיר שלה: 'נניח שהאסטרואיד כדור' הייתה הפשטה נוחה שהסתירה פקטור 5."
+    }
+  ],
+  "lead": "n1",
+  "number": 1,
+  "picks10": [
+    "n12",
+    "n10",
+    "n9"
+  ],
+  "publishedAt": 1794526942945,
+  "sections": [
+    {
+      "id": "signals",
+      "items": [
+        "n2"
+      ],
+      "title": "אותות ובקרה"
+    },
+    {
+      "id": "comms",
+      "items": [
+        "n3"
+      ],
+      "title": "תקשורת"
+    },
+    {
+      "id": "electronics",
+      "items": [
+        "n4",
+        "n5"
+      ],
+      "title": "אלקטרוניקה ושבבים"
+    },
+    {
+      "id": "power",
+      "items": [
+        "n6"
+      ],
+      "title": "הספק ואנרגיה"
+    },
+    {
+      "id": "fluids",
+      "items": [
+        "n7"
+      ],
+      "title": "תרמו, זרימה ואווירו"
+    },
+    {
+      "id": "materials",
+      "items": [
+        "n8",
+        "n9"
+      ],
+      "title": "מבנים וחומרים"
+    },
+    {
+      "id": "ml",
+      "items": [
+        "n10"
+      ],
+      "title": "ML/AI ורובוטיקה"
+    },
+    {
+      "id": "space",
+      "items": [
+        "n11",
+        "n12"
+      ],
+      "title": "חלל כהנדסה"
+    }
+  ],
+  "snapshot": {
+    "current": "M0.2",
+    "done": 2,
+    "upcoming": [
+      "M1.1",
+      "M1.2",
+      "M1.3",
+      "M1.4",
+      "M1.5",
+      "M1.6",
+      "M2.1",
+      "M2.2",
+      "M2.3",
+      "M2.4",
+      "M2.5",
+      "M2.6"
+    ]
+  },
+  "stats": {
+    "candidates": 410,
+    "dropped": {
+      "date_window": 1,
+      "low_relevance": 14,
+      "paywalled": 2,
+      "quota_next_later": 1,
+      "sponsored": 1,
+      "verifier_unsupported_claim": 3
+    },
+    "fetched": 34,
+    "verified": 12
+  },
+  "window": {
+    "from": "2026-11-06",
+    "to": "2026-11-12"
+  }
+}
