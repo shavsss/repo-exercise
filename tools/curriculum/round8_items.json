@@ -75,6 +75,13 @@
     "k": "deepen",
     "teach": "פרופיל לפני אופטימיזציה, סדר זיכרון C מול Fortran והשפעתו על cache, העתקות סמויות, ומתי לעבור ל-Numba או לקוד C. תמיד עם מדד זמן שחוזר על עצמו.",
     "on": "M22.7 · Profiling"
+   },
+   {
+    "id": "R8:M0.3:x1",
+    "n": "Reproducible data pipelines",
+    "imp": "S",
+    "k": "new",
+    "teach": "מנוטבוק לצינור: גרסאות של נתונים וקוד, סכמות ובדיקות על נתונים, ושחזור תוצאה מקצה לקצה."
    }
   ],
   "M6.13": [
@@ -977,6 +984,13 @@
     "k": "deepen",
     "teach": "רעש פאזה, IQ imbalance, היסט DC ושגיאת שעון כתקציב EVM, ושרשרת הסנכרון המלאה במקלט SDR.",
     "on": "M23.2 · Cable loopback with SDR"
+   },
+   {
+    "id": "R8:M23.17:x1",
+    "n": "Learned receivers",
+    "imp": "S",
+    "k": "new",
+    "teach": "מקלטים ומשווים נלמדים מול קלאסיים, ונתונים לאימון מערוצים אמיתיים ומסימולציה."
    }
   ],
   "M10.12": [
@@ -2385,6 +2399,20 @@
     "k": "deepen",
     "teach": "IR ו-SAR, מטרות קטנות, ו-domain shift.",
     "on": "M17.12 · ML under adversarial operational conditions: ATR with scarce/synthetic data, deception and decoys against learned sensors, data poisoning"
+   },
+   {
+    "id": "R8:M29.5:x1",
+    "n": "World models for robots and driving",
+    "imp": "K",
+    "k": "new",
+    "teach": "חיזוי וידאו ודינמיקה סמויה, שימוש בהם לתכנון ולסימולציה, ומה הם עדיין לא יודעים."
+   },
+   {
+    "id": "R8:M29.5:x2",
+    "n": "Autonomous driving stack",
+    "imp": "K",
+    "k": "new",
+    "teach": "תפיסה, חיזוי ותכנון ברכב אוטונומי, end-to-end מול מודולרי, ובטיחות (ISO 26262, SOTIF)."
    }
   ],
   "M29.6": [
@@ -2453,6 +2481,21 @@
     "imp": "S",
     "k": "new",
     "teach": "מתכנן שפה מעל בקר קלאסי, ומסנני בטיחות (control barrier functions)."
+   },
+   {
+    "id": "R8:M29.6:x1",
+    "n": "Robot foundation models",
+    "imp": "K",
+    "k": "deepen",
+    "teach": "RT-2, OpenVLA ו-π0: איך מודל שפה-ראייה הופך לפעולה, טוקניזציה של פעולות, תדר הבקרה, והיכן הם נכשלים.",
+    "on": "M29.6 · Vision-language-action models"
+   },
+   {
+    "id": "R8:M29.6:x2",
+    "n": "RAG and parameter-efficient fine-tuning",
+    "imp": "K",
+    "k": "new",
+    "teach": "RAG מול fine-tuning (LoRA): מתי מה, איך מעריכים, ועלויות."
    }
   ],
   "M29.7": [
@@ -4074,6 +4117,13 @@
     "k": "deepen",
     "teach": "איך התהליך (עיבוד שבבי, יציקה, הזרקה, פח, ייצור תוספי) קובע צורה, טולרנס, גימור ועלות; כללי DFA (מספר חלקים, כיווני הרכבה); עלות ליחידה מול כמות.",
     "on": "M16.9 · Introduction to materials selection and the design process"
+   },
+   {
+    "id": "R8:M16.16:x2",
+    "n": "Additive manufacturing",
+    "imp": "S",
+    "k": "new",
+    "teach": "תהליכים (PBF, FDM, DED), כללי תכן, תכונות לא-איזוטרופיות והסמכת חלקים."
    }
   ],
   "M16.24": [
@@ -4110,6 +4160,91 @@
     "imp": "K",
     "k": "new",
     "teach": "TRL ו-MRL, הקפאת תכן ו-baseline, first article inspection, LRIP, ובקרת שינויים בייצור."
+   }
+  ],
+  "M6.8": [
+   {
+    "id": "R8:M6.8:x1",
+    "n": "Working with real data",
+    "imp": "K",
+    "k": "new",
+    "teach": "ניקוי נתונים, ערכים חסרים, חריגים ויחידות; מה זה עושה לאומדנים ולרגרסיה, ואיך מתעדים כל החלטה."
+   },
+   {
+    "id": "R8:M6.8:x2",
+    "n": "Exploratory data analysis",
+    "imp": "K",
+    "k": "new",
+    "teach": "היסטוגרמות, פיזורים, טרנספורמציות ובדיקת הנחות לפני מודל; גרף שמגלה מה שהסטטיסטי מסתיר."
+   },
+   {
+    "id": "R8:M6.8:x3",
+    "n": "Data quality, bias and leakage",
+    "imp": "K",
+    "k": "new",
+    "teach": "הטיית דגימה, דליפת מידע, תלות בזמן ובחיישן, ומתי הנתונים לא עונים על השאלה."
+   }
+  ],
+  "M19.9": [
+   {
+    "id": "R8:M19.9:x1",
+    "n": "Grasping and contact",
+    "imp": "K",
+    "k": "new",
+    "teach": "מודלי מגע וחיכוך, סגירת כוח וצורה, ותכנון אחיזה."
+   },
+   {
+    "id": "R8:M19.9:x2",
+    "n": "Imitation learning",
+    "imp": "K",
+    "k": "new",
+    "teach": "behavior cloning, DAgger ו-diffusion policy: למידת מניפולציה מהדגמות, ובעיית הסטייה המצטברת."
+   }
+  ],
+  "M18.9": [
+   {
+    "id": "R8:M18.9:x1",
+    "n": "Sim-to-real in depth",
+    "imp": "K",
+    "k": "deepen",
+    "teach": "זיהוי מערכת, domain randomization, מדידת פער המציאות, והעברת מדיניות לחומרה.",
+    "on": "M18.9 · Sim-to-real transfer and domain randomization"
+   }
+  ],
+  "M17.6": [
+   {
+    "id": "R8:M17.6:x1",
+    "n": "Deep learning on signals",
+    "imp": "K",
+    "k": "new",
+    "teach": "רשתות על אותות חד-ממדיים וספקטרוגרמות, סיווג אפנון, טביעת אצבע RF, ומתי עיבוד קלאסי עדיין עדיף."
+   }
+  ],
+  "M24.7": [
+   {
+    "id": "R8:M24.7:x1",
+    "n": "Qubits and quantum computing",
+    "imp": "K",
+    "k": "new",
+    "teach": "קיוביט ושערים, הסתבכות, מה Shor ו-Grover נותנים, תיקון שגיאות ומחיר הדה-קוהרנטיות, ופלטפורמות החומרה."
+   }
+  ],
+  "M16.14": [
+   {
+    "id": "R8:M16.14:x1",
+    "n": "Topology optimization and generative design",
+    "imp": "S",
+    "k": "new",
+    "teach": "SIMP ושיטות level-set, אילוצי ייצור בתכן גנרטיבי, ומה צריך לבדוק בתוצאה."
+   }
+  ],
+  "M27.2": [
+   {
+    "id": "R8:M27.2:x1",
+    "n": "Digital twins",
+    "imp": "S",
+    "k": "new",
+    "teach": "מודל שמוזן מנתוני מערכת אמיתית: שימושים (תחזוקה, תכן, הדרכה), אימות, ומתי זה רק דשבורד."
    }
   ]
  },
@@ -6620,6 +6755,24 @@
     "k": "deepen",
     "teach": "מה מניע את עלות הייצור של טיל (מחפש, מנוע, חלקים, חומרים), producibility לפי Fleeman, ו-design to cost.",
     "on": "M6.12 · tactical missile conceptual design"
+   }
+  ],
+  "M2.13": [
+   {
+    "id": "R8:M2.13:x1",
+    "n": "ML for radar classification",
+    "imp": "S",
+    "k": "new",
+    "teach": "סיווג מטרות ממיקרו-דופלר, גלאים נלמדים מול CFAR, והכשלים בנתונים מבצעיים."
+   }
+  ],
+  "M4.3": [
+   {
+    "id": "R8:M4.3:x1",
+    "n": "ML for emitter identification",
+    "imp": "S",
+    "k": "new",
+    "teach": "הפרדת פולסים וזיהוי פולטים בלמידה, טביעת אצבע RF, ועמידות לשינויי מצב."
    }
   ]
  }

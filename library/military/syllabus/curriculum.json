@@ -857,6 +857,15 @@
 ]
 },
 "M2.13": {
+"items": [
+{
+"id": "R8:M2.13:x1",
+"n": "ML for radar classification",
+"imp": "S",
+"k": "new",
+"teach": "סיווג מטרות ממיקרו-דופלר, גלאים נלמדים מול CFAR, והכשלים בנתונים מבצעיים."
+}
+],
 "testout": [
 {
 "t": "Pulsed Doppler Operation",
@@ -2619,6 +2628,13 @@
 "imp": "S",
 "k": "new",
 "teach": "Open datasets for spectrum processing (e.g., RadioML, public pulse and ADS-B recordings): test deinterleaving and classification code on data the learner did not generate."
+},
+{
+"id": "R8:M4.3:x1",
+"n": "ML for emitter identification",
+"imp": "S",
+"k": "new",
+"teach": "הפרדת פולסים וזיהוי פולטים בלמידה, טביעת אצבע RF, ועמידות לשינויי מצב."
 }
 ],
 "testout": [
