@@ -1,0 +1,321 @@
+{
+  "app": "core",
+  "generator": {
+    "runId": "23aa0c6f7432",
+    "sha": "28cfda5"
+  },
+  "id": "2026-W46",
+  "items": [
+    {
+      "body": "עיבוד קוהרנטי במכ\"ם מבוזר דורש סנכרון אלחוטי מדויק. לפי התקציר, העברת זמן דו-כיוונית (TWTT) מפיקה חותמות זמן משיאי מסנן מתואם דגומים, אבל הטיית האינטרפולציה מגבילה את הדיוק גם כשהרעש קטן בזכות SNR גבוה או מיצוע.\n\nאינטרפולציה פרבולית בשלוש נקודות פשוטה, אבל הקטנת ההטיה שלה דורשת בדרך כלל התאמה מורכבת יותר. המחברים מציעים את DPI, שמשלב שתי הערכות פרבוליות מחמש דגימות סביב השיא, עם משקל אדפטיבי שמבטל את איבר שגיאת האינטרפולציה המוביל, בלי מודל של צורת השיא ובלי טבלת תיקון. בסימולציות בערוצים שטוחים ורב-נתיביים, ההטיה דומה להתאמת פולינום מסדר רביעי בחמש נקודות, סטיית התקן כמעט זהה, ועלות החישוב קרובה לזו של פרבולה בשלוש נקודות.",
+      "certainty": "preprint",
+      "connects": [
+        {
+          "concept": "SNR",
+          "moduleId": "M0.1",
+          "rel": "learned",
+          "why": "ה-SNR שהגדרת בש3 קובע את פיזור השגיאה, לא את ההטיה."
+        },
+        {
+          "concept": "מסנן מתואם",
+          "moduleId": "M2.9",
+          "rel": "later",
+          "why": "שיא המסנן המתואם הוא נקודת המדידה; שם תלמד את צורתו."
+        }
+      ],
+      "dek": "אינטרפולטור פשוט מחמש דגימות סביב שיא המסנן המתואם, בעלות חישוב של פרבולה בשלוש נקודות",
+      "domain": "radar",
+      "headline": "סנכרון מכ\"ם מבוזר: שתי פרבולות במקום אחת מקטינות את ההטיה",
+      "id": "n1",
+      "kind": "paper",
+      "sanity": {
+        "check": "אין מספר ביצועים מוחלט בתקציר",
+        "note": "",
+        "result": "na"
+      },
+      "sources": [
+        {
+          "fetchedAt": 1794526689988,
+          "httpStatus": 200,
+          "openAccess": true,
+          "publishedAt": "2026-11-10",
+          "publisher": "arXiv",
+          "quote": "We propose the Dual-Parabola Interpolator (DPI), which combines two parabolic estimates from five amplitude samples near the matched-filter peak.",
+          "sha256": "214f6f60d7925b50e4744148ce131f73c0eee919ab6f94e0dc84815d7b24ecea",
+          "tier": "B",
+          "title": "Dual-Parabola Interpolator: A Low-Bias Peak Estimator for Distributed Radar Synchronization",
+          "url": "https://arxiv.org/abs/2611.14225"
+        }
+      ],
+      "why": "הבחנה שכדאי לזכור מעכשיו: SNR גבוה מקטין את הרעש אבל לא את ההטיה. שגיאה שיטתית לא נעלמת במיצוע, וזה מה שהמאמר מטפל בו."
+    },
+    {
+      "body": "לפי Breaking Defense, סוכנות הפיתוח החללי (SDA) העניקה ל-SpaceX חוזה של 9.9 מיליון דולר, עם אופציות עד כמעט 12.7 מיליון, לחקור איך מסופי התקשורת האופטיים של החברה (Plaser) ישתלבו עם לווייני שכבת המעקב של הסוכנות ב-LEO. המחקר יבחן אתגרי חומרה, תוכנה וקישוריות, ויכלול לפי הכתבה מחקר הפחתת סיכון ומסירת חומרה מייצגת.\n\nהרקע: מסופי Plaser מספקים את קישורי הלייזר בין הלוויינים ב\"שדרת נתוני החלל\" שבונה SpaceX לחיל החלל. לפי הכתבה, המסופים האופטיים בקונסטלציות השונות אינם תואמים, כי כל אחת משתמשת בתקן צורת גל אופטי אחר. בין הפתרונות שהוזכרו: לוויינים \"מתרגמים\", רכישת Plaser ללוויינים עתידיים או פיתוח תקן חדש.",
+      "certainty": "single",
+      "connects": [
+        {
+          "concept": "משוואת הקשר",
+          "moduleId": "M0.1",
+          "rel": "learned",
+          "why": "אותה משוואה חלה גם על קישור אופטי; ההבדל הוא באורך הגל ובאלומה הצרה."
+        },
+        {
+          "concept": "אפנון וצורת גל",
+          "moduleId": "M0.5",
+          "rel": "next",
+          "why": "תקן צורת גל הוא בחירת אפנון וקידוד, נושא המודול שבתור."
+        }
+      ],
+      "dek": "חוזה של 9.9 מיליון דולר לחקר תאימות: המסופים האופטיים בקונסטלציות השונות משתמשים בתקני צורת גל שונים",
+      "domain": "space",
+      "headline": "SDA בודקת איך לחבר מסופי לייזר של SpaceX ללווייני המעקב שלה",
+      "id": "n2",
+      "kind": "system",
+      "sources": [
+        {
+          "fetchedAt": 1794526682297,
+          "httpStatus": 200,
+          "openAccess": true,
+          "publishedAt": "2026-11-12",
+          "publisher": "Breaking Defense",
+          "quote": "the OCTs on those constellations are incompatible because they each use a difference optical waveform standard for data transmission",
+          "sha256": "1291dfd697730598d91e15c179731882e5fa71ff3a19bf712b7f6bcfb1b57eb9",
+          "tier": "C",
+          "title": "SDA explores integration of SpaceX laser communication terminals with missile tracking sats - Breaking Defense",
+          "url": "https://breakingdefense.com/2026/11/sda-explores-integration-of-spacex-laser-communication-terminals-with-missile-tracking-sats/"
+        }
+      ],
+      "why": "קישור לייזר בין לוויינים הוא עוד מקרה של משוואת הקשר; אבל הכתבה מראה שהבעיה הקשה היא לא ה-dB אלא הממשק: שני קצוות שלא מדברים באותה צורת גל."
+    },
+    {
+      "body": "מערכות לוויין ישירות למכשיר (D2D), לפי תקני NTN של 3GPP, משתמשות בספקטרום של רשתות סלולר יבשתיות. לפי התקציר, זה מעלה סיכון להפרעה חוצת-גבולות, נושא שנדון בסעיף 1.13 בסדר היום של ועידת הרדיו העולמית WRC-27.\n\nהמחברים מעריכים הפרעה מצטברת בערוץ היורד משתי מערכות D2D היפותטיות בירדן ובעיראק אל מכשירים בסעודיה, בפס 698–960 מגה-הרץ, עם מקלטים נפגעים לאורך הגבולות האמיתיים ברצועות של 0–40 ק\"מ. נבדקו שתי אסטרטגיות לבחירת לוויין. התוצאה: קריטריון ההגנה נחצה עד 88% מהזמן, ונדרש עד 27 dB בידוד נוסף, כך שדו-קיום אינו אפשרי בלי הפחתת הפרעות. אזור בידוד ברוחב תא אחד שיפר במידה מתונה; תבנית מערך מופע עם אלומה צרה ואפסים עמוקים הורידה את החריגה לכ-40%.",
+      "certainty": "preprint",
+      "connects": [
+        {
+          "concept": "dB ורעש מקלט",
+          "moduleId": "M0.1",
+          "rel": "learned",
+          "why": "I/N הוא יחס dB מול רצפת הרעש שחישבת."
+        },
+        {
+          "concept": "מערכי מופע",
+          "moduleId": "M1.2",
+          "rel": "next",
+          "why": "אפסים עמוקים בתבנית האלומה הם הפתרון שעבד; זה נושא מערכי המופע."
+        }
+      ],
+      "dek": "הערכה לפי שיטות ITU-R של הפרעה חוצת-גבולות ב-698–960 מגה-הרץ, לקראת WRC-27",
+      "domain": "models",
+      "headline": "לוויינים ישירות לטלפון מול רשתות סלולר שכנות: עד 27 dB בידוד חסר",
+      "id": "n3",
+      "kind": "paper",
+      "sanity": {
+        "check": "27 dB ביחס הספק",
+        "note": "$10^{2.7}\\approx500$.",
+        "result": "pass"
+      },
+      "sources": [
+        {
+          "fetchedAt": 1794526690396,
+          "httpStatus": 200,
+          "openAccess": true,
+          "publishedAt": "2026-11-09",
+          "publisher": "arXiv",
+          "quote": "Results show that the protection criterion is exceeded up to 88% of the time, requiring up to 27 dB of additional isolation",
+          "sha256": "1eb0b286c5932fc131c883e5b6217729856a4180360dac2f1c5dc8d6362002c3",
+          "tier": "B",
+          "title": "Coexistence of Direct-to-Device (D2D) Satellite Systems with 5G/6G Terrestrial Networks: Cross-Border Aggregate Interference Analysis in Saudi Arabia",
+          "url": "https://arxiv.org/abs/2611.12644"
+        }
+      ],
+      "why": "יחס הפרעה לרעש (I/N) הוא אותו חשבון dB שעשית בש3: הספק הפרעה מול $kTB$. 27 dB הם פי 500 בהספק, וזה מראה למה זה ויכוח רגולטורי."
+    },
+    {
+      "body": "לפי SpaceNews, שתי החלליות של משימת ESCAPADE חלפו ליד כדור הארץ והפעילו מנוע במהלך החליפה. החללית Gold חלפה ב-9 בנובמבר בגובה של כ-1,050 ק\"מ, יותר מ-48 שעות אחרי Blue, שחלפה בגובה של כ-1,600 ק\"מ. השריפה בזמן החליפה מנצלת את אפקט אוברת' כדי למקסם את ביצועי התמרון. לפי נאס\"א, זו הפעם הראשונה שהסוכנות השתמשה בחליפה ממונעת ליד כדור הארץ כדי לשלוח חללית למאדים.\n\nבמקום לחכות לחלון שיגור שנפתח בערך כל שנתיים, החלליות שוגרו בנובמבר שעבר והמתינו כשנה סביב נקודת L2 של מערכת כדור הארץ-שמש. הן צפויות להגיע למאדים בהפרש של יומיים בספטמבר 2027, ושם כל אחת תבצע שריפה של 11 דקות כדי להיכנס למסלול.",
+      "certainty": "single",
+      "connects": [
+        {
+          "concept": "תמרונים מסלוליים",
+          "moduleId": "M13.4",
+          "rel": "later",
+          "why": "שם תחשב תמרוני מהירות ותראה למה שריפה בפריג'י משתלמת."
+        }
+      ],
+      "dek": "שתי חלליות קטנות של נאס\"א ניצלו את אפקט אוברת' אחרי שנה ליד נקודת לגרנז' L2",
+      "domain": "space",
+      "headline": "ESCAPADE בדרך למאדים אחרי חלופים ממונעים ליד כדור הארץ",
+      "id": "n4",
+      "kind": "event",
+      "read10": {
+        "minutes": 5
+      },
+      "sanity": {
+        "check": "אין מספר ביצועים לבדוק",
+        "note": "",
+        "result": "na"
+      },
+      "sources": [
+        {
+          "fetchedAt": 1794526687823,
+          "httpStatus": 200,
+          "openAccess": true,
+          "publishedAt": "2026-11-10",
+          "publisher": "SpaceNews",
+          "quote": "This is the first time NASA has used a powered Earth flyby to propel a spacecraft toward Mars",
+          "sha256": "df1e093aa4ae84d5e1fe600bf6c2cba39ed4a19210793ff3cbd4fb2b6db9291d",
+          "tier": "C",
+          "title": "ESCAPADE on its way to Mars after Earth flybys - SpaceNews",
+          "url": "https://spacenews.com/escapade-on-its-way-to-mars-after-earth-flybys/"
+        }
+      ],
+      "why": "אפקט אוברת': אותה תוספת מהירות שווה יותר אנרגיה כשהחללית כבר מהירה. זה יופיע כשתגיע לאסטרודינמיקה ולמשוואת הרקטה."
+    },
+    {
+      "body": "לפי The War Zone, מנכ\"ל Kratos אמר בשיחת דוחות רבעונית שכלי הטיס הבלתי מאויש Valkyrie עולה כיום בערך 6 עד 8 מיליון דולר, לפי התצורה ובלי מערכות משימה מסוימות. \"עם מערכות משימה זה יותר\", אמר. לפי הכתבה, זה יקר יותר ממה שהחברה כיוונה אליו בעבר, אבל עדיין בקצה הנמוך של כלים מסוג CCA לפי המידע הזמין.\n\nחיל האוויר האמריקאי מפעיל מספר קטן של XQ-58A מאז הטיסה הראשונה ב-2019, למחקר ולניסוי, וחיל הנחתים רוכש גרסה מלאה. גרסה בשם U740 טסה לראשונה בצפון אירופה בשיתוף Airbus. המנכ\"ל הדגיש שמחיר יהיה גורם מרכזי עבור לקוחות של כלים כאלה.",
+      "certainty": "single",
+      "connects": [
+        {
+          "concept": "הגדרות עלות ועלות מחזור חיים",
+          "moduleId": "M14.2",
+          "rel": "later",
+          "why": "ההבדל בין מחיר יחידה בלי מערכות משימה לעלות מחזור חיים הוא נושא המודול."
+        }
+      ],
+      "dek": "נתון שמסר מנכ\"ל Kratos בשיחת משקיעים; עדיין בקצה הזול של כלי CCA לפי המידע הזמין",
+      "domain": "cost",
+      "headline": "מחיר רחפן Valkyrie: 6–8 מיליון דולר ליחידה, לפני מערכות משימה",
+      "id": "n5",
+      "kind": "system",
+      "sanity": {
+        "check": "אין ביצועים לבדוק; זו טענת מחיר של היצרן שמדווחת בכתבה",
+        "note": "המספר מגיע מהיצרן, לא ממקור עצמאי.",
+        "result": "na"
+      },
+      "sources": [
+        {
+          "fetchedAt": 1794526684335,
+          "httpStatus": 200,
+          "openAccess": true,
+          "publishedAt": "2026-11-10",
+          "publisher": "The War Zone",
+          "quote": "The uncrewed aircraft currently cost roughly $6 to $8 million, depending on their configuration and without certain mission systems installed.",
+          "sha256": "802d84f5045516d593add0cba5d794861b529de9c345245a88dc3aac47bfac95",
+          "tier": "C",
+          "title": "MQ-58 Valkyrie Drones Now Cost $6M-$8M Each",
+          "url": "https://www.twz.com/air/mq-58-valkyrie-drones-now-cost-6m-8m-each"
+        }
+      ],
+      "why": "מחיר 'white tail' (בלי מערכות משימה) הוא לא עלות מחזור חיים. זו הבחנה בסיסית בהגדרות עלות שתלמד: מספר שמגיע מהיצרן מודד דבר אחר ממה שהלקוח משלם."
+    },
+    {
+      "body": "לפי The War Zone, שקפים מיום תעשייה של צבא ארה\"ב שפורסמו ברשת מפרטים את תוכנית M-SHORAD Increment 4. לוח הזמנים: יכולת מבצעית ראשונית בשנת הכספים 2030, ויחידה ראשונה מצוידת (FUE) ברמת גדוד ברבעון הראשון של אותה שנת כספים, כלומר אוקטובר עד דצמבר 2029. קודם לכן דובר על הצבה בין שנות הכספים 2027 ל-2029.\n\nהדרישה העיקרית לפי הכתבה היא פורמט \"אגנוסטי לרכב\" על משטח, שאפשר להרכיב ולפרק מרכבים קלים. הכתבה מציינת גם את המדרגות הקודמות: Increment 1 על Stryker, Increment 2 לנשק אנרגיה מכוונת, ו-Increment 3 למיירט קצר טווח שיחליף את Stinger.",
+      "certainty": "single",
+      "connects": [
+        {
+          "concept": "מחזור חיים וניסוי והערכה",
+          "moduleId": "M7.10",
+          "rel": "later",
+          "why": "IOC ו-FUE הם אבני דרך במחזור החיים שתלמד שם."
+        }
+      ],
+      "dek": "M-SHORAD Increment 4: מערכת שאינה תלויה ברכב, לפי שקפי יום תעשייה שפורסמו",
+      "domain": "missiles",
+      "headline": "הצבא האמריקאי רוצה מערכת הגנה אווירית קצרת טווח על משטח עד סוף 2029",
+      "id": "n6",
+      "kind": "system",
+      "sanity": {
+        "check": "ברבעון הראשון של שנת הכספים 2030 בארה\"ב",
+        "note": "שנת הכספים מתחילה ב-1 באוקטובר, לכן הרבעון הראשון של FY2030 הוא אוקטובר–דצמבר 2029, כנאמר.",
+        "result": "pass"
+      },
+      "sources": [
+        {
+          "fetchedAt": 1794526683921,
+          "httpStatus": 200,
+          "openAccess": true,
+          "publishedAt": "2026-11-10",
+          "publisher": "The War Zone",
+          "quote": "The U.S. Army is aiming to have new palletized short-range air defense systems in service before the 2029 calendar year comes to a close.",
+          "sha256": "c5c1b5be7acbaa3539af7c1ca6f045ef37f8f83fa830f9c82a03c8527d997a58",
+          "tier": "C",
+          "title": "Army Wants New Palletized Short-Range Air Defenses In Service By The End Of 2029",
+          "url": "https://www.twz.com/land/army-wants-new-palletized-short-range-air-defenses-in-service-by-the-end-of-2029"
+        }
+      ],
+      "why": "תוכנית במדרגות (increments) היא דרך לנהל סיכון בפיתוח: כל מדרגה מוסיפה יכולת על בסיס קודם. כדאי לשים לב גם להזזה בלוח הזמנים, מ-2027–2029 ליעד של סוף 2029."
+    }
+  ],
+  "lead": "n3",
+  "number": 2,
+  "picks10": [
+    "n4",
+    "n3",
+    "n1"
+  ],
+  "publishedAt": 1794526968076,
+  "sections": [
+    {
+      "id": "radar",
+      "items": [
+        "n1"
+      ],
+      "title": "מכ\"ם ול\"א"
+    },
+    {
+      "id": "missiles",
+      "items": [
+        "n6"
+      ],
+      "title": "טילים והגנה אווירית"
+    },
+    {
+      "id": "space",
+      "items": [
+        "n2",
+        "n4"
+      ],
+      "title": "חלל"
+    },
+    {
+      "id": "cost",
+      "items": [
+        "n5"
+      ],
+      "title": "עלות ובדיקות"
+    }
+  ],
+  "snapshot": {
+    "current": "M0.1",
+    "done": 1,
+    "upcoming": [
+      "M0.2",
+      "M0.3",
+      "M0.4",
+      "M0.5",
+      "M0.6",
+      "M0.7",
+      "M0.8",
+      "M1.1",
+      "M1.2",
+      "M1.3",
+      "M1.5",
+      "M1.6"
+    ]
+  },
+  "stats": {
+    "candidates": 182,
+    "dropped": {
+      "fetch_failed": 4,
+      "low_relevance": 8,
+      "no_article_text": 1,
+      "sponsored": 1,
+      "verifier_unsupported_claim": 4
+    },
+    "fetched": 24,
+    "verified": 6
+  },
+  "window": {
+    "from": "2026-11-06",
+    "to": "2026-11-12"
+  }
+}

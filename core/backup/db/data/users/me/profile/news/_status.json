@@ -1,16 +1,22 @@
 {
   "counts": {
-    "candidates": 177,
-    "drafted": 11,
-    "fetched": 20,
-    "verified": 8
+    "candidates": 182,
+    "drafted": 10,
+    "fetched": 24,
+    "published": 6,
+    "refetched": 6,
+    "verified": 6
   },
   "dropped": {
-    "verifier_unsupported_claim": 3
+    "fetch_failed": 4,
+    "low_relevance": 8,
+    "no_article_text": 1,
+    "sponsored": 1,
+    "verifier_unsupported_claim": 4
   },
-  "issueId": "2026-W45",
-  "lastRun": 1793836000000,
+  "issueId": "2026-W46",
+  "lastRun": 1794526977982,
   "ok": true,
   "refusals": [],
-  "usageEstimate": "about 0.4M tokens; short issue (8 items); quotas for learned/current links not reachable since nothing is done yet"
+  "usageEstimate": "about 0.4M tokens; short issue (6 items, the minimum) after 4 items failed independent verification; quota miss: next/later 3/6 (50%) above the 30% target, learned 3/6; GAO and war.gov pages returned 403 so no GAO item"
 }
