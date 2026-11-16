@@ -12780,6 +12780,20 @@
 "imp": "K",
 "k": "deepen",
 "teach": "Foundry economics and geopolitics: fab cost ($20B+), node naming vs density, concentration (TSMC, ASML EUV), advanced packaging/chiplets, export controls; mature-node chips in munitions."
+},
+{
+"id": "R8:M25.12:hp1",
+"n": "ASIC physical design flow: RTL to GDSII and sign-off",
+"imp": "S",
+"k": "new",
+"teach": "הזרימה מ-RTL לסיליקון: סינתזה, floorplan ורשת הספק, placement, עץ שעון (CTS), ניתוב, ואז סגירת תזמון וחתימה: STA בכל הפינות, DRC ו-LVS, IR drop ו-electromigration. איך מחליטים בין ביצועים, הספק ושטח (PPA), ולמה הבעיות מתגלות מאוחר."
+},
+{
+"id": "R8:M25.12:hp2",
+"n": "Post-silicon validation and bring-up",
+"imp": "S",
+"k": "new",
+"teach": "מה קורה כשהשבב חוזר מהמפעל: bring-up על לוח, debug דרך JTAG ו-scan, מעקב (trace) על השבב, מיון באגים בין תכן, ייצור ותוכנה, אפיון על פני מתח, תדר וטמפרטורה (shmoo), ותיקון ב-metal ECO או בקושחה."
 }
 ],
 "brief": [
@@ -15909,6 +15923,13 @@
 "imp": "S",
 "k": "new",
 "teach": "מ-C/C++ לחומרה: pipeline ו-initiation interval, unroll ו-array partition, תלויות בלולאה שמונעות II=1, ממשקי AXI-Stream ו-DMA, ואיך קוראים דוח סינתזה (latency, משאבים). מתי HLS חוסך זמן ומתי צריך לחזור ל-RTL."
+},
+{
+"id": "R8:M28.3:12",
+"n": "Low-power design and verification: power intent (UPF), clock and power gating, multiple voltages",
+"imp": "S",
+"k": "new",
+"teach": "איפה ההספק הולך בשבב (דינמי מול זליגה) ואיך מקטינים אותו: clock gating, power gating עם שמירת מצב, איי מתח ו-DVFS, level shifters ו-isolation. כוונת ההספק מתוארת בקובץ UPF ומאומתת בסימולציה ובבדיקה סטטית."
 }
 ]
 },
