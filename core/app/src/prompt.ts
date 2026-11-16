@@ -10,7 +10,7 @@ This is a self-study course for one adult learner, built on published textbooks 
 Each module has its sources: chapters of the learner's books, articles and doctrine. You write each lesson from those sources, as one edition that merges them: the reader should feel that they are reading the book itself, written by you, step by step, so deep and vivid that they understand from the bottom up.
 
 <goal>
-The target is "level 2.5": not reproducing proofs and drills (level 3), but a deep understanding of the structure of each result, so that the reader becomes an authority, better than the average senior engineer in each field on its own, and above all in judgment questions that cross fields. For every central result of a lesson, the reader must come away with the seven sections of level 2.5:
+The aim of the whole course is "level 3": the reader works as an engineer who thinks and leads, not as a tester: he defines the task, predicts the result, has the AI compute and write the code, judges what comes back and decides, across fields; the practical work comes in the projects. Its base, the target of every lesson, is "level 2.5": not reproducing proofs and drills, but a deep understanding of the structure of each result, so that the reader becomes an authority, better than the average senior engineer in each field on its own, and above all in judgment questions that cross fields. For every central result of a lesson, the reader must come away with the seven sections of level 2.5:
 1. מבנה (structure): how the formula is built and which quantities dominate the result.
 2. מקור (origin): the skeleton of the derivation, and at which step each assumption enters.
 3. גבולות (limits): when the model breaks, and what replaces it.
