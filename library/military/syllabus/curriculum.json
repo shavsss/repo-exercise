@@ -4652,6 +4652,14 @@
 "n": "Tactical missile conceptual design as a module (Fleeman B13): add the book to the syllabus via OCR",
 "imp": "K",
 "k": "deepen"
+},
+{
+"id": "R8:M6.12:dfm1",
+"n": "Producibility and cost drivers",
+"imp": "S",
+"k": "deepen",
+"teach": "מה מניע את עלות הייצור של טיל (מחפש, מנוע, חלקים, חומרים), producibility לפי Fleeman, ו-design to cost.",
+"on": "M6.12 · tactical missile conceptual design"
 }
 ],
 "reading": [
@@ -11050,6 +11058,14 @@
 "k": "delta",
 "teach": "Wright learning curve and production-rate effects in a defense context (interceptors, F-35), quantity-unit-cost spiral.",
 "primary": "mil:M13.7"
+},
+{
+"id": "R8:M14.2:dfm1",
+"n": "Production ramp and learning curves",
+"imp": "K",
+"k": "deepen",
+"teach": "עקומת לימוד (Wright), קצב ייצור, LRIP ל-FRP, וצווארי בקבוק בשרשרת האספקה (למשל מנועים רקטיים מוצקים).",
+"on": "M14.2 · cost definitions and the industrial base"
 }
 ],
 "reading": [

@@ -1210,6 +1210,13 @@
     "k": "deepen",
     "teach": "בדיקות CE, CS, RE ו-RS, LISN ותא אנאכואי, ואיך מתכננים מראש לעבור. U9 בלנצ'סטר בונה על זה.",
     "on": "M27.3 · Environmental testing (vibe, thermal-vac, EMC)"
+   },
+   {
+    "id": "R8:M11.24:dfm1",
+    "n": "PCB design for manufacture, assembly and test",
+    "imp": "K",
+    "k": "new",
+    "teach": "stack-up ובחירת חומר, כללי DFM של יצרן (רוחב ומרווח, via, טבעת), DFA ו-DFT (נקודות בדיקה, JTAG, ICT), פאנליזציה ותשואה."
    }
   ],
   "M22.14": [
@@ -1803,6 +1810,13 @@
     "imp": "S",
     "k": "new",
     "teach": "AXI-Stream ו-AXI4, לחיצת יד valid/ready, backpressure, ו-skid buffer."
+   },
+   {
+    "id": "R8:M28.3:dfm1",
+    "n": "From FPGA prototype to production",
+    "imp": "S",
+    "k": "new",
+    "teach": "DFT ספרתי (scan, BIST, boundary scan), FPGA מול ASIC בייצור (NRE מול עלות יחידה), וניהול גרסאות של ביטסטרים."
    }
   ],
   "M28.4": [
@@ -4034,6 +4048,68 @@
     "k": "deepen",
     "teach": "מודלי צמיחת אמינות לתוכנה ומגבלותיהם.",
     "on": "M27.4 · Software safety and assurance (DO-178C, IEC 61508 SIL)"
+   }
+  ],
+  "M16.20": [
+   {
+    "id": "R8:M16.20:dfm1",
+    "n": "Tolerances, fits and GD&T",
+    "imp": "K",
+    "k": "new",
+    "teach": "טולרנסים ותאמות (ISO 286), יסודות GD&T: datum, מיקום, ניצבות ופרופיל, ואיך כותבים שרטוט שמייצרים ובודקים לפיו."
+   },
+   {
+    "id": "R8:M16.20:dfm2",
+    "n": "Tolerance stack-up and cost",
+    "imp": "K",
+    "k": "new",
+    "teach": "שרשרת טולרנסים במקרה הגרוע ובסטטיסטי (RSS, Monte Carlo), ובחירת טולרנס לפי עלות הייצור והבדיקה."
+   }
+  ],
+  "M16.16": [
+   {
+    "id": "R8:M16.16:dfm1",
+    "n": "Design for manufacture and assembly (DFM/DFA)",
+    "imp": "K",
+    "k": "deepen",
+    "teach": "איך התהליך (עיבוד שבבי, יציקה, הזרקה, פח, ייצור תוספי) קובע צורה, טולרנס, גימור ועלות; כללי DFA (מספר חלקים, כיווני הרכבה); עלות ליחידה מול כמות.",
+    "on": "M16.9 · Introduction to materials selection and the design process"
+   }
+  ],
+  "M16.24": [
+   {
+    "id": "R8:M16.24:dfm1",
+    "n": "Composite manufacturing and design allowables",
+    "imp": "S",
+    "k": "new",
+    "teach": "lay-up, אוטוקלב מול OOA, RTM; פגמים (נקבוביות, דלמינציה) והשפעתם על ערכי התכן; בדיקות לא הורסות."
+   }
+  ],
+  "M11.13": [
+   {
+    "id": "R8:M11.13:dfm1",
+    "n": "Circuit tolerance analysis",
+    "imp": "S",
+    "k": "new",
+    "teach": "ניתוח worst-case ו-Monte Carlo של טולרנסים ברכיבים, סחיפה בטמפרטורה ובזמן, ובחירת טולרנס לפי עלות."
+   }
+  ],
+  "M25.2": [
+   {
+    "id": "R8:M25.2:dfm1",
+    "n": "Yield, process variation and DFM rules",
+    "imp": "K",
+    "k": "new",
+    "teach": "מודלי תשואה (Poisson, מודל מכפלי), process corners ו-Monte Carlo, חוקי תכן ו-DFM בשבב, ועלות לדיה כפונקציה של שטח."
+   }
+  ],
+  "M27.1": [
+   {
+    "id": "R8:M27.1:dfm1",
+    "n": "From prototype to production",
+    "imp": "K",
+    "k": "new",
+    "teach": "TRL ו-MRL, הקפאת תכן ו-baseline, first article inspection, LRIP, ובקרת שינויים בייצור."
    }
   ]
  },
@@ -6524,6 +6600,26 @@
     "imp": "S",
     "k": "new",
     "teach": "CWC, BWC; סוריה 2013, Salisbury, עיראק."
+   }
+  ],
+  "M14.2": [
+   {
+    "id": "R8:M14.2:dfm1",
+    "n": "Production ramp and learning curves",
+    "imp": "K",
+    "k": "deepen",
+    "teach": "עקומת לימוד (Wright), קצב ייצור, LRIP ל-FRP, וצווארי בקבוק בשרשרת האספקה (למשל מנועים רקטיים מוצקים).",
+    "on": "M14.2 · cost definitions and the industrial base"
+   }
+  ],
+  "M6.12": [
+   {
+    "id": "R8:M6.12:dfm1",
+    "n": "Producibility and cost drivers",
+    "imp": "S",
+    "k": "deepen",
+    "teach": "מה מניע את עלות הייצור של טיל (מחפש, מנוע, חלקים, חומרים), producibility לפי Fleeman, ו-design to cost.",
+    "on": "M6.12 · tactical missile conceptual design"
    }
   ]
  }

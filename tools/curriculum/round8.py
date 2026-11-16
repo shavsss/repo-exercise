@@ -138,7 +138,7 @@ EXTRA = {"eng": {
 
 # The fixes of the order research (docs/research/round8_layers/eng_gaps.md 2.2-2.3, mil_gaps.md 2) that were not applied
 # on 15.11: modules the course builds on become core, and wrong prerequisites are replaced.
-TIER = {"eng": {"M20.10": "core", "M22.4": "core", "M22.5": "core", "M24.9": "core", "M24.7": "core", "M17.10": "core", "M20.3": "core"}, "mil": {"M1.7": "core"}}
+TIER = {"eng": {"M20.10": "core", "M22.4": "core", "M22.5": "core", "M24.9": "core", "M24.7": "core", "M17.10": "core", "M20.3": "core", "M16.16": "core"}, "mil": {"M1.7": "core"}}
 DROP = {"eng": {"M15.8": ["M15.7"], "M16.24": ["M16.15"], "M3.5": ["M10.1"], "M13.19": ["M12.1"]}, "mil": {}}
 EXTRA["eng"].update({"M24.8": ["M24.7"], "M22.11": ["M20.3"], "M22.3": ["M20.3"], "M23.12": ["M20.3"], "M19.10": ["M5.14"],
                      "M15.8": ["M15.26", "M14.6"], "M16.24": ["M16.1", "M16.10"], "M3.5": ["M9.1", "M4.4"]})
