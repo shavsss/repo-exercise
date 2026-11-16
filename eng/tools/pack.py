@@ -36,6 +36,8 @@ ASSET_URLS = ROOT / "eng" / "tools" / "asset_urls.json"
 sys.path.insert(0, str(SYL))
 from syllabus import DOCS, MODULES, PARTS, SKIP  # noqa: E402
 from toc import load  # noqa: E402
+sys.path.insert(0, str(ROOT / "core" / "tools"))
+from sections import detect  # noqa: E402
 sys.path.insert(0, str(ROOT / "tools" / "curriculum"))
 from enrich import attach  # noqa: E402  (topic items, test-out, reading lists)
 
@@ -191,7 +193,11 @@ def pack_doc(doc, rel, title, docs, sections):
         pg_items.append((k, json.loads(f.read_text())))
     pg_files, pg_index = bundle(doc, pg_items, "pg")
 
-    secs = toc_sections(doc)
+    # the hand-made syllabus map; documents added without one get headings found in the PDF
+    if (SYL / "toc" / f"{doc}.md").exists():
+        secs = toc_sections(doc)
+    else:
+        secs = detect(pdf, pages, {p for d, a, b, _ in SKIP if d == doc for p in range(a, b + 1)}) if pdf else []
     sections[doc] = secs
     docs[doc] = {
         "title": title, "short": short(doc), "kind": kind(doc), "pages": len(pages),
