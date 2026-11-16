@@ -1831,6 +1831,13 @@
     "imp": "S",
     "k": "new",
     "teach": "DFT ספרתי (scan, BIST, boundary scan), FPGA מול ASIC בייצור (NRE מול עלות יחידה), וניהול גרסאות של ביטסטרים."
+   },
+   {
+    "id": "R8:M28.3:11",
+    "n": "High-level synthesis in depth: pipelining, unrolling, initiation interval, interfaces",
+    "imp": "S",
+    "k": "new",
+    "teach": "מ-C/C++ לחומרה: pipeline ו-initiation interval, unroll ו-array partition, תלויות בלולאה שמונעות II=1, ממשקי AXI-Stream ו-DMA, ואיך קוראים דוח סינתזה (latency, משאבים). מתי HLS חוסך זמן ומתי צריך לחזור ל-RTL."
    }
   ],
   "M28.4": [
@@ -4263,8 +4270,23 @@
     "n": "Grid-scale battery storage: sizing, grid services, degradation and safety",
     "imp": "S",
     "k": "new",
-    "teach": "הספק מול אנרגיה (MW מול MWh, משך בשעות) ויעילות הלוך-חזור. השירותים: תגובת תדר מהירה, ארביטראז', דחיית השקעה ברשת, black start. הזדקנות לפי עומק פריקה, קצב וטמפרטורה, וההשפעה על עלות האגירה (LCOS). BMS ברמת המערכת, thermal runaway והתפשטותו בין תאים (UL 9540A, NFPA 855).",
-    "on": "M13.17; M13.19"
+    "teach": "הספק מול אנרגיה (MW מול MWh, משך בשעות) ויעילות הלוך-חזור. השירותים: תגובת תדר מהירה, ארביטראז', דחיית השקעה ברשת, black start. הזדקנות לפי עומק פריקה, קצב וטמפרטורה, וההשפעה על עלות האגירה (LCOS). BMS ברמת המערכת, thermal runaway והתפשטותו בין תאים (UL 9540A, NFPA 855)."
+   }
+  ],
+  "M15.28": [
+   {
+    "id": "R8:M15.28:1",
+    "n": "Flight control law design: SAS/CAS, gain scheduling, dynamic inversion, flying qualities",
+    "imp": "K",
+    "k": "new",
+    "teach": "ממודל לינארי של המטוס לחוק בקרה: מערכת ייצוב (SAS) ומערכת שליטה ופקודה (CAS), תזמון הגבר על פני מעטפת הטיסה, היפוך דינמי (NDI/INDI) כחלופה. דרישות איכויות טיסה (MIL-STD-1797, סולם Cooper-Harper, CAP), מרווחי יציבות כדרישה, ואיך בודקים את חוק הבקרה בטיסה."
+   },
+   {
+    "id": "R8:M15.28:2",
+    "n": "6-DOF simulation, Monte Carlo dispersion and the MIL/SIL/HIL chain",
+    "imp": "K",
+    "k": "new",
+    "teach": "סימולציית 6-DOF של כלי: משוואות התנועה, קוואטרניונים, מודלים אווירודינמיים מטבלאות, מודלי חיישנים ומפעילים. ריצות Monte Carlo על פיזור פרמטרים כדי להעריך ביצועים ומרווחים. השרשרת מהמודל לחומרה: model-, software- ו-hardware-in-the-loop, ומה כל שלב מוכיח ומה לא."
    }
   ]
  },
@@ -6793,6 +6815,15 @@
     "imp": "S",
     "k": "new",
     "teach": "הפרדת פולסים וזיהוי פולטים בלמידה, טביעת אצבע RF, ועמידות לשינויי מצב."
+   }
+  ],
+  "M1.2": [
+   {
+    "id": "R8:M1.2:1",
+    "n": "Phased-array calibration: element errors, coupling and calibration methods",
+    "imp": "K",
+    "k": "new",
+    "teach": "שגיאות משרעת ופאזה של אלמנטים ומודולי T/R ואיך הן מעלות אונות צד ומזיזות את הכוונת האלומה. שיטות כיול: מדידה בשדה הקרוב, הזרקת אות כיול פנימית, ושיטות מבוססות צימוד הדדי בין אלמנטים. כיול חוזר בשטח עם טמפרטורה והזדקנות."
    }
   ]
  }

@@ -292,6 +292,13 @@
 "imp": "S",
 "k": "new",
 "teach": "Electromagnetic simulation hygiene: refine the mesh until gain, pattern and S11 change less than a stated tolerance, and check the solver against the analytic dipole and patch before trusting it."
+},
+{
+"id": "R8:M1.2:1",
+"n": "Phased-array calibration: element errors, coupling and calibration methods",
+"imp": "K",
+"k": "new",
+"teach": "שגיאות משרעת ופאזה של אלמנטים ומודולי T/R ואיך הן מעלות אונות צד ומזיזות את הכוונת האלומה. שיטות כיול: מדידה בשדה הקרוב, הזרקת אות כיול פנימית, ושיטות מבוססות צימוד הדדי בין אלמנטים. כיול חוזר בשטח עם טמפרטורה והזדקנות."
 }
 ],
 "testout": [

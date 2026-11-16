@@ -15902,6 +15902,13 @@
 "imp": "S",
 "k": "new",
 "teach": "DFT ספרתי (scan, BIST, boundary scan), FPGA מול ASIC בייצור (NRE מול עלות יחידה), וניהול גרסאות של ביטסטרים."
+},
+{
+"id": "R8:M28.3:11",
+"n": "High-level synthesis in depth: pipelining, unrolling, initiation interval, interfaces",
+"imp": "S",
+"k": "new",
+"teach": "מ-C/C++ לחומרה: pipeline ו-initiation interval, unroll ו-array partition, תלויות בלולאה שמונעות II=1, ממשקי AXI-Stream ו-DMA, ואיך קוראים דוח סינתזה (latency, משאבים). מתי HLS חוסך זמן ומתי צריך לחזור ל-RTL."
 }
 ]
 },
@@ -18253,6 +18260,47 @@
 "imp": "S",
 "k": "new",
 "teach": "lay-up, אוטוקלב מול OOA, RTM; פגמים (נקבוביות, דלמינציה) והשפעתם על ערכי התכן; בדיקות לא הורסות."
+}
+]
+},
+"M13.23": {
+"items": [
+{
+"id": "R8:M13.23:1",
+"n": "Grid-following vs grid-forming inverters in a low-inertia grid",
+"imp": "K",
+"k": "deepen",
+"teach": "ממיר שמסתנכרן ב-PLL ומזריק זרם (grid-following) מול ממיר שקובע מתח ותדר בעצמו (grid-forming: droop, מכונה סינכרונית וירטואלית). רשת עם אינרציה נמוכה: RoCoF, שפל התדר (nadir) ותגובת תדר מהירה. רשת חלשה (SCR נמוך) ויציבות ה-PLL. דרישות ride-through (IEEE 2800, IEEE 1547). אותו עיקרון מחזיק מיקרו-גריד של בסיס או של ספינה בלי גנרטור גדול.",
+"on": "M12.12; M13.19"
+}
+]
+},
+"M13.25": {
+"items": [
+{
+"id": "R8:M13.25:1",
+"n": "Grid-scale battery storage: sizing, grid services, degradation and safety",
+"imp": "S",
+"k": "new",
+"teach": "הספק מול אנרגיה (MW מול MWh, משך בשעות) ויעילות הלוך-חזור. השירותים: תגובת תדר מהירה, ארביטראז', דחיית השקעה ברשת, black start. הזדקנות לפי עומק פריקה, קצב וטמפרטורה, וההשפעה על עלות האגירה (LCOS). BMS ברמת המערכת, thermal runaway והתפשטותו בין תאים (UL 9540A, NFPA 855)."
+}
+]
+},
+"M15.28": {
+"items": [
+{
+"id": "R8:M15.28:1",
+"n": "Flight control law design: SAS/CAS, gain scheduling, dynamic inversion, flying qualities",
+"imp": "K",
+"k": "new",
+"teach": "ממודל לינארי של המטוס לחוק בקרה: מערכת ייצוב (SAS) ומערכת שליטה ופקודה (CAS), תזמון הגבר על פני מעטפת הטיסה, היפוך דינמי (NDI/INDI) כחלופה. דרישות איכויות טיסה (MIL-STD-1797, סולם Cooper-Harper, CAP), מרווחי יציבות כדרישה, ואיך בודקים את חוק הבקרה בטיסה."
+},
+{
+"id": "R8:M15.28:2",
+"n": "6-DOF simulation, Monte Carlo dispersion and the MIL/SIL/HIL chain",
+"imp": "K",
+"k": "new",
+"teach": "סימולציית 6-DOF של כלי: משוואות התנועה, קוואטרניונים, מודלים אווירודינמיים מטבלאות, מודלי חיישנים ומפעילים. ריצות Monte Carlo על פיזור פרמטרים כדי להעריך ביצועים ומרווחים. השרשרת מהמודל לחומרה: model-, software- ו-hardware-in-the-loop, ומה כל שלב מוכיח ומה לא."
 }
 ]
 }
