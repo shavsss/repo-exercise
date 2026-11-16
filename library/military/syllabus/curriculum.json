@@ -10116,6 +10116,20 @@
 "imp": "K",
 "k": "deepen",
 "teach": "Starlink-class use in war: terminals, jamming resistance, geolocation of terminals, dependence on a private actor"
+},
+{
+"id": "R8:M13.10:fut1",
+"n": "Optical inter-satellite links and the space transport layer",
+"imp": "S",
+"k": "new",
+"teach": "קישורי לייזר בין לוויינים: תקציב קישור אופטי (רוחב אלומה של מיקרו-רדיאנים, מקור קטן), רכישה, עקיבה והצבעה (PAT), קצבי Gbps בלי רישוי תדרים, וקושי גבוה לשיבוש וליירוט. הם מאפשרים רשת שמעבירה מידע במסלול עצמו (Starlink, שכבת התעבורה של PWSA), ומה זה משנה בזמן מהחיישן ועד הנשק."
+},
+{
+"id": "R8:M13.10:fut2",
+"n": "Direct-to-device satellite links and 5G NTN",
+"imp": "S",
+"k": "new",
+"teach": "לוויין שמדבר ישירות עם טלפון רגיל: תקציב קישור עם אנטנה של מכשיר, מערכי אנטנות ענקיים בלוויין, היסט דופלר וזמני השהיה ב-LEO, ותקן 5G NTN. המשמעות הצבאית: קשר בלי תשתית קרקעית, תלות בספק מסחרי, ופגיעות לשיבוש ולאיכון."
 }
 ],
 "reading": [
