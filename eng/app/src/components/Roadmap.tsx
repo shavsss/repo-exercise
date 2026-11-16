@@ -95,7 +95,7 @@ export function Roadmap({ index, done, mods, onSelect }: { index: LibraryIndex; 
               ))}
             </ul>
           ) : (
-            <p className="rmp-sub">אין מודול בלמידה. כל מודול פתוח מימין טוב להתחלה.</p>
+            <p className="rmp-sub">אין מודול בלמידה. אפשר להתחיל בכל אחד מהמודולים הפתוחים בעמודה הסמוכה.</p>
           )}
         </div>
         <div className="rmp-col">
