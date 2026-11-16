@@ -92,3 +92,6 @@
   .rmp-pin, .rmp-tip, .rmg-edge, .rmg-node { animation: none; }
   .rmg-node, .rmg { transition: none; }
 }
+
+/* the home page uses the screen's width on a computer (the reading column stays narrow elsewhere) */
+.col.col:has(> .overview) { max-width: min(1500px, 100%); }
