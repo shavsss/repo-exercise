@@ -21,6 +21,8 @@ def page_image(pdf, page, dpi=110, quality=50):
         im = Image.open(next(Path(tmp).glob("p*.png")))
         if im.width > MAX_WIDTH:
             im = im.resize((MAX_WIDTH, round(im.height * MAX_WIDTH / im.width)), Image.LANCZOS)
-        out = Path(tmp) / "p.webp"
-        im.save(out, "WEBP", quality=quality, method=6)
-        return webp_data(out)
+        # a 1-bit scan (black text on white) is smaller lossless and stays sharp; keep the smaller one
+        lossy, lossless = Path(tmp) / "a.webp", Path(tmp) / "b.webp"
+        im.save(lossy, "WEBP", quality=quality, method=6)
+        im.save(lossless, "WEBP", lossless=True, method=6)
+        return webp_data(min(lossy, lossless, key=lambda p: p.stat().st_size))
