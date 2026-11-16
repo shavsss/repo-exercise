@@ -1,46 +1,94 @@
-/* The learner's path on the home page (Roadmap.tsx): where I am, what to study today, what comes next. */
+/* The learner's road on the home page (Roadmap.tsx): where I am, what to study in parallel, what builds on what. */
 .roadmap { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; margin-bottom: 22px; }
+.rmp-box { min-width: 0; border: 1px solid var(--line); border-radius: 6px; background: var(--sheet); padding: 12px; }
+.rmp-h { margin: 0 0 6px; font-size: 1rem; }
+.rmp-lead { margin: 0 0 6px; font-size: 0.95rem; color: var(--ink); }
+.rmp-sub { margin: 4px 0 8px; font-size: 0.82rem; color: var(--muted); }
 
-/* where I am: every module in study order */
-.rmp-where { border: 1px solid var(--line); border-radius: 6px; background: var(--sheet); padding: 12px; }
-.rmp-lead { margin: 0 0 10px; font-size: 0.95rem; color: var(--ink); }
-.rmp-strip { display: flex; gap: 0; overflow: hidden; height: 34px; padding: 4px; box-sizing: border-box; align-items: stretch; direction: rtl; }
-.rmp-cell { all: unset; flex: 1 1 0; min-width: 0; cursor: pointer; background: var(--line); box-shadow: inset -1px 0 0 var(--sheet); }
+/* 1. the road: every module in study order, and the pin */
+.rmp-road { position: relative; padding-top: 30px; }
+.rmp-strip {
+  display: flex; height: 22px; padding: 5px 4px; box-sizing: border-box; direction: rtl; overflow: hidden;
+  border-radius: 4px; background-color: var(--ink);
+  /* the road's centre line */
+  background-image: repeating-linear-gradient(to left, transparent 0 10px, color-mix(in srgb, var(--paper) 55%, transparent) 10px 18px);
+  background-size: 100% 2px; background-position: 0 50%; background-repeat: no-repeat;
+}
+.rmp-cell { all: unset; flex: 1 1 0; min-width: 0; cursor: pointer; background: transparent; }
 .rmp-cell.st-done { background: var(--ok); }
 .rmp-cell.st-now { background: var(--accent); }
-.rmp-cell.st-open { background: var(--blue); opacity: 0.55; }
-.rmp-cell.is-here { flex: 0 0 6px; background: var(--ink); box-shadow: 0 0 0 2px var(--paper), 0 0 0 4px var(--ink); position: relative; z-index: 1; margin: 0 3px; }
-.rmp-cell:hover { outline: 1px solid var(--ink); }
+.rmp-cell:hover { outline: 1px solid var(--paper); }
+.rmp-pin {
+  position: absolute; top: 0; width: 64px; box-sizing: border-box; text-align: center; padding: 2px 0; border-radius: 10px;
+  background: var(--accent); color: var(--paper); font-size: 0.74rem; white-space: nowrap;
+  animation: rmp-bob 1.6s ease-in-out infinite;
+}
+.rmp-tip { position: absolute; top: 19px; transform: translateX(50%); border: 5px solid transparent; border-top-color: var(--accent); animation: rmp-bob 1.6s ease-in-out infinite; }
+@keyframes rmp-bob { 50% { translate: 0 3px; } }
 .rmp-legend { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 0.8rem; color: var(--muted); }
 .rmp-legend li::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-inline-end: 6px; vertical-align: -1px; background: var(--line); }
 .rmp-legend .st-done::before { background: var(--ok); }
 .rmp-legend .st-now::before { background: var(--accent); }
-.rmp-legend .st-open::before { background: var(--blue); opacity: 0.55; }
-.rmp-legend .rmp-here-key::before { width: 4px; background: var(--ink); }
+.rmp-legend .st-open::before { background: var(--blue); }
+.rmp-next { margin: 10px 0 4px; font-size: 0.82rem; color: var(--muted); display: flex; flex-wrap: wrap; gap: 5px; align-items: center; }
+.rmp-chip { all: unset; cursor: pointer; padding: 2px 7px; border: 1px solid var(--line); border-radius: 10px; font: 0.78rem var(--mono); color: var(--ink); background: var(--paper); }
+.rmp-chip:hover { background: var(--hover); }
+.rmp-chip:focus-visible { outline: 2px solid var(--accent); }
+.rmp-chip.st-done { border-color: var(--ok); }
+.rmp-chip.st-now { border-color: var(--accent); }
+.rmp-chip.st-open { border-color: var(--blue); }
 
-/* what to study today, and what comes next */
-.rmp-today { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; }
-@media (max-width: 760px) { .rmp-today { grid-template-columns: 1fr; } }
-.rmp-col { min-width: 0; border: 1px solid var(--line); border-radius: 6px; background: var(--paper); padding: 12px; }
-.rmp-h { margin: 0 0 6px; font-size: 1rem; }
-.rmp-sub { margin: 4px 0 8px; font-size: 0.82rem; color: var(--muted); }
-.rmp-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 5px; }
+/* 2. modules to study in parallel */
+.rmp-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 6px; }
 .rmp-mod {
-  all: unset; box-sizing: border-box; cursor: pointer; width: 100%;
+  all: unset; box-sizing: border-box; cursor: pointer; width: 100%; height: 100%;
   display: grid; grid-template-columns: auto 1fr auto auto; gap: 8px; align-items: center;
-  padding: 7px 9px; border: 1px solid var(--line); border-radius: 4px; background: var(--sheet);
+  padding: 7px 9px; border: 1px solid var(--line); border-radius: 4px; background: var(--paper);
 }
 .rmp-mod:hover { background: var(--hover); }
 .rmp-mod:focus-visible { outline: 2px solid var(--accent); }
 .rmp-mod.st-now { border-color: var(--accent); }
-.rmp-mod.st-locked { opacity: 0.7; }
 .rmp-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--line); }
-.rmp-mod.st-done .rmp-dot { background: var(--ok); }
 .rmp-mod.st-now .rmp-dot { background: var(--accent); }
 .rmp-mod.st-open .rmp-dot { background: var(--blue); }
 .rmp-body { min-width: 0; display: grid; gap: 1px; }
 .rmp-subject { font-size: 0.74rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .rmp-title { font-size: 0.88rem; color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .rmp-title .mod-id { font-family: var(--mono); font-size: 0.8rem; color: var(--ink-soft); }
-.rmp-wait { font-size: 0.74rem; color: var(--warn); }
+.rmp-note { font-size: 0.74rem; color: var(--ok); }
+.rmp-mod.st-now .rmp-note { color: var(--accent); }
 .rmp-prog { font: 11px var(--mono); color: var(--muted); }
+
+/* 3. what builds on what: nodes slide to their places, the links flow from prerequisite to module */
+.rmg { position: relative; margin-top: 6px; transition: height 0.4s ease; }
+.rmg-edges { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.rmg-edge { fill: none; stroke: var(--blue); stroke-width: 1.6; stroke-dasharray: 6 5; animation: rmg-flow 1.4s linear infinite; opacity: 0.8; }
+.rmg-edge.is-blocking { stroke: var(--warn); }
+@keyframes rmg-flow { to { stroke-dashoffset: -22; } }
+.rmg-node {
+  all: unset; box-sizing: border-box; position: absolute; height: 64px; cursor: pointer;
+  display: grid; align-content: center; gap: 2px; padding: 4px 8px;
+  border: 1px solid var(--line); border-radius: 6px; background: var(--paper);
+  transition: left 0.5s ease, top 0.5s ease, width 0.5s ease, box-shadow 0.2s;
+  animation: rmg-in 0.45s ease both;
+}
+@keyframes rmg-in { from { opacity: 0; transform: scale(0.9); } }
+.rmg-node:hover { background: var(--hover); }
+.rmg-node:focus-visible { outline: 2px solid var(--accent); }
+.rmg-node.st-done { border-color: var(--ok); }
+.rmg-node.st-now { border-color: var(--accent); }
+.rmg-node.st-open { border-color: var(--blue); }
+.rmg-node.st-locked { border-style: dashed; }
+.rmg-node.is-focus { border-width: 2px; box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent); }
+.rmg-id { display: flex; gap: 6px; align-items: center; font: 0.76rem var(--mono); color: var(--ink-soft); }
+.rmg-wait { padding: 0 5px; border-radius: 8px; background: var(--warn); color: var(--paper); font-size: 0.7rem; }
+.rmg-open { margin-inline-start: auto; color: var(--accent); font-family: var(--sans, inherit); }
+.rmg-title { font-size: 0.8rem; line-height: 1.25; color: var(--ink); overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.rmg-node.st-locked .rmg-title { color: var(--muted); }
+.rmg-more { position: absolute; height: 64px; display: grid; place-items: center; font-size: 0.78rem; color: var(--muted); }
+.rmg-alone { position: absolute; inset: auto 0 0; margin: 0; text-align: center; font-size: 0.8rem; color: var(--muted); }
+
+@media (prefers-reduced-motion: reduce) {
+  .rmp-pin, .rmp-tip, .rmg-edge, .rmg-node { animation: none; }
+  .rmg-node, .rmg { transition: none; }
+}
