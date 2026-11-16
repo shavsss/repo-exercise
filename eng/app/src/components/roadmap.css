@@ -1,96 +1,125 @@
-/* The learner's road on the home page (Roadmap.tsx): where I am, what to study in parallel, what builds on what. */
-.roadmap { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; margin-bottom: 22px; }
-.rmp-box { min-width: 0; border: 1px solid var(--line); border-radius: 6px; background: var(--sheet); padding: 12px; }
+/* The learner's road on the home page (Roadmap.tsx): stages as a road, parallel stages, the stage map. */
+.roadmap {
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; margin-bottom: 22px;
+  /* one clear colour per state, used by the road, the map, the cards and the legend */
+  --st-done: #2f8f4e; --st-now: #d9480f; --st-open: #1c6fd1; --st-locked: #9a9488;
+}
+:root[data-theme="dark"] .roadmap { --st-done: #4cc075; --st-now: #ff7a3d; --st-open: #5aa2ff; --st-locked: #6f6a62; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .roadmap { --st-done: #4cc075; --st-now: #ff7a3d; --st-open: #5aa2ff; --st-locked: #6f6a62; } }
+.roadmap .st-done { --st: var(--st-done); }
+.roadmap .st-now { --st: var(--st-now); }
+.roadmap .st-open { --st: var(--st-open); }
+.roadmap .st-locked { --st: var(--st-locked); }
+
+.rmp-box { min-width: 0; border: 1px solid var(--line); border-radius: 6px; background: var(--sheet); padding: 12px 14px; }
 .rmp-h { margin: 0 0 6px; font-size: 1rem; }
 .rmp-lead { margin: 0 0 6px; font-size: 0.95rem; color: var(--ink); }
-.rmp-sub { margin: 4px 0 8px; font-size: 0.82rem; color: var(--muted); }
+.rmp-sub { margin: 4px 0 10px; font-size: 0.82rem; color: var(--muted); }
 
-/* 1. the road: every module in study order, and the pin */
-.rmp-road { position: relative; padding-top: 30px; }
-.rmp-strip {
-  display: flex; height: 22px; padding: 5px 4px; box-sizing: border-box; direction: rtl; overflow: hidden;
-  border-radius: 4px; background-color: var(--ink);
-  /* the road's centre line */
-  background-image: repeating-linear-gradient(to left, transparent 0 10px, color-mix(in srgb, var(--paper) 55%, transparent) 10px 18px);
-  background-size: 100% 2px; background-position: 0 50%; background-repeat: no-repeat;
+/* 1. the road: one segment per stage, filled as its core modules are learned */
+.rmp-road { position: relative; padding-top: 52px; }
+.rmp-lane {
+  position: relative; display: flex; gap: 3px; height: 30px; padding: 6px; box-sizing: border-box; direction: rtl;
+  border-radius: 8px; background: #2b2a27; overflow: hidden;
 }
-.rmp-cell { all: unset; flex: 1 1 0; min-width: 0; cursor: pointer; background: transparent; }
-.rmp-cell.st-done { background: var(--ok); }
-.rmp-cell.st-now { background: var(--accent); }
-.rmp-cell:hover { outline: 1px solid var(--paper); }
-.rmp-pin {
-  position: absolute; top: 0; width: 64px; box-sizing: border-box; text-align: center; padding: 2px 0; border-radius: 10px;
-  background: var(--accent); color: var(--paper); font-size: 0.74rem; white-space: nowrap;
-  animation: rmp-bob 1.6s ease-in-out infinite;
+.rmp-lane::before { /* the moving centre line */
+  content: ""; position: absolute; inset: 50% 0 auto; height: 2px; translate: 0 -1px; pointer-events: none; z-index: 1;
+  background: repeating-linear-gradient(to left, transparent 0 12px, rgba(255, 255, 255, 0.35) 12px 22px);
+  animation: rmp-drive 1.2s linear infinite;
 }
-.rmp-tip { position: absolute; top: 19px; transform: translateX(50%); border: 5px solid transparent; border-top-color: var(--accent); animation: rmp-bob 1.6s ease-in-out infinite; }
-@keyframes rmp-bob { 50% { translate: 0 3px; } }
-.rmp-legend { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 0.8rem; color: var(--muted); }
-.rmp-legend li::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-inline-end: 6px; vertical-align: -1px; background: var(--line); }
-.rmp-legend .st-done::before { background: var(--ok); }
-.rmp-legend .st-now::before { background: var(--accent); }
-.rmp-legend .st-open::before { background: var(--blue); }
-.rmp-next { margin: 10px 0 4px; font-size: 0.82rem; color: var(--muted); display: flex; flex-wrap: wrap; gap: 5px; align-items: center; }
-.rmp-chip { all: unset; cursor: pointer; padding: 2px 7px; border: 1px solid var(--line); border-radius: 10px; font: 0.78rem var(--mono); color: var(--ink); background: var(--paper); }
-.rmp-chip:hover { background: var(--hover); }
-.rmp-chip:focus-visible { outline: 2px solid var(--accent); }
-.rmp-chip.st-done { border-color: var(--ok); }
-.rmp-chip.st-now { border-color: var(--accent); }
-.rmp-chip.st-open { border-color: var(--blue); }
+@keyframes rmp-drive { from { background-position: 0 0; } to { background-position: -22px 0; } }
+.rmp-seg { all: unset; position: relative; min-width: 4px; flex-basis: 0; border-radius: 3px; cursor: pointer; overflow: hidden; background: color-mix(in srgb, var(--st) 45%, #2b2a27); }
+.rmp-seg.st-locked { background: color-mix(in srgb, var(--st-locked) 30%, #2b2a27); }
+.rmp-seg .rmp-fill { position: absolute; inset: 0 0 0 auto; background: var(--st-done); }
+.rmp-seg.is-here { box-shadow: inset 0 0 0 2px var(--st-now); }
+.rmp-seg.is-sel { box-shadow: inset 0 0 0 2px #fff; }
+.rmp-seg:hover { filter: brightness(1.3); }
+.rmp-runner { /* a light running from the start of the road to where I am */
+  position: absolute; top: 50%; right: 0; width: 10px; height: 10px; margin: -5px -5px 0 0; border-radius: 50%; z-index: 2; pointer-events: none;
+  background: #fff; box-shadow: 0 0 10px 3px var(--st-now);
+  animation: rmp-run 3.2s ease-in-out infinite;
+}
+@keyframes rmp-run { 0% { right: 0; opacity: 0; } 15% { opacity: 1; } 85% { opacity: 1; } 100% { right: var(--to); opacity: 0; } }
+.rmp-motif { position: absolute; top: 0; translate: 50% 0; width: 48px; height: 48px; display: grid; place-items: center; pointer-events: none; }
+.rmp-legend { list-style: none; margin: 10px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 0.82rem; color: var(--ink); }
+.rmp-legend li::before { content: ""; display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-inline-end: 6px; vertical-align: -2px; background: var(--st); }
 
-/* 2. modules to study in parallel */
-.rmp-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 6px; }
+/* the radar (Lanchester) */
+.rmp-radar { width: 46px; height: 46px; overflow: visible; }
+.rr-ring { fill: color-mix(in srgb, var(--st-done) 12%, transparent); stroke: var(--st-done); stroke-width: 1; opacity: 0.8; }
+.rr-sweep { fill: var(--st-done); opacity: 0.55; transform-origin: 22px 22px; animation: rr-spin 2.4s linear infinite; }
+.rr-pulse { fill: none; stroke: var(--st-now); stroke-width: 1.5; transform-origin: 22px 22px; animation: rr-pulse 2.4s ease-out infinite; }
+.rr-blip { fill: var(--st-now); animation: rr-blip 2.4s linear infinite; }
+.rr-hub { fill: var(--st-now); }
+@keyframes rr-spin { to { transform: rotate(360deg); } }
+@keyframes rr-pulse { from { transform: scale(0.4); opacity: 1; } to { transform: scale(3.4); opacity: 0; } }
+@keyframes rr-blip { 0%, 8% { opacity: 1; } 40%, 100% { opacity: 0.1; } }
+/* the oscilloscope (Gilua) */
+.rmp-wave { width: 62px; height: 30px; }
+.rw-screen { fill: #1f2a22; stroke: var(--st-done); stroke-width: 1; }
+.rw-trace path { fill: none; stroke: #7dff9c; stroke-width: 1.8; filter: drop-shadow(0 0 2px #7dff9c); }
+.rw-trace { animation: rw-run 1.1s linear infinite; }
+@keyframes rw-run { from { transform: translateX(0); } to { transform: translateX(16px); } }
+
+/* 2. stages to study in parallel */
+.rmp-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 8px; }
 .rmp-mod {
   all: unset; box-sizing: border-box; cursor: pointer; width: 100%; height: 100%;
-  display: grid; grid-template-columns: auto 1fr auto auto; gap: 8px; align-items: center;
-  padding: 7px 9px; border: 1px solid var(--line); border-radius: 4px; background: var(--paper);
+  display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: center;
+  padding: 9px 11px; border: 1px solid var(--line); border-inline-start: 5px solid var(--st); border-radius: 5px; background: var(--paper);
 }
 .rmp-mod:hover { background: var(--hover); }
-.rmp-mod:focus-visible { outline: 2px solid var(--accent); }
-.rmp-mod.st-now { border-color: var(--accent); }
-.rmp-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--line); }
-.rmp-mod.st-now .rmp-dot { background: var(--accent); }
-.rmp-mod.st-open .rmp-dot { background: var(--blue); }
-.rmp-body { min-width: 0; display: grid; gap: 1px; }
-.rmp-subject { font-size: 0.74rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.rmp-title { font-size: 0.88rem; color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.rmp-mod:focus-visible { outline: 2px solid var(--st); }
+.rmp-dot { width: 11px; height: 11px; border-radius: 50%; background: var(--st); }
+.rmp-body { min-width: 0; display: grid; gap: 2px; }
+.rmp-subject { font-size: 0.78rem; font-weight: 700; color: var(--st); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.rmp-title { font-size: 0.9rem; color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .rmp-title .mod-id { font-family: var(--mono); font-size: 0.8rem; color: var(--ink-soft); }
-.rmp-note { font-size: 0.74rem; color: var(--ok); }
-.rmp-mod.st-now .rmp-note { color: var(--accent); }
-.rmp-prog { font: 11px var(--mono); color: var(--muted); }
+.rmp-note { font-size: 0.76rem; color: var(--muted); }
 
-/* 3. what builds on what: nodes slide to their places, the links flow from prerequisite to module */
-.rmg { position: relative; margin-top: 6px; transition: height 0.4s ease; }
-.rmg-edges { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-.rmg-edge { fill: none; stroke: var(--blue); stroke-width: 1.6; stroke-dasharray: 6 5; animation: rmg-flow 1.4s linear infinite; opacity: 0.8; }
-.rmg-edge.is-blocking { stroke: var(--warn); }
-@keyframes rmg-flow { to { stroke-dashoffset: -22; } }
-.rmg-node {
-  all: unset; box-sizing: border-box; position: absolute; height: 64px; cursor: pointer;
-  display: grid; align-content: center; gap: 2px; padding: 4px 8px;
-  border: 1px solid var(--line); border-radius: 6px; background: var(--paper);
-  transition: left 0.5s ease, top 0.5s ease, width 0.5s ease, box-shadow 0.2s;
-  animation: rmg-in 0.45s ease both;
+/* 3. the stage map */
+.rmp-soon { list-style: none; margin: 0 0 10px; padding: 0; display: grid; gap: 6px; }
+.rmp-soon button {
+  all: unset; box-sizing: border-box; cursor: pointer; display: block; width: 100%; padding: 7px 11px; font-size: 0.88rem; color: var(--ink);
+  border: 1px dashed var(--st-open); border-radius: 5px; background: color-mix(in srgb, var(--st-open) 7%, var(--paper));
 }
-@keyframes rmg-in { from { opacity: 0; transform: scale(0.9); } }
-.rmg-node:hover { background: var(--hover); }
-.rmg-node:focus-visible { outline: 2px solid var(--accent); }
-.rmg-node.st-done { border-color: var(--ok); }
-.rmg-node.st-now { border-color: var(--accent); }
-.rmg-node.st-open { border-color: var(--blue); }
-.rmg-node.st-locked { border-style: dashed; }
-.rmg-node.is-focus { border-width: 2px; box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent); }
-.rmg-id { display: flex; gap: 6px; align-items: center; font: 0.76rem var(--mono); color: var(--ink-soft); }
-.rmg-wait { padding: 0 5px; border-radius: 8px; background: var(--warn); color: var(--paper); font-size: 0.7rem; }
-.rmg-open { margin-inline-start: auto; color: var(--accent); font-family: var(--sans, inherit); }
-.rmg-title { font-size: 0.8rem; line-height: 1.25; color: var(--ink); overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
-.rmg-node.st-locked .rmg-title { color: var(--muted); }
-.rmg-more { position: absolute; height: 64px; display: grid; place-items: center; font-size: 0.78rem; color: var(--muted); }
-.rmg-alone { position: absolute; inset: auto 0 0; margin: 0; text-align: center; font-size: 0.8rem; color: var(--muted); }
+.rmp-soon button:hover { background: color-mix(in srgb, var(--st-open) 14%, var(--paper)); }
+.rmp-soon b { color: var(--st-open); }
+.rmp-arrow { color: var(--muted); }
+.rms { position: relative; margin: 6px 0 12px; }
+.rms-links { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.rms-link { fill: none; stroke: var(--st-locked); stroke-width: 1; opacity: 0.12; }
+.rms-link.is-met { stroke: var(--st-done); }
+.rms-link.is-near { opacity: 1; stroke-width: 2.2; stroke-dasharray: 7 5; animation: rms-flow 1.2s linear infinite; }
+.rms-link.is-near:not(.is-met) { stroke: var(--st-now); }
+@keyframes rms-flow { to { stroke-dashoffset: -24; } }
+.rms-node {
+  all: unset; box-sizing: border-box; position: absolute; height: 74px; cursor: pointer;
+  display: grid; align-content: center; gap: 4px; padding: 6px 9px;
+  border: 1px solid var(--line); border-inline-start: 5px solid var(--st); border-radius: 6px; background: var(--paper);
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.rms-node.st-locked { border-style: dashed; border-inline-start-style: solid; }
+.rms-node:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12); }
+.rms-node:focus-visible { outline: 2px solid var(--st); }
+.rms-node.is-sel { box-shadow: 0 0 0 3px var(--st); }
+.rms-title { font-size: 0.8rem; font-weight: 600; line-height: 1.25; color: var(--ink); overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.rms-node.st-locked .rms-title { color: var(--muted); }
+.rms-bar { height: 5px; border-radius: 3px; background: color-mix(in srgb, var(--st) 22%, var(--line)); overflow: hidden; display: flex; }
+.rms-bar span { background: var(--st-done); }
+.rms-count { font-size: 0.7rem; color: var(--muted); }
+.rms-card { border: 1px solid var(--line); border-inline-start: 6px solid var(--st); border-radius: 6px; background: var(--paper); padding: 12px 14px; animation: rms-in 0.3s ease; }
+@keyframes rms-in { from { opacity: 0; transform: translateY(6px); } }
+.rms-card p { margin: 6px 0; font-size: 0.88rem; }
+.rms-card-head { display: flex; gap: 10px; align-items: center; }
+.rms-card-head h4 { margin: 0; font-size: 1rem; }
+.rms-chip { padding: 1px 9px; border-radius: 10px; font-size: 0.75rem; color: #fff; background: var(--st); }
+.rms-link-btn { all: unset; cursor: pointer; color: var(--st-open); text-decoration: underline; text-underline-offset: 2px; }
+.rms-go { all: unset; cursor: pointer; display: inline-block; margin-top: 6px; padding: 6px 12px; border-radius: 5px; font-size: 0.88rem; color: #fff; background: var(--st); }
+.rms-go:hover { filter: brightness(1.1); }
 
 @media (prefers-reduced-motion: reduce) {
-  .rmp-pin, .rmp-tip, .rmg-edge, .rmg-node { animation: none; }
-  .rmg-node, .rmg { transition: none; }
+  .rmp-lane::before, .rmp-runner, .rr-sweep, .rr-pulse, .rr-blip, .rw-trace, .rms-link.is-near, .rms-card { animation: none; }
 }
 
 /* the home page uses the screen's width on a computer (the reading column stays narrow elsewhere) */

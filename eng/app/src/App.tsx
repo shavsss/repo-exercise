@@ -1265,7 +1265,7 @@ function Overview({ index, done, mods, onSelect, morning }: { index: LibraryInde
       <HomeHero code="GILUA · ENG LAB" title="גילואה" sub="הנדסה ברמה 2.5: מבנה, מקור, גבולות, סדר גודל, פשרה, מבנה משותף וביקורת. עמוד שדרה, חמישה צמתים, גשרים ופריפריה, מתוך הספרייה." index={index} done={done} mods={mods} onSelect={onSelect} />
       {morning}
       <h2 className="section-title">מפת תוכנית הלימודים</h2>
-      <Roadmap index={index} done={done} mods={mods} onSelect={onSelect} />
+      <Roadmap index={index} done={done} mods={mods} onSelect={onSelect} motif="wave" />
       <h2 className="section-title">{started.length ? "להמשיך מכאן" : "מודולים זמינים להתחלה"}</h2>
       <ul className="cards">
         {pick.map((m) => {

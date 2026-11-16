@@ -1253,7 +1253,7 @@ function Overview({ index, done, mods, onSelect, morning }: { index: LibraryInde
       <HomeHero code="LANCHESTER · CORE LAB" title="לנצ'סטר" sub="הליבה הטכנית: מכ״ם, ל״א, EO/IR, ניווט, הנחיה, הגנה אווירית, פלטפורמות. מודול אחר מודול, מתוך הספרייה." index={index} done={done} mods={mods} onSelect={onSelect} />
       {morning}
       <h2 className="section-title">מפת תוכנית הלימודים</h2>
-      <Roadmap index={index} done={done} mods={mods} onSelect={onSelect} />
+      <Roadmap index={index} done={done} mods={mods} onSelect={onSelect} motif="radar" />
       <h2 className="section-title">{started.length ? "להמשיך מכאן" : "מודולים זמינים להתחלה"}</h2>
       <ul className="cards">
         {pick.map((m) => {

@@ -1,127 +1,168 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { moduleState, type LibraryIndex, type Module } from "../library";
 import type { ModuleProgress } from "../types";
-import { TIER_LABEL, type Selection } from "./ModuleMap";
+import type { Selection } from "./ModuleMap";
 import "./roadmap.css";
 
 /**
- * The learner's road through the course, answering three questions:
- * 1. Where am I: every module in study order as a road, with a "you are here" pin.
- * 2. What else can I study today: open modules of other subjects, each with the modules it builds on
- *    (already learned), so two subjects can be learned on the same day.
- * 3. What builds on what: an animated map around one module (what it builds on, what it opens),
- *    and the bottlenecks, the unlearned modules that most later modules wait for.
+ * The learner's road through the course, by stages (the syllabus parts):
+ * 1. Where am I: the stages in study order as a road; each fills as its core modules are learned, and
+ *    the current one carries the lab's own animation (a radar sweep or a signal wave).
+ * 2. What else can I study today: open stages of other subjects, and what each builds on.
+ * 3. The stage map: what each stage builds on (which stage, up to which module), what it opens, and
+ *    the stages that are about to open ("3 more radar modules, up to M2.15, open electronic warfare").
  * index.modules is already in study order (the syllabus sorts it by the plan).
  */
 type Step = "done" | "now" | "open" | "locked";
+export type RoadMotif = "radar" | "wave";
 
-const STEP_LABEL: Record<Step, string> = { done: "נלמד", now: "בלמידה", open: "פתוח", locked: "נעול" };
-const SECOND_SUBJECTS = 6;
-const NEXT_IN_LINE = 6;
-const BOTTLENECKS = 6;
-const PER_COLUMN = 6;
-const ROW = 72;
+const STEP_LABEL: Record<Step, string> = { done: "הושלם", now: "בלמידה", open: "פתוח", locked: "נעול" };
+const PARALLEL = 6;
+const SOON = 4;
+const ROW = 86;
 
 function started(p?: ModuleProgress) {
   return !!(p?.done?.length || Object.keys(p?.convs ?? {}).length);
 }
 
-function useNarrow() {
-  const q = "(max-width: 640px)";
-  const [narrow, setNarrow] = useState(() => typeof matchMedia !== "undefined" && matchMedia(q).matches);
-  useEffect(() => {
-    const m = matchMedia(q);
-    const on = () => setNarrow(m.matches);
-    m.addEventListener("change", on);
-    return () => m.removeEventListener("change", on);
-  }, []);
-  return narrow;
-}
+type Need = { part: string; upTo: Module; missing: number };
+type Stage = {
+  id: string;
+  title: string;
+  core: Module[]; // the modules the stage requires (the rest is enrichment)
+  extra: number;
+  done: number;
+  step: Step;
+  next?: Module; // the first core module not yet learned
+  needs: Need[]; // what is still missing before the next module opens, by stage
+  from: Map<string, Module>; // stages it builds on → the last module it needs from each
+  opens: string[];
+  depth: number;
+};
 
-export function Roadmap({ index, done, mods, onSelect }: { index: LibraryIndex; done: Set<string>; mods: Record<string, ModuleProgress>; onSelect: (s: Selection) => void }) {
+export function Roadmap({ index, done, mods, onSelect, motif }: { index: LibraryIndex; done: Set<string>; mods: Record<string, ModuleProgress>; onSelect: (s: Selection) => void; motif: RoadMotif }) {
   const v = useMemo(() => {
     const byId = new Map(index.modules.map((m) => [m.id, m]));
-    const part = new Map(index.parts.map((p) => [p.id, p.title]));
-    const step = new Map<string, Step>();
-    for (const m of index.modules) {
+    const pos = new Map(index.modules.map((m, i) => [m.id, i]));
+    const title = new Map(index.parts.map((p) => [p.id, p.title]));
+    const modStep = (m: Module): Step => {
       const s = moduleState(m, done);
-      step.set(m.id, s === "open" && started(mods[m.id]) ? "now" : s);
-    }
-    const steps = index.modules.map((m) => ({ m, s: step.get(m.id)! }));
-    const nowMods = steps
-      .filter((x) => x.s === "now")
-      .map((x) => x.m)
-      .sort((a, b) => (mods[b.id]?.updatedAt ?? 0) - (mods[a.id]?.updatedAt ?? 0));
-    // "here" is the module in progress, else the first open one in study order
-    const here = nowMods[0] ?? steps.find((x) => x.s === "open")?.m;
-    const hereAt = here ? index.modules.indexOf(here) : -1;
-    const prereqs = (m: Module) => (m.prereq ?? []).filter((p) => byId.has(p));
-    const users = new Map<string, string[]>();
-    for (const m of index.modules) for (const p of prereqs(m)) users.set(p, [...(users.get(p) ?? []), m.id]);
-    // every module that waits for this one, directly or through others
-    const reach = new Map<string, Set<string>>();
-    const reachOf = (id: string): Set<string> => {
-      const have = reach.get(id);
+      return s === "open" && started(mods[m.id]) ? "now" : s;
+    };
+    const anc = new Map<string, Set<string>>();
+    const ancOf = (id: string): Set<string> => {
+      const have = anc.get(id);
       if (have) return have;
       const out = new Set<string>();
-      reach.set(id, out); // a cycle in the data stops here instead of looping
-      for (const u of users.get(id) ?? []) {
-        out.add(u);
-        for (const x of reachOf(u)) out.add(x);
+      anc.set(id, out); // a cycle in the data stops here instead of looping
+      for (const p of byId.get(id)?.prereq ?? []) {
+        if (!byId.has(p)) continue;
+        out.add(p);
+        for (const x of ancOf(p)) out.add(x);
       }
       return out;
     };
-    const waiting = new Map(index.modules.map((m) => [m.id, [...reachOf(m.id)].filter((x) => !done.has(x)).length]));
-    const busyParts = new Set(nowMods.map((m) => m.part));
-    // one open module per other subject: the first of that subject in study order
-    const seen = new Set<string>();
-    const second: Module[] = [];
-    for (const { m, s } of steps) {
-      if (s !== "open" || busyParts.has(m.part) || seen.has(m.part)) continue;
-      seen.add(m.part);
-      second.push(m);
+    // stages in study order, by where their first core module sits
+    const byPart = new Map<string, Module[]>();
+    for (const m of index.modules) byPart.set(m.part, [...(byPart.get(m.part) ?? []), m]);
+    const coreOf = (ms: Module[]) => (ms.some((m) => m.tier !== "ref") ? ms.filter((m) => m.tier !== "ref") : ms);
+    const order = [...byPart.keys()].sort((a, b) => pos.get(coreOf(byPart.get(a)!)[0].id)! - pos.get(coreOf(byPart.get(b)!)[0].id)!);
+    const rank = new Map(order.map((p, i) => [p, i]));
+    const stages = new Map<string, Stage>();
+    for (const pid of order) {
+      const all = byPart.get(pid)!;
+      const core = coreOf(all);
+      const doneN = core.filter((m) => done.has(m.id)).length;
+      const next = core.find((m) => !done.has(m.id));
+      const steps = core.map(modStep);
+      const step: Step = doneN === core.length ? "done" : steps.includes("now") || doneN > 0 ? "now" : next && modStep(next) === "open" ? "open" : "locked";
+      // what is missing before the next module opens, grouped by stage, with the last module needed in each
+      const needs = new Map<string, Need>();
+      for (const a of next ? ancOf(next.id) : []) {
+        if (done.has(a)) continue;
+        const m = byId.get(a)!;
+        const n = needs.get(m.part);
+        if (!n) needs.set(m.part, { part: m.part, upTo: m, missing: 1 });
+        else {
+          n.missing++;
+          if (pos.get(a)! > pos.get(n.upTo.id)!) n.upTo = m;
+        }
+      }
+      // the stages it builds on: direct prerequisites of its core modules in stages earlier on the road
+      const from = new Map<string, Module>();
+      for (const m of core)
+        for (const p of m.prereq ?? []) {
+          const pm = byId.get(p);
+          if (!pm || pm.part === pid || rank.get(pm.part)! > rank.get(pid)!) continue;
+          const have = from.get(pm.part);
+          if (!have || pos.get(p)! > pos.get(have.id)!) from.set(pm.part, pm);
+        }
+      stages.set(pid, { id: pid, title: title.get(pid) ?? pid, core, extra: all.length - core.length, done: doneN, step, next, needs: [...needs.values()].sort((a, b) => rank.get(a.part)! - rank.get(b.part)!), from, opens: [], depth: 0 });
     }
-    const busy = new Set(nowMods.map((m) => m.id));
-    const nextInLine = steps.filter((x, i) => i > hereAt && x.s !== "done" && !busy.has(x.m.id)).slice(0, NEXT_IN_LINE);
-    const bottlenecks = index.modules
-      .filter((m) => !done.has(m.id) && (waiting.get(m.id) ?? 0) > 0)
-      .sort((a, b) => waiting.get(b.id)! - waiting.get(a.id)!)
-      .slice(0, BOTTLENECKS);
-    return { byId, part, step, steps, nowMods, here, hereAt, second, nextInLine, prereqs, users, waiting, bottlenecks, doneCount: steps.filter((x) => x.s === "done").length };
+    for (const s of stages.values()) {
+      for (const p of s.from.keys()) stages.get(p)!.opens.push(s.id);
+      s.depth = Math.max(0, ...[...s.from.keys()].map((p) => stages.get(p)!.depth + 1));
+    }
+    const list = order.map((p) => stages.get(p)!);
+    const busy = index.modules.filter((m) => modStep(m) === "now").sort((a, b) => (mods[b.id]?.updatedAt ?? 0) - (mods[a.id]?.updatedAt ?? 0));
+    const here = busy[0] ?? index.modules.find((m) => modStep(m) === "open");
+    const hereStage = here ? stages.get(here.part) : undefined;
+    const parallel = list.filter((s) => s !== hereStage && (s.step === "open" || s.step === "now") && s.next && modStep(s.next) !== "locked").slice(0, PARALLEL);
+    const soon = list
+      .filter((s) => s.step === "locked" && s.needs.length)
+      .map((s) => ({ s, missing: s.needs.reduce((n, x) => n + x.missing, 0) }))
+      .sort((a, b) => a.missing - b.missing || rank.get(a.s.id)! - rank.get(b.s.id)!)
+      .slice(0, SOON);
+    const coreDone = list.reduce((n, s) => n + s.done, 0);
+    const coreAll = list.reduce((n, s) => n + s.core.length, 0);
+    return { stages, list, here, hereStage, parallel, soon, coreDone, coreAll, modStep };
   }, [index, done, mods]);
 
-  const [focusId, setFocusId] = useState<string>();
-  const focus = (focusId && v.byId.get(focusId)) || v.here;
-  const open = (id: string) => onSelect({ moduleId: id });
-  const partOf = (m: Module) => v.part.get(m.part) ?? m.part;
-  const hereRight = v.hereAt < 0 ? 0 : ((v.hereAt + 0.5) / index.modules.length) * 100;
+  const [selId, setSelId] = useState<string>();
+  const sel = (selId && v.stages.get(selId)) || v.hereStage || v.list[0];
+  const open = (m?: Module) => m && onSelect({ moduleId: m.id });
+  const name = (pid: string) => v.stages.get(pid)?.title ?? pid;
+  // what the stage's next module builds on outside the stage (all of it already learned, since it is open)
+  const nextBase = (s: Stage) => {
+    const parts = [...new Set((s.next?.prereq ?? []).map((p) => index.modules.find((m) => m.id === p)?.part).filter((p): p is string => !!p && p !== s.id))];
+    return parts.length ? `נשען על מה שלמדת ב: ${parts.map(name).join(" · ")}` : "לא דורש שלב אחר";
+  };
+
+  // the road: each stage's share of the width is its number of core modules
+  let acc = 0;
+  const road = v.list.map((s) => {
+    const at = acc;
+    acc += s.core.length;
+    return { s, at };
+  });
+  const hereAt = v.hereStage ? road.find((r) => r.s === v.hereStage)! : undefined;
+  const herePct = hereAt ? ((hereAt.at + Math.min(hereAt.s.done + 0.5, hereAt.s.core.length)) / acc) * 100 : 0;
 
   return (
-    <section className="roadmap">
+    <section className={`roadmap motif-${motif}`}>
       <div className="rmp-box">
         <h3 className="rmp-h">1. איפה אני</h3>
         <p className="rmp-lead">
-          נלמדו <b>{v.doneCount}</b> מתוך <b>{index.modules.length}</b> מודולים.
-          {v.here ? (
+          נלמדו <b>{v.coreDone}</b> מתוך <b>{v.coreAll}</b> מודולי חובה.
+          {v.hereStage && v.here ? (
             <>
               {" "}
-              אתה ב-<bdi dir="ltr">{v.here.id}</bdi> {v.here.title}, תחנה {v.hereAt + 1} בדרך.
+              אתה בשלב <b>{v.hereStage.title}</b> ({v.hereStage.done}/{v.hereStage.core.length}), במודול <bdi dir="ltr">{v.here.id}</bdi> {v.here.title}.
             </>
           ) : null}
         </p>
         <div className="rmp-road">
-          {v.here && (
-            <>
-              {/* the label stays inside the road's width; its tip points at the module */}
-              <span className="rmp-pin" style={{ right: `clamp(0px, calc(${hereRight}% - 32px), calc(100% - 64px))` }} aria-hidden="true">
-                אתה כאן
-              </span>
-              <span className="rmp-tip" style={{ right: `${hereRight}%` }} aria-hidden="true" />
-            </>
+          {hereAt && (
+            <span className="rmp-motif" style={{ right: `clamp(26px, ${herePct}%, calc(100% - 26px))` }} aria-hidden="true">
+              {motif === "radar" ? <RadarMotif /> : <WaveMotif />}
+            </span>
           )}
-          <div className="rmp-strip" role="img" aria-label={`נלמדו ${v.doneCount} מתוך ${index.modules.length} מודולים`}>
-            {v.steps.map(({ m, s }) => (
-              <button key={m.id} tabIndex={-1} className={`rmp-cell st-${s}`} title={`${m.id} ${m.title} · ${STEP_LABEL[s]}`} aria-label={`${m.id} ${STEP_LABEL[s]}`} onClick={() => setFocusId(m.id)} />
+          <div className="rmp-lane">
+            {hereAt && <span className="rmp-runner" style={{ ["--to" as string]: `${herePct}%` }} aria-hidden="true" />}
+            {road.map(({ s }) => (
+              <button key={s.id} className={`rmp-seg st-${s.step}${s === v.hereStage ? " is-here" : ""}${s === sel ? " is-sel" : ""}`} style={{ flexGrow: s.core.length }} title={`${s.title} · ${STEP_LABEL[s.step]} · ${s.done}/${s.core.length}`} onClick={() => setSelId(s.id)}>
+                <span className="rmp-fill" style={{ width: `${(s.done / s.core.length) * 100}%` }} />
+              </button>
             ))}
           </div>
         </div>
@@ -132,177 +173,196 @@ export function Roadmap({ index, done, mods, onSelect }: { index: LibraryIndex; 
             </li>
           ))}
         </ul>
-        {v.nextInLine.length > 0 && (
-          <p className="rmp-next">
-            הבאים בדרך:{" "}
-            {v.nextInLine.map(({ m, s }) => (
-              <button key={m.id} className={`rmp-chip st-${s}`} onClick={() => setFocusId(m.id)} title={m.title}>
-                <bdi dir="ltr">{m.id}</bdi>
-              </button>
-            ))}
-          </p>
-        )}
       </div>
 
       <div className="rmp-box">
         <h3 className="rmp-h">2. מה עוד אפשר ללמוד היום, במקביל</h3>
         <p className="rmp-sub">
-          {v.nowMods.length
-            ? `כל מודול כאן נשען רק על מה שכבר למדת, ולא על ${v.nowMods.map((m) => m.id).join(", ")}. אפשר לשלב אותו באותו יום עם המודול הנוכחי.`
-            : "מודולים פתוחים, אחד מכל תחום, לפי סדר הלימוד. כל אחד נשען רק על מה שכבר למדת."}
+          {v.hereStage ? `שלבים מתחום אחר שכבר פתוחים: הם נשענים רק על מה שלמדת, ולא על ${v.hereStage.title}. אפשר לשלב אחד מהם באותו יום.` : "שלבים פתוחים, לפי סדר הלימוד."}
         </p>
         <ul className="rmp-list">
-          {v.nowMods.map((m) => (
-            <Card key={m.id} m={m} subject={partOf(m)} mods={mods} step="now" note="המודול הנוכחי" onClick={() => open(m.id)} />
-          ))}
-          {v.second.slice(0, SECOND_SUBJECTS).map((m) => (
-            <Card key={m.id} m={m} subject={partOf(m)} mods={mods} step="open" note={v.prereqs(m).length ? `נשען על ${v.prereqs(m).join(", ")}, שכבר נלמדו` : "לא דורש מודול קודם"} onClick={() => open(m.id)} />
+          {v.parallel.map((s) => (
+            <li key={s.id}>
+              <button className={`rmp-mod st-${s.step}`} onClick={() => open(s.next)}>
+                <span className="rmp-dot" />
+                <span className="rmp-body">
+                  <span className="rmp-subject">
+                    {s.title} · {s.done}/{s.core.length}
+                  </span>
+                  <span className="rmp-title">
+                    <bdi dir="ltr" className="mod-id">
+                      {s.next?.id}
+                    </bdi>{" "}
+                    {s.next?.title}
+                  </span>
+                  <span className="rmp-note">{nextBase(s)}</span>
+                </span>
+              </button>
+            </li>
           ))}
         </ul>
-        {v.second.length > SECOND_SUBJECTS && <p className="rmp-sub">ועוד {v.second.length - SECOND_SUBJECTS} תחומים פתוחים ברשימת המודולים.</p>}
       </div>
 
       <div className="rmp-box">
-        <h3 className="rmp-h">3. מה נשען על מה</h3>
-        <p className="rmp-sub">מימין: על מה המודול נשען. משמאל: מה הוא פותח. המספר הכתום: כמה מודולים שעוד לא נלמדו מחכים לו בהמשך. קו כתום: דרישה שעוד לא נלמדה. לחיצה על מודול מעבירה אליו את המפה, ולחיצה נוספת פותחת אותו.</p>
-        {v.bottlenecks.length > 0 && (
-          <p className="rmp-next">
-            צווארי בקבוק:{" "}
-            {v.bottlenecks.map((m) => (
-              <button key={m.id} className={`rmp-chip st-${v.step.get(m.id)}`} onClick={() => setFocusId(m.id)} title={`${m.title}: ${v.waiting.get(m.id)} מודולים מחכים לו`}>
-                <bdi dir="ltr">{m.id}</bdi> · {v.waiting.get(m.id)}
-              </button>
+        <h3 className="rmp-h">3. מפת השלבים: מה נשען על מה</h3>
+        {v.soon.length > 0 && (
+          <ul className="rmp-soon">
+            {v.soon.map(({ s }) => (
+              <li key={s.id}>
+                <button onClick={() => setSelId(s.id)}>
+                  {s.needs.map((n, i) => (
+                    <span key={n.part}>
+                      {i > 0 && " + "}
+                      עוד {n.missing} ב{name(n.part)} (עד <bdi dir="ltr">{n.upTo.id}</bdi>)
+                    </span>
+                  ))}
+                  <span className="rmp-arrow"> ← נפתח: </span>
+                  <b>{s.title}</b>
+                </button>
+              </li>
             ))}
-          </p>
+          </ul>
         )}
-        {focus && <Graph focus={focus} v={v} onFocus={setFocusId} onOpen={open} />}
+        <p className="rmp-sub">כל ריבוע הוא שלב, והפס בו מראה כמה ממודולי החובה נלמדו. מימין השלבים שהקורס נשען עליהם, ומשמאל מה שבא אחריהם. לחיצה על שלב מראה מה הוא צריך ומה הוא פותח.</p>
+        <StageMap v={v} sel={sel} onSel={setSelId} />
+        {sel && <StageCard s={sel} v={v} name={name} onSel={setSelId} onOpen={open} />}
       </div>
     </section>
   );
 }
 
-type Model = {
-  byId: Map<string, Module>;
-  step: Map<string, Step>;
-  prereqs: (m: Module) => string[];
-  users: Map<string, string[]>;
-  waiting: Map<string, number>;
-};
+type Model = { stages: Map<string, Stage>; list: Stage[] };
 
-/** Columns around the focus, right to left: what its prerequisites build on, its prerequisites, the
- * module, what it opens, and what those open. Nodes slide to their new places when the focus moves. */
-function Graph({ focus, v, onFocus, onOpen }: { focus: Module; v: Model; onFocus: (id: string) => void; onOpen: (id: string) => void }) {
-  const narrow = useNarrow();
-  const depth = narrow ? 1 : 2;
-  const { cols, edges, height } = useMemo(() => {
-    const shown = new Set([focus.id]);
-    const byWait = (a: string, b: string) => (v.waiting.get(b) ?? 0) - (v.waiting.get(a) ?? 0);
-    const next = (ids: string[], of: (id: string) => string[]) => {
-      const out: string[] = [];
-      for (const id of ids)
-        for (const x of of(id))
-          if (!shown.has(x)) {
-            shown.add(x);
-            out.push(x);
-          }
-      return out.sort(byWait);
-    };
-    const back = (id: string) => v.prereqs(v.byId.get(id)!);
-    const fwd = (id: string) => v.users.get(id) ?? [];
-    const right: string[][] = [];
-    const left: string[][] = [];
-    let a = [focus.id];
-    let b = [focus.id];
-    for (let d = 0; d < depth; d++) {
-      a = next(a.slice(0, PER_COLUMN), back);
-      b = next(b.slice(0, PER_COLUMN), fwd);
-      right.unshift(a);
-      left.push(b);
-    }
-    // column 0 is the rightmost: the deepest prerequisites
-    const cols = [...right, [focus.id], ...left].map((c) => ({ ids: c.slice(0, PER_COLUMN), more: Math.max(0, c.length - PER_COLUMN) }));
-    const slots = (c: { ids: string[]; more: number }) => c.ids.length + (c.more ? 1 : 0);
-    const height = Math.max(1, ...cols.map(slots)) * ROW;
-    const top = (ci: number, i: number) => (height - slots(cols[ci]) * ROW) / 2 + i * ROW;
-    const pos = new Map<string, { c: number; y: number }>();
-    cols.forEach((c, ci) => c.ids.forEach((id, i) => pos.set(id, { c: ci, y: top(ci, i) })));
-    const edges: { key: string; c: number; y1: number; y2: number; blocking: boolean }[] = [];
-    for (const [id, p] of pos)
-      for (const q of v.prereqs(v.byId.get(id)!)) {
-        const pq = pos.get(q);
-        if (pq && pq.c === p.c - 1) edges.push({ key: `${q}>${id}`, c: pq.c, y1: pq.y + ROW / 2, y2: p.y + ROW / 2, blocking: v.step.get(q) !== "done" });
-      }
-    return { cols: cols.map((c, ci) => ({ ...c, top: (i: number) => top(ci, i) })), edges, height };
-  }, [focus, v, depth]);
-
+/** Stages in columns by depth (right: what the course builds on), with links to the stages they open. */
+function StageMap({ v, sel, onSel }: { v: Model; sel?: Stage; onSel: (id: string) => void }) {
+  const { cols, height, nodes } = useMemo(() => {
+    const cols: Stage[][] = [];
+    for (const s of v.list) (cols[s.depth] ??= []).push(s);
+    const height = Math.max(...cols.map((c) => c.length)) * ROW;
+    const nodes = new Map<string, { c: number; y: number }>();
+    cols.forEach((c, ci) => c.forEach((s, i) => nodes.set(s.id, { c: ci, y: (height - c.length * ROW) / 2 + i * ROW })));
+    return { cols, height, nodes };
+  }, [v]);
   const n = cols.length;
-  const w = 100 / n; // column width, percent
-  const gap = narrow ? 3 : 2; // percent kept free on each side of a node
-  const leftOf = (ci: number) => (n - 1 - ci) * w; // column 0 at the right (RTL)
-  const lonely = cols.every((c, ci) => ci === depth || !c.ids.length);
+  const w = 100 / n;
+  const gap = 0.9;
+  const leftOf = (c: number) => (n - 1 - c) * w; // column 0 at the right (RTL)
+  const near = (a: string, b: string) => !!sel && (a === sel.id || b === sel.id);
   return (
-    <div className="rmg" style={{ height: height + 8 }}>
-      <svg className="rmg-edges" viewBox={`0 0 100 ${height + 8}`} preserveAspectRatio="none" aria-hidden="true">
-        {edges.map((e) => {
-          const x1 = leftOf(e.c) + gap; // the prerequisite's left side
-          const x2 = leftOf(e.c + 1) + w - gap; // the dependent's right side
-          const mx = (x1 + x2) / 2;
-          return <path key={e.key} className={`rmg-edge${e.blocking ? " is-blocking" : ""}`} d={`M${x1},${e.y1 + 4} C${mx},${e.y1 + 4} ${mx},${e.y2 + 4} ${x2},${e.y2 + 4}`} vectorEffect="non-scaling-stroke" />;
-        })}
+    <div className="rms" style={{ height }}>
+      <svg className="rms-links" viewBox={`0 0 100 ${height}`} preserveAspectRatio="none" aria-hidden="true">
+        {v.list.flatMap((s) =>
+          [...s.from.entries()].map(([p, upTo]) => {
+            const a = nodes.get(p)!;
+            const b = nodes.get(s.id)!;
+            const x1 = leftOf(a.c) + gap;
+            const x2 = leftOf(b.c) + w - gap;
+            const mx = (x1 + x2) / 2;
+            const met = v.stages.get(p)!.step === "done" || v.stages.get(p)!.core.findIndex((m) => m.id === upTo.id) < v.stages.get(p)!.done;
+            return <path key={`${p}>${s.id}`} className={`rms-link${met ? " is-met" : ""}${near(p, s.id) ? " is-near" : ""}`} d={`M${x1},${a.y + ROW / 2} C${mx},${a.y + ROW / 2} ${mx},${b.y + ROW / 2} ${x2},${b.y + ROW / 2}`} vectorEffect="non-scaling-stroke" />;
+          }),
+        )}
       </svg>
-      {cols.flatMap((c, ci) => [
-        ...c.ids.map((id, i) => {
-          const m = v.byId.get(id)!;
-          const s = v.step.get(id)!;
-          const wait = v.waiting.get(id) ?? 0;
-          const isFocus = id === focus.id;
-          return (
-            <button
-              key={id}
-              className={`rmg-node st-${s}${isFocus ? " is-focus" : ""}`}
-              style={{ left: `${leftOf(ci) + gap}%`, width: `${w - 2 * gap}%`, top: c.top(i) + 8 }}
-              title={`${m.id} ${m.title} · ${STEP_LABEL[s]}${wait ? ` · ${wait} מודולים מחכים לו` : ""}`}
-              onClick={() => (isFocus ? onOpen(id) : onFocus(id))}
-            >
-              <span className="rmg-id">
-                <bdi dir="ltr">{m.id}</bdi>
-                {wait > 0 && <span className="rmg-wait">{wait}</span>}
-                {isFocus && <span className="rmg-open">פתח ←</span>}
-              </span>
-              <span className="rmg-title">{m.title}</span>
-            </button>
-          );
-        }),
-        c.more > 0 && (
-          <span key={`more-${ci}`} className="rmg-more" style={{ left: `${leftOf(ci) + gap}%`, width: `${w - 2 * gap}%`, top: c.top(c.ids.length) + 8 }}>
-            ועוד {c.more}
-          </span>
-        ),
-      ])}
-      {lonely && <p className="rmg-alone">המודול הזה לא נשען על מודול אחר, ושום מודול לא נשען עליו.</p>}
+      {v.list.map((s) => {
+        const p = nodes.get(s.id)!;
+        return (
+          <button key={s.id} className={`rms-node st-${s.step}${s === sel ? " is-sel" : ""}`} style={{ left: `${leftOf(p.c) + gap}%`, width: `${w - 2 * gap}%`, top: p.y + 6 }} onClick={() => onSel(s.id)} title={`${s.title} · ${STEP_LABEL[s.step]}`}>
+            <span className="rms-title">{s.title}</span>
+            <span className="rms-bar">
+              <span style={{ width: `${(s.done / s.core.length) * 100}%` }} />
+            </span>
+            <span className="rms-count">
+              {s.done}/{s.core.length} חובה · {STEP_LABEL[s.step]}
+            </span>
+          </button>
+        );
+      })}
     </div>
   );
 }
 
-function Card({ m, subject, mods, step, note, onClick }: { m: Module; subject: string; mods: Record<string, ModuleProgress>; step: Step; note?: string; onClick: () => void }) {
-  const p = mods[m.id];
+function StageCard({ s, v, name, onSel, onOpen }: { s: Stage; v: Model; name: (p: string) => string; onSel: (id: string) => void; onOpen: (m?: Module) => void }) {
   return (
-    <li>
-      <button className={`rmp-mod st-${step}`} onClick={onClick}>
-        <span className="rmp-dot" />
-        <span className="rmp-body">
-          <span className="rmp-subject">{subject}</span>
-          <span className="rmp-title">
-            <bdi dir="ltr" className="mod-id">
-              {m.id}
-            </bdi>{" "}
-            {m.title}
-          </span>
-          {note && <span className="rmp-note">{note}</span>}
-        </span>
-        <span className={`tier tier-${m.tier}`}>{TIER_LABEL[m.tier]}</span>
-        {p?.lessons?.length ? <span className="rmp-prog">{`${p.done?.length ?? 0}/${p.lessons.length}`}</span> : null}
-      </button>
-    </li>
+    <div className={`rms-card st-${s.step}`}>
+      <div className="rms-card-head">
+        <h4>{s.title}</h4>
+        <span className={`rms-chip st-${s.step}`}>{STEP_LABEL[s.step]}</span>
+      </div>
+      <p>
+        {s.done} מתוך {s.core.length} מודולי חובה נלמדו{s.extra ? `, ועוד ${s.extra} מודולי העשרה ("שאר הספר") בסוף הדרך` : ""}.
+      </p>
+      {s.step === "locked" && s.needs.length > 0 && (
+        <p>
+          <b>כדי לפתוח:</b>{" "}
+          {s.needs.map((n, i) => (
+            <span key={n.part}>
+              {i > 0 && " · "}
+              <button className="rms-link-btn" onClick={() => onSel(n.part)}>
+                {name(n.part)}
+              </button>{" "}
+              עד <bdi dir="ltr">{n.upTo.id}</bdi> (נשארו {n.missing})
+            </span>
+          ))}
+        </p>
+      )}
+      <p>
+        <b>נשען על:</b>{" "}
+        {s.from.size
+          ? [...s.from.entries()].map(([p, upTo], i) => (
+              <span key={p}>
+                {i > 0 && " · "}
+                <button className="rms-link-btn" onClick={() => onSel(p)}>
+                  {name(p)}
+                </button>{" "}
+                עד <bdi dir="ltr">{upTo.id}</bdi>
+              </span>
+            ))
+          : "שום שלב, אפשר להתחיל מיד"}
+      </p>
+      <p>
+        <b>פותח את:</b>{" "}
+        {s.opens.length
+          ? s.opens.map((o, i) => (
+              <span key={o}>
+                {i > 0 && " · "}
+                <button className="rms-link-btn" onClick={() => onSel(o)}>
+                  {name(o)}
+                </button>
+              </span>
+            ))
+          : "אין שלב שנשען עליו"}
+      </p>
+      {s.next && (
+        <button className={`rms-go st-${s.step}`} onClick={() => onOpen(s.next)}>
+          {s.step === "locked" ? "לצפייה במודול הבא" : s.done ? "להמשיך" : "להתחיל"}: <bdi dir="ltr">{s.next.id}</bdi> {s.next.title} ←
+        </button>
+      )}
+    </div>
+  );
+}
+
+/** Lanchester: a radar sweep with returning pulses. */
+function RadarMotif() {
+  return (
+    <svg viewBox="0 0 44 44" className="rmp-radar">
+      <circle className="rr-ring" cx="22" cy="22" r="20" />
+      <circle className="rr-ring" cx="22" cy="22" r="12" />
+      <circle className="rr-pulse" cx="22" cy="22" r="6" />
+      <path className="rr-sweep" d="M22 22 L22 2 A20 20 0 0 1 39.3 12 Z" />
+      <circle className="rr-blip" cx="31" cy="11" r="1.8" />
+      <circle className="rr-hub" cx="22" cy="22" r="2.2" />
+    </svg>
+  );
+}
+
+/** Gilua: a signal running on an oscilloscope trace. */
+function WaveMotif() {
+  return (
+    <svg viewBox="0 0 64 30" className="rmp-wave">
+      <rect className="rw-screen" x="0.5" y="0.5" width="63" height="29" rx="4" />
+      <g className="rw-trace">
+        <path d="M-32 15 q4 -11 8 0 t8 0 t8 0 t8 0 t8 0 t8 0 t8 0 t8 0 t8 0 t8 0 t8 0 t8 0" />
+      </g>
+    </svg>
   );
 }
