@@ -8,7 +8,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import type { Runtime } from "../runtime";
-import { parseCase, stageRole, STAGE_NAMES, type CaseBlock, type CaseStage } from "../caseBlock";
+import { hasExamples, parseCase, stageRole, STAGE_NAMES, type CaseBlock, type CaseStage } from "../caseBlock";
 import {
   adrNumber,
   cellResult,
@@ -76,6 +76,11 @@ export function CaseCard({ source }: { source: string }) {
     <section className="case-card no-copy" data-block="case" aria-label="המקרה ההנדסי">
       <header className="case-card-head">
         <span className="case-card-kicker">המקרה ההנדסי</span>
+        {hasExamples(c) && (
+          <span className="case-tag" title="בכל סעיף: הנחיות לפני הכתיבה, ודוגמת רפרנס להשוואה אחרי ההתחייבות">
+            מקרה לדוגמה
+          </span>
+        )}
         <span className="case-docid" dir="ltr">
           {docNumber(c.id)}
         </span>
@@ -354,7 +359,7 @@ export function CaseRoom({ c, rt, memory, place, onClose }: { c: CaseBlock; rt: 
     const stages = c.stages
       .map((s) => {
         const w = x.stages[s];
-        return `${stageTitle(s)}: ${w?.commit?.decision ?? "—"} · ביטחון ${w?.commit?.confidence ?? "?"}% · דירוג ${w?.grade ? GRADE_LABEL[w.grade] : "?"}${w?.reflection ? ` · ראה אחר כך: ${w.reflection}` : ""}`;
+        return `${stageTitle(s)}: ${w?.commit?.decision ?? "—"} · ביטחון ${w?.commit?.confidence ?? "?"}% · דירוג ${w?.grade ? GRADE_LABEL[w.grade] : "?"}${w?.guideAt ? " · פתח את ההנחיות לפני ההצעה" : ""}${w?.reflection ? ` · ראה אחר כך: ${w.reflection}` : ""}`;
       })
       .join("\n");
     const a = x.adr;
@@ -472,7 +477,7 @@ export function CaseRoom({ c, rt, memory, place, onClose }: { c: CaseBlock; rt: 
           )}
           {!canAsk && <div className="cr-err">אין כאן חיבור למודל: אפשר לכתוב ולחשב, אבל הסוקר והמומחה לא יענו.</div>}
           {view === "brief" ? (
-            <BriefView c={c} onStart={() => setView(cur ?? "adr")} started={status !== "draft"} />
+            <BriefView c={c} worked={hasExamples(c)} onStart={() => setView(cur ?? "adr")} started={status !== "draft"} />
           ) : view === "adr" ? (
             <AdrView c={c} d={d} live={live?.kind === "debrief" ? live.text : null} busy={busy} canAsk={canAsk} onSave={saveAdr} onDebrief={() => void debrief()} />
           ) : (
@@ -486,6 +491,7 @@ export function CaseRoom({ c, rt, memory, place, onClose }: { c: CaseBlock; rt: 
               canAsk={canAsk}
               onSubmit={() => submit(view)}
               onDraft={(p) => setStage(view, (w) => ({ ...w, ...p }))}
+              onGuide={() => setStage(view, (w) => (w.guideAt || w.commit ? w : { ...w, guideAt: Date.now() }))}
               onReply={(t) => reply(view, t)}
               onReview={() => void review(view)}
               onCompute={(t) => void compute(view, t)}
@@ -513,7 +519,7 @@ export function CaseRoom({ c, rt, memory, place, onClose }: { c: CaseBlock; rt: 
 
 /* ------------------------------------------------------------------ the brief ------------------------------------------------------------------ */
 
-function BriefView({ c, onStart, started }: { c: CaseBlock; onStart: () => void; started: boolean }) {
+function BriefView({ c, worked, onStart, started }: { c: CaseBlock; worked: boolean; onStart: () => void; started: boolean }) {
   return (
     <article className="cr-doc">
       <div className="cr-sec-head">
@@ -531,6 +537,7 @@ function BriefView({ c, onStart, started }: { c: CaseBlock; onStart: () => void;
           <li>"פתרתי ומתחייב" נועל את הסעיף; אז נימוק המומחה והמחוון, ואתה כותב מה הוא ראה שאתה לא.</li>
           <li>בסוף: רשומת החלטה (ADR) ותחקיר.</li>
         </ol>
+        {worked && <p className="cr-process-worked">זה מקרה לדוגמה, בשיעור הראשון של המודול: בכל סעיף אפשר לפתוח הנחיות לפני שכותבים, ואחרי ההתחייבות מוצגת דוגמת רפרנס לצד ההצעה שלך.</p>}
       </div>
       <button className="cr-primary" onClick={onStart}>
         {started ? "המשך לסעיף הפתוח" : "התחל: הסעיף הראשון"}
@@ -638,6 +645,7 @@ interface StageProps {
   canAsk: boolean;
   onSubmit(): void;
   onDraft(p: Partial<StageWork>): void;
+  onGuide(): void;
   onReply(t: string): void;
   onReview(): void;
   onCompute(t: string): void;
@@ -684,6 +692,7 @@ function StageView(p: StageProps) {
         <span className="cr-ask-l">השאלה</span>
         <Markdown text={n?.ask || "—"} />
       </div>
+      {!!n?.guide.length && <StageGuide items={n.guide} opened={!!w.guideAt} onOpen={p.onGuide} />}
 
       {w.phase === "draft" ? (
         <div className="cr-propose">
@@ -872,6 +881,8 @@ function StageView(p: StageProps) {
             </section>
           )}
 
+          {w.commit && n?.example && <Compare w={w} example={n.example} />}
+
           {w.phase === "reflect" && (
             <div className="cr-reflect">
               <label className="cr-field">
@@ -892,6 +903,59 @@ function StageView(p: StageProps) {
         </>
       )}
     </article>
+  );
+}
+
+/** The stage's guidelines in a worked case: closed until he opens them; the first opening is kept in the stage. */
+function StageGuide({ items, opened, onOpen }: { items: string[]; opened: boolean; onOpen: () => void }) {
+  return (
+    <details className="cr-guide" onToggle={(e) => (e.currentTarget as HTMLDetailsElement).open && onOpen()}>
+      <summary>
+        <span className="cr-guide-t">הנחיות לשלב</span>
+        <span className="cr-guide-s">{opened ? "נפתחו · נרשם במסמך" : "מה תשובה טובה כאן מכילה · הפתיחה נרשמת"}</span>
+      </summary>
+      <ul>
+        {items.map((g, i) => (
+          <li key={i}>
+            <Markdown text={g} inline />
+          </li>
+        ))}
+      </ul>
+    </details>
+  );
+}
+
+/** After the commit in a worked case: his committed proposal beside the reference answer. */
+function Compare({ w, example }: { w: StageWork; example: string }) {
+  return (
+    <section className="cr-compare" aria-label="השוואה לדוגמת הרפרנס">
+      <div className="cr-compare-h">
+        <b>השוואה</b>
+        <span>דוגמת הרפרנס היא תשובה אחת ברמה הנדרשת, לא התשובה היחידה</span>
+      </div>
+      <div className="cr-compare-cols">
+        <div className="cr-compare-col is-me">
+          <div className="cr-compare-l">
+            <span className="cr-avatar t-owner-self">ל</span> ההצעה שלך
+            <span className="cr-pill">ביטחון {w.commit!.confidence}%</span>
+          </div>
+          <div className="prose">
+            <Markdown text={w.proposal} />
+          </div>
+          <div className="cr-compare-dec">
+            <span className="cr-lock">החלטה</span> {w.commit!.decision}
+          </div>
+        </div>
+        <div className="cr-compare-col is-ref">
+          <div className="cr-compare-l">
+            <RoleBadge role="מהנדס בכיר" /> דוגמת רפרנס
+          </div>
+          <div className="prose">
+            <Markdown text={example} />
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 

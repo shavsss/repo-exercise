@@ -3,6 +3,7 @@
 // is paragraphs with short run-in headings. The plan holds a full outline (what each subsection asks, what it needs,
 // what it defines and whether it is for the summary or an aid); the outline is checked for order before a word is
 // written; each part gets the outline and the terms defined up to it. Same file in both apps.
+import type { CaseAid } from "./caseBlock";
 
 export interface OutlineSection {
   n: string;
@@ -188,11 +189,29 @@ export interface CasePlan {
 
 const CASE_STAGES_TEXT = `1 the problem and the requirements (the real question, who owns each requirement, which requirement is unneeded or wrong: do not optimize what should not exist); 2 the physical limit ("speed of light": what the limit allows and where the gap goes on the way: a gap budget, a roofline); 3 architecture (a choice between system architectures, with the alternatives weighed and the criterion); 4 methods and algorithms (a choice between methods, equations and algorithms, and where each breaks: its range of validity); 5 does it already exist, given these choices (who does it, in which companies and countries, how, why some chose otherwise, problems, trends, bottlenecks; your knowledge up to its date is enough, with a certainty label on every claim); 6 breaking (what would bring the choice down: red team, pre-mortem); 7 the experiment (which result would kill the design); 8 your idea (what he would do differently; it is kept in his idea store). A lesson about reliability or a failure may open with "fault": a failure to diagnose, then its fix, then what would have prevented it, and go on with the stages that fit (e.g. fault,6,7,8).`;
 
-export const CASE_PLAN = `
-THE ENGINEERING CASE (one per lesson, the very last thing in it; it is not the chapter's casestudy): plan it now. Put "case" last in the last part's "blocks", and add to the JSON "case": {"title": "…", "scenario": "one line: the engineering problem, built from this lesson's central results and what <course_memory> says the learner already learned", "stages": "1,2,3,4,5,6,7,8", "fault": "only when the lesson opens the case with a failure: which one", "numbers": ["every number the brief and the expert reasoning need, computed now with compute"], "idea": "an idea from <idea_store> that fits stage 8, if one does"}. The stages, in this fixed order: ${CASE_STAGES_TEXT} Most lessons take all eight; a lesson that invites fewer takes only those, never forced, in the same order. The case is not counted in the depth units or the word budget, and nothing else is planned smaller for it.`;
+/** The aids of a worked case (caseBlock.ts caseAid): what the planner and the writer add for the module's first lessons. */
+const AID_PLAN: Record<"example" | "guide", string> = {
+  example: ` This is the first lesson of its module, so the case is a worked one: every stage also carries guidelines and a model answer (see the writing step); plan in "numbers" the numbers the model answers state too.`,
+  guide: ` This is the second lesson of its module: every stage also carries guidelines (no model answer).`,
+};
+const AID_PART: Record<"example" | "guide", string> = {
+  example: `This case is a WORKED one (the first lesson of its module, so the learner has something to compare himself with): every stage section also carries, after its rubric:
+guide:
+- what a good answer at this stage contains, 3 to 5 short Hebrew lines (what to quantify, which alternatives to weigh, what to state explicitly); never the decisive rubric item itself or its answer
+example:
+a model answer at the expected level, in Hebrew, about 80 to 180 words, written as a strong engineer on a world-leading team would write it in the review: the proposal, its reasoning, the numbers (computed with compute), the alternatives rejected and why, and its confidence as "ביטחון: NN%". It is one defensible answer, not the only one, and it meets the decisive rubric item. The learner sees the guide only if he opens it before writing, and the example beside his own proposal only after he commits.`,
+  guide: `This case is a GUIDED one (the second lesson of its module): every stage section also carries, after its rubric:
+guide:
+- what a good answer at this stage contains, 3 to 5 short Hebrew lines (what to quantify, which alternatives to weigh, what to state explicitly); never the decisive rubric item itself or its answer
+No example: section.`,
+};
 
-/** The writer's spec of the ```case block, for the last part. `id` is the case's stable id (caseBlock.ts caseId). */
-export const CASE_PART = (id: string, plan?: CasePlan) => `THE ENGINEERING CASE (the last thing in the lesson, after the sentence about the next lesson): exactly one \`\`\`case block. The learner works through it later, in a separate design-review room, with a senior peer: at each stage he proposes and argues in writing with his confidence in %, the reviewer in the stage's role challenges him with data, he defends or changes, commits, and only then sees the expert reasoning and the rubric and writes what the expert saw that he did not; at the end he writes a decision record (ADR) and gets a debrief that names the one important decision he missed. It is a process, not a quiz. You write now the material that process runs on, sourced and checked: the reviewer will not invent it later.
+export const CASE_PLAN = (aid: CaseAid = null) => `
+THE ENGINEERING CASE (one per lesson, the very last thing in it; it is not the chapter's casestudy): plan it now. Put "case" last in the last part's "blocks", and add to the JSON "case": {"title": "…", "scenario": "one line: the engineering problem, built from this lesson's central results and what <course_memory> says the learner already learned", "stages": "1,2,3,4,5,6,7,8", "fault": "only when the lesson opens the case with a failure: which one", "numbers": ["every number the brief and the expert reasoning need, computed now with compute"], "idea": "an idea from <idea_store> that fits stage 8, if one does"}. The stages, in this fixed order: ${CASE_STAGES_TEXT} Most lessons take all eight; a lesson that invites fewer takes only those, never forced, in the same order. The case is not counted in the depth units or the word budget, and nothing else is planned smaller for it.${aid ? AID_PLAN[aid] : ""}`;
+
+/** The writer's spec of the ```case block, for the last part. `id` is the case's stable id and `aid` what its place in
+ * the module adds (caseBlock.ts caseId, caseAid). */
+export const CASE_PART = (id: string, plan?: CasePlan, aid: CaseAid = null) => `THE ENGINEERING CASE (the last thing in the lesson, after the sentence about the next lesson): exactly one \`\`\`case block. The learner works through it later, in a separate design-review room, with a senior peer: at each stage he proposes and argues in writing with his confidence in %, the reviewer in the stage's role challenges him with data, he defends or changes, commits, and only then sees the expert reasoning and the rubric and writes what the expert saw that he did not; at the end he writes a decision record (ADR) and gets a debrief that names the one important decision he missed. It is a process, not a quiz. You write now the material that process runs on, sourced and checked: the reviewer will not invent it later.
 ${plan ? `Planned: ${JSON.stringify(plan)}\n` : ""}The stages, in this fixed order, only those the content invites (most lessons all eight): ${CASE_STAGES_TEXT}
 The bar is the world's leading engineering teams: in every stage the expert says what they do differently from traditional industry, with a few examples that fit the topic (SpaceX, NVIDIA and Anduril are examples of the bar, not a closed list), each with its certainty label. A historical failure (Patriot, Ariane 5, Mars Climate Orbiter, Columbia) enters with its numbers only when its original report is in the source pages and you checked them against it; otherwise without the numbers, or another case.
 Exactly this form:
@@ -218,7 +237,7 @@ rubric:
 decisions:
 - the key decisions of the whole case, most important first (the debrief names the one he missed)
 \`\`\`
-Rules: one block; no fenced block inside it (code goes in a ~~~ fence); every fence line alone on its line; the labels ask:, anchors:, expert:, rubric:, decisions: in English at the start of their line, exactly as above; "@@" only at the head of a section. @stages and the sections agree. The stages chain: each ask builds on what the learner will have decided in the stage before ("the architecture you chose"), never on a fixed answer. Stage 8's ask may recall a fitting idea from <idea_store>. Every number is computed with compute. The case is outside the word budget, and nothing else in the lesson is shortened for it.`;
+Rules: one block; no fenced block inside it (code goes in a ~~~ fence); every fence line alone on its line; the labels ask:, anchors:, expert:, rubric:, decisions: (and guide:, example: in a worked case) in English at the start of their line, exactly as above; "@@" only at the head of a section. @stages and the sections agree. The stages chain: each ask builds on what the learner will have decided in the stage before ("the architecture you chose"), never on a fixed answer. Stage 8's ask may recall a fitting idea from <idea_store>. Every number is computed with compute. The case is outside the word budget, and nothing else in the lesson is shortened for it.${aid ? `\n${AID_PART[aid]}` : ""}`;
 
 /** The order check of the outline, before any text is written. */
 export function outlineCheckPrompt(o: BookOutline, lessonTitle: string): string {

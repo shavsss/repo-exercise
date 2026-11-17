@@ -38,6 +38,8 @@ export interface StageWork {
   proposal: string;
   /** 0–100; none until he sets it */
   confidence?: number;
+  /** when he first opened the stage's guidelines (a worked case), before he committed */
+  guideAt?: number;
   turns: CaseTurn[];
   commit?: { decision: string; confidence: number; at: number };
   expert?: string;

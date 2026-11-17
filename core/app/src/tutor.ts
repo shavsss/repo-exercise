@@ -12,7 +12,7 @@ import { auditLong, namedModules, type AuditMark, applyRepair } from "./lessonAu
 import { LEGACY_RULES, SYSTEM_PROMPT, libraryList } from "./prompt";
 import type { Runtime, SampleTool } from "./runtime";
 import { BOOK_PART, BOOK_PLAN, CASE_PART, CASE_PLAN, LESSON_WORDS, OUTLINE_FIX, lessonWords, normalizeOutline, orderProblems, outlineCheckPrompt, parseOutlineReview, partSections, tightenPrompt, validOutline, wordCount, type BookOutline, type CasePlan } from "./bookRules";
-import { caseId } from "./caseBlock";
+import { caseAid, caseId, type CaseAid } from "./caseBlock";
 import { ideasForPrompt, loadIdeas, type Idea } from "./ideas";
 import { NOTE_KIND_LABEL, type Activity, type Effort, type LessonNote, type LessonSpec, type Mode, type NoteKind, type StoredMessage } from "./types";
 
@@ -565,7 +565,13 @@ LESSON PLANNING STEP. Do not write the text yet. The app will write the lesson i
 Write the plan (titles, "covers", "facts", "next") in plain engineering language: physics, signals, receivers, links, and published system parameters. Name every topic by its engineering content (interference and the signal-to-interference ratio, detection range, link margin), the case study as an engineering design question, and the exercises as engineering calculations; do not frame anything as attacking, defeating or targeting.
 Rules for the plan: 3 to 5 parts; for a core or advanced module the words add up to at least 4200 Hebrew words unless the assigned material is genuinely short (then say so in the first part); part 1 opens with the plan block and the story, then the problem/why-hard/idea paragraphs; every derivation is planned step by step; the parts are organized by topic, not by page order: the book is the basis, not something to retell page by page (rule 9ב); every assigned section and every figure is assigned to exactly one part; every new concept is planned within one part in the order of rule 6א (the context, its general definition in a definition block, how it is built, and only then a separate example); formula blocks only for general results the course returns to (rule 6ב); all seven level-2.5 sections ("l25") are assigned to parts for the lesson's central results; the case study, history block(s), the connections by <reader_stage> (a fieldmap block for every new central formula, at least four full domain blocks in every lesson, in the gateway stage P0, for a field not yet learned, at the level of what the system does, with the mechanism left to its module; from P1 on, full, including the mechanism; technical explanations only from familiar ground, rules 41–45), think questions (about six in the lesson, at real decision points), refresh blocks, simulators and figures are assigned to parts; the last part holds the coverage block, the keep block (rule 6ד), the exercises, the fieldsystems block (if a real connection exists) and the sentence about the next lesson.`.trim();
 
-function partInstructions(plan: PartPlan, k: number, writtenSoFar: string, caseOf: string) {
+/** The lesson's engineering case: its stable id, and what its place in the module adds (caseBlock.ts). */
+interface CaseOf {
+  id: string;
+  aid: CaseAid;
+}
+
+function partInstructions(plan: PartPlan, k: number, writtenSoFar: string, caseOf: CaseOf) {
   if (plan.outline && LESSON_RULES === "lite") return bookPartInstructions(plan, k, writtenSoFar, caseOf);
   const p = plan.parts[k];
   const n = plan.parts.length;
@@ -588,7 +594,7 @@ ${last ? "This is the last part: write the coverage block, the exercises, the fi
 }
 
 /** A part of a lesson written as chapters of a book (bookRules.ts, docs/LESSON_BOOK_SPEC.md). */
-function bookPartInstructions(plan: PartPlan, k: number, writtenSoFar: string, caseOf: string) {
+function bookPartInstructions(plan: PartPlan, k: number, writtenSoFar: string, caseOf: CaseOf) {
   const o = plan.outline!;
   const p = plan.parts[k];
   const n = plan.parts.length;
@@ -606,7 +612,7 @@ Do not write material that belongs to later parts. Teach step by step: every ste
 Tag the level-2.5 sections of the central results that this part covers ([[2.5: …]], each tag once per central result in the whole lesson) at the start of their paragraph; anchor claims get no tag.
 ${k === 0 ? "Start the lesson with the first chapter heading (no preamble about the plan or the parts)." : "Continue the equation numbering from the last \\tag above."}
 ${LITE_PART}${featurePart(p)}
-${BOOK_PART(o, mine, k === 0, last, last && FEATURES.has("case"))}${last && FEATURES.has("case") ? `\n${CASE_PART(caseOf, plan.case)}` : ""}`;
+${BOOK_PART(o, mine, k === 0, last, last && FEATURES.has("case"))}${last && FEATURES.has("case") ? `\n${CASE_PART(caseOf.id, plan.case, caseOf.aid)}` : ""}`;
 }
 
 /** Checks the outline's order before any text is written, and has the planner fix it (at most two rounds). */
@@ -741,7 +747,7 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
   let plan = resume?.plan;
   if (!plan) {
     cb.onStatus?.("מתכנן את השיעור: קורא את המקורות ומחשב את המספרים");
-    const planTurn = `${ctx}\n\n${text}\n\n${LESSON_RULES === "lite" ? PART_PLAN_INSTRUCTIONS.replace("for a core or advanced module the words add up to at least 4200 Hebrew words unless the assigned material is genuinely short (then say so in the first part); ", "").replace(', "words": 1200}', ', "units": 40}') + LITE_PLAN : PART_PLAN_INSTRUCTIONS}${featurePlan()}${book ? BOOK_PLAN(chapterStart) + (FEATURES.has("case") ? CASE_PLAN : "") : ""}`;
+    const planTurn = `${ctx}\n\n${text}\n\n${LESSON_RULES === "lite" ? PART_PLAN_INSTRUCTIONS.replace("for a core or advanced module the words add up to at least 4200 Hebrew words unless the assigned material is genuinely short (then say so in the first part); ", "").replace(', "words": 1200}', ', "units": 40}') + LITE_PLAN : PART_PLAN_INSTRUCTIONS}${featurePlan()}${book ? BOOK_PLAN(chapterStart) + (FEATURES.has("case") ? CASE_PLAN(caseAid(lessonIdx)) : "") : ""}`;
     plan = await retryRefused(
       (h) => {
         const once = (again: boolean) =>
@@ -772,7 +778,7 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
     let partText = "";
     for (let attempt = 0; attempt < 2; attempt++) {
       // a part cut off at the length limit gets one continuation
-      const turn = `${ctx}\n\n${text}\n\n${partInstructions(plan, k, (before + partText).trim(), caseId(m.id, lessonIdx))}${attempt ? "\n\nThe previous attempt of this part was cut off at the length limit; continue it exactly from where the text above stops." : ""}`;
+      const turn = `${ctx}\n\n${text}\n\n${partInstructions(plan, k, (before + partText).trim(), { id: caseId(m.id, lessonIdx), aid: caseAid(lessonIdx) })}${attempt ? "\n\nThe previous attempt of this part was cut off at the length limit; continue it exactly from where the text above stops." : ""}`;
       const res = await retryRefused(
         (h) =>
           rt.sample!([...fitHistory(h, bytes(turn), false, { refs: hasRefs(m) }), { role: "user", content: turn }], {

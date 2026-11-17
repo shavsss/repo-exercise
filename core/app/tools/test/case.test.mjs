@@ -103,7 +103,56 @@ test("spec: the case is outside the word budget, and the last part writes it", (
   const part = B.CASE_PART("M3.2-4-case", { stages: "1,2,3" });
   assert.match(part, /@id: M3\.2-4-case/);
   assert.match(part, /"stages":"1,2,3"/);
-  assert.match(B.CASE_PLAN, /"case" last in the last part's "blocks"/);
+  assert.match(B.CASE_PLAN(), /"case" last in the last part's "blocks"/);
+});
+
+const worked = (n, ex = true) => `${stage(n)}
+guide:
+- כמת את הגבול לפני שבוחרים
+- שקול לפחות שתי חלופות
+- אמור מה יהפוך את ההחלטה${ex ? `
+example:
+הייתי מתחיל מהגבול: 13.2 dB מרווח, ולכן…
+ביטחון: 70%` : ""}`;
+const workedCase = good.replace(stage(1), worked(1)).replace(stage(5, "[[ודאות: גבוהה]]"), worked(5).replace("13.2 dB ", "13.2 dB [[ודאות: גבוהה]]")).replace(stage(8), worked(8));
+
+test("worked case: guide and example parse; old blocks still parse; the aid follows the lesson's place", () => {
+  const c = C.parseCase(workedCase);
+  assert.deepEqual(c.notes[0].guide, ["כמת את הגבול לפני שבוחרים", "שקול לפחות שתי חלופות", "אמור מה יהפוך את ההחלטה"]);
+  assert.match(c.notes[0].example, /^הייתי מתחיל[\s\S]*ביטחון: 70%$/);
+  assert.equal(c.notes[0].rubric.length, 2);
+  assert.ok(C.hasExamples(c));
+  assert.deepEqual(C.caseProblems(c, "M3.2-4-case", "example"), []);
+  const old = C.parseCase(good);
+  assert.deepEqual(old.notes[0].guide, []);
+  assert.equal(old.notes[0].example, "");
+  assert.ok(!C.hasExamples(old));
+  assert.deepEqual(C.caseProblems(old), []);
+  assert.deepEqual([0, 1, 2, 5].map(C.caseAid), ["example", "guide", null, null]);
+});
+
+test("worked case: missing or malformed aids are format problems", () => {
+  const p = (src, aid) => C.caseProblems(C.parseCase(src), undefined, aid).join("\n");
+  assert.match(p(good, "example"), /stage 1: "guide:" needs 3 to 5 lines \(it has 0\)/);
+  assert.match(p(good, "example"), /stage 1: no "example:"/);
+  assert.doesNotMatch(p(good, "guide"), /example/);
+  assert.match(p(good, "guide"), /stage 8: "guide:" needs 3 to 5 lines/);
+  // an example in one stage asks for it in every stage, and each with a confidence in %
+  const one = good.replace(stage(1), worked(1));
+  assert.match(p(one), /stage 5: no "example:"/);
+  assert.match(p(workedCase.replace("ביטחון: 70%", "ביטחון גבוה")), /stage 1: the example has no confidence in %/);
+  // the audit reads the lesson's place from the case's id: lesson 1 of the module is a worked case
+  const first = ["```case", good.replace("@id: M3.2-4-case", "@id: M3.2-1-case"), "```"].join("\n");
+  assert.ok(A.caseFindings(first).some((f) => /no "example:"/.test(f.problem)));
+  assert.deepEqual(A.caseFindings(["```case", workedCase.replace("@id: M3.2-4-case", "@id: M3.2-1-case"), "```"].join("\n")), []);
+});
+
+test("worked case: the spec asks for the aids only in the module's first lessons", () => {
+  assert.match(B.CASE_PART("M3.2-1-case", undefined, "example"), /WORKED one[\s\S]*guide:[\s\S]*example:/);
+  assert.match(B.CASE_PART("M3.2-2-case", undefined, "guide"), /GUIDED one[\s\S]*No example: section/);
+  assert.doesNotMatch(B.CASE_PART("M3.2-3-case"), /WORKED|GUIDED/);
+  assert.match(B.CASE_PLAN("example"), /first lesson of its module/);
+  assert.doesNotMatch(B.CASE_PLAN(), /first lesson of its module/);
 });
 
 test("ideas: the prompt list puts projects first and stays short", () => {

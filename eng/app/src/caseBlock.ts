@@ -17,6 +17,10 @@
 //   rubric:
 //   - [!] the decisive decision (exactly one)
 //   - [ ] a yes/no check
+//   guide:                (worked lessons only, caseAid: hidden until the learner opens it, before he writes)
+//   - what a good answer at this stage contains (3–5 lines, never the decisive item)
+//   example:              (the module's first lesson only: shown beside his proposal after he commits)
+//   a model answer at the expected level: the proposal, its reasoning, the numbers, "ביטחון: 70%"
 //   @@ debrief
 //   decisions:
 //   - the case's key decisions, most important first
@@ -44,6 +48,11 @@ const SENIOR = "מהנדס בכיר";
 /** The stable id of a lesson's case: the module, the 1-based lesson number. */
 export const caseId = (moduleId: string, lessonIdx: number) => `${moduleId}-${lessonIdx + 1}-case`;
 
+/** What a lesson's case carries to help the learner start (docs/ENGINEERING_CASE.md, "מקרה לדוגמה"): the first lesson of
+ * every module a model answer and guidelines per stage, the second the guidelines only, the rest neither. */
+export type CaseAid = "example" | "guide" | null;
+export const caseAid = (lessonIdx: number): CaseAid => (lessonIdx === 0 ? "example" : lessonIdx === 1 ? "guide" : null);
+
 export interface CaseRubricItem {
   text: string;
   /** the decision that separates the top level from the average (marked [!]) */
@@ -55,6 +64,10 @@ export interface CaseStageNotes {
   anchors: string[];
   expert: string;
   rubric: CaseRubricItem[];
+  /** what a good answer at this stage contains (worked lessons only) */
+  guide: string[];
+  /** a model answer at the expected level, shown beside his after he commits (the module's first lesson only) */
+  example: string;
 }
 export interface CaseBlock {
   title: string;
@@ -81,15 +94,16 @@ const listItems = (t: string) =>
     .map((l) => /^\s*[-*]\s+(.*)$/.exec(l)?.[1]?.trim() ?? "")
     .filter(Boolean);
 
-const LABELS = ["ask", "anchors", "expert", "rubric", "decisions"] as const;
+const LABELS = ["ask", "anchors", "expert", "rubric", "guide", "example", "decisions"] as const;
 type Label = (typeof LABELS)[number];
+const LABEL_LINE = new RegExp(`^(${LABELS.join("|")})\\s*:\\s*(.*)$`, "i");
 
 /** The labelled parts of one hidden section ("ask: …", "anchors:" and its lines, …). */
 function labelled(body: string): Partial<Record<Label, string>> {
   const out: Partial<Record<Label, string>> = {};
   let cur: Label | null = null;
   for (const line of body.split("\n")) {
-    const m = /^(ask|anchors|expert|rubric|decisions)\s*:\s*(.*)$/i.exec(line.trim());
+    const m = LABEL_LINE.exec(line.trim());
     if (m) {
       cur = m[1].toLowerCase() as Label;
       out[cur] = m[2];
@@ -145,6 +159,8 @@ export function parseCase(source: string): CaseBlock {
         .map((l) => /^\s*[-*]\s*\[([ !xX])\]\s*(.+)$/.exec(l))
         .filter((m): m is RegExpExecArray => !!m)
         .map((m) => ({ text: m[2].trim(), decisive: m[1] === "!" })),
+      guide: listItems(parts.guide ?? ""),
+      example: parts.example ?? "",
     });
   }
   return {
@@ -160,12 +176,15 @@ export function parseCase(source: string): CaseBlock {
   };
 }
 
+/** The case has a model answer in some stage (its card shows "מקרה לדוגמה"). */
+export const hasExamples = (c: Pick<CaseBlock, "notes">) => c.notes.some((n) => !!n.example);
+
 /** A source or a certainty label: a page tag [[B02:115]], [[ודאות: …]], or "(מקור: …)". */
 const SOURCED = /\[\[(?:ודאות\s*:|[A-Za-z]+\d+[a-z]?:\d)|\(מקור\s*:/;
 const CERTAIN = /\[\[ודאות\s*:/;
 
 /** What breaks the block's format, as short English lines for the audit's repair turn. Empty when it is well formed. */
-export function caseProblems(c: CaseBlock, expectId?: string): string[] {
+export function caseProblems(c: CaseBlock, expectId?: string, aid?: CaseAid): string[] {
   const out: string[] = [];
   if (!c.title) out.push("the case has no @title");
   if (!c.id) out.push(`the case has no @id${expectId ? ` (it is ${expectId})` : ""}`);
@@ -193,6 +212,11 @@ export function caseProblems(c: CaseBlock, expectId?: string): string[] {
     if (n.rubric.length < 2) out.push(`stage ${s}: the rubric needs at least two "- [ ]" items`);
     const dec = n.rubric.filter((r) => r.decisive).length;
     if (dec !== 1) out.push(`stage ${s}: the rubric must mark exactly one decisive item "- [!]" (it has ${dec})`);
+    // the aids: required by the lesson's place (when known), and well formed wherever they are
+    const wantGuide = aid === "example" || aid === "guide" || !!n.guide.length || !!n.example;
+    if (wantGuide && (n.guide.length < 3 || n.guide.length > 5)) out.push(`stage ${s}: "guide:" needs 3 to 5 lines (it has ${n.guide.length})`);
+    if ((aid === "example" || (aid === undefined && hasExamples(c))) && !n.example) out.push(`stage ${s}: no "example:" (a model answer; this case carries one in every stage)`);
+    if (n.example && !/\d\s*%/.test(n.example)) out.push(`stage ${s}: the example has no confidence in % ("ביטחון: 70%")`);
   }
   const extra = c.notes.filter((n) => !c.stages.includes(n.stage)).map((n) => n.stage);
   if (extra.length) out.push(`sections for stages not in @stages: ${extra.join(", ")}`);

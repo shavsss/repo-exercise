@@ -6,7 +6,7 @@
 // It runs until a review passes, up to four reviews (three repairs): a lesson he gets is finished, and what
 // is still open after that is stored on the lesson and shown. The pure parts (prompts, parsing, applying the edits) are tested in tools/test/audit.test.mjs.
 // Same file in both apps.
-import { caseBlocks, caseProblems, hideCaseNotes, parseCase } from "./caseBlock";
+import { caseAid, caseBlocks, caseProblems, hideCaseNotes, parseCase } from "./caseBlock";
 
 export interface AuditFinding {
   topic?: string;
@@ -131,7 +131,7 @@ Check:
 3. Questions (mcq, numeric, explain, think, predict, exercise, verify, errorhunt blocks; check every numeric @answer by computing it, and that the [x] option of every mcq is the right one): can a careful reader answer each one from what the lesson wrote before it, with the numbers and constants given in the lesson or the question? Is it on what the lesson teaches in full?
 4. The keep block ("לסיכום"): does it exist, does it hold what must be remembered from this lesson, and nothing that is only a first look? It holds working tools (results, formulas, methods, central definitions the course will use later), about 5 to 12 per chapter; when the lesson marks blocks with @mark, the "summary" ones. Do not ask to add vocabulary, aids or every number of the lesson.
 5. Errors: statements that contradict the sources or the established facts.
-6. The engineering case (the \`\`\`case block at the end, if the lesson has one; its notes after the "---" line are hidden from the learner until he commits, and the tutor reasons from them): compute every number of its brief and its notes; every expert reasoning rests on a page tag, a named published source or a certainty label [[ודאות: …]], and claims about companies, systems and trends (stage 5, and the leading teams in every stage) carry a certainty label; a historical failure (Patriot, Ariane 5, Mars Climate Orbiter, Columbia) carries numbers only if the source pages hold its original report and the numbers match it; each stage's decisive rubric item ("- [!]") is really the decision that separates the top level from the average; the brief does not give away the answers. Report each problem in "errors", quoting the case.
+6. The engineering case (the \`\`\`case block at the end, if the lesson has one; its notes after the "---" line are hidden from the learner until he commits, and the tutor reasons from them): compute every number of its brief and its notes; every expert reasoning rests on a page tag, a named published source or a certainty label [[ודאות: …]], and claims about companies, systems and trends (stage 5, and the leading teams in every stage) carry a certainty label; a historical failure (Patriot, Ariane 5, Mars Climate Orbiter, Columbia) carries numbers only if the source pages hold its original report and the numbers match it; each stage's decisive rubric item ("- [!]") is really the decision that separates the top level from the average; the brief does not give away the answers; where a stage has "guide:" lines, they say what a good answer contains without giving away the decisive item, and where it has an "example:", it is a model answer at the level of the decisive item, with its numbers computed and a confidence in %. Report each problem in "errors", quoting the case.
 Quotes must be copied exactly from the lesson (a short unique phrase). "after" and "heading" are exact heading texts of the lesson (without the #).
 
 Answer with one JSON object and nothing else:
@@ -223,7 +223,7 @@ a short opening line (what this supplement completes), then a ### section for ea
 the whole content of the lesson's keep block, one "- name: …" line each (it replaces the existing keep block, or is added at the end)
 <<<END>>>`;
   return `<lesson_repair mode="${mode}">
-You are the author of this lesson, repairing it after an independent review (in <review>). Write in the lesson's own Hebrew, style and block syntax (the definition, formula, think, predict and keep blocks exactly as the lesson writes them; mathematics in $…$), at the course's full depth: teach every missing or thin item in full (its context, the definition or result, how it is built or derived, what it means, its limits, and a computed number where the point is a number); teach now every deferred topic the review says no later module teaches; give a question the givens it lacks or rewrite it so the lesson's material answers it; make the keep block complete (only what this lesson teaches in full). Never shorten or remove correct material, never add padding. The lesson has a length budget: make room for what you add by shortening a repetition or a second example near it, so it grows only by what is really new. Check every number with compute. A problem of the engineering case (\`\`\`case) is fixed inside it with a REPLACE, keeping its exact format: the @ headers, the "---" line, one "@@ stage N" section per stage of @stages with its ask:, anchors:, expert: and rubric: (exactly one "- [!]" item), and "@@ debrief" with decisions:.
+You are the author of this lesson, repairing it after an independent review (in <review>). Write in the lesson's own Hebrew, style and block syntax (the definition, formula, think, predict and keep blocks exactly as the lesson writes them; mathematics in $…$), at the course's full depth: teach every missing or thin item in full (its context, the definition or result, how it is built or derived, what it means, its limits, and a computed number where the point is a number); teach now every deferred topic the review says no later module teaches; give a question the givens it lacks or rewrite it so the lesson's material answers it; make the keep block complete (only what this lesson teaches in full). Never shorten or remove correct material, never add padding. The lesson has a length budget: make room for what you add by shortening a repetition or a second example near it, so it grows only by what is really new. Check every number with compute. A problem of the engineering case (\`\`\`case) is fixed inside it with a REPLACE, keeping its exact format: the @ headers, the "---" line, one "@@ stage N" section per stage of @stages with its ask:, anchors:, expert: and rubric: (exactly one "- [!]" item) and, where the case has them, guide: and example:, and "@@ debrief" with decisions:.
 
 Lesson: ${o.moduleId} ${o.moduleTitle} · ${o.lessonTitle}
 <review>
@@ -465,7 +465,10 @@ export function caseFindings(text: string): AuditFinding[] {
   if (blocks.length > 1) out.push({ quote: "```case", problem: `${blocks.length} case blocks`, fix: "a lesson has exactly one engineering case: merge them into one" });
   for (const b of blocks) {
     const quote = /^@title:.*$/m.exec(b.source)?.[0] ?? "```case";
-    for (const p of caseProblems(parseCase(b.source))) out.push({ quote, problem: `engineering case format: ${p}`, fix: p });
+    const c = parseCase(b.source);
+    // the lesson's place in its module, from the case's id (caseBlock.ts caseId): its first lessons carry the aids
+    const n = Number(/-(\d+)-case$/.exec(c.id)?.[1]);
+    for (const p of caseProblems(c, undefined, n ? caseAid(n - 1) : undefined)) out.push({ quote, problem: `engineering case format: ${p}`, fix: p });
   }
   return out;
 }
