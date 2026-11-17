@@ -11,8 +11,9 @@ import { CHAT_HISTORY_BYTES, focusHistory, questionOf, type Chapter } from "./ch
 import { auditLong, namedModules, type AuditMark, applyRepair } from "./lessonAudit";
 import { decideLine, decideSlot } from "./lessonGate";
 import { headWithin, tailWithin } from "./truncation";
-import { LEGACY_RULES, SYSTEM_PROMPT, libraryList } from "./prompt";
+import { LEGACY_RULES, SYSTEM_PROMPT, TEACHBACK_RULES, libraryList } from "./prompt";
 import type { Runtime, SampleTool } from "./runtime";
+import { type TeachScope, type TeachTurn, type TeachVerdict } from "./teachback";
 import { BOOK_PART, BOOK_PLAN, LESSON_WORDS, OUTLINE_FIX, formProblems, lessonWords, normalizeOutline, orderProblems, outlineCheckPrompt, parseOutlineReview, partSections, tightenPrompt, validOutline, wordCount, type BookOutline } from "./bookRules";
 import { NOTE_KIND_LABEL, type Activity, type Effort, type LessonNote, type LessonSpec, type Mode, type NoteKind, type StoredMessage } from "./types";
 
@@ -955,6 +956,68 @@ The learner answered: ${o.answer}
 In Hebrew, two to four sentences: is it right, partly right or wrong; what is missing or mistaken; and the one thing to remember. Start with ✓, ◐ or ✗. Equations in $…$.`;
   const res = await o.rt.sample(prompt, { model: MODEL, modelTier: "quick", effort: "low", signal: o.signal, cache: false });
   return res.text.trim();
+}
+
+/* ---------------- teach it back (teachback.ts) ---------------- */
+
+/** One reply of the examiner: the feedback on the explanation, or on an answer to a follow-up question. */
+export async function teachBackTurn(o: { rt: Runtime; scopes: TeachScope[]; taught: string; turns: TeachTurn[]; signal: AbortSignal; onText?: (t: string) => void }) {
+  const { rt } = o;
+  if (!rt.sample) throw { code: "not_granted", message: "sample unavailable" };
+  const mods = [...new Set(o.scopes.map((s) => s.moduleId))].map((id) => getIndex()?.modules.find((m) => m.id === id)).filter((m): m is Module => !!m);
+  const head = `${TEACHBACK_RULES}
+
+<study_context>
+${mods.map(moduleBlock).join("\n\n")}
+</study_context>
+
+What was taught (${o.scopes.length > 1 ? "today's lessons; give each lesson its own short line under each heading" : "this lesson"}):
+<<<
+${o.taught}
+>>>
+
+His explanation (speech-to-text):
+<<<
+`;
+  const msgs = o.turns.map((t, i) => ({
+    role: t.who === "learner" ? ("user" as const) : ("assistant" as const),
+    content: t.who === "tutor" ? t.text : i === 0 ? `${head}${t.text}\n>>>` : `He says (speech-to-text):\n${t.text}`,
+  }));
+  const first = o.turns.length === 1;
+  const res = await rt.sample(msgs, {
+    model: MODEL,
+    modelTier: first ? "complex" : "default",
+    effort: first ? "medium" : "low",
+    signal: o.signal,
+    cache: false,
+    onText: o.onText ? ({ text }) => o.onText!(text) : undefined,
+    ...(first && rt.canUseTools ? { tools: buildTools(noActivity, [...new Set(mods.flatMap(moduleDocs))]) } : {}),
+  });
+  return res.text.trim();
+}
+
+/** The session in a few fields: kept, and its gaps go to the notebook. */
+export async function teachBackVerdict(o: { rt: Runtime; scopes: TeachScope[]; turns: TeachTurn[]; signal: AbortSignal }): Promise<TeachVerdict> {
+  if (!o.rt.sample) throw { code: "not_granted", message: "sample unavailable" };
+  const talk = o.turns.map((t) => `${t.who === "learner" ? "LEARNER" : "EXAMINER"}: ${t.text}`).join("\n\n").slice(0, 120000);
+  const where = o.scopes.map((s) => `{"moduleId": "${s.moduleId}", "lesson": ${s.lesson}}${s.title ? ` = ${s.title}` : ""}`).join("; ");
+  const res = await o.rt.sample.json<Partial<TeachVerdict>>(
+    `A learner explained from memory what he learned (lessons: ${where}) and answered an examiner's questions:
+<<<
+${talk}
+>>>
+
+Reply with ONLY JSON: {"score": 1-5 (1 could not explain it, 3 the core idea right but leaning on words, 5 could teach it), "strong": ["what he understood, Hebrew, short", …at most 3], "gaps": [{"text": "one gap to deepen, in Hebrew, one sentence that stands on its own", "moduleId": "…", "lesson": n}, …at most 4, only real gaps the examiner found]}`,
+    { model: MODEL, modelTier: "quick", effort: "low", signal: o.signal, cache: false },
+  );
+  const ok = new Set(o.scopes.map((s) => `${s.moduleId}:${s.lesson}`));
+  const score = Math.min(5, Math.max(1, Math.round(Number(res?.score) || 3)));
+  const strong = (Array.isArray(res?.strong) ? res.strong : []).map(String).slice(0, 3);
+  const gaps = (Array.isArray(res?.gaps) ? res.gaps : [])
+    .filter((g) => g && typeof g.text === "string" && g.text.trim())
+    .map((g) => (ok.has(`${g.moduleId}:${g.lesson}`) ? g : { ...g, moduleId: o.scopes[0].moduleId, lesson: o.scopes[0].lesson }))
+    .slice(0, 4);
+  return { score, strong, gaps };
 }
 
 /* ---------------- refusals (as in Lanchester, restored 1.11 under the new rules) ---------------- */
