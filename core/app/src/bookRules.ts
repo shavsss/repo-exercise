@@ -57,7 +57,7 @@ THE LESSON AS CHAPTERS OF A BOOK (these rules override every earlier rule about 
 - Length (a budget, not a target): the whole lesson is at most ${LESSON_WORDS} words of prose and blocks together (exercises and the keep block included), and less when the material is light. Give every subsection a "words" budget by its weight: a central result with its derivation gets more (1,200 to 2,000), a supporting idea less (400 to 900), a topic a named later module teaches in full a short anchor. Completeness and depth come first: the budget is kept by cutting repetition, second examples, long cases and connections, never a definition, a derivation step or the explanation of a formula's factors. Each chapter's case study is at most about 900 words.
 - Practice (the system grades every answer, never the learner, and the lesson below an open question stays closed until he answers or skips it): every subsection ends with 1 to 3 practice questions, about 10 to 15 in the lesson, and each chapter closes with a mixed set of 3 to 5 from all its subsections. A question asks ONLY about what this subsection or an earlier one taught in full: never about a topic only introduced, an anchor, a first look at a later module, an illustration from a field, or anything the lesson has not yet explained, and every number it needs is in the lesson or in the question. Rotate the kinds inside each chapter, each question on a different aspect (the concept, a computation, a new case, reading a graph or a drawing, catching an error): mcq (four options; every wrong option is a real misconception: units, a sign, a factor of 2 or 10, mixing two quantities; every option has its explanation), numeric (the answer, its unit, a tolerance, and one to three typical wrong values with what each reveals), explain (a short written answer: two to four key ideas and a model answer). Aim for questions a learner who read carefully answers right 70 to 85% of the time. Plan them in each subsection's "questions" (kind and aspect). These replace think, predict, errorhunt, lab and exercise blocks, which a book lesson does not use.
 - Visualization carries the ideas: plan a "visual" for every subsection that has a central idea, about one per 800 to 1,000 words (12 to 18 in a full lesson), chosen by the kind of idea: a relation between quantities is a chart (computed points); a geometry, a layout or a system's parts is an svg diagram; a chain, a process or a link budget is a mermaid diagram; a comparison of several items is a table; a book figure is a figure block; something that changes in time is an anim or a sim. A visual replaces prose (it is inside the word budget), never repeats it: one sentence before it says what to look at, one after says what it shows and what it teaches; sometimes ask the reader first what shape he expects.
-- Blocks serve the prose; no step of the argument lives only in a block. In the flow, as many as the ideas need: definition, formula, figure, chart, table, svg, mermaid; the practice questions (mcq, numeric, explain) at the end of each subsection; keep (at the end of the lesson). Per chapter, at the end of a subsection only: at most two of verify, domain, and at most two of anim, sim, scene3d, interactive, plus the chapter's one casestudy at its end, and a decide block where the plan holds one. This limit overrides the level-3 counts (predict, verify, errorhunt, lab) and the connection rules (fieldmap and domain blocks per result): a check, a prediction or a mapping beyond it is written in the prose of its subsection. Not used: think, predict, errorhunt, lab and exercise (the practice questions replace them), erratum (a real error of the source is one sentence in the prose; scan and OCR errors are never mentioned, the lesson just uses the right value), story (the chapter opens in prose), plan, today, coverage, refresh (the opening paragraph "what we already know" replaces it), fieldmap, errorhunt and lab (into the prose or the exercises).
+- Blocks serve the prose; no step of the argument lives only in a block. In the flow, as many as the ideas need: definition, formula, figure, chart, table, svg, mermaid; the practice questions (mcq, numeric, explain) at the end of each subsection; keep (at the end of the lesson). Per chapter, at the end of a subsection only: at most two of verify, domain, and at most two of anim, sim, scene3d, interactive, plus the chapter's one casestudy at its end. This limit overrides the level-3 counts (predict, verify, errorhunt, lab) and the connection rules (fieldmap and domain blocks per result): a check, a prediction or a mapping beyond it is written in the prose of its subsection. Not used: think, predict, errorhunt, lab and exercise (the practice questions replace them), erratum (a real error of the source is one sentence in the prose; scan and OCR errors are never mentioned, the lesson just uses the right value), story (the chapter opens in prose), plan, today, coverage, refresh (the opening paragraph "what we already know" replaces it), fieldmap, errorhunt and lab (into the prose or the exercises), decide (the engineering case at the end of the lesson replaces it).
 - A part of the writing is one chapter, or a run of whole subsections of a long chapter: give each part "sections": the subsection numbers it writes. Parts never cut a subsection.
 - Add to the JSON: "outline": {"known": ["…"], "chapters": [{"n": ${chapterStart}, "title": "…", "question": "…", "comparison": "…", "case_study": "…", "sections": [{"n": "${chapterStart}.1", "title": "…", "question": "…", "from_prev": "…", "needs": ["…"], "defines": [{"term": "…", "mark": "s"}], "paragraphs": ["הקדמה", "…", "מה מחבר ביניהן"], "compare": "…", "critique": "…", "case": "…", "words": 1200, "visual": "chart: … against …", "questions": ["mcq: …", "numeric: …"]}]}]}, and per part "sections": ["${chapterStart}.1", "${chapterStart}.2"]. Short phrases, no prose, in Hebrew.`;
 
@@ -73,14 +73,15 @@ export function lessonWords(o: BookOutline): number {
   return partWords(o, o.chapters.flatMap((c) => c.sections.map((s) => s.n)));
 }
 
-/** The words the learner reads: the code of visual blocks (chart and table JSON, svg, mermaid, scenes) does not count. */
+/** The words the learner reads: the code of visual blocks (chart and table JSON, svg, mermaid, scenes) does not count, nor
+ * the engineering case, which is outside the word budget (docs/ENGINEERING_CASE.md). */
 export const wordCount = (t: string) =>
-  (t.replace(/^```(?:chart|table|svg|mermaid|anim|sim|scene3d|interactive|figure)[^\n]*\n[\s\S]*?^```[ \t]*$/gm, "").match(/\S+/g) ?? []).length;
+  (t.replace(/^```(?:chart|table|svg|mermaid|anim|sim|scene3d|interactive|figure|case)[^\n]*\n[\s\S]*?^```[ \t]*$/gm, "").match(/\S+/g) ?? []).length;
 
 /** The last step when a written lesson is over its budget: cut only padding, by edit blocks, then the checks run. */
 export function tightenPrompt(text: string, words: number, budget: number): string {
   return `<lesson_tighten>
-You are the author of this lesson. It has ${words} words; its budget is ${budget}. Bring it to about ${budget} words WITHOUT lowering its level: never remove or thin a definition, a derivation step, the explanation of a formula's factors, a number the lesson teaches with, a comparison or critique (shorten them instead), the book structure (chapters, numbered subsections, bold run-in headings, the linking sentences), or anything a later passage uses. Cut, in this order: a case study beyond about 900 words; domain blocks beyond one per chapter; paragraphs that restate a table or a graph; interim summaries that repeat what was just said; a second example of the same point; a number said twice; then wordy sentences. Never cut a practice question (mcq, numeric, explain).
+You are the author of this lesson. It has ${words} words; its budget is ${budget}. Bring it to about ${budget} words WITHOUT lowering its level: never remove or thin a definition, a derivation step, the explanation of a formula's factors, a number the lesson teaches with, a comparison or critique (shorten them instead), the book structure (chapters, numbered subsections, bold run-in headings, the linking sentences), or anything a later passage uses. Cut, in this order: a case study beyond about 900 words; domain blocks beyond one per chapter; paragraphs that restate a table or a graph; interim summaries that repeat what was just said; a second example of the same point; a number said twice; then wordy sentences. Never cut a practice question (mcq, numeric, explain), and never touch the engineering case block (\`\`\`case), which is outside the budget.
 <lesson>
 ${text}
 </lesson>
@@ -122,7 +123,7 @@ export function outlineText(o: BookOutline, mine: string[]): string {
     .join("\n");
 }
 
-export const BOOK_PART = (o: BookOutline, mine: string[], first: boolean, last: boolean) => {
+export const BOOK_PART = (o: BookOutline, mine: string[], first: boolean, last: boolean, withCase = false) => {
   const start = mine[0] ?? "";
   const chapterOpens = o.chapters.filter((c) => c.sections[0] && mine.includes(c.sections[0].n)).map((c) => c.n);
   const chapterCloses = o.chapters.filter((c) => c.sections.length && mine.includes(c.sections[c.sections.length - 1].n)).map((c) => c.n);
@@ -165,13 +166,59 @@ the question ("למה…", "הסבר בשני משפטים…")
 a model answer of two to four sentences
 \`\`\`
   Ask ONLY about what this subsection or an earlier one taught in full, never about a topic only introduced, an anchor, a first look at a later module, an illustration, or anything not yet explained; every number the question needs is in the lesson or in it. Each question tests a different aspect. No think, predict, errorhunt, lab or exercise blocks.
-- Blocks serve the prose and never carry a step of the argument alone. Allowed in the flow, as many as the ideas need: definition, formula, figure, chart, table, svg, mermaid. Per chapter, at the end of a subsection only: at most two of verify, domain, and two of anim, sim, scene3d, interactive, plus the chapter's one casestudy, and a decide block where planned; any other check or mapping goes into the prose (this overrides the level-3 and connection counts). Never: erratum, story, plan, today, coverage, refresh, fieldmap, think, predict, errorhunt, lab, exercise. Scan and OCR errors of the source are never mentioned: use the right value.
+- Blocks serve the prose and never carry a step of the argument alone. Allowed in the flow, as many as the ideas need: definition, formula, figure, chart, table, svg, mermaid. Per chapter, at the end of a subsection only: at most two of verify, domain, and two of anim, sim, scene3d, interactive, plus the chapter's one casestudy; any other check or mapping goes into the prose (this overrides the level-3 and connection counts). Never: erratum, story, plan, today, coverage, refresh, fieldmap, think, predict, errorhunt, lab, exercise, decide. Scan and OCR errors of the source are never mentioned: use the right value.
 - Never put a fenced block inside another block (a chart, svg or table inside a casestudy, domain or definition breaks the page): place it just before or after, and refer to it. Every fence line stands alone on its line.
 - Plain, continuous Hebrew; a foreign term once, in its [[מונח: … | …]] tag, never mixed into the sentence after that; one symbol, one meaning.
 ${chapterCloses.length ? `- Chapter ${chapterCloses.join(", ")} closes here: its case study (planned), then a closing paragraph in prose (what the chapter built and how it leads to the next).` : ""}
-${last ? `- This part ends the lesson: after the last chapter's close and its mixed practice set, the keep block holds exactly the items marked [ס] (one "name: …" line each, standing on its own), then one sentence about the next lesson. No coverage, today or exercise block.` : "- Do not end the lesson, write the keep block or exercises in this part."}
+${last ? `- This part ends the lesson: after the last chapter's close and its mixed practice set, the keep block holds exactly the items marked [ס] (one "name: …" line each, standing on its own), then one sentence about the next lesson${withCase ? ", then the engineering case block (below) as the very last thing of the lesson" : ""}. No coverage, today or exercise block.` : "- Do not end the lesson, write the keep block, exercises or the engineering case in this part."}
 ${first ? "" : "- Continue seamlessly from the text above: no recap, no repeated heading."}`;
 };
+
+/* ---------------- the engineering case at the end of the lesson (docs/ENGINEERING_CASE.md; parser in caseBlock.ts) ---------------- */
+
+/** What the planner reserves for the case (the plan's "case" field). */
+export interface CasePlan {
+  title?: string;
+  scenario?: string;
+  stages?: string;
+  fault?: string;
+  numbers?: string[];
+  idea?: string;
+}
+
+const CASE_STAGES_TEXT = `1 the problem and the requirements (the real question, who owns each requirement, which requirement is unneeded or wrong: do not optimize what should not exist); 2 the physical limit ("speed of light": what the limit allows and where the gap goes on the way: a gap budget, a roofline); 3 architecture (a choice between system architectures, with the alternatives weighed and the criterion); 4 methods and algorithms (a choice between methods, equations and algorithms, and where each breaks: its range of validity); 5 does it already exist, given these choices (who does it, in which companies and countries, how, why some chose otherwise, problems, trends, bottlenecks; your knowledge up to its date is enough, with a certainty label on every claim); 6 breaking (what would bring the choice down: red team, pre-mortem); 7 the experiment (which result would kill the design); 8 your idea (what he would do differently; it is kept in his idea store). A lesson about reliability or a failure may open with "fault": a failure to diagnose, then its fix, then what would have prevented it, and go on with the stages that fit (e.g. fault,6,7,8).`;
+
+export const CASE_PLAN = `
+THE ENGINEERING CASE (one per lesson, the very last thing in it; it is not the chapter's casestudy): plan it now. Put "case" last in the last part's "blocks", and add to the JSON "case": {"title": "…", "scenario": "one line: the engineering problem, built from this lesson's central results and what <course_memory> says the learner already learned", "stages": "1,2,3,4,5,6,7,8", "fault": "only when the lesson opens the case with a failure: which one", "numbers": ["every number the brief and the expert reasoning need, computed now with compute"], "idea": "an idea from <idea_store> that fits stage 8, if one does"}. The stages, in this fixed order: ${CASE_STAGES_TEXT} Most lessons take all eight; a lesson that invites fewer takes only those, never forced, in the same order. The case is not counted in the depth units or the word budget, and nothing else is planned smaller for it.`;
+
+/** The writer's spec of the ```case block, for the last part. `id` is the case's stable id (caseBlock.ts caseId). */
+export const CASE_PART = (id: string, plan?: CasePlan) => `THE ENGINEERING CASE (the last thing in the lesson, after the sentence about the next lesson): exactly one \`\`\`case block. The learner works through it later, in a separate design-review room, with a senior peer: at each stage he proposes and argues in writing with his confidence in %, the reviewer in the stage's role challenges him with data, he defends or changes, commits, and only then sees the expert reasoning and the rubric and writes what the expert saw that he did not; at the end he writes a decision record (ADR) and gets a debrief that names the one important decision he missed. It is a process, not a quiz. You write now the material that process runs on, sourced and checked: the reviewer will not invent it later.
+${plan ? `Planned: ${JSON.stringify(plan)}\n` : ""}The stages, in this fixed order, only those the content invites (most lessons all eight): ${CASE_STAGES_TEXT}
+The bar is the world's leading engineering teams: in every stage the expert says what they do differently from traditional industry, with a few examples that fit the topic (SpaceX, NVIDIA and Anduril are examples of the bar, not a closed list), each with its certainty label. A historical failure (Patriot, Ariane 5, Mars Climate Orbiter, Columbia) enters with its numbers only when its original report is in the source pages and you checked them against it; otherwise without the numbers, or another case.
+Exactly this form:
+\`\`\`case
+@title: the engineering problem, in Hebrew
+@id: ${id}
+@stages: 1,2,3,4,5,6,7,8
+@roles: 1=בעל הדרישה; 5=מהנדס בחברה שבחרה אחרת; 6=צוות אדום; *=מהנדס בכיר
+The brief the learner sees (Hebrew Markdown, about 150 to 300 words): the scenario, built from this lesson's results and from what <course_memory> says he learned; the numbers, computed with compute, stated exactly as computed; the constraints. No hint of the answers.
+---
+@@ stage 1
+ask: the stage's question to the learner, one or two Hebrew sentences
+anchors:
+- a datum the reviewer challenges with, a computed limit or margin, or (stage 5) a claim about who does it and how, with its [[ודאות: …]]
+expert:
+the expert reasoning aloud, in Hebrew, about 80 to 200 words: what the top teams decide here and why, what traditional industry does instead, the numbers, and how this link shapes the next stages; every claim with its page tag [[DOC:PAGE]], a named published source "(מקור: …)", or [[ודאות: …]]
+rubric:
+- [!] the decision that separates the top level from the average (exactly one per stage)
+- [ ] a yes/no check (two to five of these; for an open design choice, whether his alternative is defensible and what it costs, never whether it matches yours)
+@@ stage 2
+… one section per stage of @stages, in its order ("@@ stage fault" for a fault opening) …
+@@ debrief
+decisions:
+- the key decisions of the whole case, most important first (the debrief names the one he missed)
+\`\`\`
+Rules: one block; no fenced block inside it (code goes in a ~~~ fence); every fence line alone on its line; the labels ask:, anchors:, expert:, rubric:, decisions: in English at the start of their line, exactly as above; "@@" only at the head of a section. @stages and the sections agree. The stages chain: each ask builds on what the learner will have decided in the stage before ("the architecture you chose"), never on a fixed answer. Stage 8's ask may recall a fitting idea from <idea_store>. Every number is computed with compute. The case is outside the word budget, and nothing else in the lesson is shortened for it.`;
 
 /** The order check of the outline, before any text is written. */
 export function outlineCheckPrompt(o: BookOutline, lessonTitle: string): string {

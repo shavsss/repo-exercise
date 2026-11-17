@@ -9,10 +9,11 @@ import { docMeta, getIndex, readPages, searchLibrary, type Module } from "./libr
 import { curriculumBlock } from "./curriculum";
 import { CHAT_HISTORY_BYTES, focusHistory, questionOf, type Chapter } from "./chatContext";
 import { auditLong, namedModules, type AuditMark, applyRepair } from "./lessonAudit";
-import { decideLine, decideSlot } from "./lessonGate";
 import { LEGACY_RULES, SYSTEM_PROMPT, libraryList } from "./prompt";
 import type { Runtime, SampleTool } from "./runtime";
-import { BOOK_PART, BOOK_PLAN, LESSON_WORDS, OUTLINE_FIX, lessonWords, normalizeOutline, orderProblems, outlineCheckPrompt, parseOutlineReview, partSections, tightenPrompt, validOutline, wordCount, type BookOutline } from "./bookRules";
+import { BOOK_PART, BOOK_PLAN, CASE_PART, CASE_PLAN, LESSON_WORDS, OUTLINE_FIX, lessonWords, normalizeOutline, orderProblems, outlineCheckPrompt, parseOutlineReview, partSections, tightenPrompt, validOutline, wordCount, type BookOutline, type CasePlan } from "./bookRules";
+import { caseId } from "./caseBlock";
+import { ideasForPrompt, loadIdeas, type Idea } from "./ideas";
 import { NOTE_KIND_LABEL, type Activity, type Effort, type LessonNote, type LessonSpec, type Mode, type NoteKind, type StoredMessage } from "./types";
 
 const math = create(all, {});
@@ -81,8 +82,8 @@ export interface PromptOpts {
 /** Splits the teaching rules into their lettered sections (א. … ב. …). */
 function ruleSections(p: string) {
   const body = /<teaching_rules>\n([\s\S]*?)<\/teaching_rules>/.exec(p)?.[1] ?? "";
-  const parts = body.split(/\n(?=[א-ת]\. )/);
-  return { head: parts[0].match(/^[א-ת]\. /) ? "" : parts.shift() ?? "", sections: parts };
+  const parts = body.split(/\n(?=[א-ת]{1,2}\. )/);
+  return { head: parts[0].match(/^[א-ת]{1,2}\. /) ? "" : parts.shift() ?? "", sections: parts };
 }
 
 /** Documents used only as analysis references (B14–B17), listed only for modules that use them. */
@@ -107,7 +108,7 @@ export function systemPrompt(o: PromptOpts = {}) {
   let p = SYSTEM_PROMPT.replace("${LIBRARY}", libraryList(docs));
   // section ח (rules 33–37) only matters where the module has analysis references
   if (!o.refs) p = p.replace(/\n*ח\. מהביצועים לתוצאה[\s\S]*?(?=\n+ט\. רמה 2\.5)/, "");
-  if (o.no25 || o.lean) p = p.replace(/<goal>[\s\S]*?<\/goal>\n*/, "").replace(/\n*ט\. רמה 2\.5[\s\S]*?(?=<\/teaching_rules>)/, "\n");
+  if (o.no25 || o.lean) p = p.replace(/<goal>[\s\S]*?<\/goal>\n*/, "").replace(/\n*ט\. רמה 2\.5[\s\S]*?(?=\n+יא\. |<\/teaching_rules>)/, "\n");
   if (o.drop || o.only) {
     const { head, sections } = ruleSections(p);
     const kept = sections.filter((s) => (o.only ? s.startsWith(o.only + ". ") : !s.startsWith(o.drop + ". ")));
@@ -151,6 +152,8 @@ interface Base {
   allNotes?: LessonNote[];
   /** modules the learner finished, for <reader_stage> */
   done?: string[];
+  /** the learner's idea store (ideas.ts); a lesson loads it from the store when it is not given */
+  ideas?: Idea[];
   signal: AbortSignal;
   cb: TurnCallbacks;
 }
@@ -220,8 +223,9 @@ ${gate ? "שלב השער (P0): עוד אף תחום ליבה לא נלמד; ה�
 </reader_stage>`;
 }
 
-function studyContext(o: { mode: Mode; module: Module; lessons?: LessonSpec[]; lessonIdx: number; memory: string; pages?: string; notes?: LessonNote[]; allNotes?: LessonNote[]; done?: string[] }) {
+function studyContext(o: { mode: Mode; module: Module; lessons?: LessonSpec[]; lessonIdx: number; memory: string; pages?: string; notes?: LessonNote[]; allNotes?: LessonNote[]; done?: string[]; ideas?: Idea[] }) {
   const mem = o.memory.trim() ? `\n<course_memory>\n${o.memory.trim()}\n</course_memory>` : "";
+  const ideas = o.ideas?.length ? `\n<idea_store>\nThe learner's own ideas, saved from earlier engineering cases (seed, growing, project). Recall one only where it really fits:\n${ideasForPrompt(o.ideas)}\n</idea_store>` : "";
   const nb = o.notes?.length
     ? `\n<lesson_notebook>\nThe shared notebook of this lesson. "written by the learner" is his own thought (he brings one to the chat when he wants to discuss it); "saved by you" was saved by the tutor at his request and is not his own writing:\n${o.notes
         .slice(0, 60)
@@ -240,7 +244,7 @@ Date: ${new Date().toISOString().slice(0, 10)}
 Requested message type: ${o.mode}
 ${moduleBlock(o.module)}
 ${readerStage(o.module, o.done)}
-${plan}${mem}${nb}${rest}${o.pages ? `\n\nSource pages for this lesson:\n${o.pages}` : ""}
+${plan}${mem}${ideas}${nb}${rest}${o.pages ? `\n\nSource pages for this lesson:\n${o.pages}` : ""}
 </study_context>`;
 }
 
@@ -540,6 +544,8 @@ export interface PartPlan {
   parts: { title: string; covers: string; blocks?: string[]; l25?: string[]; words?: number; units?: number; sections?: string[] }[];
   /** the lesson as chapters of a book (bookRules.ts): the outline the parts are written from */
   outline?: BookOutline;
+  /** the engineering case reserved for the last part (bookRules.ts CASE_PLAN) */
+  case?: CasePlan;
   results?: string[];
   figures?: string[];
   facts?: string[];
@@ -559,8 +565,8 @@ LESSON PLANNING STEP. Do not write the text yet. The app will write the lesson i
 Write the plan (titles, "covers", "facts", "next") in plain engineering language: physics, signals, receivers, links, and published system parameters. Name every topic by its engineering content (interference and the signal-to-interference ratio, detection range, link margin), the case study as an engineering design question, and the exercises as engineering calculations; do not frame anything as attacking, defeating or targeting.
 Rules for the plan: 3 to 5 parts; for a core or advanced module the words add up to at least 4200 Hebrew words unless the assigned material is genuinely short (then say so in the first part); part 1 opens with the plan block and the story, then the problem/why-hard/idea paragraphs; every derivation is planned step by step; the parts are organized by topic, not by page order: the book is the basis, not something to retell page by page (rule 9ב); every assigned section and every figure is assigned to exactly one part; every new concept is planned within one part in the order of rule 6א (the context, its general definition in a definition block, how it is built, and only then a separate example); formula blocks only for general results the course returns to (rule 6ב); all seven level-2.5 sections ("l25") are assigned to parts for the lesson's central results; the case study, history block(s), the connections by <reader_stage> (a fieldmap block for every new central formula, at least four full domain blocks in every lesson, in the gateway stage P0, for a field not yet learned, at the level of what the system does, with the mechanism left to its module; from P1 on, full, including the mechanism; technical explanations only from familiar ground, rules 41–45), think questions (about six in the lesson, at real decision points), refresh blocks, simulators and figures are assigned to parts; the last part holds the coverage block, the keep block (rule 6ד), the exercises, the fieldsystems block (if a real connection exists) and the sentence about the next lesson.`.trim();
 
-function partInstructions(plan: PartPlan, k: number, writtenSoFar: string) {
-  if (plan.outline && LESSON_RULES === "lite") return bookPartInstructions(plan, k, writtenSoFar);
+function partInstructions(plan: PartPlan, k: number, writtenSoFar: string, caseOf: string) {
+  if (plan.outline && LESSON_RULES === "lite") return bookPartInstructions(plan, k, writtenSoFar, caseOf);
   const p = plan.parts[k];
   const n = plan.parts.length;
   const last = k === n - 1;
@@ -574,7 +580,7 @@ ${last && plan.next ? `Next lesson: ${plan.next}` : ""}
 
 ${prior ? `The lesson text written so far (parts 1–${k}), which the learner is reading right now:\n<<<\n${prior}\n>>>\n` : ""}
 Now write ONLY part ${k + 1}: «${p.title}». It covers: ${p.covers}.${p.blocks?.length ? ` Blocks for this part: ${p.blocks.join(", ")}.` : ""}${p.l25?.length ? ` Level-2.5 sections for this part: ${p.l25.join(", ")}.` : ""}
-${LESSON_RULES === "lite" ? (p.units ? `Depth units in this part: about ${p.units}. That is about ${p.units * 30} counted words of running text (orientation, not a target); past about ${Math.round(p.units * 45)} counted words the part holds padding, and only the padding is cut. Uncounted: think questions, level-3 and decide blocks, keep, exercises, today, coverage, figures and scene JSON.` : "Depth units in this part: as planned.") : `Length: about ${p.words ?? 1100} Hebrew words of real teaching (more is fine, less is not).`}
+${LESSON_RULES === "lite" ? (p.units ? `Depth units in this part: about ${p.units}. That is about ${p.units * 30} counted words of running text (orientation, not a target); past about ${Math.round(p.units * 45)} counted words the part holds padding, and only the padding is cut. Uncounted: think questions, level-3 blocks, keep, exercises, today, coverage, figures and scene JSON.` : "Depth units in this part: as planned.") : `Length: about ${p.words ?? 1100} Hebrew words of real teaching (more is fine, less is not).`}
 ${k === 0 ? "Start the lesson (no preamble about the plan or the parts)." : "Continue seamlessly from the last sentence above: no greeting, no recap, no repeated heading; open with the explicit transition from where the text stopped. Continue the equation numbering from the last \\tag above."}
 Do not write material that belongs to later parts. Teach step by step: every step of a derivation on its own line with its reason in words. Put [[DOC:PAGE]] at the paragraph where the source page changes. Show each original figure assigned to this part with a figure block, then explain it. State computed values exactly as in "facts" (run compute for anything new).
 ${LESSON_RULES === "lite" ? "Tag the level-2.5 sections of the central results that this part covers ([[2.5: …]], each tag once per central result in the whole lesson) at the start of their paragraph; anchor claims get no tag." : "Tag every level-2.5 section this part covers ([[2.5: …]]) at the start of its paragraph."}
@@ -582,7 +588,7 @@ ${last ? "This is the last part: write the coverage block, the exercises, the fi
 }
 
 /** A part of a lesson written as chapters of a book (bookRules.ts, docs/LESSON_BOOK_SPEC.md). */
-function bookPartInstructions(plan: PartPlan, k: number, writtenSoFar: string) {
+function bookPartInstructions(plan: PartPlan, k: number, writtenSoFar: string, caseOf: string) {
   const o = plan.outline!;
   const p = plan.parts[k];
   const n = plan.parts.length;
@@ -600,7 +606,7 @@ Do not write material that belongs to later parts. Teach step by step: every ste
 Tag the level-2.5 sections of the central results that this part covers ([[2.5: …]], each tag once per central result in the whole lesson) at the start of their paragraph; anchor claims get no tag.
 ${k === 0 ? "Start the lesson with the first chapter heading (no preamble about the plan or the parts)." : "Continue the equation numbering from the last \\tag above."}
 ${LITE_PART}${featurePart(p)}
-${BOOK_PART(o, mine, k === 0, last)}`;
+${BOOK_PART(o, mine, k === 0, last, last && FEATURES.has("case"))}${last && FEATURES.has("case") ? `\n${CASE_PART(caseOf, plan.case)}` : ""}`;
 }
 
 /** Checks the outline's order before any text is written, and has the planner fix it (at most two rounds). */
@@ -633,7 +639,7 @@ async function checkOutline(o: { rt: Runtime; plan: PartPlan; planTurn: string; 
     o.cb.onStatus?.(`מתקן את תוכן העניינים (${problems.length} בעיות סדר)`);
     const fixed = await ask(OUTLINE_FIX({ problems, verdict: "fix" }));
     if (!fixed || !Array.isArray(fixed.parts) || !fixed.parts.length || !validOutline(fixed.outline)) break;
-    plan = { ...fixed, outline: normalizeOutline(fixed.outline) };
+    plan = { ...fixed, case: fixed.case ?? plan.case, outline: normalizeOutline(fixed.outline) };
   }
   return plan;
 }
@@ -673,8 +679,8 @@ Only the central results named in the plan get [[2.5: …]] tags, formula blocks
  * Parts of the lesson rules that the bench can switch on one at a time (after the 31.10 rollback
  * each one comes back only once the real tutor has written lessons with it in both apps).
  */
-export type LessonFeature = "curriculum" | "level3" | "decide" | "style" | "book";
-export const DEFAULT_FEATURES: LessonFeature[] = ["curriculum", "level3", "decide", "style", "book"];
+export type LessonFeature = "curriculum" | "level3" | "case" | "style" | "book";
+export const DEFAULT_FEATURES: LessonFeature[] = ["curriculum", "level3", "case", "style", "book"];
 let FEATURES = new Set<LessonFeature>(DEFAULT_FEATURES);
 export function setLessonFeatures(f: LessonFeature[]) {
   FEATURES = new Set(f);
@@ -691,7 +697,6 @@ const LEVEL3_PART = `LEVEL-3 BLOCKS (only those planned for this part):
 - \`\`\`errorhunt, header @title. Body: an AI output (code, numbers, a derivation or a conclusion) that may hold one planted error (units; a factor 2 or 2π; dB against linear; power against amplitude; a sign; an assumption broken in the parameter range; windowing and aliasing; off-by-one; mean of a ratio against ratio of means; a simulation that did not converge), a line "---", then the solution: where the error is (or that there is none), how to catch it, and the check that would have caught it. The planted error lives only in this block.
 - \`\`\`lab, headers @title, @tools (open-source tools, e.g. NumPy and SciPy, python-control, scikit-rf, ngspice, OpenModelica, OpenFOAM, CalculiX, FEniCS, PyTorch), @time (e.g. "60–90 דקות"), @product (optional). Body: the engineering question; the spec the reader writes (question, inputs and their source, assumptions, success measure, acceptance tests, prediction; in the gateway stage a draft spec the reader completes); what the AI does; the 5 to 15 heart lines the reader writes himself; the verification (at least two independent checks); the explanation after (3 to 6 sentences in his words); one extension for a project.
 Code or output inside these blocks goes in a ~~~ fence (e.g. ~~~python), never in a backtick fence. In a lab block the heart lines are left for the reader: give what each must do and its inputs and outputs, not the code. At least half of the predict blocks ask for the direction of a dependence.`;
-const DECIDE_PART = `- \`\`\`decide, headers @kind (trade / architecture / review / agents), @title. Body: the brief and what the reader submits in writing, a line "---", then the reference analysis with its numbers, what was decisive, and the common mistakes.`;
 const STYLE_PART = `STYLE (it changes how a unit is written, never whether it is there; the definition rules of section א win):
 1. Open each section with the concrete problem it solves, then follow the definition order.
 2. Before each derivation, formula or computation, one sentence states the real question it answers.
@@ -707,16 +712,14 @@ const STYLE_PART = `STYLE (it changes how a unit is written, never whether it is
 12. Certainty labels at the end of a sentence, never mid-clause (page tags and 2.5 tags stay where the rules put them). Bold only for a defined term, or one warning per section.
 13. The prose never uses course machinery words (צומת, גשר, פריפריה, "רמה 2.5"); at most one forward reference per section.
 14. One Hebrew name per concept, one meaning per symbol.`;
-function featurePlan(lessons: number, idx: number, modulesDone: number) {
-  if (LESSON_RULES !== "lite") return "";
-  return `${FEATURES.has("level3") ? LEVEL3_PLAN : ""}${FEATURES.has("decide") ? decideLine(decideSlot(lessons, idx, modulesDone)) : ""}`;
+function featurePlan() {
+  return LESSON_RULES === "lite" && FEATURES.has("level3") ? LEVEL3_PLAN : "";
 }
 function featurePart(p: { blocks?: string[] }) {
   if (LESSON_RULES !== "lite") return "";
   const b = (p.blocks ?? []).join(" ");
   const out: string[] = [];
   if (FEATURES.has("level3") && /predict|verify|errorhunt|lab/.test(b)) out.push(LEVEL3_PART);
-  if (FEATURES.has("decide") && /decide/.test(b)) out.push(`LEAD-AND-DECIDE BLOCK:\n${DECIDE_PART}`);
   if (FEATURES.has("style")) out.push(STYLE_PART);
   return out.length ? `\n${out.join("\n")}` : "";
 }
@@ -730,13 +733,15 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
   if (!rt.sample) throw { code: "not_granted", message: "sample unavailable" };
   cb.onStatus?.("טוען את עמודי המקור של השיעור");
   const pages = await lessonPages(lessons?.[lessonIdx], m);
-  const ctx = studyContext({ mode: "lesson", module: m, lessons, lessonIdx, memory, pages, notes, allNotes, done: opts.done });
+  // the idea store goes to the planner, so the engineering case can recall a fitting idea (ideas.ts)
+  const ideas = opts.ideas ?? (await loadIdeas(rt.store).catch(() => []));
+  const ctx = studyContext({ mode: "lesson", module: m, lessons, lessonIdx, memory, pages, notes, allNotes, done: opts.done, ideas });
   const tools = rt.canUseTools ? buildTools(cb, moduleDocs(m)) : null;
 
   let plan = resume?.plan;
   if (!plan) {
     cb.onStatus?.("מתכנן את השיעור: קורא את המקורות ומחשב את המספרים");
-    const planTurn = `${ctx}\n\n${text}\n\n${LESSON_RULES === "lite" ? PART_PLAN_INSTRUCTIONS.replace("for a core or advanced module the words add up to at least 4200 Hebrew words unless the assigned material is genuinely short (then say so in the first part); ", "").replace(', "words": 1200}', ', "units": 40}') + LITE_PLAN : PART_PLAN_INSTRUCTIONS}${featurePlan(lessons?.length ?? 0, lessonIdx, opts.done?.length ?? 0)}${book ? BOOK_PLAN(chapterStart) : ""}`;
+    const planTurn = `${ctx}\n\n${text}\n\n${LESSON_RULES === "lite" ? PART_PLAN_INSTRUCTIONS.replace("for a core or advanced module the words add up to at least 4200 Hebrew words unless the assigned material is genuinely short (then say so in the first part); ", "").replace(', "words": 1200}', ', "units": 40}') + LITE_PLAN : PART_PLAN_INSTRUCTIONS}${featurePlan()}${book ? BOOK_PLAN(chapterStart) + (FEATURES.has("case") ? CASE_PLAN : "") : ""}`;
     plan = await retryRefused(
       (h) => {
         const once = (again: boolean) =>
@@ -767,7 +772,7 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
     let partText = "";
     for (let attempt = 0; attempt < 2; attempt++) {
       // a part cut off at the length limit gets one continuation
-      const turn = `${ctx}\n\n${text}\n\n${partInstructions(plan, k, (before + partText).trim())}${attempt ? "\n\nThe previous attempt of this part was cut off at the length limit; continue it exactly from where the text above stops." : ""}`;
+      const turn = `${ctx}\n\n${text}\n\n${partInstructions(plan, k, (before + partText).trim(), caseId(m.id, lessonIdx))}${attempt ? "\n\nThe previous attempt of this part was cut off at the length limit; continue it exactly from where the text above stops." : ""}`;
       const res = await retryRefused(
         (h) =>
           rt.sample!([...fitHistory(h, bytes(turn), false, { refs: hasRefs(m) }), { role: "user", content: turn }], {

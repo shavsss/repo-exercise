@@ -1,7 +1,7 @@
 // The depth rules (v3) in code: the depth units of a lesson plan, the plan check that sends the
 // plan back once with what is missing (the depth gate inside the app), the unit markers the writer
-// leaves in the text, and the lead-and-decide slot. There is no word floor anywhere: a lesson is
-// measured by its units. Identical in both apps.
+// leaves in the text. There is no word floor anywhere: a lesson is measured by its units. (The lead-and-decide
+// slot that lived here was merged into the engineering case, 17.11: bookRules.ts CASE_PLAN.) Identical in both apps.
 
 export interface PlanUnit {
   id: string;
@@ -155,34 +155,4 @@ export function unitCompletion(units: PlanUnit[]) {
   return `\n\nUNIT CHECK. The text of this part above stops without these planned units (no <!--U…--> marker for them yet):
 ${unitLines(units)}
 Continue this part exactly from where the text above stops: write each of these units in full (at least the minimum of its type), connected to the argument with a linking half-sentence, each with its marker right after the sentence where it first enters. A unit that is in fact already written above without its marker is not written again. Do not repeat anything already written, do not end the lesson, and close with a corrected hidden audit line.`;
-}
-
-/* ---------------- the lead-and-decide track ---------------- */
-
-export const DECIDE_KINDS = ["trade", "architecture", "review", "agents"] as const;
-export type DecideKind = (typeof DECIDE_KINDS)[number];
-
-/**
- * When a lesson carries a decide block: the last lesson of every module, and in a module of six
- * lessons or more also the middle one. The kind rotates through the four with the number of
- * finished modules, so every kind comes back about every four modules.
- */
-export function decideSlot(lessons: number, idx: number, modulesDone: number): DecideKind | null {
-  if (lessons < 1 || idx < 0) return null;
-  if (idx === lessons - 1) return DECIDE_KINDS[modulesDone % 4];
-  if (lessons >= 6 && idx === Math.floor(lessons / 2) - 1) return DECIDE_KINDS[(modulesDone + 2) % 4];
-  return null;
-}
-
-const DECIDE_BRIEF: Record<DecideKind, string> = {
-  trade: "a cross-domain trade study: one decision, 2–4 alternatives, numbers per domain from compute, and a sensitivity analysis (which parameter flips the decision, and at what value)",
-  architecture: "an architecture choice: the requirements, 2–3 candidate architectures, the pick defended against the alternatives, and the condition under which the choice flips",
-  review: "a design review: a short design note written by someone else with 3–5 planted errors across several domains (sometimes also a correct claim that looks wrong); the learner finds them, ranks them by severity and names the check that catches each",
-  agents: "leading a team of AI agents on one large engineering task: the learner sets the split between agents, the interfaces (inputs, outputs, units, formats) and the acceptance tests for each agent and for the whole, and how a wrong agent would be caught",
-};
-
-/** The line the planning turn gets when this lesson carries a decide block. */
-export function decideLine(kind: DecideKind | null) {
-  if (!kind) return "";
-  return `\nLEAD-AND-DECIDE: this lesson carries one decide block (@kind: ${kind}) in its last part, before the end blocks: ${DECIDE_BRIEF[kind]}. Build it only from results the learner has already learned (<course_memory> and this lesson), at the same depth as the lesson, in engineering language; the reference analysis goes after the --- line. Plan it in that part's "blocks".`;
 }
