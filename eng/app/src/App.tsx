@@ -43,6 +43,8 @@ import { WaitPanel } from "./components/WaitPanel";
 import { BreakLine } from "./components/BreakLine";
 import { MorningCard } from "./components/MorningCard";
 import { CloseDay } from "./components/CloseDay";
+import { TeachBack } from "./components/TeachBack";
+import type { TeachGap } from "./teachback";
 import { BookView } from "./book/Book";
 import { BookBridge } from "./book/context";
 import { useReading } from "./reading";
@@ -760,8 +762,13 @@ export function App() {
     },
     setMemoryBusy,
   });
+  // a gap that "העבר את השיעור" found (TeachBack.tsx) goes to the notebook as "להעמקה", which the tutor reads later
+  const addGap = (g: TeachGap) => {
+    const m = index?.modules.find((x) => x.id === g.moduleId);
+    if (m) void addNote("deepen", `מההסבר שלי בקול: ${g.text}`, "tutor", m, g.lesson);
+  };
   const closeDay = (variant: "home" | "lesson") =>
-    index && <CloseDay rt={rt} mods={mods} stop={stopOf(selection ?? lastSelection(), index.modules, mods)} ahead={prefetch.target} onClosed={prefetch.request} variant={variant} />;
+    index && <CloseDay rt={rt} mods={mods} stop={stopOf(selection ?? lastSelection(), index.modules, mods)} ahead={prefetch.target} onClosed={prefetch.request} onGap={addGap} variant={variant} />;
   /** the left of the lesson: the contents, or the notebook, or (mostly) neither */
   const [leftDock, setLeftDock] = usePersisted<"" | "toc" | "pad">("eng-lab:left", "");
   const tocOpen = leftDock === "toc";
@@ -1113,6 +1120,9 @@ export function App() {
                     </div>
                   )}
                 </>
+              )}
+              {hasLesson && !busy && module && lessonIdx !== undefined && (
+                <TeachBack rt={rt} kind="lesson" scopes={[{ moduleId: module.id, lesson: lessonIdx, title: lesson?.title }]} messages={messages} onGap={addGap} />
               )}
               {hasLesson && !busy && closeDay("lesson")}
               {notices.map((n, i) => (
