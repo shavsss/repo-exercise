@@ -208,6 +208,8 @@ cd /tmp/harness && python3 -m http.server 5190     # http://localhost:5190/test.
 
 ## 7. פרסום
 
+לפני פרסום: `tools/prepublish_check.sh` (נכשל אם הענף לא מכיל את `origin/main` או את ה-commit של הגרסה החיה, שרשום בשורת `- פרסום:` האחרונה ב-`docs/STATUS.md`). אחרי פרסום: שורת `- פרסום:` חדשה ב-STATUS (גרסאות, ענף, commit), ו-PR של הענף ל-main.
+
 עם כלי Artifact של Claude Code:
 
 | פעולה | מה עושים |
