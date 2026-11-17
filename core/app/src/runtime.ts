@@ -349,6 +349,21 @@ export class Store {
     await this.profile.collection("ideas").doc("store").set(clean(data));
   }
 
+  /* ---- the research proposals of the engineering cases (projects.ts): profile/projects/<id>, one document each ---- */
+  async loadProject(id: string): Promise<Record<string, unknown> | null> {
+    const s = await this.profile.collection("projects").doc(id).get();
+    return s.exists ? (s.data() as Record<string, unknown>) : null;
+  }
+
+  async listProjects(): Promise<Record<string, unknown>[]> {
+    const s = await this.profile.collection("projects").get();
+    return s.docs.map((d) => ({ ...(d.data() as Record<string, unknown>), id: d.id }));
+  }
+
+  async saveProject(id: string, data: Record<string, unknown>) {
+    await this.profile.collection("projects").doc(id).set(clean(data));
+  }
+
   /* ---- the lesson map (guide.ts): profile/guides/<module>__<lesson>, one document per lesson ---- */
   async loadGuide(key: string): Promise<Record<string, unknown> | null> {
     const s = await this.profile.collection("guides").doc(key).get();

@@ -5,6 +5,7 @@
 // tests share it. Same file in both apps.
 import type { CaseBlock, CaseRubricItem, CaseStage } from "./caseBlock";
 import type { Conf, Grade } from "./events";
+import type { StdCheck } from "./standards";
 
 export type StagePhase = "draft" | "review" | "expert" | "reflect" | "closed";
 
@@ -52,6 +53,8 @@ export interface StageWork {
   /** limits and gaps the review named (the numbers ledger) */
   numbers?: string[];
   assumptions?: CaseAssumption[];
+  /** "השוואה לסטנדרט" after the commit: one check per published template of the stage (standards.ts) */
+  std?: StdCheck[];
 }
 export interface CaseAdr {
   context: string;
@@ -59,14 +62,24 @@ export interface CaseAdr {
   alternatives: string;
   consequences: string;
   reversal: string;
+  /** Nygard's Status: proposed, accepted, deprecated, superseded (an ADR is never deleted, only superseded) */
+  status?: AdrStatus;
+  /** what a reviewer still objects to, and how it was handled (NASA decision report, Dissent) */
+  dissent?: string;
   at: number;
 }
+export type AdrStatus = "proposed" | "accepted" | "deprecated" | "superseded";
+export const ADR_STATUS_LABEL: Record<AdrStatus, string> = { proposed: "מוצע", accepted: "התקבל", deprecated: "הוצא משימוש", superseded: "הוחלף" };
 export interface CaseDoc {
   caseId: string;
   title: string;
   stages: Partial<Record<CaseStage, StageWork>>;
   adr?: CaseAdr;
   debrief?: string;
+  /** the close compared with the ADR, design-doc and review standards (standards.ts "adr", "doc", "review") */
+  closeStd?: StdCheck[];
+  /** the research proposal made from the case (projects.ts), once it is made */
+  projectId?: string;
   updatedAt: number;
 }
 
@@ -129,6 +142,16 @@ export function parseReview(text: string): { body: string; numbers: string[]; as
     .trim();
   return { body, numbers: numbers.filter(Boolean), assumptions: assumptions.filter(Boolean) };
 }
+
+/** The failure reasons of a pre-mortem (stage 6): his lines that state a reason, each a list item or its own line.
+ * Klein: every participant writes his own reasons before anyone speaks, so stage 6 asks for at least three. */
+export function premortemReasons(text: string): string[] {
+  return text
+    .split("\n")
+    .map((l) => l.replace(/^\s*(?:[-*•]|\d+[.)])\s*/, "").trim())
+    .filter((l) => l.length >= 8);
+}
+export const PREMORTEM_MIN = 3;
 
 /** The stage the learner works on: the first in @stages that is not closed (null when all are). */
 export function currentStage(c: Pick<CaseBlock, "stages">, d: CaseDoc): CaseStage | null {

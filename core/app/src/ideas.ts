@@ -1,7 +1,7 @@
 // The idea store (docs/ENGINEERING_CASE.md): the learner's own ideas, mostly from stage 8 of an engineering case
 // ("what would you do differently"), kept in one document profile/ideas/store as { items: Idea[], updatedAt }.
 // They grow from seed to project; a short list goes to the lesson planner as <idea_store>, so a case can recall a
-// fitting one. Same file in both apps.
+// fitting one. A case's ideas join its research proposal (projects.ts) and become projects when it starts. Same file in both apps.
 
 export interface Idea {
   id: string;
@@ -14,6 +14,8 @@ export interface Idea {
   stage?: string;
   status: "seed" | "growing" | "project";
   at: number;
+  /** the research proposal it belongs to (projects.ts), set when that proposal is started as a project */
+  projectId?: string;
 }
 
 interface IdeaStore {
@@ -48,6 +50,20 @@ export async function saveIdea(store: IdeaStore, idea: Idea): Promise<Idea[]> {
   const items = all.slice(-MAX_IDEAS);
   await store.saveIdeas({ items, updatedAt: Date.now() });
   return items;
+}
+
+/** "התחל פרויקט": the ideas of a proposal become projects in the store, linked to it. One write for all of them. */
+export async function markIdeasProject(store: IdeaStore, ids: string[], projectId: string): Promise<Idea[]> {
+  const all = await loadIdeas(store);
+  let changed = false;
+  for (const i of all)
+    if (ids.includes(i.id) && (i.status !== "project" || i.projectId !== projectId)) {
+      i.status = "project";
+      i.projectId = projectId;
+      changed = true;
+    }
+  if (changed) await store.saveIdeas({ items: all.slice(-MAX_IDEAS), updatedAt: Date.now() });
+  return all;
 }
 
 const STATUS_LABEL: Record<Idea["status"], string> = { seed: "זרע", growing: "מבשיל", project: "פרויקט" };
