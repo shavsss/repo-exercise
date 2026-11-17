@@ -1,0 +1,1292 @@
+[
+ {
+  "doc": "E02",
+  "path": "library/engineering/books/E02_Signals-Systems-Inference_MIT6011_2010.pdf",
+  "key": "E02",
+  "modules": {
+   "M7.19": [
+    {
+     "pages": [
+      128,
+      149
+     ],
+     "note": "פרק 8: שערוך MMSE ו-LMMSE"
+    },
+    {
+     "pages": [
+      216,
+      250
+     ],
+     "note": "פרקים 13–14: בדיקת השערות (Bayes, Neyman-Pearson, ROC) וגילוי אות ברעש לבן"
+    }
+   ]
+  },
+  "status": "ok",
+  "gaps": "ההערות של 6.011 לא מכסות MVU, Cramér-Rao, BLUE, GLRT/CFAR ובחירת סדר מודל; אלה ב-B22 (Hero)"
+ },
+ {
+  "doc": "E03",
+  "path": "library/engineering/books/E03_Feedback-Systems_Astrom-Murray_2ed.pdf",
+  "key": "E03",
+  "modules": {
+   "M5.22": [
+    {
+     "pages": [
+      294,
+      295
+     ],
+     "note": "8.5 (חלק): מימוש ממוחשב של בקר מצב, דגימה ו-ZOH"
+    },
+    {
+     "pages": [
+      389,
+      397
+     ],
+     "note": "11.4–11.5: integral windup ו-anti-windup, מימוש בקר PID במחשב"
+    }
+   ],
+   "M11.14": [
+    {
+     "pages": [
+      375,
+      397
+     ],
+     "note": "פרק 11: בקרת PID, כיוונון, windup ומימוש"
+    },
+    {
+     "pages": [
+      401,
+      423
+     ],
+     "note": "12.1–12.4: פונקציות רגישות, מפרטי ביצועים, עיצוב לולאה ו-feedforward (דחיית הפרעות)"
+    }
+   ]
+  },
+  "status": "ok",
+  "gaps": "בספר אין פרק בקרה ספרתית מלא (Z, תכנון בדיד, קוונטיזציה) ואין עיסוק בייצוב צריח; העמודים מכסים רק anti-windup, מימוש ודחיית הפרעות"
+ },
+ {
+  "doc": "E09",
+  "path": "library/engineering/books/E09_Art-of-Electronics_Horowitz-Hill_2ed.pdf",
+  "key": "E09",
+  "modules": {
+   "M11.25": [
+    {
+     "pages": [
+      930,
+      949
+     ],
+     "note": "15.01–15.05: מתמרי מדידה: טמפרטורה, אור, מעוות ותזוזה, תאוצה/לחץ/כוח, שדה מגנטי"
+    }
+   ]
+  },
+  "status": "ok"
+ },
+ {
+  "doc": "E17",
+  "path": "library/engineering/books/E17_Understanding-Deep-Learning_Prince_v5.pdf",
+  "key": "E17",
+  "modules": {
+   "M29.1": [
+    {
+     "pages": [
+      221,
+      246
+     ],
+     "note": "פרק 12: טרנספורמרים: self-attention, קידוד מיקום, שכבת טרנספורמר, BERT, GPT-3, רצפים ארוכים, ViT"
+    }
+   ]
+  },
+  "status": "ok",
+  "gaps": "הספר לא מכסה FlashAttention, RoPE, MQA/GQA, MoE, CLIP ו-SSM"
+ },
+ {
+  "doc": "E22",
+  "path": "library/engineering/books/E22_Computer-Organization-RISC-V_Patterson-Hennessy.pdf",
+  "key": "E22",
+  "modules": {
+   "M22.13": [
+    {
+     "pages": [
+      184,
+      194
+     ],
+     "note": "2.4: מספרים עם ובלי סימן"
+    },
+    {
+     "pages": [
+      218,
+      232
+     ],
+     "note": "2.8: פרוצדורות, מחסנית וערימה"
+    },
+    {
+     "pages": [
+      254,
+      283
+     ],
+     "note": "2.12–2.14: תרגום והפעלת תכנית (מהדר, אסמבלר, מקשר, טוען), דוגמת sort ב-C, מערכים מול מצביעים"
+    }
+   ]
+  },
+  "status": "ok",
+  "gaps": "הספר מלמד את C מנקודת מבט החומרה; volatile, מערכות בנייה וקריאה מ-Python לא בו"
+ },
+ {
+  "doc": "E25",
+  "path": "library/engineering/books/E25_CMOS-VLSI-Design_Weste-Harris_4ed.pdf",
+  "key": "E25",
+  "modules": {
+   "M28.3": [
+    {
+     "pages": [
+      403,
+      446
+     ],
+     "note": "10.2–10.6: סידור מעגלים סטטיים (setup/hold, הטיית שעון), latch ו-flip-flop, מתודולוגיה, סינכרונייזרים ו-metastability"
+    },
+    {
+     "pages": [
+      663,
+      672
+     ],
+     "note": "14.4: זרימות תכן (סינתזה, place & route)"
+    },
+    {
+     "pages": [
+      697,
+      699
+     ],
+     "note": "15.3: עקרונות אימות לוגי"
+    },
+    {
+     "pages": [
+      726,
+      781
+     ],
+     "note": "נספח A.1–A.10: SystemVerilog/VHDL: לוגיקה צירופית וסדרתית, FSM, פרמטרים, זיכרון, testbench"
+    }
+   ]
+  },
+  "status": "ok",
+  "gaps": "אין STA מבוסס SDC, ארכיטקטורת FPGA, SVA ו-AXI"
+ },
+ {
+  "doc": "E26",
+  "path": "library/engineering/books/E26_NASA-Systems-Engineering-Handbook_Rev2_2016.pdf",
+  "key": "E26",
+  "modules": {
+   "M27.10": [
+    {
+     "pages": [
+      72,
+      86
+     ],
+     "note": "4.3–4.4: פירוק לוגי (מודלים פונקציונליים וארכיטקטורה) והגדרת פתרון התכן"
+    },
+    {
+     "pages": [
+      140,
+      147
+     ],
+     "note": "6.2–6.3: ניהול דרישות ועקיבות, ניהול ממשקים"
+    },
+    {
+     "pages": [
+      215,
+      215
+     ],
+     "note": "נספח F: ניתוח פונקציונלי, תזמון ומצבים"
+    }
+   ]
+  },
+  "status": "partial",
+  "why": "ה-Handbook לא מכיל פרק או נספח על MBSE או SysML (מוזכר רק בביבליוגרפיה, עמ' 284–285); העמודים הם התשתית של הנדסת מערכות שעליה MBSE נשען"
+ },
+ {
+  "doc": "E30",
+  "path": "library/engineering/books/E30_Discrete-Time-Signal-Processing_Oppenheim-Schafer-Buck_2ed_scan.pdf",
+  "key": "E30",
+  "modules": {
+   "M4.17": [
+    {
+     "pages": [
+      192,
+      209
+     ],
+     "note": "4.6–4.7: שינוי קצב דגימה (דצימציה, אינטרפולציה), עיבוד רב-קצבי, פירוק פוליפאזי וזהויות noble"
+    }
+   ],
+   "M4.18": [
+    {
+     "pages": [
+      395,
+      443
+     ],
+     "note": "6.6–6.10: השפעות דיוק סופי, קוונטיזציית מקדמים, רעש עיגול, מחזורי גבול"
+    },
+    {
+     "pages": [
+      686,
+      693
+     ],
+     "note": "9.7: השפעות אורך רגיסטר סופי ב-FFT"
+    }
+   ]
+  },
+  "status": "ok",
+  "gaps": "סריקה בלי שכבת טקסט; גבולות 6.10 ו-9.7 אומתו ב-OCR. אין בספר CIC, Farrow, מסנני ערוצים (channelizer) ו-CORDIC"
+ },
+ {
+  "doc": "E31",
+  "path": "library/engineering/books/E31_Spectral-Analysis-of-Signals_Stoica-Moses_2005.pdf",
+  "key": "E31",
+  "modules": {
+   "M10.6": [
+    {
+     "pages": [
+      283,
+      305
+     ],
+     "note": "6.1–6.4: מודל המערך, beamforming קונבנציונלי ו-Capon/MVDR, שיטות פרמטריות (MUSIC, ESPRIT)"
+    }
+   ]
+  },
+  "status": "ok"
+ },
+ {
+  "doc": "E34",
+  "path": "library/engineering/books/E34_Computer-Networking_Kurose-Ross_8ed.pdf",
+  "key": "E34",
+  "modules": {
+   "M22.15": [
+    {
+     "pages": [
+      619,
+      669
+     ],
+     "note": "8.1–8.7: אבטחת רשתות: עקרונות קריפטוגרפיה, שלמות הודעה וחתימות, אימות, TLS, IPsec"
+    }
+   ],
+   "M15.2": [
+    {
+     "pages": [
+      472,
+      487
+     ],
+     "note": "6.3: פרוטוקולי גישה מרובה (MAC)"
+    },
+    {
+     "pages": [
+      543,
+      573
+     ],
+     "note": "7.1–7.3: קישורים אלחוטיים, רשתות אד-הוק, WLAN 802.11"
+    },
+    {
+     "pages": [
+      589,
+      597
+     ],
+     "note": "7.5: עקרונות ניהול ניידות"
+    }
+   ],
+   "M15.5": [
+    {
+     "pages": [
+      619,
+      620
+     ],
+     "note": "8.1: מהי אבטחת רשת, מודל התוקף"
+    },
+    {
+     "pages": [
+      635,
+      649
+     ],
+     "note": "8.3–8.4: שלמות הודעה, MAC, חתימות ואימות נקודת קצה"
+    },
+    {
+     "pages": [
+      670,
+      689
+     ],
+     "note": "8.8–8.9: אבטחת WLAN ו-4G/5G, חומות אש ו-IDS"
+    }
+   ]
+  },
+  "status": "ok",
+  "gaps": "ב-M15.2 הספר מכסה MAC ואלחוט אזרחי, לא ניתוב MANET, DTN ורדיו טקטי"
+ },
+ {
+  "doc": "E39",
+  "path": "library/engineering/books/E39_Mechanics-Thermodynamics-of-Propulsion_Hill-Peterson_2ed.pdf",
+  "key": "E39",
+  "modules": {
+   "M15.31": [
+    {
+     "pages": [
+      26,
+      28
+     ],
+     "note": "1.4: מדחפים (תורת המומנטום)"
+    },
+    {
+     "pages": [
+      202,
+      208
+     ],
+     "note": "5.6: מנועי טורבו-פרופ וטורבו-ציר"
+    }
+   ],
+   "M6.15": [
+    {
+     "pages": [
+      168,
+      176
+     ],
+     "note": "5.3: הרמג'ט"
+    },
+    {
+     "pages": [
+      270,
+      277
+     ],
+     "note": "6.5–6.6: תאי בעירה של רמג'ט ובעירה על-קולית (סקרמג'ט)"
+    },
+    {
+     "pages": [
+      526,
+      571
+     ],
+     "note": "פרק 11: תאי דחף של רקטות כימיות: ביצועים, נחירים, מעבר חום"
+    },
+    {
+     "pages": [
+      582,
+      620
+     ],
+     "note": "פרק 12: בעירה ברקטות כימיות: הנעה נוזלית ומוצקה, תאי בעירה מוצקים, אי-יציבות בעירה"
+    }
+   ]
+  },
+  "status": "partial",
+  "why": "M15.31: בספר אין פרק מדחפים ורוטורים, רק 1.4 (3 עמודים) ו-5.6; M6.15 מכוסה היטב"
+ },
+ {
+  "doc": "E48",
+  "path": "library/engineering/books/E48_Bayesian-Filtering-and-Smoothing_Sarkka_2013.pdf",
+  "key": "E48",
+  "modules": {
+   "M7.21": [
+    {
+     "pages": [
+      59,
+      65
+     ],
+     "note": "3.6: דוגמאות למודלי מרחב מצב, כולל דיסקרטיזציה של מודל רציף עם רעש לבן"
+    },
+    {
+     "pages": [
+      226,
+      226
+     ],
+     "note": "13.2: נושאים נוספים: מסננים רציפים ו-SDE (הפניות בלבד)"
+    }
+   ]
+  },
+  "status": "partial",
+  "why": "Särkkä 2013 לא מכסה SDE ו-continuous-discrete filtering (נאמר במפורש ב-13.2); זה בספר ההמשך Särkkä & Solin, Applied SDEs"
+ },
+ {
+  "doc": "E52",
+  "path": "library/engineering/books/E52_NASA-PRA-Procedures-Guide_2ed_2011.pdf",
+  "key": "E52",
+  "modules": {
+   "M27.11": [
+    {
+     "pages": [
+      73,
+      87
+     ],
+     "note": "4.3: פיתוח מודל סיכון: עצי אירועים ועצי תקלות"
+    },
+    {
+     "pages": [
+      175,
+      183
+     ],
+     "note": "9.1–9.3: סיכון תוכנה, לקחים מכשלים וסיווג כשלי תוכנה"
+    },
+    {
+     "pages": [
+      333,
+      358
+     ],
+     "note": "נספחים A–B: לוגיקה ופונקציות מבנה, התפלגויות כשל, מעריכית, Weibull, Poisson, אי-זמינות"
+    },
+    {
+     "pages": [
+      373,
+      412
+     ],
+     "note": "נספח D: דוגמאות למידול PRA לוגי (עצי תקלות בפועל)"
+    }
+   ]
+  },
+  "status": "ok",
+  "gaps": "אין ALT/HALT, צמיחת אמינות והדגמת אמינות"
+ },
+ {
+  "doc": "B02a",
+  "path": "library/military/books/02a_Principles-of-Modern-Radar-Vol2-Advanced_Melvin-Scheer_2013.pdf",
+  "key": "B02a",
+  "modules": {
+   "M5.17": [
+    {
+     "pages": [
+      694,
+      720
+     ],
+     "note": "פרק 15.1–15.4: עקיבה, gating, שיוך, MHT, IMM, VS-IMM, עקיבה רב-חיישנית"
+    }
+   ],
+   "M7.12": [
+    {
+     "pages": [
+      716,
+      720
+     ],
+     "note": "15.3: עקיבה רב-חיישנית: ארכיטקטורות היתוך, היתוך מדידות ומסלולים"
+    }
+   ],
+   "M10.6": [
+    {
+     "pages": [
+      429,
+      459
+     ],
+     "note": "9.2–9.3: יסודות beamforming ספרתי, ביטול משבשים אדפטיבי: Wiener, max SINR, LCMV, GSC, SMI"
+    }
+   ]
+  },
+  "status": "ok"
+ },
+ {
+  "doc": "B03",
+  "path": "library/military/books/03_Intro-IR-EO-Systems_Driggers_2ed_2012.pdf",
+  "key": "B03",
+  "modules": {
+   "M11.25": [
+    {
+     "pages": [
+      280,
+      299
+     ],
+     "note": "8.1–8.6: סוגי גלאים, גלאי פוטונים ותרמיים, CCD, רספונסיביות ורגישות"
+    },
+    {
+     "pages": [
+      311,
+      319
+     ],
+     "note": "8.10–8.14: גלאי IR, רעש, BLIP ומערכים חדשים"
+    }
+   ],
+   "M3.15": [
+    {
+     "pages": [
+      133,
+      173
+     ],
+     "note": "פרק 5: מקורות קרינה, מטרות ורקעים ב-IR וב-EO, ניגודיות"
+    },
+    {
+     "pages": [
+      178,
+      200
+     ],
+     "note": "פרק 6: אטמוספרה: העברה, בליעה, פיזור, path radiance"
+    }
+   ],
+   "M7.17": [
+    {
+     "pages": [
+      181,
+      193
+     ],
+     "note": "6.2–6.7: העברה אטמוספרית, בליעה, פיזור, טורבולנציה ו-MTF אטמוספרי"
+    }
+   ]
+  },
+  "status": "ok"
+ },
+ {
+  "doc": "B04",
+  "path": "library/military/books/04_EW102_Adamy_2004.pdf",
+  "key": "B04",
+  "modules": {
+   "M13.24": [
+    {
+     "pages": [
+      226,
+      235
+     ],
+     "note": "7.6–7.8: חישובי ביצועי קישור לוויני (גאוסינכרוני ו-LEO), שיבוש קישורי לוויין: downlink ו-uplink"
+    }
+   ]
+  },
+  "status": "ok"
+ },
+ {
+  "doc": "B07",
+  "path": "library/military/books/07_Air-and-Missile-Defense-SE_Boord-Hoffman_2016.pdf",
+  "key": "B07",
+  "modules": {
+   "M7.13": [
+    {
+     "pages": [
+      71,
+      78
+     ],
+     "note": "5.2–5.3: דרישות פונקציונליות של ארכיטקטורת ההגנה והקצאת פונקציות למערכות (BMC)"
+    },
+    {
+     "pages": [
+      118,
+      127
+     ],
+     "note": "6.3–6.4: הערכת מרחב הקרב וניתוח היירוט"
+    }
+   ],
+   "M7.16": [
+    {
+     "pages": [
+      55,
+      66
+     ],
+     "note": "4.4: מדדי יעילות: זמן תגובה, ציר זמן יירוט, עוצמת אש, עמידות לחדירה, כיסוי רציף"
+    },
+    {
+     "pages": [
+      118,
+      127
+     ],
+     "note": "6.3–6.4: הערכת מרחב הקרב וניתוח היירוט"
+    }
+   ]
+  },
+  "status": "partial",
+  "why": "בספר אין פרקי battle management, TEWA או הגנה בשכבות נגד RAM; העמודים הם המקבילים הקרובים (BMC פונקציונלי, ציר זמן יירוט)"
+ },
+ {
+  "doc": "B08",
+  "path": "library/military/books/08_Military-Avionics-Systems_Moir-Seabridge_2006.pdf",
+  "key": "B08",
+  "modules": {
+   "M5.13": [
+    {
+     "pages": [
+      303,
+      314
+     ],
+     "note": "8.1–8.5: עקרונות ניווט, ניווט רדיו, יסודות אינרציאלי, ניווט לווייני, ניווט משולב"
+    },
+    {
+     "pages": [
+      332,
+      347
+     ],
+     "note": "8.8–8.9: ניווט אינרציאלי ו-GNSS כולל integrity"
+    }
+   ],
+   "M15.1": [
+    {
+     "pages": [
+      71,
+      106
+     ],
+     "note": "2.1–2.5: התפתחות ארכיטקטורות (federated, IMA), ARINC 429, MIL-STD-1553B, STANAG 3910, JIAWG, אפיקי COTS, RTOS"
+    }
+   ]
+  },
+  "status": "ok",
+  "gaps": "M5.13: אין TERCOM/DSMAC, VIO או factor graphs"
+ },
+ {
+  "doc": "B10",
+  "path": "library/military/books/10_Principles-of-Naval-Weapons-Systems_Hall.pdf",
+  "key": "B10",
+  "modules": {
+   "M10.6": [
+    {
+     "pages": [
+      193,
+      226
+     ],
+     "note": "פרקים 16–17: רעש סביבה ועצמי, beamforming, משוואת הסונאר, מערכות סונאר פעיל ופסיבי, מנתח תדר, TASS"
+    }
+   ],
+   "M10.7": [
+    {
+     "pages": [
+      195,
+      200
+     ],
+     "note": "16 (חלק): רעש סביבה ורעש עצמי, משוואת הסונאר"
+    },
+    {
+     "pages": [
+      225,
+      226
+     ],
+     "note": "17 (חלק): גילוי לא-אקוסטי של צוללות"
+    },
+    {
+     "pages": [
+      32,
+      40
+     ],
+     "note": "פרק 2 (חלק): ספקטרום ואופני התפשטות: גל קרקע (ELF/VLF), גל שמיים, קו ראייה"
+    }
+   ],
+   "M10.10": [
+    {
+     "pages": [
+      299,
+      308
+     ],
+     "note": "פרק 26: טורפדות, מוקשים ימיים וניקוי מוקשים"
+    }
+   ],
+   "M11.11": [
+    {
+     "pages": [
+      253,
+      264
+     ],
+     "note": "פרק 21: בליסטיקה פנימית וחיצונית, שגיאות כיוון"
+    }
+   ]
+  },
+  "status": "ok",
+  "gaps": "M10.7: אין בספר דיון על AIP מול גרעיני ועל תקשורת VLF/ELF לצוללות, רק רעש עצמי והתפשטות"
+ },
+ {
+  "doc": "B11",
+  "path": "library/military/books/11_Tanks-100-Years_Ogorkiewicz_2015.pdf",
+  "key": "B11",
+  "modules": {
+   "M11.13": [
+    {
+     "pages": [
+      181,
+      183
+     ],
+     "note": "פרק 9 (חלק): טילי נ\"ט מונחים מול תותח הטנק"
+    },
+    {
+     "pages": [
+      188,
+      189
+     ],
+     "note": "פרק 9 (חלק): שריון ריאקטיבי ו-Drozd"
+    },
+    {
+     "pages": [
+      312,
+      329
+     ],
+     "note": "נספח II: הגנה מוגברת: שריון מורכב, ERA, מערכות הגנה אקטיביות"
+    }
+   ]
+  },
+  "status": "ok"
+ },
+ {
+  "doc": "B12",
+  "path": "library/military/books/12_SMAD",
+  "key": "B12",
+  "modules": {
+   "M13.24": [
+    {
+     "pages": [
+      472,
+      509
+     ],
+     "note": "פרק 16: מטעני תקשורת: ארכיטקטורות, ניתוח קישור, תכנון המטען, משימות לדוגמה"
+    }
+   ]
+  },
+  "status": "ok",
+  "gaps": "SMAD הוא תיקייה של קובצי PDF מפוצלים (SMAD_0401-0500 ו-SMAD_0501-0600); העמודים בספירה הגלובלית של syllabus.py"
+ },
+ {
+  "doc": "B13",
+  "path": "library/military/books/13_Tactical-Missile-Design_Fleeman_2001.pdf",
+  "key": "B13",
+  "modules": {
+   "M6.15": [
+    {
+     "pages": [
+      78,
+      107
+     ],
+     "note": "פרק 3: שיקולי הנעה: חלופות, רמג'ט (Isp, דחף, מבוא, booster), מנוע מוצק: גרעין, בקרת דחף, חומרי הנעה, מעטפת, נחיר"
+    }
+   ],
+   "M11.13": [
+    {
+     "pages": [
+      148,
+      171
+     ],
+     "note": "6.1–6.2: עמידות (חלופות ראש ביות, מכ\"ם, IIR, מולטי-מוד) וקטלניות ראש קרב (מטען חלול, EFP, KE)"
+    }
+   ]
+  },
+  "status": "ok",
+  "gaps": "סריקה בלי שכבת טקסט; גבולות לפי OCR של התוכן (PDF = עמוד מודפס + 19)"
+ },
+ {
+  "doc": "B14",
+  "path": "library/military/books/14_Combat-Modeling_Washburn-Kress_2009.pdf",
+  "key": "B14",
+  "modules": {
+   "M10.9": [
+    {
+     "pages": [
+      84,
+      97
+     ],
+     "note": "5.1–5.3: מודלי לנצ'סטר דטרמיניסטיים וסטוכסטיים (כולל הפניה למשוואות המטח של Hughes)"
+    },
+    {
+     "pages": [
+      70,
+      83
+     ],
+     "note": "פרק 4: הגנת מטרה מפני תוקפים, מטחי מיירטים"
+    }
+   ],
+   "M10.10": [
+    {
+     "pages": [
+      137,
+      164
+     ],
+     "note": "פרק 7: תורת החיפוש: רוחב סריקה, חוקי גילוי, חלוקת מאמץ, מחסום, מטרות נעות"
+    },
+    {
+     "pages": [
+      165,
+      187
+     ],
+     "note": "פרק 8: לוחמת מוקשים"
+    }
+   ]
+  },
+  "status": "ok",
+  "gaps": "M10.9: Washburn & Kress לא מפתחים את מודל המטח של Hughes, רק מפנים אליו (עמ' 86)"
+ },
+ {
+  "doc": "B15",
+  "path": "library/military/books/15_Mathematical-Methods-Defense-Analyses_Przemieniecki_3ed_2000.pdf",
+  "key": "B15",
+  "modules": {
+   "M11.12": [
+    {
+     "pages": [
+      71,
+      89
+     ],
+     "note": "3.12–3.16: נזק חלקי צפוי, פונקציות נזק, פונקציות נזק לרסיסים, רדיוס אפקטיבי של נשק"
+    }
+   ],
+   "M11.18": [
+    {
+     "pages": [
+      70,
+      89
+     ],
+     "note": "3.11–3.16: LEP/CEP/SEP, נזק חלקי צפוי, פונקציות נזק, רסיסים ורדיוס אפקטיבי"
+    }
+   ]
+  },
+  "status": "ok"
+ },
+ {
+  "doc": "B16",
+  "path": "library/military/books/16_Aircraft-Combat-Survivability_Ball_2ed_2003.pdf",
+  "key": "B16",
+  "modules": {
+   "M3.15": [
+    {
+     "pages": [
+      494,
+      502
+     ],
+     "note": "4.3.2.2–4.3.2.4: חתימת IR, חזותית ושמיעתית"
+    },
+    {
+     "pages": [
+      590,
+      597
+     ],
+     "note": "4.4.4.2–4.4.4.5: הקטנת חתימת IR, חזותית, שמיעתית ואחרות"
+    }
+   ],
+   "M8.10": [
+    {
+     "pages": [
+      475,
+      502
+     ],
+     "note": "4.3.2: חתימות כלי הטיס"
+    },
+    {
+     "pages": [
+      561,
+      616
+     ],
+     "note": "4.4: תכנון לחשיפה נמוכה: התרעה, שיבוש, הקטנת חתימה, אמצעים מתכלים, דיכוי, טקטיקה"
+    }
+   ]
+  },
+  "status": "ok"
+ },
+ {
+  "doc": "B19",
+  "path": "library/military/books/19_EM-Waves-and-Antennas_Orfanidis_2004.pdf",
+  "key": "B19",
+  "modules": {
+   "M10.12": [
+    {
+     "pages": [
+      347,
+      361
+     ],
+     "note": "פרק 20: זרמים באנטנות לינאריות: משוואות Hallén ו-Pocklington, פתרון נומרי (פונקציות פולס, MoM)"
+    },
+    {
+     "pages": [
+      374,
+      376
+     ],
+     "note": "21.6: משוואות Hallén לאנטנות צמודות ופתרונן הנומרי"
+    }
+   ]
+  },
+  "status": "ok",
+  "gaps": "Orfanidis מכסה MoM לתיל בלבד, לא FDTD"
+ },
+ {
+  "doc": "B22",
+  "path": "library/military/books/22_Statistical-Methods-for-Signal-Processing_Hero_EECS564_2016.pdf",
+  "key": "B22",
+  "modules": {
+   "M7.19": [
+    {
+     "pages": [
+      49,
+      58
+     ],
+     "note": "4.5–4.6: סטטיסטים מספיקים"
+    },
+    {
+     "pages": [
+      62,
+      114
+     ],
+     "note": "פרק 5: שערוך פרמטרי: MMSE/MAP, MVU, Cramér-Rao, ML, פרמטרים מטרידים"
+    },
+    {
+     "pages": [
+      127,
+      148
+     ],
+     "note": "פרק 6: שערוך לינארי, LMMSE, ריבועים פחותים משוקללים, BLUE במודל גאוסי"
+    },
+    {
+     "pages": [
+      202,
+      239
+     ],
+     "note": "פרק 8: יסודות הגילוי: Bayes, Neyman-Pearson, ROC"
+    },
+    {
+     "pages": [
+      245,
+      280
+     ],
+     "note": "פרק 9: השערות מורכבות: UMP, GLRT"
+    },
+    {
+     "pages": [
+      327,
+      370
+     ],
+     "note": "פרק 12: גילוי במודל גאוסי רב-ממדי: prewhitening, אותות אקראיים, estimator-correlator"
+    }
+   ]
+  },
+  "status": "ok"
+ },
+ {
+  "doc": "A02.3",
+  "path": "library/military/articles/02.3_Vo_Labeled-RFS-GLMB.pdf",
+  "key": "A02.3",
+  "modules": {
+   "M5.17": [
+    {
+     "pages": [
+      1,
+      12
+     ],
+     "note": "כל המאמר: Labeled RFS, מסנן δ-GLMB, עדכון וחיזוי, קיטום, דוגמה נומרית (בלי ביבליוגרפיה)"
+    }
+   ]
+  },
+  "status": "ok"
+ },
+ {
+  "doc": "A02.5",
+  "path": "library/military/articles/02.5_SciELO_Micro-Doppler-Drones-Birds.pdf",
+  "key": "A02.5",
+  "modules": {
+   "M9.10": [
+    {
+     "pages": [
+      1,
+      23
+     ],
+     "note": "כל המאמר: מודל הד של רחפן מרובה-רוטורים ושל ציפור, סימולציה ומדידת מיקרו-דופלר, השוואה"
+    }
+   ]
+  },
+  "status": "ok"
+ },
+ {
+  "doc": "A05.4",
+  "path": "library/military/articles/05.4_Kassas_Starlink-Carrier-Phase.pdf",
+  "key": "A05.4",
+  "modules": {
+   "M5.14": [
+    {
+     "pages": [
+      1,
+      4
+     ],
+     "note": "כל המאמר: מיקום מפאזת הגל הנושא של Starlink"
+    }
+   ]
+  },
+  "status": "ok"
+ },
+ {
+  "doc": "A05.5",
+  "path": "library/military/articles/05.5_Riley_Frequency-Stability-Analysis_NIST-SP1065.pdf",
+  "key": "A05.5",
+  "modules": {
+   "M28.5": [
+    {
+     "pages": [
+      11,
+      17
+     ],
+     "note": "1–3: יציבות תדר, מודל רעש, רעשי חוק-חזקה ומדדי יציבות"
+    },
+    {
+     "pages": [
+      19,
+      31
+     ],
+     "note": "5.1–5.2.10: Allan, modified Allan, time variance, חיזוי שגיאת זמן, Hadamard"
+    },
+    {
+     "pages": [
+      43,
+      46
+     ],
+     "note": "5.2.17–5.2.20: MTIE, TIE rms, jitter פאזה, יציבות דינמית"
+    }
+   ],
+   "M24.14": [
+    {
+     "pages": [
+      11,
+      17
+     ],
+     "note": "1–3: יציבות תדר, מודל רעש ומדדי יציבות"
+    },
+    {
+     "pages": [
+      19,
+      26
+     ],
+     "note": "5.1–5.2.4: גרף σ-τ, Allan ו-Allan חופף"
+    }
+   ],
+   "M5.14": [
+    {
+     "pages": [
+      11,
+      31
+     ],
+     "note": "1–5.2.10: יציבות תדר, מודל רעש, Allan ווריאנסים נגזרים, חיזוי שגיאת זמן (holdover)"
+    },
+    {
+     "pages": [
+      43,
+      46
+     ],
+     "note": "5.2.17–5.2.20: MTIE, TIE rms, jitter"
+    },
+    {
+     "pages": [
+      66,
+      67
+     ],
+     "note": "5.18–5.19: היסט וסחיפת תדר"
+    }
+   ]
+  },
+  "status": "ok",
+  "gaps": "M28.5: המסמך מכסה רק יציבות שעון ו-holdover, לא תזמון RTOS ו-PTP"
+ },
+ {
+  "doc": "A05.6",
+  "path": "library/military/articles/05.6_Woodman_Inertial-Navigation_TR696.pdf",
+  "key": "A05.6",
+  "modules": {
+   "M11.25": [
+    {
+     "pages": [
+      8,
+      20
+     ],
+     "note": "3–5: ג'ירו ומד-תאוצה MEMS, מאפייני שגיאה, Allan variance"
+    }
+   ],
+   "M5.13": [
+    {
+     "pages": [
+      8,
+      27
+     ],
+     "note": "3–6: חיישנים ושגיאותיהם, Allan variance, ניווט strapdown והתפשטות שגיאה"
+    },
+    {
+     "pages": [
+      33,
+      34
+     ],
+     "note": "8: הקטנת סחיפה: היתוך עם מיקום מוחלט ומגנטומטרים, הנחות תחום (ZUPT)"
+    }
+   ]
+  },
+  "status": "ok"
+ },
+ {
+  "doc": "A06.2",
+  "path": "library/military/articles/06.2_Acton_Hypersonic-Boost-Glide.pdf",
+  "key": "A06.2",
+  "modules": {
+   "M6.16": [
+    {
+     "pages": [
+      1,
+      25
+     ],
+     "note": "כל המאמר: מודל דאייה, ניסויי HTV-2, השלכות להגנה ויציבות אסטרטגית (בלי הערות ומקורות)"
+    }
+   ]
+  },
+  "status": "ok"
+ },
+ {
+  "doc": "A08.4",
+  "path": "library/military/articles/08.4_SISO-STD-002-2021_Link16.pdf",
+  "key": "A08.4",
+  "modules": {
+   "M15.3": [
+    {
+     "pages": [
+      14,
+      19
+     ],
+     "note": "3: הגדרות (NPG, חריצי זמן, JU ועוד)"
+    },
+    {
+     "pages": [
+      20,
+      43
+     ],
+     "note": "4.1–4.2: מאפייני הפעלה של JTIDS, רמות נאמנות, סנכרון זמן, מימוש ב-DIS"
+    },
+    {
+     "pages": [
+      69,
+      88
+     ],
+     "note": "נספח B.2: נתוני Link 16, כותרות והודעות JTIDS, RTT, קול, VMF"
+    }
+   ]
+  },
+  "status": "ok"
+ },
+ {
+  "doc": "A08.9",
+  "path": "library/military/articles/08.9_RAND-MG268_Link16-Air-Combat.pdf",
+  "key": "A08.9",
+  "modules": {
+   "M15.3": [
+    {
+     "pages": [
+      18,
+      35
+     ],
+     "note": "תקציר"
+    },
+    {
+     "pages": [
+      40,
+      49
+     ],
+     "note": "פרק 1: מבוא ומסגרת NCO"
+    },
+    {
+     "pages": [
+      58,
+      75
+     ],
+     "note": "פרקים 3–5: מאפייני הכוח, איכות מידע אורגני ומידת הרישות"
+    },
+    {
+     "pages": [
+      102,
+      121
+     ],
+     "note": "פרקים 10–11: קבלת החלטות, הקשר ליעילות המשימה ומסקנות"
+    }
+   ]
+  },
+  "status": "ok"
+ },
+ {
+  "doc": "A10.3",
+  "path": "library/military/articles/10.3_Kumar_Ship-Defense-Chaff.pdf",
+  "key": "A10.3",
+  "modules": {
+   "M10.9": [
+    {
+     "pages": [
+      9,
+      54
+     ],
+     "note": "פרקים I–II: האיום, בעיית הגילוי, השמדה קשה ורכה, מוץ (chaff)"
+    },
+    {
+     "pages": [
+      63,
+      74
+     ],
+     "note": "פרקים V–IX: מודל הטיל והספינה, ניתוח התוכנית"
+    }
+   ]
+  },
+  "status": "ok"
+ },
+ {
+  "doc": "A10.5",
+  "path": "library/military/articles/10.5_Coraluppi_Active-Sonar-Tracking.pdf",
+  "key": "A10.5",
+  "modules": {
+   "M10.6": [
+    {
+     "pages": [
+      1,
+      5
+     ],
+     "note": "כל המאמר: עקיבה בסונאר פעיל"
+    }
+   ]
+  },
+  "status": "ok"
+ },
+ {
+  "doc": "D8",
+  "path": "library/military/doctrine/D8_ATP3-09.12_FA-Target-Acquisition_2015.pdf",
+  "key": "D8",
+  "modules": {
+   "M11.19": [
+    {
+     "pages": [
+      11,
+      40
+     ],
+     "note": "פרקים 1–3: איתור מטרות לארטילריה, אש נגד (counterfire), היבטים טכניים של מכ\"מי איתור נשק"
+    }
+   ]
+  },
+  "status": "ok"
+ },
+ {
+  "doc": "D9",
+  "path": "library/military/doctrine/D9_ATP3-01.81_Counter-UAS_2023.pdf",
+  "key": "D9",
+  "modules": {
+   "M9.10": [
+    {
+     "pages": [
+      9,
+      38
+     ],
+     "note": "פרקים 1–3: איום הכטב\"מים, תכנון בשכבות, פעולות C-UAS הגנתיות (פסיביות ואקטיביות)"
+    },
+    {
+     "pages": [
+      47,
+      50
+     ],
+     "note": "נספח B: דוגמאות לציוד C-UAS"
+    }
+   ]
+  },
+  "status": "ok"
+ },
+ {
+  "doc": "D10",
+  "path": "library/military/doctrine/D10_JP3-60_Joint-Targeting_2013.pdf",
+  "key": "D10",
+  "modules": {
+   "M7.15": [
+    {
+     "pages": [
+      87,
+      94
+     ],
+     "note": "נספח A: שיקולים משפטיים במטרות (דיני מלחמה, ROE, מידתיות)"
+    },
+    {
+     "pages": [
+      45,
+      46
+     ],
+     "note": "II, שלב 3 (חלק): weaponeering ו-CDE"
+    }
+   ],
+   "M11.18": [
+    {
+     "pages": [
+      43,
+      49
+     ],
+     "note": "II, שלבים 3–4: ניתוח יכולות, weaponeering, CDE, החלטת מפקד והקצאת כוח"
+    }
+   ]
+  },
+  "status": "ok",
+  "gaps": "ב-JP 3-60 גרסת 2013 אין נספח CDE נפרד; CDE מופיע בשלב 3 של מחזור המטרות ובנספח A"
+ }
+]

@@ -1,0 +1,687 @@
+[
+ {
+  "doc": "W04",
+  "key": "ostep",
+  "path": "library/engineering/free/W04_ostep_three_easy_pieces.pdf",
+  "title": "Operating Systems: Three Easy Pieces",
+  "author": "Arpaci-Dusseau & Arpaci-Dusseau",
+  "edition": "v1.10 per-chapter PDFs, chapters 1-57 + preface + TOC",
+  "source_url": "https://pages.cs.wisc.edu/~remzi/OSTEP/ (per-chapter PDFs)",
+  "pdf_pages": 784,
+  "text_ok": true,
+  "method": "bundle",
+  "modules": {
+   "M22.14": [
+    {
+     "pages": [
+      51,
+      146
+     ],
+     "note": "פרקים 4–10: תהליכים, process API, limited direct execution ו-context switch, תזמון: FIFO/SJF/RR, MLFQ, lottery, ריבוי מעבדים"
+    },
+    {
+     "pages": [
+      151,
+      310
+     ],
+     "note": "פרקים 13–23: זיכרון וירטואלי: address spaces, תרגום כתובות, segmentation, paging, TLB, טבלאות דפים מתקדמות, swapping ומדיניות החלפה, מערכות VM שלמות"
+    },
+    {
+     "pages": [
+      318,
+      450
+     ],
+     "note": "פרקים 26–33: threads, locks ופעולות אטומיות, מבני נתונים נעולים, condition variables, semaphores ו-producer/consumer, באגי מקביליות ו-deadlock, event-based concurrency"
+    },
+    {
+     "pages": [
+      457,
+      486
+     ],
+     "note": "פרקים 36–37: התקני I/O: interrupts, polling, DMA; דיסקים קשיחים"
+    },
+    {
+     "pages": [
+      534,
+      551
+     ],
+     "note": "פרק 40: מימוש מערכת קבצים (רקע לפרק 42)"
+    },
+    {
+     "pages": [
+      566,
+      586
+     ],
+     "note": "פרק 42: FSCK ו-journaling: עקביות לאחר קריסה"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "the authors publish no single free PDF; downloaded each chapter PDF from the official page and united in chapter order (preface 1, TOC 14, ch1 26, ch4 51, ch13 151, ch26 318, ch36 457, ch39 505, ch42 566, ch48 645, ch53 698)"
+  ],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "W09",
+  "key": "sundials_docs",
+  "path": "library/engineering/free/W09_sundials_math_considerations.pdf",
+  "title": "SUNDIALS documentation (CVODE, IDA, sensitivity analysis)",
+  "author": "LLNL (Hindmarsh, Reynolds, Serban, Woodward et al.)",
+  "edition": "readthedocs latest (rendered 15.11.2026), Mathematical Considerations chapters only",
+  "source_url": "https://sundials.readthedocs.io/en/latest/{cvode,ida,cvodes,idas,arkode}/Mathematics_link.html",
+  "pdf_pages": 104,
+  "text_ok": true,
+  "method": "html-render",
+  "modules": {
+   "M10.13": [
+    {
+     "pages": [
+      1,
+      12
+     ],
+     "note": "CVODE: שיטות BDF ו-Adams (multistep), בקרת שגיאה וגודל צעד, איטרציות Newton בתוך הצעד הסתום, Jacobian, מציאת שורשים (events)"
+    },
+    {
+     "pages": [
+      13,
+      21
+     ],
+     "note": "IDA: משוואות דיפרנציאליות-אלגבריות (DAE), BDF ל-DAE, תנאי התחלה עקביים"
+    },
+    {
+     "pages": [
+      22,
+      42
+     ],
+     "note": "CVODES: רגישות קדמית (forward) ו-adjoint ל-ODE, checkpointing"
+    },
+    {
+     "pages": [
+      43,
+      62
+     ],
+     "note": "IDAS: רגישות forward ו-adjoint ל-DAE"
+    },
+    {
+     "pages": [
+      63,
+      104
+     ],
+     "note": "ARKODE: שיטות Runge-Kutta מפורשות, סתומות ו-IMEX, בקרת צעד אדפטיבית, יציבות, שיטות symplectic/relaxation (אינטגרטורים גאומטריים)"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "readthedocs PDF export (/_/downloads/en/latest/pdf/) 404",
+   "LLNL guide PDFs only on github.com releases, blocked for this session (GitHub access not enabled; github.com 403 from the session git proxy policy)",
+   "rendered the five Mathematical Considerations pages with Playwright (MathJax rendered) and united"
+  ],
+  "blocked_hosts": [
+   "github.com (session GitHub policy, not network)"
+  ]
+ },
+ {
+  "doc": "W14",
+  "key": "mil_hdbk_338b",
+  "path": "library/engineering/free/W14_mil_hdbk_338b_reliability.pdf",
+  "title": "MIL-HDBK-338B, Electronic Reliability Design Handbook",
+  "author": "US DoD",
+  "edition": "MIL-HDBK-338B, 1 Oct 1998 (base, without notices)",
+  "source_url": "https://everyspec.com/MIL-HDBK/MIL-HDBK-0300-0499/download.php?spec=MIL-HDBK-338B.015041.pdf",
+  "pdf_pages": 1046,
+  "text_ok": true,
+  "method": "direct",
+  "modules": {
+   "M27.11": [
+    {
+     "pages": [
+      83,
+      172
+     ],
+     "note": "פרק 5: תורת R/M/A: פונקציית סיכון, התפלגויות (exponential, Weibull, lognormal), מודלי כשל, בייס, maintainability ו-availability, trade-offs"
+    },
+    {
+     "pages": [
+      191,
+      246
+     ],
+     "note": "סעיף 6.4–6.5: מודלי אמינות ו-RBD (טורי, מקבילי, k-of-n), חיזוי אמינות כולל physics-of-failure (עמ׳ 216)"
+    },
+    {
+     "pages": [
+      248,
+      283
+     ],
+     "note": "סעיפים 7.2–7.3: ניהול רכיבים, מנגנוני כשל ו-derating (בסיס physics of failure)"
+    },
+    {
+     "pages": [
+      433,
+      467
+     ],
+     "note": "סעיפים 7.8–7.9: FMEA/FMECA ו-Fault Tree Analysis"
+    },
+    {
+     "pages": [
+      542,
+      710
+     ],
+     "note": "פרק 8: ניתוח נתוני אמינות כולל Weibull (8.3), הדגמת אמינות (8.4), reliability growth (8.5), בדיקות מואצות, HALT/HASS (8.7)"
+    },
+    {
+     "pages": [
+      711,
+      780
+     ],
+     "note": "פרק 9: Software reliability"
+    },
+    {
+     "pages": [
+      781,
+      900
+     ],
+     "note": "פרק 10: הנדסת אמינות מערכת: מודלי R&M למערכות ניתנות לתיקון (Markov), availability, הקצאת אמינות"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "everyspec download.php needs the spec page as Referer; with it, returns the full 1046-page PDF"
+  ],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "W19",
+  "key": "rawlings_mpc",
+  "path": "library/engineering/free/W19_rawlings_mayne_diehl_mpc.pdf",
+  "title": "Model Predictive Control: Theory, Computation, and Design",
+  "author": "Rawlings, Mayne & Diehl",
+  "edition": "2nd ed., 6th printing (free PDF from the authors; printed page = PDF page - 50)",
+  "source_url": "https://sites.engineering.ucsb.edu/~jbraw/mpc/MPC-book-2nd-edition-6th-printing.pdf",
+  "pdf_pages": 821,
+  "text_ok": true,
+  "method": "direct",
+  "modules": {
+   "M5.19": [
+    {
+     "pages": [
+      51,
+      138
+     ],
+     "note": "פרק 1: Getting started: MPC רגולטורי ליניארי, LQR, הערכת מצב (Kalman/MHE), tracking ו-zero offset"
+    },
+    {
+     "pages": [
+      139,
+      242
+     ],
+     "note": "פרק 2: MPC regulation: ניסוח, פתרון בתכנות דינמי (Bellman), יציבות ו-recursive feasibility, terminal set, suboptimal ו-economic MPC"
+    },
+    {
+     "pages": [
+      243,
+      318
+     ],
+     "note": "פרק 3: Robust and stochastic MPC: min-max, tube-based MPC ליניארי ולא-ליניארי, stochastic MPC"
+    },
+    {
+     "pages": [
+      397,
+      406
+     ],
+     "note": "סעיף 5.5: Offset-free MPC (מודל הפרעה ומשערך)"
+    },
+    {
+     "pages": [
+      535,
+      630
+     ],
+     "note": "פרק 8: Numerical optimal control: סימולציה, נגזרות ו-AD, single/multiple shooting ו-collocation (8.5), SQP, real-time iteration (8.9.2). HJB מוזכר רק בקצרה (עמ׳ 543); אין טיפול מעמיק ב-Pontryagin"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "W24",
+  "key": "madhow_intro",
+  "path": "library/engineering/free/W24_madhow_intro_comm_systems.pdf",
+  "title": "Introduction to Communication Systems (author draft)",
+  "author": "Madhow",
+  "edition": "Jan 2014 draft of the CUP 2014 book",
+  "source_url": "https://wcsl.ece.ucsb.edu/sites/default/files/f/intro_comm_systems_madhow_jan2014b_0.pdf",
+  "pdf_pages": 469,
+  "text_ok": true,
+  "method": "direct",
+  "modules": {
+   "M23.17": [
+    {
+     "pages": [
+      153,
+      196
+     ],
+     "note": "פרק 4: Digital modulation: קונסטלציות, רוחב סרט, קריטריון Nyquist ועיצוב פולסים, אפנון אורתוגונלי"
+    },
+    {
+     "pages": [
+      289,
+      360
+     ],
+     "note": "פרק 6: Optimal demodulation: בדיקת השערות, מרחב אותות וסטטיסטיקה מספקת, מקלט ML ב-AWGN, הסתברות שגיאה ל-M-ary, link budget"
+    },
+    {
+     "pages": [
+      399,
+      469
+     ],
+     "note": "פרק 8: Dispersive channels: מודל single-carrier, השוואה ליניארית ZF/MMSE (8.2), OFDM"
+    },
+    {
+     "pages": [
+      123,
+      131
+     ],
+     "note": "סעיף 3.5: Phase locked loop (בסיס לשחזור תדר ופאזת נושא)"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "W28",
+  "key": "degen_qs",
+  "path": "library/engineering/free/W28_degen_quantum_sensing.pdf",
+  "title": "Quantum Sensing",
+  "author": "Degen, Reinhard & Cappellaro",
+  "edition": "arXiv 1611.02427 (author version of Rev. Mod. Phys. 89, 035002, 2017)",
+  "source_url": "https://arxiv.org/pdf/1611.02427",
+  "pdf_pages": 45,
+  "text_ok": true,
+  "method": "direct",
+  "modules": {
+   "M24.14": [
+    {
+     "pages": [
+      1,
+      36
+     ],
+     "note": "כולו (גוף המאמר): הגדרות, סוגי חיישנים קוונטיים (III: אטומים, NV, SQUID, שעונים), פרוטוקול חישה ו-Ramsey (IV), רגישות, SQL ורעש (V), חישת AC וספקטרוסקופיית רעש (VI–VII), חישה בעזרת שזירה ו-Heisenberg (IX–X); עמ׳ 37–104 הם רשימת המקורות"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "W31",
+  "key": "sola_lie",
+  "path": "library/engineering/free/W31_sola_micro_lie_theory.pdf",
+  "title": "A micro Lie theory for state estimation in robotics",
+  "author": "Solà, Deray & Atchuthan",
+  "edition": "arXiv 1812.01537 (latest version)",
+  "source_url": "https://arxiv.org/pdf/1812.01537",
+  "pdf_pages": 17,
+  "text_ok": true,
+  "method": "direct",
+  "modules": {
+   "M19.12": [
+    {
+     "pages": [
+      1,
+      17
+     ],
+     "note": "כולו: תורת Lie מצומצמת (SO(3), SE(3), Jacobians על יריעות) ודוגמת לוקליזציה ומיפוי עם landmarks (פרק V, עמ׳ 12)"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "X08",
+  "key": "lavalle_planning",
+  "path": "library/military/free/X08_lavalle_planning_algorithms.pdf",
+  "title": "Planning Algorithms",
+  "author": "LaValle",
+  "edition": "CUP 2006, author free PDF (one page per sheet edition)",
+  "source_url": "https://lavalle.pl/planning/bookbig.pdf",
+  "pdf_pages": 1023,
+  "text_ok": true,
+  "method": "direct",
+  "modules": {
+   "M11.16": [
+    {
+     "pages": [
+      731,
+      802
+     ],
+     "note": "פרק 13: Differential models: אילוצי מהירות ורכבים לא-הולונומיים, phase space, מכניקה בסיסית"
+    },
+    {
+     "pages": [
+      803,
+      876
+     ],
+     "note": "פרק 14: Sampling-based planning under differential constraints: reachability, RRT קינודינמי, תכנון משוב ותכנון מנותק (path + trajectory), אופטימיזציית מסלול"
+    },
+    {
+     "pages": [
+      877,
+      940
+     ],
+     "note": "פרק 15: System theory: DP רציף, מסלולים אופטימליים לרכבים גלגליים (Dubins/Reeds-Shepp), תורת מערכות לא-הולונומיות ו-steering"
+    },
+    {
+     "pages": [
+      656,
+      700
+     ],
+     "note": "סעיפים 12.2–12.3: לוקליזציה ומיפוי תחת אי-ודאות (רלוונטי לניווט ללא GNSS)"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "book.pdf/booka4.pdf are two-pages-per-sheet; chose bookbig.pdf (one book page per PDF page) for clean page ranges"
+  ],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "W35",
+  "key": "nist_800_193",
+  "path": "library/engineering/free/W35_nist_sp800_193_firmware_resiliency.pdf",
+  "title": "NIST SP 800-193, Platform Firmware Resiliency Guidelines",
+  "author": "NIST",
+  "edition": "May 2018",
+  "source_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-193.pdf",
+  "pdf_pages": 45,
+  "text_ok": true,
+  "method": "direct",
+  "modules": {
+   "M28.6": [
+    {
+     "pages": [
+      1,
+      45
+     ],
+     "note": "כולו: ארכיטקטורת פלטפורמה (2), עקרונות: roots of trust, הגנה, זיהוי ושחזור (3), הנחיות אבטחת קושחה ועדכון מאובטח (4)"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "W55",
+  "key": "vision_papers",
+  "path": "library/engineering/free/W55_vision_papers_detr_sam_nerf_3dgs.pdf",
+  "title": "DETR (arXiv 2005.12872); DINOv2 (2304.07193); SAM (2304.02643); SAM 2 (2408.00714); NeRF (2003.08934); 3D Gaussian Splatting (2308.04079); DreamerV3 (2301.04104)",
+  "author": "Carion; Oquab; Kirillov; Ravi; Mildenhall; Kerbl; Hafner et al.",
+  "edition": "latest arXiv versions; 3DGS = authors low-res-image version of the ACM ToG 2023 paper",
+  "source_url": "https://arxiv.org/pdf/{2005.12872,2304.07193,2304.02643,2408.00714,2003.08934,2301.04104}; 3DGS: https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/3d_gaussian_splatting_low.pdf",
+  "pdf_pages": 209,
+  "text_ok": true,
+  "method": "bundle",
+  "modules": {
+   "M29.5": [
+    {
+     "pages": [
+      1,
+      26
+     ],
+     "note": "DETR (Carion et al. 2020): זיהוי כחיזוי קבוצה, Hungarian matching"
+    },
+    {
+     "pages": [
+      27,
+      58
+     ],
+     "note": "DINOv2 (Oquab et al. 2023/24): ייצוגים חזותיים בלמידה עצמית"
+    },
+    {
+     "pages": [
+      59,
+      88
+     ],
+     "note": "Segment Anything (SAM, Kirillov et al. 2023)"
+    },
+    {
+     "pages": [
+      89,
+      130
+     ],
+     "note": "SAM 2: סגמנטציה בתמונות ובווידאו (Ravi et al. 2024)"
+    },
+    {
+     "pages": [
+      131,
+      155
+     ],
+     "note": "NeRF (Mildenhall et al. 2020)"
+    },
+    {
+     "pages": [
+      156,
+      169
+     ],
+     "note": "3D Gaussian Splatting (Kerbl et al. 2023)"
+    },
+    {
+     "pages": [
+      170,
+      209
+     ],
+     "note": "DreamerV3 (Hafner et al.): world models"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "arXiv 2308.04079 PDF of 3DGS is 35 MB; used the authors official low-res version (24 MB, same text) to keep the bundle at 76 MB"
+  ],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "X11",
+  "key": "nrc_auv",
+  "path": "library/military/free/X11_nrc_autonomous_vehicles_naval_ops.pdf",
+  "title": "Autonomous Vehicles in Support of Naval Operations",
+  "author": "National Research Council",
+  "edition": "NRC 2005, doi 10.17226/11379 (text from the official NAP online reader)",
+  "source_url": "https://www.nationalacademies.org/read/11379 (chapters 1-13)",
+  "pdf_pages": 233,
+  "text_ok": true,
+  "method": "html-render",
+  "modules": {
+   "M10.8": [
+    {
+     "pages": [
+      30,
+      52
+     ],
+     "note": "פרק 2: חזון ימי, משימות ויישומי כלים אוטונומיים"
+    },
+    {
+     "pages": [
+      53,
+      84
+     ],
+     "note": "פרק 3: טכנולוגיית אוטונומיה: יכולות ופוטנציאל"
+    },
+    {
+     "pages": [
+      85,
+      115
+     ],
+     "note": "פרק 4: כטב\"מים (UAV), כולל נחילים ואיומים"
+    },
+    {
+     "pages": [
+      116,
+      133
+     ],
+     "note": "פרק 5: כלי שטח ותת-ימיים (USV/UUV): ניווט, אנרגיה, תקשורת, תוכנית האב של ה-UUV"
+    },
+    {
+     "pages": [
+      189,
+      204
+     ],
+     "note": "נספח B: אילוצים פיזיקליים: scaling, אנרגיה, חישה ותקשורת (תת-ימית)"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "nap.nationalacademies.org/catalog/11379 -> free PDF download requires NAP account/guest login with email (not done, no personal data sent); legacy download.cgi and /download/11379 404; DTIC mirror 403 (apps.dtic.mil); rendered the official NAP online reader (text pages) chapter by chapter with Playwright and united. Chapter starts in PDF: front matter 1, exec summary 13, ch1 24, ch2 30, ch3 53, ch4 85, ch5 116, ch6 134, ch7 154, app A 179, app B 189, app C 205, app D 218"
+  ],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "X16",
+  "key": "crs_dew",
+  "path": "library/military/free/X16_crs_r46925_directed_energy.pdf",
+  "title": "Department of Defense Directed Energy Weapons: Background and Issues for Congress (R46925)",
+  "author": "Congressional Research Service",
+  "edition": "R46925 version 11, updated July 11 2024",
+  "source_url": "https://www.congress.gov/crs_external_products/R/PDF/R46925/R46925.11.pdf",
+  "pdf_pages": 27,
+  "text_ok": true,
+  "method": "direct",
+  "modules": {
+   "M7.17": [
+    {
+     "pages": [
+      1,
+      27
+     ],
+     "note": "כולו: סקירת נשק אנרגיה מכוונת (HEL ו-HPM), מפת הדרכים של DoD, תוכניות חיל האוויר, היבשה והים (DE M-SHORAD, IFPC-HEL, HELIOS) ושאלות לקונגרס. הערה: דו״ח מדיניות, לא מכסה פיזיקת התפשטות קרן"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "crsreports.congress.gov/product/pdf/R/R46925 returned 403 (site Access Denied, not the proxy); congress.gov crs_external_products path works; probed versions .12/.13 = 404, so .11 is latest"
+  ],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "X26",
+  "key": "fm_3_09",
+  "path": "library/military/free/X26_fm_3_09_fire_support_fa_ops.pdf",
+  "title": "FM 3-09, Fire Support and Field Artillery Operations",
+  "author": "US Army",
+  "edition": "August 2024 (supersedes the 2020 edition named in the slice)",
+  "source_url": "https://armypubs.army.mil/epubs/DR_pubs/DR_a/ARN41659-FM_3-09-000-WEB-2.pdf",
+  "pdf_pages": 284,
+  "text_ok": true,
+  "method": "direct",
+  "modules": {
+   "M11.19": [
+    {
+     "pages": [
+      35,
+      56
+     ],
+     "note": "פרק 2: מערכת הסיוע באש: חיישנים, מערכות שיגור (קנה מול רקטות), C2 ואיתור מטרות"
+    },
+    {
+     "pages": [
+      99,
+      116
+     ],
+     "note": "פרק 4: מבצעי ארטילריה שדה, כולל חמש הדרישות לאש חזויה מדויקת (110–113), מיקום ותנועה, אש נגד-סוללות"
+    },
+    {
+     "pages": [
+      123,
+      164
+     ],
+     "note": "פרק 6: סיוע באש לעומק במלחמה בקנה מידה גדול: אש ארוכת טווח, counterfire, תפקיד הכטב\"מ"
+    },
+    {
+     "pages": [
+      207,
+      218
+     ],
+     "note": "נספח C: פעולה בסביבה מוכחשת/מושפלת (כולל GPS/GNSS denial) וחמש הדרישות במצב מושפל"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "armypubs.army.mil root is a portal; found PUB_ID=1029519 via FM listing; the current edition is Aug 2024"
+  ],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "X31",
+  "key": "uk_wargaming",
+  "path": "library/military/free/X31_uk_wargaming_handbook.pdf",
+  "title": "Wargaming Handbook",
+  "author": "UK MOD, DCDC",
+  "edition": "DCDC, August 2017",
+  "source_url": "https://assets.publishing.service.gov.uk/media/5a82e90d40f0b6230269d575/doctrine_uk_wargaming_handbook.pdf",
+  "pdf_pages": 112,
+  "text_ok": true,
+  "method": "direct",
+  "modules": {
+   "M14.8": [
+    {
+     "pages": [
+      1,
+      112
+     ],
+     "note": "כולו: פרק 1 מבוא ומטרות (13), פרק 2 יסודות (31), פרק 3 סוגים וגרסאות כולל matrix ו-seminar (51), פרק 4 תהליך: תכנון, שיפוט, ניתוח ודיווח (63), נספח A יישומים בבעיות הגנה (77)"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "X36",
+  "key": "ufc_3_340_02",
+  "path": "library/military/free/X36_ufc_3_340_02_accidental_explosions.pdf",
+  "title": "UFC 3-340-02, Structures to Resist the Effects of Accidental Explosions",
+  "author": "US DoD",
+  "edition": "5 Dec 2008, Change 2 (1 Sep 2014)",
+  "source_url": "https://www.wbdg.org/FFC/DOD/UFC/ufc_3_340_02_dplot_v2.zip",
+  "pdf_pages": 1982,
+  "text_ok": true,
+  "method": "bundle",
+  "modules": {
+   "M11.17": [
+    {
+     "pages": [
+      66,
+      94
+     ],
+     "note": "פרק 2, סעיפים 2-7 עד 2-14: תופעות הדף, שקילות TNT, קטגוריות העמסה, פיצוץ לא כלוא ו-2-14 Confined explosions (לחץ הלם פנימי ולחץ גזים, עמ׳ 80–94)"
+    },
+    {
+     "pages": [
+      391,
+      406
+     ],
+     "note": "פרק 2, סעיפים 2-20 עד 2-24: הלם קרקע, הלם אוויר ותנועות מבנה (רלוונטי לפיצוץ בתת-קרקע)"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "WBDG page is a JS app; the linked PDF (ufc_3_340_02_2008_c2.pdf) is a 12-page cover; full text is in the official zip as a PDF portfolio: extracted 13 embedded PDFs (cover, ch.1-6, app.1-6) and united in order. Part starts: cover 1, ch1 10, ch2 48, ch3 407, ch4 859, ch5 1146, ch6 1269, app1 1482, app2 1486, app3 1633, app4 1688, app5 1824, app6 1902"
+  ],
+  "blocked_hosts": []
+ }
+]

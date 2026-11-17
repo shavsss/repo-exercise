@@ -29,7 +29,7 @@ import { asGuide } from "./guide";
 import { setLevel3Scope } from "./level3";
 import { SourceTag } from "./components/blocks/SourceTag";
 import { Icon } from "./components/Icon";
-import { RingMap } from "./components/RingMap";
+import { Roadmap } from "./components/Roadmap";
 import { NotesPanel } from "./components/NotesPanel";
 import { ModuleTopics, ReadingList } from "./components/ReadingList";
 import { LabTabView, LabTabsNav, useNewsUnread, type LabTab } from "./labtabs/LabTabs";
@@ -850,7 +850,10 @@ export function App() {
   if (isQuiz && !busy && !messages.length) quick.push({ label: "התחל את המבחן", text: `התחל את המבחן המסכם של מודול ${module?.id}.`, mode: "quiz", primary: true });
 
   const status = !rt ? "connecting" : rt.sample ? "live" : "off";
-  const sideVisible = narrow() || bookOn ? sideOpen : sidePref === "open";
+  // the panel opens over the text (sideOpen) on a narrow screen, in a book lesson and in focus mode,
+  // where the remembered side preference would leave it hidden
+  const overlaySide = () => narrow() || bookOn || document.documentElement.dataset.focus === "on";
+  const sideVisible = overlaySide() ? sideOpen : sidePref === "open";
   const nextLesson = lessonIdx !== undefined && lessonIdx >= 0 && lessonIdx + 1 < nLessons ? lessonIdx + 1 : lessonIdx !== undefined && lessonIdx >= 0 && lessonIdx + 1 === nLessons ? -1 : null;
   const mdCtx = useMemo(() => ({ live: false, idPrefix: "page", openSource }), [openSource]);
 
@@ -864,7 +867,19 @@ export function App() {
         sideOpen={sideVisible}
         viewerOpen={!!viewer}
         memoryBusy={memoryBusy}
-        onToggleSide={() => (narrow() || bookOn ? setSideOpen(!sideOpen) : setSidePref(sidePref === "open" ? "closed" : "open"))}
+        onToggleSide={() => {
+          // from another tab the menu goes back to the lessons with the module list open
+          if (tab !== "study") {
+            setTab("study");
+            if (overlaySide()) setSideOpen(true);
+            else setSidePref("open");
+          } else if (overlaySide()) setSideOpen(!sideOpen);
+          else setSidePref(sidePref === "open" ? "closed" : "open");
+        }}
+        onHome={() => {
+          setTab("study");
+          setSelection(null);
+        }}
         onToggleViewer={
           viewer || module
             ? () => {
@@ -1253,7 +1268,7 @@ function Overview({ index, done, mods, onSelect, morning }: { index: LibraryInde
       <HomeHero code="GILUA · ENG LAB" title="גילואה" sub="הנדסה ברמה 2.5: מבנה, מקור, גבולות, סדר גודל, פשרה, מבנה משותף וביקורת. עמוד שדרה, חמישה צמתים, גשרים ופריפריה, מתוך הספרייה." index={index} done={done} mods={mods} onSelect={onSelect} />
       {morning}
       <h2 className="section-title">מפת תוכנית הלימודים</h2>
-      <RingMap index={index} done={done} mods={mods} onSelect={onSelect} />
+      <Roadmap index={index} done={done} mods={mods} onSelect={onSelect} motif="wave" />
       <h2 className="section-title">{started.length ? "להמשיך מכאן" : "מודולים זמינים להתחלה"}</h2>
       <ul className="cards">
         {pick.map((m) => {

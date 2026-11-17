@@ -32,6 +32,9 @@ sys.path.insert(0, str(LIB / "syllabus"))
 from syllabus import DOCS  # noqa: E402
 
 sys.path.insert(0, str(ROOT / "core" / "tools"))
+from images import save_webp  # noqa: E402
+
+sys.path.insert(0, str(ROOT / "core" / "tools"))
 from source_pdf import source_pdf  # noqa: E402
 
 CAPTION = re.compile(r"^\s*(FIGURE|Figure|FIG\.|Fig\.|Plate|PLATE)\s*[A-Z]?\d+([-.–]\d+[a-z]?)?\b|^\s*(ABOVE|BELOW|LEFT|RIGHT|TOP|BOTTOM|OPPOSITE)\s*[•·]")
@@ -334,8 +337,7 @@ def crop(pdf, page, box, out):
     im = img.crop((max(0, x0 - pad), max(0, y0 - pad), min(img.width, x1 + pad), min(img.height, y1 + pad)))
     if im.width > MAX_W:
         im = im.resize((MAX_W, int(im.height * MAX_W / im.width)), Image.LANCZOS)
-    im.save(out, "WEBP", quality=72, method=6)
-    return im.size
+    return save_webp(im, out, 72)
 
 
 def process(doc, page_range=None, force=False):

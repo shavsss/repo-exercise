@@ -127,3 +127,17 @@ test("form (10.11): a chapter with no thread, a dense subsection and a subsectio
   const good = B.normalizeOutline({ known: [], chapters: [{ n: 1, title: "t", question: "q", thread: "מבעיה ליכולת", sections: [{ n: "1.1", title: "a", question: "q", from_prev: "", needs: [], visuals: ["svg: x"], defines: [{ term: "x", mark: "s" }, { term: "f(x)", mark: "s" }] }] }] });
   assert.deepEqual(B.formProblems(good), []);
 });
+
+test("ledger: an iou counts as defined for order; an assumption or iou not settled later is reported", () => {
+  const o = B.normalizeOutline({
+    known: [],
+    chapters: [{ n: 4, title: "t", question: "q", anchor: "מיקרוסקופ", sections: [
+      { n: "4.1", title: "a", question: "q", from_prev: "", needs: ["זמן הקריסה"], defines: [], iou: [{ result: "זמן הקריסה", derived_in: "4.2" }], assumptions: [{ text: "v≪c", settled_in: "4.2" }] },
+      { n: "4.2", title: "b", question: "q", from_prev: "4.1", needs: ["זמן הקריסה"], defines: [{ term: "eV", mark: "s" }], assumptions: [{ text: "מסלול מעגלי", settled_in: "4.1" }], iou: [{ result: "E(r)", derived_in: "" }] },
+    ] }],
+  });
+  const p = B.orderProblems(o);
+  assert.deepEqual(p.filter((x) => x.kind === "order"), []);
+  assert.deepEqual(p.filter((x) => x.kind === "ledger").map((x) => x.where), ["4.2", "4.2"]);
+  assert.match(B.outlineText(o, ["4.1"]), /anchor: מיקרוסקופ[\s\S]*assumptions: v≪c → 4\.2[\s\S]*iou: זמן הקריסה → 4\.2/);
+});

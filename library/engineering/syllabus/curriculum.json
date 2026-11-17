@@ -8,7 +8,7 @@
 "tools/curriculum/e2_items.json"
 ],
 "fields": {
-"items": "lesson items added by the topic-based curriculum: n name, imp K/S/C, k new|deepen|delta|mention, teach what to add, primary (for delta) the module that teaches it in full, to 1 = test-out candidate; ids E2:* make the E2 domain targets' hold-in-head and must-verify entries explicit",
+"items": "lesson items added by the topic-based curriculum: n name, imp K/S/C, k new|deepen|delta|mention, teach what to add, primary (for delta) the module that teaches it in full, on (round 8, deepen) the existing topic it builds on, to 1 = test-out candidate; ids E2:* make the E2 domain targets' hold-in-head and must-verify entries explicit",
 "testout": "sections (t, d doc, p PDF pages) or subtopics (sub 1) taught after a short diagnostic: pass = condensed lesson with the full text one click away and a later recheck; otherwise the full lesson",
 "brief": "sections taught as a short overview, with the full text one click away (never dropped)",
 "reading": "fixed reading list: core = read with the module; st ok|doi|blocked|timeout|rough is the link check; p2h 1 = stronger source for a tutor-written domain, with its topic"
@@ -1267,6 +1267,29 @@
 ]
 },
 "M6.8": {
+"items": [
+{
+"id": "R8:M6.8:x1",
+"n": "Working with real data",
+"imp": "K",
+"k": "new",
+"teach": "ניקוי נתונים, ערכים חסרים, חריגים ויחידות; מה זה עושה לאומדנים ולרגרסיה, ואיך מתעדים כל החלטה."
+},
+{
+"id": "R8:M6.8:x2",
+"n": "Exploratory data analysis",
+"imp": "K",
+"k": "new",
+"teach": "היסטוגרמות, פיזורים, טרנספורמציות ובדיקת הנחות לפני מודל; גרף שמגלה מה שהסטטיסטי מסתיר."
+},
+{
+"id": "R8:M6.8:x3",
+"n": "Data quality, bias and leakage",
+"imp": "K",
+"k": "new",
+"teach": "הטיית דגימה, דליפת מידע, תלות בזמן ובחיישן, ומתי הנתונים לא עונים על השאלה."
+}
+],
 "reading": [
 {
 "id": "RE027",
@@ -3353,6 +3376,13 @@
 "imp": "S",
 "k": "new",
 "teach": "Bench-versus-SPICE loop: simulate first, then measure with oscilloscope, NanoVNA and spectrum analyzer; explain each discrepancy (probe loading and ground lead, parasitics, component tolerance, instrument bandwidth and RBW)."
+},
+{
+"id": "R8:M11.13:dfm1",
+"n": "Circuit tolerance analysis",
+"imp": "S",
+"k": "new",
+"teach": "ניתוח worst-case ו-Monte Carlo של טולרנסים ברכיבים, סחיפה בטמפרטורה ובזמן, ובחירת טולרנס לפי עלות."
 }
 ],
 "brief": [
@@ -6979,6 +7009,13 @@
 "imp": "C",
 "k": "mention",
 "teach": "Exact constraint/kinematic coupling, Abbe principle, thermal-centre design for optics/gimbals"
+},
+{
+"id": "R8:M16.14:x1",
+"n": "Topology optimization and generative design",
+"imp": "S",
+"k": "new",
+"teach": "SIMP ושיטות level-set, אילוצי ייצור בתכן גנרטיבי, ומה צריך לבדוק בתוצאה."
 }
 ],
 "brief": [
@@ -7303,6 +7340,21 @@
 "imp": "S",
 "k": "deepen",
 "teach": "DFMA rules (part count, Boothroyd index)"
+},
+{
+"id": "R8:M16.16:dfm1",
+"n": "Design for manufacture and assembly (DFM/DFA)",
+"imp": "K",
+"k": "deepen",
+"teach": "איך התהליך (עיבוד שבבי, יציקה, הזרקה, פח, ייצור תוספי) קובע צורה, טולרנס, גימור ועלות; כללי DFA (מספר חלקים, כיווני הרכבה); עלות ליחידה מול כמות.",
+"on": "M16.9 · Introduction to materials selection and the design process"
+},
+{
+"id": "R8:M16.16:x2",
+"n": "Additive manufacturing",
+"imp": "S",
+"k": "new",
+"teach": "תהליכים (PBF, FDM, DED), כללי תכן, תכונות לא-איזוטרופיות והסמכת חלקים."
 }
 ],
 "brief": [
@@ -8018,6 +8070,13 @@
 "imp": "S",
 "k": "deepen",
 "teach": "Detection metrics (mAP, IoU), failure modes in clutter/weather, sensor fusion with learned perception."
+},
+{
+"id": "R8:M17.6:x1",
+"n": "Deep learning on signals",
+"imp": "K",
+"k": "new",
+"teach": "רשתות על אותות חד-ממדיים וספקטרוגרמות, סיווג אפנון, טביעת אצבע RF, ומתי עיבוד קלאסי עדיין עדיף."
 }
 ],
 "reading": [
@@ -8962,6 +9021,14 @@
 "n": "Safe/constrained RL and RL for control of physical systems (constraints, shielding, sim-validated policies)",
 "imp": "S",
 "k": "new"
+},
+{
+"id": "R8:M18.9:x1",
+"n": "Sim-to-real in depth",
+"imp": "K",
+"k": "deepen",
+"teach": "זיהוי מערכת, domain randomization, מדידת פער המציאות, והעברת מדיניות לחומרה.",
+"on": "M18.9 · Sim-to-real transfer and domain randomization"
 }
 ],
 "brief": [
@@ -9225,6 +9292,22 @@
 ]
 },
 "M19.9": {
+"items": [
+{
+"id": "R8:M19.9:x1",
+"n": "Grasping and contact",
+"imp": "K",
+"k": "new",
+"teach": "מודלי מגע וחיכוך, סגירת כוח וצורה, ותכנון אחיזה."
+},
+{
+"id": "R8:M19.9:x2",
+"n": "Imitation learning",
+"imp": "K",
+"k": "new",
+"teach": "behavior cloning, DAgger ו-diffusion policy: למידת מניפולציה מהדגמות, ובעיית הסטייה המצטברת."
+}
+],
 "reading": [
 {
 "id": "RE120",
@@ -11986,6 +12069,13 @@
 "k": "delta",
 "teach": "Quantum sensing: atomic clocks (hyperfine transition = F3 12), atom interferometers, magnetometers; realistic status of quantum computing and QKD",
 "primary": "mil:M5.11"
+},
+{
+"id": "R8:M24.7:x1",
+"n": "Qubits and quantum computing",
+"imp": "K",
+"k": "new",
+"teach": "קיוביט ושערים, הסתבכות, מה Shor ו-Grover נותנים, תיקון שגיאות ומחיר הדה-קוהרנטיות, ופלטפורמות החומרה."
 }
 ],
 "brief": [
@@ -12185,6 +12275,15 @@
 ]
 },
 "M25.2": {
+"items": [
+{
+"id": "R8:M25.2:dfm1",
+"n": "Yield, process variation and DFM rules",
+"imp": "K",
+"k": "new",
+"teach": "מודלי תשואה (Poisson, מודל מכפלי), process corners ו-Monte Carlo, חוקי תכן ו-DFM בשבב, ועלות לדיה כפונקציה של שטח."
+}
+],
 "brief": [
 {
 "t": "Device Fabrication Technology (opener)",
@@ -12681,6 +12780,20 @@
 "imp": "K",
 "k": "deepen",
 "teach": "Foundry economics and geopolitics: fab cost ($20B+), node naming vs density, concentration (TSMC, ASML EUV), advanced packaging/chiplets, export controls; mature-node chips in munitions."
+},
+{
+"id": "R8:M25.12:hp1",
+"n": "ASIC physical design flow: RTL to GDSII and sign-off",
+"imp": "S",
+"k": "new",
+"teach": "הזרימה מ-RTL לסיליקון: סינתזה, floorplan ורשת הספק, placement, עץ שעון (CTS), ניתוב, ואז סגירת תזמון וחתימה: STA בכל הפינות, DRC ו-LVS, IR drop ו-electromigration. איך מחליטים בין ביצועים, הספק ושטח (PPA), ולמה הבעיות מתגלות מאוחר."
+},
+{
+"id": "R8:M25.12:hp2",
+"n": "Post-silicon validation and bring-up",
+"imp": "S",
+"k": "new",
+"teach": "מה קורה כשהשבב חוזר מהמפעל: bring-up על לוח, debug דרך JTAG ו-scan, מעקב (trace) על השבב, מיון באגים בין תכן, ייצור ותוכנה, אפיון על פני מתח, תדר וטמפרטורה (shmoo), ותיקון ב-metal ECO או בקושחה."
 }
 ],
 "brief": [
@@ -13147,6 +13260,13 @@
 "imp": "S",
 "k": "new",
 "teach": "INCOSE Systems Engineering Competency Framework (SECF): competency areas and proficiency levels; a self-assessment backed by evidence from the learner's own work, repeated as the course advances."
+},
+{
+"id": "R8:M27.1:dfm1",
+"n": "From prototype to production",
+"imp": "K",
+"k": "new",
+"teach": "TRL ו-MRL, הקפאת תכן ו-baseline, first article inspection, LRIP, ובקרת שינויים בייצור."
 }
 ],
 "brief": [
@@ -13244,6 +13364,13 @@
 "imp": "S",
 "k": "new",
 "teach": "Security engineering: attack surface, defense-in-depth, supply-chain and cyber-resilience requirements in SE"
+},
+{
+"id": "R8:M27.2:x1",
+"n": "Digital twins",
+"imp": "S",
+"k": "new",
+"teach": "מודל שמוזן מנתוני מערכת אמיתית: שימושים (תחזוקה, תכן, הדרכה), אימות, ומתי זה רק דשבורד."
 }
 ],
 "reading": [
@@ -13326,6 +13453,13 @@
 "imp": "K",
 "k": "new",
 "teach": "n = ln(1-C)/ln R (e.g., 0.9 reliability at 90% confidence needs 22 successes), why a few flight tests prove little"
+},
+{
+"id": "R8:M27.3:fut1",
+"n": "AI-assisted design loop: surrogate model, optimization, verification, decision",
+"imp": "K",
+"k": "new",
+"teach": "דרך העבודה בכל פרויקט: מהנדס ברמה 3 עובד עם AI על בעיית תכן מקצה לקצה. מנסחים את הבעיה: משתנים, אילוצים ומטרה. מעריכים מראש את התוצאה בהערכת סדר גודל. נותנים ל-AI לבנות מודל, לחשב ולחפש פתרונות (מודל חלופי מעט ריצות סימולציה, אופטימיזציה, תכן גנרטיבי). מאמתים מול חישוב ידני, סימולציה מלאה או ניסוי, ומזהים מתי המודל טועה מחוץ לתחום שעליו אומן. בסוף מחליטים על סמך אי-הוודאות ומתעדים. כאן לומדים את הלולאה עצמה; הכלים מעמיקים בהמשך (אופטימיזציה ב-M8.22, מודלים חלופיים, PINN ו-neural operators ב-M17.12, תכן גנרטיבי ב-M16.14)."
 }
 ],
 "reading": [
@@ -13908,6 +14042,4300 @@
 "imp": "K",
 "k": "deepen",
 "teach": "Everything beyond RSA/hash basics."
+}
+]
+},
+"M0.3": {
+"items": [
+{
+"id": "R8:M0.3:1",
+"n": "Python data model: names, references, mutability",
+"imp": "S",
+"k": "new",
+"teach": "משתנים כשמות שמצביעים על אובייקטים, אובייקטים שניתן לשנות (list, dict) ושלא (tuple, str), העתקה רדודה מול עמוקה, פונקציות, מודולים וחבילות. הבאג הקלאסי: ארגומנט ברירת מחדל שהוא רשימה, ומטריצה שהשתנתה דרך שם אחר."
+},
+{
+"id": "R8:M0.3:2",
+"n": "NumPy arrays: dtype, shape, broadcasting, views vs copies",
+"imp": "K",
+"k": "new",
+"teach": "מערך כגוש זיכרון עם dtype, shape ו-strides; כללי broadcasting; slicing מחזיר view ו-fancy indexing מחזיר העתק; וקטוריזציה במקום לולאות (פי 10–100). תרגיל: לממש DFT כמכפלת מטריצה ולהשוות ל-np.fft."
+},
+{
+"id": "R8:M0.3:3",
+"n": "Floating point in practice: tolerances and cancellation",
+"imp": "S",
+"k": "deepen",
+"teach": "הפרקטיקה מעל התאוריה של M22.5: אפסילון מכונה של float64 (2.2e-16), השוואה עם np.isclose (rtol ו-atol), ביטול בחיסור קרובים, סכימה בסדר הנכון, float32 מול float64 בעבודה עם GPU.",
+"on": "M22.5 · Floating-point representation and numerical error (IEEE 754, rounding, cancellation, Patriot 1991 clock drift)"
+},
+{
+"id": "R8:M0.3:4",
+"n": "The SciPy toolbox map",
+"imp": "S",
+"k": "new",
+"teach": "מפת scipy: linalg (פירוקים, solve ולא inv), integrate.solve_ivp, optimize (minimize, least_squares, root), signal, sparse, stats. לכל אחד: מתי להשתמש, מה ברירת המחדל מסתירה (סובלנות, שיטה), ואיך בודקים שהפתרון נכון."
+},
+{
+"id": "R8:M0.3:5",
+"n": "Plotting that answers a question (Matplotlib)",
+"imp": "S",
+"k": "new",
+"teach": "גרף כטיעון: ציר ויחידות, סקאלה לוגריתמית ל-dB ול-PSD, השוואת תאוריה מול סימולציה על אותו ציר, ותסריט שמייצר את הגרף מחדש מהנתונים בלי עריכה ידנית."
+},
+{
+"id": "R8:M0.3:6",
+"n": "Environments, dependencies and reproducibility",
+"imp": "S",
+"k": "new",
+"teach": "venv או uv, קובץ נעילה ונעיצת גרסאות, seed לכל מחולל אקראי, קובץ תצורה במקום קבועים בקוד, ולוג שמתעד גרסה, פרמטרים ותוצאה. המטרה: ריצה של לפני חצי שנה משתחזרת בפקודה אחת."
+},
+{
+"id": "R8:M0.3:7",
+"n": "git: snapshots, branches, merge and history",
+"imp": "K",
+"k": "deepen",
+"teach": "המודל של git: commit כתמונת מצב, גרף היסטוריה, ענפים כמצביעים, merge מול rebase, diff, revert, ו-git bisect למציאת ה-commit ששבר. עבודה בענף ו-commit קטן ותכוף עם סוכן קוד.",
+"on": "M27.3 · Software engineering: testing, version control, verification"
+},
+{
+"id": "R8:M0.3:8",
+"n": "Testing numerical code with pytest",
+"imp": "K",
+"k": "deepen",
+"teach": "בדיקות יחידה עם סובלנות (pytest.approx), בדיקה מול פתרון סגור, בדיקת סדר התכנסות (שגיאה יורדת כמו h^p), בדיקות תכונה (hypothesis), golden tests לרגרסיה, והרצה אוטומטית ב-CI.",
+"on": "M27.3 · Software engineering: testing, version control, verification; M4.6 · Golden test vectors (known tone + noise: SNR out = SNR in + gain)"
+},
+{
+"id": "R8:M0.3:9",
+"n": "Reading agent-written code and diffs",
+"imp": "S",
+"k": "deepen",
+"teach": "סדר קריאה של קוד שסוכן כתב: מה השתנה ב-diff, האם יש בדיקה שנכשלת בלי השינוי, שינויי סובלנות שקטים, קבועים קסומים, ובדיקת הלוגים של הריצה ולא רק של הסיכום.",
+"on": "M10.9 · Reading a diff"
+},
+{
+"id": "R8:M0.3:10",
+"n": "Performance: vectorization, memory layout, compiled kernels",
+"imp": "S",
+"k": "deepen",
+"teach": "פרופיל לפני אופטימיזציה, סדר זיכרון C מול Fortran והשפעתו על cache, העתקות סמויות, ומתי לעבור ל-Numba או לקוד C. תמיד עם מדד זמן שחוזר על עצמו.",
+"on": "M22.7 · Profiling"
+},
+{
+"id": "R8:M0.3:x1",
+"n": "Reproducible data pipelines",
+"imp": "S",
+"k": "new",
+"teach": "מנוטבוק לצינור: גרסאות של נתונים וקוד, סכמות ובדיקות על נתונים, ושחזור תוצאה מקצה לקצה."
+}
+]
+},
+"M6.13": {
+"items": [
+{
+"id": "R8:M6.13:1",
+"n": "Randomization, replication, blocking and confounding",
+"imp": "K",
+"k": "deepen",
+"teach": "שלושת העקרונות של Fisher: הקצאה אקראית שוברת הטיה, חזרות נותנות אומדן שגיאה, וחסימה מנטרלת גורם מטריד ידוע (יום, יחידה, מפעיל). מה זה ערבוב (confounding) ואיך ניסוי לא מתוכנן מייצר אותו.",
+"on": "M6.6 · Design of experiments (factorial, blocking, randomization)"
+},
+{
+"id": "R8:M6.13:2",
+"n": "Power and sample size",
+"imp": "K",
+"k": "deepen",
+"teach": "n ≈ (z_{1-α/2}+z_{1-β})²·2σ²/δ² להשוואת שני ממוצעים; גודל אפקט, α ו-β, עקומת עוצמה, ולמה ניסוי עם עוצמה נמוכה מייצר גם תוצאות מנופחות. איך מחשבים את n לפני הניסוי ולא אחריו.",
+"on": "M6.6 · Design of experiments (factorial, blocking, randomization)"
+},
+{
+"id": "R8:M6.13:3",
+"n": "ANOVA and multiple comparisons",
+"imp": "S",
+"k": "new",
+"teach": "ניתוח שונות חד-כיווני: פירוק סכום הריבועים, מבחן F, הנחות (נורמליות, שוויון שונויות) ובדיקת שאריות; השוואות מרובות (Bonferroni, Tukey) ולמה עשרים מבחנים ב-α=0.05 נותנים תגלית שקרית אחת בממוצע."
+},
+{
+"id": "R8:M6.13:4",
+"n": "2^k factorial designs: main effects and interactions",
+"imp": "K",
+"k": "deepen",
+"teach": "אומדן אפקטים ראשיים ואינטראקציות מניסוי 2^k, טבלת סימנים, מודל רגרסיה שקול, ו-normal probability plot של האפקטים (Daniel) לזיהוי אפקטים אמיתיים בלי חזרות. למה ניסוי של גורם אחד בכל פעם מפספס אינטראקציות.",
+"on": "M6.6 · Design of experiments (factorial, blocking, randomization)"
+},
+{
+"id": "R8:M6.13:5",
+"n": "Fractional factorials and screening",
+"imp": "S",
+"k": "deepen",
+"teach": "2^(k-p): יחס מגדיר, alias structure ורזולוציה (III, IV, V); תכני Plackett-Burman לסינון גורמים רבים; ואיך מפרקים alias בניסוי המשך (fold-over).",
+"on": "M6.6 · Experimental design for engineering tests"
+},
+{
+"id": "R8:M6.13:6",
+"n": "Response surface methods",
+"imp": "S",
+"k": "deepen",
+"teach": "מודל ריבועי, central composite ו-Box-Behnken, steepest ascent לקראת האופטימום, וקריאת משטח תגובה. מקרה: כיול פרמטרים של מערכת לפי מספר ניסויים מוגבל.",
+"on": "M6.6 · Design of experiments (factorial, blocking, randomization)"
+},
+{
+"id": "R8:M6.13:7",
+"n": "Design of computer experiments",
+"imp": "S",
+"k": "new",
+"teach": "ניסוי בסימולציה דטרמיניסטית: אין חזרות, יש כיסוי. Latin hypercube ותכנים ממלאי מרחב, מודל תחליף (Gaussian process) ובחירת הנקודה הבאה. ההבדל העקרוני מניסוי פיזי."
+},
+{
+"id": "R8:M6.13:8",
+"n": "Pass/fail test statistics: binomial bounds and OC curves",
+"imp": "K",
+"k": "deepen",
+"teach": "רווח סמך מדויק לשיעור הצלחה (Clopper-Pearson), success-run (n = ln(1−C)/ln R), עקומת OC של תוכנית קבלה, וסיכון היצרן מול סיכון הלקוח. כמה ירי צריך כדי לטעון Pk ≥ 0.9 ברמת ביטחון 80%.",
+"on": "M27.3 · Test statistics for small samples: success-run theorem (C = 1 - R^n), demonstrated vs required reliability, OC curves"
+},
+{
+"id": "R8:M6.13:9",
+"n": "Sequential testing (Wald SPRT)",
+"imp": "S",
+"k": "new",
+"teach": "מבחן יחס נראות סדרתי: גבולות A ו-B מ-α ו-β, מספר הניסויים הצפוי, וחיסכון של כ-50% לעומת מבחן במדגם קבוע. השימוש בבדיקות קבלה ובניסויי אמינות."
+},
+{
+"id": "R8:M6.13:10",
+"n": "Estimating Pk and CEP from few shots",
+"imp": "S",
+"k": "deepen",
+"teach": "אומדן CEP ו-Pk ממעט ניסויים: tolerance intervals, אומדן בייסיאני עם prior מסימולציה, וצירוף נתוני ניסוי ומודל. מה ניתן לטעון מ-10 ירי ומה לא.",
+"on": "L:M11.4; M16.10 · Material property variability and allowables (A/B basis)"
+}
+]
+},
+"M4.17": {
+"items": [
+{
+"id": "R8:M4.17:1",
+"n": "Polyphase decomposition and the noble identities",
+"imp": "K",
+"k": "deepen",
+"teach": "פירוק פוליפאזי של מסנן ל-M ענפים, זהויות noble והזזת הדצימציה לפני המסנן; חיסכון של פי M בכפלים. גזירה מלאה ובדיקה מספרית מול מסנן ישיר.",
+"on": "M4.12"
+},
+{
+"id": "R8:M4.17:2",
+"n": "Multistage decimation and interpolation",
+"imp": "S",
+"k": "new",
+"teach": "למה דצימציה בפי 100 נעשית בשלבים, בחירת מקדמי השלבים למזעור כפלים לשנייה, ותקציב רוחב פס מעבר בכל שלב."
+},
+{
+"id": "R8:M4.17:3",
+"n": "Half-band and CIC filters",
+"imp": "K",
+"k": "new",
+"teach": "מסנן half-band: כמחצית המקדמים אפס ודצימציה בפי 2 בזול. CIC של Hogenauer: אינטגרטורים ומסרקים בלי כפלים, תגובת sinc^N, גידול ביטים N·log2(RM), ותיקון droop במסנן FIR שאחריו."
+},
+{
+"id": "R8:M4.17:4",
+"n": "Digital down-conversion",
+"imp": "S",
+"k": "deepen",
+"teach": "NCO, ערבוב ל-baseband מרוכב, סינון ודצימציה; שרשרת ה-DDC המלאה של מקלט SDR ומה קובע את ה-SFDR שלה.",
+"on": "M4.8 · Bandpass sampling, IF/direct sampling, SDR receiver architecture"
+},
+{
+"id": "R8:M4.17:5",
+"n": "DFT filter bank as polyphase + FFT",
+"imp": "K",
+"k": "deepen",
+"teach": "גזירת קבלן הערוצים האחיד: בנק של M מסננים מוזזים בתדר שווה למסנן פוליפאזי ואחריו FFT בגודל M. עלות לערוץ לעומת DDC נפרד לכל ערוץ, והקשר למקלט ה-channelized של EW.",
+"on": "L:M4.2"
+},
+{
+"id": "R8:M4.17:6",
+"n": "Channelizer design: decimation ratio, overlap and prototype filter",
+"imp": "K",
+"k": "new",
+"teach": "קבלן עם דצימציה מלאה מול oversampled בפי 2, חפיפה בין ערוצים, תכן מסנן האב (רוחב מעבר, דחייה בערוץ השכן), ומה קורה לאות שנופל בין שני ערוצים או רחב מערוץ."
+},
+{
+"id": "R8:M4.17:7",
+"n": "Synthesis banks and perfect reconstruction",
+"imp": "S",
+"k": "new",
+"teach": "בנק ניתוח ובנק סינתזה, QMF דו-ערוצי, תנאי שחזור מושלם וביטול aliasing; השימוש בקבלן הפוך כמשדר רב-ערוצי."
+},
+{
+"id": "R8:M4.17:8",
+"n": "Arbitrary-ratio resampling and the Farrow structure",
+"imp": "S",
+"k": "new",
+"teach": "שינוי קצב ביחס לא רציונלי: מסנן פוליפאזי עם אינדקס שבור, אינטרפולציה בין ענפים, ומבנה Farrow עם מקדמים פולינומיים. השימוש בשחזור תזמון סמלים."
+},
+{
+"id": "R8:M4.17:9",
+"n": "Wideband receiver implementation on FPGA/RFSoC",
+"imp": "S",
+"k": "deepen",
+"teach": "מיפוי קבלן לחומרה: קצב דגימה מול קצב שעון, עיבוד מקבילי של כמה דגימות למחזור, תקציב DSP slices, וגילוי לכל ערוץ אחרי הקבלן.",
+"on": "L:M4.3"
+}
+]
+},
+"M4.18": {
+"items": [
+{
+"id": "R8:M4.18:1",
+"n": "Fixed-point formats and overflow behavior",
+"imp": "K",
+"k": "deepen",
+"teach": "פורמט Qm.n, טווח ודיוק, משלים ל-2, רוויה מול גלישה מעגלית, עיגול מול קיטוע וההטיה שהקיטוע יוצר.",
+"on": "M4.10 · Finite word-length effects, limit cycles"
+},
+{
+"id": "R8:M4.18:2",
+"n": "Round-off noise model and its propagation",
+"imp": "K",
+"k": "deepen",
+"teach": "מודל רעש אדיטיבי לבן בשונות q²/12 בכל נקודת עיגול, העברתו ליציאה דרך תגובת ההלם (σ²·Σh²), והשוואת מבנים לפי רעש היציאה.",
+"on": "M4.10 · Finite word-length effects, limit cycles; M4.8 · Quantization noise, ADC resolution, SNR=6.02N+1.76"
+},
+{
+"id": "R8:M4.18:3",
+"n": "Scaling: norms, guard bits and accumulator width",
+"imp": "K",
+"k": "new",
+"teach": "סקיילינג למניעת גלישה לפי נורמות L1, L2 ו-L∞ של תגובת ההלם, ביטי שמירה, רוחב צובר ב-FIR (גידול log2 של מספר המקדמים), והמחיר: כל ביט סקיילינג עולה 6 dB של SNR."
+},
+{
+"id": "R8:M4.18:4",
+"n": "Coefficient quantization and filter structures",
+"imp": "K",
+"k": "deepen",
+"teach": "רגישות הקטבים לקוונטיזציה של מקדמים, למה IIR מסדר גבוה בצורה ישירה מתפרק, מפל של biquads וסדר זוגות קטבים-אפסים, ומבנה lattice.",
+"on": "M4.10 · Finite word-length effects, limit cycles; M4.16"
+},
+{
+"id": "R8:M4.18:5",
+"n": "Limit cycles and overflow oscillations",
+"imp": "C",
+"k": "deepen",
+"teach": "מחזורי גבול באפס כניסה ותנודות גלישה ב-IIR בנקודה קבועה, ואיך רוויה ומבנה נכון מונעים אותם.",
+"on": "M4.10 · Finite word-length effects, limit cycles"
+},
+{
+"id": "R8:M4.18:6",
+"n": "Fixed-point FFT",
+"imp": "S",
+"k": "new",
+"teach": "סקיילינג של חצי בכל שלב, block floating point, אובדן SNR כפונקציה של N, ובחירה בין FFT בנקודה קבועה לנקודה צפה ב-FPGA."
+},
+{
+"id": "R8:M4.18:7",
+"n": "CORDIC and NCO design",
+"imp": "S",
+"k": "new",
+"teach": "CORDIC במצבי rotation ו-vectoring: איטרציות של הזזה וחיבור, הגבר 1.647, דיוק לפי מספר האיטרציות. NCO כצובר פאזה וטבלה, וגובה ה-spurs מקיטוע הפאזה (כ-6 dB לביט)."
+},
+{
+"id": "R8:M4.18:8",
+"n": "Real-time budgets: MACs, cycles and latency",
+"imp": "S",
+"k": "new",
+"teach": "תקציב כפלים לדגימה, מחזורים לפי מעבד או FPGA, throughput מול latency, pipelining וזמן מוות; בדיקה שהמימוש עומד בקצב גם במקרה הגרוע."
+},
+{
+"id": "R8:M4.18:9",
+"n": "Bit-true verification against a floating-point model",
+"imp": "S",
+"k": "deepen",
+"teach": "מודל נקודה צפה כמקור אמת, מודל bit-true של הנקודה הקבועה, מדידת SQNR בכל שלב, והשוואה ביט-לביט מול סימולציית ה-RTL.",
+"on": "M4.6 · Golden test vectors (known tone + noise: SNR out = SNR in + gain)"
+}
+]
+},
+"M7.20": {
+"items": [
+{
+"id": "R8:M7.20:1",
+"n": "Wiener solution and the error surface",
+"imp": "S",
+"k": "deepen",
+"teach": "חזרה ממוקדת: משוואות Wiener-Hopf R·w = p, משטח השגיאה הריבועי, ומשמעות פיזור הערכים העצמיים של R לצורת המשטח.",
+"on": "M7.3"
+},
+{
+"id": "R8:M7.20:2",
+"n": "Steepest descent and convergence modes",
+"imp": "K",
+"k": "deepen",
+"teach": "גרדיאנט דטרמיניסטי: תנאי התכנסות 0 < μ < 2/λmax, קבוע זמן לכל מוד 1/(2μλk), ולמה פיזור ערכים עצמיים גדול מאט את ההתכנסות.",
+"on": "M7.3 · Adaptive filters (LMS, RLS)"
+},
+{
+"id": "R8:M7.20:3",
+"n": "LMS: derivation, convergence and misadjustment",
+"imp": "K",
+"k": "deepen",
+"teach": "LMS כגרדיאנט סטוכסטי, התכנסות בממוצע ובממוצע הריבועי, misadjustment M ≈ μ·tr(R)/2, ופשרת מהירות מול דיוק ומעקב מול רעש.",
+"on": "M7.3 · Adaptive filters (LMS, RLS)"
+},
+{
+"id": "R8:M7.20:4",
+"n": "NLMS and affine projection",
+"imp": "S",
+"k": "new",
+"teach": "נרמול צעד לפי אנרגיית הכניסה, עמידות לשינויי רמה, ו-affine projection כגשר בין LMS ל-RLS בכניסה צבועה."
+},
+{
+"id": "R8:M7.20:5",
+"n": "RLS: derivation and numerical behavior",
+"imp": "K",
+"k": "deepen",
+"teach": "ריבועים פחותים משוקללים מעריכית, גזירה דרך inversion lemma, התכנסות בכ-2M איטרציות ללא תלות בפיזור, גורם שכחה ומעקב, אי-יציבות נומרית ו-QR-RLS.",
+"on": "M7.3 · Adaptive filters (LMS, RLS)"
+},
+{
+"id": "R8:M7.20:6",
+"n": "Applications: identification, noise cancelling, line enhancement",
+"imp": "S",
+"k": "deepen",
+"teach": "זיהוי מערכת, ביטול רעש עם כניסת ייחוס (Widrow), adaptive line enhancer וביטול הד; לכל אחד מבנה, אות שגיאה ומה נלמד בפועל.",
+"on": "M7.3 · Adaptive filters (LMS, RLS)"
+},
+{
+"id": "R8:M7.20:7",
+"n": "Adaptive equalization: trained, decision-directed and blind",
+"imp": "S",
+"k": "deepen",
+"teach": "אקולייזר עם רצף אימון, מעבר ל-decision-directed, ו-CMA עיוור לאפנונים בעלי מעטפת קבועה. מקושר ל-G17.",
+"on": "M7.3 · Adaptive filters (LMS, RLS)"
+},
+{
+"id": "R8:M7.20:8",
+"n": "Adaptive arrays and sidelobe cancellers",
+"imp": "S",
+"k": "deepen",
+"teach": "MVDR ו-SMI כמסנן Wiener מרחבי, כלל RMB (כ-2N דגימות להפסד 3 dB), GSC ו-sidelobe canceller, והבסיס ל-STAP.",
+"on": "L:M2.30"
+},
+{
+"id": "R8:M7.20:9",
+"n": "Kalman view of RLS",
+"imp": "C",
+"k": "deepen",
+"teach": "RLS כמסנן קלמן עם מודל מצב קבוע, ומה מוסיף מודל דינמי למעקב אחרי מערכת משתנה.",
+"on": "M5.6"
+}
+]
+},
+"M7.19": {
+"items": [
+{
+"id": "R8:M7.19:1",
+"n": "MVU estimation and sufficiency",
+"imp": "K",
+"k": "deepen",
+"teach": "אומדן חסר הטיה עם שונות מינימלית, סטטיסטי מספיק ומשפט הפירוק של Neyman-Fisher, Rao-Blackwell ו-Lehmann-Scheffé. למה MVU לא תמיד קיים.",
+"on": "M6.5"
+},
+{
+"id": "R8:M7.19:2",
+"n": "The Cramér-Rao bound in full",
+"imp": "K",
+"k": "deepen",
+"teach": "CRB סקלרי ווקטורי, החלפת פרמטרים, הנוסחה הכללית לאות בגאוסי (Slepian-Bangs), יעילות, ו-CRB לתדר, פאזה וזמן הגעה בגזירה מלאה.",
+"on": "M6.5 · Fisher information and Cramer-Rao bound; M7.4 · Estimation accuracy limits: Cramér-Rao bound, σ ≈ resolution/√(2·SNR); L:M2.40"
+},
+{
+"id": "R8:M7.19:3",
+"n": "Linear models and BLUE",
+"imp": "K",
+"k": "deepen",
+"teach": "מודל x = Hθ + w: אומדן (HᵀC⁻¹H)⁻¹HᵀC⁻¹x כ-MVU בגאוסי וכ-BLUE בלי הנחת התפלגות (Gauss-Markov). משקול לפי שונות הרעש.",
+"on": "M8.5; M8.20"
+},
+{
+"id": "R8:M7.19:4",
+"n": "Maximum likelihood and the threshold effect",
+"imp": "K",
+"k": "deepen",
+"teach": "תכונות אסימפטוטיות של MLE, invariance, חישוב נומרי, ואפקט הסף: מתחת ל-SNR מסוים אומדן התדר קופץ לשגיאות גסות ומתנתק מה-CRB.",
+"on": "M6.5"
+},
+{
+"id": "R8:M7.19:5",
+"n": "Bayesian estimators: MMSE, MAP, LMMSE",
+"imp": "S",
+"k": "deepen",
+"teach": "פונקציות מחיר ואומדנים, LMMSE כשהידוע הוא רק שני מומנטים, ו-Bayesian CRB בקצרה.",
+"on": "M7.3; M6.7"
+},
+{
+"id": "R8:M7.19:6",
+"n": "Neyman-Pearson detection of a known signal",
+"imp": "K",
+"k": "deepen",
+"teach": "מבחן יחס נראות, ROC, מסנן מתואם, deflection, ו-Pd = Q(Q⁻¹(Pfa) − √d²). הנוסחה שכל תקציב גילוי נשען עליה.",
+"on": "M7.4"
+},
+{
+"id": "R8:M7.19:7",
+"n": "Detection in colored noise: prewhitening",
+"imp": "K",
+"k": "new",
+"teach": "מסנן מתואם מוכלל sᵀC⁻¹x, פירוש כהלבנה ואחריה מסנן מתואם, ו-d² = sᵀC⁻¹s. מה מרוויחים כשהרעש צבוע ולמה זה הבסיס ל-STAP ולגילוי ב-clutter."
+},
+{
+"id": "R8:M7.19:8",
+"n": "Detection of random signals: estimator-correlator and energy detector",
+"imp": "S",
+"k": "new",
+"teach": "אות אקראי גאוסי: estimator-correlator, גלאי אנרגיה כמקרה פרטי, ביצועים מול SNR ומספר דגימות. הבסיס לגילוי פסיבי ב-EW ובסונאר."
+},
+{
+"id": "R8:M7.19:9",
+"n": "Composite hypotheses: GLRT and CFAR invariance",
+"imp": "K",
+"k": "deepen",
+"teach": "פרמטרים לא ידועים (משרעת, פאזה, רמת רעש): GLRT, מתי קיים UMP, מבחני Wald ו-Rao אסימפטוטית, וגלאי לא קוהרנטי (Rician). CFAR כתכונת אינווריאנטיות של ה-GLRT.",
+"on": "M7.4 · CFAR; L:M2.11"
+},
+{
+"id": "R8:M7.19:10",
+"n": "Model order selection",
+"imp": "C",
+"k": "deepen",
+"teach": "AIC, MDL ו-BIC לבחירת מספר אותות או סדר מודל, והקשר לאוקהאם הבייסיאני ב-M7.11.",
+"on": "M7.11"
+}
+]
+},
+"M5.16": {
+"items": [
+{
+"id": "R8:M5.16:1",
+"n": "Least squares and least-norm as system tools",
+"imp": "S",
+"k": "deepen",
+"teach": "ריבועים פחותים למערכת מוגדרת-יתר ופתרון בנורמה מינימלית למערכת מוגדרת-חסר, pseudo-inverse דרך SVD, והשימוש בשניהם לתכן כניסה ולאומדן.",
+"on": "M8.5"
+},
+{
+"id": "R8:M5.16:2",
+"n": "Matrix exponential and solution of linear ODEs",
+"imp": "K",
+"k": "deepen",
+"teach": "e^{At} דרך פירוק עצמי וצורת Jordan, פתרון ẋ = Ax + Bu עם קונבולוציה, מודים, ודיסקרטיזציה מדויקת עם ZOH.",
+"on": "M8.2; M5.4"
+},
+{
+"id": "R8:M5.16:3",
+"n": "Reachability and minimum-energy control",
+"imp": "K",
+"k": "deepen",
+"teach": "מטריצת ישיגות, Gramian ישיגות W_c, הכניסה בעלת האנרגיה המינימלית להגעה ל-x ואנרגייתה xᵀW_c⁻¹x; כיווני מצב יקרים וזולים.",
+"on": "M5.4"
+},
+{
+"id": "R8:M5.16:4",
+"n": "Observability and least-squares state estimation",
+"imp": "K",
+"k": "deepen",
+"teach": "שחזור המצב מרצף יציאות כבעיית ריבועים פחותים, Gramian צפיות, וכיוונים שקשה לצפות בהם ברעש.",
+"on": "M5.4"
+},
+{
+"id": "R8:M5.16:5",
+"n": "Kalman decomposition and minimal realization",
+"imp": "K",
+"k": "new",
+"teach": "פירוק Kalman לארבעה תת-מרחבים, מבחן PBH, ריאליזציה מינימלית, וריאליזציה מתגובת הלם דרך מטריצת Hankel (Ho-Kalman). הבסיס לזיהוי subspace ב-G13."
+},
+{
+"id": "R8:M5.16:6",
+"n": "Canonical forms and similarity transforms",
+"imp": "S",
+"k": "deepen",
+"teach": "צורות קנוניות של בקרה ושל צפייה, טרנספורמציית דמיון, ומה נשמר (ערכים עצמיים, פונקציית תמסורת) ומה לא.",
+"on": "M5.4"
+},
+{
+"id": "R8:M5.16:7",
+"n": "The Lyapunov equation",
+"imp": "K",
+"k": "deepen",
+"teach": "AᵀP + PA = −Q: יציבות, חישוב Gramians ומחיר ריבועי של תגובה חופשית. הכלי שמחבר יציבות, אנרגיה ו-H2.",
+"on": "M5.3"
+},
+{
+"id": "R8:M5.16:8",
+"n": "Balanced realization and balanced truncation",
+"imp": "K",
+"k": "new",
+"teach": "ריאליזציה מאוזנת שבה שני ה-Gramians שווים ואלכסוניים, ערכים סינגולריים של Hankel, קיצוץ מאוזן וחסם השגיאה 2·Σσ_i. הקטנת מודל FEM או מודל תרמי לבקר."
+},
+{
+"id": "R8:M5.16:9",
+"n": "LQR and Kalman filter in full matrix form",
+"imp": "S",
+"k": "deepen",
+"teach": "LQR באופק סופי דרך תכנות דינמי ומשוואת Riccati, ה-ARE באופק אינסופי, והדואליות עם מסנן קלמן. גזירה מלאה ולא רק תוצאה.",
+"on": "M5.5; M5.6"
+},
+{
+"id": "R8:M5.16:10",
+"n": "System norms and directions: H2, H∞, SVD at a frequency",
+"imp": "S",
+"k": "deepen",
+"teach": "SVD של G(jω), כיווני כניסה ויציאה, נורמות H2 (דרך Gramian) ו-H∞ (דרך bisection על Hamiltonian). הגשר ל-S4.",
+"on": "M5.13 · MIMO control and interaction (RGA)"
+}
+]
+},
+"M8.24": {
+"items": [
+{
+"id": "R8:M8.24:1",
+"n": "Line search and the Wolfe conditions",
+"imp": "S",
+"k": "deepen",
+"teach": "תנאי Armijo ו-Wolfe, backtracking, ומשפט Zoutendijk על התכנסות שיטות כיוון ירידה בבעיה לא קמורה.",
+"on": "M8.22"
+},
+{
+"id": "R8:M8.24:2",
+"n": "Trust-region methods",
+"imp": "K",
+"k": "new",
+"teach": "מודל ריבועי מקומי, יחס הירידה בפועל מול החזויה ועדכון הרדיוס, נקודת Cauchy ו-dogleg. למה trust region עמיד יותר ליד נקודות אוכף."
+},
+{
+"id": "R8:M8.24:3",
+"n": "Quasi-Newton: BFGS and L-BFGS",
+"imp": "K",
+"k": "new",
+"teach": "תנאי secant, גזירת עדכון BFGS, התכנסות על-לינארית, ו-L-BFGS עם m וקטורים בלבד לבעיות גדולות."
+},
+{
+"id": "R8:M8.24:4",
+"n": "Nonlinear least squares: Gauss-Newton and Levenberg-Marquardt",
+"imp": "K",
+"k": "new",
+"teach": "Gauss-Newton כקירוב JᵀJ להסיאן, מתי הוא נכשל (שארית גדולה), LM כ-trust region, ופונקציות הפסד עמידות (Huber, Cauchy) דרך IRLS. הלב של כיול, bundle adjustment ו-SLAM."
+},
+{
+"id": "R8:M8.24:5",
+"n": "Optimality conditions for nonconvex constrained problems",
+"imp": "S",
+"k": "deepen",
+"teach": "KKT בבעיה לא קמורה, תנאי רגולריות (LICQ), תנאים מסדר שני על החרוט הקריטי, ומה ההבדל מהמקרה הקמור של Boyd.",
+"on": "M8.18"
+},
+{
+"id": "R8:M8.24:6",
+"n": "Sequential quadratic programming",
+"imp": "K",
+"k": "new",
+"teach": "SQP כניוטון על משוואות KKT, תת-בעיית QP, פונקציות merit ו-filter, active set, ו-SQP כמנוע של NMPC ושל אופטימיזציית מסלולים."
+},
+{
+"id": "R8:M8.24:7",
+"n": "Penalty and augmented Lagrangian methods",
+"imp": "S",
+"k": "new",
+"teach": "קנס ריבועי ובעיית ה-ill-conditioning שלו, Lagrangian מורחב ועדכון כופלים, והקשר ל-ADMM."
+},
+{
+"id": "R8:M8.24:8",
+"n": "Mixed-integer programming: formulation and branch and bound",
+"imp": "K",
+"k": "deepen",
+"teach": "ניסוח MILP (משתנים בינאריים, big-M, אילוצי לוגיקה), רלקסציה לינארית ופער, branch and bound, cutting planes, ומה פותרים מסחריים עושים. מקרה: הקצאת משימות ומשאבים.",
+"on": "M21.7 · Integer/combinatorial optimization, NP-hardness in practice"
+},
+{
+"id": "R8:M8.24:9",
+"n": "Exploiting structure: sparse Jacobians and derivatives",
+"imp": "S",
+"k": "deepen",
+"teach": "דלילות ה-Jacobian בבעיות גדולות, צביעת גרף להערכה בהפרשים סופיים, גזירה אוטומטית בפותרים (Ceres, CasADi), ובדיקת גרדיאנט.",
+"on": "M17.4 · Automatic differentiation"
+},
+{
+"id": "R8:M8.24:10",
+"n": "Nonconvexity in practice: initialization and multistart",
+"imp": "C",
+"k": "deepen",
+"teach": "מינימום מקומי, תלות באתחול, multistart והרפיה קמורה כאתחול.",
+"on": "M8.22 · Derivative-free and global methods (GA, simulated annealing, Bayesian opt)"
+}
+]
+},
+"M5.18": {
+"items": [
+{
+"id": "R8:M5.18:1",
+"n": "Phase-plane analysis and limit cycles",
+"imp": "S",
+"k": "deepen",
+"teach": "דיוקן פאזה של מערכת מסדר שני, סיווג נקודות שיווי משקל, מחזורי גבול ו-Poincaré-Bendixson, ומה הליניאריזציה לא רואה.",
+"on": "M3.1 · Limit cycles, bifurcations, chaos basics"
+},
+{
+"id": "R8:M5.18:2",
+"n": "Lyapunov's direct method and LaSalle",
+"imp": "K",
+"k": "deepen",
+"teach": "פונקציות חיוביות מוגדרות, יציבות אסימפטוטית וגלובלית, עקרון האינווריאנטיות של LaSalle, בניית פונקציות (אנרגיה, Krasovskii, variable gradient) ואומדן תחום המשיכה.",
+"on": "M5.3"
+},
+{
+"id": "R8:M5.18:3",
+"n": "Barbalat's lemma and nonautonomous systems",
+"imp": "S",
+"k": "new",
+"teach": "יציבות במערכות תלויות זמן, יציבות אחידה, ולמת Barbalat כמה שמשלים את ליאפונוב בהוכחות של בקרה מסתגלת."
+},
+{
+"id": "R8:M5.18:4",
+"n": "Describing function analysis",
+"imp": "S",
+"k": "new",
+"teach": "גזירת פונקציה מתארת לרוויה, ממסר ו-backlash, חיזוי משרעת ותדר של מחזור גבול על דיאגרמת Nyquist, ומתי השיטה טועה."
+},
+{
+"id": "R8:M5.18:5",
+"n": "Absolute stability: circle and Popov criteria",
+"imp": "S",
+"k": "new",
+"teach": "אי-לינאריות בסקטור, קריטריון המעגל וקריטריון Popov כהרחבה גרפית של Nyquist; ערובה ליציבות לכל אי-לינאריות במחלקה."
+},
+{
+"id": "R8:M5.18:6",
+"n": "Feedback linearization and zero dynamics",
+"imp": "K",
+"k": "deepen",
+"teach": "ליניאריזציה כניסה-יציאה, דרגה יחסית, דינמיקת אפס ומה קורה כשהיא לא יציבה, וליניאריזציה כניסה-מצב. computed torque ברובוטיקה כמקרה פרטי.",
+"on": "M19.8"
+},
+{
+"id": "R8:M5.18:7",
+"n": "Sliding mode control",
+"imp": "K",
+"k": "new",
+"teach": "משטח החלקה, תנאי הגעה, עמידות לאי-ודאות מותאמת, chattering ושכבת גבול, ו-super-twisting בקצרה."
+},
+{
+"id": "R8:M5.18:8",
+"n": "Backstepping",
+"imp": "S",
+"k": "new",
+"teach": "תכן רקורסיבי למערכות בצורת strict-feedback דרך פונקציות ליאפונוב מצטברות; דוגמה של מערכת בסדר שלישי."
+},
+{
+"id": "R8:M5.18:9",
+"n": "Adaptive control: MRAC and persistent excitation",
+"imp": "S",
+"k": "new",
+"teach": "בקרה מסתגלת עם מודל ייחוס, חוק עדכון מליאפונוב, התכנסות שגיאת המעקב מול התכנסות הפרמטרים, ו-persistent excitation."
+}
+]
+},
+"M5.19": {
+"items": [
+{
+"id": "R8:M5.19:1",
+"n": "Dynamic programming and the Bellman equation",
+"imp": "S",
+"k": "deepen",
+"teach": "עקרון האופטימליות, DP בזמן בדיד, LQR כמקרה שבו פונקציית הערך ריבועית, וקללת הממד.",
+"on": "M18.2; M5.5"
+},
+{
+"id": "R8:M5.19:2",
+"n": "The Hamilton-Jacobi-Bellman equation",
+"imp": "S",
+"k": "deepen",
+"teach": "HJB בזמן רציף, גזירת LQR ממנה, והקשר לעקרון המקסימום. למה פותרים אותו ישירות רק בממד נמוך.",
+"on": "M8.13 · Optimal control, Pontryagin principle"
+},
+{
+"id": "R8:M5.19:3",
+"n": "Pontryagin's maximum principle in depth",
+"imp": "K",
+"k": "deepen",
+"teach": "costate, תנאי טרנסוורסליות, בקרה bang-bang וקשתות סינגולריות, ובעיית הזמן המינימלי לאינטגרטור כפול. הקשר להנחיה אופטימלית בלנצ'סטר M6.5.",
+"on": "M8.13 · Optimal control, Pontryagin principle"
+},
+{
+"id": "R8:M5.19:4",
+"n": "Direct methods: shooting and collocation",
+"imp": "K",
+"k": "new",
+"teach": "תמלול בעיית בקרה אופטימלית ל-NLP: single shooting, multiple shooting ו-direct collocation; דלילות, אתחול, ומתי כל אחת עדיפה."
+},
+{
+"id": "R8:M5.19:5",
+"n": "Linear MPC formulation",
+"imp": "K",
+"k": "deepen",
+"teach": "MPC כ-QP באופק נסוג, ניסוח condensed מול sparse, אילוצי כניסה ומצב, ומחיר החישוב לפי אופק וגודל מצב.",
+"on": "M5.13 · Model predictive control"
+},
+{
+"id": "R8:M5.19:6",
+"n": "MPC stability and recursive feasibility",
+"imp": "K",
+"k": "deepen",
+"teach": "עלות סופית וקבוצה סופית, הוכחת יציבות דרך פונקציית הערך כפונקציית ליאפונוב, ו-recursive feasibility.",
+"on": "M5.13 · Model predictive control"
+},
+{
+"id": "R8:M5.19:7",
+"n": "Offset-free MPC and state estimation",
+"imp": "S",
+"k": "new",
+"teach": "מודל הפרעה והרחבת המצב, משערך שמחזיר את ההפרעה, ומדוע MPC בלי זה משאיר שגיאה קבועה."
+},
+{
+"id": "R8:M5.19:8",
+"n": "Nonlinear MPC and real-time iteration",
+"imp": "S",
+"k": "new",
+"teach": "NMPC עם SQP, real-time iteration, warm start, ותקציב זמן לפתרון במחזור בקרה של מילישניות."
+},
+{
+"id": "R8:M5.19:9",
+"n": "Robust and tube MPC",
+"imp": "C",
+"k": "new",
+"teach": "רעיון הצינור: בקר נומינלי ובקר משוב שמחזיק את המצב האמיתי בתוך צינור סביבו; הידוק אילוצים."
+}
+]
+},
+"M5.20": {
+"items": [
+{
+"id": "R8:M5.20:1",
+"n": "Nonparametric identification: ETFE and spectral analysis",
+"imp": "S",
+"k": "deepen",
+"teach": "אומדן פונקציית תמסורת אמפירי, Blackman-Tukey, coherence כמדד אמינות לכל תדר, ופשרת רזולוציה מול שונות.",
+"on": "M5.2 · System identification (step tests, frequency response, ARX); M7.2"
+},
+{
+"id": "R8:M5.20:2",
+"n": "Model structures: ARX, ARMAX, OE, Box-Jenkins",
+"imp": "K",
+"k": "deepen",
+"teach": "משפחות המודלים, מודל הרעש של כל אחת, ומה ההנחה על הרעש עושה להטיה של המודל הדינמי.",
+"on": "M5.2 · System identification (step tests, frequency response, ARX); M7.17"
+},
+{
+"id": "R8:M5.20:3",
+"n": "The prediction-error method",
+"imp": "K",
+"k": "new",
+"teach": "מנבא צעד אחד, קריטריון השגיאה, עקביות, ולמה ARX מוטה כשהרעש לא לבן ו-OE לא. PEM כ-ML בגאוסי."
+},
+{
+"id": "R8:M5.20:4",
+"n": "Asymptotic variance and frequency-domain bias",
+"imp": "S",
+"k": "new",
+"teach": "שונות האומדן כפונקציה של N ושל ספקטרום הכניסה, והנוסחה של Ljung לשונות ולהטיה בתחום התדר."
+},
+{
+"id": "R8:M5.20:5",
+"n": "Input design: persistent excitation, PRBS and multisines",
+"imp": "K",
+"k": "deepen",
+"teach": "סדר persistent excitation, PRBS, multisine עם crest factor נמוך, ותכנון ספקטרום הכניסה לפי השימוש במודל.",
+"on": "M5.2 · System identification (step tests, frequency response, ARX)"
+},
+{
+"id": "R8:M5.20:6",
+"n": "Subspace identification",
+"imp": "S",
+"k": "new",
+"teach": "N4SID ו-MOESP: מטריצות Hankel של נתונים, SVD לבחירת סדר, ואומדן מודל מצב ישירות; חלופה ללא אופטימיזציה לא קמורה."
+},
+{
+"id": "R8:M5.20:7",
+"n": "Model validation and order selection",
+"imp": "K",
+"k": "new",
+"teach": "מבחני לבנות של שאריות ומתאם צולב עם הכניסה, אימות על נתונים חדשים, AIC ו-FPE, וסימולציה מול ניבוי."
+},
+{
+"id": "R8:M5.20:8",
+"n": "Closed-loop identification",
+"imp": "S",
+"k": "new",
+"teach": "בעיית המתאם בין רעש לכניסה בלולאה סגורה, שיטות ישירה, עקיפה ו-joint input-output, ומתי ישירה עובדת."
+},
+{
+"id": "R8:M5.20:9",
+"n": "Grey-box and block-oriented nonlinear models",
+"imp": "C",
+"k": "new",
+"teach": "זיהוי פרמטרים פיזיקליים במודל ידוע מבנה, ומודלי Wiener ו-Hammerstein."
+}
+]
+},
+"M5.17": {
+"items": [
+{
+"id": "R8:M5.17:1",
+"n": "Motion models and process noise",
+"imp": "K",
+"k": "deepen",
+"teach": "CV, CA, Singer ו-coordinated turn, מודל רעש לבן מבודד מול רעש רציף מבודד, ובחירת q לפי תמרון מקסימלי.",
+"on": "L:M2.15"
+},
+{
+"id": "R8:M5.17:2",
+"n": "Measurement models and coordinate conversion",
+"imp": "S",
+"k": "new",
+"teach": "מדידות קוטביות, המרה לקרטזית וההטיה שלה (debiased conversion), ומתי עדיף EKF במדידות המקוריות."
+},
+{
+"id": "R8:M5.17:3",
+"n": "Alpha-beta filters and the tracking index",
+"imp": "S",
+"k": "deepen",
+"teach": "מסנן α-β ו-α-β-γ כקלמן במצב יציב, מדד המעקב λ, ואיך בוחרים רווחים.",
+"on": "L:M2.15"
+},
+{
+"id": "R8:M5.17:4",
+"n": "Gating",
+"imp": "S",
+"k": "deepen",
+"teach": "שער אליפסואידי, סף χ², הסתברות השער, ונפח השער כפונקציה של שונות החידוש.",
+"on": "M5.14 · Data association"
+},
+{
+"id": "R8:M5.17:5",
+"n": "Probabilistic data association (PDA)",
+"imp": "K",
+"k": "deepen",
+"teach": "גזירת PDA: הסתברויות שיוך, עדכון משוקלל, ניפוח השונות בגלל אי-ודאות השיוך, וביצועים בצפיפות clutter.",
+"on": "M5.14 · Data association"
+},
+{
+"id": "R8:M5.17:6",
+"n": "JPDA and track coalescence",
+"imp": "S",
+"k": "deepen",
+"teach": "אירועי שיוך משותפים, מורכבות קומבינטורית, coalescence של מסלולים קרובים ותיקונים.",
+"on": "M5.14 · Data association; L:M2.29"
+},
+{
+"id": "R8:M5.17:7",
+"n": "Multiple-hypothesis tracking and assignment",
+"imp": "K",
+"k": "deepen",
+"teach": "MHT מוכוון מסלול ומוכוון השערה, גיזום ו-N-scan, שיוך דו-ממדי (Hungarian, auction) ו-Murty ל-k הפתרונות הטובים.",
+"on": "L:M2.29"
+},
+{
+"id": "R8:M5.17:8",
+"n": "IMM in depth",
+"imp": "K",
+"k": "deepen",
+"teach": "משוואות ה-mixing, הסתברויות מוד, תכן מטריצת המעבר והמודלים, וביצועים בתמרון מול מסנן יחיד.",
+"on": "M5.14 · IMM idea"
+},
+{
+"id": "R8:M5.17:9",
+"n": "Track management",
+"imp": "S",
+"k": "deepen",
+"teach": "אתחול (לוגיקת M מתוך N), אישור ומחיקה, איכות מסלול, וקצב מסלולים שגויים.",
+"on": "L:M2.29"
+},
+{
+"id": "R8:M5.17:10",
+"n": "Multisensor fusion and registration",
+"imp": "S",
+"k": "deepen",
+"teach": "מיזוג מסלול-למסלול, מתאם בין שגיאות, covariance intersection, ורישום הטיות בין חיישנים.",
+"on": "L:M2.29"
+},
+{
+"id": "R8:M5.17:11",
+"n": "Random finite sets: PHD and PMBM",
+"imp": "C",
+"k": "new",
+"teach": "ניסוח הבעיה כקבוצה אקראית, מסנן PHD ו-PMBM ברמת רעיון, ומה הם פותרים ש-MHT מתקשה בו."
+}
+]
+},
+"M23.17": {
+"items": [
+{
+"id": "R8:M23.17:1",
+"n": "Signal space and sufficient statistics",
+"imp": "K",
+"k": "new",
+"teach": "ייצוג אותות בבסיס אורתונורמלי, Gram-Schmidt, ומשפט ההיטל: הקרנה על מרחב האות היא סטטיסטי מספיק ברעש לבן."
+},
+{
+"id": "R8:M23.17:2",
+"n": "Optimal receiver in AWGN",
+"imp": "K",
+"k": "deepen",
+"teach": "ML ו-MAP, correlator ומסנן מתואם, אזורי החלטה, ושקילות בין המימושים.",
+"on": "M7.4"
+},
+{
+"id": "R8:M23.17:3",
+"n": "Error probability of M-ary modulations",
+"imp": "K",
+"k": "deepen",
+"teach": "חסם האיחוד, קירוב השכנים הקרובים, BER של PSK, QAM ו-FSK כפונקציה של Eb/N0, קוד Gray, ויעילות ספקטרלית מול הספק.",
+"on": "M23.6 · BER vs theory in AWGN and Rayleigh; L:M0.5"
+},
+{
+"id": "R8:M23.17:4",
+"n": "Nyquist criterion and pulse shaping",
+"imp": "K",
+"k": "deepen",
+"teach": "ISI, קריטריון Nyquist בזמן ובתדר, raised cosine ו-root raised cosine, excess bandwidth, ודיאגרמת עין.",
+"on": "M23.2"
+},
+{
+"id": "R8:M23.17:5",
+"n": "Carrier frequency and phase recovery",
+"imp": "K",
+"k": "deepen",
+"teach": "אומדן היסט תדר, PLL ו-Costas loop, decision-directed, רוחב פס הלולאה מול jitter, ועמימות פאזה ופתרונה.",
+"on": "M23.2 · Synchronization; L:M5.4"
+},
+{
+"id": "R8:M23.17:6",
+"n": "Symbol timing recovery",
+"imp": "K",
+"k": "deepen",
+"teach": "early-late, Gardner ו-Mueller-Müller, אינטרפולציה בקצב שבור (Farrow), ולולאת תזמון כמערכת בקרה.",
+"on": "M23.2 · Synchronization"
+},
+{
+"id": "R8:M23.17:7",
+"n": "Frame synchronization and preamble design",
+"imp": "S",
+"k": "deepen",
+"teach": "קורלציה לגילוי פריים, רצפי Barker ו-Zadoff-Chu, ואומדן היסט תדר מה-preamble (Schmidl-Cox).",
+"on": "M23.2 · Synchronization"
+},
+{
+"id": "R8:M23.17:8",
+"n": "Equalization: ZF, MMSE and DFE",
+"imp": "K",
+"k": "deepen",
+"teach": "אקולייזר ZF מול MMSE והגברת הרעש, DFE והתפשטות שגיאות, ו-MLSE עם Viterbi כאופטימום.",
+"on": "M7.3 · Adaptive filters (LMS, RLS)"
+},
+{
+"id": "R8:M23.17:9",
+"n": "Noncoherent and differential detection",
+"imp": "S",
+"k": "new",
+"teach": "DPSK ו-FSK לא קוהרנטי, ההפסד ב-dB לעומת קוהרנטי, ומתי שווה לוותר על שחזור פאזה."
+},
+{
+"id": "R8:M23.17:10",
+"n": "Impairment budget and SDR implementation",
+"imp": "S",
+"k": "deepen",
+"teach": "רעש פאזה, IQ imbalance, היסט DC ושגיאת שעון כתקציב EVM, ושרשרת הסנכרון המלאה במקלט SDR.",
+"on": "M23.2 · Cable loopback with SDR"
+},
+{
+"id": "R8:M23.17:x1",
+"n": "Learned receivers",
+"imp": "S",
+"k": "new",
+"teach": "מקלטים ומשווים נלמדים מול קלאסיים, ונתונים לאימון מערוצים אמיתיים ומסימולציה."
+}
+]
+},
+"M10.12": {
+"items": [
+{
+"id": "R8:M10.12:1",
+"n": "The Yee grid and leapfrog update",
+"imp": "K",
+"k": "deepen",
+"teach": "גזירת משוואות העדכון ממשוואות התלתל של מקסוול, תא Yee והזזה של חצי צעד בין E ל-H, מ-1D ל-3D.",
+"on": "M10.5"
+},
+{
+"id": "R8:M10.12:2",
+"n": "Stability and numerical dispersion",
+"imp": "K",
+"k": "deepen",
+"teach": "תנאי Courant בתלת-ממד, יחס הנפיצה הנומרי, שגיאת מהירות פאזה לפי מספר התאים לאורך גל (לפחות 10–20), ואנאיזוטרופיה של הרשת.",
+"on": "M10.5"
+},
+{
+"id": "R8:M10.12:3",
+"n": "Sources and TF/SF",
+"imp": "S",
+"k": "new",
+"teach": "מקור קשיח מול רך, ותחום total field/scattered field להזרקת גל מישורי נקי לבעיות פיזור."
+},
+{
+"id": "R8:M10.12:4",
+"n": "Absorbing boundaries: Mur and PML",
+"imp": "K",
+"k": "new",
+"teach": "תנאי Mur, PML של Berenger, CPML, ופרופיל ההפסד מול עובי השכבה ורמת ההחזרה."
+},
+{
+"id": "R8:M10.12:5",
+"n": "Materials: lossy and dispersive media",
+"imp": "S",
+"k": "new",
+"teach": "מוליכות, PEC, ותווך נפיץ (Drude, Lorentz) בשיטת ADE."
+},
+{
+"id": "R8:M10.12:6",
+"n": "Near-to-far-field transformation",
+"imp": "S",
+"k": "new",
+"teach": "עקרון השקילות, זרמים על משטח סגור, וחישוב דיאגרמת קרינה ו-RCS מתוצאת FDTD."
+},
+{
+"id": "R8:M10.12:7",
+"n": "Validation against closed-form solutions",
+"imp": "S",
+"k": "deepen",
+"teach": "סדר התכנסות, ובדיקה מול כדור Mie, דיפול חצי גל ועקיפה מחריץ. אותה משמעת כמו ב-P10, על בעיית EM.",
+"on": "M10.8"
+},
+{
+"id": "R8:M10.12:8",
+"n": "Method of moments for wire antennas",
+"imp": "K",
+"k": "new",
+"teach": "משוואה אינטגרלית (EFIE ו-Pocklington), פונקציות בסיס ובדיקה, מטריצת עכבה, ופתרון דיפול דק עם עכבת כניסה."
+},
+{
+"id": "R8:M10.12:9",
+"n": "Choosing a method: MoM, FDTD, FEM and fast solvers",
+"imp": "S",
+"k": "deepen",
+"teach": "עלות O(N³) של MoM מול O(N) לצעד של FDTD, fast multipole, ומתי כל שיטה מתאימה (פס רחב, מבנה פתוח, חומרים מורכבים).",
+"on": "M10.10"
+}
+]
+},
+"M12.12": {
+"items": [
+{
+"id": "R8:M12.12:1",
+"n": "Volt-second and charge balance; basic converters",
+"imp": "K",
+"k": "deepen",
+"teach": "קירוב אדוות קטנה, איזון וולט-שנייה בסליל ואיזון מטען בקבל, ויחסי ההמרה של buck, boost ו-buck-boost בגזירה מלאה.",
+"on": "M11.6; M12.4"
+},
+{
+"id": "R8:M12.12:2",
+"n": "Loss modeling and efficiency",
+"imp": "S",
+"k": "new",
+"teach": "מודל שקול DC עם התנגדויות, נצילות כפונקציה של עומס, הפסדי הולכה ומיתוג וחישובם."
+},
+{
+"id": "R8:M12.12:3",
+"n": "Switch realization and wide-bandgap devices",
+"imp": "S",
+"k": "deepen",
+"teach": "MOSFET ודיודה כמתגים, הפסדי מיתוג ו-reverse recovery, ו-SiC ו-GaN: מה הם משנים בתדר, בגודל ובתרמי.",
+"on": "M12.4 · Switching devices: MOSFET, IGBT, SiC, GaN trade-offs; M25.5 · Power semiconductors (SiC, GaN)"
+},
+{
+"id": "R8:M12.12:4",
+"n": "Discontinuous conduction mode",
+"imp": "S",
+"k": "new",
+"teach": "גבול CCM/DCM (K < K_crit), יחס ההמרה ב-DCM ותלותו בעומס, ומתי מתכננים ל-DCM בכוונה."
+},
+{
+"id": "R8:M12.12:5",
+"n": "Isolated converters: forward, flyback, bridge",
+"imp": "K",
+"k": "new",
+"teach": "שנאי בממיר, איפוס ליבה ב-forward, flyback כסליל משותף, גשר מלא, ובחירת טופולוגיה לפי הספק ובידוד."
+},
+{
+"id": "R8:M12.12:6",
+"n": "AC equivalent circuit modeling",
+"imp": "K",
+"k": "deepen",
+"teach": "מיצוע מרחב מצב וליניאריזציה, פונקציות התמסורת G_vd ו-G_vg, ואפס ה-RHP של boost ומשמעותו לרוחב הפס.",
+"on": "M12.4 · Converter control loops"
+},
+{
+"id": "R8:M12.12:7",
+"n": "Converter control: voltage mode and current mode",
+"imp": "K",
+"k": "deepen",
+"teach": "תכן מפצה לפי הגבר הלולאה, בקרת זרם שיא, תנודה תת-הרמונית ו-slope compensation.",
+"on": "M12.4 · Converter control loops"
+},
+{
+"id": "R8:M12.12:8",
+"n": "Magnetics design for converters",
+"imp": "S",
+"k": "deepen",
+"teach": "שיטת Kg לסליל ולשנאי, הפסדי ליבה (Steinmetz), הפסדי ליפוף בתדר גבוה (Dowell, proximity), ובחירת ליבה.",
+"on": "M12.4 · Magnetics design for converters; M12.3 · Core losses: hysteresis and eddy; lamination"
+},
+{
+"id": "R8:M12.12:9",
+"n": "Input filters, EMI and thermal design",
+"imp": "S",
+"k": "new",
+"teach": "מסנן כניסה וקריטריון Middlebrook לאינטראקציה עם הלולאה, מקורות EMI בממיר, ושרשרת תרמית של רכיבי הספק."
+},
+{
+"id": "R8:M12.12:10",
+"n": "Three-phase inverters and PWM",
+"imp": "C",
+"k": "deepen",
+"teach": "PWM סינוסי ו-space vector ברמת קשר לממירי ההנעה של P12.",
+"on": "M12.7"
+},
+{
+"id": "R8:M12.12:fut1",
+"n": "Powering and cooling AI compute: from the grid to the GPU",
+"imp": "S",
+"k": "new",
+"teach": "מאיץ אחד צורך יותר מקילוואט, וארון של מאיצים צורך יותר ממאה קילוואט. שרשרת אספקת ההספק: ממתח בינוני, דרך 800V DC ו-48V, ועד פחות מוולט אחד בשבב. ממירים צמודים לשבב והפסדים בכל שלב. קירור בנוזל (cold plate וטבילה) מול קירור באוויר, PUE, וההספק לכל טוקן כמדד עלות. למה האנרגיה, ולא הטרנזיסטורים, קובעת היום כמה AI אפשר להריץ."
+}
+]
+},
+"M11.24": {
+"items": [
+{
+"id": "R8:M11.24:1",
+"n": "Rise time, bandwidth and when a trace is a transmission line",
+"imp": "K",
+"k": "deepen",
+"teach": "BW ≈ 0.35/t_r, אורך קריטי לעומת זמן העלייה, ולמה הקצב לא קובע אלא זמן העלייה.",
+"on": "M11.11"
+},
+{
+"id": "R8:M11.24:2",
+"n": "PCB transmission lines: microstrip and stripline",
+"imp": "S",
+"k": "deepen",
+"teach": "עכבה אופיינית לפי גאומטריה, השהיה לאינץ', הפסדי skin ודיאלקטרי, ו-stackup.",
+"on": "L:M1.5"
+},
+{
+"id": "R8:M11.24:3",
+"n": "Reflections and termination",
+"imp": "K",
+"k": "deepen",
+"teach": "מקדם החזרה, דיאגרמת סריג, סיום טורי ומקבילי, stubs ו-vias כאי-רציפויות.",
+"on": "L:M1.5"
+},
+{
+"id": "R8:M11.24:4",
+"n": "Return path, ground bounce and loop inductance",
+"imp": "K",
+"k": "deepen",
+"teach": "זרם החזרה מתחת לקו בתדר גבוה, חריצים במישור, השראות לולאה, ground bounce מ-L·di/dt של יציאות רבות.",
+"on": "M11.8 · Power integrity and decoupling (PDN impedance, ground bounce)"
+},
+{
+"id": "R8:M11.24:5",
+"n": "Crosstalk",
+"imp": "S",
+"k": "new",
+"teach": "צימוד השראי וקיבולי, NEXT ו-FEXT, וכללי מרווח וניתוב."
+},
+{
+"id": "R8:M11.24:6",
+"n": "Lossy channels, ISI and eye diagrams",
+"imp": "S",
+"k": "deepen",
+"teach": "insertion loss בתדר, ISI בקו ארוך, דיאגרמת עין ו-S-parameters של ערוץ. הבסיס ל-H4.",
+"on": "M11.19 · Two-port networks and S-parameters"
+},
+{
+"id": "R8:M11.24:7",
+"n": "Power delivery network design",
+"imp": "K",
+"k": "deepen",
+"teach": "עכבת מטרה, היררכיית קבלי ניתוק, קיבול מישורים, תהודות אנטי-מקבילות, ומדידת PDN.",
+"on": "M11.8 · Power integrity and decoupling (PDN impedance, ground bounce)"
+},
+{
+"id": "R8:M11.24:8",
+"n": "EMC emission mechanisms",
+"imp": "K",
+"k": "new",
+"teach": "קרינה במוד דיפרנציאלי (לולאה קטנה) ובמוד משותף (כבל כאנטנה), נוסחאות ההערכה, ולמה מוד משותף שולט."
+},
+{
+"id": "R8:M11.24:9",
+"n": "Shielding and grounding",
+"imp": "K",
+"k": "new",
+"teach": "יעילות סיכוך (בליעה והחזרה), פתחים ואורך חריץ, סיום סיכוך של כבל, לולאות הארקה והארקה בנקודה אחת מול רבות."
+},
+{
+"id": "R8:M11.24:10",
+"n": "Filtering, ESD and susceptibility",
+"imp": "S",
+"k": "new",
+"teach": "מסנני EMI במוד משותף ודיפרנציאלי, ESD ונחשולים, ורגישות מעגלים אנלוגיים לשדות RF."
+},
+{
+"id": "R8:M11.24:11",
+"n": "MIL-STD-461 and EMC testing",
+"imp": "S",
+"k": "deepen",
+"teach": "בדיקות CE, CS, RE ו-RS, LISN ותא אנאכואי, ואיך מתכננים מראש לעבור. U9 בלנצ'סטר בונה על זה.",
+"on": "M27.3 · Environmental testing (vibe, thermal-vac, EMC)"
+},
+{
+"id": "R8:M11.24:dfm1",
+"n": "PCB design for manufacture, assembly and test",
+"imp": "K",
+"k": "new",
+"teach": "stack-up ובחירת חומר, כללי DFM של יצרן (רוחב ומרווח, via, טבעת), DFA ו-DFT (נקודות בדיקה, JTAG, ICT), פאנליזציה ותשואה."
+}
+]
+},
+"M22.14": {
+"items": [
+{
+"id": "R8:M22.14:1",
+"n": "Processes, system calls and context switches",
+"imp": "S",
+"k": "deepen",
+"teach": "אבסטרקציית התהליך, limited direct execution, קריאת מערכת ו-trap, ומחיר החלפת הקשר.",
+"on": "M22.7 · Operating systems: processes, scheduling, memory, I/O"
+},
+{
+"id": "R8:M22.14:2",
+"n": "CPU scheduling",
+"imp": "S",
+"k": "deepen",
+"teach": "FIFO, SJF, RR, MLFQ ו-proportional share, ותזמון על כמה ליבות. הגשר לתזמון זמן אמת ב-H5.",
+"on": "M22.7 · Operating systems: processes, scheduling, memory, I/O"
+},
+{
+"id": "R8:M22.14:3",
+"n": "Virtual memory: paging, TLB and page tables",
+"imp": "K",
+"k": "deepen",
+"teach": "מרחב כתובות, דפים, TLB ומחיר החטאה, טבלאות רב-שכבתיות, page faults ו-swapping.",
+"on": "M22.7"
+},
+{
+"id": "R8:M22.14:4",
+"n": "Threads, locks and atomic operations",
+"imp": "K",
+"k": "deepen",
+"teach": "מימוש מנעול מ-test-and-set ו-compare-and-swap, spinlock מול mutex, וביצועים תחת תחרות.",
+"on": "M22.8 · Concurrency, race conditions, deadlock"
+},
+{
+"id": "R8:M22.14:5",
+"n": "Condition variables, semaphores and producer-consumer",
+"imp": "K",
+"k": "new",
+"teach": "המתנה לתנאי, בעיית היצרן-צרכן, semaphores כמנגנון כללי, ומלכודת ה-if במקום while."
+},
+{
+"id": "R8:M22.14:6",
+"n": "Concurrency bugs and deadlock",
+"imp": "S",
+"k": "deepen",
+"teach": "הפרת אטומיות וסדר, ארבעת תנאי ה-deadlock ומניעה, ו-priority inversion.",
+"on": "M22.8 · Concurrency, race conditions, deadlock"
+},
+{
+"id": "R8:M22.14:7",
+"n": "I/O: interrupts, polling and DMA",
+"imp": "S",
+"k": "deepen",
+"teach": "polling מול פסיקות מול DMA, מבנה מנהל התקן, ומתי polling מהיר יותר.",
+"on": "M22.11"
+},
+{
+"id": "R8:M22.14:8",
+"n": "File systems and crash consistency",
+"imp": "S",
+"k": "new",
+"teach": "inode, ספריות, journaling, fsync, ומה מובטח אחרי נפילת חשמל."
+}
+]
+},
+"M22.15": {
+"items": [
+{
+"id": "R8:M22.15:1",
+"n": "Threat models and security goals",
+"imp": "S",
+"k": "deepen",
+"teach": "סודיות, שלמות וזמינות, מודל יריב, עקרון Kerckhoffs, ולמה ביטחון נמדד מול יריב מוגדר.",
+"on": "M23.7 · Network security: threats, firewalls, defense in depth"
+},
+{
+"id": "R8:M22.15:2",
+"n": "Symmetric encryption and modes",
+"imp": "K",
+"k": "deepen",
+"teach": "צופן בלוקים (AES), מצבי CTR ו-GCM, IND-CPA, והכשל הקטלני של שימוש חוזר ב-nonce.",
+"on": "M22.11 · Cybersecurity fundamentals for weapon systems: attack surface, crypto primitives (symmetric, public-key, hashes) and why they hold, side channels, hardware supply-chain trojans, cyber-EW overlap"
+},
+{
+"id": "R8:M22.15:3",
+"n": "Hash functions and MACs",
+"imp": "K",
+"k": "deepen",
+"teach": "עמידות להתנגשות ולמקור, פרדוקס יום ההולדת (2^{n/2}), HMAC והתקפת length extension.",
+"on": "M22.11 · Cybersecurity fundamentals for weapon systems: attack surface, crypto primitives (symmetric, public-key, hashes) and why they hold, side channels, hardware supply-chain trojans, cyber-EW overlap"
+},
+{
+"id": "R8:M22.15:4",
+"n": "Public-key cryptography: RSA, Diffie-Hellman, ECC",
+"imp": "K",
+"k": "deepen",
+"teach": "המתמטיקה של RSA ו-DH, עקומות אליפטיות, וגדלי מפתח מול רמת ביטחון (RSA-3072 ≈ 128 ביט).",
+"on": "M20.5"
+},
+{
+"id": "R8:M22.15:5",
+"n": "Digital signatures and PKI",
+"imp": "S",
+"k": "new",
+"teach": "חתימות RSA ו-ECDSA, תעודות ושרשרת אמון, ביטול, ומה קורה כשרשות התעודות נפרצת."
+},
+{
+"id": "R8:M22.15:6",
+"n": "Authenticated key exchange and TLS 1.3",
+"imp": "S",
+"k": "deepen",
+"teach": "לחיצת היד של TLS 1.3, forward secrecy, אימות שרת, ואיפה פרוטוקולים נשברים בפועל.",
+"on": "M23.16"
+},
+{
+"id": "R8:M22.15:7",
+"n": "Key management and randomness",
+"imp": "S",
+"k": "new",
+"teach": "מחזור חיים של מפתח, HSM, מקורות אנטרופיה ו-DRBG, והכשלים ההיסטוריים של אקראיות חלשה."
+},
+{
+"id": "R8:M22.15:8",
+"n": "Security engineering failures",
+"imp": "S",
+"k": "deepen",
+"teach": "מקרים מ-Anderson: שימושיות, איום פנימי, הנחות שנשברו, וביטחון כמערכת ולא כאלגוריתם.",
+"on": "M27.2 · Security engineering and cyber-resilience"
+},
+{
+"id": "R8:M22.15:9",
+"n": "Post-quantum cryptography and migration",
+"imp": "S",
+"k": "new",
+"teach": "למה Shor שובר RSA ו-ECC, ML-KEM ו-ML-DSA (תקני NIST 2024), harvest-now-decrypt-later, ותכנון מעבר."
+}
+]
+},
+"M18.11": {
+"items": [
+{
+"id": "R8:M18.11:1",
+"n": "DQN and its family",
+"imp": "K",
+"k": "deepen",
+"teach": "replay buffer ו-target network כפתרון ל-deadly triad, Double DQN, dueling, prioritized replay ו-distributional RL.",
+"on": "M18.6"
+},
+{
+"id": "R8:M18.11:2",
+"n": "Policy gradient theorem and variance reduction",
+"imp": "S",
+"k": "deepen",
+"teach": "REINFORCE, baseline, למה השונות גבוהה, ו-actor-critic כפתרון.",
+"on": "M18.7"
+},
+{
+"id": "R8:M18.11:3",
+"n": "Generalized advantage estimation",
+"imp": "K",
+"k": "new",
+"teach": "GAE(λ) כממוצע מעריכי של אומדני TD, ופשרת הטיה מול שונות לפי λ ו-γ."
+},
+{
+"id": "R8:M18.11:4",
+"n": "TRPO and PPO",
+"imp": "K",
+"k": "deepen",
+"teach": "אילוץ KL וגרדיאנט טבעי ב-TRPO, היעד המקוצץ של PPO, ופרטי מימוש שמשנים תוצאות (נרמול advantage, clipping של value).",
+"on": "M18.7 · Actor-critic, PPO, SAC"
+},
+{
+"id": "R8:M18.11:5",
+"n": "Off-policy actor-critic: DDPG, TD3, SAC",
+"imp": "K",
+"k": "deepen",
+"teach": "DDPG, clipped double Q של TD3, ו-SAC עם מקסימום אנטרופיה וכיוון טמפרטורה אוטומטי.",
+"on": "M18.7 · Actor-critic, PPO, SAC"
+},
+{
+"id": "R8:M18.11:6",
+"n": "Model-based RL: PETS, Dreamer, MuZero",
+"imp": "K",
+"k": "deepen",
+"teach": "מודל דינמיקה נלמד ו-MPC (PETS), world model לטנטי (Dreamer), ותכנון עם מודל ערך (MuZero); יעילות דגימה מול הטיית מודל.",
+"on": "M18.4"
+},
+{
+"id": "R8:M18.11:7",
+"n": "Exploration in deep RL",
+"imp": "S",
+"k": "new",
+"teach": "ε-greedy, אנטרופיה, מוטיבציה פנימית (RND, ספירה), ומתי חקירה היא צוואר הבקבוק."
+},
+{
+"id": "R8:M18.11:8",
+"n": "Experimental methodology for RL",
+"imp": "S",
+"k": "deepen",
+"teach": "זרעים רבים, IQM ורווחי סמך (rliable), רגישות להיפרפרמטרים, והשוואה הוגנת בין אלגוריתמים.",
+"on": "M18.7 · Multiple seeds"
+},
+{
+"id": "R8:M18.11:9",
+"n": "Practical training: environments and normalization",
+"imp": "S",
+"k": "new",
+"teach": "תכן סביבה, נרמול תצפיות ותגמולים, סביבות וקטוריות, ובדיקות שפיות (סביבה טריוויאלית שחייבת להיפתר)."
+}
+]
+},
+"M19.12": {
+"items": [
+{
+"id": "R8:M19.12:1",
+"n": "Projective geometry for vision",
+"imp": "S",
+"k": "deepen",
+"teach": "קואורדינטות הומוגניות, טרנספורמציות פרויקטיביות, נקודות וקווים באינסוף.",
+"on": "M1.4"
+},
+{
+"id": "R8:M19.12:2",
+"n": "Camera model and calibration",
+"imp": "K",
+"k": "deepen",
+"teach": "מודל pinhole, intrinsics ו-extrinsics, עיוות עדשה, ושיטת Zhang עם לוח שחמט.",
+"on": "M19.10 · Camera models, calibration, stereo, epipolar geometry"
+},
+{
+"id": "R8:M19.12:3",
+"n": "Homography estimation",
+"imp": "S",
+"k": "new",
+"teach": "DLT, נרמול Hartley, הומוגרפיה של מישור ושל סיבוב טהור."
+},
+{
+"id": "R8:M19.12:4",
+"n": "Epipolar geometry: essential and fundamental matrices",
+"imp": "K",
+"k": "deepen",
+"teach": "מטריצות E ו-F, אלגוריתם 8 נקודות ו-5 נקודות, פירוק E לסיבוב והזזה, ו-RANSAC.",
+"on": "M19.10 · Camera models, calibration, stereo, epipolar geometry"
+},
+{
+"id": "R8:M19.12:5",
+"n": "Features, matching and robust estimation",
+"imp": "S",
+"k": "new",
+"teach": "גלאים ותיאורים (ORB, SIFT), התאמה ו-ratio test, ומספר איטרציות RANSAC לפי שיעור outliers."
+},
+{
+"id": "R8:M19.12:6",
+"n": "Triangulation, SfM and bundle adjustment",
+"imp": "K",
+"k": "new",
+"teach": "טריאנגולציה, structure from motion, ו-bundle adjustment כריבועים פחותים לא לינאריים דלילים עם Schur complement."
+},
+{
+"id": "R8:M19.12:7",
+"n": "Lie groups for pose estimation",
+"imp": "K",
+"k": "deepen",
+"teach": "SO(3) ו-SE(3), exp ו-log, הפרעות על המניפולד, Jacobians ושונות על פוזה.",
+"on": "M19.2"
+},
+{
+"id": "R8:M19.12:8",
+"n": "Factor graphs and SLAM back-ends",
+"imp": "K",
+"k": "deepen",
+"teach": "גרף פקטורים, אופטימיזציית pose graph, iSAM, סגירת לולאה ו-marginalization.",
+"on": "M19.10 · SLAM"
+},
+{
+"id": "R8:M19.12:9",
+"n": "Visual-inertial odometry",
+"imp": "K",
+"k": "deepen",
+"teach": "preintegration של IMU, צפיות (סקאלה, yaw), מסנן (MSCKF) מול אופטימיזציה (VINS), וכיול זמן.",
+"on": "M19.10 · Visual odometry and visual-inertial navigation"
+},
+{
+"id": "R8:M19.12:10",
+"n": "Optical flow and direct methods",
+"imp": "S",
+"k": "new",
+"teach": "Lucas-Kanade, פירמידות, ושיטות ישירות פוטומטריות מול שיטות מאפיינים."
+},
+{
+"id": "R8:M19.12:11",
+"n": "Stereo matching and dense depth",
+"imp": "C",
+"k": "deepen",
+"teach": "התאמת סטריאו, cost volume ושגיאת עומק Z²/(fB).",
+"on": "M19.10 · Camera models, calibration, stereo, epipolar geometry"
+}
+]
+},
+"M27.10": {
+"items": [
+{
+"id": "R8:M27.10:1",
+"n": "Why MBSE: the model as source of truth",
+"imp": "S",
+"k": "deepen",
+"teach": "מה מסמכים נכשלים בו, digital thread, ומתי מודל עולה יותר ממה שהוא נותן.",
+"on": "M27.2 · Model-based systems engineering (SysML)"
+},
+{
+"id": "R8:M27.10:2",
+"n": "SysML v2 foundations: KerML, definitions and usages",
+"imp": "K",
+"k": "new",
+"teach": "שפת הליבה KerML, ההבחנה בין definition ל-usage, סימון טקסטואלי וגרפי, וחבילות. מה השתנה מ-SysML v1."
+},
+{
+"id": "R8:M27.10:3",
+"n": "Structure: parts, ports, interfaces and connections",
+"imp": "K",
+"k": "new",
+"teach": "הגדרת חלקים, פורטים וממשקים, חיבורים וזרימת פריטים, ותצוגה מקבילה ל-IBD."
+},
+{
+"id": "R8:M27.10:4",
+"n": "Behavior: actions, states and interactions",
+"imp": "K",
+"k": "new",
+"teach": "פעולות, מכונות מצבים, רצפים, והקצאת התנהגות למבנה."
+},
+{
+"id": "R8:M27.10:5",
+"n": "Requirements and traceability",
+"imp": "K",
+"k": "deepen",
+"teach": "דרישות עם אילוצים ניתנים לחישוב, יחסי satisfy ו-verify, ו-traceability שנבדקת אוטומטית.",
+"on": "M27.4"
+},
+{
+"id": "R8:M27.10:6",
+"n": "Analysis and trade studies in the model",
+"imp": "S",
+"k": "deepen",
+"teach": "חישובים ואילוצים, analysis cases ו-trade-off cases, וחיבור לכלי חישוב חיצוניים.",
+"on": "M27.5 · Trade studies and decision analysis"
+},
+{
+"id": "R8:M27.10:7",
+"n": "Verification cases",
+"imp": "S",
+"k": "deepen",
+"teach": "verification case כחלק מהמודל, וקישור בין דרישה, מקרה בדיקה ותוצאה.",
+"on": "M27.3"
+},
+{
+"id": "R8:M27.10:8",
+"n": "Views, viewpoints and architecture frameworks",
+"imp": "S",
+"k": "new",
+"teach": "מבטים ונקודות מבט, ו-UAF, DoDAF ו-NAF כמסגרות לבעלי עניין."
+},
+{
+"id": "R8:M27.10:9",
+"n": "SysML v2 API and model management",
+"imp": "S",
+"k": "new",
+"teach": "ה-API הסטנדרטי, ניהול גרסאות של מודל טקסטואלי ב-git, והחלפת מודלים בין כלים."
+},
+{
+"id": "R8:M27.10:10",
+"n": "MBSE methods and adoption pitfalls",
+"imp": "C",
+"k": "new",
+"teach": "OOSEM ושיטות אחרות, ולמה פרויקטי MBSE נכשלים (מודל בשביל המודל)."
+}
+]
+},
+"M28.1": {
+"items": [
+{
+"id": "R8:M28.1:1",
+"n": "Branch prediction and the cost of control hazards",
+"imp": "S",
+"k": "deepen",
+"teach": "חזאים דו-ביטיים, tournament ו-TAGE, BTB, ומחיר חיזוי שגוי בצינור עמוק.",
+"on": "M22.6"
+},
+{
+"id": "R8:M28.1:2",
+"n": "Out-of-order execution: Tomasulo, renaming and the ROB",
+"imp": "K",
+"k": "deepen",
+"teach": "אלגוריתם Tomasulo, שינוי שמות רגיסטרים נגד WAR ו-WAW, ROB ו-precise exceptions, ותורי הנפקה.",
+"on": "M22.6"
+},
+{
+"id": "R8:M28.1:3",
+"n": "Speculation and memory disambiguation",
+"imp": "S",
+"k": "new",
+"teach": "ביצוע ספקולטיבי, load-store queue, חיזוי תלות זיכרון, ומגבלות ILP בפועל."
+},
+{
+"id": "R8:M28.1:4",
+"n": "Advanced cache design",
+"imp": "S",
+"k": "deepen",
+"teach": "מודל 3C, nonblocking caches ו-MSHR, prefetching, ו-AMAT כמדד.",
+"on": "M22.7"
+},
+{
+"id": "R8:M28.1:5",
+"n": "Snooping coherence: MSI, MESI, MOESI",
+"imp": "K",
+"k": "deepen",
+"teach": "אינווריאנט SWMR, מכונות המצבים של MSI, MESI ו-MOESI, מה מוסיף כל מצב, ותעבורת אפיק.",
+"on": "M22.7"
+},
+{
+"id": "R8:M28.1:6",
+"n": "Directory coherence and NUMA",
+"imp": "S",
+"k": "new",
+"teach": "פרוטוקולי ספרייה, מחיר האחסון, השהיות NUMA, ומה זה אומר לקוד מקבילי."
+},
+{
+"id": "R8:M28.1:7",
+"n": "Memory consistency models",
+"imp": "K",
+"k": "new",
+"teach": "SC, TSO (x86) ו-relaxed (ARM, RISC-V), litmus tests, fences ו-acquire/release. למה קוד נכון ב-x86 נשבר ב-ARM."
+},
+{
+"id": "R8:M28.1:8",
+"n": "Hardware synchronization and false sharing",
+"imp": "S",
+"k": "deepen",
+"teach": "RMW אטומי, LL/SC, מחיר מנעול בקוהרנטיות, ו-false sharing על שורת cache.",
+"on": "M22.8 · Concurrency, race conditions, deadlock"
+},
+{
+"id": "R8:M28.1:9",
+"n": "Quantifying performance: CPI stacks and counters",
+"imp": "S",
+"k": "deepen",
+"teach": "פירוק CPI, Amdahl, וניתוח top-down עם מוני חומרה.",
+"on": "M22.7 · Profiling"
+}
+]
+},
+"M28.2": {
+"items": [
+{
+"id": "R8:M28.2:1",
+"n": "GPU architecture: SMs, warps and latency hiding",
+"imp": "K",
+"k": "deepen",
+"teach": "SM, warps ו-SIMT, divergence, occupancy, והסתרת השהיה דרך מקביליות במקום cache.",
+"on": "M22.8"
+},
+{
+"id": "R8:M28.2:2",
+"n": "The CUDA programming model",
+"imp": "K",
+"k": "new",
+"teach": "grid, block ו-thread, מרחבי זיכרון (global, shared, registers), הפעלת kernel וסנכרון."
+},
+{
+"id": "R8:M28.2:3",
+"n": "Memory coalescing and shared-memory tiling",
+"imp": "K",
+"k": "new",
+"teach": "גישה מאוחדת, tiled matrix multiply בגזירה מלאה, ו-bank conflicts."
+},
+{
+"id": "R8:M28.2:4",
+"n": "Roofline in depth",
+"imp": "K",
+"k": "deepen",
+"teach": "עוצמה אריתמטית של GEMM מול פעולה אלמנטרית, roofline היררכי, ומדידה עם Nsight.",
+"on": "M22.8 · Roofline model"
+},
+{
+"id": "R8:M28.2:5",
+"n": "Parallel patterns: reduction, scan, histogram, stencil, SpMV",
+"imp": "S",
+"k": "deepen",
+"teach": "התבניות הבסיסיות, האלגוריתם היעיל לכל אחת, ופעולות אטומיות.",
+"on": "M22.8 · Parallel and distributed algorithms"
+},
+{
+"id": "R8:M28.2:6",
+"n": "HBM and the memory wall",
+"imp": "S",
+"k": "deepen",
+"teach": "רוחב פס וקיבולת של HBM, אנרגיה לביט מול לפעולה, ולמה רוב עומסי AI חסומי זיכרון.",
+"on": "M22.8 · Domain-specific accelerators: systolic arrays/TPU, HBM, chiplets and advanced packaging, FPGA vs ASIC vs GPU trade"
+},
+{
+"id": "R8:M28.2:7",
+"n": "Tensor cores and mixed precision",
+"imp": "S",
+"k": "new",
+"teach": "הוראות MMA, תפוקה ב-FP16, BF16 ו-FP8, וצבירה בדיוק גבוה."
+},
+{
+"id": "R8:M28.2:8",
+"n": "Systolic arrays and DNN dataflows",
+"imp": "S",
+"k": "deepen",
+"teach": "מערך סיסטולי, weight/output/row stationary, טקסונומיית Eyeriss, וה-TPU.",
+"on": "M22.8 · Domain-specific accelerators: systolic arrays/TPU, HBM, chiplets and advanced packaging, FPGA vs ASIC vs GPU trade"
+},
+{
+"id": "R8:M28.2:9",
+"n": "Streams, overlap and host-device transfer",
+"imp": "S",
+"k": "new",
+"teach": "streams ואסינכרוניות, חפיפת חישוב והעברה, ו-PCIe כצוואר בקבוק."
+},
+{
+"id": "R8:M28.2:10",
+"n": "Kernel fusion and DSL compilers",
+"imp": "S",
+"k": "new",
+"teach": "איחוד kernels לחיסכון בתעבורה, Triton ו-XLA, ומתי לכתוב kernel ידני."
+}
+]
+},
+"M28.3": {
+"items": [
+{
+"id": "R8:M28.3:1",
+"n": "Synthesizable SystemVerilog",
+"imp": "K",
+"k": "deepen",
+"teach": "always_ff ו-always_comb, השמה חוסמת ולא חוסמת, latch לא מכוון, וקידוד FSM.",
+"on": "M25.13"
+},
+{
+"id": "R8:M28.3:2",
+"n": "What synthesis builds",
+"imp": "S",
+"k": "new",
+"teach": "מה כל מבנה הופך לחומרה: LUT, carry chain, DSP slice, BRAM; ודוח סינתזה כמשוב."
+},
+{
+"id": "R8:M28.3:3",
+"n": "Setup, hold and maximum frequency",
+"imp": "K",
+"k": "deepen",
+"teach": "משוואות setup ו-hold, clock-to-q, slack ותדר מקסימלי.",
+"on": "M25.10"
+},
+{
+"id": "R8:M28.3:4",
+"n": "Static timing analysis and SDC constraints",
+"imp": "K",
+"k": "new",
+"teach": "מסלולי תזמון, create_clock, input/output delay, false ו-multicycle paths, skew, jitter ו-OCV, וקריאת דוח STA."
+},
+{
+"id": "R8:M28.3:5",
+"n": "Timing closure techniques",
+"imp": "S",
+"k": "new",
+"teach": "pipelining, retiming, fanout ו-floorplanning, ומה עושים כשהתזמון לא נסגר."
+},
+{
+"id": "R8:M28.3:6",
+"n": "Clock domain crossing and metastability",
+"imp": "K",
+"k": "deepen",
+"teach": "MTBF של סנכרון, סנכרון דו-שלבי, async FIFO עם מצביעי Gray, ובדיקות CDC.",
+"on": "M25.10"
+},
+{
+"id": "R8:M28.3:7",
+"n": "Verification: testbenches, SVA and coverage",
+"imp": "K",
+"k": "deepen",
+"teach": "testbench מבוסס self-check, assertions, constrained random, כיסוי פונקציונלי, ורעיון UVM.",
+"on": "M25.12"
+},
+{
+"id": "R8:M28.3:8",
+"n": "Formal verification basics",
+"imp": "S",
+"k": "deepen",
+"teach": "בדיקת שקילות ובדיקת תכונות, ומתי formal מוצא מה שסימולציה מפספסת.",
+"on": "M25.12"
+},
+{
+"id": "R8:M28.3:9",
+"n": "FPGA architecture and tool flow",
+"imp": "S",
+"k": "new",
+"teach": "מבנה FPGA, place and route, HLS מול RTL, ו-SoC עם ARM ו-RFSoC."
+},
+{
+"id": "R8:M28.3:10",
+"n": "Streaming interfaces: AXI and valid/ready",
+"imp": "S",
+"k": "new",
+"teach": "AXI-Stream ו-AXI4, לחיצת יד valid/ready, backpressure, ו-skid buffer."
+},
+{
+"id": "R8:M28.3:dfm1",
+"n": "From FPGA prototype to production",
+"imp": "S",
+"k": "new",
+"teach": "DFT ספרתי (scan, BIST, boundary scan), FPGA מול ASIC בייצור (NRE מול עלות יחידה), וניהול גרסאות של ביטסטרים."
+},
+{
+"id": "R8:M28.3:11",
+"n": "High-level synthesis in depth: pipelining, unrolling, initiation interval, interfaces",
+"imp": "S",
+"k": "new",
+"teach": "מ-C/C++ לחומרה: pipeline ו-initiation interval, unroll ו-array partition, תלויות בלולאה שמונעות II=1, ממשקי AXI-Stream ו-DMA, ואיך קוראים דוח סינתזה (latency, משאבים). מתי HLS חוסך זמן ומתי צריך לחזור ל-RTL."
+},
+{
+"id": "R8:M28.3:12",
+"n": "Low-power design and verification: power intent (UPF), clock and power gating, multiple voltages",
+"imp": "S",
+"k": "new",
+"teach": "איפה ההספק הולך בשבב (דינמי מול זליגה) ואיך מקטינים אותו: clock gating, power gating עם שמירת מצב, איי מתח ו-DVFS, level shifters ו-isolation. כוונת ההספק מתוארת בקובץ UPF ומאומתת בסימולציה ובבדיקה סטטית."
+}
+]
+},
+"M28.4": {
+"items": [
+{
+"id": "R8:M28.4:1",
+"n": "SerDes architecture and line coding",
+"imp": "K",
+"k": "new",
+"teach": "serializer, 8b/10b, 64b/66b ו-128b/130b, ושחזור שעון ונתונים (CDR)."
+},
+{
+"id": "R8:M28.4:2",
+"n": "Channel equalization and PAM4",
+"imp": "K",
+"k": "new",
+"teach": "CTLE, FFE ו-DFE, מרווח עין, ו-PAM4 מול NRZ: חצי קצב סמלים במחיר 9.5 dB."
+},
+{
+"id": "R8:M28.4:3",
+"n": "Jitter decomposition and BER bathtub",
+"imp": "S",
+"k": "deepen",
+"teach": "RJ ו-DJ, אמבטיית BER, ו-TJ ב-BER של 1e-12.",
+"on": "M11.9 · Oscillator phase noise, jitter and their system effects (Leeson; reciprocal mixing; ADC jitter-limited SNR; Doppler radar clutter limit)"
+},
+{
+"id": "R8:M28.4:4",
+"n": "PCIe: layers, TLPs and flow control",
+"imp": "K",
+"k": "new",
+"teach": "שכבות טרנזקציה, קישור ופיזית, TLPs, flow control מבוסס credits, רוחב פס לדור ולנתיב, והשהיה."
+},
+{
+"id": "R8:M28.4:5",
+"n": "CXL: coherent memory over PCIe",
+"imp": "S",
+"k": "new",
+"teach": "CXL.io, .cache ו-.mem, הרחבת זיכרון ו-pooling, והשהיה לעומת DRAM מקומי."
+},
+{
+"id": "R8:M28.4:6",
+"n": "NVLink, NVSwitch and scale-up vs scale-out",
+"imp": "S",
+"k": "new",
+"teach": "NVLink ו-NVSwitch, InfiniBand ו-RoCE, ורוחב פס לכל GPU בכל רמה."
+},
+{
+"id": "R8:M28.4:7",
+"n": "Interconnection network topologies and routing",
+"imp": "K",
+"k": "deepen",
+"teach": "fat-tree, torus ו-dragonfly, רוחב פס חוצה, ניתוב ומניעת deadlock.",
+"on": "M20.6"
+},
+{
+"id": "R8:M28.4:8",
+"n": "Chiplet interconnects and optical I/O",
+"imp": "C",
+"k": "new",
+"teach": "UCIe, אריזה מתקדמת ו-co-packaged optics כמגמה."
+}
+]
+},
+"M28.5": {
+"items": [
+{
+"id": "R8:M28.5:1",
+"n": "Real-time concepts: deadlines, jitter and WCET",
+"imp": "S",
+"k": "deepen",
+"teach": "זמן אמת קשה, רך ו-firm, release ו-deadline, jitter, ו-WCET כקלט לכל ניתוח.",
+"on": "M22.11"
+},
+{
+"id": "R8:M28.5:2",
+"n": "Fixed-priority scheduling and response-time analysis",
+"imp": "K",
+"k": "new",
+"teach": "אופטימליות RM, חסם Liu-Layland n(2^{1/n} − 1), וניתוח זמן תגובה מדויק באיטרציה."
+},
+{
+"id": "R8:M28.5:3",
+"n": "EDF scheduling",
+"imp": "K",
+"k": "new",
+"teach": "אופטימליות EDF, U ≤ 1, והתנהגות בעומס יתר מול RM."
+},
+{
+"id": "R8:M28.5:4",
+"n": "Resource sharing: inheritance and ceiling protocols",
+"imp": "K",
+"k": "deepen",
+"teach": "priority inversion, priority inheritance, priority ceiling ו-SRP, ואיבר החסימה בניתוח.",
+"on": "M22.8 · Concurrency, race conditions, deadlock"
+},
+{
+"id": "R8:M28.5:5",
+"n": "Aperiodic servers and mixed criticality",
+"imp": "S",
+"k": "new",
+"teach": "polling, deferrable ו-sporadic servers, ומערכות בקריטיות מעורבת."
+},
+{
+"id": "R8:M28.5:6",
+"n": "WCET analysis and interrupt latency",
+"imp": "S",
+"k": "new",
+"teach": "מדידה מול ניתוח סטטי, השפעת cache ו-pipeline, והשהיית פסיקה."
+},
+{
+"id": "R8:M28.5:7",
+"n": "RTOS kernels in practice (FreeRTOS)",
+"imp": "S",
+"k": "deepen",
+"teach": "משימות, תורים, דחיית עבודה מ-ISR, tick ו-tickless.",
+"on": "M22.11 · Microcontrollers and embedded interfacing (GPIO, SPI, I2C, UART, interrupts)"
+},
+{
+"id": "R8:M28.5:8",
+"n": "Clock synchronization: NTP and PTP",
+"imp": "K",
+"k": "new",
+"teach": "משוואות offset ו-delay, חותמות זמן בחומרה, שגיאה מאסימטריה, ו-boundary ו-transparent clocks."
+},
+{
+"id": "R8:M28.5:9",
+"n": "Clock stability and holdover",
+"imp": "S",
+"k": "deepen",
+"teach": "Allan deviation לשעונים, TCXO, OCXO ו-Rb, ו-holdover כשהסנכרון נקטע.",
+"on": "M5.6 · Inertial sensor error models: bias, scale factor, angle/velocity random walk, Allan variance"
+},
+{
+"id": "R8:M28.5:10",
+"n": "Time-sensitive networking",
+"imp": "C",
+"k": "new",
+"teach": "TSN: תזמון תעבורה ב-Ethernet דטרמיניסטי. Lanchester U5 מרחיב."
+}
+]
+},
+"M28.6": {
+"items": [
+{
+"id": "R8:M28.6:1",
+"n": "Hardware threat models and attack classes",
+"imp": "S",
+"k": "deepen",
+"teach": "פולשני, חצי-פולשני ולא פולשני, ושרשרת אספקה.",
+"on": "M22.11 · Cybersecurity fundamentals for weapon systems: attack surface, crypto primitives (symmetric, public-key, hashes) and why they hold, side channels, hardware supply-chain trojans, cyber-EW overlap"
+},
+{
+"id": "R8:M28.6:2",
+"n": "Root of trust and secure boot",
+"imp": "K",
+"k": "new",
+"teach": "שרשרת אמון, secure ו-measured boot, קושחה חתומה, anti-rollback, ו-NIST SP 800-193."
+},
+{
+"id": "R8:M28.6:3",
+"n": "TPM, HSM and attestation",
+"imp": "S",
+"k": "new",
+"teach": "אחסון מפתחות בחומרה, PCRs ו-remote attestation."
+},
+{
+"id": "R8:M28.6:4",
+"n": "Trusted execution environments",
+"imp": "S",
+"k": "new",
+"teach": "TrustZone, SGX ו-confidential computing: מה מבודד ממה, והתקפות שנמצאו."
+},
+{
+"id": "R8:M28.6:5",
+"n": "Power and EM side channels",
+"imp": "K",
+"k": "deepen",
+"teach": "SPA, DPA ו-CPA, מודל Hamming weight, ומספר העקבות כפונקציה של SNR; masking ו-hiding.",
+"on": "M22.11 · Cybersecurity fundamentals for weapon systems: attack surface, crypto primitives (symmetric, public-key, hashes) and why they hold, side channels, hardware supply-chain trojans, cyber-EW overlap"
+},
+{
+"id": "R8:M28.6:6",
+"n": "Microarchitectural side channels: cache attacks and Spectre",
+"imp": "K",
+"k": "new",
+"teach": "Flush+Reload ו-Prime+Probe, Spectre ו-Meltdown, והקשר לספקולציה ב-H2."
+},
+{
+"id": "R8:M28.6:7",
+"n": "Fault injection",
+"imp": "S",
+"k": "new",
+"teach": "גליץ' מתח ושעון, לייזר, Rowhammer, ו-DFA על AES."
+},
+{
+"id": "R8:M28.6:8",
+"n": "Hardware Trojans, counterfeits and PUFs",
+"imp": "S",
+"k": "new",
+"teach": "טרויאנים בחומרה, רכיבים מזויפים, ו-PUF כמקור זהות."
+},
+{
+"id": "R8:M28.6:9",
+"n": "Anti-tamper and zeroization",
+"imp": "S",
+"k": "new",
+"teach": "גילוי ותגובה לפריצה פיזית, מחיקת מפתחות, ורמות הגנה."
+},
+{
+"id": "R8:M28.6:10",
+"n": "Debug ports and secure firmware update",
+"imp": "S",
+"k": "new",
+"teach": "נעילת JTAG ו-SWD, עדכון קושחה חתום, ושחזור מכשל."
+}
+]
+},
+"M29.1": {
+"items": [
+{
+"id": "R8:M29.1:1",
+"n": "Tokenization",
+"imp": "S",
+"k": "new",
+"teach": "BPE, גודל אוצר מילים והשפעתו על אורך רצף ועל פרמטרים, ותופעות של טוקניזציה."
+},
+{
+"id": "R8:M29.1:2",
+"n": "The decoder-only transformer block",
+"imp": "K",
+"k": "deepen",
+"teach": "pre-norm ו-RMSNorm, residual stream, SwiGLU, ומניית פרמטרים ≈ 12·L·d².",
+"on": "M17.7"
+},
+{
+"id": "R8:M29.1:3",
+"n": "Compute and memory of attention",
+"imp": "K",
+"k": "deepen",
+"teach": "FLOPs לטוקן ≈ 2N ועוד איבר ה-attention, זיכרון O(n²), ולמה הקשר ארוך יקר.",
+"on": "M22.8 · Compute and hardware for ML (FLOPs, memory, GPUs)"
+},
+{
+"id": "R8:M29.1:4",
+"n": "Positional encoding and RoPE",
+"imp": "K",
+"k": "new",
+"teach": "סינוסי ונלמד, גזירת RoPE כסיבוב במישור המרוכב שנותן מיקום יחסי, והארכת הקשר (NTK, YaRN)."
+},
+{
+"id": "R8:M29.1:5",
+"n": "FlashAttention",
+"imp": "K",
+"k": "new",
+"teach": "tiling ו-online softmax, מודעות IO, זיכרון O(n), וההבדלים בגרסאות 1–3."
+},
+{
+"id": "R8:M29.1:6",
+"n": "MQA, GQA and MLA",
+"imp": "S",
+"k": "new",
+"teach": "שיתוף ראשי key-value, דחיסה לטנטית ב-MLA, וההשפעה על KV cache."
+},
+{
+"id": "R8:M29.1:7",
+"n": "Mixture of experts",
+"imp": "K",
+"k": "new",
+"teach": "ניתוב top-k, loss איזון עומס, capacity factor, פרמטרים פעילים מול כוללים."
+},
+{
+"id": "R8:M29.1:8",
+"n": "Vision-language models: ViT, CLIP and connectors",
+"imp": "S",
+"k": "deepen",
+"teach": "patches ב-ViT, loss ניגודי של CLIP, ומחבר בסגנון LLaVA.",
+"on": "M17.7"
+},
+{
+"id": "R8:M29.1:9",
+"n": "State-space and long-context alternatives",
+"imp": "C",
+"k": "deepen",
+"teach": "Mamba ומודלים היברידיים מול attention.",
+"on": "M17.7 · Recurrent networks and sequence modeling"
+},
+{
+"id": "R8:M29.1:10",
+"n": "Training stability at scale",
+"imp": "S",
+"k": "deepen",
+"teach": "אתחול, warmup ו-cosine, AdamW, קפיצות loss, ו-bf16.",
+"on": "M17.4"
+}
+]
+},
+"M29.2": {
+"items": [
+{
+"id": "R8:M29.2:1",
+"n": "Scaling laws and compute-optimal training",
+"imp": "K",
+"k": "deepen",
+"teach": "Kaplan מול Chinchilla, C ≈ 6ND, האופטימום ב-N ו-D, ו-overtraining לטובת הסקה זולה.",
+"on": "M17.12 · Scaling laws (compute, data, parameters)"
+},
+{
+"id": "R8:M29.2:2",
+"n": "Memory accounting for training",
+"imp": "K",
+"k": "new",
+"teach": "משקלים, גרדיאנטים ומצבי Adam (כ-16 בתים לפרמטר), אקטיבציות, ו-recomputation."
+},
+{
+"id": "R8:M29.2:3",
+"n": "Data parallelism, ZeRO and FSDP",
+"imp": "K",
+"k": "new",
+"teach": "all-reduce של גרדיאנטים, שלבי ZeRO, FSDP, ומחיר התקשורת."
+},
+{
+"id": "R8:M29.2:4",
+"n": "Collective communication and NCCL",
+"imp": "K",
+"k": "deepen",
+"teach": "ring ו-tree all-reduce, all-gather, reduce-scatter, מודל α-β ועלות 2(p−1)/p·M/B.",
+"on": "M22.8 · Parallel and distributed algorithms"
+},
+{
+"id": "R8:M29.2:5",
+"n": "Tensor parallelism",
+"imp": "K",
+"k": "new",
+"teach": "פיצול עמודות ושורות בסגנון Megatron, תקשורת בכל שכבה, ולמה TP נשאר בתוך שרת."
+},
+{
+"id": "R8:M29.2:6",
+"n": "Pipeline parallelism",
+"imp": "K",
+"k": "new",
+"teach": "GPipe ו-1F1B, שבר הבועה (p−1)/m, ו-interleaving."
+},
+{
+"id": "R8:M29.2:7",
+"n": "Expert, sequence and context parallelism",
+"imp": "S",
+"k": "new",
+"teach": "all-to-all ב-MoE, פיצול רצף להקשר ארוך, ו-ring attention."
+},
+{
+"id": "R8:M29.2:8",
+"n": "MFU, efficiency and failures at scale",
+"imp": "S",
+"k": "new",
+"teach": "MFU כמדד, פירוק הפסדי יעילות, כשלים, checkpointing וזמן שחזור."
+},
+{
+"id": "R8:M29.2:9",
+"n": "Pretraining data: curation and contamination",
+"imp": "S",
+"k": "deepen",
+"teach": "סינון, dedup, תמהיל נתונים, וזיהום של מבחנים.",
+"on": "M17.5 · Benchmarks and evaluations: test-set reuse, contamination, leaderboard overfitting, eval design for LLMs/ATR"
+}
+]
+},
+"M29.3": {
+"items": [
+{
+"id": "R8:M29.3:1",
+"n": "Supervised fine-tuning and PEFT",
+"imp": "S",
+"k": "deepen",
+"teach": "נתוני הוראות, תבנית שיחה ומיסוך loss, LoRA ו-PEFT.",
+"on": "M17.7 · Large language models: pretraining, fine-tuning, RLHF, in-context learning"
+},
+{
+"id": "R8:M29.3:2",
+"n": "Reward modeling",
+"imp": "K",
+"k": "deepen",
+"teach": "Bradley-Terry, נתוני העדפה בזוגות, ו-reward overoptimization.",
+"on": "M18.9 · Reward design, reward hacking, specification gaming"
+},
+{
+"id": "R8:M29.3:3",
+"n": "RLHF with PPO",
+"imp": "K",
+"k": "deepen",
+"teach": "יעד עם KL למודל הייחוס, value head, ופרטי מימוש.",
+"on": "M17.7 · Large language models: pretraining, fine-tuning, RLHF, in-context learning"
+},
+{
+"id": "R8:M29.3:4",
+"n": "Direct preference optimization",
+"imp": "K",
+"k": "new",
+"teach": "גזירת DPO מהפתרון הסגור של היעד המוגבל ב-KL, תגמול מובלע, ו-IPO ו-KTO."
+},
+{
+"id": "R8:M29.3:5",
+"n": "RL with verifiable rewards and GRPO",
+"imp": "K",
+"k": "new",
+"teach": "advantage יחסי לקבוצה בלי critic, תגמולים נבדקים (מתמטיקה, קוד), ו-DeepSeek-R1."
+},
+{
+"id": "R8:M29.3:6",
+"n": "Test-time compute",
+"imp": "K",
+"k": "deepen",
+"teach": "chain of thought, self-consistency, best-of-N, verifiers ו-PRM, חיפוש, וכלל ההקצאה האופטימלית.",
+"on": "M17.7 · Large language models: pretraining, fine-tuning, RLHF, in-context learning"
+},
+{
+"id": "R8:M29.3:7",
+"n": "Distillation and synthetic data",
+"imp": "S",
+"k": "new",
+"teach": "זיקוק יכולת היסק למודל קטן, נתונים סינתטיים, ו-model collapse."
+},
+{
+"id": "R8:M29.3:8",
+"n": "Evaluating post-trained models",
+"imp": "S",
+"k": "deepen",
+"teach": "benchmarks, LLM כשופט וההטיות שלו, וזיהום.",
+"on": "M17.5 · Benchmarks and evaluations: test-set reuse, contamination, leaderboard overfitting, eval design for LLMs/ATR"
+},
+{
+"id": "R8:M29.3:9",
+"n": "Alignment failure modes",
+"imp": "S",
+"k": "deepen",
+"teach": "reward hacking, חנפנות, ומה post-training לא מתקן.",
+"on": "M18.9 · Reward design, reward hacking, specification gaming"
+}
+]
+},
+"M29.4": {
+"items": [
+{
+"id": "R8:M29.4:1",
+"n": "Prefill vs decode: compute- and memory-bound",
+"imp": "K",
+"k": "deepen",
+"teach": "prefill חסום חישוב ו-decode חסום זיכרון, עוצמה אריתמטית כפונקציה של batch, TTFT ו-TPOT.",
+"on": "M22.8 · Compute and hardware for ML (FLOPs, memory, GPUs)"
+},
+{
+"id": "R8:M29.4:2",
+"n": "KV cache sizing",
+"imp": "K",
+"k": "new",
+"teach": "2·L·n_kv·d_head·bytes לטוקן, ההשפעה של GQA ו-MLA, ולמה ה-KV cache מגביל batch."
+},
+{
+"id": "R8:M29.4:3",
+"n": "Batching and serving: continuous batching and PagedAttention",
+"imp": "K",
+"k": "new",
+"teach": "continuous batching, ניהול זיכרון בדפים ב-vLLM, ו-prefix caching."
+},
+{
+"id": "R8:M29.4:4",
+"n": "Quantization formats: INT8, INT4, FP8",
+"imp": "K",
+"k": "deepen",
+"teach": "weight-only מול W8A8, FP8 E4M3 ו-E5M2, scaling, וערכים חריגים.",
+"on": "M17.12 · Model compression and edge inference: quantization, pruning, distillation, SWaP limits on drones/missiles"
+},
+{
+"id": "R8:M29.4:5",
+"n": "Post-training quantization methods: GPTQ, AWQ, SmoothQuant",
+"imp": "S",
+"k": "new",
+"teach": "GPTQ דרך מידע מסדר שני, AWQ לפי אקטיבציות, והזזת קושי ב-SmoothQuant."
+},
+{
+"id": "R8:M29.4:6",
+"n": "Speculative decoding",
+"imp": "K",
+"k": "new",
+"teach": "מודל טיוטה, כלל קבלה ששומר על ההתפלגות, והאצה צפויה כפונקציה של שיעור הקבלה."
+},
+{
+"id": "R8:M29.4:7",
+"n": "Parallelism for serving and disaggregation",
+"imp": "S",
+"k": "new",
+"teach": "TP ו-EP בהסקה, והפרדת prefill ו-decode."
+},
+{
+"id": "R8:M29.4:8",
+"n": "Inference kernels",
+"imp": "C",
+"k": "new",
+"teach": "FlashDecoding ו-kernels מאוחדים."
+},
+{
+"id": "R8:M29.4:9",
+"n": "Cost and throughput modeling",
+"imp": "S",
+"k": "deepen",
+"teach": "טוקנים לשנייה ל-GPU, מחיר למיליון טוקנים, והערכה מ-roofline.",
+"on": "M22.8 · Roofline model"
+}
+]
+},
+"M29.5": {
+"items": [
+{
+"id": "R8:M29.5:1",
+"n": "Detection lineage and metrics",
+"imp": "S",
+"k": "deepen",
+"teach": "דו-שלבי מול חד-שלבי, anchors, NMS ו-mAP.",
+"on": "M17.6 · Learned perception (detection, segmentation)"
+},
+{
+"id": "R8:M29.5:2",
+"n": "DETR: detection as set prediction",
+"imp": "K",
+"k": "new",
+"teach": "object queries, loss עם התאמה הונגרית, ולמה זה מבטל NMS."
+},
+{
+"id": "R8:M29.5:3",
+"n": "Self-supervised visual representations",
+"imp": "K",
+"k": "new",
+"teach": "למידה ניגודית, DINO ו-DINOv2, ו-MAE; למה הם הבסיס לכל ראייה חדישה."
+},
+{
+"id": "R8:M29.5:4",
+"n": "Promptable segmentation: SAM and SAM 2",
+"imp": "S",
+"k": "new",
+"teach": "מקודד תמונה כבד ומפענח קל, prompts, וזיכרון לווידאו ב-SAM 2."
+},
+{
+"id": "R8:M29.5:5",
+"n": "Open-vocabulary detection",
+"imp": "S",
+"k": "new",
+"teach": "CLIP כגשר בין תמונה לטקסט, ו-Grounding DINO."
+},
+{
+"id": "R8:M29.5:6",
+"n": "Neural radiance fields",
+"imp": "K",
+"k": "new",
+"teach": "משוואת volume rendering, positional encoding ואימון מתמונות."
+},
+{
+"id": "R8:M29.5:7",
+"n": "3D Gaussian splatting",
+"imp": "K",
+"k": "new",
+"teach": "ייצוג גאוסיאנים אניזוטרופיים, rasterization גזיר, densification, ומהירות מול NeRF."
+},
+{
+"id": "R8:M29.5:8",
+"n": "Depth and 3D detection: BEV and fusion",
+"imp": "S",
+"k": "new",
+"teach": "עומק מתמונה בודדת, BEV, ומיזוג LiDAR ומצלמה."
+},
+{
+"id": "R8:M29.5:9",
+"n": "World models for perception and planning",
+"imp": "S",
+"k": "new",
+"teach": "דינמיקה לטנטית וחיזוי וידאו, והשימוש בתכנון. המימוש ב-RL נלמד ב-G29."
+},
+{
+"id": "R8:M29.5:10",
+"n": "Robustness in operational imagery",
+"imp": "C",
+"k": "deepen",
+"teach": "IR ו-SAR, מטרות קטנות, ו-domain shift.",
+"on": "M17.12 · ML under adversarial operational conditions: ATR with scarce/synthetic data, deception and decoys against learned sensors, data poisoning"
+},
+{
+"id": "R8:M29.5:x1",
+"n": "World models for robots and driving",
+"imp": "K",
+"k": "new",
+"teach": "חיזוי וידאו ודינמיקה סמויה, שימוש בהם לתכנון ולסימולציה, ומה הם עדיין לא יודעים."
+},
+{
+"id": "R8:M29.5:x2",
+"n": "Autonomous driving stack",
+"imp": "K",
+"k": "new",
+"teach": "תפיסה, חיזוי ותכנון ברכב אוטונומי, end-to-end מול מודולרי, ובטיחות (ISO 26262, SOTIF)."
+}
+]
+},
+"M29.6": {
+"items": [
+{
+"id": "R8:M29.6:1",
+"n": "The agent loop as a feedback system",
+"imp": "K",
+"k": "deepen",
+"teach": "observe-think-act ו-ReAct, והמקבילה לחישה, תכנון והפעלה בבקרה.",
+"on": "M17.7 · LLM agents, tool use and AI-enabled autonomy (planning loops, failure modes, human-on-the-loop)"
+},
+{
+"id": "R8:M29.6:2",
+"n": "Tool use, function calling and retrieval",
+"imp": "S",
+"k": "deepen",
+"teach": "סכמות כלים, Toolformer ו-RAG.",
+"on": "M17.7 · LLM agents, tool use and AI-enabled autonomy (planning loops, failure modes, human-on-the-loop)"
+},
+{
+"id": "R8:M29.6:3",
+"n": "Planning, search and replanning",
+"imp": "K",
+"k": "new",
+"teach": "פירוק משימות, חיפוש בעץ, reflection, ותכנון מחדש באופק נסוג כמו MPC."
+},
+{
+"id": "R8:M29.6:4",
+"n": "Memory and context management",
+"imp": "S",
+"k": "new",
+"teach": "הקשר מוגבל, סיכום, זיכרון חיצוני, ואובדן מידע."
+},
+{
+"id": "R8:M29.6:5",
+"n": "Evaluating agents and reliability compounding",
+"imp": "K",
+"k": "new",
+"teach": "SWE-bench, אופק המשימה של METR, ו-p^n: הצלחה בכל צעד נצברת לכשל במשימה ארוכה."
+},
+{
+"id": "R8:M29.6:6",
+"n": "Failure modes and safety of agents",
+"imp": "K",
+"k": "deepen",
+"teach": "הצטברות שגיאות, prompt injection, reward hacking, sandboxing ואדם בלולאה.",
+"on": "M17.7 · LLM agents, tool use and AI-enabled autonomy (planning loops, failure modes, human-on-the-loop)"
+},
+{
+"id": "R8:M29.6:7",
+"n": "Multi-agent orchestration",
+"imp": "S",
+"k": "new",
+"teach": "orchestrator ו-workers, חלוקת עבודה, ועלות תקשורת בין סוכנים."
+},
+{
+"id": "R8:M29.6:8",
+"n": "Vision-language-action models",
+"imp": "K",
+"k": "new",
+"teach": "RT-2, OpenVLA ו-π0, טוקניזציה של פעולות, וקצב הסקה מול קצב בקרה."
+},
+{
+"id": "R8:M29.6:9",
+"n": "Hierarchical control with safety filters",
+"imp": "S",
+"k": "new",
+"teach": "מתכנן שפה מעל בקר קלאסי, ומסנני בטיחות (control barrier functions)."
+},
+{
+"id": "R8:M29.6:x1",
+"n": "Robot foundation models",
+"imp": "K",
+"k": "deepen",
+"teach": "RT-2, OpenVLA ו-π0: איך מודל שפה-ראייה הופך לפעולה, טוקניזציה של פעולות, תדר הבקרה, והיכן הם נכשלים.",
+"on": "M29.6 · Vision-language-action models"
+},
+{
+"id": "R8:M29.6:x2",
+"n": "RAG and parameter-efficient fine-tuning",
+"imp": "K",
+"k": "new",
+"teach": "RAG מול fine-tuning (LoRA): מתי מה, איך מעריכים, ועלויות."
+}
+]
+},
+"M29.7": {
+"items": [
+{
+"id": "R8:M29.7:1",
+"n": "Edge hardware and budgets",
+"imp": "S",
+"k": "deepen",
+"teach": "TOPS לוואט, זיכרון, Jetson, NPU, FPGA ו-MCU, ותקציב השהיה.",
+"on": "M17.12 · Model compression and edge inference: quantization, pruning, distillation, SWaP limits on drones/missiles"
+},
+{
+"id": "R8:M29.7:2",
+"n": "Integer quantization and QAT",
+"imp": "K",
+"k": "deepen",
+"teach": "סכמה אפינית, PTQ מול QAT, per-channel, ואובדן דיוק.",
+"on": "M17.12 · Model compression and edge inference: quantization, pruning, distillation, SWaP limits on drones/missiles"
+},
+{
+"id": "R8:M29.7:3",
+"n": "Pruning and distillation",
+"imp": "S",
+"k": "deepen",
+"teach": "מבני מול לא מבני, האצה בפועל, ו-knowledge distillation.",
+"on": "M17.12 · Model compression and edge inference: quantization, pruning, distillation, SWaP limits on drones/missiles"
+},
+{
+"id": "R8:M29.7:4",
+"n": "Efficient architectures",
+"imp": "S",
+"k": "new",
+"teach": "depthwise separable (MobileNet), EfficientNet ו-NAS."
+},
+{
+"id": "R8:M29.7:5",
+"n": "Deployment toolchains",
+"imp": "S",
+"k": "new",
+"teach": "ONNX, TensorRT, איחוד שכבות וכיול."
+},
+{
+"id": "R8:M29.7:6",
+"n": "Benchmarking edge inference",
+"imp": "S",
+"k": "new",
+"teach": "כללי MLPerf Inference ו-Tiny, אחוזוני השהיה ומדידת אנרגיה."
+},
+{
+"id": "R8:M29.7:7",
+"n": "Adversarial robustness",
+"imp": "K",
+"k": "deepen",
+"teach": "מודלי איום, FGSM ו-PGD, adversarial training, ו-patches פיזיים.",
+"on": "M17.12 · ML under adversarial operational conditions: ATR with scarce/synthetic data, deception and decoys against learned sensors, data poisoning"
+},
+{
+"id": "R8:M29.7:8",
+"n": "Corruption robustness and runtime monitoring",
+"imp": "S",
+"k": "deepen",
+"teach": "ImageNet-C, OOD בקצה, ומוניטור בזמן ריצה.",
+"on": "M17.16"
+},
+{
+"id": "R8:M29.7:9",
+"n": "Thermal throttling and radiation",
+"imp": "C",
+"k": "deepen",
+"teach": "ויסות תרמי, SEU, ואמינות חישוב בקצה.",
+"on": "M25.9 · Radiation effects on electronics (SEU, TID)"
+}
+]
+},
+"M30.1": {
+"items": [
+{
+"id": "R8:M30.1:1",
+"n": "Hull geometry and form coefficients",
+"imp": "S",
+"k": "new",
+"teach": "lines plan, מקדמי צורה Cb, Cp, Cm ו-Cwp, ואינטגרציה נומרית (Simpson) של שטחים, נפחים ומומנטים."
+},
+{
+"id": "R8:M30.1:2",
+"n": "Displacement and the centres of buoyancy and gravity",
+"imp": "S",
+"k": "deepen",
+"teach": "ארכימדס כחוק תכן, TPC, מרכז ציפה B ומרכז כובד G, ועקומות הידרוסטטיות.",
+"on": "M15.1 · Ideal (inviscid) flow: Feynman II ch.40, 'The Flow of Dry Water'"
+},
+{
+"id": "R8:M30.1:3",
+"n": "Initial stability: the metacentre and GM",
+"imp": "K",
+"k": "new",
+"teach": "BM = I/∇, GM = KB + BM − KG, המשמעות הפיזית של המטצנטר, וניסוי הטיה למדידת KG."
+},
+{
+"id": "R8:M30.1:4",
+"n": "Large-angle stability: the GZ curve",
+"imp": "K",
+"k": "new",
+"teach": "זרוע מיישרת GZ, עקומות cross, נוסחת wall-sided, טווח יציבות, וקריטריוני שטח (IMO ותקני חיל הים)."
+},
+{
+"id": "R8:M30.1:5",
+"n": "Free-surface effect and weight shifts",
+"imp": "K",
+"k": "new",
+"teach": "תיקון משטח חופשי, משקלים תלויים, הזזת מטען, ולמה מכל מלא למחצה מסוכן יותר ממלא."
+},
+{
+"id": "R8:M30.1:6",
+"n": "Trim and longitudinal stability",
+"imp": "S",
+"k": "new",
+"teach": "GM_L, MCT1cm, ושינוי שקיעה כשמוסיפים משקל."
+},
+{
+"id": "R8:M30.1:7",
+"n": "Damaged stability and subdivision",
+"imp": "K",
+"k": "new",
+"teach": "אובדן ציפה מול משקל מוסף, permeability, floodable length ומחיצות, ויציבות אחרי פגיעה."
+},
+{
+"id": "R8:M30.1:8",
+"n": "Rolling period and dynamic stability",
+"imp": "S",
+"k": "new",
+"teach": "T ≈ 2πk/√(g·GM), פשרת יציבות מול נוחות, שטח מתחת ל-GZ כאנרגיה, וקריטריון רוח."
+},
+{
+"id": "R8:M30.1:9",
+"n": "Docking and grounding",
+"imp": "C",
+"k": "new",
+"teach": "אובדן GM ברגע המגע בקרקע או ברציף."
+}
+]
+},
+"M30.2": {
+"items": [
+{
+"id": "R8:M30.2:1",
+"n": "Froude and Reynolds scaling and model testing",
+"imp": "K",
+"k": "deepen",
+"teach": "למה אי אפשר להתאים את שני המספרים, השערת Froude, הפקת התנגדות ממודל (ITTC-57, form factor 1+k).",
+"on": "M10.1 · Nondimensionalization of PDEs"
+},
+{
+"id": "R8:M30.2:2",
+"n": "Frictional resistance",
+"imp": "S",
+"k": "deepen",
+"teach": "קורלציית לוח שטוח, חספוס ו-fouling, ומשקל החיכוך במהירות נמוכה.",
+"on": "M14.6"
+},
+{
+"id": "R8:M30.2:3",
+"n": "Wave-making resistance",
+"imp": "K",
+"k": "new",
+"teach": "זווית Kelvin 19.47°, hump ו-hollow, מהירות הגוף Fr ≈ 0.4, ו-bulbous bow."
+},
+{
+"id": "R8:M30.2:4",
+"n": "Resistance estimation methods",
+"imp": "S",
+"k": "new",
+"teach": "Holtrop-Mennen, התנגדות אוויר ותוספות, ומרווחי שירות."
+},
+{
+"id": "R8:M30.2:5",
+"n": "Propeller momentum theory",
+"imp": "K",
+"k": "deepen",
+"teach": "דיסקת הפעלה בזרימה צירית, η_ideal = 2/(1 + √(1 + C_T)), ולמה מדחף גדול ואיטי יעיל יותר.",
+"on": "M15.13 · Hover and rotorcraft/multirotor power: actuator-disk P = T^1.5/sqrt(2 rho A), disk loading, figure of merit, battery-electric endurance"
+},
+{
+"id": "R8:M30.2:6",
+"n": "Propeller geometry and open-water characteristics",
+"imp": "K",
+"k": "new",
+"teach": "פסיעה, שטח להב, K_T, K_Q, J ו-η0, סדרת Wageningen B, ובחירת מדחף."
+},
+{
+"id": "R8:M30.2:7",
+"n": "Hull-propeller interaction",
+"imp": "K",
+"k": "new",
+"teach": "מקדם wake, thrust deduction, relative rotative efficiency, ו-η_D = η_H·η_0·η_R."
+},
+{
+"id": "R8:M30.2:8",
+"n": "Propeller cavitation",
+"imp": "K",
+"k": "deepen",
+"teach": "מספר קביטציה מקומי, דיאגרמת Burrill ובחירת שטח להב, סוגי קביטציה, ומהירות התחלת קביטציה כמגבלה אקוסטית.",
+"on": "M15.1 · Cavitation and water hammer; M15.26 · Underwater vehicle hydrodynamics: drag at high Re, added mass, propulsor cavitation, supercavitation"
+},
+{
+"id": "R8:M30.2:9",
+"n": "Engine-propeller matching",
+"imp": "S",
+"k": "new",
+"teach": "חוק המדחף P ∝ n³, נקודת עבודה, מרווח מנוע, ומדחף בפסיעה משתנה."
+},
+{
+"id": "R8:M30.2:10",
+"n": "Alternative propulsors",
+"imp": "S",
+"k": "new",
+"teach": "waterjets, pods, contra-rotating ו-pumpjets: מתי ולמה."
+}
+]
+},
+"M30.3": {
+"items": [
+{
+"id": "R8:M30.3:1",
+"n": "Linear ocean waves",
+"imp": "K",
+"k": "new",
+"teach": "יחס הנפיצה ω² = gk·tanh(kh), מים עמוקים ורדודים, מסלולי חלקיקים, ומהירות חבורה."
+},
+{
+"id": "R8:M30.3:2",
+"n": "Sea spectra and sea states",
+"imp": "K",
+"k": "deepen",
+"teach": "Pierson-Moskowitz ו-JONSWAP, גובה גל משמעותי, תקופות, ומצבי ים.",
+"on": "M7.2"
+},
+{
+"id": "R8:M30.3:3",
+"n": "Ship motions as a 6-DOF linear system",
+"imp": "K",
+"k": "deepen",
+"teach": "מסה מוספת, ריסון ושחזור הידרוסטטי, ומקדמים תלויי תדר.",
+"on": "M3.4"
+},
+{
+"id": "R8:M30.3:4",
+"n": "RAOs, encounter frequency and response spectra",
+"imp": "K",
+"k": "deepen",
+"teach": "ω_e = ω − kU·cosβ, ספקטרום תגובה |RAO|²·S_ζ, ומומנטים ספקטרליים.",
+"on": "M3.6"
+},
+{
+"id": "R8:M30.3:5",
+"n": "Response statistics and operability",
+"imp": "S",
+"k": "deepen",
+"teach": "התפלגות Rayleigh של משרעות, ערכי קיצון, slamming והצפת סיפון, ושיעור זמינות פעולה.",
+"on": "M3.6; M6.3 · Extreme value statistics"
+},
+{
+"id": "R8:M30.3:6",
+"n": "Roll: damping, parametric roll and stabilizers",
+"imp": "S",
+"k": "new",
+"teach": "ריסון גלגול לא לינארי, parametric roll, וסנפירים ומכלים נגד גלגול."
+},
+{
+"id": "R8:M30.3:7",
+"n": "Strip theory",
+"imp": "S",
+"k": "new",
+"teach": "פירוק הספינה לפרוסות דו-ממדיות והרכבת המקדמים; תחום התוקף."
+},
+{
+"id": "R8:M30.3:8",
+"n": "Manoeuvring equations and hydrodynamic derivatives",
+"imp": "K",
+"k": "deepen",
+"teach": "משוואות sway-yaw, נגזרות הידרודינמיות, מודלי Abkowitz ו-MMG.",
+"on": "M15.28"
+},
+{
+"id": "R8:M30.3:9",
+"n": "Directional stability and standard manoeuvres",
+"imp": "K",
+"k": "new",
+"teach": "מודל Nomoto, מעגל סיבוב, zig-zag ו-spiral, ויציבות כיוונית."
+},
+{
+"id": "R8:M30.3:10",
+"n": "Ship autopilots and dynamic positioning",
+"imp": "S",
+"k": "deepen",
+"teach": "בקרת כיוון ומיקום, וסינון תנועות גל מהלולאה.",
+"on": "M5.9"
+}
+]
+},
+"M30.4": {
+"items": [
+{
+"id": "R8:M30.4:1",
+"n": "Hull girder strength: hogging and sagging",
+"imp": "K",
+"k": "deepen",
+"teach": "מומנט כפיפה במים שקטים ובגל, מודול חתך, וחוזק אורכי.",
+"on": "M16.4"
+},
+{
+"id": "R8:M30.4:2",
+"n": "Stiffened plating and grillages",
+"imp": "S",
+"k": "deepen",
+"teach": "כפיפת לוחות, effective breadth, ו-grillage.",
+"on": "M16.23"
+},
+{
+"id": "R8:M30.4:3",
+"n": "Buckling and ultimate strength of panels",
+"imp": "S",
+"k": "deepen",
+"teach": "קריסת לוחות מחוזקים, post-buckling וחוזק אולטימטיבי.",
+"on": "M16.7 · Buckling (Euler, local buckling)"
+},
+{
+"id": "R8:M30.4:4",
+"n": "Fatigue in the marine environment",
+"imp": "S",
+"k": "deepen",
+"teach": "עייפות ספקטרלית מעומסי גל, פרטי ריתוך וקורוזיה.",
+"on": "M16.19"
+},
+{
+"id": "R8:M30.4:5",
+"n": "Classification rules and limit-state design",
+"imp": "C",
+"k": "new",
+"teach": "חברות סיווג, תקני חיל הים, ותכן מצבי גבול."
+},
+{
+"id": "R8:M30.4:6",
+"n": "Propulsion plant selection: diesel, gas turbine, combined",
+"imp": "K",
+"k": "deepen",
+"teach": "נצילות כפונקציה של עומס, CODAG, CODOG ו-CODLAG, ומשקל ונפח.",
+"on": "M13.9; M13.10"
+},
+{
+"id": "R8:M30.4:7",
+"n": "Integrated electric propulsion and power",
+"imp": "S",
+"k": "deepen",
+"teach": "IPS, MVDC, עומסים פולסיים (מכ״ם, לייזר), ושרידות.",
+"on": "M12.10 · Microgrids and isolated power (ships, aircraft, vehicles)"
+},
+{
+"id": "R8:M30.4:8",
+"n": "Shafting, gearboxes and vibration",
+"imp": "S",
+"k": "deepen",
+"teach": "קווי ציר, תמסורות, ותנודות פיתול ו-whirling.",
+"on": "M16.20"
+},
+{
+"id": "R8:M30.4:9",
+"n": "Auxiliary and ship systems",
+"imp": "C",
+"k": "new",
+"teach": "מים לכיבוי, נטל, HVAC וחשמל חירום ברמת מפה."
+}
+]
+},
+"M30.5": {
+"items": [
+{
+"id": "R8:M30.5:1",
+"n": "Acoustic wave equation and decibels in water",
+"imp": "K",
+"k": "deepen",
+"teach": "משוואת הגלים בנוזל, עכבה אקוסטית ועוצמה, dB re 1 µPa, ומעבר מאוויר למים (הפרש 61.5 dB בעוצמה).",
+"on": "L:M10.1; M9.1"
+},
+{
+"id": "R8:M30.5:2",
+"n": "Sound-speed profile and ducts",
+"imp": "K",
+"k": "deepen",
+"teach": "נוסחת Mackenzie, תרמוקלינה, ערוץ SOFAR, surface duct, אזורי צל ו-convergence zones.",
+"on": "L:M10.1"
+},
+{
+"id": "R8:M30.5:3",
+"n": "Ray theory",
+"imp": "K",
+"k": "new",
+"teach": "משוואת eikonal, Snell בתווך מרובד, עקמומיות קרן, אובדן התפשטות מצינורות קרניים, ו-caustics."
+},
+{
+"id": "R8:M30.5:4",
+"n": "Absorption",
+"imp": "S",
+"k": "deepen",
+"teach": "Thorp ו-Francois-Garrison, תלות בתדר, ולמה סונאר ארוך טווח עובד בתדר נמוך.",
+"on": "L:M10.1"
+},
+{
+"id": "R8:M30.5:5",
+"n": "Helmholtz equation and normal modes",
+"imp": "K",
+"k": "new",
+"teach": "מוליך גל Pekeris, מודים ותדר קטעון, נפיצה מודלית, ומתי מודים עדיפים על קרניים."
+},
+{
+"id": "R8:M30.5:6",
+"n": "Parabolic equation method",
+"imp": "S",
+"k": "new",
+"teach": "קירוב פרבולי, split-step Fourier, ושימוש בבעיות תלויות טווח."
+},
+{
+"id": "R8:M30.5:7",
+"n": "Boundary interaction and reverberation",
+"imp": "S",
+"k": "deepen",
+"teach": "החזרה מהמשטח ומהקרקעית (מקדם Rayleigh), פיזור, והדהוד.",
+"on": "L:M10.2"
+},
+{
+"id": "R8:M30.5:8",
+"n": "Ambient noise and self-noise",
+"imp": "S",
+"k": "deepen",
+"teach": "עקומות Wenz, רעש ספנות, רוח וביולוגי, ורעש עצמי של הפלטפורמה.",
+"on": "L:M10.2"
+},
+{
+"id": "R8:M30.5:9",
+"n": "Target strength and radiated noise",
+"imp": "S",
+"k": "deepen",
+"teach": "TS של צוללת, קווים ספקטרליים של מכונות, ורעש קביטציה של מדחף.",
+"on": "L:M10.2"
+},
+{
+"id": "R8:M30.5:10",
+"n": "Sonar equation in depth",
+"imp": "S",
+"k": "deepen",
+"teach": "סף גילוי, DT ו-ROC, וטווח גילוי מול תדר.",
+"on": "L:M10.2"
+},
+{
+"id": "R8:M30.5:11",
+"n": "Arrays, array gain and towed arrays",
+"imp": "S",
+"k": "deepen",
+"teach": "AG ו-DI של מערך קווי, מערך נגרר ועמימות ימין-שמאל.",
+"on": "L:M10.3; L:M2.30"
+},
+{
+"id": "R8:M30.5:12",
+"n": "Passive processing: LOFAR and DEMON",
+"imp": "C",
+"k": "deepen",
+"teach": "ספקטרוגרמה LOFAR ומעטפת DEMON ברמת מושג. העומק מתוכנן ב-Lanchester U10.",
+"on": "L:M10.3"
+}
+]
+},
+"M30.6": {
+"items": [
+{
+"id": "R8:M30.6:1",
+"n": "Weight-volume balance, ballast and trim",
+"imp": "K",
+"k": "new",
+"teach": "שוויון משקל וציפה במצב שקוע, מכלי נטל ראשיים ומכלי פיצוי, reserve buoyancy, ושינוי צפיפות המים."
+},
+{
+"id": "R8:M30.6:2",
+"n": "Pressure hull design and collapse",
+"imp": "K",
+"k": "deepen",
+"teach": "מאמץ ממברנה pR/t, גליל מחוזק טבעות, קריסה בין טבעות, אי-יציבות כללית ו-tripping, עומק קריסה ועומק תכן, ופלדות HY ו-טיטניום.",
+"on": "M16.7 · Buckling (Euler, local buckling)"
+},
+{
+"id": "R8:M30.6:3",
+"n": "Submerged hydrostatic stability: BG",
+"imp": "K",
+"k": "new",
+"teach": "BG במקום GM, המעבר הקריטי בין צף לשקוע, ויציבות באורך."
+},
+{
+"id": "R8:M30.6:4",
+"n": "Submerged hydrodynamics and hull form",
+"imp": "S",
+"k": "deepen",
+"teach": "התנגדות גוף צירי סימטרי, L/D אופטימלי, מסה מוספת, וצורת זנב.",
+"on": "M15.26 · Underwater vehicle hydrodynamics: drag at high Re, added mass, propulsor cavitation, supercavitation"
+},
+{
+"id": "R8:M30.6:5",
+"n": "Depth control and manoeuvring",
+"imp": "K",
+"k": "new",
+"teach": "הגאים ומהירות קריטית (היפוך פעולת הגאה האחורי), snap roll, ושחזור מהצפה."
+},
+{
+"id": "R8:M30.6:6",
+"n": "Propulsion and energy: nuclear, diesel-electric, AIP",
+"imp": "K",
+"k": "deepen",
+"teach": "גרעיני, דיזל-חשמלי, AIP (Stirling, תאי דלק, MESMA) וליתיום-יון; חשבון סיבולת ושיעור החשיפה ב-snorkel.",
+"on": "M13.17 · Fuel cells and electrochemical conversion; M13.25"
+},
+{
+"id": "R8:M30.6:7",
+"n": "Signatures and quieting",
+"imp": "K",
+"k": "deepen",
+"teach": "מקורות רעש (מכונות, זרימה, מדחף), בידוד ו-rafts, pumpjets, חתימה מגנטית ו-degaussing, ושובל.",
+"on": "L:M10.3"
+},
+{
+"id": "R8:M30.6:8",
+"n": "UUV engineering",
+"imp": "S",
+"k": "deepen",
+"teach": "אנרגיה וסיבולת, ניווט בלי GPS (DVL ו-INS), מודמים אקוסטיים (kbit/s), ואוטונומיה.",
+"on": "L:M10.4"
+},
+{
+"id": "R8:M30.6:9",
+"n": "Submarine safety and escape",
+"imp": "C",
+"k": "new",
+"teach": "SUBSAFE, מילוט וחילוץ."
+}
+]
+},
+"M22.13": {
+"items": [
+{
+"id": "R8:M22.13:1",
+"n": "Types, integer promotion and undefined behavior",
+"imp": "K",
+"k": "new",
+"teach": "גדלי טיפוסים, signed מול unsigned, המרות מובלעות ו-integer promotion, ו-undefined behavior (גלישת signed, shift גדול) שהמהדר מנצל."
+},
+{
+"id": "R8:M22.13:2",
+"n": "Pointers, arrays and strings",
+"imp": "K",
+"k": "new",
+"teach": "מצביעים, אריתמטיקה, מערך כמצביע בפרמטר, מחרוזות עם אפס בסוף, ו-aliasing."
+},
+{
+"id": "R8:M22.13:3",
+"n": "Memory: stack, heap and memory bugs",
+"imp": "K",
+"k": "new",
+"teach": "מחסנית מול heap, malloc ו-free, אורך חיים, דליפה, use-after-free ו-buffer overflow, ו-ASan ו-Valgrind."
+},
+{
+"id": "R8:M22.13:4",
+"n": "Structs, alignment, endianness and bit manipulation",
+"imp": "S",
+"k": "new",
+"teach": "יישור ו-padding, union, endianness, שדות ביטים ופעולות ביטים על רגיסטרים."
+},
+{
+"id": "R8:M22.13:5",
+"n": "volatile, const and memory-mapped I/O",
+"imp": "S",
+"k": "deepen",
+"teach": "volatile לרגיסטר חומרה ולמשתנה משותף עם ISR, ומה volatile לא מבטיח (אטומיות, סדר).",
+"on": "M22.11"
+},
+{
+"id": "R8:M22.13:6",
+"n": "From C to assembly",
+"imp": "K",
+"k": "deepen",
+"teach": "calling convention, מסגרת מחסנית, קריאת פלט מהדר (Godbolt) ורמות אופטימיזציה.",
+"on": "M22.4"
+},
+{
+"id": "R8:M22.13:7",
+"n": "Compilation and linking",
+"imp": "S",
+"k": "new",
+"teach": "preprocessor, קומפילציה, אסמבלי וקישור; קבצי אובייקט, סמלים, ספריות סטטיות ודינמיות, ו-linker script ב-embedded."
+},
+{
+"id": "R8:M22.13:8",
+"n": "Build systems and cross-compilation",
+"imp": "S",
+"k": "new",
+"teach": "make ו-CMake, toolchain לצולב, ודגלי מהדר שחשובים."
+},
+{
+"id": "R8:M22.13:9",
+"n": "Calling C from Python",
+"imp": "C",
+"k": "new",
+"teach": "ctypes, cffi והרחבות C, לצורך מימוש kernel מהיר."
+}
+]
+},
+"M10.13": {
+"items": [
+{
+"id": "R8:M10.13:1",
+"n": "Convergence theory: consistency and zero-stability",
+"imp": "S",
+"k": "deepen",
+"teach": "קונסיסטנטיות ויציבות-אפס גוררות התכנסות (Dahlquist), וסדר השיטה.",
+"on": "M10.8"
+},
+{
+"id": "R8:M10.13:2",
+"n": "Runge-Kutta methods and adaptive step size",
+"imp": "K",
+"k": "deepen",
+"teach": "טבלת Butcher, תנאי סדר, זוגות משובצים (Dormand-Prince) ובקרת צעד לפי אומדן שגיאה.",
+"on": "M10.4 · ODE integrators: Euler, RK, implicit, stability regions"
+},
+{
+"id": "R8:M10.13:3",
+"n": "Linear multistep methods and BDF",
+"imp": "S",
+"k": "new",
+"teach": "Adams ו-BDF, וחסמי Dahlquist על סדר ויציבות."
+},
+{
+"id": "R8:M10.13:4",
+"n": "Stiffness: A- and L-stability, implicit RK",
+"imp": "K",
+"k": "deepen",
+"teach": "A-stability ו-L-stability, RK סתום (Radau), ולמה צעד מפורש נחסם במוד המהיר.",
+"on": "M10.4 · Stiff ODEs (concept)"
+},
+{
+"id": "R8:M10.13:5",
+"n": "Newton iterations inside implicit steps",
+"imp": "K",
+"k": "deepen",
+"teach": "ניוטון פשוט, שימוש חוזר ב-Jacobian, תנאי התכנסות, ופתרון משוואות לא לינאריות כללי.",
+"on": "M8.22"
+},
+{
+"id": "R8:M10.13:6",
+"n": "Differential-algebraic equations",
+"imp": "K",
+"k": "new",
+"teach": "אינדקס, מערכת חצי-מפורשת, הורדת אינדקס, אתחול עקבי ו-drift; מעגלים ומערכות מכניות מאולצות."
+},
+{
+"id": "R8:M10.13:7",
+"n": "Events and discontinuities",
+"imp": "S",
+"k": "new",
+"teach": "גילוי אירועים, מערכות היברידיות, והתחלה מחדש אחרי אי-רציפות."
+},
+{
+"id": "R8:M10.13:8",
+"n": "Automatic differentiation: forward and reverse",
+"imp": "K",
+"k": "deepen",
+"teach": "dual numbers במצב קדמי, מצב אחורי ועלותו, ו-checkpointing.",
+"on": "M17.4 · Automatic differentiation"
+},
+{
+"id": "R8:M10.13:9",
+"n": "ODE sensitivity: forward and adjoint",
+"imp": "S",
+"k": "new",
+"teach": "רגישות קדמית מול adjoint, ועלות לפי מספר פרמטרים ומספר יציאות; neural ODEs."
+},
+{
+"id": "R8:M10.13:10",
+"n": "Geometric integrators",
+"imp": "C",
+"k": "deepen",
+"teach": "אינטגרטורים סימפלקטיים ושימור אנרגיה.",
+"on": "M10.4 · ODE integrators: Euler, RK, implicit, stability regions"
+}
+]
+},
+"M7.21": {
+"items": [
+{
+"id": "R8:M7.21:1",
+"n": "Brownian motion, white noise and the Langevin equation",
+"imp": "S",
+"k": "deepen",
+"teach": "תנועה בראונית כתהליך, רעש לבן כנגזרת פורמלית, ומשוואת Langevin.",
+"on": "M13.2"
+},
+{
+"id": "R8:M7.21:2",
+"n": "The Itô integral and Itô's lemma",
+"imp": "K",
+"k": "new",
+"teach": "הגדרת אינטגרל Itô, הכלל dW² = dt, Itô מול Stratonovich."
+},
+{
+"id": "R8:M7.21:3",
+"n": "Linear SDEs: moments and exact discretization",
+"imp": "K",
+"k": "deepen",
+"teach": "משוואות הממוצע והשונות, Q_d = ∫ e^{Aτ}LQLᵀe^{Aᵀτ}dτ ושיטת Van Loan.",
+"on": "M5.6"
+},
+{
+"id": "R8:M7.21:4",
+"n": "Fokker-Planck and the Ornstein-Uhlenbeck process",
+"imp": "K",
+"k": "new",
+"teach": "משוואת Fokker-Planck, התפלגות סטציונרית, ו-OU כמודל הבסיס."
+},
+{
+"id": "R8:M7.21:5",
+"n": "Sensor noise models as SDEs",
+"imp": "S",
+"k": "deepen",
+"teach": "random walk, Gauss-Markov ו-bias instability, והקשר לעקומת Allan.",
+"on": "M5.6 · Inertial sensor error models: bias, scale factor, angle/velocity random walk, Allan variance"
+},
+{
+"id": "R8:M7.21:6",
+"n": "Numerical solution: Euler-Maruyama and Milstein",
+"imp": "K",
+"k": "new",
+"teach": "סדר חזק מול חלש, ובדיקת התכנסות."
+},
+{
+"id": "R8:M7.21:7",
+"n": "Continuous-discrete Kalman filtering",
+"imp": "S",
+"k": "deepen",
+"teach": "Kalman-Bucy וקלמן רציף-בדיד.",
+"on": "M5.6"
+},
+{
+"id": "R8:M7.21:8",
+"n": "Diffusion models as SDEs",
+"imp": "S",
+"k": "deepen",
+"teach": "SDE קדמי, SDE בזמן הפוך (Anderson), ו-probability flow ODE.",
+"on": "M17.11"
+},
+{
+"id": "R8:M7.21:9",
+"n": "Parameter estimation for SDEs",
+"imp": "C",
+"k": "new",
+"teach": "נראות דרך מסנן, ואומדן מנתונים בדידים."
+}
+]
+},
+"M5.21": {
+"items": [
+{
+"id": "R8:M5.21:1",
+"n": "SISO performance limitations",
+"imp": "S",
+"k": "deepen",
+"teach": "S + T = 1, חסמים מאפסים וקטבים ב-RHP ומהשהיה.",
+"on": "M5.12"
+},
+{
+"id": "R8:M5.21:2",
+"n": "MIMO poles, zeros and directions",
+"imp": "K",
+"k": "new",
+"teach": "מטריצות תמסורת, קטבים ואפסים רב-משתניים, וכיווני כניסה ויציאה."
+},
+{
+"id": "R8:M5.21:3",
+"n": "Singular values and ill-conditioned plants",
+"imp": "K",
+"k": "deepen",
+"teach": "σ̄ ו-σ̲, מספר מצב, ומקרה עמודת הזיקוק.",
+"on": "M5.13 · MIMO control and interaction (RGA)"
+},
+{
+"id": "R8:M5.21:4",
+"n": "Relative gain array in depth",
+"imp": "S",
+"k": "deepen",
+"teach": "תכונות RGA, כללי זיווג, ורגישות לאי-ודאות כש-RGA גדול.",
+"on": "M5.13 · MIMO control and interaction (RGA)"
+},
+{
+"id": "R8:M5.21:5",
+"n": "MIMO stability: generalized Nyquist and the N-Δ structure",
+"imp": "K",
+"k": "new",
+"teach": "יציבות פנימית, Nyquist מוכלל, ומבנה N-Δ."
+},
+{
+"id": "R8:M5.21:6",
+"n": "Uncertainty modeling",
+"imp": "K",
+"k": "deepen",
+"teach": "אדיטיבית וכפלית, פרמטרית, ופונקציות משקל.",
+"on": "M5.11"
+},
+{
+"id": "R8:M5.21:7",
+"n": "Robust stability and performance: small gain and μ",
+"imp": "K",
+"k": "deepen",
+"teach": "משפט ההגבר הקטן, structured singular value, וניתוח μ.",
+"on": "M5.11 · Robust control: H-infinity, mu concept"
+},
+{
+"id": "R8:M5.21:8",
+"n": "H∞ synthesis and loop shaping",
+"imp": "K",
+"k": "deepen",
+"teach": "mixed sensitivity S/KS/T, בחירת משקלים, ו-McFarlane-Glover.",
+"on": "M5.11 · Robust control: H-infinity, mu concept"
+},
+{
+"id": "R8:M5.21:9",
+"n": "Control structure design",
+"imp": "S",
+"k": "new",
+"teach": "בקרה מבוזרת, בחירת כניסות ויציאות ומשתנים מבוקרים."
+}
+]
+},
+"M5.22": {
+"items": [
+{
+"id": "R8:M5.22:1",
+"n": "Exact ZOH discretization",
+"imp": "K",
+"k": "deepen",
+"teach": "Φ = e^{Ah}, Γ, ופונקציית התמסורת הבדידה.",
+"on": "M5.9 · Digital control: sampling effects, discretization, latency"
+},
+{
+"id": "R8:M5.22:2",
+"n": "Poles and zeros of sampled systems",
+"imp": "S",
+"k": "new",
+"teach": "אפסי דגימה, ואפסים לא מינימום-פאזה בדגימה מהירה."
+},
+{
+"id": "R8:M5.22:3",
+"n": "Discrete-time design: pole placement, deadbeat, LQ",
+"imp": "S",
+"k": "deepen",
+"teach": "השמת קטבים בדידה, deadbeat ו-LQ בדיד.",
+"on": "M5.5"
+},
+{
+"id": "R8:M5.22:4",
+"n": "Approximating continuous designs",
+"imp": "K",
+"k": "deepen",
+"teach": "Tustin עם prewarping, matched pole-zero, והשפעה על המרווחים.",
+"on": "M5.9 · Digital control: sampling effects, discretization, latency"
+},
+{
+"id": "R8:M5.22:5",
+"n": "Sampling rate, prefilters and aliasing in the loop",
+"imp": "K",
+"k": "deepen",
+"teach": "בחירת קצב, מסנן anti-aliasing והפאזה שלו, והפרעות שמתקפלות ללולאה.",
+"on": "M5.9 · Digital control: sampling effects, discretization, latency"
+},
+{
+"id": "R8:M5.22:6",
+"n": "Computational delay and jitter",
+"imp": "S",
+"k": "deepen",
+"teach": "השהיית חישוב של צעד, פיצוי, ו-jitter בתזמון.",
+"on": "M5.9 · Digital control: sampling effects, discretization, latency"
+},
+{
+"id": "R8:M5.22:7",
+"n": "Quantization in controllers",
+"imp": "S",
+"k": "deepen",
+"teach": "רזולוציית ADC ו-DAC, מחזורי גבול בבקר, ואורך מילה.",
+"on": "M4.10 · Finite word-length effects, limit cycles"
+},
+{
+"id": "R8:M5.22:8",
+"n": "Actuator saturation and anti-windup",
+"imp": "K",
+"k": "deepen",
+"teach": "integrator windup, back-calculation ו-conditioning, ושימור מצב בבקר מצב.",
+"on": "M5.9"
+},
+{
+"id": "R8:M5.22:9",
+"n": "Implementation: code structure and bumpless transfer",
+"imp": "S",
+"k": "new",
+"teach": "סדר עדכון במחזור, bumpless transfer בין מצבים, ותזמון קבוע."
+}
+]
+},
+"M23.19": {
+"items": [
+{
+"id": "R8:M23.19:1",
+"n": "5G system architecture",
+"imp": "S",
+"k": "new",
+"teach": "NG-RAN ו-5GC, פיצול CU, DU ו-RU, ליבה מבוססת שירותים, ו-O-RAN."
+},
+{
+"id": "R8:M23.19:2",
+"n": "OFDM numerology and bandwidth parts",
+"imp": "K",
+"k": "deepen",
+"teach": "מרווח תת-נושאים 15·2^μ kHz, אורך slot, CP, FR1 ו-FR2, ו-bandwidth parts.",
+"on": "M23.7"
+},
+{
+"id": "R8:M23.19:3",
+"n": "Frame structure, physical channels and reference signals",
+"imp": "K",
+"k": "new",
+"teach": "PDSCH, PDCCH, PUSCH ו-PUCCH, SSB, DMRS, CSI-RS, SRS ו-PTRS."
+},
+{
+"id": "R8:M23.19:4",
+"n": "Channel coding: LDPC and polar",
+"imp": "S",
+"k": "deepen",
+"teach": "LDPC עם base graphs לנתונים וקודי polar לבקרה.",
+"on": "M23.4"
+},
+{
+"id": "R8:M23.19:5",
+"n": "Multi-antenna transmission and beam management",
+"imp": "K",
+"k": "deepen",
+"teach": "סריקת אלומות, דיווח CSI, codebooks Type I ו-II.",
+"on": "M23.10"
+},
+{
+"id": "R8:M23.19:6",
+"n": "Scheduling, HARQ and link adaptation",
+"imp": "K",
+"k": "new",
+"teach": "תזמון, HARQ, MCS ו-CQI, וחישוב תפוקה."
+},
+{
+"id": "R8:M23.19:7",
+"n": "Initial access and random access",
+"imp": "S",
+"k": "new",
+"teach": "סנכרון לתא, RACH, וניידות."
+},
+{
+"id": "R8:M23.19:8",
+"n": "Reading 3GPP specifications",
+"imp": "S",
+"k": "new",
+"teach": "סדרות 38.2xx ו-38.3xx, ואיך מוצאים פרמטר."
+},
+{
+"id": "R8:M23.19:9",
+"n": "Private, military and non-terrestrial 5G",
+"imp": "C",
+"k": "new",
+"teach": "רשתות פרטיות, NTN, ופגיעות לשיבוש של SSB ו-PDCCH."
+}
+]
+},
+"M24.14": {
+"items": [
+{
+"id": "R8:M24.14:1",
+"n": "The quantum sensing protocol and Ramsey interferometry",
+"imp": "K",
+"k": "deepen",
+"teach": "הכנת מצב, צבירת פאזה וקריאה, ו-Ramsey.",
+"on": "M24.7 · Quantum computing and quantum sensing basics"
+},
+{
+"id": "R8:M24.14:2",
+"n": "Quantum limits: SQL, Heisenberg and squeezing",
+"imp": "K",
+"k": "new",
+"teach": "1/√N מול 1/N, squeezing, ורעש טכני שחוסם בפועל."
+},
+{
+"id": "R8:M24.14:3",
+"n": "Decoherence and sensitivity",
+"imp": "K",
+"k": "new",
+"teach": "T1, T2 ו-T2*, dynamical decoupling, ונוסחת הרגישות δ ∝ 1/√(T2·t)."
+},
+{
+"id": "R8:M24.14:4",
+"n": "Atomic clocks",
+"imp": "S",
+"k": "deepen",
+"teach": "Cs, Rb ואופטיים, Allan deviation, CSAC, ו-holdover בניווט.",
+"on": "M24.7 · Quantum computing and quantum sensing basics"
+},
+{
+"id": "R8:M24.14:5",
+"n": "Atom interferometry: gravimeters and gyroscopes",
+"imp": "K",
+"k": "deepen",
+"teach": "Mach-Zehnder בפולסי אור, φ = k_eff·a·T², ויישום בניווט אינרציאלי.",
+"on": "M24.7 · Quantum computing and quantum sensing basics"
+},
+{
+"id": "R8:M24.14:6",
+"n": "Magnetometers: NV, SERF and SQUID",
+"imp": "K",
+"k": "deepen",
+"teach": "רגישות ב-fT/√Hz, MAD ללוחמה תת-ימית, וניווט מגנטי.",
+"on": "M24.7 · Quantum computing and quantum sensing basics; L:M10.3"
+},
+{
+"id": "R8:M24.14:7",
+"n": "Reality check: TRL, SWaP and platform noise",
+"imp": "S",
+"k": "new",
+"teach": "השוואה ל-IMU ניווטי ול-fluxgate, ומה מבטל את היתרון על פלטפורמה."
+},
+{
+"id": "R8:M24.14:8",
+"n": "Quantum radar and illumination claims",
+"imp": "C",
+"k": "new",
+"teach": "למה ההבטחה לא עומדת בחשבון."
+}
+]
+},
+"M24.15": {
+"items": [
+{
+"id": "R8:M24.15:1",
+"n": "Gaussian beams and M²",
+"imp": "K",
+"k": "deepen",
+"teach": "מותן, טווח Rayleigh, θ = λ/(πw0), חוק ABCD, ו-M².",
+"on": "L:M3.13"
+},
+{
+"id": "R8:M24.15:2",
+"n": "Optical resonators",
+"imp": "K",
+"k": "new",
+"teach": "תנאי יציבות 0 ≤ g1·g2 ≤ 1, מודים, finesse ו-FSR."
+},
+{
+"id": "R8:M24.15:3",
+"n": "Light-matter interaction and gain",
+"imp": "K",
+"k": "deepen",
+"teach": "בליעה, פליטה מאולצת, מקדמי Einstein וחתך הגבר.",
+"on": "M24.6"
+},
+{
+"id": "R8:M24.15:4",
+"n": "Laser oscillation: threshold and rate equations",
+"imp": "K",
+"k": "new",
+"teach": "תנאי סף, משוואות קצב, רוויה, צימוד יציאה ונצילות."
+},
+{
+"id": "R8:M24.15:5",
+"n": "Pulsed lasers: Q-switching and mode-locking",
+"imp": "S",
+"k": "deepen",
+"teach": "Q-switching ו-mode-locking, הספק שיא ואורך פולס.",
+"on": "L:M3.13"
+},
+{
+"id": "R8:M24.15:6",
+"n": "Laser types and high-power lasers",
+"imp": "S",
+"k": "deepen",
+"teach": "דיודה, סיב, מצב מוצק ו-DPSSL, ואיחוד אלומות.",
+"on": "L:M3.13"
+},
+{
+"id": "R8:M24.15:7",
+"n": "Optical fibers and amplifiers",
+"imp": "S",
+"k": "new",
+"teach": "מודים ו-V-number, ניחות ונפיצה, ו-EDFA."
+},
+{
+"id": "R8:M24.15:8",
+"n": "Photodetectors and noise",
+"imp": "K",
+"k": "deepen",
+"teach": "PIN ו-APD, responsivity, רעש shot ותרמי, excess noise ו-NEP.",
+"on": "L:M3.6"
+},
+{
+"id": "R8:M24.15:9",
+"n": "Modulators and nonlinear optics",
+"imp": "C",
+"k": "new",
+"teach": "אפנן אלקטרו-אופטי ו-SHG ברמת מושג."
+}
+]
+},
+"M23.18": {
+"items": [
+{
+"id": "R8:M23.18:1",
+"n": "The PLL as a feedback system",
+"imp": "K",
+"k": "deepen",
+"teach": "PFD, charge pump, מסנן לולאה ו-VCO, מודל לינארי type-II, רוחב פס ומרווח פאזה.",
+"on": "L:M5.4"
+},
+{
+"id": "R8:M23.18:2",
+"n": "Phase-noise transfer and optimal loop bandwidth",
+"imp": "K",
+"k": "deepen",
+"teach": "רעש הייחוס עובר במעביר נמוכים ורעש ה-VCO במעביר גבוהים, ובחירת רוחב פס אופטימלי.",
+"on": "M11.9 · Oscillator phase noise, jitter and their system effects (Leeson; reciprocal mixing; ADC jitter-limited SNR; Doppler radar clutter limit)"
+},
+{
+"id": "R8:M23.18:3",
+"n": "Phase-noise sources and multiplication",
+"imp": "K",
+"k": "deepen",
+"teach": "Leeson, figure of merit של PFD, ו-20·log10(N).",
+"on": "M11.9 · Oscillator phase noise, jitter and their system effects (Leeson; reciprocal mixing; ADC jitter-limited SNR; Doppler radar clutter limit)"
+},
+{
+"id": "R8:M23.18:4",
+"n": "Integer-N vs fractional-N and ΣΔ modulation",
+"imp": "K",
+"k": "new",
+"teach": "פשרת רזולוציה מול רוחב פס, ΣΔ ו-spurs שבריים."
+},
+{
+"id": "R8:M23.18:5",
+"n": "Spurs",
+"imp": "S",
+"k": "new",
+"teach": "spurs ייחוס, מנגנוני דליפה, והפחתה."
+},
+{
+"id": "R8:M23.18:6",
+"n": "Lock time and acquisition",
+"imp": "S",
+"k": "new",
+"teach": "זמן התייצבות, cycle slips ותפיסה. חשוב לקפיצות תדר ב-EW."
+},
+{
+"id": "R8:M23.18:7",
+"n": "Jitter from phase noise",
+"imp": "S",
+"k": "deepen",
+"teach": "אינטגרציה של רעש פאזה, SNR של ADC ו-BER.",
+"on": "M11.9 · Oscillator phase noise, jitter and their system effects (Leeson; reciprocal mixing; ADC jitter-limited SNR; Doppler radar clutter limit)"
+},
+{
+"id": "R8:M23.18:8",
+"n": "DDS and other synthesis methods",
+"imp": "S",
+"k": "new",
+"teach": "DDS ו-spurs מקיטוע, שרשראות הכפלה, וזריזות תדר למכ״ם ול-EW."
+},
+{
+"id": "R8:M23.18:9",
+"n": "CDR loops and DLLs",
+"imp": "C",
+"k": "deepen",
+"teach": "לולאות שחזור שעון ו-DLL ברמת קשר.",
+"on": "L:M5.4"
+}
+]
+},
+"M11.25": {
+"items": [
+{
+"id": "R8:M11.25:1",
+"n": "Static and dynamic sensor characteristics",
+"imp": "K",
+"k": "deepen",
+"teach": "פונקציית תמסורת, רגישות, אי-לינאריות, היסטרזיס, רזולוציה, רצפת רעש ורוחב פס.",
+"on": "M6.4 · Calibration and traceability"
+},
+{
+"id": "R8:M11.25:2",
+"n": "Transduction principles",
+"imp": "K",
+"k": "new",
+"teach": "פיזורזיסטיבי, קיבולי, פיזואלקטרי, השראי, Hall ותרמואלקטרי."
+},
+{
+"id": "R8:M11.25:3",
+"n": "Interface circuits",
+"imp": "K",
+"k": "deepen",
+"teach": "גשר Wheatstone, מגבר מכשור, מגבר מטען, ו-ADC רציומטרי.",
+"on": "M11.7"
+},
+{
+"id": "R8:M11.25:4",
+"n": "Strain, force and pressure sensors",
+"imp": "S",
+"k": "new",
+"teach": "gauge factor, פיצוי טמפרטורה, ותאי עומס ולחץ."
+},
+{
+"id": "R8:M11.25:5",
+"n": "Temperature sensors",
+"imp": "S",
+"k": "deepen",
+"teach": "צמד תרמי וצומת קר, RTD ותרמיסטור.",
+"on": "M14.2 · Thermal measurement"
+},
+{
+"id": "R8:M11.25:6",
+"n": "MEMS inertial sensors",
+"imp": "K",
+"k": "deepen",
+"teach": "דינמיקת מסת הבוחן, רצפת רעש בראוני, ג'ירו ויברציוני (Coriolis), ומקורות שגיאה.",
+"on": "M5.6 · Inertial sensor error models: bias, scale factor, angle/velocity random walk, Allan variance"
+},
+{
+"id": "R8:M11.25:7",
+"n": "Magnetometers and compass calibration",
+"imp": "S",
+"k": "new",
+"teach": "fluxgate, AMR ו-Hall, וכיול hard-iron ו-soft-iron."
+},
+{
+"id": "R8:M11.25:8",
+"n": "Optical and thermal detectors",
+"imp": "S",
+"k": "deepen",
+"teach": "פוטודיודות ובולומטרים ברמת ממשק.",
+"on": "L:M3.6"
+},
+{
+"id": "R8:M11.25:9",
+"n": "Calibration and compensation",
+"imp": "S",
+"k": "deepen",
+"teach": "כיול רב-נקודתי, פיצוי טמפרטורה וסחיפה.",
+"on": "M6.4 · Calibration and traceability"
+}
+]
+},
+"M22.16": {
+"items": [
+{
+"id": "R8:M22.16:1",
+"n": "Partial failure, unreliable networks and clocks",
+"imp": "K",
+"k": "deepen",
+"teach": "timeouts, הפרש שעונים ו-process pauses.",
+"on": "M22.8 · Distributed systems: consistency, fault tolerance, CAP"
+},
+{
+"id": "R8:M22.16:2",
+"n": "Replication",
+"imp": "K",
+"k": "deepen",
+"teach": "leader-follower, multi-leader ו-leaderless, quorum w + r > n, ופיגור שכפול.",
+"on": "M22.8 · Distributed systems: consistency, fault tolerance, CAP"
+},
+{
+"id": "R8:M22.16:3",
+"n": "Partitioning",
+"imp": "S",
+"k": "new",
+"teach": "טווח מפתחות מול hash, איזון מחדש ונקודות חמות."
+},
+{
+"id": "R8:M22.16:4",
+"n": "Transactions and isolation levels",
+"imp": "K",
+"k": "new",
+"teach": "ACID, read committed, snapshot isolation, serializability ו-write skew."
+},
+{
+"id": "R8:M22.16:5",
+"n": "Consistency models: linearizability and causality",
+"imp": "K",
+"k": "deepen",
+"teach": "linearizability, סיבתיות ו-eventual, ו-CAP ו-PACELC בניסוח נכון.",
+"on": "M22.8 · Distributed systems: consistency, fault tolerance, CAP"
+},
+{
+"id": "R8:M22.16:6",
+"n": "Logical time and ordering",
+"imp": "K",
+"k": "new",
+"teach": "Lamport clocks, vector clocks ו-fencing tokens."
+},
+{
+"id": "R8:M22.16:7",
+"n": "Consensus: Raft and FLP",
+"imp": "K",
+"k": "deepen",
+"teach": "בחירת מנהיג, שכפול יומן ובטיחות ב-Raft, ומשפט FLP.",
+"on": "M22.8 · Distributed systems: consistency, fault tolerance, CAP"
+},
+{
+"id": "R8:M22.16:8",
+"n": "Tail latency",
+"imp": "S",
+"k": "deepen",
+"teach": "fan-out מגביר p99, ו-hedged requests.",
+"on": "M7.1 · Queueing in networks"
+},
+{
+"id": "R8:M22.16:9",
+"n": "Stream processing and messaging",
+"imp": "S",
+"k": "new",
+"teach": "Kafka, exactly-once, ו-event sourcing."
+},
+{
+"id": "R8:M22.16:10",
+"n": "Byzantine faults",
+"imp": "C",
+"k": "new",
+"teach": "כשלים ביזנטיים ורלוונטיות לשו״ב."
+}
+]
+},
+"M29.8": {
+"items": [
+{
+"id": "R8:M29.8:1",
+"n": "Framing ML problems and system requirements",
+"imp": "S",
+"k": "new",
+"teach": "מטרת המודל מול מטרת המערכת, ודרישות השהיה ותפוקה."
+},
+{
+"id": "R8:M29.8:2",
+"n": "Data engineering and versioning",
+"imp": "S",
+"k": "deepen",
+"teach": "מקורות ופורמטים, batch מול streaming, וגרסאות נתונים.",
+"on": "M17.12 · Data pipelines, labeling, technical debt in ML systems"
+},
+{
+"id": "R8:M29.8:3",
+"n": "Training data: sampling and labeling",
+"imp": "S",
+"k": "deepen",
+"teach": "דגימה, תיוג, weak supervision וחוסר איזון.",
+"on": "M17.12 · Data pipelines, labeling, technical debt in ML systems"
+},
+{
+"id": "R8:M29.8:4",
+"n": "Features and leakage in production",
+"imp": "S",
+"k": "deepen",
+"teach": "feature engineering, וזליגה שמופיעה רק בייצור.",
+"on": "M17.5 · Generalization, train/validation/test splits, data leakage"
+},
+{
+"id": "R8:M29.8:5",
+"n": "Offline evaluation beyond accuracy",
+"imp": "S",
+"k": "deepen",
+"teach": "הערכה לפי פלחים, בדיקות הפרעה וכיול.",
+"on": "M17.5"
+},
+{
+"id": "R8:M29.8:6",
+"n": "Deployment patterns",
+"imp": "S",
+"k": "deepen",
+"teach": "batch מול online, וקצה מול ענן.",
+"on": "M17.12 · Model compression and edge inference: quantization, pruning, distillation, SWaP limits on drones/missiles"
+},
+{
+"id": "R8:M29.8:7",
+"n": "Monitoring and drift detection",
+"imp": "K",
+"k": "deepen",
+"teach": "data drift ו-concept drift, מבחנים סטטיסטיים, ותגובה.",
+"on": "M17.16"
+},
+{
+"id": "R8:M29.8:8",
+"n": "Continual learning and online experiments",
+"imp": "S",
+"k": "new",
+"teach": "קצב אימון מחדש, A/B ו-bandits."
+},
+{
+"id": "R8:M29.8:9",
+"n": "ML infrastructure",
+"imp": "S",
+"k": "new",
+"teach": "מעקב ניסויים, model registry ו-feature store."
+},
+{
+"id": "R8:M29.8:10",
+"n": "Post-mortems and responsible ML",
+"imp": "C",
+"k": "deepen",
+"teach": "ניתוח כשלים בייצור.",
+"on": "M17.12"
+}
+]
+},
+"M15.31": {
+"items": [
+{
+"id": "R8:M15.31:1",
+"n": "Momentum theory in hover and climb",
+"imp": "K",
+"k": "deepen",
+"teach": "מהירות מושרית, הספק אידיאלי ו-figure of merit.",
+"on": "M15.13 · Hover and rotorcraft/multirotor power: actuator-disk P = T^1.5/sqrt(2 rho A), disk loading, figure of merit, battery-electric endurance"
+},
+{
+"id": "R8:M15.31:2",
+"n": "Descent: vortex ring state and autorotation",
+"imp": "K",
+"k": "new",
+"teach": "vortex ring state, windmill brake ו-autorotation."
+},
+{
+"id": "R8:M15.31:3",
+"n": "Blade element theory",
+"imp": "K",
+"k": "new",
+"teach": "C_T ו-C_P, זווית זרימה, solidity ו-C_T/σ."
+},
+{
+"id": "R8:M15.31:4",
+"n": "Blade element momentum theory",
+"imp": "K",
+"k": "new",
+"teach": "פילוג זרימה מושרית, פיתול אידיאלי, ו-tip loss של Prandtl."
+},
+{
+"id": "R8:M15.31:5",
+"n": "Forward flight",
+"imp": "S",
+"k": "new",
+"teach": "advance ratio, הספק מושרה (Glauert), אי-סימטריית עילוי, flapping ו-retreating blade stall."
+},
+{
+"id": "R8:M15.31:6",
+"n": "Propeller performance and motor matching",
+"imp": "K",
+"k": "deepen",
+"teach": "C_T, C_P ו-η מול J, פסיעה קבועה ומשתנה, והתאמה למנוע.",
+"on": "M12.8 · Thrust and current measurement of a drone motor"
+},
+{
+"id": "R8:M15.31:7",
+"n": "Multirotor specifics",
+"imp": "S",
+"k": "deepen",
+"teach": "אינטראקציה בין רוטורים, יעילות ב-Re נמוך, לולאת תכן ורעש BPF.",
+"on": "L:M9.6"
+},
+{
+"id": "R8:M15.31:8",
+"n": "Rotor dynamics and helicopter control",
+"imp": "S",
+"k": "new",
+"teach": "cyclic ו-collective, trim ודינמיקת flapping."
+},
+{
+"id": "R8:M15.31:9",
+"n": "Rotor noise and acoustic signatures",
+"imp": "C",
+"k": "deepen",
+"teach": "רעש רוטור כחתימה לגילוי רחפנים.",
+"on": "L:M9.7"
+}
+]
+},
+"M15.32": {
+"items": [
+{
+"id": "R8:M15.32:1",
+"n": "Finite-volume discretization of transport",
+"imp": "K",
+"k": "deepen",
+"teach": "הסעה ודיפוזיה, סכמות upwind, central ו-TVD, ומספר Peclet של תא.",
+"on": "M10.10 · Finite volume method and conservation"
+},
+{
+"id": "R8:M15.32:2",
+"n": "Linear solvers for CFD",
+"imp": "S",
+"k": "deepen",
+"teach": "פותרים איטרטיביים ו-multigrid.",
+"on": "M8.10"
+},
+{
+"id": "R8:M15.32:3",
+"n": "Pressure-velocity coupling",
+"imp": "K",
+"k": "new",
+"teach": "הבעיה בזרימה לא דחיסה, SIMPLE ו-PISO, Rhie-Chow ו-checkerboard."
+},
+{
+"id": "R8:M15.32:4",
+"n": "Meshing, y+ and grid convergence",
+"imp": "K",
+"k": "deepen",
+"teach": "מבנה ורשת לא מובנית, איכות תאים, y+ ופונקציות קיר, ו-GCI של Richardson.",
+"on": "M15.26 · CFD in practice"
+},
+{
+"id": "R8:M15.32:5",
+"n": "RANS turbulence models and LES",
+"imp": "K",
+"k": "deepen",
+"teach": "k-ε ו-k-ω SST, תנאי שפה, מגבלות, ו-LES ו-DES.",
+"on": "M15.26 · Turbulence models and their limits (RANS, LES, DNS)"
+},
+{
+"id": "R8:M15.32:6",
+"n": "Compressible solvers and shock capturing",
+"imp": "S",
+"k": "deepen",
+"teach": "Godunov ו-Riemann solvers.",
+"on": "M10.7 · Conservation-law form, fluxes, shocks (intro)"
+},
+{
+"id": "R8:M15.32:7",
+"n": "Verification and validation",
+"imp": "K",
+"k": "deepen",
+"teach": "אימות קוד ופתרון, תיקוף מול ניסוי, ואי-ודאות.",
+"on": "M27.3 · Modeling and simulation in SE, model credibility; M15.26 · CFD in practice"
+},
+{
+"id": "R8:M15.32:8",
+"n": "A practical OpenFOAM workflow",
+"imp": "S",
+"k": "new",
+"teach": "הגדרת מקרה, שאריות מול גדלים אינטגרליים, ותיעוד."
+}
+]
+},
+"M27.11": {
+"items": [
+{
+"id": "R8:M27.11:1",
+"n": "Life distributions and the hazard function",
+"imp": "S",
+"k": "deepen",
+"teach": "מעריכית, Weibull ו-lognormal, ומה עקומת האמבטיה באמת מראה.",
+"on": "M6.2 · Reliability mathematics: exponential/Weibull failure, MTBF, series/parallel and k-of-n systems"
+},
+{
+"id": "R8:M27.11:2",
+"n": "Weibull analysis of test and field data",
+"imp": "K",
+"k": "new",
+"teach": "צנזור, median ranks, MLE וגבולות סמך."
+},
+{
+"id": "R8:M27.11:3",
+"n": "Reliability block diagrams and repairable systems",
+"imp": "S",
+"k": "deepen",
+"teach": "k-of-n, standby, וזמינות דרך שרשרת מרקוב.",
+"on": "M6.2 · Reliability mathematics: exponential/Weibull failure, MTBF, series/parallel and k-of-n systems"
+},
+{
+"id": "R8:M27.11:4",
+"n": "FMECA and fault trees in practice",
+"imp": "S",
+"k": "deepen",
+"teach": "שילוב FMECA ו-FTA בתכנון.",
+"on": "M27.4 · FMEA/FMECA; M27.8"
+},
+{
+"id": "R8:M27.11:5",
+"n": "Physics of failure",
+"imp": "K",
+"k": "deepen",
+"teach": "Arrhenius, Coffin-Manson, Peck ו-Black.",
+"on": "M11.6 · Electronics reliability: failure rates (FIT/MTBF), Arrhenius acceleration, derating, bathtub curve"
+},
+{
+"id": "R8:M27.11:6",
+"n": "Accelerated life testing and HALT",
+"imp": "K",
+"k": "new",
+"teach": "מקדמי האצה, מודלי ALT, ו-HALT ו-HASS."
+},
+{
+"id": "R8:M27.11:7",
+"n": "Reliability growth",
+"imp": "K",
+"k": "new",
+"teach": "Duane ו-Crow-AMSAA, ו-test-analyze-fix."
+},
+{
+"id": "R8:M27.11:8",
+"n": "Reliability demonstration",
+"imp": "S",
+"k": "deepen",
+"teach": "בדיקות ללא כשל, וחסם χ² ל-MTBF.",
+"on": "M27.3 · Test statistics for small samples: success-run theorem (C = 1 - R^n), demonstrated vs required reliability, OC curves"
+},
+{
+"id": "R8:M27.11:9",
+"n": "Maintainability and availability",
+"imp": "S",
+"k": "deepen",
+"teach": "MTTR, RCM וחלפים.",
+"on": "L:M14.3"
+},
+{
+"id": "R8:M27.11:10",
+"n": "Software reliability",
+"imp": "C",
+"k": "deepen",
+"teach": "מודלי צמיחת אמינות לתוכנה ומגבלותיהם.",
+"on": "M27.4 · Software safety and assurance (DO-178C, IEC 61508 SIL)"
+}
+]
+},
+"M16.20": {
+"items": [
+{
+"id": "R8:M16.20:dfm1",
+"n": "Tolerances, fits and GD&T",
+"imp": "K",
+"k": "new",
+"teach": "טולרנסים ותאמות (ISO 286), יסודות GD&T: datum, מיקום, ניצבות ופרופיל, ואיך כותבים שרטוט שמייצרים ובודקים לפיו."
+},
+{
+"id": "R8:M16.20:dfm2",
+"n": "Tolerance stack-up and cost",
+"imp": "K",
+"k": "new",
+"teach": "שרשרת טולרנסים במקרה הגרוע ובסטטיסטי (RSS, Monte Carlo), ובחירת טולרנס לפי עלות הייצור והבדיקה."
+}
+]
+},
+"M16.24": {
+"items": [
+{
+"id": "R8:M16.24:dfm1",
+"n": "Composite manufacturing and design allowables",
+"imp": "S",
+"k": "new",
+"teach": "lay-up, אוטוקלב מול OOA, RTM; פגמים (נקבוביות, דלמינציה) והשפעתם על ערכי התכן; בדיקות לא הורסות."
+}
+]
+},
+"M13.23": {
+"items": [
+{
+"id": "R8:M13.23:1",
+"n": "Grid-following vs grid-forming inverters in a low-inertia grid",
+"imp": "K",
+"k": "deepen",
+"teach": "ממיר שמסתנכרן ב-PLL ומזריק זרם (grid-following) מול ממיר שקובע מתח ותדר בעצמו (grid-forming: droop, מכונה סינכרונית וירטואלית). רשת עם אינרציה נמוכה: RoCoF, שפל התדר (nadir) ותגובת תדר מהירה. רשת חלשה (SCR נמוך) ויציבות ה-PLL. דרישות ride-through (IEEE 2800, IEEE 1547). אותו עיקרון מחזיק מיקרו-גריד של בסיס או של ספינה בלי גנרטור גדול.",
+"on": "M12.12; M13.19"
+}
+]
+},
+"M13.25": {
+"items": [
+{
+"id": "R8:M13.25:1",
+"n": "Grid-scale battery storage: sizing, grid services, degradation and safety",
+"imp": "S",
+"k": "new",
+"teach": "הספק מול אנרגיה (MW מול MWh, משך בשעות) ויעילות הלוך-חזור. השירותים: תגובת תדר מהירה, ארביטראז', דחיית השקעה ברשת, black start. הזדקנות לפי עומק פריקה, קצב וטמפרטורה, וההשפעה על עלות האגירה (LCOS). BMS ברמת המערכת, thermal runaway והתפשטותו בין תאים (UL 9540A, NFPA 855)."
+}
+]
+},
+"M15.28": {
+"items": [
+{
+"id": "R8:M15.28:1",
+"n": "Flight control law design: SAS/CAS, gain scheduling, dynamic inversion, flying qualities",
+"imp": "K",
+"k": "new",
+"teach": "ממודל לינארי של המטוס לחוק בקרה: מערכת ייצוב (SAS) ומערכת שליטה ופקודה (CAS), תזמון הגבר על פני מעטפת הטיסה, היפוך דינמי (NDI/INDI) כחלופה. דרישות איכויות טיסה (MIL-STD-1797, סולם Cooper-Harper, CAP), מרווחי יציבות כדרישה, ואיך בודקים את חוק הבקרה בטיסה."
+},
+{
+"id": "R8:M15.28:2",
+"n": "6-DOF simulation, Monte Carlo dispersion and the MIL/SIL/HIL chain",
+"imp": "K",
+"k": "new",
+"teach": "סימולציית 6-DOF של כלי: משוואות התנועה, קוואטרניונים, מודלים אווירודינמיים מטבלאות, מודלי חיישנים ומפעילים. ריצות Monte Carlo על פיזור פרמטרים כדי להעריך ביצועים ומרווחים. השרשרת מהמודל לחומרה: model-, software- ו-hardware-in-the-loop, ומה כל שלב מוכיח ומה לא."
 }
 ]
 }

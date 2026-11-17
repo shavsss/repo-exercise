@@ -1,0 +1,597 @@
+[
+ {
+  "doc": "W03",
+  "key": "modern_c",
+  "dir": "library/engineering/free",
+  "title": "Modern C",
+  "author": "Gustedt",
+  "edition": "Manning, free author edition",
+  "url": "https://gustedt.gitlabpages.inria.fr/modern-c/",
+  "note": null,
+  "modules": {
+   "M22.13": {
+    "app": "Gilua",
+    "title": "C and systems programming",
+    "use": "Levels 1–2",
+    "subtopics": [
+     "Types, integer promotion and undefined behavior",
+     "Pointers, arrays and strings",
+     "Memory: stack, heap and memory bugs",
+     "Structs, alignment, endianness and bit manipulation",
+     "volatile, const and memory-mapped I/O",
+     "From C to assembly",
+     "Compilation and linking",
+     "Build systems and cross-compilation",
+     "Calling C from Python"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "W08",
+  "key": "suli_odes",
+  "dir": "library/engineering/free",
+  "title": "Numerical Solution of Ordinary Differential Equations (lecture notes)",
+  "author": "Süli",
+  "edition": "Oxford, free",
+  "url": "https://people.maths.ox.ac.uk/suli/nsodes.pdf",
+  "note": null,
+  "modules": {
+   "M10.13": {
+    "app": "Gilua",
+    "title": "Numerical ODEs, stiffness and automatic differentiation",
+    "use": "כולו",
+    "subtopics": [
+     "Convergence theory: consistency and zero-stability",
+     "Runge-Kutta methods and adaptive step size",
+     "Linear multistep methods and BDF",
+     "Stiffness: A- and L-stability, implicit RK",
+     "Newton iterations inside implicit steps",
+     "Differential-algebraic equations",
+     "Events and discontinuities",
+     "Automatic differentiation: forward and reverse",
+     "ODE sensitivity: forward and adjoint",
+     "Geometric integrators"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "W13",
+  "key": "nrc_stat_testing",
+  "dir": "library/engineering/free",
+  "title": "Statistics, Testing, and Defense Acquisition: New Approaches and Methodological Improvements",
+  "author": "National Research Council",
+  "edition": "NAP 1998",
+  "url": "https://nap.nationalacademies.org/catalog/6037",
+  "note": null,
+  "modules": {
+   "M6.13": {
+    "app": "Gilua",
+    "title": "Design of experiments and test statistics",
+    "use": "פרקים 3–6",
+    "subtopics": [
+     "Randomization, replication, blocking and confounding",
+     "Power and sample size",
+     "ANOVA and multiple comparisons",
+     "2^k factorial designs: main effects and interactions",
+     "Fractional factorials and screening",
+     "Response surface methods",
+     "Design of computer experiments",
+     "Pass/fail test statistics: binomial bounds and OC curves",
+     "Sequential testing (Wald SPRT)",
+     "Estimating Pk and CEP from few shots"
+    ]
+   },
+   "M7.14": {
+    "app": "Lanchester",
+    "title": "Test and evaluation: statistics in practice",
+    "use": "פרקים 3–6",
+    "subtopics": [
+     "Binomial confidence and shots needed for Pk",
+     "DOE for operational test",
+     "Sequential testing and OC curves",
+     "Bayesian combination of test and M&S data",
+     "VV&A for test credit",
+     "Reading DOT&E reports",
+     "Reliability growth and demonstration",
+     "Scoring live-fire tests"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "W18",
+  "key": "skogestad_mfc",
+  "dir": "library/engineering/free",
+  "title": "Multivariable Feedback Control: Analysis and Design",
+  "author": "Skogestad & Postlethwaite",
+  "edition": "1st ed. (1996), full PDF on the author's site",
+  "url": "https://skoge.folk.ntnu.no/skoge/book/ps/bookall.pdf",
+  "note": null,
+  "modules": {
+   "M5.21": {
+    "app": "Gilua",
+    "title": "Multivariable and robust control",
+    "use": "פרקים 3, 5–10 (מהדורה 1, מלאה באתר המחבר)",
+    "subtopics": [
+     "SISO performance limitations",
+     "MIMO poles, zeros and directions",
+     "Singular values and ill-conditioned plants",
+     "Relative gain array in depth",
+     "MIMO stability: generalized Nyquist and the N-Δ structure",
+     "Uncertainty modeling",
+     "Robust stability and performance: small gain and μ",
+     "H∞ synthesis and loop shaping",
+     "Control structure design"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "W23",
+  "key": "banerjee_pll",
+  "dir": "library/engineering/free",
+  "title": "PLL Performance, Simulation, and Design",
+  "author": "Banerjee",
+  "edition": "5th ed. (2017), free from TI (SNAA106C)",
+  "url": "https://www.ti.com/lit/ml/snaa106c/snaa106c.pdf",
+  "note": null,
+  "modules": {
+   "M23.18": {
+    "app": "Gilua",
+    "title": "PLL and frequency synthesis",
+    "use": "כולו (נבחר)",
+    "subtopics": [
+     "The PLL as a feedback system",
+     "Phase-noise transfer and optimal loop bandwidth",
+     "Phase-noise sources and multiplication",
+     "Integer-N vs fractional-N and ΣΔ modulation",
+     "Spurs",
+     "Lock time and acquisition",
+     "Jitter from phase noise",
+     "DDS and other synthesis methods",
+     "CDR loops and DLLs"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "W27",
+  "key": "schneider_fdtd",
+  "dir": "library/engineering/free",
+  "title": "Understanding the Finite-Difference Time-Domain Method",
+  "author": "Schneider",
+  "edition": "free online",
+  "url": "https://eecs.wsu.edu/~schneidj/ufdtd/",
+  "note": null,
+  "modules": {
+   "M10.12": {
+    "app": "Gilua",
+    "title": "Computational electromagnetics: FDTD, MoM",
+    "use": "פרקים 3–5, 8, 11, 14",
+    "subtopics": [
+     "The Yee grid and leapfrog update",
+     "Stability and numerical dispersion",
+     "Sources and TF/SF",
+     "Absorbing boundaries: Mur and PML",
+     "Materials: lossy and dispersive media",
+     "Near-to-far-field transformation",
+     "Validation against closed-form solutions",
+     "Method of moments for wire antennas",
+     "Choosing a method: MoM, FDTD, FEM and fast solvers"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "W30",
+  "key": "barfoot_ser",
+  "dir": "library/engineering/free",
+  "title": "State Estimation for Robotics",
+  "author": "Barfoot",
+  "edition": "2nd ed. (CUP 2024), free from the author",
+  "url": "https://asrl.utias.utoronto.ca/~tdb/bib/barfoot_ser24.pdf",
+  "note": null,
+  "modules": {
+   "M19.12": {
+    "app": "Gilua",
+    "title": "Geometric vision, multi-view geometry and SLAM",
+    "use": "פרקים 7–10",
+    "subtopics": [
+     "Projective geometry for vision",
+     "Camera model and calibration",
+     "Homography estimation",
+     "Epipolar geometry: essential and fundamental matrices",
+     "Features, matching and robust estimation",
+     "Triangulation, SfM and bundle adjustment",
+     "Lie groups for pose estimation",
+     "Factor graphs and SLAM back-ends",
+     "Visual-inertial odometry",
+     "Optical flow and direct methods",
+     "Stereo matching and dense depth"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "X07",
+  "key": "volpe_cpnt",
+  "dir": "library/military/free",
+  "title": "Complementary PNT and GPS Backup Technologies Demonstration Report",
+  "author": "US DOT Volpe Center",
+  "edition": "2021",
+  "url": "https://rosap.ntl.bts.gov/view/dot/55765",
+  "note": null,
+  "modules": {
+   "M5.14": {
+    "app": "Lanchester",
+    "title": "Signals of opportunity (LEO PNT, cellular, celestial) and portable atomic clocks",
+    "use": "סעיפים 1–10",
+    "subtopics": [
+     "SoOP positioning with unknown transmitter clocks",
+     "LEO Doppler and pseudorange PNT (Starlink, Iridium, Orbcomm)",
+     "Cellular (LTE/5G) positioning",
+     "Celestial navigation and daytime star trackers",
+     "eLoran and terrestrial backups",
+     "Clock stability, Allan deviation and holdover",
+     "Chip-scale atomic clocks in fielded systems",
+     "Optical clocks and cold-atom inertial sensors: maturity",
+     "Time transfer without GNSS"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "W34",
+  "key": "anderson_se",
+  "dir": "library/engineering/free",
+  "title": "Security Engineering",
+  "author": "Anderson",
+  "edition": "2nd ed. (2008), free from the author",
+  "url": "https://www.cl.cam.ac.uk/~rja14/book.html",
+  "note": null,
+  "modules": {
+   "M28.6": {
+    "app": "Gilua",
+    "title": "Hardware and firmware security: root of trust, side channels, anti-tamper",
+    "use": "פרקים 16–17 (physical tamper resistance, emission security)",
+    "subtopics": [
+     "Hardware threat models and attack classes",
+     "Root of trust and secure boot",
+     "TPM, HSM and attestation",
+     "Trusted execution environments",
+     "Power and EM side channels",
+     "Microarchitectural side channels: cache attacks and Spectre",
+     "Fault injection",
+     "Hardware Trojans, counterfeits and PUFs",
+     "Anti-tamper and zeroization",
+     "Debug ports and secure firmware update"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "W39",
+  "key": "cxl_intro",
+  "dir": "library/engineering/free",
+  "title": "An Introduction to the Compute Express Link (CXL) Interconnect",
+  "author": "Das Sharma et al.",
+  "edition": "ACM Computing Surveys 2024, arXiv 2306.11227",
+  "url": "https://arxiv.org/abs/2306.11227",
+  "note": null,
+  "modules": {
+   "M28.4": {
+    "app": "Gilua",
+    "title": "High-speed interconnects: PCIe, NVLink, CXL, SerDes",
+    "use": "כולו",
+    "subtopics": [
+     "SerDes architecture and line coding",
+     "Channel equalization and PAM4",
+     "Jitter decomposition and BER bathtub",
+     "PCIe: layers, TLPs and flow control",
+     "CXL: coherent memory over PCIe",
+     "NVLink, NVSwitch and scale-up vs scale-out",
+     "Interconnection network topologies and routing",
+     "Chiplet interconnects and optical I/O"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "W44",
+  "key": "sysml2_release",
+  "dir": "library/engineering/free",
+  "title": "SysML v2 Release: Intro to the SysML v2 Language (Textual Notation) and the OMG SysML v2 specification",
+  "author": "OMG / Systems Modeling (Seidewitz et al.)",
+  "edition": "2025 release",
+  "url": "https://github.com/Systems-Modeling/SysML-v2-Release",
+  "note": "url unverified",
+  "modules": {
+   "M27.10": {
+    "app": "Gilua",
+    "title": "MBSE with SysML v2",
+    "use": "Intro to the SysML v2 Language (Textual Notation) והמפרט",
+    "subtopics": [
+     "Why MBSE: the model as source of truth",
+     "SysML v2 foundations: KerML, definitions and usages",
+     "Structure: parts, ports, interfaces and connections",
+     "Behavior: actions, states and interactions",
+     "Requirements and traceability",
+     "Analysis and trade studies in the model",
+     "Verification cases",
+     "Views, viewpoints and architecture frameworks",
+     "SysML v2 API and model management",
+     "MBSE methods and adoption pitfalls"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "W49",
+  "key": "scaling_book",
+  "dir": "library/engineering/free",
+  "title": "How to Scale Your Model",
+  "author": "Austin et al. (Google DeepMind)",
+  "edition": "2025, free online",
+  "url": "https://jax-ml.github.io/scaling-book/",
+  "note": null,
+  "modules": {
+   "M29.2": {
+    "app": "Gilua",
+    "title": "Scaling laws and distributed training: TP/PP/EP, NCCL",
+    "use": "פרקי training ו-sharding",
+    "subtopics": [
+     "Scaling laws and compute-optimal training",
+     "Memory accounting for training",
+     "Data parallelism, ZeRO and FSDP",
+     "Collective communication and NCCL",
+     "Tensor parallelism",
+     "Pipeline parallelism",
+     "Expert, sequence and context parallelism",
+     "MFU, efficiency and failures at scale",
+     "Pretraining data: curation and contamination"
+    ]
+   },
+   "M29.4": {
+    "app": "Gilua",
+    "title": "Inference optimization: KV-cache, FP8/INT4, speculative decoding",
+    "use": "פרקי inference",
+    "subtopics": [
+     "Prefill vs decode: compute- and memory-bound",
+     "KV cache sizing",
+     "Batching and serving: continuous batching and PagedAttention",
+     "Quantization formats: INT8, INT4, FP8",
+     "Post-training quantization methods: GPTQ, AWQ, SmoothQuant",
+     "Speculative decoding",
+     "Parallelism for serving and disaggregation",
+     "Inference kernels",
+     "Cost and throughput modeling"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "W54",
+  "key": "inference_papers",
+  "dir": "library/engineering/free",
+  "title": "vLLM/PagedAttention (arXiv 2309.06180); Speculative decoding (2211.17192); GPTQ (2210.17323); AWQ (2306.00978); Efficiently Scaling Transformer Inference (2211.05102)",
+  "author": "Kwon et al.; Leviathan et al.; Frantar et al.; Lin et al.; Pope et al.",
+  "edition": "2022-2024",
+  "url": "https://arxiv.org/abs/2309.06180",
+  "note": null,
+  "modules": {
+   "M29.4": {
+    "app": "Gilua",
+    "title": "Inference optimization: KV-cache, FP8/INT4, speculative decoding",
+    "use": "כולם",
+    "subtopics": [
+     "Prefill vs decode: compute- and memory-bound",
+     "KV cache sizing",
+     "Batching and serving: continuous batching and PagedAttention",
+     "Quantization formats: INT8, INT4, FP8",
+     "Post-training quantization methods: GPTQ, AWQ, SmoothQuant",
+     "Speculative decoding",
+     "Parallelism for serving and disaggregation",
+     "Inference kernels",
+     "Cost and throughput modeling"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "W59",
+  "key": "sculley_debt",
+  "dir": "library/engineering/free",
+  "title": "Hidden Technical Debt in Machine Learning Systems",
+  "author": "Sculley et al.",
+  "edition": "NeurIPS 2015",
+  "url": "https://papers.nips.cc/paper/5656-hidden-technical-debt-in-machine-learning-systems",
+  "note": "url unverified",
+  "modules": {
+   "M29.8": {
+    "app": "Gilua",
+    "title": "ML systems and MLOps",
+    "use": "כולו",
+    "subtopics": [
+     "Framing ML problems and system requirements",
+     "Data engineering and versioning",
+     "Training data: sampling and labeling",
+     "Features and leakage in production",
+     "Offline evaluation beyond accuracy",
+     "Deployment patterns",
+     "Monitoring and drift detection",
+     "Continual learning and online experiments",
+     "ML infrastructure",
+     "Post-mortems and responsible ML"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "X10",
+  "key": "nasa_sp8076",
+  "dir": "library/military/free",
+  "title": "NASA SP-8076, Solid Propellant Grain Design and Internal Ballistics",
+  "author": "NASA",
+  "edition": "1972",
+  "url": "https://ntrs.nasa.gov/citations/19730007077",
+  "note": null,
+  "modules": {
+   "M6.15": {
+    "app": "Lanchester",
+    "title": "Missile propulsion: solid motors, ramjet, scramjet",
+    "use": "כולו",
+    "subtopics": [
+     "Thrust, Isp, c* and nozzle expansion",
+     "Burn-rate law and chamber pressure equilibrium",
+     "Grain geometry and thrust profile",
+     "Propellant families and energetics",
+     "Motor case, nozzle and thrust vector control",
+     "Combustion instability, erosive burning and aging",
+     "Ramjet and ducted rocket",
+     "Scramjet",
+     "Propulsion choice versus mission"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "X15",
+  "key": "crs_hypersonic",
+  "dir": "library/military/free",
+  "title": "Hypersonic Weapons: Background and Issues for Congress (R45811)",
+  "author": "Congressional Research Service",
+  "edition": "latest update",
+  "url": "https://crsreports.congress.gov/product/pdf/R/R45811",
+  "note": "url unverified",
+  "modules": {
+   "M6.16": {
+    "app": "Lanchester",
+    "title": "Hypersonic threats and their defense",
+    "use": "כולו",
+    "subtopics": [
+     "HGV flight mechanics and the Tracy-Wright result",
+     "Aerothermal heating and materials",
+     "Plasma sheath, RF blackout and IR signature",
+     "Detection and tracking architecture",
+     "Maneuvering-target tracking and prediction uncertainty",
+     "Defense layers: terminal and glide-phase intercept",
+     "Case studies and the 'hypersonic' label",
+     "Strategic consequences"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "X20",
+  "key": "dod_low_manual",
+  "dir": "library/military/free",
+  "title": "Department of Defense Law of War Manual",
+  "author": "DoD Office of General Counsel",
+  "edition": "June 2015, updated July 2023",
+  "url": "https://media.defense.gov/2023/Jul/31/2003271432/-1/-1/0/DOD-LAW-OF-WAR-MANUAL-JUNE-2015-UPDATED-JULY%202023.PDF",
+  "note": "url unverified",
+  "modules": {
+   "M7.15": {
+    "app": "Lanchester",
+    "title": "Law of armed conflict, weapons review, autonomy policy, export control",
+    "use": "פרקים 5–6",
+    "subtopics": [
+     "LOAC targeting principles",
+     "Proportionality and CDE in practice",
+     "Weapons review (Article 36) and specific treaties",
+     "DoDD 3000.09 and the LAWS debate",
+     "Meaningful human control: technical implications",
+     "Israeli defense export control",
+     "International control regimes",
+     "Accountability for AI-enabled targeting"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "X25",
+  "key": "pettyjohn_cnas",
+  "dir": "library/military/free",
+  "title": "Evolution Not Revolution: Drone Warfare in Russia's 2022 Invasion of Ukraine",
+  "author": "Pettyjohn",
+  "edition": "CNAS 2024",
+  "url": "https://www.cnas.org/publications/reports/evolution-not-revolution",
+  "note": null,
+  "modules": {
+   "M9.10": {
+    "app": "Lanchester",
+    "title": "C-UAS systems engineering and effectors",
+    "use": "כולו",
+    "subtopics": [
+     "Requirements from threat classes and timelines",
+     "Drone-bird discrimination and false-alarm rate",
+     "RF detection and protocol-based defeat (concept level)",
+     "Gun-based C-UAS and airburst ammunition",
+     "Interceptor drones and missiles",
+     "Directed energy within a C-UAS layer",
+     "C2 for C-UAS",
+     "Layered architecture and cost-exchange optimization",
+     "Passive defense against drones"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "X30",
+  "key": "iaea_glossary",
+  "dir": "library/military/free",
+  "title": "IAEA Safeguards Glossary",
+  "author": "IAEA",
+  "edition": "2022 ed.",
+  "url": "https://www.iaea.org/publications/15286/iaea-safeguards-glossary",
+  "note": "url unverified",
+  "modules": {
+   "M12.5": {
+    "app": "Lanchester",
+    "title": "Nuclear proliferation assessment",
+    "use": "נבחר",
+    "subtopics": [
+     "Fissile materials and critical mass",
+     "Enrichment and separative work",
+     "Centrifuge technology",
+     "Breakout time calculation",
+     "Plutonium route",
+     "Weaponization at principle level",
+     "Verification and safeguards",
+     "Case histories"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "X35",
+  "key": "usace_em1802",
+  "dir": "library/military/free",
+  "title": "EM 1110-1-1802, Geophysical Exploration for Engineering and Environmental Investigations",
+  "author": "US Army Corps of Engineers",
+  "edition": "1995",
+  "url": "https://www.publications.usace.army.mil/Portals/76/Publications/EngineerManuals/EM_1110-1-1802.pdf",
+  "note": "url unverified",
+  "modules": {
+   "M11.17": {
+    "app": "Lanchester",
+    "title": "Subterranean warfare: tunnel detection (GPR, seismic, microgravity), GPS-free SLAM, confined blast",
+    "use": "פרקים על seismic, GPR, gravity ו-EM",
+    "subtopics": [
+     "Tunnel threat taxonomy and history",
+     "GPR physics and limits",
+     "Seismic and acoustic detection",
+     "Microgravity detection of voids",
+     "Other geophysical methods",
+     "Detection performance and barrier design",
+     "Underground navigation and mapping",
+     "Confined blast",
+     "Underground communications",
+     "Tunnel neutralization"
+    ]
+   }
+  }
+ }
+]

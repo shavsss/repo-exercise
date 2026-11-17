@@ -1,0 +1,397 @@
+[
+ {
+  "doc": "W44",
+  "key": "sysml2_release",
+  "path": "library/engineering/free/W44_sysml2_intro_textual_and_spec.pdf",
+  "title": "SysML v2: Intro to the SysML v2 Language (Textual Notation) [pp.1-185] + OMG SysML v2.0 Language specification [pp.186-876]",
+  "author": "OMG / Systems Modeling (Seidewitz et al.)",
+  "edition": "SysML v2 Release slide deck + OMG SysML 2.0 spec",
+  "source_url": "https://raw.githubusercontent.com/Systems-Modeling/SysML-v2-Release/master/doc/ (intro) + https://www.omg.org/spec/SysML/2.0/Language/PDF (spec)",
+  "pdf_pages": 876,
+  "text_ok": true,
+  "method": "bundle",
+  "modules": {
+   "M27.10": [
+    {
+     "pages": [
+      1,
+      185
+     ],
+     "note": "מצגת Intro to the SysML v2 Language (Textual Notation), כולה: ארכיטקטורת השפה (שקפים 3-4, עמ' 3-4), definitions/usages וחלקים (9-17), חיבורים, ports ו-interfaces (18-29), actions (30-47), states (48-56), requirements (86-91), analysis ו-trade study (92-95), verification (96-99), allocation (106), views/viewpoints (115-119)"
+    },
+    {
+     "pages": [
+      232,
+      379
+     ],
+     "note": "המפרט, פרק 7 Language Description (עמ' מודפס 47-194): סקירה, definition/usage (248-261), parts/ports/connections/interfaces (275-294), actions (302-329), states (330-339), requirements (346-353), analysis (355-357), verification (358-361), views (366-373), metadata (374-378)"
+    },
+    {
+     "pages": [
+      852,
+      874
+     ],
+     "note": "נספח A: דוגמת מודל מלאה (הגדרות, חלקים, actions, states, requirements, analysis, verification, view, variability)"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "Intro PDF from raw.githubusercontent (github.com API blocked by proxy); spec from omg.org. SysML v2 API/model-management (REST API spec) is a separate OMG document, not included; KerML spec not included"
+  ],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "W49",
+  "key": "scaling_book",
+  "path": "library/engineering/free/W49_scaling_book.pdf",
+  "title": "How to Scale Your Model",
+  "author": "Austin et al. (Google DeepMind)",
+  "edition": "2025, free online",
+  "source_url": "https://jax-ml.github.io/scaling-book/",
+  "pdf_pages": 143,
+  "text_ok": true,
+  "method": "html-render",
+  "modules": {
+   "M29.2": [
+    {
+     "pages": [
+      35,
+      49
+     ],
+     "note": "פרק 3 Sharded Matrices: sharding, collectives (all-gather, reduce-scatter, all-reduce)"
+    },
+    {
+     "pages": [
+      50,
+      65
+     ],
+     "note": "פרק 5 How to Parallelize a Transformer for Training: DP, FSDP/ZeRO, TP, PP, MFU"
+    },
+    {
+     "pages": [
+      87,
+      91
+     ],
+     "note": "פרק 6 Training LLaMA 3 on TPUs: דוגמה מעשית"
+    },
+    {
+     "pages": [
+      116,
+      140
+     ],
+     "note": "פרק 12 How to Think About GPUs: NCCL, collectives, scale-out"
+    }
+   ],
+   "M29.4": [
+    {
+     "pages": [
+      17,
+      22
+     ],
+     "note": "פרק 1 Rooflines: compute- vs memory-bound"
+    },
+    {
+     "pages": [
+      66,
+      86
+     ],
+     "note": "פרק 7 All About Transformer Inference: prefill/decode, KV cache, batching, quantization, sharding for serving"
+    },
+    {
+     "pages": [
+      92,
+      97
+     ],
+     "note": "פרק 8 Serving LLaMA 3-70B on TPUs: דוגמה מעשית"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "rendered 13 chapters with Playwright and pdfunite. Chapter starts (pdf page): index 1, transformers 7, roofline 17, tpus 23, sharding 35, training 50, inference 66, applied-training 87, applied-inference 92, profiling 98, jax-stuff 107, gpus 116, conclusion 141. Some collapsed worked-problem answers may be hidden"
+  ],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "W54",
+  "key": "inference_papers",
+  "path": "library/engineering/free/W54_inference_papers_vllm_specdec_gptq_awq_pope.pdf",
+  "title": "vLLM/PagedAttention; Speculative decoding; GPTQ; AWQ; Efficiently Scaling Transformer Inference",
+  "author": "Kwon et al.; Leviathan et al.; Frantar et al.; Lin et al.; Pope et al.",
+  "edition": "2022-2024",
+  "source_url": "https://arxiv.org/pdf/{2309.06180,2211.17192,2210.17323,2306.00978,2211.05102}",
+  "pdf_pages": 78,
+  "text_ok": true,
+  "method": "bundle",
+  "modules": {
+   "M29.4": [
+    {
+     "pages": [
+      1,
+      16
+     ],
+     "note": "PagedAttention / vLLM (2309.06180): KV cache, continuous batching"
+    },
+    {
+     "pages": [
+      17,
+      29
+     ],
+     "note": "Speculative decoding (2211.17192)"
+    },
+    {
+     "pages": [
+      30,
+      45
+     ],
+     "note": "GPTQ (2210.17323): post-training quantization"
+    },
+    {
+     "pages": [
+      46,
+      60
+     ],
+     "note": "AWQ (2306.00978)"
+    },
+    {
+     "pages": [
+      61,
+      78
+     ],
+     "note": "Efficiently Scaling Transformer Inference (2211.05102): sharding for serving, cost model"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "SmoothQuant not in this bundle (not among the listed papers)"
+  ],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "W59",
+  "key": "sculley_debt",
+  "path": "library/engineering/free/W59_sculley_hidden_tech_debt.pdf",
+  "title": "Hidden Technical Debt in Machine Learning Systems",
+  "author": "Sculley et al.",
+  "edition": "NeurIPS 2015",
+  "source_url": "https://papers.nips.cc/paper_files/paper/2015/file/86df7dcfd896fcaf2674f757a2463eba-Paper.pdf",
+  "pdf_pages": 9,
+  "text_ok": true,
+  "method": "direct",
+  "modules": {
+   "M29.8": [
+    {
+     "pages": [
+      1,
+      9
+     ],
+     "note": "המאמר כולו"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "X10",
+  "key": "nasa_sp8076",
+  "path": "library/military/free/X10_nasa_sp8076_solid_grain.pdf",
+  "title": "NASA SP-8076, Solid Propellant Grain Design and Internal Ballistics",
+  "author": "NASA",
+  "edition": "1972",
+  "source_url": "https://ntrs.nasa.gov/api/citations/19730007077/downloads/19730007077.pdf",
+  "pdf_pages": 116,
+  "text_ok": false,
+  "method": "direct",
+  "modules": {
+   "M6.15": [
+    {
+     "pages": [
+      1,
+      116
+     ],
+     "note": "כולו (סריקה; הרלוונטי במיוחד: burn rate, grain geometry, chamber pressure, internal ballistics)"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "only NTRS scan found; embedded text layer is garbage; tesseract OCR not run"
+  ],
+  "blocked_hosts": [],
+  "scan": true
+ },
+ {
+  "doc": "X15",
+  "key": "crs_hypersonic",
+  "path": "library/military/free/X15_crs_r45811_hypersonic.pdf",
+  "title": "Hypersonic Weapons: Background and Issues for Congress (R45811)",
+  "author": "Congressional Research Service",
+  "edition": "Updated August 27, 2025",
+  "source_url": "https://www.everycrsreport.com/files/2025-08-27_R45811_7e5b21be65a3c40b5d413916d1fb12744a0368cb.pdf",
+  "pdf_pages": 37,
+  "text_ok": true,
+  "method": "direct",
+  "modules": {
+   "M6.16": [
+    {
+     "pages": [
+      1,
+      37
+     ],
+     "note": "הדוח כולו"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "crsreports.congress.gov blocked by Cloudflare challenge; used EveryCRSReport mirror of the identical CRS PDF"
+  ],
+  "blocked_hosts": [
+   "crsreports.congress.gov",
+   "www.congress.gov"
+  ]
+ },
+ {
+  "doc": "X20",
+  "key": "dod_low_manual",
+  "path": "library/military/free/X20_dod_law_of_war_manual.pdf",
+  "title": "Department of Defense Law of War Manual",
+  "author": "DoD Office of General Counsel",
+  "edition": "June 2015, updated December 2016 (not the July 2023 update)",
+  "source_url": "https://archive.org/download/do-d-law-of-war-manual-june-2015-updated-dec-2016/",
+  "pdf_pages": 1236,
+  "text_ok": true,
+  "method": "direct",
+  "modules": {
+   "M7.15": [
+    {
+     "pages": [
+      226,
+      377
+     ],
+     "note": "פרק V The Conduct of Hostilities: עקרונות מטרה, proportionality, precautions"
+    },
+    {
+     "pages": [
+      378,
+      474
+     ],
+     "note": "פרק VI Weapons: weapons review, אמנות נשק ספציפיות"
+    }
+   ]
+  },
+  "status": "partial",
+  "tried": [
+   "media.defense.gov and dod.defense.gov returned Access Denied/403 to curl; used archive.org copy of the 2016 update, so edition is older than requested (2023 update)"
+  ],
+  "blocked_hosts": [
+   "media.defense.gov",
+   "dod.defense.gov"
+  ]
+ },
+ {
+  "doc": "X25",
+  "key": "pettyjohn_cnas",
+  "path": "library/military/free/X25_pettyjohn_cnas_drones_ukraine.pdf",
+  "title": "Evolution Not Revolution: Drone Warfare in Russia's 2022 Invasion of Ukraine",
+  "author": "Pettyjohn",
+  "edition": "CNAS 2024",
+  "source_url": "https://s3.us-east-1.amazonaws.com/files.cnas.org/documents/CNAS-Report-Defense-Ukraine-Drones-Final.pdf",
+  "pdf_pages": 67,
+  "text_ok": true,
+  "method": "direct",
+  "modules": {
+   "M9.10": [
+    {
+     "pages": [
+      1,
+      67
+     ],
+     "note": "הדוח כולו"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "X30",
+  "key": "iaea_glossary",
+  "path": "library/military/free/X30_iaea_safeguards_glossary_2022.pdf",
+  "title": "IAEA Safeguards Glossary, 2022 Edition",
+  "author": "IAEA",
+  "edition": "2022",
+  "source_url": "https://www-pub.iaea.org/MTCD/Publications/PDF/PUB2003_web.pdf",
+  "pdf_pages": 320,
+  "text_ok": true,
+  "method": "direct",
+  "modules": {
+   "M12.5": [
+    {
+     "pages": [
+      34,
+      63
+     ],
+     "note": "פרקים 2-4 (מטרות הבטחות, מושגי safeguards, חומר גרעיני: SQ, direct-use material, enrichment, reprocessing, מתקנים); עמ' PDF = עמ' מודפס + 16"
+    },
+    {
+     "pages": [
+      83,
+      92
+     ],
+     "note": "פרק 6: טכניקות מדידה ומתקנים"
+    },
+    {
+     "pages": [
+      100,
+      104
+     ],
+     "note": "פרק 8: דגימות סביבתיות"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "iaea.org publication page 403 blocked; used www-pub.iaea.org"
+  ],
+  "blocked_hosts": [
+   "www.iaea.org"
+  ]
+ },
+ {
+  "doc": "X35",
+  "key": "usace_em1802",
+  "path": "library/military/free/X35_usace_em1802_geophysics.pdf",
+  "title": "EM 1110-1-1802, Geophysical Exploration for Engineering and Environmental Investigations",
+  "author": "US Army Corps of Engineers",
+  "edition": "1995",
+  "source_url": "https://www.publications.usace.army.mil/Portals/76/Publications/EngineerManuals/EM_1110-1-1802.pdf",
+  "pdf_pages": 0,
+  "text_ok": false,
+  "method": "none",
+  "modules": {
+   "M11.17": []
+  },
+  "status": "failed",
+  "tried": [
+   "usace publications host: Access Denied",
+   "apps.dtic.mil ADA402173: 403",
+   "legacy.wbdg.org guessed paths: 404",
+   "asktop.net, damtoolbox.org: 403",
+   "archive.org search: no copy",
+   "web.archive.org attempt was refused by the sandbox permission classifier and not retried"
+  ],
+  "blocked_hosts": [
+   "www.publications.usace.army.mil",
+   "apps.dtic.mil",
+   "asktop.net",
+   "damtoolbox.org",
+   "www.wbdg.org"
+  ]
+ }
+]

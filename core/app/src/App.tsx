@@ -6,6 +6,7 @@ import { toItems } from "./segments";
 import { NOTE_KIND_LABEL } from "./types";
 import type { Activity, Effort, LessonNote, LessonSpec, ModuleProgress, Mode, NoteKind, StoredMessage } from "./types";
 import { ModuleMap, STATE_LABEL, TIER_LABEL, type Selection } from "./components/ModuleMap";
+import { Roadmap } from "./components/Roadmap";
 import { Topbar, type Crumb } from "./components/Topbar";
 import { AssistantTurn, DimensionHead, UserBubble } from "./components/Message";
 import { HomeHero } from "./components/HomeHero";
@@ -843,7 +844,10 @@ export function App() {
   if (isQuiz && !busy && !messages.length) quick.push({ label: "התחל את המבחן", text: `התחל את המבחן המסכם של מודול ${module?.id}.`, mode: "quiz", primary: true });
 
   const status = !rt ? "connecting" : rt.sample ? "live" : "off";
-  const sideVisible = narrow() || bookOn ? sideOpen : sidePref === "open";
+  // the panel opens over the text (sideOpen) on a narrow screen, in a book lesson and in focus mode,
+  // where the remembered side preference would leave it hidden
+  const overlaySide = () => narrow() || bookOn || document.documentElement.dataset.focus === "on";
+  const sideVisible = overlaySide() ? sideOpen : sidePref === "open";
   const nextLesson = lessonIdx !== undefined && lessonIdx >= 0 && lessonIdx + 1 < nLessons ? lessonIdx + 1 : lessonIdx !== undefined && lessonIdx >= 0 && lessonIdx + 1 === nLessons ? -1 : null;
   const mdCtx = useMemo(() => ({ live: false, idPrefix: "page", openSource }), [openSource]);
 
@@ -857,7 +861,19 @@ export function App() {
         sideOpen={sideVisible}
         viewerOpen={!!viewer}
         memoryBusy={memoryBusy}
-        onToggleSide={() => (narrow() || bookOn ? setSideOpen(!sideOpen) : setSidePref(sidePref === "open" ? "closed" : "open"))}
+        onToggleSide={() => {
+          // from another tab the menu goes back to the lessons with the module list open
+          if (tab !== "study") {
+            setTab("study");
+            if (overlaySide()) setSideOpen(true);
+            else setSidePref("open");
+          } else if (overlaySide()) setSideOpen(!sideOpen);
+          else setSidePref(sidePref === "open" ? "closed" : "open");
+        }}
+        onHome={() => {
+          setTab("study");
+          setSelection(null);
+        }}
         onToggleViewer={
           viewer || module
             ? () => {
@@ -1239,6 +1255,8 @@ function Overview({ index, done, mods, onSelect, morning }: { index: LibraryInde
     <div className="overview vivid-home">
       <HomeHero code="LANCHESTER · CORE LAB" title="לנצ'סטר" sub="הליבה הטכנית: מכ״ם, ל״א, EO/IR, ניווט, הנחיה, הגנה אווירית, פלטפורמות. מודול אחר מודול, מתוך הספרייה." index={index} done={done} mods={mods} onSelect={onSelect} />
       {morning}
+      <h2 className="section-title">מפת תוכנית הלימודים</h2>
+      <Roadmap index={index} done={done} mods={mods} onSelect={onSelect} motif="radar" />
       <h2 className="section-title">{started.length ? "להמשיך מכאן" : "מודולים זמינים להתחלה"}</h2>
       <ul className="cards">
         {pick.map((m) => {
