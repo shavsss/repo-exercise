@@ -14,6 +14,7 @@ import type { Runtime, SampleTool } from "./runtime";
 import { BOOK_PART, BOOK_PLAN, CASE_PART, CASE_PLAN, LESSON_WORDS, OUTLINE_FIX, lessonWords, normalizeOutline, orderProblems, outlineCheckPrompt, parseOutlineReview, partSections, tightenPrompt, validOutline, wordCount, type BookOutline, type CasePlan } from "./bookRules";
 import { caseAid, caseId, type CaseAid } from "./caseBlock";
 import { ideasForPrompt, loadIdeas, type Idea } from "./ideas";
+import { loadProjects, projectsForPrompt, type ResearchProject } from "./projects";
 import { NOTE_KIND_LABEL, type Activity, type Effort, type LessonNote, type LessonSpec, type Mode, type NoteKind, type StoredMessage } from "./types";
 
 const math = create(all, {});
@@ -154,6 +155,8 @@ interface Base {
   done?: string[];
   /** the learner's idea store (ideas.ts); a lesson loads it from the store when it is not given */
   ideas?: Idea[];
+  /** the research proposals and projects of earlier cases (projects.ts); a lesson loads them when not given */
+  projects?: ResearchProject[];
   signal: AbortSignal;
   cb: TurnCallbacks;
 }
@@ -223,9 +226,11 @@ ${gate ? "שלב השער (P0): עוד אף תחום ליבה לא נלמד; ה�
 </reader_stage>`;
 }
 
-function studyContext(o: { mode: Mode; module: Module; lessons?: LessonSpec[]; lessonIdx: number; memory: string; pages?: string; notes?: LessonNote[]; allNotes?: LessonNote[]; done?: string[]; ideas?: Idea[] }) {
+function studyContext(o: { mode: Mode; module: Module; lessons?: LessonSpec[]; lessonIdx: number; memory: string; pages?: string; notes?: LessonNote[]; allNotes?: LessonNote[]; done?: string[]; ideas?: Idea[]; projects?: ResearchProject[] }) {
   const mem = o.memory.trim() ? `\n<course_memory>\n${o.memory.trim()}\n</course_memory>` : "";
   const ideas = o.ideas?.length ? `\n<idea_store>\nThe learner's own ideas, saved from earlier engineering cases (seed, growing, project). Recall one only where it really fits:\n${ideasForPrompt(o.ideas)}\n</idea_store>` : "";
+  const open = o.projects?.length ? projectsForPrompt(o.projects) : "";
+  const projects = open ? `\n<research_proposals>\nOpen research proposals and active projects the learner kept from earlier cases. Mention one briefly only where this lesson really bears on it (a number, a method, an open question):\n${open}\n</research_proposals>` : "";
   const nb = o.notes?.length
     ? `\n<lesson_notebook>\nThe shared notebook of this lesson. "written by the learner" is his own thought (he brings one to the chat when he wants to discuss it); "saved by you" was saved by the tutor at his request and is not his own writing:\n${o.notes
         .slice(0, 60)
@@ -244,7 +249,7 @@ Date: ${new Date().toISOString().slice(0, 10)}
 Requested message type: ${o.mode}
 ${moduleBlock(o.module)}
 ${readerStage(o.module, o.done)}
-${plan}${mem}${ideas}${nb}${rest}${o.pages ? `\n\nSource pages for this lesson:\n${o.pages}` : ""}
+${plan}${mem}${ideas}${projects}${nb}${rest}${o.pages ? `\n\nSource pages for this lesson:\n${o.pages}` : ""}
 </study_context>`;
 }
 
@@ -740,8 +745,8 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
   cb.onStatus?.("טוען את עמודי המקור של השיעור");
   const pages = await lessonPages(lessons?.[lessonIdx], m);
   // the idea store goes to the planner, so the engineering case can recall a fitting idea (ideas.ts)
-  const ideas = opts.ideas ?? (await loadIdeas(rt.store).catch(() => []));
-  const ctx = studyContext({ mode: "lesson", module: m, lessons, lessonIdx, memory, pages, notes, allNotes, done: opts.done, ideas });
+  const [ideas, projects] = await Promise.all([opts.ideas ?? loadIdeas(rt.store).catch(() => []), opts.projects ?? loadProjects(rt.store).catch(() => [])]);
+  const ctx = studyContext({ mode: "lesson", module: m, lessons, lessonIdx, memory, pages, notes, allNotes, done: opts.done, ideas, projects });
   const tools = rt.canUseTools ? buildTools(cb, moduleDocs(m)) : null;
 
   let plan = resume?.plan;

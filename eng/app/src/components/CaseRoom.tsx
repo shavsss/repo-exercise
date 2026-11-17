@@ -4,7 +4,9 @@
 // his confidence, a review thread with the reviewer in the stage's role (with compute cells he delegates), his
 // commit, the expert reasoning aloud with the rubric, and what he saw only after it. A decision log, a numbers
 // ledger and the open assumptions on the other side; at the end an ADR and a post-mortem style debrief; the ideas
-// board from anywhere. The work is kept per lesson (caseStore.ts). Same file in both apps.
+// board from anywhere. After each commit (and at the close) the work is compared with the published template of the
+// stage ("השוואה לסטנדרט", standards.ts); at the close the case becomes a research proposal, kept and reopened in
+// "פרויקטים" (projects.ts). The work is kept per lesson (caseStore.ts). Same file in both apps.
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import type { Runtime } from "../runtime";
@@ -22,7 +24,11 @@ import {
   parseExpert,
   parseReview,
   parseVerdicts,
+  premortemReasons,
+  PREMORTEM_MIN,
   rubricGrade,
+  ADR_STATUS_LABEL,
+  type AdrStatus,
   sectionStatus,
   type CaseAdr,
   type CaseCell,
@@ -31,9 +37,23 @@ import {
   type StageWork,
 } from "../caseDoc";
 import { peekCase, updateCase, useCaseDoc } from "../caseStore";
-import { computePrompt, debriefPrompt, expertPrompt, reviewPrompt, verdictPrompt, type CaseCtx } from "../casePrompt";
+import { computePrompt, debriefPrompt, expertPrompt, proposalPrompt, reviewPrompt, standardPrompt, STAGE_FOCUS, verdictPrompt, type CaseCtx } from "../casePrompt";
 import { CONF_LABEL, GRADE_LABEL, logEvent, saveCalib, type LessonPlace } from "../events";
-import { loadIdeas, saveIdea, type Idea } from "../ideas";
+import { loadIdeas, markIdeasProject, saveIdea, type Idea } from "../ideas";
+import {
+  addNote,
+  buildProposal,
+  loadProjects,
+  parseProposalEnrich,
+  projectId,
+  PROJECT_STATUS_LABEL,
+  PROJECT_STATUSES,
+  saveProject,
+  setStatus,
+  type ProjectStore,
+  type ResearchProject,
+} from "../projects";
+import { cycleMark, parseStdChecks, selfCheck, standardsFor, STANDARDS, stdScore, TARGET_LABEL, type Standard, type StdCheck, type StandardTarget } from "../standards";
 import { computeTool, sampleWithFallback } from "../sampleRun";
 import { runCompute } from "../tutor";
 import { Markdown } from "./Markdown";
@@ -78,7 +98,7 @@ export function CaseCard({ source }: { source: string }) {
       <header className="case-card-head">
         <span className="case-card-kicker">המקרה ההנדסי</span>
         {hasExamples(c) && (
-          <span className="case-tag" title="בכל סעיף: הנחיות לפני הכתיבה, ודוגמת רפרנס להשוואה אחרי ההתחייבות">
+          <span className="case-tag" title="בכל סעיף: הנחיות לפני הכתיבה, ודוגמה שלנו להשוואה אחרי ההתחייבות">
             מקרה לדוגמה
           </span>
         )}
@@ -136,15 +156,33 @@ export function CaseRoomHost({ rt, memory, place }: { rt: Runtime | null; memory
 type View = "brief" | "adr" | CaseStage;
 interface Live {
   stage: CaseStage | "debrief";
-  /** verdict: the follow-up that asks only for the rubric line */
-  kind: "review" | "cell" | "expert" | "verdict" | "debrief";
+  /** verdict: the follow-up that asks only for the rubric line; standard: the check against the published template */
+  kind: "review" | "cell" | "expert" | "verdict" | "debrief" | "standard" | "proposal";
   text: string;
 }
 
-/** The ideas: the db's document, or a copy in this browser. */
-function ideaStore(rt: Runtime | null) {
+const lsGet = (k: string) => {
+  try {
+    return JSON.parse(localStorage.getItem(k) ?? "null");
+  } catch {
+    return null;
+  }
+};
+const lsSet = (k: string, v: unknown) => {
+  try {
+    localStorage.setItem(k, JSON.stringify(v));
+  } catch {
+    /* this view only */
+  }
+};
+
+/** The ideas and the research proposals: the db's documents, or a copy in this browser. */
+type RoomStore = IdeaStoreLike & ProjectStore;
+function roomStore(rt: Runtime | null): RoomStore {
   if (rt?.store) return rt.store;
   return {
+    listProjects: async () => Object.values((lsGet("projects:local") ?? {}) as Record<string, Record<string, unknown>>),
+    saveProject: async (id: string, d: Record<string, unknown>) => lsSet("projects:local", { ...(lsGet("projects:local") ?? {}), [id]: d }),
     loadIdeas: async () => {
       try {
         return JSON.parse(localStorage.getItem("ideas:local") ?? "null");
@@ -174,7 +212,17 @@ export function CaseRoom({ c, rt, memory, place, onClose }: { c: CaseBlock; rt: 
   const [ideaDraft, setIdeaDraft] = useState<string | null>(null);
   const ctl = useRef<AbortController | null>(null);
   const canAsk = !!rt?.sample;
-  const ideas = useMemo(() => ideaStore(rt), [rt]);
+  const ideas = useMemo(() => roomStore(rt), [rt]);
+  const [projects, setProjects] = useState<string | false>(false);
+  const [proposal, setProposal] = useState<ResearchProject | null>(null);
+  useEffect(() => {
+    if (!d.projectId) return;
+    loadProjects(ideas)
+      .then((all) => setProposal(all.find((p) => p.id === d.projectId) ?? null))
+      .catch(() => {});
+    // the proposal of this case, once, when the room opens
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ideas, d.projectId]);
 
   const update = useCallback((f: (d: CaseDoc) => CaseDoc) => updateCase({ caseId: c.id, title: c.title }, f), [c.id, c.title]);
   const setStage = useCallback((s: CaseStage, f: (w: StageWork) => StageWork) => update((x) => ({ ...x, stages: { ...x.stages, [s]: f(x.stages[s] ?? emptyStage()) } })), [update]);
@@ -186,7 +234,8 @@ export function CaseRoom({ c, rt, memory, place, onClose }: { c: CaseBlock; rt: 
   useEffect(() => {
     const key = (e: KeyboardEvent) => {
       if (e.key !== "Escape") return;
-      if (board) setBoard(false);
+      if (projects !== false) setProjects(false);
+      else if (board) setBoard(false);
       else if (ideaDraft !== null) setIdeaDraft(null);
       else onClose();
     };
@@ -197,7 +246,7 @@ export function CaseRoom({ c, rt, memory, place, onClose }: { c: CaseBlock; rt: 
       window.removeEventListener("keydown", key);
       document.body.style.overflow = prev;
     };
-  }, [board, ideaDraft, onClose]);
+  }, [board, ideaDraft, projects, onClose]);
 
   /** What every call carries: the brief, the stage, the decisions so far, the course memory, the thread. */
   const ctx = (s: CaseStage): CaseCtx => {
@@ -256,7 +305,7 @@ export function CaseRoom({ c, rt, memory, place, onClose }: { c: CaseBlock; rt: 
   const review = async (s: CaseStage) => {
     const n = notes(s);
     const role = stageRole(c, s);
-    const res = await call({ stage: s, kind: "review" }, reviewPrompt({ ...ctx(s), anchors: n?.anchors ?? [] }), "medium", [computeTool()]);
+    const res = await call({ stage: s, kind: "review" }, reviewPrompt({ ...ctx(s), anchors: n?.anchors ?? [], focus: STAGE_FOCUS[s] }), "medium", [computeTool()]);
     if (!res) return;
     const r = parseReview(res.text);
     setStage(s, (w) => ({
@@ -334,6 +383,25 @@ export function CaseRoom({ c, rt, memory, place, onClose }: { c: CaseBlock; rt: 
       record(s, next);
       return next;
     });
+    await stageStandards(s);
+  };
+
+  /** "השוואה לסטנדרט": the reviewer marks the work against each published template; without a model he marks it himself. */
+  const checkStandards = async (stage: CaseStage | "debrief", list: Standard[], what: string, work: string): Promise<StdCheck[]> => {
+    const own = list.map((x) => selfCheck(x));
+    if (!canAsk) return own;
+    const res = await call({ stage, kind: "standard" }, standardPrompt({ title: c.title, what, work, standards: list }), "medium");
+    if (!res) return own;
+    return parseStdChecks(res.text, list).map((k, i) => k ?? own[i]);
+  };
+
+  const stageStandards = async (s: CaseStage) => {
+    const w = work(s);
+    if (!w.commit) return;
+    const mine = w.turns.filter((t) => t.who === "learner").map((t) => t.text);
+    const text = [`ההצעה (ביטחון ${w.confidence ?? "?"}%):\n${w.proposal}`, ...mine.map((t) => `תשובה בסקירה:\n${t}`), `ההחלטה שננעלה (ביטחון ${w.commit.confidence}%): ${w.commit.decision}`].join("\n\n");
+    const std = await checkStandards(s, standardsFor(s), `${stageTitle(s)}: ${notes(s)?.ask ?? ""}`, text);
+    setStage(s, (x) => ({ ...x, std }));
   };
 
   const commit = (s: CaseStage, decision: string, confidence: number) => {
@@ -377,9 +445,75 @@ export function CaseRoom({ c, rt, memory, place, onClose }: { c: CaseBlock; rt: 
     if (res) update((y) => ({ ...y, debrief: res.text.trim() }));
   };
 
+  /** The whole design doc as text: each stage's decision and proposal, the ADR, what stayed open (for the close checks). */
+  const docText = (x: CaseDoc) => {
+    const stages = c.stages.map((s) => {
+      const w = x.stages[s];
+      return `${stageTitle(s)}\nהצעה: ${w?.proposal ?? "—"}\nהחלטה: ${w?.commit?.decision ?? "—"} (ביטחון ${w?.commit?.confidence ?? "?"}%)`;
+    });
+    const open = c.stages.flatMap((s) => (x.stages[s]?.assumptions ?? []).map((a) => `${a.closed ? "נבדקה" : "פתוחה"}: ${a.text}`));
+    const numbers = c.stages.flatMap((s) => x.stages[s]?.numbers ?? []);
+    const a = x.adr;
+    return [
+      ...stages,
+      a ? `ADR (${ADR_STATUS_LABEL[a.status ?? "accepted"]})\nכותרת: ${c.title}\nהקשר: ${a.context}\nהחלטה: ${a.decision}\nחלופות שנדחו: ${a.alternatives}\nהשלכות: ${a.consequences}\nמה יהפוך אותה: ${a.reversal}${a.dissent ? `\nהתנגדות: ${a.dissent}` : ""}` : "",
+      numbers.length ? `ספר המספרים:\n${numbers.join("\n")}` : "",
+      open.length ? `הנחות:\n${open.join("\n")}` : "",
+    ]
+      .filter(Boolean)
+      .join("\n\n");
+  };
+
+  const closeStandards = async () => {
+    const x = now();
+    if (!x.adr) return;
+    const list = [...standardsFor("adr"), ...standardsFor("doc"), ...standardsFor("review")];
+    const closeStd = await checkStandards("debrief", list, "הסגירה: רשומת ההחלטה, מסמך התכן כולו והסקירה", docText(x));
+    update((y) => ({ ...y, closeStd }));
+  };
+
+  /** "הצעת מחקר מהשיעור": built from the work, sharpened by the model when there is one, kept in profile/projects. */
+  const makeProposal = async () => {
+    const x = now();
+    if (!x.adr) return;
+    const [all, kept] = await Promise.all([loadIdeas(ideas).catch(() => [] as Idea[]), loadProjects(ideas).catch(() => [] as ResearchProject[])]);
+    const prev = kept.find((p) => p.id === projectId(c.id)) ?? null;
+    const base = { moduleId: place.moduleId, lesson: place.lesson, lessonTitle: place.title, ideas: all, prev };
+    const draft = buildProposal(c, x, base);
+    let enrich = null;
+    if (canAsk) {
+      const a = x.adr;
+      const res = await call(
+        { stage: "debrief", kind: "proposal" },
+        proposalPrompt({
+          title: c.title,
+          brief: c.brief,
+          decisions: draft.decisions.map((k) => `${stageTitle(k.stage)}: ${k.text} (ביטחון ${k.confidence}%${k.grade ? `, ${GRADE_LABEL[k.grade as keyof typeof GRADE_LABEL] ?? k.grade}` : ""})`).join("\n"),
+          adr: `הקשר: ${a.context}\nהחלטה: ${a.decision}\nחלופות: ${a.alternatives}\nהשלכות: ${a.consequences}\nמה יהפוך אותה: ${a.reversal}`,
+          debrief: x.debrief ?? "",
+          open: draft.open,
+          ideas: draft.ideas.map((i) => i.text),
+        }),
+        "medium",
+      );
+      enrich = res ? parseProposalEnrich(res.text) : null;
+    }
+    const p = await saveProject(ideas, enrich ? buildProposal(c, now(), { ...base, enrich }) : draft).catch(() => null);
+    if (!p) return setErr("ההצעה לא נשמרה. אפשר לנסות שוב.");
+    update((y) => ({ ...y, projectId: p.id }));
+    setProposal(p);
+  };
+
+  /** The close: the debrief, then the close compared with its standards, then the research proposal. */
+  const closeCase = async () => {
+    await debrief();
+    await closeStandards();
+    await makeProposal();
+  };
+
   const saveAdr = (adr: CaseAdr) => {
-    update((y) => ({ ...y, adr, debrief: undefined }));
-    void debrief();
+    update((y) => ({ ...y, adr, debrief: undefined, closeStd: undefined }));
+    void closeCase();
   };
 
   const keepIdea = async (text: string) => {
@@ -438,6 +572,7 @@ export function CaseRoom({ c, rt, memory, place, onClose }: { c: CaseBlock; rt: 
         <div className="cr-actions">
           <button onClick={() => setIdeaDraft("")}>שמור רעיון</button>
           <button onClick={() => setBoard(true)}>מחסן הרעיונות</button>
+          <button onClick={() => setProjects("")}>פרויקטים</button>
           <button className="cr-x" onClick={onClose} aria-label="סגור את חדר העבודה" title="סגור (Esc)">
             ✕
           </button>
@@ -485,7 +620,20 @@ export function CaseRoom({ c, rt, memory, place, onClose }: { c: CaseBlock; rt: 
           {view === "brief" ? (
             <BriefView c={c} worked={hasExamples(c)} onStart={() => setView(cur ?? "adr")} started={status !== "draft"} />
           ) : view === "adr" ? (
-            <AdrView c={c} d={d} live={live?.kind === "debrief" ? live.text : null} busy={busy} canAsk={canAsk} onSave={saveAdr} onDebrief={() => void debrief()} />
+            <AdrView c={c} d={d} live={live?.kind === "debrief" ? live.text : null} busy={busy} canAsk={canAsk} onSave={saveAdr} onDebrief={() => void debrief()}>
+              {d.adr && d.debrief && (
+                <>
+                  <CloseStandards
+                    checks={d.closeStd}
+                    live={live?.kind === "standard" && live.stage === "debrief"}
+                    busy={busy}
+                    onRun={() => void closeStandards()}
+                    onCycle={(id, i) => update((y) => ({ ...y, closeStd: (y.closeStd ?? []).map((k) => (k.id === id ? cycleMark(k, i) : k)) }))}
+                  />
+                  <ProposalCard p={proposal} live={live?.kind === "proposal"} busy={busy} onMake={() => void makeProposal()} onOpen={() => setProjects(proposal?.id ?? "")} />
+                </>
+              )}
+            </AdrView>
           ) : (
             <StageView
               key={view}
@@ -508,6 +656,8 @@ export function CaseRoom({ c, rt, memory, place, onClose }: { c: CaseBlock; rt: 
               onClose={(r) => close(view, r)}
               onIdea={(t) => setIdeaDraft(t)}
               onStop={() => ctl.current?.abort()}
+              onStandards={() => void stageStandards(view)}
+              onStdCycle={(id, i) => setStage(view, (w) => ({ ...w, std: (w.std ?? []).map((k) => (k.id === id ? cycleMark(k, i) : k)) }))}
             />
           )}
         </main>
@@ -518,7 +668,8 @@ export function CaseRoom({ c, rt, memory, place, onClose }: { c: CaseBlock; rt: 
       </div>
 
       {ideaDraft !== null && <IdeaForm initial={ideaDraft} stage={cur} onSave={(t) => void keepIdea(t)} onCancel={() => setIdeaDraft(null)} />}
-      {board && <IdeasBoard store={ideas} onClose={() => setBoard(false)} />}
+      {board && <IdeasBoard store={ideas} onClose={() => setBoard(false)} onProjects={() => setProjects("")} />}
+      {projects !== false && <ProjectsView store={ideas} open={projects || null} onClose={() => setProjects(false)} />}
     </div>
   );
 }
@@ -541,9 +692,10 @@ function BriefView({ c, worked, onStart, started }: { c: CaseBlock; worked: bool
           <li>בכל סעיף: הצעה ונימוק בכתב, עם אחוז ביטחון.</li>
           <li>הסוקר בתפקיד הסעיף מאתגר עם נתונים; מגנים, משנים או מתעקשים, כמה סבבים שצריך. "חשב / דמה לי" מריץ חישוב.</li>
           <li>"פתרתי ומתחייב" נועל את הסעיף; אז נימוק המומחה והמחוון, ואתה כותב מה הוא ראה שאתה לא.</li>
-          <li>בסוף: רשומת החלטה (ADR) ותחקיר.</li>
+          <li>אחרי ההתחייבות, ולא לפני: השוואה לסטנדרט. התוצר שלך מול התבנית שפורסמה לשלב (Nygard, NASA, Klein ועוד), עם המקור ומה חסר.</li>
+          <li>בסוף: רשומת החלטה (ADR), תחקיר, והצעת מחקר שנשמרת בפרויקטים.</li>
         </ol>
-        {worked && <p className="cr-process-worked">זה מקרה לדוגמה, בשיעור הראשון של המודול: בכל סעיף אפשר לפתוח הנחיות לפני שכותבים, ואחרי ההתחייבות מוצגת דוגמת רפרנס לצד ההצעה שלך.</p>}
+        {worked && <p className="cr-process-worked">זה מקרה לדוגמה, בשיעור הראשון של המודול: בכל סעיף אפשר לפתוח הנחיות לפני שכותבים, ואחרי ההתחייבות מוצגת דוגמה שלנו לצד ההצעה שלך.</p>}
       </div>
       <button className="cr-primary" onClick={onStart}>
         {started ? "המשך לסעיף הפתוח" : "התחל: הסעיף הראשון"}
@@ -553,6 +705,18 @@ function BriefView({ c, worked, onStart, started }: { c: CaseBlock; worked: bool
 }
 
 /* ------------------------------------------------------------------ a stage ------------------------------------------------------------------ */
+
+/** What each stage's proposal is asked to hold, from the checked template (docs/research/reports/אימות התבנית מול המקורות.md). */
+const STAGE_PLACEHOLDER: Partial<Record<CaseStage, string>> = {
+  fault: "מה קרה: הסיבה הקרובה, השורש, מה תרם, ומה התיקון (ולמי הוא שייך).",
+  "1": "מה השאלה האמיתית? לכל דרישה: מי הבעלים, למה היא קיימת, ואיך תאומת. מה מחקת, ומה במפורש אינו יעד.",
+  "2": "מה הגבול ומה מגביל עכשיו; ספר פערים: לכל פער שם וגודל, ואיפה הגבול המגביל מתחלף.",
+  "3": "החלופות (גם: להשתמש במה שקיים, או לא לעשות כלום), הקריטריון, הממשקים, ובטיחות/אבטחה/אחזקה.",
+  "4": "השיטה שבחרת מול החלופות, קריטריון החובה, הסיכון של כל אחת, ואיפה השיטה נשברת.",
+  "6": "זה נכשל בעוד שנה. למה? כתוב בעצמך 3–5 סיבות, כל אחת בשורה משלה, ואחריהן מה אתה משנה בתוכנית בגלל המובילה.",
+  "7": "איזו דרישה הניסוי מאמת, באיזו שיטה (ניסוי, בדיקה, אנליזה, הדגמה), ואיזו תוצאה הורגת את התכן.",
+  "8": "מה היית עושה אחרת. האם זה מוחק משהו, או רק מייעל?",
+};
 
 function ConfInput({ value, onChange, label = "ביטחון" }: { value?: number; onChange: (v: number) => void; label?: string }) {
   const set = value !== undefined;
@@ -662,6 +826,8 @@ interface StageProps {
   onClose(reflection: string): void;
   onIdea(t: string): void;
   onStop(): void;
+  onStandards(): void;
+  onStdCycle(id: string, i: number): void;
 }
 
 function StageView(p: StageProps) {
@@ -677,7 +843,8 @@ function StageView(p: StageProps) {
   const st = sectionStatus(w);
   const reviewed = w.turns.some((t) => t.who === "reviewer");
   const lastLearner = w.turns.length > 0 && w.turns[w.turns.length - 1].who === "learner";
-  const canSubmit = w.proposal.trim().length >= 20 && w.confidence !== undefined && !busy;
+  const reasons = s === "6" ? premortemReasons(w.proposal).length : PREMORTEM_MIN;
+  const canSubmit = w.proposal.trim().length >= 20 && w.confidence !== undefined && reasons >= PREMORTEM_MIN && !busy;
   let round = 0;
   let cells = 1;
   const locked = w.phase !== "draft" && w.phase !== "review";
@@ -708,7 +875,7 @@ function StageView(p: StageProps) {
               rows={7}
               value={w.proposal}
               onChange={(e) => p.onDraft({ proposal: e.target.value })}
-              placeholder="מה אתה מציע, ולמה. מספרים, הנחות, מה שקלת ודחית."
+              placeholder={STAGE_PLACEHOLDER[s] ?? "מה אתה מציע, ולמה. מספרים, הנחות, מה שקלת ודחית."}
             />
           </label>
           <div className="cr-propose-foot">
@@ -723,6 +890,11 @@ function StageView(p: StageProps) {
             </button>
           </div>
           {w.confidence === undefined && <div className="cr-hint">בלי אחוז ביטחון אי אפשר לשלוח. ההצעה נשמרת תוך כדי כתיבה.</div>}
+          {s === "6" && reasons < PREMORTEM_MIN && (
+            <div className="cr-hint">
+              pre-mortem: קודם אתה, לבד. לפחות {PREMORTEM_MIN} סיבות כישלון, כל אחת בשורה ({reasons}/{PREMORTEM_MIN}); הצוות האדום מצטרף אחר כך.
+            </div>
+          )}
         </div>
       ) : (
         <>
@@ -890,6 +1062,19 @@ function StageView(p: StageProps) {
 
           {w.commit && n?.example && <Compare w={w} example={n.example} />}
 
+          {locked && w.expert && (
+            <StandardCompare
+              title="השוואה לסטנדרט"
+              note="ההצעה שלך מול התבנית שפורסמה לשלב הזה. מוצג רק אחרי ההתחייבות, כדי שהחשיבה תהיה שלך."
+              standards={standardsFor(s)}
+              checks={w.std}
+              live={live?.kind === "standard"}
+              busy={busy}
+              onRun={p.onStandards}
+              onCycle={p.onStdCycle}
+            />
+          )}
+
           {w.phase === "reflect" && (
             <div className="cr-reflect">
               <label className="cr-field">
@@ -935,10 +1120,10 @@ function StageGuide({ items, opened, onOpen }: { items: string[]; opened: boolea
 /** After the commit in a worked case: his committed proposal beside the reference answer. */
 function Compare({ w, example }: { w: StageWork; example: string }) {
   return (
-    <section className="cr-compare" aria-label="השוואה לדוגמת הרפרנס">
+    <section className="cr-compare" aria-label="השוואה לדוגמה שלנו">
       <div className="cr-compare-h">
-        <b>השוואה</b>
-        <span>דוגמת הרפרנס היא תשובה אחת ברמה הנדרשת, לא התשובה היחידה</span>
+        <b>השוואה לדוגמה שלנו</b>
+        <span>נכתבה לשיעור הזה, לא הועתקה מחברה: תשובה אחת ברמה הנדרשת, לא היחידה</span>
       </div>
       <div className="cr-compare-cols">
         <div className="cr-compare-col is-me">
@@ -955,7 +1140,7 @@ function Compare({ w, example }: { w: StageWork; example: string }) {
         </div>
         <div className="cr-compare-col is-ref">
           <div className="cr-compare-l">
-            <RoleBadge role="מהנדס בכיר" /> דוגמת רפרנס
+            <RoleBadge role="מהנדס בכיר" /> דוגמה שלנו
           </div>
           <div className="prose">
             <Markdown text={example} />
@@ -1047,17 +1232,40 @@ function Panel({ title, count, children }: { title: string; count: number; child
 
 /* ------------------------------------------------------------------ the ADR and the debrief ------------------------------------------------------------------ */
 
-const ADR_FIELDS: { k: keyof Omit<CaseAdr, "at">; label: string; hint: string; need?: boolean }[] = [
-  { k: "context", label: "הקשר", hint: "הבעיה, הכוחות והאילוצים שהכריעו; המספרים מספר המספרים.", need: true },
-  { k: "decision", label: "החלטה", hint: "מה החלטת, בלשון פעילה (\"נבחר…\").", need: true },
-  { k: "alternatives", label: "חלופות שנדחו", hint: "כל חלופה ולמה נדחתה.", need: true },
-  { k: "consequences", label: "השלכות", hint: "מה נעשה קל יותר, מה קשה יותר, איזה סיכון נלקח." },
-  { k: "reversal", label: "מה יהפוך אותה", hint: "איזו תוצאה או נתון יחזירו את ההחלטה לשולחן." },
+type AdrText = "context" | "decision" | "alternatives" | "consequences" | "reversal" | "dissent";
+type AdrForm = Record<AdrText, string> & { status: AdrStatus };
+/** Nygard's fields (Context, Decision, Status, Consequences), MADR's considered options, NASA's dissent, and one of ours. */
+const ADR_FIELDS: { k: AdrText; label: string; hint: string; need?: boolean }[] = [
+  { k: "context", label: "הקשר", hint: "הכוחות והאילוצים שפעלו, בניסוח ניטרלי; המספרים מספר המספרים.", need: true },
+  { k: "decision", label: "החלטה", hint: "משפטים מלאים בלשון פעילה (\"נבחר…\").", need: true },
+  { k: "alternatives", label: "חלופות שנדחו", hint: "כל חלופה ולמה נדחתה (Considered Options של MADR).", need: true },
+  { k: "consequences", label: "השלכות", hint: "כולן, לא רק החיוביות: מה נעשה קל, מה קשה, איזה סיכון נלקח." },
+  { k: "reversal", label: "מה יהפוך אותה", hint: "שדה שלנו: איזו תוצאה או נתון יחזירו את ההחלטה לשולחן." },
+  { k: "dissent", label: "התנגדות שנשארה", hint: "רשות: מה סוקר עדיין מתנגד לו, ואיך טופל (Dissent של NASA)." },
 ];
+const ADR_STATUSES: AdrStatus[] = ["proposed", "accepted", "deprecated", "superseded"];
 
-function AdrView({ c, d, live, busy, canAsk, onSave, onDebrief }: { c: CaseBlock; d: CaseDoc; live: string | null; busy: boolean; canAsk: boolean; onSave: (a: CaseAdr) => void; onDebrief: () => void }) {
+function AdrView({
+  c,
+  d,
+  live,
+  busy,
+  canAsk,
+  onSave,
+  onDebrief,
+  children,
+}: {
+  c: CaseBlock;
+  d: CaseDoc;
+  live: string | null;
+  busy: boolean;
+  canAsk: boolean;
+  onSave: (a: CaseAdr) => void;
+  onDebrief: () => void;
+  children?: ReactNode;
+}) {
   const [edit, setEdit] = useState(!d.adr);
-  const [f, setF] = useState<Omit<CaseAdr, "at">>(() => d.adr ?? { context: "", decision: "", alternatives: "", consequences: "", reversal: "" });
+  const [f, setF] = useState<AdrForm>(() => ({ context: "", decision: "", alternatives: "", consequences: "", reversal: "", dissent: "", ...d.adr, status: d.adr?.status ?? "accepted" }));
   const ok = ADR_FIELDS.every((x) => !x.need || f[x.k].trim().length >= 10);
   const no = adrNumber(c.id);
   const debrief = live ?? d.debrief;
@@ -1082,14 +1290,26 @@ function AdrView({ c, d, live, busy, canAsk, onSave, onDebrief }: { c: CaseBlock
                 {x.label}
                 {x.need ? " *" : ""} <em>{x.hint}</em>
               </span>
-              <textarea rows={x.k === "context" ? 4 : 3} value={f[x.k]} onChange={(e) => setF({ ...f, [x.k]: e.target.value })} />
+              <textarea rows={x.k === "context" ? 4 : x.k === "dissent" ? 2 : 3} value={f[x.k]} onChange={(e) => setF({ ...f, [x.k]: e.target.value })} />
             </label>
           ))}
+          <label className="cr-field cr-adr-status">
+            <span>
+              סטטוס <em>כמו אצל Nygard: החלטה לא נמחקת; כשהיא מתהפכת היא מסומנת "הוחלף".</em>
+            </span>
+            <select value={f.status} onChange={(e) => setF({ ...f, status: e.target.value as AdrStatus })}>
+              {ADR_STATUSES.map((k) => (
+                <option key={k} value={k}>
+                  {ADR_STATUS_LABEL[k]}
+                </option>
+              ))}
+            </select>
+          </label>
           <button
             className="cr-primary"
             disabled={!ok}
             onClick={() => {
-              onSave({ ...f, at: Date.now() });
+              onSave({ ...f, dissent: f.dissent.trim() || undefined, at: Date.now() });
               setEdit(false);
             }}
           >
@@ -1103,7 +1323,7 @@ function AdrView({ c, d, live, busy, canAsk, onSave, onDebrief }: { c: CaseBlock
               <span className="case-docid" dir="ltr">
                 {no}
               </span>
-              <span className="case-status s-approved">התקבל</span>
+              <span className={`case-status s-${(d.adr.status ?? "accepted") === "accepted" ? "approved" : "review"}`}>{ADR_STATUS_LABEL[d.adr.status ?? "accepted"]}</span>
               <span className="cr-adr-date">{new Date(d.adr.at).toLocaleDateString("he-IL")}</span>
               <button className="cr-resolve" onClick={() => setEdit(true)}>
                 ערוך
@@ -1127,10 +1347,10 @@ function AdrView({ c, d, live, busy, canAsk, onSave, onDebrief }: { c: CaseBlock
               </div>
             </dl>
             {ADR_FIELDS.map((x) =>
-              d.adr![x.k].trim() ? (
+              d.adr![x.k]?.trim() ? (
                 <section key={x.k}>
                   <h4>{x.label}</h4>
-                  <Markdown text={d.adr![x.k]} />
+                  <Markdown text={d.adr![x.k]!} />
                 </section>
               ) : null,
             )}
@@ -1156,7 +1376,335 @@ function AdrView({ c, d, live, busy, canAsk, onSave, onDebrief }: { c: CaseBlock
           )}
         </section>
       )}
+      {children}
     </article>
+  );
+}
+
+/* ------------------------------------------------------------------ the standards ------------------------------------------------------------------ */
+
+const MARK_ICON = { yes: "✓", part: "◐", no: "✗" } as const;
+const MARK_LABEL = { yes: "קיים", part: "חלקי", no: "חסר" } as const;
+
+/** His work against the published templates: per standard its source and certainty, per item met / partly / missing
+ * (a click changes it: the check is his to dispute), what is missing or different, and where our template differs. */
+function StandardCompare({
+  title,
+  note,
+  standards,
+  checks,
+  live,
+  busy,
+  onRun,
+  onCycle,
+}: {
+  title: string;
+  note: string;
+  standards: Standard[];
+  checks?: StdCheck[];
+  live: boolean;
+  busy: boolean;
+  onRun: () => void;
+  onCycle: (id: string, i: number) => void;
+}) {
+  return (
+    <section className="cr-std" aria-label={title}>
+      <div className="cr-std-h">
+        <span className="cr-nb-tag">סטנדרט</span>
+        <b>{title}</b>
+        {live && <span className="cr-typing">משווה לתבנית…</span>}
+      </div>
+      <p className="cr-std-note">{note}</p>
+      {!checks?.length ? (
+        !busy && (
+          <button className="cr-ghost" onClick={onRun}>
+            השווה לסטנדרט
+          </button>
+        )
+      ) : (
+        standards.map((st) => {
+          const k = checks.find((x) => x.id === st.id);
+          if (!k) return null;
+          const sc = stdScore(k);
+          return (
+            <article key={st.id} className="cr-std-card">
+              <header>
+                <h4>{st.name}</h4>
+                <span className="cr-std-score" title="קיים · חלקי · חסר">
+                  {sc.met}/{k.marks.length}
+                  {sc.part ? ` · ${sc.part} חלקי` : ""}
+                </span>
+                <span className="cr-std-cert">ודאות המקור: {st.certainty}</span>
+              </header>
+              <a className="cr-std-src" href={st.url} target="_blank" rel="noreferrer">
+                {st.source}
+              </a>
+              <ul>
+                {st.items.map((it, i) => (
+                  <li key={i} className={`m-${k.marks[i]}`}>
+                    <button className="cr-check" onClick={() => onCycle(st.id, i)} title="ערער: שנה את הסימון" aria-label={MARK_LABEL[k.marks[i]]}>
+                      {MARK_ICON[k.marks[i]]}
+                    </button>
+                    <span>{it.text}</span>
+                    {it.ref && (
+                      <span className="cr-std-ref" dir="ltr">
+                        {it.ref}
+                      </span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+              {k.gap && (
+                <p className="cr-std-gap">
+                  <b>מה חסר או שונה:</b> {k.gap}
+                </p>
+              )}
+              {k.by === "self" && !k.gap && <p className="cr-std-gap is-self">סמן בעצמך: לחיצה על פריט מחליפה חסר ← חלקי ← קיים.</p>}
+              {st.differs && (
+                <p className="cr-std-differs">
+                  <b>הערה על המקור:</b> {st.differs}
+                </p>
+              )}
+            </article>
+          );
+        })
+      )}
+    </section>
+  );
+}
+
+/** The close against its standards: the ADR (Nygard, MADR), the design doc (Google), the review (NASA PDR). */
+function CloseStandards({ checks, live, busy, onRun, onCycle }: { checks?: StdCheck[]; live: boolean; busy: boolean; onRun: () => void; onCycle: (id: string, i: number) => void }) {
+  return (
+    <>
+      {(["adr", "doc", "review"] as const).map((t, i) => (
+        <StandardCompare
+          key={t}
+          title={`השוואה לסטנדרט · ${TARGET_LABEL[t]}`}
+          note={i === 0 ? "רשומת ההחלטה, המסמך כולו והסקירה, מול התבניות שפורסמו. הצעה אחת אינה התבנית: מה שחסר הוא החלטה, לא טעות." : ""}
+          standards={standardsFor(t as StandardTarget)}
+          checks={checks}
+          live={live && i === 0}
+          busy={busy || i > 0}
+          onRun={onRun}
+          onCycle={onCycle}
+        />
+      ))}
+    </>
+  );
+}
+
+/* ------------------------------------------------------------------ the research proposal and the projects ------------------------------------------------------------------ */
+
+const fmtDate = (t: number) => new Date(t).toLocaleDateString("he-IL", { day: "numeric", month: "numeric", year: "numeric" });
+
+/** At the close, under the debrief: the case as a research proposal, and the way to "פרויקטים". */
+function ProposalCard({ p, live, busy, onMake, onOpen }: { p: ResearchProject | null; live: boolean; busy: boolean; onMake: () => void; onOpen: () => void }) {
+  return (
+    <section className="cr-prop" aria-label="הצעת מחקר מהשיעור">
+      <div className="cr-std-h">
+        <span className="cr-nb-tag is-prop">מחקר</span>
+        <b>הצעת מחקר מהשיעור</b>
+        {live && <span className="cr-typing">מנסח…</span>}
+        {p && <span className={`cr-pstat s-${p.status}`}>{PROJECT_STATUS_LABEL[p.status]}</span>}
+      </div>
+      {p ? (
+        <>
+          <p className="cr-prop-q">{p.question}</p>
+          <div className="cr-prop-meta">
+            <span>{p.decisions.length} החלטות</span>
+            <span>{p.open.length} פתוחים</span>
+            <span>{p.experiments.length} ניסויים מוצעים</span>
+            <span>{p.sources.length} מקורות</span>
+          </div>
+          <div className="cr-propose-foot">
+            <button className="cr-primary" onClick={onOpen}>
+              פתח בפרויקטים
+            </button>
+            {!busy && <button onClick={onMake}>נסח מחדש</button>}
+          </div>
+        </>
+      ) : (
+        !busy && (
+          <button className="cr-ghost" onClick={onMake}>
+            צור את הצעת המחקר
+          </button>
+        )
+      )}
+    </section>
+  );
+}
+
+/** "פרויקטים": the research proposals of the cases. A list, one open as a document: the question, the decisions with
+ * their confidence, what stayed open, his ideas, the next experiments, the sources; dated rethinking; the status. */
+export function ProjectsView({ store, open, onClose }: { store: IdeaStoreLike & ProjectStore; open: string | null; onClose: () => void }) {
+  const [items, setItems] = useState<ResearchProject[] | null>(null);
+  const [sel, setSel] = useState<string | null>(open);
+  const [note, setNote] = useState("");
+  useEffect(() => {
+    loadProjects(store)
+      .then((all) => {
+        setItems(all);
+        setSel((cur) => cur ?? all[0]?.id ?? null);
+      })
+      .catch(() => setItems([]));
+  }, [store]);
+  const p = items?.find((x) => x.id === sel) ?? null;
+  const save = async (next: ResearchProject) => {
+    const kept = await saveProject(store, next).catch(() => null);
+    if (kept) setItems((all) => (all ?? []).map((x) => (x.id === kept.id ? kept : x)).sort((a, b) => b.updatedAt - a.updatedAt));
+  };
+  const start = async (x: ResearchProject) => {
+    await save(setStatus(x, "active"));
+    const ids = x.ideas.map((i) => i.id).filter(Boolean);
+    if (ids.length) await markIdeasProject(store, ids, x.id).catch(() => {});
+  };
+  return (
+    <div className="cr-modal" onMouseDown={(e) => e.target === e.currentTarget && onClose()}>
+      <div className="cr-board cr-projects" role="dialog" aria-label="פרויקטים">
+        <header className="cr-board-h">
+          <h3>פרויקטים</h3>
+          <span className="cr-hint">הצעות מחקר מהמקרים ההנדסיים. חוזרים אליהן, חושבים מחדש, ומתחילים פרויקט.</span>
+          <span className="cr-grow" />
+          <button className="cr-x" onClick={onClose} aria-label="סגור">
+            ✕
+          </button>
+        </header>
+        <div className="cr-pj">
+          <nav className="cr-pj-list" aria-label="הצעות">
+            {items === null && <div className="cr-empty">טוען…</div>}
+            {items?.length === 0 && <div className="cr-empty">עוד אין הצעות. הצעת מחקר נוצרת בסגירת מקרה, אחרי ה-ADR והתחקיר.</div>}
+            {PROJECT_STATUSES.map((st) => {
+              const list = (items ?? []).filter((x) => x.status === st);
+              if (!list.length) return null;
+              return (
+                <section key={st}>
+                  <h4>
+                    {PROJECT_STATUS_LABEL[st]} <span className="cr-count">{list.length}</span>
+                  </h4>
+                  {list.map((x) => (
+                    <button key={x.id} className={`cr-pj-item${x.id === sel ? " is-on" : ""}`} onClick={() => setSel(x.id)}>
+                      <span className="cr-pj-t">{x.title}</span>
+                      <span className="cr-idea-src" dir="ltr">
+                        {x.moduleId} · L{x.lesson + 1} · {fmtDate(x.updatedAt)}
+                      </span>
+                    </button>
+                  ))}
+                </section>
+              );
+            })}
+          </nav>
+          {p ? (
+            <article className="cr-pj-doc">
+              <div className="cr-pj-top">
+                <span className="case-docid" dir="ltr">
+                  RP-{p.caseId.replace(/-case$/, "")}
+                </span>
+                <span className="cr-flow">
+                  {PROJECT_STATUSES.map((k, i) => (
+                    <span key={k} className={`cr-flow-step${k === p.status ? " is-on" : ""}${PROJECT_STATUSES.indexOf(p.status) > i ? " is-past" : ""}`}>
+                      {PROJECT_STATUS_LABEL[k]}
+                    </span>
+                  ))}
+                </span>
+                <span className="cr-grow" />
+                {p.status === "proposal" && (
+                  <button className="cr-primary" onClick={() => void start(p)}>
+                    התחל פרויקט
+                  </button>
+                )}
+                {p.status === "active" && <button onClick={() => void save(setStatus(p, "closed"))}>סגור פרויקט</button>}
+                {p.status === "closed" && <button onClick={() => void save(setStatus(p, "active"))}>פתח מחדש</button>}
+              </div>
+              <h2 className="cr-pj-title">
+                <Markdown text={p.title} inline />
+              </h2>
+              <div className="cr-pj-sub">
+                הצעת מחקר מהשיעור · {p.lessonTitle || `${p.moduleId} שיעור ${p.lesson + 1}`} · נוצרה {fmtDate(p.createdAt)}
+                {p.startedAt ? ` · התחיל ${fmtDate(p.startedAt)}` : ""}
+              </div>
+              <section>
+                <h4>שאלת המחקר</h4>
+                <p className="cr-prop-q">{p.question}</p>
+              </section>
+              <section>
+                <h4>ההחלטות שהתקבלו</h4>
+                <table className="cr-pj-dec">
+                  <tbody>
+                    {p.decisions.map((k, i) => (
+                      <tr key={i}>
+                        <td className="cr-log-no">{stageNo(k.stage)}</td>
+                        <td>{k.text}</td>
+                        <td className="cr-pj-conf" dir="ltr">
+                          {k.confidence}%
+                        </td>
+                        <td>{k.grade ? <i className={`g-${k.grade}`}>{GRADE_LABEL[k.grade as keyof typeof GRADE_LABEL] ?? k.grade}</i> : null}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </section>
+              <PjList title="מה לא נסגר" items={p.open} />
+              <PjList title="הרעיון שלך" items={p.ideas.map((i) => i.text)} />
+              <PjList title="ניסויים מוצעים" items={p.experiments} ordered />
+              <PjList title="מקורות" items={p.sources} small />
+              <section className="cr-pj-notes">
+                <h4>
+                  מחשבות מחדש <span className="cr-count">{p.notes.length}</span>
+                </h4>
+                {p.notes.length ? (
+                  <ol>
+                    {[...p.notes].reverse().map((n, i) => (
+                      <li key={i}>
+                        <time>{fmtDate(n.at)}</time>
+                        <p>{n.text}</p>
+                      </li>
+                    ))}
+                  </ol>
+                ) : (
+                  <div className="cr-empty">כשחוזרים להצעה: מה השתנה, מה למדת מאז, מה היית מחליט היום.</div>
+                )}
+                <textarea rows={3} value={note} onChange={(e) => setNote(e.target.value)} placeholder="מחשבה מחדש, עם תאריך של היום" />
+                <div className="cr-propose-foot">
+                  <span className="cr-grow" />
+                  <button
+                    className="cr-primary"
+                    disabled={note.trim().length < 5}
+                    onClick={() => {
+                      void save(addNote(p, note));
+                      setNote("");
+                    }}
+                  >
+                    הוסף
+                  </button>
+                </div>
+              </section>
+            </article>
+          ) : (
+            items?.length ? <div className="cr-empty">בחר הצעה מהרשימה.</div> : null
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function PjList({ title, items, ordered, small }: { title: string; items: string[]; ordered?: boolean; small?: boolean }) {
+  if (!items.length) return null;
+  const L = ordered ? "ol" : "ul";
+  return (
+    <section>
+      <h4>
+        {title} <span className="cr-count">{items.length}</span>
+      </h4>
+      <L className={small ? "cr-pj-small" : undefined}>
+        {items.map((x, i) => (
+          <li key={i}>
+            <Markdown text={x} inline />
+          </li>
+        ))}
+      </L>
+    </section>
   );
 }
 
@@ -1189,7 +1737,7 @@ const COLUMNS: { k: Idea["status"]; label: string; hint: string }[] = [
 
 type IdeaStoreLike = Parameters<typeof loadIdeas>[0] & Parameters<typeof saveIdea>[0];
 
-export function IdeasBoard({ store, onClose }: { store: IdeaStoreLike; onClose: () => void }) {
+export function IdeasBoard({ store, onClose, onProjects }: { store: IdeaStoreLike; onClose: () => void; onProjects?: () => void }) {
   const [items, setItems] = useState<Idea[] | null>(null);
   useEffect(() => {
     loadIdeas(store)
@@ -1208,6 +1756,7 @@ export function IdeasBoard({ store, onClose }: { store: IdeaStoreLike; onClose: 
           <h3>מחסן הרעיונות</h3>
           <span className="cr-hint">רעיונות שנולדו במקרים ההנדסיים, מזרע ועד פרויקט. הזז כשהרעיון מבשיל.</span>
           <span className="cr-grow" />
+          {onProjects && <button onClick={onProjects}>פרויקטים</button>}
           <button className="cr-x" onClick={onClose} aria-label="סגור">
             ✕
           </button>
@@ -1229,6 +1778,7 @@ export function IdeasBoard({ store, onClose }: { store: IdeaStoreLike; onClose: 
                         {i.moduleId} · L{i.lesson + 1}
                         {i.stage ? ` · §${i.stage}` : ""}
                       </span>
+                      {i.projectId && <span className="cr-pstat s-active">בפרויקט</span>}
                       <span className="cr-grow" />
                       {ci > 0 && (
                         <button onClick={() => void move(i, -1)} title={`חזרה ל${COLUMNS[ci - 1].label}`}>
