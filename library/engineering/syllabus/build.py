@@ -3,7 +3,7 @@
 Checks: every page of every book belongs to a module or to SKIP (and not to
 both), every prerequisite exists and comes earlier, and every page range is
 inside its document. Feynman I and II are text files; their pages are the
-units of app/artifact/books/feyn*.json.
+units of library/math-physics/text/feyn*.json.
 """
 import json
 import re
@@ -111,7 +111,7 @@ def render(data, pages, gaps):
     docs = data["docs"]
     out = ["# תוכנית הלימודים: הנדסה (טיוטה)", ""]
     out.append("נבנתה מתוכני העניינים של כל הספרים. כל נושא נלמד פעם אחת, במקום שבו המקור הכי טוב, ונשען על עמודים מוגדרים. "
-               "מספרי העמודים הם עמודי ה-PDF בקבצים שב-`library/engineering/books/` וב-`library/math-physics/`; בפיינמן I ו-II אלה יחידות העמוד של מעבדת הלמידה (`app/artifact/books/feyn*.json`).")
+               "מספרי העמודים הם עמודי ה-PDF בקבצים שב-`library/engineering/books/` וב-`library/math-physics/`; בפיינמן I ו-II אלה יחידות העמוד של מעבדת הלמידה (`library/math-physics/text/feyn*.json`).")
     out.append("")
     out.append("**דרגות:** ליבה = נלמד במלואו. מתקדם = אחרי הליבה של אותו חלק. עיון = לא נלמד כשיעור, זמין לפי צורך.")
     out.append("")
