@@ -54,7 +54,8 @@ const PAGE_TAG = /\[\[([A-Za-z]+\d+[a-z]?:\d+(?:[-–]\d+)?)\]\]/g;
 const NAMED = /\(מקור\s*:\s*([^)]+)\)/g;
 const LINKED = /\[\[מקור\s*:\s*([^|\]]+)\|\s*([^\]]+)\]\]/g;
 
-/** The sources a set of texts cites: page tags ([[B02:115]]), "(מקור: …)" and [[מקור: title | url]], each once, in order. */
+/** The sources a set of texts cites: page tags ([[B02:115]]), "(מקור: …)" and [[מקור: title | url]] (as a Markdown
+ * link), each once, in order. */
 export function extractSources(texts: string[]): string[] {
   const out: string[] = [];
   const add = (s: string) => {
@@ -62,7 +63,7 @@ export function extractSources(texts: string[]): string[] {
     if (t && !out.includes(t)) out.push(t);
   };
   for (const x of texts) {
-    for (const m of x.matchAll(LINKED)) add(`${m[1].trim()} (${m[2].trim()})`);
+    for (const m of x.matchAll(LINKED)) add(`[${m[1].trim()}](${m[2].trim()})`);
     for (const m of x.matchAll(NAMED)) add(m[1]);
     for (const m of x.matchAll(PAGE_TAG)) add(`עמוד מקור ${m[1]}`);
   }
@@ -140,7 +141,7 @@ export function buildProposal(
       .filter((s) => d.stages[s]?.commit)
       .flatMap((s) => standardsFor(s))
       .concat(d.adr ? standardsFor("adr") : [])
-      .map((s) => `${s.source} (${s.url})`),
+      .map((s) => `[${s.source}](${s.url})`),
   );
   const sources = uniq([...extractSources([c.brief, ...expertTexts, d.debrief ?? ""]), ...stdSources]).slice(0, 30);
   return {

@@ -1445,7 +1445,7 @@ function StandardCompare({
                     <button className="cr-check" onClick={() => onCycle(st.id, i)} title="ערער: שנה את הסימון" aria-label={MARK_LABEL[k.marks[i]]}>
                       {MARK_ICON[k.marks[i]]}
                     </button>
-                    <span>{it.text}</span>
+                    <StdText text={it.text} />
                     {it.ref && (
                       <span className="cr-std-ref" dir="ltr">
                         {it.ref}
@@ -1470,6 +1470,21 @@ function StandardCompare({
         })
       )}
     </section>
+  );
+}
+
+/** A standard's item with its source term ("(Owner)", "(Attainable = min(…))") set apart, left to right, so the
+ * Latin term at the end of a Hebrew line keeps its parentheses in place. */
+function StdText({ text }: { text: string }) {
+  const m = /^(.*?)\s*\(([A-Za-z"][^()]*(?:\([^()]*\))?[^()]*)\)\s*$/.exec(text);
+  if (!m) return <span>{text}</span>;
+  return (
+    <span>
+      {m[1]}{" "}
+      <bdi className="cr-std-term" dir="ltr">
+        {m[2]}
+      </bdi>
+    </span>
   );
 }
 
@@ -1647,7 +1662,6 @@ export function ProjectsView({ store, open, onClose }: { store: IdeaStoreLike & 
               <PjList title="מה לא נסגר" items={p.open} />
               <PjList title="הרעיון שלך" items={p.ideas.map((i) => i.text)} />
               <PjList title="ניסויים מוצעים" items={p.experiments} ordered />
-              <PjList title="מקורות" items={p.sources} small />
               <section className="cr-pj-notes">
                 <h4>
                   מחשבות מחדש <span className="cr-count">{p.notes.length}</span>
@@ -1679,6 +1693,7 @@ export function ProjectsView({ store, open, onClose }: { store: IdeaStoreLike & 
                   </button>
                 </div>
               </section>
+              <PjList title="מקורות" items={p.sources} small />
             </article>
           ) : (
             items?.length ? <div className="cr-empty">בחר הצעה מהרשימה.</div> : null

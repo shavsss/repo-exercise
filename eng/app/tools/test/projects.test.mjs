@@ -83,7 +83,7 @@ test("extractSources and debriefPart", () => {
     "הגבול [[B12:57]] ו-[[B12:57]] שוב (מקור: Skolnik, Radar Handbook, 2008)",
     "[[מקור: Roofline | https://example.org/r.pdf]] וגם [[ודאות: גבוהה]] ו-[[E03:120-121]]",
   ]);
-  assert.deepEqual(s, ["Skolnik, Radar Handbook, 2008", "עמוד מקור B12:57", "Roofline (https://example.org/r.pdf)", "עמוד מקור E03:120-121"]);
+  assert.deepEqual(s, ["Skolnik, Radar Handbook, 2008", "עמוד מקור B12:57", "[Roofline](https://example.org/r.pdf)", "עמוד מקור E03:120-121"]);
   const deb = `**מה עבד**\nא.\n\n**ההחלטה החשובה שהוחמצה**\nהבדלה בין רחפן לציפור.\nשורה שנייה.\n\n**מה לוקחים הלאה**\n1. ספר פערים.`;
   assert.equal(P.debriefPart(deb, "ההחלטה החשובה שהוחמצה"), "הבדלה בין רחפן לציפור.\nשורה שנייה.");
   assert.equal(P.debriefPart(deb, "מה לוקחים הלאה"), "1. ספר פערים.");
@@ -134,7 +134,7 @@ test("buildProposal: the question, the decisions with confidence, what stayed op
   assert.deepEqual(p.experiments, ["ניסוי שדה: התרעות שווא מעל 1 לשעה הורגות"]);
   assert.ok(p.sources.includes("דוח הבסיס, 2026"));
   assert.ok(p.sources.includes("עמוד מקור B12:41"));
-  assert.ok(p.sources.some((s) => /Table|טבלה 4\.2-2/.test(s)), "the standards of the committed stages are sources too");
+  assert.ok(p.sources.some((s) => /^\[NASA .*טבלה 4\.2-2.*\]\(https:\/\/www\.nasa\.gov\//.test(s)), "the standards of the committed stages are sources too, as links");
   assert.ok(p.sources.some((s) => /Nygard/.test(s)));
   assert.equal(p.createdAt, 100);
 });
