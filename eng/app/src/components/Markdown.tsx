@@ -24,28 +24,8 @@ import { BookPlate } from "../book/Plate";
 import { PLATES } from "../book/chunks";
 import { GuideTag, useBlockGuide, useHeadGuide } from "./LessonGuide";
 import { QuizForm, type QuizCtx } from "./QuizForm";
-import { parseCase } from "../caseBlock";
+import { CaseCard } from "./CaseRoom";
 import { NotebookBlock } from "./blocks/Notebook";
-
-/** A placeholder until the case room (CaseStudy.tsx): the visible brief only; the stage notes after "---" stay hidden. */
-function CasePreview({ source }: { source: string }) {
-  const c = parseCase(source);
-  return (
-    <section className="b3 b3-decide" data-block="case">
-      <header className="b3-head">
-        <span className="b3-label">המקרה ההנדסי</span>
-        {c.title && (
-          <h4 className="b3-title">
-            <Markdown text={c.title} inline />
-          </h4>
-        )}
-      </header>
-      <div className="b3-body">
-        <Markdown text={c.brief} />
-      </div>
-    </section>
-  );
-}
 
 export interface MdContextValue {
   live: boolean;
@@ -112,7 +92,7 @@ function FencedBlock({ lang, code }: { lang: string; code: string }) {
   if (lang === "verify") return <Verify source={code} />;
   if (lang === "lab") return <Lab source={code} />;
   if (lang === "decide") return <Decide source={code} />;
-  if (lang === "case") return <CasePreview source={code} />;
+  if (lang === "case") return <CaseCard source={code} />;
   if (lang === "exercise") return <Exercise source={code} />;
   if (lang === "figure") return <FigureBlock source={code} />;
   if (lang === "sim") return <SimBlock source={code} live={ctx.live} />;
