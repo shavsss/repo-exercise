@@ -96,6 +96,18 @@ export function expertPrompt(o: CaseCtx & { expert: string; rubric: CaseRubricIt
     .join("\n\n");
 }
 
+/** The follow-up when the expert reasoning came without its rubric line: only that line, nothing else. */
+export function verdictPrompt(o: { thread: string; commit: string; expert: string; rubric: CaseRubricItem[] }) {
+  return [
+    `אתה בודק סעיף אחד של סקירת תכן לפי מחוון כן/לא. הלומד הציע, נסקר והתחייב; המומחה כבר כתב את הנימוק שלו.`,
+    `<thread>\n${o.thread}\n</thread>`,
+    `<commit>\n${o.commit}\n</commit>`,
+    `<expert_reasoning>\n${o.expert}\n</expert_reasoning>`,
+    `<rubric>\n${o.rubric.map((r, i) => `${i + 1}. ${r.decisive ? "[מכריע] " : ""}${r.text}`).join("\n")}\n</rubric>`,
+    `ענה בשורה אחת בלבד, בדיוק בצורה <<מחוון: כן, לא, …>>: ${o.rubric.length} ערכים, פריט אחר פריט לפי סדר <rubric>, "כן" אם ההצעה וההתחייבות שלו עמדו בו ו"לא" אם לא. בחירה פתוחה שהוא נימק היטב ושונה מהנימוק עומדת בפריט אם הפריט שואל אם החלופה ניתנת להגנה. בלי שום טקסט נוסף.`,
+  ].join("\n\n");
+}
+
 /** The debrief after the ADR, like a blameless post-mortem. */
 export function debriefPrompt(o: { title: string; brief: string; memory: string; stages: string; adr: string; decisions: string[] }) {
   return [

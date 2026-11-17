@@ -21,6 +21,7 @@ import {
   emptyStage,
   parseExpert,
   parseReview,
+  parseVerdicts,
   rubricGrade,
   sectionStatus,
   type CaseAdr,
@@ -30,7 +31,7 @@ import {
   type StageWork,
 } from "../caseDoc";
 import { peekCase, updateCase, useCaseDoc } from "../caseStore";
-import { computePrompt, debriefPrompt, expertPrompt, reviewPrompt, type CaseCtx } from "../casePrompt";
+import { computePrompt, debriefPrompt, expertPrompt, reviewPrompt, verdictPrompt, type CaseCtx } from "../casePrompt";
 import { CONF_LABEL, GRADE_LABEL, logEvent, saveCalib, type LessonPlace } from "../events";
 import { loadIdeas, saveIdea, type Idea } from "../ideas";
 import { computeTool, sampleWithFallback } from "../sampleRun";
@@ -135,7 +136,8 @@ export function CaseRoomHost({ rt, memory, place }: { rt: Runtime | null; memory
 type View = "brief" | "adr" | CaseStage;
 interface Live {
   stage: CaseStage | "debrief";
-  kind: "review" | "cell" | "expert" | "debrief";
+  /** verdict: the follow-up that asks only for the rubric line */
+  kind: "review" | "cell" | "expert" | "verdict" | "debrief";
   text: string;
 }
 
@@ -314,17 +316,21 @@ export function CaseRoom({ c, rt, memory, place, onClose }: { c: CaseBlock; rt: 
     const w0 = work(s);
     if (!n || !w0.commit) return;
     const nx = c.stages[c.stages.indexOf(s) + 1];
-    const res = await call(
-      { stage: s, kind: "expert" },
-      expertPrompt({ ...ctx(s), expert: n.expert, rubric: n.rubric, commit: `${w0.commit.decision} (ביטחון ${w0.commit.confidence}%)`, next: nx ? stageTitle(nx) : "" }),
-      "high",
-    );
+    const committed = `${w0.commit.decision} (ביטחון ${w0.commit.confidence}%)`;
+    const res = await call({ stage: s, kind: "expert" }, expertPrompt({ ...ctx(s), expert: n.expert, rubric: n.rubric, commit: committed, next: nx ? stageTitle(nx) : "" }), "high");
     if (!res) return;
     const p = parseExpert(res.text, n.rubric.length);
-    const met = p.met ?? n.rubric.map(() => false);
+    let verdict = p.met;
+    if (!verdict) {
+      // the rubric line is missing: one short call that asks only for it, before he marks it by hand
+      setStage(s, (w) => ({ ...w, expert: p.body }));
+      const v = await call({ stage: s, kind: "verdict" }, verdictPrompt({ thread: ctx(s).thread, commit: committed, expert: p.body, rubric: n.rubric }), "medium");
+      verdict = v ? parseVerdicts(v.text, n.rubric.length) : null;
+    }
+    const met = verdict ?? n.rubric.map(() => false);
     const grade = rubricGrade(n.rubric, met);
     setStage(s, (w) => {
-      const next = { ...w, phase: "reflect" as const, expert: p.body, rubric: met, disputed: p.met ? undefined : true, grade };
+      const next = { ...w, phase: "reflect" as const, expert: p.body, rubric: met, disputed: verdict ? undefined : true, grade };
       record(s, next);
       return next;
     });
@@ -843,6 +849,7 @@ function StageView(p: StageProps) {
                 <RoleBadge role="מהנדס בכיר" />
                 <b>נימוק המומחה, בקול רם</b>
                 {live?.kind === "expert" && <span className="cr-typing">כותב…</span>}
+                {live?.kind === "verdict" && <span className="cr-typing">מסמן את המחוון…</span>}
               </div>
               {expertText ? (
                 <div className="prose">

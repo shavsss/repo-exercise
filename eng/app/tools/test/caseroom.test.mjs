@@ -46,6 +46,21 @@ test("expert text: the verdict line is parsed and removed", () => {
   assert.equal(none.body, "נימוק בלי שורה");
 });
 
+test("rubric follow-up: the verdict line is found wherever it stands; none → null", () => {
+  assert.deepEqual(D.parseVerdicts("<<מחוון: כן, לא, כן, כן>>", 4), [true, false, true, true]);
+  assert.deepEqual(D.parseVerdicts("הנה:\n<<מחוון: 1. כן; 2. לא>>\nזהו.", 3), [true, false, false]);
+  assert.deepEqual(D.parseVerdicts("<<מחוון: לא>> ואחר כך <<מחוון: כן, כן>>", 2), [true, true]);
+  assert.equal(D.parseVerdicts("כן, לא, כן", 3), null);
+  // the expert text without its line: the body stays whole and the verdicts are null, so the room asks again
+  const e = D.parseExpert("נימוק המומחה בלי שורת מחוון.", 3);
+  assert.equal(e.met, null);
+  assert.equal(e.body, "נימוק המומחה בלי שורת מחוון.");
+  const v = P.verdictPrompt({ thread: "הצעה", commit: "החלטה (ביטחון 70%)", expert: "נימוק", rubric });
+  assert.match(v, /<rubric>\n1\. \[מכריע\] decisive/);
+  assert.match(v, /4 ערכים/);
+  assert.match(v, /בלי שום טקסט נוסף/);
+});
+
 test("review text: number and assumption tags go to the ledger", () => {
   const r = D.parseReview("הערה.\n<<מספר: R = 16.8 km (גבול)>>\n<<הנחה: RCS קבוע>>\n<<מספר: L = 6 dB>>\n<<הנחה: חלק");
   assert.equal(r.body, "הערה.");

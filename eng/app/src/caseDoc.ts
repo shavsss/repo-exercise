@@ -90,17 +90,28 @@ export function rubricGrade(items: CaseRubricItem[], met: boolean[]): Grade {
 }
 
 const YES = /^(כן|v|✓|yes|y|1|true)$/i;
+const VERDICT = /<<\s*מחוון\s*:([^>]*)>>/g;
+function verdicts(list: string, n: number): boolean[] {
+  const vals = list
+    .split(/[,;|]/)
+    .map((s) => s.replace(/^\s*\d+\s*[=:.)]\s*/, "").trim())
+    .filter(Boolean);
+  return Array.from({ length: n }, (_, i) => YES.test(vals[i] ?? ""));
+}
+
 /** The expert reasoning without its last line `<<מחוון: כן, לא, …>>`, and the verdicts it gives (null when absent). */
 export function parseExpert(text: string, n: number): { body: string; met: boolean[] | null } {
   const m = /<<\s*מחוון\s*:([^>]*)>>\s*$/.exec(text.trim());
   // a line still being written in a stream
   if (!m) return { body: text.replace(/<<[^>]*$/, "").trimEnd(), met: null };
-  const vals = m[1]
-    .split(/[,;|]/)
-    .map((s) => s.replace(/^\s*\d+\s*[=:.)]\s*/, "").trim())
-    .filter(Boolean);
-  const met = Array.from({ length: n }, (_, i) => YES.test(vals[i] ?? ""));
-  return { body: text.trim().slice(0, m.index).trimEnd(), met };
+  return { body: text.trim().slice(0, m.index).trimEnd(), met: verdicts(m[1], n) };
+}
+
+/** The verdicts of the follow-up that asks only for the rubric line (casePrompt.ts verdictPrompt): its last
+ * `<<מחוון: …>>` wherever it stands, null when there is none. */
+export function parseVerdicts(text: string, n: number): boolean[] | null {
+  const m = [...text.matchAll(VERDICT)].pop();
+  return m ? verdicts(m[1], n) : null;
 }
 
 /** A reviewer comment without its `<<מספר: …>>` and `<<הנחה: …>>` tags, and what they hold. */
