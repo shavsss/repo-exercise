@@ -327,6 +327,16 @@ export class Store {
     await this.profile.collection("level3").doc(key).set(clean(data));
   }
 
+  /* ---- the learner's work on a lesson's engineering case (caseDoc.ts): profile/cases/<module>__<lesson> ---- */
+  async loadCase(key: string): Promise<Record<string, unknown> | null> {
+    const s = await this.profile.collection("cases").doc(key).get();
+    return s.exists ? (s.data() as Record<string, unknown>) : null;
+  }
+
+  async saveCase(key: string, data: Record<string, unknown>) {
+    await this.profile.collection("cases").doc(key).set(clean(data));
+  }
+
   /* ---- the learner's saved ideas from the engineering cases (ideas.ts): profile/ideas/store, one document ---- */
   async loadIdeas(): Promise<Record<string, unknown> | null> {
     const s = await this.profile.collection("ideas").doc("store").get();
