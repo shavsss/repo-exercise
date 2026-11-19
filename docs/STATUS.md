@@ -88,6 +88,7 @@
   - מחסן רעיונות: `src/ideas.ts` (חדש), `Store.loadIdeas/saveIdeas` (`profile/ideas/store`), ו-`<idea_store>` ב-`studyContext`. `composeLesson` טוען אותו מה-store כשלא הועבר, כך שהוא מגיע לתכנון מ-App, מ-prefetch ומהספסל.
   - `case` נוסף ל-INTERACTIVE. (התצוגה הזמנית `CasePreview` הוחלפה בתת-שלב 2.)
   - בדיקות: `tools/test/case.test.mjs` (חדש, בשתיהן); כל בדיקות היחידה ו-`tsc` עוברים בשתי האפליקציות.
+- 19.11: גופן רביעי בתצוגת הקריאה, Segoe UI (גופן המערכת, כמו בדפים של claude.ai), בלנצ'סטר ובגילואה. בתצוגת הספר בחירת גופן שאינה ברירת המחדל חלה גם על עמודי הספר, והעימוד נמדד מחדש לפי הגופן.
 
 ## מה עוד לא
 - סבב 9 ממתין לפרסום (`docs/research/round8/PUBLISH_STEPS.md`), כולל validate עם dump אמיתי של נתוני הלומד. אריזה מלאה של גילואה (`pack.py` בלי `--only`) לא אפשרית עד שמפנים את מאגר הקבצים (דחיסה מחדש של תמונות העמודים של E30, E09a, E09, K1–K3, W66; ARCH_SOFTWARE_SOURCES.md סעיף 4.2-ד). בלי זה לא ייכנסו איורים של ספר חדש.
