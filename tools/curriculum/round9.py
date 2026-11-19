@@ -42,6 +42,9 @@ def apply(app, modules, parts):
                        sources=[dict(x) for x in s.get("sources", [])])
     for mid, tier in spec.get("tier", {}).items():
         by[mid]["tier"] = tier
+    for mid, srcs in spec.get("sources", {}).items():
+        have = by[mid].setdefault("sources", [])
+        have += [dict(x) for x in srcs if x not in have]
     for mid, pre in spec.get("prereq", {}).items():
         have = by[mid].get("prereq", [])
         by[mid]["prereq"] = have + [p for p in pre if p not in have]

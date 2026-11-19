@@ -10,7 +10,8 @@ Asserts:
   1. every module id of the old index is in the new one, in the same part (no renames, so the
      app needs no alias map: profile/modules, convs, notes, summaries and scratch keyed by
      module id keep resolving);
-  2. an old module keeps its section headings and every source (a ref listing may become a
+  2. an old module keeps its section headings (new ones may only be appended after them, when a
+     source is added) and every source (a ref listing may become a
      taught supplement over the same pages);
   3. every module id in the learner's data resolves in the new index;
   4. for every planned module of the learner: the lesson count, done list and conversations
@@ -53,8 +54,11 @@ def main():
             continue
         if n["part"] != m["part"]:
             fails.append(f"module {i} moved from {m['part']} to {n['part']}")
-        if n.get("sections", []) != m.get("sections", []):
+        old_secs, new_secs = m.get("sections", []), n.get("sections", [])
+        if new_secs[: len(old_secs)] != old_secs:
             fails.append(f"module {i}: section headings changed")
+        elif len(new_secs) > len(old_secs):
+            notes.append(f"module {i}: {len(new_secs) - len(old_secs)} section headings appended (a source was added; the old ones are unchanged)")
         have = {(s["doc"], tuple(s["pages"]), s["role"]) for s in n["sources"]}
         taught = {(s["doc"], tuple(s["pages"])) for s in n["sources"] if s["role"] != "ref"}
         for s in m["sources"]:
