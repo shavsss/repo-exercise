@@ -9,7 +9,6 @@ import { docMeta, getIndex, readPages, searchLibrary, type Module } from "./libr
 import { curriculumBlock } from "./curriculum";
 import { CHAT_HISTORY_BYTES, focusHistory, questionOf, type Chapter } from "./chatContext";
 import { auditLong, namedModules, type AuditMark, applyRepair } from "./lessonAudit";
-import { decideLine, decideSlot } from "./lessonGate";
 import { headWithin, tailWithin } from "./truncation";
 import { LEGACY_RULES, SYSTEM_PROMPT, TEACHBACK_RULES, libraryList } from "./prompt";
 import type { Runtime, SampleTool } from "./runtime";
