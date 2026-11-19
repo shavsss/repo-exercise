@@ -14267,6 +14267,38 @@
 "teach": "CWC, BWC; סוריה 2013, Salisbury, עיראק."
 }
 ]
+},
+"M15.8": {
+"items": [
+{
+"id": "R9:M15.8:1",
+"n": "Data-centric middleware in combat systems: DDS and why",
+"imp": "K",
+"k": "new",
+"teach": "DDS כתווכה של מערכות לחימה ושליטה ובקרה: pub/sub בלי שרת מרכזי, גילוי אוטומטי ו-QoS כחוזה (deadline, ownership לחיישן גיבוי). מספרים: שיהוי של עשרות מיקרו-שניות ברשת מקומית מול מילי-שניות דרך broker."
+},
+{
+"id": "R9:M15.8:2",
+"n": "Government-owned interfaces and modular open systems (MOSA, FACE, SOSA)",
+"imp": "K",
+"k": "new",
+"teach": "ממשק בבעלות הלקוח מאפשר להחליף ספק לכל מודול; ממשק קנייני נועל את התוכנית לשנים. ההחלטה נמדדת בעלות שדרוג ובזמן הכנסת יכולת חדשה. קישור לרכש ולעלות מחזור חיים (M14.2)."
+},
+{
+"id": "R9:M15.8:3",
+"n": "Conway in defense programs: the prime-subcontractor structure becomes the architecture",
+"imp": "K",
+"k": "new",
+"teach": "קונווי והשערת השיקוף: חלוקת עבודה בין קבלן ראשי לקבלני משנה קובעת את הממשקים, ומשם את נקודות הכשל באינטגרציה. דוגמאות: F-35 ALIS, Link 16 בין מערכות של יצרנים שונים (M7.9, M15.3)."
+},
+{
+"id": "R9:M15.8:4",
+"n": "Latency budget from sensor to shooter across the architecture",
+"imp": "K",
+"k": "new",
+"teach": "תקציב שיהוי מקצה לקצה: חיישן, עיבוד, תווכה, קישור נתונים (TDMA של Link 16: 7.8ms לחריץ), החלטה ושיגור. כל קפיצה בארכיטקטורה מוסיפה שיהוי וזנב; החלטה: איפה לשים היתוך (ליד החיישן או במרכז)."
+}
+]
 }
 }
 }

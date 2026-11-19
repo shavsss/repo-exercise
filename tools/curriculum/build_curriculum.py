@@ -14,6 +14,7 @@ the tutor opens them with a short diagnostic or a condensed lesson (teaching rul
 """
 import json
 import round8
+import round9
 import re
 from pathlib import Path
 
@@ -282,6 +283,16 @@ def main():
         # round 8: the new modules' items (tools/curriculum/round8_items.json)
         for mid, its in round8.items(app).items():
             mods.setdefault(mid, {"items": [], "testout": [], "brief": [], "reading": []})["items"].extend(its)
+        # round 9: architecture, software and the socio-technical side (tools/curriculum/round9.json)
+        for mid, its in round9.items(app).items():
+            mods.setdefault(mid, {"items": [], "testout": [], "brief": [], "reading": []})["items"].extend(its)
+        for mid, rs in round9.reading(app).items():
+            mods.setdefault(mid, {"items": [], "testout": [], "brief": [], "reading": []})["reading"].extend(rs)
+        promoted = round9.promote(app)
+        for e in mods.values():
+            for x in e.get("items", []):
+                if x["id"] in promoted:
+                    x["imp"] = promoted[x["id"]]
         n_scope = scope_items(mods, app)
         print(f"{app}: {n_scope} scope item(s) for books without published text")
         mods = {k: {f: v for f, v in e.items() if v} for k, e in mods.items()}

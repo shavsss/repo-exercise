@@ -7355,6 +7355,13 @@
 "imp": "S",
 "k": "new",
 "teach": "תהליכים (PBF, FDM, DED), כללי תכן, תכונות לא-איזוטרופיות והסמכת חלקים."
+},
+{
+"id": "R9:CASE:P16",
+"n": "Architecture case: integral vs modular airframe structure",
+"imp": "S",
+"k": "new",
+"teach": "מקרה סוגר לחלק: מבנה מרוכב אחד גדול מול חלקים מחוברים. מספרים: משקל, מספר מחברים, עלות תיקון בשטח, ועלות כלי ייצור. Ulrich: אינטגרלי קונה ביצועים ומשלם בשינוי."
 }
 ],
 "brief": [
@@ -12489,6 +12496,15 @@
 ]
 },
 "M25.8": {
+"items": [
+{
+"id": "R9:CASE:P25",
+"n": "Architecture case: monolithic die vs chiplets",
+"imp": "S",
+"k": "new",
+"teach": "מקרה סוגר לחלק: שבב אחד גדול מול chiplets עם חיבור מהיר (UCIe). מספרים: תפוקת ייצור כ-e^(-D·A) (שבב כפול בשטח מאבד תפוקה), עלות אריזה, הספק ושיהוי בממשק. מודולריות קונה תפוקה וגמישות ומשלמת בממשק."
+}
+],
 "brief": [
 {
 "t": "Historical Perspective",
@@ -13340,7 +13356,7 @@
 {
 "id": "E:Systems engi|1.4",
 "n": "Modularity, coupling, design structure matrices",
-"imp": "S",
+"imp": "K",
 "k": "deepen",
 "teach": "DSM as a tool, modularity vs integral architectures, coupling as cost/schedule driver"
 },
@@ -13593,7 +13609,7 @@
 {
 "id": "E:Systems engi|5.2",
 "n": "Work breakdown structure and scheduling (critical path)",
-"imp": "S",
+"imp": "K",
 "k": "deepen",
 "teach": "Critical path method with float, schedule risk (merge bias: parallel paths make late finish likely)"
 },
@@ -13610,6 +13626,27 @@
 "imp": "K",
 "k": "deepen",
 "teach": "FMEA/FMECA worksheet, RPN and its known flaws, criticality matrix"
+},
+{
+"id": "R9:M27.4:1",
+"n": "Interface management: ICD control, interface working groups, change impact",
+"imp": "K",
+"k": "new",
+"teach": "ניהול ממשקים כתהליך: רישום כל ממשק, בעלים לכל צד, ICD תחת בקרת תצורה, וניתוח השפעה לכל שינוי (DSM מראה מי נפגע). מדד מעשי: מספר שינויי ICD פתוחים לפני אינטגרציה מנבא איחור."
+},
+{
+"id": "R9:M27.4:2",
+"n": "Merge bias: why parallel paths make the schedule later than the critical path says",
+"imp": "K",
+"k": "new",
+"teach": "נתיב קריטי דטרמיניסטי מניח שכל משימה מסתיימת בזמן הממוצע. בנקודת מיזוג של n נתיבים מקבילים, ההסתברות שכולם בזמן היא בערך p^n: 5 נתיבים של 80% כל אחד = 33%. לכן תאריך הנתיב הקריטי הוא כמעט תמיד אופטימי, ותוספת מרווח לפי מספר נקודות המיזוג."
+},
+{
+"id": "R9:M27.4:3",
+"n": "Monte Carlo schedule risk analysis",
+"imp": "S",
+"k": "new",
+"teach": "התפלגות משולשת או בטא לכל משימה, דגימה של אלפי ריצות, ותוצאה: תאריך P50 ו-P80 ומדד קריטיות (באיזה אחוז מהריצות משימה הייתה על הנתיב הקריטי). ההחלטה: להתחייב ל-P80 ולא לתאריך הדטרמיניסטי."
 }
 ],
 "brief": [
@@ -13758,7 +13795,7 @@
 {
 "id": "A-Y3",
 "n": "Programme failure patterns and forecasting: optimism bias, reference-class forecasting, Augustine laws, schedule-merge bias",
-"imp": "S",
+"imp": "K",
 "k": "new",
 "teach": "Empirical cost/schedule growth distributions and how to forecast a programme from its class"
 },
@@ -13806,6 +13843,13 @@
 "imp": "S",
 "k": "new",
 "teach": "Personal forecast log: dated numerical predictions with probabilities or ranges, scored later by Brier score and by the log error ratio of estimates; a calibration plot reviewed periodically."
+},
+{
+"id": "R9:M27.5:1",
+"n": "Decision ledger: every architecture decision with its alternatives, trade-off and numbers",
+"imp": "K",
+"k": "new",
+"teach": "רשומת החלטה (ADR): הקשר, חלופות, קריטריונים עם משקל, המספרים שמכריעים, מה מוותרים עליו, ומתי לחזור להחלטה (תנאי ביטול). מסלול משותף לכל ההחלטות הארכיטקטוניות בקורס, כדי שבלוקי decide יעבדו על אותה שפה."
 }
 ],
 "brief": [
@@ -14352,6 +14396,13 @@
 "k": "deepen",
 "teach": "מודל נקודה צפה כמקור אמת, מודל bit-true של הנקודה הקבועה, מדידת SQNR בכל שלב, והשוואה ביט-לביט מול סימולציית ה-RTL.",
 "on": "M4.6 · Golden test vectors (known tone + noise: SNR out = SNR in + gain)"
+},
+{
+"id": "R9:CASE:P4",
+"n": "Architecture case: where to put the signal-processing chain (FPGA vs GPU vs CPU)",
+"imp": "S",
+"k": "new",
+"teach": "מקרה סוגר לחלק: שרשרת עיבוד מכ\"ם או SIGINT. החלטה: עיבוד מקדים ב-FPGA ליד הממיר (קצב קבוע, שיהוי דטרמיניסטי, הספק נמוך) מול GPU (גמישות, קצב פיתוח). מספרים: קצב דגימה, GOPS נדרש, שיהוי, וואט, ועלות שינוי אלגוריתם."
 }
 ]
 },
@@ -14882,6 +14933,13 @@
 "imp": "C",
 "k": "new",
 "teach": "זיהוי פרמטרים פיזיקליים במודל ידוע מבנה, ומודלי Wiener ו-Hammerstein."
+},
+{
+"id": "R9:CASE:P5",
+"n": "Architecture case: flight-control computer redundancy (triplex vs quadruplex, dissimilar software)",
+"imp": "S",
+"k": "new",
+"teach": "מקרה סוגר לחלק: מחשב בקרת טיסה. החלטה: כמה ערוצים, הצבעה, ותוכנה שונה בכל ערוץ (A320) מול זהה (777 עם מעבדים שונים). מספרים: יעד כשל 10^-9 לשעה, כיסוי גילוי תקלות, ומחיר במשקל ובעלות פיתוח; Knight & Leveson על אי-תלות בין גרסאות."
 }
 ]
 },
@@ -15061,6 +15119,13 @@
 "imp": "S",
 "k": "new",
 "teach": "מקלטים ומשווים נלמדים מול קלאסיים, ונתונים לאימון מערוצים אמיתיים ומסימולציה."
+},
+{
+"id": "R9:CASE:P23",
+"n": "Architecture case: constellation and network architecture (bent-pipe vs inter-satellite links)",
+"imp": "S",
+"k": "new",
+"teach": "מקרה סוגר לחלק: Iridium (קישורים בין לוויינים) מול Starlink הראשון (bent pipe לתחנות קרקע). מספרים: שיהוי, מספר תחנות קרקע, עלות לוויין, ותלות ברגולציה. ההחלטה מראה איך end-to-end ו-Clark 1988 חיים במערכת אמיתית."
 }
 ]
 },
@@ -15219,6 +15284,13 @@
 "imp": "S",
 "k": "new",
 "teach": "מאיץ אחד צורך יותר מקילוואט, וארון של מאיצים צורך יותר ממאה קילוואט. שרשרת אספקת ההספק: ממתח בינוני, דרך 800V DC ו-48V, ועד פחות מוולט אחד בשבב. ממירים צמודים לשבב והפסדים בכל שלב. קירור בנוזל (cold plate וטבילה) מול קירור באוויר, PUE, וההספק לכל טוקן כמדד עלות. למה האנרגיה, ולא הטרנזיסטורים, קובעת היום כמה AI אפשר להריץ."
+},
+{
+"id": "R9:CASE:P12",
+"n": "Architecture case: centralized vs distributed power conversion",
+"imp": "S",
+"k": "new",
+"teach": "מקרה סוגר לחלק: אוטובוס DC מרכזי מול המרה ליד העומס (point-of-load). מספרים: יעילות בכל שלב, הפסדי I²R בכבלים, משקל, ונקודות כשל."
 }
 ]
 },
@@ -15314,6 +15386,13 @@
 "imp": "K",
 "k": "new",
 "teach": "stack-up ובחירת חומר, כללי DFM של יצרן (רוחב ומרווח, via, טבעת), DFA ו-DFT (נקודות בדיקה, JTAG, ICT), פאנליזציה ותשואה."
+},
+{
+"id": "R9:CASE:P11",
+"n": "Architecture case: partitioning a board and a box (power, signal integrity, EMC)",
+"imp": "S",
+"k": "new",
+"teach": "מקרה סוגר לחלק: חלוקה ללוחות ולמודולים. החלטה: לוח אחד צפוף מול כמה לוחות עם מחברים (עלות מחבר, שלמות אות, החלפה בשטח), והפרדת הספק מאות. מספרים: עלות פר מחבר, אובדן החדרה, ו-MTBF."
 }
 ]
 },
@@ -15614,6 +15693,13 @@
 "k": "deepen",
 "teach": "התאמת סטריאו, cost volume ושגיאת עומק Z²/(fB).",
 "on": "M19.10 · Camera models, calibration, stereo, epipolar geometry"
+},
+{
+"id": "R9:CASE:P19",
+"n": "Architecture case: robot software architecture on ROS 2 and DDS",
+"imp": "S",
+"k": "new",
+"teach": "מקרה סוגר לחלק: חלוקה לצמתים, QoS לכל נושא (חיישן best effort, פקודה reliable), ותקציב שיהוי בלולאת התפיסה-תכנון-ביצוע. קישור ל-M22.20."
 }
 ]
 },
@@ -16160,6 +16246,13 @@
 "imp": "S",
 "k": "new",
 "teach": "נעילת JTAG ו-SWD, עדכון קושחה חתום, ושחזור מכשל."
+},
+{
+"id": "R9:CASE:P28",
+"n": "Architecture case: hardware-software partitioning of a secure embedded computer",
+"imp": "S",
+"k": "new",
+"teach": "מקרה סוגר לחלק: מה ב-FPGA, מה במעבד ומה ב-root of trust. מספרים: שיהוי, הספק, עלות אימות ושינוי, ושטח ההתקפה."
 }
 ]
 },
@@ -16542,6 +16635,13 @@
 "imp": "K",
 "k": "new",
 "teach": "תפיסה, חיזוי ותכנון ברכב אוטונומי, end-to-end מול מודולרי, ובטיחות (ISO 26262, SOTIF)."
+},
+{
+"id": "R9:CASE:P29",
+"n": "Architecture case: serving a model at scale (batching, caching, cost per token)",
+"imp": "S",
+"k": "new",
+"teach": "מקרה סוגר לחלק: שרת הסקה. ההחלטות: גודל batch מול שיהוי (תורים, M22.18), KV-cache, דחיסה, ובחירת מודל לפי עלות לטוקן. מספרים: טוקנים לשנייה ל-GPU, p99, ועלות לאלף בקשות."
 }
 ]
 },
@@ -17169,6 +17269,13 @@
 "imp": "C",
 "k": "new",
 "teach": "SUBSAFE, מילוט וחילוץ."
+},
+{
+"id": "R9:CASE:P30",
+"n": "Architecture case: open combat-system architecture on a ship",
+"imp": "S",
+"k": "new",
+"teach": "מקרה סוגר לחלק: מערכת שליטה ובקרה ימית בארכיטקטורה פתוחה (כמו Aegis בעידן open architecture) מול סגורה של ספק. מספרים: עלות שדרוג, זמן הכנסת חיישן חדש, ותלות בספק."
 }
 ]
 },
@@ -18318,6 +18425,13 @@
 "imp": "S",
 "k": "new",
 "teach": "הספק מול אנרגיה (MW מול MWh, משך בשעות) ויעילות הלוך-חזור. השירותים: תגובת תדר מהירה, ארביטראז', דחיית השקעה ברשת, black start. הזדקנות לפי עומק פריקה, קצב וטמפרטורה, וההשפעה על עלות האגירה (LCOS). BMS ברמת המערכת, thermal runaway והתפשטותו בין תאים (UL 9540A, NFPA 855)."
+},
+{
+"id": "R9:CASE:P13",
+"n": "Architecture case: grid-scale storage siting and sizing as a system decision",
+"imp": "S",
+"k": "new",
+"teach": "מקרה סוגר לחלק: איפה ממקמים אגירה ובאיזה גודל (במרכז, ליד יצרן, ליד צרכן). מספרים: עלות לקוט\"ש, מחזורי חיים, יעילות הלוך-חזור, ותועלת ברשת."
 }
 ]
 },
@@ -18336,6 +18450,669 @@
 "imp": "K",
 "k": "new",
 "teach": "סימולציית 6-DOF של כלי: משוואות התנועה, קוואטרניונים, מודלים אווירודינמיים מטבלאות, מודלי חיישנים ומפעילים. ריצות Monte Carlo על פיזור פרמטרים כדי להעריך ביצועים ומרווחים. השרשרת מהמודל לחומרה: model-, software- ו-hardware-in-the-loop, ומה כל שלב מוכיח ומה לא."
+},
+{
+"id": "R9:CASE:P15",
+"n": "Architecture case: federated vs integrated modular avionics (IMA)",
+"imp": "S",
+"k": "new",
+"teach": "מקרה סוגר לחלק: קופסה לכל פונקציה מול מחשבים משותפים עם חלוקה (ARINC 653) ורשת AFDX. מספרים: משקל וחיווט שנחסכו, עלות הסמכה לכל שינוי, ובידוד כשלים. קישור לקונווי: מי הבעלים של הפלטפורמה."
+}
+]
+},
+"M27.12": {
+"items": [
+{
+"id": "R9:M27.12:1",
+"n": "Architecture as the set of decisions that are expensive to change",
+"imp": "K",
+"k": "new",
+"teach": "ארכיטקטורה = ההחלטות המוקדמות שקובעות את רוב הביצועים, העלות והגמישות, והכי יקרות לשינוי. ספר החלטות (decision ledger): לכל החלטה החלופות, מה מרוויחים, מה משלמים, והמספר שמכריע. סדר גודל: כ-70%-80% מעלות מחזור החיים ננעלים בשלב הקונספט, בעוד שהוצאו בו כ-5%-10% מהתקציב."
+},
+{
+"id": "R9:M27.12:2",
+"n": "Form, function and the mapping between them (Crawley)",
+"imp": "K",
+"k": "new",
+"teach": "פונקציה = תהליך + אופרנד (מה המערכת עושה ולמה), צורה = אובייקטים ויחסים (ממה היא בנויה). ארכיטקטורה היא המיפוי בין שתיהן. תרגיל: לפרק מכ\"ם או רחפן לפונקציה ולצורה ולמצוא איפה פונקציה אחת מפוזרת על כמה רכיבים (שם הממשקים כואבים)."
+},
+{
+"id": "R9:M27.12:3",
+"n": "Concept selection: the concept space, morphological matrix and the tradespace",
+"imp": "K",
+"k": "new",
+"teach": "קונספט = בחירת פתרון לכל החלטה מרכזית. מטריצה מורפולוגית: החלטות כשורות, חלופות כעמודות; 5 החלטות עם 3 חלופות = 243 קונספטים. סינון לפי אילוצים, ואז tradespace: ערך מול עלות וחזית פרטו. הפשרה: לחקור הרבה קונספטים בזול מוקדם עדיף על אופטימיזציה מדויקת של קונספט אחד."
+},
+{
+"id": "R9:M27.12:4",
+"n": "Modular vs integral product architecture (Ulrich)",
+"imp": "K",
+"k": "new",
+"teach": "מודולרית: מיפוי אחד-לאחד בין פונקציות לרכיבים וממשקים מנותקים; אינטגרלית: מיפוי מורכב וממשקים צמודים. מודולרית קונה גיוון, החלפה ופיתוח מקביל; אינטגרלית קונה ביצועי שיא, משקל ונפח (למשל מבנה מטוס קרב מול רכב מסחרי). ההחלטה תלויה במה שמוכרים: ביצועים או שינוי."
+},
+{
+"id": "R9:M27.12:5",
+"n": "Heuristics of architecting (Maier & Rechtin)",
+"imp": "S",
+"k": "new",
+"teach": "היוריסטיקות כידע דחוס מכשלים: 'בחר אלמנטים כך שיהיו בלתי תלויים ככל האפשר', 'אל תניח שההצהרה המקורית של הבעיה נכונה', 'מערכת שמתפקדת נבנתה מתוך מערכת פשוטה שתפקדה' (חוק Gall). לכל היוריסטיקה: מתי היא נכונה ומתי היא מטעה."
+}
+],
+"reading": [
+{
+"id": "R9:RD01",
+"t": "System Architecture: Strategy and Product Development for Complex Systems",
+"a": "E. Crawley, B. Cameron, D. Selva",
+"o": "Pearson",
+"y": 2015,
+"u": "https://www.pearson.com/en-us/subject-catalog/p/system-architecture-strategy-and-product-development-for-complex-systems/P200000003386",
+"core": false,
+"why": "The textbook behind ESD.34; the lecture notes in the library are its earlier form.",
+"focus": "Ch. 1-2, 4-6, 11-12 (form, function, concept, decisions, tradespace).",
+"st": "rough",
+"pay": 1
+},
+{
+"id": "R9:RD02",
+"t": "The Art of Systems Architecting, 3rd ed.",
+"a": "M. Maier, E. Rechtin",
+"o": "CRC Press",
+"y": 2009,
+"u": "https://www.routledge.com/The-Art-of-Systems-Architecting/Maier/p/book/9781420079135",
+"core": false,
+"why": "The heuristics of architecting, with cases.",
+"focus": "Part I ch. 1-2, Appendix A (heuristics).",
+"st": "rough",
+"pay": 1
+}
+]
+},
+"M27.13": {
+"items": [
+{
+"id": "R9:M27.13:1",
+"n": "Information hiding: decompose by the decisions likely to change (Parnas)",
+"imp": "K",
+"k": "new",
+"teach": "פרנס 1972: לא לפרק לפי שלבי העיבוד (תרשים זרימה) אלא כך שכל מודול מסתיר החלטה אחת שעשויה להשתנות. דוגמת KWIC: שני פירוקים עם אותה פונקציונליות, ומה עולה כל שינוי (פורמט אחסון, אלגוריתם) בכל אחד. מדד: כמה מודולים נוגע בהם כל שינוי סביר."
+},
+{
+"id": "R9:M27.13:2",
+"n": "Design structure matrix: building, partitioning and clustering",
+"imp": "K",
+"k": "deepen",
+"on": "M27.2 · Modularity, coupling, design structure matrices",
+"teach": "DSM: מטריצה N×N של תלויות בין רכיבים או משימות. סידור משולש תחתון מגלה סדר; בלוקים מעל האלכסון הם לולאות איטרציה; אשכול מגלה מודולים. תרגיל: DSM של 8-10 רכיבים של מערכת אמיתית, ומדידת propagation cost (החלק מהמערכת ששינוי ממוצע נוגע בו)."
+},
+{
+"id": "R9:M27.13:3",
+"n": "Interfaces as the architecture: ICDs, N-squared diagrams, interface ownership",
+"imp": "K",
+"k": "new",
+"teach": "רוב הכשלים באינטגרציה הם בממשקים. דיאגרמת N² ו-ICD: מה עובר (אות, נתון, כוח, חום), באיזה פורמט ובאיזה תחום ערכים, ומי הבעלים של כל צד. Mars Climate Orbiter: ממשק יחידות בלי בעלים, 327 מיליון דולר. ההחלטה: ממשק סטנדרטי (יציב, איטי לשינוי) מול ממשק ייעודי (מיטבי, נעול)."
+},
+{
+"id": "R9:M27.13:4",
+"n": "Conway's law: the system copies the communication structure of the organization",
+"imp": "K",
+"k": "new",
+"teach": "קונווי 1968: ארגון שמתכנן מערכת יפיק תכן שמעתיק את מבנה התקשורת שלו. מכאן: לבחור את מבנה הצוותים יחד עם הארכיטקטורה ('inverse Conway maneuver'), ולשים לב שממשק בין שני ספקים הוא גם ממשק חוזי, ועולה פי כמה לשנות."
+},
+{
+"id": "R9:M27.13:5",
+"n": "Brooks: essential vs accidental complexity, and Brooks's law",
+"imp": "K",
+"k": "new",
+"teach": "No Silver Bullet: המורכבות המהותית (מה המערכת צריכה לעשות) לא נעלמת עם כלים; כלים מורידים רק את המקרית. חוק ברוקס: הוספת אנשים לפרויקט מאחר מאחרת אותו יותר; ערוצי תקשורת גדלים כ-n(n-1)/2 (10 אנשים = 45 ערוצים). בעידן ה-AI: כתיבת הקוד זולה, וההחלטות על המהות נשארות צוואר הבקבוק."
+},
+{
+"id": "R9:M27.13:6",
+"n": "Architecture failure cases: where decomposition and interfaces broke",
+"imp": "S",
+"k": "new",
+"teach": "Ariane 5 (שימוש חוזר במודול ניווט עם הנחת טווח שהשתנתה: הסתרת מידע הפוכה), Mars Climate Orbiter (ממשק יחידות), Boeing 737 MAX (חיישן יחיד ל-MCAS: ממשק בין תת-מערכות שעקף את ניתוח הבטיחות), F-35 ALIS (ארכיטקטורת תוכנה מרכזית שקבעה עלות תפעול). לכל מקרה: ההחלטה, החלופה, והמחיר."
+}
+],
+"reading": [
+{
+"id": "R9:RD03",
+"t": "Design Structure Matrix Methods and Applications",
+"a": "S. Eppinger, T. Browning",
+"o": "MIT Press",
+"y": 2012,
+"u": "https://mitpress.mit.edu/9780262017527/design-structure-matrix-methods-and-applications/",
+"core": false,
+"why": "The reference for DSM: product, organization and process DSMs with cases.",
+"focus": "Ch. 1-3.",
+"st": "rough",
+"pay": 1
+},
+{
+"id": "R9:RD04",
+"t": "The Mythical Man-Month, Anniversary ed.",
+"a": "F. Brooks",
+"o": "Addison-Wesley",
+"y": 1995,
+"u": "https://www.informit.com/store/mythical-man-month-essays-on-software-engineering-anniversary-9780201835953",
+"core": false,
+"why": "Brooks's law and conceptual integrity, in the original.",
+"focus": "Ch. 2, 4, 7, 16-17.",
+"st": "rough",
+"pay": 1
+}
+]
+},
+"M22.17": {
+"items": [
+{
+"id": "R9:M22.17:1",
+"n": "Coupling and cohesion, and deep modules",
+"imp": "K",
+"k": "new",
+"teach": "צימוד (כמה מודול יודע על אחרים) ולכידות (כמה החלקים שלו שייכים יחד). מודול עמוק: ממשק קטן שמסתיר מימוש גדול (מערכת קבצים: open/read/write/close מעל אלפי שורות). החלטה: ממשק רחב וגמיש מול ממשק צר ויציב; המחיר נמדד במספר הקוראים שישתנו."
+},
+{
+"id": "R9:M22.17:2",
+"n": "Interface contracts: preconditions, invariants, error semantics, Hyrum's law",
+"imp": "K",
+"k": "new",
+"teach": "חוזה = מה מובטח (טיפוסים, תחומי ערכים, זמני תגובה, התנהגות בשגיאה). חוק הירום: עם מספיק משתמשים, כל התנהגות נצפית של הממשק תהפוך לתלות של מישהו, גם אם לא הובטחה. לכן לצמצם התנהגות נצפית ולבדוק את החוזה בבדיקות."
+},
+{
+"id": "R9:M22.17:3",
+"n": "Dependency and version management: semantic versioning, diamond dependencies, monorepo vs polyrepo",
+"imp": "K",
+"k": "new",
+"teach": "SemVer מבטיח תאימות שאיש לא בודק; תלות יהלום (A תלוי ב-B ו-C, שתלויים בגרסאות שונות של D) אין לה פתרון כללי. Google: monorepo וגרסה אחת לכל ספרייה ('live at head') מול רוב העולם: polyrepo עם גרסאות נעולות. הפשרה: עלות שדרוג רציפה וקטנה מול שדרוג נדיר וכואב."
+},
+{
+"id": "R9:M22.17:4",
+"n": "API evolution and compatibility: backward/forward compatibility, schema evolution",
+"imp": "K",
+"k": "new",
+"teach": "שדות אופציונליים, מספור שדות קבוע (protobuf), הוספה בלי מחיקה, ו-deprecation עם תאריך. בתקשורת בין מערכות (כמו Link 16 ו-VMF בלנצ'סטר) שדרוג לא יכול להיות אטומי: כל צומת חייב לקרוא גם את הגרסה הקודמת."
+},
+{
+"id": "R9:M22.17:5",
+"n": "Complexity as the cost driver; technical debt as a deliberate loan",
+"imp": "S",
+"k": "new",
+"teach": "מורכבות = מה שמקשה להבין ולשנות (תלויות ועמימות). חוב טכני (Cunningham 1992): קיצור דרך הוא הלוואה, והריבית היא כל שינוי עתידי שנוגע בו. החלטה: לקחת חוב כשהזמן לשוק שווה יותר מהריבית, ולרשום אותו כמו כל חוב."
+},
+{
+"id": "R9:M22.17:6",
+"n": "Build vs buy vs open source",
+"imp": "S",
+"k": "new",
+"teach": "לבנות כשהרכיב הוא היתרון התחרותי או כשאין ספק אמין; לקנות או לאמץ קוד פתוח כשהוא commodity. המחיר הנסתר: עלות אינטגרציה ותחזוקה (לרוב גדולה מהרישיון), תלות בספק, ייצוא וסיווג במערכות ביטחוניות."
+}
+],
+"reading": [
+{
+"id": "R9:RD05",
+"t": "Software Engineering at Google",
+"a": "T. Winters, T. Manshreck, H. Wright",
+"o": "O'Reilly (free online edition)",
+"y": 2020,
+"u": "https://abseil.io/resources/swe-book",
+"core": true,
+"why": "Hyrum's law, dependency management and live-at-head from a codebase of billions of lines.",
+"focus": "Ch. 1 (what is software engineering), 21 (dependency management), 22 (large-scale changes).",
+"st": "ok"
+},
+{
+"id": "R9:RD06",
+"t": "The WyCash Portfolio Management System (OOPSLA '92 experience report)",
+"a": "W. Cunningham",
+"o": "",
+"y": 1992,
+"u": "http://c2.com/doc/oopsla92.html",
+"core": true,
+"why": "The original technical-debt metaphor, one page.",
+"focus": "Whole.",
+"st": "ok"
+},
+{
+"id": "R9:RD07",
+"t": "A Philosophy of Software Design, 2nd ed.",
+"a": "J. Ousterhout",
+"o": "Yaknyam Press",
+"y": 2021,
+"u": "https://web.stanford.edu/~ouster/cgi-bin/book.php",
+"core": false,
+"why": "Deep modules, complexity and information hiding, short and modern.",
+"focus": "Ch. 2-6.",
+"st": "rough",
+"pay": 1
+}
+]
+},
+"M23.20": {
+"items": [
+{
+"id": "R9:M23.20:1",
+"n": "The end-to-end argument: where to put a function",
+"imp": "K",
+"k": "new",
+"teach": "פונקציה (אמינות, הצפנה, סדר) שאפשר לממש נכון רק בקצוות צריכה להיות בקצוות; במרכז הרשת היא רק אופטימיזציה לביצועים. דוגמת העברת קובץ זהיר: בדיקה בכל קפיצה לא מחליפה checksum מקצה לקצה. הפשרה: פשטות ויכולת התפתחות של הרשת מול ביצועים מקומיים."
+},
+{
+"id": "R9:M23.20:2",
+"n": "Clark 1988: the internet's goals in priority order and what was traded away",
+"imp": "K",
+"k": "new",
+"teach": "סדר העדיפויות: שרידות מול אובדן רשתות ושערים, תמיכה בשירותים שונים, רשתות שונות, ניהול מבוזר, ורק בסוף עלות, הוספת מארחים קלה וחשבונאות. datagram ו-fate sharing (מצב החיבור בקצוות) נובעים מהמטרה הראשונה; ניהול וחשבונאות חלשים הם המחיר. קשר ישיר לרשתות טקטיות בלנצ'סטר (M15.2)."
+},
+{
+"id": "R9:M23.20:3",
+"n": "Congestion control as a control loop: slow start, AIMD, packet conservation",
+"imp": "K",
+"k": "deepen",
+"on": "M23.12 · The transport layer: congestion control",
+"teach": "Jacobson 1988: קריסת 1986 (תפוקה ירדה פי 1000), ושלושת התיקונים: conservation of packets, slow start, ו-RTT estimation עם שונות. AIMD מתכנס להוגנות; קישור לבקרה (M5.x): לולאת משוב עם השהיה. מספרים: חלון אקספוננציאלי עד ssthresh, ואז +1 MSS לכל RTT."
+},
+{
+"id": "R9:M23.20:4",
+"n": "From loss-based to model-based: BBR and bufferbloat",
+"imp": "K",
+"k": "new",
+"teach": "BBR מודד את רוחב הפס של צוואר הבקבוק ואת ה-RTT המינימלי ושולח בקצב שלהם, במקום לחכות לאובדן. נקודת העבודה האופטימלית (Kleinrock): BDP = BtlBw × RTprop. מחיר: הוגנות מול CUBIC והתנהגות בתורים רדודים. מספרים: חוצץ של שנייה בנתב ביתי = השהיה של שנייה."
+},
+{
+"id": "R9:M23.20:5",
+"n": "QUIC: why move transport to user space over UDP",
+"imp": "K",
+"k": "new",
+"teach": "הסיבות: ossification של TCP ב-middleboxes, head-of-line blocking בין זרמים, ו-handshake של 2-3 RTT עם TLS. QUIC: 0-1 RTT, זרמים עצמאיים, הצפנה של רוב הכותרת ו-connection ID שעובר בין רשתות. המחיר: עלות CPU בשרת הייתה בהתחלה פי 3.5 מ-TLS מעל TCP, וירדה לבערך פי 2 אחרי אופטימיזציה (לפי המאמר), וחסימת UDP ברשתות ארגוניות."
+},
+{
+"id": "R9:M23.20:6",
+"n": "Latency numbers and the bandwidth-delay product",
+"imp": "K",
+"k": "new",
+"teach": "סדרי גודל שמחזיקים בראש: גישה ל-L1 כ-1ns, DRAM כ-100ns, SSD כ-100µs, RTT בתוך מרכז נתונים כ-0.5ms, חוצה יבשת כ-70ms, לוויין גיאוסטציונרי כ-600ms. BDP = קצב × RTT קובע חלון וחוצצים: 10Gb/s × 70ms = 87.5MB בטיסה."
+}
+],
+"reading": [
+{
+"id": "R9:RD08",
+"t": "BBR: Congestion-Based Congestion Control",
+"a": "N. Cardwell, Y. Cheng, C. S. Gunn, S. Hassas Yeganeh, V. Jacobson",
+"o": "ACM Queue 14(5)",
+"y": 2016,
+"u": "https://research.google/pubs/bbr-congestion-based-congestion-control-2/",
+"core": true,
+"why": "Model-based congestion control and the Kleinrock operating point.",
+"focus": "Whole (about 20 pages).",
+"st": "ok"
+}
+]
+},
+"M22.19": {
+"items": [
+{
+"id": "R9:M22.19:1",
+"n": "Happens-before and logical clocks: ordering without a global clock",
+"imp": "K",
+"k": "deepen",
+"on": "M22.16 · Logical time and ordering",
+"teach": "Lamport 1978: יחס happens-before, שעון לוגי וסדר מלא, והמכונה הממוכנת (state machine replication) כרעיון המרכזי. מה זה לא נותן: זיהוי מקביליות (בשביל זה vector clocks)."
+},
+{
+"id": "R9:M22.19:2",
+"n": "Dynamo: availability first, and the techniques that pay for it",
+"imp": "K",
+"k": "new",
+"teach": "החלטה עסקית: עגלת קניות שתמיד כותבת. הטכניקות: consistent hashing, שכפול עם N/R/W (למשל 3/2/2), vector clocks ופתרון התנגשויות אצל הלקוח, hinted handoff, Merkle trees ו-gossip. מדד ההצלחה: p99.9 של זמן תגובה ולא ממוצע."
+},
+{
+"id": "R9:M22.19:3",
+"n": "Spanner and TrueTime: buying consistency with bounded clock uncertainty",
+"imp": "K",
+"k": "new",
+"teach": "TrueTime מחזיר אינטרוול [earliest, latest] עם אי-ודאות ε של כ-1-7ms (GPS ושעונים אטומיים בכל מרכז נתונים). commit wait של כ-2ε נותן external consistency. ההחלטה: לשלם חומרה ושיהוי כתיבה כדי לקנות עקביות גלובלית. קישור ל-PTP (M28.5)."
+},
+{
+"id": "R9:M22.19:4",
+"n": "CAP and PACELC: the honest statement of the trade-off",
+"imp": "K",
+"k": "new",
+"teach": "CAP מדבר רק על זמן חלוקת רשת. PACELC: בחלוקה (P) בוחרים זמינות או עקביות (A/C); אחרת (E) בוחרים שיהוי או עקביות (L/C). Dynamo ו-Cassandra: PA/EL; Spanner: PC/EC. רוב ההחלטות היומיומיות הן בצד L/C."
+},
+{
+"id": "R9:M22.19:5",
+"n": "Consistency models as a contract: linearizable, sequential, causal, eventual, read-your-writes",
+"imp": "K",
+"k": "deepen",
+"on": "M22.16 · Consistency models",
+"teach": "כל מודל הוא חוזה בין אחסון ללקוח, עם מחיר בשיהוי ובזמינות. לבחור את החלש ביותר שהאפליקציה עוד נכונה בו: יתרת חשבון דורשת linearizable, פיד חברתי מסתפק ב-causal."
+},
+{
+"id": "R9:M22.19:6",
+"n": "Idempotency and exactly-once: retries, deduplication keys, the outbox pattern",
+"imp": "K",
+"k": "new",
+"teach": "ברשת לא אמינה שולחים שוב, ולכן כל פעולה צריכה להיות אידמפוטנטית (מפתח בקשה ייחודי ושמירת תוצאה). exactly-once אמיתי לא קיים; יש at-least-once + אידמפוטנטיות. דוגמה: פקודת ירי או חיוב כרטיס שנשלחה פעמיים."
+}
+]
+},
+"M22.18": {
+"items": [
+{
+"id": "R9:M22.18:1",
+"n": "Queueing for architects: Little's law, utilization vs latency",
+"imp": "K",
+"k": "deepen",
+"on": "M7.1 · Poisson process and queueing basics (Little's law)",
+"teach": "L = λW לכל מערכת יציבה. M/M/1: זמן שהייה = 1/(μ-λ), כלומר פי 1/(1-ρ): בניצולת 50% פי 2, ב-80% פי 5, ב-95% פי 20. מכאן: לא לתכנן שרת ל-90% ניצולת אם אכפת מהשיהוי, והחלטת הקיבולת היא החלטה על זנב ולא על ממוצע."
+},
+{
+"id": "R9:M22.18:2",
+"n": "Tail latency and fan-out: hedged and tied requests",
+"imp": "K",
+"k": "new",
+"teach": "בקשה שפונה ל-100 שרתים, שלכל אחד p99 של שנייה, תחכה שנייה ב-63% מהמקרים (1-0.99^100). Dean & Barroso: hedged requests אחרי p95, tied requests, micro-partitioning ו-canary. המחיר: כמה אחוזי עומס נוסף בתמורה לקיצור זנב פי כמה."
+},
+{
+"id": "R9:M22.18:3",
+"n": "Overload: backpressure, load shedding, timeouts, retries with backoff, circuit breakers",
+"imp": "K",
+"k": "new",
+"teach": "מערכת בעומס-יתר שלא דוחה עבודה קורסת: התורים גדלים, timeouts גורמים ל-retries, וה-retries מגדילים את העומס (retry storm). כלים: backpressure (לחסום את המקור), load shedding לפי עדיפות, תקציב retries (למשל עד 10% מהבקשות), exponential backoff עם jitter, ו-circuit breaker. כשל מדורג ב-SRE book פרק 22."
+},
+{
+"id": "R9:M22.18:4",
+"n": "Reliability as a budget: SLIs, SLOs, error budgets, availability arithmetic",
+"imp": "K",
+"k": "new",
+"teach": "99.9% = 43 דקות השבתה בחודש; 99.99% = 4.3 דקות. רכיבים בטור: מכפלת הזמינויות (3 רכיבים של 99.9% = 99.7%); במקביל: 1 פחות מכפלת אי-הזמינויות. error budget הופך את הוויכוח בין מהירות שינוי ליציבות למספר."
+},
+{
+"id": "R9:M22.18:5",
+"n": "Cost models: cost per request, TCO, compute vs storage vs egress",
+"imp": "K",
+"k": "new",
+"teach": "TCO = capex מופחת + חשמל וקירור (PUE) + אנשים. בענן: מחשוב לשעה, אחסון ל-GB לחודש, ותעבורה יוצאת ל-GB (לרוב היקרה מכולן ביחס לגודל). חישוב מבוקש: עלות לבקשה = (עלות חודשית)/(בקשות בחודש), והשוואת שתי ארכיטקטורות (cache מול עוד שרתים) במספר אחד."
+},
+{
+"id": "R9:M22.18:6",
+"n": "Warehouse-scale computers: the datacenter as one machine",
+"imp": "S",
+"k": "new",
+"teach": "מרכז נתונים כמחשב אחד: היררכיית אחסון ורשת, כשלים כאירוע שגרתי (עם 10,000 שרתים, כמה נכשלים כל יום), ותוכנה שמניחה כשל. מדדי יעילות: PUE של כ-1.1 בגוגל מול כ-1.5-1.6 בממוצע בתעשייה."
+}
+],
+"reading": [
+{
+"id": "R9:RD09",
+"t": "Site Reliability Engineering: How Google Runs Production Systems",
+"a": "B. Beyer, C. Jones, J. Petoff, N. Murphy (eds.)",
+"o": "O'Reilly (free online edition)",
+"y": 2016,
+"u": "https://sre.google/sre-book/table-of-contents/",
+"core": true,
+"why": "Error budgets, SLOs, overload and cascading failures, from practice.",
+"focus": "Ch. 3 (embracing risk), 4 (SLOs), 21 (handling overload), 22 (cascading failures).",
+"st": "ok"
+},
+{
+"id": "R9:RD10",
+"t": "AWS Well-Architected Framework: Cost Optimization Pillar",
+"a": "Amazon Web Services",
+"o": "",
+"y": 2026,
+"u": "https://docs.aws.amazon.com/pdfs/wellarchitected/latest/cost-optimization-pillar/wellarchitected-cost-optimization-pillar.pdf",
+"core": false,
+"why": "A vendor's cost model: compute, storage, data transfer and how to measure cost per workload.",
+"focus": "Design principles; cost-effective resources; data transfer.",
+"st": "ok"
+},
+{
+"id": "R9:RD11",
+"t": "Designing Data-Intensive Applications, 2nd ed.",
+"a": "M. Kleppmann, C. Riccomini",
+"o": "O'Reilly",
+"y": 2025,
+"u": "https://www.oreilly.com/library/view/designing-data-intensive-applications/9781098119058/",
+"core": false,
+"why": "The standard book on data systems; the library has Kleppmann's free lecture notes (W05) instead.",
+"focus": "Ch. 1-2, 5-9.",
+"st": "blocked",
+"pay": 1
+},
+{
+"id": "R9:RD12",
+"t": "The Architecture of Open Source Applications, vols. I-II",
+"a": "A. Brown, G. Wilson (eds.)",
+"o": "CC BY 3.0",
+"y": 2012,
+"u": "https://aosabook.org/en/",
+"core": false,
+"why": "Real architectures explained by their builders; material for architecture reviews.",
+"focus": "Chosen chapters per case (e.g. nginx, Riak, ZeroMQ).",
+"st": "ok"
+}
+]
+},
+"M22.20": {
+"items": [
+{
+"id": "R9:M22.20:1",
+"n": "Data-centric publish/subscribe: topics, global data space, no broker (DDS)",
+"imp": "K",
+"k": "new",
+"teach": "DDS: המשתתפים מפרסמים ומנויים לנושאים במרחב נתונים משותף, גילוי אוטומטי ובלי שרת מרכזי (RTPS מעל UDP multicast). למה מערכות לחימה (Aegis, ROS 2, FACE) בוחרות בו: אין נקודת כשל יחידה, ושיהוי של עשרות מיקרו-שניות ברשת מקומית. המחיר: מורכבות QoS ותעבורת גילוי שגדלה עם מספר המשתתפים."
+},
+{
+"id": "R9:M22.20:2",
+"n": "QoS policies as interface contracts: reliability, durability, deadline, liveliness, ownership, history",
+"imp": "K",
+"k": "new",
+"teach": "כל QoS הוא סעיף בחוזה בין כותב לקורא, ונבדק בהתאמה (requested/offered). דוגמאות: מסלול מטרה עם deadline של 100ms ו-ownership לפי עוצמה (חיישן גיבוי משתלט), מול פקודת ירי עם reliable + transient_local. בחירה שגויה = אין חיבור, בלי שגיאה בולטת."
+},
+{
+"id": "R9:M22.20:3",
+"n": "MQTT: broker-based pub/sub for constrained links, QoS 0/1/2",
+"imp": "K",
+"k": "new",
+"teach": "MQTT מעל TCP עם broker: QoS 0 (לכל היותר פעם), 1 (לפחות פעם, צריך אידמפוטנטיות), 2 (בדיוק פעם, 4 הודעות). retained messages, last will, ו-keep alive. מתאים לחיישנים על קישורים צרים; ה-broker הוא נקודת כשל וצוואר בקבוק, ושיהוי גדל ב-RTT לכל QoS."
+},
+{
+"id": "R9:M22.20:4",
+"n": "Choosing middleware: DDS vs MQTT vs gRPC vs message queues",
+"imp": "K",
+"k": "new",
+"teach": "טבלת החלטה: מבוזר בלי broker מול broker; זמן אמת מול throughput; request/response מול זרם; גילוי אוטומטי מול כתובות קבועות; הצפנה ואימות (DDS Security, TLS). מספרים לכל אחד: שיהוי טיפוסי, עומס כותרות, ומה קורה בניתוק."
+},
+{
+"id": "R9:M22.20:5",
+"n": "Time as an architectural service: PTP, timestamps, ordering across nodes",
+"imp": "S",
+"k": "deepen",
+"on": "M28.5 · PTP clock sync",
+"teach": "סנכרון PTP לתת-מיקרו-שנייה ברשת עם תמיכת חומרה, מול NTP במילי-שניות. החלטה: מי צריך זמן מוחלט (היתוך חיישנים, TDMA של Link 16) ומי מסתפק בסדר לוגי. קישור ל-TrueTime (M22.19)."
+}
+],
+"reading": [
+{
+"id": "R9:RD13",
+"t": "Real-time Publish-Subscribe Protocol DDS Interoperability Wire Protocol (DDSI-RTPS) 2.5",
+"a": "OMG",
+"o": "",
+"y": 2022,
+"u": "https://www.omg.org/spec/DDSI-RTPS/",
+"core": false,
+"why": "The wire protocol under DDS: discovery and reliability over UDP.",
+"focus": "Ch. 8.1-8.4 (behavior), 8.5 (discovery).",
+"st": "rough"
+}
+]
+},
+"M27.16": {
+"items": [
+{
+"id": "R9:M27.16:1",
+"n": "Modularity as economics: option value of modules (Baldwin & Clark)",
+"imp": "K",
+"k": "new",
+"teach": "מודולריות יוצרת אופציות: כל מודול אפשר להחליף בגרסה טובה יותר בלי לגעת באחרים, וערך האופציה גדל עם אי-הוודאות. ששת האופרטורים: פיצול, החלפה, הוספה, הוצאה, הפיכה (inversion) והעברה (porting). המחיר: עלות קביעת חוקי התכן (design rules) מראש, והפסד ביצועים בגבולות."
+},
+{
+"id": "R9:M27.16:2",
+"n": "The mirroring hypothesis: product architecture mirrors organization, and its exceptions",
+"imp": "K",
+"k": "new",
+"teach": "MacCormack, Rusnak & Baldwin: מוצרים של צוותים מפוזרים (קוד פתוח) מודולריים יותר מאלה של צוותים צמודים, עם propagation cost נמוך בהרבה. Colfer & Baldwin: השיקוף נפוץ אבל לא אוניברסלי; בתעשיות שמשתנות מהר עדיף שיקוף חלקי (ידע רחב מהגבול התפעולי)."
+},
+{
+"id": "R9:M27.16:3",
+"n": "Architectural innovation (Henderson & Clark): why incumbents miss reconfigurations",
+"imp": "K",
+"k": "new",
+"teach": "ארבעה סוגי חדשנות: אינקרמנטלית, מודולרית, ארכיטקטונית (אותם רכיבים, קישור חדש) ורדיקלית. ארגון מוטמע בארכיטקטורה הקיימת דרך ערוצי התקשורת שלו ולא רואה שינוי בקישורים (מקרה המצלמות photolithographic aligners). קישור לקונווי."
+},
+{
+"id": "R9:M27.16:4",
+"n": "Team structure and coordination cost: team topologies, cognitive load, cross-team dependencies",
+"imp": "K",
+"k": "new",
+"teach": "ארבעה סוגי צוותים (stream-aligned, platform, enabling, complicated-subsystem) ושלושה אופני אינטראקציה. כל תלות בין צוותים היא תור: אם צוות מחכה לאחר 30% מהזמן, הזרימה נקבעת בתור הזה. מדד: מספר התלויות החוצות לכל פיצ'ר."
+},
+{
+"id": "R9:M27.16:5",
+"n": "Product development flow: queues, batch size, cost of delay (Reinertsen)",
+"imp": "K",
+"k": "new",
+"teach": "במוצר, העבודה שמחכה בתור בלתי נראית. מחיר עיכוב (cost of delay) בכסף לשבוע הופך עדיפויות למספר; WSJF = cost of delay / משך. גודל אצווה קטן מקצר זמן מחזור ומגלה שגיאות מוקדם; ניצולת גבוהה של צוות מאריכה תורים בדיוק כמו בשרת (M22.18)."
+},
+{
+"id": "R9:M27.16:6",
+"n": "Platform strategy, supplier dependencies and build vs buy at system level",
+"imp": "S",
+"k": "new",
+"teach": "פלטפורמה: ליבה משותפת עם ממשקים יציבים ומגוון מעליה (אוטובוס MIL-STD-1553, משפחת מטוסים, ROS 2). ממשק עם ספק הוא חוזה: ממשק בבעלות הלקוח (government-owned interface, MOSA) מול נעילת ספק. ההחלטה נמדדת בעלות החלפה עתידית."
+},
+{
+"id": "R9:M27.16:7",
+"n": "Technical debt as a business decision, and strategy mapping (Wardley)",
+"imp": "S",
+"k": "new",
+"teach": "חוב טכני נרשם עם קרן וריבית ומוחזר כשהריבית עולה על הערך (Cunningham; Sculley למערכות ML, M17.12). מפת Wardley: רכיבים לפי שרשרת ערך ומידת אבולוציה (genesis, custom, product, commodity); את מה שהפך ל-commodity קונים, ואת היתרון בונים."
+}
+],
+"reading": [
+{
+"id": "R9:RD14",
+"t": "Architectural Innovation: The Reconfiguration of Existing Product Technologies and the Failure of Established Firms",
+"a": "R. Henderson, K. Clark",
+"o": "Administrative Science Quarterly 35(1)",
+"y": 1990,
+"u": "https://doi.org/10.2307/2393549",
+"core": true,
+"why": "Why firms miss changes in how components are linked.",
+"focus": "Whole.",
+"st": "doi",
+"pay": 1
+},
+{
+"id": "R9:RD15",
+"t": "The mirroring hypothesis: theory, evidence, and exceptions",
+"a": "L. Colfer, C. Baldwin",
+"o": "Industrial and Corporate Change 25(5)",
+"y": 2016,
+"u": "https://doi.org/10.1093/icc/dtw027",
+"core": true,
+"why": "When product architecture mirrors the organization and when partial mirroring is better.",
+"focus": "Sections 1-4, 7.",
+"st": "doi",
+"pay": 1
+},
+{
+"id": "R9:RD16",
+"t": "Design Rules, Vol. 1: The Power of Modularity",
+"a": "C. Baldwin, K. Clark",
+"o": "MIT Press",
+"y": 2000,
+"u": "https://mitpress.mit.edu/9780262024662/design-rules/",
+"core": false,
+"why": "Modularity as option value; the six modular operators.",
+"focus": "Ch. 3, 9-13.",
+"st": "rough",
+"pay": 1
+},
+{
+"id": "R9:RD17",
+"t": "The Principles of Product Development Flow",
+"a": "D. Reinertsen",
+"o": "Celeritas",
+"y": 2009,
+"u": "https://www.celeritaspublishing.com/",
+"core": false,
+"why": "Queues, batch size and cost of delay in development.",
+"focus": "Ch. 2-5.",
+"st": "rough",
+"pay": 1
+},
+{
+"id": "R9:RD18",
+"t": "Team Topologies",
+"a": "M. Skelton, M. Pais",
+"o": "IT Revolution",
+"y": 2019,
+"u": "https://teamtopologies.com/book",
+"core": false,
+"why": "Team types, interaction modes and cognitive load, the practical inverse Conway.",
+"focus": "Ch. 2, 4-7.",
+"st": "rough",
+"pay": 1
+},
+{
+"id": "R9:RD19",
+"t": "Wardley Maps (CC BY-SA 4.0)",
+"a": "S. Wardley",
+"o": "",
+"y": 2018,
+"u": "https://medium.com/wardleymaps/on-being-lost-2ef5f05eb1ec",
+"core": false,
+"why": "Mapping a value chain against evolution; what to build and what to buy.",
+"focus": "Ch. 1-4.",
+"st": "blocked"
+}
+]
+},
+"M27.17": {
+"items": [
+{
+"id": "R9:M27.17:1",
+"n": "Capstone: architect a counter-UAS or sensing system end to end",
+"imp": "K",
+"k": "new",
+"teach": "מקרה אחד שלם: דרישות וערך, קונספטים במטריצה מורפולוגית, פירוק ו-DSM, ממשקים ו-ICD, בחירת תווכה ורשת (DDS/TSN מול IP), תקציב שיהוי מהחיישן לשיגור, זמינות ותקציב שגיאה, עלות מחזור חיים ומבנה צוותים וספקים. התוצר: ספר החלטות של 10-15 החלטות עם המספרים."
+},
+{
+"id": "R9:M27.17:2",
+"n": "Architecture review: questions a senior architect asks",
+"imp": "K",
+"k": "new",
+"teach": "מה ההחלטות היקרות לשינוי ומי הבעלים שלהן; איפה הממשקים בין ארגונים; מה קורה בכשל של כל רכיב ובעומס פי 10; מה הזנב (p99) ולא הממוצע; מה עלות לבקשה או לשעת טיסה; מה החוב שנלקח ומתי מחזירים. תרגול: ביקורת על ארכיטקטורה אמיתית שפורסמה (AOSA)."
+},
+{
+"id": "R9:M27.17:3",
+"n": "Communicating architecture: views, trade-off tables and the one-page decision",
+"imp": "S",
+"k": "new",
+"teach": "תצוגות לפי קהל (מבצעית, פונקציונלית, פיזית, ארגונית), טבלת trade-off עם המספרים, ועמוד החלטה אחד למנהל: מה מחליטים, מה החלופות, מה המחיר, ומה הסיכון. קישור ל-SysML v2 (M27.10)."
+}
+]
+},
+"M17.16": {
+"items": [
+{
+"id": "R9:CASE:P17",
+"n": "Architecture case: ML system architecture and its hidden debt",
+"imp": "S",
+"k": "new",
+"teach": "מקרה סוגר לחלק: מערכת ML בייצור. ההחלטות: feature store, אימון מחדש, ניטור drift, ומי הבעלים של הנתונים. Sculley: הקוד של המודל הוא חלק קטן מהמערכת, והחוב בצנרת. מספרים: עלות אימון מחדש, שיהוי הסקה, ותדירות שינוי בנתונים."
 }
 ]
 }
