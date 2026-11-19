@@ -18497,34 +18497,6 @@
 "k": "new",
 "teach": "היוריסטיקות כידע דחוס מכשלים: 'בחר אלמנטים כך שיהיו בלתי תלויים ככל האפשר', 'אל תניח שההצהרה המקורית של הבעיה נכונה', 'מערכת שמתפקדת נבנתה מתוך מערכת פשוטה שתפקדה' (חוק Gall). לכל היוריסטיקה: מתי היא נכונה ומתי היא מטעה."
 }
-],
-"reading": [
-{
-"id": "R9:RD01",
-"t": "System Architecture: Strategy and Product Development for Complex Systems",
-"a": "E. Crawley, B. Cameron, D. Selva",
-"o": "Pearson",
-"y": 2015,
-"u": "https://www.pearson.com/en-us/subject-catalog/p/system-architecture-strategy-and-product-development-for-complex-systems/P200000003386",
-"core": false,
-"why": "The textbook behind ESD.34; the lecture notes in the library are its earlier form.",
-"focus": "Ch. 1-2, 4-6, 11-12 (form, function, concept, decisions, tradespace).",
-"st": "rough",
-"pay": 1
-},
-{
-"id": "R9:RD02",
-"t": "The Art of Systems Architecting, 3rd ed.",
-"a": "M. Maier, E. Rechtin",
-"o": "CRC Press",
-"y": 2009,
-"u": "https://www.routledge.com/The-Art-of-Systems-Architecting/Maier/p/book/9781420079135",
-"core": false,
-"why": "The heuristics of architecting, with cases.",
-"focus": "Part I ch. 1-2, Appendix A (heuristics).",
-"st": "rough",
-"pay": 1
-}
 ]
 },
 "M27.13": {
@@ -18571,34 +18543,6 @@
 "imp": "S",
 "k": "new",
 "teach": "Ariane 5 (שימוש חוזר במודול ניווט עם הנחת טווח שהשתנתה: הסתרת מידע הפוכה), Mars Climate Orbiter (ממשק יחידות), Boeing 737 MAX (חיישן יחיד ל-MCAS: ממשק בין תת-מערכות שעקף את ניתוח הבטיחות), F-35 ALIS (ארכיטקטורת תוכנה מרכזית שקבעה עלות תפעול). לכל מקרה: ההחלטה, החלופה, והמחיר."
-}
-],
-"reading": [
-{
-"id": "R9:RD03",
-"t": "Design Structure Matrix Methods and Applications",
-"a": "S. Eppinger, T. Browning",
-"o": "MIT Press",
-"y": 2012,
-"u": "https://mitpress.mit.edu/9780262017527/design-structure-matrix-methods-and-applications/",
-"core": false,
-"why": "The reference for DSM: product, organization and process DSMs with cases.",
-"focus": "Ch. 1-3.",
-"st": "rough",
-"pay": 1
-},
-{
-"id": "R9:RD04",
-"t": "The Mythical Man-Month, Anniversary ed.",
-"a": "F. Brooks",
-"o": "Addison-Wesley",
-"y": 1995,
-"u": "https://www.informit.com/store/mythical-man-month-essays-on-software-engineering-anniversary-9780201835953",
-"core": false,
-"why": "Brooks's law and conceptual integrity, in the original.",
-"focus": "Ch. 2, 4, 7, 16-17.",
-"st": "rough",
-"pay": 1
 }
 ]
 },
@@ -18671,19 +18615,6 @@
 "why": "The original technical-debt metaphor, one page.",
 "focus": "Whole.",
 "st": "ok"
-},
-{
-"id": "R9:RD07",
-"t": "A Philosophy of Software Design, 2nd ed.",
-"a": "J. Ousterhout",
-"o": "Yaknyam Press",
-"y": 2021,
-"u": "https://web.stanford.edu/~ouster/cgi-bin/book.php",
-"core": false,
-"why": "Deep modules, complexity and information hiding, short and modern.",
-"focus": "Ch. 2-6.",
-"st": "rough",
-"pay": 1
 }
 ]
 },
@@ -18868,19 +18799,6 @@
 "st": "ok"
 },
 {
-"id": "R9:RD11",
-"t": "Designing Data-Intensive Applications, 2nd ed.",
-"a": "M. Kleppmann, C. Riccomini",
-"o": "O'Reilly",
-"y": 2025,
-"u": "https://www.oreilly.com/library/view/designing-data-intensive-applications/9781098119058/",
-"core": false,
-"why": "The standard book on data systems; the library has Kleppmann's free lecture notes (W05) instead.",
-"focus": "Ch. 1-2, 5-9.",
-"st": "blocked",
-"pay": 1
-},
-{
 "id": "R9:RD12",
 "t": "The Architecture of Open Source Applications, vols. I-II",
 "a": "A. Brown, G. Wilson (eds.)",
@@ -19002,71 +18920,6 @@
 ],
 "reading": [
 {
-"id": "R9:RD14",
-"t": "Architectural Innovation: The Reconfiguration of Existing Product Technologies and the Failure of Established Firms",
-"a": "R. Henderson, K. Clark",
-"o": "Administrative Science Quarterly 35(1)",
-"y": 1990,
-"u": "https://doi.org/10.2307/2393549",
-"core": true,
-"why": "Why firms miss changes in how components are linked.",
-"focus": "Whole.",
-"st": "doi",
-"pay": 1
-},
-{
-"id": "R9:RD15",
-"t": "The mirroring hypothesis: theory, evidence, and exceptions",
-"a": "L. Colfer, C. Baldwin",
-"o": "Industrial and Corporate Change 25(5)",
-"y": 2016,
-"u": "https://doi.org/10.1093/icc/dtw027",
-"core": true,
-"why": "When product architecture mirrors the organization and when partial mirroring is better.",
-"focus": "Sections 1-4, 7.",
-"st": "doi",
-"pay": 1
-},
-{
-"id": "R9:RD16",
-"t": "Design Rules, Vol. 1: The Power of Modularity",
-"a": "C. Baldwin, K. Clark",
-"o": "MIT Press",
-"y": 2000,
-"u": "https://mitpress.mit.edu/9780262024662/design-rules/",
-"core": false,
-"why": "Modularity as option value; the six modular operators.",
-"focus": "Ch. 3, 9-13.",
-"st": "rough",
-"pay": 1
-},
-{
-"id": "R9:RD17",
-"t": "The Principles of Product Development Flow",
-"a": "D. Reinertsen",
-"o": "Celeritas",
-"y": 2009,
-"u": "https://www.celeritaspublishing.com/",
-"core": false,
-"why": "Queues, batch size and cost of delay in development.",
-"focus": "Ch. 2-5.",
-"st": "rough",
-"pay": 1
-},
-{
-"id": "R9:RD18",
-"t": "Team Topologies",
-"a": "M. Skelton, M. Pais",
-"o": "IT Revolution",
-"y": 2019,
-"u": "https://teamtopologies.com/book",
-"core": false,
-"why": "Team types, interaction modes and cognitive load, the practical inverse Conway.",
-"focus": "Ch. 2, 4-7.",
-"st": "rough",
-"pay": 1
-},
-{
 "id": "R9:RD19",
 "t": "Wardley Maps (CC BY-SA 4.0)",
 "a": "S. Wardley",
@@ -19076,7 +18929,7 @@
 "core": false,
 "why": "Mapping a value chain against evolution; what to build and what to buy.",
 "focus": "Ch. 1-4.",
-"st": "blocked"
+"st": "ok"
 }
 ]
 },
