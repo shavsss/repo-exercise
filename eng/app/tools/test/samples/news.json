@@ -70,7 +70,7 @@
    "domain": "signals",
    "headline": "מסנן קלמן שלומד את הרעש בעצמו, ונשאר מכויל",
    "dek": "מאמר מציע לשערך את מטריצות הרעש תוך כדי ריצה, ובודק את הכיול עם NEES על שלושה מאגרים פתוחים.",
-   "body": "הבעיה מוכרת: מסנן קלמן טוב בדיוק כמו ההנחות על הרעש שלו. כשמטריצת רעש התהליך $Q$ קטנה מדי, המסנן בטוח בעצמו ומתעלם ממדידות; כשהיא גדולה מדי, הוא רועד.\n\nהמחברים משערכים את $Q$ ו-$R$ מתוך רצף החידושים (innovations), ובודקים אם ה-NEES נשאר בתוך רצועת הביטחון של $\\chi^2$. על שלושה מאגרים פתוחים, המסנן הלומד נשאר מכויל ב-90% מהזמן, מול 60% למסנן עם $Q$ קבוע.",
+   "body": "הבעיה מוכרת: מסנן קלמן טוב בדיוק כמו ההנחות על הרעש שלו. כשמטריצת רעש התהליך $Q$ קטנה מדי, המסנן בטוח בעצמו ומתעלם ממדידות; כשהיא גדולה מדי, הוא רועד.\n\nהמחברים משערכים את $Q$ ו-$R$ מתוך רצף החידושים (innovations), ובודקים אם ה-NEES נשאר בתוך רצועת הביטחון של $\\chi^2$. על שלושה מאגרים פתוחים, המסנן הלומד נשאר מכויל ב-90% מהזמן, מול 60% למסנן עם $Q$ קבוע.\n\nהתוצאה מעניינת דווקא בגלל הצניעות שלה. המחברים לא טוענים שהמסנן אופטימלי; הם טוענים שהוא יודע מתי הוא טועה. זה ההבדל בין מסנן שנותן מספר לבין מסנן שנותן מספר עם רווח סמך אמין, ובמערכות ניווט הרווח הוא מה שמחליטים לפיו.\n\nיש גם מחיר. השערוך של $Q$ דורש חלון של חידושים, ובחלון קצר מדי השערוך עצמו רועש. בגרף: שיעור הריצות המכוילות לאורך החלון, לפי טבלה 3 במאמר.",
    "why": "זה ההמשך הישיר של מה שאתה לומד עכשיו על מערכות לינאריות: אותה קונבולוציה, עם רעש. ומבחן ה-NEES הוא בדיוק סוג הבדיקה שתצטרך בתוכנית האימות של מוצר החודש.",
    "certainty": "preprint",
    "sanity": {
@@ -115,6 +115,57 @@
      "M4.1",
      "M5.1"
     ]
+   },
+   "role": "lead",
+   "region": "EU",
+   "images": [
+    {
+     "url": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20fill%3D%22%23d9d6cf%22/%3E%3Crect%20y%3D%22120%22%20width%3D%22320%22%20height%3D%2260%22%20fill%3D%22%23b9b5ab%22/%3E%3Ccircle%20cx%3D%22250%22%20cy%3D%2240%22%20r%3D%2216%22%20fill%3D%22%23f2f0eb%22/%3E%3Cpath%20d%3D%22M90%20120%20L120%2070%20L150%20120Z%22%20fill%3D%22%236d6a63%22/%3E%3Cellipse%20cx%3D%22120%22%20cy%3D%2266%22%20rx%3D%2246%22%20ry%3D%2218%22%20fill%3D%22%233b3a36%22%20transform%3D%22rotate%28-25%20120%2066%29%22/%3E%3Cpath%20d%3D%22M200%20120v-40h40v40%22%20fill%3D%22%238c887f%22/%3E%3C/svg%3E",
+     "caption": "מקלט GNSS ניסויי על גג מעבדה. תמונה להמחשה, לא מהמאמר.",
+     "credit": "צלם לדוגמה / Wikimedia Commons",
+     "license": "CC BY-SA 4.0",
+     "sourcePage": "https://commons.wikimedia.org/wiki/File:Example.jpg",
+     "alt": "מקלט GNSS ניסויי על גג מעבדה. תמונה להמחשה, לא מהמאמר."
+    }
+   ],
+   "chart": {
+    "kind": "line",
+    "title": "שיעור הריצות המכוילות לפי אורך חלון השערוך",
+    "unit": "%",
+    "x": [
+     10,
+     20,
+     50,
+     100,
+     200
+    ],
+    "series": [
+     {
+      "name": "Q מסתגל",
+      "values": [
+       62,
+       74,
+       85,
+       90,
+       91
+      ]
+     },
+     {
+      "name": "Q קבוע",
+      "values": [
+       60,
+       60,
+       61,
+       60,
+       59
+      ]
+     }
+    ],
+    "source": {
+     "publisher": "מקור לדוגמה: מאגר מאמרים",
+     "url": "https://example.org/paper/adaptive-kalman",
+     "note": "טבלה 3"
+    }
    }
   },
   {
@@ -147,7 +198,9 @@
    ],
    "read10": {
     "minutes": 8
-   }
+   },
+   "role": "brief",
+   "region": "INTL"
   },
   {
    "id": "n3",
@@ -180,7 +233,43 @@
      "concept": "שימור אנרגיה",
      "why": "האגירה היא חשבון של אנרגיה נכנסת ויוצאת."
     }
-   ]
+   ],
+   "role": "feature",
+   "region": "US",
+   "images": [
+    {
+     "url": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20320%20180%22%3E%3Crect%20width%3D%22320%22%20height%3D%22180%22%20fill%3D%22%23cfccc4%22/%3E%3Cpath%20d%3D%22M0%20150h320%22%20stroke%3D%22%237a766d%22%20stroke-width%3D%222%22/%3E%3Cpath%20d%3D%22M30%20150%20L40%2040%20L50%20150%22%20fill%3D%22none%22%20stroke%3D%22%233b3a36%22%20stroke-width%3D%222%22/%3E%3Cpath%20d%3D%22M24%2060h32M28%2080h24%22%20stroke%3D%22%233b3a36%22%20stroke-width%3D%222%22/%3E%3Cpath%20d%3D%22M130%20150%20L140%2040%20L150%20150%22%20fill%3D%22none%22%20stroke%3D%22%233b3a36%22%20stroke-width%3D%222%22/%3E%3Cpath%20d%3D%22M124%2060h32M128%2080h24%22%20stroke%3D%22%233b3a36%22%20stroke-width%3D%222%22/%3E%3Cpath%20d%3D%22M230%20150%20L240%2040%20L250%20150%22%20fill%3D%22none%22%20stroke%3D%22%233b3a36%22%20stroke-width%3D%222%22/%3E%3Cpath%20d%3D%22M224%2060h32M228%2080h24%22%20stroke%3D%22%233b3a36%22%20stroke-width%3D%222%22/%3E%3Cpath%20d%3D%22M40%2060%20Q90%2090%20140%2060%20T240%2060%22%20fill%3D%22none%22%20stroke%3D%22%2355524b%22/%3E%3C/svg%3E",
+     "caption": "קווי מתח גבוה. תמונה להמחשה.",
+     "credit": "מקור לדוגמה / NREL",
+     "license": "נחלת הכלל",
+     "sourcePage": "https://example.org/images/grid",
+     "alt": "קווי מתח גבוה. תמונה להמחשה."
+    }
+   ],
+   "chart": {
+    "kind": "bar",
+    "title": "אגירה נדרשת ללילה בלי רוח, לפי תרחיש",
+    "unit": "GWh",
+    "x": [
+     "2024",
+     "2030",
+     "2035"
+    ],
+    "series": [
+     {
+      "name": "אגירה",
+      "values": [
+       12,
+       31,
+       54
+      ]
+     }
+    ],
+    "source": {
+     "publisher": "מקור לדוגמה: מפעיל רשת",
+     "url": "https://example.org/data/grid-storage"
+    }
+   }
   },
   {
    "id": "n4",
@@ -209,7 +298,9 @@
      "why": "הגשר של מעבר החום פותח בזה."
     }
    ],
-   "oldButNew": true
+   "oldButNew": true,
+   "role": "feature",
+   "region": "JP"
   },
   {
    "id": "n5",
@@ -219,7 +310,7 @@
    "dek": "הודעת יצרן על בקר שאומן בסימולציה, עם מספר הצלחה שלא נבדק בנפרד.",
    "body": "היצרן מדווח על 95% הצלחה במשימת אחיזה אחרי מעבר מסימולציה לחומרה. אין מאמר מצורף ואין פירוט של תנאי הבדיקה.",
    "why": "תרגול של קריאת טענת יצרן: מה היית צריך לראות כדי להאמין למספר.",
-   "certainty": "vendor",
+   "certainty": "corroborated",
    "sanity": {
     "check": "בדיקה עצמאית",
     "result": "na",
@@ -227,12 +318,26 @@
    },
    "sources": [
     {
-     "url": "https://example.org/vendor/robot-controller",
-     "title": "Sim-to-real controller",
-     "publisher": "מקור לדוגמה: יצרן",
-     "tier": "D",
-     "publishedAt": "2026-10-28",
-     "openAccess": true
+     "url": "https://example.org/state/robot",
+     "title": "Robot controller trained in simulation",
+     "publisher": "מקור לדוגמה: סוכנות ידיעות ממשלתית",
+     "tier": "C",
+     "publishedAt": "2026-10-26",
+     "fetchedAt": 1793319000000,
+     "httpStatus": 200,
+     "sha256": "example",
+     "stateMedia": true
+    },
+    {
+     "url": "https://example.org/paper/sim2real",
+     "title": "Sim-to-real gap in learned controllers",
+     "publisher": "מקור לדוגמה: מאגר מאמרים",
+     "tier": "B",
+     "publishedAt": "2026-10-25",
+     "fetchedAt": 1793319000000,
+     "httpStatus": 200,
+     "sha256": "example",
+     "quote": "the gap in tracking error was 18% on hardware"
     }
    ],
    "connects": [
@@ -242,7 +347,9 @@
      "concept": "הכללה",
      "why": "הפער בין אימון לבדיקה הוא הנושא של הלמידה המונחית."
     }
-   ]
+   ],
+   "role": "brief",
+   "region": "CN"
   },
   {
    "id": "n6",
@@ -281,6 +388,229 @@
     "old": "דרישה טובה היא ברורה ותמציתית.",
     "now": "הדוח מוסיף: דרישה טובה באה עם מבחן קבלה כתוב.",
     "status": "refined"
+   },
+   "role": "brief",
+   "region": "UK"
+  },
+  {
+   "id": "n7",
+   "role": "number",
+   "region": "IN",
+   "kind": "data",
+   "domain": "power",
+   "headline": "הספק סולארי שנוסף ברבעון",
+   "dek": "המספר מתוך דוח הרבעון של מפעיל הרשת.",
+   "body": "הדוח מפרט את ההספק המותקן שנוסף, לפי מדינה. **החישוב** מראה כמה אנרגיה זה בשנה בהנחת מקדם קיבולת של 20%.",
+   "why": "",
+   "certainty": "official",
+   "sources": [
+    {
+     "url": "https://example.org/data/solar-q3",
+     "title": "Quarterly capacity report",
+     "publisher": "מקור לדוגמה: מפעיל רשת",
+     "tier": "A",
+     "publishedAt": "2026-10-24",
+     "fetchedAt": 1793319000000,
+     "httpStatus": 200,
+     "sha256": "example",
+     "quote": "4.2 GW of new solar capacity was connected"
+    }
+   ],
+   "connects": [],
+   "number": {
+    "value": "4.2",
+    "unit": "GW",
+    "calc": "$4.2\\,\\text{GW}\\times 0.2\\times 8760\\,\\text{h}\\approx 7.4\\,\\text{TWh}$ בשנה"
+   }
+  },
+  {
+   "id": "n8",
+   "role": "world",
+   "region": "EU",
+   "kind": "standard",
+   "domain": "systems",
+   "headline": "אירופה: מחבר אחד לכל המטענים המהירים",
+   "dek": "טיוטת התקן מחייבת ממשק אחיד ופרוטוקול תשלום פתוח.",
+   "body": "הטיוטה קובעת מחבר אחד ומתח עבודה עד 1000 V, ומשאירה את בקרת הזרם לרכב.",
+   "why": "",
+   "certainty": "official",
+   "sources": [
+    {
+     "url": "https://example.org/eu/charging",
+     "title": "Draft charging interface standard",
+     "publisher": "מקור לדוגמה: גוף תקינה אירופי",
+     "tier": "A",
+     "publishedAt": "2026-10-27",
+     "fetchedAt": 1793319000000,
+     "httpStatus": 200,
+     "sha256": "example",
+     "quote": "a single connector for all high-power chargers"
+    }
+   ],
+   "connects": [],
+   "world": {
+    "topic": "תקן הטעינה המהירה",
+    "pair": "n9"
+   }
+  },
+  {
+   "id": "n9",
+   "role": "world",
+   "region": "CN",
+   "kind": "standard",
+   "domain": "systems",
+   "headline": "סין: הדור הבא של תקן הטעינה עולה ל-1500 V",
+   "dek": "הגרסה החדשה מכפילה את ההספק ושומרת על תאימות לאחור.",
+   "body": "הגרסה מגדירה 1500 V ותקשורת חדשה בין המטען לרכב. מקור ממשלתי, ולצידו מאמר של מכון התקינה.",
+   "why": "",
+   "certainty": "corroborated",
+   "sources": [
+    {
+     "url": "https://example.org/state/charging",
+     "title": "New charging standard",
+     "publisher": "מקור לדוגמה: סוכנות ידיעות ממשלתית",
+     "tier": "C",
+     "publishedAt": "2026-10-26",
+     "fetchedAt": 1793319000000,
+     "httpStatus": 200,
+     "sha256": "example",
+     "stateMedia": true
+    },
+    {
+     "url": "https://example.org/cn/standard-note",
+     "title": "Technical note on the charging standard",
+     "publisher": "מקור לדוגמה: מכון תקינה",
+     "tier": "A",
+     "publishedAt": "2026-10-25",
+     "fetchedAt": 1793319000000,
+     "httpStatus": 200,
+     "sha256": "example",
+     "quote": "backward compatible with the previous connector"
+    }
+   ],
+   "connects": [],
+   "world": {
+    "topic": "תקן הטעינה המהירה",
+    "pair": "n8"
+   }
+  },
+  {
+   "id": "n10",
+   "role": "econ",
+   "region": "KR",
+   "kind": "data",
+   "domain": "chips",
+   "headline": "מחיר תא הסוללה ירד שוב, והשאלה היא מה יקרה למרווח",
+   "dek": "נתוני הרבעון של יצרני התאים, והחשבון של עלות לקוט\"ש.",
+   "body": "המחיר הממוצע לתא ירד ב-9% ברבעון. הירידה באה בעיקר מחומרי הגלם, לא מהייצור. בגרף: המחיר לפי רבעון.",
+   "why": "החשבון של עלות ליחידה הוא אותו חשבון שתעשה בתוכנית העסקית של מוצר החודש.",
+   "certainty": "single",
+   "sources": [
+    {
+     "url": "https://example.org/econ/cells",
+     "title": "Battery cell price tracker",
+     "publisher": "מקור לדוגמה: חברת מחקר שוק",
+     "tier": "C",
+     "publishedAt": "2026-10-28",
+     "fetchedAt": 1793319000000,
+     "httpStatus": 200,
+     "sha256": "example",
+     "quote": "average cell prices fell 9% quarter on quarter"
+    }
+   ],
+   "connects": [],
+   "chart": {
+    "kind": "bar",
+    "title": "מחיר ממוצע לתא",
+    "unit": "$/kWh",
+    "x": [
+     "ר1",
+     "ר2",
+     "ר3",
+     "ר4"
+    ],
+    "series": [
+     {
+      "name": "מחיר",
+      "values": [
+       78,
+       74,
+       71,
+       65
+      ]
+     }
+    ],
+    "source": {
+     "publisher": "מקור לדוגמה: חברת מחקר שוק",
+     "url": "https://example.org/econ/cells"
+    }
+   }
+  },
+  {
+   "id": "n11",
+   "role": "lab",
+   "region": "TW",
+   "kind": "paper",
+   "domain": "chips",
+   "headline": "מהמעבדה: טרנזיסטור דו-ממדי שעובד בטמפרטורת החדר",
+   "dek": "קבוצת מחקר מדווחת על ניידות גבוהה בשכבה אחת.",
+   "body": "המדידה נעשתה על 40 התקנים, והפיזור קטן מ-10%.",
+   "why": "",
+   "certainty": "peer",
+   "sources": [
+    {
+     "url": "https://example.org/paper/2d-fet",
+     "title": "Room-temperature 2D transistor",
+     "publisher": "מקור לדוגמה: כתב עת",
+     "tier": "B",
+     "publishedAt": "2026-10-24",
+     "fetchedAt": 1793319000000,
+     "httpStatus": 200,
+     "sha256": "example",
+     "quote": "mobility above 200 cm2/Vs in a monolayer"
+    }
+   ],
+   "connects": [
+    {
+     "moduleId": "M4.1",
+     "rel": "current",
+     "concept": "מוליכים למחצה",
+     "why": "המודל של זרם בתעלה הוא אותו מודל לינארי."
+    }
+   ]
+  },
+  {
+   "id": "n12",
+   "role": "post",
+   "region": "US",
+   "kind": "event",
+   "domain": "ml",
+   "headline": "חוקרת רובוטיקה על הפער בין סימולציה לחומרה",
+   "dek": "פוסט שצוטט מילה במילה מהדף שנטען.",
+   "body": "",
+   "why": "",
+   "certainty": "single",
+   "sources": [
+    {
+     "url": "https://example.org/bsky/post",
+     "title": "Post",
+     "publisher": "Bluesky",
+     "tier": "C",
+     "publishedAt": "2026-10-27",
+     "fetchedAt": 1793319000000,
+     "httpStatus": 200,
+     "sha256": "example",
+     "quote": "Every sim-to-real paper should report the hardware failures, not just the wins."
+    }
+   ],
+   "connects": [],
+   "post": {
+    "network": "bluesky",
+    "handle": "@robotics-lab.example",
+    "author": "חוקרת לדוגמה",
+    "text": "Every sim-to-real paper should report the hardware failures, not just the wins.",
+    "url": "https://example.org/bsky/post",
+    "postedAt": "2026-10-27"
    }
   }
  ],
@@ -294,5 +624,6 @@
    "check": 2
   }
  },
- "example": true
+ "example": true,
+ "edition": "מהדורת סוף שבוע"
 }

@@ -1,0 +1,957 @@
+[
+ {
+  "doc": "W01",
+  "key": "py_rse",
+  "path": "library/engineering/free/W01_py_rse.pdf",
+  "title": "Research Software Engineering with Python",
+  "author": "Irving, Hertweck, Johnston, Ostblom, Wickham & Wilson",
+  "edition": "CRC 2021, free online edition (third-bit.com)",
+  "source_url": "https://third-bit.com/py-rse/",
+  "pdf_pages": 517,
+  "text_ok": true,
+  "method": "html-render",
+  "modules": {
+   "M0.3": [
+    {
+     "pages": [
+      7,
+      232
+     ],
+     "note": "פרקים 1–8: Getting Started, Unix shell (2–4), כלי שורת פקודה בפייתון (5), git בשורת הפקודה וענפים/merge (6–7), עבודה בצוות (8)"
+    },
+    {
+     "pages": [
+      272,
+      322
+     ],
+     "note": "פרקים 11–12: Testing Software (pytest, בדיקת קוד נומרי עם סובלנות) ו-Handling Errors"
+    },
+    {
+     "pages": [
+      323,
+      370
+     ],
+     "note": "פרקים 13–14: Tracking Provenance (שחזוריות) ו-Creating Packages (סביבות ותלויות)"
+    },
+    {
+     "pages": [
+      483,
+      486
+     ],
+     "note": "נספח I: Anaconda (סביבות conda)"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "אין PDF רשמי (py-rse.pdf, book.pdf מחזירים 404); נבנה מ-27 עמודי HTML בסדר הספר"
+  ],
+  "blocked_hosts": [],
+  "chapter_starts": {
+   "index": 1,
+   "1 Getting Started": 7,
+   "2 Unix shell basics": 13,
+   "3 Shell tools": 45,
+   "4 Going further with shell": 68,
+   "5 Command-line tools in Python": 93,
+   "6 Git at the command line": 121,
+   "7 Going further with Git": 158,
+   "8 Working in teams": 200,
+   "9 Automating analyses (Make)": 233,
+   "10 Configuring programs": 258,
+   "11 Testing": 272,
+   "12 Handling errors": 300,
+   "13 Provenance": 323,
+   "14 Packaging": 335,
+   "15 Finale": 371,
+   "A Solutions": 373,
+   "B Objectives": 421,
+   "C Key points": 427,
+   "D Project tree": 434,
+   "E Working remotely": 439,
+   "F Readable code": 448,
+   "G Documenting programs": 474,
+   "H YAML": 481,
+   "I Anaconda": 483,
+   "J Glossary": 487,
+   "K References": 510
+  }
+ },
+ {
+  "doc": "W06",
+  "key": "kochenderfer_opt",
+  "path": "library/engineering/free/W06_kochenderfer_algorithms_optimization.pdf",
+  "title": "Algorithms for Optimization",
+  "author": "Kochenderfer & Wheeler",
+  "edition": "2nd ed., author PDF (CC BY-NC-ND, Sep 2026); 1st ed. MIT Press 2019 also available from the same page",
+  "source_url": "https://algorithmsbook.com/optimization/files/optimization.pdf (Google Drive file 1Rx7MAekKZbyNVc5B2MNfR0HXXIEJCksp, linked by the authors)",
+  "pdf_pages": 634,
+  "text_ok": true,
+  "method": "direct",
+  "modules": {
+   "M8.24": [
+    {
+     "pages": [
+      81,
+      96
+     ],
+     "note": "Local Descent: line search, approximate line search ותנאי Wolfe, trust region"
+    },
+    {
+     "pages": [
+      115,
+      132
+     ],
+     "note": "Second-Order Methods: Newton, secant, Levenberg-Marquardt (כולל sum of squares / Gauss-Newton), quasi-Newton BFGS ו-L-BFGS"
+    },
+    {
+     "pages": [
+      155,
+      182
+     ],
+     "note": "Stochastic Methods: חיפוש גלובלי בבעיות לא קמורות (initialization, restarts)"
+    },
+    {
+     "pages": [
+      203,
+      228
+     ],
+     "note": "Constraints: Lagrange, KKT, penalty, method of multipliers (augmented Lagrangian), interior point"
+    },
+    {
+     "pages": [
+      293,
+      316
+     ],
+     "note": "Quadratic Programming: תת-הבעיה של SQP, least squares עם אילוצים"
+    },
+    {
+     "pages": [
+      483,
+      508
+     ],
+     "note": "Discrete Optimization: integer programs, rounding, cutting planes, branch and bound"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "הקישור באתר מפנה ל-Google Drive של המחברים; ההורדה דרך drive.usercontent.google.com",
+   "נבחרה מהדורה 2 (634 עמ') במקום 1 (520 עמ', 2019): מספרי הפרקים ב-use (4, 6, 10–11, 19) הם של מהדורה 1; הטווחים כאן לפי התוכן במהדורה 2"
+  ],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "W11",
+  "key": "sarkka_solin_sde",
+  "path": "library/engineering/free/W11_sarkka_solin_applied_sde.pdf",
+  "title": "Applied Stochastic Differential Equations",
+  "author": "Särkkä & Solin",
+  "edition": "CUP 2019, free author PDF",
+  "source_url": "https://users.aalto.fi/~asolin/sde-book/sde-book.pdf",
+  "pdf_pages": 324,
+  "text_ok": true,
+  "method": "direct",
+  "modules": {
+   "M7.21": [
+    {
+     "pages": [
+      9,
+      133
+     ],
+     "note": "פרקים 1–7: מבוא, ODE, מבוא פרגמטי ל-SDE (Brownian, white noise, Langevin), חשבון Itô, Fokker-Planck, SDE לינאריות (מומנטים, דיסקרטיזציה מדויקת, OU), משפטים שימושיים"
+    },
+    {
+     "pages": [
+      134,
+      172
+     ],
+     "note": "פרק 8: סימולציה נומרית — Euler-Maruyama, Milstein, Runge-Kutta סטוכסטי"
+    },
+    {
+     "pages": [
+      205,
+      241
+     ],
+     "note": "פרק 10: סינון והחלקה, Kalman רציף-בדיד"
+    },
+    {
+     "pages": [
+      242,
+      258
+     ],
+     "note": "פרק 11: שערוך פרמטרים במודלי SDE"
+    },
+    {
+     "pages": [
+      259,
+      284
+     ],
+     "note": "פרק 12: SDE בלמידת מכונה (כולל diffusion models)"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "W16",
+  "key": "ee263_see",
+  "path": "library/engineering/free/W16_boyd_ee263_linear_dynamical_systems.pdf",
+  "title": "EE263 Introduction to Linear Dynamical Systems (lecture slides)",
+  "author": "Boyd",
+  "edition": "Stanford Engineering Everywhere, lecture slides 00–20 (Autumn 2007-08)",
+  "source_url": "https://see.stanford.edu/materials/lsoeldsee263/ (slides 00–16, 18–20); 17-qm.pdf from the course's LinearDynamicalSystemsAllMaterials.zip",
+  "pdf_pages": 502,
+  "text_ok": true,
+  "method": "bundle",
+  "modules": {
+   "M5.16": [
+    {
+     "pages": [
+      120,
+      202
+     ],
+     "note": "הרצאות 5–8: least squares, יישומים, regularized LS, least-norm"
+    },
+    {
+     "pages": [
+      229,
+      255
+     ],
+     "note": "הרצאה 10: matrix exponential ופתרון ODE לינארי"
+    },
+    {
+     "pages": [
+      306,
+      344
+     ],
+     "note": "הרצאה 13: מערכות לינאריות עם כניסה ויציאה, פונקציית תמסורת, similarity transforms"
+    },
+    {
+     "pages": [
+      392,
+      412
+     ],
+     "note": "הרצאה 16: SVD, gain directions"
+    },
+    {
+     "pages": [
+      428,
+      496
+     ],
+     "note": "הרצאות 18–19: reachability, minimum-energy control, Gramians; observability ושערוך מצב least-squares"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "17-qm.pdf חסר בתיקייה (404) ונלקח מה-zip הרשמי של הקורס",
+   "הערה: Lyapunov, Kalman decomposition, balanced truncation, LQR ו-H∞ אינם בשקפי SEE האלה"
+  ],
+  "blocked_hosts": [],
+  "chapter_starts": {
+   "00 cover": 1,
+   "01 overview": 3,
+   "02 lin-fcts": 27,
+   "03 lin-alg": 66,
+   "04 qr": 97,
+   "05 ls": 120,
+   "06 ls-app": 143,
+   "07 ls-reg": 166,
+   "08 min-norm": 188,
+   "09 auto-sys": 203,
+   "10 expm": 229,
+   "11 eig": 256,
+   "12 jcf": 290,
+   "13 lin-sys": 306,
+   "14 aircraft": 345,
+   "15 symm": 360,
+   "16 svd": 392,
+   "17 qm": 413,
+   "18 contr": 428,
+   "19 observ": 468,
+   "20 synopsis": 497
+  }
+ },
+ {
+  "doc": "W21",
+  "key": "soderstrom_stoica",
+  "path": "library/engineering/free/W21_soderstrom_stoica_system_identification.pdf",
+  "title": "System Identification",
+  "author": "Söderström & Stoica",
+  "edition": "Prentice Hall 1989, free scan from the authors",
+  "source_url": "https://user.it.uu.se/~ts/sysidbook.pdf",
+  "pdf_pages": 646,
+  "text_ok": false,
+  "method": "direct",
+  "modules": {
+   "M5.20": [
+    {
+     "pages": [
+      60,
+      87
+     ],
+     "note": "פרק 3: שיטות nonparametric — transient, frequency, correlation, spectral analysis"
+    },
+    {
+     "pages": [
+      124,
+      173
+     ],
+     "note": "פרק 5: אותות כניסה — persistent excitation, PRBS (כולל נספח C5.3)"
+    },
+    {
+     "pages": [
+      174,
+      212
+     ],
+     "note": "פרק 6: מבני מודל (ARX, ARMAX, OE, BJ), identifiability"
+    },
+    {
+     "pages": [
+      213,
+      287
+     ],
+     "note": "פרק 7: prediction-error method, ניתוח תיאורטי ושונות אסימפטוטית"
+    },
+    {
+     "pages": [
+      409,
+      449
+     ],
+     "note": "פרק 10: זיהוי במעגל סגור (direct, indirect, joint input-output)"
+    },
+    {
+     "pages": [
+      450,
+      495
+     ],
+     "note": "פרק 11: model validation ובחירת סדר (parsimony, AIC/FPE)"
+    },
+    {
+     "pages": [
+      496,
+      538
+     ],
+     "note": "פרק 12: היבטים מעשיים — תכנון ניסוי, drift, time delays, local minima, robustness"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "סריקה ללא שכבת טקסט (אין fonts); אתר המחבר (bookinfo.html) מפנה רק לסריקה הזו, אין גרסת טקסט; OCR לא זמין",
+   "היסט עמודים: עמוד מודפס 1 = עמוד PDF 29 (נבדק ויזואלית בפרקים 5, 7, 10, 11, נספח A)",
+   "הערה: אין בספר subspace identification"
+  ],
+  "blocked_hosts": [],
+  "scan": true
+ },
+ {
+  "doc": "W26",
+  "key": "lin_5g",
+  "path": "library/engineering/free/W26_lin_5g_new_radio.pdf",
+  "title": "5G New Radio: Unveiling the Essentials of the Next Generation Wireless Access Technology",
+  "author": "Lin et al. (Ericsson)",
+  "edition": "arXiv 1806.06898 (2018)",
+  "source_url": "https://arxiv.org/pdf/1806.06898",
+  "pdf_pages": 8,
+  "text_ok": true,
+  "method": "direct",
+  "modules": {
+   "M23.19": [
+    {
+     "pages": [
+      1,
+      8
+     ],
+     "note": "כולו: סקירת NR — numerology, מבנה מסגרת, ערוצים, LDPC/polar, beam management, initial access"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "X03",
+  "key": "nielsen_dew",
+  "path": "library/military/free/X03_nielsen_directed_energy_weapons.pdf",
+  "title": "Effects of Directed Energy Weapons",
+  "author": "Nielsen",
+  "edition": "NDU Press 1994 (DTIC ADA476195, public release)",
+  "source_url": "https://archive.org/download/DTIC_ADA476195/DTIC_ADA476195.pdf",
+  "pdf_pages": 369,
+  "text_ok": true,
+  "method": "direct",
+  "modules": {
+   "M7.17": [
+    {
+     "pages": [
+      26,
+      53
+     ],
+     "note": "פרק 1: עקרונות בסיס (fluence, קריטריוני נזק)"
+    },
+    {
+     "pages": [
+      106,
+      230
+     ],
+     "note": "פרק 3: לייזרים — דיפרקציה, בליעה, טורבולנציה ו-adaptive optics, thermal blooming, air breakdown, אינטראקציית לייזר-חומר"
+    }
+   ],
+   "M7.18": [
+    {
+     "pages": [
+      26,
+      53
+     ],
+     "note": "פרק 1: עקרונות בסיס"
+    },
+    {
+     "pages": [
+      231,
+      285
+     ],
+     "note": "פרק 4: מיקרוגל — התפשטות, breakdown, נזק in-band/out-of-band (front/back door, Wunsch-Bell)"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "digitalcommons.ndu.edu/cgi/viewcontent.cgi?article=1016 — 403 (Cloudflare challenge של האתר, לא ה-proxy)",
+   "ndupress.ndu.edu — 403",
+   "apps.dtic.mil/sti/pdfs/ADA476195.pdf — 403 (WAF של DTIC)",
+   "הורד מהעותק של DTIC ב-archive.org; עמוד מודפס 1 = PDF 26"
+  ],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "X05",
+  "key": "forster_preint",
+  "path": "library/military/free/X05_forster_preintegration_vio.pdf",
+  "title": "On-Manifold Preintegration for Real-Time Visual-Inertial Odometry",
+  "author": "Forster, Carlone, Dellaert & Scaramuzza",
+  "edition": "IEEE T-RO 2017, arXiv 1512.02363",
+  "source_url": "https://arxiv.org/pdf/1512.02363",
+  "pdf_pages": 21,
+  "text_ok": true,
+  "method": "direct",
+  "modules": {
+   "M5.13": [
+    {
+     "pages": [
+      1,
+      21
+     ],
+     "note": "כולו: preintegration של IMU על manifold, factor graph ל-VIO"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "W32",
+  "key": "boneh_shoup",
+  "path": "library/engineering/free/W32_boneh_shoup_applied_cryptography.pdf",
+  "title": "A Graduate Course in Applied Cryptography",
+  "author": "Boneh & Shoup",
+  "edition": "v0.6 (2023)",
+  "source_url": "https://crypto.stanford.edu/~dabo/cryptobook/BonehShoup_0_6.pdf",
+  "pdf_pages": 1130,
+  "text_ok": true,
+  "method": "direct",
+  "modules": {
+   "M22.15": [
+    {
+     "pages": [
+      1,
+      413
+     ],
+     "note": "מבוא וחלק I: הצפנה, stream/block ciphers, CPA, MAC, hash, authenticated encryption"
+    },
+    {
+     "pages": [
+      414,
+      697
+     ],
+     "note": "חלק II פרקים 10–15: כלי מפתח ציבורי, הצפנת מפתח ציבורי, CCA, חתימות, hash-based signatures, עקומות אליפטיות"
+    },
+    {
+     "pages": [
+      869,
+      937
+     ],
+     "note": "פרק 21: Authenticated Key Exchange"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "W37",
+  "key": "cuda_guide",
+  "path": "library/engineering/free/W37_cuda_programming_best_practices.pdf",
+  "title": "CUDA Programming Guide and CUDA C++ Best Practices Guide",
+  "author": "NVIDIA",
+  "edition": "CUDA 13.5 (Oct–Nov 2026)",
+  "source_url": "https://docs.nvidia.com/cuda/cuda-programming-guide/pdf/cuda-programming-guide.pdf + https://docs.nvidia.com/cuda/pdf/CUDA_C_Best_Practices_Guide.pdf",
+  "pdf_pages": 890,
+  "text_ok": true,
+  "method": "bundle",
+  "modules": {
+   "M28.2": [
+    {
+     "pages": [
+      21,
+      38
+     ],
+     "note": "Programming Guide: מבוא ו-Programming Model (threads, blocks, היררכיית זיכרון)"
+    },
+    {
+     "pages": [
+      39,
+      93
+     ],
+     "note": "Intro to CUDA C++ ו-Writing SIMT Kernels: shared memory, coalescing, סנכרון"
+    },
+    {
+     "pages": [
+      124,
+      156
+     ],
+     "note": "Asynchronous execution, Unified/system memory"
+    },
+    {
+     "pages": [
+      779,
+      852
+     ],
+     "note": "Best Practices: heterogeneous computing, profiling, performance metrics, memory optimizations, execution configuration, instruction optimization"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [],
+  "blocked_hosts": [],
+  "parts": {
+   "CUDA Programming Guide": [
+    1,
+    770
+   ],
+   "CUDA C++ Best Practices Guide": [
+    771,
+    890
+   ]
+  }
+ },
+ {
+  "doc": "W42",
+  "key": "ieee_1800",
+  "path": null,
+  "title": "IEEE 1800-2023, SystemVerilog Language Reference Manual (IEEE GET Program)",
+  "author": "IEEE",
+  "edition": "2023",
+  "source_url": "https://standards.ieee.org/ieee/1800/7743/",
+  "pdf_pages": null,
+  "text_ok": false,
+  "method": "none",
+  "modules": {
+   "M28.3": []
+  },
+  "status": "failed",
+  "tried": [
+   "standards.ieee.org/ieee/1800/7743/ — 403 Cloudflare 'Attention Required' (הגנת בוטים של האתר)",
+   "ieeexplore.ieee.org/document/10458102, stamp.jsp, getPDF.jsp, get-program series?id=80 — 202/418 (bot protection); תוכנית GET דורשת התחברות עם חשבון IEEE חינמי וקבלת תנאים",
+   "חיפוש מראות חוקיות: archive.org, accellera.org (404), eda.org (404) — אין עותק מורשה של 1800-2023",
+   "פתרון: הלומד יוריד ידנית דרך IEEE GET Program עם חשבון IEEE חינמי ויציב בנתיב library/engineering/free/W42_ieee_1800_2023_systemverilog.pdf"
+  ],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "W47",
+  "key": "slp3",
+  "path": "library/engineering/free/W47_jurafsky_martin_slp3.pdf",
+  "title": "Speech and Language Processing",
+  "author": "Jurafsky & Martin",
+  "edition": "3rd ed. draft, August 2026 release",
+  "source_url": "https://web.stanford.edu/~jurafsky/slp3/ed3book.pdf",
+  "pdf_pages": 646,
+  "text_ok": true,
+  "method": "direct",
+  "modules": {
+   "M29.1": [
+    {
+     "pages": [
+      135,
+      184
+     ],
+     "note": "Embeddings ו-Neural Networks"
+    },
+    {
+     "pages": [
+      185,
+      232
+     ],
+     "note": "Transformers and Pretraining (attention, positional encodings, scaling) ו-Post-training"
+    },
+    {
+     "pages": [
+      235,
+      283
+     ],
+     "note": "Masked LMs, Interpretability, Retrieval-based models, Agents"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "web.stanford.edu הציג שרשרת תעודות שהשורש שלה (emSign Root CA - G1) חסר בחנות המקומית; נוסף שורש Mozilla (curl.se/ca/cacert.pem) ל---cacert, בלי לבטל אימות TLS"
+  ],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "W52",
+  "key": "rlhfbook",
+  "path": "library/engineering/free/W52_lambert_rlhf_book.pdf",
+  "title": "Reinforcement Learning from Human Feedback",
+  "author": "Lambert",
+  "edition": "online edition, PDF built 11 Nov 2026",
+  "source_url": "https://rlhfbook.com/book.pdf",
+  "pdf_pages": 249,
+  "text_ok": true,
+  "method": "direct",
+  "modules": {
+   "M29.3": [
+    {
+     "pages": [
+      1,
+      249
+     ],
+     "note": "כולו: IFT/SFT, reward modeling, RL (PPO, GRPO), reasoning ו-inference-time scaling, DPO, rejection sampling, distillation, regularization, evaluation"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "W57",
+  "key": "edge_papers",
+  "path": "library/engineering/free/W57_edge_quant_robustness_papers.pdf",
+  "title": "Quantization and Training of NNs for Integer-Arithmetic-Only Inference; Towards Deep Learning Models Resistant to Adversarial Attacks; Benchmarking NN Robustness to Common Corruptions",
+  "author": "Jacob et al.; Madry et al.; Hendrycks & Dietterich",
+  "edition": "arXiv 1712.05877, 1706.06083, 1903.12261",
+  "source_url": "https://arxiv.org/pdf/1712.05877 + https://arxiv.org/pdf/1706.06083 + https://arxiv.org/pdf/1903.12261",
+  "pdf_pages": 58,
+  "text_ok": true,
+  "method": "bundle",
+  "modules": {
+   "M29.7": [
+    {
+     "pages": [
+      1,
+      14
+     ],
+     "note": "Jacob et al.: quantization לאריתמטיקת שלמים"
+    },
+    {
+     "pages": [
+      15,
+      42
+     ],
+     "note": "Madry et al.: adversarial robustness, PGD"
+    },
+    {
+     "pages": [
+      43,
+      58
+     ],
+     "note": "Hendrycks & Dietterich: ImageNet-C/P, corruptions"
+    }
+   ],
+   "M15.4": [
+    {
+     "pages": [
+      15,
+      42
+     ],
+     "note": "Madry et al."
+    },
+    {
+     "pages": [
+      43,
+      58
+     ],
+     "note": "Hendrycks & Dietterich"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [],
+  "blocked_hosts": [],
+  "parts": {
+   "1712.05877": [
+    1,
+    14
+   ],
+   "1706.06083": [
+    15,
+    42
+   ],
+   "1903.12261": [
+    43,
+    58
+   ]
+  }
+ },
+ {
+  "doc": "W62",
+  "key": "nasa_tmr",
+  "path": "library/engineering/free/W62_nasa_turbulence_modeling_resource.pdf",
+  "title": "Turbulence Modeling Resource",
+  "author": "NASA Langley / AIAA TMBWG",
+  "edition": "online, snapshot 15 Nov 2026 (selected pages)",
+  "source_url": "https://tmbwg.github.io/turbmodels/",
+  "pdf_pages": 285,
+  "text_ok": true,
+  "method": "html-render",
+  "modules": {
+   "M15.32": [
+    {
+     "pages": [
+      1,
+      25
+     ],
+     "note": "דף הבית, הערות שימוש, Implementing Turbulence Models into Compressible RANS, Notes on running the cases, Model Readiness"
+    },
+    {
+     "pages": [
+      26,
+      97
+     ],
+     "note": "דפי מודלים: SA, SST, BSL, Wilcox k-ω, k-ε Chien, k-kL, Wray-Agarwal, GEKO, EASM, k-ε-Rt, RSM (SSG/LRR, stress-ω), Langtry-Menter"
+    },
+    {
+     "pages": [
+      98,
+      256
+     ],
+     "note": "Verification: flat plate, coflowing jet, bump-in-channel, airfoil near-wake, multielement, 3D bump, עם תוצאות SA/SST והתכנסות רשת"
+    },
+    {
+     "pages": [
+      257,
+      283
+     ],
+     "note": "דוגמאות validation: NACA 0012, backward-facing step, NASA hump"
+    },
+    {
+     "pages": [
+      284,
+      285
+     ],
+     "note": "Guideline לתיאור מודל טורבולנציה"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "turbmodels.larc.nasa.gov — תעודת TLS של redirect.larc.nasa.gov (לא תואמת לשם); האתר עבר ל-tmbwg.github.io/turbmodels (המראה הרשמית של TMBWG)",
+   "האתר גדול מאוד (מאות דפי תוצאות); נבחרו 34 דפים + PDF הנחיות: מודלים, verification ו-3 validation"
+  ],
+  "blocked_hosts": [],
+  "chapter_starts": {
+   "index": 1,
+   "noteonusingsite": 9,
+   "implementrans": 12,
+   "noteonrunning": 15,
+   "modelreadiness": 25,
+   "spalart": 26,
+   "sst": 37,
+   "bsl": 45,
+   "wilcox": 48,
+   "ke-chien": 55,
+   "kkl": 58,
+   "wray_agarwal": 63,
+   "menter_geko": 67,
+   "nut92": 71,
+   "easmko": 74,
+   "ke-rt": 80,
+   "rsm-ssglrr": 84,
+   "rsm-stressomega": 88,
+   "langtrymenter_4eqn": 91,
+   "flatplate": 98,
+   "flatplate_sa": 101,
+   "flatplate_sst": 118,
+   "shear": 143,
+   "shear_sa": 147,
+   "bump": 166,
+   "bump_sa": 170,
+   "airfoilwakeverif500c": 191,
+   "airfoilwakeverif500c_sa": 194,
+   "multielementverif": 233,
+   "bump3d": 236,
+   "bump3d_sa": 241,
+   "naca0012_val": 257,
+   "backstep_val": 266,
+   "nasahump_val": 274,
+   "Guideline-turbmodeldescription.pdf": 284
+  }
+ },
+ {
+  "doc": "X13",
+  "key": "reid_undex",
+  "path": "library/military/free/X13_reid_ship_underwater_explosions.pdf",
+  "title": "The Response of Surface Ships to Underwater Explosions (DSTO-GD-0109)",
+  "author": "Reid",
+  "edition": "DSTO 1996 (approved for public release)",
+  "source_url": "https://everyspec.com/USN/NAVY-General/download.php?spec=DSTO-GD-0109.042397.pdf",
+  "pdf_pages": 48,
+  "text_ok": true,
+  "method": "direct",
+  "modules": {
+   "M10.8": [
+    {
+     "pages": [
+      1,
+      48
+     ],
+     "note": "כולו: shock factor, bubble pulse ו-whipping, Taylor plate, ניסויי הלם ומידול"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "apps.dtic.mil/sti/pdfs/ADA326738.pdf — 403 'The request is blocked' (WAF של DTIC, לא ה-proxy)",
+   "הורד מ-EverySpec (עותק של אותו מסמך DTIC, מסומן approved for public release)"
+  ],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "X18",
+  "key": "alberts_hayes",
+  "path": "library/military/free/X18_alberts_hayes_understanding_c2.pdf",
+  "title": "Understanding Command and Control",
+  "author": "Alberts & Hayes",
+  "edition": "CCRP 2006",
+  "source_url": "http://www.dodccrp.org/files/Alberts_UC2.pdf",
+  "pdf_pages": 255,
+  "text_ok": true,
+  "method": "direct",
+  "modules": {
+   "M7.13": [
+    {
+     "pages": [
+      1,
+      255
+     ],
+     "note": "כולו"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "X23",
+  "key": "rubin_besa",
+  "path": "library/military/free/X23_rubin_air_missile_defense_2014.pdf",
+  "title": "Israel's Air and Missile Defense During the 2014 Gaza War (Mideast Security and Policy Studies 111)",
+  "author": "Rubin",
+  "edition": "BESA 2015",
+  "source_url": "https://besacenter.org/wp-content/uploads/2015/02/111eng_web1.pdf",
+  "pdf_pages": 45,
+  "text_ok": true,
+  "method": "direct",
+  "modules": {
+   "M7.16": [
+    {
+     "pages": [
+      1,
+      45
+     ],
+     "note": "כולו"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "X28",
+  "key": "glasstone_dolan",
+  "path": "library/military/free/X28_glasstone_dolan_nuclear_weapons.pdf",
+  "title": "The Effects of Nuclear Weapons",
+  "author": "Glasstone & Dolan",
+  "edition": "3rd ed. (1977)",
+  "source_url": "https://www.osti.gov/servlets/purl/6852629",
+  "pdf_pages": 662,
+  "text_ok": true,
+  "method": "direct",
+  "modules": {
+   "M11.20": [
+    {
+     "pages": [
+      396,
+      469
+     ],
+     "note": "פרק IX: קרינה שיורית ו-fallout — מקורות, פיזור, חיזוי, הנחתה, delayed fallout"
+    },
+    {
+     "pages": [
+      603,
+      617
+     ],
+     "note": "פרק XII (חלק): השפעות ביולוגיות של early fallout ו-delayed fallout"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "היסט עמודים: עמוד מודפס N = PDF N+9"
+  ],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "X33",
+  "key": "fm_3_12",
+  "path": "library/military/free/X33_fm_3_12_cyber_ew_2021.pdf",
+  "title": "FM 3-12, Cyberspace Operations and Electromagnetic Warfare",
+  "author": "HQ Department of the Army",
+  "edition": "August 2021 (approved for public release)",
+  "source_url": "https://archive.org/download/fm-3-12-cyberspace-and-electromagnetic-warfare-2021/FM3-12_Cyberspace_and_electromagnetic_warfare_2021.pdf",
+  "pdf_pages": 162,
+  "text_ok": true,
+  "method": "direct",
+  "modules": {
+   "M15.5": [
+    {
+     "pages": [
+      1,
+      162
+     ],
+     "note": "כולו"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "armypubs ARN31186 — 404; המהדורה הוחלפה ב-FM 3-12 מ-17.9.2025 (זמינה רק ב-CAR עם CAC)",
+   "irp.fas.org/doddir/army/fm3-12.pdf — 202 ריק (bot challenge)",
+   "digitalcommons.unl.edu — 403 (Cloudflare)",
+   "web.archive.org — חיבור נקטע שוב ושוב (ws_closed_mid_exchange)",
+   "הורד מ-archive.org (טקסט, 162 עמ', מהדורת אוגוסט 2021)"
+  ],
+  "blocked_hosts": []
+ }
+]

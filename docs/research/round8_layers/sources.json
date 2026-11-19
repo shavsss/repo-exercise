@@ -1,0 +1,3280 @@
+{
+ "modules": {
+  "M0.3": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "py_rse",
+     "chapters": "פרקים 1–8, 11–12: shell, git, ענפים, סביבות, pytest, שחזוריות",
+     "why": "git, בדיקות, סביבות ושחזוריות בפרויקט מדעי"
+    },
+    {
+     "key": "vanderplas_pdsh",
+     "chapters": "חלקים 2 ו-4: NumPy, Matplotlib",
+     "why": "מודל המערך של NumPy, broadcasting, views וגרפים"
+    }
+   ]
+  },
+  "M6.13": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "nist_esh",
+     "chapters": "פרק 5 (Process Improvement: DOE, factorial, RSM), פרק 7 (ANOVA, sample size)",
+     "why": "DOE פקטוריאלי, חלקי ו-RSM, עם דוגמאות"
+    },
+    {
+     "key": "nrc_stat_testing",
+     "chapters": "פרקים 3–6",
+     "why": "סטטיסטיקה של ניסוי pass/fail, sequential ו-OC בהקשר רכש ביטחוני"
+    }
+   ]
+  },
+  "M4.17": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "E30",
+     "chapters": "פרק 4.6–4.7 (multirate, polyphase, noble identities)",
+     "why": "הבסיס של polyphase ו-multistage"
+    },
+    {
+     "key": "jos_sasp",
+     "chapters": "פרקי filter banks: polyphase, DFT filter bank, perfect reconstruction, resampling",
+     "why": "בנקי מסננים וקבלן ערוצים מעבר ל-E30"
+    }
+   ]
+  },
+  "M4.18": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "E30",
+     "chapters": "§6.6–6.10 (quantization, round-off noise, limit cycles), §9.7 (fixed-point FFT)",
+     "why": "נקודה קבועה, סקיילינג ורעש קוונטיזציה בעומק מלא"
+    }
+   ]
+  },
+  "M7.20": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "haykin_aft",
+     "chapters": "פרקים 2, 5–6, 10 (Wiener, LMS, NLMS, RLS)",
+     "why": "LMS/RLS, התכנסות ו-misadjustment; אין חלופה חינמית ברמה הזו"
+    }
+   ]
+  },
+  "M7.19": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "B22",
+     "chapters": "פרקים 4–5, 7–9",
+     "why": "MVU, CRB, ML, בייס, NP, GLRT ו-CFAR"
+    },
+    {
+     "key": "E02",
+     "chapters": "פרקי estimation ו-hypothesis testing",
+     "why": "הבסיס שהלומד כבר מכיר"
+    }
+   ]
+  },
+  "M5.16": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "ee263_see",
+     "chapters": "הרצאות 5–8, 10, 13, 16, 18–19 (LS, least-norm, expm, SVD, reachability, observability)",
+     "why": "least-norm, Gramians ו-SVD של מערכות (במקום ספר EE263 שלא הגיע)"
+    },
+    {
+     "key": "mit_6241",
+     "chapters": "פרקים 4, 10–14, 16, 22–26",
+     "why": "ריאליזציה מינימלית, צורות קנוניות, Lyapunov ו-balanced realization"
+    }
+   ]
+  },
+  "M8.24": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "kochenderfer_opt",
+     "chapters": "פרקים 4, 6, 10–11, 19 (line search, trust region, quasi-Newton, אילוצים, branch and bound)",
+     "why": "אופטימיזציה לא קמורה ובשלמים"
+    },
+    {
+     "key": "madsen_nlls",
+     "chapters": "כולו",
+     "why": "Gauss-Newton ו-Levenberg-Marquardt"
+    }
+   ]
+  },
+  "M5.18": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "slotine_li",
+     "chapters": "פרקים 2–3, 5–8",
+     "why": "phase plane, ליאפונוב, describing function, feedback linearization, sliding mode, backstepping, MRAC (Khalil לא יגיע)"
+    }
+   ]
+  },
+  "M5.19": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "rawlings_mpc",
+     "chapters": "פרקים 1–3, 8",
+     "why": "MPC לינארי ולא לינארי, יציבות, offset-free, tube MPC ושיטות ישירות"
+    },
+    {
+     "key": "liberzon_cvoc",
+     "chapters": "פרקים 4–5",
+     "why": "עקרון המקסימום ו-HJB"
+    }
+   ]
+  },
+  "M5.20": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "soderstrom_stoica",
+     "chapters": "פרקים על nonparametric, input signals, PEM, accuracy, closed loop ו-model validation",
+     "why": "ARX עד Box-Jenkins, PEM ואימות מודל; subspace מהמורה"
+    }
+   ]
+  },
+  "M5.17": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "blackman_popoli",
+     "chapters": "פרקים 4, 6–7, 9 (gating, PDA/JPDA, MHT, IMM, track management)",
+     "why": "עקיבה ושיוך נתונים ברמת תכן (Bar-Shalom לא יגיע)"
+    },
+    {
+     "key": "B02a",
+     "chapters": "פרק multitarget tracking",
+     "why": "השלמה מהספרייה של לנצ'סטר"
+    },
+    {
+     "key": "A02.3",
+     "chapters": "כולו",
+     "why": "RFS ו-GLMB"
+    }
+   ]
+  },
+  "M23.17": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "madhow_intro",
+     "chapters": "פרקים 4, 6, 8 (Nyquist, signal space, M-ary BER, equalization)",
+     "why": "מקלט אופטימלי ו-equalization; סנכרון נושא ותזמון ברמת מבוא בלבד"
+    }
+   ]
+  },
+  "M10.12": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "schneider_fdtd",
+     "chapters": "פרקים 3–5, 8, 11, 14",
+     "why": "Yee, CFL, TF/SF, PML ו-near-to-far"
+    },
+    {
+     "key": "B19",
+     "chapters": "הפרק על זרמים באנטנות תיל (Hallén/Pocklington ופתרון נומרי)",
+     "why": "MoM לאנטנות תיל, מהספרייה של לנצ'סטר"
+    }
+   ]
+  },
+  "M12.12": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "kassakian_pe",
+     "chapters": "פרקים על ממירי DC/DC, DCM, ממירים מבודדים, מודל ממוצע ובקרה, מגנטיקה, ממירים תלת-פאזיים ו-EMI",
+     "why": "ספר שלם לאלקטרוניקת הספק במקום Erickson שלא יגיע"
+    }
+   ]
+  },
+  "M11.24": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "paul_emc",
+     "chapters": "פרקים על קווי תמסורת, crosstalk, פליטה ורגישות, סיכוך, הארקה, ESD ותכן מערכת ל-EMC",
+     "why": "SI ו-EMC בספר אחד; PDN ו-eye diagram בהשלמת מורה"
+    }
+   ]
+  },
+  "M22.14": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "ostep",
+     "chapters": "פרקים 4–10, 13–23, 26–33, 36–37, 42",
+     "why": "תהליכים, תזמון, זיכרון וירטואלי, מקביליות, I/O ומערכות קבצים"
+    }
+   ]
+  },
+  "M22.15": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "boneh_shoup",
+     "chapters": "חלקים I–II (הצפנה סימטרית, MAC, hash, מפתח ציבורי, חתימות, key exchange)",
+     "why": "קריפטוגרפיה ברמת מומחה"
+    },
+    {
+     "key": "E34",
+     "chapters": "פרק 8",
+     "why": "TLS ואבטחת רשת, כבר בספרייה"
+    },
+    {
+     "key": "fips_203",
+     "chapters": "כולו (קריאה ממוקדת)",
+     "why": "קריפטוגרפיה פוסט-קוונטית"
+    }
+   ]
+  },
+  "M22.16": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "van_steen_ds",
+     "chapters": "פרקים 5–8 (זמן, עקביות ושכפול, עמידות לתקלות, Raft/Paxos, Byzantine)",
+     "why": "מערכות מבוזרות מלאות בחינם"
+    }
+   ]
+  },
+  "M18.11": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "spinningup",
+     "chapters": "Part 1–3 ו-Key Papers",
+     "why": "DQN, PPO, SAC ומתודולוגיית ניסוי"
+    },
+    {
+     "key": "murphy_rl",
+     "chapters": "פרקים על value-based, policy-based ו-model-based",
+     "why": "Dreamer, MuZero ותמונה מעודכנת"
+    }
+   ]
+  },
+  "M19.12": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "prince_cvmli",
+     "chapters": "פרקים 14–16",
+     "why": "מודל מצלמה, כיול, הומוגרפיה, אפיפולרית ו-SfM (במקום Szeliski שלא הגיע)"
+    },
+    {
+     "key": "barfoot_ser",
+     "chapters": "פרקים 7–10",
+     "why": "Lie groups, bundle adjustment, SLAM ו-VIO"
+    },
+    {
+     "key": "sola_lie",
+     "chapters": "כולו",
+     "why": "Lie theory קומפקטי לשערוך פוזה"
+    }
+   ]
+  },
+  "M27.10": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "sysml2_release",
+     "chapters": "Intro to the SysML v2 Language (Textual Notation) והמפרט",
+     "why": "SysML v2 מהמקור (Friedenthal לא הגיע)"
+    },
+    {
+     "key": "E26",
+     "chapters": "§4.3–4.4, נספח על MBSE",
+     "why": "הקשר תהליכי, כבר בספרייה"
+    }
+   ]
+  },
+  "M28.1": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "hp_caqa",
+     "chapters": "פרקים 2, 3, 5",
+     "why": "OoO, ספקולציה, קאש, קוהרנטיות ועקביות זיכרון"
+    }
+   ]
+  },
+  "M28.2": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "hp_caqa",
+     "chapters": "פרקים 4, 7",
+     "why": "GPU, systolic arrays ו-DSA"
+    },
+    {
+     "key": "cuda_guide",
+     "chapters": "Programming Model, Memory Hierarchy, Best Practices",
+     "why": "מודל התכנות של CUDA, coalescing ו-shared memory"
+    },
+    {
+     "key": "sze_dnn",
+     "chapters": "§V–VI",
+     "why": "dataflows של DNN ו-roofline"
+    }
+   ]
+  },
+  "M28.3": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "E25",
+     "chapters": "פרק 10 (sequential circuits: setup/hold, synchronizers)",
+     "why": "תזמון ו-metastability, כבר בספרייה"
+    },
+    {
+     "key": "amd_ug949",
+     "chapters": "פרקים על constraints, timing closure ו-tool flow",
+     "why": "STA, SDC ו-timing closure ב-FPGA"
+    },
+    {
+     "key": "cummings_cdc",
+     "chapters": "כולו",
+     "why": "CDC"
+    },
+    {
+     "key": "ieee_1800",
+     "chapters": "סעיפי RTL ו-SVA",
+     "why": "SystemVerilog סינתזבילי ו-assertions"
+    }
+   ]
+  },
+  "M28.4": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "hp_caqa",
+     "chapters": "נספח F (Interconnection Networks)",
+     "why": "טופולוגיות וניתוב"
+    },
+    {
+     "key": "cxl_intro",
+     "chapters": "כולו",
+     "why": "PCIe ו-CXL; SerDes, PAM4 ו-jitter בהשלמת מורה מ-M11.24"
+    }
+   ]
+  },
+  "M28.5": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "buttazzo_rt",
+     "chapters": "פרקים 1–7",
+     "why": "RTA, EDF, פרוטוקולי משאבים ו-servers"
+    },
+    {
+     "key": "freertos_book",
+     "chapters": "נבחר",
+     "why": "RTOS בפועל"
+    },
+    {
+     "key": "A05.5",
+     "chapters": "פרקים 1–5",
+     "why": "יציבות שעון ו-holdover, מהספרייה של לנצ'סטר"
+    }
+   ]
+  },
+  "M28.6": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "anderson_se",
+     "chapters": "פרקים 16–17 (physical tamper resistance, emission security)",
+     "why": "tamper, ערוצי צד ו-zeroization"
+    },
+    {
+     "key": "nist_800_193",
+     "chapters": "כולו",
+     "why": "root of trust, secure boot ו-firmware update"
+    },
+    {
+     "key": "spectre",
+     "chapters": "כולו",
+     "why": "ערוצי צד מיקרו-ארכיטקטוניים"
+    }
+   ]
+  },
+  "M29.1": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "E17",
+     "chapters": "פרק 12 (transformers)",
+     "why": "הבלוק הבסיסי, כבר בספרייה"
+    },
+    {
+     "key": "slp3",
+     "chapters": "פרקי LLM ו-transformers",
+     "why": "tokenization, decoder-only ו-scaling"
+    },
+    {
+     "key": "llm_arch_papers",
+     "chapters": "כולם",
+     "why": "RoPE, FlashAttention, MLA ו-MoE ממקור ראשון"
+    }
+   ]
+  },
+  "M29.2": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "scaling_book",
+     "chapters": "פרקי training ו-sharding",
+     "why": "חשבון זיכרון, DP/TP/PP ותקשורת"
+    },
+    {
+     "key": "ultrascale",
+     "chapters": "כולו",
+     "why": "ZeRO, FSDP, EP, CP ו-MFU בפועל"
+    },
+    {
+     "key": "chinchilla",
+     "chapters": "כולו",
+     "why": "חוקי סקיילינג"
+    }
+   ]
+  },
+  "M29.3": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "rlhfbook",
+     "chapters": "כולו",
+     "why": "SFT, reward model, PPO, DPO"
+    },
+    {
+     "key": "reasoning_papers",
+     "chapters": "כולם",
+     "why": "GRPO ו-RL עם תגמולים ניתנים לאימות"
+    }
+   ]
+  },
+  "M29.4": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "scaling_book",
+     "chapters": "פרקי inference",
+     "why": "prefill מול decode ו-KV cache"
+    },
+    {
+     "key": "inference_papers",
+     "chapters": "כולם",
+     "why": "PagedAttention, speculative decoding, GPTQ, AWQ"
+    }
+   ]
+  },
+  "M29.5": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "vision_papers",
+     "chapters": "כולם",
+     "why": "DETR, SAM, DINOv2, NeRF, 3DGS ו-world models ממקור ראשון"
+    }
+   ]
+  },
+  "M29.6": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "agent_sources",
+     "chapters": "כולם",
+     "why": "לולאת הסוכן, כלים, הערכה ו-VLA"
+    }
+   ]
+  },
+  "M29.7": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "sze_dnn",
+     "chapters": "כולו",
+     "why": "חומרת קצה ותקציבים"
+    },
+    {
+     "key": "edge_papers",
+     "chapters": "כולם",
+     "why": "קוונטיזציה בשלמים, עמידות אדברסרית ועמידות להשחתה"
+    }
+   ]
+  },
+  "M29.8": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "cs329s",
+     "chapters": "כל ההרצאות",
+     "why": "MLOps: נתונים, פריסה, ניטור ו-drift"
+    },
+    {
+     "key": "sculley_debt",
+     "chapters": "כולו",
+     "why": "חוב טכני במערכות ML"
+    }
+   ]
+  },
+  "M30.1": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "tupper_na",
+     "chapters": "פרקים על hull form, flotation, initial stability, large-angle stability, launching/docking, damaged stability",
+     "why": "הידרוסטטיקה ויציבות; ספר אחד לכל P30"
+    }
+   ]
+  },
+  "M30.2": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "tupper_na",
+     "chapters": "פרקים על resistance ו-propulsion",
+     "why": "התנגדות, מדחף והתאמת מנוע"
+    },
+    {
+     "key": "newman_mh",
+     "chapters": "פרקים 2–3, 6",
+     "why": "תורת דמיון, גרר וגלים, בחינם"
+    }
+   ]
+  },
+  "M30.3": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "tupper_na",
+     "chapters": "פרקים על seakeeping ו-manoeuvring",
+     "why": "תנועות ספינה ותמרון"
+    },
+    {
+     "key": "newman_mh",
+     "chapters": "פרק 6",
+     "why": "גלי ים, RAO ו-strip theory"
+    }
+   ]
+  },
+  "M30.4": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "tupper_na",
+     "chapters": "פרקים על strength, structural design ו-ship machinery",
+     "why": "חוזק אורכי, לוחות מחוזקים ומערכות הנעה"
+    }
+   ]
+  },
+  "M30.5": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "jensen_coa",
+     "chapters": "פרקים 1–3, 5–6",
+     "why": "משוואת הגלים, קרניים, מודים נורמליים, PE ומשוואת הסונאר (Urick לא בספרייה)"
+    }
+   ]
+  },
+  "M30.6": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "burcher_rydill",
+     "chapters": "פרקים 1–9",
+     "why": "איזון משקל-נפח, גוף לחץ, יציבות, הנעה, חתימות ובטיחות"
+    }
+   ]
+  },
+  "M22.13": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "modern_c",
+     "chapters": "Levels 1–2",
+     "why": "טיפוסים, UB, מצביעים, זיכרון ו-volatile"
+    },
+    {
+     "key": "E22",
+     "chapters": "פרק 2 (§2.12 translating and starting a program)",
+     "why": "מ-C לאסמבלי ו-linking, כבר בספרייה"
+    }
+   ]
+  },
+  "M10.13": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "suli_odes",
+     "chapters": "כולו",
+     "why": "עקביות, zero-stability, RK, LMM ו-A-stability"
+    },
+    {
+     "key": "sundials_docs",
+     "chapters": "Mathematical considerations של CVODE, IDA ו-CVODES",
+     "why": "BDF, Newton, DAE, events ו-adjoint"
+    },
+    {
+     "key": "baydin_ad",
+     "chapters": "כולו",
+     "why": "גזירה אוטומטית"
+    }
+   ]
+  },
+  "M7.21": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "sarkka_solin_sde",
+     "chapters": "פרקים 1–7, 10",
+     "why": "Itô, SDE לינארי, Fokker-Planck, Euler-Maruyama וקלמן רציף-בדיד"
+    },
+    {
+     "key": "E48",
+     "chapters": "פרק על continuous-discrete filtering",
+     "why": "הקשר למסנן, כבר בספרייה"
+    }
+   ]
+  },
+  "M5.21": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "skogestad_mfc",
+     "chapters": "פרקים 3, 5–10 (מהדורה 1, מלאה באתר המחבר)",
+     "why": "MIMO, RGA, N-Δ, μ, H∞ loop shaping ותכן מבנה בקרה"
+    },
+    {
+     "key": "mit_6241",
+     "chapters": "פרקים 17–21, 27",
+     "why": "יציבות חסינה ו-μ, כגיבוי"
+    }
+   ]
+  },
+  "M5.22": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "ifac_computer_control",
+     "chapters": "כולו",
+     "why": "ZOH, דגימה, השהיה, jitter, קוונטיזציה, anti-windup ומימוש"
+    },
+    {
+     "key": "E03",
+     "chapters": "§10.4 (anti-windup), §8.5",
+     "why": "השלמה מהספרייה"
+    }
+   ]
+  },
+  "M23.19": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "ts_38300",
+     "chapters": "כולו",
+     "why": "ארכיטקטורת NR מהתקן"
+    },
+    {
+     "key": "lin_5g",
+     "chapters": "כולו",
+     "why": "numerology, ערוצים, beam management ו-HARQ"
+    }
+   ]
+  },
+  "M24.14": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "degen_qs",
+     "chapters": "כולו",
+     "why": "פרוטוקול חישה, גבולות קוונטיים, שעונים, אינטרפרומטריה ומגנטומטרים"
+    },
+    {
+     "key": "A05.5",
+     "chapters": "פרקים 1–3",
+     "why": "שעונים אטומיים ויציבות, מהספרייה של לנצ'סטר"
+    }
+   ]
+  },
+  "M24.15": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "saleh_teich",
+     "chapters": "פרקים 3, 11, 15–19, 25",
+     "why": "אלומות גאוס, מהודים, לייזרים, סיבים וגלאים"
+    }
+   ]
+  },
+  "M23.18": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "banerjee_pll",
+     "chapters": "כולו (נבחר)",
+     "why": "PLL, רעש פאזה, fractional-N, spurs ו-lock time"
+    }
+   ]
+  },
+  "M11.25": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "E09",
+     "chapters": "פרק 15 (measurements and transducers)",
+     "why": "מתמרים וממשקים, כבר בספרייה"
+    },
+    {
+     "key": "A05.6",
+     "chapters": "פרקים 2–4",
+     "why": "MEMS IMU ושגיאות"
+    },
+    {
+     "key": "B03",
+     "chapters": "פרקי detectors",
+     "why": "גלאי IR ורעש, מהספרייה של לנצ'סטר"
+    }
+   ]
+  },
+  "M15.31": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "leishman_ifv",
+     "chapters": "פרקי propellers, rotors ו-helicopters",
+     "why": "momentum ו-blade element מ-Leishman, בחינם"
+    },
+    {
+     "key": "E39",
+     "chapters": "פרק על propellers",
+     "why": "השלמה מהספרייה"
+    }
+   ]
+  },
+  "M15.32": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "cfd_direct_notes",
+     "chapters": "כולו",
+     "why": "finite volume, pressure-velocity, רשתות, RANS/LES ו-OpenFOAM"
+    },
+    {
+     "key": "nasa_tmr",
+     "chapters": "Verification ו-turbulence model pages",
+     "why": "אימות ו-validation של מודלי טורבולנציה"
+    }
+   ]
+  },
+  "M27.11": {
+   "app": "eng",
+   "sources": [
+    {
+     "key": "nist_esh",
+     "chapters": "פרק 8 (Assessing Product Reliability)",
+     "why": "Weibull, ALT, reliability growth ו-demonstration"
+    },
+    {
+     "key": "mil_hdbk_338b",
+     "chapters": "פרקים על RBD, FMECA, physics of failure ו-maintainability",
+     "why": "תקן DoD לאמינות"
+    },
+    {
+     "key": "E52",
+     "chapters": "פרקי fault trees",
+     "why": "כבר בספרייה"
+    }
+   ]
+  },
+  "M3.15": {
+   "app": "mil",
+   "sources": [
+    {
+     "key": "B16",
+     "chapters": "פרק susceptibility reduction (signature reduction)",
+     "why": "חתימות IR, אקוסטיות וחזותיות ומחירן"
+    },
+    {
+     "key": "B03",
+     "chapters": "פרקי sources, atmospheric transmission ו-targets",
+     "why": "פלומה, עור מחומם ונתיב אטמוספרי"
+    }
+   ]
+  },
+  "M5.13": {
+   "app": "mil",
+   "sources": [
+    {
+     "key": "dellaert_kaess",
+     "chapters": "כולו",
+     "why": "factor graphs לניווט רב-חיישני"
+    },
+    {
+     "key": "forster_preint",
+     "chapters": "כולו",
+     "why": "VIO ו-preintegration"
+    },
+    {
+     "key": "canciani_magnav",
+     "chapters": "פרקים 1–4",
+     "why": "MagNav"
+    },
+    {
+     "key": "A05.6",
+     "chapters": "פרקים 3–6",
+     "why": "צמיחת שגיאה ב-INS חופשי"
+    },
+    {
+     "key": "B08",
+     "chapters": "פרק navigation (TRN, INS/GPS)",
+     "why": "TERCOM ושילוב INS/GPS"
+    }
+   ]
+  },
+  "M5.14": {
+   "app": "mil",
+   "sources": [
+    {
+     "key": "volpe_cpnt",
+     "chapters": "סעיפים 1–10",
+     "why": "eLoran, LEO ו-backup PNT בהדגמה ממשלתית"
+    },
+    {
+     "key": "A05.4",
+     "chapters": "כולו",
+     "why": "Starlink SoOP"
+    },
+    {
+     "key": "A05.5",
+     "chapters": "כולו",
+     "why": "Allan deviation ו-holdover"
+    }
+   ]
+  },
+  "M6.15": {
+   "app": "mil",
+   "sources": [
+    {
+     "key": "E39",
+     "chapters": "פרקים 11–12 (rocket propulsion) ופרק ramjet",
+     "why": "Isp, c*, נחיר, ramjet ו-scramjet (Sutton & Biblarz לא הגיע)"
+    },
+    {
+     "key": "nasa_sp8076",
+     "chapters": "כולו",
+     "why": "גרעין, חוק קצב שריפה ושריפה ארוזיבית"
+    },
+    {
+     "key": "B13",
+     "chapters": "פרקי propulsion",
+     "why": "בחירת הנעה מול משימה"
+    }
+   ]
+  },
+  "M6.16": {
+   "app": "mil",
+   "sources": [
+    {
+     "key": "tracy_wright",
+     "chapters": "כולו",
+     "why": "מכניקת HGV ותוצאת Tracy-Wright"
+    },
+    {
+     "key": "A06.2",
+     "chapters": "כולו",
+     "why": "היסטוריה ויציבות אסטרטגית"
+    },
+    {
+     "key": "crs_hypersonic",
+     "chapters": "כולו",
+     "why": "תוכניות והגנה"
+    }
+   ]
+  },
+  "M7.12": {
+   "app": "mil",
+   "sources": [
+    {
+     "key": "blackman_popoli",
+     "chapters": "פרקים על multisensor fusion, registration ו-track-to-track",
+     "why": "היתוך ברמת מערכת (Liggins לא יגיע); אותו ספר כמו גילואה M5.17"
+    },
+    {
+     "key": "B02a",
+     "chapters": "פרק multitarget, multisensor tracking",
+     "why": "כבר בספרייה"
+    }
+   ]
+  },
+  "M7.13": {
+   "app": "mil",
+   "sources": [
+    {
+     "key": "alberts_hayes",
+     "chapters": "כולו",
+     "why": "מרחב גישות ה-C2"
+    },
+    {
+     "key": "B07",
+     "chapters": "פרקי battle management ו-TEWA",
+     "why": "ארכיטקטורות והקצאת נשק-מטרה"
+    },
+    {
+     "key": "crs_jadc2",
+     "chapters": "כולו",
+     "why": "JADC2"
+    },
+    {
+     "key": "dsb_autonomy",
+     "chapters": "פרקים 3–4",
+     "why": "צוות אדם-מכונה ו-automation bias"
+    }
+   ]
+  },
+  "M7.14": {
+   "app": "mil",
+   "sources": [
+    {
+     "key": "nrc_stat_testing",
+     "chapters": "פרקים 3–6",
+     "why": "ביטחון בינומי, sequential, M&S ו-VV&A"
+    },
+    {
+     "key": "nist_esh",
+     "chapters": "פרקים 5, 8",
+     "why": "DOE ו-reliability demonstration"
+    }
+   ]
+  },
+  "M7.15": {
+   "app": "mil",
+   "sources": [
+    {
+     "key": "dod_low_manual",
+     "chapters": "פרקים 5–6",
+     "why": "עקרונות המיקוד, מידתיות וסקירת נשק"
+    },
+    {
+     "key": "dodd_3000_09",
+     "chapters": "כולו",
+     "why": "מדיניות אוטונומיה"
+    },
+    {
+     "key": "israel_decl",
+     "chapters": "החוק והצווים",
+     "why": "פיקוח יצוא ביטחוני ישראלי"
+    },
+    {
+     "key": "D10",
+     "chapters": "נספח CDE",
+     "why": "CDE בפועל, כבר בספרייה"
+    }
+   ]
+  },
+  "M7.16": {
+   "app": "mil",
+   "sources": [
+    {
+     "key": "rubin_besa",
+     "chapters": "כולו",
+     "why": "כיפת ברזל ב-2014, מדיניות יירוט סלקטיבית וכלכלה"
+    },
+    {
+     "key": "B07",
+     "chapters": "פרקי layered defense",
+     "why": "חיזוי נקודת פגיעה וארכיטקטורה"
+    }
+   ]
+  },
+  "M7.17": {
+   "app": "mil",
+   "sources": [
+    {
+     "key": "nielsen_dew",
+     "chapters": "פרקי high-power lasers",
+     "why": "התפשטות, turbulence, thermal blooming ונזק"
+    },
+    {
+     "key": "B03",
+     "chapters": "פרק atmospheric turbulence",
+     "why": "Cn² ו-Fried parameter"
+    },
+    {
+     "key": "crs_dew",
+     "chapters": "כולו",
+     "why": "מקורות ותוכניות עדכניות"
+    }
+   ]
+  },
+  "M7.18": {
+   "app": "mil",
+   "sources": [
+    {
+     "key": "nielsen_dew",
+     "chapters": "פרקי high-power microwaves",
+     "why": "מקורות, צימוד ורמות נזק"
+    },
+    {
+     "key": "mil_std_461g",
+     "chapters": "MIL-STD-464C: HEMP ו-HPM",
+     "why": "דרישות הקשחה"
+    }
+   ]
+  },
+  "M8.10": {
+   "app": "mil",
+   "sources": [
+    {
+     "key": "raymer_ad",
+     "chapters": "פרקים 3–7, 14, 17–18 (נבחר)",
+     "why": "sizing, constraint diagram, תצורה, חמקנות ועלות"
+    },
+    {
+     "key": "B16",
+     "chapters": "פרקי susceptibility",
+     "why": "מחיר החמקנות, כבר בספרייה"
+    }
+   ]
+  },
+  "M9.10": {
+   "app": "mil",
+   "sources": [
+    {
+     "key": "holland_michel_cuas",
+     "chapters": "כולו",
+     "why": "קטגוריות C-UAS ומגבלותיהן"
+    },
+    {
+     "key": "D9",
+     "chapters": "נבחר",
+     "why": "תורת ההפעלה, כבר בספרייה"
+    },
+    {
+     "key": "pettyjohn_cnas",
+     "chapters": "כולו",
+     "why": "אוקראינה וכלכלת עלות-החלפה"
+    },
+    {
+     "key": "A02.5",
+     "chapters": "כולו",
+     "why": "הבחנה רחפן-ציפור"
+    }
+   ]
+  },
+  "M10.6": {
+   "app": "mil",
+   "sources": [
+    {
+     "key": "E31",
+     "chapters": "פרק 6 (spatial methods: beamforming, Capon/MVDR)",
+     "why": "MVDR וניתוח צר-סרט, מהספרייה של גילואה"
+    },
+    {
+     "key": "B02a",
+     "chapters": "פרק adaptive digital beamforming",
+     "why": "אלומה מסתגלת"
+    },
+    {
+     "key": "B10",
+     "chapters": "פרקי sonar",
+     "why": "LOFAR ומשוואת הסונאר"
+    },
+    {
+     "key": "A10.5",
+     "chapters": "כולו",
+     "why": "עיבוד סונאר אקטיבי ועקיבה"
+    }
+   ]
+  },
+  "M10.7": {
+   "app": "mil",
+   "sources": [
+    {
+     "key": "burcher_rydill",
+     "chapters": "פרקים על propulsion, signatures ו-combat system",
+     "why": "השתקה, AIP מול גרעינית; אותו ספר כמו גילואה M30.6"
+    },
+    {
+     "key": "B10",
+     "chapters": "פרקים על submarines ו-communications",
+     "why": "תקשורת VLF/ELF ברמת מבוא"
+    }
+   ]
+  },
+  "M10.8": {
+   "app": "mil",
+   "sources": [
+    {
+     "key": "nrc_auv",
+     "chapters": "פרקים 2–5",
+     "why": "ניווט, אנרגיה ותקשורת של UUV/USV"
+    },
+    {
+     "key": "reid_undex",
+     "chapters": "כולו",
+     "why": "UNDEX, shock factor ו-whipping"
+    }
+   ]
+  },
+  "M10.9": {
+   "app": "mil",
+   "sources": [
+    {
+     "key": "hughes_girrier",
+     "chapters": "פרקים על salvo, scouting והיסטוריה",
+     "why": "מודל ה-salvo של Hughes ומקרי בוחן (המאמר מ-1995 לא יגיע)"
+    },
+    {
+     "key": "B14",
+     "chapters": "פרק salvo ו-Lanchester",
+     "why": "המתמטיקה, כבר בספרייה"
+    },
+    {
+     "key": "A10.3",
+     "chapters": "כולו",
+     "why": "הגנת ספינה מול ASCM"
+    }
+   ]
+  },
+  "M10.10": {
+   "app": "mil",
+   "sources": [
+    {
+     "key": "B14",
+     "chapters": "פרקי search theory",
+     "why": "sweep width, מחסומים ו-datum search"
+    },
+    {
+     "key": "nrc_mines",
+     "chapters": "כולו",
+     "why": "מוקשים ו-MCM"
+    },
+    {
+     "key": "B10",
+     "chapters": "פרקי torpedoes ו-mines",
+     "why": "טורפדות"
+    }
+   ]
+  },
+  "M11.11": {
+   "app": "mil",
+   "sources": [
+    {
+     "key": "carlucci_ballistics",
+     "chapters": "חלקים I–II",
+     "why": "בליסטיקה פנימית וחיצונית, 6-DOF ופיזור"
+    },
+    {
+     "key": "B10",
+     "chapters": "פרק ballistics",
+     "why": "כבר בספרייה"
+    }
+   ]
+  },
+  "M11.12": {
+   "app": "mil",
+   "sources": [
+    {
+     "key": "carlucci_ballistics",
+     "chapters": "חלק III (terminal ballistics)",
+     "why": "Gurney, רסיסים, הדף, מטען חלול ו-EFP"
+    },
+    {
+     "key": "B15",
+     "chapters": "פרקי lethality",
+     "why": "קטלניות רסיסים, כבר בספרייה"
+    }
+   ]
+  },
+  "M11.13": {
+   "app": "mil",
+   "sources": [
+    {
+     "key": "B11",
+     "chapters": "פרקים על ATGM, ERA ו-APS",
+     "why": "היסטוריה וטכנולוגיה של שריון והגנה אקטיבית"
+    },
+    {
+     "key": "B13",
+     "chapters": "פרקי seeker ו-datalink trades",
+     "why": "טילי נ\"ט כמערכת"
+    },
+    {
+     "key": "carlucci_ballistics",
+     "chapters": "פרק shaped charges",
+     "why": "טנדם מול ERA"
+    }
+   ]
+  },
+  "M11.14": {
+   "app": "mil",
+   "sources": [
+    {
+     "key": "carlucci_ballistics",
+     "chapters": "פרק barrel dynamics",
+     "why": "jump, whip ו-thermal bend"
+    },
+    {
+     "key": "E03",
+     "chapters": "פרקים 11–12",
+     "why": "דחיית הפרעות ו-loop shaping, מהספרייה של גילואה"
+    }
+   ]
+  },
+  "M11.15": {
+   "app": "mil",
+   "sources": [
+    {
+     "key": "wong_tgv",
+     "chapters": "פרקים 2–4, 7–8",
+     "why": "Bekker, התנגדות, משיכה, NRMM, ride ו-skid steering"
+    }
+   ]
+  },
+  "M11.16": {
+   "app": "mil",
+   "sources": [
+    {
+     "key": "lavalle_planning",
+     "chapters": "פרקים 13–15 (נבחר)",
+     "why": "תכנון מסלול תחת אילוצים"
+    },
+    {
+     "key": "ebadi_subt",
+     "chapters": "כולו",
+     "why": "תפיסה ולוקליזציה בלי GNSS בשטח קשה"
+    },
+    {
+     "key": "wong_tgv",
+     "chapters": "פרקי traversability",
+     "why": "עבירות"
+    }
+   ]
+  },
+  "M11.17": {
+   "app": "mil",
+   "sources": [
+    {
+     "key": "usace_em1802",
+     "chapters": "פרקים על seismic, GPR, gravity ו-EM",
+     "why": "שיטות גאופיזיות לגילוי חללים"
+    },
+    {
+     "key": "ufc_3_340_02",
+     "chapters": "פרק confined explosions",
+     "why": "פיצוץ בחלל סגור"
+    },
+    {
+     "key": "ebadi_subt",
+     "chapters": "כולו",
+     "why": "SLAM תת-קרקעי"
+    }
+   ]
+  },
+  "M11.18": {
+   "app": "mil",
+   "sources": [
+    {
+     "key": "D10",
+     "chapters": "פרקי weaponeering ו-CDE",
+     "why": "התהליך המלא, כבר בספרייה"
+    },
+    {
+     "key": "B15",
+     "chapters": "פרקים 3.11–3.16",
+     "why": "פונקציות נזק ו-CEP (Driels לא יגיע)"
+    }
+   ]
+  },
+  "M11.19": {
+   "app": "mil",
+   "sources": [
+    {
+     "key": "fm_3_09",
+     "chapters": "נבחר",
+     "why": "תורת אש ארטילרית"
+    },
+    {
+     "key": "carlucci_ballistics",
+     "chapters": "פרקי dispersion",
+     "why": "תקציב שגיאה"
+    },
+    {
+     "key": "D8",
+     "chapters": "נבחר",
+     "why": "רכישת מטרות ו-counter-battery, כבר בספרייה"
+    }
+   ]
+  },
+  "M11.20": {
+   "app": "mil",
+   "sources": [
+    {
+     "key": "fm_3_11_9",
+     "chapters": "כולו (נבחר)",
+     "why": "סוכנים כימיים וביולוגיים"
+    },
+    {
+     "key": "glasstone_dolan",
+     "chapters": "פרקי fallout",
+     "why": "פיזור רדיולוגי"
+    }
+   ]
+  },
+  "M12.5": {
+   "app": "mil",
+   "sources": [
+    {
+     "key": "glaser_centrifuge",
+     "chapters": "כולו",
+     "why": "צנטריפוגות, SWU וזמן פריצה"
+    },
+    {
+     "key": "iaea_glossary",
+     "chapters": "נבחר",
+     "why": "safeguards ואימות"
+    }
+   ]
+  },
+  "M13.24": {
+   "app": "mil",
+   "sources": [
+    {
+     "key": "B12",
+     "chapters": "פרקי communications payloads ו-link budget",
+     "why": "תקציב לינק ומטען, כבר בספרייה"
+    },
+    {
+     "key": "B04",
+     "chapters": "פרקי satellite link jamming",
+     "why": "anti-jam, כבר בספרייה"
+    }
+   ]
+  },
+  "M14.8": {
+   "app": "mil",
+   "sources": [
+    {
+     "key": "uk_wargaming",
+     "chapters": "כולו",
+     "why": "תכנון, שיפוט וניתוח משחק מלחמה"
+    }
+   ]
+  },
+  "M15.1": {
+   "app": "mil",
+   "sources": [
+    {
+     "key": "B08",
+     "chapters": "פרקי data buses ו-IMA",
+     "why": "1553, ARINC 429, AFDX ו-IMA, כבר בספרייה"
+    },
+    {
+     "key": "ecss_spacewire",
+     "chapters": "כולו",
+     "why": "SpaceWire מהתקן"
+    }
+   ]
+  },
+  "M15.2": {
+   "app": "mil",
+   "sources": [
+    {
+     "key": "ietf_manet_rfcs",
+     "chapters": "כולם",
+     "why": "AODV, OLSR ו-DTN מהמקור (Murthy & Manoj לא יגיע)"
+    },
+    {
+     "key": "E34",
+     "chapters": "פרקים 6–7",
+     "why": "MAC ו-802.11, מהספרייה של גילואה"
+    }
+   ]
+  },
+  "M15.3": {
+   "app": "mil",
+   "sources": [
+    {
+     "key": "A08.4",
+     "chapters": "כולו",
+     "why": "Link 16: שכבה פיזית, TDMA והודעות"
+    },
+    {
+     "key": "A08.9",
+     "chapters": "כולו",
+     "why": "ערך מבצעי"
+    }
+   ]
+  },
+  "M15.4": {
+   "app": "mil",
+   "sources": [
+    {
+     "key": "sze_dnn",
+     "chapters": "כולו",
+     "why": "חומרת קצה ותקציבים"
+    },
+    {
+     "key": "edge_papers",
+     "chapters": "Madry, Hendrycks",
+     "why": "עמידות אדברסרית"
+    }
+   ]
+  },
+  "M15.5": {
+   "app": "mil",
+   "sources": [
+    {
+     "key": "fm_3_12",
+     "chapters": "כולו",
+     "why": "דוקטרינת CEMA"
+    },
+    {
+     "key": "gao_19_128",
+     "chapters": "כולו",
+     "why": "פגיעות מערכות נשק"
+    },
+    {
+     "key": "E34",
+     "chapters": "פרק 8",
+     "why": "אבטחת רשת, מהספרייה של גילואה"
+    }
+   ]
+  },
+  "M15.6": {
+   "app": "mil",
+   "sources": [
+    {
+     "key": "paul_emc",
+     "chapters": "פרקים על emission, susceptibility ו-system design",
+     "why": "EMC מערכתי; אותו ספר כמו גילואה M11.24"
+    },
+    {
+     "key": "mil_std_461g",
+     "chapters": "MIL-STD-461G ו-464C",
+     "why": "בדיקות ודרישות E3 ו-HERO"
+    }
+   ]
+  }
+ },
+ "sources": {
+  "E02": {
+   "title": "Signals, Systems and Inference (MIT 6.011 notes)",
+   "author": "Oppenheim & Verghese",
+   "edition": "2010 notes",
+   "free": true,
+   "url": null,
+   "in_library": "E02",
+   "library": "eng",
+   "modules": [
+    "M7.19"
+   ]
+  },
+  "E03": {
+   "title": "Feedback Systems",
+   "author": "Åström & Murray",
+   "edition": "2nd ed.",
+   "free": true,
+   "url": null,
+   "in_library": "E03",
+   "library": "eng",
+   "modules": [
+    "M5.22",
+    "M11.14"
+   ]
+  },
+  "E09": {
+   "title": "The Art of Electronics",
+   "author": "Horowitz & Hill",
+   "edition": "2nd ed.",
+   "free": false,
+   "url": null,
+   "in_library": "E09",
+   "library": "eng",
+   "modules": [
+    "M11.25"
+   ]
+  },
+  "E17": {
+   "title": "Understanding Deep Learning",
+   "author": "Prince",
+   "edition": "2023",
+   "free": true,
+   "url": null,
+   "in_library": "E17",
+   "library": "eng",
+   "modules": [
+    "M29.1"
+   ]
+  },
+  "E22": {
+   "title": "Computer Organization and Design, RISC-V Edition",
+   "author": "Patterson & Hennessy",
+   "edition": "RISC-V ed.",
+   "free": false,
+   "url": null,
+   "in_library": "E22",
+   "library": "eng",
+   "modules": [
+    "M22.13"
+   ]
+  },
+  "E25": {
+   "title": "CMOS VLSI Design",
+   "author": "Weste & Harris",
+   "edition": "4th ed.",
+   "free": false,
+   "url": null,
+   "in_library": "E25",
+   "library": "eng",
+   "modules": [
+    "M28.3"
+   ]
+  },
+  "E26": {
+   "title": "NASA Systems Engineering Handbook",
+   "author": "NASA",
+   "edition": "Rev 2 (2016)",
+   "free": true,
+   "url": null,
+   "in_library": "E26",
+   "library": "eng",
+   "modules": [
+    "M27.10"
+   ]
+  },
+  "E30": {
+   "title": "Discrete-Time Signal Processing",
+   "author": "Oppenheim, Schafer & Buck",
+   "edition": "2nd ed.",
+   "free": false,
+   "url": null,
+   "in_library": "E30",
+   "library": "eng",
+   "modules": [
+    "M4.17",
+    "M4.18"
+   ]
+  },
+  "E31": {
+   "title": "Spectral Analysis of Signals",
+   "author": "Stoica & Moses",
+   "edition": "2005",
+   "free": true,
+   "url": null,
+   "in_library": "E31",
+   "library": "eng",
+   "modules": [
+    "M10.6"
+   ]
+  },
+  "E34": {
+   "title": "Computer Networking: A Top-Down Approach",
+   "author": "Kurose & Ross",
+   "edition": "8th ed.",
+   "free": false,
+   "url": null,
+   "in_library": "E34",
+   "library": "eng",
+   "modules": [
+    "M22.15",
+    "M15.2",
+    "M15.5"
+   ]
+  },
+  "E39": {
+   "title": "Mechanics and Thermodynamics of Propulsion",
+   "author": "Hill & Peterson",
+   "edition": "2nd ed.",
+   "free": false,
+   "url": null,
+   "in_library": "E39",
+   "library": "eng",
+   "modules": [
+    "M15.31",
+    "M6.15"
+   ]
+  },
+  "E48": {
+   "title": "Bayesian Filtering and Smoothing",
+   "author": "Särkkä",
+   "edition": "2013",
+   "free": true,
+   "url": null,
+   "in_library": "E48",
+   "library": "eng",
+   "modules": [
+    "M7.21"
+   ]
+  },
+  "E52": {
+   "title": "Probabilistic Risk Assessment Procedures Guide",
+   "author": "NASA",
+   "edition": "2nd ed. (2011)",
+   "free": true,
+   "url": null,
+   "in_library": "E52",
+   "library": "eng",
+   "modules": [
+    "M27.11"
+   ]
+  },
+  "B02a": {
+   "title": "Principles of Modern Radar, Vol. II: Advanced Techniques",
+   "author": "Melvin & Scheer (eds.)",
+   "edition": "2013",
+   "free": false,
+   "url": null,
+   "in_library": "B02a",
+   "library": "mil",
+   "modules": [
+    "M5.17",
+    "M7.12",
+    "M10.6"
+   ]
+  },
+  "B03": {
+   "title": "Introduction to Infrared and Electro-Optical Systems",
+   "author": "Driggers et al.",
+   "edition": "2nd ed. (2012)",
+   "free": false,
+   "url": null,
+   "in_library": "B03",
+   "library": "mil",
+   "modules": [
+    "M11.25",
+    "M3.15",
+    "M7.17"
+   ]
+  },
+  "B04": {
+   "title": "EW 102: A Second Course in Electronic Warfare",
+   "author": "Adamy",
+   "edition": "2004",
+   "free": false,
+   "url": null,
+   "in_library": "B04",
+   "library": "mil",
+   "modules": [
+    "M13.24"
+   ]
+  },
+  "B07": {
+   "title": "Air and Missile Defense Systems Engineering",
+   "author": "Boord & Hoffman",
+   "edition": "2016",
+   "free": false,
+   "url": null,
+   "in_library": "B07",
+   "library": "mil",
+   "modules": [
+    "M7.13",
+    "M7.16"
+   ]
+  },
+  "B08": {
+   "title": "Military Avionics Systems",
+   "author": "Moir & Seabridge",
+   "edition": "2006",
+   "free": false,
+   "url": null,
+   "in_library": "B08",
+   "library": "mil",
+   "modules": [
+    "M5.13",
+    "M15.1"
+   ]
+  },
+  "B10": {
+   "title": "Principles of Naval Weapons Systems",
+   "author": "Hall (ed.)",
+   "edition": "USNA",
+   "free": false,
+   "url": null,
+   "in_library": "B10",
+   "library": "mil",
+   "modules": [
+    "M10.6",
+    "M10.7",
+    "M10.10",
+    "M11.11"
+   ]
+  },
+  "B11": {
+   "title": "Tanks: 100 Years of Evolution",
+   "author": "Ogorkiewicz",
+   "edition": "2015",
+   "free": false,
+   "url": null,
+   "in_library": "B11",
+   "library": "mil",
+   "modules": [
+    "M11.13"
+   ]
+  },
+  "B12": {
+   "title": "Space Mission Engineering: The New SMAD",
+   "author": "Wertz, Everett & Puschell (eds.)",
+   "edition": "2011",
+   "free": false,
+   "url": null,
+   "in_library": "B12",
+   "library": "mil",
+   "modules": [
+    "M13.24"
+   ]
+  },
+  "B13": {
+   "title": "Tactical Missile Design",
+   "author": "Fleeman",
+   "edition": "2001",
+   "free": false,
+   "url": null,
+   "in_library": "B13",
+   "library": "mil",
+   "modules": [
+    "M6.15",
+    "M11.13"
+   ]
+  },
+  "B14": {
+   "title": "Combat Modeling",
+   "author": "Washburn & Kress",
+   "edition": "2009",
+   "free": false,
+   "url": null,
+   "in_library": "B14",
+   "library": "mil",
+   "modules": [
+    "M10.9",
+    "M10.10"
+   ]
+  },
+  "B15": {
+   "title": "Mathematical Methods in Defense Analyses",
+   "author": "Przemieniecki",
+   "edition": "3rd ed. (2000)",
+   "free": false,
+   "url": null,
+   "in_library": "B15",
+   "library": "mil",
+   "modules": [
+    "M11.12",
+    "M11.18"
+   ]
+  },
+  "B16": {
+   "title": "The Fundamentals of Aircraft Combat Survivability Analysis and Design",
+   "author": "Ball",
+   "edition": "2nd ed. (2003)",
+   "free": false,
+   "url": null,
+   "in_library": "B16",
+   "library": "mil",
+   "modules": [
+    "M3.15",
+    "M8.10"
+   ]
+  },
+  "B19": {
+   "title": "Electromagnetic Waves and Antennas",
+   "author": "Orfanidis",
+   "edition": "2004",
+   "free": true,
+   "url": null,
+   "in_library": "B19",
+   "library": "mil",
+   "modules": [
+    "M10.12"
+   ]
+  },
+  "B22": {
+   "title": "Statistical Methods for Signal Processing (EECS 564 notes)",
+   "author": "Hero",
+   "edition": "2016",
+   "free": true,
+   "url": null,
+   "in_library": "B22",
+   "library": "mil",
+   "modules": [
+    "M7.19"
+   ]
+  },
+  "A02.3": {
+   "title": "Labeled Random Finite Sets and the Bayes Multi-Target Tracking Filter",
+   "author": "Vo, Vo & Phung",
+   "edition": "IEEE TSP 2014",
+   "free": true,
+   "url": null,
+   "in_library": "A02.3",
+   "library": "mil",
+   "modules": [
+    "M5.17"
+   ]
+  },
+  "A02.5": {
+   "title": "Micro-Doppler: Drones vs Birds",
+   "author": "JMOe",
+   "edition": "2025",
+   "free": true,
+   "url": null,
+   "in_library": "A02.5",
+   "library": "mil",
+   "modules": [
+    "M9.10"
+   ]
+  },
+  "A05.4": {
+   "title": "Starlink Carrier Phase Positioning",
+   "author": "Khalife, Neinavaie & Kassas",
+   "edition": "2022",
+   "free": true,
+   "url": null,
+   "in_library": "A05.4",
+   "library": "mil",
+   "modules": [
+    "M5.14"
+   ]
+  },
+  "A05.5": {
+   "title": "Handbook of Frequency Stability Analysis, NIST SP 1065",
+   "author": "Riley",
+   "edition": "2008",
+   "free": true,
+   "url": null,
+   "in_library": "A05.5",
+   "library": "mil",
+   "modules": [
+    "M28.5",
+    "M24.14",
+    "M5.14"
+   ]
+  },
+  "A05.6": {
+   "title": "An Introduction to Inertial Navigation, Cambridge TR-696",
+   "author": "Woodman",
+   "edition": "2007",
+   "free": true,
+   "url": null,
+   "in_library": "A05.6",
+   "library": "mil",
+   "modules": [
+    "M11.25",
+    "M5.13"
+   ]
+  },
+  "A06.2": {
+   "title": "Hypersonic Boost-Glide Weapons",
+   "author": "Acton",
+   "edition": "Science & Global Security 2015",
+   "free": true,
+   "url": null,
+   "in_library": "A06.2",
+   "library": "mil",
+   "modules": [
+    "M6.16"
+   ]
+  },
+  "A08.4": {
+   "title": "SISO-STD-002-2021, Standard for Link 16 Simulation",
+   "author": "SISO",
+   "edition": "2021",
+   "free": true,
+   "url": null,
+   "in_library": "A08.4",
+   "library": "mil",
+   "modules": [
+    "M15.3"
+   ]
+  },
+  "A08.9": {
+   "title": "Air-to-Air Combat With and Without Link 16, RAND MG-268",
+   "author": "Gonzales et al.",
+   "edition": "2005",
+   "free": true,
+   "url": null,
+   "in_library": "A08.9",
+   "library": "mil",
+   "modules": [
+    "M15.3"
+   ]
+  },
+  "A10.3": {
+   "title": "Defense of Surface Ships Against Anti-Ship Missiles",
+   "author": "Kumar",
+   "edition": "NPS 1990",
+   "free": true,
+   "url": null,
+   "in_library": "A10.3",
+   "library": "mil",
+   "modules": [
+    "M10.9"
+   ]
+  },
+  "A10.5": {
+   "title": "Advances in Active Sonar Tracking",
+   "author": "Coraluppi & Carthel",
+   "edition": "2006",
+   "free": true,
+   "url": null,
+   "in_library": "A10.5",
+   "library": "mil",
+   "modules": [
+    "M10.6"
+   ]
+  },
+  "D8": {
+   "title": "ATP 3-09.12 Field Artillery Target Acquisition",
+   "author": "US Army",
+   "edition": "2015",
+   "free": true,
+   "url": null,
+   "in_library": "D8",
+   "library": "mil",
+   "modules": [
+    "M11.19"
+   ]
+  },
+  "D9": {
+   "title": "ATP 3-01.81 Counter-Unmanned Aircraft System",
+   "author": "US Army",
+   "edition": "2023",
+   "free": true,
+   "url": null,
+   "in_library": "D9",
+   "library": "mil",
+   "modules": [
+    "M9.10"
+   ]
+  },
+  "D10": {
+   "title": "JP 3-60 Joint Targeting",
+   "author": "Joint Chiefs of Staff",
+   "edition": "2013",
+   "free": true,
+   "url": null,
+   "in_library": "D10",
+   "library": "mil",
+   "modules": [
+    "M7.15",
+    "M11.18"
+   ]
+  },
+  "haykin_aft": {
+   "title": "Adaptive Filter Theory",
+   "author": "Haykin",
+   "edition": "5th ed. (Pearson 2014)",
+   "free": false,
+   "url": null,
+   "in_library": null,
+   "modules": [
+    "M7.20"
+   ]
+  },
+  "slotine_li": {
+   "title": "Applied Nonlinear Control",
+   "author": "Slotine & Li",
+   "edition": "1991 (Prentice Hall)",
+   "free": false,
+   "url": null,
+   "in_library": null,
+   "modules": [
+    "M5.18"
+   ]
+  },
+  "blackman_popoli": {
+   "title": "Design and Analysis of Modern Tracking Systems",
+   "author": "Blackman & Popoli",
+   "edition": "1999 (Artech House)",
+   "free": false,
+   "url": null,
+   "in_library": null,
+   "modules": [
+    "M5.17",
+    "M7.12"
+   ]
+  },
+  "kassakian_pe": {
+   "title": "Principles of Power Electronics",
+   "author": "Kassakian, Perreault, Verghese & Schlecht",
+   "edition": "2nd ed. (CUP 2023)",
+   "free": false,
+   "url": null,
+   "in_library": null,
+   "modules": [
+    "M12.12"
+   ]
+  },
+  "paul_emc": {
+   "title": "Introduction to Electromagnetic Compatibility",
+   "author": "Paul",
+   "edition": "2nd ed. (Wiley 2006)",
+   "free": false,
+   "url": null,
+   "in_library": null,
+   "modules": [
+    "M11.24",
+    "M15.6"
+   ]
+  },
+  "hp_caqa": {
+   "title": "Computer Architecture: A Quantitative Approach",
+   "author": "Hennessy & Patterson",
+   "edition": "6th ed. (2017)",
+   "free": false,
+   "url": null,
+   "in_library": null,
+   "modules": [
+    "M28.1",
+    "M28.2",
+    "M28.4"
+   ]
+  },
+  "buttazzo_rt": {
+   "title": "Hard Real-Time Computing Systems",
+   "author": "Buttazzo",
+   "edition": "4th ed. (Springer 2024)",
+   "free": false,
+   "url": null,
+   "in_library": null,
+   "modules": [
+    "M28.5"
+   ]
+  },
+  "tupper_na": {
+   "title": "Introduction to Naval Architecture",
+   "author": "Tupper",
+   "edition": "5th ed. (Butterworth-Heinemann 2013)",
+   "free": false,
+   "url": null,
+   "in_library": null,
+   "modules": [
+    "M30.1",
+    "M30.2",
+    "M30.3",
+    "M30.4"
+   ]
+  },
+  "burcher_rydill": {
+   "title": "Concepts in Submarine Design",
+   "author": "Burcher & Rydill",
+   "edition": "1994 (CUP)",
+   "free": false,
+   "url": null,
+   "in_library": null,
+   "modules": [
+    "M30.6",
+    "M10.7"
+   ]
+  },
+  "jensen_coa": {
+   "title": "Computational Ocean Acoustics",
+   "author": "Jensen, Kuperman, Porter & Schmidt",
+   "edition": "2nd ed. (Springer 2011)",
+   "free": false,
+   "url": null,
+   "in_library": null,
+   "modules": [
+    "M30.5"
+   ]
+  },
+  "saleh_teich": {
+   "title": "Fundamentals of Photonics",
+   "author": "Saleh & Teich",
+   "edition": "3rd ed. (Wiley 2019)",
+   "free": false,
+   "url": null,
+   "in_library": null,
+   "modules": [
+    "M24.15"
+   ]
+  },
+  "raymer_ad": {
+   "title": "Aircraft Design: A Conceptual Approach",
+   "author": "Raymer",
+   "edition": "6th ed. (AIAA 2018)",
+   "free": false,
+   "url": null,
+   "in_library": null,
+   "modules": [
+    "M8.10"
+   ]
+  },
+  "hughes_girrier": {
+   "title": "Fleet Tactics and Naval Operations",
+   "author": "Hughes & Girrier",
+   "edition": "3rd ed. (Naval Institute Press 2018)",
+   "free": false,
+   "url": null,
+   "in_library": null,
+   "modules": [
+    "M10.9"
+   ]
+  },
+  "carlucci_ballistics": {
+   "title": "Ballistics: Theory and Design of Guns and Ammunition",
+   "author": "Carlucci & Jacobson",
+   "edition": "3rd ed. (CRC 2018)",
+   "free": false,
+   "url": null,
+   "in_library": null,
+   "modules": [
+    "M11.11",
+    "M11.12",
+    "M11.13",
+    "M11.14",
+    "M11.19"
+   ]
+  },
+  "wong_tgv": {
+   "title": "Theory of Ground Vehicles",
+   "author": "Wong",
+   "edition": "4th ed. (Wiley 2008)",
+   "free": false,
+   "url": null,
+   "in_library": null,
+   "modules": [
+    "M11.15",
+    "M11.16"
+   ]
+  },
+  "py_rse": {
+   "title": "Research Software Engineering with Python",
+   "author": "Irving, Hertweck, Johnston, Ostblom, Wickham & Wilson",
+   "edition": "CRC 2021, free online",
+   "free": true,
+   "url": "https://third-bit.com/py-rse/",
+   "in_library": null,
+   "modules": [
+    "M0.3"
+   ]
+  },
+  "vanderplas_pdsh": {
+   "title": "Python Data Science Handbook",
+   "author": "VanderPlas",
+   "edition": "2nd ed. (2022), free online",
+   "free": true,
+   "url": "https://jakevdp.github.io/PythonDataScienceHandbook/",
+   "in_library": null,
+   "modules": [
+    "M0.3"
+   ]
+  },
+  "modern_c": {
+   "title": "Modern C",
+   "author": "Gustedt",
+   "edition": "Manning, free author edition",
+   "free": true,
+   "url": "https://gustedt.gitlabpages.inria.fr/modern-c/",
+   "in_library": null,
+   "modules": [
+    "M22.13"
+   ]
+  },
+  "ostep": {
+   "title": "Operating Systems: Three Easy Pieces",
+   "author": "Arpaci-Dusseau & Arpaci-Dusseau",
+   "edition": "v1.10, free",
+   "free": true,
+   "url": "https://pages.cs.wisc.edu/~remzi/OSTEP/",
+   "in_library": null,
+   "modules": [
+    "M22.14"
+   ]
+  },
+  "van_steen_ds": {
+   "title": "Distributed Systems",
+   "author": "van Steen & Tanenbaum",
+   "edition": "4th ed. (2023), free personal PDF",
+   "free": true,
+   "url": "https://www.distributed-systems.net/index.php/books/ds4/",
+   "in_library": null,
+   "modules": [
+    "M22.16"
+   ]
+  },
+  "kochenderfer_opt": {
+   "title": "Algorithms for Optimization",
+   "author": "Kochenderfer & Wheeler",
+   "edition": "MIT Press 2019, free PDF from the authors",
+   "free": true,
+   "url": "https://algorithmsbook.com/optimization/",
+   "in_library": null,
+   "modules": [
+    "M8.24"
+   ]
+  },
+  "madsen_nlls": {
+   "title": "Methods for Non-Linear Least Squares Problems",
+   "author": "Madsen, Nielsen & Tingleff",
+   "edition": "DTU IMM, 2nd ed. 2004",
+   "free": true,
+   "url": "https://www2.imm.dtu.dk/pubdb/edoc/imm3215.pdf",
+   "in_library": null,
+   "modules": [
+    "M8.24"
+   ]
+  },
+  "suli_odes": {
+   "title": "Numerical Solution of Ordinary Differential Equations (lecture notes)",
+   "author": "Süli",
+   "edition": "Oxford, free",
+   "free": true,
+   "url": "https://people.maths.ox.ac.uk/suli/nsodes.pdf",
+   "in_library": null,
+   "modules": [
+    "M10.13"
+   ]
+  },
+  "sundials_docs": {
+   "title": "SUNDIALS documentation (CVODE, IDA, sensitivity analysis)",
+   "author": "LLNL (Hindmarsh, Reynolds, Serban, Woodward et al.)",
+   "edition": "current",
+   "free": true,
+   "url": "https://sundials.readthedocs.io/en/latest/",
+   "in_library": null,
+   "modules": [
+    "M10.13"
+   ]
+  },
+  "baydin_ad": {
+   "title": "Automatic Differentiation in Machine Learning: a Survey",
+   "author": "Baydin, Pearlmutter, Radul & Siskind",
+   "edition": "JMLR 2018, arXiv 1502.05767",
+   "free": true,
+   "url": "https://arxiv.org/abs/1502.05767",
+   "in_library": null,
+   "modules": [
+    "M10.13"
+   ]
+  },
+  "sarkka_solin_sde": {
+   "title": "Applied Stochastic Differential Equations",
+   "author": "Särkkä & Solin",
+   "edition": "CUP 2019, free author PDF",
+   "free": true,
+   "url": "https://users.aalto.fi/~asolin/sde-book/sde-book.pdf",
+   "in_library": null,
+   "modules": [
+    "M7.21"
+   ]
+  },
+  "nist_esh": {
+   "title": "NIST/SEMATECH e-Handbook of Statistical Methods",
+   "author": "NIST",
+   "edition": "online, current",
+   "free": true,
+   "url": "https://www.itl.nist.gov/div898/handbook/",
+   "in_library": null,
+   "modules": [
+    "M6.13",
+    "M27.11",
+    "M7.14"
+   ]
+  },
+  "nrc_stat_testing": {
+   "title": "Statistics, Testing, and Defense Acquisition: New Approaches and Methodological Improvements",
+   "author": "National Research Council",
+   "edition": "NAP 1998",
+   "free": true,
+   "url": "https://nap.nationalacademies.org/catalog/6037",
+   "in_library": null,
+   "modules": [
+    "M6.13",
+    "M7.14"
+   ]
+  },
+  "mil_hdbk_338b": {
+   "title": "MIL-HDBK-338B, Electronic Reliability Design Handbook",
+   "author": "US DoD",
+   "edition": "1998",
+   "free": true,
+   "url": "https://everyspec.com/MIL-HDBK/MIL-HDBK-0300-0499/MIL-HDBK-338B_15041/",
+   "in_library": null,
+   "note": "url unverified",
+   "modules": [
+    "M27.11"
+   ]
+  },
+  "jos_sasp": {
+   "title": "Spectral Audio Signal Processing",
+   "author": "J. O. Smith III",
+   "edition": "CCRMA, free online",
+   "free": true,
+   "url": "https://ccrma.stanford.edu/~jos/sasp/",
+   "in_library": null,
+   "modules": [
+    "M4.17"
+   ]
+  },
+  "ee263_see": {
+   "title": "EE263 Introduction to Linear Dynamical Systems (lecture slides)",
+   "author": "Boyd",
+   "edition": "Stanford Engineering Everywhere",
+   "free": true,
+   "url": "https://see.stanford.edu/Course/EE263",
+   "in_library": null,
+   "modules": [
+    "M5.16"
+   ]
+  },
+  "mit_6241": {
+   "title": "Lectures on Dynamic Systems and Control (6.241J notes)",
+   "author": "Dahleh, Dahleh & Verghese",
+   "edition": "MIT OCW 2011",
+   "free": true,
+   "url": "https://ocw.mit.edu/courses/6-241j-dynamic-systems-and-control-spring-2011/pages/readings/",
+   "in_library": null,
+   "modules": [
+    "M5.16",
+    "M5.21"
+   ]
+  },
+  "skogestad_mfc": {
+   "title": "Multivariable Feedback Control: Analysis and Design",
+   "author": "Skogestad & Postlethwaite",
+   "edition": "1st ed. (1996), full PDF on the author's site",
+   "free": true,
+   "url": "https://skoge.folk.ntnu.no/skoge/book/ps/bookall.pdf",
+   "in_library": null,
+   "modules": [
+    "M5.21"
+   ]
+  },
+  "rawlings_mpc": {
+   "title": "Model Predictive Control: Theory, Computation, and Design",
+   "author": "Rawlings, Mayne & Diehl",
+   "edition": "2nd ed. (2017/2022), free from the authors",
+   "free": true,
+   "url": "https://sites.engineering.ucsb.edu/~jbraw/mpc/",
+   "in_library": null,
+   "modules": [
+    "M5.19"
+   ]
+  },
+  "liberzon_cvoc": {
+   "title": "Calculus of Variations and Optimal Control Theory",
+   "author": "Liberzon",
+   "edition": "Princeton 2012, free draft from the author",
+   "free": true,
+   "url": "https://liberzon.csl.illinois.edu/teaching/cvoc.pdf",
+   "in_library": null,
+   "modules": [
+    "M5.19"
+   ]
+  },
+  "soderstrom_stoica": {
+   "title": "System Identification",
+   "author": "Söderström & Stoica",
+   "edition": "Prentice Hall 1989, free from the authors",
+   "free": true,
+   "url": "https://user.it.uu.se/~ts/sysidbook.pdf",
+   "in_library": null,
+   "modules": [
+    "M5.20"
+   ]
+  },
+  "ifac_computer_control": {
+   "title": "Computer Control: An Overview (IFAC Professional Brief)",
+   "author": "Wittenmark, Åström & Årzén",
+   "edition": "IFAC 2002",
+   "free": true,
+   "url": "https://www.kth.se/social/upload/4f311a97f2765461cf00000d/IFAC_control.pdf",
+   "in_library": null,
+   "modules": [
+    "M5.22"
+   ]
+  },
+  "banerjee_pll": {
+   "title": "PLL Performance, Simulation, and Design",
+   "author": "Banerjee",
+   "edition": "5th ed. (2017), free from TI (SNAA106C)",
+   "free": true,
+   "url": "https://www.ti.com/lit/ml/snaa106c/snaa106c.pdf",
+   "in_library": null,
+   "modules": [
+    "M23.18"
+   ]
+  },
+  "madhow_intro": {
+   "title": "Introduction to Communication Systems (author draft)",
+   "author": "Madhow",
+   "edition": "Jan 2014 draft of the CUP 2014 book",
+   "free": true,
+   "url": "https://wcsl.ece.ucsb.edu/sites/default/files/f/intro_comm_systems_madhow_jan2014b_0.pdf",
+   "in_library": null,
+   "modules": [
+    "M23.17"
+   ]
+  },
+  "ts_38300": {
+   "title": "3GPP TS 38.300, NR and NG-RAN Overall Description",
+   "author": "3GPP",
+   "edition": "Rel-18",
+   "free": true,
+   "url": "https://www.3gpp.org/ftp/Specs/archive/38_series/38.300/",
+   "in_library": null,
+   "note": "url unverified",
+   "modules": [
+    "M23.19"
+   ]
+  },
+  "lin_5g": {
+   "title": "5G New Radio: Unveiling the Essentials of the Next Generation Wireless Access Technology",
+   "author": "Lin et al. (Ericsson)",
+   "edition": "arXiv 1806.06898 (2018)",
+   "free": true,
+   "url": "https://arxiv.org/abs/1806.06898",
+   "in_library": null,
+   "modules": [
+    "M23.19"
+   ]
+  },
+  "ietf_manet_rfcs": {
+   "title": "IETF RFC 3561 (AODV), RFC 3626 (OLSR), RFC 4838 (DTN architecture)",
+   "author": "IETF",
+   "edition": "2003-2007",
+   "free": true,
+   "url": "https://www.rfc-editor.org/rfc/rfc3626",
+   "in_library": null,
+   "modules": [
+    "M15.2"
+   ]
+  },
+  "schneider_fdtd": {
+   "title": "Understanding the Finite-Difference Time-Domain Method",
+   "author": "Schneider",
+   "edition": "free online",
+   "free": true,
+   "url": "https://eecs.wsu.edu/~schneidj/ufdtd/",
+   "in_library": null,
+   "modules": [
+    "M10.12"
+   ]
+  },
+  "degen_qs": {
+   "title": "Quantum Sensing",
+   "author": "Degen, Reinhard & Cappellaro",
+   "edition": "Rev. Mod. Phys. 89, 035002 (2017), arXiv 1611.02427",
+   "free": true,
+   "url": "https://arxiv.org/abs/1611.02427",
+   "in_library": null,
+   "modules": [
+    "M24.14"
+   ]
+  },
+  "mil_std_461g": {
+   "title": "MIL-STD-461G and MIL-STD-464C (EMI test methods; system E3 requirements)",
+   "author": "US DoD",
+   "edition": "2015 / 2010",
+   "free": true,
+   "url": "https://quicksearch.dla.mil/",
+   "in_library": null,
+   "note": "url unverified",
+   "modules": [
+    "M7.18",
+    "M15.6"
+   ]
+  },
+  "nielsen_dew": {
+   "title": "Effects of Directed Energy Weapons",
+   "author": "Nielsen",
+   "edition": "NDU Press 1994/2004",
+   "free": true,
+   "url": "https://digitalcommons.ndu.edu/ndupress-books/16",
+   "in_library": null,
+   "modules": [
+    "M7.17",
+    "M7.18"
+   ]
+  },
+  "prince_cvmli": {
+   "title": "Computer Vision: Models, Learning, and Inference",
+   "author": "Prince",
+   "edition": "CUP 2012, free PDF from the author",
+   "free": true,
+   "url": "http://www.computervisionmodels.com/",
+   "in_library": null,
+   "modules": [
+    "M19.12"
+   ]
+  },
+  "barfoot_ser": {
+   "title": "State Estimation for Robotics",
+   "author": "Barfoot",
+   "edition": "2nd ed. (CUP 2024), free from the author",
+   "free": true,
+   "url": "https://asrl.utias.utoronto.ca/~tdb/bib/barfoot_ser24.pdf",
+   "in_library": null,
+   "modules": [
+    "M19.12"
+   ]
+  },
+  "sola_lie": {
+   "title": "A micro Lie theory for state estimation in robotics",
+   "author": "Solà, Deray & Atchuthan",
+   "edition": "arXiv 1812.01537",
+   "free": true,
+   "url": "https://arxiv.org/abs/1812.01537",
+   "in_library": null,
+   "modules": [
+    "M19.12"
+   ]
+  },
+  "dellaert_kaess": {
+   "title": "Factor Graphs for Robot Perception",
+   "author": "Dellaert & Kaess",
+   "edition": "Foundations and Trends in Robotics 2017",
+   "free": true,
+   "url": "https://www.cs.cmu.edu/~kaess/pub/Dellaert17fnt.pdf",
+   "in_library": null,
+   "modules": [
+    "M5.13"
+   ]
+  },
+  "forster_preint": {
+   "title": "On-Manifold Preintegration for Real-Time Visual-Inertial Odometry",
+   "author": "Forster, Carlone, Dellaert & Scaramuzza",
+   "edition": "IEEE T-RO 2017, arXiv 1512.02363",
+   "free": true,
+   "url": "https://arxiv.org/abs/1512.02363",
+   "in_library": null,
+   "modules": [
+    "M5.13"
+   ]
+  },
+  "canciani_magnav": {
+   "title": "Absolute Positioning Using the Earth's Magnetic Anomaly Field (PhD dissertation)",
+   "author": "Canciani",
+   "edition": "AFIT 2016",
+   "free": true,
+   "url": "https://scholar.afit.edu/etd/251",
+   "in_library": null,
+   "modules": [
+    "M5.13"
+   ]
+  },
+  "volpe_cpnt": {
+   "title": "Complementary PNT and GPS Backup Technologies Demonstration Report",
+   "author": "US DOT Volpe Center",
+   "edition": "2021",
+   "free": true,
+   "url": "https://rosap.ntl.bts.gov/view/dot/55765",
+   "in_library": null,
+   "modules": [
+    "M5.14"
+   ]
+  },
+  "lavalle_planning": {
+   "title": "Planning Algorithms",
+   "author": "LaValle",
+   "edition": "CUP 2006, free from the author",
+   "free": true,
+   "url": "https://lavalle.pl/planning/",
+   "in_library": null,
+   "modules": [
+    "M11.16"
+   ]
+  },
+  "ebadi_subt": {
+   "title": "Present and Future of SLAM in Extreme Environments: The DARPA SubT Challenge",
+   "author": "Ebadi et al.",
+   "edition": "IEEE T-RO 2023, arXiv 2208.01787",
+   "free": true,
+   "url": "https://arxiv.org/abs/2208.01787",
+   "in_library": null,
+   "modules": [
+    "M11.16",
+    "M11.17"
+   ]
+  },
+  "boneh_shoup": {
+   "title": "A Graduate Course in Applied Cryptography",
+   "author": "Boneh & Shoup",
+   "edition": "v0.6 (2023), free",
+   "free": true,
+   "url": "https://toc.cryptobook.us/",
+   "in_library": null,
+   "modules": [
+    "M22.15"
+   ]
+  },
+  "fips_203": {
+   "title": "FIPS 203, Module-Lattice-Based Key-Encapsulation Mechanism Standard",
+   "author": "NIST",
+   "edition": "2024",
+   "free": true,
+   "url": "https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.203.pdf",
+   "in_library": null,
+   "modules": [
+    "M22.15"
+   ]
+  },
+  "anderson_se": {
+   "title": "Security Engineering",
+   "author": "Anderson",
+   "edition": "2nd ed. (2008), free from the author",
+   "free": true,
+   "url": "https://www.cl.cam.ac.uk/~rja14/book.html",
+   "in_library": null,
+   "modules": [
+    "M28.6"
+   ]
+  },
+  "nist_800_193": {
+   "title": "NIST SP 800-193, Platform Firmware Resiliency Guidelines",
+   "author": "NIST",
+   "edition": "2018",
+   "free": true,
+   "url": "https://csrc.nist.gov/pubs/sp/800/193/final",
+   "in_library": null,
+   "modules": [
+    "M28.6"
+   ]
+  },
+  "spectre": {
+   "title": "Spectre Attacks: Exploiting Speculative Execution",
+   "author": "Kocher et al.",
+   "edition": "IEEE S&P 2019, arXiv 1801.01203",
+   "free": true,
+   "url": "https://arxiv.org/abs/1801.01203",
+   "in_library": null,
+   "modules": [
+    "M28.6"
+   ]
+  },
+  "cuda_guide": {
+   "title": "CUDA C++ Programming Guide and Best Practices Guide",
+   "author": "NVIDIA",
+   "edition": "current",
+   "free": true,
+   "url": "https://docs.nvidia.com/cuda/cuda-programming-guide/",
+   "in_library": null,
+   "modules": [
+    "M28.2"
+   ]
+  },
+  "sze_dnn": {
+   "title": "Efficient Processing of Deep Neural Networks: A Tutorial and Survey",
+   "author": "Sze, Chen, Yang & Emer",
+   "edition": "Proc. IEEE 2017, arXiv 1703.09039",
+   "free": true,
+   "url": "https://arxiv.org/abs/1703.09039",
+   "in_library": null,
+   "modules": [
+    "M28.2",
+    "M29.7",
+    "M15.4"
+   ]
+  },
+  "cxl_intro": {
+   "title": "An Introduction to the Compute Express Link (CXL) Interconnect",
+   "author": "Das Sharma et al.",
+   "edition": "ACM Computing Surveys 2024, arXiv 2306.11227",
+   "free": true,
+   "url": "https://arxiv.org/abs/2306.11227",
+   "in_library": null,
+   "modules": [
+    "M28.4"
+   ]
+  },
+  "amd_ug949": {
+   "title": "UltraFast Design Methodology Guide (UG949) and Vivado timing guides (UG903, UG906)",
+   "author": "AMD/Xilinx",
+   "edition": "current",
+   "free": true,
+   "url": "https://docs.amd.com/r/en-US/ug949-vivado-design-methodology",
+   "in_library": null,
+   "note": "url unverified",
+   "modules": [
+    "M28.3"
+   ]
+  },
+  "cummings_cdc": {
+   "title": "Clock Domain Crossing (CDC) Design & Verification Techniques Using SystemVerilog",
+   "author": "Cummings",
+   "edition": "SNUG Boston 2008",
+   "free": true,
+   "url": "https://www.sunburst-design.com/papers/CummingsSNUG2008Boston_CDC.pdf",
+   "in_library": null,
+   "modules": [
+    "M28.3"
+   ]
+  },
+  "ieee_1800": {
+   "title": "IEEE 1800-2023, SystemVerilog Language Reference Manual (IEEE GET Program)",
+   "author": "IEEE",
+   "edition": "2023",
+   "free": true,
+   "url": "https://standards.ieee.org/ieee/1800/7743/",
+   "in_library": null,
+   "note": "url unverified",
+   "modules": [
+    "M28.3"
+   ]
+  },
+  "freertos_book": {
+   "title": "Mastering the FreeRTOS Real Time Kernel",
+   "author": "Barry",
+   "edition": "2016, free",
+   "free": true,
+   "url": "https://www.freertos.org/media/2018/161204_Mastering_the_FreeRTOS_Real_Time_Kernel-A_Hands-On_Tutorial_Guide.pdf",
+   "in_library": null,
+   "modules": [
+    "M28.5"
+   ]
+  },
+  "sysml2_release": {
+   "title": "SysML v2 Release: Intro to the SysML v2 Language (Textual Notation) and the OMG SysML v2 specification",
+   "author": "OMG / Systems Modeling (Seidewitz et al.)",
+   "edition": "2025 release",
+   "free": true,
+   "url": "https://github.com/Systems-Modeling/SysML-v2-Release",
+   "in_library": null,
+   "note": "url unverified",
+   "modules": [
+    "M27.10"
+   ]
+  },
+  "spinningup": {
+   "title": "Spinning Up in Deep RL",
+   "author": "Achiam (OpenAI)",
+   "edition": "2018",
+   "free": true,
+   "url": "https://spinningup.openai.com/",
+   "in_library": null,
+   "modules": [
+    "M18.11"
+   ]
+  },
+  "murphy_rl": {
+   "title": "Reinforcement Learning: A Comprehensive Overview",
+   "author": "Murphy",
+   "edition": "arXiv 2412.05265 (2025 version)",
+   "free": true,
+   "url": "https://arxiv.org/abs/2412.05265",
+   "in_library": null,
+   "modules": [
+    "M18.11"
+   ]
+  },
+  "slp3": {
+   "title": "Speech and Language Processing",
+   "author": "Jurafsky & Martin",
+   "edition": "3rd ed. draft (2025), free",
+   "free": true,
+   "url": "https://web.stanford.edu/~jurafsky/slp3/",
+   "in_library": null,
+   "note": "url unverified",
+   "modules": [
+    "M29.1"
+   ]
+  },
+  "llm_arch_papers": {
+   "title": "RoFormer (arXiv 2104.09864); FlashAttention (2205.14135); DeepSeek-V3 Technical Report (2412.19437)",
+   "author": "Su et al.; Dao et al.; DeepSeek-AI",
+   "edition": "2021-2024",
+   "free": true,
+   "url": "https://arxiv.org/abs/2412.19437",
+   "in_library": null,
+   "modules": [
+    "M29.1"
+   ]
+  },
+  "scaling_book": {
+   "title": "How to Scale Your Model",
+   "author": "Austin et al. (Google DeepMind)",
+   "edition": "2025, free online",
+   "free": true,
+   "url": "https://jax-ml.github.io/scaling-book/",
+   "in_library": null,
+   "modules": [
+    "M29.2",
+    "M29.4"
+   ]
+  },
+  "ultrascale": {
+   "title": "The Ultra-Scale Playbook: Training LLMs on GPU Clusters",
+   "author": "Hugging Face (Tazi et al.)",
+   "edition": "2025, free",
+   "free": true,
+   "url": "https://huggingface.co/spaces/nanotron/ultrascale-playbook",
+   "in_library": null,
+   "modules": [
+    "M29.2"
+   ]
+  },
+  "chinchilla": {
+   "title": "Training Compute-Optimal Large Language Models",
+   "author": "Hoffmann et al.",
+   "edition": "arXiv 2203.15556 (2022)",
+   "free": true,
+   "url": "https://arxiv.org/abs/2203.15556",
+   "in_library": null,
+   "modules": [
+    "M29.2"
+   ]
+  },
+  "rlhfbook": {
+   "title": "Reinforcement Learning from Human Feedback",
+   "author": "Lambert",
+   "edition": "2025, free online",
+   "free": true,
+   "url": "https://rlhfbook.com/",
+   "in_library": null,
+   "modules": [
+    "M29.3"
+   ]
+  },
+  "reasoning_papers": {
+   "title": "DeepSeekMath / GRPO (arXiv 2402.03300); DeepSeek-R1 (2501.12948)",
+   "author": "Shao et al.; DeepSeek-AI",
+   "edition": "2024-2025",
+   "free": true,
+   "url": "https://arxiv.org/abs/2501.12948",
+   "in_library": null,
+   "modules": [
+    "M29.3"
+   ]
+  },
+  "inference_papers": {
+   "title": "vLLM/PagedAttention (arXiv 2309.06180); Speculative decoding (2211.17192); GPTQ (2210.17323); AWQ (2306.00978); Efficiently Scaling Transformer Inference (2211.05102)",
+   "author": "Kwon et al.; Leviathan et al.; Frantar et al.; Lin et al.; Pope et al.",
+   "edition": "2022-2024",
+   "free": true,
+   "url": "https://arxiv.org/abs/2309.06180",
+   "in_library": null,
+   "modules": [
+    "M29.4"
+   ]
+  },
+  "vision_papers": {
+   "title": "DETR (arXiv 2005.12872); DINOv2 (2304.07193); SAM (2304.02643); SAM 2 (2408.00714); NeRF (2003.08934); 3D Gaussian Splatting (2308.04079); DreamerV3 (2301.04104)",
+   "author": "Carion; Oquab; Kirillov; Ravi; Mildenhall; Kerbl; Hafner et al.",
+   "edition": "2020-2024",
+   "free": true,
+   "url": "https://arxiv.org/abs/2308.04079",
+   "in_library": null,
+   "modules": [
+    "M29.5"
+   ]
+  },
+  "agent_sources": {
+   "title": "Building Effective Agents (Anthropic 2024); ReAct (arXiv 2210.03629); OpenVLA (2406.09246)",
+   "author": "Anthropic; Yao et al.; Kim et al.",
+   "edition": "2022-2024",
+   "free": true,
+   "url": "https://www.anthropic.com/engineering/building-effective-agents",
+   "in_library": null,
+   "modules": [
+    "M29.6"
+   ]
+  },
+  "edge_papers": {
+   "title": "Quantization and Training of NNs for Integer-Arithmetic-Only Inference (arXiv 1712.05877); Towards Deep Learning Models Resistant to Adversarial Attacks (1706.06083); Benchmarking NN Robustness to Common Corruptions (1903.12261)",
+   "author": "Jacob et al.; Madry et al.; Hendrycks & Dietterich",
+   "edition": "2018-2019",
+   "free": true,
+   "url": "https://arxiv.org/abs/1706.06083",
+   "in_library": null,
+   "modules": [
+    "M29.7",
+    "M15.4"
+   ]
+  },
+  "cs329s": {
+   "title": "CS 329S: Machine Learning Systems Design (lecture notes)",
+   "author": "Huyen (Stanford)",
+   "edition": "2022",
+   "free": true,
+   "url": "https://stanford-cs329s.github.io/syllabus.html",
+   "in_library": null,
+   "modules": [
+    "M29.8"
+   ]
+  },
+  "sculley_debt": {
+   "title": "Hidden Technical Debt in Machine Learning Systems",
+   "author": "Sculley et al.",
+   "edition": "NeurIPS 2015",
+   "free": true,
+   "url": "https://papers.nips.cc/paper/5656-hidden-technical-debt-in-machine-learning-systems",
+   "in_library": null,
+   "note": "url unverified",
+   "modules": [
+    "M29.8"
+   ]
+  },
+  "leishman_ifv": {
+   "title": "Introduction to Aerospace Flight Vehicles",
+   "author": "Leishman",
+   "edition": "ERAU open textbook (2025)",
+   "free": true,
+   "url": "https://eaglepubs.erau.edu/introductiontoaerospaceflightvehicles/",
+   "in_library": null,
+   "modules": [
+    "M15.31"
+   ]
+  },
+  "cfd_direct_notes": {
+   "title": "Notes on Computational Fluid Dynamics: General Principles",
+   "author": "Greenshields & Weller",
+   "edition": "CFD Direct 2022, free online",
+   "free": true,
+   "url": "https://doc.cfd.direct/notes/cfd-general-principles/",
+   "in_library": null,
+   "modules": [
+    "M15.32"
+   ]
+  },
+  "nasa_tmr": {
+   "title": "Turbulence Modeling Resource",
+   "author": "NASA Langley",
+   "edition": "online",
+   "free": true,
+   "url": "https://turbmodels.larc.nasa.gov/",
+   "in_library": null,
+   "note": "url unverified",
+   "modules": [
+    "M15.32"
+   ]
+  },
+  "newman_mh": {
+   "title": "Marine Hydrodynamics",
+   "author": "Newman",
+   "edition": "40th anniversary ed. (MIT Press 2018, open access)",
+   "free": true,
+   "url": "https://direct.mit.edu/books/oa-monograph/3970/Marine-Hydrodynamics-40th-anniversary-edition",
+   "in_library": null,
+   "note": "url unverified",
+   "modules": [
+    "M30.2",
+    "M30.3"
+   ]
+  },
+  "nasa_sp8076": {
+   "title": "NASA SP-8076, Solid Propellant Grain Design and Internal Ballistics",
+   "author": "NASA",
+   "edition": "1972",
+   "free": true,
+   "url": "https://ntrs.nasa.gov/citations/19730007077",
+   "in_library": null,
+   "modules": [
+    "M6.15"
+   ]
+  },
+  "nrc_auv": {
+   "title": "Autonomous Vehicles in Support of Naval Operations",
+   "author": "National Research Council",
+   "edition": "NAP 2005",
+   "free": true,
+   "url": "https://nap.nationalacademies.org/catalog/11379",
+   "in_library": null,
+   "modules": [
+    "M10.8"
+   ]
+  },
+  "nrc_mines": {
+   "title": "Naval Mine Warfare: Operational and Technical Challenges for Naval Forces",
+   "author": "National Research Council",
+   "edition": "NAP 2001",
+   "free": true,
+   "url": "https://nap.nationalacademies.org/catalog/10176",
+   "in_library": null,
+   "modules": [
+    "M10.10"
+   ]
+  },
+  "reid_undex": {
+   "title": "The Response of Surface Ships to Underwater Explosions (DSTO-GD-0109)",
+   "author": "Reid",
+   "edition": "DSTO 1996",
+   "free": true,
+   "url": "https://apps.dtic.mil/sti/pdfs/ADA326738.pdf",
+   "in_library": null,
+   "note": "url unverified",
+   "modules": [
+    "M10.8"
+   ]
+  },
+  "tracy_wright": {
+   "title": "Modeling the Performance of Hypersonic Boost-Glide Missiles",
+   "author": "Tracy & Wright",
+   "edition": "Science & Global Security 28(3), 2020",
+   "free": true,
+   "url": "https://scienceandglobalsecurity.org/archive/sgs28tracy.pdf",
+   "in_library": null,
+   "modules": [
+    "M6.16"
+   ]
+  },
+  "crs_hypersonic": {
+   "title": "Hypersonic Weapons: Background and Issues for Congress (R45811)",
+   "author": "Congressional Research Service",
+   "edition": "latest update",
+   "free": true,
+   "url": "https://crsreports.congress.gov/product/pdf/R/R45811",
+   "in_library": null,
+   "note": "url unverified",
+   "modules": [
+    "M6.16"
+   ]
+  },
+  "crs_dew": {
+   "title": "Department of Defense Directed Energy Weapons: Background and Issues for Congress (R46925)",
+   "author": "Congressional Research Service",
+   "edition": "latest update",
+   "free": true,
+   "url": "https://crsreports.congress.gov/product/pdf/R/R46925",
+   "in_library": null,
+   "note": "url unverified",
+   "modules": [
+    "M7.17"
+   ]
+  },
+  "crs_jadc2": {
+   "title": "Joint All-Domain Command and Control (R46725)",
+   "author": "Congressional Research Service",
+   "edition": "latest update",
+   "free": true,
+   "url": "https://crsreports.congress.gov/product/pdf/R/R46725",
+   "in_library": null,
+   "note": "url unverified",
+   "modules": [
+    "M7.13"
+   ]
+  },
+  "alberts_hayes": {
+   "title": "Understanding Command and Control",
+   "author": "Alberts & Hayes",
+   "edition": "CCRP 2006",
+   "free": true,
+   "url": "http://www.dodccrp.org/files/Alberts_UC2.pdf",
+   "in_library": null,
+   "modules": [
+    "M7.13"
+   ]
+  },
+  "dsb_autonomy": {
+   "title": "The Role of Autonomy in DoD Systems",
+   "author": "Defense Science Board",
+   "edition": "2012",
+   "free": true,
+   "url": "https://dsb.cto.mil/",
+   "in_library": null,
+   "note": "url unverified",
+   "modules": [
+    "M7.13"
+   ]
+  },
+  "dod_low_manual": {
+   "title": "Department of Defense Law of War Manual",
+   "author": "DoD Office of General Counsel",
+   "edition": "June 2015, updated July 2023",
+   "free": true,
+   "url": "https://media.defense.gov/2023/Jul/31/2003271432/-1/-1/0/DOD-LAW-OF-WAR-MANUAL-JUNE-2015-UPDATED-JULY%202023.PDF",
+   "in_library": null,
+   "note": "url unverified",
+   "modules": [
+    "M7.15"
+   ]
+  },
+  "dodd_3000_09": {
+   "title": "DoD Directive 3000.09, Autonomy in Weapon Systems",
+   "author": "DoD",
+   "edition": "25 Jan 2023",
+   "free": true,
+   "url": "https://www.esd.whs.mil/portals/54/documents/dd/issuances/dodd/300009p.pdf",
+   "in_library": null,
+   "note": "url unverified",
+   "modules": [
+    "M7.15"
+   ]
+  },
+  "israel_decl": {
+   "title": "Defense Export Control Law, 5766-2007 (and orders)",
+   "author": "State of Israel, Ministry of Defense (DECA)",
+   "edition": "2007, with amendments",
+   "free": true,
+   "url": "https://www.exportctrl.mod.gov.il/",
+   "in_library": null,
+   "note": "url unverified",
+   "modules": [
+    "M7.15"
+   ]
+  },
+  "rubin_besa": {
+   "title": "Israel's Air and Missile Defense During the 2014 Gaza War (Mideast Security and Policy Studies 111)",
+   "author": "Rubin",
+   "edition": "BESA 2015",
+   "free": true,
+   "url": "https://besacenter.org/wp-content/uploads/2015/02/111eng_web1.pdf",
+   "in_library": null,
+   "modules": [
+    "M7.16"
+   ]
+  },
+  "holland_michel_cuas": {
+   "title": "Counter-Drone Systems",
+   "author": "Holland Michel",
+   "edition": "2nd ed. (Bard Center for the Study of the Drone, 2019)",
+   "free": true,
+   "url": "https://dronecenter.bard.edu/files/2019/12/CSD-CUAS-2nd-Edition-Web.pdf",
+   "in_library": null,
+   "modules": [
+    "M9.10"
+   ]
+  },
+  "pettyjohn_cnas": {
+   "title": "Evolution Not Revolution: Drone Warfare in Russia's 2022 Invasion of Ukraine",
+   "author": "Pettyjohn",
+   "edition": "CNAS 2024",
+   "free": true,
+   "url": "https://www.cnas.org/publications/reports/evolution-not-revolution",
+   "in_library": null,
+   "modules": [
+    "M9.10"
+   ]
+  },
+  "fm_3_09": {
+   "title": "FM 3-09, Fire Support and Field Artillery Operations",
+   "author": "US Army",
+   "edition": "2020",
+   "free": true,
+   "url": "https://armypubs.army.mil/",
+   "in_library": null,
+   "note": "url unverified",
+   "modules": [
+    "M11.19"
+   ]
+  },
+  "fm_3_11_9": {
+   "title": "FM 3-11.9, Potential Military Chemical/Biological Agents and Compounds",
+   "author": "US Army/USMC/USN/USAF",
+   "edition": "2005",
+   "free": true,
+   "url": "https://irp.fas.org/doddir/army/fm3-11-9.pdf",
+   "in_library": null,
+   "note": "url is the FAS mirror; unverified",
+   "modules": [
+    "M11.20"
+   ]
+  },
+  "glasstone_dolan": {
+   "title": "The Effects of Nuclear Weapons",
+   "author": "Glasstone & Dolan",
+   "edition": "3rd ed. (1977)",
+   "free": true,
+   "url": "https://www.osti.gov/biblio/6852629",
+   "in_library": null,
+   "modules": [
+    "M11.20"
+   ]
+  },
+  "glaser_centrifuge": {
+   "title": "Characteristics of the Gas Centrifuge for Uranium Enrichment and Their Relevance for Nuclear Weapon Proliferation",
+   "author": "Glaser",
+   "edition": "Science & Global Security 16 (2008)",
+   "free": true,
+   "url": "https://scienceandglobalsecurity.org/archive/sgs16glaser.pdf",
+   "in_library": null,
+   "modules": [
+    "M12.5"
+   ]
+  },
+  "iaea_glossary": {
+   "title": "IAEA Safeguards Glossary",
+   "author": "IAEA",
+   "edition": "2022 ed.",
+   "free": true,
+   "url": "https://www.iaea.org/publications/15286/iaea-safeguards-glossary",
+   "in_library": null,
+   "note": "url unverified",
+   "modules": [
+    "M12.5"
+   ]
+  },
+  "uk_wargaming": {
+   "title": "Wargaming Handbook",
+   "author": "UK MOD, DCDC",
+   "edition": "2017",
+   "free": true,
+   "url": "https://assets.publishing.service.gov.uk/media/5a82e90d40f0b6230269d575/doctrine_uk_wargaming_handbook.pdf",
+   "in_library": null,
+   "modules": [
+    "M14.8"
+   ]
+  },
+  "ecss_spacewire": {
+   "title": "ECSS-E-ST-50-12C Rev.1, SpaceWire: Links, Nodes, Routers and Networks",
+   "author": "ESA/ECSS",
+   "edition": "2019",
+   "free": true,
+   "url": "https://ecss.nl/standard/ecss-e-st-50-12c-rev-1-spacewire-links-nodes-routers-and-networks-15-may-2019/",
+   "in_library": null,
+   "modules": [
+    "M15.1"
+   ]
+  },
+  "fm_3_12": {
+   "title": "FM 3-12, Cyberspace Operations and Electromagnetic Warfare",
+   "author": "US Army",
+   "edition": "2021",
+   "free": true,
+   "url": "https://armypubs.army.mil/epubs/DR_pubs/DR_a/ARN31186-FM_3-12-000-WEB-1.pdf",
+   "in_library": null,
+   "modules": [
+    "M15.5"
+   ]
+  },
+  "gao_19_128": {
+   "title": "GAO-19-128, Weapon Systems Cybersecurity: DOD Just Beginning to Grapple with Scale of Vulnerabilities",
+   "author": "GAO",
+   "edition": "2018",
+   "free": true,
+   "url": "https://www.gao.gov/products/gao-19-128",
+   "in_library": null,
+   "note": "url unverified",
+   "modules": [
+    "M15.5"
+   ]
+  },
+  "usace_em1802": {
+   "title": "EM 1110-1-1802, Geophysical Exploration for Engineering and Environmental Investigations",
+   "author": "US Army Corps of Engineers",
+   "edition": "1995",
+   "free": true,
+   "url": "https://www.publications.usace.army.mil/Portals/76/Publications/EngineerManuals/EM_1110-1-1802.pdf",
+   "in_library": null,
+   "note": "url unverified",
+   "modules": [
+    "M11.17"
+   ]
+  },
+  "ufc_3_340_02": {
+   "title": "UFC 3-340-02, Structures to Resist the Effects of Accidental Explosions",
+   "author": "US DoD",
+   "edition": "2008 (change 2)",
+   "free": true,
+   "url": "https://www.wbdg.org/ffc/dod/unified-facilities-criteria-ufc/ufc-3-340-02",
+   "in_library": null,
+   "modules": [
+    "M11.17"
+   ]
+  }
+ }
+}

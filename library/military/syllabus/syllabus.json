@@ -319,6 +319,281 @@
    "file": "doctrine/D10_JP3-60_Joint-Targeting_2013.pdf",
    "title": "JP 3-60 Joint Targeting (2013)",
    "pages": 138
+  },
+  "X37": {
+   "file": "books/X37_raymer_aircraft_design.pdf",
+   "title": "Aircraft Design: A Conceptual Approach",
+   "pages": 391
+  },
+  "X38": {
+   "file": "books/X38_carlucci_ballistics.pdf",
+   "title": "Ballistics: Theory and Design of Guns and Ammunition",
+   "pages": 514
+  },
+  "W67": {
+   "file": "../engineering/books/W67_paul_emc.pdf",
+   "title": "Introduction to Electromagnetic Compatibility",
+   "pages": 1014
+  },
+  "W66": {
+   "file": "../engineering/books/W66_blackman_popoli_tracking.pdf",
+   "title": "Design and Analysis of Modern Tracking Systems",
+   "pages": 611
+  },
+  "E03": {
+   "file": "../engineering/books/E03_Feedback-Systems_Astrom-Murray_2ed.pdf",
+   "title": "E03",
+   "pages": 573
+  },
+  "E31": {
+   "file": "../engineering/books/E31_Spectral-Analysis-of-Signals_Stoica-Moses_2005.pdf",
+   "title": "E31",
+   "pages": 447
+  },
+  "E34": {
+   "file": "../engineering/books/E34_Computer-Networking_Kurose-Ross_8ed.pdf",
+   "title": "E34",
+   "pages": 775
+  },
+  "E39": {
+   "file": "../engineering/books/E39_Mechanics-Thermodynamics-of-Propulsion_Hill-Peterson_2ed.pdf",
+   "title": "E39",
+   "pages": 768
+  },
+  "X39": {
+   "file": "free/X39_submarine_signatures_comms_strategy_bundle.pdf",
+   "title": "Submarine signatures, communications and strategy bundle: Cote 'The Third Battle'; NPS non-acoustic ASW; US/Soviet SSBN comparison; ELF/VLF submarine communications satellite design; Common Submarine Radio Room",
+   "pages": 775
+  },
+  "X40": {
+   "file": "free/X40_salvo_model_fleet_air_defense_nps_bundle.pdf",
+   "title": "Hughes' salvo model (primary paper) and NPS theses on salvo models, ASCM defense, radar propagation, soft kill, VLS magazines, distributed lethality, OTH targeting, Aegis",
+   "pages": 1591
+  },
+  "X41": {
+   "file": "free/X41_terramechanics_nrmm_vehicle_mobility_bundle.pdf",
+   "title": "Terramechanics and vehicle mobility bundle: Bekker model reports, NATO Reference Mobility Model (NRMM) guide and next-generation NRMM, AMC Automotive Suspensions handbook, tracked-vehicle steerability, ride dynamics",
+   "pages": 1329
+  },
+  "X42": {
+   "file": "free/X42_ugv_traversability_autonomy_bundle.pdf",
+   "title": "UGV traversability and autonomy bundle: Sevastopoulos traversability survey, Army TOP 02-2-541 teleoperated UGV mobility, DoD UGV Master Plan, SSC UGV lessons learned, autonomy test report",
+   "pages": 252
+  },
+  "X03": {
+   "file": "free/X03_nielsen_directed_energy_weapons.pdf",
+   "title": "Effects of Directed Energy Weapons",
+   "pages": 369
+  },
+  "X05": {
+   "file": "free/X05_forster_preintegration_vio.pdf",
+   "title": "On-Manifold Preintegration for Real-Time Visual-Inertial Odometry",
+   "pages": 21
+  },
+  "W57": {
+   "file": "../engineering/free/W57_edge_quant_robustness_papers.pdf",
+   "title": "Quantization and Training of NNs for Integer-Arithmetic-Only Inference; Towards Deep Learning Models Resistant to Adversarial Attacks; Benchmarking NN Robustness to Common Corruptions",
+   "pages": 58
+  },
+  "X13": {
+   "file": "free/X13_reid_ship_underwater_explosions.pdf",
+   "title": "The Response of Surface Ships to Underwater Explosions (DSTO-GD-0109)",
+   "pages": 48
+  },
+  "X18": {
+   "file": "free/X18_alberts_hayes_understanding_c2.pdf",
+   "title": "Understanding Command and Control",
+   "pages": 255
+  },
+  "X23": {
+   "file": "free/X23_rubin_air_missile_defense_2014.pdf",
+   "title": "Israel's Air and Missile Defense During the 2014 Gaza War (Mideast Security and Policy Studies 111)",
+   "pages": 45
+  },
+  "X28": {
+   "file": "free/X28_glasstone_dolan_nuclear_weapons.pdf",
+   "title": "The Effects of Nuclear Weapons",
+   "pages": 662
+  },
+  "X33": {
+   "file": "free/X33_fm_3_12_cyber_ew_2021.pdf",
+   "title": "FM 3-12, Cyberspace Operations and Electromagnetic Warfare",
+   "pages": 162
+  },
+  "X01": {
+   "file": "free/X01_ietf_aodv_olsr_dtn_rfcs.pdf",
+   "title": "IETF RFC 3561 (AODV), RFC 3626 (OLSR), RFC 4838 (DTN architecture)",
+   "pages": 126
+  },
+  "W38": {
+   "file": "../engineering/free/W38_sze_efficient_dnn_processing.pdf",
+   "title": "Efficient Processing of Deep Neural Networks: A Tutorial and Survey",
+   "pages": 32
+  },
+  "X14": {
+   "file": "free/X14_tracy_wright_hypersonic_boost_glide.pdf",
+   "title": "Modeling the Performance of Hypersonic Boost-Glide Missiles",
+   "pages": 36
+  },
+  "X24": {
+   "file": "free/X24_holland_michel_counter_drone_systems.pdf",
+   "title": "Counter-Drone Systems",
+   "pages": 45
+  },
+  "X29": {
+   "file": "free/X29_glaser_gas_centrifuge.pdf",
+   "title": "Characteristics of the Gas Centrifuge for Uranium Enrichment and Their Relevance for Nuclear Weapon Proliferation",
+   "pages": 25
+  },
+  "X06": {
+   "file": "free/X06_canciani_magnav.pdf",
+   "title": "Absolute Positioning Using the Earth's Magnetic Anomaly Field (PhD dissertation)",
+   "pages": 264
+  },
+  "X19": {
+   "file": "free/X19_dsb_role_of_autonomy.pdf",
+   "title": "The Role of Autonomy in DoD Systems",
+   "pages": 126
+  },
+  "X34": {
+   "file": "free/X34_gao_19_128_weapon_systems_cyber.pdf",
+   "title": "GAO-19-128, Weapon Systems Cybersecurity: DOD Just Beginning to Grapple with Scale of Vulnerabilities",
+   "pages": 51
+  },
+  "X21": {
+   "file": "free/X21_dodd_3000_09_bundle.pdf",
+   "title": "DoDD 3000.09 Autonomy in Weapon Systems (2012 text + 2023 policy analyses)",
+   "pages": 27
+  },
+  "W12": {
+   "file": "../engineering/free/W12_nist_sematech_handbook_ch5_7_8.pdf",
+   "title": "NIST/SEMATECH e-Handbook of Statistical Methods (chapters 5, 7, 8 only)",
+   "pages": 808
+  },
+  "W13": {
+   "file": "../engineering/free/W13_nrc_statistics_testing_acquisition.pdf",
+   "title": "Statistics, Testing, and Defense Acquisition: New Approaches and Methodological Improvements",
+   "pages": 277
+  },
+  "X07": {
+   "file": "free/X07_volpe_complementary_pnt.pdf",
+   "title": "Complementary PNT and GPS Backup Technologies Demonstration Report (Sections 1 through 10)",
+   "pages": 457
+  },
+  "X10": {
+   "file": "free/X10_nasa_sp8076_solid_grain.pdf",
+   "title": "NASA SP-8076, Solid Propellant Grain Design and Internal Ballistics",
+   "pages": 116
+  },
+  "X15": {
+   "file": "free/X15_crs_r45811_hypersonic.pdf",
+   "title": "Hypersonic Weapons: Background and Issues for Congress (R45811)",
+   "pages": 37
+  },
+  "X20": {
+   "file": "free/X20_dod_law_of_war_manual.pdf",
+   "title": "Department of Defense Law of War Manual",
+   "pages": 1236
+  },
+  "X25": {
+   "file": "free/X25_pettyjohn_cnas_drones_ukraine.pdf",
+   "title": "Evolution Not Revolution: Drone Warfare in Russia's 2022 Invasion of Ukraine",
+   "pages": 67
+  },
+  "X30": {
+   "file": "free/X30_iaea_safeguards_glossary_2022.pdf",
+   "title": "IAEA Safeguards Glossary, 2022 Edition",
+   "pages": 320
+  },
+  "X35": {
+   "file": "free/X35_usace_em1110_1_1802_geophysics.pdf",
+   "title": "EM 1110-1-1802, Geophysical Exploration for Engineering and Environmental Investigations",
+   "pages": 208
+  },
+  "X08": {
+   "file": "free/X08_lavalle_planning_algorithms.pdf",
+   "title": "Planning Algorithms",
+   "pages": 1023
+  },
+  "X11": {
+   "file": "free/X11_nrc_autonomous_vehicles_naval_ops.pdf",
+   "title": "Autonomous Vehicles in Support of Naval Operations",
+   "pages": 233
+  },
+  "X16": {
+   "file": "free/X16_crs_r46925_directed_energy.pdf",
+   "title": "Department of Defense Directed Energy Weapons: Background and Issues for Congress (R46925)",
+   "pages": 27
+  },
+  "X26": {
+   "file": "free/X26_fm_3_09_fire_support_fa_ops.pdf",
+   "title": "FM 3-09, Fire Support and Field Artillery Operations",
+   "pages": 284
+  },
+  "X31": {
+   "file": "free/X31_uk_wargaming_handbook.pdf",
+   "title": "Wargaming Handbook",
+   "pages": 112
+  },
+  "X36": {
+   "file": "free/X36_ufc_3_340_02_accidental_explosions.pdf",
+   "title": "UFC 3-340-02, Structures to Resist the Effects of Accidental Explosions",
+   "pages": 1982
+  },
+  "X02": {
+   "file": "free/X02_mil_std_461g_464c.pdf",
+   "title": "MIL-STD-461G (pp 1-280) and MIL-STD-464C (pp 281-445) bundled",
+   "pages": 445
+  },
+  "X04": {
+   "file": "free/X04_dellaert_kaess_factor_graphs.pdf",
+   "title": "Factor Graphs for Robot Perception",
+   "pages": 144
+  },
+  "X09": {
+   "file": "free/X09_ebadi_subt_slam.pdf",
+   "title": "Present and Future of SLAM in Extreme Environments: The DARPA SubT Challenge",
+   "pages": 21
+  },
+  "X12": {
+   "file": "free/X12_nrc_naval_mine_warfare.pdf",
+   "title": "Naval Mine Warfare: Operational and Technical Challenges for Naval Forces",
+   "pages": 279
+  },
+  "X17": {
+   "file": "free/X17_crs_jadc2.pdf",
+   "title": "Joint All-Domain Command and Control: Background and Issues for Congress (R46725)",
+   "pages": 19
+  },
+  "X22": {
+   "file": "free/X22_israel_defense_export_control_law.pdf",
+   "title": "Defense Export Control Law, 5766-2007 (unofficial English translation)",
+   "pages": 32
+  },
+  "X27": {
+   "file": "free/X27_fm_3_11_9_cbrn_agents.pdf",
+   "title": "FM 3-11.9 / MCRP 3-37.1B / NTRP 3-11.32 / AFTTP(I) 3-2.55, Potential Military Chemical/Biological Agents and Compounds",
+   "pages": 318
+  },
+  "X32": {
+   "file": "free/X32_ecss_spacewire.pdf",
+   "title": "ECSS-E-ST-50-12C Rev.1, SpaceWire: Links, Nodes, Routers and Networks",
+   "pages": 124
+  },
+  "X43": {
+   "file": "free/X43_dodd_3000_09_2023.pdf",
+   "title": "DoD Directive 3000.09 Autonomy in Weapon Systems (25.1.2023)",
+   "pages": 24
+  },
+  "W93": {
+   "file": "../engineering/free/W93_architecture_organization_classics.pdf",
+   "title": "Architecture and organization classics: Conway 1968; Parnas 1972; Brooks, No Silver Bullet 1986; Ulrich 1995; MacCormack, Rusnak & Baldwin, mirroring 2008",
+   "pages": 102
+  },
+  "W97": {
+   "file": "../engineering/free/W97_dds_mqtt_middleware_core.pdf",
+   "title": "Middleware standards, core sections: OMG DDS 1.4 (overview, design rationale, QoS); OASIS MQTT 5.0 (introduction, operational behavior, security)",
+   "pages": 73
   }
  },
  "parts": [
@@ -353,6 +628,10 @@
   {
    "id": "P7",
    "title": "הגנה אווירית ומפני טילים, ושו\"ב"
+  },
+  {
+   "id": "P15",
+   "title": "ארכיטקטורת מערכות, קשר וסייבר-ספקטרום"
   },
   {
    "id": "P8",
@@ -1090,7 +1369,7 @@
   {
    "id": "M1.7",
    "part": "P1",
-   "tier": "adv",
+   "tier": "core",
    "title": "רכיבי מיקרוגל: מחלקי הספק, מצמדים, היברידים, מסננים, מחזרים, מגבר הספק ורעש פאזה",
    "en": "Microwave components: dividers, couplers, hybrids, filters, circulators, power amplifiers, phase noise (Pozar)",
    "prereq": [
@@ -1167,276 +1446,6 @@
       646
      ],
      "note": "13.3: רעש פאזה של מתנד",
-     "role": "main"
-    }
-   ]
-  },
-  {
-   "id": "M1.8",
-   "part": "P1",
-   "tier": "ref",
-   "title": "Pozar ו-Orfanidis: שאר הפרקים",
-   "en": "Pozar and Orfanidis: remaining chapters (reference)",
-   "sources": [
-    {
-     "doc": "B18",
-     "pages": [
-      21,
-      67
-     ],
-     "note": "Pozar 1: תורת השדות (נלמד בגילואה, M9.9)",
-     "role": "main"
-    },
-    {
-     "doc": "B18",
-     "pages": [
-      105,
-      149
-     ],
-     "note": "Pozar 2.8, 3.1–3.4: מעברים בקווים, גלי TEM/TE/TM ומוליכי גל (נלמדים בגילואה, M9.11)",
-     "role": "main"
-    },
-    {
-     "doc": "B18",
-     "pages": [
-      155,
-      166
-     ],
-     "note": "Pozar 3.6–3.7: גלי שטח ו-stripline",
-     "role": "main"
-    },
-    {
-     "doc": "B18",
-     "pages": [
-      173,
-      176
-     ],
-     "note": "Pozar 3.9–3.10: תהודה רוחבית ונפיצה",
-     "role": "main"
-    },
-    {
-     "doc": "B18",
-     "pages": [
-      179,
-      185
-     ],
-     "note": "Pozar: תרגילי פרק 3",
-     "role": "main"
-    },
-    {
-     "doc": "B18",
-     "pages": [
-      223,
-      248
-     ],
-     "note": "Pozar 4.6–4.8: אי-רציפויות ועירור מוליכי גל",
-     "role": "main"
-    },
-    {
-     "doc": "B18",
-     "pages": [
-      261,
-      265
-     ],
-     "note": "Pozar 5.3: תיאום בשני ענפים",
-     "role": "main"
-    },
-    {
-     "doc": "B18",
-     "pages": [
-      272,
-      286
-     ],
-     "note": "Pozar 5.6–5.8: שנאים רב-שלביים וקווים מחודדים",
-     "role": "main"
-    },
-    {
-     "doc": "B18",
-     "pages": [
-      292,
-      336
-     ],
-     "note": "Pozar 6: מהודים (נלמד בגילואה, M9.11)",
-     "role": "main"
-    },
-    {
-     "doc": "B18",
-     "pages": [
-      344,
-      347
-     ],
-     "note": "Pozar 7.2: מחלק T",
-     "role": "main"
-    },
-    {
-     "doc": "B18",
-     "pages": [
-      353,
-      362
-     ],
-     "note": "Pozar 7.4: מצמדים במוליך גל",
-     "role": "main"
-    },
-    {
-     "doc": "B18",
-     "pages": [
-      367,
-      381
-     ],
-     "note": "Pozar 7.6–7.7: מצמדי קווים צמודים ו-Lange",
-     "role": "main"
-    },
-    {
-     "doc": "B18",
-     "pages": [
-      387,
-      418
-     ],
-     "note": "Pozar 7.8 (המשך), 7.9, 8.1–8.2: מצמדים נוספים, מבנים מחזוריים, שיטת פרמטרי התמונה",
-     "role": "main"
-    },
-    {
-     "doc": "B18",
-     "pages": [
-      435,
-      506
-     ],
-     "note": "Pozar 8.5–8.8, 9.1–9.5: מימוש מסננים, חומרים פריטיים, מבודדים ומזיזי מופע",
-     "role": "main"
-    },
-    {
-     "doc": "B18",
-     "pages": [
-      544,
-      577
-     ],
-     "note": "Pozar 11: התקנים פעילים (PoMR 10–11, גילואה)",
-     "role": "main"
-    },
-    {
-     "doc": "B18",
-     "pages": [
-      591,
-      615
-     ],
-     "note": "Pozar 12.3–12.4: תכן מגבר טרנזיסטור",
-     "role": "main"
-    },
-    {
-     "doc": "B18",
-     "pages": [
-      624,
-      641
-     ],
-     "note": "Pozar 13.1–13.2: מתנדים",
-     "role": "main"
-    },
-    {
-     "doc": "B18",
-     "pages": [
-      647,
-      656
-     ],
-     "note": "Pozar 13.4: מכפילי תדר",
-     "role": "main"
-    },
-    {
-     "doc": "B18",
-     "pages": [
-      672,
-      677
-     ],
-     "note": "Pozar 13.5 (המשך): מערבלים מאוזנים, ותרגילי פרק 13",
-     "role": "main"
-    },
-    {
-     "doc": "B18",
-     "pages": [
-      691,
-      741
-     ],
-     "note": "Pozar 14.2–14.6 ונספחים: תקשורת אלחוטית, מכ\"ם, רדיומטריה והתפשטות (חופף ל-PoMR 1–4 ול-M1.4)",
-     "role": "main"
-    },
-    {
-     "doc": "B19",
-     "pages": [
-      14,
-      215
-     ],
-     "note": "Orfanidis 1–11.10: מקסוול, גלים מישוריים, החזרה ושכבות, מוליכי גל, קווי תמסורת, קווים צמודים, שנאים (חופף ל-Pozar ולגילואה)",
-     "role": "main"
-    },
-    {
-     "doc": "B19",
-     "pages": [
-      221,
-      223
-     ],
-     "note": "Orfanidis 11.13–11.14 (פרק 12, פרמטרי S, חסר ב-PDF)",
-     "role": "main"
-    },
-    {
-     "doc": "B19",
-     "pages": [
-      231,
-      232
-     ],
-     "note": "Orfanidis 13.6: משפט Ewald-Oseen",
-     "role": "main"
-    },
-    {
-     "doc": "B19",
-     "pages": [
-      237,
-      238
-     ],
-     "note": "Orfanidis: תרגילי פרק 13",
-     "role": "main"
-    },
-    {
-     "doc": "B19",
-     "pages": [
-      261,
-      296
-     ],
-     "note": "Orfanidis 15.6–17.5: אנטנות גל נע ולולאה, קרינה מצמצמים, עקיפה (Fresnel, knife-edge, GTD), צופרים",
-     "role": "main"
-    },
-    {
-     "doc": "B19",
-     "pages": [
-      300,
-      311
-     ],
-     "note": "Orfanidis 17.7–17.13: אנטנות מחזיר ועדשה",
-     "role": "main"
-    },
-    {
-     "doc": "B19",
-     "pages": [
-      325,
-      333
-     ],
-     "note": "Orfanidis: תרגילי פרק 18, ו-19.1–19.5: שיטות תכן מערך",
-     "role": "main"
-    },
-    {
-     "doc": "B19",
-     "pages": [
-      345,
-      362
-     ],
-     "note": "Orfanidis 19.10–21.1: מערכים רב-אלומתיים, זרמים על אנטנות לינאריות (Hallén, Pocklington), שדות קרובים",
-     "role": "main"
-    },
-    {
-     "doc": "B19",
-     "pages": [
-      371,
-      391
-     ],
-     "note": "Orfanidis 21.5–21.7 ונספחים: Yagi-Uda ומשוואות Hallén לאנטנות צמודות",
      "role": "main"
     }
    ]
@@ -1741,7 +1750,8 @@
    "en": "Radar hardware",
    "prereq": [
     "M2.1",
-    "M1.6"
+    "M1.6",
+    "M1.7"
    ],
    "sources": [
     {
@@ -1961,7 +1971,9 @@
    "en": "Radar measurements and monopulse",
    "prereq": [
     "M0.6",
-    "M1.1"
+    "M1.1",
+    "M2.2",
+    "M1.2"
    ],
    "sources": [
     {
@@ -1992,7 +2004,8 @@
    "en": "The Cramer-Rao bound and the accuracy of delay, frequency and angle estimates",
    "prereq": [
     "M2.14",
-    "M0.4"
+    "M0.4",
+    "M2.12"
    ],
    "sources": [
     {
@@ -2002,6 +2015,50 @@
       111
      ],
      "note": "5.4–5.5: שערוך פרמטרים לא-אקראיים: MoM, ML, חסם קרמר-ראו סקלרי ומטריצי, ML וקטורי. את החסם להשהיה, לתדר ולזווית גוזרים בשיעור מ-PoMR 18.5–18.10 (Kay חסר), ומחברים ל-DOP ול-CEP",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M2.20",
+   "part": "P2",
+   "tier": "core",
+   "title": "מכ\"ם CW ו-FMCW",
+   "en": "CW and FMCW radar",
+   "prereq": [
+    "M2.7",
+    "M2.12"
+   ],
+   "sources": [
+    {
+     "doc": "B02b",
+     "pages": [
+      42,
+      111
+     ],
+     "note": "כרך III, פרק 2",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M2.21",
+   "part": "P2",
+   "tier": "core",
+   "title": "מכ\"ם גלים מילימטריים (MMW)",
+   "en": "MMW radar",
+   "prereq": [
+    "M1.3",
+    "M2.20"
+   ],
+   "sources": [
+    {
+     "doc": "B02b",
+     "pages": [
+      112,
+      141
+     ],
+     "note": "כרך III, פרק 3",
      "role": "main"
     }
    ]
@@ -2034,6 +2091,425 @@
    ]
   },
   {
+   "id": "M2.23",
+   "part": "P2",
+   "tier": "core",
+   "title": "מכ\"ם מערך מופע רב-משימתי",
+   "en": "Multifunction phased array radar",
+   "prereq": [
+    "M1.2",
+    "M2.15"
+   ],
+   "sources": [
+    {
+     "doc": "B02b",
+     "pages": [
+      276,
+      309
+     ],
+     "note": "כרך III, פרק 6",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M2.24",
+   "part": "P2",
+   "tier": "core",
+   "title": "מכ\"ם ביסטטי פסיבי",
+   "en": "Passive bistatic radar",
+   "prereq": [
+    "M2.13"
+   ],
+   "sources": [
+    {
+     "doc": "B02b",
+     "pages": [
+      524,
+      567
+     ],
+     "note": "כרך III, פרק 11",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M6.1",
+   "part": "P6",
+   "tier": "core",
+   "title": "מערכות צירים ומשוואות תנועה של גוף קשיח",
+   "en": "Equations of motion",
+   "prereq": [
+    "M0.6"
+   ],
+   "sources": [
+    {
+     "doc": "B06",
+     "pages": [
+      16,
+      29
+     ],
+     "note": "פרק 1",
+     "role": "main"
+    },
+    {
+     "doc": "B06",
+     "pages": [
+      30,
+      67
+     ],
+     "note": "פרק 2",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M6.3",
+   "part": "P6",
+   "tier": "core",
+   "title": "שלבי ההנחיה ושיטות יירוט",
+   "en": "Guidance phases and intercept techniques",
+   "prereq": [
+    "M6.1"
+   ],
+   "sources": [
+    {
+     "doc": "B06",
+     "pages": [
+      170,
+      188
+     ],
+     "note": "4.1–4.2",
+     "role": "main"
+    },
+    {
+     "doc": "B10",
+     "pages": [
+      235,
+      242
+     ],
+     "note": "פרק 19",
+     "role": "main"
+    },
+    {
+     "doc": "B04",
+     "pages": [
+      32,
+      34
+     ],
+     "note": "2.3: שיטות הנחיה של איומים",
+     "role": "supp"
+    },
+    {
+     "doc": "B14",
+     "pages": [
+      21,
+      51
+     ],
+     "note": "פרק 2: ירי בלי משוב, SSKP ממרחק החטאה",
+     "role": "ref"
+    },
+    {
+     "doc": "B16",
+     "pages": [
+      339,
+      358
+     ],
+     "note": "3.5: תהליכי נזק ואפקטים סופיים",
+     "role": "ref"
+    }
+   ]
+  },
+  {
+   "id": "M6.4",
+   "part": "P6",
+   "tier": "core",
+   "title": "ניווט יחסי (PN), APN ו-PN תלת-ממדי",
+   "en": "Proportional navigation",
+   "prereq": [
+    "M6.3"
+   ],
+   "sources": [
+    {
+     "doc": "B06",
+     "pages": [
+      189,
+      249
+     ],
+     "note": "4.3–4.7",
+     "role": "main"
+    },
+    {
+     "doc": "B20",
+     "pages": [
+      27,
+      48
+     ],
+     "note": "Zarchan 2: יסודות ההנחיה הטקטית: סימולציית PN, לינאריזציה, פתרונות סגורים ו-ZEM",
+     "role": "supp"
+    },
+    {
+     "doc": "B20",
+     "pages": [
+      49,
+      72
+     ],
+     "note": "Zarchan 3: שיטת ה-adjoint ולולאת הביות: קבוע זמן של מערכת ההנחיה, מרחק החטאה בצורה סגורה, נרמול",
+     "role": "main"
+    },
+    {
+     "doc": "B14",
+     "pages": [
+      21,
+      39
+     ],
+     "note": "2.2–2.3: הסתברות השמדה מיריה אחת ומכמה יריות",
+     "role": "ref"
+    }
+   ]
+  },
+  {
+   "id": "M6.5",
+   "part": "P6",
+   "tier": "core",
+   "title": "הנחיה אופטימלית, הנחיה משותפת ושלב הסיום",
+   "en": "Optimal guidance and end game",
+   "prereq": [
+    "M6.4"
+   ],
+   "sources": [
+    {
+     "doc": "B06",
+     "pages": [
+      250,
+      283
+     ],
+     "note": "4.8–4.9",
+     "role": "main"
+    },
+    {
+     "doc": "A06.1",
+     "pages": null,
+     "note": "הנחיה לשליטה בזמן פגיעה",
+     "role": "article"
+    },
+    {
+     "doc": "B20",
+     "pages": [
+      73,
+      102
+     ],
+     "note": "Zarchan 4: ניתוח רעש: adjoint סטוכסטי ומרחק החטאה מתמרון אקראי",
+     "role": "supp"
+    },
+    {
+     "doc": "B20",
+     "pages": [
+      175,
+      197
+     ],
+     "note": "Zarchan 8: חוקי הנחיה מתקדמים: APN והנחיה אופטימלית",
+     "role": "supp"
+    }
+   ]
+  },
+  {
+   "id": "M6.6",
+   "part": "P6",
+   "tier": "core",
+   "title": "ראשי ביות ומודל מערכת ההנחיה",
+   "en": "Seekers and guidance system model",
+   "prereq": [
+    "M6.4",
+    "M2.14"
+   ],
+   "sources": [
+    {
+     "doc": "B06",
+     "pages": [
+      114,
+      143
+     ],
+     "note": "3.4",
+     "role": "main"
+    },
+    {
+     "doc": "B07",
+     "pages": [
+      257,
+      263
+     ],
+     "note": "9.3: מקורות רעש בראש ביות: ברק (glint), כיפה",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M11.1",
+   "part": "P11",
+   "tier": "core",
+   "title": "בליסטיקה פנימית וחיצונית",
+   "en": "Interior and exterior ballistics",
+   "sources": [
+    {
+     "doc": "B10",
+     "pages": [
+      253,
+      264
+     ],
+     "note": "פרק 21",
+     "role": "main"
+    },
+    {
+     "doc": "B15",
+     "pages": [
+      32,
+      41
+     ],
+     "note": "פרק 2: פיזור ונקודת פגיעה ממוצעת",
+     "role": "ref"
+    }
+   ]
+  },
+  {
+   "id": "M11.4",
+   "part": "P11",
+   "tier": "core",
+   "title": "קריטריוני נזק, Pk ו-CEP",
+   "en": "Damage criteria, Pk, CEP",
+   "prereq": [
+    "M0.4"
+   ],
+   "sources": [
+    {
+     "doc": "B10",
+     "pages": [
+      283,
+      294
+     ],
+     "note": "פרק 24",
+     "role": "main"
+    },
+    {
+     "doc": "B15",
+     "pages": [
+      70,
+      91
+     ],
+     "note": "Przemieniecki 3.11–3.16: LEP, CEP ו-SEP, נזק חלקי, פונקציות נזק, רסיסים ורדיוס אפקטיבי. Driels (Weaponeering) חסר: מתודולוגיית JMEM מהידע של המורה",
+     "role": "main"
+    },
+    {
+     "doc": "B15",
+     "pages": [
+      42,
+      91
+     ],
+     "note": "פרק 3: מטרות סבילות, CEP ופונקציות נזק",
+     "role": "ref"
+    },
+    {
+     "doc": "B14",
+     "pages": [
+      21,
+      51
+     ],
+     "note": "פרק 2: ירי בלי משוב",
+     "role": "ref"
+    },
+    {
+     "doc": "B16",
+     "pages": [
+      679,
+      719
+     ],
+     "note": "5.3: הערכת פגיעות",
+     "role": "ref"
+    }
+   ]
+  },
+  {
+   "id": "M6.7",
+   "part": "P6",
+   "tier": "core",
+   "title": "מסירת חימוש: בעיית ההפצצה, דיוק ומעטפת שיגור",
+   "en": "Weapon delivery",
+   "prereq": [
+    "M6.1",
+    "M11.1",
+    "M11.4"
+   ],
+   "sources": [
+    {
+     "doc": "B06",
+     "pages": [
+      284,
+      379
+     ],
+     "note": "פרק 5",
+     "role": "main"
+    },
+    {
+     "doc": "B08",
+     "pages": [
+      356,
+      356
+     ],
+     "note": "9.1: מבוא לנשיאת חימוש",
+     "role": "main"
+    },
+    {
+     "doc": "B08",
+     "pages": [
+      391,
+      399
+     ],
+     "note": "9.8–9.10: ממשק החימוש MIL-STD-1760, טילי אוויר-אוויר וחימוש אוויר-קרקע",
+     "role": "main"
+    },
+    {
+     "doc": "B15",
+     "pages": [
+      32,
+      41
+     ],
+     "note": "פרק 2: נתוני ביצועי נשק, פיזור וטעות שיטתית",
+     "role": "ref"
+    },
+    {
+     "doc": "B15",
+     "pages": [
+      55,
+      62
+     ],
+     "note": "3.7: CEP והשמדת מטרה נקודתית",
+     "role": "ref"
+    }
+   ]
+  },
+  {
+   "id": "M2.30",
+   "part": "P2",
+   "tier": "core",
+   "title": "אלומה ספרתית אדפטיבית וביטול משבשים",
+   "en": "Adaptive digital beamforming",
+   "prereq": [
+    "M1.2",
+    "M2.9"
+   ],
+   "sources": [
+    {
+     "doc": "B02a",
+     "pages": [
+      426,
+      477
+     ],
+     "note": "כרך II, פרק 9",
+     "role": "main"
+    }
+   ]
+  },
+  {
    "id": "M2.16",
    "part": "P2",
    "tier": "core",
@@ -2041,7 +2517,8 @@
    "en": "Airborne radar: pulse-Doppler, GMTI, STAP",
    "prereq": [
     "M2.13",
-    "M1.2"
+    "M1.2",
+    "M2.30"
    ],
    "sources": [
     {
@@ -2171,50 +2648,6 @@
    ]
   },
   {
-   "id": "M2.20",
-   "part": "P2",
-   "tier": "core",
-   "title": "מכ\"ם CW ו-FMCW",
-   "en": "CW and FMCW radar",
-   "prereq": [
-    "M2.7",
-    "M2.12"
-   ],
-   "sources": [
-    {
-     "doc": "B02b",
-     "pages": [
-      42,
-      111
-     ],
-     "note": "כרך III, פרק 2",
-     "role": "main"
-    }
-   ]
-  },
-  {
-   "id": "M2.21",
-   "part": "P2",
-   "tier": "core",
-   "title": "מכ\"ם גלים מילימטריים (MMW)",
-   "en": "MMW radar",
-   "prereq": [
-    "M1.3",
-    "M2.20"
-   ],
-   "sources": [
-    {
-     "doc": "B02b",
-     "pages": [
-      112,
-      141
-     ],
-     "note": "כרך III, פרק 3",
-     "role": "main"
-    }
-   ]
-  },
-  {
    "id": "M2.22",
    "part": "P2",
    "tier": "core",
@@ -2246,45 +2679,29 @@
    ]
   },
   {
-   "id": "M2.23",
+   "id": "M2.29",
    "part": "P2",
    "tier": "core",
-   "title": "מכ\"ם מערך מופע רב-משימתי",
-   "en": "Multifunction phased array radar",
+   "title": "עקיבה מרובת מטרות ומיזוג חיישנים",
+   "en": "Multitarget, multisensor tracking",
    "prereq": [
-    "M1.2",
     "M2.15"
    ],
    "sources": [
     {
-     "doc": "B02b",
+     "doc": "B02a",
      "pages": [
-      276,
-      309
+      694,
+      727
      ],
-     "note": "כרך III, פרק 6",
+     "note": "כרך II, פרק 15",
      "role": "main"
-    }
-   ]
-  },
-  {
-   "id": "M2.24",
-   "part": "P2",
-   "tier": "core",
-   "title": "מכ\"ם ביסטטי פסיבי",
-   "en": "Passive bistatic radar",
-   "prereq": [
-    "M2.13"
-   ],
-   "sources": [
+    },
     {
-     "doc": "B02b",
-     "pages": [
-      524,
-      567
-     ],
-     "note": "כרך III, פרק 11",
-     "role": "main"
+     "doc": "A02.3",
+     "pages": null,
+     "note": "עקיבה מודרנית אחר מטרות מרובות (GLMB)",
+     "role": "article"
     }
    ]
   },
@@ -2374,55 +2791,6 @@
       803
      ],
      "note": "כרך III, פרקים 15–16",
-     "role": "main"
-    }
-   ]
-  },
-  {
-   "id": "M2.29",
-   "part": "P2",
-   "tier": "core",
-   "title": "עקיבה מרובת מטרות ומיזוג חיישנים",
-   "en": "Multitarget, multisensor tracking",
-   "prereq": [
-    "M2.15"
-   ],
-   "sources": [
-    {
-     "doc": "B02a",
-     "pages": [
-      694,
-      727
-     ],
-     "note": "כרך II, פרק 15",
-     "role": "main"
-    },
-    {
-     "doc": "A02.3",
-     "pages": null,
-     "note": "עקיבה מודרנית אחר מטרות מרובות (GLMB)",
-     "role": "article"
-    }
-   ]
-  },
-  {
-   "id": "M2.30",
-   "part": "P2",
-   "tier": "core",
-   "title": "אלומה ספרתית אדפטיבית וביטול משבשים",
-   "en": "Adaptive digital beamforming",
-   "prereq": [
-    "M1.2",
-    "M2.9"
-   ],
-   "sources": [
-    {
-     "doc": "B02a",
-     "pages": [
-      426,
-      477
-     ],
-     "note": "כרך II, פרק 9",
      "role": "main"
     }
    ]
@@ -3025,6 +3393,55 @@
    ]
   },
   {
+   "id": "M3.15",
+   "part": "P3",
+   "tier": "adv",
+   "title": "חתימות IR ורב-ספקטרליות",
+   "en": "IR and multispectral signatures",
+   "prereq": [
+    "M3.4",
+    "M3.10"
+   ],
+   "sources": [
+    {
+     "doc": "B03",
+     "pages": [
+      133,
+      173
+     ],
+     "note": "פרק 5: מקורות קרינה, מטרות ורקעים ב-IR וב-EO, ניגודיות",
+     "role": "main"
+    },
+    {
+     "doc": "B03",
+     "pages": [
+      178,
+      200
+     ],
+     "note": "פרק 6: אטמוספרה: העברה, בליעה, פיזור, path radiance",
+     "role": "main"
+    },
+    {
+     "doc": "B16",
+     "pages": [
+      494,
+      502
+     ],
+     "note": "4.3.2.2–4.3.2.4: חתימת IR, חזותית ושמיעתית",
+     "role": "main"
+    },
+    {
+     "doc": "B16",
+     "pages": [
+      590,
+      597
+     ],
+     "note": "4.4.4.2–4.4.4.5: הקטנת חתימת IR, חזותית, שמיעתית ואחרות",
+     "role": "main"
+    }
+   ]
+  },
+  {
    "id": "M4.1",
    "part": "P4",
    "tier": "core",
@@ -3273,7 +3690,9 @@
    "en": "Deceptive jamming",
    "prereq": [
     "M4.7",
-    "M2.14"
+    "M2.14",
+    "M2.15",
+    "M2.12"
    ],
    "sources": [
     {
@@ -3425,7 +3844,8 @@
    "en": "IR countermeasures and defensive aids",
    "prereq": [
     "M3.10",
-    "M4.7"
+    "M4.7",
+    "M6.6"
    ],
    "sources": [
     {
@@ -3561,6 +3981,68 @@
    ]
   },
   {
+   "id": "M13.1",
+   "part": "P13",
+   "tier": "core",
+   "title": "מבוא לחלל: היסטוריה, טכנולוגיה, כלכלה וקהילות החלל",
+   "en": "Space missions and communities",
+   "sources": [
+    {
+     "doc": "B12",
+     "pages": [
+      18,
+      61
+     ],
+     "note": "פרקים 1–2: מהי הנדסת משימת חלל, היסטוריה, TRL, כלכלה, קהילות צבאיות, אזרחיות ומסחריות",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M13.9",
+   "part": "P13",
+   "tier": "core",
+   "title": "מטעני חלל: סוגים, ספקטרום ותכנון",
+   "en": "Space payloads",
+   "prereq": [
+    "M13.1"
+   ],
+   "sources": [
+    {
+     "doc": "B12",
+     "pages": [
+      456,
+      471
+     ],
+     "note": "פרק 15",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M13.10",
+   "part": "P13",
+   "tier": "core",
+   "title": "תקשורת לוויינית (SATCOM): ארכיטקטורות, תקציב קישור ותכנון מטען",
+   "en": "Communications payloads and SATCOM",
+   "prereq": [
+    "M1.4",
+    "M0.5",
+    "M13.9"
+   ],
+   "sources": [
+    {
+     "doc": "B12",
+     "pages": [
+      472,
+      509
+     ],
+     "note": "פרק 16: ארכיטקטורות, ניתוח קישור, תכנון מטען התקשורת, משימות לדוגמה",
+     "role": "main"
+    }
+   ]
+  },
+  {
    "id": "M4.12",
    "part": "P4",
    "tier": "core",
@@ -3568,7 +4050,8 @@
    "en": "Satellite links and their jamming",
    "prereq": [
     "M1.4",
-    "M4.7"
+    "M4.7",
+    "M13.10"
    ],
    "sources": [
     {
@@ -3664,6 +4147,556 @@
    ]
   },
   {
+   "id": "M11.11",
+   "part": "P11",
+   "tier": "core",
+   "title": "בליסטיקה פנימית, חיצונית וסופית",
+   "en": "Gun and projectile ballistics",
+   "prereq": [
+    "M11.1"
+   ],
+   "sources": [
+    {
+     "doc": "X38",
+     "pages": [
+      18,
+      183
+     ],
+     "note": "חלק I (פרקים 1–5): בליסטיקה פנימית: גזים ותרמודינמיקה, בעירת הודף, מודלים אנליטיים/חישוביים, תכן תחמושת, תכן נשק (5.1 עייפות ושחיקה, 5.2 תכן קנה)",
+     "role": "main"
+    },
+    {
+     "doc": "X38",
+     "pages": [
+      184,
+      323
+     ],
+     "note": "חלק II (פרקים 6–13): בליסטיקה חיצונית: דינמיקה, מסלולים (8), אירובליסטיקה ליניארית, אסימטריות מסה, throwoff, swerve, אירובליסטיקה לא-ליניארית",
+     "role": "main"
+    },
+    {
+     "doc": "X38",
+     "pages": [
+      330,
+      369
+     ],
+     "note": "פרק 15: Penetration theories (חדירת מתכות, קרמיקה, מרוכבים) ל-KE penetrators",
+     "role": "main"
+    },
+    {
+     "doc": "B10",
+     "pages": [
+      253,
+      264
+     ],
+     "note": "פרק 21: בליסטיקה פנימית וחיצונית, שגיאות כיוון",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M11.2",
+   "part": "P11",
+   "tier": "core",
+   "title": "איתור ארטילריה ואש נגד סוללות",
+   "en": "Weapon-locating radar and counterfire",
+   "prereq": [
+    "M11.1",
+    "M2.15"
+   ],
+   "sources": [
+    {
+     "doc": "D8",
+     "pages": [
+      19,
+      40
+     ],
+     "note": "פרקים 2–3: אש נגד סוללות, היבטים טכניים של פריסת מכ\"ם איתור",
+     "role": "main"
+    },
+    {
+     "doc": "D8",
+     "pages": [
+      51,
+      96
+     ],
+     "note": "פרקים 5–7: AN/TPQ-36/37, TPQ-53, TPQ-50: אפיון, גילוי, אימות ואיכון, פעולה תחת ECM",
+     "role": "main"
+    },
+    {
+     "doc": "D8",
+     "pages": [
+      113,
+      118
+     ],
+     "note": "נספח D: מיסוך",
+     "role": "main"
+    },
+    {
+     "doc": "D8",
+     "pages": [
+      131,
+      141
+     ],
+     "note": "נספח G: התרעה מפני רקטות, ארטילריה ומרגמות",
+     "role": "main"
+    },
+    {
+     "doc": "B15",
+     "pages": [
+      103,
+      107
+     ],
+     "note": "4.4: אש שטח, החוק הלינארי",
+     "role": "ref"
+    }
+   ]
+  },
+  {
+   "id": "M11.3",
+   "part": "P11",
+   "tier": "core",
+   "title": "חומרי נפץ, ראשי קרב, הדף ורסיסים",
+   "en": "Explosives and warheads",
+   "sources": [
+    {
+     "doc": "B10",
+     "pages": [
+      265,
+      282
+     ],
+     "note": "פרקים 22–23",
+     "role": "main"
+    },
+    {
+     "doc": "B16",
+     "pages": [
+      339,
+      358
+     ],
+     "note": "3.5: תהליכי נזק ואפקטים סופיים",
+     "role": "ref"
+    },
+    {
+     "doc": "B15",
+     "pages": [
+      82,
+      89
+     ],
+     "note": "3.14–3.15: פונקציות נזק לרסיסים ורדיוס אפקטיבי",
+     "role": "ref"
+    }
+   ]
+  },
+  {
+   "id": "M11.5",
+   "part": "P11",
+   "tier": "core",
+   "title": "ראשי קרב מיוחדים ותחמושת טנקים",
+   "en": "Special warheads and tank ammunition",
+   "prereq": [
+    "M11.3"
+   ],
+   "sources": [
+    {
+     "doc": "B10",
+     "pages": [
+      295,
+      298
+     ],
+     "note": "פרק 25: חודר שריון, EFP, אנרגיה קינטית, FAE",
+     "role": "main"
+    },
+    {
+     "doc": "B11",
+     "pages": [
+      290,
+      312
+     ],
+     "note": "נספח I: עוצמת התותח",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M11.6",
+   "part": "P11",
+   "tier": "core",
+   "title": "מיגון טנקים: שריון, ERA ו-APS",
+   "en": "Tank protection",
+   "prereq": [
+    "M11.5"
+   ],
+   "sources": [
+    {
+     "doc": "B11",
+     "pages": [
+      312,
+      330
+     ],
+     "note": "נספח II",
+     "role": "main"
+    },
+    {
+     "doc": "B16",
+     "pages": [
+      720,
+      730
+     ],
+     "note": "5.4.1–5.4.3: עקרונות הפחתת פגיעות",
+     "role": "ref"
+    }
+   ]
+  },
+  {
+   "id": "M11.7",
+   "part": "P11",
+   "tier": "core",
+   "title": "ניידות טנקים: מנועים, תמסורת, מתלים",
+   "en": "Tank mobility",
+   "sources": [
+    {
+     "doc": "B11",
+     "pages": [
+      330,
+      361
+     ],
+     "note": "נספח III",
+     "role": "main"
+    },
+    {
+     "doc": "B17",
+     "pages": [
+      205,
+      258
+     ],
+     "note": "פרק 5: ברברוסה, הצבא החצי-ממונע",
+     "role": "ref"
+    },
+    {
+     "doc": "B17",
+     "pages": [
+      288,
+      325
+     ],
+     "note": "פרק 7: נורמנדי, צריכת דלק וקצב התקדמות",
+     "role": "ref"
+    }
+   ]
+  },
+  {
+   "id": "M11.8",
+   "part": "P11",
+   "tier": "ref",
+   "title": "התפתחות הטנק: מלחמה קרה ומעבר לה",
+   "en": "Tank evolution since 1945",
+   "sources": [
+    {
+     "doc": "B11",
+     "pages": [
+      176,
+      289
+     ],
+     "note": "פרקים 9–12: חמש המעצמות, הפריפריה (כולל ישראל), אסיה, אפילוג",
+     "role": "main"
+    },
+    {
+     "doc": "B11",
+     "pages": [
+      8,
+      10
+     ],
+     "note": "מבוא: מבט על מאה שנות התפתחות",
+     "role": "supp"
+    },
+    {
+     "doc": "B17",
+     "pages": [
+      288,
+      325
+     ],
+     "note": "פרק 7: חזית רחבה או חוד צר",
+     "role": "ref"
+    }
+   ]
+  },
+  {
+   "id": "M11.9",
+   "part": "P11",
+   "tier": "ref",
+   "title": "התפתחות הטנק עד 1945",
+   "en": "Tank evolution to 1945",
+   "sources": [
+    {
+     "doc": "B11",
+     "pages": [
+      13,
+      175
+     ],
+     "note": "פרקים 1–8",
+     "role": "main"
+    },
+    {
+     "doc": "B17",
+     "pages": [
+      205,
+      287
+     ],
+     "note": "פרקים 5–6: ברברוסה וצפון אפריקה",
+     "role": "ref"
+    }
+   ]
+  },
+  {
+   "id": "M11.10",
+   "part": "P11",
+   "tier": "adv",
+   "title": "נשק גרעיני והשפעותיו",
+   "en": "Nuclear weapons and effects",
+   "sources": [
+    {
+     "doc": "B10",
+     "pages": [
+      309,
+      351
+     ],
+     "note": "פרקים 27–30",
+     "role": "main"
+    },
+    {
+     "doc": "B15",
+     "pages": [
+      198,
+      205
+     ],
+     "note": "6.6: מודלי מספיקות לכוחות אסטרטגיים",
+     "role": "ref"
+    }
+   ]
+  },
+  {
+   "id": "M11.12",
+   "part": "P11",
+   "tier": "core",
+   "title": "מכניקת ראשי קרב ומרעומים",
+   "en": "Warhead mechanics and fuzing",
+   "prereq": [
+    "M11.3",
+    "M11.11"
+   ],
+   "sources": [
+    {
+     "doc": "X38",
+     "pages": [
+      324,
+      329
+     ],
+     "note": "חלק III פרק 14: מבוא לבליסטיקה סופית",
+     "role": "main"
+    },
+    {
+     "doc": "X38",
+     "pages": [
+      370,
+      483
+     ],
+     "note": "פרקים 16–18: Shock physics (Hugoniot, detonation), Gurney, Taylor angles, Mott (רסיסים), shaped charges. הפרק אינו כולל blast scaling/fuzing/IM",
+     "role": "main"
+    },
+    {
+     "doc": "B15",
+     "pages": [
+      71,
+      89
+     ],
+     "note": "3.12–3.16: נזק חלקי צפוי, פונקציות נזק, פונקציות נזק לרסיסים, רדיוס אפקטיבי של נשק",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M11.13",
+   "part": "P11",
+   "tier": "core",
+   "title": "טילי נ\"ט דור 3–5, תקיפה מלמעלה והתגברות על הגנה אקטיבית",
+   "en": "Anti-tank missiles gen 3-5, top attack, APS and its defeat",
+   "prereq": [
+    "M11.6",
+    "M6.6"
+   ],
+   "sources": [
+    {
+     "doc": "X38",
+     "pages": [
+      462,
+      483
+     ],
+     "note": "פרק 18: Shaped charges: היווצרות ג'ט וחדירה (בסיס לטנדם מול ERA)",
+     "role": "main"
+    },
+    {
+     "doc": "B11",
+     "pages": [
+      181,
+      183
+     ],
+     "note": "פרק 9 (חלק): טילי נ\"ט מונחים מול תותח הטנק",
+     "role": "main"
+    },
+    {
+     "doc": "B11",
+     "pages": [
+      188,
+      189
+     ],
+     "note": "פרק 9 (חלק): שריון ריאקטיבי ו-Drozd",
+     "role": "main"
+    },
+    {
+     "doc": "B11",
+     "pages": [
+      312,
+      329
+     ],
+     "note": "נספח II: הגנה מוגברת: שריון מורכב, ERA, מערכות הגנה אקטיביות",
+     "role": "main"
+    },
+    {
+     "doc": "B13",
+     "pages": [
+      148,
+      171
+     ],
+     "note": "6.1–6.2: עמידות (חלופות ראש ביות, מכ\"ם, IIR, מולטי-מוד) וקטלניות ראש קרב (מטען חלול, EFP, KE)",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M11.14",
+   "part": "P11",
+   "tier": "core",
+   "title": "ייצוב נשק בתנועה: חוגי בקרה של צריח ותותח",
+   "en": "Weapon stabilization on the move: turret and gun control loops",
+   "prereq": [
+    "M0.7",
+    "M11.7"
+   ],
+   "sources": [
+    {
+     "doc": "X38",
+     "pages": [
+      170,
+      174
+     ],
+     "note": "5.3 Gun Dynamics: דינמיקת קנה (jump/whip, רטט); 5.4 Muzzle devices ב-175–183",
+     "role": "main"
+    },
+    {
+     "doc": "X38",
+     "pages": [
+      310,
+      315
+     ],
+     "note": "פרק 12: Aerodynamic jump, epicyclic swerve, drift",
+     "role": "main"
+    },
+    {
+     "doc": "E03",
+     "pages": [
+      375,
+      397
+     ],
+     "note": "פרק 11: בקרת PID, כיוונון, windup ומימוש",
+     "role": "main"
+    },
+    {
+     "doc": "E03",
+     "pages": [
+      401,
+      423
+     ],
+     "note": "12.1–12.4: פונקציות רגישות, מפרטי ביצועים, עיצוב לולאה ו-feedforward (דחיית הפרעות)",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M11.15",
+   "part": "P11",
+   "tier": "core",
+   "title": "טרמכניקה ומתלים אקטיביים",
+   "en": "Terramechanics (Bekker, Wong) and active suspension",
+   "prereq": [
+    "M11.7"
+   ],
+   "sources": [
+    {
+     "doc": "X41",
+     "pages": [
+      1,
+      75
+     ],
+     "note": "מודל Bekker: pressure-sinkage, Mohr-Coulomb, התנגדות תנועה, כוח משיכה ו-slip, מודל אינטראקציה פיזיקלי, שיטות לנתוני חוזק קרקע (cone index)",
+     "role": "main"
+    },
+    {
+     "doc": "X41",
+     "pages": [
+      76,
+      714
+     ],
+     "note": "NRMM: מדריך המשתמש ומודל NRMM הדור הבא: מדדי MMP ולחץ, מהירות על שטח, speed-made-good",
+     "role": "main"
+    },
+    {
+     "doc": "X41",
+     "pages": [
+      715,
+      773
+     ],
+     "note": "אימות NRMM (ISTVS): מגבלות המודל",
+     "role": "main"
+    },
+    {
+     "doc": "X41",
+     "pages": [
+      774,
+      1232
+     ],
+     "note": "AMC Engineering Design Handbook: Automotive Suspensions: תלייה, ride, חספוס שטח, הגבלות חשיפה לרעידות, תלייה של זחלמים",
+     "role": "main"
+    },
+    {
+     "doc": "X41",
+     "pages": [
+      1233,
+      1264
+     ],
+     "note": "Skid steering וסטירביליות של רכב זחלי; מודל רובוט skid-steer",
+     "role": "main"
+    },
+    {
+     "doc": "X41",
+     "pages": [
+      1265,
+      1318
+     ],
+     "note": "Ride dynamics: חשיפה גוף-שלם לרעידות ונוהל TOP",
+     "role": "main"
+    },
+    {
+     "doc": "X41",
+     "pages": [
+      1319,
+      1329
+     ],
+     "note": "בקרת תלייה semi-active: סקירה ומתודולוגיות מודרניות",
+     "role": "main"
+    }
+   ]
+  },
+  {
    "id": "M5.1",
    "part": "P5",
    "tier": "core",
@@ -3713,27 +4746,6 @@
    ]
   },
   {
-   "id": "M5.2",
-   "part": "P5",
-   "tier": "adv",
-   "title": "מקטעי המערכת",
-   "en": "System segments",
-   "prereq": [
-    "M5.1"
-   ],
-   "sources": [
-    {
-     "doc": "B05",
-     "pages": [
-      83,
-      128
-     ],
-     "note": "פרק 3",
-     "role": "main"
-    }
-   ]
-  },
-  {
    "id": "M5.3",
    "part": "P5",
    "tier": "core",
@@ -3763,7 +4775,8 @@
    "en": "Acquisition and tracking loops",
    "prereq": [
     "M5.3",
-    "M0.7"
+    "M0.7",
+    "M0.3"
    ],
    "sources": [
     {
@@ -3783,40 +4796,6 @@
      ],
      "note": "5.9–5.14",
      "role": "supp"
-    }
-   ]
-  },
-  {
-   "id": "M5.5",
-   "part": "P5",
-   "tier": "core",
-   "title": "שיבוש, התחזות, רב-נתיביות ונצנוץ",
-   "en": "Interference, spoofing, multipath",
-   "prereq": [
-    "M5.4",
-    "M4.7"
-   ],
-   "sources": [
-    {
-     "doc": "B05",
-     "pages": [
-      259,
-      316
-     ],
-     "note": "פרק 6",
-     "role": "main"
-    },
-    {
-     "doc": "A05.1",
-     "pages": null,
-     "note": "בניית מתחזה",
-     "role": "article"
-    },
-    {
-     "doc": "A05.3",
-     "pages": null,
-     "note": "איכון משבש מנתוני ADS-B",
-     "role": "article"
     }
    ]
   },
@@ -3882,27 +4861,6 @@
       57
      ],
      "note": "Riley 5.5: זיהוי סוג הרעש",
-     "role": "main"
-    }
-   ]
-  },
-  {
-   "id": "M5.7",
-   "part": "P5",
-   "tier": "adv",
-   "title": "GPS דיפרנציאלי",
-   "en": "Differential GPS",
-   "prereq": [
-    "M5.6"
-   ],
-   "sources": [
-    {
-     "doc": "B05",
-     "pages": [
-      395,
-      474
-     ],
-     "note": "פרק 8",
      "role": "main"
     }
    ]
@@ -3980,6 +4938,555 @@
      ],
      "note": "8.7: עזרי ניווט: TACAN, VOR/DME, ILS",
      "role": "supp"
+    }
+   ]
+  },
+  {
+   "id": "M5.11",
+   "part": "P5",
+   "tier": "core",
+   "title": "ניווט בלי GPS: TERCOM ואותות הזדמנות",
+   "en": "Alt-PNT",
+   "prereq": [
+    "M5.8"
+   ],
+   "sources": [
+    {
+     "doc": "B06",
+     "pages": [
+      566,
+      590
+     ],
+     "note": "7.4: TERCOM",
+     "role": "main"
+    },
+    {
+     "doc": "A05.4",
+     "pages": null,
+     "note": "ניווט מאותות Starlink",
+     "role": "article"
+    }
+   ]
+  },
+  {
+   "id": "M5.13",
+   "part": "P5",
+   "tier": "core",
+   "title": "ניווט משולב בסביבה מוכחשת-GPS: INS הדוק, VIO, TERCOM/DSMAC ו-Factor Graphs",
+   "en": "GPS-denied integrated navigation: tight INS, VIO, TERCOM/DSMAC, factor graphs",
+   "prereq": [
+    "M5.8",
+    "M5.11"
+   ],
+   "sources": [
+    {
+     "doc": "B08",
+     "pages": [
+      303,
+      314
+     ],
+     "note": "8.1–8.5: עקרונות ניווט, ניווט רדיו, יסודות אינרציאלי, ניווט לווייני, ניווט משולב",
+     "role": "main"
+    },
+    {
+     "doc": "B08",
+     "pages": [
+      332,
+      347
+     ],
+     "note": "8.8–8.9: ניווט אינרציאלי ו-GNSS כולל integrity",
+     "role": "main"
+    },
+    {
+     "doc": "A05.6",
+     "pages": [
+      8,
+      27
+     ],
+     "note": "3–6: חיישנים ושגיאותיהם, Allan variance, ניווט strapdown והתפשטות שגיאה",
+     "role": "main"
+    },
+    {
+     "doc": "A05.6",
+     "pages": [
+      33,
+      34
+     ],
+     "note": "8: הקטנת סחיפה: היתוך עם מיקום מוחלט ומגנטומטרים, הנחות תחום (ZUPT)",
+     "role": "main"
+    },
+    {
+     "doc": "X05",
+     "pages": [
+      1,
+      21
+     ],
+     "note": "כולו: preintegration של IMU על manifold, factor graph ל-VIO",
+     "role": "main"
+    },
+    {
+     "doc": "X06",
+     "pages": [
+      21,
+      173
+     ],
+     "note": "פרקים 1–4: מבוא וסקירת ספרות, רקע (שדה מגנטי, מפות, חיישנים, RBPF), תכנון המסנן, תוצאות ניסויי טיסה",
+     "role": "main"
+    },
+    {
+     "doc": "X04",
+     "pages": [
+      1,
+      144
+     ],
+     "note": "כולו: גרפי גורמים והחלקה לניווט רב-חיישנים",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M11.16",
+   "part": "P11",
+   "tier": "core",
+   "title": "אוטונומיה קרקעית (UGV): תפיסה תלת-ממדית, עבירות ותכנון מסלול",
+   "en": "UGV autonomy: 3D perception, traversability, planning",
+   "prereq": [
+    "M11.15",
+    "M5.13"
+   ],
+   "sources": [
+    {
+     "doc": "X42",
+     "pages": [
+      1,
+      22
+     ],
+     "note": "סקר הערכת traversability לרובוטים ניידים: חישה תלת-ממדית, שיטות מבוססות גיאומטריה, למידה ו-self-supervised",
+     "role": "main"
+    },
+    {
+     "doc": "X42",
+     "pages": [
+      23,
+      67
+     ],
+     "note": "TOP 02-2-541: ביצועי ניידות של UGV מרוחק (teleoperation) ובדיקות",
+     "role": "main"
+    },
+    {
+     "doc": "X42",
+     "pages": [
+      68,
+      243
+     ],
+     "note": "תוכנית אב UGV של DoD ולקחים מתוכניות UGV: teleoperation מול supervised autonomy, שימושים צבאיים",
+     "role": "main"
+    },
+    {
+     "doc": "X42",
+     "pages": [
+      244,
+      252
+     ],
+     "note": "דוח בדיקות/הערכה לאוטונומיה",
+     "role": "main"
+    },
+    {
+     "doc": "X08",
+     "pages": [
+      731,
+      802
+     ],
+     "note": "פרק 13: Differential models: אילוצי מהירות ורכבים לא-הולונומיים, phase space, מכניקה בסיסית",
+     "role": "main"
+    },
+    {
+     "doc": "X08",
+     "pages": [
+      803,
+      876
+     ],
+     "note": "פרק 14: Sampling-based planning under differential constraints: reachability, RRT קינודינמי, תכנון משוב ותכנון מנותק (path + trajectory), אופטימיזציית מסלול",
+     "role": "main"
+    },
+    {
+     "doc": "X08",
+     "pages": [
+      877,
+      940
+     ],
+     "note": "פרק 15: System theory: DP רציף, מסלולים אופטימליים לרכבים גלגליים (Dubins/Reeds-Shepp), תורת מערכות לא-הולונומיות ו-steering",
+     "role": "main"
+    },
+    {
+     "doc": "X08",
+     "pages": [
+      656,
+      700
+     ],
+     "note": "סעיפים 12.2–12.3: לוקליזציה ומיפוי תחת אי-ודאות (רלוונטי לניווט ללא GNSS)",
+     "role": "main"
+    },
+    {
+     "doc": "X09",
+     "pages": [
+      1,
+      21
+     ],
+     "note": "כולו: תפיסה תלת-ממדית ו-SLAM בשטח",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M11.17",
+   "part": "P11",
+   "tier": "core",
+   "title": "לוחמה תת-קרקעית: גילוי מנהרות, SLAM בלי GPS ופיצוץ בחלל סגור",
+   "en": "Subterranean warfare: tunnel detection (GPR, seismic, microgravity), GPS-free SLAM, confined blast",
+   "prereq": [
+    "M11.3",
+    "M5.13"
+   ],
+   "sources": [
+    {
+     "doc": "X35",
+     "pages": [
+      13,
+      39
+     ],
+     "note": "פרק 3: שיטות סיסמיות (refraction, reflection, surface waves, subbottom)",
+     "role": "main"
+    },
+    {
+     "doc": "X35",
+     "pages": [
+      40,
+      96
+     ],
+     "note": "פרק 4: שיטות חשמליות ואלקטרומגנטיות, כולל metal detector (4-9) ו-GPR (4-10, ~עמ' 90-96)",
+     "role": "main"
+    },
+    {
+     "doc": "X35",
+     "pages": [
+      97,
+      102
+     ],
+     "note": "פרק 5: gravity ו-microgravity לגילוי חללים",
+     "role": "main"
+    },
+    {
+     "doc": "X35",
+     "pages": [
+      103,
+      106
+     ],
+     "note": "פרק 6: שיטות מגנטיות",
+     "role": "main"
+    },
+    {
+     "doc": "X35",
+     "pages": [
+      107,
+      175
+     ],
+     "note": "פרק 7: שיטות בתוך קידוחים, crosshole ו-surface-to-borehole (זיהוי חללים בין קידוחים)",
+     "role": "main"
+    },
+    {
+     "doc": "X35",
+     "pages": [
+      190,
+      193
+     ],
+     "note": "פרק 10: רעידות הנדסיות ובדיקות לא הורסות",
+     "role": "main"
+    },
+    {
+     "doc": "X36",
+     "pages": [
+      66,
+      94
+     ],
+     "note": "פרק 2, סעיפים 2-7 עד 2-14: תופעות הדף, שקילות TNT, קטגוריות העמסה, פיצוץ לא כלוא ו-2-14 Confined explosions (לחץ הלם פנימי ולחץ גזים, עמ׳ 80–94)",
+     "role": "main"
+    },
+    {
+     "doc": "X36",
+     "pages": [
+      391,
+      406
+     ],
+     "note": "פרק 2, סעיפים 2-20 עד 2-24: הלם קרקע, הלם אוויר ותנועות מבנה (רלוונטי לפיצוץ בתת-קרקע)",
+     "role": "main"
+    },
+    {
+     "doc": "X09",
+     "pages": [
+      1,
+      21
+     ],
+     "note": "כולו: SLAM ללא GPS בתת-קרקע",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M11.18",
+   "part": "P11",
+   "tier": "adv",
+   "title": "Weaponeering והערכת נזק נלווה",
+   "en": "Weaponeering and collateral-damage estimation",
+   "prereq": [
+    "M11.4",
+    "M6.7"
+   ],
+   "sources": [
+    {
+     "doc": "B15",
+     "pages": [
+      70,
+      89
+     ],
+     "note": "3.11–3.16: LEP/CEP/SEP, נזק חלקי צפוי, פונקציות נזק, רסיסים ורדיוס אפקטיבי",
+     "role": "main"
+    },
+    {
+     "doc": "D10",
+     "pages": [
+      43,
+      49
+     ],
+     "note": "II, שלבים 3–4: ניתוח יכולות, weaponeering, CDE, החלטת מפקד והקצאת כוח",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M11.19",
+   "part": "P11",
+   "tier": "adv",
+   "title": "ארטילריה ואש מדויקת",
+   "en": "Artillery and precision fires",
+   "prereq": [
+    "M11.11",
+    "M11.2"
+   ],
+   "sources": [
+    {
+     "doc": "X38",
+     "pages": [
+      212,
+      273
+     ],
+     "note": "פרק 8: Trajectories (חישוב מסלולים, בסיס ל-firing tables)",
+     "role": "main"
+    },
+    {
+     "doc": "X38",
+     "pages": [
+      296,
+      315
+     ],
+     "note": "פרקים 10–12: mass asymmetries, lateral throwoff, swerve: מקורות לפיזור. הספר כמעט אינו דן ב-dispersion/תקציב שגיאה במפורש (כמעט אין אזכורים), כיסוי חלקי",
+     "role": "main"
+    },
+    {
+     "doc": "D8",
+     "pages": [
+      11,
+      40
+     ],
+     "note": "פרקים 1–3: איתור מטרות לארטילריה, אש נגד (counterfire), היבטים טכניים של מכ\"מי איתור נשק",
+     "role": "main"
+    },
+    {
+     "doc": "X26",
+     "pages": [
+      35,
+      56
+     ],
+     "note": "פרק 2: מערכת הסיוע באש: חיישנים, מערכות שיגור (קנה מול רקטות), C2 ואיתור מטרות",
+     "role": "main"
+    },
+    {
+     "doc": "X26",
+     "pages": [
+      99,
+      116
+     ],
+     "note": "פרק 4: מבצעי ארטילריה שדה, כולל חמש הדרישות לאש חזויה מדויקת (110–113), מיקום ותנועה, אש נגד-סוללות",
+     "role": "main"
+    },
+    {
+     "doc": "X26",
+     "pages": [
+      123,
+      164
+     ],
+     "note": "פרק 6: סיוע באש לעומק במלחמה בקנה מידה גדול: אש ארוכת טווח, counterfire, תפקיד הכטב\"מ",
+     "role": "main"
+    },
+    {
+     "doc": "X26",
+     "pages": [
+      207,
+      218
+     ],
+     "note": "נספח C: פעולה בסביבה מוכחשת/מושפלת (כולל GPS/GNSS denial) וחמש הדרישות במצב מושפל",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M11.20",
+   "part": "P11",
+   "tier": "adv",
+   "title": "יסודות CBRN",
+   "en": "CBRN basics",
+   "prereq": [
+    "M11.3"
+   ],
+   "sources": [
+    {
+     "doc": "X28",
+     "pages": [
+      396,
+      469
+     ],
+     "note": "פרק IX: קרינה שיורית ו-fallout — מקורות, פיזור, חיזוי, הנחתה, delayed fallout",
+     "role": "main"
+    },
+    {
+     "doc": "X28",
+     "pages": [
+      603,
+      617
+     ],
+     "note": "פרק XII (חלק): השפעות ביולוגיות של early fallout ו-delayed fallout",
+     "role": "main"
+    },
+    {
+     "doc": "X27",
+     "pages": [
+      17,
+      31
+     ],
+     "note": "פרק I: רקע ואיום",
+     "role": "main"
+    },
+    {
+     "doc": "X27",
+     "pages": [
+      32,
+      109
+     ],
+     "note": "פרק II: חומרי לחימה כימיים (עצבים, דם, שלפוחיות, משתקים, מקדמים) וטוקסיקולוגיה, LD50/Ct",
+     "role": "main"
+    },
+    {
+     "doc": "X27",
+     "pages": [
+      134,
+      163
+     ],
+     "note": "פרק IV: חומרים ביולוגיים (חיידקים, וירוסים, רעלנים)",
+     "role": "main"
+    },
+    {
+     "doc": "X27",
+     "pages": [
+      164,
+      169
+     ],
+     "note": "פרק V: מקורות מידע",
+     "role": "main"
+    },
+    {
+     "doc": "X27",
+     "pages": [
+      214,
+      249
+     ],
+     "note": "נספח H: הערכות רעילות",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M5.2",
+   "part": "P5",
+   "tier": "adv",
+   "title": "מקטעי המערכת",
+   "en": "System segments",
+   "prereq": [
+    "M5.1"
+   ],
+   "sources": [
+    {
+     "doc": "B05",
+     "pages": [
+      83,
+      128
+     ],
+     "note": "פרק 3",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M5.5",
+   "part": "P5",
+   "tier": "core",
+   "title": "שיבוש, התחזות, רב-נתיביות ונצנוץ",
+   "en": "Interference, spoofing, multipath",
+   "prereq": [
+    "M5.4",
+    "M4.7"
+   ],
+   "sources": [
+    {
+     "doc": "B05",
+     "pages": [
+      259,
+      316
+     ],
+     "note": "פרק 6",
+     "role": "main"
+    },
+    {
+     "doc": "A05.1",
+     "pages": null,
+     "note": "בניית מתחזה",
+     "role": "article"
+    },
+    {
+     "doc": "A05.3",
+     "pages": null,
+     "note": "איכון משבש מנתוני ADS-B",
+     "role": "article"
+    }
+   ]
+  },
+  {
+   "id": "M5.7",
+   "part": "P5",
+   "tier": "adv",
+   "title": "GPS דיפרנציאלי",
+   "en": "Differential GPS",
+   "prereq": [
+    "M5.6"
+   ],
+   "sources": [
+    {
+     "doc": "B05",
+     "pages": [
+      395,
+      474
+     ],
+     "note": "פרק 8",
+     "role": "main"
     }
    ]
   },
@@ -4071,33 +5578,6 @@
    ]
   },
   {
-   "id": "M5.11",
-   "part": "P5",
-   "tier": "core",
-   "title": "ניווט בלי GPS: TERCOM ואותות הזדמנות",
-   "en": "Alt-PNT",
-   "prereq": [
-    "M5.8"
-   ],
-   "sources": [
-    {
-     "doc": "B06",
-     "pages": [
-      566,
-      590
-     ],
-     "note": "7.4: TERCOM",
-     "role": "main"
-    },
-    {
-     "doc": "A05.4",
-     "pages": null,
-     "note": "ניווט מאותות Starlink",
-     "role": "article"
-    }
-   ]
-  },
-  {
    "id": "M5.12",
    "part": "P5",
    "tier": "ref",
@@ -4143,423 +5623,59 @@
    ]
   },
   {
-   "id": "M6.1",
-   "part": "P6",
+   "id": "M5.14",
+   "part": "P5",
    "tier": "core",
-   "title": "מערכות צירים ומשוואות תנועה של גוף קשיח",
-   "en": "Equations of motion",
+   "title": "ניווט באותות הזדמנות ושעונים אטומיים ניידים",
+   "en": "Signals of opportunity (LEO PNT, cellular, celestial) and portable atomic clocks",
    "prereq": [
-    "M0.6"
+    "M5.6",
+    "M5.11"
    ],
    "sources": [
     {
-     "doc": "B06",
+     "doc": "A05.4",
      "pages": [
-      16,
-      29
+      1,
+      4
      ],
-     "note": "פרק 1",
+     "note": "כל המאמר: מיקום מפאזת הגל הנושא של Starlink",
      "role": "main"
     },
     {
-     "doc": "B06",
+     "doc": "A05.5",
      "pages": [
-      30,
+      11,
+      31
+     ],
+     "note": "1–5.2.10: יציבות תדר, מודל רעש, Allan ווריאנסים נגזרים, חיזוי שגיאת זמן (holdover)",
+     "role": "main"
+    },
+    {
+     "doc": "A05.5",
+     "pages": [
+      43,
+      46
+     ],
+     "note": "5.2.17–5.2.20: MTIE, TIE rms, jitter",
+     "role": "main"
+    },
+    {
+     "doc": "A05.5",
+     "pages": [
+      66,
       67
      ],
-     "note": "פרק 2",
-     "role": "main"
-    }
-   ]
-  },
-  {
-   "id": "M6.2",
-   "part": "P6",
-   "tier": "core",
-   "title": "אווירודינמיקה, מודל הטיל וטייס אוטומטי",
-   "en": "Aerodynamics, missile model, autopilots",
-   "prereq": [
-    "M6.1",
-    "M0.7"
-   ],
-   "sources": [
-    {
-     "doc": "B06",
-     "pages": [
-      68,
-      113
-     ],
-     "note": "3.1–3.3",
+     "note": "5.18–5.19: היסט וסחיפת תדר",
      "role": "main"
     },
     {
-     "doc": "B06",
+     "doc": "X07",
      "pages": [
-      144,
-      169
+      1,
+      457
      ],
-     "note": "3.5–3.6: טייסים אוטומטיים",
-     "role": "main"
-    }
-   ]
-  },
-  {
-   "id": "M6.3",
-   "part": "P6",
-   "tier": "core",
-   "title": "שלבי ההנחיה ושיטות יירוט",
-   "en": "Guidance phases and intercept techniques",
-   "prereq": [
-    "M6.1"
-   ],
-   "sources": [
-    {
-     "doc": "B06",
-     "pages": [
-      170,
-      188
-     ],
-     "note": "4.1–4.2",
-     "role": "main"
-    },
-    {
-     "doc": "B10",
-     "pages": [
-      235,
-      242
-     ],
-     "note": "פרק 19",
-     "role": "main"
-    },
-    {
-     "doc": "B04",
-     "pages": [
-      32,
-      34
-     ],
-     "note": "2.3: שיטות הנחיה של איומים",
-     "role": "supp"
-    },
-    {
-     "doc": "B14",
-     "pages": [
-      21,
-      51
-     ],
-     "note": "פרק 2: ירי בלי משוב, SSKP ממרחק החטאה",
-     "role": "ref"
-    },
-    {
-     "doc": "B16",
-     "pages": [
-      339,
-      358
-     ],
-     "note": "3.5: תהליכי נזק ואפקטים סופיים",
-     "role": "ref"
-    }
-   ]
-  },
-  {
-   "id": "M6.4",
-   "part": "P6",
-   "tier": "core",
-   "title": "ניווט יחסי (PN), APN ו-PN תלת-ממדי",
-   "en": "Proportional navigation",
-   "prereq": [
-    "M6.3"
-   ],
-   "sources": [
-    {
-     "doc": "B06",
-     "pages": [
-      189,
-      249
-     ],
-     "note": "4.3–4.7",
-     "role": "main"
-    },
-    {
-     "doc": "B20",
-     "pages": [
-      27,
-      48
-     ],
-     "note": "Zarchan 2: יסודות ההנחיה הטקטית: סימולציית PN, לינאריזציה, פתרונות סגורים ו-ZEM",
-     "role": "supp"
-    },
-    {
-     "doc": "B20",
-     "pages": [
-      49,
-      72
-     ],
-     "note": "Zarchan 3: שיטת ה-adjoint ולולאת הביות: קבוע זמן של מערכת ההנחיה, מרחק החטאה בצורה סגורה, נרמול",
-     "role": "main"
-    },
-    {
-     "doc": "B14",
-     "pages": [
-      21,
-      39
-     ],
-     "note": "2.2–2.3: הסתברות השמדה מיריה אחת ומכמה יריות",
-     "role": "ref"
-    }
-   ]
-  },
-  {
-   "id": "M6.5",
-   "part": "P6",
-   "tier": "core",
-   "title": "הנחיה אופטימלית, הנחיה משותפת ושלב הסיום",
-   "en": "Optimal guidance and end game",
-   "prereq": [
-    "M6.4"
-   ],
-   "sources": [
-    {
-     "doc": "B06",
-     "pages": [
-      250,
-      283
-     ],
-     "note": "4.8–4.9",
-     "role": "main"
-    },
-    {
-     "doc": "A06.1",
-     "pages": null,
-     "note": "הנחיה לשליטה בזמן פגיעה",
-     "role": "article"
-    },
-    {
-     "doc": "B20",
-     "pages": [
-      73,
-      102
-     ],
-     "note": "Zarchan 4: ניתוח רעש: adjoint סטוכסטי ומרחק החטאה מתמרון אקראי",
-     "role": "supp"
-    },
-    {
-     "doc": "B20",
-     "pages": [
-      175,
-      197
-     ],
-     "note": "Zarchan 8: חוקי הנחיה מתקדמים: APN והנחיה אופטימלית",
-     "role": "supp"
-    }
-   ]
-  },
-  {
-   "id": "M6.6",
-   "part": "P6",
-   "tier": "core",
-   "title": "ראשי ביות ומודל מערכת ההנחיה",
-   "en": "Seekers and guidance system model",
-   "prereq": [
-    "M6.4",
-    "M2.14"
-   ],
-   "sources": [
-    {
-     "doc": "B06",
-     "pages": [
-      114,
-      143
-     ],
-     "note": "3.4",
-     "role": "main"
-    },
-    {
-     "doc": "B07",
-     "pages": [
-      257,
-      263
-     ],
-     "note": "9.3: מקורות רעש בראש ביות: ברק (glint), כיפה",
-     "role": "main"
-    }
-   ]
-  },
-  {
-   "id": "M6.7",
-   "part": "P6",
-   "tier": "core",
-   "title": "מסירת חימוש: בעיית ההפצצה, דיוק ומעטפת שיגור",
-   "en": "Weapon delivery",
-   "prereq": [
-    "M6.1"
-   ],
-   "sources": [
-    {
-     "doc": "B06",
-     "pages": [
-      284,
-      379
-     ],
-     "note": "פרק 5",
-     "role": "main"
-    },
-    {
-     "doc": "B08",
-     "pages": [
-      356,
-      356
-     ],
-     "note": "9.1: מבוא לנשיאת חימוש",
-     "role": "main"
-    },
-    {
-     "doc": "B08",
-     "pages": [
-      391,
-      399
-     ],
-     "note": "9.8–9.10: ממשק החימוש MIL-STD-1760, טילי אוויר-אוויר וחימוש אוויר-קרקע",
-     "role": "main"
-    },
-    {
-     "doc": "B15",
-     "pages": [
-      32,
-      41
-     ],
-     "note": "פרק 2: נתוני ביצועי נשק, פיזור וטעות שיטתית",
-     "role": "ref"
-    },
-    {
-     "doc": "B15",
-     "pages": [
-      55,
-      62
-     ],
-     "note": "3.7: CEP והשמדת מטרה נקודתית",
-     "role": "ref"
-    }
-   ]
-  },
-  {
-   "id": "M6.8",
-   "part": "P6",
-   "tier": "core",
-   "title": "טילים בליסטיים: שני גופים, למברט, כניסה חוזרת",
-   "en": "Ballistic missiles",
-   "prereq": [
-    "M6.1"
-   ],
-   "sources": [
-    {
-     "doc": "B06",
-     "pages": [
-      380,
-      518
-     ],
-     "note": "6.1–6.8",
-     "role": "main"
-    },
-    {
-     "doc": "B15",
-     "pages": [
-      164,
-      185
-     ],
-     "note": "6.1–6.3: הגנה בשכבות, MIRV ותורת המשחקים ב-ABM",
-     "role": "ref"
-    }
-   ]
-  },
-  {
-   "id": "M6.9",
-   "part": "P6",
-   "tier": "core",
-   "title": "דואה היפרסונית",
-   "en": "Hypersonic boost-glide",
-   "prereq": [
-    "M6.8"
-   ],
-   "sources": [
-    {
-     "doc": "A06.2",
-     "pages": null,
-     "note": "",
-     "role": "article"
-    }
-   ]
-  },
-  {
-   "id": "M6.10",
-   "part": "P6",
-   "tier": "core",
-   "title": "טילי שיוט",
-   "en": "Cruise missiles",
-   "prereq": [
-    "M6.2"
-   ],
-   "sources": [
-    {
-     "doc": "B06",
-     "pages": [
-      536,
-      557
-     ],
-     "note": "7.1–7.2",
-     "role": "main"
-    },
-    {
-     "doc": "B06",
-     "pages": [
-      591,
-      603
-     ],
-     "note": "7.5: GPS בטיל שיוט",
-     "role": "supp"
-    },
-    {
-     "doc": "B15",
-     "pages": [
-      186,
-      197
-     ],
-     "note": "6.4–6.5: נתיבי חדירה אופטימליים ופונקציית איום",
-     "role": "ref"
-    },
-    {
-     "doc": "B14",
-     "pages": [
-      70,
-      83
-     ],
-     "note": "פרק 4: הגנת מטרה",
-     "role": "ref"
-    }
-   ]
-  },
-  {
-   "id": "M6.11",
-   "part": "P6",
-   "tier": "ref",
-   "title": "נספחי Siouris: קבועים, אטמוספירה, סיווג ומאגר טילים",
-   "en": "Siouris appendices",
-   "sources": [
-    {
-     "doc": "B06",
-     "pages": [
-      604,
-      665
-     ],
-     "note": "נספחים A–F",
-     "role": "main"
-    },
-    {
-     "doc": "B06",
-     "pages": [
-      674,
-      677
-     ],
-     "note": "נספחים H–I",
+     "note": "סעיפים 1–10 (כל הקובץ): רקע ואיומים על GPS, מבנה ההדגמה, ספקים וטכנולוגיות (LEO, סלולר, eLoran, שעונים, כוכבים), תרחישי מיקום וזמן, תוצאות",
      "role": "main"
     }
    ]
@@ -4720,13 +5836,82 @@
    ]
   },
   {
+   "id": "M14.1",
+   "part": "P14",
+   "tier": "core",
+   "title": "מידול לחימה: סוגי מודלים ומדדי אפקטיביות, משוואות לנצ'סטר ומודל המטחים, יחסי חילוף, מודלים ומשחקי מלחמה כראיה",
+   "en": "Combat modeling: model types and MOEs, Lanchester and salvo attrition, exchange ratios, models and wargames as evidence",
+   "prereq": [
+    "M0.4",
+    "M7.1"
+   ],
+   "sources": [
+    {
+     "doc": "B14",
+     "pages": [
+      8,
+      20
+     ],
+     "note": "1.2–1.3: סוגי מודלים וקיצורי דרך",
+     "role": "main"
+    },
+    {
+     "doc": "B14",
+     "pages": [
+      84,
+      114
+     ],
+     "note": "פרק 5: מודלי שחיקה, משוואות לנצ'סטר",
+     "role": "main"
+    },
+    {
+     "doc": "B15",
+     "pages": [
+      92,
+      141
+     ],
+     "note": "פרקים 4–5: מודלי קרב דטרמיניסטיים וסטוכסטיים",
+     "role": "main"
+    },
+    {
+     "doc": "B15",
+     "pages": [
+      320,
+      329
+     ],
+     "note": "פרק 12: מידול של מבצעים",
+     "role": "main"
+    },
+    {
+     "doc": "B15",
+     "pages": [
+      22,
+      31
+     ],
+     "note": "פרק 1: שיטות מדעיות בניתוח הגנה",
+     "role": "supp"
+    },
+    {
+     "doc": "B14",
+     "pages": [
+      214,
+      238
+     ],
+     "note": "פרק 10: מודלים של טרור ומרד",
+     "role": "supp"
+    }
+   ]
+  },
+  {
    "id": "M7.4",
    "part": "P7",
    "tier": "core",
    "title": "ניתוחי פשרות והקצאת דרישות, מטחים, מלאי מיירטים ויחס עלויות",
    "en": "Trades and allocation + raids, magazines and cost-exchange",
    "prereq": [
-    "M7.3"
+    "M7.3",
+    "M11.4",
+    "M14.1"
    ],
    "sources": [
     {
@@ -4786,6 +5971,81 @@
      ],
      "note": "9.1: מודל WGS-84 וניתוח טיסה",
      "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M13.4",
+   "part": "P13",
+   "tier": "core",
+   "title": "מסלולים ואסטרודינמיקה: קפלר, הפרעות ותמרונים",
+   "en": "Orbits and astrodynamics",
+   "prereq": [
+    "M0.8"
+   ],
+   "sources": [
+    {
+     "doc": "B12",
+     "pages": [
+      225,
+      251
+     ],
+     "note": "9.3–9.7: טרמינולוגיה, הפרעות ודעיכה, מסלולים מיוחדים, תמרונים (9.1–9.2, מסלולי קפלר, נלמדים בגילואה M15.15; בעיון ב-M13.22)",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M13.12",
+   "part": "P13",
+   "tier": "core",
+   "title": "הנעה רקטית ומשגרים: משוואת הרקטה, שלבים ומכניקת השיגור",
+   "en": "Rocket propulsion and launch vehicles",
+   "prereq": [
+    "M6.1",
+    "M13.4"
+   ],
+   "sources": [
+    {
+     "doc": "B12",
+     "pages": [
+      842,
+      873
+     ],
+     "note": "פרק 26: בחירת משגר, היסטוריה, מכניקת השיגור, סביבת השיגור, משגרים זמינים. פרק 18 של SMAD (הנעה) חסר בסריקה: את משוואת הרקטה, השלבים וההנעה הכימית והחשמלית המורה מלמד מהידע שלו, עם רמת ודאות",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M6.8",
+   "part": "P6",
+   "tier": "core",
+   "title": "טילים בליסטיים: שני גופים, למברט, כניסה חוזרת",
+   "en": "Ballistic missiles",
+   "prereq": [
+    "M6.1",
+    "M13.4",
+    "M13.12"
+   ],
+   "sources": [
+    {
+     "doc": "B06",
+     "pages": [
+      380,
+      518
+     ],
+     "note": "6.1–6.8",
+     "role": "main"
+    },
+    {
+     "doc": "B15",
+     "pages": [
+      164,
+      185
+     ],
+     "note": "6.1–6.3: הגנה בשכבות, MIRV ותורת המשחקים ב-ABM",
+     "role": "ref"
     }
    ]
   },
@@ -5304,6 +6564,2789 @@
    ]
   },
   {
+   "id": "M7.12",
+   "part": "P7",
+   "tier": "core",
+   "title": "היתוך רב-חיישני ותמונת מצב משותפת",
+   "en": "Multisensor fusion and the common operating picture",
+   "prereq": [
+    "M2.29",
+    "M5.8"
+   ],
+   "sources": [
+    {
+     "doc": "W66",
+     "pages": [
+      361,
+      471
+     ],
+     "note": "פרק 8: Attribute data fusion: היתוך זהות (Bayes, Dempster-Shafer, evidential reasoning) ל-identity fusion",
+     "role": "main"
+    },
+    {
+     "doc": "W66",
+     "pages": [
+      472,
+      536
+     ],
+     "note": "פרק 9: Multiple sensor tracking: central/sensor-level, distributed, track-to-track association וקורלציית שגיאות",
+     "role": "main"
+    },
+    {
+     "doc": "W66",
+     "pages": [
+      537,
+      611
+     ],
+     "note": "פרק 10: System implementation: registration ו-bias estimation (10.5), angle-only ו-heterogeneous sensor fusion",
+     "role": "main"
+    },
+    {
+     "doc": "B02a",
+     "pages": [
+      716,
+      720
+     ],
+     "note": "15.3: עקיבה רב-חיישנית: ארכיטקטורות היתוך, היתוך מדידות ומסלולים",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M7.13",
+   "part": "P7",
+   "tier": "core",
+   "title": "שו\"ב וניהול קרב, אוטומציה של שרשרת האש וצוות אדם-מכונה",
+   "en": "C2 and battle management, kill-chain automation, human-machine teaming",
+   "prereq": [
+    "M7.11",
+    "M7.12"
+   ],
+   "sources": [
+    {
+     "doc": "B07",
+     "pages": [
+      71,
+      78
+     ],
+     "note": "5.2–5.3: דרישות פונקציונליות של ארכיטקטורת ההגנה והקצאת פונקציות למערכות (BMC)",
+     "role": "main"
+    },
+    {
+     "doc": "B07",
+     "pages": [
+      118,
+      127
+     ],
+     "note": "6.3–6.4: הערכת מרחב הקרב וניתוח היירוט",
+     "role": "main"
+    },
+    {
+     "doc": "X18",
+     "pages": [
+      1,
+      255
+     ],
+     "note": "כולו",
+     "role": "main"
+    },
+    {
+     "doc": "X19",
+     "pages": [
+      31,
+      77
+     ],
+     "note": "פרק 3 (בעיות טכניות של אוטונומיה, עמ' 31-65) ופרק 4 (בעיות רכש, עמ' 66-77)",
+     "role": "main"
+    },
+    {
+     "doc": "X17",
+     "pages": [
+      1,
+      19
+     ],
+     "note": "כל הדו\"ח: JADC2, ארכיטקטורת C2, בינה מלאכותית בהחלטות C2, סוגיות לקונגרס",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M7.14",
+   "part": "P7",
+   "tier": "core",
+   "title": "ניסוי והערכה: סטטיסטיקה בפועל",
+   "en": "Test and evaluation: statistics in practice",
+   "prereq": [
+    "M7.10",
+    "M0.4"
+   ],
+   "sources": [
+    {
+     "doc": "W12",
+     "pages": [
+      1,
+      442
+     ],
+     "note": "פרק 5: DOE למבחן מבצעי, עמ' 28-141 ו-192-375 בעיקר",
+     "role": "main"
+    },
+    {
+     "doc": "W12",
+     "pages": [
+      599,
+      808
+     ],
+     "note": "פרק 8: אמינות, הדגמה וצמיחה",
+     "role": "main"
+    },
+    {
+     "doc": "W13",
+     "pages": [
+      52,
+      126
+     ],
+     "note": "פרקים 3–6: פרדיגמה חדשה לבדיקה והערכה (52–70), שדרוג שיטות סטטיסטיות (71–82), תכנון בדיקות מבצעיות (83–110), ניתוח ודיווח תוצאות (111–126)",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M7.15",
+   "part": "P7",
+   "tier": "core",
+   "title": "דיני לחימה, בדיקת חוקיות נשק, מדיניות אוטונומיה ופיקוח על יצוא",
+   "en": "Law of armed conflict, weapons review, autonomy policy, export control",
+   "prereq": [
+    "M7.13"
+   ],
+   "sources": [
+    {
+     "doc": "D10",
+     "pages": [
+      87,
+      94
+     ],
+     "note": "נספח A: שיקולים משפטיים במטרות (דיני מלחמה, ROE, מידתיות)",
+     "role": "main"
+    },
+    {
+     "doc": "D10",
+     "pages": [
+      45,
+      46
+     ],
+     "note": "II, שלב 3 (חלק): weaponeering ו-CDE",
+     "role": "main"
+    },
+    {
+     "doc": "X21",
+     "pages": [
+      1,
+      15
+     ],
+     "note": "נוסח הנחיה 3000.09 מ-2012 (לא ה-2023): הגדרות, דרישות סקירה בכירה",
+     "role": "main"
+    },
+    {
+     "doc": "X21",
+     "pages": [
+      16,
+      18
+     ],
+     "note": "CRS Defense Primer (מאי 2023): מדיניות ארה\"ב ב-LAWS, תיאור הנוסח המעודכן 2023",
+     "role": "main"
+    },
+    {
+     "doc": "X21",
+     "pages": [
+      19,
+      27
+     ],
+     "note": "סקירת Harvard HRC של מדיניות 2023: הבדלים מול 2012, פערים לגבי meaningful human control",
+     "role": "main"
+    },
+    {
+     "doc": "X20",
+     "pages": [
+      226,
+      377
+     ],
+     "note": "פרק V The Conduct of Hostilities: עקרונות מטרה, proportionality, precautions",
+     "role": "main"
+    },
+    {
+     "doc": "X20",
+     "pages": [
+      378,
+      474
+     ],
+     "note": "פרק VI Weapons: weapons review, אמנות נשק ספציפיות",
+     "role": "main"
+    },
+    {
+     "doc": "X22",
+     "pages": [
+      1,
+      32
+     ],
+     "note": "החוק כולו (תרגום לא רשמי באנגלית): פרקים A מטרה, B הגדרות, C רישום יצואנים, D רישוי ועוד",
+     "role": "main"
+    },
+    {
+     "doc": "X43",
+     "pages": [
+      1,
+      24
+     ],
+     "note": "נוסח 2023 המלא של DoDD 3000.09: מדיניות, 'רמות מתאימות של שיפוט אנושי', סקירה בכירה, הגדרות, נספח הנחיות",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M7.16",
+   "part": "P7",
+   "tier": "adv",
+   "title": "C-RAM: יירוט רקטות, ארטילריה ומרגמות",
+   "en": "C-RAM",
+   "prereq": [
+    "M7.5",
+    "M2.22"
+   ],
+   "sources": [
+    {
+     "doc": "B07",
+     "pages": [
+      55,
+      66
+     ],
+     "note": "4.4: מדדי יעילות: זמן תגובה, ציר זמן יירוט, עוצמת אש, עמידות לחדירה, כיסוי רציף",
+     "role": "main"
+    },
+    {
+     "doc": "B07",
+     "pages": [
+      118,
+      127
+     ],
+     "note": "6.3–6.4: הערכת מרחב הקרב וניתוח היירוט",
+     "role": "main"
+    },
+    {
+     "doc": "X23",
+     "pages": [
+      1,
+      45
+     ],
+     "note": "כולו",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M7.17",
+   "part": "P7",
+   "tier": "core",
+   "title": "לייזר רב-עוצמה (HEL): התפשטות בטורבולנציה, Thermal Blooming, אופטיקה אדפטיבית ו-ATP",
+   "en": "High-energy lasers: beam propagation in turbulence, thermal blooming, adaptive optics, ATP, laser-material",
+   "prereq": [
+    "M7.6",
+    "M3.5",
+    "M3.13"
+   ],
+   "sources": [
+    {
+     "doc": "B03",
+     "pages": [
+      181,
+      193
+     ],
+     "note": "6.2–6.7: העברה אטמוספרית, בליעה, פיזור, טורבולנציה ו-MTF אטמוספרי",
+     "role": "main"
+    },
+    {
+     "doc": "X03",
+     "pages": [
+      26,
+      53
+     ],
+     "note": "פרק 1: עקרונות בסיס (fluence, קריטריוני נזק)",
+     "role": "main"
+    },
+    {
+     "doc": "X03",
+     "pages": [
+      106,
+      230
+     ],
+     "note": "פרק 3: לייזרים — דיפרקציה, בליעה, טורבולנציה ו-adaptive optics, thermal blooming, air breakdown, אינטראקציית לייזר-חומר",
+     "role": "main"
+    },
+    {
+     "doc": "X16",
+     "pages": [
+      1,
+      27
+     ],
+     "note": "כולו: סקירת נשק אנרגיה מכוונת (HEL ו-HPM), מפת הדרכים של DoD, תוכניות חיל האוויר, היבשה והים (DE M-SHORAD, IFPC-HEL, HELIOS) ושאלות לקונגרס. הערה: דו״ח מדיניות, לא מכסה פיזיקת התפשטות קרן",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M7.18",
+   "part": "P7",
+   "tier": "core",
+   "title": "מיקרוגל רב-עוצמה (HPM): מקורות, צימוד ומודל Wunsch-Bell",
+   "en": "High-power microwaves: sources, front/back-door coupling, Wunsch-Bell",
+   "prereq": [
+    "M1.1",
+    "M7.1"
+   ],
+   "sources": [
+    {
+     "doc": "X03",
+     "pages": [
+      26,
+      53
+     ],
+     "note": "פרק 1: עקרונות בסיס",
+     "role": "main"
+    },
+    {
+     "doc": "X03",
+     "pages": [
+      231,
+      285
+     ],
+     "note": "פרק 4: מיקרוגל — התפשטות, breakdown, נזק in-band/out-of-band (front/back door, Wunsch-Bell)",
+     "role": "main"
+    },
+    {
+     "doc": "X02",
+     "pages": [
+      309,
+      310
+     ],
+     "note": "464C סעיף 5.6: דרישות EMP",
+     "role": "main"
+    },
+    {
+     "doc": "X02",
+     "pages": [
+      379,
+      385
+     ],
+     "note": "464C נספח A.5.6: הסבר EMP/HEMP",
+     "role": "main"
+    },
+    {
+     "doc": "X02",
+     "pages": [
+      404,
+      411
+     ],
+     "note": "464C נספח A.5.9: קרינה אלקטרומגנטית מסוכנת (HERO/HERF)",
+     "role": "main"
+    },
+    {
+     "doc": "X02",
+     "pages": [
+      152,
+      173
+     ],
+     "note": "461G: RS103 ו-RS105 (שדה חשמלי ושדה חולף), כרקע לצימוד ולחסינות",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M12.1",
+   "part": "P12",
+   "tier": "core",
+   "title": "הגנה אווירית ול\"א רוסיות בשטח",
+   "en": "Russian air defense and EW",
+   "prereq": [
+    "M7.1",
+    "M4.7"
+   ],
+   "sources": [
+    {
+     "doc": "D5",
+     "pages": [
+      100,
+      110
+     ],
+     "note": "IADS ו-EW בסיור ובאבטחה",
+     "role": "main"
+    },
+    {
+     "doc": "D5",
+     "pages": [
+      138,
+      150
+     ],
+     "note": "הקרב האלקטרומגנטי ותמיכה אווירית",
+     "role": "main"
+    },
+    {
+     "doc": "D5",
+     "pages": [
+      223,
+      240
+     ],
+     "note": "נספחים C, D, E, F: תמיכה אווירית, הגנה אווירית, נ\"ט, EW",
+     "role": "main"
+    },
+    {
+     "doc": "D5",
+     "pages": [
+      255,
+      260
+     ],
+     "note": "נספח J: מערכות שו\"ב אוטומטיות",
+     "role": "main"
+    },
+    {
+     "doc": "D5",
+     "pages": [
+      163,
+      180
+     ],
+     "note": "מתחמי סיור-אש (recon-strike), מתוך M12.2",
+     "role": "supp"
+    },
+    {
+     "doc": "B16",
+     "pages": [
+      277,
+      305
+     ],
+     "note": "3.2: איום ההגנה האווירית",
+     "role": "ref"
+    },
+    {
+     "doc": "B16",
+     "pages": [
+      419,
+      429
+     ],
+     "note": "3.8: נשק הגנה אווירית של האיום",
+     "role": "ref"
+    }
+   ]
+  },
+  {
+   "id": "M12.2",
+   "part": "P12",
+   "tier": "adv",
+   "title": "הטקטיקה הרוסית: מבנה, סיור, אש, הגנה והתקפה",
+   "en": "Russian tactics",
+   "sources": [
+    {
+     "doc": "D5",
+     "pages": [
+      13,
+      44
+     ],
+     "note": "מבוא ופרקים 1–2: הסביבה האסטרטגית, תולדות הצבא ומבנה הכוחות (בחירה O1: פרקי התמרון הקרקעי יצאו)",
+     "role": "main"
+    },
+    {
+     "doc": "B15",
+     "pages": [
+      92,
+      133
+     ],
+     "note": "פרק 4: מודלי קרב דטרמיניסטיים, לנצ'סטר",
+     "role": "ref"
+    },
+    {
+     "doc": "B14",
+     "pages": [
+      84,
+      114
+     ],
+     "note": "פרק 5: מודלי שחיקה",
+     "role": "ref"
+    },
+    {
+     "doc": "B17",
+     "pages": [
+      205,
+      258
+     ],
+     "note": "פרק 5: ברברוסה, לוגיסטיקה במרחבי רוסיה",
+     "role": "ref"
+    }
+   ]
+  },
+  {
+   "id": "M12.3",
+   "part": "P12",
+   "tier": "core",
+   "title": "יכולות משולבות סיניות: חיל האוויר, הצי, כוח הרקטות, ל\"מ ותקשורת",
+   "en": "Chinese joint capabilities",
+   "prereq": [
+    "M7.1"
+   ],
+   "sources": [
+    {
+     "doc": "D6",
+     "pages": [
+      51,
+      58
+     ],
+     "note": "פרק 3",
+     "role": "main"
+    },
+    {
+     "doc": "D6",
+     "pages": [
+      75,
+      84
+     ],
+     "note": "פרק 5: מבצעי מידע",
+     "role": "main"
+    },
+    {
+     "doc": "D6",
+     "pages": [
+      217,
+      226
+     ],
+     "note": "נספחים C–D: הגנה אווירית ותעופה",
+     "role": "main"
+    },
+    {
+     "doc": "D6",
+     "pages": [
+      229,
+      230
+     ],
+     "note": "נספח F: רשת ותקשורת",
+     "role": "main"
+    },
+    {
+     "doc": "D6",
+     "pages": [
+      59,
+      74
+     ],
+     "note": "לוחמת מערכות של צבא סין, מתוך M12.4",
+     "role": "supp"
+    },
+    {
+     "doc": "B14",
+     "pages": [
+      115,
+      136
+     ],
+     "note": "פרק 6: תורת המשחקים ומשחקי מלחמה",
+     "role": "ref"
+    }
+   ]
+  },
+  {
+   "id": "M12.4",
+   "part": "P12",
+   "tier": "adv",
+   "title": "הטקטיקה הסינית: מבנה, לוחמת מערכות, הגנה והתקפה",
+   "en": "Chinese tactics",
+   "sources": [
+    {
+     "doc": "D6",
+     "pages": [
+      13,
+      50
+     ],
+     "note": "מבוא ופרקים 1–2: הגישה האסטרטגית ומבנה הכוחות (בחירה O1: פרקי התמרון הקרקעי יצאו; פרק 4 נלמד ב-M12.3)",
+     "role": "main"
+    },
+    {
+     "doc": "B15",
+     "pages": [
+      220,
+      251
+     ],
+     "note": "פרק 8: היתקלויות של כוחות הטרוגניים",
+     "role": "ref"
+    },
+    {
+     "doc": "B14",
+     "pages": [
+      103,
+      114
+     ],
+     "note": "5.5–5.6: צבירה, ערכים ו-FATHM",
+     "role": "ref"
+    },
+    {
+     "doc": "B17",
+     "pages": [
+      111,
+      157
+     ],
+     "note": "פרק 3: מסילות ברזל ותכנון מבצעי",
+     "role": "ref"
+    }
+   ]
+  },
+  {
+   "id": "M12.5",
+   "part": "P12",
+   "tier": "adv",
+   "title": "הערכת הפצת נשק גרעיני",
+   "en": "Nuclear proliferation assessment",
+   "prereq": [
+    "M11.10"
+   ],
+   "sources": [
+    {
+     "doc": "X29",
+     "pages": [
+      1,
+      25
+     ],
+     "note": "כולו",
+     "role": "main"
+    },
+    {
+     "doc": "X30",
+     "pages": [
+      34,
+      63
+     ],
+     "note": "פרקים 2-4 (מטרות הבטחות, מושגי safeguards, חומר גרעיני: SQ, direct-use material, enrichment, reprocessing, מתקנים); עמ' PDF = עמ' מודפס + 16",
+     "role": "main"
+    },
+    {
+     "doc": "X30",
+     "pages": [
+      83,
+      92
+     ],
+     "note": "פרק 6: טכניקות מדידה ומתקנים",
+     "role": "main"
+    },
+    {
+     "doc": "X30",
+     "pages": [
+      100,
+      104
+     ],
+     "note": "פרק 8: דגימות סביבתיות",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M14.7",
+   "part": "P14",
+   "tier": "core",
+   "title": "ירי בלי משוב, תורת המשחקים ותורת החיפוש",
+   "en": "Shooting without feedback, game theory and search theory (Washburn & Kress ch. 2, 6, 7)",
+   "prereq": [
+    "M14.1"
+   ],
+   "sources": [
+    {
+     "doc": "B14",
+     "pages": [
+      21,
+      51
+     ],
+     "note": "Washburn & Kress 2: ירי בלי משוב: SSKP ממרחק החטאה, כמה יריות, כמה מטרות",
+     "role": "main"
+    },
+    {
+     "doc": "B14",
+     "pages": [
+      115,
+      136
+     ],
+     "note": "Washburn & Kress 6: תורת המשחקים ומשחקי מלחמה",
+     "role": "main"
+    },
+    {
+     "doc": "B14",
+     "pages": [
+      137,
+      164
+     ],
+     "note": "Washburn & Kress 7: תורת החיפוש: רוחב סריקה, חוקי הגילוי, חלוקת מאמץ, מחסום ומטרות נעות",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M14.2",
+   "part": "P14",
+   "tier": "core",
+   "title": "רכש, עלות ובסיס תעשייתי: הגדרות עלות, עלות מחזור חיים, עקומות למידה, תקציבים כנתונים, TRL/MRL, האצת ייצור וחומרים קריטיים",
+   "en": "Acquisition, cost and industrial base: cost definitions, LCC, learning curves, budgets as data, TRL/MRL, surge and critical materials",
+   "prereq": [
+    "M14.1",
+    "M7.10"
+   ],
+   "sources": [
+    {
+     "doc": "B16",
+     "pages": [
+      139,
+      155
+     ],
+     "note": "1.3.1–1.3.6: תהליך הרכש DoD 5000",
+     "role": "supp"
+    },
+    {
+     "doc": "B12",
+     "pages": [
+      306,
+      341
+     ],
+     "note": "פרק 11: אומדן עלויות (פרקים 12–13, מימון ומשפט חלל, בעיון ב-M13.7)",
+     "role": "supp"
+    }
+   ]
+  },
+  {
+   "id": "M14.3",
+   "part": "P14",
+   "tier": "core",
+   "title": "לוגיסטיקה וקיימוּת: צריכה, קיבולת קווי אספקה, תחמושת מול מלאים, כשירות, לוגיסטיקה תחת איום ובמלחמת רחפנים",
+   "en": "Logistics and sustainment: consumption, LOC capacity, munitions vs stockpiles, readiness, contested and drone-war logistics (van Creveld promoted)",
+   "prereq": [
+    "M14.1"
+   ],
+   "sources": [
+    {
+     "doc": "B21",
+     "pages": [
+      85,
+      112
+     ],
+     "note": "Kress 4: תהליך התכנון הלוגיסטי: מקדמי תכנון, צריכה ותגובתיות",
+     "role": "main"
+    },
+    {
+     "doc": "B21",
+     "pages": [
+      137,
+      160
+     ],
+     "note": "Kress 6: חיזוי דרישות לוגיסטיות: שחיקה, צריכה ואי-ודאות",
+     "role": "main"
+    },
+    {
+     "doc": "B21",
+     "pages": [
+      201,
+      227
+     ],
+     "note": "Kress 9: הצטברות כוח, טיפול ופינוי רפואי: זמן, קיבולת ואופטימיזציה",
+     "role": "main"
+    },
+    {
+     "doc": "B21",
+     "pages": [
+      41,
+      47
+     ],
+     "note": "Kress 2.4–2.5: מונחי יסוד, מודלים וכלים אנליטיים",
+     "role": "supp"
+    },
+    {
+     "doc": "B17",
+     "pages": [
+      164,
+      170
+     ],
+     "note": "פרק 4 בקיצור: הלוגיסטיקה של תוכנית שליפן",
+     "role": "main"
+    },
+    {
+     "doc": "B17",
+     "pages": [
+      200,
+      204
+     ],
+     "note": "פרק 4: מסקנות",
+     "role": "main"
+    },
+    {
+     "doc": "B17",
+     "pages": [
+      205,
+      222
+     ],
+     "note": "פרק 5: תכנון ברברוסה",
+     "role": "main"
+    },
+    {
+     "doc": "B17",
+     "pages": [
+      251,
+      263
+     ],
+     "note": "פרק 5: מסקנות; פרק 6: פתיחה והמתקפה הראשונה של רומל",
+     "role": "main"
+    },
+    {
+     "doc": "B17",
+     "pages": [
+      284,
+      293
+     ],
+     "note": "פרק 6: מסקנות; פרק 7: מנורמנדי לסיין",
+     "role": "main"
+    },
+    {
+     "doc": "B17",
+     "pages": [
+      307,
+      333
+     ],
+     "note": "פרק 7: חזית רחבה או חוד צר, ומסקנות; פרק 8: מסקנות הספר",
+     "role": "main"
+    },
+    {
+     "doc": "B17",
+     "pages": [
+      16,
+      110
+     ],
+     "note": "פרקים 1–2: שיטת המחסנים ונפוליאון (Kress מחליף; עיון)",
+     "role": "ref"
+    },
+    {
+     "doc": "B17",
+     "pages": [
+      158,
+      163
+     ],
+     "note": "פרק 4: פתיחה (עיון)",
+     "role": "ref"
+    },
+    {
+     "doc": "B17",
+     "pages": [
+      171,
+      199
+     ],
+     "note": "פרק 4: התוכנית המתוקנת והמרן (עיון)",
+     "role": "ref"
+    },
+    {
+     "doc": "B17",
+     "pages": [
+      223,
+      250
+     ],
+     "note": "פרק 5: לנינגרד, הדנייפר ומוסקבה (בחירה O4; עיון)",
+     "role": "ref"
+    },
+    {
+     "doc": "B17",
+     "pages": [
+      264,
+      283
+     ],
+     "note": "פרק 6: צפון אפריקה 1941–1942 (בחירה O4; עיון)",
+     "role": "ref"
+    },
+    {
+     "doc": "B17",
+     "pages": [
+      294,
+      306
+     ],
+     "note": "פרק 7: הרדיפה לגבול (בחירה O4; עיון)",
+     "role": "ref"
+    }
+   ]
+  },
+  {
+   "id": "M13.11",
+   "part": "P13",
+   "tier": "core",
+   "title": "מטעני תצפית: ביון וחישה מהחלל",
+   "en": "Observation payloads",
+   "prereq": [
+    "M3.10",
+    "M13.9"
+   ],
+   "sources": [
+    {
+     "doc": "B12",
+     "pages": [
+      510,
+      543
+     ],
+     "note": "פרק 17: תכנון וגודל מטען תצפית, VIIRS, התפתחות",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M8.4",
+   "part": "P8",
+   "tier": "core",
+   "title": "CNI: משדרים-משיבים ו-IFF",
+   "en": "Transponders and IFF",
+   "sources": [
+    {
+     "doc": "B08",
+     "pages": [
+      279,
+      280
+     ],
+     "note": "7.1",
+     "role": "main"
+    },
+    {
+     "doc": "B08",
+     "pages": [
+      288,
+      294
+     ],
+     "note": "7.3",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M14.4",
+   "part": "P14",
+   "tier": "core",
+   "title": "OSINT והערכת יכולות: דימות, איכון גאוגרפי, אימות, ADS-B/AIS, הערכת סדר כוחות, הערכה כוללת והטיות ניתוח",
+   "en": "OSINT and capability assessment: imagery, geolocation, verification, ADS-B/AIS, OOB estimation, net assessment, analytic bias",
+   "prereq": [
+    "M3.10",
+    "M13.11",
+    "M5.5",
+    "M8.4"
+   ],
+   "sources": []
+  },
+  {
+   "id": "M14.5",
+   "part": "P14",
+   "tier": "core",
+   "title": "כתיבה וראיונות של אנליסט (מסכם): מבנה מאמר, ראיונות מומחים, אי-ודאות, גרפים הוגנים, ביקורת על מכוני מחקר, בדיקת AI",
+   "en": "Writing and interviewing as an analyst (capstone): article structure, expert interviews, uncertainty, honest charts, think-tank critique, AI-checking",
+   "prereq": [
+    "M14.1",
+    "M14.2",
+    "M14.3",
+    "M14.4"
+   ],
+   "sources": []
+  },
+  {
+   "id": "M14.6",
+   "part": "P14",
+   "tier": "ref",
+   "title": "Kress, Operational Logistics: שאר הפרקים",
+   "en": "Kress, Operational Logistics: remaining chapters (reference)",
+   "sources": [
+    {
+     "doc": "B21",
+     "pages": [
+      14,
+      40
+     ],
+     "note": "פרק 1 ו-2.1–2.3: מהי לוגיסטיקה, שלוש רמות הלוגיסטיקה",
+     "role": "main"
+    },
+    {
+     "doc": "B21",
+     "pages": [
+      48,
+      84
+     ],
+     "note": "2.6 ופרק 3: יסודות הלוגיסטיקה המבצעית ועקרונותיה",
+     "role": "main"
+    },
+    {
+     "doc": "B21",
+     "pages": [
+      113,
+      136
+     ],
+     "note": "פרק 5: מידע לוגיסטי",
+     "role": "main"
+    },
+    {
+     "doc": "B21",
+     "pages": [
+      161,
+      200
+     ],
+     "note": "פרקים 7–8: מודל הרשת החזותי וגמישות לוגיסטית (מדדים כמותיים)",
+     "role": "main"
+    },
+    {
+     "doc": "B21",
+     "pages": [
+      228,
+      254
+     ],
+     "note": "פרק 10: אופטימיזציה של רשת הלוגיסטיקה (תכנון לינארי)",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M14.8",
+   "part": "P14",
+   "tier": "adv",
+   "title": "משחקי מלחמה",
+   "en": "Wargaming",
+   "prereq": [
+    "M14.1"
+   ],
+   "sources": [
+    {
+     "doc": "X31",
+     "pages": [
+      1,
+      112
+     ],
+     "note": "כולו: פרק 1 מבוא ומטרות (13), פרק 2 יסודות (31), פרק 3 סוגים וגרסאות כולל matrix ו-seminar (51), פרק 4 תהליך: תכנון, שיפוט, ניתוח ודיווח (63), נספח A יישומים בבעיות הגנה (77)",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M15.1",
+   "part": "P15",
+   "tier": "core",
+   "title": "ארכיטקטורת אוויוניקה ווטרוניקה ואפיקי נתונים: MIL-STD-1553, ARINC 429, SpaceWire ו-TSN",
+   "en": "Avionics and vetronics buses: MIL-STD-1553, ARINC 429, SpaceWire, TSN",
+   "prereq": [
+    "M7.9"
+   ],
+   "sources": [
+    {
+     "doc": "B08",
+     "pages": [
+      71,
+      106
+     ],
+     "note": "2.1–2.5: התפתחות ארכיטקטורות (federated, IMA), ARINC 429, MIL-STD-1553B, STANAG 3910, JIAWG, אפיקי COTS, RTOS",
+     "role": "main"
+    },
+    {
+     "doc": "X32",
+     "pages": [
+      1,
+      124
+     ],
+     "note": "התקן כולו; רלוונטי ישירות לתת-נושא SpaceWire (פרקים 4 סקירה, 5 דרישות: שכבות פיזית/קידוד/ערוץ/רשת, ניתוב). לא מכסה 1553/ARINC 429/AFDX/TSN",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M15.2",
+   "part": "P15",
+   "tier": "core",
+   "title": "רשתות טקטיות ו-MANET",
+   "en": "Tactical networks and MANET",
+   "prereq": [
+    "M7.9",
+    "M4.11"
+   ],
+   "sources": [
+    {
+     "doc": "E34",
+     "pages": [
+      472,
+      487
+     ],
+     "note": "6.3: פרוטוקולי גישה מרובה (MAC)",
+     "role": "main"
+    },
+    {
+     "doc": "E34",
+     "pages": [
+      543,
+      573
+     ],
+     "note": "7.1–7.3: קישורים אלחוטיים, רשתות אד-הוק, WLAN 802.11",
+     "role": "main"
+    },
+    {
+     "doc": "E34",
+     "pages": [
+      589,
+      597
+     ],
+     "note": "7.5: עקרונות ניהול ניידות",
+     "role": "main"
+    },
+    {
+     "doc": "X01",
+     "pages": [
+      1,
+      32
+     ],
+     "note": "RFC 3561 AODV: ניתוב ריאקטיבי (ניתוב לפי דרישה)",
+     "role": "main"
+    },
+    {
+     "doc": "X01",
+     "pages": [
+      33,
+      96
+     ],
+     "note": "RFC 3626 OLSR: ניתוב פרואקטיבי, MPR",
+     "role": "main"
+    },
+    {
+     "doc": "X01",
+     "pages": [
+      97,
+      126
+     ],
+     "note": "RFC 4838: ארכיטקטורת רשתות עמידות להשהיה (DTN, bundle)",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M15.3",
+   "part": "P15",
+   "tier": "core",
+   "title": "קישורי נתונים טקטיים: Link 16 לעומק, VMF, MADL ופרוטוקולי נחילים",
+   "en": "Tactical datalinks: Link 16 in depth, VMF, MADL (open level), swarm protocols",
+   "prereq": [
+    "M15.2"
+   ],
+   "sources": [
+    {
+     "doc": "A08.4",
+     "pages": [
+      14,
+      19
+     ],
+     "note": "3: הגדרות (NPG, חריצי זמן, JU ועוד)",
+     "role": "main"
+    },
+    {
+     "doc": "A08.4",
+     "pages": [
+      20,
+      43
+     ],
+     "note": "4.1–4.2: מאפייני הפעלה של JTIDS, רמות נאמנות, סנכרון זמן, מימוש ב-DIS",
+     "role": "main"
+    },
+    {
+     "doc": "A08.4",
+     "pages": [
+      69,
+      88
+     ],
+     "note": "נספח B.2: נתוני Link 16, כותרות והודעות JTIDS, RTT, קול, VMF",
+     "role": "main"
+    },
+    {
+     "doc": "A08.9",
+     "pages": [
+      18,
+      35
+     ],
+     "note": "תקציר",
+     "role": "main"
+    },
+    {
+     "doc": "A08.9",
+     "pages": [
+      40,
+      49
+     ],
+     "note": "פרק 1: מבוא ומסגרת NCO",
+     "role": "main"
+    },
+    {
+     "doc": "A08.9",
+     "pages": [
+      58,
+      75
+     ],
+     "note": "פרקים 3–5: מאפייני הכוח, איכות מידע אורגני ומידת הרישות",
+     "role": "main"
+    },
+    {
+     "doc": "A08.9",
+     "pages": [
+      102,
+      121
+     ],
+     "note": "פרקים 10–11: קבלת החלטות, הקשר ליעילות המשימה ומסקנות",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M15.5",
+   "part": "P15",
+   "tier": "core",
+   "title": "פעילות סייבר-אלקטרומגנטית (CEMA): משטח התקיפה של קישורי RF וההגנה עליו",
+   "en": "Cyber-electromagnetic activity (CEMA): attack surface of RF links and its defense",
+   "prereq": [
+    "M15.3",
+    "M4.11"
+   ],
+   "sources": [
+    {
+     "doc": "E34",
+     "pages": [
+      619,
+      620
+     ],
+     "note": "8.1: מהי אבטחת רשת, מודל התוקף",
+     "role": "main"
+    },
+    {
+     "doc": "E34",
+     "pages": [
+      635,
+      649
+     ],
+     "note": "8.3–8.4: שלמות הודעה, MAC, חתימות ואימות נקודת קצה",
+     "role": "main"
+    },
+    {
+     "doc": "E34",
+     "pages": [
+      670,
+      689
+     ],
+     "note": "8.8–8.9: אבטחת WLAN ו-4G/5G, חומות אש ו-IDS",
+     "role": "main"
+    },
+    {
+     "doc": "X33",
+     "pages": [
+      1,
+      162
+     ],
+     "note": "כולו",
+     "role": "main"
+    },
+    {
+     "doc": "X34",
+     "pages": [
+      1,
+      51
+     ],
+     "note": "כל הדוח",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M15.6",
+   "part": "P15",
+   "tier": "core",
+   "title": "שילוב בפלטפורמה: EMC/EMI והפרעות Co-site",
+   "en": "Platform integration: EMC/EMI and co-site interference",
+   "prereq": [
+    "M1.6",
+    "M15.1"
+   ],
+   "sources": [
+    {
+     "doc": "W67",
+     "pages": [
+      73,
+      114
+     ],
+     "note": "פרק 2: דרישות EMC, כולל מוצרים צבאיים ובדיקות (MIL-STD-461 ברמת מבוא)",
+     "role": "main"
+    },
+    {
+     "doc": "W67",
+     "pages": [
+      401,
+      444
+     ],
+     "note": "פרק 6: Conducted emissions ו-susceptibility",
+     "role": "main"
+    },
+    {
+     "doc": "W67",
+     "pages": [
+      490,
+      509
+     ],
+     "note": "7.5–7.6: Friis, השפעת החזרות (צימוד אנטנות)",
+     "role": "main"
+    },
+    {
+     "doc": "W67",
+     "pages": [
+      527,
+      582
+     ],
+     "note": "פרק 8: Radiated emission/susceptibility",
+     "role": "main"
+    },
+    {
+     "doc": "W67",
+     "pages": [
+      737,
+      882
+     ],
+     "note": "פרקים 10–11: shielding ו-system design. הספר אינו כולל MIL-STD-464C, co-site, HERO",
+     "role": "main"
+    },
+    {
+     "doc": "X02",
+     "pages": [
+      41,
+      173
+     ],
+     "note": "461G פרקים 5.4-5.22: מבחני CE/CS/RE/RS ברמת תת-מערכת",
+     "role": "main"
+    },
+    {
+     "doc": "X02",
+     "pages": [
+      298,
+      321
+     ],
+     "note": "464C סעיפים 5.1-5.14: שוליים, EMC פנים-מערכתי, HERO, EMC בין-מערכתי",
+     "role": "main"
+    },
+    {
+     "doc": "X02",
+     "pages": [
+      339,
+      371
+     ],
+     "note": "464C נספח A.5.2: EMC פנים-מערכתי, הצבת אנטנות וצימוד פלטפורמה",
+     "role": "main"
+    },
+    {
+     "doc": "X02",
+     "pages": [
+      404,
+      411
+     ],
+     "note": "464C נספח A.5.9: HERO",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M15.8",
+   "part": "P15",
+   "tier": "core",
+   "title": "ארכיטקטורה פתוחה ותווכה במערכות לחימה: DDS, ממשקים בבעלות הלקוח וקונווי בתוכניות",
+   "en": "Open architecture and middleware in combat systems: DDS, government-owned interfaces, Conway in programs",
+   "prereq": [
+    "M15.1",
+    "M7.10"
+   ],
+   "sources": [
+    {
+     "doc": "W97",
+     "pages": [
+      1,
+      37
+     ],
+     "note": "DDS 1.4: רציונל ו-QoS",
+     "role": "main"
+    },
+    {
+     "doc": "W93",
+     "pages": [
+      1,
+      4
+     ],
+     "note": "Conway 1968",
+     "role": "main"
+    },
+    {
+     "doc": "W93",
+     "pages": [
+      62,
+      102
+     ],
+     "note": "השערת השיקוף (MacCormack, Rusnak & Baldwin)",
+     "role": "supp"
+    }
+   ]
+  },
+  {
+   "id": "M13.2",
+   "part": "P13",
+   "tier": "ref",
+   "title": "הנדסת משימת חלל: תהליך, קונספט, ניתוח ודרישות",
+   "en": "Space mission engineering process",
+   "sources": [
+    {
+     "doc": "B12",
+     "pages": [
+      62,
+      143
+     ],
+     "note": "פרקים 3–6: תהליך ההנדסה, הגדרת קונספט, ניתוח משימה, דרישות ותקציבי שגיאה",
+     "role": "main"
+    },
+    {
+     "doc": "B14",
+     "pages": [
+      8,
+      20
+     ],
+     "note": "פרק 1: סיווג מודלים וקיצורי דרך במידול",
+     "role": "ref"
+    }
+   ]
+  },
+  {
+   "id": "M13.3",
+   "part": "P13",
+   "tier": "core",
+   "title": "סביבת החלל: מזג אוויר חללי, שדה מגנטי, קרינה ופסולת",
+   "en": "The space environment",
+   "prereq": [
+    "M0.2"
+   ],
+   "sources": [
+    {
+     "doc": "B12",
+     "pages": [
+      144,
+      165
+     ],
+     "note": "פרק 7",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M13.5",
+   "part": "P13",
+   "tier": "core",
+   "title": "גאומטריית משימה: מבט מהחלל, כיסוי, תנועה יחסית ומיפוי",
+   "en": "Space mission geometry",
+   "prereq": [
+    "M13.4"
+   ],
+   "sources": [
+    {
+     "doc": "B12",
+     "pages": [
+      166,
+      213
+     ],
+     "note": "פרק 8: גאומטריה כדורית, מבט על כדור הארץ, כיסוי, תנועה יחסית, תקציב מיפוי והצבעה",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M13.6",
+   "part": "P13",
+   "tier": "core",
+   "title": "בחירת מסלול ותכנון קונסטלציה",
+   "en": "Orbit and constellation design",
+   "prereq": [
+    "M13.5"
+   ],
+   "sources": [
+    {
+     "doc": "B12",
+     "pages": [
+      252,
+      305
+     ],
+     "note": "פרק 10: ביצועי כיסוי, תקציב Delta V, מסלולי העברה וחניה, קונסטלציות, מסלולים בין-כוכביים",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M13.7",
+   "part": "P13",
+   "tier": "ref",
+   "title": "עלות, מימון, משפט חלל והפחתת עלות",
+   "en": "Cost, financing, law",
+   "sources": [
+    {
+     "doc": "B12",
+     "pages": [
+      306,
+      413
+     ],
+     "note": "פרקים 11–13",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M13.8",
+   "part": "P13",
+   "tier": "adv",
+   "title": "תכנון החללית: מניעים, תצורות ותקציבי מסה, הספק ודלק",
+   "en": "Spacecraft design",
+   "prereq": [
+    "M13.6"
+   ],
+   "sources": [
+    {
+     "doc": "B12",
+     "pages": [
+      414,
+      455
+     ],
+     "note": "פרק 14",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M13.13",
+   "part": "P13",
+   "tier": "adv",
+   "title": "קביעת כיוון ובקרה (ADCS) וניווט מסלול",
+   "en": "Attitude and orbit control",
+   "prereq": [
+    "M0.7",
+    "M13.4"
+   ],
+   "sources": [
+    {
+     "doc": "B12",
+     "pages": [
+      578,
+      613
+     ],
+     "note": "פרק 19",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M13.14",
+   "part": "P13",
+   "tier": "ref",
+   "title": "מחשב החללית ועיבוד על הלוויין",
+   "en": "Spacecraft computer systems",
+   "sources": [
+    {
+     "doc": "B12",
+     "pages": [
+      614,
+      639
+     ],
+     "note": "פרק 20",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M13.15",
+   "part": "P13",
+   "tier": "core",
+   "title": "TT&C וקישורי שליטה, ומערכת ההספק",
+   "en": "TT&C and power",
+   "prereq": [
+    "M13.10"
+   ],
+   "sources": [
+    {
+     "doc": "B12",
+     "pages": [
+      640,
+      675
+     ],
+     "note": "פרק 21: טלמטריה, עקיבה ופיקוד; הספק",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M13.16",
+   "part": "P13",
+   "tier": "ref",
+   "title": "מבנה, מנגנונים ובקרה תרמית",
+   "en": "Structures and thermal control",
+   "sources": [
+    {
+     "doc": "B12",
+     "pages": [
+      676,
+      713
+     ],
+     "note": "פרק 22",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M13.17",
+   "part": "P13",
+   "tier": "ref",
+   "title": "ייצור, לוגיסטיקה, סיכון ואמינות",
+   "en": "Manufacturing, risk and reliability",
+   "sources": [
+    {
+     "doc": "B12",
+     "pages": [
+      714,
+      793
+     ],
+     "note": "פרקים 23–24",
+     "role": "main"
+    },
+    {
+     "doc": "B15",
+     "pages": [
+      252,
+      281
+     ],
+     "note": "פרק 9: אמינות וזמינות",
+     "role": "ref"
+    },
+    {
+     "doc": "B17",
+     "pages": [
+      326,
+      333
+     ],
+     "note": "סיכום: לוגיסטיקה כאילוץ",
+     "role": "ref"
+    }
+   ]
+  },
+  {
+   "id": "M13.18",
+   "part": "P13",
+   "tier": "adv",
+   "title": "לוויינים קטנים, CubeSat ומבנים מתנפחים",
+   "en": "SmallSats and CubeSats",
+   "prereq": [
+    "M13.8"
+   ],
+   "sources": [
+    {
+     "doc": "B12",
+     "pages": [
+      794,
+      841
+     ],
+     "note": "פרק 25",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M13.19",
+   "part": "P13",
+   "tier": "ref",
+   "title": "מבצעי שיגור ואתרי שיגור",
+   "en": "Launch operations",
+   "sources": [
+    {
+     "doc": "B12",
+     "pages": [
+      874,
+      891
+     ],
+     "note": "פרק 27",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M13.20",
+   "part": "P13",
+   "tier": "ref",
+   "title": "מערכת הקרקע: אנטנות, תחנות ועיבוד נתונים",
+   "en": "Ground system design",
+   "prereq": [
+    "M13.10"
+   ],
+   "sources": [
+    {
+     "doc": "B12",
+     "pages": [
+      892,
+      915
+     ],
+     "note": "פרק 28",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M13.21",
+   "part": "P13",
+   "tier": "ref",
+   "title": "מבצעי משימה וסוף משימה",
+   "en": "Mission operations and end of mission",
+   "sources": [
+    {
+     "doc": "B12",
+     "pages": [
+      916,
+      961
+     ],
+     "note": "פרקים 29–30",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M13.22",
+   "part": "P13",
+   "tier": "ref",
+   "title": "נספחי SMAD: נתוני חלליות, כוכבי לכת, נוסחאות מסלול וגאומטריה, זמן ויחידות",
+   "en": "SMAD appendices",
+   "sources": [
+    {
+     "doc": "B12",
+     "pages": [
+      962,
+      1001
+     ],
+     "note": "נספחים A–G",
+     "role": "main"
+    },
+    {
+     "doc": "B12",
+     "pages": [
+      1038,
+      1045
+     ],
+     "note": "טבלאות פרמטרים של לווייני כדור הארץ",
+     "role": "main"
+    },
+    {
+     "doc": "B12",
+     "pages": [
+      214,
+      224
+     ],
+     "note": "9.1–9.2: מסלולי קפלר ומסלולי הירח וכוכבי הלכת (נלמדים בגילואה M15.15)",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M13.23",
+   "part": "P13",
+   "tier": "core",
+   "title": "שליטה בחלל: טקסונומיה של יכולות נגד-חלל, מודעות למצב בחלל, פעולות קרבה, חוסן ופיזור, תלות במסחרי",
+   "en": "Space control: counterspace taxonomy, SDA, RPO, resilience and proliferation, commercial dependence",
+   "prereq": [
+    "M13.5",
+    "M13.6",
+    "M7.6",
+    "M4.12"
+   ],
+   "sources": []
+  },
+  {
+   "id": "M13.24",
+   "part": "P13",
+   "tier": "adv",
+   "title": "SATCOM מוגן",
+   "en": "Protected SATCOM",
+   "prereq": [
+    "M13.10",
+    "M4.12"
+   ],
+   "sources": [
+    {
+     "doc": "B04",
+     "pages": [
+      226,
+      235
+     ],
+     "note": "7.6–7.8: חישובי ביצועי קישור לוויני (גאוסינכרוני ו-LEO), שיבוש קישורי לוויין: downlink ו-uplink",
+     "role": "main"
+    },
+    {
+     "doc": "B12",
+     "pages": [
+      472,
+      509
+     ],
+     "note": "פרק 16: מטעני תקשורת: ארכיטקטורות, ניתוח קישור, תכנון המטען, משימות לדוגמה",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M6.2",
+   "part": "P6",
+   "tier": "core",
+   "title": "אווירודינמיקה, מודל הטיל וטייס אוטומטי",
+   "en": "Aerodynamics, missile model, autopilots",
+   "prereq": [
+    "M6.1",
+    "M0.7"
+   ],
+   "sources": [
+    {
+     "doc": "B06",
+     "pages": [
+      68,
+      113
+     ],
+     "note": "3.1–3.3",
+     "role": "main"
+    },
+    {
+     "doc": "B06",
+     "pages": [
+      144,
+      169
+     ],
+     "note": "3.5–3.6: טייסים אוטומטיים",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M6.9",
+   "part": "P6",
+   "tier": "core",
+   "title": "דואה היפרסונית",
+   "en": "Hypersonic boost-glide",
+   "prereq": [
+    "M6.8"
+   ],
+   "sources": [
+    {
+     "doc": "A06.2",
+     "pages": null,
+     "note": "",
+     "role": "article"
+    }
+   ]
+  },
+  {
+   "id": "M6.10",
+   "part": "P6",
+   "tier": "core",
+   "title": "טילי שיוט",
+   "en": "Cruise missiles",
+   "prereq": [
+    "M6.2",
+    "M5.8"
+   ],
+   "sources": [
+    {
+     "doc": "B06",
+     "pages": [
+      536,
+      557
+     ],
+     "note": "7.1–7.2",
+     "role": "main"
+    },
+    {
+     "doc": "B06",
+     "pages": [
+      591,
+      603
+     ],
+     "note": "7.5: GPS בטיל שיוט",
+     "role": "supp"
+    },
+    {
+     "doc": "B15",
+     "pages": [
+      186,
+      197
+     ],
+     "note": "6.4–6.5: נתיבי חדירה אופטימליים ופונקציית איום",
+     "role": "ref"
+    },
+    {
+     "doc": "B14",
+     "pages": [
+      70,
+      83
+     ],
+     "note": "פרק 4: הגנת מטרה",
+     "role": "ref"
+    }
+   ]
+  },
+  {
+   "id": "M6.11",
+   "part": "P6",
+   "tier": "ref",
+   "title": "נספחי Siouris: קבועים, אטמוספירה, סיווג ומאגר טילים",
+   "en": "Siouris appendices",
+   "sources": [
+    {
+     "doc": "B06",
+     "pages": [
+      604,
+      665
+     ],
+     "note": "נספחים A–F",
+     "role": "main"
+    },
+    {
+     "doc": "B06",
+     "pages": [
+      674,
+      677
+     ],
+     "note": "נספחים H–I",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M6.12",
+   "part": "P6",
+   "tier": "core",
+   "title": "תכן מושגי של טיל טקטי (Fleeman): גורמי תכן, קביעת ממדים, פשרות הנעה, חימום וכיפות, עלות",
+   "en": "Tactical missile conceptual design (Fleeman B13): drivers, sizing, propulsion trades, heating and domes, cost",
+   "prereq": [
+    "M6.2",
+    "M6.4"
+   ],
+   "sources": [
+    {
+     "doc": "B13",
+     "pages": [
+      19,
+      236
+     ],
+     "note": "פרקים 1–7 (סריקה בתמונות: נדרש OCR)",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M6.13",
+   "part": "P6",
+   "tier": "adv",
+   "title": "תכן טילים טקטיים: הפרקים המתקדמים (Fleeman פרקים 8–9)",
+   "en": "Tactical missile design, advanced chapters (Fleeman ch.8-9)",
+   "prereq": [
+    "M6.12"
+   ],
+   "sources": [
+    {
+     "doc": "B13",
+     "pages": [
+      237,
+      262
+     ],
+     "note": "פרקים 8–9",
+     "role": "main"
+    },
+    {
+     "doc": "B13",
+     "pages": [
+      263,
+      286
+     ],
+     "note": "נספחים: תרגילים, מקרי תכן וטבלאות",
+     "role": "supp"
+    }
+   ]
+  },
+  {
+   "id": "M6.15",
+   "part": "P6",
+   "tier": "core",
+   "title": "הנעת טילים: מנוע רקטי מוצק, ראמג'ט וסקרמג'ט",
+   "en": "Missile propulsion: solid motors, ramjet, scramjet",
+   "prereq": [
+    "M6.2",
+    "M6.12"
+   ],
+   "sources": [
+    {
+     "doc": "E39",
+     "pages": [
+      168,
+      176
+     ],
+     "note": "5.3: הרמג'ט",
+     "role": "main"
+    },
+    {
+     "doc": "E39",
+     "pages": [
+      270,
+      277
+     ],
+     "note": "6.5–6.6: תאי בעירה של רמג'ט ובעירה על-קולית (סקרמג'ט)",
+     "role": "main"
+    },
+    {
+     "doc": "E39",
+     "pages": [
+      526,
+      571
+     ],
+     "note": "פרק 11: תאי דחף של רקטות כימיות: ביצועים, נחירים, מעבר חום",
+     "role": "main"
+    },
+    {
+     "doc": "E39",
+     "pages": [
+      582,
+      620
+     ],
+     "note": "פרק 12: בעירה ברקטות כימיות: הנעה נוזלית ומוצקה, תאי בעירה מוצקים, אי-יציבות בעירה",
+     "role": "main"
+    },
+    {
+     "doc": "B13",
+     "pages": [
+      78,
+      107
+     ],
+     "note": "פרק 3: שיקולי הנעה: חלופות, רמג'ט (Isp, דחף, מבוא, booster), מנוע מוצק: גרעין, בקרת דחף, חומרי הנעה, מעטפת, נחיר",
+     "role": "main"
+    },
+    {
+     "doc": "X10",
+     "pages": [
+      1,
+      116
+     ],
+     "note": "כולו (סריקה; הרלוונטי במיוחד: burn rate, grain geometry, chamber pressure, internal ballistics)",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M6.16",
+   "part": "P6",
+   "tier": "core",
+   "title": "איומים היפרסוניים וההגנה מפניהם",
+   "en": "Hypersonic threats and their defense",
+   "prereq": [
+    "M6.9",
+    "M7.6",
+    "M2.29"
+   ],
+   "sources": [
+    {
+     "doc": "A06.2",
+     "pages": [
+      1,
+      25
+     ],
+     "note": "כל המאמר: מודל דאייה, ניסויי HTV-2, השלכות להגנה ויציבות אסטרטגית (בלי הערות ומקורות)",
+     "role": "main"
+    },
+    {
+     "doc": "X14",
+     "pages": [
+      1,
+      36
+     ],
+     "note": "כולו",
+     "role": "main"
+    },
+    {
+     "doc": "X15",
+     "pages": [
+      1,
+      37
+     ],
+     "note": "הדוח כולו",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M10.1",
+   "part": "P10",
+   "tier": "core",
+   "title": "אקוסטיקה תת-ימית",
+   "en": "Underwater acoustics",
+   "prereq": [
+    "M0.2"
+   ],
+   "sources": [
+    {
+     "doc": "B10",
+     "pages": [
+      177,
+      192
+     ],
+     "note": "פרק 15",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M10.2",
+   "part": "P10",
+   "tier": "core",
+   "title": "משוואת הסונאר",
+   "en": "The sonar equation",
+   "prereq": [
+    "M10.1",
+    "M0.1"
+   ],
+   "sources": [
+    {
+     "doc": "B10",
+     "pages": [
+      193,
+      210
+     ],
+     "note": "פרק 16",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M10.3",
+   "part": "P10",
+   "tier": "core",
+   "title": "מערכות סונאר וגילוי לא-אקוסטי",
+   "en": "Sonar systems and non-acoustic detection",
+   "prereq": [
+    "M10.2",
+    "M2.15"
+   ],
+   "sources": [
+    {
+     "doc": "B10",
+     "pages": [
+      211,
+      226
+     ],
+     "note": "פרק 17",
+     "role": "main"
+    },
+    {
+     "doc": "A10.5",
+     "pages": null,
+     "note": "עקיבה בסונאר אקטיבי",
+     "role": "article"
+    },
+    {
+     "doc": "A10.6",
+     "pages": null,
+     "note": "עקיבה בסונאר רב-סטטי",
+     "role": "article"
+    },
+    {
+     "doc": "A10.8",
+     "pages": null,
+     "note": "שובלים של כלי תת-ימי",
+     "role": "article"
+    },
+    {
+     "doc": "B14",
+     "pages": [
+      146,
+      161
+     ],
+     "note": "7.4, 7.6: סיור מחסום ומטרות נעות (חיפוש תת-ימי)",
+     "role": "supp"
+    }
+   ]
+  },
+  {
+   "id": "M10.4",
+   "part": "P10",
+   "tier": "core",
+   "title": "טורפדות ומוקשים",
+   "en": "Torpedoes and mines",
+   "prereq": [
+    "M10.3"
+   ],
+   "sources": [
+    {
+     "doc": "B10",
+     "pages": [
+      299,
+      308
+     ],
+     "note": "פרק 26",
+     "role": "main"
+    },
+    {
+     "doc": "B14",
+     "pages": [
+      165,
+      187
+     ],
+     "note": "פרק 8: לוחמת מוקשים",
+     "role": "ref"
+    }
+   ]
+  },
+  {
+   "id": "M10.5",
+   "part": "P10",
+   "tier": "core",
+   "title": "הגנה עצמית של ספינה מול טילי ים-ים",
+   "en": "Ship self-defense",
+   "prereq": [
+    "M1.3",
+    "M4.9",
+    "M4.10",
+    "M7.3",
+    "M7.4",
+    "M6.10",
+    "M2.23",
+    "M14.1"
+   ],
+   "sources": [
+    {
+     "doc": "A10.2",
+     "pages": [
+      1,
+      72
+     ],
+     "note": "גילוי מטרה נמוכה מעל הים: נלמד ב-M1.3 (אותו דוח פעמיים); עיון",
+     "role": "ref"
+    },
+    {
+     "doc": "A10.3",
+     "pages": [
+      9,
+      54
+     ],
+     "note": "מוץ מספינה, פרקים I–II: בעיית הטיל נגד ספינות ומאפייני מוץ (RCS, פיזור, שקיעה, רוחב פס, פריסה)",
+     "role": "article"
+    },
+    {
+     "doc": "A10.3",
+     "pages": [
+      1,
+      8
+     ],
+     "note": "עיון: שאר הדוח. לא חומר שיעור; זמין לקריאה לפי הצורך (קיצור שאושר ב-6.11)",
+     "role": "ref"
+    },
+    {
+     "doc": "A10.3",
+     "pages": [
+      55,
+      134
+     ],
+     "note": "עיון: שאר הדוח. לא חומר שיעור; זמין לקריאה לפי הצורך (קיצור שאושר ב-6.11)",
+     "role": "ref"
+    },
+    {
+     "doc": "A10.4",
+     "pages": [
+      9,
+      30
+     ],
+     "note": "פיתיונות IR מספינה, פרקים I–III: מבוא, הסביבה האטמוספרית ותרחיש ההיתקלות",
+     "role": "article"
+    },
+    {
+     "doc": "A10.4",
+     "pages": [
+      70,
+      86
+     ],
+     "note": "פרק VI: ראשי ביות IR ואמצעי נגד",
+     "role": "article"
+    },
+    {
+     "doc": "A10.4",
+     "pages": [
+      1,
+      8
+     ],
+     "note": "עיון: שאר הדוח. לא חומר שיעור; זמין לקריאה לפי הצורך (קיצור שאושר ב-6.11)",
+     "role": "ref"
+    },
+    {
+     "doc": "A10.4",
+     "pages": [
+      31,
+      69
+     ],
+     "note": "עיון: שאר הדוח. לא חומר שיעור; זמין לקריאה לפי הצורך (קיצור שאושר ב-6.11)",
+     "role": "ref"
+    },
+    {
+     "doc": "A10.4",
+     "pages": [
+      87,
+      111
+     ],
+     "note": "עיון: שאר הדוח. לא חומר שיעור; זמין לקריאה לפי הצורך (קיצור שאושר ב-6.11)",
+     "role": "ref"
+    },
+    {
+     "doc": "B14",
+     "pages": [
+      52,
+      69
+     ],
+     "note": "פרק 3: shoot-look-shoot",
+     "role": "ref"
+    },
+    {
+     "doc": "B15",
+     "pages": [
+      207,
+      219
+     ],
+     "note": "7.2–7.3: הסתברות חדירה והסתברות לאפס חודרים",
+     "role": "ref"
+    }
+   ]
+  },
+  {
+   "id": "M10.6",
+   "part": "P10",
+   "tier": "core",
+   "title": "עיבוד אותות סונאר: MVDR במערכים נגררים, LOFAR/DEMON ו-TMA",
+   "en": "Sonar signal processing: MVDR on towed arrays, LOFAR/DEMON, TMA",
+   "prereq": [
+    "M10.3",
+    "M2.30"
+   ],
+   "sources": [
+    {
+     "doc": "E31",
+     "pages": [
+      283,
+      305
+     ],
+     "note": "6.1–6.4: מודל המערך, beamforming קונבנציונלי ו-Capon/MVDR, שיטות פרמטריות (MUSIC, ESPRIT)",
+     "role": "main"
+    },
+    {
+     "doc": "B02a",
+     "pages": [
+      429,
+      459
+     ],
+     "note": "9.2–9.3: יסודות beamforming ספרתי, ביטול משבשים אדפטיבי: Wiener, max SINR, LCMV, GSC, SMI",
+     "role": "main"
+    },
+    {
+     "doc": "B10",
+     "pages": [
+      193,
+      226
+     ],
+     "note": "פרקים 16–17: רעש סביבה ועצמי, beamforming, משוואת הסונאר, מערכות סונאר פעיל ופסיבי, מנתח תדר, TASS",
+     "role": "main"
+    },
+    {
+     "doc": "A10.5",
+     "pages": [
+      1,
+      5
+     ],
+     "note": "כל המאמר: עקיבה בסונאר פעיל",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M10.7",
+   "part": "P10",
+   "tier": "core",
+   "title": "מערכות צוללת: השתקה, AIP מול גרעינית ותקשורת VLF/ELF",
+   "en": "Submarine warfare systems: quieting, AIP vs nuclear, VLF/ELF communications",
+   "prereq": [
+    "M10.3"
+   ],
+   "sources": [
+    {
+     "doc": "B10",
+     "pages": [
+      195,
+      200
+     ],
+     "note": "16 (חלק): רעש סביבה ורעש עצמי, משוואת הסונאר",
+     "role": "main"
+    },
+    {
+     "doc": "B10",
+     "pages": [
+      225,
+      226
+     ],
+     "note": "17 (חלק): גילוי לא-אקוסטי של צוללות",
+     "role": "main"
+    },
+    {
+     "doc": "B10",
+     "pages": [
+      32,
+      40
+     ],
+     "note": "פרק 2 (חלק): ספקטרום ואופני התפשטות: גל קרקע (ELF/VLF), גל שמיים, קו ראייה",
+     "role": "main"
+    },
+    {
+     "doc": "X39",
+     "pages": [
+      1,
+      116
+     ],
+     "note": "Cote: The Third Battle: היסטוריה של השתקה וגילוי, תפקיד אסטרטגי של צוללות במלחמה הקרה",
+     "role": "main"
+    },
+    {
+     "doc": "X39",
+     "pages": [
+      117,
+      175
+     ],
+     "note": "ניתוח מוגבל של מערכות ASW לא-אקוסטיות (MAD, לייזר, wake): חתימות לא-אקוסטיות",
+     "role": "main"
+    },
+    {
+     "doc": "X39",
+     "pages": [
+      176,
+      438
+     ],
+     "note": "צוללות SSBN של ארה\"ב וברה\"מ: השוואה, התפקיד האסטרטגי",
+     "role": "main"
+    },
+    {
+     "doc": "X39",
+     "pages": [
+      439,
+      583
+     ],
+     "note": "תכן לוויין ELF/VLF לתקשורת עם צוללות תחת הקרח",
+     "role": "main"
+    },
+    {
+     "doc": "X39",
+     "pages": [
+      584,
+      775
+     ],
+     "note": "Common Submarine Radio Room: תקשורת צוללות, מערכות",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M10.8",
+   "part": "P10",
+   "tier": "core",
+   "title": "כלים ימיים בלתי מאוישים, נחילים ימיים ופיצוץ תת-ימי",
+   "en": "USV/UUV operations, naval swarms, underwater explosion: shock and whipping",
+   "prereq": [
+    "M10.4",
+    "M5.8"
+   ],
+   "sources": [
+    {
+     "doc": "X13",
+     "pages": [
+      1,
+      48
+     ],
+     "note": "כולו: shock factor, bubble pulse ו-whipping, Taylor plate, ניסויי הלם ומידול",
+     "role": "main"
+    },
+    {
+     "doc": "X11",
+     "pages": [
+      30,
+      52
+     ],
+     "note": "פרק 2: חזון ימי, משימות ויישומי כלים אוטונומיים",
+     "role": "main"
+    },
+    {
+     "doc": "X11",
+     "pages": [
+      53,
+      84
+     ],
+     "note": "פרק 3: טכנולוגיית אוטונומיה: יכולות ופוטנציאל",
+     "role": "main"
+    },
+    {
+     "doc": "X11",
+     "pages": [
+      85,
+      115
+     ],
+     "note": "פרק 4: כטב\"מים (UAV), כולל נחילים ואיומים",
+     "role": "main"
+    },
+    {
+     "doc": "X11",
+     "pages": [
+      116,
+      133
+     ],
+     "note": "פרק 5: כלי שטח ותת-ימיים (USV/UUV): ניווט, אנרגיה, תקשורת, תוכנית האב של ה-UUV",
+     "role": "main"
+    },
+    {
+     "doc": "X11",
+     "pages": [
+      189,
+      204
+     ],
+     "note": "נספח B: אילוצים פיזיקליים: scaling, אנרגיה, חישה ותקשורת (תת-ימית)",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M10.9",
+   "part": "P10",
+   "tier": "core",
+   "title": "לוחמת שטח ימית והגנה אווירית של צי",
+   "en": "Naval surface warfare and fleet air defense",
+   "prereq": [
+    "M10.5",
+    "M7.4"
+   ],
+   "sources": [
+    {
+     "doc": "B14",
+     "pages": [
+      84,
+      97
+     ],
+     "note": "5.1–5.3: מודלי לנצ'סטר דטרמיניסטיים וסטוכסטיים (כולל הפניה למשוואות המטח של Hughes)",
+     "role": "main"
+    },
+    {
+     "doc": "B14",
+     "pages": [
+      70,
+      83
+     ],
+     "note": "פרק 4: הגנת מטרה מפני תוקפים, מטחי מיירטים",
+     "role": "main"
+    },
+    {
+     "doc": "A10.3",
+     "pages": [
+      9,
+      54
+     ],
+     "note": "פרקים I–II: האיום, בעיית הגילוי, השמדה קשה ורכה, מוץ (chaff)",
+     "role": "main"
+    },
+    {
+     "doc": "A10.3",
+     "pages": [
+      63,
+      74
+     ],
+     "note": "פרקים V–IX: מודל הטיל והספינה, ניתוח התוכנית",
+     "role": "main"
+    },
+    {
+     "doc": "X40",
+     "pages": [
+      1,
+      24
+     ],
+     "note": "Hughes 1995: A Salvo Model of Warships in Missile Combat (המקור הראשוני)",
+     "role": "main"
+    },
+    {
+     "doc": "X40",
+     "pages": [
+      25,
+      400
+     ],
+     "note": "עבודות על Salvo: יסודות salvo warfare, בדיקת משוואות Salvo, מורכבות מודל, Heterogeneous Salvo, Hughes מותאם לצי קטן, ערך תכונות ספינה",
+     "role": "main"
+    },
+    {
+     "doc": "X40",
+     "pages": [
+      401,
+      608
+     ],
+     "note": "יעילות היסטורית של ASCM (Falklands, Exocet, Styx) ותכונות האיום; הגנת ספינות מפני טילי ים",
+     "role": "main"
+    },
+    {
+     "doc": "X40",
+     "pages": [
+      609,
+      715
+     ],
+     "note": "אופק מכ\"ם, evaporation duct וזיהוי sea-skimmers: זמן תגובה",
+     "role": "main"
+    },
+    {
+     "doc": "X40",
+     "pages": [
+      716,
+      833
+     ],
+     "note": "kill-chain: ארכיטקטורת הגנה אווירית ו-CONOPS נגד ASCM",
+     "role": "main"
+    },
+    {
+     "doc": "X40",
+     "pages": [
+      834,
+      1183
+     ],
+     "note": "Soft kill: לוחמה אלקטרונית משולבת, ESM/ECM, פתיינים",
+     "role": "main"
+    },
+    {
+     "doc": "X40",
+     "pages": [
+      1184,
+      1278
+     ],
+     "note": "VLS loadout ומשק המחסניות; תורת Distributed Lethality",
+     "role": "main"
+    },
+    {
+     "doc": "X40",
+     "pages": [
+      1279,
+      1492
+     ],
+     "note": "Over-the-horizon targeting ו-scouting לצי השטח",
+     "role": "main"
+    },
+    {
+     "doc": "X40",
+     "pages": [
+      1493,
+      1591
+     ],
+     "note": "Aegis: תיק בוחן היסטורי וארכיטקטורת הגנה אווירית של הצי",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M10.10",
+   "part": "P10",
+   "tier": "core",
+   "title": "לוחמה נגד צוללות, מוקשים ונטרול מוקשים",
+   "en": "ASW operations analysis, mines and mine countermeasures",
+   "prereq": [
+    "M10.6",
+    "M3.11"
+   ],
+   "sources": [
+    {
+     "doc": "B10",
+     "pages": [
+      299,
+      308
+     ],
+     "note": "פרק 26: טורפדות, מוקשים ימיים וניקוי מוקשים",
+     "role": "main"
+    },
+    {
+     "doc": "B14",
+     "pages": [
+      137,
+      164
+     ],
+     "note": "פרק 7: תורת החיפוש: רוחב סריקה, חוקי גילוי, חלוקת מאמץ, מחסום, מטרות נעות",
+     "role": "main"
+    },
+    {
+     "doc": "B14",
+     "pages": [
+      165,
+      187
+     ],
+     "note": "פרק 8: לוחמת מוקשים",
+     "role": "main"
+    },
+    {
+     "doc": "X12",
+     "pages": [
+      39,
+      139
+     ],
+     "note": "פרקים 1–4: בעיית מוקשים, נושאים רוחביים, מוקשים אמריקאים, לוחמה נגד מוקשים הרחק מהחוף (MCM)",
+     "role": "main"
+    },
+    {
+     "doc": "X12",
+     "pages": [
+      140,
+      178
+     ],
+     "note": "פרק 5: MCM בחוף. הדו\"ח עוסק במוקשים ובנגד-מוקשים; אין בו ASW/טורפדות/sonobuoys",
+     "role": "main"
+    },
+    {
+     "doc": "X12",
+     "pages": [
+      19,
+      38
+     ],
+     "note": "תקציר מנהלים",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M15.4",
+   "part": "P15",
+   "tier": "core",
+   "title": "AI טקטי בלולאה סגורה: ATR על SoC/FPGA/GPU ותקציבי השהיה",
+   "en": "Tactical edge AI in the loop: ATR on SoC/FPGA/GPU, latency budgets",
+   "prereq": [
+    "M15.1"
+   ],
+   "sources": [
+    {
+     "doc": "W57",
+     "pages": [
+      15,
+      42
+     ],
+     "note": "Madry et al.",
+     "role": "main"
+    },
+    {
+     "doc": "W57",
+     "pages": [
+      43,
+      58
+     ],
+     "note": "Hendrycks & Dietterich",
+     "role": "main"
+    },
+    {
+     "doc": "W38",
+     "pages": [
+      1,
+      32
+     ],
+     "note": "כולו",
+     "role": "main"
+    }
+   ]
+  },
+  {
    "id": "M8.1",
    "part": "P8",
    "tier": "core",
@@ -5469,33 +9512,6 @@
    ]
   },
   {
-   "id": "M8.4",
-   "part": "P8",
-   "tier": "core",
-   "title": "CNI: משדרים-משיבים ו-IFF",
-   "en": "Transponders and IFF",
-   "sources": [
-    {
-     "doc": "B08",
-     "pages": [
-      279,
-      280
-     ],
-     "note": "7.1",
-     "role": "main"
-    },
-    {
-     "doc": "B08",
-     "pages": [
-      288,
-      294
-     ],
-     "note": "7.3",
-     "role": "main"
-    }
-   ]
-  },
-  {
    "id": "M8.5",
    "part": "P8",
    "tier": "ref",
@@ -5586,6 +9602,229 @@
    ]
   },
   {
+   "id": "M8.8",
+   "part": "P8",
+   "tier": "core",
+   "title": "שרידות כלי טיס (Ball): חשיפה, פגיעוּת, עצי השבתה, שחיקה במשימה ובמערכה, שיעורי אבדות היסטוריים",
+   "en": "Combat survivability (Ball): susceptibility, vulnerability, kill trees, mission and campaign attrition, historical loss rates",
+   "prereq": [
+    "M0.4",
+    "M2.4",
+    "M11.4",
+    "M11.3"
+   ],
+   "sources": [
+    {
+     "doc": "B16",
+     "pages": [
+      25,
+      105
+     ],
+     "note": "1.1: יסודות השרידות, P_S = 1 − P_H·P_K|H, שרידות במערכה",
+     "role": "main"
+    },
+    {
+     "doc": "B16",
+     "pages": [
+      106,
+      141
+     ],
+     "note": "1.2: שיעורי אבדות היסטוריים",
+     "role": "main"
+    },
+    {
+     "doc": "B16",
+     "pages": [
+      198,
+      226
+     ],
+     "note": "1.7: סיכום ובעיות",
+     "role": "supp"
+    },
+    {
+     "doc": "B16",
+     "pages": [
+      227,
+      256
+     ],
+     "note": "פרק 2: מבנה כלי הטיס (כפילות עם גילואה M15.3; עיון)",
+     "role": "ref"
+    },
+    {
+     "doc": "B16",
+     "pages": [
+      303,
+      338
+     ],
+     "note": "3.3–3.4: מינוח, מאפייני האיום, מנגנוני נזק",
+     "role": "main"
+    },
+    {
+     "doc": "B16",
+     "pages": [
+      469,
+      473
+     ],
+     "note": "4.1–4.2: תוכנית החשיפה",
+     "role": "supp"
+    },
+    {
+     "doc": "B16",
+     "pages": [
+      608,
+      626
+     ],
+     "note": "4.4.6–4.4.7: דיכוי איומים וטקטיקה",
+     "role": "supp"
+    },
+    {
+     "doc": "B16",
+     "pages": [
+      627,
+      678
+     ],
+     "note": "5.1–5.2: פגיעוּת, רכיבים קריטיים, FMECA ועצי השבתה",
+     "role": "main"
+    },
+    {
+     "doc": "B16",
+     "pages": [
+      763,
+      788
+     ],
+     "note": "6.1–6.2: הערכת שרידות במשימה ובמערכה",
+     "role": "main"
+    },
+    {
+     "doc": "B16",
+     "pages": [
+      797,
+      801
+     ],
+     "note": "6.4: מסקנות",
+     "role": "supp"
+    }
+   ]
+  },
+  {
+   "id": "M9.2",
+   "part": "P9",
+   "tier": "core",
+   "title": "הכלי: ביצועים, הנעה ומבנה",
+   "en": "Air vehicle performance and propulsion",
+   "prereq": [
+    "M6.2"
+   ],
+   "sources": [
+    {
+     "doc": "B09",
+     "pages": [
+      104,
+      111
+     ],
+     "note": "4.2–4.4: שיוט, טווח ושהייה (דלתא מול גילואה)",
+     "role": "main"
+    },
+    {
+     "doc": "B09",
+     "pages": [
+      152,
+      162
+     ],
+     "note": "6.5.5–6.7: מנוע חשמלי, סוללות, תאים סולאריים ודלק, הספק ודחף (דלתא מול גילואה)",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M8.9",
+   "part": "P8",
+   "tier": "core",
+   "title": "קיבולת של כוח אווירי: קצב גיחות, בסיסים ושרידותם, תדלוק אווירי",
+   "en": "Air campaign capacity: sortie generation, basing and air-base resilience, tankers",
+   "prereq": [
+    "M8.8",
+    "M9.2"
+   ],
+   "sources": []
+  },
+  {
+   "id": "M8.10",
+   "part": "P8",
+   "tier": "adv",
+   "title": "תכן מטוסי קרב",
+   "en": "Combat aircraft design",
+   "prereq": [
+    "M8.1",
+    "M8.8"
+   ],
+   "sources": [
+    {
+     "doc": "X37",
+     "pages": [
+      13,
+      84
+     ],
+     "note": "פרקים 3–7: Sizing from a conceptual sketch (fuel fraction, takeoff weight), airfoil/geometry, T/W ו-W/S (constraint), initial sizing, configuration layout. הערה: כל עמוד PDF הוא דף כפול",
+     "role": "main"
+    },
+    {
+     "doc": "X37",
+     "pages": [
+      85,
+      98
+     ],
+     "note": "פרק 8: Special considerations, כולל Radar/IR detectability (חמקנות) ו-vulnerability",
+     "role": "main"
+    },
+    {
+     "doc": "X37",
+     "pages": [
+      104,
+      122
+     ],
+     "note": "פרק 10: Propulsion and fuel system integration (בחירת מנוע, jet integration)",
+     "role": "main"
+    },
+    {
+     "doc": "X37",
+     "pages": [
+      174,
+      206
+     ],
+     "note": "פרק 14: Structures and loads",
+     "role": "main"
+    },
+    {
+     "doc": "X37",
+     "pages": [
+      237,
+      265
+     ],
+     "note": "פרקים 17–18: Performance and flight mechanics (כולל Energy-maneuverability 17.6) ו-Cost analysis (18.4 RDT&E)",
+     "role": "main"
+    },
+    {
+     "doc": "B16",
+     "pages": [
+      475,
+      502
+     ],
+     "note": "4.3.2: חתימות כלי הטיס",
+     "role": "main"
+    },
+    {
+     "doc": "B16",
+     "pages": [
+      561,
+      616
+     ],
+     "note": "4.4: תכנון לחשיפה נמוכה: התרעה, שיבוש, הקטנת חתימה, אמצעים מתכלים, דיכוי, טקטיקה",
+     "role": "main"
+    }
+   ]
+  },
+  {
    "id": "M9.1",
    "part": "P9",
    "tier": "adv",
@@ -5618,36 +9857,6 @@
      ],
      "note": "פרק 9: כלי טיס בלתי מאוישים",
      "role": "ref"
-    }
-   ]
-  },
-  {
-   "id": "M9.2",
-   "part": "P9",
-   "tier": "core",
-   "title": "הכלי: ביצועים, הנעה ומבנה",
-   "en": "Air vehicle performance and propulsion",
-   "prereq": [
-    "M6.2"
-   ],
-   "sources": [
-    {
-     "doc": "B09",
-     "pages": [
-      104,
-      111
-     ],
-     "note": "4.2–4.4: שיוט, טווח ושהייה (דלתא מול גילואה)",
-     "role": "main"
-    },
-    {
-     "doc": "B09",
-     "pages": [
-      152,
-      162
-     ],
-     "note": "6.5.5–6.7: מנוע חשמלי, סוללות, תאים סולאריים ודלק, הספק ודחף (דלתא מול גילואה)",
-     "role": "main"
     }
    ]
   },
@@ -5886,1370 +10095,345 @@
    ]
   },
   {
-   "id": "M10.1",
-   "part": "P10",
+   "id": "M9.9",
+   "part": "P9",
    "tier": "core",
-   "title": "אקוסטיקה תת-ימית",
-   "en": "Underwater acoustics",
+   "title": "רחפנים חד-כיווניים, FPV וכלכלת מלחמת הרחפנים: מחלקת Shahed, FPV, סיב אופטי, ייצור המוני ויחס עלויות בהגנה",
+   "en": "One-way drones, FPV and drone-war economics (Shahed-class, FPV, fiber-optic, mass production, C-UAS cost-exchange)",
    "prereq": [
-    "M0.2"
+    "M9.7",
+    "M9.5",
+    "M8.8"
    ],
-   "sources": [
-    {
-     "doc": "B10",
-     "pages": [
-      177,
-      192
-     ],
-     "note": "פרק 15",
-     "role": "main"
-    }
-   ]
+   "sources": []
   },
   {
-   "id": "M10.2",
-   "part": "P10",
+   "id": "M9.10",
+   "part": "P9",
    "tier": "core",
-   "title": "משוואת הסונאר",
-   "en": "The sonar equation",
+   "title": "הנדסת מערכות C-UAS ואמצעי יירוט",
+   "en": "C-UAS systems engineering and effectors",
    "prereq": [
-    "M10.1",
-    "M0.1"
+    "M9.7",
+    "M9.9",
+    "M7.17",
+    "M7.18"
    ],
    "sources": [
     {
-     "doc": "B10",
-     "pages": [
-      193,
-      210
-     ],
-     "note": "פרק 16",
-     "role": "main"
-    }
-   ]
-  },
-  {
-   "id": "M10.3",
-   "part": "P10",
-   "tier": "core",
-   "title": "מערכות סונאר וגילוי לא-אקוסטי",
-   "en": "Sonar systems and non-acoustic detection",
-   "prereq": [
-    "M10.2",
-    "M2.15"
-   ],
-   "sources": [
-    {
-     "doc": "B10",
-     "pages": [
-      211,
-      226
-     ],
-     "note": "פרק 17",
-     "role": "main"
-    },
-    {
-     "doc": "A10.5",
-     "pages": null,
-     "note": "עקיבה בסונאר אקטיבי",
-     "role": "article"
-    },
-    {
-     "doc": "A10.6",
-     "pages": null,
-     "note": "עקיבה בסונאר רב-סטטי",
-     "role": "article"
-    },
-    {
-     "doc": "A10.8",
-     "pages": null,
-     "note": "שובלים של כלי תת-ימי",
-     "role": "article"
-    },
-    {
-     "doc": "B14",
-     "pages": [
-      146,
-      161
-     ],
-     "note": "7.4, 7.6: סיור מחסום ומטרות נעות (חיפוש תת-ימי)",
-     "role": "supp"
-    }
-   ]
-  },
-  {
-   "id": "M10.4",
-   "part": "P10",
-   "tier": "core",
-   "title": "טורפדות ומוקשים",
-   "en": "Torpedoes and mines",
-   "prereq": [
-    "M10.3"
-   ],
-   "sources": [
-    {
-     "doc": "B10",
-     "pages": [
-      299,
-      308
-     ],
-     "note": "פרק 26",
-     "role": "main"
-    },
-    {
-     "doc": "B14",
-     "pages": [
-      165,
-      187
-     ],
-     "note": "פרק 8: לוחמת מוקשים",
-     "role": "ref"
-    }
-   ]
-  },
-  {
-   "id": "M10.5",
-   "part": "P10",
-   "tier": "core",
-   "title": "הגנה עצמית של ספינה מול טילי ים-ים",
-   "en": "Ship self-defense",
-   "prereq": [
-    "M1.3",
-    "M4.9",
-    "M4.10"
-   ],
-   "sources": [
-    {
-     "doc": "A10.2",
+     "doc": "A02.5",
      "pages": [
       1,
-      72
+      23
      ],
-     "note": "גילוי מטרה נמוכה מעל הים: נלמד ב-M1.3 (אותו דוח פעמיים); עיון",
-     "role": "ref"
+     "note": "כל המאמר: מודל הד של רחפן מרובה-רוטורים ושל ציפור, סימולציה ומדידת מיקרו-דופלר, השוואה",
+     "role": "main"
     },
     {
-     "doc": "A10.3",
+     "doc": "D9",
      "pages": [
       9,
-      54
+      38
      ],
-     "note": "מוץ מספינה, פרקים I–II: בעיית הטיל נגד ספינות ומאפייני מוץ (RCS, פיזור, שקיעה, רוחב פס, פריסה)",
-     "role": "article"
-    },
-    {
-     "doc": "A10.3",
-     "pages": [
-      1,
-      8
-     ],
-     "note": "עיון: שאר הדוח. לא חומר שיעור; זמין לקריאה לפי הצורך (קיצור שאושר ב-6.11)",
-     "role": "ref"
-    },
-    {
-     "doc": "A10.3",
-     "pages": [
-      55,
-      134
-     ],
-     "note": "עיון: שאר הדוח. לא חומר שיעור; זמין לקריאה לפי הצורך (קיצור שאושר ב-6.11)",
-     "role": "ref"
-    },
-    {
-     "doc": "A10.4",
-     "pages": [
-      9,
-      30
-     ],
-     "note": "פיתיונות IR מספינה, פרקים I–III: מבוא, הסביבה האטמוספרית ותרחיש ההיתקלות",
-     "role": "article"
-    },
-    {
-     "doc": "A10.4",
-     "pages": [
-      70,
-      86
-     ],
-     "note": "פרק VI: ראשי ביות IR ואמצעי נגד",
-     "role": "article"
-    },
-    {
-     "doc": "A10.4",
-     "pages": [
-      1,
-      8
-     ],
-     "note": "עיון: שאר הדוח. לא חומר שיעור; זמין לקריאה לפי הצורך (קיצור שאושר ב-6.11)",
-     "role": "ref"
-    },
-    {
-     "doc": "A10.4",
-     "pages": [
-      31,
-      69
-     ],
-     "note": "עיון: שאר הדוח. לא חומר שיעור; זמין לקריאה לפי הצורך (קיצור שאושר ב-6.11)",
-     "role": "ref"
-    },
-    {
-     "doc": "A10.4",
-     "pages": [
-      87,
-      111
-     ],
-     "note": "עיון: שאר הדוח. לא חומר שיעור; זמין לקריאה לפי הצורך (קיצור שאושר ב-6.11)",
-     "role": "ref"
-    },
-    {
-     "doc": "B14",
-     "pages": [
-      52,
-      69
-     ],
-     "note": "פרק 3: shoot-look-shoot",
-     "role": "ref"
-    },
-    {
-     "doc": "B15",
-     "pages": [
-      207,
-      219
-     ],
-     "note": "7.2–7.3: הסתברות חדירה והסתברות לאפס חודרים",
-     "role": "ref"
-    }
-   ]
-  },
-  {
-   "id": "M11.1",
-   "part": "P11",
-   "tier": "core",
-   "title": "בליסטיקה פנימית וחיצונית",
-   "en": "Interior and exterior ballistics",
-   "sources": [
-    {
-     "doc": "B10",
-     "pages": [
-      253,
-      264
-     ],
-     "note": "פרק 21",
+     "note": "פרקים 1–3: איום הכטב\"מים, תכנון בשכבות, פעולות C-UAS הגנתיות (פסיביות ואקטיביות)",
      "role": "main"
     },
     {
-     "doc": "B15",
+     "doc": "D9",
      "pages": [
-      32,
-      41
-     ],
-     "note": "פרק 2: פיזור ונקודת פגיעה ממוצעת",
-     "role": "ref"
-    }
-   ]
-  },
-  {
-   "id": "M11.2",
-   "part": "P11",
-   "tier": "core",
-   "title": "איתור ארטילריה ואש נגד סוללות",
-   "en": "Weapon-locating radar and counterfire",
-   "prereq": [
-    "M11.1",
-    "M2.15"
-   ],
-   "sources": [
-    {
-     "doc": "D8",
-     "pages": [
-      19,
-      40
-     ],
-     "note": "פרקים 2–3: אש נגד סוללות, היבטים טכניים של פריסת מכ\"ם איתור",
-     "role": "main"
-    },
-    {
-     "doc": "D8",
-     "pages": [
-      51,
-      96
-     ],
-     "note": "פרקים 5–7: AN/TPQ-36/37, TPQ-53, TPQ-50: אפיון, גילוי, אימות ואיכון, פעולה תחת ECM",
-     "role": "main"
-    },
-    {
-     "doc": "D8",
-     "pages": [
-      113,
-      118
-     ],
-     "note": "נספח D: מיסוך",
-     "role": "main"
-    },
-    {
-     "doc": "D8",
-     "pages": [
-      131,
-      141
-     ],
-     "note": "נספח G: התרעה מפני רקטות, ארטילריה ומרגמות",
-     "role": "main"
-    },
-    {
-     "doc": "B15",
-     "pages": [
-      103,
-      107
-     ],
-     "note": "4.4: אש שטח, החוק הלינארי",
-     "role": "ref"
-    }
-   ]
-  },
-  {
-   "id": "M11.3",
-   "part": "P11",
-   "tier": "core",
-   "title": "חומרי נפץ, ראשי קרב, הדף ורסיסים",
-   "en": "Explosives and warheads",
-   "sources": [
-    {
-     "doc": "B10",
-     "pages": [
-      265,
-      282
-     ],
-     "note": "פרקים 22–23",
-     "role": "main"
-    },
-    {
-     "doc": "B16",
-     "pages": [
-      339,
-      358
-     ],
-     "note": "3.5: תהליכי נזק ואפקטים סופיים",
-     "role": "ref"
-    },
-    {
-     "doc": "B15",
-     "pages": [
-      82,
-      89
-     ],
-     "note": "3.14–3.15: פונקציות נזק לרסיסים ורדיוס אפקטיבי",
-     "role": "ref"
-    }
-   ]
-  },
-  {
-   "id": "M11.4",
-   "part": "P11",
-   "tier": "core",
-   "title": "קריטריוני נזק, Pk ו-CEP",
-   "en": "Damage criteria, Pk, CEP",
-   "prereq": [
-    "M0.4"
-   ],
-   "sources": [
-    {
-     "doc": "B10",
-     "pages": [
-      283,
-      294
-     ],
-     "note": "פרק 24",
-     "role": "main"
-    },
-    {
-     "doc": "B15",
-     "pages": [
-      70,
-      91
-     ],
-     "note": "Przemieniecki 3.11–3.16: LEP, CEP ו-SEP, נזק חלקי, פונקציות נזק, רסיסים ורדיוס אפקטיבי. Driels (Weaponeering) חסר: מתודולוגיית JMEM מהידע של המורה",
-     "role": "main"
-    },
-    {
-     "doc": "B15",
-     "pages": [
-      42,
-      91
-     ],
-     "note": "פרק 3: מטרות סבילות, CEP ופונקציות נזק",
-     "role": "ref"
-    },
-    {
-     "doc": "B14",
-     "pages": [
-      21,
-      51
-     ],
-     "note": "פרק 2: ירי בלי משוב",
-     "role": "ref"
-    },
-    {
-     "doc": "B16",
-     "pages": [
-      679,
-      719
-     ],
-     "note": "5.3: הערכת פגיעות",
-     "role": "ref"
-    }
-   ]
-  },
-  {
-   "id": "M11.5",
-   "part": "P11",
-   "tier": "core",
-   "title": "ראשי קרב מיוחדים ותחמושת טנקים",
-   "en": "Special warheads and tank ammunition",
-   "prereq": [
-    "M11.3"
-   ],
-   "sources": [
-    {
-     "doc": "B10",
-     "pages": [
-      295,
-      298
-     ],
-     "note": "פרק 25: חודר שריון, EFP, אנרגיה קינטית, FAE",
-     "role": "main"
-    },
-    {
-     "doc": "B11",
-     "pages": [
-      290,
-      312
-     ],
-     "note": "נספח I: עוצמת התותח",
-     "role": "main"
-    }
-   ]
-  },
-  {
-   "id": "M11.6",
-   "part": "P11",
-   "tier": "core",
-   "title": "מיגון טנקים: שריון, ERA ו-APS",
-   "en": "Tank protection",
-   "prereq": [
-    "M11.5"
-   ],
-   "sources": [
-    {
-     "doc": "B11",
-     "pages": [
-      312,
-      330
-     ],
-     "note": "נספח II",
-     "role": "main"
-    },
-    {
-     "doc": "B16",
-     "pages": [
-      720,
-      730
-     ],
-     "note": "5.4.1–5.4.3: עקרונות הפחתת פגיעות",
-     "role": "ref"
-    }
-   ]
-  },
-  {
-   "id": "M11.7",
-   "part": "P11",
-   "tier": "core",
-   "title": "ניידות טנקים: מנועים, תמסורת, מתלים",
-   "en": "Tank mobility",
-   "sources": [
-    {
-     "doc": "B11",
-     "pages": [
-      330,
-      361
-     ],
-     "note": "נספח III",
-     "role": "main"
-    },
-    {
-     "doc": "B17",
-     "pages": [
-      205,
-      258
-     ],
-     "note": "פרק 5: ברברוסה, הצבא החצי-ממונע",
-     "role": "ref"
-    },
-    {
-     "doc": "B17",
-     "pages": [
-      288,
-      325
-     ],
-     "note": "פרק 7: נורמנדי, צריכת דלק וקצב התקדמות",
-     "role": "ref"
-    }
-   ]
-  },
-  {
-   "id": "M11.8",
-   "part": "P11",
-   "tier": "ref",
-   "title": "התפתחות הטנק: מלחמה קרה ומעבר לה",
-   "en": "Tank evolution since 1945",
-   "sources": [
-    {
-     "doc": "B11",
-     "pages": [
-      176,
-      289
-     ],
-     "note": "פרקים 9–12: חמש המעצמות, הפריפריה (כולל ישראל), אסיה, אפילוג",
-     "role": "main"
-    },
-    {
-     "doc": "B11",
-     "pages": [
-      8,
-      10
-     ],
-     "note": "מבוא: מבט על מאה שנות התפתחות",
-     "role": "supp"
-    },
-    {
-     "doc": "B17",
-     "pages": [
-      288,
-      325
-     ],
-     "note": "פרק 7: חזית רחבה או חוד צר",
-     "role": "ref"
-    }
-   ]
-  },
-  {
-   "id": "M11.9",
-   "part": "P11",
-   "tier": "ref",
-   "title": "התפתחות הטנק עד 1945",
-   "en": "Tank evolution to 1945",
-   "sources": [
-    {
-     "doc": "B11",
-     "pages": [
-      13,
-      175
-     ],
-     "note": "פרקים 1–8",
-     "role": "main"
-    },
-    {
-     "doc": "B17",
-     "pages": [
-      205,
-      287
-     ],
-     "note": "פרקים 5–6: ברברוסה וצפון אפריקה",
-     "role": "ref"
-    }
-   ]
-  },
-  {
-   "id": "M11.10",
-   "part": "P11",
-   "tier": "adv",
-   "title": "נשק גרעיני והשפעותיו",
-   "en": "Nuclear weapons and effects",
-   "sources": [
-    {
-     "doc": "B10",
-     "pages": [
-      309,
-      351
-     ],
-     "note": "פרקים 27–30",
-     "role": "main"
-    },
-    {
-     "doc": "B15",
-     "pages": [
-      198,
-      205
-     ],
-     "note": "6.6: מודלי מספיקות לכוחות אסטרטגיים",
-     "role": "ref"
-    }
-   ]
-  },
-  {
-   "id": "M12.1",
-   "part": "P12",
-   "tier": "core",
-   "title": "הגנה אווירית ול\"א רוסיות בשטח",
-   "en": "Russian air defense and EW",
-   "prereq": [
-    "M7.1",
-    "M4.7"
-   ],
-   "sources": [
-    {
-     "doc": "D5",
-     "pages": [
-      100,
-      110
-     ],
-     "note": "IADS ו-EW בסיור ובאבטחה",
-     "role": "main"
-    },
-    {
-     "doc": "D5",
-     "pages": [
-      138,
-      150
-     ],
-     "note": "הקרב האלקטרומגנטי ותמיכה אווירית",
-     "role": "main"
-    },
-    {
-     "doc": "D5",
-     "pages": [
-      223,
-      240
-     ],
-     "note": "נספחים C, D, E, F: תמיכה אווירית, הגנה אווירית, נ\"ט, EW",
-     "role": "main"
-    },
-    {
-     "doc": "D5",
-     "pages": [
-      255,
-      260
-     ],
-     "note": "נספח J: מערכות שו\"ב אוטומטיות",
-     "role": "main"
-    },
-    {
-     "doc": "D5",
-     "pages": [
-      163,
-      180
-     ],
-     "note": "מתחמי סיור-אש (recon-strike), מתוך M12.2",
-     "role": "supp"
-    },
-    {
-     "doc": "B16",
-     "pages": [
-      277,
-      305
-     ],
-     "note": "3.2: איום ההגנה האווירית",
-     "role": "ref"
-    },
-    {
-     "doc": "B16",
-     "pages": [
-      419,
-      429
-     ],
-     "note": "3.8: נשק הגנה אווירית של האיום",
-     "role": "ref"
-    }
-   ]
-  },
-  {
-   "id": "M12.2",
-   "part": "P12",
-   "tier": "adv",
-   "title": "הטקטיקה הרוסית: מבנה, סיור, אש, הגנה והתקפה",
-   "en": "Russian tactics",
-   "sources": [
-    {
-     "doc": "D5",
-     "pages": [
-      13,
-      44
-     ],
-     "note": "מבוא ופרקים 1–2: הסביבה האסטרטגית, תולדות הצבא ומבנה הכוחות (בחירה O1: פרקי התמרון הקרקעי יצאו)",
-     "role": "main"
-    },
-    {
-     "doc": "B15",
-     "pages": [
-      92,
-      133
-     ],
-     "note": "פרק 4: מודלי קרב דטרמיניסטיים, לנצ'סטר",
-     "role": "ref"
-    },
-    {
-     "doc": "B14",
-     "pages": [
-      84,
-      114
-     ],
-     "note": "פרק 5: מודלי שחיקה",
-     "role": "ref"
-    },
-    {
-     "doc": "B17",
-     "pages": [
-      205,
-      258
-     ],
-     "note": "פרק 5: ברברוסה, לוגיסטיקה במרחבי רוסיה",
-     "role": "ref"
-    }
-   ]
-  },
-  {
-   "id": "M12.3",
-   "part": "P12",
-   "tier": "core",
-   "title": "יכולות משולבות סיניות: חיל האוויר, הצי, כוח הרקטות, ל\"מ ותקשורת",
-   "en": "Chinese joint capabilities",
-   "prereq": [
-    "M7.1"
-   ],
-   "sources": [
-    {
-     "doc": "D6",
-     "pages": [
-      51,
-      58
-     ],
-     "note": "פרק 3",
-     "role": "main"
-    },
-    {
-     "doc": "D6",
-     "pages": [
-      75,
-      84
-     ],
-     "note": "פרק 5: מבצעי מידע",
-     "role": "main"
-    },
-    {
-     "doc": "D6",
-     "pages": [
-      217,
-      226
-     ],
-     "note": "נספחים C–D: הגנה אווירית ותעופה",
-     "role": "main"
-    },
-    {
-     "doc": "D6",
-     "pages": [
-      229,
-      230
-     ],
-     "note": "נספח F: רשת ותקשורת",
-     "role": "main"
-    },
-    {
-     "doc": "D6",
-     "pages": [
-      59,
-      74
-     ],
-     "note": "לוחמת מערכות של צבא סין, מתוך M12.4",
-     "role": "supp"
-    },
-    {
-     "doc": "B14",
-     "pages": [
-      115,
-      136
-     ],
-     "note": "פרק 6: תורת המשחקים ומשחקי מלחמה",
-     "role": "ref"
-    }
-   ]
-  },
-  {
-   "id": "M12.4",
-   "part": "P12",
-   "tier": "adv",
-   "title": "הטקטיקה הסינית: מבנה, לוחמת מערכות, הגנה והתקפה",
-   "en": "Chinese tactics",
-   "sources": [
-    {
-     "doc": "D6",
-     "pages": [
-      13,
+      47,
       50
      ],
-     "note": "מבוא ופרקים 1–2: הגישה האסטרטגית ומבנה הכוחות (בחירה O1: פרקי התמרון הקרקעי יצאו; פרק 4 נלמד ב-M12.3)",
+     "note": "נספח B: דוגמאות לציוד C-UAS",
      "role": "main"
     },
     {
-     "doc": "B15",
+     "doc": "X24",
      "pages": [
-      220,
-      251
+      1,
+      45
      ],
-     "note": "פרק 8: היתקלויות של כוחות הטרוגניים",
-     "role": "ref"
-    },
-    {
-     "doc": "B14",
-     "pages": [
-      103,
-      114
-     ],
-     "note": "5.5–5.6: צבירה, ערכים ו-FATHM",
-     "role": "ref"
-    },
-    {
-     "doc": "B17",
-     "pages": [
-      111,
-      157
-     ],
-     "note": "פרק 3: מסילות ברזל ותכנון מבצעי",
-     "role": "ref"
-    }
-   ]
-  },
-  {
-   "id": "M13.1",
-   "part": "P13",
-   "tier": "core",
-   "title": "מבוא לחלל: היסטוריה, טכנולוגיה, כלכלה וקהילות החלל",
-   "en": "Space missions and communities",
-   "sources": [
-    {
-     "doc": "B12",
-     "pages": [
-      18,
-      61
-     ],
-     "note": "פרקים 1–2: מהי הנדסת משימת חלל, היסטוריה, TRL, כלכלה, קהילות צבאיות, אזרחיות ומסחריות",
-     "role": "main"
-    }
-   ]
-  },
-  {
-   "id": "M13.2",
-   "part": "P13",
-   "tier": "ref",
-   "title": "הנדסת משימת חלל: תהליך, קונספט, ניתוח ודרישות",
-   "en": "Space mission engineering process",
-   "sources": [
-    {
-     "doc": "B12",
-     "pages": [
-      62,
-      143
-     ],
-     "note": "פרקים 3–6: תהליך ההנדסה, הגדרת קונספט, ניתוח משימה, דרישות ותקציבי שגיאה",
+     "note": "כולו",
      "role": "main"
     },
     {
-     "doc": "B14",
+     "doc": "X25",
      "pages": [
-      8,
-      20
+      1,
+      67
      ],
-     "note": "פרק 1: סיווג מודלים וקיצורי דרך במידול",
-     "role": "ref"
-    }
-   ]
-  },
-  {
-   "id": "M13.3",
-   "part": "P13",
-   "tier": "core",
-   "title": "סביבת החלל: מזג אוויר חללי, שדה מגנטי, קרינה ופסולת",
-   "en": "The space environment",
-   "prereq": [
-    "M0.2"
-   ],
-   "sources": [
-    {
-     "doc": "B12",
-     "pages": [
-      144,
-      165
-     ],
-     "note": "פרק 7",
+     "note": "הדוח כולו",
      "role": "main"
     }
    ]
   },
   {
-   "id": "M13.4",
-   "part": "P13",
-   "tier": "core",
-   "title": "מסלולים ואסטרודינמיקה: קפלר, הפרעות ותמרונים",
-   "en": "Orbits and astrodynamics",
-   "prereq": [
-    "M0.8"
-   ],
-   "sources": [
-    {
-     "doc": "B12",
-     "pages": [
-      225,
-      251
-     ],
-     "note": "9.3–9.7: טרמינולוגיה, הפרעות ודעיכה, מסלולים מיוחדים, תמרונים (9.1–9.2, מסלולי קפלר, נלמדים בגילואה M15.15; בעיון ב-M13.22)",
-     "role": "main"
-    }
-   ]
-  },
-  {
-   "id": "M13.5",
-   "part": "P13",
-   "tier": "core",
-   "title": "גאומטריית משימה: מבט מהחלל, כיסוי, תנועה יחסית ומיפוי",
-   "en": "Space mission geometry",
-   "prereq": [
-    "M13.4"
-   ],
-   "sources": [
-    {
-     "doc": "B12",
-     "pages": [
-      166,
-      213
-     ],
-     "note": "פרק 8: גאומטריה כדורית, מבט על כדור הארץ, כיסוי, תנועה יחסית, תקציב מיפוי והצבעה",
-     "role": "main"
-    }
-   ]
-  },
-  {
-   "id": "M13.6",
-   "part": "P13",
-   "tier": "core",
-   "title": "בחירת מסלול ותכנון קונסטלציה",
-   "en": "Orbit and constellation design",
-   "prereq": [
-    "M13.5"
-   ],
-   "sources": [
-    {
-     "doc": "B12",
-     "pages": [
-      252,
-      305
-     ],
-     "note": "פרק 10: ביצועי כיסוי, תקציב Delta V, מסלולי העברה וחניה, קונסטלציות, מסלולים בין-כוכביים",
-     "role": "main"
-    }
-   ]
-  },
-  {
-   "id": "M13.7",
-   "part": "P13",
+   "id": "M1.8",
+   "part": "P1",
    "tier": "ref",
-   "title": "עלות, מימון, משפט חלל והפחתת עלות",
-   "en": "Cost, financing, law",
+   "title": "Pozar ו-Orfanidis: שאר הפרקים",
+   "en": "Pozar and Orfanidis: remaining chapters (reference)",
    "sources": [
     {
-     "doc": "B12",
+     "doc": "B18",
      "pages": [
-      306,
-      413
+      21,
+      67
      ],
-     "note": "פרקים 11–13",
-     "role": "main"
-    }
-   ]
-  },
-  {
-   "id": "M13.8",
-   "part": "P13",
-   "tier": "adv",
-   "title": "תכנון החללית: מניעים, תצורות ותקציבי מסה, הספק ודלק",
-   "en": "Spacecraft design",
-   "prereq": [
-    "M13.6"
-   ],
-   "sources": [
-    {
-     "doc": "B12",
-     "pages": [
-      414,
-      455
-     ],
-     "note": "פרק 14",
-     "role": "main"
-    }
-   ]
-  },
-  {
-   "id": "M13.9",
-   "part": "P13",
-   "tier": "core",
-   "title": "מטעני חלל: סוגים, ספקטרום ותכנון",
-   "en": "Space payloads",
-   "prereq": [
-    "M13.1"
-   ],
-   "sources": [
-    {
-     "doc": "B12",
-     "pages": [
-      456,
-      471
-     ],
-     "note": "פרק 15",
-     "role": "main"
-    }
-   ]
-  },
-  {
-   "id": "M13.10",
-   "part": "P13",
-   "tier": "core",
-   "title": "תקשורת לוויינית (SATCOM): ארכיטקטורות, תקציב קישור ותכנון מטען",
-   "en": "Communications payloads and SATCOM",
-   "prereq": [
-    "M1.4",
-    "M0.5",
-    "M13.9"
-   ],
-   "sources": [
-    {
-     "doc": "B12",
-     "pages": [
-      472,
-      509
-     ],
-     "note": "פרק 16: ארכיטקטורות, ניתוח קישור, תכנון מטען התקשורת, משימות לדוגמה",
-     "role": "main"
-    }
-   ]
-  },
-  {
-   "id": "M13.11",
-   "part": "P13",
-   "tier": "core",
-   "title": "מטעני תצפית: ביון וחישה מהחלל",
-   "en": "Observation payloads",
-   "prereq": [
-    "M3.10",
-    "M13.9"
-   ],
-   "sources": [
-    {
-     "doc": "B12",
-     "pages": [
-      510,
-      543
-     ],
-     "note": "פרק 17: תכנון וגודל מטען תצפית, VIIRS, התפתחות",
-     "role": "main"
-    }
-   ]
-  },
-  {
-   "id": "M13.12",
-   "part": "P13",
-   "tier": "core",
-   "title": "הנעה רקטית ומשגרים: משוואת הרקטה, שלבים ומכניקת השיגור",
-   "en": "Rocket propulsion and launch vehicles",
-   "prereq": [
-    "M6.1",
-    "M13.4"
-   ],
-   "sources": [
-    {
-     "doc": "B12",
-     "pages": [
-      842,
-      873
-     ],
-     "note": "פרק 26: בחירת משגר, היסטוריה, מכניקת השיגור, סביבת השיגור, משגרים זמינים. פרק 18 של SMAD (הנעה) חסר בסריקה: את משוואת הרקטה, השלבים וההנעה הכימית והחשמלית המורה מלמד מהידע שלו, עם רמת ודאות",
-     "role": "main"
-    }
-   ]
-  },
-  {
-   "id": "M13.13",
-   "part": "P13",
-   "tier": "adv",
-   "title": "קביעת כיוון ובקרה (ADCS) וניווט מסלול",
-   "en": "Attitude and orbit control",
-   "prereq": [
-    "M0.7",
-    "M13.4"
-   ],
-   "sources": [
-    {
-     "doc": "B12",
-     "pages": [
-      578,
-      613
-     ],
-     "note": "פרק 19",
-     "role": "main"
-    }
-   ]
-  },
-  {
-   "id": "M13.14",
-   "part": "P13",
-   "tier": "ref",
-   "title": "מחשב החללית ועיבוד על הלוויין",
-   "en": "Spacecraft computer systems",
-   "sources": [
-    {
-     "doc": "B12",
-     "pages": [
-      614,
-      639
-     ],
-     "note": "פרק 20",
-     "role": "main"
-    }
-   ]
-  },
-  {
-   "id": "M13.15",
-   "part": "P13",
-   "tier": "core",
-   "title": "TT&C וקישורי שליטה, ומערכת ההספק",
-   "en": "TT&C and power",
-   "prereq": [
-    "M13.10"
-   ],
-   "sources": [
-    {
-     "doc": "B12",
-     "pages": [
-      640,
-      675
-     ],
-     "note": "פרק 21: טלמטריה, עקיבה ופיקוד; הספק",
-     "role": "main"
-    }
-   ]
-  },
-  {
-   "id": "M13.16",
-   "part": "P13",
-   "tier": "ref",
-   "title": "מבנה, מנגנונים ובקרה תרמית",
-   "en": "Structures and thermal control",
-   "sources": [
-    {
-     "doc": "B12",
-     "pages": [
-      676,
-      713
-     ],
-     "note": "פרק 22",
-     "role": "main"
-    }
-   ]
-  },
-  {
-   "id": "M13.17",
-   "part": "P13",
-   "tier": "ref",
-   "title": "ייצור, לוגיסטיקה, סיכון ואמינות",
-   "en": "Manufacturing, risk and reliability",
-   "sources": [
-    {
-     "doc": "B12",
-     "pages": [
-      714,
-      793
-     ],
-     "note": "פרקים 23–24",
+     "note": "Pozar 1: תורת השדות (נלמד בגילואה, M9.9)",
      "role": "main"
     },
     {
-     "doc": "B15",
+     "doc": "B18",
      "pages": [
-      252,
-      281
+      105,
+      149
      ],
-     "note": "פרק 9: אמינות וזמינות",
-     "role": "ref"
-    },
-    {
-     "doc": "B17",
-     "pages": [
-      326,
-      333
-     ],
-     "note": "סיכום: לוגיסטיקה כאילוץ",
-     "role": "ref"
-    }
-   ]
-  },
-  {
-   "id": "M13.18",
-   "part": "P13",
-   "tier": "adv",
-   "title": "לוויינים קטנים, CubeSat ומבנים מתנפחים",
-   "en": "SmallSats and CubeSats",
-   "prereq": [
-    "M13.8"
-   ],
-   "sources": [
-    {
-     "doc": "B12",
-     "pages": [
-      794,
-      841
-     ],
-     "note": "פרק 25",
-     "role": "main"
-    }
-   ]
-  },
-  {
-   "id": "M13.19",
-   "part": "P13",
-   "tier": "ref",
-   "title": "מבצעי שיגור ואתרי שיגור",
-   "en": "Launch operations",
-   "sources": [
-    {
-     "doc": "B12",
-     "pages": [
-      874,
-      891
-     ],
-     "note": "פרק 27",
-     "role": "main"
-    }
-   ]
-  },
-  {
-   "id": "M13.20",
-   "part": "P13",
-   "tier": "ref",
-   "title": "מערכת הקרקע: אנטנות, תחנות ועיבוד נתונים",
-   "en": "Ground system design",
-   "prereq": [
-    "M13.10"
-   ],
-   "sources": [
-    {
-     "doc": "B12",
-     "pages": [
-      892,
-      915
-     ],
-     "note": "פרק 28",
-     "role": "main"
-    }
-   ]
-  },
-  {
-   "id": "M13.21",
-   "part": "P13",
-   "tier": "ref",
-   "title": "מבצעי משימה וסוף משימה",
-   "en": "Mission operations and end of mission",
-   "sources": [
-    {
-     "doc": "B12",
-     "pages": [
-      916,
-      961
-     ],
-     "note": "פרקים 29–30",
-     "role": "main"
-    }
-   ]
-  },
-  {
-   "id": "M13.22",
-   "part": "P13",
-   "tier": "ref",
-   "title": "נספחי SMAD: נתוני חלליות, כוכבי לכת, נוסחאות מסלול וגאומטריה, זמן ויחידות",
-   "en": "SMAD appendices",
-   "sources": [
-    {
-     "doc": "B12",
-     "pages": [
-      962,
-      1001
-     ],
-     "note": "נספחים A–G",
+     "note": "Pozar 2.8, 3.1–3.4: מעברים בקווים, גלי TEM/TE/TM ומוליכי גל (נלמדים בגילואה, M9.11)",
      "role": "main"
     },
     {
-     "doc": "B12",
+     "doc": "B18",
      "pages": [
-      1038,
-      1045
+      155,
+      166
      ],
-     "note": "טבלאות פרמטרים של לווייני כדור הארץ",
+     "note": "Pozar 3.6–3.7: גלי שטח ו-stripline",
      "role": "main"
     },
     {
-     "doc": "B12",
+     "doc": "B18",
      "pages": [
-      214,
-      224
+      173,
+      176
      ],
-     "note": "9.1–9.2: מסלולי קפלר ומסלולי הירח וכוכבי הלכת (נלמדים בגילואה M15.15)",
-     "role": "main"
-    }
-   ]
-  },
-  {
-   "id": "M6.12",
-   "part": "P6",
-   "tier": "core",
-   "title": "תכן מושגי של טיל טקטי (Fleeman): גורמי תכן, קביעת ממדים, פשרות הנעה, חימום וכיפות, עלות",
-   "en": "Tactical missile conceptual design (Fleeman B13): drivers, sizing, propulsion trades, heating and domes, cost",
-   "prereq": [
-    "M6.2",
-    "M6.4"
-   ],
-   "sources": [
-    {
-     "doc": "B13",
-     "pages": [
-      19,
-      236
-     ],
-     "note": "פרקים 1–7 (סריקה בתמונות: נדרש OCR)",
-     "role": "main"
-    }
-   ]
-  },
-  {
-   "id": "M6.13",
-   "part": "P6",
-   "tier": "adv",
-   "title": "תכן טילים טקטיים: הפרקים המתקדמים (Fleeman פרקים 8–9)",
-   "en": "Tactical missile design, advanced chapters (Fleeman ch.8-9)",
-   "prereq": [
-    "M6.12"
-   ],
-   "sources": [
-    {
-     "doc": "B13",
-     "pages": [
-      237,
-      262
-     ],
-     "note": "פרקים 8–9",
+     "note": "Pozar 3.9–3.10: תהודה רוחבית ונפיצה",
      "role": "main"
     },
     {
-     "doc": "B13",
+     "doc": "B18",
      "pages": [
-      263,
+      179,
+      185
+     ],
+     "note": "Pozar: תרגילי פרק 3",
+     "role": "main"
+    },
+    {
+     "doc": "B18",
+     "pages": [
+      223,
+      248
+     ],
+     "note": "Pozar 4.6–4.8: אי-רציפויות ועירור מוליכי גל",
+     "role": "main"
+    },
+    {
+     "doc": "B18",
+     "pages": [
+      261,
+      265
+     ],
+     "note": "Pozar 5.3: תיאום בשני ענפים",
+     "role": "main"
+    },
+    {
+     "doc": "B18",
+     "pages": [
+      272,
       286
      ],
-     "note": "נספחים: תרגילים, מקרי תכן וטבלאות",
-     "role": "supp"
+     "note": "Pozar 5.6–5.8: שנאים רב-שלביים וקווים מחודדים",
+     "role": "main"
+    },
+    {
+     "doc": "B18",
+     "pages": [
+      292,
+      336
+     ],
+     "note": "Pozar 6: מהודים (נלמד בגילואה, M9.11)",
+     "role": "main"
+    },
+    {
+     "doc": "B18",
+     "pages": [
+      344,
+      347
+     ],
+     "note": "Pozar 7.2: מחלק T",
+     "role": "main"
+    },
+    {
+     "doc": "B18",
+     "pages": [
+      353,
+      362
+     ],
+     "note": "Pozar 7.4: מצמדים במוליך גל",
+     "role": "main"
+    },
+    {
+     "doc": "B18",
+     "pages": [
+      367,
+      381
+     ],
+     "note": "Pozar 7.6–7.7: מצמדי קווים צמודים ו-Lange",
+     "role": "main"
+    },
+    {
+     "doc": "B18",
+     "pages": [
+      387,
+      418
+     ],
+     "note": "Pozar 7.8 (המשך), 7.9, 8.1–8.2: מצמדים נוספים, מבנים מחזוריים, שיטת פרמטרי התמונה",
+     "role": "main"
+    },
+    {
+     "doc": "B18",
+     "pages": [
+      435,
+      506
+     ],
+     "note": "Pozar 8.5–8.8, 9.1–9.5: מימוש מסננים, חומרים פריטיים, מבודדים ומזיזי מופע",
+     "role": "main"
+    },
+    {
+     "doc": "B18",
+     "pages": [
+      544,
+      577
+     ],
+     "note": "Pozar 11: התקנים פעילים (PoMR 10–11, גילואה)",
+     "role": "main"
+    },
+    {
+     "doc": "B18",
+     "pages": [
+      591,
+      615
+     ],
+     "note": "Pozar 12.3–12.4: תכן מגבר טרנזיסטור",
+     "role": "main"
+    },
+    {
+     "doc": "B18",
+     "pages": [
+      624,
+      641
+     ],
+     "note": "Pozar 13.1–13.2: מתנדים",
+     "role": "main"
+    },
+    {
+     "doc": "B18",
+     "pages": [
+      647,
+      656
+     ],
+     "note": "Pozar 13.4: מכפילי תדר",
+     "role": "main"
+    },
+    {
+     "doc": "B18",
+     "pages": [
+      672,
+      677
+     ],
+     "note": "Pozar 13.5 (המשך): מערבלים מאוזנים, ותרגילי פרק 13",
+     "role": "main"
+    },
+    {
+     "doc": "B18",
+     "pages": [
+      691,
+      741
+     ],
+     "note": "Pozar 14.2–14.6 ונספחים: תקשורת אלחוטית, מכ\"ם, רדיומטריה והתפשטות (חופף ל-PoMR 1–4 ול-M1.4)",
+     "role": "main"
+    },
+    {
+     "doc": "B19",
+     "pages": [
+      14,
+      215
+     ],
+     "note": "Orfanidis 1–11.10: מקסוול, גלים מישוריים, החזרה ושכבות, מוליכי גל, קווי תמסורת, קווים צמודים, שנאים (חופף ל-Pozar ולגילואה)",
+     "role": "main"
+    },
+    {
+     "doc": "B19",
+     "pages": [
+      221,
+      223
+     ],
+     "note": "Orfanidis 11.13–11.14 (פרק 12, פרמטרי S, חסר ב-PDF)",
+     "role": "main"
+    },
+    {
+     "doc": "B19",
+     "pages": [
+      231,
+      232
+     ],
+     "note": "Orfanidis 13.6: משפט Ewald-Oseen",
+     "role": "main"
+    },
+    {
+     "doc": "B19",
+     "pages": [
+      237,
+      238
+     ],
+     "note": "Orfanidis: תרגילי פרק 13",
+     "role": "main"
+    },
+    {
+     "doc": "B19",
+     "pages": [
+      261,
+      296
+     ],
+     "note": "Orfanidis 15.6–17.5: אנטנות גל נע ולולאה, קרינה מצמצמים, עקיפה (Fresnel, knife-edge, GTD), צופרים",
+     "role": "main"
+    },
+    {
+     "doc": "B19",
+     "pages": [
+      300,
+      311
+     ],
+     "note": "Orfanidis 17.7–17.13: אנטנות מחזיר ועדשה",
+     "role": "main"
+    },
+    {
+     "doc": "B19",
+     "pages": [
+      325,
+      333
+     ],
+     "note": "Orfanidis: תרגילי פרק 18, ו-19.1–19.5: שיטות תכן מערך",
+     "role": "main"
+    },
+    {
+     "doc": "B19",
+     "pages": [
+      345,
+      362
+     ],
+     "note": "Orfanidis 19.10–21.1: מערכים רב-אלומתיים, זרמים על אנטנות לינאריות (Hallén, Pocklington), שדות קרובים",
+     "role": "main"
+    },
+    {
+     "doc": "B19",
+     "pages": [
+      371,
+      391
+     ],
+     "note": "Orfanidis 21.5–21.7 ונספחים: Yagi-Uda ומשוואות Hallén לאנטנות צמודות",
+     "role": "main"
     }
    ]
   },
@@ -7321,523 +10505,6 @@
       983
      ],
      "note": "נספח: דוגמאות נוספות",
-     "role": "main"
-    }
-   ]
-  },
-  {
-   "id": "M8.8",
-   "part": "P8",
-   "tier": "core",
-   "title": "שרידות כלי טיס (Ball): חשיפה, פגיעוּת, עצי השבתה, שחיקה במשימה ובמערכה, שיעורי אבדות היסטוריים",
-   "en": "Combat survivability (Ball): susceptibility, vulnerability, kill trees, mission and campaign attrition, historical loss rates",
-   "prereq": [
-    "M0.4",
-    "M2.4",
-    "M11.4"
-   ],
-   "sources": [
-    {
-     "doc": "B16",
-     "pages": [
-      25,
-      105
-     ],
-     "note": "1.1: יסודות השרידות, P_S = 1 − P_H·P_K|H, שרידות במערכה",
-     "role": "main"
-    },
-    {
-     "doc": "B16",
-     "pages": [
-      106,
-      141
-     ],
-     "note": "1.2: שיעורי אבדות היסטוריים",
-     "role": "main"
-    },
-    {
-     "doc": "B16",
-     "pages": [
-      198,
-      226
-     ],
-     "note": "1.7: סיכום ובעיות",
-     "role": "supp"
-    },
-    {
-     "doc": "B16",
-     "pages": [
-      227,
-      256
-     ],
-     "note": "פרק 2: מבנה כלי הטיס (כפילות עם גילואה M15.3; עיון)",
-     "role": "ref"
-    },
-    {
-     "doc": "B16",
-     "pages": [
-      303,
-      338
-     ],
-     "note": "3.3–3.4: מינוח, מאפייני האיום, מנגנוני נזק",
-     "role": "main"
-    },
-    {
-     "doc": "B16",
-     "pages": [
-      469,
-      473
-     ],
-     "note": "4.1–4.2: תוכנית החשיפה",
-     "role": "supp"
-    },
-    {
-     "doc": "B16",
-     "pages": [
-      608,
-      626
-     ],
-     "note": "4.4.6–4.4.7: דיכוי איומים וטקטיקה",
-     "role": "supp"
-    },
-    {
-     "doc": "B16",
-     "pages": [
-      627,
-      678
-     ],
-     "note": "5.1–5.2: פגיעוּת, רכיבים קריטיים, FMECA ועצי השבתה",
-     "role": "main"
-    },
-    {
-     "doc": "B16",
-     "pages": [
-      763,
-      788
-     ],
-     "note": "6.1–6.2: הערכת שרידות במשימה ובמערכה",
-     "role": "main"
-    },
-    {
-     "doc": "B16",
-     "pages": [
-      797,
-      801
-     ],
-     "note": "6.4: מסקנות",
-     "role": "supp"
-    }
-   ]
-  },
-  {
-   "id": "M8.9",
-   "part": "P8",
-   "tier": "core",
-   "title": "קיבולת של כוח אווירי: קצב גיחות, בסיסים ושרידותם, תדלוק אווירי",
-   "en": "Air campaign capacity: sortie generation, basing and air-base resilience, tankers",
-   "prereq": [
-    "M8.8",
-    "M9.2"
-   ],
-   "sources": []
-  },
-  {
-   "id": "M9.9",
-   "part": "P9",
-   "tier": "core",
-   "title": "רחפנים חד-כיווניים, FPV וכלכלת מלחמת הרחפנים: מחלקת Shahed, FPV, סיב אופטי, ייצור המוני ויחס עלויות בהגנה",
-   "en": "One-way drones, FPV and drone-war economics (Shahed-class, FPV, fiber-optic, mass production, C-UAS cost-exchange)",
-   "prereq": [
-    "M9.7",
-    "M9.5",
-    "M8.8"
-   ],
-   "sources": []
-  },
-  {
-   "id": "M13.23",
-   "part": "P13",
-   "tier": "core",
-   "title": "שליטה בחלל: טקסונומיה של יכולות נגד-חלל, מודעות למצב בחלל, פעולות קרבה, חוסן ופיזור, תלות במסחרי",
-   "en": "Space control: counterspace taxonomy, SDA, RPO, resilience and proliferation, commercial dependence",
-   "prereq": [
-    "M13.5",
-    "M13.6",
-    "M7.6"
-   ],
-   "sources": []
-  },
-  {
-   "id": "M14.1",
-   "part": "P14",
-   "tier": "core",
-   "title": "מידול לחימה: סוגי מודלים ומדדי אפקטיביות, משוואות לנצ'סטר ומודל המטחים, יחסי חילוף, מודלים ומשחקי מלחמה כראיה",
-   "en": "Combat modeling: model types and MOEs, Lanchester and salvo attrition, exchange ratios, models and wargames as evidence",
-   "prereq": [
-    "M0.4",
-    "M7.1"
-   ],
-   "sources": [
-    {
-     "doc": "B14",
-     "pages": [
-      8,
-      20
-     ],
-     "note": "1.2–1.3: סוגי מודלים וקיצורי דרך",
-     "role": "main"
-    },
-    {
-     "doc": "B14",
-     "pages": [
-      84,
-      114
-     ],
-     "note": "פרק 5: מודלי שחיקה, משוואות לנצ'סטר",
-     "role": "main"
-    },
-    {
-     "doc": "B15",
-     "pages": [
-      92,
-      141
-     ],
-     "note": "פרקים 4–5: מודלי קרב דטרמיניסטיים וסטוכסטיים",
-     "role": "main"
-    },
-    {
-     "doc": "B15",
-     "pages": [
-      320,
-      329
-     ],
-     "note": "פרק 12: מידול של מבצעים",
-     "role": "main"
-    },
-    {
-     "doc": "B15",
-     "pages": [
-      22,
-      31
-     ],
-     "note": "פרק 1: שיטות מדעיות בניתוח הגנה",
-     "role": "supp"
-    },
-    {
-     "doc": "B14",
-     "pages": [
-      214,
-      238
-     ],
-     "note": "פרק 10: מודלים של טרור ומרד",
-     "role": "supp"
-    }
-   ]
-  },
-  {
-   "id": "M14.7",
-   "part": "P14",
-   "tier": "core",
-   "title": "ירי בלי משוב, תורת המשחקים ותורת החיפוש",
-   "en": "Shooting without feedback, game theory and search theory (Washburn & Kress ch. 2, 6, 7)",
-   "prereq": [
-    "M14.1"
-   ],
-   "sources": [
-    {
-     "doc": "B14",
-     "pages": [
-      21,
-      51
-     ],
-     "note": "Washburn & Kress 2: ירי בלי משוב: SSKP ממרחק החטאה, כמה יריות, כמה מטרות",
-     "role": "main"
-    },
-    {
-     "doc": "B14",
-     "pages": [
-      115,
-      136
-     ],
-     "note": "Washburn & Kress 6: תורת המשחקים ומשחקי מלחמה",
-     "role": "main"
-    },
-    {
-     "doc": "B14",
-     "pages": [
-      137,
-      164
-     ],
-     "note": "Washburn & Kress 7: תורת החיפוש: רוחב סריקה, חוקי הגילוי, חלוקת מאמץ, מחסום ומטרות נעות",
-     "role": "main"
-    }
-   ]
-  },
-  {
-   "id": "M14.2",
-   "part": "P14",
-   "tier": "core",
-   "title": "רכש, עלות ובסיס תעשייתי: הגדרות עלות, עלות מחזור חיים, עקומות למידה, תקציבים כנתונים, TRL/MRL, האצת ייצור וחומרים קריטיים",
-   "en": "Acquisition, cost and industrial base: cost definitions, LCC, learning curves, budgets as data, TRL/MRL, surge and critical materials",
-   "prereq": [
-    "M14.1",
-    "M7.10"
-   ],
-   "sources": [
-    {
-     "doc": "B16",
-     "pages": [
-      139,
-      155
-     ],
-     "note": "1.3.1–1.3.6: תהליך הרכש DoD 5000",
-     "role": "supp"
-    },
-    {
-     "doc": "B12",
-     "pages": [
-      306,
-      341
-     ],
-     "note": "פרק 11: אומדן עלויות (פרקים 12–13, מימון ומשפט חלל, בעיון ב-M13.7)",
-     "role": "supp"
-    }
-   ]
-  },
-  {
-   "id": "M14.3",
-   "part": "P14",
-   "tier": "core",
-   "title": "לוגיסטיקה וקיימוּת: צריכה, קיבולת קווי אספקה, תחמושת מול מלאים, כשירות, לוגיסטיקה תחת איום ובמלחמת רחפנים",
-   "en": "Logistics and sustainment: consumption, LOC capacity, munitions vs stockpiles, readiness, contested and drone-war logistics (van Creveld promoted)",
-   "prereq": [
-    "M14.1"
-   ],
-   "sources": [
-    {
-     "doc": "B21",
-     "pages": [
-      85,
-      112
-     ],
-     "note": "Kress 4: תהליך התכנון הלוגיסטי: מקדמי תכנון, צריכה ותגובתיות",
-     "role": "main"
-    },
-    {
-     "doc": "B21",
-     "pages": [
-      137,
-      160
-     ],
-     "note": "Kress 6: חיזוי דרישות לוגיסטיות: שחיקה, צריכה ואי-ודאות",
-     "role": "main"
-    },
-    {
-     "doc": "B21",
-     "pages": [
-      201,
-      227
-     ],
-     "note": "Kress 9: הצטברות כוח, טיפול ופינוי רפואי: זמן, קיבולת ואופטימיזציה",
-     "role": "main"
-    },
-    {
-     "doc": "B21",
-     "pages": [
-      41,
-      47
-     ],
-     "note": "Kress 2.4–2.5: מונחי יסוד, מודלים וכלים אנליטיים",
-     "role": "supp"
-    },
-    {
-     "doc": "B17",
-     "pages": [
-      164,
-      170
-     ],
-     "note": "פרק 4 בקיצור: הלוגיסטיקה של תוכנית שליפן",
-     "role": "main"
-    },
-    {
-     "doc": "B17",
-     "pages": [
-      200,
-      204
-     ],
-     "note": "פרק 4: מסקנות",
-     "role": "main"
-    },
-    {
-     "doc": "B17",
-     "pages": [
-      205,
-      222
-     ],
-     "note": "פרק 5: תכנון ברברוסה",
-     "role": "main"
-    },
-    {
-     "doc": "B17",
-     "pages": [
-      251,
-      263
-     ],
-     "note": "פרק 5: מסקנות; פרק 6: פתיחה והמתקפה הראשונה של רומל",
-     "role": "main"
-    },
-    {
-     "doc": "B17",
-     "pages": [
-      284,
-      293
-     ],
-     "note": "פרק 6: מסקנות; פרק 7: מנורמנדי לסיין",
-     "role": "main"
-    },
-    {
-     "doc": "B17",
-     "pages": [
-      307,
-      333
-     ],
-     "note": "פרק 7: חזית רחבה או חוד צר, ומסקנות; פרק 8: מסקנות הספר",
-     "role": "main"
-    },
-    {
-     "doc": "B17",
-     "pages": [
-      16,
-      110
-     ],
-     "note": "פרקים 1–2: שיטת המחסנים ונפוליאון (Kress מחליף; עיון)",
-     "role": "ref"
-    },
-    {
-     "doc": "B17",
-     "pages": [
-      158,
-      163
-     ],
-     "note": "פרק 4: פתיחה (עיון)",
-     "role": "ref"
-    },
-    {
-     "doc": "B17",
-     "pages": [
-      171,
-      199
-     ],
-     "note": "פרק 4: התוכנית המתוקנת והמרן (עיון)",
-     "role": "ref"
-    },
-    {
-     "doc": "B17",
-     "pages": [
-      223,
-      250
-     ],
-     "note": "פרק 5: לנינגרד, הדנייפר ומוסקבה (בחירה O4; עיון)",
-     "role": "ref"
-    },
-    {
-     "doc": "B17",
-     "pages": [
-      264,
-      283
-     ],
-     "note": "פרק 6: צפון אפריקה 1941–1942 (בחירה O4; עיון)",
-     "role": "ref"
-    },
-    {
-     "doc": "B17",
-     "pages": [
-      294,
-      306
-     ],
-     "note": "פרק 7: הרדיפה לגבול (בחירה O4; עיון)",
-     "role": "ref"
-    }
-   ]
-  },
-  {
-   "id": "M14.4",
-   "part": "P14",
-   "tier": "core",
-   "title": "OSINT והערכת יכולות: דימות, איכון גאוגרפי, אימות, ADS-B/AIS, הערכת סדר כוחות, הערכה כוללת והטיות ניתוח",
-   "en": "OSINT and capability assessment: imagery, geolocation, verification, ADS-B/AIS, OOB estimation, net assessment, analytic bias",
-   "prereq": [
-    "M3.10",
-    "M13.11",
-    "M5.5",
-    "M8.4"
-   ],
-   "sources": []
-  },
-  {
-   "id": "M14.5",
-   "part": "P14",
-   "tier": "core",
-   "title": "כתיבה וראיונות של אנליסט (מסכם): מבנה מאמר, ראיונות מומחים, אי-ודאות, גרפים הוגנים, ביקורת על מכוני מחקר, בדיקת AI",
-   "en": "Writing and interviewing as an analyst (capstone): article structure, expert interviews, uncertainty, honest charts, think-tank critique, AI-checking",
-   "prereq": [
-    "M14.1",
-    "M14.2",
-    "M14.3",
-    "M14.4"
-   ],
-   "sources": []
-  },
-  {
-   "id": "M14.6",
-   "part": "P14",
-   "tier": "ref",
-   "title": "Kress, Operational Logistics: שאר הפרקים",
-   "en": "Kress, Operational Logistics: remaining chapters (reference)",
-   "sources": [
-    {
-     "doc": "B21",
-     "pages": [
-      14,
-      40
-     ],
-     "note": "פרק 1 ו-2.1–2.3: מהי לוגיסטיקה, שלוש רמות הלוגיסטיקה",
-     "role": "main"
-    },
-    {
-     "doc": "B21",
-     "pages": [
-      48,
-      84
-     ],
-     "note": "2.6 ופרק 3: יסודות הלוגיסטיקה המבצעית ועקרונותיה",
-     "role": "main"
-    },
-    {
-     "doc": "B21",
-     "pages": [
-      113,
-      136
-     ],
-     "note": "פרק 5: מידע לוגיסטי",
-     "role": "main"
-    },
-    {
-     "doc": "B21",
-     "pages": [
-      161,
-      200
-     ],
-     "note": "פרקים 7–8: מודל הרשת החזותי וגמישות לוגיסטית (מדדים כמותיים)",
-     "role": "main"
-    },
-    {
-     "doc": "B21",
-     "pages": [
-      228,
-      254
-     ],
-     "note": "פרק 10: אופטימיזציה של רשת הלוגיסטיקה (תכנון לינארי)",
      "role": "main"
     }
    ]

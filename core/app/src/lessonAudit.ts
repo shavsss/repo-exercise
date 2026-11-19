@@ -347,7 +347,7 @@ export function applyRepair(text: string, raw: string, mode: "inplace" | "supple
 
 /* ---------------- the reader's check (5.11, docs/LESSON_BOOK_SPEC.md) ---------------- */
 
-export type ReaderKind = "undefined" | "jump" | "order" | "factors" | "question" | "form" | "block" | "structure" | "visual";
+export type ReaderKind = "undefined" | "jump" | "order" | "factors" | "staccato" | "dense" | "ledger" | "anchor" | "history" | "question" | "form" | "block" | "structure" | "visual";
 export interface ReaderIssue {
   kind: ReaderKind | string;
   quote?: string;
@@ -362,7 +362,7 @@ export interface ReaderReport {
 
 export function readerAuditPrompt(o: AuditInput, round = 1): string {
   return `<reader_audit round="${round}">${partNote(o)}
-You read one lesson of a self-study book (Hebrew) as its learner reads it: from the first line, in order, knowing only what is listed in <known> and what the lesson has said so far. He knows no physics and only the mathematics he has studied. You do not check the facts against sources (another reviewer does); you check whether he can follow, and whether it reads like a well-built book: chapters (## פרק N), numbered subsections (### N.k) that build on each other, paragraphs with bold run-in headings, continuous prose.
+You read one lesson of a self-study book (Hebrew) as its learner reads it: from the first line, in order, knowing only what is listed in <known> and what the lesson has said so far. He knows no physics and only the mathematics he has studied. You do not check the facts against sources (another reviewer does); you check whether he can follow, and whether it reads like a well-built book: chapters (## פרק N), numbered subsections (### N.k) that build on each other, continuous prose that reads as one argument (a bold run-in heading only at a turn), with the full mathematics.
 Lesson: ${o.moduleId} ${o.moduleTitle} · ${o.lessonTitle}
 <known>
 ${(o.known ?? []).map((k) => `- ${k}`).join("\n") || "(only the mathematics he has studied, no physics)"}
@@ -372,17 +372,23 @@ ${compactVisuals(o.text)}
 </lesson>
 
 Report every place where:
-- "undefined": a term, symbol or parameter is used before it is defined (or is never defined), and it is not in <known>.
+- "undefined": a term, symbol, parameter, unit or measure (eV, dB, a standard deviation…) is used before it is defined (or is never defined), and it is not in <known>.
 - "jump": a subsection or paragraph starts something new without saying how it follows from what came before, or the reason to study it now is missing.
 - "order": something is explained after it was already used, or a result comes before what it rests on.
-- "factors": a formula or equation whose factors are not each explained (what it stands for and its units, why it is there, what happens when it grows, where the formula holds).
+- "factors": a formula block whose factors are not each explained (what it stands for and its units, why it is there, what happens when it grows, where the formula holds), or that does not open with a sentence or two on what it computes and why it matters here.
+- "staccato": a run of display equations or of one-line paragraphs without a goal sentence before and a payoff sentence after; "צעד N" labels or #### headings inside a subsection; a chain of more than three moves left in the prose instead of a derivation block.
+- "dense": a paragraph that mixes more than about 3 numbers, or several formulas, into its reasoning (they belong in a table or a display line).
+- "ledger": an assumption that enters without being said, or is said and never checked or broken; a result used before it is derived without saying where it will be derived, or never derived.
+- "anchor": a chapter with a real engineering context whose anchor system does not return in a subsection, or returns only as a side box; a case study in a casestudy block or a box instead of the prose; a case study that states results instead of working the engineer's computation as in the ASR-9 case (the system's question opening the subsection, השאלה, הקלטים with sources, השרשרת step by step, ההשוואה with the gap and its reason, an unexpected consequence, ידוע לעומת מוערך, what it means for decisions, and a comparative alternative where the real context matters).
+- "history": history that only decorates (removing it removes no understanding of why), or a step whose reason is a historical obstacle that the text leaves out.
 - "question": a practice question (mcq, numeric, explain) or a think, predict, verify or exercise that the text above it does not prepare (a step, number or idea it needs is missing), or that asks about something only introduced, an anchor, a first look at a later module or an illustration; an mcq whose wrong options are not real misconceptions or lack their explanation; a numeric whose answer, unit or tolerance is missing or wrong (compute it).
 - "form": a chapter without a comparison, without a closing case study, or a central idea without its development (why it is interesting, how it was approached, the steps, what came out, where it breaks) or without a critical look.
 - "block": a block that breaks the flow, or carries a step of the argument that the prose does not; a fenced block nested inside another block, or a fence line that does not stand alone on its line (it breaks the page).
-- "structure": a section not in the book form (no subsection numbers, no run-in paragraph headings, a bare list where reasoning belongs).
-- "visual": a relation between quantities, a geometry, a system's layout or a chain that is explained only in words where a chart, a drawing or a diagram would make it clear; or a visual that is not explained (what to look at, what it shows).
+- "structure": a section not in the book form (no subsection numbers, a bare list where reasoning belongs).
+- "visual": a relation between quantities, a geometry, a direction, a change in time, a system's layout or a chain that is explained only in words where a chart, a drawing or a diagram would make it clear; a central concept introduced with no picture of it; a subsection with no visual at all; or a visual that is not explained (what to look at, what it shows).
+- "density": definitions or new concepts that pile up (two definition blocks with no development between them, or a paragraph that brings several new terms at once), so that the reader meets terms before he knows why he needs them; or a subsection whose reason is only formal, with no word on what it lets him do.
 Quotes must be copied exactly from the lesson (a short unique phrase). Be strict and concrete; do not ask for length, padding or extra examples.
-Reply with ONLY one JSON object: {"issues": [{"kind": "undefined|jump|order|factors|question|form|block|structure|visual", "quote": "…", "where": "the subsection, e.g. 3.2", "problem": "…", "fix": "what to add or change, concretely"}], "verdict": "pass|fix"}. "pass" only when the list is empty.
+Reply with ONLY one JSON object: {"issues": [{"kind": "undefined|jump|order|factors|staccato|dense|ledger|anchor|history|question|form|block|structure|visual|density", "quote": "…", "where": "the subsection, e.g. 3.2", "problem": "…", "fix": "what to add or change, concretely"}], "verdict": "pass|fix"}. "pass" only when the list is empty.
 </reader_audit>`;
 }
 
@@ -395,7 +401,7 @@ export function parseReader(raw: string): ReaderReport | null {
 
 export function readerRepairPrompt(o: AuditInput, report: ReaderReport): string {
   return `<lesson_repair mode="reader">
-You are the author of this lesson. A reader who knows only what is in <known> (no physics, only the mathematics he has studied) read it in order and could not follow it in the places listed in <review>. Repair each one in the lesson's own Hebrew, style and block syntax, at full depth: define a term at its first use (or move its definition before it), add the sentence that says how a part follows from the one before and why it comes now, move a passage to where it belongs, explain each factor of a formula after it, prepare what a question needs before it, write the missing comparison, case or critical look in prose, and turn a block that breaks the flow into prose. Keep the book form: ## פרק N, ### N.k, bold run-in paragraph headings. Never remove correct material, never add padding. The lesson has a length budget: make room for what you add by shortening a repetition near it, and fix a "visual" item with the drawing itself (\`\`\`svg, \`\`\`chart, \`\`\`mermaid, \`\`\`table), replacing the words that tried to describe it.
+You are the author of this lesson. A reader who knows only what is in <known> (no physics, only the mathematics he has studied) read it in order and could not follow it in the places listed in <review>. Repair each one in the lesson's own Hebrew, style and block syntax, at full depth: define a term at its first use (or move its definition before it), add the sentence that says how a part follows from the one before and why it comes now, move a passage to where it belongs, explain each factor of a formula after it and open a formula block with what it computes and why it matters, prepare what a question needs before it, write the missing comparison, case or critical look in prose, turn a block that breaks the flow into prose, and fix a "density" item by putting before each new concept the sentence of the story that needs it (and its picture), turning background terms into a clause of the prose instead of a definition block. "staccato": join the lines into moves (goal sentence, 2 to 4 lines of algebra in one display, payoff sentence), drop "צעד N" labels and #### headings, and put a long chain into a derivation block. "dense": move the numbers into a table or a display line. "ledger": state the assumption where it enters and settle it where it is checked or breaks; say where a result used early is derived. "anchor": bring the anchor system into the subsection's argument, and rewrite the case study in prose, as its own subsection built like the ASR-9 case, never in a casestudy block. "history": keep only history that explains why, and give the missing obstacle its place. Keep the book form: ## פרק N, ### N.k, a bold run-in heading only at a turn of the argument. Never remove correct material, never add padding. The lesson has a length budget: make room for what you add by shortening a repetition near it, and fix a "visual" item with the drawing itself (\`\`\`svg, \`\`\`chart, \`\`\`mermaid, \`\`\`table), replacing the words that tried to describe it.
 Lesson: ${o.moduleId} ${o.moduleTitle} · ${o.lessonTitle}
 <known>
 ${(o.known ?? []).map((k) => `- ${k}`).join("\n") || "(only the mathematics he has studied, no physics)"}
@@ -438,7 +444,7 @@ export async function readerCheck(o: AuditInput, deps: AuditDeps): Promise<{ tex
 }
 
 export function readerOpen(r: ReaderReport): string[] {
-  const label: Record<string, string> = { undefined: "לא מוגדר", jump: "קפיצה", order: "סדר", factors: "גורמים בנוסחה", question: "שאלה לא מוכנה", form: "מבנה הפרק", block: "בלוק", structure: "צורה", visual: "חסר איור" };
+  const label: Record<string, string> = { undefined: "לא מוגדר", jump: "קפיצה", order: "סדר", factors: "גורמים בנוסחה", question: "שאלה לא מוכנה", form: "מבנה הפרק", block: "בלוק", structure: "צורה", visual: "חסר איור", density: "הגדרות צפופות" };
   const cut = (x?: string) => (x ?? "").replace(/\s+/g, " ").trim().slice(0, 200);
   return r.issues.slice(0, 16).map((i) => `קורא · ${label[i.kind] ?? i.kind}${i.where ? ` (${i.where})` : ""}: ${cut(i.problem || i.quote)}`);
 }

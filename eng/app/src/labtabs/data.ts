@@ -29,6 +29,11 @@ export function monthLabel(id: string) {
   return m >= 1 && m <= 12 ? `${MONTHS[m - 1]} ${y}` : id;
 }
 
+/** "6.11–12.11" kept in reading order inside RTL text (an isolated left-to-right run). */
+export function dateRange(from: string | number | undefined, to: string | number | undefined) {
+  return `\u2066${shortDate(from)}–${shortDate(to)}\u2069`;
+}
+
 /** "12.10" from an ISO date or a timestamp. */
 export function shortDate(v: string | number | undefined) {
   if (v === undefined || v === "") return "";
@@ -55,6 +60,44 @@ export interface NewsSource {
   sha256?: string;
   quote?: string;
   openAccess?: boolean;
+  /** a state-run outlet (Xinhua, TRT, RT, IRNA…): tagged, and the item carries a second, independent source */
+  stateMedia?: boolean;
+}
+
+/** Where a story comes from (docs/NEWS_SCHEMA.md): the regions of the learner's list. */
+export type Region = "US" | "EU" | "UK" | "IL" | "TR" | "CN" | "TW" | "JP" | "KR" | "IN" | "RU" | "UA" | "GULF" | "IR" | "AF" | "INTL";
+/** Where an item sits in the printed edition. Absent (old issues): a story in its section. */
+export type NewsRole = "lead" | "feature" | "brief" | "number" | "world" | "geo" | "econ" | "post" | "lab";
+
+/** A freely licensed picture of the subject, kept in the artifact's asset store ("/_blob/<id>"); never inline in the issue. */
+export interface NewsImage {
+  url: string;
+  caption: string;
+  credit: string;
+  license: string;
+  sourcePage: string;
+  alt?: string;
+}
+
+/** A chart drawn from numbers in a fetched source (inline SVG on the page). */
+export interface NewsChart {
+  kind: "bar" | "line";
+  title: string;
+  unit: string;
+  /** the categories (bar) or the x values (line), in order */
+  x: (string | number)[];
+  series: { name: string; values: (number | null)[] }[];
+  source: { publisher: string; url: string; note?: string };
+}
+
+/** A social post quoted word for word from a page fetched this run. */
+export interface NewsPost {
+  network: "x" | "bluesky" | "mastodon";
+  handle: string;
+  author: string;
+  text: string;
+  url: string;
+  postedAt?: string;
 }
 
 export interface NewsItem {
@@ -74,6 +117,14 @@ export interface NewsItem {
   read10?: { minutes: number };
   oldButNew?: boolean;
   crossRef?: { app: "eng" | "core"; issueId: string; itemId: string };
+  role?: NewsRole;
+  region?: Region;
+  images?: NewsImage[];
+  chart?: NewsChart;
+  post?: NewsPost;
+  number?: { value: string; unit: string; calc: string };
+  /** two takes on one topic from two countries: both items carry the same topic, each names the other */
+  world?: { topic: string; pair: string };
 }
 
 export interface NewsIssue {
@@ -89,6 +140,8 @@ export interface NewsIssue {
   picks10?: string[];
   items: NewsItem[];
   stats?: { candidates: number; fetched: number; verified: number; dropped?: Record<string, number> };
+  /** e.g. "מהדורת סוף שבוע" */
+  edition?: string;
   example?: boolean;
 }
 
@@ -135,9 +188,29 @@ export async function loadIssue(store: Store, id: string): Promise<NewsIssue | n
   const v = s.data() as NewsIssue;
   if (!v || !Array.isArray(v.items)) return null;
   // an issue written by a session: lists are made safe to draw
-  const items = v.items.filter((it) => it && it.id && it.headline).map((it) => ({ ...it, body: String(it.body ?? ""), why: String(it.why ?? ""), sources: Array.isArray(it.sources) ? it.sources : [], connects: Array.isArray(it.connects) ? it.connects : [] }));
+  const items = v.items
+    .filter((it) => it && it.id && it.headline)
+    .map((it) => ({
+      ...it,
+      body: String(it.body ?? ""),
+      why: String(it.why ?? ""),
+      sources: Array.isArray(it.sources) ? it.sources : [],
+      connects: Array.isArray(it.connects) ? it.connects : [],
+      images: Array.isArray(it.images) ? it.images.filter((im) => im && typeof im.url === "string" && imageUrlOk(im.url)) : undefined,
+      chart: chartOk(it.chart) ? it.chart : undefined,
+      post: it.post && typeof it.post.text === "string" ? it.post : undefined,
+    }));
   const sections = Array.isArray(v.sections) && v.sections.length ? v.sections.map((s) => ({ ...s, items: Array.isArray(s.items) ? s.items : [] })) : [{ id: "all", title: "הגיליון", items: items.map((it) => it.id) }];
   return { ...v, id, items, sections, window: v.window ?? { from: "", to: "" } };
+}
+
+/** Only pictures the page can show under the Artifact's rules: the asset store, the artifact's own files, or a small data URI. */
+export function imageUrlOk(url: string) {
+  return url.startsWith("/_blob/") || url.startsWith("data:image/") || /^[\w-]+\/[\w./-]+$/.test(url);
+}
+
+function chartOk(c: NewsChart | undefined): c is NewsChart {
+  return !!c && (c.kind === "bar" || c.kind === "line") && Array.isArray(c.x) && c.x.length > 0 && Array.isArray(c.series) && c.series.length > 0 && c.series.every((s) => Array.isArray(s?.values));
 }
 
 export async function loadFb(store: Store, id: string): Promise<NewsFb> {

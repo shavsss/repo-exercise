@@ -1,0 +1,378 @@
+[
+ {
+  "doc": "W45",
+  "key": "spinningup",
+  "path": "library/engineering/free/W45_spinning_up_deep_rl.pdf",
+  "title": "Spinning Up in Deep RL",
+  "author": "Achiam (OpenAI)",
+  "edition": "2018 (docs, + algorithm pages rendered from GitHub rst)",
+  "source_url": "https://spinningup.openai.com/ (pp 1-75); https://raw.githubusercontent.com/openai/spinningup/master/docs/algorithms/{vpg,trpo,ppo,ddpg,td3,sac}.rst (pp 76-101)",
+  "pdf_pages": 101,
+  "text_ok": true,
+  "method": "bundle (old html print + docutils/MathJax render of rst)",
+  "modules": {
+   "M18.11": [
+    {
+     "pages": [
+      29,
+      58
+     ],
+     "note": "Part 1-3: מושגי RL, סוגי אלגוריתמים, מבוא ל-policy optimization (policy gradient, advantage)"
+    },
+    {
+     "pages": [
+      59,
+      66
+     ],
+     "note": "Spinning Up as a Deep RL Researcher: מתודולוגיית ניסויים"
+    },
+    {
+     "pages": [
+      67,
+      75
+     ],
+     "note": "Key Papers in Deep RL"
+    },
+    {
+     "pages": [
+      76,
+      101
+     ],
+     "note": "עמודי האלגוריתמים: VPG 76-78, TRPO 79-82, PPO 83-86, DDPG 87-91, TD3 92-95, SAC 96-101"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "spinningup.openai.com still HTTP 429; used GitHub rst sources"
+  ],
+  "blocked_hosts": [
+   "spinningup.openai.com (429 rate limit)"
+  ]
+ },
+ {
+  "doc": "X21",
+  "key": "dodd_3000_09",
+  "path": "library/military/free/X21_dodd_3000_09_bundle.pdf",
+  "title": "DoDD 3000.09 Autonomy in Weapon Systems (2012 text + 2023 policy analyses)",
+  "author": "DoD; CRS; Harvard Law HRC",
+  "edition": "2012 directive (Change 1, 2017) + CRS IF11150 (May 2023) + Harvard HRC review of 2023 reissue",
+  "source_url": "existing X21_dodd_3000_09_2012.pdf; https://www.congress.gov/crs_external_products/IF/PDF/IF11150/IF11150.10.pdf; https://humanrightsclinic.law.harvard.edu/wp-content/uploads/2023/02/Review-of-the-2023-US-Policy-on-Autonomy-in-Weapons-Systems.pdf",
+  "pdf_pages": 27,
+  "text_ok": true,
+  "method": "bundle",
+  "modules": {
+   "M7.15": [
+    {
+     "pages": [
+      1,
+      15
+     ],
+     "note": "נוסח הנחיה 3000.09 מ-2012 (לא ה-2023): הגדרות, דרישות סקירה בכירה"
+    },
+    {
+     "pages": [
+      16,
+      18
+     ],
+     "note": "CRS Defense Primer (מאי 2023): מדיניות ארה\"ב ב-LAWS, תיאור הנוסח המעודכן 2023"
+    },
+    {
+     "pages": [
+      19,
+      27
+     ],
+     "note": "סקירת Harvard HRC של מדיניות 2023: הבדלים מול 2012, פערים לגבי meaningful human control"
+    }
+   ]
+  },
+  "status": "partial",
+  "tried": [
+   "esd.whs.mil 403",
+   "war.gov 403",
+   "media.defense.gov 403",
+   "ogc.osd.mil 403 (2023 copy exists there)",
+   "documents.unoda.org 403",
+   "globalsecurity.org 402",
+   "carahsoft copy is a 1-page summary only",
+   "regulations.ai/MIT airisk only link to esd.whs.mil"
+  ],
+  "blocked_hosts": [
+   "www.esd.whs.mil",
+   "www.war.gov",
+   "media.defense.gov",
+   "ogc.osd.mil",
+   "documents.unoda.org",
+   "www.globalsecurity.org",
+   "crsreports.congress.gov"
+  ]
+ },
+ {
+  "doc": "X35",
+  "key": "usace_em1802",
+  "path": "library/military/free/X35_usace_em1110_1_1802_geophysics.pdf",
+  "title": "EM 1110-1-1802, Geophysical Exploration for Engineering and Environmental Investigations",
+  "author": "US Army Corps of Engineers",
+  "edition": "31 Aug 1995",
+  "source_url": "https://www.tugraz.at/fileadmin/user_upload/Institute/IAG/Files/07_Geophysical_Exploration-USACE.pdf (university mirror of the public-release USACE manual; identical copy at ftp.geotechnicalinfo.com)",
+  "pdf_pages": 208,
+  "text_ok": true,
+  "method": "direct (mirror)",
+  "modules": {
+   "M11.17": [
+    {
+     "pages": [
+      13,
+      39
+     ],
+     "note": "פרק 3: שיטות סיסמיות (refraction, reflection, surface waves, subbottom)"
+    },
+    {
+     "pages": [
+      40,
+      96
+     ],
+     "note": "פרק 4: שיטות חשמליות ואלקטרומגנטיות, כולל metal detector (4-9) ו-GPR (4-10, ~עמ' 90-96)"
+    },
+    {
+     "pages": [
+      97,
+      102
+     ],
+     "note": "פרק 5: gravity ו-microgravity לגילוי חללים"
+    },
+    {
+     "pages": [
+      103,
+      106
+     ],
+     "note": "פרק 6: שיטות מגנטיות"
+    },
+    {
+     "pages": [
+      107,
+      175
+     ],
+     "note": "פרק 7: שיטות בתוך קידוחים, crosshole ו-surface-to-borehole (זיהוי חללים בין קידוחים)"
+    },
+    {
+     "pages": [
+      190,
+      193
+     ],
+     "note": "פרק 10: רעידות הנדסיות ובדיקות לא הורסות"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "usace publications, DTIC 403 (blocked); found the actual EM on tugraz.at"
+  ],
+  "blocked_hosts": [
+   "www.publications.usace.army.mil",
+   "apps.dtic.mil"
+  ]
+ },
+ {
+  "doc": "W05",
+  "key": "van_steen_ds",
+  "path": "library/engineering/free/W05_distributed_systems_bundle.pdf",
+  "title": "Distributed Systems (substitute bundle: Kleppmann lecture notes + Raft + Paxos Made Simple + PBFT)",
+  "author": "Kleppmann (Cambridge); Ongaro & Ousterhout; Lamport; Castro & Liskov",
+  "edition": "Cambridge Part IB notes 2024/25; Raft USENIX ATC 2014; Paxos Made Simple 2001; PBFT OSDI 1999",
+  "source_url": "https://www.cl.cam.ac.uk/teaching/2425/ConcDisSys/dist-sys-notes.pdf; https://raft.github.io/raft.pdf; https://www.microsoft.com/en-us/research/wp-content/uploads/2016/12/paxos-simple-Copy.pdf; https://css.csail.mit.edu/6.824/2014/papers/castro-practicalbft.pdf",
+  "pdf_pages": 138,
+  "text_ok": true,
+  "method": "bundle (substitute; van Steen PDF is personalized-email only)",
+  "modules": {
+   "M22.16": [
+    {
+     "pages": [
+      10,
+      14
+     ],
+     "note": "כשל חלקי, זמינות ועמידות לתקלות (סעיף 1.3)"
+    },
+    {
+     "pages": [
+      15,
+      26
+     ],
+     "note": "מודלי מערכות מבוזרות, Two Generals, Byzantine generals, failure detectors (פרק 2)"
+    },
+    {
+     "pages": [
+      27,
+      42
+     ],
+     "note": "שעונים פיזיים, סנכרון, happens-before וזמן לוגי (פרק 3)"
+    },
+    {
+     "pages": [
+      43,
+      58
+     ],
+     "note": "Broadcast, שכפול, quorums (פרקים 4–5.2)"
+    },
+    {
+     "pages": [
+      57,
+      67
+     ],
+     "note": "שכפול באמצעות broadcast, 2PC (פרק 6.1), linearizability (6.2)"
+    },
+    {
+     "pages": [
+      68,
+      78
+     ],
+     "note": "קונצנזוס ו-Raft (פרק 7)"
+    },
+    {
+     "pages": [
+      79,
+      92
+     ],
+     "note": "עקביות בסופו של דבר, CRDTs (פרק 8)"
+    },
+    {
+     "pages": [
+      93,
+      110
+     ],
+     "note": "Raft paper (Ongaro & Ousterhout)"
+    },
+    {
+     "pages": [
+      111,
+      124
+     ],
+     "note": "Paxos Made Simple (Lamport)"
+    },
+    {
+     "pages": [
+      125,
+      138
+     ],
+     "note": "PBFT (Castro & Liskov, OSDI'99): Byzantine faults"
+    }
+   ]
+  },
+  "status": "partial",
+  "tried": [
+   "van Steen PDF only via personalized email download; substituted per instruction"
+  ],
+  "blocked_hosts": [
+   "pmg.csail.mit.edu (connection reset)"
+  ],
+  "gaps": "partitioning, transactions/isolation levels, tail latency, stream processing are thin or missing (Kleppmann notes do not cover them in depth)"
+ },
+ {
+  "doc": "W41",
+  "key": "cummings_cdc",
+  "path": "library/engineering/free/W41_cummings_cdc_snug2008.pdf",
+  "title": "Clock Domain Crossing (CDC) Design & Verification Techniques Using SystemVerilog",
+  "author": "Clifford E. Cummings",
+  "edition": "SNUG Boston 2008",
+  "source_url": "http://staff.ustc.edu.cn/~wyu0725/FPGA/snug_collection/1Sunburst%20Design/Clock%20Domain%20Crossing%20(CDC)%20Design%20&%20Verification%20Techniques%20Using%20SystemVerilog.pdf (university staff-page mirror of the freely published paper)",
+  "pdf_pages": 56,
+  "text_ok": true,
+  "method": "direct (mirror)",
+  "modules": {
+   "M28.3": [
+    {
+     "pages": [
+      1,
+      56
+     ],
+     "note": "כל המאמר: synchronizers, metastability, העברת אותות בין תחומי שעון, async FIFO, gray code, בדיקות CDC ב-SystemVerilog (מכסה רק את נושא CDC של המודול)"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "sunburst-design.com redirects to registration-gated paradigm-works library (not bypassed)"
+  ],
+  "blocked_hosts": [
+   "www.paradigm-works.com (login-gated)"
+  ]
+ },
+ {
+  "doc": "W60",
+  "key": "leishman_ifv",
+  "path": "library/engineering/free/W60_rotor_propeller_bundle.pdf",
+  "title": "Rotor and propeller aerodynamics (substitute bundle for Leishman IFV)",
+  "author": "Bangura et al.; arXiv BEMT analysis; Mahony et al.; FAA; W. Johnson (NASA); NASA TP-2825",
+  "edition": "mixed free/public sources",
+  "source_url": "arXiv 1601.00733, 2004.11100, 2109.04741; faa.gov Helicopter Flying Handbook ch.2-4 (hfh_ch02/03/04.pdf); ntrs.nasa.gov 20060024029 (TP-2005-213477); ntrs.nasa.gov 19880017523 (TP-2825)",
+  "pdf_pages": 272,
+  "text_ok": true,
+  "method": "bundle (substitute; Leishman book on eaglepubs/commons/oer.pressbooks blocked by 403/Cloudflare)",
+  "modules": {
+   "M15.31": [
+    {
+     "pages": [
+      1,
+      42
+     ],
+     "note": "Bangura et al.: Aerodynamics of Rotor Blades for Quadrotors: momentum theory (hover, climb), BEM, forward flight, multirotor"
+    },
+    {
+     "pages": [
+      43,
+      67
+     ],
+     "note": "ניתוח BEMT (arXiv 2004.11100): blade element momentum theory"
+    },
+    {
+     "pages": [
+      68,
+      75
+     ],
+     "note": "BEM + מודל מנוע לרוטורים של multirotor, התאמת מנוע-מדחף (hover וטיסה קדימה)"
+    },
+    {
+     "pages": [
+      76,
+      103
+     ],
+     "note": "FAA פרק 2: אווירודינמיקה של מסוק: hover, אוטורוטציה, vortex ring state, דינמיקת רוטור"
+    },
+    {
+     "pages": [
+      104,
+      129
+     ],
+     "note": "FAA פרקים 3-4: בקרת מסוק, רכיבים ומערכות רוטור"
+    },
+    {
+     "pages": [
+      130,
+      205
+     ],
+     "note": "Johnson NASA TP-2005-213477: מצבי זרימה של momentum theory, vortex ring state, autorotation"
+    },
+    {
+     "pages": [
+      206,
+      272
+     ],
+     "note": "NASA TP-2825: רעש רוטור ראשי (thickness, loading, BVI) וחתימה אקוסטית"
+    }
+   ]
+  },
+  "status": "partial",
+  "tried": [
+   "eaglepubs.erau.edu 403",
+   "oer.pressbooks.pub 403",
+   "commons.erau.edu Cloudflare challenge (not bypassed)",
+   "NTRS Rotary-wing aerodynamics 404"
+  ],
+  "blocked_hosts": [
+   "eaglepubs.erau.edu",
+   "oer.pressbooks.pub",
+   "commons.erau.edu"
+  ],
+  "gaps": "no propeller-specific chapter on performance/selection (Leishman ch. Aircraft Propellers); propeller performance covered only via BEM papers"
+ }
+]

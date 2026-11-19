@@ -8,26 +8,27 @@
 
 **ספירת עמודים:** Orfanidis, Electromagnetic Waves and Antennas (2004) נספר פי 2 (עמודי ספר בכל עמוד PDF).
 
-**סה"כ:** 190 מודולים: 136 ליבה, 32 מתקדם, 22 עיון.
+**סה"כ:** 229 מודולים: 167 ליבה, 40 מתקדם, 22 עיון.
 
 | חלק | מודולים | עמ' ספר בליבה | עמ' מאמרים בליבה | שיעורי ליבה (אומדן) | עמ' ספר במתקדם |
 |---|---|---|---|---|---|
 | P0 יסודות: הכלים המתמטיים והפיזיקליים | 8 | 210 | 0 | 16 | 0 |
-| P1 השכבה הפיזית: אנטנות, התפשטות וקשר | 8 | 493 | 72 | 33 | 59 |
+| P1 השכבה הפיזית: אנטנות, התפשטות וקשר | 8 | 552 | 72 | 37 | 0 |
 | P2 מכ"ם | 40 | 1296 | 448 | 86 | 841 |
-| P3 EO/IR | 14 | 519 | 0 | 35 | 65 |
+| P3 EO/IR | 15 | 519 | 0 | 35 | 146 |
 | P4 לוחמה אלקטרונית | 16 | 430 | 180 | 30 | 36 |
-| P5 ניווט ו-GNSS | 12 | 517 | 26 | 35 | 220 |
-| P6 טילים: דינמיקה, הנחיה ובקרה | 14 | 883 | 44 | 60 | 50 |
-| P7 הגנה אווירית ומפני טילים, ושו"ב | 11 | 475 | 348 | 31 | 0 |
-| P8 פלטפורמות אוויר ואוויוניקה | 9 | 330 | 41 | 24 | 13 |
-| P9 כטב"מים, רחפנים והגנה מפניהם | 9 | 228 | 41 | 16 | 51 |
-| P10 מערכות ימיות | 5 | 76 | 120 | 11 | 0 |
-| P11 אפקטים של נשק ושריון | 10 | 227 | 0 | 15 | 43 |
-| P12 האויב: דוקטרינה והפעלה | 4 | 112 | 0 | 7 | 70 |
-| P13 חלל: מסלולים, לוויינים, תקשורת לוויינית ושיגור | 23 | 351 | 0 | 24 | 126 |
-| P14 ניתוח הגנה: מידול לחימה, עלות, לוגיסטיקה ו-OSINT | 7 | 439 | 0 | 31 | 0 |
-| **סה"כ** | 190 | 6586 | 1320 | 454 | 1574 |
+| P5 ניווט ו-GNSS | 14 | 1373 | 26 | 93 | 220 |
+| P6 טילים: דינמיקה, הנחיה ובקרה | 16 | 1229 | 44 | 84 | 50 |
+| P7 הגנה אווירית ומפני טילים, ושו"ב | 18 | 2454 | 348 | 163 | 67 |
+| P15 ארכיטקטורת מערכות, קשר וסייבר-ספקטרום | 7 | 1372 | 0 | 92 | 0 |
+| P8 פלטפורמות אוויר ואוויוניקה | 10 | 330 | 41 | 24 | 264 |
+| P9 כטב"מים, רחפנים והגנה מפניהם | 10 | 397 | 41 | 27 | 51 |
+| P10 מערכות ימיות | 10 | 3027 | 120 | 208 | 0 |
+| P11 אפקטים של נשק ושריון | 20 | 2940 | 0 | 197 | 530 |
+| P12 האויב: דוקטרינה והפעלה | 5 | 112 | 0 | 7 | 140 |
+| P13 חלל: מסלולים, לוויינים, תקשורת לוויינית ושיגור | 24 | 351 | 0 | 24 | 174 |
+| P14 ניתוח הגנה: מידול לחימה, עלות, לוגיסטיקה ו-OSINT | 8 | 439 | 0 | 31 | 112 |
+| **סה"כ** | 229 | 17031 | 1320 | 1154 | 2631 |
 
 האומדן: שיעור לכל כ-15 עמודי ספר, כולל השלמות. מאמר לא מוסיף שיעורים משלו: המורה משלב ממנו את מה שחדש בתוך שיעורי המודול. מודול שכולו מאמרים נספר לפי עמודי המאמר.
 
@@ -154,7 +155,7 @@
 - ◇ Orfanidis, Electromagnetic Waves and Antennas (2004), עמ' PDF 252–255: 14.9–14.11: גבולות קצב נתונים, קישורי לוויין ומשוואת המכ"ם (Orfanidis)
 
 ### M1.7 רכיבי מיקרוגל: מחלקי הספק, מצמדים, היברידים, מסננים, מחזרים, מגבר הספק ורעש פאזה
-*Microwave components: dividers, couplers, hybrids, filters, circulators, power amplifiers, phase noise (Pozar)* · **מתקדם** · 59 עמ' ספר · כ-4 שיעורים · דרישות: M1.6
+*Microwave components: dividers, couplers, hybrids, filters, circulators, power amplifiers, phase noise (Pozar)* · **ליבה** · 59 עמ' ספר · כ-4 שיעורים · דרישות: M1.6
 
 - ★ Pozar, Microwave Engineering, 4th ed. (2012), עמ' PDF 337–343: 7.1: תכונות יסוד של מחלקים ומצמדים
 - ★ Pozar, Microwave Engineering, 4th ed. (2012), עמ' PDF 348–352: 7.3: מחלק Wilkinson
@@ -252,7 +253,7 @@
 - ◇ EW 101, עמ' PDF 47–49: 2.5.2: הסטת דופלר
 
 ### M2.8 רכיבי המכ"ם: משדר, מקלט, מעורר
-*Radar hardware* · **ליבה** · 95 עמ' ספר · כ-6 שיעורים · דרישות: M2.1, M1.6
+*Radar hardware* · **ליבה** · 95 עמ' ספר · כ-6 שיעורים · דרישות: M2.1, M1.6, M1.7
 
 - ★ Principles of Modern Radar, עמ' PDF 384–427: פרק 10: משדרים
 - ★ Principles of Modern Radar, עמ' PDF 428–440: 11.1–11.4: סוגי מקלטים, פונקציות, המרת תדר וגילוי
@@ -292,15 +293,25 @@
 - ◇ EW 102, עמ' PDF 71–79: 3.6–3.7: CW, פולס-דופלר ו-MTI מנקודת מבט EW
 
 ### M2.14 מדידות מכ"ם ומדידת זווית (מונופולס)
-*Radar measurements and monopulse* · **ליבה** · 25 עמ' ספר · כ-2 שיעורים · דרישות: M0.6, M1.1
+*Radar measurements and monopulse* · **ליבה** · 25 עמ' ספר · כ-2 שיעורים · דרישות: M0.6, M1.1, M2.2, M1.2
 
 - ★ Principles of Modern Radar, עמ' PDF 727–749: 18.5–18.10: טווח, פאזה, דופלר, RCS, זווית, מערכות צירים
 - ★ Principles of Modern Radar, עמ' PDF 357–358: 9.5: מונופולס
 
 ### M2.40 חסם קרמר-ראו: הגבול התחתון לדיוק מדידה של השהיה, תדר וזווית
-*The Cramer-Rao bound and the accuracy of delay, frequency and angle estimates* · **ליבה** · 29 עמ' ספר · כ-2 שיעורים · דרישות: M2.14, M0.4
+*The Cramer-Rao bound and the accuracy of delay, frequency and angle estimates* · **ליבה** · 29 עמ' ספר · כ-2 שיעורים · דרישות: M2.14, M0.4, M2.12
 
 - ★ Hero, Statistical Methods for Signal Processing, EECS 564 notes (2016), עמ' PDF 83–111: 5.4–5.5: שערוך פרמטרים לא-אקראיים: MoM, ML, חסם קרמר-ראו סקלרי ומטריצי, ML וקטורי. את החסם להשהיה, לתדר ולזווית גוזרים בשיעור מ-PoMR 18.5–18.10 (Kay חסר), ומחברים ל-DOP ול-CEP
+
+### M2.20 מכ"ם CW ו-FMCW
+*CW and FMCW radar* · **ליבה** · 70 עמ' ספר · כ-5 שיעורים · דרישות: M2.7, M2.12
+
+- ★ Principles of Modern Radar, Vol. III: Radar Applications, עמ' PDF 42–111: כרך III, פרק 2
+
+### M2.21 מכ"ם גלים מילימטריים (MMW)
+*MMW radar* · **ליבה** · 30 עמ' ספר · כ-2 שיעורים · דרישות: M1.3, M2.20
+
+- ★ Principles of Modern Radar, Vol. III: Radar Applications, עמ' PDF 112–141: כרך III, פרק 3
 
 ### M2.15 עקיבה: מסנני קלמן, מודלי תנועה, שיוך
 *Tracking* · **ליבה** · 60 עמ' ספר + 15 עמ' מאמרים · כ-4 שיעורים · דרישות: M2.14
@@ -308,8 +319,23 @@
 - ★ Principles of Modern Radar, עמ' PDF 750–809: פרק 19
 - 📄 Arulampalam et al., A Tutorial on Particle Filters (2002) (כולו): מסנן חלקיקים
 
+### M2.23 מכ"ם מערך מופע רב-משימתי
+*Multifunction phased array radar* · **ליבה** · 34 עמ' ספר · כ-2 שיעורים · דרישות: M1.2, M2.15
+
+- ★ Principles of Modern Radar, Vol. III: Radar Applications, עמ' PDF 276–309: כרך III, פרק 6
+
+### M2.24 מכ"ם ביסטטי פסיבי
+*Passive bistatic radar* · **ליבה** · 44 עמ' ספר · כ-3 שיעורים · דרישות: M2.13
+
+- ★ Principles of Modern Radar, Vol. III: Radar Applications, עמ' PDF 524–567: כרך III, פרק 11
+
+### M2.30 אלומה ספרתית אדפטיבית וביטול משבשים
+*Adaptive digital beamforming* · **ליבה** · 52 עמ' ספר · כ-3 שיעורים · דרישות: M1.2, M2.9
+
+- ★ Principles of Modern Radar, Vol. II: Advanced Techniques, עמ' PDF 426–477: כרך II, פרק 9
+
 ### M2.16 מכ"ם מוטס: פולס-דופלר, GMTI ו-STAP
-*Airborne radar: pulse-Doppler, GMTI, STAP* · **ליבה** · 180 עמ' ספר + 179 עמ' מאמרים · כ-12 שיעורים · דרישות: M2.13, M1.2
+*Airborne radar: pulse-Doppler, GMTI, STAP* · **ליבה** · 180 עמ' ספר + 179 עמ' מאמרים · כ-12 שיעורים · דרישות: M2.13, M1.2, M2.30
 
 - ★ Principles of Modern Radar, Vol. III: Radar Applications, עמ' PDF 200–275: כרך III, פרק 5: מכ"ם פולס-דופלר מוטס
 - ★ Principles of Modern Radar, Vol. III: Radar Applications, עמ' PDF 408–455: כרך III, פרק 9: גילוי מטרות נעות על הקרקע (SMTI)
@@ -334,31 +360,17 @@
 
 - ★ Principles of Modern Radar, עמ' PDF 467–529: 12.3–12.5 ופרק 13: מבנה המעבד, FLOPS, מימוש
 
-### M2.20 מכ"ם CW ו-FMCW
-*CW and FMCW radar* · **ליבה** · 70 עמ' ספר · כ-5 שיעורים · דרישות: M2.7, M2.12
-
-- ★ Principles of Modern Radar, Vol. III: Radar Applications, עמ' PDF 42–111: כרך III, פרק 2
-
-### M2.21 מכ"ם גלים מילימטריים (MMW)
-*MMW radar* · **ליבה** · 30 עמ' ספר · כ-2 שיעורים · דרישות: M1.3, M2.20
-
-- ★ Principles of Modern Radar, Vol. III: Radar Applications, עמ' PDF 112–141: כרך III, פרק 3
-
 ### M2.22 מכ"ם בקרת אש
 *Fire-control radar* · **ליבה** · 58 עמ' ספר · כ-4 שיעורים · דרישות: M2.15, M2.14
 
 - ★ Principles of Modern Radar, Vol. III: Radar Applications, עמ' PDF 142–199: כרך III, פרק 4
 - ⚙ Ball, The Fundamentals of Aircraft Combat Survivability Analysis and Design, 2nd ed. (2003), עמ' PDF 398–418: 3.7: מבצעי האיום, שרשרת ההיתקלות
 
-### M2.23 מכ"ם מערך מופע רב-משימתי
-*Multifunction phased array radar* · **ליבה** · 34 עמ' ספר · כ-2 שיעורים · דרישות: M1.2, M2.15
+### M2.29 עקיבה מרובת מטרות ומיזוג חיישנים
+*Multitarget, multisensor tracking* · **ליבה** · 34 עמ' ספר + 13 עמ' מאמרים · כ-2 שיעורים · דרישות: M2.15
 
-- ★ Principles of Modern Radar, Vol. III: Radar Applications, עמ' PDF 276–309: כרך III, פרק 6
-
-### M2.24 מכ"ם ביסטטי פסיבי
-*Passive bistatic radar* · **ליבה** · 44 עמ' ספר · כ-3 שיעורים · דרישות: M2.13
-
-- ★ Principles of Modern Radar, Vol. III: Radar Applications, עמ' PDF 524–567: כרך III, פרק 11
+- ★ Principles of Modern Radar, Vol. II: Advanced Techniques, עמ' PDF 694–727: כרך II, פרק 15
+- 📄 Vo, Vo, Phung, Labeled RFS and the Bayes Multi-Target Tracking Filter (2014) (כולו): עקיבה מודרנית אחר מטרות מרובות (GLMB)
 
 ### M2.25 SAR מהחלל
 *Space-based SAR* · **מתקדם** · 68 עמ' ספר · כ-5 שיעורים · דרישות: M2.17
@@ -380,17 +392,6 @@
 
 - ★ Principles of Modern Radar, Vol. III: Radar Applications, עמ' PDF 616–659: כרך III, פרק 13
 - ★ Principles of Modern Radar, Vol. III: Radar Applications, עמ' PDF 716–803: כרך III, פרקים 15–16
-
-### M2.29 עקיבה מרובת מטרות ומיזוג חיישנים
-*Multitarget, multisensor tracking* · **ליבה** · 34 עמ' ספר + 13 עמ' מאמרים · כ-2 שיעורים · דרישות: M2.15
-
-- ★ Principles of Modern Radar, Vol. II: Advanced Techniques, עמ' PDF 694–727: כרך II, פרק 15
-- 📄 Vo, Vo, Phung, Labeled RFS and the Bayes Multi-Target Tracking Filter (2014) (כולו): עקיבה מודרנית אחר מטרות מרובות (GLMB)
-
-### M2.30 אלומה ספרתית אדפטיבית וביטול משבשים
-*Adaptive digital beamforming* · **ליבה** · 52 עמ' ספר · כ-3 שיעורים · דרישות: M1.2, M2.9
-
-- ★ Principles of Modern Radar, Vol. II: Advanced Techniques, עמ' PDF 426–477: כרך II, פרק 9
 
 ### M2.31 צורות גל מתקדמות לדחיסת פולס
 *Advanced pulse compression waveforms* · **מתקדם** · 68 עמ' ספר · כ-5 שיעורים · דרישות: M2.12
@@ -522,6 +523,14 @@
 
 - ★ Introduction to IR and EO Systems, עמ' PDF 561–572: פרק 16
 
+### M3.15 חתימות IR ורב-ספקטרליות
+*IR and multispectral signatures* · **מתקדם** · 81 עמ' ספר · כ-5 שיעורים · דרישות: M3.4, M3.10
+
+- ★ Introduction to IR and EO Systems, עמ' PDF 133–173: פרק 5: מקורות קרינה, מטרות ורקעים ב-IR וב-EO, ניגודיות
+- ★ Introduction to IR and EO Systems, עמ' PDF 178–200: פרק 6: אטמוספרה: העברה, בליעה, פיזור, path radiance
+- ★ Ball, The Fundamentals of Aircraft Combat Survivability Analysis and Design, 2nd ed. (2003), עמ' PDF 494–502: 4.3.2.2–4.3.2.4: חתימת IR, חזותית ושמיעתית
+- ★ Ball, The Fundamentals of Aircraft Combat Survivability Analysis and Design, 2nd ed. (2003), עמ' PDF 590–597: 4.4.4.2–4.4.4.5: הקטנת חתימת IR, חזותית, שמיעתית ואחרות
+
 ## חלק 4: לוחמה אלקטרונית
 
 ### M4.1 EW: מבוא, הגדרות ואיומים
@@ -571,7 +580,7 @@
 - ⚙ Ball, The Fundamentals of Aircraft Combat Survivability Analysis and Design, 2nd ed. (2003), עמ' PDF 569–579: 4.4.3: משבשי רעש והטעיה כאמצעי שרידות
 
 ### M4.8 שיבוש הטעיה: RGPO, VGPO, inverse gain, AGC, Cross-eye, DRFM
-*Deceptive jamming* · **ליבה** · 27 עמ' ספר + 78 עמ' מאמרים · כ-2 שיעורים · דרישות: M4.7, M2.14
+*Deceptive jamming* · **ליבה** · 27 עמ' ספר + 78 עמ' מאמרים · כ-2 שיעורים · דרישות: M4.7, M2.14, M2.15, M2.12
 
 - ★ EW 101, עמ' PDF 218–244: 9.5–9.9
 - 📄 du Plessis, Retrodirective Cross-Eye Jamming, PhD (2010), עמ' PDF 6–39: Cross-eye, פרקים 1–3: מבוא, רקע ומודל המונופולס
@@ -593,7 +602,7 @@
 - ⚙ Ball, The Fundamentals of Aircraft Combat Survivability Analysis and Design, 2nd ed. (2003), עמ' PDF 597–607: 4.4.5: אמצעים מתכלים
 
 ### M4.10 אמצעי נגד ב-IR והגנה עצמית
-*IR countermeasures and defensive aids* · **ליבה** · 29 עמ' ספר + 29 עמ' מאמרים · כ-2 שיעורים · דרישות: M3.10, M4.7
+*IR countermeasures and defensive aids* · **ליבה** · 29 עמ' ספר + 29 עמ' מאמרים · כ-2 שיעורים · דרישות: M3.10, M4.7, M6.6
 
 - ★ EW 102, עמ' PDF 99–106: 4.2–4.3: טילי IR וסורקי קו
 - ★ EW 102, עמ' PDF 118–123: 4.7: אמצעי נגד IR
@@ -614,7 +623,7 @@
 - ★ EW 102, עמ' PDF 150–171: 5.7–5.10: פריסת ספקטרום, שיבוש תקשורת ואיכון
 
 ### M4.12 קשרי לוויין ושיבושם
-*Satellite links and their jamming* · **ליבה** · 28 עמ' ספר · כ-2 שיעורים · דרישות: M1.4, M4.7
+*Satellite links and their jamming* · **ליבה** · 28 עמ' ספר · כ-2 שיעורים · דרישות: M1.4, M4.7, M13.10
 
 - ★ EW 102, עמ' PDF 208–235: פרק 7
 
@@ -648,28 +657,16 @@
 - ◇ Understanding GPS, עמ' PDF 666: 12.5: העברת זמן
 - ◇ Understanding GPS, עמ' PDF 670–672: 12.9: יישומים ממשלתיים וצבאיים
 
-### M5.2 מקטעי המערכת
-*System segments* · **מתקדם** · 46 עמ' ספר · כ-3 שיעורים · דרישות: M5.1
-
-- ★ Understanding GPS, עמ' PDF 83–128: פרק 3
-
 ### M5.3 אותות הלוויין
 *Satellite signals* · **ליבה** · 40 עמ' ספר · כ-3 שיעורים · דרישות: M5.1, M0.5
 
 - ★ Understanding GPS, עמ' PDF 129–168: פרק 4
 
 ### M5.4 המקלט: רכישה ולולאות עקיבה
-*Acquisition and tracking loops* · **ליבה** · 90 עמ' ספר · כ-6 שיעורים · דרישות: M5.3, M0.7
+*Acquisition and tracking loops* · **ליבה** · 90 עמ' ספר · כ-6 שיעורים · דרישות: M5.3, M0.7, M0.3
 
 - ★ Understanding GPS, עמ' PDF 169–246: 5.1–5.8
 - ◇ Understanding GPS, עמ' PDF 247–258: 5.9–5.14
-
-### M5.5 שיבוש, התחזות, רב-נתיביות ונצנוץ
-*Interference, spoofing, multipath* · **ליבה** · 58 עמ' ספר + 22 עמ' מאמרים · כ-4 שיעורים · דרישות: M5.4, M4.7
-
-- ★ Understanding GPS, עמ' PDF 259–316: פרק 6
-- 📄 Humphreys et al., Assessing the Spoofing Threat (2008) (כולו): בניית מתחזה
-- 📄 Liu, Lo, Walter, GNSS Interference Localization Using ADS-B (2022) (כולו): איכון משבש מנתוני ADS-B
 
 ### M5.6 ביצועים: שגיאות, DOP, שערוך PVT ואמינות
 *Stand-alone performance* · **ליבה** · 109 עמ' ספר · כ-7 שיעורים · דרישות: M5.4
@@ -681,11 +678,6 @@
 - ★ Riley, Handbook of Frequency Stability Analysis, NIST SP 1065 (2008), עמ' PDF 47–48: Riley 5.3: רווחי סמך
 - ★ Riley, Handbook of Frequency Stability Analysis, NIST SP 1065 (2008), עמ' PDF 53–57: Riley 5.5: זיהוי סוג הרעש
 
-### M5.7 GPS דיפרנציאלי
-*Differential GPS* · **מתקדם** · 80 עמ' ספר · כ-5 שיעורים · דרישות: M5.6
-
-- ★ Understanding GPS, עמ' PDF 395–474: פרק 8
-
 ### M5.8 ניווט אינרציאלי ושילוב עם GPS
 *INS and integration* · **ליבה** · 125 עמ' ספר · כ-8 שיעורים · דרישות: M5.6, M2.15
 
@@ -696,6 +688,40 @@
 - ★ Military Avionics Systems, עמ' PDF 332–346: 8.8–8.9
 - ◇ Missile Guidance and Control Systems, עמ' PDF 558–565: 7.3: ניתוח שגיאות ניווט של טיל שיוט
 - ◇ Military Avionics Systems, עמ' PDF 324–331: 8.7: עזרי ניווט: TACAN, VOR/DME, ILS
+
+### M5.11 ניווט בלי GPS: TERCOM ואותות הזדמנות
+*Alt-PNT* · **ליבה** · 25 עמ' ספר + 4 עמ' מאמרים · כ-2 שיעורים · דרישות: M5.8
+
+- ★ Missile Guidance and Control Systems, עמ' PDF 566–590: 7.4: TERCOM
+- 📄 Khalife, Neinavaie, Kassas, Starlink Carrier Phase Positioning (כולו): ניווט מאותות Starlink
+
+### M5.13 ניווט משולב בסביבה מוכחשת-GPS: INS הדוק, VIO, TERCOM/DSMAC ו-Factor Graphs
+*GPS-denied integrated navigation: tight INS, VIO, TERCOM/DSMAC, factor graphs* · **ליבה** · 368 עמ' ספר · כ-25 שיעורים · דרישות: M5.8, M5.11
+
+- ★ Military Avionics Systems, עמ' PDF 303–314: 8.1–8.5: עקרונות ניווט, ניווט רדיו, יסודות אינרציאלי, ניווט לווייני, ניווט משולב
+- ★ Military Avionics Systems, עמ' PDF 332–347: 8.8–8.9: ניווט אינרציאלי ו-GNSS כולל integrity
+- ★ Woodman, An Introduction to Inertial Navigation, Cambridge TR-696 (2007), עמ' PDF 8–27: 3–6: חיישנים ושגיאותיהם, Allan variance, ניווט strapdown והתפשטות שגיאה
+- ★ Woodman, An Introduction to Inertial Navigation, Cambridge TR-696 (2007), עמ' PDF 33–34: 8: הקטנת סחיפה: היתוך עם מיקום מוחלט ומגנטומטרים, הנחות תחום (ZUPT)
+- ★ On-Manifold Preintegration for Real-Time Visual-Inertial Odometry, עמ' PDF 1–21: כולו: preintegration של IMU על manifold, factor graph ל-VIO
+- ★ Absolute Positioning Using the Earth's Magnetic Anomaly Field (PhD dissertation), עמ' PDF 21–173: פרקים 1–4: מבוא וסקירת ספרות, רקע (שדה מגנטי, מפות, חיישנים, RBPF), תכנון המסנן, תוצאות ניסויי טיסה
+- ★ Factor Graphs for Robot Perception, עמ' PDF 1–144: כולו: גרפי גורמים והחלקה לניווט רב-חיישנים
+
+### M5.2 מקטעי המערכת
+*System segments* · **מתקדם** · 46 עמ' ספר · כ-3 שיעורים · דרישות: M5.1
+
+- ★ Understanding GPS, עמ' PDF 83–128: פרק 3
+
+### M5.5 שיבוש, התחזות, רב-נתיביות ונצנוץ
+*Interference, spoofing, multipath* · **ליבה** · 58 עמ' ספר + 22 עמ' מאמרים · כ-4 שיעורים · דרישות: M5.4, M4.7
+
+- ★ Understanding GPS, עמ' PDF 259–316: פרק 6
+- 📄 Humphreys et al., Assessing the Spoofing Threat (2008) (כולו): בניית מתחזה
+- 📄 Liu, Lo, Walter, GNSS Interference Localization Using ADS-B (2022) (כולו): איכון משבש מנתוני ADS-B
+
+### M5.7 GPS דיפרנציאלי
+*Differential GPS* · **מתקדם** · 80 עמ' ספר · כ-5 שיעורים · דרישות: M5.6
+
+- ★ Understanding GPS, עמ' PDF 395–474: פרק 8
 
 ### M5.9 מערכות GNSS אחרות: Galileo, GLONASS, BeiDou
 *Other GNSS* · **מתקדם** · 26 עמ' ספר · כ-2 שיעורים · דרישות: M5.3
@@ -712,12 +738,6 @@
 
 - ★ Understanding GPS, עמ' PDF 507–574: 9.3–9.4: חישוב מיקום מצטבר, התאמה למפה, A-GPS
 
-### M5.11 ניווט בלי GPS: TERCOM ואותות הזדמנות
-*Alt-PNT* · **ליבה** · 25 עמ' ספר + 4 עמ' מאמרים · כ-2 שיעורים · דרישות: M5.8
-
-- ★ Missile Guidance and Control Systems, עמ' PDF 566–590: 7.4: TERCOM
-- 📄 Khalife, Neinavaie, Kassas, Starlink Carrier Phase Positioning (כולו): ניווט מאותות Starlink
-
 ### M5.12 עיבוד נתוני GNSS (ESA TM-23): מודלי מדידה, פתרון משוואות הניווט ומעבדת gLAB
 *GNSS data processing (ESA TM-23): measurement models, navigation solution, gLAB laboratory (reference)* · **עיון** · 499 עמ' ספר · כ-33 שיעורים
 
@@ -726,6 +746,15 @@
 - ★ ESA TM-23, GNSS Data Processing, Vol. I: Fundamentals and Algorithms (2013), עמ' PDF 201–214: כרך I, נספחים C–F
 - ★ ESA TM-23, GNSS Data Processing, Vol. II: Laboratory Exercises (2013), עמ' PDF 9–330: כרך II: תרגילי מעבדה ב-gLAB עם נתוני IGS: מסלולים ושעונים, ניתוח מדידות, מודלים ומיקום
 
+### M5.14 ניווט באותות הזדמנות ושעונים אטומיים ניידים
+*Signals of opportunity (LEO PNT, cellular, celestial) and portable atomic clocks* · **ליבה** · 488 עמ' ספר · כ-33 שיעורים · דרישות: M5.6, M5.11
+
+- ★ Khalife, Neinavaie, Kassas, Starlink Carrier Phase Positioning, עמ' PDF 1–4: כל המאמר: מיקום מפאזת הגל הנושא של Starlink
+- ★ Riley, Handbook of Frequency Stability Analysis, NIST SP 1065 (2008), עמ' PDF 11–31: 1–5.2.10: יציבות תדר, מודל רעש, Allan ווריאנסים נגזרים, חיזוי שגיאת זמן (holdover)
+- ★ Riley, Handbook of Frequency Stability Analysis, NIST SP 1065 (2008), עמ' PDF 43–46: 5.2.17–5.2.20: MTIE, TIE rms, jitter
+- ★ Riley, Handbook of Frequency Stability Analysis, NIST SP 1065 (2008), עמ' PDF 66–67: 5.18–5.19: היסט וסחיפת תדר
+- ★ Complementary PNT and GPS Backup Technologies Demonstration Report (Sections 1 through 10), עמ' PDF 1–457: סעיפים 1–10 (כל הקובץ): רקע ואיומים על GPS, מבנה ההדגמה, ספקים וטכנולוגיות (LEO, סלולר, eLoran, שעונים, כוכבים), תרחישי מיקום וזמן, תוצאות
+
 ## חלק 6: טילים: דינמיקה, הנחיה ובקרה
 
 ### M6.1 מערכות צירים ומשוואות תנועה של גוף קשיח
@@ -733,12 +762,6 @@
 
 - ★ Missile Guidance and Control Systems, עמ' PDF 16–29: פרק 1
 - ★ Missile Guidance and Control Systems, עמ' PDF 30–67: פרק 2
-
-### M6.2 אווירודינמיקה, מודל הטיל וטייס אוטומטי
-*Aerodynamics, missile model, autopilots* · **ליבה** · 72 עמ' ספר · כ-5 שיעורים · דרישות: M6.1, M0.7
-
-- ★ Missile Guidance and Control Systems, עמ' PDF 68–113: 3.1–3.3
-- ★ Missile Guidance and Control Systems, עמ' PDF 144–169: 3.5–3.6: טייסים אוטומטיים
 
 ### M6.3 שלבי ההנחיה ושיטות יירוט
 *Guidance phases and intercept techniques* · **ליבה** · 30 עמ' ספר · כ-2 שיעורים · דרישות: M6.1
@@ -772,7 +795,7 @@
 - ★ Air and Missile Defense Systems Engineering, עמ' PDF 257–263: 9.3: מקורות רעש בראש ביות: ברק (glint), כיפה
 
 ### M6.7 מסירת חימוש: בעיית ההפצצה, דיוק ומעטפת שיגור
-*Weapon delivery* · **ליבה** · 106 עמ' ספר · כ-7 שיעורים · דרישות: M6.1
+*Weapon delivery* · **ליבה** · 106 עמ' ספר · כ-7 שיעורים · דרישות: M6.1, M11.1, M11.4
 
 - ★ Missile Guidance and Control Systems, עמ' PDF 284–379: פרק 5
 - ★ Military Avionics Systems, עמ' PDF 356: 9.1: מבוא לנשיאת חימוש
@@ -781,10 +804,16 @@
 - ⚙ Przemieniecki, Mathematical Methods in Defense Analyses, 3rd ed. (2000), עמ' PDF 55–62: 3.7: CEP והשמדת מטרה נקודתית
 
 ### M6.8 טילים בליסטיים: שני גופים, למברט, כניסה חוזרת
-*Ballistic missiles* · **ליבה** · 139 עמ' ספר · כ-9 שיעורים · דרישות: M6.1
+*Ballistic missiles* · **ליבה** · 139 עמ' ספר · כ-9 שיעורים · דרישות: M6.1, M13.4, M13.12
 
 - ★ Missile Guidance and Control Systems, עמ' PDF 380–518: 6.1–6.8
 - ⚙ Przemieniecki, Mathematical Methods in Defense Analyses, 3rd ed. (2000), עמ' PDF 164–185: 6.1–6.3: הגנה בשכבות, MIRV ותורת המשחקים ב-ABM
+
+### M6.2 אווירודינמיקה, מודל הטיל וטייס אוטומטי
+*Aerodynamics, missile model, autopilots* · **ליבה** · 72 עמ' ספר · כ-5 שיעורים · דרישות: M6.1, M0.7
+
+- ★ Missile Guidance and Control Systems, עמ' PDF 68–113: 3.1–3.3
+- ★ Missile Guidance and Control Systems, עמ' PDF 144–169: 3.5–3.6: טייסים אוטומטיים
 
 ### M6.9 דואה היפרסונית
 *Hypersonic boost-glide* · **ליבה** · 29 עמ' מאמרים · כ-2 שיעורים · דרישות: M6.8
@@ -792,7 +821,7 @@
 - 📄 Acton, Hypersonic Boost-Glide Weapons, SGS (2015) (כולו)
 
 ### M6.10 טילי שיוט
-*Cruise missiles* · **ליבה** · 35 עמ' ספר · כ-2 שיעורים · דרישות: M6.2
+*Cruise missiles* · **ליבה** · 35 עמ' ספר · כ-2 שיעורים · דרישות: M6.2, M5.8
 
 - ★ Missile Guidance and Control Systems, עמ' PDF 536–557: 7.1–7.2
 - ◇ Missile Guidance and Control Systems, עמ' PDF 591–603: 7.5: GPS בטיל שיוט
@@ -815,6 +844,23 @@
 
 - ★ Fleeman, Tactical Missile Design (2001), עמ' PDF 237–262: פרקים 8–9
 - ◇ Fleeman, Tactical Missile Design (2001), עמ' PDF 263–286: נספחים: תרגילים, מקרי תכן וטבלאות
+
+### M6.15 הנעת טילים: מנוע רקטי מוצק, ראמג'ט וסקרמג'ט
+*Missile propulsion: solid motors, ramjet, scramjet* · **ליבה** · 248 עמ' ספר · כ-17 שיעורים · דרישות: M6.2, M6.12
+
+- ★ E39, עמ' PDF 168–176: 5.3: הרמג'ט
+- ★ E39, עמ' PDF 270–277: 6.5–6.6: תאי בעירה של רמג'ט ובעירה על-קולית (סקרמג'ט)
+- ★ E39, עמ' PDF 526–571: פרק 11: תאי דחף של רקטות כימיות: ביצועים, נחירים, מעבר חום
+- ★ E39, עמ' PDF 582–620: פרק 12: בעירה ברקטות כימיות: הנעה נוזלית ומוצקה, תאי בעירה מוצקים, אי-יציבות בעירה
+- ★ Fleeman, Tactical Missile Design (2001), עמ' PDF 78–107: פרק 3: שיקולי הנעה: חלופות, רמג'ט (Isp, דחף, מבוא, booster), מנוע מוצק: גרעין, בקרת דחף, חומרי הנעה, מעטפת, נחיר
+- ★ NASA SP-8076, Solid Propellant Grain Design and Internal Ballistics, עמ' PDF 1–116: כולו (סריקה; הרלוונטי במיוחד: burn rate, grain geometry, chamber pressure, internal ballistics)
+
+### M6.16 איומים היפרסוניים וההגנה מפניהם
+*Hypersonic threats and their defense* · **ליבה** · 98 עמ' ספר · כ-7 שיעורים · דרישות: M6.9, M7.6, M2.29
+
+- ★ Acton, Hypersonic Boost-Glide Weapons, SGS (2015), עמ' PDF 1–25: כל המאמר: מודל דאייה, ניסויי HTV-2, השלכות להגנה ויציבות אסטרטגית (בלי הערות ומקורות)
+- ★ Modeling the Performance of Hypersonic Boost-Glide Missiles, עמ' PDF 1–36: כולו
+- ★ Hypersonic Weapons: Background and Issues for Congress (R45811), עמ' PDF 1–37: הדוח כולו
 
 ### M6.14 Zarchan: שאר הפרקים: קווריאנס וקלמן בלולאת הביות, הנחיה אסטרטגית, בקרת טיסה ויירוט בשלב ההאצה
 *Zarchan: remaining chapters (reference)* · **עיון** · 869 עמ' ספר · כ-58 שיעורים
@@ -855,7 +901,7 @@
 - ⚙ Przemieniecki, Mathematical Methods in Defense Analyses, 3rd ed. (2000), עמ' PDF 164–173: 6.1–6.2: הגנה בשכבות
 
 ### M7.4 ניתוחי פשרות והקצאת דרישות, מטחים, מלאי מיירטים ויחס עלויות
-*Trades and allocation + raids, magazines and cost-exchange* · **ליבה** · 36 עמ' ספר · כ-2 שיעורים · דרישות: M7.3
+*Trades and allocation + raids, magazines and cost-exchange* · **ליבה** · 36 עמ' ספר · כ-2 שיעורים · דרישות: M7.3, M11.4, M14.1
 
 - ★ Air and Missile Defense Systems Engineering, עמ' PDF 192–227: פרקים 7–8
 - ⚙ Przemieniecki, Mathematical Methods in Defense Analyses, 3rd ed. (2000), עמ' PDF 304–319: פרק 11: שיטות אופטימיזציה
@@ -940,7 +986,140 @@
 
 - ★ JP 3-60 Joint Targeting (2013), עמ' PDF 31–66: פרק II: ששת שלבי המחזור, F2T2EA בשלב 5, מטרות רגישות לזמן, והקשר בין מטרות לאפקטים. מודל JDL להתכת מידע (Liggins, Hall & Llinas) חסר: המורה מלמד אותו מהידע שלו, עם רמת ודאות
 
+### M7.12 היתוך רב-חיישני ותמונת מצב משותפת
+*Multisensor fusion and the common operating picture* · **ליבה** · 256 עמ' ספר · כ-17 שיעורים · דרישות: M2.29, M5.8
+
+- ★ Design and Analysis of Modern Tracking Systems, עמ' PDF 361–471: פרק 8: Attribute data fusion: היתוך זהות (Bayes, Dempster-Shafer, evidential reasoning) ל-identity fusion
+- ★ Design and Analysis of Modern Tracking Systems, עמ' PDF 472–536: פרק 9: Multiple sensor tracking: central/sensor-level, distributed, track-to-track association וקורלציית שגיאות
+- ★ Design and Analysis of Modern Tracking Systems, עמ' PDF 537–611: פרק 10: System implementation: registration ו-bias estimation (10.5), angle-only ו-heterogeneous sensor fusion
+- ★ Principles of Modern Radar, Vol. II: Advanced Techniques, עמ' PDF 716–720: 15.3: עקיבה רב-חיישנית: ארכיטקטורות היתוך, היתוך מדידות ומסלולים
+
+### M7.13 שו"ב וניהול קרב, אוטומציה של שרשרת האש וצוות אדם-מכונה
+*C2 and battle management, kill-chain automation, human-machine teaming* · **ליבה** · 339 עמ' ספר · כ-23 שיעורים · דרישות: M7.11, M7.12
+
+- ★ Air and Missile Defense Systems Engineering, עמ' PDF 71–78: 5.2–5.3: דרישות פונקציונליות של ארכיטקטורת ההגנה והקצאת פונקציות למערכות (BMC)
+- ★ Air and Missile Defense Systems Engineering, עמ' PDF 118–127: 6.3–6.4: הערכת מרחב הקרב וניתוח היירוט
+- ★ Understanding Command and Control, עמ' PDF 1–255: כולו
+- ★ The Role of Autonomy in DoD Systems, עמ' PDF 31–77: פרק 3 (בעיות טכניות של אוטונומיה, עמ' 31-65) ופרק 4 (בעיות רכש, עמ' 66-77)
+- ★ Joint All-Domain Command and Control: Background and Issues for Congress (R46725), עמ' PDF 1–19: כל הדו"ח: JADC2, ארכיטקטורת C2, בינה מלאכותית בהחלטות C2, סוגיות לקונגרס
+
+### M7.14 ניסוי והערכה: סטטיסטיקה בפועל
+*Test and evaluation: statistics in practice* · **ליבה** · 727 עמ' ספר · כ-48 שיעורים · דרישות: M7.10, M0.4
+
+- ★ NIST/SEMATECH e-Handbook of Statistical Methods (chapters 5, 7, 8 only), עמ' PDF 1–442: פרק 5: DOE למבחן מבצעי, עמ' 28-141 ו-192-375 בעיקר
+- ★ NIST/SEMATECH e-Handbook of Statistical Methods (chapters 5, 7, 8 only), עמ' PDF 599–808: פרק 8: אמינות, הדגמה וצמיחה
+- ★ Statistics, Testing, and Defense Acquisition: New Approaches and Methodological Improvements, עמ' PDF 52–126: פרקים 3–6: פרדיגמה חדשה לבדיקה והערכה (52–70), שדרוג שיטות סטטיסטיות (71–82), תכנון בדיקות מבצעיות (83–110), ניתוח ודיווח תוצאות (111–126)
+
+### M7.15 דיני לחימה, בדיקת חוקיות נשק, מדיניות אוטונומיה ופיקוח על יצוא
+*Law of armed conflict, weapons review, autonomy policy, export control* · **ליבה** · 342 עמ' ספר · כ-23 שיעורים · דרישות: M7.13
+
+- ★ JP 3-60 Joint Targeting (2013), עמ' PDF 87–94: נספח A: שיקולים משפטיים במטרות (דיני מלחמה, ROE, מידתיות)
+- ★ JP 3-60 Joint Targeting (2013), עמ' PDF 45–46: II, שלב 3 (חלק): weaponeering ו-CDE
+- ★ DoDD 3000.09 Autonomy in Weapon Systems (2012 text + 2023 policy analyses), עמ' PDF 1–15: נוסח הנחיה 3000.09 מ-2012 (לא ה-2023): הגדרות, דרישות סקירה בכירה
+- ★ DoDD 3000.09 Autonomy in Weapon Systems (2012 text + 2023 policy analyses), עמ' PDF 16–18: CRS Defense Primer (מאי 2023): מדיניות ארה"ב ב-LAWS, תיאור הנוסח המעודכן 2023
+- ★ DoDD 3000.09 Autonomy in Weapon Systems (2012 text + 2023 policy analyses), עמ' PDF 19–27: סקירת Harvard HRC של מדיניות 2023: הבדלים מול 2012, פערים לגבי meaningful human control
+- ★ Department of Defense Law of War Manual, עמ' PDF 226–377: פרק V The Conduct of Hostilities: עקרונות מטרה, proportionality, precautions
+- ★ Department of Defense Law of War Manual, עמ' PDF 378–474: פרק VI Weapons: weapons review, אמנות נשק ספציפיות
+- ★ Defense Export Control Law, 5766-2007 (unofficial English translation), עמ' PDF 1–32: החוק כולו (תרגום לא רשמי באנגלית): פרקים A מטרה, B הגדרות, C רישום יצואנים, D רישוי ועוד
+- ★ DoD Directive 3000.09 Autonomy in Weapon Systems (25.1.2023), עמ' PDF 1–24: נוסח 2023 המלא של DoDD 3000.09: מדיניות, 'רמות מתאימות של שיפוט אנושי', סקירה בכירה, הגדרות, נספח הנחיות
+
+### M7.16 C-RAM: יירוט רקטות, ארטילריה ומרגמות
+*C-RAM* · **מתקדם** · 67 עמ' ספר · כ-4 שיעורים · דרישות: M7.5, M2.22
+
+- ★ Air and Missile Defense Systems Engineering, עמ' PDF 55–66: 4.4: מדדי יעילות: זמן תגובה, ציר זמן יירוט, עוצמת אש, עמידות לחדירה, כיסוי רציף
+- ★ Air and Missile Defense Systems Engineering, עמ' PDF 118–127: 6.3–6.4: הערכת מרחב הקרב וניתוח היירוט
+- ★ Israel's Air and Missile Defense During the 2014 Gaza War (Mideast Security and Policy Studies 111), עמ' PDF 1–45: כולו
+
+### M7.17 לייזר רב-עוצמה (HEL): התפשטות בטורבולנציה, Thermal Blooming, אופטיקה אדפטיבית ו-ATP
+*High-energy lasers: beam propagation in turbulence, thermal blooming, adaptive optics, ATP, laser-material* · **ליבה** · 193 עמ' ספר · כ-13 שיעורים · דרישות: M7.6, M3.5, M3.13
+
+- ★ Introduction to IR and EO Systems, עמ' PDF 181–193: 6.2–6.7: העברה אטמוספרית, בליעה, פיזור, טורבולנציה ו-MTF אטמוספרי
+- ★ Effects of Directed Energy Weapons, עמ' PDF 26–53: פרק 1: עקרונות בסיס (fluence, קריטריוני נזק)
+- ★ Effects of Directed Energy Weapons, עמ' PDF 106–230: פרק 3: לייזרים — דיפרקציה, בליעה, טורבולנציה ו-adaptive optics, thermal blooming, air breakdown, אינטראקציית לייזר-חומר
+- ★ Department of Defense Directed Energy Weapons: Background and Issues for Congress (R46925), עמ' PDF 1–27: כולו: סקירת נשק אנרגיה מכוונת (HEL ו-HPM), מפת הדרכים של DoD, תוכניות חיל האוויר, היבשה והים (DE M-SHORAD, IFPC-HEL, HELIOS) ושאלות לקונגרס. הערה: דו״ח מדיניות, לא מכסה פיזיקת התפשטות קרן
+
+### M7.18 מיקרוגל רב-עוצמה (HPM): מקורות, צימוד ומודל Wunsch-Bell
+*High-power microwaves: sources, front/back-door coupling, Wunsch-Bell* · **ליבה** · 122 עמ' ספר · כ-8 שיעורים · דרישות: M1.1, M7.1
+
+- ★ Effects of Directed Energy Weapons, עמ' PDF 26–53: פרק 1: עקרונות בסיס
+- ★ Effects of Directed Energy Weapons, עמ' PDF 231–285: פרק 4: מיקרוגל — התפשטות, breakdown, נזק in-band/out-of-band (front/back door, Wunsch-Bell)
+- ★ MIL-STD-461G (pp 1-280) and MIL-STD-464C (pp 281-445) bundled, עמ' PDF 309–310: 464C סעיף 5.6: דרישות EMP
+- ★ MIL-STD-461G (pp 1-280) and MIL-STD-464C (pp 281-445) bundled, עמ' PDF 379–385: 464C נספח A.5.6: הסבר EMP/HEMP
+- ★ MIL-STD-461G (pp 1-280) and MIL-STD-464C (pp 281-445) bundled, עמ' PDF 404–411: 464C נספח A.5.9: קרינה אלקטרומגנטית מסוכנת (HERO/HERF)
+- ★ MIL-STD-461G (pp 1-280) and MIL-STD-464C (pp 281-445) bundled, עמ' PDF 152–173: 461G: RS103 ו-RS105 (שדה חשמלי ושדה חולף), כרקע לצימוד ולחסינות
+
+## חלק 15: ארכיטקטורת מערכות, קשר וסייבר-ספקטרום
+
+### M15.1 ארכיטקטורת אוויוניקה ווטרוניקה ואפיקי נתונים: MIL-STD-1553, ARINC 429, SpaceWire ו-TSN
+*Avionics and vetronics buses: MIL-STD-1553, ARINC 429, SpaceWire, TSN* · **ליבה** · 160 עמ' ספר · כ-11 שיעורים · דרישות: M7.9
+
+- ★ Military Avionics Systems, עמ' PDF 71–106: 2.1–2.5: התפתחות ארכיטקטורות (federated, IMA), ARINC 429, MIL-STD-1553B, STANAG 3910, JIAWG, אפיקי COTS, RTOS
+- ★ ECSS-E-ST-50-12C Rev.1, SpaceWire: Links, Nodes, Routers and Networks, עמ' PDF 1–124: התקן כולו; רלוונטי ישירות לתת-נושא SpaceWire (פרקים 4 סקירה, 5 דרישות: שכבות פיזית/קידוד/ערוץ/רשת, ניתוב). לא מכסה 1553/ARINC 429/AFDX/TSN
+
+### M15.2 רשתות טקטיות ו-MANET
+*Tactical networks and MANET* · **ליבה** · 182 עמ' ספר · כ-12 שיעורים · דרישות: M7.9, M4.11
+
+- ★ E34, עמ' PDF 472–487: 6.3: פרוטוקולי גישה מרובה (MAC)
+- ★ E34, עמ' PDF 543–573: 7.1–7.3: קישורים אלחוטיים, רשתות אד-הוק, WLAN 802.11
+- ★ E34, עמ' PDF 589–597: 7.5: עקרונות ניהול ניידות
+- ★ IETF RFC 3561 (AODV), RFC 3626 (OLSR), RFC 4838 (DTN architecture), עמ' PDF 1–32: RFC 3561 AODV: ניתוב ריאקטיבי (ניתוב לפי דרישה)
+- ★ IETF RFC 3561 (AODV), RFC 3626 (OLSR), RFC 4838 (DTN architecture), עמ' PDF 33–96: RFC 3626 OLSR: ניתוב פרואקטיבי, MPR
+- ★ IETF RFC 3561 (AODV), RFC 3626 (OLSR), RFC 4838 (DTN architecture), עמ' PDF 97–126: RFC 4838: ארכיטקטורת רשתות עמידות להשהיה (DTN, bundle)
+
+### M15.3 קישורי נתונים טקטיים: Link 16 לעומק, VMF, MADL ופרוטוקולי נחילים
+*Tactical datalinks: Link 16 in depth, VMF, MADL (open level), swarm protocols* · **ליבה** · 116 עמ' ספר · כ-8 שיעורים · דרישות: M15.2
+
+- ★ SISO-STD-002-2021, Standard for Link 16 Simulation, עמ' PDF 14–19: 3: הגדרות (NPG, חריצי זמן, JU ועוד)
+- ★ SISO-STD-002-2021, Standard for Link 16 Simulation, עמ' PDF 20–43: 4.1–4.2: מאפייני הפעלה של JTIDS, רמות נאמנות, סנכרון זמן, מימוש ב-DIS
+- ★ SISO-STD-002-2021, Standard for Link 16 Simulation, עמ' PDF 69–88: נספח B.2: נתוני Link 16, כותרות והודעות JTIDS, RTT, קול, VMF
+- ★ Gonzales et al., Air-to-Air Combat With and Without Link 16, RAND MG-268, עמ' PDF 18–35: תקציר
+- ★ Gonzales et al., Air-to-Air Combat With and Without Link 16, RAND MG-268, עמ' PDF 40–49: פרק 1: מבוא ומסגרת NCO
+- ★ Gonzales et al., Air-to-Air Combat With and Without Link 16, RAND MG-268, עמ' PDF 58–75: פרקים 3–5: מאפייני הכוח, איכות מידע אורגני ומידת הרישות
+- ★ Gonzales et al., Air-to-Air Combat With and Without Link 16, RAND MG-268, עמ' PDF 102–121: פרקים 10–11: קבלת החלטות, הקשר ליעילות המשימה ומסקנות
+
+### M15.5 פעילות סייבר-אלקטרומגנטית (CEMA): משטח התקיפה של קישורי RF וההגנה עליו
+*Cyber-electromagnetic activity (CEMA): attack surface of RF links and its defense* · **ליבה** · 250 עמ' ספר · כ-17 שיעורים · דרישות: M15.3, M4.11
+
+- ★ E34, עמ' PDF 619–620: 8.1: מהי אבטחת רשת, מודל התוקף
+- ★ E34, עמ' PDF 635–649: 8.3–8.4: שלמות הודעה, MAC, חתימות ואימות נקודת קצה
+- ★ E34, עמ' PDF 670–689: 8.8–8.9: אבטחת WLAN ו-4G/5G, חומות אש ו-IDS
+- ★ FM 3-12, Cyberspace Operations and Electromagnetic Warfare, עמ' PDF 1–162: כולו
+- ★ GAO-19-128, Weapon Systems Cybersecurity: DOD Just Beginning to Grapple with Scale of Vulnerabilities, עמ' PDF 1–51: כל הדוח
+
+### M15.6 שילוב בפלטפורמה: EMC/EMI והפרעות Co-site
+*Platform integration: EMC/EMI and co-site interference* · **ליבה** · 506 עמ' ספר · כ-34 שיעורים · דרישות: M1.6, M15.1
+
+- ★ Introduction to Electromagnetic Compatibility, עמ' PDF 73–114: פרק 2: דרישות EMC, כולל מוצרים צבאיים ובדיקות (MIL-STD-461 ברמת מבוא)
+- ★ Introduction to Electromagnetic Compatibility, עמ' PDF 401–444: פרק 6: Conducted emissions ו-susceptibility
+- ★ Introduction to Electromagnetic Compatibility, עמ' PDF 490–509: 7.5–7.6: Friis, השפעת החזרות (צימוד אנטנות)
+- ★ Introduction to Electromagnetic Compatibility, עמ' PDF 527–582: פרק 8: Radiated emission/susceptibility
+- ★ Introduction to Electromagnetic Compatibility, עמ' PDF 737–882: פרקים 10–11: shielding ו-system design. הספר אינו כולל MIL-STD-464C, co-site, HERO
+- ★ MIL-STD-461G (pp 1-280) and MIL-STD-464C (pp 281-445) bundled, עמ' PDF 41–173: 461G פרקים 5.4-5.22: מבחני CE/CS/RE/RS ברמת תת-מערכת
+- ★ MIL-STD-461G (pp 1-280) and MIL-STD-464C (pp 281-445) bundled, עמ' PDF 298–321: 464C סעיפים 5.1-5.14: שוליים, EMC פנים-מערכתי, HERO, EMC בין-מערכתי
+- ★ MIL-STD-461G (pp 1-280) and MIL-STD-464C (pp 281-445) bundled, עמ' PDF 339–371: 464C נספח A.5.2: EMC פנים-מערכתי, הצבת אנטנות וצימוד פלטפורמה
+- ★ MIL-STD-461G (pp 1-280) and MIL-STD-464C (pp 281-445) bundled, עמ' PDF 404–411: 464C נספח A.5.9: HERO
+
+### M15.8 ארכיטקטורה פתוחה ותווכה במערכות לחימה: DDS, ממשקים בבעלות הלקוח וקונווי בתוכניות
+*Open architecture and middleware in combat systems: DDS, government-owned interfaces, Conway in programs* · **ליבה** · 82 עמ' ספר · כ-5 שיעורים · דרישות: M15.1, M7.10
+
+- ★ Middleware standards, core sections: OMG DDS 1.4 (overview, design rationale, QoS); OASIS MQTT 5.0 (introduction, operational behavior, security), עמ' PDF 1–37: DDS 1.4: רציונל ו-QoS
+- ★ Architecture and organization classics: Conway 1968; Parnas 1972; Brooks, No Silver Bullet 1986; Ulrich 1995; MacCormack, Rusnak & Baldwin, mirroring 2008, עמ' PDF 1–4: Conway 1968
+- ◇ Architecture and organization classics: Conway 1968; Parnas 1972; Brooks, No Silver Bullet 1986; Ulrich 1995; MacCormack, Rusnak & Baldwin, mirroring 2008, עמ' PDF 62–102: השערת השיקוף (MacCormack, Rusnak & Baldwin)
+
+### M15.4 AI טקטי בלולאה סגורה: ATR על SoC/FPGA/GPU ותקציבי השהיה
+*Tactical edge AI in the loop: ATR on SoC/FPGA/GPU, latency budgets* · **ליבה** · 76 עמ' ספר · כ-5 שיעורים · דרישות: M15.1
+
+- ★ Quantization and Training of NNs for Integer-Arithmetic-Only Inference; Towards Deep Learning Models Resistant to Adversarial Attacks; Benchmarking NN Robustness to Common Corruptions, עמ' PDF 15–42: Madry et al.
+- ★ Quantization and Training of NNs for Integer-Arithmetic-Only Inference; Towards Deep Learning Models Resistant to Adversarial Attacks; Benchmarking NN Robustness to Common Corruptions, עמ' PDF 43–58: Hendrycks & Dietterich
+- ★ Efficient Processing of Deep Neural Networks: A Tutorial and Survey, עמ' PDF 1–32: כולו
+
 ## חלק 8: פלטפורמות אוויר ואוויוניקה
+
+### M8.4 CNI: משדרים-משיבים ו-IFF
+*Transponders and IFF* · **ליבה** · 9 עמ' ספר · כ-1 שיעורים
+
+- ★ Military Avionics Systems, עמ' PDF 279–280: 7.1
+- ★ Military Avionics Systems, עמ' PDF 288–294: 7.3
 
 ### M8.1 תפקידים של מטוסי קרב ופלטפורמות
 *Military air roles* · **ליבה** · 25 עמ' ספר · כ-2 שיעורים
@@ -969,12 +1148,6 @@
 - ◇ Missile Guidance and Control Systems, עמ' PDF 368–374: 5.16: מעטפת שיגור
 - ⚙ Przemieniecki, Mathematical Methods in Defense Analyses, 3rd ed. (2000), עמ' PDF 134–141: 5.1–5.2: דו-קרב רציף ודו-קרב תלוי זמן
 
-### M8.4 CNI: משדרים-משיבים ו-IFF
-*Transponders and IFF* · **ליבה** · 9 עמ' ספר · כ-1 שיעורים
-
-- ★ Military Avionics Systems, עמ' PDF 279–280: 7.1
-- ★ Military Avionics Systems, עמ' PDF 288–294: 7.3
-
 ### M8.5 תצוגות: HUD ו-HMD
 *Displays* · **עיון** · 71 עמ' ספר · כ-5 שיעורים
 
@@ -995,7 +1168,7 @@
 - ⚙ Ball, The Fundamentals of Aircraft Combat Survivability Analysis and Design, 2nd ed. (2003), עמ' PDF 720–762: 5.4: הפחתת פגיעות, יתירות והפרדה
 
 ### M8.8 שרידות כלי טיס (Ball): חשיפה, פגיעוּת, עצי השבתה, שחיקה במשימה ובמערכה, שיעורי אבדות היסטוריים
-*Combat survivability (Ball): susceptibility, vulnerability, kill trees, mission and campaign attrition, historical loss rates* · **ליבה** · 289 עמ' ספר · כ-19 שיעורים · דרישות: M0.4, M2.4, M11.4
+*Combat survivability (Ball): susceptibility, vulnerability, kill trees, mission and campaign attrition, historical loss rates* · **ליבה** · 289 עמ' ספר · כ-19 שיעורים · דרישות: M0.4, M2.4, M11.4, M11.3
 
 - ★ Ball, The Fundamentals of Aircraft Combat Survivability Analysis and Design, 2nd ed. (2003), עמ' PDF 25–105: 1.1: יסודות השרידות, P_S = 1 − P_H·P_K|H, שרידות במערכה
 - ★ Ball, The Fundamentals of Aircraft Combat Survivability Analysis and Design, 2nd ed. (2003), עמ' PDF 106–141: 1.2: שיעורי אבדות היסטוריים
@@ -1012,7 +1185,24 @@
 *Air campaign capacity: sortie generation, basing and air-base resilience, tankers* · **ליבה** · 0 עמ' מאמרים · כ-1 שיעורים · דרישות: M8.8, M9.2
 
 
+### M8.10 תכן מטוסי קרב
+*Combat aircraft design* · **מתקדם** · 251 עמ' ספר · כ-17 שיעורים · דרישות: M8.1, M8.8
+
+- ★ Aircraft Design: A Conceptual Approach, עמ' PDF 13–84: פרקים 3–7: Sizing from a conceptual sketch (fuel fraction, takeoff weight), airfoil/geometry, T/W ו-W/S (constraint), initial sizing, configuration layout. הערה: כל עמוד PDF הוא דף כפול
+- ★ Aircraft Design: A Conceptual Approach, עמ' PDF 85–98: פרק 8: Special considerations, כולל Radar/IR detectability (חמקנות) ו-vulnerability
+- ★ Aircraft Design: A Conceptual Approach, עמ' PDF 104–122: פרק 10: Propulsion and fuel system integration (בחירת מנוע, jet integration)
+- ★ Aircraft Design: A Conceptual Approach, עמ' PDF 174–206: פרק 14: Structures and loads
+- ★ Aircraft Design: A Conceptual Approach, עמ' PDF 237–265: פרקים 17–18: Performance and flight mechanics (כולל Energy-maneuverability 17.6) ו-Cost analysis (18.4 RDT&E)
+- ★ Ball, The Fundamentals of Aircraft Combat Survivability Analysis and Design, 2nd ed. (2003), עמ' PDF 475–502: 4.3.2: חתימות כלי הטיס
+- ★ Ball, The Fundamentals of Aircraft Combat Survivability Analysis and Design, 2nd ed. (2003), עמ' PDF 561–616: 4.4: תכנון לחשיפה נמוכה: התרעה, שיבוש, הקטנת חתימה, אמצעים מתכלים, דיכוי, טקטיקה
+
 ## חלק 9: כטב"מים, רחפנים והגנה מפניהם
+
+### M9.2 הכלי: ביצועים, הנעה ומבנה
+*Air vehicle performance and propulsion* · **ליבה** · 19 עמ' ספר · כ-1 שיעורים · דרישות: M6.2
+
+- ★ Introduction to UAV Systems, עמ' PDF 104–111: 4.2–4.4: שיוט, טווח ושהייה (דלתא מול גילואה)
+- ★ Introduction to UAV Systems, עמ' PDF 152–162: 6.5.5–6.7: מנוע חשמלי, סוללות, תאים סולאריים ודלק, הספק ודחף (דלתא מול גילואה)
 
 ### M9.1 כטב"מים: היסטוריה, מחלקות ומשימות
 *UAS history and classes* · **מתקדם** · 11 עמ' ספר · כ-1 שיעורים
@@ -1020,12 +1210,6 @@
 - ★ Introduction to UAV Systems, עמ' PDF 40–43: 1.3: מרכיבי מערכת כטב"ם
 - ★ Introduction to UAV Systems, עמ' PDF 59–65: 2.1–2.2: מחלקות, טווח ושהייה, משימות ושיטת הדרגים
 - ⚙ Washburn & Kress, Combat Modeling (2009), עמ' PDF 188–213: פרק 9: כלי טיס בלתי מאוישים
-
-### M9.2 הכלי: ביצועים, הנעה ומבנה
-*Air vehicle performance and propulsion* · **ליבה** · 19 עמ' ספר · כ-1 שיעורים · דרישות: M6.2
-
-- ★ Introduction to UAV Systems, עמ' PDF 104–111: 4.2–4.4: שיוט, טווח ושהייה (דלתא מול גילואה)
-- ★ Introduction to UAV Systems, עמ' PDF 152–162: 6.5.5–6.7: מנוע חשמלי, סוללות, תאים סולאריים ודלק, הספק ודחף (דלתא מול גילואה)
 
 ### M9.3 תחנת שליטה, בקרת הכלי והמטען ואוטונומיה
 *Control station and autonomy* · **ליבה** · 52 עמ' ספר · כ-3 שיעורים · דרישות: M5.8
@@ -1074,6 +1258,15 @@
 *One-way drones, FPV and drone-war economics (Shahed-class, FPV, fiber-optic, mass production, C-UAS cost-exchange)* · **ליבה** · 0 עמ' מאמרים · כ-1 שיעורים · דרישות: M9.7, M9.5, M8.8
 
 
+### M9.10 הנדסת מערכות C-UAS ואמצעי יירוט
+*C-UAS systems engineering and effectors* · **ליבה** · 169 עמ' ספר · כ-11 שיעורים · דרישות: M9.7, M9.9, M7.17, M7.18
+
+- ★ Micro-Doppler: Drones vs Birds, JMOe (2025), עמ' PDF 1–23: כל המאמר: מודל הד של רחפן מרובה-רוטורים ושל ציפור, סימולציה ומדידת מיקרו-דופלר, השוואה
+- ★ ATP 3-01.81 Counter-Unmanned Aircraft System (2023), עמ' PDF 9–38: פרקים 1–3: איום הכטב"מים, תכנון בשכבות, פעולות C-UAS הגנתיות (פסיביות ואקטיביות)
+- ★ ATP 3-01.81 Counter-Unmanned Aircraft System (2023), עמ' PDF 47–50: נספח B: דוגמאות לציוד C-UAS
+- ★ Counter-Drone Systems, עמ' PDF 1–45: כולו
+- ★ Evolution Not Revolution: Drone Warfare in Russia's 2022 Invasion of Ukraine, עמ' PDF 1–67: הדוח כולו
+
 ## חלק 10: מערכות ימיות
 
 ### M10.1 אקוסטיקה תת-ימית
@@ -1102,7 +1295,7 @@
 - ⚙ Washburn & Kress, Combat Modeling (2009), עמ' PDF 165–187: פרק 8: לוחמת מוקשים
 
 ### M10.5 הגנה עצמית של ספינה מול טילי ים-ים
-*Ship self-defense* · **ליבה** · 85 עמ' מאמרים · כ-6 שיעורים · דרישות: M1.3, M4.9, M4.10
+*Ship self-defense* · **ליבה** · 85 עמ' מאמרים · כ-6 שיעורים · דרישות: M1.3, M4.9, M4.10, M7.3, M7.4, M6.10, M2.23, M14.1
 
 - ▫ Radar Detection of Low-Altitude Targets in a Maritime Environment, Vol. 1, עמ' PDF 1–72: גילוי מטרה נמוכה מעל הים: נלמד ב-M1.3 (אותו דוח פעמיים); עיון
 - 📄 Kumar, Defense of Surface Ships Against Anti-Ship Missiles, NPS (1990), עמ' PDF 9–54: מוץ מספינה, פרקים I–II: בעיית הטיל נגד ספינות ומאפייני מוץ (RCS, פיזור, שקיעה, רוחב פס, פריסה)
@@ -1116,6 +1309,63 @@
 - ⚙ Washburn & Kress, Combat Modeling (2009), עמ' PDF 52–69: פרק 3: shoot-look-shoot
 - ⚙ Przemieniecki, Mathematical Methods in Defense Analyses, 3rd ed. (2000), עמ' PDF 207–219: 7.2–7.3: הסתברות חדירה והסתברות לאפס חודרים
 
+### M10.6 עיבוד אותות סונאר: MVDR במערכים נגררים, LOFAR/DEMON ו-TMA
+*Sonar signal processing: MVDR on towed arrays, LOFAR/DEMON, TMA* · **ליבה** · 93 עמ' ספר · כ-6 שיעורים · דרישות: M10.3, M2.30
+
+- ★ E31, עמ' PDF 283–305: 6.1–6.4: מודל המערך, beamforming קונבנציונלי ו-Capon/MVDR, שיטות פרמטריות (MUSIC, ESPRIT)
+- ★ Principles of Modern Radar, Vol. II: Advanced Techniques, עמ' PDF 429–459: 9.2–9.3: יסודות beamforming ספרתי, ביטול משבשים אדפטיבי: Wiener, max SINR, LCMV, GSC, SMI
+- ★ Principles of Naval Weapons Systems, עמ' PDF 193–226: פרקים 16–17: רעש סביבה ועצמי, beamforming, משוואת הסונאר, מערכות סונאר פעיל ופסיבי, מנתח תדר, TASS
+- ★ Coraluppi & Carthel, Advances in Active Sonar Tracking (2006), עמ' PDF 1–5: כל המאמר: עקיבה בסונאר פעיל
+
+### M10.7 מערכות צוללת: השתקה, AIP מול גרעינית ותקשורת VLF/ELF
+*Submarine warfare systems: quieting, AIP vs nuclear, VLF/ELF communications* · **ליבה** · 792 עמ' ספר · כ-53 שיעורים · דרישות: M10.3
+
+- ★ Principles of Naval Weapons Systems, עמ' PDF 195–200: 16 (חלק): רעש סביבה ורעש עצמי, משוואת הסונאר
+- ★ Principles of Naval Weapons Systems, עמ' PDF 225–226: 17 (חלק): גילוי לא-אקוסטי של צוללות
+- ★ Principles of Naval Weapons Systems, עמ' PDF 32–40: פרק 2 (חלק): ספקטרום ואופני התפשטות: גל קרקע (ELF/VLF), גל שמיים, קו ראייה
+- ★ Submarine signatures, communications and strategy bundle: Cote 'The Third Battle'; NPS non-acoustic ASW; US/Soviet SSBN comparison; ELF/VLF submarine communications satellite design; Common Submarine Radio Room, עמ' PDF 1–116: Cote: The Third Battle: היסטוריה של השתקה וגילוי, תפקיד אסטרטגי של צוללות במלחמה הקרה
+- ★ Submarine signatures, communications and strategy bundle: Cote 'The Third Battle'; NPS non-acoustic ASW; US/Soviet SSBN comparison; ELF/VLF submarine communications satellite design; Common Submarine Radio Room, עמ' PDF 117–175: ניתוח מוגבל של מערכות ASW לא-אקוסטיות (MAD, לייזר, wake): חתימות לא-אקוסטיות
+- ★ Submarine signatures, communications and strategy bundle: Cote 'The Third Battle'; NPS non-acoustic ASW; US/Soviet SSBN comparison; ELF/VLF submarine communications satellite design; Common Submarine Radio Room, עמ' PDF 176–438: צוללות SSBN של ארה"ב וברה"מ: השוואה, התפקיד האסטרטגי
+- ★ Submarine signatures, communications and strategy bundle: Cote 'The Third Battle'; NPS non-acoustic ASW; US/Soviet SSBN comparison; ELF/VLF submarine communications satellite design; Common Submarine Radio Room, עמ' PDF 439–583: תכן לוויין ELF/VLF לתקשורת עם צוללות תחת הקרח
+- ★ Submarine signatures, communications and strategy bundle: Cote 'The Third Battle'; NPS non-acoustic ASW; US/Soviet SSBN comparison; ELF/VLF submarine communications satellite design; Common Submarine Radio Room, עמ' PDF 584–775: Common Submarine Radio Room: תקשורת צוללות, מערכות
+
+### M10.8 כלים ימיים בלתי מאוישים, נחילים ימיים ופיצוץ תת-ימי
+*USV/UUV operations, naval swarms, underwater explosion: shock and whipping* · **ליבה** · 168 עמ' ספר · כ-11 שיעורים · דרישות: M10.4, M5.8
+
+- ★ The Response of Surface Ships to Underwater Explosions (DSTO-GD-0109), עמ' PDF 1–48: כולו: shock factor, bubble pulse ו-whipping, Taylor plate, ניסויי הלם ומידול
+- ★ Autonomous Vehicles in Support of Naval Operations, עמ' PDF 30–52: פרק 2: חזון ימי, משימות ויישומי כלים אוטונומיים
+- ★ Autonomous Vehicles in Support of Naval Operations, עמ' PDF 53–84: פרק 3: טכנולוגיית אוטונומיה: יכולות ופוטנציאל
+- ★ Autonomous Vehicles in Support of Naval Operations, עמ' PDF 85–115: פרק 4: כטב"מים (UAV), כולל נחילים ואיומים
+- ★ Autonomous Vehicles in Support of Naval Operations, עמ' PDF 116–133: פרק 5: כלי שטח ותת-ימיים (USV/UUV): ניווט, אנרגיה, תקשורת, תוכנית האב של ה-UUV
+- ★ Autonomous Vehicles in Support of Naval Operations, עמ' PDF 189–204: נספח B: אילוצים פיזיקליים: scaling, אנרגיה, חישה ותקשורת (תת-ימית)
+
+### M10.9 לוחמת שטח ימית והגנה אווירית של צי
+*Naval surface warfare and fleet air defense* · **ליבה** · 1677 עמ' ספר · כ-112 שיעורים · דרישות: M10.5, M7.4
+
+- ★ Washburn & Kress, Combat Modeling (2009), עמ' PDF 84–97: 5.1–5.3: מודלי לנצ'סטר דטרמיניסטיים וסטוכסטיים (כולל הפניה למשוואות המטח של Hughes)
+- ★ Washburn & Kress, Combat Modeling (2009), עמ' PDF 70–83: פרק 4: הגנת מטרה מפני תוקפים, מטחי מיירטים
+- ★ Kumar, Defense of Surface Ships Against Anti-Ship Missiles, NPS (1990), עמ' PDF 9–54: פרקים I–II: האיום, בעיית הגילוי, השמדה קשה ורכה, מוץ (chaff)
+- ★ Kumar, Defense of Surface Ships Against Anti-Ship Missiles, NPS (1990), עמ' PDF 63–74: פרקים V–IX: מודל הטיל והספינה, ניתוח התוכנית
+- ★ Hughes' salvo model (primary paper) and NPS theses on salvo models, ASCM defense, radar propagation, soft kill, VLS magazines, distributed lethality, OTH targeting, Aegis, עמ' PDF 1–24: Hughes 1995: A Salvo Model of Warships in Missile Combat (המקור הראשוני)
+- ★ Hughes' salvo model (primary paper) and NPS theses on salvo models, ASCM defense, radar propagation, soft kill, VLS magazines, distributed lethality, OTH targeting, Aegis, עמ' PDF 25–400: עבודות על Salvo: יסודות salvo warfare, בדיקת משוואות Salvo, מורכבות מודל, Heterogeneous Salvo, Hughes מותאם לצי קטן, ערך תכונות ספינה
+- ★ Hughes' salvo model (primary paper) and NPS theses on salvo models, ASCM defense, radar propagation, soft kill, VLS magazines, distributed lethality, OTH targeting, Aegis, עמ' PDF 401–608: יעילות היסטורית של ASCM (Falklands, Exocet, Styx) ותכונות האיום; הגנת ספינות מפני טילי ים
+- ★ Hughes' salvo model (primary paper) and NPS theses on salvo models, ASCM defense, radar propagation, soft kill, VLS magazines, distributed lethality, OTH targeting, Aegis, עמ' PDF 609–715: אופק מכ"ם, evaporation duct וזיהוי sea-skimmers: זמן תגובה
+- ★ Hughes' salvo model (primary paper) and NPS theses on salvo models, ASCM defense, radar propagation, soft kill, VLS magazines, distributed lethality, OTH targeting, Aegis, עמ' PDF 716–833: kill-chain: ארכיטקטורת הגנה אווירית ו-CONOPS נגד ASCM
+- ★ Hughes' salvo model (primary paper) and NPS theses on salvo models, ASCM defense, radar propagation, soft kill, VLS magazines, distributed lethality, OTH targeting, Aegis, עמ' PDF 834–1183: Soft kill: לוחמה אלקטרונית משולבת, ESM/ECM, פתיינים
+- ★ Hughes' salvo model (primary paper) and NPS theses on salvo models, ASCM defense, radar propagation, soft kill, VLS magazines, distributed lethality, OTH targeting, Aegis, עמ' PDF 1184–1278: VLS loadout ומשק המחסניות; תורת Distributed Lethality
+- ★ Hughes' salvo model (primary paper) and NPS theses on salvo models, ASCM defense, radar propagation, soft kill, VLS magazines, distributed lethality, OTH targeting, Aegis, עמ' PDF 1279–1492: Over-the-horizon targeting ו-scouting לצי השטח
+- ★ Hughes' salvo model (primary paper) and NPS theses on salvo models, ASCM defense, radar propagation, soft kill, VLS magazines, distributed lethality, OTH targeting, Aegis, עמ' PDF 1493–1591: Aegis: תיק בוחן היסטורי וארכיטקטורת הגנה אווירית של הצי
+
+### M10.10 לוחמה נגד צוללות, מוקשים ונטרול מוקשים
+*ASW operations analysis, mines and mine countermeasures* · **ליבה** · 221 עמ' ספר · כ-15 שיעורים · דרישות: M10.6, M3.11
+
+- ★ Principles of Naval Weapons Systems, עמ' PDF 299–308: פרק 26: טורפדות, מוקשים ימיים וניקוי מוקשים
+- ★ Washburn & Kress, Combat Modeling (2009), עמ' PDF 137–164: פרק 7: תורת החיפוש: רוחב סריקה, חוקי גילוי, חלוקת מאמץ, מחסום, מטרות נעות
+- ★ Washburn & Kress, Combat Modeling (2009), עמ' PDF 165–187: פרק 8: לוחמת מוקשים
+- ★ Naval Mine Warfare: Operational and Technical Challenges for Naval Forces, עמ' PDF 39–139: פרקים 1–4: בעיית מוקשים, נושאים רוחביים, מוקשים אמריקאים, לוחמה נגד מוקשים הרחק מהחוף (MCM)
+- ★ Naval Mine Warfare: Operational and Technical Challenges for Naval Forces, עמ' PDF 140–178: פרק 5: MCM בחוף. הדו"ח עוסק במוקשים ובנגד-מוקשים; אין בו ASW/טורפדות/sonobuoys
+- ★ Naval Mine Warfare: Operational and Technical Challenges for Naval Forces, עמ' PDF 19–38: תקציר מנהלים
+
 ## חלק 11: אפקטים של נשק ושריון
 
 ### M11.1 בליסטיקה פנימית וחיצונית
@@ -1123,6 +1373,23 @@
 
 - ★ Principles of Naval Weapons Systems, עמ' PDF 253–264: פרק 21
 - ⚙ Przemieniecki, Mathematical Methods in Defense Analyses, 3rd ed. (2000), עמ' PDF 32–41: פרק 2: פיזור ונקודת פגיעה ממוצעת
+
+### M11.4 קריטריוני נזק, Pk ו-CEP
+*Damage criteria, Pk, CEP* · **ליבה** · 34 עמ' ספר · כ-2 שיעורים · דרישות: M0.4
+
+- ★ Principles of Naval Weapons Systems, עמ' PDF 283–294: פרק 24
+- ★ Przemieniecki, Mathematical Methods in Defense Analyses, 3rd ed. (2000), עמ' PDF 70–91: Przemieniecki 3.11–3.16: LEP, CEP ו-SEP, נזק חלקי, פונקציות נזק, רסיסים ורדיוס אפקטיבי. Driels (Weaponeering) חסר: מתודולוגיית JMEM מהידע של המורה
+- ⚙ Przemieniecki, Mathematical Methods in Defense Analyses, 3rd ed. (2000), עמ' PDF 42–91: פרק 3: מטרות סבילות, CEP ופונקציות נזק
+- ⚙ Washburn & Kress, Combat Modeling (2009), עמ' PDF 21–51: פרק 2: ירי בלי משוב
+- ⚙ Ball, The Fundamentals of Aircraft Combat Survivability Analysis and Design, 2nd ed. (2003), עמ' PDF 679–719: 5.3: הערכת פגיעות
+
+### M11.11 בליסטיקה פנימית, חיצונית וסופית
+*Gun and projectile ballistics* · **ליבה** · 358 עמ' ספר · כ-24 שיעורים · דרישות: M11.1
+
+- ★ Ballistics: Theory and Design of Guns and Ammunition, עמ' PDF 18–183: חלק I (פרקים 1–5): בליסטיקה פנימית: גזים ותרמודינמיקה, בעירת הודף, מודלים אנליטיים/חישוביים, תכן תחמושת, תכן נשק (5.1 עייפות ושחיקה, 5.2 תכן קנה)
+- ★ Ballistics: Theory and Design of Guns and Ammunition, עמ' PDF 184–323: חלק II (פרקים 6–13): בליסטיקה חיצונית: דינמיקה, מסלולים (8), אירובליסטיקה ליניארית, אסימטריות מסה, throwoff, swerve, אירובליסטיקה לא-ליניארית
+- ★ Ballistics: Theory and Design of Guns and Ammunition, עמ' PDF 330–369: פרק 15: Penetration theories (חדירת מתכות, קרמיקה, מרוכבים) ל-KE penetrators
+- ★ Principles of Naval Weapons Systems, עמ' PDF 253–264: פרק 21: בליסטיקה פנימית וחיצונית, שגיאות כיוון
 
 ### M11.2 איתור ארטילריה ואש נגד סוללות
 *Weapon-locating radar and counterfire* · **ליבה** · 85 עמ' ספר · כ-6 שיעורים · דרישות: M11.1, M2.15
@@ -1139,15 +1406,6 @@
 - ★ Principles of Naval Weapons Systems, עמ' PDF 265–282: פרקים 22–23
 - ⚙ Ball, The Fundamentals of Aircraft Combat Survivability Analysis and Design, 2nd ed. (2003), עמ' PDF 339–358: 3.5: תהליכי נזק ואפקטים סופיים
 - ⚙ Przemieniecki, Mathematical Methods in Defense Analyses, 3rd ed. (2000), עמ' PDF 82–89: 3.14–3.15: פונקציות נזק לרסיסים ורדיוס אפקטיבי
-
-### M11.4 קריטריוני נזק, Pk ו-CEP
-*Damage criteria, Pk, CEP* · **ליבה** · 34 עמ' ספר · כ-2 שיעורים · דרישות: M0.4
-
-- ★ Principles of Naval Weapons Systems, עמ' PDF 283–294: פרק 24
-- ★ Przemieniecki, Mathematical Methods in Defense Analyses, 3rd ed. (2000), עמ' PDF 70–91: Przemieniecki 3.11–3.16: LEP, CEP ו-SEP, נזק חלקי, פונקציות נזק, רסיסים ורדיוס אפקטיבי. Driels (Weaponeering) חסר: מתודולוגיית JMEM מהידע של המורה
-- ⚙ Przemieniecki, Mathematical Methods in Defense Analyses, 3rd ed. (2000), עמ' PDF 42–91: פרק 3: מטרות סבילות, CEP ופונקציות נזק
-- ⚙ Washburn & Kress, Combat Modeling (2009), עמ' PDF 21–51: פרק 2: ירי בלי משוב
-- ⚙ Ball, The Fundamentals of Aircraft Combat Survivability Analysis and Design, 2nd ed. (2003), עמ' PDF 679–719: 5.3: הערכת פגיעות
 
 ### M11.5 ראשי קרב מיוחדים ותחמושת טנקים
 *Special warheads and tank ammunition* · **ליבה** · 27 עמ' ספר · כ-2 שיעורים · דרישות: M11.3
@@ -1186,6 +1444,95 @@
 
 - ★ Principles of Naval Weapons Systems, עמ' PDF 309–351: פרקים 27–30
 - ⚙ Przemieniecki, Mathematical Methods in Defense Analyses, 3rd ed. (2000), עמ' PDF 198–205: 6.6: מודלי מספיקות לכוחות אסטרטגיים
+
+### M11.12 מכניקת ראשי קרב ומרעומים
+*Warhead mechanics and fuzing* · **ליבה** · 139 עמ' ספר · כ-9 שיעורים · דרישות: M11.3, M11.11
+
+- ★ Ballistics: Theory and Design of Guns and Ammunition, עמ' PDF 324–329: חלק III פרק 14: מבוא לבליסטיקה סופית
+- ★ Ballistics: Theory and Design of Guns and Ammunition, עמ' PDF 370–483: פרקים 16–18: Shock physics (Hugoniot, detonation), Gurney, Taylor angles, Mott (רסיסים), shaped charges. הפרק אינו כולל blast scaling/fuzing/IM
+- ★ Przemieniecki, Mathematical Methods in Defense Analyses, 3rd ed. (2000), עמ' PDF 71–89: 3.12–3.16: נזק חלקי צפוי, פונקציות נזק, פונקציות נזק לרסיסים, רדיוס אפקטיבי של נשק
+
+### M11.13 טילי נ"ט דור 3–5, תקיפה מלמעלה והתגברות על הגנה אקטיבית
+*Anti-tank missiles gen 3-5, top attack, APS and its defeat* · **ליבה** · 69 עמ' ספר · כ-5 שיעורים · דרישות: M11.6, M6.6
+
+- ★ Ballistics: Theory and Design of Guns and Ammunition, עמ' PDF 462–483: פרק 18: Shaped charges: היווצרות ג'ט וחדירה (בסיס לטנדם מול ERA)
+- ★ Tanks: 100 Years of Evolution, עמ' PDF 181–183: פרק 9 (חלק): טילי נ"ט מונחים מול תותח הטנק
+- ★ Tanks: 100 Years of Evolution, עמ' PDF 188–189: פרק 9 (חלק): שריון ריאקטיבי ו-Drozd
+- ★ Tanks: 100 Years of Evolution, עמ' PDF 312–329: נספח II: הגנה מוגברת: שריון מורכב, ERA, מערכות הגנה אקטיביות
+- ★ Fleeman, Tactical Missile Design (2001), עמ' PDF 148–171: 6.1–6.2: עמידות (חלופות ראש ביות, מכ"ם, IIR, מולטי-מוד) וקטלניות ראש קרב (מטען חלול, EFP, KE)
+
+### M11.14 ייצוב נשק בתנועה: חוגי בקרה של צריח ותותח
+*Weapon stabilization on the move: turret and gun control loops* · **ליבה** · 57 עמ' ספר · כ-4 שיעורים · דרישות: M0.7, M11.7
+
+- ★ Ballistics: Theory and Design of Guns and Ammunition, עמ' PDF 170–174: 5.3 Gun Dynamics: דינמיקת קנה (jump/whip, רטט); 5.4 Muzzle devices ב-175–183
+- ★ Ballistics: Theory and Design of Guns and Ammunition, עמ' PDF 310–315: פרק 12: Aerodynamic jump, epicyclic swerve, drift
+- ★ E03, עמ' PDF 375–397: פרק 11: בקרת PID, כיוונון, windup ומימוש
+- ★ E03, עמ' PDF 401–423: 12.1–12.4: פונקציות רגישות, מפרטי ביצועים, עיצוב לולאה ו-feedforward (דחיית הפרעות)
+
+### M11.15 טרמכניקה ומתלים אקטיביים
+*Terramechanics (Bekker, Wong) and active suspension* · **ליבה** · 1329 עמ' ספר · כ-89 שיעורים · דרישות: M11.7
+
+- ★ Terramechanics and vehicle mobility bundle: Bekker model reports, NATO Reference Mobility Model (NRMM) guide and next-generation NRMM, AMC Automotive Suspensions handbook, tracked-vehicle steerability, ride dynamics, עמ' PDF 1–75: מודל Bekker: pressure-sinkage, Mohr-Coulomb, התנגדות תנועה, כוח משיכה ו-slip, מודל אינטראקציה פיזיקלי, שיטות לנתוני חוזק קרקע (cone index)
+- ★ Terramechanics and vehicle mobility bundle: Bekker model reports, NATO Reference Mobility Model (NRMM) guide and next-generation NRMM, AMC Automotive Suspensions handbook, tracked-vehicle steerability, ride dynamics, עמ' PDF 76–714: NRMM: מדריך המשתמש ומודל NRMM הדור הבא: מדדי MMP ולחץ, מהירות על שטח, speed-made-good
+- ★ Terramechanics and vehicle mobility bundle: Bekker model reports, NATO Reference Mobility Model (NRMM) guide and next-generation NRMM, AMC Automotive Suspensions handbook, tracked-vehicle steerability, ride dynamics, עמ' PDF 715–773: אימות NRMM (ISTVS): מגבלות המודל
+- ★ Terramechanics and vehicle mobility bundle: Bekker model reports, NATO Reference Mobility Model (NRMM) guide and next-generation NRMM, AMC Automotive Suspensions handbook, tracked-vehicle steerability, ride dynamics, עמ' PDF 774–1232: AMC Engineering Design Handbook: Automotive Suspensions: תלייה, ride, חספוס שטח, הגבלות חשיפה לרעידות, תלייה של זחלמים
+- ★ Terramechanics and vehicle mobility bundle: Bekker model reports, NATO Reference Mobility Model (NRMM) guide and next-generation NRMM, AMC Automotive Suspensions handbook, tracked-vehicle steerability, ride dynamics, עמ' PDF 1233–1264: Skid steering וסטירביליות של רכב זחלי; מודל רובוט skid-steer
+- ★ Terramechanics and vehicle mobility bundle: Bekker model reports, NATO Reference Mobility Model (NRMM) guide and next-generation NRMM, AMC Automotive Suspensions handbook, tracked-vehicle steerability, ride dynamics, עמ' PDF 1265–1318: Ride dynamics: חשיפה גוף-שלם לרעידות ונוהל TOP
+- ★ Terramechanics and vehicle mobility bundle: Bekker model reports, NATO Reference Mobility Model (NRMM) guide and next-generation NRMM, AMC Automotive Suspensions handbook, tracked-vehicle steerability, ride dynamics, עמ' PDF 1319–1329: בקרת תלייה semi-active: סקירה ומתודולוגיות מודרניות
+
+### M11.16 אוטונומיה קרקעית (UGV): תפיסה תלת-ממדית, עבירות ותכנון מסלול
+*UGV autonomy: 3D perception, traversability, planning* · **ליבה** · 528 עמ' ספר · כ-35 שיעורים · דרישות: M11.15, M5.13
+
+- ★ UGV traversability and autonomy bundle: Sevastopoulos traversability survey, Army TOP 02-2-541 teleoperated UGV mobility, DoD UGV Master Plan, SSC UGV lessons learned, autonomy test report, עמ' PDF 1–22: סקר הערכת traversability לרובוטים ניידים: חישה תלת-ממדית, שיטות מבוססות גיאומטריה, למידה ו-self-supervised
+- ★ UGV traversability and autonomy bundle: Sevastopoulos traversability survey, Army TOP 02-2-541 teleoperated UGV mobility, DoD UGV Master Plan, SSC UGV lessons learned, autonomy test report, עמ' PDF 23–67: TOP 02-2-541: ביצועי ניידות של UGV מרוחק (teleoperation) ובדיקות
+- ★ UGV traversability and autonomy bundle: Sevastopoulos traversability survey, Army TOP 02-2-541 teleoperated UGV mobility, DoD UGV Master Plan, SSC UGV lessons learned, autonomy test report, עמ' PDF 68–243: תוכנית אב UGV של DoD ולקחים מתוכניות UGV: teleoperation מול supervised autonomy, שימושים צבאיים
+- ★ UGV traversability and autonomy bundle: Sevastopoulos traversability survey, Army TOP 02-2-541 teleoperated UGV mobility, DoD UGV Master Plan, SSC UGV lessons learned, autonomy test report, עמ' PDF 244–252: דוח בדיקות/הערכה לאוטונומיה
+- ★ Planning Algorithms, עמ' PDF 731–802: פרק 13: Differential models: אילוצי מהירות ורכבים לא-הולונומיים, phase space, מכניקה בסיסית
+- ★ Planning Algorithms, עמ' PDF 803–876: פרק 14: Sampling-based planning under differential constraints: reachability, RRT קינודינמי, תכנון משוב ותכנון מנותק (path + trajectory), אופטימיזציית מסלול
+- ★ Planning Algorithms, עמ' PDF 877–940: פרק 15: System theory: DP רציף, מסלולים אופטימליים לרכבים גלגליים (Dubins/Reeds-Shepp), תורת מערכות לא-הולונומיות ו-steering
+- ★ Planning Algorithms, עמ' PDF 656–700: סעיפים 12.2–12.3: לוקליזציה ומיפוי תחת אי-ודאות (רלוונטי לניווט ללא GNSS)
+- ★ Present and Future of SLAM in Extreme Environments: The DARPA SubT Challenge, עמ' PDF 1–21: כולו: תפיסה תלת-ממדית ו-SLAM בשטח
+
+### M11.17 לוחמה תת-קרקעית: גילוי מנהרות, SLAM בלי GPS ופיצוץ בחלל סגור
+*Subterranean warfare: tunnel detection (GPR, seismic, microgravity), GPS-free SLAM, confined blast* · **ליבה** · 233 עמ' ספר · כ-16 שיעורים · דרישות: M11.3, M5.13
+
+- ★ EM 1110-1-1802, Geophysical Exploration for Engineering and Environmental Investigations, עמ' PDF 13–39: פרק 3: שיטות סיסמיות (refraction, reflection, surface waves, subbottom)
+- ★ EM 1110-1-1802, Geophysical Exploration for Engineering and Environmental Investigations, עמ' PDF 40–96: פרק 4: שיטות חשמליות ואלקטרומגנטיות, כולל metal detector (4-9) ו-GPR (4-10, ~עמ' 90-96)
+- ★ EM 1110-1-1802, Geophysical Exploration for Engineering and Environmental Investigations, עמ' PDF 97–102: פרק 5: gravity ו-microgravity לגילוי חללים
+- ★ EM 1110-1-1802, Geophysical Exploration for Engineering and Environmental Investigations, עמ' PDF 103–106: פרק 6: שיטות מגנטיות
+- ★ EM 1110-1-1802, Geophysical Exploration for Engineering and Environmental Investigations, עמ' PDF 107–175: פרק 7: שיטות בתוך קידוחים, crosshole ו-surface-to-borehole (זיהוי חללים בין קידוחים)
+- ★ EM 1110-1-1802, Geophysical Exploration for Engineering and Environmental Investigations, עמ' PDF 190–193: פרק 10: רעידות הנדסיות ובדיקות לא הורסות
+- ★ UFC 3-340-02, Structures to Resist the Effects of Accidental Explosions, עמ' PDF 66–94: פרק 2, סעיפים 2-7 עד 2-14: תופעות הדף, שקילות TNT, קטגוריות העמסה, פיצוץ לא כלוא ו-2-14 Confined explosions (לחץ הלם פנימי ולחץ גזים, עמ׳ 80–94)
+- ★ UFC 3-340-02, Structures to Resist the Effects of Accidental Explosions, עמ' PDF 391–406: פרק 2, סעיפים 2-20 עד 2-24: הלם קרקע, הלם אוויר ותנועות מבנה (רלוונטי לפיצוץ בתת-קרקע)
+- ★ Present and Future of SLAM in Extreme Environments: The DARPA SubT Challenge, עמ' PDF 1–21: כולו: SLAM ללא GPS בתת-קרקע
+
+### M11.18 Weaponeering והערכת נזק נלווה
+*Weaponeering and collateral-damage estimation* · **מתקדם** · 27 עמ' ספר · כ-2 שיעורים · דרישות: M11.4, M6.7
+
+- ★ Przemieniecki, Mathematical Methods in Defense Analyses, 3rd ed. (2000), עמ' PDF 70–89: 3.11–3.16: LEP/CEP/SEP, נזק חלקי צפוי, פונקציות נזק, רסיסים ורדיוס אפקטיבי
+- ★ JP 3-60 Joint Targeting (2013), עמ' PDF 43–49: II, שלבים 3–4: ניתוח יכולות, weaponeering, CDE, החלטת מפקד והקצאת כוח
+
+### M11.19 ארטילריה ואש מדויקת
+*Artillery and precision fires* · **מתקדם** · 206 עמ' ספר · כ-14 שיעורים · דרישות: M11.11, M11.2
+
+- ★ Ballistics: Theory and Design of Guns and Ammunition, עמ' PDF 212–273: פרק 8: Trajectories (חישוב מסלולים, בסיס ל-firing tables)
+- ★ Ballistics: Theory and Design of Guns and Ammunition, עמ' PDF 296–315: פרקים 10–12: mass asymmetries, lateral throwoff, swerve: מקורות לפיזור. הספר כמעט אינו דן ב-dispersion/תקציב שגיאה במפורש (כמעט אין אזכורים), כיסוי חלקי
+- ★ ATP 3-09.12 Field Artillery Target Acquisition (2015), עמ' PDF 11–40: פרקים 1–3: איתור מטרות לארטילריה, אש נגד (counterfire), היבטים טכניים של מכ"מי איתור נשק
+- ★ FM 3-09, Fire Support and Field Artillery Operations, עמ' PDF 35–56: פרק 2: מערכת הסיוע באש: חיישנים, מערכות שיגור (קנה מול רקטות), C2 ואיתור מטרות
+- ★ FM 3-09, Fire Support and Field Artillery Operations, עמ' PDF 99–116: פרק 4: מבצעי ארטילריה שדה, כולל חמש הדרישות לאש חזויה מדויקת (110–113), מיקום ותנועה, אש נגד-סוללות
+- ★ FM 3-09, Fire Support and Field Artillery Operations, עמ' PDF 123–164: פרק 6: סיוע באש לעומק במלחמה בקנה מידה גדול: אש ארוכת טווח, counterfire, תפקיד הכטב"מ
+- ★ FM 3-09, Fire Support and Field Artillery Operations, עמ' PDF 207–218: נספח C: פעולה בסביבה מוכחשת/מושפלת (כולל GPS/GNSS denial) וחמש הדרישות במצב מושפל
+
+### M11.20 יסודות CBRN
+*CBRN basics* · **מתקדם** · 254 עמ' ספר · כ-17 שיעורים · דרישות: M11.3
+
+- ★ The Effects of Nuclear Weapons, עמ' PDF 396–469: פרק IX: קרינה שיורית ו-fallout — מקורות, פיזור, חיזוי, הנחתה, delayed fallout
+- ★ The Effects of Nuclear Weapons, עמ' PDF 603–617: פרק XII (חלק): השפעות ביולוגיות של early fallout ו-delayed fallout
+- ★ FM 3-11.9 / MCRP 3-37.1B / NTRP 3-11.32 / AFTTP(I) 3-2.55, Potential Military Chemical/Biological Agents and Compounds, עמ' PDF 17–31: פרק I: רקע ואיום
+- ★ FM 3-11.9 / MCRP 3-37.1B / NTRP 3-11.32 / AFTTP(I) 3-2.55, Potential Military Chemical/Biological Agents and Compounds, עמ' PDF 32–109: פרק II: חומרי לחימה כימיים (עצבים, דם, שלפוחיות, משתקים, מקדמים) וטוקסיקולוגיה, LD50/Ct
+- ★ FM 3-11.9 / MCRP 3-37.1B / NTRP 3-11.32 / AFTTP(I) 3-2.55, Potential Military Chemical/Biological Agents and Compounds, עמ' PDF 134–163: פרק IV: חומרים ביולוגיים (חיידקים, וירוסים, רעלנים)
+- ★ FM 3-11.9 / MCRP 3-37.1B / NTRP 3-11.32 / AFTTP(I) 3-2.55, Potential Military Chemical/Biological Agents and Compounds, עמ' PDF 164–169: פרק V: מקורות מידע
+- ★ FM 3-11.9 / MCRP 3-37.1B / NTRP 3-11.32 / AFTTP(I) 3-2.55, Potential Military Chemical/Biological Agents and Compounds, עמ' PDF 214–249: נספח H: הערכות רעילות
 
 ## חלק 12: האויב: דוקטרינה והפעלה
 
@@ -1226,12 +1573,45 @@
 - ⚙ Washburn & Kress, Combat Modeling (2009), עמ' PDF 103–114: 5.5–5.6: צבירה, ערכים ו-FATHM
 - ⚙ Van Creveld, Supplying War: Logistics from Wallenstein to Patton (1977), עמ' PDF 111–157: פרק 3: מסילות ברזל ותכנון מבצעי
 
+### M12.5 הערכת הפצת נשק גרעיני
+*Nuclear proliferation assessment* · **מתקדם** · 70 עמ' ספר · כ-5 שיעורים · דרישות: M11.10
+
+- ★ Characteristics of the Gas Centrifuge for Uranium Enrichment and Their Relevance for Nuclear Weapon Proliferation, עמ' PDF 1–25: כולו
+- ★ IAEA Safeguards Glossary, 2022 Edition, עמ' PDF 34–63: פרקים 2-4 (מטרות הבטחות, מושגי safeguards, חומר גרעיני: SQ, direct-use material, enrichment, reprocessing, מתקנים); עמ' PDF = עמ' מודפס + 16
+- ★ IAEA Safeguards Glossary, 2022 Edition, עמ' PDF 83–92: פרק 6: טכניקות מדידה ומתקנים
+- ★ IAEA Safeguards Glossary, 2022 Edition, עמ' PDF 100–104: פרק 8: דגימות סביבתיות
+
 ## חלק 13: חלל: מסלולים, לוויינים, תקשורת לוויינית ושיגור
 
 ### M13.1 מבוא לחלל: היסטוריה, טכנולוגיה, כלכלה וקהילות החלל
 *Space missions and communities* · **ליבה** · 44 עמ' ספר · כ-3 שיעורים
 
 - ★ Space Mission Engineering: The New SMAD (2011), עמ' PDF 18–61: פרקים 1–2: מהי הנדסת משימת חלל, היסטוריה, TRL, כלכלה, קהילות צבאיות, אזרחיות ומסחריות
+
+### M13.9 מטעני חלל: סוגים, ספקטרום ותכנון
+*Space payloads* · **ליבה** · 16 עמ' ספר · כ-1 שיעורים · דרישות: M13.1
+
+- ★ Space Mission Engineering: The New SMAD (2011), עמ' PDF 456–471: פרק 15
+
+### M13.10 תקשורת לוויינית (SATCOM): ארכיטקטורות, תקציב קישור ותכנון מטען
+*Communications payloads and SATCOM* · **ליבה** · 38 עמ' ספר · כ-3 שיעורים · דרישות: M1.4, M0.5, M13.9
+
+- ★ Space Mission Engineering: The New SMAD (2011), עמ' PDF 472–509: פרק 16: ארכיטקטורות, ניתוח קישור, תכנון מטען התקשורת, משימות לדוגמה
+
+### M13.4 מסלולים ואסטרודינמיקה: קפלר, הפרעות ותמרונים
+*Orbits and astrodynamics* · **ליבה** · 27 עמ' ספר · כ-2 שיעורים · דרישות: M0.8
+
+- ★ Space Mission Engineering: The New SMAD (2011), עמ' PDF 225–251: 9.3–9.7: טרמינולוגיה, הפרעות ודעיכה, מסלולים מיוחדים, תמרונים (9.1–9.2, מסלולי קפלר, נלמדים בגילואה M15.15; בעיון ב-M13.22)
+
+### M13.12 הנעה רקטית ומשגרים: משוואת הרקטה, שלבים ומכניקת השיגור
+*Rocket propulsion and launch vehicles* · **ליבה** · 32 עמ' ספר · כ-2 שיעורים · דרישות: M6.1, M13.4
+
+- ★ Space Mission Engineering: The New SMAD (2011), עמ' PDF 842–873: פרק 26: בחירת משגר, היסטוריה, מכניקת השיגור, סביבת השיגור, משגרים זמינים. פרק 18 של SMAD (הנעה) חסר בסריקה: את משוואת הרקטה, השלבים וההנעה הכימית והחשמלית המורה מלמד מהידע שלו, עם רמת ודאות
+
+### M13.11 מטעני תצפית: ביון וחישה מהחלל
+*Observation payloads* · **ליבה** · 34 עמ' ספר · כ-2 שיעורים · דרישות: M3.10, M13.9
+
+- ★ Space Mission Engineering: The New SMAD (2011), עמ' PDF 510–543: פרק 17: תכנון וגודל מטען תצפית, VIIRS, התפתחות
 
 ### M13.2 הנדסת משימת חלל: תהליך, קונספט, ניתוח ודרישות
 *Space mission engineering process* · **עיון** · 82 עמ' ספר · כ-5 שיעורים
@@ -1243,11 +1623,6 @@
 *The space environment* · **ליבה** · 22 עמ' ספר · כ-1 שיעורים · דרישות: M0.2
 
 - ★ Space Mission Engineering: The New SMAD (2011), עמ' PDF 144–165: פרק 7
-
-### M13.4 מסלולים ואסטרודינמיקה: קפלר, הפרעות ותמרונים
-*Orbits and astrodynamics* · **ליבה** · 27 עמ' ספר · כ-2 שיעורים · דרישות: M0.8
-
-- ★ Space Mission Engineering: The New SMAD (2011), עמ' PDF 225–251: 9.3–9.7: טרמינולוגיה, הפרעות ודעיכה, מסלולים מיוחדים, תמרונים (9.1–9.2, מסלולי קפלר, נלמדים בגילואה M15.15; בעיון ב-M13.22)
 
 ### M13.5 גאומטריית משימה: מבט מהחלל, כיסוי, תנועה יחסית ומיפוי
 *Space mission geometry* · **ליבה** · 48 עמ' ספר · כ-3 שיעורים · דרישות: M13.4
@@ -1268,26 +1643,6 @@
 *Spacecraft design* · **מתקדם** · 42 עמ' ספר · כ-3 שיעורים · דרישות: M13.6
 
 - ★ Space Mission Engineering: The New SMAD (2011), עמ' PDF 414–455: פרק 14
-
-### M13.9 מטעני חלל: סוגים, ספקטרום ותכנון
-*Space payloads* · **ליבה** · 16 עמ' ספר · כ-1 שיעורים · דרישות: M13.1
-
-- ★ Space Mission Engineering: The New SMAD (2011), עמ' PDF 456–471: פרק 15
-
-### M13.10 תקשורת לוויינית (SATCOM): ארכיטקטורות, תקציב קישור ותכנון מטען
-*Communications payloads and SATCOM* · **ליבה** · 38 עמ' ספר · כ-3 שיעורים · דרישות: M1.4, M0.5, M13.9
-
-- ★ Space Mission Engineering: The New SMAD (2011), עמ' PDF 472–509: פרק 16: ארכיטקטורות, ניתוח קישור, תכנון מטען התקשורת, משימות לדוגמה
-
-### M13.11 מטעני תצפית: ביון וחישה מהחלל
-*Observation payloads* · **ליבה** · 34 עמ' ספר · כ-2 שיעורים · דרישות: M3.10, M13.9
-
-- ★ Space Mission Engineering: The New SMAD (2011), עמ' PDF 510–543: פרק 17: תכנון וגודל מטען תצפית, VIIRS, התפתחות
-
-### M13.12 הנעה רקטית ומשגרים: משוואת הרקטה, שלבים ומכניקת השיגור
-*Rocket propulsion and launch vehicles* · **ליבה** · 32 עמ' ספר · כ-2 שיעורים · דרישות: M6.1, M13.4
-
-- ★ Space Mission Engineering: The New SMAD (2011), עמ' PDF 842–873: פרק 26: בחירת משגר, היסטוריה, מכניקת השיגור, סביבת השיגור, משגרים זמינים. פרק 18 של SMAD (הנעה) חסר בסריקה: את משוואת הרקטה, השלבים וההנעה הכימית והחשמלית המורה מלמד מהידע שלו, עם רמת ודאות
 
 ### M13.13 קביעת כיוון ובקרה (ADCS) וניווט מסלול
 *Attitude and orbit control* · **מתקדם** · 36 עמ' ספר · כ-2 שיעורים · דרישות: M0.7, M13.4
@@ -1344,8 +1699,14 @@
 - ★ Space Mission Engineering: The New SMAD (2011), עמ' PDF 214–224: 9.1–9.2: מסלולי קפלר ומסלולי הירח וכוכבי הלכת (נלמדים בגילואה M15.15)
 
 ### M13.23 שליטה בחלל: טקסונומיה של יכולות נגד-חלל, מודעות למצב בחלל, פעולות קרבה, חוסן ופיזור, תלות במסחרי
-*Space control: counterspace taxonomy, SDA, RPO, resilience and proliferation, commercial dependence* · **ליבה** · 0 עמ' מאמרים · כ-1 שיעורים · דרישות: M13.5, M13.6, M7.6
+*Space control: counterspace taxonomy, SDA, RPO, resilience and proliferation, commercial dependence* · **ליבה** · 0 עמ' מאמרים · כ-1 שיעורים · דרישות: M13.5, M13.6, M7.6, M4.12
 
+
+### M13.24 SATCOM מוגן
+*Protected SATCOM* · **מתקדם** · 48 עמ' ספר · כ-3 שיעורים · דרישות: M13.10, M4.12
+
+- ★ EW 102, עמ' PDF 226–235: 7.6–7.8: חישובי ביצועי קישור לוויני (גאוסינכרוני ו-LEO), שיבוש קישורי לוויין: downlink ו-uplink
+- ★ Space Mission Engineering: The New SMAD (2011), עמ' PDF 472–509: פרק 16: מטעני תקשורת: ארכיטקטורות, ניתוח קישור, תכנון המטען, משימות לדוגמה
 
 ## חלק 14: ניתוח הגנה: מידול לחימה, עלות, לוגיסטיקה ו-OSINT
 
@@ -1408,6 +1769,11 @@
 - ★ Kress, Operational Logistics: The Art and Science of Sustaining Military Operations (2002), עמ' PDF 113–136: פרק 5: מידע לוגיסטי
 - ★ Kress, Operational Logistics: The Art and Science of Sustaining Military Operations (2002), עמ' PDF 161–200: פרקים 7–8: מודל הרשת החזותי וגמישות לוגיסטית (מדדים כמותיים)
 - ★ Kress, Operational Logistics: The Art and Science of Sustaining Military Operations (2002), עמ' PDF 228–254: פרק 10: אופטימיזציה של רשת הלוגיסטיקה (תכנון לינארי)
+
+### M14.8 משחקי מלחמה
+*Wargaming* · **מתקדם** · 112 עמ' ספר · כ-7 שיעורים · דרישות: M14.1
+
+- ★ Wargaming Handbook, עמ' PDF 1–112: כולו: פרק 1 מבוא ומטרות (13), פרק 2 יסודות (31), פרק 3 סוגים וגרסאות כולל matrix ו-seminar (51), פרק 4 תהליך: תכנון, שיפוט, ניתוח ודיווח (63), נספח A יישומים בבעיות הגנה (77)
 
 ## עמודים שלא נלמדים
 
@@ -1567,4 +1933,30 @@
 
 ## בדיקת כיסוי
 
-כל עמוד בכל ספר ובכל מסמך דוקטרינה שייך למודול או מסומן כלא נלמד. כל מאמר מוצמד למודול.
+- ⚠️ Aircraft Design: A Conceptual Approach: עמודים לא ממופים 1-12, 99-103, 123-173, 207-236, 266-391
+- ⚠️ Ballistics: Theory and Design of Guns and Ammunition: עמודים לא ממופים 1-17, 484-514
+- ⚠️ Introduction to Electromagnetic Compatibility: עמודים לא ממופים 1-72, 115-400, 445-489, 510-526, 583-736, 883-1014
+- ⚠️ Design and Analysis of Modern Tracking Systems: עמודים לא ממופים 1-360
+- ⚠️ E03: עמודים לא ממופים 1-374, 398-400, 424-573
+- ⚠️ E31: עמודים לא ממופים 1-282, 306-447
+- ⚠️ E34: עמודים לא ממופים 1-471, 488-542, 574-588, 598-618, 621-634, 650-669, 690-775
+- ⚠️ E39: עמודים לא ממופים 1-167, 177-269, 278-525, 572-581, 621-768
+- ⚠️ Effects of Directed Energy Weapons: עמודים לא ממופים 1-25, 54-105, 286-369
+- ⚠️ Quantization and Training of NNs for Integer-Arithmetic-Only Inference; Towards Deep Learning Models Resistant to Adversarial Attacks; Benchmarking NN Robustness to Common Corruptions: עמודים לא ממופים 1-14
+- ⚠️ The Effects of Nuclear Weapons: עמודים לא ממופים 1-395, 470-602, 618-662
+- ⚠️ Absolute Positioning Using the Earth's Magnetic Anomaly Field (PhD dissertation): עמודים לא ממופים 1-20, 174-264
+- ⚠️ The Role of Autonomy in DoD Systems: עמודים לא ממופים 1-30, 78-126
+- ⚠️ NIST/SEMATECH e-Handbook of Statistical Methods (chapters 5, 7, 8 only): עמודים לא ממופים 443-598
+- ⚠️ Statistics, Testing, and Defense Acquisition: New Approaches and Methodological Improvements: עמודים לא ממופים 1-51, 127-277
+- ⚠️ Department of Defense Law of War Manual: עמודים לא ממופים 1-225, 475-1236
+- ⚠️ IAEA Safeguards Glossary, 2022 Edition: עמודים לא ממופים 1-33, 64-82, 93-99, 105-320
+- ⚠️ EM 1110-1-1802, Geophysical Exploration for Engineering and Environmental Investigations: עמודים לא ממופים 1-12, 176-189, 194-208
+- ⚠️ Planning Algorithms: עמודים לא ממופים 1-655, 701-730, 941-1023
+- ⚠️ Autonomous Vehicles in Support of Naval Operations: עמודים לא ממופים 1-29, 134-188, 205-233
+- ⚠️ FM 3-09, Fire Support and Field Artillery Operations: עמודים לא ממופים 1-34, 57-98, 117-122, 165-206, 219-284
+- ⚠️ UFC 3-340-02, Structures to Resist the Effects of Accidental Explosions: עמודים לא ממופים 1-65, 95-390, 407-1982
+- ⚠️ MIL-STD-461G (pp 1-280) and MIL-STD-464C (pp 281-445) bundled: עמודים לא ממופים 1-40, 174-297, 322-338, 372-378, 386-403, 412-445
+- ⚠️ Naval Mine Warfare: Operational and Technical Challenges for Naval Forces: עמודים לא ממופים 1-18, 179-279
+- ⚠️ FM 3-11.9 / MCRP 3-37.1B / NTRP 3-11.32 / AFTTP(I) 3-2.55, Potential Military Chemical/Biological Agents and Compounds: עמודים לא ממופים 1-16, 110-133, 170-213, 250-318
+- ⚠️ Architecture and organization classics: Conway 1968; Parnas 1972; Brooks, No Silver Bullet 1986; Ulrich 1995; MacCormack, Rusnak & Baldwin, mirroring 2008: עמודים לא ממופים 5-61
+- ⚠️ Middleware standards, core sections: OMG DDS 1.4 (overview, design rationale, QoS); OASIS MQTT 5.0 (introduction, operational behavior, security): עמודים לא ממופים 38-73

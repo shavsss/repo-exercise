@@ -10,21 +10,47 @@ import { curriculumBlock } from "./curriculum";
 import { CHAT_HISTORY_BYTES, focusHistory, questionOf, type Chapter } from "./chatContext";
 import { auditLong, namedModules, type AuditMark, applyRepair } from "./lessonAudit";
 import { decideLine, decideSlot } from "./lessonGate";
-import { LEGACY_RULES, SYSTEM_PROMPT, libraryList } from "./prompt";
+import { headWithin, tailWithin } from "./truncation";
+import { LEGACY_RULES, SYSTEM_PROMPT, TEACHBACK_RULES, libraryList } from "./prompt";
 import type { Runtime, SampleTool } from "./runtime";
-import { BOOK_PART, BOOK_PLAN, LESSON_WORDS, OUTLINE_FIX, lessonWords, normalizeOutline, orderProblems, outlineCheckPrompt, parseOutlineReview, partSections, tightenPrompt, validOutline, wordCount, type BookOutline } from "./bookRules";
+import { type TeachScope, type TeachTurn, type TeachVerdict } from "./teachback";
+import { BOOK_PART, BOOK_PLAN, LESSON_WORDS, OUTLINE_FIX, formProblems, lessonWords, normalizeOutline, orderProblems, outlineCheckPrompt, parseOutlineReview, partSections, tightenPrompt, validOutline, wordCount, type BookOutline } from "./bookRules";
 import { NOTE_KIND_LABEL, type Activity, type Effort, type LessonNote, type LessonSpec, type Mode, type NoteKind, type StoredMessage } from "./types";
 
 const math = create(all, {});
 const MODEL = "claude-opus-5-5";
-/** Explanations in a lesson (questions in its conversation) are answered by Sonnet; lessons, checks and the quiz stay on Opus. */
-const EXPLAIN_MODEL = "claude-sonnet-5-5";
 const enc = new TextEncoder();
 const bytes = (s: string) => enc.encode(s).length;
 /** Leave room under the 256 KiB input cap for the tool rounds of this answer. */
 const INPUT_BUDGET = 190_000;
 /** Source text sent with a lesson turn (the tutor reads more with tools). */
 const LESSON_PAGES_CHARS = 95_000;
+/** The lesson text so far sent with each part: at most PRIOR_MAX bytes, never under PRIOR_MIN (the source pages give way first). */
+const PRIOR_MAX = 120_000;
+const PRIOR_MIN = 40_000;
+/** A part that still passes the 256 KiB cap with its tool rounds is sent once more at this size. */
+const SMALL_TURN = 120_000;
+const PAGES_MARK = "\n\nSource pages for this lesson:\n";
+
+/** The study context with its source pages shortened by `cut` bytes (the tutor reads the rest with tools). */
+function cutPages(ctx: string, cut: number) {
+  const at = ctx.indexOf(PAGES_MARK);
+  const end = ctx.lastIndexOf("\n</study_context>");
+  if (at < 0 || end < at || cut <= 0) return ctx;
+  const pages = ctx.slice(at + PAGES_MARK.length, end);
+  return `${ctx.slice(0, at + PAGES_MARK.length)}${headWithin(pages, bytes(pages) - cut)}\n[… the remaining source pages were left out to fit the input limit: read them with read_source_pages]${ctx.slice(end)}`;
+}
+
+/**
+ * One part's turn within `cap` bytes, the system prompt included: the text written so far gives
+ * way first, down to PRIOR_MIN (a quarter of the cap for a small turn), then the source pages.
+ */
+function fitPartTurn(ctx: string, make: (ctx: string, prior: number) => string, sys: number, cap = INPUT_BUDGET) {
+  const room = cap - sys - bytes(make(ctx, 0));
+  const floor = Math.min(PRIOR_MIN, Math.floor(cap / 4));
+  if (room >= floor) return make(ctx, Math.min(PRIOR_MAX, room));
+  return make(cutPages(ctx, floor - room), floor);
+}
 
 function formatValue(v: unknown): string {
   try {
@@ -424,28 +450,17 @@ export async function askTutor(opts: Base & { mode: Mode; text: string; images: 
   // a long lesson in the history goes out as its chapters list and the chapters closest to the question
   const focused = focusHistory(history, questionOf(history, text, continuing));
   const turns = fitHistory(focused.history, bytes(last), continuing, CHAT_HISTORY_BYTES);
-  const explain = mode === "clarify" || mode === "free";
   const tools = rt.canUseTools ? [...buildTools(cb, moduleDocs(m)), ...(focused.chapters.length > 1 ? [chapterTool(focused.chapters, cb)] : [])] : undefined;
-  const run = (model: string) =>
-    rt.sample!([...turns, { role: "user", content: last }], {
-      model,
-      modelTier: "complex",
-      effort,
-      signal,
-      ...(tools ? { tools } : { cache: false }),
-      ...(images.length && rt.canSendImages ? { images } : {}),
-      onText: ({ text }) => cb.onText(text),
-    });
-  if (!explain) return run(MODEL);
-  // Sonnet answers; if it fails (not served, refused, empty), Opus answers instead
-  try {
-    const res = await run(EXPLAIN_MODEL);
-    if (res.text.trim()) return res;
-  } catch (e) {
-    if (signal?.aborted || (e as { code?: string })?.code === "cancelled") throw e;
-  }
-  cb.onText("");
-  return run(MODEL);
+  // every answer in a lesson's conversation is Opus's (10.11: Sonnet's explanations were too weak for the learner)
+  return rt.sample!([...turns, { role: "user", content: last }], {
+    model: MODEL,
+    modelTier: "complex",
+    effort,
+    signal,
+    ...(tools ? { tools } : { cache: false }),
+    ...(images.length && rt.canSendImages ? { images } : {}),
+    onText: ({ text }) => cb.onText(text),
+  });
 }
 
 /** Reads one chapter of the lesson whose question this is (the history sends only the chapters closest to it). */
@@ -505,12 +520,12 @@ LESSON PLANNING STEP. Do not write the text yet. The app will write the lesson i
  "next": "what the next lesson covers"}
 Rules for the plan: 3 to 5 parts; for a core or advanced module the words add up to at least 4200 Hebrew words unless the assigned material is genuinely short (then say so in the first part); part 1 opens with the plan block and the story, then the problem/why-hard/idea paragraphs; every derivation is planned (full, or a skeleton with the assumptions, per <reader>); the parts are organized by topic, not by page order: the book is the basis, not something to retell page by page (rule 8א); every assigned section and every figure is assigned to exactly one part; every new concept is planned within one part in the order of rule 5א (the context, its general definition in a definition block, how it is built, and only then a separate example); formula blocks only for general results the course returns to (rule 5ב); all seven level-2.5 sections ("l25") are assigned to parts for the lesson's central results; the case study, the connections by <reader_stage> (a fieldmap block for every new central formula, at least two full domain blocks in every lesson (in the gateway stage P0–P3 to familiar fields, plus a fieldmap line for foreign ones; from P4 on to any field, at the full level); examples from familiar ground, rules 23–27), think questions (about six in the lesson, at real decision points), refresh blocks, scenes (scene3d) where the third dimension helps, and figures are assigned to parts; in a hub module (P4–P10) the last lesson of the module, or a lesson where an experiment teaches best, has a notebook block; the last part holds the coverage block, the keep block (rule 5ד), the exercises (estimates, trade-offs, finding errors), the today block and the sentence about the next lesson.`.trim();
 
-function partInstructions(plan: PartPlan, k: number, writtenSoFar: string) {
-  if (plan.outline && LESSON_RULES === "lite") return bookPartInstructions(plan, k, writtenSoFar);
+function partInstructions(plan: PartPlan, k: number, writtenSoFar: string, priorMax = PRIOR_MAX) {
+  if (plan.outline && LESSON_RULES === "lite") return bookPartInstructions(plan, k, writtenSoFar, priorMax);
   const p = plan.parts[k];
   const n = plan.parts.length;
   const last = k === n - 1;
-  const prior = writtenSoFar.length > 60000 ? `[…start omitted…]\n${writtenSoFar.slice(-60000)}` : writtenSoFar;
+  const prior = tailWithin(writtenSoFar, priorMax);
   return `WRITING STEP: part ${k + 1} of ${n} of this lesson. Write as the authors (see <voice>).
 ${LESSON_RULES === "lite" ? `Lesson plan (yours, from the planning step): «${plan.title}», ${n} parts:
 ${plan.parts.map((x, i) => `${i + 1}. ${x.title}${i === k ? "  ← THIS PART" : ""}`).join("\n")}
@@ -529,13 +544,13 @@ ${last ? "This is the last part: write the coverage block, the exercises, the to
 }
 
 /** A part of a lesson written as chapters of a book (bookRules.ts, docs/LESSON_BOOK_SPEC.md). */
-function bookPartInstructions(plan: PartPlan, k: number, writtenSoFar: string) {
+function bookPartInstructions(plan: PartPlan, k: number, writtenSoFar: string, priorMax = PRIOR_MAX) {
   const o = plan.outline!;
   const p = plan.parts[k];
   const n = plan.parts.length;
   const last = k === n - 1;
   const mine = partSections(o, plan.parts, k);
-  const prior = writtenSoFar.length > 60000 ? `[…start omitted…]\n${writtenSoFar.slice(-60000)}` : writtenSoFar;
+  const prior = tailWithin(writtenSoFar, priorMax);
   return `WRITING STEP: part ${k + 1} of ${n} of this lesson. Write as the authors (see <voice>).
 Lesson «${plan.title}».${plan.results?.length ? ` Central results: ${plan.results.join("; ")}.` : ""}
 Figures of the lesson: ${(plan.figures ?? []).join(", ") || "none"}.
@@ -575,9 +590,9 @@ async function checkOutline(o: { rt: Runtime; plan: PartPlan; planTurn: string; 
   for (let round = 0; round < 2; round++) {
     o.cb.onStatus?.(round ? "בודק שוב את סדר תוכן העניינים" : "בודק את סדר תוכן העניינים: כל מושג מוגדר לפני שמשתמשים בו");
     const review = parseOutlineReview(await o.rt.sample!.json<unknown>(outlineCheckPrompt(plan.outline!, o.title), { model: MODEL, modelTier: "complex", effort: "medium", signal: o.signal, cache: false }).catch(() => null));
-    const problems = [...orderProblems(plan.outline!), ...(review?.problems ?? [])];
+    const problems = [...orderProblems(plan.outline!), ...formProblems(plan.outline!), ...(review?.problems ?? [])];
     if (!problems.length) break;
-    o.cb.onStatus?.(`מתקן את תוכן העניינים (${problems.length} בעיות סדר)`);
+    o.cb.onStatus?.(`מתקן את תוכן העניינים (${problems.length} בעיות)`);
     const fixed = await ask(OUTLINE_FIX({ problems, verdict: "fix" }));
     if (!fixed || !Array.isArray(fixed.parts) || !fixed.parts.length || !validOutline(fixed.outline)) break;
     plan = { ...fixed, outline: normalizeOutline(fixed.outline) };
@@ -608,12 +623,12 @@ LESSON RULES (they replace the length rule and the 4200-word floor above). There
 - Every idea of the assigned pages goes to a unit (a background half-sentence only for what the learner already knows from an earlier lesson), or to the split lesson. Before replying, check the list of section headings above: each one is in some part's "covers" or in "split".
 - Name the central results R1 (and R2) in "results". Only they get the seven [[2.5: …]] tags (each tag once per result), a ## section of their own, formula blocks and domain blocks. An anchor claim takes at most about six lines, with no formula block, no 2.5 tag and no domain block.
 - Connections: per central result one fieldmap block and one or two domain blocks, each saying exactly what maps and where the analogy breaks. A connection is made once, in one place, never repeated in prose or in another block.
-- The casestudy is a real system or event with computed numbers set against a published figure; any calculation the story promises is carried out in the lesson.
+- The case study is a real system or event with computed numbers set against a published figure, written in prose and built like the ASR-9 case (its own subsection: the question, the inputs with sources, the chain step by step, the comparison and the gap, known vs estimated, what it means, and a comparative alternative where the real context matters); any calculation the story promises is carried out in the lesson.
 - The keep block has at most six lines, each "name: …" and standing on its own, and holds only what this lesson teaches in full (its central results and the definitions it builds): never an anchor claim, a first look at a later module's topic, or a field's illustration.
 - Questions: plan the think and predict questions only on the central results and on definitions taught in full in this lesson, each answerable from what the lesson has written by the place it stands (the numbers it needs are given in the lesson or the question). In an overview lesson most results are anchors: then ask about the ideas in words, not computations with formulas the lesson only shows.
 - Keep the JSON small: "results": ["R1: one line", "R2: one line"], and per part only "title", "covers" (one or two lines: headings, pages, results, the case study), "units" (a number), "blocks", "l25". No free-text reasoning and no unit list in the JSON.`;
 const LITE_PART = `LESSON RULES FOR THIS PART. Write every depth unit this part covers, each at its minimum: a definition = its context, the general definition block, how it is built, then a separate example; a result = the formula, every symbol, where it holds; an assumption = the assumption, the step where it enters, the case where it broke, what fell and what stayed; a quantitative reading = the bound or growth law, its reason in a line or two, one computed number; a limit = the condition, what happens beyond it, what replaces it; a trade-off = the gain, the cost, how much; a mapping = what maps to what, what carries over, where it breaks; a critique = the claim, the check, the correct statement; a case = the system, its numbers, against the model. Never write a unit below its minimum, and never above it without a new unit.
-Density: about 20 to 45 counted words per unit. Delete padding and only padding: talk about the lesson itself ("in the next part", "we begin with"); interim summaries (the keep block is the only summary); retelling the book ("the author shows"); historical color that teaches no idea; a second example that adds no unit; a story already told; the same mapping or number said twice; filler openers ("it is important to note"); lists of applications without a mechanism or a number; the theory of a later topic; rhetorical questions answered at once; empty adjectives ("deep", "elegant", "surprising").
+Density: about 20 to 45 counted words per unit. Delete padding and only padding: talk about the lesson itself ("in the next part", "we begin with"); interim summaries (the keep block is the only summary); retelling the book ("the author shows"); history that explains nothing (removing it removes no understanding of why; history that explains why a step was needed is main text, as long as it needs, outside this word band); a second example that adds no unit; a story already told; the same mapping or number said twice; filler openers ("it is important to note"); lists of applications without a mechanism or a number; the theory of a later topic; rhetorical questions answered at once; empty adjectives ("deep", "elegant", "surprising"). Reader density: at most about 3 numbers in a paragraph and one quantity in a sentence; more go to a table or a display line.
 Only the central results named in the plan get [[2.5: …]] tags, formula blocks, think questions on them, and domain blocks; everything else in this part is an anchor claim or a supporting idea: all its material stays, in the short form (claim, one assumption or structure, one number or case), with none of those. A number, example, case or connection already in the text above is not told again: refer back to it in half a sentence. Each symbol keeps one meaning for the whole lesson. The casestudy of a central result is a real system or measurement whose published number was obtained independently of the formula it tests. Never write about the writing process (parts, the plan, lists prepared in advance, what the next part will do): the reader sees one continuous lesson. No sentences about the lesson or the book; at most one forward reference per section; certainty labels at the end of a sentence. Each central result has its own casestudy: a real system or measurement whose number was obtained independently (a published figure computed from the same formula is not a test). A fieldmap line names only fields that no domain block of this lesson covers, and neither repeats what a domain block or a paragraph already says. Every number restated as a ratio, fraction or "times" is checked with compute before it is written. Questions follow what is taught: a think question, exercise, predict, verify or errorhunt may ask the learner to compute or derive only with material this lesson teaches in full, and must be answerable from what the lesson has written above it (every number and constant it needs is in the lesson or in the question). A topic shown only as a first look at a later module, or an illustration from a field, gets at most a question about its idea in words, never a calculation with its formula, and never a line in the keep block. Before writing a question, check: could a careful reader of this lesson alone answer it? If not, change the question, not the lesson.`;
 
 /**
@@ -708,16 +723,21 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
     let partText = "";
     for (let attempt = 0; attempt < 2; attempt++) {
       // a part cut off at the length limit gets one continuation
-      const turn = `${ctx}\n\n${text}\n\n${partInstructions(plan, k, (before + partText).trim())}${attempt ? "\n\nThe previous attempt of this part was cut off at the length limit; continue it exactly from where the text above stops." : ""}`;
-      const call = (h: StoredMessage[]) =>
-        rt.sample!([...fitHistory(h, bytes(turn)), { role: "user", content: turn }], {
+      const soFar = (before + partText).trim();
+      const again = attempt ? "\n\nThe previous attempt of this part was cut off at the length limit; continue it exactly from where the text above stops." : "";
+      const make = (c: string, prior: number) => `${c}\n\n${text}\n\n${partInstructions(plan!, k, soFar, prior)}${again}`;
+      const sys = bytes(systemPrompt());
+      const turn = fitPartTurn(ctx, make, sys);
+      const send = (h: StoredMessage[], t: string) =>
+        rt.sample!([...fitHistory(h, bytes(t)), { role: "user", content: t }], {
           model: MODEL,
           modelTier: "complex",
           effort,
           signal,
           ...(tools ? { tools } : { cache: false }),
-          onText: ({ text: t }) => cb.onText(before + partText + t),
+          onText: ({ text: x }) => cb.onText(before + partText + x),
         });
+      const call = (h: StoredMessage[]) => send(h, turn).catch((e) => (tooLarge(e) ? send([], fitPartTurn(ctx, make, sys, SMALL_TURN)) : Promise.reject(e)));
       // the new rules: a refused part is tried once more without the earlier turns, then diagnosed (as in Lanchester)
       const res = await (LESSON_RULES === "lite" ? retryRefused(call, history, cb).catch((e) => onRefusal(e, rt, m, turn, cb, signal)) : call(history));
       partText += res.text;
@@ -938,9 +958,74 @@ In Hebrew, two to four sentences: is it right, partly right or wrong; what is mi
   return res.text.trim();
 }
 
+/* ---------------- teach it back (teachback.ts) ---------------- */
+
+/** One reply of the examiner: the feedback on the explanation, or on an answer to a follow-up question. */
+export async function teachBackTurn(o: { rt: Runtime; scopes: TeachScope[]; taught: string; turns: TeachTurn[]; signal: AbortSignal; onText?: (t: string) => void }) {
+  const { rt } = o;
+  if (!rt.sample) throw { code: "not_granted", message: "sample unavailable" };
+  const mods = [...new Set(o.scopes.map((s) => s.moduleId))].map((id) => getIndex()?.modules.find((m) => m.id === id)).filter((m): m is Module => !!m);
+  const head = `${TEACHBACK_RULES}
+
+<study_context>
+${mods.map(moduleBlock).join("\n\n")}
+</study_context>
+
+What was taught (${o.scopes.length > 1 ? "today's lessons; give each lesson its own short line under each heading" : "this lesson"}):
+<<<
+${o.taught}
+>>>
+
+His explanation (speech-to-text):
+<<<
+`;
+  const msgs = o.turns.map((t, i) => ({
+    role: t.who === "learner" ? ("user" as const) : ("assistant" as const),
+    content: t.who === "tutor" ? t.text : i === 0 ? `${head}${t.text}\n>>>` : `He says (speech-to-text):\n${t.text}`,
+  }));
+  const first = o.turns.length === 1;
+  const res = await rt.sample(msgs, {
+    model: MODEL,
+    modelTier: first ? "complex" : "default",
+    effort: first ? "medium" : "low",
+    signal: o.signal,
+    cache: false,
+    onText: o.onText ? ({ text }) => o.onText!(text) : undefined,
+    ...(first && rt.canUseTools ? { tools: buildTools(noActivity, [...new Set(mods.flatMap(moduleDocs))]) } : {}),
+  });
+  return res.text.trim();
+}
+
+/** The session in a few fields: kept, and its gaps go to the notebook. */
+export async function teachBackVerdict(o: { rt: Runtime; scopes: TeachScope[]; turns: TeachTurn[]; signal: AbortSignal }): Promise<TeachVerdict> {
+  if (!o.rt.sample) throw { code: "not_granted", message: "sample unavailable" };
+  const talk = o.turns.map((t) => `${t.who === "learner" ? "LEARNER" : "EXAMINER"}: ${t.text}`).join("\n\n").slice(0, 120000);
+  const where = o.scopes.map((s) => `{"moduleId": "${s.moduleId}", "lesson": ${s.lesson}}${s.title ? ` = ${s.title}` : ""}`).join("; ");
+  const res = await o.rt.sample.json<Partial<TeachVerdict>>(
+    `A learner explained from memory what he learned (lessons: ${where}) and answered an examiner's questions:
+<<<
+${talk}
+>>>
+
+Reply with ONLY JSON: {"score": 1-5 (1 could not explain it, 3 the core idea right but leaning on words, 5 could teach it), "strong": ["what he understood, Hebrew, short", …at most 3], "gaps": [{"text": "one gap to deepen, in Hebrew, one sentence that stands on its own", "moduleId": "…", "lesson": n}, …at most 4, only real gaps the examiner found]}`,
+    { model: MODEL, modelTier: "quick", effort: "low", signal: o.signal, cache: false },
+  );
+  const ok = new Set(o.scopes.map((s) => `${s.moduleId}:${s.lesson}`));
+  const score = Math.min(5, Math.max(1, Math.round(Number(res?.score) || 3)));
+  const strong = (Array.isArray(res?.strong) ? res.strong : []).map(String).slice(0, 3);
+  const gaps = (Array.isArray(res?.gaps) ? res.gaps : [])
+    .filter((g) => g && typeof g.text === "string" && g.text.trim())
+    .map((g) => (ok.has(`${g.moduleId}:${g.lesson}`) ? g : { ...g, moduleId: o.scopes[0].moduleId, lesson: o.scopes[0].lesson }))
+    .slice(0, 4);
+  return { score, strong, gaps };
+}
+
 /* ---------------- refusals (as in Lanchester, restored 1.11 under the new rules) ---------------- */
 
 /** One retry on a refusal, without the earlier turns of the conversation (the only part of the input a retry can drop without changing the lesson). */
+/** The call passed the input cap (with its tool rounds); it is sent once more smaller. */
+const tooLarge = (e: unknown) => (e as { code?: string })?.code === "prompt_too_large";
+
 async function retryRefused<T>(call: (history: StoredMessage[]) => Promise<T>, history: StoredMessage[], cb: TurnCallbacks): Promise<T> {
   try {
     return await call(history);

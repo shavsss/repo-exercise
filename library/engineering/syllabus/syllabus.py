@@ -1052,3 +1052,17 @@ GAPS = [
     "Murphy, PML: Advanced Topics הגיע בשני קבצים (E49a עד עמ' מודפס 651, E49b מ-652); פרק 17 עובר ביניהם.",
     "Pozar (E53) נלמד בלנצ'סטר (M1.5–M1.7) והקובץ בספרייה שלה. בגילואה: פרק 1 (M9.17) ושיעור הפרש על תכן מגבר טרנזיסטור ומתנדים (M11.20); השאר בעיון (M11.22).",
 ]
+
+
+# Round 8 (15.11.2026): the layered order, the learner's new modules and the audit's gaps (tools/curriculum/round8.py)
+import sys as _sys
+from pathlib import Path as _Path
+_sys.path.insert(0, str(_Path(__file__).resolve().parents[3] / "tools/curriculum"))
+import round8 as _round8  # noqa: E402
+DOCS.update(_round8.docs("eng"))
+MODULES, PARTS = _round8.apply("eng", MODULES, PARTS)
+
+# Round 9 (19.11.2026): systems architecture, software and the socio-technical side, as a spiral (tools/curriculum/round9.py)
+import round9 as _round9  # noqa: E402
+DOCS.update(_round9.docs("eng"))
+MODULES, PARTS = _round9.apply("eng", MODULES, PARTS)

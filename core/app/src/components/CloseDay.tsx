@@ -4,6 +4,8 @@ import type { Runtime } from "../runtime";
 import type { ModuleProgress } from "../types";
 import { closeDay, dayTitle, gatherRecall, useDay, type DayStop } from "../day";
 import { holdNoise, play } from "../sound";
+import { TeachBack } from "./TeachBack";
+import type { TeachGap } from "../teachback";
 import "../flow.css";
 
 // "סגור את היום" (docs/research/round5/ux, r5-close, r5-stamp; proto_day.html#close, proto_reading.html §3): a button
@@ -65,6 +67,7 @@ export function CloseDay({
   stop,
   ahead,
   onClosed,
+  onGap,
   variant,
 }: {
   rt: Runtime | null;
@@ -73,6 +76,8 @@ export function CloseDay({
   /** the lesson that would be written ahead, for one line that says so */
   ahead: () => { idx: number; title: string } | null;
   onClosed: () => void;
+  /** a gap the day's teach-back found, for the notebook */
+  onGap: (gap: TeachGap) => void;
   variant: "home" | "lesson";
 }) {
   const { doc } = useDay();
@@ -142,6 +147,9 @@ export function CloseDay({
                     <span className="flow-tag">עצרת ב-</span>
                     <span>{stop.label}</span>
                   </p>
+                )}
+                {phase === "form" && seen.length > 0 && (
+                  <TeachBack rt={rt} kind="day" scopes={seen.map((s) => ({ moduleId: s.moduleId, lesson: s.lesson, title: s.title }))} onGap={onGap} />
                 )}
                 {phase === "stamped" ? (
                   <div className="flow-close-done" role="status">

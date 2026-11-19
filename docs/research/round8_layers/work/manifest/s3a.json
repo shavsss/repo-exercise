@@ -1,0 +1,319 @@
+[
+ {
+  "doc": "W03",
+  "key": "modern_c",
+  "path": "library/engineering/free/W03_modern_c.pdf",
+  "title": "Modern C",
+  "author": "Gustedt",
+  "edition": "Free author edition (HAL hal-02383654, 2nd ed. C17, 438 pp.; Manning 3rd ed. is print-only)",
+  "source_url": "https://inria.hal.science/hal-02383654/document",
+  "pdf_pages": 438,
+  "text_ok": true,
+  "method": "direct",
+  "modules": {
+   "M22.13": [
+    {
+     "pages": [
+      31,
+      274
+     ],
+     "note": "רמות 1–2: Level 1 Acquaintance (פרקים 3–8: בקרה, ביטויים, ערכים וטיפוסים, טיפוסים נגזרים, פונקציות, ספריית C) ו-Level 2 Cognition (פרקים 9–15: סגנון, מצביעים, מודל הזיכרון, אחסון, עיבוד ו-IO, כשלי תוכנית). Level 0 הוא עמ' 11–30"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "modernC.pdf on the gitlab pages site 404; HAL link found on the site"
+  ],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "W08",
+  "key": "suli_odes",
+  "path": "library/engineering/free/W08_suli_numerical_odes.pdf",
+  "title": "Numerical Solution of Ordinary Differential Equations (lecture notes)",
+  "author": "Süli",
+  "edition": "Oxford, 2 March 2022",
+  "source_url": "https://people.maths.ox.ac.uk/suli/nsodes.pdf",
+  "pdf_pages": 82,
+  "text_ok": true,
+  "method": "direct",
+  "modules": {
+   "M10.13": [
+    {
+     "pages": [
+      1,
+      82
+     ],
+     "note": "כולו: Picard, שיטות חד-צעדיות ו-Runge-Kutta, שיטות רב-צעדיות (יציבות-אפס, עקיבות, התכנסות), בעיות קשיחות ו-BDF, יציבות לא-לינארית, בעיות שפה. אין בו AD, DAE, אירועים או אינטגרטורים גאומטריים"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "W13",
+  "key": "nrc_stat_testing",
+  "path": "library/engineering/free/W13_nrc_statistics_testing_acquisition.pdf",
+  "title": "Statistics, Testing, and Defense Acquisition: New Approaches and Methodological Improvements",
+  "author": "National Research Council",
+  "edition": "NAP 1998",
+  "source_url": "https://www.nationalacademies.org/read/6037/chapter/1 (chapters 1-19)",
+  "pdf_pages": 277,
+  "text_ok": true,
+  "method": "html-render",
+  "modules": {
+   "M6.13": [
+    {
+     "pages": [
+      52,
+      126
+     ],
+     "note": "פרקים 3–6: פרדיגמה חדשה לבדיקה והערכה (52–70), שדרוג שיטות סטטיסטיות (71–82), תכנון בדיקות מבצעיות (83–110), ניתוח ודיווח תוצאות (111–126)"
+    }
+   ],
+   "M7.14": [
+    {
+     "pages": [
+      52,
+      126
+     ],
+     "note": "פרקים 3–6: פרדיגמה חדשה לבדיקה והערכה (52–70), שדרוג שיטות סטטיסטיות (71–82), תכנון בדיקות מבצעיות (83–110), ניתוח ודיווח תוצאות (111–126)"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "nap.nationalacademies.org/download/6037 and nationalacademies.org/publications/6037/download return 404 or an HTML page (PDF needs login); rendered the 19 free read-online chapters with Playwright and pdfunite. Chapter PDF starts: front matter 1, exec summary 15, ch1 24, ch2 35, ch3 52, ch4 71, ch5 83, ch6 111, ch7 127, ch8 155, ch9 171, ch10 201, app A 212"
+  ],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "W18",
+  "key": "skogestad_mfc",
+  "path": "library/engineering/free/W18_skogestad_multivariable_feedback.pdf",
+  "title": "Multivariable Feedback Control: Analysis and Design",
+  "author": "Skogestad & Postlethwaite",
+  "edition": "2nd ed. (2005), full PDF on the author's site (the URL gives the 2nd ed., not the 1st)",
+  "source_url": "https://skoge.folk.ntnu.no/skoge/book/ps/bookall.pdf",
+  "pdf_pages": 591,
+  "text_ok": true,
+  "method": "direct",
+  "modules": {
+   "M5.21": [
+    {
+     "pages": [
+      83,
+      134
+     ],
+     "note": "פרק 3: מבוא לבקרה רב-משתנית (SVD, RGA, ערך סינגולרי, שחרור קשירה)"
+    },
+    {
+     "pages": [
+      179,
+      470
+     ],
+     "note": "פרקים 5–10: מגבלות ביצועים SISO (179), מגבלות MIMO (237), אי-ודאות ועמידות SISO (275), יציבות וביצועים עמידים MIMO ו-mu (305), תכנון בקרים H-infinity ו-loop shaping (357), תכנון מבנה בקרה (399). נספח A (נורמות ומטריצות) בעמ' 531"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "W23",
+  "key": "banerjee_pll",
+  "path": "library/engineering/free/W23_banerjee_pll.pdf",
+  "title": "PLL Performance, Simulation, and Design",
+  "author": "Banerjee",
+  "edition": "5th ed. (2017), TI SNAA106C",
+  "source_url": "https://www.ti.com/lit/ml/snaa106c/snaa106c.pdf",
+  "pdf_pages": 497,
+  "text_ok": true,
+  "method": "direct",
+  "modules": {
+   "M23.18": [
+    {
+     "pages": [
+      1,
+      497
+     ],
+     "note": "כולו (נבחר): יסודות PLL (פרקים 1–3), בלוקים, מחלקים שבריים, תורת הלולאה, ספרים (spurs), רעש פאזה, זמן נעילה. מספרי העמודים בספר מוזחים ב-ii לערך ביחס ל-PDF"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "W27",
+  "key": "schneider_fdtd",
+  "path": "library/engineering/free/W27_schneider_fdtd.pdf",
+  "title": "Understanding the Finite-Difference Time-Domain Method",
+  "author": "Schneider",
+  "edition": "free online (CC BY-SA)",
+  "source_url": "https://eecs.wsu.edu/~schneidj/ufdtd/ufdtd.pdf",
+  "pdf_pages": 415,
+  "text_ok": true,
+  "method": "direct",
+  "modules": {
+   "M10.12": [
+    {
+     "pages": [
+      37,
+      152
+     ],
+     "note": "פרקים 3–5: מבוא ל-FDTD, רשת Yee ו-leapfrog (37), שיפור הקוד, מקורות, יציבות והתפזרות מספרית (81), קנה מידה לכל תדר (121)"
+    },
+    {
+     "pages": [
+      189,
+      250
+     ],
+     "note": "פרק 8: סימולציות דו-ממדיות"
+    },
+    {
+     "pages": [
+      317,
+      332
+     ],
+     "note": "פרק 11: PML"
+    },
+    {
+     "pages": [
+      359,
+      384
+     ],
+     "note": "פרק 14: טרנספורמציית near-to-far field"
+    },
+    {
+     "pages": [
+      153,
+      168
+     ],
+     "note": "תוספת מעבר להמלצה: פרק 6, ABC דיפרנציאלי (Mur)"
+    },
+    {
+     "pages": [
+      299,
+      316
+     ],
+     "note": "תוספת מעבר להמלצה: פרק 10, חומרים מתפזרים. אין בספר MoM/FEM"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "W30",
+  "key": "barfoot_ser",
+  "path": "library/engineering/free/W30_barfoot_state_estimation.pdf",
+  "title": "State Estimation for Robotics",
+  "author": "Barfoot",
+  "edition": "2nd ed. (CUP 2024), author PDF",
+  "source_url": "https://asrl.utias.utoronto.ca/~tdb/bib/barfoot_ser24.pdf",
+  "pdf_pages": 580,
+  "text_ok": true,
+  "method": "direct",
+  "modules": {
+   "M19.12": [
+    {
+     "pages": [
+      257,
+      492
+     ],
+     "note": "פרקים 7–10: גאומטריה תלת-ממדית (257), חבורות לי מטריציות (299), בעיות הערכת פוזה (397), בעיות הערכת פוזה ונקודות: bundle adjustment, SLAM (455)"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "X07",
+  "key": "volpe_cpnt",
+  "path": "library/military/free/X07_volpe_complementary_pnt.pdf",
+  "title": "Complementary PNT and GPS Backup Technologies Demonstration Report (Sections 1 through 10)",
+  "author": "US DOT Volpe Center",
+  "edition": "DOT-VNTSC-20-07, January 2021",
+  "source_url": "https://rosap.ntl.bts.gov/view/dot/55765/dot_55765_DS1.pdf",
+  "pdf_pages": 457,
+  "text_ok": true,
+  "method": "direct",
+  "modules": {
+   "M5.14": [
+    {
+     "pages": [
+      1,
+      457
+     ],
+     "note": "סעיפים 1–10 (כל הקובץ): רקע ואיומים על GPS, מבנה ההדגמה, ספקים וטכנולוגיות (LEO, סלולר, eLoran, שעונים, כוכבים), תרחישי מיקום וזמן, תוצאות"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "W34",
+  "key": "anderson_se",
+  "path": "library/engineering/free/W34_anderson_security_engineering.pdf",
+  "title": "Security Engineering",
+  "author": "Anderson",
+  "edition": "3rd ed. (Wiley 2020), full free PDF (the 2nd ed. is only available as separate chapters)",
+  "source_url": "https://www.cl.cam.ac.uk/archive/rja14/Papers/SEv3.pdf",
+  "pdf_pages": 1212,
+  "text_ok": true,
+  "method": "direct",
+  "modules": {
+   "M28.6": [
+    {
+     "pages": [
+      636,
+      701
+     ],
+     "note": "מהדורה 3: פרק 18 Tamper Resistance (636–674) ופרק 19 Side Channels (675–701); מקביל לפרקים 16–17 במהדורה 2. המשך: פרק 20 הצפנה מתקדמת מ-702"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "SEv3.pdf under /~rja14/Papers redirects to /archive/rja14/Papers; chose full 3rd ed. over 2nd-ed. chapter PDFs (SEv2-c16/c17) because it is one file"
+  ],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "W39",
+  "key": "cxl_intro",
+  "path": "library/engineering/free/W39_cxl_intro.pdf",
+  "title": "An Introduction to the Compute Express Link (CXL) Interconnect",
+  "author": "Das Sharma et al.",
+  "edition": "ACM Computing Surveys 2024, arXiv 2306.11227",
+  "source_url": "https://arxiv.org/pdf/2306.11227",
+  "pdf_pages": 35,
+  "text_ok": true,
+  "method": "direct",
+  "modules": {
+   "M28.4": [
+    {
+     "pages": [
+      1,
+      35
+     ],
+     "note": "כולו: CXL מעל PCIe, פרוטוקולים, קוהרנטיות. אין בו SerDes/PAM4/NVLink"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [],
+  "blocked_hosts": []
+ }
+]

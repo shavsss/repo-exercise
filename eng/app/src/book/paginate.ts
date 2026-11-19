@@ -6,7 +6,7 @@
 //   side (three at the head of a quiet frame, so its label never sits alone; two for a definition or formula,
 //   whose label is a line of its own);
 // - an equation, a picture, a plate and a block the learner works in are never cut; one taller than a page gets
-//   a page of its own whose inside scrolls, with a mark, so nothing is ever cut without a sign;
+//   a page of its own (a picture is drawn smaller to fit it; only a block the learner works in scrolls, with a mark);
 // - a frame that holds one thing to remember (a definition, a formula) moves whole while the page it leaves stays
 //   at least FULL full; only when moving it would leave a bigger hole is it cut, between its lines (never inside
 //   an equation), with a mark on both sides;
@@ -18,7 +18,9 @@
 //   ends before it, and that (with a section's end) is the only break that may leave a page less than FULL full;
 // - what the reader has seen does not move: pages already shown are passed in as `frozen` and kept as they are.
 //   The last of them may only grow at its end (a lesson still being written fills the page under the reader's
-//   eyes, below what is there); nothing already on it moves or disappears.
+//   eyes, below what is there); nothing already on it moves or disappears, except a picture that grew past the
+//   page, which goes whole to the next. A seen page whose blocks no longer have the heights it was laid out
+//   with is not kept (stalePages): the book is laid out again from the place being read.
 // Identical in both labs.
 
 export interface Box {
@@ -243,6 +245,13 @@ export function paginate(boxes: Box[], cap: number, lu: number, frozen: Page[] =
         continue;
       }
     }
+    if (isReopen && !b.split) {
+      // a picture or an equation that grew past the page (it loaded, or its writing ended): it is never cut, so it
+      // leaves this page and goes whole to the next
+      reopen = null;
+      startPage();
+      continue;
+    }
     if (isReopen) {
       // it no longer fits from where it was: keep exactly what was shown, and go on below it on the next page
       const to = Math.min(reopen!.minCut, b.h);
@@ -290,6 +299,30 @@ export function paginate(boxes: Box[], cap: number, lu: number, frozen: Page[] =
   if (frags.length) pages.push({ frags, next: { ...cur, held: [] } });
   if (!pages.length) pages.push({ frags: [], next: { i: boxes.length, off: 0, held: [] } });
   return pages;
+}
+
+/**
+ * Whether pages kept as seen no longer match the blocks: a block on them is now taller or shorter than the window
+ * it was given (a font or a picture that loaded late, a measure that was wrong). Such pages would have to scroll
+ * or cut inside a block, so they are laid out again instead. Only the very last block may grow: a lesson still
+ * being written, which paginate places again from where it was.
+ */
+export function stalePages(frozen: Page[], boxes: Box[], cap: number): boolean {
+  const lastPage = frozen[frozen.length - 1];
+  const lastFrag = lastPage?.frags[lastPage.frags.length - 1];
+  for (const p of frozen)
+    for (const f of p.frags) {
+      const b = boxes[f.i];
+      if (!b) return true;
+      if (f.over) {
+        if (b.h <= cap + TOL) return true;
+        continue;
+      }
+      if (f.end) {
+        if (b.h < f.to - 1 || (b.h > f.to + 1 && f !== lastFrag)) return true;
+      } else if (f.to >= b.h - 1) return true;
+    }
+  return false;
 }
 
 /** The page that shows a place in a block (`off` px into box `i`). */

@@ -9,7 +9,7 @@
 "tools/curriculum/wording_mil.json"
 ],
 "fields": {
-"items": "lesson items added by the topic-based curriculum: n name, imp K/S/C, k new|deepen|delta|mention, teach what to add, primary (for delta) the module that teaches it in full, to 1 = test-out candidate; ids E2:* make the E2 domain targets' hold-in-head and must-verify entries explicit",
+"items": "lesson items added by the topic-based curriculum: n name, imp K/S/C, k new|deepen|delta|mention, teach what to add, primary (for delta) the module that teaches it in full, on (round 8, deepen) the existing topic it builds on, to 1 = test-out candidate; ids E2:* make the E2 domain targets' hold-in-head and must-verify entries explicit",
 "testout": "sections (t, d doc, p PDF pages) or subtopics (sub 1) taught after a short diagnostic: pass = condensed lesson with the full text one click away and a later recheck; otherwise the full lesson",
 "brief": "sections taught as a short overview, with the full text one click away (never dropped)",
 "reading": "fixed reading list: core = read with the module; st ok|doi|blocked|timeout|rough is the link check; p2h 1 = stronger source for a tutor-written domain, with its topic"
@@ -292,6 +292,13 @@
 "imp": "S",
 "k": "new",
 "teach": "Electromagnetic simulation hygiene: refine the mesh until gain, pattern and S11 change less than a stated tolerance, and check the solver against the analytic dipole and patch before trusting it."
+},
+{
+"id": "R8:M1.2:1",
+"n": "Phased-array calibration: element errors, coupling and calibration methods",
+"imp": "K",
+"k": "new",
+"teach": "שגיאות משרעת ופאזה של אלמנטים ומודולי T/R ואיך הן מעלות אונות צד ומזיזות את הכוונת האלומה. שיטות כיול: מדידה בשדה הקרוב, הזרקת אות כיול פנימית, ושיטות מבוססות צימוד הדדי בין אלמנטים. כיול חוזר בשטח עם טמפרטורה והזדקנות."
 }
 ],
 "testout": [
@@ -857,6 +864,15 @@
 ]
 },
 "M2.13": {
+"items": [
+{
+"id": "R8:M2.13:x1",
+"n": "ML for radar classification",
+"imp": "S",
+"k": "new",
+"teach": "סיווג מטרות ממיקרו-דופלר, גלאים נלמדים מול CFAR, והכשלים בנתונים מבצעיים."
+}
+],
 "testout": [
 {
 "t": "Pulsed Doppler Operation",
@@ -2619,6 +2635,13 @@
 "imp": "S",
 "k": "new",
 "teach": "Open datasets for spectrum processing (e.g., RadioML, public pulse and ADS-B recordings): test deinterleaving and classification code on data the learner did not generate."
+},
+{
+"id": "R8:M4.3:x1",
+"n": "ML for emitter identification",
+"imp": "S",
+"k": "new",
+"teach": "הפרדת פולסים וזיהוי פולטים בלמידה, טביעת אצבע RF, ועמידות לשינויי מצב."
 }
 ],
 "testout": [
@@ -4652,6 +4675,14 @@
 "n": "Tactical missile conceptual design as a module (Fleeman B13): add the book to the syllabus via OCR",
 "imp": "K",
 "k": "deepen"
+},
+{
+"id": "R8:M6.12:dfm1",
+"n": "Producibility and cost drivers",
+"imp": "S",
+"k": "deepen",
+"teach": "מה מניע את עלות הייצור של טיל (מחפש, מנוע, חלקים, חומרים), producibility לפי Fleeman, ו-design to cost.",
+"on": "M6.12 · tactical missile conceptual design"
 }
 ],
 "reading": [
@@ -10085,6 +10116,20 @@
 "imp": "K",
 "k": "deepen",
 "teach": "Starlink-class use in war: terminals, jamming resistance, geolocation of terminals, dependence on a private actor"
+},
+{
+"id": "R8:M13.10:fut1",
+"n": "Optical inter-satellite links and the space transport layer",
+"imp": "S",
+"k": "new",
+"teach": "קישורי לייזר בין לוויינים: תקציב קישור אופטי (רוחב אלומה של מיקרו-רדיאנים, מקור קטן), רכישה, עקיבה והצבעה (PAT), קצבי Gbps בלי רישוי תדרים, וקושי גבוה לשיבוש וליירוט. הם מאפשרים רשת שמעבירה מידע במסלול עצמו (Starlink, שכבת התעבורה של PWSA), ומה זה משנה בזמן מהחיישן ועד הנשק."
+},
+{
+"id": "R8:M13.10:fut2",
+"n": "Direct-to-device satellite links and 5G NTN",
+"imp": "S",
+"k": "new",
+"teach": "לוויין שמדבר ישירות עם טלפון רגיל: תקציב קישור עם אנטנה של מכשיר, מערכי אנטנות ענקיים בלוויין, היסט דופלר וזמני השהיה ב-LEO, ותקן 5G NTN. המשמעות הצבאית: קשר בלי תשתית קרקעית, תלות בספק מסחרי, ופגיעות לשיבוש ולאיכון."
 }
 ],
 "reading": [
@@ -11050,6 +11095,14 @@
 "k": "delta",
 "teach": "Wright learning curve and production-rate effects in a defense context (interceptors, F-35), quantity-unit-cost spiral.",
 "primary": "mil:M13.7"
+},
+{
+"id": "R8:M14.2:dfm1",
+"n": "Production ramp and learning curves",
+"imp": "K",
+"k": "deepen",
+"teach": "עקומת לימוד (Wright), קצב ייצור, LRIP ל-FRP, וצווארי בקבוק בשרשרת האספקה (למשל מנועים רקטיים מוצקים).",
+"on": "M14.2 · cost definitions and the industrial base"
 }
 ],
 "reading": [
@@ -11648,6 +11701,2602 @@
 "h": 0.3,
 "kind": "standard",
 "st": "ok"
+}
+]
+},
+"M5.13": {
+"items": [
+{
+"id": "R8:M5.13:1",
+"n": "Loose, tight and deep GNSS/INS coupling",
+"imp": "K",
+"k": "deepen",
+"teach": "שילוב ברמת מיקום (loose) מול ברמת pseudorange (tight) ומול לולאות עקיבה מונחות-INS (deep/ultra-tight); מסנן error-state; למה tight ממשיך לעבוד עם 2–3 לוויינים ו-deep משפר מרווח שיבוש בכמה dB.",
+"on": "M5.8"
+},
+{
+"id": "R8:M5.13:2",
+"n": "Free-inertial error growth and IMU grades",
+"imp": "K",
+"k": "deepen",
+"teach": "תנודת Schuler (כ-84 דקות), גידול שגיאה מהטיית ג'ירו (בקירוב ∝ t³ בטווח קצר) ומהטיית מד-תאוצה; דרגות IMU (צרכני, טקטי, ניווטי, אסטרטגי) במונחי °/h ו-nmi/h; כמה זמן כל דרגה מחזיקה דיוק נשק.",
+"on": "M5.8"
+},
+{
+"id": "R8:M5.13:3",
+"n": "Terrain-referenced navigation (TERCOM, SITAN)",
+"imp": "K",
+"k": "deepen",
+"teach": "התאמת פרופיל מד-גובה מכ\"מי ל-DTED: קורלציה בצרורות (TERCOM) מול סינון רציף (SITAN); דרישת חספוס שטח, עמימות מעל מישור וים, רזולוציית DTED כמגבילת דיוק; טילי שיוט כמקרה.",
+"on": "M9.3"
+},
+{
+"id": "R8:M5.13:4",
+"n": "Scene matching (DSMAC) and terminal image navigation",
+"imp": "S",
+"k": "deepen",
+"teach": "קורלציה של תמונת חיישן מול תמונת ייחוס לתיקון סופי: רגישות לעונה, תאורה, זווית ושינוי במטרה; הכנת מידע משימה כצוואר בקבוק; מה DSMAC הוסיף ל-CEP של Tomahawk.",
+"on": "M9.3"
+},
+{
+"id": "R8:M5.13:5",
+"n": "VIO and visual navigation in the military setting",
+"imp": "S",
+"k": "deepen",
+"teach": "המתמטיקה (preintegration, BA) בגילואה; כאן: שטח דל-תכונות, גובה טיסה וסקאלה, לילה ו-IR, אבק ועשן, סחיפה כאחוז מהמרחק, ומה רחפנים באוקראינה עושים כשה-GNSS משובש.",
+"on": "E:M19.12; M9.3"
+},
+{
+"id": "R8:M5.13:6",
+"n": "Factor-graph smoothing for multi-sensor navigation",
+"imp": "S",
+"k": "deepen",
+"teach": "גרף גורמים ו-iSAM2 כמסגרת plug-and-play לחיישנים אסינכרוניים (IMU, באר, מצלמה, SoOP, מפה); השוואה ל-EKF במדידות מאוחרות; עלות חישוב על מעבד משימה.",
+"on": "E:M19.12"
+},
+{
+"id": "R8:M5.13:7",
+"n": "Magnetic anomaly navigation (MagNav)",
+"imp": "S",
+"k": "deepen",
+"teach": "מיקום לפי מפת אנומליה מגנטית: פיצוי שדה כלי הטיס (Tolles-Lawson), דיוק כתלות בגובה ובאיכות המפה, ניסויי USAF; פסיבי ובלתי ניתן לשיבוש, אבל תלוי מפה.",
+"on": "M5.11"
+},
+{
+"id": "R8:M5.13:8",
+"n": "Integrity and fault detection in fused navigation",
+"imp": "K",
+"k": "new",
+"teach": "בדיקות חדשנות (χ² gating), דמוי-RAIM לחיישנים מרובים, protection levels; איך מסנן משולב מזהה מקור שגוי או מוטעה בכוונה במקום להיגרר אחריו."
+},
+{
+"id": "R8:M5.13:9",
+"n": "Navigation error budget of a guided weapon",
+"imp": "K",
+"k": "deepen",
+"teach": "תרומת שגיאת ניווט אמצע-מסלול, מיקום מטרה (TLE) ומחפש סופי ל-CEP; למה מחפש סופי מנטרל חלק מהתלות ב-GNSS ובאיזה מחיר; JDAM ו-GMLRS תחת שיבוש.",
+"on": "M5.8"
+},
+{
+"id": "R8:M5.13:10",
+"n": "Land-vehicle aiding: odometry, ZUPT, non-holonomic constraints",
+"imp": "S",
+"k": "deepen",
+"teach": "אילוצי תנועה של רכב (NHC), מד-מרחק, עדכוני מהירות אפס ובארומטר; כמה כל אחד מאט את סחיפת ה-INS ברכב קרבי בלי GNSS.",
+"on": "M5.10"
+}
+]
+},
+"M5.14": {
+"items": [
+{
+"id": "R8:M5.14:1",
+"n": "SoOP positioning with unknown transmitter clocks",
+"imp": "K",
+"k": "deepen",
+"teach": "בעיית SoOP: משדר שלא נבנה לניווט ומצב שעון לא ידוע; תצורת base/rover ושערוך משותף של שעוני משדר ומקלט (גישת Kassas); מה קובע את הדיוק.",
+"on": "M5.11"
+},
+{
+"id": "R8:M5.14:2",
+"n": "LEO Doppler and pseudorange PNT (Starlink, Iridium, Orbcomm)",
+"imp": "K",
+"k": "deepen",
+"teach": "מיקום מדופלר של לווייני LEO: גאומטריה משתנה מהר, שגיאת אפמריס מ-TLE/SGP4 (מאות מטרים) ותיקונה, Iridium STL; אות חזק בעשרות dB מ-GNSS כיתרון מול שיבוש.",
+"on": "M5.11"
+},
+{
+"id": "R8:M5.14:3",
+"n": "Cellular (LTE/5G) positioning",
+"imp": "S",
+"k": "deepen",
+"teach": "pseudoranges מאותות ייחוס (PRS/CRS), multipath עירוני, תלות בכיסוי באזור לחימה ובכך שהרשת לא כובתה; דיוק מדוד בניסויים פתוחים.",
+"on": "M5.11"
+},
+{
+"id": "R8:M5.14:4",
+"n": "Celestial navigation and daytime star trackers",
+"imp": "S",
+"k": "deepen",
+"teach": "עוקב כוכבים נותן גישה מוחלטת; מיקום דורש אנך מקומי מדויק ולכן INS טוב; SWIR לאיתור כוכבים ביום; arc-sec אחד כ-30 m; שימוש בטילים ובמטוסי ריגול.",
+"on": "M5.11"
+},
+{
+"id": "R8:M5.14:5",
+"n": "eLoran and terrestrial backups",
+"imp": "C",
+"k": "deepen",
+"teach": "גל קרקע ב-100 kHz, תיקוני ASF, דיוק עשרות מטרים, אות חזק מול שיבוש; מצב התשתית.",
+"on": "M5.11"
+},
+{
+"id": "R8:M5.14:6",
+"n": "Clock stability, Allan deviation and holdover",
+"imp": "K",
+"k": "deepen",
+"teach": "Allan deviation לסוגי שעונים (TCXO, OCXO, Rb, CSAC, Cs); 1 ns = 30 cm; חישוב holdover: כמה זמן עד שגיאת זמן שפוגעת ב-TDMA או בניווט.",
+"on": "M5.6"
+},
+{
+"id": "R8:M5.14:7",
+"n": "Chip-scale atomic clocks in fielded systems",
+"imp": "S",
+"k": "deepen",
+"teach": "CSAC (כ-120 mW): רכישה ישירה מהירה של קוד צבאי, clock coasting שמאפשר פתרון עם פחות לוויינים, holdover לרשתות; פשרות הספק ועלות.",
+"on": "M5.11"
+},
+{
+"id": "R8:M5.14:8",
+"n": "Optical clocks and cold-atom inertial sensors: maturity",
+"imp": "C",
+"k": "deepen",
+"teach": "מה מבטיחים אינטרפרומטרים אטומיים ושעונים אופטיים ניידים, מה הוכח בניסויי ים ואוויר, ומה מפריד בין מעבדה לפלטפורמה.",
+"on": "M5.11"
+},
+{
+"id": "R8:M5.14:9",
+"n": "Time transfer without GNSS",
+"imp": "S",
+"k": "deepen",
+"teach": "PTP ו-White Rabbit בגילואה; כאן: two-way time transfer על קשרי נתונים ולוויין, NTR ב-Link 16, והפצת זמן ביחידה כשה-GNSS נופל.",
+"on": "E:M28.5"
+}
+]
+},
+"M7.17": {
+"items": [
+{
+"id": "R8:M7.17:1",
+"n": "Diffraction-limited spot and irradiance on target",
+"imp": "K",
+"k": "deepen",
+"teach": "קוטר כתם ≈ M²·λR/D, power-in-bucket, irradiance במטרה; למה מראה גדולה ואורך גל קצר שווים יותר מהספק; חישוב לטווח 2–5 km.",
+"on": "M3.13"
+},
+{
+"id": "R8:M7.17:2",
+"n": "Atmospheric extinction and laser windows",
+"imp": "K",
+"k": "deepen",
+"teach": "בליעה מולקולרית ופיזור אירוסולים, Beer-Lambert לאורך המסלול, חלונות 1.06/1.6/3.8 µm, לחות, אובך וענן; מתי מזג האוויר מבטל את הנשק.",
+"on": "M3.13; M3.5"
+},
+{
+"id": "R8:M7.17:3",
+"n": "Optical turbulence: Cn², Fried parameter, scintillation",
+"imp": "K",
+"k": "deepen",
+"teach": "Kolmogorov בגילואה; כאן: פרופילי Cn² במסלול אופקי ליד קרקע וים, r0 ו-D/r0, beam wander, התרחבות וסינטילציה; למה מסלול נמוך ביום הוא הקשה ביותר.",
+"on": "E:M14.13; M3.13"
+},
+{
+"id": "R8:M7.17:4",
+"n": "Thermal blooming",
+"imp": "K",
+"k": "new",
+"teach": "בליעה מחממת את האוויר ויוצרת עדשה שלילית; distortion number, הספק קריטי, תפקיד רוח ו-slewing; למה הגדלת הספק מעל סף מקטינה irradiance."
+},
+{
+"id": "R8:M7.17:5",
+"n": "Adaptive optics for HEL",
+"imp": "K",
+"k": "new",
+"teach": "חיישן חזית גל (Shack-Hartmann), מראה מתעוותת, בעיית ה-beacon (החזר מהמטרה במקום כוכב מנחה), זווית איזופלנטית ותדר Greenwood; כמה AO מחזיר בטורבולנציה חזקה."
+},
+{
+"id": "R8:M7.17:6",
+"n": "Acquisition, tracking and pointing (ATP) and jitter budget",
+"imp": "K",
+"k": "new",
+"teach": "עקיבה גסה ועדינה, שמירת נקודת פגיעה על מטרה מתמרנת, תקציב jitter במיקרו-רדיאן והשפעתו על הכתם; למה ATP הוא לרוב המגביל ולא ההספק."
+},
+{
+"id": "R8:M7.17:7",
+"n": "Laser-material interaction and kill mechanisms",
+"imp": "K",
+"k": "deepen",
+"teach": "הולכה חולפת בגילואה; כאן: בליעות, זמן חדירה וסף fluence (kJ/cm²); נקודות תורפה של רקטה, פצצת מרגמה ורחפן; ציפויים, סיבוב וחומרים אבלטיביים כנגד.",
+"on": "E:M14.5"
+},
+{
+"id": "R8:M7.17:8",
+"n": "HEL sources and power/thermal budget",
+"imp": "S",
+"k": "deepen",
+"teach": "לייזר סיב ושילוב אלומות ספקטרלי וקוהרנטי, יעילות חשמלית 30–40%, ניהול חום ואגירה; גודל ומשקל לכל kW ברכב, ספינה ומטוס.",
+"on": "M3.13"
+},
+{
+"id": "R8:M7.17:9",
+"n": "Engagement timeline and effective magazine",
+"imp": "S",
+"k": "deepen",
+"teach": "זמן שהייה למטרה, זמן מעבר בין מטרות, מטרות לדקה מול גודל מטח; Iron Beam כמקרה: מה ידוע ומה הצהרה.",
+"on": "M3.13"
+},
+{
+"id": "R8:M7.17:10",
+"n": "Eye safety and hazard zones",
+"imp": "S",
+"k": "new",
+"teach": "NOHD, אזורי סכנה לטייסים ולאזרחים, ניהול מרחב אווירי בירי לייזר; ההקשר המשפטי (פרוטוקול IV) ב-K17."
+}
+]
+},
+"M7.18": {
+"items": [
+{
+"id": "R8:M7.18:1",
+"n": "HPM sources and pulsed power",
+"imp": "K",
+"k": "deepen",
+"teach": "תנועת מטענים ומהודים בגילואה; כאן: vircator, magnetron יחסותי, BWO, MILO ומערכי מוצק; Marx ו-PFN; הספק שיא, יעילות, אורך פולס וקצב חזרה כפרמטרים של נשק.",
+"on": "E:M9.10; E:M9.11"
+},
+{
+"id": "R8:M7.18:2",
+"n": "Narrowband versus wideband/UWB HPM",
+"imp": "K",
+"k": "new",
+"teach": "אנרגיה מרוכזת בתדר מול שדה שיא על פני רוחב סרט; איזה מנגנון צימוד כל אחד מנצל, ולמה UWB פועל בטווח קצר יותר."
+},
+{
+"id": "R8:M7.18:3",
+"n": "Radiated field, range and air breakdown",
+"imp": "K",
+"k": "deepen",
+"teach": "E = √(30PG)/R בשדה רחוק; סף פריצת אוויר (סדר גודל 1 MV/m בגובה פני הים, תלוי באורך פולס ובגובה) מגביל את העוצמה; חישוב טווח אפקט מול סף רגישות.",
+"on": "M11.10"
+},
+{
+"id": "R8:M7.18:4",
+"n": "Front-door coupling",
+"imp": "K",
+"k": "deepen",
+"teach": "צימוד דרך אנטנה בתוך הפס: שטח אפקטיבי, הספק שמגיע ל-LNA, ספי נזק של limiters ומקלטים; למה מקלט פתוח לאוויר הוא הפגיע ביותר.",
+"on": "M11.10"
+},
+{
+"id": "R8:M7.18:5",
+"n": "Back-door coupling and shielding effectiveness",
+"imp": "K",
+"k": "deepen",
+"teach": "צימוד דרך חריצים, פתחים וכבלים: תהודות כבל ומארז, Q של חלל, shielding effectiveness; למה האפקט סטטיסטי ותלוי זווית ותדר.",
+"on": "M11.10; E:M11.24"
+},
+{
+"id": "R8:M7.18:6",
+"n": "Wunsch-Bell damage model and effect levels",
+"imp": "K",
+"k": "new",
+"teach": "כשל תרמי של צמתים: הספק כשל ∝ t^(-1/2) בתחום פולסים קצרים; רמות אפקט: הפרעה, upset, latch-up, שריפה; עקומות רגישות סטטיסטיות במקום סף יחיד."
+},
+{
+"id": "R8:M7.18:7",
+"n": "Hardening against HPM and HEMP",
+"imp": "S",
+"k": "deepen",
+"teach": "סיכוך, סינון והגנות נחשולים בגילואה; כאן: MIL-STD-188-125 ו-MIL-STD-464 כדרישות מערכת, ועלות הקשחה של פלטפורמה קיימת.",
+"on": "E:M11.24"
+},
+{
+"id": "R8:M7.18:8",
+"n": "Nuclear EMP E1/E2/E3 compared with HPM",
+"imp": "C",
+"k": "deepen",
+"teach": "שלושת רכיבי HEMP, שטח כיסוי מול נשק HPM נקודתי; Starfish Prime כנתון.",
+"on": "M11.10"
+},
+{
+"id": "R8:M7.18:9",
+"n": "HPM as C-UAS effector",
+"imp": "K",
+"k": "deepen",
+"teach": "Leonidas/THOR-class: אפקט שטח מול נחיל, טווח מול רחפנים, אי-ודאות באימות הפגיעה, ומה קורה מול רחפן מוקשח או בסיב אופטי.",
+"on": "M11.10; M9.7"
+}
+]
+},
+"M15.1": {
+"items": [
+{
+"id": "R8:M15.1:1",
+"n": "Federated versus integrated modular avionics",
+"imp": "K",
+"k": "deepen",
+"teach": "ארכיטקטורה מבוזרת מול IMA: מחיצות זמן ומרחב (ARINC 653), רמות DO-178C/DO-254; מה IMA עושה להסמכה ולשדרוג.",
+"on": "M8.2"
+},
+{
+"id": "R8:M15.1:2",
+"n": "MIL-STD-1553B",
+"imp": "K",
+"k": "new",
+"teach": "command/response עם BC, עד 31 RT ו-bus monitor; 1 Mb/s, Manchester II, מילים של 20 ביט ועד 32 מילות נתונים להודעה; מסגרות major/minor, יתירות כפולה וצימוד שנאי; למה הוא עדיין בכל פלטפורמה."
+},
+{
+"id": "R8:M15.1:3",
+"n": "ARINC 429",
+"imp": "S",
+"k": "new",
+"teach": "קו חד-כיווני, משדר אחד ועד 20 מקלטים, מילה של 32 ביט עם label של 8 ביט, 12.5 או 100 kbit/s; מחיר החיווט כשמספר הממשקים גדל."
+},
+{
+"id": "R8:M15.1:4",
+"n": "ARINC 664 part 7 (AFDX) and bounded latency",
+"imp": "K",
+"k": "new",
+"teach": "Ethernet ממותג דטרמיניסטי: virtual links, BAG ו-jitter חסום; network calculus להשהיה במקרה הגרוע; השוואה ל-1553 בתפוקה ובוודאות."
+},
+{
+"id": "R8:M15.1:5",
+"n": "SpaceWire and SpaceFibre",
+"imp": "S",
+"k": "new",
+"teach": "קישורי LVDS data-strobe (עד מאות Mb/s), ניתוב wormhole, שימוש בחלליות; SpaceFibre כהמשך."
+},
+{
+"id": "R8:M15.1:6",
+"n": "Time-Sensitive Networking in vetronics",
+"imp": "K",
+"k": "deepen",
+"teach": "PTP בגילואה; כאן: 802.1AS, תעבורה מתוזמנת 802.1Qbv, preemption ו-802.1CB ליתירות; GVA ו-VICTORY ברכב קרבי, וחיישנים ונשק על רשת אחת.",
+"on": "E:M28.5"
+},
+{
+"id": "R8:M15.1:7",
+"n": "Open architectures: MOSA, FACE, SOSA",
+"imp": "S",
+"k": "new",
+"teach": "ממשקים פתוחים כדרישת רכש, FACE לתוכנה ו-SOSA לחומרה; הטענה (שדרוג מהיר, תחרות) מול המציאות (ניהול תצורה, הסמכה)."
+},
+{
+"id": "R8:M15.1:8",
+"n": "Bus security and avionics attack surface",
+"imp": "S",
+"k": "deepen",
+"teach": "1553 ו-429 בלי אימות הודעות; כניסה דרך ציוד תחזוקה ונתוני משימה; ההמשך ההגנתי ב-U8.",
+"on": "M7.9"
+},
+{
+"id": "R8:M15.1:9",
+"n": "End-to-end deterministic latency budgets",
+"imp": "S",
+"k": "deepen",
+"teach": "השהיה מחיישן דרך באס ומעבד למפעיל, WCET ותזמון; דוגמה: תקציב לולאת ירי במטוס.",
+"on": "M8.2"
+}
+]
+},
+"M15.3": {
+"items": [
+{
+"id": "R8:M15.3:1",
+"n": "Link 16 physical layer",
+"imp": "K",
+"k": "new",
+"teach": "51 תדרים ב-969–1206 MHz, דילוג פולס-פולס (כ-77,000 hop/s), CCSK של 5 ביט ל-32 chips ב-MSK, RS(31,15), פולס יחיד וכפול, חריצי TACAN/IFF; מה נותן עמידות לשיבוש ומה לא."
+},
+{
+"id": "R8:M15.3:2",
+"n": "Link 16 TDMA architecture and network design",
+"imp": "K",
+"k": "new",
+"teach": "epoch של 12.8 דקות ו-98,304 חריצים, מסגרת 12 s של 1,536 חריצים (7.8125 ms); NPGs, stacked nets, הקצאת חריצים; למה רשת דורשת תכנון מראש."
+},
+{
+"id": "R8:M15.3:3",
+"n": "J-series messages, PPLI, track numbers and RelNav",
+"imp": "K",
+"k": "deepen",
+"teach": "PPLI, הודעות מסלול, מספרי מסלול ואחריות דיווח (R2), ניווט יחסי וזמן רשת (NTR); כך נבנית תמונה משותפת.",
+"on": "M7.9"
+},
+{
+"id": "R8:M15.3:4",
+"n": "Link 16 capacity, range, terminals and limits",
+"imp": "S",
+"k": "new",
+"teach": "קיבולת למשתמש, טווח LOS (כ-300 nmi) והעברה, MIDS-LVT/JTRS, concurrent multi-netting; גבולות קיבולת בתרחיש רווי."
+},
+{
+"id": "R8:M15.3:5",
+"n": "Other links: Link 11/22, JREAP, VMF",
+"imp": "S",
+"k": "new",
+"teach": "Link 22 כמחליף ימי, JREAP להעברת J-series מעל IP ולוויין, VMF (K-series) מעל רדיו קרקעי (MIL-STD-188-220); תפקיד כל אחד בשרשרת."
+},
+{
+"id": "R8:M15.3:6",
+"n": "LPI/LPD links for stealth platforms: MADL, IFDL (open level)",
+"imp": "S",
+"k": "deepen",
+"teach": "אלומות צרות כיווניות, בעיית חיבור לרשת לא חמקנית, gateways; רק מה שמתועד בפתוח.",
+"on": "M7.9"
+},
+{
+"id": "R8:M15.3:7",
+"n": "Multi-link track management: dual tracks and gateways",
+"imp": "K",
+"k": "new",
+"teach": "קורלציית מספרי מסלול, מסלולים כפולים, השהיה בתרגום בין רשתות; למה שערים בין Link 11/16/JREAP הם מקור לטעויות בתמונה."
+},
+{
+"id": "R8:M15.3:8",
+"n": "Swarm communication protocols",
+"imp": "S",
+"k": "deepen",
+"teach": "consensus ו-gossip, טופולוגיה ורוחב פס לסוכן, flocking עם תקשורת מוגבלת; מה נחיל צריך מהרשת ומה נשבר תחת שיבוש.",
+"on": "M9.3"
+}
+]
+},
+"M15.4": {
+"items": [
+{
+"id": "R8:M15.4:1",
+"n": "ATR metrics at the operating point",
+"imp": "K",
+"k": "deepen",
+"teach": "Pd, Pfa ו-Pid במקום accuracy, מטריצות בלבול בנקודת עבודה, חוסר איזון מחלקות, תנאי פעולה מורחבים (EOC); איך מדווחים ATR ביושר.",
+"on": "M3.8; M2.37"
+},
+{
+"id": "R8:M15.4:2",
+"n": "Military training data: scarcity, synthetic data, sim-to-real",
+"imp": "K",
+"k": "deepen",
+"teach": "מעט נתונים מתויגים על מטרות, נתונים סינתטיים (SAR מדומה, IR מרונדר), פער sim-to-real (SAMPLE כמקרה), תיוג כצוואר בקבוק.",
+"on": "M3.8"
+},
+{
+"id": "R8:M15.4:3",
+"n": "Edge hardware in the mission context",
+"imp": "S",
+"k": "deepen",
+"teach": "הארכיטקטורות בגילואה; כאן: בחירת SoC, FPGA או NPU לפי SWaP, טמפרטורה, קרינה והסמכה; ביצועים לוואט במעטפת טיל או רחפן.",
+"on": "E:M29.7; E:M28.3; E:M28.2"
+},
+{
+"id": "R8:M15.4:4",
+"n": "Latency budget inside the guidance loop",
+"imp": "K",
+"k": "new",
+"teach": "חיישן ← עיבוד ← הסקה ← עוקב ← הנחיה; איך השהיה וקצב עדכון הופכים למרחק החטאה בשלב הסופי, ומתי מודל קטן ומהיר עדיף."
+},
+{
+"id": "R8:M15.4:5",
+"n": "Compression effects at the operating point",
+"imp": "S",
+"k": "deepen",
+"teach": "כימות וגיזום בגילואה; כאן: בדיקת Pd/Pfa אחרי דחיסה בנקודת העבודה ועל מטרות נדירות, לא ממוצע.",
+"on": "E:M29.7; E:M17.12"
+},
+{
+"id": "R8:M15.4:6",
+"n": "Adversarial robustness and countermeasures to ATR",
+"imp": "K",
+"k": "deepen",
+"teach": "טלאים יריבים, הסוואה נגד CNN, מטרות דמה, הסטת התפלגות; מה הוכח בשטח ומה מעבדתי.",
+"on": "M3.8; E:M17.16"
+},
+{
+"id": "R8:M15.4:7",
+"n": "Terminal lock-on autonomy under EW",
+"imp": "S",
+"k": "deepen",
+"teach": "נעילה אוטומטית ב'מייל האחרון' של FPV ומשוטטים: track-before-lock, מסירה מהמפעיל, כשל על מטרה מוסתרת.",
+"on": "M9.4"
+},
+{
+"id": "R8:M15.4:8",
+"n": "Assurance and T&E of ML components",
+"imp": "S",
+"k": "deepen",
+"teach": "סט בדיקה מבצעי, ניטור בזמן ריצה, השלכות DoDD 3000.09 (ב-K17); איך מראים שרכיב לומד עומד בדרישה.",
+"on": "M7.10"
+}
+]
+},
+"M15.5": {
+"items": [
+{
+"id": "R8:M15.5:1",
+"n": "CEMA concepts and doctrine",
+"imp": "S",
+"k": "deepen",
+"teach": "EMS וסייבר כמרחב אחד: JEMSO, FM 3-12; RF כנתיב גישה למערכת; ההבחנה בין EA, פעולת סייבר ושילובן.",
+"on": "M4.1"
+},
+{
+"id": "R8:M15.5:2",
+"n": "Attack surface of an RF-linked system",
+"imp": "K",
+"k": "new",
+"teach": "מפה הגנתית: שכבה פיזית, MAC, מפענחי פרוטוקול, נתיב עדכון קושחה, תחנת קרקע, שרשרת אספקה; מידול איום (attack trees, STRIDE) כשלב בתכן."
+},
+{
+"id": "R8:M15.5:3",
+"n": "Protocol-aware threats and link design against them",
+"imp": "K",
+"k": "new",
+"teach": "פקודות לא מאומתות, replay, שיבוש חכם שמכוון למסגרות סנכרון ובקרה; תכן שמסתיר סנכרון, מאמת פקודות ומתאושש."
+},
+{
+"id": "R8:M15.5:4",
+"n": "Message authentication in constrained links",
+"imp": "K",
+"k": "deepen",
+"teach": "הקריפטו בגילואה; כאן: תקורת MAC/AEAD מול גודל מסגרת והשהיה, הפצת מפתחות ו-OTAR, התאוששות מאובדן מכשיר; רחפנים לא מוצפנים כמקרה.",
+"on": "M7.9; E:M22.15"
+},
+{
+"id": "R8:M15.5:5",
+"n": "TRANSEC versus COMSEC",
+"imp": "K",
+"k": "deepen",
+"teach": "הסתרת רצף דילוג וצורת גל, LPD ואבטחת זרימת תעבורה מול הצפנת תוכן; למה הצפנה לבדה לא מונעת איכון ושיבוש.",
+"on": "M7.9; M4.11"
+},
+{
+"id": "R8:M15.5:6",
+"n": "Anti-spoofing for navigation and datalinks",
+"imp": "K",
+"k": "deepen",
+"teach": "אימות אותות GNSS (Galileo OSNMA), בדיקות עקביות בין חיישנים, CRPA; הטעיית ADS-B ו-AIS; עיקרון: לא לסמוך על ערוץ יחיד.",
+"on": "M5.5"
+},
+{
+"id": "R8:M15.5:7",
+"n": "Weapon-system cyber assessments",
+"imp": "S",
+"k": "deepen",
+"teach": "ממצאי GAO-19-128, הערכות DOT&E (cooperative ו-adversarial), cyber survivability כדרישה.",
+"on": "M7.9"
+},
+{
+"id": "R8:M15.5:8",
+"n": "Secure design of embedded RF systems",
+"imp": "S",
+"k": "deepen",
+"teach": "root of trust ו-secure boot בגילואה; כאן: הפרדת באס משימה מבאס תחזוקה, הקשחת נתוני משימה, SBOM ושרשרת אספקה.",
+"on": "E:M28.6; E:M22.11"
+},
+{
+"id": "R8:M15.5:9",
+"n": "Detection and graceful degradation under link compromise",
+"imp": "S",
+"k": "new",
+"teach": "ניטור ספקטרום וזיהוי חריגות, מצבי עבודה מנוונים, מתי לנתק קישור; המשימה ממשיכה גם כשהקישור חשוד."
+}
+]
+},
+"M15.6": {
+"items": [
+{
+"id": "R8:M15.6:1",
+"n": "MIL-STD-461G tests at subsystem level",
+"imp": "S",
+"k": "deepen",
+"teach": "יסודות EMC בגילואה; כאן: CE102, RE102, CS114, RS103 וגבולותיהם לפי פלטפורמה; קריאת דוח בדיקה.",
+"on": "E:M11.24"
+},
+{
+"id": "R8:M15.6:2",
+"n": "MIL-STD-464C system-level E3",
+"imp": "K",
+"k": "new",
+"teach": "סביבת E3 חיצונית, EMC פנים-מערכתית, HERO/HERP/HERF, ברק ו-EMP; דרישת מערכת מול דרישת רכיב."
+},
+{
+"id": "R8:M15.6:3",
+"n": "Co-site interference mechanisms",
+"imp": "K",
+"k": "deepen",
+"teach": "רעש פס-רחב של משדר, desensitization וחסימה, reciprocal mixing, אינטרמודולציה מסדר שלישי; תקציב בידוד אנטנה-לאנטנה בפלטפורמה צפופה.",
+"on": "M4.1"
+},
+{
+"id": "R8:M15.6:4",
+"n": "Co-site mitigation",
+"imp": "K",
+"k": "new",
+"teach": "תכנון תדרים, blanking, מסנני co-site, מיקום אנטנות, ביטול הפרעות; המחיר של כל שיטה."
+},
+{
+"id": "R8:M15.6:5",
+"n": "Antenna placement and platform coupling analysis",
+"imp": "S",
+"k": "deepen",
+"teach": "CEM בגילואה; כאן: הסתרת דיאגרמה במבנה, צימוד בין אנטנות, ולמה מטוס קרב נושא עשרות אנטנות.",
+"on": "E:M10.12"
+},
+{
+"id": "R8:M15.6:6",
+"n": "Own jammers versus own receivers",
+"imp": "K",
+"k": "deepen",
+"teach": "look-through, blanking, דו-קיום EW וקשר; משבשי C-IED מול רדיו בעיראק כמקרה.",
+"on": "M4.1"
+},
+{
+"id": "R8:M15.6:7",
+"n": "HERO and ordnance safety",
+"imp": "S",
+"k": "new",
+"teach": "סכנת קרינה לחומרי נפץ ונפצים, מרחקי בטיחות על סיפון; Forrestal 1967 כמקרה."
+}
+]
+},
+"M10.6": {
+"items": [
+{
+"id": "R8:M10.6:1",
+"n": "Towed-array conventional beamforming",
+"imp": "S",
+"k": "deepen",
+"teach": "beamforming בגילואה; כאן: עמימות שמאל-ימין ופתרונה בתמרון, עיוות צורת המערך בפנייה, רעש גרירה.",
+"on": "E:M30.5"
+},
+{
+"id": "R8:M10.6:2",
+"n": "MVDR and adaptive beamforming on towed arrays",
+"imp": "K",
+"k": "deepen",
+"teach": "MVDR ו-diagonal loading; snapshot support מול אי-סטציונריות, אי-התאמה לצורת מערך, דחיית ספינה רועשת קרובה.",
+"on": "E:M30.5; M2.30"
+},
+{
+"id": "R8:M10.6:3",
+"n": "LOFAR narrowband analysis",
+"imp": "K",
+"k": "deepen",
+"teach": "טונלים של מכונות ומדחף, זמן אינטגרציה מול רזולוציה, signal excess; סיווג לפי חתימה טונלית.",
+"on": "E:M30.5"
+},
+{
+"id": "R8:M10.6:4",
+"n": "DEMON envelope analysis",
+"imp": "K",
+"k": "deepen",
+"teach": "דמודולציה של רעש קביטציה לקבלת קצב ציר ומספר להבים; מה זה אומר על המטרה ועל מהירותה.",
+"on": "E:M30.5"
+},
+{
+"id": "R8:M10.6:5",
+"n": "Passive detection performance and ambient noise",
+"imp": "S",
+"k": "deepen",
+"teach": "סף גילוי ו-ROC, עקומות Wenz, רעש עצמי של הפלטפורמה הגוררת; טווח גילוי כפונקציה של מצב ים.",
+"on": "M10.2; E:M30.5"
+},
+{
+"id": "R8:M10.6:6",
+"n": "Bearings-only target motion analysis (TMA)",
+"imp": "K",
+"k": "new",
+"teach": "צפיות דורשת תמרון של הפלטפורמה (Nardone), טווח Ekelund, משערכי MLE ו-PLKF והטייתם; כמה זמן עד פתרון באיכות ירי."
+},
+{
+"id": "R8:M10.6:7",
+"n": "Active sonar processing",
+"imp": "S",
+"k": "deepen",
+"teach": "גבול הדהוד מול גבול רעש, CW מול LFM לדופלר, מולטיסטטי; למה סונר אקטיבי חוזר מול צוללת שקטה.",
+"on": "M10.2; E:M30.5"
+},
+{
+"id": "R8:M10.6:8",
+"n": "From contact to fire-control solution",
+"imp": "S",
+"k": "new",
+"teach": "מגע ← מסלול ← סיווג ← פתרון ירי לטורפדו; איכות הפתרון מול מעטפת הטורפדו."
+}
+]
+},
+"M10.7": {
+"items": [
+{
+"id": "R8:M10.7:1",
+"n": "Radiated noise sources",
+"imp": "K",
+"k": "deepen",
+"teach": "המקורות בגילואה; כאן: ספקטרום רעש מכונות, מדחף וזרימה, מהירות התחלת קביטציה מול עומק, ומה זה קובע למהירות סיור שקטה.",
+"on": "E:M30.6"
+},
+{
+"id": "R8:M10.7:2",
+"n": "Quieting measures and their history",
+"imp": "K",
+"k": "deepen",
+"teach": "rafting ובידוד, מדחף מוטה ו-pump-jet, אריחים אנאכואיים; ירידת רמות הרעש הסובייטיות ופרשת Toshiba-Kongsberg.",
+"on": "E:M30.6"
+},
+{
+"id": "R8:M10.7:3",
+"n": "Non-acoustic signatures",
+"imp": "S",
+"k": "deepen",
+"teach": "מגנטית (degaussing), שובל, תרמית, שדה חשמלי UEP; מה כל אחד מגלה ובאיזה טווח.",
+"on": "M10.3; E:M30.6"
+},
+{
+"id": "R8:M10.7:4",
+"n": "Propulsion choices in operations",
+"imp": "K",
+"k": "deepen",
+"teach": "המערכות בגילואה; כאן: indiscretion ratio של snorkel, סיבולת בצלילה מול מהירות, AIP מול Li-ion, ולמה הנעה גרעינית משנה את מהירות המעבר.",
+"on": "E:M30.6"
+},
+{
+"id": "R8:M10.7:5",
+"n": "VLF/ELF communications",
+"imp": "K",
+"k": "new",
+"teach": "עומק חדירה במי ים δ ≈ 503/√(σf) m (כ-29 m ב-76 Hz, כ-1.8 m ב-20 kHz), גודל אנטנות קרקע, קצבי ELF של ביטים בדקה, אנטנה נגררת ו-TACAMO."
+},
+{
+"id": "R8:M10.7:6",
+"n": "Other submarine communications",
+"imp": "S",
+"k": "new",
+"teach": "כבל צף, מצופי תקשורת, מודמים אקוסטיים, לייזר כחול-ירוק; מחיר החשיפה של כל אחד."
+},
+{
+"id": "R8:M10.7:7",
+"n": "Submarine combat system and weapons",
+"imp": "S",
+"k": "deepen",
+"teach": "צינורות טורפדו ו-VLS, טילי שיוט ונגד ספינות מצוללת, הטלת מוקשים, ומערכת הלחימה שמחברת סונר לנשק.",
+"on": "M10.4"
+},
+{
+"id": "R8:M10.7:8",
+"n": "Strategic role of submarines",
+"imp": "C",
+"k": "deepen",
+"teach": "שרידות SSBN, bastions, ומה ידוע בפתוח על תפקיד הצוללות בישראל.",
+"on": "M10.3"
+}
+]
+},
+"M10.8": {
+"items": [
+{
+"id": "R8:M10.8:1",
+"n": "UUV navigation",
+"imp": "K",
+"k": "deepen",
+"teach": "INS עם DVL, מיקום אקוסטי USBL/LBL, ניווט לפי קרקעית; סחיפה באחוזים מהמרחק ומה דורשת משימת MCM.",
+"on": "M10.3"
+},
+{
+"id": "R8:M10.8:2",
+"n": "UUV energy and endurance",
+"imp": "S",
+"k": "deepen",
+"teach": "גרר ∝ v² והספק ∝ v³, hotel load, סוללות מול AIP; טווח וסיבולת כפונקציה של מהירות.",
+"on": "E:M30.6; E:M15.26"
+},
+{
+"id": "R8:M10.8:3",
+"n": "Underwater communication limits",
+"imp": "S",
+"k": "new",
+"teach": "מודם אקוסטי: מכפלת טווח-קצב, השהיה של שניות; למה UUV חייב אוטונומיה."
+},
+{
+"id": "R8:M10.8:4",
+"n": "One-way USVs and their defense",
+"imp": "K",
+"k": "deepen",
+"teach": "USV בים השחור (Magura-class): מצב ים, Starlink לשליטה, הנחיה סופית; הגנת ספינה ונמל מולם.",
+"on": "M10.5"
+},
+{
+"id": "R8:M10.8:5",
+"n": "Naval swarm attack and defense",
+"imp": "S",
+"k": "deepen",
+"teach": "רוויית ערוצי אש קרובים; תותחים, טילים קטנים ואנרגיה מכוונת מול נחיל; מספר ערוצים מול גודל נחיל.",
+"on": "M10.5"
+},
+{
+"id": "R8:M10.8:6",
+"n": "UNDEX physics: shock wave and gas bubble",
+"imp": "K",
+"k": "new",
+"teach": "לחץ שיא (Cole): P ≈ 52.4·(W^(1/3)/R)^1.13 MPa; מחזור בועה Rayleigh-Willis T ≈ 2.11·W^(1/3)/(H+10)^(5/6); נדידת בועה; למה פיצוץ מתחת לגוף חמור מפגיעה."
+},
+{
+"id": "R8:M10.8:7",
+"n": "Ship response: shock factor, equipment shock and whipping",
+"imp": "K",
+"k": "deepen",
+"teach": "shock response spectrum בגילואה; כאן: keel shock factor, בדיקות MIL-S-901D, whipping כשמחזור הבועה תואם תדר הקורה של הגוף; Cheonan 2010 כמקרה.",
+"on": "E:M16.6"
+},
+{
+"id": "R8:M10.8:8",
+"n": "Seabed warfare",
+"imp": "C",
+"k": "deepen",
+"teach": "UUV בקרקעית, כבלים וצנרת; מקרי פגיעה פתוחים.",
+"on": "M10.3"
+}
+]
+},
+"M11.13": {
+"items": [
+{
+"id": "R8:M11.13:1",
+"n": "ATGM generations and guidance",
+"imp": "K",
+"k": "deepen",
+"teach": "MCLOS, SACLOS (חוט, beam-riding), fire-and-forget (IIR, MMW), דור 4–5 עם קשר נתונים ונעילה אחרי שיגור (Spike NLOS); מה כל דור דורש מהמפעיל ומה נותן.",
+"on": "M6.3"
+},
+{
+"id": "R8:M11.13:2",
+"n": "Seeker and link trades",
+"imp": "S",
+"k": "new",
+"teach": "IIR מול סיב אופטי מול קשר RF; זמן טיסה, עומס מפעיל, חשיפה; למה סיב אופטי חזר."
+},
+{
+"id": "R8:M11.13:3",
+"n": "Top attack modes",
+"imp": "K",
+"k": "deepen",
+"teach": "צלילה ישירה (Javelin) מול overfly-shoot-down עם EFP (TOW-2B, Bill); התפלגות עובי שריון בגג ובצדדים.",
+"on": "M11.6"
+},
+{
+"id": "R8:M11.13:4",
+"n": "Tandem warheads versus ERA",
+"imp": "K",
+"k": "deepen",
+"teach": "מטען מקדים ל-ERA, חדירה בסדר 5–8 קוטרי מטען; מה ERA ו-NERA עושים לסילון (פיזיקת המטען ב-K8).",
+"on": "M11.5"
+},
+{
+"id": "R8:M11.13:5",
+"n": "Active protection systems: soft and hard kill",
+"imp": "K",
+"k": "new",
+"teach": "גילוי מכ\"מי של איום נכנס, ציר זמן של מילי-שניות, כיסוי זוויתי, Trophy ו-Iron Fist; soft-kill (עשן, שיבוש IR); סכנה לכוחות רגליים."
+},
+{
+"id": "R8:M11.13:6",
+"n": "Defeating APS",
+"imp": "K",
+"k": "new",
+"teach": "מטחים סימולטניים, תקיפה מחוץ לכיסוי, פרופיל מהיר או איטי מאוד, חתימה נמוכה, הטעיה; ה-trade של התוקף."
+},
+{
+"id": "R8:M11.13:7",
+"n": "Combat record of ATGMs and APS",
+"imp": "S",
+"k": "deepen",
+"teach": "Trophy בעזה מ-2014, טענות Javelin ו-NLAW באוקראינה, cope cages ו-FPV מול שריון; מה מאומת.",
+"on": "M9.9"
+},
+{
+"id": "R8:M11.13:8",
+"n": "Cost-exchange in anti-armor warfare",
+"imp": "S",
+"k": "new",
+"teach": "מחיר טיל מול טנק מול מנת APS, עומס תחמושת ומספר מיירטים."
+}
+]
+},
+"M11.14": {
+"items": [
+{
+"id": "R8:M11.14:1",
+"n": "LOS stabilization versus gun stabilization",
+"imp": "K",
+"k": "new",
+"teach": "קו ראייה מיוצב עצמאי מול ייצוב תותח, תצורות director ו-independent; מקורות הפרעה: קצבי pitch/yaw מהשטח."
+},
+{
+"id": "R8:M11.14:2",
+"n": "Inertially stabilized platform architectures",
+"imp": "K",
+"k": "deepen",
+"teach": "תכן לולאות בגילואה; כאן: לולאת קצב עם ג'ירו, ייצוב מסה מול ייצוב מראה, גימבל שני צירים וצימוד צולב (Hilkert).",
+"on": "E:M5.10"
+},
+{
+"id": "R8:M11.14:3",
+"n": "Disturbance rejection and stabilization error",
+"imp": "K",
+"k": "new",
+"teach": "רוחב פס לולאת קצב, חיכוך, אי-איזון, תהודות מבנה וקנה; שגיאת ייצוב במיקרו-רדיאן כמספר המכריע."
+},
+{
+"id": "R8:M11.14:4",
+"n": "Fire-control solution on the move",
+"imp": "K",
+"k": "new",
+"teach": "מחשב בליסטי, זווית הובלה, טווח מ-LRF, cant, רוח, טמפרטורת תחמושת; זמן מגילוי לירי."
+},
+{
+"id": "R8:M11.14:5",
+"n": "Barrel dynamics: jump, whip, thermal bend",
+"imp": "S",
+"k": "new",
+"teach": "קפיצת לוע, whip, כיפוף תרמי ושרוול תרמי, muzzle reference system; תרומתם לפיזור."
+},
+{
+"id": "R8:M11.14:6",
+"n": "First-round hit probability budget",
+"imp": "K",
+"k": "new",
+"teach": "תקציב שגיאות: ייצוב, טווח, בליסטיקה, כיול; Ph בירי מתוך תנועה מול עמידה."
+},
+{
+"id": "R8:M11.14:7",
+"n": "Remote weapon stations",
+"imp": "C",
+"k": "new",
+"teach": "ייצוב לנשק קל, שילוב חיישנים ו-C-UAS; מגבלות מול צריח מלא."
+}
+]
+},
+"M11.15": {
+"items": [
+{
+"id": "R8:M11.15:1",
+"n": "Pressure-sinkage and soil characterization",
+"imp": "K",
+"k": "new",
+"teach": "Bekker: p = (kc/b + kφ)·zⁿ, מדידה ב-bevameter; cone index ו-VCI של WES; איך קרקע רטובה מגדילה שקיעה."
+},
+{
+"id": "R8:M11.15:2",
+"n": "Motion resistance",
+"imp": "K",
+"k": "new",
+"teach": "התנגדות דחיסה ו-bulldozing, גלגל מול זחל; חישוב לפי Bekker."
+},
+{
+"id": "R8:M11.15:3",
+"n": "Tractive effort and slip",
+"imp": "K",
+"k": "new",
+"teach": "Mohr-Coulomb ו-Janosi-Hanamoto: τ = (c + p·tanφ)(1 − e^(−j/K)); drawbar pull כפונקציה של החלקה."
+},
+{
+"id": "R8:M11.15:4",
+"n": "Nominal versus mean maximum pressure",
+"imp": "K",
+"k": "deepen",
+"teach": "NGP מול MMP של Rowland, מספר גלגלי דרך ומרווח; למה זחל עדיף בקרקע רכה ומה המספרים אומרים.",
+"on": "M11.7"
+},
+{
+"id": "R8:M11.15:5",
+"n": "Mobility models: NRMM and speed-made-good",
+"imp": "S",
+"k": "new",
+"teach": "go/no-go, מהירות אפקטיבית לפי שטח, חול, בוץ ושלג; מפות ניידות כמוצר תכנון."
+},
+{
+"id": "R8:M11.15:6",
+"n": "Ride limits and terrain roughness",
+"imp": "K",
+"k": "deepen",
+"teach": "ויברציה אקראית בגילואה; כאן: ספקטרום חספוס שטח, סף 6 W absorbed power לצוות, מהירות מוגבלת נוחות נסיעה.",
+"on": "M11.7; E:M3.6"
+},
+{
+"id": "R8:M11.15:7",
+"n": "Active and semi-active suspension",
+"imp": "S",
+"k": "new",
+"teach": "skyhook, הידרופנאומטי, דמפרי MR; תועלת לירי בתנועה ולמהירות בשטח."
+},
+{
+"id": "R8:M11.15:8",
+"n": "Skid steering of tracked vehicles",
+"imp": "S",
+"k": "new",
+"teach": "הספק היגוי, התנגדות צד, יחס אורך-רוחב; למה זחלי כבד מאט בפניות."
+}
+]
+},
+"M11.16": {
+"items": [
+{
+"id": "R8:M11.16:1",
+"n": "3D perception sensors in the field",
+"imp": "K",
+"k": "deepen",
+"teach": "האלגוריתמים בגילואה; כאן: lidar, סטריאו ומכ\"ם באבק, עשן וגשם, וחתימה אקטיבית של lidar מול אויב.",
+"on": "E:M19.12; E:M29.5"
+},
+{
+"id": "R8:M11.16:2",
+"n": "Traversability estimation",
+"imp": "K",
+"k": "new",
+"teach": "מפות גובה, שיפוע, מדרגה וחספוס, מכשולים שליליים (בורות, תעלות), צמחייה עבירה מול מוצקה, traversability נלמד."
+},
+{
+"id": "R8:M11.16:3",
+"n": "Off-road planning and control",
+"imp": "K",
+"k": "deepen",
+"teach": "costmaps, lattice ו-hybrid A*, MPC למעקב; מהירות מוגבלת בטווח התפיסה ובמרחק העצירה.",
+"on": "E:M19.7; E:M5.19"
+},
+{
+"id": "R8:M11.16:4",
+"n": "Localization without GNSS on the ground",
+"imp": "C",
+"k": "deepen",
+"teach": "מפנה ל-U1; מה שונה בקרקע (החלקה, ריטוט, הסתרה).",
+"on": "M5.13; E:M19.12"
+},
+{
+"id": "R8:M11.16:5",
+"n": "Teleoperation versus supervised autonomy",
+"imp": "K",
+"k": "new",
+"teach": "השהיה ומהירות בשליטה מרחוק, רוחב פס לווידאו, leader-follower בשיירות; איפה אוטונומיה חלקית חוסכת את הקישור."
+},
+{
+"id": "R8:M11.16:6",
+"n": "Military UGV operations",
+"imp": "S",
+"k": "deepen",
+"teach": "לוגיסטיקה, פינוי, UGV חמוש באוקראינה, UGV בגבולות; מה עבד.",
+"on": "M9.9"
+},
+{
+"id": "R8:M11.16:7",
+"n": "Testing autonomy",
+"imp": "S",
+"k": "deepen",
+"teach": "כיסוי תרחישים, safety case, ניסוי שטח מול סימולציה.",
+"on": "M7.10"
+}
+]
+},
+"M11.17": {
+"items": [
+{
+"id": "R8:M11.17:1",
+"n": "Tunnel threat taxonomy and history",
+"imp": "S",
+"k": "deepen",
+"teach": "Cu Chi, מנהרות DMZ בקוריאה, ה'מטרו' בעזה, מנהרות חיזבאללה; עומק, שיטות חפירה וקצב.",
+"on": "M14.4"
+},
+{
+"id": "R8:M11.17:2",
+"n": "GPR physics and limits",
+"imp": "K",
+"k": "deepen",
+"teach": "ניחות ≈ 1.64·10³·σ/√εr dB/m, עומק חדירה בקרקע מוליכה, רזולוציה מול תדר, clutter; למה GPR נכשל בחמרה רטובה.",
+"on": "M2.28"
+},
+{
+"id": "R8:M11.17:3",
+"n": "Seismic and acoustic detection",
+"imp": "K",
+"k": "new",
+"teach": "שבירה ועקיפה, מדידות cross-hole בקידוחים, האזנה לרעשי חפירה, סיב אופטי DAS לאורך גבול."
+},
+{
+"id": "R8:M11.17:4",
+"n": "Microgravity detection of voids",
+"imp": "K",
+"k": "new",
+"teach": "גליל אופקי: Δg = 2πGΔρ·a²·z/(x²+z²); מנהרה בקוטר 2 m בעומק 10 m נותנת כמה µGal, על סף הגילוי; גרדיומטריה."
+},
+{
+"id": "R8:M11.17:5",
+"n": "Other geophysical methods",
+"imp": "S",
+"k": "new",
+"teach": "טומוגרפיית התנגדות חשמלית, EM induction, מגנטומטריה, InSAR לשקיעה; התאמה לסוג הקרקע."
+},
+{
+"id": "R8:M11.17:6",
+"n": "Detection performance and barrier design",
+"imp": "S",
+"k": "new",
+"teach": "קצב כיסוי שטח, אזעקות שווא, אין שיטה אחת; המכשול בגבול עזה (מידע פתוח) כמערכת שכבתית."
+},
+{
+"id": "R8:M11.17:7",
+"n": "Underground navigation and mapping",
+"imp": "K",
+"k": "deepen",
+"teach": "SLAM בגילואה; כאן: lidar במנהרות צרות וחשוכות, תקשורת מוגבלת, לקחי DARPA SubT, רובוטים וכלבים.",
+"on": "E:M19.12; M5.13"
+},
+{
+"id": "R8:M11.17:8",
+"n": "Confined blast",
+"imp": "K",
+"k": "new",
+"teach": "לחץ מוחזר ולחץ קוואזי-סטטי בחלל סגור (UFC 3-340-02), אוורור ומשך; משמעות לנטרול מנהרה ולהגנה על כוחות."
+},
+{
+"id": "R8:M11.17:9",
+"n": "Underground communications",
+"imp": "S",
+"k": "new",
+"teach": "through-the-earth בתדר נמוך, ממסרי mesh, leaky feeder; מה עובד בעומק."
+},
+{
+"id": "R8:M11.17:10",
+"n": "Tunnel neutralization",
+"imp": "C",
+"k": "new",
+"teach": "פיצוץ, הצפה ומילוי; שיקולי חטופים ואזרחים."
+}
+]
+},
+"M15.2": {
+"items": [
+{
+"id": "R8:M15.2:1",
+"n": "MANET routing: proactive versus reactive",
+"imp": "K",
+"k": "deepen",
+"teach": "OLSR ו-DSDV מול AODV: תקורת בקרה מול השהיית גילוי מסלול, התנהגות בתנועה מהירה ובשבירת קישורים.",
+"on": "M7.9"
+},
+{
+"id": "R8:M15.2:2",
+"n": "MAC in tactical radios",
+"imp": "K",
+"k": "deepen",
+"teach": "TDMA מול CSMA/CA, צומת נסתר וחשוף, הקצאת חריצים דינמית (USAP), שימוש חוזר מרחבי.",
+"on": "M7.9; E:M23.14"
+},
+{
+"id": "R8:M15.2:3",
+"n": "Capacity scaling of wireless networks",
+"imp": "K",
+"k": "new",
+"teach": "Gupta-Kumar: תפוקה לצומת Θ(W/√(n·log n)); בשרשרת ממסרים התפוקה יורדת כמעט כ-1/hops; למה MANET שטוח גדול נכשל ונדרשת היררכיה."
+},
+{
+"id": "R8:M15.2:4",
+"n": "Throughput-range-latency under jamming",
+"imp": "K",
+"k": "deepen",
+"teach": "תקציב קישור לכל hop, אפנון וקידוד מסתגלים, מרווח שיבוש, פיצול רשת; חישוב תפוקה מקצה לקצה תחת J/S נתון.",
+"on": "M7.9"
+},
+{
+"id": "R8:M15.2:5",
+"n": "Tactical mesh waveforms and radios",
+"imp": "S",
+"k": "deepen",
+"teach": "SRW, WNW, ANW2, MN-MIMO (Silvus-class), רדיו mesh באוקראינה; מה מתועד בפתוח על ביצועים.",
+"on": "M7.9"
+},
+{
+"id": "R8:M15.2:6",
+"n": "Delay-tolerant networking",
+"imp": "S",
+"k": "deepen",
+"teach": "store-and-forward ו-bundle protocol ל-DIL; מתי מתאים לתמונה מבצעית ומתי לא.",
+"on": "M7.9"
+},
+{
+"id": "R8:M15.2:7",
+"n": "Network hierarchy and gateways",
+"imp": "S",
+"k": "new",
+"teach": "קצה טקטי ← שדרה ← SATCOM/LEO, שערים, QoS ועדיפויות; Starlink כשדרה באוקראינה."
+},
+{
+"id": "R8:M15.2:8",
+"n": "Spectrum management and cognitive radio",
+"imp": "S",
+"k": "new",
+"teach": "תכנון תדרים, גישה דינמית לספקטרום, אוטומציה של הקצאה תחת שיבוש."
+},
+{
+"id": "R8:M15.2:9",
+"n": "Emission signature of mesh networks",
+"imp": "K",
+"k": "deepen",
+"teach": "כל צומת משדר ולכן ניתן לאיכון; LPD, כיווניות ובקרת שידור; מפקדות שאותרו לפי פליטה.",
+"on": "M4.11"
+}
+]
+},
+"M7.12": {
+"items": [
+{
+"id": "R8:M7.12:1",
+"n": "JDL model and fusion architectures",
+"imp": "S",
+"k": "deepen",
+"teach": "רמות 0–4 כמסגרת, ומה כל רמה דורשת ממערכת אמיתית.",
+"on": "M2.29"
+},
+{
+"id": "R8:M7.12:2",
+"n": "Centralized versus distributed track fusion",
+"imp": "K",
+"k": "new",
+"teach": "היתוך מדידות מול היתוך מסלולים: דיוק מול רוחב פס, עמידות לאובדן צומת; CEC כהיתוך מדידות מרכזי."
+},
+{
+"id": "R8:M7.12:3",
+"n": "Correlated errors in track-to-track fusion",
+"imp": "K",
+"k": "new",
+"teach": "רעש תהליך משותף, ספירה כפולה (rumor propagation), covariance intersection ו-information matrix fusion; למה ממוצע פשוט מייצר ביטחון שגוי."
+},
+{
+"id": "R8:M7.12:4",
+"n": "Sensor registration and bias estimation",
+"imp": "K",
+"k": "new",
+"teach": "הטיות זווית, טווח וזמן, gridlock, שערוך הטיות משותף; למה רישום לא נכון מייצר מסלולים כפולים."
+},
+{
+"id": "R8:M7.12:5",
+"n": "Cross-sensor track association",
+"imp": "K",
+"k": "deepen",
+"teach": "שיוך מסלולים ו-assignment בגילואה; כאן: מסלולים כפולים בין מערכות, השפעה על הקצאת מיירטים.",
+"on": "E:M5.17"
+},
+{
+"id": "R8:M7.12:6",
+"n": "Identity fusion and combat ID",
+"imp": "K",
+"k": "deepen",
+"teach": "Bayes מול Dempster-Shafer, שילוב IFF, NCTR, ESM וקינמטיקה; עלות טעות זיהוי: אח-באח מול הימנעות מירי.",
+"on": "M8.4"
+},
+{
+"id": "R8:M7.12:7",
+"n": "Angle-only and heterogeneous sensor fusion",
+"imp": "S",
+"k": "deepen",
+"teach": "ESM ו-IRST עם מכ\"ם, טריאנגולציה, מסלולים 'רפאים' בהצלבת קווי כיוון.",
+"on": "M4.6"
+},
+{
+"id": "R8:M7.12:8",
+"n": "COP quality metrics",
+"imp": "K",
+"k": "new",
+"teach": "שלמות, בהירות, דיוק ועדכניות (מדדי SIAP); איך מודדים את התמונה ולא את החיישן."
+}
+]
+},
+"M7.13": {
+"items": [
+{
+"id": "R8:M7.13:1",
+"n": "C2 approach space and agility",
+"imp": "S",
+"k": "deepen",
+"teach": "Alberts & Hayes: הקצאת זכויות החלטה, דפוסי אינטראקציה, הפצת מידע; ריכוזי מול משימתי כנקודות במרחב.",
+"on": "M7.9"
+},
+{
+"id": "R8:M7.13:2",
+"n": "Battle management system architectures",
+"imp": "K",
+"k": "deepen",
+"teach": "Aegis (חיישן, C&D, WCS), IBCS (any sensor any shooter), CEC; פירוק פונקציונלי ונקודות כשל.",
+"on": "M7.9; M7.3"
+},
+{
+"id": "R8:M7.13:3",
+"n": "Threat evaluation and weapon assignment algorithms",
+"imp": "K",
+"k": "deepen",
+"teach": "דירוג איום, ניסוח WTA סטטי ודינמי, יוריסטיקות בזמן אמת, shoot-look-shoot מול salvo; זמן חישוב מול זמן התקיפה.",
+"on": "M7.3; M7.4"
+},
+{
+"id": "R8:M7.13:4",
+"n": "Levels of kill-chain automation",
+"imp": "K",
+"k": "deepen",
+"teach": "מצבים אוטומטיים מבוססי דוקטרינה (Aegis auto-special), in/on/out of the loop לפי זמן איום; מי מאשר ומתי.",
+"on": "M7.1"
+},
+{
+"id": "R8:M7.13:5",
+"n": "Human factors of automated engagement",
+"imp": "K",
+"k": "deepen",
+"teach": "רמות אוטומציה של Parasuraman (4 שלבים × 10 רמות), כיול אמון, עומס, mode confusion; Vincennes 1988 ו-Patriot 2003.",
+"on": "M7.9"
+},
+{
+"id": "R8:M7.13:6",
+"n": "AI decision support and target nomination",
+"imp": "K",
+"k": "deepen",
+"teach": "צנרת המלצת מטרות, קצב, שיעורי שגיאה, זמן סקירה אנושית למטרה; דיווחים פתוחים ומה לא ניתן לאמת.",
+"on": "M3.8; M7.9"
+},
+{
+"id": "R8:M7.13:7",
+"n": "Collection management and ISR tasking",
+"imp": "S",
+"k": "deepen",
+"teach": "תיעדוף איסוף, אופטימיזציה של הקצאת חיישנים, revisit מול מטרות זמניות.",
+"on": "M7.9; M13.11"
+},
+{
+"id": "R8:M7.13:8",
+"n": "C2 under degradation and its testing",
+"imp": "S",
+"k": "deepen",
+"teach": "האצלת סמכות ירי בניתוק, תרגילים כמדידה, מה בודקים במערכת שו\"ב.",
+"on": "M7.9"
+}
+]
+},
+"M6.15": {
+"items": [
+{
+"id": "R8:M6.15:1",
+"n": "Thrust, Isp, c* and nozzle expansion",
+"imp": "S",
+"k": "deepen",
+"teach": "הנחירים בגילואה; כאן: F = ṁ·c + (pe − pa)Ae, c*, CF, Isp טיפוסי לדלקים מוצקים; הרחבה אופטימלית מול גובה שיוט.",
+"on": "M13.12; E:M15.24"
+},
+{
+"id": "R8:M6.15:2",
+"n": "Burn-rate law and chamber pressure equilibrium",
+"imp": "K",
+"k": "new",
+"teach": "r = a·pⁿ, p_c = (ρp·a·c*·Ab/At)^(1/(1−n)), יציבות דורשת n < 1, רגישות טמפרטורה σp; למה טיל קר מאבד טווח."
+},
+{
+"id": "R8:M6.15:3",
+"n": "Grain geometry and thrust profile",
+"imp": "K",
+"k": "deepen",
+"teach": "כוכב, wagon wheel, end-burner, דו-דחף boost-sustain, פרופיל ניטרלי/מתקדם/נסוג, sliver, volumetric loading.",
+"on": "M6.12"
+},
+{
+"id": "R8:M6.15:4",
+"n": "Propellant families and energetics",
+"imp": "K",
+"k": "deepen",
+"teach": "AP/HTPB/Al, double-base, minimum-smoke לחתימה, HTPE לתחמושת לא רגישה; צוואר הבקבוק התעשייתי.",
+"on": "M6.12"
+},
+{
+"id": "R8:M6.15:5",
+"n": "Motor case, nozzle and thrust vector control",
+"imp": "S",
+"k": "new",
+"teach": "מעטפת פלדה מול מרוכבים, שחיקת גרון, הגנה תרמית, TVC (נחיר נע, jet vanes, הזרקה)."
+},
+{
+"id": "R8:M6.15:6",
+"n": "Combustion instability, erosive burning and aging",
+"imp": "S",
+"k": "new",
+"teach": "אי-יציבות אקוסטית, שריפה ארוזיבית, סדקים והתנתקות, חיי מדף ובדיקות surveillance."
+},
+{
+"id": "R8:M6.15:7",
+"n": "Ramjet and ducted rocket",
+"imp": "K",
+"k": "deepen",
+"teach": "המחזור בגילואה; כאן: התאוששות לחץ ב-inlet, Isp מול Mach (2–5), בוסטר להגעה למהירות עבודה, integral rocket ramjet, ducted rocket מצערתי (Meteor).",
+"on": "M6.12; E:M15.16"
+},
+{
+"id": "R8:M6.15:8",
+"n": "Scramjet",
+"imp": "K",
+"k": "deepen",
+"teach": "בעירה על-קולית, unstart, קירור בדלק, מרווח דחף קטן; X-51 וטענות Zircon.",
+"on": "M6.9; E:M15.17"
+},
+{
+"id": "R8:M6.15:9",
+"n": "Propulsion choice versus mission",
+"imp": "S",
+"k": "deepen",
+"teach": "Breguet לנושמי אוויר מול Δv לרקטה; מתי ramjet מנצח ברדיוס ובמהירות סופית.",
+"on": "M6.12"
+}
+]
+},
+"M6.16": {
+"items": [
+{
+"id": "R8:M6.16:1",
+"n": "HGV flight mechanics and the Tracy-Wright result",
+"imp": "K",
+"k": "deepen",
+"teach": "boost ואז דאייה ב-L/D 2–3, אובדן מהירות בדאייה; Tracy & Wright: לאותו טווח HGV איטי מטיל בליסטי ומתגלה מאוחר רק בגלל אופק.",
+"on": "M6.9"
+},
+{
+"id": "R8:M6.16:2",
+"n": "Aerothermal heating and materials",
+"imp": "S",
+"k": "deepen",
+"teach": "חימום נקודת קיפאון q ∝ √(ρ/Rn)·V³, TPS, קצוות חדים; מה זה מגביל בתמרון.",
+"on": "E:M15.17; M6.12"
+},
+{
+"id": "R8:M6.16:3",
+"n": "Plasma sheath, RF blackout and IR signature",
+"imp": "S",
+"k": "new",
+"teach": "יינון סביב הגוף, הפרעה לתקשורת ולמחפש, גוף חם כמטרה בולטת ל-IR מהחלל."
+},
+{
+"id": "R8:M6.16:4",
+"n": "Detection and tracking architecture",
+"imp": "K",
+"k": "deepen",
+"teach": "אופק מכ\"ם קרקעי מול דאייה נמוכה, שכבת מעקב בחלל (HBTSS, PWSA), track custody ומסירה.",
+"on": "M7.8"
+},
+{
+"id": "R8:M6.16:5",
+"n": "Maneuvering-target tracking and prediction uncertainty",
+"imp": "K",
+"k": "deepen",
+"teach": "IMM בגילואה; כאן: גידול אי-ודאות נקודת יירוט חזויה, דרישת divert מהמיירט.",
+"on": "M6.9; E:M5.17"
+},
+{
+"id": "R8:M6.16:6",
+"n": "Defense layers: terminal and glide-phase intercept",
+"imp": "K",
+"k": "deepen",
+"teach": "PAC-3, SM-6, קלע דוד מול glide phase interceptor; הקטנת שטח מוגן וצרכי קינמטיקה.",
+"on": "M6.9"
+},
+{
+"id": "R8:M6.16:7",
+"n": "Case studies and the 'hypersonic' label",
+"imp": "K",
+"k": "deepen",
+"teach": "Kinzhal (אווירובליסטי) ויירוטיו, Avangard, DF-17, Oreshnik, Fattah; להבחין בין HGV, HCM ובליסטי מהיר.",
+"on": "M6.8"
+},
+{
+"id": "R8:M6.16:8",
+"n": "Strategic consequences",
+"imp": "C",
+"k": "deepen",
+"teach": "דחיסת זמן, עמימות מטען, השפעה על הרתעה; מה מוגזם בשיח.",
+"on": "M6.8"
+}
+]
+},
+"M11.11": {
+"items": [
+{
+"id": "R8:M11.11:1",
+"n": "Interior ballistics",
+"imp": "K",
+"k": "deepen",
+"teach": "חוק שריפה של Vieille, משוואת אנרגיה של Résal, גרדיאנט Lagrange ו-Piobert, עקומת לחץ-מהלך; לחץ שיא מול מהירות לוע.",
+"on": "M11.1"
+},
+{
+"id": "R8:M11.11:2",
+"n": "Gun limits: wear, erosion, velocity ceiling",
+"imp": "S",
+"k": "deepen",
+"teach": "שחיקה ובלאי קנה, לחץ בית בליעה, תקרת מהירות ממהירות הקול של הגזים; ETC ו-railgun כניסיונות לעקוף.",
+"on": "M11.1"
+},
+{
+"id": "R8:M11.11:3",
+"n": "Point-mass exterior ballistics",
+"imp": "K",
+"k": "deepen",
+"teach": "מקדמי גרר G1/G7, מקדם בליסטי, חישוב מסלול; למה זווית הטווח המרבי גבוהה מ-45° בתותח ארוך-טווח.",
+"on": "M11.1; M6.2"
+},
+{
+"id": "R8:M11.11:4",
+"n": "Aerodynamic coefficients and gyroscopic stability",
+"imp": "K",
+"k": "new",
+"teach": "Sg > 1 (Sg ∝ Ix²·p²/(Iy·Mα)), יציבות דינמית, yaw of repose ו-drift; ייצוב סחרור מול כנפונים."
+},
+{
+"id": "R8:M11.11:5",
+"n": "Modified point mass, 6-DOF and firing tables",
+"imp": "S",
+"k": "new",
+"teach": "MPM ו-6-DOF (McCoy), טבלאות ירי, תיקוני מטאו; מתי כל רמת מודל מספיקה."
+},
+{
+"id": "R8:M11.11:6",
+"n": "Dispersion error budget",
+"imp": "K",
+"k": "deepen",
+"teach": "שונות מהירות לוע, שגיאות מטאו, כיוון, פיזור בליסטי; precision מול accuracy והקשר ל-CEP.",
+"on": "M11.4"
+},
+{
+"id": "R8:M11.11:7",
+"n": "Extended-range projectiles",
+"imp": "S",
+"k": "new",
+"teach": "base bleed, rocket assist, פגז ramjet, תת-קליבר; המחיר במטען."
+},
+{
+"id": "R8:M11.11:8",
+"n": "Terminal ballistics of KE penetrators",
+"imp": "K",
+"k": "deepen",
+"teach": "גבול הידרודינמי P/L ≈ √(ρp/ρt), Tate-Alekseevskii, L/D, טונגסטן מול DU, Lambert-Jonas.",
+"on": "M11.6"
+},
+{
+"id": "R8:M11.11:9",
+"n": "Launch loads on guided projectiles",
+"imp": "S",
+"k": "deepen",
+"teach": "עומסי g בגילואה; כאן: הקשחת אלקטרוניקה ל-15,000 g ומעלה, setback ו-set-forward בפגז מונחה.",
+"on": "E:M16.2"
+}
+]
+},
+"M11.12": {
+"items": [
+{
+"id": "R8:M11.12:1",
+"n": "Detonation properties and TNT equivalence",
+"imp": "K",
+"k": "deepen",
+"teach": "מהירות התפוצצות, לחץ CJ, אקוויוולנט TNT ומגבלותיו, אנרגיית Gurney √(2E).",
+"on": "M11.3"
+},
+{
+"id": "R8:M11.12:2",
+"n": "Gurney equations",
+"imp": "K",
+"k": "deepen",
+"teach": "גליל: V = √(2E)·(M/C + 1/2)^(−1/2), כדור ו-sandwich פתוח; מהירות רסיסים מיחס מתכת-מטען.",
+"on": "M11.3"
+},
+{
+"id": "R8:M11.12:3",
+"n": "Fragmentation and fragment lethality",
+"imp": "K",
+"k": "new",
+"teach": "התפלגות Mott, רסיסים טבעיים מול מוכנים ומבוקרים, האטה V = V0·e^(−ρCdA·x/2m), חדירת רסיס."
+},
+{
+"id": "R8:M11.12:4",
+"n": "Blast scaling and damage criteria",
+"imp": "K",
+"k": "deepen",
+"teach": "Hopkinson-Cranz Z = R/W^(1/3), עקומות Kingery-Bulmash, לחץ ואימפולס, לחץ מוחזר, דיאגרמות P-I.",
+"on": "M11.3"
+},
+{
+"id": "R8:M11.12:5",
+"n": "Shaped charge jets and EFP",
+"imp": "K",
+"k": "deepen",
+"teach": "היווצרות סילון (Birkhoff, PER), גרדיאנט מהירות, standoff אופטימלי, חדירה ≈ L·√(ρj/ρt); EFP כחלופה לטווח.",
+"on": "M11.5"
+},
+{
+"id": "R8:M11.12:6",
+"n": "Fuzing and safe-and-arm",
+"imp": "K",
+"k": "new",
+"teach": "S&A ושתי סביבות חימוש נפרדות (MIL-STD-1316), נפצי מגע, השהיה, קרבה (RF, לייזר) וגובה פיצוץ."
+},
+{
+"id": "R8:M11.12:7",
+"n": "Fuze-warhead coordination in missiles",
+"imp": "K",
+"k": "deepen",
+"teach": "השהיית הפיצוץ מול מהירות סגירה, dynamic spray zone, Pk כפונקציה של מרחק החטאה.",
+"on": "M11.4; M6.5"
+},
+{
+"id": "R8:M11.12:8",
+"n": "Directional warheads versus hit-to-kill",
+"imp": "S",
+"k": "new",
+"teach": "ראש קרב מכוון, rod warheads, ו-hit-to-kill; מסה, דיוק ואיום."
+},
+{
+"id": "R8:M11.12:9",
+"n": "Insensitive munitions",
+"imp": "S",
+"k": "new",
+"teach": "מבחני IM (cook-off מהיר ואיטי, קליע, sympathetic), STANAG 4439; המחיר בביצועים."
+}
+]
+},
+"M9.10": {
+"items": [
+{
+"id": "R8:M9.10:1",
+"n": "Requirements from threat classes and timelines",
+"imp": "K",
+"k": "deepen",
+"teach": "Group 1–3, FPV, משוטט, Shahed; טווח גילוי נדרש = מהירות × (זמן תגובה + זמן יירוט); דרישות שנגזרות לכל שכבה.",
+"on": "M9.7"
+},
+{
+"id": "R8:M9.10:2",
+"n": "Drone-bird discrimination and false-alarm rate",
+"imp": "K",
+"k": "deepen",
+"teach": "micro-Doppler, קינמטיקה, אזעקות שווא לשעה כדרישה, עקיבת מטרות איטיות קטנות.",
+"on": "M9.7; M2.38"
+},
+{
+"id": "R8:M9.10:3",
+"n": "RF detection and protocol-based defeat (concept level)",
+"imp": "S",
+"k": "deepen",
+"teach": "איכון שלט ורחפן, השתלטות פרוטוקול כקטגוריה; למה נכשל מול אוטונומי וסיב אופטי.",
+"on": "M9.7"
+},
+{
+"id": "R8:M9.10:4",
+"n": "Gun-based C-UAS and airburst ammunition",
+"imp": "K",
+"k": "deepen",
+"teach": "תחמושת מתוכנתת (AHEAD), Pk לצרור מול טווח, Gepard באוקראינה.",
+"on": "M9.7; M10.5"
+},
+{
+"id": "R8:M9.10:5",
+"n": "Interceptor drones and missiles",
+"imp": "K",
+"k": "deepen",
+"teach": "מחיר להפלה, הנחיית רחפן מיירט, יתרון קינמטי נדרש מול Shahed.",
+"on": "M9.7"
+},
+{
+"id": "R8:M9.10:6",
+"n": "Directed energy within a C-UAS layer",
+"imp": "S",
+"k": "deepen",
+"teach": "לייזר והספק מול רחפן מוקשח, HPM לשטח; איך משלבים בשכבות.",
+"on": "M7.17; M7.18"
+},
+{
+"id": "R8:M9.10:7",
+"n": "C2 for C-UAS",
+"imp": "K",
+"k": "new",
+"teach": "שילוב חיישן-יורה, ROE ורמת אוטומציה מול נחיל, הפרדת מרחב אווירי מכטב\"מים שלנו."
+},
+{
+"id": "R8:M9.10:8",
+"n": "Layered architecture and cost-exchange optimization",
+"imp": "K",
+"k": "deepen",
+"teach": "בחירת תמהיל שכבות לפי עלות-החלפה ומחסנית; אופטימיזציה של מיירטים מול איומים.",
+"on": "M9.7"
+},
+{
+"id": "R8:M9.10:9",
+"n": "Passive defense against drones",
+"imp": "S",
+"k": "new",
+"teach": "רשתות, כלובים, פיזור, הסוואה; פסולת נופלת בעיר."
+}
+]
+},
+"M7.14": {
+"items": [
+{
+"id": "R8:M7.14:1",
+"n": "Binomial confidence and shots needed for Pk",
+"imp": "K",
+"k": "deepen",
+"teach": "Clopper-Pearson, כמה ירי נדרש להראות Pk ≥ 0.8 ברמת ביטחון 80%; למה 'הצליח 4 מ-4' לא אומר הרבה.",
+"on": "M0.4; M7.10"
+},
+{
+"id": "R8:M7.14:2",
+"n": "DOE for operational test",
+"imp": "K",
+"k": "deepen",
+"teach": "DOE בגילואה; כאן: גורמים (טווח, זווית, ECM, יום/לילה), fractional factorial לכיסוי מרחב מבצעי, דרישת DOT&E.",
+"on": "E:M6.13"
+},
+{
+"id": "R8:M7.14:3",
+"n": "Sequential testing and OC curves",
+"imp": "S",
+"k": "deepen",
+"teach": "SPRT, סיכון יצרן וצרכן, עקומות OC להחלטת קבלה.",
+"on": "E:M27.3"
+},
+{
+"id": "R8:M7.14:4",
+"n": "Bayesian combination of test and M&S data",
+"imp": "S",
+"k": "new",
+"teach": "prior מסימולציה, מודל היררכי בין תנאים, והסכנה של prior שמחליף ניסוי."
+},
+{
+"id": "R8:M7.14:5",
+"n": "VV&A for test credit",
+"imp": "S",
+"k": "deepen",
+"teach": "הסמכת מודל לשימוש בניסוי, נתוני ייחוס, גבולות תוקף.",
+"on": "M14.1"
+},
+{
+"id": "R8:M7.14:6",
+"n": "Reading DOT&E reports",
+"imp": "K",
+"k": "deepen",
+"teach": "effectiveness, suitability, survivability; דוגמאות ומה חסר בדוח.",
+"on": "M7.10"
+},
+{
+"id": "R8:M7.14:7",
+"n": "Reliability growth and demonstration",
+"imp": "S",
+"k": "new",
+"teach": "Crow-AMSAA, MTBF מוכח מול נדרש, תכנון מבחן הדגמה."
+},
+{
+"id": "R8:M7.14:8",
+"n": "Scoring live-fire tests",
+"imp": "C",
+"k": "new",
+"teach": "ראש קרב טלמטרי, מדידת מרחק החטאה, Pk ממרחק החטאה."
+}
+]
+},
+"M7.15": {
+"items": [
+{
+"id": "R8:M7.15:1",
+"n": "LOAC targeting principles",
+"imp": "K",
+"k": "new",
+"teach": "הבחנה, מידתיות, זהירות, צורך צבאי, סבל מיותר; תהליך משפטי בקבלת החלטת תקיפה."
+},
+{
+"id": "R8:M7.15:2",
+"n": "Proportionality and CDE in practice",
+"imp": "K",
+"k": "deepen",
+"teach": "יתרון צבאי צפוי מול נזק אגבי, תפקיד הערכת CDE (ב-T2), ביקורת שיפוטית בדיעבד.",
+"on": "M11.2"
+},
+{
+"id": "R8:M7.15:3",
+"n": "Weapons review (Article 36) and specific treaties",
+"imp": "K",
+"k": "deepen",
+"teach": "תהליך הסקירה וקריטריונים; CCW ופרוטוקוליו (לייזר מסנוור IV, מוקשים II), אמנת תחמושת מצרר; מי חתום.",
+"on": "M9.3"
+},
+{
+"id": "R8:M7.15:4",
+"n": "DoDD 3000.09 and the LAWS debate",
+"imp": "K",
+"k": "new",
+"teach": "ההנחיה (2023): 'רמות מתאימות של שיפוט אנושי', סקירה בכירה, הגדרות; דיון ה-GGE באו\"ם."
+},
+{
+"id": "R8:M7.15:5",
+"n": "Meaningful human control: technical implications",
+"imp": "S",
+"k": "new",
+"teach": "צפיות, הסברתיות, בדיקה; מה הדרישה המשפטית אומרת למהנדס."
+},
+{
+"id": "R8:M7.15:6",
+"n": "Israeli defense export control",
+"imp": "K",
+"k": "new",
+"teach": "חוק הפיקוח על יצוא ביטחוני 2007, אפ\"ב, רישוי שיווק ויצוא, ההנחיה מנובמבר 2025."
+},
+{
+"id": "R8:M7.15:7",
+"n": "International control regimes",
+"imp": "S",
+"k": "deepen",
+"teach": "Wassenaar, MTCR, ATT, ITAR/EAR; השלכה על פרויקט עם ספק זר.",
+"on": "M14.2; M6.8"
+},
+{
+"id": "R8:M7.15:8",
+"n": "Accountability for AI-enabled targeting",
+"imp": "S",
+"k": "new",
+"teach": "אחריות פיקודית ותכנונית, תיעוד החלטות; הדיון הציבורי על מערכות המלצה בלחימה."
+}
+]
+},
+"M10.9": {
+"items": [
+{
+"id": "R8:M10.9:1",
+"n": "Radar horizon and sea-skimming reaction time",
+"imp": "K",
+"k": "deepen",
+"teach": "אופק ≈ 4.12(√h1 + √h2) km, זמן תגובה מול Mach 0.9 ומול Mach 3; למה מכ\"ם על תורן ו-AEW.",
+"on": "M10.5; M6.10"
+},
+{
+"id": "R8:M10.9:2",
+"n": "Hughes salvo model from the primary source",
+"imp": "K",
+"k": "deepen",
+"teach": "המשוואות, scouting, staying power ו-defensive alertness; 'מכה ראשונה אפקטיבית' כמסקנה.",
+"on": "M10.5; M14.1"
+},
+{
+"id": "R8:M10.9:3",
+"n": "Fleet air defense architecture",
+"imp": "K",
+"k": "deepen",
+"teach": "Aegis, SPY-6, SM-2/6 ו-ESSM, CEC ו-engage-on-remote, שכבת שטח ושכבת נקודה.",
+"on": "M10.5; M7.9"
+},
+{
+"id": "R8:M10.9:4",
+"n": "ASCM threat characteristics",
+"imp": "K",
+"k": "deepen",
+"teach": "תת-קולי נמוך מול על-קולי (BrahMos, P-800), תמרון סופי, מחפשים.",
+"on": "M6.10"
+},
+{
+"id": "R8:M10.9:5",
+"n": "Over-the-horizon targeting and scouting",
+"imp": "K",
+"k": "deepen",
+"teach": "חיישנים והשהיה, גידול אי-ודאות מיקום (שטח ∝ (v·t)²), דרישות מחפש בהתאם.",
+"on": "M10.5"
+},
+{
+"id": "R8:M10.9:6",
+"n": "Soft kill at sea",
+"imp": "S",
+"k": "deepen",
+"teach": "מוץ, מטרות דמה (Nulka), EW (SEWIP) ותיאום עם hard kill.",
+"on": "M10.5"
+},
+{
+"id": "R8:M10.9:7",
+"n": "Distributed lethality and magazine economics",
+"imp": "S",
+"k": "deepen",
+"teach": "ארכיטקטורת צי, עומק מחסנית, עלות-החלפה בים האדום.",
+"on": "M10.5"
+},
+{
+"id": "R8:M10.9:8",
+"n": "Historical cases",
+"imp": "K",
+"k": "new",
+"teach": "אילת 1967, פוקלנד (Sheffield, Atlantic Conveyor), Stark 1987, חנית 2006, Moskva 2022; מה כל מקרה לימד."
+}
+]
+},
+"M10.10": {
+"items": [
+{
+"id": "R8:M10.10:1",
+"n": "ASW search and sweep width",
+"imp": "K",
+"k": "deepen",
+"teach": "lateral range curve, sweep width, חיפוש אקראי P = 1 − e^(−Wvt/A) (Koopman).",
+"on": "M3.11; M10.3"
+},
+{
+"id": "R8:M10.10:2",
+"n": "Barriers and sonobuoy fields",
+"imp": "K",
+"k": "deepen",
+"teach": "מרווח מצופים, הסתברות גילוי בחצייה, מחסומי ספינות וצוללות.",
+"on": "M10.3"
+},
+{
+"id": "R8:M10.10:3",
+"n": "ASW platforms and MAD",
+"imp": "S",
+"k": "deepen",
+"teach": "MPA, מסוק עם סונר טבול, ספינה עם מערך נגרר, צוללת; MAD וטווחו.",
+"on": "M10.3"
+},
+{
+"id": "R8:M10.10:4",
+"n": "Datum search and furthest-on circle",
+"imp": "S",
+"k": "new",
+"teach": "גידול שטח החיפוש מנקודת מגע, חלוקת מאמץ."
+},
+{
+"id": "R8:M10.10:5",
+"n": "Torpedoes",
+"imp": "K",
+"k": "deepen",
+"teach": "הנעה (Otto fuel, חשמלית), הנחיה בחוט ו-homing אקטיבי/פסיבי, wake-homing, אמצעי נגד; כבד מול קל.",
+"on": "M10.4"
+},
+{
+"id": "R8:M10.10:6",
+"n": "Mine types and influence actuation",
+"imp": "K",
+"k": "deepen",
+"teach": "מגע, מגנטי, אקוסטי, לחץ ושילובים, לוגיקת הפעלה, ספירת ספינות; חתימת הספינה כנגד.",
+"on": "M10.4"
+},
+{
+"id": "R8:M10.10:7",
+"n": "Minefield effectiveness models",
+"imp": "K",
+"k": "new",
+"teach": "simple initial threat, הסתברות פגיעה למעבר, מספר מעברים עד ניקוי."
+},
+{
+"id": "R8:M10.10:8",
+"n": "Mine countermeasures: hunting, sweeping, SAS, UUVs",
+"imp": "K",
+"k": "new",
+"teach": "ציד מול גריפה, רזולוציית SAS, MCM מבוסס UUV, קצב ניקוי וכיסוי."
+},
+{
+"id": "R8:M10.10:9",
+"n": "Mine warfare cases",
+"imp": "S",
+"k": "new",
+"teach": "המפרץ 1991 (Tripoli, Princeton), הים השחור, תרחיש הורמוז; אסימטריית עלות."
+}
+]
+},
+"M13.24": {
+"items": [
+{
+"id": "R8:M13.24:1",
+"n": "Link budget with interference and jamming",
+"imp": "K",
+"k": "deepen",
+"teach": "C/(N+I), שיבוש uplink של transponder שקוף, power robbing; חישוב מרווח שיבוש.",
+"on": "M4.12"
+},
+{
+"id": "R8:M13.24:2",
+"n": "Transparent versus processing payloads",
+"imp": "K",
+"k": "deepen",
+"teach": "דמודולציה על הלוויין, הפרדת uplink ו-downlink, ולמה זה מבטל power robbing.",
+"on": "M13.10"
+},
+{
+"id": "R8:M13.24:3",
+"n": "Anti-jam techniques",
+"imp": "K",
+"k": "deepen",
+"teach": "FH רחב (2 GHz ב-EHF), אנטנות nulling מסתגלות, spot beams ו-beam hopping; רווח עיבוד במספרים.",
+"on": "M13.10"
+},
+{
+"id": "R8:M13.24:4",
+"n": "Protected waveforms and AEHF-class data rates",
+"imp": "S",
+"k": "deepen",
+"teach": "PTW ו-XDR/LDR ברמה פתוחה; trade בין קצב ועמידות.",
+"on": "M13.10"
+},
+{
+"id": "R8:M13.24:5",
+"n": "Narrowband UHF SATCOM and MUOS",
+"imp": "S",
+"k": "new",
+"teach": "MUOS על בסיס WCDMA, שיבוש UHF, תלות כוחות טקטיים."
+},
+{
+"id": "R8:M13.24:6",
+"n": "Proliferated LEO resilience",
+"imp": "K",
+"k": "deepen",
+"teach": "מספר לוויינים, מסופי מערך מופע, גאומטריית שיבוש מול LEO, Starlink באוקראינה וניסיונות שיבוש רוסיים.",
+"on": "M13.10"
+},
+{
+"id": "R8:M13.24:7",
+"n": "Terminal geolocation and LPD",
+"imp": "S",
+"k": "deepen",
+"teach": "איכון מסופי SATCOM, אונות צד, פרופיל שידור.",
+"on": "M13.10"
+},
+{
+"id": "R8:M13.24:8",
+"n": "Ground segment and cyber resilience",
+"imp": "S",
+"k": "new",
+"teach": "KA-SAT 2022 כמקרה הגנתי: שרשרת עדכון מסופים, הפרדת ניהול, התאוששות."
+}
+]
+},
+"M11.18": {
+"items": [
+{
+"id": "R8:M11.18:1",
+"n": "The weaponeering process",
+"imp": "K",
+"k": "new",
+"teach": "ניתוח מטרה, אפקט רצוי, בחירת נשק ונפץ, שיטת הטלה, מספר נשקים; מקום במחזור המטרות."
+},
+{
+"id": "R8:M11.18:2",
+"n": "Target vulnerability",
+"imp": "K",
+"k": "deepen",
+"teach": "מטרת נקודה מול שטח, רכיבים קריטיים, P(k/h).",
+"on": "M11.4; M8.8"
+},
+{
+"id": "R8:M11.18:3",
+"n": "Single-weapon probability of damage for point targets",
+"imp": "K",
+"k": "deepen",
+"teach": "SSPD = 1 − 0.5^((LR/CEP)²); רגישות ל-CEP מול רדיוס קטלני; מספר נשקים להסתברות נדרשת.",
+"on": "M11.4"
+},
+{
+"id": "R8:M11.18:4",
+"n": "Area targets and damage functions",
+"imp": "K",
+"k": "deepen",
+"teach": "MAE, פיזור פגיעות, נזק חלקי, Carleton damage function.",
+"on": "M11.4"
+},
+{
+"id": "R8:M11.18:5",
+"n": "Delivery accuracy and target location error",
+"imp": "K",
+"k": "new",
+"teach": "TLE מ-mensuration מול CEP הנשק; למה TLE שולט בנשק מונחה GNSS."
+},
+{
+"id": "R8:M11.18:6",
+"n": "JMEM concepts and reattack decisions",
+"imp": "S",
+"k": "deepen",
+"teach": "שימוש ב-JMEM ברמת עקרון, BDA והחלטת תקיפה חוזרת.",
+"on": "M11.2"
+},
+{
+"id": "R8:M11.18:7",
+"n": "CDE methodology and mitigation",
+"imp": "K",
+"k": "deepen",
+"teach": "רמות CDE בעקרון, אזורי סכנה, הפחתה בבחירת נפץ, השהיה וראש קרב קטן.",
+"on": "M11.2"
+},
+{
+"id": "R8:M11.18:8",
+"n": "Civilian-harm assessment and its error sources",
+"imp": "S",
+"k": "new",
+"teach": "השוואת הערכות לפני ואחרי (Mosul, עזה), מקורות שגיאה, תהליכי למידה."
+}
+]
+},
+"M3.15": {
+"items": [
+{
+"id": "R8:M3.15:1",
+"n": "Plume radiation",
+"imp": "K",
+"k": "deepen",
+"teach": "פליטת CO2 ו-H2O ב-2.7 ו-4.3 µm, מבער אחורי מול יבש, גודל וטמפרטורת פלומה.",
+"on": "M3.4"
+},
+{
+"id": "R8:M3.15:2",
+"n": "Hot parts, skin heating and reflections",
+"imp": "K",
+"k": "deepen",
+"teach": "Taw = T∞(1 + r(γ−1)M²/2), פליטות, earthshine/skyshine; MWIR מול LWIR.",
+"on": "M3.4; E:M14.10"
+},
+{
+"id": "R8:M3.15:3",
+"n": "Contrast and the atmospheric path",
+"imp": "S",
+"k": "deepen",
+"teach": "ΔT נראה, גילוי מוגבל ניגודיות, השפעת מסלול.",
+"on": "M3.4; M3.10"
+},
+{
+"id": "R8:M3.15:4",
+"n": "IR suppression and its cost",
+"imp": "K",
+"k": "new",
+"teach": "ערבול פליטה, מיסוך, ציפויים בפליטות נמוכה, קירור; מחיר במשקל ובביצועים (נחיר דו-ממדי, מדכאי מסוקים)."
+},
+{
+"id": "R8:M3.15:5",
+"n": "Multispectral and adaptive camouflage",
+"imp": "S",
+"k": "deepen",
+"teach": "חזותי, NIR, SWIR ותרמי, הסוואה מסתגלת; גבולות.",
+"on": "M3.4"
+},
+{
+"id": "R8:M3.15:6",
+"n": "Acoustic and visual signatures",
+"imp": "S",
+"k": "new",
+"teach": "רעש רוטור ומדחף, טווח גילוי באוזן ובמיקרופון."
+},
+{
+"id": "R8:M3.15:7",
+"n": "Multi-band signature balance",
+"imp": "K",
+"k": "deepen",
+"teach": "איזון RCS, IR וחזותי; הפס החלש קובע.",
+"on": "M2.4"
+},
+{
+"id": "R8:M3.15:8",
+"n": "Signature modeling tools",
+"imp": "C",
+"k": "new",
+"teach": "MODTRAN וקודים פתוחים לחתימה; מה הם מניחים."
+}
+]
+},
+"M7.16": {
+"items": [
+{
+"id": "R8:M7.16:1",
+"n": "RAM threat characteristics",
+"imp": "K",
+"k": "deepen",
+"teach": "מסלולי רקטה, ארטילריה ומרגמה, זמן טיסה 15–60 s, התרעה קצרה.",
+"on": "M7.3"
+},
+{
+"id": "R8:M7.16:2",
+"n": "Impact point prediction",
+"imp": "K",
+"k": "deepen",
+"teach": "שערוך מסלול מקטע מוקדם, אליפסת שגיאה מול זמן, אי-ודאות בגרר.",
+"on": "M7.3; M11.2"
+},
+{
+"id": "R8:M7.16:3",
+"n": "Selective engagement policy",
+"imp": "K",
+"k": "deepen",
+"teach": "יירוט רק מה שמאיים, אחוז המיורטים, השפעה על צריכת מיירטים.",
+"on": "M7.3"
+},
+{
+"id": "R8:M7.16:4",
+"n": "Iron Dome-class architecture",
+"imp": "K",
+"k": "new",
+"teach": "מכ\"ם MMR, BMC, מיירט Tamir עם נפץ קרבה, סוללות וכיסוי."
+},
+{
+"id": "R8:M7.16:5",
+"n": "Gun and laser C-RAM",
+"imp": "S",
+"k": "deepen",
+"teach": "LPWS (Phalanx), תחמושת משמידה עצמית, Iron Beam.",
+"on": "M10.5"
+},
+{
+"id": "R8:M7.16:6",
+"n": "Warning and civil defense",
+"imp": "S",
+"k": "deepen",
+"teach": "אזורי התרעה, זמן למרחב מוגן, התרעות שווא.",
+"on": "M7.8"
+},
+{
+"id": "R8:M7.16:7",
+"n": "Economics and saturation",
+"imp": "K",
+"k": "deepen",
+"teach": "מחיר מיירט מול מחיר רקטה מול נזק שנמנע; מחסנית וייצור; הגדרות 'שיעור יירוט'.",
+"on": "M7.4"
+},
+{
+"id": "R8:M7.16:8",
+"n": "Counter-battery tie-in",
+"imp": "S",
+"k": "deepen",
+"teach": "איתור משגרים, ירי על גילוי.",
+"on": "M11.2"
+}
+]
+},
+"M12.5": {
+"items": [
+{
+"id": "R8:M12.5:1",
+"n": "Fissile materials and critical mass",
+"imp": "K",
+"k": "deepen",
+"teach": "LEU, HEU 90%, Pu-239 מול Pu-240; מסות קריטיות חשופות (U כ-52 kg, Pu כ-10 kg); significant quantity: 25 kg U-235, 8 kg Pu.",
+"on": "M11.10"
+},
+{
+"id": "R8:M12.5:2",
+"n": "Enrichment and separative work",
+"imp": "K",
+"k": "new",
+"teach": "SWU ופונקציית ערך V(x) = (2x−1)·ln(x/(1−x)); רוב העבודה נעשית עד 20% ולכן 60% קרוב מאוד ל-90%."
+},
+{
+"id": "R8:M12.5:3",
+"n": "Centrifuge technology",
+"imp": "K",
+"k": "new",
+"teach": "IR-1 מול IR-6 ב-SWU לשנה, מפלים, Natanz ו-Fordow."
+},
+{
+"id": "R8:M12.5:4",
+"n": "Breakout time calculation",
+"imp": "K",
+"k": "new",
+"teach": "פריצה בחומר מול נשקון; רגישות למלאי ולקיבולת; מה אבד כשהמלאי הצטבר."
+},
+{
+"id": "R8:M12.5:5",
+"n": "Plutonium route",
+"imp": "S",
+"k": "new",
+"teach": "כורי מים כבדים (Arak), הפרדה, ייצור כגרם Pu ל-MWd."
+},
+{
+"id": "R8:M12.5:6",
+"n": "Weaponization at principle level",
+"imp": "S",
+"k": "deepen",
+"teach": "gun מול implosion, מקור ניטרונים, עדשות נפץ; הרכבה על טיל וגוף חוזר.",
+"on": "M11.10"
+},
+{
+"id": "R8:M12.5:7",
+"n": "Verification and safeguards",
+"imp": "K",
+"k": "new",
+"teach": "IAEA safeguards, Additional Protocol, דגימה סביבתית, מגבלות JCPOA והתפרקותן."
+},
+{
+"id": "R8:M12.5:8",
+"n": "Case histories",
+"imp": "S",
+"k": "new",
+"teach": "Osirak 1981, Al-Kibar 2007, לוב, צפון קוריאה, דרום אפריקה, איראן 2025."
+}
+]
+},
+"M14.8": {
+"items": [
+{
+"id": "R8:M14.8:1",
+"n": "Purpose and the cycle of research",
+"imp": "K",
+"k": "deepen",
+"teach": "גילוי מול הערכה, מעגל משחק-ניתוח-תרגיל (Perla); מה משחק לא יכול להוכיח.",
+"on": "M14.1"
+},
+{
+"id": "R8:M14.8:2",
+"n": "Game design",
+"imp": "K",
+"k": "deepen",
+"teach": "מטרה, תרחיש, שחקנים ותאים, מבנה תורות, ערפל.",
+"on": "M14.1"
+},
+{
+"id": "R8:M14.8:3",
+"n": "Adjudication",
+"imp": "K",
+"k": "deepen",
+"teach": "חופשי, נוקשה ומעורב; טבלאות תוצאות, מודלים בתוך המשחק.",
+"on": "M14.1"
+},
+{
+"id": "R8:M14.8:4",
+"n": "Matrix and seminar games",
+"imp": "S",
+"k": "deepen",
+"teach": "מבנה, מתי מתאימים.",
+"on": "M14.1"
+},
+{
+"id": "R8:M14.8:5",
+"n": "Analysis and reporting",
+"imp": "K",
+"k": "new",
+"teach": "איסוף נתונים, n=1, הטיות שחקנים ומעצב; דיווח בלי להגזים."
+},
+{
+"id": "R8:M14.8:6",
+"n": "Famous wargames",
+"imp": "S",
+"k": "new",
+"teach": "Millennium Challenge 2002, CSIS על טייוואן 2023, Newport לפני מלחמת העולם השנייה."
+},
+{
+"id": "R8:M14.8:7",
+"n": "Computer-assisted and AI-enabled wargaming",
+"imp": "C",
+"k": "new",
+"teach": "מה מחשב ו-AI מוסיפים ומה מסתירים."
+}
+]
+},
+"M11.19": {
+"items": [
+{
+"id": "R8:M11.19:1",
+"n": "Requirements for accurate predicted fire",
+"imp": "K",
+"k": "new",
+"teach": "מיקום מטרה ותותח, מטאו, נתוני תותח ותחמושת, חישוב; ירי ללא תיאום."
+},
+{
+"id": "R8:M11.19:2",
+"n": "Dispersion, adjustment and rounds for effect",
+"imp": "K",
+"k": "deepen",
+"teach": "probable error בטווח ובכיוון, נקודת פגיעה ממוצעת, תיאום אש, מספר פגזים לאפקט.",
+"on": "M11.4"
+},
+{
+"id": "R8:M11.19:3",
+"n": "Precision-guided artillery and GNSS denial",
+"imp": "K",
+"k": "deepen",
+"teach": "Excalibur, PGK, GMLRS, PrSM; ירידת דיוק תחת שיבוש באוקראינה.",
+"on": "M5.8"
+},
+{
+"id": "R8:M11.19:4",
+"n": "Rocket versus tube artillery",
+"imp": "S",
+"k": "new",
+"teach": "רוויית שטח מול דיוק; השפעת HIMARS."
+},
+{
+"id": "R8:M11.19:5",
+"n": "Ammunition consumption and industrial base",
+"imp": "K",
+"k": "deepen",
+"teach": "קצבי 155 מ\"מ באוקראינה, חיי קנה, ייצור.",
+"on": "M14.3"
+},
+{
+"id": "R8:M11.19:6",
+"n": "Counter-battery and shoot-and-scoot",
+"imp": "K",
+"k": "deepen",
+"teach": "ציר זמן שרידות מול ירי נגד.",
+"on": "M11.2"
+},
+{
+"id": "R8:M11.19:7",
+"n": "Drone-enabled reconnaissance-fire loop",
+"imp": "K",
+"k": "deepen",
+"teach": "זמן חיישן-יורה בדקות, רחפנים כתצפית, FPV כתחליף ארטילריה.",
+"on": "M12.1; M9.9"
+},
+{
+"id": "R8:M11.19:8",
+"n": "Long-range fires and tactical ballistic missiles",
+"imp": "S",
+"k": "deepen",
+"teach": "ATACMS ודומיו, עומק תקיפה.",
+"on": "M6.8"
+}
+]
+},
+"M8.10": {
+"items": [
+{
+"id": "R8:M8.10:1",
+"n": "Sizing for a combat mission",
+"imp": "K",
+"k": "deepen",
+"teach": "ביצועים בגילואה; כאן: פרופיל משימה קרבי, שברי דלק, מגמות משקל ריק, משקל המראה.",
+"on": "E:M15.12"
+},
+{
+"id": "R8:M8.10:2",
+"n": "Constraint diagram: T/W versus W/S",
+"imp": "K",
+"k": "new",
+"teach": "Ps, קצב פנייה, המראה, supercruise; איך הדרישות קובעות את נקודת התכן."
+},
+{
+"id": "R8:M8.10:3",
+"n": "Energy maneuverability",
+"imp": "K",
+"k": "deepen",
+"teach": "Ps, קצב ורדיוס פנייה, דיאגרמות EM של Boyd.",
+"on": "M8.3"
+},
+{
+"id": "R8:M8.10:4",
+"n": "Supercruise and engine selection",
+"imp": "S",
+"k": "deepen",
+"teach": "יחס עקיפה, דחף יבש ב-M1.5.",
+"on": "E:M15.16"
+},
+{
+"id": "R8:M8.10:5",
+"n": "Stealth integration",
+"imp": "K",
+"k": "deepen",
+"teach": "עיצוב, מפרצים פנימיים, S-duct, מחיר משקל ונפח.",
+"on": "M2.4"
+},
+{
+"id": "R8:M8.10:6",
+"n": "Configuration layout",
+"imp": "S",
+"k": "new",
+"teach": "נשיאת נשק, נפח דלק, מבנה, שילוב חיישנים."
+},
+{
+"id": "R8:M8.10:7",
+"n": "Cost and weight estimation",
+"imp": "S",
+"k": "deepen",
+"teach": "DAPCA, מחיר יחידה מול גודל צי; F-35 מול F-16.",
+"on": "M14.2"
+},
+{
+"id": "R8:M8.10:8",
+"n": "Uncrewed combat aircraft implications",
+"imp": "S",
+"k": "deepen",
+"teach": "CCA ו-loyal wingman: מה משתנה בתכן כשאין טייס.",
+"on": "M9.9"
+}
+]
+},
+"M11.20": {
+"items": [
+{
+"id": "R8:M11.20:1",
+"n": "Chemical agent classes and toxicity",
+"imp": "K",
+"k": "new",
+"teach": "עצבים (עיכוב AChE), שלפוחיות, חנק, דם; LCt50 בעשרות mg·min/m³ לעצבים."
+},
+{
+"id": "R8:M11.20:2",
+"n": "Biological agents",
+"imp": "S",
+"k": "new",
+"teach": "קטגוריות, הדבקה, דגירה, קשיי פיזור."
+},
+{
+"id": "R8:M11.20:3",
+"n": "Gaussian plume dispersion",
+"imp": "K",
+"k": "deepen",
+"teach": "דיפוזיה בגילואה; כאן: C = Q/(2π·u·σy·σz)·exp(…), מחלקות Pasquill, אזור סכנה.",
+"on": "E:M10.3"
+},
+{
+"id": "R8:M11.20:4",
+"n": "Persistence and delivery effectiveness",
+"imp": "S",
+"k": "new",
+"teach": "אידוי, גודל טיפה, קביעות."
+},
+{
+"id": "R8:M11.20:5",
+"n": "Detection",
+"imp": "S",
+"k": "new",
+"teach": "IMS, FTIR מרחוק, זמני גילוי ביולוגי."
+},
+{
+"id": "R8:M11.20:6",
+"n": "Protection and decontamination",
+"imp": "K",
+"k": "new",
+"teach": "מסכות ו-MOPP, מיגון קיבוצי בלחץ יתר, טיהור; ירידת ביצועים במיגון."
+},
+{
+"id": "R8:M11.20:7",
+"n": "Radiological dispersal and fallout basics",
+"imp": "S",
+"k": "deepen",
+"teach": "RDD ומנה, נשורת.",
+"on": "M11.10"
+},
+{
+"id": "R8:M11.20:8",
+"n": "Arms control and cases",
+"imp": "S",
+"k": "new",
+"teach": "CWC, BWC; סוריה 2013, Salisbury, עיראק."
+}
+]
+},
+"M15.8": {
+"items": [
+{
+"id": "R9:M15.8:1",
+"n": "Data-centric middleware in combat systems: DDS and why",
+"imp": "K",
+"k": "new",
+"teach": "DDS כתווכה של מערכות לחימה ושליטה ובקרה: pub/sub בלי שרת מרכזי, גילוי אוטומטי ו-QoS כחוזה (deadline, ownership לחיישן גיבוי). מספרים: שיהוי של עשרות מיקרו-שניות ברשת מקומית מול מילי-שניות דרך broker."
+},
+{
+"id": "R9:M15.8:2",
+"n": "Government-owned interfaces and modular open systems (MOSA, FACE, SOSA)",
+"imp": "K",
+"k": "new",
+"teach": "ממשק בבעלות הלקוח מאפשר להחליף ספק לכל מודול; ממשק קנייני נועל את התוכנית לשנים. ההחלטה נמדדת בעלות שדרוג ובזמן הכנסת יכולת חדשה. קישור לרכש ולעלות מחזור חיים (M14.2)."
+},
+{
+"id": "R9:M15.8:3",
+"n": "Conway in defense programs: the prime-subcontractor structure becomes the architecture",
+"imp": "K",
+"k": "new",
+"teach": "קונווי והשערת השיקוף: חלוקת עבודה בין קבלן ראשי לקבלני משנה קובעת את הממשקים, ומשם את נקודות הכשל באינטגרציה. דוגמאות: F-35 ALIS, Link 16 בין מערכות של יצרנים שונים (M7.9, M15.3)."
+},
+{
+"id": "R9:M15.8:4",
+"n": "Latency budget from sensor to shooter across the architecture",
+"imp": "K",
+"k": "new",
+"teach": "תקציב שיהוי מקצה לקצה: חיישן, עיבוד, תווכה, קישור נתונים (TDMA של Link 16: 7.8ms לחריץ), החלטה ושיגור. כל קפיצה בארכיטקטורה מוסיפה שיהוי וזנב; החלטה: איפה לשים היתוך (ליד החיישן או במרכז)."
 }
 ]
 }

@@ -1,0 +1,120 @@
+<title>מפת הלימוד בשכבות</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* layout: one column of stages; each stage splits into Gilua (drafting blue) and Lanchester (olive), drill-down per track */
+:root{
+ --bg:#f6f7f4; --surface:#ffffff; --fg:#1d2320; --muted:#5d6661; --line:#d9ddd6;
+ --gil:#24508f; --gil-soft:#e6edf7; --lan:#5b6a2e; --lan-soft:#eef0e2;
+ --user:#a26200; --user-soft:#fbf0dc; --gap:#b0302a; --gap-soft:#f8e4e2; --naval:#0f6d6d; --naval-soft:#dff1f0;
+ --sans:"IBM Plex Sans Hebrew",system-ui,"Segoe UI",Arial,sans-serif; --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+ --bg:#151917; --surface:#1d2220; --fg:#e4e8e3; --muted:#9aa49e; --line:#333b37;
+ --gil:#8fb4ec; --gil-soft:#1f2b3d; --lan:#b9c784; --lan-soft:#262b1b;
+ --user:#f0b55c; --user-soft:#33281a; --gap:#f08b84; --gap-soft:#3a2120; --naval:#6fd0cc; --naval-soft:#17302f; color-scheme:dark}}
+:root[data-theme="dark"]{
+ --bg:#151917; --surface:#1d2220; --fg:#e4e8e3; --muted:#9aa49e; --line:#333b37;
+ --gil:#8fb4ec; --gil-soft:#1f2b3d; --lan:#b9c784; --lan-soft:#262b1b;
+ --user:#f0b55c; --user-soft:#33281a; --gap:#f08b84; --gap-soft:#3a2120; --naval:#6fd0cc; --naval-soft:#17302f; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:15px;line-height:1.6}
+.wrap{max-width:1180px;margin:0 auto;padding-block:32px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:28px}
+h1{font-size:30px;line-height:1.2;margin:0;text-wrap:balance}
+h2{font-size:18px;margin:0;text-wrap:balance}
+h3{font-size:13px;letter-spacing:.04em;margin:0 0 8px;color:var(--muted);font-weight:600}
+p{margin:0}
+.lead{max-width:68ch;color:var(--muted)}
+.nums{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.num{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px 16px;display:grid;gap:2px}
+.num b{font-size:26px;font-variant-numeric:tabular-nums}
+.num span{color:var(--muted);font-size:13px}
+.num.hl{border-color:var(--gap)}
+.howto{display:grid;gap:10px;max-width:80ch}
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:13px;color:var(--muted)}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-1px;margin-inline-end:6px;border:2px solid}
+.lg-user{border-color:var(--user);background:var(--user-soft)} .lg-gap{border-color:var(--gap);background:var(--gap-soft)} .lg-naval{border-color:var(--naval);background:var(--naval-soft)}
+.toc{display:flex;flex-wrap:wrap;gap:6px}
+.toc a{font-family:var(--mono);font-size:12px;color:var(--fg);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:2px 10px;background:var(--surface)}
+.toc a:focus-visible,.toc a:hover{border-color:var(--gil)}
+.stage{border-top:2px solid var(--fg);padding-top:12px;display:grid;gap:12px}
+.sh{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px}
+.sn{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.sm{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;margin-inline-start:auto}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:760px){.cols{grid-template-columns:1fr}.sm{margin-inline-start:0}}
+.col{min-width:0;display:grid;gap:8px;align-content:start}
+.gil-c{color:var(--gil)} .lan-c{color:var(--lan)}
+h2.app{font-size:22px;margin-top:12px}
+.tocl{font-size:13px;margin-inline-end:6px;align-self:center}
+.track{border:1px solid var(--line);border-radius:6px;background:var(--surface)}
+.stage.gil .track{border-inline-start:3px solid var(--gil)} .stage.lan .track{border-inline-start:3px solid var(--lan)}
+.track>summary{cursor:pointer;padding:8px 12px;display:grid;grid-template-columns:auto 1fr auto;gap:2px 10px;align-items:baseline;list-style:none}
+.track>summary::-webkit-details-marker{display:none}
+.track>summary:focus-visible{outline:2px solid var(--gil);outline-offset:2px}
+.tl{font-weight:600;font-size:13px}
+.ts{font-size:13px;color:var(--muted);min-width:0}
+.tp{font-family:var(--mono);font-size:12px;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
+.chips{list-style:none;margin:0;padding:4px 12px 12px;display:grid;gap:4px}
+.chip{display:grid;grid-template-columns:5.2em 1fr;gap:2px 8px;font-size:13px;padding:3px 6px;border-radius:4px}
+.chip .mid{font-family:var(--mono);font-size:12px;color:var(--muted);direction:ltr;text-align:start}
+.chip .mt{min-width:0}
+.chip .tag{font-size:11.5px;font-weight:600;display:block}
+.sub summary{cursor:pointer;list-style:none;display:grid}
+.sub summary::-webkit-details-marker{display:none}
+.items{list-style:none;margin:6px 0 2px;padding:0;display:grid;gap:2px}
+.items li{display:grid;grid-template-columns:1.6em 3.6em 1fr;gap:6px;font-size:12.5px;direction:rtl}
+.items .in{direction:ltr;text-align:right;unicode-bidi:plaintext}
+.imp{font-family:var(--mono);font-size:11px;font-weight:600;text-align:center;border-radius:3px}
+.imp-K{color:var(--gap)} .imp-S{color:var(--gil)} .imp-C{color:var(--muted)}
+.st{font-size:11px;color:var(--muted)}
+.adv{font-size:11px;color:var(--muted);border:1px solid var(--line);border-radius:3px;padding:0 4px}
+.o-user{background:var(--user-soft)} .o-user .tag{color:var(--user)}
+.o-gap{background:var(--gap-soft)} .o-gap .tag{color:var(--gap)}
+.o-naval{background:var(--naval-soft)} .o-naval .tag{color:var(--naval)}
+.chip.new .mt{direction:ltr;text-align:right;unicode-bidi:plaintext;display:block}
+.why{font-size:12.5px;color:var(--muted);padding:0 12px 4px}
+.why.deep{color:var(--user)}
+.empty{font-size:13px;color:var(--muted)}
+.notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.notes section{display:grid;gap:8px;align-content:start}
+.notes ul{margin:0;padding-inline-start:18px;display:grid;gap:3px;font-size:14px}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
+</style>
+<div class="wrap" dir="rtl" lang="he">
+ <header style="display:grid;gap:10px">
+  <h1>מפת הלימוד בשכבות</h1>
+  <p class="lead">לומדים לפי תתי-נושאים, והספרים הם מפה. כל מודול בשתי המעבדות מופיע אחרי כל דרישות הקדם שלו. סקריפט בדק את זה מודול אחר מודול (0 שגיאות), כולל הדרישות החסרות שנמצאו בבדיקה. שתי האפליקציות נלמדות במקביל, וכל אחת לפי הסדר שלה.</p>
+ </header>
+ <div class="nums">
+  <div class="num"><b>כ-{{CUR}} חודשים</b><span>התוכנית הנוכחית, במודל הזמן של סבב 3 (שיעור, חזרה, התייעצות ופרויקטים)</span></div>
+  <div class="num"><b>+{{NIT}} תתי-נושאים</b><span>ב-{{NMOD}} מודולים חדשים: {{NMISS}} חדשים לגמרי, {{NPART}} העמקה של נושא שכבר נלמד</span></div>
+  <div class="num hl"><b>+כ-{{NEWH}} שעות</b><span>כ-{{NEWM}} חודשים, לפי ההערכה הקבועה של הפרויקט לתת-נושא שנוסף (K חסר כשעה וחצי, S חסר כ-45 דקות, העמקה פחות)</span></div>
+  <div class="num"><b>כ-{{TOTAL}} חודשים</b><span>הכול יחד (גילואה כ-{{TE}}, לנצ'סטר כ-{{TM}}): ההצעות שלך ({{NU}} מודולים), הפערים שנמצאו ({{NG}}) והנדסה ימית ({{NN}})</span></div>
+ </div>
+ <div class="howto">
+  <p><b>איך קוראים:</b> בכל אפליקציה השכבות באות זו אחרי זו. בתוך שכבה, המסלולים או הבלוקים לא תלויים זה בזה, ולכן אפשר לשלב ביניהם באותם ימים, בכל סדר. זה לא זמן נוסף: אורך השכבה הוא סך השעות של כל המסלולים. בלנצ'סטר, כל בלוק בא אחרי הבלוקים שהוא צריך בתוך לנצ'סטר. הקשר לגילואה מוצג רק כמידע: מה שלנצ'סטר צריך נלמד בה ברמה הדרושה.</p>
+  <div class="legend"><span><i class="lg-user"></i>הצעה שלך</span><span><i class="lg-gap"></i>פער שנמצא בבדיקה</span><span>K: חובה לזכור · S: לדעת ולהשתמש · C: הקשר</span><span><i class="lg-naval"></i>הנדסה ימית (חלק חדש בגילואה)</span><span>לחיצה על מסלול פותחת את המודולים, ולחיצה על מודול חדש את תתי-הנושאים שלו</span></div>
+  <nav class="toc" aria-label="גילואה"><b class="tocl gil-c">גילואה</b>{{TOCG}}</nav><nav class="toc" aria-label="לנצ'סטר"><b class="tocl lan-c">לנצ'סטר</b>{{TOCL}}</nav>
+ </div>
+ <h2 class="app gil-c">גילואה: שכבה אחר שכבה</h2>
+ {{GBODY}}
+ <h2 class="app lan-c">לנצ'סטר: שלב אחר שלב</h2>
+ {{LBODY}}
+ <div class="notes">
+  <section><h2>מה השתנה בסדר, ולמה</h2><ul>
+   <li>אלגברה לינארית M8.1–M8.8 מיד אחרי P1: אנליזה מודלית, מרחב מצב, גוף קשיח ו-INS צריכים ערכים עצמיים.</li>
+   <li>הסתברות (P6) לפני אותות, ואותות אקראיים לפני קלמן: M5.6 ו-M5.14 צריכים את M7.3 ואת M7.12.</li>
+   <li>תנודות אקראיות (M3.6) אחרי צפיפות ספקטרלית, ומיתרים וקורות (M3.5) אחרי משוואות שדה.</li>
+   <li>גלים, אלקטרומגנטיות ויסודות המעגלים הוקדמו, כי אנטנות ומכ"ם בלנצ'סטר מחכים להם.</li>
+   <li>זורמים לפני מעבר חום: הסעה ושכבת גבול צריכות את משוואות הזרימה.</li>
+   <li>P20–P22: הוכחות ואינדוקציה בהתחלה; מתמטיקה דיסקרטית, אלגוריתמים ומערכות מחשב כמסלול צד אחרי אותות.</li>
+   <li>גשר החומרה התפצל: מיקרו-ארכיטקטורה ו-GPU מוקדם, FPGA ו-STA רק אחרי מודל ההשהיה (M25.8), RTOS אחרי מערכות הפעלה.</li>
+   <li>לנצ'סטר: P6 התפצל להנחיה (מוקדם) ולאווירודינמיקה ותכן (אחרי זורמים); מכ"ם התפצל לליבה ולעקיבה ומתקדם.</li>
+  </ul></section>
+  <section><h2>מה לא נכנס, ולמה</h2><ul>
+   <li>כל הפערים שנמצאו נכנסו, גם אלה שסומנו "רצוי".</li>
+   <li>אומדנים מהירים (Mahajan) לא נכנסו כמודול. זו מיומנות שחוזרת בכל שיעור ("להעריך לפני שמחשבים"), ושבעה מתוך שמונה תתי-הנושאים שלה כבר קיימים. מתאים כשיעור פתיחה אחד או שניים, ואחר כך כצעד קבוע בכללי השיעור.</li>
+   <li>שלושה תתי-נושאים קיימים רק במודולי עיון, ויעברו לליבה: anti-windup (ל-M5.9), כימוי מקדמים בנקודה קבועה (ל-G7) ואבטחת רשתות (ל-G27).</li>
+  </ul></section>
+ </div>
+</div>

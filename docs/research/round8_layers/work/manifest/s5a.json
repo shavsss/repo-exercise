@@ -1,0 +1,346 @@
+[
+ {
+  "doc": "W05",
+  "key": "van_steen_ds",
+  "path": null,
+  "title": "Distributed Systems",
+  "author": "van Steen & Tanenbaum",
+  "edition": "4th ed. (2023)",
+  "source_url": "https://www.distributed-systems.net/index.php/books/ds4/ds4-ebook/",
+  "pdf_pages": null,
+  "text_ok": false,
+  "method": null,
+  "modules": {},
+  "status": "failed",
+  "tried": [
+   "The free copy is personalized and delivered by a link emailed to the requester; no direct PDF URL exists, and an email address cannot be supplied by an agent. No legal alternative mirror found (only unofficial third-party copies). The same site offers free official slides (allslides.zip, 45MB) as a fallback. Learner can request the PDF himself from the ds4-ebook page."
+  ],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "W10",
+  "key": "baydin_ad",
+  "path": "library/engineering/free/W10_baydin_automatic_differentiation.pdf",
+  "title": "Automatic Differentiation in Machine Learning: a Survey",
+  "author": "Baydin, Pearlmutter, Radul & Siskind",
+  "edition": "JMLR 2018, arXiv 1502.05767",
+  "source_url": "https://arxiv.org/pdf/1502.05767",
+  "pdf_pages": 43,
+  "text_ok": true,
+  "method": "direct",
+  "modules": {
+   "M10.13": [
+    {
+     "pages": [
+      1,
+      43
+     ],
+     "note": "כל המאמר: AD קדימה ואחורה (נושא AD של המודול)"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "W15",
+  "key": "jos_sasp",
+  "path": "library/engineering/free/W15_jos_sasp_filterbanks.pdf",
+  "title": "Spectral Audio Signal Processing (filter-bank sections only)",
+  "author": "J. O. Smith III",
+  "edition": "CCRMA, online edition (2026)",
+  "source_url": "https://ccrma.stanford.edu/~jos/sasp/",
+  "pdf_pages": 190,
+  "text_ok": true,
+  "method": "html-render",
+  "modules": {
+   "M4.17": [
+    {
+     "pages": [
+      1,
+      53
+     ],
+     "note": "מבט מסנני-בנק על STFT, DFT filter bank, STFT מדוגם-למטה, שחזור"
+    },
+    {
+     "pages": [
+      54,
+      85
+     ],
+     "note": "FFT filter banks: ערוצים, שיפור מסנני ערוץ, אוקטבות מהירות, aliasing בדצימציה"
+    },
+    {
+     "pages": [
+      86,
+      131
+     ],
+     "note": "Multirate: upsampling/downsampling, פירוק polyphase, זהויות נובל"
+    },
+    {
+     "pages": [
+      132,
+      153
+     ],
+     "note": "Critically sampled PR filter banks, perfect reconstruction, polyphase view of STFT, paraunitary"
+    },
+    {
+     "pages": [
+      154,
+      190
+     ],
+     "note": "MPEG filter banks (cosine modulated), wavelet/dyadic filter banks"
+    }
+   ]
+  },
+  "status": "partial",
+  "tried": [
+   "No PDF exists; chapter 'Multirate Polyphase and Wavelet Filter Banks' is an empty parent page, so the filter-bank sections (TOC items: Filter Bank View of the STFT through Downsampled STFT FBs, FFT Filter Banks, Multirate Filter Banks through Generalized STFT) were rendered with Playwright, 104 pages. Book has no CIC/half-band/DDC/Farrow/FPGA content."
+  ],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "W20",
+  "key": "liberzon_cvoc",
+  "path": "library/engineering/free/W20_liberzon_cvoc.pdf",
+  "title": "Calculus of Variations and Optimal Control Theory",
+  "author": "Liberzon",
+  "edition": "Princeton 2012, author's free draft (Aug 2011)",
+  "source_url": "https://liberzon.csl.illinois.edu/teaching/cvoc.pdf",
+  "pdf_pages": 200,
+  "text_ok": true,
+  "method": "direct",
+  "modules": {
+   "M5.19": [
+    {
+     "pages": [
+      91,
+      154
+     ],
+     "note": "פרקים 4–5: עקרון המקסימום של פונטריאגין (91–134) ומשוואת HJB ותכנות דינמי (135–154)"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "W25",
+  "key": "ts_38300",
+  "path": "library/engineering/free/W25_3gpp_ts38300_nr_overall.pdf",
+  "title": "3GPP TS 38.300, NR and NG-RAN Overall Description",
+  "author": "3GPP / ETSI",
+  "edition": "Rel-18 (v18.4.0, ETSI TS 138 300)",
+  "source_url": "https://www.etsi.org/deliver/etsi_ts/138300_138399/138300/18.04.00_60/ts_138300v180400p.pdf",
+  "pdf_pages": 272,
+  "text_ok": true,
+  "method": "direct",
+  "modules": {
+   "M23.19": [
+    {
+     "pages": [
+      1,
+      272
+     ],
+     "note": "כולו"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "3gpp.org archive zip (ib0, docx) 403 on first try then reachable; ETSI PDF chosen since it is a ready PDF"
+  ],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "X02",
+  "key": "mil_std_461g",
+  "path": "library/military/free/X02_mil_std_461g_464c.pdf",
+  "title": "MIL-STD-461G (pp 1-280) and MIL-STD-464C (pp 281-445) bundled",
+  "author": "US DoD",
+  "edition": "461G 2015 / 464C 2010",
+  "source_url": "https://www.atecorp.com/getmedia/0299237b-bfe3-4d45-be0c-a02d027b5e97/mil-std-461g.pdf + https://s3vi.ndc.nasa.gov/ssri-kb/static/resources/MIL-STD-464C.pdf",
+  "pdf_pages": 445,
+  "text_ok": true,
+  "method": "bundle",
+  "modules": {
+   "M7.18": [
+    {
+     "pages": [
+      309,
+      310
+     ],
+     "note": "464C סעיף 5.6: דרישות EMP"
+    },
+    {
+     "pages": [
+      379,
+      385
+     ],
+     "note": "464C נספח A.5.6: הסבר EMP/HEMP"
+    },
+    {
+     "pages": [
+      404,
+      411
+     ],
+     "note": "464C נספח A.5.9: קרינה אלקטרומגנטית מסוכנת (HERO/HERF)"
+    },
+    {
+     "pages": [
+      152,
+      173
+     ],
+     "note": "461G: RS103 ו-RS105 (שדה חשמלי ושדה חולף), כרקע לצימוד ולחסינות"
+    }
+   ],
+   "M15.6": [
+    {
+     "pages": [
+      41,
+      173
+     ],
+     "note": "461G פרקים 5.4-5.22: מבחני CE/CS/RE/RS ברמת תת-מערכת"
+    },
+    {
+     "pages": [
+      298,
+      321
+     ],
+     "note": "464C סעיפים 5.1-5.14: שוליים, EMC פנים-מערכתי, HERO, EMC בין-מערכתי"
+    },
+    {
+     "pages": [
+      339,
+      371
+     ],
+     "note": "464C נספח A.5.2: EMC פנים-מערכתי, הצבת אנטנות וצימוד פלטפורמה"
+    },
+    {
+     "pages": [
+      404,
+      411
+     ],
+     "note": "464C נספח A.5.9: HERO"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "quicksearch.dla.mil (no PDF), everyspec guessed URL 404, navsea 403, dtic 403, dau 403; found via WebSearch: atecorp (461G) and NASA s3vi (464C)"
+  ],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "X04",
+  "key": "dellaert_kaess",
+  "path": "library/military/free/X04_dellaert_kaess_factor_graphs.pdf",
+  "title": "Factor Graphs for Robot Perception",
+  "author": "Dellaert & Kaess",
+  "edition": "Foundations and Trends in Robotics 2017",
+  "source_url": "https://www.cs.cmu.edu/~kaess/pub/Dellaert17fnt.pdf",
+  "pdf_pages": 144,
+  "text_ok": true,
+  "method": "direct",
+  "modules": {
+   "M5.13": [
+    {
+     "pages": [
+      1,
+      144
+     ],
+     "note": "כולו: גרפי גורמים והחלקה לניווט רב-חיישנים"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "X09",
+  "key": "ebadi_subt",
+  "path": "library/military/free/X09_ebadi_subt_slam.pdf",
+  "title": "Present and Future of SLAM in Extreme Environments: The DARPA SubT Challenge",
+  "author": "Ebadi et al.",
+  "edition": "IEEE T-RO 2023, arXiv 2208.01787",
+  "source_url": "https://arxiv.org/pdf/2208.01787",
+  "pdf_pages": 21,
+  "text_ok": true,
+  "method": "direct",
+  "modules": {
+   "M11.16": [
+    {
+     "pages": [
+      1,
+      21
+     ],
+     "note": "כולו: תפיסה תלת-ממדית ו-SLAM בשטח"
+    }
+   ],
+   "M11.17": [
+    {
+     "pages": [
+      1,
+      21
+     ],
+     "note": "כולו: SLAM ללא GPS בתת-קרקע"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "W36",
+  "key": "spectre",
+  "path": "library/engineering/free/W36_spectre_attacks.pdf",
+  "title": "Spectre Attacks: Exploiting Speculative Execution",
+  "author": "Kocher et al.",
+  "edition": "IEEE S&P 2019, arXiv 1801.01203",
+  "source_url": "https://arxiv.org/pdf/1801.01203",
+  "pdf_pages": 16,
+  "text_ok": true,
+  "method": "direct",
+  "modules": {
+   "M28.6": [
+    {
+     "pages": [
+      1,
+      16
+     ],
+     "note": "כל המאמר: התקפות ערוצי צד מיקרו-ארכיטקטוניים וספקטר"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "W41",
+  "key": "cummings_cdc",
+  "path": null,
+  "title": "Clock Domain Crossing (CDC) Design & Verification Techniques Using SystemVerilog",
+  "author": "Cummings",
+  "edition": "SNUG Boston 2008",
+  "source_url": null,
+  "pdf_pages": null,
+  "text_ok": false,
+  "method": null,
+  "modules": {},
+  "status": "failed",
+  "tried": [
+   "sunburst-design.com/papers/... (http, https, www): redirects to paradigm-works.com technical-library HTML page, no PDF link",
+   "paradigm-works hubfs guesses 404",
+   "web.archive.org blocked by egress policy",
+   "pdfcoffee 403",
+   "scribd copies are third-party, not downloadable"
+  ],
+  "blocked_hosts": [
+   "web.archive.org"
+  ]
+ }
+]

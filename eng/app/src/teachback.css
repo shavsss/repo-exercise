@@ -1,0 +1,60 @@
+/* "העבר את השיעור" (components/TeachBack.tsx). Identical in both labs. */
+.flow-close.tb {
+  width: min(44rem, 100%);
+}
+.tb-open {
+  display: block;
+  margin: 14px auto 0;
+}
+.tb-hint {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.9375rem;
+}
+.tb-talk {
+  display: grid;
+  gap: 12px;
+}
+.tb-turn {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+.tb-turn p {
+  margin: 0;
+  white-space: pre-wrap;
+}
+.tb-turn.is-learner {
+  padding-inline-start: 10px;
+  border-inline-start: 3px solid var(--line);
+  color: var(--ink-soft);
+}
+.tb-input textarea {
+  font: inherit;
+  width: 100%;
+  box-sizing: border-box;
+  resize: vertical;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--paper);
+  color: var(--ink);
+  padding: 0.5rem 0.65rem;
+}
+.tb-input textarea:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+.tb-err {
+  margin: 6px 0 0;
+  font-size: 0.875rem;
+  color: var(--danger, #b3261e);
+}
+.tb-rec {
+  color: var(--danger, #b3261e);
+  border-color: currentColor;
+}
+.tb-gaps {
+  margin: 0;
+  padding-inline-start: 1.2rem;
+  color: var(--ink-soft);
+}

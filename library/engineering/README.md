@@ -62,6 +62,17 @@
 | E52 | גשר: הנדסת מערכות | NASA, *Probabilistic Risk Assessment Procedures Guide* (NASA/SP-2011-3421) | 2nd, 2011 | Claude | `E52_NASA-PRA-Procedures-Guide_2ed_2011.pdf` |
 | E53 | גשר: RF ומיקרוגל | Pozar, *Microwave Engineering* (נלמד בלנצ'סטר, M1.5–M1.7; בגילואה פרק 1 ושיעור הפרש) | 4th, 2012 | הלומד | `library/military/books/18_Microwave-Engineering_Pozar_4ed_2012.pdf` |
 
+**סבב 9 (19.11.2026): ארכיטקטורה, תוכנה והצד הארגוני-עסקי.** מקורות חינמיים ב-`library/engineering/free/`, רשומים ב-`tools/curriculum/round9.json`. הפירוט, הזמינות ורשימת הקנייה ב-`docs/research/round8/ARCH_SOFTWARE_SOURCES.md`.
+
+| # | מקור | קובץ |
+|---|---|---|
+| W92 | Crawley, MIT ESD.34 *System Architecture* (OCW, 2007), הרצאות L1–L6 | `free/W92_crawley_esd34_system_architecture.pdf` |
+| W93 | Conway 1968; Parnas 1972; Brooks, *No Silver Bullet* 1986; Ulrich 1995; MacCormack, Rusnak & Baldwin 2008 | `free/W93_architecture_organization_classics.pdf` |
+| W94 | Saltzer, Reed & Clark 1984; Clark 1988; Jacobson & Karels 1988; Langley et al., QUIC 2017 | `free/W94_internet_design_rationale.pdf` |
+| W95 | Lamport 1978; Dynamo 2007; Spanner 2012; Abadi, PACELC 2012; Dean & Barroso 2013 | `free/W95_distributed_design_papers.pdf` |
+| W96 | Barroso et al., *The Datacenter as a Computer*, 4th ed. (open access), פרקים 1–4, 8, 10 | `free/W96_barroso_datacenter_as_computer_4ed_core.pdf` |
+| W97 | OMG DDS 1.4 ו-OASIS MQTT 5.0, הסעיפים המרכזיים | `free/W97_dds_mqtt_middleware_core.pdf` |
+
 **עוד חסרים:** סוף הספר של Horowitz & Hill (מעמ' 1062), עמוד 283 ב-Ashby, ו-PDF של פיינמן כרכים I ו-II (כרגע ב-`library/math-physics/` כ-`.txt`, בלי איורים). מסבב 7 לא יגיעו Khalil, Bar-Shalom / Simon, Erickson, Thrun, Mahajan, Szeliski ו-EE263 (מה שמכסה במקומם: GAPS ב-`syllabus/syllabus.py`).
 
 ## מה הוצא במודע
