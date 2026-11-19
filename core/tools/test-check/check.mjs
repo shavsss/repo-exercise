@@ -142,6 +142,13 @@ for (const scheme of SCHEMES) {
       await page.goto(`${base}/test.html`);
       await page.locator("button.card").first().waitFor({ timeout: 20000 });
       await shot(page, `${tag}-1-home`);
+      // the learner's path below the hero, whole, as its own picture
+      const roadmap = page.locator(".roadmap");
+      if (await roadmap.count()) {
+        const file = path.join(shotsDir, `${tag}-1b-roadmap.png`);
+        await roadmap.screenshot({ path: file });
+        screenshots.push(file);
+      }
     });
     ok = ok && (await step(`${tag}: module`, async () => {
       // the harness's module (window.__module) when the home lists it, else the first card

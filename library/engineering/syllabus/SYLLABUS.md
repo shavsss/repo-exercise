@@ -6,39 +6,42 @@
 
 **תפקיד המקור:** ★ מקור ראשי. ◇ השלמה מספר אחר. ✎ תרגילים (לא נספרים באומדן השיעורים).
 
-**סה"כ:** 398 מודולים: 284 ליבה, 50 מתקדם, 64 עיון.
+**סה"כ:** 453 מודולים: 324 ליבה, 65 מתקדם, 64 עיון.
 
 | חלק | מודולים | עמ' בליבה | שיעורי ליבה (אומדן) | עמ' במתקדם | עמ' בעיון |
 |---|---|---|---|---|---|
-| P0 שער: מבט על המתמטיקה והפיזיקה | 2 | 94 | 6 | 0 | 0 |
+| P0 שער: מבט על המתמטיקה והפיזיקה | 3 | 94 | 7 | 0 | 0 |
 | P1 עמוד השדרה: אנליזה, גאומטריה ואלגברה | 6 | 266 | 18 | 0 | 0 |
 | P2 עמוד השדרה: מכניקה | 9 | 229 | 16 | 0 | 816 |
 | P3 עמוד השדרה: משוואות דיפרנציאליות ותנודות | 7 | 202 | 13 | 0 | 786 |
-| P4 צומת 1: אותות ומערכות לינאריות | 16 | 773 | 51 | 25 | 446 |
-| P5 צומת 2: דינמיקה, בקרה ושערוך מצב | 15 | 550 | 39 | 27 | 193 |
-| P6 צומת 3א: הסתברות וסטטיסטיקה | 12 | 267 | 17 | 54 | 98 |
-| P7 צומת 3ב: אינפורמציה, הסקה ואותות אקראיים | 18 | 566 | 37 | 47 | 331 |
-| P8 צומת 4: אלגברה לינארית, אופטימיזציה ושיטות חישוב | 23 | 778 | 53 | 249 | 0 |
+| P4 צומת 1: אותות ומערכות לינאריות | 18 | 773 | 53 | 25 | 446 |
+| P5 צומת 2: דינמיקה, בקרה ושערוך מצב | 22 | 550 | 44 | 27 | 193 |
+| P6 צומת 3א: הסתברות וסטטיסטיקה | 13 | 267 | 18 | 54 | 98 |
+| P7 צומת 3ב: אינפורמציה, הסקה ואותות אקראיים | 21 | 566 | 39 | 47 | 331 |
+| P8 צומת 4: אלגברה לינארית, אופטימיזציה ושיטות חישוב | 24 | 778 | 54 | 249 | 0 |
 | P9 צומת 5א: גלים, אלקטרומגנטיות ואופטיקה | 20 | 521 | 36 | 82 | 510 |
-| P10 צומת 5ב: משוואות שדה וסימולציה נומרית | 11 | 540 | 37 | 136 | 306 |
-| P11 גשר: אלקטרוניקה | 23 | 1330 | 88 | 112 | 1164 |
-| P12 גשר: מנועים חשמליים, הנעה וחומרים מגנטיים | 11 | 410 | 27 | 73 | 12 |
+| P10 צומת 5ב: משוואות שדה וסימולציה נומרית | 13 | 540 | 38 | 136 | 306 |
+| P11 גשר: אלקטרוניקה | 25 | 1330 | 89 | 112 | 1164 |
+| P12 גשר: מנועים חשמליים, הנעה וחומרים מגנטיים | 12 | 410 | 28 | 73 | 12 |
 | P13 גשר: תרמודינמיקה ואנרגיה | 27 | 1176 | 78 | 108 | 1281 |
 | P14 גשר: מעבר חום | 14 | 558 | 37 | 178 | 325 |
-| P15 גשר: זורמים ואווירונאוטיקה | 30 | 1172 | 79 | 30 | 1769 |
+| P15 גשר: זורמים ואווירונאוטיקה | 32 | 1172 | 79 | 30 | 1769 |
 | P16 גשר: מבנים וחומרים | 27 | 1246 | 84 | 148 | 2153 |
 | P17 גשר: למידת מכונה ולמידה עמוקה | 17 | 440 | 30 | 87 | 1256 |
-| P18 גשר: למידה מחיזוקים | 10 | 394 | 26 | 64 | 82 |
-| P19 גשר: רובוטיקה | 11 | 415 | 26 | 43 | 12 |
+| P18 גשר: למידה מחיזוקים | 11 | 394 | 27 | 64 | 82 |
+| P19 גשר: רובוטיקה | 12 | 415 | 27 | 43 | 12 |
 | P20 פריפריה: מתמטיקה דיסקרטית | 10 | 339 | 23 | 87 | 21 |
 | P21 פריפריה: אלגוריתמים | 11 | 360 | 24 | 0 | 292 |
-| P22 פריפריה: מערכות מחשב | 12 | 845 | 56 | 386 | 867 |
-| P23 פריפריה: תקשורת ספרתית ואלחוטית | 16 | 614 | 40 | 284 | 261 |
-| P24 פריפריה: פיזיקה מודרנית: יחסות וקוונטים | 13 | 255 | 16 | 261 | 144 |
+| P22 פריפריה: מערכות מחשב | 16 | 845 | 58 | 386 | 867 |
+| P23 פריפריה: תקשורת ספרתית ואלחוטית | 19 | 614 | 41 | 284 | 261 |
+| P24 פריפריה: פיזיקה מודרנית: יחסות וקוונטים | 15 | 255 | 16 | 261 | 144 |
 | P25 פריפריה: התקני מוליכים למחצה ותכנון שבבים | 13 | 463 | 31 | 253 | 284 |
 | P26 העשרה מתמטית | 5 | 0 | 0 | 0 | 316 |
-| P27 גשר: הנדסת מערכות | 9 | 301 | 21 | 0 | 547 |
-| **סה"כ** | 398 | 15104 | 1009 | 2734 | 14272 |
+| P27 גשר: הנדסת מערכות | 11 | 301 | 22 | 0 | 547 |
+| P28 גשר: תכן ספרתי, מחשוב מואץ ומערכות זמן-אמת | 6 | 0 | 6 | 0 | 0 |
+| P29 גשר: הנדסת AI מודרני | 8 | 0 | 7 | 0 | 0 |
+| P30 גשר: הנדסה ימית | 6 | 0 | 6 | 0 | 0 |
+| **סה"כ** | 453 | 15104 | 1049 | 2734 | 14272 |
 
 האומדן: שיעור לכל כ-15 עמודי מקור, כולל השלמות. בהשלמות המורה מלמד רק את מה שחדש לעומת המקור הראשי.
 
@@ -55,6 +58,10 @@
 - ★ The Feynman Lectures on Physics, Vol. I, עמ' PDF 12–20: 1: Atoms in Motion
 - ★ The Feynman Lectures on Physics, Vol. I, עמ' PDF 21–31: 2: Basic Physics
 - ★ The Feynman Lectures on Physics, Vol. I, עמ' PDF 32–41: 3: The Relation of Physics to Other Sciences
+
+### M0.3 תכנות מדעי: Python, NumPy, git ובדיקות
+*Scientific programming: Python, NumPy, git, tests* · **ליבה** · 0 עמ' · כ-1 שיעורים · דרישות: M0.1
+
 
 ## חלק 1: עמוד השדרה: אנליזה, גאומטריה ואלגברה
 
@@ -132,7 +139,7 @@
 - ✎ Meriam & Kraige, Engineering Mechanics: Statics (9th ed.), עמ' PDF 385–411: בעיות לפרק 6
 
 ### M2.7 דינמיקה תלת-ממדית של גוף קשיח: טנזור התמד, משוואות אוילר ותנועה ג'ירוסקופית
-*Three-dimensional rigid-body dynamics: inertia tensor, Euler's equations, gyroscopic motion* · **ליבה** · 70 עמ' · כ-5 שיעורים · דרישות: M2.5, M1.6
+*Three-dimensional rigid-body dynamics: inertia tensor, Euler's equations, gyroscopic motion* · **ליבה** · 70 עמ' · כ-5 שיעורים · דרישות: M2.5, M1.6, M8.8
 
 - ★ Meriam & Kraige, Engineering Mechanics: Dynamics (7th ed.), עמ' PDF 533–602: 7: Introduction to Three-Dimensional Dynamics of Rigid Bodies
 
@@ -195,18 +202,18 @@
 - ★ Rao, Mechanical Vibrations (6th ed., SI), עמ' PDF 627–662: 6 §6.8–6.15: Multidegree-of- Freedom Systems
 - ✎ Rao, Mechanical Vibrations (6th ed., SI), עמ' PDF 674–701: 6: תרגילים
 
+### M3.6 תנודה אקראית: תהליכים רחבי-פס וצרי-פס, ותגובת מערכת בדרגה אחת ובכמה דרגות
+*Random vibration: wide- and narrow-band processes, single- and multidegree-of-freedom response* · **ליבה** · 21 עמ' · כ-1 שיעורים · דרישות: M3.4, M7.2
+
+- ★ Rao, Mechanical Vibrations (6th ed., SI), עמ' PDF 1194–1214: 14 §14.11–14.14: Random Vibration (from WEB)
+- ✎ Rao, Mechanical Vibrations (6th ed., SI), עמ' PDF 1219–1231: 14: תרגילים
+
 ### M3.5 מערכות רציפות: מיתרים, מוטות וקורות בתנודה רוחבית
 *Continuous systems: strings, bars, lateral vibration of beams* · **ליבה** · 32 עמ' · כ-2 שיעורים · דרישות: M3.4, M10.1
 
 - ★ Rao, Mechanical Vibrations (6th ed., SI), עמ' PDF 748–758: 8 §8.1–8.2: Continuous Systems
 - ★ Rao, Mechanical Vibrations (6th ed., SI), עמ' PDF 770–790: 8 §8.5: Continuous Systems
 - ✎ Rao, Mechanical Vibrations (6th ed., SI), עמ' PDF 805–821: 8: תרגילים
-
-### M3.6 תנודה אקראית: תהליכים רחבי-פס וצרי-פס, ותגובת מערכת בדרגה אחת ובכמה דרגות
-*Random vibration: wide- and narrow-band processes, single- and multidegree-of-freedom response* · **ליבה** · 21 עמ' · כ-1 שיעורים · דרישות: M3.4, M7.2
-
-- ★ Rao, Mechanical Vibrations (6th ed., SI), עמ' PDF 1194–1214: 14 §14.11–14.14: Random Vibration (from WEB)
-- ✎ Rao, Mechanical Vibrations (6th ed., SI), עמ' PDF 1219–1231: 14: תרגילים
 
 ### M3.7 Rao: שאר הספר
 *Rao: the remaining chapters* · **עיון** · 786 עמ' · כ-52 שיעורים · דרישות: M3.3
@@ -310,6 +317,11 @@
 - ★ Oppenheim & Willsky, Signals and Systems, עמ' PDF 772–827: 10: The z-Transform
 - ✎ Oppenheim & Willsky, Signals and Systems, עמ' PDF 828–846: 10: תרגילים
 
+### M4.11 אינטגרל קווי, נוסחת קושי והמשכה אנליטית
+*Line integrals, Cauchy's formula, analytic continuation* · **מתקדם** · 25 עמ' · כ-2 שיעורים · דרישות: M4.3
+
+- ★ Kolmogorov et al., Mathematics: Its Content, Methods and Meaning, Vol. 2, עמ' PDF 182–206: IX §4–6: Functions of a Complex Variable
+
 ### M4.12 עיבוד רב-קצבי: דצימציה, אינטרפולציה ומבנה פוליפאזי
 *Multirate processing: decimation, interpolation, polyphase structures* · **ליבה** · 18 עמ' · כ-1 שיעורים · דרישות: M4.10, M4.8
 
@@ -331,16 +343,19 @@
 - ★ Oppenheim, Schafer & Buck, Discrete-Time Signal Processing (2nd ed.), עמ' PDF 654–670: 9 §9.0–9.3: Computation of the Discrete Fourier Transform
 - ✎ Oppenheim, Schafer & Buck, Discrete-Time Signal Processing (2nd ed.), עמ' PDF 694–717: 9: תרגילים
 
-### M4.11 אינטגרל קווי, נוסחת קושי והמשכה אנליטית
-*Line integrals, Cauchy's formula, analytic continuation* · **מתקדם** · 25 עמ' · כ-2 שיעורים · דרישות: M4.3
-
-- ★ Kolmogorov et al., Mathematics: Its Content, Methods and Meaning, Vol. 2, עמ' PDF 182–206: IX §4–6: Functions of a Complex Variable
-
 ### M4.15 אנליזה ספקטרלית עם DFT: חלונות, רזולוציה, STFT ופריודוגרם
 *Fourier analysis of signals using the DFT: windows, resolution, the STFT, the periodogram* · **ליבה** · 62 עמ' · כ-4 שיעורים · דרישות: M4.14, M7.2
 
 - ★ Oppenheim, Schafer & Buck, Discrete-Time Signal Processing (2nd ed.), עמ' PDF 718–779: 10 §10.0–10.8: Fourier Analysis of Signals Using the Discrete Fourier Transform
 - ✎ Oppenheim, Schafer & Buck, Discrete-Time Signal Processing (2nd ed.), עמ' PDF 780–799: 10: תרגילים
+
+### M4.17 בנקי מסננים ומפצלי ערוצים פוליפאזיים
+*Filter banks and polyphase channelizers* · **ליבה** · 0 עמ' · כ-1 שיעורים · דרישות: M4.14
+
+
+### M4.18 DSP בנקודה קבועה ובזמן אמת
+*Fixed-point and real-time DSP* · **ליבה** · 0 עמ' · כ-1 שיעורים · דרישות: M4.17
+
 
 ### M4.16 Oppenheim, Schafer & Buck: שאר הספר; והשלמות O&V שחוזרות על Oppenheim & Willsky
 *Oppenheim, Schafer & Buck: the rest; O&V supplements that repeat Oppenheim & Willsky* · **עיון** · 446 עמ' · כ-30 שיעורים · דרישות: M4.14
@@ -387,7 +402,7 @@
 - ✎ Åström & Murray, Feedback Systems, עמ' PDF 148–152: 4: תרגילים
 
 ### M5.3 התנהגות דינמית, יציבות וליאפונוב
-*Dynamic behavior, stability, Lyapunov* · **ליבה** · 34 עמ' · כ-2 שיעורים · דרישות: M5.2, M3.1
+*Dynamic behavior, stability, Lyapunov* · **ליבה** · 34 עמ' · כ-2 שיעורים · דרישות: M5.2, M3.1, M8.8
 
 - ★ Åström & Murray, Feedback Systems, עמ' PDF 153–186: 5: Dynamic Behavior
 - ✎ Åström & Murray, Feedback Systems, עמ' PDF 187–190: 5: תרגילים
@@ -405,14 +420,6 @@
 
 - ★ Åström & Murray, Feedback Systems, עמ' PDF 229–260: 7: State Feedback
 - ✎ Åström & Murray, Feedback Systems, עמ' PDF 261–264: 7: תרגילים
-
-### M5.6 משוב מוצא, משערכי מצב ומסנן קלמן
-*Output feedback, observers, Kalman filtering* · **ליבה** · 42 עמ' · כ-3 שיעורים · דרישות: M5.5
-
-- ★ Åström & Murray, Feedback Systems, עמ' PDF 265–295: 8: Output Feedback
-- ✎ Åström & Murray, Feedback Systems, עמ' PDF 296–298: 8: תרגילים
-- ◇ Oppenheim & Verghese, Signals, Systems and Inference (MIT 6.011 notes), עמ' PDF 90–96: 6 §6.1–6.3: State Observers and State Feedback
-- ◇ Oppenheim & Verghese, Signals, Systems and Inference (MIT 6.011 notes), עמ' PDF 106–109: 6 §6.5: State Observers and State Feedback
 
 ### M5.7 פונקציות תמסורת ודיאגרמת בודה
 *Transfer functions and the Bode plot* · **ליבה** · 40 עמ' · כ-3 שיעורים · דרישות: M5.4, M4.9
@@ -448,7 +455,7 @@
 - ✎ Åström & Murray, Feedback Systems, עמ' PDF 462–464: 13: תרגילים
 
 ### M5.12 גבולות יסודיים: האינטגרל של בודה
-*Fundamental limits: Bode's integral* · **ליבה** · 29 עמ' · כ-2 שיעורים · דרישות: M5.10
+*Fundamental limits: Bode's integral* · **ליבה** · 29 עמ' · כ-2 שיעורים · דרישות: M5.10, M4.11
 
 - ★ Åström & Murray, Feedback Systems, עמ' PDF 465–493: 14: Fundamental Limits
 - ✎ Åström & Murray, Feedback Systems, עמ' PDF 494–498: 14: תרגילים
@@ -458,6 +465,14 @@
 
 - ★ Åström & Murray, Feedback Systems, עמ' PDF 499–540: 15: Architecture and System Design
 
+### M5.6 משוב מוצא, משערכי מצב ומסנן קלמן
+*Output feedback, observers, Kalman filtering* · **ליבה** · 42 עמ' · כ-3 שיעורים · דרישות: M5.5, M7.3
+
+- ★ Åström & Murray, Feedback Systems, עמ' PDF 265–295: 8: Output Feedback
+- ✎ Åström & Murray, Feedback Systems, עמ' PDF 296–298: 8: תרגילים
+- ◇ Oppenheim & Verghese, Signals, Systems and Inference (MIT 6.011 notes), עמ' PDF 90–96: 6 §6.1–6.3: State Observers and State Feedback
+- ◇ Oppenheim & Verghese, Signals, Systems and Inference (MIT 6.011 notes), עמ' PDF 106–109: 6 §6.5: State Observers and State Feedback
+
 ### M5.14 מסננים לא לינאריים: EKF, UKF ומסנן חלקיקים
 *Nonlinear filters: the extended and unscented Kalman filters, the particle filter* · **ליבה** · 44 עמ' · כ-3 שיעורים · דרישות: M5.6, M7.12
 
@@ -465,6 +480,34 @@
 - ✎ Särkkä, Bayesian Filtering and Smoothing, עמ' PDF 112–115: 5: תרגילים
 - ★ Särkkä, Bayesian Filtering and Smoothing, עמ' PDF 136–151: 7 §7.1–7.5: Particle filtering
 - ✎ Särkkä, Bayesian Filtering and Smoothing, עמ' PDF 152–153: 7: תרגילים
+
+### M5.16 תורת מערכות לינאריות
+*Linear systems theory (EE263 level)* · **ליבה** · 0 עמ' · כ-1 שיעורים · דרישות: M8.4, M8.8, M5.6
+
+
+### M5.17 עקיבה ושיוך נתונים: IMM, JPDA ו-MHT
+*Tracking and data association: IMM, JPDA, MHT* · **ליבה** · 0 עמ' · כ-1 שיעורים · דרישות: M5.14, M7.4
+
+
+### M5.18 בקרה לא לינארית
+*Nonlinear control* · **ליבה** · 0 עמ' · כ-1 שיעורים · דרישות: M5.3, M5.4, M5.13, M5.16
+
+
+### M5.19 בקרה אופטימלית ו-MPC
+*Optimal control and MPC* · **ליבה** · 0 עמ' · כ-1 שיעורים · דרישות: M5.5, M8.22, M8.24
+
+
+### M5.20 זיהוי מערכות
+*System identification* · **ליבה** · 0 עמ' · כ-1 שיעורים · דרישות: M5.7, M7.2, M8.5, M5.19
+
+
+### M5.21 בקרה רב-משתנית ועמידה
+*Multivariable and robust control* · **מתקדם** · 0 עמ' · כ-1 שיעורים · דרישות: M5.11, M5.16
+
+
+### M5.22 בקרה ספרתית
+*Digital control* · **מתקדם** · 0 עמ' · כ-1 שיעורים · דרישות: M5.10, M4.10
+
 
 ### M5.15 Särkkä: שאר הספר; והשלמות שחוזרות על Åström & Murray
 *Särkkä, the rest; supplements that repeat Åström & Murray* · **עיון** · 193 עמ' · כ-13 שיעורים · דרישות: M5.14
@@ -562,7 +605,7 @@
 - ✎ Wasserman, All of Statistics, עמ' PDF 221–223: 12: תרגילים
 
 ### M6.8 רגרסיה לינארית ולוגיסטית
-*Linear and logistic regression* · **ליבה** · 19 עמ' · כ-1 שיעורים · דרישות: M6.5
+*Linear and logistic regression* · **ליבה** · 19 עמ' · כ-1 שיעורים · דרישות: M6.5, M8.5
 
 - ★ Wasserman, All of Statistics, עמ' PDF 224–242: 13: Linear and Logistic Regression
 - ✎ Wasserman, All of Statistics, עמ' PDF 243–247: 13: תרגילים
@@ -605,6 +648,10 @@
 - ◇ Lehman, Leighton & Meyer, Mathematics for Computer Science, עמ' PDF 923–950: 20: Deviation from the Mean (נלמד מ-Wasserman 4–5, M6.3)
 - ✎ Lehman, Leighton & Meyer, Mathematics for Computer Science, עמ' PDF 951–972: 20: תרגילים
 
+### M6.13 תכנון ניסויים וסטטיסטיקה של ניסוי
+*Design of experiments and test statistics* · **ליבה** · 0 עמ' · כ-1 שיעורים · דרישות: M6.8
+
+
 ## חלק 7: צומת 3ב: אינפורמציה, הסקה ואותות אקראיים
 
 ### M7.1 תהליכים אקראיים ושרשראות מרקוב
@@ -623,7 +670,7 @@
 - ★ Oppenheim & Verghese, Signals, Systems and Inference (MIT 6.011 notes), עמ' PDF 172–183: 10: Power Spectral Density
 
 ### M7.3 מודלים הסתברותיים, שערוך MMSE ומסנן וינר
-*Probabilistic models, MMSE estimation, Wiener filtering* · **ליבה** · 56 עמ' · כ-4 שיעורים · דרישות: M7.2
+*Probabilistic models, MMSE estimation, Wiener filtering* · **ליבה** · 56 עמ' · כ-4 שיעורים · דרישות: M7.2, M8.5
 
 - ★ Oppenheim & Verghese, Signals, Systems and Inference (MIT 6.011 notes), עמ' PDF 110–127: 7: Probabilistic Models
 - ★ Oppenheim & Verghese, Signals, Systems and Inference (MIT 6.011 notes), עמ' PDF 128–149: 8: Estimation with Minimum Mean Square Error
@@ -636,6 +683,18 @@
 - ★ Oppenheim & Verghese, Signals, Systems and Inference (MIT 6.011 notes), עמ' PDF 236–250: 14: Signal Detection
 - ◇ Tse & Viswanath, Fundamentals of Wireless Communication, עמ' PDF 512–528: A: Detection and estimation in Gaussian noise
 - ✎ Tse & Viswanath, Fundamentals of Wireless Communication, עמ' PDF 529–531: A: תרגילים
+
+### M7.17 אומדן ספקטרלי פרמטרי: AR ו-ARMA, ספקטרום קווי, MUSIC ו-ESPRIT
+*Parametric spectral estimation: AR and ARMA, line spectra, MUSIC and ESPRIT* · **ליבה** · 41 עמ' · כ-3 שיעורים · דרישות: M7.2, M8.8
+
+- ★ Stoica & Moses, Spectral Analysis of Signals, עמ' PDF 106–122: 3 §3.1–3.6: Parametric Methods for Rational Spectra
+- ✎ Stoica & Moses, Spectral Analysis of Signals, עמ' PDF 149–163: 3: תרגילים
+- ★ Stoica & Moses, Spectral Analysis of Signals, עמ' PDF 164–187: 4 §4.1–4.7: Parametric Methods for Line Spectra
+- ✎ Stoica & Moses, Spectral Analysis of Signals, עמ' PDF 218–226: 4: תרגילים
+
+### M7.19 תורת הגילוי והשערוך לעומק
+*Detection and estimation theory in depth* · **ליבה** · 0 עמ' · כ-1 שיעורים · דרישות: M7.4, M6.5, M8.5
+
 
 ### M7.5 מבוא לתורת האינפורמציה: הסתברות, אנטרופיה והסקה
 *Introduction to information theory, entropy, inference* · **ליבה** · 64 עמ' · כ-4 שיעורים · דרישות: M6.7
@@ -728,13 +787,13 @@
 - ★ MacKay, Information Theory, Inference and Learning Algorithms, עמ' PDF 613–616: B: Some Physics
 - ★ MacKay, Information Theory, Inference and Learning Algorithms, עמ' PDF 617–624: C: Some Mathematics
 
-### M7.17 אומדן ספקטרלי פרמטרי: AR ו-ARMA, ספקטרום קווי, MUSIC ו-ESPRIT
-*Parametric spectral estimation: AR and ARMA, line spectra, MUSIC and ESPRIT* · **ליבה** · 41 עמ' · כ-3 שיעורים · דרישות: M7.2, M8.8
+### M7.20 סינון אדפטיבי: LMS ו-RLS
+*Adaptive filtering: LMS, RLS* · **ליבה** · 0 עמ' · כ-1 שיעורים · דרישות: M7.3, M7.4, M8.5, M8.8
 
-- ★ Stoica & Moses, Spectral Analysis of Signals, עמ' PDF 106–122: 3 §3.1–3.6: Parametric Methods for Rational Spectra
-- ✎ Stoica & Moses, Spectral Analysis of Signals, עמ' PDF 149–163: 3: תרגילים
-- ★ Stoica & Moses, Spectral Analysis of Signals, עמ' PDF 164–187: 4 §4.1–4.7: Parametric Methods for Line Spectra
-- ✎ Stoica & Moses, Spectral Analysis of Signals, עמ' PDF 218–226: 4: תרגילים
+
+### M7.21 משוואות דיפרנציאליות סטוכסטיות
+*Stochastic differential equations* · **מתקדם** · 0 עמ' · כ-1 שיעורים · דרישות: M7.1, M5.14
+
 
 ### M7.18 Stoica & Moses: שאר הספר; ופרקי ההעשרה של MacKay
 *Stoica & Moses, the rest; MacKay's enrichment chapters* · **עיון** · 315 עמ' · כ-21 שיעורים · דרישות: M7.17
@@ -843,6 +902,27 @@
 - ★ Trefethen & Bau, Numerical Linear Algebra, עמ' PDF 200–203: 25: Overview of Eigenvalue Algorithms
 - ✎ Trefethen & Bau, Numerical Linear Algebra, עמ' PDF 204–205: 25: תרגילים
 
+### M8.11 קירוב פונקציות: אינטרפולציה, אינטגרציה נומרית וצ'בישב
+*Approximation of functions, interpolation, quadrature* · **ליבה** · 26 עמ' · כ-2 שיעורים · דרישות: M1.2
+
+- ★ Kolmogorov et al., Mathematics: Its Content, Methods and Meaning, Vol. 2, עמ' PDF 273–298: XII §–6: Approximations of Functions
+
+### M8.12 שיטות קירוב וחישוב
+*Approximation methods and computing techniques* · **ליבה** · 28 עמ' · כ-2 שיעורים · דרישות: M8.11
+
+- ★ Kolmogorov et al., Mathematics: Its Content, Methods and Meaning, Vol. 2, עמ' PDF 311–338: XIII: Approximation Methods and Computing Techniques
+
+### M8.13 חשבון וריאציות ועקרון הפעולה המינימלית
+*Calculus of variations and the principle of least action* · **ליבה** · 34 עמ' · כ-2 שיעורים · דרישות: M1.2, M2.4
+
+- ★ Kolmogorov et al., Mathematics: Its Content, Methods and Meaning, Vol. 2, עמ' PDF 127–146: VIII: The Calculus of Variations
+- ★ The Feynman Lectures on Physics, Vol. II, עמ' PDF 224–237: 19: The Principle of Least Action
+
+### M8.14 אנליזה פונקציונלית: מרחב הילברט ואופרטורים
+*Functional analysis: Hilbert space and operators* · **מתקדם** · 36 עמ' · כ-2 שיעורים · דרישות: M8.2, M4.4
+
+- ★ Kolmogorov et al., Mathematics: Its Content, Methods and Meaning, Vol. 3, עמ' PDF 235–270: XIX: Functional Analysis
+
 ### M8.9 אלגוריתמי ערכים עצמיים ו-SVD בפועל
 *Eigenvalue algorithms and computing the SVD* · **מתקדם** · 36 עמ' · כ-2 שיעורים · דרישות: M8.8
 
@@ -880,27 +960,6 @@
 - ✎ Trefethen & Bau, Numerical Linear Algebra, עמ' PDF 322: 39: תרגילים
 - ★ Trefethen & Bau, Numerical Linear Algebra, עמ' PDF 323–328: 40: Preconditioning
 - ✎ Trefethen & Bau, Numerical Linear Algebra, עמ' PDF 329–330: 40: תרגילים
-
-### M8.11 קירוב פונקציות: אינטרפולציה, אינטגרציה נומרית וצ'בישב
-*Approximation of functions, interpolation, quadrature* · **ליבה** · 26 עמ' · כ-2 שיעורים · דרישות: M1.2
-
-- ★ Kolmogorov et al., Mathematics: Its Content, Methods and Meaning, Vol. 2, עמ' PDF 273–298: XII §–6: Approximations of Functions
-
-### M8.12 שיטות קירוב וחישוב
-*Approximation methods and computing techniques* · **ליבה** · 28 עמ' · כ-2 שיעורים · דרישות: M8.11
-
-- ★ Kolmogorov et al., Mathematics: Its Content, Methods and Meaning, Vol. 2, עמ' PDF 311–338: XIII: Approximation Methods and Computing Techniques
-
-### M8.13 חשבון וריאציות ועקרון הפעולה המינימלית
-*Calculus of variations and the principle of least action* · **ליבה** · 34 עמ' · כ-2 שיעורים · דרישות: M1.2, M2.4
-
-- ★ Kolmogorov et al., Mathematics: Its Content, Methods and Meaning, Vol. 2, עמ' PDF 127–146: VIII: The Calculus of Variations
-- ★ The Feynman Lectures on Physics, Vol. II, עמ' PDF 224–237: 19: The Principle of Least Action
-
-### M8.14 אנליזה פונקציונלית: מרחב הילברט ואופרטורים
-*Functional analysis: Hilbert space and operators* · **מתקדם** · 36 עמ' · כ-2 שיעורים · דרישות: M8.2, M4.4
-
-- ★ Kolmogorov et al., Mathematics: Its Content, Methods and Meaning, Vol. 3, עמ' PDF 235–270: XIX: Functional Analysis
 
 ### M8.15 מבוא לאופטימיזציה
 *Introduction to optimization* · **ליבה** · 20 עמ' · כ-1 שיעורים · דרישות: M8.5
@@ -962,6 +1021,10 @@
 - ★ Boyd & Vandenberghe, Convex Optimization, עמ' PDF 575–636: 11: Interior-point methods
 - ✎ Boyd & Vandenberghe, Convex Optimization, עמ' PDF 637–646: 11: תרגילים
 
+### M8.24 אופטימיזציה נומרית מעבר לקמירות
+*Numerical optimization beyond convexity: Gauss-Newton/LM, SQP, integer* · **ליבה** · 0 עמ' · כ-1 שיעורים · דרישות: M8.22
+
+
 ## חלק 9: צומת 5א: גלים, אלקטרומגנטיות ואופטיקה
 
 ### M9.1 קול, משוואת הגלים, פעימות, אופנים והרמוניות
@@ -997,11 +1060,6 @@
 *Boundary-value problems: Laplace's equation, images, separation of variables, multipoles* · **ליבה** · 50 עמ' · כ-3 שיעורים · דרישות: M9.4, M4.4
 
 - ★ Griffiths, Introduction to Electrodynamics (3rd ed.), עמ' PDF 126–175: 3: Special Techniques
-
-### M9.5 חשמל באטמוספירה
-*Electricity in the atmosphere* · **עיון** · 11 עמ' · כ-1 שיעורים · דרישות: M9.4
-
-- ★ The Feynman Lectures on Physics, Vol. II, עמ' PDF 106–116: 9: Electricity in the Atmosphere
 
 ### M9.6 דיאלקטריים
 *Dielectrics* · **ליבה** · 20 עמ' · כ-1 שיעורים · דרישות: M9.4
@@ -1079,17 +1137,22 @@
 - ★ The Feynman Lectures on Physics, Vol. II, עמ' PDF 404–416: 32: Refractive Index of Dense Materials
 - ★ The Feynman Lectures on Physics, Vol. II, עמ' PDF 417–429: 33: Reflection from Surfaces
 
-### M9.15 ראיית צבע ומנגנוני הראייה
-*Color vision and mechanisms of seeing* · **עיון** · 22 עמ' · כ-1 שיעורים · דרישות: M9.13
-
-- ★ The Feynman Lectures on Physics, Vol. I, עמ' PDF 327–336: 35: Color Vision
-- ★ The Feynman Lectures on Physics, Vol. I, עמ' PDF 337–348: 36: Mechanisms of Seeing
-
 ### M9.16 אנרגיה ותנע של שדות ומסה אלקטרומגנטית
 *Field energy and momentum, electromagnetic mass* · **מתקדם** · 25 עמ' · כ-2 שיעורים · דרישות: M9.9
 
 - ★ The Feynman Lectures on Physics, Vol. II, עמ' PDF 331–341: 27: Field Energy and Field Momentum
 - ★ The Feynman Lectures on Physics, Vol. II, עמ' PDF 342–355: 28: Electromagnetic Mass
+
+### M9.5 חשמל באטמוספירה
+*Electricity in the atmosphere* · **עיון** · 11 עמ' · כ-1 שיעורים · דרישות: M9.4
+
+- ★ The Feynman Lectures on Physics, Vol. II, עמ' PDF 106–116: 9: Electricity in the Atmosphere
+
+### M9.15 ראיית צבע ומנגנוני הראייה
+*Color vision and mechanisms of seeing* · **עיון** · 22 עמ' · כ-1 שיעורים · דרישות: M9.13
+
+- ★ The Feynman Lectures on Physics, Vol. I, עמ' PDF 327–336: 35: Color Vision
+- ★ The Feynman Lectures on Physics, Vol. I, עמ' PDF 337–348: 36: Mechanisms of Seeing
 
 ### M9.20 Griffiths: שאר הספר
 *Griffiths: the remaining chapters* · **עיון** · 477 עמ' · כ-32 שיעורים · דרישות: M9.18
@@ -1126,7 +1189,7 @@
 - ★ The Feynman Lectures on Physics, Vol. I, עמ' PDF 413–422: 43: Diffusion
 
 ### M10.4 הפרשים סופיים: משוואות תנודה
-*Finite differences: vibration ODEs* · **ליבה** · 103 עמ' · כ-7 שיעורים · דרישות: M3.2, M8.12
+*Finite differences: vibration ODEs* · **ליבה** · 103 עמ' · כ-7 שיעורים · דרישות: M3.2, M8.12, M0.3
 
 - ★ Langtangen & Linge, Finite Difference Computing with PDEs, עמ' PDF 25–127: 1: Vibration ODEs
 - ✎ Langtangen & Linge, Finite Difference Computing with PDEs, עמ' PDF 128–134: 1: תרגילים
@@ -1165,7 +1228,7 @@
 - ✎ Langtangen & Linge, Finite Difference Computing with PDEs, עמ' PDF 596–598: C: תרגילים
 
 ### M10.10 אלמנטים סופיים ונפחים סופיים: גלרקין וריץ, רשתות, FEM בפועל ואיך קוראים תוצאת FEM
-*Finite elements and finite volumes: Galerkin/Ritz, meshing, FEM in practice and how to read an FEM result* · **ליבה** · 110 עמ' · כ-7 שיעורים · דרישות: M10.6, M10.1
+*Finite elements and finite volumes: Galerkin/Ritz, meshing, FEM in practice and how to read an FEM result* · **ליבה** · 110 עמ' · כ-7 שיעורים · דרישות: M10.6, M10.1, M8.13
 
 - ★ Langtangen & Mardal, Introduction to Numerical Methods for Variational Problems, עמ' PDF 23–30: 1: Quick overview of the finite element method
 - ★ Langtangen & Mardal, Introduction to Numerical Methods for Variational Problems, עמ' PDF 31: 2: Function approximation by global functions
@@ -1202,6 +1265,14 @@
 - ★ Langtangen & Mardal, Introduction to Numerical Methods for Variational Problems, עמ' PDF 407–420: 11: Variational methods for linear systems
 - ★ Langtangen & Mardal, Introduction to Numerical Methods for Variational Problems, עמ' PDF 421–426: A: Useful formulas
 
+### M10.12 אלקטרומגנטיות חישובית: FDTD ו-MoM
+*Computational electromagnetics: FDTD, MoM* · **ליבה** · 0 עמ' · כ-1 שיעורים · דרישות: M9.17, M10.5, M10.8
+
+
+### M10.13 משוואות דיפרנציאליות רגילות נומריות, קשיחות וגזירה אוטומטית
+*Numerical ODEs, stiffness and automatic differentiation* · **מתקדם** · 0 עמ' · כ-1 שיעורים · דרישות: M10.4, M8.6
+
+
 ## חלק 11: גשר: אלקטרוניקה
 
 ### M11.15 ניתוח מעגלים: חוקי קירכהוף, צמתים ולולאות, ומשפטי תבנין ונורטון
@@ -1231,6 +1302,18 @@
 - ✎ Alexander & Sadiku, Fundamentals of Electric Circuits (4th ed.), עמ' PDF 473–488: 10: תרגילים
 - ★ Alexander & Sadiku, Fundamentals of Electric Circuits (4th ed.), עמ' PDF 489–521: 11: AC Power Analysis
 - ✎ Alexander & Sadiku, Fundamentals of Electric Circuits (4th ed.), עמ' PDF 522–534: 11: תרגילים
+
+### M11.18 מעגלים מצומדים מגנטית ושנאים
+*Magnetically coupled circuits and transformers* · **ליבה** · 43 עמ' · כ-3 שיעורים · דרישות: M11.17, M9.8
+
+- ★ Alexander & Sadiku, Fundamentals of Electric Circuits (4th ed.), עמ' PDF 587–629: 13: Magnetically Coupled Circuits
+- ✎ Alexander & Sadiku, Fundamentals of Electric Circuits (4th ed.), עמ' PDF 630–644: 13: תרגילים
+
+### M11.19 רשתות שני-שערים: פרמטרי Z, Y, h ו-ABCD
+*Two-port networks: Z, Y, hybrid and ABCD parameters* · **ליבה** · 28 עמ' · כ-2 שיעורים · דרישות: M11.17
+
+- ★ Alexander & Sadiku, Fundamentals of Electric Circuits (4th ed.), עמ' PDF 881–908: 19 §19.2–19.7: Two-Port Networks
+- ✎ Alexander & Sadiku, Fundamentals of Electric Circuits (4th ed.), עמ' PDF 922–933: 19: תרגילים
 
 ### M11.1 יסודות המעגלים: מתח, זרם, RC, דיודות ומעגלי זרם חילופין
 *Circuit foundations and AC circuits* · **ליבה** · 47 עמ' · כ-3 שיעורים · דרישות: M9.8, M4.7, M11.17
@@ -1282,7 +1365,7 @@
 - ✎ Horowitz & Hill, The Art of Electronics, עמ' PDF 415–418: 7: תרגילים
 
 ### M11.8 אלקטרוניקה ספרתית
-*Digital electronics* · **ליבה** · 210 עמ' · כ-14 שיעורים · דרישות: M11.3
+*Digital electronics* · **ליבה** · 210 עמ' · כ-14 שיעורים · דרישות: M11.3, M22.3
 
 - ★ Horowitz & Hill, The Art of Electronics, עמ' PDF 419–503: 8: Digital Electronics
 - ✎ Horowitz & Hill, The Art of Electronics, עמ' PDF 504–512: 8: תרגילים
@@ -1316,26 +1399,6 @@
 
 - ★ Horowitz & Hill, The Art of Electronics, עמ' PDF 929–983: 15: Measurements and Signal Processing
 
-### M11.18 מעגלים מצומדים מגנטית ושנאים
-*Magnetically coupled circuits and transformers* · **ליבה** · 43 עמ' · כ-3 שיעורים · דרישות: M11.17, M9.8
-
-- ★ Alexander & Sadiku, Fundamentals of Electric Circuits (4th ed.), עמ' PDF 587–629: 13: Magnetically Coupled Circuits
-- ✎ Alexander & Sadiku, Fundamentals of Electric Circuits (4th ed.), עמ' PDF 630–644: 13: תרגילים
-
-### M11.19 רשתות שני-שערים: פרמטרי Z, Y, h ו-ABCD
-*Two-port networks: Z, Y, hybrid and ABCD parameters* · **ליבה** · 28 עמ' · כ-2 שיעורים · דרישות: M11.17
-
-- ★ Alexander & Sadiku, Fundamentals of Electric Circuits (4th ed.), עמ' PDF 881–908: 19 §19.2–19.7: Two-Port Networks
-- ✎ Alexander & Sadiku, Fundamentals of Electric Circuits (4th ed.), עמ' PDF 922–933: 19: תרגילים
-
-### M11.20 הנדסת RF: שיעור הפרש מול לנצ'סטר (תכן מגבר טרנזיסטור ומתנדים)
-*RF engineering, the delta to Lanchester: transistor amplifier design and oscillators* · **מתקדם** · 42 עמ' · כ-3 שיעורים · דרישות: M11.5, M11.19, M9.17
-
-- ★ Pozar, Microwave Engineering (4th ed.), עמ' PDF 591–615: 12 §12.3–12.4: Microwave Amplifier Design (קווי תמסורת, פרמטרי S, תיאום, רעש ו-IP3, יציבות והגבר, מערבלים, מצמדים ומסננים נלמדים בלנצ'סטר M1.5–M1.7)
-- ★ Pozar, Microwave Engineering (4th ed.), עמ' PDF 625–641: 13 §13.1–13.2: Oscillators And Mixers
-- ✎ Pozar, Microwave Engineering (4th ed.), עמ' PDF 621–623: 12: תרגילים
-- ✎ Pozar, Microwave Engineering (4th ed.), עמ' PDF 674–677: 13: תרגילים
-
 ### M11.14 נספחים: אוסצילוסקופ, סכמות, נגדים וקווי עומס; ציוד ודפי נתונים
 *Appendices: oscilloscope, schematics, data sheets* · **עיון** · 41 עמ' · כ-3 שיעורים · דרישות: M11.1
 
@@ -1349,6 +1412,22 @@
 - ★ Hayes & Horowitz, Student Manual for The Art of Electronics, עמ' PDF 600–613: B: Selected data sheets (2N5485 JFET, DG403, 74HC74, AD7569, 68008 timing, 25120)
 - ★ Hayes & Horowitz, Student Manual for The Art of Electronics, עמ' PDF 614–615: C: Big picture: schematic of lab microcomputer
 - ★ Hayes & Horowitz, Student Manual for The Art of Electronics, עמ' PDF 616–619: D: Pinouts
+
+### M11.20 הנדסת RF: שיעור הפרש מול לנצ'סטר (תכן מגבר טרנזיסטור ומתנדים)
+*RF engineering, the delta to Lanchester: transistor amplifier design and oscillators* · **מתקדם** · 42 עמ' · כ-3 שיעורים · דרישות: M11.5, M11.19, M9.17
+
+- ★ Pozar, Microwave Engineering (4th ed.), עמ' PDF 591–615: 12 §12.3–12.4: Microwave Amplifier Design (קווי תמסורת, פרמטרי S, תיאום, רעש ו-IP3, יציבות והגבר, מערבלים, מצמדים ומסננים נלמדים בלנצ'סטר M1.5–M1.7)
+- ★ Pozar, Microwave Engineering (4th ed.), עמ' PDF 625–641: 13 §13.1–13.2: Oscillators And Mixers
+- ✎ Pozar, Microwave Engineering (4th ed.), עמ' PDF 621–623: 12: תרגילים
+- ✎ Pozar, Microwave Engineering (4th ed.), עמ' PDF 674–677: 13: תרגילים
+
+### M11.24 שלמות אות והספק ו-EMC
+*Signal integrity, power integrity and EMC* · **ליבה** · 0 עמ' · כ-1 שיעורים · דרישות: M11.11, M9.17, M11.20
+
+
+### M11.25 חיישנים ומתמרים
+*Sensors and transducers* · **מתקדם** · 0 עמ' · כ-1 שיעורים · דרישות: M11.7, M11.9
+
 
 ### M11.21 Alexander & Sadiku: שאר הספר
 *Alexander & Sadiku: the remaining chapters* · **עיון** · 396 עמ' · כ-26 שיעורים · דרישות: M11.15
@@ -1482,6 +1561,10 @@
 - ★ Hughes & Drury, Electric Motors and Drives, עמ' PDF 348–363: 11: Motor/Drive Selection
 - ★ Hughes & Drury, Electric Motors and Drives, עמ' PDF 364–380: נספח 1: מבוא לבקרה בחוג סגור
 
+### M12.12 אלקטרוניקת הספק
+*Power electronics* · **ליבה** · 0 עמ' · כ-1 שיעורים · דרישות: M11.6, M11.18, M5.7, M12.4
+
+
 ## חלק 13: גשר: תרמודינמיקה ואנרגיה
 
 ### M13.1 התורה הקינטית של הגזים
@@ -1502,13 +1585,6 @@
 - ★ The Feynman Lectures on Physics, Vol. I, עמ' PDF 423–435: 44: The Laws of Thermodynamics
 - ★ The Feynman Lectures on Physics, Vol. I, עמ' PDF 436–444: 45: Illustrations of Thermodynamics
 - ★ The Feynman Lectures on Physics, Vol. I, עמ' PDF 445–453: 46: Ratchet and Pawl
-
-### M13.20 פיזיקה סטטיסטית: פקטור בולצמן, פונקציית חלוקה, פרמי-דיראק ובוז-איינשטיין, גוף שחור ודביי
-*Statistical physics: the Boltzmann factor, partition functions, Fermi-Dirac and Bose-Einstein, blackbody, Debye* · **ליבה** · 86 עמ' · כ-6 שיעורים · דרישות: M13.3
-
-- ★ Schroeder, An Introduction to Thermal Physics, עמ' PDF 232–249: 6 §6.1–6.2: Boltzmann Statistics
-- ★ Schroeder, An Introduction to Thermal Physics, עמ' PDF 259–268: 6 §6.5–6.7: Boltzmann Statistics
-- ★ Schroeder, An Introduction to Thermal Physics, עמ' PDF 269–326: 7 §7.1–7.5: Quantum Statistics
 
 ### M13.4 מושגי יסוד, אנרגיה ומעבר אנרגיה
 *Basic concepts, energy and energy transfer* · **ליבה** · 84 עמ' · כ-6 שיעורים · דרישות: M13.3
@@ -1641,6 +1717,84 @@
 - ◇ MacKay, Sustainable Energy – Without the Hot Air, עמ' PDF 351–354: J: Populations and areas
 - ◇ MacKay, Sustainable Energy – Without the Hot Air, עמ' PDF 355–356: K: UK energy history
 
+### M13.20 פיזיקה סטטיסטית: פקטור בולצמן, פונקציית חלוקה, פרמי-דיראק ובוז-איינשטיין, גוף שחור ודביי
+*Statistical physics: the Boltzmann factor, partition functions, Fermi-Dirac and Bose-Einstein, blackbody, Debye* · **ליבה** · 86 עמ' · כ-6 שיעורים · דרישות: M13.3
+
+- ★ Schroeder, An Introduction to Thermal Physics, עמ' PDF 232–249: 6 §6.1–6.2: Boltzmann Statistics
+- ★ Schroeder, An Introduction to Thermal Physics, עמ' PDF 259–268: 6 §6.5–6.7: Boltzmann Statistics
+- ★ Schroeder, An Introduction to Thermal Physics, עמ' PDF 269–326: 7 §7.1–7.5: Quantum Statistics
+
+### M13.19 מערכות הספק ורשת החשמל: יחידות יחסיות ותלת-פאזי, זרימת הספק, תקלות והגנות, יציבות ובקרת תדר, פגיעוּת הרשת
+*Power systems and the grid: per-unit and three-phase, power flow, faults and protection, stability and frequency control, grid vulnerability* · **ליבה** · 131 עמ' · כ-9 שיעורים · דרישות: M13.17, M12.1, M12.11, M11.18, M11.19, M12.8, M8.7
+
+- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 107–108: 3: Power Transformers
+- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 115–159: 3 §3.1–3.8: Power Transformers
+- ✎ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 160–180: 3: תרגילים
+- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 257–258: 5: Transmission Lines: Steady-State Operation
+- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 278–313: 5 §5.1–5.7: Transmission Lines: Steady-State Operation
+- ✎ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 314–328: 5: תרגילים
+- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 329–330: 6: Power Flows
+- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 360–388: 6 §6.3–6.7: Power Flows
+- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 392–393: 6 §6.10: Power Flows
+- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 396–408: 6 §6.12: Power Flows
+- ✎ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 411–434: 6: תרגילים
+
+### M13.22 תקלות ברשת: תקלות סימטריות, רכיבים סימטריים ותקלות לא סימטריות
+*Faults: symmetrical faults, symmetrical components, unsymmetrical faults* · **ליבה** · 96 עמ' · כ-6 שיעורים · דרישות: M13.19
+
+- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 435–436: 7: Symmetrical Faults
+- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 455–482: 7 §7.1–7.5: Symmetrical Faults
+- ✎ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 483–494: 7: תרגילים
+- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 495–496: 8: Symmetrical Components
+- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 513–545: 8 §8.1–8.8: Symmetrical Components
+- ✎ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 546–558: 8: תרגילים
+- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 559–560: 9: Unsymmetrical Faults
+- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 567–595: 9 §9.1–9.5: Unsymmetrical Faults
+- ✎ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 596–612: 9: תרגילים
+
+### M13.23 הגנה, יציבות מעברית ובקרת תדר
+*Protection, transient stability and frequency control* · **ליבה** · 76 עמ' · כ-5 שיעורים · דרישות: M13.22, M5.9, M12.8
+
+- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 613–614: 10: System Protection
+- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 632–648: 10 §10.1–10.4: System Protection
+- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 655–666: 10 §10.8–10.10: System Protection
+- ✎ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 676–688: 10: תרגילים
+- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 689–690: 11: Transient Stability
+- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 709–738: 11 §11.1–11.5: Transient Stability
+- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 750–751: 11 §11.8: Transient Stability
+- ✎ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 752–758: 11: תרגילים
+- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 781–791: 12 §12.2–12.3: Power System Controls
+- ✎ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 792–798: 12: תרגילים
+
+### M13.24 Glover, Overbye & Sarma: מקרי הבוחן ושאר הספר
+*Glover, Overbye & Sarma: the case studies and the rest* · **עיון** · 444 עמ' · כ-30 שיעורים · דרישות: M13.19
+
+- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 21–50: 1: Introduction
+- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 51–89: 2: Fundamentals
+- ✎ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 90–106: 2: תרגילים
+- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 181–239: 4: Transmission Line Parameters
+- ✎ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 240–256: 4: תרגילים
+- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 799–871: 13: Transmission Lines: Transient Operation
+- ✎ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 872–878: 13: תרגילים
+- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 879–933: 14: Power Distribution
+- ✎ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 934–940: 14: תרגילים
+- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 941–944: A: Appendix (data tables)
+- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 109–114: 3 §CS: Power Transformers (Case Study)
+- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 259–277: 5 §CS: Transmission Lines: Steady-State Operation (Case Study)
+- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 437–454: 7 §CS: Symmetrical Faults (Case Study)
+- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 497–512: 8 §CS: Symmetrical Components (Case Study)
+- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 561–566: 9 §CS: Unsymmetrical Faults (Case Study)
+- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 331–359: 6 §CS–6.2: Power Flows
+- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 389–391: 6 §6.8: Power Flows
+- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 394–395: 6 §6.11: Power Flows
+- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 409–410: 6 §6.13: Power Flows
+- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 615–631: 10 §CS: System Protection
+- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 649–654: 10 §10.5–10.7: System Protection
+- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 667–675: 10 §10.11–10.14: System Protection
+- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 691–708: 11 §CS: Transient Stability
+- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 739–749: 11 §11.6–11.7: Transient Stability
+- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 759–780: 12 §CS–12.1: Power System Controls
+
 ### M13.25 סוללות: עקרונות התא ומודל מעגל שקול (OCV, SOC, דיפוזיה והיסטרזיס)
 *Batteries: how cells work and the equivalent-circuit model (OCV, SOC, diffusion, hysteresis)* · **ליבה** · 60 עמ' · כ-4 שיעורים · דרישות: M13.17, M11.16
 
@@ -1695,77 +1849,6 @@
 - ★ Plett, Battery Management Systems, Vol. I: Battery Modeling, עמ' PDF 284–315: 7: Thermal Modeling
 - ★ Plett, Battery Management Systems, Vol. I: Battery Modeling, עמ' PDF 316–335: A: Supercapacitors
 
-### M13.19 מערכות הספק ורשת החשמל: יחידות יחסיות ותלת-פאזי, זרימת הספק, תקלות והגנות, יציבות ובקרת תדר, פגיעוּת הרשת
-*Power systems and the grid: per-unit and three-phase, power flow, faults and protection, stability and frequency control, grid vulnerability* · **ליבה** · 131 עמ' · כ-9 שיעורים · דרישות: M13.17, M12.1, M12.11
-
-- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 107–108: 3: Power Transformers
-- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 115–159: 3 §3.1–3.8: Power Transformers
-- ✎ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 160–180: 3: תרגילים
-- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 257–258: 5: Transmission Lines: Steady-State Operation
-- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 278–313: 5 §5.1–5.7: Transmission Lines: Steady-State Operation
-- ✎ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 314–328: 5: תרגילים
-- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 329–330: 6: Power Flows
-- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 360–388: 6 §6.3–6.7: Power Flows
-- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 392–393: 6 §6.10: Power Flows
-- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 396–408: 6 §6.12: Power Flows
-- ✎ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 411–434: 6: תרגילים
-
-### M13.22 תקלות ברשת: תקלות סימטריות, רכיבים סימטריים ותקלות לא סימטריות
-*Faults: symmetrical faults, symmetrical components, unsymmetrical faults* · **ליבה** · 96 עמ' · כ-6 שיעורים · דרישות: M13.19
-
-- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 435–436: 7: Symmetrical Faults
-- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 455–482: 7 §7.1–7.5: Symmetrical Faults
-- ✎ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 483–494: 7: תרגילים
-- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 495–496: 8: Symmetrical Components
-- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 513–545: 8 §8.1–8.8: Symmetrical Components
-- ✎ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 546–558: 8: תרגילים
-- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 559–560: 9: Unsymmetrical Faults
-- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 567–595: 9 §9.1–9.5: Unsymmetrical Faults
-- ✎ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 596–612: 9: תרגילים
-
-### M13.23 הגנה, יציבות מעברית ובקרת תדר
-*Protection, transient stability and frequency control* · **ליבה** · 76 עמ' · כ-5 שיעורים · דרישות: M13.22, M5.9
-
-- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 613–614: 10: System Protection
-- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 632–648: 10 §10.1–10.4: System Protection
-- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 655–666: 10 §10.8–10.10: System Protection
-- ✎ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 676–688: 10: תרגילים
-- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 689–690: 11: Transient Stability
-- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 709–738: 11 §11.1–11.5: Transient Stability
-- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 750–751: 11 §11.8: Transient Stability
-- ✎ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 752–758: 11: תרגילים
-- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 781–791: 12 §12.2–12.3: Power System Controls
-- ✎ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 792–798: 12: תרגילים
-
-### M13.24 Glover, Overbye & Sarma: מקרי הבוחן ושאר הספר
-*Glover, Overbye & Sarma: the case studies and the rest* · **עיון** · 444 עמ' · כ-30 שיעורים · דרישות: M13.19
-
-- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 21–50: 1: Introduction
-- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 51–89: 2: Fundamentals
-- ✎ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 90–106: 2: תרגילים
-- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 181–239: 4: Transmission Line Parameters
-- ✎ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 240–256: 4: תרגילים
-- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 799–871: 13: Transmission Lines: Transient Operation
-- ✎ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 872–878: 13: תרגילים
-- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 879–933: 14: Power Distribution
-- ✎ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 934–940: 14: תרגילים
-- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 941–944: A: Appendix (data tables)
-- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 109–114: 3 §CS: Power Transformers (Case Study)
-- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 259–277: 5 §CS: Transmission Lines: Steady-State Operation (Case Study)
-- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 437–454: 7 §CS: Symmetrical Faults (Case Study)
-- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 497–512: 8 §CS: Symmetrical Components (Case Study)
-- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 561–566: 9 §CS: Unsymmetrical Faults (Case Study)
-- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 331–359: 6 §CS–6.2: Power Flows
-- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 389–391: 6 §6.8: Power Flows
-- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 394–395: 6 §6.11: Power Flows
-- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 409–410: 6 §6.13: Power Flows
-- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 615–631: 10 §CS: System Protection
-- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 649–654: 10 §10.5–10.7: System Protection
-- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 667–675: 10 §10.11–10.14: System Protection
-- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 691–708: 11 §CS: Transient Stability
-- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 739–749: 11 §11.6–11.7: Transient Stability
-- ★ Glover, Overbye & Sarma, Power System Analysis and Design (6th ed.), עמ' PDF 759–780: 12 §CS–12.1: Power System Controls
-
 ## חלק 14: גשר: מעבר חום
 
 ### M14.1 מבוא למעבר חום
@@ -1794,20 +1877,12 @@
 - ★ Lienhard, A Heat Transfer Textbook, עמ' PDF 207–282: 5: Transient and multidimensional heat conduction
 
 ### M14.6 שכבות גבול למינריות וטורבולנטיות
-*Laminar and turbulent boundary layers* · **ליבה** · 82 עמ' · כ-5 שיעורים · דרישות: M14.5
+*Laminar and turbulent boundary layers* · **ליבה** · 82 עמ' · כ-5 שיעורים · דרישות: M14.5, M15.19
 
 - ★ Lienhard, A Heat Transfer Textbook, עמ' PDF 283–364: 6: Laminar and turbulent boundary layers
 
-### M14.13 טורבולנציה: ממוצע ריינולדס ובעיית הסגירה, מפל האנרגיה וסקאלות קולמוגורוב
-*Turbulence: Reynolds averaging and closure, the energy cascade, Kolmogorov scales* · **ליבה** · 68 עמ' · כ-5 שיעורים · דרישות: M14.6
-
-- ★ Tennekes & Lumley, A First Course in Turbulence, עמ' PDF 12–37: 1: Introduction
-- ★ Tennekes & Lumley, A First Course in Turbulence, עמ' PDF 38–44: 2 §2.1: Turbulent Transport of Momentum and Heat
-- ★ Tennekes & Lumley, A First Course in Turbulence, עמ' PDF 70–85: 3 §3.1–3.2: The Dynamics of Turbulence
-- ★ Tennekes & Lumley, A First Course in Turbulence, עמ' PDF 259–277: 8 §8.1–8.3: Spectral Dynamics
-
 ### M14.7 הסעה מאולצת
-*Forced convection* · **ליבה** · 62 עמ' · כ-4 שיעורים · דרישות: M14.6
+*Forced convection* · **ליבה** · 62 עמ' · כ-4 שיעורים · דרישות: M14.6, M15.26
 
 - ★ Lienhard, A Heat Transfer Textbook, עמ' PDF 365–426: 7: Forced convection in a variety of configurations
 
@@ -1839,6 +1914,14 @@
 - ★ Lienhard, A Heat Transfer Textbook, עמ' PDF 775–780: B: Units and conversion factors
 - ★ Lienhard, A Heat Transfer Textbook, עמ' PDF 781–788: C: Nomenclature
 
+### M14.13 טורבולנציה: ממוצע ריינולדס ובעיית הסגירה, מפל האנרגיה וסקאלות קולמוגורוב
+*Turbulence: Reynolds averaging and closure, the energy cascade, Kolmogorov scales* · **ליבה** · 68 עמ' · כ-5 שיעורים · דרישות: M14.6, M15.26
+
+- ★ Tennekes & Lumley, A First Course in Turbulence, עמ' PDF 12–37: 1: Introduction
+- ★ Tennekes & Lumley, A First Course in Turbulence, עמ' PDF 38–44: 2 §2.1: Turbulent Transport of Momentum and Heat
+- ★ Tennekes & Lumley, A First Course in Turbulence, עמ' PDF 70–85: 3 §3.1–3.2: The Dynamics of Turbulence
+- ★ Tennekes & Lumley, A First Course in Turbulence, עמ' PDF 259–277: 8 §8.1–8.3: Spectral Dynamics
+
 ### M14.14 Tennekes & Lumley ושאר העברת המסה של Lienhard
 *Tennekes & Lumley, the rest; and the rest of Lienhard's mass transfer* · **עיון** · 279 עמ' · כ-19 שיעורים · דרישות: M14.13, M14.11
 
@@ -1857,11 +1940,6 @@
 *The flow of wet water: viscosity* · **ליבה** · 12 עמ' · כ-1 שיעורים · דרישות: M10.1, M2.4
 
 - ★ The Feynman Lectures on Physics, Vol. II, עמ' PDF 507–518: 41: The Flow of Wet Water (פרק 40, זרימת מים יבשים, חסר בעותק)
-
-### M15.2 מהנדסי האווירונאוטיקה הראשונים
-*The first aeronautical engineers* · **עיון** · 52 עמ' · כ-3 שיעורים
-
-- ★ Anderson, Introduction to Flight, עמ' PDF 20–71: 1: The First Aeronautical Engineers
 
 ### M15.3 מושגי יסוד: כוחות אווירודינמיים, גז אידאלי ואנטומיה של המטוס
 *Fundamental thoughts* · **ליבה** · 50 עמ' · כ-3 שיעורים · דרישות: M13.1
@@ -1931,6 +2009,12 @@
 - ★ Anderson, Fundamentals of Aerodynamics (5th ed.), עמ' PDF 736–773: 11 §11.1–11.9: Subsonic Compressible Flow over Airfoils: Linear Theory
 - ✎ Anderson, Fundamentals of Aerodynamics (5th ed.), עמ' PDF 801–803: 11: תרגילים
 
+### M15.5 אווירודינמיקה בסיסית: רציפות, תנע, אנרגיה, מהירות הקול ומדידת מהירות
+*Basic aerodynamics: the equations, speed of sound, airspeed* · **ליבה** · 28 עמ' · כ-2 שיעורים · דרישות: M15.4, M15.1, M13.6, M15.19
+
+- ★ Anderson, Introduction to Flight, עמ' PDF 201–228: 4 §4.10–4.11: Basic Aerodynamics (§4.1–4.9 הוחלפו ב-Anderson, Fundamentals (M15.19–M15.23))
+- ✎ Anderson, Introduction to Flight, עמ' PDF 298–306: 4: תרגילים
+
 ### M15.26 זרימה צמיגה: משוואות נאוויה-סטוקס, זרימת קואט ופתרונות נומריים
 *Viscous flow: the Navier-Stokes equations, Couette flow, numerical solutions* · **ליבה** · 71 עמ' · כ-5 שיעורים · דרישות: M15.19, M14.6
 
@@ -1939,11 +2023,9 @@
 - ★ Anderson, Fundamentals of Aerodynamics (5th ed.), עמ' PDF 952–972: 16 §16.1–16.3: A Special Case: Couette Flow
 - ★ Anderson, Fundamentals of Aerodynamics (5th ed.), עמ' PDF 1056–1071: 20: Navier-Stokes Solutions: Some Examples
 
-### M15.5 אווירודינמיקה בסיסית: רציפות, תנע, אנרגיה, מהירות הקול ומדידת מהירות
-*Basic aerodynamics: the equations, speed of sound, airspeed* · **ליבה** · 28 עמ' · כ-2 שיעורים · דרישות: M15.4, M15.1, M13.6, M15.19
+### M15.32 דינמיקת זורמים חישובית (CFD)
+*CFD* · **מתקדם** · 0 עמ' · כ-1 שיעורים · דרישות: M14.13, M10.10
 
-- ★ Anderson, Introduction to Flight, עמ' PDF 201–228: 4 §4.10–4.11: Basic Aerodynamics (§4.1–4.9 הוחלפו ב-Anderson, Fundamentals (M15.19–M15.23))
-- ✎ Anderson, Introduction to Flight, עמ' PDF 298–306: 4: תרגילים
 
 ### M15.6 זרימה דחיסה: מנהרות על-קוליות ומנועי רקטה
 *Compressible flow, supersonic tunnels, rocket engines* · **ליבה** · 14 עמ' · כ-1 שיעורים · דרישות: M15.5, M15.24
@@ -1997,17 +2079,6 @@
 - ★ Anderson, Introduction to Flight, עמ' PDF 670–671: 7 §7.23: Principles of Stability and Control
 - ✎ Anderson, Introduction to Flight, עמ' PDF 672–673: 7: תרגילים
 
-### M15.28 דינמיקת טיסה: משוואות התנועה, נגזרות יציבות ומצבי התנועה האורכיים והרוחביים
-*Flight dynamics: equations of motion, stability derivatives, longitudinal and lateral modes* · **ליבה** · 81 עמ' · כ-5 שיעורים · דרישות: M15.14, M2.7, M5.4
-
-- ★ Nelson, Flight Stability and Automatic Control (2nd ed.), עמ' PDF 107–137: 3 §3.1–3.6: Aircraft Equations of Motion
-- ✎ Nelson, Flight Stability and Automatic Control (2nd ed.), עמ' PDF 139–141: 3: תרגילים
-- ★ Nelson, Flight Stability and Automatic Control (2nd ed.), עמ' PDF 142–143: 4 §4.1: Longitudinal Motion (Stick Fixed)
-- ★ Nelson, Flight Stability and Automatic Control (2nd ed.), עמ' PDF 150–175: 4 §4.3–4.6: Longitudinal Motion (Stick Fixed)
-- ✎ Nelson, Flight Stability and Automatic Control (2nd ed.), עמ' PDF 185–191: 4: תרגילים
-- ★ Nelson, Flight Stability and Automatic Control (2nd ed.), עמ' PDF 192–213: 5 §5.1–5.4: Lateral Motion (Stick Fixed)
-- ✎ Nelson, Flight Stability and Automatic Control (2nd ed.), עמ' PDF 217–222: 5: תרגילים
-
 ### M15.15 טיסה בחלל
 *Space flight (astronautics)* · **עיון** · 70 עמ' · כ-5 שיעורים · דרישות: M2.2, M15.6
 
@@ -2032,6 +2103,26 @@
 
 - ★ Anderson, Introduction to Flight, עמ' PDF 834–863: 10: Hypersonic Vehicles
 - ✎ Anderson, Introduction to Flight, עמ' PDF 864–865: 10: תרגילים
+
+### M15.28 דינמיקת טיסה: משוואות התנועה, נגזרות יציבות ומצבי התנועה האורכיים והרוחביים
+*Flight dynamics: equations of motion, stability derivatives, longitudinal and lateral modes* · **ליבה** · 81 עמ' · כ-5 שיעורים · דרישות: M15.14, M2.7, M5.4, M5.7, M8.8
+
+- ★ Nelson, Flight Stability and Automatic Control (2nd ed.), עמ' PDF 107–137: 3 §3.1–3.6: Aircraft Equations of Motion
+- ✎ Nelson, Flight Stability and Automatic Control (2nd ed.), עמ' PDF 139–141: 3: תרגילים
+- ★ Nelson, Flight Stability and Automatic Control (2nd ed.), עמ' PDF 142–143: 4 §4.1: Longitudinal Motion (Stick Fixed)
+- ★ Nelson, Flight Stability and Automatic Control (2nd ed.), עמ' PDF 150–175: 4 §4.3–4.6: Longitudinal Motion (Stick Fixed)
+- ✎ Nelson, Flight Stability and Automatic Control (2nd ed.), עמ' PDF 185–191: 4: תרגילים
+- ★ Nelson, Flight Stability and Automatic Control (2nd ed.), עמ' PDF 192–213: 5 §5.1–5.4: Lateral Motion (Stick Fixed)
+- ✎ Nelson, Flight Stability and Automatic Control (2nd ed.), עמ' PDF 217–222: 5: תרגילים
+
+### M15.31 מדחפים ורוטורים
+*Propellers and rotors* · **מתקדם** · 0 עמ' · כ-1 שיעורים · דרישות: M15.22, M15.16
+
+
+### M15.2 מהנדסי האווירונאוטיקה הראשונים
+*The first aeronautical engineers* · **עיון** · 52 עמ' · כ-3 שיעורים
+
+- ★ Anderson, Introduction to Flight, עמ' PDF 20–71: 1: The First Aeronautical Engineers
 
 ### M15.18 סמלים ומקדמי המרה
 *Symbols and conversion factors* · **עיון** · 1 עמ' · כ-1 שיעורים · דרישות: M15.3
@@ -2729,6 +2820,10 @@
 - ★ Levine, Kumar, Tucker & Fu, Offline Reinforcement Learning: Tutorial, Review, and Perspectives, עמ' PDF 29–31: 6: Applications and Evaluation
 - ★ Levine, Kumar, Tucker & Fu, Offline Reinforcement Learning: Tutorial, Review, and Perspectives, עמ' PDF 32–34: 7: Discussion and Perspectives (p32 also holds §6.5–6.6, advertising and dialogue applications)
 
+### M18.11 אלגוריתמי RL עמוק: DQN, PPO, SAC ומבוססי מודל
+*Deep RL algorithms: DQN, PPO, SAC, model-based* · **ליבה** · 0 עמ' · כ-1 שיעורים · דרישות: M18.7, M17.4
+
+
 ## חלק 19: גשר: רובוטיקה
 
 ### M19.1 מבוא ומרחב התצורה
@@ -2781,7 +2876,7 @@
 - ✎ Lynch & Park, Modern Robotics, עמ' PDF 416–420: 10: תרגילים
 
 ### M19.8 בקרת רובוטים
-*Robot control* · **ליבה** · 50 עמ' · כ-3 שיעורים · דרישות: M19.6, M5.9
+*Robot control* · **ליבה** · 50 עמ' · כ-3 שיעורים · דרישות: M19.6, M5.9, M5.3
 
 - ★ Lynch & Park, Modern Robotics, עמ' PDF 421–470: 11: Robot Control
 - ✎ Lynch & Park, Modern Robotics, עמ' PDF 471–478: 11: תרגילים
@@ -2803,6 +2898,10 @@
 
 - ★ Lynch & Park, Modern Robotics, עמ' PDF 583–592: A: Summary of useful formulas
 - ★ Lynch & Park, Modern Robotics, עמ' PDF 615–616: D: Optimization and Lagrange multipliers
+
+### M19.12 ראייה גאומטרית, גאומטריה רב-מבטית ו-SLAM
+*Geometric vision, multi-view geometry and SLAM* · **ליבה** · 0 עמ' · כ-1 שיעורים · דרישות: M19.2, M19.10, M5.14, M8.24
+
 
 ## חלק 20: פריפריה: מתמטיקה דיסקרטית
 
@@ -3064,6 +3163,10 @@
 - ★ Patterson & Hennessy, Computer Organization and Design, RISC-V Edition, עמ' PDF 1271–1339: B §B.1–B.6: Graphics and Computing GPUs
 - ★ Patterson & Hennessy, Computer Organization and Design, RISC-V Edition, עמ' PDF 1352–1381: B §B.8–B.10: Graphics and Computing GPUs
 
+### M22.13 תכנות C ותכנות מערכות
+*C and systems programming* · **מתקדם** · 0 עמ' · כ-1 שיעורים · דרישות: M22.4, M0.3
+
+
 ### M22.9 סקר ארכיטקטורות RISC
 *A survey of RISC architectures* · **עיון** · 56 עמ' · כ-4 שיעורים · דרישות: M22.4
 
@@ -3107,6 +3210,18 @@
 - ★ Patterson & Hennessy, Computer Organization and Design, RISC-V Edition, עמ' PDF 1210–1258: A §A.7–A.12: The Basics of Logic Design (נלמד ב-M11.8)
 - ★ Patterson & Hennessy, Computer Organization and Design, RISC-V Edition, עמ' PDF 1393–1431: C: Mapping control to hardware (מעבר ליעד)
 - ✎ Patterson & Hennessy, Computer Organization and Design, RISC-V Edition, עמ' PDF 1432–1433: C: תרגילים
+
+### M22.14 מערכות הפעלה ומקביליות
+*Operating systems and concurrency* · **ליבה** · 0 עמ' · כ-1 שיעורים · דרישות: M22.7, M21.2
+
+
+### M22.16 מערכות מבוזרות
+*Distributed systems* · **מתקדם** · 0 עמ' · כ-1 שיעורים · דרישות: M22.14, M23.12
+
+
+### M22.15 קריפטוגרפיה ויסודות הנדסת אבטחה
+*Cryptography and security engineering foundations* · **ליבה** · 0 עמ' · כ-1 שיעורים · דרישות: M20.5, M23.12
+
 
 ## חלק 23: פריפריה: תקשורת ספרתית ואלחוטית
 
@@ -3235,6 +3350,18 @@
 - ★ Kurose & Ross, Computer Networking: A Top-Down Approach (8th ed.), עמ' PDF 574–588: 7 §7.4: Wireless and Mobile Networks
 - ★ Kurose & Ross, Computer Networking: A Top-Down Approach (8th ed.), עמ' PDF 598–607: 7 §7.6–7.8: Wireless and Mobile Networks
 
+### M23.17 מקלטי תקשורת ספרתית: סנכרון ואיקוול
+*Digital communication receivers: synchronization, equalization* · **ליבה** · 0 עמ' · כ-1 שיעורים · דרישות: M23.2, M7.4
+
+
+### M23.18 PLL וסינתזת תדר
+*PLL and frequency synthesis* · **מתקדם** · 0 עמ' · כ-1 שיעורים · דרישות: M23.17, M5.8
+
+
+### M23.19 5G NR
+*5G NR* · **מתקדם** · 0 עמ' · כ-1 שיעורים · דרישות: M23.17, M23.9
+
+
 ## חלק 24: פריפריה: פיזיקה מודרנית: יחסות וקוונטים
 
 ### M24.1 תורת היחסות הפרטית: זמן, מרחב, אנרגיה ותנע
@@ -3318,10 +3445,18 @@
 
 - ★ The Feynman Lectures on Physics, Vol. II, עמ' PDF 364–389: 30: The Internal Geometry of Crystals
 
+### M24.14 חישה קוונטית
+*Quantum sensing* · **מתקדם** · 0 עמ' · כ-1 שיעורים · דרישות: M24.7
+
+
+### M24.15 פוטוניקה
+*Photonics* · **מתקדם** · 0 עמ' · כ-1 שיעורים · דרישות: M9.13, M24.8
+
+
 ## חלק 25: פריפריה: התקני מוליכים למחצה ותכנון שבבים
 
 ### M25.1 אלקטרונים וחורים: תנועה ורקומבינציה
-*Electrons and holes: motion and recombination* · **ליבה** · 50 עמ' · כ-3 שיעורים · דרישות: M24.8
+*Electrons and holes: motion and recombination* · **ליבה** · 50 עמ' · כ-3 שיעורים · דרישות: M24.8, M13.20
 
 - ★ Hu, Modern Semiconductor Devices for Integrated Circuits, עמ' PDF 1–29: 1: Electrons and Holes in Semiconductors
 - ✎ Hu, Modern Semiconductor Devices for Integrated Circuits, עמ' PDF 30–34: 1: תרגילים
@@ -3546,6 +3681,100 @@
 - ★ NASA, Probabilistic Risk Assessment Procedures Guide (2nd ed.), עמ' PDF 41–44: 3 §3.1: Probabilistic Risk Assessment Overview
 - ★ NASA, Probabilistic Risk Assessment Procedures Guide (2nd ed.), עמ' PDF 67–68: 3 §3.5: Probabilistic Risk Assessment Overview
 - ★ NASA, Probabilistic Risk Assessment Procedures Guide (2nd ed.), עמ' PDF 88: 4 §4.4: Scenario Development
+
+### M27.10 MBSE ו-SysML v2
+*MBSE with SysML v2* · **ליבה** · 0 עמ' · כ-1 שיעורים · דרישות: M27.2, M27.4
+
+
+### M27.11 הנדסת אמינות
+*Reliability engineering* · **מתקדם** · 0 עמ' · כ-1 שיעורים · דרישות: M6.2, M27.8
+
+
+## חלק 28: גשר: תכן ספרתי, מחשוב מואץ ומערכות זמן-אמת
+
+### M28.1 מיקרו-ארכיטקטורה וקוהרנטיות זיכרון: Out-of-Order ו-MESI/MOESI
+*Microarchitecture and memory coherence: out-of-order, MESI/MOESI* · **ליבה** · 0 עמ' · כ-1 שיעורים · דרישות: M22.6, M22.7
+
+
+### M28.2 מאיצים ותכנות מקבילי: GPU/CUDA, HBM ומודל Roofline
+*Accelerators and parallel programming: GPU/CUDA, HBM, roofline* · **ליבה** · 0 עמ' · כ-1 שיעורים · דרישות: M22.8, M28.1
+
+
+### M28.3 תכן RTL מתקדם ו-FPGA: SystemVerilog ו-STA
+*Advanced RTL and FPGA: SystemVerilog, static timing analysis* · **ליבה** · 0 עמ' · כ-1 שיעורים · דרישות: M22.3, M11.8, M25.8
+
+
+### M28.4 חיבורים מהירים: PCIe, NVLink, CXL ו-SerDes
+*High-speed interconnects: PCIe, NVLink, CXL, SerDes* · **ליבה** · 0 עמ' · כ-1 שיעורים · דרישות: M28.2, M9.17, M11.24
+
+
+### M28.5 מערכות זמן-אמת: RTOS, תזמון וסנכרון שעונים PTP
+*Real-time systems: RTOS, scheduling, PTP clock sync* · **ליבה** · 0 עמ' · כ-1 שיעורים · דרישות: M22.11, M23.11, M22.14
+
+
+### M28.6 אבטחת חומרה וקושחה: Root of Trust, ערוצי צד ו-Anti-Tamper
+*Hardware and firmware security: root of trust, side channels, anti-tamper* · **ליבה** · 0 עמ' · כ-1 שיעורים · דרישות: M28.3, M28.1, M22.15
+
+
+## חלק 29: גשר: הנדסת AI מודרני
+
+### M29.1 ארכיטקטורת מודלי יסוד: LLM/VLM, FlashAttention, RoPE ו-MoE
+*Foundation-model architecture: LLM/VLM, FlashAttention, RoPE, MoE* · **ליבה** · 0 עמ' · כ-1 שיעורים · דרישות: M17.7, M17.4, M28.2
+
+
+### M29.3 אימון המשך לחשיבה: SFT, RLHF, DPO, GRPO ו-Test-Time Compute
+*Post-training for reasoning: SFT, RLHF, DPO, GRPO, test-time compute* · **ליבה** · 0 עמ' · כ-1 שיעורים · דרישות: M29.1, M18.11
+
+
+### M29.4 אופטימיזציית הסקה: KV-Cache, FP8/INT4 ו-Speculative Decoding
+*Inference optimization: KV-cache, FP8/INT4, speculative decoding* · **ליבה** · 0 עמ' · כ-1 שיעורים · דרישות: M29.1, M28.2
+
+
+### M29.5 ראייה ממוחשבת מודרנית ותפיסה תלת-ממדית: DETR, SAM, World Models ו-3DGS
+*Modern vision and 3D perception: DETR, SAM, world models, 3DGS* · **ליבה** · 0 עמ' · כ-1 שיעורים · דרישות: M17.6, M17.7, M17.11, M19.12
+
+
+### M29.8 מערכות ML ו-MLOps
+*ML systems and MLOps* · **מתקדם** · 0 עמ' · כ-1 שיעורים · דרישות: M29.4
+
+
+### M29.2 חוקי סקיילינג ואימון מבוזר: TP/PP/EP ו-NCCL
+*Scaling laws and distributed training: TP/PP/EP, NCCL* · **ליבה** · 0 עמ' · כ-1 שיעורים · דרישות: M29.1, M28.4
+
+
+### M29.6 מערכות סוכנים ובקרה סגורה
+*Agent systems and closed-loop control* · **ליבה** · 0 עמ' · כ-1 שיעורים · דרישות: M29.3, M5.19
+
+
+### M29.7 AI בקצה וחוסן תחת מגבלות SWaP
+*Edge AI and robustness under SWaP* · **ליבה** · 0 עמ' · כ-1 שיעורים · דרישות: M29.4, M17.16, M28.3
+
+
+## חלק 30: גשר: הנדסה ימית
+
+### M30.1 הידרוסטטיקה ויציבות ספינה
+*Ship hydrostatics and stability* · **ליבה** · 0 עמ' · כ-1 שיעורים · דרישות: M15.19, M2.6
+
+
+### M30.2 התנגדות, הנעה ומדחפים ימיים
+*Ship resistance, propulsion and propellers* · **ליבה** · 0 עמ' · כ-1 שיעורים · דרישות: M30.1, M15.26
+
+
+### M30.3 התנהגות בים ותמרון בשש דרגות חופש
+*Seakeeping and manoeuvring (6-DOF)* · **ליבה** · 0 עמ' · כ-1 שיעורים · דרישות: M30.2, M3.4, M5.7
+
+
+### M30.4 מבני ספינה והנדסה ימית
+*Ship structures and marine engineering* · **ליבה** · 0 עמ' · כ-1 שיעורים · דרישות: M30.1, M16.23, M16.7
+
+
+### M30.5 אקוסטיקה תת-ימית: הלמהולץ, קרניים, מודים נורמליים, PE ותעלת SOFAR
+*Underwater acoustics: Helmholtz, rays, normal modes, PE, SOFAR* · **ליבה** · 0 עמ' · כ-1 שיעורים · דרישות: M9.1, M10.1, M7.17
+
+
+### M30.6 צוללות ו-UUV: גוף לחץ וקריסה, הידרודינמיקה, השתקה והנעה
+*Submarines and UUVs: pressure hull and buckling, hydrodynamics, quieting, AIP vs nuclear* · **ליבה** · 0 עמ' · כ-1 שיעורים · דרישות: M30.3, M30.4, M16.7
+
 
 ## פערים ידועים במקורות
 

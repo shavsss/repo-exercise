@@ -1,0 +1,1121 @@
+[
+ {
+  "doc": "W72",
+  "replaces": "kassakian_pe",
+  "key": "liege_elec0055_erickson_slides",
+  "path": "library/engineering/free/W72_liege_elec0055_erickson_slides_p1_p3.pdf",
+  "title": "ELEC0055 Elements of Power Electronics, slides Part I (Ch 1-5, 13, 19) and Part III (Ch 6), based on Erickson & Maksimovic",
+  "author": "Univ. of Liege (Prof. Frebel), slides based on Erickson & Maksimovic, Univ. of Colorado",
+  "edition": "Fall 2026",
+  "source_url": "https://people.montefiore.uliege.be/frebel/ELEC0055/SlidesPartI.pdf ; .../SlidesPartIII.pdf",
+  "pdf_pages": 374,
+  "text_ok": true,
+  "method": "bundle (Part I pp1-252, Part III pp253-374)",
+  "modules": {
+   "M12.12": [
+    {
+     "pages": [
+      24,
+      67
+     ],
+     "note": "Erickson פרק 2: עקרון volt-second ו-charge balance, ממירי buck/boost/buck-boost, ripple"
+    },
+    {
+     "pages": [
+      67,
+      99
+     ],
+     "note": "פרק 3: מודל מעגל שקול במצב מתמיד, הפסדים ויעילות (loss modeling)"
+    },
+    {
+     "pages": [
+      100,
+      138
+     ],
+     "note": "פרק 4: מימוש מתגים (MOSFET, דיודות, switching loss, סיכום התקנים; WBG רק בקצרה)"
+    },
+    {
+     "pages": [
+      139,
+      175
+     ],
+     "note": "פרק 5: מצב הולכה לא רציף DCM"
+    },
+    {
+     "pages": [
+      176,
+      215
+     ],
+     "note": "פרק 13: תורת המגנטיקה הבסיסית, שנאים ומשרנים"
+    },
+    {
+     "pages": [
+      257,
+      374
+     ],
+     "note": "פרק 6 (חלק III): מעגלי ממירים, כולל בידוד בשנאי: forward, flyback, גשר (עמ' 288-323)"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "Colorado ecee.colorado.edu blocked (502)"
+  ],
+  "blocked_hosts": [
+   "ecee.colorado.edu"
+  ],
+  "coverage": "Good: volt-second/charge balance, loss modeling, switch realization, DCM, isolated converters, magnetics basics. Thin: wide-bandgap devices. Not covered here: AC modeling, control, EMI, thermal, three-phase (see W73). Slides, not prose; the slides are Erickson's instructor slides hosted publicly by a university course page (verify licence is acceptable)."
+ },
+ {
+  "doc": "W73",
+  "replaces": "kassakian_pe",
+  "key": "perreault_mit_6334_6622",
+  "path": "library/engineering/free/W73_perreault_mit_power_electronics_6334_6622.pdf",
+  "title": "MIT 6.334 Power Electronics text chapters 1-5 (Perreault) + MIT 6.622 Power Electronics lecture notes L1-38 (Spring 2023)",
+  "author": "David Perreault, MIT OpenCourseWare (CC BY-NC-SA)",
+  "edition": "6.334 Spring 2007/2008 notes; 6.622 Spring 2023",
+  "source_url": "https://ocw.mit.edu/courses/6-334-power-electronics-spring-2007/ ; https://ocw.mit.edu/courses/6-622-power-electronics-spring-2023/",
+  "pdf_pages": 320,
+  "text_ok": true,
+  "method": "bundle of OCW PDFs (6.334 chapters 6-16 are image-only scans without text layer, so left out; the 6.622 lectures cover the same topics with text)",
+  "modules": {
+   "M12.12": [
+    {
+     "pages": [
+      46,
+      72
+     ],
+     "note": "6.334 פרק 5: ממירי DC/DC, volt-second ו-charge balance (buck/boost/DCM בקצרה)"
+    },
+    {
+     "pages": [
+      115,
+      139
+     ],
+     "note": "6.622 הרצאות 5-8: DC/DC, תא מיתוג קנוני, DCM"
+    },
+    {
+     "pages": [
+      140,
+      163
+     ],
+     "note": "6.622 הרצאות 9-12: מגנטיקה (מעגלים מגנטיים, שנאים, השראות זליגה, הפסדי ליבה/סליל)"
+    },
+    {
+     "pages": [
+      164,
+      175
+     ],
+     "note": "6.622 הרצאות 13-14: ממירים מבודדים (forward, flyback)"
+    },
+    {
+     "pages": [
+      176,
+      185
+     ],
+     "note": "6.622 הרצאות 15-16: הפסדי מיתוג, snubbers, מודל תרמי וגוף קירור"
+    },
+    {
+     "pages": [
+      186,
+      228
+     ],
+     "note": "6.622 הרצאות 17-23: מהפכים (inverters), מיישרים, מערכות תלת-פאזיות ומהפכים תלת-פאזיים, PWM"
+    },
+    {
+     "pages": [
+      229,
+      258
+     ],
+     "note": "6.622 הרצאות 24-27: מודל ממוצע (AC equivalent circuit), בקרה ב-voltage mode ו-current mode"
+    },
+    {
+     "pages": [
+      259,
+      275
+     ],
+     "note": "6.622 הרצאות 28-30: מסנני EMI ו-input filters (CM+DM)"
+    },
+    {
+     "pages": [
+      307,
+      320
+     ],
+     "note": "6.622 הרצאות 37-38: מתאמי עכבה, gate drive, פריסה (WBG חלקית)"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "Ecen5797 Colorado blocked",
+   "MIT 6.334 Ch6-16 scans: no text"
+  ],
+  "blocked_hosts": [
+   "ecee.colorado.edu"
+  ],
+  "coverage": "Covers all ten subtopics at graduate-lecture depth (compact lecture notes about 5 pages each, equations and reasoning, less prose than Kassakian). Best: AC modeling, control, magnetics, EMI, thermal, three-phase. Partly: wide-bandgap (scattered mentions in L1, L11, L18, L31-34). Use together with W72 for DCM, loss modeling and switch realization depth."
+ },
+ {
+  "doc": "W74",
+  "replaces": "hp_caqa",
+  "key": "mutlu_eth_cpu_microarch_coherence",
+  "path": "library/engineering/free/W74_mutlu_eth_cpu_microarch_coherence_lectures.pdf",
+  "title": "Onur Mutlu, ETH Zurich lecture slides: precise exceptions, OoO, branch prediction, caches, multiprocessors, memory ordering, cache coherence, speculation",
+  "author": "Onur Mutlu et al., ETH Zurich (Digital Design and Computer Architecture Spring 2025; Computer Architecture Fall 2024)",
+  "edition": "2024-2025 lecture slides",
+  "source_url": "https://safari.ethz.ch/digitaltechnik/spring2025/doku.php?id=schedule ; https://safari.ethz.ch/architecture/fall2024/doku.php?id=schedule",
+  "pdf_pages": 1186,
+  "text_ok": true,
+  "method": "bundle of 13 lecture PDFs",
+  "modules": {
+   "M28.1": [
+    {
+     "pages": [
+      1,
+      72
+     ],
+     "note": "DDCA L13: Precise exceptions, reorder buffer"
+    },
+    {
+     "pages": [
+      73,
+      236
+     ],
+     "note": "DDCA L14-L15a: ביצוע Out-of-Order, Tomasulo, renaming, ROB, dataflow ו-superscalar"
+    },
+    {
+     "pages": [
+      237,
+      591
+     ],
+     "note": "DDCA L15b+L16: ניבוי הסתעפויות, ניבוי מתקדם (TAGE/perceptron), עלות control hazards"
+    },
+    {
+     "pages": [
+      592,
+      604
+     ],
+     "note": "DDCA L15c: טיפול ב-load/store ב-OoO, memory disambiguation"
+    },
+    {
+     "pages": [
+      605,
+      736
+     ],
+     "note": "DDCA L23a-b: מטמונים מתקדמים ובעיות multicore בקאש"
+    },
+    {
+     "pages": [
+      737,
+      813
+     ],
+     "note": "ACA L20b: multiprocessors, סנכרון (locks, spin)"
+    },
+    {
+     "pages": [
+      814,
+      864
+     ],
+     "note": "ACA L21a: memory ordering / consistency (SC, relaxed)"
+    },
+    {
+     "pages": [
+      865,
+      973
+     ],
+     "note": "ACA L21b: cache coherence: snooping, MESI/MOESI, directory"
+    },
+    {
+     "pages": [
+      974,
+      1098
+     ],
+     "note": "ACA L33: Cache design and management (replacement, MSHR, prefetch)"
+    },
+    {
+     "pages": [
+      1099,
+      1186
+     ],
+     "note": "ACA L34: Speculation (branch, value, memory dependence, speculative sync)"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [],
+  "blocked_hosts": [],
+  "coverage": "Good for OoO/Tomasulo/ROB, branch prediction (very deep), advanced caches, snooping and directory coherence, consistency basics, speculation. Partly: false sharing and hardware synchronization (lock lecture only), NUMA. Not covered: CPI stacks and performance counters (no lecture-level source found). Slide format, not a textbook. Use W76 for coherence/consistency rigor."
+ },
+ {
+  "doc": "W75",
+  "replaces": "hp_caqa",
+  "key": "mutlu_eth_gpu_systolic_interconnect",
+  "path": "library/engineering/free/W75_mutlu_eth_gpu_systolic_interconnect_lectures.pdf",
+  "title": "Onur Mutlu, ETH Zurich lecture slides: systolic arrays, SIMD, GPU architecture and programming, interconnects, on-chip networks",
+  "author": "Onur Mutlu et al., ETH Zurich",
+  "edition": "2024-2025 lecture slides",
+  "source_url": "https://safari.ethz.ch/digitaltechnik/spring2025/doku.php?id=schedule ; https://safari.ethz.ch/architecture/fall2024/doku.php?id=schedule",
+  "pdf_pages": 946,
+  "text_ok": true,
+  "method": "bundle of 7 lecture PDFs",
+  "modules": {
+   "M28.2": [
+    {
+     "pages": [
+      1,
+      85
+     ],
+     "note": "DDCA L17b: מערכי systolic"
+    },
+    {
+     "pages": [
+      86,
+      215
+     ],
+     "note": "DDCA L18: SIMD / vector"
+    },
+    {
+     "pages": [
+      216,
+      395
+     ],
+     "note": "DDCA L19-L20a: ארכיטקטורת GPU: SM, warps, הסתרת latency"
+    },
+    {
+     "pages": [
+      396,
+      515
+     ],
+     "note": "ACA L31: תכנות GPU/CUDA, coalescing, shared-memory tiling, histogram, reduction, streams"
+    }
+   ],
+   "M28.4": [
+    {
+     "pages": [
+      516,
+      637
+     ],
+     "note": "ACA L22: Interconnects: טופולוגיות וניתוב"
+    },
+    {
+     "pages": [
+      638,
+      946
+     ],
+     "note": "ACA L23: On-chip networks: טופולוגיות, ניתוב, flow control, deadlock"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [],
+  "blocked_hosts": [],
+  "coverage": "M28.2: good for GPU architecture, CUDA model, coalescing and tiling, systolic arrays; partly for reduction/histogram. Roofline, tensor cores, HBM, scan/SpMV/stencil, fusion are in W79. M28.4: good for topologies, routing, flow control (replaces H&P Appendix F); SerDes/PCIe/CXL/NVLink in W77/W78."
+ },
+ {
+  "doc": "W76",
+  "replaces": "hp_caqa",
+  "key": "sorin_hill_wood_primer",
+  "path": "library/engineering/free/W76_sorin_hill_wood_primer_consistency_coherence.pdf",
+  "title": "A Primer on Memory Consistency and Cache Coherence, Second Edition",
+  "author": "Nagarajan, Sorin, Hill, Wood",
+  "edition": "Morgan & Claypool 2020, open access CC BY 4.0",
+  "source_url": "https://link.springer.com/content/pdf/10.1007/978-3-031-01764-3.pdf",
+  "pdf_pages": 289,
+  "text_ok": true,
+  "method": "direct",
+  "modules": {
+   "M28.1": [
+    {
+     "pages": [
+      29,
+      40
+     ],
+     "note": "פרק 2: יסודות הקוהרנטיות"
+    },
+    {
+     "pages": [
+      41,
+      107
+     ],
+     "note": "פרקים 3-5: מודלי עקביות זיכרון: SC, TSO/x86, relaxed (כולל סנכרון)"
+    },
+    {
+     "pages": [
+      108,
+      206
+     ],
+     "note": "פרקים 6-8: פרוטוקולי קוהרנטיות, snooping (MSI/MESI/MOESI) ו-directory"
+    },
+    {
+     "pages": [
+      207,
+      267
+     ],
+     "note": "פרקים 9-11: נושאים מתקדמים (היררכיות, false sharing, DMA), עקביות וקוהרנטיות ב-GPU והטרוגניות, אימות מודלים"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [],
+  "blocked_hosts": [],
+  "coverage": "Excellent, textbook-grade, for snooping MSI/MESI/MOESI, directory coherence, consistency models and synchronization semantics. Complements W74."
+ },
+ {
+  "doc": "W77",
+  "replaces": "hp_caqa",
+  "key": "palermo_tamu_ecen720_links",
+  "path": "library/engineering/free/W77_palermo_tamu_ecen720_high_speed_links.pdf",
+  "title": "ECEN 720 High-Speed Links Circuits and Systems (lectures 1-16) + Palermo serial links chapter",
+  "author": "Samuel Palermo, Texas A&M University",
+  "edition": "Spring 2025 lecture slides; chapter 2011",
+  "source_url": "https://people.engr.tamu.edu/spalermo/ecen720.html",
+  "pdf_pages": 842,
+  "text_ok": true,
+  "method": "bundle (serial-links chapter pp1-51, lectures 1-16)",
+  "modules": {
+   "M28.4": [
+    {
+     "pages": [
+      1,
+      77
+     ],
+     "note": "פרק Serial Links (Palermo) + הרצאה 1: ארכיטקטורת SerDes, קידוד קו"
+    },
+    {
+     "pages": [
+      78,
+      191
+     ],
+     "note": "הרצאות 2-4: ערוץ, S-parameters, מודל pulse response, ISI"
+    },
+    {
+     "pages": [
+      192,
+      333
+     ],
+     "note": "הרצאות 5-6: TX driver, מקלט, PAM4 RX"
+    },
+    {
+     "pages": [
+      334,
+      419
+     ],
+     "note": "הרצאות 7-8: אקולייזציה: TX FFE, CTLE, DFE, adaptive (NRZ/PAM4)"
+    },
+    {
+     "pages": [
+      420,
+      492
+     ],
+     "note": "הרצאות 9-10: רעש וג'יטר: פירוק ג'יטר (RJ/DJ), BER, bathtub"
+    },
+    {
+     "pages": [
+      493,
+      657
+     ],
+     "note": "הרצאות 11-12: PLL, שעון, CDR"
+    },
+    {
+     "pages": [
+      743,
+      842
+     ],
+     "note": "הרצאות 15-16: חיבורי die-to-die (chiplet) ואופטי (optical I/O)"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [],
+  "blocked_hosts": [],
+  "coverage": "Strong for SerDes, equalization, jitter decomposition/BER, CDR; chiplet and optical I/O at lecture-overview depth. Slides."
+ },
+ {
+  "doc": "W78",
+  "replaces": "hp_caqa",
+  "key": "pcie_cxl_nvlink_bundle",
+  "path": "library/engineering/free/W78_pcie_cxl_nvlink_interconnect_bundle.pdf",
+  "title": "PCIe, CXL and NVLink bundle: Das Sharma CXL intro, CXL survey, Demystifying CXL, GPU interconnect evaluation, PCIe-bench, PCIe 6.0 talks, NVSwitch overview",
+  "author": "Das Sharma (Intel); Sun et al.; Li et al.; Neugebauer et al.; NVIDIA",
+  "edition": "2018-2024 open papers and talks",
+  "source_url": "arXiv 2306.11227, 2412.20249, 2303.15375, 1903.04611; cl.cam.ac.uk pcie-bench; ewh.ieee.org/openfabrics/snia Das Sharma decks; images.nvidia.com nvswitch-technical-overview.pdf",
+  "pdf_pages": 181,
+  "text_ok": true,
+  "method": "bundle of 9 papers/decks",
+  "modules": {
+   "M28.4": [
+    {
+     "pages": [
+      1,
+      35
+     ],
+     "note": "Das Sharma: מבוא ל-CXL: שכבות PCIe/CXL, TLP, flow control, coherent memory"
+    },
+    {
+     "pages": [
+      36,
+      65
+     ],
+     "note": "סקר CXL ו-Demystifying CXL: מדידות latency/bandwidth של זיכרון CXL"
+    },
+    {
+     "pages": [
+      66,
+      80
+     ],
+     "note": "הערכת חיבורי GPU: PCIe, NVLink, NVSwitch, GPUDirect"
+    },
+    {
+     "pages": [
+      81,
+      95
+     ],
+     "note": "PCIe-bench: ביצועי PCIe בפועל (TLP, credits, overheads)"
+    },
+    {
+     "pages": [
+      96,
+      173
+     ],
+     "note": "PCIe 6.0: PAM4, flits, FEC/CRC/retry (שלוש הרצאות)"
+    },
+    {
+     "pages": [
+      174,
+      181
+     ],
+     "note": "NVSwitch technical overview"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "H100 whitepaper URL returned HTML, not PDF"
+  ],
+  "blocked_hosts": [],
+  "coverage": "PCIe layers, TLPs and flow control: good (CXL intro, PCIe-bench). CXL: good. NVLink/NVSwitch scale-up vs scale-out: partly (evaluation paper, NVSwitch overview, plus W79 Volta/Ampere whitepapers). Chiplet UCIe: not directly (W77 L15). No official PCIe spec (paid)."
+ },
+ {
+  "doc": "W79",
+  "replaces": "hp_caqa",
+  "key": "gpu_supplement",
+  "path": "library/engineering/free/W79_gpu_architecture_supplement_papers_whitepapers.pdf",
+  "title": "GPU architecture supplement: Roofline, memory wall, reduction, scan, SpMV, tensor cores, mixed precision, Volta and Ampere whitepapers, TPU, Triton, TVM, Halide",
+  "author": "Williams et al.; Gholami et al.; Harris; Sengupta et al.; Bell & Garland; Markidis et al.; Micikevicius et al.; NVIDIA; Jouppi et al.; Tillet et al.; Chen et al.; Ragan-Kelley et al.",
+  "edition": "open papers and whitepapers",
+  "source_url": "berkeley.edu EECS-2008-134; arXiv 2403.14123, 1803.04014, 1710.03740, 2208.11174, 1704.04760, 1802.04799; developer.download.nvidia.com reduction.pdf; nvidia.com sc09-spmv; images.nvidia.com whitepapers; harvard triton; MIT halide",
+  "pdf_pages": 320,
+  "text_ok": true,
+  "method": "bundle of 14 papers",
+  "modules": {
+   "M28.2": [
+    {
+     "pages": [
+      1,
+      16
+     ],
+     "note": "Roofline (Williams, Waterman, Patterson)"
+    },
+    {
+     "pages": [
+      17,
+      23
+     ],
+     "note": "AI and Memory Wall: קיר הזיכרון ו-HBM"
+    },
+    {
+     "pages": [
+      24,
+      93
+     ],
+     "note": "דפוסים מקביליים ב-CUDA: reduction (Harris), scan, SpMV (Bell and Garland)"
+    },
+    {
+     "pages": [
+      94,
+      265
+     ],
+     "note": "Tensor cores, mixed precision, פורמטים נומריים; Volta ו-Ampere whitepapers (SM, tensor cores, HBM2, NVLink, async copy)"
+    },
+    {
+     "pages": [
+      266,
+      282
+     ],
+     "note": "TPU: מערך systolic ו-dataflow ל-DNN"
+    },
+    {
+     "pages": [
+      283,
+      320
+     ],
+     "note": "Triton, TVM, Halide: קומפיילרים ו-DSL, fusion של kernels"
+    }
+   ],
+   "M28.4": [
+    {
+     "pages": [
+      184,
+      265
+     ],
+     "note": "Ampere whitepaper: NVLink/NVSwitch scale-up ואחסון (חלקי)"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "Hopper/H100 whitepaper URLs returned HTML"
+  ],
+  "blocked_hosts": [],
+  "coverage": "Roofline: good; HBM/memory wall: partly; parallel patterns: good for reduction, scan, SpMV (stencil, histogram only in W75 CUDA lecture); tensor cores and mixed precision: good; systolic/DNN dataflow: good (TPU) plus W38 Sze already in library; fusion/DSL: good. Streams/overlap: only W37 (library) and Ampere async copy."
+ },
+ {
+  "doc": "W80",
+  "replaces": "burcher_rydill",
+  "key": "submarine_design_bundle",
+  "path": "library/engineering/free/W80_submarine_design_bundle_joubert_nps_nasa_gertler.pdf",
+  "title": "Submarine design bundle: Joubert DSTO 'Some Aspects of Submarine Design' Parts 1-2; NPS comparative naval architecture of submarines; AIP and electric propulsion theses; pressure shell failure; NASA SP-8007; Gertler-Hagen equations of motion; UUV Master Plan; submarine escape",
+  "author": "Joubert (DSTO); NPS theses (Calhoun); NASA; Gertler & Hagen (DTIC/NSRDC); US Navy",
+  "edition": "1967-2010 public government reports",
+  "source_url": "archive.org DTIC_ADA428039, DTIC_ADA470163, DTIC_AD0653861, DTIC_ADA511748, DTIC_AD0764950, NASA_NTRS_Archive_19690013955; calhoun.nps.edu 10945/22954, 10945/11050, 10945/43450, 10945/42961, 10945/25985, 10945/37782",
+  "pdf_pages": 1632,
+  "text_ok": true,
+  "method": "bundle of 12 public-domain/open reports (OCR text layer for DTIC scans)",
+  "modules": {
+   "M30.6": [
+    {
+     "pages": [
+      109,
+      203
+     ],
+     "note": "NPS 1988 Comparative naval architecture of modern foreign submarines: ניתוח נפח (עמ' 172-178 גוף לחץ), תזוזה ומשקל, איזון משקל-נפח ו-ballast"
+    },
+    {
+     "pages": [
+      486,
+      580
+     ],
+     "note": "NPS 2005 Comparative naval architecture analysis of diesel submarines: קשר משקל-נפח, קבוצות משקל, מודל חישוב"
+    },
+    {
+     "pages": [
+      1,
+      108
+     ],
+     "note": "Joubert DSTO Parts 1-2: היסטוריה, גישת תכנון, הידרודינמיקה, צורת גוף, התנגדות, יציבות, שליטה ועומק"
+    },
+    {
+     "pages": [
+      1145,
+      1411
+     ],
+     "note": "קריסת גוף לחץ: NPS על כשל גלילים מחוזקים בטבעות + NASA SP-8007 קריסה של קליפות גליליות"
+    },
+    {
+     "pages": [
+      1412,
+      1453
+     ],
+     "note": "Gertler-Hagen: משוואות תנועה סטנדרטיות לצוללת, בקרת עומק ותמרון"
+    },
+    {
+     "pages": [
+      204,
+      273
+     ],
+     "note": "NPS 1988: ביצועים צבאיים: מהירות, הנעה, חיישנים (השוואת צוללות)"
+    },
+    {
+     "pages": [
+      581,
+      1144
+     ],
+     "note": "הנעה ואנרגיה: AIP (תכן וכלי הערכה), הנעה חשמלית, השפעה על תכנון צוללת"
+    },
+    {
+     "pages": [
+      1454,
+      1580
+     ],
+     "note": "Navy UUV Master Plan: הנדסת UUV, תת-מערכות ומשימות"
+    },
+    {
+     "pages": [
+      1581,
+      1632
+     ],
+     "note": "Submarine Escape and Rescue: בטיחות ומנוסה"
+    }
+   ]
+  },
+  "status": "partial",
+  "tried": [
+   "Burcher and Rydill: lending-only on archive.org (not downloaded); apps.dtic.mil blocked, used archive.org DTIC mirror; Jackson 'Naval Architecture Aspects of Submarine Design' only on pirate upload sites, skipped"
+  ],
+  "blocked_hosts": [
+   "apps.dtic.mil",
+   "www.dtic.mil"
+  ],
+  "coverage": "Good: weight-volume balance, hull form and hydrodynamics (Joubert), pressure hull collapse (shell buckling theory, generic not submarine-specific), propulsion/AIP/electric drive, manoeuvring equations, UUV overview, escape. Partly: submerged hydrostatic stability BG and trim/ballast (only inside Joubert/NPS), depth control. Weak: signatures and quieting (use X39, W82 ch.12). No single book of Burcher and Rydill's integrated scope; this is a multi-source set."
+ },
+ {
+  "doc": "W81",
+  "replaces": "jensen_coa",
+  "key": "mit_13853_ocean_acoustics",
+  "path": "library/engineering/free/W81_mit_13853_computational_ocean_acoustics_and_2682.pdf",
+  "title": "MIT 13.853 Computational Ocean Acoustics lecture notes (H. Schmidt) + MIT 2.682 Acoustical Oceanography notes (J. Lynch)",
+  "author": "Henrik Schmidt, James Lynch, MIT OpenCourseWare (CC BY-NC-SA)",
+  "edition": "13.853 Spring 2003; 2.682 Spring 2012",
+  "source_url": "https://ocw.mit.edu/courses/2-068-computational-ocean-acoustics-13-853-spring-2003/ ; https://ocw.mit.edu/courses/2-682-acoustical-oceanography-spring-2012/",
+  "pdf_pages": 477,
+  "text_ok": true,
+  "method": "bundle of OCW PDFs; 13.853 slides have equations as images and a sparse text layer (titles only)",
+  "modules": {
+   "M30.5": [
+    {
+     "pages": [
+      1,
+      59
+     ],
+     "note": "13.853 הרצאות 2-5: משוואת הגלים, התמרות, Helmholtz, Green, החזרה והעברה, מוליכי גלים אידאליים ו-Pekeris"
+    },
+    {
+     "pages": [
+      60,
+      140
+     ],
+     "note": "13.853 הרצאות 6-10: wavenumber integration, אינטראקציה עם גבולות"
+    },
+    {
+     "pages": [
+      141,
+      267
+     ],
+     "note": "13.853 הרצאות 11-17: מודים נורמליים: גזירה, Munk, מספרית, תלוי-טווח, צימוד, 3D"
+    },
+    {
+     "pages": [
+      268,
+      319
+     ],
+     "note": "13.853 הרצאות 18-20: משוואה פרבולית PE ושדות התחלה"
+    },
+    {
+     "pages": [
+      320,
+      344
+     ],
+     "note": "13.853 הרצאות 21-22: Doppler בצינור גלים; סימולציית סדרות זמן, אות ורעש"
+    },
+    {
+     "pages": [
+      345,
+      477
+     ],
+     "note": "2.682: קרניים, מודים, PE, beamforming, פיזור משטח מחוספס, אוקיאנוגרפיה אקוסטית"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "oalib-acoustics.org and hlsresearch.com (Acoustics Toolbox/Porter manuals) blocked by proxy; github 403"
+  ],
+  "blocked_hosts": [
+   "oalib-acoustics.org",
+   "oalib.hlsresearch.com",
+   "github.com"
+  ],
+  "coverage": "Strong on wave equation, Helmholtz, wavenumber integration, normal modes, PE (the 13.853 course follows the Jensen et al. book). Slide format with images of equations (text layer thin). Not covered here: sonar-engineering topics (see W82, W83)."
+ },
+ {
+  "doc": "W82",
+  "replaces": "jensen_coa",
+  "key": "ndrc_div6_vol7_vol8",
+  "path": "library/engineering/free/W82_ndrc_div6_underwater_sound_vol7_vol8_1946.pdf",
+  "title": "NDRC Division 6 Summary Technical Report: Vol 7 Principles and Applications of Underwater Sound; Vol 8 The Physics of Sound in the Sea",
+  "author": "National Defense Research Committee, Division 6 (US Government, 1946)",
+  "edition": "1946 (public domain)",
+  "source_url": "archive.org DTIC_AD0200786 and DTIC_AD0200624",
+  "pdf_pages": 883,
+  "text_ok": true,
+  "method": "direct from archive.org DTIC mirror (OCR layer, noisy in places)",
+  "modules": {
+   "M30.5": [
+    {
+     "pages": [
+      11,
+      91
+     ],
+     "note": "Vol 7 פרקים 1-4: משוואת גלים, שבירה, העברת קול בים, אוקיאנוגרפיה של קול: SSP, ducts, ספיגה"
+    },
+    {
+     "pages": [
+      92,
+      144
+     ],
+     "note": "Vol 7 פרקים 5-6: הדים, פיזור, reverberation, wakes"
+    },
+    {
+     "pages": [
+      145,
+      232
+     ],
+     "note": "Vol 7 חלק II: פלט אקוסטי של סונר, target strength, משוואות סונר: טווח כשהרעש או ה-reverberation מגביל"
+    },
+    {
+     "pages": [
+      233,
+      288
+     ],
+     "note": "Vol 7 חלק III: רעש מוקרן של ספינות וצוללות, רעש רקע, האזנה, זיהוי, סונאר פסיבי"
+    },
+    {
+     "pages": [
+      324,
+      473
+     ],
+     "note": "Vol 8: אקוסטיקת גלים וקרניים, העברה במים עמוקים ורדודים"
+    },
+    {
+     "pages": [
+      563,
+      650
+     ],
+     "note": "Vol 8 פרקים 11-17: reverberation: תיאוריה, מדידה, עמוק ורדוד"
+    },
+    {
+     "pages": [
+      659,
+      750
+     ],
+     "note": "Vol 8 פרקים 18-25: target strength של צוללות וספינות"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "Urick (Principles of Underwater Sound) is lending-only on archive.org, not downloaded"
+  ],
+  "blocked_hosts": [],
+  "coverage": "Good for sonar equation, transmission loss, ducts, absorption, ambient and ship/submarine noise, target strength, reverberation (the same ground Urick covers, in 1946 form). Dated: no LOFAR/DEMON, no modern array processing, no PE/modes."
+ },
+ {
+  "doc": "W83",
+  "replaces": "jensen_coa",
+  "key": "sonar_eq_passive_processing",
+  "path": "library/engineering/free/W83_sonar_equations_passive_processing_nps_dtic.pdf",
+  "title": "Sonar equations tutorial (NPS 1976), passive sonar data processing (DTIC ADA156812), passive/active sonar prosecution of diesel submarines (NPS 2008)",
+  "author": "NPS theses; DTIC",
+  "edition": "1976, 1985, 2008",
+  "source_url": "calhoun.nps.edu 10945/28967; archive.org DTIC_ADA156812, DTIC_ADA479975",
+  "pdf_pages": 253,
+  "text_ok": true,
+  "method": "bundle",
+  "modules": {
+   "M30.5": [
+    {
+     "pages": [
+      1,
+      129
+     ],
+     "note": "מבוא למשוואות הסונאר ויישומיהן: SL, TL, NL, DI, DT, אקטיבי ופסיבי"
+    },
+    {
+     "pages": [
+      130,
+      181
+     ],
+     "note": "עיבוד פסיבי, מודלי הפצה וקורלציה"
+    },
+    {
+     "pages": [
+      182,
+      253
+     ],
+     "note": "שימוש מבצעי: אקטיבי ופסיבי נגד צוללות דיזל (ROC/detection range)"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [],
+  "blocked_hosts": [],
+  "coverage": "Sonar equation in depth: good. Arrays/array gain and LOFAR/DEMON: only partly (pass156 on data processing; MIT 2.682 lecture 11 beamforming in W81). No open source found at comparable depth for towed arrays and DEMON."
+ },
+ {
+  "doc": "X39",
+  "replaces": "burcher_rydill",
+  "key": "submarine_signatures_comms_strategy",
+  "path": "library/military/free/X39_submarine_signatures_comms_strategy_bundle.pdf",
+  "title": "Submarine signatures, communications and strategy bundle: Cote 'The Third Battle'; NPS non-acoustic ASW; US/Soviet SSBN comparison; ELF/VLF submarine communications satellite design; Common Submarine Radio Room",
+  "author": "Owen Cote (Naval War College Newport Paper 16); NPS theses",
+  "edition": "1988-2014",
+  "source_url": "archive.org DTIC_ADA421957; calhoun.nps.edu 10945/30891, 10945/20087, 10945/23013, 10945/43998",
+  "pdf_pages": 775,
+  "text_ok": true,
+  "method": "bundle of 5 public reports",
+  "modules": {
+   "M10.7": [
+    {
+     "pages": [
+      1,
+      116
+     ],
+     "note": "Cote: The Third Battle: היסטוריה של השתקה וגילוי, תפקיד אסטרטגי של צוללות במלחמה הקרה"
+    },
+    {
+     "pages": [
+      117,
+      175
+     ],
+     "note": "ניתוח מוגבל של מערכות ASW לא-אקוסטיות (MAD, לייזר, wake): חתימות לא-אקוסטיות"
+    },
+    {
+     "pages": [
+      176,
+      438
+     ],
+     "note": "צוללות SSBN של ארה\"ב וברה\"מ: השוואה, התפקיד האסטרטגי"
+    },
+    {
+     "pages": [
+      439,
+      583
+     ],
+     "note": "תכן לוויין ELF/VLF לתקשורת עם צוללות תחת הקרח"
+    },
+    {
+     "pages": [
+      584,
+      775
+     ],
+     "note": "Common Submarine Radio Room: תקשורת צוללות, מערכות"
+    }
+   ]
+  },
+  "status": "partial",
+  "tried": [],
+  "blocked_hosts": [],
+  "coverage": "Good: history of quieting/detection and strategic role (Cote), non-acoustic signatures, VLF/ELF and radio-room communications, SSBN role. Use also W82 ch.12 (radiated noise), W82 vol 8 ch.26-35 (wakes, pages 757-857 of W82), W80 pages 204-273 and 581-1144 (propulsion choices). Weak: submarine combat system and weapons (no open source found at depth)."
+ },
+ {
+  "doc": "X40",
+  "replaces": "hughes_girrier",
+  "key": "salvo_air_defense_nps_bundle",
+  "path": "library/military/free/X40_salvo_model_fleet_air_defense_nps_bundle.pdf",
+  "title": "Hughes' salvo model (primary paper) and NPS theses on salvo models, ASCM defense, radar propagation, soft kill, VLS magazines, distributed lethality, OTH targeting, Aegis",
+  "author": "Wayne P. Hughes Jr. (NRL 1995 paper hosted by NPS); NPS theses",
+  "edition": "1990-2022",
+  "source_url": "calhoun.nps.edu 10945/60793, 34844, 63664, 65156, 661, 3615, 30278, 27962, 28092, 23199, 5345, 6947, 26584, 23007, 42990, 63762, 64353, 45933, 71479",
+  "pdf_pages": 1591,
+  "text_ok": true,
+  "method": "bundle of 19 NPS items",
+  "modules": {
+   "M10.9": [
+    {
+     "pages": [
+      1,
+      24
+     ],
+     "note": "Hughes 1995: A Salvo Model of Warships in Missile Combat (המקור הראשוני)"
+    },
+    {
+     "pages": [
+      25,
+      400
+     ],
+     "note": "עבודות על Salvo: יסודות salvo warfare, בדיקת משוואות Salvo, מורכבות מודל, Heterogeneous Salvo, Hughes מותאם לצי קטן, ערך תכונות ספינה"
+    },
+    {
+     "pages": [
+      401,
+      608
+     ],
+     "note": "יעילות היסטורית של ASCM (Falklands, Exocet, Styx) ותכונות האיום; הגנת ספינות מפני טילי ים"
+    },
+    {
+     "pages": [
+      609,
+      715
+     ],
+     "note": "אופק מכ\"ם, evaporation duct וזיהוי sea-skimmers: זמן תגובה"
+    },
+    {
+     "pages": [
+      716,
+      833
+     ],
+     "note": "kill-chain: ארכיטקטורת הגנה אווירית ו-CONOPS נגד ASCM"
+    },
+    {
+     "pages": [
+      834,
+      1183
+     ],
+     "note": "Soft kill: לוחמה אלקטרונית משולבת, ESM/ECM, פתיינים"
+    },
+    {
+     "pages": [
+      1184,
+      1278
+     ],
+     "note": "VLS loadout ומשק המחסניות; תורת Distributed Lethality"
+    },
+    {
+     "pages": [
+      1279,
+      1492
+     ],
+     "note": "Over-the-horizon targeting ו-scouting לצי השטח"
+    },
+    {
+     "pages": [
+      1493,
+      1591
+     ],
+     "note": "Aegis: תיק בוחן היסטורי וארכיטקטורת הגנה אווירית של הצי"
+    }
+   ]
+  },
+  "status": "partial",
+  "tried": [
+   "Fleet Tactics and Naval Operations (Hughes and Girrier book) is not free; Hughes' 1995 paper found on Calhoun",
+   "apps.dtic.mil blocked"
+  ],
+  "blocked_hosts": [
+   "apps.dtic.mil"
+  ],
+  "coverage": "Hughes salvo model from the primary source: full. Radar horizon, ASCM threat, soft kill, OTH-T, distributed lethality, magazines: good via theses (different style from the book). Fleet air defense architecture and historical cases: partly (Falklands/ASCM history, Aegis case). The narrative scouting-offense doctrine of the book itself is not covered."
+ },
+ {
+  "doc": "X41",
+  "replaces": "wong_tgv",
+  "key": "terramechanics_nrmm_bundle",
+  "path": "library/military/free/X41_terramechanics_nrmm_vehicle_mobility_bundle.pdf",
+  "title": "Terramechanics and vehicle mobility bundle: Bekker model reports, NATO Reference Mobility Model (NRMM) guide and next-generation NRMM, AMC Automotive Suspensions handbook, tracked-vehicle steerability, ride dynamics",
+  "author": "US Army (WES, TARDEC, ERDC, AMC), NATO STO, DTIC/archive.org mirror; Laughery; others",
+  "edition": "1971-2018 public government reports",
+  "source_url": "archive.org DTIC_ADA457955, ADA563597, ADA574119, ADA395739, ADB047979, AD1047407, ADA282588, AD0817023, ADA090360, ADA629344, ADA559451, ADA431130; arXiv 1411.3305",
+  "pdf_pages": 1329,
+  "text_ok": true,
+  "method": "bundle of 13 reports (OCR text layer on DTIC scans)",
+  "modules": {
+   "M11.15": [
+    {
+     "pages": [
+      1,
+      75
+     ],
+     "note": "מודל Bekker: pressure-sinkage, Mohr-Coulomb, התנגדות תנועה, כוח משיכה ו-slip, מודל אינטראקציה פיזיקלי, שיטות לנתוני חוזק קרקע (cone index)"
+    },
+    {
+     "pages": [
+      76,
+      714
+     ],
+     "note": "NRMM: מדריך המשתמש ומודל NRMM הדור הבא: מדדי MMP ולחץ, מהירות על שטח, speed-made-good"
+    },
+    {
+     "pages": [
+      715,
+      773
+     ],
+     "note": "אימות NRMM (ISTVS): מגבלות המודל"
+    },
+    {
+     "pages": [
+      774,
+      1232
+     ],
+     "note": "AMC Engineering Design Handbook: Automotive Suspensions: תלייה, ride, חספוס שטח, הגבלות חשיפה לרעידות, תלייה של זחלמים"
+    },
+    {
+     "pages": [
+      1233,
+      1264
+     ],
+     "note": "Skid steering וסטירביליות של רכב זחלי; מודל רובוט skid-steer"
+    },
+    {
+     "pages": [
+      1265,
+      1318
+     ],
+     "note": "Ride dynamics: חשיפה גוף-שלם לרעידות ונוהל TOP"
+    },
+    {
+     "pages": [
+      1319,
+      1329
+     ],
+     "note": "בקרת תלייה semi-active: סקירה ומתודולוגיות מודרניות"
+    }
+   ]
+  },
+  "status": "partial",
+  "tried": [
+   "Wong's Theory of Ground Vehicles is not free; Wong's own papers are paywalled",
+   "Bekker's books (Off-the-Road Locomotion, Introduction to Terrain-Vehicle Systems) only on lending/pirate sites",
+   "apps.dtic.mil blocked, used archive.org DTIC mirror",
+   "MDPI skyhook review returned HTML (blocked)"
+  ],
+  "blocked_hosts": [
+   "apps.dtic.mil",
+   "www.mdpi.com"
+  ],
+  "coverage": "Good: Bekker pressure-sinkage and shear (concise), motion resistance and traction basics, NRMM and speed-made-good (primary source), MMP, ride limits (handbook). Partly: nominal vs mean max pressure derivation, skid steering (two short reports), semi-active suspension (one comparison study, no active-suspension theory). Textbook-style derivation depth of Wong chapters 2-4 and 7-8 is not matched."
+ },
+ {
+  "doc": "X42",
+  "replaces": "wong_tgv",
+  "key": "ugv_traversability_autonomy",
+  "path": "library/military/free/X42_ugv_traversability_autonomy_bundle.pdf",
+  "title": "UGV traversability and autonomy bundle: Sevastopoulos traversability survey, Army TOP 02-2-541 teleoperated UGV mobility, DoD UGV Master Plan, SSC UGV lessons learned, autonomy test report",
+  "author": "Sevastopoulos and Konstantopoulos (arXiv 2204.10883); US Army ATC; DoD; SSC San Diego (via archive.org DTIC mirror)",
+  "edition": "1991-2022",
+  "source_url": "arXiv 2204.10883; archive.org DTIC_ADA525472, ADA277760, ADA495124, ADA633755",
+  "pdf_pages": 252,
+  "text_ok": true,
+  "method": "bundle of 5",
+  "modules": {
+   "M11.16": [
+    {
+     "pages": [
+      1,
+      22
+     ],
+     "note": "סקר הערכת traversability לרובוטים ניידים: חישה תלת-ממדית, שיטות מבוססות גיאומטריה, למידה ו-self-supervised"
+    },
+    {
+     "pages": [
+      23,
+      67
+     ],
+     "note": "TOP 02-2-541: ביצועי ניידות של UGV מרוחק (teleoperation) ובדיקות"
+    },
+    {
+     "pages": [
+      68,
+      243
+     ],
+     "note": "תוכנית אב UGV של DoD ולקחים מתוכניות UGV: teleoperation מול supervised autonomy, שימושים צבאיים"
+    },
+    {
+     "pages": [
+      244,
+      252
+     ],
+     "note": "דוח בדיקות/הערכה לאוטונומיה"
+    }
+   ]
+  },
+  "status": "partial",
+  "tried": [
+   "Borges et al. Field Robotics 2022 survey: DOI redirects to IEEE (paywalled/blocked); fieldrobotics.net and Cranfield 403"
+  ],
+  "blocked_hosts": [
+   "fieldrobotics.net",
+   "dspace.lib.cranfield.ac.uk"
+  ],
+  "coverage": "Traversability estimation: partly good (one 2022 survey). Teleoperation vs supervised autonomy, military UGV operations, testing: partly (older Army/DoD reports, 1991-2010). Weak: off-road planning and control, GNSS-denied ground localization (see library X09 SubT SLAM, W31 Lie theory for related), modern autonomy testing."
+ }
+]

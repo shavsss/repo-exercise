@@ -1,0 +1,346 @@
+[
+ {
+  "doc": "X06",
+  "key": "canciani_magnav",
+  "path": "library/military/free/X06_canciani_magnav.pdf",
+  "title": "Absolute Positioning Using the Earth's Magnetic Anomaly Field (PhD dissertation)",
+  "author": "Canciani",
+  "edition": "AFIT 2016 (DTIC AD1017870)",
+  "source_url": "https://archive.org/download/DTIC_AD1017870/DTIC_AD1017870.pdf",
+  "pdf_pages": 264,
+  "text_ok": true,
+  "method": "direct (archive.org DTIC mirror; scholar.afit.edu is Cloudflare-blocked)",
+  "modules": {
+   "M5.13": [
+    {
+     "pages": [
+      21,
+      173
+     ],
+     "note": "פרקים 1–4: מבוא וסקירת ספרות, רקע (שדה מגנטי, מפות, חיישנים, RBPF), תכנון המסנן, תוצאות ניסויי טיסה"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "scholar.afit.edu viewcontent: Cloudflare challenge page"
+  ],
+  "blocked_hosts": [
+   "scholar.afit.edu (bot challenge)"
+  ]
+ },
+ {
+  "doc": "X19",
+  "key": "dsb_autonomy",
+  "path": "library/military/free/X19_dsb_role_of_autonomy.pdf",
+  "title": "The Role of Autonomy in DoD Systems",
+  "author": "Defense Science Board",
+  "edition": "2012 (DTIC ADA566864)",
+  "source_url": "https://archive.org/download/DTIC_ADA566864/DTIC_ADA566864.pdf",
+  "pdf_pages": 126,
+  "text_ok": true,
+  "method": "direct (archive.org DTIC mirror)",
+  "modules": {
+   "M7.13": [
+    {
+     "pages": [
+      31,
+      77
+     ],
+     "note": "פרק 3 (בעיות טכניות של אוטונומיה, עמ' 31-65) ופרק 4 (בעיות רכש, עמ' 66-77)"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "dsb.cto.mil url 404"
+  ],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "X34",
+  "key": "gao_19_128",
+  "path": "library/military/free/X34_gao_19_128_weapon_systems_cyber.pdf",
+  "title": "GAO-19-128, Weapon Systems Cybersecurity: DOD Just Beginning to Grapple with Scale of Vulnerabilities",
+  "author": "GAO",
+  "edition": "Oct 2018",
+  "source_url": "https://nsarchive.gwu.edu/sites/default/files/documents/4999264/United-States-Government-Accountability-Office.pdf",
+  "pdf_pages": 51,
+  "text_ok": true,
+  "method": "direct (National Security Archive mirror of the GAO PDF)",
+  "modules": {
+   "M15.5": [
+    {
+     "pages": [
+      1,
+      51
+     ],
+     "note": "כל הדוח"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "gao.gov, sgp.fas.org: WAF/bot blocked"
+  ],
+  "blocked_hosts": [
+   "www.gao.gov",
+   "sgp.fas.org"
+  ]
+ },
+ {
+  "doc": "X21",
+  "key": "dodd_3000_09",
+  "path": "library/military/free/X21_dodd_3000_09_2012.pdf",
+  "title": "DoD Directive 3000.09, Autonomy in Weapon Systems",
+  "author": "DoD",
+  "edition": "21 Nov 2012 (ORIGINAL version, superseded by the 25 Jan 2023 reissue)",
+  "source_url": "https://webarchive.library.unt.edu/web/20130215180726id_/http://www.dtic.mil/whs/directives/corres/pdf/300009p.pdf",
+  "pdf_pages": 6,
+  "text_ok": true,
+  "method": "direct (UNT web archive capture of dtic.mil)",
+  "modules": {
+   "M7.15": [
+    {
+     "pages": [
+      1,
+      6
+     ],
+     "note": "כל הצו, אך זו גרסת 2012 ולא גרסת 2023 העדכנית"
+    }
+   ]
+  },
+  "status": "partial",
+  "tried": [
+   "esd.whs.mil 300009p.pdf: Akamai Access Denied (403)",
+   "media.defense.gov 2023 PDF: 403",
+   "irp.fas.org: WAF challenge",
+   "carahsoft: 1-page summary only",
+   "agora.eto.tech: annotated excerpts, not original",
+   "web.archive.org: connection reset"
+  ],
+  "blocked_hosts": [
+   "www.esd.whs.mil",
+   "media.defense.gov",
+   "irp.fas.org",
+   "casebook.icrc.org"
+  ]
+ },
+ {
+  "doc": "W50",
+  "key": "ultrascale",
+  "path": "library/engineering/free/W50_ultrascale_playbook.pdf",
+  "title": "The Ultra-Scale Playbook: Training LLMs on GPU Clusters",
+  "author": "Hugging Face (Tazi et al.)",
+  "edition": "2025",
+  "source_url": "https://nanotron-ultrascale-playbook.static.hf.space/index.html",
+  "pdf_pages": 130,
+  "text_ok": true,
+  "method": "html-render (Playwright A4; the official PDF in the space is a single 102047pt-tall page, so the paginated render is used)",
+  "modules": {
+   "M29.2": [
+    {
+     "pages": [
+      1,
+      130
+     ],
+     "note": "כל הספר: מקביליות נתונים/ZeRO (4-), tensor/context/pipeline/expert (50-73), תצורת אימון (74), GPU kernels (79-100), מסקנות והפניות (101-130)"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "W12",
+  "key": "nist_esh",
+  "path": "library/engineering/free/W12_nist_sematech_handbook_ch5_7_8.pdf",
+  "title": "NIST/SEMATECH e-Handbook of Statistical Methods (chapters 5, 7, 8 only)",
+  "author": "NIST",
+  "edition": "online, current (rendered 2026-11-15)",
+  "source_url": "https://www.itl.nist.gov/div898/handbook/",
+  "pdf_pages": 808,
+  "text_ok": true,
+  "method": "html-render (Playwright, every section page of chapters 5, 7, 8 in section order, pdfunite). Only these 3 chapters are included.",
+  "modules": {
+   "M6.13": [
+    {
+     "pages": [
+      1,
+      442
+     ],
+     "note": "פרק 5 כולו: DOE, factorial, fractional, RSM (5.3 עמ' 28-141, 5.5 עמ' 192-375), ניתוח ו-case studies"
+    },
+    {
+     "pages": [
+      443,
+      598
+     ],
+     "note": "פרק 7: השוואות (7.2 הספק וגודל מדגם, 7.4 ANOVA והשוואות מרובות, עמ' 463-594)"
+    }
+   ],
+   "M27.11": [
+    {
+     "pages": [
+      599,
+      808
+     ],
+     "note": "פרק 8 כולו: Assessing Product Reliability (8.1 מבוא והתפלגויות 599-698, 8.2 הנחות 699-741, 8.3 איסוף נתונים 742-757, 8.4 ניתוח נתוני אמינות 758-808)"
+    }
+   ],
+   "M7.14": [
+    {
+     "pages": [
+      1,
+      442
+     ],
+     "note": "פרק 5: DOE למבחן מבצעי, עמ' 28-141 ו-192-375 בעיקר"
+    },
+    {
+     "pages": [
+      599,
+      808
+     ],
+     "note": "פרק 8: אמינות, הדגמה וצמיחה"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "W40",
+  "key": "amd_ug949",
+  "path": "library/engineering/free/W40_amd_ug949_ug903_ug906.pdf",
+  "title": "UltraFast Design Methodology Guide (UG949) + Vivado Using Constraints (UG903) + Design Analysis and Closure Techniques (UG906)",
+  "author": "AMD/Xilinx",
+  "edition": "2026.2 English (official PDFs from docs.amd.com, united: UG949 pp1-321, UG903 pp322-514, UG906 pp515-928)",
+  "source_url": "https://docs.amd.com/r/en-US/ug949-vivado-design-methodology (PDF attachment via docs.amd.com/api/khub; UG903/UG906 same portal)",
+  "pdf_pages": 928,
+  "text_ok": true,
+  "method": "bundle",
+  "modules": {
+   "M28.3": [
+    {
+     "pages": [
+      40,
+      145
+     ],
+     "note": "UG949 פרק 3: Design Creation with RTL (SystemVerilog סינתזבילי, CDC, reset, clocking)"
+    },
+    {
+     "pages": [
+      146,
+      315
+     ],
+     "note": "UG949 פרקים 4–6: אילוצים, מימוש, Design Closure (timing closure)"
+    },
+    {
+     "pages": [
+      329,
+      466
+     ],
+     "note": "UG903 פרקים 2–7: מתודולוגיית אילוצים, שעונים, I/O delay, timing exceptions, CDC, XDC precedence"
+    },
+    {
+     "pages": [
+      585,
+      609
+     ],
+     "note": "UG906 פרק 4: Timing Analysis (setup/hold, slack)"
+    },
+    {
+     "pages": [
+      785,
+      849
+     ],
+     "note": "UG906 פרקים 6–7: Synthesis and Implementation closure techniques"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "xilinx.com static PDFs and docs.amd.com/v/u: SPA shell/HTML only; used khub attachments API"
+  ],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "W45",
+  "key": "spinningup",
+  "path": "library/engineering/free/W45_spinning_up_deep_rl.pdf",
+  "title": "Spinning Up in Deep RL",
+  "author": "Achiam (OpenAI)",
+  "edition": "2018 (online docs, rendered 2026-11-15)",
+  "source_url": "https://spinningup.openai.com/en/latest/",
+  "pdf_pages": 75,
+  "text_ok": true,
+  "method": "html-render (Playwright). Included: user intro/installation/algorithms-overview/running/outputs/plotting, Part 1-3, Spinning Up as a Researcher, Key Papers (pp1-75).",
+  "modules": {
+   "M18.11": [
+    {
+     "pages": [
+      29,
+      58
+     ],
+     "note": "Part 1-3: מושגי יסוד, סוגי אלגוריתמים, מבוא ל-policy optimization (gradient, GAE-ish, baselines)"
+    },
+    {
+     "pages": [
+      59,
+      66
+     ],
+     "note": "Spinning Up as a Deep RL Researcher: מתודולוגיה ניסויית"
+    },
+    {
+     "pages": [
+      67,
+      75
+     ],
+     "note": "Key Papers in Deep RL: DQN, PG, TRPO/PPO, DDPG/TD3/SAC, model-based, exploration"
+    },
+    {
+     "pages": [
+      9,
+      12
+     ],
+     "note": "סקירת האלגוריתמים"
+    }
+   ]
+  },
+  "status": "partial",
+  "tried": [
+   "Per-algorithm doc pages (VPG, TRPO, PPO, DDPG, TD3, SAC), Exercises, Benchmarks, Logger etc. could not be rendered: spinningup.openai.com answered HTTP 429/Cloudflare rate limit for 30+ minutes after the first bulk fetch; they were left out rather than bypassed"
+  ],
+  "blocked_hosts": [
+   "spinningup.openai.com (rate limited 429 after bulk fetch; first 11 pages OK)"
+  ]
+ },
+ {
+  "doc": "W60",
+  "key": "leishman_ifv",
+  "path": null,
+  "title": "Introduction to Aerospace Flight Vehicles",
+  "author": "Leishman",
+  "edition": "ERAU open textbook (2025)",
+  "source_url": "https://eaglepubs.erau.edu/introductiontoaerospaceflightvehicles/",
+  "pdf_pages": 0,
+  "text_ok": false,
+  "method": "none",
+  "modules": {
+   "M15.31": []
+  },
+  "status": "failed",
+  "tried": [
+   "eaglepubs.erau.edu: 403 request blocked (CloudFront) for page and wp-json",
+   "commons.erau.edu/oer-main/65 PDF (viewcontent article=1066): Cloudflare challenge page",
+   "archive.org search: no copy",
+   "web searches: no other mirror"
+  ],
+  "blocked_hosts": [
+   "eaglepubs.erau.edu",
+   "commons.erau.edu (viewcontent, Cloudflare challenge)"
+  ]
+ }
+]

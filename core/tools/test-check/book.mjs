@@ -68,6 +68,8 @@ const seedDb = [
   [P + "convs/bookseed/msgs/u1", { role: "user", text: `כתוב את שיעור 1 במודול ${modId}: ${lessons[0].title}.`, mode: "lesson", ts: now - 3600e3 }],
   [P + "convs/bookseed/msgs/a1", { role: "assistant", text: lessonText, mode: "lesson", ts: now - 3590e3, model: "test" }],
 ];
+/** blocks that are never cut between pages: pictures, tables, equations and the blocks the learner works in */
+const PICTURE_RE = "\\bk-(table|math)\\b|\\bf-(figure|svg|chart|mermaid|table|scene3d|sim|anim|interactive|notebook|think|exercise|predict|errorhunt|verify|lab|decide|mcq|numeric|explain)\\b";
 const READ_KEY = `${target}-lab:reading`;
 
 // 2. a static server
@@ -248,16 +250,40 @@ for (const scheme of SCHEMES) {
         const bad = pg.map((x, k) => ({ ...x, k })).filter((x) => x.why === "flow" && x.fill < 0.8);
         checks.push({ frame: `${tag}-fill`, ok: bad.length === 0, problems: bad.map((x) => `page ${x.k} only ${Math.round(x.fill * 100)}% full: ${x.frags.slice(-2).join(", ")}`) });
       }
-      if (pagesTo) {
+      // every page of the book: no block scrolls inside its window, and no picture is cut between pages; first a
+      // late font is played (after the seen pages were frozen, the text and its equations grow), as on a slow network
+      {
+        await page.waitForTimeout(1600);
+        const late = await page.addStyleTag({ content: ".bk-text p, .bk-text li { letter-spacing: 0.04em } .bk-text .katex { font-size: 1.3em !important }" });
+        await page.waitForTimeout(900);
         await page.mouse.click(5, vp.height / 2);
-        const step = vp.name === "wide" ? 2 : 1;
-        for (let p = 0; p <= pagesTo; p += step) {
-          const file = path.join(outDir, `${target}-${tag}-page-${String(p).padStart(2, "0")}.png`);
-          await page.screenshot({ path: file });
-          screenshots.push(file);
+        const turn = vp.name === "wide" ? 2 : 1;
+        const last = bf ? bf.pages.length - 1 : 0;
+        const problems = [];
+        for (let p = 0; p <= last; p += turn) {
+          if (p <= pagesTo) {
+            const file = path.join(outDir, `${target}-${tag}-page-${String(p).padStart(2, "0")}.png`);
+            await page.screenshot({ path: file });
+            screenshots.push(file);
+          }
+          problems.push(
+            ...(await page.evaluate(([p, pic]) => {
+              const PICTURE = new RegExp(pic);
+              const out = [];
+              for (const f of document.querySelectorAll(".bk-page.is-shown .bk-frag")) {
+                // the back matter (a page of its own) is the one window that may scroll
+                if (f.classList.contains("is-over") && !f.classList.contains("k-end")) out.push(`page ${p}: scrolls inside: ${f.dataset.chunk} ${f.className}`);
+                if ((f.classList.contains("is-head") || f.classList.contains("is-tail")) && PICTURE.test(f.className))
+                  out.push(`page ${p}: picture or block cut between pages: ${f.dataset.chunk} ${f.className}`);
+              }
+              return out;
+            }, [p, PICTURE_RE])),
+          );
           await page.keyboard.press("ArrowLeft");
           await page.waitForTimeout(560);
         }
+        checks.push({ frame: `${tag}-all-pages`, ok: problems.length === 0, problems: [...new Set(problems)] });
+        await late.evaluate((el) => el.remove());
         await page.keyboard.press("Home");
         await page.waitForTimeout(700);
       }

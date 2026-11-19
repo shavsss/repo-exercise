@@ -118,7 +118,7 @@ def main():
                 fails.append(f"{i}: conversation {cid} not in profile/convs")
             elif not (Path(a.dump) / f"data__users__me__profile__convs__{cid}__msgs.json").exists():
                 notes.append(f"{i}: conversation {cid} has no messages file in the dump")
-        report.append(f"{i}: {len(lessons)} lessons, done {sorted(p.get('done', []))}, convs {sorted((p.get('convs') or {}).keys())}, "
+        report.append(f"{i}: {len(lessons)} lessons, done {sorted(p.get('done', []), key=str)}, convs {sorted((p.get('convs') or {}).keys())}, "
                       f"sources {len(O[i]['sources']) if i in O else '-'} -> {len(n['sources']) if n else '-'}, "
                       f"items {len(n.get('items', [])) if n else 0}, test-out {len(n.get('testout', [])) if n else 0}, "
                       f"brief {len(n.get('brief', [])) if n else 0}, reading {len(n.get('reading', [])) if n else 0}")

@@ -1,0 +1,379 @@
+[
+ {
+  "doc": "W46",
+  "key": "murphy_rl",
+  "path": "library/engineering/free/W46_murphy_rl.pdf",
+  "title": "Reinforcement Learning: A Comprehensive Overview",
+  "author": "Kevin P. Murphy",
+  "edition": "arXiv 2412.05265v5 (Dec 2025), title in file: Reinforcement Learning: An Overview",
+  "source_url": "https://arxiv.org/pdf/2412.05265",
+  "pdf_pages": 253,
+  "text_ok": true,
+  "method": "direct",
+  "modules": {
+   "M18.11": [
+    {
+     "pages": [
+      31,
+      120
+     ],
+     "note": "פרקים 2–4: למידה מבוססת ערך (DQN, Q-learning), מבוססת מדיניות (policy gradient, actor-critic, TRPO/PPO, off-policy: DDPG/TD3/SAC, GAE) ומבוססת מודל (PETS, Dreamer, MuZero)"
+    },
+    {
+     "pages": [
+      173,
+      185
+     ],
+     "note": "פרק 7.1–7.3: חקירה (Thompson, UCB), regret, RL התפלגותי"
+    },
+    {
+     "pages": [
+      181,
+      183
+     ],
+     "note": "7.4: מוטיבציה פנימית, RND, Go-Explore (חקירה בלמידה עמוקה)"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "W51",
+  "key": "chinchilla",
+  "path": "library/engineering/free/W51_chinchilla.pdf",
+  "title": "Training Compute-Optimal Large Language Models",
+  "author": "Hoffmann et al.",
+  "edition": "arXiv 2203.15556v1 (2022)",
+  "source_url": "https://arxiv.org/pdf/2203.15556",
+  "pdf_pages": 36,
+  "text_ok": true,
+  "method": "direct",
+  "modules": {
+   "M29.2": [
+    {
+     "pages": [
+      1,
+      36
+     ],
+     "note": "כל המאמר: חוקי קנה מידה וחישוב אופטימלי (Chinchilla). המאמר מכסה רק את נושא החוקים; מקביליות/NCCL/זיכרון אינם בו"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "W56",
+  "key": "agent_sources",
+  "path": "library/engineering/free/W56_agent_sources.pdf",
+  "title": "Building Effective Agents (Anthropic 2024); ReAct (arXiv 2210.03629); OpenVLA (2406.09246)",
+  "author": "Anthropic; Yao et al.; Kim et al.",
+  "edition": "2022-2024",
+  "source_url": "https://www.anthropic.com/engineering/building-effective-agents + arxiv.org/pdf/2210.03629 + arxiv.org/pdf/2406.09246",
+  "pdf_pages": 86,
+  "text_ok": true,
+  "method": "bundle (html-render + 2 pdf)",
+  "modules": {
+   "M29.6": [
+    {
+     "pages": [
+      1,
+      16
+     ],
+     "note": "Building Effective Agents (Anthropic): לולאת סוכן, שימוש בכלים, workflows מול agents, תכנון"
+    },
+    {
+     "pages": [
+      17,
+      49
+     ],
+     "note": "ReAct: חשיבה ופעולה משולבות, כלים ואחזור"
+    },
+    {
+     "pages": [
+      50,
+      86
+     ],
+     "note": "OpenVLA: מודלי ראייה-שפה-פעולה"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [],
+  "blocked_hosts": [],
+  "parts": {
+   "building_effective_agents": [
+    1,
+    16
+   ],
+   "react": [
+    17,
+    49
+   ],
+   "openvla": [
+    50,
+    86
+   ]
+  }
+ },
+ {
+  "doc": "W61",
+  "key": "cfd_direct_notes",
+  "path": "library/engineering/free/W61_cfd_direct_notes.pdf",
+  "title": "Notes on Computational Fluid Dynamics: General Principles",
+  "author": "Greenshields & Weller",
+  "edition": "CFD Direct, online edition (released 14 July 2026 per site)",
+  "source_url": "https://doc.cfd.direct/notes/cfd-general-principles/",
+  "pdf_pages": 425,
+  "text_ok": true,
+  "method": "html-render (141 topic pages in next-topic order, Playwright, pdfunite)",
+  "modules": {
+   "M15.32": [
+    {
+     "pages": [
+      1,
+      425
+     ],
+     "note": "כל הספר. פרקים: הקדמה 10; דינמיקת זורמים 15; שיטת נפחים סופיים 93; תנאי שפה 168; אלגוריתמים ופותרים (צימוד לחץ-מהירות, multigrid) 225; מבוא לטורבולנציה 297; RANS (k-epsilon) 345; בעיות לדוגמה 393"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [],
+  "blocked_hosts": [],
+  "chapter_starts": {
+   "preface": 1,
+   "introduction": 10,
+   "fluid-dynamics": 15,
+   "numerical-method": 93,
+   "boundary-conditions": 168,
+   "algorithms-and-solvers": 225,
+   "introduction-to-turbulence": 297,
+   "reynolds-averaged-turbulence-modelling": 345,
+   "sample-problems": 393,
+   "building-a-simulation": 423
+  },
+  "note": "render כולל כותרות אתר חוזרות; אין בספר כיסוי של compressible/OpenFOAM workflow מעבר ל-sample-problems"
+ },
+ {
+  "doc": "X12",
+  "key": "nrc_mines",
+  "path": "library/military/free/X12_nrc_naval_mine_warfare.pdf",
+  "title": "Naval Mine Warfare: Operational and Technical Challenges for Naval Forces",
+  "author": "National Research Council",
+  "edition": "NAP 2001",
+  "source_url": "https://nap.nationalacademies.org/read/10176/chapter/1 (OpenBook, chapters 1-14)",
+  "pdf_pages": 279,
+  "text_ok": true,
+  "method": "html-render (NAP PDF download requires login; rendered OpenBook chapters)",
+  "modules": {
+   "M10.10": [
+    {
+     "pages": [
+      39,
+      139
+     ],
+     "note": "פרקים 1–4: בעיית מוקשים, נושאים רוחביים, מוקשים אמריקאים, לוחמה נגד מוקשים הרחק מהחוף (MCM)"
+    },
+    {
+     "pages": [
+      140,
+      178
+     ],
+     "note": "פרק 5: MCM בחוף. הדו\"ח עוסק במוקשים ובנגד-מוקשים; אין בו ASW/טורפדות/sonobuoys"
+    },
+    {
+     "pages": [
+      19,
+      38
+     ],
+     "note": "תקציר מנהלים"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "nap.nationalacademies.org/download/10176 -> 404; nationalacademies.org/publications/10176/download requires login (guest form needs email, not used)"
+  ],
+  "blocked_hosts": [],
+  "chapter_starts": {
+   "front": 1,
+   "exec_summary": 19,
+   "ch1": 39,
+   "ch2": 50,
+   "ch3": 87,
+   "ch4": 105,
+   "ch5": 140,
+   "appendixes_intro": 179,
+   "appA": 182,
+   "appB": 213,
+   "appC": 217,
+   "appD": 227,
+   "appE": 238,
+   "appF": 259
+  }
+ },
+ {
+  "doc": "X17",
+  "key": "crs_jadc2",
+  "path": "library/military/free/X17_crs_jadc2.pdf",
+  "title": "Joint All-Domain Command and Control: Background and Issues for Congress (R46725)",
+  "author": "John R. Hoehn, Congressional Research Service",
+  "edition": "version of 21 Jan 2022 (not necessarily latest)",
+  "source_url": "https://www.everycrsreport.com/files/2022-01-21_R46725_c310c14237b976901b34b7efbb95c5ddedfbb8b0.html",
+  "pdf_pages": 19,
+  "text_ok": true,
+  "method": "html-render (EveryCRSReport mirror)",
+  "modules": {
+   "M7.13": [
+    {
+     "pages": [
+      1,
+      19
+     ],
+     "note": "כל הדו\"ח: JADC2, ארכיטקטורת C2, בינה מלאכותית בהחלטות C2, סוגיות לקונגרס"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "crsreports.congress.gov and congress.gov: Cloudflare 403 challenge",
+   "sgp.fas.org: AWS WAF challenge (HTTP 202 empty)",
+   "apps.dtic.mil and assets.documentcloud.org: 403",
+   "everycrsreport.com/files/R46725.pdf 404; used the HTML version rendered to PDF"
+  ],
+  "blocked_hosts": [
+   "crsreports.congress.gov",
+   "www.congress.gov",
+   "sgp.fas.org",
+   "irp.fas.org",
+   "apps.dtic.mil",
+   "assets.documentcloud.org"
+  ]
+ },
+ {
+  "doc": "X22",
+  "key": "israel_decl",
+  "path": "library/military/free/X22_israel_defense_export_control_law.pdf",
+  "title": "Defense Export Control Law, 5766-2007 (unofficial English translation)",
+  "author": "State of Israel, Ministry of Defense, Office of the General Counsel",
+  "edition": "October 2007 translation",
+  "source_url": "https://exportctrl.mod.gov.il/api/image-proxy/media/wqvn5vkx/defense_export_contro_law.pdf",
+  "pdf_pages": 32,
+  "text_ok": true,
+  "method": "direct",
+  "modules": {
+   "M7.15": [
+    {
+     "pages": [
+      1,
+      32
+     ],
+     "note": "החוק כולו (תרגום לא רשמי באנגלית): פרקים A מטרה, B הגדרות, C רישום יצואנים, D רישוי ועוד"
+    }
+   ]
+  },
+  "status": "partial",
+  "tried": [
+   "Only the law was found; the orders (צווים, e.g. Defense Export Control (Controlled Equipment) Order) are not included. English DECA page lists only the law PDF. Translation is 2007, may lack later amendments."
+  ],
+  "blocked_hosts": []
+ },
+ {
+  "doc": "X27",
+  "key": "fm_3_11_9",
+  "path": "library/military/free/X27_fm_3_11_9_cbrn_agents.pdf",
+  "title": "FM 3-11.9 / MCRP 3-37.1B / NTRP 3-11.32 / AFTTP(I) 3-2.55, Potential Military Chemical/Biological Agents and Compounds",
+  "author": "US Army/USMC/USN/USAF",
+  "edition": "January 2005",
+  "source_url": "https://archive.org/download/Potential_Military_Chemical_and_Biological_Agents_and_Compounds_MCRP_3-37.1B/Potential_Military_Chemical_and_Biological_Agents_and_Compounds_MCRP_3-37.1B.pdf",
+  "pdf_pages": 318,
+  "text_ok": true,
+  "method": "direct (archive.org copy of the same publication)",
+  "modules": {
+   "M11.20": [
+    {
+     "pages": [
+      17,
+      31
+     ],
+     "note": "פרק I: רקע ואיום"
+    },
+    {
+     "pages": [
+      32,
+      109
+     ],
+     "note": "פרק II: חומרי לחימה כימיים (עצבים, דם, שלפוחיות, משתקים, מקדמים) וטוקסיקולוגיה, LD50/Ct"
+    },
+    {
+     "pages": [
+      134,
+      163
+     ],
+     "note": "פרק IV: חומרים ביולוגיים (חיידקים, וירוסים, רעלנים)"
+    },
+    {
+     "pages": [
+      164,
+      169
+     ],
+     "note": "פרק V: מקורות מידע"
+    },
+    {
+     "pages": [
+      214,
+      249
+     ],
+     "note": "נספח H: הערכות רעילות"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [
+   "irp.fas.org returns HTTP 202 empty (WAF challenge)"
+  ],
+  "blocked_hosts": [
+   "irp.fas.org"
+  ],
+  "chapter_starts": {
+   "I": 17,
+   "II": 32,
+   "III_riot_control_smokes": 110,
+   "IV": 134,
+   "V": 164,
+   "appA": 170,
+   "appH": 214,
+   "appJ": 250
+  }
+ },
+ {
+  "doc": "X32",
+  "key": "ecss_spacewire",
+  "path": "library/military/free/X32_ecss_spacewire.pdf",
+  "title": "ECSS-E-ST-50-12C Rev.1, SpaceWire: Links, Nodes, Routers and Networks",
+  "author": "ESA/ECSS",
+  "edition": "15 May 2019",
+  "source_url": "https://ecss.nl/wp-content/uploads/2019/05/ECSS-E-ST-50-12C-Rev.1(15May2019).pdf",
+  "pdf_pages": 124,
+  "text_ok": true,
+  "method": "direct",
+  "modules": {
+   "M15.1": [
+    {
+     "pages": [
+      1,
+      124
+     ],
+     "note": "התקן כולו; רלוונטי ישירות לתת-נושא SpaceWire (פרקים 4 סקירה, 5 דרישות: שכבות פיזית/קידוד/ערוץ/רשת, ניתוב). לא מכסה 1553/ARINC 429/AFDX/TSN"
+    }
+   ]
+  },
+  "status": "ok",
+  "tried": [],
+  "blocked_hosts": []
+ }
+]

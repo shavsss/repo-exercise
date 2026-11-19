@@ -1,0 +1,564 @@
+[
+ {
+  "doc": "W05",
+  "key": "van_steen_ds",
+  "dir": "library/engineering/free",
+  "title": "Distributed Systems",
+  "author": "van Steen & Tanenbaum",
+  "edition": "4th ed. (2023), free personal PDF",
+  "url": "https://www.distributed-systems.net/index.php/books/ds4/",
+  "note": null,
+  "modules": {
+   "M22.16": {
+    "app": "Gilua",
+    "title": "Distributed systems",
+    "use": "פרקים 5–8 (זמן, עקביות ושכפול, עמידות לתקלות, Raft/Paxos, Byzantine)",
+    "subtopics": [
+     "Partial failure, unreliable networks and clocks",
+     "Replication",
+     "Partitioning",
+     "Transactions and isolation levels",
+     "Consistency models: linearizability and causality",
+     "Logical time and ordering",
+     "Consensus: Raft and FLP",
+     "Tail latency",
+     "Stream processing and messaging",
+     "Byzantine faults"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "W10",
+  "key": "baydin_ad",
+  "dir": "library/engineering/free",
+  "title": "Automatic Differentiation in Machine Learning: a Survey",
+  "author": "Baydin, Pearlmutter, Radul & Siskind",
+  "edition": "JMLR 2018, arXiv 1502.05767",
+  "url": "https://arxiv.org/abs/1502.05767",
+  "note": null,
+  "modules": {
+   "M10.13": {
+    "app": "Gilua",
+    "title": "Numerical ODEs, stiffness and automatic differentiation",
+    "use": "כולו",
+    "subtopics": [
+     "Convergence theory: consistency and zero-stability",
+     "Runge-Kutta methods and adaptive step size",
+     "Linear multistep methods and BDF",
+     "Stiffness: A- and L-stability, implicit RK",
+     "Newton iterations inside implicit steps",
+     "Differential-algebraic equations",
+     "Events and discontinuities",
+     "Automatic differentiation: forward and reverse",
+     "ODE sensitivity: forward and adjoint",
+     "Geometric integrators"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "W15",
+  "key": "jos_sasp",
+  "dir": "library/engineering/free",
+  "title": "Spectral Audio Signal Processing",
+  "author": "J. O. Smith III",
+  "edition": "CCRMA, free online",
+  "url": "https://ccrma.stanford.edu/~jos/sasp/",
+  "note": null,
+  "modules": {
+   "M4.17": {
+    "app": "Gilua",
+    "title": "Filter banks and polyphase channelizers",
+    "use": "פרקי filter banks: polyphase, DFT filter bank, perfect reconstruction, resampling",
+    "subtopics": [
+     "Polyphase decomposition and the noble identities",
+     "Multistage decimation and interpolation",
+     "Half-band and CIC filters",
+     "Digital down-conversion",
+     "DFT filter bank as polyphase + FFT",
+     "Channelizer design: decimation ratio, overlap and prototype filter",
+     "Synthesis banks and perfect reconstruction",
+     "Arbitrary-ratio resampling and the Farrow structure",
+     "Wideband receiver implementation on FPGA/RFSoC"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "W20",
+  "key": "liberzon_cvoc",
+  "dir": "library/engineering/free",
+  "title": "Calculus of Variations and Optimal Control Theory",
+  "author": "Liberzon",
+  "edition": "Princeton 2012, free draft from the author",
+  "url": "https://liberzon.csl.illinois.edu/teaching/cvoc.pdf",
+  "note": null,
+  "modules": {
+   "M5.19": {
+    "app": "Gilua",
+    "title": "Optimal control and MPC",
+    "use": "פרקים 4–5",
+    "subtopics": [
+     "Dynamic programming and the Bellman equation",
+     "The Hamilton-Jacobi-Bellman equation",
+     "Pontryagin's maximum principle in depth",
+     "Direct methods: shooting and collocation",
+     "Linear MPC formulation",
+     "MPC stability and recursive feasibility",
+     "Offset-free MPC and state estimation",
+     "Nonlinear MPC and real-time iteration",
+     "Robust and tube MPC"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "W25",
+  "key": "ts_38300",
+  "dir": "library/engineering/free",
+  "title": "3GPP TS 38.300, NR and NG-RAN Overall Description",
+  "author": "3GPP",
+  "edition": "Rel-18",
+  "url": "https://www.3gpp.org/ftp/Specs/archive/38_series/38.300/",
+  "note": "url unverified",
+  "modules": {
+   "M23.19": {
+    "app": "Gilua",
+    "title": "5G NR",
+    "use": "כולו",
+    "subtopics": [
+     "5G system architecture",
+     "OFDM numerology and bandwidth parts",
+     "Frame structure, physical channels and reference signals",
+     "Channel coding: LDPC and polar",
+     "Multi-antenna transmission and beam management",
+     "Scheduling, HARQ and link adaptation",
+     "Initial access and random access",
+     "Reading 3GPP specifications",
+     "Private, military and non-terrestrial 5G"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "X02",
+  "key": "mil_std_461g",
+  "dir": "library/military/free",
+  "title": "MIL-STD-461G and MIL-STD-464C (EMI test methods; system E3 requirements)",
+  "author": "US DoD",
+  "edition": "2015 / 2010",
+  "url": "https://quicksearch.dla.mil/",
+  "note": "url unverified",
+  "modules": {
+   "M7.18": {
+    "app": "Lanchester",
+    "title": "High-power microwaves: sources, front/back-door coupling, Wunsch-Bell",
+    "use": "MIL-STD-464C: HEMP ו-HPM",
+    "subtopics": [
+     "HPM sources and pulsed power",
+     "Narrowband versus wideband/UWB HPM",
+     "Radiated field, range and air breakdown",
+     "Front-door coupling",
+     "Back-door coupling and shielding effectiveness",
+     "Wunsch-Bell damage model and effect levels",
+     "Hardening against HPM and HEMP",
+     "Nuclear EMP E1/E2/E3 compared with HPM",
+     "HPM as C-UAS effector"
+    ]
+   },
+   "M15.6": {
+    "app": "Lanchester",
+    "title": "Platform integration: EMC/EMI and co-site interference",
+    "use": "MIL-STD-461G ו-464C",
+    "subtopics": [
+     "MIL-STD-461G tests at subsystem level",
+     "MIL-STD-464C system-level E3",
+     "Co-site interference mechanisms",
+     "Co-site mitigation",
+     "Antenna placement and platform coupling analysis",
+     "Own jammers versus own receivers",
+     "HERO and ordnance safety"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "X04",
+  "key": "dellaert_kaess",
+  "dir": "library/military/free",
+  "title": "Factor Graphs for Robot Perception",
+  "author": "Dellaert & Kaess",
+  "edition": "Foundations and Trends in Robotics 2017",
+  "url": "https://www.cs.cmu.edu/~kaess/pub/Dellaert17fnt.pdf",
+  "note": null,
+  "modules": {
+   "M5.13": {
+    "app": "Lanchester",
+    "title": "GPS-denied integrated navigation: tight INS, VIO, TERCOM/DSMAC, factor graphs",
+    "use": "כולו",
+    "subtopics": [
+     "Loose, tight and deep GNSS/INS coupling",
+     "Free-inertial error growth and IMU grades",
+     "Terrain-referenced navigation (TERCOM, SITAN)",
+     "Scene matching (DSMAC) and terminal image navigation",
+     "VIO and visual navigation in the military setting",
+     "Factor-graph smoothing for multi-sensor navigation",
+     "Magnetic anomaly navigation (MagNav)",
+     "Integrity and fault detection in fused navigation",
+     "Navigation error budget of a guided weapon",
+     "Land-vehicle aiding: odometry, ZUPT, non-holonomic constraints"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "X09",
+  "key": "ebadi_subt",
+  "dir": "library/military/free",
+  "title": "Present and Future of SLAM in Extreme Environments: The DARPA SubT Challenge",
+  "author": "Ebadi et al.",
+  "edition": "IEEE T-RO 2023, arXiv 2208.01787",
+  "url": "https://arxiv.org/abs/2208.01787",
+  "note": null,
+  "modules": {
+   "M11.16": {
+    "app": "Lanchester",
+    "title": "UGV autonomy: 3D perception, traversability, planning",
+    "use": "כולו",
+    "subtopics": [
+     "3D perception sensors in the field",
+     "Traversability estimation",
+     "Off-road planning and control",
+     "Localization without GNSS on the ground",
+     "Teleoperation versus supervised autonomy",
+     "Military UGV operations",
+     "Testing autonomy"
+    ]
+   },
+   "M11.17": {
+    "app": "Lanchester",
+    "title": "Subterranean warfare: tunnel detection (GPR, seismic, microgravity), GPS-free SLAM, confined blast",
+    "use": "כולו",
+    "subtopics": [
+     "Tunnel threat taxonomy and history",
+     "GPR physics and limits",
+     "Seismic and acoustic detection",
+     "Microgravity detection of voids",
+     "Other geophysical methods",
+     "Detection performance and barrier design",
+     "Underground navigation and mapping",
+     "Confined blast",
+     "Underground communications",
+     "Tunnel neutralization"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "W36",
+  "key": "spectre",
+  "dir": "library/engineering/free",
+  "title": "Spectre Attacks: Exploiting Speculative Execution",
+  "author": "Kocher et al.",
+  "edition": "IEEE S&P 2019, arXiv 1801.01203",
+  "url": "https://arxiv.org/abs/1801.01203",
+  "note": null,
+  "modules": {
+   "M28.6": {
+    "app": "Gilua",
+    "title": "Hardware and firmware security: root of trust, side channels, anti-tamper",
+    "use": "כולו",
+    "subtopics": [
+     "Hardware threat models and attack classes",
+     "Root of trust and secure boot",
+     "TPM, HSM and attestation",
+     "Trusted execution environments",
+     "Power and EM side channels",
+     "Microarchitectural side channels: cache attacks and Spectre",
+     "Fault injection",
+     "Hardware Trojans, counterfeits and PUFs",
+     "Anti-tamper and zeroization",
+     "Debug ports and secure firmware update"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "W41",
+  "key": "cummings_cdc",
+  "dir": "library/engineering/free",
+  "title": "Clock Domain Crossing (CDC) Design & Verification Techniques Using SystemVerilog",
+  "author": "Cummings",
+  "edition": "SNUG Boston 2008",
+  "url": "https://www.sunburst-design.com/papers/CummingsSNUG2008Boston_CDC.pdf",
+  "note": null,
+  "modules": {
+   "M28.3": {
+    "app": "Gilua",
+    "title": "Advanced RTL and FPGA: SystemVerilog, static timing analysis",
+    "use": "כולו",
+    "subtopics": [
+     "Synthesizable SystemVerilog",
+     "What synthesis builds",
+     "Setup, hold and maximum frequency",
+     "Static timing analysis and SDC constraints",
+     "Timing closure techniques",
+     "Clock domain crossing and metastability",
+     "Verification: testbenches, SVA and coverage",
+     "Formal verification basics",
+     "FPGA architecture and tool flow",
+     "Streaming interfaces: AXI and valid/ready"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "W46",
+  "key": "murphy_rl",
+  "dir": "library/engineering/free",
+  "title": "Reinforcement Learning: A Comprehensive Overview",
+  "author": "Murphy",
+  "edition": "arXiv 2412.05265 (2025 version)",
+  "url": "https://arxiv.org/abs/2412.05265",
+  "note": null,
+  "modules": {
+   "M18.11": {
+    "app": "Gilua",
+    "title": "Deep RL algorithms: DQN, PPO, SAC, model-based",
+    "use": "פרקים על value-based, policy-based ו-model-based",
+    "subtopics": [
+     "DQN and its family",
+     "Policy gradient theorem and variance reduction",
+     "Generalized advantage estimation",
+     "TRPO and PPO",
+     "Off-policy actor-critic: DDPG, TD3, SAC",
+     "Model-based RL: PETS, Dreamer, MuZero",
+     "Exploration in deep RL",
+     "Experimental methodology for RL",
+     "Practical training: environments and normalization"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "W51",
+  "key": "chinchilla",
+  "dir": "library/engineering/free",
+  "title": "Training Compute-Optimal Large Language Models",
+  "author": "Hoffmann et al.",
+  "edition": "arXiv 2203.15556 (2022)",
+  "url": "https://arxiv.org/abs/2203.15556",
+  "note": null,
+  "modules": {
+   "M29.2": {
+    "app": "Gilua",
+    "title": "Scaling laws and distributed training: TP/PP/EP, NCCL",
+    "use": "כולו",
+    "subtopics": [
+     "Scaling laws and compute-optimal training",
+     "Memory accounting for training",
+     "Data parallelism, ZeRO and FSDP",
+     "Collective communication and NCCL",
+     "Tensor parallelism",
+     "Pipeline parallelism",
+     "Expert, sequence and context parallelism",
+     "MFU, efficiency and failures at scale",
+     "Pretraining data: curation and contamination"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "W56",
+  "key": "agent_sources",
+  "dir": "library/engineering/free",
+  "title": "Building Effective Agents (Anthropic 2024); ReAct (arXiv 2210.03629); OpenVLA (2406.09246)",
+  "author": "Anthropic; Yao et al.; Kim et al.",
+  "edition": "2022-2024",
+  "url": "https://www.anthropic.com/engineering/building-effective-agents",
+  "note": null,
+  "modules": {
+   "M29.6": {
+    "app": "Gilua",
+    "title": "Agent systems and closed-loop control",
+    "use": "כולם",
+    "subtopics": [
+     "The agent loop as a feedback system",
+     "Tool use, function calling and retrieval",
+     "Planning, search and replanning",
+     "Memory and context management",
+     "Evaluating agents and reliability compounding",
+     "Failure modes and safety of agents",
+     "Multi-agent orchestration",
+     "Vision-language-action models",
+     "Hierarchical control with safety filters"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "W61",
+  "key": "cfd_direct_notes",
+  "dir": "library/engineering/free",
+  "title": "Notes on Computational Fluid Dynamics: General Principles",
+  "author": "Greenshields & Weller",
+  "edition": "CFD Direct 2022, free online",
+  "url": "https://doc.cfd.direct/notes/cfd-general-principles/",
+  "note": null,
+  "modules": {
+   "M15.32": {
+    "app": "Gilua",
+    "title": "CFD",
+    "use": "כולו",
+    "subtopics": [
+     "Finite-volume discretization of transport",
+     "Linear solvers for CFD",
+     "Pressure-velocity coupling",
+     "Meshing, y+ and grid convergence",
+     "RANS turbulence models and LES",
+     "Compressible solvers and shock capturing",
+     "Verification and validation",
+     "A practical OpenFOAM workflow"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "X12",
+  "key": "nrc_mines",
+  "dir": "library/military/free",
+  "title": "Naval Mine Warfare: Operational and Technical Challenges for Naval Forces",
+  "author": "National Research Council",
+  "edition": "NAP 2001",
+  "url": "https://nap.nationalacademies.org/catalog/10176",
+  "note": null,
+  "modules": {
+   "M10.10": {
+    "app": "Lanchester",
+    "title": "ASW operations analysis, mines and mine countermeasures",
+    "use": "כולו",
+    "subtopics": [
+     "ASW search and sweep width",
+     "Barriers and sonobuoy fields",
+     "ASW platforms and MAD",
+     "Datum search and furthest-on circle",
+     "Torpedoes",
+     "Mine types and influence actuation",
+     "Minefield effectiveness models",
+     "Mine countermeasures: hunting, sweeping, SAS, UUVs",
+     "Mine warfare cases"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "X17",
+  "key": "crs_jadc2",
+  "dir": "library/military/free",
+  "title": "Joint All-Domain Command and Control (R46725)",
+  "author": "Congressional Research Service",
+  "edition": "latest update",
+  "url": "https://crsreports.congress.gov/product/pdf/R/R46725",
+  "note": "url unverified",
+  "modules": {
+   "M7.13": {
+    "app": "Lanchester",
+    "title": "C2 and battle management, kill-chain automation, human-machine teaming",
+    "use": "כולו",
+    "subtopics": [
+     "C2 approach space and agility",
+     "Battle management system architectures",
+     "Threat evaluation and weapon assignment algorithms",
+     "Levels of kill-chain automation",
+     "Human factors of automated engagement",
+     "AI decision support and target nomination",
+     "Collection management and ISR tasking",
+     "C2 under degradation and its testing"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "X22",
+  "key": "israel_decl",
+  "dir": "library/military/free",
+  "title": "Defense Export Control Law, 5766-2007 (and orders)",
+  "author": "State of Israel, Ministry of Defense (DECA)",
+  "edition": "2007, with amendments",
+  "url": "https://www.exportctrl.mod.gov.il/",
+  "note": "url unverified",
+  "modules": {
+   "M7.15": {
+    "app": "Lanchester",
+    "title": "Law of armed conflict, weapons review, autonomy policy, export control",
+    "use": "החוק והצווים",
+    "subtopics": [
+     "LOAC targeting principles",
+     "Proportionality and CDE in practice",
+     "Weapons review (Article 36) and specific treaties",
+     "DoDD 3000.09 and the LAWS debate",
+     "Meaningful human control: technical implications",
+     "Israeli defense export control",
+     "International control regimes",
+     "Accountability for AI-enabled targeting"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "X27",
+  "key": "fm_3_11_9",
+  "dir": "library/military/free",
+  "title": "FM 3-11.9, Potential Military Chemical/Biological Agents and Compounds",
+  "author": "US Army/USMC/USN/USAF",
+  "edition": "2005",
+  "url": "https://irp.fas.org/doddir/army/fm3-11-9.pdf",
+  "note": "url is the FAS mirror; unverified",
+  "modules": {
+   "M11.20": {
+    "app": "Lanchester",
+    "title": "CBRN basics",
+    "use": "כולו (נבחר)",
+    "subtopics": [
+     "Chemical agent classes and toxicity",
+     "Biological agents",
+     "Gaussian plume dispersion",
+     "Persistence and delivery effectiveness",
+     "Detection",
+     "Protection and decontamination",
+     "Radiological dispersal and fallout basics",
+     "Arms control and cases"
+    ]
+   }
+  }
+ },
+ {
+  "doc": "X32",
+  "key": "ecss_spacewire",
+  "dir": "library/military/free",
+  "title": "ECSS-E-ST-50-12C Rev.1, SpaceWire: Links, Nodes, Routers and Networks",
+  "author": "ESA/ECSS",
+  "edition": "2019",
+  "url": "https://ecss.nl/standard/ecss-e-st-50-12c-rev-1-spacewire-links-nodes-routers-and-networks-15-may-2019/",
+  "note": null,
+  "modules": {
+   "M15.1": {
+    "app": "Lanchester",
+    "title": "Avionics and vetronics buses: MIL-STD-1553, ARINC 429, SpaceWire, TSN",
+    "use": "כולו",
+    "subtopics": [
+     "Federated versus integrated modular avionics",
+     "MIL-STD-1553B",
+     "ARINC 429",
+     "ARINC 664 part 7 (AFDX) and bounded latency",
+     "SpaceWire and SpaceFibre",
+     "Time-Sensitive Networking in vetronics",
+     "Open architectures: MOSA, FACE, SOSA",
+     "Bus security and avionics attack surface",
+     "End-to-end deterministic latency budgets"
+    ]
+   }
+  }
+ }
+]

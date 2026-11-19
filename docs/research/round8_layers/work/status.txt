@@ -1,0 +1,99 @@
+s1 W01 ok py_rse
+s1 W06 ok kochenderfer_opt
+s1 W11 ok sarkka_solin_sde
+s1 W16 ok ee263_see
+s1 W21 ok soderstrom_stoica
+s1 W26 ok lin_5g
+s1 X03 ok nielsen_dew
+s1 X05 ok forster_preint
+s1 W32 ok boneh_shoup
+s1 W37 ok cuda_guide
+s1 W42 failed ieee_1800
+s1 W47 ok slp3
+s1 W52 ok rlhfbook
+s1 W57 ok edge_papers
+s1 W62 ok nasa_tmr
+s1 X13 ok reid_undex
+s1 X18 ok alberts_hayes
+s1 X23 ok rubin_besa
+s1 X28 ok glasstone_dolan
+s1 X33 ok fm_3_12
+s2 W02 ok vanderplas_pdsh
+s2 W07 ok madsen_nlls
+s2 W12 not fetched nist_esh
+s2 W17 partial mit_6241
+s2 W22 ok ifac_computer_control
+s2 X01 ok ietf_manet_rfcs
+s2 W29 ok prince_cvmli
+s2 X06 not fetched canciani_magnav
+s2 W33 ok fips_203
+s2 W38 ok sze_dnn
+s2 W43 ok freertos_book
+s2 W48 ok llm_arch_papers
+s2 W53 ok reasoning_papers
+s2 W58 ok cs329s
+s2 W63 ok newman_mh
+s2 X14 ok tracy_wright
+s2 X19 not fetched dsb_autonomy
+s2 X24 ok holland_michel_cuas
+s2 X29 ok glaser_centrifuge
+s2 X34 not fetched gao_19_128
+s3 W03 not fetched modern_c
+s3 W08 not fetched suli_odes
+s3 W13 not fetched nrc_stat_testing
+s3 W18 not fetched skogestad_mfc
+s3 W23 not fetched banerjee_pll
+s3 W27 not fetched schneider_fdtd
+s3 W30 not fetched barfoot_ser
+s3 X07 not fetched volpe_cpnt
+s3 W34 not fetched anderson_se
+s3 W39 not fetched cxl_intro
+s3 W44 not fetched sysml2_release
+s3 W49 not fetched scaling_book
+s3 W54 not fetched inference_papers
+s3 W59 not fetched sculley_debt
+s3 X10 not fetched nasa_sp8076
+s3 X15 not fetched crs_hypersonic
+s3 X20 not fetched dod_low_manual
+s3 X25 not fetched pettyjohn_cnas
+s3 X30 not fetched iaea_glossary
+s3 X35 not fetched usace_em1802
+s4 W04 ok ostep
+s4 W09 ok sundials_docs
+s4 W14 ok mil_hdbk_338b
+s4 W19 ok rawlings_mpc
+s4 W24 ok madhow_intro
+s4 W28 ok degen_qs
+s4 W31 ok sola_lie
+s4 X08 ok lavalle_planning
+s4 W35 ok nist_800_193
+s4 W40 not fetched amd_ug949
+s4 W45 not fetched spinningup
+s4 W50 not fetched ultrascale
+s4 W55 ok vision_papers
+s4 W60 not fetched leishman_ifv
+s4 X11 ok nrc_auv
+s4 X16 ok crs_dew
+s4 X21 not fetched dodd_3000_09
+s4 X26 ok fm_3_09
+s4 X31 ok uk_wargaming
+s4 X36 ok ufc_3_340_02
+s5 W05 not fetched van_steen_ds
+s5 W10 not fetched baydin_ad
+s5 W15 not fetched jos_sasp
+s5 W20 not fetched liberzon_cvoc
+s5 W25 not fetched ts_38300
+s5 X02 not fetched mil_std_461g
+s5 X04 not fetched dellaert_kaess
+s5 X09 not fetched ebadi_subt
+s5 W36 not fetched spectre
+s5 W41 not fetched cummings_cdc
+s5 W46 not fetched murphy_rl
+s5 W51 not fetched chinchilla
+s5 W56 not fetched agent_sources
+s5 W61 not fetched cfd_direct_notes
+s5 X12 not fetched nrc_mines
+s5 X17 not fetched crs_jadc2
+s5 X22 not fetched israel_decl
+s5 X27 not fetched fm_3_11_9
+s5 X32 not fetched ecss_spacewire

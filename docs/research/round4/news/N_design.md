@@ -102,7 +102,53 @@ Tiers drive the certainty tag. **A** primary official or standards body, **B** r
 | arXiv `eess.SP` (keyword: radar, array, MIMO, GNSS, tracking), `physics.space-ph` | B | API + prefilter | Radar/EW/satnav signal processing at textbook level. |
 | Standards: ITU-R (spectrum, WRC), RTCA/EUROCAE, 3GPP NTN, NATO public STANAG list, ASSIST (MIL-STD revisions, titles only) | A | listing | "Standard" items: spectrum allocations, UAS/airspace standards, open interfaces. |
 
-Excluded on purpose, both apps: paywalled bodies (Janes, AW&ST) unless an open copy exists, social media, aggregators without a primary link, leaked or classified documents even when public, and any live-operations tracking (unit locations, real-time OSINT of ongoing operations).
+Excluded on purpose, both apps: paywalled bodies (Janes, AW&ST) unless an open copy exists, social media as a source of facts (a post may appear only as a quoted post, §1.11), aggregators without a primary link, leaked or classified documents even when public, and any live-operations tracking (unit locations, front lines, strike reporting, real-time OSINT of ongoing operations).
+
+### 1.3a Sources by region (the weekend edition, 15.11.2026)
+
+The learner asked for a global paper: the United States at most 40% of items, and the rest from Europe, the UK, Israel, Turkey, China, Taiwan, Japan, Korea, India, Russia and Ukraine, the Gulf, Iran and Africa (`region` in the schema; `INTL` for international bodies). A region with nothing worth printing in a week is skipped, never filled. **State media** (marked ★ below, and any outlet owned or directed by a government) is tagged `stateMedia: true`, shown with a tag, never the only source of a claim and never the lead: it is paired with an independent fetched source, or printed as "single" with the body saying whose claim it is. A government's own primary document (a ministry release, a budget, a standard) is tier A, not state media.
+
+**Gilua (engineering and science; no defense sources in any region)**
+
+| Region | Outlets, institutes, journals |
+|---|---|
+| US (≤ 40%) | IEEE Spectrum, NASA/NTRS, NIST, DOE labs (NREL, Sandia, LBNL), MIT News, Quanta, APS *Physics*, *Science*, *PNAS*, *Joule* |
+| EU | ESA, CERN, Fraunhofer, Max Planck, imec, ETH/EPFL news, CORDIS, ENTSO-E, ACER, *Nature Electronics/Energy* |
+| UK | IET *E&T*, *The Engineer*, Royal Academy of Engineering, UKRI, Imperial/Cambridge/Oxford news, NESO (grid), *Nature* news |
+| IL | Technion, Weizmann, TAU, HUJI and BGU news, Israel Innovation Authority, Israel Space Agency, Globes and Calcalist tech (C) |
+| TR | TÜBİTAK, Istanbul Technical University, METU news, Anadolu Agency science/energy ★ |
+| CN | Chinese Academy of Sciences, Tsinghua/USTC news, *National Science Review*, Caixin Global, SCMP science, Xinhua sci-tech ★, CGTN ★ |
+| TW | ITRI, TSMC technical posts (D), National Taiwan University, DigiTimes Asia, Focus Taiwan (CNA) ★ |
+| JP | JAXA, RIKEN, AIST, JST, Nikkei Asia tech, NHK World science |
+| KR | KAIST, ETRI, KIST, Samsung/SK hynix technical posts (D), Korea JoongAng Daily tech, Yonhap ★ |
+| IN | ISRO, IISc, IIT news, *Current Science*, The Hindu science, Mint tech, PIB (primary, A) |
+| RU / UA | Skoltech and Russian Academy papers via arXiv, TASS science ★, Kyiv Independent tech, National Academy of Sciences of Ukraine |
+| GULF | KAUST, Khalifa University, MBRSC, Masdar, The National, Arab News, WAM ★, SPA ★ |
+| IR | Sharif/Tehran University papers via arXiv and journals, Tehran Times ★, IRNA ★ (always paired) |
+| AF | SARAO/MeerKAT, CSIR South Africa, Eskom reports, *Nature Africa*, University World News Africa, TechCabal |
+| INTL | ITU, IEA, IRENA, ISO/IEC, IEEE SA, 3GPP, BIPM |
+
+**Lanchester (military-technical analysis; analysis level only, §1.8)**
+
+| Region | Outlets, think tanks, journals |
+|---|---|
+| US (≤ 40%) | GAO, CRS, DOT&E, CBO, MDA, RAND, CSIS (Missile Defense Project, Aerospace Security), Breaking Defense, Defense News, The War Zone, SpaceNews, DVIDS (pictures) |
+| EU | SIPRI, EDA, FRS, IFRI, SWP Berlin, ECFR, Clingendael, hartpunkt, Opex360 |
+| UK | RUSI, IISS (Military Balance blog, *Survival*), NAO, House of Commons Library, MoD/DE&S releases, UK Defence Journal |
+| IL | INSS, Alma, Misgav, IMOD/MAFAT releases (A), Israel Defense, Times of Israel and Globes defense (C) |
+| TR | SETA, EDAM, SSB releases (A), Defence Turkey, TRT World ★, Anadolu ★ |
+| CN | CASI, CSIS ChinaPower, Jamestown *China Brief*, SCMP, China Military Online ★, Global Times ★, Xinhua ★ |
+| TW | INDSR, MND releases (A), Global Taiwan Institute, Taipei Times, Focus Taiwan (CNA) ★ |
+| JP | MOD/ATLA releases and the defense white paper (A), NIDS, Nikkei Asia, Japan Times |
+| KR | KIDA, Asan Institute, DAPA releases (A), 38 North, Korea JoongAng Daily, Yonhap ★ |
+| IN | MP-IDSA, ORF, DRDO and PIB defense (A), ThePrint, Livefist, The Hindu |
+| RU / UA | Ukrainian MoD and Defense Express (programs and industry only), Kyiv Independent, Meduza, Kommersant, TASS ★, RIA ★ — never front-line or strike reporting |
+| GULF | EDGE Group releases (D), Gulf Research Center, The National, Arab News, WAM ★, SPA ★ |
+| IR | Iran Watch, CSIS Missile Threat, Arms Control Association, Iran International, IRNA ★, Tasnim ★ (always paired) |
+| AF | ISS Africa, defenceWeb, African Defence Review |
+| INTL | UNODA, IAEA, ITU-R/WRC, NATO public documents |
+
+Journals for both apps' "from the labs" corner and features: IEEE Transactions (AES, Signal Processing, Power Electronics, Antennas and Propagation), AIAA journals (abstract pages), *Science & Global Security*, *Journal of Strategic Studies* (Lanchester), *Defence and Peace Economics* (Lanchester), Nature family and *Science* (Gilua). Open abstracts and open copies only.
 
 ### 1.4 Relevance to curriculum and progress
 
@@ -154,19 +200,33 @@ At most 3 per issue, only where an item opens a concrete, small, buildable thing
 
 About 1–1.5 U per app per week (U = one in-page lesson today, A3 §1.6), 2–3 U for both. Network fetches are about 60–120 per run, well inside a session. Cap: `NEWS_MAX_FETCH=150`, `NEWS_MAX_ITEMS=20`; if usage runs out, the run publishes what has passed verification (≥ 6 items) or publishes nothing and records why.
 
+**Weekend edition (15.11.2026):** 25–35 items with a 600–900-word lead and 3–4 features of about 400 words roughly doubles the writing and checking stages and adds picture search: about 1.2–1.5M input and 150–200k output tokens per app per week. Caps: `NEWS_MAX_FETCH=300`, `NEWS_MAX_ITEMS=35`, minimum 8 items.
+
 ### 1.10 Quality gates (any failure = item dropped; gate 1–3 failure for the whole issue = no publish)
 
 1. **Fetched this week.** Every source URL has `httpStatus 200`, `fetchedAt` inside the run, `sha256` of the text, and the page title in the fetched text. verify.py re-fetches every link in stage 5 (a second time, separate from stage 3).
 2. **Quote present.** `quote` appears verbatim (whitespace-normalized) in the fetched text.
-3. **Schema and ids.** JSON schema, module ids exist, 10 ≤ items ≤ 20 (or a marked short issue ≥ 6), doc ≤ 230 KB.
+3. **Schema and ids.** JSON schema, module ids exist, 25 ≤ items ≤ 35 (or a short issue ≥ 8), US ≤ 40% of items, picture URLs only `/_blob/…`, doc ≤ 230 KB.
 4. **Date window.** Publication date inside the window, or the item is tagged "ישן אך חדש לך" with the date shown (allowed for at most 2 items).
 5. **Dedup.** Not in the last 8 issues (URL or title ≥ 0.85).
 6. **Independent check** (§1.2 stage 5): every factual sentence supported; numbers exact; certainty tag matches source tier (an arXiv link can never be "שפוט").
 7. **No invented items, ever.** The writer has no URL field of its own: `sources[]` is filled by code from `work/<id>.json`, so a model cannot introduce a link. Example content is flagged `example: true` and the page refuses to render such an issue outside the prototype.
 
+8. **Posts, charts, pictures** (§1.11): `post.text` appears verbatim in a page fetched this run; every chart value appears in the fetched text of `chart.source.url`; every picture has credit, license and sourcePage read from its file page.
+
 `_status` records candidates, fetched, verified, dropped by reason; the issue footer shows these counts, so the learner sees the filter working.
 
+### 1.11 Pictures, charts and social posts (15.11.2026)
+
+- **Pictures.** The learner wants real pictures, not decoration. A picture need not come from the article: a relevant freely licensed picture of the subject (the star, the radar, the grid, the chip) from Wikimedia Commons, NASA, ESA, NOAA, DVIDS (Lanchester only) or a government image library is enough, with credit and license in the caption and "תמונה להמחשה" when it does not show the event itself. The Artifact CSP blocks images from other hosts, so the run downloads a reduced copy (800–1200 px, JPEG ≤ 250 KB) and uploads it to the app's asset store (Artifact publish with `url`, `file_path`, `asset: true`); the result's `/_blob/<id>` goes into `images[].url`. Pictures never go inside the issue document (230 KB limit). One per lead, feature and econ/geo item; optional elsewhere. No AI-generated images.
+- **Charts.** Only from numbers in a source fetched this run (a table in a report, a dataset); bar or line, at most three series, values copied exactly, `null` for a gap. The page draws them as black-and-white inline SVG with title, unit and a source line.
+- **Social posts.** X, Bluesky or Mastodon posts by researchers, engineers, agencies or analysts, as a "ברשתות" corner. A post enters only when a page fetched in this run (the post page, an embed or an article quoting it) contains its text verbatim. There is no X API; a post is never reconstructed from memory or a search snippet. A post is a quote, not a source of facts.
+
 ## 2. Issue format
+
+**The printed edition (15.11.2026, supersedes the list below where they differ).** The learner chose "מהדורה מודפסת": a masthead with the Hebrew and Gregorian date, edition and issue number; a "בגיליון זה" index that filters by section; a front page with the lead wide (picture, body with a drop cap, chart, editor's note in the margin) and a side column of 3–4 features and the number of the week; sections under a heading rule in three columns (short sections share a row); then the corners: the app's own corner (Gilua "כלכלת הטכנולוגיה", Lanchester "הפינה הגאופוליטית" — open-source analysis, no live operations) beside "מהמעבדות" and "ברשתות", and "מבט מהעולם" (one topic, two countries side by side); a colophon with "לקרוא ב-10 דקות", saved items and how the stories were chosen. Black ink on off-white (and its dark-mode inverse), serif headlines, hairline rules, one restrained accent for the section kickers. The connection to the study modules is an editor's note in the margin, not a colored box; tags are one small muted line (kind · certainty · region · tier · date, and "תקשורת ממשלתית" for state media). No opinion column. Code: `src/labtabs/News.tsx` and the "weekly paper" block of `labtabs.css`, the same in both apps.
+
+The original format (October 2026):
 
 - **Masthead**: app name, issue number, week, "נבנה ב-<date>", counts (candidates → verified).
 - **Lead story**: one item, larger, with its "connects" chips and a 3-line "why it matters to you".

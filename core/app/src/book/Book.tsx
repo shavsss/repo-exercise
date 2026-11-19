@@ -33,7 +33,7 @@ import type { LessonNote } from "../types";
 import { BookCtx, type BookBridge, type BookCard, type BookCtxValue } from "./context";
 import { FIGURES, INTERACTIVE, PLATES, WHOLE, chunkText, uniqueIds, type Chunk } from "./chunks";
 import { charWidth, heightOf, lineCuts } from "./measure";
-import { pageEnd, pageFill, pageOf, paginate, type Box, type Frag, type Page } from "./paginate";
+import { pageEnd, pageFill, pageOf, paginate, stalePages, type Box, type Frag, type Page } from "./paginate";
 import { EASE, FADE_MS, FAST_MS, OPEN_MS, PEEL_MS, TURN_MS, makeOpen, makeTurn, reducedMotion, type TurnStyle } from "./turn";
 import "./book.css";
 
@@ -358,6 +358,7 @@ interface PageProps {
   cardsHere: { card: BookCard; top: number }[];
   onCard: (id: string) => void;
   onPageSwipe: (e: React.PointerEvent, p: number) => void;
+  onGrow: (c: Chunk, h: number) => void;
 }
 
 const PageView = memo(function PageView(pp: PageProps) {
@@ -376,7 +377,7 @@ const PageView = memo(function PageView(pp: PageProps) {
       {p > 0 && pp.runhead && <div className="bk-runhead">{pp.runhead}</div>}
       <div className="bk-body" ref={body} style={{ top: g.head, height: g.cap }}>
         {page?.frags.map((f) => (
-          <FragView key={`${f.i}:${f.from}`} f={f} c={chunks[f.i]} prev={chunks[f.i - 1]} header={pp.header} ctx={chunks[f.i]?.open && pp.live ? liveCtx : mdCtx} onContinue={pp.onContinue} end={pp.end} />
+          <FragView key={`${f.i}:${f.from}`} f={f} c={chunks[f.i]} prev={chunks[f.i - 1]} header={pp.header} ctx={chunks[f.i]?.open && pp.live ? liveCtx : mdCtx} onContinue={pp.onContinue} end={pp.end} onGrow={pp.onGrow} />
         ))}
         {pp.tail && pp.live && last && <div className="bk-pen" style={{ top: last.top + last.h + 4 }} aria-hidden />}
         {page && page.next.held.length > 0 && (
@@ -401,46 +402,35 @@ const PageView = memo(function PageView(pp: PageProps) {
   );
 });
 
-function FragView({ f, c, prev, header, ctx, onContinue, end }: { f: Frag; c: Chunk | undefined; prev?: Chunk; header?: BookHeader; ctx: MdContextValue; onContinue?: () => void; end?: ReactNode }) {
-  const box = useRef<HTMLDivElement>(null);
+function FragView({ f, c, prev, header, ctx, onContinue, end, onGrow }: { f: Frag; c: Chunk | undefined; prev?: Chunk; header?: BookHeader; ctx: MdContextValue; onContinue?: () => void; end?: ReactNode; onGrow?: (c: Chunk, h: number) => void }) {
   const inner = useRef<HTMLDivElement>(null);
-  const [over, setOver] = useState(!!f.over);
+  // a block taller than a page: a picture, a table or an equation is drawn smaller to fit it; only a block the
+  // learner works in (or the back matter) scrolls inside, with a mark
+  const fit = !!f.over && !!c && c.kind !== "end" && !INTERACTIVE.has(c.lang ?? "");
+  const scroll = !!f.over && !fit;
+  const [scale, setScale] = useState(1);
   const [atEnd, setAtEnd] = useState(false);
-  // room the block may take when it grew: down to the next block or the end of the page
-  const [room, setRoom] = useState<number | null>(null);
-  // a block that grew after its page was laid out (a picture that loaded late, a think question's amber card)
-  // is never cut silently: its window scrolls, with a mark
+  // a block drawn taller here than its window (a font or a picture that loaded after it was measured) is never
+  // scrolled or cut: the book takes this height and lays the pages out again
   useLayoutEffect(() => {
     const el = inner.current;
-    if (!el || !f.end) return;
+    if (!el || !c) return;
     const check = () => {
-      const need = el.scrollHeight - f.from;
-      let h = f.h;
-      const b = box.current;
-      if (b && !f.over && need > f.h + 2) {
-        // a think question opened, or a picture loaded: take the free space before scrolling inside a sliver
-        let limit = (b.parentElement?.clientHeight ?? f.top + f.h) - f.top;
-        for (let n = b.nextElementSibling as HTMLElement | null; n; n = n.nextElementSibling as HTMLElement | null) {
-          if (n.classList.contains("bk-frag")) {
-            limit = n.offsetTop - f.top - 6;
-            break;
-          }
-        }
-        h = Math.max(f.h, Math.min(need, limit));
-      }
-      setRoom(h > f.h ? h : null);
-      setOver(!!f.over || need > h + 2);
+      const full = el.scrollHeight;
+      if (fit) setScale(Math.min(1, f.h / full));
+      else if (f.end && !f.over && full - f.from > f.h + 2) onGrow?.(c, full);
     };
     check();
     const ro = new ResizeObserver(check);
     ro.observe(el);
     return () => ro.disconnect();
-  }, [f]);
+  }, [f, c, fit, onGrow]);
   if (!c) return null;
   const cls = ["bk-frag", chunkClass(c, prev)];
   if (!f.end) cls.push("is-head");
   if (f.from > 0) cls.push("is-tail");
-  if (over) cls.push("is-over");
+  if (scroll) cls.push("is-over");
+  if (fit) cls.push("is-fit");
   if (atEnd) cls.push("at-end");
   const contHead = !f.end && c.kind === "fence";
   const contTail = f.from > 0 && c.kind === "fence";
@@ -448,19 +438,18 @@ function FragView({ f, c, prev, header, ctx, onContinue, end }: { f: Frag; c: Ch
     <>
       <div
         className={cls.join(" ")}
-        ref={box}
         data-chunk={c.key}
-        style={{ top: f.top, height: room ?? f.h }}
-        onScroll={over ? (e) => setAtEnd(e.currentTarget.scrollTop + e.currentTarget.clientHeight >= e.currentTarget.scrollHeight - 4) : undefined}
+        style={{ top: f.top, height: f.h }}
+        onScroll={scroll ? (e) => setAtEnd(e.currentTarget.scrollTop + e.currentTarget.clientHeight >= e.currentTarget.scrollHeight - 4) : undefined}
       >
         <MdContext.Provider value={ctx}>
-          <div className="prose bk-text" ref={inner} style={over ? undefined : { marginTop: -f.from }}>
+          <div className="prose bk-text" ref={inner} style={fit ? { transform: `scale(${scale})`, transformOrigin: "50% 0" } : { marginTop: -f.from }}>
             <ChunkBody c={c} header={header} onContinue={onContinue} end={end} />
           </div>
         </MdContext.Provider>
       </div>
-      {over && !atEnd && (
-        <div className="bk-more" style={{ top: f.top + (room ?? f.h) - 26 }} aria-hidden>
+      {scroll && !atEnd && (
+        <div className="bk-more" style={{ top: f.top + f.h - 26 }} aria-hidden>
           <span>הבלוק ממשיך · גללו בתוכו</span>
         </div>
       )}
@@ -522,6 +511,18 @@ export function BookView(props: BookProps) {
   const [mtick, setMtick] = useState(0);
   const W = g?.W ?? 0;
   const fs = g?.fs ?? 0;
+  // a block drawn taller on its page than in the galley: that height is taken, for this text, width and size
+  const grown = useRef(new Map<string, { h: number; at: string }>());
+  const onGrow = useCallback(
+    (c: Chunk, h: number) => {
+      const at = `${c.text.length}:${W}:${fs}`;
+      const old = grown.current.get(c.key);
+      if (old && old.at === at && old.h >= h) return;
+      grown.current.set(c.key, { h, at });
+      setMtick((n) => n + 1);
+    },
+    [W, fs],
+  );
   useLayoutEffect(() => {
     const root = galley.current;
     if (!root || !W) return;
@@ -535,7 +536,8 @@ export function BookView(props: BookProps) {
       const inner = el.firstElementChild as HTMLElement | null;
       if (!inner) return;
       const alt = alts.get(c.key)?.firstElementChild as HTMLElement | null | undefined;
-      const h = Math.max(heightOf(inner), alt ? heightOf(alt) : 0);
+      const gr = grown.current.get(c.key);
+      const h = Math.max(heightOf(inner), alt ? heightOf(alt) : 0, gr && gr.at === `${c.text.length}:${W}:${fs}` ? gr.h : 0);
       const sig = `${c.text.length}:${c.text.slice(-24)}:${W}:${fs}:${h}`;
       const old = measures.current.get(c.key);
       if (old?.sig === sig) return;
@@ -571,6 +573,13 @@ export function BookView(props: BookProps) {
   if (sigChanged) frozen.current = { sig, pages: [] };
   const boxes = useMemo(() => (g ? chunks.map((c, i) => boxOf(c, measures.current.get(c.key), chunks[i - 1], g)) : []), [chunks, g, mtick]); // eslint-disable-line react-hooks/exhaustive-deps
   const ready = !!g && chunks.every((c) => c.kind === "end" || measures.current.has(c.key));
+  // a seen page whose blocks changed height (a late font or picture) would scroll or cut inside a block: the book
+  // is laid out again, and the reader is taken back to the block being read
+  const relaid = useRef(false);
+  if (g && ready && frozen.current.pages.length && stalePages(frozen.current.pages, boxes, g.cap)) {
+    frozen.current.pages = [];
+    relaid.current = true;
+  }
   const pages = useMemo(() => (g && ready ? paginate(boxes, g.cap, g.lu, frozen.current.pages, true) : []), [boxes, g, ready, sig]); // eslint-disable-line react-hooks/exhaustive-deps
   const n = pages.length;
   // the fill of every page, for the test page only (core/tools/test-check/book.mjs sets window.__bookFill to null
@@ -630,7 +639,8 @@ export function BookView(props: BookProps) {
       return;
     }
     // a new page size: back to the page that holds the block being read
-    if (sigChanged || (anchor.current && !pages[cur]?.frags.some((f) => f.i === anchor.current!.i))) {
+    if (sigChanged || relaid.current || (anchor.current && !pages[cur]?.frags.some((f) => f.i === anchor.current!.i))) {
+      relaid.current = false;
       if (anchor.current) setCur(first(pageOf(pages, anchor.current.i, anchor.current.off)));
     }
   }, [pages, posKey]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -1364,6 +1374,7 @@ export function BookView(props: BookProps) {
           bridge.emit();
         }}
         onPageSwipe={onPageSwipe}
+        onGrow={onGrow}
       />,
     );
   }

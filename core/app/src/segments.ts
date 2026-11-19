@@ -118,7 +118,7 @@ export function depthBar(segments: Segment[], full = true): BarCheck[] {
     { key: "l25", label: "שבעת סעיפי 2.5", ok: missing25.length === 0, detail: missing25.length ? `חסר: ${missing25.join(", ")}` : "7/7" },
     { key: "think", label: "שאלות עצירה", ok: count("think") > 0, detail: String(count("think")) },
     { key: "history", label: "רקע למודל", ok: count("history") > 0 },
-    { key: "case", label: "מקרה בוחן", ok: count("casestudy") > 0 },
+    { key: "case", label: "מקרה בוחן", ok: count("casestudy") > 0 || /^#{2,4} [^\n]*מקרה בוחן/m.test(text) },
     { key: "domains", label: "4 חיבורים לליבה", ok: links >= 4, detail: String(links) },
     { key: "figures", label: "איורים מהמקור", ok: count("figure") > 0, detail: String(count("figure")) },
     { key: "graphics", label: "גרפיקה וסימולציה", ok: graphics > 0, detail: String(graphics) },

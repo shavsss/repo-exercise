@@ -22,8 +22,7 @@
 
 /* ---------- the hero band every tab gets in place of its plain head ---------- */
 .vivid .lt-head,
-.vivid .rv-head,
-.vivid .news-mast {
+.vivid .rv-head {
   position: relative;
   overflow: hidden;
   border: 1px solid var(--line);
@@ -47,7 +46,6 @@
   font-size: clamp(1.7rem, 4vw, 2.4rem);
 }
 .v-review { --h1: 265; --h2: 215; --h3: 330; }
-.v-news { --h1: 8; --h2: 40; --h3: 205; }
 .v-products { --h1: 205; --h2: 185; --h3: 235; }
 .v-reviews { --h1: 170; --h2: 140; --h3: 205; }
 
@@ -186,89 +184,6 @@
 .rv-dot.d-fade { background: hsl(38 85% 52%); }
 .rv-dot.d-slip { background: hsl(345 70% 56%); }
 .rv-dot.d-new { border: 2px solid hsl(var(--h) 45% 55%); }
-
-/* ---------- the paper: colored sections, a front page with a drop cap ---------- */
-.v-news .news-mast {
-  text-align: center;
-  padding-bottom: 16px;
-}
-.v-news .news-mast::after {
-  content: "";
-  position: absolute;
-  inset-inline: 0;
-  bottom: 0;
-  height: 5px;
-  background: linear-gradient(90deg, hsl(205 70% 50%), hsl(150 55% 45%), hsl(42 85% 52%), hsl(18 75% 52%), hsl(330 60% 52%), hsl(280 50% 55%));
-}
-.v-news .news-kicker {
-  color: hsl(8 60% var(--vl));
-  font-weight: 700;
-  letter-spacing: 0.08em;
-}
-.v-news .news-lead {
-  border-radius: 16px;
-  padding: 20px 22px;
-  border: 1px solid var(--line);
-  background:
-    radial-gradient(90% 120% at 100% 0%, hsl(42 85% 60% / 0.2), transparent 60%),
-    var(--sheet);
-}
-.v-news .news-lead h2 {
-  font-size: clamp(1.6rem, 3.8vw, 2.3rem);
-}
-.v-news .news-lead .news-body > p:first-child::first-letter,
-.v-news .news-lead .news-body .md > p:first-child::first-letter {
-  float: right;
-  font: 700 3.3em/0.85 "Frank Ruhl Libre", var(--font);
-  margin: 0.06em 0 0 0.12em;
-  color: hsl(8 65% var(--vl));
-}
-.v-news .nk { border-color: hsl(var(--kh, 210) 50% 50% / 0.5); background: hsl(var(--kh, 210) 70% 60% / 0.15); color: hsl(var(--kh, 210) 55% var(--vl)); font-weight: 600; }
-.v-news .nk-paper { --kh: 235; }
-.v-news .nk-report { --kh: 200; }
-.v-news .nk-system { --kh: 18; }
-.v-news .nk-standard { --kh: 280; }
-.v-news .nk-data { --kh: 150; }
-.v-news .nk-event { --kh: 340; }
-.v-news .sec-chip {
-  border-color: hsl(var(--h) 50% 50% / 0.5);
-}
-.v-news .sec-chip[aria-pressed="true"] {
-  background: hsl(var(--h) 65% 50%);
-  border-color: hsl(var(--h) 65% 45%);
-  color: #fff;
-}
-.v-news .news-section h3 {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: hsl(var(--h) 55% var(--vl));
-  border-bottom: 3px solid hsl(var(--h) 60% 52% / 0.7);
-  padding-bottom: 4px;
-}
-.v-news .news-section h3::before {
-  content: "";
-  width: 10px;
-  height: 10px;
-  border-radius: 2px;
-  background: hsl(var(--h) 65% 52%);
-}
-.v-news .news-item {
-  border-inline-start: 3px solid hsl(var(--h) 60% 55% / 0.55);
-  padding-inline-start: 14px;
-}
-.v-news .news-why {
-  border-inline-start-color: hsl(8 70% 50%);
-  background: linear-gradient(90deg, hsl(8 80% 60% / 0.1), transparent 70%);
-}
-.v-news .news-side .lt-card {
-  border-top: 4px solid hsl(var(--sh, 205) 60% 52%);
-}
-.v-news .news-side .lt-card:nth-child(2) { --sh: 150; }
-.v-news .news-side .lt-card:nth-child(3) { --sh: 42; }
-.v-news .lt-box.idea {
-  background: linear-gradient(135deg, hsl(170 70% 50% / 0.12), transparent 60%), var(--sheet);
-}
 
 /* ---------- the product: a blueprint head and a road of stages ---------- */
 .v-products .lt-head {
@@ -691,8 +606,7 @@
 @media (max-width: 520px) {
   .hh,
   .vivid .lt-head,
-  .vivid .rv-head,
-  .vivid .news-mast {
+  .vivid .rv-head {
     padding: 18px 16px 14px;
     border-radius: 14px;
   }
