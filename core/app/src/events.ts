@@ -96,7 +96,7 @@ export interface LessonPlace {
 export const LessonPlaceCtx = createContext<LessonPlace | null>(null);
 
 /* ---------------- the events log ---------------- */
-export type EventType = "think.commit" | "think.grade" | "think.skip" | "think.reset" | "predict.commit" | "predict.grade" | "consult.ask" | "consult.more" | "practice.answer" | "practice.skip";
+export type EventType = "think.commit" | "think.grade" | "think.skip" | "think.reset" | "predict.commit" | "predict.grade" | "consult.ask" | "consult.more" | "practice.answer" | "practice.skip" | "case.commit";
 
 const EVENTS_PER_DAY = 500;
 const dayOf = (ts: number) => {
@@ -147,8 +147,8 @@ export interface CalibRecord {
   /** how sure he was; optional before a question the system grades (practice blocks) */
   conf?: Conf;
   grade?: Grade;
-  /** a practice block (Practice.tsx): its kind, the feedback he got, or that he chose to skip it */
-  kind?: "mcq" | "numeric" | "explain";
+  /** a practice block (Practice.tsx): its kind, the feedback he got, or that he chose to skip it; "case": a stage of the engineering case (CaseRoom.tsx) */
+  kind?: "mcq" | "numeric" | "explain" | "case";
   feedback?: string;
   skipped?: boolean;
   ts: number;

@@ -16,12 +16,12 @@
    "pages": 364
   },
   "F1": {
-   "file": "app/artifact/books/feyn1.json",
+   "file": "library/math-physics/text/feyn1.json",
    "title": "The Feynman Lectures on Physics, Vol. I",
    "pages": 515
   },
   "F2": {
-   "file": "app/artifact/books/feyn2.json",
+   "file": "library/math-physics/text/feyn2.json",
    "title": "The Feynman Lectures on Physics, Vol. II",
    "pages": 518
   },

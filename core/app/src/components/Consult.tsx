@@ -14,7 +14,7 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, useSyncExternalStore, type RefObject } from "react";
 import { createPortal } from "react-dom";
 import type { Runtime, SampleTool } from "../runtime";
-import { runCompute } from "../tutor";
+import { computeTool, sampleWithFallback } from "../sampleRun";
 import { Markdown, MdContext } from "./Markdown";
 import { Icon } from "./Icon";
 import { sectionAt, textOf } from "./lessonText";
@@ -321,34 +321,22 @@ export function ConsultLayer({
       const cap = Math.round(LEVEL_WORDS[lvl] * SLACK * (!prev && needsRestart(thread, question.trim()) ? 2.5 : 1)) + 20;
       let stopped = false;
       let shown = "";
-      const tools: SampleTool[] | undefined =
-        lvl >= 1 && rt.canUseTools
-          ? [
-              {
-                name: "compute",
-                description: "Evaluate a math.js script, one statement per line (units, complex numbers, matrices). Returns every line with its value.",
-                inputSchema: { type: "object", properties: { script: { type: "string" } }, required: ["script"] },
-                execute: (input) => runCompute(String(input.script ?? "")).output || "(no output)",
-              },
-            ]
-          : undefined;
-      const run = (model: string) =>
-        rt.sample!(prompt, {
-          model,
-          modelTier: lvl === 0 ? "quick" : lvl === 1 ? "default" : "complex",
-          effort: EFFORT[lvl],
-          signal: c.signal,
-          cache: false,
-          tools: lvl === 0 ? undefined : tools,
-          onText: ({ text }) => {
-            shown = text;
-            write({ ...turn, a: base + text });
-            if (!stopped && wordCount(text) > cap) {
-              stopped = true;
-              c.abort();
-            }
-          },
-        });
+      const tools: SampleTool[] | undefined = lvl >= 1 && rt.canUseTools ? [computeTool()] : undefined;
+      const opts = {
+        modelTier: (lvl === 0 ? "quick" : lvl === 1 ? "default" : "complex") as "quick" | "default" | "complex",
+        effort: EFFORT[lvl],
+        signal: c.signal,
+        cache: false,
+        tools: lvl === 0 ? undefined : tools,
+        onText: ({ text }: { text: string }) => {
+          shown = text;
+          write({ ...turn, a: base + text });
+          if (!stopped && wordCount(text) > cap) {
+            stopped = true;
+            c.abort();
+          }
+        },
+      };
       const finish = (text: string, cut: boolean, model?: string) => {
         let body = text;
         if (cut) {
@@ -364,18 +352,10 @@ export function ConsultLayer({
         logEvent(continuing ? "consult.more" : "consult.ask", place, { card: id, kind: card.kind, level: lvl, discuss: !!turn.discuss, words: words(body), cut: !!cut, model: model ?? "" });
       };
       try {
-        let res;
+        // the model may not be served here, or refused: the other one answers; and an empty answer gets one more try with it
         const main = modelOf(lvl);
-        try {
-          res = await run(main);
-        } catch (e) {
-          if (c.signal.aborted) throw e;
-          // the model may not be served here, or refused: the other one answers; and an empty answer gets one more try with it
-          res = await run(otherModel(main));
-        }
-        if (!res.text.trim()) res = await run(otherModel(main));
-        if (!res.text.trim()) throw { message: "empty" };
-        finish(res.text, res.truncated, res.modelApplied);
+        const res = await sampleWithFallback(rt, prompt, main, otherModel(main), opts);
+        finish(res.text, res.truncated, res.model);
       } catch (e) {
         if (stopped) finish(shown, true);
         else if (c.signal.aborted) {

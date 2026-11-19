@@ -24,6 +24,7 @@ import { BookPlate } from "../book/Plate";
 import { PLATES } from "../book/chunks";
 import { GuideTag, useBlockGuide, useHeadGuide } from "./LessonGuide";
 import { QuizForm, type QuizCtx } from "./QuizForm";
+import { CaseCard } from "./CaseRoom";
 import { NotebookBlock } from "./blocks/Notebook";
 
 export interface MdContextValue {
@@ -91,6 +92,7 @@ function FencedBlock({ lang, code }: { lang: string; code: string }) {
   if (lang === "verify") return <Verify source={code} />;
   if (lang === "lab") return <Lab source={code} />;
   if (lang === "decide") return <Decide source={code} />;
+  if (lang === "case") return <CaseCard source={code} />;
   if (lang === "exercise") return <Exercise source={code} />;
   if (lang === "figure") return <FigureBlock source={code} />;
   if (lang === "sim") return <SimBlock source={code} live={ctx.live} />;

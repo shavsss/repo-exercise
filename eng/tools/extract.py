@@ -2,9 +2,9 @@
 
 Reuses the Core Lab extractor (core/tools/extract/extract.py) on the documents of
 library/engineering/syllabus/syllabus.py, writing eng/build/lib/<doc>/. Three
-sources need no PDF work: Feynman I and II exist only as text (app/artifact/books/
+sources need no PDF work: Feynman I and II exist only as text (library/math-physics/text/
 feyn1.json, feyn2.json), and Kolmogorov's three volumes are scans whose OCR text
-the learning lab already has (math1-3.json). Their pages are taken from those
+the removed learning lab made (math1-3.json, kept in library/math-physics/text/). Their pages are taken from those
 files; the Kolmogorov pages are flagged as OCR, so pack.py adds page images.
 
 Run with the OCR venv: python eng/tools/extract.py [DOC ...] [--pages A-B] [--force]
@@ -26,13 +26,13 @@ core.LIB = ROOT
 core.OUT = OUT
 core.DOCS = DOCS
 
-# documents taken from the learning lab's text files: doc → (file, OCR'd scan)
+# documents taken from the text files (made by the removed learning lab): doc → (file, OCR'd scan)
 TEXT_ONLY = {
-    "F1": ("app/artifact/books/feyn1.json", False),
-    "F2": ("app/artifact/books/feyn2.json", False),
-    "K1": ("app/artifact/books/math1.json", True),
-    "K2": ("app/artifact/books/math2.json", True),
-    "K3": ("app/artifact/books/math3.json", True),
+    "F1": ("library/math-physics/text/feyn1.json", False),
+    "F2": ("library/math-physics/text/feyn2.json", False),
+    "K1": ("library/math-physics/text/math1.json", True),
+    "K2": ("library/math-physics/text/math2.json", True),
+    "K3": ("library/math-physics/text/math3.json", True),
 }
 
 
