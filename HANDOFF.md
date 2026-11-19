@@ -16,7 +16,13 @@
 ## מגבלת מקום בגילואה
 גרסת Artifact: 256MB/511 קבצים, 64MB לפעימה, LIB_BUDGET 215MB ב-eng/tools/pack.py, מאגר assets לכבדים (BUILD_GUIDE §11.4–11.6, §12.2). הלומד אומר שגילואה על הסף.
 
-## מצב
+## מצב (עודכן)
+סבב 9 יושם ונדחף (672ea3b). הענף מוזג עם integrate/2026-11-17 (המצב החי: גילואה v140, לנצ'סטר v156); main ישן בשבוע, לא לעבוד ממנו.
+השלב הבא: פרסום בלבד, לפי docs/research/round8/PUBLISH_STEPS.md (רק lib/index.json ו-lib/text/W9x.json, בלי app.js ובלי אריזה מלאה). לפני כן להריץ את validate.py עם dump אמיתי של נתוני הלומד (רץ עם dump ריק).
+מקום: מאגר ה-assets של גילואה מלא (נשארו 3.4MB), הגרסה כ-261/268MB. ספר מסחרי עם הרבה איורים (Crawley) ידרוש קודם דחיסה מחדש של החבילות הכבדות (E30, E09a, E09, K1–K3, W66), באישור הלומד.
+רשימת קנייה: ARCH_SOFTWARE_SOURCES.md §6.
+
+### מצב קודם
 סוכן רקע מבצע מחקר + יישום. פלטים צפויים: docs/research/round8/ARCH_SOFTWARE_SOURCES.md, docs/research/round8/PUBLISH_STEPS.md, שינויים בסילבוס, push לענף claude/adoring-sagan-30ce0y.
 בשיחה הבאה: `git pull`, לקרוא את שני הקבצים, לבדוק את השינויים, ואז לפרסם לפי PUBLISH_STEPS.md (גילואה, ולנצ'סטר אם השתנה).
 
