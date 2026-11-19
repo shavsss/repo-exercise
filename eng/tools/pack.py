@@ -29,7 +29,7 @@ LIB_BUDGET = 215_000_000
 # (1 GiB per artifact, 3.4 MB free on 19.11.2026) and the version near 256 MiB, so documents whose
 # pages are born-digital text (round 9: papers, slides, standards) cost only their text in lib/.
 # --text-only adds more for one run.
-TEXT_ONLY = {"W92", "W93", "W94", "W95", "W96", "W97"}
+TEXT_ONLY = {"W92", "W93", "W94", "W95", "W96", "W97", "W98"}
 # asset-store bundles are larger (one upload call each; an asset may be up to 20 MiB)
 ASSET_BUNDLE = 18_000_000
 ASSETS = ROOT / "eng" / "app" / "artifact" / "assets"
@@ -58,7 +58,7 @@ SHORT = {
     "E45": "White", "E46": "Alexander", "E47": "Langtangen-Mardal", "E48": "Särkkä", "E49a": "Murphy", "E49b": "Murphy",
     "E50": "Levine", "E51": "STPA", "E52": "NASA PRA", "E53": "Pozar",
     "W92": "Crawley ESD.34", "W93": "Arch classics", "W94": "Internet design", "W95": "Distributed papers",
-    "W96": "Datacenter as a Computer", "W97": "DDS & MQTT",
+    "W96": "Datacenter as a Computer", "W97": "DDS & MQTT", "W98": "Data systems",
 }
 
 

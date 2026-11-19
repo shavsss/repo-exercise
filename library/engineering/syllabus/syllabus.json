@@ -799,6 +799,11 @@
    "file": "library/engineering/free/W97_dds_mqtt_middleware_core.pdf",
    "title": "Middleware standards, core sections: OMG DDS 1.4 (overview, design rationale, QoS); OASIS MQTT 5.0 (introduction, operational behavior, security)",
    "pages": 73
+  },
+  "W98": {
+   "file": "library/engineering/free/W98_data_systems_papers.pdf",
+   "title": "Data-systems papers: O'Neil et al., LSM-tree 1996; Chang et al., Bigtable 2006; Nishtala et al., Scaling Memcache at Facebook 2013; Pelkonen et al., Gorilla 2015; Kleppmann, Schema evolution 2012",
+   "pages": 80
   }
  },
  "parts": [
@@ -14727,6 +14732,15 @@
      ],
      "note": "Brooks 1986: מורכבות מהותית, כלים ומה לא יעזור",
      "role": "main"
+    },
+    {
+     "doc": "W98",
+     "pages": [
+      73,
+      80
+     ],
+     "note": "Kleppmann 2012: התפתחות סכמה ב-Avro, Protocol Buffers ו-Thrift",
+     "role": "main"
     }
    ]
   },
@@ -15244,6 +15258,33 @@
       134
      ],
      "note": "פרק 10: אמינות, זמינות, אבטחה ופרטיות",
+     "role": "main"
+    },
+    {
+     "doc": "W98",
+     "pages": [
+      1,
+      32
+     ],
+     "note": "O'Neil et al. 1996: עץ LSM, וההשוואה ל-B-tree בעלות I/O",
+     "role": "main"
+    },
+    {
+     "doc": "W98",
+     "pages": [
+      33,
+      46
+     ],
+     "note": "Bigtable 2006: מפה ממוינת מעל מערכת קבצים ושירות נעילות",
+     "role": "main"
+    },
+    {
+     "doc": "W98",
+     "pages": [
+      47,
+      60
+     ],
+     "note": "Scaling Memcache at Facebook 2013: שכבת מטמון בקנה מידה",
      "role": "main"
     }
    ]
@@ -15846,6 +15887,15 @@
       73
      ],
      "note": "MQTT 5.0: התנהגות תפעולית, סדר, בקרת זרימה ואבטחה",
+     "role": "main"
+    },
+    {
+     "doc": "W98",
+     "pages": [
+      61,
+      72
+     ],
+     "note": "Gorilla 2015: דחיסה ושמירה של נתוני טלמטריה",
      "role": "main"
     }
    ]

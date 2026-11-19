@@ -32,7 +32,7 @@
 | P19 גשר: רובוטיקה | 12 | 859 | 56 | 0 | 12 |
 | P20 פריפריה: מתמטיקה דיסקרטית | 10 | 426 | 29 | 0 | 21 |
 | P21 פריפריה: אלגוריתמים | 11 | 360 | 24 | 0 | 292 |
-| P22 פריפריה: מערכות מחשב | 20 | 3065 | 204 | 394 | 867 |
+| P22 פריפריה: מערכות מחשב | 20 | 3145 | 209 | 394 | 867 |
 | P23 פריפריה: תקשורת ספרתית ואלחוטית | 20 | 869 | 57 | 1061 | 261 |
 | P24 פריפריה: פיזיקה מודרנית: יחסות וקוונטים | 15 | 819 | 54 | 105 | 144 |
 | P25 פריפריה: התקני מוליכים למחצה ותכנון שבבים | 13 | 463 | 31 | 253 | 284 |
@@ -41,7 +41,7 @@
 | P28 גשר: תכן ספרתי, מחשוב מואץ ומערכות זמן-אמת | 6 | 5657 | 377 | 0 | 0 |
 | P29 גשר: הנדסת AI מודרני | 8 | 1328 | 89 | 351 | 0 |
 | P30 גשר: הנדסה ימית | 6 | 3415 | 228 | 0 | 0 |
-| **סה"כ** | 462 | 36694 | 2452 | 6510 | 14272 |
+| **סה"כ** | 462 | 36774 | 2457 | 6510 | 14272 |
 
 האומדן: שיעור לכל כ-15 עמודי מקור, כולל השלמות. בהשלמות המורה מלמד רק את מה שחדש לעומת המקור הראשי.
 
@@ -3398,10 +3398,11 @@
 - ★ Operating Systems: Three Easy Pieces, עמ' PDF 566–586: פרק 42: FSCK ו-journaling: עקביות לאחר קריסה
 
 ### M22.17 תכן תוכנה: הסתרת מידע, חוזי ממשק, תלויות, גרסאות ומורכבות
-*Software design: information hiding, interface contracts, dependencies, versions, complexity* · **ליבה** · 27 עמ' · כ-2 שיעורים · דרישות: M27.13, M22.14
+*Software design: information hiding, interface contracts, dependencies, versions, complexity* · **ליבה** · 35 עמ' · כ-2 שיעורים · דרישות: M27.13, M22.14
 
 - ★ Architecture and organization classics: Conway 1968; Parnas 1972; Brooks, No Silver Bullet 1986; Ulrich 1995; MacCormack, Rusnak & Baldwin, mirroring 2008, עמ' PDF 5–10: Parnas 1972, נקרא שוב בעיני מהנדס תוכנה
 - ★ Architecture and organization classics: Conway 1968; Parnas 1972; Brooks, No Silver Bullet 1986; Ulrich 1995; MacCormack, Rusnak & Baldwin, mirroring 2008, עמ' PDF 11–31: Brooks 1986: מורכבות מהותית, כלים ומה לא יעזור
+- ★ Data-systems papers: O'Neil et al., LSM-tree 1996; Chang et al., Bigtable 2006; Nishtala et al., Scaling Memcache at Facebook 2013; Pelkonen et al., Gorilla 2015; Kleppmann, Schema evolution 2012, עמ' PDF 73–80: Kleppmann 2012: התפתחות סכמה ב-Avro, Protocol Buffers ו-Thrift
 
 ### M22.16 מערכות מבוזרות
 *Distributed systems* · **ליבה** · 289 עמ' · כ-19 שיעורים · דרישות: M22.14, M23.12, M27.13
@@ -3431,13 +3432,16 @@
 - ★ Distributed-systems design papers: Lamport 1978; Dynamo 2007; Spanner 2012; Abadi, PACELC 2012; Dean & Barroso, The Tail at Scale 2013, עמ' PDF 39–44: Abadi 2012: PACELC
 
 ### M22.18 מערכות בקנה מידה: תורים וזנב, עומס-יתר, אמינות ועלות
-*Systems at scale: queues and tails, overload, reliability, cost* · **ליבה** · 141 עמ' · כ-9 שיעורים · דרישות: M22.19, M7.1
+*Systems at scale: queues and tails, overload, reliability, cost* · **ליבה** · 201 עמ' · כ-13 שיעורים · דרישות: M22.19, M7.1
 
 - ★ Distributed-systems design papers: Lamport 1978; Dynamo 2007; Spanner 2012; Abadi, PACELC 2012; Dean & Barroso, The Tail at Scale 2013, עמ' PDF 45–51: Dean & Barroso 2013: The Tail at Scale
 - ★ Barroso, Hoelzle, Ranganathan et al., The Datacenter as a Computer, 4th ed. (open access), ch. 1-4, 8, 10, עמ' PDF 1–52: Barroso et al. פרקים 1-3: מרכז הנתונים כמחשב, ארכיטקטורה ועומסי עבודה
 - ★ Barroso, Hoelzle, Ranganathan et al., The Datacenter as a Computer, 4th ed. (open access), ch. 1-4, 8, 10, עמ' PDF 53–75: פרק 4: תשתית התוכנה המבוזרת
 - ★ Barroso, Hoelzle, Ranganathan et al., The Datacenter as a Computer, 4th ed. (open access), ch. 1-4, 8, 10, עמ' PDF 76–94: פרק 8: ביצועים ועלויות (TCO)
 - ★ Barroso, Hoelzle, Ranganathan et al., The Datacenter as a Computer, 4th ed. (open access), ch. 1-4, 8, 10, עמ' PDF 95–134: פרק 10: אמינות, זמינות, אבטחה ופרטיות
+- ★ Data-systems papers: O'Neil et al., LSM-tree 1996; Chang et al., Bigtable 2006; Nishtala et al., Scaling Memcache at Facebook 2013; Pelkonen et al., Gorilla 2015; Kleppmann, Schema evolution 2012, עמ' PDF 1–32: O'Neil et al. 1996: עץ LSM, וההשוואה ל-B-tree בעלות I/O
+- ★ Data-systems papers: O'Neil et al., LSM-tree 1996; Chang et al., Bigtable 2006; Nishtala et al., Scaling Memcache at Facebook 2013; Pelkonen et al., Gorilla 2015; Kleppmann, Schema evolution 2012, עמ' PDF 33–46: Bigtable 2006: מפה ממוינת מעל מערכת קבצים ושירות נעילות
+- ★ Data-systems papers: O'Neil et al., LSM-tree 1996; Chang et al., Bigtable 2006; Nishtala et al., Scaling Memcache at Facebook 2013; Pelkonen et al., Gorilla 2015; Kleppmann, Schema evolution 2012, עמ' PDF 47–60: Scaling Memcache at Facebook 2013: שכבת מטמון בקנה מידה
 
 ### M22.15 קריפטוגרפיה ויסודות הנדסת אבטחה
 *Cryptography and security engineering foundations* · **ליבה** · 896 עמ' · כ-60 שיעורים · דרישות: M20.5, M23.12
@@ -3451,12 +3455,13 @@
 - ★ FIPS 203, Module-Lattice-Based Key-Encapsulation Mechanism Standard, עמ' PDF 44–49: פרקים 7–8: אלגוריתמי ML-KEM וסטים של פרמטרים
 
 ### M22.20 תווכה ופרוטוקולי pub/sub במערכות מבצעיות: DDS, MQTT וזמן
-*Middleware and pub/sub in operational systems: DDS, MQTT and time* · **ליבה** · 73 עמ' · כ-5 שיעורים · דרישות: M23.20, M28.5
+*Middleware and pub/sub in operational systems: DDS, MQTT and time* · **ליבה** · 85 עמ' · כ-6 שיעורים · דרישות: M23.20, M28.5
 
 - ★ Middleware standards, core sections: OMG DDS 1.4 (overview, design rationale, QoS); OASIS MQTT 5.0 (introduction, operational behavior, security), עמ' PDF 1–14: DDS 1.4: סקירה ורציונל התכן (data-centric pub/sub)
 - ★ Middleware standards, core sections: OMG DDS 1.4 (overview, design rationale, QoS); OASIS MQTT 5.0 (introduction, operational behavior, security), עמ' PDF 15–37: DDS 1.4: מדיניות QoS (reliability, durability, deadline, ownership, history)
 - ★ Middleware standards, core sections: OMG DDS 1.4 (overview, design rationale, QoS); OASIS MQTT 5.0 (introduction, operational behavior, security), עמ' PDF 38–47: MQTT 5.0: מבוא, רמות QoS ומונחים
 - ★ Middleware standards, core sections: OMG DDS 1.4 (overview, design rationale, QoS); OASIS MQTT 5.0 (introduction, operational behavior, security), עמ' PDF 48–73: MQTT 5.0: התנהגות תפעולית, סדר, בקרת זרימה ואבטחה
+- ★ Data-systems papers: O'Neil et al., LSM-tree 1996; Chang et al., Bigtable 2006; Nishtala et al., Scaling Memcache at Facebook 2013; Pelkonen et al., Gorilla 2015; Kleppmann, Schema evolution 2012, עמ' PDF 61–72: Gorilla 2015: דחיסה ושמירה של נתוני טלמטריה
 
 ## חלק 23: פריפריה: תקשורת ספרתית ואלחוטית
 

@@ -72,6 +72,7 @@
 | W95 | Lamport 1978; Dynamo 2007; Spanner 2012; Abadi, PACELC 2012; Dean & Barroso 2013 | `free/W95_distributed_design_papers.pdf` |
 | W96 | Barroso et al., *The Datacenter as a Computer*, 4th ed. (open access), פרקים 1–4, 8, 10 | `free/W96_barroso_datacenter_as_computer_4ed_core.pdf` |
 | W97 | OMG DDS 1.4 ו-OASIS MQTT 5.0, הסעיפים המרכזיים | `free/W97_dds_mqtt_middleware_core.pdf` |
+| W98 | O'Neil et al., LSM-tree 1996; Chang et al., Bigtable 2006; Nishtala et al., Scaling Memcache at Facebook 2013; Pelkonen et al., Gorilla 2015; Kleppmann, Schema evolution 2012 | `free/W98_data_systems_papers.pdf` |
 
 **עוד חסרים:** סוף הספר של Horowitz & Hill (מעמ' 1062), עמוד 283 ב-Ashby, ו-PDF של פיינמן כרכים I ו-II (כרגע ב-`library/math-physics/` כ-`.txt`, בלי איורים). מסבב 7 לא יגיעו Khalil, Bar-Shalom / Simon, Erickson, Thrun, Mahajan, Szeliski ו-EE263 (מה שמכסה במקומם: GAPS ב-`syllabus/syllabus.py`).
 
