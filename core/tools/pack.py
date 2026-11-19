@@ -201,6 +201,8 @@ def main():
                     help="with --only: keep the base index's modules as they are (only documents change)")
     ap.add_argument("--assets", nargs="*", default=[],
                     help="with --only: these documents' figure and page-image bundles go to the asset store")
+    ap.add_argument("--text-only", nargs="*", default=[],
+                    help="with --only: these documents are packed without figure and page-image bundles, like REF_DOCS")
     args = ap.parse_args()
     ASSET_DOCS.update(args.assets)
     for d in ("text", "fig", "pg"):
@@ -214,7 +216,7 @@ def main():
         fresh = {}
         for doc in args.only:
             rel, title = DOCS[doc]
-            r = pack_doc(doc, rel, title, with_images=doc not in REF_DOCS)
+            r = pack_doc(doc, rel, title, with_images=doc not in REF_DOCS and doc not in args.text_only)
             if r:
                 docs[doc], fresh[doc] = r
         write_index(docs, base["modules"] if args.keep_modules else module_list(docs, fresh, base["modules"]), base.get("assets", {}))

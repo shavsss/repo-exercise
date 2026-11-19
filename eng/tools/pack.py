@@ -25,6 +25,11 @@ OUT = Path(os.environ.get("PACK_OUT", ROOT / "eng" / "app" / "artifact" / "lib")
 # Chosen in main(): the heaviest documents move there until lib/ fits LIB_BUDGET.
 ASSET_DOCS = set()
 LIB_BUDGET = 215_000_000
+# Documents packed as text only, without figure and page-image bundles: the asset store is full
+# (1 GiB per artifact, 3.4 MB free on 19.11.2026) and the version near 256 MiB, so documents whose
+# pages are born-digital text (round 9: papers, slides, standards) cost only their text in lib/.
+# --text-only adds more for one run.
+TEXT_ONLY = {"W92", "W93", "W94", "W95", "W96", "W97"}
 # asset-store bundles are larger (one upload call each; an asset may be up to 20 MiB)
 ASSET_BUNDLE = 18_000_000
 ASSETS = ROOT / "eng" / "app" / "artifact" / "assets"
@@ -52,6 +57,8 @@ SHORT = {
     "E39": "Hill & Peterson", "E40": "Nelson", "E41": "Shigley", "E42": "Janssen", "E43": "Megson", "E44": "Jones",
     "E45": "White", "E46": "Alexander", "E47": "Langtangen-Mardal", "E48": "Särkkä", "E49a": "Murphy", "E49b": "Murphy",
     "E50": "Levine", "E51": "STPA", "E52": "NASA PRA", "E53": "Pozar",
+    "W92": "Crawley ESD.34", "W93": "Arch classics", "W94": "Internet design", "W95": "Distributed papers",
+    "W96": "Datacenter as a Computer", "W97": "DDS & MQTT",
 }
 
 
@@ -124,6 +131,8 @@ def asset_urls(docs):
 
 def heavy_bytes(doc):
     """Estimated size of a document's figure and page-image bundles (base64 inflates by 4/3)."""
+    if doc in TEXT_ONLY:
+        return 0
     src = BUILD / doc
     fig = sum(f.stat().st_size for f in (src / "fig").glob("*.webp")) * 4 / 3 if (src / "fig").exists() else 0
     pg = sum(f.stat().st_size for f in (src / "pg").glob("*.json")) if (src / "pg").exists() else 0
@@ -150,7 +159,8 @@ def pack_doc(doc, rel, title, docs, sections):
         print("not extracted yet:", doc)
         return
     pages = json.loads((src / "pages.json").read_text())
-    figs = json.loads((src / "figures.json").read_text()) if (src / "figures.json").exists() else {}
+    with_images = doc not in TEXT_ONLY
+    figs = json.loads((src / "figures.json").read_text()) if (src / "figures.json").exists() and with_images else {}
     text = {k: {"l": v.get("label"), "t": v["text"], **({"o": 1} if v.get("ocr") else {})} for k, v in pages.items()}
     (OUT / "text" / f"{doc}.json").write_text(dumps(text))
 
@@ -165,7 +175,7 @@ def pack_doc(doc, rel, title, docs, sections):
     fig_files, fig_index = bundle(doc, fig_items, "fig")
 
     pdf = source_pdf(rel)
-    ocr_pages = [k for k in sorted(pages, key=int) if pages[k].get("ocr")] if pdf else []
+    ocr_pages = [k for k in sorted(pages, key=int) if pages[k].get("ocr")] if pdf and with_images else []
     cache = src / "pg"
     cache.mkdir(exist_ok=True)
     pg_items = []
@@ -306,5 +316,7 @@ if __name__ == "__main__":
     ap.add_argument("--only", nargs="*", help="pack only these documents, onto --base")
     ap.add_argument("--base", help="the published lib/index.json, for --only")
     ap.add_argument("--assets", nargs="*", default=[], help="with --only: these documents' figure and page-image bundles go to the asset store")
+    ap.add_argument("--text-only", nargs="*", default=[], help="these documents are packed without figure and page-image bundles (added to TEXT_ONLY)")
     a = ap.parse_args()
+    TEXT_ONLY.update(a.text_only)
     main_only(a.only, a.base, a.assets) if a.only else main()
