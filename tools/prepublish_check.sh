@@ -15,23 +15,28 @@ else
   fail=1
 fi
 
-# the last "פרסום:" line in STATUS.md names version, branch and commit
-line=$(grep -E '^- פרסום:' docs/STATUS.md | tail -1)
-if [ -z "$line" ]; then
+# every "- פרסום:" line in STATUS.md names a commit that was live at some point: HEAD must contain all of them
+# (the lines are newest-first, so checking only one of them missed publishes; fixed 19.11.2026)
+git fetch -q origin '+refs/heads/*:refs/remotes/origin/*' 2>/dev/null || echo "warning: could not fetch all branches"
+lines=$(grep -E '^- פרסום:' docs/STATUS.md)
+if [ -z "$lines" ]; then
   echo "warning: no '- פרסום:' line in docs/STATUS.md; cannot tell which commit is live"
 else
-  echo "last recorded publish: ${line#- }"
-  commit=$(printf '%s\n' "$line" | grep -oE 'commit `?[0-9a-f]{7,40}' | tail -1 | grep -oE '[0-9a-f]{7,40}$')
-  if [ -n "$commit" ]; then
+  echo "latest recorded publish: $(printf '%s\n' "$lines" | head -1 | cut -c3-200)"
+  for commit in $(printf '%s\n' "$lines" | grep -oE 'commit `?[0-9a-f]{7,40}' | grep -oE '[0-9a-f]{7,40}$'); do
     if ! git cat-file -e "$commit^{commit}" 2>/dev/null; then
-      echo "FAIL: live commit $commit is not in this clone; fetch its branch and merge it"
-      fail=1
-    elif git merge-base --is-ancestor "$commit" HEAD; then
-      echo "ok: HEAD contains the live commit $commit"
-    else
-      echo "FAIL: HEAD does not contain the live commit $commit; merge its branch first"
-      fail=1
+      echo "FAIL: published commit $commit is not in this clone; fetch its branch and merge it"; fail=1
+    elif ! git merge-base --is-ancestor "$commit" HEAD; then
+      echo "FAIL: HEAD does not contain published commit $commit; merge its branch first"; fail=1
     fi
-  fi
+  done
+  [ $fail -eq 0 ] && echo "ok: HEAD contains every recorded published commit"
 fi
+
+# a branch that says it published (in its STATUS.md) but is not merged here: its work would be dropped
+for b in $(git branch -r --no-merged HEAD | grep -E 'origin/(claude|integrate)/'); do
+  if git diff "HEAD...$b" -- docs/STATUS.md 2>/dev/null | grep -qE '^\+.*(פורסמ|פרסום:|[Pp]ublished)'; then
+    echo "FAIL: $b records a publish and is not merged into HEAD; merge it first"; fail=1
+  fi
+done
 exit $fail
