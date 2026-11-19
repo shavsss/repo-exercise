@@ -74,6 +74,7 @@
 /* ---------- the desk ---------- */
 .bk-root {
   --bk-fs: var(--read-size, 18.5px);
+  --bk-font: var(--bk-pick, "Frank Ruhl Libre", "IBM Plex Sans Hebrew", serif);
   position: relative;
   flex: 1;
   min-height: 0;
@@ -296,7 +297,7 @@
 /* ---------- the page's typography: Frank Ruhl Libre on a 33 px grid at 18.5 px, justified with care (B1 §4) ---------- */
 .bk-text,
 .prose.bk-text {
-  font-family: "Frank Ruhl Libre", "IBM Plex Sans Hebrew", serif;
+  font-family: var(--bk-font);
   font-size: var(--bk-fs);
   line-height: var(--bk-lu);
   color: var(--bk-ink);
@@ -337,7 +338,7 @@
 .bk-text .block-body p { text-align: start; }
 .bk-text .block-body > :last-child { margin-bottom: 0; }
 .bk-text .block-head { margin-bottom: 4px; }
-.bk-text .block .block-title { font-family: "Frank Ruhl Libre", serif; font-size: 1.04em; line-height: 1.35; }
+.bk-text .block .block-title { font-family: var(--bk-font); font-size: 1.04em; line-height: 1.35; }
 .bk-text .b3 { margin: 0; }
 .bk-text .table-wrap { margin: 0; }
 .bk-text .figure { margin: 0; }
@@ -571,7 +572,7 @@
 .bk-consult-host .consult-head { padding-inline: 0; }
 .bk-consult-host .consult-body { padding-inline: 0; }
 .bk-consult-host .consult-answer {
-  font-family: "Frank Ruhl Libre", serif;
+  font-family: var(--bk-font);
   font-size: var(--bk-fs);
   line-height: 1.62;
 }

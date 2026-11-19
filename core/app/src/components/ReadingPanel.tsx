@@ -8,7 +8,7 @@ const OPTIONS: { key: Choice; label: string; values: [string, string][]; when?: 
   { key: "plateAuto", label: "תלת-ממד, סימולטורים ואנימציות", values: [["facing", "נפתחים לבד בעמוד שמול"], ["big", "נפתחים לבד בגדול"], ["off", "רק בלחיצה"]], when: (r) => r.book === "on" },
   { key: "turn", label: "דפדוף", values: [["auto", "לפי המסך"], ["3d", "תלת-ממד"], ["slide", "החלקה"], ["fade", "דהייה"], ["none", "מיידי"]], when: (r) => r.book === "on" },
   { key: "pageSound", label: "צליל דפדוף", values: [["on", "פועל"], ["off", "כבוי"]], when: (r) => r.book === "on" && r.sound !== "off" },
-  { key: "font", label: "גופן", values: [["plex", "IBM Plex"], ["frank", "פרנק-רוהל"], ["assistant", "Assistant"]] },
+  { key: "font", label: "גופן", values: [["plex", "IBM Plex"], ["frank", "פרנק-רוהל"], ["assistant", "Assistant"], ["system", "Segoe UI"]] },
   { key: "size", label: "גודל", values: [["s", "קטן"], ["m", "בינוני"], ["l", "גדול"], ["xl", "גדול מאוד"]] },
   { key: "space", label: "ריווח שורות", values: [["normal", "רגיל"], ["airy", "מרווח"]] },
   { key: "width", label: "רוחב הטור", values: [["narrow", "צר"], ["medium", "בינוני"], ["wide", "רחב"]] },
