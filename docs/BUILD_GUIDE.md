@@ -1,5 +1,7 @@
 # איך נבנתה מעבדת הלמידה (ואיך לבנות עוד אפליקציה כזו)
 
+> **17.11.2026: הקוד של מעבדת הלמידה (`app/`) נמחק מהמאגר.** המדריך נשאר כתיעוד של השיטה. הנתיבים `app/…` בסעיפים 1–8 קיימים בהיסטוריה של git (למשל `git show d9f2df1:app/src/tutor.ts`); הקוד החי באותה שיטה הוא `core/app/` ו-`eng/app/`, והטקסט המחולץ של הספרים עבר ל-`library/math-physics/text/`.
+
 המסמך מתעד את הבנייה עד הפרט האחרון: מה נבנה, למה כל החלטה התקבלה, אילו מגבלות של claude.ai גילינו בדרך, ומה צריך כדי לחזור על זה במאגר חדש. בסוף יש הנחיה מוכנה להדבקה לסשן חדש של Claude Code.
 
 ---
@@ -235,11 +237,8 @@ cd /tmp/harness && python3 -m http.server 5190     # http://localhost:5190/test.
 
 ## 9. אפליקציה חדשה: מאגר חדש או כאן?
 
-- **אותו סוג אפליקציה (מורה) לספרים או נושאים אחרים:** עדיף להישאר כאן ולהרחיב את אותה אפליקציה:
-  - מוסיפים ספר ל-`BOOKS` ב-`src/books.ts`, ואת ה-JSON שלו ל-`artifact/books/`. הסקריפט `git show 50578ee:app/scripts/extract-books.mjs` מחלץ PDF בעזרת `pdftotext`.
-  - אם צריך כללים שונים לנושא, מוסיפים את זה כ"סוג קורס" ב-`prompt.ts`.
-  - הזיכרון, הגיבוי והשחזור כבר עובדים, ונשארים בכתובת אחת.
-- **אפליקציה מסוג אחר:** מאגר חדש. מעתיקים את `app/` כנקודת פתיחה, מוחקים את `books.ts`, `prompt.ts` ו-`tutor.ts`, ושומרים את `runtime.ts`, `vite.config.ts`, `scripts/`, `tools/test/` ואת דפוסי סעיף 5.
+- **אותו סוג אפליקציה (מורה) לספרים או נושאים אחרים:** עדיף להישאר כאן ולהרחיב את לנצ'סטר או את גילואה: ספרייה ותוכנית לימודים חדשות (`library/`), חילוץ (`core/tools/extract/`) ואריזה (`core/tools/pack.py`). הזיכרון, הגיבוי והשחזור כבר עובדים.
+- **אפליקציה מסוג אחר:** מאגר חדש. מעתיקים את `core/app/` כנקודת פתיחה, מוחקים את `prompt.ts` ו-`tutor.ts`, ושומרים את `runtime.ts`, `vite.config.ts`, `scripts/`, `tools/test/` ואת דפוסי סעיף 5.
 
 ---
 
@@ -248,7 +247,7 @@ cd /tmp/harness && python3 -m http.server 5190     # http://localhost:5190/test.
 ```text
 אני רוצה לבנות אפליקציה חדשה כ-Artifact ב-claude.ai, באותה שיטה כמו מעבדת הלמידה.
 קרא קודם את המדריך: https://github.com/shavsss/repo-exercise/blob/claude/compassionate-meitner-dx0zxf/docs/BUILD_GUIDE.md
-ואת הקוד ב-app/ באותו ענף (runtime.ts, tutor.ts, vite.config.ts, scripts/, tools/test/).
+ואת הקוד ב-core/app/ באותו ענף (runtime.ts, tutor.ts, vite.config.ts, scripts/, tools/test/).
 
 האפליקציה: <תיאור: מה היא עושה, למי, מה נשמר>.
 דרישות קבועות:
@@ -345,6 +344,9 @@ cd /tmp/harness && python3 -m http.server 5190     # http://localhost:5190/test.
 | `events` | מסמך ליום, `entries` (500 האחרונים) | 1 ליום |
 | `usage` | מסמך ליום, `sessions` (40 בשם, השאר מסוכמים ב-`_older`) | 1 ליום |
 | `calib` | מסמך לשיעור, `items` לפי שאלה | 1 לשיעור |
+| `cases` | מסמך לשיעור: עבודת המקרה ההנדסי (`caseDoc.ts`); `fitCase` מקצר תורות ישנות מעל 190KB | 1 לשיעור |
+| `ideas` | מסמך אחד, `store` (עד 300 רעיונות) | 1 |
+| `projects` | מסמך להצעת מחקר: הצעה מכל מקרה שנסגר (`projects.ts`), עם הערות "מחשבות מחדש"; `fitProject` מקצר הערות ישנות מעל 190KB | עד 1 לשיעור |
 | `consults/<key>` + `cards/pack-<n>` | כמה כרטיסים בחבילה, עד 180KB | 2 לשיעור בדרך כלל |
 | `memlog` | גרסה למסמך 30 יום, ואחר כך מסמך חודש `m-<YYYY-MM>` | כ-100 + 1 לחודש |
 | `convs/<cid>/msgs` + `more/<n>` | הודעה למסמך, וההמשך כשהיא עוברת 200KB עם כל השדות | 2–4 לשיעור, ועוד 2 לכל שאלה |

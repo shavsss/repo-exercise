@@ -18,7 +18,7 @@
 
 ## הספרייה בדף
 
-אותו פורמט כמו במעבדת הליבה (`lib/index.json`, `lib/text/`, `lib/fig/`, `lib/pg/`). קולמוגורוב ופיינמן I–II נלקחים מקבצי הטקסט של מעבדת הלמידה (`app/artifact/books/`); לעמודי קולמוגורוב, שעברו OCR, נוספות תמונות עמוד.
+אותו פורמט כמו במעבדת הליבה (`lib/index.json`, `lib/text/`, `lib/fig/`, `lib/pg/`). קולמוגורוב ופיינמן I–II נלקחים מקבצי הטקסט של הספרים (`library/math-physics/text/`, לשעבר במעבדת הלמידה); לעמודי קולמוגורוב, שעברו OCR, נוספות תמונות עמוד.
 
 ```bash
 python3 -m venv ~/ocr-venv && ~/ocr-venv/bin/pip install rapidocr_onnxruntime scipy pillow numpy pypdf pymupdf

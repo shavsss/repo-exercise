@@ -18,9 +18,9 @@ const GRADE_TEXT: Record<Grade, string> = { right: "נכון", partial: "נכו�
 const LETTERS = ["א", "ב", "ג", "ד", "ה", "ו"];
 
 /** The record of one practice question, loaded and saved (the gate listens to calib:changed). */
-function useRecord(kind: CalibRecord["kind"], source: string) {
+function useRecord(kind: "mcq" | "numeric" | "explain", source: string) {
   const place = useContext(LessonPlaceCtx);
-  const q = practiceQuestion(kind!, source);
+  const q = practiceQuestion(kind, source);
   const id = thinkId(place, q);
   const [rec, setRec] = useState<CalibRecord | null>(null);
   useEffect(() => {

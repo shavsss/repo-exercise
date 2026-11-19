@@ -4,7 +4,7 @@ import { useSyncExternalStore } from "react";
 // and the reading surface. Kept in this browser and applied as data-attributes on the
 // root, which the stylesheet reads. A per-browser convenience only.
 export interface Reading {
-  font: "plex" | "frank" | "assistant";
+  font: "plex" | "frank" | "assistant" | "system";
   size: "s" | "m" | "l" | "xl";
   space: "normal" | "airy";
   width: "narrow" | "medium" | "wide";

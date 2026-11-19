@@ -96,7 +96,7 @@ function computeGeom(w: number, h: number, fs: number, charW: number): Geom {
   return { w, h, fs, lu, W, inner, outer, pw, ph, head, cap, spread, phone, side };
 }
 
-function useGeom(ref: RefObject<HTMLDivElement | null>, size: string): { g: Geom | null; settled: boolean } {
+function useGeom(ref: RefObject<HTMLDivElement | null>, size: string, font: string): { g: Geom | null; settled: boolean } {
   const [g, setG] = useState<Geom | null>(null);
   // the first sizes of a page that is still being laid out are not shown: the book waits until its size holds
   const [settled, setSettled] = useState(false);
@@ -117,7 +117,7 @@ function useGeom(ref: RefObject<HTMLDivElement | null>, size: string): { g: Geom
       const r = el.getBoundingClientRect();
       if (r.width < 50 || r.height < 50) return;
       const fs = parseFloat(getComputedStyle(el).getPropertyValue("--bk-fs")) || 18.5;
-      const next = computeGeom(Math.floor(r.width), Math.floor(r.height), fs, charWidth(`400 ${fs}px "Frank Ruhl Libre"`));
+      const next = computeGeom(Math.floor(r.width), Math.floor(r.height), fs, charWidth(`400 ${fs}px ${getComputedStyle(el).getPropertyValue("--bk-font")}`));
       setG((old) => (old && JSON.stringify(old) === JSON.stringify(next) ? old : next));
       window.clearTimeout(st);
       st = window.setTimeout(() => setSettled(true), 160);
@@ -135,7 +135,7 @@ function useGeom(ref: RefObject<HTMLDivElement | null>, size: string): { g: Geom
       clearTimeout(st);
       ro.disconnect();
     };
-  }, [ref, size, fontsOk]);
+  }, [ref, size, font, fontsOk]);
   return { g: settled ? g : null, settled };
 }
 
@@ -497,7 +497,7 @@ const MEASURE_CTX: BookCtxValue = { mode: "measure" };
 export function BookView(props: BookProps) {
   const { items, liveKey, header, posKey, bridge, rootRef } = props;
   const r = useReading();
-  const { g } = useGeom(rootRef, r.size);
+  const { g } = useGeom(rootRef, r.size, r.font);
   const reduce = reducedMotion();
   const chunks = useChunks(items, liveKey, !!header, !!props.end);
   const live = !!liveKey;
@@ -538,7 +538,7 @@ export function BookView(props: BookProps) {
       const alt = alts.get(c.key)?.firstElementChild as HTMLElement | null | undefined;
       const gr = grown.current.get(c.key);
       const h = Math.max(heightOf(inner), alt ? heightOf(alt) : 0, gr && gr.at === `${c.text.length}:${W}:${fs}` ? gr.h : 0);
-      const sig = `${c.text.length}:${c.text.slice(-24)}:${W}:${fs}:${h}`;
+      const sig = `${c.text.length}:${c.text.slice(-24)}:${W}:${fs}:${r.font}:${h}`;
       const old = measures.current.get(c.key);
       if (old?.sig === sig) return;
       const splittable = c.kind === "p" || c.kind === "list" || c.kind === "quote" || (c.kind === "fence" && ![INTERACTIVE, PLATES, FIGURES].some((set) => set.has(c.lang ?? "")));

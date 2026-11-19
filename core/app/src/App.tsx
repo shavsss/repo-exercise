@@ -28,6 +28,8 @@ import { MdContext } from "./components/Markdown";
 import { GuideCtx, useLessonGuide, type GuideCtxValue } from "./components/LessonGuide";
 import { asGuide } from "./guide";
 import { setLevel3Scope } from "./level3";
+import { setCaseScope } from "./caseStore";
+import { CaseRoomHost } from "./components/CaseRoom";
 import { SourceTag } from "./components/blocks/SourceTag";
 import { Icon } from "./components/Icon";
 import { NotesPanel } from "./components/NotesPanel";
@@ -212,6 +214,8 @@ export function App() {
   const isQuiz = lessonIdx === -1;
   // the learner's answers to predict/errorhunt/verify/lab/decide blocks belong to the open lesson
   useEffect(() => setLevel3Scope(rt?.store ?? null, module && lessonIdx !== undefined ? `${module.id}__${lessonIdx}` : ""), [rt, module, lessonIdx]);
+  // and so does the work on its engineering case
+  useEffect(() => setCaseScope(rt?.store ?? null, module && lessonIdx !== undefined ? `${module.id}__${lessonIdx}` : ""), [rt, module, lessonIdx]);
   const state = module ? moduleState(module, done) : "locked";
 
   const setSelection = useCallback(
@@ -923,6 +927,7 @@ export function App() {
             book={bookOn ? bridge : null}
           />
         )}
+        {inLesson && <CaseRoomHost rt={rt} memory={memory} place={lessonPlace} />}
         <GuideCtx.Provider value={guideCtx}>
         <main className="main">
           <LessonPlaceCtx.Provider value={lessonPlace}>

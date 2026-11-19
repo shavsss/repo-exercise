@@ -6,6 +6,7 @@
 // It runs until a review passes, up to four reviews (three repairs): a lesson he gets is finished, and what
 // is still open after that is stored on the lesson and shown. The pure parts (prompts, parsing, applying the edits) are tested in tools/test/audit.test.mjs.
 // Same file in both apps.
+import { caseAid, caseBlocks, caseProblems, hideCaseNotes, parseCase } from "./caseBlock";
 
 export interface AuditFinding {
   topic?: string;
@@ -130,6 +131,7 @@ Check:
 3. Questions (mcq, numeric, explain, think, predict, exercise, verify, errorhunt blocks; check every numeric @answer by computing it, and that the [x] option of every mcq is the right one): can a careful reader answer each one from what the lesson wrote before it, with the numbers and constants given in the lesson or the question? Is it on what the lesson teaches in full?
 4. The keep block ("לסיכום"): does it exist, does it hold what must be remembered from this lesson, and nothing that is only a first look? It holds working tools (results, formulas, methods, central definitions the course will use later), about 5 to 12 per chapter; when the lesson marks blocks with @mark, the "summary" ones. Do not ask to add vocabulary, aids or every number of the lesson.
 5. Errors: statements that contradict the sources or the established facts.
+6. The engineering case (the \`\`\`case block at the end, if the lesson has one; its notes after the "---" line are hidden from the learner until he commits, and the tutor reasons from them): compute every number of its brief and its notes; every expert reasoning rests on a page tag, a named published source or a certainty label [[ודאות: …]], and claims about companies, systems and trends (stage 5, and the leading teams in every stage) carry a certainty label; a historical failure (Patriot, Ariane 5, Mars Climate Orbiter, Columbia) carries numbers only if the source pages hold its original report and the numbers match it; each stage's decisive rubric item ("- [!]") is really the decision that separates the top level from the average; the brief does not give away the answers; where a stage has "guide:" lines, they say what a good answer contains without giving away the decisive item, and where it has an "example:", it is a model answer at the level of the decisive item, with its numbers computed and a confidence in %. Report each problem in "errors", quoting the case.
 Quotes must be copied exactly from the lesson (a short unique phrase). "after" and "heading" are exact heading texts of the lesson (without the #).
 
 Answer with one JSON object and nothing else:
@@ -221,7 +223,7 @@ a short opening line (what this supplement completes), then a ### section for ea
 the whole content of the lesson's keep block, one "- name: …" line each (it replaces the existing keep block, or is added at the end)
 <<<END>>>`;
   return `<lesson_repair mode="${mode}">
-You are the author of this lesson, repairing it after an independent review (in <review>). Write in the lesson's own Hebrew, style and block syntax (the definition, formula, think, predict and keep blocks exactly as the lesson writes them; mathematics in $…$), at the course's full depth: teach every missing or thin item in full (its context, the definition or result, how it is built or derived, what it means, its limits, and a computed number where the point is a number); teach now every deferred topic the review says no later module teaches; give a question the givens it lacks or rewrite it so the lesson's material answers it; make the keep block complete (only what this lesson teaches in full). Never shorten or remove correct material, never add padding. The lesson has a length budget: make room for what you add by shortening a repetition or a second example near it, so it grows only by what is really new. Check every number with compute.
+You are the author of this lesson, repairing it after an independent review (in <review>). Write in the lesson's own Hebrew, style and block syntax (the definition, formula, think, predict and keep blocks exactly as the lesson writes them; mathematics in $…$), at the course's full depth: teach every missing or thin item in full (its context, the definition or result, how it is built or derived, what it means, its limits, and a computed number where the point is a number); teach now every deferred topic the review says no later module teaches; give a question the givens it lacks or rewrite it so the lesson's material answers it; make the keep block complete (only what this lesson teaches in full). Never shorten or remove correct material, never add padding. The lesson has a length budget: make room for what you add by shortening a repetition or a second example near it, so it grows only by what is really new. Check every number with compute. A problem of the engineering case (\`\`\`case) is fixed inside it with a REPLACE, keeping its exact format: the @ headers, the "---" line, one "@@ stage N" section per stage of @stages with its ask:, anchors:, expert: and rubric: (exactly one "- [!]" item) and, where the case has them, guide: and example:, and "@@ debrief" with decisions:.
 
 Lesson: ${o.moduleId} ${o.moduleTitle} · ${o.lessonTitle}
 <review>
@@ -250,7 +252,10 @@ const norm = (s: string) =>
 function setKeep(text: string, body: string): string {
   const block = "```keep\n" + body.trim() + "\n```";
   const m = /^```keep[^\n]*\n[\s\S]*?^```\s*$/m.exec(text);
-  return m ? text.slice(0, m.index) + block + text.slice(m.index + m[0].length) : `${text.trimEnd()}\n\n${block}\n`;
+  if (m) return text.slice(0, m.index) + block + text.slice(m.index + m[0].length);
+  // a new keep block goes before the engineering case, which ends the lesson
+  const c = /^```case/m.exec(text);
+  return c ? `${text.slice(0, c.index).trimEnd()}\n\n${block}\n\n${text.slice(c.index)}` : `${text.trimEnd()}\n\n${block}\n`;
 }
 
 /** Applies the repair's edit blocks to the lesson. Edits that do not apply (a passage not found) are counted, never forced. */
@@ -325,8 +330,8 @@ export function applyRepair(text: string, raw: string, mode: "inplace" | "supple
         }
       }
       if (at >= 0) {
-        // the last section of the lesson: before its keep block if it has one, else at the end
-        const keepAt = lines.findIndex((l, i) => i > at && /^```keep/.test(l));
+        // the last section of the lesson: before its keep block (or the engineering case) if it has one, else at the end
+        const keepAt = lines.findIndex((l, i) => i > at && /^```(keep|case)/.test(l));
         if (keepAt > 0) lines.splice(keepAt, 0, body.trim(), "");
         else lines.push("", body.trim());
         at = -2;
@@ -368,7 +373,7 @@ Lesson: ${o.moduleId} ${o.moduleTitle} · ${o.lessonTitle}
 ${(o.known ?? []).map((k) => `- ${k}`).join("\n") || "(only the mathematics he has studied, no physics)"}
 </known>
 <lesson>
-${compactVisuals(o.text)}
+${hideCaseNotes(compactVisuals(o.text))}
 </lesson>
 
 Report every place where:
@@ -384,7 +389,7 @@ Report every place where:
 - "question": a practice question (mcq, numeric, explain) or a think, predict, verify or exercise that the text above it does not prepare (a step, number or idea it needs is missing), or that asks about something only introduced, an anchor, a first look at a later module or an illustration; an mcq whose wrong options are not real misconceptions or lack their explanation; a numeric whose answer, unit or tolerance is missing or wrong (compute it).
 - "form": a chapter without a comparison, without a closing case study, or a central idea without its development (why it is interesting, how it was approached, the steps, what came out, where it breaks) or without a critical look.
 - "block": a block that breaks the flow, or carries a step of the argument that the prose does not; a fenced block nested inside another block, or a fence line that does not stand alone on its line (it breaks the page).
-- "structure": a section not in the book form (no subsection numbers, a bare list where reasoning belongs).
+- "structure": a section not in the book form (no subsection numbers, a bare list where reasoning belongs). The \`\`\`case block at the end is the brief of a separate engineering exercise, not a chapter: judge only whether its brief is clear.
 - "visual": a relation between quantities, a geometry, a direction, a change in time, a system's layout or a chain that is explained only in words where a chart, a drawing or a diagram would make it clear; a central concept introduced with no picture of it; a subsection with no visual at all; or a visual that is not explained (what to look at, what it shows).
 - "density": definitions or new concepts that pile up (two definition blocks with no development between them, or a paragraph that brings several new terms at once), so that the reader meets terms before he knows why he needs them; or a subsection whose reason is only formal, with no word on what it lets him do.
 Quotes must be copied exactly from the lesson (a short unique phrase). Be strict and concrete; do not ask for length, padding or extra examples.
@@ -459,6 +464,21 @@ export interface AuditDeps {
 
 export const MAX_REVIEWS = 4;
 
+/** The format problems of the lesson's engineering case (caseBlock.ts), as findings for the repair. */
+export function caseFindings(text: string): AuditFinding[] {
+  const blocks = caseBlocks(text);
+  const out: AuditFinding[] = [];
+  if (blocks.length > 1) out.push({ quote: "```case", problem: `${blocks.length} case blocks`, fix: "a lesson has exactly one engineering case: merge them into one" });
+  for (const b of blocks) {
+    const quote = /^@title:.*$/m.exec(b.source)?.[0] ?? "```case";
+    const c = parseCase(b.source);
+    // the lesson's place in its module, from the case's id (caseBlock.ts caseId): its first lessons carry the aids
+    const n = Number(/-(\d+)-case$/.exec(c.id)?.[1]);
+    for (const p of caseProblems(c, undefined, n ? caseAid(n - 1) : undefined)) out.push({ quote, problem: `engineering case format: ${p}`, fix: p });
+  }
+  return out;
+}
+
 /** short lines for what a review still finds open */
 export function openItems(r: AuditReport): string[] {
   const out: string[] = [];
@@ -487,6 +507,14 @@ export async function auditAndRepair(o: AuditInput, mode: "inplace" | "supplemen
     deps.onStatus?.(round === 1 ? "בודק את השיעור מול עמודי המקור ותוכנית הלימודים" : `בודק שוב אחרי התיקון (סבב ${round})`);
     const next = parseAudit(await deps.call(auditPrompt({ ...o, text }, round), "audit"));
     if (!next) break;
+    // the format of the engineering case is checked by the program too, where it can still be edited
+    if (mode === "inplace") {
+      const extra = caseFindings(text);
+      if (extra.length) {
+        next.errors.push(...extra);
+        next.verdict = "fix";
+      }
+    }
     report = next;
     rounds = round;
     if (round === 1)
