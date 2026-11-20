@@ -64,6 +64,9 @@ export function NewsTab({ lab, rt, index, done, current, onOpenModule }: LabTabP
   const [mineOnly, setMineOnly] = useState(false);
   const [err, setErr] = useState("");
   const [loading, setLoading] = useState(false);
+  /** the story open on a page of its own, like turning to the inside page of a paper */
+  const [pageId, setPageId] = useState<string | null>(null);
+  const [backY, setBackY] = useState(0);
 
   useEffect(() => {
     if (!store) return;
@@ -81,6 +84,7 @@ export function NewsTab({ lab, rt, index, done, current, onOpenModule }: LabTabP
     setIssue(null);
     setLoading(true);
     setSection("");
+    setPageId(null);
     Promise.all([loadIssue(store, id), loadFb(store, id)])
       .then(([is, f]) => {
         if (!live) return;
@@ -107,6 +111,17 @@ export function NewsTab({ lab, rt, index, done, current, onOpenModule }: LabTabP
       if (store) saveFb(store, id, next).catch(() => setErr("השמירה לא הצליחה. הסימון נשאר בדף הזה."));
       return next;
     });
+  };
+
+  const openPage = (itemId: string) => {
+    setBackY(window.scrollY);
+    setPageId(itemId);
+    window.scrollTo(0, 0);
+    if (!fb.items[itemId]?.read) setItemFb(itemId, { read: Date.now() });
+  };
+  const closePage = () => {
+    setPageId(null);
+    requestAnimationFrame(() => window.scrollTo(0, backY));
   };
 
   /** the relation as it is today: what was learned since the issue was written counts as learned */
@@ -138,7 +153,48 @@ export function NewsTab({ lab, rt, index, done, current, onOpenModule }: LabTabP
 
   const mine = (it: NewsItem) => !mineOnly || it.connects.some((c) => ["learned", "current"].includes(relNow(c.moduleId, c.rel)));
   const readCount = issue ? issue.items.filter((it) => fb.items[it.id]?.read).length : 0;
-  const story = { fb, setItemFb, relNow, title, onOpenModule, kicker: ed?.kicker ?? (() => "") };
+  const story = { fb, setItemFb, relNow, title, onOpenModule, kicker: ed?.kicker ?? (() => ""), onOpen: openPage };
+  const pageItem = pageId && issue ? issue.items.find((it) => it.id === pageId) : undefined;
+  if (pageItem && issue) {
+    const order = [issue.lead, ...issue.sections.flatMap((s) => s.items)].filter((x, i, a) => a.indexOf(x) === i && issue.items.some((it) => it.id === x));
+    const at = order.indexOf(pageItem.id);
+    const step = (d: number) => order[at + d];
+    const label = (x: string) => issue.items.find((it) => it.id === x)?.headline ?? "";
+    return (
+      <div className="lt-wrap news np-pagewrap">
+        <Masthead name={cfg.name} sub={cfg.newsSub} issue={issue} />
+        <div className="np-pagebar">
+          <button className="np-back" onClick={closePage}>
+            חזרה לעמוד הראשי
+          </button>
+          <span>
+            {dateRange(issue.window.from, issue.window.to)} · גיליון {issue.number}
+          </span>
+        </div>
+        <article className="np-article" key={pageItem.id}>
+          <Story it={pageItem} variant="page" {...story} />
+        </article>
+        <nav className="np-pagenav" aria-label="כתבות בגיליון">
+          {at >= 0 && step(1) ? (
+            <button onClick={() => openPage(step(1))}>
+              <span>הכתבה הבאה</span>
+              {label(step(1))}
+            </button>
+          ) : (
+            <span />
+          )}
+          {at > 0 && step(-1) ? (
+            <button onClick={() => openPage(step(-1))}>
+              <span>הכתבה הקודמת</span>
+              {label(step(-1))}
+            </button>
+          ) : (
+            <span />
+          )}
+        </nav>
+      </div>
+    );
+  }
   const corner = (role: NewsRole) => (ed?.corners.get(role) ?? []).filter(mine);
   const cornerName = lab === "core" ? "הפינה הגאופוליטית" : "כלכלת הטכנולוגיה";
   const analysis = corner(lab === "core" ? "geo" : "econ");
@@ -398,18 +454,22 @@ function SecHead({ title, n, note }: { title: string; n?: number; note?: string 
 
 type StoryProps = {
   it: NewsItem;
-  variant: "lead" | "feature" | "brief" | "corner";
+  variant: "lead" | "feature" | "brief" | "corner" | "page";
   fb: NewsFb;
   setItemFb: (id: string, p: ItemFb) => void;
   relNow: (m: string, r: Rel) => Rel;
   title: (m: string) => string;
   onOpenModule: (m: string) => void;
   kicker: (it: NewsItem) => string;
+  /** opens the story on a page of its own */
+  onOpen?: (id: string) => void;
 };
 
-function Story({ it, variant, fb, setItemFb, relNow, title, onOpenModule, kicker }: StoryProps) {
+function Story({ it, variant, fb, setItemFb, relNow, title, onOpenModule, kicker, onOpen }: StoryProps) {
   const lead = variant === "lead";
-  const [open, setOpen] = useState(lead || variant === "corner");
+  const page = variant === "page";
+  const wide = lead || page;
+  const open = lead || page || variant === "corner";
   const f = fb.items[it.id] ?? {};
   const src = it.sources[0];
   const img = it.images?.[0];
@@ -421,14 +481,22 @@ function Story({ it, variant, fb, setItemFb, relNow, title, onOpenModule, kicker
     src ? `מקור ${src.tier}` : "",
     it.oldButNew ? "ישן אך חדש לך" : "",
   ].filter(Boolean);
-  const H = lead ? "h2" : "h3";
+  const H = wide ? "h2" : "h3";
   const note = <EditorNote it={it} open={open} relNow={relNow} title={title} onOpenModule={onOpenModule} />;
   return (
     <>
       <div className="np-kick">{kicker(it)}</div>
-      <H className="np-hl">{it.headline}</H>
+      <H className="np-hl">
+        {onOpen && !wide ? (
+          <button className="np-hl-link" onClick={() => onOpen(it.id)}>
+            {it.headline}
+          </button>
+        ) : (
+          it.headline
+        )}
+      </H>
       {it.dek && <p className="np-dek">{it.dek}</p>}
-      {img && (lead || variant === "feature" || open) && <Figure img={img} small={!lead && variant !== "corner"} />}
+      {img && (wide || variant === "feature" || open) && <Figure img={img} small={!wide && variant !== "corner"} />}
       <div className="np-meta">
         {meta.join(" · ")}
         {state && <span className="np-flag">תקשורת ממשלתית</span>}
@@ -445,24 +513,18 @@ function Story({ it, variant, fb, setItemFb, relNow, title, onOpenModule, kicker
         )}
         {f.read ? <span> · נקרא</span> : null}
       </div>
-      <div className={lead ? "np-lead-grid" : undefined}>
+      <div className={wide ? "np-lead-grid" : undefined}>
         <div className="np-copy">
           {open ? (
-            <div className={`np-body prose ${lead ? "np-drop" : ""}`}>
+            <div className={`np-body prose ${wide ? "np-drop" : ""}`}>
               <Markdown text={it.body} />
             </div>
           ) : (
-            <button
-              className="np-more"
-              onClick={() => {
-                setOpen(true);
-                if (!f.read) setItemFb(it.id, { read: Date.now() });
-              }}
-            >
+            <button className="np-more" onClick={() => onOpen?.(it.id)}>
               המשך קריאה
             </button>
           )}
-          {it.chart && (open || variant === "corner") && <Chart c={it.chart} />}
+          {it.chart && open && <Chart c={it.chart} />}
           {open && it.textbookUpdate && (
             <Box head={`עדכון לספר · ${TB[it.textbookUpdate.status]} · ${it.textbookUpdate.book}, עמ' ${it.textbookUpdate.page} (${it.textbookUpdate.edition})`}>
               <p>
@@ -490,9 +552,9 @@ function Story({ it, variant, fb, setItemFb, relNow, title, onOpenModule, kicker
               “{src.quote}”
             </blockquote>
           )}
-          {!lead && note}
+          {!wide && note}
         </div>
-        {lead && note}
+        {wide && note}
       </div>
       <div className="np-foot">
         <span className="np-srcs">
