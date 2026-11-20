@@ -19,6 +19,16 @@ test("parse: a pass with open findings is a fix; garbage is null", () => {
   assert.equal(ok.verdict, "pass");
 });
 
+test("level: a lesson that stops above the mechanism is a fix, and the gap is shown as open", () => {
+  const r = A.parseAudit('{"missing":[],"thin":[],"level":[{"topic":"בקרת עומס ב-TCP","heading":"2. אידוי","gap":"mechanism, cost","add":"מכונת המצבים slow start ו-AIMD, ותפוקה מול RTT ואובדן"}],"deferrals":[],"questions":[],"keep":{"exists":true,"missing":[],"remove":[]},"errors":[],"verdict":"pass"}');
+  assert.equal(r.verdict, "fix");
+  assert.equal(A.problems(r), 1);
+  assert.match(A.openItems(r)[0], /^רמה הנדסית: בקרת עומס ב-TCP \(mechanism, cost\)/);
+  assert.match(A.auditPrompt({ lessonTitle: "t", moduleId: "M1.1", moduleTitle: "m", covers: [], otherLessons: [], curriculum: "", modules: [], pages: "", text: lesson }), /7\. Engineering level/);
+  // a reviewer that does not report the field (an older answer) still parses
+  assert.deepEqual(A.parseAudit('{"verdict":"pass"}').level, []);
+});
+
 test("in place: insert at the end of a section, replace a unique passage, set the keep block", () => {
   const raw = [
     "<<<INSERT_AFTER_SECTION: 1. אטומים>>>",

@@ -5,7 +5,7 @@
 import { useEffect, useState } from "react";
 import type { AuditMark } from "../lessonAudit";
 
-const COUNT: Record<string, string> = { missing: "חסרים", thin: "דלים", deferrals: "הפניות", questions: "שאלות", keep: "לסיכום", errors: "טעויות" };
+const COUNT: Record<string, string> = { missing: "חסרים", thin: "דלים", level: "רמה הנדסית", deferrals: "הפניות", questions: "שאלות", keep: "לסיכום", errors: "טעויות" };
 
 export function AuditBar({ mark, running, status, onRun, fade }: { mark?: AuditMark; running: boolean; status?: string; onRun?: () => void; fade?: boolean }) {
   const [gone, setGone] = useState<number | string | null>(null);
