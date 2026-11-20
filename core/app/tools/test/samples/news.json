@@ -141,7 +141,8 @@
      "url": "https://example.org/paper/adaptive-cfar",
      "note": "טבלה 2"
     }
-   }
+   },
+   "full": "walkthrough"
   },
   {
    "id": "n2",
@@ -513,6 +514,145 @@
     "url": "https://example.org/mastodon/post",
     "postedAt": "2026-10-28"
    }
+  },
+  {
+   "id": "g1",
+   "kind": "standard",
+   "domain": "radar",
+   "headline": "מעבדה פדרלית מפרסמת נתוני יעילות של תאי שמש טנדם",
+   "dek": "הדוח מעדכן את טבלת השיא ומפרט את מקורות ההפסד בכל שכבה.",
+   "body": "הדוח מעדכן את טבלת השיא ומפרט את מקורות ההפסד בכל שכבה. פירוט קצר של הדברים, לפי המקור.",
+   "why": "קשר ישיר בין רגולציה לביצועים: הפס המותר קובע את הפרדת הטווח.",
+   "certainty": "official",
+   "sources": [
+    {
+     "url": "https://example.org/standard/srd-radar",
+     "title": "Draft amendment: short-range radar bands",
+     "publisher": "מקור לדוגמה: גוף תקינה",
+     "tier": "A",
+     "publishedAt": "2026-10-24",
+     "openAccess": true
+    }
+   ],
+   "connects": [],
+   "role": "globe",
+   "region": "US"
+  },
+  {
+   "id": "g2",
+   "kind": "standard",
+   "domain": "radar",
+   "headline": "מכון תקנים אמריקאי מאשר שלושה אלגוריתמי הצפנה פוסט-קוונטיים לשימוש פדרלי",
+   "dek": "הלוח מחייב מעבר הדרגתי עד 2035.",
+   "body": "הלוח מחייב מעבר הדרגתי עד 2035. פירוט קצר של הדברים, לפי המקור.",
+   "why": "קשר ישיר בין רגולציה לביצועים: הפס המותר קובע את הפרדת הטווח.",
+   "certainty": "official",
+   "sources": [
+    {
+     "url": "https://example.org/standard/srd-radar",
+     "title": "Draft amendment: short-range radar bands",
+     "publisher": "מקור לדוגמה: גוף תקינה",
+     "tier": "A",
+     "publishedAt": "2026-10-24",
+     "openAccess": true
+    }
+   ],
+   "connects": [],
+   "role": "globe",
+   "region": "US",
+   "full": "report"
+  },
+  {
+   "id": "g3",
+   "kind": "standard",
+   "domain": "radar",
+   "headline": "סין מדווחת על קו ייצור של שבבים ב-7 ננומטר בתפוקה מלאה",
+   "dek": "הנתונים מהדיווח הרשמי, בלי אימות עצמאי.",
+   "body": "הנתונים מהדיווח הרשמי, בלי אימות עצמאי. פירוט קצר של הדברים, לפי המקור.",
+   "why": "קשר ישיר בין רגולציה לביצועים: הפס המותר קובע את הפרדת הטווח.",
+   "certainty": "official",
+   "sources": [
+    {
+     "url": "https://example.org/standard/srd-radar",
+     "title": "Draft amendment: short-range radar bands",
+     "publisher": "מקור לדוגמה: גוף תקינה",
+     "tier": "A",
+     "publishedAt": "2026-10-24",
+     "openAccess": true
+    }
+   ],
+   "connects": [],
+   "role": "globe",
+   "region": "CN"
+  },
+  {
+   "id": "g4",
+   "kind": "standard",
+   "domain": "radar",
+   "headline": "האיחוד האירופי מאשר תקציב לרשת חשמל חוצת גבולות",
+   "dek": "ההחלטה מסדירה את חלוקת העלות בין המדינות.",
+   "body": "ההחלטה מסדירה את חלוקת העלות בין המדינות. פירוט קצר של הדברים, לפי המקור.",
+   "why": "קשר ישיר בין רגולציה לביצועים: הפס המותר קובע את הפרדת הטווח.",
+   "certainty": "official",
+   "sources": [
+    {
+     "url": "https://example.org/standard/srd-radar",
+     "title": "Draft amendment: short-range radar bands",
+     "publisher": "מקור לדוגמה: גוף תקינה",
+     "tier": "A",
+     "publishedAt": "2026-10-24",
+     "openAccess": true
+    }
+   ],
+   "connects": [],
+   "role": "globe",
+   "region": "EU"
+  },
+  {
+   "id": "g5",
+   "kind": "standard",
+   "domain": "radar",
+   "headline": "הודו משגרת לוויין תצפית במסלול נמוך",
+   "dek": "השיגור השלישי השנה של המשגר הבינוני.",
+   "body": "השיגור השלישי השנה של המשגר הבינוני. פירוט קצר של הדברים, לפי המקור.",
+   "why": "קשר ישיר בין רגולציה לביצועים: הפס המותר קובע את הפרדת הטווח.",
+   "certainty": "official",
+   "sources": [
+    {
+     "url": "https://example.org/standard/srd-radar",
+     "title": "Draft amendment: short-range radar bands",
+     "publisher": "מקור לדוגמה: גוף תקינה",
+     "tier": "A",
+     "publishedAt": "2026-10-24",
+     "openAccess": true
+    }
+   ],
+   "connects": [],
+   "role": "globe",
+   "region": "IN"
+  },
+  {
+   "id": "g6",
+   "kind": "standard",
+   "domain": "radar",
+   "headline": "יפן מציגה רכבת מגנטית בניסוי מהירות חדש",
+   "dek": "הניסוי נערך במסלול הבדיקה ביאמנאשי.",
+   "body": "הניסוי נערך במסלול הבדיקה ביאמנאשי. פירוט קצר של הדברים, לפי המקור.",
+   "why": "קשר ישיר בין רגולציה לביצועים: הפס המותר קובע את הפרדת הטווח.",
+   "certainty": "official",
+   "sources": [
+    {
+     "url": "https://example.org/standard/srd-radar",
+     "title": "Draft amendment: short-range radar bands",
+     "publisher": "מקור לדוגמה: גוף תקינה",
+     "tier": "A",
+     "publishedAt": "2026-10-24",
+     "openAccess": true
+    }
+   ],
+   "connects": [],
+   "role": "globe",
+   "region": "JP"
   }
  ],
  "stats": {

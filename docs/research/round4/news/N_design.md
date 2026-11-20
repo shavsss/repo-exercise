@@ -202,6 +202,8 @@ About 1–1.5 U per app per week (U = one in-page lesson today, A3 §1.6), 2–3
 
 **Weekend edition (15.11.2026):** 25–35 items with a 600–900-word lead and 3–4 features of about 400 words roughly doubles the writing and checking stages and adds picture search: about 1.2–1.5M input and 150–200k output tokens per app per week. Caps: `NEWS_MAX_FETCH=300`, `NEWS_MAX_ITEMS=35`, minimum 8 items.
 
+**Full edition (20.11.2026, the learner's demand):** 50–80 items, a world desk of 20–35 stories country by country (role `globe`), and a full text for every story except the number and the posts, in its own document (`newstext`, docs/NEWS_SCHEMA.md): a translation where the licence allows it, otherwise a walk through the source idea by idea or a complete report in the source's order, never a two-paragraph summary. This is roughly three to four times the writing and checking of the weekend edition: an estimate (not measured) of 3–5M input and 0.6–1M output tokens per app per week. Caps: `NEWS_MAX_FETCH=500`, `NEWS_MAX_ITEMS=80`. If the run cannot finish, it publishes what passed verification, full texts first, and records what was left in `_status`.
+
 ### 1.10 Quality gates (any failure = item dropped; gate 1–3 failure for the whole issue = no publish)
 
 1. **Fetched this week.** Every source URL has `httpStatus 200`, `fetchedAt` inside the run, `sha256` of the text, and the page title in the fetched text. verify.py re-fetches every link in stage 5 (a second time, separate from stage 3).

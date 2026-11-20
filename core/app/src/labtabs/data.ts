@@ -2,6 +2,7 @@
 // data/users/<id>/profile/ and only ever added to (docs/NEWS_SCHEMA.md, docs/REVIEW_SCHEMA.md):
 //   news/<YYYY-Www>       a weekly issue, written by the scheduled news session (read here)
 //   news/_index           the list of issues, newest first (optional; the collection is listed when absent)
+//   newstext/<YYYY-Www>__<item id>   the full text of one story, opened on its own page (optional)
 //   newsfb/<YYYY-Www>     what the learner read, saved and rated in that issue (written here)
 //   products/<YYYY-MM>    the month's product workspace (written here)
 //   reviews/<YYYY-Www>    the weekly external review, written by the scheduled review session (read here)
@@ -60,6 +61,8 @@ export interface NewsSource {
   sha256?: string;
   quote?: string;
   openAccess?: boolean;
+  /** the source's licence as its page states it; a full translation (full: "translation") needs an open one */
+  license?: string;
   /** a state-run outlet (Xinhua, TRT, RT, IRNA…): tagged, and the item carries a second, independent source */
   stateMedia?: boolean;
 }
@@ -67,7 +70,10 @@ export interface NewsSource {
 /** Where a story comes from (docs/NEWS_SCHEMA.md): the regions of the learner's list. */
 export type Region = "US" | "EU" | "UK" | "IL" | "TR" | "CN" | "TW" | "JP" | "KR" | "IN" | "RU" | "UA" | "GULF" | "IR" | "AF" | "INTL";
 /** Where an item sits in the printed edition. Absent (old issues): a story in its section. */
-export type NewsRole = "lead" | "feature" | "brief" | "number" | "world" | "geo" | "econ" | "post" | "lab";
+export type NewsRole = "lead" | "feature" | "brief" | "number" | "world" | "geo" | "econ" | "post" | "lab" | "globe";
+/** How the full text renders the source: a whole translation (open licence), a walk through the source idea by idea in its
+ * order (a paper or report), or a full report of every central point in the source's order (a news article). */
+export type FullMode = "translation" | "walkthrough" | "report";
 
 /** A freely licensed picture of the subject, kept in the artifact's asset store ("/_blob/<id>"); never inline in the issue. */
 export interface NewsImage {
@@ -125,6 +131,13 @@ export interface NewsItem {
   number?: { value: string; unit: string; calc: string };
   /** two takes on one topic from two countries: both items carry the same topic, each names the other */
   world?: { topic: string; pair: string };
+  /** the story has a full text in newstext/<issue>__<id>; body is then the opening shown on the front page */
+  full?: FullMode;
+}
+
+export interface NewsFull {
+  body: string;
+  mode: FullMode;
 }
 
 export interface NewsIssue {
@@ -199,6 +212,7 @@ export async function loadIssue(store: Store, id: string): Promise<NewsIssue | n
       images: Array.isArray(it.images) ? it.images.filter((im) => im && typeof im.url === "string" && imageUrlOk(im.url)) : undefined,
       chart: chartOk(it.chart) ? it.chart : undefined,
       post: it.post && typeof it.post.text === "string" ? it.post : undefined,
+      full: FULL_MODES.includes(it.full as FullMode) ? it.full : undefined,
     }));
   const sections = Array.isArray(v.sections) && v.sections.length ? v.sections.map((s) => ({ ...s, items: Array.isArray(s.items) ? s.items : [] })) : [{ id: "all", title: "הגיליון", items: items.map((it) => it.id) }];
   return { ...v, id, items, sections, window: v.window ?? { from: "", to: "" } };
@@ -211,6 +225,17 @@ export function imageUrlOk(url: string) {
 
 function chartOk(c: NewsChart | undefined): c is NewsChart {
   return !!c && (c.kind === "bar" || c.kind === "line") && Array.isArray(c.x) && c.x.length > 0 && Array.isArray(c.series) && c.series.length > 0 && c.series.every((s) => Array.isArray(s?.values));
+}
+
+const FULL_MODES: FullMode[] = ["translation", "walkthrough", "report"];
+
+/** The full text of one story, or null when it has none (an older issue, or a write that did not land). */
+export async function loadFull(store: Store, issueId: string, itemId: string): Promise<NewsFull | null> {
+  const s = await store.sub("newstext").doc(`${issueId}__${itemId}`).get();
+  if (!s.exists) return null;
+  const v = s.data() as Partial<NewsFull>;
+  if (typeof v?.body !== "string" || !v.body.trim()) return null;
+  return { body: v.body, mode: FULL_MODES.includes(v.mode as FullMode) ? (v.mode as FullMode) : "report" };
 }
 
 export async function loadFb(store: Store, id: string): Promise<NewsFb> {

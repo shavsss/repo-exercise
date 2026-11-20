@@ -2,10 +2,10 @@
 // profile/news/<YYYY-Www>, written by the scheduled news session. Read here as a printed edition: a masthead, a
 // front page (the lead, features and the number of the week), sections in three columns, and the corners.
 // What the learner read, saved and rated goes to profile/newsfb/<YYYY-Www>. Same file in both apps.
-import { useEffect, useMemo, useState, type ReactNode } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { Markdown } from "../components/Markdown";
 import { LAB } from "./config";
-import { dateRange, listIssues, loadFb, loadIssue, saveFb, shortDate, type IssueEntry, type ItemFb, type NewsChart, type NewsFb, type NewsImage, type NewsIssue, type NewsItem, type NewsRole, type Region, type Rel } from "./data";
+import { dateRange, listIssues, loadFb, loadFull, loadIssue, saveFb, shortDate, type FullMode, type IssueEntry, type ItemFb, type NewsChart, type NewsFb, type NewsFull, type NewsImage, type NewsIssue, type NewsItem, type NewsRole, type Region, type Rel } from "./data";
 import type { LabTabProps } from "./LabTabs";
 
 const KIND: Record<NewsItem["kind"], string> = { paper: "מאמר", report: "דוח", system: "מערכת", standard: "תקן", data: "נתונים", event: "אירוע" };
@@ -42,7 +42,16 @@ const TB = { superseded: "התיישן", refined: "דויק", confirmed: "אוש
 const IDEA = { project: "פרויקט", product: "מוצר", article: "מאמר", interview: "ראיון" };
 const NETWORK = { x: "X", bluesky: "Bluesky", mastodon: "Mastodon" };
 /** roles drawn in a corner of the edition, not in the sections */
-const CORNER: NewsRole[] = ["number", "world", "geo", "econ", "post", "lab"];
+const CORNER: NewsRole[] = ["number", "world", "geo", "econ", "post", "lab", "globe"];
+/** the world desk, country by country, in this order; a region without stories is left out */
+const GLOBE_ORDER: Region[] = ["US", "CN", "EU", "UK", "RU", "IN", "JP", "KR", "TW", "IL", "UA", "TR", "GULF", "IR", "AF", "INTL"];
+/** the index's filter value for the world desk (not a section id of the issue) */
+const GLOBE = "__globe";
+const FULL: Record<FullMode, string> = {
+  translation: "תרגום מלא של המקור",
+  walkthrough: "המקור רעיון אחר רעיון, בסדר שבו נכתב",
+  report: "כתבה מלאה על פי המקור, בסדר הדברים שבו",
+};
 
 const heDate = (t: number) => {
   try {
@@ -51,6 +60,15 @@ const heDate = (t: number) => {
     return "";
   }
 };
+/** The element that scrolls the tab (the page itself in a plain window, a container inside the app). */
+function scroller(el: HTMLElement | null): HTMLElement {
+  for (let p = el?.parentElement; p; p = p.parentElement) {
+    const o = getComputedStyle(p).overflowY;
+    if ((o === "auto" || o === "scroll") && p.scrollHeight > p.clientHeight) return p;
+  }
+  return (document.scrollingElement as HTMLElement) ?? document.documentElement;
+}
+
 const grDate = (t: number) => new Intl.DateTimeFormat("he-IL", { weekday: "long", day: "numeric", month: "long", year: "numeric" }).format(t);
 
 export function NewsTab({ lab, rt, index, done, current, onOpenModule }: LabTabProps) {
@@ -66,7 +84,25 @@ export function NewsTab({ lab, rt, index, done, current, onOpenModule }: LabTabP
   const [loading, setLoading] = useState(false);
   /** the story open on a page of its own, like turning to the inside page of a paper */
   const [pageId, setPageId] = useState<string | null>(null);
-  const [backY, setBackY] = useState(0);
+  /** where the front page was scrolled when a story was opened */
+  const backY = useRef(0);
+  const wrap = useRef<HTMLDivElement>(null);
+  // a story opens at its top; closing it returns to where the front page was
+  useLayoutEffect(() => {
+    const sc = scroller(wrap.current);
+    if (pageId) wrap.current?.scrollIntoView({ block: "start" });
+    else sc.scrollTop = backY.current;
+  }, [pageId]);
+
+  // the browser's back button (and the phone's back gesture) closes the story, as on a news site
+  useEffect(() => {
+    const onPop = (e: PopStateEvent) => {
+      const to = (e.state as { npPage?: string } | null)?.npPage ?? null;
+      setPageId(to);
+    };
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
+  }, []);
 
   useEffect(() => {
     if (!store) return;
@@ -114,14 +150,23 @@ export function NewsTab({ lab, rt, index, done, current, onOpenModule }: LabTabP
   };
 
   const openPage = (itemId: string) => {
-    setBackY(window.scrollY);
+    if (!pageId) backY.current = scroller(wrap.current).scrollTop;
+    try {
+      // from the front page a new entry, between stories the same one: one "back" always returns to the front page
+      if (pageId) history.replaceState({ npPage: itemId }, "");
+      else history.pushState({ npPage: itemId }, "");
+    } catch {
+      /* a sandboxed frame without history: the page's own back button still works */
+    }
     setPageId(itemId);
-    window.scrollTo(0, 0);
     if (!fb.items[itemId]?.read) setItemFb(itemId, { read: Date.now() });
   };
   const closePage = () => {
+    if ((history.state as { npPage?: string } | null)?.npPage) {
+      history.back();
+      return;
+    }
     setPageId(null);
-    requestAnimationFrame(() => window.scrollTo(0, backY));
   };
 
   /** the relation as it is today: what was learned since the issue was written counts as learned */
@@ -155,46 +200,13 @@ export function NewsTab({ lab, rt, index, done, current, onOpenModule }: LabTabP
   const readCount = issue ? issue.items.filter((it) => fb.items[it.id]?.read).length : 0;
   const story = { fb, setItemFb, relNow, title, onOpenModule, kicker: ed?.kicker ?? (() => ""), onOpen: openPage };
   const pageItem = pageId && issue ? issue.items.find((it) => it.id === pageId) : undefined;
-  if (pageItem && issue) {
-    const order = [issue.lead, ...issue.sections.flatMap((s) => s.items)].filter((x, i, a) => a.indexOf(x) === i && issue.items.some((it) => it.id === x));
-    const at = order.indexOf(pageItem.id);
-    const step = (d: number) => order[at + d];
-    const label = (x: string) => issue.items.find((it) => it.id === x)?.headline ?? "";
+  if (pageItem && issue)
     return (
-      <div className="lt-wrap news np-pagewrap">
+      <div className="lt-wrap news np-pagewrap" ref={wrap}>
         <Masthead name={cfg.name} sub={cfg.newsSub} issue={issue} />
-        <div className="np-pagebar">
-          <button className="np-back" onClick={closePage}>
-            חזרה לעמוד הראשי
-          </button>
-          <span>
-            {dateRange(issue.window.from, issue.window.to)} · גיליון {issue.number}
-          </span>
-        </div>
-        <article className="np-article" key={pageItem.id}>
-          <Story it={pageItem} variant="page" {...story} />
-        </article>
-        <nav className="np-pagenav" aria-label="כתבות בגיליון">
-          {at >= 0 && step(1) ? (
-            <button onClick={() => openPage(step(1))}>
-              <span>הכתבה הבאה</span>
-              {label(step(1))}
-            </button>
-          ) : (
-            <span />
-          )}
-          {at > 0 && step(-1) ? (
-            <button onClick={() => openPage(step(-1))}>
-              <span>הכתבה הקודמת</span>
-              {label(step(-1))}
-            </button>
-          ) : (
-            <span />
-          )}
-        </nav>
+        <ArticlePage issue={issue} it={pageItem} store={store} onBack={closePage} story={story} />
       </div>
     );
-  }
   const corner = (role: NewsRole) => (ed?.corners.get(role) ?? []).filter(mine);
   const cornerName = lab === "core" ? "הפינה הגאופוליטית" : "כלכלת הטכנולוגיה";
   const analysis = corner(lab === "core" ? "geo" : "econ");
@@ -203,9 +215,10 @@ export function NewsTab({ lab, rt, index, done, current, onOpenModule }: LabTabP
   const posts = corner("post");
   const numbers = corner("number");
   const features = (ed?.features ?? []).filter(mine);
+  const globe = GLOBE_ORDER.map((r) => [r, corner("globe").filter((it) => (it.region ?? "INTL") === r)] as const).filter(([, l]) => l.length);
 
   return (
-    <div className="lt-wrap news">
+    <div className="lt-wrap news" ref={wrap}>
       <Masthead name={cfg.name} sub={cfg.newsSub} issue={issue} />
 
       <nav className="np-index" aria-label="בגיליון זה">
@@ -221,6 +234,12 @@ export function NewsTab({ lab, rt, index, done, current, onOpenModule }: LabTabP
                 <span className="np-n">{s.items.length}</span>
               </button>
             ))}
+            {globe.length > 0 && (
+              <button className="np-ix" aria-pressed={section === GLOBE} onClick={() => setSection(section === GLOBE ? "" : GLOBE)}>
+                מבט עולמי
+                <span className="np-n">{globe.reduce((n, [, l]) => n + l.length, 0)}</span>
+              </button>
+            )}
           </>
         ) : (
           loading && <span>טוען את הגיליון…</span>
@@ -305,6 +324,31 @@ export function NewsTab({ lab, rt, index, done, current, onOpenModule }: LabTabP
                 ))}
               </div>
             ),
+          )}
+
+          {(!section || section === GLOBE) && globe.length > 0 && (
+            <section className="np-sec np-globe" id="np-globe">
+              <SecHead title="מבט עולמי" note="הסיפורים המרכזיים של השבוע, מדינה אחר מדינה" />
+              <div className="np-globe-grid">
+                {globe.map(([r, list]) => (
+                  <div key={r} className="np-country">
+                    <h4>{REGION[r] ?? r}</h4>
+                    {list.map((it) => (
+                      <article key={it.id} className="np-gitem">
+                        <div className="np-kick">{story.kicker(it)}</div>
+                        <h5>
+                          <button className="np-hl-link" onClick={() => openPage(it.id)}>
+                            {it.headline}
+                          </button>
+                        </h5>
+                        {it.dek && <p className="np-dek">{it.dek}</p>}
+                        {fb.items[it.id]?.read ? <div className="np-meta">נקרא</div> : null}
+                      </article>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            </section>
           )}
 
           {!section && (
@@ -463,9 +507,11 @@ type StoryProps = {
   kicker: (it: NewsItem) => string;
   /** opens the story on a page of its own */
   onOpen?: (id: string) => void;
+  /** the page variant: the story's full text, once loaded */
+  fullText?: NewsFull | null;
 };
 
-function Story({ it, variant, fb, setItemFb, relNow, title, onOpenModule, kicker, onOpen }: StoryProps) {
+function Story({ it, variant, fb, setItemFb, relNow, title, onOpenModule, kicker, onOpen, fullText }: StoryProps) {
   const lead = variant === "lead";
   const page = variant === "page";
   const wide = lead || page;
@@ -513,12 +559,29 @@ function Story({ it, variant, fb, setItemFb, relNow, title, onOpenModule, kicker
         )}
         {f.read ? <span> · נקרא</span> : null}
       </div>
+      {page && src && (
+        <div className="np-srcline">
+          המקור:{" "}
+          <a href={src.url} target="_blank" rel="noreferrer" dir="auto">
+            {src.publisher || src.title}
+          </a>
+          {src.license ? ` · ${src.license}` : ""}
+        </div>
+      )}
       <div className={wide ? "np-lead-grid" : undefined}>
         <div className="np-copy">
           {open ? (
-            <div className={`np-body prose ${wide ? "np-drop" : ""}`}>
-              <Markdown text={it.body} />
-            </div>
+            <>
+              {page && fullText && <div className="np-fullmode">{FULL[fullText.mode]}</div>}
+              <div className={`np-body prose ${wide ? "np-drop" : ""}`}>
+                <Markdown text={(page && fullText?.body) || it.body} />
+              </div>
+              {!page && it.full && onOpen && (
+                <button className="np-more" onClick={() => onOpen(it.id)}>
+                  לכתבה המלאה
+                </button>
+              )}
+            </>
           ) : (
             <button className="np-more" onClick={() => onOpen?.(it.id)}>
               המשך קריאה
@@ -862,5 +925,60 @@ function Colophon({ issue, byId, fb }: { issue: NewsIssue; byId: Map<string, New
         </div>
       )}
     </footer>
+  );
+}
+
+/** A story on its own inside page: its full text when the issue has one, the sources up front, and the next story. */
+function ArticlePage({ issue, it, store, onBack, story }: { issue: NewsIssue; it: NewsItem; store: Parameters<typeof loadFull>[0]; onBack: () => void; story: Omit<StoryProps, "it" | "variant"> }) {
+  const [full, setFull] = useState<NewsFull | null | undefined>(it.full ? undefined : null);
+  useEffect(() => {
+    if (!it.full) return setFull(null);
+    let live = true;
+    setFull(undefined);
+    loadFull(store, issue.id, it.id)
+      .then((f) => live && setFull(f))
+      .catch(() => live && setFull(null));
+    return () => {
+      live = false;
+    };
+  }, [store, issue.id, it.id, it.full]);
+  const order = [issue.lead, ...issue.sections.flatMap((s) => s.items), ...issue.items.map((x) => x.id)].filter((x, i, a) => a.indexOf(x) === i && issue.items.some((y) => y.id === x && y.role !== "post" && y.role !== "number"));
+  const at = order.indexOf(it.id);
+  const step = (d: number) => (at >= 0 ? order[at + d] : undefined);
+  const label = (x: string) => issue.items.find((y) => y.id === x)?.headline ?? "";
+  const next = step(1);
+  const prev = step(-1);
+  return (
+    <>
+      <div className="np-pagebar">
+        <button className="np-back" onClick={onBack}>
+          חזרה לעמוד הראשי
+        </button>
+        <span>
+          {dateRange(issue.window.from, issue.window.to)} · גיליון {issue.number}
+        </span>
+      </div>
+      <article className="np-article" key={it.id}>
+        {full === undefined ? <p className="lt-empty">טוען את הכתבה המלאה…</p> : <Story it={it} variant="page" {...story} fullText={full} />}
+      </article>
+      <nav className="np-pagenav" aria-label="כתבות בגיליון">
+        {next ? (
+          <button onClick={() => story.onOpen?.(next)}>
+            <span>הכתבה הבאה</span>
+            {label(next)}
+          </button>
+        ) : (
+          <span />
+        )}
+        {prev ? (
+          <button onClick={() => story.onOpen?.(prev)}>
+            <span>הכתבה הקודמת</span>
+            {label(prev)}
+          </button>
+        ) : (
+          <span />
+        )}
+      </nav>
+    </>
   );
 }
