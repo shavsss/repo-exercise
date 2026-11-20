@@ -935,13 +935,13 @@ function ArticlePage({ issue, it, store, onBack, story }: { issue: NewsIssue; it
     if (!it.full) return setFull(null);
     let live = true;
     setFull(undefined);
-    loadFull(store, issue.id, it.id)
+    loadFull(store, issue.id, it.id, it.fullPart)
       .then((f) => live && setFull(f))
       .catch(() => live && setFull(null));
     return () => {
       live = false;
     };
-  }, [store, issue.id, it.id, it.full]);
+  }, [store, issue.id, it.id, it.full, it.fullPart]);
   const order = [issue.lead, ...issue.sections.flatMap((s) => s.items), ...issue.items.map((x) => x.id)].filter((x, i, a) => a.indexOf(x) === i && issue.items.some((y) => y.id === x && y.role !== "post" && y.role !== "number"));
   const at = order.indexOf(it.id);
   const step = (d: number) => (at >= 0 ? order[at + d] : undefined);

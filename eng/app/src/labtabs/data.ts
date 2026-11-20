@@ -2,7 +2,7 @@
 // data/users/<id>/profile/ and only ever added to (docs/NEWS_SCHEMA.md, docs/REVIEW_SCHEMA.md):
 //   news/<YYYY-Www>       a weekly issue, written by the scheduled news session (read here)
 //   news/_index           the list of issues, newest first (optional; the collection is listed when absent)
-//   newstext/<YYYY-Www>__<item id>   the full text of one story, opened on its own page (optional)
+//   newstext/<YYYY-Www>__t<k>   the full texts of the issue's stories, packed under 200 KB a document (optional)
 //   newsfb/<YYYY-Www>     what the learner read, saved and rated in that issue (written here)
 //   products/<YYYY-MM>    the month's product workspace (written here)
 //   reviews/<YYYY-Www>    the weekly external review, written by the scheduled review session (read here)
@@ -131,8 +131,9 @@ export interface NewsItem {
   number?: { value: string; unit: string; calc: string };
   /** two takes on one topic from two countries: both items carry the same topic, each names the other */
   world?: { topic: string; pair: string };
-  /** the story has a full text in newstext/<issue>__<id>; body is then the opening shown on the front page */
+  /** the story has a full text in newstext/<issue>__t<fullPart>; body is then the opening shown on the front page */
   full?: FullMode;
+  fullPart?: number;
 }
 
 export interface NewsFull {
@@ -213,6 +214,7 @@ export async function loadIssue(store: Store, id: string): Promise<NewsIssue | n
       chart: chartOk(it.chart) ? it.chart : undefined,
       post: it.post && typeof it.post.text === "string" ? it.post : undefined,
       full: FULL_MODES.includes(it.full as FullMode) ? it.full : undefined,
+      fullPart: Number.isInteger(it.fullPart) && (it.fullPart as number) >= 0 ? it.fullPart : 0,
     }));
   const sections = Array.isArray(v.sections) && v.sections.length ? v.sections.map((s) => ({ ...s, items: Array.isArray(s.items) ? s.items : [] })) : [{ id: "all", title: "הגיליון", items: items.map((it) => it.id) }];
   return { ...v, id, items, sections, window: v.window ?? { from: "", to: "" } };
@@ -229,11 +231,13 @@ function chartOk(c: NewsChart | undefined): c is NewsChart {
 
 const FULL_MODES: FullMode[] = ["translation", "walkthrough", "report"];
 
-/** The full text of one story, or null when it has none (an older issue, or a write that did not land). */
-export async function loadFull(store: Store, issueId: string, itemId: string): Promise<NewsFull | null> {
-  const s = await store.sub("newstext").doc(`${issueId}__${itemId}`).get();
+/** The full text of one story, or null when it has none (an older issue, or a write that did not land). The texts of
+ * an issue are packed a few to a document (newstext/<issue>__t<k>, { items: { <item id>: NewsFull } }), so a year of
+ * issues stays a few hundred documents of the database's 25,000. */
+export async function loadFull(store: Store, issueId: string, itemId: string, part = 0): Promise<NewsFull | null> {
+  const s = await store.sub("newstext").doc(`${issueId}__t${part}`).get();
   if (!s.exists) return null;
-  const v = s.data() as Partial<NewsFull>;
+  const v = (s.data() as { items?: Record<string, Partial<NewsFull>> })?.items?.[itemId];
   if (typeof v?.body !== "string" || !v.body.trim()) return null;
   return { body: v.body, mode: FULL_MODES.includes(v.mode as FullMode) ? (v.mode as FullMode) : "report" };
 }
