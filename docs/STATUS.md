@@ -6,6 +6,7 @@
 (מה כל תיקייה מכילה)
 
 ## מה נעשה
+- פרסום: 21.11.2026 לנצ'סטר v173, גילואה v158, ענף `claude/jolly-bohr-6xhnu0`, commit `73162fc` (app.js ו-app.css; medium כברירת מחדל).
 - 21.11 לילה (ענף `claude/jolly-bohr-6xhnu0`): רמת המאמץ medium כברירת מחדל לכתיבת שיעור ולבדיקה מול המקור (הלומד). מפתח חדש בדפדפן (`core-lab:effort2`, `eng-lab:effort2`), כדי שה-high השמור יוחלף פעם אחת; `auditLesson` ברירת מחדל medium.
 - פרסום: 21.11.2026 לנצ'סטר v172, גילואה v157, ענף `claude/jolly-bohr-6xhnu0`, commit `cada3b1` (app.js ו-app.css; בנוי על main `4f1893a` שמכיל את v171/v156).
 - 21.11 לילה (ענף `claude/jolly-bohr-6xhnu0`): החלטת הלומד: לא חוסכים במה שהמודל רואה. הוחזרו הטקסט הקודם המלא לכל חלק (עד 120 אלף תווים, במקום `BOOK_PRIOR`) ו-4 סבבים בכל בדיקה (במקום `BOOK_REVIEWS`). הבדיקה מול המקור רצה ברמת המאמץ של השיעור (`auditEffort ?? effort`). נשאר מ-`9164524`: בלי הידוק ובלי פיצול, מקרה הבוחן בלי תקרה, `role`/`key`, המאזן, ו-`startedAt` בדף הבדיקה. סימולציית עלות: `tools/sim/responder.py`, `logs/sim-cost-*.jsonl`. tsc ו-84 בדיקות בשתי המעבדות.
