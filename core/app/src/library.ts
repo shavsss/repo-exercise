@@ -120,6 +120,25 @@ async function cached<T>(name: string, version: string): Promise<T> {
 
 /** The packer's content hash: cached files from another version are not used. */
 let LIB_VERSION = "0";
+
+/** Deletes the files cached under other versions (21.11: they were never removed, and after several publishes the
+ *  browser kept several copies of the library, which made the page slow and could crash it). Runs in the background. */
+async function pruneOtherVersions(version: string) {
+  const db = await dbp;
+  if (!db) return;
+  try {
+    const store = db.transaction(STORE, "readwrite").objectStore(STORE);
+    const r = store.openKeyCursor();
+    r.onsuccess = () => {
+      const c = r.result;
+      if (!c) return;
+      if (!String(c.key).startsWith(`${version}:`)) store.delete(c.key);
+      c.continue();
+    };
+  } catch {
+    // left for the next visit
+  }
+}
 /** Where the library is served from: "lib/" in this app; Gilua's test bench loads a copy from "corelib/". */
 let LIB_BASE = "lib/";
 let LIB_INDEX = "";
@@ -134,6 +153,7 @@ export async function loadIndex() {
     if (!res.ok) throw new Error(`לא הצלחתי לטעון את הספרייה (${res.status})`);
     index = (await res.json()) as LibraryIndex;
     LIB_VERSION = index.version ?? "0";
+    void pruneOtherVersions(LIB_VERSION);
   }
   return index;
 }
