@@ -594,6 +594,11 @@
    "file": "../engineering/free/W97_dds_mqtt_middleware_core.pdf",
    "title": "Middleware standards, core sections: OMG DDS 1.4 (overview, design rationale, QoS); OASIS MQTT 5.0 (introduction, operational behavior, security)",
    "pages": 73
+  },
+  "W100": {
+   "file": "../engineering/free/W100_ai_security_papers.pdf",
+   "title": "AI security papers: NIST AI 100-2e2025; OWASP Top 10 for LLM Applications 2025; Greshake et al. 2023; Beurer-Kellner et al. 2025; Debenedetti et al., CaMeL 2025; Carlini et al. 2021; Shokri et al. 2017; Abadi et al., DP-SGD 2016; Gu et al., BadNets 2017; Hubinger et al., Sleeper Agents 2024; Fang et al. 2024; Zhang et al., Cybench 2025; Anthropic, AI-orchestrated espionage 2025",
+   "pages": 297
   }
  },
  "parts": [
@@ -7845,6 +7850,33 @@
      ],
      "note": "כל הדוח",
      "role": "main"
+    },
+    {
+     "doc": "W100",
+     "pages": [
+      284,
+      297
+     ],
+     "note": "Anthropic 2025: מבצע ריגול שסוכן AI ביצע את רובו",
+     "role": "supp"
+    },
+    {
+     "doc": "W100",
+     "pages": [
+      263,
+      271
+     ],
+     "note": "Fang ואחרים 2024: סוכן שמנצל פגיעויות ידועות",
+     "role": "supp"
+    },
+    {
+     "doc": "W100",
+     "pages": [
+      110,
+      122
+     ],
+     "note": "Greshake ואחרים 2023: הזרקת הוראות עקיפה",
+     "role": "supp"
     }
    ]
   },

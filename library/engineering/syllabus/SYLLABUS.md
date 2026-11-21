@@ -6,7 +6,7 @@
 
 **תפקיד המקור:** ★ מקור ראשי. ◇ השלמה מספר אחר. ✎ תרגילים (לא נספרים באומדן השיעורים).
 
-**סה"כ:** 462 מודולים: 345 ליבה, 53 מתקדם, 64 עיון.
+**סה"כ:** 464 מודולים: 347 ליבה, 53 מתקדם, 64 עיון.
 
 | חלק | מודולים | עמ' בליבה | שיעורי ליבה (אומדן) | עמ' במתקדם | עמ' בעיון |
 |---|---|---|---|---|---|
@@ -32,16 +32,16 @@
 | P19 גשר: רובוטיקה | 12 | 859 | 56 | 0 | 12 |
 | P20 פריפריה: מתמטיקה דיסקרטית | 10 | 426 | 29 | 0 | 21 |
 | P21 פריפריה: אלגוריתמים | 11 | 360 | 24 | 0 | 292 |
-| P22 פריפריה: מערכות מחשב | 20 | 3145 | 209 | 394 | 867 |
+| P22 פריפריה: מערכות מחשב | 21 | 3345 | 222 | 394 | 867 |
 | P23 פריפריה: תקשורת ספרתית ואלחוטית | 20 | 869 | 57 | 1061 | 261 |
 | P24 פריפריה: פיזיקה מודרנית: יחסות וקוונטים | 15 | 819 | 54 | 105 | 144 |
 | P25 פריפריה: התקני מוליכים למחצה ותכנון שבבים | 13 | 463 | 31 | 253 | 284 |
 | P26 העשרה מתמטית | 5 | 0 | 0 | 0 | 316 |
 | P27 גשר: הנדסת מערכות | 15 | 1399 | 95 | 876 | 547 |
 | P28 גשר: תכן ספרתי, מחשוב מואץ ומערכות זמן-אמת | 6 | 5657 | 377 | 0 | 0 |
-| P29 גשר: הנדסת AI מודרני | 8 | 1328 | 89 | 351 | 0 |
+| P29 גשר: הנדסת AI מודרני | 9 | 1625 | 109 | 351 | 0 |
 | P30 גשר: הנדסה ימית | 6 | 3415 | 228 | 0 | 0 |
-| **סה"כ** | 462 | 36774 | 2457 | 6510 | 14272 |
+| **סה"כ** | 464 | 37271 | 2490 | 6510 | 14272 |
 
 האומדן: שיעור לכל כ-15 עמודי מקור, כולל השלמות. בהשלמות המורה מלמד רק את מה שחדש לעומת המקור הראשי.
 
@@ -3454,6 +3454,20 @@
 - ★ FIPS 203, Module-Lattice-Based Key-Encapsulation Mechanism Standard, עמ' PDF 10–26: קריאה ממוקדת: מבוא, סימונים וסקירת ML-KEM (פרקים 1–3)
 - ★ FIPS 203, Module-Lattice-Based Key-Encapsulation Mechanism Standard, עמ' PDF 44–49: פרקים 7–8: אלגוריתמי ML-KEM וסטים של פרמטרים
 
+### M22.21 אבטחת תוכנה ומערכות: פגיעויות, בידוד, זהות ושרשרת אספקה
+*Software and systems security: vulnerabilities, isolation, identity, supply chain* · **ליבה** · 200 עמ' · כ-13 שיעורים · דרישות: M22.15, M22.14, M22.17
+
+- ★ Software and systems security papers: Saltzer & Schroeder 1975; Thompson 1984; Szekeres et al., SoK Eternal War in Memory 2013; Manès et al., Fuzzing survey 2019; Ohm et al., Backstabber's Knife Collection 2020; NIST SP 800-207 Zero Trust 2020; Ward & Beyer, BeyondCorp 2014; Heiser, seL4 2020; Agache et al., Firecracker 2020, עמ' PDF 1–54: Saltzer & Schroeder 1975: עקרונות התכן של הגנה
+- ★ Software and systems security papers: Saltzer & Schroeder 1975; Thompson 1984; Szekeres et al., SoK Eternal War in Memory 2013; Manès et al., Fuzzing survey 2019; Ohm et al., Backstabber's Knife Collection 2020; NIST SP 800-207 Zero Trust 2020; Ward & Beyer, BeyondCorp 2014; Heiser, seL4 2020; Agache et al., Firecracker 2020, עמ' PDF 55–57: Thompson 1984: אמון בשרשרת הכלים
+- ★ Software and systems security papers: Saltzer & Schroeder 1975; Thompson 1984; Szekeres et al., SoK Eternal War in Memory 2013; Manès et al., Fuzzing survey 2019; Ohm et al., Backstabber's Knife Collection 2020; NIST SP 800-207 Zero Trust 2020; Ward & Beyer, BeyondCorp 2014; Heiser, seL4 2020; Agache et al., Firecracker 2020, עמ' PDF 58–72: SoK: המלחמה על הזיכרון, פגיעויות והגנות
+- ★ Software and systems security papers: Saltzer & Schroeder 1975; Thompson 1984; Szekeres et al., SoK Eternal War in Memory 2013; Manès et al., Fuzzing survey 2019; Ohm et al., Backstabber's Knife Collection 2020; NIST SP 800-207 Zero Trust 2020; Ward & Beyer, BeyondCorp 2014; Heiser, seL4 2020; Agache et al., Firecracker 2020, עמ' PDF 73–87: Fuzzing: סקירה הנדסית
+- ★ Software and systems security papers: Saltzer & Schroeder 1975; Thompson 1984; Szekeres et al., SoK Eternal War in Memory 2013; Manès et al., Fuzzing survey 2019; Ohm et al., Backstabber's Knife Collection 2020; NIST SP 800-207 Zero Trust 2020; Ward & Beyer, BeyondCorp 2014; Heiser, seL4 2020; Agache et al., Firecracker 2020, עמ' PDF 88–104: התקפות על שרשרת האספקה של קוד פתוח
+- ★ Software and systems security papers: Saltzer & Schroeder 1975; Thompson 1984; Szekeres et al., SoK Eternal War in Memory 2013; Manès et al., Fuzzing survey 2019; Ohm et al., Backstabber's Knife Collection 2020; NIST SP 800-207 Zero Trust 2020; Ward & Beyer, BeyondCorp 2014; Heiser, seL4 2020; Agache et al., Firecracker 2020, עמ' PDF 105–126: NIST SP 800-207 פרקים 1-3: עקרונות ורכיבים של zero trust
+- ◇ Software and systems security papers: Saltzer & Schroeder 1975; Thompson 1984; Szekeres et al., SoK Eternal War in Memory 2013; Manès et al., Fuzzing survey 2019; Ohm et al., Backstabber's Knife Collection 2020; NIST SP 800-207 Zero Trust 2020; Ward & Beyer, BeyondCorp 2014; Heiser, seL4 2020; Agache et al., Firecracker 2020, עמ' PDF 127–145: NIST SP 800-207 פרקים 4-7: תרחישים, איומים ומעבר
+- ★ Software and systems security papers: Saltzer & Schroeder 1975; Thompson 1984; Szekeres et al., SoK Eternal War in Memory 2013; Manès et al., Fuzzing survey 2019; Ohm et al., Backstabber's Knife Collection 2020; NIST SP 800-207 Zero Trust 2020; Ward & Beyer, BeyondCorp 2014; Heiser, seL4 2020; Agache et al., Firecracker 2020, עמ' PDF 146–151: BeyondCorp: zero trust בגוגל
+- ★ Software and systems security papers: Saltzer & Schroeder 1975; Thompson 1984; Szekeres et al., SoK Eternal War in Memory 2013; Manès et al., Fuzzing survey 2019; Ohm et al., Backstabber's Knife Collection 2020; NIST SP 800-207 Zero Trust 2020; Ward & Beyer, BeyondCorp 2014; Heiser, seL4 2020; Agache et al., Firecracker 2020, עמ' PDF 152–188: seL4: מיקרו-קרנל עם הוכחה פורמלית
+- ★ Software and systems security papers: Saltzer & Schroeder 1975; Thompson 1984; Szekeres et al., SoK Eternal War in Memory 2013; Manès et al., Fuzzing survey 2019; Ohm et al., Backstabber's Knife Collection 2020; NIST SP 800-207 Zero Trust 2020; Ward & Beyer, BeyondCorp 2014; Heiser, seL4 2020; Agache et al., Firecracker 2020, עמ' PDF 189–200: Firecracker: בידוד במכונות וירטואליות קלות
+
 ### M22.20 תווכה ופרוטוקולי pub/sub במערכות מבצעיות: DDS, MQTT וזמן
 *Middleware and pub/sub in operational systems: DDS, MQTT and time* · **ליבה** · 85 עמ' · כ-6 שיעורים · דרישות: M23.20, M28.5
 
@@ -4178,6 +4192,24 @@
 - ★ Quantization and Training of NNs for Integer-Arithmetic-Only Inference; Towards Deep Learning Models Resistant to Adversarial Attacks; Benchmarking NN Robustness to Common Corruptions, עמ' PDF 43–58: Hendrycks & Dietterich: ImageNet-C/P, corruptions
 - ★ Efficient Processing of Deep Neural Networks: A Tutorial and Survey, עמ' PDF 1–32: כולו
 - ★ Efficient Processing of Deep Neural Networks: A Tutorial and Survey, עמ' PDF 20–27: §VII–VIII: הפחתת דיוק (קוונטיזציה), גיזום ודחיסה, ארכיטקטורות יעילות, מדדי benchmarking
+
+### M29.9 אבטחה של מערכות AI: התקפות על מודלים וסוכנים, פרטיות, ו-AI בתקיפה ובהגנה
+*Security of AI systems: attacks on models and agents, privacy, AI in offense and defense* · **ליבה** · 297 עמ' · כ-20 שיעורים · דרישות: M29.6, M29.7, M22.21
+
+- ★ AI security papers: NIST AI 100-2e2025; OWASP Top 10 for LLM Applications 2025; Greshake et al. 2023; Beurer-Kellner et al. 2025; Debenedetti et al., CaMeL 2025; Carlini et al. 2021; Shokri et al. 2017; Abadi et al., DP-SGD 2016; Gu et al., BadNets 2017; Hubinger et al., Sleeper Agents 2024; Fang et al. 2024; Zhang et al., Cybench 2025; Anthropic, AI-orchestrated espionage 2025, עמ' PDF 1–64: NIST AI 100-2e2025: טקסונומיה של התקפות על AI והגנות
+- ◇ AI security papers: NIST AI 100-2e2025; OWASP Top 10 for LLM Applications 2025; Greshake et al. 2023; Beurer-Kellner et al. 2025; Debenedetti et al., CaMeL 2025; Carlini et al. 2021; Shokri et al. 2017; Abadi et al., DP-SGD 2016; Gu et al., BadNets 2017; Hubinger et al., Sleeper Agents 2024; Fang et al. 2024; Zhang et al., Cybench 2025; Anthropic, AI-orchestrated espionage 2025, עמ' PDF 65–109: OWASP Top 10 ליישומי LLM, 2025
+- ★ AI security papers: NIST AI 100-2e2025; OWASP Top 10 for LLM Applications 2025; Greshake et al. 2023; Beurer-Kellner et al. 2025; Debenedetti et al., CaMeL 2025; Carlini et al. 2021; Shokri et al. 2017; Abadi et al., DP-SGD 2016; Gu et al., BadNets 2017; Hubinger et al., Sleeper Agents 2024; Fang et al. 2024; Zhang et al., Cybench 2025; Anthropic, AI-orchestrated espionage 2025, עמ' PDF 110–122: Greshake ואחרים 2023: הזרקת הוראות עקיפה
+- ★ AI security papers: NIST AI 100-2e2025; OWASP Top 10 for LLM Applications 2025; Greshake et al. 2023; Beurer-Kellner et al. 2025; Debenedetti et al., CaMeL 2025; Carlini et al. 2021; Shokri et al. 2017; Abadi et al., DP-SGD 2016; Gu et al., BadNets 2017; Hubinger et al., Sleeper Agents 2024; Fang et al. 2024; Zhang et al., Cybench 2025; Anthropic, AI-orchestrated espionage 2025, עמ' PDF 123–149: תבניות תכן לאבטחת סוכנים מפני הזרקת הוראות
+- ★ AI security papers: NIST AI 100-2e2025; OWASP Top 10 for LLM Applications 2025; Greshake et al. 2023; Beurer-Kellner et al. 2025; Debenedetti et al., CaMeL 2025; Carlini et al. 2021; Shokri et al. 2017; Abadi et al., DP-SGD 2016; Gu et al., BadNets 2017; Hubinger et al., Sleeper Agents 2024; Fang et al. 2024; Zhang et al., Cybench 2025; Anthropic, AI-orchestrated espionage 2025, עמ' PDF 150–175: CaMeL: הפרדה בין זרימת בקרה לזרימת נתונים
+- ★ AI security papers: NIST AI 100-2e2025; OWASP Top 10 for LLM Applications 2025; Greshake et al. 2023; Beurer-Kellner et al. 2025; Debenedetti et al., CaMeL 2025; Carlini et al. 2021; Shokri et al. 2017; Abadi et al., DP-SGD 2016; Gu et al., BadNets 2017; Hubinger et al., Sleeper Agents 2024; Fang et al. 2024; Zhang et al., Cybench 2025; Anthropic, AI-orchestrated espionage 2025, עמ' PDF 176–188: Carlini ואחרים 2021: חילוץ נתוני אימון ממודל שפה
+- ★ AI security papers: NIST AI 100-2e2025; OWASP Top 10 for LLM Applications 2025; Greshake et al. 2023; Beurer-Kellner et al. 2025; Debenedetti et al., CaMeL 2025; Carlini et al. 2021; Shokri et al. 2017; Abadi et al., DP-SGD 2016; Gu et al., BadNets 2017; Hubinger et al., Sleeper Agents 2024; Fang et al. 2024; Zhang et al., Cybench 2025; Anthropic, AI-orchestrated espionage 2025, עמ' PDF 189–202: Shokri ואחרים 2017: הסקת חברות בנתוני האימון
+- ★ AI security papers: NIST AI 100-2e2025; OWASP Top 10 for LLM Applications 2025; Greshake et al. 2023; Beurer-Kellner et al. 2025; Debenedetti et al., CaMeL 2025; Carlini et al. 2021; Shokri et al. 2017; Abadi et al., DP-SGD 2016; Gu et al., BadNets 2017; Hubinger et al., Sleeper Agents 2024; Fang et al. 2024; Zhang et al., Cybench 2025; Anthropic, AI-orchestrated espionage 2025, עמ' PDF 203–211: Abadi ואחרים 2016: למידה עמוקה עם פרטיות דיפרנציאלית
+- ★ AI security papers: NIST AI 100-2e2025; OWASP Top 10 for LLM Applications 2025; Greshake et al. 2023; Beurer-Kellner et al. 2025; Debenedetti et al., CaMeL 2025; Carlini et al. 2021; Shokri et al. 2017; Abadi et al., DP-SGD 2016; Gu et al., BadNets 2017; Hubinger et al., Sleeper Agents 2024; Fang et al. 2024; Zhang et al., Cybench 2025; Anthropic, AI-orchestrated espionage 2025, עמ' PDF 212–222: BadNets: דלתות אחוריות בשרשרת האספקה של מודלים
+- ★ AI security papers: NIST AI 100-2e2025; OWASP Top 10 for LLM Applications 2025; Greshake et al. 2023; Beurer-Kellner et al. 2025; Debenedetti et al., CaMeL 2025; Carlini et al. 2021; Shokri et al. 2017; Abadi et al., DP-SGD 2016; Gu et al., BadNets 2017; Hubinger et al., Sleeper Agents 2024; Fang et al. 2024; Zhang et al., Cybench 2025; Anthropic, AI-orchestrated espionage 2025, עמ' PDF 223–237: Sleeper Agents: מבוא ושיטה
+- ◇ AI security papers: NIST AI 100-2e2025; OWASP Top 10 for LLM Applications 2025; Greshake et al. 2023; Beurer-Kellner et al. 2025; Debenedetti et al., CaMeL 2025; Carlini et al. 2021; Shokri et al. 2017; Abadi et al., DP-SGD 2016; Gu et al., BadNets 2017; Hubinger et al., Sleeper Agents 2024; Fang et al. 2024; Zhang et al., Cybench 2025; Anthropic, AI-orchestrated espionage 2025, עמ' PDF 238–262: Sleeper Agents: תוצאות ודיון
+- ★ AI security papers: NIST AI 100-2e2025; OWASP Top 10 for LLM Applications 2025; Greshake et al. 2023; Beurer-Kellner et al. 2025; Debenedetti et al., CaMeL 2025; Carlini et al. 2021; Shokri et al. 2017; Abadi et al., DP-SGD 2016; Gu et al., BadNets 2017; Hubinger et al., Sleeper Agents 2024; Fang et al. 2024; Zhang et al., Cybench 2025; Anthropic, AI-orchestrated espionage 2025, עמ' PDF 263–271: Fang ואחרים 2024: סוכן שמנצל פגיעויות ידועות
+- ★ AI security papers: NIST AI 100-2e2025; OWASP Top 10 for LLM Applications 2025; Greshake et al. 2023; Beurer-Kellner et al. 2025; Debenedetti et al., CaMeL 2025; Carlini et al. 2021; Shokri et al. 2017; Abadi et al., DP-SGD 2016; Gu et al., BadNets 2017; Hubinger et al., Sleeper Agents 2024; Fang et al. 2024; Zhang et al., Cybench 2025; Anthropic, AI-orchestrated espionage 2025, עמ' PDF 272–283: Cybench: מדידת יכולות סייבר של מודלים
+- ★ AI security papers: NIST AI 100-2e2025; OWASP Top 10 for LLM Applications 2025; Greshake et al. 2023; Beurer-Kellner et al. 2025; Debenedetti et al., CaMeL 2025; Carlini et al. 2021; Shokri et al. 2017; Abadi et al., DP-SGD 2016; Gu et al., BadNets 2017; Hubinger et al., Sleeper Agents 2024; Fang et al. 2024; Zhang et al., Cybench 2025; Anthropic, AI-orchestrated espionage 2025, עמ' PDF 284–297: Anthropic 2025: מבצע ריגול שסוכן AI ביצע את רובו
 
 ### M29.5 ראייה ממוחשבת מודרנית ותפיסה תלת-ממדית: DETR, SAM, World Models ו-3DGS
 *Modern vision and 3D perception: DETR, SAM, world models, 3DGS* · **ליבה** · 209 עמ' · כ-14 שיעורים · דרישות: M17.6, M17.7, M17.11, M19.12

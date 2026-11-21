@@ -20,7 +20,7 @@
 | P5 ניווט ו-GNSS | 14 | 1373 | 26 | 93 | 220 |
 | P6 טילים: דינמיקה, הנחיה ובקרה | 16 | 1229 | 44 | 84 | 50 |
 | P7 הגנה אווירית ומפני טילים, ושו"ב | 18 | 2454 | 348 | 163 | 67 |
-| P15 ארכיטקטורת מערכות, קשר וסייבר-ספקטרום | 7 | 1372 | 0 | 92 | 0 |
+| P15 ארכיטקטורת מערכות, קשר וסייבר-ספקטרום | 7 | 1408 | 0 | 94 | 0 |
 | P8 פלטפורמות אוויר ואוויוניקה | 10 | 330 | 41 | 24 | 264 |
 | P9 כטב"מים, רחפנים והגנה מפניהם | 10 | 397 | 41 | 27 | 51 |
 | P10 מערכות ימיות | 10 | 3027 | 120 | 208 | 0 |
@@ -28,7 +28,7 @@
 | P12 האויב: דוקטרינה והפעלה | 5 | 112 | 0 | 7 | 140 |
 | P13 חלל: מסלולים, לוויינים, תקשורת לוויינית ושיגור | 24 | 351 | 0 | 24 | 174 |
 | P14 ניתוח הגנה: מידול לחימה, עלות, לוגיסטיקה ו-OSINT | 8 | 439 | 0 | 31 | 112 |
-| **סה"כ** | 229 | 17031 | 1320 | 1154 | 2631 |
+| **סה"כ** | 229 | 17067 | 1320 | 1156 | 2631 |
 
 האומדן: שיעור לכל כ-15 עמודי ספר, כולל השלמות. מאמר לא מוסיף שיעורים משלו: המורה משלב ממנו את מה שחדש בתוך שיעורי המודול. מודול שכולו מאמרים נספר לפי עמודי המאמר.
 
@@ -1078,13 +1078,16 @@
 - ★ Gonzales et al., Air-to-Air Combat With and Without Link 16, RAND MG-268, עמ' PDF 102–121: פרקים 10–11: קבלת החלטות, הקשר ליעילות המשימה ומסקנות
 
 ### M15.5 פעילות סייבר-אלקטרומגנטית (CEMA): משטח התקיפה של קישורי RF וההגנה עליו
-*Cyber-electromagnetic activity (CEMA): attack surface of RF links and its defense* · **ליבה** · 250 עמ' ספר · כ-17 שיעורים · דרישות: M15.3, M4.11
+*Cyber-electromagnetic activity (CEMA): attack surface of RF links and its defense* · **ליבה** · 286 עמ' ספר · כ-19 שיעורים · דרישות: M15.3, M4.11
 
 - ★ E34, עמ' PDF 619–620: 8.1: מהי אבטחת רשת, מודל התוקף
 - ★ E34, עמ' PDF 635–649: 8.3–8.4: שלמות הודעה, MAC, חתימות ואימות נקודת קצה
 - ★ E34, עמ' PDF 670–689: 8.8–8.9: אבטחת WLAN ו-4G/5G, חומות אש ו-IDS
 - ★ FM 3-12, Cyberspace Operations and Electromagnetic Warfare, עמ' PDF 1–162: כולו
 - ★ GAO-19-128, Weapon Systems Cybersecurity: DOD Just Beginning to Grapple with Scale of Vulnerabilities, עמ' PDF 1–51: כל הדוח
+- ◇ AI security papers: NIST AI 100-2e2025; OWASP Top 10 for LLM Applications 2025; Greshake et al. 2023; Beurer-Kellner et al. 2025; Debenedetti et al., CaMeL 2025; Carlini et al. 2021; Shokri et al. 2017; Abadi et al., DP-SGD 2016; Gu et al., BadNets 2017; Hubinger et al., Sleeper Agents 2024; Fang et al. 2024; Zhang et al., Cybench 2025; Anthropic, AI-orchestrated espionage 2025, עמ' PDF 284–297: Anthropic 2025: מבצע ריגול שסוכן AI ביצע את רובו
+- ◇ AI security papers: NIST AI 100-2e2025; OWASP Top 10 for LLM Applications 2025; Greshake et al. 2023; Beurer-Kellner et al. 2025; Debenedetti et al., CaMeL 2025; Carlini et al. 2021; Shokri et al. 2017; Abadi et al., DP-SGD 2016; Gu et al., BadNets 2017; Hubinger et al., Sleeper Agents 2024; Fang et al. 2024; Zhang et al., Cybench 2025; Anthropic, AI-orchestrated espionage 2025, עמ' PDF 263–271: Fang ואחרים 2024: סוכן שמנצל פגיעויות ידועות
+- ◇ AI security papers: NIST AI 100-2e2025; OWASP Top 10 for LLM Applications 2025; Greshake et al. 2023; Beurer-Kellner et al. 2025; Debenedetti et al., CaMeL 2025; Carlini et al. 2021; Shokri et al. 2017; Abadi et al., DP-SGD 2016; Gu et al., BadNets 2017; Hubinger et al., Sleeper Agents 2024; Fang et al. 2024; Zhang et al., Cybench 2025; Anthropic, AI-orchestrated espionage 2025, עמ' PDF 110–122: Greshake ואחרים 2023: הזרקת הוראות עקיפה
 
 ### M15.6 שילוב בפלטפורמה: EMC/EMI והפרעות Co-site
 *Platform integration: EMC/EMI and co-site interference* · **ליבה** · 506 עמ' ספר · כ-34 שיעורים · דרישות: M1.6, M15.1
@@ -1960,3 +1963,4 @@
 - ⚠️ FM 3-11.9 / MCRP 3-37.1B / NTRP 3-11.32 / AFTTP(I) 3-2.55, Potential Military Chemical/Biological Agents and Compounds: עמודים לא ממופים 1-16, 110-133, 170-213, 250-318
 - ⚠️ Architecture and organization classics: Conway 1968; Parnas 1972; Brooks, No Silver Bullet 1986; Ulrich 1995; MacCormack, Rusnak & Baldwin, mirroring 2008: עמודים לא ממופים 5-61
 - ⚠️ Middleware standards, core sections: OMG DDS 1.4 (overview, design rationale, QoS); OASIS MQTT 5.0 (introduction, operational behavior, security): עמודים לא ממופים 38-73
+- ⚠️ AI security papers: NIST AI 100-2e2025; OWASP Top 10 for LLM Applications 2025; Greshake et al. 2023; Beurer-Kellner et al. 2025; Debenedetti et al., CaMeL 2025; Carlini et al. 2021; Shokri et al. 2017; Abadi et al., DP-SGD 2016; Gu et al., BadNets 2017; Hubinger et al., Sleeper Agents 2024; Fang et al. 2024; Zhang et al., Cybench 2025; Anthropic, AI-orchestrated espionage 2025: עמודים לא ממופים 1-109, 123-262, 272-283
