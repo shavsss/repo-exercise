@@ -2,6 +2,7 @@
 import { build } from "esbuild";
 import assert from "node:assert/strict";
 import test from "node:test";
+import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 
 const load = async (rel) => {
@@ -91,18 +92,18 @@ test("the word budget: planned words, a word count, and the tighten step", () =>
     { n: "2.1", title: "a", question: "q", from_prev: "", needs: [], defines: [], words: 1200, visual: "chart: Ls against d" },
     { n: "2.2", title: "b", question: "q", from_prev: "", needs: [], defines: [], words: 800 },
   ] }] });
-  assert.equal(B.lessonWords(o), 2000);
+  assert.equal(B.partWords(o, ['2.1', '2.2']), 2000);
   assert.equal(B.partWords(o, ["2.2"]), 800);
   assert.equal(B.wordCount("אחת שתיים  שלוש\nארבע"), 4);
   assert.equal(B.wordCount("מילה\n```svg\n<svg viewBox=\"0 0 1 1\"><text>א ב ג</text></svg>\n```\nעוד"), 2);
   assert.match(B.outlineText(o, ["2.1"]), /visuals: chart: Ls against d/);
-  assert.match(B.BOOK_PART(o, ["2.1"], true, false), /this part about 1200 words/);
+  assert.match(B.BOOK_PART(o, ["2.1"], true, false), /2\.1 ≈1200; this part about 1200 words in all/);
   assert.match(B.BOOK_PLAN(2), /Length follows depth/);
   assert.match(B.BOOK_PLAN(2), /breadth never adds words/);
-  // the budget is the planned depth plus room for the questions, with no fixed cap (21.11)
-  assert.equal(B.lessonBudget(o), 4500);
+  // the budget is the planned depth of what the parts write plus room for the questions, with no fixed cap (21.11)
+  assert.equal(B.lessonBudget(o, [{ sections: ["2.1", "2.2"] }]), 4500);
   const deep = B.normalizeOutline({ known: [], chapters: [{ n: 1, title: "t", question: "q", sections: Array.from({ length: 10 }, (_, i) => ({ n: `1.${i + 1}`, title: "a", question: "q", from_prev: "", needs: [], defines: [], words: 2000 })) }] });
-  assert.equal(B.lessonBudget(deep), 22500);
+  assert.equal(B.lessonBudget(deep, [{}]), 22500);
   const t = B.tightenPrompt("x", 20000, 15000);
   assert.match(t, /It has 20000 words; its budget is 15000/);
   assert.match(t, /never remove or thin a definition/);
@@ -129,7 +130,7 @@ test("form (10.11): a chapter with no thread, a dense subsection and a subsectio
     ],
   });
   const p = B.formProblems(o);
-  assert.deepEqual(p.map((x) => `${x.where}:${x.kind}`), ["4:thread", "4.1:density", "4.1:depth", "4.2:density", "4.2:depth", "4.3:visual", "4.3:depth"]);
+  assert.deepEqual(p.map((x) => `${x.where}:${x.kind}`), ["4:thread", "4.1:density", "4.1:depth", "4.1:depth", "4.2:density", "4.2:depth", "4.2:depth", "4.3:visual", "4.3:depth", "4.3:depth"]);
   // a plan written before 10.11 (a single "visual") still counts as one visual, once
   assert.deepEqual(o.chapters[0].sections[1].visuals, ["chart: S מול E"]);
   assert.match(B.outlineText(o, ["4.2"]), /visuals: chart: S מול E/);
@@ -139,9 +140,9 @@ test("form (10.11): a chapter with no thread, a dense subsection and a subsectio
 
 test("depth (21.11): words beyond what a subsection's depth needs are found", () => {
   const o = B.normalizeOutline({ known: [], chapters: [{ n: 1, title: "t", question: "q", thread: "מבעיה ליכולת", sections: [
-    { n: "1.1", title: "a", question: "q", from_prev: "", needs: [], visuals: ["svg: x"], depth: "לגזור", words: 2600, defines: [{ term: "x", mark: "s" }] },
+    { n: "1.1", title: "a", question: "q", from_prev: "", needs: [], visuals: ["svg: x"], depth: "לגזור את f מתוך g", words: 2600, defines: [{ term: "x", mark: "s" }] },
     { n: "1.2", title: "b", question: "q", from_prev: "1.1", needs: [], visuals: ["svg: y"], depth: "להשוות שתי חלופות במספרים", words: 1400, defines: [] },
-    { n: "1.3", title: "c", question: "q", from_prev: "1.2", needs: [], visuals: ["svg: z"], depth: "לחשב", words: 900, defines: [] },
+    { n: "1.3", title: "c", question: "q", from_prev: "1.2", needs: [], visuals: ["svg: z"], depth: "לחשב את f בנקודה אחת", words: 900, defines: [] },
   ] }] });
   assert.deepEqual(B.formProblems(o).map((x) => `${x.where}:${x.kind}`), ["1.1:depth", "1.2:depth"]);
   assert.equal(o.chapters[0].sections[1].depth, "להשוות שתי חלופות במספרים");
@@ -159,4 +160,58 @@ test("ledger: an iou counts as defined for order; an assumption or iou not settl
   assert.deepEqual(p.filter((x) => x.kind === "order"), []);
   assert.deepEqual(p.filter((x) => x.kind === "ledger").map((x) => x.where), ["4.2", "4.2"]);
   assert.match(B.outlineText(o, ["4.1"]), /anchor: מיקרוסקופ[\s\S]*assumptions: v≪c → 4\.2[\s\S]*iou: זמן הקריסה → 4\.2/);
+});
+
+// 21.11, the depth check: the saved plans of the bench (profile/bench, *-plan-lite), shortened
+const saved = JSON.parse(readFileSync(new URL("./samples/plan-depth-2111.json", import.meta.url), "utf8"));
+
+test("tighten (21.11): one pass cuts at most 20%; a lesson still over 1.3 times its budget is a split candidate", () => {
+  // the full Lanchester lesson: 22,899 words against 8,900 was sent to 8,900 in one pass
+  assert.equal(B.tightenTarget(22899, 8900), 18320);
+  assert.equal(B.tightenTarget(10000, 9000), 9000);
+  assert.equal(B.tightenFloor(22899), 17174);
+  assert.ok(B.splitCandidate(18320, 8900));
+  assert.ok(!B.splitCandidate(11000, 8900));
+  assert.ok(!B.splitCandidate(5000, 0));
+});
+
+test("depth (21.11): a verb of the closed list and its product, or background that names the step it enables", () => {
+  const o = B.normalizeOutline(saved.outline);
+  const flagged = B.formProblems(o).filter((p) => p.kind === "depth" && /"depth"/.test(p.problem)).map((p) => p.where);
+  // "תקציב קשר מקצה לקצה" names no verb; "לחשב λ", "חסם", "MeV" are too short to name a product
+  assert.deepEqual(flagged, ["4.4", "5.2", "5.3", "6.1", "6.2"]);
+  for (const d of ["לגזור את L_s = (4πd/λ)² משטח אפקטיבי", "להחליט בין הספק לאנטנה לפי 6 dB = פי 2", "מחשב EIRP ורמת קליטה בתקציב", "לעקוב אחרי המנגנון של הדעיכה 1/r²", "to derive the far-field condition 2D²/λ", "רקע ל-2.4: מה זה שדה, כדי לחשב בו את הכוח"])
+    assert.equal(B.depthProblem(d), "", d);
+  for (const d of ["נכתב", "", "להבין מהו גל ואיך הוא נראה", "סקירה של תחומי המדע"]) assert.notEqual(B.depthProblem(d), "", d);
+  // a plan that writes only the missing part of a lesson marked its written subsections "נכתב" (Lanchester M0.2 lesson 1)
+  const w = B.normalizeOutline({ known: [], chapters: [{ n: 1, title: "t", question: "q", thread: "t", sections: [{ n: "1.1", title: "a (נכתב)", question: "q", from_prev: "", needs: [], defines: [], depth: "נכתב", visuals: ["svg"] }] }] });
+  const kinds = B.formProblems(w).map((p) => p.problem);
+  assert.ok(kinds.some((p) => /names no verb/.test(p)));
+  assert.ok(kinds.some((p) => /no "words"/.test(p)));
+  assert.match(B.BOOK_PLAN(1), /one verb of the closed list/);
+  assert.match(B.BOOK_PLAN(1), /even when the course memory or the lesson's focus says part of it was written before/);
+  assert.match(B.outlineCheckPrompt(o, "t"), /names a verb of the closed list|does not name a verb of the closed list/);
+});
+
+test("budget from the checked plan (21.11): every subsection is in a part, and the budget is what the parts write", () => {
+  const o = B.normalizeOutline(saved.outline);
+  // as planned, chapters 5 and 6 were in no part: they would never be written, and the budget counted only chapter 4
+  assert.deepEqual(B.coverProblems(o, saved.parts).map((p) => p.where), ["5.1", "5.2", "5.3", "6.1", "6.2"]);
+  assert.equal(B.lessonBudget(o, saved.parts), 2700 + 2500);
+  const parts = B.coverParts(o, saved.parts);
+  assert.deepEqual(parts.map((p) => p.sections), [["4.1", "4.2", "4.4"], ["5.1", "5.2", "5.3"], ["6.1", "6.2"]]);
+  assert.match(parts[1].title, /^פרק 5/);
+  assert.deepEqual(B.coverProblems(o, parts), []);
+  assert.equal(B.lessonBudget(o, parts), 6100 + 2500);
+  // a subsection left out inside a covered chapter goes to the part of the one before it, in order
+  assert.deepEqual(B.coverParts(o, [{ title: "a", covers: "", sections: ["4.1", "4.4", "5.1", "5.2", "5.3", "6.1", "6.2"] }]).map((p) => p.sections), [["4.1", "4.2", "4.4", "5.1", "5.2", "5.3", "6.1", "6.2"]]);
+  // the fix round keeps the checked words where the fixed outline left them out; "1,200" and "1200–1500" are read as numbers
+  const fixed = B.normalizeOutline({ ...saved.outline, chapters: saved.outline.chapters.map((c) => ({ ...c, sections: c.sections.map((s) => ({ ...s, words: s.n === "4.1" ? undefined : s.n === "4.2" ? "1,200" : s.words })) })) });
+  const kept = B.keepWords(o, fixed);
+  assert.equal(B.partWords(kept, ["4.1", "4.2"]), 900 + 1200);
+  assert.equal(B.wordsOf("1200–1500"), 1200);
+  assert.equal(B.wordsOf("~900"), 900);
+  assert.equal(B.wordsOf(NaN), 0);
+  // the writer gets each subsection's words
+  assert.match(B.BOOK_PART(o, ["5.1", "5.2"], false, false), /5\.1 ≈800, 5\.2 ≈700; this part about 1500 words in all/);
 });

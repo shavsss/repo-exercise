@@ -13,7 +13,7 @@ import { headWithin, tailWithin } from "./truncation";
 import { LEGACY_RULES, SYSTEM_PROMPT, TEACHBACK_RULES, libraryList } from "./prompt";
 import type { Runtime, SampleTool } from "./runtime";
 import { type TeachScope, type TeachTurn, type TeachVerdict } from "./teachback";
-import { BOOK_PART, BOOK_PLAN, CASE_PART, CASE_PLAN, OUTLINE_FIX, formProblems, lessonBudget, normalizeOutline, orderProblems, outlineCheckPrompt, parseOutlineReview, partSections, tightenPrompt, validOutline, wordCount, type BookOutline, type CasePlan } from "./bookRules";
+import { BOOK_PART, BOOK_PLAN, CASE_PART, CASE_PLAN, OUTLINE_FIX, coverParts, coverProblems, formProblems, keepWords, lessonBudget, normalizeOutline, orderProblems, outlineCheckPrompt, parseOutlineReview, partSections, splitCandidate, tightenFloor, tightenPrompt, tightenTarget, validOutline, wordCount, type BookOutline, type CasePlan } from "./bookRules";
 import { caseAid, caseId, type CaseAid } from "./caseBlock";
 import { ideasForPrompt, loadIdeas, type Idea } from "./ideas";
 import { loadProjects, projectsForPrompt, type ResearchProject } from "./projects";
@@ -660,14 +660,15 @@ async function checkOutline(o: { rt: Runtime; plan: PartPlan; planTurn: string; 
   for (let round = 0; round < 2; round++) {
     o.cb.onStatus?.(round ? "בודק שוב את סדר תוכן העניינים" : "בודק את סדר תוכן העניינים: כל מושג מוגדר לפני שמשתמשים בו");
     const review = parseOutlineReview(await o.rt.sample!.json<unknown>(outlineCheckPrompt(plan.outline!, o.title), { model: MODEL, modelTier: "complex", effort: "medium", signal: o.signal, cache: false }).catch(() => null));
-    const problems = [...orderProblems(plan.outline!), ...formProblems(plan.outline!), ...(review?.problems ?? [])];
+    const problems = [...orderProblems(plan.outline!), ...formProblems(plan.outline!), ...coverProblems(plan.outline!, plan.parts), ...(review?.problems ?? [])];
     if (!problems.length) break;
     o.cb.onStatus?.(`מתקן את תוכן העניינים (${problems.length} בעיות)`);
     const fixed = await ask(OUTLINE_FIX({ problems, verdict: "fix" }));
     if (!fixed || !Array.isArray(fixed.parts) || !fixed.parts.length || !validOutline(fixed.outline)) break;
-    plan = { ...fixed, case: fixed.case ?? plan.case, outline: normalizeOutline(fixed.outline) };
+    plan = { ...fixed, case: fixed.case ?? plan.case, outline: keepWords(plan.outline!, normalizeOutline(fixed.outline)) };
   }
-  return plan;
+  // a subsection the parts still leave out is written all the same: the budget counts it (21.11)
+  return { ...plan, parts: coverParts(plan.outline!, plan.parts) };
 }
 
 /**
@@ -751,18 +752,27 @@ function featurePart(p: { blocks?: string[] }) {
 }
 
 
-/** One pass that brings a lesson over its budget (by more than 10%) back to it, cutting only what is not depth (tightenPrompt). */
-async function tightenToBudget(o: { rt: Runtime; text: string; budget: number; effort: Effort; signal: AbortSignal; cb: TurnCallbacks }): Promise<string> {
+/**
+ * One pass that brings a lesson over its budget (by more than 10%) toward it, cutting only what is not depth (tightenPrompt).
+ * A pass removes at most MAX_CUT of the words (an edit that cuts more is not applied); a lesson still over SPLIT_OVER times its
+ * budget is not cut further but marked as a candidate for two lessons (21.11: 22,899 words were sent to 8,900 in one pass).
+ */
+async function tightenToBudget(o: { rt: Runtime; text: string; budget: number; effort: Effort; signal: AbortSignal; cb: TurnCallbacks }): Promise<{ text: string; split?: { words: number; budget: number } }> {
   const words = wordCount(o.text);
-  if (words <= o.budget * 1.1) return o.text;
-  o.cb.onStatus?.(`מהדק את השיעור: ${words.toLocaleString()} מילים, התקציב לפי העומק ${o.budget.toLocaleString()}`);
-  const raw = await o.rt.sample!([{ role: "user", content: tightenPrompt(o.text, words, o.budget) }], { model: MODEL, modelTier: "complex", effort: o.effort, signal: o.signal, cache: false })
+  if (words <= o.budget * 1.1) return { text: o.text };
+  const target = tightenTarget(words, o.budget);
+  o.cb.onStatus?.(`מהדק את השיעור: ${words.toLocaleString()} מילים, התקציב לפי העומק ${o.budget.toLocaleString()}${target > o.budget ? `; במעבר הזה עד ${target.toLocaleString()}` : ""}`);
+  const raw = await o.rt.sample!([{ role: "user", content: tightenPrompt(o.text, words, target) }], { model: MODEL, modelTier: "complex", effort: o.effort, signal: o.signal, cache: false })
     .then((r) => r.text)
     .catch(() => "");
   const t = raw ? applyRepair(o.text, raw, "inplace") : null;
-  if (!t?.applied || wordCount(t.text) >= words) return o.text;
-  o.cb.onText(t.text);
-  return t.text;
+  const after = t?.applied ? wordCount(t.text) : words;
+  const text = t?.applied && after < words && after >= tightenFloor(words) ? t.text : o.text;
+  if (text !== o.text) o.cb.onText(text);
+  const left = text === o.text ? words : after;
+  if (!splitCandidate(left, o.budget)) return { text };
+  o.cb.onStatus?.(`השיעור ארוך מהתקציב גם אחרי ההידוק (${left.toLocaleString()} מול ${o.budget.toLocaleString()} מילים): לא מקצץ עוד; מועמד לפיצול לשני שיעורים`);
+  return { text, split: { words: left, budget: o.budget } };
 }
 
 export async function composeLesson(opts: Base & { text: string; resume?: { plan: PartPlan; partsDone: number; text: string }; planOnly?: boolean; auditEffort?: Effort }) {
@@ -841,8 +851,9 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
   }
   // a book lesson over its depth budget is tightened (what is not depth only) before the checks, and again after
   // their repairs, which add without recounting (bookRules.ts, 21.11: length follows depth)
-  const budget = book && plan.outline ? lessonBudget(plan.outline) : 0;
-  if (budget && !opts.planOnly && written) written = await tightenToBudget({ rt, text: written, budget, effort, signal, cb });
+  const budget = book && plan.outline ? lessonBudget(plan.outline, plan.parts) : 0;
+  let split: { words: number; budget: number } | undefined;
+  if (budget && !opts.planOnly && written) ({ text: written, split } = await tightenToBudget({ rt, text: written, budget, effort, signal, cb }));
   // every lesson is checked against its pages before it is read, and repaired where it falls short (lessonAudit.ts)
   let audit: AuditMark | undefined;
   if (!opts.planOnly && written) {
@@ -852,9 +863,11 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
       audit = a.mark;
       cb.onText(written);
     }
-    if (budget) written = await tightenToBudget({ rt, text: written, budget, effort, signal, cb });
+    // a split candidate is not cut again (one pass of at most MAX_CUT); otherwise the repairs' additions get one pass
+    if (budget && !split) ({ text: written, split } = await tightenToBudget({ rt, text: written, budget, effort, signal, cb }));
+    if (split && audit) audit = { ...audit, split };
   }
-  return { text: written, plan, model, audit };
+  return { text: written, plan, model, audit, split };
 }
 
 /**

@@ -1,0 +1,203 @@
+{
+ "source": "profile/bench/1795269259143-M0.2-plan-lite (gilua M0.2 lesson 2, 21.11), shortened: chapters 4–6, the parts as planned (chapters 5–6 in no part)",
+ "outline": {
+  "known": [],
+  "chapters": [
+   {
+    "n": 4,
+    "title": "שדות וגלים: מלוויין לטלפון",
+    "question": "איך השפעה עוברת מרחוק, וכמה ממנה מגיע?",
+    "thread": "מקולון במנוחה אל תקציב קשר של אות GPS",
+    "sections": [
+     {
+      "n": "4.1",
+      "title": "השדה והגל",
+      "depth": "להבחין בין פעולה ישירה לשדה; לחשב השהיה",
+      "words": 900,
+      "needs": [],
+      "defines": [
+       {
+        "term": "E=F/q",
+        "mark": "s"
+       },
+       {
+        "term": "גל, f, Hz",
+        "mark": "s"
+       }
+      ],
+      "visuals": [
+       "scene3d: dipole_field"
+      ]
+     },
+     {
+      "n": "4.2",
+      "title": "הספק, שטף ו-dBm",
+      "depth": "לגזור דעיכה משימור אנרגיה",
+      "words": 700,
+      "needs": [],
+      "defines": [
+       {
+        "term": "הספק W",
+        "mark": "a"
+       },
+       {
+        "term": "שטף P/4πr²",
+        "mark": "s"
+       }
+      ],
+      "visuals": [
+       "svg: לוויין וקליפה כדורית"
+      ]
+     },
+     {
+      "n": "4.4",
+      "title": "מקרה בוחן: אות GPS",
+      "depth": "תקציב קשר מקצה לקצה",
+      "words": 1100,
+      "needs": [],
+      "defines": [
+       {
+        "term": "רווח אנטנה, EIRP",
+        "mark": "a"
+       },
+       {
+        "term": "שטח אפקטיבי λ²/4π",
+        "mark": "a"
+       }
+      ],
+      "visuals": [
+       "mermaid: שרשרת"
+      ]
+     }
+    ]
+   },
+   {
+    "n": 5,
+    "title": "קוונטים: גודל האטום",
+    "question": "למה האלקטרון לא נופל, ומה גודל האטום?",
+    "thread": "מהקריסה הקלאסית אל a₀ ואל הרזולוציה של המיקרוסקופ",
+    "sections": [
+     {
+      "n": "5.1",
+      "title": "הקריסה והפוטון",
+      "depth": "החלטה גל/חלקיק לפי hf/kT",
+      "words": 800,
+      "needs": [],
+      "defines": [
+       {
+        "term": "v²/r",
+        "mark": "a"
+       },
+       {
+        "term": "מטען מואץ מקרין",
+        "mark": "a"
+       }
+      ],
+      "visuals": [
+       "svg: מסלול קורס"
+      ]
+     },
+     {
+      "n": "5.2",
+      "title": "גל של חומר",
+      "depth": "לחשב λ",
+      "words": 700,
+      "needs": [],
+      "defines": [
+       {
+        "term": "λ=h/p",
+        "mark": "s"
+       },
+       {
+        "term": "חבילת גל",
+        "mark": "s"
+       }
+      ],
+      "visuals": [
+       "svg: אלקטרון כגל עם λ וחבילה"
+      ]
+     },
+     {
+      "n": "5.3",
+      "title": "אי-ודאות",
+      "depth": "חסם",
+      "words": 800,
+      "needs": [],
+      "defines": [
+       {
+        "term": "Δx·Δp ≥ ħ/2",
+        "mark": "s"
+       },
+       {
+        "term": "ħ=h/2π",
+        "mark": "s"
+       }
+      ],
+      "visuals": [
+       "chart: חבילות"
+      ]
+     }
+    ]
+   },
+   {
+    "n": 6,
+    "title": "גרעינים וחלקיקים",
+    "question": "למה הגרעין חזק פי מיליון?",
+    "thread": "מ-E_conf אל כמות הדלק",
+    "sections": [
+     {
+      "n": "6.1",
+      "title": "הגרעין",
+      "depth": "קנה מידה 10⁵",
+      "words": 500,
+      "needs": [],
+      "defines": [
+       {
+        "term": "גרעין, נוקלאון",
+        "mark": "a"
+       },
+       {
+        "term": "מספר אטומי",
+        "mark": "a"
+       }
+      ],
+      "visuals": [
+       "svg: חדר וגרעין"
+      ]
+     },
+     {
+      "n": "6.2",
+      "title": "כליאה גרעינית",
+      "depth": "MeV",
+      "words": 600,
+      "needs": [],
+      "defines": [
+       {
+        "term": "MeV",
+        "mark": "s"
+       },
+       {
+        "term": "E_conf גרעינית",
+        "mark": "s"
+       }
+      ],
+      "visuals": [
+       "chart: E_conf מול L"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "parts": [
+  {
+   "title": "חלק 3",
+   "covers": "פרק 4",
+   "sections": [
+    "4.1",
+    "4.2",
+    "4.4"
+   ]
+  }
+ ]
+}
