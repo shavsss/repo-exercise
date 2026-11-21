@@ -709,9 +709,14 @@ async function tightenToBudget(o: { rt: Runtime; text: string; budget: number; e
   if (words <= o.budget * 1.1) return { text: o.text };
   const target = tightenTarget(words, o.budget);
   o.cb.onStatus?.(`מהדק את השיעור: ${words.toLocaleString()} מילים, התקציב לפי העומק ${o.budget.toLocaleString()}${target > o.budget ? `; במעבר הזה עד ${target.toLocaleString()}` : ""}`);
-  const raw = await o.rt.sample!([{ role: "user", content: tightenPrompt(o.text, words, target) }], { model: MODEL, modelTier: "complex", effort: o.effort, signal: o.signal, cache: false })
+  // a call that fails at once (too large, a limit) leaves the lesson as it is, and says why (21.11: a run ended right here)
+  const raw = await Promise.resolve()
+    .then(() => o.rt.sample!([{ role: "user", content: tightenPrompt(o.text, words, target) }], { model: MODEL, modelTier: "complex", effort: o.effort, signal: o.signal, cache: false }))
     .then((r) => r.text)
-    .catch(() => "");
+    .catch((e: { code?: string; message?: string }) => {
+      o.cb.onStatus?.(`ההידוק לא רץ (${e?.code ?? e?.message ?? "שגיאה"}): השיעור נשאר כמו שהוא`);
+      return "";
+    });
   const t = raw ? applyRepair(o.text, raw, "inplace") : null;
   const after = t?.applied ? wordCount(t.text) : words;
   const text = t?.applied && after < words && after >= tightenFloor(words) ? t.text : o.text;
