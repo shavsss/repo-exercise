@@ -13,7 +13,7 @@ import { headWithin, tailWithin } from "./truncation";
 import { LEGACY_RULES, SYSTEM_PROMPT, TEACHBACK_RULES, libraryList } from "./prompt";
 import type { Runtime, SampleTool } from "./runtime";
 import { type TeachScope, type TeachTurn, type TeachVerdict } from "./teachback";
-import { BOOK_PART, BOOK_PLAN, CASE_PART, CASE_PLAN, LESSON_WORDS, OUTLINE_FIX, formProblems, lessonWords, normalizeOutline, orderProblems, outlineCheckPrompt, parseOutlineReview, partSections, tightenPrompt, validOutline, wordCount, type BookOutline, type CasePlan } from "./bookRules";
+import { BOOK_PART, BOOK_PLAN, CASE_PART, CASE_PLAN, OUTLINE_FIX, formProblems, lessonBudget, normalizeOutline, orderProblems, outlineCheckPrompt, parseOutlineReview, partSections, tightenPrompt, validOutline, wordCount, type BookOutline, type CasePlan } from "./bookRules";
 import { caseAid, caseId, type CaseAid } from "./caseBlock";
 import { ideasForPrompt, loadIdeas, type Idea } from "./ideas";
 import { loadProjects, projectsForPrompt, type ResearchProject } from "./projects";
@@ -751,6 +751,20 @@ function featurePart(p: { blocks?: string[] }) {
 }
 
 
+/** One pass that brings a lesson over its budget (by more than 10%) back to it, cutting only what is not depth (tightenPrompt). */
+async function tightenToBudget(o: { rt: Runtime; text: string; budget: number; effort: Effort; signal: AbortSignal; cb: TurnCallbacks }): Promise<string> {
+  const words = wordCount(o.text);
+  if (words <= o.budget * 1.1) return o.text;
+  o.cb.onStatus?.(`מהדק את השיעור: ${words.toLocaleString()} מילים, התקציב לפי העומק ${o.budget.toLocaleString()}`);
+  const raw = await o.rt.sample!([{ role: "user", content: tightenPrompt(o.text, words, o.budget) }], { model: MODEL, modelTier: "complex", effort: o.effort, signal: o.signal, cache: false })
+    .then((r) => r.text)
+    .catch(() => "");
+  const t = raw ? applyRepair(o.text, raw, "inplace") : null;
+  if (!t?.applied || wordCount(t.text) >= words) return o.text;
+  o.cb.onText(t.text);
+  return t.text;
+}
+
 export async function composeLesson(opts: Base & { text: string; resume?: { plan: PartPlan; partsDone: number; text: string }; planOnly?: boolean }) {
   // the lesson as chapters of a book (bookRules.ts): chapters are numbered across the module
   const book = LESSON_RULES === "lite" && FEATURES.has("book");
@@ -825,23 +839,10 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
     cb.onText(written);
     cb.onCheckpoint?.(plan, k + 1, written);
   }
-  // a book lesson over its budget is tightened once, padding only, before the checks (bookRules.ts)
-  if (book && plan.outline && !opts.planOnly && written) {
-    // the cap counts every word he reads (the practice questions too); the plan's budgets count the prose
-    const budget = Math.min(LESSON_WORDS, (lessonWords(plan.outline) || LESSON_WORDS) + 2500);
-    const words = wordCount(written);
-    if (words > budget * 1.1) {
-      cb.onStatus?.(`מהדק את השיעור: ${words.toLocaleString()} מילים, התקציב ${budget.toLocaleString()}`);
-      const raw = await rt.sample!([{ role: "user", content: tightenPrompt(written, words, budget) }], { model: MODEL, modelTier: "complex", effort, signal, cache: false })
-        .then((r) => r.text)
-        .catch(() => "");
-      const t = raw ? applyRepair(written, raw, "inplace") : null;
-      if (t?.applied && wordCount(t.text) < words) {
-        written = t.text;
-        cb.onText(written);
-      }
-    }
-  }
+  // a book lesson over its depth budget is tightened (what is not depth only) before the checks, and again after
+  // their repairs, which add without recounting (bookRules.ts, 21.11: length follows depth)
+  const budget = book && plan.outline ? lessonBudget(plan.outline) : 0;
+  if (budget && !opts.planOnly && written) written = await tightenToBudget({ rt, text: written, budget, effort, signal, cb });
   // every lesson is checked against its pages before it is read, and repaired where it falls short (lessonAudit.ts)
   let audit: AuditMark | undefined;
   if (!opts.planOnly && written) {
@@ -851,6 +852,7 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
       audit = a.mark;
       cb.onText(written);
     }
+    if (budget) written = await tightenToBudget({ rt, text: written, budget, effort, signal, cb });
   }
   return { text: written, plan, model, audit };
 }

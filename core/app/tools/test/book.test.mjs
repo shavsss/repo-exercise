@@ -97,10 +97,17 @@ test("the word budget: planned words, a word count, and the tighten step", () =>
   assert.equal(B.wordCount("מילה\n```svg\n<svg viewBox=\"0 0 1 1\"><text>א ב ג</text></svg>\n```\nעוד"), 2);
   assert.match(B.outlineText(o, ["2.1"]), /visuals: chart: Ls against d/);
   assert.match(B.BOOK_PART(o, ["2.1"], true, false), /this part about 1200 words/);
-  assert.match(B.BOOK_PLAN(2), /at most 15000 words/);
+  assert.match(B.BOOK_PLAN(2), /Length follows depth/);
+  assert.match(B.BOOK_PLAN(2), /breadth never adds words/);
+  // the budget is the planned depth plus room for the questions, with no fixed cap (21.11)
+  assert.equal(B.lessonBudget(o), 4500);
+  const deep = B.normalizeOutline({ known: [], chapters: [{ n: 1, title: "t", question: "q", sections: Array.from({ length: 10 }, (_, i) => ({ n: `1.${i + 1}`, title: "a", question: "q", from_prev: "", needs: [], defines: [], words: 2000 })) }] });
+  assert.equal(B.lessonBudget(deep), 22500);
   const t = B.tightenPrompt("x", 20000, 15000);
   assert.match(t, /It has 20000 words; its budget is 15000/);
   assert.match(t, /never remove or thin a definition/);
+  assert.match(t, /Cut, in this order: passages that describe or survey without a mechanism, a number or a decision/);
+  assert.match(B.outlineCheckPrompt(o, "L"), /10\. Depth/);
 });
 
 test("form (10.11): a chapter with no thread, a dense subsection and a subsection with no visual are found", () => {
@@ -120,12 +127,22 @@ test("form (10.11): a chapter with no thread, a dense subsection and a subsectio
     ],
   });
   const p = B.formProblems(o);
-  assert.deepEqual(p.map((x) => `${x.where}:${x.kind}`), ["4:thread", "4.1:density", "4.2:density", "4.3:visual"]);
+  assert.deepEqual(p.map((x) => `${x.where}:${x.kind}`), ["4:thread", "4.1:density", "4.1:depth", "4.2:density", "4.2:depth", "4.3:visual", "4.3:depth"]);
   // a plan written before 10.11 (a single "visual") still counts as one visual, once
   assert.deepEqual(o.chapters[0].sections[1].visuals, ["chart: S מול E"]);
   assert.match(B.outlineText(o, ["4.2"]), /visuals: chart: S מול E/);
-  const good = B.normalizeOutline({ known: [], chapters: [{ n: 1, title: "t", question: "q", thread: "מבעיה ליכולת", sections: [{ n: "1.1", title: "a", question: "q", from_prev: "", needs: [], visuals: ["svg: x"], defines: [{ term: "x", mark: "s" }, { term: "f(x)", mark: "s" }] }] }] });
+  const good = B.normalizeOutline({ known: [], chapters: [{ n: 1, title: "t", question: "q", thread: "מבעיה ליכולת", sections: [{ n: "1.1", title: "a", question: "q", from_prev: "", needs: [], visuals: ["svg: x"], depth: "לגזור את f ולחשב את הערך שלה", words: 1800, defines: [{ term: "x", mark: "s" }, { term: "f(x)", mark: "s" }] }] }] });
   assert.deepEqual(B.formProblems(good), []);
+});
+
+test("depth (21.11): words beyond what a subsection's depth needs are found", () => {
+  const o = B.normalizeOutline({ known: [], chapters: [{ n: 1, title: "t", question: "q", thread: "מבעיה ליכולת", sections: [
+    { n: "1.1", title: "a", question: "q", from_prev: "", needs: [], visuals: ["svg: x"], depth: "לגזור", words: 2600, defines: [{ term: "x", mark: "s" }] },
+    { n: "1.2", title: "b", question: "q", from_prev: "1.1", needs: [], visuals: ["svg: y"], depth: "להשוות שתי חלופות במספרים", words: 1400, defines: [] },
+    { n: "1.3", title: "c", question: "q", from_prev: "1.2", needs: [], visuals: ["svg: z"], depth: "לחשב", words: 900, defines: [] },
+  ] }] });
+  assert.deepEqual(B.formProblems(o).map((x) => `${x.where}:${x.kind}`), ["1.1:depth", "1.2:depth"]);
+  assert.equal(o.chapters[0].sections[1].depth, "להשוות שתי חלופות במספרים");
 });
 
 test("ledger: an iou counts as defined for order; an assumption or iou not settled later is reported", () => {
