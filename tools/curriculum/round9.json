@@ -1308,6 +1308,20 @@
      "focus": "Ch. 1-4.",
      "st": "ok"
     }
+   ],
+   "M22.19": [
+    {
+     "id": "R9:RD20",
+     "t": "How Amazon Web Services Uses Formal Methods",
+     "a": "C. Newcombe, T. Rath, F. Zhang, B. Munteanu, M. Brooker, M. Deardeuff",
+     "o": "Communications of the ACM 58(4)",
+     "y": 2015,
+     "u": "https://lamport.azurewebsites.net/tla/formal-methods-amazon.pdf",
+     "core": true,
+     "why": "What TLA+ found in DynamoDB, S3 and EBS, what it cost, and why engineers adopted it.",
+     "focus": "Whole paper (8 pages); the table of systems and bugs found.",
+     "st": "ok"
+    }
    ]
   },
   "mil": {}
