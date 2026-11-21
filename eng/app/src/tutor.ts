@@ -30,10 +30,6 @@ const LESSON_PAGES_CHARS = 95_000;
 /** The lesson text so far sent with each part: at most PRIOR_MAX bytes, never under PRIOR_MIN (the source pages give way first). */
 const PRIOR_MAX = 120_000;
 const PRIOR_MIN = 40_000;
-/** A book lesson's part gets only the end of the text before it: the outline carries the rest (21.11, the cost of re-sending the lesson). */
-const BOOK_PRIOR = 8_000;
-/** Reviews of each check of a new book lesson (source and reader): one repair and the review that verifies it (21.11: up to 4 each). */
-const BOOK_REVIEWS = 2;
 /** A part that still passes the 256 KiB cap with its tool rounds is sent once more at this size. */
 const SMALL_TURN = 120_000;
 const PAGES_MARK = "\n\nSource pages for this lesson:\n";
@@ -571,8 +567,7 @@ function bookPartInstructions(plan: PartPlan, k: number, writtenSoFar: string, c
   const n = plan.parts.length;
   const last = k === n - 1;
   const mine = partSections(o, plan.parts, k);
-  // the part is written from the outline (roles, words, keys) and the ledger, with only the end of the text before it (21.11)
-  const prior = tailWithin(writtenSoFar, Math.min(priorMax, BOOK_PRIOR));
+  const prior = tailWithin(writtenSoFar, priorMax);
   return `WRITING STEP: part ${k + 1} of ${n} of this lesson. Write as the authors (see <voice>).
 Lesson «${plan.title}».${plan.results?.length ? ` Central results: ${plan.results.join("; ")}.` : ""}
 Figures of the lesson: ${(plan.figures ?? []).join(", ") || "none"}.
@@ -771,11 +766,11 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
     cb.onCheckpoint?.(plan, k + 1, written);
   }
   // no tightening pass over the whole lesson (21.11: each pass re-sent the whole lesson): the parts keep the plan's words
-  // as they are written (BOOK_PART, the ledger), and the checks below run a bounded number of rounds (BOOK_REVIEWS)
+  // as they are written (BOOK_PART, the ledger)
   // every lesson is checked against its pages before it is read, and repaired where it falls short (lessonAudit.ts)
   let audit: AuditMark | undefined;
   if (!opts.planOnly && written) {
-    const a = await auditLesson({ rt, module: m, lessons, lessonIdx, text: written, mode: "inplace", pages, known: plan.outline?.known, effort: opts.auditEffort, reviews: book ? BOOK_REVIEWS : undefined, signal, cb }).catch(() => null);
+    const a = await auditLesson({ rt, module: m, lessons, lessonIdx, text: written, mode: "inplace", pages, known: plan.outline?.known, effort: opts.auditEffort ?? effort, signal, cb }).catch(() => null);
     if (a) {
       written = a.text;
       audit = a.mark;
@@ -790,7 +785,7 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
  * read (the additions come after it). Returns null when the check could not run.
  */
 /** The check runs at high effort; the test bench passes its own (21.11: medium). */
-export async function auditLesson(o: { rt: Runtime; module: Module; lessons?: LessonSpec[]; lessonIdx: number; text: string; mode: "inplace" | "supplement"; pages?: string; known?: string[]; effort?: Effort; reviews?: number; signal?: AbortSignal; cb: TurnCallbacks }) {
+export async function auditLesson(o: { rt: Runtime; module: Module; lessons?: LessonSpec[]; lessonIdx: number; text: string; mode: "inplace" | "supplement"; pages?: string; known?: string[]; effort?: Effort; signal?: AbortSignal; cb: TurnCallbacks }) {
   const { rt, module: m, lessons, lessonIdx } = o;
   if (!rt.sample) return null;
   const spec = lessons?.[lessonIdx];
@@ -819,7 +814,6 @@ export async function auditLesson(o: { rt: Runtime; module: Module; lessons?: Le
     o.mode,
     {
       onStatus: o.cb.onStatus,
-      ...(o.reviews ? { reviews: o.reviews } : {}),
       call: async (prompt, kind) => {
         const res = await rt.sample!([{ role: "user", content: prompt }], {
           model: MODEL,

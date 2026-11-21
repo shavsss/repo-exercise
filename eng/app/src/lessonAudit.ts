@@ -437,15 +437,14 @@ export async function readerCheck(o: AuditInput, deps: AuditDeps): Promise<{ tex
   let report: ReaderReport | null = null;
   let rounds = 0;
   const counts: Record<string, number> = {};
-  const max = deps.reviews ?? READER_REVIEWS;
-  for (let round = 1; round <= max; round++) {
+  for (let round = 1; round <= READER_REVIEWS; round++) {
     deps.onStatus?.(round === 1 ? "קורא את השיעור כמו לומד: הגדרות, סדר וקשרים" : `קורא שוב אחרי התיקון (סבב ${round})`);
     const next = parseReader(await deps.call(readerAuditPrompt({ ...o, text }, round), "audit"));
     if (!next) break;
     report = next;
     rounds = round;
     if (round === 1) for (const i of next.issues) counts[i.kind] = (counts[i.kind] ?? 0) + 1;
-    if (next.verdict === "pass" || round === max) break;
+    if (next.verdict === "pass" || round === READER_REVIEWS) break;
     deps.onStatus?.(`מסדר את השיעור לקורא (${next.issues.length} מקומות)`);
     const fixed = applyRepair(text, await deps.call(readerRepairPrompt({ ...o, text }, next), "repair"), "inplace");
     if (!fixed.applied || fixed.text === text) break;
@@ -467,8 +466,6 @@ export interface AuditDeps {
   onStatus?: (s: string) => void;
   /** false: no reader's check (the tests of the source check) */
   reader?: boolean;
-  /** reviews of each check (source, reader): MAX_REVIEWS and READER_REVIEWS when not given (a new book lesson: 2, 21.11) */
-  reviews?: number;
 }
 
 export const MAX_REVIEWS = 4;
@@ -513,8 +510,7 @@ export async function auditAndRepair(o: AuditInput, mode: "inplace" | "supplemen
   // a lesson checked before holds its supplement already: later repairs edit it
   let supplemented = mode === "supplement" && text.includes(SUPPLEMENT_HEAD);
   let idle = 0;
-  const max = deps.reviews ?? MAX_REVIEWS;
-  for (let round = 1; round <= max; round++) {
+  for (let round = 1; round <= MAX_REVIEWS; round++) {
     deps.onStatus?.(round === 1 ? "בודק את השיעור מול עמודי המקור ותוכנית הלימודים" : `בודק שוב אחרי התיקון (סבב ${round})`);
     const next = parseAudit(await deps.call(auditPrompt({ ...o, text }, round), "audit"));
     if (!next) break;
@@ -538,7 +534,7 @@ export async function auditAndRepair(o: AuditInput, mode: "inplace" | "supplemen
         keep: (report.keep.exists ? 0 : 1) + report.keep.missing.length + report.keep.remove.length,
         errors: report.errors.length,
       });
-    if (report.verdict === "pass" || round === max) break;
+    if (report.verdict === "pass" || round === MAX_REVIEWS) break;
     deps.onStatus?.(round === 1 ? "משלים את מה שחסר בשיעור" : `מתקן את מה שנשאר (סבב ${round})`);
     const how = mode === "supplement" ? (supplemented ? "supplement-edit" : "supplement") : "inplace";
     const fixed = applyRepair(text, await deps.call(repairPrompt({ ...o, text }, report, how), "repair"), how);
