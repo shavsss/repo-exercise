@@ -134,6 +134,16 @@ await t("saveMessage: a long Hebrew draft with a plan stays under 256 KiB per do
   assert.equal(back[0].text, text);
 });
 
+await t("saveBench: a full lesson's text is kept in parts, each document under 256 KiB (21.11)", async () => {
+  const s = new rt.Store({ doc: docRef }, "u5");
+  const text = "פסקה בעברית עם $x^2$ ומשוואה.\n\n".repeat(15_000);
+  await s.saveBench("1-M0.2-lesson-lite", { step: "lesson", words: 1, plan: "פ".repeat(150_000), text });
+  const head = store.get("data/users/u5/profile/bench/1-M0.2-lesson-lite");
+  const parts = [head.text, ...Array.from({ length: head.textParts }, (_, i) => store.get(`data/users/u5/profile/bench/1-M0.2-lesson-lite/more/${i + 1}`).text)];
+  assert.equal(parts.join(""), text);
+  for (const [k, v] of store) if (k.startsWith("data/users/u5/")) assert.ok(new TextEncoder().encode(JSON.stringify(v)).length < 256 * 1024, k);
+});
+
 await t("memlog: versions older than 30 days folded into month documents", async () => {
   const s = new rt.Store({ doc: docRef }, "u3");
   const day = 86_400_000;

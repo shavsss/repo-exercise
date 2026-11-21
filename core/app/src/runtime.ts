@@ -294,8 +294,20 @@ export class Store {
   }
 
   /** A test-bench run (#bench): a lesson written with candidate rules, kept for review. */
+  /** A bench result; a full lesson's text past DOC_BYTES goes to bench/<id>/more/<n> (21.11: a 256 KiB document lost two results). */
   async saveBench(id: string, data: Record<string, unknown>) {
-    await this.profile.collection("bench").doc(id).set(data);
+    const ref = this.profile.collection("bench").doc(id);
+    const body = clean(data);
+    if (typeof body.plan === "string" && utf8Bytes(body.plan) > DOC_BYTES / 2) body.plan = splitUtf8(body.plan, DOC_BYTES / 2, DOC_BYTES)[0];
+    if (typeof body.text === "string") {
+      const pieces = splitUtf8(body.text, DOC_BYTES - utf8Bytes(JSON.stringify({ ...body, text: "", textParts: 999 })), DOC_BYTES - 100);
+      if (pieces.length > 1) {
+        for (let i = 1; i < pieces.length; i++) await ref.collection("more").doc(String(i)).set({ text: pieces[i] });
+        body.text = pieces[0];
+        body.textParts = pieces.length - 1;
+      }
+    }
+    await ref.set(body);
   }
 
   /** The bench's command document (profile/bench/_cmd): a test the bench page runs while it is open. */
