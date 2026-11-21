@@ -238,7 +238,9 @@ def merged_sections(m, base_m, heads, fresh):
     return sorted(out, key=lambda h: (order.get(h["doc"], 99), h["page"]))
 
 
-def write_index(docs, modules, base_assets=None):
+def write_index(docs, modules, base_assets=None, keep_version=None):
+    """keep_version: the published version, kept when this run only adds new documents, so the files
+    browsers keep (cached under the version) stay valid and nothing is downloaded again."""
     index = {"docs": docs, "parts": [{"id": i, "title": t} for i, t in PARTS], "modules": attach(modules, "eng")}
     # the published asset map stays; this run adds its own bundles
     index["assets"] = {**(base_assets or {}), **asset_urls(docs)}
@@ -248,7 +250,7 @@ def write_index(docs, modules, base_assets=None):
             digest.update(f.name.encode())
             digest.update(str(f.stat().st_size).encode())
     digest.update(json.dumps(index, sort_keys=True).encode())
-    index["version"] = digest.hexdigest()[:12]
+    index["version"] = keep_version or digest.hexdigest()[:12]
     (OUT / "index.json").write_text(dumps(index))
 
 
@@ -261,11 +263,13 @@ def main_only(only, base_path, to_assets=()):
     for d in ("text", "fig", "pg"):
         (OUT / d).mkdir(parents=True, exist_ok=True)
     base = json.loads(Path(base_path).read_text())
+    # only new documents: the existing files are unchanged, so the published version stays
+    keep = base.get("version") if not set(only) & set(base["docs"]) else None
     docs, sections = base["docs"], {}
     for doc in only:
         rel, title = DOCS[doc]
         pack_doc(doc, rel, title, docs, sections)
-    write_index(docs, module_list(docs, sections, base["modules"]), base.get("assets", {}))
+    write_index(docs, module_list(docs, sections, base["modules"]), base.get("assets", {}), keep)
     print("wrote", ", ".join(f"text/{d}.json" for d in only), "and index.json")
 
 

@@ -178,7 +178,9 @@ def module_list(docs, sections, base_modules=None):
     return out
 
 
-def write_index(docs, modules, base_assets=None):
+def write_index(docs, modules, base_assets=None, keep_version=None):
+    """keep_version: the published version, kept when this run only adds new documents, so the files
+    browsers keep (cached under the version) stay valid and nothing is downloaded again."""
     index = {"docs": docs, "parts": [{"id": i, "title": t} for i, t in PARTS], "modules": attach(modules, "core")}
     # the published asset map stays; this run adds its own bundles
     index["assets"] = {**(base_assets or {}), **asset_urls(docs)}
@@ -188,7 +190,7 @@ def write_index(docs, modules, base_assets=None):
             digest.update(f.name.encode())
             digest.update(str(f.stat().st_size).encode())
     digest.update(json.dumps(index, sort_keys=True).encode())
-    index["version"] = digest.hexdigest()[:12]
+    index["version"] = keep_version or digest.hexdigest()[:12]
     (OUT / "index.json").write_text(dumps(index))
 
 
@@ -212,6 +214,8 @@ def main():
         # disk: their files are written to lib/, and index.json is the published one with these
         # documents and the current syllabus. Analysis references (REF_DOCS) are packed as text only.
         base = json.loads(Path(args.base).read_text())
+        # only new documents: the existing files are unchanged, so the published version stays
+        keep = base.get("version") if not set(args.only) & set(base["docs"]) else None
         docs = base["docs"]
         fresh = {}
         for doc in args.only:
@@ -219,7 +223,7 @@ def main():
             r = pack_doc(doc, rel, title, with_images=doc not in REF_DOCS and doc not in args.text_only)
             if r:
                 docs[doc], fresh[doc] = r
-        write_index(docs, base["modules"] if args.keep_modules else module_list(docs, fresh, base["modules"]), base.get("assets", {}))
+        write_index(docs, base["modules"] if args.keep_modules else module_list(docs, fresh, base["modules"]), base.get("assets", {}), keep)
         print("wrote", ", ".join(f"text/{d}.json" for d in args.only), "and index.json")
         return
     docs = {}

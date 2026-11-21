@@ -14,6 +14,8 @@ const CASES: Record<string, { module: string; lesson: number }> = {
   gilua: { module: "M0.1", lesson: 3 },
   lanchester: { module: "M0.2", lesson: 0 },
 };
+/** Every model call of the bench runs at medium effort (21.11, the learner: faster tests). */
+const BENCH_EFFORT = "medium" as const;
 const words = (s: string) => (s.match(/[^\s]+/g) ?? []).length;
 type Rules = "current" | "lite";
 
@@ -106,7 +108,7 @@ export function Bench({ lab }: { lab: "gilua" | "lanchester" }) {
       setLessonFeatures(features);
       const t1 = Date.now();
       try {
-        const mp = await planModule({ rt, module: m, memory, effort: "high", signal: new AbortController().signal, cb: { onText: () => {}, onActivity: () => {}, onStatus: () => {} } });
+        const mp = await planModule({ rt, module: m, memory, effort: BENCH_EFFORT, signal: new AbortController().signal, cb: { onText: () => {}, onActivity: () => {}, onStatus: () => {} } });
         prog = { ...(prog ?? {}), lessons: mp.lessons } as typeof prog;
         await rt.store!.saveBench(`${Date.now()}-${c.module}-moduleplan-${rules}`, { lab: lab_, rules, features, step: "moduleplan", module: c.module, lessons: mp.lessons, uncovered: mp.uncovered, minutes: Math.round((Date.now() - t1) / 600) / 100, at: Date.now() });
       } catch (e) {
@@ -135,7 +137,7 @@ export function Bench({ lab }: { lab: "gilua" | "lanchester" }) {
     const rtx: Runtime = { ...rt, sample };
     try {
       const res = await composeLesson({
-        rt: rtx, history: [], effort: "high", module: m, lessons: prog!.lessons, lessonIdx: c.lesson, memory, planOnly, ...(other?.done ? { done: other.done } : {}),
+        rt: rtx, history: [], effort: BENCH_EFFORT, auditEffort: BENCH_EFFORT, module: m, lessons: prog!.lessons, lessonIdx: c.lesson, memory, planOnly, ...(other?.done ? { done: other.done } : {}),
         signal: new AbortController().signal,
         text: `כתוב את שיעור ${c.lesson + 1} במודול ${c.module}: ${spec.title}.`,
         cb: { onText: (t) => { text = t; setCount(words(t)); }, onActivity: () => {}, onStatus: (st) => void rt.store!.saveBench("_progress", { module: c.module, lesson: c.lesson, rules, status: st, words: words(text), build: BENCH_BUILD, at: Date.now() }).catch(() => {}) },
