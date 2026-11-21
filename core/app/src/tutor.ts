@@ -765,7 +765,7 @@ async function tightenToBudget(o: { rt: Runtime; text: string; budget: number; e
   return t.text;
 }
 
-export async function composeLesson(opts: Base & { text: string; resume?: { plan: PartPlan; partsDone: number; text: string }; planOnly?: boolean }) {
+export async function composeLesson(opts: Base & { text: string; resume?: { plan: PartPlan; partsDone: number; text: string }; planOnly?: boolean; auditEffort?: Effort }) {
   // the lesson as chapters of a book (bookRules.ts): chapters are numbered across the module
   const book = LESSON_RULES === "lite" && FEATURES.has("book");
   const chapterStart = 1 + (opts.lessons ?? []).slice(0, Math.max(0, opts.lessonIdx)).reduce((s, l) => s + Math.max(1, (l as { chapters?: number }).chapters ?? 1), 0);
@@ -846,7 +846,7 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
   // every lesson is checked against its pages before it is read, and repaired where it falls short (lessonAudit.ts)
   let audit: AuditMark | undefined;
   if (!opts.planOnly && written) {
-    const a = await auditLesson({ rt, module: m, lessons, lessonIdx, text: written, mode: "inplace", pages, known: plan.outline?.known, signal, cb }).catch(() => null);
+    const a = await auditLesson({ rt, module: m, lessons, lessonIdx, text: written, mode: "inplace", pages, known: plan.outline?.known, effort: opts.auditEffort, signal, cb }).catch(() => null);
     if (a) {
       written = a.text;
       audit = a.mark;
@@ -861,7 +861,8 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
  * The check of one lesson (lessonAudit.ts): "inplace" for a lesson not read yet, "supplement" for one already
  * read (the additions come after it). Returns null when the check could not run.
  */
-export async function auditLesson(o: { rt: Runtime; module: Module; lessons?: LessonSpec[]; lessonIdx: number; text: string; mode: "inplace" | "supplement"; pages?: string; known?: string[]; signal?: AbortSignal; cb: TurnCallbacks }) {
+/** The check runs at high effort; the test bench passes its own (21.11: medium). */
+export async function auditLesson(o: { rt: Runtime; module: Module; lessons?: LessonSpec[]; lessonIdx: number; text: string; mode: "inplace" | "supplement"; pages?: string; known?: string[]; effort?: Effort; signal?: AbortSignal; cb: TurnCallbacks }) {
   const { rt, module: m, lessons, lessonIdx } = o;
   if (!rt.sample) return null;
   const spec = lessons?.[lessonIdx];
@@ -894,7 +895,7 @@ export async function auditLesson(o: { rt: Runtime; module: Module; lessons?: Le
         const res = await rt.sample!([{ role: "user", content: prompt }], {
           model: MODEL,
           modelTier: "complex",
-          effort: kind === "audit" ? "high" : "high",
+          effort: o.effort ?? "high",
           signal: o.signal,
           ...(kind === "repair" && tools ? { tools } : { cache: false }),
           ...(kind === "repair" ? { onText: ({ text }: { text: string }) => o.cb.onStatus?.(`משלים את השיעור (${Math.round(text.length / 1000)} אלף תווים)`) } : {}),
