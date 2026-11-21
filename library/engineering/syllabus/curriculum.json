@@ -13476,6 +13476,13 @@
 "imp": "K",
 "k": "new",
 "teach": "דרך העבודה בכל פרויקט: מהנדס ברמה 3 עובד עם AI על בעיית תכן מקצה לקצה. מנסחים את הבעיה: משתנים, אילוצים ומטרה. מעריכים מראש את התוצאה בהערכת סדר גודל. נותנים ל-AI לבנות מודל, לחשב ולחפש פתרונות (מודל חלופי מעט ריצות סימולציה, אופטימיזציה, תכן גנרטיבי). מאמתים מול חישוב ידני, סימולציה מלאה או ניסוי, ומזהים מתי המודל טועה מחוץ לתחום שעליו אומן. בסוף מחליטים על סמך אי-הוודאות ומתעדים. כאן לומדים את הלולאה עצמה; הכלים מעמיקים בהמשך (אופטימיזציה ב-M8.22, מודלים חלופיים, PINN ו-neural operators ב-M17.12, תכן גנרטיבי ב-M16.14)."
+},
+{
+"id": "R8:M27.3:fut2",
+"n": "Trusting an AI result: formal verification and the specification gap",
+"imp": "K",
+"k": "new",
+"teach": "כשה-AI מחשב, מוכיח או כותב קוד, השאלה ההנדסית היא כמה לסמוך על התוצאה ואיך בודקים אותה. סולם הראיות: הערכת סדר גודל, בדיקה בכלי שני ובלתי תלוי, בדיקות וסימולציה (מדגם), ואימות פורמלי (הוכחה לכל קלט). מה אימות פורמלי נותן: עוזר הוכחה (Lean) בודק כל צעד, model checking עובר על כל המצבים, SMT פותר אילוצים. מה הוא לא נותן: הוכחה מראה שהמערכת עומדת במפרט, לא שהמפרט נכון. לכן ניסוח המפרט וההנחות נשאר בידי המהנדס, וזה מקום הטעות הנפוץ. מקרה בוחן: ההוכחה של השערת רימן שנכתבה עם Claude ב-Lean (נובמבר 2026). בדיקת הצעדים מכנית, והשאלה שהמומחים בודקים קודם היא אם המשפט נוסח נכון. מול זה מקרים שבהם מערכת עברה אימות ונכשלה כי המפרט החמיץ מצב. ההחלטה: מתי משתלם לשלם על אימות פורמלי (מחיר כשל גבוה, מצבים רבים, קוד שנכתב בידי AI) ומתי מספיקים בדיקות. הכלים עצמם מעמיקים בהמשך: TLA+ לפרוטוקולים ב-M22.19, אימות פורמלי של חומרה ב-M28.3."
 }
 ],
 "reading": [
@@ -18460,6 +18467,75 @@
 }
 ]
 },
+"M22.19": {
+"items": [
+{
+"id": "R8:M22.19:fut1",
+"n": "Formal specification of protocols: TLA+ and model checking",
+"imp": "S",
+"k": "new",
+"teach": "למה באגים במערכות מבוזרות מתחבאים בסדרי אירועים נדירים שבדיקות לא מגיעות אליהם, ואיך מפרט TLA+ קצר ובודק מודל (TLC) עוברים על כל הסדרים במערכת קטנה. הניסיון של AWS (Newcombe ואחרים, 2015): באגים עמוקים ב-DynamoDB, S3 ו-EBS נמצאו במפרט של כמה מאות שורות, לפני הקוד. מה עולה (שבועות של מהנדס לכל מפרט, גודל המודל שאפשר לבדוק) ומה מקבלים, ואיך זה משתנה כש-AI כותב את המפרט ואת הקוד: המהנדס בודק את התכונות (safety ו-liveness) ולא את השורות. דוגמה: התכונות של Raft מ-M22.16 כמפרט."
+},
+{
+"id": "R9:M22.19:1",
+"n": "Happens-before and logical clocks: ordering without a global clock",
+"imp": "K",
+"k": "deepen",
+"on": "M22.16 · Logical time and ordering",
+"teach": "Lamport 1978: יחס happens-before, שעון לוגי וסדר מלא, והמכונה הממוכנת (state machine replication) כרעיון המרכזי. מה זה לא נותן: זיהוי מקביליות (בשביל זה vector clocks)."
+},
+{
+"id": "R9:M22.19:2",
+"n": "Dynamo: availability first, and the techniques that pay for it",
+"imp": "K",
+"k": "new",
+"teach": "החלטה עסקית: עגלת קניות שתמיד כותבת. הטכניקות: consistent hashing, שכפול עם N/R/W (למשל 3/2/2), vector clocks ופתרון התנגשויות אצל הלקוח, hinted handoff, Merkle trees ו-gossip. מדד ההצלחה: p99.9 של זמן תגובה ולא ממוצע."
+},
+{
+"id": "R9:M22.19:3",
+"n": "Spanner and TrueTime: buying consistency with bounded clock uncertainty",
+"imp": "K",
+"k": "new",
+"teach": "TrueTime מחזיר אינטרוול [earliest, latest] עם אי-ודאות ε של כ-1-7ms (GPS ושעונים אטומיים בכל מרכז נתונים). commit wait של כ-2ε נותן external consistency. ההחלטה: לשלם חומרה ושיהוי כתיבה כדי לקנות עקביות גלובלית. קישור ל-PTP (M28.5)."
+},
+{
+"id": "R9:M22.19:4",
+"n": "CAP and PACELC: the honest statement of the trade-off",
+"imp": "K",
+"k": "new",
+"teach": "CAP מדבר רק על זמן חלוקת רשת. PACELC: בחלוקה (P) בוחרים זמינות או עקביות (A/C); אחרת (E) בוחרים שיהוי או עקביות (L/C). Dynamo ו-Cassandra: PA/EL; Spanner: PC/EC. רוב ההחלטות היומיומיות הן בצד L/C."
+},
+{
+"id": "R9:M22.19:5",
+"n": "Consistency models as a contract: linearizable, sequential, causal, eventual, read-your-writes",
+"imp": "K",
+"k": "deepen",
+"on": "M22.16 · Consistency models",
+"teach": "כל מודל הוא חוזה בין אחסון ללקוח, עם מחיר בשיהוי ובזמינות. לבחור את החלש ביותר שהאפליקציה עוד נכונה בו: יתרת חשבון דורשת linearizable, פיד חברתי מסתפק ב-causal."
+},
+{
+"id": "R9:M22.19:6",
+"n": "Idempotency and exactly-once: retries, deduplication keys, the outbox pattern",
+"imp": "K",
+"k": "new",
+"teach": "ברשת לא אמינה שולחים שוב, ולכן כל פעולה צריכה להיות אידמפוטנטית (מפתח בקשה ייחודי ושמירת תוצאה). exactly-once אמיתי לא קיים; יש at-least-once + אידמפוטנטיות. דוגמה: פקודת ירי או חיוב כרטיס שנשלחה פעמיים."
+}
+],
+"reading": [
+{
+"id": "R9:RD20",
+"t": "How Amazon Web Services Uses Formal Methods",
+"a": "C. Newcombe, T. Rath, F. Zhang, B. Munteanu, M. Brooker, M. Deardeuff",
+"o": "Communications of the ACM 58(4)",
+"y": 2015,
+"u": "https://lamport.azurewebsites.net/tla/formal-methods-amazon.pdf",
+"core": true,
+"why": "What TLA+ found in DynamoDB, S3 and EBS, what it cost, and why engineers adopted it.",
+"focus": "Whole paper (8 pages); the table of systems and bugs found.",
+"st": "ok"
+}
+]
+},
 "M27.12": {
 "items": [
 {
@@ -18683,54 +18759,6 @@
 "why": "Model-based congestion control and the Kleinrock operating point.",
 "focus": "Whole (about 20 pages).",
 "st": "ok"
-}
-]
-},
-"M22.19": {
-"items": [
-{
-"id": "R9:M22.19:1",
-"n": "Happens-before and logical clocks: ordering without a global clock",
-"imp": "K",
-"k": "deepen",
-"on": "M22.16 · Logical time and ordering",
-"teach": "Lamport 1978: יחס happens-before, שעון לוגי וסדר מלא, והמכונה הממוכנת (state machine replication) כרעיון המרכזי. מה זה לא נותן: זיהוי מקביליות (בשביל זה vector clocks)."
-},
-{
-"id": "R9:M22.19:2",
-"n": "Dynamo: availability first, and the techniques that pay for it",
-"imp": "K",
-"k": "new",
-"teach": "החלטה עסקית: עגלת קניות שתמיד כותבת. הטכניקות: consistent hashing, שכפול עם N/R/W (למשל 3/2/2), vector clocks ופתרון התנגשויות אצל הלקוח, hinted handoff, Merkle trees ו-gossip. מדד ההצלחה: p99.9 של זמן תגובה ולא ממוצע."
-},
-{
-"id": "R9:M22.19:3",
-"n": "Spanner and TrueTime: buying consistency with bounded clock uncertainty",
-"imp": "K",
-"k": "new",
-"teach": "TrueTime מחזיר אינטרוול [earliest, latest] עם אי-ודאות ε של כ-1-7ms (GPS ושעונים אטומיים בכל מרכז נתונים). commit wait של כ-2ε נותן external consistency. ההחלטה: לשלם חומרה ושיהוי כתיבה כדי לקנות עקביות גלובלית. קישור ל-PTP (M28.5)."
-},
-{
-"id": "R9:M22.19:4",
-"n": "CAP and PACELC: the honest statement of the trade-off",
-"imp": "K",
-"k": "new",
-"teach": "CAP מדבר רק על זמן חלוקת רשת. PACELC: בחלוקה (P) בוחרים זמינות או עקביות (A/C); אחרת (E) בוחרים שיהוי או עקביות (L/C). Dynamo ו-Cassandra: PA/EL; Spanner: PC/EC. רוב ההחלטות היומיומיות הן בצד L/C."
-},
-{
-"id": "R9:M22.19:5",
-"n": "Consistency models as a contract: linearizable, sequential, causal, eventual, read-your-writes",
-"imp": "K",
-"k": "deepen",
-"on": "M22.16 · Consistency models",
-"teach": "כל מודל הוא חוזה בין אחסון ללקוח, עם מחיר בשיהוי ובזמינות. לבחור את החלש ביותר שהאפליקציה עוד נכונה בו: יתרת חשבון דורשת linearizable, פיד חברתי מסתפק ב-causal."
-},
-{
-"id": "R9:M22.19:6",
-"n": "Idempotency and exactly-once: retries, deduplication keys, the outbox pattern",
-"imp": "K",
-"k": "new",
-"teach": "ברשת לא אמינה שולחים שוב, ולכן כל פעולה צריכה להיות אידמפוטנטית (מפתח בקשה ייחודי ושמירת תוצאה). exactly-once אמיתי לא קיים; יש at-least-once + אידמפוטנטיות. דוגמה: פקודת ירי או חיוב כרטיס שנשלחה פעמיים."
 }
 ]
 },
