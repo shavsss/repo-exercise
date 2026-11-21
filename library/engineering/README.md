@@ -73,6 +73,8 @@
 | W96 | Barroso et al., *The Datacenter as a Computer*, 4th ed. (open access), פרקים 1–4, 8, 10 | `free/W96_barroso_datacenter_as_computer_4ed_core.pdf` |
 | W97 | OMG DDS 1.4 ו-OASIS MQTT 5.0, הסעיפים המרכזיים | `free/W97_dds_mqtt_middleware_core.pdf` |
 | W98 | O'Neil et al., LSM-tree 1996; Chang et al., Bigtable 2006; Nishtala et al., Scaling Memcache at Facebook 2013; Pelkonen et al., Gorilla 2015; Kleppmann, Schema evolution 2012 | `free/W98_data_systems_papers.pdf` |
+| W99 | אבטחת תוכנה ומערכות: Saltzer & Schroeder 1975; Thompson 1984; SoK Eternal War in Memory 2013; סקירת fuzzing 2019; Backstabber's Knife Collection 2020; NIST SP 800-207; BeyondCorp 2014; seL4 2020; Firecracker 2020 | `free/W99_software_systems_security_papers.pdf` |
+| W100 | אבטחה של AI: NIST AI 100-2e2025; OWASP LLM Top 10 2025; Greshake 2023; תבניות לאבטחת סוכנים 2025; CaMeL 2025; Carlini 2021; Shokri 2017; DP-SGD 2016; BadNets 2017; Sleeper Agents 2024; Fang 2024; Cybench 2025; דוח Anthropic 2025 | `free/W100_ai_security_papers.pdf` |
 
 **עוד חסרים:** סוף הספר של Horowitz & Hill (מעמ' 1062), עמוד 283 ב-Ashby, ו-PDF של פיינמן כרכים I ו-II (כרגע ב-`library/math-physics/` כ-`.txt`, בלי איורים). מסבב 7 לא יגיעו Khalil, Bar-Shalom / Simon, Erickson, Thrun, Mahajan, Szeliski ו-EE263 (מה שמכסה במקומם: GAPS ב-`syllabus/syllabus.py`).
 

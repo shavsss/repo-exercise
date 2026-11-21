@@ -11,6 +11,8 @@ The placement (docs/research/round8/ARCH_SOFTWARE_SOURCES.md, section 5):
      distributed systems papers, systems at scale, middleware (M22.17-M22.20, M23.20);
   4. recurring: the last core module of each technical part closes with an architecture case (items);
   5. late: the business side and a cross-domain capstone (M27.16, M27.17).
+Round 10 (21.11.2026) is merged into the same data (ids R10:*): software and systems security (M22.21, after M22.15)
+and security of AI systems (M29.9, after M29.7), sources W99 and W100; Lanchester M15.5 gets AI-enabled cyber items.
 Nothing is removed. A module never comes before one of its prerequisites (checked here).
 The two apps stay separate: Lanchester gets its own module (M15.8), with no prerequisite across apps.
 """

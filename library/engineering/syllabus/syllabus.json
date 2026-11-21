@@ -804,6 +804,16 @@
    "file": "library/engineering/free/W98_data_systems_papers.pdf",
    "title": "Data-systems papers: O'Neil et al., LSM-tree 1996; Chang et al., Bigtable 2006; Nishtala et al., Scaling Memcache at Facebook 2013; Pelkonen et al., Gorilla 2015; Kleppmann, Schema evolution 2012",
    "pages": 80
+  },
+  "W99": {
+   "file": "library/engineering/free/W99_software_systems_security_papers.pdf",
+   "title": "Software and systems security papers: Saltzer & Schroeder 1975; Thompson 1984; Szekeres et al., SoK Eternal War in Memory 2013; Manès et al., Fuzzing survey 2019; Ohm et al., Backstabber's Knife Collection 2020; NIST SP 800-207 Zero Trust 2020; Ward & Beyer, BeyondCorp 2014; Heiser, seL4 2020; Agache et al., Firecracker 2020",
+   "pages": 200
+  },
+  "W100": {
+   "file": "library/engineering/free/W100_ai_security_papers.pdf",
+   "title": "AI security papers: NIST AI 100-2e2025; OWASP Top 10 for LLM Applications 2025; Greshake et al. 2023; Beurer-Kellner et al. 2025; Debenedetti et al., CaMeL 2025; Carlini et al. 2021; Shokri et al. 2017; Abadi et al., DP-SGD 2016; Gu et al., BadNets 2017; Hubinger et al., Sleeper Agents 2024; Fang et al. 2024; Zhang et al., Cybench 2025; Anthropic, AI-orchestrated espionage 2025",
+   "pages": 297
   }
  },
  "parts": [
@@ -15414,6 +15424,110 @@
    ]
   },
   {
+   "id": "M22.21",
+   "part": "P22",
+   "tier": "core",
+   "title": "אבטחת תוכנה ומערכות: פגיעויות, בידוד, זהות ושרשרת אספקה",
+   "en": "Software and systems security: vulnerabilities, isolation, identity, supply chain",
+   "prereq": [
+    "M22.15",
+    "M22.14",
+    "M22.17"
+   ],
+   "sources": [
+    {
+     "doc": "W99",
+     "pages": [
+      1,
+      54
+     ],
+     "note": "Saltzer & Schroeder 1975: עקרונות התכן של הגנה",
+     "role": "main"
+    },
+    {
+     "doc": "W99",
+     "pages": [
+      55,
+      57
+     ],
+     "note": "Thompson 1984: אמון בשרשרת הכלים",
+     "role": "main"
+    },
+    {
+     "doc": "W99",
+     "pages": [
+      58,
+      72
+     ],
+     "note": "SoK: המלחמה על הזיכרון, פגיעויות והגנות",
+     "role": "main"
+    },
+    {
+     "doc": "W99",
+     "pages": [
+      73,
+      87
+     ],
+     "note": "Fuzzing: סקירה הנדסית",
+     "role": "main"
+    },
+    {
+     "doc": "W99",
+     "pages": [
+      88,
+      104
+     ],
+     "note": "התקפות על שרשרת האספקה של קוד פתוח",
+     "role": "main"
+    },
+    {
+     "doc": "W99",
+     "pages": [
+      105,
+      126
+     ],
+     "note": "NIST SP 800-207 פרקים 1-3: עקרונות ורכיבים של zero trust",
+     "role": "main"
+    },
+    {
+     "doc": "W99",
+     "pages": [
+      127,
+      145
+     ],
+     "note": "NIST SP 800-207 פרקים 4-7: תרחישים, איומים ומעבר",
+     "role": "supp"
+    },
+    {
+     "doc": "W99",
+     "pages": [
+      146,
+      151
+     ],
+     "note": "BeyondCorp: zero trust בגוגל",
+     "role": "main"
+    },
+    {
+     "doc": "W99",
+     "pages": [
+      152,
+      188
+     ],
+     "note": "seL4: מיקרו-קרנל עם הוכחה פורמלית",
+     "role": "main"
+    },
+    {
+     "doc": "W99",
+     "pages": [
+      189,
+      200
+     ],
+     "note": "Firecracker: בידוד במכונות וירטואליות קלות",
+     "role": "main"
+    }
+   ]
+  },
+  {
    "id": "M28.3",
    "part": "P28",
    "tier": "core",
@@ -17909,6 +18023,146 @@
       27
      ],
      "note": "§VII–VIII: הפחתת דיוק (קוונטיזציה), גיזום ודחיסה, ארכיטקטורות יעילות, מדדי benchmarking",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M29.9",
+   "part": "P29",
+   "tier": "core",
+   "title": "אבטחה של מערכות AI: התקפות על מודלים וסוכנים, פרטיות, ו-AI בתקיפה ובהגנה",
+   "en": "Security of AI systems: attacks on models and agents, privacy, AI in offense and defense",
+   "prereq": [
+    "M29.6",
+    "M29.7",
+    "M22.21"
+   ],
+   "sources": [
+    {
+     "doc": "W100",
+     "pages": [
+      1,
+      64
+     ],
+     "note": "NIST AI 100-2e2025: טקסונומיה של התקפות על AI והגנות",
+     "role": "main"
+    },
+    {
+     "doc": "W100",
+     "pages": [
+      65,
+      109
+     ],
+     "note": "OWASP Top 10 ליישומי LLM, 2025",
+     "role": "supp"
+    },
+    {
+     "doc": "W100",
+     "pages": [
+      110,
+      122
+     ],
+     "note": "Greshake ואחרים 2023: הזרקת הוראות עקיפה",
+     "role": "main"
+    },
+    {
+     "doc": "W100",
+     "pages": [
+      123,
+      149
+     ],
+     "note": "תבניות תכן לאבטחת סוכנים מפני הזרקת הוראות",
+     "role": "main"
+    },
+    {
+     "doc": "W100",
+     "pages": [
+      150,
+      175
+     ],
+     "note": "CaMeL: הפרדה בין זרימת בקרה לזרימת נתונים",
+     "role": "main"
+    },
+    {
+     "doc": "W100",
+     "pages": [
+      176,
+      188
+     ],
+     "note": "Carlini ואחרים 2021: חילוץ נתוני אימון ממודל שפה",
+     "role": "main"
+    },
+    {
+     "doc": "W100",
+     "pages": [
+      189,
+      202
+     ],
+     "note": "Shokri ואחרים 2017: הסקת חברות בנתוני האימון",
+     "role": "main"
+    },
+    {
+     "doc": "W100",
+     "pages": [
+      203,
+      211
+     ],
+     "note": "Abadi ואחרים 2016: למידה עמוקה עם פרטיות דיפרנציאלית",
+     "role": "main"
+    },
+    {
+     "doc": "W100",
+     "pages": [
+      212,
+      222
+     ],
+     "note": "BadNets: דלתות אחוריות בשרשרת האספקה של מודלים",
+     "role": "main"
+    },
+    {
+     "doc": "W100",
+     "pages": [
+      223,
+      237
+     ],
+     "note": "Sleeper Agents: מבוא ושיטה",
+     "role": "main"
+    },
+    {
+     "doc": "W100",
+     "pages": [
+      238,
+      262
+     ],
+     "note": "Sleeper Agents: תוצאות ודיון",
+     "role": "supp"
+    },
+    {
+     "doc": "W100",
+     "pages": [
+      263,
+      271
+     ],
+     "note": "Fang ואחרים 2024: סוכן שמנצל פגיעויות ידועות",
+     "role": "main"
+    },
+    {
+     "doc": "W100",
+     "pages": [
+      272,
+      283
+     ],
+     "note": "Cybench: מדידת יכולות סייבר של מודלים",
+     "role": "main"
+    },
+    {
+     "doc": "W100",
+     "pages": [
+      284,
+      297
+     ],
+     "note": "Anthropic 2025: מבצע ריגול שסוכן AI ביצע את רובו",
      "role": "main"
     }
    ]
