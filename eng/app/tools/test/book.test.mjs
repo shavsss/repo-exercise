@@ -87,7 +87,7 @@ test("the writer's @mark wins in the lesson map", async () => {
   assert.equal(byText["עזר"], "example");
 });
 
-test("the word budget: planned words, a word count, and the tighten step", () => {
+test("the word budget: planned words, a word count, and no tightening or splitting", () => {
   const o = B.normalizeOutline({ known: [], chapters: [{ n: 2, title: "t", question: "q", sections: [
     { n: "2.1", title: "a", question: "q", from_prev: "", needs: [], defines: [], words: 1200, visual: "chart: Ls against d" },
     { n: "2.2", title: "b", question: "q", from_prev: "", needs: [], defines: [], words: 800 },
@@ -100,15 +100,11 @@ test("the word budget: planned words, a word count, and the tighten step", () =>
   assert.match(B.BOOK_PART(o, ["2.1"], true, false), /2\.1 ≈1200; this part about 1200 words in all/);
   assert.match(B.BOOK_PLAN(2), /Length follows depth/);
   assert.match(B.BOOK_PLAN(2), /breadth never adds words/);
-  // the budget is the planned depth of what the parts write plus room for the questions, with no fixed cap (21.11)
-  assert.equal(B.lessonBudget(o, [{ sections: ["2.1", "2.2"] }]), 4500);
-  const deep = B.normalizeOutline({ known: [], chapters: [{ n: 1, title: "t", question: "q", sections: Array.from({ length: 10 }, (_, i) => ({ n: `1.${i + 1}`, title: "a", question: "q", from_prev: "", needs: [], defines: [], words: 2000 })) }] });
-  assert.equal(B.lessonBudget(deep, [{}]), 22500);
-  const t = B.tightenPrompt("x", 20000, 15000);
-  assert.match(t, /It has 20000 words; its budget is 15000/);
-  assert.match(t, /never remove or thin a definition/);
-  assert.match(t, /Cut, in this order: side topics that describe or survey without a mechanism, a number or a decision/);
-  assert.match(t, /background the reader needs to follow is not a side topic/);
+  // a long topic is never split for its length, and the case study is depth (21.11, the learner's decisions)
+  assert.match(B.BOOK_PLAN(2), /a long lesson is never split for its length/);
+  assert.match(B.BOOK_PLAN(2), /The case study is depth/);
+  assert.doesNotMatch(B.BOOK_PLAN(2), /two lessons|at most about 900 words/);
+  assert.doesNotMatch(B.BOOK_PART(o, ["2.1"], true, false), /900 words/);
   assert.match(B.BOOK_PLAN(2), /Background the reader needs to follow the argument[^.]*is depth/);
   assert.match(B.outlineCheckPrompt(o, "L"), /10\. Depth/);
 });
@@ -165,16 +161,6 @@ test("ledger: an iou counts as defined for order; an assumption or iou not settl
 // 21.11, the depth check: the saved plans of the bench (profile/bench, *-plan-lite), shortened
 const saved = JSON.parse(readFileSync(new URL("./samples/plan-depth-2111.json", import.meta.url), "utf8"));
 
-test("tighten (21.11): one pass cuts at most 20%; a lesson still over 1.3 times its budget is a split candidate", () => {
-  // the full Lanchester lesson: 22,899 words against 8,900 was sent to 8,900 in one pass
-  assert.equal(B.tightenTarget(22899, 8900), 18320);
-  assert.equal(B.tightenTarget(10000, 9000), 9000);
-  assert.equal(B.tightenFloor(22899), 17174);
-  assert.ok(B.splitCandidate(18320, 8900));
-  assert.ok(!B.splitCandidate(11000, 8900));
-  assert.ok(!B.splitCandidate(5000, 0));
-});
-
 test("depth (21.11): a verb of the closed list and its product, or background that names the step it enables", () => {
   const o = B.normalizeOutline(saved.outline);
   const flagged = B.formProblems(o).filter((p) => p.kind === "depth" && /"depth"/.test(p.problem)).map((p) => p.where);
@@ -193,16 +179,16 @@ test("depth (21.11): a verb of the closed list and its product, or background th
   assert.match(B.outlineCheckPrompt(o, "t"), /names a verb of the closed list|does not name a verb of the closed list/);
 });
 
-test("budget from the checked plan (21.11): every subsection is in a part, and the budget is what the parts write", () => {
+test("the plan the parts write (21.11): every subsection is in a part, the words survive the fix, and one ledger for the lesson", () => {
   const o = B.normalizeOutline(saved.outline);
   // as planned, chapters 5 and 6 were in no part: they would never be written, and the budget counted only chapter 4
   assert.deepEqual(B.coverProblems(o, saved.parts).map((p) => p.where), ["5.1", "5.2", "5.3", "6.1", "6.2"]);
-  assert.equal(B.lessonBudget(o, saved.parts), 2700 + 2500);
+  assert.equal(B.partWords(o, B.writtenSections(o, saved.parts)), 2700);
   const parts = B.coverParts(o, saved.parts);
   assert.deepEqual(parts.map((p) => p.sections), [["4.1", "4.2", "4.4"], ["5.1", "5.2", "5.3"], ["6.1", "6.2"]]);
   assert.match(parts[1].title, /^פרק 5/);
   assert.deepEqual(B.coverProblems(o, parts), []);
-  assert.equal(B.lessonBudget(o, parts), 6100 + 2500);
+  assert.equal(B.partWords(o, B.writtenSections(o, parts)), 6100);
   // a subsection left out inside a covered chapter goes to the part of the one before it, in order
   assert.deepEqual(B.coverParts(o, [{ title: "a", covers: "", sections: ["4.1", "4.4", "5.1", "5.2", "5.3", "6.1", "6.2"] }]).map((p) => p.sections), [["4.1", "4.2", "4.4", "5.1", "5.2", "5.3", "6.1", "6.2"]]);
   // the fix round keeps the checked words where the fixed outline left them out; "1,200" and "1200–1500" are read as numbers
@@ -214,4 +200,22 @@ test("budget from the checked plan (21.11): every subsection is in a part, and t
   assert.equal(B.wordsOf(NaN), 0);
   // the writer gets each subsection's words
   assert.match(B.BOOK_PART(o, ["5.1", "5.2"], false, false), /5\.1 ≈800, 5\.2 ≈700; this part about 1500 words in all/);
+  // the ledger: every part sees what the parts before wrote against their plan (2700 for chapter 4), so overruns never add up
+  assert.match(B.ledger(o, ["5.1"], 3400), /about 3400 words written, against 2700 planned[^.]*\. That is 700 over: write this part tighter/);
+  assert.match(B.ledger(o, ["5.1"], 2800), /That is on plan/);
+  assert.match(B.ledger(o, ["5.1"], 2000), /under the plan: give the core subsections their full planned depth/);
+  assert.match(B.ledger(o, ["4.1"], 0), /The whole lesson is planned at about 6100 words/);
+  assert.match(B.BOOK_PART(o, ["5.1"], false, false, false, 3400), /700 over/);
+  // roles and keys: the writer of a later part sees the weight of every subsection and the key of the earlier ones
+  const r = B.normalizeOutline({ known: [], chapters: [{ n: 1, title: "t", question: "q", sections: [
+    { n: "1.1", title: "a", question: "q1", from_prev: "", needs: [], defines: [], words: 1500, role: "core", key: ["$L_s=(4\\pi d/\\lambda)^2$"] },
+    { n: "1.2", title: "b", question: "q2", from_prev: "", needs: [], defines: [], words: 600, role: "support: 1.3", key: ["x = 3"] },
+    { n: "1.3", title: "c", question: "q3", from_prev: "", needs: [], defines: [], words: 900, role: "background: 1.4", key: 7 },
+  ] }] });
+  const txt = B.outlineText(r, ["1.2"]);
+  assert.match(txt, /1\.1 a — q1 \[core, ≈1500\] \| key: \$L_s/);
+  assert.match(txt, /role: support: 1\.3\n    words: about 600\n    key: x = 3/);
+  assert.match(txt, /1\.3 c — q3 \[background: 1\.4, ≈900\]$/m);
+  assert.deepEqual(r.chapters[0].sections[2].key, []);
+  assert.match(B.BOOK_PART(r, ["1.2"], false, false), /never derive or tell again what they established/);
 });

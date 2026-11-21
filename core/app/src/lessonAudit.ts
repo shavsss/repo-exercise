@@ -53,8 +53,6 @@ export interface AuditMark {
   reader?: { verdict: "pass" | "fixed" | "partly"; rounds: number; counts: Record<string, number> };
   /** a long lesson checked in parts (auditLong): how many */
   parts?: number;
-  /** still over 1.3 times its depth budget after one tightening pass (21.11): a candidate for two lessons, not cut further */
-  split?: { words: number; budget: number };
 }
 
 export interface AuditInput {
