@@ -111,6 +111,7 @@ export function Bench({ lab }: { lab: "gilua" | "lanchester" }) {
     let text = "";
     let error = "";
     let plan: unknown = null;
+    let tighten: unknown = null;
     // keep the exact request of the first call (the system intro and the turn), to read it afterwards
     const sent: { role: string; content: unknown }[][] = [];
     const wrap = <F extends (...a: never[]) => unknown>(f: F) => ((msgs: { role: string; content: unknown }[], ...rest: unknown[]) => { sent.push(msgs); return (f as unknown as (...a: unknown[]) => unknown)(msgs, ...rest); }) as unknown as F;
@@ -126,6 +127,7 @@ export function Bench({ lab }: { lab: "gilua" | "lanchester" }) {
       });
       text = res.text;
       plan = res.plan ?? null;
+      tighten = res.split ?? null;
     } catch (e) {
       const err = e as { code?: string; message?: string };
       error = `${err.code ?? "error"}: ${err.message ?? ""}`;
@@ -133,7 +135,7 @@ export function Bench({ lab }: { lab: "gilua" | "lanchester" }) {
     setLessonRules(DEFAULT_RULES);
     setLessonFeatures(DEFAULT_FEATURES);
     const p = plan as { parts?: unknown[]; split?: unknown } | null;
-    const result = { lab, build: BENCH_BUILD, rules, features, step: planOnly ? "plan" : "lesson", module: c.module, lesson: c.lesson, words: words(text), minutes: Math.round((Date.now() - t0) / 600) / 100, error, parts: p?.parts?.length ?? 0, split: p?.split ?? null, plan: JSON.stringify(plan).slice(0, 60000), text, at: Date.now() };
+    const result = { lab, build: BENCH_BUILD, rules, features, step: planOnly ? "plan" : "lesson", module: c.module, lesson: c.lesson, words: words(text), minutes: Math.round((Date.now() - t0) / 600) / 100, error, parts: p?.parts?.length ?? 0, split: p?.split ?? null, tighten, plan: JSON.stringify(plan).slice(0, 60000), text, at: Date.now() };
     const first = sent[0] ?? [];
     const asText = (c: unknown) => (typeof c === "string" ? c : JSON.stringify(c));
     if (planOnly) await rt.store!.saveBench(`${Date.now()}-${c.module}-request-${rules}`, { lab, rules, messages: first.length, system: asText(first[0]?.content ?? "").slice(0, 110000), turn: asText(first[first.length - 1]?.content ?? "").slice(0, 110000), at: Date.now() }).catch(() => say("שמירת הבקשה נכשלה"));

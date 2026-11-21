@@ -78,29 +78,99 @@ THE LESSON AS CHAPTERS OF A BOOK (these rules override every earlier rule about 
 - Each new concept in this order: the need (in plain words); the picture (its visual) and the idea in plain words; only then the precise general definition (a definition block, for an "s" concept); how it is built; and what it lets us do now, with one short computed case. The definition stays general and comes before any example of it.
 - Each central idea follows its development: why the problem is interesting and what did not work without it; how it was approached; the development step by step and why each step is needed; what came out, what it means, and where it breaks or stays open. An analogy only where it helps, never in place of the development.
 - Every chapter has at least one comparison (methods, models or alternatives, in prose or a table), a critical look at each central idea (the assumptions it rests on, who disputes it, where it fails), short cases with numbers inside the subsections, and one case study, planned as its own subsection or as the closing part of the subsection it quantifies ("case" holds the system, its question and its comparative alternative where the real context matters). The case study is written in the prose, never in a casestudy block or a box: its own numbered subsection ("### N.k מקרה בוחן: <the system>") or the closing part of the subsection it quantifies, built like the ASR-9 case. (1) The subsection opens with the real system's question and a concrete number that does not yet answer it ("the echo is about −97 dBm; that alone does not say whether the target is detected"), so the tools the subsection builds are built to answer it. (2) **השאלה.** the real system, its published design requirement, and what is tested (does the model, built without knowing this system, give its published performance?). (3) **הקלטים.** every input with its source tag and certainty; when sources disagree, both values and the effect of the difference. (4) **השרשרת.** the computation step by step with numbers from compute, each step naming the equation it uses (a short list where the steps are parallel). (5) **ההשוואה.** the model against the published value, the gap and its reason, and what the model leaves out and in which direction. (6) a consequence the reader would not have guessed (as "what the aircraft sees"). (7) **ידוע לעומת מוערך.** (8) what it means for the system and for decisions: which parameter moves the result, and how much. (9) where the real context matters, a comparative alternative computed the same way (as ADS-B against the primary radar), the trade-off between them (a table where several items are compared), and the false claims an engineer would hear and the check that catches each. With an anchor system, the case study is the anchor's decisive computation.
-- Length follows depth (21.11, the learner's decision: depth is the point; words that add no depth are time taken from the course). Every subsection carries depth and names it in "depth": what the reader can do after it that he could not before (derive, compute, trace a mechanism, decide between alternatives with numbers). Background the reader needs to follow the argument (the learner knows no physics) is depth: it enables the next step, and it keeps the words it needs, with its picture. A side topic the argument does not use (a survey or catalog with no mechanism, number or decision) is not a subsection: fold it into one anchor sentence where the story touches it, and leave the rest to the module that teaches it. The thread, the linking sentences between subsections, and the history that explains why a step was needed are part of the depth, never cut as padding. Its "words" come from that depth: a central result with its derivation 1,200 to 2000 words, a supporting idea 400 to 900, a topic a named later module teaches in full a short anchor. A long, complex topic gets the words its depth needs; breadth never adds words, and a lesson whose planned depth exceeds about ${LESSON_WORDS} words is two lessons, not one longer one. The budget is kept by cutting repetition, second examples, long cases and connections, never a definition, a derivation step or the explanation of a formula's factors. Each chapter's case study is at most about 900 words, and every visual replaces prose inside the budget, never adds to it.
+- Length follows depth (21.11, the learner's decision: depth is the point; words that add no depth are time taken from the course). Every subsection carries depth and names it in "depth", in a form a program checks: one verb of the closed list (in Hebrew: לגזור/להוכיח, לחשב/לאמוד/לפתור, לעקוב אחרי המנגנון של…, להחליט/לבחור בין…) and the tangible product (the formula, the number or the decision), e.g. "לגזור את L_s = (4πd/λ)² משטח אפקטיבי" or "להחליט בין הספק לאנטנה לפי 6 dB = פי 2"; "להבין", "להכיר" or a topic name is not depth. Background the reader needs to follow the argument (the learner knows no physics) is depth: it enables the next step, and it keeps the words it needs, with its picture; its "depth" says "רקע ל-N.k: " and what it enables there. A side topic the argument does not use (a survey or catalog with no mechanism, number or decision) is not a subsection: fold it into one anchor sentence where the story touches it, and leave the rest to the module that teaches it. The thread, the linking sentences between subsections, and the history that explains why a step was needed are part of the depth, never cut as padding. Its "words" come from that depth: a central result with its derivation 1,200 to 2000 words, a supporting idea 400 to 900, a topic a named later module teaches in full a short anchor. A long, complex topic gets the words its depth needs; breadth never adds words, and a lesson whose planned depth exceeds about ${LESSON_WORDS} words is two lessons, not one longer one. The budget is kept by cutting repetition, second examples, long cases and connections, never a definition, a derivation step or the explanation of a formula's factors. Each chapter's case study is at most about 900 words, and every visual replaces prose inside the budget, never adds to it.
 - Practice (the system grades every answer, never the learner, and the lesson below an open question stays closed until he answers or skips it): every subsection ends with 1 to 3 practice questions, about 10 to 15 in the lesson, and each chapter closes with a mixed set of 3 to 5 from all its subsections. A question asks ONLY about what this subsection or an earlier one taught in full: never about a topic only introduced, an anchor, a first look at a later module, an illustration from a field, or anything the lesson has not yet explained, and every number it needs is in the lesson or in the question. Rotate the kinds inside each chapter, each question on a different aspect (the concept, a computation, a new case, reading a graph or a drawing, catching an error): mcq (four options; every wrong option is a real misconception: units, a sign, a factor of 2 or 10, mixing two quantities; every option has its explanation), numeric (the answer, its unit, a tolerance, and one to three typical wrong values with what each reveals), explain (a short written answer: two to four key ideas and a model answer). Aim for questions a learner who read carefully answers right 70 to 85% of the time. Plan them in each subsection's "questions" (kind and aspect). These replace think, predict, errorhunt, lab and exercise blocks, which a book lesson does not use.
 - Visualization carries the ideas (10.11 and 15.11, the learner's decisions: more diagrams, drawings and figures): plan "visuals" for every subsection, at least one each and more than one where a relation, a geometry, a process or a change is explained, about one per 500 to 700 words (18 to 28 in a full lesson). Every central concept gets its visual where it is introduced, before or beside its definition, never only after it; anything with a direction, a shape, a layout or a change in time is drawn before it is formalized. Use the book's own figures of the lesson's pages wherever they show the idea (figure blocks), and draw the rest. Choose by the kind of idea: a relation between quantities is a chart (computed points); a geometry, a layout or a system's parts is an svg diagram; a chain, a process or a link budget is a mermaid diagram; a comparison of several items is a table; a book figure is a figure block; something that changes in time is an anim or a sim. A visual replaces prose (it is inside the word budget), never repeats it: one sentence before it says what to look at, one after says what it shows and what it teaches; sometimes ask the reader first what shape he expects.
 - Blocks serve the prose; no step of the argument lives only in a block. In the flow, as many as the ideas need: definition, formula, figure, chart, table, svg, mermaid; the practice questions (mcq, numeric, explain) at the end of each subsection; keep (at the end of the lesson). In the flow, where they answer a question the prose raised: derivation and domain (at most two domain per chapter). Per chapter: at most two verify, and up to four of anim, sim, scene3d, interactive wherever a change in time or in a parameter is the idea. This limit overrides the level-3 counts (predict, verify, errorhunt, lab) and the connection rules (fieldmap and domain blocks per result): a check, a prediction or a mapping beyond it is written in the prose of its subsection. Not used: think, predict, errorhunt, lab and exercise (the practice questions replace them), erratum (a real error of the source is one sentence in the prose; scan and OCR errors are never mentioned, the lesson just uses the right value), story (the chapter opens in prose), plan, today, coverage, refresh (the opening paragraph "what we already know" replaces it), fieldmap, errorhunt and lab (into the prose or the exercises), decide (the engineering case at the end of the lesson replaces it).
 - Writing (presentation only): derivations are moves: a goal sentence, 2 to 4 lines of algebra in one display, a payoff sentence; a chain of more than three moves, or one the main argument uses only for its result, goes into a \`\`\`derivation block with a title saying what it proves. No "צעד N" labels and no #### headings. At most about 3 numbers in a paragraph and one quantity in a sentence; more go to a table or a display. Every assumption is stated in a sentence where it enters and settled (checked or broken, with the deciding number) where planned. History that explains why a step was needed is main text, as long as it needs; history that explains nothing is cut. The engineer's judgment (how fast, how much, what it costs, when a good fit is suspicious, which assumption of an impossibility can be broken) is written where the decision is made, in the voice of the text, never as a closing box.
-- A part of the writing is one chapter, or a run of whole subsections of a long chapter: give each part "sections": the subsection numbers it writes. Parts never cut a subsection.
+- A part of the writing is one chapter, or a run of whole subsections of a long chapter: give each part "sections": the subsection numbers it writes. Parts never cut a subsection, and every subsection of the outline is in exactly one part.
+- The app writes the whole lesson from this plan, from its first subsection: plan every subsection with its "depth" and "words", even when the course memory or the lesson's focus says part of it was written before (that text is not kept); the lesson's budget is the sum of these words.
 - Add to the JSON: "outline": {"known": ["…"], "chapters": [{"n": ${chapterStart}, "title": "…", "question": "…", "anchor": "…", "thread": "…", "comparison": "…", "case_study": "…", "sections": [{"n": "${chapterStart}.1", "title": "…", "question": "…", "from_prev": "…", "needs": ["…"], "defines": [{"term": "…", "mark": "s"}], "depth": "…", "paragraphs": ["הקדמה", "…", "מה מחבר ביניהן"], "compare": "…", "critique": "…", "case": "…", "words": 1200, "visuals": ["svg: …", "chart: … against …"], "questions": ["mcq: …", "numeric: …"], "anchor_q": "…", "history": "…", "assumptions": [{"text": "…", "settled_in": "${chapterStart}.3"}], "iou": [{"result": "…", "derived_in": "${chapterStart}.4"}]}]}]}, and per part "sections": ["${chapterStart}.1", "${chapterStart}.2"]. Short phrases, no prose, in Hebrew.`;
+
+/** A planned word count as a number: the model sometimes writes "1,200", "~900" or "1200–1500" (the first number counts). */
+export function wordsOf(v: unknown): number {
+  if (typeof v === "number") return Number.isFinite(v) && v > 0 ? Math.round(v) : 0;
+  const m = typeof v === "string" ? v.replace(/(\d),(\d{3})/g, "$1$2").match(/\d+/) : null;
+  return m ? Number(m[0]) : 0;
+}
 
 /** The planned words of a run of subsections. */
 export function partWords(o: BookOutline, mine: string[]): number {
   let n = 0;
-  for (const c of o.chapters) for (const s of c.sections) if (mine.includes(s.n)) n += Math.max(0, Number(s.words) || 0);
+  for (const c of o.chapters) for (const s of c.sections) if (mine.includes(s.n)) n += wordsOf(s.words);
   return n;
 }
 
-/** The planned words of the whole lesson (0 when the plan gave none). */
-export function lessonWords(o: BookOutline): number {
-  return partWords(o, o.chapters.flatMap((c) => c.sections.map((s) => s.n)));
+/** Each subsection's planned words, as the part writer sees them ("2.3 ≈700, 2.4 ≈600"). */
+function wordsList(o: BookOutline, mine: string[]): string {
+  return o.chapters.flatMap((c) => c.sections.filter((s) => mine.includes(s.n) && wordsOf(s.words)).map((s) => `${s.n} ≈${wordsOf(s.words)}`)).join(", ") || "as planned";
 }
 
-/** The words a written lesson may take: its planned depth, plus room for the practice questions and the keep block (21.11: no fixed cap). */
-export function lessonBudget(o: BookOutline): number {
-  return (lessonWords(o) || LESSON_WORDS) + 2500;
+/** The subsections the parts write, in the outline's order. */
+export function writtenSections(o: BookOutline, parts: { sections?: string[] }[]): string[] {
+  const mine = new Set(parts.flatMap((_, k) => partSections(o, parts, k)));
+  return o.chapters.flatMap((c) => c.sections.map((s) => s.n)).filter((n) => mine.has(n));
+}
+
+/** The words a written lesson may take: the planned words of the subsections its parts write (the checked plan's own sum),
+ *  plus room for the practice questions and the keep block (21.11: no fixed cap). */
+export function lessonBudget(o: BookOutline, parts: { sections?: string[] }[]): number {
+  return (partWords(o, writtenSections(o, parts)) || LESSON_WORDS) + 2500;
+}
+
+/** One tightening pass removes at most this share of the words (21.11: 22,899 words were sent to 8,900 in one pass). */
+export const MAX_CUT = 0.2;
+/** A lesson still over its budget by this factor after the pass is a candidate for two lessons, not cut further. */
+export const SPLIT_OVER = 1.3;
+/** The words one tightening pass aims at: the budget, but never more than MAX_CUT below what is there. */
+export const tightenTarget = (words: number, budget: number) => Math.max(budget, Math.ceil(words * (1 - MAX_CUT)));
+/** The fewest words a pass may leave (an edit set that cuts deeper than MAX_CUT, with a little slack, is not applied). */
+export const tightenFloor = (words: number) => Math.floor(words * (1 - MAX_CUT - 0.05));
+/** Is a lesson of `words` a candidate for splitting into two lessons? */
+export const splitCandidate = (words: number, budget: number) => budget > 0 && words > budget * SPLIT_OVER;
+
+/** Every subsection of the outline in exactly one part: one the planner left out goes into the part of the subsection before it,
+ *  or, when its whole chapter is left out, into a new part of its own right after that one (a subsection outside every part is never written). */
+export function coverParts<P extends { title: string; covers: string; sections?: string[] }>(o: BookOutline, parts: P[]): P[] {
+  const out = parts.map((p, k) => ({ ...p, sections: partSections(o, parts, k) }));
+  const where = new Map<string, number>();
+  out.forEach((p, k) => p.sections.forEach((n) => where.set(n, k)));
+  let prev = -1;
+  for (const c of o.chapters) {
+    const missing = c.sections.filter((s) => !where.has(s.n)).map((s) => s.n);
+    if (missing.length === c.sections.length && out.length) {
+      out.splice(prev + 1, 0, { ...out[Math.max(0, prev)], title: `פרק ${c.n}: ${c.title ?? ""}`.trim(), covers: c.question ?? "", sections: missing, blocks: [], l25: [] } as P & { sections: string[] });
+      for (const [n, k] of where) if (k > prev) where.set(n, k + 1);
+      missing.forEach((n) => where.set(n, prev + 1));
+      prev += 1;
+      continue;
+    }
+    for (const s of c.sections) {
+      const k = where.get(s.n);
+      if (k !== undefined) {
+        prev = Math.max(prev, k);
+        continue;
+      }
+      const into = Math.max(0, prev);
+      const at = out[into].sections.findIndex((n) => order(o, n) > order(o, s.n));
+      out[into].sections.splice(at < 0 ? out[into].sections.length : at, 0, s.n);
+      where.set(s.n, into);
+    }
+  }
+  return out;
+}
+const order = (o: BookOutline, n: string) => o.chapters.flatMap((c) => c.sections.map((s) => s.n)).indexOf(n);
+
+/** A fixed outline keeps the words of the checked one where the fix left them out (the budget is the checked plan's own sum). */
+export function keepWords(prev: BookOutline, next: BookOutline): BookOutline {
+  const had = new Map(prev.chapters.flatMap((c) => c.sections.map((s) => [s.n, wordsOf(s.words)] as const)));
+  return { ...next, chapters: next.chapters.map((c) => ({ ...c, sections: c.sections.map((s) => (wordsOf(s.words) || !had.get(s.n) ? s : { ...s, words: had.get(s.n) })) })) };
+}
+
+/** The subsections the parts do not write (a problem for the outline check). */
+export function coverProblems(o: BookOutline, parts: { sections?: string[] }[]): { where: string; kind: string; problem: string }[] {
+  const mine = new Set(writtenSections(o, parts));
+  return o.chapters.flatMap((c) => c.sections.filter((s) => !mine.has(s.n)).map((s) => ({ where: s.n, kind: "coverage", problem: `subsection ${s.n} is in no part's "sections", so it would never be written: put it in a part` })));
 }
 
 /** The words the learner reads: the code of visual blocks (chart and table JSON, svg, mermaid, scenes) does not count, nor
@@ -174,7 +244,7 @@ Write subsections ${mine.join(", ")} as planned, in this form:
 - The engineer's view is part of the voice: how fast, how much, at what cost, when a good fit is suspicious, which assumption of an impossibility can be broken, written where the decision is made, never as a closing paragraph or box.
 - Each central idea follows its development: why it is an interesting problem, how it was approached, the steps and why each is needed, what came out, where it breaks.
 - The comparison, critique and short case planned for each subsection are written in it, in prose (a table for a comparison of several items). The case study is written in the prose, never in a casestudy block or a box: its own numbered subsection ("### N.k מקרה בוחן: <the system>") or the closing part of the subsection it quantifies, built like the ASR-9 case. (1) The subsection opens with the real system's question and a concrete number that does not yet answer it ("the echo is about −97 dBm; that alone does not say whether the target is detected"), so the tools the subsection builds are built to answer it. (2) **השאלה.** the real system, its published design requirement, and what is tested (does the model, built without knowing this system, give its published performance?). (3) **הקלטים.** every input with its source tag and certainty; when sources disagree, both values and the effect of the difference. (4) **השרשרת.** the computation step by step with numbers from compute, each step naming the equation it uses (a short list where the steps are parallel). (5) **ההשוואה.** the model against the published value, the gap and its reason, and what the model leaves out and in which direction. (6) a consequence the reader would not have guessed (as "what the aircraft sees"). (7) **ידוע לעומת מוערך.** (8) what it means for the system and for decisions: which parameter moves the result, and how much. (9) where the real context matters, a comparative alternative computed the same way (as ADS-B against the primary radar), the trade-off between them (a table where several items are compared), and the false claims an engineer would hear and the check that catches each.
-- Length: each subsection about its planned words (this part about ${partWords(o, mine) || "as planned"} words), never more than about 10% over; keep it by cutting repetition, never a definition, a step or a factor's explanation. A case study at most about 900 words.
+- Length: each subsection about its planned words (${wordsList(o, mine)}; this part about ${partWords(o, mine) || "as planned"} words in all), never more than about 10% over; the lesson's budget is the sum of these, and words past it are cut afterwards; keep it by cutting repetition, never a definition, a step or a factor's explanation. A case study at most about 900 words.
 - Visuals: write every planned visual of each subsection, at least one in each (a \`\`\`chart with computed points, a \`\`\`svg diagram drawn to scale with Hebrew labels, a \`\`\`mermaid diagram, a \`\`\`table, a figure block with the book's own figure), with one sentence before it saying what to look at and one after saying what it shows; it replaces prose, never repeats it. A central concept's picture comes where the concept is introduced, before or beside its definition. Where a relation, a geometry, a direction, a change in time or a chain is explained only in words, draw it, even if it was not planned; where a change in time or in a parameter is the idea, animate it (anim or sim).
 - Mark every definition and formula block with a header line "@mark: summary" for [ס] or "@mark: aid" for [ע], as planned.
 - Practice at the end of each subsection, as planned (1 to 3; the chapter's mixed set of 3 to 5 after its case study), in exactly these forms:
@@ -288,7 +358,7 @@ You check the outline of one lesson of a self-study book (Hebrew) before it is w
 7. Thread: each chapter has a "thread" (from which real problem to which ability), and every subsection's "question" serves it; a subsection whose reason is only formal ("to connect A with B") with no practical stake is a problem.
 8. Visuals: a subsection with no planned visual, or a central concept with a direction, a shape, a layout or a change in time and no picture of it, is a problem.
 9. Ledger: every assumption's "settled_in" and every iou's "derived_in" names a LATER subsection of this outline, and that subsection's question or critique can settle it.
-10. Depth (length follows depth): a subsection whose "depth" is missing or only descriptive (a survey or catalog with no mechanism, derivation, computed number or decision), or whose "words" exceed what its depth needs, is a problem: fold it into an anchor sentence, cut it, or leave it to the module that teaches it. A lesson whose subsections add up to well over about ${LESSON_WORDS} words of real depth is two lessons.
+10. Depth (length follows depth): a subsection whose "depth" is missing or only descriptive, or does not name a verb of the closed list (derive or prove, compute or estimate or solve, trace a mechanism, decide or choose between alternatives) with its tangible product (the formula, the number or the decision), or whose "words" are missing or exceed what its depth needs, is a problem; background the reader needs is depth when it says which later step it enables ("רקע ל-N.k: …"): fold it into an anchor sentence, cut it, or leave it to the module that teaches it. A lesson whose subsections add up to well over about ${LESSON_WORDS} words of real depth is two lessons.
 Lesson: ${lessonTitle}
 <outline>
 ${JSON.stringify(o, null, 1)}
@@ -344,6 +414,7 @@ export function normalizeOutline(o: BookOutline): BookOutline {
         visual: undefined,
         from_prev: s.from_prev ?? "",
         question: s.question ?? "",
+        words: wordsOf(s.words) || undefined,
         assumptions: (Array.isArray(s.assumptions) ? s.assumptions : []).filter((a) => a && typeof a.text === "string").map((a) => ({ text: a.text, settled_in: String(a.settled_in ?? "") })),
         iou: (Array.isArray(s.iou) ? s.iou : []).filter((d) => d && typeof d.result === "string").map((d) => ({ result: d.result, derived_in: String(d.derived_in ?? "") })),
       })),
@@ -388,6 +459,35 @@ export function visualsOf(s: OutlineSection): string[] {
 const MAX_CENTRAL = 2;
 const MAX_TERMS = 4;
 
+/** The closed list of depth verbs (21.11): derive (prove, show that, build a formula), compute (estimate, solve, count, convert, decompose),
+ *  trace a mechanism, decide (choose, design, compare alternatives). Hebrew forms with
+ *  their one-letter prefixes (ו, ל, ש, ה, ב), and the English words a plan sometimes uses. */
+const DEPTH_VERB = new RegExp(
+  "(?:^|[^\u05d0-\u05ea])(?:[ולשהב]|וכש|כש)?(?:" +
+    [
+      "לגזור|גוזר|גוזרת|גוזרים|גזירה|גזירת|לפתח את|מפתח את|להוכיח|מוכיח|מוכיחה|הוכחה|הוכחת|להראות ש|מראה ש|לבנות את|בונה את",
+      "לחשב|מחשב|מחשבת|מחשבים|חישוב|לאמוד|אומד|אומדת|אומדן|להעריך|מעריך|מעריכה|לפתור|פותר|פותרת|לכמת|מכמת|לספור|סופר|להמיר|ממיר|לתרגם|מתרגם|לפרק|מפרק",
+      "לעקוב|עוקב|עוקבת|מעקב|מנגנון|המנגנון",
+      "להחליט|מחליט|מחליטה|החלטה|להכריע|מכריע|מכריעה|הכרעה|לבחור|בוחר|בוחרת|בחירה|לתכנן|מתכנן|להשוות|משווה",
+    ].join("|") +
+    ")(?![\u05d0-\u05ea])|\\b(?:derive|prove|compute|calculate|estimate|solve|trace|mechanism|decide|choose)",
+  "i",
+);
+/** depth shorter than this many words names no product */
+const MIN_DEPTH_WORDS = 4;
+/** Background the reader needs counts as depth when it names the later step it enables ("רקע ל-2.4: …"). */
+const BACKGROUND = /(?:רקע|background)[^\d]{0,12}\d+\.\d+/i;
+
+/** Is a subsection's "depth" checkable (a verb of the closed list and its tangible product)? Returns the problem, or "" when it is. */
+export function depthProblem(depth: string | undefined): string {
+  const d = (depth ?? "").trim();
+  if (!d) return `no "depth": name what the reader can do after it (derive, compute, trace a mechanism, decide) and its product, or fold it into an anchor sentence`;
+  if (BACKGROUND.test(d) && d.split(/\s+/).length >= MIN_DEPTH_WORDS) return "";
+  if (!DEPTH_VERB.test(d)) return `"depth" («${d.slice(0, 60)}») names no verb of the list (לגזור, לחשב, לעקוב אחרי מנגנון, להחליט בין חלופות): say what the reader derives, computes, traces or decides, or mark needed background "רקע ל-N.k: …", or fold it into an anchor sentence`;
+  if (d.split(/\s+/).length < MIN_DEPTH_WORDS) return `"depth" («${d}») is too short to name its product: the formula, the number or the decision`;
+  return "";
+}
+
 /** The density, thread and visual rules that can be checked without a model (10.11). */
 export function formProblems(o: BookOutline): { where: string; kind: string; problem: string }[] {
   const out: { where: string; kind: string; problem: string }[] = [];
@@ -398,8 +498,10 @@ export function formProblems(o: BookOutline): { where: string; kind: string; pro
       if (central > MAX_CENTRAL) out.push({ where: s.n, kind: "density", problem: `${central} items marked "s" in one subsection (at most ${MAX_CENTRAL}: one central concept and its result): split it` });
       if (s.defines.length > MAX_TERMS) out.push({ where: s.n, kind: "density", problem: `${s.defines.length} new terms in one subsection (about ${MAX_TERMS} at most): split it or move the background earlier` });
       if (!visualsOf(s).length) out.push({ where: s.n, kind: "visual", problem: "no planned visual" });
-      if (!s.depth?.trim()) out.push({ where: s.n, kind: "depth", problem: `no "depth": name what the reader can do after it (derive, compute, trace, decide), or fold it into an anchor sentence` });
-      const w = Number(s.words) || 0;
+      const why = depthProblem(s.depth);
+      if (why) out.push({ where: s.n, kind: "depth", problem: why });
+      const w = wordsOf(s.words);
+      if (!w) out.push({ where: s.n, kind: "depth", problem: `no "words": plan the words its depth needs (every subsection is written now, even one the course memory says was written before)` });
       if (w > (central ? MAX_SECTION_WORDS : MAX_SUPPORT_WORDS) * 1.1) out.push({ where: s.n, kind: "depth", problem: `${w} words for ${central ? "a central result" : "a supporting idea"} (at most about ${central ? MAX_SECTION_WORDS : MAX_SUPPORT_WORDS}): cut what is not depth, or split it` });
     }
   }

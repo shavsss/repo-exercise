@@ -46,6 +46,11 @@ export function AuditBar({ mark, running, status, onRun, fade }: { mark?: AuditM
         {how}
         {found ? ` (נמצאו: ${found})` : ""}
       </span>
+      {mark.split && (
+        <span className="audit-split">
+          {` · ארוך מהתקציב לפי העומק (${mark.split.words.toLocaleString()} מול ${mark.split.budget.toLocaleString()} מילים): מועמד לפיצול לשני שיעורים`}
+        </span>
+      )}
       {mark.verdict === "partly" && onRun && (
         <button className="link" onClick={onRun}>
           בדוק שוב
