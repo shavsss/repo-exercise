@@ -845,7 +845,7 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
  * The check of one lesson (lessonAudit.ts): "inplace" for a lesson not read yet, "supplement" for one already
  * read (the additions come after it). Returns null when the check could not run.
  */
-/** The check runs at high effort; the test bench passes its own (21.11: medium). */
+/** The check runs at the lesson's effort, medium by default (21.11, the learner's decision). */
 export async function auditLesson(o: { rt: Runtime; module: Module; lessons?: LessonSpec[]; lessonIdx: number; text: string; mode: "inplace" | "supplement"; pages?: string; known?: string[]; effort?: Effort; signal?: AbortSignal; cb: TurnCallbacks }) {
   const { rt, module: m, lessons, lessonIdx } = o;
   if (!rt.sample) return null;
@@ -879,7 +879,7 @@ export async function auditLesson(o: { rt: Runtime; module: Module; lessons?: Le
         const res = await rt.sample!([{ role: "user", content: prompt }], {
           model: MODEL,
           modelTier: "complex",
-          effort: o.effort ?? "high",
+          effort: o.effort ?? "medium",
           signal: o.signal,
           ...(kind === "repair" && tools ? { tools } : { cache: false }),
           ...(kind === "repair" ? { onText: ({ text }: { text: string }) => o.cb.onStatus?.(`משלים את השיעור (${Math.round(text.length / 1000)} אלף תווים)`) } : {}),

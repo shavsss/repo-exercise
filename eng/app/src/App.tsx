@@ -125,7 +125,7 @@ export function App() {
   const [viewer, setViewer] = useState<{ doc: string; page: number } | null>(null);
   const [viewerMin, setViewerMin] = useState(false);
   const [mode, setMode] = useState<Mode>("clarify");
-  const [effort, setEffort] = usePersisted<Effort>("eng-lab:effort", "high");
+  const [effort, setEffort] = usePersisted<Effort>("eng-lab:effort2", "medium");
   const [sideOpen, setSideOpen] = useState(false);
   const [sidePref, setSidePref] = usePersisted<"open" | "closed">("eng-lab:side", "open");
   const [memoryOpen, setMemoryOpen] = useState(false);
