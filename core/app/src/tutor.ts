@@ -13,7 +13,7 @@ import { headWithin, tailWithin } from "./truncation";
 import { LEGACY_RULES, SYSTEM_PROMPT, TEACHBACK_RULES, libraryList } from "./prompt";
 import type { Runtime, SampleTool } from "./runtime";
 import { type TeachScope, type TeachTurn, type TeachVerdict } from "./teachback";
-import { BOOK_PART, BOOK_PLAN, CASE_PART, CASE_PLAN, OUTLINE_FIX, coverParts, coverProblems, formProblems, keepWords, lessonBudget, normalizeOutline, orderProblems, outlineCheckPrompt, parseOutlineReview, partSections, splitCandidate, tightenFloor, tightenPrompt, tightenTarget, validOutline, wordCount, type BookOutline, type CasePlan } from "./bookRules";
+import { BOOK_PART, BOOK_PLAN, CASE_PART, CASE_PLAN, OUTLINE_FIX, coverParts, coverProblems, formProblems, keepWords, normalizeOutline, orderProblems, outlineCheckPrompt, parseOutlineReview, partSections, validOutline, wordCount, type BookOutline, type CasePlan } from "./bookRules";
 import { caseAid, caseId, type CaseAid } from "./caseBlock";
 import { ideasForPrompt, loadIdeas, type Idea } from "./ideas";
 import { loadProjects, projectsForPrompt, type ResearchProject } from "./projects";
@@ -30,6 +30,10 @@ const LESSON_PAGES_CHARS = 95_000;
 /** The lesson text so far sent with each part: at most PRIOR_MAX bytes, never under PRIOR_MIN (the source pages give way first). */
 const PRIOR_MAX = 120_000;
 const PRIOR_MIN = 40_000;
+/** A book lesson's part gets only the end of the text before it: the outline carries the rest (21.11, the cost of re-sending the lesson). */
+const BOOK_PRIOR = 8_000;
+/** Reviews of each check of a new book lesson (source and reader): one repair and the review that verifies it (21.11: up to 4 each). */
+const BOOK_REVIEWS = 2;
 /** A part that still passes the 256 KiB cap with its tool rounds is sent once more at this size. */
 const SMALL_TURN = 120_000;
 const PAGES_MARK = "\n\nSource pages for this lesson:\n";
@@ -620,7 +624,8 @@ function bookPartInstructions(plan: PartPlan, k: number, writtenSoFar: string, c
   const n = plan.parts.length;
   const last = k === n - 1;
   const mine = partSections(o, plan.parts, k);
-  const prior = tailWithin(writtenSoFar, priorMax);
+  // the part is written from the outline (roles, words, keys) and the ledger, with only the end of the text before it (21.11)
+  const prior = tailWithin(writtenSoFar, Math.min(priorMax, BOOK_PRIOR));
   return `WRITING STEP: part ${k + 1} of ${n} of this lesson. Write as the authors (see <voice>).
 Lesson «${plan.title}».${plan.results?.length ? ` Central results: ${plan.results.join("; ")}.` : ""}
 Figures of the lesson: ${(plan.figures ?? []).join(", ") || "none"}.
@@ -632,7 +637,7 @@ Do not write material that belongs to later parts. Teach step by step: every ste
 Tag the level-2.5 sections of the central results that this part covers ([[2.5: …]], each tag once per central result in the whole lesson) at the start of their paragraph; anchor claims get no tag.
 ${k === 0 ? "Start the lesson with the first chapter heading (no preamble about the plan or the parts)." : "Continue the equation numbering from the last \\tag above."}
 ${LITE_PART}${featurePart(p)}
-${BOOK_PART(o, mine, k === 0, last, last && FEATURES.has("case"))}${last && FEATURES.has("case") ? `\n${CASE_PART(caseOf.id, plan.case, caseOf.aid)}` : ""}`;
+${BOOK_PART(o, mine, k === 0, last, last && FEATURES.has("case"), wordCount(writtenSoFar))}${last && FEATURES.has("case") ? `\n${CASE_PART(caseOf.id, plan.case, caseOf.aid)}` : ""}`;
 }
 
 /** Checks the outline's order before any text is written, and has the planner fix it (at most two rounds). */
@@ -752,34 +757,6 @@ function featurePart(p: { blocks?: string[] }) {
 }
 
 
-/**
- * One pass that brings a lesson over its budget (by more than 10%) toward it, cutting only what is not depth (tightenPrompt).
- * A pass removes at most MAX_CUT of the words (an edit that cuts more is not applied); a lesson still over SPLIT_OVER times its
- * budget is not cut further but marked as a candidate for two lessons (21.11: 22,899 words were sent to 8,900 in one pass).
- */
-async function tightenToBudget(o: { rt: Runtime; text: string; budget: number; effort: Effort; signal: AbortSignal; cb: TurnCallbacks }): Promise<{ text: string; split?: { words: number; budget: number } }> {
-  const words = wordCount(o.text);
-  if (words <= o.budget * 1.1) return { text: o.text };
-  const target = tightenTarget(words, o.budget);
-  o.cb.onStatus?.(`מהדק את השיעור: ${words.toLocaleString()} מילים, התקציב לפי העומק ${o.budget.toLocaleString()}${target > o.budget ? `; במעבר הזה עד ${target.toLocaleString()}` : ""}`);
-  // a call that fails at once (too large, a limit) leaves the lesson as it is, and says why (21.11: a run ended right here)
-  const raw = await Promise.resolve()
-    .then(() => o.rt.sample!([{ role: "user", content: tightenPrompt(o.text, words, target) }], { model: MODEL, modelTier: "complex", effort: o.effort, signal: o.signal, cache: false }))
-    .then((r) => r.text)
-    .catch((e: { code?: string; message?: string }) => {
-      o.cb.onStatus?.(`ההידוק לא רץ (${e?.code ?? e?.message ?? "שגיאה"}): השיעור נשאר כמו שהוא`);
-      return "";
-    });
-  const t = raw ? applyRepair(o.text, raw, "inplace") : null;
-  const after = t?.applied ? wordCount(t.text) : words;
-  const text = t?.applied && after < words && after >= tightenFloor(words) ? t.text : o.text;
-  if (text !== o.text) o.cb.onText(text);
-  const left = text === o.text ? words : after;
-  if (!splitCandidate(left, o.budget)) return { text };
-  o.cb.onStatus?.(`השיעור ארוך מהתקציב גם אחרי ההידוק (${left.toLocaleString()} מול ${o.budget.toLocaleString()} מילים): לא מקצץ עוד; מועמד לפיצול לשני שיעורים`);
-  return { text, split: { words: left, budget: o.budget } };
-}
-
 export async function composeLesson(opts: Base & { text: string; resume?: { plan: PartPlan; partsDone: number; text: string }; planOnly?: boolean; auditEffort?: Effort }) {
   // the lesson as chapters of a book (bookRules.ts): chapters are numbered across the module
   const book = LESSON_RULES === "lite" && FEATURES.has("book");
@@ -854,25 +831,19 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
     cb.onText(written);
     cb.onCheckpoint?.(plan, k + 1, written);
   }
-  // a book lesson over its depth budget is tightened (what is not depth only) before the checks, and again after
-  // their repairs, which add without recounting (bookRules.ts, 21.11: length follows depth)
-  const budget = book && plan.outline ? lessonBudget(plan.outline, plan.parts) : 0;
-  let split: { words: number; budget: number } | undefined;
-  if (budget && !opts.planOnly && written) ({ text: written, split } = await tightenToBudget({ rt, text: written, budget, effort, signal, cb }));
+  // no tightening pass over the whole lesson (21.11: each pass re-sent the whole lesson): the parts keep the plan's words
+  // as they are written (BOOK_PART, the ledger), and the checks below run a bounded number of rounds (BOOK_REVIEWS)
   // every lesson is checked against its pages before it is read, and repaired where it falls short (lessonAudit.ts)
   let audit: AuditMark | undefined;
   if (!opts.planOnly && written) {
-    const a = await auditLesson({ rt, module: m, lessons, lessonIdx, text: written, mode: "inplace", pages, known: plan.outline?.known, effort: opts.auditEffort, signal, cb }).catch(() => null);
+    const a = await auditLesson({ rt, module: m, lessons, lessonIdx, text: written, mode: "inplace", pages, known: plan.outline?.known, effort: opts.auditEffort, reviews: book ? BOOK_REVIEWS : undefined, signal, cb }).catch(() => null);
     if (a) {
       written = a.text;
       audit = a.mark;
       cb.onText(written);
     }
-    // a split candidate is not cut again (one pass of at most MAX_CUT); otherwise the repairs' additions get one pass
-    if (budget && !split) ({ text: written, split } = await tightenToBudget({ rt, text: written, budget, effort, signal, cb }));
-    if (split && audit) audit = { ...audit, split };
   }
-  return { text: written, plan, model, audit, split };
+  return { text: written, plan, model, audit };
 }
 
 /**
@@ -880,7 +851,7 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
  * read (the additions come after it). Returns null when the check could not run.
  */
 /** The check runs at high effort; the test bench passes its own (21.11: medium). */
-export async function auditLesson(o: { rt: Runtime; module: Module; lessons?: LessonSpec[]; lessonIdx: number; text: string; mode: "inplace" | "supplement"; pages?: string; known?: string[]; effort?: Effort; signal?: AbortSignal; cb: TurnCallbacks }) {
+export async function auditLesson(o: { rt: Runtime; module: Module; lessons?: LessonSpec[]; lessonIdx: number; text: string; mode: "inplace" | "supplement"; pages?: string; known?: string[]; effort?: Effort; reviews?: number; signal?: AbortSignal; cb: TurnCallbacks }) {
   const { rt, module: m, lessons, lessonIdx } = o;
   if (!rt.sample) return null;
   const spec = lessons?.[lessonIdx];
@@ -909,6 +880,7 @@ export async function auditLesson(o: { rt: Runtime; module: Module; lessons?: Le
     o.mode,
     {
       onStatus: o.cb.onStatus,
+      ...(o.reviews ? { reviews: o.reviews } : {}),
       call: async (prompt, kind) => {
         const res = await rt.sample!([{ role: "user", content: prompt }], {
           model: MODEL,
