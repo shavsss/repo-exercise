@@ -106,7 +106,9 @@ test("the word budget: planned words, a word count, and the tighten step", () =>
   const t = B.tightenPrompt("x", 20000, 15000);
   assert.match(t, /It has 20000 words; its budget is 15000/);
   assert.match(t, /never remove or thin a definition/);
-  assert.match(t, /Cut, in this order: passages that describe or survey without a mechanism, a number or a decision/);
+  assert.match(t, /Cut, in this order: side topics that describe or survey without a mechanism, a number or a decision/);
+  assert.match(t, /background the reader needs to follow is not a side topic/);
+  assert.match(B.BOOK_PLAN(2), /Background the reader needs to follow the argument[^.]*is depth/);
   assert.match(B.outlineCheckPrompt(o, "L"), /10\. Depth/);
 });
 
