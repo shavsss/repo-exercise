@@ -50,7 +50,12 @@ const sample = Object.assign(
     json: async (msgs: { role: string; content: unknown }[]) => {
       const t = await ask(msgs, true);
       const s = t.slice(t.indexOf("{"), t.lastIndexOf("}") + 1);
-      return JSON.parse(s);
+      // as the runtime does: a reply that does not parse is an invalid_json error that carries its text
+      try {
+        return JSON.parse(s);
+      } catch {
+        throw { code: "invalid_json", message: "invalid json", text: t };
+      }
     },
   },
 );

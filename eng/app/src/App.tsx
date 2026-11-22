@@ -59,6 +59,8 @@ interface Notice {
 
 const MAX_PARTS = 4;
 /** How often a draft is saved while text streams (plus at every plan/part boundary). */
+/** The text of a lesson that is a plan's JSON, not a lesson (22.11: a failed plan was saved as the lesson). */
+const RAW_PLAN = /^\s*\{|"(chapters|sections|parts|words)"\s*:/;
 const SAVE_EVERY = 8000;
 const CONTINUE_TEXT = "התשובה הקודמת נקטעה לפני סופה (באורך המרבי, באמצע משפט או בתוך בלוק פתוח). המשך בדיוק מהמקום שבו נעצרה, מאמצע המשפט אם צריך, בלי לחזור על דבר ובלי הקדמה.";
 
@@ -414,7 +416,9 @@ export function App() {
    */
   const generate = useCallback(
     async (o: { rt: Runtime; m: Module; idx: number; cid: string; history: StoredMessage[]; userMsg: StoredMessage; sendMode: Mode; images: File[]; resume?: StoredMessage }) => {
-      const { rt, m, idx, cid, history, userMsg, sendMode, images, resume } = o;
+      const { rt, m, idx, cid, history, userMsg, sendMode, images } = o;
+      // a lesson whose saved text is a failed plan's raw JSON (22.11) is written again from the start, never continued
+      const resume = o.resume && sendMode === "lesson" && !o.resume.plan && RAW_PLAN.test(o.resume.text ?? "") ? { ...o.resume, text: "" } : o.resume;
       const store = rt.store && !cid.startsWith("local-") ? rt.store : null;
       const msgId = resume?.id ?? store?.newMessageId(cid) ?? `m${Date.now()}`;
       const activity: Activity[] = [...(resume?.activity ?? [])];
