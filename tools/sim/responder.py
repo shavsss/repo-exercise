@@ -7,7 +7,7 @@ for c in plan['outline']['chapters']:
         if not s.get('depth') or s['depth'].strip() == 'נכתב': s['depth'] = 'לחשב את הגודל המרכזי של הסעיף ולהחליט לפיו'
         s['title'] = s['title'].replace(' (נכתב)', '')
         s.setdefault('role', 'core' if any(d.get('mark') == 's' for d in s.get('defines', [])) else 'support')
-        s.setdefault('key', ['$x = y$ (הנוסחה של הסעיף)', 'מספר מחושב: 12.3 dB'])
+        s.setdefault('key', ['$R = c\\Delta T/2$', '$\\lambda f = c$', 'מספר מחושב: 12.3 dB'])
 W = "המילה העברית הזו ממלאת את השיעור כדי למדוד גודל בקשה אמיתי ".split()
 def words(n):
     return " ".join(W[i % len(W)] for i in range(n))
@@ -34,6 +34,8 @@ while True:
     elif r['json']:
         kind = 'plan' if 'checked for order' not in last else 'plan_fix'
         res = json.dumps(plan, ensure_ascii=False)
+        # LATEX=1: the plan as the model wrote it on 21.11, LaTeX with single backslashes (invalid JSON)
+        if os.environ.get('LATEX') == '1': res = res.replace('\\\\', '\\')
     elif '<lesson_tighten>' in last:
         kind = 'tighten'; res = ''
     elif '<lesson_audit' in last:
