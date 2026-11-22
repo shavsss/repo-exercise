@@ -219,3 +219,15 @@ test("the plan the parts write (21.11): every subsection is in a part, the words
   assert.deepEqual(r.chapters[0].sections[2].key, []);
   assert.match(B.BOOK_PART(r, ["1.2"], false, false), /never derive or tell again what they established/);
 });
+
+test("a plan whose JSON broke on LaTeX backslashes is read (22.11: the raw plan was shown as the lesson)", () => {
+  // what the model wrote: single backslashes in LaTeX, next to a valid escaped backslash, quote and \u escape
+  const raw = String.raw`{"parts": [{"title": "חלק 1", "sections": ["1.1"]}], "outline": {"key": ["$R = c\Delta T/2$", "$\lambda f = c$", "$\frac{1}{2}$", "a\\b", "\"q\"", "א"]}}`;
+  assert.throws(() => JSON.parse(raw));
+  const p = B.planFromText({ code: "invalid_json", text: `Here is the plan:\n${raw}\n` });
+  assert.deepEqual(p.outline.key, ["$R = c\\Delta T/2$", "$\\lambda f = c$", "$\\frac{1}{2}$", "a\\b", '"q"', "א"]);
+  assert.equal(B.planFromText({ text: "no json here" }), null);
+  assert.equal(B.planFromText({ text: '{"outline": {}}' }), null);
+  // the example in the plan's instructions reaches the model with doubled backslashes
+  assert.match(B.BOOK_PLAN(1), /"\$L_s = \(4\\\\pi d\/\\\\lambda\)\^2\$"/);
+});

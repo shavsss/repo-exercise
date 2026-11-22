@@ -6,6 +6,8 @@
 (מה כל תיקייה מכילה)
 
 ## מה נעשה
+- פרסום: 22.11.2026 לנצ'סטר v174, גילואה v159, ענף `claude/jolly-bohr-6xhnu0`, commit `af8e0a4` (app.js ו-app.css; תיקון ה-JSON של התוכנית).
+- 22.11 (ענף `claude/jolly-bohr-6xhnu0`): תקלה בשיעור הראשון עם `key`: לנצ'סטר M0.2 ש1 הציג ללומד את ה-JSON הגולמי של התוכנית (`profile/usage`: `invalid_json` ואחריו `upstream_error`). הסיבה: LaTeX עם לוכסן יחיד (`\Delta`) בתוך מחרוזת JSON, והדוגמה ב-`BOOK_PLAN` עצמה הגיעה למודל עם לוכסן יחיד. תיקון: הדוגמה וההוראה בלוכסן כפול; `planFromText` (`bookRules.ts`) מכפיל לוכסן שאינו escape תקין וקורא שוב את התוכנית (גם בסבב התיקון של תוכן העניינים); `App.tsx` לא מציג בשיעור את הטקסט הגולמי של שגיאה. בדיקה ב-`book.test.mjs`; tsc ו-85 בדיקות בשתי המעבדות.
 - פרסום: 21.11.2026 לנצ'סטר v173, גילואה v158, ענף `claude/jolly-bohr-6xhnu0`, commit `73162fc` (app.js ו-app.css; medium כברירת מחדל).
 - 21.11 לילה (ענף `claude/jolly-bohr-6xhnu0`): רמת המאמץ medium כברירת מחדל לכתיבת שיעור ולבדיקה מול המקור (הלומד). מפתח חדש בדפדפן (`core-lab:effort2`, `eng-lab:effort2`), כדי שה-high השמור יוחלף פעם אחת; `auditLesson` ברירת מחדל medium.
 - פרסום: 21.11.2026 לנצ'סטר v172, גילואה v157, ענף `claude/jolly-bohr-6xhnu0`, commit `cada3b1` (app.js ו-app.css; בנוי על main `4f1893a` שמכיל את v171/v156).
