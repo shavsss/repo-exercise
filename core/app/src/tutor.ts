@@ -13,7 +13,7 @@ import { headWithin, tailWithin } from "./truncation";
 import { LEGACY_RULES, SYSTEM_PROMPT, TEACHBACK_RULES, libraryList } from "./prompt";
 import type { Runtime, SampleTool } from "./runtime";
 import { type TeachScope, type TeachTurn, type TeachVerdict } from "./teachback";
-import { BOOK_PART, BOOK_PLAN, CASE_PART, CASE_PLAN, OUTLINE_FIX, coverParts, coverProblems, formProblems, keepWords, normalizeOutline, orderProblems, outlineCheckPrompt, parseOutlineReview, partSections, validOutline, wordCount, type BookOutline, type CasePlan } from "./bookRules";
+import { BOOK_PART, BOOK_PLAN, CASE_PART, CASE_PLAN, OUTLINE_FIX, coverParts, planFromText, coverProblems, formProblems, keepWords, normalizeOutline, orderProblems, outlineCheckPrompt, parseOutlineReview, partSections, validOutline, wordCount, type BookOutline, type CasePlan } from "./bookRules";
 import { caseAid, caseId, type CaseAid } from "./caseBlock";
 import { ideasForPrompt, loadIdeas, type Idea } from "./ideas";
 import { loadProjects, projectsForPrompt, type ResearchProject } from "./projects";
@@ -646,7 +646,7 @@ async function checkOutline(o: { rt: Runtime; plan: PartPlan; planTurn: string; 
         { role: "user", content },
       ],
       { model: MODEL, modelTier: "complex", effort: o.effort, signal: o.signal, cache: false },
-    ).catch(() => null);
+    ).catch((e) => planFromText<PartPlan>(e));
   if (!validOutline(plan.outline)) {
     o.cb.onStatus?.("מבקש את תוכן העניינים של השיעור");
     const again = await ask('The plan has no valid "outline" (chapters, each with its numbered subsections, as specified). Reply with ONLY the whole plan JSON again, with the outline and each part\'s "sections".');
@@ -780,7 +780,7 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
             ...(tools && !again ? { tools } : { cache: false }),
           });
         // an empty or non-JSON plan is asked once more, without tools (the new rules only)
-        return LESSON_RULES === "lite" ? once(false).catch((e) => (isEmptyPlan(e) ? once(true) : Promise.reject(e))) : once(false);
+        return LESSON_RULES === "lite" ? once(false).catch((e) => (isEmptyPlan(e) ? (planFromText<PartPlan>(e) ?? once(true).catch((e2) => planFromText<PartPlan>(e2) ?? Promise.reject(e2))) : Promise.reject(e))) : once(false);
       },
       history,
       cb,

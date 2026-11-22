@@ -526,7 +526,8 @@ export function App() {
       } catch (err) {
         const e = err as SampleError;
         // keep the draft fields so "continue" can resume from the last saved part
-        answer = { ...answer, text: shown || (e.text ?? ""), interrupted: true, draft: undefined };
+        // a lesson never shows an error's raw text: for a failed plan it is the plan's JSON (22.11)
+        answer = { ...answer, text: shown || (sendMode === "lesson" ? "" : (e.text ?? "")), interrupted: true, draft: undefined };
         if (e.code !== "cancelled") notify({ level: "error", text: ERROR_COPY[e.code] ?? ERROR_COPY.upstream_error });
       }
       answer = { ...answer, activity };
