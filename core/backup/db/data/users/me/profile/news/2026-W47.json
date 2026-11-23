@@ -1,0 +1,1729 @@
+{
+  "app": "core",
+  "edition": "מהדורת סוף שבוע",
+  "generator": {
+    "runId": "b1e735337d62",
+    "sha": "b235f3f"
+  },
+  "id": "2026-W47",
+  "items": [
+    {
+      "body": "משרד התקציב של הקונגרס (CBO) פרסם ביום חמישי את הערכתו לתוכנית בניית הספינות של הצי האמריקני לשנת 2027, ולפי הדיווח ב-Breaking Defense המספר המרכזי פשוט: מימוש התוכנית יעלה בממוצע כ-53.8 מיליארד דולר בשנה, לעומת כ-38.1 מיליארד דולר שהצי קיבל בממוצע בחמש השנים האחרונות. זו עלייה של 41%.\n\nהפער נובע משני מקורות. הראשון חשבונאי: CBO מכניס להערכה עלויות שהתוכנית של הצי משאירה בחוץ אף שהן ממומנות בדרך כלל מאותו סעיף, כמו תדלוק מחדש של ספינות גרעיניות ורכש ספינות עזר, ותוספת זו לבדה היא כ-4.6 מיליארד דולר בשנה. השני הנדסי-כלכלי: לבניית ספינות חדשות בלבד CBO מגיע ל-1.47 טריליון דולר (בדולרים של 2026) לשלושים שנה, מול 1.23 טריליון בהערכת הצי, בגלל הנחות שונות על התכן והיכולות של ספינות עתידיות ועל צמיחת עלויות העבודה והחומרים.\n\nברקע עומד פער פוליטי חד: הצי מבקש 65.8 מיליארד דולר לבניית ספינות בשנת התקציב 2027, ואילו ועדת המשנה להגנה של ועדת ההקצבות בסנאט הציעה ימים ספורים קודם לכן 41.6 מיליארד בלבד. הדוח של CBO לא מכריע מי צודק; הוא מראה כמה רחוקה התוכנית מהכסף שהקונגרס נותן בפועל.",
+      "certainty": "single",
+      "chart": {
+        "kind": "bar",
+        "series": [
+          {
+            "name": "עלות שנתית",
+            "values": [
+              38.1,
+              53.8
+            ]
+          }
+        ],
+        "source": {
+          "note": "שני הערכים כפי שדווחו בכתבה; הדוח המקורי של CBO לא נטען בריצה (שגיאה 403).",
+          "publisher": "Breaking Defense, על פי דוח CBO",
+          "url": "https://breakingdefense.com/2026/11/navys-shipbuilding-plan-would-require-massive-hike-in-annual-appropriations-cbo/"
+        },
+        "title": "עלות שנתית ממוצעת של בניית ספינות לצי האמריקני",
+        "unit": "מיליארד דולר לשנה",
+        "x": [
+          "ממוצע ההקצאות, חמש השנים האחרונות",
+          "הערכת CBO לתוכנית 2027"
+        ]
+      },
+      "connects": [
+        {
+          "concept": "עלות מחזור חיים ואומדני עלות",
+          "moduleId": "M14.2",
+          "rel": "later",
+          "why": "ההבדל בין 1.23 ל-1.47 טריליון דולר הוא בדיוק ההבדל בין שיטות אומדן והנחות צמיחת עלויות שהמודול מלמד לבדוק."
+        },
+        {
+          "concept": "קיבולת תעשייתית וקיימות",
+          "moduleId": "M14.3",
+          "rel": "later",
+          "why": "קצב בנייה מהיר בעשור הראשון ואחריו האטה הוא שאלה של קיבולת מספנות, נושא המודול על לוגיסטיקה וקיימות."
+        }
+      ],
+      "dek": "משרד התקציב של הקונגרס מעריך את תוכנית 2027 של הצי ביותר מכל מה שהוקצה לבניית ספינות מאז שנות השמונים, ומוסיף 240 מיליארד דולר להערכת הצי עצמו לשלושים שנה.",
+      "domain": "cost",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "CBO: תוכנית בניית הספינות של הצי האמריקני דורשת 53.8 מיליארד דולר בשנה, 41% יותר מהממוצע של השנים האחרונות",
+      "id": "c1",
+      "idea": {
+        "hours": 6,
+        "kind": "article",
+        "pitch": "מאמר קצר שמפרק את הפער בין הערכת הצי ל-CBO לשלושה רכיבים: עלויות שהוצאו מהתוכנית, הנחות תכן, וצמיחת עלויות עבודה וחומרים. ניתוח בלבד, מהמספרים שפורסמו.",
+        "title": "מחשבון פערי אומדן לתוכנית רכש",
+        "uses": [
+          "M14.2",
+          "M14.3"
+        ]
+      },
+      "images": [
+        {
+          "alt": "המספנה בניופורט ניוז, וירג'יניה: הצפת המבדוק של נושאת המטוסים ג'ון פ. קנדי (CVN-79), 29 באוקטובר 2019. תמונה להמחשה, לא מהדוח.",
+          "caption": "המספנה בניופורט ניוז, וירג'יניה: הצפת המבדוק של נושאת המטוסים ג'ון פ. קנדי (CVN-79), 29 באוקטובר 2019. תמונה להמחשה, לא מהדוח.",
+          "credit": "U.S. Navy photo by Mass Communication Specialist 3rd Class Adam Ferrero / Wikimedia Commons",
+          "license": "Public domain",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File%3ADrydock_of_USS_John_F._Kennedy_%28CVN-79%29_at_Newport_News_Shipbuilding_is_flodded_on_29_October_2019_%28191029-N-BD319-123%29.JPG",
+          "url": "/_blob/424d6f43e646ce3bdae95139bef2c78e"
+        }
+      ],
+      "kind": "report",
+      "read10": {
+        "minutes": 6
+      },
+      "region": "US",
+      "role": "lead",
+      "sanity": {
+        "check": "יחס בין המספרים",
+        "note": "$53.8/38.1 = 1.412$, כלומר עלייה של כ-41%, כמו בדיווח; $1.47/1.23 = 1.195$, פער של כ-20% בהערכת הספינות החדשות.",
+        "result": "pass"
+      },
+      "sources": [
+        {
+          "fetchedAt": 1795209226791,
+          "httpStatus": 200,
+          "license": "© Breaking Defense, כל הזכויות שמורות",
+          "openAccess": true,
+          "publishedAt": "2026-11-20",
+          "publisher": "Breaking Defense",
+          "quote": "The cost of the Navy’s 2027 shipbuilding plan is high not only compared with recent funding but also by historical standards",
+          "sha256": "69a5ec5d847e3968841feb9803bdccc0abf375bb42c62b8c5bd0bd405303d02a",
+          "tier": "C",
+          "title": "Navy’s shipbuilding plan would require massive hike in annual appropriations: CBO - Breaking Defense",
+          "url": "https://breakingdefense.com/2026/11/navys-shipbuilding-plan-would-require-massive-hike-in-annual-appropriations-cbo/"
+        }
+      ],
+      "why": "זו דוגמה טהורה להערכת עלות מחזור חיים: אותה תוכנית, שתי שיטות אומדן, ופער של 19% שמוסבר בהנחות על תכן ועל אינפלציה של עבודה וחומרים. במודול על רכש ועלות (M14.2) תלמד לפרק פער כזה לגורמיו."
+    },
+    {
+      "body": "בראיון ל-Breaking Defense מציג ג'ו מולו, מנהל התוכניות המתקדמות ביחידת DRS RADA של Leonardo DRS, טיעון אחד: מכ\"מים גדולים ויקרים, שלוקח ארבע או חמש שנים לייצר ועולים חצי מיליארד עד מיליארד דולר, הם הראשונים להיפגע, ולכן ההגנה האווירית צריכה מכ\"מים קטנים, מפוזרים ומרושתים שאפשר לייצר בכמויות.\n\nהחברה מדווחת על הזמנות שיא בשני הרבעונים האחרונים, ועל הרחבת המפעל בג'רמנטאון, מרילנד, מ-30 ל-150 עובדים. המוצר החדש, cxMHR, פועל בתדר C, שלדברי מולו נותן דיוק עקיבה קרוב לזה של תדר X עם יתרונות טווח ומזג אוויר קרובים לאלה של תדר S. המערך דיגיטלי מלא: שליטה עצמאית בכל רכיב שידור-קליטה, כך שפגיעה ברכיבים בודדים לא משביתה את המכ\"ם. כל נתוני הביצוע כאן הם של היצרן.",
+      "certainty": "vendor",
+      "connects": [
+        {
+          "concept": "אורך גל, החלשה ורזולוציה",
+          "moduleId": "M0.2",
+          "rel": "current",
+          "why": "המעבר מ-X ל-C ל-S הוא מעבר באורך גל, וממנו נגזרים רוחב האלומה $\\lambda/D$ והרגישות לגשם."
+        },
+        {
+          "concept": "מערכי מופע ו-AESA דיגיטלי",
+          "moduleId": "M1.2",
+          "rel": "next",
+          "why": "שליטה עצמאית בכל רכיב והתדרדרות הדרגתית כשרכיבים נפגעים הן התכונות המרכזיות שהמודול על מערכי מופע מנתח."
+        },
+        {
+          "concept": "ארכיטקטורת חיישנים בהגנה מפני טילים",
+          "moduleId": "M7.2",
+          "rel": "later",
+          "why": "הוויכוח בין מעט מכ\"מים גדולים להרבה קטנים ומרושתים הוא החלטת ארכיטקטורה שהמודול על דרישות מערכת עוסק בה."
+        }
+      ],
+      "dek": "ראיון עם יצרנית מכ\"מים טקטיים: ביקושים בשיא, מפעל שגדל מ-30 ל-150 עובדים, ומכ\"ם חדש בתדר C עם מערך דיגיטלי מלא.",
+      "domain": "radar",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "מכ\"מים גדולים נעשו נקודת תורפה, ו-DRS RADA מוכרת את החלופה: הרבה מכ\"מים טקטיים מרושתים",
+      "id": "c5",
+      "images": [
+        {
+          "alt": "מכ\"ם טקטי קל של צבא ארה\"ב (AN/TPQ-50). תמונה להמחשה של מכ\"ם טקטי קטן; לא מכ\"ם של DRS RADA.",
+          "caption": "מכ\"ם טקטי קל של צבא ארה\"ב (AN/TPQ-50). תמונה להמחשה של מכ\"ם טקטי קטן; לא מכ\"ם של DRS RADA.",
+          "credit": "U.S. Army photo / Wikimedia Commons",
+          "license": "Public domain",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File%3AAN_TPQ-50_lightweight_counter_mortar_radar.jpg",
+          "url": "/_blob/50b73388beb03332085facd740951fbd"
+        }
+      ],
+      "kind": "system",
+      "region": "US",
+      "role": "feature",
+      "sources": [
+        {
+          "fetchedAt": 1795209229362,
+          "httpStatus": 200,
+          "license": "© Breaking Defense, כל הזכויות שמורות",
+          "openAccess": true,
+          "publishedAt": "2026-11-16",
+          "publisher": "Breaking Defense",
+          "quote": "The cxMHR operates in C-band, which occupies a very useful middle ground.",
+          "sha256": "7fe74c5d1c113a54fb3c84e15cbc9a63711c6e103e03197d489653a3f52f4413",
+          "tier": "D",
+          "title": "As exquisite radars become targets, smaller tactical sensors take on a bigger role - Breaking Defense",
+          "url": "https://breakingdefense.com/2026/11/as-exquisite-radars-become-targets-smaller-tactical-sensors-take-on-a-bigger-role/"
+        }
+      ],
+      "why": "\"תדר C באמצע\" הוא שוב אורך גל: כ-5 ס\"מ, בין כ-3 ס\"מ של X לכ-10 ס\"מ של S. ההחלשה בגשם והרזולוציה הזוויתית $\\theta\\approx\\lambda/D$ זזות יחד עם $\\lambda$, וזו הפשרה שהשיעור על גלים מכין. מערכי מופע מלאים יגיעו במודול M1.2."
+    },
+    {
+      "body": "חברת Reutech Radar Systems הדרום-אפריקנית נמצאת בתהליך תיעוש של מכ\"ם חדש בשם RSR102, מכ\"ם שמירה היקפית בתדר X שמיועד לגלות פעילות אנושית בטווח של יותר מ-600 מטר. לפי המנכ\"ל הרלד בילפלד, החברה מצפה להזמנות גדולות, למשל ממכרות ומגופים שמגינים על תשתיות קריטיות, והיחידות הראשונות כבר נמסרו ללקוחות.\n\nההיגיון ההנדסי הוא הספק נמוך: לפי החברה, רמות השידור הנמוכות מעלות את האמינות ומורידות את עלות הרכיבים, והופכות את המכ\"ם לקשה ליירוט (LPI). כל יחידה מכסה גזרה של 90 מעלות, וארבע יחידות נותנות כיסוי מלא, עם הכוונה אוטומטית של מצלמה. מעליו בסדרה עומדים RSR903 בתדר Ku (טווח מכשור 30 ק\"מ, הולך רגל ב-8 ק\"מ) ו-RSR905 בתדר X (טווח מכשור 50 ק\"מ, הולך רגל ב-15 ק\"מ).",
+      "certainty": "vendor",
+      "connects": [
+        {
+          "concept": "אורך גל ותדר",
+          "moduleId": "M0.2",
+          "rel": "current",
+          "why": "הבחירה בין X ל-Ku היא בחירה באורך גל, $\\lambda=c/f$, וממנה נגזרים גודל האנטנה ורוחב האלומה $\\theta\\approx\\lambda/D$ שבשיעור."
+        },
+        {
+          "concept": "dB ותלות הטווח בהספק",
+          "moduleId": "M0.1",
+          "rel": "learned",
+          "why": "במכ\"ם הטווח עולה כשורש רביעי של ההספק: 12 dB פחות הספק הם חצי טווח, חשבון של שורה אחת ב-dB."
+        },
+        {
+          "concept": "תצורות מכ\"ם ויישומים",
+          "moduleId": "M2.1",
+          "rel": "later",
+          "why": "מכ\"ם סריקה קרקעית לגילוי אנשים וכלי רכב הוא אחד היישומים שהמודול על רעיון המכ\"ם ממפה."
+        }
+      ],
+      "dek": "ה-RSR102 מגלה אדם בטווח של יותר מ-600 מטר בהספק שידור נמוך, ולצדו שני מכ\"מי סריקה קרקעית לטווחים של 30 ו-50 ק\"מ.",
+      "domain": "radar",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "מכ\"ם ב-X לשמירה היקפית במחיר נמוך: Reutech מדרום אפריקה מתכוננת לייצור בכמויות",
+      "id": "c2",
+      "images": [
+        {
+          "alt": "מפעיל מכ\"ם סריקה קרקעית נייד (Thales Squire) בצבא איטליה. תמונה להמחשה של מכ\"ם שמירה קרקעי; לא המכ\"ם של Reutech.",
+          "caption": "מפעיל מכ\"ם סריקה קרקעית נייד (Thales Squire) בצבא איטליה. תמונה להמחשה של מכ\"ם שמירה קרקעי; לא המכ\"ם של Reutech.",
+          "credit": "Italian Army / Wikimedia Commons",
+          "license": "CC BY 2.5",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File%3AItalian_Army_-_41st_Regiment_%22Cordenons%22_operator_with_a_Thales_SQUIRE_ground_surveillance_radar.jpg",
+          "url": "/_blob/bf3fac464c85ee8a8f967e82b689d81f"
+        }
+      ],
+      "kind": "system",
+      "region": "AF",
+      "role": "feature",
+      "sources": [
+        {
+          "fetchedAt": 1795209254545,
+          "httpStatus": 200,
+          "license": "© defenceWeb, כל הזכויות שמורות",
+          "openAccess": true,
+          "publishedAt": "2026-11-20",
+          "publisher": "defenceWeb",
+          "quote": "The RSR102 is optimised for detecting human activity at a range exceeding 600 metres.",
+          "sha256": "59ee39e27781ed95c110971c3698f4421e137eeb97f0ea408e850cd348a22561",
+          "tier": "C",
+          "title": "Reutech Radar Systems industrialising new low-cost surveillance radar - DefenceWeb",
+          "url": "https://defenceweb.co.za/industry/industry-industry/reutech-radar-systems-industrialising-new-low-cost-surveillance-radar/"
+        }
+      ],
+      "why": "שני תדרים, שני תפקידים: באורך גל של כ-3 ס\"מ (X) מול כ-2 ס\"מ (Ku), אותו $\\lambda=c/f$ מהשיעור על גלים קובע את גודל האנטנה ואת רוחב האלומה. וההספק הנמוך: ב-dB קל לראות שהקטנת הספק פי 16 (12 dB) מקצרת טווח גילוי רק פי 2."
+    },
+    {
+      "body": "שירות המחקר של הקונגרס (CRS) עדכן ב-18 בנובמבר את הסקירה שלו על Indirect Fire Protection Capability (IFPC), מערכת קרקעית ניידת של צבא ארה\"ב שנועדה להגן על אתרים קבועים וחצי-קבועים מפני טילי שיוט, כלי טיס בלתי מאוישים ורקטות, ארטילריה ומרגמות, ולגשר בין ההגנה לטווח קצר לבין Patriot ו-THAAD.\n\nהתמונה שעולה היא של תוכנית שנבנית בשלבים ומשנה כיוון לפי הניסיון: תשעה גדודים מתוכננים, הראשון בשנת התקציב 2026; חוזה ייצור של 617 מיליון דולר ל-Dynetics; 20 משגרים בגואם עד הרבעון השלישי של שנת 2027; ומיירט שני שאמור להיות \"בעל יכולת רבה יותר\" נגד טילי שיוט נמוכים ועל-קוליים. גרסת הלייזר הוסטה בספטמבר 2026, כדי להישען על פיתוח לייזרים גדולים יותר בצי.",
+      "certainty": "official",
+      "connects": [
+        {
+          "concept": "C-RAM",
+          "moduleId": "M7.16",
+          "rel": "later",
+          "why": "ההגנה מפני רקטות, ארטילריה ומרגמות היא לב המודול על C-RAM, ו-IFPC היא המערכת האמריקנית בדיוק בשכבה הזו."
+        },
+        {
+          "concept": "מחזור חיים וניסוי",
+          "moduleId": "M7.10",
+          "rel": "later",
+          "why": "דחיית הניסוי המבצעי והחלטת ההסטה של הלייזר הן החלטות מחזור חיים שהמודול לומד לקרוא מתוך דוחות כאלה."
+        },
+        {
+          "concept": "לייזר רב-עוצמה",
+          "moduleId": "M7.17",
+          "rel": "later",
+          "why": "ההחלטה להישען על לייזרים בעלי מפתח גדול יותר קשורה ישירות לפיזיקה של הפצת קרן בטורבולנציה שבמודול על HEL."
+        }
+      ],
+      "dek": "סקירה מעודכנת של שירות המחקר של הקונגרס: תשעה גדודים מתוכננים, 20 משגרים בגואם עד הרבעון השלישי של 2027, מיירט שני בפיתוח, וגרסת הלייזר הופסקה.",
+      "domain": "missiles",
+      "full": "walkthrough",
+      "fullPart": 0,
+      "headline": "CRS על IFPC: מערכת ההגנה האמריקנית בטווח הביניים מתקדמת, והלייזר נשאר מאחור",
+      "id": "c4",
+      "images": [
+        {
+          "alt": "משגר IFPC Inc 2 של צבא ארה\"ב בתרגיל במחנה האמפריז, דרום קוריאה, מרץ 2026. תמונה להמחשה.",
+          "caption": "משגר IFPC Inc 2 של צבא ארה\"ב בתרגיל במחנה האמפריז, דרום קוריאה, מרץ 2026. תמונה להמחשה.",
+          "credit": "Sgt. Joseph Liggio / Wikimedia Commons",
+          "license": "Public domain",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File%3AIndirect_Fire_Protection_Capability_Inc_2_at_Camp_Humphreys.jpg",
+          "url": "/_blob/80c08ada1882e02c9669d26a1a2fa8ff"
+        }
+      ],
+      "kind": "report",
+      "region": "US",
+      "role": "feature",
+      "sources": [
+        {
+          "fetchedAt": 1795209227664,
+          "httpStatus": 200,
+          "license": "Public domain: דוח של שירות המחקר של הקונגרס (CRS), עבודה של הממשל הפדרלי בארה\"ב, בשכפול של EveryCRSReport.com",
+          "openAccess": true,
+          "publishedAt": "2026-11-18",
+          "publisher": "Congressional Research Service (EveryCRSReport.com)",
+          "quote": "IFPC is intended to protect critical fixed or semi-fixed assets and bridge the gap between short-range air defense (SHORAD) systems, the Patriot air and missile defense system, and the Terminal High Altitude Area Defense (THAAD) system.",
+          "sha256": "839f7b96cb8552f1d5465e19c6e990621053893639a5080a7f088381c0329b00",
+          "tier": "A",
+          "title": "The U.S. Armyâs Indirect Fire Protection Capability System - EveryCRSReport.com",
+          "url": "https://www.everycrsreport.com/reports/IF12421.html"
+        }
+      ],
+      "why": "IFPC היא דוגמה למחיר של שילוב: CRS מזכיר שהצבא ויתר על שתי סוללות Iron Dome בגלל קשיי שילוב בארכיטקטורת הפיקוד והבקרה. זה נושא המודול על C-RAM (M7.16) ועל הנדסת מערכות וניסוי (M7.10)."
+    },
+    {
+      "body": "ICEYE, יצרנית לווייני מכ\"ם מפתח סינתטי (SAR) מפינלנד, הגישה הצעה לרכוש את Avio האיטלקית, יצרנית המשגר Vega, ב-41 יורו למניה, כ-2.2 מיליארד דולר, והתחייבה להשקיע עוד מיליארד יורו באיטליה בחמש השנים הבאות אם העסקה תצא לפועל. לפי ICEYE, השילוב יחבר את יכולות השיגור וההנעה של Avio לייצור הלוויינים ולתפעול הקונסטלציה שלה. העסקה צריכה אישור של ממשלות איטליה ופינלנד.",
+      "certainty": "single",
+      "connects": [
+        {
+          "concept": "SAR מהחלל",
+          "moduleId": "M2.25",
+          "rel": "later",
+          "why": "ICEYE מפעילה קונסטלציית SAR, והמודול מסביר איך רזולוציה של עשרות סנטימטרים מושגת מהחלל."
+        },
+        {
+          "concept": "עלות ומימון בחלל",
+          "moduleId": "M13.7",
+          "rel": "later",
+          "why": "המהלך הוא תשובה כלכלית לעלות ולזמינות של שיגור."
+        }
+      ],
+      "dek": "יצרנית לווייני המכ\"מ רוצה חברת חלל וביטחון אירופית משולבת אנכית: לוויינים, הנעה ומשגר Vega.",
+      "domain": "space",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "ICEYE הפינית מציעה כ-2 מיליארד יורו לרכישת יצרנית המשגרים האיטלקית Avio",
+      "id": "c13",
+      "images": [
+        {
+          "alt": "משגר Vega (טיסה VV05) מורכב במבנה השיגור בקורו. תמונה להמחשה.",
+          "caption": "משגר Vega (טיסה VV05) מורכב במבנה השיגור בקורו. תמונה להמחשה.",
+          "credit": "ESA_events / Wikimedia Commons",
+          "license": "CC BY-SA 2.0",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File%3AVega_VV05_assembled_in_ELV.jpg",
+          "url": "/_blob/201aa6169ff9ef2e58a7b85df36edaa1"
+        }
+      ],
+      "kind": "event",
+      "region": "EU",
+      "role": "feature",
+      "sources": [
+        {
+          "fetchedAt": 1795209230117,
+          "httpStatus": 200,
+          "license": "© Breaking Defense, כל הזכויות שמורות",
+          "openAccess": true,
+          "publishedAt": "2026-11-17",
+          "publisher": "Breaking Defense",
+          "quote": "Finnish satellite firm ICEYE has made an offer to purchase Italian rocket firm Avio, in an effort to create a vertically integrated space and defense firm aimed at the European marketplace.",
+          "sha256": "53cfd986350417fac38133aed1d8b33d5f352796b38cad945abe70ab87c79610",
+          "tier": "C",
+          "title": "ICEYE makes $2B bid for Italian rocket firm Avio - Breaking Defense",
+          "url": "https://breakingdefense.com/2026/11/iceye-makes-2b-bid-for-italian-rocket-firm-avio/"
+        }
+      ],
+      "why": "שילוב אנכי של לוויין ומשגר הוא תשובה כלכלית לבעיית הגישה לשיגור. הלוויינים של ICEYE הם SAR מהחלל, נושא M2.25."
+    },
+    {
+      "body": "SRC UK זכתה בחוזה של 74 מיליון ליש\"ט ממשרד ההגנה הבריטי לאספקת מכ\"מי Gryphon R1430 לגדוד החמישי של הארטילריה המלכותית, במסגרת תוכנית SERPENS, במקום מערכות מזדקנות. המכ\"מים יגיעו בגרסה רכובה ובגרסה מפורקת וישולבו עם מערכת אקוסטית לגילוי מרגמות, ארטילריה ואיומים בטווח קצר. לפי החברה, המכ\"ם בנוי כמערך סריקה אלקטרונית אקטיבי, קטן יותר וצורך פחות הספק מקודמיו, בלי חלקים נעים. לחוזה תקופה ראשונית של שש שנים.",
+      "certainty": "single",
+      "connects": [
+        {
+          "concept": "הפרש פאזה וזמן בין חיישנים",
+          "moduleId": "M0.2",
+          "rel": "current",
+          "why": "איתור מקור לפי הפרש זמני הגעה בין שני חיישנים הוא העיקרון של האינטרפרומטר שבשיעור 1, פרק 2."
+        },
+        {
+          "concept": "איתור ארטילריה",
+          "moduleId": "M11.2",
+          "rel": "later",
+          "why": "המודול על איתור ארטילריה ואש נגד סוללות מסביר מה מכ\"ם כזה מודד ואיך."
+        }
+      ],
+      "dek": "SRC UK תספק מכ\"מי Gryphon R1430 בסריקה אלקטרונית לגדוד הארטילריה החמישי, במסגרת תוכנית SERPENS.",
+      "domain": "radar",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "הצבא הבריטי מזמין מכ\"מי איתור ארטילריה חדשים ב-74 מיליון ליש\"ט",
+      "id": "c6",
+      "kind": "system",
+      "region": "UK",
+      "role": "brief",
+      "sources": [
+        {
+          "fetchedAt": 1795209234910,
+          "httpStatus": 200,
+          "license": "© UK Defence Journal, כל הזכויות שמורות",
+          "openAccess": true,
+          "publishedAt": "2026-11-20",
+          "publisher": "UK Defence Journal",
+          "quote": "SRC UK has won a £74 million Ministry of Defence contract to supply Gryphon R1430 radars to 5th Regiment Royal Artillery under the British Army’s SERPENS programme",
+          "sha256": "867bd49d102fe251ab79b5967562804b3c8805598b65eb71f20c09ff02195440",
+          "tier": "C",
+          "title": "British Army orders new counter-fire radars in SERPENS deal",
+          "url": "https://ukdefencejournal.org.uk/british-army-orders-new-counter-fire-radars-in-serpens-deal/"
+        }
+      ],
+      "why": "שילוב מכ\"ם ומערכת אקוסטית הוא שילוב של שני סוגי גלים שונים מאוד במהירות ובאורך הגל. איתור מקור לפי הפרש זמני הגעה בין חיישנים הוא אותו רעיון של האינטרפרומטר בשיעור על גלים."
+    },
+    {
+      "body": "Hensoldt ו-ZF Friedrichshafen חתמו על הסכם שבו ZF תקים ייצור סדרתי וניתן להרחבה של מכ\"מי Spexer, תייצר אותם בעצמה ותספק אותם ישירות ללקוחות, וגם תפתח מערכת בדיקה אוטומטית לייצור. הרקע, לפי Hensoldt, הוא עלייה חדה בביקוש למכ\"מים לגילוי רחפנים. מנכ\"ל Hensoldt אמר ש-ZF מביאה ניסיון בטכנולוגיית תדר גבוה וידע בייצור סדרתי בכמויות גדולות. ה-Spexer 2000, למשל, הוא חלק ממערכת ההגנה האווירית Skyranger 30 של Rheinmetall.",
+      "certainty": "vendor",
+      "connects": [
+        {
+          "concept": "מערכי מופע",
+          "moduleId": "M1.2",
+          "rel": "next",
+          "why": "מכ\"מי מעקב קטנים מהסוג הזה בנויים כמערכי מופע, נושא המודול שיגיע בקרוב."
+        },
+        {
+          "concept": "גילוי רחפנים",
+          "moduleId": "M9.7",
+          "rel": "later",
+          "why": "המודול על גילוי רחפנים מסביר למה מכ\"ם קטן בטווח קצר הוא שכבת הגילוי העיקרית."
+        }
+      ],
+      "dek": "ZF תקים ייצור סדרתי של מכ\"מי Spexer ותספק אותם ישירות ללקוחות; הקניין הרוחני נשאר אצל Hensoldt.",
+      "domain": "radar",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "יצרנית רכיבי הרכב ZF תייצר מכ\"מים לגילוי רחפנים עבור Hensoldt",
+      "id": "c7",
+      "kind": "system",
+      "region": "EU",
+      "role": "brief",
+      "sources": [
+        {
+          "fetchedAt": 1795209238699,
+          "httpStatus": 200,
+          "license": "© hartpunkt, כל הזכויות שמורות",
+          "openAccess": true,
+          "publishedAt": "2026-11-19",
+          "publisher": "hartpunkt",
+          "quote": "Hintergrund der Vereinbarung sei die deutlich steigende Nachfrage nach Radaren für die Drohnenabwehr, schreibt Hensoldt.",
+          "sha256": "fbb03448cc8aafe78a2c5da96b477b8ecd11624f7bec09150ef8f45f597f6412",
+          "tier": "C",
+          "title": "Hensoldt lässt Spexer-Radare zur Drohnenabwehr bei ZF bauen",
+          "url": "https://www.hartpunkt.de/hensoldt-laesst-spexer-radare-zur-drohnenabwehr-bei-zf-bauen/"
+        }
+      ],
+      "why": "זה המעבר מייצור יחידות לייצור המוני: יצרנית רכב, שכבר מייצרת מכ\"מי רכב בכמויות, הופכת לקבלן משנה של מכ\"ם צבאי. השאלה ההנדסית היא בדיקה אוטומטית של כל יחידה, לא התכן."
+    },
+    {
+      "body": "לפי דוח של משרד הביקורת הממשלתי של ארה\"ב (GAO), שעליו דיווח Defense News, משרד ההגנה מגדיל ייצור תחמושת בלי תוכנית שמקשרת ייצור ומימון לדרישה הכוללת. הדוח הוא גרסה פומבית של מחקר מסווג מספטמבר 2026. הכלי שמרכז את נתוני המלאי (MRI) מושך נתונים מ-37 מקורות, אבל לפי GAO הנתונים לא מתואמים באופן עקבי מול מערכות הזרועות, ואין גורם אחד עם סמכות ואחריות לשיפור המלאי. GAO ממליץ על תוכנית כוללת ועל מדדים למעקב.",
+      "certainty": "single",
+      "connects": [
+        {
+          "concept": "תחמושת מול מלאים",
+          "moduleId": "M14.3",
+          "rel": "later",
+          "why": "המודול מחשב צריכה מול קיבולת ומלאי, וזה בדיוק הקשר שהדוח אומר שחסר."
+        },
+        {
+          "concept": "רכש ובסיס תעשייתי",
+          "moduleId": "M14.2",
+          "rel": "later",
+          "why": "הרחבת ייצור בלי דרישה כוללת היא מקרה מבחן לניהול רכש."
+        }
+      ],
+      "dek": "משרד הביקורת של הקונגרס מצא רכש תגובתי, נתוני מלאי שלא מתואמים ושום גורם אחד שאחראי.",
+      "domain": "missiles",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "GAO: לפנטגון אין תוכנית כוללת שמקשרת ייצור תחמושת לדרישות",
+      "id": "c8",
+      "kind": "report",
+      "region": "US",
+      "role": "brief",
+      "sources": [
+        {
+          "fetchedAt": 1795209226089,
+          "httpStatus": 200,
+          "license": "© Defense News, כל הזכויות שמורות",
+          "openAccess": true,
+          "publishedAt": "2026-11-19",
+          "publisher": "Defense News",
+          "quote": "“DoD does not have an overarching plan that links munitions production and funding to requirements,” warned the Government Accountability Office",
+          "sha256": "2a1223ac00ef382f9f7305a9995a8a320de9ee9320cd3322dd96645c8ec61f65",
+          "tier": "C",
+          "title": "Pentagon lacks ‘overarching plan’ for munitions production, watchdog warns - Defense News",
+          "url": "https://www.defensenews.com/industry/techwatch/2026/11/19/pentagon-lacks-overarching-plan-for-munitions-production-watchdog-warns/"
+        }
+      ],
+      "why": "זו שאלה של הנדסת מערכות על שרשרת אספקה: בלי דרישה כוללת אחת אי אפשר לדעת אם קצב ייצור עונה עליה. המודול על לוגיסטיקה, תחמושת ומלאים (M14.3) בנוי בדיוק על החשבון הזה."
+    },
+    {
+      "body": "Raytheon בחרה ב-Ursa Major ובזרוע האמריקנית של Avio האיטלקית לייצר יחד את מנוע הרקטה המוצק של טיל השיוט Tomahawk, כמקור אספקה שני. המנוע המוצק משמש בשלב ההתחלתי של הטיסה ונזרק, ואחריו מנוע טורבו-מניפה מניע את הטיל. ההודעה לא כללה לוחות זמנים או סכומים. לפי Breaking Defense, הפנטגון העניק ל-Raytheon עסקה רב-שנתית של 22.9 מיליארד דולר כדי להגיע ל-1,000 טילים בשנה, אבל המימון לכך עדיין תלוי בקונגרס.",
+      "certainty": "vendor",
+      "connects": [
+        {
+          "concept": "מנוע רקטי מוצק",
+          "moduleId": "M6.15",
+          "rel": "later",
+          "why": "המודול על הנעת טילים מסביר את תפקיד מנוע ההאצה המוצק לפני מעבר להנעה אווירית."
+        },
+        {
+          "concept": "בסיס תעשייתי וספק שני",
+          "moduleId": "M14.2",
+          "rel": "later",
+          "why": "הוספת ספק שני לרכיב קריטי היא כלי מרכזי בניהול סיכוני בסיס תעשייתי."
+        }
+      ],
+      "dek": "Raytheon מוסיפה ספק שני לרכיב שהפך לצוואר בקבוק, על רקע תוכנית להגיע ל-1,000 טילים בשנה.",
+      "domain": "missiles",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "מקור שני למנועי Tomahawk: Ursa Major ו-Avio USA ייצרו את מנוע הרקטה המוצק",
+      "id": "c9",
+      "kind": "event",
+      "region": "US",
+      "role": "brief",
+      "sources": [
+        {
+          "fetchedAt": 1795209230547,
+          "httpStatus": 200,
+          "license": "© Breaking Defense, כל הזכויות שמורות",
+          "openAccess": true,
+          "publishedAt": "2026-11-19",
+          "publisher": "Breaking Defense",
+          "quote": "Startup Ursa Major and the American arm of the Italian firm Avio have been tapped to jointly produce a solid rocket motor for the Navy’s Tomahawk cruise missile",
+          "sha256": "b06f6560a596deb88360da2e2cf317335edc7e0c89b659dccd7e597f6143bd45",
+          "tier": "C",
+          "title": "Raytheon taps Ursa Major, Avio USA as second source for Tomahawk solid rocket motors - Breaking Defense",
+          "url": "https://breakingdefense.com/2026/11/raytheon-taps-ursa-major-avio-usa-as-second-source-for-tomahawk-solid-rocket-motors/"
+        }
+      ],
+      "why": "מנוע רקטי מוצק הוא רכיב שקשה להרחיב את ייצורו מהר, ולכן הוא צוואר בקבוק של תעשיית הטילים כולה. ההנעה נלמדת ב-M6.15, ותלות בספק יחיד ב-M14.2."
+    },
+    {
+      "body": "Leonardo DRS קיבלה מ-BAE Systems חוזה לפיתוח מערך מוקד (focal plane array) אינפרה-אדום מהדור הבא למיירט THAAD, ומרחיבה את מפעל הגלאים שלה בדאלאס כדי לתמוך ביעד של התוכנית: ייצור ראשי ביות בקצב של כפי ארבעה מהרמה ההיסטורית. לפי החברה, טכנולוגיית הגלאי החדשה נועדה לשפר את יכולת המיירט מול איומים מתפתחים ומורכבים יותר. הפיתוח כבר החל במתקן בשטח של 200,000 רגל רבוע. לא פורסמו סכום או לוח זמנים.",
+      "certainty": "vendor",
+      "connects": [
+        {
+          "concept": "עקיפה ורזולוציה זוויתית",
+          "moduleId": "M0.2",
+          "rel": "current",
+          "why": "הרזולוציה של חיישן אופטי מוגבלת ב-$\\lambda/D$, אותו ביטוי (57) מהשיעור, רק באורך גל של מיקרונים."
+        },
+        {
+          "concept": "גלאים ומערכי מוקד",
+          "moduleId": "M3.6",
+          "rel": "later",
+          "why": "המודול על גלאים מסביר מה זה מערך מוקד ומה מבדיל גלאי מקורר מבלתי מקורר."
+        }
+      ],
+      "dek": "Leonardo DRS תפתח עבור BAE Systems מערך מוקד דור הבא למיירט, ומרחיבה את מפעל הגלאים שלה בדאלאס.",
+      "domain": "missiles",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "גלאי אינפרה-אדום חדש לראש הביות של THAAD, וכושר ייצור פי ארבעה",
+      "id": "c10",
+      "kind": "system",
+      "region": "US",
+      "role": "brief",
+      "sources": [
+        {
+          "fetchedAt": 1795209264730,
+          "httpStatus": 200,
+          "license": "© Defence Industry Europe, כל הזכויות שמורות",
+          "openAccess": true,
+          "publishedAt": "2026-11-20",
+          "publisher": "Defence Industry Europe",
+          "quote": "Leonardo DRS has received a contract from BAE Systems to develop a next-generation infrared focal plane array for the THAAD interceptor missile.",
+          "sha256": "490a9b0f3d6e3a882eaa0e73f1015539e5239a2a13fb779762e84abd70a99660",
+          "tier": "C",
+          "title": "Leonardo DRS to develop new THAAD infrared sensor and expand Dallas production capacity",
+          "url": "https://defence-industry.eu/leonardo-drs-to-develop-new-thaad-infrared-sensor-and-expand-dallas-production-capacity/"
+        }
+      ],
+      "why": "ראש ביות אינפרה-אדום רואה באורכי גל של מיקרונים, ולכן מגבלת העקיפה $\\theta\\approx\\lambda/D$ מהשיעור על גלים חלה עליו כמו על אנטנה. המודול על גלאים (M3.6) ממשיך משם."
+    },
+    {
+      "body": "מחקר משותף לבריטניה וצרפת שאמור לשרטט מפת דרכים ליורש של טיל האוויר-אוויר ארוך הטווח Meteor נמצא בעבודה ויסתיים בקיץ 2027, כך השיב שר המוכנות והתעשייה הביטחונית, לוק פולארד, לשאלה בפרלמנט. Meteor של MBDA נכנס לשירות ב-2016, משמש שש מדינות אירופיות ונישא במטוסי Typhoon הבריטיים וב-Rafale הצרפתיים. יורש צפוי לחמש גם את מטוס ה-GCAP העתידי.",
+      "certainty": "single",
+      "connects": [
+        {
+          "concept": "ראמג'ט",
+          "moduleId": "M6.15",
+          "rel": "later",
+          "why": "Meteor הוא הדוגמה המוכרת לטיל אוויר-אוויר בהנעת ראמג'ט, והמודול מסביר למה ראמג'ט מאריך טווח."
+        },
+        {
+          "concept": "תכן מושגי של טיל",
+          "moduleId": "M6.12",
+          "rel": "later",
+          "why": "מחקר יורש בשלב טרום-קונספט הוא בדיוק תכן מושגי לפי פלימן."
+        }
+      ],
+      "dek": "תשובה בפרלמנט: המחקר בן 12 החודשים כבר רץ, ומפת הדרכים תהיה חלק מהתוצר הסופי.",
+      "domain": "missiles",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "המחקר הבריטי-צרפתי על יורש לטיל Meteor יסתיים בקיץ 2027",
+      "id": "c11",
+      "kind": "event",
+      "region": "UK",
+      "role": "brief",
+      "sources": [
+        {
+          "fetchedAt": 1795209235328,
+          "httpStatus": 200,
+          "license": "© UK Defence Journal, כל הזכויות שמורות",
+          "openAccess": true,
+          "publishedAt": "2026-11-20",
+          "publisher": "UK Defence Journal",
+          "quote": "Roadmap considerations will form part of the final output from the study; this is due to be completed in summer 2027.",
+          "sha256": "388c29f1f057cd7ed07930b26d55192183149ca238bc08658d0670b21bd84adc",
+          "tier": "C",
+          "title": "Meteor successor study with France due next summer",
+          "url": "https://ukdefencejournal.org.uk/meteor-successor-study-with-france-due-next-summer/"
+        }
+      ],
+      "why": "Meteor מונע במנוע ראמג'ט, ולכן תכנון יורש הוא בעיקר שאלה של הנעה ושל מעטפת טיסה. זה תחום המודולים על הנעת טילים (M6.15) ועל תכן טילים (M6.12)."
+    },
+    {
+      "body": "נאט\"ו החל ליישם את Starlift, תוכנית רב-לאומית להבטחת שירותי שיגור ללוויינים צבאיים. עשר חברות בברית ודרום קוריאה התחייבו לממן אותה דרך סוכנות התמיכה והרכש של נאט\"ו (NSPA). המטרה, לפי הברית, היא לעזור למדינות לעבוד עם ספקי שיגור מסחריים ונמלי חלל כדי שהגישה לחלל תהיה \"עמידה, מהירה וחסכונית יותר\". צרפת, הונגריה, לוקסמבורג וארה\"ב, שהיו בין המשתתפות המקוריות, לא הופיעו בהודעה; גורם בנאט\"ו אמר שארה\"ב משתתפת כחברה נלווית.",
+      "certainty": "single",
+      "connects": [
+        {
+          "concept": "מבצעי שיגור ואתרי שיגור",
+          "moduleId": "M13.19",
+          "rel": "later",
+          "why": "המודול על מבצעי שיגור מסביר מה מגביל קצב שיגורים ומה נותנת רשת של נמלי חלל."
+        },
+        {
+          "concept": "עלות ומימון בחלל",
+          "moduleId": "M13.7",
+          "rel": "later",
+          "why": "רכש משותף של שירותי שיגור הוא מודל מימון שהמודול על עלות ומשפט חלל דן בו."
+        }
+      ],
+      "dek": "התוכנית תעזור לצבאות לקבל מקומות על משגרים מסחריים מנמלי חלל בשטח הברית; עלויות ותרומות לא פורסמו.",
+      "domain": "space",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "נאט\"ו מתחיל את Starlift: עשר מדינות חברות ודרום קוריאה יממנו גישה משותפת לשיגורים",
+      "id": "c12",
+      "kind": "event",
+      "region": "INTL",
+      "role": "brief",
+      "sources": [
+        {
+          "fetchedAt": 1795209229648,
+          "httpStatus": 200,
+          "license": "© Breaking Defense, כל הזכויות שמורות",
+          "openAccess": true,
+          "publishedAt": "2026-11-17",
+          "publisher": "Breaking Defense",
+          "quote": "NATO has begun implementing the multinational Starlift space project, which aims to secure military satellite launch services, the alliance said today.",
+          "sha256": "339d915c35fcaa99fe3d3a32b8dc2aebf3966d43d957b3ebd3730ef0c32d8e46",
+          "tier": "C",
+          "title": "NATO kicks off 11-nation Starlift satellite launch program  - Breaking Defense",
+          "url": "https://breakingdefense.com/2026/11/nato-kicks-off-11-nation-starlift-satellite-launch-program/"
+        }
+      ],
+      "why": "שיגור הוא צוואר בקבוק של כל ארכיטקטורת חלל, ו-Starlift ניסיון לפתור אותו בחוזה ולא בטכנולוגיה. מבצעי שיגור ואתרי שיגור נלמדים ב-M13.19."
+    },
+    {
+      "body": "מזכיר ההגנה הורה ב-30 בספטמבר 2026 להכין את הקמתו של פיקוד לוחמה אוטונומית (AUTOWARCOM), פיקוד לוחם פונקציונלי בדרגת ארבעה כוכבים עם סמכויות \"דמויות זרוע\": כוח אדם, תקציב ורכש, ויעד הקמה של 1 באוקטובר 2027. לפי סקירת CRS, ועדת השירותים המזוינים בסנאט הציעה כבר קודם פיקוד אחר, RASCOM, עם סמכויות ניסוי והערכה וסמכות רכש מוגבלת לחוזים של עד 20 מיליון דולר. CRS מונה את ההחלטות שמונחות לפני הקונגרס.",
+      "certainty": "official",
+      "connects": [
+        {
+          "concept": "שו\"ב וצוות אדם-מכונה",
+          "moduleId": "M7.13",
+          "rel": "later",
+          "why": "הקמת פיקוד ייעודי למערכות אוטונומיות משנה את מבנה הפיקוד שהמודול מנתח."
+        },
+        {
+          "concept": "מדיניות אוטונומיה",
+          "moduleId": "M7.15",
+          "rel": "later",
+          "why": "מי מחזיק סמכויות ניסוי והערכה למערכות אוטונומיות היא שאלה שהמודול על מדיניות אוטונומיה פותח."
+        }
+      ],
+      "dek": "שירות המחקר של הקונגרס מציג את AUTOWARCOM של משרד ההגנה מול RASCOM של ועדת השירותים המזוינים בסנאט, ואת השאלות שהקונגרס יצטרך להכריע.",
+      "domain": "uas",
+      "full": "walkthrough",
+      "fullPart": 0,
+      "headline": "CRS: הפנטגון רוצה פיקוד לוחמה אוטונומית בארבעה כוכבים, והסנאט מציע מודל אחר",
+      "id": "c14",
+      "kind": "report",
+      "region": "US",
+      "role": "brief",
+      "sources": [
+        {
+          "fetchedAt": 1795209227317,
+          "httpStatus": 200,
+          "license": "Public domain: דוח של שירות המחקר של הקונגרס (CRS), עבודה של הממשל הפדרלי בארה\"ב, בשכפול של EveryCRSReport.com",
+          "openAccess": true,
+          "publishedAt": "2026-11-18",
+          "publisher": "Congressional Research Service (EveryCRSReport.com)",
+          "quote": "The memo states the project is to \"collaborate directly with Congress to secure necessary legislation [for the CCMD] with a target establishment date of October 1, 2027.\"",
+          "sha256": "c6b8bcb50103f3d84f43fe2fec14759c0a00d332a2889ec8408b97d6388b4d0c",
+          "tier": "A",
+          "title": "Autonomous Warfare Command: Background and Considerations for Congress - EveryCRSReport.com",
+          "url": "https://www.everycrsreport.com/reports/IN12757.html"
+        }
+      ],
+      "why": "הוויכוח הוא על מבנה ארגוני, לא על טכנולוגיה: מי מגדיר דרישות, מי בודק ומי קונה. זה תחום המודולים על שו\"ב וצוות אדם-מכונה (M7.13) ועל מדיניות אוטונומיה (M7.15)."
+    },
+    {
+      "body": "טיוטת חוק ההקצבות להגנה של ועדת ההקצבות בסנאט לשנת 2027, בהיקף של כמעט 1.1 טריליון דולר, מקצה כ-9.4 מיליארד דולר לתוכנית ההגנה מפני טילים Golden Dome. הממשל ביקש 17.5 מיליארד, וכמעט כולם היו תלויים בחוק התאמה (reconciliation) של 350 מיליארד דולר שתקוע בקונגרס; בתקציב הבסיס הוקצו לתוכנית רק כ-398 מיליון דולר. לפי Defense One, מומחי תקציב מעריכים שהטיוטה לא תעבור בגרסתה הנוכחית, אבל היא מסמנת את נקודת הפתיחה למשא ומתן עם הרוב הדמוקרטי שייכנס בינואר.",
+      "certainty": "corroborated",
+      "connects": [
+        {
+          "concept": "פרופיל מימון ועלות",
+          "moduleId": "M14.2",
+          "rel": "later",
+          "why": "קיצוץ של כמחצית מהמימון בשנה אחת מכריח לשנות היקף ארכיטקטורה או קצב, כפי שמנתח המודול."
+        },
+        {
+          "concept": "בעיית ההגנה מפני טילים",
+          "moduleId": "M7.1",
+          "rel": "later",
+          "why": "Golden Dome היא ארכיטקטורת הגנה לאומית, נושא הפתיחה של חלק P7."
+        }
+      ],
+      "dek": "כמעט כל הבקשה לתוכנית ההגנה מפני טילים נשענה על חוק התאמה שלא מתקדם; המחוקקים מעבירים חלק לתקציב הרגיל.",
+      "domain": "cost",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "ועדת ההקצבות בסנאט נותנת לכיפת הזהב כ-9.4 מיליארד דולר מתוך בקשה של יותר מ-17 מיליארד",
+      "id": "c16",
+      "kind": "report",
+      "region": "US",
+      "role": "brief",
+      "sources": [
+        {
+          "fetchedAt": 1795209231849,
+          "httpStatus": 200,
+          "license": "© Defense One, כל הזכויות שמורות",
+          "openAccess": true,
+          "publishedAt": "2026-11-19",
+          "publisher": "Defense One",
+          "quote": "Nearly all of the $17.5 billion Golden Dome request is tied up in reconciliation, making it particularly vulnerable to funding uncertainty",
+          "sha256": "9ab895c034522c5431ace31f1aa28f9479e3a1309b4116c6e6969c1c76ba280c",
+          "tier": "C",
+          "title": "Appropriators slash Trump’s $17B Golden Dome request in draft bill - Defense One",
+          "url": "https://www.defenseone.com/policy/2026/11/appropriators-slash-trumps-17b-golden-dome-request-draft-bill/417326/"
+        },
+        {
+          "fetchedAt": 1795209232481,
+          "httpStatus": 200,
+          "license": "© Breaking Defense, כל הזכויות שמורות",
+          "openAccess": true,
+          "publishedAt": "2026-11-17",
+          "publisher": "Breaking Defense",
+          "quote": "their spending bill includes $9.4 billion for Golden Dome and $3 billion for DAWG",
+          "sha256": "8eb5d8e541eada73570029a0fdf77ba303f34d7451ae0d7dad0de2620313c3e6",
+          "tier": "C",
+          "title": "Senate appropriators unveil $1.1T Pentagon spending bill, folding in reconciliation priorities  - Breaking Defense",
+          "url": "https://breakingdefense.com/2026/11/senate-appropriators-unveil-1-1t-pentagon-spending-bill-folding-in-reconciliation-priorities/"
+        }
+      ],
+      "why": "ההבדל בין מימון חד-פעמי לבין מימון רב-שנתי יציב הוא ההבדל בין תוכנית שאפשר לתכנן לבין תוכנית שצריך לצמצם. המודול על רכש ועלות (M14.2) עוסק בהשפעה של פרופיל מימון על לוח זמנים."
+    },
+    {
+      "body": "משרד ההגנה האמריקני נכשל שוב בביקורת השנתית שלו, התשיעית ברציפות, אבל מציג תוכנית לחוות דעת נקייה ב-2028. הביקורת בחנה נכסים בהיקף 4.9 טריליון דולר והתחייבויות של 5.2 טריליון. המשרד קיבל 12 חוות דעת נקיות, ומעריך שעד פברואר 2027 יהיו נקיים 56% מהנכסים ויותר מ-90% מההתחייבויות. השינוי באסטרטגיה כולל איחוד של 25 דוחות נפרדים לשמונה והכנסת מבקרים חיצוניים.",
+      "certainty": "official",
+      "connects": [
+        {
+          "concept": "נתוני עלות ורכש",
+          "moduleId": "M14.2",
+          "rel": "later",
+          "why": "אומדני עלות נשענים על רישום נכסים; ביקורת שנכשלת היא סימן לאי-ודאות בבסיס הנתונים."
+        }
+      ],
+      "dek": "הביקורת בחנה נכסים של 4.9 טריליון דולר; 12 חוות דעת נקיות, והיעד לחוות דעת נקייה כוללת נשאר 2028.",
+      "domain": "cost",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "משרד ההגנה האמריקני נכשל בביקורת הכספית בפעם התשיעית ברציפות",
+      "id": "c17",
+      "kind": "report",
+      "region": "US",
+      "role": "brief",
+      "sources": [
+        {
+          "fetchedAt": 1795209232923,
+          "httpStatus": 200,
+          "license": "© Breaking Defense, כל הזכויות שמורות",
+          "openAccess": true,
+          "publishedAt": "2026-11-16",
+          "publisher": "Breaking Defense",
+          "quote": "Details of the audit released in a statement today said the effort examined $4.9 trillion in assets and $5.2 trillion in liabilities.",
+          "sha256": "5502ae954851a9ecd217058d0acfdd326b4711f5f713b5995ef632e380bec3fd",
+          "tier": "C",
+          "title": "Pentagon fails 9th audit, asserts path towards clean books in 2028  - Breaking Defense",
+          "url": "https://breakingdefense.com/2026/11/pentagon-fails-9th-audit-asserts-path-towards-clean-books-in-2028/"
+        }
+      ],
+      "why": "אי אפשר לחשב עלות מחזור חיים בלי נתוני נכסים ומלאי אמינים. זה אותו פער נתונים שמופיע בדוח GAO על התחמושת בגיליון זה, ונושא שחוזר במודול M14.2."
+    },
+    {
+      "body": "מאמר תוכן ממומן של Siemens באתר defenceWeb מציג טיעון מוכר בהנדסת מערכות: כשכל צוות, מבנה, הנעה, בקרת טיסה ואוויוניקה, מייעל את תת-המערכת שלו בנפרד, התוצאה נכונה מקומית ותת-אופטימלית כוללת, והבעיות מתגלות רק בשילוב. המאמר מצטט נתונים: 56% מחברות התעופה והביטחון מדווחות שלכל תחום כלים משלו (Deloitte), ו-45% מהשקות המוצרים בתחום מתעכבות (Gartner). הפתרון המוצע הוא תכן ואופטימיזציה רב-תחומיים (MDO) סביב מקור אמת אחד, ובסופו פרסומת למוצר של החברה.",
+      "certainty": "vendor",
+      "connects": [
+        {
+          "concept": "הנדסת מערכות ושילוב",
+          "moduleId": "M7.10",
+          "rel": "later",
+          "why": "גילוי מאוחר של בעיות ממשק הוא הסיבה המרכזית לחריגות שהמודול על מחזור החיים מנתח."
+        },
+        {
+          "concept": "תהליך הנדסת משימה",
+          "moduleId": "M13.2",
+          "rel": "later",
+          "why": "SMAD מציג את אותו רעיון: לבחון פשרות בין תתי-מערכות כבר בשלב הקונספט."
+        }
+      ],
+      "dek": "מאמר תוכן של Siemens ב-defenceWeb טוען שתכן רב-תחומי עם תאום דיגיטלי מוצא בעיות שילוב בשלב הקונספט ולא בשלב הבדיקות.",
+      "domain": "models",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "למה אופטימיזציה של כל תחום לחוד עולה לתוכניות ביטחוניות ביוקר",
+      "id": "c18",
+      "kind": "report",
+      "region": "AF",
+      "role": "brief",
+      "sources": [
+        {
+          "fetchedAt": 1795209256055,
+          "httpStatus": 200,
+          "license": "© defenceWeb (תוכן ממומן של Siemens), כל הזכויות שמורות",
+          "openAccess": true,
+          "publishedAt": "2026-11-16",
+          "publisher": "defenceWeb (תוכן ממומן של Siemens)",
+          "quote": "It produces results that are locally correct and globally suboptimal, at best.",
+          "sha256": "e74f3a75a166fad8681add2fdc4f0e6b2247a5e844c94355a32fa71cb52f7aad",
+          "tier": "D",
+          "title": "Why optimising one parameter at a time is costing defence programmes - DefenceWeb",
+          "url": "https://defenceweb.co.za/company-zones/why-optimising-one-parameter-at-a-time-is-costing-defence-programmes/"
+        }
+      ],
+      "why": "הטיעון נכון גם בלי המוצר: אינטראקציות בין תתי-מערכות (רעידות, חום, הספק) לא נראות כשכל צוות עובד בכלים שלו. זה לב המודול על הנדסת מערכות ומחזור חיים (M7.10)."
+    },
+    {
+      "body": "ועדת ההקצבות בסנאט הקצתה כ-9.4 מיליארד דולר לתוכנית Golden Dome, מתוך בקשה של 17.5 מיליארד דולר. היתר היה תלוי בחוק התאמה שלא מתקדם.",
+      "certainty": "corroborated",
+      "connects": [],
+      "dek": "9.4 מתוך 17.5 מיליארד דולר.",
+      "domain": "cost",
+      "headline": "החלק מבקשת Golden Dome שנכנס לטיוטת ההקצבות של הסנאט",
+      "id": "c19",
+      "kind": "data",
+      "number": {
+        "calc": "$\\dfrac{9.4}{17.5} \\approx 0.537$, כלומר כ-54% מהבקשה, ומתוכם רק כ-0.4 מיליארד היו בבקשת תקציב הבסיס.",
+        "unit": "מהבקשה",
+        "value": "54%"
+      },
+      "region": "US",
+      "role": "number",
+      "sanity": {
+        "check": "חשבון",
+        "note": "$9.4/17.5=0.537$",
+        "result": "pass"
+      },
+      "sources": [
+        {
+          "fetchedAt": 1795209231849,
+          "httpStatus": 200,
+          "license": "© Defense One, כל הזכויות שמורות",
+          "openAccess": true,
+          "publishedAt": "2026-11-19",
+          "publisher": "Defense One",
+          "quote": "appropriators tagged nearly $9.4 billion for Golden Dome in their fiscal 2027 defense draft",
+          "sha256": "9ab895c034522c5431ace31f1aa28f9479e3a1309b4116c6e6969c1c76ba280c",
+          "tier": "C",
+          "title": "Appropriators slash Trump’s $17B Golden Dome request in draft bill - Defense One",
+          "url": "https://www.defenseone.com/policy/2026/11/appropriators-slash-trumps-17b-golden-dome-request-draft-bill/417326/"
+        }
+      ],
+      "why": "מספר אחד שמסכם פער בין תוכנית לכסף; ראו את הידיעה על הקיצוץ במדור עלות ובדיקות."
+    },
+    {
+      "body": "משגר ה-Vulcan של ULA סבל מתקלה כעשר דקות אחרי ההמראה ב-15 בנובמבר, לא הגיע למסלול, ו-40 לוויינים של רשת Amazon LEO אבדו. לפי מנכ\"ל ULA, מארק פלר, היה \"חוסר משמעותי בביצועי השלב הראשון\", והשלב העליון לא יכול היה להשלים את החסר. חקירה ארוכה עלולה לקרקע את המשגר לחודשים, כש-New Glenn של Blue Origin עדיין מקורקע ו-Falcon 9 ו-Falcon Heavy הם המשגרים היחידים האחרים שמורשים למטענים ביטחוניים קריטיים. \"צוואר הבקבוק בשיגור אמיתי ועומד להחמיר\", אמר קלייטון סווֹפּ מ-CSIS.",
+      "certainty": "single",
+      "connects": [
+        {
+          "concept": "מבצעי שיגור",
+          "moduleId": "M13.19",
+          "rel": "later",
+          "why": "המודול מסביר מה גורם לקרקוע ממושך אחרי כשל ואיך מנהלים תלות במשגר יחיד."
+        },
+        {
+          "concept": "הנעה רקטית ושלבים",
+          "moduleId": "M13.12",
+          "rel": "later",
+          "why": "\"חוסר בביצועי השלב הראשון\" שהשלב העליון לא יכול להשלים הוא חשבון של משוואת הרקטה ושל חלוקת $\\Delta v$ בין השלבים."
+        }
+      ],
+      "dek": "המשגר של ULA לא הגיע למסלול עם 40 לוויינים; כמעט כל השיגורים הביטחוניים הקריטיים תלויים עכשיו ב-SpaceX.",
+      "domain": "space",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "כישלון Vulcan מחמיר את מחסור השיגורים של הצבא האמריקני",
+      "id": "c20",
+      "kind": "event",
+      "region": "US",
+      "role": "world",
+      "sources": [
+        {
+          "fetchedAt": 1795209228930,
+          "httpStatus": 200,
+          "license": "© Breaking Defense, כל הזכויות שמורות",
+          "openAccess": true,
+          "publishedAt": "2026-11-16",
+          "publisher": "Breaking Defense",
+          "quote": "The Vulcan suffered an anomaly about 10 minutes after liftoff, preventing the rocket from reaching orbit and destroying 40 satellites for Amazon LEO’s planned broadband network for low-Earth orbit.",
+          "sha256": "0d9d577d9633081928d0d801a32bf6ac63bbf35ea4ef375ff28648b3c1b683bf",
+          "tier": "C",
+          "title": "Vulcan failure deepens concerns over US military launch capacity - Breaking Defense",
+          "url": "https://breakingdefense.com/2026/11/vulcan-failure-deepens-concerns-over-us-military-launch-capacity/"
+        }
+      ],
+      "why": "אמינות משגר היא פרמטר של ארכיטקטורה: כשנשאר ספק אחד, כל כשל הוא סיכון למשימה. מבצעי שיגור נלמדים ב-M13.19.",
+      "world": {
+        "pair": "c21",
+        "topic": "יכולת שיגור"
+      }
+    },
+    {
+      "body": "סוכנות החלל היפנית JAXA תעביר את תפעול שיגורי משגר H3 ל-Mitsubishi Heavy Industries, החל מהשיגור הבא, הודיע שר המדע יושיהירו סקי. H3, משגר דו-שלבי בדלק נוזלי שפיתחו JAXA ו-MHI, נכשל בשיגור הראשון ב-2023 ובשיגור השמיני בדצמבר האחרון, ומאז הצליח שלוש פעמים ברציפות. ההעברה תתחיל בתצורת H3-22, עם שני מנועי LE-9 ושני מאיצים מוצקים, שהצליחה בחמישה משבעה שיגורים.",
+      "certainty": "official",
+      "connects": [
+        {
+          "concept": "מבצעי שיגור",
+          "moduleId": "M13.19",
+          "rel": "later",
+          "why": "מעבר תפעול מסוכנות ממשלתית לתעשייה הוא שלב במחזור החיים של משגר שהמודול מתאר."
+        }
+      ],
+      "dek": "אחרי שני כשלים ושלוש הצלחות רצופות, הממשלה קובעת שהמשגר בשל מספיק לתפעול תעשייתי, בשלבים.",
+      "domain": "space",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "יפן מעבירה את תפעול שיגורי H3 מסוכנות החלל ל-Mitsubishi Heavy Industries",
+      "id": "c21",
+      "kind": "event",
+      "region": "JP",
+      "role": "world",
+      "sources": [
+        {
+          "fetchedAt": 1795209250607,
+          "httpStatus": 200,
+          "license": "© The Japan Times, כל הזכויות שמורות",
+          "openAccess": true,
+          "publishedAt": "2026-11-20",
+          "publisher": "The Japan Times",
+          "quote": "The Japan Aerospace Exploration Agency (JAXA) will transfer launch operations for the country’s flagship H3 rockets to Mitsubishi Heavy Industries (MHI), beginning with the next launch, science minister Yoshihiro Seki said Friday.",
+          "sha256": "6d63b06b3710d1b943477c4a55da307d04c835c762d00f73a1dfc72368555dd4",
+          "tier": "C",
+          "title": "Mitsubishi Heavy Industries to take on launch operations for Japan’s H3 rocket - The Japan Times",
+          "url": "https://www.japantimes.co.jp/business/2026/11/20/companies/h3-rocket-mitsubishi/"
+        }
+      ],
+      "why": "אותה שאלה כמו ב-Vulcan מהצד השני של העולם: מתי משגר בשל מספיק כדי שתעשייה תפעיל אותו. כאן הקריטריון מפורש, רצף הצלחות בתצורה מסוימת.",
+      "world": {
+        "pair": "c20",
+        "topic": "יכולת שיגור"
+      }
+    },
+    {
+      "body": "בשולי פסגת APEC בשנז'ן פרסמו נשיאי סין, רוסיה וארה\"ב \"הצהרה לקראת שלום\" בארבעה סעיפים. הסעיף הרביעי חוזר על המשפט ש\"מלחמה גרעינית אינה ניתנת לניצחון ולעולם אסור שתתנהל\", ומוסיף ששלוש המדינות יקיימו דיאלוג על הפחתת סיכונים גרעיניים ומניעת הפצה. הטקסט, שפורסם במלואו לפי התקשורת הממשלתית הסינית, אינו כולל מספרים, לוח זמנים או מנגנון אימות.\n\nסקירת CRS על הפחתת סיכונים גרעיניים, שפורסמה באותו שבוע, מזכירה שזו בדיוק הנוסחה של רייגן וגורבצ'וב, שחזרה גם בהצהרת חמש המעצמות מינואר 2022, ומגדירה הפחתת סיכונים כצעדים פחות פורמליים מבקרת נשק: קווים חמים, הודעות על שיגורי ניסוי וצעדי שקיפות. בנפרד דיווח Defense News שטראמפ ושי הסכימו, לדברי שר האוצר בסנט, שבני אדם יהיו מעורבים תמיד בהחלטות צבאיות של בינה מלאכותית.",
+      "certainty": "corroborated",
+      "connects": [
+        {
+          "concept": "הערכת הפצה ובקרת נשק",
+          "moduleId": "M12.5",
+          "rel": "later",
+          "why": "ההבדל בין התחייבות להצהרה לבין מגבלה ניתנת לאימות הוא נקודת המוצא של המודול."
+        },
+        {
+          "concept": "מדיניות אוטונומיה",
+          "moduleId": "M7.15",
+          "rel": "later",
+          "why": "ההסכמה על מעורבות אדם בהחלטות צבאיות של בינה מלאכותית שייכת לדיון על מדיניות אוטונומיה במודול."
+        }
+      ],
+      "dek": "נשיאי סין, רוסיה וארה\"ב חתמו על \"הצהרה לקראת שלום\" שמבטיחה דיאלוג על סיכונים גרעיניים. מה יש בטקסט, ומה CRS אומר על הכלים שבידי הקונגרס.",
+      "domain": "models",
+      "full": "walkthrough",
+      "fullPart": 0,
+      "headline": "הצהרת שנז'ן: נוסחת רייגן-גורבצ'וב חוזרת, בלי מספרים ובלי מנגנון",
+      "id": "c24",
+      "images": [
+        {
+          "alt": "רייגן וגורבצ'וב בפגישתם הראשונה בפסגת ז'נבה, 19 בנובמבר 1985; ההצהרה המשותפת שם כללה את הנוסחה על מלחמה גרעינית. תמונה להמחשה.",
+          "caption": "רייגן וגורבצ'וב בפגישתם הראשונה בפסגת ז'נבה, 19 בנובמבר 1985; ההצהרה המשותפת שם כללה את הנוסחה על מלחמה גרעינית. תמונה להמחשה.",
+          "credit": "White House Photo Office / Wikimedia Commons",
+          "license": "Public domain",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File%3AReagan_and_Gorbachev_%281985%29.jpg",
+          "url": "/_blob/2a494d2eb08832f467ce908cbabb2049"
+        }
+      ],
+      "kind": "standard",
+      "region": "INTL",
+      "role": "geo",
+      "sources": [
+        {
+          "fetchedAt": 1795209260973,
+          "httpStatus": 200,
+          "license": "© The National, כל הזכויות שמורות",
+          "openAccess": true,
+          "publishedAt": "2026-11-19",
+          "publisher": "The National",
+          "quote": "The three heads of state reaffirmed that a nuclear war cannot be won and must never be fought.",
+          "sha256": "7c8c7c7269575ab722f061c801ce470db86d3909d8321bfdd82adc12dc0f8d68",
+          "tier": "C",
+          "title": "'Nuclear war cannot be won': Full text of China, Russia and US 'peace declaration' | The National",
+          "url": "https://www.thenationalnews.com/news/mena/2026/11/19/nuclear-war-cannot-be-won-full-text-of-china-russia-and-us-peace-declaration/"
+        },
+        {
+          "fetchedAt": 1795209227991,
+          "httpStatus": 200,
+          "license": "Public domain: דוח של שירות המחקר של הקונגרס (CRS), עבודה של הממשל הפדרלי בארה\"ב, בשכפול של EveryCRSReport.com",
+          "openAccess": true,
+          "publishedAt": "2026-11-19",
+          "publisher": "Congressional Research Service (EveryCRSReport.com)",
+          "quote": "generally refers to information exchanges, operational constraints, or transparency measures (e.g., nuclear crisis hotlines or ballistic missile launch notifications) that are less formal than",
+          "sha256": "b67e6a3cf64b3c9d4e72f4793f7447351226bcedcba415425f15ee1e55bf489a",
+          "tier": "A",
+          "title": "Nuclear Risk Reduction: Executive Branch Policies and Congressional Approaches in the 119th Congress - EveryCRSReport.com",
+          "url": "https://www.everycrsreport.com/reports/IN12717.html"
+        },
+        {
+          "fetchedAt": 1795209261647,
+          "httpStatus": 200,
+          "license": "© Defense News, כל הזכויות שמורות",
+          "openAccess": true,
+          "publishedAt": "2026-11-20",
+          "publisher": "Defense News",
+          "quote": "President Donald Trump and Chinese President Xi Jinping agreed humans should always be involved in",
+          "sha256": "7bcadda53849934d1751091d39783d069f214ecf1962f968710655ef236b8ca2",
+          "tier": "C",
+          "title": "Trump, Xi agreed that military AI decisions should involve humans, Bessent says - Defense News",
+          "url": "https://www.defensenews.com/global/asia-pacific/2026/11/20/trump-xi-agreed-that-military-ai-decisions-should-involve-humans-bessent-says/"
+        }
+      ],
+      "why": "ההבחנה של CRS בין בקרת נשק (מגבלות מספריות ואימות) לבין הפחתת סיכונים (שקיפות ותקשורת) היא הכלי לקרוא הצהרה כזו: היא שייכת לסוג השני. המודול על הערכת הפצה (M12.5) משתמש באותה הבחנה."
+    },
+    {
+      "body": "ממשלת הולנד הציגה תוכנית תעשייתית ביטחונית שמטרתה להגדיל את הבסיס התעשייתי והטכנולוגי הביטחוני ב-40% עד 2030, להכנסות של כ-15 מיליארד יורו. המיקוד: הגנה אווירית וטילים משולבת, פיקוד מבוסס נתונים וחוסן דיגיטלי, מערכות בלתי מאוישות ואוטונומיות, ותחזוקה. התוכנית כוללת 600 מיליון יורו לאקוסיסטמות תעשייתיות ולהרחבת ייצור, 320 מיליון לשיתופי פעולה בינלאומיים ו-150 מיליון לחוסן שרשראות אספקה. החלק המקומי בהכנסות אמור לצמוח ב-50%, ליותר מ-10 מיליארד יורו.",
+      "certainty": "official",
+      "connects": [
+        {
+          "concept": "בסיס תעשייתי",
+          "moduleId": "M14.2",
+          "rel": "later",
+          "why": "תוכנית שמקצה כסף לאקוסיסטמות, לשיתופי פעולה ולשרשראות אספקה היא מדיניות בסיס תעשייתי, נושא המודול."
+        }
+      ],
+      "dek": "תוכנית תעשייתית לאומית עם יעד הכנסות של כ-15 מיליארד יורו, מיקוד בהגנה אווירית, פיקוד מבוסס נתונים ומערכות בלתי מאוישות, והעדפה למקור מקומי ברכש.",
+      "domain": "cost",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "הולנד מציבה יעד: צמיחה של 40% בתעשייה הביטחונית עד 2030",
+      "id": "c25",
+      "images": [
+        {
+          "alt": "מכ\"ם APAR של Thales Nederland על פריגטה הולנדית. תמונה להמחשה של תעשיית המכ\"ם בהולנד.",
+          "caption": "מכ\"ם APAR של Thales Nederland על פריגטה הולנדית. תמונה להמחשה של תעשיית המכ\"ם בהולנד.",
+          "credit": "Outisnn / Wikimedia Commons",
+          "license": "CC BY-SA 3.0",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File%3AAPAR_Tromp.JPG",
+          "url": "/_blob/9d9863a390406c971fe2cf86a3e45307"
+        }
+      ],
+      "kind": "report",
+      "region": "EU",
+      "role": "geo",
+      "sources": [
+        {
+          "fetchedAt": 1795209236590,
+          "httpStatus": 200,
+          "license": "© Defense News, כל הזכויות שמורות",
+          "openAccess": true,
+          "publishedAt": "2026-11-20",
+          "publisher": "Defense News",
+          "quote": "The Netherlands presented a defense-industrial plan with a target to grow its defense technological and industrial base by 40% by 2030",
+          "sha256": "516254d0fde60979496f2f3bf5dca244b3231b39bf222ef3456c066f999c9a25",
+          "tier": "C",
+          "title": "Dutch defense-industry plan targets 40% growth, €15 billion revenue by 2030 - Defense News",
+          "url": "https://www.defensenews.com/global/europe/2026/11/20/dutch-defense-industry-plan-targets-40-growth-e15-billion-revenue-by-2030/"
+        }
+      ],
+      "why": "הולנד היא הדוגמה למדינה עם תקציב ביטחון גדול ובלי חברה ראשית גדולה. היעד \"40% צמיחה\" מתורגם לשלושה סעיפי כסף, ואפשר לבדוק אם היחס בין ההשקעה לצמיחה סביר. זה תחום M14.2."
+    },
+    {
+      "body": "BIOMASS של סוכנות החלל האירופית הוא מכ\"ם מפתח סינתטי (SAR) אזרחי ראשון בתדר P (435 MHz), ותקנות ITU מגבילות את רוחב הפס שלו ל-6 MHz, כלומר רזולוציית טווח של כ-25 מטר לפי $\\rho_r=c/2B$. במאמר המחברים משתמשים בעקרון הסטת מספר הגל: מעברים בזוויות הבטה שונות דוגמים חלקים מוזזים של ספקטרום ההחזרה מהקרקע, ואפשר לחבר אותם לרוחב פס אפקטיבי רחב יותר. על 20 מעברים מיולי-אוגוסט 2025 מעל לוב וסין הם מגיעים לרוחב פס אפקטיבי של יותר מ-70 MHz ולרזולוציה של פחות מ-2.1 מטר. זה מאמר שלא עבר שיפוט.",
+      "certainty": "preprint",
+      "connects": [
+        {
+          "concept": "אורך גל, הפרש פאזה ואינטרפרומטר",
+          "moduleId": "M0.2",
+          "rel": "current",
+          "why": "מספר הגל האנכי $\\kappa_z=4\\pi\\delta\\theta/(\\lambda\\sin\\theta)$ במאמר בנוי מאותם רכיבים כמו פאזת האינטרפרומטר בשיעור 1."
+        },
+        {
+          "concept": "InSAR וטומוגרפיה",
+          "moduleId": "M2.34",
+          "rel": "later",
+          "why": "המודול על SAR מתקדם מפתח את InSAR ואת הסטת מספר הגל במלואם."
+        },
+        {
+          "concept": "SAR מהחלל",
+          "moduleId": "M2.25",
+          "rel": "later",
+          "why": "BIOMASS הוא דוגמה למשימת SAR שהמגבלה שלה רגולטורית ולא טכנולוגית."
+        }
+      ],
+      "dek": "חוקרים מפוליטקניקו די מילאנו ומהאקדמיה הסינית למדעים משלבים 20 מעברים בזוויות שונות כדי לסנתז רוחב פס של יותר מ-70 MHz ממכ\"ם שמוגבל ל-6 MHz.",
+      "domain": "radar",
+      "full": "walkthrough",
+      "fullPart": 0,
+      "headline": "מ-25 מטר ל-2.1 מטר: רזולוציית טווח פי 12 מנתוני המכ\"ם של לוויין BIOMASS",
+      "id": "c26",
+      "idea": {
+        "hours": 4,
+        "kind": "project",
+        "pitch": "מחברת Python שמשחזרת את משוואות (1)–(3) במאמר ומחשבת כמה מעברים וזוויות צריך כדי להגיע מ-6 MHz ל-70 MHz. בונה אינטואיציה ל-$c/2B$ ולאינטרפרומטר.",
+        "title": "מחברת: רזולוציה מרוחב פס מסונתז",
+        "uses": [
+          "M0.2",
+          "M2.34"
+        ]
+      },
+      "kind": "paper",
+      "read10": {
+        "minutes": 8
+      },
+      "region": "EU",
+      "role": "lab",
+      "sanity": {
+        "check": "רזולוציה מרוחב פס",
+        "note": "$c/2B$: עבור 6 MHz מתקבל 25 מ'; עבור 70 MHz מתקבל כ-2.14 מ', תואם \"פחות מ-2.1 מ'\" עם רוחב פס מעט גדול מ-70 MHz.",
+        "result": "pass"
+      },
+      "sources": [
+        {
+          "fetchedAt": 1795209355864,
+          "httpStatus": 200,
+          "license": "CC BY-NC-SA 4.0 (לפי דף המאמר ב-arXiv)",
+          "openAccess": true,
+          "publishedAt": "2026-11-16",
+          "publisher": "arXiv (eess.SP)",
+          "quote": "As the first civilian spaceborne P-band SAR mission, BIOMASS is operating with a bandwidth limited to 6~MHz by International Telecommunication Union regulations, yielding a native slant-range resolution of approximately 25 m.",
+          "sha256": "c60405746b9c8b8fe7c851453f18f55836bbf78cdcea73fdcec737a44743f502",
+          "tier": "B",
+          "title": "[2611.21358v1] From very fine Vertical Resolution to Range Super-Resolution on BIOMASS P-BAND SAR Data",
+          "url": "https://arxiv.org/abs/2611.21358v1"
+        },
+        {
+          "fetchedAt": 1795209370807,
+          "httpStatus": 200,
+          "license": "CC BY-NC-SA 4.0",
+          "openAccess": true,
+          "publishedAt": "2026-11-16",
+          "publisher": "arXiv (PDF)",
+          "quote": "We processed all 20 passes acquired between",
+          "sha256": "9b330029e4dbd620266464bca5498f41b3831e63261b2c3e010c1c23d2221634",
+          "tier": "B",
+          "title": "arXiv (PDF)",
+          "url": "https://arxiv.org/pdf/2611.21358v1"
+        }
+      ],
+      "why": "זה השיעור על גלים בפעולה: רזולוציה נקבעת ברוחב פס, $c/2B$, ושילוב מדידות בזוויות שונות הוא רעיון האינטרפרומטר מפרק 2. החשבון עובר: $3\\cdot10^8/(2\\cdot6\\cdot10^6)=25$ מ'."
+    },
+    {
+      "body": "תצפיות GNSS בטיסה 14 של Starship, ב-28 בספטמבר 2026, הראו גלים בצורת חרטום בתכולת האלקטרונים הכוללת (TEC) של היונוספרה, גם בשלב השיוט כשהמנועים כבויים. הבעיה: גוף החללית קטן ביחס לדרך החופשית הממוצעת של מולקולות בתרמוספרה, ולא אמור לעורר תגובה של זורם. יוהא ויירינן מאוניברסיטת טרומסו מציע שדלק לא שרוף שנפלט מהחללית, מתאן וחמצן בקצב מודל של 10 ק\"ג לשנייה, יוצר אזור אינטראקציה ברוחב של כ-10 ק\"מ. המודל משחזר את צורת הגלים ומהירותם מעל דרום אמריקה, אבל לא את עוצמתם מעל צפון אמריקה.",
+      "certainty": "preprint",
+      "connects": [
+        {
+          "concept": "התפשטות ביונוספרה, פאזה ומעטפת",
+          "moduleId": "M0.2",
+          "rel": "current",
+          "why": "TEC הוא מה שקובע את ההשהיה היונוספרית של אות GPS, הנושא של סעיף 2.5 בשיעור 1."
+        },
+        {
+          "concept": "שגיאות GNSS",
+          "moduleId": "M5.6",
+          "rel": "later",
+          "why": "שגיאת היונוספרה היא אחד ממקורות השגיאה העיקריים שהמודול על ביצועי GNSS מכמת."
+        },
+        {
+          "concept": "סביבת החלל",
+          "moduleId": "M13.3",
+          "rel": "later",
+          "why": "המודול על סביבת החלל מתאר את התרמוספרה והיונוספרה שבהן מתרחשת התופעה."
+        }
+      ],
+      "dek": "חוקר מאוניברסיטת טרומסו מציע שדלק שנפלט מהחללית, ולא הגוף עצמו, הוא שמעביר תנע ואנרגיה לאטמוספרה ויוצר את הגלים שנמדדו ב-GNSS.",
+      "domain": "space",
+      "full": "walkthrough",
+      "fullPart": 0,
+      "headline": "גלי חרטום ביונוספרה מאחורי Starship, גם כשהמנועים כבויים",
+      "id": "c27",
+      "kind": "paper",
+      "region": "EU",
+      "role": "lab",
+      "sources": [
+        {
+          "fetchedAt": 1795209354354,
+          "httpStatus": 200,
+          "license": "CC BY 4.0 (לפי דף המאמר ב-arXiv)",
+          "openAccess": true,
+          "publishedAt": "2026-11-16",
+          "publisher": "arXiv (physics.space-ph)",
+          "quote": "Global Navigation Satellite System (GNSS) observations of Starship Flight 14 show clear bow-shaped waves in detrended total electron content (dTEC), including during motor-off coast.",
+          "sha256": "549c7f693944237f9476b9d8959a32be6d9dae11fd35ce14bdeb9b39157a12a5",
+          "tier": "B",
+          "title": "[2611.20379v1] Ionospheric bow waves during Starship Flight 14: coupling through vented propellant",
+          "url": "https://arxiv.org/abs/2611.20379v1"
+        },
+        {
+          "fetchedAt": 1795209369314,
+          "httpStatus": 200,
+          "license": "CC BY 4.0",
+          "openAccess": true,
+          "publishedAt": "2026-11-16",
+          "publisher": "arXiv (PDF)",
+          "quote": "Combustion is not required for this mechanism.",
+          "sha256": "1e77701ab2f65a54e8f20397ae9713d18cf0b8cc45ab3ee07397f3461aebcc4c",
+          "tier": "B",
+          "title": "arXiv (PDF)",
+          "url": "https://arxiv.org/pdf/2611.20379v1"
+        }
+      ],
+      "why": "היונוספרה משנה את מהירות הגלים של GNSS, והשיעור על גלים (סעיף 2.5) עוסק בדיוק בהבדל בין פאזת הנושא למעטפת שם. כאן אותה מדידה משמשת כחיישן להפרעה מהחללית."
+    },
+    {
+      "body": "מודלים של אוכלוסיית הפסולת במסלול נמוך מתייחסים בדרך כלל ליכולת ההתחמקות מהתנגשויות כקבועה. אדיטיה גופלאן והרשה הונאפה מראים, במודל רשת תורים רב-שכבתי, שאם יכולת הסינון ותכנון התמרונים רוויה ככל שמספר השברים עולה, שכבת המסלול נעשית דו-יציבה, עם שיווי משקל של מעט פסולת ושיווי משקל של הרבה פסולת, ועם היסטרזיס. המשמעות: כדי לצאת מהמצב הגרוע צריך קיצוץ גדול בשיגורים, ובמצב הטוב מספר השברים מגיב באיחור כשקצב השיגורים חוצה נקודת מפנה. הם מציעים בקרת קבלה לפי מספר השברים.",
+      "certainty": "preprint",
+      "connects": [
+        {
+          "concept": "פסולת חלל",
+          "moduleId": "M13.3",
+          "rel": "later",
+          "why": "המודול על סביבת החלל מתאר את אוכלוסיית הפסולת ואת תסמונת קסלר שהמאמר ממדל."
+        },
+        {
+          "concept": "משוב, רוויה ושיווי משקל",
+          "moduleId": "M0.7",
+          "rel": "next",
+          "why": "דו-יציבות והיסטרזיס הם תוצאה של משוב חיובי עם רוויה, מושגים שהמודול על בקרה בסיסית מציג."
+        }
+      ],
+      "dek": "חוקרים מ-Purdue מראים שמעבר לנקודת מפנה, יציאה ממצב של הרבה פסולת דורשת קיצוץ גדול בקצב השיגורים, ומציעים כלל קבלה לשיגורים לפי מספר השברים.",
+      "domain": "space",
+      "full": "walkthrough",
+      "fullPart": 0,
+      "headline": "מודל תורים למסלול נמוך: כשהיכולת להתחמק מהתנגשויות רוויה, המסלול נעשה דו-יציב",
+      "id": "c28",
+      "idea": {
+        "hours": 5,
+        "kind": "project",
+        "pitch": "מודל מינימלי בשני משתנים (לוויינים ושברים) עם יכולת התחמקות שרוויה, וסריקה של קצב השיגורים כדי לראות את נקודת המפנה ואת ההיסטרזיס. ניתוח בלבד.",
+        "title": "סימולציה של מודל הפסולת הדו-יציב",
+        "uses": [
+          "M13.3",
+          "M0.7"
+        ]
+      },
+      "kind": "paper",
+      "region": "US",
+      "role": "lab",
+      "sources": [
+        {
+          "fetchedAt": 1795209354826,
+          "httpStatus": 200,
+          "license": "arXiv non-exclusive distribution license",
+          "openAccess": true,
+          "publishedAt": "2026-11-17",
+          "publisher": "arXiv (eess.SY)",
+          "quote": "Using a stylized multi-layer queueing network model, we show that collision avoidance capabilities that saturate as the in-custody fragment count increases, can make the orbital shell bistable, with a low-debris and a high-debris equilibrium, and hysteretic.",
+          "sha256": "04249a6eedac8932255f06f7234a84ca926e816e1282d3c10c2286461f988b52",
+          "tier": "B",
+          "title": "[2611.23607v1] Averting `Gravity': Launch Control and the Limits of Collision Avoidance in Low Earth Orbit Operations",
+          "url": "https://arxiv.org/abs/2611.23607v1"
+        },
+        {
+          "fetchedAt": 1795209370233,
+          "httpStatus": 200,
+          "license": "arXiv non-exclusive distribution license",
+          "openAccess": true,
+          "publishedAt": "2026-11-17",
+          "publisher": "arXiv (PDF)",
+          "quote": "this positive feedback is",
+          "sha256": "ecbba7f67958118f08b46efa1adf65f1a686cc7f133ff0afcd56e487a73c1e18",
+          "tier": "B",
+          "title": "arXiv (PDF)",
+          "url": "https://arxiv.org/pdf/2611.23607v1"
+        }
+      ],
+      "why": "זה מודל מערכת עם משוב חיובי ורוויה, אותו מבנה מתמטי שמופיע בבקרה בסיסית (M0.7) ובניהול סביבת החלל (M13.3). שווה לשים לב: יותר שיגורים יכולים להוריד את מספר המשימות שמושלמות."
+    },
+    {
+      "body": "ועדת המשנה להגנה של ועדת ההקצבות בסנאט הציעה כמעט 1.1 טריליון דולר להגנה בשנת התקציב 2027, נתון היסטורי אך רחוק מ-1.5 טריליון שביקש הממשל (1.15 טריליון בבסיס ועוד 350 מיליארד בחוק התאמה). כ-69 מיליארד שהתבקשו כהוצאה חד-פעמית הועברו להוצאה רגילה, כולל 9.4 מיליארד ל-Golden Dome ו-47.2 מיליארד לרכש תחמושת.",
+      "certainty": "single",
+      "connects": [],
+      "dek": "ועדת ההקצבות מעבירה חלק מהעדיפויות שהיו תלויות בחוק ההתאמה לתקציב הרגיל.",
+      "domain": "cost",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "הסנאט מציע כמעט 1.1 טריליון דולר להגנה, פחות מ-1.5 טריליון שביקש הממשל",
+      "id": "g1",
+      "kind": "report",
+      "region": "US",
+      "role": "globe",
+      "sources": [
+        {
+          "fetchedAt": 1795209232481,
+          "httpStatus": 200,
+          "license": "© Breaking Defense, כל הזכויות שמורות",
+          "openAccess": true,
+          "publishedAt": "2026-11-17",
+          "publisher": "Breaking Defense",
+          "quote": "Senate appropriators are proposing nearly $1.1 trillion in defense spending for fiscal 2027, a historic figure that includes key priorities but still falls well short of the $1.5 trillion figure sought by the Trump administration.",
+          "sha256": "8eb5d8e541eada73570029a0fdf77ba303f34d7451ae0d7dad0de2620313c3e6",
+          "tier": "C",
+          "title": "Senate appropriators unveil $1.1T Pentagon spending bill, folding in reconciliation priorities  - Breaking Defense",
+          "url": "https://breakingdefense.com/2026/11/senate-appropriators-unveil-1-1t-pentagon-spending-bill-folding-in-reconciliation-priorities/"
+        }
+      ],
+      "why": ""
+    },
+    {
+      "body": "משרד ההגנה האיטלקי הכחיש בתוקף דיווח שלפיו השר גוידו קרוזטו התנגד בשיחת ועידה להעניק לגרמניה מעמד של שותפה בתוכנית מטוס הקרב GCAP של איטליה, בריטניה ויפן. לפי ההודעה, איטליה הציעה מעמד משקיפה כדי להאיץ חברות מלאה, לא כדי לעכב אותה. גרמניה פנתה לתוכנית אחרי קריסת השיחות עם צרפת על מטוס מתחרה; קנדה כבר משקיפה.",
+      "certainty": "official",
+      "connects": [],
+      "dek": "משרד ההגנה האיטלקי פרסם הכחשה ארוכה לדיווח שלפיו התנגד להצטרפות גרמניה לתוכנית מטוס הקרב.",
+      "domain": "cost",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "איטליה מכחישה שהיא חוסמת את גרמניה ב-GCAP: מעמד משקיפה כדרך מהירה לחברות מלאה",
+      "id": "g2",
+      "kind": "event",
+      "region": "EU",
+      "role": "globe",
+      "sources": [
+        {
+          "fetchedAt": 1795209262611,
+          "httpStatus": 200,
+          "license": "© Defense News, כל הזכויות שמורות",
+          "openAccess": true,
+          "publishedAt": "2026-11-16",
+          "publisher": "Defense News",
+          "quote": "Italy has strongly denied a press report suggesting it opposes granting Germany partner status on the GCAP fighter program, claiming instead it fully backs German membership.",
+          "sha256": "ae11d40beb894c604b3fc69d46e7b5041df184267bbd55c384f52d92ee9b5377",
+          "tier": "C",
+          "title": "Italy backs rapid German membership path into GCAP fighter program - Defense News",
+          "url": "https://www.defensenews.com/global/europe/2026/11/16/italy-backs-rapid-german-membership-path-into-gcap-fighter-program/"
+        }
+      ],
+      "why": ""
+    },
+    {
+      "body": "פורטוגל מקדמת תשתית שיגור באיים האזוריים: קונסורציום פרטי ביקש רישיון לשיגור מסלולי ראשון מהאי סנטה מריה, של משגר HANBIT-Nano הדרום-קוריאני, ברבעון השני של 2027. לצד האתר הפרטי במלבוסקה אמור לקום כן שיגור שני שיפעיל חיל האוויר הפורטוגלי, בהשקעה ציבורית של כ-15 מיליון יורו, לשימוש אזרחי וצבאי. שר ההגנה דיבר על עד 11 לוויינים ב-2027 ו-40 ב-2028.",
+      "certainty": "single",
+      "connects": [],
+      "dek": "כ-15 מיליון יורו מימון ציבורי לכן שיגור לצד האתר הפרטי בסנטה מריה; שיגור ראשון של משגר קוריאני מתוכנן ל-2027.",
+      "domain": "space",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "פורטוגל מתכננת אתר שיגור שני באיים האזוריים, בהפעלת חיל האוויר",
+      "id": "g3",
+      "kind": "event",
+      "region": "EU",
+      "role": "globe",
+      "sources": [
+        {
+          "fetchedAt": 1795209263523,
+          "httpStatus": 200,
+          "license": "© hartpunkt, כל הזכויות שמורות",
+          "openAccess": true,
+          "publishedAt": "2026-11-20",
+          "publisher": "hartpunkt",
+          "quote": "Für den staatlichen Weltraum-Startplatz seien nach Angaben portugiesischer Medien Investitionen von rund 15 Millionen Euro an öffentlichen Mitteln vorgesehen.",
+          "sha256": "930bae657203f07e4ffe4a6d6d18d54aef32cd73bcf7cb1cc1be6552622f8ca5",
+          "tier": "C",
+          "title": "Portugals Verteidigungsministerium will zweiten Weltraum-Startplatz auf den Azoren errichten",
+          "url": "https://www.hartpunkt.de/portugals-verteidigungsministerium-will-zweiten-weltraum-startplatz-auf-den-azoren-errichten/"
+        }
+      ],
+      "why": ""
+    },
+    {
+      "body": "BAE Systems פתחה מפעל חדש בגלסקואד שבדרום ויילס, שהיא מתארת כמפעל האוטומטי הראשון בבריטניה לתחמושת קליבר גדול. המפעל הוא חלק מהשקעה של 180 מיליון ליש\"ט להגדלת כושר הייצור של פגזי 155 מ\"מ פי 16. ייצור בהיקף יתחיל אחרי תקופת ניסויים, והמפעל יופעל ברובוטים ובכלים מונחים אוטונומיים עם צוות מצומצם, כדי לאפשר שעות ייצור ארוכות יותר.",
+      "certainty": "vendor",
+      "connects": [],
+      "dek": "המפעל בגלסקואד, חלק מהשקעה של 180 מיליון ליש\"ט, יופעל ברובוטים ובכלים אוטונומיים עם צוות מצומצם.",
+      "domain": "missiles",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "BAE פותחת מפעל אוטומטי למילוי פגזים בוויילס, חלק מהגדלת ייצור פי 16",
+      "id": "g4",
+      "kind": "event",
+      "region": "UK",
+      "role": "globe",
+      "sources": [
+        {
+          "fetchedAt": 1795209235693,
+          "httpStatus": 200,
+          "license": "© Defence Industry Europe, כל הזכויות שמורות",
+          "openAccess": true,
+          "publishedAt": "2026-11-20",
+          "publisher": "Defence Industry Europe",
+          "quote": "The facility forms part of a £180 million investment to increase production capacity for 155mm artillery shells sixteen-fold.",
+          "sha256": "ba6ace4dac67706ce291a5163b293d034d2f8a5696dd7a1e2914efed3d429168",
+          "tier": "C",
+          "title": "BAE Systems opens UK’s first fully automated large-calibre ammunition factory in South Wales",
+          "url": "https://defence-industry.eu/bae-systems-opens-uks-first-fully-automated-large-calibre-ammunition-factory-in-south-wales/"
+        }
+      ],
+      "why": ""
+    },
+    {
+      "body": "ראש מטה חיל האוויר ההודי, אשוטוש דיקסיט, אמר שהטייסת הראשונה של מטוסי Tejas Mk1A תוקם בתוך שנת הכספים, כלומר עד סוף מרץ 2027. HAL החמיצה את יעד המסירה המקורי מפברואר 2024 להזמנה הראשונה של 83 מטוסים, בעיקר בגלל איחור במנועי F404 של GE Aerospace. חיל האוויר הזמין בסך הכל 180 מטוסים, ומחזיק כיום 29 טייסות קרב פעילות מול תקן של 42.",
+      "certainty": "single",
+      "connects": [],
+      "dek": "אחרי עיכובים שיוחסו בעיקר לאספקה מאוחרת של מנועי GE, חיל האוויר מצפה לטייסת בשנת הכספים הנוכחית.",
+      "domain": "cost",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "ראש מטה חיל האוויר ההודי: טייסת ה-Tejas Mk1A הראשונה תוקם עד סוף מרץ 2027",
+      "id": "g5",
+      "kind": "event",
+      "region": "IN",
+      "role": "globe",
+      "sources": [
+        {
+          "fetchedAt": 1795209243093,
+          "httpStatus": 200,
+          "license": "© ThePrint, כל הזכויות שמורות",
+          "openAccess": true,
+          "publishedAt": "2026-11-16",
+          "publisher": "ThePrint",
+          "quote": "The IAF is currently at its lowest strength in 60 years, with 29 active fighter squadrons against a sanctioned strength of 42.",
+          "sha256": "b57811d5da20f4ee0e68ae0d8e70a8adb829e09eda581751c80f6e2efac1d954",
+          "tier": "C",
+          "title": "1st Tejas Mk1A squadron to be formed by March-end—IAF chief",
+          "url": "https://theprint.in/defence/first-tejas-mk1a-squadron-to-be-formed-by-end-of-march-2027-says-iaf-chief-dixit/3099856/"
+        }
+      ],
+      "why": ""
+    },
+    {
+      "body": "מזכיר ההגנה של הודו, רג'ש קומאר סינג, אמר שהמדינה עשויה להגיע ליעד יצוא ביטחוני שנתי של 50,000 קרור רופי בשנת הכספים 2028-29, שנה לפני המועד, עלייה של כ-30% מ-38,424 קרור ב-2025-26. עד תחילת נובמבר כבר הגיע היצוא ל-23,479 קרור. לדבריו, פגזי ארטילריה הם \"הגיבור\" של היצוא, ויש משא ומתן רב על BrahMos. הוא צופה גם צמיחה של 20% בשנה בתקציב ההון של ההגנה.",
+      "certainty": "official",
+      "connects": [],
+      "dek": "מזכיר ההגנה: היצוא הגיע ל-23,479 קרור עד תחילת נובמבר, ו\"הגיבור\" הוא פגזי ארטילריה.",
+      "domain": "cost",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "הודו צפויה לעמוד ביעד יצוא ביטחוני של 50,000 קרור רופי כבר ב-2028-29",
+      "id": "g6",
+      "kind": "data",
+      "region": "IN",
+      "role": "globe",
+      "sources": [
+        {
+          "fetchedAt": 1795209242676,
+          "httpStatus": 200,
+          "license": "© ThePrint, כל הזכויות שמורות",
+          "openAccess": true,
+          "publishedAt": "2026-11-19",
+          "publisher": "ThePrint",
+          "quote": "This would mean a roughly 30 percent jump from the Rs 38,424 crore of defence exports in 2025-26.",
+          "sha256": "9f5c6cec26f0a59dd121a0ab3fec3eb70e290f8fbb49a4ce234b9a3f9fb79439",
+          "tier": "C",
+          "title": "Rs 50,000 cr arms export target may be met in 2028-29, multiple BrahMos talks on, says Defence Secretary",
+          "url": "https://theprint.in/defence/rs-50000-cr-arms-export-target-may-be-met-in-2028-29-multiple-brahmos-talks-on-says-defence-secretary/3102672/"
+        }
+      ],
+      "why": ""
+    },
+    {
+      "body": "בסיום דיאלוג 2+2 של שרי החוץ וההגנה של יפן והודו בטוקיו הודיע שר ההגנה היפני שינג'ירו קויזומי שכוחות ההגנה של יפן ישתמשו בשנה הבאה לראשונה במטווח ירי בהודו, צעד שכינה \"משמעותי אסטרטגית\". ההצהרה המשותפת ברכה על מכתב כוונות לאימונים בירי חי שם. הודו ביקשה גם קידום מהיר של הסכמי ייצור משותף של אנטנת התקשורת הימית UNICORN, עם אישור צורך עד פברואר 2027.",
+      "certainty": "official",
+      "connects": [],
+      "dek": "דיאלוג 2+2 בטוקיו: מכתב כוונות לשימוש במטווחים, ציפייה לאישור ייצור משותף של אנטנת UNICORN, ושיתוף פעולה בתעשייה.",
+      "domain": "models",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "יפן והודו: כוחות ההגנה היפניים ישתמשו לראשונה במטווחים בהודו ב-2027",
+      "id": "g7",
+      "kind": "event",
+      "region": "JP",
+      "role": "globe",
+      "sources": [
+        {
+          "fetchedAt": 1795209242234,
+          "httpStatus": 200,
+          "license": "© ThePrint, כל הזכויות שמורות",
+          "openAccess": true,
+          "publishedAt": "2026-11-19",
+          "publisher": "ThePrint",
+          "quote": "Japan has announced that its Self-Defence Forces will begin using Indian firing ranges next year to test long-range missiles",
+          "sha256": "0d336138ced04649e0a217155c59a43f0118dcb81c04c5d381387e4684fb349e",
+          "tier": "C",
+          "title": "Japan to use Indian ranges for missile tests as New Delhi-Tokyo move to boost defence ties",
+          "url": "https://theprint.in/diplomacy/japan-to-use-indian-ranges-for-missile-tests-as-new-delhi-tokyo-move-to-boost-defence-ties/3103282/"
+        }
+      ],
+      "why": ""
+    },
+    {
+      "body": "הסוכנות הבינלאומית לאנרגיה אטומית פרסמה את הדוח הראשון שלה על תוכנית הצוללות בהנעה גרעינית של דרום קוריאה, ולפי משרד החוץ בסיאול העריכה \"בחיוב\" את שיתוף הפעולה של המדינה בנושאי פיקוח ואי-הפצה, ואישרה שהתחייבויות הדיווח לפי הסכם הפיקוח המקיף והפרוטוקול הנוסף מולאו. הדוח הונח בפני מועצת הנגידים בנובמבר. הסוכנות מפרסמת דוחות דומים על אוסטרליה וברזיל מאז 2022 ו-2023.",
+      "certainty": "official",
+      "connects": [],
+      "dek": "הדוח הראשון של הסוכנות על הנעה גרעינית ימית בקוריאה: התחייבויות הדיווח מולאו, ודוחות דומים יבואו מדי שנה.",
+      "domain": "models",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "סבא\"א מעריכה בחיוב את שיתוף הפעולה של דרום קוריאה בתוכנית הצוללת הגרעינית",
+      "id": "g8",
+      "kind": "report",
+      "region": "KR",
+      "role": "globe",
+      "sources": [
+        {
+          "fetchedAt": 1795209251034,
+          "httpStatus": 200,
+          "license": "© The Korea Herald, כל הזכויות שמורות",
+          "openAccess": true,
+          "publishedAt": "2026-11-19",
+          "publisher": "The Korea Herald",
+          "quote": "The IAEA also confirmed that South Korea had fulfilled its reporting obligations under the Comprehensive Safeguards Agreement and the Additional Protocol",
+          "sha256": "c7b92b2f630967447ca3b4f652e64cdb6cc182200cb28214e826a27a91437b09",
+          "tier": "C",
+          "title": "IAEA gives positive assessment of S. Korea's nuclear-powered submarine project in first report: ministry - The Korea Herald",
+          "url": "https://www.koreaherald.com/article/10943149"
+        }
+      ],
+      "why": ""
+    },
+    {
+      "body": "מנהלת הרכש הביטחוני של דרום קוריאה (DAPA) הורידה את תחזית המסירה של מטוסי KF-21 ברבעון הראשון של 2027 מארבעה מטוסים לאחד, בגלל עיכוב במבער האחרי של מנוע F414, רכיב שמיובא מארה\"ב. לפי הדיווח, ממשלת ארה\"ב שולטת באספקה ונותנת עדיפות למטוסי F/A-18 של הצי שלה. מתוך 40 מבערים שהיו אמורים להגיע עד ספטמבר 2025 הגיעו עד 6 בנובמבר 2026 רק 19, ו-16 מהם הוקצו לייצור הקיים.",
+      "certainty": "single",
+      "connects": [],
+      "dek": "מתוך 40 מבערי אחרי שהיו אמורים להגיע עד ספטמבר 2025 הגיעו 19, ונשארו שלושה ל-14 מטוסים.",
+      "domain": "cost",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "מחסור ברכיב מנוע אמריקני מקצץ את מסירות ה-KF-21 ברבעון הראשון של 2027 מארבעה מטוסים לאחד",
+      "id": "g9",
+      "kind": "event",
+      "region": "KR",
+      "role": "globe",
+      "sources": [
+        {
+          "fetchedAt": 1795209351746,
+          "httpStatus": 200,
+          "license": "© SEOULZ, כל הזכויות שמורות",
+          "openAccess": true,
+          "publishedAt": "2026-11-17",
+          "publisher": "SEOULZ",
+          "quote": "The Defense Acquisition Program Administration (DAPA) has reduced its first-quarter 2027 KF-21 fighter delivery outlook from four aircraft to one aircraft, Seoul/NowNews reported on Nov. 17.",
+          "sha256": "df6c483169b70ecb1e502a7729e3c95ece74123b42b34c0e9c87b855c8edd0ca",
+          "tier": "C",
+          "title": "DAPA cuts KF-21 first-quarter 2027 delivery outlook from four jets to one over U.S. accelerator shortage",
+          "url": "https://www.seoulz.com/news/dapa-cuts-kf-21-first-quarter-2027-delivery-outlook-four-jets-one-over"
+        }
+      ],
+      "why": ""
+    },
+    {
+      "body": "Baykar הודיעה שהמטוסים הראשונים מדגם Kızılelma, מטוס קרב בלתי מאויש, נמסרו לכוחות הביטחון של טורקיה, ושלושה מהם נכנסו לשירות פעיל אחרי 600 גיחות ניסוי ואימון. החברה לא ציינה את מועד המסירה או איזו זרוע קיבלה אותם. לפי Baykar, המשקל המרבי בהמראה 8.5 טון, כושר הנשיאה 1.5 טון בתא פנימי, המהירות המרבית 0.9 מאך וזמן השהייה באוויר יותר משלוש שעות.",
+      "certainty": "vendor",
+      "connects": [],
+      "dek": "Baykar מסרה שלושה מטוסים אחרי 600 גיחות ניסוי ואימון; היא לא פירטה מתי ולאיזו זרוע.",
+      "domain": "uas",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "טורקיה מכניסה לשירות את מטוס הקרב הבלתי מאויש Kızılelma",
+      "id": "g10",
+      "kind": "event",
+      "region": "TR",
+      "role": "globe",
+      "sources": [
+        {
+          "fetchedAt": 1795209240387,
+          "httpStatus": 200,
+          "license": "© Daily Sabah, כל הזכויות שמורות",
+          "openAccess": true,
+          "publishedAt": "2026-11-19",
+          "publisher": "Daily Sabah",
+          "quote": "Baykar said three units have entered active service after completing 600 test and training sorties.",
+          "sha256": "df3d4dcd17493b44c734465274b637cea11c39f7007cd3b31e71bbf10fafb158",
+          "tier": "C",
+          "title": "Türkiye becomes 1st to add unmanned fighter jet to military inventory | Daily Sabah",
+          "url": "https://www.dailysabah.com/business/economy/turkiye-becomes-1st-to-add-unmanned-fighter-jet-to-military-inventory"
+        }
+      ],
+      "why": ""
+    },
+    {
+      "body": "בימי התעשייה הביטחונית של טורקיה וסעודיה באיסטנבול אמר השר הסעודי בנדר אל-חוריף, ממלא מקום מושל הרשות הכללית לתעשיות צבאיות (GAMI), ששיעור הייצור הביטחוני המקומי בממלכה עלה מ-4% ל-27%, עם יעד של 50% במסגרת חזון 2030. ראש הנשיאות הטורקית לתעשיות ביטחוניות, האלוק גורגון, אמר שטורקיה מוכנה להרחיב שיתוף פעולה, עם כ-4,500 עסקים קטנים ובינוניים ביטחוניים ותיק של כ-120 מיליארד דולר.",
+      "certainty": "single",
+      "connects": [],
+      "dek": "בימי תעשייה טורקיים-סעודיים באיסטנבול הציגו הצדדים את יעד חזון 2030: 50% ייצור ביטחוני מקומי.",
+      "domain": "cost",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "טורקיה וסעודיה: מדד הייצור המקומי הביטחוני הסעודי עלה מ-4% ל-27%",
+      "id": "g11",
+      "kind": "event",
+      "region": "GULF",
+      "role": "globe",
+      "sources": [
+        {
+          "fetchedAt": 1795209241507,
+          "httpStatus": 200,
+          "license": "© Daily Sabah, כל הזכויות שמורות",
+          "openAccess": true,
+          "publishedAt": "2026-11-12",
+          "publisher": "Daily Sabah",
+          "quote": "He said Saudi Arabia's defense localization rate rose from 4% to 27%, with a target of reaching 50% under Vision 2030 through technology transfer and long-term partnerships.",
+          "sha256": "eb04654047f6722960954bad02577af2cac6f0486238e44ee8f166d49641a530",
+          "tier": "C",
+          "title": "Türkiye ready to deepen defense co-op with Saudi Arabia: Official | Daily Sabah",
+          "url": "https://www.dailysabah.com/business/defense/turkiye-ready-to-deepen-defense-co-op-with-saudi-arabia-official"
+        }
+      ],
+      "why": ""
+    },
+    {
+      "body": "הוועדה המשותפת להגנה בפרלמנט של דרום אפריקה בירכה על תוכנית הפעולה שיצאה מכנס התעשייה הביטחונית ביולי, אבל הזהירה שההמלצות עלולות להיכשל בלי מודל מימון רב-שנתי ריאלי והשתתפות פעילה של התעשייה והממשלה. התוכנית כוללת מסלול להעלאת הוצאות ההגנה מ-0.8% מהתוצר לעבר יעד של 1.5%, ייצוב חברות ממשלתיות ביטחוניות, וחידוש תוכנית אוניברסיטת ההנדסה והמדע הביטחונית.",
+      "certainty": "official",
+      "connects": [],
+      "dek": "היעד: להעלות את הוצאות ההגנה מ-0.8% מהתוצר לעבר 1.5%, במסלול מימון רב-שנתי.",
+      "domain": "cost",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "ועדת ההגנה בפרלמנט של דרום אפריקה מברכת על תוכנית לחיזוק התעשייה הביטחונית, ומזהירה שבלי מימון היא לא תעבוד",
+      "id": "g12",
+      "kind": "report",
+      "region": "AF",
+      "role": "globe",
+      "sources": [
+        {
+          "fetchedAt": 1795209257325,
+          "httpStatus": 200,
+          "license": "© defenceWeb, כל הזכויות שמורות",
+          "openAccess": true,
+          "publishedAt": "2026-11-18",
+          "publisher": "defenceWeb",
+          "quote": "The committee welcomed the intention to develop a phased, multi-year funding trajectory to raise South Africa’s defence spending from the current 0.8% of gross domestic product (GDP) towards the 1.5% target.",
+          "sha256": "bc5ca21b26c1ec6fbb5fe59058d330b3251eaf3bf00541d9809223c5e4d4f8ea",
+          "tier": "C",
+          "title": "Defence committee welcomes Defence Industry Lekgotla plan, but warns funding and delivery remain critical - DefenceWeb",
+          "url": "https://defenceweb.co.za/industry/industry-industry/defence-committee-welcomes-defence-industry-lekgotla-plan-but-warns-funding-and-delivery-remain-critical/"
+        }
+      ],
+      "why": ""
+    }
+  ],
+  "lead": "c1",
+  "number": 3,
+  "picks10": [
+    "c2",
+    "c26",
+    "c24"
+  ],
+  "publishedAt": 1795211251352,
+  "sections": [
+    {
+      "id": "radar",
+      "items": [
+        "c5",
+        "c2",
+        "c6",
+        "c7"
+      ],
+      "title": "מכ\"ם ול\"א"
+    },
+    {
+      "id": "missiles",
+      "items": [
+        "c4",
+        "c8",
+        "c9",
+        "c10",
+        "c11"
+      ],
+      "title": "טילים והגנה אווירית"
+    },
+    {
+      "id": "space",
+      "items": [
+        "c13",
+        "c12"
+      ],
+      "title": "חלל"
+    },
+    {
+      "id": "uas",
+      "items": [
+        "c14"
+      ],
+      "title": "כטב\"מים ואוטונומיה"
+    },
+    {
+      "id": "cost",
+      "items": [
+        "c1",
+        "c16",
+        "c17"
+      ],
+      "title": "עלות ובדיקות"
+    },
+    {
+      "id": "models",
+      "items": [
+        "c18"
+      ],
+      "title": "מודלים מבצעיים ותקנים"
+    }
+  ],
+  "snapshot": {
+    "current": "M0.2",
+    "done": 1,
+    "upcoming": [
+      "M0.3",
+      "M0.4",
+      "M0.5",
+      "M0.6",
+      "M0.7",
+      "M0.8",
+      "M1.1",
+      "M1.2",
+      "M1.3",
+      "M1.5",
+      "M1.6",
+      "M1.4"
+    ]
+  },
+  "stats": {
+    "candidates": 939,
+    "dropped": {
+      "fetch_failed": 20,
+      "not_selected_triage": 874,
+      "register_conservative": 9
+    },
+    "fetched": 203,
+    "verified": 36
+  },
+  "window": {
+    "from": "2026-11-13",
+    "to": "2026-11-19"
+  }
+}

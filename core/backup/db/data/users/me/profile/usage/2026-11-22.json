@@ -1,0 +1,35 @@
+{
+  "day": "2026-11-22",
+  "sessions": {
+    "z55lfp": {
+      "calls": {
+        "claude-opus-5-5": 62,
+        "json:claude-opus-5-5": 5,
+        "tier:default": 1
+      },
+      "chars": {
+        "claude-opus-5-5": 562103,
+        "json:claude-opus-5-5": 102135,
+        "tier:default": 11775
+      },
+      "day": "2026-11-22",
+      "errors": {},
+      "inChars": {
+        "claude-opus-5-5": 4157250,
+        "json:claude-opus-5-5": 397014,
+        "tier:default": 104104
+      },
+      "lessonMs": 2888713,
+      "lessonWords": 42067,
+      "lessons": 1,
+      "ms": {
+        "claude-opus-5-5": 2557870,
+        "json:claude-opus-5-5": 345078,
+        "tier:default": 58961
+      },
+      "session": "z55lfp",
+      "updatedAt": 1795333039819
+    }
+  },
+  "updatedAt": 1795333040047
+}

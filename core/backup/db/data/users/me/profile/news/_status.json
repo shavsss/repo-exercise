@@ -1,22 +1,41 @@
 {
   "counts": {
-    "candidates": 182,
-    "drafted": 10,
-    "fetched": 24,
-    "published": 6,
-    "refetched": 6,
-    "verified": 6
+    "candidates": 939,
+    "charts": 1,
+    "fetched": 203,
+    "fullTextWords": 9438,
+    "fullTexts": 35,
+    "pictures": 7,
+    "posts": 0,
+    "published": 36,
+    "region_AF": 3,
+    "region_EU": 7,
+    "region_GULF": 1,
+    "region_IN": 2,
+    "region_INTL": 2,
+    "region_JP": 2,
+    "region_KR": 2,
+    "region_TR": 1,
+    "region_UK": 3,
+    "region_US": 13,
+    "role_brief": 11,
+    "role_feature": 4,
+    "role_geo": 2,
+    "role_globe": 12,
+    "role_lab": 3,
+    "role_lead": 1,
+    "role_number": 1,
+    "role_world": 2,
+    "verified": 36
   },
   "dropped": {
-    "fetch_failed": 4,
-    "low_relevance": 8,
-    "no_article_text": 1,
-    "sponsored": 1,
-    "verifier_unsupported_claim": 4
+    "fetch_failed": 20,
+    "not_selected_triage": 874,
+    "register_conservative": 9
   },
-  "issueId": "2026-W46",
-  "lastRun": 1794526977982,
+  "issueId": "2026-W47",
+  "lastRun": 1795211251352,
   "ok": true,
   "refusals": [],
-  "usageEstimate": "about 0.4M tokens; short issue (6 items, the minimum) after 4 items failed independent verification; quota miss: next/later 3/6 (50%) above the 30% target, learned 3/6; GAO and war.gov pages returned 403 so no GAO item"
+  "usageEstimate": "Full edition (Lanchester only, run by hand 20.11 evening): 36 items, 35 full texts, 9,438 words of full text + ~2,550 words of front-page bodies (~12,000 Hebrew words written). Estimated ~0.9-1.1M input and ~170-200k output tokens; about 0.6x of the 2x cap. 203 fetches (cap 380). GAO and CBO pages returned 403 (reported via trade press). Overwrote the earlier W47 run (11 items). Independent check done in the same session against fetched text (no separate checker agent available) plus mechanical gates; 9 candidate items dropped conservatively for the Lanchester register (weapons tests/strike concepts, munitions types, war-adjacent analyses). No posts, no cross-over. Quotas not met: learned/current links 9 of 36 (learner is at M0.2); lead full text 443 words (source-proportional, below the 600-900 target)."
 }

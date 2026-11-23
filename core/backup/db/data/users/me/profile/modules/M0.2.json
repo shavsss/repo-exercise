@@ -1,13 +1,13 @@
 {
   "convs": {
-    "0": "2o9k6p0swwn5sgmn3liw"
+    "0": "9zz3nb0q1giz3azlt5lu"
   },
   "done": [
     0
   ],
   "lessons": [
     {
-      "chapters": 2,
+      "chapters": 3,
       "covers": [
         "1.3 The Physics of EM Waves",
         "1.3.1 Wavelength, Frequency, and Phase",
@@ -174,5 +174,5 @@
   ],
   "uncovered": [],
   "uncoveredPages": [],
-  "updatedAt": 1794825160377
+  "updatedAt": 1795332976295
 }
