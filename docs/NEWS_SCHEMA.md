@@ -161,7 +161,9 @@ interface NewsTextDoc {
 
 // news/_status — לא מוצג בדף; לבדיקה ולמשימה הבאה
 { lastRun: number; ok: boolean; issueId: string | null; counts: Record<string, number>;
-  dropped: Record<string, number>; refusals: { source: string; stage: string }[]; usageEstimate?: string }
+  dropped: Record<string, number>; refusals: { source: string; stage: string }[];
+  regionSkips?: { region: string; reason: string; candidates: number }[];   // סין או רוסיה שלא נכנסו, או פחות מ-2 פריטים ממקור בשפת המקור, ולמה
+  usageEstimate?: string }
 ```
 
 ## מה הדף כותב: `newsfb/<YYYY-Www>`
