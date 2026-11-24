@@ -5,7 +5,7 @@
 // Same file in both labs.
 import { useEffect, useState, type CSSProperties, type RefObject } from "react";
 import type { Shape } from "./model";
-import { SHAPE_HEX, TEXT_MIN_PX, TEXT_SCALE, textInk } from "./media";
+import { SHAPE_HEX, fontPx, textInk } from "./markStyle";
 
 export const SIZE_STEPS = [0.7, 0.85, 1, 1.25, 1.6, 2];
 
@@ -24,7 +24,6 @@ export function useWidth(ref: RefObject<HTMLElement | null>) {
   return w;
 }
 
-export const fontPx = (areaW: number, size = 1) => Math.max(TEXT_MIN_PX, areaW * TEXT_SCALE * size);
 
 /** where a text box sits and how big its letters are */
 export function textBoxStyle(s: Shape, areaW: number): CSSProperties {
@@ -32,7 +31,9 @@ export function textBoxStyle(s: Shape, areaW: number): CSSProperties {
   return {
     right: `${100 - s.x1 / 10}%`,
     top: `${s.y1 / 10}%`,
-    width: wide ? `${(s.x1 - s.x2) / 10}%` : undefined,
+    // the box hugs its text, and wraps at the width it was given
+    width: wide ? "max-content" : undefined,
+    maxWidth: wide ? `${(s.x1 - s.x2) / 10}%` : undefined,
     whiteSpace: wide ? "pre-wrap" : "nowrap",
     fontSize: `${fontPx(areaW, s.size)}px`,
     color: textInk(s.color),

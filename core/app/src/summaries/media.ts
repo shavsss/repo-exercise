@@ -1,14 +1,9 @@
 // Pictures in the summaries: upload to the artifact's asset store (or, where there is none,
 // a reduced copy kept in the summary itself), and drawing the marks onto a picture for export.
-import type { Shape, ShapeColor } from "./model";
+import type { Shape } from "./model";
+import { SHAPE_HEX, TEXT_MIN_PX, TEXT_SCALE, textInk } from "./markStyle";
+import { drawMark } from "./marks";
 
-/** Fixed colours for the marks drawn on pictures, readable on any picture. */
-export const SHAPE_HEX: Record<ShapeColor, string> = { y: "#e0a800", r: "#d32f2f", b: "#1f6fb2", g: "#2e7d32", p: "#7b3fa0", o: "#d9730d", k: "#222222" };
-/** a text box's letters against the picture's width, at size 1 (picText.tsx, and the export below) */
-export const TEXT_SCALE = 0.024;
-export const TEXT_MIN_PX = 11;
-/** a text box's letters: its colour, but a darker yellow, which is unreadable on white */
-export const textInk = (c: ShapeColor) => (c === "y" ? "#7a5a00" : SHAPE_HEX[c]);
 
 function loadImage(src: string): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {
@@ -76,16 +71,6 @@ export async function storeImage(file: Blob, note?: (step: string, err: unknown)
   return { src: await toDataUrl(blob), w, h };
 }
 
-function arrowHead(g: CanvasRenderingContext2D, x1: number, y1: number, x2: number, y2: number, size: number) {
-  const a = Math.atan2(y2 - y1, x2 - x1);
-  g.beginPath();
-  g.moveTo(x2, y2);
-  g.lineTo(x2 - size * Math.cos(a - 0.45), y2 - size * Math.sin(a - 0.45));
-  g.lineTo(x2 - size * Math.cos(a + 0.45), y2 - size * Math.sin(a + 0.45));
-  g.closePath();
-  g.fill();
-}
-
 /** A text box as picText.tsx draws it: a white card with a coloured edge, its letters scaled to the picture. */
 function textBox(g: CanvasRenderingContext2D, s: Shape, w: number, h: number) {
   // the picture is drawn at its natural size; on screen the letters are TEXT_SCALE of the shown width
@@ -114,7 +99,8 @@ function textBox(g: CanvasRenderingContext2D, s: Shape, w: number, h: number) {
     }
     lines.push(cur);
   }
-  const bw = boxW || Math.max(...lines.map((l) => g.measureText(l).width)) + 2 * pad;
+  // as on screen: the box hugs its text, up to its width
+  const bw = Math.min(boxW || Infinity, Math.max(...lines.map((l) => g.measureText(l).width)) + 2 * pad);
   const bh = lines.length * lh + 2 * pad - (lh - fs);
   const left = right - bw;
   const r = fs * 0.35;
@@ -143,26 +129,9 @@ export async function flatten(src: string, marks: Shape[]): Promise<{ png: Uint8
   g.fillStyle = "#fff";
   g.fillRect(0, 0, w, h);
   g.drawImage(im, 0, 0);
-  const lw = Math.max(2, Math.round(Math.max(w, h) / 260));
   for (const s of marks) {
-    const x1 = (s.x1 / 1000) * w;
-    const y1 = (s.y1 / 1000) * h;
-    const x2 = (s.x2 / 1000) * w;
-    const y2 = (s.y2 / 1000) * h;
-    g.strokeStyle = g.fillStyle = SHAPE_HEX[s.color];
-    g.lineWidth = lw;
-    if (s.t === "arrow") {
-      g.beginPath();
-      g.moveTo(x1, y1);
-      g.lineTo(x2, y2);
-      g.stroke();
-      arrowHead(g, x1, y1, x2, y2, lw * 5);
-    } else if (s.t === "rect") g.strokeRect(Math.min(x1, x2), Math.min(y1, y2), Math.abs(x2 - x1), Math.abs(y2 - y1));
-    else if (s.t === "ellipse") {
-      g.beginPath();
-      g.ellipse((x1 + x2) / 2, (y1 + y2) / 2, Math.abs(x2 - x1) / 2, Math.abs(y2 - y1) / 2, 0, 0, Math.PI * 2);
-      g.stroke();
-    } else if (s.t === "text" && s.text) textBox(g, s, w, h);
+    if (s.t !== "text") drawMark(g, s, w, h);
+    else if (s.text) textBox(g, s, w, h);
   }
   const url = c.toDataURL("image/png");
   const bin = atob(url.split(",")[1]);
