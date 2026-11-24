@@ -166,8 +166,6 @@ mark:not([class]) { background: var(--hl-y); }
 .sm-pic-area img { max-width: 100%; display: block; border: 1px solid var(--line); border-radius: 3px; background: #fff; }
 .sm-pic-area svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 .sm-pic-area.drawing { cursor: crosshair; }
-.sm-pic-area.drawing.tool-erase { cursor: pointer; }
-.sm-pic-area.tool-erase svg { pointer-events: auto; }
 /* text boxes on a picture (picText.tsx): a white card with an edge in the mark's colour; the letters scale with the picture */
 .sm-pic-text { position: absolute; box-sizing: border-box; padding: 0.3em 0.55em; border: 1.5px solid var(--tb); border-radius: 0.4em; background: rgb(255 255 255 / 94%); box-shadow: 0 1px 2px rgb(0 0 0 / 12%), 0 4px 12px -4px rgb(0 0 0 / 22%); font-family: var(--font); font-weight: 600; line-height: 1.35; text-align: start; overflow-wrap: anywhere; user-select: none; }
 .sm-pic-text.is-editable { cursor: move; touch-action: none; }
@@ -659,3 +657,15 @@ label.sm-bmenu-line:hover { background: none; }
   .pt-btn { padding: 0 8px; }
 }
 @media (prefers-reduced-motion: reduce) { .pt-btn, .pt-color::after { transition: none; } }
+
+/* ---------- marks you can pick and move (marks.tsx) ---------- */
+.sm-pic-num { position: absolute; box-sizing: border-box; display: grid; place-items: center; border-radius: 50%; background: var(--tb); color: #fff; border: 2px solid #fff; box-shadow: 0 1px 4px rgb(0 0 0 / 30%); font-family: var(--font); font-weight: 700; line-height: 1; user-select: none; }
+.sm-pic-num.is-editable { cursor: move; touch-action: none; }
+.sm-pic-num.is-active { box-shadow: 0 0 0 3px color-mix(in srgb, var(--tb) 40%, transparent), 0 2px 6px rgb(0 0 0 / 30%); }
+.mk-handle { position: absolute; z-index: 3; width: 14px; height: 14px; margin: -7px 0 0 -7px; box-sizing: border-box; border-radius: 50%; background: #fff; border: 2px solid var(--tb); box-shadow: 0 1px 3px rgb(0 0 0 / 35%); cursor: grab; touch-action: none; }
+.mk-handle:active { cursor: grabbing; }
+.sm-pic-area.tool-select { cursor: default; }
+.sm-pic-area.tool-num { cursor: copy; }
+.pt-btn.is-sticky { box-shadow: inset 0 0 0 1.5px var(--accent); }
+.pt-tools { flex-wrap: wrap; }
+@media (pointer: coarse) { .mk-handle { width: 22px; height: 22px; margin: -11px 0 0 -11px; } }

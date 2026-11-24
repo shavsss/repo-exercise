@@ -7,7 +7,8 @@ export type BoxAlign = "start" | "center" | "end" | "justify";
 export type MarkColor = "y" | "r" | "b" | "g" | "p" | "o";
 export type ShapeColor = MarkColor | "k";
 export interface Shape {
-  t: "arrow" | "rect" | "ellipse" | "text";
+  /** line: a plain line; darrow: arrow heads at both ends; hl: a highlighter rectangle; pen: freehand (pts); num: a numbered badge centred at (x1, y1) */
+  t: "arrow" | "rect" | "ellipse" | "text" | "line" | "darrow" | "hl" | "pen" | "num";
   /** corners in a 0–1000 box over the picture, so the shapes follow its size */
   x1: number;
   y1: number;
@@ -17,6 +18,8 @@ export interface Shape {
   text?: string;
   /** a text box: its size against the default (1); its width is x1 (right edge) to x2 (left edge), none when they are equal */
   size?: number;
+  /** a freehand stroke's points, x and y in turn, in the same 0–1000 box */
+  pts?: number[];
 }
 export interface ListItem {
   html: string;

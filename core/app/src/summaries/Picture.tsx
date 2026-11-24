@@ -2,18 +2,25 @@ import { useEffect, useRef, useState } from "react";
 import { figure } from "../library";
 import type { Block, ImgSize, Shape, ShapeColor } from "./model";
 import { MARK_LABEL } from "./model";
-import { SHAPE_HEX } from "./media";
+import { SHAPE_HEX } from "./markStyle";
 import { SIZE_STEPS, TextBox, textBoxStyle, useWidth } from "./picText";
+import { ArrowDefs, MarkSvg, NumBadge, handlesOf, isSvgMark, moveMark, pullHandle, worthKeeping, type Handle } from "./marks";
 
 type Pic = Extract<Block, { t: "img" } | { t: "fig" }>;
-type Tool = Shape["t"] | "erase";
+/** "select" picks, moves and resizes marks; every other tool makes one mark and goes back to it (24.11) */
+type Tool = "select" | Shape["t"];
 
-const TOOLS: { id: Tool; label: string }[] = [
-  { id: "arrow", label: "חץ" },
-  { id: "rect", label: "מלבן" },
-  { id: "ellipse", label: "עיגול" },
-  { id: "text", label: "טקסט" },
-  { id: "erase", label: "מחק סימון" },
+const TOOLS: { id: Tool; label: string; glyph: string }[] = [
+  { id: "select", label: "בחירה", glyph: "M6 3l12 8-5.5 1.5L10 18z" },
+  { id: "arrow", label: "חץ", glyph: "M5 19L19 5M10 5h9v9" },
+  { id: "darrow", label: "חץ כפול", glyph: "M5 19L19 5M5 13v6h6M13 5h6v6" },
+  { id: "line", label: "קו", glyph: "M5 19L19 5" },
+  { id: "rect", label: "מלבן", glyph: "M4 6h16v12H4z" },
+  { id: "ellipse", label: "עיגול", glyph: "M12 5c4.4 0 8 3.1 8 7s-3.6 7-8 7-8-3.1-8-7 3.6-7 8-7z" },
+  { id: "hl", label: "מרקר", glyph: "M4 10h16v6H4zM8 10V7h8v3" },
+  { id: "pen", label: "עט", glyph: "M3 18c2.5-1 3.5-6 6-6s2.5 5 5 5 3.5-6 7-9" },
+  { id: "num", label: "מספר", glyph: "M12 3a9 9 0 1 0 0.01 0zM10.5 8.5L12.5 7.5v9" },
+  { id: "text", label: "טקסט", glyph: "M5 6V4h14v2M12 4v16M9 20h6" },
 ];
 const COLORS: ShapeColor[] = ["r", "y", "b", "g", "k"];
 const SIZES: { id: ImgSize; label: string }[] = [
@@ -21,9 +28,24 @@ const SIZES: { id: ImgSize; label: string }[] = [
   { id: "m", label: "בינוני" },
   { id: "l", label: "רוחב מלא" },
 ];
+const SIZE_GLYPH: Record<ImgSize, string> = { s: "M9 9h6v6H9z", m: "M6 7h12v10H6z", l: "M3 5h18v14H3z" };
+const HINT: Record<Tool, string> = {
+  select: "לחץ על סימון כדי לבחור אותו · גרור כדי להזיז, ואת הנקודות כדי לשנות גודל · Delete מוחק",
+  arrow: "גרור על התמונה כדי למתוח חץ",
+  darrow: "גרור כדי למתוח חץ כפול",
+  line: "גרור כדי למתוח קו",
+  rect: "גרור כדי לסמן מלבן",
+  ellipse: "גרור כדי לסמן עיגול",
+  hl: "גרור על אזור כדי להדגיש אותו",
+  pen: "צייר ביד חופשית",
+  num: "לחץ במקום הרצוי כדי לשים מספר (הבא בתור)",
+  text: "לחץ במקום הרצוי כדי לכתוב; Enter מסיים",
+};
 /** a new text box's width, and the narrowest one (0–1000 of the picture) */
 const BOX_W = 300;
 const BOX_MIN = 60;
+/** kinds that take a size (א/א) */
+const SIZED = new Set<Shape["t"]>(["text", "num"]);
 
 /** A figure from one of the library's books, by its key ("page-index"). */
 export function useFigureSrc(b: Pic) {
@@ -44,15 +66,6 @@ export function useFigureSrc(b: Pic) {
   return src;
 }
 
-function ShapeSvg({ s, onErase }: { s: Shape; onErase?: () => void }) {
-  const c = SHAPE_HEX[s.color];
-  const common = { stroke: c, strokeWidth: 3, fill: "none", vectorEffect: "non-scaling-stroke" as const, onPointerDown: onErase ? (e: React.PointerEvent) => (e.stopPropagation(), onErase()) : undefined, style: onErase ? { cursor: "pointer", pointerEvents: "stroke" as const } : undefined };
-  if (s.t === "arrow") return <line x1={s.x1} y1={s.y1} x2={s.x2} y2={s.y2} {...common} markerEnd={`url(#ah-${s.color})`} />;
-  if (s.t === "rect") return <rect x={Math.min(s.x1, s.x2)} y={Math.min(s.y1, s.y2)} width={Math.abs(s.x2 - s.x1)} height={Math.abs(s.y2 - s.y1)} {...common} />;
-  if (s.t === "ellipse") return <ellipse cx={(s.x1 + s.x2) / 2} cy={(s.y1 + s.y2) / 2} rx={Math.abs(s.x2 - s.x1) / 2} ry={Math.abs(s.y2 - s.y1) / 2} {...common} />;
-  return null;
-}
-
 const clamp = (v: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, v));
 
 /** the toolbar's small line drawings (24 by 24) */
@@ -63,34 +76,25 @@ function Glyph({ d }: { d: string }) {
     </svg>
   );
 }
-const SIZE_GLYPH: Record<ImgSize, string> = { s: "M9 9h6v6H9z", m: "M6 7h12v10H6z", l: "M3 5h18v14H3z" };
-const TOOL_GLYPH: Record<Tool, string> = {
-  arrow: "M5 19L19 5M10 5h9v9",
-  rect: "M4 6h16v12H4z",
-  ellipse: "M12 5c4.4 0 8 3.1 8 7s-3.6 7-8 7-8-3.1-8-7 3.6-7 8-7z",
-  text: "M5 6V4h14v2M12 4v16M9 20h6",
-  erase: "M8 20h12M5 15l8-8 6 6-5 5H8z",
-};
-const HINT: Record<Tool, string> = {
-  arrow: "גרור על התמונה כדי למתוח חץ",
-  rect: "גרור כדי לסמן מלבן",
-  ellipse: "גרור כדי לסמן עיגול",
-  text: "לחץ במקום הרצוי כדי לכתוב · גרור תיבה כדי להזיז אותה, ואת הנקודה בפינה כדי לשנות רוחב · לחיצה כפולה עורכת",
-  erase: "לחץ על סימון כדי למחוק אותו",
-};
+
+type Drag = { i: number; how: "move" | Handle; from: { x: number; y: number }; orig: Shape; now: Shape };
 
 /** A picture block: the picture, the marks drawn on it, a caption, and its tools when it is selected. */
 export function Picture({ b, selected, onChange, onRemove }: { b: Pic; selected: boolean; onChange: (patch: Partial<Pic>) => void; onRemove: () => void }) {
   const src = useFigureSrc(b);
+  /** null: not marking */
   const [mode, setMode] = useState<Tool | null>(null);
+  /** a tool double-clicked stays on after a mark (else it goes back to selecting) */
+  const [sticky, setSticky] = useState(false);
   const [color, setColor] = useState<ShapeColor>("r");
   const [draft, setDraft] = useState<Shape | null>(null);
-  /** the text box being worked on (its index in marks), and whether its text is open for typing */
+  /** the mark picked (its index in marks), and a text box's text while it is typed */
   const [active, setActive] = useState<number | null>(null);
   const [typing, setTyping] = useState<string | null>(null);
-  /** a box being moved or resized: the shape as it is now, committed on release */
-  const [drag, setDrag] = useState<{ i: number; how: "move" | "size"; from: { x: number; y: number }; orig: Shape; now: Shape } | null>(null);
+  /** a mark being moved or pulled by a handle: as it is now, committed on release */
+  const [drag, setDrag] = useState<Drag | null>(null);
   const area = useRef<HTMLDivElement>(null);
+  const fig = useRef<HTMLElement>(null);
   const areaW = useWidth(area);
   useEffect(() => {
     if (!selected) {
@@ -99,14 +103,9 @@ export function Picture({ b, selected, onChange, onRemove }: { b: Pic; selected:
       setTyping(null);
     }
   }, [selected]);
-  useEffect(() => {
-    if (mode !== "text") {
-      setActive(null);
-      setTyping(null);
-    }
-  }, [mode]);
 
   const marks = b.marks;
+  const marking = !!mode;
   const setMark = (i: number, s: Shape) => onChange({ marks: marks.map((m, j) => (j === i ? s : m)) });
   const removeMark = (i: number) => {
     onChange({ marks: marks.filter((_, j) => j !== i) });
@@ -114,8 +113,20 @@ export function Picture({ b, selected, onChange, onRemove }: { b: Pic; selected:
     setTyping(null);
   };
   const cur = active !== null ? marks[active] : null;
+  const pick = (t: Tool, keep = false) => {
+    setMode(t);
+    setSticky(keep);
+    if (t !== "select") setActive(null);
+    setTyping(null);
+  };
+  /** after one mark: back to selecting, with the new mark picked */
+  const made = (i: number) => {
+    setActive(i);
+    fig.current?.focus({ preventScroll: true });
+    if (!sticky) setMode("select");
+  };
 
-  const at = (e: React.PointerEvent) => {
+  const at = (e: { clientX: number; clientY: number }) => {
     const r = area.current!.getBoundingClientRect();
     return { x: Math.round(((e.clientX - r.left) / r.width) * 1000), y: Math.round(((e.clientY - r.top) / r.height) * 1000) };
   };
@@ -128,40 +139,44 @@ export function Picture({ b, selected, onChange, onRemove }: { b: Pic; selected:
     setTyping(null);
   };
   const down = (e: React.PointerEvent) => {
-    if (!mode || mode === "erase") return;
+    if (!mode || e.button > 0) return;
     e.preventDefault();
     const p = at(e);
+    if (typing !== null) return commitText();
+    if (mode === "select") return setActive(null);
     if (mode === "text") {
-      if (typing !== null) return commitText();
-      // a click beside the picked box lets it go
-      if (active !== null) return setActive(null);
-      // a new box, its top-right corner where he clicked, and straight into typing
+      // a new box, its top-right corner near the click, and straight into typing
       const x1 = clamp(p.x + BOX_W / 2, BOX_MIN, 1000);
       const s: Shape = { t: "text", x1, y1: clamp(p.y - 20, 0, 960), x2: clamp(x1 - BOX_W, 0, x1 - BOX_MIN), y2: p.y, color, text: "", size: 1 };
       onChange({ marks: [...marks, s] });
-      setActive(marks.length);
+      made(marks.length);
       setTyping("");
       return;
     }
-    (e.target as Element).setPointerCapture?.(e.pointerId);
-    setDraft({ t: mode, x1: p.x, y1: p.y, x2: p.x, y2: p.y, color });
+    if (mode === "num") {
+      const n = Math.max(0, ...marks.filter((m) => m.t === "num").map((m) => Number(m.text) || 0)) + 1;
+      onChange({ marks: [...marks, { t: "num", x1: p.x, y1: p.y, x2: p.x, y2: p.y, color, text: String(n), size: 1 }] });
+      made(marks.length);
+      return;
+    }
+    area.current?.setPointerCapture?.(e.pointerId);
+    setDraft({ t: mode, x1: p.x, y1: p.y, x2: p.x, y2: p.y, color, ...(mode === "pen" ? { pts: [p.x, p.y] } : {}) });
   };
   const move = (e: React.PointerEvent) => {
     if (drag) {
       const p = at(e);
-      const dx = p.x - drag.from.x;
-      const dy = p.y - drag.from.y;
       const o = drag.orig;
-      const w = o.x1 - o.x2;
-      const now =
-        drag.how === "move"
-          ? { ...o, x1: clamp(o.x1 + dx, Math.max(w, 20), 1000), x2: clamp(o.x1 + dx, Math.max(w, 20), 1000) - w, y1: clamp(o.y1 + dy, 0, 980) }
-          : { ...o, x2: clamp(o.x2 + dx, 0, o.x1 - BOX_MIN) };
+      const now = drag.how === "move" ? moveMark(o, p.x - drag.from.x, p.y - drag.from.y) : drag.how === "w" ? pullHandle(o, "w", o.x2 + (p.x - drag.from.x), 0, BOX_MIN) : pullHandle(o, drag.how, p.x, p.y);
       setDrag({ ...drag, now });
       return;
     }
     if (!draft) return;
     const p = at(e);
+    if (draft.t === "pen") {
+      const pts = draft.pts ?? [];
+      if (Math.hypot(p.x - pts[pts.length - 2], p.y - pts[pts.length - 1]) >= 4) setDraft({ ...draft, pts: [...pts, p.x, p.y], x2: p.x, y2: p.y });
+      return;
+    }
     setDraft({ ...draft, x2: p.x, y2: p.y });
   };
   const up = () => {
@@ -171,24 +186,32 @@ export function Picture({ b, selected, onChange, onRemove }: { b: Pic; selected:
       return;
     }
     if (!draft) return;
-    if (Math.hypot(draft.x2 - draft.x1, draft.y2 - draft.y1) > 12) onChange({ marks: [...marks, draft] });
+    if (worthKeeping(draft)) {
+      onChange({ marks: [...marks, draft] });
+      made(marks.length);
+    }
     setDraft(null);
   };
-  /** press on a box (or its corner) in the text tool: pick it, and move or resize it */
-  const grab = (i: number, how: "move" | "size") => (e: React.PointerEvent) => {
+  /** press on a mark (or one of its handles): pick it, and move it or pull the handle */
+  const grab = (i: number, how: "move" | Handle) => (e: React.PointerEvent) => {
+    if (!mode || e.button > 0) return;
     e.stopPropagation();
-    if (mode === "erase") return removeMark(i);
-    if (mode !== "text" || typing !== null) return;
+    if (typing !== null && active === i) return;
+    if (typing !== null) commitText();
+    // another tool in hand: a press on a mark picks it (and drops the tool), as in any drawing program
+    if (mode !== "select") setMode("select");
     e.preventDefault();
     area.current?.setPointerCapture?.(e.pointerId);
     let s = marks[i];
-    // an old one-line box gets its width when it is first resized
-    if (how === "size" && s.x2 >= s.x1) {
+    // an old one-line text box gets its width when it is first resized
+    if (how === "w" && s.x2 >= s.x1) {
       const el = (e.currentTarget as HTMLElement).closest(".sm-pic-text") as HTMLElement | null;
       const r = area.current!.getBoundingClientRect();
       s = { ...s, x2: clamp(s.x1 - Math.round(((el?.offsetWidth ?? 120) / r.width) * 1000), 0, s.x1 - BOX_MIN) };
     }
     setActive(i);
+    // the keys (Delete, Escape) reach the picture, not the page
+    fig.current?.focus({ preventScroll: true });
     setDrag({ i, how, from: at(e), orig: s, now: s });
   };
   const resize = (dir: 1 | -1) => {
@@ -197,9 +220,24 @@ export function Picture({ b, selected, onChange, onRemove }: { b: Pic; selected:
     const next = SIZE_STEPS[clamp((k < 0 ? 2 : k) + dir, 0, SIZE_STEPS.length - 1)];
     setMark(active, { ...cur, size: next });
   };
+  const onKey = (e: React.KeyboardEvent) => {
+    if (!marking || active === null || typing !== null) return;
+    if ((e.target as HTMLElement).closest("input, textarea, [contenteditable='true']")) return;
+    if (e.key === "Delete" || e.key === "Backspace") {
+      e.preventDefault();
+      e.stopPropagation();
+      removeMark(active);
+    } else if (e.key === "Escape") {
+      e.stopPropagation();
+      setActive(null);
+    }
+  };
+
+  const shown = (i: number) => (drag?.i === i ? drag.now : marks[i]);
+  const editing = mode === "select";
 
   return (
-    <figure className={`sm-pic size-${b.size} ${b.side ? "is-side" : ""}`} tabIndex={-1}>
+    <figure ref={fig} className={`sm-pic size-${b.size} ${b.side ? "is-side" : ""}`} tabIndex={-1} onKeyDownCapture={onKey}>
       {selected && (
         <div className="pt" contentEditable={false} onMouseDown={(e) => (e.target as Element).closest("button") && e.preventDefault()}>
           <div className="pt-bar" role="toolbar" aria-label="כלי התמונה">
@@ -217,21 +255,29 @@ export function Picture({ b, selected, onChange, onRemove }: { b: Pic; selected:
               <span className="pt-label">ליד הטקסט</span>
             </button>
             <span className="pt-sep" />
-            <button className={`pt-btn pt-main ${mode ? "is-on" : ""}`} aria-pressed={!!mode} onClick={() => setMode(mode ? null : "arrow")} title={mode ? "סיום" : "סימון"}>
+            <button className={`pt-btn pt-main ${marking ? "is-on" : ""}`} aria-pressed={marking} onClick={() => (marking ? (setMode(null), setActive(null), setTyping(null)) : pick("select"))} title={marking ? "סיום" : "סימון"}>
               <Glyph d="M4 20l4-1 11-11-3-3L5 16zM14 6l3 3" />
-              <span className="pt-label">{mode ? "סיום" : "סימון"}</span>
+              <span className="pt-label">{marking ? "סיום" : "סימון"}</span>
             </button>
             <span className="pt-grow" />
             <button className="pt-btn pt-danger" onClick={onRemove} title="מחק את התמונה" aria-label="מחק את התמונה">
               <Glyph d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6" />
             </button>
           </div>
-          {mode && (
+          {marking && (
             <div className="pt-bar pt-draw" role="toolbar" aria-label="סימון על התמונה">
-              <span className="pt-group" role="group" aria-label="כלי">
+              <span className="pt-group pt-tools" role="group" aria-label="כלי">
                 {TOOLS.map((t) => (
-                  <button key={t.id} className="pt-btn" aria-pressed={mode === t.id} onClick={() => setMode(t.id)} title={t.label}>
-                    <Glyph d={TOOL_GLYPH[t.id]} />
+                  <button
+                    key={t.id}
+                    className={`pt-btn ${mode === t.id && sticky ? "is-sticky" : ""}`}
+                    aria-pressed={mode === t.id}
+                    onClick={() => pick(t.id)}
+                    onDoubleClick={() => t.id !== "select" && pick(t.id, true)}
+                    title={t.id === "select" ? t.label : `${t.label} (לחיצה כפולה: נשאר פעיל)`}
+                    aria-label={t.label}
+                  >
+                    <Glyph d={t.glyph} />
                     <span className="pt-label">{t.label}</span>
                   </button>
                 ))}
@@ -250,55 +296,53 @@ export function Picture({ b, selected, onChange, onRemove }: { b: Pic; selected:
                   />
                 ))}
               </span>
-              {mode === "text" && cur && (
+              {cur && (
                 <>
                   <span className="pt-sep" />
-                  <span className="pt-group" role="group" aria-label="גודל הטקסט">
-                    <button className="pt-btn pt-sq" onClick={() => resize(-1)} disabled={(cur.size ?? 1) <= SIZE_STEPS[0]} title="טקסט קטן יותר" aria-label="טקסט קטן יותר">
-                      <span className="pt-a is-small">א</span>
-                    </button>
-                    <button className="pt-btn pt-sq" onClick={() => resize(1)} disabled={(cur.size ?? 1) >= SIZE_STEPS[SIZE_STEPS.length - 1]} title="טקסט גדול יותר" aria-label="טקסט גדול יותר">
-                      <span className="pt-a">א</span>
-                    </button>
-                  </span>
-                  {typing === null && (
-                    <button className="pt-btn" onClick={() => setTyping(cur.text ?? "")}>
+                  {SIZED.has(cur.t) && (
+                    <span className="pt-group" role="group" aria-label="גודל">
+                      <button className="pt-btn pt-sq" onClick={() => resize(-1)} disabled={(cur.size ?? 1) <= SIZE_STEPS[0]} title="קטן יותר" aria-label="קטן יותר">
+                        <span className="pt-a is-small">א</span>
+                      </button>
+                      <button className="pt-btn pt-sq" onClick={() => resize(1)} disabled={(cur.size ?? 1) >= SIZE_STEPS[SIZE_STEPS.length - 1]} title="גדול יותר" aria-label="גדול יותר">
+                        <span className="pt-a">א</span>
+                      </button>
+                    </span>
+                  )}
+                  {cur.t === "text" && typing === null && (
+                    <button className="pt-btn pt-sq" onClick={() => setTyping(cur.text ?? "")} title="ערוך את הטקסט" aria-label="ערוך את הטקסט">
                       <Glyph d="M4 20h4L19 9l-4-4L4 16zM13 7l4 4" />
-                      <span className="pt-label">עריכה</span>
                     </button>
                   )}
-                  <button className="pt-btn pt-danger" onClick={() => active !== null && removeMark(active)} title="מחק את התיבה" aria-label="מחק את התיבה">
-                    <Glyph d="M6 6l12 12M18 6L6 18" />
+                  <button className="pt-btn pt-sq pt-danger" onClick={() => active !== null && removeMark(active)} title="מחק את הסימון (Delete)" aria-label="מחק את הסימון">
+                    <Glyph d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13" />
                   </button>
                 </>
               )}
             </div>
           )}
-          {mode && <div className="pt-hint">{HINT[mode]}</div>}
+          {marking && <div className="pt-hint">{HINT[mode!]}{mode !== "select" && !sticky ? " · אחרי סימון אחד חוזרים לבחירה" : ""}</div>}
         </div>
       )}
-      <div ref={area} className={`sm-pic-area ${mode ? `drawing tool-${mode}` : ""}`} onPointerDown={down} onPointerMove={move} onPointerUp={up}>
+      <div ref={area} className={`sm-pic-area ${marking ? `drawing tool-${mode}` : ""}`} onPointerDown={down} onPointerMove={move} onPointerUp={up} onPointerCancel={up}>
         {src ? <img src={src} alt={b.caption} draggable={false} /> : <div className="sm-pic-missing">{b.t === "fig" ? "טוען את האיור מהספר…" : "אין תמונה"}</div>}
-        <svg viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden={mode !== "erase"}>
-          <defs>
-            {COLORS.map((c) => (
-              <marker key={c} id={`ah-${c}`} viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
-                <path d="M0 0 L10 5 L0 10 z" fill={SHAPE_HEX[c]} />
-              </marker>
-            ))}
-          </defs>
-          {marks.map((s, i) => (
-            <ShapeSvg key={i} s={s} onErase={mode === "erase" ? () => removeMark(i) : undefined} />
-          ))}
-          {draft && <ShapeSvg s={draft} />}
+        <svg viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden>
+          <ArrowDefs prefix="ah" colors={COLORS} />
+          {marks.map((_, i) => {
+            const s = shown(i);
+            return isSvgMark(s) ? <MarkSvg key={i} s={s} prefix="ah" onDown={marking ? grab(i, "move") : undefined} active={marking && active === i} /> : null;
+          })}
+          {draft && <MarkSvg s={draft} prefix="ah" />}
         </svg>
-        {marks.map((m, i) => {
-          if (m.t !== "text") return null;
-          const s = drag?.i === i ? drag.now : m;
+        {marks.map((_, i) => {
+          const s = shown(i);
           const on = active === i;
+          if (s.t === "num")
+            return <NumBadge key={i} s={s} areaW={areaW} className={`${marking ? "is-editable" : ""} ${on && marking ? "is-active" : ""}`} onPointerDown={marking ? grab(i, "move") : undefined} />;
+          if (s.t !== "text") return null;
           if (on && typing !== null)
             return (
-              <div key={i} className="sm-pic-text is-active is-typing" style={{ ...textBoxStyle(s, areaW), whiteSpace: undefined, minWidth: s.x2 < s.x1 ? undefined : "8em" }} onPointerDown={(e) => e.stopPropagation()}>
+              <div key={i} className="sm-pic-text is-active is-typing" style={{ ...textBoxStyle(s, areaW), whiteSpace: undefined, ...(s.x2 < s.x1 ? { width: `${(s.x1 - s.x2) / 10}%`, maxWidth: undefined } : { minWidth: "8em" }) }} onPointerDown={(e) => e.stopPropagation()}>
                 <textarea
                   className="sm-pic-input"
                   dir="auto"
@@ -322,20 +366,23 @@ export function Picture({ b, selected, onChange, onRemove }: { b: Pic; selected:
                 />
               </div>
             );
-          const editable = mode === "text";
           return (
             <TextBox
               key={i}
               s={s}
               areaW={areaW}
-              className={`${editable ? "is-editable" : ""} ${on ? "is-active" : ""} ${mode === "erase" ? "is-erase" : ""}`}
-              onPointerDown={mode === "text" || mode === "erase" ? grab(i, "move") : undefined}
-              onDoubleClick={editable ? () => (setActive(i), setTyping(m.text ?? "")) : undefined}
+              className={`${marking ? "is-editable" : ""} ${on && marking ? "is-active" : ""}`}
+              onPointerDown={marking ? grab(i, "move") : undefined}
+              onDoubleClick={marking ? () => (setMode("select"), setActive(i), setTyping(s.text ?? "")) : undefined}
             >
-              {editable && <span className="sm-pic-grip" onPointerDown={grab(i, "size")} title="גרור כדי לשנות רוחב" aria-hidden />}
+              {marking && on && <span className="sm-pic-grip" onPointerDown={grab(i, "w")} title="גרור כדי לשנות רוחב" aria-hidden />}
             </TextBox>
           );
         })}
+        {editing && cur && active !== null && typing === null &&
+          handlesOf(shown(active)).map((hd) => (
+            <span key={hd.h} className="mk-handle" style={{ left: `${hd.x / 10}%`, top: `${hd.y / 10}%`, ["--tb" as string]: SHAPE_HEX[cur.color] }} onPointerDown={grab(active, hd.h)} aria-hidden />
+          ))}
       </div>
       <figcaption>
         <textarea

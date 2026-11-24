@@ -5,7 +5,7 @@ import { dedupeMath, dropEmptyMarks, hydrateMath, tidyLists } from "./rich";
 import { MathView } from "./MathEdit";
 import { useFigureSrc } from "./Picture";
 import { TextBox, useWidth } from "./picText";
-import { SHAPE_HEX } from "./media";
+import { ArrowDefs, MarkSvg, NumBadge, isSvgMark } from "./marks";
 import { Icon } from "../components/Icon";
 import { BOX_ICON } from "./Editor";
 
@@ -107,24 +107,10 @@ function PicView({ b }: { b: Extract<Block, { t: "img" } | { t: "fig" }> }) {
       <div ref={area} className="sm-pic-area">
         {src && <img src={src} alt={b.caption} />}
         <svg viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden>
-          <defs>
-            {[...new Set(b.marks.map((s) => s.color))].map((c) => (
-              <marker key={c} id={`ahv-${c}`} viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
-                <path d="M0 0 L10 5 L0 10 z" fill={SHAPE_HEX[c]} />
-              </marker>
-            ))}
-          </defs>
-          {b.marks.map((s, i) =>
-            s.t === "arrow" ? (
-              <line key={i} x1={s.x1} y1={s.y1} x2={s.x2} y2={s.y2} stroke={SHAPE_HEX[s.color]} strokeWidth={3} vectorEffect="non-scaling-stroke" markerEnd={`url(#ahv-${s.color})`} />
-            ) : s.t === "rect" ? (
-              <rect key={i} x={Math.min(s.x1, s.x2)} y={Math.min(s.y1, s.y2)} width={Math.abs(s.x2 - s.x1)} height={Math.abs(s.y2 - s.y1)} stroke={SHAPE_HEX[s.color]} strokeWidth={3} fill="none" vectorEffect="non-scaling-stroke" />
-            ) : s.t === "ellipse" ? (
-              <ellipse key={i} cx={(s.x1 + s.x2) / 2} cy={(s.y1 + s.y2) / 2} rx={Math.abs(s.x2 - s.x1) / 2} ry={Math.abs(s.y2 - s.y1) / 2} stroke={SHAPE_HEX[s.color]} strokeWidth={3} fill="none" vectorEffect="non-scaling-stroke" />
-            ) : null,
-          )}
+          <ArrowDefs prefix="ahv" colors={[...new Set(b.marks.map((s) => s.color))]} />
+          {b.marks.map((s, i) => (isSvgMark(s) ? <MarkSvg key={i} s={s} prefix="ahv" /> : null))}
         </svg>
-        {b.marks.map((s, i) => (s.t === "text" ? <TextBox key={i} s={s} areaW={areaW} /> : null))}
+        {b.marks.map((s, i) => (s.t === "text" ? <TextBox key={i} s={s} areaW={areaW} /> : s.t === "num" ? <NumBadge key={i} s={s} areaW={areaW} /> : null))}
       </div>
       {b.caption && <figcaption>{b.caption}</figcaption>}
     </figure>
