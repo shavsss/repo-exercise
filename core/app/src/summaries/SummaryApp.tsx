@@ -807,7 +807,7 @@ export function SummaryApp({ lab, name }: { lab: string; name: string }) {
               }
               info.src = r.src.slice(0, 40);
               step = "insert";
-              const caption = [v.title, v.caption].filter(Boolean).join(" · ").slice(0, 200);
+              const caption = [v.title, v.caption].filter(Boolean).join(" · ").slice(0, 400);
               const nb = { ...(emptyBlock("img") as Extract<Block, { t: "img" }>), ...r, caption };
               update((bs) => {
                 const i = lessonAfter ? bs.findIndex((b) => b.id === lessonAfter) : bs.length - 1;

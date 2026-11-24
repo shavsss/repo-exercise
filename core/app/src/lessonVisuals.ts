@@ -169,6 +169,132 @@ function tableImage(t: HTMLTableElement, bg: string) {
   return { url: c.toDataURL("image/png"), w: c.width, h: c.height };
 }
 
+/** A chart's legend is HTML laid over its SVG (Recharts): its items, so the picture keeps them (24.11: it was lost). */
+interface LegendItem {
+  text: string;
+  color: string;
+  ink: string;
+  font: string;
+  /** where the item's icon and text are, against the chart's top left (none in a copy that is not laid out) */
+  at?: { icon: DOMRect; text: DOMRect };
+}
+const paintable = (c?: string | null) => !!c && c !== "none" && c !== "transparent" && !/rgba\(.*,\s*0\)$/.test(c);
+
+function legendOf(svg: SVGSVGElement): LegendItem[] {
+  const wrap = svg.closest(".recharts-wrapper");
+  if (!wrap) return [];
+  const o = svg.getBoundingClientRect();
+  return Array.from(wrap.querySelectorAll(".recharts-legend-item"))
+    .map((li) => {
+      const t = li.querySelector(".recharts-legend-item-text") ?? li;
+      const tcs = getComputedStyle(t);
+      let color = "";
+      // the shapes of the icon only (a <title> inside it reads as black)
+      const shapes = Array.from(li.querySelectorAll("svg path, svg line, svg circle, svg rect, svg polyline")).map((m) => getComputedStyle(m));
+      color = shapes.map((cs) => cs.stroke).find(paintable) ?? shapes.map((cs) => cs.fill).find(paintable) ?? "";
+      const icon = li.querySelector("svg")?.getBoundingClientRect();
+      const tr = t.getBoundingClientRect();
+      const rel = (r: DOMRect) => new DOMRect(r.left - o.left, r.top - o.top, r.width, r.height);
+      return { text: clean(t.textContent), color: color || tcs.color, ink: tcs.color, font: `${tcs.fontWeight} ${tcs.fontSize} ${tcs.fontFamily}`, at: icon?.width && tr.width ? { icon: rel(icon), text: rel(tr) } : undefined };
+    })
+    .filter((it) => it.text);
+}
+
+/** The graph paper a chart sits on in the lesson (.viz-body): its line colour, step and where its lines fall. */
+interface Paper {
+  color: string;
+  step: number;
+  /** the first line's offset against the chart's top left */
+  x0: number;
+  y0: number;
+}
+function paperOf(svg: SVGSVGElement): Paper | null {
+  const body = svg.closest(".viz-body");
+  if (!body) return null;
+  const cs = getComputedStyle(body);
+  if (!cs.backgroundImage.includes("linear-gradient")) return null;
+  const color = cs.backgroundImage.match(/(rgba?\([^)]*\)|#[0-9a-f]{3,8})/i)?.[1] ?? "";
+  const step = parseFloat(cs.backgroundSize) || 20;
+  if (!paintable(color)) return null;
+  const o = svg.getBoundingClientRect();
+  const b = body.getBoundingClientRect();
+  const [px, py] = cs.backgroundPosition.split(" ").map((v) => parseFloat(v) || 0);
+  const mod = (v: number) => ((v % step) + step) % step;
+  return { color, step, x0: mod(b.left + px - o.left), y0: mod(b.top + py - o.top) };
+}
+
+/** The chart on its graph paper, with its legend: each item where it is in the lesson, or (not laid out) in rows under the chart. */
+function withLegend(src: CanvasImageSource, w: number, h: number, bg: string, items: LegendItem[], paper: Paper | null) {
+  const g0 = document.createElement("canvas").getContext("2d")!;
+  const ICON = 14, GAP = 4, SEP = 20, LH = 26, PAD = 8;
+  const placed = items.every((it) => it.at);
+  let H = h;
+  let spots: { icon: DOMRect; text: DOMRect }[];
+  if (placed) {
+    spots = items.map((it) => it.at!);
+    H = Math.max(h, ...spots.map((p) => Math.ceil(p.text.bottom + 4)));
+  } else {
+    const widths = items.map((it) => ((g0.font = it.font), g0.measureText(it.text).width));
+    const rows: number[][] = [[]];
+    let used = 0;
+    widths.forEach((tw, i) => {
+      const iw = ICON + GAP + tw;
+      const row = rows[rows.length - 1];
+      if (row.length && used + SEP + iw > w - 2 * PAD) (rows.push([i]), (used = iw));
+      else (row.push(i), (used += (row.length > 1 ? SEP : 0) + iw));
+    });
+    spots = [];
+    rows.forEach((row, r) => {
+      const total = row.reduce((a, i) => a + ICON + GAP + widths[i], 0) + SEP * (row.length - 1);
+      let x = (w + total) / 2;
+      const y = h + PAD + r * LH;
+      // the page is right to left: the first item on the right
+      for (const i of row) {
+        spots[i] = { icon: new DOMRect(x - ICON, y + (LH - ICON) / 2, ICON, ICON), text: new DOMRect(x - ICON - GAP - widths[i], y, widths[i], LH) };
+        x -= ICON + GAP + widths[i] + SEP;
+      }
+    });
+    H = h + PAD + rows.length * LH;
+  }
+  const s = Math.min(2, MAX / Math.max(w, H));
+  const c = document.createElement("canvas");
+  c.width = Math.max(1, Math.round(w * s));
+  c.height = Math.max(1, Math.round(H * s));
+  const g = c.getContext("2d")!;
+  g.scale(s, s);
+  g.fillStyle = bg;
+  g.fillRect(0, 0, w, H);
+  if (paper) {
+    g.fillStyle = paper.color;
+    for (let x = paper.x0; x < w; x += paper.step) g.fillRect(x, 0, 1, H);
+    for (let y = paper.y0; y < H; y += paper.step) g.fillRect(0, y, w, 1);
+  }
+  g.drawImage(src, 0, 0, w, h);
+  g.textBaseline = "middle";
+  items.forEach((it, i) => {
+    const { icon, text } = spots[i];
+    const y = icon.top + icon.height / 2;
+    // the line-with-a-dot icon of a line chart
+    g.strokeStyle = it.color;
+    g.lineWidth = 2;
+    g.beginPath();
+    g.moveTo(icon.left, y);
+    g.lineTo(icon.right, y);
+    g.stroke();
+    g.beginPath();
+    g.arc(icon.left + icon.width / 2, y, icon.width / 4, 0, Math.PI * 2);
+    g.fillStyle = bg;
+    g.fill();
+    g.stroke();
+    g.font = it.font;
+    g.fillStyle = it.ink;
+    g.direction = "ltr";
+    g.textAlign = "left";
+    g.fillText(it.text, text.left, text.top + text.height / 2);
+  });
+  return { url: c.toDataURL("image/png"), w: c.width, h: c.height };
+}
+
 async function rasterize(el: Element): Promise<{ url: string; w: number; h: number } | null> {
   const bg = backdrop(el);
   if (el instanceof HTMLImageElement) {
@@ -187,7 +313,9 @@ async function rasterize(el: Element): Promise<{ url: string; w: number; h: numb
     const url = URL.createObjectURL(new Blob([text], { type: "image/svg+xml" }));
     try {
       const im = await loadImg(url);
-      return paint(im, w, h, bg);
+      const legend = legendOf(el);
+      const grid = paperOf(el);
+      return legend.length || grid ? withLegend(im, w, h, bg, legend, grid) : paint(im, w, h, bg);
     } finally {
       URL.revokeObjectURL(url);
     }
@@ -223,14 +351,16 @@ export async function collectVisuals(): Promise<LessonVisual[]> {
     const tableTitle = el instanceof HTMLTableElement && !box?.querySelector(".viz-title, .block-title") ? `טבלה: ${Array.from(el.rows[0]?.cells ?? []).map((c) => clean(c.textContent)).filter(Boolean).slice(0, 4).join(" · ")}` : "";
     // a book figure's title block: its cells (kind, number, source, page) after the title
     const cells = Array.from(box?.querySelectorAll(".tb-cell") ?? []).map((c) => clean(c.textContent)).filter(Boolean);
-    const caption = cells.length ? cells.join(" · ") : clean(box?.querySelector("figcaption")?.textContent);
+    // the chart's own caption, and where its numbers come from ("מחושב בדף · math.js")
+    const prov = clean(box?.querySelector(".viz-prov")?.textContent);
+    const caption = cells.length ? cells.join(" · ") : [clean(box?.querySelector("figcaption")?.textContent), prov].filter(Boolean).join(" · ");
     try {
       const r = await rasterize(el);
       if (!r) continue;
       const key = `${title}|${caption}|${el.tagName}|${Math.round(r.w / 40)}|${Math.round(r.h / 40)}`;
       if (seen.has(key)) continue;
       seen.add(key);
-      out.push({ ...r, title: (tableTitle || title).slice(0, 160), caption: caption.slice(0, 240) });
+      out.push({ ...r, title: (tableTitle || title).slice(0, 160), caption: caption.slice(0, 300) });
     } catch {
       // a picture that cannot be read back (another origin) is left out
     }

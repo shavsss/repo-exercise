@@ -168,18 +168,21 @@ mark:not([class]) { background: var(--hl-y); }
 .sm-pic-area.drawing { cursor: crosshair; }
 .sm-pic-area.drawing.tool-erase { cursor: pointer; }
 .sm-pic-area.tool-erase svg { pointer-events: auto; }
-.sm-pic-text { position: absolute; font: 600 0.85rem/1.3 var(--font); background: rgb(255 255 255 / 85%); padding: 1px 5px; border-radius: 3px; white-space: nowrap; }
-.sm-pic-input { position: absolute; font: 600 0.85rem/1.3 var(--font); border: 1.5px solid currentColor; border-radius: 3px; padding: 1px 5px; background: #fff; min-width: 140px; }
+/* text boxes on a picture (picText.tsx): a white card with an edge in the mark's colour; the letters scale with the picture */
+.sm-pic-text { position: absolute; box-sizing: border-box; padding: 0.3em 0.55em; border: 1.5px solid var(--tb); border-radius: 0.4em; background: rgb(255 255 255 / 94%); box-shadow: 0 1px 2px rgb(0 0 0 / 12%), 0 4px 12px -4px rgb(0 0 0 / 22%); font-family: var(--font); font-weight: 600; line-height: 1.35; text-align: start; overflow-wrap: anywhere; user-select: none; }
+.sm-pic-text.is-editable { cursor: move; touch-action: none; }
+.sm-pic-text.is-editable:hover { box-shadow: 0 0 0 3px color-mix(in srgb, var(--tb) 25%, transparent), 0 4px 12px -4px rgb(0 0 0 / 22%); }
+.sm-pic-text.is-active { box-shadow: 0 0 0 3px color-mix(in srgb, var(--tb) 40%, transparent), 0 6px 16px -4px rgb(0 0 0 / 28%); }
+.sm-pic-text.is-erase { cursor: pointer; }
+.sm-pic-text.is-typing { padding: 0; cursor: text; }
+.sm-pic-grip { position: absolute; left: -6px; bottom: -6px; width: 12px; height: 12px; border-radius: 50%; background: #fff; border: 2px solid var(--tb); cursor: ew-resize; touch-action: none; opacity: 0; transition: opacity 0.12s; }
+.sm-pic-text.is-editable:hover .sm-pic-grip, .sm-pic-text.is-active .sm-pic-grip { opacity: 1; }
+.sm-pic-input { display: block; width: 100%; box-sizing: border-box; margin: 0; padding: 0.3em 0.55em; border: 0; outline: none; resize: none; background: transparent; color: inherit; font: inherit; line-height: inherit; field-sizing: content; min-height: 1.35em; }
 .sm-pic-missing, .sm-uploading { padding: 30px; color: var(--muted); border: 1px dashed var(--line-strong); border-radius: 4px; font-size: 0.9rem; line-height: 1.4; }
 .sm-pic figcaption { margin-top: 4px; display: flex; gap: 8px; justify-content: center; align-items: baseline; flex-wrap: wrap; }
-.sm-caption { font: inherit; font-size: 0.85rem; color: var(--ink-soft); background: transparent; border: 0; border-bottom: 1px dashed transparent; text-align: center; min-width: 50%; padding: 2px 4px; }
+.sm-caption { font: inherit; font-size: 0.85rem; line-height: 1.45; color: var(--ink-soft); background: transparent; border: 0; border-bottom: 1px dashed transparent; text-align: center; width: 100%; max-width: 46em; padding: 2px 4px; resize: none; overflow: hidden; field-sizing: content; }
 .sm-caption:hover, .sm-caption:focus { border-bottom-color: var(--line-strong); outline: none; }
 .sm-fig-src { font-size: 0.75rem; color: var(--muted); font-family: var(--mono); }
-.sm-pic-tools { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; margin-bottom: 6px; line-height: 1.4; font-family: var(--font); }
-.sm-pic-draw { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; justify-content: center; width: 100%; }
-.sm-colors { display: flex; gap: 4px; }
-.sm-color { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--paper); box-shadow: 0 0 0 1px var(--line-strong); cursor: pointer; }
-.sm-color[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--ink); }
 
 /* ---------- the "/" menu ---------- */
 .sm-slash { position: absolute; z-index: 20; top: calc(100% + 2px); inset-inline-start: 0; width: 260px; max-height: 320px; overflow-y: auto; background: var(--sheet); border: 1px solid var(--line-strong); border-radius: 6px; box-shadow: 0 10px 28px rgb(0 0 0 / 18%); padding: 4px; display: grid; font-family: var(--font); line-height: 1.4; }
@@ -602,3 +605,57 @@ label.sm-bmenu-line:hover { background: none; }
 .sm-lespick header b { flex: none; }
 .sm-lespick header .muted { flex: 1; }
 .sm-lespick-hint { margin: 0; padding: 10px 14px 0; font-size: 0.8rem; color: var(--muted); }
+
+/* ---------- the picture's toolbar (Picture.tsx, 24.11: the learner found the old row of buttons plain) ----------
+   One floating card: layout, marking and delete, and under it the marking tools; quiet buttons with line
+   drawings, the pressed one tinted in the accent, the colours as rings. */
+.pt { display: grid; justify-items: center; gap: 6px; margin-bottom: 10px; line-height: 1.3; font-family: var(--font); }
+.pt-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 2px; max-width: 100%; padding: 4px; border: 1px solid var(--line); border-radius: 12px; background: var(--sheet, var(--paper)); box-shadow: 0 1px 2px rgb(0 0 0 / 5%), 0 8px 22px -10px rgb(0 0 0 / 22%); }
+.pt-bar:first-child { width: min(100%, 34rem); }
+.pt-group { display: inline-flex; gap: 2px; }
+.pt-sep { width: 1px; align-self: stretch; margin: 5px 4px; background: var(--line); }
+.pt-grow { flex: 1; }
+.pt-btn {
+  all: unset;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 34px;
+  padding: 0 10px;
+  border-radius: 8px;
+  color: var(--ink-soft);
+  font-size: 0.82rem;
+  white-space: nowrap;
+  transition: background 0.12s, color 0.12s;
+}
+.pt-btn:hover:not(:disabled) { background: var(--hover); color: var(--ink); }
+.pt-btn[aria-pressed="true"] { background: color-mix(in srgb, var(--accent) 12%, transparent); color: var(--accent); font-weight: 600; }
+.pt-btn:disabled { opacity: 0.35; cursor: default; }
+.pt-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.pt-main.is-on { background: var(--accent); color: var(--sheet, #fff); }
+.pt-main.is-on:hover { background: color-mix(in srgb, var(--accent) 88%, #000); color: var(--sheet, #fff); }
+.pt-danger { color: var(--muted); }
+.pt-danger:hover:not(:disabled) { color: var(--err); background: color-mix(in srgb, var(--err) 9%, transparent); }
+.pt-sq { padding: 0; width: 34px; justify-content: center; }
+.pt-a { font-weight: 700; font-size: 1.15rem; line-height: 1; }
+.pt-a.is-small { font-size: 0.8rem; }
+.pt-glyph { flex: none; }
+.pt-colors { display: inline-flex; align-items: center; gap: 4px; padding: 0 4px; }
+.pt-color { all: unset; box-sizing: border-box; cursor: pointer; width: 26px; height: 26px; display: grid; place-items: center; border-radius: 50%; }
+.pt-color::after { content: ""; width: 16px; height: 16px; border-radius: 50%; background: var(--c); box-shadow: inset 0 0 0 1px rgb(0 0 0 / 15%); transition: transform 0.12s; }
+.pt-color:hover::after { transform: scale(1.12); }
+.pt-color[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--c); }
+.pt-color:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+/* the marking tools: a drawing each, and the name of the one in use */
+.pt-draw .pt-group:first-child .pt-btn:not([aria-pressed="true"]) { padding: 0; width: 34px; justify-content: center; }
+.pt-draw .pt-group:first-child .pt-btn:not([aria-pressed="true"]) .pt-label { display: none; }
+.pt-hint { font-size: 0.78rem; color: var(--muted); text-align: center; max-width: 40rem; }
+.sm-pic-area.drawing { outline: 2px dashed color-mix(in srgb, var(--accent) 45%, transparent); outline-offset: 3px; border-radius: 3px; }
+.sm-pic-area.tool-text { cursor: text; }
+@media (max-width: 560px) {
+  .pt-label { display: none; }
+  .pt-btn { padding: 0 8px; }
+}
+@media (prefers-reduced-motion: reduce) { .pt-btn, .pt-color::after { transition: none; } }

@@ -48,6 +48,10 @@ export function toExpr(input: string): string {
   t = t.replace(/(\d),(\d{3})(?!\d)/g, "$1$2").replace(/(\d),(\d)/g, "$1.$2");
   // j is the imaginary unit (and i stays one); "j4" is 4j
   t = t.replace(/(?<![A-Za-z_])j\s*(\d+(?:\.\d+)?)/g, "(i*$1)").replace(/(?<![A-Za-z_])j(?=\s*(?:pi\b|sqrt\b|[^A-Za-z_]|$))/g, "(i)");
+  // as an engineer writes them: ln is natural, log (and lg) base 10, log2 base 2 (math.js: log is natural)
+  t = t.replace(/\b(?:log|lg)\b(?!\d)\s*(?=\(|\d|pi\b)/g, "log10").replace(/\bln\b/g, "log").replace(/\blog_?\(?2\)?\s*(?=\()/g, "log2");
+  // a function written without brackets around a single number ("ln 10", "\\sin\\pi"): sin(pi)
+  t = t.replace(/\b(a?sinh?|a?cosh?|a?tanh?|log10|log2|log|exp|sqrt)\b\s*((?:\d+\.?\d*|\.\d+)|pi\b)/g, "$1($2)");
   // 2e^(…) is 2·e^(…), not a malformed 2e+…
   t = t.replace(/(\d)\s*e\s*\^/g, "$1*e^");
   // a phasor: magnitude∠angle, the angle in degrees unless it says rad

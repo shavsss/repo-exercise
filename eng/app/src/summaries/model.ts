@@ -15,6 +15,8 @@ export interface Shape {
   y2: number;
   color: ShapeColor;
   text?: string;
+  /** a text box: its size against the default (1); its width is x1 (right edge) to x2 (left edge), none when they are equal */
+  size?: number;
 }
 export interface ListItem {
   html: string;
