@@ -107,24 +107,7 @@
 
 /* short answer and worked problem */
 .qz-text { margin-top: 10px; }
-.qz-input {
-  display: block;
-  width: 100%;
-  box-sizing: border-box;
-  resize: none;
-  border: 1px solid var(--line-strong);
-  border-radius: 4px;
-  background: var(--paper);
-  color: var(--ink);
-  font: inherit;
-  font-size: 1rem;
-  line-height: 1.55;
-  padding: 9px 12px;
-  overflow-y: auto;
-}
-.qz-input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
-.qz-input.is-problem { min-height: 8.5em; }
-.qz-input::placeholder { color: var(--muted); }
+.qz-text .is-problem .ma-input { min-height: 8.5em; }
 .qz-hint {
   margin-top: 5px;
   color: var(--muted);

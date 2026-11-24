@@ -17,16 +17,15 @@
 .pr-chip { padding: 3px 10px; border-radius: 999px; border: 1px solid var(--line); background: transparent; color: var(--ink-soft); font: inherit; cursor: pointer; }
 .pr-chip.on { border-color: var(--accent); background: var(--accent-soft); color: var(--ink); }
 .pr-skip { font-size: 0.85em; color: var(--muted); margin-inline-start: auto; }
-.pr-input { display: inline-flex; align-items: center; gap: 6px; }
-.pr-input input { width: 150px; padding: 7px 10px; border: 1px solid var(--line-strong); border-radius: 8px; background: var(--paper); color: var(--ink); font: inherit; }
-.pr-text { width: 100%; padding: 9px 12px; border: 1px solid var(--line-strong); border-radius: 10px; background: var(--paper); color: var(--ink); font: inherit; resize: vertical; }
 .pr-verdict { margin-top: 10px; padding: 8px 12px; border-radius: 8px; font-size: 0.95em; }
 .pr-verdict.v-right { background: color-mix(in srgb, var(--ok) 12%, transparent); }
 .pr-verdict.v-partial { background: color-mix(in srgb, var(--warn) 14%, transparent); }
 .pr-verdict.v-wrong { background: color-mix(in srgb, var(--err) 11%, transparent); }
 .pr-verdict.v-skip { background: color-mix(in srgb, var(--muted) 12%, transparent); color: var(--ink-soft); }
 .pr-mine { margin: 10px 0 0; color: var(--ink-soft); }
-blockquote.pr-mine { border-inline-start: 3px solid var(--line); padding-inline-start: 10px; white-space: pre-wrap; }
+blockquote.pr-mine { margin-inline: 0; border-inline-start: 3px solid var(--line); padding-inline-start: 12px; }
+blockquote.pr-mine p { margin: 0 0 0.4em; }
+.pr-read { font-weight: 400; color: var(--muted); }
 .pr-solution { margin-top: 8px; }
 .pr-solution summary { cursor: pointer; color: var(--accent); font-size: 0.92em; }
 .pr-err { color: var(--err); font-size: 0.9em; }

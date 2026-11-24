@@ -10,6 +10,7 @@ import { CONF_LABEL, GRADE_LABEL, LessonPlaceCtx, logEvent, saveCalib, thinkId, 
 import "../../consult.css";
 import { useBookMeasure } from "../../book/context";
 import { QuestionFlag, useQuestionGuide } from "../LessonGuide";
+import { MathAnswer } from "../MathAnswer";
 
 const DECIDE_LABEL: Record<string, string> = {
   trade: "מוביל ומחליט: ניתוח פשרות בין תחומים",
@@ -122,10 +123,10 @@ export function Predict({ source }: { source: string }) {
       <Markdown text={shown} />
       {!shownOpen ? (
         <div className="b3-form">
-          <label className="b3-field">
+          <div className="b3-field">
             <span>האומדן שלי, והנימוק בשורה</span>
-            <textarea rows={2} value={text} onChange={(e) => setText(e.target.value)} onBlur={() => text !== (answer?.text ?? "") && set({ text })} />
-          </label>
+            <MathAnswer rows={2} value={text} onChange={setText} onBlur={() => text !== (answer?.text ?? "") && set({ text })} ariaLabel="האומדן שלי, והנימוק בשורה" />
+          </div>
           <div className="b3-range">
             <span>טווח 90%: מ-</span>
             <input dir="ltr" inputMode="decimal" value={low} onChange={(e) => setLow(e.target.value)} onBlur={() => set({ low })} aria-label="הקצה התחתון של הטווח" />
@@ -210,10 +211,10 @@ export function ErrorHunt({ source }: { source: string }) {
       </div>
       {!open ? (
         <div className="b3-form">
-          <label className="b3-field">
+          <div className="b3-field">
             <span>איפה הטעות, איך תפסתם, ואיזו בדיקה הייתה תופסת אותה</span>
-            <textarea rows={3} value={text} onChange={(e) => setText(e.target.value)} onBlur={() => text !== (answer?.text ?? "") && set({ text })} />
-          </label>
+            <MathAnswer rows={3} value={text} onChange={setText} onBlur={() => text !== (answer?.text ?? "") && set({ text })} ariaLabel="איפה הטעות, איך תפסתם, ואיזו בדיקה הייתה תופסת אותה" />
+          </div>
           {hidden && (
             <div className="b3-actions">
               <button className="b3-btn" disabled={!text.trim()} onClick={() => set({ text, noError: false, revealed: true })}>
@@ -358,10 +359,10 @@ export function Decide({ source }: { source: string }) {
       <Markdown text={shown} />
       {!open ? (
         <div className="b3-form">
-          <label className="b3-field">
+          <div className="b3-field">
             <span>ההחלטה שלי, החלופות, המספרים והנימוק</span>
-            <textarea rows={5} value={text} onChange={(e) => setText(e.target.value)} onBlur={() => text !== (answer?.text ?? "") && set({ text })} />
-          </label>
+            <MathAnswer rows={5} value={text} onChange={setText} onBlur={() => text !== (answer?.text ?? "") && set({ text })} ariaLabel="ההחלטה שלי, החלופות, המספרים והנימוק" />
+          </div>
           {hidden && (
             <button className="b3-btn" disabled={!text.trim()} onClick={() => set({ text, revealed: true })}>
               {text.trim() ? "הגשתי. הראו את ניתוח הרפרנס" : "כתבו את ההחלטה, והניתוח ייפתח"}

@@ -9,6 +9,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { Markdown, MdContext } from "./Markdown";
 import { CONF_LABEL, GRADE_LABEL, LessonPlaceCtx, loadCalib, logEvent, requestConsult, saveCalib, thinkId, type CalibRecord, type Conf, type Grade } from "../events";
 import { useBookMeasure } from "../book/context";
+import { MathAnswer } from "./MathAnswer";
 import "../consult.css";
 
 type Stage = "ask" | "shown" | "graded";
@@ -108,7 +109,7 @@ export function ThinkCommit({ question, answer, off }: { question: string; answe
       {view === "ask" && (
         <>
           {writing || mine ? (
-            <textarea className="commit-mine" rows={2} value={mine} autoFocus={writing && !mine} placeholder="התשובה שלי, בקצרה" onChange={(e) => setMine(e.target.value)} aria-label="התשובה שלי" />
+            <MathAnswer rows={2} value={mine} autoFocus={writing && !mine} placeholder="התשובה שלי, בקצרה" onChange={setMine} ariaLabel="התשובה שלי" />
           ) : (
             <button className="link commit-write" onClick={() => setWriting(true)}>
               לכתוב תשובה
@@ -135,7 +136,7 @@ export function ThinkCommit({ question, answer, off }: { question: string; answe
           {!measure && mine.trim() && (
             <div className="commit-yours">
               <span>התשובה שלך{conf ? ` · ${CONF_LABEL[conf]}` : ""}</span>
-              {mine.trim()}
+              <Markdown text={mine.trim()} />
             </div>
           )}
           {(measure || !mine.trim()) && viewConf && <div className="commit-yours is-short">ענית בראש · {CONF_LABEL[viewConf]}</div>}
