@@ -200,8 +200,31 @@ function legendOf(svg: SVGSVGElement): LegendItem[] {
     .filter((it) => it.text);
 }
 
-/** The chart with its legend: each item where it is in the lesson, or (not laid out) in rows under the chart. */
-function withLegend(src: CanvasImageSource, w: number, h: number, bg: string, items: LegendItem[]) {
+/** The graph paper a chart sits on in the lesson (.viz-body): its line colour, step and where its lines fall. */
+interface Paper {
+  color: string;
+  step: number;
+  /** the first line's offset against the chart's top left */
+  x0: number;
+  y0: number;
+}
+function paperOf(svg: SVGSVGElement): Paper | null {
+  const body = svg.closest(".viz-body");
+  if (!body) return null;
+  const cs = getComputedStyle(body);
+  if (!cs.backgroundImage.includes("linear-gradient")) return null;
+  const color = cs.backgroundImage.match(/(rgba?\([^)]*\)|#[0-9a-f]{3,8})/i)?.[1] ?? "";
+  const step = parseFloat(cs.backgroundSize) || 20;
+  if (!paintable(color)) return null;
+  const o = svg.getBoundingClientRect();
+  const b = body.getBoundingClientRect();
+  const [px, py] = cs.backgroundPosition.split(" ").map((v) => parseFloat(v) || 0);
+  const mod = (v: number) => ((v % step) + step) % step;
+  return { color, step, x0: mod(b.left + px - o.left), y0: mod(b.top + py - o.top) };
+}
+
+/** The chart on its graph paper, with its legend: each item where it is in the lesson, or (not laid out) in rows under the chart. */
+function withLegend(src: CanvasImageSource, w: number, h: number, bg: string, items: LegendItem[], paper: Paper | null) {
   const g0 = document.createElement("canvas").getContext("2d")!;
   const ICON = 14, GAP = 4, SEP = 20, LH = 26, PAD = 8;
   const placed = items.every((it) => it.at);
@@ -241,6 +264,11 @@ function withLegend(src: CanvasImageSource, w: number, h: number, bg: string, it
   g.scale(s, s);
   g.fillStyle = bg;
   g.fillRect(0, 0, w, H);
+  if (paper) {
+    g.fillStyle = paper.color;
+    for (let x = paper.x0; x < w; x += paper.step) g.fillRect(x, 0, 1, H);
+    for (let y = paper.y0; y < H; y += paper.step) g.fillRect(0, y, w, 1);
+  }
   g.drawImage(src, 0, 0, w, h);
   g.textBaseline = "middle";
   items.forEach((it, i) => {
@@ -286,7 +314,8 @@ async function rasterize(el: Element): Promise<{ url: string; w: number; h: numb
     try {
       const im = await loadImg(url);
       const legend = legendOf(el);
-      return legend.length ? withLegend(im, w, h, bg, legend) : paint(im, w, h, bg);
+      const grid = paperOf(el);
+      return legend.length || grid ? withLegend(im, w, h, bg, legend, grid) : paint(im, w, h, bg);
     } finally {
       URL.revokeObjectURL(url);
     }
