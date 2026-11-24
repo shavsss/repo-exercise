@@ -249,7 +249,7 @@ test("scope: an overview develops only its central ideas; the other stops stay s
   const p = B.scopeProblems(real(over)).map((x) => `${x.where}:${x.problem.slice(0, 12)}`);
   assert.ok(p.some((x) => x.startsWith("outline:6 core")), p.join(" | "));
   assert.ok(p.some((x) => x.startsWith("7.1:a stop")), "an s definition in a stop");
-  assert.ok(p.some((x) => x.startsWith("7.1:2324")) && p.some((x) => x.startsWith("7.5:1898")), "a stop over a supporting idea's words");
+  assert.ok(!p.some((x) => x.startsWith("7.5:")), "a stop is explained as long as it needs (no word cap of its own)");
   assert.deepEqual(B.scopeProblems(real({ kind: "development", central: ["x"] })), []);
   const a = B.anchorProblems(real(over), ["M15.1"]);
   assert.deepEqual(a.map((x) => x.where), ["7.9"]);
