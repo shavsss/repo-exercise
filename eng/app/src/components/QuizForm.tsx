@@ -2,6 +2,7 @@ import { useContext, useEffect, useMemo, useRef, useState, type KeyboardEvent } 
 import { MdContext, Markdown } from "./Markdown";
 import { answeredCount, composeAnswers, parseAnswers, parseQuiz, type QuizQuestion } from "../quiz";
 import { Icon } from "./Icon";
+import { MathAnswer } from "./MathAnswer";
 import "../quiz.css";
 
 /** What the open conversation tells a ```quiz block (App.tsx, through AssistantTurn). */
@@ -37,15 +38,6 @@ function writeDraft(key: string, v: Record<string, string>) {
 
 const KIND_LABEL: Record<QuizQuestion["kind"], string> = { mc: "בחירה", short: "תשובה קצרה", problem: "בעיה" };
 
-/** Grows a textarea with its text, up to `max` lines. */
-function fit(el: HTMLTextAreaElement | null, max: number) {
-  if (!el) return;
-  el.style.height = "auto";
-  const lh = parseFloat(getComputedStyle(el).lineHeight) || 24;
-  const pad = el.offsetHeight - el.clientHeight + parseFloat(getComputedStyle(el).paddingTop) + parseFloat(getComputedStyle(el).paddingBottom);
-  el.style.height = `${Math.min(el.scrollHeight, lh * max + pad)}px`;
-}
-
 function Choice({ q, value, disabled, onPick }: { q: QuizQuestion; value: string; disabled: boolean; onPick: (l: string) => void }) {
   return (
     <div className="qz-options" role="radiogroup" aria-labelledby={`qz-q${q.n}`}>
@@ -69,9 +61,7 @@ function Choice({ q, value, disabled, onPick }: { q: QuizQuestion; value: string
 }
 
 function TextAnswer({ q, value, disabled, canAttach, onChange }: { q: QuizQuestion; value: string; disabled: boolean; canAttach: boolean; onChange: (v: string) => void }) {
-  const ref = useRef<HTMLTextAreaElement>(null);
   const short = q.kind === "short";
-  useEffect(() => fit(ref.current, short ? 2 : 14), [value, short]);
   const onKey = (e: KeyboardEvent<HTMLTextAreaElement>) => {
     // a short answer is one line: Enter goes to the next question instead of a new line
     if (!short || e.key !== "Enter" || e.shiftKey || e.nativeEvent.isComposing) return;
@@ -81,16 +71,15 @@ function TextAnswer({ q, value, disabled, canAttach, onChange }: { q: QuizQuesti
   };
   return (
     <div className="qz-text">
-      <textarea
-        ref={ref}
-        className={`qz-input ${short ? "is-short" : "is-problem"}`}
+      <MathAnswer
+        className={short ? "is-short" : "is-problem"}
         rows={short ? 1 : 5}
-        dir="auto"
+        maxLines={short ? 2 : 14}
         value={value}
         disabled={disabled}
-        aria-labelledby={`qz-q${q.n}`}
+        ariaLabelledBy={`qz-q${q.n}`}
         placeholder={short ? "התשובה שלך" : "הפתרון שלך, צעד אחרי צעד: מה נתון, באיזו נוסחה, החישוב והיחידות"}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={onChange}
         onKeyDown={onKey}
       />
       {!short && !disabled && canAttach && <div className="qz-hint">פתרון על דף? צלמו אותו וצרפו בכפתור התמונה שליד "הגש את המבחן", וכתבו כאן "בצילום".</div>}

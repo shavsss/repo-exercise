@@ -18,6 +18,7 @@ import type { Runtime, SampleTool } from "../runtime";
 import { computeTool, sampleWithFallback } from "../sampleRun";
 import { Markdown, MdContext } from "./Markdown";
 import { Icon } from "./Icon";
+import { MathAnswer } from "./MathAnswer";
 import { sectionAt, textOf } from "./lessonText";
 import { allCalib, calibNote, loadConsults, logEvent, saveConsult, type ConsultCard, type ConsultKind, type ConsultLevel, type ConsultRequest, type ConsultTurn, type LessonPlace } from "../events";
 import { consultPrompt, firstLine, LEVEL_HINT, LEVEL_LABEL, LEVEL_WORDS, needsRestart, splitMore } from "../consultPrompt";
@@ -669,22 +670,21 @@ function CardView({
                 send();
               }}
             >
-              <textarea
+              <MathAnswer
                 ref={box}
                 rows={2}
+                maxLines={10}
                 value={ui.draft}
                 placeholder={card.turns.length ? "המשך הדיון: שאלה, טענה או אי-הסכמה…" : card.kind === "check" ? "נסח במילים שלך מה הבנת, והמורה יבדוק" : "שאלה על הפסקה הזו"}
-                onChange={(e) => onUi({ draft: e.target.value })}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) {
-                    e.preventDefault();
-                    send();
-                  }
-                }}
+                onChange={(v) => onUi({ draft: v })}
+                onEnter={send}
+                ariaLabel="שאלה למורה"
+                action={
+                  <button type="submit" className="consult-send" disabled={disabled || !ui.draft.trim()} aria-label="שלח" title="שלח (Enter)">
+                    <Icon name="send" size={15} />
+                  </button>
+                }
               />
-              <button className="btn small primary" disabled={disabled || !ui.draft.trim()}>
-                שלח
-              </button>
             </form>
           )}
         </div>

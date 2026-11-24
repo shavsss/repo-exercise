@@ -10,6 +10,8 @@ import { Frame, parseHeaders } from "./Callout";
 import { CONF_LABEL, LessonPlaceCtx, loadCalib, logEvent, saveCalib, thinkId, type CalibRecord, type Conf, type Grade } from "../../events";
 import { parseExplain, parseMcq, parseNumeric, gradeNumeric, practiceQuestion } from "../../practice";
 import { useBookMeasure } from "../../book/context";
+import { MathAnswer } from "../MathAnswer";
+import { parseValue, valueTex } from "../../answerValue";
 
 /** In the copy the book measures, a question draws its largest state (answered, with all feedback), so the page keeps room for it. */
 const MEASURE_REC = (kind: CalibRecord["kind"]): CalibRecord => ({ id: "", moduleId: "", lesson: 0, q: "", ts: 0, kind, grade: "wrong", conf: 3, answer: "0", feedback: "משוב של שתיים או שלוש שורות שמסביר מה חסר בתשובה ולמה, כדי שהעמוד ישאיר לו מקום מראש, בגובה של המשוב האמיתי בערך." });
@@ -68,6 +70,24 @@ function Skip({ onSkip }: { onSkip: () => void }) {
     <button className="link pr-skip" onClick={onSkip}>
       דלג על השאלה
     </button>
+  );
+}
+
+/** A numeric answer as written (its LaTeX rendered) and, when it is not a plain number, the value it was read as. */
+function Shown({ text }: { text: string }) {
+  const v = parseValue(text);
+  const tex = /\\|\$/.test(text);
+  const shown = tex ? (text.includes("$") ? text : `$${text}$`) : "";
+  return (
+    <b className="pr-shown">
+      {tex ? <Markdown text={shown} inline /> : <span dir="ltr">{text}</span>}
+      {v && !/^\s*[-−]?[\d.,]+\s*$/.test(text) && (
+        <span className="pr-read">
+          {" "}
+          (<Markdown text={`$${valueTex(v)}$`} inline />)
+        </span>
+      )}
+    </b>
   );
 }
 
@@ -142,7 +162,7 @@ export function NumericBlock({ source }: { source: string }) {
         <>
           {!rec!.skipped && (
             <p className="pr-mine">
-              התשובה שלך: <b dir="ltr">{rec!.answer}</b> {n.unit} · התשובה: <b dir="ltr">{n.answerText}</b> {n.unit}
+              התשובה שלך: <Shown text={rec!.answer ?? ""} /> {n.unit} · התשובה: <Shown text={n.answerText} /> {n.unit}
             </p>
           )}
           <Verdict rec={rec!} />
@@ -159,16 +179,15 @@ export function NumericBlock({ source }: { source: string }) {
           )}
         </>
       ) : (
-        <div className="pr-actions">
-          <label className="pr-input">
-            <input dir="ltr" inputMode="decimal" value={value} onChange={(e) => setValue(e.target.value)} onKeyDown={(e) => e.key === "Enter" && submit()} placeholder="מספר" />
-            {n.unit && <span>{n.unit}</span>}
-          </label>
-          <ConfPick conf={conf} setConf={setConf} />
-          <button className="btn small primary" disabled={!gradeNumeric(n, value)} onClick={submit}>
-            בדוק
-          </button>
-          <Skip onSkip={() => save({ skipped: true, gradedAt: Date.now() })} />
+        <div className="pr-actions is-col">
+          <MathAnswer mode="value" value={value} onChange={setValue} onEnter={submit} unit={n.unit} placeholder="מספר, ביטוי או מספר מרוכב (3+4j, 5∠53°)" ariaLabel="התשובה" />
+          <div className="pr-actions">
+            <ConfPick conf={conf} setConf={setConf} />
+            <button className="btn small primary" disabled={!gradeNumeric(n, value)} onClick={submit}>
+              בדוק
+            </button>
+            <Skip onSkip={() => save({ skipped: true, gradedAt: Date.now() })} />
+          </div>
         </div>
       )}
     </Frame>
@@ -228,7 +247,11 @@ export function ExplainBlock({ source }: { source: string }) {
       <Markdown text={e.question} />
       {done ? (
         <>
-          {!rec!.skipped && <blockquote className="pr-mine">{rec!.answer}</blockquote>}
+          {!rec!.skipped && (
+            <blockquote className="pr-mine">
+              <Markdown text={rec!.answer ?? ""} />
+            </blockquote>
+          )}
           <Verdict rec={rec!} />
           {rec!.feedback && (
             <div className="pr-why">
@@ -244,7 +267,7 @@ export function ExplainBlock({ source }: { source: string }) {
         </>
       ) : (
         <div className="pr-actions is-col">
-          <textarea className="pr-text" rows={3} value={text} onChange={(ev) => setText(ev.target.value)} placeholder="התשובה שלך, במילים שלך" />
+          <MathAnswer value={text} onChange={setText} placeholder="התשובה שלך, במילים שלך" ariaLabel="התשובה" />
           <div className="pr-actions">
             <ConfPick conf={conf} setConf={setConf} />
             <button className="btn small primary" disabled={!text.trim() || busy} onClick={submit}>

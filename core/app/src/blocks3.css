@@ -69,7 +69,6 @@
   font-size: 0.875rem;
   color: var(--ink-soft);
 }
-.b3-field textarea,
 .b3-range input {
   font: inherit;
   font-size: 0.9375rem;
@@ -82,7 +81,6 @@
   box-sizing: border-box;
   resize: vertical;
 }
-.b3-field textarea:focus,
 .b3-range input:focus {
   outline: 2px solid color-mix(in srgb, var(--b3) 45%, transparent);
   outline-offset: 0;

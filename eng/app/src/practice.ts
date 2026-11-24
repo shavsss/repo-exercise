@@ -11,6 +11,8 @@
 //                                          the worked solution                 ===
 //                                          - wrong: 1897 :: you forgot …       the model answer
 //                                          ```                                 ```
+// @answer (and a wrong value) may be complex or an expression: 3+4j, 5∠53.13°, sqrt(2)/2 (answerValue.ts).
+import { abs, div, isComplex, parseValue, sub, type Value } from "./answerValue";
 
 const headerLines = (src: string) => {
   const h: Record<string, string> = {};
@@ -49,13 +51,14 @@ export function parseMcq(src: string): Mcq {
 export interface Numeric {
   title?: string;
   question: string;
-  answer: number;
+  /** NaN when @answer is missing or not a number */
+  answer: Value;
   answerText: string;
   unit: string;
   /** relative (0.02 for "2%") or absolute */
   tol: { rel?: number; abs?: number };
   solution: string;
-  wrongs: { value: number; why: string }[];
+  wrongs: { value: Value; why: string }[];
 }
 
 /** "1,234.5", "1.2e3", "1.2×10^3", "1.2·10³", "−3", "4,17" */
@@ -89,29 +92,37 @@ export function parseNumeric(src: string): Numeric {
   const sol: string[] = [];
   for (const line of after.split("\n")) {
     const m = /^\s*[-*]\s*wrong:\s*([^:]+?)\s*::\s*(.+)$/i.exec(line);
-    const v = m ? parseNumber(m[1]) : null;
+    const v = m ? parseValue(m[1]) : null;
     if (m && v !== null) wrongs.push({ value: v, why: m[2].trim() });
     else sol.push(line);
   }
-  const answer = parseNumber(h.answer ?? "") ?? NaN;
+  const answer = parseValue(h.answer ?? "") ?? { re: NaN, im: 0 };
   return { title: h.title, question: question.trim(), answer, answerText: h.answer ?? "", unit: h.unit ?? "", tol: parseTol(h.tol), solution: sol.join("\n").trim(), wrongs };
 }
 
-const near = (v: number, target: number, tol: Numeric["tol"]) => (tol.abs !== undefined ? Math.abs(v - target) <= tol.abs : Math.abs(v - target) <= Math.abs(target) * (tol.rel ?? 0.02));
+const near = (v: Value, target: Value, tol: Numeric["tol"]) => {
+  const d = abs(sub(v, target));
+  return tol.abs !== undefined ? d <= tol.abs : d <= abs(target) * (tol.rel ?? 0.02);
+};
 
 /** right within the tolerance; "partial" within five times it; a known wrong value gets its diagnosis. Null when the input is not a number. */
 export function gradeNumeric(n: Numeric, input: string): { grade: "right" | "partial" | "wrong"; feedback: string } | null {
-  const v = parseNumber(input);
-  if (v === null || !Number.isFinite(n.answer)) return null;
+  const v = parseValue(input);
+  if (v === null || !Number.isFinite(n.answer.re)) return null;
   if (near(v, n.answer, n.tol)) return { grade: "right", feedback: "" };
   const known = n.wrongs.find((w) => near(v, w.value, n.tol));
   if (known) return { grade: "wrong", feedback: known.why };
   const wide = n.tol.abs !== undefined ? { abs: n.tol.abs * 5 } : { rel: (n.tol.rel ?? 0.02) * 5 };
   if (near(v, n.answer, wide)) return { grade: "partial", feedback: "קרוב, אבל מחוץ לטווח הדיוק: בדוק עיגול או קבוע באמצע החישוב." };
-  const ratio = v / n.answer;
-  const pow = Math.log10(Math.abs(ratio));
-  if (ratio > 0 && Math.abs(pow - Math.round(pow)) < 0.02 && Math.round(pow) !== 0) return { grade: "wrong", feedback: `התשובה שלך רחוקה פי $10^{${Math.round(pow)}}$: כנראה טעות ביחידות או בקידומת (מילי, קילו, מגה).` };
-  if (ratio < 0 && near(-v, n.answer, n.tol)) return { grade: "wrong", feedback: "הגודל נכון והסימן הפוך." };
+  if (isComplex(n.answer) && near({ re: v.re, im: -v.im }, n.answer, n.tol)) return { grade: "wrong", feedback: "החלק הממשי נכון והחלק המדומה בסימן הפוך: יצא לך הצמוד. בדוק את הסימן של $j$ (או של הזווית)." };
+  if (isComplex(n.answer) && !isComplex(v) && Math.abs(Math.abs(v.re) - abs(n.answer)) <= abs(n.answer) * (n.tol.rel ?? 0.02)) return { grade: "wrong", feedback: "הגודל נכון, אבל התשובה מרוכבת: חסרה הפאזה (הזווית)." };
+  const ratio = abs(n.answer) ? div(v, n.answer) : { re: NaN, im: 0 };
+  // a real ratio (same phase): off by a power of ten, or the sign
+  if (Math.abs(ratio.im) <= Math.abs(ratio.re) * 0.02) {
+    const pow = Math.log10(Math.abs(ratio.re));
+    if (ratio.re > 0 && Math.abs(pow - Math.round(pow)) < 0.02 && Math.round(pow) !== 0) return { grade: "wrong", feedback: `התשובה שלך רחוקה פי $10^{${Math.round(pow)}}$: כנראה טעות ביחידות או בקידומת (מילי, קילו, מגה).` };
+    if (ratio.re < 0 && near({ re: -v.re, im: -v.im }, n.answer, n.tol)) return { grade: "wrong", feedback: "הגודל נכון והסימן הפוך." };
+  }
   return { grade: "wrong", feedback: "" };
 }
 

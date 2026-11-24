@@ -6,6 +6,7 @@ import { teachBackTurn, teachBackVerdict } from "../tutor";
 import { dayKey } from "../day";
 import { getTts, saveTeachBack, spoken, taughtText, useDictation, type TeachGap, type TeachScope, type TeachTurn, type TeachVerdict } from "../teachback";
 import { Markdown } from "./Markdown";
+import { MathAnswer } from "./MathAnswer";
 import { play } from "../sound";
 import "../flow.css";
 import "../teachback.css";
@@ -137,7 +138,7 @@ export function TeachBack({
                   {turns.map((t, i) => (
                     <div key={i} className={`tb-turn is-${t.who}`}>
                       <span className="flow-tag">{t.who === "learner" ? (i === 0 ? "ההסבר שלך" : "התשובה שלך") : "משוב"}</span>
-                      {t.who === "tutor" ? <Markdown text={t.text} /> : <p>{t.text}</p>}
+                      <Markdown text={t.text} />
                     </div>
                   ))}
                   {phase === "thinking" && (
@@ -171,12 +172,13 @@ export function TeachBack({
                 </div>
                 {phase === "speak" && (
                   <div className="tb-input">
-                    <textarea
+                    <MathAnswer
                       value={draft + (mic.partial ? (draft ? " " : "") + mic.partial : "")}
-                      onChange={(e) => setDraft(e.target.value)}
+                      onChange={setDraft}
                       readOnly={mic.listening}
                       placeholder={mic.available ? "לחץ על המיקרופון ודבר, או הקלד" : "הקלד את ההסבר"}
                       rows={turns.length ? 3 : 6}
+                      ariaLabel="ההסבר שלי"
                     />
                     {(mic.error || error) && <p className="tb-err">{mic.error || error}</p>}
                   </div>

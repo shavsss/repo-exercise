@@ -8,7 +8,7 @@ import { fileURLToPath } from "node:url";
 
 async function load(rel) {
   const src = fileURLToPath(new URL(rel, import.meta.url));
-  const out = await build({ entryPoints: [src], bundle: true, format: "esm", write: false, platform: "neutral" });
+  const out = await build({ entryPoints: [src], bundle: true, format: "esm", write: false, platform: "neutral", mainFields: ["module", "main"] });
   return import("data:text/javascript;base64," + Buffer.from(out.outputFiles[0].text).toString("base64"));
 }
 const F = await load("../../src/review/fsrs.ts");
