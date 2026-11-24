@@ -73,18 +73,20 @@
   --muted: #bab5ab;
 }
 
-/* ---------- typography: the measure follows the text size, about 68 characters a line ---------- */
+/* ---------- typography: the measure follows the text size, about 90 characters a line ----------
+   (24.11, the learner's correction: 68 was too narrow; as wide as Claude's chat, the wide column as wide as the
+   engineering edition's articles) */
 :root {
   /* average width of a Hebrew character with its spaces, in em, per typeface (F1 §1.2) */
   --char-em: 0.456;
-  --chars: 68;
+  --chars: 90;
   --measure: calc(var(--read-size) * var(--char-em) * var(--chars));
   --read-lh: 1.8;
 }
 :root[data-read-font="frank"] { --char-em: 0.405; }
 :root[data-read-font="assistant"] { --char-em: 0.389; }
-:root[data-read-width="narrow"] { --chars: 60; --measure: calc(var(--read-size) * var(--char-em) * var(--chars)); }
-:root[data-read-width="wide"] { --chars: 80; --measure: calc(var(--read-size) * var(--char-em) * var(--chars)); }
+:root[data-read-width="narrow"] { --chars: 72; --measure: calc(var(--read-size) * var(--char-em) * var(--chars)); }
+:root[data-read-width="wide"] { --chars: 110; --measure: calc(var(--read-size) * var(--char-em) * var(--chars)); }
 :root[data-read-space="normal"] { --read-lh: 1.65; }
 :root[data-read-size="s"],
 :root[data-read-size="m"] { --read-lh: 1.85; }

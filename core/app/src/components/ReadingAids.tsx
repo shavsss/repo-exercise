@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type RefObject } from "react";
 import { Icon } from "./Icon";
 import { setReading, useReading } from "../reading";
 import { GuideDot } from "./LessonGuide";
+import { PACE, revealSitting } from "../sittings";
 
 // Aids for reading a long lesson: a progress line, the place where reading stopped
 // (kept per conversation in this browser), and a floating table of contents with the
@@ -106,14 +107,19 @@ export function useResumePosition(scrollRef: RefObject<HTMLDivElement | null>, k
   };
 }
 
-/** Minutes of reading left below the current position, at a calm pace for dense text. */
+/** Minutes of reading left below the current position, at a calm pace for dense text; a lesson read in
+ *  sittings counts the rest of the sitting on screen and the sittings after it. */
 function minutesLeft(el: HTMLElement) {
-  const words = (el.querySelector(".col")?.textContent ?? "").split(
-    /\s+/,
-  ).length;
   const max = el.scrollHeight - el.clientHeight;
   const left = max > 0 ? 1 - el.scrollTop / max : 0;
-  return Math.round((words * left) / 150);
+  const sits = [...el.querySelectorAll<HTMLElement>("[data-sitting]")];
+  const here = sits.findIndex((x) => !x.hidden);
+  if (here >= 0) {
+    const w = (x: HTMLElement) => Number(x.dataset.words) || 0;
+    return Math.round((w(sits[here]) * left + sits.slice(here + 1).reduce((a, x) => a + w(x), 0)) / PACE);
+  }
+  const words = (el.querySelector(".col")?.textContent ?? "").split(/\s+/).length;
+  return Math.round((words * left) / PACE);
 }
 
 /** kind and module: the lesson map's mark of the heading (data-guide, LessonGuide.tsx), when there is one */
@@ -121,7 +127,12 @@ type Head = { id: string; text: string; level: number; kind?: string; module?: s
 const clean = (t: string) => t.replace(/[*_`$]/g, "");
 /** a glide, unless the viewer asked the system for less motion */
 export const glide = (): ScrollBehavior => (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth");
-export const goTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: glide(), block: "start" });
+export const goTo = (id: string) => {
+  const el = document.getElementById(id);
+  // a heading in a sitting not on screen: that sitting first
+  revealSitting(el);
+  el?.scrollIntoView({ behavior: glide(), block: "start" });
+};
 
 /** The lesson's headings, the one being read, and the reading time left below it. */
 export function useHeadings(scrollRef: RefObject<HTMLDivElement | null>, version: unknown) {
@@ -145,11 +156,16 @@ export function useHeadings(scrollRef: RefObject<HTMLDivElement | null>, version
         // at the end of the page the last headings cannot reach the top; take what is in view
         const atEnd = el.scrollHeight - el.clientHeight - el.scrollTop < 4;
         const top = atEnd ? el.getBoundingClientRect().bottom - 60 : el.getBoundingClientRect().top + 90;
+        // headings of the sittings not on screen are hidden (offsetParent null) and do not count
         let cur = "";
+        let first = "";
         for (const h of heads) {
           const n = document.getElementById(h.id);
-          if (n && n.getBoundingClientRect().top <= top) cur = h.id;
+          if (!n || !n.offsetParent) continue;
+          first ||= h.id;
+          if (n.getBoundingClientRect().top <= top) cur = h.id;
         }
+        cur ||= first;
         setCurrent(cur);
         setLeft(minutesLeft(el));
       });

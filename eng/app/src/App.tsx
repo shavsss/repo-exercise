@@ -8,12 +8,15 @@ import type { Activity, Effort, LessonNote, LessonSpec, ModuleProgress, Mode, No
 import { ModuleMap, STATE_LABEL, TIER_LABEL, type Selection } from "./components/ModuleMap";
 import { Topbar, type Crumb } from "./components/Topbar";
 import { AssistantTurn, DimensionHead, UserBubble } from "./components/Message";
+import { useSittingMid } from "./components/Sittings";
 import { HomeHero } from "./components/HomeHero";
 import { Composer, type QuickAction } from "./components/Composer";
 import { lessonChannel } from "./summaries/SummaryApp";
 import { collectVisuals } from "./lessonVisuals";
 import { AuditBar } from "./components/AuditBar";
-import { LessonToc, ReadingDock, ReadingProgress, useResumePosition } from "./components/ReadingAids";
+import { ReadingDock, ReadingProgress, useResumePosition } from "./components/ReadingAids";
+import { SIDE_MIN, StudySide, useWide, type SideTab } from "./components/StudySide";
+import { GlossaryMarks, GlossaryPane, useGlossary } from "./components/Glossary";
 import { noteAnchorHere } from "./components/MarginNotes";
 import { SectionDots } from "./components/SectionDots";
 import { play } from "./sound";
@@ -669,7 +672,11 @@ export function App() {
   const gatedAll = useMemo(() => {
     if (!gateKey || !module || lessonIdx === undefined) return all;
     const place = { moduleId: module.id, lesson: lessonIdx, title: "" };
-    return all.map((m) => (m.role === "assistant" && m.mode === "lesson" && m.text ? { ...m, text: gateText(m.text, (q) => gateDone.has(thinkId(place, q))).text } : m));
+    return all.map((m) => {
+      if (m.role !== "assistant" || m.mode !== "lesson" || !m.text) return m;
+      const g = gateText(m.text, (q) => gateDone.has(thinkId(place, q)));
+      return { ...m, text: g.text, closed: g.rest };
+    });
   }, [all, gateDone, gateKey, module, lessonIdx]);
   const items = useMemo(() => toItems(gatedAll), [gatedAll]);
   const hasLesson = messages.some((m) => m.role === "assistant" && m.mode === "lesson" && !m.interrupted && !m.draft);
@@ -779,13 +786,26 @@ export function App() {
   const closeDay = (variant: "home" | "lesson") =>
     index && <CloseDay rt={rt} mods={mods} stop={stopOf(selection ?? lastSelection(), index.modules, mods)} ahead={prefetch.target} onClosed={prefetch.request} onGap={addGap} variant={variant} />;
   /** the left of the lesson: the contents, or the notebook, or (mostly) neither */
-  const [leftDock, setLeftDock] = usePersisted<"" | "toc" | "pad">("eng-lab:left", "");
+  const [leftDock, setLeftDock] = usePersisted<SideTab>("eng-lab:left", "");
   const tocOpen = leftDock === "toc";
   // the contents panel shares the left side with the source viewer, and gives way to it
   const showToc = inLesson && !(viewer && !viewerMin);
+  // on a wide screen the consultation cards of the scrolling lesson open in the side column (StudySide.tsx)
+  const wide = useWide(SIDE_MIN);
+  const sideBridge = useMemo(() => new BookBridge(), []);
+  const sideConsult = showToc && !bookOn && wide;
+  // a lesson read in sittings: the next lesson, the teach-back and the close of the day wait for its last sitting
+  const sittingMid = useSittingMid() && !bookOn;
   const resume = useResumePosition(scrollRef, inLesson && !bookOn ? `${module!.id}:${lessonIdx}` : null, items.length > 0 && !busy, busy);
 
   const lessonPlace = useMemo(() => (module && lessonIdx !== undefined ? { moduleId: module.id, lesson: lessonIdx, title: lesson?.title ?? module.title } : null), [module, lessonIdx, lesson]);
+  // the glossary: this lesson's definitions, kept for the lessons after it, and every earlier lesson's (Glossary.tsx)
+  const lessonText = useMemo(
+    () => (busy || bookOn ? "" : messages.filter((m) => m.role === "assistant" && m.mode === "lesson" && !m.draft && m.text).map((m) => m.text).join("\n\n")),
+    [messages, busy, bookOn],
+  );
+  const glossary = useGlossary(rt?.store ?? null, inLesson ? lessonPlace : null, lessonText);
+  const openLesson = useCallback((moduleId: string, l: number) => setSelection({ moduleId, lesson: l }), []);
   const openSource = useCallback((doc: string, page: number) => {
     setViewer({ doc, page });
     setViewerMin(false);
@@ -927,7 +947,7 @@ export function App() {
 
         {inLesson && (
           <ConsultLayer
-            key={bookOn ? "book" : "scroll"}
+            key={bookOn ? "book" : sideConsult ? "side" : "scroll"}
             rt={rt}
             scrollRef={bookOn ? bookRoot : scrollRef}
             lessonKey={`${module!.id}__${lessonIdx}`}
@@ -936,7 +956,7 @@ export function App() {
             memory={memory}
             version={items}
             onOpenSource={openSource}
-            book={bookOn ? bridge : null}
+            book={bookOn ? bridge : sideConsult ? sideBridge : null}
           />
         )}
         {inLesson && <CaseRoomHost rt={rt} memory={memory} place={lessonPlace} />}
@@ -1136,7 +1156,7 @@ export function App() {
                   {(live ?? pfLive)?.mode === "lesson" && (
                     <WaitPanel rt={rt} live={(live ?? pfLive)!} spec={lesson} lessonKey={`${module.id}:${lessonIdx}`} moduleTitle={module.title} />
                   )}
-                  {hasLesson && !busy && nextLesson !== null && (
+                  {hasLesson && !busy && !sittingMid && nextLesson !== null && (
                     <div className="next-row">
                       <button className="btn primary" onClick={() => setSelection({ moduleId: module.id, lesson: nextLesson })}>
                         {nextLesson === -1 ? "למבחן המסכם של המודול" : `לשיעור ${nextLesson + 1}: ${prog?.lessons?.[nextLesson]?.title}`}
@@ -1146,10 +1166,10 @@ export function App() {
                   )}
                 </>
               )}
-              {hasLesson && !busy && module && lessonIdx !== undefined && (
+              {hasLesson && !busy && !sittingMid && module && lessonIdx !== undefined && (
                 <TeachBack rt={rt} kind="lesson" scopes={[{ moduleId: module.id, lesson: lessonIdx, title: lesson?.title }]} messages={messages} onGap={addGap} />
               )}
-              {hasLesson && !busy && closeDay("lesson")}
+              {hasLesson && !busy && !sittingMid && closeDay("lesson")}
               {notices.map((n, i) => (
                 <div key={i} className={`banner banner-${n.level} has-x`}>
                   {n.text}
@@ -1207,24 +1227,18 @@ export function App() {
         </main>
         </GuideCtx.Provider>
 
-        {showToc &&
-          !bookOn &&
-          (leftDock === "toc" ? (
-            <LessonToc scrollRef={scrollRef} version={tocVersion} open setOpen={(o) => !o && setLeftDock("")} />
-          ) : leftDock === "pad" ? (
-            <Scratchpad rt={rt} scrollRef={scrollRef} lessonKey={`${module!.id}__${lessonIdx}`} lessonTitle={`${module!.id} · ${lesson?.title ?? module!.title}`} onClose={() => setLeftDock("")} />
-          ) : (
-            <div className="left-rail" role="tablist" aria-label="לוחות משמאל לשיעור">
-              <button className="left-rail-btn is-toc" onClick={() => setLeftDock("toc")} title="תוכן השיעור">
-                <Icon name="coverage" size={16} />
-                <span>תוכן השיעור</span>
-              </button>
-              <button className="left-rail-btn" onClick={() => setLeftDock("pad")} title="מחברת: שרטוטים ופתרונות לשיעור הזה">
-                <Icon name="exercise" size={16} />
-                <span>מחברת</span>
-              </button>
-            </div>
-          ))}
+        {inLesson && !bookOn && <GlossaryMarks scrollRef={scrollRef} terms={glossary} place={lessonPlace} version={tocVersion} onOpenLesson={openLesson} />}
+        {showToc && !bookOn && (
+          <StudySide
+            tab={leftDock === "consult" && !sideConsult ? "" : leftDock}
+            setTab={setLeftDock}
+            bridge={sideConsult ? sideBridge : null}
+            scrollRef={scrollRef}
+            version={tocVersion}
+            glossary={<GlossaryPane terms={glossary} place={lessonPlace} scrollRef={scrollRef} onOpenLesson={openLesson} />}
+            pad={(close) => <Scratchpad bare rt={rt} scrollRef={scrollRef} lessonKey={`${module!.id}__${lessonIdx}`} lessonTitle={`${module!.id} · ${lesson?.title ?? module!.title}`} onClose={close} />}
+          />
+        )}
         {viewer && !viewerMin && <SourceViewer doc={viewer.doc} page={viewer.page} onPage={(p) => setViewer({ ...viewer, page: p })} onClose={() => setViewer(null)} onCollapse={() => setViewerMin(true)} />}
         {viewer && viewerMin && (
           <button className="viewer-rail" onClick={() => setViewerMin(false)} aria-label="פתח את מציג המקורות" title="פתח את מציג המקורות">

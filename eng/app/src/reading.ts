@@ -39,24 +39,28 @@ export interface Reading {
   rv?: number;
 }
 // `book`: the lesson as a book is the default (1.11, the learner's choice); "off" is the scrolling column.
-export const DEFAULT_READING: Reading = { font: "plex", size: "l", space: "airy", width: "medium", surface: "theme", focus: "off", sound: "soft", volume: 94, noise: "library", noiseKind: "library", noiseVolume: 35, cursor: "lab", focusNoise: "off", breaks: "on", breakAfter: "75", book: "on", plateAuto: "facing", turn: "auto", pageSound: "on", rv: 3 };
+// `font`: Segoe UI, falling back to Assistant, the face of the engineering edition (24.11, the learner's choice);
+// the book keeps Frank Ruhl Libre unless the reader picked a face (reading.css, data-font-picked).
+export const DEFAULT_READING: Reading = { font: "system", size: "l", space: "airy", width: "medium", surface: "theme", focus: "off", sound: "soft", volume: 94, noise: "library", noiseKind: "library", noiseVolume: 35, cursor: "lab", focusNoise: "off", breaks: "on", breakAfter: "75", book: "on", plateAuto: "facing", turn: "auto", pageSound: "on", rv: 4 };
 
 const KEY = "eng-lab:reading";
 // which lab this is, for the code both labs share (the chimes' material in sound.ts, the day's keys in day.ts)
 document.documentElement.dataset.lab = KEY.startsWith("eng") ? "eng" : "core";
 const listeners = new Set<() => void>();
 /** Round 5 (sound v2, rv 2): what was still an old default becomes the learner's choice (volume 94, the library room).
- *  1.11 (rv 3): the book becomes the default, unless the reader set the book switch themselves. */
+ *  1.11 (rv 3): the book becomes the default, unless the reader set the book switch themselves.
+ *  24.11 (rv 4): the default face becomes Segoe UI, unless the reader picked a face themselves. */
 function migrate(saved: Partial<Reading>): Partial<Reading> {
   const rv = saved.rv ?? 1;
-  if (rv >= 3 || !Object.keys(saved).length) return saved;
-  const next = { ...saved, rv: 3 };
+  if (rv >= 4 || !Object.keys(saved).length) return saved;
+  const next = { ...saved, rv: 4 };
+  if (!touched.includes("font")) delete next.font;
   if (rv < 2) {
     if (saved.volume === 60) next.volume = 94;
     if (saved.noiseKind === undefined || saved.noiseKind === "brown") next.noiseKind = "library";
     if (saved.noise === undefined || saved.noise === "off" || saved.noise === "brown") next.noise = "library";
   }
-  if (!touched.includes("book")) next.book = "on";
+  if (rv < 3 && !touched.includes("book")) next.book = "on";
   try {
     localStorage.setItem(KEY, JSON.stringify({ ...DEFAULT_READING, ...next, v: 2, touched }));
   } catch {
@@ -87,6 +91,7 @@ let current: Reading = (() => {
 function apply() {
   const r = document.documentElement;
   r.dataset.readFont = current.font;
+  r.dataset.fontPicked = touched.includes("font") ? "1" : "0";
   r.dataset.readSize = current.size;
   r.dataset.readSpace = current.space;
   r.dataset.readWidth = current.width;

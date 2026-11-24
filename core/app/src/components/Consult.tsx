@@ -10,7 +10,8 @@
 // wrong in this module, and the card's own thread; never the lesson rules or the whole lesson. Cards are kept per lesson (events.ts) and come back, folded to
 // their first line, under the same paragraphs when the lesson is opened again. Replaces the old
 // "הסבר פשוט" side panel. In the lesson as a book (src/book/), the open card is drawn on the facing page and
-// every other card is a closed tab at the edge of the page; the book passes a bridge for that. Same file in both labs.
+// every other card is a closed tab at the edge of the page; the book passes a bridge for that. In the scrolling
+// lesson on a wide screen the same bridge puts the open card in the side column (StudySide.tsx). Same file in both labs.
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, useSyncExternalStore, type RefObject } from "react";
 import { createPortal } from "react-dom";
 import type { Runtime, SampleTool } from "../runtime";
@@ -67,7 +68,7 @@ function contentText(el: HTMLElement) {
 }
 
 /** The block that holds an anchor quote; null when the lesson no longer has that text. */
-function findBlock(root: HTMLElement, anchor: string): HTMLElement | null {
+export function findBlock(root: HTMLElement, anchor: string): HTMLElement | null {
   if (!anchor) return null;
   for (const prose of root.querySelectorAll<HTMLElement>(LESSON_PROSE))
     for (const el of prose.children) {
@@ -83,7 +84,7 @@ function anchorOf(block: HTMLElement) {
 }
 
 /** The block at the top of the view. */
-function blockAtTop(scroll: HTMLElement): HTMLElement | null {
+export function blockAtTop(scroll: HTMLElement): HTMLElement | null {
   const top = scroll.getBoundingClientRect().top;
   for (const prose of scroll.querySelectorAll<HTMLElement>(LESSON_PROSE))
     for (const el of prose.children) {

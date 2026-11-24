@@ -1,0 +1,38 @@
+/* The glossary (components/Glossary.tsx): the dotted mark of a term in the text, its window, and its list in the
+   side column. Identical in both labs. */
+
+::highlight(gloss) { text-decoration: underline dotted var(--accent); text-decoration-thickness: 1.5px; text-underline-offset: 0.3em; }
+.scroll.on-term { cursor: help; }
+
+.gloss-pop {
+  position: fixed; z-index: 60; max-height: min(60vh, 460px); overflow-y: auto;
+  padding: 14px 16px 12px; border: 1px solid var(--line-strong); border-radius: 8px; background: var(--sheet);
+  box-shadow: 0 10px 30px rgb(0 0 0 / 18%); font-family: var(--font);
+}
+.gloss-head { display: flex; align-items: baseline; gap: 8px; }
+.gloss-term { font-size: 1.02rem; font-weight: 700; color: var(--ink); }
+.gloss-tag { font-size: 0.7rem; font-weight: 600; padding: 1px 7px; border-radius: 9px; background: var(--accent-soft); color: var(--accent); white-space: nowrap; }
+.gloss-from { margin-top: 2px; font-size: 0.76rem; color: var(--muted); }
+.gloss-body { margin-top: 8px; font-family: var(--read-font); font-size: 0.95rem; line-height: 1.7; }
+.gloss-body > :first-child { margin-top: 0; }
+.gloss-body > :last-child { margin-bottom: 0; }
+.gloss-go { display: inline-flex; align-items: center; gap: 4px; margin-top: 10px; font-size: 0.84rem; }
+
+/* the definition the window led to, marked for a moment */
+.block-definition.is-gloss-flash { animation: gloss-flash 1.6s ease-out; }
+@keyframes gloss-flash { from { box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 35%, transparent); } to { box-shadow: 0 0 0 4px transparent; } }
+
+.gloss-pane { flex: 1; min-height: 0; overflow-y: auto; padding: 14px 14px 24px; display: flex; flex-direction: column; gap: 16px; }
+.gloss-search { font: inherit; font-size: 0.9rem; padding: 7px 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--sheet); color: var(--ink); }
+.gloss-search:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.gloss-empty { margin: 0; font-size: 0.84rem; line-height: 1.6; color: var(--muted); }
+.gloss-group ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px; }
+.gloss-row { all: unset; box-sizing: border-box; cursor: pointer; width: 100%; display: flex; align-items: baseline; gap: 8px; padding: 7px 10px; border-radius: 6px; }
+.gloss-row:hover { background: var(--hover); }
+.gloss-row:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.gloss-row-term { flex: 1; font-size: 0.9rem; font-weight: 600; color: var(--ink); }
+.gloss-row-from { font-size: 0.72rem; color: var(--muted); direction: ltr; }
+.gloss-group li.is-open .gloss-row { background: var(--sel); }
+.gloss-entry { padding: 10px 10px 12px; border-inline-start: 2px solid var(--accent); margin: 2px 0 8px; }
+
+@media (prefers-reduced-motion: reduce) { .block-definition.is-gloss-flash { animation: none; } }

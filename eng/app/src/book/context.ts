@@ -29,8 +29,9 @@ export interface BookCard {
 }
 
 /**
- * Between the consultation cards (Consult.tsx) and the book: the book shows one card at a time on the facing
- * page, and keeps a closed tab at the edge of the page for every other card. The book fills in the functions;
+ * Between the consultation cards (Consult.tsx) and the place that shows one card at a time: the book's facing
+ * page (with a closed tab at the edge of the page for every other card), or the side column of the scrolling
+ * lesson on a wide screen (StudySide.tsx, with the list of the lesson's cards). The book or the column fills in the functions;
  * the cards read `host` and `active` and call `openCard`.
  */
 export class BookBridge {

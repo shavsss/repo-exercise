@@ -1,0 +1,48 @@
+/* The lesson in sittings (components/Sittings.tsx): the strip of sittings above the text, the chapter line of a
+   sitting that starts inside a chapter, and the way on at its end. Quiet: one accent for "here", nothing that
+   moves while reading. Identical in both labs. */
+
+.sit-strip { margin: 4px 0 30px; scroll-margin-top: 14px; font-family: var(--font); }
+.sit-now { display: flex; align-items: baseline; gap: 6px 12px; flex-wrap: wrap; font-size: 0.84rem; line-height: 1.4; color: var(--muted); }
+.sit-count { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.sit-count b { color: var(--accent); font-weight: 700; }
+.sit-title { flex: 1 1 14rem; min-width: 0; color: var(--ink); font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sit-min { white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+/* one segment per sitting, as long as its reading; a wider gap where a chapter starts */
+.sit-bar { list-style: none; display: flex; align-items: center; gap: 3px; height: 16px; margin: 8px 0 4px; padding: 0; }
+.sit-bar li { flex-basis: 0; min-width: 5px; display: flex; align-items: center; height: 100%; }
+.sit-bar li.opens { margin-inline-start: 7px; }
+.sit-seg { all: unset; box-sizing: border-box; cursor: pointer; flex: 1; height: 5px; border-radius: 3px; background: var(--line); transition: height 0.12s ease, background-color 0.12s ease; }
+.sit-seg:hover { height: 9px; background: var(--line-strong); }
+.sit-seg:focus-visible { height: 9px; outline: 2px solid var(--accent); outline-offset: 2px; }
+.sit-seg.is-read { background: color-mix(in srgb, var(--ink-soft) 55%, transparent); }
+.sit-seg.is-here { height: 9px; background: var(--accent); }
+.sit-seg.is-closed { cursor: default; background: repeating-linear-gradient(-45deg, var(--line) 0 3px, transparent 3px 6px); }
+.sit-seg.is-closed:hover { height: 5px; }
+.sit-lock { white-space: nowrap; }
+.sit-lock .icon { vertical-align: -1px; }
+.sit-sum { font-size: 0.76rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+/* the chapter a sitting belongs to, when its heading was in an earlier sitting */
+.sit-kicker { margin: 0 0 -0.4em; font: 600 0.8rem/1.4 var(--font); letter-spacing: 0.02em; color: var(--accent); }
+
+/* the end of a sitting: what was read, the next sitting as one large target, and the way back */
+.sit-end { display: grid; gap: 12px; margin: 44px 0 12px; padding-top: 18px; border-top: 1px solid var(--line); font-family: var(--font); }
+.sit-end-label { display: flex; align-items: center; gap: 6px; font-size: 0.84rem; color: var(--muted); }
+.sit-end-label .icon { color: var(--ok); }
+.sit-next {
+  all: unset; box-sizing: border-box; cursor: pointer;
+  display: grid; grid-template-columns: 1fr auto; grid-template-areas: "k i" "t i" "m i"; align-items: center; gap: 2px 16px;
+  padding: 14px 18px; border: 1px solid var(--line-strong); border-radius: 8px; background: var(--sheet);
+  transition: border-color 0.12s ease, background-color 0.12s ease;
+}
+.sit-next:hover { border-color: var(--accent); background: var(--hover); }
+.sit-next:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.sit-next-k { grid-area: k; font-size: 0.76rem; font-weight: 600; color: var(--accent); }
+.sit-next-t { grid-area: t; font-size: 1.08rem; font-weight: 600; line-height: 1.35; color: var(--ink); }
+.sit-next-m { grid-area: m; font-size: 0.8rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.sit-next > .icon { grid-area: i; color: var(--accent); }
+.sit-prev { justify-self: start; display: inline-flex; align-items: center; gap: 4px; font-size: 0.84rem; }
+
+@media (prefers-reduced-motion: reduce) { .sit-seg, .sit-next { transition: none; } }

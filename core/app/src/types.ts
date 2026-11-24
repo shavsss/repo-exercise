@@ -21,6 +21,8 @@ export interface StoredMessage {
   interrupted?: boolean;
   /** live only, never stored: what the tutor is doing now */
   status?: string;
+  /** shown only, never stored: the part of a lesson still closed behind a practice question (practice.ts gateText) */
+  closed?: string;
   /** db document id (set when loaded or first saved) */
   id?: string;
   /** saved while the answer is still being written; a draft found on load was cut off */
