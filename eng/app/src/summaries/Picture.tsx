@@ -55,6 +55,30 @@ function ShapeSvg({ s, onErase }: { s: Shape; onErase?: () => void }) {
 
 const clamp = (v: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, v));
 
+/** the toolbar's small line drawings (24 by 24) */
+function Glyph({ d }: { d: string }) {
+  return (
+    <svg className="pt-glyph" viewBox="0 0 24 24" width={18} height={18} fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d={d} />
+    </svg>
+  );
+}
+const SIZE_GLYPH: Record<ImgSize, string> = { s: "M9 9h6v6H9z", m: "M6 7h12v10H6z", l: "M3 5h18v14H3z" };
+const TOOL_GLYPH: Record<Tool, string> = {
+  arrow: "M5 19L19 5M10 5h9v9",
+  rect: "M4 6h16v12H4z",
+  ellipse: "M12 5c4.4 0 8 3.1 8 7s-3.6 7-8 7-8-3.1-8-7 3.6-7 8-7z",
+  text: "M5 6V4h14v2M12 4v16M9 20h6",
+  erase: "M8 20h12M5 15l8-8 6 6-5 5H8z",
+};
+const HINT: Record<Tool, string> = {
+  arrow: "גרור על התמונה כדי למתוח חץ",
+  rect: "גרור כדי לסמן מלבן",
+  ellipse: "גרור כדי לסמן עיגול",
+  text: "לחץ במקום הרצוי כדי לכתוב · גרור תיבה כדי להזיז אותה, ואת הנקודה בפינה כדי לשנות רוחב · לחיצה כפולה עורכת",
+  erase: "לחץ על סימון כדי למחוק אותו",
+};
+
 /** A picture block: the picture, the marks drawn on it, a caption, and its tools when it is selected. */
 export function Picture({ b, selected, onChange, onRemove }: { b: Pic; selected: boolean; onChange: (patch: Partial<Pic>) => void; onRemove: () => void }) {
   const src = useFigureSrc(b);
@@ -177,72 +201,80 @@ export function Picture({ b, selected, onChange, onRemove }: { b: Pic; selected:
   return (
     <figure className={`sm-pic size-${b.size} ${b.side ? "is-side" : ""}`} tabIndex={-1}>
       {selected && (
-        <div className="sm-pic-tools" contentEditable={false}>
-          <div className="seg" role="group" aria-label="גודל">
-            {SIZES.map((s) => (
-              <button key={s.id} aria-pressed={b.size === s.id} onClick={() => onChange({ size: s.id })}>
-                {s.label}
-              </button>
-            ))}
+        <div className="pt" contentEditable={false} onMouseDown={(e) => (e.target as Element).closest("button") && e.preventDefault()}>
+          <div className="pt-bar" role="toolbar" aria-label="כלי התמונה">
+            <span className="pt-group" role="group" aria-label="גודל התמונה">
+              {SIZES.map((z) => (
+                <button key={z.id} className="pt-btn" aria-pressed={b.size === z.id} onClick={() => onChange({ size: z.id })} title={z.label}>
+                  <Glyph d={SIZE_GLYPH[z.id]} />
+                  <span className="pt-label">{z.label}</span>
+                </button>
+              ))}
+            </span>
+            <span className="pt-sep" />
+            <button className="pt-btn" aria-pressed={!!b.side} onClick={() => onChange({ side: !b.side })} title="התמונה בצד והטקסט זורם לידה">
+              <Glyph d="M3 5h8v8H3zM14 6h7M14 10h7M14 14h7M3 18h18" />
+              <span className="pt-label">ליד הטקסט</span>
+            </button>
+            <span className="pt-sep" />
+            <button className={`pt-btn pt-main ${mode ? "is-on" : ""}`} aria-pressed={!!mode} onClick={() => setMode(mode ? null : "arrow")} title={mode ? "סיום" : "סימון"}>
+              <Glyph d="M4 20l4-1 11-11-3-3L5 16zM14 6l3 3" />
+              <span className="pt-label">{mode ? "סיום" : "סימון"}</span>
+            </button>
+            <span className="pt-grow" />
+            <button className="pt-btn pt-danger" onClick={onRemove} title="מחק את התמונה" aria-label="מחק את התמונה">
+              <Glyph d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6" />
+            </button>
           </div>
-          <button className="sm-tbtn" aria-pressed={!!b.side} onClick={() => onChange({ side: !b.side })} title="התמונה בצד והטקסט זורם לידה">
-            ליד הטקסט
-          </button>
-          <button className="sm-tbtn" aria-pressed={!!mode} onClick={() => setMode(mode ? null : "arrow")}>
-            {mode ? "סיים סימון" : "סמן על התמונה"}
-          </button>
-          <button className="sm-tbtn danger" onClick={onRemove}>
-            מחק תמונה
-          </button>
           {mode && (
-            <div className="sm-pic-draw">
-              <div className="seg" role="group" aria-label="כלי">
+            <div className="pt-bar pt-draw" role="toolbar" aria-label="סימון על התמונה">
+              <span className="pt-group" role="group" aria-label="כלי">
                 {TOOLS.map((t) => (
-                  <button key={t.id} aria-pressed={mode === t.id} onClick={() => setMode(t.id)}>
-                    {t.label}
+                  <button key={t.id} className="pt-btn" aria-pressed={mode === t.id} onClick={() => setMode(t.id)} title={t.label}>
+                    <Glyph d={TOOL_GLYPH[t.id]} />
+                    <span className="pt-label">{t.label}</span>
                   </button>
                 ))}
-              </div>
-              <div className="sm-colors" role="group" aria-label="צבע">
+              </span>
+              <span className="pt-sep" />
+              <span className="pt-colors" role="group" aria-label="צבע">
                 {COLORS.map((c) => (
                   <button
                     key={c}
-                    className="sm-color"
-                    style={{ background: SHAPE_HEX[c] }}
+                    className="pt-color"
+                    style={{ ["--c" as string]: SHAPE_HEX[c] }}
                     aria-pressed={(cur ? cur.color : color) === c}
                     onClick={() => (setColor(c), cur && active !== null && setMark(active, { ...cur, color: c }))}
                     title={c === "k" ? "שחור" : MARK_LABEL[c as Exclude<ShapeColor, "k">]}
+                    aria-label={c === "k" ? "שחור" : MARK_LABEL[c as Exclude<ShapeColor, "k">]}
                   />
                 ))}
-              </div>
-              {mode === "text" && (
-                <div className="sm-pic-textbar" onMouseDown={(e) => e.preventDefault()}>
-                  {cur ? (
-                    <>
-                      <span className="seg" role="group" aria-label="גודל הטקסט">
-                        <button onClick={() => resize(-1)} disabled={(cur.size ?? 1) <= SIZE_STEPS[0]} title="טקסט קטן יותר" aria-label="טקסט קטן יותר">
-                          א−
-                        </button>
-                        <button onClick={() => resize(1)} disabled={(cur.size ?? 1) >= SIZE_STEPS[SIZE_STEPS.length - 1]} title="טקסט גדול יותר" aria-label="טקסט גדול יותר">
-                          א+
-                        </button>
-                      </span>
-                      {typing === null && (
-                        <button className="sm-tbtn" onClick={() => setTyping(cur.text ?? "")}>
-                          ערוך טקסט
-                        </button>
-                      )}
-                      <button className="sm-tbtn danger" onClick={() => active !== null && removeMark(active)}>
-                        מחק תיבה
-                      </button>
-                    </>
-                  ) : (
-                    <span className="sm-pic-hint">לחץ על התמונה כדי להוסיף תיבת טקסט. גרור תיבה כדי להזיז, ואת הפינה כדי לשנות רוחב; לחיצה כפולה עורכת.</span>
+              </span>
+              {mode === "text" && cur && (
+                <>
+                  <span className="pt-sep" />
+                  <span className="pt-group" role="group" aria-label="גודל הטקסט">
+                    <button className="pt-btn pt-sq" onClick={() => resize(-1)} disabled={(cur.size ?? 1) <= SIZE_STEPS[0]} title="טקסט קטן יותר" aria-label="טקסט קטן יותר">
+                      <span className="pt-a is-small">א</span>
+                    </button>
+                    <button className="pt-btn pt-sq" onClick={() => resize(1)} disabled={(cur.size ?? 1) >= SIZE_STEPS[SIZE_STEPS.length - 1]} title="טקסט גדול יותר" aria-label="טקסט גדול יותר">
+                      <span className="pt-a">א</span>
+                    </button>
+                  </span>
+                  {typing === null && (
+                    <button className="pt-btn" onClick={() => setTyping(cur.text ?? "")}>
+                      <Glyph d="M4 20h4L19 9l-4-4L4 16zM13 7l4 4" />
+                      <span className="pt-label">עריכה</span>
+                    </button>
                   )}
-                </div>
+                  <button className="pt-btn pt-danger" onClick={() => active !== null && removeMark(active)} title="מחק את התיבה" aria-label="מחק את התיבה">
+                    <Glyph d="M6 6l12 12M18 6L6 18" />
+                  </button>
+                </>
               )}
             </div>
           )}
+          {mode && <div className="pt-hint">{HINT[mode]}</div>}
         </div>
       )}
       <div ref={area} className={`sm-pic-area ${mode ? `drawing tool-${mode}` : ""}`} onPointerDown={down} onPointerMove={move} onPointerUp={up}>
