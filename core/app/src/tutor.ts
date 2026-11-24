@@ -636,7 +636,7 @@ ${BOOK_PART(o, mine, k === 0, last, last && FEATURES.has("case"), wordCount(writ
 }
 
 /** Checks the outline's order before any text is written, and has the planner fix it (at most two rounds). */
-async function checkOutline(o: { rt: Runtime; plan: PartPlan; planTurn: string; later: string[]; title: string; effort: Effort; signal: AbortSignal; cb: TurnCallbacks }): Promise<PartPlan> {
+async function checkOutline(o: { rt: Runtime; plan: PartPlan; planTurn: string; later: string[]; covers: string[]; title: string; effort: Effort; signal: AbortSignal; cb: TurnCallbacks }): Promise<PartPlan> {
   let plan = o.plan;
   const ask = (content: string) =>
     o.rt.sample!.json<PartPlan>(
@@ -660,7 +660,7 @@ async function checkOutline(o: { rt: Runtime; plan: PartPlan; planTurn: string; 
   for (let round = 0; round < 2; round++) {
     o.cb.onStatus?.(round ? "בודק שוב את סדר תוכן העניינים" : "בודק את סדר תוכן העניינים: כל מושג מוגדר לפני שמשתמשים בו");
     const review = parseOutlineReview(await o.rt.sample!.json<unknown>(outlineCheckPrompt(plan.outline!, o.title), { model: MODEL, modelTier: "complex", effort: "medium", signal: o.signal, cache: false }).catch(() => null));
-    const problems = [...orderProblems(plan.outline!), ...formProblems(plan.outline!), ...anchorProblems(plan.outline!, o.later), ...scopeProblems(plan.outline!), ...coverProblems(plan.outline!, plan.parts), ...(review?.problems ?? [])];
+    const problems = [...orderProblems(plan.outline!), ...formProblems(plan.outline!), ...anchorProblems(plan.outline!, o.later), ...scopeProblems(plan.outline!, o.covers), ...coverProblems(plan.outline!, plan.parts), ...(review?.problems ?? [])];
     if (!problems.length) break;
     o.cb.onStatus?.(`מתקן את תוכן העניינים (${problems.length} בעיות)`);
     const fixed = await ask(OUTLINE_FIX({ problems, verdict: "fix" }));
@@ -786,7 +786,7 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
       cb,
     ).catch((e) => onRefusal(e, rt, m, history, planTurn, cb));
     if (!plan || !Array.isArray(plan.parts) || !plan.parts.length) throw { code: "invalid_json", message: "no plan" };
-    if (book) plan = await checkOutline({ rt, plan, planTurn, later: laterModules(m, getIndex()?.modules ?? []).map((x) => x.id), title: lessons?.[lessonIdx]?.title ?? m.title, effort, signal, cb });
+    if (book) plan = await checkOutline({ rt, plan, planTurn, later: laterModules(m, getIndex()?.modules ?? []).map((x) => x.id), covers: lessons?.[lessonIdx]?.covers ?? [], title: lessons?.[lessonIdx]?.title ?? m.title, effort, signal, cb });
     cb.onCheckpoint?.(plan, 0, "");
     if (opts.planOnly) return { text: "", plan, model: undefined };
   }
