@@ -151,7 +151,7 @@ export function practiceBlocks(md: string): { kind: (typeof PRACTICE_KINDS)[numb
  * The gate: the lesson's text up to and including its first practice question that is not answered or
  * skipped (`done` holds the question texts that are), and whether it was cut there.
  */
-export function gateText(md: string, done: (question: string) => boolean): { text: string; gated: boolean } {
+export function gateText(md: string, done: (question: string) => boolean): { text: string; gated: boolean; rest?: string } {
   for (const b of practiceBlocks(md)) {
     if (done(practiceQuestion(b.kind, b.source))) continue;
     const gated = b.end < md.trimEnd().length;
@@ -161,7 +161,7 @@ export function gateText(md: string, done: (question: string) => boolean): { tex
     const left = (rest.match(/^###\s/gm) ?? []).length;
     const words = (rest.match(/\S+/g) ?? []).length;
     const note = `\n\n*השיעור ממשיך אחרי השאלה: ענה עליה, או דלג, כדי לפתוח את ההמשך${left ? ` (עוד ${left === 1 ? "תת-סעיף אחד" : `${left} תתי-סעיפים`}, כ-${Math.max(1, Math.round(words / 200))} דקות קריאה)` : ""}.*`;
-    return { text: md.slice(0, b.end) + note, gated: true };
+    return { text: md.slice(0, b.end) + note, gated: true, rest };
   }
   return { text: md, gated: false };
 }

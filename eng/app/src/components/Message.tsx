@@ -1,4 +1,4 @@
-import { useMemo, useRef } from "react";
+import { useContext, useMemo, useRef, useState } from "react";
 import { countWords, depthBar, type Item, type Segment } from "../segments";
 import { MODE_LABEL } from "../runtime";
 import { Markdown, MdContext, slug } from "./Markdown";
@@ -9,6 +9,9 @@ import { MarginNotes } from "./MarginNotes";
 import { GuideCard } from "./LessonGuide";
 import type { LessonNote } from "../types";
 import type { QuizCtx } from "./QuizForm";
+import { LessonPlaceCtx } from "../events";
+import { MIN_SITTINGS, revealSitting, splitSittings } from "../sittings";
+import { LessonSittings } from "./Sittings";
 
 export function UserBubble({ item }: { item: Extract<Item, { kind: "user" }> }) {
   return (
@@ -123,14 +126,34 @@ export function AssistantTurn({
   const activity = item.segments.filter((s): s is Extract<Segment, { t: "activity" }> => s.t === "activity");
   const text = item.segments.find((s): s is Extract<Segment, { t: "text" }> => s.t === "text")?.text ?? "";
 
-  const scrollTo = (selector: string) => ref.current?.querySelector(selector)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  const scrollTo = (selector: string) => {
+    const el = ref.current?.querySelector(selector) ?? null;
+    revealSitting(el);
+    el?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+  // a finished lesson in the scrolling column is read one sub-topic at a time (sittings.ts)
+  const place = useContext(LessonPlaceCtx);
+  const sittings = useMemo(() => (item.mode === "lesson" && !live && text ? splitSittings(text) : []), [item.mode, live, text]);
+  // the part still closed behind a practice question: its sittings show locked in the strip
+  const closed = useMemo(() => (sittings.length && item.closed ? splitSittings(item.closed) : []), [sittings.length, item.closed]);
+  const inSittings = sittings.length > 0 && sittings.length + closed.length >= MIN_SITTINGS;
+  const [sitting, setSitting] = useState(0);
+  const atEnd = !inSittings || (sitting === sittings.length - 1 && !closed.length);
   const showMap = !live && (heads.length >= 3 || Object.keys(blocks).length >= 4) && words > 600;
+
+  const lead = activity.length > 0 && (
+    <div className="activity">
+      {activity.map((s, i) => (
+        <ActivitySeg key={i} a={s.a} onOpenSource={onOpenSource} />
+      ))}
+    </div>
+  );
 
   return (
     <article className={`msg-assistant ${live ? "is-live" : ""}`} ref={ref} data-key={item.key}>
       {header && item.mode === "lesson" && <DimensionHead {...header} />}
       {guideCard && item.mode === "lesson" && !live && <GuideCard />}
-      {!live && item.mode === "lesson" && notes?.length && onNoteSave && onNoteDelete ? <MarginNotes root={ref} notes={notes} version={item.segments} onSave={onNoteSave} onDelete={onNoteDelete} /> : null}
+      {!live && item.mode === "lesson" && notes?.length && onNoteSave && onNoteDelete ? <MarginNotes root={ref} notes={notes} version={[item.segments, sitting]} onSave={onNoteSave} onDelete={onNoteDelete} /> : null}
       <div className="msg-meta">
         <span>{MODE_LABEL[item.mode]}</span>
         {words > 0 && <span>{words.toLocaleString("he-IL")} מילים</span>}
@@ -160,31 +183,29 @@ export function AssistantTurn({
       )}
 
       <MdContext.Provider value={ctx}>
-        <div className="prose">
-          {live && item.status && (
-            <div className="live-status">
-              <span className="spinner" />
-              {item.status}
-            </div>
-          )}
-          {activity.length > 0 && (
-            <div className="activity">
-              {activity.map((s, i) => (
-                <ActivitySeg key={i} a={s.a} onOpenSource={onOpenSource} />
-              ))}
-            </div>
-          )}
-          {text ? (
-            <Markdown text={text} />
-          ) : live ? (
-            <div className="typing">
-              {item.mode === "lesson"
-                ? "שיעור נכתב בחלקים: קודם תכנון וחישובים, אחר כך חלק אחרי חלק. הטקסט מתחיל להופיע אחרי כמה דקות."
-                : "המורה קורא את המקורות ומתכנן את התשובה. היא יכולה להתחיל אחרי דקה או שתיים."}
-            </div>
-          ) : null}
-          {live && text && <span className="caret" aria-hidden />}
-        </div>
+        {inSittings ? (
+          <LessonSittings sittings={sittings} storeKey={`${place ? `${place.moduleId}:${place.lesson}` : "lesson"}:${item.key}`} closed={closed} article={ref} lead={lead} onPlace={setSitting} />
+        ) : (
+          <div className="prose">
+            {live && item.status && (
+              <div className="live-status">
+                <span className="spinner" />
+                {item.status}
+              </div>
+            )}
+            {lead}
+            {text ? (
+              <Markdown text={text} />
+            ) : live ? (
+              <div className="typing">
+                {item.mode === "lesson"
+                  ? "שיעור נכתב בחלקים: קודם תכנון וחישובים, אחר כך חלק אחרי חלק. הטקסט מתחיל להופיע אחרי כמה דקות."
+                  : "המורה קורא את המקורות ומתכנן את התשובה. היא יכולה להתחיל אחרי דקה או שתיים."}
+              </div>
+            ) : null}
+            {live && text && <span className="caret" aria-hidden />}
+          </div>
+        )}
       </MdContext.Provider>
 
       {(item.truncated || item.interrupted) && !live && (
@@ -198,7 +219,7 @@ export function AssistantTurn({
         </div>
       )}
 
-      {bar && (
+      {bar && atEnd && (
         <footer className="depth-bar">
           <div className="depth-title">
             בדיקת רף אוטומטית
@@ -222,7 +243,7 @@ export function AssistantTurn({
           )}
         </footer>
       )}
-      {!live && item.model && <div className="msg-foot" dir="ltr">{item.model}</div>}
+      {!live && atEnd && item.model && <div className="msg-foot" dir="ltr">{item.model}</div>}
     </article>
   );
 }

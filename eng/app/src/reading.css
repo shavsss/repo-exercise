@@ -9,10 +9,10 @@
 }
 :root[data-read-font="frank"] { --read-font: "Frank Ruhl Libre", "IBM Plex Sans Hebrew", serif; }
 :root[data-read-font="assistant"] { --read-font: "Assistant", "IBM Plex Sans Hebrew", sans-serif; }
-/* the system's own face: Segoe UI on Windows, as in claude.ai's pages */
-:root[data-read-font="system"] { --read-font: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif; }
-/* the book keeps Frank Ruhl Libre unless another face than the default was chosen */
-:root[data-read-font="frank"], :root[data-read-font="assistant"], :root[data-read-font="system"] { --bk-pick: var(--read-font); }
+/* the default (24.11): Segoe UI, as in claude.ai's pages and the engineering edition; Assistant where it is missing */
+:root[data-read-font="system"] { --read-font: "Segoe UI", "Assistant", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif; }
+/* the book keeps Frank Ruhl Libre unless the reader picked another face */
+:root[data-font-picked="1"]:is([data-read-font="plex"], [data-read-font="assistant"], [data-read-font="system"]) { --bk-pick: var(--read-font); }
 :root[data-read-size="s"] { --read-size: 15.5px; }
 :root[data-read-size="l"] { --read-size: 18.5px; }
 :root[data-read-size="xl"] { --read-size: 20px; }

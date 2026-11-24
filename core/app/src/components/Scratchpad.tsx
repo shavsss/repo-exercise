@@ -231,7 +231,22 @@ const CHECK = `אתה בודק פתרון שהלומד כתב במחברת של�
 3. איך מתקנים, ברמז או בצעד אחד, בלי לפתור את כל התרגיל מחדש (אלא אם הלומד ביקש פתרון מלא).
 אם הכל נכון, אמור זאת והוסף בדיקה אחת (ממדים, מקרה קצה או סדר גודל) שמאשרת את התוצאה. נוסחאות ב-$…$. השרטוטים מצורפים כתמונות, לפי הסדר.`;
 
-export function Scratchpad({ rt, scrollRef, lessonKey, lessonTitle, onClose }: { rt: Runtime | null; scrollRef: RefObject<HTMLDivElement | null>; lessonKey: string; lessonTitle: string; onClose: () => void }) {
+export function Scratchpad({
+  rt,
+  scrollRef,
+  lessonKey,
+  lessonTitle,
+  onClose,
+  bare,
+}: {
+  rt: Runtime | null;
+  scrollRef: RefObject<HTMLDivElement | null>;
+  lessonKey: string;
+  lessonTitle: string;
+  onClose: () => void;
+  /** inside the side column (StudySide.tsx), whose tab names it and closes it */
+  bare?: boolean;
+}) {
   const [pad, setPad] = useState<Pad | null>(null);
   const [pageId, setPageId] = useState<string>("");
   const [size, setSize] = useState<"normal" | "wide" | "full">(() => {
@@ -372,10 +387,10 @@ export function Scratchpad({ rt, scrollRef, lessonKey, lessonTitle, onClose }: {
 
   const pageNo = useMemo(() => (pad && page ? pad.pages.indexOf(page) : 0), [pad, page]);
   return (
-    <aside ref={panel} className={`pad-panel pad-${size}`} aria-label="מחברת" style={size !== "full" && w ? { width: w } : undefined}>
+    <aside ref={panel} className={`pad-panel pad-${size} ${bare ? "is-bare" : ""}`} aria-label="מחברת" style={size !== "full" && w ? { width: w } : undefined}>
       {size !== "full" && <div className={`pad-resize ${dragging ? "is-drag" : ""}`} role="separator" aria-orientation="vertical" aria-label="גרור כדי לשנות את הרוחב" title="גרור כדי לשנות את הרוחב (לחיצה כפולה מחזירה)" onPointerDown={startDrag} onDoubleClick={() => resize(size)} />}
       <header className="pad-head">
-        <span className="pad-title">מחברת</span>
+        {!bare && <span className="pad-title">מחברת</span>}
         {pad && page && (
           <span className="pad-pages">
             <select value={page.id} aria-label="דף" onChange={(e) => setPageId(e.target.value)}>
@@ -411,9 +426,11 @@ export function Scratchpad({ rt, scrollRef, lessonKey, lessonTitle, onClose }: {
             </button>
           ))}
         </span>
-        <button className="icon-btn" onClick={onClose} aria-label="סגור את המחברת" title="סגור">
-          <Icon name="close" size={14} />
-        </button>
+        {!bare && (
+          <button className="icon-btn" onClick={onClose} aria-label="סגור את המחברת" title="סגור">
+            <Icon name="close" size={14} />
+          </button>
+        )}
       </header>
       {!pad || !page ? (
         <div className="pad-body">

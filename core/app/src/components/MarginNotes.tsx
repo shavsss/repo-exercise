@@ -143,7 +143,8 @@ export function MarginNotes({
     const found = notes
       .filter((n) => n.id && n.anchor)
       .map((note) => ({ note, at: locate(el, note.anchor!) }))
-      .filter((x) => x.at)
+      // a note on a paragraph of a sitting not on screen (sittings.ts) waits for it
+      .filter((x) => x.at && !x.at.el.closest("[hidden]"))
       .filter((x) => {
         if (!clipped) return true;
         const r = (x.at!.range ?? x.at!.el).getBoundingClientRect();

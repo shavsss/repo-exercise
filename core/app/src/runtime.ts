@@ -386,6 +386,16 @@ export class Store {
     await this.profile.collection("guides").doc(key).set(clean(data));
   }
 
+  /* ---- the glossary (glossary.ts): profile/glossary/<module>__<lesson>, one document per lesson ---- */
+  async loadGlossary(): Promise<Record<string, unknown>[]> {
+    const s = await this.profile.collection("glossary").get();
+    return s.docs.map((d) => d.data() as Record<string, unknown>);
+  }
+
+  async saveGlossary(key: string, data: Record<string, unknown>) {
+    await this.profile.collection("glossary").doc(key).set(clean(data));
+  }
+
   /* ---- the learner's own dictionary for the summaries' spelling: profile/dict/mine ---- */
   async loadWords(): Promise<string[]> {
     const s = await this.profile.collection("dict").doc("mine").get();

@@ -14,6 +14,8 @@ export type Item =
       truncated?: boolean;
       interrupted?: boolean;
       status?: string;
+      /** a lesson's part still closed behind a practice question: its sittings show locked */
+      closed?: string;
     };
 
 export function toItems(messages: StoredMessage[]): Item[] {
@@ -31,6 +33,7 @@ export function toItems(messages: StoredMessage[]): Item[] {
           truncated: m.truncated,
           interrupted: m.interrupted || m.draft,
           status: m.status,
+          closed: m.closed,
           // corrections to lessons already written are shown in place (errata.ts)
           segments: [...(m.activity ?? []).map((a): Segment => ({ t: "activity", a })), ...(m.text ? [{ t: "text" as const, text: applyErrata(m.text) }] : [])],
         },
