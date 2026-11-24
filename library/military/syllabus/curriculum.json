@@ -706,6 +706,20 @@
 ],
 "why": "bibliography / further-reading list"
 }
+],
+"reading": [
+{
+"id": "RU:RD09",
+"t": "Advanced Metric Wave Radar",
+"a": "Wu Jianqi et al.",
+"o": "Springer / NDIP",
+"y": 2019,
+"u": "https://link.springer.com/book/10.1007/978-981-10-7647-3",
+"core": false,
+"why": "The Chinese school of VHF radar as counter-stealth: low-angle height finding, multipath, lobe splitting.",
+"focus": "Ch. 1 (why metric wave against stealth) and the low-angle chapters.",
+"st": "ok"
+}
 ]
 },
 "M2.5": {
@@ -4952,6 +4966,13 @@
 "n": "Fire-control channels and simultaneous-engagement capacity (illuminators, uplinks, launch rate)",
 "imp": "K",
 "k": "deepen"
+},
+{
+"id": "R8:M7.3:ru1",
+"n": "Air-defense engagement envelope (zona porazheniya): deriving its boundaries from interceptor, radar and guidance performance",
+"imp": "K",
+"k": "new",
+"teach": "מעטפת היירוט של מערכת הגנה אווירית כתוצר תכן ולא כנתון: הגבול הרחוק נקבע מזמן הטיסה של המיירט, מהאנרגיה שנשארת לתמרון ומטווח הגילוי והמעקב של המכ\"ם; הגבול הקרוב מזמן התגובה של המערכת; הגובה המרבי מיכולת התמרון באוויר דליל, והנמוך מהאופק ומההחזרים מהקרקע; הפרמטר (המרחק הצידי של מסלול המטרה) מצמצם את המעטפת. הספרות הסובייטית מציגה את המעטפת בחתך אנכי ואופקי, ומשייכת לכל נקודה בה הסתברות יירוט (\"החוק הקואורדינטי\"). המהנדס גוזר את המעטפת הנדרשת מהאיום, חוזה איך כל פרמטר של מיירט או מכ\"ם מזיז גבול, ושופט טענת ביצועים פומבית מול הפיזיקה."
 }
 ],
 "testout": [
@@ -5031,6 +5052,32 @@
 "t": "Shooting with feedback: shoot-look-shoot",
 "imp": "K",
 "sub": 1
+}
+],
+"reading": [
+{
+"id": "RU:RD03",
+"t": "Air Defense Officer's Handbook (Справочник офицера ПВО)",
+"a": "G.V. Zimin (ed.)",
+"o": "JPRS L/10540 (English translation)",
+"y": 1982,
+"u": "https://www.cia.gov/readingroom/node/1860084",
+"core": true,
+"why": "The Soviet view of the air-defense engagement envelope and how its boundaries follow from missile and radar performance.",
+"focus": "The chapters on SAM systems, engagement envelopes and effectiveness.",
+"st": "ok"
+},
+{
+"id": "RU:RD04",
+"t": "Fundamentals of Operations Research in Military Technology (Основы исследования операций в военной технике)",
+"a": "Yu.V. Chuev et al.",
+"o": "FTD-HT-23-51-68 (English translation)",
+"y": 1965,
+"u": "https://apps.dtic.mil/sti/pdfs/AD0683365.pdf",
+"core": false,
+"why": "Classic Soviet military OR, including the effectiveness of air defense.",
+"focus": "The chapter on air-defense effectiveness.",
+"st": "ok"
 }
 ]
 },
@@ -8869,6 +8916,13 @@
 "imp": "S",
 "k": "new",
 "teach": "Terminology discipline: check every term against the official glossaries (ATP 7-100 series glossary, DoD Dictionary) and the original-language term, and note where translations differ in meaning."
+},
+{
+"id": "R8:M12.1:ru1",
+"n": "Reflexive control and maskirovka as the frame of Russian EW and deception",
+"imp": "C",
+"k": "new",
+"teach": "שליטה רפלקסיבית (рефлексивное управление): להעביר ליריב מידע שנבחר כך שיגיע מרצונו להחלטה הרצויה, ומסקירובקה (הסוואה, הטעיה ופיתיונות) כאמצעי שלה. איך הלוחמה האלקטרונית הרוסית משתלבת בזה: לא רק לשבש חיישן אלא לעצב את התמונה שהיריב רואה. ברמת הרעיון, מ-Thomas."
 }
 ],
 "testout": [
@@ -9035,6 +9089,30 @@
 "st": "ok",
 "topic": "Russian military strategy and operational concepts",
 "p2h": 1
+},
+{
+"id": "RU:RD05",
+"t": "Russia's Reflexive Control Theory and the Military",
+"a": "T. Thomas",
+"o": "DTIC AD1157096",
+"y": 2019,
+"u": "https://apps.dtic.mil/sti/trecms/pdf/AD1157096.pdf",
+"core": false,
+"why": "Reflexive control and maskirovka from Russian sources.",
+"focus": "Definitions and the EW and deception sections.",
+"st": "ok"
+},
+{
+"id": "RU:RD06",
+"t": "Fundamentals of Electronic Warfare",
+"a": "S.A. Vakin, L.N. Shustov, R.H. Dunwell",
+"o": "Artech House",
+"y": 2001,
+"u": "https://us.artechhouse.com/Fundamentals-of-Electronic-Warfare-P770.aspx",
+"core": false,
+"why": "Russian EW theory in English, by authors from the Zhukovsky academy: suppression ratios and jamming effectiveness criteria.",
+"focus": "The chapters on jamming effectiveness and suppression of radars.",
+"st": "ok"
 }
 ]
 },
@@ -9518,6 +9596,30 @@
 "focus": "Executive summary, the methodology chapter (combat results tables, sources), and the base-case results.",
 "h": 3.0,
 "kind": "thinktank",
+"st": "ok"
+},
+{
+"id": "RU:RD07",
+"t": "Systems Confrontation and System Destruction Warfare",
+"a": "J. Engstrom",
+"o": "RAND RR-1708",
+"y": 2018,
+"u": "https://capstone.ndu.edu/Portals/83/Systems%20Destruction%20Warfare%20RAND.pdf",
+"core": true,
+"why": "How the PLA thinks about systems confrontation and system destruction warfare, from PLA sources.",
+"focus": "Whole report.",
+"st": "ok"
+},
+{
+"id": "RU:RD08",
+"t": "Science of Military Strategy 2020 (战略学), CASI translation",
+"a": "PLA National Defense University",
+"o": "CASI, In Their Own Words",
+"y": 2022,
+"u": "https://www.airuniversity.af.edu/Portals/10/CASI/documents/Translations/2022-01-26%202020%20Science%20of%20Military%20Strategy.pdf",
+"core": false,
+"why": "The PLA's own text, not commentary.",
+"focus": "The chapters on joint operations and on system confrontation.",
 "st": "ok"
 }
 ]
@@ -10814,6 +10916,13 @@
 "imp": "K",
 "k": "deepen",
 "teach": "Military side: value of information of ISR (EVPI of a scouting asset), decision trees for allocation decisions are not taught."
+},
+{
+"id": "R8:M14.1:ru1",
+"n": "Correlation of forces and means (COFM) and combat potential: the Russian method vs QJM and Lanchester",
+"imp": "S",
+"k": "new",
+"teach": "איך המטה הכללי הרוסי מכמת מאזן כוחות: לכל אמצעי מקדם פוטנציאל קרבי (יחסית לאמצעי ייחוס), סכום הפוטנציאלים בכל צד, ויחס שמושווה לנורמה של סוג הפעולה (התקפה בציר מרכזי מול הגנה מוכנה, למשל 3:1 עד 5:1). המקדמים נקבעים בשיטות קוואלימטריה ובהערכת מומחים, ולכן הם חלק מהשיטה ולא רק קלט. ההשוואה ל-QJM של Dupuy (גורמי מצב מוכפלים) ולמשוואות לנצ'סטר (דינמיקה ולא תמונת מצב), ומה כל אחד מפספס: איכות, הפתעה, שו\"ב ולוגיסטיקה. למה זה חשוב לאנליסט: זו העדשה שדרכה מטה רוסי שופט את נאט\"ו ומחליט אם יחס מספיק, וטעות במקדם מזיזה את המסקנה."
 }
 ],
 "testout": [
@@ -10972,6 +11081,30 @@
 "h": 2.0,
 "kind": "classic",
 "st": "ok"
+},
+{
+"id": "RU:RD01",
+"t": "Russian Assessments and Applications of the Correlation of Forces and Means",
+"a": "C. Reach, V. Kilambi, M. Cozad",
+"o": "RAND RR-4235",
+"y": 2020,
+"u": "https://www.rand.org/pubs/research_reports/RR4235.html",
+"core": true,
+"why": "The Russian COFM method in English: combat potentials, norms, how the General Staff uses it.",
+"focus": "Ch. 2-4 (method, coefficients, norms) and the comparison with Western models.",
+"st": "ok"
+},
+{
+"id": "RU:RD02",
+"t": "Модели военных, боевых и специальных действий (Models of military, combat and special operations)",
+"a": "Д.А. Новиков (ред.)",
+"o": "ИПУ РАН / URSS",
+"y": 2025,
+"u": "https://www.ipu.ru/sites/default/files/publications/79723/80166-79723.pdf",
+"core": false,
+"why": "Current Russian school of combat models (stochastic Lanchester, mixed models), in Russian; read selected chapters with AI translation.",
+"focus": "The chapters on correlation of forces and on Lanchester-type models.",
+"st": "rough"
 }
 ]
 },

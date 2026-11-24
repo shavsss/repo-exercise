@@ -16340,6 +16340,20 @@
 "teach": "אתחול, warmup ו-cosine, AdamW, קפיצות loss, ו-bf16.",
 "on": "M17.4"
 }
+],
+"reading": [
+{
+"id": "RU:RD10",
+"t": "Su Jianlin, 科学空间 (kexue.fm): the Transformer upgrade series (Transformer升级之路), English machine translation",
+"a": "Su Jianlin (RoPE's author)",
+"o": "kexue.fm; unofficial English mirror",
+"y": 2021,
+"u": "https://rohin-garg.github.io/kexue-en/index.html",
+"core": false,
+"why": "RoPE and its context extensions derived by the person who invented them, with the engineering reasons.",
+"focus": "The posts on RoPE, NTK-aware scaling and length extrapolation.",
+"st": "ok"
+}
 ]
 },
 "M29.2": {
