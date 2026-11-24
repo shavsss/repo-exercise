@@ -53,6 +53,10 @@ test("answers: complex numbers, phasors, expressions and LaTeX", () => {
   close(V("2∠180"), -2, 0);
   close(V("1∠pi/2 rad"), 0, 1);
   close(V("2*pi*50"), 2 * Math.PI * 50);
+  close(V("1/0.35*ln(10)"), Math.log(10) / 0.35);
+  close(V("log(1000)"), 3);
+  close(V("\\ln 10"), Math.log(10));
+
   close(V("√2/2"), Math.SQRT1_2);
   close(V("1.2×10^3"), 1200);
   close(V("1.2·10³"), 1200);

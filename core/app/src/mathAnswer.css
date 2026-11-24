@@ -29,6 +29,7 @@
   line-height: 1.6;
 }
 .ma-input:focus-visible { outline: none; }
+.ma-input { min-height: calc(1.6em + 18px); }
 .ma-input::placeholder { color: var(--muted); opacity: 1; }
 .ma-value .ma-input { font-family: var(--mono, ui-monospace, monospace); font-size: 1.02rem; padding-block: 10px 6px; }
 .ma-value .ma-input:placeholder-shown { font-family: inherit; }

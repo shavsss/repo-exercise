@@ -19,14 +19,23 @@ const SYMBOLS: Record<Mode, [string, string, string?][]> = {
 
 const MAX_LINES = { text: 14, value: 3 };
 
-/** Grows a textarea with its text, up to `max` lines. */
+/**
+ * Grows a textarea with its text, from its rows up to `max` lines. A box that is not laid out (a closed
+ * sitting, the book's hidden copy) measures 0 and is left to its rows; it was locked at 0 there (24.11).
+ */
 function fit(el: HTMLTextAreaElement | null, max: number) {
   if (!el) return;
+  if (!el.getClientRects().length) {
+    el.style.height = "";
+    return;
+  }
   el.style.height = "auto";
   const cs = getComputedStyle(el);
   const lh = parseFloat(cs.lineHeight) || 24;
-  const extra = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom) + parseFloat(cs.borderTopWidth) + parseFloat(cs.borderBottomWidth);
-  el.style.height = `${Math.min(el.scrollHeight + parseFloat(cs.borderTopWidth) + parseFloat(cs.borderBottomWidth), lh * max + extra)}px`;
+  const border = parseFloat(cs.borderTopWidth) + parseFloat(cs.borderBottomWidth);
+  const extra = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom) + border;
+  const least = lh * Math.max(1, el.rows) + extra;
+  el.style.height = `${Math.max(least, Math.min(el.scrollHeight + border, lh * max + extra))}px`;
 }
 
 export interface MathAnswerProps {
@@ -66,6 +75,19 @@ export const MathAnswer = forwardRef<HTMLTextAreaElement, MathAnswerProps>(funct
   const eqTex = useRef("");
   const max = maxLines ?? MAX_LINES[mode];
   useEffect(() => fit(ref.current, max), [value, max]);
+  // again when the box is shown or its width changes (the text wraps differently)
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || typeof ResizeObserver === "undefined") return;
+    let w = -1;
+    const ro = new ResizeObserver(() => {
+      if (el.clientWidth === w) return;
+      w = el.clientWidth;
+      fit(el, max);
+    });
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [max]);
 
   const remember = () => {
     const el = ref.current;
