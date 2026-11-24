@@ -59,14 +59,21 @@ export interface OutlineChapter {
   /** the one real system that returns in every subsection and carries its question */
   anchor?: string;
 }
+/** The size of the topic, decided before the outline (24.11): what kind of pages these are and which ideas the lesson is about. */
+export interface LessonScope {
+  /** overview: the pages survey many fields or ideas to show how they connect; development: they build results step by step */
+  kind: "overview" | "development";
+  /** the ideas (overview: one or two) or results the lesson is about */
+  central: string[];
+  /** what in the pages makes it so, in one sentence */
+  why?: string;
+}
 export interface BookOutline {
   /** what the learner already knows (from the course memory and earlier lessons) that this lesson uses */
   known: string[];
+  scope?: LessonScope;
   chapters: OutlineChapter[];
 }
-
-/** The typical size of two chapters with derivations (5.11). Not a cap and not a reason to split: the length follows the planned depth (21.11). */
-export const LESSON_WORDS = 15000;
 /** A subsection's words: a central result with its derivation at most, and a supporting idea at most (21.11). */
 const MAX_SECTION_WORDS = 2000;
 const MAX_SUPPORT_WORDS = 900;
@@ -77,6 +84,7 @@ export const BOOK_PLAN = (chapterStart: number) => `
 THE LESSON AS CHAPTERS OF A BOOK (these rules override every earlier rule about the lesson's structure, its opening and closing blocks, and which blocks to use; the completeness, depth and question rules stay):
 - The course is one book, this module a booklet in it, this lesson one or more chapters of it. Number the chapters from ${chapterStart}. A chapter is 3 to 7 numbered subsections (${chapterStart}.1, ${chapterStart}.2, …) that build on each other; each subsection is paragraphs that flow as one argument, with a short bold run-in heading only at a turn of the argument (about one per 3 to 5 paragraphs, for example **הקדמה.** … **מה מחבר ביניהן.**), never on every paragraph.
 - These rules change how the material is presented, never what is covered: every planned subsection, topic and depth unit stays, and the word budget below (which follows the depth) stays as it is.
+- First decide the size of the topic, in "outline.scope" (24.11, the learner: a survey chapter of ten pages became a lesson of 31,000 words, every stop of the survey developed as if it were the lesson; every topic is different, so there is no word target: the size comes from the topic). "kind": "overview" when the assigned pages survey many fields or ideas to show how they connect (a map chapter), "development" when they build results step by step. "central": the ideas the lesson is about (an overview has one or two) or the results it develops, each a short phrase. "why": one sentence on what in the pages makes it so. Only a subsection that develops a central idea or result is "core". Every other stop keeps its idea, one mechanism or number, and its place on the thread, and no more: "support: N.k" or "background: N.k" with the words that step needs, or "anchor: <module id>" when a module of <later_modules> teaches it. A definition marked "s", a derivation or a case study of its own belongs to the subsection that is core, or to the module that teaches the topic. A topic that serves the thread and helps carry the idea stays, in that short form. The lesson's words are the sum of what its subsections need, never filled toward a usual size.
 - Plan the full outline before anything else, in "outline". For each subsection: the one question it answers; "from_prev", what of the previous subsection it continues (the question left open, the limit just found, the tool now available); "needs", every term or symbol it uses without defining it; "defines", every term, symbol, formula and result it defines, each marked "s" (for the summary: a result, formula, method or central definition the learner will use as a working tool in later lessons; about 5 to 12 per chapter) or "a" (an aid: scaffolding for this development, and plain vocabulary the prose defines on the way, such as a device name or an everyday unit); "paragraphs", its run-in headings in order; and where it has one, its comparison, its critique and its short case. Per chapter, "anchor": one real system (a radar like the ASR-9, a microscope, a bridge, a launcher) that returns in every subsection and carries part of its question, when the chapter has a real engineering context; per subsection, "anchor_q" (what the anchor asks or shows here), "history" (who was stuck, on what, what they tried, where they erred, and what that explains; empty when no history explains the step), "assumptions" (each assumption it brings in, and "settled_in": the subsection where it is checked or breaks) and "iou" (a result it uses before it is derived, and "derived_in").
 - Order: every term, symbol, unit and measure in "needs" is in "known" or defined by an earlier subsection, or is an "iou" of an earlier subsection that a named later one derives. Nothing is used before it is defined, and no subsection explains what an earlier one already used. If a subsection cannot say what of the previous one it continues, the order is wrong or it belongs to another chapter. Organize by the logic of the development, not by the order of the pages.
 - The learner knows no physics and only the mathematics he has studied (see the course memory). Background he lacks (charge, energy, momentum, a field, a bound, a unit, a device, standard deviation) is explained where the story first needs it, in a sentence or a short paragraph, with its picture when it has one; it goes into "defines" as "a" and never gets a definition block of its own. "known" lists only what the course memory or an earlier lesson really taught.
@@ -93,7 +101,7 @@ THE LESSON AS CHAPTERS OF A BOOK (these rules override every earlier rule about 
 - Writing (presentation only): derivations are moves: a goal sentence, 2 to 4 lines of algebra in one display, a payoff sentence; a chain of more than three moves, or one the main argument uses only for its result, goes into a \`\`\`derivation block with a title saying what it proves. No "צעד N" labels and no #### headings. At most about 3 numbers in a paragraph and one quantity in a sentence; more go to a table or a display. Every assumption is stated in a sentence where it enters and settled (checked or broken, with the deciding number) where planned. History that explains why a step was needed is main text, as long as it needs; history that explains nothing is cut. The engineer's judgment (how fast, how much, what it costs, when a good fit is suspicious, which assumption of an impossibility can be broken) is written where the decision is made, in the voice of the text, never as a closing box.
 - A part of the writing is one chapter, or a run of whole subsections of a long chapter: give each part "sections": the subsection numbers it writes. Parts never cut a subsection, and every subsection of the outline is in exactly one part.
 - The app writes the whole lesson from this plan, from its first subsection: plan every subsection with its "depth" and "words", even when the course memory or the lesson's focus says part of it was written before (that text is not kept); the lesson's budget is the sum of these words.
-- Add to the JSON: "outline": {"known": ["…"], "chapters": [{"n": ${chapterStart}, "title": "…", "question": "…", "anchor": "…", "thread": "…", "comparison": "…", "case_study": "…", "sections": [{"n": "${chapterStart}.1", "title": "…", "question": "…", "from_prev": "…", "needs": ["…"], "defines": [{"term": "…", "mark": "s"}], "depth": "…", "paragraphs": ["הקדמה", "…", "מה מחבר ביניהן"], "compare": "…", "critique": "…", "case": "…", "words": 1200, "role": "core", "key": ["$L_s = (4\\\\pi d/\\\\lambda)^2$", "1 GHz, 10 km: 112.4 dB"], "visuals": ["svg: …", "chart: … against …"], "questions": ["mcq: …", "numeric: …"], "anchor_q": "…", "history": "…", "assumptions": [{"text": "…", "settled_in": "${chapterStart}.3"}], "iou": [{"result": "…", "derived_in": "${chapterStart}.4"}]}]}]}, and per part "sections": ["${chapterStart}.1", "${chapterStart}.2"]. Short phrases, no prose, in Hebrew.`;
+- Add to the JSON: "outline": {"known": ["…"], "scope": {"kind": "overview", "central": ["…"], "why": "…"}, "chapters": [{"n": ${chapterStart}, "title": "…", "question": "…", "anchor": "…", "thread": "…", "comparison": "…", "case_study": "…", "sections": [{"n": "${chapterStart}.1", "title": "…", "question": "…", "from_prev": "…", "needs": ["…"], "defines": [{"term": "…", "mark": "s"}], "depth": "…", "paragraphs": ["הקדמה", "…", "מה מחבר ביניהן"], "compare": "…", "critique": "…", "case": "…", "words": 1200, "role": "core", "key": ["$L_s = (4\\\\pi d/\\\\lambda)^2$", "1 GHz, 10 km: 112.4 dB"], "visuals": ["svg: …", "chart: … against …"], "questions": ["mcq: …", "numeric: …"], "anchor_q": "…", "history": "…", "assumptions": [{"text": "…", "settled_in": "${chapterStart}.3"}], "iou": [{"result": "…", "derived_in": "${chapterStart}.4"}]}]}]}, and per part "sections": ["${chapterStart}.1", "${chapterStart}.2"]. Short phrases, no prose, in Hebrew.`;
 
 /** A planned word count as a number: the model sometimes writes "1,200", "~900" or "1200–1500" (the first number counts). */
 export function wordsOf(v: unknown): number {
@@ -391,10 +399,17 @@ export function validOutline(o: unknown): o is BookOutline {
   return !!x && Array.isArray(x.chapters) && x.chapters.length > 0 && x.chapters.every((c) => Array.isArray(c.sections) && c.sections.length > 0 && c.sections.every((s) => typeof s.n === "string" && Array.isArray(s.defines ?? []) && Array.isArray(s.needs ?? [])));
 }
 
+function scopeOf(v: unknown): LessonScope | undefined {
+  const x = v as Partial<LessonScope> | undefined;
+  if (!x || (x.kind !== "overview" && x.kind !== "development")) return undefined;
+  return { kind: x.kind, central: (Array.isArray(x.central) ? x.central : []).filter((c) => typeof c === "string" && c.trim()), why: typeof x.why === "string" ? x.why : undefined };
+}
+
 /** Fills defaults so the rest of the code can rely on the shape. */
 export function normalizeOutline(o: BookOutline): BookOutline {
   return {
     known: Array.isArray(o.known) ? o.known.filter((k) => typeof k === "string") : [],
+    scope: scopeOf(o.scope),
     chapters: o.chapters.map((c) => ({
       ...c,
       sections: c.sections.map((s) => ({
@@ -517,6 +532,29 @@ export function anchorProblems(o: BookOutline, later: string[]): { where: string
       const w = wordsOf(s.words);
       if (w > MAX_ANCHOR_WORDS * 1.1) out.push({ where: s.n, kind: "anchor", problem: `${w} words for an anchor (at most about ${MAX_ANCHOR_WORDS}: the claim, one assumption or structure, one number or case); its development belongs to ${id ?? "the later module"}` });
     }
+  return out;
+}
+
+/**
+ * The size of the topic (24.11): the plan states its scope, and in an overview only the subsections of its central ideas are
+ * developed. A core subsection is a central idea's; a stop of the survey gets no "s" definition and no more than a supporting idea's words.
+ */
+export function scopeProblems(o: BookOutline): { where: string; kind: string; problem: string }[] {
+  const sc = o.scope;
+  if (!sc) return [{ where: "outline", kind: "scope", problem: 'no "scope": state the kind of the pages (overview or development), the central ideas, and why' }];
+  if (!sc.central.length) return [{ where: "outline", kind: "scope", problem: 'the scope names no central idea' }];
+  if (sc.kind !== "overview") return [];
+  const out: { where: string; kind: string; problem: string }[] = [];
+  if (sc.central.length > 2) out.push({ where: "outline", kind: "scope", problem: `an overview with ${sc.central.length} central ideas (one or two): the others are stops of the survey` });
+  const sections = o.chapters.flatMap((c) => c.sections);
+  const core = sections.filter((s) => /^core\b/i.test(s.role ?? ""));
+  if (core.length > 2 * sc.central.length + 1) out.push({ where: "outline", kind: "scope", problem: `${core.length} core subsections in an overview about ${sc.central.join("; ")}: keep core only where a central idea is developed, the other stops are support, background or anchor` });
+  for (const s of sections) {
+    if (/^core\b/i.test(s.role ?? "")) continue;
+    if (s.defines.some((d) => d.mark === "s")) out.push({ where: s.n, kind: "scope", problem: `a stop of the survey (${s.role ?? "no role"}) defines a working tool ("s"): mark it "a", or leave it to the module that teaches it` });
+    const w = wordsOf(s.words);
+    if (w > MAX_SUPPORT_WORDS * 1.1) out.push({ where: s.n, kind: "scope", problem: `${w} words for a stop of the survey (at most about ${MAX_SUPPORT_WORDS}): its idea, one mechanism or number, its place on the thread` });
+  }
   return out;
 }
 

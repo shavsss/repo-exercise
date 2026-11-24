@@ -231,3 +231,28 @@ test("a plan whose JSON broke on LaTeX backslashes is read (22.11: the raw plan 
   // the example in the plan's instructions reaches the model with doubled backslashes
   assert.match(B.BOOK_PLAN(1), /"\$L_s = \(4\\\\pi d\/\\\\lambda\)\^2\$"/);
 });
+
+// 24.11: Gilua M0.2 lesson 3 (Feynman ch. 3, ten survey pages) was written as 31,000 words, every stop developed in full.
+test("scope: an overview develops only its central ideas; the other stops stay short", () => {
+  const sec = (n, role, words, mark = "a") => ({ n, title: n, question: "q", from_prev: "", needs: [], defines: [{ term: `t${n}`, mark }], role, words });
+  const real = (scope) =>
+    B.normalizeOutline({
+      known: [],
+      scope,
+      chapters: [
+        { n: 6, title: "", question: "", sections: [sec("6.1", "core", 1420, "s"), sec("6.2", "core", 1947, "s"), sec("6.3", "core", 3531, "s"), sec("6.4", "core", 2442, "s"), sec("6.5", "core", 1797, "s"), sec("6.6", "core", 1053)] },
+        { n: 7, title: "", question: "", sections: [sec("7.1", "support: 7.8", 2324, "s"), sec("7.5", "background: 7.8", 1898), sec("7.9", "anchor: M15.1", 1400)] },
+      ],
+    });
+  assert.deepEqual(B.scopeProblems(real(undefined)).map((x) => x.kind), ["scope"]);
+  const over = { kind: "overview", central: ["לדעת את החוקים מול לחזות את התוצאה"] };
+  const p = B.scopeProblems(real(over)).map((x) => `${x.where}:${x.problem.slice(0, 12)}`);
+  assert.ok(p.some((x) => x.startsWith("outline:6 core")), p.join(" | "));
+  assert.ok(p.some((x) => x.startsWith("7.1:a stop")), "an s definition in a stop");
+  assert.ok(p.some((x) => x.startsWith("7.1:2324")) && p.some((x) => x.startsWith("7.5:1898")), "a stop over a supporting idea's words");
+  assert.deepEqual(B.scopeProblems(real({ kind: "development", central: ["x"] })), []);
+  const a = B.anchorProblems(real(over), ["M15.1"]);
+  assert.deepEqual(a.map((x) => x.where), ["7.9"]);
+  assert.match(a[0].problem, /1400 words for an anchor/);
+  assert.equal(B.anchorProblems(real(over), []).length, 2, "an anchor that names no later module");
+});
