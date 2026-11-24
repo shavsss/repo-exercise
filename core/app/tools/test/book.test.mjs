@@ -249,10 +249,21 @@ test("scope: an overview develops only its central ideas; the other stops stay s
   const p = B.scopeProblems(real(over)).map((x) => `${x.where}:${x.problem.slice(0, 12)}`);
   assert.ok(p.some((x) => x.startsWith("outline:6 core")), p.join(" | "));
   assert.ok(p.some((x) => x.startsWith("7.1:a stop")), "an s definition in a stop");
-  assert.ok(p.some((x) => x.startsWith("7.1:2324")) && p.some((x) => x.startsWith("7.5:1898")), "a stop over a supporting idea's words");
+  assert.ok(!p.some((x) => x.startsWith("7.5:")), "a stop is explained as long as it needs (no word cap of its own)");
   assert.deepEqual(B.scopeProblems(real({ kind: "development", central: ["x"] })), []);
   const a = B.anchorProblems(real(over), ["M15.1"]);
   assert.deepEqual(a.map((x) => x.where), ["7.9"]);
   assert.match(a[0].problem, /1400 words for an anchor/);
   assert.equal(B.anchorProblems(real(over), []).length, 2, "an anchor that names no later module");
+});
+
+// 24.11: no topic of the lesson is skipped: each topic of its "covers" is named by the subsection that teaches it.
+test("coverage: every topic of the lesson is taught by a subsection, never by an anchor", () => {
+  const sec = (n, role, covers = []) => ({ n, title: n, question: "q", from_prev: "", needs: [], defines: [], role, words: 600, covers });
+  const o = (sections) => B.normalizeOutline({ known: [], scope: { kind: "development", central: ["x"] }, chapters: [{ n: 3, title: "", question: "", sections }] });
+  const covers = ["3-1 Introduction", "3-2 Chemistry", "3-3 Biology"];
+  assert.deepEqual(B.scopeProblems(o([sec("3.1", "core", ["3-1 Introduction", "3-2  chemistry"]), sec("3.2", "support: 3.1", ["3-3 Biology"])]), covers), []);
+  const p = B.scopeProblems(o([sec("3.1", "core", ["3-1 Introduction"]), sec("3.2", "anchor: M15.1", ["3-2 Chemistry"])]), covers);
+  assert.deepEqual(p.map((x) => `${x.where}:${x.kind}`), ["outline:coverage", "3.2:coverage"]);
+  assert.match(p[0].problem, /3-3 Biology/);
 });
