@@ -4,6 +4,11 @@ import type { Shape, ShapeColor } from "./model";
 
 /** Fixed colours for the marks drawn on pictures, readable on any picture. */
 export const SHAPE_HEX: Record<ShapeColor, string> = { y: "#e0a800", r: "#d32f2f", b: "#1f6fb2", g: "#2e7d32", p: "#7b3fa0", o: "#d9730d", k: "#222222" };
+/** a text box's letters against the picture's width, at size 1 (picText.tsx, and the export below) */
+export const TEXT_SCALE = 0.024;
+export const TEXT_MIN_PX = 11;
+/** a text box's letters: its colour, but a darker yellow, which is unreadable on white */
+export const textInk = (c: ShapeColor) => (c === "y" ? "#7a5a00" : SHAPE_HEX[c]);
 
 function loadImage(src: string): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {
@@ -81,6 +86,51 @@ function arrowHead(g: CanvasRenderingContext2D, x1: number, y1: number, x2: numb
   g.fill();
 }
 
+/** A text box as picText.tsx draws it: a white card with a coloured edge, its letters scaled to the picture. */
+function textBox(g: CanvasRenderingContext2D, s: Shape, w: number, h: number) {
+  // the picture is drawn at its natural size; on screen the letters are TEXT_SCALE of the shown width
+  const fs = Math.max(TEXT_MIN_PX, w * TEXT_SCALE * (s.size ?? 1));
+  const pad = fs * 0.45;
+  const lh = fs * 1.35;
+  const right = (s.x1 / 1000) * w;
+  const top = (s.y1 / 1000) * h;
+  g.font = `600 ${fs}px "IBM Plex Sans Hebrew", Arial, sans-serif`;
+  const rtl = /[\u0590-\u05FF]/.test(s.text ?? "");
+  g.direction = rtl ? "rtl" : "ltr";
+  const boxW = s.x2 < s.x1 ? ((s.x1 - s.x2) / 1000) * w : 0;
+  const lines: string[] = [];
+  for (const para of (s.text ?? "").split("\n")) {
+    if (!boxW) {
+      lines.push(para);
+      continue;
+    }
+    let cur = "";
+    for (const word of para.split(" ")) {
+      const next = cur ? `${cur} ${word}` : word;
+      if (cur && g.measureText(next).width > boxW - 2 * pad) {
+        lines.push(cur);
+        cur = word;
+      } else cur = next;
+    }
+    lines.push(cur);
+  }
+  const bw = boxW || Math.max(...lines.map((l) => g.measureText(l).width)) + 2 * pad;
+  const bh = lines.length * lh + 2 * pad - (lh - fs);
+  const left = right - bw;
+  const r = fs * 0.35;
+  g.beginPath();
+  g.roundRect(left, top, bw, bh, r);
+  g.fillStyle = "rgba(255,255,255,0.94)";
+  g.fill();
+  g.lineWidth = Math.max(1.5, fs / 9);
+  g.strokeStyle = SHAPE_HEX[s.color];
+  g.stroke();
+  g.fillStyle = textInk(s.color);
+  g.textBaseline = "top";
+  g.textAlign = rtl ? "right" : "left";
+  lines.forEach((l, k) => g.fillText(l, rtl ? right - pad : left + pad, top + pad + k * lh));
+}
+
 /** The picture with its marks drawn on it, as PNG bytes (for Word) and a data URL (for HTML). */
 export async function flatten(src: string, marks: Shape[]): Promise<{ png: Uint8Array; url: string; w: number; h: number }> {
   const im = await loadImage(src);
@@ -112,17 +162,7 @@ export async function flatten(src: string, marks: Shape[]): Promise<{ png: Uint8
       g.beginPath();
       g.ellipse((x1 + x2) / 2, (y1 + y2) / 2, Math.abs(x2 - x1) / 2, Math.abs(y2 - y1) / 2, 0, 0, Math.PI * 2);
       g.stroke();
-    } else if (s.t === "text" && s.text) {
-      const fs = Math.max(14, Math.round(h / 22));
-      g.font = `600 ${fs}px "IBM Plex Sans Hebrew", Arial, sans-serif`;
-      g.direction = "rtl";
-      g.textBaseline = "top";
-      const tw = g.measureText(s.text).width;
-      g.fillStyle = "rgba(255,255,255,0.85)";
-      g.fillRect(x1 - tw - 6, y1 - 3, tw + 12, fs + 8);
-      g.fillStyle = SHAPE_HEX[s.color];
-      g.fillText(s.text, x1, y1);
-    }
+    } else if (s.t === "text" && s.text) textBox(g, s, w, h);
   }
   const url = c.toDataURL("image/png");
   const bin = atob(url.split(",")[1]);

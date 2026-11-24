@@ -4,6 +4,7 @@ import { BOX_LABEL, itemNumbers, numbering, textOf } from "./model";
 import { dedupeMath, dropEmptyMarks, hydrateMath, tidyLists } from "./rich";
 import { MathView } from "./MathEdit";
 import { useFigureSrc } from "./Picture";
+import { TextBox, useWidth } from "./picText";
 import { SHAPE_HEX } from "./media";
 import { Icon } from "../components/Icon";
 import { BOX_ICON } from "./Editor";
@@ -99,9 +100,11 @@ export function BlockView({ b, n, eq }: { b: Block; n?: string; eq?: number }) {
 
 function PicView({ b }: { b: Extract<Block, { t: "img" } | { t: "fig" }> }) {
   const src = useFigureSrc(b);
+  const area = useRef<HTMLDivElement>(null);
+  const areaW = useWidth(area);
   return (
     <figure className={`sm-pic size-${b.size} ${b.side ? "is-side" : ""}`}>
-      <div className="sm-pic-area">
+      <div ref={area} className="sm-pic-area">
         {src && <img src={src} alt={b.caption} />}
         <svg viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden>
           {b.marks.map((s, i) =>
@@ -114,13 +117,7 @@ function PicView({ b }: { b: Extract<Block, { t: "img" } | { t: "fig" }> }) {
             ) : null,
           )}
         </svg>
-        {b.marks.map((s, i) =>
-          s.t === "text" ? (
-            <span key={i} className="sm-pic-text" style={{ right: `${100 - s.x1 / 10}%`, top: `${s.y1 / 10}%`, color: SHAPE_HEX[s.color] }}>
-              {s.text}
-            </span>
-          ) : null,
-        )}
+        {b.marks.map((s, i) => (s.t === "text" ? <TextBox key={i} s={s} areaW={areaW} /> : null))}
       </div>
       {b.caption && <figcaption>{b.caption}</figcaption>}
     </figure>
