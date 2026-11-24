@@ -98,3 +98,24 @@ export function curriculumBlock(m: Module & CurriculumFields) {
     );
   return out.length ? `\n${out.join("\n")}` : "";
 }
+
+/**
+ * The modules after this one in the course order, each with the K/S topic items it teaches in full (24.11, the learner: a
+ * lesson of M14 developed Navier-Stokes at length, though M15.1 teaches it; the planner was told to make such a topic an
+ * anchor but never saw which later module teaches what). Given to the lesson planner only.
+ */
+export function laterModules(m: Module, mods: Module[]) {
+  const at = mods.findIndex((x) => x.id === m.id);
+  if (at < 0) return [];
+  return mods.slice(at + 1);
+}
+
+export function laterModulesBlock(m: Module, mods: Module[]) {
+  const later = laterModules(m, mods);
+  if (!later.length) return "";
+  const line = (x: Module) => {
+    const items = (x.items ?? []).filter((t) => (t.k === "new" || t.k === "deepen") && t.imp !== "C").map((t) => t.n);
+    return `- ${x.id} ${x.en}${items.length ? `: ${items.join("; ")}` : ""}`;
+  };
+  return `\n\n<later_modules>\nThe modules that come after this one in the course, in order, each with the topic items it teaches in full (its title and pages teach the rest of its subject). A topic one of them teaches is not developed here (rule on anchor claims):\n${later.map(line).join("\n")}\n</later_modules>`;
+}

@@ -6,14 +6,14 @@
 // call per part, so its length never depends on one long answer.
 import { create, all } from "mathjs";
 import { docMeta, getIndex, readPages, searchLibrary, type Module } from "./library";
-import { curriculumBlock } from "./curriculum";
+import { curriculumBlock, laterModules, laterModulesBlock } from "./curriculum";
 import { CHAT_HISTORY_BYTES, focusHistory, questionOf, type Chapter } from "./chatContext";
 import { auditLong, namedModules, type AuditMark, applyRepair } from "./lessonAudit";
 import { headWithin, tailWithin } from "./truncation";
 import { LEGACY_RULES, SYSTEM_PROMPT, TEACHBACK_RULES, libraryList } from "./prompt";
 import type { Runtime, SampleTool } from "./runtime";
 import { type TeachScope, type TeachTurn, type TeachVerdict } from "./teachback";
-import { BOOK_PART, BOOK_PLAN, CASE_PART, CASE_PLAN, OUTLINE_FIX, coverParts, planFromText, coverProblems, formProblems, keepWords, normalizeOutline, orderProblems, outlineCheckPrompt, parseOutlineReview, partSections, validOutline, wordCount, type BookOutline, type CasePlan } from "./bookRules";
+import { BOOK_PART, BOOK_PLAN, CASE_PART, CASE_PLAN, OUTLINE_FIX, anchorProblems, coverParts, scopeProblems, planFromText, coverProblems, formProblems, keepWords, normalizeOutline, orderProblems, outlineCheckPrompt, parseOutlineReview, partSections, validOutline, wordCount, type BookOutline, type CasePlan } from "./bookRules";
 import { caseAid, caseId, type CaseAid } from "./caseBlock";
 import { ideasForPrompt, loadIdeas, type Idea } from "./ideas";
 import { loadProjects, projectsForPrompt, type ResearchProject } from "./projects";
@@ -636,7 +636,7 @@ ${BOOK_PART(o, mine, k === 0, last, last && FEATURES.has("case"), wordCount(writ
 }
 
 /** Checks the outline's order before any text is written, and has the planner fix it (at most two rounds). */
-async function checkOutline(o: { rt: Runtime; plan: PartPlan; planTurn: string; title: string; effort: Effort; signal: AbortSignal; cb: TurnCallbacks }): Promise<PartPlan> {
+async function checkOutline(o: { rt: Runtime; plan: PartPlan; planTurn: string; later: string[]; title: string; effort: Effort; signal: AbortSignal; cb: TurnCallbacks }): Promise<PartPlan> {
   let plan = o.plan;
   const ask = (content: string) =>
     o.rt.sample!.json<PartPlan>(
@@ -660,7 +660,7 @@ async function checkOutline(o: { rt: Runtime; plan: PartPlan; planTurn: string; 
   for (let round = 0; round < 2; round++) {
     o.cb.onStatus?.(round ? "בודק שוב את סדר תוכן העניינים" : "בודק את סדר תוכן העניינים: כל מושג מוגדר לפני שמשתמשים בו");
     const review = parseOutlineReview(await o.rt.sample!.json<unknown>(outlineCheckPrompt(plan.outline!, o.title), { model: MODEL, modelTier: "complex", effort: "medium", signal: o.signal, cache: false }).catch(() => null));
-    const problems = [...orderProblems(plan.outline!), ...formProblems(plan.outline!), ...coverProblems(plan.outline!, plan.parts), ...(review?.problems ?? [])];
+    const problems = [...orderProblems(plan.outline!), ...formProblems(plan.outline!), ...anchorProblems(plan.outline!, o.later), ...scopeProblems(plan.outline!), ...coverProblems(plan.outline!, plan.parts), ...(review?.problems ?? [])];
     if (!problems.length) break;
     o.cb.onStatus?.(`מתקן את תוכן העניינים (${problems.length} בעיות)`);
     const fixed = await ask(OUTLINE_FIX({ problems, verdict: "fix" }));
@@ -687,7 +687,7 @@ const isEmptyPlan = (e: unknown) => ["invalid_json", "empty_completion"].include
 const LITE_PLAN = `
 LESSON RULES (they replace the length rule and the 4200-word floor above). There is no word target and no floor: the length follows from the depth units. Nothing of the assigned material is dropped and nothing is taught below its level.
 - Central results: one or two per lesson. A central result is a formula, theorem, method or model the course returns to as a working tool, or that carries an engineering decision. Each one gets all seven level-2.5 sections, woven into the argument where it raises them, plus its authority layer: a hidden assumption with a real break (in the step where it enters), a quantitative reading (a bound or error growth, with a computed number), the decisive real case with computed numbers against published ones, a professional error and the check that catches it, a second structure ("what it really rests on"), and a strong mapping to another field.
-- Anchor claims: an idea of the pages that fixes a law, a count, a computation or an impossibility but is not central, AND that a named later module of the course teaches in full (say which in the text). It gets the claim, one assumption or structure, and one number or case, in one or two paragraphs. The theory of a later topic enters only in its one-step form; the rest is a fieldmap line. An idea of the assigned pages that no later module teaches is not an anchor: it is taught in full here, however short the pages make it. When unsure whether a later module teaches it, teach it here.
+- Anchor claims: an idea of the pages that fixes a law, a count, a computation or an impossibility but is not central, AND that a named later module of the course teaches in full (say which in the text). It gets the claim, one assumption or structure, and one number or case, in one or two paragraphs. The theory of a later topic enters only in its one-step form; the rest is a fieldmap line. An idea of the assigned pages that no later module teaches is not an anchor: it is taught in full here, however short the pages make it. A topic that a module of <later_modules> teaches in full is an anchor here, an enrichment and not its development, unless the central result of this lesson cannot be understood or derived without it (then only what that step needs). When unsure whether a later module teaches it, teach it here.
 - Completeness comes before everything else: every idea, result, definition, mechanism and worked number of the assigned pages, and every K or S topic item, is taught at full depth. When something has to give, drop a second example, an exercise or a story, or make the lesson longer; never thin or skip material. The lesson is checked against its pages before the learner reads it, and anything missing is sent back.
 - A depth unit is one idea with its own level-2.5 exam question. Plan the number of units per part, counted honestly: two ideas answered by the same answer are one unit, and splitting a sentence makes no unit. About 30 counted words per unit, for orientation only: one central result usually takes 80 to 120 units, two take 130 to 180.
 - Split only when the plan holds more than two central results, or more than 180 units: cut at a boundary between central results, each result moving with its units, anchors and case study, and add "split": {"title": "Hebrew title of the continuation lesson", "covers": "the results and pages that move to it"}. Never split because a lesson is long, and never thin or drop anything to avoid a split: every extra lesson lengthens the course.
@@ -768,7 +768,7 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
   let plan = resume?.plan;
   if (!plan) {
     cb.onStatus?.("מתכנן את השיעור: קורא את המקורות ומחשב את המספרים");
-    const planTurn = `${ctx}\n\n${text}\n\n${LESSON_RULES === "lite" ? PART_PLAN_INSTRUCTIONS.replace("for a core or advanced module the words add up to at least 4200 Hebrew words unless the assigned material is genuinely short (then say so in the first part); ", "").replace(', "words": 1200}', ', "units": 40}') + LITE_PLAN : PART_PLAN_INSTRUCTIONS}${featurePlan()}${book ? BOOK_PLAN(chapterStart) + (FEATURES.has("case") ? CASE_PLAN(caseAid(lessonIdx)) : "") : ""}`;
+    const planTurn = `${ctx}\n\n${text}\n\n${LESSON_RULES === "lite" ? PART_PLAN_INSTRUCTIONS.replace("for a core or advanced module the words add up to at least 4200 Hebrew words unless the assigned material is genuinely short (then say so in the first part); ", "").replace(', "words": 1200}', ', "units": 40}') + LITE_PLAN : PART_PLAN_INSTRUCTIONS}${featurePlan()}${book ? BOOK_PLAN(chapterStart) + (FEATURES.has("case") ? CASE_PLAN(caseAid(lessonIdx)) : "") + laterModulesBlock(m, getIndex()?.modules ?? []) : ""}`;
     plan = await retryRefused(
       (h) => {
         const once = (again: boolean) =>
@@ -786,7 +786,7 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
       cb,
     ).catch((e) => onRefusal(e, rt, m, history, planTurn, cb));
     if (!plan || !Array.isArray(plan.parts) || !plan.parts.length) throw { code: "invalid_json", message: "no plan" };
-    if (book) plan = await checkOutline({ rt, plan, planTurn, title: lessons?.[lessonIdx]?.title ?? m.title, effort, signal, cb });
+    if (book) plan = await checkOutline({ rt, plan, planTurn, later: laterModules(m, getIndex()?.modules ?? []).map((x) => x.id), title: lessons?.[lessonIdx]?.title ?? m.title, effort, signal, cb });
     cb.onCheckpoint?.(plan, 0, "");
     if (opts.planOnly) return { text: "", plan, model: undefined };
   }
