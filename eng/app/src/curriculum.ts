@@ -102,8 +102,7 @@ export function curriculumBlock(m: Module & CurriculumFields) {
 /**
  * The modules after this one in the course order, each with the K/S topic items it teaches in full (24.11, the learner: a
  * lesson of M14 developed Navier-Stokes at length, though M15.1 teaches it; the planner was told to make such a topic an
- * anchor but never saw which later module teaches what). Given to the lesson planner only, and only in Gilua: in Lanchester
- * the list of later modules is full of weapon topics, and with it the planner was refused 16 times in a row (25.11).
+ * anchor but never saw which later module teaches what). Given to the lesson planner only.
  */
 export function laterModules(m: Module, mods: Module[]) {
   const at = mods.findIndex((x) => x.id === m.id);
