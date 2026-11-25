@@ -7,6 +7,13 @@
 import { create, all } from "mathjs";
 import { docMeta, getIndex, readPages, searchLibrary, type Module } from "./library";
 import { curriculumBlock, laterModules, laterModulesBlock } from "./curriculum";
+
+/**
+ * Combat topics left out of <later_modules> (25.11, the learner): with them, the 38,000-character list drew 16 refusals in
+ * a row on M0.2 lesson 1, written on 22.11 without one. Only generic engineering topics stay in the list, word for word;
+ * a dropped topic is not renamed, and the planner teaches it here if the lesson needs it ("when unsure, teach it here").
+ */
+const COMBAT_TOPICS = /missile|weapon|warhead|munition|ammunition|explosive|energetic|ordnance|lethal|kill|attack|strike|combat|warfare|\bwar\b|battle|intercept|targeting|target acquisition|fire-control|\bfires\b|counterfire|\bguns?\b|projectile|ballistic|\btanks?\b|nuclear|CBRN|armed|jamm|anti-jam|countermeasure|decoy|threat|torpedo|\bmines?\b|C-RAM|C-UAS|drone|swarm|defen[cs]e|tactic|military|MIL-STD|DoD|IMOD|MAFAT|damage|\bPk\b|\bCEP\b|fuz|guidance|guided|seeker|stealth|camouflage|suppression|end game|no-escape|evasive|fighter|air-to-air|survivab|vulnerab|\bEW\b|SIGINT|\bESM\b|spoof|denied|\bBMD\b|\bAMD\b|\bASW\b|\bIFF\b|Link 16|\bC2\b|shooting|\bshots?\b|wargam|\bATR\b|designation|Russian|Chinese|proliferation|OSINT|capability assessment|\bloft\b|\bNEZ\b|Rmax|Zarchan|Siouris|proportional navigation|lock-on|weav|counter-|electronic protection|emitter location|precision|subterranean|artillery|interior and exterior|armou?r|adversar|enemy|hostile|payload|JDAM|GMLRS|SHORAD|MANPADS|\braids?\b|magazine|early warning|high-energy laser|high-power microwave|\bHPM\b|sortie|campaign|UNDEX|underwater explosion|ASAT|dismount|hypersonic|submarine|fleet|naval|undersea|operational|resilien|protected|DOT&E|LFT&E|OT&E|cost-exchange|irradiance on target|Johnson|\bTTP\b|GMTI|STAP/i;
 import { CHAT_HISTORY_BYTES, focusHistory, questionOf, type Chapter } from "./chatContext";
 import { auditLong, namedModules, type AuditMark, applyRepair } from "./lessonAudit";
 import { headWithin, tailWithin } from "./truncation";
@@ -768,7 +775,7 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
   let plan = resume?.plan;
   if (!plan) {
     cb.onStatus?.("מתכנן את השיעור: קורא את המקורות ומחשב את המספרים");
-    const planTurn = `${ctx}\n\n${text}\n\n${LESSON_RULES === "lite" ? PART_PLAN_INSTRUCTIONS.replace("for a core or advanced module the words add up to at least 4200 Hebrew words unless the assigned material is genuinely short (then say so in the first part); ", "").replace(', "words": 1200}', ', "units": 40}') + LITE_PLAN : PART_PLAN_INSTRUCTIONS}${featurePlan()}${book ? BOOK_PLAN(chapterStart) + (FEATURES.has("case") ? CASE_PLAN(caseAid(lessonIdx)) : "") + laterModulesBlock(m, getIndex()?.modules ?? []) : ""}`;
+    const planTurn = `${ctx}\n\n${text}\n\n${LESSON_RULES === "lite" ? PART_PLAN_INSTRUCTIONS.replace("for a core or advanced module the words add up to at least 4200 Hebrew words unless the assigned material is genuinely short (then say so in the first part); ", "").replace(', "words": 1200}', ', "units": 40}') + LITE_PLAN : PART_PLAN_INSTRUCTIONS}${featurePlan()}${book ? BOOK_PLAN(chapterStart) + (FEATURES.has("case") ? CASE_PLAN(caseAid(lessonIdx)) : "") + laterModulesBlock(m, getIndex()?.modules ?? [], COMBAT_TOPICS) : ""}`;
     plan = await retryRefused(
       (h) => {
         const once = (again: boolean) =>
@@ -786,7 +793,7 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
       cb,
     ).catch((e) => onRefusal(e, rt, m, history, planTurn, cb));
     if (!plan || !Array.isArray(plan.parts) || !plan.parts.length) throw { code: "invalid_json", message: "no plan" };
-    if (book) plan = await checkOutline({ rt, plan, planTurn, later: laterModules(m, getIndex()?.modules ?? []).map((x) => x.id), covers: lessons?.[lessonIdx]?.covers ?? [], title: lessons?.[lessonIdx]?.title ?? m.title, effort, signal, cb });
+    if (book) plan = await checkOutline({ rt, plan, planTurn, later: laterModules(m, getIndex()?.modules ?? [], COMBAT_TOPICS).map((x) => x.id), covers: lessons?.[lessonIdx]?.covers ?? [], title: lessons?.[lessonIdx]?.title ?? m.title, effort, signal, cb });
     cb.onCheckpoint?.(plan, 0, "");
     if (opts.planOnly) return { text: "", plan, model: undefined };
   }
