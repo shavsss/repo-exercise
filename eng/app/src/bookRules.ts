@@ -113,7 +113,7 @@ THE LESSON AS CHAPTERS OF A BOOK (these rules override every earlier rule about 
  * alarm for inflation, never a word target.
  */
 export const CONTENT_WORDS = { central: 1600, support: 650, stop: 550, case: 1800, close: 2000 };
-export function expectedWords(o: BookOutline, covers: string[]): number {
+export function expectedWords(o: Pick<BookOutline, "scope">, covers: string[]): number {
   const central = Math.max(1, o.scope?.central.length ?? 1);
   const overview = o.scope?.kind === "overview";
   const others = Math.max(0, covers.length - central);
@@ -138,7 +138,7 @@ export function lengthProblems(o: BookOutline, covers: string[]): { where: strin
 }
 
 /** Subsections written far longer than planned: "n: written/planned" (shown with what the check left open). */
-export function sectionDrift(text: string, o: BookOutline): string[] {
+export function sectionDrift(text: string, o: LengthPlan): string[] {
   const planned = new Map(o.chapters.flatMap((c) => c.sections.map((s) => [s.n, wordsOf(s.words)] as const)));
   const out: string[] = [];
   for (const part of text.split(/\n(?=#{2,3} )/)) {
@@ -148,6 +148,27 @@ export function sectionDrift(text: string, o: BookOutline): string[] {
     if (n && want && got > want * 1.5 && got > want + 400) out.push(`${n}: ${got.toLocaleString("en-US")} מילים מול ${want.toLocaleString("en-US")} בתוכנית`);
   }
   return out;
+}
+
+/**
+ * What the length checks need from the outline (the scope, and each subsection's planned words), with what the learner
+ * already knew. It is kept on the lesson once written (25.11: the plan is dropped then, and a check run later had none).
+ */
+export interface LengthPlan {
+  known?: string[];
+  scope?: LessonScope;
+  chapters: { sections: { n: string; words?: unknown }[] }[];
+}
+export const lengthPlan = (o: BookOutline): LengthPlan => ({
+  known: o.known,
+  ...(o.scope ? { scope: o.scope } : {}),
+  chapters: o.chapters.map((c) => ({ sections: c.sections.map((s) => ({ n: s.n, words: wordsOf(s.words) })) })),
+});
+/** The lesson far longer than its content calls for, and each subsection far longer than planned: what the check leaves open. */
+export function lengthOpen(text: string, o: LengthPlan, covers: string[]): string[] {
+  const expected = expectedWords(o, covers);
+  const words = wordCount(text);
+  return [...(inflated(words, expected) ? [`אורך: ${words.toLocaleString("en-US")} מילים, מול כ-${expected.toLocaleString("en-US")} שהתוכן דורש; כנראה ניפוח`] : []), ...sectionDrift(text, o).map((d) => `סעיף ארוך מהתוכנית: ${d}`)];
 }
 
 export function wordsOf(v: unknown): number {

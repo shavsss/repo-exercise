@@ -34,6 +34,10 @@ export interface StoredMessage {
   partsChars?: number;
   /** a lesson: its check against the sources before it was read (lessonAudit.ts) */
   audit?: import("./lessonAudit").AuditMark;
+  /** a lesson whose check failed even after its retries (25.11): the error and when; cleared by a check that runs */
+  unchecked?: { error: string; at: number };
+  /** a lesson written from an outline: the planned words of its subsections, for the length check of a later check */
+  lengthPlan?: import("./bookRules").LengthPlan;
 }
 
 /** One lesson of a module, as the tutor planned it on entering the module. */

@@ -236,3 +236,59 @@ test("early: material a later module teaches is a finding, listed open, and show
   assert.ok(again.includes("<cut_as_early>") && again.includes("- widelane (M5.7)") && !again.includes("</later_modules>"));
   assert.ok(A.repairPrompt({ lessonTitle: "t", moduleId: "M0.2", moduleTitle: "m", covers: [], otherLessons: [], curriculum: "", modules: [], pages: "", text: lesson }, r, "inplace").includes('cut every item in "early"'));
 });
+
+test("retry: a transient failure is tried again after growing waits, with a status; other errors at once (25.11)", async () => {
+  const waited = [];
+  const status = [];
+  const wait = async (ms) => void waited.push(ms);
+  let n = 0;
+  const flaky = async () => {
+    if (++n < 3) throw { code: n === 1 ? "rate_limited" : "upstream_error" };
+    return "ok";
+  };
+  assert.equal(await A.retryTransient(flaky, { wait, onStatus: (s) => status.push(s) }), "ok");
+  assert.deepEqual(waited, [30000, 90000]);
+  assert.equal(status[0], "הגעת למגבלת השימוש: מנסה שוב בעוד 30 שניות (ניסיון 2 מתוך 4)");
+  assert.equal(status[1], "שגיאה בצד של Claude: מנסה שוב בעוד דקה וחצי (ניסיון 3 מתוך 4)");
+  // the last failure is thrown after the last wait
+  waited.length = 0;
+  await assert.rejects(A.retryTransient(async () => Promise.reject({ code: "rate_limited" }), { wait }), { code: "rate_limited" });
+  assert.deepEqual(waited, [30000, 90000, 180000]);
+  // prompt_too_large, refused and cancelled are not retried (auditLong cuts a large lesson; a stop stops)
+  for (const code of ["prompt_too_large", "refused", "cancelled"]) {
+    waited.length = 0;
+    await assert.rejects(A.retryTransient(async () => Promise.reject({ code }), { wait }), { code });
+    assert.equal(waited.length, 0);
+  }
+  // a cut connection without a code is transient
+  assert.ok(A.transient(new TypeError("Failed to fetch")));
+  assert.ok(!A.transient(new Error("x is undefined")));
+});
+
+test("retry: a stop during the wait cancels at once", async () => {
+  const ctl = new AbortController();
+  const p = A.retryTransient(async () => Promise.reject({ code: "rate_limited" }), { signal: ctl.signal });
+  setTimeout(() => ctl.abort(), 10);
+  await assert.rejects(p, { code: "cancelled" });
+});
+
+test("a long lesson checked in parts: a transient failure in one call is retried, and the check goes on (auditLong + retryTransient)", async () => {
+  const big = Array.from({ length: 6 }, (_, i) => `## ${i + 1}. פרק\n` + "מילה ארוכה ".repeat(9000)).join("\n\n");
+  let calls = 0;
+  const deps = {
+    reader: false,
+    call: (prompt) =>
+      A.retryTransient(
+        async () => {
+          calls++;
+          if (calls === 1) throw { code: "rate_limited" };
+          if (prompt.length > 200000) throw { code: "prompt_too_large" };
+          return '{"missing":[],"thin":[],"level":[],"deferrals":[],"early":[],"questions":[],"keep":{"exists":true,"missing":[],"remove":[]},"errors":[],"verdict":"pass"}';
+        },
+        { wait: async () => {} },
+      ),
+  };
+  const r = await A.auditLong({ lessonTitle: "t", moduleId: "M0.2", moduleTitle: "m", covers: [], otherLessons: [], curriculum: "", modules: [], pages: "", text: big }, "inplace", deps);
+  assert.equal(r.mark.verdict, "pass");
+  assert.ok(r.mark.parts >= 2);
+});

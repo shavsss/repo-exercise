@@ -308,6 +308,18 @@ test("length alarm: by what the content calls for, a survey with more chapters t
   assert.deepEqual(B.sectionDrift(text, fine), ["1.1: 1,603 מילים מול 1,000 בתוכנית"]);
 });
 
+test("the plan's words kept on the lesson: a check run later still marks the length and the long subsections (25.11)", () => {
+  const sec = (n, words) => ({ n, title: "t", words, defines: [], question: "q", from_prev: "", needs: [] });
+  const outline = { known: ["חוק אוהם"], scope: { kind: "development", central: ["a"] }, chapters: [{ n: 1, title: "c", question: "q", sections: [sec("1.1", "1,000 words"), sec("1.2", 800)] }] };
+  const kept = JSON.parse(JSON.stringify(B.lengthPlan(outline)));
+  assert.deepEqual(kept, { known: ["חוק אוהם"], scope: { kind: "development", central: ["a"] }, chapters: [{ sections: [{ n: "1.1", words: 1000 }, { n: "1.2", words: 800 }] }] });
+  const text = "### 1.1 א\n" + "מילה ".repeat(1600) + "\n### 1.2 ב\n" + "מילה ".repeat(900);
+  assert.deepEqual(B.sectionDrift(text, kept), B.sectionDrift(text, outline));
+  assert.deepEqual(B.lengthOpen(text, kept, ["x"]), ["סעיף ארוך מהתוכנית: 1.1: 1,603 מילים מול 1,000 בתוכנית"]);
+  const long = "### 1.1 א\n" + "מילה ".repeat(20000);
+  assert.match(B.lengthOpen(long, kept, ["x"])[0], /^אורך: 20,003 מילים, מול כ-/);
+});
+
 test("later modules within a given room: titles first, details for the nearest, the rest counted, nothing when there is no room (25.11)", async () => {
   const out = await build({ entryPoints: [fileURLToPath(new URL("../../src/curriculum.ts", import.meta.url))], bundle: true, format: "esm", write: false, platform: "neutral" });
   const C = await import("data:text/javascript;base64," + Buffer.from(out.outputFiles[0].text).toString("base64"));

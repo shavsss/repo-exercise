@@ -18,6 +18,9 @@ function readPositions(): Record<string, number> {
   }
 }
 
+/** Whether the lesson was scrolled past its start in this browser (the same 300px as the resume). */
+export const scrollStarted = (key: string) => (readPositions()[key] ?? 0) > 300;
+
 /** Thin line under the top bar: how much of the page has been read. */
 export function ReadingProgress({
   scrollRef,
