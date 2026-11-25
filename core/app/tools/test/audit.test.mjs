@@ -230,6 +230,8 @@ test("early: material a later module teaches is a finding, listed open, and show
   assert.ok(A.openItems(r).some((l) => l.includes("widelane") && l.includes("M5.7")));
   const p = A.auditPrompt({ lessonTitle: "t", moduleId: "M0.2", moduleTitle: "m", covers: [], otherLessons: [], curriculum: "", modules: [], later: "\n\n<later_modules>\n- M5.7 Differential GPS\n</later_modules>", pages: "", text: lesson });
   assert.ok(p.includes("<later_modules>") && p.includes('"early"'));
+  const withLessons = A.auditPrompt({ lessonTitle: "t", moduleId: "M0.2", moduleTitle: "m", covers: [], otherLessons: [{ title: "שבירה", covers: ["1.4.3"], later: true }], curriculum: "", modules: [], pages: "", text: lesson });
+  assert.ok(withLessons.includes("- (later) שבירה: 1.4.3"));
   const again = A.auditPrompt({ lessonTitle: "t", moduleId: "M0.2", moduleTitle: "m", covers: [], otherLessons: [], curriculum: "", modules: [], cut: r.early, pages: "", text: lesson }, 2);
   assert.ok(again.includes("<cut_as_early>") && again.includes("- widelane (M5.7)") && !again.includes("</later_modules>"));
   assert.ok(A.repairPrompt({ lessonTitle: "t", moduleId: "M0.2", moduleTitle: "m", covers: [], otherLessons: [], curriculum: "", modules: [], pages: "", text: lesson }, r, "inplace").includes('cut every item in "early"'));
