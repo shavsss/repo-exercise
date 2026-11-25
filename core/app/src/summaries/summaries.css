@@ -117,7 +117,27 @@
 .sm-h2 { font-size: 1.17em; margin-top: calc(var(--sm-lh) / 2); }
 .sm-h3 { font-size: 1.02em; font-weight: 400; }
 /* a title without a number (25.11): a topic inside a section, smaller than a section's heading and in the accent */
-.sm-h2.is-plain { font-size: 1.06em; color: color-mix(in srgb, var(--accent) 65%, var(--ink)); }
+/* a title without a number (25.11), in three sizes: a topic, its subtopic, a point under it; smaller than the numbered
+   heading of the same level, and in the accent. The summary's own title (the first block) keeps its size */
+.sm-block:not(:first-child) .sm-h1.is-plain { font-size: 1.24em; }
+.sm-h.is-plain { color: color-mix(in srgb, var(--accent) 65%, var(--ink)); }
+.sm-h2.is-plain { font-size: 1.06em; }
+.sm-h3.is-plain { font-size: 0.98em; font-weight: 700; color: color-mix(in srgb, var(--accent) 40%, var(--ink)); }
+.sm-bmenu-size button { flex: 1; font-size: 0.8rem; }
+
+/* where the reading is: chapter › section › title, at the top of the column once the heading has scrolled away (25.11) */
+.sm-crumb { position: sticky; top: 0; height: 0; z-index: 6; margin-inline: -40px; }
+.sm-crumb-in { display: flex; flex-wrap: wrap; gap: 2px 0; padding: 5px 14px; font-family: var(--font); font-size: 0.78rem; line-height: 1.5; color: var(--muted); background: color-mix(in srgb, var(--sm-paper) 94%, transparent); border-bottom: 1px solid var(--line); backdrop-filter: blur(3px); }
+.sm-crumb-in button { all: unset; cursor: pointer; padding: 0 4px; border-radius: 4px; max-width: 32ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sm-crumb-in button + button::before { content: "‹"; margin-inline-end: 8px; color: var(--line-strong); }
+.sm-crumb-in button:hover, .sm-crumb-in button:focus-visible { color: var(--ink); background: var(--hover); }
+.sm-crumb-in button.is-last { color: var(--ink); font-weight: 600; }
+.sm-block { scroll-margin-top: 36px; }
+
+/* quiet while typing (25.11): the rail and the handles fade; a move of the mouse brings them back */
+.sm-rail, .sm-handle { transition: opacity 0.25s; }
+.sm-editor.is-typing .sm-rail { opacity: 0.2; }
+.sm-editor.is-typing .sm-block > .sm-handle, .sm-editor.is-typing .sm-emoji-btn:not(.has) { opacity: 0; }
 .sm-num { color: var(--accent); font-family: var(--mono); font-weight: 500; font-size: 0.85em; flex: none; }
 .sm-block:first-child .sm-h1 { margin-top: 0; font-size: 1.6em; }
 .sm-ro { word-break: break-word; }

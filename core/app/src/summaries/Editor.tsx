@@ -39,6 +39,8 @@ const INSERT: InsertItem[] = [
   { id: "hr", label: "קו מפריד", short: "― קו", hint: "", keys: "hr קו מפריד", make: () => emptyBlock("hr") },
 ];
 const MARKS: MarkColor[] = ["y", "r", "b", "g", "p", "o"];
+/** a heading's three sizes, by level */
+const HEAD_SIZE = { 1: "גדולה", 2: "בינונית", 3: "קטנה" } as const;
 
 /** Symbols that are not on the keyboard: the character for text, and its LaTeX for an equation. */
 const SYMBOLS: { title: string; items: [string, string][] }[] = [
@@ -641,6 +643,12 @@ export function Editor({
         return;
       }
     }
+    // Ctrl+Alt+1/2/3: the line becomes a chapter, section or subsection heading; Ctrl+Alt+0: a paragraph (25.11, as in Word)
+    if ((e.ctrlKey || e.metaKey) && e.altKey && /^Digit[0-3]$/.test(e.code)) {
+      e.preventDefault();
+      convert(e.code === "Digit0" ? "p" : `h${e.code.slice(5)}`);
+      return;
+    }
     if (e.altKey && /^[0-6]$/.test(e.key)) {
       e.preventDefault();
       applyMark(e.key === "0" ? null : `hl-${MARKS[Number(e.key) - 1]}`);
@@ -653,6 +661,13 @@ export function Editor({
       return;
     }
     if (listKeysIn(b, el, e)) return;
+    // in a heading, Tab makes it one level smaller (a topic → its subtopic → a point under it) and Shift+Tab larger
+    if (e.key === "Tab" && b.t === "h" && !b.cont) {
+      e.preventDefault();
+      const level = Math.max(1, Math.min(3, b.level + (e.shiftKey ? -1 : 1))) as 1 | 2 | 3;
+      if (level !== b.level) patch(b.id, { level } as Partial<Block>, "struct");
+      return;
+    }
     if (e.key === "Enter" && e.shiftKey && !e.nativeEvent.isComposing) {
       // a new line in the same block; a mark does not go on to it
       e.preventDefault();
@@ -1014,7 +1029,7 @@ export function Editor({
     let nb: Block | null = null;
     if (to === "p") nb = { id: cur.id, t: "p", html };
     else if (/^h[123]$/.test(to)) nb = { id: cur.id, t: "h", level: Number(to[1]) as 1 | 2 | 3, html: cleanHtml(flatLists(html, () => "")) };
-    else if (to === "hp") nb = { id: cur.id, t: "h", level: 2, plain: true, html: cleanHtml(flatLists(html, () => "")) };
+    else if (/^hp[123]?$/.test(to)) nb = { id: cur.id, t: "h", level: (Number(to[2]) || 2) as 1 | 2 | 3, plain: true, html: cleanHtml(flatLists(html, () => "")) };
     else if (to === "ul" || to === "ol") {
       // the lines of the block become the items of a list inside it
       const tag = to;
@@ -1118,7 +1133,9 @@ export function Editor({
               <option value="h1">כותרת פרק</option>
               <option value="h2">כותרת סעיף</option>
               <option value="h3">תת-סעיף</option>
-              <option value="hp">כותרת בלי מספר</option>
+              <option value="hp1">כותרת בלי מספר: גדולה</option>
+              <option value="hp">כותרת בלי מספר: בינונית</option>
+              <option value="hp3">כותרת בלי מספר: קטנה</option>
               <option value="ul">רשימת תבליטים</option>
               <option value="ol">רשימה ממוספרת</option>
               {(Object.keys(BOX_LABEL) as BoxKind[]).map((k) => (
@@ -1134,6 +1151,15 @@ export function Editor({
             {ALIGNS.map(([a, name, icon]) => (
               <button key={a} role="menuitemradio" aria-checked={(b.align ?? "start") === a} aria-pressed={(b.align ?? "start") === a} title={name} aria-label={name} onClick={() => patch(b.id, { align: a === "start" ? undefined : a } as Partial<Block>, "struct")}>
                 {icon}
+              </button>
+            ))}
+          </div>
+        )}
+        {b.t === "h" && !b.cont && (
+          <div className="sm-bmenu-row sm-bmenu-size" role="group" aria-label="גודל הכותרת">
+            {([1, 2, 3] as const).map((l) => (
+              <button key={l} role="menuitemradio" aria-checked={b.level === l} aria-pressed={b.level === l} title={`${HEAD_SIZE[l]} (Tab: קטנה יותר, Shift+Tab: גדולה יותר)`} onClick={() => patch(b.id, { level: l } as Partial<Block>, "struct")}>
+                {HEAD_SIZE[l]}
               </button>
             ))}
           </div>
@@ -1333,6 +1359,60 @@ export function Editor({
     }
   };
 
+  /* ---- the chapter, section and title being read, in a line at the top of the column once their heading has scrolled away (25.11) ---- */
+  const [trail, setTrail] = useState<{ id: string; label: string }[]>([]);
+  useEffect(() => {
+    const page = pageRef.current;
+    if (!page) return;
+    const box = scrollParent(page);
+    const target: HTMLElement | Window = box ?? window;
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const top = (box ? box.getBoundingClientRect().top : 0) + 8;
+      let at: string | null = null;
+      for (const b of blocks) {
+        if (b.t !== "h" || b.cont) continue;
+        const el = page.querySelector<HTMLElement>(`[data-bid="${CSS.escape(b.id)}"]`);
+        if (!el) continue;
+        if (el.getBoundingClientRect().top < top) at = b.id;
+        else break;
+      }
+      // the numbered headings by level, and under the last of them the titles without a number by theirs
+      type H = Extract<Block, { t: "h" }> | undefined;
+      const path: H[] = [];
+      const titles: H[] = [];
+      for (const b of blocks) {
+        if (b.t === "h" && !b.cont) {
+          const into = b.plain ? titles : path;
+          into[b.level - 1] = b;
+          into.length = b.level;
+          if (!b.plain) titles.length = 0;
+        }
+        if (b.id === at) break;
+      }
+      const next = at ? [...path, ...titles].filter((x): x is Extract<Block, { t: "h" }> => !!x).map((h) => ({ id: h.id, label: `${heads.get(h.id) ? `${heads.get(h.id)} ` : ""}${textOf(h.html).split("\n")[0].trim().slice(0, 48)}` })) : [];
+      setTrail((old) => (old.map((x) => x.id + x.label).join() === next.map((x) => x.id + x.label).join() ? old : next));
+    };
+    const on = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    update();
+    target.addEventListener("scroll", on, { passive: true });
+    return () => {
+      target.removeEventListener("scroll", on);
+      cancelAnimationFrame(frame);
+    };
+  }, [blocks, heads]);
+  const goTo = (id: string) => pageRef.current?.querySelector(`[data-bid="${CSS.escape(id)}"]`)?.scrollIntoView({ block: "start", behavior: "smooth" });
+
+  // while he types, the rail and the handles fade; a move of the mouse brings them back (25.11)
+  const rootRef = useRef<HTMLDivElement>(null);
+  const quiet = (on: boolean) => {
+    const el = rootRef.current;
+    if (el && el.classList.contains("is-typing") !== on) el.classList.toggle("is-typing", on);
+  };
+
   /* ---- the line being written stays in view: near the bottom of the window the page scrolls up (25.11, the learner) ---- */
   const followCaret = () =>
     requestAnimationFrame(() => {
@@ -1353,8 +1433,11 @@ export function Editor({
 
   return (
     <div
+      ref={rootRef}
       className="sm-editor"
       onInput={followCaret}
+      onKeyDownCapture={(e) => !e.ctrlKey && !e.metaKey && !e.altKey && (e.key.length === 1 || e.key === "Enter" || e.key === "Backspace") && quiet(true)}
+      onMouseMove={() => quiet(false)}
       onKeyUp={(e) => (e.key === "Enter" || e.key.startsWith("Arrow") || e.key.startsWith("Page")) && followCaret()}
       onFocusCapture={(e) => {
         const id = (e.target as HTMLElement).closest<HTMLElement>("[data-bid]")?.dataset.bid;
@@ -1369,6 +1452,17 @@ export function Editor({
     >
       <div className="sm-desk">
       <div className="sm-page" ref={pageRef} style={{ zoom }} spellCheck={false}>
+        <div className="sm-crumb" contentEditable={false} aria-hidden={!trail.length}>
+          {trail.length > 0 && (
+            <nav className="sm-crumb-in" aria-label="איפה אני בסיכום">
+              {trail.map((t, i) => (
+                <button key={t.id} className={i === trail.length - 1 ? "is-last" : ""} onClick={() => goTo(t.id)}>
+                  {t.label || "בלי שם"}
+                </button>
+              ))}
+            </nav>
+          )}
+        </div>
         {blocks.map((b) => (
           <div
             key={b.id}
@@ -1435,7 +1529,7 @@ export function Editor({
           {railBtn("h1", "head1", "פרק", "כותרת פרק · 1, 2, 3 (# ורווח)", act(() => insertItem("h1")))}
           {railBtn("h2", "head2", "סעיף", "כותרת סעיף · 1.1, 1.2 (## ורווח)", act(() => insertItem("h2")))}
           {railBtn("h3", "head3", "תת-סעיף", "תת-סעיף · 1.1.1 (### ורווח)", act(() => insertItem("h3")))}
-          {railBtn("hp", "headplain", "כותרת", "כותרת בלי מספר: שם לנושא בתוך סעיף, והמספור סביבה לא משתנה (! ורווח, או בתפריט /)", act(() => insertItem("hp")))}
+          {railBtn("hp", "headplain", "כותרת", "כותרת בלי מספר: שם לנושא בתוך סעיף, והמספור סביבה לא משתנה (! ורווח, או בתפריט /). Tab מקטין אותה לתת-נושא, Shift+Tab מגדיל", act(() => insertItem("hp")))}
           {railBtn("key", "keyline", "שורת מפתח", "שורת מפתח: המשפט הראשון של הסעיף שבו הסמן במודגש. לחיצה נוספת מחזירה לרגיל", act(keyLine), { pressed: keyOn, disabled: !isText, cls: "sub" })}
           {railBtn("p", "para", "פסקה", "פסקה · טקסט רגיל", act(() => insertItem("p")))}
         </div>
