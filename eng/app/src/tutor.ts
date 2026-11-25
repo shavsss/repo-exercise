@@ -805,7 +805,7 @@ export async function auditLesson(o: { rt: Runtime; module: Module; lessons?: Le
       moduleTitle: m.title,
       covers: spec?.covers ?? m.sections.map((s) => s.title),
       focus: (spec as { focus?: string } | undefined)?.focus,
-      otherLessons: (lessons ?? []).filter((_, i) => i !== lessonIdx).map((l) => ({ title: l.title, covers: l.covers ?? [] })),
+      otherLessons: (lessons ?? []).flatMap((l, i) => (i === lessonIdx ? [] : [{ title: l.title, covers: l.covers ?? [], ...(i > lessonIdx ? { later: true } : {}) }])),
       curriculum: curriculumBlock(m),
       modules,
       later: laterModulesBlock(m, index?.modules ?? []),
