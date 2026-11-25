@@ -106,6 +106,24 @@ THE LESSON AS CHAPTERS OF A BOOK (these rules override every earlier rule about 
 - Add to the JSON: "outline": {"known": ["…"], "scope": {"kind": "overview", "central": ["…"], "why": "…"}, "chapters": [{"n": ${chapterStart}, "title": "…", "question": "…", "anchor": "…", "thread": "…", "comparison": "…", "case_study": "…", "sections": [{"n": "${chapterStart}.1", "title": "…", "question": "…", "from_prev": "…", "needs": ["…"], "defines": [{"term": "…", "mark": "s"}], "depth": "…", "paragraphs": ["הקדמה", "…", "מה מחבר ביניהן"], "compare": "…", "critique": "…", "case": "…", "words": 1200, "role": "core", "covers": ["…"], "key": ["$L_s = (4\\\\pi d/\\\\lambda)^2$", "1 GHz, 10 km: 112.4 dB"], "visuals": ["svg: …", "chart: … against …"], "questions": ["mcq: …", "numeric: …"], "anchor_q": "…", "history": "…", "assumptions": [{"text": "…", "settled_in": "${chapterStart}.3"}], "iou": [{"result": "…", "derived_in": "${chapterStart}.4"}]}]}]}, and per part "sections": ["${chapterStart}.1", "${chapterStart}.2"]. Short phrases, no prose, in Hebrew.`;
 
 /** A planned word count as a number: the model sometimes writes "1,200", "~900" or "1200–1500" (the first number counts). */
+/**
+ * A coarse alarm for an inflated lesson, not a word target (25.11, the learner: "estimate from the topics, and if we are
+ * very far, it is probably inflation"). About this many words the learner reads per page of source at the course's
+ * depth: Gilua M0.2 lesson 1, accepted, is 9 pages and 12,800 words; the two lessons deleted on 25.11 were 1,260 and
+ * 2,690 a page.
+ */
+export const WORDS_PER_PAGE = 1200;
+export const expectedWords = (sources: { pages: [number, number] }[]) => sources.reduce((n, s) => n + Math.max(0, s.pages[1] - s.pages[0] + 1), 0) * WORDS_PER_PAGE;
+/** Far above the pages: more than half again, and at least 4,000 words over. */
+export const inflated = (words: number, expected: number) => expected > 0 && words > Math.max(expected * 1.5, expected + 4000);
+
+/** The outline adds up to far more words than its pages (a problem for the outline check). */
+export function lengthProblems(o: BookOutline, expected: number): { where: string; kind: string; problem: string }[] {
+  const total = o.chapters.reduce((n, c) => n + c.sections.reduce((m, s) => m + wordsOf(s.words), 0), 0);
+  if (!inflated(total, expected)) return [];
+  return [{ where: "outline", kind: "length", problem: `the subsections add up to ${total} words, while the lesson's pages come to about ${expected} at this depth, and a lesson this far above its pages is usually inflated: shorten what goes beyond the pages (a topic a later lesson or module teaches becomes an anchor; a second example or case, a survey stop developed as a topic of its own), and keep every topic of the lesson's "covers" taught in full` }];
+}
+
 export function wordsOf(v: unknown): number {
   if (typeof v === "number") return Number.isFinite(v) && v > 0 ? Math.round(v) : 0;
   const m = typeof v === "string" ? v.replace(/(\d),(\d{3})/g, "$1$2").match(/\d+/) : null;

@@ -292,3 +292,14 @@ test("later modules: the list stays within LATER_CHARS, sections from the neares
   assert.ok(b.length < C.LATER_CHARS + 600, `${b.length} characters`);
   assert.ok(b.includes("- M9.0 Module 0. Sections:") && b.includes("- M9.399 Module 399") && !b.includes("- M9.399 Module 399. Sections"));
 });
+
+test("length alarm: far above the pages is inflation, the calibration lessons fall where they should (25.11)", () => {
+  assert.equal(B.expectedWords([{ doc: "F1", pages: [32, 41] }]), 12000);
+  assert.ok(B.inflated(26885, 12000), "Gilua M0.2 lesson 3, deleted");
+  assert.ok(!B.inflated(12772, B.expectedWords([{ doc: "F1", pages: [12, 20] }])), "Gilua M0.2 lesson 1, accepted");
+  assert.ok(!B.inflated(18906, B.expectedWords([{ doc: "B02", pages: [42, 46] }, { doc: "B10", pages: [13, 22] }])), "Lanchester M0.2 lesson 1: its problem was early material, not length");
+  assert.ok(!B.inflated(50000, 0), "no pages, no alarm");
+  const outline = { known: [], chapters: [{ n: 1, title: "t", thread: "x", sections: [{ n: "1.1", title: "a", words: 15000, defines: [] }, { n: "1.2", title: "b", words: "4,000", defines: [] }] }] };
+  assert.equal(B.lengthProblems(outline, 12000).length, 1);
+  assert.equal(B.lengthProblems(outline, 30000).length, 0);
+});

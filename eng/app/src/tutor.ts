@@ -13,7 +13,7 @@ import { headWithin, tailWithin } from "./truncation";
 import { LEGACY_RULES, SYSTEM_PROMPT, TEACHBACK_RULES, libraryList } from "./prompt";
 import type { Runtime, SampleTool } from "./runtime";
 import { type TeachScope, type TeachTurn, type TeachVerdict } from "./teachback";
-import { BOOK_PART, BOOK_PLAN, CASE_PART, CASE_PLAN, OUTLINE_FIX, anchorProblems, coverParts, scopeProblems, planFromText, coverProblems, formProblems, keepWords, normalizeOutline, orderProblems, outlineCheckPrompt, parseOutlineReview, partSections, validOutline, wordCount, type BookOutline, type CasePlan } from "./bookRules";
+import { BOOK_PART, BOOK_PLAN, CASE_PART, CASE_PLAN, OUTLINE_FIX, WORDS_PER_PAGE, anchorProblems, expectedWords, inflated, lengthProblems, coverParts, scopeProblems, planFromText, coverProblems, formProblems, keepWords, normalizeOutline, orderProblems, outlineCheckPrompt, parseOutlineReview, partSections, validOutline, wordCount, type BookOutline, type CasePlan } from "./bookRules";
 import { caseAid, caseId, type CaseAid } from "./caseBlock";
 import { ideasForPrompt, loadIdeas, type Idea } from "./ideas";
 import { loadProjects, projectsForPrompt, type ResearchProject } from "./projects";
@@ -584,7 +584,7 @@ ${BOOK_PART(o, mine, k === 0, last, last && FEATURES.has("case"), wordCount(writ
 }
 
 /** Checks the outline's order before any text is written, and has the planner fix it (at most two rounds). */
-async function checkOutline(o: { rt: Runtime; plan: PartPlan; planTurn: string; later: string[]; covers: string[]; title: string; effort: Effort; signal: AbortSignal; cb: TurnCallbacks }): Promise<PartPlan> {
+async function checkOutline(o: { rt: Runtime; plan: PartPlan; planTurn: string; later: string[]; covers: string[]; expected: number; title: string; effort: Effort; signal: AbortSignal; cb: TurnCallbacks }): Promise<PartPlan> {
   let plan = o.plan;
   const ask = (content: string) =>
     o.rt.sample!.json<PartPlan>(
@@ -608,7 +608,7 @@ async function checkOutline(o: { rt: Runtime; plan: PartPlan; planTurn: string; 
   for (let round = 0; round < 2; round++) {
     o.cb.onStatus?.(round ? "בודק שוב את סדר תוכן העניינים" : "בודק את סדר תוכן העניינים: כל מושג מוגדר לפני שמשתמשים בו");
     const review = parseOutlineReview(await o.rt.sample!.json<unknown>(outlineCheckPrompt(plan.outline!, o.title), { model: MODEL, modelTier: "complex", effort: "medium", signal: o.signal, cache: false }).catch(() => null));
-    const problems = [...orderProblems(plan.outline!), ...formProblems(plan.outline!), ...anchorProblems(plan.outline!, o.later), ...scopeProblems(plan.outline!, o.covers), ...coverProblems(plan.outline!, plan.parts), ...(review?.problems ?? [])];
+    const problems = [...orderProblems(plan.outline!), ...formProblems(plan.outline!), ...anchorProblems(plan.outline!, o.later), ...scopeProblems(plan.outline!, o.covers), ...lengthProblems(plan.outline!, o.expected), ...coverProblems(plan.outline!, plan.parts), ...(review?.problems ?? [])];
     if (!problems.length) break;
     o.cb.onStatus?.(`מתקן את תוכן העניינים (${problems.length} בעיות)`);
     const fixed = await ask(OUTLINE_FIX({ problems, verdict: "fix" }));
@@ -728,7 +728,7 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
     // an empty or non-JSON plan is asked once more, without tools (the new rules only)
     plan = await (LESSON_RULES === "lite" ? retryRefused((h) => once(false, h).catch((e) => (isEmptyPlan(e) ? (planFromText<PartPlan>(e) ?? once(true, h).catch((e2) => planFromText<PartPlan>(e2) ?? Promise.reject(e2))) : Promise.reject(e))), history, cb).catch((e) => onRefusal(e, rt, m, planTurn, cb, signal)) : once(false));
     if (!plan || !Array.isArray(plan.parts) || !plan.parts.length) throw { code: "invalid_json", message: "no plan" };
-    if (book) plan = await checkOutline({ rt, plan, planTurn, later: laterModules(m, getIndex()?.modules ?? []).map((x) => x.id), covers: lessons?.[lessonIdx]?.covers ?? [], title: lessons?.[lessonIdx]?.title ?? m.title, effort, signal, cb });
+    if (book) plan = await checkOutline({ rt, plan, planTurn, later: laterModules(m, getIndex()?.modules ?? []).map((x) => x.id), covers: lessons?.[lessonIdx]?.covers ?? [], expected: expectedWords(lessons?.[lessonIdx]?.sources ?? []), title: lessons?.[lessonIdx]?.title ?? m.title, effort, signal, cb });
     cb.onCheckpoint?.(plan, 0, "");
     if (opts.planOnly) return { text: "", plan, model: undefined };
   }
@@ -778,6 +778,11 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
       cb.onText(written);
     }
   }
+  // far longer than its pages: shown with what the check left open (25.11)
+  const expected = expectedWords(lessons?.[lessonIdx]?.sources ?? []);
+  const words = wordCount(written);
+  if (audit && inflated(words, expected))
+    audit = { ...audit, verdict: "partly", open: [`אורך: ${words.toLocaleString("en-US")} מילים, מול כ-${expected.toLocaleString("en-US")} לפי ${expected / WORDS_PER_PAGE} עמודי מקור; כנראה ניפוח`, ...(audit.open ?? [])] };
   return { text: written, plan, model, audit };
 }
 
