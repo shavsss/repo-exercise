@@ -525,7 +525,13 @@ export async function auditAndRepair(o: AuditInput, mode: "inplace" | "supplemen
   let idle = 0;
   for (let round = 1; round <= MAX_REVIEWS; round++) {
     deps.onStatus?.(round === 1 ? "בודק את השיעור מול עמודי המקור ותוכנית הלימודים" : `בודק שוב אחרי התיקון (סבב ${round})`);
-    const next = parseAudit(await deps.call(auditPrompt({ ...o, text, ...(round === 1 ? {} : { later: undefined, cut }) }, round), "audit"));
+    const input = { ...o, text, ...(round === 1 ? {} : { later: undefined, cut }) };
+    // a review too large with the list of later modules is sent once more without it (25.11: the cap is 256 KiB)
+    const raw = await deps.call(auditPrompt(input, round), "audit").catch((e) => {
+      if ((e as { code?: string })?.code !== "prompt_too_large" || !input.later) throw e;
+      return deps.call(auditPrompt({ ...input, later: undefined }, round), "audit");
+    });
+    const next = parseAudit(raw);
     if (!next) break;
     // a lesson the learner has read is not cut: early material is only reported
     if (mode === "supplement" && next.early.length) {

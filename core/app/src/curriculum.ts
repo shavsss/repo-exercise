@@ -113,33 +113,39 @@ export function laterModules(m: Module, mods: Module[], omit?: RegExp) {
   return mods.slice(at + 1).filter((x) => !omit?.test(x.en));
 }
 
-/** The most characters of <later_modules>: about what the lists that worked held before the sections were added (65,000 in Gilua). */
-export const LATER_CHARS = 75000;
+/** The most characters of <later_modules> (25.11: the 256 KiB cap is in bytes, and the plan's turn with a 68,000-character list
+ * and the notebook passed it; the caller gives less when the turn has less room). */
+export const LATER_CHARS = 25000;
 /** Headings that name no topic (references, exercises…): left out of the list. */
 const NOT_A_TOPIC = /^(references?|bibliography|exercises|problems|questions|software|index|summary|introduction|preface|notes|guide to the references|further reading|acronyms|glossary)\b/i;
 
-export function laterModulesBlock(m: Module, mods: Module[], omit?: RegExp) {
+export function laterModulesBlock(m: Module, mods: Module[], omit?: RegExp, max = LATER_CHARS) {
   const later = laterModules(m, mods, omit);
-  if (!later.length) return "";
+  if (!later.length || max <= 0) return "";
   const sectionsOf = (x: Module) =>
     (x.sections ?? [])
       .filter((t) => t.depth <= 1 && !omit?.test(t.title))
       .map((t) => t.title.replace(/\s+\d+\s*$/, "").trim())
       .filter((t) => !NOT_A_TOPIC.test(t.replace(/^[\dA-Z.:]*\s*/, "")));
-  const base = later.map((x) => {
+  const lines = later.map((x) => {
     const items = (x.items ?? []).filter((t) => (t.k === "new" || t.k === "deepen") && t.imp !== "C" && !omit?.test(t.n)).map((t) => t.n);
-    return { head: `- ${x.id} ${x.en}`, tail: items.length ? `. Added topics: ${items.join("; ")}` : "", sections: "" };
+    const s = sectionsOf(x);
+    return { head: `- ${x.id} ${x.en}`, items: items.length ? `. Added topics: ${items.join("; ")}` : "", sections: s.length ? `. Sections: ${s.join("; ")}` : "", use: { items: false, sections: false } };
   });
-  // the sections go in from the nearest module on, while the list stays within LATER_CHARS (25.11: Gilua's 464
-  // modules made a list of 640,000 characters, and the lesson plan's request was too large)
-  let size = base.reduce((n, b) => n + b.head.length + b.tail.length + 1, 0);
-  for (let i = 0; i < later.length; i++) {
-    const s = sectionsOf(later[i]);
-    if (!s.length) continue;
-    const add = `. Sections: ${s.join("; ")}`;
-    if (size + add.length > LATER_CHARS) break;
-    base[i].sections = add;
-    size += add.length;
-  }
-  return `\n\n<later_modules>\nThe modules that come after this one in the course, in order, each with the topic items it adds beyond its pages and, for the nearer ones, the main sections of its pages: it teaches all of these in full. A topic one of them teaches is not developed here (rule on anchor claims):\n${base.map((b) => b.head + b.sections + b.tail).join("\n")}\n</later_modules>`;
+  // within `max`: the title of every module it can hold, nearest first; then, nearest first, the topic items each adds and
+  // the main sections of its pages (25.11: Gilua's 464 modules with their sections came to 640,000 characters)
+  const intro = "\n\n<later_modules>\nThe modules that come after this one in the course, in order, with the topic items each adds beyond its pages and, for the nearer ones, the main sections of its pages: each teaches its subject in full. A topic one of them teaches is not developed here (rule on anchor claims):\n";
+  let size = intro.length + 60;
+  let n = 0;
+  while (n < lines.length && size + lines[n].head.length + 1 <= max) size += lines[n++].head.length + 1;
+  for (const k of ["items", "sections"] as const)
+    for (let i = 0; i < n; i++) {
+      if (!lines[i][k]) continue;
+      if (size + lines[i][k].length > max) break;
+      lines[i].use[k] = true;
+      size += lines[i][k].length;
+    }
+  if (!n) return "";
+  const body = lines.slice(0, n).map((l) => l.head + (l.use.sections ? l.sections : "") + (l.use.items ? l.items : "")).join("\n");
+  return `${intro}${body}${n < lines.length ? `\n(and ${lines.length - n} more modules after these)` : ""}\n</later_modules>`;
 }
