@@ -40,6 +40,7 @@ const PATHS: Record<string, string> = {
   head1: "M4 6v12M11 6v12M4 12h7M16 9.5l3-2V18",
   head2: "M4 6v12M11 6v12M4 12h7M15.5 9.5a2.2 2.2 0 1 1 3.8 1.6L15.5 18h4.5",
   head3: "M4 6v12M11 6v12M4 12h7M15.5 7.5h4l-2.6 3.6a2.6 2.6 0 1 1-1.9 4.4",
+  headplain: "M4 6v12M11 6v12M4 12h7M15 12h5",
   para: "M11 4v16M15 4v16M18 4h-8a4 4 0 0 0 0 8h5",
   keyline: "M4 6h10M4 6v.01M4 11h16M4 16h16M4 20h10",
   boxcon: "M12 3a9 9 0 1 1 0 18 9 9 0 0 1 0-18zM8 12.5l2.8 2.8L16 9.5",

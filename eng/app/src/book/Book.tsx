@@ -295,8 +295,12 @@ function loadPlace(key: string): Place | null {
     return null;
   }
 }
-/** Whether the lesson was read past its first page in the book, in this browser. */
-export const bookStarted = (key: string) => (loadPlace(key)?.page ?? 0) > 0;
+/** Whether the lesson was read past its first page in the book, in this browser. A place saved before the page was
+ *  kept (25.11) counts as read: the safe side, since a read lesson only gets a supplement. */
+export const bookStarted = (key: string) => {
+  const p = loadPlace(key);
+  return !!p && (p.page === undefined || p.page > 0);
+};
 function savePlace(key: string, p: Place) {
   try {
     const all = JSON.parse(localStorage.getItem(POS_KEY) ?? "{}") as Record<string, Place>;

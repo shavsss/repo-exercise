@@ -36,7 +36,7 @@ export function BlockView({ b, n, eq }: { b: Block; n?: string; eq?: number }) {
         );
       const H = (`h${Math.min(6, b.level + 1)}` as "h2" | "h3" | "h4");
       return (
-        <H className={`sm-h sm-h${b.level}`}>
+        <H className={`sm-h sm-h${b.level}${b.plain ? " is-plain" : ""}`}>
           {b.emoji && <span className="sm-emoji-ro">{b.emoji}</span>}
           {n && <span className="sm-num">{n}</span>}
           <Ro html={b.html} />

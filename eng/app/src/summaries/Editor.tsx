@@ -26,6 +26,8 @@ const INSERT: InsertItem[] = [
   { id: "h1", label: "כותרת פרק", short: "פרק", hint: "1, 2, 3", keys: "h1 כותרת פרק", make: () => ({ ...(emptyBlock("h") as Extract<Block, { t: "h" }>), level: 1 }) },
   { id: "h2", label: "כותרת סעיף", short: "סעיף", hint: "1.1, 1.2", keys: "h2 סעיף כותרת", make: () => ({ ...(emptyBlock("h") as Extract<Block, { t: "h" }>), level: 2 }) },
   { id: "h3", label: "תת-סעיף", short: "תת-סעיף", hint: "1.1.1", keys: "h3 תת סעיף", make: () => ({ ...(emptyBlock("h") as Extract<Block, { t: "h" }>), level: 3 }) },
+  // a title of a topic inside a section (25.11, the learner): no number, and the numbering around it goes on as it was
+  { id: "hp", label: "כותרת בלי מספר", short: "כותרת", hint: "! ורווח", keys: "כותרת בלי מספר נושא title", make: () => ({ ...(emptyBlock("h") as Extract<Block, { t: "h" }>), level: 2, plain: true }) },
   // a list lives inside a paragraph or a box: in the block being written, or in a new paragraph
   { id: "ul", label: "רשימת תבליטים", short: "• רשימה", hint: "- ורווח", keys: "ul רשימה תבליטים", make: () => ({ ...(emptyBlock("p") as Extract<Block, { t: "p" }>), html: "<ul><li><br></li></ul>" }) },
   { id: "ol", label: "רשימה ממוספרת", short: "1. רשימה", hint: "1. ורווח", keys: "ol רשימה ממוספרת מספרים", make: () => ({ ...(emptyBlock("p") as Extract<Block, { t: "p" }>), html: "<ol><li><br></li></ol>" }) },
@@ -47,6 +49,15 @@ const SYMBOLS: { title: string; items: [string, string][] }[] = [
   { title: "חצים", items: [["→", "\\to"], ["←", "\\leftarrow"], ["↔", "\\leftrightarrow"], ["⇒", "\\Rightarrow"], ["⇐", "\\Leftarrow"], ["⇔", "\\Leftrightarrow"], ["↑", "\\uparrow"], ["↓", "\\downarrow"]] },
   { title: "עוד", items: [["°", "^\\circ"], ["′", "'"], ["∈", "\\in"], ["∉", "\\notin"], ["⊂", "\\subset"], ["∪", "\\cup"], ["∩", "\\cap"], ["∀", "\\forall"], ["∃", "\\exists"], ["∠", "\\angle"], ["⊥", "\\perp"], ["∥", "\\parallel"], ["ℏ", "\\hbar"], ["Å", "\\text{Å}"], ["‰", "\\text{‰}"], ["²", "^2"], ["³", "^3"], ["⁻¹", "^{-1}"], ["½", "\\frac12"]] },
 ];
+
+/** The nearest ancestor that scrolls (the notebook's column), or null for the window. */
+function scrollParent(el: HTMLElement): HTMLElement | null {
+  for (let p = el.parentElement; p; p = p.parentElement) {
+    const o = getComputedStyle(p).overflowY;
+    if ((o === "auto" || o === "scroll") && p.scrollHeight > p.clientHeight) return p;
+  }
+  return null;
+}
 
 /** Puts a symbol where the writing is: an open equation field, or the text. */
 function insertSymbol(ch: string, tex: string) {
@@ -667,15 +678,16 @@ export function Editor({
         return;
       }
       if (b.t === "h") {
-        // a heading: Enter opens the next heading of the same level (1.2.4 → 1.2.5); Enter on
-        // an empty heading makes it a plain paragraph
+        // a heading: Enter opens the next heading of the same level (1.2.4 → 1.2.5), and after a title
+        // without a number, a paragraph; Enter on an empty heading makes it a plain paragraph
         if (!textOf(cleanHtml(el.innerHTML)).replace(/\u200b/g, "").trim()) {
           update((bs) => bs.map((x) => (x.id === b.id ? ({ id: b.id, t: "p", html: "" } as Block) : x)), "struct");
           focus(b.id, "start");
           return;
         }
         const { head, tail } = splitAtCaret(el);
-        const nh: Block = { id: uid(), t: "h", level: b.level, html: tail };
+        // a title without a number is followed by its text, not by another title
+        const nh: Block = b.plain ? { id: uid(), t: "p", html: tail } : { id: uid(), t: "h", level: b.level, html: tail };
         update((bs) => {
           const i = idx(bs, b.id);
           const c2 = bs.map((x) => (x.id === b.id ? ({ ...x, html: head } as Block) : x));
@@ -881,6 +893,7 @@ export function Editor({
       [/^###\s/, () => ({ id: b.id, t: "h", level: 3, html: "" })],
       [/^##\s/, () => ({ id: b.id, t: "h", level: 2, html: "" })],
       [/^#\s/, () => ({ id: b.id, t: "h", level: 1, html: "" })],
+      [/^!\s/, () => ({ id: b.id, t: "h", level: 2, plain: true, html: "" })],
       [/^>\s/, () => ({ id: b.id, t: "box", kind: "def", html: "" })],
       [/^\$\$$/, () => ({ id: b.id, t: "math", latex: "" })],
     ];
@@ -1001,6 +1014,7 @@ export function Editor({
     let nb: Block | null = null;
     if (to === "p") nb = { id: cur.id, t: "p", html };
     else if (/^h[123]$/.test(to)) nb = { id: cur.id, t: "h", level: Number(to[1]) as 1 | 2 | 3, html: cleanHtml(flatLists(html, () => "")) };
+    else if (to === "hp") nb = { id: cur.id, t: "h", level: 2, plain: true, html: cleanHtml(flatLists(html, () => "")) };
     else if (to === "ul" || to === "ol") {
       // the lines of the block become the items of a list inside it
       const tag = to;
@@ -1104,6 +1118,7 @@ export function Editor({
               <option value="h1">כותרת פרק</option>
               <option value="h2">כותרת סעיף</option>
               <option value="h3">תת-סעיף</option>
+              <option value="hp">כותרת בלי מספר</option>
               <option value="ul">רשימת תבליטים</option>
               <option value="ol">רשימה ממוספרת</option>
               {(Object.keys(BOX_LABEL) as BoxKind[]).map((k) => (
@@ -1199,7 +1214,7 @@ export function Editor({
             </div>
           );
         return (
-          <div className={`sm-h sm-h${b.level}`}>
+          <div className={`sm-h sm-h${b.level}${b.plain ? " is-plain" : ""}`}>
             <span className="sm-emoji-wrap" contentEditable={false}>
               <button className={`sm-emoji-btn ${b.emoji ? "has" : ""}`} onClick={() => setEmojiFor(emojiFor === b.id ? null : b.id)} title="אימוג'י לכותרת" aria-label="אימוג'י לכותרת">
                 {b.emoji || "☺"}
@@ -1218,7 +1233,7 @@ export function Editor({
               )}
             </span>
             {n && <span className="sm-num" contentEditable={false}>{n}</span>}
-            <Rich fkey={b.id} html={b.html} placeholder={b.level === 1 ? "כותרת פרק" : b.level === 2 ? "כותרת סעיף" : "תת-סעיף"} onChange={(h) => patch(b.id, { html: h })} onKeyDown={textKeys(b)} onMath={openInline} />
+            <Rich fkey={b.id} html={b.html} placeholder={b.plain && b.level > 1 ? "כותרת" : b.level === 1 ? "כותרת פרק" : b.level === 2 ? "כותרת סעיף" : "תת-סעיף"} onChange={(h) => patch(b.id, { html: h })} onKeyDown={textKeys(b)} onMath={openInline} />
           </div>
         );
       }
@@ -1318,9 +1333,29 @@ export function Editor({
     }
   };
 
+  /* ---- the line being written stays in view: near the bottom of the window the page scrolls up (25.11, the learner) ---- */
+  const followCaret = () =>
+    requestAnimationFrame(() => {
+      const sel = window.getSelection();
+      const page = pageRef.current;
+      if (!sel?.rangeCount || !sel.isCollapsed || !page || !page.contains(sel.anchorNode)) return;
+      const r = sel.getRangeAt(0);
+      const node = r.startContainer instanceof Element ? r.startContainer : r.startContainer.parentElement;
+      // an empty line has no rectangle of its own: its element's bottom stands for it
+      const rect = r.getClientRects()[0] ?? node?.getBoundingClientRect();
+      if (!rect) return;
+      const box = scrollParent(page);
+      const bottom = box ? box.getBoundingClientRect().bottom : window.innerHeight;
+      const room = Math.min(180, (box ? box.clientHeight : window.innerHeight) / 4);
+      const over = rect.bottom - (bottom - room);
+      if (over > 0) (box ?? window).scrollBy({ top: over, behavior: "smooth" });
+    });
+
   return (
     <div
       className="sm-editor"
+      onInput={followCaret}
+      onKeyUp={(e) => (e.key === "Enter" || e.key.startsWith("Arrow") || e.key.startsWith("Page")) && followCaret()}
       onFocusCapture={(e) => {
         const id = (e.target as HTMLElement).closest<HTMLElement>("[data-bid]")?.dataset.bid;
         if (id && id !== current) setCurrent(id);
@@ -1400,6 +1435,7 @@ export function Editor({
           {railBtn("h1", "head1", "פרק", "כותרת פרק · 1, 2, 3 (# ורווח)", act(() => insertItem("h1")))}
           {railBtn("h2", "head2", "סעיף", "כותרת סעיף · 1.1, 1.2 (## ורווח)", act(() => insertItem("h2")))}
           {railBtn("h3", "head3", "תת-סעיף", "תת-סעיף · 1.1.1 (### ורווח)", act(() => insertItem("h3")))}
+          {railBtn("hp", "headplain", "כותרת", "כותרת בלי מספר: שם לנושא בתוך סעיף, והמספור סביבה לא משתנה (! ורווח, או בתפריט /)", act(() => insertItem("hp")))}
           {railBtn("key", "keyline", "שורת מפתח", "שורת מפתח: המשפט הראשון של הסעיף שבו הסמן במודגש. לחיצה נוספת מחזירה לרגיל", act(keyLine), { pressed: keyOn, disabled: !isText, cls: "sub" })}
           {railBtn("p", "para", "פסקה", "פסקה · טקסט רגיל", act(() => insertItem("p")))}
         </div>
