@@ -307,3 +307,18 @@ test("length alarm: by what the content calls for, a survey with more chapters t
   const text = "### 1.1 א\n" + "מילה ".repeat(1600) + "\n### 1.2 ב\n" + "מילה ".repeat(900);
   assert.deepEqual(B.sectionDrift(text, fine), ["1.1: 1,603 מילים מול 1,000 בתוכנית"]);
 });
+
+test("later modules within a given room: titles first, details for the nearest, the rest counted, nothing when there is no room (25.11)", async () => {
+  const out = await build({ entryPoints: [fileURLToPath(new URL("../../src/curriculum.ts", import.meta.url))], bundle: true, format: "esm", write: false, platform: "neutral" });
+  const C = await import("data:text/javascript;base64," + Buffer.from(out.outputFiles[0].text).toString("base64"));
+  const mods = [{ id: "M0.1", en: "Start", sections: [] }];
+  for (let i = 0; i < 300; i++) mods.push({ id: `M9.${i}`, en: `Module ${i}`, sections: [{ doc: "D", page: 1, title: `1.1 Topic ${i} of the module`, depth: 1 }], items: [{ n: `Item ${i}`, k: "new", imp: "K" }] });
+  const small = C.laterModulesBlock(mods[0], mods, undefined, 3000);
+  assert.ok(small.length <= 3000, `${small.length}`);
+  assert.ok(/\(and \d+ more modules after these\)/.test(small));
+  assert.ok(!small.includes("Sections:"));
+  const mid = C.laterModulesBlock(mods[0], mods, undefined, 14000);
+  assert.ok(mid.includes("- M9.0 Module 0. Sections: 1.1 Topic 0 of the module. Added topics: Item 0") && mid.includes("- M9.299 Module 299"));
+  assert.equal(C.laterModulesBlock(mods[0], mods, undefined, 0), "");
+  assert.equal(C.laterModulesBlock(mods[0], mods, undefined, -500), "");
+});

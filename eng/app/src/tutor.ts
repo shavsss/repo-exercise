@@ -6,7 +6,7 @@
 // call per part, so its length never depends on one long answer.
 import { create, all } from "mathjs";
 import { docMeta, getIndex, readPages, searchLibrary, type Module } from "./library";
-import { curriculumBlock, laterModules, laterModulesBlock } from "./curriculum";
+import { LATER_CHARS, curriculumBlock, laterModules, laterModulesBlock } from "./curriculum";
 import { CHAT_HISTORY_BYTES, focusHistory, questionOf, type Chapter } from "./chatContext";
 import { auditLong, namedModules, type AuditMark, applyRepair } from "./lessonAudit";
 import { headWithin, tailWithin } from "./truncation";
@@ -716,7 +716,18 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
   let plan = resume?.plan;
   if (!plan) {
     cb.onStatus?.("מתכנן את השיעור: קורא את המקורות ומחשב את המספרים");
-    const planTurn = `${ctx}\n\n${text}\n\n${LESSON_RULES === "lite" ? PART_PLAN_INSTRUCTIONS.replace("for a core or advanced module the words add up to at least 4200 Hebrew words unless the assigned material is genuinely short (then say so in the first part); ", "").replace(', "words": 1200}', ', "units": 40}') + LITE_PLAN : PART_PLAN_INSTRUCTIONS}${featurePlan()}${book ? BOOK_PLAN(chapterStart) + (FEATURES.has("case") ? CASE_PLAN(caseAid(lessonIdx)) : "") + laterModulesBlock(m, getIndex()?.modules ?? []) : ""}`;
+    // the plan's turn (25.11: with the list of later modules and the notebook it passed the 256 KiB cap, which counts bytes,
+    // two to a Hebrew letter): the list gets only the room left under INPUT_BUDGET, and the source pages stay whole as before
+    // it; a turn still too large is sent once more without the list and with its pages cut to SMALL_TURN (the tutor reads
+    // the rest with tools)
+    const turnOf = (c: string, later: string) => `${c}\n\n${text}\n\n${LESSON_RULES === "lite" ? PART_PLAN_INSTRUCTIONS.replace("for a core or advanced module the words add up to at least 4200 Hebrew words unless the assigned material is genuinely short (then say so in the first part); ", "").replace(', "words": 1200}', ', "units": 40}') + LITE_PLAN : PART_PLAN_INSTRUCTIONS}${featurePlan()}${book ? BOOK_PLAN(chapterStart) + (FEATURES.has("case") ? CASE_PLAN(caseAid(lessonIdx)) : "") + later : ""}`;
+    const sys = bytes(systemPrompt());
+    const fitTurn = (cap: number, withLater: boolean) => {
+      const later = book && withLater ? laterModulesBlock(m, getIndex()?.modules ?? [], undefined, Math.min(LATER_CHARS, cap - sys - bytes(turnOf(ctx, "")) - 2000)) : "";
+      const over = withLater ? 0 : sys + bytes(turnOf(ctx, "")) - cap;
+      return turnOf(over > 0 ? cutPages(ctx, over) : ctx, later);
+    };
+    let planTurn = fitTurn(INPUT_BUDGET, true);
     const once = (again: boolean, h = history) =>
       rt.sample!.json<PartPlan>([...fitHistory(h, bytes(planTurn)), { role: "user", content: again ? `${planTurn}\n\n${JSON_AGAIN}` : planTurn }], {
         model: MODEL,
@@ -726,7 +737,13 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
         ...(tools && !again ? { tools } : { cache: false }),
       });
     // an empty or non-JSON plan is asked once more, without tools (the new rules only)
-    plan = await (LESSON_RULES === "lite" ? retryRefused((h) => once(false, h).catch((e) => (isEmptyPlan(e) ? (planFromText<PartPlan>(e) ?? once(true, h).catch((e2) => planFromText<PartPlan>(e2) ?? Promise.reject(e2))) : Promise.reject(e))), history, cb).catch((e) => onRefusal(e, rt, m, planTurn, cb, signal)) : once(false));
+    const askPlan = () => (LESSON_RULES === "lite" ? retryRefused((h) => once(false, h).catch((e) => (isEmptyPlan(e) ? (planFromText<PartPlan>(e) ?? once(true, h).catch((e2) => planFromText<PartPlan>(e2) ?? Promise.reject(e2))) : Promise.reject(e))), history, cb).catch((e) => onRefusal(e, rt, m, planTurn, cb, signal)) : once(false));
+    plan = await askPlan().catch((e) => {
+      if (!tooLarge(e)) throw e;
+      cb.onStatus?.("הבקשה גדולה מדי: מתכנן שוב עם פחות עמודי מקור (את השאר המורה קורא בכלים)");
+      planTurn = fitTurn(SMALL_TURN, false);
+      return askPlan();
+    });
     if (!plan || !Array.isArray(plan.parts) || !plan.parts.length) throw { code: "invalid_json", message: "no plan" };
     if (book) plan = await checkOutline({ rt, plan, planTurn, later: laterModules(m, getIndex()?.modules ?? []).map((x) => x.id), covers: lessons?.[lessonIdx]?.covers ?? [], title: lessons?.[lessonIdx]?.title ?? m.title, effort, signal, cb });
     cb.onCheckpoint?.(plan, 0, "");

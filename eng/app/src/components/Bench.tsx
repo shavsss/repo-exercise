@@ -75,7 +75,10 @@ export function Bench({ lab }: { lab: "gilua" | "lanchester" }) {
         return;
       }
       const id = String(cmd.id ?? "");
-      if (cmd.done || cmd.startedAt || id === last) {
+      // a command runs only if it was written in the last half hour (25.11: an old copy of a done command, from the
+      // browser's cache, ran a full lesson instead of the plan the new command asked for)
+      const fresh = Number(cmd.at) > Date.now() - 30 * 60_000;
+      if (cmd.done || cmd.startedAt || id === last || !fresh) {
         setState("מחובר. מחכה לבדיקה הבאה (אפשר להשאיר את החלון פתוח).");
         return;
       }
