@@ -102,8 +102,9 @@ export function curriculumBlock(m: Module & CurriculumFields) {
 /**
  * The modules after this one in the course order, each with the K/S topic items it teaches in full (24.11, the learner: a
  * lesson of M14 developed Navier-Stokes at length, though M15.1 teaches it; the planner was told to make such a topic an
- * anchor but never saw which later module teaches what). Given to the lesson planner only, and only in Gilua: in Lanchester
- * the list of later modules is full of weapon topics, and with it the planner was refused 16 times in a row (25.11).
+ * anchor but never saw which later module teaches what). Given to the lesson planner only. Lanchester sends the titles only
+ * (`titlesOnly`, in Hebrew): with every module's topic items the list was full of weapon topics, and the planner was refused
+ * 16 times in a row (25.11); the Hebrew titles are a quarter of the size and mostly technical.
  */
 export function laterModules(m: Module, mods: Module[]) {
   const at = mods.findIndex((x) => x.id === m.id);
@@ -111,12 +112,14 @@ export function laterModules(m: Module, mods: Module[]) {
   return mods.slice(at + 1);
 }
 
-export function laterModulesBlock(m: Module, mods: Module[]) {
+export function laterModulesBlock(m: Module, mods: Module[], titlesOnly = false) {
   const later = laterModules(m, mods);
   if (!later.length) return "";
   const line = (x: Module) => {
+    if (titlesOnly) return `- ${x.id} ${x.title}`;
     const items = (x.items ?? []).filter((t) => (t.k === "new" || t.k === "deepen") && t.imp !== "C").map((t) => t.n);
     return `- ${x.id} ${x.en}${items.length ? `: ${items.join("; ")}` : ""}`;
   };
-  return `\n\n<later_modules>\nThe modules that come after this one in the course, in order, each with the topic items it teaches in full (its title and pages teach the rest of its subject). A topic one of them teaches is not developed here (rule on anchor claims):\n${later.map(line).join("\n")}\n</later_modules>`;
+  const what = titlesOnly ? "each with its title (it teaches its subject in full)" : "each with the topic items it teaches in full (its title and pages teach the rest of its subject)";
+  return `\n\n<later_modules>\nThe modules that come after this one in the course, in order, ${what}. A topic one of them teaches is not developed here (rule on anchor claims):\n${later.map(line).join("\n")}\n</later_modules>`;
 }
