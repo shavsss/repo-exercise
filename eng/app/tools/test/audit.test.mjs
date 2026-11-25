@@ -222,3 +222,15 @@ test("auditLong: parts checked separately, a too large request is cut again, mar
   assert.ok(seen.every(Boolean));
   assert.equal(r.text.replace(/\s+/g, " ").trim(), text.replace(/\s+/g, " ").trim());
 });
+
+test("early: material a later module teaches is a finding, listed open, and shown to the reviewer with the later modules", () => {
+  const r = A.parseAudit('{"early":[{"topic":"widelane","heading":"2.8 widelane","module":"M5.7","quote":"widelane"}],"keep":{"exists":true},"verdict":"pass"}');
+  assert.equal(r.verdict, "fix");
+  assert.equal(A.problems(r), 1);
+  assert.ok(A.openItems(r).some((l) => l.includes("widelane") && l.includes("M5.7")));
+  const p = A.auditPrompt({ lessonTitle: "t", moduleId: "M0.2", moduleTitle: "m", covers: [], otherLessons: [], curriculum: "", modules: [], later: "\n\n<later_modules>\n- M5.7 Differential GPS\n</later_modules>", pages: "", text: lesson });
+  assert.ok(p.includes("<later_modules>") && p.includes('"early"'));
+  const again = A.auditPrompt({ lessonTitle: "t", moduleId: "M0.2", moduleTitle: "m", covers: [], otherLessons: [], curriculum: "", modules: [], cut: r.early, pages: "", text: lesson }, 2);
+  assert.ok(again.includes("<cut_as_early>") && again.includes("- widelane (M5.7)") && !again.includes("</later_modules>"));
+  assert.ok(A.repairPrompt({ lessonTitle: "t", moduleId: "M0.2", moduleTitle: "m", covers: [], otherLessons: [], curriculum: "", modules: [], pages: "", text: lesson }, r, "inplace").includes('cut every item in "early"'));
+});
