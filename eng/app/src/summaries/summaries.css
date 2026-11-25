@@ -95,7 +95,7 @@
 .sm-app { --sm-w: calc(var(--measure) + 420px); }
 .sm-app.w-normal { --sm-w: calc(var(--measure) + 120px); }
 .sm-app.w-full { --sm-w: none; }
-.sm-page { max-width: var(--sm-w); margin: 18px auto 45vh; padding: 28px 72px 40px 40px; padding-inline: 76px 40px; background-color: var(--sm-paper); border: 1px solid var(--line); box-shadow: 0 1px 2px rgb(0 0 0 / 5%), 0 8px 24px rgb(0 0 0 / 5%); min-height: 70vh; font-family: var(--read-font); font-size: var(--read-size); line-height: var(--sm-lh); color: var(--ink); position: relative; }
+.sm-page { max-width: var(--sm-w); margin: 18px auto 80px; padding: 28px 72px 40vh 40px; padding-inline: 76px 40px; background-color: var(--sm-paper); border: 1px solid var(--line); box-shadow: 0 1px 2px rgb(0 0 0 / 5%), 0 8px 24px rgb(0 0 0 / 5%); min-height: 70vh; font-family: var(--read-font); font-size: var(--read-size); line-height: var(--sm-lh); color: var(--ink); position: relative; }
 /* ruled paper as one small tile repeated (one gradient the height of a long page loses lines in Chrome), and the margin line on its own */
 .bg-lines .sm-page { background-image: linear-gradient(to bottom, transparent calc(var(--sm-lh) - 1px), var(--sm-rule) calc(var(--sm-lh) - 1px)); background-size: 100% var(--sm-lh); background-position: 0 27px; }
 .bg-dots .sm-page { background-image: radial-gradient(circle, var(--sm-dot) 1.1px, transparent 1.4px); background-size: 22px 22px; background-position: 11px 11px; }
@@ -278,7 +278,7 @@ mark:not([class]) { background: var(--hl-y); }
   .sm-body, .sm-body.has-aux { grid-template-columns: 1fr; }
   .sm-tree { position: fixed; inset: 46px auto 0 0; inset-inline-start: 0; width: min(300px, 86vw); z-index: 30; box-shadow: 0 10px 30px rgb(0 0 0 / 20%); }
   .sm-aux { position: fixed; inset: 46px 0 0 auto; inset-inline-end: 0; width: min(380px, 92vw); z-index: 31; box-shadow: 0 10px 30px rgb(0 0 0 / 20%); }
-  .sm-page { padding-inline: 46px 18px; margin: 10px 8px 40vh; }
+  .sm-page { padding-inline: 46px 18px; margin: 10px 8px 60px; }
   .bg-lines .sm-page, .bg-grid .sm-page { background-image: linear-gradient(to bottom, transparent calc(var(--sm-lh) - 1px), var(--sm-rule) calc(var(--sm-lh) - 1px)); background-size: 100% var(--sm-lh); }
   .bg-lines .sm-page::before, .bg-grid .sm-page::before, .bg-dots .sm-page::before { display: none; }
   .sm-handle { inset-inline-start: -24px; }
@@ -476,9 +476,12 @@ span.im.big .katex { font-size: 1em; }
 
 /* ---- the desk: the page, and the rail at its outer side (left, the tree is on the right) ---- */
 .sm-desk { display: flex; align-items: flex-start; justify-content: center; gap: 14px; padding-inline: 18px 12px; }
-.sm-desk > .sm-page { flex: 1 1 auto; min-width: 0; margin: 18px 0 45vh; }
-/* the review and the filter are read, not written: no room for writing under them */
-.sm-page.sm-review, .sm-page.sm-filter { margin-bottom: 80px; }
+.sm-desk > .sm-page { flex: 1 1 auto; min-width: 0; margin: 18px 0 80px; }
+/* room for writing inside the paper, under the last line (25.11, the learner: room outside the page looked like its end);
+   the review and the filter are read, not written: no room under them */
+.sm-page.sm-review, .sm-page.sm-filter { padding-bottom: 40px; }
+.sm-page { cursor: text; }
+.sm-page .sm-block, .sm-page .sm-add-end { cursor: auto; }
 .sm-app.w-full .sm-desk > .sm-page { margin-inline: 0; }
 .sm-rail { position: sticky; top: 18px; margin-top: 18px; flex: none; width: 76px; display: flex; flex-direction: column; gap: 6px; max-height: calc(100vh - 84px); max-height: calc(100dvh - 84px); overflow-y: auto; scrollbar-width: none; font-family: var(--font); }
 .sm-rail::-webkit-scrollbar { display: none; }

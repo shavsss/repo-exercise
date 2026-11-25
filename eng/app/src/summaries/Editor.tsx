@@ -1413,6 +1413,15 @@ export function Editor({
     if (el && el.classList.contains("is-typing") !== on) el.classList.toggle("is-typing", on);
   };
 
+  /** a new paragraph at the end (or the empty one already there), with the caret in it */
+  const writeAtEnd = () => {
+    const last = blocks[blocks.length - 1];
+    if (last && last.t === "p" && !textOf(last.html).trim()) return focusNow(last.id, "start");
+    const nb = emptyBlock("p");
+    insertAfter(last?.id ?? null, nb);
+    focus(nb.id, "start");
+  };
+
   /* ---- the line being written stays in view: near the bottom of the window the page scrolls up (25.11, the learner) ---- */
   const followCaret = () =>
     requestAnimationFrame(() => {
@@ -1451,7 +1460,21 @@ export function Editor({
       }}
     >
       <div className="sm-desk">
-      <div className="sm-page" ref={pageRef} style={{ zoom }} spellCheck={false}>
+      <div
+        className="sm-page"
+        ref={pageRef}
+        style={{ zoom }}
+        spellCheck={false}
+        // a click on the blank paper under the last line writes there, in a new paragraph (as in a notebook)
+        onMouseDown={(e) => {
+          if (e.target !== e.currentTarget) return;
+          const last = e.currentTarget.querySelector(".sm-add-end");
+          if (last && e.clientY > last.getBoundingClientRect().bottom) {
+            e.preventDefault();
+            writeAtEnd();
+          }
+        }}
+      >
         <div className="sm-crumb" contentEditable={false} aria-hidden={!trail.length}>
           {trail.length > 0 && (
             <nav className="sm-crumb-in" aria-label="איפה אני בסיכום">
@@ -1511,13 +1534,7 @@ export function Editor({
         ))}
         <button
           className="sm-add-end"
-          onClick={() => {
-            const last = blocks[blocks.length - 1];
-            if (last && last.t === "p" && !textOf(last.html).trim()) return focusNow(last.id, "start");
-            const nb = emptyBlock("p");
-            insertAfter(last?.id ?? null, nb);
-            focus(nb.id, "start");
-          }}
+          onClick={writeAtEnd}
         >
           + פסקה חדשה בסוף
         </button>
