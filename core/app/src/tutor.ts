@@ -6,7 +6,7 @@
 // call per part, so its length never depends on one long answer.
 import { create, all } from "mathjs";
 import { docMeta, getIndex, readPages, searchLibrary, type Module } from "./library";
-import { curriculumBlock, laterModules, laterModulesBlock } from "./curriculum";
+import { curriculumBlock, laterModules } from "./curriculum";
 import { CHAT_HISTORY_BYTES, focusHistory, questionOf, type Chapter } from "./chatContext";
 import { auditLong, namedModules, type AuditMark, applyRepair } from "./lessonAudit";
 import { headWithin, tailWithin } from "./truncation";
@@ -768,7 +768,7 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
   let plan = resume?.plan;
   if (!plan) {
     cb.onStatus?.("מתכנן את השיעור: קורא את המקורות ומחשב את המספרים");
-    const planTurn = `${ctx}\n\n${text}\n\n${LESSON_RULES === "lite" ? PART_PLAN_INSTRUCTIONS.replace("for a core or advanced module the words add up to at least 4200 Hebrew words unless the assigned material is genuinely short (then say so in the first part); ", "").replace(', "words": 1200}', ', "units": 40}') + LITE_PLAN : PART_PLAN_INSTRUCTIONS}${featurePlan()}${book ? BOOK_PLAN(chapterStart) + (FEATURES.has("case") ? CASE_PLAN(caseAid(lessonIdx)) : "") + laterModulesBlock(m, getIndex()?.modules ?? [], true) : ""}`;
+    const planTurn = `${ctx}\n\n${text}\n\n${LESSON_RULES === "lite" ? PART_PLAN_INSTRUCTIONS.replace("for a core or advanced module the words add up to at least 4200 Hebrew words unless the assigned material is genuinely short (then say so in the first part); ", "").replace(', "words": 1200}', ', "units": 40}') + LITE_PLAN : PART_PLAN_INSTRUCTIONS}${featurePlan()}${book ? BOOK_PLAN(chapterStart) + (FEATURES.has("case") ? CASE_PLAN(caseAid(lessonIdx)) : "") : ""}`;
     plan = await retryRefused(
       (h) => {
         const once = (again: boolean) =>
