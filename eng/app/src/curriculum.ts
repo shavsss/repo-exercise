@@ -113,19 +113,33 @@ export function laterModules(m: Module, mods: Module[], omit?: RegExp) {
   return mods.slice(at + 1).filter((x) => !omit?.test(x.en));
 }
 
+/** The most characters of <later_modules>: about what the lists that worked held before the sections were added (65,000 in Gilua). */
+export const LATER_CHARS = 75000;
 /** Headings that name no topic (references, exercises…): left out of the list. */
 const NOT_A_TOPIC = /^(references?|bibliography|exercises|problems|questions|software|index|summary|introduction|preface|notes|guide to the references|further reading|acronyms|glossary)\b/i;
 
 export function laterModulesBlock(m: Module, mods: Module[], omit?: RegExp) {
   const later = laterModules(m, mods, omit);
   if (!later.length) return "";
-  const line = (x: Module) => {
-    const sections = (x.sections ?? [])
+  const sectionsOf = (x: Module) =>
+    (x.sections ?? [])
       .filter((t) => t.depth <= 1 && !omit?.test(t.title))
       .map((t) => t.title.replace(/\s+\d+\s*$/, "").trim())
       .filter((t) => !NOT_A_TOPIC.test(t.replace(/^[\dA-Z.:]*\s*/, "")));
+  const base = later.map((x) => {
     const items = (x.items ?? []).filter((t) => (t.k === "new" || t.k === "deepen") && t.imp !== "C" && !omit?.test(t.n)).map((t) => t.n);
-    return `- ${x.id} ${x.en}${sections.length ? `. Sections: ${sections.join("; ")}` : ""}${items.length ? `. Added topics: ${items.join("; ")}` : ""}`;
-  };
-  return `\n\n<later_modules>\nThe modules that come after this one in the course, in order, each with the main sections of its pages and the topic items it adds beyond them: it teaches all of these in full. A topic one of them teaches is not developed here (rule on anchor claims):\n${later.map(line).join("\n")}\n</later_modules>`;
+    return { head: `- ${x.id} ${x.en}`, tail: items.length ? `. Added topics: ${items.join("; ")}` : "", sections: "" };
+  });
+  // the sections go in from the nearest module on, while the list stays within LATER_CHARS (25.11: Gilua's 464
+  // modules made a list of 640,000 characters, and the lesson plan's request was too large)
+  let size = base.reduce((n, b) => n + b.head.length + b.tail.length + 1, 0);
+  for (let i = 0; i < later.length; i++) {
+    const s = sectionsOf(later[i]);
+    if (!s.length) continue;
+    const add = `. Sections: ${s.join("; ")}`;
+    if (size + add.length > LATER_CHARS) break;
+    base[i].sections = add;
+    size += add.length;
+  }
+  return `\n\n<later_modules>\nThe modules that come after this one in the course, in order, each with the topic items it adds beyond its pages and, for the nearer ones, the main sections of its pages: it teaches all of these in full. A topic one of them teaches is not developed here (rule on anchor claims):\n${base.map((b) => b.head + b.sections + b.tail).join("\n")}\n</later_modules>`;
 }

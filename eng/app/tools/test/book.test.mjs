@@ -282,3 +282,13 @@ test("later modules: each with its main sections and added items, without what o
   assert.ok(!b.includes("Ionospheric") && !b.includes("M6.4"));
   assert.deepEqual(C.laterModules(mods[0], mods, /missile/i).map((m) => m.id), ["M5.7"]);
 });
+
+test("later modules: the list stays within LATER_CHARS, sections from the nearest module on (25.11: 640,000 characters in Gilua)", async () => {
+  const out = await build({ entryPoints: [fileURLToPath(new URL("../../src/curriculum.ts", import.meta.url))], bundle: true, format: "esm", write: false, platform: "neutral" });
+  const C = await import("data:text/javascript;base64," + Buffer.from(out.outputFiles[0].text).toString("base64"));
+  const mods = [{ id: "M0.1", en: "Start", sections: [] }];
+  for (let i = 0; i < 400; i++) mods.push({ id: `M9.${i}`, en: `Module ${i}`, sections: Array.from({ length: 30 }, (_, j) => ({ doc: "D", page: 1, title: `${j}.1 A long section heading about topic ${j} of module ${i}`, depth: 1 })) });
+  const b = C.laterModulesBlock(mods[0], mods);
+  assert.ok(b.length < C.LATER_CHARS + 600, `${b.length} characters`);
+  assert.ok(b.includes("- M9.0 Module 0. Sections:") && b.includes("- M9.399 Module 399") && !b.includes("- M9.399 Module 399. Sections"));
+});
