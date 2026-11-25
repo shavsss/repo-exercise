@@ -107,21 +107,47 @@ THE LESSON AS CHAPTERS OF A BOOK (these rules override every earlier rule about 
 
 /** A planned word count as a number: the model sometimes writes "1,200", "~900" or "1200–1500" (the first number counts). */
 /**
- * A coarse alarm for an inflated lesson, not a word target (25.11, the learner: "estimate from the topics, and if we are
- * very far, it is probably inflation"). About this many words the learner reads per page of source at the course's
- * depth: Gilua M0.2 lesson 1, accepted, is 9 pages and 12,800 words; the two lessons deleted on 25.11 were 1,260 and
- * 2,690 a page.
+ * What the lesson's content calls for, from its plan (25.11, the learner: "by the content of each topic, not arbitrary"; a
+ * first version counted pages): each central idea is developed (its derivation, its supporting ideas, the chapter's case
+ * study), each other topic of "covers" is explained, and the lesson closes with practice and the keep block. A coarse
+ * alarm for inflation, never a word target.
  */
-export const WORDS_PER_PAGE = 1200;
-export const expectedWords = (sources: { pages: [number, number] }[]) => sources.reduce((n, s) => n + Math.max(0, s.pages[1] - s.pages[0] + 1), 0) * WORDS_PER_PAGE;
-/** Far above the pages: more than half again, and at least 4,000 words over. */
-export const inflated = (words: number, expected: number) => expected > 0 && words > Math.max(expected * 1.5, expected + 4000);
+export const CONTENT_WORDS = { central: 1600, support: 650, stop: 550, case: 1800, close: 2000 };
+export function expectedWords(o: BookOutline, covers: string[]): number {
+  const central = Math.max(1, o.scope?.central.length ?? 1);
+  const overview = o.scope?.kind === "overview";
+  const others = Math.max(0, covers.length - central);
+  const developed = CONTENT_WORDS.central + (overview ? 1 : 2) * CONTENT_WORDS.support + CONTENT_WORDS.case;
+  return central * developed + others * (overview ? CONTENT_WORDS.stop : CONTENT_WORDS.support) + CONTENT_WORDS.close;
+}
+/** Far above what the content calls for: more than 1.3 times, and at least 3,000 words over. */
+export const inflated = (words: number, expected: number) => expected > 0 && words > Math.max(expected * 1.3, expected + 3000);
+const plannedWords = (o: BookOutline) => o.chapters.reduce((n, c) => n + c.sections.reduce((m, s) => m + wordsOf(s.words), 0), 0);
 
-/** The outline adds up to far more words than its pages (a problem for the outline check). */
-export function lengthProblems(o: BookOutline, expected: number): { where: string; kind: string; problem: string }[] {
-  const total = o.chapters.reduce((n, c) => n + c.sections.reduce((m, s) => m + wordsOf(s.words), 0), 0);
-  if (!inflated(total, expected)) return [];
-  return [{ where: "outline", kind: "length", problem: `the subsections add up to ${total} words, while the lesson's pages come to about ${expected} at this depth, and a lesson this far above its pages is usually inflated: shorten what goes beyond the pages (a topic a later lesson or module teaches becomes an anchor; a second example or case, a survey stop developed as a topic of its own), and keep every topic of the lesson's "covers" taught in full` }];
+/** The plan is far larger than its content calls for, or a survey has more chapters than central ideas (a problem for the outline check). */
+export function lengthProblems(o: BookOutline, covers: string[]): { where: string; kind: string; problem: string }[] {
+  const out: { where: string; kind: string; problem: string }[] = [];
+  const central = o.scope?.central.length ?? 0;
+  if (o.scope?.kind === "overview" && central && o.chapters.length > central)
+    out.push({ where: "outline", kind: "length", problem: `${o.chapters.length} chapters for a survey with ${central} central idea(s): a survey has one chapter per central idea, each with one case study; the other stops are explained inside them` });
+  const total = plannedWords(o);
+  const expected = expectedWords(o, covers);
+  if (inflated(total, expected))
+    out.push({ where: "outline", kind: "length", problem: `the subsections add up to ${total} words, while the content calls for about ${expected} (${central || 1} central idea(s) developed with a case study, ${Math.max(0, covers.length - (central || 1))} other topic(s) explained, and the closing): shorten what goes beyond it (a topic a later lesson or module teaches becomes an anchor; a second example or case, a stop developed as a topic of its own), and keep every topic of the lesson's "covers" taught in full` });
+  return out;
+}
+
+/** Subsections written far longer than planned: "n: written/planned" (shown with what the check left open). */
+export function sectionDrift(text: string, o: BookOutline): string[] {
+  const planned = new Map(o.chapters.flatMap((c) => c.sections.map((s) => [s.n, wordsOf(s.words)] as const)));
+  const out: string[] = [];
+  for (const part of text.split(/\n(?=#{2,3} )/)) {
+    const n = /^###\s+(\d+\.\d+)\b/.exec(part)?.[1];
+    const want = n ? planned.get(n) : 0;
+    const got = wordCount(part);
+    if (n && want && got > want * 1.5 && got > want + 400) out.push(`${n}: ${got.toLocaleString("en-US")} מילים מול ${want.toLocaleString("en-US")} בתוכנית`);
+  }
+  return out;
 }
 
 export function wordsOf(v: unknown): number {
