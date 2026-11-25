@@ -119,6 +119,9 @@ export const LATER_CHARS = 25000;
 /** Headings that name no topic (references, exercises…): left out of the list. */
 const NOT_A_TOPIC = /^(references?|bibliography|exercises|problems|questions|software|index|summary|introduction|preface|notes|guide to the references|further reading|acronyms|glossary)\b/i;
 
+/** A section number before a heading ("19.1 ", "A.2 ", "12 "); 25.11: `[\dA-Z.:]*` also took the first letter of "References". */
+const SECTION_NUMBER = /^(?:\d+|[A-Z])(?:[.:]\d+)*\.?\s+/;
+
 export function laterModulesBlock(m: Module, mods: Module[], omit?: RegExp, max = LATER_CHARS) {
   const later = laterModules(m, mods, omit);
   if (!later.length || max <= 0) return "";
@@ -126,7 +129,7 @@ export function laterModulesBlock(m: Module, mods: Module[], omit?: RegExp, max 
     (x.sections ?? [])
       .filter((t) => t.depth <= 1 && !omit?.test(t.title))
       .map((t) => t.title.replace(/\s+\d+\s*$/, "").trim())
-      .filter((t) => !NOT_A_TOPIC.test(t.replace(/^[\dA-Z.:]*\s*/, "")));
+      .filter((t) => !NOT_A_TOPIC.test(t.replace(SECTION_NUMBER, "")));
   const lines = later.map((x) => {
     const items = (x.items ?? []).filter((t) => (t.k === "new" || t.k === "deepen") && t.imp !== "C" && !omit?.test(t.n)).map((t) => t.n);
     const s = sectionsOf(x);

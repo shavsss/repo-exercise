@@ -283,6 +283,19 @@ test("later modules: each with its main sections and added items, without what o
   assert.deepEqual(C.laterModules(mods[0], mods, /missile/i).map((m) => m.id), ["M5.7"]);
 });
 
+test("later modules: headings that name no topic are left out, numbered or not (25.11: the prefix regex ate the R of References)", async () => {
+  const out = await build({ entryPoints: [fileURLToPath(new URL("../../src/curriculum.ts", import.meta.url))], bundle: true, format: "esm", write: false, platform: "neutral" });
+  const C = await import("data:text/javascript;base64," + Buffer.from(out.outputFiles[0].text).toString("base64"));
+  const sec = (title) => ({ doc: "D", page: 1, title, depth: 1 });
+  const mods = [
+    { id: "M0.2", en: "Waves", sections: [] },
+    { id: "M5.7", en: "Differential GPS", sections: ["References 740", "Exercises", "A.2 Glossary", "12 Summary", "8.4 Carrier-Based Techniques 397"].map(sec) },
+  ];
+  const b = C.laterModulesBlock(mods[0], mods);
+  assert.ok(b.includes("- M5.7 Differential GPS. Sections: 8.4 Carrier-Based Techniques\n"), b);
+  for (const w of ["References", "Exercises", "Glossary", "Summary"]) assert.ok(!b.includes(w), w);
+});
+
 test("later modules: the list stays within LATER_CHARS, sections from the nearest module on (25.11: 640,000 characters in Gilua)", async () => {
   const out = await build({ entryPoints: [fileURLToPath(new URL("../../src/curriculum.ts", import.meta.url))], bundle: true, format: "esm", write: false, platform: "neutral" });
   const C = await import("data:text/javascript;base64," + Buffer.from(out.outputFiles[0].text).toString("base64"));

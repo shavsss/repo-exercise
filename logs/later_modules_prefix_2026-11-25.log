@@ -1,0 +1,9 @@
+== core (lanchester), omit COMBAT_TOPICS
+229 modules; first module M0.1: old 24679 chars/24705 bytes, new 24586 chars/24612 bytes; max old 24999 B, new 24994 B; modules with a changed block 125, longer in chars 24
+depth<=1 headings 3772: kept old 3501, new 3437
+== eng (gilua), omit COMBAT_TOPICS (not what gilua passes)
+464 modules; first module M0.1: old 24814 chars/24826 bytes, new 24814 chars/24826 bytes; max old 25617 B, new 25573 B; modules with a changed block 78, longer in chars 39
+depth<=1 headings 17435: kept old 16670, new 16549
+== eng (gilua), no omit (as eng tutor.ts calls it)
+464 modules; first module M0.1: old 24936 chars/24944 bytes, new 24936 chars/24944 bytes; max old 24989 B, new 24999 B; modules with a changed block 66, longer in chars 42
+depth<=1 headings 17435: kept old 16670, new 16549
