@@ -100,9 +100,10 @@ export function curriculumBlock(m: Module & CurriculumFields) {
 }
 
 /**
- * The modules after this one in the course order, each with the K/S topic items it teaches in full (24.11, the learner: a
- * lesson of M14 developed Navier-Stokes at length, though M15.1 teaches it; the planner was told to make such a topic an
- * anchor but never saw which later module teaches what). Given to the lesson planner only.
+ * The modules after this one in the course order, each with the main sections of its pages (depth 0-1) and the K/S topic
+ * items it adds (24.11, the learner: a lesson of M14 developed Navier-Stokes at length, though M15.1 teaches it; 25.11: M0.2
+ * lesson 1 developed GPS ionosphere correction, widelane and cycle slips, which M5 teaches from its pages, while the list
+ * showed only titles and added items). Given to the module planner, the lesson planner and the lesson's reviewer.
  * `omit`: modules whose title matches, and items whose name matches, are left out of the list (Lanchester: the combat
  * topics, after 16 refusals on 25.11 on lessons written before without one).
  */
@@ -112,12 +113,19 @@ export function laterModules(m: Module, mods: Module[], omit?: RegExp) {
   return mods.slice(at + 1).filter((x) => !omit?.test(x.en));
 }
 
+/** Headings that name no topic (references, exercises…): left out of the list. */
+const NOT_A_TOPIC = /^(references?|bibliography|exercises|problems|questions|software|index|summary|introduction|preface|notes|guide to the references|further reading|acronyms|glossary)\b/i;
+
 export function laterModulesBlock(m: Module, mods: Module[], omit?: RegExp) {
   const later = laterModules(m, mods, omit);
   if (!later.length) return "";
   const line = (x: Module) => {
+    const sections = (x.sections ?? [])
+      .filter((t) => t.depth <= 1 && !omit?.test(t.title))
+      .map((t) => t.title.replace(/\s+\d+\s*$/, "").trim())
+      .filter((t) => !NOT_A_TOPIC.test(t.replace(/^[\dA-Z.:]*\s*/, "")));
     const items = (x.items ?? []).filter((t) => (t.k === "new" || t.k === "deepen") && t.imp !== "C" && !omit?.test(t.n)).map((t) => t.n);
-    return `- ${x.id} ${x.en}${items.length ? `: ${items.join("; ")}` : ""}`;
+    return `- ${x.id} ${x.en}${sections.length ? `. Sections: ${sections.join("; ")}` : ""}${items.length ? `. Added topics: ${items.join("; ")}` : ""}`;
   };
-  return `\n\n<later_modules>\nThe modules that come after this one in the course, in order, each with the topic items it teaches in full (its title and pages teach the rest of its subject). A topic one of them teaches is not developed here (rule on anchor claims):\n${later.map(line).join("\n")}\n</later_modules>`;
+  return `\n\n<later_modules>\nThe modules that come after this one in the course, in order, each with the main sections of its pages and the topic items it adds beyond them: it teaches all of these in full. A topic one of them teaches is not developed here (rule on anchor claims):\n${later.map(line).join("\n")}\n</later_modules>`;
 }

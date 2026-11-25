@@ -18,6 +18,8 @@ export interface AuditFinding {
   quote?: string;
   verdict?: string;
   correct_module?: string;
+  /** an early finding: the later module that teaches the topic in full */
+  module?: string;
   problem?: string;
   fix?: string;
   /** a level finding: which layers are missing (mechanism, failure, cost, choice) */
@@ -29,6 +31,8 @@ export interface AuditReport {
   /** taught, but not down to how it really works and what it costs (the engineering level, 20.11) */
   level: AuditFinding[];
   deferrals: AuditFinding[];
+  /** developed here though a later module teaches it in full and this lesson does not need it (25.11, the learner) */
+  early: AuditFinding[];
   questions: AuditFinding[];
   keep: { exists: boolean; missing: string[]; remove: string[] };
   errors: AuditFinding[];
@@ -65,6 +69,10 @@ export interface AuditInput {
   curriculum: string;
   /** the modules the lesson names, with their sections: is a deferred topic really taught there? */
   modules: { id: string; title: string; sections: string[] }[];
+  /** the modules after this one with what each teaches (laterModulesBlock, curriculum.ts): is a topic developed too early?
+   * Sent in the first review only (it adds about half to the prompt); later reviews get the topics already cut, in `cut`. */
+  later?: string;
+  cut?: AuditFinding[];
   pages: string;
   text: string;
   /** what the learner already knows (the outline's "known", bookRules.ts), for the reader's check */
@@ -121,7 +129,7 @@ ${o.curriculum || "(none)"}
 </curriculum>
 <modules_the_lesson_names>
 ${mods || "(none)"}
-</modules_the_lesson_names>
+</modules_the_lesson_names>${o.later ?? ""}${o.cut?.length ? `\n<cut_as_early>\nAn earlier review cut these topics to anchors, because a later module teaches them in full. They are not missing, thin or below the engineering level here; report them in "early" only if the lesson develops them again:\n${o.cut.map((f) => `- ${f.topic ?? ""} (${f.module ?? ""})`).join("\n")}\n</cut_as_early>` : ""}
 <source_pages>
 ${o.pages}
 </source_pages>
@@ -137,11 +145,12 @@ Check:
 5. Errors: statements that contradict the sources or the established facts.
 6. The engineering case (the \`\`\`case block at the end, if the lesson has one; its notes after the "---" line are hidden from the learner until he commits, and the tutor reasons from them): compute every number of its brief and its notes; every expert reasoning rests on a page tag, a named published source or a certainty label [[ודאות: …]], and claims about companies, systems and trends (stage 5, and the leading teams in every stage) carry a certainty label; a historical failure (Patriot, Ariane 5, Mars Climate Orbiter, Columbia) carries numbers only if the source pages hold its original report and the numbers match it; each stage's decisive rubric item ("- [!]") is really the decision that separates the top level from the average; the brief does not give away the answers; where a stage has "guide:" lines, they say what a good answer contains without giving away the decisive item, and where it has an "example:", it is a model answer at the level of the decisive item, with its numbers computed and a confidence in %. Report each problem in "errors", quoting the case.
 7. Engineering level: the learner is becoming an engineer who designs and leads, so knowing what a thing is and why it was chosen is not enough. For each central system, protocol, algorithm, data structure, device or architecture the lesson teaches, check that it reaches four layers: (a) mechanism: how it works inside, the parts and what passes between them (the messages and their fields, the state and its transitions, the data layout and the operations on it, the order of events in time), concretely enough to trace one case step by step; (b) failure: what happens under loss, overload, contention, a fault or the worst case, and how the design detects and recovers; (c) engineering cost in non-financial units with real numbers: latency, throughput, memory, overhead bytes or bandwidth, power, complexity (O(·)), coupling and the cost to change or maintain; (d) choice: the alternative the designers rejected, what each one pays, and what one would change to design one's own variant for a different need. Report in "level" one finding per item that lacks a layer, with "gap" naming the missing layers and "add" saying concretely what to teach (which mechanism, which number, which alternative). For a mathematical or physical result the layers are lighter: what it costs to use in practice (computation, measurement, accuracy) and where its assumption breaks in a real system; do not demand protocols, systems or numbers the topic has no reason to have, and never ask for padding.
+8. Early material (when <later_modules> or <cut_as_early> is given; 25.11, the learner: a lesson on the wave developed GPS ionosphere correction, widelane and cycle slips, which a later module teaches): every topic the lesson develops (a derivation, a formula block, a worked case or questions on it, or more than one or two paragraphs) that a module of <later_modules> teaches in full, when neither the assigned sections nor the curriculum items of this lesson hold it and the central results of this lesson can be understood without it. The lesson focus does not make such a topic this lesson's. Report each in "early", with the heading, the later module that teaches it and an exact quote of where its development starts. What the central results really need of it stays, as background. Such a topic is never reported as missing, thin or below the engineering level, and never asked for in a question or the keep block. When unsure whether a later module teaches it in full, do not report it.
 Quotes must be copied exactly from the lesson (a short unique phrase). "after" and "heading" are exact heading texts of the lesson (without the #).
 
 Answer with one JSON object and nothing else:
-{"missing":[{"topic":"","source":"<page tag, e.g. F1:17>","why":"","after":""}],"thin":[{"topic":"","heading":"","add":""}],"level":[{"topic":"","heading":"","gap":"mechanism|failure|cost|choice","add":""}],"deferrals":[{"topic":"","quote":"","verdict":"ok|teach_now|fix_ref","correct_module":""}],"questions":[{"quote":"","problem":"","fix":""}],"keep":{"exists":true,"missing":[],"remove":[]},"errors":[{"quote":"","fix":""}],"must_core":["the topics the learner must learn now from this lesson"],"verdict":"pass|fix"}
-"verdict" is "pass" only when nothing important is missing, thin, below the engineering level, wrongly deferred or unanswerable, and the keep block is complete. List deferrals with verdict "ok" too, so the map knows they were checked.
+{"missing":[{"topic":"","source":"<page tag, e.g. F1:17>","why":"","after":""}],"thin":[{"topic":"","heading":"","add":""}],"level":[{"topic":"","heading":"","gap":"mechanism|failure|cost|choice","add":""}],"deferrals":[{"topic":"","quote":"","verdict":"ok|teach_now|fix_ref","correct_module":""}],"early":[{"topic":"","heading":"","module":"","quote":""}],"questions":[{"quote":"","problem":"","fix":""}],"keep":{"exists":true,"missing":[],"remove":[]},"errors":[{"quote":"","fix":""}],"must_core":["the topics the learner must learn now from this lesson"],"verdict":"pass|fix"}
+"verdict" is "pass" only when nothing important is missing, thin, below the engineering level, wrongly deferred, developed too early or unanswerable, and the keep block is complete. List deferrals with verdict "ok" too, so the map knows they were checked.
 </lesson_audit>`;
 }
 
@@ -169,6 +178,7 @@ export function parseAudit(raw: string): AuditReport | null {
     thin: arr(o.thin),
     level: arr(o.level),
     deferrals: arr(o.deferrals),
+    early: arr(o.early),
     questions: arr(o.questions),
     keep: { exists: keep.exists !== false, missing: strs(keep.missing), remove: strs(keep.remove) },
     errors: arr(o.errors),
@@ -182,7 +192,7 @@ export function parseAudit(raw: string): AuditReport | null {
 
 /** How many things the repair has to do. */
 export function problems(r: AuditReport): number {
-  return r.missing.length + r.thin.length + r.level.length + r.deferrals.filter((d) => d.verdict === "teach_now" || d.verdict === "fix_ref").length + r.questions.length + r.errors.length + (r.keep.exists ? 0 : 1) + r.keep.missing.length + r.keep.remove.length;
+  return r.missing.length + r.thin.length + r.level.length + r.deferrals.filter((d) => d.verdict === "teach_now" || d.verdict === "fix_ref").length + r.early.length + r.questions.length + r.errors.length + (r.keep.exists ? 0 : 1) + r.keep.missing.length + r.keep.remove.length;
 }
 
 const INPLACE_HOW = `Output only edit blocks, in this exact format (as many as needed, in any order):
@@ -229,7 +239,7 @@ a short opening line (what this supplement completes), then a ### section for ea
 the whole content of the lesson's keep block, one "- name: …" line each (it replaces the existing keep block, or is added at the end)
 <<<END>>>`;
   return `<lesson_repair mode="${mode}">
-You are the author of this lesson, repairing it after an independent review (in <review>). Write in the lesson's own Hebrew, style and block syntax (the definition, formula, think, predict and keep blocks exactly as the lesson writes them; mathematics in $…$), at the course's full depth: teach every missing or thin item in full (its context, the definition or result, how it is built or derived, what it means, its limits, and a computed number where the point is a number); bring every item in "level" down to the layers its "gap" names: the mechanism traced through one concrete case (messages and fields, states and transitions, data layout, order in time), the behaviour under failure and how it recovers, the engineering cost in real units with computed numbers (latency, throughput, memory, overhead, power, O(·), coupling), and the rejected alternative with what each pays and what one would change for a different need, written into the section that teaches the item, as prose that continues its argument; teach now every deferred topic the review says no later module teaches; give a question the givens it lacks or rewrite it so the lesson's material answers it; make the keep block complete (only what this lesson teaches in full). Never shorten or remove correct material, never add padding. The lesson has a length budget: make room for what you add by shortening a repetition or a second example near it, so it grows only by what is really new. Check every number with compute. A problem of the engineering case (\`\`\`case) is fixed inside it with a REPLACE, keeping its exact format: the @ headers, the "---" line, one "@@ stage N" section per stage of @stages with its ask:, anchors:, expert: and rubric: (exactly one "- [!]" item) and, where the case has them, guide: and example:, and "@@ debrief" with decisions:.
+You are the author of this lesson, repairing it after an independent review (in <review>). Write in the lesson's own Hebrew, style and block syntax (the definition, formula, think, predict and keep blocks exactly as the lesson writes them; mathematics in $…$), at the course's full depth: teach every missing or thin item in full (its context, the definition or result, how it is built or derived, what it means, its limits, and a computed number where the point is a number); bring every item in "level" down to the layers its "gap" names: the mechanism traced through one concrete case (messages and fields, states and transitions, data layout, order in time), the behaviour under failure and how it recovers, the engineering cost in real units with computed numbers (latency, throughput, memory, overhead, power, O(·), coupling), and the rejected alternative with what each pays and what one would change for a different need, written into the section that teaches the item, as prose that continues its argument; teach now every deferred topic the review says no later module teaches; cut every item in "early" down to an anchor where the lesson first meets it (what it says, why it matters here, one number or case, and the module that teaches it, in one or two paragraphs), removing its derivations, formula blocks, questions and keep lines, and keeping in the sections that use it only what this lesson's central results need; give a question the givens it lacks or rewrite it so the lesson's material answers it; make the keep block complete (only what this lesson teaches in full). Apart from "early", never shorten or remove correct material, and never add padding. The lesson has a length budget: make room for what you add by shortening a repetition or a second example near it, so it grows only by what is really new. Check every number with compute. A problem of the engineering case (\`\`\`case) is fixed inside it with a REPLACE, keeping its exact format: the @ headers, the "---" line, one "@@ stage N" section per stage of @stages with its ask:, anchors:, expert: and rubric: (exactly one "- [!]" item) and, where the case has them, guide: and example:, and "@@ debrief" with decisions:.
 
 Lesson: ${o.moduleId} ${o.moduleTitle} · ${o.lessonTitle}
 <review>
@@ -494,6 +504,7 @@ export function openItems(r: AuditReport): string[] {
   for (const f of r.thin) out.push(`דל: ${cut(f.topic)}${f.add ? ` · ${cut(f.add)}` : ""}`);
   for (const f of r.level) out.push(`רמה הנדסית: ${cut(f.topic)}${f.gap ? ` (${cut(f.gap)})` : ""}${f.add ? ` · ${cut(f.add)}` : ""}`);
   for (const f of r.deferrals.filter((d) => d.verdict === "teach_now" || d.verdict === "fix_ref")) out.push(`הפניה: ${cut(f.topic)}${f.correct_module ? ` → ${f.correct_module}` : ""}`);
+  for (const f of r.early) out.push(`מוקדם: ${cut(f.topic)}${f.module ? ` (נלמד ב-${f.module})` : ""}`);
   for (const f of r.questions) out.push(`שאלה: ${cut(f.quote)} · ${cut(f.problem)}`);
   if (!r.keep.exists) out.push("אין בלוק לסיכום");
   for (const k of r.keep.missing) out.push(`חסר בלסיכום: ${cut(k)}`);
@@ -509,11 +520,17 @@ export async function auditAndRepair(o: AuditInput, mode: "inplace" | "supplemen
   const first: Record<string, number> = {};
   // a lesson checked before holds its supplement already: later repairs edit it
   let supplemented = mode === "supplement" && text.includes(SUPPLEMENT_HEAD);
+  const cut: AuditFinding[] = [];
   let idle = 0;
   for (let round = 1; round <= MAX_REVIEWS; round++) {
     deps.onStatus?.(round === 1 ? "בודק את השיעור מול עמודי המקור ותוכנית הלימודים" : `בודק שוב אחרי התיקון (סבב ${round})`);
-    const next = parseAudit(await deps.call(auditPrompt({ ...o, text }, round), "audit"));
+    const next = parseAudit(await deps.call(auditPrompt({ ...o, text, ...(round === 1 ? {} : { later: undefined, cut }) }, round), "audit"));
     if (!next) break;
+    // a lesson the learner has read is not cut: early material is only reported
+    if (mode === "supplement" && next.early.length) {
+      next.early = [];
+      if (problems(next) === 0 && next.verdict === "fix") next.verdict = "pass";
+    }
     // the format of the engineering case is checked by the program too, where it can still be edited
     if (mode === "inplace") {
       const extra = caseFindings(text);
@@ -524,12 +541,14 @@ export async function auditAndRepair(o: AuditInput, mode: "inplace" | "supplemen
     }
     report = next;
     rounds = round;
+    cut.push(...next.early);
     if (round === 1)
       Object.assign(first, {
         missing: report.missing.length,
         thin: report.thin.length,
         level: report.level.length,
         deferrals: report.deferrals.filter((d) => d.verdict !== "ok").length,
+        early: report.early.length,
         questions: report.questions.length,
         keep: (report.keep.exists ? 0 : 1) + report.keep.missing.length + report.keep.remove.length,
         errors: report.errors.length,

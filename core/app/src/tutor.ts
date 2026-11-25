@@ -454,14 +454,15 @@ export async function planModule(o: { rt: Runtime; module: Module; memory: strin
   const ask = (feedback = "") => `${studyContext({ mode: "lesson", module: m, lessonIdx: -1, memory })}
 
 The opening pages of each source, for orientation:
-${peek.join("\n\n")}
+${peek.join("\n\n")}${laterModulesBlock(m, getIndex()?.modules ?? [], COMBAT_TOPICS)}
 
 MODULE PLANNING STEP. Split this module into lessons. Do not teach yet.
 1. Every section heading listed above must be covered by exactly one lesson, fully, and every page of every main source and supplement must fall inside the "sources" pages of some lesson (the app checks both). If no headings were detected for a source, read its pages and split it by the topics you find there. Supplements and articles are folded into the lesson whose topic they extend (articles: only what they add beyond the books). Analysis references are not lesson material: leave them out of the lessons' "sources".
 2. Where two sources treat the same topic, put them in the same lesson and say in "focus" how they are combined, so nothing is taught twice and nothing is left out.
 3. Each lesson must hold enough for the depth bar (${LESSON_RULES === "lite" ? "one or two central results at full depth, with no word target" : "about 4000 Hebrew words for a core or advanced module"}) without being cramped: as a rule of thumb 10–20 dense book pages per lesson. Keep the order of the main source unless the logic of prerequisites says otherwise.
 4. Write every "title" and "focus" in plain engineering language: the physics, the signals, the receivers and links, and published system parameters. Name each topic by its engineering content (interference, signal-to-interference ratio, detection range) rather than by what it is used against.
-5. Reply with ONLY a JSON array: [{"title": "Hebrew lesson title", "covers": ["exact section headings as listed"], "sources": [{"doc": "B02", "pages": [96, 110]}], "focus": "what the lesson teaches, which examples and figures, how sources are combined"}]${feedback}`;
+5. A lesson teaches its own sections. Add to its "focus" a topic beyond them only when the lesson cannot be understood without it, never a topic that a module of <later_modules> teaches in full: that module teaches it, and this lesson at most names it (25.11, the learner: a lesson on the wave was planned with the interferometer and GPS carrier-phase ambiguity, which later modules teach).
+6. Reply with ONLY a JSON array: [{"title": "Hebrew lesson title", "covers": ["exact section headings as listed"], "sources": [{"doc": "B02", "pages": [96, 110]}], "focus": "what the lesson teaches, which examples and figures, how sources are combined"}]${feedback}`;
   let lessons: LessonSpec[] = [];
   let uncovered: string[] = [];
   let gaps: { doc: string; pages: [number, number] }[] = [];
@@ -875,6 +876,7 @@ export async function auditLesson(o: { rt: Runtime; module: Module; lessons?: Le
       otherLessons: (lessons ?? []).filter((_, i) => i !== lessonIdx).map((l) => ({ title: l.title, covers: l.covers ?? [] })),
       curriculum: curriculumBlock(m),
       modules,
+      later: laterModulesBlock(m, index?.modules ?? [], COMBAT_TOPICS),
       pages,
       text: o.text,
       ...(o.known?.length ? { known: o.known } : {}),

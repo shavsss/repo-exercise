@@ -267,3 +267,18 @@ test("coverage: every topic of the lesson is taught by a subsection, never by an
   assert.deepEqual(p.map((x) => `${x.where}:${x.kind}`), ["outline:coverage", "3.2:coverage"]);
   assert.match(p[0].problem, /3-3 Biology/);
 });
+
+test("later modules: each with its main sections and added items, without what omit matches", async () => {
+  const out = await build({ entryPoints: [fileURLToPath(new URL("../../src/curriculum.ts", import.meta.url))], bundle: true, format: "esm", write: false, platform: "neutral" });
+  const C = await import("data:text/javascript;base64," + Buffer.from(out.outputFiles[0].text).toString("base64"));
+  const sec = (title, depth) => ({ doc: "D", page: 1, title, depth });
+  const mods = [
+    { id: "M0.2", en: "Waves", sections: [] },
+    { id: "M5.7", en: "Differential GPS", sections: [sec("8.4 Carrier-Based Techniques 397", 1), sec("8.2.4 Ionospheric Errors 387", 2)], items: [{ n: "Cycle slips", k: "new", imp: "K" }] },
+    { id: "M6.4", en: "Missile guidance", sections: [sec("Intro", 0)] },
+  ];
+  const b = C.laterModulesBlock(mods[0], mods, /missile/i);
+  assert.ok(b.includes("- M5.7 Differential GPS. Sections: 8.4 Carrier-Based Techniques. Added topics: Cycle slips"));
+  assert.ok(!b.includes("Ionospheric") && !b.includes("M6.4"));
+  assert.deepEqual(C.laterModules(mods[0], mods, /missile/i).map((m) => m.id), ["M5.7"]);
+});
