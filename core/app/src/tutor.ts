@@ -20,7 +20,7 @@ import { headWithin, tailWithin } from "./truncation";
 import { LEGACY_RULES, SYSTEM_PROMPT, TEACHBACK_RULES, libraryList } from "./prompt";
 import type { Runtime, SampleTool } from "./runtime";
 import { type TeachScope, type TeachTurn, type TeachVerdict } from "./teachback";
-import { BOOK_PART, BOOK_PLAN, CASE_PART, CASE_PLAN, OUTLINE_FIX, anchorProblems, coverParts, scopeProblems, planFromText, coverProblems, formProblems, keepWords, normalizeOutline, orderProblems, outlineCheckPrompt, parseOutlineReview, partSections, validOutline, wordCount, type BookOutline, type CasePlan } from "./bookRules";
+import { BOOK_PART, BOOK_PLAN, CASE_PART, CASE_PLAN, OUTLINE_FIX, anchorProblems, expectedWords, inflated, lengthProblems, sectionDrift, coverParts, scopeProblems, planFromText, coverProblems, formProblems, keepWords, normalizeOutline, orderProblems, outlineCheckPrompt, parseOutlineReview, partSections, validOutline, wordCount, type BookOutline, type CasePlan } from "./bookRules";
 import { caseAid, caseId, type CaseAid } from "./caseBlock";
 import { ideasForPrompt, loadIdeas, type Idea } from "./ideas";
 import { loadProjects, projectsForPrompt, type ResearchProject } from "./projects";
@@ -668,7 +668,7 @@ async function checkOutline(o: { rt: Runtime; plan: PartPlan; planTurn: string; 
   for (let round = 0; round < 2; round++) {
     o.cb.onStatus?.(round ? "בודק שוב את סדר תוכן העניינים" : "בודק את סדר תוכן העניינים: כל מושג מוגדר לפני שמשתמשים בו");
     const review = parseOutlineReview(await o.rt.sample!.json<unknown>(outlineCheckPrompt(plan.outline!, o.title), { model: MODEL, modelTier: "complex", effort: "medium", signal: o.signal, cache: false }).catch(() => null));
-    const problems = [...orderProblems(plan.outline!), ...formProblems(plan.outline!), ...anchorProblems(plan.outline!, o.later), ...scopeProblems(plan.outline!, o.covers), ...coverProblems(plan.outline!, plan.parts), ...(review?.problems ?? [])];
+    const problems = [...orderProblems(plan.outline!), ...formProblems(plan.outline!), ...anchorProblems(plan.outline!, o.later), ...scopeProblems(plan.outline!, o.covers), ...lengthProblems(plan.outline!, o.covers), ...coverProblems(plan.outline!, plan.parts), ...(review?.problems ?? [])];
     if (!problems.length) break;
     o.cb.onStatus?.(`מתקן את תוכן העניינים (${problems.length} בעיות)`);
     const fixed = await ask(OUTLINE_FIX({ problems, verdict: "fix" }));
@@ -845,6 +845,13 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
       audit = a.mark;
       cb.onText(written);
     }
+  }
+  // far longer than its content calls for, or a subsection far longer than planned: shown with what the check left open (25.11)
+  if (audit && plan.outline) {
+    const expected = expectedWords(plan.outline, lessons?.[lessonIdx]?.covers ?? []);
+    const words = wordCount(written);
+    const long = [...(inflated(words, expected) ? [`אורך: ${words.toLocaleString("en-US")} מילים, מול כ-${expected.toLocaleString("en-US")} שהתוכן דורש; כנראה ניפוח`] : []), ...sectionDrift(written, plan.outline).map((d) => `סעיף ארוך מהתוכנית: ${d}`)];
+    if (long.length) audit = { ...audit, verdict: "partly", open: [...long, ...(audit.open ?? [])] };
   }
   return { text: written, plan, model, audit };
 }

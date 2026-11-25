@@ -292,3 +292,18 @@ test("later modules: the list stays within LATER_CHARS, sections from the neares
   assert.ok(b.length < C.LATER_CHARS + 600, `${b.length} characters`);
   assert.ok(b.includes("- M9.0 Module 0. Sections:") && b.includes("- M9.399 Module 399") && !b.includes("- M9.399 Module 399. Sections"));
 });
+
+test("length alarm: by what the content calls for, a survey with more chapters than central ideas, and sections longer than planned (25.11)", () => {
+  const sec = (n, words) => ({ n, title: "t", words, defines: [] });
+  const survey = { known: [], scope: { kind: "overview", central: ["a", "b"] }, chapters: [1, 2, 3].map((n) => ({ n, title: "c", thread: "x", sections: [sec(`${n}.1`, 2000), sec(`${n}.2`, 2000), sec(`${n}.3`, 2000)] })) };
+  const covers = ["3-1", "3-2", "3-3", "3-4", "3-5", "3-6", "3-7"];
+  // two central ideas (1,600 + 650 + 1,800 each), five stops of 550, and the closing
+  assert.equal(B.expectedWords(survey, covers), 2 * 4050 + 5 * 550 + 2000);
+  const p = B.lengthProblems(survey, covers);
+  assert.ok(p.some((x) => x.problem.includes("3 chapters for a survey with 2")));
+  assert.ok(p.some((x) => x.problem.includes("18000 words")));
+  const fine = { ...survey, chapters: survey.chapters.slice(0, 2).map((c) => ({ ...c, sections: c.sections.map((x) => ({ ...x, words: 1000 })) })) };
+  assert.equal(B.lengthProblems(fine, covers).length, 0);
+  const text = "### 1.1 א\n" + "מילה ".repeat(1600) + "\n### 1.2 ב\n" + "מילה ".repeat(900);
+  assert.deepEqual(B.sectionDrift(text, fine), ["1.1: 1,603 מילים מול 1,000 בתוכנית"]);
+});
