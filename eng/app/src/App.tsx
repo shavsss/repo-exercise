@@ -9,12 +9,13 @@ import { ModuleMap, STATE_LABEL, TIER_LABEL, type Selection } from "./components
 import { Topbar, type Crumb } from "./components/Topbar";
 import { AssistantTurn, DimensionHead, UserBubble } from "./components/Message";
 import { useSittingMid } from "./components/Sittings";
+import { sittingsStarted } from "./sittings";
 import { HomeHero } from "./components/HomeHero";
 import { Composer, type QuickAction } from "./components/Composer";
 import { lessonChannel } from "./summaries/SummaryApp";
 import { collectVisuals } from "./lessonVisuals";
 import { AuditBar } from "./components/AuditBar";
-import { ReadingDock, ReadingProgress, useResumePosition } from "./components/ReadingAids";
+import { ReadingDock, ReadingProgress, scrollStarted, useResumePosition } from "./components/ReadingAids";
 import { SIDE_MIN, StudySide, useWide, type SideTab } from "./components/StudySide";
 import { GlossaryMarks, GlossaryPane, useGlossary } from "./components/Glossary";
 import { noteAnchorHere } from "./components/MarginNotes";
@@ -50,7 +51,7 @@ import { MorningCard } from "./components/MorningCard";
 import { CloseDay } from "./components/CloseDay";
 import { TeachBack } from "./components/TeachBack";
 import type { TeachGap } from "./teachback";
-import { BookView } from "./book/Book";
+import { BookView, bookStarted } from "./book/Book";
 import { BookBridge } from "./book/context";
 import { useReading } from "./reading";
 import type { QuizCtx } from "./components/QuizForm";
@@ -480,7 +481,7 @@ export function App() {
         const plan = answer.plan as PartPlan | undefined;
         if (sendMode === "lesson" && !images.length && (!resume || plan || !resume.text)) {
           const res = await composeLesson({ ...base, text: userMsg.text, resume: plan ? { plan, partsDone: answer.partsDone ?? 0, text: answer.partsChars !== undefined ? answer.text.slice(0, answer.partsChars) : answer.text } : undefined });
-          answer = { ...answer, text: res.text, model: res.model, ...(res.audit ? { audit: res.audit } : {}) };
+          answer = { ...answer, text: res.text, model: res.model, ...res.marks };
           const split = (res.plan as (PartPlan & { split?: { title?: string; covers?: string } | null }) | undefined)?.split;
           if (split?.title && idx >= 0) await insertSplit(m, idx, split);
           // a lesson written as chapters of a book: the next lesson numbers its chapters after these
@@ -680,55 +681,85 @@ export function App() {
   }, [all, gateDone, gateKey, module, lessonIdx]);
   const items = useMemo(() => toItems(gatedAll), [gatedAll]);
   const hasLesson = messages.some((m) => m.role === "assistant" && m.mode === "lesson" && !m.interrupted && !m.draft);
-  // the lesson's check against its sources (lessonAudit.ts): a lesson written before the check gets it on request,
-  // and what it finds is added as a supplement at the lesson's end (he has read the lesson already)
-  const [auditRun, setAuditRun] = useState<{ key: string; status?: string } | null>(null);
+  // the lesson's check against its sources (lessonAudit.ts), run here for a lesson whose check failed or never ran
+  const [auditRun, setAuditRun] = useState<{ key: string; status?: string; inplace?: boolean } | null>(null);
   const auditLock = useRef(false);
   const lessonMsg = [...messages].reverse().find((m) => m.role === "assistant" && m.mode === "lesson" && m.text && !m.draft && !m.interrupted);
+  // was the lesson read? (25.11, docs/STATUS.md) A read lesson gets the check's additions as a supplement at its end, so
+  // the text he read stays as it was; an unread one is fixed in place, the early material cut and the length marked.
+  // Signs of reading: his own note on the lesson, a question in it answered or skipped, a message of his after it in
+  // the conversation, or, in this browser, a place past the lesson's start (scroll, sittings, book page). Any one is
+  // enough: a lesson read only on another device, with none of these, is taken as unread.
+  const lessonRead = useCallback(
+    async (m: Module, idx: number, msg: StoredMessage) => {
+      const key = `${m.id}:${idx}`;
+      if (scrollStarted(key) || sittingsStarted(key) || bookStarted(key)) return true;
+      if (notesRef.current.some((n) => n.moduleId === m.id && n.lesson === idx && n.who === "learner")) return true;
+      if (messages.slice(messages.indexOf(msg) + 1).some((x) => x.role === "user")) return true;
+      // read from the store, not the gate's state: an automatic check starts before that state is loaded
+      return (await lessonCalib(`${m.id}__${idx}`)).some((r) => r.grade || r.skipped);
+    },
+    [messages],
+  );
   const runAudit = useCallback(async () => {
     // a second click before the first one's state lands would start a second check and a second supplement
     if (!rt?.sample || !rt.store || !module || lessonIdx === undefined || lessonIdx < 0 || !convId || busy || auditRun || auditLock.current) return;
     auditLock.current = true;
     const msg = [...messages].reverse().find((m) => m.role === "assistant" && m.mode === "lesson" && m.text && !m.draft && !m.interrupted);
-    if (!msg?.id) return;
+    if (!msg?.id) {
+      auditLock.current = false;
+      return;
+    }
     const key = `${module.id}__${lessonIdx}`;
+    const store = rt.store;
+    const keep = async (next: StoredMessage) => {
+      await store.saveMessage(convId, msg.id!, next);
+      setMessages((all) => all.map((m) => (m.id === msg.id ? next : m)));
+    };
     setAuditRun({ key });
     try {
+      const inplace = !(await lessonRead(module, lessonIdx, msg));
+      setAuditRun({ key, inplace });
       const res = await auditLesson({
         rt,
         module,
         lessons: modsRef.current[module.id]?.lessons,
         lessonIdx,
         text: msg.text,
-        mode: "supplement",
-        cb: { onText: () => {}, onActivity: () => {}, onStatus: (status) => setAuditRun({ key, status }) },
+        mode: inplace ? "inplace" : "supplement",
+        length: msg.lengthPlan,
+        cb: { onText: () => {}, onActivity: () => {}, onStatus: (status) => setAuditRun({ key, status, inplace }) },
       });
       if (!res) throw new Error("no check");
-      const next = { ...msg, text: res.text, audit: res.mark };
-      await rt.store.saveMessage(convId, msg.id, next);
-      setMessages((all) => all.map((m) => (m.id === msg.id ? next : m)));
-      notify({ level: "info", text: res.mark.verdict === "pass" ? "השיעור נבדק מול המקור ולא נמצא בו חוסר." : "השיעור נבדק מול המקור, וההשלמה נוספה בסופו." });
+      await keep({ ...msg, text: res.text, audit: res.mark, unchecked: undefined });
+      notify({ level: "info", text: res.mark.verdict === "pass" ? "השיעור נבדק מול המקור ולא נמצא בו חוסר." : inplace ? "השיעור נבדק מול המקור ותוקן בתוכו." : "השיעור נבדק מול המקור, וההשלמה נוספה בסופו." });
     } catch (e) {
-      if ((e as { code?: string })?.code !== "cancelled") notify({ level: "error", text: `בדיקת השיעור לא הושלמה. ${ERROR_COPY[(e as { code?: string })?.code ?? ""] ?? "אפשר לנסות שוב."}` });
+      const code = (e as { code?: string })?.code ?? "error";
+      if (code !== "cancelled") {
+        notify({ level: "error", text: `בדיקת השיעור לא הושלמה. ${ERROR_COPY[code] ?? "אפשר לנסות שוב."}` });
+        // the lesson keeps its old mark if it had one; otherwise it says it is unchecked, with the button
+        if (!msg.audit) await keep({ ...msg, unchecked: { error: code, at: Date.now() } }).catch(() => {});
+      }
     } finally {
       auditLock.current = false;
       setAuditRun(null);
     }
-  }, [rt, module, lessonIdx, convId, busy, auditRun, messages]);
+  }, [rt, module, lessonIdx, convId, busy, auditRun, messages, lessonRead]);
   // he gets a finished lesson: a lesson that was never checked, or was left "partly" by the first version of the
-  // check (two rounds), is checked when it is opened, once per window; a failure leaves the button
+  // check (two rounds), is checked when it is opened, once per window; a lesson whose check failed waits for the
+  // button (its failure is shown), and a failure leaves the button
   const autoAudited = useRef(new Set<string>());
   useEffect(() => {
-    if (!lessonMsg?.id || !rt?.sample || !rt.store || busy || auditRun || following) return;
+    if (!lessonMsg?.id || !rt?.sample || !rt.store || busy || auditRun || following || lessonMsg.unchecked) return;
     const m = lessonMsg.audit;
     if (m && !(m.verdict === "partly" && (m.v ?? 1) < 2)) return;
     if (autoAudited.current.has(lessonMsg.id)) return;
     autoAudited.current.add(lessonMsg.id);
     void runAudit();
-  }, [lessonMsg?.id, lessonMsg?.audit, rt, busy, auditRun, following, runAudit]);
+  }, [lessonMsg?.id, lessonMsg?.audit, lessonMsg?.unchecked, rt, busy, auditRun, following, runAudit]);
   const auditBar =
     lessonMsg && module && lessonIdx !== undefined && lessonIdx >= 0 ? (
-      <AuditBar mark={lessonMsg.audit} running={auditRun?.key === `${module.id}__${lessonIdx}`} status={auditRun?.status} onRun={rt?.sample && !busy ? runAudit : undefined} />
+      <AuditBar mark={lessonMsg.audit} unchecked={lessonMsg.unchecked} running={auditRun?.key === `${module.id}__${lessonIdx}`} inplace={auditRun?.inplace} status={auditRun?.status} onRun={rt?.sample && !busy ? runAudit : undefined} />
     ) : null;
 
   useEffect(() => {

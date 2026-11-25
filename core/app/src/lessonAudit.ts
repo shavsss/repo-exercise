@@ -479,6 +479,41 @@ export interface AuditDeps {
   reader?: boolean;
 }
 
+/** Errors that pass by themselves: the usage limit, a failure upstream, a cut connection. */
+const TRANSIENT = new Set(["rate_limited", "upstream_error", "network_error", "overloaded", "timeout"]);
+export const transient = (e: unknown) => {
+  const { code, message } = (e ?? {}) as { code?: string; message?: string };
+  return code ? TRANSIENT.has(code) : /network|fetch|connection|disconnect/i.test(String(message ?? e));
+};
+/** The waits before each new try of a check's call (25.11: two lessons were saved unchecked after one rate_limited). */
+export const RETRY_WAITS = [30_000, 90_000, 180_000];
+const WHY: Record<string, string> = { rate_limited: "הגעת למגבלת השימוש", upstream_error: "שגיאה בצד של Claude" };
+const inWords = (s: number) => (s < 60 ? `${s} שניות` : s === 60 ? "דקה" : s === 90 ? "דקה וחצי" : `${Math.round(s / 60)} דקות`);
+const pause = (ms: number, signal?: AbortSignal) =>
+  new Promise<void>((ok, no) => {
+    if (signal?.aborted) return no({ code: "cancelled" });
+    const t = setTimeout(ok, ms);
+    signal?.addEventListener("abort", () => (clearTimeout(t), no({ code: "cancelled" })), { once: true });
+  });
+/**
+ * One call of the check, tried again after a transient failure with growing waits; the last failure is thrown.
+ * Other errors (prompt_too_large, refused, cancelled) are thrown at once, for their own handling.
+ */
+export async function retryTransient<T>(call: () => Promise<T>, o: { onStatus?: (s: string) => void; signal?: AbortSignal; waits?: number[]; wait?: (ms: number, signal?: AbortSignal) => Promise<void> } = {}): Promise<T> {
+  const waits = o.waits ?? RETRY_WAITS;
+  for (let i = 0; ; i++) {
+    try {
+      return await call();
+    } catch (e) {
+      if (i >= waits.length || !transient(e)) throw e;
+      const code = (e as { code?: string })?.code ?? "";
+      const why = WHY[code] ?? "החיבור ל-Claude נקטע";
+      o.onStatus?.(`${why}: מנסה שוב בעוד ${inWords(Math.round(waits[i] / 1000))} (ניסיון ${i + 2} מתוך ${waits.length + 1})`);
+      await (o.wait ?? pause)(waits[i], o.signal);
+    }
+  }
+}
+
 export const MAX_REVIEWS = 4;
 
 /** The format problems of the lesson's engineering case (caseBlock.ts), as findings for the repair. */

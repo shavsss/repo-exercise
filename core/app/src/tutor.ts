@@ -15,12 +15,12 @@ import { LATER_CHARS, curriculumBlock, laterModules, laterModulesBlock } from ".
  */
 const COMBAT_TOPICS = /missile|weapon|warhead|munition|ammunition|explosive|energetic|ordnance|lethal|kill|attack|strike|combat|warfare|\bwar\b|battle|intercept|targeting|target acquisition|fire-control|\bfires\b|counterfire|\bguns?\b|projectile|ballistic|\btanks?\b|nuclear|CBRN|armed|jamm|anti-jam|countermeasure|decoy|threat|torpedo|\bmines?\b|C-RAM|C-UAS|drone|swarm|defen[cs]e|tactic|military|MIL-STD|DoD|IMOD|MAFAT|damage|\bPk\b|\bCEP\b|fuz|guidance|guided|seeker|stealth|camouflage|suppression|end game|no-escape|evasive|fighter|air-to-air|survivab|vulnerab|\bEW\b|SIGINT|\bESM\b|spoof|denied|\bBMD\b|\bAMD\b|\bASW\b|\bIFF\b|Link 16|\bC2\b|shooting|\bshots?\b|wargam|\bATR\b|designation|Russian|Chinese|proliferation|OSINT|capability assessment|\bloft\b|\bNEZ\b|Rmax|Zarchan|Siouris|proportional navigation|lock-on|weav|counter-|electronic protection|emitter location|precision|subterranean|artillery|interior and exterior|armou?r|adversar|enemy|hostile|payload|JDAM|GMLRS|SHORAD|MANPADS|\braids?\b|magazine|early warning|high-energy laser|high-power microwave|\bHPM\b|sortie|campaign|UNDEX|underwater explosion|ASAT|dismount|hypersonic|submarine|fleet|naval|undersea|operational|resilien|protected|DOT&E|LFT&E|OT&E|cost-exchange|irradiance on target|Johnson|\bTTP\b|GMTI|STAP/i;
 import { CHAT_HISTORY_BYTES, focusHistory, questionOf, type Chapter } from "./chatContext";
-import { auditLong, namedModules, type AuditMark, applyRepair } from "./lessonAudit";
+import { auditLong, namedModules, retryTransient, applyRepair } from "./lessonAudit";
 import { headWithin, tailWithin } from "./truncation";
 import { LEGACY_RULES, SYSTEM_PROMPT, TEACHBACK_RULES, libraryList } from "./prompt";
 import type { Runtime, SampleTool } from "./runtime";
 import { type TeachScope, type TeachTurn, type TeachVerdict } from "./teachback";
-import { BOOK_PART, BOOK_PLAN, CASE_PART, CASE_PLAN, OUTLINE_FIX, anchorProblems, expectedWords, inflated, lengthProblems, sectionDrift, coverParts, scopeProblems, planFromText, coverProblems, formProblems, keepWords, normalizeOutline, orderProblems, outlineCheckPrompt, parseOutlineReview, partSections, validOutline, wordCount, type BookOutline, type CasePlan } from "./bookRules";
+import { BOOK_PART, BOOK_PLAN, CASE_PART, CASE_PLAN, OUTLINE_FIX, anchorProblems, lengthOpen, lengthPlan, lengthProblems, coverParts, scopeProblems, planFromText, coverProblems, formProblems, keepWords, normalizeOutline, orderProblems, outlineCheckPrompt, parseOutlineReview, partSections, validOutline, wordCount, type BookOutline, type CasePlan, type LengthPlan } from "./bookRules";
 import { caseAid, caseId, type CaseAid } from "./caseBlock";
 import { ideasForPrompt, loadIdeas, type Idea } from "./ideas";
 import { loadProjects, projectsForPrompt, type ResearchProject } from "./projects";
@@ -854,32 +854,35 @@ export async function composeLesson(opts: Base & { text: string; resume?: { plan
   }
   // no tightening pass over the whole lesson (21.11: each pass re-sent the whole lesson): the parts keep the plan's words
   // as they are written (BOOK_PART, the ledger)
-  // every lesson is checked against its pages before it is read, and repaired where it falls short (lessonAudit.ts)
-  let audit: AuditMark | undefined;
+  // every lesson is checked against its pages before it is read, and repaired where it falls short (lessonAudit.ts);
+  // a check that still fails after its retries leaves the lesson marked unchecked, with the button to check it (25.11:
+  // the failure was swallowed, and two lessons were read unchecked)
+  const length = plan.outline ? lengthPlan(plan.outline) : undefined;
+  const marks: LessonMarks = { audit: undefined, unchecked: undefined, lengthPlan: length };
   if (!opts.planOnly && written) {
-    const a = await auditLesson({ rt, module: m, lessons, lessonIdx, text: written, mode: "inplace", pages, known: plan.outline?.known, effort: opts.auditEffort ?? effort, signal, cb }).catch(() => null);
-    if (a) {
-      written = a.text;
-      audit = a.mark;
-      cb.onText(written);
+    try {
+      const a = await auditLesson({ rt, module: m, lessons, lessonIdx, text: written, mode: "inplace", pages, length, effort: opts.auditEffort ?? effort, signal, cb });
+      if (a) {
+        written = a.text;
+        marks.audit = a.mark;
+        cb.onText(written);
+      } else marks.unchecked = { error: "no_sample", at: Date.now() };
+    } catch (e) {
+      marks.unchecked = { error: (e as { code?: string })?.code ?? "error", at: Date.now() };
     }
   }
-  // far longer than its content calls for, or a subsection far longer than planned: shown with what the check left open (25.11)
-  if (audit && plan.outline) {
-    const expected = expectedWords(plan.outline, lessons?.[lessonIdx]?.covers ?? []);
-    const words = wordCount(written);
-    const long = [...(inflated(words, expected) ? [`אורך: ${words.toLocaleString("en-US")} מילים, מול כ-${expected.toLocaleString("en-US")} שהתוכן דורש; כנראה ניפוח`] : []), ...sectionDrift(written, plan.outline).map((d) => `סעיף ארוך מהתוכנית: ${d}`)];
-    if (long.length) audit = { ...audit, verdict: "partly", open: [...long, ...(audit.open ?? [])] };
-  }
-  return { text: written, plan, model, audit };
+  return { text: written, plan, model, marks };
 }
+
+/** What a written lesson keeps about its check: the mark, or why it is unchecked, and the plan's words for a later check. */
+export type LessonMarks = Pick<StoredMessage, "audit" | "unchecked" | "lengthPlan">;
 
 /**
  * The check of one lesson (lessonAudit.ts): "inplace" for a lesson not read yet, "supplement" for one already
  * read (the additions come after it). Returns null when the check could not run.
  */
 /** The check runs at the lesson's effort, medium by default (21.11, the learner's decision). */
-export async function auditLesson(o: { rt: Runtime; module: Module; lessons?: LessonSpec[]; lessonIdx: number; text: string; mode: "inplace" | "supplement"; pages?: string; known?: string[]; effort?: Effort; signal?: AbortSignal; cb: TurnCallbacks }) {
+export async function auditLesson(o: { rt: Runtime; module: Module; lessons?: LessonSpec[]; lessonIdx: number; text: string; mode: "inplace" | "supplement"; pages?: string; length?: LengthPlan; effort?: Effort; signal?: AbortSignal; cb: TurnCallbacks }) {
   const { rt, module: m, lessons, lessonIdx } = o;
   if (!rt.sample) return null;
   const spec = lessons?.[lessonIdx];
@@ -891,7 +894,8 @@ export async function auditLesson(o: { rt: Runtime; module: Module; lessons?: Le
     .filter((x): x is Module => !!x)
     .map((x) => ({ id: x.id, title: x.title, sections: x.sections.map((s) => s.title) }));
   const tools = rt.canUseTools ? buildTools(o.cb, moduleDocs(m)) : null;
-  return auditLong(
+  const known = o.length?.known;
+  const res = await auditLong(
     {
       lessonTitle: spec?.title ?? m.title,
       moduleId: m.id,
@@ -904,24 +908,33 @@ export async function auditLesson(o: { rt: Runtime; module: Module; lessons?: Le
       later: laterModulesBlock(m, index?.modules ?? [], COMBAT_TOPICS),
       pages,
       text: o.text,
-      ...(o.known?.length ? { known: o.known } : {}),
+      ...(known?.length ? { known } : {}),
     },
     o.mode,
     {
       onStatus: o.cb.onStatus,
+      // a transient failure (the usage limit, a cut connection) is tried again after a wait, call by call
       call: async (prompt, kind) => {
-        const res = await rt.sample!([{ role: "user", content: prompt }], {
-          model: MODEL,
-          modelTier: "complex",
-          effort: o.effort ?? "medium",
-          signal: o.signal,
-          ...(kind === "repair" && tools ? { tools } : { cache: false }),
-          ...(kind === "repair" ? { onText: ({ text }: { text: string }) => o.cb.onStatus?.(`משלים את השיעור (${Math.round(text.length / 1000)} אלף תווים)`) } : {}),
-        });
+        const res = await retryTransient(
+          () =>
+            rt.sample!([{ role: "user", content: prompt }], {
+              model: MODEL,
+              modelTier: "complex",
+              effort: o.effort ?? "medium",
+              signal: o.signal,
+              ...(kind === "repair" && tools ? { tools } : { cache: false }),
+              ...(kind === "repair" ? { onText: ({ text }: { text: string }) => o.cb.onStatus?.(`משלים את השיעור (${Math.round(text.length / 1000)} אלף תווים)`) } : {}),
+            }),
+          { onStatus: o.cb.onStatus, signal: o.signal },
+        );
         return res.text;
       },
     },
   );
+  // far longer than its content calls for, or a subsection far longer than planned: shown with what the check left open
+  // (25.11), also when the check runs after the lesson was written (the plan's words are kept on the lesson)
+  const long = o.length ? lengthOpen(res.text, o.length, spec?.covers ?? []) : [];
+  return long.length ? { ...res, mark: { ...res.mark, verdict: "partly" as const, open: [...long, ...(res.mark.open ?? [])] } } : res;
 }
 
 /* ---------------- course memory ---------------- */

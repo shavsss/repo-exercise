@@ -286,7 +286,8 @@ function boxOf(c: Chunk, m: Measured | undefined, prev: Chunk | undefined, g: Ge
 /* ------------------------------------------------------------------ the saved place ------------------------------------------------------------------ */
 
 const POS_KEY = `${document.documentElement.dataset.lab === "eng" ? "eng" : "core"}-lab:book-pos`;
-type Place = { id: string; frac: number };
+/** page: the page on screen (25.11), so a place on the first page is not taken for reading */
+type Place = { id: string; frac: number; page?: number };
 function loadPlace(key: string): Place | null {
   try {
     return (JSON.parse(localStorage.getItem(POS_KEY) ?? "{}") as Record<string, Place>)[key] ?? null;
@@ -294,6 +295,8 @@ function loadPlace(key: string): Place | null {
     return null;
   }
 }
+/** Whether the lesson was read past its first page in the book, in this browser. */
+export const bookStarted = (key: string) => (loadPlace(key)?.page ?? 0) > 0;
 function savePlace(key: string, p: Place) {
   try {
     const all = JSON.parse(localStorage.getItem(POS_KEY) ?? "{}") as Record<string, Place>;
@@ -649,7 +652,7 @@ export function BookView(props: BookProps) {
     const f = p?.frags.find((x) => chunks[x.i]?.kind !== "title") ?? p?.frags[0];
     if (!f) return;
     anchor.current = { i: f.i, off: f.from };
-    const t = setTimeout(() => savePlace(posKey, { id: chunks[f.i].id, frac: boxes[f.i]?.h ? f.from / boxes[f.i].h : 0 }), 400);
+    const t = setTimeout(() => savePlace(posKey, { id: chunks[f.i].id, frac: boxes[f.i]?.h ? f.from / boxes[f.i].h : 0, page: cur }), 400);
     return () => clearTimeout(t);
   }, [cur, pages, posKey]); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {

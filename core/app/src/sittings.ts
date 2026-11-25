@@ -124,6 +124,9 @@ export function savePlace(key: string, p: SittingPlace) {
   }
 }
 
+/** Whether a sitting of the lesson (keys `<module>:<lesson>:…`) was read past its start in this browser. */
+export const sittingsStarted = (lesson: string) => Object.entries(allPlaces()).some(([k, p]) => k.startsWith(`${lesson}:`) && (p?.cur > 0 || (p?.read?.length ?? 0) > 0));
+
 /* ---- whether the sitting on screen is not the lesson's last: what follows the lesson waits ---- */
 
 let mid = false;
