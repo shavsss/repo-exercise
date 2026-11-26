@@ -119,6 +119,8 @@ export function AssistantTurn({
   const words = useMemo(() => countWords(item.segments), [item.segments]);
   const heads = useMemo(() => headingsOf(item.segments), [item.segments]);
   const blocks = useMemo(() => blocksOf(item.segments), [item.segments]);
+  // the sub-topics still locked behind a practice question: listed in the map, greyed (26.11, the learner asked)
+  const lockedHeads = useMemo(() => (item.closed ? headingsOf([{ t: "text", text: item.closed } as Segment]) : []), [item.closed]);
   const bar = item.mode === "lesson" && !live && words > 0 ? depthBar(item.segments, fullBar) : null;
   const ctx = useMemo(() => ({ live, idPrefix: item.key, openSource: onOpenSource, quiz }), [live, item.key, onOpenSource, quiz]);
   const activity = item.segments.filter((s): s is Extract<Segment, { t: "activity" }> => s.t === "activity");
@@ -189,6 +191,13 @@ export function AssistantTurn({
               {heads.map((h, i) => (
                 <li key={i} className={`lvl-${h.level}`}>
                   <button onClick={() => scrollTo(`#${CSS.escape(`${item.key}-${slug(h.text)}`)}`)}>{h.text.replace(/[*_`$]/g, "")}</button>
+                </li>
+              ))}
+              {lockedHeads.map((h, i) => (
+                <li key={`l${i}`} className={`lvl-${h.level} is-locked`} title="נפתח אחרי שאלת התרגול">
+                  <span>
+                    <Icon name="lock" size={11} /> {h.text.replace(/[*_`$]/g, "")}
+                  </span>
                 </li>
               ))}
             </ol>

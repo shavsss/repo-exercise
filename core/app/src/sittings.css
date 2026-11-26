@@ -60,3 +60,8 @@
 @media (prefers-reduced-motion: reduce) {
   .msg-meta .count-up, .prose[data-sitting], .sit-seg.is-here { animation: none; }
 }
+
+/* the lesson map (26.11): chapters carry their own "פרק N", so no list number; locked sub-topics greyed */
+.lesson-map-heads .lvl-2 { list-style: none; margin-inline-start: -1.3em; font-weight: 600; }
+.lesson-map-heads .is-locked { color: var(--muted); opacity: 0.75; }
+.lesson-map-heads .is-locked span { cursor: default; }
