@@ -1,4 +1,4 @@
-import { useContext, useMemo, useRef, useState } from "react";
+import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { countWords, depthBar, type Item, type Segment } from "../segments";
 import { MODE_LABEL } from "../runtime";
 import { Markdown, MdContext, slug } from "./Markdown";
@@ -139,6 +139,8 @@ export function AssistantTurn({
   const inSittings = sittings.length > 0 && sittings.length + closed.length >= MIN_SITTINGS;
   const [sitting, setSitting] = useState(0);
   const atEnd = !inSittings || (sitting === sittings.length - 1 && !closed.length);
+  // words from the current sitting to the lesson's end, the locked part included
+  const left = useMemo(() => [...sittings.slice(sitting), ...closed].reduce((n, x) => n + x.words, 0), [sittings, closed, sitting]);
   const showMap = !live && (heads.length >= 3 || Object.keys(blocks).length >= 4) && words > 600;
 
   const lead = activity.length > 0 && (
@@ -156,7 +158,21 @@ export function AssistantTurn({
       {!live && item.mode === "lesson" && notes?.length && onNoteSave && onNoteDelete ? <MarginNotes root={ref} notes={notes} version={[item.segments, sitting]} onSave={onNoteSave} onDelete={onNoteDelete} /> : null}
       <div className="msg-meta">
         <span>{MODE_LABEL[item.mode]}</span>
-        {words > 0 && <span>{words.toLocaleString("he-IL")} מילים</span>}
+        {words > 0 && (
+          <span>
+            <CountUp n={words} /> מילים
+          </span>
+        )}
+        {inSittings && (
+          <>
+            <span className="meta-left">
+              נשארו <CountUp n={left} /> מכאן והלאה
+            </span>
+            <span>
+              <CountUp n={sittings.length + closed.length} /> תתי-סעיפים
+            </span>
+          </>
+        )}
       </div>
 
       {showMap && (
@@ -245,5 +261,35 @@ export function AssistantTurn({
       )}
       {!live && atEnd && item.model && <div className="msg-foot" dir="ltr">{item.model}</div>}
     </article>
+  );
+}
+
+/** A number that rolls to its new value (the lesson's counters at the top). */
+function CountUp({ n }: { n: number }) {
+  const [shown, setShown] = useState(n);
+  const from = useRef(n);
+  useEffect(() => {
+    const start = from.current;
+    if (start === n || matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      from.current = n;
+      setShown(n);
+      return;
+    }
+    const t0 = performance.now();
+    let raf = 0;
+    const step = (t: number) => {
+      const k = Math.min(1, (t - t0) / 600);
+      const v = Math.round(start + (n - start) * (1 - (1 - k) ** 3));
+      from.current = v;
+      setShown(v);
+      if (k < 1) raf = requestAnimationFrame(step);
+    };
+    raf = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(raf);
+  }, [n]);
+  return (
+    <b key={n} className="count-up">
+      {shown.toLocaleString("he-IL")}
+    </b>
   );
 }
