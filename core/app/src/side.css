@@ -2,7 +2,8 @@
    notebook, beside the text; the paragraphs that have consultation cards are marked in the text. Identical in
    both labs. */
 
-.study-side { flex: none; width: 400px; display: flex; flex-direction: column; min-height: 0; background: var(--bg); border-inline-start: 1px solid var(--line); font-family: var(--font); }
+/* 26.11 (the learner: too narrow to read a consultation): grows with the window, 420px at 1100 up to 640px */
+.study-side { flex: none; width: clamp(420px, 36vw, 640px); display: flex; flex-direction: column; min-height: 0; background: var(--bg); border-inline-start: 1px solid var(--line); font-family: var(--font); }
 .side-tabs { flex: none; display: flex; align-items: stretch; gap: 2px; padding: 0 8px; border-bottom: 1px solid var(--line); }
 .side-tab { all: unset; box-sizing: border-box; cursor: pointer; display: inline-flex; align-items: center; gap: 7px; padding: 12px 10px 10px; font-size: 0.88rem; font-weight: 600; color: var(--muted); border-bottom: 2px solid transparent; }
 .side-tab:hover { color: var(--ink); }
@@ -36,5 +37,5 @@
 .msg-assistant > .prose > .is-consulting { border-inline-start-color: var(--accent); background: color-mix(in srgb, var(--accent-soft) 45%, transparent); }
 
 /* a narrow window: the notebook's column opens over the page (the consultation stays in the text there) */
-@media (max-width: 1099px) { .study-side { position: fixed; top: 56px; bottom: 0; inset-inline-end: 0; z-index: 45; width: min(420px, 94vw); box-shadow: 0 0 28px rgb(0 0 0 / 22%); } }
+@media (max-width: 1099px) { .study-side { position: fixed; top: 56px; bottom: 0; inset-inline-end: 0; z-index: 45; width: min(520px, 94vw); box-shadow: 0 0 28px rgb(0 0 0 / 22%); } }
 .side-card .consult-card::before { display: none; }
