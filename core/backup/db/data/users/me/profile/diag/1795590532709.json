@@ -1,0 +1,29 @@
+{
+  "at": 1795590532707,
+  "module": "M0.2",
+  "results": {
+    "full-no-plan": "refused",
+    "lean-full": "refused",
+    "lean-no-memory": "refused",
+    "lean-no-pages": "refused",
+    "lean-no-plan": "refused",
+    "lean-pages-only": "refused",
+    "page B02:42": "ok (claude-opus-5-5)",
+    "page B02:43": "ok (claude-opus-5-5)",
+    "page B02:44": "ok (claude-opus-5-5)",
+    "page B02:45": "ok (claude-opus-5-5)",
+    "page B02:46": "ok (claude-opus-5-5)",
+    "page B10:13": "ok (claude-opus-5-5)",
+    "page B10:14": "ok (claude-opus-5-5)",
+    "page B10:15": "ok (claude-opus-5-5)",
+    "page B10:16": "ok (claude-opus-5-5)",
+    "page B10:17": "ok (claude-opus-5-5)",
+    "page B10:18": "ok (claude-opus-5-5)",
+    "page B10:19": "ok (claude-opus-5-5)",
+    "page B10:20": "ok (claude-opus-5-5)",
+    "page B10:21": "ok (claude-opus-5-5)",
+    "page B10:22": "ok (claude-opus-5-5)"
+  },
+  "systemBytes": 70357,
+  "turnBytes": 107005
+}

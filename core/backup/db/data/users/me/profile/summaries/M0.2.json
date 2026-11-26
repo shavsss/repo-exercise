@@ -1,0 +1,552 @@
+{
+  "blocks": [
+    {
+      "html": "M0.2 · גלים ופיזיקה אלקטרומגנטית",
+      "id": "nb4bbp2h",
+      "level": 1,
+      "plain": true,
+      "t": "h"
+    },
+    {
+      "html": "",
+      "id": "z092itre",
+      "t": "p"
+    },
+    {
+      "html": "הגל הנע",
+      "id": "b2os8cwl",
+      "level": 1,
+      "t": "h"
+    },
+    {
+      "html": "",
+      "id": "mzj3uinp",
+      "t": "p"
+    },
+    {
+      "html": "<b>ההד והשעון</b>",
+      "id": "qva43j1n",
+      "level": 2,
+      "plain": true,
+      "t": "h"
+    },
+    {
+      "html": "מה שמבדיל את המכ\"ם ממכשיר שמזהה משהו במרחב למכשיר שאומר באיזה מרחק העצם במרחב, הוא הזמן.&nbsp;המשדר מייצר אות חזק. מתג שידור/קליטה שולח אותו לאנטנה, וזו מקרינה אותו לעבר המטרה. ההד שחוזר חלש בהרבה סדרי גודל, לכן המקלט מגביר אותו קודם במגבר דל-רעש. אחר כך הוא מוריד אותו לתדר נמוך יותר בעזרת מערבל ומתנד מקומי, ממיר אותו לספרות, ומעביר למעבד האותות. המעבד מחליט אם יש מטרה ומודד אותה.<br>",
+      "id": "zeqpue25",
+      "level": 3,
+      "t": "h"
+    },
+    {
+      "caption": "איור 1-1: השרשרת של מכ\"ם. משדר, מתג שידור/קליטה, אנטנה, מטרה, ומקלט שמגביר, ממיר ומעביר למעבד",
+      "h": 749,
+      "id": "68floho0",
+      "marks": [],
+      "size": "m",
+      "src": "/_blob/cfdf0d9ec1211f7de4184fe4e9366cde",
+      "t": "img",
+      "w": 1600
+    },
+    {
+      "html": "אחרי השלבים הללו, אנחנו בעצם יודעים אם יש או אין גילוי. על כך, נשאר לנו למדוד את המרחק.&nbsp;<br>מדידת המרחק מתבצעת על ידי השעון,&nbsp;המכ\"ם רושם את רגע השידור ואת רגע הגעת ההד, במשך הזמן הזה הגל עבר את הדרך הלוך ושוב, כלומר 2R כאשר R הוא הטווח למטרה. אם הדרך היא מהירות כפול זמן נוכל להסיק כי הטווח מהמטרה הוא:&nbsp;<br>",
+      "id": "3kf68rkg",
+      "level": 3,
+      "t": "h"
+    },
+    {
+      "id": "j05sls8l",
+      "latex": "R=\\frac{c\\,\\Delta T}{2}",
+      "t": "math"
+    },
+    {
+      "html": "בגלל הצורך למדידה של רגעים, ולא של רצפים, כדי שיהיה רגע שידור אליו ניתן להשוות, המכ\"ם מייצר פולסים מנות קצרות.&nbsp;<br><ol class=\"proof\"><li class=\"k-def\"><mark class=\"hl-b\"><b>פולס:&nbsp;</b></mark>הוא אות <span class=\"im\" data-tex=\"s(t)\"></span> ששונה מאפס רק בקטע זמן סופי אחד, <span class=\"im\" data-tex=\"t_0\\le t\\le t_0+\\tau\"></span>, ושווה לאפס מחוץ לו. המשך <span class=\"im\" data-tex=\"\\tau&gt;0\"></span> נקרא <strong>רוחב הפולס</strong>. בתוך הקטע האות יכול להיות כל תנודה.&nbsp;<span class=\"im\" data-tex=\"\\tau\"></span>&nbsp;הוא משך הזמן שבו הפולס \"דולק\", כלומר כמה זמן האות שונה מאפס.</li></ol>",
+      "id": "piyyd9lx",
+      "level": 3,
+      "t": "h"
+    },
+    {
+      "html": "<b>גל</b>",
+      "id": "05vewxo1",
+      "level": 2,
+      "plain": true,
+      "t": "h"
+    },
+    {
+      "html": "בהגדרות קודמות, למדנו מתי ההד החלש חוזר מהמטרה, אבל אננחו לא יודעים מה קרה לא בדרך. אם נצליח לדעת מה הוא עובר בדרך, נוכל לדת מה נע בו, מה ההנחות שלנו עליו כדי לפתח עליו דברים.&nbsp;<br>בגל ים המים עצמם כמעט לא מתקדמים. כל חלקיק מים עולה ויורד ליד מקומו, ומה שנע לעבר החוף הוא הצורה. וזו הבחנה קריטית כי מכאן נוכל להבין כי<mark class=\"hl-g\"> גל הוא הפרעה,&nbsp;כלומר שינוי של גודל כלשהו סביב ערך המנוחה שלו</mark>.<br>כאשר אותה הפרעה, אותו גל מתחיל לנוע אבל ממשיך ושומר על צורה הוא \"מתפשט\", המידע שהוא נושא תלוי בפרמטרים שלו.&nbsp;",
+      "id": "3vz8rqz5",
+      "level": 3,
+      "t": "h"
+    },
+    {
+      "html": "",
+      "id": "2yenzlbn",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "0jbr4ly4",
+      "t": "p"
+    },
+    {
+      "html": "<ol class=\"proof\"><li class=\"k-def\"><mark class=\"hl-b\"><b>גל נע במימד אחד</b></mark>: יהי <span class=\"im\" data-tex=\"g\"></span> פונקציה כלשהי של משתנה ממשי אחד ויהי <span class=\"im\" data-tex=\"v&gt;0\"></span>&nbsp;(מהירות התפשטות) קבוע. הפונקציה של שני משתנים נקראת גל נע בכיוון <span class=\"im\" data-tex=\"+z\"></span> במהירות התפשטות <span class=\"im\" data-tex=\"v\"></span>.<br></li></ol>",
+      "id": "e6t3fv8r",
+      "t": "p"
+    },
+    {
+      "id": "q1kfh6h2",
+      "latex": "u(z,t)=g(z-vt)",
+      "t": "math"
+    },
+    {
+      "html": "<ol class=\"proof\"><li class=\"k-dev\">לכל רגע <span class=\"im\" data-tex=\"t\"></span>, הגרף של <span class=\"im\" data-tex=\"u\"></span> כפונקציה של <span class=\"im\" data-tex=\"z\"></span> הוא הגרף של <span class=\"im\" data-tex=\"g\"></span> מוזז ב-<span class=\"im\" data-tex=\"vt\"></span> בכיוון <span class=\"im\" data-tex=\"+z\"></span>. גל שנע בכיוון <span class=\"im\" data-tex=\"-z\"></span> הוא <span class=\"im\" data-tex=\"g(z+vt)\"></span>.&nbsp;</li></ol>",
+      "id": "tkjc178g",
+      "t": "p"
+    },
+    {
+      "html": "<ol class=\"proof\"><li class=\"k-con\">הגל אינו תלוי&nbsp; ב-<span class=\"im\" data-tex=\"z\"></span> וב-<span class=\"im\" data-tex=\"t\"></span> בנפרד אלא רק בצירוף הזה,&nbsp; מוזז בדיוק ב-<span class=\"im\" data-tex=\"vt\"></span>, ושגובהו ורוחבו לא משתנים. ולכן כל נקודה על הצורה, למשל השיא, נמצאת במקום שבו <span class=\"im\" data-tex=\"z-vt\"></span> קבוע.&nbsp;</li></ol>",
+      "id": "h4x4h49e",
+      "t": "p"
+    },
+    {
+      "caption": "העותק המקווקו הוא g(z) ברגע t = 0. הפולס המודגש הוא אותה צורה בדיוק, מוזזת ב-vt. אם משנים את v, הפולס מתקדם מהר יותר, אבל צורתו לא משתנה.",
+      "h": 738,
+      "id": "flffu786",
+      "marks": [
+        {
+          "color": "b",
+          "size": 1,
+          "t": "num",
+          "text": "1",
+          "x1": 137,
+          "x2": 137,
+          "y1": 349,
+          "y2": 349
+        },
+        {
+          "color": "y",
+          "size": 1,
+          "t": "num",
+          "text": "2",
+          "x1": 870,
+          "x2": 870,
+          "y1": 363,
+          "y2": 363
+        },
+        {
+          "color": "b",
+          "size": 1,
+          "t": "text",
+          "text": "מקום ההתחלה של הגל",
+          "x1": 297,
+          "x2": 19,
+          "y1": 0,
+          "y2": 20
+        },
+        {
+          "color": "y",
+          "size": 1,
+          "t": "text",
+          "text": "התשפטות הגל במהירות קבועה",
+          "x1": 990,
+          "x2": 690,
+          "y1": 7,
+          "y2": 27
+        }
+      ],
+      "side": false,
+      "size": "s",
+      "src": "/_blob/58dcebbac048d90e4c923afc97a7136d",
+      "t": "img",
+      "w": 1600
+    },
+    {
+      "html": "<b>משרעת ואורך גל</b>",
+      "id": "l4a8tkeo",
+      "level": 2,
+      "plain": true,
+      "t": "h"
+    },
+    {
+      "html": "במכ\"ם ההפרעה היא מחזורית, היא חוזרת על עצמה במרחבים קבועים, כל&nbsp;&nbsp;צורת גל אפשר לבנות מסכום של סינוסים, ולכן מי שמבין גל סינוסי אחד מבין את אבן הבניין של כולם. מצטרך להתמקד בעיקר בשני פרמטרים,<mark class=\"hl-b\"><b> A המשרעת</b></mark>, <b><mark class=\"hl-b\">ואורך הגל <span class=\"im\" data-tex=\"\\lambda\"></span>&nbsp;</mark></b><br>&nbsp;משרעת השיא לשיא כשההפרעה סימטרית סביב הממוצע,&nbsp; היא כפליים מהמשרעת.",
+      "id": "m05yoell",
+      "level": 3,
+      "t": "h"
+    },
+    {
+      "html": "<ol class=\"proof\"><li class=\"k-def\"><mark class=\"hl-b\"><b>משרעת A</b></mark>: תהי <span class=\"im\" data-tex=\"u(z)\"></span> הפרעה חסומה (גל חסום) שערכה הממוצע <span class=\"im\" data-tex=\"\\bar u\"></span>. המשרעת היא <span class=\"im\" data-tex=\"A=\\max_z|u(z)-\\bar u|\"></span>, הסטייה המרבית מהממוצע. <br>משרעת השיא לשיא היא <span class=\"im\" data-tex=\"A_{pp}=\\max_z u-\\min_z u\"></span>. כשההפרעה סימטרית סביב הממוצע (ובפרט סינוס), <span class=\"im\" data-tex=\"A_{pp}=2A\"></span>.</li><li class=\"k-def\"><mark class=\"hl-b\"><b>אורך הגל&nbsp;</b><span class=\"im\" data-tex=\"\\lambda\"></span></mark>: הפרעה <span class=\"im\" data-tex=\"u(z)\"></span> נקראת מחזורית במרחב אם יש <span class=\"im\" data-tex=\"\\lambda&gt;0\"></span> כך ש-<span class=\"im\" data-tex=\"u(z+\\lambda)=u(z)\"></span> לכל <span class=\"im\" data-tex=\"z\"></span>.<br>אורך הגל <span class=\"im\" data-tex=\"\\lambda\"></span> הוא הקטן ביותר מבין המספרים החיוביים שמקיימים זאת. בהפרעה שאינה מחזורית לא מוגדר אורך גל אחד.</li></ol>",
+      "id": "q4nyrhwb",
+      "t": "p"
+    },
+    {
+      "caption": "איור 1-3 (B10): חלקי גל הסינוס: המשרעת A ואורך הגל λ. · איור מקורי · איור 5 · Naval Weapons · עמ' 13",
+      "h": 1002,
+      "id": "cywkszav",
+      "marks": [
+        {
+          "color": "k",
+          "size": 1,
+          "t": "text",
+          "text": "משרעת",
+          "x1": 256,
+          "x2": 0,
+          "y1": 439,
+          "y2": 459
+        },
+        {
+          "color": "k",
+          "size": 1,
+          "t": "text",
+          "text": "אורך הגל",
+          "x1": 637,
+          "x2": 337,
+          "y1": 786,
+          "y2": 806
+        },
+        {
+          "color": "y",
+          "t": "arrow",
+          "x1": 578,
+          "x2": 717,
+          "y1": 349,
+          "y2": 162
+        },
+        {
+          "color": "y",
+          "size": 1,
+          "t": "text",
+          "text": "גל סינוסי",
+          "x1": 791,
+          "x2": 491,
+          "y1": 69,
+          "y2": 89
+        },
+        {
+          "color": "g",
+          "size": 1,
+          "t": "text",
+          "text": "ממוצע",
+          "x1": 819,
+          "x2": 519,
+          "y1": 433,
+          "y2": 453
+        }
+      ],
+      "size": "m",
+      "src": "/_blob/826fb2af213693970d2a6daed6a927d5",
+      "t": "img",
+      "w": 1600
+    },
+    {
+      "html": "מה שאנטנה עושה זהו לא הסתכלות על רגע בודד אחד, האנטנה ומדת במקום אחד ומרגישה איך השדה משתנה בהלך הזמן.&nbsp;צופה נייח (אנטנה) רואה גם הוא סינוס, אבל על ציר הזמן. מתוך כך, שאם<mark class=\"hl-g\"><b> קודם הפונקציה הראתה לנו את המרחק עכשיו היא מראה תמונה דומה רק של הזמן</b></mark>.&nbsp;<br>המרווח בין שני שיאים עוקבים בזמן נקרא המחזור, ומספר המחזורים בשנייה נקרא התדר.",
+      "id": "v6ip3fjz",
+      "level": 3,
+      "t": "h"
+    },
+    {
+      "html": "<ol class=\"proof\"><li class=\"k-def\"><mark class=\"hl-b\"><b>מחזור ותדר</b></mark>: תהי <span class=\"im\" data-tex=\"u(t)\"></span> ההפרעה בנקודה קבועה. אם יש <span class=\"im\" data-tex=\"T&gt;0\"></span> כך ש-<span class=\"im\" data-tex=\"u(t+T)=u(t)\"></span> לכל <span class=\"im\" data-tex=\"t\"></span>, אז <strong>המחזור</strong> <span class=\"im\" data-tex=\"T_0\"></span> הוא הקטן ביותר מבין ה-<span class=\"im\" data-tex=\"T\"></span> האלה. יחידת התדר היא הרץ (Hz), מחזור אחד בשנייה. התדר שווה ל-1 חלקי המחזור.</li></ol>",
+      "id": "v50j5y0p",
+      "t": "p"
+    },
+    {
+      "id": "b2kat4jz",
+      "latex": "f=\\frac{1}{T_0}",
+      "t": "math"
+    },
+    {
+      "html": "<ol class=\"proof\"><li class=\"k-con\"><mark class=\"hl-g\"><b>התדר הוא ההופכי של המחזור, ולכן מחזור קצר פירושו תדר גבוה</b>.</mark></li><li class=\"k-dev\">המכפלה של&nbsp;אורך הגל והתדר&nbsp;<span class=\"im\" data-tex=\"\\lambda f=c\"></span>&nbsp; היא מהירות ההתפשטות. בגל אלקטרומגנטי בריק המהירות היא&nbsp;<span class=\"im\" data-tex=\"c\"></span>. על כך, ניתן לבצע המרה הפוכה יש לנו את התדר והמהירות בריק נוכל לדעת בקלות מה אורך הגל:&nbsp;<span class=\"im\" data-tex=\"\\lambda(\\text{cm})=\\frac{3\\times10^{10}}{f(\\text{GHz})\\cdot10^9}=\\frac{30}{f(\\text{GHz})}\"></span>&nbsp;.</li></ol>",
+      "id": "7k2ldkwt",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "68acs3me",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "i5dwc0e9",
+      "t": "p"
+    },
+    {
+      "html": "<b>הנוסחא המאוחדת</b>",
+      "id": "bngu2ivh",
+      "level": 2,
+      "plain": true,
+      "t": "h"
+    },
+    {
+      "html": "מהנדס אנטנות צריך יותר נתונים מאשר אורך הגל, והתדר. הרי הרצון הסופי הוא להגיע לדעת מה השדה בשתי אנטנות שונות באותו הרגע. לשם כך דרושה נוסחה שנותנת את השדה בכל מקום <span class=\"im\" data-tex=\"z\"></span> ובכל רגע <span class=\"im\" data-tex=\"t\"></span>.&nbsp;<br><b>המקלט לא מודד מטרים או ננו-שניות ישירות. הוא מודד פאזה, ושני המספרים האלה מתרגמים בין הפאזה&nbsp;</b><span class=\"im\" data-tex=\"k\"></span><b> ממיר מרחק לפאזה, ו-</b><span class=\"im\" data-tex=\"\\omega\"></span><b> ממיר זמן לפאזה</b>.",
+      "id": "onuvwpqg",
+      "t": "p"
+    },
+    {
+      "html": "<br>ברגע t=0 השדה הוא בעצם פונקציה סינוס עם אורך גל&nbsp;&nbsp;<span class=\"im\" data-tex=\"\\lambda\"></span>, ולכן <span class=\"im\" data-tex=\"g(s)=E_0\\cos(2\\pi s/\\lambda+\\varphi)\"></span>., הגורם <span class=\"im\" data-tex=\"2\\pi/\\lambda\"></span> דואג שהארגומנט יגדל ב-<span class=\"im\" data-tex=\"2\\pi\"></span> רדיאנים בדיוק כש-<span class=\"im\" data-tex=\"s\"></span> גדל ב-<span class=\"im\" data-tex=\"\\lambda\"></span>. נזכור כי הרדיאן הוא דרך למדוד כה רחוק&nbsp;הצל האופקי של נקודה שמסתובבת על מעגל ברדיוס 1 (קוסינוס) ו- מחזור שלם הוא <span class=\"im\" data-tex=\"2\\pi\"></span> רדיאנים (360°).&nbsp;",
+      "id": "nswv9jcl",
+      "t": "p"
+    },
+    {
+      "html": "<ol class=\"proof\"><li class=\"k-dev\"><span class=\"im\" data-tex=\"E=E_0\\cos\\!\\Big(\\frac{2\\pi}{\\lambda}(z-vt)+\\varphi\\Big)=E_0\\cos\\!\\Big(\\frac{2\\pi}{\\lambda}z-\\frac{2\\pi v}{\\lambda}t+\\varphi\\Big)=E_0\\cos\\!\\big(\\tfrac{2\\pi}{\\lambda}z-2\\pi f\\,t+\\varphi\\big)\"></span></li><li class=\"k-hyp\">&nbsp;היא המשרעת ו-<span class=\"im\" data-tex=\"\\varphi\"></span> היא הפאזה ההתחלתית, כלומר ערך הארגומנט ב-<span class=\"im\" data-tex=\"z=0\"></span>, <span class=\"im\" data-tex=\"t=0\"></span>.&nbsp;</li><li class=\"k-hyp\"><strong><span class=\"im\" data-tex=\"E_0\"></span></strong>: גובה הגל, כלומר השדה המרבי בוולט למטר, כמה הוא חזק.&nbsp;</li><li class=\"k-hyp\"><strong><span class=\"im\" data-tex=\"k\"></span></strong>: כמה מחזורים הגל משלים לאורך הדרך נמדד ברדיאנים למטר: <span class=\"im\" data-tex=\"k=2\\pi/\\lambda\"></span>. <span class=\"im\" data-tex=\"\\omega\"></span>&nbsp;אותו דבר, אבל בזמן, רדיאנים לשנייה, <span class=\"im\" data-tex=\"\\omega=2\\pi f\"></span>.</li><li class=\"k-def\"><b><mark class=\"hl-b\">גל סינוסי נע</mark></b>: מחשבת מה השדה בכל מקום כלשהו z ובכל רגע נתון. היא בעצם מאחדת את אורך הגל והתדר.<br>&nbsp;יהיו <span class=\"im\" data-tex=\"E_0&gt;0\"></span>, <span class=\"im\" data-tex=\"\\lambda&gt;0\"></span>, <span class=\"im\" data-tex=\"f&gt;0\"></span> ו-<span class=\"im\" data-tex=\"\\varphi\"></span> קבועים ממשיים. <strong>גל סינוסי נע</strong> בכיוון <span class=\"im\" data-tex=\"+z\"></span> הוא&nbsp;<span class=\"im big\" data-tex=\"E(z,t)=E_0\\cos(kz-\\omega t+\\varphi)\"></span></li><li class=\"k-def\"><mark class=\"hl-b\">&nbsp;גל סינוסי נע עם מספר הגל והתדר הזוויתי:</mark><br>מגדירה את שני המקדמים שבתוך הקוסינוס. אפשר לחשוב על הארגומנט כעל מחוג שמסתובב.&nbsp;<br><span class=\"im big\" data-tex=\"k=\\frac{2\\pi}{\\lambda}\\ \\ [\\text{rad/m}],\\qquad \\omega=2\\pi f\\ \\ [\\text{rad/s}]\"></span>&nbsp;</li><li class=\"k-def\"><mark class=\"hl-b\"><b>מהירות פאזה</b></mark>:&nbsp;מגדירה כמה מהר התבנית זזה, לגל סינוסי,&nbsp;<strong>מהירות הפאזה</strong> היא המהירות שבה נע משטח של ארגומנט קבוע:<br><span class=\"im big\" data-tex=\"v_p=\\frac{\\omega}{k}=\\lambda f\"></span></li></ol>",
+      "id": "apqrhrvt",
+      "t": "p"
+    },
+    {
+      "html": "תחום הזמן ותחום התדר",
+      "id": "ut3pb4k1",
+      "level": 2,
+      "plain": true,
+      "t": "h"
+    },
+    {
+      "html": "בדרך כלל, למערכות אין אין פולס שנשלח עם תדר אחד בודד אלא פס של תדרים ואז השאלה המרכזית היא כמה מהפס הזה הפולס צורך בזמן נתון.&nbsp;בתחום הזמן צריך את הערך בכל רגע. בתחום התדר מספיקים תדר, משרעת ופאזה.<br><br>בתחום הזמן קשה לנחש ממה בנוי האות. בתחום התדר רואים שלושה רכיבים בלבד, וזה כל המתכון. הרכיבים ב-16 Hz וב-32 Hz הם כפולות שלמות של 8 Hz, ולכפולות כאלה קוראים הרמוניות. הן לא מקריות. אות שחוזר על עצמו כל מחזור <span class=\"im\" data-tex=\"T_0\"></span> יכול להכיל רק רכיבים שגם הם חוזרים בדיוק כל <span class=\"im\" data-tex=\"T_0\"></span>, כלומר רכיבים שמספר שלם של מחזורים שלהם נכנס ב-<span class=\"im\" data-tex=\"T_0\"></span>.<br><br>מכאן מגיע המספר של הספקטרום, הספקטרום בעצם אומר לנו כמה יש באות מכל תדר בתוך הפס. נניח אם נשים כמה מקלטים בתדרים שונים, אפשר למדוד כמה חזק כל אחד מודד את האות. צריך את זה כדי לוודא שאנחנו לא חורגים מהפס ברגולטר או מתכנן קבעו.&nbsp;<br><ol class=\"proof\"><li class=\"k-def\"><strong><mark class=\"hl-b\">ספקטרום:&nbsp;</mark></strong>יהי <span class=\"im\" data-tex=\"s(t)=\\sum_{n=1}^{N}A_n\\cos(2\\pi f_n t+\\varphi_n)\"></span> אות שהוא סכום סופי של סינוסים, עם תדרים שונים <span class=\"im\" data-tex=\"f_n&gt;0\"></span> ומשרעות <span class=\"im\" data-tex=\"A_n\\ge0\"></span>. <strong>ספקטרום המשרעות</strong> של האות הוא אוסף הזוגות <span class=\"im\" data-tex=\"\\{(f_n,A_n)\\}\"></span>, ו<strong>ספקטרום ההספק</strong> הוא <span class=\"im\" data-tex=\"\\{(f_n,A_n^2)\\}\"></span>, עד כדי קבוע. יחד עם הפאזות <span class=\"im\" data-tex=\"\\varphi_n\"></span>, הספקטרום קובע את <span class=\"im\" data-tex=\"s(t)\"></span> במלואו. ההגדרה הזאת חלה על סכום סופי.</li><br></ol>",
+      "id": "ertfj1vl",
+      "level": 3,
+      "t": "h"
+    },
+    {
+      "caption": "איור 1-7 (B10): קוסינוס בתחום הזמן (8 מחזורים בשנייה) ובתחום התדר (קו אחד ב-8 Hz). · איור מקורי · איור 9 · Naval Weapons · עמ' 18",
+      "h": 724,
+      "id": "z9sa6mbe",
+      "marks": [],
+      "size": "s",
+      "src": "/_blob/ce64a1672a2914d328f62f381115dec2",
+      "t": "img",
+      "w": 1600
+    },
+    {
+      "html": "הגלים האלקטרומגנטיים משתרעים מטלגרפיה ועד קרני גמא.&nbsp; ההתנהגות שלהם שונה מאוד לפי התדר. למכ\"ם יש שמות נוספים מלבד לתדרים כדי לדבר על חלקי תחום ולא על תדרים ספציפיים. מה שנקרא פס תדרים, הוא מודד טווח מסוים, על כן, אומרים מכ\"ם משדר בתדר S או X, <b>מערכת אחת פועלת בדרך כלל בחלק צר בלבד של הפס שלה</b>. מאידך, בעולם הל\"א יש טבלת תדרים עם שמות שונים לאותם תדרים, לדוגמא תדר L בעולם המכ\"ם ייקרא תדר D בל\"א.&nbsp;<br>",
+      "id": "ni12d1wx",
+      "level": 3,
+      "t": "h"
+    },
+    {
+      "caption": "מפת התדרים בתחומים השונים",
+      "h": 724,
+      "id": "o6xke5co",
+      "marks": [],
+      "size": "l",
+      "src": "/_blob/b9654972d99986d3c11ac268a87baf7e",
+      "t": "img",
+      "w": 1324
+    },
+    {
+      "html": "מכ\"ם לא יודע מאיזה פולס מגיע אליו כל הד, הוא קולט הדים ומשחרר פולסים בקצב גבוה יותר. על כן, הוא מודד את את מרווח החזרה, קצב החזרה, וטווח חד ערכי לפולסים. מחוץ, לטווח המכ\"ם ישנה בעיה, כי ההד חוזר לפני הפולס הבא, יש תקרה שגם שיפור ההספק לא מזיז אותה. אחרי <span class=\"im\" data-tex=\"R_u\"></span> המכ\"ם עדיין קולט את ההד, אבל מציג אותו בטווח הלא נכון. ופעמים רבות נראות במכ\"ם מטרות בטווח מוסיים שבמציאות הם במרחק רחוק בהרבה. לכן, חשוב לבצע בדיקה כי הספק ההד יורד כמו <span class=\"im\" data-tex=\"R^4\"></span>.",
+      "id": "drb0ejgw",
+      "level": 3,
+      "t": "h"
+    },
+    {
+      "html": "<ol class=\"proof\"><li class=\"k-def\"><mark class=\"hl-b\"><b>מרווח חזרה וקצב חזרה של פולסים</b></mark>: ברכבת פולסים שיוצאים במרווחים שווים,<b> מרווח החזרה</b> <span class=\"im\" data-tex=\"T_{PRI}\"></span> הוא הזמן בין תחילת פולס לתחילת הפולס הבא, וקצב החזרה הוא</li></ol>",
+      "id": "g2msu1mw",
+      "t": "p"
+    },
+    {
+      "id": "uuqld19x",
+      "latex": "\\text{PRF}=\\frac{1}{T_{PRI}}",
+      "t": "math"
+    },
+    {
+      "html": "<ol class=\"proof\"><li class=\"k-def\"><mark class=\"hl-b\"><b>טווח חד-ערכ</b></mark><mark class=\"hl-b\"><b>י</b></mark>: דרך מרווח החזרה, אנחנו כעת יכולים למדוד את הטווח הגדול ביותר שההד שלו חוזר לפני הפולס הבא. מטרה בטווח <span class=\"im\" data-tex=\"R&gt;R_u\"></span> <b></b><mark class=\"hl-g\"><b>נראית בטווח </b><span class=\"im\" data-tex=\"R-R_u\"></span><b> </b></mark><b></b>(או <span class=\"im\" data-tex=\"R\"></span> מודולו <span class=\"im\" data-tex=\"R_u\"></span>). הנוסחה מניחה PRF קבוע ומכ\"ם שמייחס כל הד לפולס האחרון.<br></li></ol>",
+      "id": "btqjt8b7",
+      "t": "p"
+    },
+    {
+      "id": "2yx766kk",
+      "latex": "R_u=\\frac{c\\,T_{PRI}}{2}=\\frac{c}{2\\,\\text{PRF}}",
+      "t": "math"
+    },
+    {
+      "html": "<ol class=\"proof\"><li class=\"k-con\">מכאן שכדי לבטל את ההשערה כי מדובר במטרת רפאים, הנמצאת מחוץ לטווח, נוכל לשנות את ה-PRF ולראות אם הטווח משתנה במטרת רפאים הוא אמור להשתנות כי הוא נמדד מפולס לא שלו.&nbsp;</li></ol>",
+      "id": "xcn7ejz2",
+      "t": "p"
+    },
+    {
+      "html": "פאזה, פאזה יחסית ומוסכמות סימן",
+      "id": "nod947od",
+      "level": 1,
+      "t": "h"
+    },
+    {
+      "html": "נניח ואנחנו מודדים עם שתי אנטנות גל בתדר 10 GHz, בין הקליטות מצאנו כי מתקבל 50° שהוא ההפרש בין הפאזות של שני גלים באותו תדר הוא גודל פיזיקלי. במספר הזה מסתתר&nbsp;&nbsp;איזו אנטנה קיבלה את הגל ראשונה, ובכמה זמן לפניה.&nbsp;הסטה של 360° זהה להסטה של 0°: הגל זז אורך גל שלם וחזר לעצמו.&nbsp;&nbsp;גם ב-GPS לא מודדים \"פאזה של הגל הנושא\" כגודל מוחלט. מודדים אותה מול מתנד מקומי במקלט, כלומר מול גל שני.&nbsp;<br>על כך,&nbsp;<mark class=\"hl-g\">מספר שמגיע מאנטנה אחת הוא חסר משמעות, ומספר שמגיע מהשוואה בין שתי אנטנות הוא המידע.</mark><br><br>כל הסטת פאזה אפשר לכתוב בשתי דרכים, ולכן <span class=\"im\" data-tex=\"-30°\"></span> ו-<span class=\"im\" data-tex=\"330°\"></span> מתארים אותו מצב פיזיקלי. היחידה הטבעית היא רדיאן, ויש <span class=\"im\" data-tex=\"2\\pi\"></span> רדיאנים ב-360°. על כך ההפרש בין שתי פאזות בזמן<br>",
+      "id": "zsgycti3",
+      "level": 3,
+      "t": "h"
+    },
+    {
+      "id": "9horh8zo",
+      "latex": "\\Delta t=\\frac{\\Delta\\varphi}{\\omega}",
+      "t": "math"
+    },
+    {
+      "html": "<ol class=\"proof\"><li class=\"k-giv\"><span class=\"im\" data-tex=\"\\varphi\"></span>&nbsp;חיובי יכול לתאר גל שמקדים או גל שמפגר. הכול תלוי באיך כתבו את הנוסחה. בנוסחה של הקורס, <span class=\"im\" data-tex=\"\\cos(kz-\\omega t+\\varphi)\"></span>, <span class=\"im\" data-tex=\"\\varphi\"></span> חיובי פירושו שהגל <strong>מפגר</strong>. בהנדסת חשמל אותו סימן פירושו שהגל <strong>מקדים</strong>.</li></ol>",
+      "id": "gbaaqvvm",
+      "t": "p"
+    },
+    {
+      "html": "פאזה מהפרש הדרך",
+      "id": "kte7jsga",
+      "level": 2,
+      "plain": true,
+      "t": "h"
+    },
+    {
+      "html": "ההסטה של המעלות, חייבת להגיע מהבדל באורך הדרך, כי הגל מגיע לשתי האנטנות, באותו תדר ועם אותה פאזה התחלתית ומאותו משדר. הגלים נבדלים, רק באורך הדרך <span class=\"im\" data-tex=\"L_1\"></span> או <span class=\"im\" data-tex=\"L_2\"></span>. על כן, נוכל לחשב, שינוי בדרך בחלקים של <span class=\"im\" data-tex=\"\\lambda\"></span>, ולא בזמן.<br>על העיקרון הזה&nbsp;בנויים האינטרפרומטר, מדידת הפאזה ב-GPS ומדידת תנועה זעירה במכ\"ם.",
+      "id": "m7rg5e4x",
+      "level": 3,
+      "t": "h"
+    },
+    {
+      "html": "<ol class=\"proof\"><li class=\"k-hyp\"><span class=\"im\" data-tex=\"\\Delta L\"></span>&nbsp;הוא הפרש הדרך בין שני מסלולים מאותו מקור, ו-<span class=\"im\" data-tex=\"\\Delta R\"></span> שינוי בטווח של מטרה מחזירה, שניהם במטרים. <span class=\"im\" data-tex=\"\\lambda\"></span> הוא אורך הגל בתווך, ו-<span class=\"im\" data-tex=\"\\Delta\\varphi\"></span> ברדיאנים.</li></ol>",
+      "id": "70hfnun6",
+      "t": "p"
+    },
+    {
+      "id": "ka3m243l",
+      "latex": "\\Delta\\varphi=\\frac{2\\pi\\,\\Delta L}{\\lambda}",
+      "t": "math"
+    },
+    {
+      "id": "qzqvg087",
+      "latex": "\\Delta\\varphi_{\\text{הד}}=\\frac{4\\pi\\,\\Delta R}{\\lambda}",
+      "t": "math"
+    },
+    {
+      "html": "",
+      "id": "r1261yzo",
+      "t": "p"
+    },
+    {
+      "html": "האינטרפרומטר מודד פאזה, אבל מה שמעניין אותנו הוא הכיוון למשדר. אז אם הפאזה נמדדת עם שגיאה של 5°, באיזו שגיאה ייצא הכיוון? <br>על כך, צריך להבין את הקשר בין הזווית לפאזה ואז להבין את הקשר בין שגיאה בפאזה לשגיאה בזווית.&nbsp; שתי אנטנות במרחק <span class=\"im\" data-tex=\"d\"></span> זו מזו, <span class=\"im\" data-tex=\"d\"></span> נקרא הבסיס, והגל מגיע בזווית <span class=\"im\" data-tex=\"\\theta\"></span> מהניצב לקו שמחבר ביניהן.",
+      "id": "dbzqpckk",
+      "level": 3,
+      "t": "h"
+    },
+    {
+      "html": "<ol class=\"proof\"><li class=\"k-def\">ה<mark class=\"hl-b\"><b>פאזה של אינטרפרומטר:</b></mark>&nbsp;הגל מגיע בזווית, ולכן לאחת האנטנות נשארת דרך נוספת של <span class=\"im\" data-tex=\"d\\sin\\theta\"></span>. הדרך הנוספת הזאת הופכת להפרש פאזה.&nbsp;</li></ol>",
+      "id": "fjn3n5j0",
+      "t": "p"
+    },
+    {
+      "id": "oqhn5atd",
+      "latex": "\\Delta\\varphi=\\frac{2\\pi\\,d\\sin\\theta}{\\lambda}",
+      "t": "math"
+    },
+    {
+      "html": "הנוסחא מייצגת עקומה בה לכל&nbsp; זווית <span class=\"im\" data-tex=\"\\theta\"></span> יש פאזה <span class=\"im\" data-tex=\"\\Delta\\varphi\"></span>. הנוסחא מציגה את כל פאזה באמצעות זווית. אם הפאזה משתנה גם הזווית אמורה להשתנות, ככל שהבסיס d קטן יותר ככה אותה רעידה בפאזה משנה יותר בזווית. ניתן לחשב את הפיזור על ידי:&nbsp;<span class=\"im\" data-tex=\"\\delta(\\Delta\\varphi)\\approx\\frac{2\\pi d\\cos\\theta}{\\lambda}\\,\\delta\\theta\\quad\\Longrightarrow\\quad \\sigma_\\theta=\\frac{\\sigma_\\varphi\\,\\lambda}{2\\pi\\,d\\cos\\theta}\"></span>&nbsp;<br>",
+      "id": "z0nxyrih",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "5o8h114l",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "wfcshdae",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "mxfuxzt8",
+      "t": "p"
+    },
+    {
+      "html": "",
+      "id": "2ggc5e9s",
+      "t": "p"
+    },
+    {
+      "html": "אונות עמימות ושרשרת בסיסים",
+      "id": "m8gyvpl3",
+      "level": 2,
+      "plain": true,
+      "t": "h"
+    },
+    {
+      "html": "בסיס <span class=\"im\" data-tex=\"d=10\\lambda\"></span> נותן שיפוע של 62.8. כל מעלה של זווית מזיזה את הפאזה ב-62.8°. זה מה שנותן את הדיוק של 0.0796°. אולם, זה גורם למצב שמספיק שהזווית תזוז בכ-5.7° כדי שהפאזה תשלים 360° שלמים ואז לא נדע כמה מחזורים עברו. במצב כזה לכל קריאה יש כמה זוויות אפשריות, לעומת d=2 שהוא קצר משמעותית בו לכל קריאה יש זווית ייחודית.",
+      "id": "sct6efbg",
+      "level": 3,
+      "t": "h"
+    },
+    {
+      "html": "<ol class=\"proof\"><li class=\"k-def\"><b><mark class=\"hl-b\">אונות עמימות</mark></b>: עבור אינטרפרומטר עם בסיס <span class=\"im\" data-tex=\"d\"></span> ואורך גל <span class=\"im\" data-tex=\"\\lambda\"></span> שמודד פאזה מקופלת <span class=\"im\" data-tex=\"\\phi_m\"></span>, ה<strong>אונות</strong> הן קבוצת הזוויות <span class=\"im\" data-tex=\"\\theta_n\\in(-90°,90°)\"></span> שמקיימות</li></ol>",
+      "id": "c6da0uz3",
+      "t": "p"
+    },
+    {
+      "id": "li6irqzz",
+      "latex": "\\sin\\theta_n=\\Big(\\frac{\\phi_m}{2\\pi}+n\\Big)\\frac{\\lambda}{d},\\qquad n\\ \\text{שלם},\\ |\\sin\\theta_n|<1",
+      "t": "math"
+    },
+    {
+      "html": "<ol class=\"proof\"><li class=\"k-dev\">כדי לפתור את בעיית הייחוד, ולהשאר עם בסיס ארוך יותר שפחות מושפע מאותה רעידה בפאזה,&nbsp;&nbsp;הפתרון הוא לשלב בין בסיסים. הבסיס הקצר נותן אומדן גס אבל חד-ערכי, והאומדן הזה בוחר אונה של הבסיס הארוך:&nbsp;<span class=\"im\" data-tex=\"\\frac{\\lambda/2d_L}{\\sigma_\\varphi\\lambda/2\\pi d_S}=\\frac{\\pi}{\\sigma_\\varphi}\\cdot\\frac{d_S}{d_L}\"></span>&nbsp;</li></ol>",
+      "id": "ih8zhpaz",
+      "t": "p"
+    },
+    {
+      "caption": "בסיסים ושרשראות באינטרפרומטר ב-10 GHz, σφ = 5° · מחושב בדף · math.js",
+      "h": 322,
+      "id": "t5o2f6o6",
+      "marks": [],
+      "size": "m",
+      "src": "/_blob/258bfcfb68b539dac9ed5b7e6f207590",
+      "t": "img",
+      "w": 1468
+    },
+    {
+      "html": "<ol class=\"proof\"><li class=\"k-con\">השורה האחרונה היא היחידה שנותנת גם דיוק של 0.0796° וגם תשובה אחת.</li><li class=\"k-con\">בסיס ארוך בלי שרשרת שמתאימה ל-<span class=\"im\" data-tex=\"\\sigma_\\varphi\"></span> מחליף שגיאה קטנה ותכופה בשגיאה גדולה ונדירה, וזו הגרועה מבין השתיים, כי אין בה סימן אזהרה.&nbsp;מקלט רועש יותר מחייב שרשרת עם יותר חוליות.</li></ol>",
+      "id": "rxxxc1hf",
+      "t": "p"
+    },
+    {
+      "html": "סופרפוזיציה: שני גלים באותה אנטנה",
+      "id": "2fnbcaml",
+      "level": 2,
+      "plain": true,
+      "t": "h"
+    },
+    {
+      "html": "בדרך כלל במכ\"מים, אין שתי אנטנות אלא אותה אנטנה היא מקבלת את שני ההחזרים. עקרון הסופרפוזיציה, קובע כי כאשר שני גלים באותו תדר נמצאים באותו מקום ובאותו זמן, השדה בנקודה הוא סכום השדות.&nbsp;&nbsp;כשהגלים באותה פאזה, המשרעות מתחברות, וזו התאבכות בונה. כשהם בפאזות הפוכות, הם מחסירים זה את זה, וזו התאבכות הורסת.&nbsp;<br>על כך,&nbsp;הסכום של שני הגלים הוא גל אחד באותו תדר, והמשרעת שלו היא אורך החץ השקול.<br><b>העוצמה והפאזה שלו תלויות בשני דברים בלבד: בכמה שני הגלים מוזזים זה מזה (</b><span class=\"im\" data-tex=\"\\Delta\\varphi\"></span><b>), ובכמה החלש חלש מהחזק (</b><span class=\"im\" data-tex=\"a\"></span>).<br>מכ\"ם יחליט האם זו מטרה לפי העוצמה של הסכום.&nbsp;<br><br>",
+      "id": "bzaatj9l",
+      "level": 3,
+      "t": "h"
+    },
+    {
+      "caption": "איור · משולש מצביעים בקנה מידה: A = 200 יחידות, aA = 100 (a = 0.5), Δφ = 50°. החץ השקול R ארוך פי 1.376 מ-A ומוטה ב-ψ = 16.2°. הזווית הפנימית במפגש החצים היא 180° − Δφ.",
+      "h": 1054,
+      "id": "3cm4csnl",
+      "marks": [],
+      "size": "m",
+      "src": "/_blob/29fe699086955c848916bd1387d5c1c7",
+      "t": "img",
+      "w": 1474
+    },
+    {
+      "html": "",
+      "id": "z9pau36d",
+      "t": "p"
+    },
+    {
+      "html": "<ol class=\"proof\"><li class=\"k-def\"><mark class=\"hl-b\"><b>סכום שני גלים באותו תדר:</b></mark>&nbsp;מייצג את המשרעת ואת הסטת הפאזה של הגל המתקבל כששני גלים באותו תדר נכנסים לאותה נקודה. כדי למצוא את <span class=\"im\" data-tex=\"R\"></span><mark class=\"hl-r\">(משרעת הגל המאוחד, מה שהמקלט קולט)</mark> נשתמש במשפט הקוסינוסים מהתיכון. הצלע <span class=\"im\" data-tex=\"R\"></span> נמצאת מול הזווית הפנימית <span class=\"im\" data-tex=\"180°-\\Delta\\varphi\"></span>.</li><li class=\"k-hyp\"><span class=\"im\" data-tex=\"A\"></span>&nbsp;היא משרעת הגל החזק, <span class=\"im\" data-tex=\"aA\"></span> משרעת החלש (<span class=\"im\" data-tex=\"0\\le a\\le1\"></span>)&nbsp; <span class=\"im\" data-tex=\"a\"></span>&nbsp;הוא יחס המשרעות בין הגל החלש לגל החזק, <span class=\"im\" data-tex=\"\\Delta\\varphi\"></span> הפרש הפאזה ביניהם.&nbsp;</li><li class=\"k-hyp\"><span class=\"im\" data-tex=\"\\psi\"></span>&nbsp;הסטת הפאזה של השקול ביחס לגל החזק.</li></ol>",
+      "id": "ckqp956c",
+      "t": "p"
+    },
+    {
+      "id": "mb1y8pgc",
+      "latex": "R=A\\sqrt{1+2a\\cos\\Delta\\varphi+a^2},\\qquad a=1:\\ R=2A\\cos\\frac{\\Delta\\varphi}{2}",
+      "t": "math"
+    },
+    {
+      "id": "nkk5i1u3",
+      "latex": "\\psi_{\\max}=\\arcsin a",
+      "t": "math"
+    },
+    {
+      "html": "<ol class=\"proof\"><li class=\"k-con\">הנוסחא השנייה,&nbsp; מייצגת כי גל מוחזר חלש מזיז גם את הפאזה הנמדדת, ושגיאת הפאזה שלו חסומה על ידי <span class=\"im\" data-tex=\"\\arcsin a\"></span> בלבד, בלי קשר לאורך המסלול המוחזר.</li></ol>",
+      "id": "exui7piu",
+      "t": "p"
+    }
+  ],
+  "moduleId": "M0.2",
+  "status": "draft",
+  "updatedAt": 1795710768516
+}

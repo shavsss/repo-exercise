@@ -1,0 +1,227 @@
+{
+  "day": "2026-11-25",
+  "sessions": {
+    "23w9xl": {
+      "calls": {
+        "claude-opus-5-5": 1
+      },
+      "chars": {
+        "claude-opus-5-5": 7239
+      },
+      "day": "2026-11-25",
+      "errors": {},
+      "inChars": {
+        "claude-opus-5-5": 46543
+      },
+      "lessonMs": 0,
+      "lessonWords": 0,
+      "lessons": 0,
+      "ms": {
+        "claude-opus-5-5": 14714
+      },
+      "session": "23w9xl",
+      "updatedAt": 1795615865541
+    },
+    "65yr4s": {
+      "calls": {
+        "claude-opus-5-5": 5
+      },
+      "chars": {
+        "claude-opus-5-5": 5699
+      },
+      "day": "2026-11-25",
+      "errors": {},
+      "inChars": {
+        "claude-opus-5-5": 116024
+      },
+      "lessonMs": 0,
+      "lessonWords": 0,
+      "lessons": 0,
+      "ms": {
+        "claude-opus-5-5": 34235
+      },
+      "session": "65yr4s",
+      "updatedAt": 1795618978168
+    },
+    "68m657": {
+      "calls": {
+        "claude-opus-5-5": 31
+      },
+      "chars": {
+        "claude-opus-5-5": 176
+      },
+      "day": "2026-11-25",
+      "errors": {
+        "refused": 16
+      },
+      "inChars": {
+        "claude-opus-5-5": 1224218
+      },
+      "lessonMs": 0,
+      "lessonWords": 0,
+      "lessons": 0,
+      "ms": {
+        "claude-opus-5-5": 25338
+      },
+      "session": "68m657",
+      "updatedAt": 1795590560182
+    },
+    "c2orew": {
+      "calls": {
+        "claude-opus-5-5": 45,
+        "json:claude-opus-5-5": 4,
+        "tier:default": 1
+      },
+      "chars": {
+        "claude-opus-5-5": 454361,
+        "json:claude-opus-5-5": 56739,
+        "tier:default": 7144
+      },
+      "day": "2026-11-25",
+      "errors": {
+        "invalid_json": 1
+      },
+      "inChars": {
+        "claude-opus-5-5": 3066391,
+        "json:claude-opus-5-5": 276784,
+        "tier:default": 96458
+      },
+      "lessonMs": 2366422,
+      "lessonWords": 33857,
+      "lessons": 1,
+      "ms": {
+        "claude-opus-5-5": 2073383,
+        "json:claude-opus-5-5": 232348,
+        "tier:default": 36204
+      },
+      "session": "c2orew",
+      "updatedAt": 1795595849527
+    },
+    "f29lfi": {
+      "calls": {
+        "claude-opus-5-5": 1,
+        "json:claude-opus-5-5": 4
+      },
+      "chars": {
+        "claude-opus-5-5": 113,
+        "json:claude-opus-5-5": 58307
+      },
+      "day": "2026-11-25",
+      "errors": {},
+      "inChars": {
+        "claude-opus-5-5": 1368,
+        "json:claude-opus-5-5": 376574
+      },
+      "lessonMs": 0,
+      "lessonWords": 0,
+      "lessons": 0,
+      "ms": {
+        "claude-opus-5-5": 1950,
+        "json:claude-opus-5-5": 212958
+      },
+      "session": "f29lfi",
+      "updatedAt": 1795597379527
+    },
+    "h4poxp": {
+      "calls": {
+        "claude-opus-5-5": 38,
+        "tier:default": 1
+      },
+      "chars": {
+        "claude-opus-5-5": 218027,
+        "tier:default": 9590
+      },
+      "day": "2026-11-25",
+      "errors": {
+        "upstream_error": 2
+      },
+      "inChars": {
+        "claude-opus-5-5": 2620532,
+        "tier:default": 98995
+      },
+      "lessonMs": 653435,
+      "lessonWords": 21775,
+      "lessons": 1,
+      "ms": {
+        "claude-opus-5-5": 1103174,
+        "tier:default": 45918
+      },
+      "session": "h4poxp",
+      "updatedAt": 1795614737968
+    },
+    "ssomsi": {
+      "calls": {
+        "claude-opus-5-5": 4
+      },
+      "chars": {
+        "claude-opus-5-5": 11648
+      },
+      "day": "2026-11-25",
+      "errors": {},
+      "inChars": {
+        "claude-opus-5-5": 105341
+      },
+      "lessonMs": 0,
+      "lessonWords": 0,
+      "lessons": 0,
+      "ms": {
+        "claude-opus-5-5": 52154
+      },
+      "session": "ssomsi",
+      "updatedAt": 1795619557979
+    },
+    "un77m9": {
+      "calls": {
+        "claude-opus-5-5": 21,
+        "json:claude-opus-5-5": 5
+      },
+      "chars": {
+        "claude-opus-5-5": 176808,
+        "json:claude-opus-5-5": 75139
+      },
+      "day": "2026-11-25",
+      "errors": {
+        "rate_limited": 1
+      },
+      "inChars": {
+        "claude-opus-5-5": 1979535,
+        "json:claude-opus-5-5": 507043
+      },
+      "lessonMs": 814974,
+      "lessonWords": 23086,
+      "lessons": 1,
+      "ms": {
+        "claude-opus-5-5": 798630,
+        "json:claude-opus-5-5": 265928
+      },
+      "session": "un77m9",
+      "updatedAt": 1795598473527
+    },
+    "wywofv": {
+      "calls": {
+        "claude-opus-5-5": 18,
+        "json:claude-opus-5-5": 10
+      },
+      "chars": {
+        "claude-opus-5-5": 236419,
+        "json:claude-opus-5-5": 154820
+      },
+      "day": "2026-11-25",
+      "errors": {},
+      "inChars": {
+        "claude-opus-5-5": 1542928,
+        "json:claude-opus-5-5": 1017609
+      },
+      "lessonMs": 0,
+      "lessonWords": 0,
+      "lessons": 0,
+      "ms": {
+        "claude-opus-5-5": 928608,
+        "json:claude-opus-5-5": 511174
+      },
+      "session": "wywofv",
+      "updatedAt": 1795599703527
+    }
+  },
+  "updatedAt": 1795619558226
+}

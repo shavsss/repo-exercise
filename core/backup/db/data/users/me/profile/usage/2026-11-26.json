@@ -1,0 +1,73 @@
+{
+  "day": "2026-11-26",
+  "sessions": {
+    "bwi3do": {
+      "calls": {
+        "claude-opus-5-5": 5,
+        "claude-sonnet-5-5": 1
+      },
+      "chars": {
+        "claude-opus-5-5": 21916,
+        "claude-sonnet-5-5": 969
+      },
+      "day": "2026-11-26",
+      "errors": {},
+      "inChars": {
+        "claude-opus-5-5": 121321,
+        "claude-sonnet-5-5": 27397
+      },
+      "lessonMs": 0,
+      "lessonWords": 0,
+      "lessons": 0,
+      "ms": {
+        "claude-opus-5-5": 127764,
+        "claude-sonnet-5-5": 9360
+      },
+      "session": "bwi3do",
+      "updatedAt": 1795711816938
+    },
+    "fue37j": {
+      "calls": {
+        "claude-opus-5-5": 15
+      },
+      "chars": {
+        "claude-opus-5-5": 19308
+      },
+      "day": "2026-11-26",
+      "errors": {},
+      "inChars": {
+        "claude-opus-5-5": 343230
+      },
+      "lessonMs": 0,
+      "lessonWords": 0,
+      "lessons": 0,
+      "ms": {
+        "claude-opus-5-5": 113491
+      },
+      "session": "fue37j",
+      "updatedAt": 1795703915750
+    },
+    "ssomsi": {
+      "calls": {
+        "claude-opus-5-5": 28
+      },
+      "chars": {
+        "claude-opus-5-5": 49939
+      },
+      "day": "2026-11-26",
+      "errors": {},
+      "inChars": {
+        "claude-opus-5-5": 708823
+      },
+      "lessonMs": 0,
+      "lessonWords": 0,
+      "lessons": 0,
+      "ms": {
+        "claude-opus-5-5": 252887
+      },
+      "session": "ssomsi",
+      "updatedAt": 1795698398450
+    }
+  },
+  "updatedAt": 1795711817191
+}
