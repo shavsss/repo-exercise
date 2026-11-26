@@ -98,7 +98,7 @@ export function CaseCard({ source }: { source: string }) {
       <header className="case-card-head">
         <span className="case-card-kicker">המקרה ההנדסי</span>
         {hasExamples(c) && (
-          <span className="case-tag" title="בכל סעיף: הנחיות לפני הכתיבה, ודוגמה שלנו להשוואה אחרי ההתחייבות">
+          <span className="case-tag" title="בכל סעיף: תשובה שלנו להשוואה אחרי ההתחייבות">
             מקרה לדוגמה
           </span>
         )}
@@ -433,7 +433,7 @@ export function CaseRoom({ c, rt, memory, place, onClose }: { c: CaseBlock; rt: 
     const stages = c.stages
       .map((s) => {
         const w = x.stages[s];
-        return `${stageTitle(s)}: ${w?.commit?.decision ?? "—"} · ביטחון ${w?.commit?.confidence ?? "?"}% · דירוג ${w?.grade ? GRADE_LABEL[w.grade] : "?"}${w?.guideAt ? " · פתח את ההנחיות לפני ההצעה" : ""}${w?.reflection ? ` · ראה אחר כך: ${w.reflection}` : ""}`;
+        return `${stageTitle(s)}: ${w?.commit?.decision ?? "—"} · ביטחון ${w?.commit?.confidence ?? "?"}% · דירוג ${w?.grade ? GRADE_LABEL[w.grade] : "?"}${w?.guideAt ? " · ההנחיות היו פתוחות לפני ההצעה" : ""}${w?.reflection ? ` · ראה אחר כך: ${w.reflection}` : ""}`;
       })
       .join("\n");
     const a = x.adr;
@@ -689,13 +689,13 @@ function BriefView({ c, worked, onStart, started }: { c: CaseBlock; worked: bool
       <div className="cr-process">
         <div className="cr-process-h">איך עובדים כאן</div>
         <ol>
-          <li>בכל סעיף: הצעה ונימוק בכתב, עם אחוז ביטחון.</li>
+          <li>בכל סעיף: הצעה ונימוק בכתב, עם אחוז ביטחון. מעל השדה פתוחה תיבת "מה צריך בשלב הזה": מה תשובה טובה מכילה, דוגמה אמיתית מצוות מוביל בתעשייה, והתבנית שפורסמה לשלב.</li>
           <li>הסוקר בתפקיד הסעיף מאתגר עם נתונים; מגנים, משנים או מתעקשים, כמה סבבים שצריך. "חשב / דמה לי" מריץ חישוב.</li>
           <li>"פתרתי ומתחייב" נועל את הסעיף; אז נימוק המומחה והמחוון, ואתה כותב מה הוא ראה שאתה לא.</li>
-          <li>אחרי ההתחייבות, ולא לפני: השוואה לסטנדרט. התוצר שלך מול התבנית שפורסמה לשלב (Nygard, NASA, Klein ועוד), עם המקור ומה חסר.</li>
+          <li>אחרי ההתחייבות: השוואה לסטנדרט. התוצר שלך מול התבנית שפורסמה לשלב (Nygard, NASA, Klein ועוד), עם המקור ומה חסר.</li>
           <li>בסוף: רשומת החלטה (ADR), תחקיר, והצעת מחקר שנשמרת בפרויקטים.</li>
         </ol>
-        {worked && <p className="cr-process-worked">זה מקרה לדוגמה, בשיעור הראשון של המודול: בכל סעיף אפשר לפתוח הנחיות לפני שכותבים, ואחרי ההתחייבות מוצגת דוגמה שלנו לצד ההצעה שלך.</p>}
+        {worked && <p className="cr-process-worked">זה מקרה לדוגמה, באחד משני השיעורים הראשונים של המודול: אחרי ההתחייבות מוצגת בכל סעיף גם תשובה שלנו לצד ההצעה שלך.</p>}
       </div>
       <button className="cr-primary" onClick={onStart}>
         {started ? "המשך לסעיף הפתוח" : "התחל: הסעיף הראשון"}
@@ -865,7 +865,7 @@ function StageView(p: StageProps) {
         <span className="cr-ask-l">השאלה</span>
         <Markdown text={n?.ask || "—"} />
       </div>
-      {!!n?.guide.length && <StageGuide items={n.guide} opened={!!w.guideAt} onOpen={p.onGuide} />}
+      {!!(n?.guide.length || n?.industry) && <StageGuide items={n.guide} industry={n.industry} standards={standardsFor(s)} onOpen={p.onGuide} />}
 
       {w.phase === "draft" ? (
         <div className="cr-propose">
@@ -1098,21 +1098,51 @@ function StageView(p: StageProps) {
   );
 }
 
-/** The stage's guidelines in a worked case: closed until he opens them; the first opening is kept in the stage. */
-function StageGuide({ items, opened, onOpen }: { items: string[]; opened: boolean; onOpen: () => void }) {
+/** What the stage needs, open beside the question before he writes (the learner, 26.11: until working the case is a
+ * habit): the guidelines, how a real top team did this stage, and the published template it is compared with after the
+ * commit. He can close it; the first time it is shown is kept in the stage. */
+function StageGuide({ items, industry, standards, onOpen }: { items: string[]; industry: string; standards: Standard[]; onOpen: () => void }) {
   return (
-    <details className="cr-guide" onToggle={(e) => (e.currentTarget as HTMLDetailsElement).open && onOpen()}>
+    <details className="cr-guide" open onToggle={(e) => (e.currentTarget as HTMLDetailsElement).open && onOpen()}>
       <summary>
-        <span className="cr-guide-t">הנחיות לשלב</span>
-        <span className="cr-guide-s">{opened ? "נפתחו · נרשם במסמך" : "מה תשובה טובה כאן מכילה · הפתיחה נרשמת"}</span>
+        <span className="cr-guide-t">מה צריך בשלב הזה</span>
+        <span className="cr-guide-s">ואיך זה נראה בצוותים המובילים</span>
       </summary>
-      <ul>
-        {items.map((g, i) => (
-          <li key={i}>
-            <Markdown text={g} inline />
-          </li>
-        ))}
-      </ul>
+      {!!items.length && (
+        <ul>
+          {items.map((g, i) => (
+            <li key={i}>
+              <Markdown text={g} inline />
+            </li>
+          ))}
+        </ul>
+      )}
+      {industry && (
+        <div className="cr-guide-ind">
+          <b>דוגמה מהתעשייה</b>
+          <Markdown text={industry} />
+        </div>
+      )}
+      {!!standards.length && (
+        <div className="cr-guide-std">
+          <b>התבנית שהעבודה תושווה אליה</b>
+          {standards.map((st) => (
+            <div key={st.id} className="cr-guide-std-one">
+              <a href={st.url} target="_blank" rel="noreferrer">
+                {st.name}
+              </a>
+              <span className="cr-guide-s"> · {st.source}</span>
+              <ul>
+                {st.items.map((it, i) => (
+                  <li key={i}>
+                    <StdText text={it.text} />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      )}
     </details>
   );
 }

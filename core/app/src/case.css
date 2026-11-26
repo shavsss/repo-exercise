@@ -550,7 +550,7 @@
   background: color-mix(in srgb, var(--ok) 6%, transparent);
 }
 
-/* the guidelines of a worked case: closed until he opens them */
+/* what the stage needs: open beside the question before he writes */
 .cr-guide {
   margin: -6px 0 14px;
   border: 1px dashed color-mix(in srgb, var(--ok) 45%, var(--line));
@@ -593,6 +593,34 @@
   display: grid;
   gap: 3px;
   color: var(--ink-soft);
+}
+.cr-guide-ind,
+.cr-guide-std {
+  margin: 0 12px 10px;
+  padding-top: 8px;
+  border-top: 1px dotted var(--line);
+  color: var(--ink-soft);
+}
+.cr-guide-ind b,
+.cr-guide-std > b {
+  display: block;
+  margin-bottom: 2px;
+  font-size: 0.8125rem;
+  color: color-mix(in srgb, var(--ok) 75%, var(--ink));
+}
+.cr-guide-ind p {
+  margin: 0 0 4px;
+}
+.cr-guide-std-one {
+  margin-top: 6px;
+}
+.cr-guide-std-one a {
+  font-weight: 600;
+  color: var(--ink);
+}
+.cr-guide-std-one ul {
+  padding: 2px 0 0;
+  padding-inline-start: 1.6em;
 }
 
 /* proposing */
