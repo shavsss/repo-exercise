@@ -46,3 +46,17 @@
 .sit-prev { justify-self: start; display: inline-flex; align-items: center; gap: 4px; font-size: 0.84rem; }
 
 @media (prefers-reduced-motion: reduce) { .sit-seg, .sit-next { transition: none; } }
+
+/* motion (26.11): the counters roll and pop, a sitting slides in, the current segment glows */
+.msg-meta .count-up { font-weight: 600; color: var(--ink, inherit); display: inline-block; animation: count-pop 0.5s ease-out; }
+.msg-meta .meta-left { transition: opacity 0.3s; }
+@keyframes count-pop { 0% { transform: translateY(-3px); opacity: 0.4; } 60% { transform: translateY(1px); } 100% { transform: none; opacity: 1; } }
+.prose[data-sitting]:not([hidden]) { animation: sit-in 0.45s cubic-bezier(0.2, 0.7, 0.2, 1); }
+@keyframes sit-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.sit-seg { transition: background-color 0.3s, transform 0.2s; }
+.sit-seg:hover { transform: scaleY(1.6); }
+.sit-seg.is-here { animation: sit-glow 2.4s ease-in-out infinite; }
+@keyframes sit-glow { 50% { filter: brightness(1.25); box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 18%, transparent); } }
+@media (prefers-reduced-motion: reduce) {
+  .msg-meta .count-up, .prose[data-sitting], .sit-seg.is-here { animation: none; }
+}
