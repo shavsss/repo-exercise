@@ -2,7 +2,7 @@
   "convs": {
     "0": "yg323a7uz5pcc7c2i3rf",
     "1": "w9wfujzj7q1dosvdhjhe",
-    "2": "6llftsd0v84i2rueemqz"
+    "2": "jj8nmtgfvwkj0a1y3e4i"
   },
   "done": [
     0,
@@ -73,7 +73,9 @@
       "title": "הפיזיקה ושאר המדעים: מחוקים פשוטים למערכות מורכבות"
     }
   ],
+  "quizConv": "jhd8k3spixzaso3dhnrw",
+  "quizScore": "51/100",
   "uncovered": [],
   "uncoveredPages": [],
-  "updatedAt": 1794823783086
+  "updatedAt": 1795723235644
 }

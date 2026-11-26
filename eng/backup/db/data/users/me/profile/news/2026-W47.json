@@ -1,0 +1,2108 @@
+{
+  "app": "eng",
+  "edition": "מהדורת סוף שבוע",
+  "generator": {
+    "runId": "83ddb7ac8017",
+    "sha": "b235f3f"
+  },
+  "id": "2026-W47",
+  "items": [
+    {
+      "body": "מחשב העל LineShine, שמותקן במרכז הלאומי למחשוב-על בשנזן, שמר על המקום הראשון במהדורה ה-68 של רשימת TOP500, שפורסמה ביום שני 16 בנובמבר בכנס SC26 בשיקגו. במבחן HPL, המבחן שעליו בנויה הרשימה, הוא הגיע ל-2.198 אקסה-פלופ לשנייה, כלומר כ-$2.2\\times10^{18}$ פעולות נקודה צפה בשנייה, על 13,789,440 ליבות.\n\nהחדשה הגדולה יותר היא מה שלא קרה. עשר המערכות הראשונות זהות לאלה של יוני. לפי The Hindu, הרשימה כולה קיבלה רק 27 מערכות חדשות, המספר הנמוך ביותר בתולדותיה, אף שהסף לכניסה עלה ב-7.3%. גם עורכי Green500, רשימת היעילות האנרגטית, כותבים שהעשירייה לא זזה, ורואים בכך סימן לקיפאון בפלח מחשוב-העל המדעי.\n\nשלוש עובדות מסבירות את המשמעות. LineShine בנוי על מעבדים, רשת תקשורת ומערכת הפעלה סיניים, ולכן הוא מבחן לתעשייה שפועלת תחת מגבלות הייצוא האמריקניות. הוא צורך כ-42 מגה-ואט במבחן, ולפי חישוב פשוט זה נותן כ-52 ג'יגה-פלופ לוואט, פחות מ-El Capitan האמריקני (60.94). והמבחן עצמו, פתרון מערכת משוואות לינאריות צפופה, מודד יכולת אחת מתוך רבות. המקורות אינם מסבירים את הקיפאון מעבר להעלאת הסף.",
+      "certainty": "corroborated",
+      "chart": {
+        "kind": "bar",
+        "series": [
+          {
+            "name": "Rmax",
+            "values": [
+              2.198,
+              1.809,
+              1.353,
+              1.012,
+              1
+            ]
+          }
+        ],
+        "source": {
+          "note": "הערכים כפי שמופיעים בטקסט של עמוד הרשימה",
+          "publisher": "TOP500",
+          "url": "https://www.top500.org/lists/top500/2026/11/"
+        },
+        "title": "ביצועי HPL של חמש המערכות המובילות, נובמבר 2026",
+        "unit": "אקסה-פלופ לשנייה",
+        "x": [
+          "LineShine",
+          "El Capitan",
+          "Frontier",
+          "Aurora",
+          "JUPITER Booster"
+        ]
+      },
+      "connects": [
+        {
+          "concept": "מתמטיקה כחישוב",
+          "moduleId": "M0.1",
+          "rel": "learned",
+          "why": "קולמוגורוב מתאר את המעבר ממתמטיקה של נוסחאות למתמטיקה של שיטות חישוב; רשימת TOP500 היא המדד העולמי לשלב הזה."
+        },
+        {
+          "concept": "אלימינציית גאוס עם ציר",
+          "moduleId": "M8.7",
+          "rel": "later",
+          "why": "מבחן HPL הוא פירוק LU של מטריצה צפופה עם ציר חלקי, ומספר הפעולות שלו גדל כמו $\\tfrac{2}{3}n^3$."
+        },
+        {
+          "concept": "מודל Roofline",
+          "moduleId": "M28.2",
+          "rel": "later",
+          "why": "ההבדל בין Rmax ל-HPCG (2.198 אקסה-פלופ מול 22.00 פטה-פלופ) הוא בדיוק ההבדל בין חישוב שמוגבל במעבד לחישוב שמוגבל בזיכרון."
+        }
+      ],
+      "dek": "המהדורה ה-68 של TOP500 פורסמה בכנס SC26. המחשב משנזן עבר שוב 2 אקסה-פלופ, אבל הכותרת האמיתית היא העצירה: רק 27 מערכות חדשות, השפל בתולדות הרשימה.",
+      "domain": "systems",
+      "full": "walkthrough",
+      "fullPart": 0,
+      "headline": "רשימת מחשבי העל קפאה: LineShine הסיני נשאר ראשון, ואין אף שינוי בעשירייה",
+      "id": "n1",
+      "idea": {
+        "hours": 3,
+        "kind": "project",
+        "pitch": "מחברת Python שפותרת $Ax=b$ צפוף בגדלים עולים עם NumPy, מודדת זמן, ומחשבת פלופ לשנייה לפי $\\tfrac{2}{3}n^3$. ההשוואה ל-2.198 אקסה-פלופ נותנת תחושה של 12 סדרי גודל.",
+        "title": "כמה זמן לוקח HPL על המחשב שלך",
+        "uses": [
+          "M0.3",
+          "M8.7"
+        ]
+      },
+      "kind": "data",
+      "read10": {
+        "minutes": 6
+      },
+      "region": "CN",
+      "role": "lead",
+      "sanity": {
+        "check": "יעילות אנרגטית: ביצועים חלקי הספק",
+        "note": "$2.198\\times10^{18}/(42\\times10^{6}\\ \\mathrm{W})\\approx5.2\\times10^{10}$ פלופ לוואט, כלומר כ-52 GFlops/W, באותו סדר גודל כמו El Capitan (60.94) ומתחת למובילת Green500 (73.28). לליבה: $2.198\\times10^{18}/1.379\\times10^{7}\\approx1.6\\times10^{11}$ פלופ, סביר למעבד וקטורי רחב.",
+        "result": "pass"
+      },
+      "sources": [
+        {
+          "fetchedAt": 1795211217146,
+          "httpStatus": 200,
+          "license": "Copyright 1993-2026 TOP500.org",
+          "openAccess": true,
+          "publishedAt": "2026-11-16",
+          "publisher": "TOP500",
+          "quote": "It achieved 2.198 Exaflop/s on the HPL benchmark, using 13,789,440 cores.",
+          "sha256": "4af0fd039cdf63d83a2699688866cb812d1d13bb518532e6647dbd5cb0a495bc",
+          "tier": "A",
+          "title": "November 2026 | TOP500",
+          "url": "https://www.top500.org/lists/top500/2026/11/"
+        },
+        {
+          "fetchedAt": 1795211215104,
+          "httpStatus": 200,
+          "license": "Copyright© 2026, THG PUBLISHING PVT LTD.",
+          "publishedAt": "2026-11-18",
+          "publisher": "The Hindu",
+          "quote": "The overall 500 admitted only 27 newcomers in this time — the lowest in history",
+          "sha256": "41a1d114f1d645250042a926766f8eb3613f24219851280444cd92b813f70d2e",
+          "tier": "C",
+          "title": "China's LineShine retains top spot on list of world's most powerful supercomputers",
+          "url": "https://www.thehindu.com/sci-tech/science/lineshine-computers-defending-champ/article71712174.ece"
+        },
+        {
+          "fetchedAt": 1795211216702,
+          "httpStatus": 200,
+          "license": "Copyright 1993-2026 TOP500.org",
+          "openAccess": true,
+          "publishedAt": "2026-11-16",
+          "publisher": "TOP500",
+          "quote": "This electrical power efficiency is measured in Gigaflops/Watt.",
+          "sha256": "831c1382434f5b117caf008e07529032cd082d05208c3d45c45ac9d4959404ff",
+          "tier": "A",
+          "title": "November 2026 | TOP500",
+          "url": "https://www.top500.org/lists/green500/2026/11/"
+        }
+      ],
+      "why": "HPL פותר $Ax=b$ בשיטת גאוס עם ציר, בדיוק האלגוריתם שתפגוש ב-M8.7, והמספר שלו הוא מספר פעולות חלקי זמן. כדאי לזכור את ההבחנה של קולמוגורוב בין מתמטיקה שמסבירה לבין מתמטיקה שמחשבת: כאן רואים כמה עולה החישוב בוואטים."
+    },
+    {
+      "body": "חוקרים ב-NIST ושותפיהם הדגימו פרוטוקול שבו שני \"מאמתים\" בודקים שגורם שלישי נמצא באמת במקום מסוים. המאמתים, במרחק 195 מטר זה מזה בקמפוס בבולדר, שולחים לו מספרים אקראיים ופוטון שזור, מודדים כמה זמן לוקחת התשובה, ובודקים במבחן בל בלי פרצות שהמתאמים קוונטיים באמת. מי שנמצא מחוץ למקום יענה באיחור, ומי שמנסה להעתיק את המידע הורס את המתאמים. לפי המאמר ב-Nature, הלוקליזציה החד-ממדית קטנה פי 2.47 מזו של הפרוטוקול הקלאסי הטוב ביותר. היישום המעשי רחוק עשור או יותר.",
+      "certainty": "peer",
+      "connects": [
+        {
+          "concept": "התנהגות קוונטית ומהירות האור",
+          "moduleId": "M0.2",
+          "rel": "learned",
+          "why": "פיינמן מציג בפרק 2 את האור והקוונטים; כאן הם הופכים לכלי אבטחה: אי אפשר לנבא תוצאת מדידה ואי אפשר לשלוח מידע מהר יותר מהאור."
+        },
+        {
+          "concept": "חישה קוונטית",
+          "moduleId": "M24.14",
+          "rel": "later",
+          "why": "הגלאים הסופר-מוליכים לפוטון בודד הם מה שמאפשר לעבור את מבחן בל; בלעדיהם גם משיב ישר נכשל."
+        }
+      ],
+      "dek": "ב-NIST הדגימו לראשונה אימות מיקום קוונטי מלא, שבו מבחן בל בלי פרצות מבטיח שהמשיב באמת נמצא במקום שהוא טוען.",
+      "domain": "mathphys",
+      "full": "translation",
+      "fullPart": 0,
+      "headline": "שזירה ומהירות האור מוכיחות איפה אתה נמצא",
+      "id": "n2",
+      "kind": "paper",
+      "read10": {
+        "minutes": 7
+      },
+      "region": "US",
+      "role": "feature",
+      "sanity": {
+        "check": "זמן מעבר אור בין התחנות",
+        "note": "$195\\ \\mathrm{m}/(3\\times10^{8}\\ \\mathrm{m/s})\\approx0.65\\ \\mu\\mathrm{s}$: חלון הזמן שבו מתקיים כל סבב, ולכן נדרשים גלאים ומחשוב מהירים מאוד.",
+        "result": "pass"
+      },
+      "sources": [
+        {
+          "fetchedAt": 1795211211270,
+          "httpStatus": 200,
+          "license": "US federal government work (public domain)",
+          "openAccess": true,
+          "publishedAt": "2026-11-18",
+          "publisher": "NIST",
+          "quote": "our experiment is the first complete demonstration of such a protocol",
+          "sha256": "40885c09b5722207ec819f45bdb2ed366bbc435a285a40fb6ad0da23e1c0ff4d",
+          "tier": "A",
+          "title": "Quantum Physics Can Verify a Person's Location, NIST Researchers Show",
+          "url": "https://www.nist.gov/news-events/news/2026/11/quantum-physics-can-verify-persons-location-nist-researchers-show"
+        },
+        {
+          "fetchedAt": 1795211207418,
+          "httpStatus": 200,
+          "license": "The Author(s), under exclusive licence to Springer Nature",
+          "publishedAt": "2026-11-18",
+          "publisher": "Nature",
+          "quote": "Our demonstration achieves a one-dimensional localization 2.47(2) times smaller than the best, necessarily non-remote, classical localization protocol.",
+          "sha256": "b75fb50c4244dd382a7cae0eaeee978af000df5a0e5ce732e7329c303658523d",
+          "tier": "B",
+          "title": "Quantum position verification with remote untrusted devices - Nature",
+          "url": "https://www.nature.com/articles/s41586-026-11247-3"
+        }
+      ],
+      "why": "שני חוקים מהשיעור על פיזיקה בסיסית עובדים כאן יחד: מהירות האור כגבול עליון, וההתנהגות הקוונטית שאי אפשר להעתיק. החישוב של המאמתים הוא טריאנגולציה לפי זמן, כמו ב-GPS."
+    },
+    {
+      "body": "רקטת Vulcan של United Launch Alliance ועליה 40 לווייני תקשורת של Amazon Leo נפלו חזרה לכדור הארץ דקות אחרי השיגור מקייפ קנוורל ביום ראשון, 15 בנובמבר. לפי מקורות של Ars Technica, התקלה הייתה בשלב הראשון, לא בשלב העליון Centaur V ולא במאיצים המוצקים. שני מנועי BE-4 בערו לפחות 30 שניות יותר מהמתוכנן, והטלמטריה הראתה את הרקטה מתחילה להסתובב. זה הכישלון המלא הראשון של החברה מאז הקמתה ב-2006, והוא צפוי לקרקע את הרקטה לזמן לא ידוע ולהשפיע על Amazon, על חיל החלל האמריקני ועל תוכנית Artemis.",
+      "certainty": "single",
+      "connects": [
+        {
+          "concept": "תנע ודחף",
+          "moduleId": "M2.3",
+          "rel": "later",
+          "why": "מנועי BE-4 תוכננו ליותר מחצי מיליון ליברות דחף כל אחד; מעקב אחרי בערה ארוכה הוא חשבון של תנע שהצטבר מול תנע שתוכנן."
+        },
+        {
+          "concept": "הנעה רקטית",
+          "moduleId": "M15.16",
+          "rel": "later",
+          "why": "מנוע מתאן-חמצן, מערכת הזנת דלק ושסתום תקול: אלה הרכיבים שהחקירה תבדוק."
+        },
+        {
+          "concept": "הערכת סיכונים הסתברותית",
+          "moduleId": "M27.8",
+          "rel": "later",
+          "why": "כשמנוע אחד משותף לשתי רקטות (Vulcan ו-New Glenn), תקלה אחת הופכת לתקלה בעלת סיבה משותפת בשתי מערכות."
+        }
+      ],
+      "dek": "הכישלון המלא הראשון של ULA מאז 2006: מנועי השלב הראשון בערו 30 שניות יותר מהמתוכנן, הרקטה החלה להסתובב, ו-40 לווייני Amazon Leo חזרו לכדור הארץ.",
+      "domain": "space",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "Vulcan נפל עם 40 לוויינים, וכל שוק השיגורים האמריקני מרגיש את זה",
+      "id": "n3",
+      "kind": "event",
+      "read10": {
+        "minutes": 6
+      },
+      "region": "US",
+      "role": "feature",
+      "sources": [
+        {
+          "fetchedAt": 1795211182846,
+          "httpStatus": 200,
+          "license": "© 2026 Condé Nast. All rights reserved.",
+          "publishedAt": "2026-11-15",
+          "publisher": "Ars Technica",
+          "quote": "This was the first total mission failure for United Launch Alliance since its formation in 2006 with the merger of the rocket divisions of Boeing and Lockheed Martin.",
+          "sha256": "87c7cb18e491be5749a47f9a817f979e23f1e50dc112324611bd5dca2ec42193",
+          "tier": "C",
+          "title": "Vulcan rocket fails during launch, dealing major blow to SpaceX competitors",
+          "url": "https://arstechnica.com/space/2026/11/vulcan-rocket-fails-during-launch-dealing-major-blow-to-spacex-competitors/"
+        }
+      ],
+      "why": "בערה ארוכה מהמתוכנן היא סימן קלאסי של בקר שמנסה לפצות על דחף חסר: הלולאה סוגרת על מהירות, לא על מצב המנוע. זה המקום לראות איך משוב מסתיר תקלה עד שנגמר לו המרחב."
+    },
+    {
+      "body": "מתי נתבים, שמחליטים רק לפי מידע מקומי, יכולים להעביר כל חבילה ליעדה בכל דפוס של כשלי קישורים שלא מנתק את הרשת? סטפן שמיד ומתיאס בנטרט מהאוניברסיטה הטכנית של ברלין הוכיחו שיש בדיוק ארבעה \"מינורים אסורים\", מבנים מינימליים שמונעים \"עמידות מושלמת\". ברשת שאין בה אף אחד מהם תמיד אפשר לכתוב כללי ניתוב שעובדים, והם מבוססים על הטריק של יציאה ממבוך: לפנות תמיד ימינה. החדשה הפחות טובה: המבנים פשוטים כל כך שרשתות צפופות כנראה מכילות אותם, כך שקישורים נוספים עלולים דווקא לפגוע בעמידות.",
+      "certainty": "single",
+      "connects": [
+        {
+          "concept": "הפשטה והוכחה",
+          "moduleId": "M0.1",
+          "rel": "learned",
+          "why": "ההוכחה עוברת מרשתות אמיתיות לגרפים ולמינורים, בדיוק המעבר מהמוחשי למופשט שקולמוגורוב מציג כתכונה המרכזית של המתמטיקה."
+        },
+        {
+          "concept": "גרפים ומינורים",
+          "moduleId": "M20.7",
+          "rel": "later",
+          "why": "מחיקת צומת, מחיקת קשת ומיזוג צמתים הן הפעולות שמגדירות מינור; הפרק על גרפים מישוריים מציג את אותו רעיון דרך משפט קורטובסקי."
+        },
+        {
+          "concept": "ניתוב ברשת",
+          "moduleId": "M23.13",
+          "rel": "later",
+          "why": "כללי הניתוב במודל מסתמכים רק על היעד, הקישור שממנו הגיעה החבילה והקישורים שנפלו, כמו בטבלאות ניתוב מהירות בנתב."
+        }
+      ],
+      "dek": "שני חוקרים מהאוניברסיטה הטכנית של ברלין סגרו בעיה פתוחה משנת 2012: רשת עמידה לחלוטין אם ורק אם אין בה אחד מארבעה מבנים מינימליים.",
+      "domain": "comms",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "ארבעה גרפים אסורים: הוכחה מלאה מתי רשת יכולה לשרוד כל תקלה",
+      "id": "n4",
+      "kind": "paper",
+      "read10": {
+        "minutes": 8
+      },
+      "region": "EU",
+      "role": "feature",
+      "sources": [
+        {
+          "fetchedAt": 1795211212584,
+          "httpStatus": 200,
+          "license": "© 2026 Quanta Magazine",
+          "publishedAt": "2026-11-20",
+          "publisher": "Quanta Magazine",
+          "quote": "They showed that there are exactly four minimal network structures that can thwart perfect resilience.",
+          "sha256": "752198a4aa9995ad953917e1833c805e580f645f32d8e12b430d0f07acb8fe2f",
+          "tier": "C",
+          "title": "Network Researchers Nail Down Theory of 'Perfect Resilience' | Quanta Magazine",
+          "url": "https://www.quantamagazine.org/network-researchers-nail-down-theory-of-perfect-resilience-20261120/"
+        }
+      ],
+      "why": "זה טיעון מבני מהסוג שקולמוגורוב מתאר: במקום לבדוק כל רשת, מוכיחים משהו על כל הרשתות דרך קבוצה סופית של אובייקטים פשוטים. משפט רוברטסון-סימור מבטיח שהקבוצה סופית, וההוכחה מוצאת אותה."
+    },
+    {
+      "body": "מאמר המערכת של Nature Electronics השבוע מספר על הפתעה בטכנולוגיה הוותיקה ביותר באלקטרוניקה. צוות מ-Quantum Motion בלונדון ומאוניברסיטאות UCL, אימפריאל וקיימברידג' הראה שסרטי טיטניום ניטריד (TiN), שקיימים ממילא בנגדים של תהליך FD-SOI של 22 ננומטר של GlobalFoundries, נעשים מוליכי-על בטמפרטורות נמוכות מאוד ומתפקדים כסלילי-על, כלומר כסלילים שהעכבה האופיינית שלהם גבוהה מקוונטום ההתנגדות (6.45 קילו-אוהם). בעזרתם בנו חיישן מסוג טרנזיסטור אלקטרון-יחיד בתדר רדיו, בשטח של 18 מיקרומטר רבוע, עם יחס אות לרעש בהספק של 4,500 בזמן אינטגרציה של 4 ננו-שניות.",
+      "certainty": "peer",
+      "connects": [
+        {
+          "concept": "תכונות החומר נובעות מהאטומים",
+          "moduleId": "M0.2",
+          "rel": "learned",
+          "why": "פיינמן מסביר איך תכונות חומר נובעות מתנועת אטומים; כאן אותו חומר מאבד התנגדות כשהתנועה התרמית קטנה."
+        },
+        {
+          "concept": "תהליך CMOS",
+          "moduleId": "M25.2",
+          "rel": "later",
+          "why": "סרט ה-TiN הוא חלק משכבת המתכות והנגדים של התהליך; הפרק על ייצור CMOS מסביר מאיפה הוא מגיע."
+        },
+        {
+          "concept": "השראות",
+          "moduleId": "M11.18",
+          "rel": "later",
+          "why": "סליל-על הוא השראות עם עכבה אופיינית גבוהה מאוד, והוא יוצר מהוד LC יחד עם הקבל של הקוונטום-דוט."
+        }
+      ],
+      "dek": "חוקרים מ-Quantum Motion ומאוניברסיטאות בבריטניה מצאו שסרטי טיטניום ניטריד, שכבר קיימים בתהליך ייצור מסחרי, מתנהגים כסלילי-על בטמפרטורות קריוגניות.",
+      "domain": "electronics",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "מוליך-על שהסתתר בשבב רגיל: סליל-על בתהליך CMOS של 22 ננומטר",
+      "id": "n5",
+      "kind": "paper",
+      "region": "UK",
+      "role": "feature",
+      "sanity": {
+        "check": "קוונטום ההתנגדות",
+        "note": "$h/(2e)^2=6.626\\times10^{-34}/(4\\times(1.602\\times10^{-19})^2)\\approx6.45\\ \\mathrm{k\\Omega}$, הערך שהמקור נותן כסף לסליל-על.",
+        "result": "pass"
+      },
+      "sources": [
+        {
+          "fetchedAt": 1795211209479,
+          "httpStatus": 200,
+          "license": "© 2026 Springer Nature Limited",
+          "publishedAt": "2026-11-20",
+          "publisher": "Nature Electronics",
+          "quote": "The resulting system has a footprint of only 18 μm 2 and offers a power signal-to-noise ratio of 4,500 in an integration time of 4 ns.",
+          "sha256": "54ff8ee25fc34b171aea158b4fbbf37c6ffba93472f2bee07a27300cdebf554a",
+          "tier": "B",
+          "title": "CMOS surprises - Nature Electronics",
+          "url": "https://www.nature.com/articles/s41928-026-01748-4"
+        }
+      ],
+      "why": "זה שיעור על מה שאומר פיינמן על \"כל הדברים עשויים מאטומים\": חומר מוכר מתנהג אחרת כשמורידים טמפרטורה. ובהנדסה: רכיב שאיש לא תכנן לתפקיד הזה עבר אותו בלי שינוי בתהליך."
+    },
+    {
+      "body": "צוות בין-לאומי מצא את הפולסר PSR J1622−7204, שמסתובב 261 פעמים בשנייה, ב-15 שנות נתונים של טלסקופ הגמא Fermi של נאס\"א, בשיטה שפיתחו דותן גזית וברק זקאי ממכון ויצמן. השיטה הופכת את החיפוש, ניחוש בו-זמני של קצב הסיבוב, קצב ההאטה והמיקום בשמיים, לבעיית מציאת הווקטור הקצר ביותר בסריג רב-ממדי. החיפוש לקח את המקבילה של 10 שעות על מעבד רגיל; השיטה הקודמת הטובה ביותר לא מצאה אותו גם במקבילה של 600 שנות מעבד. המאמר פורסם ב-Physical Review Letters.",
+      "certainty": "official",
+      "connects": [
+        {
+          "concept": "אסטרונומיה וכוכבי נייטרונים",
+          "moduleId": "M0.2",
+          "rel": "current",
+          "why": "הפרק על אסטרונומיה בפיינמן מתאר כוכבים כמעבדות של פיזיקה; פולסר הוא כוכב נייטרונים שמסתובב כמו מגדלור."
+        },
+        {
+          "concept": "גילוי אותות",
+          "moduleId": "M7.4",
+          "rel": "later",
+          "why": "ההחלטה אם יש אות בזרם פוטונים דליל היא בדיקת השערות, הנושא של הפרק על גילוי אותות."
+        }
+      ],
+      "dek": "החיפוש הפך לבעיה גאומטרית של הווקטור הקצר ביותר בסריג, בעזרת אלגוריתמים מקריפטוגרפיה. הפולסר החדש נמצא ב-10 שעות מעבד במקום 600 שנה.",
+      "domain": "signals",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "שיטה מוויצמן מוצאת פולסרים בנתוני Fermi פי מיליון מהר יותר",
+      "id": "b1",
+      "kind": "paper",
+      "region": "IL",
+      "role": "brief",
+      "sanity": {
+        "check": "יחס זמני החישוב",
+        "note": "$600\\ \\text{שנה}\\times8766\\ \\text{שעות}/10\\ \\text{שעות}\\approx5\\times10^{5}$, כלומר בסדר גודל של \\\"פי מיליון\\\" שבמקור (והשיטה הישנה גם לא מצאה את הפולסר).",
+        "result": "pass"
+      },
+      "sources": [
+        {
+          "fetchedAt": 1795211193274,
+          "httpStatus": 200,
+          "license": "US federal government work (public domain)",
+          "openAccess": true,
+          "publishedAt": "2026-11-19",
+          "publisher": "NASA",
+          "quote": "Gazith and Zackay realized that the search could be transformed into a geometry problem: finding the shortest vector in a high-dimensional lattice, or a regularly spaced array of points.",
+          "sha256": "8e094f9b86e3cd164075883ce06c24ff95537ede174bea22198d733b8e936f6c",
+          "tier": "A",
+          "title": "NASA Science Data Powers New Method to Discover Hard-to-Find Pulsars - NASA Science",
+          "url": "https://science.nasa.gov/open-science/fermi-data-pulsar-discovery/"
+        }
+      ],
+      "why": "זו בעיית גילוי אות קלאסית: מעט פוטונים, הרבה רעש, ומרחב פרמטרים ענק. הרעיון הוא לא חישוב מהיר יותר אלא ניסוח אחר של אותה בעיה."
+    },
+    {
+      "body": "נשיאות ועידת האקלים COP31 בטורקיה ואיגוד התקשורת הבין-לאומי (ITU) השיקו ב-16 בנובמבר את \"התחייבות אנטליה ל-AI\". החותמים מתחייבים לצעדים מדידים בארבעה תחומים: תשתית וחומרה של AI שמונעות באנרגיה דלת-פליטות ויעילות במים ובחשמל; תכנון ורכש לפי תקני קיימות לאורך כל מחזור החיים, כולל פסולת אלקטרונית; מדידה ודיווח של ההשפעה הסביבתית בשיטות סטנדרטיות; ומימון ותשתית ל-AI לאקלים במדינות מתפתחות. ההתקדמות תיבדק כל שנה בוועידות האקלים עד 2030.",
+      "certainty": "official",
+      "connects": [
+        {
+          "concept": "מדידה",
+          "moduleId": "M0.1",
+          "rel": "learned",
+          "why": "קולמוגורוב מראה שמספר נולד ממדידה; התחייבות סביבתית מתחילה להיות בעלת משמעות רק כשיש יחידת מדידה מוסכמת."
+        },
+        {
+          "concept": "מאזן אנרגיה",
+          "moduleId": "M13.15",
+          "rel": "later",
+          "why": "מדידת טביעת הרגל של AI היא מאזן אנרגיה: צריכה, מקור ופליטות לכל יחידת עבודה."
+        }
+      ],
+      "dek": "נשיאות COP31 ואיגוד התקשורת הבין-לאומי השיקו את \"התחייבות אנטליה\": ארבעה עמודים, מדידה בתקן של טביעת הרגל הסביבתית של AI, ומעקב שנתי עד 2030.",
+      "domain": "power",
+      "full": "translation",
+      "fullPart": 0,
+      "headline": "בוועידת האקלים באנטליה: התחייבות בין-לאומית ל-AI שמונע בחשמל דל-פליטות",
+      "id": "b2",
+      "kind": "standard",
+      "region": "TR",
+      "role": "brief",
+      "sources": [
+        {
+          "fetchedAt": 1795211196607,
+          "httpStatus": 200,
+          "license": "ITU official press release",
+          "openAccess": true,
+          "publishedAt": "2026-11-16",
+          "publisher": "ITU",
+          "quote": "Signatories commit to measurable actions aligned with internationally recognized standards for AI systems, based on low- and zero- emission power as well as sustainable infrastructure.",
+          "sha256": "76fb23f5d37645796906257996ecee0af10af9137c591ac215c36df0a3db2476",
+          "tier": "A",
+          "title": "COP31's Antalya AI Pledge to tackle artificial intelligence's climate footprint",
+          "url": "https://www.itu.int/en/mediacentre/Pages/PR-2026-11-16-COP31-Antalya-AI-Pledge.aspx"
+        }
+      ],
+      "why": "התחייבות כזאת שווה רק כמו המדידה שמאחוריה. כאן היא נשענת על תקן ITU למדידת טביעת הרגל של AI, ולכן השאלה ההנדסית היא מה בדיוק התקן סופר."
+    },
+    {
+      "body": "המדינות החברות באיגוד התקשורת הבין-לאומי (ITU) בחרו ב-16 בנובמבר, בוועידת הנציגים המוסמכים PP-26 בדוחא, את חברי המועצה ואת ועדת תקנות הרדיו (RRB) לשנים 2027 עד 2030. המועצה, 48 מדינות בחמישה אזורים, היא הגוף המנהל של הארגון בין הוועידות. ה-RRB, 12 חברים, מאשרת את כללי הנוהל ליישום תקנות הרדיו, האמנה הבין-לאומית שמסדירה את ספקטרום התדרים ואת מסלולי הלוויינים, ודנה בערעורים. בין הנבחרים ל-RRB: נציגים מברזיל, ארצות הברית, סין וקוריאה.",
+      "certainty": "official",
+      "connects": [
+        {
+          "concept": "הערוץ האלחוטי",
+          "moduleId": "M23.5",
+          "rel": "later",
+          "why": "הערוץ האלחוטי שתלמד הוא משאב משותף; תקנות הרדיו קובעות מי משתמש באיזה חלק שלו."
+        }
+      ],
+      "dek": "בוועידת הנציגים המוסמכים בדוחא נבחרו 48 מדינות למועצה ו-12 חברים לוועדה שמפרשת את אמנת הספקטרום העולמית.",
+      "domain": "comms",
+      "full": "translation",
+      "fullPart": 0,
+      "headline": "ITU בחר את המועצה ואת ועדת תקנות הרדיו ל-2027 עד 2030",
+      "id": "b3",
+      "kind": "standard",
+      "region": "INTL",
+      "role": "brief",
+      "sources": [
+        {
+          "fetchedAt": 1795211197914,
+          "httpStatus": 200,
+          "license": "ITU official press release",
+          "openAccess": true,
+          "publishedAt": "2026-11-16",
+          "publisher": "ITU",
+          "quote": "The 12-member Radio Regulations Board, an independent authority within the ITU Radiocommunication Sector, approves the Rules of Procedure for applying the Radio Regulations",
+          "sha256": "54a5aa7fe772925dfb83b6bcc88ade3dbc4377af0f24c4e4f28db6e3b1f5d07d",
+          "tier": "A",
+          "title": "ITU elects members of ITU Council and Radio Regulations Board",
+          "url": "https://www.itu.int/en/mediacentre/Pages/PR-2026-11-16-RRB-Council-Election.aspx"
+        }
+      ],
+      "why": "תקנות הרדיו הן הסיבה שאפשר לבנות מקלט בארץ אחת ולהשתמש בו באחרת. מי שיושב בוועדה קובע איך מפרשים את חלוקת הספקטרום, כלומר את התנאים שבהם כל מערכת רדיו מתוכננת."
+    },
+    {
+      "body": "ברן קאינק מאוניברסיטת סקריה מציג את LAaDT-DSS, תוכנה שעונה על שלוש שאלות של מערכת סולארית על הגג: האם למשק הבית משתלם להשקיע, איזה תמריץ עולה למדינה הכי פחות, והאם קו החלוקה נשאר בגבולותיו. המשתמש לוחץ על בית במפה תלת-ממדית או שואל בשפה חופשית, ומודל שפה רק קורא לכלי הסימולציה, לא מחשב בעצמו. התפוקה הסולארית סוטה עד ±3.6% משני כלים בלתי תלויים. ב-2,048 הגרלות של הקלטים המוערכים, התשובה לסולארי בלבד נשארה זהה בכולן חוץ מאחת; עם סוללה, היא השתנתה ב-31% עד 41% מההגרלות.",
+      "certainty": "preprint",
+      "connects": [
+        {
+          "concept": "תכנות מדעי ובדיקות",
+          "moduleId": "M0.3",
+          "rel": "next",
+          "why": "המערכת בונה על רישום פרמטרים, השוואה לכלים בלתי תלויים ובדיקת חוזה, בדיוק ההרגלים של תכנות מדעי שבמודול הבא."
+        },
+        {
+          "concept": "שיטות סימולציה",
+          "moduleId": "M6.11",
+          "rel": "later",
+          "why": "2,048 הגרלות של קלטים בתוך טווחים מוצהרים הן סימולציית מונטה קרלו לניתוח רגישות."
+        }
+      ],
+      "dek": "מערכת תומכת החלטה עונה במקביל למשק הבית, למדינה ולחברת החלוקה, ובודקת כמה מהתשובות שורדות כשמזיזים את ההנחות. 99 מ-125 הפרמטרים שלה הם הערכות.",
+      "domain": "power",
+      "full": "walkthrough",
+      "fullPart": 0,
+      "headline": "תוכנה שעונה על שאלות סולאריות על הגג לפי כללי התעריף בטורקיה",
+      "id": "b4",
+      "kind": "paper",
+      "region": "TR",
+      "role": "brief",
+      "sources": [
+        {
+          "fetchedAt": 1795211184555,
+          "httpStatus": 200,
+          "license": "arXiv non-exclusive license",
+          "openAccess": true,
+          "publishedAt": "2026-11-18",
+          "publisher": "arXiv",
+          "quote": "Across 2,048 draws of its estimated inputs, the answer for PV alone held in all but one; with a battery, it changed in 31-41% of the draws.",
+          "sha256": "322c7e7762fe4ef0c5a66ab079d69f85b5718e38e3ae2c03e53c6da658bbfd97",
+          "tier": "B",
+          "title": "LAaDT-DSS: decision support for non-experts on rooftop PV, incentive and grid simulations under Turkish tariff rules",
+          "url": "https://arxiv.org/abs/2611.24810v1"
+        },
+        {
+          "fetchedAt": 1795211187171,
+          "httpStatus": 200,
+          "license": "arXiv non-exclusive license",
+          "openAccess": true,
+          "publishedAt": "2026-11-18",
+          "publisher": "arXiv",
+          "quote": "Every entry of the registry is marked as sourced or estimated, and 99 of its 125 entries are estimates.",
+          "sha256": "ada8aae43affe15f343ee8d5419aaf85c8f1bfc4a7abb4b033298dd8dc25f783",
+          "tier": "B",
+          "title": "LAaDT-DSS: decision support for non-experts on rooftop PV, incentive and grid simulations under Turkish tariff rules",
+          "url": "https://arxiv.org/html/2611.24810v1"
+        }
+      ],
+      "why": "זו דוגמה לניתוח רגישות שמחזיר תשובה הנדסית שימושית: \"בטוח\" בלי סוללה, \"תלוי בהנחות\" עם סוללה. כך נראה דיווח הוגן על אי-ודאות."
+    },
+    {
+      "body": "שי צ'ן מאוניברסיטת בייהאנג וקטפאלי סרינבאסן מ-NYU פיתחו בשנים האחרונות תאוריה שלפיה העלייה בעוצמת התנודות של זרימה טורבולנטית ליד דופן עם מספר ריינולדס היא אפקט של ריינולדס סופי, שנעלם בגבול. במאמר החדש הם גוזרים את החוקים שלהם ממשוואת קרמן-האוורת', שנובעת ישירות ממשוואות נאוויה-סטוקס, בתוספת שתי הנחות מקובלות: פרופיל מהירות לוגריתמי וכמעט-איזוטרופיה של נגזרות המהירות. התוצאה: צורות כמו $c_1-c_2(y/\\delta)^{1/4}$ לפרופיל, ו-$c_1'-c_2'Re_\\tau^{-1/4}$ לשיא הפנימי.",
+      "certainty": "preprint",
+      "connects": [
+        {
+          "concept": "שלושה קירות: אי-יציבות ותיאור חסר",
+          "moduleId": "M0.2",
+          "rel": "current",
+          "why": "בשיעור 3 של המודול הנוכחי ראית את הצינור ואת מספר ריינולדס כקיר; המאמר הוא ניסיון לגזור חוק על טורבולנציה ממשוואות היסוד בלי לפתור אותן."
+        },
+        {
+          "concept": "טורבולנציה ובעיית הסגירה",
+          "moduleId": "M14.13",
+          "rel": "later",
+          "why": "משוואת קרמן-האוורת' היא אחד הכלים הקלאסיים לטיפול בבעיית הסגירה של ממוצע ריינולדס."
+        }
+      ],
+      "dek": "חוקרים מבייהאנג ומ-NYU מראים שמשוואת קרמן-האוורת', שנובעת ישירות מנאוויה-סטוקס, נותנת את החוקים שהציעו בארבעה מאמרים קודמים: התנודות חסומות, ומתקרבות לגבול סופי.",
+      "domain": "fluids",
+      "full": "walkthrough",
+      "fullPart": 0,
+      "headline": "חוק החזקה רבע של טורבולנציה ליד דופן מקבל גזירה ממשוואות התנועה",
+      "id": "b5",
+      "kind": "paper",
+      "region": "CN",
+      "role": "brief",
+      "sources": [
+        {
+          "fetchedAt": 1795211183817,
+          "httpStatus": 200,
+          "license": "arXiv non-exclusive license",
+          "openAccess": true,
+          "publishedAt": "2026-11-16",
+          "publisher": "arXiv",
+          "quote": "The analysis requires two additional inputs, both standard in the study of turbulent wall flows: the logarithmic mean velocity profile and the near-isotropy of the spatial velocity derivatives.",
+          "sha256": "5f3702df13bc8007e85c0a26aad300823c90580d8c1fea6fe37310c74af4daa6",
+          "tier": "B",
+          "title": "The 1/4-power law for bounded variation of wall turbulence from the Kármán-Howarth equation",
+          "url": "https://arxiv.org/abs/2611.20578v1"
+        },
+        {
+          "fetchedAt": 1795211185602,
+          "httpStatus": 200,
+          "license": "arXiv non-exclusive license",
+          "openAccess": true,
+          "publishedAt": "2026-11-16",
+          "publisher": "arXiv",
+          "quote": "Establishing this connection is the principal motivation for the present work.",
+          "sha256": "ca6fdba71bb2f0344367022a263778b70bc79d4d978a562b5aafe9094dfd90f8",
+          "tier": "B",
+          "title": "The 1/4-power law for bounded variation of wall turbulence from the Kármán-Howarth equation",
+          "url": "https://arxiv.org/html/2611.20578v1"
+        }
+      ],
+      "why": "זה מקרה שבו חוק אמפירי שנבדק מול נתונים מקבל סוף-סוף גזירה ממשוואות היסוד. בשיעור על \"שלושה קירות\" ראית למה טורבולנציה היא אחד הקירות; כאן יש סדק קטן בקיר."
+    },
+    {
+      "body": "חוקרים מאימפריאל קולג' לונדון שילבו סימולציית מערבולות גדולות (LES) עם משוואת איזון אוכלוסייה כדי לחקור את השלב הראשון של היווצרות שובל עיבוי, בדלק רגיל עשיר בפיח ובדלק תעופה בר-קיימא (SAF), שבו יש פחות ארומטים ולכן פחות פיח ויותר חלקיקים נדיפים. הסימולציה שחזרה את קירור ליבת הסילון בשגיאה של כ-2.5 קלווין. לדלק רגיל מודל חד-ממדי פשוט מספיק; ל-SAF הוא מעריך בחסר משמעותי את ריכוז גבישי הקרח, כי ההפעלה של החלקיקים הנדיפים מונעת בתנודות של רוויית-יתר שהטורבולנציה יוצרת.",
+      "certainty": "preprint",
+      "connects": [
+        {
+          "concept": "מעברי פאזה ואטומים בתנועה",
+          "moduleId": "M0.2",
+          "rel": "current",
+          "why": "היווצרות גביש קרח על חלקיק היא מעבר פאזה, נושא שפיינמן מסביר דרך תנועת המולקולות."
+        },
+        {
+          "concept": "טורבולנציה",
+          "moduleId": "M14.13",
+          "rel": "later",
+          "why": "ההבדל בין ממוצע לתנודה הוא בדיוק מה שממוצע ריינולדס מפריד, ומה שמודל חד-ממדי מאבד."
+        }
+      ],
+      "dek": "סימולציות באימפריאל קולג' מראות שבדלק דל-פיח, ההפעלה של חלקיקים נדיפים תלויה בתנודות הטמפרטורה והלחות בסילון, ומודלים פשוטים מחמיצים אותה.",
+      "domain": "fluids",
+      "full": "walkthrough",
+      "fullPart": 0,
+      "headline": "שובלי עיבוי מדלק תעופה בר-קיימא: הטורבולנציה בסילון היא חלק מהסיפור",
+      "id": "b6",
+      "kind": "paper",
+      "region": "UK",
+      "role": "brief",
+      "sources": [
+        {
+          "fetchedAt": 1795211183451,
+          "httpStatus": 200,
+          "license": "arXiv non-exclusive license",
+          "openAccess": true,
+          "publishedAt": "2026-11-15",
+          "publisher": "arXiv",
+          "quote": "Overall, the results demonstrate that for SAFs, turbulence is an important driver of particle activation and subsequent ice crystal growth and cannot be neglected.",
+          "sha256": "62acfa5012c27a633106f4c77c80df09edfd2b024a464df10b69673b56e17e56",
+          "tier": "B",
+          "title": "The role of turbulent jet dynamics on contrail formation from conventional and sustainable aviation fuels",
+          "url": "https://arxiv.org/abs/2611.20057v1"
+        },
+        {
+          "fetchedAt": 1795211184942,
+          "httpStatus": 200,
+          "license": "arXiv non-exclusive license",
+          "openAccess": true,
+          "publishedAt": "2026-11-15",
+          "publisher": "arXiv",
+          "quote": "For the SAF case however, the 1D-PBE model significantly underestimated ice crystal concentrations at the end of the jet-regime, due to the lack of vPM activation.",
+          "sha256": "3a67ccfc5b088d95862093f03c57efda75b752d00e29090c938b6dbbbe258c97",
+          "tier": "B",
+          "title": "The role of turbulent jet dynamics on contrail formation from conventional and sustainable aviation fuels",
+          "url": "https://arxiv.org/html/2611.20057v1"
+        }
+      ],
+      "why": "זו דוגמה למקרה שבו ממוצע אינו מספיק: התהליך תלוי בתנודות סביב הממוצע, ולכן מודל שעובד עם ערכים ממוצעים מחמיץ אותו."
+    },
+    {
+      "body": "סימונה קזולו מחברת Cognite בנורווגיה מראה שעקומות \"התנגדות הלכלוך\" במחלפי חום, הלינארית (אברט-פנצ'ל) והאסימפטוטית (קרן-סיטון), הן זהויות של המומנט הראשון: כל תהליך שקיעה שגדל בתוספות אי-שליליות ונייחות סטטיסטית נותן בממוצע בדיוק את אותן עקומות, בלי קשר למנגנון. לכן התאמה טובה של עקומה אינה ראיה למנגנון. מנגנוני הסרה נבדלים בשונות, למשל פיזור קבוע ברמה, ומנגנוני שקיעה רק במומנטים גבוהים, שאורך הרישום הנדרש להבחין בהם גדל כחזקה רביעית של שגיאת המדידה.",
+      "certainty": "preprint",
+      "connects": [
+        {
+          "concept": "ממוצע ומבנה",
+          "moduleId": "M0.1",
+          "rel": "learned",
+          "why": "קולמוגורוב מבחין בין מה שהנוסחה אומרת לבין מה שהיא מסתירה; כאן הממוצע זהה לכל המנגנונים, וההבדל רק במומנטים הגבוהים."
+        },
+        {
+          "concept": "תכנון מחליפי חום",
+          "moduleId": "M14.3",
+          "rel": "later",
+          "why": "התנגדות הלכלוך היא איבר בהתנגדות התרמית הכוללת של המחליף, ולכן קובעת מתי צריך לנקות."
+        }
+      ],
+      "dek": "מאמר מראה שכל מנגנון שקיעה אקראי עם תוספות חיוביות ונייחות נותן את אותה עקומה ממוצעת. המידע על המנגנון נמצא בפיזור, לא בהתאמה.",
+      "domain": "fluids",
+      "full": "walkthrough",
+      "fullPart": 0,
+      "headline": "חוקי הלכלוך במחליפי חום אינם מעידים על המנגנון",
+      "id": "b7",
+      "kind": "paper",
+      "region": "EU",
+      "role": "brief",
+      "sources": [
+        {
+          "fetchedAt": 1795211184184,
+          "httpStatus": 200,
+          "license": "CC BY 4.0",
+          "openAccess": true,
+          "publishedAt": "2026-11-17",
+          "publisher": "arXiv",
+          "quote": "Shear-driven erosion, per-element detachment, intermittent sloughing and saturation of the surface all give the same mean curve, so a fit identifies a net deposition rate and a relaxation time, and nothing else.",
+          "sha256": "0817d3b3f5860e0993ac6308b13dcbfdbbfc784a7592e3ff9d72bbe0d4932fec",
+          "tier": "B",
+          "title": "Classical heat exchanger fouling-resistance laws as first-moment identities of additive stochastic deposition",
+          "url": "https://arxiv.org/abs/2611.22808v1"
+        },
+        {
+          "fetchedAt": 1795211186156,
+          "httpStatus": 200,
+          "license": "CC BY 4.0",
+          "openAccess": true,
+          "publishedAt": "2026-11-17",
+          "publisher": "arXiv",
+          "quote": "Curve fitting and mechanism identification are thus different tasks",
+          "sha256": "7f2927aecee721d4481e05a73d1e1f4c227334df602129259ec1dc0f52e0e2af",
+          "tier": "B",
+          "title": "Classical heat exchanger fouling-resistance laws as first-moment identities of additive stochastic deposition",
+          "url": "https://arxiv.org/html/2611.22808v1"
+        }
+      ],
+      "why": "זה שיעור בזיהוי מערכות: התאמה טובה של מודל לנתונים אינה מוכיחה שהמודל נכון, אם מודלים אחרים נותנים אותה התאמה. המידע נמצא במה שהממוצע מוחק."
+    },
+    {
+      "body": "לפי Quanta, מ\"ס אשר, שאמר על עצמו שמעולם לא קיבל ציון עובר במתמטיקה, הגיע אליה דרך האריחים. אחרי ביקור באלהמברה בגרנדה החל לחקור באופן שיטתי איך למלא דף בצורות חוזרות בלי רווחים. אחיו למחצה, גאולוג, שלח לו מאמר של ג'ורג' פוליה שמסווג את כל הריצופים של המישור ל-17 קבוצות סימטריה, ואשר פיתח ממנו \"תאוריה של הדיוט\" משלו. הקריסטלוגרפית קרולינה מקגיליבריי ראתה שהוא ידע על סימטריית צבע יותר מכל הקריסטלוגרפים. התערוכה במוזיאון MoMath נמשכת עד 8 בפברואר 2027.",
+      "certainty": "single",
+      "connects": [
+        {
+          "concept": "גאומטריה וסימטריה",
+          "moduleId": "M0.1",
+          "rel": "learned",
+          "why": "קולמוגורוב מציג את הגאומטריה כחקר צורות ויחסים מרחביים; 17 קבוצות הריצוף הן מקרה שבו שאלה אמנותית מקבלת תשובה מתמטית סגורה."
+        },
+        {
+          "concept": "טרנספורמציות ואינווריאנטים",
+          "moduleId": "M1.4",
+          "rel": "next",
+          "why": "קבוצת סימטריה היא אוסף הטרנספורמציות שמשאירות את הדוגמה במקומה, בדיוק הנושא של המודול על טרנספורמציות."
+        }
+      ],
+      "dek": "תערוכה במוזיאון הלאומי למתמטיקה בניו יורק עוקבת אחרי הדרך של מ\"ס אשר מאריחי האלהמברה, דרך 17 קבוצות הסימטריה, להתכתבות עם קוקסטר.",
+      "domain": "mathphys",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "אשר, שנכשל במתמטיקה, ומה לימד את הקריסטלוגרפים",
+      "id": "b8",
+      "kind": "event",
+      "region": "US",
+      "role": "brief",
+      "sources": [
+        {
+          "fetchedAt": 1795211211677,
+          "httpStatus": 200,
+          "license": "© 2026 Quanta Magazine",
+          "publishedAt": "2026-11-18",
+          "publisher": "Quanta Magazine",
+          "quote": "The paper categorized all the ways to cover a flat space with tiles, broken down into 17 groups, each with different symmetries.",
+          "sha256": "d220e988b291d82563175bf8af23f46e4f3b22463f43e50a48b8eed06ec69901",
+          "tier": "C",
+          "title": "How M.C. Escher's Art Creates Bizarre Mathematical Worlds | Quanta Magazine",
+          "url": "https://www.quantamagazine.org/how-m-c-eschers-art-creates-bizarre-mathematical-worlds-20261118/"
+        }
+      ],
+      "why": "17 קבוצות הסימטריה של המישור הן דוגמה מושלמת לטענה של קולמוגורוב: עצם מופשט אחד, קבוצה, מתאר גם אריחים ערביים וגם סריגי גביש."
+    },
+    {
+      "body": "צוות בהובלת שרה בטי ממכון הטלסקופ החללי בבולטימור השתמש בספקטרוגרף NIRSpec של ג'יימס ווב כדי לחפש קרח בדיסקה של בטא פיקטוריס, כוכב בן כ-20 מיליון שנה במרחק 64 שנות-אור. נמצאו קרח מים וקרח פחמן דו-חמצני, מעורבבים היטב, ביחס של קצת יותר ממולקולת CO₂ אחת לכל עשר מולקולות מים, כ-11%, בתוך הטווח של שביטי מערכת השמש. פחות מ-7% מקרח המים גבישי; השאר אמורפי, כלומר נשאר קר מ-100 קלווין בערך או שמשהו שובר את הגבישים. המאמר פורסם ב-Science.",
+      "certainty": "single",
+      "connects": [
+        {
+          "concept": "אסטרונומיה ומבנה החומר",
+          "moduleId": "M0.2",
+          "rel": "current",
+          "why": "פיינמן מסביר שאנחנו יודעים ממה עשויים הכוכבים דרך האור שהם פולטים ובולעים; כאן אותו עיקרון מזהה קרח ומבנהו."
+        },
+        {
+          "concept": "התנהגות קוונטית",
+          "moduleId": "M24.3",
+          "rel": "later",
+          "why": "פסי הבליעה ב-3 ו-4.27 מיקרומטר הם מעברי רטט של מולקולות, תופעה קוונטית במהותה."
+        }
+      ],
+      "dek": "בדיסקת הפסולת של בטא פיקטוריס יש קרח מים אמורפי מעורב בפחמן דו-חמצני, כ-11%; כנראה נוצר בחלל הבין-כוכבי, לפני כוכבי הלכת.",
+      "domain": "mathphys",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "ג'יימס ווב מצא קרח זגוגיתי סביב כוכב צעיר, באותו יחס כמו בשביטים שלנו",
+      "id": "b9",
+      "kind": "paper",
+      "region": "US",
+      "role": "brief",
+      "sources": [
+        {
+          "fetchedAt": 1795211182301,
+          "httpStatus": 200,
+          "license": "© 2026 Condé Nast. All rights reserved.",
+          "publishedAt": "2026-11-14",
+          "publisher": "Ars Technica",
+          "quote": "The team estimates that less than 7 percent of the water ice in the system is crystalline, which is somewhat surprising.",
+          "sha256": "3c358e7af923a7f7855210a89767bd8a473a7ca7e6028806f0a4ab654e70aefd",
+          "tier": "C",
+          "title": "James Webb telescope finds ice older than the star it orbits",
+          "url": "https://arstechnica.com/science/2026/11/james-webb-telescope-finds-ice-older-than-the-star-it-orbits/"
+        }
+      ],
+      "why": "ספקטרוסקופיה היא מדידה של מבנה אטומי ומולקולרי מרחוק: הזזה והרחבה של פס בליעה אומרות שמולקולת CO₂ לכודה בתוך קרח מים, לא לידו."
+    },
+    {
+      "body": "לפי הודעה של מטה האזור הנופי הלאומי של עמק הרוחב המזרחי, כפי שדיווחה סוכנות הידיעות הממשלתית CNA, חוקרים צמדו לשני פרפרים במזרח טייוואן מיקרו-משדרים במשקל 0.06 גרם, ראשונים מסוגם באסיה לפי ההודעה. המשדרים מונעים באנרגיית שמש ומשדרים ב-2.4 ג'יגה-הרץ, ואפשר לקלוט אותם בטלפון דרך בלוטות'. משתמשים באפליקציה שמפעילה בלוטות' ומיקום ירשמו את הפרפרים כשהם עוברים בטווח, וכך ייבנה רישום רציף של המסלול במקום סימון ידני ולכידה חוזרת.",
+      "certainty": "single",
+      "connects": [
+        {
+          "concept": "הפיזיקה ושאר המדעים: ביולוגיה",
+          "moduleId": "M0.2",
+          "rel": "current",
+          "why": "הפרק על הקשר בין פיזיקה לביולוגיה מתאר איך כלים של פיזיקה מאפשרים שאלות ביולוגיות; כאן משדר רדיו הופך נדידה לנתונים."
+        },
+        {
+          "concept": "רשתות אלחוטיות",
+          "moduleId": "M23.15",
+          "rel": "later",
+          "why": "בלוטות' ב-2.4 ג'יגה-הרץ הוא שכבת הקישור של רשת חיישנים כזאת."
+        }
+      ],
+      "dek": "משדרים סולאריים זעירים ב-2.4 ג'יגה-הרץ, שטלפונים קולטים בבלוטות', אמורים לעקוב אחרי נדידת פרפרי עורב בעזרת אזרחים.",
+      "domain": "comms",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "פרפרים בטייוואן מקבלים משדרים של 0.06 גרם",
+      "id": "b10",
+      "kind": "event",
+      "region": "TW",
+      "role": "brief",
+      "sources": [
+        {
+          "fetchedAt": 1795211189522,
+          "httpStatus": 200,
+          "license": "© CNA",
+          "publishedAt": "2026-11-18",
+          "publisher": "Focus Taiwan (CNA)",
+          "quote": "The project involves fitting butterflies with solar-powered microtransmitters that transmits data through 2.4-gigahertz wireless signals that can be detected by mobile phones via Bluetooth",
+          "sha256": "2a80641ca225a2de8701f4ee548356b16b24d07b4332c9aa2b30b2bf0b29afe8",
+          "stateMedia": true,
+          "tier": "C",
+          "title": "East Taiwan butterflies tagged with tiny transmitters in Asian first - Focus Taiwan",
+          "url": "https://focustaiwan.tw/sci-tech/202611180018"
+        }
+      ],
+      "why": "זו רשת חיישנים הפוכה: המשדר זעיר וטיפש, והתשתית היא מיליוני טלפונים שנמצאים ממילא בשטח. חשבון ההספק של משדר כזה, כמה אנרגיה שמש נאספת בגרמים בודדים, הוא תרגיל טוב."
+    },
+    {
+      "body": "ענף הבנייה תורם לפי הערכות יותר משליש מפליטות גזי החממה, בין השאר כי בניינים משתמשים ביותר חומר מהנדרש: בשלד פלדה אפשר להוריד 30% עד 40% מהפלדה בהתאמת חתכי הקורות. מיאנה סמית' מהמרכז לביטים ואטומים ב-MIT הופכת את הגישה: במקום מכונה מדויקת וחומר פשוט, בלוק סריגי מורכב (\"ווקסל\") שרובוט זול, בטולרנס של כ-10 מילימטר, מרכיב נכון. הצוות בנה ווקסלים מדיקט, פלסטיק ביולוגי, אלומיניום ופלדה, ובונה עם חברה מבהוטן הדגמות בגודל חדר, כולל בית קטן.",
+      "certainty": "single",
+      "connects": [
+        {
+          "concept": "גאומטריה ומבנה",
+          "moduleId": "M0.1",
+          "rel": "learned",
+          "why": "ההבדל בין סריג שנשלט במתיחה לסריג שנשלט בכפיפה הוא הבדל גאומטרי, של איך המוטות מחוברים."
+        },
+        {
+          "concept": "סטטיקה: מסבכים",
+          "moduleId": "M2.6",
+          "rel": "later",
+          "why": "ווקסל סריגי הוא מסבך תלת-ממדי; הפרק על מסבכים מסביר למה מוטות שעובדים רק במתיחה ובלחיצה יעילים במשקל."
+        }
+      ],
+      "dek": "מיאנה סמית' מ-MIT בונה מבנים נושאי עומס מבלוקים סריגיים שמתקנים את השגיאות של רובוטים זולים. לפי הערכתה, החיסכון בפחמן הגלום יכול להגיע לכ-80%.",
+      "domain": "materials",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "בניינים מלבני לגו: רובוט לא מדויק, בלוק חכם",
+      "id": "b11",
+      "kind": "system",
+      "region": "US",
+      "role": "brief",
+      "sources": [
+        {
+          "fetchedAt": 1795211192500,
+          "httpStatus": 200,
+          "license": "MIT News (no licence stated on the page)",
+          "publishedAt": "2026-11-18",
+          "publisher": "MIT News",
+          "quote": "Her robots' margin of error is about 10 millimeters, far greater than the roughly 100-micron tolerances of most industrial robots",
+          "sha256": "f0a815426e1a3135cd686320ebfc850456e9875e90e55d412096223ee068384c",
+          "tier": "B",
+          "title": "Building blocks for a greener skyline",
+          "url": "https://news.mit.edu/2026/building-blocks-for-greener-skyline-miana-smith-1118"
+        }
+      ],
+      "why": "זה רעיון של תיקון שגיאות במבנה: הדיוק עובר מהמכונה לחומר. וגם שיעור בסטטיקה: סריג שנשלט במתיחה עדיף בקשיחות למשקל על סריג שנשלט בכפיפה."
+    },
+    {
+      "body": "צוות של קווין צ'ן ב-MIT הגדיל ב-50% את \"השרירים המלאכותיים\" שמניעים את כנפי המיקרו-רובוט שלו, הגדיל את כוח העילוי ב-46%, והגיע ליחס עילוי למשקל של 1.9, מספיק כדי לשאת חבילת אלקטרוניקה של 244 מיליגרם: יחידת מדידה אינרציאלית, חיישן זרימה אופטית וחיישן זמן-מעוף לגובה. אלגוריתם שערוך מהיר ופשוט, שעדכן מיקום בתדירות גבוהה על חשבון דיוק, הביא לשגיאות מיקום של סנטימטרים ספורים. הרובוט עדיין מחובר להספק חיצוני. המאמר פורסם ב-Science Robotics.",
+      "certainty": "single",
+      "connects": [
+        {
+          "concept": "כוח ותנועה",
+          "moduleId": "M0.2",
+          "rel": "current",
+          "why": "יחס עילוי למשקל 1.9 אומר שהכנפיים מייצרות כמעט פי שניים מהכוח שהכבידה מפעילה; זה החשבון הבסיסי של כוח מול משקל."
+        },
+        {
+          "concept": "משערכי מצב",
+          "moduleId": "M5.6",
+          "rel": "later",
+          "why": "שילוב IMU, זרימה אופטית וזמן-מעוף כדי לשערך מיקום הוא בעיית שערוך מצב קלאסית."
+        }
+      ],
+      "dek": "רובוט-חרק עם כנפיים מתנופפות ניווט בלי מערכת לכידת תנועה ונחת על חמנייה. האלקטרוניקה שוקלת 244 מיליגרם וצורכת רק כ-6% מההספק.",
+      "domain": "ml",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "ב-MIT: רובוט מעופף במשקל פחות ממהדק נושא סוף-סוף חיישנים ומחשב",
+      "id": "l1",
+      "kind": "paper",
+      "region": "US",
+      "role": "lab",
+      "sources": [
+        {
+          "fetchedAt": 1795211192884,
+          "httpStatus": 200,
+          "license": "CC BY-NC-ND 3.0",
+          "publishedAt": "2026-11-18",
+          "publisher": "MIT News",
+          "quote": "They found that estimating position continuously at a faster rate yielded higher performance than a more accurate, slower estimation.",
+          "sha256": "5c1b507ba97367928895fdc84b4f2a003d8d0d2d1f5c5c53d021534a0b834c5e",
+          "tier": "B",
+          "title": "This featherweight, flying robot carries its own sensors and computers",
+          "url": "https://news.mit.edu/2026/featherweight-flying-robot-carries-its-own-sensors-and-computers-1118"
+        }
+      ],
+      "why": "התגלית המעניינת היא ששערוך מהיר ופחות מדויק ניצח שערוך מדויק ואיטי. זו הפשרה בין קצב עדכון לרעש שתפגוש במסנן קלמן."
+    },
+    {
+      "body": "צוות בהובלת KAUST פיתח ממברנה ממסגרת אורגנית קוולנטית (COF), חומר גבישי עם נקבוביות מוגדרות במדויק, שמעדיפה מעבר של פחמימנים אליפטיים על פני ארומטיים, גם כשנקודות הרתיחה שלהם דומות. בניסוי על נפט Arabian Light, האליפטיים היוו 54.5% מהתערובת, 92.0% אחרי מעבר אחד ו-96.1% אחרי שני שלבים. ממברנות באורך 50 מטר וברוחב 0.3 מטר פעלו ביציבות יותר מחודשיים. המחקר פורסם ב-Science.",
+      "certainty": "peer",
+      "connects": [
+        {
+          "concept": "כימיה ומבנה מולקולרי",
+          "moduleId": "M0.2",
+          "rel": "current",
+          "why": "פיינמן מתאר את הכימיה כסידור של אטומים; כאן אותו מספר אטומי פחמן ומימן בסידור שונה מכריע אם המולקולה עוברת."
+        },
+        {
+          "concept": "אנרגיה ומעבר אנרגיה",
+          "moduleId": "M13.4",
+          "rel": "later",
+          "why": "זיקוק דורש חימום של כל התערובת; הפרק על מעבר אנרגיה נותן את הכלים להשוות את העלות."
+        }
+      ],
+      "dek": "ממברנה ממסגרת אורגנית קוולנטית העלתה את חלק הפחמימנים האליפטיים מ-54.5% ל-92.0% במעבר אחד, ופעלה ביציבות חודשיים ביריעות של 50 מטר.",
+      "domain": "materials",
+      "full": "translation",
+      "fullPart": 0,
+      "headline": "ב-KAUST: ממברנה שמפרידה נפט גולמי לפי מבנה ולא לפי נקודת רתיחה",
+      "id": "l2",
+      "kind": "paper",
+      "region": "GULF",
+      "role": "lab",
+      "sources": [
+        {
+          "fetchedAt": 1795211201241,
+          "httpStatus": 200,
+          "license": "KAUST official press release",
+          "openAccess": true,
+          "publishedAt": "2026-11-10",
+          "publisher": "KAUST",
+          "quote": "In tests with Arabian Light crude oil, aliphatic hydrocarbons made up 54.5% of the original oil mixture.",
+          "sha256": "7558227c32ab86b36d39a4a56fe2a080b95d2acc3bf47c50bdec0d36bbb83453",
+          "tier": "B",
+          "title": "A scalable membrane for energy-efficient crude oil-to-chemicals separation",
+          "url": "https://www.kaust.edu.sa/news/a-scalable-membrane-for-energy-efficient-crude-oil-separation"
+        }
+      ],
+      "why": "זיקוק מפריד לפי נקודת רתיחה, כלומר לפי אנרגיה; הממברנה מפרידה לפי גודל וכימיה. ההבדל באנרגיה הנדרשת הוא כל הטיעון ההנדסי."
+    },
+    {
+      "body": "צוות בהובלת מנואלה ברונר מ-ETH ציריך ומכון WSL ניתח נתוני לוויין מ-2001 עד 2020 ומצא אילו \"משטרי מזג אוויר\", דפוסים גדולים שנמשכים ימים עד שבועות, מסנכרנים שריפות יער בין אזורים רחוקים. רמה גבוהה יציבה מעל סקנדינביה בקיץ מעודדת שריפות לא רק בצפון אלא גם באיטליה ובבלקן; שקע מעל סקנדינביה באביב מעודד שריפות בחצי האי האיברי ובבלקן. רק משטר אחד מתוך שבעה, חסימת גרינלנד, דיכא שריפות סינכרוניות. המטרה: התרעה מוקדמת של עד שבועיים במקום שעות.",
+      "certainty": "peer",
+      "connects": [
+        {
+          "concept": "הפיזיקה ושאר המדעים: מזג אוויר",
+          "moduleId": "M0.2",
+          "rel": "current",
+          "why": "בשיעור על \"שלושה קירות\" ראית למה מזג אוויר קשה לחיזוי; כאן לא חוזים את מזג האוויר אלא את הדפוס הגדול שמאריך את התחזית לשבועיים."
+        },
+        {
+          "concept": "גורם משותף",
+          "moduleId": "M6.10",
+          "rel": "later",
+          "why": "שריפות בסקנדינביה ובאיטליה מתואמות כי שתיהן תלויות באותו משטר מזג אוויר, מקרה מובהק של גורם משותף."
+        }
+      ],
+      "dek": "מחקר של 20 שנות נתוני לוויין מצא אילו משטרי מזג אוויר מסנכרנים שריפות בין אזורים רחוקים. רק אחד משבעת המשטרים מדכא אותן.",
+      "domain": "fluids",
+      "full": "translation",
+      "fullPart": 0,
+      "headline": "ב-ETH: למה יערות בוערים בו-זמנית בקצוות שונים של אירופה",
+      "id": "l3",
+      "kind": "paper",
+      "region": "EU",
+      "role": "lab",
+      "sources": [
+        {
+          "fetchedAt": 1795211187571,
+          "httpStatus": 200,
+          "license": "CC BY 4.0",
+          "openAccess": true,
+          "publishedAt": "2026-11-16",
+          "publisher": "ETH Zurich",
+          "quote": "Only one of the seven weather regimes that were examined suppressed synchronous fires in the 20 years from 2001 to 2020",
+          "sha256": "881a28408090aafd2c0f2f7503f876e9682e6669110671f9b34242dc02d2a84c",
+          "tier": "B",
+          "title": "Why forest fires often break out simultaneously across Europe",
+          "url": "https://ethz.ch/en/news-and-events/eth-news/news/2026/11/why-forest-fires-often-break-out-simultaneously-across-europe.html"
+        }
+      ],
+      "why": "זו דוגמה למתאם בין אירועים רחוקים שנובע מגורם משותף, ולא מקשר ישיר ביניהם. ההבחנה הזאת תחזור בפרק על הסקה סיבתית."
+    },
+    {
+      "body": "צוות של פרופ' או איל-קוון מהמחלקה להנדסת מכונות ב-KAIST גידל ננו-חוטים של סלניד ניקל-קובלט ישירות על בד סיבי פחמן, וקיבל קתודה גמישה לסוללת ליתיום-גופרית. האלקטרודה שמרה על ההיצמדות אחרי יותר מ-1,000 כיפופים ברדיוס 2.5 מילימטר; תאי כיס שולבו במבנים אובליים ומלבניים ובמסגרת רגל של רחפן, והדליקו נוריות. תחת לחץ שפגע במבנה עצמו נשמרו 99.8% מהמתח ההתחלתי. לפני מסחור יש להחליף את האלקטרוליט הנוזלי באלקטרוליט מבני ולהוכיח הארכת זמן טיסה.",
+      "certainty": "single",
+      "connects": [
+        {
+          "concept": "תגובות כימיות",
+          "moduleId": "M0.2",
+          "rel": "current",
+          "why": "סוללה היא תגובה כימית שבה האלקטרונים עוברים דרך מעגל חיצוני; פיינמן מציג את התגובות הכימיות כסידור מחדש של אטומים."
+        },
+        {
+          "concept": "סוללות: עקרונות התא",
+          "moduleId": "M13.25",
+          "rel": "later",
+          "why": "הפרק על סוללות מסביר את מתח המעגל הפתוח שנשמר כאן ב-99.8% תחת עומס."
+        }
+      ],
+      "dek": "קתודה גמישה לסוללת ליתיום-גופרית, עם ננו-חוטים שגדלים ישירות על סיבי פחמן, שרדה יותר מ-1,000 כיפופים ושמרה על 99.8% מהמתח תחת עומס.",
+      "domain": "materials",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "ב-KAIST: רגל של רחפן שהיא גם סוללה",
+      "id": "l4",
+      "kind": "paper",
+      "region": "KR",
+      "role": "lab",
+      "sources": [
+        {
+          "fetchedAt": 1795211190832,
+          "httpStatus": 200,
+          "license": "Copyright Herald Corporation. All Rights Reserved.",
+          "publishedAt": "2026-11-18",
+          "publisher": "Herald Corporation",
+          "quote": "In testing, the electrode retained stable nanowire adhesion to the carbon fiber surface after more than 1,000 repeated bends at a radius of 2.5 millimeters, with no visible damage or structural collapse observed.",
+          "sha256": "9cfa68512e83c53afdff36d50252e515db9f02040cc3dc72e8cbce6f297b552c",
+          "tier": "C",
+          "title": "KAIST develops electrode that survives 1,000 bends, turning drone legs into batteries - The Herald Business",
+          "url": "https://mbiz.heraldcorp.com/article/10940574"
+        }
+      ],
+      "why": "סוללה מבנית היא ניסיון לשבור את הפשרה בין משקל לאנרגיה: אם השלד עצמו אוגר אנרגיה, המסה הכוללת יורדת. השאלה הפתוחה היא אם החומר עומד גם בעומס וגם במחזורי טעינה."
+    },
+    {
+      "body": "לפי Korea Times, הצלחת הדמוקרטים בבחירות האמצע מעוררת חשש בקוריאה מרגולציה הדוקה יותר על מרכזי נתונים בארצות הברית. לפי המרכז הקוריאני לפיננסים בין-לאומיים, כ-80% מקיבולת מרכזי הנתונים שבבנייה או בתכנון נמצאת במדינות שימשלו בהן דמוקרטים, לעומת 35% לפני הבחירות. מושלת טקסס הנבחרת הבטיחה הקפאה של אישורים. לפי MSCI, לפחות 75 פרויקטים נדחו או בוטלו ברבעון הראשון, כמו בכל 2025. בסיכון: Hyosung Heavy Industries עם חוזי שנאים של 386.5 מיליארד וון, LS Electric עם לוחות מיתוג של 168.9 מיליארד וון, Gaon Cable ויצרני הזיכרון והסוללות.",
+      "certainty": "single",
+      "connects": [
+        {
+          "concept": "רשת החשמל ותלת-פאזי",
+          "moduleId": "M13.19",
+          "rel": "later",
+          "why": "שנאים במתח על-גבוה ולוחות מיתוג הם הרכיבים שמחברים מרכז נתונים לרשת; הפרק מסביר את התפקיד שלהם."
+        },
+        {
+          "concept": "הצד העסקי של ארכיטקטורה",
+          "moduleId": "M27.16",
+          "rel": "later",
+          "why": "ספק שתלוי בלקוח אחד ובאזור אחד חשוף לשינוי רגולציה; זו שאלה של מבנה שוק ולא רק של מוצר."
+        }
+      ],
+      "dek": "כ-80% מהקיבולת שבתכנון או בבנייה נמצאת עכשיו במדינות עם מושל דמוקרטי, לעומת 35% לפני הבחירות. לפחות 75 פרויקטים נדחו או בוטלו ברבעון הראשון.",
+      "domain": "systems",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "ההתנגדות למרכזי נתונים בארצות הברית מאיימת על ספקי השנאים, הכבלים והזיכרון של קוריאה",
+      "id": "e1",
+      "kind": "data",
+      "region": "KR",
+      "role": "econ",
+      "sources": [
+        {
+          "fetchedAt": 1795211204567,
+          "httpStatus": 200,
+          "license": "© The Korea Times",
+          "publishedAt": "2026-11-19",
+          "publisher": "The Korea Times",
+          "quote": "According to the New York-based finance company MSCI, at least 75 U.S. data center projects were delayed or canceled in the first quarter of this year, the same number as in all of 2025.",
+          "sha256": "8472285cc078f686fac2b23188a1ef218d5056a8723eb137133286f1190e02ed",
+          "tier": "C",
+          "title": "US data center backlash raises risks for Korean suppliers - The Korea Times",
+          "url": "https://www.koreatimes.co.kr/business/tech-science/20261119/us-data-center-backlash-raises-risks-for-korean-suppliers"
+        }
+      ],
+      "why": "שרשרת האספקה של מרכז נתונים היא בעיקר הנדסת חשמל: שנאים במתח על-גבוה, פסי צבירה ולוחות מיתוג. מי שמבין את רשת החשמל מבין גם איפה צוואר הבקבוק."
+    },
+    {
+      "body": "לפי הדוחות הכספיים של אינטל, כפי שכלכליסט מנתח אותם, החברה העסיקה 81,100 עובדים ב-26 בספטמבר 2026, לעומת 131,900 בסוף 2022, ירידה של כמעט 40%. הירידה הואצה: 124,800 בסוף 2023, 108,900 בסוף 2024, 85,100 בסוף 2025. חלק ממנה נובע משינויים מבניים: כ-4,000 עובדי עסקי ה-NAND וכ-3,000 עובדי Altera, אחרי מכירת 51% ממנה, יצאו מהספירה. אבל גם עובדי הליבה של אינטל עצמה ירדו מ-99,500 ל-76,500, כ-23%. הוצאות הפיצויים ירדו מ-1.75 מיליארד דולר בתשעת החודשים הראשונים של 2025 ל-290 מיליון ב-2026.",
+      "certainty": "single",
+      "chart": {
+        "kind": "line",
+        "series": [
+          {
+            "name": "סך העובדים",
+            "values": [
+              131900,
+              124800,
+              108900,
+              85100,
+              81100
+            ]
+          }
+        ],
+        "source": {
+          "note": "2024 כולל כ-4,000 עובדי NAND; 2025 ואילך בלי Altera",
+          "publisher": "Calcalist (CTech), לפי הדוחות הכספיים של אינטל",
+          "url": "https://www.calcalistech.com/ctechnews/article/ky2e1384n"
+        },
+        "title": "מספר העובדים של אינטל, 2022 עד 2026",
+        "unit": "עובדים",
+        "x": [
+          "סוף 2022",
+          "סוף 2023",
+          "סוף 2024",
+          "סוף 2025",
+          "ספטמבר 2026"
+        ]
+      },
+      "connects": [
+        {
+          "concept": "מספר ויחס",
+          "moduleId": "M0.1",
+          "rel": "learned",
+          "why": "השוואה של 131,900 ל-81,100 משמעותית רק אם שניהם סופרים אותו דבר; זו שאלה של הגדרה לפני שהיא שאלה של חשבון."
+        },
+        {
+          "concept": "כלכלה של ארכיטקטורה",
+          "moduleId": "M27.16",
+          "rel": "later",
+          "why": "מכירת Altera ו-NAND היא החלטה על גבולות החברה, אותו סוג החלטה כמו גבולות של מערכת."
+        }
+      ],
+      "dek": "מ-131,900 עובדים בסוף 2022 ל-81,100 בספטמבר 2026. חלק מהירידה הוא מכירת עסקים, אבל גם בליבה הירידה היא 23%.",
+      "domain": "electronics",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "אינטל איבדה כמעט 40% מעובדיה מאז שיא 2022",
+      "id": "e2",
+      "kind": "data",
+      "region": "US",
+      "role": "econ",
+      "sanity": {
+        "check": "אחוז הירידה",
+        "note": "$(131{,}900-81{,}100)/131{,}900\\approx38.5\\%$, תואם ל\\\"כמעט 40%\\\"; $(99{,}500-76{,}500)/99{,}500\\approx23.1\\%$.",
+        "result": "pass"
+      },
+      "sources": [
+        {
+          "fetchedAt": 1795211194159,
+          "httpStatus": 200,
+          "license": "© Calcalist",
+          "publishedAt": "2026-11-19",
+          "publisher": "Calcalist (CTech)",
+          "quote": "The company had 81,100 employees as of September 26, 2026, compared with 131,900 at the end of 2022, according to its financial filings.",
+          "sha256": "eb800b5137d02afbac21864a3be13e383faf5e5376f208210462e77ec8a10a46",
+          "tier": "C",
+          "title": "Intel has shed more than 50,000 employees since its 2022 workforce peak | CTech",
+          "url": "https://www.calcalistech.com/ctechnews/article/ky2e1384n"
+        }
+      ],
+      "why": "כשמשווים מספרים לאורך זמן, צריך לבדוק שההגדרה של מה שנספר לא השתנתה. כאן חלק מ\"הירידה\" הוא שינוי בגבולות המערכת, וזה שיעור שחוזר בכל ניתוח נתונים."
+    },
+    {
+      "body": "מחקר שפורסם ב-Nature Sustainability, כפי ש-Ars Technica מסכם אותו, ספר 403 מרכזי נתונים בקנה מידה ענק בארצות הברית, בהספק ממוצע של כ-40 מגה-ואט, ומצא שבין מאי 2024 לאפריל 2025 הם צרכו 68 עד 99 טרה-ואט-שעה, 1.5% עד 2.2% מצריכת החשמל של המדינה, כמו כל ויסקונסין. הפליטות: 21 עד 31 מיליון טון CO₂. 54% מהחשמל בא מדלקים מאובנים, 25% ממקורות מתחדשים ו-21% מגרעין. 272 מתקנים לא נכללו כי לא היה אפשר לאמת אותם, ולכן זו הערכה שמרנית.",
+      "certainty": "single",
+      "connects": [
+        {
+          "concept": "אנרגיה והספק",
+          "moduleId": "M0.2",
+          "rel": "current",
+          "why": "ההבדל בין הספק (מגה-ואט) לאנרגיה (טרה-ואט-שעה) הוא ההבדל בין קצב לכמות, היסוד של כל חשבון אנרגיה."
+        },
+        {
+          "concept": "מאזן האנרגיה",
+          "moduleId": "M13.15",
+          "rel": "later",
+          "why": "הפרק על צריכה ומקורות בונה בדיוק את סוג המאזן הזה, מקור מול צרכן."
+        }
+      ],
+      "dek": "מחקר ב-Nature Sustainability מצא 68 עד 99 טרה-ואט-שעה בשנה ו-21 עד 31 מיליון טון CO₂, והשיטה כמעט בוודאות מעריכה בחסר.",
+      "domain": "power",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "403 מרכזי נתונים ענקיים צורכים כ-2% מהחשמל של ארצות הברית",
+      "id": "w1",
+      "kind": "paper",
+      "region": "US",
+      "role": "world",
+      "sanity": {
+        "check": "הספק × זמן × ניצולת",
+        "note": "$403\\times40\\ \\mathrm{MW}=16.1\\ \\mathrm{GW}$; $\\times8760\\ \\mathrm{h}=141\\ \\mathrm{TWh}$; $\\times0.48\\approx68$, $\\times0.70\\approx99$ טרה-ואט-שעה, בדיוק הטווח שבמקור.",
+        "result": "pass"
+      },
+      "sources": [
+        {
+          "fetchedAt": 1795211181563,
+          "httpStatus": 200,
+          "license": "© 2026 Condé Nast. All rights reserved.",
+          "publishedAt": "2026-11-16",
+          "publisher": "Ars Technica",
+          "quote": "That amounts to 1.5 to 2.2 percent of total US electricity use, on par with the total used by Wisconsin or Indiana.",
+          "sha256": "89c8c84886ad3eab3986dfd063720dd7401561e0d3284c2ecec32e4b4b6f7b00",
+          "tier": "C",
+          "title": "Hyperscale data centers use 2% of US electricity",
+          "url": "https://arstechnica.com/science/2026/11/hyperscale-data-centers-use-2-of-us-electricity/"
+        }
+      ],
+      "why": "הטווח 68 עד 99 נובע ישירות מהנחה אחת: מקדם הניצולת, 48% מול 70%. שווה לבדוק: $403\\times40\\ \\mathrm{MW}\\times8760\\ \\mathrm{h}\\times(0.48..0.70)$.",
+      "world": {
+        "pair": "w2",
+        "topic": "מרכזי נתונים ורשת החשמל"
+      }
+    },
+    {
+      "body": "לפי The National, קיבולת מרכזי הנתונים בעולם, כ-103 ג'יגה-ואט היום לפי JLL, צפויה להגיע לכ-200 עד 2030. לפי סוכנות האנרגיה הבין-לאומית, מרכזי הנתונים צרכו ב-2024 כ-1.5% מהחשמל בעולם, והצריכה גדלה בכ-12% בשנה; כ-45% ממנה בארצות הברית, 25% בסין ו-15% באירופה. איחוד האמירויות מתכנן קמפוס של 5 ג'יגה-ואט באבו דאבי. ד\"ר אחמד בן ת'ניה מ-NYU אבו דאבי מזהיר שאם המרכזים רק לוקחים חשמל מתחדש קיים, הם אינם מפחיתים פליטות במערכת כולה. אנליסט מ-Arthur D Little צופה רוויה בסביבות 2035.",
+      "certainty": "single",
+      "connects": [
+        {
+          "concept": "שימור אנרגיה",
+          "moduleId": "M0.2",
+          "rel": "current",
+          "why": "אנרגיה שמרכז נתונים צורך חייבת להגיע מאיזשהו מקור; השאלה של בן ת'ניה היא מאיזה."
+        },
+        {
+          "concept": "אנרגיה בת-קיימא",
+          "moduleId": "M13.17",
+          "rel": "later",
+          "why": "מקאיי מראה בפרק הזה איך מחשבים אם ביקוש חדש באמת מכוסה בייצור נקי חדש."
+        }
+      ],
+      "dek": "איחוד האמירויות מתכנן קמפוס של 5 ג'יגה-ואט באבו דאבי. חוקר מ-NYU אבו דאבי: השאלה היא אם החשמל הנקי גדל יחד עם הביקוש או רק מחולק מחדש.",
+      "domain": "power",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "מהמפרץ: קיבולת מרכזי הנתונים בעולם צפויה כמעט להכפיל את עצמה עד 2030",
+      "id": "w2",
+      "kind": "report",
+      "region": "GULF",
+      "role": "world",
+      "sanity": {
+        "check": "קצב גדילה",
+        "note": "מ-103 ל-200 ג'יגה-ואט עד 2030 הוא קצב של $\\left(200/103\\right)^{1/4}\\approx1.18$, כ-18% בשנה על פני כארבע שנים, באותו סדר גודל כמו ה-12% בשנה בצריכה שמביאה הסוכנות.",
+        "result": "pass"
+      },
+      "sources": [
+        {
+          "fetchedAt": 1795211216248,
+          "httpStatus": 200,
+          "license": "© The National",
+          "publishedAt": "2026-11-20",
+          "publisher": "The National",
+          "quote": "Data centres globally used about 1.5 per cent of the world’s electricity in 2024, according to the International Energy Agency, and their needs are growing by about 12 per cent a year.",
+          "sha256": "69d1671335cc03b46f9d6badb565fdff755bf8f345bfe53591a2aee03e49c29b",
+          "tier": "C",
+          "title": "Will demand for data centres continue growing amid the AI boom? | The National",
+          "url": "https://www.thenationalnews.com/news/uae/2026/11/20/will-demand-for-data-centres-continue-growing-amid-the-ai-boom/"
+        }
+      ],
+      "why": "ההבחנה של בן ת'ניה היא הבחנה של מאזן: מה שקובע הוא השינוי בייצור השולי, לא מקור החשמל שרשום בחוזה של צרכן אחד.",
+      "world": {
+        "pair": "w1",
+        "topic": "מרכזי נתונים ורשת החשמל"
+      }
+    },
+    {
+      "body": "LineShine השיג 2.198 אקסה-פלופ במבחן HPL וצרך במהלכו כ-42 מגה-ואט, כלומר כ-52 ג'יגה-פלופ לכל ואט. El Capitan האמריקני, השני בגודל, מגיע ל-60.94, ומובילת Green500, KAIROS בטולוז, ל-73.28.",
+      "certainty": "corroborated",
+      "connects": [
+        {
+          "concept": "יחס בין גדלים",
+          "moduleId": "M0.1",
+          "rel": "learned",
+          "why": "יעילות היא יחס בין שני גדלים במידות שונות; קולמוגורוב מתאר מספר כיחס."
+        }
+      ],
+      "dek": "הראשון בגודל אינו הראשון ביעילות.",
+      "domain": "systems",
+      "headline": "ג'יגה-פלופ לוואט ב-LineShine, מחשב העל הראשון בעולם",
+      "id": "k1",
+      "kind": "data",
+      "number": {
+        "calc": "$\\dfrac{2.198\\times10^{18}\\ \\mathrm{flop/s}}{42\\times10^{6}\\ \\mathrm{W}}\\approx5.23\\times10^{10}\\ \\mathrm{flop/(s\\cdot W)}\\approx52\\ \\mathrm{GFlops/W}$. לשם השוואה: El Capitan $60.94$, KAIROS $73.28$; הפער $73.28/52.3\\approx1.4$, כלומר כ-40% יותר חשמל לאותה עבודה.",
+        "unit": "ג'יגה-פלופ לוואט",
+        "value": "52"
+      },
+      "region": "CN",
+      "role": "number",
+      "sources": [
+        {
+          "fetchedAt": 1795211215104,
+          "httpStatus": 200,
+          "license": "Copyright© 2026, THG PUBLISHING PVT LTD.",
+          "publishedAt": "2026-11-18",
+          "publisher": "The Hindu",
+          "quote": "During the same test it consumed around 42 MW of power.",
+          "sha256": "41a1d114f1d645250042a926766f8eb3613f24219851280444cd92b813f70d2e",
+          "tier": "C",
+          "title": "China's LineShine retains top spot on list of world's most powerful supercomputers",
+          "url": "https://www.thehindu.com/sci-tech/science/lineshine-computers-defending-champ/article71712174.ece"
+        },
+        {
+          "fetchedAt": 1795211217146,
+          "httpStatus": 200,
+          "license": "Copyright 1993-2026 TOP500.org",
+          "openAccess": true,
+          "publishedAt": "2026-11-16",
+          "publisher": "TOP500",
+          "quote": "achieves an energy efficiency of 60.94 Gigaflops/watt",
+          "sha256": "4af0fd039cdf63d83a2699688866cb812d1d13bb518532e6647dbd5cb0a495bc",
+          "tier": "A",
+          "title": "November 2026 | TOP500",
+          "url": "https://www.top500.org/lists/top500/2026/11/"
+        },
+        {
+          "fetchedAt": 1795211216702,
+          "httpStatus": 200,
+          "license": "Copyright 1993-2026 TOP500.org",
+          "openAccess": true,
+          "publishedAt": "2026-11-16",
+          "publisher": "TOP500",
+          "quote": "retains the No. 1 spot on the Green500 with an energy efficiency of 73.28 Gigaflops/Watt.",
+          "sha256": "831c1382434f5b117caf008e07529032cd082d05208c3d45c45ac9d4959404ff",
+          "tier": "A",
+          "title": "November 2026 | TOP500",
+          "url": "https://www.top500.org/lists/green500/2026/11/"
+        }
+      ],
+      "why": "יעילות אנרגטית היא היחס בין עבודה שימושית להספק, אותו יחס שתפגוש בכל מנוע ובכל ממיר."
+    },
+    {
+      "body": "ב-18 בנובמבר, בשעה 5:16 לפי שעון החוף המזרחי, הגיעה וויאג'ר 1 למרחק של יום-אור מכדור הארץ, כ-25.9 מיליארד קילומטרים. צוות JPL שמע ממנה 24 שעות אחר כך. לפי נאס\"א, מאז 14 בנובמבר לא התקבלו מהחללית נתוני מדע והנדסה, והמהנדסים אישרו את אבן הדרך בעזרת האות הנושא וחישובי מסלול. הגנרטור הרדיואיזוטופי מאבד כ-4 ואט בשנה, ובתחילת השנה הוחלפו שלושה רכיבים בחלופות חסכוניות כדי להחזיק את המכשירים עד יום השנה ה-50.",
+      "certainty": "corroborated",
+      "connects": [
+        {
+          "concept": "מהירות האור ואסטרונומיה",
+          "moduleId": "M0.2",
+          "rel": "current",
+          "why": "הפרק על הקשר בין פיזיקה לאסטרונומיה מתחיל באור כמקור כל המידע; כאן האור הוא גם הגבול על קצב השליטה בחללית."
+        }
+      ],
+      "dek": "49 שנים אחרי השיגור, אות רדיו מהחללית צריך 24 שעות כדי להגיע אלינו. מאז 14 בנובמבר לא התקבלו ממנה נתוני מדע והנדסה, רק אות נושא.",
+      "domain": "space",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "וויאג'ר 1 במרחק יום-אור אחד מכדור הארץ",
+      "id": "g1",
+      "kind": "event",
+      "region": "US",
+      "role": "globe",
+      "sanity": {
+        "check": "יום-אור בקילומטרים",
+        "note": "$299{,}792\\ \\mathrm{km/s}\\times86{,}400\\ \\mathrm{s}\\approx2.59\\times10^{10}\\ \\mathrm{km}$, תואם ל-25.9 מיליארד ק\\\"מ.",
+        "result": "pass"
+      },
+      "sources": [
+        {
+          "fetchedAt": 1795211205272,
+          "httpStatus": 200,
+          "license": "US federal government work (public domain)",
+          "openAccess": true,
+          "publishedAt": "2026-11-19",
+          "publisher": "NASA",
+          "quote": "Even though the team has not received science and engineering data from Voyager 1 since Nov. 14, the spacecraft is sending what is called a carrier signal",
+          "sha256": "9b4aed252ed1668827455d2a2adb35781bc6be5c01e43713fc78524a021161cc",
+          "tier": "A",
+          "title": "NASA's Voyager 1 Makes History Reaching One Light-Day From Earth - NASA",
+          "url": "https://www.nasa.gov/news-release/nasas-voyager-1-makes-history-reaching-one-light-day-from-earth/"
+        },
+        {
+          "fetchedAt": 1795211205668,
+          "httpStatus": 200,
+          "license": "© 2026 Springer Nature Limited",
+          "publishedAt": "2026-11-18",
+          "publisher": "Nature",
+          "quote": "Voyager 1 is expected to lose communications with Earth in 2029 and its twin will do so in 2031",
+          "sha256": "8e3ceecc3dfb96223de9ae1ce51b79a5269e5abc04877938538a6ced2b825975",
+          "tier": "C",
+          "title": "Voyager 1 achieves a cosmic first: one 'light day' from Earth",
+          "url": "https://www.nature.com/articles/d41586-026-03672-1"
+        }
+      ],
+      "why": "יום-אור הוא $c\\cdot 86{,}400\\ \\mathrm{s}$: אותה מהירות אור מהשיעור על פיזיקה בסיסית, הפעם כיחידת מרחק וכעלות של כל פקודה."
+    },
+    {
+      "body": "SpaceX השלימה בשבת, 14 בנובמבר, את ההשבה הראשונה של שלב עליון של Starship במגדל השיגור בבוקה צ'יקה, טקסס. החללית הקיפה את כדור הארץ 14 פעמים במשך כ-22.5 שעות, שחררה 26 לווייני Starlink מדור V3, וחזרה דרך מגן חום של 18,000 אריחים קרמיים משושים עד שנעצרה בין זרועות המגדל. המאיץ Super Heavy, לעומת זאת, קטע את החזרה בגלל התרעה על מסת דלק נמוכה והתפוצץ מעט לפני הנחיתה במים.",
+      "certainty": "corroborated",
+      "connects": [
+        {
+          "concept": "שימור אנרגיה",
+          "moduleId": "M0.2",
+          "rel": "current",
+          "why": "פיינמן פותח את הפיזיקה הבסיסית בשימור אנרגיה; בחזרה מהמסלול כמעט כל האנרגיה הקינטית הופכת לחום במגן."
+        },
+        {
+          "concept": "שימור אנרגיה",
+          "moduleId": "M2.1",
+          "rel": "later",
+          "why": "אנרגיה קינטית במסלול נמוך היא כ-30 מגה-ג'אול לקילוגרם, וזה מה שהאריחים צריכים לפזר."
+        }
+      ],
+      "dek": "בטיסה ה-15 חזרה החללית אחרי 22.5 שעות ו-14 הקפות; המאיץ Super Heavy נכשל בחזרה ונפל למפרץ מקסיקו.",
+      "domain": "space",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "SpaceX תפסה לראשונה את השלב העליון של Starship בזרועות המגדל",
+      "id": "g2",
+      "kind": "event",
+      "region": "US",
+      "role": "globe",
+      "sources": [
+        {
+          "fetchedAt": 1795211181010,
+          "httpStatus": 200,
+          "license": "© 2026 American Institute of Aeronautics and Astronautics",
+          "publishedAt": "2026-11-14",
+          "publisher": "Aerospace America (AIAA)",
+          "quote": "The 22.5-hour flight marks the second time a Starship has orbited Earth, and the first ever recovery of a ship at the launch site",
+          "sha256": "771aa1cc43ea2d1ba9e9cbb75316c4dcd784d89685ce81bcb11755c5515532e2",
+          "tier": "C",
+          "title": "SpaceX achieves first Starship tower catch",
+          "url": "https://aerospaceamerica.aiaa.org/spacex-achieves-first-starship-tower-catch/"
+        },
+        {
+          "fetchedAt": 1795211213460,
+          "httpStatus": 200,
+          "license": "Copyright© 2026, THG PUBLISHING PVT LTD.",
+          "publishedAt": "2026-11-15",
+          "publisher": "The Hindu",
+          "quote": "SpaceX had previously captured returning booster rockets three times.",
+          "sha256": "018d95681b76bd8f8d2c654837b6a92fa29e724f199372981b59e49f50c5dd71",
+          "tier": "C",
+          "title": "SpaceX pulls off first-ever spaceship 'catch'",
+          "url": "https://www.thehindu.com/news/international/spacexs-starship-returns-from-orbit-and-is-captured-by-launch-pad-arms-in-a-dramatic-first/article71703046.ece"
+        }
+      ],
+      "why": "מה שמבדיל תפיסה של החללית מתפיסה של המאיץ הוא כמות האנרגיה שצריך לפזר: היא נופלת מגובה רב יותר ובמהירות גבוהה יותר, וזה החשבון של שימור אנרגיה."
+    },
+    {
+      "body": "הלשכה לתעשייה ולביטחון (BIS) במשרד המסחר האמריקני פרסמה כלל ביניים שנועד למנוע מחברות סיניות להשתמש בשבבי AI מתקדמים דרך מרכזי נתונים במדינות שלישיות. מעבר לדרישות הקיימות, יידרש רישיון לייצוא שבבים מתקדמים לאינדונזיה, מלזיה, סינגפור, תאילנד וברזיל. ב-17 בנובמבר תקפה בייג'ינג את הצעד: דובר משרד החוץ גואו ג'יאקון כינה אותו \"כפייה כלכלית וסמכות שיפוט ארוכת זרוע\", ומשרד המסחר הסיני אמר שהוא פוגע ביציבות שרשרת האספקה של השבבים.",
+      "certainty": "single",
+      "connects": [
+        {
+          "concept": "מעבדים מקביליים ו-GPU",
+          "moduleId": "M22.8",
+          "rel": "later",
+          "why": "שבבי ה-AI שהכלל עוסק בהם הם מעבדים מקביליים; הפרק מסביר למה הם המשאב היקר של מרכז הנתונים."
+        }
+      ],
+      "dek": "משרד המסחר האמריקני דורש רישיון לייצוא שבבים מתקדמים לחמש מדינות כדי לסגור את פרצת מרכזי הנתונים במדינות שלישיות. סין מכנה זאת \"כפייה כלכלית\".",
+      "domain": "electronics",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "בייג'ינג נגד הכלל האמריקני החדש על גישה מרחוק לשבבי AI",
+      "id": "g3",
+      "kind": "event",
+      "region": "CN",
+      "role": "globe",
+      "sources": [
+        {
+          "fetchedAt": 1795211213991,
+          "httpStatus": 200,
+          "license": "Copyright© 2026, THG PUBLISHING PVT LTD.",
+          "publishedAt": "2026-11-17",
+          "publisher": "The Hindu",
+          "quote": "designed to ensure that existing restrictions on access to sensitive American technology cannot be circumvented through remote computing arrangements involving data centres in third countries.",
+          "sha256": "2418486803a6773ffaa48d729d5de8923fba02a2b8f3f4f0b927e699575a3942",
+          "tier": "C",
+          "title": "U.S. blocks China's remote access to AI chips after Nvidia scandal; China slams move",
+          "url": "https://www.thehindu.com/news/international/us-blocks-chinas-remote-access-to-ai-chips-after-nvidia-scandal-china-slams-move/article71711869.ece"
+        }
+      ],
+      "why": "מגבלה על \"גישה מרחוק\" היא בעצם מגבלה על מיקום החישוב, לא על מיקום השבב. זו שאלה הנדסית של ארכיטקטורה מבוזרת לא פחות משאלה משפטית."
+    },
+    {
+      "body": "ועדת תוכנית המדע של ESA בחרה ב-Plasma Observatory כמשימה הבינונית הבאה של הסוכנות (משבצת M7). שבע חלליות מתואמות ימדדו בו-זמנית שדות מגנטיים וחשמליים וחלקיקים, כדי לעקוב אחרי האופן שבו אנרגיית השמש עוברת דרך המגנטוספרה בטווחי גודל מקילומטרים ועד עשרות אלפי קילומטרים. משימת Cluster הקודמת יכלה לבחון רק קנה מידה אחד בכל פעם. ESA גם צמצמה את המועמדות למשבצות הבאות לארבע בינוניות ושלוש מהירות.",
+      "certainty": "official",
+      "connects": [
+        {
+          "concept": "חומר טעון ושדות",
+          "moduleId": "M0.2",
+          "rel": "current",
+          "why": "הפרק על פיזיקה בסיסית מציג מטען, שדה חשמלי ושדה מגנטי; פלזמה היא גז שבו כל שלושתם פועלים יחד."
+        }
+      ],
+      "dek": "משימת M7 של ESA תמדוד שדות וחלקיקים בשבע נקודות בו-זמנית, כדי לקשר בין אירועים קטנים ומהירים לשינויים גדולים במגנטוספרה. שיגור צפוי בסוף שנות ה-30.",
+      "domain": "mathphys",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "סוכנות החלל האירופית בחרה ב-Plasma Observatory: שבע חלליות במבנה אחד",
+      "id": "g4",
+      "kind": "system",
+      "region": "EU",
+      "role": "globe",
+      "sources": [
+        {
+          "fetchedAt": 1795211196064,
+          "httpStatus": 200,
+          "license": "ESA press release (official)",
+          "openAccess": true,
+          "publishedAt": "2026-11-18",
+          "publisher": "ESA",
+          "quote": "European Space Agency Member States have selected Plasma Observatory as the agency’s next medium-class [1] mission.",
+          "sha256": "2f37c7840a2347ab9f91a1e0bcac336feeacf220bd35c2708d5202482157f664",
+          "tier": "A",
+          "title": "Seven-spacecraft observatory to study plasma universe",
+          "url": "https://www.esa.int/articles/about-us/directorates/science/seven-spacecraft-observatory-to-study-plasma-universe"
+        }
+      ],
+      "why": "פלזמה, \"המצב הרביעי\" של החומר בלשון ESA, היא גז של מטענים חופשיים; המשימה היא ניסוי במדידה רב-נקודתית, שבו מספר החיישנים קובע אילו קני מידה אפשר להפריד."
+    },
+    {
+      "body": "ESA פרסמה את התמונות התרמיות הראשונות מהרדיומטר SLSTR של Sentinel-3C, הלוויין השלישי במשימה, ששוגר ב-15 בספטמבר. ברדיומטר תשעה ערוצים באור נראה, באינפרה-אדום קצר ובאינפרה-אדום תרמי, ושניים מהם מיועדים לזיהוי שריפות. בתמונה של מערב אוסטרליה, מ-4 בנובמבר, טמפרטורת הבהירות ביבשה עולה על 40 מעלות ובאוקיינוס כ-20; בתמונה של חצי האי האיברי וצפון אפריקה, מ-2 בנובמבר, נראות צלקות שריפה ממערב למדריד וליד בורדו. ESA מדגישה שטמפרטורת בהירות בראש האטמוספרה אינה הטמפרטורה הפיזיקלית של הקרקע.",
+      "certainty": "official",
+      "connects": [
+        {
+          "concept": "קרינה וחום",
+          "moduleId": "M0.2",
+          "rel": "current",
+          "why": "פיינמן מתאר חום כתנועת אטומים וקרינה כגל אלקטרומגנטי; הרדיומטר מודד את הקשר ביניהם מהחלל."
+        }
+      ],
+      "dek": "הרדיומטר החדש של תוכנית קופרניקוס מודד טמפרטורות של יבשה וים בתשעה ערוצים, עוד לפני סיום ההרצה, וכבר רואה צלקות שריפה באוסטרליה ובספרד.",
+      "domain": "signals",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "Sentinel-3C שולח את התמונות התרמיות הראשונות",
+      "id": "g5",
+      "kind": "data",
+      "region": "EU",
+      "role": "globe",
+      "sources": [
+        {
+          "fetchedAt": 1795211195531,
+          "httpStatus": 200,
+          "license": "ESA press release (official)",
+          "openAccess": true,
+          "publishedAt": "2026-11-18",
+          "publisher": "ESA",
+          "quote": "This radiometer has nine spectral bands in the visible, shortwave infrared and thermal infrared spectrum.",
+          "sha256": "443bc3a20cb7c93ff47e2ed4b7945315f9bcd293c2750dc3e6bc37195d634a0f",
+          "tier": "A",
+          "title": "First thermal images from Sentinel-3C radiometer",
+          "url": "https://www.esa.int/articles/about-us/directorates/earth-observation-programmes/copernicus/sentinel-3/first-thermal-images-from-sentinel-3c-radiometer"
+        }
+      ],
+      "why": "טמפרטורת בהירות היא היפוך של חוק פלאנק מתוך עוצמה בערוץ אחד: מודדים קרינה ומסיקים טמפרטורה, וההנחות על פליטות הן מקור השגיאה."
+    },
+    {
+      "body": "ה-Central Laser Facility של STFC התחילה לעבוד עם חברת First Light Fusion על פיזיקת ההצתה המהירה שבמרכז הגישה FLARE לאיחוי אינרציאלי. הצתה מהירה מפרידה בין שני שלבים: דחיסת דלק דאוטריום-טריטיום לצפיפות גבוהה, וחימום מהיר שמצית את הבעירה. First Light כבר אימתה את שלב הדחיסה במתקן M3 שלה; המעבדה תדגמן איך פולס לייזר קצר ועוצמתי יוצר אלקטרונים אנרגטיים ואיך הם מוסרים את האנרגיה לדלק. המטרה: להקטין את האנרגיה הנדרשת להצתה תוך שמירה על הגבר גבוה.",
+      "certainty": "official",
+      "connects": [
+        {
+          "concept": "גרעינים ואנרגיה",
+          "moduleId": "M0.2",
+          "rel": "current",
+          "why": "פיינמן מציג את האנרגיה שבגרעין ואת ההבדל בין תהליכים אטומיים לגרעיניים; איחוי הוא המקום שבו זה הופך למכונה."
+        },
+        {
+          "concept": "פירוק וממשקים",
+          "moduleId": "M27.13",
+          "rel": "next",
+          "why": "FLARE מתוכנן כך שמערכת הדחיסה, מערכת ההצתה והמטרה מתוכננות יחד מההתחלה, דוגמה לממשק שנקבע מוקדם."
+        }
+      ],
+      "dek": "ה-Central Laser Facility תדגמן את שלב החימום בגישת ההצתה המהירה של החברה: אחרי שהדחיסה אומתה, השאלה היא כמה אנרגיית לייזר צריך כדי להצית.",
+      "domain": "power",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "מעבדת הלייזר הלאומית הבריטית מצטרפת ל-First Light Fusion",
+      "id": "g6",
+      "kind": "event",
+      "region": "UK",
+      "role": "globe",
+      "sources": [
+        {
+          "fetchedAt": 1795211217618,
+          "httpStatus": 200,
+          "license": "UK government press release (Copyright UKRI, Open Government Licence)",
+          "openAccess": true,
+          "publishedAt": "2026-11-18",
+          "publisher": "UKRI / STFC",
+          "quote": "Fast ignition separates the two steps needed for fusion.",
+          "sha256": "cc6405bc4a2e585efd981c5eb3b69610780eccbc425aac6d5d51fa181b890823",
+          "tier": "A",
+          "title": "Central Laser Facility partners with First Light Fusion",
+          "url": "https://www.ukri.org/news/central-laser-facility-partners-with-first-light-fusion/"
+        }
+      ],
+      "why": "זו דוגמה טובה לפירוק בעיה הנדסית לשני תתי-מערכות שאפשר לבדוק בנפרד, ולשאלה מתי צריך לתכנן אותן יחד. ההודעה מדגישה שהלייזר לא יאופטם בבידוד."
+    },
+    {
+      "body": "משרד התחבורה הבריטי ו-Innovate UK הכריזו על הזוכים בתחרות First of a Kind 2026 לרכבות: 23 פרויקטים בשמונה אתגרים שהגדירה התעשייה. בין האתגרים: עבודה בטוחה במקביל בבניית רכבת מהירה בחללים צפופים, הפעלת רחפנים מעבר לקו הראייה, סחף מתחת ליסודות גשרים, אימות מהיר של התנהגות מבנים, ו\"יומן סיכונים דיגיטלי\" שהופך רשימות סיכון סטטיות למידע בטיחותי שאפשר לעקוב אחריו. הפרויקטים יוצגו בהדגמות חיות בסביבת הרכבת עצמה.",
+      "certainty": "official",
+      "connects": [
+        {
+          "concept": "מחזור החיים של מערכת",
+          "moduleId": "M27.1",
+          "rel": "next",
+          "why": "FOAK מממן את השלב שבין אב טיפוס להדגמה בסביבה מבצעית, השלב שבו רוב הטכנולוגיות נתקעות."
+        },
+        {
+          "concept": "ניתוח סיכונים",
+          "moduleId": "M27.8",
+          "rel": "later",
+          "why": "אתגר יומן הסיכונים הדיגיטלי עוסק בדיוק במקור הנתונים של ניתוח סיכונים הסתברותי."
+        }
+      ],
+      "dek": "משרד התחבורה ו-Innovate UK חילקו מענקים בשמונה אתגרים: עבודה בטוחה בבניית HS2, רחפנים מעבר לקו הראייה, בקרת סחף מתחת לגשרים ויומן סיכונים דיגיטלי.",
+      "domain": "systems",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "23 פרויקטים במענקי \"הראשון מסוגו\" לרכבות בבריטניה",
+      "id": "g7",
+      "kind": "event",
+      "region": "UK",
+      "role": "globe",
+      "sources": [
+        {
+          "fetchedAt": 1795211218505,
+          "httpStatus": 200,
+          "license": "UK government press release (Copyright UKRI, Open Government Licence)",
+          "openAccess": true,
+          "publishedAt": "2026-11-17",
+          "publisher": "UKRI / Innovate UK",
+          "quote": "There are 23 projects funded by the DfT across eight rail challenges.",
+          "sha256": "40a41e48180cbee20fa9fe8d39a534322c68d7d9ebfe9fc456da38e5fd42a257",
+          "tier": "A",
+          "title": "First of a Kind rail projects announced",
+          "url": "https://www.ukri.org/news/first-of-a-kind-rail-awards-announced/"
+        }
+      ],
+      "why": "יומן סיכונים (hazard log) הוא כלי בסיסי בהנדסת מערכות בטיחותית; כאן מנסים להפוך אותו ממסמך למסד נתונים חי, וזה בדיוק הפער בין מסמך דרישות לניהול דרישות."
+    },
+    {
+      "body": "מרכז הקידום וההרשאה של החלל ההודי (IN-SPACe) בחר בחברות SpacePixxel, ‏KaleidEO ו-Azista לפתח \"שכבות התיישבות אנושית\" ברזולוציה גבוהה לערי הודו. החברות יקבלו יחד מימון של 1.46 קרור רופי (14.6 מיליון רופי) כדי להדגים מערכת מקומית לשחזור תלת-ממדי של הסביבה הבנויה מתמונות לוויין חד-עיניות. התוצרים: שטח בנוי וסוג מבנה, גובה בניינים ונפח בנוי, בשתי נקודות זמן. מתוך 26 הצעות עברו 13 לשלב הבא ושלוש נבחרו.",
+      "certainty": "single",
+      "connects": [
+        {
+          "concept": "גאומטריה ומדידה",
+          "moduleId": "M0.1",
+          "rel": "learned",
+          "why": "קולמוגורוב פותח את הגאומטריה כמדידה של שטחים ונפחים; כאן מודדים נפח בנוי של עיר שלמה מהחלל."
+        }
+      ],
+      "dek": "IN-SPACe בחרה שלוש חברות חלל שיפתחו שכבות התיישבות ברזולוציה גבוהה: שטח בנוי, גובה בניינים ונפח בנוי, בפיילוט בבנגלור ובשימלה.",
+      "domain": "signals",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "הודו בונה מודל תלת-ממדי של הערים שלה מתמונות לוויין חד-עיניות",
+      "id": "g8",
+      "kind": "event",
+      "region": "IN",
+      "role": "globe",
+      "sources": [
+        {
+          "fetchedAt": 1795211214556,
+          "httpStatus": 200,
+          "license": "Copyright© 2026, THG PUBLISHING PVT LTD.",
+          "publishedAt": "2026-11-17",
+          "publisher": "The Hindu",
+          "quote": "These companies will collectively receive seed funding of ₹1.46 crore to develop and demonstrate an indigenous satellite-based system for 3D reconstruction of India’s built environment using monocular imageries.",
+          "sha256": "c244df0331f1458b814a0e828b693359756377edc5719fe01908ee5146f5ea5a",
+          "tier": "C",
+          "title": "Three space companies selected to develop high-resolution 3D reconstruction techniques for Indian cities",
+          "url": "https://www.thehindu.com/news/national/karnataka/three-space-companies-selected-to-develop-high-resolution-3d-reconstruction-techniques-for-indian-cities/article71711538.ece"
+        }
+      ],
+      "why": "שחזור גובה מתמונה אחת הוא בעיה הפוכה חסרת מידע: בלי זוג סטריאו צריך להסיק גובה מצללים ומהקשר, ולכן השאלה המעניינת היא איך יאמתו את התוצאה."
+    },
+    {
+      "body": "ריקן, המכון הלאומי היפני למחקר, הודיעה שמחשב העל Fugaku, התשיעי בעולם במהירותו, ספג פריצה אפשרית. לפי Japan Times, בין 10 ל-13 בנובמבר השתמשו תוקפים בדף \"מצב תפעול\" שהיה פתוח לציבור כדי להיכנס לרשת הפנימית של מערכת התפעול. ייתכן שנלקחו שמות, כתובות דוא\"ל, קבצי מחקר ופרטי הזדהות של יותר מ-4,000 משתמשי Fugaku ו-375 משתמשי מחשב ה-AI החדש Rikyu. המכון עצר את המחשב ב-14 בנובמבר, ועדיין לא קבע את שיטת החדירה.",
+      "certainty": "single",
+      "connects": [
+        {
+          "concept": "יסודות הנדסת אבטחה",
+          "moduleId": "M22.15",
+          "rel": "later",
+          "why": "דף ציבורי שמחובר לרשת פנימית הוא הפרה של עקרון ההפרדה בין אזורי אמון, נושא מרכזי בפרק על הנדסת אבטחה."
+        }
+      ],
+      "dek": "ריקן עצרה את המחשב ב-14 בנובמבר. התוקפים נכנסו לרשת הפנימית דרך דף \"מצב תפעול\" ציבורי, והתקינו תוכנות לא מורשות בחלק מהשרתים.",
+      "domain": "systems",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "פריצה למחשב העל Fugaku: פרטי יותר מ-4,000 משתמשים אולי נגנבו",
+      "id": "g9",
+      "kind": "event",
+      "region": "JP",
+      "role": "globe",
+      "sources": [
+        {
+          "fetchedAt": 1795211200362,
+          "httpStatus": 200,
+          "license": "© The Japan Times",
+          "publishedAt": "2026-11-17",
+          "publisher": "The Japan Times",
+          "quote": "The institute said that the information of over 4,000 users of Fugaku, the ninth-fastest supercomputer in the world, was potentially taken in the breach.",
+          "sha256": "b16f3e1c8963757757a3e05f38ff405264a1a7645f8438038c2879b77ddf38d8",
+          "tier": "C",
+          "title": "Japan's most powerful supercomputer hit by unauthorized access",
+          "url": "https://www.japantimes.co.jp/news/2026/11/17/japan/fugaku-unauthorized-access/"
+        }
+      ],
+      "why": "משטח התקיפה היה דף ניטור, רכיב שאיש לא רואה בו חלק מהמערכת. זו התזכורת הקלאסית שממשק הוא כל נקודה שבה מידע עובר, לא רק מה שמופיע בתרשים."
+    },
+    {
+      "body": "סוכנות החלל היפנית JAXA תעביר את תפעול השיגורים של רקטת H3 למיצובישי תעשיות כבדות (MHI), החל מהשיגור הבא, כך הודיע שר המדע יושיהירו סקי. H3 נכשלה בשיגור הראשון ב-2023 ובשיגור השמיני בדצמבר אשתקד, אבל מאז הצליחה שלוש פעמים ברצף. ההעברה תתחיל בתצורת H3-22, עם שני מנועי LE-9 ושני מאיצים מוצקים, שהצליחה בחמישה מתוך שבעה שיגורים. כשייכנסו רכיבים חדשים, כמו גרסה משופרת של LE-9, JAXA תמשיך לשגר בעצמה עד שתאושר אמינותם.",
+      "certainty": "single",
+      "connects": [
+        {
+          "concept": "בשלות טכנולוגית",
+          "moduleId": "M27.5",
+          "rel": "later",
+          "why": "ההעברה המדורגת, רק לתצורה עם היסטוריה ורק אחרי אישור אמינות של רכיב חדש, היא יישום של שלבי בשלות טכנולוגית."
+        }
+      ],
+      "dek": "אחרי שלוש הצלחות רצופות, הסוכנות היפנית מעבירה את תפעול השיגורים לתעשייה בהדרגה, החל מתצורת H3-22 שהצליחה בחמישה משבעה שיגורים.",
+      "domain": "space",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "JAXA מעבירה את שיגורי H3 לידי מיצובישי",
+      "id": "g10",
+      "kind": "event",
+      "region": "JP",
+      "role": "globe",
+      "sources": [
+        {
+          "fetchedAt": 1795211199493,
+          "httpStatus": 200,
+          "license": "© The Japan Times",
+          "publishedAt": "2026-11-20",
+          "publisher": "The Japan Times",
+          "quote": "Among the rocket’s three configurations, the H3-22 has the strongest track record, with five of its seven launches having been successful.",
+          "sha256": "5e77dcf77ad282becf8f3754830c59c951cd995740bb11db99bbc74343db8d64",
+          "tier": "C",
+          "title": "Mitsubishi Heavy Industries to take on launch operations for Japan's H3 rocket",
+          "url": "https://www.japantimes.co.jp/business/2026/11/20/companies/h3-rocket-mitsubishi/"
+        }
+      ],
+      "why": "חמש הצלחות משבע אינן \"אמינות\" במובן סטטיסטי: עם מדגם כזה רווח הסמך רחב מאוד. כאן ההחלטה נשענת על בשלות טכנולוגית, לא על אחוז."
+    },
+    {
+      "body": "משרד החוץ הקוריאני וסוכנות החלל הקוריאנית (KASA) אירחו ב-16 בנובמבר את הפורום הגלובלי השני של \"החלל החדש\" בסיאול. נציגים של כ-40 חברות קוריאניות נפגשו עם פקידים מ-18 מדינות וארגונים בין-לאומיים כדי לדון במחקר משותף, בהדגמות טכנולוגיה ובשותפויות מסחריות. הפורום הגיע אחרי השיגור החמישי המוצלח של רקטת Nuri באוקטובר. סגן ראש KASA קרא לבנות שרשראות אספקה מסחריות לחלל עם \"שותפים אמינים\", ונאום המפתח ניתן בידי סגן מנהל סוכנות החלל של איחוד האמירויות.",
+      "certainty": "single",
+      "connects": [
+        {
+          "concept": "ממשקים ומודולריות",
+          "moduleId": "M27.13",
+          "rel": "next",
+          "why": "שרשרת אספקה מסחרית לחלל נשענת על ממשקים מוגדרים בין ספקים, הנושא של הפרק על פירוק וממשקים."
+        }
+      ],
+      "dek": "בפורום שני של \"חלל חדש\" בסיאול נפגשו נציגי כ-40 חברות קוריאניות עם פקידים מ-18 מדינות; יותר מ-70 פגישות עסקיות, ומשלחות למקסיקו ולברזיל בדצמבר.",
+      "domain": "space",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "קוריאה מחפשת שותפים בחלל כשהתעשייה הפרטית מובילה",
+      "id": "g11",
+      "kind": "event",
+      "region": "KR",
+      "role": "globe",
+      "sources": [
+        {
+          "fetchedAt": 1795211202911,
+          "httpStatus": 200,
+          "license": "© The Korea Times",
+          "publishedAt": "2026-11-16",
+          "publisher": "The Korea Times",
+          "quote": "More than 70 one-on-one business-to-government meetings were arranged between Korean companies and overseas officials, offering opportunities to discuss specific projects.",
+          "sha256": "81d643a0f8f3e4b8bc50ec47f04be117e03f2d11d151d4a4d9095f91fea8f23d",
+          "tier": "C",
+          "title": "Korea courts global space partnerships as private sector takes lead - The Korea Times",
+          "url": "https://www.koreatimes.co.kr/business/tech-science/20261116/korea-courts-global-space-partnerships-as-private-sector-takes-lead"
+        }
+      ],
+      "why": "שרשרת אספקה לחלל היא שאלה של ממשקים ותקנים: חברה קטנה נכנסת לשוק רק אם הרכיב שלה מתאים לאוטובוס הלוויין של מישהו אחר."
+    },
+    {
+      "body": "לפי Korea Times, חטיבת הרובוטיקה החדשה של סמסונג מתמקדת בשליטה מדויקת ביד ובזרוע רובוטית, בטכנולוגיה דמוית גידים: כבלים שמונעים במפעילים בכף היד וגלגלות שמתאמות תנועה בין מפרקים, לפי בקשת פטנט שפורסמה באוקטובר. LG, שהציגה את CLOiD כרובוט ביתי בינואר, בודקת אותו עכשיו במפעל מכונות הכביסה שלה בטנסי, ובונה עם Nvidia מערכת לאיסוף כ-500,000 שעות של נתוני אימון אמיתיים ומדומים. אנליסטית מעריכה שהרובוטיקה לא תתרום להכנסות של LG לפני 2030 בערך.",
+      "certainty": "single",
+      "connects": [
+        {
+          "concept": "כוחות ומכניקה",
+          "moduleId": "M0.2",
+          "rel": "current",
+          "why": "יד שמונעת בכבלים ובגלגלות היא תרגיל בכוחות ומומנטים, הנושא שפיינמן פותח בו את הפיזיקה הבסיסית."
+        },
+        {
+          "concept": "בקרת רובוטים",
+          "moduleId": "M19.8",
+          "rel": "later",
+          "why": "השליטה באצבעות שמונעות בגידים היא בעיית בקרה עם מפרקים מצומדים, ולא מפרק-מפעיל אחד לאחד."
+        }
+      ],
+      "dek": "סמסונג משקיעה ביד רובוטית מדויקת שמונעת בגידים ובגלגלות; LG מעבירה את רובוט CLOiD מהבית למפעל, ואוספת 500 אלף שעות נתוני אימון.",
+      "domain": "ml",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "סמסונג ו-LG בדרכים שונות במרוץ הרובוטים דמויי האדם",
+      "id": "g12",
+      "kind": "system",
+      "region": "KR",
+      "role": "globe",
+      "sources": [
+        {
+          "fetchedAt": 1795211203809,
+          "httpStatus": 200,
+          "license": "© The Korea Times",
+          "publishedAt": "2026-11-19",
+          "publisher": "The Korea Times",
+          "quote": "Tendon-driven systems offer the advantage of lighter fingers, but their cables are subject to wear and require replacement.",
+          "sha256": "b67cff46ddea3384012de0f69a9ba195d58ba07f03d853e0bf691af3a2dbb665",
+          "tier": "C",
+          "title": "Korean tech giants take different paths in humanoid robot race - The Korea Times",
+          "url": "https://www.koreatimes.co.kr/business/tech-science/20261119/korean-tech-giants-take-different-paths-in-humanoid-robot-race"
+        }
+      ],
+      "why": "הבחירה בין גידים למפעיל בכל מפרק היא פשרה הנדסית קלאסית: אצבע קלה עם כבל שנשחק, מול שליטה מדויקת עם משקל וחום של מנוע. כדאי לחזור אליה בפרק על בקרת רובוטים."
+    },
+    {
+      "body": "לפי משרד הכלכלה הטייוואני, כפי שדיווחה סוכנות הידיעות הממשלתית CNA, הזמנות הייצוא של טייוואן עלו באוקטובר ב-78.3% לעומת השנה שעברה, לשיא של 123.82 מיליארד דולר, החודש ה-21 ברציפות של צמיחה שנתית. הזמנות מוצרי מידע ותקשורת עלו ב-107.2% ל-46.77 מיליארד דולר, ומוצרי אלקטרוניקה ב-89.8% ל-53.91 מיליארד; ארצות הברית תרמה הכי הרבה לצמיחה. המשרד צופה שהשנה כולה תעבור כנראה 1.1 טריליון דולר, ומעריך שההשפעה הישירה של המגבלות האמריקניות החדשות על טייוואן תהיה מוגבלת.",
+      "certainty": "single",
+      "connects": [
+        {
+          "concept": "גדילה ושיעור שינוי",
+          "moduleId": "M0.1",
+          "rel": "learned",
+          "why": "צמיחה שנתית של 78% היא עניין של מכפלות ולא של סכומים; קולמוגורוב מציג את המעבר מחשבון לגדלים משתנים."
+        },
+        {
+          "concept": "ייצור CMOS",
+          "moduleId": "M25.2",
+          "rel": "later",
+          "why": "הזמנות המכונות עלו בגלל הרחבת כושר ייצור שבבים, השלב הפיזי של הטכנולוגיה שבפרק."
+        }
+      ],
+      "dek": "לפי משרד הכלכלה, הזמנות מוצרי מידע ותקשורת עלו ב-107.2% ואלקטרוניקה ב-89.8%, בהובלת ביקוש ל-AI; גם נחושת ומכונות לייצור שבבים בעלייה.",
+      "domain": "electronics",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "הזמנות הייצוא של טייוואן זינקו ב-78.3% בשנה, לשיא של 123.82 מיליארד דולר",
+      "id": "g13",
+      "kind": "data",
+      "region": "TW",
+      "role": "globe",
+      "sanity": {
+        "check": "עקביות סכום חלקי מול כולל",
+        "note": "$46.77+53.91=100.68$ מיליארד מתוך $123.82$, כ-81% מההזמנות, סביר לכלכלה שמובלת באלקטרוניקה.",
+        "result": "pass"
+      },
+      "sources": [
+        {
+          "fetchedAt": 1795211188505,
+          "httpStatus": 200,
+          "license": "© CNA",
+          "publishedAt": "2026-11-20",
+          "publisher": "Focus Taiwan (CNA)",
+          "quote": "Taiwan's export orders surged 78.3 percent year-on-year to a record US$123.82 billion in October, driven by strong demand for artificial intelligence (AI)-related products",
+          "sha256": "f77a0fedae4f7ce468bfbe14292bcd5eedf3b89998f2c86a7eb1dbf9a32ec067",
+          "stateMedia": true,
+          "tier": "C",
+          "title": "October export orders hit record US$123.82 billion on AI demand - Focus Taiwan",
+          "url": "https://focustaiwan.tw/business/202611200021"
+        }
+      ],
+      "why": "עלייה של 78.3% בשנה היא קצב שמכפיל את עצמו בכ-15 חודשים; מאחורי המספר הזה עומדים קווי ייצור, נחושת ומכונות, שכולם צריכים לגדול באותו קצב."
+    },
+    {
+      "body": "Ramon.Space, שמפתחת מערכות מחשוב ללוויינים, גייסה 124 מיליון דולר בסבב B בהובלת PSG, עם השקעה אסטרטגית של Micron, כך מדווח כלכליסט. החברה גייסה עד כה כ-180 מיליון דולר ומעסיקה כ-130 עובדים בישראל, בארצות הברית, בבריטניה ובגרמניה. המערכות שלה משלבות מעבדי AI ולמידת מכונה, אחסון ותקשורת, כדי לעבד מידע על הלוויין במקום לשלוח אותו לקרקע. המנכ\"ל אבי שבתאי הסביר שהאתגר כפול: עיבוד אותות ותמונה שונה מזה שעל הקרקע, וסביבה של קרינה וטמפרטורה שבה אי אפשר לתקן חומרה, רק תוכנה מרחוק.",
+      "certainty": "single",
+      "connects": [
+        {
+          "concept": "הנדסת אמינות",
+          "moduleId": "M27.11",
+          "rel": "later",
+          "why": "מערכת שחייבת לעבוד שנים בלי תיקון חומרה היא המקרה הקיצוני של תכנון לאמינות."
+        },
+        {
+          "concept": "קרינה וחומר",
+          "moduleId": "M0.2",
+          "rel": "current",
+          "why": "הקרינה בחלל פוגעת באטומים של השבב; פיינמן מסביר איך חלקיקים אנרגטיים פועלים על חומר."
+        }
+      ],
+      "dek": "החברה הישראלית בונה מערכות עיבוד, אחסון ותקשורת ללוויינים, שעובדות תחת קרינה, טמפרטורות קיצוניות והספק מוגבל. Micron בין המשקיעים.",
+      "domain": "electronics",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "Ramon.Space גייסה 124 מיליון דולר למחשבים שעובדים במסלול",
+      "id": "g14",
+      "kind": "system",
+      "region": "IL",
+      "role": "globe",
+      "sources": [
+        {
+          "fetchedAt": 1795211194919,
+          "httpStatus": 200,
+          "license": "© Calcalist",
+          "publishedAt": "2026-11-17",
+          "publisher": "Calcalist (CTech)",
+          "quote": "Ramon.Space employs approximately 130 people across Israel, the U.S., the U.K., and Germany.",
+          "sha256": "19f618067edd08d305d5d1c988163276b90c350186a70e3ea22a711b80219077",
+          "tier": "C",
+          "title": "Ramon.Space raises $124 million to build the computing infrastructure of space | CTech",
+          "url": "https://www.calcalistech.com/ctechnews/article/ryr9t6tcgl"
+        }
+      ],
+      "why": "מחשב שאי אפשר לגעת בו אחרי השיגור צריך אמינות שמתוכננת מראש, לא מתוקנת אחר כך. זו שאלה של הנדסת אמינות ושל תכנון לסביבה, לפני שהיא שאלה של ביצועים."
+    },
+    {
+      "body": "רשות הכבישים והתחבורה של דובאי (RTA) מתכננת להתחיל ניסויים במוניות אוויר חשמליות בסוף השנה, ושירות מסחרי לנוסעים \"כנראה ברבעון השני של 2027\", כך אמר ל-The National חאלד אל-עוואדי מהרשות. הקו הראשון יחבר את מרינה דובאי לוורטיפורט של נמל התעופה הבין-לאומי בשני כלי טיס חשמליים של Joby Aviation, במהירות של עד 322 קמ\"ש, בפחות מעשר דקות במקום 35 בכביש. ורטיפורט שלישי נבנה בדאונטאון, ורביעי מתוכנן בפאלם ג'ומיירה. הרשות שואפת ש-25% מהתחבורה תהיה אוטונומית עד 2030.",
+      "certainty": "single",
+      "connects": [
+        {
+          "concept": "הנעה",
+          "moduleId": "M15.16",
+          "rel": "later",
+          "why": "מטוס חשמלי בהמראה אנכית נשען על מדחפים והספק סוללה; הפרק על הנעה נותן את הקשר בין דחף, הספק ומהירות."
+        }
+      ],
+      "dek": "הקו הראשון יחבר את מרינה דובאי לנמל התעופה הבין-לאומי בשני מטוסים חשמליים; פחות מ-10 דקות במקום 35 בכביש.",
+      "domain": "fluids",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "מוניות אוויר בדובאי: ניסויים בדצמבר, שירות מסחרי ברבעון השני של 2027",
+      "id": "g15",
+      "kind": "system",
+      "region": "GULF",
+      "role": "globe",
+      "sanity": {
+        "check": "זמן טיסה מול מהירות",
+        "note": "ב-322 קמ\\\"ש, 10 דקות הן עד כ-54 ק\\\"מ ($322/6\\approx53.7$), גבול עליון נדיב למסלול בתוך עיר; הטענה עקבית גם במהירות שיוט נמוכה בהרבה מהמרבית.",
+        "result": "pass"
+      },
+      "sources": [
+        {
+          "fetchedAt": 1795211215705,
+          "httpStatus": 200,
+          "license": "© The National",
+          "publishedAt": "2026-11-20",
+          "publisher": "The National",
+          "quote": "Our plan is to have the launch most probably in Q2 of 2027 for commercial passenger services.",
+          "sha256": "0986289599dd5ddce94188e10465baf6b40a400822bf0d05ef84a752086d87fd",
+          "tier": "C",
+          "title": "Dubai targets first half of 2027 for commercial air taxi launch | The National",
+          "url": "https://www.thenationalnews.com/news/uae/2026/11/20/dubai-targets-first-half-of-2027-for-commercial-air-taxi-launch/"
+        }
+      ],
+      "why": "כלי טיס בהמראה אנכית מבזבז את רוב האנרגיה שלו בריחוף, ולכן קו קצר ומהיר בין שני ורטיפורטים הוא בדיוק המקום שבו החשבון של סוללה מול טווח עובד."
+    },
+    {
+      "body": "לפי סקר של DataReportal מיולי 2025, 42.1% ממשתמשי האינטרנט בקניה בני 16 ומעלה השתמשו ב-ChatGPT בחודש הקודם, לעומת 34.3% בדרום אפריקה ו-27.9% בניגריה. מיקרוסופט הפכה את הסדר: ברבעון הראשון של 2026 העריכה ש-23.1% מהדרום-אפריקאים בני 15 עד 64 השתמשו בכלי AI יוצר, לעומת 10.1% בניגריה ו-8.7% בקניה. TechCabal מסביר שהסקר הראשון מחלק במשתמשי אינטרנט (40.6% מהאוכלוסייה בקניה, 79.5% בדרום אפריקה), והשני מחלק בכלל האוכלוסייה בגיל העבודה ונשען בעיקר על נתוני מחשבי Windows.",
+      "certainty": "single",
+      "connects": [
+        {
+          "concept": "מספר כיחס",
+          "moduleId": "M0.1",
+          "rel": "learned",
+          "why": "קולמוגורוב מראה שמספר הוא יחס בין גדלים; אחוז בלי מכנה מוגדר אינו מספר שאפשר להשוות."
+        },
+        {
+          "concept": "הסקה סטטיסטית ואוכלוסיית יעד",
+          "moduleId": "M6.4",
+          "rel": "later",
+          "why": "ההבדל בין סקר של משתמשי אינטרנט למודל של כלל האוכלוסייה הוא בדיוק שאלת המסגרת של המדגם."
+        }
+      ],
+      "dek": "סקר אחד שם את קניה ראשונה בשימוש בצ'אטבוט, הערכה של מיקרוסופט שמה אותה אחרונה מבין שלוש. TechCabal מראה שהשתיים מודדות דברים שונים.",
+      "domain": "ml",
+      "full": "report",
+      "fullPart": 0,
+      "headline": "מי באמת משתמש ב-AI באפריקה? תלוי במכנה",
+      "id": "g16",
+      "kind": "data",
+      "region": "AF",
+      "role": "globe",
+      "sanity": {
+        "check": "היפוך דירוג ממכנה",
+        "note": "בדוגמה של הכתבה: $40\\times\\tfrac12=20$ משתמשים מתוך 100 מול $80\\times\\tfrac13\\approx27$; המדינה הראשונה מובילה בין המחוברים והשנייה באוכלוסייה כולה.",
+        "result": "pass"
+      },
+      "sources": [
+        {
+          "fetchedAt": 1795211193791,
+          "httpStatus": 200,
+          "license": "Copyright ©2026. All rights reserved.",
+          "publishedAt": "2026-11-19",
+          "publisher": "TechCabal",
+          "quote": "In a survey published by DataReportal in July 2025, 42.1% of Kenyan Internet users aged 16 and above said they had used ChatGPT in the previous month",
+          "sha256": "1b48041b7d23bc74f86943e6812da5b0dfd587153f4af836778faf24c5ae6a07",
+          "tier": "C",
+          "title": "Africa's AI adoption numbers are only as good as the counting",
+          "url": "https://techcabal.com/2026/11/19/who-is-using-ai-in-africa/"
+        }
+      ],
+      "why": "זה פרק שלם בסטטיסטיקה בכתבה אחת: אותו מונה, מכנה אחר, ודירוג הפוך. כדאי לשמור את הדוגמה לפרק על הסקה סטטיסטית ועל אוכלוסיית יעד."
+    }
+  ],
+  "lead": "n1",
+  "number": 2,
+  "picks10": [
+    "n4",
+    "b1",
+    "l3"
+  ],
+  "publishedAt": 1795211222009,
+  "sections": [
+    {
+      "id": "mathphys",
+      "items": [
+        "n2",
+        "b8",
+        "b9"
+      ],
+      "title": "מתמטיקה ופיזיקה"
+    },
+    {
+      "id": "signals",
+      "items": [
+        "b1"
+      ],
+      "title": "אותות ובקרה"
+    },
+    {
+      "id": "comms",
+      "items": [
+        "n4",
+        "b3",
+        "b10"
+      ],
+      "title": "תקשורת"
+    },
+    {
+      "id": "electronics",
+      "items": [
+        "n5"
+      ],
+      "title": "אלקטרוניקה ושבבים"
+    },
+    {
+      "id": "power",
+      "items": [
+        "b2",
+        "b4"
+      ],
+      "title": "הספק ואנרגיה"
+    },
+    {
+      "id": "fluids",
+      "items": [
+        "b5",
+        "b6",
+        "b7"
+      ],
+      "title": "תרמו, זרימה ואווירו"
+    },
+    {
+      "id": "materials",
+      "items": [
+        "b11"
+      ],
+      "title": "מבנים וחומרים"
+    },
+    {
+      "id": "systems",
+      "items": [
+        "n1"
+      ],
+      "title": "הנדסת מערכות ותקנים"
+    },
+    {
+      "id": "space",
+      "items": [
+        "n3"
+      ],
+      "title": "חלל כהנדסה"
+    }
+  ],
+  "snapshot": {
+    "current": "M0.2",
+    "done": 2,
+    "upcoming": [
+      "M0.3",
+      "M1.1",
+      "M1.2",
+      "M1.3",
+      "M1.4",
+      "M1.5",
+      "M1.6",
+      "M27.1",
+      "M27.12",
+      "M27.13",
+      "M20.1",
+      "M20.2"
+    ]
+  },
+  "stats": {
+    "candidates": 908,
+    "dropped": {
+      "defense_source_not_for_gilua": 1,
+      "domain_quota": 5,
+      "fetch_failed_403": 10,
+      "not_selected_triage": 821,
+      "paywalled": 4
+    },
+    "fetched": 88,
+    "verified": 41
+  },
+  "window": {
+    "from": "2026-11-13",
+    "to": "2026-11-19"
+  }
+}

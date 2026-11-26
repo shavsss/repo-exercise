@@ -1,0 +1,682 @@
+{
+  "convs": {
+    "0": "fbg25bgqwd13rq0oxsdr"
+  },
+  "done": [],
+  "lessons": [
+    {
+      "covers": [
+        "1.1 Project Structure",
+        "1.1.1 Standard information",
+        "1.1.2 Organizing project content",
+        "1.2 Downloading the Data",
+        "1.3 Installing the Software",
+        "1.4 Summary",
+        "1.5 Exercises",
+        "1.5.1 Getting ready",
+        "1.6 Key Points",
+        "2.1 Exploring Files and Directories",
+        "2.2 Moving Around",
+        "2.3 Creating New Files and Directories",
+        "2.4 Moving Files and Directories",
+        "2.5 Copying Files and Directories",
+        "2.6 Deleting Files and Directories",
+        "2.7 Wildcards",
+        "2.8 Reading the Manual",
+        "2.9 Summary",
+        "2.10 Exercises",
+        "2.10.1 Exploring more ls flags",
+        "2.10.2 Listing recursively and by time",
+        "2.10.3 Absolute and relative paths",
+        "2.10.4 Relative path resolution",
+        "2.10.6 Creating files a different way",
+        "2.10.7 Using rm safely",
+        "2.10.8 Moving to the current folder",
+        "2.10.9 Renaming files",
+        "2.10.10 Moving and copying",
+        "2.10.11 Copy with multiple filenames",
+        "2.10.12 List filenames matching a pattern",
+        "2.10.13 Organizing directories and files",
+        "2.10.14 Reproduce a directory structure",
+        "2.10.15 Wildcard expressions",
+        "2.10.16 Removing unneeded files",
+        "2.10.17 Other wildcards",
+        "2.11 Key Points"
+      ],
+      "focus": "שני רעיונות מרכזיים. (1) פרויקט כמבנה צפוי: תבנית Noble ‏(bin/data/results/docs), הקבצים הסטנדרטיים (README, LICENSE, CITATION), ולמה סדר מההתחלה זול יותר מסידור בדיעבד. (2) מערכת הקבצים כעץ: נתיב מוחלט מול יחסי, איך נפתר נתיב יחסי (. ו-..), ותווים כלליים (*, ?) שהמעטפת מרחיבה לפני שהפקודה רצה, ולכן rm *.txt מסוכן. בפקודות ls/cd/mkdir/mv/cp/rm/man מלמדים את המודל ולא את הקטלוג: mv כשינוי שם מול העברה, ומחיקה שאי אפשר לבטל (rm -i). מערכת העוגן לכל המודול: פרויקט Zipf של הספר, שבו מנתחים טקסטים וקוד. התרגילים מעמודי 2.10, עם פתרונות שנבדקו.",
+      "sources": [
+        {
+          "doc": "W01",
+          "pages": [
+            7,
+            44
+          ]
+        }
+      ],
+      "title": "שיעור 1: מבנה פרויקט ומערכת הקבצים מהמעטפת: נתיבים, יצירה, העברה, מחיקה ותווים כלליים"
+    },
+    {
+      "covers": [
+        "3.1 Combining Commands",
+        "3.2 How Pipes Work",
+        "3.3 Repeating Commands on Many Files",
+        "3.4 Variable Names",
+        "3.5 Redoing Things",
+        "3.6 Creating New Filenames Automatically",
+        "3.7 Summary",
+        "3.8 Exercises",
+        "3.8.1 What does >> mean?",
+        "3.8.2 Appending data",
+        "3.8.3 Piping commands",
+        "3.8.4 Why does uniq only remove adjacent duplicates?",
+        "3.8.5 Pipe reading comprehension",
+        "3.8.6 Pipe construction",
+        "3.8.7 Which pipe?",
+        "3.8.8 Doing a dry run",
+        "3.8.9 Variables in loops",
+        "3.8.10 Limiting sets of files",
+        "3.8.11 Saving to a file in a loop",
+        "3.8.12 Why does history record commands before",
+        "3.9 Key Points",
+        "4.1 Creating New Commands",
+        "4.2 Making Scripts More Versatile",
+        "4.3 Turning Interactive Work into a Script",
+        "4.4 Finding Things in Files",
+        "4.5 Finding Files",
+        "4.6 Configuring the Shell",
+        "4.7 Summary",
+        "4.8 Exercises",
+        "4.8.1 Cleaning up",
+        "4.8.2 Variables in shell scripts",
+        "4.8.3 Find the longest file with a given extension",
+        "4.8.4 Script reading comprehension",
+        "4.8.5 Using grep",
+        "4.8.6 Tracking publication years",
+        "4.8.7 Counting names",
+        "4.8.8 Matching and subtracting",
+        "4.8.10 Finding files with different properties",
+        "4.9 Key Points"
+      ],
+      "focus": "רעיון מרכזי: הרכבה של כלים קטנים דרך זרמים (stdin/stdout, הפניות > ו->>, צינור |). רואים את זה כשרשרת סינונים, ולמה uniq מוריד רק כפילויות סמוכות ולכן חייב sort לפניו (שאלת הכרעה). רעיון שני: מעבודה אינטראקטיבית לתסריט שמשחזר אותה: לולאת for, משתנים ומירכאות סביב שמות עם רווחים, ריצת ניסיון עם echo לפני פעולה הורסת, ‎$1/$@‎, history. grep ו-find לחיפוש, ו-‎.bashrc‎ לתצורה. החיבור לשחזוריות: תסריט הוא התיעוד של מה שעשינו. התרגילים מעמודי 3.8 ו-4.8.",
+      "sources": [
+        {
+          "doc": "W01",
+          "pages": [
+            45,
+            93
+          ]
+        }
+      ],
+      "title": "שיעור 2: צינורות, לולאות ותסריטים: אוטומציה של עבודה חוזרת"
+    },
+    {
+      "covers": [
+        "5.1 Programs and Modules",
+        "5.2 Handling Command-Line Options",
+        "5.3 Documentation",
+        "5.4 Counting Words",
+        "5.5 Pipelining",
+        "5.6 Positional and Optional Arguments",
+        "5.7 Collating Results",
+        "5.8 Writing Our Own Modules",
+        "5.9 Plotting",
+        "5.10 Summary",
+        "5.11 Exercises",
+        "5.11.1 Running Python statements from the command",
+        "5.11.2 Listing files",
+        "5.11.3 Sentence ending punctuation",
+        "5.11.4 A better plotting program",
+        "5.12 Key Points",
+        "Python data model: names, references, mutability"
+      ],
+      "focus": "שני רעיונות מרכזיים. (1) תוכנית כרכיב בצינור: argparse (ארגומנט מיקומי מול אופציונלי), docstrings, קריאה מ-stdin וכתיבה ל-stdout כך ש-countwords.py ו-collate.py משתלבים בצינורות של שיעור 2, והוצאת קוד משותף למודול (utilities.py, הבדיקה `if __name__ == '__main__'`). (2) נושא חדש שאין לו עמוד בספרייה, נלמד במלואו: מודל הנתונים של פייתון. משתנה הוא שם שמצביע על אובייקט; יש אובייקטים שאפשר לשנות (list, dict) ויש שלא (tuple, str); העתקה רדודה מול עמוקה; הבאגים הקלאסיים של ארגומנט ברירת מחדל שהוא רשימה, ושל מטריצה (רשימת רשימות) שהשתנתה דרך שם אחר. את 5.9 (גרף Zipf ראשון) מלמדים רק כעוגן לשיעורי Matplotlib. התרגילים מעמודי 5.11.",
+      "sources": [
+        {
+          "doc": "W01",
+          "pages": [
+            94,
+            122
+          ]
+        }
+      ],
+      "title": "שיעור 3: תוכניות פייתון בשורת הפקודה, מודולים, ומודל הנתונים של פייתון (שמות, הפניות, שינוי)"
+    },
+    {
+      "covers": [
+        "6.1 Setting Up",
+        "6.2 Creating a New Repository",
+        "6.3 Adding Existing Work",
+        "6.4 Describing Commits",
+        "6.5 Saving and Tracking Changes",
+        "6.6 Synchronizing with Other Repositories",
+        "6.7 Exploring History",
+        "6.8 Restoring Old Versions of Files",
+        "6.9 Ignoring Files",
+        "6.10 Summary",
+        "6.11 Exercises",
+        "6.11.1 Places to create Git repositories",
+        "6.11.2 Removing before saving",
+        "6.11.3 Viewing changes",
+        "6.11.4 Committing changes",
+        "6.11.5 Write your biography",
+        "6.11.6 Committing multiple files",
+        "6.11.7 GitHub timestamps",
+        "6.11.8 Workflow and history",
+        "6.11.9 Ignoring nested files",
+        "6.11.10 Including specific files",
+        "6.11.11 Exploring the GitHub interface",
+        "6.11.12 Push versus commit",
+        "6.11.13 License and README files",
+        "6.11.14 Recovering older versions of a file",
+        "6.11.15 Understanding git diff",
+        "6.11.16 Getting rid of staged changes",
+        "6.11.17 Figuring out who did what",
+        "6.12 Key Points"
+      ],
+      "focus": "רעיון מרכזי: מודל הנתונים של git. commit הוא תמונת מצב שלמה עם מזהה hash ועם הפניה להורה, ולא רשימת שינויים. שלושת המקומות (תיקיית העבודה, staging, המאגר) ולמה צריך staging; ‏diff כהשוואה בין שתי תמונות מצב; ‏log, ‏HEAD~n, ‏checkout/restore לגרסה ישנה, ‏blame. מאגר מקומי מול מרוחק: push מול commit, ‏pull. ‏‎.gitignore‎ לנתונים ולתוצאות שנוצרים מחדש. הודעת commit טובה ו-commit קטן ואטומי מוכנים כאן כבסיס לשיעור הבא, שבו נלמדים הענפים, ה-merge, ה-bisect והעבודה עם סוכן קוד. התרגילים מעמודי 6.11.",
+      "sources": [
+        {
+          "doc": "W01",
+          "pages": [
+            123,
+            158
+          ]
+        }
+      ],
+      "title": "שיעור 4: git כמכונת זמן: commit כתמונת מצב, היסטוריה, שחזור וסנכרון"
+    },
+    {
+      "covers": [
+        "7.1 What’s a Branch?",
+        "7.2 Creating a Branch",
+        "7.3 What Curve Should We Fit?",
+        "7.4 Verifying Zipf’s Law",
+        "7.5 Merging",
+        "7.6 Handling Conflicts",
+        "7.7 A Branch-Based Workflow",
+        "7.8 Using Other People’s Work",
+        "7.9 Pull Requests",
+        "7.10 Handling Conflicts in Pull Requests",
+        "7.11 Summary",
+        "7.12 Exercises",
+        "7.12.1 Explaining options",
+        "7.12.2 Modifying prompt",
+        "7.12.3 Ignoring files",
+        "7.12.4 Creating the same file twice",
+        "7.12.5 Deleting a branch without merging",
+        "7.12.6 Tracing changes",
+        "7.13 Key Points",
+        "git: snapshots, branches, merge and history",
+        "Reading agent-written code and diffs"
+      ],
+      "focus": "רעיון מרכזי: היסטוריה כגרף שאין בו מעגלים (DAG), וענף הוא רק מצביע זז. מכאן merge (commit עם שני הורים, fast-forward), קונפליקט כשני שינויים באותן שורות, ותוספת שהעמודים לא מכסים: rebase מול merge (היסטוריה ליניארית מול נאמנה לאמת), revert מול reset, ו-git bisect כחיפוש בינארי אחרי ה-commit ששבר (log2 N צעדים, בעזרת refresh ל'חיפוש בינארי' מ-M0.1). פורק, upstream ו-pull request כתהליך סקירה. נושא שני, שמעמיק את 7.9: סדר קריאה של diff שסוכן קוד כתב: מה השתנה, האם יש בדיקה שנכשלת בלי השינוי, סובלנות שהורחבה בשקט, קבועים קסומים, ולוגים של הריצה ולא רק הסיכום. עבודה בענף ו-commit קטן ותכוף עם סוכן. ההתאמה של עקומת Zipf ב-7.3–7.4 משמשת רק כתוכן של הענף; את הסקה פרמטרית (נראות מרבית) מלמד M6.5, וכאן רק מציינים אותה. התרגילים מעמודי 7.12.",
+      "sources": [
+        {
+          "doc": "W01",
+          "pages": [
+            159,
+            199
+          ]
+        }
+      ],
+      "title": "שיעור 5: ענפים, merge וקונפליקטים, pull requests, וקריאת diff של קוד שסוכן כתב"
+    },
+    {
+      "covers": [
+        "8.1 What Is a Project?",
+        "8.2 Include Everyone",
+        "8.3 Establish a Code of Conduct",
+        "8.4 Include a License",
+        "8.4.1 Software",
+        "8.4.2 Data and reports",
+        "8.5 Planning",
+        "8.6 Bug Reports",
+        "8.7 Labeling Issues",
+        "8.7.1 Standardizing workflows",
+        "8.8 Prioritizing",
+        "8.9 Meetings",
+        "8.9.1 Air time",
+        "8.9.2 Online meetings",
+        "8.10 Making Decisions",
+        "8.11 Make All This Obvious to Newcomers",
+        "8.12 Handling Conflict",
+        "8.13 Summary",
+        "8.14 Exercises",
+        "8.14.1 Finding information",
+        "8.14.2 Add a Code of Conduct to your project",
+        "8.14.3 Add a license to your project",
+        "8.14.4 Adding contribution guidelines",
+        "8.14.5 File an issue",
+        "8.14.6 Label issues",
+        "8.14.7 Balancing individual and team needs",
+        "8.14.8 Crediting invisible contributions",
+        "8.14.9 Who are you?",
+        "8.15 Key Points"
+      ],
+      "focus": "רעיון מרכזי: מה מגביל קצב של פרויקט משותף הוא העלות של תיאום, ולא כתיבת הקוד. הנושאים: רישיון (מתירני מול copyleft, ו-CC לנתונים) כהחלטה שקשה לבטל; דוח באג טוב (שחזור מינימלי, מה צפוי ומה קרה); תוויות ו-workflow של issues; תעדוף לפי מאמץ מול ערך (טבלה, עם מספרים היפותטיים); ישיבות וזמן דיבור; החלטות (הצבעה, קונצנזוס ממוזער, Martha's Rules); ותיעוד שמקל על מצטרפים חדשים. ארכיטקטורה ארגונית (Conway, Brooks) נלמדת ב-M27.13, וכאן רק נזכרת. התרגילים מעמודי 8.14.",
+      "sources": [
+        {
+          "doc": "W01",
+          "pages": [
+            200,
+            232
+          ]
+        }
+      ],
+      "title": "שיעור 6: פרויקט כמערכת של אנשים: רישיון, issues, עדיפויות, ישיבות והחלטות"
+    },
+    {
+      "covers": [
+        "Introduction to NumPy",
+        "# Reminder about Built In",
+        "Understanding Data Types in Python",
+        "# A Python Integer Is More Than Just an",
+        "# A Python List Is More Than Just a List",
+        "# Fixed-Type Arrays in Python",
+        "# Creating Arrays from Python Lists",
+        "# Creating Arrays from Scratch",
+        "# NumPy Standard Data Types",
+        "The Basics of NumPy Arrays",
+        "# NumPy Array Attributes",
+        "# Array Indexing: Accessing Single",
+        "# Array Slicing: Accessing Subarrays",
+        "## One-dimensional subarrays",
+        "## Multi-dimensional subarrays",
+        "## Subarrays as no-copy views",
+        "## Creating copies of arrays",
+        "# Reshaping of Arrays",
+        "# Array Concatenation and Splitting",
+        "## Concatenation of arrays",
+        "## Splitting of arrays",
+        "NumPy arrays: dtype, shape, broadcasting, views vs copies"
+      ],
+      "focus": "רעיון מרכזי: מספר שלם של פייתון הוא אובייקט עם תקורה (בערך 28 בתים מול 8), ורשימה היא מערך של מצביעים. מערך NumPy הוא חוצץ רציף עם dtype, ‏shape ו-strides (לפי האיורים בעמודים: int מול PyObject, רשימה מול מערך). ממשיכים משיעור 3 על הפניות: slicing מחזיר view שחולק זיכרון, ולכן שינוי בתת-מערך משנה את המקור, ו-copy מנתק; ‏reshape בלי העתקה; concatenate/split. טבלת סוגי ה-dtype מתחברת ל-float64 ול-float32 מ-M0.1 (refresh לאפסילון). את broadcasting ואת fancy indexing ששייכים לפריט מלמדים בשיעורים 8–9, וכאן רק מבנה הזיכרון שמאפשר אותם. סדר זיכרון C מול Fortran ו-cache נלמדים בשיעור 8.",
+      "sources": [
+        {
+          "doc": "W02",
+          "pages": [
+            47,
+            67
+          ]
+        }
+      ],
+      "title": "שיעור 7: מערך NumPy כגוש זיכרון: dtype, shape, strides, ו-view מול העתק"
+    },
+    {
+      "covers": [
+        "Computation on NumPy Arrays: Universal",
+        "# The Slowness of Loops",
+        "# Introducing UFuncs",
+        "# Exploring NumPy's UFuncs",
+        "## Array arithmetic",
+        "## Absolute value",
+        "## Trigonometric functions",
+        "## Exponents and logarithms",
+        "## Specialized ufuncs",
+        "# Advanced Ufunc Features",
+        "## Specifying output",
+        "## Aggregates",
+        "## Outer products",
+        "# Ufuncs: Learning More",
+        "Aggregations: Min, Max, and Everything In",
+        "# Summing the Values in an Array",
+        "# Minimum and Maximum",
+        "## Multi dimensional aggregates",
+        "## Other aggregation functions",
+        "# Example: What is the Average Height of US Presidents?",
+        "Computation on Arrays: Broadcasting",
+        "# Introducing Broadcasting",
+        "# Rules of Broadcasting",
+        "# Broadcasting in Practice",
+        "## Centering an array",
+        "## Plotting a two-dimensional function",
+        "Profiling and Timing Code",
+        "# Timing Code Snippets: %timeit and %time",
+        "# Profiling Full Scripts: %prun",
+        "# Line-By-Line Profiling with %lprun",
+        "# Profiling Memory Use: %memit and %mprun",
+        "More IPython Resources",
+        "# Web Resources",
+        "# Books",
+        "Performance: vectorization, memory layout, compiled kernels"
+      ],
+      "focus": "שני רעיונות מרכזיים. (1) למה לולאה איטית: בדיקת טיפוס ושליחה דינמית בכל איבר, מול ufunc שרץ בלולאה מהודרת על חוצץ רציף (פי 10–100, נמדד). אגרגציות עם axis, ‏np.sum מול sum, וגרסאות nan. הדוגמה של גובה הנשיאים. (2) שלושת כללי broadcasting כאלגוריתם (יישור צורות מימין, מתיחה של ממד באורך 1, אחרת שגיאה), עם האיור בעמודים, מירכוז מערך ופונקציה דו-ממדית. את 1.07 מאחדים כאן כשיטת עבודה: מודדים לפני שמשפרים (%timeit שחוזר על עצמו, %prun, %lprun, %memit), וההשלמה מכסה סדר זיכרון C מול Fortran וההשפעה שלו על cache, העתקות סמויות (out=), ומתי לעבור ל-Numba או ל-C. הניסוי: DFT כמכפלה של מטריצה (מטריצת המקדמים נבנית ב-broadcasting/outer) מול לולאה מול np.fft, עם זמנים מדודים, ו-N² מול N log N רק כעוגן (את ה-FFT מלמד M4.14).",
+      "sources": [
+        {
+          "doc": "W02",
+          "pages": [
+            68,
+            91
+          ]
+        },
+        {
+          "doc": "W02",
+          "pages": [
+            38,
+            46
+          ]
+        }
+      ],
+      "title": "שיעור 8: וקטוריזציה ומדידת ביצועים: ufuncs, אגרגציות, broadcasting, ופרופיל לפני אופטימיזציה"
+    },
+    {
+      "covers": [
+        "Comparisons, Masks, and Boolean Logic",
+        "# Example: Counting Rainy Days",
+        "## Digging into the data",
+        "# Comparison Operators as ufuncs",
+        "# Working with Boolean Arrays",
+        "## Counting entries",
+        "## Boolean operators",
+        "# Boolean Arrays as Masks",
+        "# Aside: Using the Keywords and/or Versus the Operators &/|",
+        "Fancy Indexing",
+        "# Exploring Fancy Indexing",
+        "# Combined Indexing",
+        "# Example: Selecting Random Points",
+        "# Modifying Values with Fancy Indexing",
+        "# Example: Binning Data",
+        "Sorting Arrays",
+        "# Fast Sorting in NumPy: np.sort and",
+        "## Sorting along rows or columns",
+        "# Partial Sorts: Partitioning",
+        "# Example: k-Nearest Neighbors",
+        "# Aside: Big-O Notation",
+        "Structured Data: NumPy's Structured",
+        "# Creating Structured Arrays",
+        "# More Advanced Compound Types",
+        "# RecordArrays: Structured Arrays with a",
+        "# On to Pandas",
+        "The SciPy toolbox map"
+      ],
+      "focus": "רעיון מרכזי: לבחור נתונים בלי לולאה. מסכה בוליאנית (הדוגמה של ימי הגשם בסיאטל, ‏& מול and), ו-fancy indexing שמחזיר העתק ולא view (ממשיכים את שיעור 7). המלכודת של x[i] += 1 עם אינדקסים חוזרים מול np.add.at, וחלוקה לתאים בעזרת searchsorted. מיון: argsort ו-partition, ‏k השכנים הקרובים כולו ב-broadcasting (עם האיורים), ו-Big-O רק כעוגן (מלמד אותו M21.1). מערכים מובנים בקצרה, כגשר ל-Pandas. נושא חדש שאין לו עמוד בספרייה: מפת SciPy (linalg: פירוקים ו-solve ולא inv; ‏integrate.solve_ivp; ‏optimize: minimize, least_squares, root; ‏signal, sparse, stats). לכל אחד: מתי משתמשים בו, מה ברירת המחדל מסתירה (סובלנות, שיטה), ואיך בודקים את הפתרון (שארית, הצבה חזרה, פתרון סגור). התאוריה עצמה שייכת ל-M8 ול-M10.13.",
+      "sources": [
+        {
+          "doc": "W02",
+          "pages": [
+            92,
+            121
+          ]
+        }
+      ],
+      "title": "שיעור 9: מסכות, fancy indexing ומיון, ומפת הכלים של SciPy"
+    },
+    {
+      "covers": [
+        "Visualization with Matplotlib",
+        "# General Matplotlib Tips",
+        "## Importing Matplotlib",
+        "## Setting Styles",
+        "## show() or No show() ? How to Display Your Plots",
+        "## Saving Figures to File",
+        "# Two Interfaces for the Price of One",
+        "Simple Line Plots",
+        "# Adjusting the Plot: Line Colors and",
+        "# Adjusting the Plot: Axes Limits",
+        "# Labeling Plots",
+        "# Aside: Matplotlib Gotchas",
+        "Simple Scatter Plots",
+        "# Scatter Plots with plt.plot",
+        "# Scatter Plots with plt.scatter",
+        "# plot Versus scatter: A Note on Efficiency",
+        "Visualizing Errors",
+        "# Basic Errorbars",
+        "# Continuous Errors",
+        "Density and Contour Plots",
+        "# Visualizing a Three-Dimensional",
+        "Histograms, Binnings, and Density",
+        "# Two-Dimensional Histograms and",
+        "## plt.hist2d : Two-dimensional histogram",
+        "## plt.hexbin : Hexagonal binnings",
+        "## Kernel density estimation",
+        "Customizing Plot Legends",
+        "# Choosing Elements for the Legend",
+        "# Legend for Size of Points",
+        "# Multiple Legends",
+        "Customizing Colorbars",
+        "# Customizing Colorbars",
+        "## Choosing the Colormap",
+        "## Color limits and extensions",
+        "## Discrete Color Bars",
+        "# Example: Handwritten Digits",
+        "Plotting that answers a question (Matplotlib)"
+      ],
+      "focus": "רעיון מרכזי: גרף טוב עונה על שאלה אחת. לכן צריכים צירים ויחידות, סקאלה לוגריתמית ל-dB ולספקטרום (refresh ל-dB מ-M0.1), תאוריה מול סימולציה על אותו ציר עם פסי שגיאה או רצועה רציפה, ותסריט שמייצר את הגרף מחדש מהנתונים בלי שום עריכה ידנית. ממשק MATLAB מול ממשק מונחה עצמים (fig, ax), ו-savefig. plot מול scatter (יעילות), קונטור ל-f(x,y) שנבנה ב-broadcasting משיעור 8, היסטוגרמה ובחירת רוחב התא, hist2d/hexbin, ו-KDE רק כעוגן (נלמד ב-M17.15). מקראות, ומפת צבעים רציפה, מתפצלת או איכותית: למה jet מטעה (בהירות לא מונוטונית, עם האיור בעמודים). הדוגמה של הספרות בכתב יד. מציגים את האיורים של העמודים, ובכל סעיף שואלים 'מה הגרף הזה מוכיח'.",
+      "sources": [
+        {
+          "doc": "W02",
+          "pages": [
+            260,
+            306
+          ]
+        }
+      ],
+      "title": "שיעור 10: גרף כטיעון: קווים, פיזור, פסי שגיאה, קונטור, היסטוגרמות, מקראות וסקאלות צבע"
+    },
+    {
+      "covers": [
+        "Multiple Subplots",
+        "# plt.axes: Subplots by Hand",
+        "# plt.subplot: Simple Grids of Subplots",
+        "# plt.subplots: The Whole Grid in One Go",
+        "# plt.GridSpec: More Complicated",
+        "Text and Annotation",
+        "# Example: Effect of Holidays on US",
+        "# Transforms and Text Position",
+        "# Arrows and Annotation",
+        "Customizing Ticks",
+        "# Major and Minor Ticks",
+        "# Hiding Ticks or Labels",
+        "# Reducing or Increasing the Number of",
+        "# Fancy Tick Formats",
+        "# Summary of Formatters and Locators",
+        "Customizing Matplotlib: Configurations and Stylesheets",
+        "# Plot Customization by Hand",
+        "# Changing the Defaults: rcParams",
+        "# Stylesheets",
+        "## Default style",
+        "## FiveThiryEight style",
+        "## ggplot",
+        "## *Bayesian Methods for Hackers( style",
+        "## Dark background",
+        "## Grayscale",
+        "## Seaborn style",
+        "Three-Dimensional Plotting in Matplotlib",
+        "# Three-dimensional Points and Lines",
+        "# Three-dimensional Contour Plots",
+        "# Wireframes and Surface Plots",
+        "# Surface Triangulations",
+        "## Example: Visualizing a Möbius strip",
+        "Geographic Data with Basemap",
+        "# Map Projections",
+        "## Cylindrical projections",
+        "## Pseudo-cylindrical projections",
+        "## Perspective projections",
+        "## Conic projections",
+        "## Other projections",
+        "# Drawing a Map Background",
+        "# Plotting Data on Maps",
+        "# Example: California Cities",
+        "# Example: Surface Temperature Data",
+        "Visualization with Seaborn",
+        "# Seaborn Versus Matplotlib",
+        "# Exploring Seaborn Plots",
+        "## Histograms, KDE, and densities",
+        "## Pair plots",
+        "## Faceted histograms",
+        "## Factor plots",
+        "## Joint distributions",
+        "## Bar plots",
+        "# Example: Exploring Marathon Finishing",
+        "Further Resources",
+        "# Matplotlib Resources",
+        "# Other Python Graphics Libraries"
+      ],
+      "focus": "רעיון מרכזי: שכבת ההצגה מעל הגרף, כלומר השוואה בפאנלים עם צירים משותפים (subplots, GridSpec), הערה שמצביעה על האירוע שהגרף מוכיח (הדוגמה של החגים והלידות, ומערכות קואורדינטות של נתונים, צירים ודמות), ‏locators ו-formatters (קווי ייחוס ב-π), ו-rcParams וגיליון סגנון כתצורה שאפשר לשחזר במקום עריכה ידנית. תלת-ממד (משטח, wireframe, טריאנגולציה, רצועת מביוס) וההחלטה מתי הוא עוזר ומתי קונטור דו-ממדי ברור יותר. Basemap כעוגן לבעיית ההטלה (מישור לא שומר גם שטחים וגם זוויות), בלי לפתח גאומטריה. Seaborn כשכבה סטטיסטית (pairplot, ‏facets, ‏jointplot), עם הדוגמה של זמני המרתון. בהקשר של היום: Basemap הוצא משימוש והחליף אותו Cartopy (עם תווית ודאות).",
+      "sources": [
+        {
+          "doc": "W02",
+          "pages": [
+            307,
+            376
+          ]
+        }
+      ],
+      "title": "שיעור 11: פריסה, הערות, צירים, סגנונות, תלת-ממד, מפות ו-Seaborn"
+    },
+    {
+      "covers": [
+        "11.1 Assertions",
+        "11.2 Unit Testing",
+        "11.3 Testing Frameworks",
+        "11.4 Testing Floating-Point Values",
+        "11.5 Integration Testing",
+        "11.6 Regression Testing",
+        "11.7 Test Coverage",
+        "11.8 Continuous Integration",
+        "11.9 When to Write Tests",
+        "11.10 Summary",
+        "11.11 Exercises",
+        "11.11.1 Explaining assertions",
+        "11.11.2 Rectangle normalization",
+        "11.11.3 Testing with randomness",
+        "11.11.4 Testing with relative error",
+        "11.12 Key Points",
+        "Testing numerical code with pytest",
+        "Floating point in practice: tolerances and cancellation"
+      ],
+      "focus": "שני רעיונות מרכזיים. (1) בדיקה היא טענה שאפשר להפריך: assert, בדיקת יחידה ב-pytest, בדיקת אינטגרציה, רגרסיה (golden test), כיסוי (ומה כיסוי של 100% לא מבטיח), CI שרץ על כל commit (חיבור לשיעורים 4–5), והסיפור של Chang שחזר בו מחמישה מאמרים. (2) מעמיקים את 11.4: השוואה בנקודה צפה. אפסילון מכונה של float64 (2.2e-16, refresh מ-M0.1), שגיאה יחסית מול מוחלטת, ‏np.isclose ו-pytest.approx (rtol, atol, ומה קורה ליד אפס), ביטול בחיסור של מספרים קרובים, סדר סכימה, ו-float32 מול float64 על GPU. התאוריה שלמה נשארת ל-M8.6 ו-M22.5. מה שהעמודים לא מכסים: בדיקה מול פתרון סגור, בדיקה של סדר ההתכנסות (שיפוע של השגיאה מול h בגרף log-log שווה p, למשל אוילר מול RK4 על y'=-y מ-M0.1), ובדיקת תכונה (hypothesis). מבחן לדרך: בדיקה שעוברת תמיד חשודה. התרגילים מעמודי 11.11.",
+      "sources": [
+        {
+          "doc": "W01",
+          "pages": [
+            272,
+            300
+          ]
+        }
+      ],
+      "title": "שיעור 12: בדיקות לקוד נומרי: assert, ‏pytest, סובלנות בנקודה צפה, סדר התכנסות, רגרסיה ו-CI"
+    },
+    {
+      "covers": [
+        "12.1 Exceptions",
+        "12.2 Writing Useful Error Messages",
+        "12.3 Testing Error Handling",
+        "12.4 Reporting Errors",
+        "12.5 Summary",
+        "12.6 Exercises",
+        "12.6.1 Set the logging level",
+        "12.6.2 Send the logging output to file",
+        "12.6.3 Handling exceptions",
+        "12.6.4 Testing error handling",
+        "12.6.5 Error catalogs",
+        "12.6.6 Tracebacks",
+        "12.7 Key Points",
+        "Errors and Debugging",
+        "# Controlling Exceptions: %xmode",
+        "# Debugging: When Reading Tracebacks Is Not Enough",
+        "## Partial list of debugging commands"
+      ],
+      "focus": "רעיון מרכזי: שגיאה היא מידע, והשאלה היא מי צריך אותו ומתי. try/except ומדרג החריגים, ‏raise מוקדם וקרוב למקור, למה except ריק מסוכן, והודעת שגיאה שאומרת מה קרה, למה, ומה עושים. בדיקה של מסלול השגיאה עם pytest.raises (המשך של שיעור 12). logging עם רמות ועם קובץ, במקום print, כתשתית ללוג השחזוריות של שיעור 14. מעמודי W02 1.06 מוסיפים רק את מה שחדש: קריאת traceback (‏%xmode Plain/Context/Verbose), ‏%debug לניתוח אחרי שהתוכנית קרסה, ופקודות pdb. אבחון ככלי: חלוקה של מרחב החיפוש לשניים (מתחבר ל-bisect משיעור 5). התרגילים מעמודי 12.6.",
+      "sources": [
+        {
+          "doc": "W01",
+          "pages": [
+            301,
+            322
+          ]
+        },
+        {
+          "doc": "W02",
+          "pages": [
+            32,
+            37
+          ]
+        }
+      ],
+      "title": "שיעור 13: טיפול בשגיאות ודיבוג: חריגים, הודעות שגיאה שימושיות, logging ו-pdb"
+    },
+    {
+      "covers": [
+        "13.1 Data Provenance",
+        "13.1.1 The FAIR Principles",
+        "13.1.1.1 Data should be findable",
+        "13.1.1.2 Data should be accessible",
+        "13.1.1.3 Data should be interoperable",
+        "13.1.1.4 Data should be reusable",
+        "13.1.2 Where to archive data",
+        "13.2 Code Provenance",
+        "13.2.1 Software environment",
+        "13.2.2 Data processing steps",
+        "13.2.3 Analysis scripts",
+        "13.2.4 Reproducibility versus inspectability",
+        "13.3 Summary",
+        "13.4 Exercises",
+        "13.4.1 ORCID",
+        "13.4.2 A FAIR test",
+        "13.4.3 Evaluate a project’s data provenance",
+        "13.4.4 Evaluate a project’s code provenance",
+        "13.4.5 Making permanent links",
+        "13.4.6 Create an archive of your Zipf’s analysis",
+        "13.4.7 Publishing your code",
+        "13.5 Key Points",
+        "Reproducible data pipelines"
+      ],
+      "focus": "רעיון מרכזי: תוצאה מחקרית כוללת את הנתונים, את הקוד, את הסביבה ואת הצעדים (Claerbout). FAIR כרשימת בדיקה, DOI ו-ORCID, ארכיון (Zenodo) מול מאגר git, וקישור קבוע ל-commit. ההבחנה של הספר בין שחזוריות לבין יכולת בדיקה. מה שהעמודים לא מכסים: מעבר ממחברת לצינור. גרסאות של נתונים ושל קוד (hash של הקלט), סכמה ובדיקות על הנתונים בכניסה, Makefile או צינור שמריץ הכול מקצה לקצה בפקודה אחת, ולוג ריצה עם גרסה, פרמטרים, seed ותוצאה. פריט הסביבות ונעילת התלויות נלמד בשיעור 15, וכאן רק מסמנים את הצורך. התרגילים מעמודי 13.4.",
+      "sources": [
+        {
+          "doc": "W01",
+          "pages": [
+            323,
+            334
+          ]
+        }
+      ],
+      "title": "שיעור 14: שחזוריות ומקור: נתונים לפי FAIR, תיעוד הקוד והסביבה, וצינור נתונים משוחזר"
+    },
+    {
+      "covers": [
+        "14.1 Creating a Python Package",
+        "14.2 Virtual Environments",
+        "14.3 Installing a Development Package",
+        "14.4 What Installation Does",
+        "14.5 Distributing Packages",
+        "14.6 Documenting Packages",
+        "14.6.1 Including package-level documentation in the",
+        "14.6.2 Creating a web page for documentation",
+        "14.6.3 Hosting documentation online",
+        "14.7 Software Journals",
+        "14.8 Summary",
+        "14.9 Exercises",
+        "14.9.1 Package metadata",
+        "14.9.2 Separating requirements",
+        "14.9.3 Software review",
+        "14.9.4 Packaging quotations",
+        "14.10 Key Points",
+        "I.1.1 Anaconda Cloud",
+        "Environments, dependencies and reproducibility"
+      ],
+      "focus": "רעיון מרכזי: 'אצלי זה עובד' הוא כשל של סביבה. סביבה וירטואלית מבודדת את התלויות, ומה התקנה עושה בפועל (sys.path, ‏site-packages, ‏pip install -e). מבנה של חבילה (pyproject/setup, ‏__init__), הפצה ל-PyPI/TestPyPI, ‏docstrings ו-Sphinx/ReadTheDocs, ו-JOSS. הנספח על conda מתמזג לכאן כחלופה שמנהלת גם ספריות שאינן של פייתון, יחד עם Anaconda Cloud. הפריט מעמיק: נעיצה מול טווח גרסאות, קובץ נעילה (uv/pip-tools/conda-lock), seed לכל מחולל אקראי, וקובץ תצורה במקום קבועים בקוד. המטרה: ריצה של לפני חצי שנה משתחזרת בפקודה אחת, וזה שיעור הסיום של המודול, עם מחברת מעשית שמאחדת את הכול (חבילה קטנה, בדיקות, צינור ולוג). התרגילים מעמודי 14.9.",
+      "sources": [
+        {
+          "doc": "W01",
+          "pages": [
+            335,
+            370
+          ]
+        },
+        {
+          "doc": "W01",
+          "pages": [
+            483,
+            486
+          ]
+        }
+      ],
+      "title": "שיעור 15: חבילות, סביבות ותלויות: venv/conda, נעיצת גרסאות, התקנה, הפצה ותיעוד"
+    }
+  ],
+  "uncovered": [],
+  "uncoveredPages": [],
+  "updatedAt": 1795727971393
+}

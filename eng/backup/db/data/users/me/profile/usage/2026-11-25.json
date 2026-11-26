@@ -1,0 +1,101 @@
+{
+  "day": "2026-11-25",
+  "sessions": {
+    "68fboz": {
+      "calls": {
+        "claude-opus-5-5": 19,
+        "json:claude-opus-5-5": 5
+      },
+      "chars": {
+        "claude-opus-5-5": 119866,
+        "json:claude-opus-5-5": 81605
+      },
+      "day": "2026-11-25",
+      "errors": {
+        "prompt_too_large": 2
+      },
+      "inChars": {
+        "claude-opus-5-5": 2148365,
+        "json:claude-opus-5-5": 666054
+      },
+      "lessonMs": 0,
+      "lessonWords": 0,
+      "lessons": 0,
+      "ms": {
+        "claude-opus-5-5": 729740,
+        "json:claude-opus-5-5": 311109
+      },
+      "session": "68fboz",
+      "updatedAt": 1795599296267
+    },
+    "6tlh0h": {
+      "calls": {
+        "claude-opus-5-5": 6,
+        "json:claude-opus-5-5": 5
+      },
+      "chars": {
+        "claude-opus-5-5": 140475,
+        "json:claude-opus-5-5": 79895
+      },
+      "day": "2026-11-25",
+      "errors": {},
+      "inChars": {
+        "claude-opus-5-5": 706163,
+        "json:claude-opus-5-5": 682371
+      },
+      "lessonMs": 818850,
+      "lessonWords": 25211,
+      "lessons": 1,
+      "ms": {
+        "claude-opus-5-5": 508474,
+        "json:claude-opus-5-5": 289743
+      },
+      "session": "6tlh0h",
+      "updatedAt": 1795598208883
+    },
+    "b6twe9": {
+      "calls": {
+        "claude-opus-5-5": 40,
+        "json:claude-opus-5-5": 5
+      },
+      "chars": {
+        "claude-opus-5-5": 419791,
+        "json:claude-opus-5-5": 86343
+      },
+      "day": "2026-11-25",
+      "errors": {
+        "rate_limited": 4,
+        "upstream_error": 1
+      },
+      "inChars": {
+        "claude-opus-5-5": 2920458,
+        "json:claude-opus-5-5": 497027
+      },
+      "lessonMs": 1849029,
+      "lessonWords": 24100,
+      "lessons": 1,
+      "ms": {
+        "claude-opus-5-5": 1845722,
+        "json:claude-opus-5-5": 317268
+      },
+      "session": "b6twe9",
+      "updatedAt": 1795602387583
+    },
+    "ff1a20": {
+      "calls": {},
+      "chars": {},
+      "day": "2026-11-25",
+      "errors": {
+        "prompt_too_large": 1
+      },
+      "inChars": {},
+      "lessonMs": 0,
+      "lessonWords": 0,
+      "lessons": 0,
+      "ms": {},
+      "session": "ff1a20",
+      "updatedAt": 1795597159650
+    }
+  },
+  "updatedAt": 1795602387857
+}

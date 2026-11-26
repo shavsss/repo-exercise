@@ -1,0 +1,98 @@
+{
+  "day": "2026-11-21",
+  "sessions": {
+    "4onk9v": {
+      "calls": {
+        "claude-opus-5-5": 63,
+        "json:claude-opus-5-5": 20
+      },
+      "chars": {
+        "claude-opus-5-5": 694745,
+        "json:claude-opus-5-5": 312286
+      },
+      "day": "2026-11-21",
+      "errors": {
+        "prompt_too_large": 1
+      },
+      "inChars": {
+        "claude-opus-5-5": 5237117,
+        "json:claude-opus-5-5": 1817523
+      },
+      "lessonMs": 0,
+      "lessonWords": 0,
+      "lessons": 0,
+      "ms": {
+        "claude-opus-5-5": 3573492,
+        "json:claude-opus-5-5": 1303977
+      },
+      "session": "4onk9v",
+      "updatedAt": 1795273131776
+    },
+    "hynhc1": {
+      "calls": {
+        "claude-opus-5-5": 27
+      },
+      "chars": {
+        "claude-opus-5-5": 205700
+      },
+      "day": "2026-11-21",
+      "errors": {},
+      "inChars": {
+        "claude-opus-5-5": 2293450
+      },
+      "lessonMs": 0,
+      "lessonWords": 0,
+      "lessons": 0,
+      "ms": {
+        "claude-opus-5-5": 1779205
+      },
+      "session": "hynhc1",
+      "updatedAt": 1795277012786
+    },
+    "ysgfav": {
+      "calls": {
+        "json:claude-opus-5-5": 4
+      },
+      "chars": {
+        "json:claude-opus-5-5": 59592
+      },
+      "day": "2026-11-21",
+      "errors": {
+        "invalid_json": 1
+      },
+      "inChars": {
+        "json:claude-opus-5-5": 312105
+      },
+      "lessonMs": 0,
+      "lessonWords": 0,
+      "lessons": 0,
+      "ms": {
+        "json:claude-opus-5-5": 346111
+      },
+      "session": "ysgfav",
+      "updatedAt": 1795268152772
+    },
+    "z0vcgs": {
+      "calls": {
+        "claude-opus-5-5": 4
+      },
+      "chars": {
+        "claude-opus-5-5": 21333
+      },
+      "day": "2026-11-21",
+      "errors": {},
+      "inChars": {
+        "claude-opus-5-5": 276021
+      },
+      "lessonMs": 0,
+      "lessonWords": 0,
+      "lessons": 0,
+      "ms": {
+        "claude-opus-5-5": 150967
+      },
+      "session": "z0vcgs",
+      "updatedAt": 1795275102773
+    }
+  },
+  "updatedAt": 1795277013078
+}

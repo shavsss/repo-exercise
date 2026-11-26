@@ -1,0 +1,69 @@
+{
+  "day": "2026-11-26",
+  "entries": [
+    {
+      "conf": 1,
+      "grade": "wrong",
+      "id": "M0.2__2__83o2ub",
+      "kind": "numeric",
+      "lesson": 2,
+      "moduleId": "M0.2",
+      "ts": 1795720398662,
+      "type": "practice.answer"
+    },
+    {
+      "conf": 1,
+      "grade": "wrong",
+      "id": "M0.2__2__16606fu",
+      "kind": "numeric",
+      "lesson": 2,
+      "moduleId": "M0.2",
+      "ts": 1795720722159,
+      "type": "practice.answer"
+    },
+    {
+      "id": "M0.2__2__1we42rq",
+      "kind": "explain",
+      "lesson": 2,
+      "moduleId": "M0.2",
+      "ts": 1795720736247,
+      "type": "practice.skip"
+    },
+    {
+      "conf": 2,
+      "grade": "wrong",
+      "id": "M0.2__2__1kuy0wy",
+      "kind": "numeric",
+      "lesson": 2,
+      "moduleId": "M0.2",
+      "ts": 1795721076867,
+      "type": "practice.answer"
+    },
+    {
+      "grade": "wrong",
+      "id": "M0.2__2__fyq8zw",
+      "kind": "mcq",
+      "lesson": 2,
+      "moduleId": "M0.2",
+      "ts": 1795721103757,
+      "type": "practice.answer"
+    },
+    {
+      "id": "M0.2__2__1d7kdsi",
+      "kind": "numeric",
+      "lesson": 2,
+      "moduleId": "M0.2",
+      "ts": 1795721168917,
+      "type": "practice.skip"
+    },
+    {
+      "id": "M0.2__2__11s0i0m",
+      "kind": "explain",
+      "lesson": 2,
+      "moduleId": "M0.2",
+      "ts": 1795721273981,
+      "type": "practice.skip"
+    }
+  ],
+  "updatedAt": 1795721277231
+}
