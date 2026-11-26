@@ -887,11 +887,7 @@
   },
   {
    "id": "P17",
-   "title": "גשר: למידת מכונה ולמידה עמוקה"
-  },
-  {
-   "id": "P18",
-   "title": "גשר: למידה מחיזוקים"
+   "title": "גשר: בינה מלאכותית: למידת מכונה, למידה עמוקה, למידה מחיזוקים והנדסת AI"
   },
   {
    "id": "P19",
@@ -932,10 +928,6 @@
   {
    "id": "P28",
    "title": "גשר: תכן ספרתי, מחשוב מואץ ומערכות זמן-אמת"
-  },
-  {
-   "id": "P29",
-   "title": "גשר: הנדסת AI מודרני"
   },
   {
    "id": "P30",
@@ -2519,7 +2511,7 @@
   {
    "id": "M6.10",
    "part": "P6",
-   "tier": "adv",
+   "tier": "core",
    "title": "הסקה סיבתית, גרפים ומודלים לוג-לינאריים",
    "en": "Causal inference, graphical and log-linear models",
    "prereq": [
@@ -7887,7 +7879,7 @@
   {
    "id": "M7.14",
    "part": "P7",
-   "tier": "adv",
+   "tier": "core",
    "title": "שיטות וריאציוניות ו-ICA",
    "en": "Variational methods and independent component analysis",
    "prereq": [
@@ -10274,6 +10266,438 @@
    ]
   },
   {
+   "id": "M18.1",
+   "part": "P17",
+   "tier": "core",
+   "title": "מבוא ובנדיטים רב-זרועיים",
+   "en": "Introduction and multi-armed bandits",
+   "prereq": [
+    "M6.7"
+   ],
+   "sources": [
+    {
+     "doc": "E18",
+     "pages": [
+      23,
+      44
+     ],
+     "note": "1: Introduction",
+     "role": "main"
+    },
+    {
+     "doc": "E18",
+     "pages": [
+      45,
+      68
+     ],
+     "note": "2: Multi-armed Bandits",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M18.2",
+   "part": "P17",
+   "tier": "core",
+   "title": "תהליכי החלטה מרקוביים ותכנות דינמי",
+   "en": "Finite MDPs and dynamic programming",
+   "prereq": [
+    "M18.1",
+    "M7.1"
+   ],
+   "sources": [
+    {
+     "doc": "E18",
+     "pages": [
+      69,
+      94
+     ],
+     "note": "3: Finite Markov Decision Processes",
+     "role": "main"
+    },
+    {
+     "doc": "E18",
+     "pages": [
+      95,
+      112
+     ],
+     "note": "4: Dynamic Programming",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M18.3",
+   "part": "P17",
+   "tier": "core",
+   "title": "מונטה קרלו, הפרש זמני ו-n צעדים",
+   "en": "Monte Carlo, temporal-difference, n-step bootstrapping",
+   "prereq": [
+    "M18.2"
+   ],
+   "sources": [
+    {
+     "doc": "E18",
+     "pages": [
+      113,
+      140
+     ],
+     "note": "5: Monte Carlo Methods",
+     "role": "main"
+    },
+    {
+     "doc": "E18",
+     "pages": [
+      141,
+      162
+     ],
+     "note": "6: Temporal-Difference Learning",
+     "role": "main"
+    },
+    {
+     "doc": "E18",
+     "pages": [
+      163,
+      180
+     ],
+     "note": "7: n-step Bootstrapping",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M18.4",
+   "part": "P17",
+   "tier": "core",
+   "title": "תכנון ולמידה בשיטות טבלאיות",
+   "en": "Planning and learning with tabular methods",
+   "prereq": [
+    "M18.3"
+   ],
+   "sources": [
+    {
+     "doc": "E18",
+     "pages": [
+      181,
+      216
+     ],
+     "note": "8: Planning and Learning with Tabular Methods",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M18.5",
+   "part": "P17",
+   "tier": "core",
+   "title": "קירוב פונקציות בחיזוי ובבקרה",
+   "en": "On-policy prediction and control with approximation",
+   "prereq": [
+    "M18.4",
+    "M17.4"
+   ],
+   "sources": [
+    {
+     "doc": "E18",
+     "pages": [
+      217,
+      264
+     ],
+     "note": "9: On-policy Prediction with Approximation",
+     "role": "main"
+    },
+    {
+     "doc": "E18",
+     "pages": [
+      265,
+      278
+     ],
+     "note": "10: On-policy Control with Approximation",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M18.6",
+   "part": "P17",
+   "tier": "adv",
+   "title": "שיטות off-policy ועקבות זכאות",
+   "en": "Off-policy methods and eligibility traces",
+   "prereq": [
+    "M18.5"
+   ],
+   "sources": [
+    {
+     "doc": "E18",
+     "pages": [
+      279,
+      308
+     ],
+     "note": "11: *Off-policy Methods with Approximation",
+     "role": "main"
+    },
+    {
+     "doc": "E18",
+     "pages": [
+      309,
+      342
+     ],
+     "note": "12: Eligibility Traces",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M18.7",
+   "part": "P17",
+   "tier": "core",
+   "title": "שיטות גרדיאנט מדיניות ולמידה מחיזוקים עמוקה",
+   "en": "Policy gradient methods and deep RL",
+   "prereq": [
+    "M18.5"
+   ],
+   "sources": [
+    {
+     "doc": "E18",
+     "pages": [
+      343,
+      360
+     ],
+     "note": "13: Policy Gradient Methods",
+     "role": "main"
+    },
+    {
+     "doc": "E17",
+     "pages": [
+      388,
+      413
+     ],
+     "note": "19: Reinforcement learning (Prince)",
+     "role": "supp"
+    },
+    {
+     "doc": "E17",
+     "pages": [
+      414,
+      415
+     ],
+     "note": "19: תרגילים",
+     "role": "ex"
+    }
+   ]
+  },
+  {
+   "id": "M18.8",
+   "part": "P17",
+   "tier": "ref",
+   "title": "פסיכולוגיה ומדעי המוח",
+   "en": "Psychology and neuroscience",
+   "prereq": [
+    "M18.3"
+   ],
+   "sources": [
+    {
+     "doc": "E18",
+     "pages": [
+      361,
+      398
+     ],
+     "note": "14: Psychology",
+     "role": "main"
+    },
+    {
+     "doc": "E18",
+     "pages": [
+      399,
+      442
+     ],
+     "note": "15: Neuroscience",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M18.9",
+   "part": "P17",
+   "tier": "core",
+   "title": "יישומים, מקרי בוחן וחזיתות",
+   "en": "Applications, case studies, frontiers",
+   "prereq": [
+    "M18.7"
+   ],
+   "sources": [
+    {
+     "doc": "E18",
+     "pages": [
+      443,
+      480
+     ],
+     "note": "16: Applications and Case Studies",
+     "role": "main"
+    },
+    {
+     "doc": "E18",
+     "pages": [
+      481,
+      502
+     ],
+     "note": "17: Frontiers",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M18.10",
+   "part": "P17",
+   "tier": "core",
+   "title": "למידה מחיזוקים אופליין: הערכה מחוץ למדיניות, הסטת התפלגות, אילוצי מדיניות ו-CQL",
+   "en": "Offline reinforcement learning: off-policy evaluation, distribution shift, policy constraints, CQL",
+   "prereq": [
+    "M18.7"
+   ],
+   "sources": [
+    {
+     "doc": "E50",
+     "pages": [
+      1,
+      2
+     ],
+     "note": "1: Introduction",
+     "role": "main"
+    },
+    {
+     "doc": "E50",
+     "pages": [
+      3,
+      9
+     ],
+     "note": "2: Offline Reinforcement Learning Problem Statement and Overview",
+     "role": "main"
+    },
+    {
+     "doc": "E50",
+     "pages": [
+      10,
+      15
+     ],
+     "note": "3: Offline Evaluation and Reinforcement Learning via Importance Sampling",
+     "role": "main"
+    },
+    {
+     "doc": "E50",
+     "pages": [
+      16,
+      25
+     ],
+     "note": "4: Offline Reinforcement Learning via Dynamic Programming",
+     "role": "main"
+    },
+    {
+     "doc": "E50",
+     "pages": [
+      26,
+      28
+     ],
+     "note": "5: Offline Model-Based Reinforcement Learning",
+     "role": "main"
+    },
+    {
+     "doc": "E50",
+     "pages": [
+      29,
+      31
+     ],
+     "note": "6: Applications and Evaluation",
+     "role": "main"
+    },
+    {
+     "doc": "E50",
+     "pages": [
+      32,
+      34
+     ],
+     "note": "7: Discussion and Perspectives (p32 also holds §6.5–6.6, advertising and dialogue applications)",
+     "role": "main"
+    }
+   ]
+  },
+  {
+   "id": "M18.11",
+   "part": "P17",
+   "tier": "core",
+   "title": "אלגוריתמי RL עמוק: DQN, PPO, SAC ומבוססי מודל",
+   "en": "Deep RL algorithms: DQN, PPO, SAC, model-based",
+   "prereq": [
+    "M18.7",
+    "M17.4"
+   ],
+   "sources": [
+    {
+     "doc": "W45",
+     "pages": [
+      29,
+      58
+     ],
+     "note": "Part 1-3: מושגי RL, סוגי אלגוריתמים, מבוא ל-policy optimization (policy gradient, advantage)",
+     "role": "main"
+    },
+    {
+     "doc": "W45",
+     "pages": [
+      59,
+      66
+     ],
+     "note": "Spinning Up as a Deep RL Researcher: מתודולוגיית ניסויים",
+     "role": "main"
+    },
+    {
+     "doc": "W45",
+     "pages": [
+      67,
+      75
+     ],
+     "note": "Key Papers in Deep RL",
+     "role": "main"
+    },
+    {
+     "doc": "W45",
+     "pages": [
+      76,
+      101
+     ],
+     "note": "עמודי האלגוריתמים: VPG 76-78, TRPO 79-82, PPO 83-86, DDPG 87-91, TD3 92-95, SAC 96-101",
+     "role": "main"
+    },
+    {
+     "doc": "W46",
+     "pages": [
+      31,
+      120
+     ],
+     "note": "פרקים 2–4: למידה מבוססת ערך (DQN, Q-learning), מבוססת מדיניות (policy gradient, actor-critic, TRPO/PPO, off-policy: DDPG/TD3/SAC, GAE) ומבוססת מודל (PETS, Dreamer, MuZero)",
+     "role": "main"
+    },
+    {
+     "doc": "W46",
+     "pages": [
+      173,
+      185
+     ],
+     "note": "פרק 7.1–7.3: חקירה (Thompson, UCB), regret, RL התפלגותי",
+     "role": "main"
+    },
+    {
+     "doc": "W46",
+     "pages": [
+      181,
+      183
+     ],
+     "note": "7.4: מוטיבציה פנימית, RND, Go-Explore (חקירה בלמידה עמוקה)",
+     "role": "main"
+    }
+   ]
+  },
+  {
    "id": "M13.1",
    "part": "P13",
    "tier": "core",
@@ -12540,7 +12964,7 @@
   },
   {
    "id": "M29.1",
-   "part": "P29",
+   "part": "P17",
    "tier": "core",
    "title": "ארכיטקטורת מודלי יסוד: LLM/VLM, FlashAttention, RoPE ו-MoE",
    "en": "Foundation-model architecture: LLM/VLM, FlashAttention, RoPE, MoE",
@@ -12617,7 +13041,7 @@
   },
   {
    "id": "M29.4",
-   "part": "P29",
+   "part": "P17",
    "tier": "core",
    "title": "אופטימיזציית הסקה: KV-Cache, FP8/INT4 ו-Speculative Decoding",
    "en": "Inference optimization: KV-cache, FP8/INT4, speculative decoding",
@@ -12702,7 +13126,7 @@
   },
   {
    "id": "M29.8",
-   "part": "P29",
+   "part": "P17",
    "tier": "adv",
    "title": "מערכות ML ו-MLOps",
    "en": "ML systems and MLOps",
@@ -12768,7 +13192,7 @@
   },
   {
    "id": "M29.2",
-   "part": "P29",
+   "part": "P17",
    "tier": "core",
    "title": "חוקי סקיילינג ואימון מבוזר: TP/PP/EP ו-NCCL",
    "en": "Scaling laws and distributed training: TP/PP/EP, NCCL",
@@ -16695,440 +17119,8 @@
    ]
   },
   {
-   "id": "M18.1",
-   "part": "P18",
-   "tier": "core",
-   "title": "מבוא ובנדיטים רב-זרועיים",
-   "en": "Introduction and multi-armed bandits",
-   "prereq": [
-    "M6.7"
-   ],
-   "sources": [
-    {
-     "doc": "E18",
-     "pages": [
-      23,
-      44
-     ],
-     "note": "1: Introduction",
-     "role": "main"
-    },
-    {
-     "doc": "E18",
-     "pages": [
-      45,
-      68
-     ],
-     "note": "2: Multi-armed Bandits",
-     "role": "main"
-    }
-   ]
-  },
-  {
-   "id": "M18.2",
-   "part": "P18",
-   "tier": "core",
-   "title": "תהליכי החלטה מרקוביים ותכנות דינמי",
-   "en": "Finite MDPs and dynamic programming",
-   "prereq": [
-    "M18.1",
-    "M7.1"
-   ],
-   "sources": [
-    {
-     "doc": "E18",
-     "pages": [
-      69,
-      94
-     ],
-     "note": "3: Finite Markov Decision Processes",
-     "role": "main"
-    },
-    {
-     "doc": "E18",
-     "pages": [
-      95,
-      112
-     ],
-     "note": "4: Dynamic Programming",
-     "role": "main"
-    }
-   ]
-  },
-  {
-   "id": "M18.3",
-   "part": "P18",
-   "tier": "core",
-   "title": "מונטה קרלו, הפרש זמני ו-n צעדים",
-   "en": "Monte Carlo, temporal-difference, n-step bootstrapping",
-   "prereq": [
-    "M18.2"
-   ],
-   "sources": [
-    {
-     "doc": "E18",
-     "pages": [
-      113,
-      140
-     ],
-     "note": "5: Monte Carlo Methods",
-     "role": "main"
-    },
-    {
-     "doc": "E18",
-     "pages": [
-      141,
-      162
-     ],
-     "note": "6: Temporal-Difference Learning",
-     "role": "main"
-    },
-    {
-     "doc": "E18",
-     "pages": [
-      163,
-      180
-     ],
-     "note": "7: n-step Bootstrapping",
-     "role": "main"
-    }
-   ]
-  },
-  {
-   "id": "M18.4",
-   "part": "P18",
-   "tier": "core",
-   "title": "תכנון ולמידה בשיטות טבלאיות",
-   "en": "Planning and learning with tabular methods",
-   "prereq": [
-    "M18.3"
-   ],
-   "sources": [
-    {
-     "doc": "E18",
-     "pages": [
-      181,
-      216
-     ],
-     "note": "8: Planning and Learning with Tabular Methods",
-     "role": "main"
-    }
-   ]
-  },
-  {
-   "id": "M18.5",
-   "part": "P18",
-   "tier": "core",
-   "title": "קירוב פונקציות בחיזוי ובבקרה",
-   "en": "On-policy prediction and control with approximation",
-   "prereq": [
-    "M18.4",
-    "M17.4"
-   ],
-   "sources": [
-    {
-     "doc": "E18",
-     "pages": [
-      217,
-      264
-     ],
-     "note": "9: On-policy Prediction with Approximation",
-     "role": "main"
-    },
-    {
-     "doc": "E18",
-     "pages": [
-      265,
-      278
-     ],
-     "note": "10: On-policy Control with Approximation",
-     "role": "main"
-    }
-   ]
-  },
-  {
-   "id": "M18.6",
-   "part": "P18",
-   "tier": "adv",
-   "title": "שיטות off-policy ועקבות זכאות",
-   "en": "Off-policy methods and eligibility traces",
-   "prereq": [
-    "M18.5"
-   ],
-   "sources": [
-    {
-     "doc": "E18",
-     "pages": [
-      279,
-      308
-     ],
-     "note": "11: *Off-policy Methods with Approximation",
-     "role": "main"
-    },
-    {
-     "doc": "E18",
-     "pages": [
-      309,
-      342
-     ],
-     "note": "12: Eligibility Traces",
-     "role": "main"
-    }
-   ]
-  },
-  {
-   "id": "M18.7",
-   "part": "P18",
-   "tier": "core",
-   "title": "שיטות גרדיאנט מדיניות ולמידה מחיזוקים עמוקה",
-   "en": "Policy gradient methods and deep RL",
-   "prereq": [
-    "M18.5"
-   ],
-   "sources": [
-    {
-     "doc": "E18",
-     "pages": [
-      343,
-      360
-     ],
-     "note": "13: Policy Gradient Methods",
-     "role": "main"
-    },
-    {
-     "doc": "E17",
-     "pages": [
-      388,
-      413
-     ],
-     "note": "19: Reinforcement learning (Prince)",
-     "role": "supp"
-    },
-    {
-     "doc": "E17",
-     "pages": [
-      414,
-      415
-     ],
-     "note": "19: תרגילים",
-     "role": "ex"
-    }
-   ]
-  },
-  {
-   "id": "M18.8",
-   "part": "P18",
-   "tier": "ref",
-   "title": "פסיכולוגיה ומדעי המוח",
-   "en": "Psychology and neuroscience",
-   "prereq": [
-    "M18.3"
-   ],
-   "sources": [
-    {
-     "doc": "E18",
-     "pages": [
-      361,
-      398
-     ],
-     "note": "14: Psychology",
-     "role": "main"
-    },
-    {
-     "doc": "E18",
-     "pages": [
-      399,
-      442
-     ],
-     "note": "15: Neuroscience",
-     "role": "main"
-    }
-   ]
-  },
-  {
-   "id": "M18.9",
-   "part": "P18",
-   "tier": "core",
-   "title": "יישומים, מקרי בוחן וחזיתות",
-   "en": "Applications, case studies, frontiers",
-   "prereq": [
-    "M18.7"
-   ],
-   "sources": [
-    {
-     "doc": "E18",
-     "pages": [
-      443,
-      480
-     ],
-     "note": "16: Applications and Case Studies",
-     "role": "main"
-    },
-    {
-     "doc": "E18",
-     "pages": [
-      481,
-      502
-     ],
-     "note": "17: Frontiers",
-     "role": "main"
-    }
-   ]
-  },
-  {
-   "id": "M18.10",
-   "part": "P18",
-   "tier": "core",
-   "title": "למידה מחיזוקים אופליין: הערכה מחוץ למדיניות, הסטת התפלגות, אילוצי מדיניות ו-CQL",
-   "en": "Offline reinforcement learning: off-policy evaluation, distribution shift, policy constraints, CQL",
-   "prereq": [
-    "M18.7"
-   ],
-   "sources": [
-    {
-     "doc": "E50",
-     "pages": [
-      1,
-      2
-     ],
-     "note": "1: Introduction",
-     "role": "main"
-    },
-    {
-     "doc": "E50",
-     "pages": [
-      3,
-      9
-     ],
-     "note": "2: Offline Reinforcement Learning Problem Statement and Overview",
-     "role": "main"
-    },
-    {
-     "doc": "E50",
-     "pages": [
-      10,
-      15
-     ],
-     "note": "3: Offline Evaluation and Reinforcement Learning via Importance Sampling",
-     "role": "main"
-    },
-    {
-     "doc": "E50",
-     "pages": [
-      16,
-      25
-     ],
-     "note": "4: Offline Reinforcement Learning via Dynamic Programming",
-     "role": "main"
-    },
-    {
-     "doc": "E50",
-     "pages": [
-      26,
-      28
-     ],
-     "note": "5: Offline Model-Based Reinforcement Learning",
-     "role": "main"
-    },
-    {
-     "doc": "E50",
-     "pages": [
-      29,
-      31
-     ],
-     "note": "6: Applications and Evaluation",
-     "role": "main"
-    },
-    {
-     "doc": "E50",
-     "pages": [
-      32,
-      34
-     ],
-     "note": "7: Discussion and Perspectives (p32 also holds §6.5–6.6, advertising and dialogue applications)",
-     "role": "main"
-    }
-   ]
-  },
-  {
-   "id": "M18.11",
-   "part": "P18",
-   "tier": "core",
-   "title": "אלגוריתמי RL עמוק: DQN, PPO, SAC ומבוססי מודל",
-   "en": "Deep RL algorithms: DQN, PPO, SAC, model-based",
-   "prereq": [
-    "M18.7",
-    "M17.4"
-   ],
-   "sources": [
-    {
-     "doc": "W45",
-     "pages": [
-      29,
-      58
-     ],
-     "note": "Part 1-3: מושגי RL, סוגי אלגוריתמים, מבוא ל-policy optimization (policy gradient, advantage)",
-     "role": "main"
-    },
-    {
-     "doc": "W45",
-     "pages": [
-      59,
-      66
-     ],
-     "note": "Spinning Up as a Deep RL Researcher: מתודולוגיית ניסויים",
-     "role": "main"
-    },
-    {
-     "doc": "W45",
-     "pages": [
-      67,
-      75
-     ],
-     "note": "Key Papers in Deep RL",
-     "role": "main"
-    },
-    {
-     "doc": "W45",
-     "pages": [
-      76,
-      101
-     ],
-     "note": "עמודי האלגוריתמים: VPG 76-78, TRPO 79-82, PPO 83-86, DDPG 87-91, TD3 92-95, SAC 96-101",
-     "role": "main"
-    },
-    {
-     "doc": "W46",
-     "pages": [
-      31,
-      120
-     ],
-     "note": "פרקים 2–4: למידה מבוססת ערך (DQN, Q-learning), מבוססת מדיניות (policy gradient, actor-critic, TRPO/PPO, off-policy: DDPG/TD3/SAC, GAE) ומבוססת מודל (PETS, Dreamer, MuZero)",
-     "role": "main"
-    },
-    {
-     "doc": "W46",
-     "pages": [
-      173,
-      185
-     ],
-     "note": "פרק 7.1–7.3: חקירה (Thompson, UCB), regret, RL התפלגותי",
-     "role": "main"
-    },
-    {
-     "doc": "W46",
-     "pages": [
-      181,
-      183
-     ],
-     "note": "7.4: מוטיבציה פנימית, RND, Go-Explore (חקירה בלמידה עמוקה)",
-     "role": "main"
-    }
-   ]
-  },
-  {
    "id": "M29.3",
-   "part": "P29",
+   "part": "P17",
    "tier": "core",
    "title": "אימון המשך לחשיבה: SFT, RLHF, DPO, GRPO ו-Test-Time Compute",
    "en": "Post-training for reasoning: SFT, RLHF, DPO, GRPO, test-time compute",
@@ -17931,7 +17923,7 @@
   },
   {
    "id": "M29.6",
-   "part": "P29",
+   "part": "P17",
    "tier": "core",
    "title": "מערכות סוכנים ובקרה סגורה",
    "en": "Agent systems and closed-loop control",
@@ -17971,7 +17963,7 @@
   },
   {
    "id": "M29.7",
-   "part": "P29",
+   "part": "P17",
    "tier": "core",
    "title": "AI בקצה וחוסן תחת מגבלות SWaP",
    "en": "Edge AI and robustness under SWaP",
@@ -18029,7 +18021,7 @@
   },
   {
    "id": "M29.9",
-   "part": "P29",
+   "part": "P17",
    "tier": "core",
    "title": "אבטחה של מערכות AI: התקפות על מודלים וסוכנים, פרטיות, ו-AI בתקיפה ובהגנה",
    "en": "Security of AI systems: attacks on models and agents, privacy, AI in offense and defense",
@@ -18169,7 +18161,7 @@
   },
   {
    "id": "M29.5",
-   "part": "P29",
+   "part": "P17",
    "tier": "core",
    "title": "ראייה ממוחשבת מודרנית ותפיסה תלת-ממדית: DETR, SAM, World Models ו-3DGS",
    "en": "Modern vision and 3D perception: DETR, SAM, world models, 3DGS",

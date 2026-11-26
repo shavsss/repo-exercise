@@ -6,7 +6,7 @@
 
 **תפקיד המקור:** ★ מקור ראשי. ◇ השלמה מספר אחר. ✎ תרגילים (לא נספרים באומדן השיעורים).
 
-**סה"כ:** 464 מודולים: 347 ליבה, 53 מתקדם, 64 עיון.
+**סה"כ:** 464 מודולים: 349 ליבה, 51 מתקדם, 64 עיון.
 
 | חלק | מודולים | עמ' בליבה | שיעורי ליבה (אומדן) | עמ' במתקדם | עמ' בעיון |
 |---|---|---|---|---|---|
@@ -16,8 +16,8 @@
 | P3 עמוד השדרה: משוואות דיפרנציאליות ותנודות | 7 | 202 | 13 | 0 | 786 |
 | P4 צומת 1: אותות ומערכות לינאריות | 18 | 1038 | 69 | 25 | 446 |
 | P5 צומת 2: דינמיקה, בקרה ושערוך מצב | 22 | 2648 | 179 | 653 | 193 |
-| P6 צומת 3א: הסתברות וסטטיסטיקה | 13 | 940 | 62 | 54 | 98 |
-| P7 צומת 3ב: אינפורמציה, הסקה ואותות אקראיים | 21 | 1145 | 75 | 299 | 331 |
+| P6 צומת 3א: הסתברות וסטטיסטיקה | 13 | 978 | 65 | 16 | 98 |
+| P7 צומת 3ב: אינפורמציה, הסקה ואותות אקראיים | 21 | 1167 | 76 | 277 | 331 |
 | P8 צומת 4: אלגברה לינארית, אופטימיזציה ושיטות חישוב | 24 | 969 | 66 | 249 | 0 |
 | P9 צומת 5א: גלים, אלקטרומגנטיות ואופטיקה | 20 | 521 | 36 | 82 | 510 |
 | P10 צומת 5ב: משוואות שדה וסימולציה נומרית | 13 | 812 | 55 | 365 | 306 |
@@ -27,8 +27,7 @@
 | P14 גשר: מעבר חום | 14 | 558 | 37 | 178 | 325 |
 | P15 גשר: זורמים ואווירונאוטיקה | 32 | 1172 | 79 | 1022 | 1769 |
 | P16 גשר: מבנים וחומרים | 27 | 1316 | 89 | 78 | 2153 |
-| P17 גשר: למידת מכונה ולמידה עמוקה | 17 | 481 | 33 | 46 | 1256 |
-| P18 גשר: למידה מחיזוקים | 11 | 573 | 38 | 64 | 82 |
+| P17 גשר: בינה מלאכותית: למידת מכונה, למידה עמוקה, למידה מחיזוקים והנדסת AI | 37 | 2679 | 180 | 461 | 1338 |
 | P19 גשר: רובוטיקה | 12 | 859 | 56 | 0 | 12 |
 | P20 פריפריה: מתמטיקה דיסקרטית | 10 | 426 | 29 | 0 | 21 |
 | P21 פריפריה: אלגוריתמים | 11 | 360 | 24 | 0 | 292 |
@@ -39,9 +38,8 @@
 | P26 העשרה מתמטית | 5 | 0 | 0 | 0 | 316 |
 | P27 גשר: הנדסת מערכות | 15 | 1399 | 95 | 876 | 547 |
 | P28 גשר: תכן ספרתי, מחשוב מואץ ומערכות זמן-אמת | 6 | 5657 | 377 | 0 | 0 |
-| P29 גשר: הנדסת AI מודרני | 9 | 1625 | 109 | 351 | 0 |
 | P30 גשר: הנדסה ימית | 6 | 3415 | 228 | 0 | 0 |
-| **סה"כ** | 464 | 37271 | 2490 | 6510 | 14272 |
+| **סה"כ** | 464 | 37331 | 2494 | 6450 | 14272 |
 
 האומדן: שיעור לכל כ-15 עמודי מקור, כולל השלמות. בהשלמות המורה מלמד רק את מה שחדש לעומת המקור הראשי.
 
@@ -679,7 +677,7 @@
 - ✎ Wasserman, All of Statistics, עמ' PDF 265–267: 15: תרגילים
 
 ### M6.10 הסקה סיבתית, גרפים ומודלים לוג-לינאריים
-*Causal inference, graphical and log-linear models* · **מתקדם** · 38 עמ' · כ-3 שיעורים · דרישות: M6.9
+*Causal inference, graphical and log-linear models* · **ליבה** · 38 עמ' · כ-3 שיעורים · דרישות: M6.9
 
 - ★ Wasserman, All of Statistics, עמ' PDF 268–277: 16: Causal Inference
 - ✎ Wasserman, All of Statistics, עמ' PDF 278–279: 16: תרגילים
@@ -836,7 +834,7 @@
 - ✎ MacKay, Information Theory, Inference and Learning Algorithms, עמ' PDF 424: 31: תרגילים
 
 ### M7.14 שיטות וריאציוניות ו-ICA
-*Variational methods and independent component analysis* · **מתקדם** · 22 עמ' · כ-1 שיעורים · דרישות: M7.12
+*Variational methods and independent component analysis* · **ליבה** · 22 עמ' · כ-1 שיעורים · דרישות: M7.12
 
 - ★ MacKay, Information Theory, Inference and Learning Algorithms, עמ' PDF 434–448: 33: Variational Methods
 - ★ MacKay, Information Theory, Inference and Learning Algorithms, עמ' PDF 449–455: 34: Independent Component Analysis and Latent Variable Modelling
@@ -2743,7 +2741,7 @@
 - ★ Ashby, Materials Selection in Mechanical Design, עמ' PDF 477–494: 16: Materials and Industrial Design
 - ★ Ashby, Materials Selection in Mechanical Design, עמ' PDF 495–510: 17: Forces for Change
 
-## חלק 17: גשר: למידת מכונה ולמידה עמוקה
+## חלק 17: גשר: בינה מלאכותית: למידת מכונה, למידה עמוקה, למידה מחיזוקים והנדסת AI
 
 ### M17.1 מבוא ולמידה מונחית
 *Introduction and supervised learning* · **ליבה** · 23 עמ' · כ-2 שיעורים · דרישות: M6.8, M8.5
@@ -2912,8 +2910,6 @@
 - ★ MacKay, Information Theory, Inference and Learning Algorithms, עמ' PDF 534–537: 43: Boltzmann Machines
 - ✎ MacKay, Information Theory, Inference and Learning Algorithms, עמ' PDF 538: 43: תרגילים
 
-## חלק 18: גשר: למידה מחיזוקים
-
 ### M18.1 מבוא ובנדיטים רב-זרועיים
 *Introduction and multi-armed bandits* · **ליבה** · 46 עמ' · כ-3 שיעורים · דרישות: M6.7
 
@@ -2990,6 +2986,101 @@
 - ★ Reinforcement Learning: A Comprehensive Overview, עמ' PDF 31–120: פרקים 2–4: למידה מבוססת ערך (DQN, Q-learning), מבוססת מדיניות (policy gradient, actor-critic, TRPO/PPO, off-policy: DDPG/TD3/SAC, GAE) ומבוססת מודל (PETS, Dreamer, MuZero)
 - ★ Reinforcement Learning: A Comprehensive Overview, עמ' PDF 173–185: פרק 7.1–7.3: חקירה (Thompson, UCB), regret, RL התפלגותי
 - ★ Reinforcement Learning: A Comprehensive Overview, עמ' PDF 181–183: 7.4: מוטיבציה פנימית, RND, Go-Explore (חקירה בלמידה עמוקה)
+
+### M29.1 ארכיטקטורת מודלי יסוד: LLM/VLM, FlashAttention, RoPE ו-MoE
+*Foundation-model architecture: LLM/VLM, FlashAttention, RoPE, MoE* · **ליבה** · 249 עמ' · כ-17 שיעורים · דרישות: M17.7, M17.4, M28.2
+
+- ★ Prince, Understanding Deep Learning, עמ' PDF 221–246: פרק 12: טרנספורמרים: self-attention, קידוד מיקום, שכבת טרנספורמר, BERT, GPT-3, רצפים ארוכים, ViT
+- ★ Speech and Language Processing, עמ' PDF 135–184: Embeddings ו-Neural Networks
+- ★ Speech and Language Processing, עמ' PDF 185–232: Transformers and Pretraining (attention, positional encodings, scaling) ו-Post-training
+- ★ Speech and Language Processing, עמ' PDF 235–283: Masked LMs, Interpretability, Retrieval-based models, Agents
+- ★ RoFormer (arXiv 2104.09864); FlashAttention (2205.14135); DeepSeek-V3 Technical Report (2412.19437), עמ' PDF 1–14: RoFormer: קידוד מיקום סיבובי (RoPE), נגזרת ותכונות
+- ★ RoFormer (arXiv 2104.09864); FlashAttention (2205.14135); DeepSeek-V3 Technical Report (2412.19437), עמ' PDF 15–48: FlashAttention: עלות חישוב וזיכרון של attention, tiling ו-IO complexity (כולל נספחי אלגוריתם)
+- ★ RoFormer (arXiv 2104.09864); FlashAttention (2205.14135); DeepSeek-V3 Technical Report (2412.19437), עמ' PDF 49–76: DeepSeek-V3: ארכיטקטורה (MLA, DeepSeekMoE, איזון עומס בלי aux loss, MTP), תשתית ואימון FP8, יציבות אימון בקנה מידה
+
+### M29.4 אופטימיזציית הסקה: KV-Cache, FP8/INT4 ו-Speculative Decoding
+*Inference optimization: KV-cache, FP8/INT4, speculative decoding* · **ליבה** · 111 עמ' · כ-7 שיעורים · דרישות: M29.1, M28.2
+
+- ★ How to Scale Your Model, עמ' PDF 17–22: פרק 1 Rooflines: compute- vs memory-bound
+- ★ How to Scale Your Model, עמ' PDF 66–86: פרק 7 All About Transformer Inference: prefill/decode, KV cache, batching, quantization, sharding for serving
+- ★ How to Scale Your Model, עמ' PDF 92–97: פרק 8 Serving LLaMA 3-70B on TPUs: דוגמה מעשית
+- ★ vLLM/PagedAttention; Speculative decoding; GPTQ; AWQ; Efficiently Scaling Transformer Inference, עמ' PDF 1–16: PagedAttention / vLLM (2309.06180): KV cache, continuous batching
+- ★ vLLM/PagedAttention; Speculative decoding; GPTQ; AWQ; Efficiently Scaling Transformer Inference, עמ' PDF 17–29: Speculative decoding (2211.17192)
+- ★ vLLM/PagedAttention; Speculative decoding; GPTQ; AWQ; Efficiently Scaling Transformer Inference, עמ' PDF 30–45: GPTQ (2210.17323): post-training quantization
+- ★ vLLM/PagedAttention; Speculative decoding; GPTQ; AWQ; Efficiently Scaling Transformer Inference, עמ' PDF 46–60: AWQ (2306.00978)
+- ★ vLLM/PagedAttention; Speculative decoding; GPTQ; AWQ; Efficiently Scaling Transformer Inference, עמ' PDF 61–78: Efficiently Scaling Transformer Inference (2211.05102): sharding for serving, cost model
+
+### M29.8 מערכות ML ו-MLOps
+*ML systems and MLOps* · **מתקדם** · 351 עמ' · כ-23 שיעורים · דרישות: M29.4
+
+- ★ CS 329S: Machine Learning Systems Design (lecture notes), עמ' PDF 1–58: הרצאות 1–2: מסגור בעיית ML ודרישות מערכת, הנדסת נתונים
+- ★ CS 329S: Machine Learning Systems Design (lecture notes), עמ' PDF 59–107: הרצאות 3–4: נתוני אימון (דגימה ותיוג), הנדסת תכונות ודליפה
+- ★ CS 329S: Machine Learning Systems Design (lecture notes), עמ' PDF 108–146: הרצאות 5–6: פיתוח מודל, הערכה offline מעבר לדיוק
+- ★ CS 329S: Machine Learning Systems Design (lecture notes), עמ' PDF 147–213: הרצאות 8, 10: דפוסי פריסה, כשלי מערכות ML, הסטת התפלגות וניטור
+- ★ CS 329S: Machine Learning Systems Design (lecture notes), עמ' PDF 214–342: שקפים: למידה מתמשכת וניסויים online (הרצאה 11), תשתית ופלטפורמת ML (הרצאה 15)
+- ★ Hidden Technical Debt in Machine Learning Systems, עמ' PDF 1–9: המאמר כולו
+
+### M29.2 חוקי סקיילינג ואימון מבוזר: TP/PP/EP ו-NCCL
+*Scaling laws and distributed training: TP/PP/EP, NCCL* · **ליבה** · 227 עמ' · כ-15 שיעורים · דרישות: M29.1, M28.2
+
+- ★ The Ultra-Scale Playbook: Training LLMs on GPU Clusters, עמ' PDF 1–130: כל הספר: מקביליות נתונים/ZeRO (4-), tensor/context/pipeline/expert (50-73), תצורת אימון (74), GPU kernels (79-100), מסקנות והפניות (101-130)
+- ★ How to Scale Your Model, עמ' PDF 35–49: פרק 3 Sharded Matrices: sharding, collectives (all-gather, reduce-scatter, all-reduce)
+- ★ How to Scale Your Model, עמ' PDF 50–65: פרק 5 How to Parallelize a Transformer for Training: DP, FSDP/ZeRO, TP, PP, MFU
+- ★ How to Scale Your Model, עמ' PDF 87–91: פרק 6 Training LLaMA 3 on TPUs: דוגמה מעשית
+- ★ How to Scale Your Model, עמ' PDF 116–140: פרק 12 How to Think About GPUs: NCCL, collectives, scale-out
+- ★ Training Compute-Optimal Large Language Models, עמ' PDF 1–36: כל המאמר: חוקי קנה מידה וחישוב אופטימלי (Chinchilla). המאמר מכסה רק את נושא החוקים; מקביליות/NCCL/זיכרון אינם בו
+
+### M29.3 אימון המשך לחשיבה: SFT, RLHF, DPO, GRPO ו-Test-Time Compute
+*Post-training for reasoning: SFT, RLHF, DPO, GRPO, test-time compute* · **ליבה** · 348 עמ' · כ-23 שיעורים · דרישות: M29.1, M18.11
+
+- ★ Reinforcement Learning from Human Feedback, עמ' PDF 1–249: כולו: IFT/SFT, reward modeling, RL (PPO, GRPO), reasoning ו-inference-time scaling, DPO, rejection sampling, distillation, regularization, evaluation
+- ★ DeepSeekMath / GRPO (arXiv 2402.03300); DeepSeek-R1 (2501.12948), עמ' PDF 10–22: DeepSeekMath פרקים 3–5: SFT, GRPO (נגזרת והשוואה ל-PPO), ודיון בתובנות RL
+- ★ DeepSeekMath / GRPO (arXiv 2402.03300); DeepSeek-R1 (2501.12948), עמ' PDF 31–116: DeepSeek-R1: R1-Zero (RL עם תגמולים ניתנים לאימות), צנרת R1, השוואת GRPO ו-PPO, reward hacking, test-time compute ואורך CoT, זיקוק, הערכה ובטיחות
+
+### M29.6 מערכות סוכנים ובקרה סגורה
+*Agent systems and closed-loop control* · **ליבה** · 86 עמ' · כ-6 שיעורים · דרישות: M29.3, M5.19
+
+- ★ Building Effective Agents (Anthropic 2024); ReAct (arXiv 2210.03629); OpenVLA (2406.09246), עמ' PDF 1–16: Building Effective Agents (Anthropic): לולאת סוכן, שימוש בכלים, workflows מול agents, תכנון
+- ★ Building Effective Agents (Anthropic 2024); ReAct (arXiv 2210.03629); OpenVLA (2406.09246), עמ' PDF 17–49: ReAct: חשיבה ופעולה משולבות, כלים ואחזור
+- ★ Building Effective Agents (Anthropic 2024); ReAct (arXiv 2210.03629); OpenVLA (2406.09246), עמ' PDF 50–86: OpenVLA: מודלי ראייה-שפה-פעולה
+
+### M29.7 AI בקצה וחוסן תחת מגבלות SWaP
+*Edge AI and robustness under SWaP* · **ליבה** · 98 עמ' · כ-7 שיעורים · דרישות: M29.4, M17.16
+
+- ★ Quantization and Training of NNs for Integer-Arithmetic-Only Inference; Towards Deep Learning Models Resistant to Adversarial Attacks; Benchmarking NN Robustness to Common Corruptions, עמ' PDF 1–14: Jacob et al.: quantization לאריתמטיקת שלמים
+- ★ Quantization and Training of NNs for Integer-Arithmetic-Only Inference; Towards Deep Learning Models Resistant to Adversarial Attacks; Benchmarking NN Robustness to Common Corruptions, עמ' PDF 15–42: Madry et al.: adversarial robustness, PGD
+- ★ Quantization and Training of NNs for Integer-Arithmetic-Only Inference; Towards Deep Learning Models Resistant to Adversarial Attacks; Benchmarking NN Robustness to Common Corruptions, עמ' PDF 43–58: Hendrycks & Dietterich: ImageNet-C/P, corruptions
+- ★ Efficient Processing of Deep Neural Networks: A Tutorial and Survey, עמ' PDF 1–32: כולו
+- ★ Efficient Processing of Deep Neural Networks: A Tutorial and Survey, עמ' PDF 20–27: §VII–VIII: הפחתת דיוק (קוונטיזציה), גיזום ודחיסה, ארכיטקטורות יעילות, מדדי benchmarking
+
+### M29.9 אבטחה של מערכות AI: התקפות על מודלים וסוכנים, פרטיות, ו-AI בתקיפה ובהגנה
+*Security of AI systems: attacks on models and agents, privacy, AI in offense and defense* · **ליבה** · 297 עמ' · כ-20 שיעורים · דרישות: M29.6, M29.7, M22.21
+
+- ★ AI security papers: NIST AI 100-2e2025; OWASP Top 10 for LLM Applications 2025; Greshake et al. 2023; Beurer-Kellner et al. 2025; Debenedetti et al., CaMeL 2025; Carlini et al. 2021; Shokri et al. 2017; Abadi et al., DP-SGD 2016; Gu et al., BadNets 2017; Hubinger et al., Sleeper Agents 2024; Fang et al. 2024; Zhang et al., Cybench 2025; Anthropic, AI-orchestrated espionage 2025, עמ' PDF 1–64: NIST AI 100-2e2025: טקסונומיה של התקפות על AI והגנות
+- ◇ AI security papers: NIST AI 100-2e2025; OWASP Top 10 for LLM Applications 2025; Greshake et al. 2023; Beurer-Kellner et al. 2025; Debenedetti et al., CaMeL 2025; Carlini et al. 2021; Shokri et al. 2017; Abadi et al., DP-SGD 2016; Gu et al., BadNets 2017; Hubinger et al., Sleeper Agents 2024; Fang et al. 2024; Zhang et al., Cybench 2025; Anthropic, AI-orchestrated espionage 2025, עמ' PDF 65–109: OWASP Top 10 ליישומי LLM, 2025
+- ★ AI security papers: NIST AI 100-2e2025; OWASP Top 10 for LLM Applications 2025; Greshake et al. 2023; Beurer-Kellner et al. 2025; Debenedetti et al., CaMeL 2025; Carlini et al. 2021; Shokri et al. 2017; Abadi et al., DP-SGD 2016; Gu et al., BadNets 2017; Hubinger et al., Sleeper Agents 2024; Fang et al. 2024; Zhang et al., Cybench 2025; Anthropic, AI-orchestrated espionage 2025, עמ' PDF 110–122: Greshake ואחרים 2023: הזרקת הוראות עקיפה
+- ★ AI security papers: NIST AI 100-2e2025; OWASP Top 10 for LLM Applications 2025; Greshake et al. 2023; Beurer-Kellner et al. 2025; Debenedetti et al., CaMeL 2025; Carlini et al. 2021; Shokri et al. 2017; Abadi et al., DP-SGD 2016; Gu et al., BadNets 2017; Hubinger et al., Sleeper Agents 2024; Fang et al. 2024; Zhang et al., Cybench 2025; Anthropic, AI-orchestrated espionage 2025, עמ' PDF 123–149: תבניות תכן לאבטחת סוכנים מפני הזרקת הוראות
+- ★ AI security papers: NIST AI 100-2e2025; OWASP Top 10 for LLM Applications 2025; Greshake et al. 2023; Beurer-Kellner et al. 2025; Debenedetti et al., CaMeL 2025; Carlini et al. 2021; Shokri et al. 2017; Abadi et al., DP-SGD 2016; Gu et al., BadNets 2017; Hubinger et al., Sleeper Agents 2024; Fang et al. 2024; Zhang et al., Cybench 2025; Anthropic, AI-orchestrated espionage 2025, עמ' PDF 150–175: CaMeL: הפרדה בין זרימת בקרה לזרימת נתונים
+- ★ AI security papers: NIST AI 100-2e2025; OWASP Top 10 for LLM Applications 2025; Greshake et al. 2023; Beurer-Kellner et al. 2025; Debenedetti et al., CaMeL 2025; Carlini et al. 2021; Shokri et al. 2017; Abadi et al., DP-SGD 2016; Gu et al., BadNets 2017; Hubinger et al., Sleeper Agents 2024; Fang et al. 2024; Zhang et al., Cybench 2025; Anthropic, AI-orchestrated espionage 2025, עמ' PDF 176–188: Carlini ואחרים 2021: חילוץ נתוני אימון ממודל שפה
+- ★ AI security papers: NIST AI 100-2e2025; OWASP Top 10 for LLM Applications 2025; Greshake et al. 2023; Beurer-Kellner et al. 2025; Debenedetti et al., CaMeL 2025; Carlini et al. 2021; Shokri et al. 2017; Abadi et al., DP-SGD 2016; Gu et al., BadNets 2017; Hubinger et al., Sleeper Agents 2024; Fang et al. 2024; Zhang et al., Cybench 2025; Anthropic, AI-orchestrated espionage 2025, עמ' PDF 189–202: Shokri ואחרים 2017: הסקת חברות בנתוני האימון
+- ★ AI security papers: NIST AI 100-2e2025; OWASP Top 10 for LLM Applications 2025; Greshake et al. 2023; Beurer-Kellner et al. 2025; Debenedetti et al., CaMeL 2025; Carlini et al. 2021; Shokri et al. 2017; Abadi et al., DP-SGD 2016; Gu et al., BadNets 2017; Hubinger et al., Sleeper Agents 2024; Fang et al. 2024; Zhang et al., Cybench 2025; Anthropic, AI-orchestrated espionage 2025, עמ' PDF 203–211: Abadi ואחרים 2016: למידה עמוקה עם פרטיות דיפרנציאלית
+- ★ AI security papers: NIST AI 100-2e2025; OWASP Top 10 for LLM Applications 2025; Greshake et al. 2023; Beurer-Kellner et al. 2025; Debenedetti et al., CaMeL 2025; Carlini et al. 2021; Shokri et al. 2017; Abadi et al., DP-SGD 2016; Gu et al., BadNets 2017; Hubinger et al., Sleeper Agents 2024; Fang et al. 2024; Zhang et al., Cybench 2025; Anthropic, AI-orchestrated espionage 2025, עמ' PDF 212–222: BadNets: דלתות אחוריות בשרשרת האספקה של מודלים
+- ★ AI security papers: NIST AI 100-2e2025; OWASP Top 10 for LLM Applications 2025; Greshake et al. 2023; Beurer-Kellner et al. 2025; Debenedetti et al., CaMeL 2025; Carlini et al. 2021; Shokri et al. 2017; Abadi et al., DP-SGD 2016; Gu et al., BadNets 2017; Hubinger et al., Sleeper Agents 2024; Fang et al. 2024; Zhang et al., Cybench 2025; Anthropic, AI-orchestrated espionage 2025, עמ' PDF 223–237: Sleeper Agents: מבוא ושיטה
+- ◇ AI security papers: NIST AI 100-2e2025; OWASP Top 10 for LLM Applications 2025; Greshake et al. 2023; Beurer-Kellner et al. 2025; Debenedetti et al., CaMeL 2025; Carlini et al. 2021; Shokri et al. 2017; Abadi et al., DP-SGD 2016; Gu et al., BadNets 2017; Hubinger et al., Sleeper Agents 2024; Fang et al. 2024; Zhang et al., Cybench 2025; Anthropic, AI-orchestrated espionage 2025, עמ' PDF 238–262: Sleeper Agents: תוצאות ודיון
+- ★ AI security papers: NIST AI 100-2e2025; OWASP Top 10 for LLM Applications 2025; Greshake et al. 2023; Beurer-Kellner et al. 2025; Debenedetti et al., CaMeL 2025; Carlini et al. 2021; Shokri et al. 2017; Abadi et al., DP-SGD 2016; Gu et al., BadNets 2017; Hubinger et al., Sleeper Agents 2024; Fang et al. 2024; Zhang et al., Cybench 2025; Anthropic, AI-orchestrated espionage 2025, עמ' PDF 263–271: Fang ואחרים 2024: סוכן שמנצל פגיעויות ידועות
+- ★ AI security papers: NIST AI 100-2e2025; OWASP Top 10 for LLM Applications 2025; Greshake et al. 2023; Beurer-Kellner et al. 2025; Debenedetti et al., CaMeL 2025; Carlini et al. 2021; Shokri et al. 2017; Abadi et al., DP-SGD 2016; Gu et al., BadNets 2017; Hubinger et al., Sleeper Agents 2024; Fang et al. 2024; Zhang et al., Cybench 2025; Anthropic, AI-orchestrated espionage 2025, עמ' PDF 272–283: Cybench: מדידת יכולות סייבר של מודלים
+- ★ AI security papers: NIST AI 100-2e2025; OWASP Top 10 for LLM Applications 2025; Greshake et al. 2023; Beurer-Kellner et al. 2025; Debenedetti et al., CaMeL 2025; Carlini et al. 2021; Shokri et al. 2017; Abadi et al., DP-SGD 2016; Gu et al., BadNets 2017; Hubinger et al., Sleeper Agents 2024; Fang et al. 2024; Zhang et al., Cybench 2025; Anthropic, AI-orchestrated espionage 2025, עמ' PDF 284–297: Anthropic 2025: מבצע ריגול שסוכן AI ביצע את רובו
+
+### M29.5 ראייה ממוחשבת מודרנית ותפיסה תלת-ממדית: DETR, SAM, World Models ו-3DGS
+*Modern vision and 3D perception: DETR, SAM, world models, 3DGS* · **ליבה** · 209 עמ' · כ-14 שיעורים · דרישות: M17.6, M17.7, M17.11, M19.12
+
+- ★ DETR (arXiv 2005.12872); DINOv2 (2304.07193); SAM (2304.02643); SAM 2 (2408.00714); NeRF (2003.08934); 3D Gaussian Splatting (2308.04079); DreamerV3 (2301.04104), עמ' PDF 1–26: DETR (Carion et al. 2020): זיהוי כחיזוי קבוצה, Hungarian matching
+- ★ DETR (arXiv 2005.12872); DINOv2 (2304.07193); SAM (2304.02643); SAM 2 (2408.00714); NeRF (2003.08934); 3D Gaussian Splatting (2308.04079); DreamerV3 (2301.04104), עמ' PDF 27–58: DINOv2 (Oquab et al. 2023/24): ייצוגים חזותיים בלמידה עצמית
+- ★ DETR (arXiv 2005.12872); DINOv2 (2304.07193); SAM (2304.02643); SAM 2 (2408.00714); NeRF (2003.08934); 3D Gaussian Splatting (2308.04079); DreamerV3 (2301.04104), עמ' PDF 59–88: Segment Anything (SAM, Kirillov et al. 2023)
+- ★ DETR (arXiv 2005.12872); DINOv2 (2304.07193); SAM (2304.02643); SAM 2 (2408.00714); NeRF (2003.08934); 3D Gaussian Splatting (2308.04079); DreamerV3 (2301.04104), עמ' PDF 89–130: SAM 2: סגמנטציה בתמונות ובווידאו (Ravi et al. 2024)
+- ★ DETR (arXiv 2005.12872); DINOv2 (2304.07193); SAM (2304.02643); SAM 2 (2408.00714); NeRF (2003.08934); 3D Gaussian Splatting (2308.04079); DreamerV3 (2301.04104), עמ' PDF 131–155: NeRF (Mildenhall et al. 2020)
+- ★ DETR (arXiv 2005.12872); DINOv2 (2304.07193); SAM (2304.02643); SAM 2 (2408.00714); NeRF (2003.08934); 3D Gaussian Splatting (2308.04079); DreamerV3 (2301.04104), עמ' PDF 156–169: 3D Gaussian Splatting (Kerbl et al. 2023)
+- ★ DETR (arXiv 2005.12872); DINOv2 (2304.07193); SAM (2304.02643); SAM 2 (2408.00714); NeRF (2003.08934); 3D Gaussian Splatting (2308.04079); DreamerV3 (2301.04104), עמ' PDF 170–209: DreamerV3 (Hafner et al.): world models
 
 ## חלק 19: גשר: רובוטיקה
 
@@ -4124,103 +4215,6 @@
 - ★ Security Engineering, עמ' PDF 636–701: מהדורה 3: פרק 18 Tamper Resistance (636–674) ופרק 19 Side Channels (675–701); מקביל לפרקים 16–17 במהדורה 2. המשך: פרק 20 הצפנה מתקדמת מ-702
 - ★ NIST SP 800-193, Platform Firmware Resiliency Guidelines, עמ' PDF 1–45: כולו: ארכיטקטורת פלטפורמה (2), עקרונות: roots of trust, הגנה, זיהוי ושחזור (3), הנחיות אבטחת קושחה ועדכון מאובטח (4)
 - ★ Spectre Attacks: Exploiting Speculative Execution, עמ' PDF 1–16: כל המאמר: התקפות ערוצי צד מיקרו-ארכיטקטוניים וספקטר
-
-## חלק 29: גשר: הנדסת AI מודרני
-
-### M29.1 ארכיטקטורת מודלי יסוד: LLM/VLM, FlashAttention, RoPE ו-MoE
-*Foundation-model architecture: LLM/VLM, FlashAttention, RoPE, MoE* · **ליבה** · 249 עמ' · כ-17 שיעורים · דרישות: M17.7, M17.4, M28.2
-
-- ★ Prince, Understanding Deep Learning, עמ' PDF 221–246: פרק 12: טרנספורמרים: self-attention, קידוד מיקום, שכבת טרנספורמר, BERT, GPT-3, רצפים ארוכים, ViT
-- ★ Speech and Language Processing, עמ' PDF 135–184: Embeddings ו-Neural Networks
-- ★ Speech and Language Processing, עמ' PDF 185–232: Transformers and Pretraining (attention, positional encodings, scaling) ו-Post-training
-- ★ Speech and Language Processing, עמ' PDF 235–283: Masked LMs, Interpretability, Retrieval-based models, Agents
-- ★ RoFormer (arXiv 2104.09864); FlashAttention (2205.14135); DeepSeek-V3 Technical Report (2412.19437), עמ' PDF 1–14: RoFormer: קידוד מיקום סיבובי (RoPE), נגזרת ותכונות
-- ★ RoFormer (arXiv 2104.09864); FlashAttention (2205.14135); DeepSeek-V3 Technical Report (2412.19437), עמ' PDF 15–48: FlashAttention: עלות חישוב וזיכרון של attention, tiling ו-IO complexity (כולל נספחי אלגוריתם)
-- ★ RoFormer (arXiv 2104.09864); FlashAttention (2205.14135); DeepSeek-V3 Technical Report (2412.19437), עמ' PDF 49–76: DeepSeek-V3: ארכיטקטורה (MLA, DeepSeekMoE, איזון עומס בלי aux loss, MTP), תשתית ואימון FP8, יציבות אימון בקנה מידה
-
-### M29.4 אופטימיזציית הסקה: KV-Cache, FP8/INT4 ו-Speculative Decoding
-*Inference optimization: KV-cache, FP8/INT4, speculative decoding* · **ליבה** · 111 עמ' · כ-7 שיעורים · דרישות: M29.1, M28.2
-
-- ★ How to Scale Your Model, עמ' PDF 17–22: פרק 1 Rooflines: compute- vs memory-bound
-- ★ How to Scale Your Model, עמ' PDF 66–86: פרק 7 All About Transformer Inference: prefill/decode, KV cache, batching, quantization, sharding for serving
-- ★ How to Scale Your Model, עמ' PDF 92–97: פרק 8 Serving LLaMA 3-70B on TPUs: דוגמה מעשית
-- ★ vLLM/PagedAttention; Speculative decoding; GPTQ; AWQ; Efficiently Scaling Transformer Inference, עמ' PDF 1–16: PagedAttention / vLLM (2309.06180): KV cache, continuous batching
-- ★ vLLM/PagedAttention; Speculative decoding; GPTQ; AWQ; Efficiently Scaling Transformer Inference, עמ' PDF 17–29: Speculative decoding (2211.17192)
-- ★ vLLM/PagedAttention; Speculative decoding; GPTQ; AWQ; Efficiently Scaling Transformer Inference, עמ' PDF 30–45: GPTQ (2210.17323): post-training quantization
-- ★ vLLM/PagedAttention; Speculative decoding; GPTQ; AWQ; Efficiently Scaling Transformer Inference, עמ' PDF 46–60: AWQ (2306.00978)
-- ★ vLLM/PagedAttention; Speculative decoding; GPTQ; AWQ; Efficiently Scaling Transformer Inference, עמ' PDF 61–78: Efficiently Scaling Transformer Inference (2211.05102): sharding for serving, cost model
-
-### M29.8 מערכות ML ו-MLOps
-*ML systems and MLOps* · **מתקדם** · 351 עמ' · כ-23 שיעורים · דרישות: M29.4
-
-- ★ CS 329S: Machine Learning Systems Design (lecture notes), עמ' PDF 1–58: הרצאות 1–2: מסגור בעיית ML ודרישות מערכת, הנדסת נתונים
-- ★ CS 329S: Machine Learning Systems Design (lecture notes), עמ' PDF 59–107: הרצאות 3–4: נתוני אימון (דגימה ותיוג), הנדסת תכונות ודליפה
-- ★ CS 329S: Machine Learning Systems Design (lecture notes), עמ' PDF 108–146: הרצאות 5–6: פיתוח מודל, הערכה offline מעבר לדיוק
-- ★ CS 329S: Machine Learning Systems Design (lecture notes), עמ' PDF 147–213: הרצאות 8, 10: דפוסי פריסה, כשלי מערכות ML, הסטת התפלגות וניטור
-- ★ CS 329S: Machine Learning Systems Design (lecture notes), עמ' PDF 214–342: שקפים: למידה מתמשכת וניסויים online (הרצאה 11), תשתית ופלטפורמת ML (הרצאה 15)
-- ★ Hidden Technical Debt in Machine Learning Systems, עמ' PDF 1–9: המאמר כולו
-
-### M29.2 חוקי סקיילינג ואימון מבוזר: TP/PP/EP ו-NCCL
-*Scaling laws and distributed training: TP/PP/EP, NCCL* · **ליבה** · 227 עמ' · כ-15 שיעורים · דרישות: M29.1, M28.2
-
-- ★ The Ultra-Scale Playbook: Training LLMs on GPU Clusters, עמ' PDF 1–130: כל הספר: מקביליות נתונים/ZeRO (4-), tensor/context/pipeline/expert (50-73), תצורת אימון (74), GPU kernels (79-100), מסקנות והפניות (101-130)
-- ★ How to Scale Your Model, עמ' PDF 35–49: פרק 3 Sharded Matrices: sharding, collectives (all-gather, reduce-scatter, all-reduce)
-- ★ How to Scale Your Model, עמ' PDF 50–65: פרק 5 How to Parallelize a Transformer for Training: DP, FSDP/ZeRO, TP, PP, MFU
-- ★ How to Scale Your Model, עמ' PDF 87–91: פרק 6 Training LLaMA 3 on TPUs: דוגמה מעשית
-- ★ How to Scale Your Model, עמ' PDF 116–140: פרק 12 How to Think About GPUs: NCCL, collectives, scale-out
-- ★ Training Compute-Optimal Large Language Models, עמ' PDF 1–36: כל המאמר: חוקי קנה מידה וחישוב אופטימלי (Chinchilla). המאמר מכסה רק את נושא החוקים; מקביליות/NCCL/זיכרון אינם בו
-
-### M29.3 אימון המשך לחשיבה: SFT, RLHF, DPO, GRPO ו-Test-Time Compute
-*Post-training for reasoning: SFT, RLHF, DPO, GRPO, test-time compute* · **ליבה** · 348 עמ' · כ-23 שיעורים · דרישות: M29.1, M18.11
-
-- ★ Reinforcement Learning from Human Feedback, עמ' PDF 1–249: כולו: IFT/SFT, reward modeling, RL (PPO, GRPO), reasoning ו-inference-time scaling, DPO, rejection sampling, distillation, regularization, evaluation
-- ★ DeepSeekMath / GRPO (arXiv 2402.03300); DeepSeek-R1 (2501.12948), עמ' PDF 10–22: DeepSeekMath פרקים 3–5: SFT, GRPO (נגזרת והשוואה ל-PPO), ודיון בתובנות RL
-- ★ DeepSeekMath / GRPO (arXiv 2402.03300); DeepSeek-R1 (2501.12948), עמ' PDF 31–116: DeepSeek-R1: R1-Zero (RL עם תגמולים ניתנים לאימות), צנרת R1, השוואת GRPO ו-PPO, reward hacking, test-time compute ואורך CoT, זיקוק, הערכה ובטיחות
-
-### M29.6 מערכות סוכנים ובקרה סגורה
-*Agent systems and closed-loop control* · **ליבה** · 86 עמ' · כ-6 שיעורים · דרישות: M29.3, M5.19
-
-- ★ Building Effective Agents (Anthropic 2024); ReAct (arXiv 2210.03629); OpenVLA (2406.09246), עמ' PDF 1–16: Building Effective Agents (Anthropic): לולאת סוכן, שימוש בכלים, workflows מול agents, תכנון
-- ★ Building Effective Agents (Anthropic 2024); ReAct (arXiv 2210.03629); OpenVLA (2406.09246), עמ' PDF 17–49: ReAct: חשיבה ופעולה משולבות, כלים ואחזור
-- ★ Building Effective Agents (Anthropic 2024); ReAct (arXiv 2210.03629); OpenVLA (2406.09246), עמ' PDF 50–86: OpenVLA: מודלי ראייה-שפה-פעולה
-
-### M29.7 AI בקצה וחוסן תחת מגבלות SWaP
-*Edge AI and robustness under SWaP* · **ליבה** · 98 עמ' · כ-7 שיעורים · דרישות: M29.4, M17.16
-
-- ★ Quantization and Training of NNs for Integer-Arithmetic-Only Inference; Towards Deep Learning Models Resistant to Adversarial Attacks; Benchmarking NN Robustness to Common Corruptions, עמ' PDF 1–14: Jacob et al.: quantization לאריתמטיקת שלמים
-- ★ Quantization and Training of NNs for Integer-Arithmetic-Only Inference; Towards Deep Learning Models Resistant to Adversarial Attacks; Benchmarking NN Robustness to Common Corruptions, עמ' PDF 15–42: Madry et al.: adversarial robustness, PGD
-- ★ Quantization and Training of NNs for Integer-Arithmetic-Only Inference; Towards Deep Learning Models Resistant to Adversarial Attacks; Benchmarking NN Robustness to Common Corruptions, עמ' PDF 43–58: Hendrycks & Dietterich: ImageNet-C/P, corruptions
-- ★ Efficient Processing of Deep Neural Networks: A Tutorial and Survey, עמ' PDF 1–32: כולו
-- ★ Efficient Processing of Deep Neural Networks: A Tutorial and Survey, עמ' PDF 20–27: §VII–VIII: הפחתת דיוק (קוונטיזציה), גיזום ודחיסה, ארכיטקטורות יעילות, מדדי benchmarking
-
-### M29.9 אבטחה של מערכות AI: התקפות על מודלים וסוכנים, פרטיות, ו-AI בתקיפה ובהגנה
-*Security of AI systems: attacks on models and agents, privacy, AI in offense and defense* · **ליבה** · 297 עמ' · כ-20 שיעורים · דרישות: M29.6, M29.7, M22.21
-
-- ★ AI security papers: NIST AI 100-2e2025; OWASP Top 10 for LLM Applications 2025; Greshake et al. 2023; Beurer-Kellner et al. 2025; Debenedetti et al., CaMeL 2025; Carlini et al. 2021; Shokri et al. 2017; Abadi et al., DP-SGD 2016; Gu et al., BadNets 2017; Hubinger et al., Sleeper Agents 2024; Fang et al. 2024; Zhang et al., Cybench 2025; Anthropic, AI-orchestrated espionage 2025, עמ' PDF 1–64: NIST AI 100-2e2025: טקסונומיה של התקפות על AI והגנות
-- ◇ AI security papers: NIST AI 100-2e2025; OWASP Top 10 for LLM Applications 2025; Greshake et al. 2023; Beurer-Kellner et al. 2025; Debenedetti et al., CaMeL 2025; Carlini et al. 2021; Shokri et al. 2017; Abadi et al., DP-SGD 2016; Gu et al., BadNets 2017; Hubinger et al., Sleeper Agents 2024; Fang et al. 2024; Zhang et al., Cybench 2025; Anthropic, AI-orchestrated espionage 2025, עמ' PDF 65–109: OWASP Top 10 ליישומי LLM, 2025
-- ★ AI security papers: NIST AI 100-2e2025; OWASP Top 10 for LLM Applications 2025; Greshake et al. 2023; Beurer-Kellner et al. 2025; Debenedetti et al., CaMeL 2025; Carlini et al. 2021; Shokri et al. 2017; Abadi et al., DP-SGD 2016; Gu et al., BadNets 2017; Hubinger et al., Sleeper Agents 2024; Fang et al. 2024; Zhang et al., Cybench 2025; Anthropic, AI-orchestrated espionage 2025, עמ' PDF 110–122: Greshake ואחרים 2023: הזרקת הוראות עקיפה
-- ★ AI security papers: NIST AI 100-2e2025; OWASP Top 10 for LLM Applications 2025; Greshake et al. 2023; Beurer-Kellner et al. 2025; Debenedetti et al., CaMeL 2025; Carlini et al. 2021; Shokri et al. 2017; Abadi et al., DP-SGD 2016; Gu et al., BadNets 2017; Hubinger et al., Sleeper Agents 2024; Fang et al. 2024; Zhang et al., Cybench 2025; Anthropic, AI-orchestrated espionage 2025, עמ' PDF 123–149: תבניות תכן לאבטחת סוכנים מפני הזרקת הוראות
-- ★ AI security papers: NIST AI 100-2e2025; OWASP Top 10 for LLM Applications 2025; Greshake et al. 2023; Beurer-Kellner et al. 2025; Debenedetti et al., CaMeL 2025; Carlini et al. 2021; Shokri et al. 2017; Abadi et al., DP-SGD 2016; Gu et al., BadNets 2017; Hubinger et al., Sleeper Agents 2024; Fang et al. 2024; Zhang et al., Cybench 2025; Anthropic, AI-orchestrated espionage 2025, עמ' PDF 150–175: CaMeL: הפרדה בין זרימת בקרה לזרימת נתונים
-- ★ AI security papers: NIST AI 100-2e2025; OWASP Top 10 for LLM Applications 2025; Greshake et al. 2023; Beurer-Kellner et al. 2025; Debenedetti et al., CaMeL 2025; Carlini et al. 2021; Shokri et al. 2017; Abadi et al., DP-SGD 2016; Gu et al., BadNets 2017; Hubinger et al., Sleeper Agents 2024; Fang et al. 2024; Zhang et al., Cybench 2025; Anthropic, AI-orchestrated espionage 2025, עמ' PDF 176–188: Carlini ואחרים 2021: חילוץ נתוני אימון ממודל שפה
-- ★ AI security papers: NIST AI 100-2e2025; OWASP Top 10 for LLM Applications 2025; Greshake et al. 2023; Beurer-Kellner et al. 2025; Debenedetti et al., CaMeL 2025; Carlini et al. 2021; Shokri et al. 2017; Abadi et al., DP-SGD 2016; Gu et al., BadNets 2017; Hubinger et al., Sleeper Agents 2024; Fang et al. 2024; Zhang et al., Cybench 2025; Anthropic, AI-orchestrated espionage 2025, עמ' PDF 189–202: Shokri ואחרים 2017: הסקת חברות בנתוני האימון
-- ★ AI security papers: NIST AI 100-2e2025; OWASP Top 10 for LLM Applications 2025; Greshake et al. 2023; Beurer-Kellner et al. 2025; Debenedetti et al., CaMeL 2025; Carlini et al. 2021; Shokri et al. 2017; Abadi et al., DP-SGD 2016; Gu et al., BadNets 2017; Hubinger et al., Sleeper Agents 2024; Fang et al. 2024; Zhang et al., Cybench 2025; Anthropic, AI-orchestrated espionage 2025, עמ' PDF 203–211: Abadi ואחרים 2016: למידה עמוקה עם פרטיות דיפרנציאלית
-- ★ AI security papers: NIST AI 100-2e2025; OWASP Top 10 for LLM Applications 2025; Greshake et al. 2023; Beurer-Kellner et al. 2025; Debenedetti et al., CaMeL 2025; Carlini et al. 2021; Shokri et al. 2017; Abadi et al., DP-SGD 2016; Gu et al., BadNets 2017; Hubinger et al., Sleeper Agents 2024; Fang et al. 2024; Zhang et al., Cybench 2025; Anthropic, AI-orchestrated espionage 2025, עמ' PDF 212–222: BadNets: דלתות אחוריות בשרשרת האספקה של מודלים
-- ★ AI security papers: NIST AI 100-2e2025; OWASP Top 10 for LLM Applications 2025; Greshake et al. 2023; Beurer-Kellner et al. 2025; Debenedetti et al., CaMeL 2025; Carlini et al. 2021; Shokri et al. 2017; Abadi et al., DP-SGD 2016; Gu et al., BadNets 2017; Hubinger et al., Sleeper Agents 2024; Fang et al. 2024; Zhang et al., Cybench 2025; Anthropic, AI-orchestrated espionage 2025, עמ' PDF 223–237: Sleeper Agents: מבוא ושיטה
-- ◇ AI security papers: NIST AI 100-2e2025; OWASP Top 10 for LLM Applications 2025; Greshake et al. 2023; Beurer-Kellner et al. 2025; Debenedetti et al., CaMeL 2025; Carlini et al. 2021; Shokri et al. 2017; Abadi et al., DP-SGD 2016; Gu et al., BadNets 2017; Hubinger et al., Sleeper Agents 2024; Fang et al. 2024; Zhang et al., Cybench 2025; Anthropic, AI-orchestrated espionage 2025, עמ' PDF 238–262: Sleeper Agents: תוצאות ודיון
-- ★ AI security papers: NIST AI 100-2e2025; OWASP Top 10 for LLM Applications 2025; Greshake et al. 2023; Beurer-Kellner et al. 2025; Debenedetti et al., CaMeL 2025; Carlini et al. 2021; Shokri et al. 2017; Abadi et al., DP-SGD 2016; Gu et al., BadNets 2017; Hubinger et al., Sleeper Agents 2024; Fang et al. 2024; Zhang et al., Cybench 2025; Anthropic, AI-orchestrated espionage 2025, עמ' PDF 263–271: Fang ואחרים 2024: סוכן שמנצל פגיעויות ידועות
-- ★ AI security papers: NIST AI 100-2e2025; OWASP Top 10 for LLM Applications 2025; Greshake et al. 2023; Beurer-Kellner et al. 2025; Debenedetti et al., CaMeL 2025; Carlini et al. 2021; Shokri et al. 2017; Abadi et al., DP-SGD 2016; Gu et al., BadNets 2017; Hubinger et al., Sleeper Agents 2024; Fang et al. 2024; Zhang et al., Cybench 2025; Anthropic, AI-orchestrated espionage 2025, עמ' PDF 272–283: Cybench: מדידת יכולות סייבר של מודלים
-- ★ AI security papers: NIST AI 100-2e2025; OWASP Top 10 for LLM Applications 2025; Greshake et al. 2023; Beurer-Kellner et al. 2025; Debenedetti et al., CaMeL 2025; Carlini et al. 2021; Shokri et al. 2017; Abadi et al., DP-SGD 2016; Gu et al., BadNets 2017; Hubinger et al., Sleeper Agents 2024; Fang et al. 2024; Zhang et al., Cybench 2025; Anthropic, AI-orchestrated espionage 2025, עמ' PDF 284–297: Anthropic 2025: מבצע ריגול שסוכן AI ביצע את רובו
-
-### M29.5 ראייה ממוחשבת מודרנית ותפיסה תלת-ממדית: DETR, SAM, World Models ו-3DGS
-*Modern vision and 3D perception: DETR, SAM, world models, 3DGS* · **ליבה** · 209 עמ' · כ-14 שיעורים · דרישות: M17.6, M17.7, M17.11, M19.12
-
-- ★ DETR (arXiv 2005.12872); DINOv2 (2304.07193); SAM (2304.02643); SAM 2 (2408.00714); NeRF (2003.08934); 3D Gaussian Splatting (2308.04079); DreamerV3 (2301.04104), עמ' PDF 1–26: DETR (Carion et al. 2020): זיהוי כחיזוי קבוצה, Hungarian matching
-- ★ DETR (arXiv 2005.12872); DINOv2 (2304.07193); SAM (2304.02643); SAM 2 (2408.00714); NeRF (2003.08934); 3D Gaussian Splatting (2308.04079); DreamerV3 (2301.04104), עמ' PDF 27–58: DINOv2 (Oquab et al. 2023/24): ייצוגים חזותיים בלמידה עצמית
-- ★ DETR (arXiv 2005.12872); DINOv2 (2304.07193); SAM (2304.02643); SAM 2 (2408.00714); NeRF (2003.08934); 3D Gaussian Splatting (2308.04079); DreamerV3 (2301.04104), עמ' PDF 59–88: Segment Anything (SAM, Kirillov et al. 2023)
-- ★ DETR (arXiv 2005.12872); DINOv2 (2304.07193); SAM (2304.02643); SAM 2 (2408.00714); NeRF (2003.08934); 3D Gaussian Splatting (2308.04079); DreamerV3 (2301.04104), עמ' PDF 89–130: SAM 2: סגמנטציה בתמונות ובווידאו (Ravi et al. 2024)
-- ★ DETR (arXiv 2005.12872); DINOv2 (2304.07193); SAM (2304.02643); SAM 2 (2408.00714); NeRF (2003.08934); 3D Gaussian Splatting (2308.04079); DreamerV3 (2301.04104), עמ' PDF 131–155: NeRF (Mildenhall et al. 2020)
-- ★ DETR (arXiv 2005.12872); DINOv2 (2304.07193); SAM (2304.02643); SAM 2 (2408.00714); NeRF (2003.08934); 3D Gaussian Splatting (2308.04079); DreamerV3 (2301.04104), עמ' PDF 156–169: 3D Gaussian Splatting (Kerbl et al. 2023)
-- ★ DETR (arXiv 2005.12872); DINOv2 (2304.07193); SAM (2304.02643); SAM 2 (2408.00714); NeRF (2003.08934); 3D Gaussian Splatting (2308.04079); DreamerV3 (2301.04104), עמ' PDF 170–209: DreamerV3 (Hafner et al.): world models
 
 ## חלק 30: גשר: הנדסה ימית
 

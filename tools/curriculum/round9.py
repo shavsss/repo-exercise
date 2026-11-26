@@ -13,6 +13,9 @@ The placement (docs/research/round8/ARCH_SOFTWARE_SOURCES.md, section 5):
   5. late: the business side and a cross-domain capstone (M27.16, M27.17).
 Round 10 (21.11.2026) is merged into the same data (ids R10:*): software and systems security (M22.21, after M22.15)
 and security of AI systems (M29.9, after M29.7), sources W99 and W100; Lanchester M15.5 gets AI-enabled cyber items.
+Round 11 (26.11.2026, the learner): one AI stage (P17 holds P18 and P29), RL right after deep learning, graphical
+models and variational inference in the core, and items for the master's-level gaps (learning theory, kernels and SVM,
+EM and HMM, mechanistic interpretability), ids R11:*.
 Nothing is removed. A module never comes before one of its prerequisites (checked here).
 The two apps stay separate: Lanchester gets its own module (M15.8), with no prerequisite across apps.
 """
@@ -44,6 +47,8 @@ def apply(app, modules, parts):
                        sources=[dict(x) for x in s.get("sources", [])])
     for mid, tier in spec.get("tier", {}).items():
         by[mid]["tier"] = tier
+    for mid, part in spec.get("part", {}).items():
+        by[mid]["part"] = part
     for mid, srcs in spec.get("sources", {}).items():
         have = by[mid].setdefault("sources", [])
         have += [dict(x) for x in srcs if x not in have]
@@ -63,6 +68,12 @@ def apply(app, modules, parts):
     missing = [k for k in by if k not in order]
     assert not missing, f"round9: not placed {missing}"
     _check(order, by)
+    # parts: a new title, or null to drop a part whose modules moved to another
+    titles = spec.get("parts", {})
+    used = {m["part"] for m in by.values()}
+    parts = [(pid, titles.get(pid) or t) for pid, t in parts if titles.get(pid, t) is not None]
+    assert all(pid in used for pid, _ in parts if pid in titles), "round9: a retitled part has no modules"
+    assert not [p for p in used if p not in {pid for pid, _ in parts}], "round9: a module's part was dropped"
     return [by[k] for k in order], parts
 
 
