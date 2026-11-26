@@ -1707,7 +1707,24 @@
 }
 ]
 },
-"M7.9": {},
+"M7.9": {
+"items": [
+{
+"id": "R11:M7.9:1",
+"n": "The EM algorithm and Gaussian mixture models",
+"imp": "K",
+"k": "new",
+"teach": "EM כמקסום חסם תחתון (ELBO) על הנראות: שלב E ושלב M, הוכחת המונוטוניות, תערובת גאוסיאנים כמקרה המרכזי (k-means הרך כגבול), מקסימום מקומי ואתחול; הקשר להסקה וריאציונית ול-VAE."
+},
+{
+"id": "R11:M7.9:2",
+"n": "Hidden Markov models: forward-backward, Viterbi, Baum-Welch",
+"imp": "S",
+"k": "new",
+"teach": "HMM כמודל מצב בדיד נסתר: אלגוריתם קדימה-אחורה, Viterbi כתכנות דינמי, Baum-Welch כ-EM; הקבלה למסנן קלמן (אותו מבנה, מצב רציף) ושימושים: דיבור, מעקב, פענוח קודים."
+}
+]
+},
 "M7.10": {
 "reading": [
 {
@@ -7988,6 +8005,13 @@
 "imp": "S",
 "k": "new",
 "teach": "Ablation studies: remove or replace one component at a time, several seeds per variant, report mean and spread; what an ablation can and cannot show about why a model works."
+},
+{
+"id": "R11:M17.5:1",
+"n": "Statistical learning theory: PAC, VC dimension, Rademacher complexity, generalization bounds",
+"imp": "S",
+"k": "new",
+"teach": "מה אפשר להבטיח על הכללה: מודל PAC, ERM, מימד VC וחסם ההכללה שלו, סיבוכיות Rademacher, ההתפרקות להטיה ושונות; ולמה החסמים האלה ריקים לרשתות עמוקות עם יותר פרמטרים מדוגמאות (double descent, רגולריזציה סמויה של SGD). חישוב: כמה דוגמאות החסם דורש למסווג פשוט, מול מה שעובד בפועל."
 }
 ],
 "brief": [
@@ -8297,6 +8321,13 @@
 "imp": "S",
 "k": "deepen",
 "teach": "Label audit: sample-and-review, inter-annotator agreement, model-assisted search for likely label errors; how label noise caps and biases the measured accuracy."
+},
+{
+"id": "R11:M17.12:1",
+"n": "Mechanistic interpretability: features, circuits, superposition, sparse autoencoders, probing",
+"imp": "S",
+"k": "new",
+"teach": "מה רשת מחשבת בפנים: probing לינארי, מעגלים (induction heads), superposition ולמה נוירון אחד מייצג כמה מושגים, sparse autoencoders לפירוק לתכונות, התערבות סיבתית (activation patching); מה זה מאפשר בהנדסה (איתור כשל, בטיחות, הכוונה) ואיפה השיטות עוד לא אמינות."
 }
 ],
 "brief": [
@@ -8528,6 +8559,13 @@
 "imp": "S",
 "k": "deepen",
 "teach": "Random forests, bagging, gradient boosting (XGBoost) - the workhorse for tabular data - absent; MG match E20 \"Forests & Trees\" is graph theory (false)."
+},
+{
+"id": "R11:M17.15:1",
+"n": "Kernel methods and support vector machines: margin, duality, the kernel trick, RKHS",
+"imp": "S",
+"k": "deepen",
+"teach": "SVM מהשוליים המרביים דרך הבעיה הדואלית (KKT מבויד) לטריק הגרעין; גרעין כמכפלה פנימית במרחב תכונות, משפט ה-representer ו-RKHS באינטואיציה; רגרסיית גרעין ותהליכים גאוסיים כאותו מבנה; העלות O(n^3) ולמה למידה עמוקה החליפה גרעינים בנתונים גדולים, ואיפה גרעינים עדיין מנצחים (מעט נתונים, אי-ודאות)."
 }
 ],
 "brief": [
