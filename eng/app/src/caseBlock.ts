@@ -17,9 +17,10 @@
 //   rubric:
 //   - [!] the decisive decision (exactly one)
 //   - [ ] a yes/no check
-//   guide:                (worked lessons only, caseAid: hidden until the learner opens it, before he writes)
+//   guide:                (every lesson, caseAid: open beside the question before he writes)
 //   - what a good answer at this stage contains (3–5 lines, never the decisive item)
-//   example:              (the module's first lesson only: shown beside his proposal after he commits)
+//   industry:             (with the guide: how a real, publicly documented top team did this stage, sourced)
+//   example:              (the module's first two lessons: shown beside his proposal after he commits)
 //   a model answer at the expected level: the proposal, its reasoning, the numbers, "ביטחון: 70%"
 //   @@ debrief
 //   decisions:
@@ -48,10 +49,11 @@ const SENIOR = "מהנדס בכיר";
 /** The stable id of a lesson's case: the module, the 1-based lesson number. */
 export const caseId = (moduleId: string, lessonIdx: number) => `${moduleId}-${lessonIdx + 1}-case`;
 
-/** What a lesson's case carries to help the learner start (docs/ENGINEERING_CASE.md, "מקרה לדוגמה"): the first lesson of
- * every module a model answer and guidelines per stage, the second the guidelines only, the rest neither. */
+/** What a lesson's case carries to help the learner start (docs/ENGINEERING_CASE.md, "מקרה לדוגמה"; the learner,
+ * 26.11: until it is a habit, guidance in every case): every lesson guidelines and a real industry example per stage,
+ * the first two lessons of every module also a model answer. `null` is kept for cases written before. */
 export type CaseAid = "example" | "guide" | null;
-export const caseAid = (lessonIdx: number): CaseAid => (lessonIdx === 0 ? "example" : lessonIdx === 1 ? "guide" : null);
+export const caseAid = (lessonIdx: number): CaseAid => (lessonIdx <= 1 ? "example" : "guide");
 
 export interface CaseRubricItem {
   text: string;
@@ -66,7 +68,9 @@ export interface CaseStageNotes {
   rubric: CaseRubricItem[];
   /** what a good answer at this stage contains (worked lessons only) */
   guide: string[];
-  /** a model answer at the expected level, shown beside his after he commits (the module's first lesson only) */
+  /** how a real, publicly documented top team did this stage, with its source or certainty (shown with the guide) */
+  industry: string;
+  /** a model answer at the expected level, shown beside his after he commits (the module's first two lessons) */
   example: string;
 }
 export interface CaseBlock {
@@ -94,7 +98,7 @@ const listItems = (t: string) =>
     .map((l) => /^\s*[-*]\s+(.*)$/.exec(l)?.[1]?.trim() ?? "")
     .filter(Boolean);
 
-const LABELS = ["ask", "anchors", "expert", "rubric", "guide", "example", "decisions"] as const;
+const LABELS = ["ask", "anchors", "expert", "rubric", "guide", "industry", "example", "decisions"] as const;
 type Label = (typeof LABELS)[number];
 const LABEL_LINE = new RegExp(`^(${LABELS.join("|")})\\s*:\\s*(.*)$`, "i");
 
@@ -160,6 +164,7 @@ export function parseCase(source: string): CaseBlock {
         .filter((m): m is RegExpExecArray => !!m)
         .map((m) => ({ text: m[2].trim(), decisive: m[1] === "!" })),
       guide: listItems(parts.guide ?? ""),
+      industry: parts.industry ?? "",
       example: parts.example ?? "",
     });
   }
@@ -215,6 +220,8 @@ export function caseProblems(c: CaseBlock, expectId?: string, aid?: CaseAid): st
     // the aids: required by the lesson's place (when known), and well formed wherever they are
     const wantGuide = aid === "example" || aid === "guide" || !!n.guide.length || !!n.example;
     if (wantGuide && (n.guide.length < 3 || n.guide.length > 5)) out.push(`stage ${s}: "guide:" needs 3 to 5 lines (it has ${n.guide.length})`);
+    if (aid && !n.industry) out.push(`stage ${s}: no "industry:" (how a real, publicly documented top team did this stage)`);
+    if (n.industry && !SOURCED.test(n.industry)) out.push(`stage ${s}: the industry example has no source or certainty label`);
     if ((aid === "example" || (aid === undefined && hasExamples(c))) && !n.example) out.push(`stage ${s}: no "example:" (a model answer; this case carries one in every stage)`);
     if (n.example && !/\d\s*%/.test(n.example)) out.push(`stage ${s}: the example has no confidence in % ("ביטחון: 70%")`);
   }

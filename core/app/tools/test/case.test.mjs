@@ -80,7 +80,9 @@ test("hide the notes from the reader; the audit finds format problems", () => {
   assert.ok(h.includes("רחפן צריך קישור"));
   assert.ok(!h.includes("ההחלטה המכריעה"));
   assert.match(h, /hidden notes of 3 stages/);
-  assert.deepEqual(A.caseFindings(lesson), []);
+  // a case written before 26.11 (no guidance) is asked for it: from 26.11 every case carries guide: and industry:
+  const old = A.caseFindings(lesson);
+  assert.ok(old.length && old.every((x) => /"guide:"|"industry:"/.test(x.problem)));
   const f = A.caseFindings(lesson.replace("@id: M3.2-4-case\n", ""));
   assert.equal(f.length, 1);
   assert.match(f[0].problem, /no @id/);
@@ -110,7 +112,9 @@ const worked = (n, ex = true) => `${stage(n)}
 guide:
 - כמת את הגבול לפני שבוחרים
 - שקול לפחות שתי חלופות
-- אמור מה יהפוך את ההחלטה${ex ? `
+- אמור מה יהפוך את ההחלטה
+industry:
+צוות ה-Raptor ב-SpaceX מחק דרישות לפני שייעל (מקור: סיור Starbase, 2021)${ex ? `
 example:
 הייתי מתחיל מהגבול: 13.2 dB מרווח, ולכן…
 ביטחון: 70%` : ""}`;
@@ -128,7 +132,9 @@ test("worked case: guide and example parse; old blocks still parse; the aid foll
   assert.equal(old.notes[0].example, "");
   assert.ok(!C.hasExamples(old));
   assert.deepEqual(C.caseProblems(old), []);
-  assert.deepEqual([0, 1, 2, 5].map(C.caseAid), ["example", "guide", null, null]);
+  assert.match(c.notes[0].industry, /Raptor[\s\S]*\(מקור:/);
+  assert.equal(old.notes[0].industry, "");
+  assert.deepEqual([0, 1, 2, 5].map(C.caseAid), ["example", "example", "guide", "guide"]);
 });
 
 test("worked case: missing or malformed aids are format problems", () => {
@@ -137,6 +143,8 @@ test("worked case: missing or malformed aids are format problems", () => {
   assert.match(p(good, "example"), /stage 1: no "example:"/);
   assert.doesNotMatch(p(good, "guide"), /example/);
   assert.match(p(good, "guide"), /stage 8: "guide:" needs 3 to 5 lines/);
+  assert.match(p(good, "guide"), /stage 1: no "industry:"/);
+  assert.match(p(workedCase.replace("(מקור: סיור Starbase, 2021)", ""), "example"), /stage 1: the industry example has no source/);
   // an example in one stage asks for it in every stage, and each with a confidence in %
   const one = good.replace(stage(1), worked(1));
   assert.match(p(one), /stage 5: no "example:"/);
@@ -147,12 +155,13 @@ test("worked case: missing or malformed aids are format problems", () => {
   assert.deepEqual(A.caseFindings(["```case", workedCase.replace("@id: M3.2-4-case", "@id: M3.2-1-case"), "```"].join("\n")), []);
 });
 
-test("worked case: the spec asks for the aids only in the module's first lessons", () => {
-  assert.match(B.CASE_PART("M3.2-1-case", undefined, "example"), /WORKED one[\s\S]*guide:[\s\S]*example:/);
-  assert.match(B.CASE_PART("M3.2-2-case", undefined, "guide"), /GUIDED one[\s\S]*No example: section/);
+test("worked case: the spec asks for guidance in every case, and a model answer in the module's first two lessons", () => {
+  assert.match(B.CASE_PART("M3.2-1-case", undefined, "example"), /WORKED one[\s\S]*guide:[\s\S]*industry:[\s\S]*example:/);
+  assert.match(B.CASE_PART("M3.2-3-case", undefined, "guide"), /GUIDED one[\s\S]*industry:[\s\S]*No example: section/);
   assert.doesNotMatch(B.CASE_PART("M3.2-3-case"), /WORKED|GUIDED/);
-  assert.match(B.CASE_PLAN("example"), /first lesson of its module/);
-  assert.doesNotMatch(B.CASE_PLAN(), /first lesson of its module/);
+  assert.match(B.CASE_PLAN("example"), /first two lessons of its module/);
+  assert.match(B.CASE_PLAN("guide"), /real industry example/);
+  assert.doesNotMatch(B.CASE_PLAN(), /first two lessons of its module/);
 });
 
 test("ideas: the prompt list puts projects first and stays short", () => {
