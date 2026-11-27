@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { apiReason, loadFallback, saveFallback } from "../fallback";
+import { apiReason, loadFallback, saveFallback, testConnection } from "../fallback";
 
 // The #api page (identical in both apps): the Claude API key for the fallback, the weekly budget of
 // subscription calls, and where calls go now. The key is kept only in this browser.
@@ -7,7 +7,21 @@ export function ApiFallback() {
   const [s, setS] = useState(loadFallback);
   const [key, setKey] = useState("");
   const [budget, setBudget] = useState(String(s.weeklyBudget || ""));
+  const [test, setTest] = useState("");
   const reason = apiReason(s);
+  const check = async () => {
+    setTest("בודק…");
+    const r = await testConnection(key.trim() || s.apiKey);
+    setTest(
+      r.ok
+        ? "החיבור עובד: המפתח תקין והדף מגיע ל-Claude API."
+        : r.code === "network_error"
+          ? "הדף לא מגיע ל-api.anthropic.com (ייתכן שהדפדפן או claude.ai חוסמים). הגיבוי לא יעבוד מכאן."
+          : r.code === "api_key_invalid"
+            ? "המפתח לא תקין (401)."
+            : `שגיאה: ${r.message}`,
+    );
+  };
   const save = () => setS(saveFallback({ ...(key.trim() ? { apiKey: key.trim() } : {}), weeklyBudget: Math.max(0, Number(budget) || 0) }));
   const row = { display: "flex", gap: 8, alignItems: "center", margin: "10px 0" } as const;
   return (
@@ -28,9 +42,13 @@ export function ApiFallback() {
       </div>
       <div style={row}>
         <button onClick={save}>שמירה</button>
+        <button onClick={check} disabled={!key.trim() && !s.apiKey}>
+          בדיקת חיבור
+        </button>
         {s.apiKey && <button onClick={() => setS(saveFallback({ apiKey: "" }))}>מחיקת המפתח</button>}
         {s.apiUntil > Date.now() && <button onClick={() => setS(saveFallback({ apiUntil: 0 }))}>חזרה למנוי עכשיו</button>}
       </div>
+      {test && <p role="status">{test}</p>}
       <p>
         השבוע (מ-{s.week}): {s.subCalls} בקשות במנוי{s.weeklyBudget ? ` מתוך ${s.weeklyBudget} (${Math.round((100 * s.subCalls) / s.weeklyBudget)}%)` : ""}, {s.apiCalls} ב-API.
         <br />

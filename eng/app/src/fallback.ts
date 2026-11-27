@@ -89,11 +89,11 @@ async function toMessages(input: Turns, images?: Blob[]): Promise<Msg[]> {
   return msgs;
 }
 
-/** One streamed request; returns the assistant's blocks and why it stopped. */
-async function stream(key: string, body: Block, signal: AbortSignal | undefined, onDelta: (d: string) => void) {
+/** A POST to the Claude API from the browser; a failed status becomes a runtime-style error code. */
+async function post(key: string, path: string, body: Block, signal?: AbortSignal): Promise<Response> {
   let res: Response;
   try {
-    res = await fetch("https://api.anthropic.com/v1/messages", {
+    res = await fetch(`https://api.anthropic.com/v1/${path}`, {
       method: "POST",
       signal,
       headers: {
@@ -102,7 +102,7 @@ async function stream(key: string, body: Block, signal: AbortSignal | undefined,
         "anthropic-dangerous-direct-browser-access": "true",
         "content-type": "application/json",
       },
-      body: JSON.stringify({ ...body, stream: true }),
+      body: JSON.stringify(body),
     });
   } catch (e) {
     throw signal?.aborted ? err("cancelled", "cancelled") : err("network_error", String(e));
@@ -112,6 +112,23 @@ async function stream(key: string, body: Block, signal: AbortSignal | undefined,
     const code = res.status === 429 ? "rate_limited" : res.status === 529 ? "overloaded" : res.status === 401 ? "api_key_invalid" : res.status >= 500 ? "upstream_error" : "api_error";
     throw err(code, `Claude API ${res.status}: ${text.slice(0, 300)}`);
   }
+  return res;
+}
+
+/** Checks the key and that this page may reach the API, with a free token count (no generation). */
+export async function testConnection(key: string): Promise<{ ok: true } | { ok: false; code: string; message: string }> {
+  try {
+    await post(key, "messages/count_tokens", { model: TIER_MODEL.quick, messages: [{ role: "user", content: "hi" }] });
+    return { ok: true };
+  } catch (e) {
+    const x = e as { code?: string; message?: string };
+    return { ok: false, code: x.code ?? "unknown", message: x.message ?? String(e) };
+  }
+}
+
+/** One streamed request; returns the assistant's blocks and why it stopped. */
+async function stream(key: string, body: Block, signal: AbortSignal | undefined, onDelta: (d: string) => void) {
+  const res = await post(key, "messages", { ...body, stream: true }, signal);
   const blocks: Block[] = [];
   let stop = "";
   const reader = res.body!.pipeThrough(new TextDecoderStream()).getReader();
