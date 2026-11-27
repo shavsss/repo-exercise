@@ -1,3 +1,6 @@
 15:18:51 טוען את עמודי המקור של השיעור {"input":0,"cacheRead":0,"cacheWrite":0,"output":0,"calls":0}
 15:18:51 מתכנן את השיעור: קורא את המקורות ומחשב את המספרים {"input":0,"cacheRead":0,"cacheWrite":0,"output":0,"calls":0}
 15:24:46 בודק את סדר תוכן העניינים: כל מושג מוגדר לפני שמשתמשים בו {"input":10,"cacheRead":65918,"cacheWrite":135943,"output":39507,"calls":3}
+15:25:37 מתקן את תוכן העניינים (12 בעיות סדר) {"input":14,"cacheRead":65918,"cacheWrite":146243,"output":45186,"calls":4}
+15:27:34 בודק שוב את סדר תוכן העניינים {"input":18,"cacheRead":65918,"cacheWrite":205665,"output":60828,"calls":5}
+15:28:20 מתקן את תוכן העניינים (8 בעיות סדר) {"input":22,"cacheRead":65918,"cacheWrite":218302,"output":66013,"calls":6}
