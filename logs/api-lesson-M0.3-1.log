@@ -1596,3 +1596,4 @@
 15:38:51 משלים את השיעור (1 אלף תווים) {"input":1966400,"cacheRead":0,"cacheWrite":0,"output":236051,"calls":23}
 15:38:51 בודק שוב אחרי התיקון (סבב 3) {"input":1966400,"cacheRead":0,"cacheWrite":0,"output":237155,"calls":23}
 15:39:37 קורא את השיעור כמו לומד: הגדרות, סדר וקשרים {"input":2031747,"cacheRead":0,"cacheWrite":0,"output":242434,"calls":24}
+15:40:39 מסדר את השיעור לקורא (15 מקומות) {"input":2064515,"cacheRead":0,"cacheWrite":0,"output":249272,"calls":25}
