@@ -16,6 +16,7 @@ import "./practice.css";
 import { App } from "./App";
 import { SummaryApp } from "./summaries/SummaryApp";
 import { Bench } from "./components/Bench";
+import { ApiFallback } from "./components/ApiFallback";
 import { copyWithMath } from "./summaries/rich";
 
 installSounds();
@@ -33,6 +34,7 @@ function Root() {
     window.addEventListener("hashchange", on);
     return () => window.removeEventListener("hashchange", on);
   }, []);
+  if (hash === "#api") return <ApiFallback />;
   if (hash === "#bench") return <Bench lab="gilua" />;
   return hash === "#summary" ? <SummaryApp lab="gilua" name="גילואה" /> : <App />;
 }
