@@ -137,7 +137,7 @@ export function lengthProblems(o: BookOutline, covers: string[]): { where: strin
   return out;
 }
 
-/** Subsections written far longer than planned: "n: written/planned" (shown with what the check left open). */
+/** Subsections written far longer than planned, and subsections the plan does not have (shown with what the check left open). */
 export function sectionDrift(text: string, o: LengthPlan): string[] {
   const planned = new Map(o.chapters.flatMap((c) => c.sections.map((s) => [s.n, wordsOf(s.words)] as const)));
   const out: string[] = [];
@@ -145,7 +145,9 @@ export function sectionDrift(text: string, o: LengthPlan): string[] {
     const n = /^###\s+(\d+\.\d+)\b/.exec(part)?.[1];
     const want = n ? planned.get(n) : 0;
     const got = wordCount(part);
-    if (n && want && got > want * 1.5 && got > want + 400) out.push(`${n}: ${got.toLocaleString("en-US")} מילים מול ${want.toLocaleString("en-US")} בתוכנית`);
+    if (n && want && got > want * 1.5 && got > want + 400) out.push(`סעיף ארוך מהתוכנית: ${n}: ${got.toLocaleString("en-US")} מילים מול ${want.toLocaleString("en-US")} בתוכנית`);
+    // 27.11: three subsections the outline did not have (2,700 words) were written into the lesson on Maxwell's equations
+    else if (n && !planned.has(n) && got > 300) out.push(`סעיף שלא בתוכנית: ${n}: ${got.toLocaleString("en-US")} מילים`);
   }
   return out;
 }
@@ -168,7 +170,28 @@ export const lengthPlan = (o: BookOutline): LengthPlan => ({
 export function lengthOpen(text: string, o: LengthPlan, covers: string[]): string[] {
   const expected = expectedWords(o, covers);
   const words = wordCount(text);
-  return [...(inflated(words, expected) ? [`אורך: ${words.toLocaleString("en-US")} מילים, מול כ-${expected.toLocaleString("en-US")} שהתוכן דורש; כנראה ניפוח`] : []), ...sectionDrift(text, o).map((d) => `סעיף ארוך מהתוכנית: ${d}`)];
+  return [...(inflated(words, expected) ? [`אורך: ${words.toLocaleString("en-US")} מילים, מול כ-${expected.toLocaleString("en-US")} שהתוכן דורש; כנראה ניפוח`] : []), ...sectionDrift(text, o)];
+}
+
+/** A repair may make a part of an unread lesson this much longer than its subsections' planned words, and no more. */
+export const REPAIR_SLACK = 1.15;
+/**
+ * The length rule of a repair, with the numbers (27.11: the lesson on Maxwell's equations was planned at 15,750 words and came
+ * out at 24,122; its check ran up to 24 repairs over four parts, each told only "the lesson has a length budget"). The text's
+ * planned subsections against what it holds now: what the repair may add, or that it must not grow. Empty without a plan.
+ */
+export function repairBudget(text: string, o?: LengthPlan): string {
+  if (!o) return "";
+  const planned = new Map(o.chapters.flatMap((c) => c.sections.map((s) => [s.n, wordsOf(s.words)] as const)));
+  let want = 0;
+  for (const m of text.matchAll(/^###\s+(\d+\.\d+)\b/gm)) want += planned.get(m[1]) ?? 0;
+  if (!want) return "";
+  const words = wordCount(text);
+  const room = Math.round(want * REPAIR_SLACK) - words;
+  const pay = "by cutting a repetition, a second example or a restated point in the same subsection, never a definition, a derivation step, a factor's explanation or the case study's chain";
+  return room > 200
+    ? `Length: this text is about ${words} words, against ${want} planned for its subsections. Your repair may add at most about ${room} words in all; pay for anything beyond that ${pay}.`
+    : `Length: this text is about ${words} words, already at or over the ${want} planned for its subsections, so the repair must not make it longer: pay for every addition in full ${pay}.`;
 }
 
 export function wordsOf(v: unknown): number {
@@ -296,7 +319,7 @@ export const BOOK_PART = (o: BookOutline, mine: string[], first: boolean, last: 
 Outline of the lesson (yours, from the planning step):
 ${outlineText(o, mine)}
 Terms already defined for the learner before this part (use them freely; anything else is defined where it first appears, or before): ${list(start ? definedBefore(o, start) : o.known)}
-Write subsections ${mine.join(", ")} as planned, in this form:
+Write subsections ${mine.join(", ")} as planned, and only them: never add a subsection the outline does not have (a chapter's case study is written in the subsection the outline gives it, inside its words), in this form:
 - ${chapterOpens.length ? `Chapter ${chapterOpens.join(", ")} opens here: "## פרק N: title", then an opening in prose: the question the reader should feel, what will be shown and what will not, and the anchor system and how it will meet the chapter's steps (no table of contents); then a paragraph **מה אנחנו כבר יודעים.** that recalls in a sentence each earlier idea this chapter needs.` : "No chapter opens in this part: continue the chapter in progress."}
 - Each subsection: "### N.k title", then paragraphs that flow as one argument; a bold run-in heading only at a turn of the argument (about one per 3 to 5 paragraphs), never on every paragraph. The first paragraph places it on the chapter's thread in plain words: where we are, what is still missing, and why this idea is needed now (the practical stake), and how it follows from the previous subsection; the last closes with what was gained and the sentence that leads into the next subsection. It reads as one continuous story, never a run of definitions.
 - A new concept: the need, then its picture and the idea in plain words, then the precise general definition (a definition block only for a concept marked [ס]), how it is built, and what it lets us do now. Never two definition blocks in a row without the development that needs the second between them.

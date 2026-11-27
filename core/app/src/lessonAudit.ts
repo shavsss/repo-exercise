@@ -7,6 +7,7 @@
 // is still open after that is stored on the lesson and shown. The pure parts (prompts, parsing, applying the edits) are tested in tools/test/audit.test.mjs.
 // Same file in both apps.
 import { caseAid, caseBlocks, caseProblems, hideCaseNotes, parseCase } from "./caseBlock";
+import { repairBudget, wordCount, type LengthPlan } from "./bookRules";
 
 export interface AuditFinding {
   topic?: string;
@@ -53,6 +54,8 @@ export interface AuditMark {
   open?: string[];
   /** 2: the check that runs until a review passes (4.11); a "partly" mark without it is checked again by itself */
   v?: number;
+  /** the words before the check, after the review's repairs and after the reader's (27.11): which stage made a lesson long */
+  words?: { before: number; review: number; final: number };
   /** the reader's check (5.11): can a learner without the background follow it, in order? */
   reader?: { verdict: "pass" | "fixed" | "partly"; rounds: number; counts: Record<string, number> };
   /** a long lesson checked in parts (auditLong): how many */
@@ -80,6 +83,8 @@ export interface AuditInput {
   known?: string[];
   /** a long lesson is checked one part at a time (auditLong): which part this is, and the headings of the rest */
   part?: { index: number; total: number; others: string[] };
+  /** the outline's planned words per subsection: a repair of an unread lesson is told how much it may add (repairBudget) */
+  length?: LengthPlan;
 }
 
 const listOf = (xs: string[]) => xs.map((x) => `- ${x}`).join("\n");
@@ -240,7 +245,7 @@ a short opening line (what this supplement completes), then a ### section for ea
 the whole content of the lesson's keep block, one "- name: …" line each (it replaces the existing keep block, or is added at the end)
 <<<END>>>`;
   return `<lesson_repair mode="${mode}">
-You are the author of this lesson, repairing it after an independent review (in <review>). Write in the lesson's own Hebrew, style and block syntax (the definition, formula, think, predict and keep blocks exactly as the lesson writes them; mathematics in $…$), at the course's full depth: teach every missing or thin item in full (its context, the definition or result, how it is built or derived, what it means, its limits, and a computed number where the point is a number); bring every item in "level" down to the layers its "gap" names: the mechanism traced through one concrete case (messages and fields, states and transitions, data layout, order in time), the behaviour under failure and how it recovers, the engineering cost in real units with computed numbers (latency, throughput, memory, overhead, power, O(·), coupling), and the rejected alternative with what each pays and what one would change for a different need, written into the section that teaches the item, as prose that continues its argument; teach now every deferred topic the review says no later module teaches; cut every item in "early" down to an anchor where the lesson first meets it (what it says, why it matters here, one number or case, and the module that teaches it, in one or two paragraphs), removing its derivations, formula blocks, questions and keep lines, and keeping in the sections that use it only what this lesson's central results need; give a question the givens it lacks or rewrite it so the lesson's material answers it; make the keep block complete (only what this lesson teaches in full). Apart from "early", never shorten or remove correct material, and never add padding. The lesson has a length budget: make room for what you add by shortening a repetition or a second example near it, so it grows only by what is really new. Check every number with compute. A problem of the engineering case (\`\`\`case) is fixed inside it with a REPLACE, keeping its exact format: the @ headers, the "---" line, one "@@ stage N" section per stage of @stages with its ask:, anchors:, expert: and rubric: (exactly one "- [!]" item) and, where the case has them, guide:, industry: and example:, and "@@ debrief" with decisions:. A wrong statement or number is corrected in place, in the sentence itself; never add an erratum block or a list of corrections at the end of a section or the lesson.
+You are the author of this lesson, repairing it after an independent review (in <review>). Write in the lesson's own Hebrew, style and block syntax (the definition, formula, think, predict and keep blocks exactly as the lesson writes them; mathematics in $…$), at the course's full depth: teach every missing or thin item in full (its context, the definition or result, how it is built or derived, what it means, its limits, and a computed number where the point is a number); bring every item in "level" down to the layers its "gap" names: the mechanism traced through one concrete case (messages and fields, states and transitions, data layout, order in time), the behaviour under failure and how it recovers, the engineering cost in real units with computed numbers (latency, throughput, memory, overhead, power, O(·), coupling), and the rejected alternative with what each pays and what one would change for a different need, written into the section that teaches the item, as prose that continues its argument; teach now every deferred topic the review says no later module teaches; cut every item in "early" down to an anchor where the lesson first meets it (what it says, why it matters here, one number or case, and the module that teaches it, in one or two paragraphs), removing its derivations, formula blocks, questions and keep lines, and keeping in the sections that use it only what this lesson's central results need; give a question the givens it lacks or rewrite it so the lesson's material answers it; make the keep block complete (only what this lesson teaches in full). Apart from "early" and what pays for an addition, never shorten or remove correct material, and never add padding. ${(mode === "inplace" && repairBudget(o.text, o.length)) || "The lesson has a length budget: make room for what you add by shortening a repetition or a second example near it, so it grows only by what is really new."} Check every number with compute. A problem of the engineering case (\`\`\`case) is fixed inside it with a REPLACE, keeping its exact format: the @ headers, the "---" line, one "@@ stage N" section per stage of @stages with its ask:, anchors:, expert: and rubric: (exactly one "- [!]" item) and, where the case has them, guide:, industry: and example:, and "@@ debrief" with decisions:. A wrong statement or number is corrected in place, in the sentence itself; never add an erratum block or a list of corrections at the end of a section or the lesson.
 
 Lesson: ${o.moduleId} ${o.moduleTitle} · ${o.lessonTitle}
 <review>
@@ -423,7 +428,7 @@ export function parseReader(raw: string): ReaderReport | null {
 
 export function readerRepairPrompt(o: AuditInput, report: ReaderReport): string {
   return `<lesson_repair mode="reader">
-You are the author of this lesson. A reader who knows only what is in <known> (no physics, only the mathematics he has studied) read it in order and could not follow it in the places listed in <review>. Repair each one in the lesson's own Hebrew, style and block syntax, at full depth: define a term at its first use (or move its definition before it), add the sentence that says how a part follows from the one before and why it comes now, move a passage to where it belongs, explain each factor of a formula after it and open a formula block with what it computes and why it matters, prepare what a question needs before it, write the missing comparison, case or critical look in prose, turn a block that breaks the flow into prose, and fix a "density" item by putting before each new concept the sentence of the story that needs it (and its picture), turning background terms into a clause of the prose instead of a definition block. "staccato": join the lines into moves (goal sentence, 2 to 4 lines of algebra in one display, payoff sentence), drop "צעד N" labels and #### headings, and put a long chain into a derivation block. "dense": move the numbers into a table or a display line. "ledger": state the assumption where it enters and settle it where it is checked or breaks; say where a result used early is derived. "anchor": bring the anchor system into the subsection's argument, and rewrite the case study in prose, as its own subsection built like the ASR-9 case, never in a casestudy block. "history": keep only history that explains why, and give the missing obstacle its place. Keep the book form: ## פרק N, ### N.k, a bold run-in heading only at a turn of the argument. Never remove correct material, never add padding. The lesson has a length budget: make room for what you add by shortening a repetition near it, and fix a "visual" item with the drawing itself (\`\`\`svg, \`\`\`chart, \`\`\`mermaid, \`\`\`table), replacing the words that tried to describe it.
+You are the author of this lesson. A reader who knows only what is in <known> (no physics, only the mathematics he has studied) read it in order and could not follow it in the places listed in <review>. Repair each one in the lesson's own Hebrew, style and block syntax, at full depth: define a term at its first use (or move its definition before it), add the sentence that says how a part follows from the one before and why it comes now, move a passage to where it belongs, explain each factor of a formula after it and open a formula block with what it computes and why it matters, prepare what a question needs before it, write the missing comparison, case or critical look in prose, turn a block that breaks the flow into prose, and fix a "density" item by putting before each new concept the sentence of the story that needs it (and its picture), turning background terms into a clause of the prose instead of a definition block. "staccato": join the lines into moves (goal sentence, 2 to 4 lines of algebra in one display, payoff sentence), drop "צעד N" labels and #### headings, and put a long chain into a derivation block. "dense": move the numbers into a table or a display line. "ledger": state the assumption where it enters and settle it where it is checked or breaks; say where a result used early is derived. "anchor": bring the anchor system into the subsection's argument, and rewrite the case study in prose, as its own subsection built like the ASR-9 case, never in a casestudy block. "history": keep only history that explains why, and give the missing obstacle its place. Keep the book form: ## פרק N, ### N.k, a bold run-in heading only at a turn of the argument. Never remove correct material except a repetition that pays for an addition, never add padding. ${repairBudget(o.text, o.length) || "The lesson has a length budget: make room for what you add by shortening a repetition near it."} Fix a "visual" item with the drawing itself (\`\`\`svg, \`\`\`chart, \`\`\`mermaid, \`\`\`table), replacing the words that tried to describe it.
 Lesson: ${o.moduleId} ${o.moduleTitle} · ${o.lessonTitle}
 <known>
 ${(o.known ?? []).map((k) => `- ${k}`).join("\n") || "(only the mathematics he has studied, no physics)"}
@@ -607,6 +612,7 @@ export async function auditAndRepair(o: AuditInput, mode: "inplace" | "supplemen
   }
   // a lesson not read yet is also read as its learner reads it, and put in order (5.11)
   let reader: Awaited<ReturnType<typeof readerCheck>> | null = null;
+  const review = wordCount(text);
   if (mode === "inplace" && deps.reader !== false) {
     reader = await readerCheck({ ...o, text }, deps).catch(() => null);
     if (reader) text = reader.text;
@@ -621,6 +627,7 @@ export async function auditAndRepair(o: AuditInput, mode: "inplace" | "supplemen
     must_core: report?.must_core ?? [],
     ...(refs.length ? { refs } : {}),
     ...(report && report.verdict !== "pass" ? { open: openItems(report) } : {}),
+    words: { before: wordCount(o.text), review, final: wordCount(text) },
     v: 2,
   };
   if (reader) {
@@ -682,6 +689,8 @@ const normWs = (t: string) => t.replace(/\s+/g, " ").trim();
  * one part by part, each part with the headings of the others, and the marks merged. In "supplement" mode each part's
  * supplement is gathered into one supplement at the lesson's end. A part the model still finds too large is cut again.
  */
+const sumWords = (marks: AuditMark[], k: "before" | "review" | "final") => marks.reduce((n, m) => n + (m.words?.[k] ?? 0), 0);
+
 export async function auditLong(o: AuditInput, mode: "inplace" | "supplement", deps: AuditDeps): Promise<{ text: string; mark: AuditMark; report: AuditReport | null }> {
   const run = async (text: string, part: AuditInput["part"], depth: number): Promise<{ text: string; mark: AuditMark; report: AuditReport | null }[]> => {
     try {
@@ -739,6 +748,7 @@ export async function auditLong(o: AuditInput, mode: "inplace" | "supplement", d
     must_core: [...new Set(marks.flatMap((m) => m.must_core))],
     ...(marks.some((m) => m.refs?.length) ? { refs: marks.flatMap((m) => m.refs ?? []) } : {}),
     ...(marks.some((m) => m.open?.length) ? { open: marks.flatMap((m) => m.open ?? []).slice(0, 32) } : {}),
+    ...(marks.every((m) => m.words) ? { words: { before: sumWords(marks, "before"), review: sumWords(marks, "review"), final: sumWords(marks, "final") } } : {}),
     v: 2,
     parts: marks.length,
   };
