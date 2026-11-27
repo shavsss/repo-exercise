@@ -675,6 +675,28 @@
        "role": "main"
       }
      ]
+    },
+    "M24.16": {
+     "part": "P24",
+     "tier": "core",
+     "he": "חישוב קוונטי ומידע קוונטי: קיוביטים, אלגוריתמים, רעש ותיקון שגיאות",
+     "en": "Quantum computing and quantum information: qubits, algorithms, noise and error correction",
+     "prereq": [
+      "M24.7",
+      "M8.4"
+     ],
+     "sources": []
+    },
+    "M13.28": {
+     "part": "P13",
+     "tier": "core",
+     "he": "כורי ביקוע: פיזיקת נייטרונים, קינטיקה, הנדסת תחנה, בטיחות וכלכלה",
+     "en": "Nuclear fission reactors: neutron physics, kinetics, plant engineering, safety and economics",
+     "prereq": [
+      "M13.17",
+      "M13.7"
+     ],
+     "sources": []
     }
    },
    "tier": {
@@ -840,6 +862,14 @@
     [
      "M29.7",
      "M29.6"
+    ],
+    [
+     "M24.16",
+     "M24.15"
+    ],
+    [
+     "M13.28",
+     "M13.17"
     ]
    ],
    "sources": {
@@ -1125,6 +1155,13 @@
      "imp": "K",
      "k": "new",
      "teach": "רשומת החלטה (ADR): הקשר, חלופות, קריטריונים עם משקל, המספרים שמכריעים, מה מוותרים עליו, ומתי לחזור להחלטה (תנאי ביטול). מסלול משותף לכל ההחלטות הארכיטקטוניות בקורס, כדי שבלוקי decide יעבדו על אותה שפה."
+    },
+    {
+     "id": "R12:M27.5:1",
+     "n": "Engineering economics: time value of money, NPV, IRR and life-cycle cost",
+     "imp": "K",
+     "k": "new",
+     "teach": "ערך הזמן של כסף, ערך נוכחי נקי (NPV), תשואה פנימית (IRR), החזר השקעה, ועלות מחזור חיים (פיתוח, ייצור, תפעול, סילוק). דוגמה מחושבת: השוואה בין שתי חלופות תכן עם השקעה וחיסכון שנתי שונים, ורגישות לשיעור ההיוון."
     }
    ],
    "M22.17": [
@@ -1429,6 +1466,13 @@
      "imp": "S",
      "k": "new",
      "teach": "חוב טכני נרשם עם קרן וריבית ומוחזר כשהריבית עולה על הערך (Cunningham; Sculley למערכות ML, M17.12). מפת Wardley: רכיבים לפי שרשרת ערך ומידת אבולוציה (genesis, custom, product, commodity); את מה שהפך ל-commodity קונים, ואת היתרון בונים."
+    },
+    {
+     "id": "R12:M27.16:1",
+     "n": "Product cost estimation: BOM, NRE against unit cost, learning curves",
+     "imp": "K",
+     "k": "new",
+     "teach": "עלות מוצר מלמטה למעלה: רשימת חלקים, ייצור, בדיקה ואריזה; NRE מול עלות ליחידה ונקודת האיזון (NRE חלקי הרווח ליחידה); עקומת למידה של Wright (כל הכפלה של הכמות מורידה את העלות ל-80%–90%); יחסי אומדן עלות (CER) ו-should-cost. ההחלטה: FPGA מול ASIC, או קנייה מול פיתוח, לפי כמות."
     }
    ],
    "M27.17": [
@@ -1495,6 +1539,13 @@
      "imp": "S",
      "k": "new",
      "teach": "מקרה סוגר לחלק: אוטובוס DC מרכזי מול המרה ליד העומס (point-of-load). מספרים: יעילות בכל שלב, הפסדי I²R בכבלים, משקל, ונקודות כשל."
+    },
+    {
+     "id": "R12:M12.12:1",
+     "n": "Architecture case: an AI factory end to end",
+     "imp": "K",
+     "k": "new",
+     "teach": "מקרה מסכם שמחבר את המודולים: אשכול של כ-100,000 מאיצים כמערכת אחת. מחשוב ורשת: תחומי scale-up ב-NVLink ורשת scale-out ב-InfiniBand או Ethernet/RoCE בטופולוגיה rail-optimized, ומה all-reduce דורש מהם (M28.4, M29.2). הספק: מהשבב דרך הארון (יותר ממאה קילוואט) ועד האתר, בסדר גודל של כ-100–150 MW עם הקירור, חיבור לרשת וייצור באתר. קירור בנוזל ו-PUE. אמינות: באימון Llama 3 על כ-16,000 מעבדים גרפיים היו 419 הפסקות לא צפויות ב-54 יום, כלומר בערך אחת לשלוש שעות, ולכן checkpointing והחלפה חמה הם חלק מהתכן. אחסון לנתונים ול-checkpoints. TCO ועלות לטוקן (M22.18). ההחלטה: איפה הצוואר (הספק, רשת או זיכרון) ומה כל ש\"ח נוסף קונה."
     }
    ],
    "M13.25": [
@@ -1823,6 +1874,133 @@
      "k": "deepen",
      "teach": "מעבר לקצב כשלים: מנגנוני הכשל עצמם. עייפות הלחמות במחזורי חום (הפרש CTE, Coffin-Manson), אלקטרומיגרציה (משוואת Black), והאצה לפי Arrhenius (אנרגיית שפעול של כ-0.7 eV כנקודת מוצא) לתכנון בדיקות מואצות. חומרי מעבר חום: מוליכות של כ-1–10 W/m·K בחומר מעבר מול כ-0.026 באוויר, ושרשרת התנגדויות תרמיות מהצומת לסביבה. ההחלטה: איפה החום והמחזורים יקבעו את חיי המוצר."
     }
+   ],
+   "M24.16": [
+    {
+     "id": "R12:M24.16:1",
+     "n": "Qubits, gates and circuits",
+     "imp": "K",
+     "k": "new",
+     "teach": "מצב של קיוביט כווקטור יחידה וכדור Bloch, שערים כמטריצות יוניטריות (Hadamard, פאזה, CNOT), מדידה והסתברויות, ומערכת שערים אוניברסלית. למה סימולציה קלאסית קשה: n קיוביטים הם 2^n משרעות מרוכבות, ו-50 קיוביטים הם כ-18 PB בדיוק כפול."
+    },
+    {
+     "id": "R12:M24.16:2",
+     "n": "Entanglement, Bell inequality, teleportation and no-cloning",
+     "imp": "K",
+     "k": "new",
+     "teach": "מצבים שזורים ומה שאין להם הסבר מקומי: אי-שוויון CHSH (חסם 2 קלאסי מול 2√2 קוונטי) והניסויים מ-Aspect ועד 2015 בלי פרצות; טלפורטציה (קיוביט עובר עם שני ביטים קלאסיים, לא מהר מהאור) ומשפט אי-השכפול, ומה הם אומרים להצפנה קוונטית (BB84)."
+    },
+    {
+     "id": "R12:M24.16:3",
+     "n": "Quantum algorithms and where the speedup is",
+     "imp": "K",
+     "k": "new",
+     "teach": "Deutsch-Jozsa כהדגמה, Grover (חיפוש ב-√N: האצה ריבועית בלבד), טרנספורם פורייה קוונטי ומציאת מחזור, ואלגוריתם Shor לפירוק לגורמים (האצה מעריכית). מה האצה קוונטית אומרת ומה לא: אין האצה כללית לבעיות NP-שלמות, וקלט ופלט גדולים מבטלים את היתרון."
+    },
+    {
+     "id": "R12:M24.16:4",
+     "n": "Noise, decoherence and the NISQ era",
+     "imp": "K",
+     "k": "new",
+     "teach": "T1 ו-T2, נאמנות שערים (שערי שני קיוביטים בכ-99.5%–99.9% בחומרה המובילה), ועומק מעגל שמוגבל בערך ל-1/שגיאה. מחשבים רועשים בינוניים (NISQ, Preskill 2018) ואלגוריתמים וריאציוניים (VQE, QAOA): הרעיון, הספקות לגבי יתרון אמיתי, והקשר לאופטימיזציה הקלאסית."
+    },
+    {
+     "id": "R12:M24.16:5",
+     "n": "Quantum error correction: from the repetition code to the surface code",
+     "imp": "K",
+     "k": "new",
+     "teach": "קוד החזרה, קודי מייצבים, וקוד המשטח עם סף של כ-1% לשגיאה פיזית. המחיר: מאות עד אלפי קיוביטים פיזיים לקיוביט לוגי אחד בשגיאה של כ-10^-3. ההדגמה של Google ב-2024 שקיוביט לוגי משתפר כשהקוד גדל (מתחת לסף), ולמה זה צעד ולא סוף הדרך."
+    },
+    {
+     "id": "R12:M24.16:6",
+     "n": "Hardware platforms and the engineering stack",
+     "imp": "S",
+     "k": "new",
+     "teach": "השוואה במספרים: קיוביטים מוליכי-על (טרנזמון, כ-10 mK, קוהרנטיות של עשרות עד מאות µs, שערים של עשרות ns), יונים לכודים (קוהרנטיות של שניות, שערים איטיים, נאמנות גבוהה), אטומים ניטרליים ופוטוניקה. ההנדסה מסביב: קריוגניקה, אלקטרוניקת בקרה, חיווט, וקצב קריאה ותיקון בזמן אמת."
+    },
+    {
+     "id": "R12:M24.16:7",
+     "n": "Engineering judgment: resource estimates, post-quantum cryptography and claims of advantage",
+     "imp": "S",
+     "k": "new",
+     "teach": "אומדני משאבים לפירוק RSA-2048: כ-20 מיליון קיוביטים רועשים בכ-8 שעות (Gidney ו-Ekerå, 2019), ובעבודה מ-2025 של Gidney פחות ממיליון בכשבוע; ולכן המעבר להצפנה פוסט-קוונטית (NIST FIPS 203, ML-KEM, 2024) מתחיל כבר עכשיו. איך קוראים הכרזה על \"יתרון קוונטי\": מול איזה אלגוריתם קלאסי, באיזו בעיה, ובאיזו שגיאה."
+    }
+   ],
+   "M13.28": [
+    {
+     "id": "R12:M13.28:1",
+     "n": "Nuclear energy basics: binding energy and fission",
+     "imp": "K",
+     "k": "new",
+     "teach": "עקומת אנרגיית הקשר לנוקלאון ולמה ביקוע של כבדים משחרר אנרגיה: כ-200 MeV לביקוע של U-235, כ-2.4 נייטרונים לביקוע, תוצרי ביקוע. צפיפות האנרגיה: כ-80 TJ לקילוגרם U-235 שמתבקע במלואו, מול כ-24–30 MJ/kg בפחם, פי מיליונים."
+    },
+    {
+     "id": "R12:M13.28:2",
+     "n": "Neutron physics and criticality",
+     "imp": "K",
+     "k": "new",
+     "teach": "חתכי פעולה (barns), נייטרונים תרמיים ומהירים, האטה במים, גרפיט ומים כבדים, נוסחת ששת הגורמים ו-k_eff, מסה קריטית, ולמה כור במים קלים צריך העשרה של כ-3%–5%. החלטה הנדסית: בחירת המאט קובעת את הדלק, הגודל והבטיחות."
+    },
+    {
+     "id": "R12:M13.28:3",
+     "n": "Reactor kinetics and reactivity feedback",
+     "imp": "K",
+     "k": "new",
+     "teach": "נייטרונים מושהים (β כ-0.0065 ב-U-235) כמה שמאפשר לשלוט בכור, ריאקטיביות בדולרים, קריטיות מיידית וזמן המחזור. מקדמי משוב: Doppler, מאט וחללים. צ'רנוביל 1986: מקדם חללים חיובי ב-RBMK ומוטות בקרה עם קצה גרפיט, כמקרה של תכן שמגביר את עצמו."
+    },
+    {
+     "id": "R12:M13.28:4",
+     "n": "Decay heat and cooling after shutdown",
+     "imp": "K",
+     "k": "new",
+     "teach": "חום שארי של כ-6%–7% מההספק מיד אחרי הכיבוי, כ-1% אחרי כמה שעות (קירוב Way-Wigner), ולכן כור כבוי עדיין צריך קירור. פוקושימה 2011: אובדן חשמל וגנרטורים, היתוך בשלושה כורים, ופיצוצי מימן. קירור פסיבי בתכנים החדשים, ומה הוא קונה."
+    },
+    {
+     "id": "R12:M13.28:5",
+     "n": "Plant engineering: reactor types and thermal hydraulics",
+     "imp": "K",
+     "k": "new",
+     "teach": "PWR (כ-15.5 MPa, מוצא כ-320°C, נצילות של כ-33% במחזור Rankine), BWR, CANDU, כורים מהירים, כורי גז בטמפרטורה גבוהה וכורים מודולריים קטנים (SMR). גבולות תרמו-הידראוליים (שטף חום קריטי, DNB), מבנה הכלה, והשוואה של החלופות במספרים."
+    },
+    {
+     "id": "R12:M13.28:6",
+     "n": "Fuel cycle and waste",
+     "imp": "S",
+     "k": "new",
+     "teach": "כרייה, העשרה (SWU), ייצור דלק, צריבה (כ-45–60 GWd/t), דלק משומש: חום ורדיוטוקסיות לאורך עשרות עד מאות אלפי שנים, מחזור חוזר, ומאגר גאולוגי (Onkalo בפינלנד). מה זה אומר על עלות וקבלה ציבורית."
+    },
+    {
+     "id": "R12:M13.28:7",
+     "n": "Safety philosophy, accidents and economics; fusion in brief",
+     "imp": "S",
+     "k": "new",
+     "teach": "הגנה לעומק, הניתוח של TMI 1979, צ'רנוביל ופוקושימה ומה השתנה אחריהם. כלכלה: עלות הון שולטת, מקדם זמינות של כ-90%, LCOE, וחריגות בבנייה (Vogtle 3 ו-4 כ-35 מיליארד דולר). היתוך בקצרה: ITER, הצתה ב-NIF ב-2022 (רווח מול האנרגיה שהגיעה למטרה, הרבה מתחת לרווח מהרשת), והפער לתחנת כוח."
+    }
+   ],
+   "M25.7": [
+    {
+     "id": "R12:M25.7:1",
+     "n": "Analog CMOS building blocks: gm/Id, current mirrors, differential pair",
+     "imp": "K",
+     "k": "new",
+     "teach": "תכן אנלוגי בשבב: מודל ריבועי ושיטת gm/Id, מראות זרם (ו-cascode להתנגדות מוצא), זוג דיפרנציאלי, והגבר של מגבר מקור משותף gm·ro (בצמתים מודרניים רק כ-20–40 dB לשלב). למה האנלוגי לא מתכווץ כמו הספרתי: מתח אספקה נמוך, ro קטן ורעש."
+    },
+    {
+     "id": "R12:M25.7:2",
+     "n": "Two-stage CMOS op-amp, compensation, bandgap reference and matching",
+     "imp": "K",
+     "k": "new",
+     "teach": "מגבר שני שלבים ופיצוי Miller לשוליים של כ-60°, מקור ייחוס bandgap (כ-1.2 V, ppm/°C), והתאמה בין טרנזיסטורים (חוק Pelgrom: הסטייה פרופורציונית ל-1/√(WL)) ושרטוט common-centroid. ההחלטה: שטח מול דיוק מול הספק."
+    }
+   ],
+   "M13.19": [
+    {
+     "id": "R12:M13.19:1",
+     "n": "Renewable generation engineering: PV and wind on the grid",
+     "imp": "S",
+     "k": "new",
+     "teach": "פאנלים עם נצילות של כ-20%–23% ומקדם זמינות של כ-15%–25%; רוח: הספק פרופורציוני ל-v^3, גבול Betz של 59.3%, ומקדם זמינות של כ-30%–45%; MPPT. השילוב ברשת: אי-סדירות, אגירה, ממירים שעוקבים אחרי הרשת מול ממירים שבונים אותה, ואובדן האינרציה הסיבובית."
+    }
    ]
   },
   "mil": {
@@ -2061,6 +2239,75 @@
      "core": false,
      "why": "RoPE and its context extensions derived by the person who invented them, with the engineering reasons.",
      "focus": "The posts on RoPE, NTK-aware scaling and length extrapolation.",
+     "st": "ok"
+    }
+   ],
+   "M24.16": [
+    {
+     "id": "R12:RD01",
+     "t": "Quantum Computing: Lecture Notes",
+     "a": "R. de Wolf",
+     "o": "",
+     "y": 2019,
+     "u": "https://arxiv.org/abs/1907.09415",
+     "core": true,
+     "why": "A compact, rigorous course from qubits to Shor, Grover and error correction; the module's main text.",
+     "focus": "Chapters 1-5 (circuits, early algorithms, QFT, Shor), 7 (Grover), 20 (error correction).",
+     "h": 12,
+     "st": "ok"
+    },
+    {
+     "id": "R12:RD02",
+     "t": "Quantum Computing in the NISQ era and beyond",
+     "a": "J. Preskill",
+     "o": "",
+     "y": 2018,
+     "u": "https://arxiv.org/abs/1801.00862",
+     "core": true,
+     "why": "What noisy machines can and cannot do, from the person who named the era.",
+     "focus": "Whole paper.",
+     "h": 1.5,
+     "st": "ok"
+    },
+    {
+     "id": "R12:RD03",
+     "t": "How to factor 2048 bit RSA integers in 8 hours using 20 million noisy qubits",
+     "a": "C. Gidney, M. Ekerå",
+     "o": "",
+     "y": 2019,
+     "u": "https://arxiv.org/abs/1905.09749",
+     "core": false,
+     "why": "A real resource estimate: the numbers behind the post-quantum migration.",
+     "focus": "Sections 1-2 and the cost table.",
+     "h": 1.5,
+     "st": "ok"
+    }
+   ],
+   "M13.28": [
+    {
+     "id": "R12:RD04",
+     "t": "DOE Fundamentals Handbook: Nuclear Physics and Reactor Theory (DOE-HDBK-1019/1-93), Vol. 1-2",
+     "a": "U.S. Department of Energy",
+     "o": "",
+     "y": 1993,
+     "u": "https://www.standards.doe.gov/standards-documents/1000/1019-bhdbk-1993-v1",
+     "core": true,
+     "why": "Public-domain operator training text: fission, neutron physics, criticality and kinetics, with numbers.",
+     "focus": "Vol. 1 modules 1-2; Vol. 2 modules 3-4.",
+     "h": 10,
+     "st": "ok"
+    },
+    {
+     "id": "R12:RD05",
+     "t": "22.01 Introduction to Nuclear Engineering and Ionizing Radiation (MIT OpenCourseWare)",
+     "a": "M. Short",
+     "o": "",
+     "y": 2016,
+     "u": "https://ocw.mit.edu/courses/22-01-introduction-to-nuclear-engineering-and-ionizing-radiation-fall-2016/",
+     "core": false,
+     "why": "A modern course with lecture notes and problem sets; reactor physics and the accidents.",
+     "focus": "Lectures on fission, reactors, criticality and Chernobyl/Fukushima.",
+     "h": 6,
      "st": "ok"
     }
    ]
