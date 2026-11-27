@@ -186,6 +186,8 @@ async function apiSample(key: string, input: Turns, o?: SampleOptions) {
   const body: Block = {
     model,
     max_tokens: MAX_TOKENS,
+    // the long instructions and sources repeat across the tool rounds and the lesson's parts: cache them
+    cache_control: { type: "ephemeral" },
     messages,
     ...(tools.length ? { tools: tools.map((t) => ({ name: t.name, description: t.description, input_schema: t.inputSchema ?? { type: "object" } })) } : {}),
   };
