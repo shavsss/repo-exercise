@@ -4,3 +4,5 @@
 15:22:44 מתקן את תוכן העניינים (30 בעיות) {"input":14,"cacheRead":293666,"cacheWrite":116063,"output":23468,"calls":5}
 15:25:38 בודק שוב את סדר תוכן העניינים {"input":18,"cacheRead":293666,"cacheWrite":197744,"output":44685,"calls":6}
 15:26:49 מתקן את תוכן העניינים (21 בעיות) {"input":22,"cacheRead":293666,"cacheWrite":216437,"output":51950,"calls":7}
+15:29:55 כותב חלק 1 מתוך 4: תוכנית שמתנהגת כמו כלי של יוניקס: רקע בפייתון, __main__, ‏argparse ותיעוד {"input":26,"cacheRead":293666,"cacheWrite":300594,"output":76196,"calls":8}
+15:34:14 כותב חלק 2 מתוך 4: countwords ו-collate בצינור, מודול משותף, מקרה בוחן Zipf על Dracula, ומחיר התבנית {"input":32,"cacheRead":381402,"cacheWrite":393706,"output":103714,"calls":10}
