@@ -909,6 +909,7 @@ export async function auditLesson(o: { rt: Runtime; module: Module; lessons?: Le
       pages,
       text: o.text,
       ...(known?.length ? { known } : {}),
+      ...(o.length ? { length: o.length } : {}),
     },
     o.mode,
     {
