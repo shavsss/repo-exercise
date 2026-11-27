@@ -2,13 +2,18 @@
 // with a runtime whose "sample" writes each request to <out>/req-<n>.json and waits for
 // <out>/res-<n>.txt (written by a model session that answers it). Used when the bench tabs in the
 // learner's browser cannot be reached: the requests are byte-for-byte the app's own.
-// Usage: npx tsx tools/sim/driver.mts <core|eng> <module> <lessonIdx> <rules> <features,comma> <out> <libDir> <backupDir>
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+// With ANTHROPIC_API_KEY set, "sample" is the app's own Claude API path (src/fallback.ts) instead, with tools, so a
+// real lesson is written outside the browser (for the shelf, docs/SHELF_SCHEMA.md) when the subscription is spent.
+// Usage: npx tsx tools/sim/driver.mts <core|eng> <module> <lessonIdx> <rules|default> <features,comma|default> <out> <libDir> <backupDir>
+import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
 const [app, moduleId, lessonArg, rules, feats, out, libDir, backupDir] = process.argv.slice(2);
 mkdirSync(out, { recursive: true });
-globalThis.fetch = (async (url: string) => {
+const realFetch = globalThis.fetch;
+const API_KEY = process.env.ANTHROPIC_API_KEY;
+globalThis.fetch = (async (url: string, init?: RequestInit) => {
+  if (String(url).startsWith("https://api.anthropic.com/")) return realFetch(url, init);
   const rel = String(url).replace(/^.*?lib\//, "");
   const p = join(libDir, rel.split("?")[0]);
   if (!existsSync(p)) return { ok: false, status: 404, json: async () => ({}) } as Response;
@@ -26,6 +31,18 @@ const done = (prof.data ?? prof).done ?? [];
 const mod = JSON.parse(readFileSync(join(backupDir, `data/users/me/profile/modules/${moduleId}.json`), "utf8"));
 const lessons = (mod.data ?? mod).lessons;
 const idx = Number(lessonArg);
+// the shared notebook (profile/notes), newest first, split as the page splits it (prefetch.ts)
+const notesDir = join(backupDir, "data/users/me/profile/notes");
+const allNotesList = existsSync(notesDir)
+  ? readdirSync(notesDir)
+      .filter((f) => f.endsWith(".json"))
+      .map((f) => {
+        const d = JSON.parse(readFileSync(join(notesDir, f), "utf8"));
+        return { ...(d.data ?? d), id: f.slice(0, -5) };
+      })
+      .sort((a, b) => (b.ts ?? 0) - (a.ts ?? 0))
+  : [];
+const own = (n: { moduleId?: string; lesson?: number }) => n.moduleId === moduleId && n.lesson === idx;
 
 let n = 0;
 const wait = async (k: number) => {
@@ -40,7 +57,13 @@ const ask = async (msgs: { role: string; content: unknown }[], json: boolean) =>
   writeFileSync(join(out, "pending"), String(k));
   return wait(k);
 };
-const sample = Object.assign(
+const fb = await import(`../../${app}/app/src/fallback.ts`);
+if (API_KEY) {
+  const mem: Record<string, string> = {};
+  Object.assign(globalThis, { localStorage: { getItem: (k: string) => mem[k] ?? null, setItem: (k: string, v: string) => (mem[k] = v) } });
+  fb.saveFallback({ apiKey: API_KEY });
+}
+const simSample = Object.assign(
   async (msgs: { role: string; content: unknown }[], o: { onText?: (x: { text: string }) => void }) => {
     const text = await ask(msgs, false);
     o?.onText?.({ text });
@@ -59,18 +82,26 @@ const sample = Object.assign(
     },
   },
 );
-tutor.setLessonRules(rules);
-tutor.setLessonFeatures(feats ? feats.split(",").filter(Boolean) : []);
+const sample = API_KEY ? fb.withFallback(null) : simSample;
+tutor.setLessonRules(rules === "default" ? tutor.DEFAULT_RULES : rules);
+tutor.setLessonFeatures(feats === "default" ? tutor.DEFAULT_FEATURES : feats ? feats.split(",").filter(Boolean) : []);
 const t0 = Date.now();
 const res = await tutor.composeLesson({
-  rt: { sample, canSendImages: false, canUseTools: false, store: null },
-  history: [], effort: "high", module: m, lessons, lessonIdx: idx, memory, done,
+  rt: { sample, canSendImages: false, canUseTools: !!API_KEY, store: null },
+  history: [], effort: (process.env.SIM_EFFORT ?? "high") as "high", module: m, lessons, lessonIdx: idx, memory, done,
+  notes: allNotesList.filter(own), allNotes: allNotesList.filter((n) => !own(n)),
   signal: new AbortController().signal,
   // SIM_NOTE: an extra line for the request (e.g. a lesson rewritten from scratch)
   text: `כתוב את שיעור ${idx + 1} במודול ${moduleId}: ${lessons[idx].title}.${process.env.SIM_NOTE ? `\n${process.env.SIM_NOTE}` : ""}`,
-  cb: { onText: () => {}, onActivity: () => {}, onStatus: (s: string) => writeFileSync(join(out, "status"), s), onCheckpoint: () => {} },
+  cb: {
+    onText: () => {},
+    onActivity: () => {},
+    onStatus: (s: string) => (writeFileSync(join(out, "status"), s), console.log(new Date().toISOString().slice(11, 19), s, API_KEY ? JSON.stringify(fb.apiUsage) : "")),
+    onCheckpoint: (_p: unknown, parts: number, text: string) => writeFileSync(join(out, `checkpoint-${parts}.md`), text),
+  },
 });
 writeFileSync(join(out, "lesson.md"), res.text);
 writeFileSync(join(out, "plan.json"), JSON.stringify(res.plan, null, 1));
 writeFileSync(join(out, "pending"), "done");
+if (API_KEY) writeFileSync(join(out, "usage.json"), JSON.stringify(fb.apiUsage));
 console.log("done", (res.text.match(/[^\s]+/g) ?? []).length, "words", Math.round((Date.now() - t0) / 60000), "min");
