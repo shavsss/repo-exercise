@@ -5,3 +5,4 @@
 15:09:36 בודק שוב את סדר תוכן העניינים {"input":308198,"cacheRead":0,"cacheWrite":0,"output":44952,"calls":4}
 15:10:52 מתקן את תוכן העניינים (23 בעיות) {"input":325705,"cacheRead":0,"cacheWrite":0,"output":52789,"calls":5}
 15:13:43 כותב חלק 1 מתוך 4: פרק 3, חלק א: מקבצי ביניים לצינור, ואיך צינור עובד {"input":416070,"cacheRead":0,"cacheWrite":0,"output":75527,"calls":6}
+15:17:39 כותב חלק 2 מתוך 4: פרק 3, חלק ב: uniq צריך sort, מסנן זורם מול מסנן חוסם, מקרה בוחן: McIlroy מול Knuth, ותרגול {"input":675224,"cacheRead":0,"cacheWrite":0,"output":99974,"calls":9}
