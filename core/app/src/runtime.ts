@@ -4,6 +4,7 @@
 import type { LessonNote, Mode, ModuleProgress, StoredMessage } from "./types";
 import type { Summary, SummaryMeta } from "./summaries/model";
 import { withUsage } from "./usage";
+import { withFallback } from "./fallback";
 
 /* ---- minimal shapes of the runtime namespaces this page uses ---- */
 export interface SampleTool {
@@ -84,7 +85,9 @@ export interface Runtime {
 
 export async function connect(): Promise<Runtime> {
   const use = (name: string) => window.claude?.use(name).catch(() => null) ?? Promise.resolve(null);
-  const [sample, db, user, downloads] = (await Promise.all([use("sample"), use("db"), use("user"), use("downloads")])) as [SampleFn | null, DB | null, User | null, Window["__downloads"]];
+  const [subSample, db, user, downloads] = (await Promise.all([use("sample"), use("db"), use("user"), use("downloads")])) as [SampleFn | null, DB | null, User | null, Window["__downloads"]];
+  // past 90% of the weekly budget or on rate_limited, calls go to the Claude API (fallback.ts)
+  const sample = withFallback(subSample);
   window.__downloads = downloads ?? null;
   window.__assets = (await use("assets")) ?? null;
   const limits = sample ? await sample.limits().catch(() => null) : null;
