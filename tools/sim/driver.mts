@@ -5,7 +5,7 @@
 // With ANTHROPIC_API_KEY set, "sample" is the app's own Claude API path (src/fallback.ts) instead, with tools, so a
 // real lesson is written outside the browser (for the shelf, docs/SHELF_SCHEMA.md) when the subscription is spent.
 // Usage: npx tsx tools/sim/driver.mts <core|eng> <module> <lessonIdx> <rules|default> <features,comma|default> <out> <libDir> <backupDir>
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
 const [app, moduleId, lessonArg, rules, feats, out, libDir, backupDir] = process.argv.slice(2);
@@ -31,6 +31,18 @@ const done = (prof.data ?? prof).done ?? [];
 const mod = JSON.parse(readFileSync(join(backupDir, `data/users/me/profile/modules/${moduleId}.json`), "utf8"));
 const lessons = (mod.data ?? mod).lessons;
 const idx = Number(lessonArg);
+// the shared notebook (profile/notes), newest first, split as the page splits it (prefetch.ts)
+const notesDir = join(backupDir, "data/users/me/profile/notes");
+const allNotesList = existsSync(notesDir)
+  ? readdirSync(notesDir)
+      .filter((f) => f.endsWith(".json"))
+      .map((f) => {
+        const d = JSON.parse(readFileSync(join(notesDir, f), "utf8"));
+        return { ...(d.data ?? d), id: f.slice(0, -5) };
+      })
+      .sort((a, b) => (b.ts ?? 0) - (a.ts ?? 0))
+  : [];
+const own = (n: { moduleId?: string; lesson?: number }) => n.moduleId === moduleId && n.lesson === idx;
 
 let n = 0;
 const wait = async (k: number) => {
@@ -77,6 +89,7 @@ const t0 = Date.now();
 const res = await tutor.composeLesson({
   rt: { sample, canSendImages: false, canUseTools: !!API_KEY, store: null },
   history: [], effort: (process.env.SIM_EFFORT ?? "high") as "high", module: m, lessons, lessonIdx: idx, memory, done,
+  notes: allNotesList.filter(own), allNotes: allNotesList.filter((n) => !own(n)),
   signal: new AbortController().signal,
   // SIM_NOTE: an extra line for the request (e.g. a lesson rewritten from scratch)
   text: `כתוב את שיעור ${idx + 1} במודול ${moduleId}: ${lessons[idx].title}.${process.env.SIM_NOTE ? `\n${process.env.SIM_NOTE}` : ""}`,
