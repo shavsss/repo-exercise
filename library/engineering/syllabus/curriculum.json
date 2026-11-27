@@ -9890,15 +9890,6 @@
 ]
 },
 "M21.7": {
-"items": [
-{
-"id": "E:Mathematics |8.7",
-"n": "Integer/combinatorial optimization, NP-hardness in practice",
-"imp": "S",
-"k": "deepen",
-"teach": "Branch-and-bound / MILP practice, LP relaxation gaps, what \"NP-hard\" means for real sizes"
-}
-],
 "brief": [
 {
 "t": "War Story: Only it is Not a Radio",
@@ -14378,6 +14369,92 @@
 }
 ]
 },
+"M8.24": {
+"items": [
+{
+"id": "E:Mathematics |8.7",
+"n": "Integer/combinatorial optimization, NP-hardness in practice",
+"imp": "S",
+"k": "deepen",
+"teach": "Branch-and-bound / MILP practice, LP relaxation gaps, what \"NP-hard\" means for real sizes"
+},
+{
+"id": "R8:M8.24:1",
+"n": "Line search and the Wolfe conditions",
+"imp": "S",
+"k": "deepen",
+"teach": "תנאי Armijo ו-Wolfe, backtracking, ומשפט Zoutendijk על התכנסות שיטות כיוון ירידה בבעיה לא קמורה.",
+"on": "M8.22"
+},
+{
+"id": "R8:M8.24:2",
+"n": "Trust-region methods",
+"imp": "K",
+"k": "new",
+"teach": "מודל ריבועי מקומי, יחס הירידה בפועל מול החזויה ועדכון הרדיוס, נקודת Cauchy ו-dogleg. למה trust region עמיד יותר ליד נקודות אוכף."
+},
+{
+"id": "R8:M8.24:3",
+"n": "Quasi-Newton: BFGS and L-BFGS",
+"imp": "K",
+"k": "new",
+"teach": "תנאי secant, גזירת עדכון BFGS, התכנסות על-לינארית, ו-L-BFGS עם m וקטורים בלבד לבעיות גדולות."
+},
+{
+"id": "R8:M8.24:4",
+"n": "Nonlinear least squares: Gauss-Newton and Levenberg-Marquardt",
+"imp": "K",
+"k": "new",
+"teach": "Gauss-Newton כקירוב JᵀJ להסיאן, מתי הוא נכשל (שארית גדולה), LM כ-trust region, ופונקציות הפסד עמידות (Huber, Cauchy) דרך IRLS. הלב של כיול, bundle adjustment ו-SLAM."
+},
+{
+"id": "R8:M8.24:5",
+"n": "Optimality conditions for nonconvex constrained problems",
+"imp": "S",
+"k": "deepen",
+"teach": "KKT בבעיה לא קמורה, תנאי רגולריות (LICQ), תנאים מסדר שני על החרוט הקריטי, ומה ההבדל מהמקרה הקמור של Boyd.",
+"on": "M8.18"
+},
+{
+"id": "R8:M8.24:6",
+"n": "Sequential quadratic programming",
+"imp": "K",
+"k": "new",
+"teach": "SQP כניוטון על משוואות KKT, תת-בעיית QP, פונקציות merit ו-filter, active set, ו-SQP כמנוע של NMPC ושל אופטימיזציית מסלולים."
+},
+{
+"id": "R8:M8.24:7",
+"n": "Penalty and augmented Lagrangian methods",
+"imp": "S",
+"k": "new",
+"teach": "קנס ריבועי ובעיית ה-ill-conditioning שלו, Lagrangian מורחב ועדכון כופלים, והקשר ל-ADMM."
+},
+{
+"id": "R8:M8.24:8",
+"n": "Mixed-integer programming: formulation and branch and bound",
+"imp": "K",
+"k": "deepen",
+"teach": "ניסוח MILP (משתנים בינאריים, big-M, אילוצי לוגיקה), רלקסציה לינארית ופער, branch and bound, cutting planes, ומה פותרים מסחריים עושים. מקרה: הקצאת משימות ומשאבים.",
+"on": "M21.7 · Integer/combinatorial optimization, NP-hardness in practice"
+},
+{
+"id": "R8:M8.24:9",
+"n": "Exploiting structure: sparse Jacobians and derivatives",
+"imp": "S",
+"k": "deepen",
+"teach": "דלילות ה-Jacobian בבעיות גדולות, צביעת גרף להערכה בהפרשים סופיים, גזירה אוטומטית בפותרים (Ceres, CasADi), ובדיקת גרדיאנט.",
+"on": "M17.4 · Automatic differentiation"
+},
+{
+"id": "R8:M8.24:10",
+"n": "Nonconvexity in practice: initialization and multistart",
+"imp": "C",
+"k": "deepen",
+"teach": "מינימום מקומי, תלות באתחול, multistart והרפיה קמורה כאתחול.",
+"on": "M8.22 · Derivative-free and global methods (GA, simulated annealing, Bayesian opt)"
+}
+]
+},
 "M0.3": {
 "items": [
 {
@@ -14931,85 +15008,6 @@
 "k": "deepen",
 "teach": "SVD של G(jω), כיווני כניסה ויציאה, נורמות H2 (דרך Gramian) ו-H∞ (דרך bisection על Hamiltonian). הגשר ל-S4.",
 "on": "M5.13 · MIMO control and interaction (RGA)"
-}
-]
-},
-"M8.24": {
-"items": [
-{
-"id": "R8:M8.24:1",
-"n": "Line search and the Wolfe conditions",
-"imp": "S",
-"k": "deepen",
-"teach": "תנאי Armijo ו-Wolfe, backtracking, ומשפט Zoutendijk על התכנסות שיטות כיוון ירידה בבעיה לא קמורה.",
-"on": "M8.22"
-},
-{
-"id": "R8:M8.24:2",
-"n": "Trust-region methods",
-"imp": "K",
-"k": "new",
-"teach": "מודל ריבועי מקומי, יחס הירידה בפועל מול החזויה ועדכון הרדיוס, נקודת Cauchy ו-dogleg. למה trust region עמיד יותר ליד נקודות אוכף."
-},
-{
-"id": "R8:M8.24:3",
-"n": "Quasi-Newton: BFGS and L-BFGS",
-"imp": "K",
-"k": "new",
-"teach": "תנאי secant, גזירת עדכון BFGS, התכנסות על-לינארית, ו-L-BFGS עם m וקטורים בלבד לבעיות גדולות."
-},
-{
-"id": "R8:M8.24:4",
-"n": "Nonlinear least squares: Gauss-Newton and Levenberg-Marquardt",
-"imp": "K",
-"k": "new",
-"teach": "Gauss-Newton כקירוב JᵀJ להסיאן, מתי הוא נכשל (שארית גדולה), LM כ-trust region, ופונקציות הפסד עמידות (Huber, Cauchy) דרך IRLS. הלב של כיול, bundle adjustment ו-SLAM."
-},
-{
-"id": "R8:M8.24:5",
-"n": "Optimality conditions for nonconvex constrained problems",
-"imp": "S",
-"k": "deepen",
-"teach": "KKT בבעיה לא קמורה, תנאי רגולריות (LICQ), תנאים מסדר שני על החרוט הקריטי, ומה ההבדל מהמקרה הקמור של Boyd.",
-"on": "M8.18"
-},
-{
-"id": "R8:M8.24:6",
-"n": "Sequential quadratic programming",
-"imp": "K",
-"k": "new",
-"teach": "SQP כניוטון על משוואות KKT, תת-בעיית QP, פונקציות merit ו-filter, active set, ו-SQP כמנוע של NMPC ושל אופטימיזציית מסלולים."
-},
-{
-"id": "R8:M8.24:7",
-"n": "Penalty and augmented Lagrangian methods",
-"imp": "S",
-"k": "new",
-"teach": "קנס ריבועי ובעיית ה-ill-conditioning שלו, Lagrangian מורחב ועדכון כופלים, והקשר ל-ADMM."
-},
-{
-"id": "R8:M8.24:8",
-"n": "Mixed-integer programming: formulation and branch and bound",
-"imp": "K",
-"k": "deepen",
-"teach": "ניסוח MILP (משתנים בינאריים, big-M, אילוצי לוגיקה), רלקסציה לינארית ופער, branch and bound, cutting planes, ומה פותרים מסחריים עושים. מקרה: הקצאת משימות ומשאבים.",
-"on": "M21.7 · Integer/combinatorial optimization, NP-hardness in practice"
-},
-{
-"id": "R8:M8.24:9",
-"n": "Exploiting structure: sparse Jacobians and derivatives",
-"imp": "S",
-"k": "deepen",
-"teach": "דלילות ה-Jacobian בבעיות גדולות, צביעת גרף להערכה בהפרשים סופיים, גזירה אוטומטית בפותרים (Ceres, CasADi), ובדיקת גרדיאנט.",
-"on": "M17.4 · Automatic differentiation"
-},
-{
-"id": "R8:M8.24:10",
-"n": "Nonconvexity in practice: initialization and multistart",
-"imp": "C",
-"k": "deepen",
-"teach": "מינימום מקומי, תלות באתחול, multistart והרפיה קמורה כאתחול.",
-"on": "M8.22 · Derivative-free and global methods (GA, simulated annealing, Bayesian opt)"
 }
 ]
 },

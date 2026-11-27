@@ -173,6 +173,8 @@ CARRY = {
         # 27.11 (the learner): LLMs, agents and operating systems are taught in their own modules, not early in another
         "M17.7": {"E:Machine lear|3.8": "M29.1", "ADD:ML.3": "M29.6"},
         "M22.7": {"E:Periphery: d|2.2": "M22.14"},
+        # integer optimization needs LP and convexity first: taught with nonconvex optimization, not in M21.7 (114)
+        "M21.7": {"E:Mathematics |8.7": "M8.24"},
     },
 }
 
