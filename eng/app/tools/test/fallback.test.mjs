@@ -22,6 +22,8 @@ const sse = (events) => new Response(events.map((e) => `data: ${JSON.stringify(e
 globalThis.fetch = async (url, init) => {
   const body = JSON.parse(init.body);
   calls.push({ url, body, headers: init.headers });
+  if (body.messages?.[0]?.content === "busy" && calls.filter((c) => c.body.messages?.[0]?.content === "busy").length === 1)
+    return new Response("{}", { status: 429, headers: { "retry-after": "0.01" } });
   if (url.endsWith("count_tokens")) return new Response('{"input_tokens":1}', { status: init.headers["x-api-key"] === "good" ? 200 : 401 });
   const toolRound = body.tools && !body.messages.some((m) => Array.isArray(m.content) && m.content.some((b) => b.type === "tool_result"));
   if (toolRound)
@@ -96,6 +98,9 @@ assert.deepEqual(calls.at(-1).body.messages.at(-2).content[0], { type: "thinking
 
 // JSON, with a code fence around it
 assert.deepEqual(await F.withFallback(mk(ok)).json("give JSON"), { a: 1 });
+
+// a 429 from the API is waited out and retried
+assert.equal((await F.withFallback(mk(ok))("busy")).text, "שלום");
 
 // the connection check
 assert.deepEqual(await F.testConnection("good"), { ok: true });

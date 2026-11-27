@@ -89,8 +89,11 @@ async function toMessages(input: Turns, images?: Blob[]): Promise<Msg[]> {
   return msgs;
 }
 
+/** Retries of a 429 or 529 from the API (several lessons written at once), waiting retry-after or 15, 30, 60, 120 s. */
+const RETRY_WAITS = [15, 30, 60, 120];
+
 /** A POST to the Claude API from the browser; a failed status becomes a runtime-style error code. */
-async function post(key: string, path: string, body: Block, signal?: AbortSignal): Promise<Response> {
+async function post(key: string, path: string, body: Block, signal?: AbortSignal, attempt = 0): Promise<Response> {
   let res: Response;
   try {
     res = await fetch(`https://api.anthropic.com/v1/${path}`, {
@@ -106,6 +109,11 @@ async function post(key: string, path: string, body: Block, signal?: AbortSignal
     });
   } catch (e) {
     throw signal?.aborted ? err("cancelled", "cancelled") : err("network_error", String(e));
+  }
+  if ((res.status === 429 || res.status === 529) && attempt < RETRY_WAITS.length) {
+    const wait = Number(res.headers.get("retry-after")) || RETRY_WAITS[attempt];
+    await new Promise((r) => setTimeout(r, wait * 1000));
+    return post(key, path, body, signal, attempt + 1);
   }
   if (!res.ok) {
     const text = await res.text().catch(() => "");
