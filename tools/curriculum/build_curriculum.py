@@ -170,6 +170,9 @@ CARRY = {
         "M15.10": {"E:Fluids, aero|0.7": "M15.19", "E:Fluids, aero|0.8": "M15.20"},
         "M15.15": {"*": "M15.16"},
         "M22.10": {"*": "M22.11", "E:Robotics|3.0": "M19.8"},
+        # 27.11 (the learner): LLMs, agents and operating systems are taught in their own modules, not early in another
+        "M17.7": {"E:Machine lear|3.8": "M29.1", "ADD:ML.3": "M29.6"},
+        "M22.7": {"E:Periphery: d|2.2": "M22.14"},
     },
 }
 

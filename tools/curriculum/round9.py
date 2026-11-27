@@ -16,6 +16,12 @@ and security of AI systems (M29.9, after M29.7), sources W99 and W100; Lancheste
 Round 11 (26.11.2026, the learner): one AI stage (P17 holds P18 and P29), RL right after deep learning, graphical
 models and variational inference in the core, and items for the master's-level gaps (learning theory, kernels and SVM,
 EM and HMM, mechanistic interpretability), ids R11:*.
+Round 12 (27.11.2026, the learner: "why not learn all of AI together?"): the AI stage is one block (176-212): classic ML
+(M17.15) and the book's appendices (M17.13) right after M17.1; RL applications (M18.9) after the deep RL algorithms; then
+the accelerators the foundation models need (M28.1, M28.2) and M29.1-M29.8, with optimal control (M5.19) moved up to
+right after numerical optimization so the agents module can join. M29.9 waits for software security (M22.21) and M29.5
+for multi-view geometry (M19.12). LLM and agent items leave M17.7, and operating systems leave M22.7 (CARRY in
+build_curriculum.py). Checked with order_check.py.
 Nothing is removed. A module never comes before one of its prerequisites (checked here).
 The two apps stay separate: Lanchester gets its own module (M15.8), with no prerequisite across apps.
 """

@@ -8148,19 +8148,6 @@
 "imp": "S",
 "k": "deepen",
 "teach": "RNN/LSTM recurrence, vanishing gradients through time, and modern state-space sequence models (S4/Mamba) as discretized linear systems - the latter a strong cross-domain link to E02/E03 state-space."
-},
-{
-"id": "E:Machine lear|3.8",
-"n": "Large language models: pretraining, fine-tuning, RLHF, in-context learning",
-"imp": "K",
-"k": "deepen",
-"teach": "RLHF / preference optimization, instruction tuning, inference-time compute (chain-of-thought, test-time search), tool use and agents, hallucination and its causes. Book (2023) stops at GPT-3."
-},
-{
-"id": "ADD:ML.3",
-"n": "LLM agents, tool use and AI-enabled autonomy (planning loops, failure modes, human-on-the-loop)",
-"imp": "S",
-"k": "new"
 }
 ],
 "reading": [
@@ -10554,13 +10541,6 @@
 "imp": "K",
 "k": "deepen",
 "teach": "A one-page table of order-of-magnitude latencies/bandwidths (L1 ~1 ns, DRAM ~100 ns, SSD ~100 us, WAN RTT ~100 ms; HBM/PCIe/Ethernet bandwidths; energy per op vs per DRAM access) and how to use it."
-},
-{
-"id": "E:Periphery: d|2.2",
-"n": "Operating systems: processes, scheduling, memory, I/O",
-"imp": "S",
-"k": "deepen",
-"teach": "Processes/threads, scheduling, I/O model at OS level."
 },
 {
 "id": "E:Periphery: d|2.8",
@@ -14134,6 +14114,270 @@
 }
 ]
 },
+"M29.1": {
+"items": [
+{
+"id": "E:Machine lear|3.8",
+"n": "Large language models: pretraining, fine-tuning, RLHF, in-context learning",
+"imp": "K",
+"k": "deepen",
+"teach": "RLHF / preference optimization, instruction tuning, inference-time compute (chain-of-thought, test-time search), tool use and agents, hallucination and its causes. Book (2023) stops at GPT-3."
+},
+{
+"id": "R8:M29.1:1",
+"n": "Tokenization",
+"imp": "S",
+"k": "new",
+"teach": "BPE, גודל אוצר מילים והשפעתו על אורך רצף ועל פרמטרים, ותופעות של טוקניזציה."
+},
+{
+"id": "R8:M29.1:2",
+"n": "The decoder-only transformer block",
+"imp": "K",
+"k": "deepen",
+"teach": "pre-norm ו-RMSNorm, residual stream, SwiGLU, ומניית פרמטרים ≈ 12·L·d².",
+"on": "M17.7"
+},
+{
+"id": "R8:M29.1:3",
+"n": "Compute and memory of attention",
+"imp": "K",
+"k": "deepen",
+"teach": "FLOPs לטוקן ≈ 2N ועוד איבר ה-attention, זיכרון O(n²), ולמה הקשר ארוך יקר.",
+"on": "M22.8 · Compute and hardware for ML (FLOPs, memory, GPUs)"
+},
+{
+"id": "R8:M29.1:4",
+"n": "Positional encoding and RoPE",
+"imp": "K",
+"k": "new",
+"teach": "סינוסי ונלמד, גזירת RoPE כסיבוב במישור המרוכב שנותן מיקום יחסי, והארכת הקשר (NTK, YaRN)."
+},
+{
+"id": "R8:M29.1:5",
+"n": "FlashAttention",
+"imp": "K",
+"k": "new",
+"teach": "tiling ו-online softmax, מודעות IO, זיכרון O(n), וההבדלים בגרסאות 1–3."
+},
+{
+"id": "R8:M29.1:6",
+"n": "MQA, GQA and MLA",
+"imp": "S",
+"k": "new",
+"teach": "שיתוף ראשי key-value, דחיסה לטנטית ב-MLA, וההשפעה על KV cache."
+},
+{
+"id": "R8:M29.1:7",
+"n": "Mixture of experts",
+"imp": "K",
+"k": "new",
+"teach": "ניתוב top-k, loss איזון עומס, capacity factor, פרמטרים פעילים מול כוללים."
+},
+{
+"id": "R8:M29.1:8",
+"n": "Vision-language models: ViT, CLIP and connectors",
+"imp": "S",
+"k": "deepen",
+"teach": "patches ב-ViT, loss ניגודי של CLIP, ומחבר בסגנון LLaVA.",
+"on": "M17.7"
+},
+{
+"id": "R8:M29.1:9",
+"n": "State-space and long-context alternatives",
+"imp": "C",
+"k": "deepen",
+"teach": "Mamba ומודלים היברידיים מול attention.",
+"on": "M17.7 · Recurrent networks and sequence modeling"
+},
+{
+"id": "R8:M29.1:10",
+"n": "Training stability at scale",
+"imp": "S",
+"k": "deepen",
+"teach": "אתחול, warmup ו-cosine, AdamW, קפיצות loss, ו-bf16.",
+"on": "M17.4"
+}
+],
+"reading": [
+{
+"id": "RU:RD10",
+"t": "Su Jianlin, 科学空间 (kexue.fm): the Transformer upgrade series (Transformer升级之路), English machine translation",
+"a": "Su Jianlin (RoPE's author)",
+"o": "kexue.fm; unofficial English mirror",
+"y": 2021,
+"u": "https://rohin-garg.github.io/kexue-en/index.html",
+"core": false,
+"why": "RoPE and its context extensions derived by the person who invented them, with the engineering reasons.",
+"focus": "The posts on RoPE, NTK-aware scaling and length extrapolation.",
+"st": "ok"
+}
+]
+},
+"M29.6": {
+"items": [
+{
+"id": "ADD:ML.3",
+"n": "LLM agents, tool use and AI-enabled autonomy (planning loops, failure modes, human-on-the-loop)",
+"imp": "S",
+"k": "new"
+},
+{
+"id": "R8:M29.6:1",
+"n": "The agent loop as a feedback system",
+"imp": "K",
+"k": "deepen",
+"teach": "observe-think-act ו-ReAct, והמקבילה לחישה, תכנון והפעלה בבקרה.",
+"on": "M17.7 · LLM agents, tool use and AI-enabled autonomy (planning loops, failure modes, human-on-the-loop)"
+},
+{
+"id": "R8:M29.6:2",
+"n": "Tool use, function calling and retrieval",
+"imp": "S",
+"k": "deepen",
+"teach": "סכמות כלים, Toolformer ו-RAG.",
+"on": "M17.7 · LLM agents, tool use and AI-enabled autonomy (planning loops, failure modes, human-on-the-loop)"
+},
+{
+"id": "R8:M29.6:3",
+"n": "Planning, search and replanning",
+"imp": "K",
+"k": "new",
+"teach": "פירוק משימות, חיפוש בעץ, reflection, ותכנון מחדש באופק נסוג כמו MPC."
+},
+{
+"id": "R8:M29.6:4",
+"n": "Memory and context management",
+"imp": "S",
+"k": "new",
+"teach": "הקשר מוגבל, סיכום, זיכרון חיצוני, ואובדן מידע."
+},
+{
+"id": "R8:M29.6:5",
+"n": "Evaluating agents and reliability compounding",
+"imp": "K",
+"k": "new",
+"teach": "SWE-bench, אופק המשימה של METR, ו-p^n: הצלחה בכל צעד נצברת לכשל במשימה ארוכה."
+},
+{
+"id": "R8:M29.6:6",
+"n": "Failure modes and safety of agents",
+"imp": "K",
+"k": "deepen",
+"teach": "הצטברות שגיאות, prompt injection, reward hacking, sandboxing ואדם בלולאה.",
+"on": "M17.7 · LLM agents, tool use and AI-enabled autonomy (planning loops, failure modes, human-on-the-loop)"
+},
+{
+"id": "R8:M29.6:7",
+"n": "Multi-agent orchestration",
+"imp": "S",
+"k": "new",
+"teach": "orchestrator ו-workers, חלוקת עבודה, ועלות תקשורת בין סוכנים."
+},
+{
+"id": "R8:M29.6:8",
+"n": "Vision-language-action models",
+"imp": "K",
+"k": "new",
+"teach": "RT-2, OpenVLA ו-π0, טוקניזציה של פעולות, וקצב הסקה מול קצב בקרה."
+},
+{
+"id": "R8:M29.6:9",
+"n": "Hierarchical control with safety filters",
+"imp": "S",
+"k": "new",
+"teach": "מתכנן שפה מעל בקר קלאסי, ומסנני בטיחות (control barrier functions)."
+},
+{
+"id": "R8:M29.6:x1",
+"n": "Robot foundation models",
+"imp": "K",
+"k": "deepen",
+"teach": "RT-2, OpenVLA ו-π0: איך מודל שפה-ראייה הופך לפעולה, טוקניזציה של פעולות, תדר הבקרה, והיכן הם נכשלים.",
+"on": "M29.6 · Vision-language-action models"
+},
+{
+"id": "R8:M29.6:x2",
+"n": "RAG and parameter-efficient fine-tuning",
+"imp": "K",
+"k": "new",
+"teach": "RAG מול fine-tuning (LoRA): מתי מה, איך מעריכים, ועלויות."
+}
+]
+},
+"M22.14": {
+"items": [
+{
+"id": "E:Periphery: d|2.2",
+"n": "Operating systems: processes, scheduling, memory, I/O",
+"imp": "S",
+"k": "deepen",
+"teach": "Processes/threads, scheduling, I/O model at OS level."
+},
+{
+"id": "R8:M22.14:1",
+"n": "Processes, system calls and context switches",
+"imp": "S",
+"k": "deepen",
+"teach": "אבסטרקציית התהליך, limited direct execution, קריאת מערכת ו-trap, ומחיר החלפת הקשר.",
+"on": "M22.7 · Operating systems: processes, scheduling, memory, I/O"
+},
+{
+"id": "R8:M22.14:2",
+"n": "CPU scheduling",
+"imp": "S",
+"k": "deepen",
+"teach": "FIFO, SJF, RR, MLFQ ו-proportional share, ותזמון על כמה ליבות. הגשר לתזמון זמן אמת ב-H5.",
+"on": "M22.7 · Operating systems: processes, scheduling, memory, I/O"
+},
+{
+"id": "R8:M22.14:3",
+"n": "Virtual memory: paging, TLB and page tables",
+"imp": "K",
+"k": "deepen",
+"teach": "מרחב כתובות, דפים, TLB ומחיר החטאה, טבלאות רב-שכבתיות, page faults ו-swapping.",
+"on": "M22.7"
+},
+{
+"id": "R8:M22.14:4",
+"n": "Threads, locks and atomic operations",
+"imp": "K",
+"k": "deepen",
+"teach": "מימוש מנעול מ-test-and-set ו-compare-and-swap, spinlock מול mutex, וביצועים תחת תחרות.",
+"on": "M22.8 · Concurrency, race conditions, deadlock"
+},
+{
+"id": "R8:M22.14:5",
+"n": "Condition variables, semaphores and producer-consumer",
+"imp": "K",
+"k": "new",
+"teach": "המתנה לתנאי, בעיית היצרן-צרכן, semaphores כמנגנון כללי, ומלכודת ה-if במקום while."
+},
+{
+"id": "R8:M22.14:6",
+"n": "Concurrency bugs and deadlock",
+"imp": "S",
+"k": "deepen",
+"teach": "הפרת אטומיות וסדר, ארבעת תנאי ה-deadlock ומניעה, ו-priority inversion.",
+"on": "M22.8 · Concurrency, race conditions, deadlock"
+},
+{
+"id": "R8:M22.14:7",
+"n": "I/O: interrupts, polling and DMA",
+"imp": "S",
+"k": "deepen",
+"teach": "polling מול פסיקות מול DMA, מבנה מנהל התקן, ומתי polling מהיר יותר.",
+"on": "M22.11"
+},
+{
+"id": "R8:M22.14:8",
+"n": "File systems and crash consistency",
+"imp": "S",
+"k": "new",
+"teach": "inode, ספריות, journaling, fsync, ומה מובטח אחרי נפילת חשמל."
+}
+]
+},
 "M0.3": {
 "items": [
 {
@@ -15441,72 +15685,6 @@
 }
 ]
 },
-"M22.14": {
-"items": [
-{
-"id": "R8:M22.14:1",
-"n": "Processes, system calls and context switches",
-"imp": "S",
-"k": "deepen",
-"teach": "אבסטרקציית התהליך, limited direct execution, קריאת מערכת ו-trap, ומחיר החלפת הקשר.",
-"on": "M22.7 · Operating systems: processes, scheduling, memory, I/O"
-},
-{
-"id": "R8:M22.14:2",
-"n": "CPU scheduling",
-"imp": "S",
-"k": "deepen",
-"teach": "FIFO, SJF, RR, MLFQ ו-proportional share, ותזמון על כמה ליבות. הגשר לתזמון זמן אמת ב-H5.",
-"on": "M22.7 · Operating systems: processes, scheduling, memory, I/O"
-},
-{
-"id": "R8:M22.14:3",
-"n": "Virtual memory: paging, TLB and page tables",
-"imp": "K",
-"k": "deepen",
-"teach": "מרחב כתובות, דפים, TLB ומחיר החטאה, טבלאות רב-שכבתיות, page faults ו-swapping.",
-"on": "M22.7"
-},
-{
-"id": "R8:M22.14:4",
-"n": "Threads, locks and atomic operations",
-"imp": "K",
-"k": "deepen",
-"teach": "מימוש מנעול מ-test-and-set ו-compare-and-swap, spinlock מול mutex, וביצועים תחת תחרות.",
-"on": "M22.8 · Concurrency, race conditions, deadlock"
-},
-{
-"id": "R8:M22.14:5",
-"n": "Condition variables, semaphores and producer-consumer",
-"imp": "K",
-"k": "new",
-"teach": "המתנה לתנאי, בעיית היצרן-צרכן, semaphores כמנגנון כללי, ומלכודת ה-if במקום while."
-},
-{
-"id": "R8:M22.14:6",
-"n": "Concurrency bugs and deadlock",
-"imp": "S",
-"k": "deepen",
-"teach": "הפרת אטומיות וסדר, ארבעת תנאי ה-deadlock ומניעה, ו-priority inversion.",
-"on": "M22.8 · Concurrency, race conditions, deadlock"
-},
-{
-"id": "R8:M22.14:7",
-"n": "I/O: interrupts, polling and DMA",
-"imp": "S",
-"k": "deepen",
-"teach": "polling מול פסיקות מול DMA, מבנה מנהל התקן, ומתי polling מהיר יותר.",
-"on": "M22.11"
-},
-{
-"id": "R8:M22.14:8",
-"n": "File systems and crash consistency",
-"imp": "S",
-"k": "new",
-"teach": "inode, ספריות, journaling, fsync, ומה מובטח אחרי נפילת חשמל."
-}
-]
-},
 "M22.15": {
 "items": [
 {
@@ -16301,99 +16479,6 @@
 }
 ]
 },
-"M29.1": {
-"items": [
-{
-"id": "R8:M29.1:1",
-"n": "Tokenization",
-"imp": "S",
-"k": "new",
-"teach": "BPE, גודל אוצר מילים והשפעתו על אורך רצף ועל פרמטרים, ותופעות של טוקניזציה."
-},
-{
-"id": "R8:M29.1:2",
-"n": "The decoder-only transformer block",
-"imp": "K",
-"k": "deepen",
-"teach": "pre-norm ו-RMSNorm, residual stream, SwiGLU, ומניית פרמטרים ≈ 12·L·d².",
-"on": "M17.7"
-},
-{
-"id": "R8:M29.1:3",
-"n": "Compute and memory of attention",
-"imp": "K",
-"k": "deepen",
-"teach": "FLOPs לטוקן ≈ 2N ועוד איבר ה-attention, זיכרון O(n²), ולמה הקשר ארוך יקר.",
-"on": "M22.8 · Compute and hardware for ML (FLOPs, memory, GPUs)"
-},
-{
-"id": "R8:M29.1:4",
-"n": "Positional encoding and RoPE",
-"imp": "K",
-"k": "new",
-"teach": "סינוסי ונלמד, גזירת RoPE כסיבוב במישור המרוכב שנותן מיקום יחסי, והארכת הקשר (NTK, YaRN)."
-},
-{
-"id": "R8:M29.1:5",
-"n": "FlashAttention",
-"imp": "K",
-"k": "new",
-"teach": "tiling ו-online softmax, מודעות IO, זיכרון O(n), וההבדלים בגרסאות 1–3."
-},
-{
-"id": "R8:M29.1:6",
-"n": "MQA, GQA and MLA",
-"imp": "S",
-"k": "new",
-"teach": "שיתוף ראשי key-value, דחיסה לטנטית ב-MLA, וההשפעה על KV cache."
-},
-{
-"id": "R8:M29.1:7",
-"n": "Mixture of experts",
-"imp": "K",
-"k": "new",
-"teach": "ניתוב top-k, loss איזון עומס, capacity factor, פרמטרים פעילים מול כוללים."
-},
-{
-"id": "R8:M29.1:8",
-"n": "Vision-language models: ViT, CLIP and connectors",
-"imp": "S",
-"k": "deepen",
-"teach": "patches ב-ViT, loss ניגודי של CLIP, ומחבר בסגנון LLaVA.",
-"on": "M17.7"
-},
-{
-"id": "R8:M29.1:9",
-"n": "State-space and long-context alternatives",
-"imp": "C",
-"k": "deepen",
-"teach": "Mamba ומודלים היברידיים מול attention.",
-"on": "M17.7 · Recurrent networks and sequence modeling"
-},
-{
-"id": "R8:M29.1:10",
-"n": "Training stability at scale",
-"imp": "S",
-"k": "deepen",
-"teach": "אתחול, warmup ו-cosine, AdamW, קפיצות loss, ו-bf16.",
-"on": "M17.4"
-}
-],
-"reading": [
-{
-"id": "RU:RD10",
-"t": "Su Jianlin, 科学空间 (kexue.fm): the Transformer upgrade series (Transformer升级之路), English machine translation",
-"a": "Su Jianlin (RoPE's author)",
-"o": "kexue.fm; unofficial English mirror",
-"y": 2021,
-"u": "https://rohin-garg.github.io/kexue-en/index.html",
-"core": false,
-"why": "RoPE and its context extensions derived by the person who invented them, with the engineering reasons.",
-"focus": "The posts on RoPE, NTK-aware scaling and length extrapolation.",
-"st": "ok"
-}
-]
-},
 "M29.2": {
 "items": [
 {
@@ -16701,91 +16786,6 @@
 "imp": "S",
 "k": "new",
 "teach": "מקרה סוגר לחלק: שרת הסקה. ההחלטות: גודל batch מול שיהוי (תורים, M22.18), KV-cache, דחיסה, ובחירת מודל לפי עלות לטוקן. מספרים: טוקנים לשנייה ל-GPU, p99, ועלות לאלף בקשות."
-}
-]
-},
-"M29.6": {
-"items": [
-{
-"id": "R8:M29.6:1",
-"n": "The agent loop as a feedback system",
-"imp": "K",
-"k": "deepen",
-"teach": "observe-think-act ו-ReAct, והמקבילה לחישה, תכנון והפעלה בבקרה.",
-"on": "M17.7 · LLM agents, tool use and AI-enabled autonomy (planning loops, failure modes, human-on-the-loop)"
-},
-{
-"id": "R8:M29.6:2",
-"n": "Tool use, function calling and retrieval",
-"imp": "S",
-"k": "deepen",
-"teach": "סכמות כלים, Toolformer ו-RAG.",
-"on": "M17.7 · LLM agents, tool use and AI-enabled autonomy (planning loops, failure modes, human-on-the-loop)"
-},
-{
-"id": "R8:M29.6:3",
-"n": "Planning, search and replanning",
-"imp": "K",
-"k": "new",
-"teach": "פירוק משימות, חיפוש בעץ, reflection, ותכנון מחדש באופק נסוג כמו MPC."
-},
-{
-"id": "R8:M29.6:4",
-"n": "Memory and context management",
-"imp": "S",
-"k": "new",
-"teach": "הקשר מוגבל, סיכום, זיכרון חיצוני, ואובדן מידע."
-},
-{
-"id": "R8:M29.6:5",
-"n": "Evaluating agents and reliability compounding",
-"imp": "K",
-"k": "new",
-"teach": "SWE-bench, אופק המשימה של METR, ו-p^n: הצלחה בכל צעד נצברת לכשל במשימה ארוכה."
-},
-{
-"id": "R8:M29.6:6",
-"n": "Failure modes and safety of agents",
-"imp": "K",
-"k": "deepen",
-"teach": "הצטברות שגיאות, prompt injection, reward hacking, sandboxing ואדם בלולאה.",
-"on": "M17.7 · LLM agents, tool use and AI-enabled autonomy (planning loops, failure modes, human-on-the-loop)"
-},
-{
-"id": "R8:M29.6:7",
-"n": "Multi-agent orchestration",
-"imp": "S",
-"k": "new",
-"teach": "orchestrator ו-workers, חלוקת עבודה, ועלות תקשורת בין סוכנים."
-},
-{
-"id": "R8:M29.6:8",
-"n": "Vision-language-action models",
-"imp": "K",
-"k": "new",
-"teach": "RT-2, OpenVLA ו-π0, טוקניזציה של פעולות, וקצב הסקה מול קצב בקרה."
-},
-{
-"id": "R8:M29.6:9",
-"n": "Hierarchical control with safety filters",
-"imp": "S",
-"k": "new",
-"teach": "מתכנן שפה מעל בקר קלאסי, ומסנני בטיחות (control barrier functions)."
-},
-{
-"id": "R8:M29.6:x1",
-"n": "Robot foundation models",
-"imp": "K",
-"k": "deepen",
-"teach": "RT-2, OpenVLA ו-π0: איך מודל שפה-ראייה הופך לפעולה, טוקניזציה של פעולות, תדר הבקרה, והיכן הם נכשלים.",
-"on": "M29.6 · Vision-language-action models"
-},
-{
-"id": "R8:M29.6:x2",
-"n": "RAG and parameter-efficient fine-tuning",
-"imp": "K",
-"k": "new",
-"teach": "RAG מול fine-tuning (LoRA): מתי מה, איך מעריכים, ועלויות."
 }
 ]
 },
