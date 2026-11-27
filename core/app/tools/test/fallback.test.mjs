@@ -26,9 +26,13 @@ globalThis.fetch = async (url, init) => {
   const toolRound = body.tools && !body.messages.some((m) => Array.isArray(m.content) && m.content.some((b) => b.type === "tool_result"));
   if (toolRound)
     return sse([
-      { type: "content_block_start", index: 0, content_block: { type: "tool_use", id: "t1", name: "calc", input: {} } },
-      { type: "content_block_delta", index: 0, delta: { type: "input_json_delta", partial_json: '{"x":' } },
-      { type: "content_block_delta", index: 0, delta: { type: "input_json_delta", partial_json: "2}" } },
+      { type: "content_block_start", index: 0, content_block: { type: "thinking", thinking: "", signature: "" } },
+      { type: "content_block_delta", index: 0, delta: { type: "thinking_delta", thinking: "need " } },
+      { type: "content_block_delta", index: 0, delta: { type: "thinking_delta", thinking: "calc" } },
+      { type: "content_block_delta", index: 0, delta: { type: "signature_delta", signature: "sig" } },
+      { type: "content_block_start", index: 1, content_block: { type: "tool_use", id: "t1", name: "calc", input: {} } },
+      { type: "content_block_delta", index: 1, delta: { type: "input_json_delta", partial_json: '{"x":' } },
+      { type: "content_block_delta", index: 1, delta: { type: "input_json_delta", partial_json: "2}" } },
       { type: "message_delta", delta: { stop_reason: "tool_use" } },
     ]);
   const text = body.messages.at(-1).content.toString().includes("JSON") ? '```json\n{"a":1}\n```' : "שלום";
@@ -88,6 +92,7 @@ assert.deepEqual(got, { x: 2 });
 assert.equal(t.text, "שלום");
 assert.equal(calls.at(-1).body.model, "claude-haiku-5-5");
 assert.equal(calls.at(-1).body.messages.at(-1).content[0].type, "tool_result");
+assert.deepEqual(calls.at(-1).body.messages.at(-2).content[0], { type: "thinking", thinking: "need calc", signature: "sig" }, "thinking goes back whole");
 
 // JSON, with a code fence around it
 assert.deepEqual(await F.withFallback(mk(ok)).json("give JSON"), { a: 1 });

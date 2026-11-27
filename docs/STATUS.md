@@ -6,6 +6,7 @@
 (מה כל תיקייה מכילה)
 
 ## מה נעשה
+- 27.11: הדף ב-claude.ai חסום לפנייה ל-api.anthropic.com (בדיקת החיבור בגילואה v189), ולכן הגיבוי לא עובד מתוך האפליקציות. במקום זה שיעורים נכתבים דרך ה-API מחוץ לדפדפן: `tools/sim/driver.mts` עם `ANTHROPIC_API_KEY` (אותו כותב של האפליקציה, עם כלים, ומונה טוקנים ב-`usage.json`), ו-`tools/sim/to_shelf.py` הופך את השיעור למסמכי מדף (`docs/SHELF_SCHEMA.md`). תוקן ב-`fallback.ts`: בלוקי thinking חוזרים שלמים בלולאת הכלים.
 - 27.11: גיבוי ל-Claude API בשתי האפליקציות (`src/fallback.ts`, דף `#api`). הבקשות עוברות מהמנוי ל-API עם מפתח הלומד כשהשימוש השבועי (בקשות, מתאפס ביום ראשון) עובר 90% מהתקציב שהוגדר, או מיד אחרי rate_limited (ל-30 דקות). המפתח נשמר רק ב-localStorage של הדפדפן, ו-`.env` המקומי נמצא ב-`.gitignore`. נבדק מול ה-API (סטרימינג, JSON, מעבר ב-429 וב-90%). עוד לא פורסם, וזה שהדף ב-claude.ai מורשה לפנות ל-api.anthropic.com לא נבדק.
 
 - פרסום: 27.11.2026 גילואה v189, ענף `claude/relaxed-cannon-uiruxe`, commit `a250d2d` (app.js ו-app.css: גיבוי ל-Claude API ודף #api; lib ללא שינוי).

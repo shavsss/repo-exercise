@@ -126,6 +126,9 @@ export async function testConnection(key: string): Promise<{ ok: true } | { ok: 
   }
 }
 
+/** Tokens the API calls of this page load used (for the cost of a run outside the browser, tools/sim/driver.mts). */
+export const apiUsage = { input: 0, cacheRead: 0, cacheWrite: 0, output: 0, calls: 0 };
+
 /** One streamed request; returns the assistant's blocks and why it stopped. */
 async function stream(key: string, body: Block, signal: AbortSignal | undefined, onDelta: (d: string) => void) {
   const res = await post(key, "messages", { ...body, stream: true }, signal);
@@ -145,14 +148,26 @@ async function stream(key: string, body: Block, signal: AbortSignal | undefined,
       buf = buf.slice(nl + 1);
       if (!line.startsWith("data:")) continue;
       const ev = JSON.parse(line.slice(5));
-      if (ev.type === "content_block_start") blocks[ev.index] = { ...ev.content_block, _json: "" };
+      if (ev.type === "message_start") {
+        const u = ev.message?.usage ?? {};
+        apiUsage.calls++;
+        apiUsage.input += u.input_tokens ?? 0;
+        apiUsage.cacheRead += u.cache_read_input_tokens ?? 0;
+        apiUsage.cacheWrite += u.cache_creation_input_tokens ?? 0;
+      } else if (ev.type === "content_block_start") blocks[ev.index] = { ...ev.content_block, _json: "" };
       else if (ev.type === "content_block_delta") {
         const b = blocks[ev.index];
         if (ev.delta.type === "text_delta") {
           b.text = (b.text as string) + ev.delta.text;
           onDelta(ev.delta.text);
         } else if (ev.delta.type === "input_json_delta") b._json += ev.delta.partial_json;
-      } else if (ev.type === "message_delta") stop = ev.delta.stop_reason ?? stop;
+        // thinking goes back unchanged in the tool loop, with its signature
+        else if (ev.delta.type === "thinking_delta") b.thinking = ((b.thinking as string) ?? "") + ev.delta.thinking;
+        else if (ev.delta.type === "signature_delta") b.signature = ((b.signature as string) ?? "") + ev.delta.signature;
+      } else if (ev.type === "message_delta") {
+        stop = ev.delta.stop_reason ?? stop;
+        apiUsage.output += ev.usage?.output_tokens ?? 0;
+      }
       else if (ev.type === "error") throw err(ev.error?.type === "overloaded_error" ? "overloaded" : "upstream_error", ev.error?.message ?? "stream error");
     }
   }
