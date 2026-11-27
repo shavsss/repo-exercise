@@ -11,3 +11,8 @@
 15:34:07 בודק את חלק 1 מתוך 2 של השיעור {"input":46,"cacheRead":376559,"cacheWrite":531641,"output":120767,"calls":14}
 15:34:07 בודק את השיעור מול עמודי המקור ותוכנית הלימודים {"input":46,"cacheRead":376559,"cacheWrite":531641,"output":120767,"calls":14}
 15:34:37 קורא את השיעור כמו לומד: הגדרות, סדר וקשרים {"input":50,"cacheRead":376559,"cacheWrite":583795,"output":124155,"calls":15}
+15:35:17 מסדר את השיעור לקורא (6 מקומות) {"input":54,"cacheRead":376559,"cacheWrite":614976,"output":128655,"calls":16}
+15:35:29 משלים את השיעור (0 אלף תווים) {"input":58,"cacheRead":376559,"cacheWrite":649841,"output":128655,"calls":17}
+15:35:29 משלים את השיעור (0 אלף תווים) {"input":58,"cacheRead":376559,"cacheWrite":649841,"output":128655,"calls":17}
+15:35:29 משלים את השיעור (0 אלף תווים) {"input":58,"cacheRead":376559,"cacheWrite":649841,"output":128655,"calls":17}
+15:35:29 משלים את השיעור (0 אלף תווים) {"input":58,"cacheRead":376559,"cacheWrite":649841,"output":128655,"calls":17}
